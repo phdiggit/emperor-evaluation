@@ -1589,13 +1589,57 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
 
 def _person_matches(candidate: object, person: str) -> bool:
     text = str(candidate or "")
-    return text == person or text == f"{person}身后信用"
+    return text == person or text == f"{person}身后信用" or person in text
+
+
+def _person_refs(report: Mapping[str, Any], person: str) -> set[str]:
+    refs: set[str] = set()
+    for rule in report["rules"]:
+        for source in rule["detail_sources"]:
+            detail = source["detail"]
+            for member in detail.get("members") or ():
+                if not _person_matches(member.get("person"), person):
+                    continue
+                person_ref = str(member.get("person_ref") or "")
+                if person_ref.startswith("PER-V4-"):
+                    refs.add(person_ref)
+                profile_ref = str(member.get("profile_ref") or "")
+                if profile_ref.startswith("PROFILE-PER-V4-"):
+                    refs.add(profile_ref.split("@", 1)[0].removeprefix("PROFILE-"))
+            for material in detail.get("materials") or ():
+                if not _person_matches(
+                    material.get("person") or material.get("subject"), person
+                ):
+                    continue
+                object_ref = str(material.get("object_ref") or "")
+                if object_ref.startswith("PER-V4-"):
+                    refs.add(object_ref)
+    return refs
+
+
+def _episode_matches_person(
+    episode: Mapping[str, Any], person: str, person_refs: set[str]
+) -> bool:
+    participant_refs = {
+        str(row.get("person_ref") or "")
+        for row in episode.get("participants") or ()
+    }
+    if participant_refs & person_refs:
+        return True
+    searchable = {
+        "action": episode.get("action"),
+        "responsibility": episode.get("responsibility"),
+        "outcome": episode.get("outcome"),
+        "consequence": episode.get("consequence"),
+    }
+    return person in json.dumps(searchable, ensure_ascii=False, sort_keys=True)
 
 
 def _person_participations(
     report: Mapping[str, Any], person: str, selected_rules: set[str]
 ) -> list[dict[str, Any]]:
     participations: list[dict[str, Any]] = []
+    person_refs = _person_refs(report, person)
     for rule in report["rules"]:
         rule_code = rule["rule_code"]
         if rule_code not in selected_rules:
@@ -1625,6 +1669,9 @@ def _person_participations(
                 candidate = material.get("person") or material.get("subject")
                 if _person_matches(candidate, person):
                     add("counted_material" if role == "primary" else "supporting_material", material)
+            for material in detail.get("unscored_materials") or ():
+                if _person_matches(material.get("material"), person):
+                    add("unscored_material", material)
             for member in detail.get("members") or ():
                 if _person_matches(member.get("person"), person):
                     add("team_member", member)
@@ -1640,9 +1687,6 @@ def _person_participations(
             for insufficient in detail.get("insufficient_projections") or ():
                 if _person_matches(insufficient.get("subject"), person):
                     add("insufficient_projection", insufficient)
-            for judgment in detail.get("judgments") or ():
-                if _person_matches(judgment.get("person"), person):
-                    add("supporting_judgment", judgment)
             if _person_matches(detail.get("subject"), person) and detail.get("observations"):
                 add(
                     "source_rebind_record",
@@ -1655,7 +1699,33 @@ def _person_participations(
             for unit in detail.get("projection_units") or ():
                 if _person_matches(unit.get("subject"), person):
                     add("source_rebind_record", unit)
-    return participations
+            trace = detail.get("assertion_episode_reu_trace") or {}
+            for episode in trace.get("episodes") or ():
+                if _episode_matches_person(episode, person, person_refs):
+                    add("historical_episode", episode)
+
+    unique: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for participation in participations:
+        detail = participation["detail"]
+        identity = str(
+            detail.get("episode_id")
+            or detail.get("unit_ref")
+            or detail.get("material_code")
+            or detail.get("material")
+            or detail.get("person")
+            or ""
+        )
+        key = (
+            participation["rule_code"],
+            participation["participation_kind"],
+            identity,
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(participation)
+    return unique
 
 
 def _filtered_ruler_report(
@@ -1775,10 +1845,14 @@ def build_i5b_scoring_detail_selection(
 
 def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> str:
     selection = report["selection"]
-    ruler_sections = [
-        render_i5b_scoring_detail_markdown(ruler_report).rstrip()
-        for ruler_report in report["selected_ruler_reports"]
-    ]
+    ruler_sections = (
+        []
+        if report["people"]
+        else [
+            render_i5b_scoring_detail_markdown(ruler_report).rstrip()
+            for ruler_report in report["selected_ruler_reports"]
+        ]
+    )
     if not report["people"]:
         return "\n\n".join(ruler_sections) + "\n"
 
@@ -1792,20 +1866,36 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
         "> 臣子条目只表示材料参与，不构成臣子个人分数。",
     ]
     for person in report["people"]:
+        material_rows = [
+            row
+            for row in person["participations"]
+            if row["participation_kind"] != "historical_episode"
+        ]
+        episode_rows = [
+            row
+            for row in person["participations"]
+            if row["participation_kind"] == "historical_episode"
+        ]
         lines += [
             "",
             f"## 臣子：{person['person']}",
             "",
             f"参与项数量：`{person['participation_count']}`；个人分数：未生成。",
-            "",
-            "| 皇帝 | Rule | 参与类型 | 材料 / 单元 | 材料分 |",
-            "|---|---|---|---|---:|",
         ]
-        for participation in person["participations"]:
+        if material_rows:
+            lines += [
+                "",
+                "### 材料",
+                "",
+                "| 皇帝 | Rule | 参与类型 | 材料 / 单元 | 材料分 |",
+                "|---|---|---|---|---:|",
+            ]
+        for participation in material_rows:
             detail = participation["detail"]
             unit = (
                 detail.get("unit_ref")
                 or detail.get("material_code")
+                or detail.get("material")
                 or detail.get("person")
                 or "—"
             )
@@ -1819,6 +1909,30 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 f"{_md_cell(participation['rule_label'])} | "
                 f"`{participation['participation_kind']}` | "
                 f"{_md_cell(unit)} | {_text(score)} |"
+            )
+        if episode_rows:
+            lines += [
+                "",
+                "### Episode",
+                "",
+                "| Rule | Episode | REU | 动作 | 结果 | Source Passage |",
+                "|---|---|---|---|---|---|",
+            ]
+        for participation in episode_rows:
+            episode = participation["detail"]
+            lineage = episode.get("lineage") or {}
+            source_passages = lineage.get("source_passage_refs") or "、".join(
+                str(link.get("source_passage_ref"))
+                for link in episode.get("assertion_links") or ()
+                if link.get("source_passage_ref")
+            )
+            lines.append(
+                f"| {_md_cell(participation['rule_label'])} | "
+                f"{_md_cell(episode.get('episode_id'))} | "
+                f"{_md_cell(lineage.get('unit_ref'))} | "
+                f"{_md_cell(episode.get('action'))} | "
+                f"{_md_cell(episode.get('outcome'))} | "
+                f"{_md_cell(source_passages)} |"
             )
     lines += [
         "",

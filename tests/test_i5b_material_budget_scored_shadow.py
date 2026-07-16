@@ -143,6 +143,51 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "五条rule加权raw signal：10.091" in stdout
 
 
+def test_person_filter_exports_group_material_individual_material_and_episodes(
+    tmp_path: Path, capsys,
+) -> None:
+    assert eval_main(
+        [
+            "i5b-scoring-detail-export",
+            "--ruler",
+            "李世民",
+            "--person",
+            "房玄龄",
+            "--person",
+            "杜如晦",
+            "--workspace-root",
+            str(ROOT),
+            "--output-dir",
+            str(tmp_path),
+        ]
+    ) == 0
+    output_dir = tmp_path / "李世民"
+    payload = json.loads(
+        (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
+    )
+    by_person = {row["person"]: row for row in payload["people"]}
+    for person in ("房玄龄", "杜如晦"):
+        kinds = {
+            row["participation_kind"]
+            for row in by_person[person]["participations"]
+        }
+        assert "counted_material" in kinds
+        assert "unscored_material" in kinds
+        assert "historical_episode" in kinds
+
+    markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
+    assert markdown.startswith("# 臣子计分材料参与详情")
+    assert "# 李世民当前计分详情" not in markdown
+    assert "### Episode" in markdown
+    assert "EP-03FBD422483C6A310D81" in markdown
+    assert "REU-LSM-TEAM-FANGDU-HC-v1" in markdown
+    assert "推荐核心团队成员；共同建立制度并互补决策；相须决策" in markdown
+    assert "MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS" in markdown
+    assert "SP-CBAD41F295E16B415C5C" in markdown
+    assert "supporting_judgment" not in markdown
+    capsys.readouterr()
+
+
 def test_material_budget_detail_rejects_historical_coverage_override(
     tmp_path: Path,
 ) -> None:

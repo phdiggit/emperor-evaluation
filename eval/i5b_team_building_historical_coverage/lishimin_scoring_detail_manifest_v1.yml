@@ -11,10 +11,18 @@ detail_sources:
   role: primary
   adapter: material_budget_report
   path: eval/i5b_team_building_historical_coverage/lishimin_material_budget_shadow_report_v1.json
+- rule_code: appointment_delegation
+  role: supporting
+  adapter: appointment_parity_report
+  path: eval/i5b_team_building_historical_coverage/lishimin_appointment_scored_shadow_v2.json
 - rule_code: team_building
   role: primary
   adapter: material_budget_report
   path: eval/i5b_team_building_historical_coverage/lishimin_material_budget_shadow_report_v1.json
+- rule_code: team_building
+  role: supporting
+  adapter: team_historical_scored_shadow
+  path: eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v3.json
 - rule_code: tolerate_talent
   role: primary
   adapter: material_budget_report
