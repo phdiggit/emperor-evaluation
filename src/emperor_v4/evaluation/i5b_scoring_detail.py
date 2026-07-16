@@ -3,6 +3,7 @@ from __future__ import annotations
 from decimal import Decimal, ROUND_HALF_UP
 from hashlib import sha256
 import json
+import re
 from typing import Any, Mapping, Sequence
 
 
@@ -54,6 +55,7 @@ ADAPTERS = {
     "source_rebind_record",
     "source_rebind_batch",
     "material_budget_report",
+    "formal_acceptance_report",
 }
 
 
@@ -138,6 +140,8 @@ def _source_detail(
         unscored_materials = [
             {
                 "material": row.get("subject") or row.get("person"),
+                "material_id": row.get("material_id"),
+                "rule_evidence_unit_ref": row.get("rule_evidence_unit_ref"),
                 "material_score": row.get("material_magnitude"),
                 "factor_values": dict(row.get("factor_values") or {}),
                 "factor_option_codes": dict(
@@ -277,6 +281,8 @@ def _source_detail(
         materials = [
             {
                 "unit_ref": row["material_id"],
+                "material_id": row["material_id"],
+                "rule_evidence_unit_ref": row.get("rule_evidence_unit_ref"),
                 "subject": row["subject"],
                 "object_ref": row.get("object_ref"),
                 "side": row["side"],
@@ -345,6 +351,27 @@ def _source_detail(
                 budget_rule["candidate_boundary_audit"]
             )
         return detail, signals
+
+    if adapter == "formal_acceptance_report":
+        if (
+            payload.get("schema_version") != "i5b-formal-fact-acceptance-v2"
+            or payload.get("rule_code") != rule_code
+            or payload.get("ruler") != ruler
+        ):
+            raise ValueError("formal acceptance source identity mismatch")
+        return {
+            "accepted_assertions": [
+                {
+                    **dict(assertion),
+                    "unit_ref": unit.get("unit_ref"),
+                    "unit_subject": unit.get("subject"),
+                }
+                for unit in payload.get("units") or ()
+                for assertion in unit.get("assertion_drafts") or ()
+                if assertion.get("formal_acceptance_disposition")
+                in {"accept", "accept_with_uncertainty"}
+            ]
+        }, None
 
     if adapter == "joint_projection_report":
         if payload.get("rule_code") != rule_code:
@@ -929,9 +956,14 @@ def _choice_text(
     )
     if isinstance(choices, Mapping):
         factor_labels = {
+            "attribution_factor": "皇帝归责强度",
+            "source_factor": "史源完整度",
+            "context_factor": "规则机制贴合度",
+        }
+        factor_labels.update({
             factor["factor_code"]: factor["label_zh"]
             for factor in (*factor_catalog_zh, *evidence_factor_catalog_zh)
-        }
+        })
         return "；".join(
             f"{factor_labels.get(key, key)} {_rounded(values[key])}"
             if key in values
@@ -1589,7 +1621,12 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
 
 def _person_matches(candidate: object, person: str) -> bool:
     text = str(candidate or "")
-    return text == person or text == f"{person}身后信用" or person in text
+    if text == person or text == f"{person}身后信用":
+        return True
+    if len(person) < 2:
+        return False
+    parts = re.split(r"[、，,／/；;与和]", text)
+    return any(part.strip().startswith(person) for part in parts)
 
 
 def _person_refs(report: Mapping[str, Any], person: str) -> set[str]:
@@ -1635,11 +1672,59 @@ def _episode_matches_person(
     return person in json.dumps(searchable, ensure_ascii=False, sort_keys=True)
 
 
+def _participation_factor_assignment(
+    rule: Mapping[str, Any], item: Mapping[str, Any]
+) -> str:
+    if item.get("numeric_projection"):
+        material = item
+    elif item.get("factor_values"):
+        material = {
+            "numeric_projection": {
+                "factor_option_codes": item.get("factor_option_codes") or {},
+                "deterministic_dimension_values": item.get("factor_values") or {},
+            }
+        }
+    else:
+        grade = item.get("grade") or item.get("talent_grade")
+        value = item.get("talent_value")
+        grade_label = {
+            "ordinary": "普通",
+            "usable": "可用",
+            "important": "重要",
+            "top": "顶级",
+            "historic": "历史级",
+        }.get(str(grade), _text(grade))
+        return (
+            f"人才档 {grade_label}；基础系数 {_text(value)}"
+            if grade or value is not None
+            else "—"
+        )
+    return _choice_text(
+        material,
+        rule.get("factor_catalog_zh") or (),
+        rule.get("evidence_factor_catalog_zh") or (),
+    )
+
+
+def _accepted_assertion_index(
+    report: Mapping[str, Any], selected_rules: set[str]
+) -> dict[str, Mapping[str, Any]]:
+    return {
+        str(assertion["assertion_code"]): assertion
+        for rule in report["rules"]
+        if rule["rule_code"] in selected_rules
+        for source in rule["detail_sources"]
+        for assertion in source["detail"].get("accepted_assertions") or ()
+        if assertion.get("assertion_code")
+    }
+
+
 def _person_participations(
     report: Mapping[str, Any], person: str, selected_rules: set[str]
 ) -> list[dict[str, Any]]:
     participations: list[dict[str, Any]] = []
     person_refs = _person_refs(report, person)
+    assertion_index = _accepted_assertion_index(report, selected_rules)
     for rule in report["rules"]:
         rule_code = rule["rule_code"]
         if rule_code not in selected_rules:
@@ -1649,6 +1734,7 @@ def _person_participations(
             role = source["role"]
 
             def add(kind: str, item: object) -> None:
+                item_mapping = item if isinstance(item, Mapping) else {}
                 participations.append(
                     {
                         "ruler": report["ruler"],
@@ -1662,6 +1748,9 @@ def _person_participations(
                         "rule_weight": rule["rule_weight"],
                         "individual_score_claimed": False,
                         "detail": item,
+                        "factor_assignment": _participation_factor_assignment(
+                            rule, item_mapping
+                        ),
                     }
                 )
 
@@ -1702,7 +1791,13 @@ def _person_participations(
             trace = detail.get("assertion_episode_reu_trace") or {}
             for episode in trace.get("episodes") or ():
                 if _episode_matches_person(episode, person, person_refs):
-                    add("historical_episode", episode)
+                    enriched_episode = dict(episode)
+                    enriched_episode["accepted_assertions"] = [
+                        assertion_index[str(link.get("assertion_ref"))]
+                        for link in episode.get("assertion_links") or ()
+                        if str(link.get("assertion_ref")) in assertion_index
+                    ]
+                    add("historical_episode", enriched_episode)
 
     unique: list[dict[str, Any]] = []
     seen: set[tuple[str, str, str]] = set()
@@ -1856,15 +1951,58 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
     if not report["people"]:
         return "\n\n".join(ruler_sections) + "\n"
 
+    binding_warnings: dict[tuple[str, str, str], dict[str, str]] = {}
+    for person in report["people"]:
+        episodes = [
+            row
+            for row in person["participations"]
+            if row["participation_kind"] == "historical_episode"
+        ]
+        episode_reus = {
+            (
+                row["rule_code"],
+                str((row["detail"].get("lineage") or {}).get("unit_ref") or ""),
+            )
+            for row in episodes
+        }
+        episode_rules = {row["rule_code"] for row in episodes}
+        for row in person["participations"]:
+            if row["participation_kind"] != "counted_material":
+                continue
+            detail = row["detail"]
+            reu = str(detail.get("rule_evidence_unit_ref") or "")
+            if not reu or row["rule_code"] not in episode_rules:
+                continue
+            if (row["rule_code"], reu) in episode_reus:
+                continue
+            material_id = str(
+                detail.get("material_id")
+                or detail.get("material_code")
+                or detail.get("unit_ref")
+                or ""
+            )
+            binding_warnings[(row["ruler"], row["rule_code"], material_id)] = {
+                "ruler": row["ruler"],
+                "rule_label": row["rule_label"],
+                "material_id": material_id,
+                "reu": reu,
+            }
+
     lines = [
         "# 臣子计分材料参与详情",
         "",
         f"- 臣子：{_text(selection['people'])}",
-        f"- Rules：{_text(selection['rules'])}",
-        f"- 检索范围：`{selection['person_scope']}`",
+        f"- 规则：{_text([RULE_LABELS[code] for code in selection['rules']])}",
         "",
         "> 臣子条目只表示材料参与，不构成臣子个人分数。",
     ]
+    if binding_warnings:
+        lines += ["", "## 自审告警", ""]
+        lines.extend(
+            f"- 计入材料未绑定同 Rule Episode：{item['ruler']} / "
+            f"{item['rule_label']} / `{item['material_id']}`；当前 REU：`{item['reu']}`。"
+            for item in binding_warnings.values()
+        )
     for person in report["people"]:
         material_rows = [
             row
@@ -1876,6 +2014,14 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
             for row in person["participations"]
             if row["participation_kind"] == "historical_episode"
         ]
+        episode_reus = {
+            (
+                row["rule_code"],
+                str((row["detail"].get("lineage") or {}).get("unit_ref") or ""),
+            )
+            for row in episode_rows
+        }
+        episode_rules = {row["rule_code"] for row in episode_rows}
         lines += [
             "",
             f"## 臣子：{person['person']}",
@@ -1887,36 +2033,75 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 "",
                 "### 材料",
                 "",
-                "| 皇帝 | Rule | 参与类型 | 材料 / 单元 | 材料分 |",
-                "|---|---|---|---|---:|",
+                "| Rule | 状态 | 材料 | Material ID | REU | 因子赋值 | 材料分 | Episode绑定 |",
+                "|---|---|---|---|---|---|---:|---|",
             ]
         for participation in material_rows:
             detail = participation["detail"]
-            unit = (
-                detail.get("unit_ref")
+            material_id = (
+                detail.get("material_id")
                 or detail.get("material_code")
-                or detail.get("material")
-                or detail.get("person")
+                or detail.get("unit_ref")
                 or "—"
             )
+            material = (
+                detail.get("subject")
+                or detail.get("material")
+                or detail.get("person")
+                or material_id
+            )
+            reu_values = [
+                str(value)
+                for value in (
+                    [detail.get("rule_evidence_unit_ref")]
+                    if detail.get("rule_evidence_unit_ref")
+                    else detail.get("supporting_unit_refs") or ()
+                )
+                if value
+            ]
             score = (
                 detail.get("material_score")
                 or detail.get("absolute_material_score")
                 or "—"
             )
+            matched_reus = [
+                reu
+                for reu in reu_values
+                if (participation["rule_code"], reu) in episode_reus
+            ]
+            if matched_reus:
+                episode_binding = "已绑定"
+            elif participation["rule_code"] in episode_rules and reu_values:
+                episode_binding = "未绑定同Rule Episode"
+            elif reu_values:
+                episode_binding = "本导出未载入该Rule Episode"
+            else:
+                episode_binding = "—"
+            status = {
+                "counted_material": "计入",
+                "supporting_material": "支持材料",
+                "unscored_material": "未计入",
+                "team_member": "团队画像",
+                "excluded_net_addition": "排除净增",
+                "blocked_or_excluded": "阻断或排除",
+                "not_yet_disposed_named_gap": "待处置",
+                "insufficient_projection": "证据不足",
+                "source_rebind_record": "来源回绑",
+            }.get(participation["participation_kind"], "其他")
             lines.append(
-                f"| {_md_cell(participation['ruler'])} | "
-                f"{_md_cell(participation['rule_label'])} | "
-                f"`{participation['participation_kind']}` | "
-                f"{_md_cell(unit)} | {_text(score)} |"
+                f"| {_md_cell(participation['rule_label'])} | {status} | "
+                f"{_md_cell(material)} | {_md_cell(material_id)} | "
+                f"{_md_cell(reu_values)} | "
+                f"{_md_cell(participation['factor_assignment'])} | "
+                f"{_text(score)} | {episode_binding} |"
             )
         if episode_rows:
             lines += [
                 "",
                 "### Episode",
                 "",
-                "| Rule | Episode | REU | 动作 | 结果 | Source Passage |",
-                "|---|---|---|---|---|---|",
+                "| Rule | Episode | REU | 动作 | 结果 | 史源摘录 | Source Passage |",
+                "|---|---|---|---|---|---|---|",
             ]
         for participation in episode_rows:
             episode = participation["detail"]
@@ -1926,12 +2111,23 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 for link in episode.get("assertion_links") or ()
                 if link.get("source_passage_ref")
             )
+            evidence_quotes = []
+            for assertion in episode.get("accepted_assertions") or ():
+                attribution = assertion.get("source_attribution") or {}
+                quoted_text = str(attribution.get("quoted_text") or "").strip()
+                if not quoted_text:
+                    continue
+                work = str(attribution.get("work") or "史源").strip()
+                excerpt = f"《{work}》{quoted_text}"
+                if excerpt not in evidence_quotes:
+                    evidence_quotes.append(excerpt)
             lines.append(
                 f"| {_md_cell(participation['rule_label'])} | "
                 f"{_md_cell(episode.get('episode_id'))} | "
                 f"{_md_cell(lineage.get('unit_ref'))} | "
                 f"{_md_cell(episode.get('action'))} | "
                 f"{_md_cell(episode.get('outcome'))} | "
+                f"{_md_cell('；'.join(evidence_quotes) if evidence_quotes else '当前Episode包未携带原文摘要')} | "
                 f"{_md_cell(source_passages)} |"
             )
     lines += [
