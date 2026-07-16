@@ -81,6 +81,35 @@ def _rows(value: object, label: str) -> list[Mapping[str, Any]]:
     return list(value)
 
 
+def _factor_contract_audit(
+    *, rule_code: str, policy: Mapping[str, Any], detail: Mapping[str, Any]
+) -> dict[str, Any]:
+    required = {str(value) for value in policy.get("v4_factor_inputs") or ()}
+    observed = {
+        str(key)
+        for material in detail.get("materials") or ()
+        for key in (
+            (material.get("numeric_projection") or {}).get("factor_option_codes")
+            or {}
+        )
+    }
+    missing = sorted(required - observed)
+    return {
+        "status": (
+            "not_declared"
+            if not required
+            else "current_contract"
+            if not missing
+            else "legacy_or_incomplete_projection_contract"
+        ),
+        "required_v4_factor_inputs": sorted(required),
+        "observed_factor_inputs": sorted(observed),
+        "missing_v4_factor_inputs": missing,
+        "blocks_historical_completion": bool(missing),
+        "rule_code": rule_code,
+    }
+
+
 def _source_detail(
     *, adapter: str, rule_code: str, ruler: str, payload: Mapping[str, Any]
 ) -> tuple[dict[str, Any], dict[str, str] | None]:
@@ -614,19 +643,15 @@ def build_i5b_scoring_detail(
     ruler = str(rule_net.get("ruler") or "")
     if budget_net:
         weights = scoring_policy["item_raw_signal"]["rule_weights"]
-        coverage_overrides = manifest.get("historical_coverage_status_overrides") or {}
-        unknown_coverage_rules = sorted(set(coverage_overrides) - set(RULE_ORDER))
-        if unknown_coverage_rules:
+        if manifest.get("historical_coverage_status_overrides"):
             raise ValueError(
-                f"scoring detail coverage override rule unknown: {unknown_coverage_rules}"
+                "material budget detail may not override historical coverage status"
             )
         net_rows = {
             row["rule_code"]: {
                 **dict(row),
                 "calculation_status": "material_budget_shadow_complete",
-                "historical_coverage_status": str(
-                    coverage_overrides.get(row["rule_code"], "coverage_complete")
-                ),
+                "historical_coverage_status": "coverage_unverified",
                 "rule_weight": str(weights[row["rule_code"]]),
                 "weighted_raw_contribution": str(
                     _decimal(row["rule_raw_net"])
@@ -700,6 +725,11 @@ def build_i5b_scoring_detail(
         if not all(comparisons.values()):
             raise ValueError(f"{rule_code} primary detail does not reconcile to rule net")
         policy = scoring_policy["rules"][rule_code]
+        factor_contract = _factor_contract_audit(
+            rule_code=rule_code,
+            policy=policy,
+            detail=primary[0]["detail"],
+        )
         translated_factors = _translate_factor_catalog(
             rule_code=rule_code,
             factor_catalog={
@@ -727,6 +757,7 @@ def build_i5b_scoring_detail(
                 },
                 "projection_mode": policy.get("projection_mode"),
                 "aggregation_policy": policy.get("aggregation_policy"),
+                "factor_contract": factor_contract,
                 "factor_catalog": {
                     key: value
                     for key, value in policy.items()
@@ -747,9 +778,19 @@ def build_i5b_scoring_detail(
             }
         )
 
+    historical_coverage_complete = all(
+        row["historical_coverage_status"] == "coverage_complete" for row in rules
+    )
+    factor_contracts_current = all(
+        not row["factor_contract"]["blocks_historical_completion"] for row in rules
+    )
     report: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "report_only_scoring_detail_export",
+        "status": (
+            "report_only_scoring_detail_export"
+            if historical_coverage_complete and factor_contracts_current
+            else "report_only_scoring_detail_incomplete_or_stale"
+        ),
         "ruler": ruler,
         "ruler_ref": rule_net.get("ruler_ref"),
         "input_version": rule_net.get("input_version") or rule_net.get("task_code"),
@@ -781,8 +822,10 @@ def build_i5b_scoring_detail(
         ),
         "declarations": {
             "all_primary_details_reconciled": True,
-            "historical_coverage_complete": all(
-                row["historical_coverage_status"] == "coverage_complete" for row in rules
+            "historical_coverage_complete": historical_coverage_complete,
+            "current_factor_contracts_satisfied": factor_contracts_current,
+            "completion_claim_allowed": (
+                historical_coverage_complete and factor_contracts_current
             ),
             "formal_45_point_score": None,
             "tier": None,
@@ -1348,7 +1391,7 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
     summary = report["summary"]
     selection_summary = report.get("selection_summary")
     complete_selection = not selection_summary or selection_summary[
-        "complete_five_rule_signal"
+        "selected_all_five_rules"
     ]
     weighted_signal_label = (
         "当前 declared-workset weighted raw signal"
@@ -1384,6 +1427,7 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
         "",
         f"- {weighted_signal_label}：`{weighted_signal}`",
         f"- 历史覆盖完成：`{coverage_complete_count}/{len(report['rules'])}`",
+        f"- 当前因子合同一致：`{report['declarations']['current_factor_contracts_satisfied']}`",
         "- 正式45分、tier、排名：均未生成",
         "",
         "### 通用证据因子",
@@ -1406,7 +1450,13 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
             f"- 聚合策略：`{_text(row['aggregation_policy'])}`",
             f"- 公式：`{_text(row['formula'])}`",
             f"- 明细对账：`{row['detail_reconciliation']['status']}`（`{primary['adapter']}`）",
+            f"- 因子合同：`{row['factor_contract']['status']}`",
         ]
+        if row["factor_contract"]["missing_v4_factor_inputs"]:
+            lines.append(
+                "- 缺少当前 V4 因子输入："
+                f"`{_text(row['factor_contract']['missing_v4_factor_inputs'])}`"
+            )
 
         episode_facts = (
             _appointment_episode_facts(
@@ -1648,7 +1698,7 @@ def _filtered_ruler_report(
     filtered["selection_summary"] = {
         "selected_rule_count": len(filtered["rules"]),
         "selected_rule_weighted_raw_signal": _rounded(selected_weighted),
-        "complete_five_rule_signal": len(filtered["rules"]) == len(RULE_ORDER),
+        "selected_all_five_rules": len(filtered["rules"]) == len(RULE_ORDER),
     }
     return filtered
 

@@ -232,9 +232,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         ruler_report = report["selected_ruler_reports"][0]
         selection_summary = ruler_report["selection_summary"]
         print(f"皇帝：{args.ruler}")
+        print(f"结果状态：{ruler_report['status']}")
         print(
             "历史覆盖："
             f"{ruler_report['summary']['historical_coverage_complete_rule_count']}/5"
+        )
+        print(
+            "完成声明："
+            f"{ruler_report['declarations']['completion_claim_allowed']}"
         )
         print(
             "五条rule加权raw signal："

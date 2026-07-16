@@ -4,6 +4,7 @@ from decimal import Decimal
 import json
 from pathlib import Path
 
+import pytest
 import yaml
 
 from emperor_v4.eval import main as eval_main
@@ -71,12 +72,31 @@ def test_one_command_exports_full_ruler_scoring_detail(
         (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
     )
     ruler = payload["selected_ruler_reports"][0]
-    assert ruler["summary"]["historical_coverage_complete_rule_count"] == 5
+    assert ruler["status"] == "report_only_scoring_detail_incomplete_or_stale"
+    assert ruler["summary"]["historical_coverage_complete_rule_count"] == 0
+    assert ruler["declarations"]["historical_coverage_complete"] is False
+    assert ruler["declarations"]["current_factor_contracts_satisfied"] is False
+    assert ruler["declarations"]["completion_claim_allowed"] is False
     assert ruler["selection_summary"] == {
-        "complete_five_rule_signal": True,
         "selected_rule_count": 5,
+        "selected_all_five_rules": True,
         "selected_rule_weighted_raw_signal": "7.248",
     }
+    by_rule = _by_rule(ruler)
+    assert by_rule["talent_discovery"]["historical_coverage_status"] == (
+        "coverage_unverified"
+    )
+    assert by_rule["tolerate_talent"]["factor_contract"]["status"] == (
+        "legacy_or_incomplete_projection_contract"
+    )
+    assert by_rule["tolerate_talent"]["factor_contract"][
+        "missing_v4_factor_inputs"
+    ] == [
+        "conflict_repair_continuity",
+        "feedback_reception",
+        "professional_autonomy",
+        "talent_safety",
+    ]
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
     assert "### 计入材料" in markdown
     assert "| 对象 | 实际计入信号 | 方向 | 材料分 |" in markdown
@@ -84,8 +104,53 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "**反馈入口强度**" not in markdown
     assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
     stdout = capsys.readouterr().out
-    assert "历史覆盖：5/5" in stdout
+    assert "结果状态：report_only_scoring_detail_incomplete_or_stale" in stdout
+    assert "历史覆盖：0/5" in stdout
+    assert "完成声明：False" in stdout
     assert "五条rule加权raw signal：7.248" in stdout
+
+
+def test_material_budget_detail_rejects_historical_coverage_override(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / (
+        "eval/i5b_team_building_historical_coverage/"
+        "lishimin_scoring_detail_manifest_v1.yml"
+    )
+    manifest = yaml.safe_load(source.read_text(encoding="utf-8"))
+    manifest["historical_coverage_status_overrides"] = {
+        rule_code: "coverage_complete"
+        for rule_code in (
+            "talent_discovery",
+            "appointment_delegation",
+            "team_building",
+            "tolerate_talent",
+            "anti_nepotism",
+        )
+    }
+    manifest_path = tmp_path / "manifest.yml"
+    manifest_path.write_text(
+        yaml.safe_dump(manifest, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="material budget detail may not override historical coverage status",
+    ):
+        eval_main(
+            [
+                "i5b-scoring-detail",
+                "--manifest",
+                str(manifest_path),
+                "--workspace-root",
+                str(ROOT),
+                "--format",
+                "json",
+                "--output",
+                str(tmp_path / "detail.json"),
+            ]
+        )
 
 
 def test_appointment_density_uses_competition_rank_for_ties() -> None:
