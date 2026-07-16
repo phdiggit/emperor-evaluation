@@ -13,7 +13,7 @@ from emperor_v4.adapters.claim_extractor_codex import (
 )
 
 
-PROMPT_POLICY_VERSION = "civil-web-discovery-v2"
+PROMPT_POLICY_VERSION = "civil-web-discovery-v3"
 
 
 def _output_schema(max_candidates: int) -> dict[str, Any]:
@@ -28,6 +28,12 @@ def _output_schema(max_candidates: int) -> dict[str, Any]:
             "source_url",
             "source_locator",
             "source_excerpt",
+            "judge_disposition",
+            "judge_reason",
+            "independence_key",
+            "appointment_importance",
+            "appointment_effect",
+            "continuity_factor",
         ],
         "properties": {
             key: {"type": "string"}
@@ -40,6 +46,35 @@ def _output_schema(max_candidates: int) -> dict[str, Any]:
                 "source_locator",
                 "source_excerpt",
             )
+        } | {
+            "judge_disposition": {
+                "type": "string",
+                "enum": ["eligible", "excluded"],
+            },
+            "judge_reason": {"type": "string"},
+            "independence_key": {"type": "string"},
+            "appointment_importance": {
+                "type": "string",
+                "enum": [
+                    "nominal_or_light",
+                    "real_bounded",
+                    "major_affairs",
+                    "critical_national_or_long_term",
+                ],
+            },
+            "appointment_effect": {
+                "type": "string",
+                "enum": [
+                    "weak_feedback",
+                    "normal_success",
+                    "major_success",
+                    "exceptional_success",
+                ],
+            },
+            "continuity_factor": {
+                "type": "string",
+                "enum": ["short_or_one_off", "stable", "long_term_multi_stage"],
+            },
         },
     }
     candidate = {
@@ -55,16 +90,14 @@ def _output_schema(max_candidates: int) -> dict[str, Any]:
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["status", "candidates", "coverage_gaps"],
+        "required": ["candidates"],
         "properties": {
-            "status": {"type": "string", "enum": ["complete"]},
             "candidates": {
                 "type": "array",
                 "minItems": max_candidates,
                 "maxItems": max_candidates,
                 "items": candidate,
             },
-            "coverage_gaps": {"type": "array", "items": {"type": "string"}},
         },
     }
 
@@ -93,7 +126,12 @@ def build_civil_web_discovery_prompt(
         "现代摘要本身均不能作为史源。优先正史本传、实录、政书、诏令奏议原文；现代网页只作线索。\n"
         "source_url 必须直达实际史源页；同一史源有 Wikisource 页面时优先 Wikisource，"
         "source_excerpt 仅摘录支持核心链条的短句；找不到可靠史源则 leads 为空。\n"
-        "不得输出因子数值、得分、正式接受、tier 或排名。只输出符合 schema 的 JSON。\n\n"
+        "同一次完成 report-only shadow Judge：只有皇帝归责、受托职责、实际运行、结果和独立性均闭合才标 eligible。"
+        "appointment_importance 依次表示轻量、真实有限、重大事务、国家级或长期核心责任；"
+        "appointment_effect 依次表示反馈弱、正常成功、重大成功、改变国家格局的顶级成功；"
+        "continuity_factor 依次表示一次性、稳定运行、跨阶段长期运行。不得因人物名望抬档。\n"
+        "independence_key 必须描述可去重的事实链。不得输出因子数值、得分、正式接受、tier 或排名。"
+        "只输出符合 schema 的 JSON。\n\n"
         + json.dumps(payload, ensure_ascii=False, sort_keys=True)
     )
 
@@ -178,12 +216,5 @@ def run_codex_civil_web_discovery(
         seen.add(person_ref)
     if seen != set(allowed):
         raise ValueError("Codex 文官网页检索未完整处理候选批次")
-    audit = {
-        "provider": "codex_cli_web_search",
-        "model": model,
-        "reasoning_effort": reasoning_effort,
-        "prompt_policy_version": PROMPT_POLICY_VERSION,
-        "elapsed_seconds": round(monotonic() - started, 3),
-        "model_call_count": 1,
-    }
+    audit = {"elapsed_seconds": round(monotonic() - started, 3), "model_call_count": 1}
     return payload, audit

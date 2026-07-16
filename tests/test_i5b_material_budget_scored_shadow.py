@@ -110,15 +110,15 @@ def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(
         "emperor_v4.eval.run_civil_candidate_retrieval",
         lambda **_kwargs: {
-            "status": "retrieval_complete_no_hits",
             "candidate_count": 0,
             "processed_candidate_count": 0,
             "deferred_candidate_count": 0,
-            "judge_intake": [],
-            "runtime_audit": {
+            "materials": [],
+            "eligible": [],
+            "excluded": [],
+            "runtime": {
                 "cache_hit": False,
-                "network_search_budget_reserved": 0,
-                "database_write_count": 0,
+                "elapsed_seconds": 0,
                 "model_call_count": 0,
             },
         },
@@ -200,13 +200,17 @@ def test_civil_retrieval_is_generic_bounded_and_cache_idempotent(
                             "source_url": "https://example.invalid/source",
                             "source_locator": "卷一",
                             "source_excerpt": "受命治理并形成结果",
+                            "judge_disposition": "eligible",
+                            "judge_reason": "职责、运行和结果闭合",
+                            "independence_key": "appointment:test:governance",
+                            "appointment_importance": "major_affairs",
+                            "appointment_effect": "major_success",
+                            "continuity_factor": "stable",
                         }
                     ],
                 }
             )
-        return {"status": "complete", "candidates": rows, "coverage_gaps": []}, {
-            "model_call_count": 1
-        }
+        return {"candidates": rows}, {"model_call_count": 1}
 
     queue = _civil_candidate_queue(team, profiles, ("测试帝",))
     first = run_civil_candidate_retrieval(
@@ -237,17 +241,20 @@ def test_civil_retrieval_is_generic_bounded_and_cache_idempotent(
     )
 
     assert [row["person"] for row in queue] == ["甲相", "丙官"]
-    assert first["status"] == "judge_required"
-    assert first["runtime_audit"]["network_search_budget_reserved"] == 4
-    assert first["declarations"]["person_specific_query_patch_used"] is False
-    assert first["declarations"]["two_hop_web_discovery_used"] is True
-    assert second["runtime_audit"] == {
+    assert len(first["eligible"]) == 2
+    assert first["materials"][0]["factor_option_codes"] == {
+        "appointment_importance": "major_affairs",
+        "appointment_effect": "major_success",
+        "continuity_factor": "stable",
+        "attribution_factor": "direct",
+        "source_factor": "complete_direct_chain",
+        "context_factor": "clear",
+    }
+    assert second["runtime"] == {
         "cache_hit": True,
-        "network_search_budget_reserved": 0,
-        "database_write_count": 0,
+        "elapsed_seconds": 0,
+        "first_run_elapsed_seconds": first["runtime"]["elapsed_seconds"],
         "model_call_count": 0,
-        "initial_elapsed_seconds": first["runtime_audit"]["elapsed_seconds"],
-        "cached_provider": {"model_call_count": 1},
     }
     assert len(calls) == 1
     assert len(calls[0]["candidates"]) == 2
@@ -488,24 +495,6 @@ def test_one_command_closeout_stops_after_talent_budget_is_full(
             str(tmp_path),
         ]
     ) == 0
-    report = json.loads(
-        (tmp_path / "李世民/preflight.json").read_text(encoding="utf-8")
-    )
-    assert report["status"] == "bounded_shadow_ready"
-    assert report["deadline_seconds"] == 900
-    assert report["completion_reserve_seconds"] == 90
-    assert report["talent_candidate_boundary"]["settled_positive_count"] == 3
-    assert report["talent_candidate_boundary"]["stop_reason"] == (
-        "positive_material_budget_full"
-    )
-    assert report["declarations"]["network_request_count"] == 0
-    assert report["declarations"]["expensive_campaign_started"] is False
-    assert report["declarations"]["model_call_count"] == 0
-    assert report["declarations"]["database_write_count"] == 0
-    assert report["declarations"]["person_profile_table"] == (
-        "v4_person_profile.person_profiles"
-    )
-    assert report["elapsed_wall_clock_seconds"] < 15
     markdown = (tmp_path / "李世民/scoring-detail.md").read_text(encoding="utf-8")
     detail = json.loads(
         (tmp_path / "李世民/scoring-detail.json").read_text(encoding="utf-8")
@@ -524,10 +513,7 @@ def test_one_command_closeout_stops_after_talent_budget_is_full(
         "v4_person_profile.person_profiles"
     )
     stdout = capsys.readouterr().out
-    assert "状态：bounded_shadow_ready" in stdout
-    assert "15分钟昂贵流程已启动：False" in stdout
-    assert "人才边界候选：0组（原始0条）" in stdout
-    assert "人才停止原因：正向材料已满3条" in stdout
+    assert "文官材料：0条通过，0条排除，0人未领取" in stdout
     assert "计分详情：" in stdout
 
 
@@ -545,20 +531,10 @@ def test_closeout_without_work_package_fails_closed_without_traceback(
             str(tmp_path),
         ]
     ) == 2
-    report = json.loads(
-        (tmp_path / "未配置皇帝/preflight.json").read_text(encoding="utf-8")
-    )
-    assert report["status"] == "bounded_input_not_configured"
-    assert report["deadline_seconds"] == 900
-    assert report["blockers"] == ["ruler_work_package_missing"]
-    assert report["declarations"]["expensive_campaign_started"] is False
-    assert report["declarations"]["model_call_count"] == 0
-    assert report["declarations"]["database_write_count"] == 0
-    assert report["elapsed_wall_clock_seconds"] < 1
+    assert not (tmp_path / "未配置皇帝/preflight.json").exists()
     assert not (tmp_path / "未配置皇帝/scoring-detail.json").exists()
     stdout = capsys.readouterr().out
-    assert "状态：bounded_input_not_configured" in stdout
-    assert "缺少该皇帝工作包，未启动检索" in stdout
+    assert "未配置该皇帝" in stdout
 
 
 def test_liubang_minimal_five_rule_package_closes_out_within_budget(
@@ -577,7 +553,6 @@ def test_liubang_minimal_five_rule_package_closes_out_within_budget(
         ]
     ) == 0
     output_dir = tmp_path / "刘邦"
-    report = json.loads((output_dir / "preflight.json").read_text(encoding="utf-8"))
     detail = json.loads(
         (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
     )["selected_ruler_reports"][0]
@@ -586,20 +561,9 @@ def test_liubang_minimal_five_rule_package_closes_out_within_budget(
         (output_dir / "material-budget-shadow.json").read_text(encoding="utf-8")
     )
 
-    assert report["status"] == "bounded_shadow_ready"
-    assert report["deadline_seconds"] == 900
-    assert report["talent_candidate_boundary"]["settled_positive_count"] == 3
-    assert report["talent_candidate_boundary"]["exhaustive_search_required"] is False
-    assert report["elapsed_wall_clock_seconds"] < 15
     assert _by_rule(material)["team_building"]["profile_source"] == (
         "v4_person_profile.person_profiles"
     )
-    assert report["declarations"]["model_call_count"] == 0
-    assert report["declarations"]["network_request_count"] == 0
-    assert report["declarations"]["database_write_count"] == 0
-    assert report["declarations"]["formal_45_point_score"] is None
-    assert report["declarations"]["tier"] is None
-    assert report["declarations"]["ranking"] is None
     assert detail["selection_summary"]["selected_rule_count"] == 5
     assert detail["declarations"]["current_factor_contracts_satisfied"] is True
     assert rules["talent_discovery"]["factor_contract"]["status"] == "current_contract"
@@ -615,7 +579,7 @@ def test_liubang_minimal_five_rule_package_closes_out_within_budget(
         "卢绾私人亲幸",
     ):
         assert expected in markdown
-    assert "状态：bounded_shadow_ready" in capsys.readouterr().out
+    assert "计分详情：" in capsys.readouterr().out
 
 
 def test_appointment_density_uses_competition_rank_for_ties() -> None:

@@ -147,6 +147,7 @@ def _source_detail(
                 "factor_option_codes": dict(
                     row.get("factor_option_codes") or {}
                 ),
+                "fact": str(row.get("fact") or ""),
             }
             for row in budget_rule.get("supporting_only_materials") or ()
             if row.get("material_magnitude") is not None
@@ -1319,13 +1320,14 @@ def _unscored_material_rows(row: Mapping[str, Any]) -> list[dict[str, str]]:
         if source.get("adapter") != "material_budget_report":
             continue
         for item in source["detail"].get("unscored_materials") or ():
-            material = _display_name(item.get("material"))
-            if material in seen:
+            material_id = str(item.get("material_id") or item.get("material"))
+            if material_id in seen:
                 continue
-            seen.add(material)
+            seen.add(material_id)
             materials.append(
                 {
-                    "material": material,
+                    "material": _display_name(item.get("material")),
+                    "fact": str(item.get("fact") or ""),
                     "factor_assignment": _choice_text(
                         {
                             "numeric_projection": {
@@ -1597,13 +1599,13 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 "",
                 "### 未计入材料",
                 "",
-                "| 材料 | 因子赋值 | 材料分 |",
-                "|---|---|---:|",
+                "| 材料 | 因子赋值 | 材料分 | 事实 |",
+                "|---|---|---:|---|",
             ]
             lines.extend(
                 f"| {_md_cell(item['material'])} | "
                 f"{_md_cell(item['factor_assignment'])} | "
-                f"{item['material_score']} |"
+                f"{item['material_score']} | {_md_cell(item['fact'])} |"
                 for item in unscored
             )
 
@@ -1807,6 +1809,7 @@ def _person_participations(
             detail.get("episode_id")
             or detail.get("unit_ref")
             or detail.get("material_code")
+            or detail.get("material_id")
             or detail.get("material")
             or detail.get("person")
             or ""
@@ -2029,8 +2032,8 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 "",
                 "### 材料",
                 "",
-                "| 规则 | 状态 | 材料 | 因子赋值 | 材料分 |",
-                "|---|---|---|---|---:|",
+                "| 规则 | 状态 | 材料 | 因子赋值 | 材料分 | 事实 |",
+                "|---|---|---|---|---:|---|",
             ]
         for participation in material_rows:
             detail = participation["detail"]
@@ -2060,7 +2063,8 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 f"| {_md_cell(participation['rule_label'])} | {status} | "
                 f"{_md_cell(material)} | "
                 f"{_md_cell(participation['factor_assignment'])} | "
-                f"{_text(score)} |"
+                f"{_text(score)} | "
+                f"{_md_cell(detail.get('fact') or detail.get('projection_basis'))} |"
             )
         if episode_rows:
             lines += [

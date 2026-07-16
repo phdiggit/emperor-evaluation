@@ -932,8 +932,9 @@ def build_i5b_material_budget_shadow(
     manifest_path: Path,
     *,
     current_profiles: Mapping[str, Mapping[str, Any]] | None = None,
+    manifest_payload: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    manifest = _load_yaml(manifest_path)
+    manifest = dict(manifest_payload) if manifest_payload is not None else _load_yaml(manifest_path)
     if manifest.get("schema_version") != "i5b-material-budget-shadow-manifest-v1":
         raise ValueError("材料预算 manifest schema_version 不匹配")
     policy_path = _resolve(str(manifest["policy"]))

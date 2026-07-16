@@ -8,19 +8,32 @@ import time
 from typing import Any, Callable, Mapping, Sequence
 
 
-SCHEMA_VERSION = "i5b-civil-candidate-retrieval-v2"
-DISCOVERY_VERSION = "generic-two-hop-web-discovery-v2"
 GRADE_ORDER = {"historic": 0, "top": 1, "important": 2}
+FACTOR_VALUES = {
+    "appointment_importance": {
+        "nominal_or_light": 0.6,
+        "real_bounded": 1.0,
+        "major_affairs": 1.25,
+        "critical_national_or_long_term": 1.4,
+    },
+    "appointment_effect": {
+        "weak_feedback": 0.4,
+        "normal_success": 1.0,
+        "major_success": 1.5,
+        "exceptional_success": 1.8,
+    },
+    "continuity_factor": {
+        "short_or_one_off": 0.85,
+        "stable": 1.0,
+        "long_term_multi_stage": 1.15,
+    },
+}
 
 
 def _fingerprint(value: object) -> str:
-    rendered = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    )
-    return sha256(rendered.encode("utf-8")).hexdigest()
+    return sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    ).hexdigest()
 
 
 def _civil_candidate_queue(
@@ -29,69 +42,52 @@ def _civil_candidate_queue(
     ruler_names: Sequence[str],
 ) -> list[dict[str, Any]]:
     if not any(str(value).strip() for value in ruler_names):
-        raise ValueError("文官网页检索缺少皇帝历史称谓")
+        raise ValueError("文官检索缺少皇帝称谓")
     queue = []
-    seen: set[str] = set()
     for row in team_source.get("members") or ():
         person_ref = str(row.get("person_ref") or "")
         person = str(row.get("person") or "")
         roles = {str(value) for value in row.get("role_families") or ()}
-        current = current_profiles.get(person_ref)
-        if not person_ref or not person or current is None or person_ref in seen:
-            continue
-        grade = str(current.get("talent_grade") or "")
-        is_civil = (
+        profile = current_profiles.get(person_ref)
+        grade = str((profile or {}).get("talent_grade") or "")
+        civil = (
             "administration" in roles
-            or ("correction" in roles and "military" not in roles)
-            or ("decision" in roles and "military" not in roles)
+            or ("military" not in roles and bool(roles & {"decision", "correction"}))
         )
-        if not is_civil or grade not in GRADE_ORDER:
-            continue
-        seen.add(person_ref)
-        queue.append(
-            {
-                "person": person,
-                "person_ref": person_ref,
-                "talent_grade": grade,
-                "role_families": sorted(roles),
-            }
-        )
-
-    def civil_relevance(row: Mapping[str, Any]) -> tuple[int, int, int]:
-        roles = set(row["role_families"])
-        return (
-            0 if "administration" in roles else 1,
-            0 if "correction" in roles else 1,
-            0 if "military" not in roles else 1,
-        )
-
+        if person_ref and person and civil and grade in GRADE_ORDER:
+            queue.append(
+                {
+                    "person": person,
+                    "person_ref": person_ref,
+                    "talent_grade": grade,
+                    "role_families": sorted(roles),
+                }
+            )
     return sorted(
-        queue,
+        {row["person_ref"]: row for row in queue}.values(),
         key=lambda row: (
-            GRADE_ORDER[str(row["talent_grade"])],
-            civil_relevance(row),
-            str(row["person"]),
+            GRADE_ORDER[row["talent_grade"]],
+            0 if "administration" in row["role_families"] else 1,
+            0 if "correction" in row["role_families"] else 1,
+            row["person"],
         ),
     )
 
 
-def _read_cache(path: Path) -> dict[str, Any]:
+def _load_cache(path: Path) -> dict[str, Any]:
     if not path.is_file():
-        return {"schema_version": 2, "entries": {}}
+        return {}
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("schema_version") != 2 or not isinstance(
-        payload.get("entries"), dict
-    ):
-        raise ValueError("文官网页检索缓存格式非法")
-    return payload
+    return payload if isinstance(payload, dict) else {}
 
 
-def _write_cache(path: Path, payload: Mapping[str, Any]) -> None:
+def _save_cache(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    rendered = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(rendered, encoding="utf-8", newline="\n")
-    temporary.replace(path)
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def run_civil_candidate_retrieval(
@@ -109,153 +105,106 @@ def run_civil_candidate_retrieval(
     discover: Callable[..., tuple[Mapping[str, Any], Mapping[str, Any]]],
     clock: Callable[[], float] = time.monotonic,
 ) -> dict[str, Any]:
-    if (
-        not ruler.strip()
-        or max_network_requests < 2
-        or max_candidate_judge_items <= 0
-        or max_wall_clock_seconds <= 0
-        or completion_reserve_seconds < 0
-        or completion_reserve_seconds >= max_wall_clock_seconds
-    ):
-        raise ValueError("文官网页检索预算非法")
     candidates = _civil_candidate_queue(team_source, current_profiles, ruler_names)
-    evaluation_window = team_source.get("window")
-    if evaluation_window in (None, "", {}):
-        raise ValueError("文官网页检索缺少皇帝评价窗口")
-    # 每人严格预留“网页发现 + 史源定位”两跳，不超用皇帝级联网预算。
-    batch_size = min(
-        len(candidates),
-        max_candidate_judge_items,
-        max_network_requests // 2,
-    )
-    selected = candidates[:batch_size]
-    input_contract = {
-        "schema_version": SCHEMA_VERSION,
-        "discovery_version": DISCOVERY_VERSION,
-        "ruler": ruler,
-        "ruler_names": list(ruler_names),
-        "evaluation_window": evaluation_window,
-        "candidates": candidates,
-        "selected_candidates": selected,
-        "max_network_requests": max_network_requests,
-        "max_candidate_judge_items": max_candidate_judge_items,
-        "provider_policy": dict(provider_policy),
-    }
-    input_fingerprint = _fingerprint(input_contract)
-    cache = _read_cache(cache_path)
-    cached = cache["entries"].get(input_fingerprint)
-    if cached is not None:
-        report = deepcopy(cached)
-        initial_audit = dict(report.get("runtime_audit") or {})
-        report["runtime_audit"] = {
-            "cache_hit": True,
-            "network_search_budget_reserved": 0,
-            "database_write_count": 0,
-            "model_call_count": 0,
-            "initial_elapsed_seconds": initial_audit.get("elapsed_seconds"),
-            "cached_provider": initial_audit.get("provider") or {},
+    window = team_source.get("window")
+    selected = candidates[
+        : min(max_candidate_judge_items, max_network_requests // 2)
+    ]
+    cache_key = _fingerprint(
+        {
+            "version": "civil-two-hop-shadow-v1",
+            "ruler": ruler,
+            "ruler_names": list(ruler_names),
+            "window": window,
+            "candidates": selected,
+            "provider": dict(provider_policy),
         }
-        return report
+    )
+    cache = _load_cache(cache_path)
+    if cache_key in cache:
+        result = deepcopy(cache[cache_key])
+        first_elapsed = result["runtime"]["elapsed_seconds"]
+        result["runtime"] = {
+            "cache_hit": True,
+            "elapsed_seconds": 0,
+            "first_run_elapsed_seconds": first_elapsed,
+            "model_call_count": 0,
+        }
+        return result
 
     started = clock()
-    timeout_seconds = max(
-        1,
-        int(max_wall_clock_seconds - completion_reserve_seconds),
+    payload, provider_runtime = discover(
+        ruler=ruler,
+        ruler_names=ruler_names,
+        evaluation_window=window,
+        candidates=selected,
+        timeout_seconds=max(
+            1, int(max_wall_clock_seconds - completion_reserve_seconds)
+        ),
     )
-    provider_error = None
-    provider_audit: Mapping[str, Any] = {}
-    payload: Mapping[str, Any] = {"candidates": [], "coverage_gaps": []}
-    if selected:
-        try:
-            payload, provider_audit = discover(
-                ruler=ruler,
-                ruler_names=ruler_names,
-                evaluation_window=evaluation_window,
-                candidates=selected,
-                timeout_seconds=timeout_seconds,
-            )
-        except Exception as exc:  # external agent boundary must fail closed
-            provider_audit = {
-                "provider": "codex_cli_web_search_failed",
-                "model_call_count": 1,
+    materials = []
+    eligible = []
+    excluded = []
+    for candidate in payload.get("candidates") or ():
+        for lead in candidate.get("leads") or ():
+            material_id = "WEB-AD-" + _fingerprint(
+                [candidate["person_ref"], lead["measure"], lead["source_url"]]
+            )[:16].upper()
+            option_codes = {name: str(lead[name]) for name in FACTOR_VALUES}
+            factor_values = {
+                name: FACTOR_VALUES[name][option]
+                for name, option in option_codes.items()
+            } | {
+                "attribution_factor": 1.0,
+                "source_factor": 1.1,
+                "context_factor": 1.0,
             }
-            provider_error = {
-                "error_type": type(exc).__name__,
-                "message": str(exc),
+            option_codes |= {
+                "attribution_factor": "direct",
+                "source_factor": "complete_direct_chain",
+                "context_factor": "clear",
             }
-
-    by_ref = {str(row["person_ref"]): row for row in selected}
-    judge_intake = []
-    receipts = []
-    for row in payload.get("candidates") or ():
-        person_ref = str(row.get("person_ref") or "")
-        candidate = by_ref.get(person_ref)
-        if candidate is None or str(row.get("person") or "") != candidate["person"]:
-            raise ValueError("文官网页检索输出越过候选边界")
-        leads = [dict(lead) for lead in row.get("leads") or ()]
-        receipts.append(
-            {
-                "person": candidate["person"],
-                "person_ref": person_ref,
-                "lead_count": len(leads),
-                "measures": [str(lead.get("measure") or "") for lead in leads],
-            }
-        )
-        if leads:
-            judge_intake.append(
+            materials.append(
                 {
-                    **candidate,
-                    "source_leads": leads,
-                    "judge_status": "pending",
-                    "judge_fields_required": [
-                        "ruler_attribution",
-                        "delegated_responsibility",
-                        "actual_operation",
-                        "policy_or_civil_outcome",
-                        "independence_and_deduplication",
-                        "factor_assignment",
-                    ],
+                    "material_id": material_id,
+                    "subject": candidate["person"],
+                    "object_ref": candidate["person_ref"],
+                    "side": "positive",
+                    "factor_values": factor_values,
+                    "factor_option_codes": option_codes,
+                    "fact": "；".join(
+                        str(lead[name])
+                        for name in (
+                            "delegated_responsibility",
+                            "measure",
+                            "policy_or_civil_outcome",
+                        )
+                    ),
+                    "source_refs": [lead["source_url"]],
                 }
             )
-    status = (
-        "provider_error_deferred"
-        if provider_error is not None
-        else "judge_required"
-        if judge_intake
-        else "retrieval_complete_no_hits"
-    )
-    report = {
-        **input_contract,
-        "input_fingerprint": input_fingerprint,
-        "status": status,
+            decision = {
+                "material_id": material_id,
+                "independence_key": lead["independence_key"],
+                "judge_reason": lead["judge_reason"],
+            }
+            (eligible if lead["judge_disposition"] == "eligible" else excluded).append(
+                decision
+            )
+    result = {
+        "ruler": ruler,
         "candidate_count": len(candidates),
-        "processed_candidate_count": len(selected) if provider_error is None else 0,
-        "deferred_candidate_count": len(candidates) - (
-            len(selected) if provider_error is None else 0
-        ),
-        "receipts": receipts,
-        "judge_intake": judge_intake,
-        "coverage_gaps": list(payload.get("coverage_gaps") or ()),
-        "provider_error": provider_error,
-        "runtime_audit": {
+        "processed_candidate_count": len(selected),
+        "deferred_candidate_count": len(candidates) - len(selected),
+        "materials": materials,
+        "eligible": eligible,
+        "excluded": excluded,
+        "runtime": {
             "cache_hit": False,
-            "network_search_budget_reserved": len(selected) * 2,
-            "database_write_count": 0,
-            "model_call_count": int(provider_audit.get("model_call_count") or 0),
-            "provider": dict(provider_audit),
             "elapsed_seconds": round(clock() - started, 3),
-        },
-        "declarations": {
-            "person_specific_query_patch_used": False,
-            "two_hop_web_discovery_used": True,
-            "strongest_n_frozen": False,
-            "formal_fact_acceptance_performed": False,
-            "formal_scoring_performed": False,
-            "tier": None,
-            "ranking": None,
+            "model_call_count": int(provider_runtime["model_call_count"]),
         },
     }
-    if provider_error is None:
-        cache["entries"][input_fingerprint] = report
-        _write_cache(cache_path, cache)
-    return report
+    cache[cache_key] = result
+    _save_cache(cache_path, cache)
+    return result

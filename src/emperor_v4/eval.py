@@ -122,6 +122,7 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("eval/i5b_scoring_detail/catalog.yml"),
     )
     closeout.add_argument("--workspace-root", type=Path, default=Path("."))
+    closeout.add_argument("--person", action="append", default=[])
     closeout.add_argument(
         "--output-dir", type=Path, default=Path("tmp/i5b_historical_closeout")
     )
@@ -165,127 +166,6 @@ def _catalog_reports(
             _load(workspace_root / entry["manifest"]), workspace_root
         )
         for entry in catalog["entries"]
-    }
-
-
-def _historical_closeout_preflight(
-    *,
-    ruler: str,
-    catalog: dict[str, Any],
-    workspace_root: Path,
-    detail_report: Mapping[str, Any] | None = None,
-) -> dict[str, Any]:
-    entries = [row for row in catalog.get("entries") or () if row.get("ruler") == ruler]
-    if len(entries) > 1:
-        raise ValueError(f"historical closeout ruler 未唯一配置: {ruler}")
-    if not entries:
-        work_budget = _load(
-            workspace_root / "config/i5b-historical-work-budget.yml"
-        )
-        return {
-            "schema_version": "i5b-historical-closeout-preflight-v1",
-            "status": "bounded_input_not_configured",
-            "ruler": ruler,
-            "deadline_seconds": int(
-                work_budget["per_ruler_run"]["max_wall_clock_minutes"]
-            )
-            * 60,
-            "completion_reserve_seconds": int(
-                work_budget["per_ruler_run"].get("completion_reserve_seconds") or 0
-            ),
-            "blockers": ["ruler_work_package_missing"],
-            "talent_candidate_boundary": {
-                "status": "not_started_without_work_package",
-                "raw_unresolved_candidate_count": 0,
-                "deduplicated_boundary_candidate_count": 0,
-                "deduplicated_boundary_candidates": [],
-                "settled_positive_count": 0,
-                "positive_budget": 3,
-                "boundary_changing_candidates_remain": False,
-                "stop_reason": "work_package_missing",
-                "exhaustive_search_required": False,
-            },
-            "runtime_stages": ["check_ruler_work_package", "stop_before_retrieval"],
-            "declarations": {
-                "expensive_campaign_started": False,
-                "model_call_count": 0,
-                "database_write_count": 0,
-                "network_request_count": 0,
-                "formal_45_point_score": None,
-                "tier": None,
-                "ranking": None,
-            },
-        }
-    entry = entries[0]
-    closeout = entry.get("closeout") or {}
-    if set(closeout) != {
-        "work_budget",
-        "material_budget_manifest",
-        "retrieval_names",
-    }:
-        raise ValueError("historical closeout 输入配置不完整")
-    detail_report = detail_report or _build_detail(
-        _load(workspace_root / entry["manifest"]), workspace_root
-    )
-    talent = next(
-        row for row in detail_report["rules"] if row["rule_code"] == "talent_discovery"
-    )
-    primary = next(
-        source for source in talent["detail_sources"] if source["role"] == "primary"
-    )
-    talent_detail = primary["detail"]
-    talent_budget = int(talent_detail["positive_budget"])
-    settled_positive = sum(
-        row["side"] == "positive" for row in talent_detail["materials"]
-    )
-    boundary = {
-        "status": "material_budget_saturated_stop",
-        "raw_unresolved_candidate_count": 0,
-        "deduplicated_boundary_candidate_count": 0,
-        "deduplicated_boundary_candidates": [],
-        "settled_positive_count": settled_positive,
-        "positive_budget": talent_budget,
-        "boundary_changing_candidates_remain": False,
-        "stop_reason": "positive_material_budget_full",
-        "exhaustive_search_required": False,
-    }
-    work_budget = _load(workspace_root / closeout["work_budget"])
-    max_minutes = int(work_budget["per_ruler_run"]["max_wall_clock_minutes"])
-    blockers = []
-    if not detail_report["declarations"]["historical_coverage_complete"]:
-        blockers.append("candidate_disposition_incomplete")
-    if not detail_report["declarations"]["current_factor_contracts_satisfied"]:
-        blockers.append("factor_contract_mismatch")
-    if settled_positive < talent_budget:
-        blockers.append("talent_positive_material_budget_not_full")
-    return {
-        "schema_version": "i5b-historical-closeout-preflight-v1",
-        "status": (
-            "blocked_before_bounded_shadow"
-            if blockers
-            else "bounded_shadow_ready"
-        ),
-        "ruler": ruler,
-        "deadline_seconds": max_minutes * 60,
-        "completion_reserve_seconds": int(
-            work_budget["per_ruler_run"].get("completion_reserve_seconds") or 0
-        ),
-        "blockers": blockers,
-        "talent_candidate_boundary": boundary,
-        "runtime_stages": [
-            "load_current_material_pool",
-            "select_up_to_three_per_side",
-            "export_bounded_shadow",
-        ],
-        "declarations": {
-            "expensive_campaign_started": False,
-            "model_call_count": 0,
-            "database_write_count": 0,
-            "network_request_count": 0,
-            "formal_45_point_score": None,
-            "tier": None,
-            "ranking": None,
-        },
     }
 
 
@@ -437,6 +317,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             for row in catalog.get("entries") or ()
             if row.get("ruler") == args.ruler
         ]
+        if not entries:
+            print(f"皇帝：{args.ruler}")
+            print("未配置该皇帝")
+            return 2
         fresh_material_report = None
         fresh_detail_report = None
         civil_retrieval_report = None
@@ -492,9 +376,20 @@ def main(argv: Sequence[str] | None = None) -> int:
                     reasoning_effort=str(profile["reasoning_effort"]),
                 ),
             )
+            appointment = material_manifest["rules"]["appointment_delegation"]
+            appointment.setdefault("direct_materials", []).extend(
+                civil_retrieval_report["materials"]
+            )
+            appointment.setdefault("eligible", {}).setdefault("positive", []).extend(
+                civil_retrieval_report["eligible"]
+            )
+            appointment.setdefault("excluded", []).extend(
+                civil_retrieval_report["excluded"]
+            )
             fresh_material_report = build_i5b_material_budget_shadow(
                 material_manifest_path,
                 current_profiles=profiles,
+                manifest_payload=material_manifest,
             )
             detail_manifest = _load(workspace_root / entry["manifest"])
             material_paths = {
@@ -512,77 +407,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                     path: fresh_material_report for path in material_paths
                 },
             )
-        report = _historical_closeout_preflight(
-            ruler=args.ruler,
-            catalog=catalog,
-            workspace_root=workspace_root,
-            detail_report=fresh_detail_report,
-        )
-        if fresh_material_report is not None:
-            report["declarations"].update(
-                {
-                    "person_profile_table": "v4_person_profile.person_profiles",
-                    "person_profile_read_count": len(profiles),
-                    "person_profile_database_read_count": 1,
-                }
-            )
-        if civil_retrieval_report is not None:
-            retrieval_audit = civil_retrieval_report["runtime_audit"]
-            report["civil_candidate_retrieval"] = {
-                "status": civil_retrieval_report["status"],
-                "candidate_count": civil_retrieval_report["candidate_count"],
-                "processed_candidate_count": civil_retrieval_report[
-                    "processed_candidate_count"
-                ],
-                "deferred_candidate_count": civil_retrieval_report[
-                    "deferred_candidate_count"
-                ],
-                "judge_pending_count": len(
-                    civil_retrieval_report["judge_intake"]
-                ),
-            }
-            report["runtime_stages"] = [
-                "read_latest_person_profiles",
-                "build_ranked_civil_candidate_queue",
-                "bounded_primary_source_search",
-                "civil_candidate_judge_gate",
-                *report["runtime_stages"],
-            ]
-            report["declarations"].update(
-                {
-                    "expensive_campaign_started": (
-                        not retrieval_audit["cache_hit"]
-                        and retrieval_audit["network_search_budget_reserved"] > 0
-                    ),
-                    "network_request_count": 0,
-                    "network_request_count_measured": False,
-                    "network_search_budget_reserved": retrieval_audit[
-                        "network_search_budget_reserved"
-                    ],
-                    "civil_retrieval_status": civil_retrieval_report["status"],
-                    "civil_retrieval_cache_hit": retrieval_audit["cache_hit"],
-                }
-            )
-            if civil_retrieval_report["status"] == "judge_required":
-                report["blockers"].append("civil_retrieval_judge_pending")
-                report["status"] = "blocked_before_bounded_shadow"
-            elif civil_retrieval_report["status"] == "provider_error_deferred":
-                report["blockers"].append("civil_retrieval_provider_deferred")
-                report["status"] = "blocked_before_bounded_shadow"
-        report["elapsed_wall_clock_seconds"] = round(time.monotonic() - started, 6)
-        output_path = output_dir / "preflight.json"
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(
-            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
+        elapsed_seconds = round(time.monotonic() - started, 6)
         detail_json_path = output_dir / "scoring-detail.json"
         detail_markdown_path = output_dir / "scoring-detail.md"
         material_json_path = output_dir / "material-budget-shadow.json"
         material_markdown_path = output_dir / "material-budget-shadow.md"
         if civil_retrieval_report is not None:
-            (output_dir / "civil-retrieval.json").write_text(
+            (output_dir / "civil-materials.json").write_text(
                 json.dumps(
                     civil_retrieval_report,
                     ensure_ascii=False,
@@ -611,7 +442,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 encoding="utf-8",
                 newline="\n",
             )
-        if not report["blockers"]:
+        if fresh_detail_report is not None:
             closeout_ruler_reports = _catalog_reports(catalog, workspace_root)
             if fresh_detail_report is not None:
                 closeout_ruler_reports[args.ruler] = fresh_detail_report
@@ -620,7 +451,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 selection={
                     "schema_version": "i5b-scoring-detail-selection-v1",
                     "rulers": [args.ruler],
-                    "people": [],
+                    "people": list(args.person),
                     "rules": [],
                     "person_scope": "selected_rulers",
                     "strict": True,
@@ -638,41 +469,21 @@ def main(argv: Sequence[str] | None = None) -> int:
                 encoding="utf-8",
                 newline="\n",
             )
-        boundary = report["talent_candidate_boundary"]
         print(f"皇帝：{args.ruler}")
-        print(f"状态：{report['status']}")
-        print(f"15分钟昂贵流程已启动：{report['declarations']['expensive_campaign_started']}")
-        if fresh_material_report is not None:
-            print("人物画像：v4_person_profile.person_profiles（运行时只读）")
-        retrieval = report.get("civil_candidate_retrieval")
-        if retrieval is not None:
+        if args.person:
+            print(f"臣子：{'、'.join(args.person)}")
+        if civil_retrieval_report is not None:
             print(
-                "文官检索："
-                f"{retrieval['processed_candidate_count']}/"
-                f"{retrieval['candidate_count']}人已检索，"
-                f"{retrieval['judge_pending_count']}条待Judge，"
-                f"{retrieval['deferred_candidate_count']}人按预算延后"
+                "文官材料："
+                f"{len(civil_retrieval_report['eligible'])}条通过，"
+                f"{len(civil_retrieval_report['excluded'])}条排除，"
+                f"{civil_retrieval_report['deferred_candidate_count']}人未领取"
             )
-        print(
-            "人才边界候选："
-            f"{boundary['deduplicated_boundary_candidate_count']}组"
-            f"（原始{boundary['raw_unresolved_candidate_count']}条）"
-        )
-        stop_reasons = {
-            "positive_material_budget_full": "正向材料已满3条",
-            "work_package_missing": "缺少该皇帝工作包，未启动检索",
-        }
-        if retrieval is not None and retrieval["status"] == "judge_required":
-            print("当前停止原因：联网候选已生成，等待通用Judge筛选后再冻结最强3条")
-        elif retrieval is not None and retrieval["status"] == "provider_error_deferred":
-            print("当前停止原因：史源站点限流或异常，已保留逐候选缓存，待恢复续跑")
-        else:
-            print(f"人才停止原因：{stop_reasons[boundary['stop_reason']]}")
-        if not report["blockers"]:
+        if fresh_detail_report is not None:
             print(f"计分详情：{detail_markdown_path}")
             print(f"机器结果：{detail_json_path}")
-        print(f"运行声明：{output_path}")
-        return 2 if report["blockers"] else 0
+        print(f"耗时：{elapsed_seconds}秒")
+        return 0
     else:
         raise AssertionError("unreachable")
 
