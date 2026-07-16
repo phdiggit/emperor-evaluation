@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 import threading
+import time
 
 import pytest
 import yaml
@@ -67,6 +68,7 @@ def manifest(ruler_count: int = 2) -> dict:
             "retry_delay_seconds": 0,
             "failure_policy": "fail_closed",
             "max_wall_clock_minutes": 15,
+            "completion_reserve_seconds": 90,
         },
         "phases": [
             {
@@ -302,7 +304,7 @@ def test_ruler_run_wall_clock_budget_stops_new_claims_across_all_rules() -> None
         ruler_wall_clock_minutes=15,
     )
 
-    assert runner.run_phase("candidate_freeze", worker_id="budget-worker") == 1
+    assert runner.run_phase("candidate_freeze", worker_id="budget-worker") == 0
     assert runner.budget_exhausted is True
     assert runner.exhausted_ruler_codes == {"RULER_001"}
     statuses = [
@@ -329,6 +331,89 @@ def test_ruler_run_wall_clock_budget_stops_new_claims_across_all_rules() -> None
     assert resumed.run_phase("candidate_freeze", worker_id="resume-worker") == 0
     assert resumed_calls == []
     assert restored.ruler_deadlines["RULER_001"] == started_at + timedelta(minutes=15)
+
+
+def test_non_cooperative_handler_does_not_hold_runner_past_hard_deadline() -> None:
+    campaign_manifest = manifest(1)
+    campaign_manifest["runtime"]["max_concurrency"] = 1
+    for phase in campaign_manifest["phases"]:
+        phase["max_concurrency"] = 1
+    state = build_campaign_state(campaign_manifest)
+    handler_finished = threading.Event()
+
+    def blocks_past_deadline(claim):
+        try:
+            time.sleep(0.2)
+            return PhaseExecutionResult(
+                payload={"artifact_type": claim.phase_code, "fixture_result": "late"}
+            )
+        finally:
+            handler_finished.set()
+
+    runner = CampaignRunner(
+        state,
+        handlers={code: blocks_past_deadline for code in PHASE_CODES},
+        ruler_wall_clock_seconds=0.05,
+    )
+    started = time.monotonic()
+    completed = runner.run_phase("candidate_freeze", worker_id="deadline-worker")
+    elapsed = time.monotonic() - started
+
+    assert completed == 0
+    assert elapsed < 0.15
+    assert runner.budget_exhausted is True
+    assert all(
+        task.phases["candidate_freeze"].status == "ready"
+        for task in state.tasks.values()
+    )
+    assert all(
+        task.phases["candidate_freeze"].last_error
+        == "wall_clock_budget_exhausted:hard_deadline_reached_while_handler_running"
+        for task in state.tasks.values()
+        if task.phases["candidate_freeze"].attempt_count
+    )
+    assert handler_finished.wait(timeout=1)
+    assert not state.artifacts
+
+
+def test_completion_reserve_stops_new_claims_and_keeps_finished_result() -> None:
+    campaign_manifest = manifest(1)
+    campaign_manifest["runtime"]["max_concurrency"] = 1
+    for phase in campaign_manifest["phases"]:
+        phase["max_concurrency"] = 1
+    state = build_campaign_state(campaign_manifest)
+    started_at = datetime(2026, 7, 16, tzinfo=timezone.utc)
+    now = [started_at]
+
+    def reaches_reserve(claim):
+        now[0] = started_at + timedelta(minutes=13, seconds=30)
+        return PhaseExecutionResult(
+            payload={"artifact_type": claim.phase_code, "fixture_result": "on-time"}
+        )
+
+    runner = CampaignRunner(
+        state,
+        handlers={code: reaches_reserve for code in PHASE_CODES},
+        clock=lambda: now[0],
+        ruler_wall_clock_minutes=15,
+        completion_reserve_seconds=90,
+    )
+
+    assert runner.run_phase("candidate_freeze", worker_id="reserve-worker") == 1
+    assert runner.budget_exhausted is True
+    statuses = [
+        task.phases["candidate_freeze"].status for task in state.tasks.values()
+    ]
+    assert statuses.count("succeeded") == 1
+    assert statuses.count("ready") == 4
+    assert len(state.artifacts) == 1
+
+
+def test_campaign_rejects_completion_reserve_that_consumes_whole_budget() -> None:
+    campaign_manifest = manifest(1)
+    campaign_manifest["runtime"]["completion_reserve_seconds"] = 900
+    with pytest.raises(CampaignContractError, match="completion_reserve_seconds"):
+        build_campaign_state(campaign_manifest)
 
 
 def test_campaign_rejects_tracked_phase_artifact_root() -> None:
@@ -523,6 +608,7 @@ def test_workspace_campaign_writes_artifacts_checkpoint_and_zero_work_resume(tmp
     assert first["model_call_count"] == 0
     assert first["business_write_count"] == 0
     assert first["max_wall_clock_minutes"] == 15
+    assert first["completion_reserve_seconds"] == 90
     assert first["wall_clock_budget_exhausted"] is False
     assert len(artifact_files) == 25
 

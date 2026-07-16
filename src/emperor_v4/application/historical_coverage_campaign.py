@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 import hashlib
@@ -341,10 +341,17 @@ def build_campaign_state(manifest: Mapping[str, Any]) -> CampaignState:
     lease_seconds = int(runtime.get("lease_seconds") or 0)
     retry_delay_seconds = int(runtime.get("retry_delay_seconds") or 0)
     max_wall_clock_minutes = int(runtime.get("max_wall_clock_minutes") or 0)
+    completion_reserve_seconds = int(
+        runtime.get("completion_reserve_seconds", 90)
+    )
     if max_concurrency <= 0 or max_attempts <= 0 or lease_seconds <= 0:
         raise CampaignContractError("runtime 并发、重试和 lease 参数必须为正数")
     if max_wall_clock_minutes <= 0:
         raise CampaignContractError("runtime.max_wall_clock_minutes 必须为正数")
+    if not 0 <= completion_reserve_seconds < max_wall_clock_minutes * 60:
+        raise CampaignContractError(
+            "runtime.completion_reserve_seconds 必须非负且小于 wall-clock 预算"
+        )
     if lease_seconds <= max_wall_clock_minutes * 60:
         raise CampaignContractError("runtime.lease_seconds 必须长于皇帝级 wall-clock 预算")
     if retry_delay_seconds < 0 or runtime.get("failure_policy") != "fail_closed":
@@ -438,7 +445,9 @@ class CampaignRunner:
         *,
         handlers: Mapping[str, Callable[[ClaimedPhase], PhaseExecutionResult]],
         clock: Callable[[], datetime] | None = None,
-        ruler_wall_clock_minutes: int | None = None,
+        ruler_wall_clock_minutes: float | None = None,
+        ruler_wall_clock_seconds: float | None = None,
+        completion_reserve_seconds: float = 0,
     ) -> None:
         missing = set(PHASE_CODES) - set(handlers)
         if missing:
@@ -446,21 +455,39 @@ class CampaignRunner:
         self.state = state
         self.handlers = dict(handlers)
         self.clock = clock or (lambda: datetime.now(timezone.utc))
+        if (
+            ruler_wall_clock_minutes is not None
+            and ruler_wall_clock_seconds is not None
+        ):
+            raise CampaignContractError("皇帝级 wall-clock 预算只能使用一种单位")
         if ruler_wall_clock_minutes is not None and ruler_wall_clock_minutes <= 0:
             raise CampaignContractError("皇帝级 wall-clock 预算必须为正数")
-        self.ruler_wall_clock_minutes = ruler_wall_clock_minutes
+        if ruler_wall_clock_seconds is not None and ruler_wall_clock_seconds <= 0:
+            raise CampaignContractError("皇帝级 wall-clock 预算必须为正数")
+        if completion_reserve_seconds < 0:
+            raise CampaignContractError("完成收尾预留时间不得为负数")
+        budget_seconds = ruler_wall_clock_seconds
+        if budget_seconds is None and ruler_wall_clock_minutes is not None:
+            budget_seconds = ruler_wall_clock_minutes * 60
+        if (
+            budget_seconds is not None
+            and completion_reserve_seconds >= budget_seconds
+        ):
+            raise CampaignContractError("完成收尾预留时间必须小于 wall-clock 预算")
+        self.ruler_wall_clock_seconds = budget_seconds
+        self.completion_reserve_seconds = completion_reserve_seconds
         self.ruler_deadlines = self.state.ruler_deadlines
         self.exhausted_ruler_codes = self.state.exhausted_ruler_codes
         self.budget_exhausted = bool(self.exhausted_ruler_codes)
 
     def _ruler_budget_exhausted(self, ruler_code: str, now: datetime) -> bool:
-        if self.ruler_wall_clock_minutes is None:
+        if self.ruler_wall_clock_seconds is None:
             return False
         self.state.ruler_started_at.setdefault(ruler_code, now)
         deadline = self.ruler_deadlines.setdefault(
-            ruler_code, now + timedelta(minutes=self.ruler_wall_clock_minutes)
+            ruler_code, now + timedelta(seconds=self.ruler_wall_clock_seconds)
         )
-        exhausted = now >= deadline
+        exhausted = now >= deadline - timedelta(seconds=self.completion_reserve_seconds)
         if exhausted:
             self.budget_exhausted = True
             self.exhausted_ruler_codes.add(ruler_code)
@@ -503,9 +530,54 @@ class CampaignRunner:
             claims = self._claim_batch(phase_code, worker_id, limit)
             if not claims:
                 return completed
-            with ThreadPoolExecutor(max_workers=limit) as pool:
-                list(pool.map(self._execute, claims))
-            completed += len(claims)
+            pool = ThreadPoolExecutor(max_workers=limit)
+            pending: dict[Future[None], ClaimedPhase] = {
+                pool.submit(self._execute, claim): claim for claim in claims
+            }
+            try:
+                while pending:
+                    now = self.clock()
+                    expired = [
+                        future
+                        for future, claim in pending.items()
+                        if claim.deadline_at is not None and now >= claim.deadline_at
+                    ]
+                    for future in expired:
+                        claim = pending.pop(future)
+                        future.cancel()
+                        self._defer_at_budget_boundary(
+                            claim, "hard_deadline_reached_while_handler_running"
+                        )
+                    if not pending:
+                        break
+                    deadlines = [
+                        claim.deadline_at
+                        for claim in pending.values()
+                        if claim.deadline_at is not None
+                    ]
+                    timeout = (
+                        None
+                        if not deadlines
+                        else max(
+                            0.0,
+                            (min(deadlines) - self.clock()).total_seconds(),
+                        )
+                    )
+                    done, _ = wait(
+                        pending,
+                        timeout=timeout,
+                        return_when=FIRST_COMPLETED,
+                    )
+                    for future in done:
+                        pending.pop(future, None)
+                        future.result()
+            finally:
+                pool.shutdown(wait=False, cancel_futures=True)
+            completed += sum(
+                self.state.tasks[claim.task_code].phases[claim.phase_code].status
+                == "succeeded"
+                for claim in claims
+            )
 
     def run_to_quiescence(self, *, worker_id: str) -> int:
         completed = 0
@@ -1388,12 +1460,16 @@ def run_workspace_campaign(
     )
     runtime = dict(manifest.get("runtime") or {})
     max_wall_clock_minutes = int(runtime.get("max_wall_clock_minutes") or 0)
+    completion_reserve_seconds = int(
+        runtime.get("completion_reserve_seconds", 90)
+    )
     if max_wall_clock_minutes <= 0:
         raise CampaignContractError("runtime.max_wall_clock_minutes 必须为正数")
     runner = CampaignRunner(
         state,
         handlers=handler_set.handlers(),
         ruler_wall_clock_minutes=max_wall_clock_minutes,
+        completion_reserve_seconds=completion_reserve_seconds,
     )
     phase_codes = (phase_code,) if phase_code else PHASE_CODES
     completed = 0
@@ -1424,6 +1500,7 @@ def run_workspace_campaign(
         "model_call_count": state.model_call_count,
         "business_write_count": state.business_write_count,
         "max_wall_clock_minutes": max_wall_clock_minutes,
+        "completion_reserve_seconds": completion_reserve_seconds,
         "wall_clock_budget_exhausted": runner.budget_exhausted,
         "wall_clock_budget_exhausted_ruler_codes": sorted(
             runner.exhausted_ruler_codes
