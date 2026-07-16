@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 import yaml
 
+import emperor_v4.eval as eval_module
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     _appointment_density,
@@ -163,8 +164,38 @@ def test_material_budget_detail_rejects_historical_coverage_override(
 
 
 def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
-    tmp_path: Path, capsys,
+    tmp_path: Path, capsys, monkeypatch,
 ) -> None:
+    def fake_source_cache_shadow(*, report, **_kwargs):
+        passages = []
+        for task in report["source_cache_tasks"]:
+            if task["case_ref"] == "SGR-LSM-ZHENGUAN-RITES":
+                continue
+            passages.append(
+                {
+                    "passage_id": f"SP-{task['case_ref']}",
+                    "source_cache_task_code": task["task_code"],
+                    "selection_reason": task[
+                        "required_source_cache_selection_keys"
+                    ],
+                }
+            )
+        return {
+            "response": {"passages": passages},
+            "current_run_audit": {
+                "exact_response_reused": False,
+                "network_request_count": 3,
+                "shadow_state_write_count": 9,
+                "database_write_count": 0,
+                "model_call_count": 0,
+            },
+        }
+
+    monkeypatch.setattr(
+        eval_module,
+        "run_scholar_source_cache_shadow",
+        fake_source_cache_shadow,
+    )
     assert eval_main(
         [
             "i5b-historical-closeout",
@@ -186,7 +217,8 @@ def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
         "deduplicated_boundary_candidate_count"
     ] == 6
     assert report["judge_intake"]["status_counts"] == {
-        "awaiting_versioned_source_cache": 13,
+        "awaiting_versioned_source_cache": 1,
+        "ready_for_candidate_judge": 12,
     }
     assert report["declarations"]["expensive_campaign_started"] is False
     assert report["declarations"]["model_call_count"] == 0

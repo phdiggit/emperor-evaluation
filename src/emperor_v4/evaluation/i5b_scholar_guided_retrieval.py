@@ -5,6 +5,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
+from urllib.parse import unquote, urlparse
 
 import yaml
 
@@ -55,6 +56,14 @@ def _stable_hash(payload: object) -> str:
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
     )
     return sha256(rendered.encode("utf-8")).hexdigest()
+
+
+def _wikisource_page_title(canonical_url: str) -> str | None:
+    parsed = urlparse(canonical_url)
+    if parsed.netloc != "zh.wikisource.org" or not parsed.path.startswith("/wiki/"):
+        return None
+    title = unquote(parsed.path.removeprefix("/wiki/")).replace("_", " ").strip()
+    return title or None
 
 
 def build_scholar_guided_retrieval_report(
@@ -204,8 +213,9 @@ def build_scholar_guided_retrieval_report(
                 },
                 "source_hints": sorted(
                     {
-                        f"{locator['work']}/{locator['section']}"
+                        title
                         for locator in locators
+                        if (title := _wikisource_page_title(locator["canonical_url"]))
                     }
                 ),
                 "required_source_families": ["primary_text"],
@@ -296,7 +306,11 @@ def build_scholar_guided_judge_intake(
         matched_passages = [
             passage
             for passage in passages
-            if required_keys & set(passage.get("selection_reason") or ())
+            if (
+                not passage.get("source_cache_task_code")
+                or passage.get("source_cache_task_code") == row["task_code"]
+            )
+            and required_keys & set(passage.get("selection_reason") or ())
         ]
         matched_keys = {
             key

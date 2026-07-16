@@ -103,12 +103,25 @@ class WikisourceSourceMaterialProvider:
             if page_code in revisions:
                 continue
 
+            observed_network_before = getattr(
+                self.fetch, "network_request_count", None
+            )
             snapshot = self.fetch(
                 page_code=page_code,
                 page_title=page_title,
                 expected_revision_id=expected_revision,
             )
-            network_request_count += 1
+            observed_network_after = getattr(
+                self.fetch, "network_request_count", None
+            )
+            if isinstance(observed_network_before, int) and isinstance(
+                observed_network_after, int
+            ):
+                network_request_count += (
+                    observed_network_after - observed_network_before
+                )
+            else:
+                network_request_count += 1
             if (
                 expected_revision is not None
                 and snapshot.revision_id != expected_revision

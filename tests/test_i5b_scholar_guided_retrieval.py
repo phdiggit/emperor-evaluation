@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from hashlib import sha256
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 import pytest
 import yaml
@@ -14,6 +16,10 @@ from emperor_v4.evaluation.i5b_scholar_guided_retrieval import (
     build_scholar_guided_judge_intake,
     build_scholar_guided_retrieval_report,
 )
+from emperor_v4.evaluation.i5b_scholar_source_cache import (
+    run_scholar_source_cache_shadow,
+)
+from emperor_v4.adapters.wikisource import WikisourcePageSnapshot
 from emperor_v4.runtime.source_cache import source_cache_request_from_mapping
 
 
@@ -48,6 +54,11 @@ def test_lishimin_scholar_guided_cases_cover_all_rules_and_go_to_source_cache() 
         source_cache_request_from_mapping(row["source_cache_request"]).request_id
         for row in report["source_cache_tasks"]
     )
+    assert {
+        hint
+        for row in report["source_cache_tasks"]
+        for hint in row["source_cache_request"]["source_hints"]
+    } == {"貞觀政要/卷02", "貞觀政要/卷03", "貞觀政要/卷07", "舊唐書"}
     intake = build_scholar_guided_judge_intake(report)
     assert intake["summary"]["item_count"] > report["summary"]["case_count"]
     assert all(
@@ -73,6 +84,81 @@ def test_rule_mechanisms_are_not_remonstrance_predicates_for_every_rule() -> Non
         "actual_operation",
         "attributable_result",
     ]
+
+
+def test_scholar_source_cache_shadow_is_bounded_and_exactly_reused(
+    tmp_path: Path,
+) -> None:
+    report = build_scholar_guided_retrieval_report(
+        mechanism_contract_path=MECHANISM, task_contract_path=TASK
+    )
+    page_passages: dict[str, list[dict]] = {}
+    for task in report["source_cache_tasks"]:
+        for locator in task["primary_source_locators"]:
+            passages = locator.get("source_cache_passages") or []
+            if not passages:
+                continue
+            title = unquote(
+                urlparse(locator["canonical_url"]).path.removeprefix("/wiki/")
+            )
+            page_passages.setdefault(title, []).extend(passages)
+
+    fetch_count = 0
+
+    def fake_fetch(*, page_code, page_title, expected_revision_id=None):
+        nonlocal fetch_count
+        fetch_count += 1
+        raw_text = "\n".join(
+            passage["anchor_start"] + "正文" + passage["anchor_end"]
+            for passage in page_passages[page_title]
+        )
+        return WikisourcePageSnapshot(
+            page_code=page_code,
+            requested_title=page_title,
+            canonical_title=page_title,
+            canonical_url=f"https://zh.wikisource.org/wiki/{page_title}",
+            revision_id=7,
+            revision_timestamp="2026-07-16T00:00:00Z",
+            retrieved_at="2026-07-16T00:00:01Z",
+            raw_text=raw_text,
+            content_hash=sha256(raw_text.encode("utf-8")).hexdigest(),
+        )
+
+    first = run_scholar_source_cache_shadow(
+        report=report,
+        output_dir=tmp_path,
+        service_release_sha="0" * 40,
+        fetch=fake_fetch,
+    )
+    assert first["runtime_audit"]["planned_task_count"] == 9
+    assert first["runtime_audit"]["unique_page_count"] == 3
+    assert first["runtime_audit"]["network_request_count"] == 3
+    assert first["runtime_audit"]["database_write_count"] == 0
+    assert first["runtime_audit"]["model_call_count"] == 0
+    assert len(first["response"]["passages"]) == 10
+    assert [row["case_ref"] for row in first["response"]["unresolved_tasks"]] == [
+        "SGR-LSM-ZHENGUAN-RITES"
+    ]
+    intake = build_scholar_guided_judge_intake(
+        report, source_cache_response=first["response"]
+    )
+    assert intake["summary"]["ready_for_candidate_judge_count"] == 12
+    assert intake["summary"]["awaiting_source_cache_count"] == 1
+
+    second = run_scholar_source_cache_shadow(
+        report=report,
+        output_dir=tmp_path,
+        service_release_sha="0" * 40,
+        fetch=fake_fetch,
+    )
+    assert fetch_count == 3
+    assert second["current_run_audit"] == {
+        "exact_response_reused": True,
+        "network_request_count": 0,
+        "shadow_state_write_count": 0,
+        "database_write_count": 0,
+        "model_call_count": 0,
+    }
 
 
 def _gate() -> dict:
