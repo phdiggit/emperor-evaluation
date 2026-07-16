@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import time
 from typing import Any, Sequence
 
 import yaml
@@ -99,6 +100,18 @@ def _parser() -> argparse.ArgumentParser:
     )
     detail_export.add_argument("--person", action="append", default=[])
     detail_export.add_argument("--rule", action="append", default=[])
+
+    closeout = commands.add_parser("i5b-historical-closeout")
+    closeout.add_argument("--ruler", required=True)
+    closeout.add_argument(
+        "--catalog",
+        type=Path,
+        default=Path("eval/i5b_scoring_detail/catalog.yml"),
+    )
+    closeout.add_argument("--workspace-root", type=Path, default=Path("."))
+    closeout.add_argument(
+        "--output-dir", type=Path, default=Path("tmp/i5b_historical_closeout")
+    )
     return parser
 
 
@@ -132,6 +145,78 @@ def _catalog_reports(
             _load(workspace_root / entry["manifest"]), workspace_root
         )
         for entry in catalog["entries"]
+    }
+
+
+def _historical_closeout_preflight(
+    *,
+    ruler: str,
+    catalog: dict[str, Any],
+    workspace_root: Path,
+) -> dict[str, Any]:
+    entries = [row for row in catalog.get("entries") or () if row.get("ruler") == ruler]
+    if len(entries) != 1:
+        raise ValueError(f"historical closeout ruler 未唯一配置: {ruler}")
+    entry = entries[0]
+    closeout = entry.get("closeout") or {}
+    required_refs = {"work_budget", "candidate_inventory", "judge_intake"}
+    if set(closeout) != required_refs:
+        raise ValueError("historical closeout 输入配置不完整")
+    detail_report = _build_detail(
+        _load(workspace_root / entry["manifest"]), workspace_root
+    )
+    talent = next(
+        row for row in detail_report["rules"] if row["rule_code"] == "talent_discovery"
+    )
+    primary = next(
+        source for source in talent["detail_sources"] if source["role"] == "primary"
+    )
+    boundary = dict(primary["detail"].get("candidate_boundary_audit") or {})
+    if not boundary:
+        raise ValueError("historical closeout 缺少人才发现边界审计")
+    candidate_inventory = _load(workspace_root / closeout["candidate_inventory"])
+    judge_intake = _load(workspace_root / closeout["judge_intake"])
+    work_budget = _load(workspace_root / closeout["work_budget"])
+    max_minutes = int(work_budget["per_ruler_run"]["max_wall_clock_minutes"])
+    judge_counts: dict[str, int] = {}
+    for item in judge_intake.get("items") or ():
+        status = str(item.get("status") or "missing")
+        judge_counts[status] = judge_counts.get(status, 0) + 1
+    blockers = []
+    if not detail_report["declarations"]["current_factor_contracts_satisfied"]:
+        blockers.append("factor_contract_mismatch")
+    if boundary["boundary_changing_candidates_remain"]:
+        blockers.append("talent_boundary_candidates_pending")
+    if any(status != "judged" for status in judge_counts):
+        blockers.append("judge_intake_not_complete")
+    if candidate_inventory.get("historical_coverage_complete") is not True:
+        blockers.append("talent_inventory_not_human_frozen")
+    return {
+        "schema_version": "i5b-historical-closeout-preflight-v1",
+        "status": (
+            "blocked_before_expensive_campaign"
+            if blockers
+            else "ready_for_versioned_campaign"
+        ),
+        "ruler": ruler,
+        "deadline_seconds": max_minutes * 60,
+        "completion_reserve_seconds": int(
+            work_budget["per_ruler_run"].get("completion_reserve_seconds") or 0
+        ),
+        "blockers": blockers,
+        "talent_candidate_boundary": boundary,
+        "judge_intake": {
+            "item_count": len(judge_intake.get("items") or ()),
+            "status_counts": dict(sorted(judge_counts.items())),
+        },
+        "declarations": {
+            "expensive_campaign_started": False,
+            "model_call_count": 0,
+            "database_write_count": 0,
+            "formal_45_point_score": None,
+            "tier": None,
+            "ranking": None,
+        },
     }
 
 
@@ -248,6 +333,44 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Markdown：{markdown_path}")
         print(f"JSON：{json_path}")
         return 0
+    elif args.command == "i5b-historical-closeout":
+        started = time.monotonic()
+        if any(value in args.ruler for value in ("/", "\\", "..")):
+            raise ValueError("--ruler 不得包含路径字符")
+        workspace_root = args.workspace_root.resolve()
+        catalog_path = (
+            args.catalog if args.catalog.is_absolute() else workspace_root / args.catalog
+        )
+        report = _historical_closeout_preflight(
+            ruler=args.ruler,
+            catalog=_load(catalog_path),
+            workspace_root=workspace_root,
+        )
+        report["elapsed_wall_clock_seconds"] = round(time.monotonic() - started, 6)
+        output_dir = (
+            args.output_dir
+            if args.output_dir.is_absolute()
+            else workspace_root / args.output_dir
+        ) / args.ruler
+        output_path = output_dir / "preflight.json"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        boundary = report["talent_candidate_boundary"]
+        print(f"皇帝：{args.ruler}")
+        print(f"状态：{report['status']}")
+        print(f"15分钟昂贵流程已启动：{report['declarations']['expensive_campaign_started']}")
+        print(
+            "人才边界候选："
+            f"{boundary['deduplicated_boundary_candidate_count']}组"
+            f"（原始{boundary['raw_unresolved_candidate_count']}条）"
+        )
+        print(f"Judge：{report['judge_intake']['status_counts']}")
+        print(f"结果：{output_path}")
+        return 2 if report["blockers"] else 0
     else:
         raise AssertionError("unreachable")
 

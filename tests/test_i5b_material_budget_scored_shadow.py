@@ -162,6 +162,43 @@ def test_material_budget_detail_rejects_historical_coverage_override(
         )
 
 
+def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
+    tmp_path: Path, capsys,
+) -> None:
+    assert eval_main(
+        [
+            "i5b-historical-closeout",
+            "--ruler",
+            "李世民",
+            "--workspace-root",
+            str(ROOT),
+            "--output-dir",
+            str(tmp_path),
+        ]
+    ) == 2
+    report = json.loads(
+        (tmp_path / "李世民/preflight.json").read_text(encoding="utf-8")
+    )
+    assert report["status"] == "blocked_before_expensive_campaign"
+    assert report["deadline_seconds"] == 900
+    assert report["completion_reserve_seconds"] == 90
+    assert report["talent_candidate_boundary"][
+        "deduplicated_boundary_candidate_count"
+    ] == 6
+    assert report["judge_intake"]["status_counts"] == {
+        "awaiting_versioned_source_cache": 1,
+        "ready_for_candidate_judge": 12,
+    }
+    assert report["declarations"]["expensive_campaign_started"] is False
+    assert report["declarations"]["model_call_count"] == 0
+    assert report["declarations"]["database_write_count"] == 0
+    assert report["elapsed_wall_clock_seconds"] < 15
+    stdout = capsys.readouterr().out
+    assert "状态：blocked_before_expensive_campaign" in stdout
+    assert "15分钟昂贵流程已启动：False" in stdout
+    assert "人才边界候选：6组（原始12条）" in stdout
+
+
 def test_appointment_density_uses_competition_rank_for_ties() -> None:
     selected = [
         {"object_ref": "A", "material_magnitude": Decimal("2.5")},
