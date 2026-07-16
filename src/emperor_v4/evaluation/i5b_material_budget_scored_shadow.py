@@ -175,6 +175,8 @@ def _projected_materials(
             }
         if projection.get("v4_factor_projection"):
             row["v4_factor_projection"] = dict(projection["v4_factor_projection"])
+        if material.get("talent_quality_basis"):
+            row["talent_quality_basis"] = dict(material["talent_quality_basis"])
         rows.append(row)
     return rows
 
@@ -310,7 +312,57 @@ def _material_view(
     }
     if material.get("v4_factor_projection"):
         row["v4_factor_projection"] = material["v4_factor_projection"]
+    if material.get("talent_quality_basis"):
+        row["talent_quality_basis"] = material["talent_quality_basis"]
     return row
+
+
+def _talent_candidate_boundary_audit(
+    *, inventory_path: Path, positive_boundary: Decimal
+) -> dict[str, Any]:
+    inventory = _load_json(inventory_path)
+    if (
+        inventory.get("schema_version")
+        != "i5b-talent-discovery-candidate-inventory-v3"
+        or inventory.get("rule_code") != "talent_discovery"
+        or inventory.get("ruler") != "李世民"
+    ):
+        raise ValueError("发现人才候选 inventory 身份或版本不匹配")
+    pending_dispositions = {
+        "candidate_pending_primary_source_acceptance",
+        "deferred_pre_accession_budget",
+        "pending_pre_accession_ruler_agency_review",
+    }
+    pending = [
+        row
+        for row in inventory.get("candidate_inventory") or ()
+        if row.get("final_disposition") in pending_dispositions
+    ]
+    focal_people = sorted(
+        {
+            str((row.get("candidate_persons") or ["未命名候选"])[0])
+            for row in pending
+        }
+    )
+    declared_unresolved = int(
+        (inventory.get("candidate_summary") or {}).get(
+            "unresolved_candidate_count", -1
+        )
+    )
+    if declared_unresolved != len(pending):
+        raise ValueError("发现人才 inventory unresolved 计数不一致")
+    return {
+        "status": "boundary_not_stable_pending_review",
+        "inventory_ref": inventory_path.relative_to(ROOT).as_posix(),
+        "inventory_sha256": _sha256(inventory_path.read_bytes()),
+        "raw_unresolved_candidate_count": len(pending),
+        "deduplicated_boundary_candidate_count": len(focal_people),
+        "deduplicated_boundary_candidates": focal_people,
+        "current_positive_settlement_floor": _rounded(positive_boundary),
+        "boundary_changing_candidates_remain": bool(focal_people),
+        "exhaustive_search_required": False,
+        "next_batch_within_rule_budget": len(focal_people) <= 6,
+    }
 
 
 def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:
@@ -460,6 +512,10 @@ def _build_material_rule(
         }
         for material_id, reason in sorted(exclusion_decisions.items())
     )
+    for row in supporting_rows:
+        material = by_id.get(str(row["material_id"]))
+        if material and material.get("talent_quality_basis"):
+            row["talent_quality_basis"] = material["talent_quality_basis"]
     for supplemental in supplemental_sources:
         supporting_rows.extend(
             {
@@ -479,7 +535,7 @@ def _build_material_rule(
     else:
         positive = _object_density(selected_by_side["positive"])
         negative = _object_density(selected_by_side["negative"])
-    return {
+    result = {
         "rule_code": rule_code,
         "rule_label": RULE_LABELS[rule_code],
         "source_ref": str(rule_manifest["source"]),
@@ -500,6 +556,19 @@ def _build_material_rule(
         "negative_signal": _rounded(negative),
         "rule_raw_net": _rounded(positive - negative),
     }
+    candidate_inventory_ref = rule_manifest.get("candidate_inventory_ref")
+    if rule_code == "talent_discovery" and candidate_inventory_ref:
+        result["candidate_boundary_audit"] = _talent_candidate_boundary_audit(
+            inventory_path=_resolve(str(candidate_inventory_ref)),
+            positive_boundary=min(
+                (
+                    row["material_magnitude"]
+                    for row in selected_by_side["positive"]
+                ),
+                default=Decimal("0"),
+            ),
+        )
+    return result
 
 
 def _build_team_rule(

@@ -178,6 +178,8 @@ def build_i5b_joint_projection_scored_shadow(
             "projection_basis": str(item["projection_basis"]),
             "source_refs": source_refs,
         }
+        if item.get("talent_quality_basis"):
+            material["talent_quality_basis"] = dict(item["talent_quality_basis"])
         material["semantic_fingerprint"] = _hash(material)
         material_rows.append(material)
 

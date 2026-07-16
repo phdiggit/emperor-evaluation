@@ -312,10 +312,38 @@ def _source_detail(
                         row.get("v4_factor_projection") or {}
                     ),
                 },
+                "talent_quality_basis": dict(
+                    row.get("talent_quality_basis") or {}
+                ),
             }
             for row in selected
         ]
-        return {"materials": materials, "judge_reviews": judge_reviews}, signals
+        detail = {"materials": materials, "judge_reviews": judge_reviews}
+        talent_quality_basis_rows = [
+            {
+                "subject": row.get("subject"),
+                "talent_quality_basis": dict(row["talent_quality_basis"]),
+                "selection_status": "settled",
+            }
+            for row in selected
+            if row.get("talent_quality_basis")
+        ]
+        talent_quality_basis_rows.extend(
+            {
+                "subject": row.get("subject"),
+                "talent_quality_basis": dict(row["talent_quality_basis"]),
+                "selection_status": row.get("selection_status"),
+            }
+            for row in budget_rule.get("supporting_only_materials") or ()
+            if row.get("talent_quality_basis")
+        )
+        if talent_quality_basis_rows:
+            detail["talent_quality_basis_rows"] = talent_quality_basis_rows
+        if budget_rule.get("candidate_boundary_audit"):
+            detail["candidate_boundary_audit"] = dict(
+                budget_rule["candidate_boundary_audit"]
+            )
+        return detail, signals
 
     if adapter == "joint_projection_report":
         if payload.get("rule_code") != rule_code:
@@ -1522,6 +1550,38 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                     f"{_choice_text(material, row['factor_catalog_zh'], report['evidence_factor_catalog_zh'])} | "
                     f"{_md_cell(material.get('fact_summary'))} |"
                 )
+
+        if row["rule_code"] == "talent_discovery":
+            quality_rows = detail.get("talent_quality_basis_rows") or ()
+            if quality_rows:
+                lines += [
+                    "",
+                    "### 人才质量与政策文治成果依据",
+                    "",
+                    "| 人物 | 人才档 | 政策 / 文治成果依据 | 共享归责与防重复边界 |",
+                    "|---|---|---|---|",
+                ]
+                for material in quality_rows:
+                    basis = material["talent_quality_basis"]
+                    lines.append(
+                        f"| {_md_cell(material.get('subject'))} | "
+                        f"`{_text(basis.get('talent_grade'))}` | "
+                        f"{_md_cell(basis.get('policy_civil_outcome_basis'))} | "
+                        f"{_md_cell(basis.get('shared_attribution_boundary'))} |"
+                    )
+            boundary = detail.get("candidate_boundary_audit") or {}
+            if boundary:
+                lines += [
+                    "",
+                    "### 候选扫描与材料预算边界",
+                    "",
+                    f"- 状态：`{boundary['status']}`",
+                    f"- 原始 unresolved：`{boundary['raw_unresolved_candidate_count']}`",
+                    f"- 同源去重后边界候选：`{boundary['deduplicated_boundary_candidate_count']}`",
+                    f"- 当前正向结算边界：`{boundary['current_positive_settlement_floor']}`",
+                    f"- 候选：{_text(boundary['deduplicated_boundary_candidates'])}",
+                    "- 不要求穷尽搜索；只处理可能改变当前 strongest-N 边界的下一批。",
+                ]
 
         members = detail.get("members") or ()
         if members:

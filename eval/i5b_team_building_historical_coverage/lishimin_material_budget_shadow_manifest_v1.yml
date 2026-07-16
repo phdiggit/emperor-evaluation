@@ -8,6 +8,7 @@ policy: config/i5b-scoring-policy.yml
 rules:
   talent_discovery:
     source: eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json
+    candidate_inventory_ref: eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v3.json
     eligible:
       positive:
         - material_id: REU-LSM-WEIZHENG-DISCOVERY-HC-v1

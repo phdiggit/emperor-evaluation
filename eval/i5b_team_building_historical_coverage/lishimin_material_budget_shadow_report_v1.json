@@ -36,11 +36,30 @@
   },
   "policy_ref": "config/i5b-scoring-policy.yml",
   "policy_sha256": "380dbc07672c54665f61e2e6658737e79674d315f19d032563cad3d3910692dd",
-  "report_sha256": "1671d2a027f7ff572b9067ace74058c7e5248189344b8ee9bd97fc725d16fd0e",
+  "report_sha256": "296da134b2c17ba83727465d0c1a0200593813739ed4abfe7a4b709d5f24ca3f",
   "ruler": "李世民",
   "ruler_ref": "PER-V4-78F48EBC67F8",
   "rules": [
     {
+      "candidate_boundary_audit": {
+        "boundary_changing_candidates_remain": true,
+        "current_positive_settlement_floor": "1.089000",
+        "deduplicated_boundary_candidate_count": 6,
+        "deduplicated_boundary_candidates": [
+          "尉迟敬德",
+          "张亮",
+          "张公谨",
+          "房玄龄",
+          "杜如晦",
+          "杜淹"
+        ],
+        "exhaustive_search_required": false,
+        "inventory_ref": "eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v3.json",
+        "inventory_sha256": "bf686248efc1d91af30f3e8247460967b36c0a5b2faf4ede2a71c99288856610",
+        "next_batch_within_rule_budget": true,
+        "raw_unresolved_candidate_count": 12,
+        "status": "boundary_not_stable_pending_review"
+      },
       "eligible_candidate_count": 4,
       "negative_budget": 3,
       "negative_signal": "0.000000",
@@ -82,6 +101,12 @@
             "eval/person_profiles/talent_grade_v9_high_tier_calibration_report.json#魏徵"
           ],
           "subject": "魏徵",
+          "talent_quality_basis": {
+            "policy_civil_outcome_basis": "长期高频决策校正、礼制典章史书责任及治理思想作品构成多个有结果或重要遗产的独立簇，达到领域第一梯队。",
+            "profile_ref": "eval/person_profiles/talent_grade_v9_high_tier_calibration_report.json#魏徵",
+            "shared_attribution_boundary": "政策执行归皇帝和中枢，本处只校准魏徵人才质量。",
+            "talent_grade": "top"
+          },
           "v4_factor_projection": {
             "contract_version": "talent-discovery-factor-agent-v2",
             "factor_choices": {
@@ -124,6 +149,12 @@
             "eval/person_profiles/authorized_profile_promotion.json#马周"
           ],
           "subject": "马周",
+          "talent_quality_basis": {
+            "policy_civil_outcome_basis": "刺史县令选任建议和京城置鼓等措施获采纳并产生实际结果，加上留辅形成两个中型政务簇；缺少国家级制度或治世成果。",
+            "profile_ref": "eval/person_profiles/authorized_profile_promotion.json#马周",
+            "shared_attribution_boundary": "成果最终归皇帝和中枢，本处只校准人物能力。",
+            "talent_grade": "important"
+          },
           "v4_factor_projection": {
             "contract_version": "talent-discovery-factor-agent-v2",
             "factor_choices": {
@@ -166,6 +197,12 @@
             "eval/person_profiles/talent_grade_v8_final_calibration_report.json#岑文本"
           ],
           "subject": "岑文本",
+          "talent_quality_basis": {
+            "policy_civil_outcome_basis": "制诰、掌中书机密及进谏证明高阶文书政务专长；现有事实以讲论和建议为主，没有可独立结算的制度或政策结果。",
+            "profile_ref": "eval/person_profiles/talent_grade_v8_final_calibration_report.json#岑文本",
+            "shared_attribution_boundary": "只校准人才质量，不在发现人才重复结算政策收益。",
+            "talent_grade": "usable"
+          },
           "v4_factor_projection": {
             "contract_version": "talent-discovery-factor-agent-v2",
             "factor_choices": {
@@ -179,7 +216,7 @@
       ],
       "source_candidate_count": 4,
       "source_ref": "eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json",
-      "source_sha256": "197f2435eae0794638ff1a763f820dfd6f8ec1d67956dc658478c5d7d50b99fc",
+      "source_sha256": "aded6f8f53147464d4b79b557468c37b915cd1f3e91755f21ef7834d32670cf0",
       "supplemental_source_refs": [],
       "supplemental_source_sha256s": [],
       "supporting_only_materials": [
@@ -189,7 +226,13 @@
           "material_magnitude": "1.089000",
           "rule_evidence_unit_ref": "REU-93C07EC6FC8BB55B52F0",
           "selection_status": "eligible_below_budget_boundary",
-          "subject": "张玄素"
+          "subject": "张玄素",
+          "talent_quality_basis": {
+            "policy_civil_outcome_basis": "政道问答与洛阳宫停工证明稳定政策纠正能力；停工结果只作为人才质量反馈，不反向增加识才材料。",
+            "profile_ref": "eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_promotion_v1.json#张玄素",
+            "shared_attribution_boundary": "洛阳宫停工的政策收益不在发现人才重复结算。",
+            "talent_grade": "usable"
+          }
         }
       ]
     },

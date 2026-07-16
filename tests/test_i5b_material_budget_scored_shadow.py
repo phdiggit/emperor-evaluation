@@ -105,6 +105,11 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "### 计入材料" in markdown
     assert "| 对象 | 实际计入信号 | 方向 | 材料分 |" in markdown
     assert "| 人物 | 计入正池 | 计入负池 |" in markdown
+    assert "### 人才质量与政策文治成果依据" in markdown
+    assert "| 张玄素 | `usable` | 政道问答与洛阳宫停工" in markdown
+    assert "状态：`boundary_not_stable_pending_review`" in markdown
+    assert "原始 unresolved：`12`" in markdown
+    assert "同源去重后边界候选：`6`" in markdown
     assert "**反馈入口强度**" not in markdown
     assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
     stdout = capsys.readouterr().out
@@ -184,6 +189,22 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     assert rules["team_building"]["rule_raw_net"] == "7.632074"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "1.760000"
+    boundary = rules["talent_discovery"]["candidate_boundary_audit"]
+    assert boundary["status"] == "boundary_not_stable_pending_review"
+    assert boundary["raw_unresolved_candidate_count"] == 12
+    assert boundary["deduplicated_boundary_candidate_count"] == 6
+    assert boundary["deduplicated_boundary_candidates"] == [
+        "尉迟敬德",
+        "张亮",
+        "张公谨",
+        "房玄龄",
+        "杜如晦",
+        "杜淹",
+    ]
+    assert boundary["current_positive_settlement_floor"] == "1.089000"
+    assert boundary["boundary_changing_candidates_remain"] is True
+    assert boundary["exhaustive_search_required"] is False
+    assert boundary["next_batch_within_rule_budget"] is True
     assert all("slot_rows" not in rule for rule in report["rules"])
     assert report["amplitude_diagnostic"]["amplitude_change_recommended"] is None
     assert report["amplitude_diagnostic"]["cohort_ruler_count"] == 1
