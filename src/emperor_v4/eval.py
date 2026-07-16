@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 import json
 import os
 from pathlib import Path
@@ -307,9 +308,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 workspace_root
                 / material_manifest["rules"]["team_building"]["source"]
             )
-            source_pack_path = args.civil_source_pack or (
-                workspace_root / "tmp/i5b_browser_sources" / f"{args.ruler}.json"
-            )
+            source_pack_path = args.civil_source_pack or closeout.get(
+                "civil_source_pack"
+            ) or (workspace_root / "tmp/i5b_browser_sources" / f"{args.ruler}.json")
+            source_pack_path = Path(source_pack_path)
             if not source_pack_path.is_absolute():
                 source_pack_path = workspace_root / source_pack_path
             try:
@@ -363,12 +365,25 @@ def main(argv: Sequence[str] | None = None) -> int:
                     if source.get("adapter") == "material_budget_report"
                 ),
             }
+            payload_overrides: dict[str, Any] = {
+                path: fresh_material_report for path in material_paths
+            }
+            for source in detail_manifest["detail_sources"]:
+                if source.get("adapter") != "appointment_parity_report":
+                    continue
+                path = str(source["path"])
+                appointment_payload = deepcopy(_load(workspace_root / path))
+                trace = appointment_payload.setdefault(
+                    "assertion_episode_reu_trace", {}
+                )
+                episodes = trace.setdefault("episodes", [])
+                episodes.extend(civil_retrieval_report.get("episodes") or ())
+                trace["episode_count"] = len(episodes)
+                payload_overrides[path] = appointment_payload
             fresh_detail_report = _build_detail(
                 detail_manifest,
                 workspace_root,
-                payload_overrides={
-                    path: fresh_material_report for path in material_paths
-                },
+                payload_overrides=payload_overrides,
             )
         elapsed_seconds = round(time.monotonic() - started, 6)
         detail_json_path = output_dir / "scoring-detail.json"

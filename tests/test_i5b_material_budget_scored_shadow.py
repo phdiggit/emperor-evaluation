@@ -101,12 +101,16 @@ def _offline_current_profiles() -> dict[str, dict]:
     return profiles
 
 
-def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
+def _mock_profile_table_only(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("emperor_v4.eval._v4_dsn", lambda _root: "offline-test")
     monkeypatch.setattr(
         "emperor_v4.eval.read_current_person_profiles",
         lambda _dsn: _offline_current_profiles(),
     )
+
+
+def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
+    _mock_profile_table_only(monkeypatch)
     monkeypatch.setattr(
         "emperor_v4.eval._load_civil_source_pack",
         lambda _path: {},
@@ -486,6 +490,93 @@ def test_one_command_closeout_stops_after_talent_budget_is_full(
     assert "计分详情：" in stdout
 
 
+def test_closeout_persists_civil_sources_and_merges_appointment_objects_before_top3(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _mock_profile_table_only(monkeypatch)
+
+    assert eval_main(
+        [
+            "i5b-historical-closeout",
+            "--ruler",
+            "李世民",
+            "--person",
+            "房玄龄",
+            "--workspace-root",
+            str(ROOT),
+            "--output-dir",
+            str(tmp_path),
+        ]
+    ) == 0
+
+    material = json.loads(
+        (tmp_path / "李世民/material-budget-shadow.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    appointment = _by_rule(material)["appointment_delegation"]
+    positive = [
+        row for row in appointment["settled_materials"] if row["side"] == "positive"
+    ]
+    positive_objects = {row["object_ref"] for row in positive}
+    fang = [row for row in positive if row["subject"] == "房玄龄"]
+
+    assert appointment["settlement_budget_unit"] == "delegated_person_or_group"
+    assert len(positive_objects) == appointment["positive_budget"] == 3
+    assert len(fang) >= 3
+    assert len({row["object_aggregate_magnitude"] for row in fang}) == 1
+    assert {row["object_aggregate_magnitude"] for row in fang} == {"3.506580"}
+    assert any("《贞观律》" in row["fact"] for row in fang)
+    assert any("《晋书》" in row["fact"] for row in fang)
+
+    markdown = (tmp_path / "李世民/scoring-detail.md").read_text(encoding="utf-8")
+    assert "对象合并分 / 排名" in markdown
+    assert "《贞观律》" in markdown
+    assert "《晋书》" in markdown
+    assert "### 历史事件" in markdown
+
+    detail_payload = json.loads(
+        (tmp_path / "李世民/scoring-detail.json").read_text(encoding="utf-8")
+    )
+    appointment_detail = next(
+        row
+        for row in detail_payload["selected_ruler_reports"][0]["rules"]
+        if row["rule_code"] == "appointment_delegation"
+    )
+    primary = next(
+        source
+        for source in appointment_detail["detail_sources"]
+        if source["role"] == "primary"
+    )["detail"]
+    weighted_positive = sum(
+        (
+            Decimal(str(row["weighted_signal"]))
+            for row in primary["materials"]
+            if row["side"] == "positive"
+        ),
+        Decimal("0"),
+    )
+    assert abs(
+        weighted_positive - Decimal(str(appointment_detail["positive_signal"]))
+    ) < Decimal("0.00001")
+
+    participations = detail_payload["people"][0]["participations"]
+    counted_reus = {
+        str(row["detail"]["rule_evidence_unit_ref"])
+        for row in participations
+        if row["rule_code"] == "appointment_delegation"
+        and row["participation_kind"] == "counted_material"
+        and row["detail"].get("subject") == "房玄龄"
+    }
+    episode_reus = {
+        str((row["detail"].get("lineage") or {}).get("unit_ref"))
+        for row in participations
+        if row["rule_code"] == "appointment_delegation"
+        and row["participation_kind"] == "historical_episode"
+    }
+    assert counted_reus <= episode_reus
+
+
 def test_closeout_without_work_package_fails_closed_without_traceback(
     tmp_path: Path, capsys,
 ) -> None:
@@ -553,28 +644,28 @@ def test_liubang_minimal_five_rule_package_closes_out_within_budget(
 
 def test_appointment_density_uses_competition_rank_for_ties() -> None:
     selected = [
-        {"object_ref": "A", "material_magnitude": Decimal("2.5")},
-        {"object_ref": "B", "material_magnitude": Decimal("2.5")},
-        {"object_ref": "C", "material_magnitude": Decimal("1.0")},
+        {"material_id": "A1", "rule_evidence_unit_ref": "EA", "object_ref": "A", "material_magnitude": Decimal("2.5")},
+        {"material_id": "B1", "rule_evidence_unit_ref": "EB", "object_ref": "B", "material_magnitude": Decimal("2.5")},
+        {"material_id": "C1", "rule_evidence_unit_ref": "EC", "object_ref": "C", "material_magnitude": Decimal("1.0")},
     ]
 
     expected = Decimal("1.5") * (
         Decimal("2.5") + Decimal("2.5") + Decimal("1") / Decimal("3").sqrt()
     )
-    assert _appointment_density(selected, "positive") == expected
+    assert _appointment_density(selected, "positive", Decimal("3.50658")) == expected
 
 
 def test_appointment_density_merges_multiple_materials_for_same_person() -> None:
     selected = [
-        {"object_ref": "PERSON-A", "material_magnitude": Decimal("2")},
-        {"object_ref": "PERSON-A", "material_magnitude": Decimal("1")},
-        {"object_ref": "PERSON-B", "material_magnitude": Decimal("2")},
+        {"material_id": "A1", "rule_evidence_unit_ref": "EA1", "object_ref": "PERSON-A", "material_magnitude": Decimal("2")},
+        {"material_id": "A2", "rule_evidence_unit_ref": "EA2", "object_ref": "PERSON-A", "material_magnitude": Decimal("1")},
+        {"material_id": "B1", "rule_evidence_unit_ref": "EB1", "object_ref": "PERSON-B", "material_magnitude": Decimal("2")},
     ]
 
     expected = Decimal("1.5") * (
-        Decimal("3") + Decimal("2") / Decimal("2").sqrt()
+        Decimal("2.5") + Decimal("2") / Decimal("2").sqrt()
     )
-    assert _appointment_density(selected, "positive") == expected
+    assert _appointment_density(selected, "positive", Decimal("3.50658")) == expected
 
 
 def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> None:
@@ -677,7 +768,7 @@ def test_event_rule_canonical_reports_use_current_v4_factor_contract(
     ] is True
 
 
-def test_appointment_uses_strongest_eligible_materials_without_domain_quota() -> None:
+def test_appointment_selects_strongest_objects_after_object_merge() -> None:
     appointment = _by_rule(build_i5b_material_budget_shadow(MANIFEST))[
         "appointment_delegation"
     ]
@@ -700,11 +791,13 @@ def test_appointment_uses_strongest_eligible_materials_without_domain_quota() ->
     assert "MAT-LSM-HONGWEN-HALL-POS" in supporting_ids
     assert appointment["eligible_candidate_count"] == 14
     assert all(
-        row["selection_basis"] == "eligibility_gate_then_strongest_n"
+        row["selection_basis"]
+        == "eligibility_gate_then_object_merge_then_strongest_n_objects"
         for row in appointment["settled_materials"]
     )
     assert appointment["positive_budget"] == 3
     assert appointment["negative_budget"] == 3
+    assert appointment["settlement_budget_unit"] == "delegated_person_or_group"
 
     by_id = {row["material_id"]: row for row in appointment["settled_materials"]}
     assert by_id["MAT-LSM-LIJING-POS"]["factor_option_codes"][

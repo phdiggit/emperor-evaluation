@@ -375,13 +375,58 @@ def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:
     return total
 
 
-def _appointment_density(selected: Sequence[Mapping[str, Any]], side: str) -> Decimal:
-    object_values: dict[str, Decimal] = {}
-    for material in selected:
+def _appointment_object_projection(
+    materials: Sequence[Mapping[str, Any]], object_cap: Decimal
+) -> tuple[dict[str, Decimal], dict[str, Decimal]]:
+    grouped: dict[str, dict[str, list[Mapping[str, Any]]]] = {}
+    for material in materials:
         object_ref = str(material["object_ref"])
-        object_values[object_ref] = object_values.get(object_ref, Decimal("0")) + material[
-            "material_magnitude"
-        ]
+        event_ref = str(
+            material.get("rule_evidence_unit_ref") or material["material_id"]
+        )
+        grouped.setdefault(object_ref, {}).setdefault(event_ref, []).append(material)
+
+    object_values: dict[str, Decimal] = {}
+    material_contributions: dict[str, Decimal] = {}
+    for object_ref, events in grouped.items():
+        event_rows = []
+        for event_ref, event_materials in events.items():
+            ordered_materials = sorted(
+                event_materials,
+                key=lambda row: (-row["material_magnitude"], row["material_id"]),
+            )
+            contributions = {
+                str(material["material_id"]): material["material_magnitude"]
+                / Decimal(rank)
+                for rank, material in enumerate(ordered_materials, start=1)
+            }
+            event_rows.append((event_ref, sum(contributions.values()), contributions))
+        event_rows.sort(key=lambda row: (-row[1], row[0]))
+        raw_contributions: dict[str, Decimal] = {}
+        for event_rank, (_, _, contributions) in enumerate(event_rows, start=1):
+            for material_id, value in contributions.items():
+                raw_contributions[material_id] = value / Decimal(event_rank)
+        raw_object_value = sum(raw_contributions.values(), Decimal("0"))
+        capped_object_value = min(raw_object_value, object_cap)
+        cap_scale = (
+            capped_object_value / raw_object_value
+            if raw_object_value > 0
+            else Decimal("0")
+        )
+        object_values[object_ref] = capped_object_value
+        material_contributions.update(
+            {
+                material_id: value * cap_scale
+                for material_id, value in raw_contributions.items()
+            }
+        )
+    return object_values, material_contributions
+
+
+def _appointment_density(
+    selected: Sequence[Mapping[str, Any]], side: str, object_cap: Decimal
+) -> Decimal:
+    object_values, _ = _appointment_object_projection(selected, object_cap)
     scale = Decimal("1.5") if side == "positive" else Decimal("1")
     total = Decimal("0")
     ordered = sorted(object_values.values(), reverse=True)
@@ -425,10 +470,21 @@ def _build_material_rule(
         raise ValueError(f"{rule_code} material_id 重复")
 
     budget = policy["settlement_budget"]["event_rules"][rule_code]
+    appointment_object_cap = Decimal("0")
+    if rule_code == "appointment_delegation":
+        aggregation_code = str(policy["rules"][rule_code]["aggregation_policy"])
+        appointment_object_cap = _decimal(
+            policy["aggregation_policies"][aggregation_code][
+                "same_object_value_cap"
+            ]
+        )
     selected_by_side: dict[str, list[dict[str, Any]]] = {}
     selected_views: list[dict[str, Any]] = []
     selected_ids: set[str] = set()
     eligible_ids: set[str] = set()
+    object_aggregate_by_side: dict[str, dict[str, Decimal]] = {}
+    object_material_contribution_by_side: dict[str, dict[str, Decimal]] = {}
+    object_boundary_by_side: dict[str, Decimal] = {}
     for side in ("positive", "negative"):
         decisions = list((rule_manifest.get("eligible") or {}).get(side) or [])
         keys = [str(row["independence_key"]) for row in decisions]
@@ -444,16 +500,64 @@ def _build_material_rule(
                 raise ValueError(f"{material_id} 方向与结算池不一致")
             eligible_ids.add(material_id)
             candidates.append((material, decision))
-        candidates.sort(
-            key=lambda row: (-row[0]["material_magnitude"], row[0]["material_id"])
-        )
-        selected_candidates = candidates[: int(budget[side])]
+        if rule_code == "appointment_delegation":
+            grouped: dict[
+                str, list[tuple[dict[str, Any], Mapping[str, Any]]]
+            ] = {}
+            for candidate in candidates:
+                grouped.setdefault(str(candidate[0]["object_ref"]), []).append(
+                    candidate
+                )
+            object_totals, material_contributions = _appointment_object_projection(
+                [row[0] for row in candidates], appointment_object_cap
+            )
+            ranked_objects = sorted(
+                grouped,
+                key=lambda object_ref: (-object_totals[object_ref], object_ref),
+            )
+            selected_objects = ranked_objects[: int(budget[side])]
+            object_aggregate_by_side[side] = object_totals
+            object_material_contribution_by_side[side] = material_contributions
+            object_boundary_by_side[side] = min(
+                (object_totals[object_ref] for object_ref in selected_objects),
+                default=Decimal("0"),
+            )
+            selected_candidates = [
+                candidate
+                for object_ref in selected_objects
+                for candidate in sorted(
+                    grouped[object_ref],
+                    key=lambda row: (
+                        -row[0]["material_magnitude"],
+                        row[0]["material_id"],
+                    ),
+                )
+            ]
+        else:
+            candidates.sort(
+                key=lambda row: (
+                    -row[0]["material_magnitude"], row[0]["material_id"]
+                )
+            )
+            selected_candidates = candidates[: int(budget[side])]
         selected = [row[0] for row in selected_candidates]
         for material, decision in selected_candidates:
             material_id = str(material["material_id"])
             selected_ids.add(material_id)
             view = _material_view(material, decision)
-            view["selection_basis"] = "eligibility_gate_then_strongest_n"
+            if rule_code == "appointment_delegation":
+                object_ref = str(material["object_ref"])
+                view["selection_basis"] = (
+                    "eligibility_gate_then_object_merge_then_strongest_n_objects"
+                )
+                view["object_aggregate_magnitude"] = _rounded(
+                    object_aggregate_by_side[side][object_ref]
+                )
+                view["object_internal_contribution"] = _rounded(
+                    object_material_contribution_by_side[side][material_id]
+                )
+            else:
+                view["selection_basis"] = "eligibility_gate_then_strongest_n"
             selected_views.append(view)
         selected_by_side[side] = selected
 
@@ -474,12 +578,18 @@ def _build_material_rule(
     for material_id in sorted(eligible_ids - selected_ids):
         material = by_id[material_id]
         side = str(material["side"])
-        boundary = min(
-            (
-                row["material_magnitude"]
-                for row in selected_by_side[side]
-            ),
-            default=Decimal("0"),
+        boundary = (
+            object_boundary_by_side[side]
+            if rule_code == "appointment_delegation"
+            else min(
+                (row["material_magnitude"] for row in selected_by_side[side]),
+                default=Decimal("0"),
+            )
+        )
+        comparison_label = (
+            "同一责任对象材料合并分"
+            if rule_code == "appointment_delegation"
+            else "材料分"
         )
         supporting_rows.append(
             {
@@ -495,9 +605,20 @@ def _build_material_rule(
                     material.get("factor_option_codes") or {}
                 ),
                 "fact": str(material.get("fact") or ""),
+                **(
+                    {
+                        "object_aggregate_magnitude": _rounded(
+                            object_aggregate_by_side[side][
+                                str(material["object_ref"])
+                            ]
+                        )
+                    }
+                    if rule_code == "appointment_delegation"
+                    else {}
+                ),
                 "judge_reason": (
                     "已通过适用性、归责、独立性和去重 Gate；"
-                    f"材料分低于当前{'正向' if side == 'positive' else '负向'}"
+                    f"{comparison_label}低于当前{'正向' if side == 'positive' else '负向'}"
                     f"预算边界 {_rounded(boundary)}，本版不计分。"
                 ),
                 "selection_status": "eligible_below_budget_boundary",
@@ -542,8 +663,12 @@ def _build_material_rule(
         )
 
     if rule_code == "appointment_delegation":
-        positive = _appointment_density(selected_by_side["positive"], "positive")
-        negative = _appointment_density(selected_by_side["negative"], "negative")
+        positive = _appointment_density(
+            selected_by_side["positive"], "positive", appointment_object_cap
+        )
+        negative = _appointment_density(
+            selected_by_side["negative"], "negative", appointment_object_cap
+        )
     else:
         positive = _object_density(selected_by_side["positive"])
         negative = _object_density(selected_by_side["negative"])
@@ -562,6 +687,12 @@ def _build_material_rule(
         "eligible_candidate_count": len(eligible_ids),
         "positive_budget": int(budget["positive"]),
         "negative_budget": int(budget["negative"]),
+        "settlement_budget_unit": str(budget["unit"]),
+        **(
+            {"same_object_value_cap": _rounded(appointment_object_cap)}
+            if rule_code == "appointment_delegation"
+            else {}
+        ),
         "settled_materials": selected_views,
         "supporting_only_materials": supporting_rows,
         "positive_signal": _rounded(positive),

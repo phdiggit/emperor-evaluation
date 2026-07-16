@@ -236,19 +236,51 @@ def _source_detail(
         if rule_code == "appointment_delegation":
             for side, rows in by_side.items():
                 scale = Decimal("1.5") if side == "positive" else Decimal("1")
-                ordered = sorted(
-                    rows,
-                    key=lambda row: (
-                        -_decimal(row["material_magnitude"]),
-                        str(row["material_id"]),
-                    ),
-                )
-                for rank, row in enumerate(ordered, start=1):
-                    weighted[str(row["material_id"])] = (
-                        scale
-                        * _decimal(row["material_magnitude"])
-                        / Decimal(rank).sqrt()
+                if any(
+                    "object_aggregate_magnitude" not in row
+                    or "object_internal_contribution" not in row
+                    for row in rows
+                ):
+                    ordered = sorted(
+                        rows,
+                        key=lambda row: (
+                            -_decimal(row["material_magnitude"]),
+                            str(row["material_id"]),
+                        ),
                     )
+                    for rank, row in enumerate(ordered, start=1):
+                        weighted[str(row["material_id"])] = (
+                            scale
+                            * _decimal(row["material_magnitude"])
+                            / Decimal(rank).sqrt()
+                        )
+                    continue
+                grouped: dict[str, list[dict[str, Any]]] = {}
+                for row in rows:
+                    grouped.setdefault(str(row.get("object_ref")), []).append(row)
+                object_totals = {
+                    object_ref: _decimal(group[0]["object_aggregate_magnitude"])
+                    for object_ref, group in grouped.items()
+                }
+                ordered_objects = sorted(
+                    grouped,
+                    key=lambda object_ref: (-object_totals[object_ref], object_ref),
+                )
+                rank = 0
+                previous: Decimal | None = None
+                for index, object_ref in enumerate(ordered_objects, start=1):
+                    total = object_totals[object_ref]
+                    if previous is None or total != previous:
+                        rank = index
+                    for row in grouped[object_ref]:
+                        row["object_aggregate_magnitude"] = str(total)
+                        row["object_rank"] = rank
+                        weighted[str(row["material_id"])] = (
+                            scale
+                            * _decimal(row["object_internal_contribution"])
+                            / Decimal(rank).sqrt()
+                        )
+                    previous = total
         else:
             for side, rows in by_side.items():
                 grouped: dict[str, list[dict[str, Any]]] = {}
@@ -289,7 +321,21 @@ def _source_detail(
                 "side": row["side"],
                 "material_score": row["material_magnitude"],
                 "weighted_signal": str(weighted[str(row["material_id"])]),
-                "aggregation_text": "结算预算内材料",
+                "aggregation_text": (
+                    "同一责任对象材料合并后按对象排名"
+                    if rule_code == "appointment_delegation"
+                    else "结算预算内材料"
+                ),
+                **(
+                    {
+                        "object_aggregate_magnitude": row.get(
+                            "object_aggregate_magnitude"
+                        ),
+                        "object_rank": row.get("object_rank"),
+                    }
+                    if rule_code == "appointment_delegation"
+                    else {}
+                ),
                 "projection_basis": row.get("fact"),
                 "numeric_projection": {
                     "factor_option_codes": dict(
@@ -1445,13 +1491,18 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 if episode_facts
                 else "计分事实"
             )
-            lines += [
-                "",
-                "### 计分聚合" if episode_facts else "### 计入材料",
-                "",
-                f"| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | {fact_column_label} |",
-                "|---|---|---:|---:|---|---|",
-            ]
+            appointment_columns = row["rule_code"] == "appointment_delegation"
+            lines += ["", "### 计分聚合" if episode_facts else "### 计入材料", ""]
+            if appointment_columns:
+                lines += [
+                    f"| 对象 | 方向 | 材料分 | 对象合并分 / 排名 | 实际计入信号 | 因子取值 | {fact_column_label} |",
+                    "|---|---|---:|---:|---:|---|---|",
+                ]
+            else:
+                lines += [
+                    f"| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | {fact_column_label} |",
+                    "|---|---|---:|---:|---|---|",
+                ]
             for material in materials:
                 subject = _display_name(
                     material.get("person") or material.get("subject") or "—"
@@ -1460,9 +1511,20 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 weighted = material.get("weighted_signal") or material.get(
                     "weighted_value"
                 ) or "—"
-                lines.append(
+                prefix = (
                     f"| {subject} | {_side_text(material.get('side'))} | "
-                    f"{_rounded(score)} | {_rounded(weighted)} | "
+                    f"{_rounded(score)} | "
+                )
+                if appointment_columns:
+                    aggregate = material.get("object_aggregate_magnitude")
+                    rank = material.get("object_rank")
+                    prefix += (
+                        f"{_rounded(aggregate) if aggregate is not None else '—'}"
+                        f" / {f'第{rank}名' if rank is not None else '—'} | "
+                    )
+                lines.append(
+                    prefix
+                    + f"{_rounded(weighted)} | "
                     f"{_choice_text(material, row['factor_catalog_zh'], report['evidence_factor_catalog_zh'])} | "
                     f"{_md_cell(material.get('fact_summary'))} |"
                 )
@@ -2032,8 +2094,8 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 "",
                 "### 材料",
                 "",
-                "| 规则 | 状态 | 材料 | 因子赋值 | 材料分 | 事实 |",
-                "|---|---|---|---|---:|---|",
+                "| 规则 | 状态 | 材料 | 因子赋值 | 材料分 | 对象合并分 / 排名 | 实际计入信号 | 事实 |",
+                "|---|---|---|---|---:|---:|---:|---|",
             ]
         for participation in material_rows:
             detail = participation["detail"]
@@ -2047,6 +2109,17 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 detail.get("material_score")
                 or detail.get("absolute_material_score")
                 or "—"
+            )
+            aggregate = detail.get("object_aggregate_magnitude")
+            rank = detail.get("object_rank")
+            aggregate_text = (
+                f"{_rounded(aggregate)} / 第{rank}名"
+                if aggregate is not None and rank is not None
+                else "—"
+            )
+            weighted = detail.get("weighted_signal")
+            weighted_text = (
+                _rounded(weighted) if weighted is not None and weighted != "" else "—"
             )
             status = {
                 "counted_material": "计入",
@@ -2064,6 +2137,7 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 f"{_md_cell(material)} | "
                 f"{_md_cell(participation['factor_assignment'])} | "
                 f"{_text(score)} | "
+                f"{aggregate_text} | {weighted_text} | "
                 f"{_md_cell(detail.get('fact') or detail.get('projection_basis'))} |"
             )
         if episode_rows:
@@ -2086,11 +2160,16 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 excerpt = f"《{work}》{quoted_text}"
                 if excerpt not in evidence_quotes:
                     evidence_quotes.append(excerpt)
+            source_display = "；".join(evidence_quotes)
+            if not source_display:
+                source_display = str(
+                    (episode.get("lineage") or {}).get("source_url") or ""
+                )
             lines.append(
                 f"| {_md_cell(participation['rule_label'])} | "
                 f"{_md_cell(episode.get('action'))} | "
                 f"{_md_cell(episode.get('outcome'))} | "
-                f"{_md_cell('；'.join(evidence_quotes) if evidence_quotes else '当前材料未附原文摘录')} |"
+                f"{_md_cell(source_display or '当前材料未附原文摘录')} |"
             )
     sections = ruler_sections + ["\n".join(lines)]
     return "\n\n".join(sections)

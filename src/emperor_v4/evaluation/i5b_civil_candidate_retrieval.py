@@ -128,6 +128,7 @@ def run_civil_candidate_retrieval(
     materials = []
     eligible = []
     excluded = []
+    episodes = []
     for candidate in payload_candidates:
         person_ref = str(candidate.get("person_ref") or "")
         if str(candidate.get("person") or "") != allowed[person_ref]:
@@ -181,9 +182,45 @@ def run_civil_candidate_retrieval(
                 "independence_key": lead["independence_key"],
                 "judge_reason": lead["judge_reason"],
             }
-            (eligible if lead["judge_disposition"] == "eligible" else excluded).append(
-                decision
-            )
+            if lead["judge_disposition"] == "eligible":
+                eligible.append(decision)
+                episodes.append(
+                    {
+                        "episode_id": "EP-WEB-"
+                        + _fingerprint(
+                            [person_ref, lead["independence_key"], lead["source_url"]]
+                        )[:16].upper(),
+                        "episode_type": "appointment_delegation_evidence_episode",
+                        "episode_status": "shadow_accepted_source_pack",
+                        "action": "；".join(
+                            (
+                                str(lead["delegated_responsibility"]),
+                                str(lead["measure"]),
+                            )
+                        ),
+                        "responsibility": str(lead["delegated_responsibility"]),
+                        "outcome": [str(lead["policy_or_civil_outcome"])],
+                        "consequence": [],
+                        "participants": [
+                            {
+                                "person_ref": person_ref,
+                                "role_codes": ["focal_person"],
+                                "role_status": "resolved",
+                            }
+                        ],
+                        "assertion_links": [],
+                        "lineage": {
+                            "unit_ref": material_id,
+                            "source_url": str(lead["source_url"]),
+                        },
+                        "provenance": {
+                            "builder": "i5b_civil_browser_source_pack_v1",
+                            "input_version": SOURCE_PACK_SCHEMA_VERSION,
+                        },
+                    }
+                )
+            else:
+                excluded.append(decision)
     return {
         "ruler": ruler,
         "candidate_count": len(candidates),
@@ -192,4 +229,5 @@ def run_civil_candidate_retrieval(
         "materials": materials,
         "eligible": eligible,
         "excluded": excluded,
+        "episodes": episodes,
     }
