@@ -186,8 +186,7 @@ def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
         "deduplicated_boundary_candidate_count"
     ] == 6
     assert report["judge_intake"]["status_counts"] == {
-        "awaiting_versioned_source_cache": 1,
-        "ready_for_candidate_judge": 12,
+        "awaiting_versioned_source_cache": 13,
     }
     assert report["declarations"]["expensive_campaign_started"] is False
     assert report["declarations"]["model_call_count"] == 0

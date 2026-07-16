@@ -1,0 +1,1088 @@
+{
+  "cases": [
+    {
+      "case_ref": "SGR-LSM-MAZHOU-DISCOVERY",
+      "profile_ref": "ORP-LSM-MAZHOU-V1",
+      "query_mode": "person_event",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-MAZHOU-DISCOVERY",
+      "subject_kind": "person",
+      "trigger_reason": "person_event_primary_locator_reuse",
+      "triggered": false
+    },
+    {
+      "case_ref": "SGR-LSM-FANG-COORDINATION",
+      "profile_ref": "ORP-LSM-FANGXUANLING-V1",
+      "query_mode": "governance_output",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-FANG-COORDINATION",
+      "subject_kind": "person",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-LIJI-BINGZHOU",
+      "profile_ref": "ORP-LSM-LIJI-BINGZHOU-V1",
+      "query_mode": "governance_output",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-LIJI-BINGZHOU",
+      "subject_kind": "person",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-REMONSTRANCE",
+      "profile_ref": "ORP-LSM-REMONSTRANCE-CHANNEL-V1",
+      "query_mode": "institution_operation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-REMONSTRANCE",
+      "subject_kind": "institution",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-MERIT-SELECTION",
+      "profile_ref": "ORP-LSM-MERIT-SELECTION-POLICY-V1",
+      "query_mode": "policy_implementation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-MERIT-SELECTION",
+      "subject_kind": "policy",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-HONGWEN",
+      "profile_ref": "ORP-LSM-HONGWEN-HALL-V1",
+      "query_mode": "institution_operation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-HONGWEN",
+      "subject_kind": "institution",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-FIVE-CLASSICS",
+      "profile_ref": "ORP-LSM-FIVE-CLASSICS-V1",
+      "query_mode": "policy_implementation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-FIVE-CLASSICS",
+      "subject_kind": "policy",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-HISTORIOGRAPHY",
+      "profile_ref": "ORP-LSM-HISTORIOGRAPHY-INDEPENDENCE-V1",
+      "query_mode": "institution_operation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-HISTORIOGRAPHY",
+      "subject_kind": "institution",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-CLAN-REGISTRY",
+      "profile_ref": "ORP-LSM-CLAN-REGISTRY-V1",
+      "query_mode": "policy_implementation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-CLAN-REGISTRY",
+      "subject_kind": "policy",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    },
+    {
+      "case_ref": "SGR-LSM-ZHENGUAN-RITES",
+      "profile_ref": "ORP-LSM-ZHENGUAN-RITES-V1",
+      "query_mode": "policy_implementation",
+      "source_cache_task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-ZHENGUAN-RITES",
+      "subject_kind": "policy",
+      "trigger_reason": "mandatory_institution_policy_or_governance_query",
+      "triggered": true
+    }
+  ],
+  "declarations": {
+    "candidate_judge_required": true,
+    "formal_score": null,
+    "migration_executed": false,
+    "primary_source_location_precedes_judge": true,
+    "ranking": null,
+    "scholarship_is_formal_fact": false,
+    "tier": null
+  },
+  "mechanism_contract_sha256": "9943de9cd086d9ac0ebcfbd4c50d232fae5512018c9e8e4644a30bf5c817e5e3",
+  "report_sha256": "ad26d1f464cabbd742cbf17b0b18facec8ff883bcf97777b444486ba18438094",
+  "ruler": {
+    "freeze_window": {
+      "end": 649,
+      "start": 626
+    },
+    "name": "李世民",
+    "ref": "RULER-V4-LISHIMIN"
+  },
+  "schema_version": "i5b-scholar-guided-retrieval-report-v1",
+  "scholarly_profile_report_sha256": "23572e7a492e17006f8953c535ba4d374e6247ea8f87c46591f2b2c6040661ad",
+  "source_cache_tasks": [
+    {
+      "case_ref": "SGR-LSM-MAZHOU-DISCOVERY",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "talent_discovery": [
+          "talent_visibility",
+          "ruler_verification",
+          "selection_to_use_conversion"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷02",
+          "retrieval_terms": [
+            "家客",
+            "上书言得失",
+            "召见",
+            "直门下省",
+            "中书令"
+          ],
+          "section": "卷二·任贤第三·马周",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-MAZHOU-LOW-STATUS-ENTRY-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "selection_to_use_conversion"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "talent_discovery": [
+              "talent_visibility",
+              "ruler_verification",
+              "selection_to_use_conversion"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "talent_discovery"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:75dfbcd3b57f039cb7be9ea8",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-MAZHOU-DISCOVERY",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷二·任贤第三·马周"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "马周",
+          "person_or_ruler_ref": "PER-V4-1E978B22A450"
+        }
+      },
+      "subject_label": "马周",
+      "subject_ref": "PER-V4-1E978B22A450",
+      "target_rules": [
+        "talent_discovery"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-MAZHOU-DISCOVERY"
+    },
+    {
+      "case_ref": "SGR-LSM-FANG-COORDINATION",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "appointment_delegation": [
+          "ruler_commission",
+          "authority_boundary",
+          "actual_operation",
+          "attributable_result"
+        ],
+        "team_building": [
+          "functional_role",
+          "complementary_capability",
+          "coordination_operation",
+          "collective_result"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷02",
+          "retrieval_terms": [
+            "总任百司",
+            "审定法令",
+            "共掌朝政",
+            "台阁规模",
+            "典章文物",
+            "量定庶官"
+          ],
+          "section": "卷二·任贤第三·房玄龄、杜如晦、王珪",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-FANG-CENTRAL-COORDINATION-V1",
+          "work": "贞观政要"
+        },
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷03",
+          "retrieval_terms": [
+            "总任百司",
+            "审定法令",
+            "共掌朝政",
+            "台阁规模",
+            "典章文物",
+            "量定庶官"
+          ],
+          "section": "卷三·择官第七",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-FANG-CENTRAL-COORDINATION-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "team_coordination",
+        "collective_result"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "appointment_delegation": [
+              "ruler_commission",
+              "authority_boundary",
+              "actual_operation",
+              "attributable_result"
+            ],
+            "team_building": [
+              "functional_role",
+              "complementary_capability",
+              "coordination_operation",
+              "collective_result"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "appointment_delegation",
+            "team_building"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:626da4232d9c8267c69e95e1",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-FANG-COORDINATION",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷三·择官第七",
+          "贞观政要/卷二·任贤第三·房玄龄、杜如晦、王珪"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "房玄龄",
+          "person_or_ruler_ref": "PER-V4-C37ED24688F5"
+        }
+      },
+      "subject_label": "房玄龄",
+      "subject_ref": "PER-V4-C37ED24688F5",
+      "target_rules": [
+        "appointment_delegation",
+        "team_building"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-FANG-COORDINATION"
+    },
+    {
+      "case_ref": "SGR-LSM-LIJI-BINGZHOU",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "appointment_delegation": [
+          "ruler_commission",
+          "authority_boundary",
+          "actual_operation",
+          "attributable_result"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷02",
+          "retrieval_terms": [
+            "并州都督",
+            "十六年",
+            "令突厥畏威遁走",
+            "塞垣安静"
+          ],
+          "section": "卷二·任贤第三·李勣",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-LIJI-BINGZHOU-GOVERNANCE-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "appointment_operation"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "appointment_delegation": [
+              "ruler_commission",
+              "authority_boundary",
+              "actual_operation",
+              "attributable_result"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "appointment_delegation"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:c1dcdc0d6e657929cc8ed96b",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-LIJI-BINGZHOU",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷二·任贤第三·李勣"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "李勣",
+          "person_or_ruler_ref": "PER-V4-LIJI-CANDIDATE"
+        }
+      },
+      "subject_label": "李勣",
+      "subject_ref": "PER-V4-LIJI-CANDIDATE",
+      "target_rules": [
+        "appointment_delegation"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-LIJI-BINGZHOU"
+    },
+    {
+      "case_ref": "SGR-LSM-REMONSTRANCE",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "tolerate_talent": [
+          "formal_feedback_entry",
+          "channel_operation",
+          "expression_or_professional_independence",
+          "ruler_response"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷02",
+          "retrieval_terms": [
+            "谏官随入",
+            "预闻政事",
+            "上封事",
+            "起居注",
+            "善恶毕书"
+          ],
+          "section": "卷二·求谏第四",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-REMONSTRANCE-FORMAL-CHANNEL-V1",
+          "work": "贞观政要"
+        },
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "谏官随入",
+            "预闻政事",
+            "上封事",
+            "起居注",
+            "善恶毕书"
+          ],
+          "section": "卷七·论文史第二十八·起居注",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-REMONSTRANCE-FORMAL-CHANNEL-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "institution_operation"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "tolerate_talent": [
+              "formal_feedback_entry",
+              "channel_operation",
+              "expression_or_professional_independence",
+              "ruler_response"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "tolerate_talent"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:1e7f735f761b85db1bc0860c",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-REMONSTRANCE",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷七·论文史第二十八·起居注",
+          "贞观政要/卷二·求谏第四"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "贞观谏官随宰相议政机制",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-REMONSTRANCE"
+        }
+      },
+      "subject_label": "贞观谏官随宰相议政机制",
+      "subject_ref": "GOVOBJ-CAND-LSM-REMONSTRANCE",
+      "target_rules": [
+        "tolerate_talent"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-REMONSTRANCE"
+    },
+    {
+      "case_ref": "SGR-LSM-MERIT-SELECTION",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "anti_nepotism": [
+          "private_relation_or_status",
+          "public_office_effect",
+          "prevention_or_correction",
+          "observed_result"
+        ],
+        "talent_discovery": [
+          "talent_visibility",
+          "ruler_verification",
+          "selection_to_use_conversion"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷03",
+          "retrieval_terms": [
+            "量才授职",
+            "省官员",
+            "世袭刺史",
+            "今日官品",
+            "人才作等级"
+          ],
+          "section": "卷三·择官第七",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-MERIT-SELECTION-POLICY-V1",
+          "work": "贞观政要"
+        },
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷03",
+          "retrieval_terms": [
+            "量才授职",
+            "省官员",
+            "世袭刺史",
+            "今日官品",
+            "人才作等级"
+          ],
+          "section": "卷三·封建第八·罢世袭刺史",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-MERIT-SELECTION-POLICY-V1",
+          "work": "贞观政要"
+        },
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "量才授职",
+            "省官员",
+            "世袭刺史",
+            "今日官品",
+            "人才作等级"
+          ],
+          "section": "卷七·论礼乐第二十九·氏族志",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-MERIT-SELECTION-POLICY-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "merit_selection",
+        "ruler_correction"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "anti_nepotism": [
+              "private_relation_or_status",
+              "public_office_effect",
+              "prevention_or_correction",
+              "observed_result"
+            ],
+            "talent_discovery": [
+              "talent_visibility",
+              "ruler_verification",
+              "selection_to_use_conversion"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "talent_discovery",
+            "anti_nepotism"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:ce7907944323c0a642b06a4a",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-MERIT-SELECTION",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷七·论礼乐第二十九·氏族志",
+          "贞观政要/卷三·封建第八·罢世袭刺史",
+          "贞观政要/卷三·择官第七"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "贞观量才授职与反世袭用人政策",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-MERIT-SELECTION"
+        }
+      },
+      "subject_label": "贞观量才授职与反世袭用人政策",
+      "subject_ref": "GOVOBJ-CAND-LSM-MERIT-SELECTION",
+      "target_rules": [
+        "talent_discovery",
+        "anti_nepotism"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-MERIT-SELECTION"
+    },
+    {
+      "case_ref": "SGR-LSM-HONGWEN",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "talent_discovery": [
+          "talent_visibility",
+          "ruler_verification",
+          "selection_to_use_conversion"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "置弘文馆",
+            "精选天下文儒",
+            "轮番宿直",
+            "讨论坟典",
+            "商略政事"
+          ],
+          "section": "卷七·崇儒学第二十七·弘文馆",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-HONGWEN-TALENT-POOL-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "talent_pool"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "talent_discovery": [
+              "talent_visibility",
+              "ruler_verification",
+              "selection_to_use_conversion"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "talent_discovery"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:00ded3c182bcd5263f3495d8",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-HONGWEN",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷七·崇儒学第二十七·弘文馆"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "弘文馆学士轮值议政机制",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-HONGWEN-HALL"
+        }
+      },
+      "subject_label": "弘文馆学士轮值议政机制",
+      "subject_ref": "GOVOBJ-CAND-LSM-HONGWEN-HALL",
+      "target_rules": [
+        "talent_discovery"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-HONGWEN"
+    },
+    {
+      "case_ref": "SGR-LSM-FIVE-CLASSICS",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "appointment_delegation": [
+          "ruler_commission",
+          "authority_boundary",
+          "actual_operation",
+          "attributable_result"
+        ],
+        "team_building": [
+          "functional_role",
+          "complementary_capability",
+          "coordination_operation",
+          "collective_result"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "颜师古",
+            "考定五经",
+            "房玄龄集诸儒详议",
+            "孔颖达",
+            "五经正义",
+            "颁于天下"
+          ],
+          "section": "卷七·崇儒学第二十七·五经定本与五经正义",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-FIVE-CLASSICS-COMMISSION-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "expert_delegation",
+        "policy_implementation"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "appointment_delegation": [
+              "ruler_commission",
+              "authority_boundary",
+              "actual_operation",
+              "attributable_result"
+            ],
+            "team_building": [
+              "functional_role",
+              "complementary_capability",
+              "coordination_operation",
+              "collective_result"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "appointment_delegation",
+            "team_building"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:6d03cb9b7bcdeb0779a5d256",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-FIVE-CLASSICS",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷七·崇儒学第二十七·五经定本与五经正义"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "五经定本与五经正义编修颁行",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-FIVE-CLASSICS"
+        }
+      },
+      "subject_label": "五经定本与五经正义编修颁行",
+      "subject_ref": "GOVOBJ-CAND-LSM-FIVE-CLASSICS",
+      "target_rules": [
+        "appointment_delegation",
+        "team_building"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-FIVE-CLASSICS"
+    },
+    {
+      "case_ref": "SGR-LSM-HISTORIOGRAPHY",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "tolerate_talent": [
+          "formal_feedback_entry",
+          "channel_operation",
+          "expression_or_professional_independence",
+          "ruler_response"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "起居注",
+            "褚遂良",
+            "刘洎",
+            "善恶必书",
+            "人君不观史"
+          ],
+          "section": "卷七·论文史第二十八·起居注",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-HISTORIOGRAPHY-INDEPENDENCE-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "professional_independence"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "tolerate_talent": [
+              "formal_feedback_entry",
+              "channel_operation",
+              "expression_or_professional_independence",
+              "ruler_response"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "tolerate_talent"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:fe815e65fbd5989e59c74743",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-HISTORIOGRAPHY",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷七·论文史第二十八·起居注"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "起居注独立记录机制",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-HISTORIOGRAPHY"
+        }
+      },
+      "subject_label": "起居注独立记录机制",
+      "subject_ref": "GOVOBJ-CAND-LSM-HISTORIOGRAPHY",
+      "target_rules": [
+        "tolerate_talent"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-HISTORIOGRAPHY"
+    },
+    {
+      "case_ref": "SGR-LSM-CLAN-REGISTRY",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "anti_nepotism": [
+          "private_relation_or_status",
+          "public_office_effect",
+          "prevention_or_correction",
+          "observed_result"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "高士廉",
+            "魏挺",
+            "岑文本",
+            "令狐德棻",
+            "氏族志",
+            "今日官爵高下",
+            "人才优劣"
+          ],
+          "section": "卷七·论礼乐第二十九·氏族志",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-CLAN-REGISTRY-AMBIGUOUS-V1",
+          "work": "贞观政要"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "ambiguous_policy_result"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "anti_nepotism": [
+              "private_relation_or_status",
+              "public_office_effect",
+              "prevention_or_correction",
+              "observed_result"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "anti_nepotism"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:260df1f67c1263cb37684008",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-CLAN-REGISTRY",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "贞观政要/卷七·论礼乐第二十九·氏族志"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "氏族志重修与门望排序政策",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-CLAN-REGISTRY"
+        }
+      },
+      "subject_label": "氏族志重修与门望排序政策",
+      "subject_ref": "GOVOBJ-CAND-LSM-CLAN-REGISTRY",
+      "target_rules": [
+        "anti_nepotism"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-CLAN-REGISTRY"
+    },
+    {
+      "case_ref": "SGR-LSM-ZHENGUAN-RITES",
+      "disposition": "candidate_only",
+      "mechanism_predicates": {
+        "appointment_delegation": [
+          "ruler_commission",
+          "authority_boundary",
+          "actual_operation",
+          "attributable_result"
+        ]
+      },
+      "next_gate": "versioned_source_cache_then_candidate_judge",
+      "primary_source_locators": [
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/貞觀政要/卷07",
+          "retrieval_terms": [
+            "贞观三年",
+            "诏修礼",
+            "房玄龄",
+            "贞观十一年",
+            "贞观礼",
+            "增多二十九条"
+          ],
+          "section": "卷七·论礼乐第二十九",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-ZHENGUAN-RITES-IMPLEMENTATION-V1",
+          "work": "贞观政要"
+        },
+        {
+          "canonical_url": "https://zh.wikisource.org/wiki/舊唐書",
+          "retrieval_terms": [
+            "贞观三年",
+            "诏修礼",
+            "房玄龄",
+            "贞观十一年",
+            "贞观礼",
+            "增多二十九条"
+          ],
+          "section": "礼仪志·贞观礼",
+          "status": "located_pending_formal_acceptance",
+          "summary_ref": "ORPS-ZHENGUAN-RITES-IMPLEMENTATION-V1",
+          "work": "旧唐书"
+        }
+      ],
+      "required_source_cache_selection_keys": [
+        "expert_deliberation",
+        "zhenguan_rites_completion"
+      ],
+      "search_directions": [
+        "negative",
+        "positive"
+      ],
+      "source_cache_request": {
+        "evaluation_context": {
+          "mechanism_predicates": {
+            "appointment_delegation": [
+              "ruler_commission",
+              "authority_boundary",
+              "actual_operation",
+              "attributable_result"
+            ]
+          },
+          "purpose": "scholar_guided_primary_source_location",
+          "reign_window": {
+            "end": 649,
+            "start": 626
+          },
+          "ruler": "李世民",
+          "rules": [
+            "appointment_delegation"
+          ],
+          "search_directions": [
+            "negative",
+            "positive"
+          ]
+        },
+        "idempotency_key": "source-cache:v4:scholar-guided:4c7386e1db8d450012204bfb",
+        "mode": "ensure",
+        "request_id": "SRC-I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-ZHENGUAN-RITES",
+        "requested_at": "2026-07-16 00:00:00+08:00",
+        "required_source_families": [
+          "primary_text"
+        ],
+        "source_hints": [
+          "旧唐书/礼仪志·贞观礼",
+          "贞观政要/卷七·论礼乐第二十九"
+        ],
+        "source_policy_version": "v4-scholar-guided-primary-location-v1",
+        "subject": {
+          "aliases": [],
+          "canonical_name": "贞观礼修订与颁行",
+          "person_or_ruler_ref": "GOVOBJ-CAND-LSM-ZHENGUAN-RITES"
+        }
+      },
+      "subject_label": "贞观礼修订与颁行",
+      "subject_ref": "GOVOBJ-CAND-LSM-ZHENGUAN-RITES",
+      "target_rules": [
+        "appointment_delegation"
+      ],
+      "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1:SGR-LSM-ZHENGUAN-RITES"
+    }
+  ],
+  "status": "candidate_tasks_ready_for_source_cache",
+  "summary": {
+    "business_write_count": 0,
+    "case_count": 10,
+    "mandatory_trigger_count": 9,
+    "model_call_count": 0,
+    "network_request_count": 0,
+    "rule_task_counts": {
+      "anti_nepotism": 2,
+      "appointment_delegation": 4,
+      "talent_discovery": 3,
+      "team_building": 2,
+      "tolerate_talent": 2
+    },
+    "source_cache_task_count": 10,
+    "within_work_budget": true,
+    "work_budget_ref": "config/i5b-historical-work-budget.yml"
+  },
+  "task_code": "I5B-LISHIMIN-SCHOLAR-GUIDED-RETRIEVAL-626-649-V1",
+  "task_contract_sha256": "2441cb36b08f5b03ec963e838428d88598ee3f16b5f02e279e5ae57902c2d364"
+}
