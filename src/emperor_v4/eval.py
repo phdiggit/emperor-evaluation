@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 import yaml
 
@@ -85,6 +85,20 @@ def _parser() -> argparse.ArgumentParser:
     selection.add_argument("--workspace-root", type=Path, default=Path("."))
     selection.add_argument("--format", choices=("json", "markdown"), required=True)
     selection.add_argument("--output", type=Path, required=True)
+
+    detail_export = commands.add_parser("i5b-scoring-detail-export")
+    detail_export.add_argument("--ruler", required=True)
+    detail_export.add_argument(
+        "--catalog",
+        type=Path,
+        default=Path("eval/i5b_scoring_detail/catalog.yml"),
+    )
+    detail_export.add_argument("--workspace-root", type=Path, default=Path("."))
+    detail_export.add_argument(
+        "--output-dir", type=Path, default=Path("tmp/i5b_scoring_detail")
+    )
+    detail_export.add_argument("--person", action="append", default=[])
+    detail_export.add_argument("--rule", action="append", default=[])
     return parser
 
 
@@ -110,8 +124,19 @@ def _build_detail(manifest: dict[str, Any], workspace_root: Path) -> dict[str, A
     )
 
 
-def main() -> int:
-    args = _parser().parse_args()
+def _catalog_reports(
+    catalog: dict[str, Any], workspace_root: Path
+) -> dict[str, dict[str, Any]]:
+    return {
+        entry["ruler"]: _build_detail(
+            _load(workspace_root / entry["manifest"]), workspace_root
+        )
+        for entry in catalog["entries"]
+    }
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
     output_format = "json"
 
     if args.command == "i5b-factor-semantics":
@@ -157,18 +182,67 @@ def main() -> int:
     elif args.command == "i5b-scoring-detail-select":
         workspace_root = args.workspace_root.resolve()
         catalog = _load(args.catalog)
-        reports = {
-            entry["ruler"]: _build_detail(
-                _load(workspace_root / entry["manifest"]), workspace_root
-            )
-            for entry in catalog["entries"]
-        }
+        reports = _catalog_reports(catalog, workspace_root)
         report = build_i5b_scoring_detail_selection(
             catalog=catalog,
             selection=_load(args.selection),
             ruler_reports=reports,
         )
         output_format = args.format
+    elif args.command == "i5b-scoring-detail-export":
+        if any(value in args.ruler for value in ("/", "\\", "..")):
+            raise ValueError("--ruler 不得包含路径字符")
+        workspace_root = args.workspace_root.resolve()
+        catalog_path = (
+            args.catalog
+            if args.catalog.is_absolute()
+            else workspace_root / args.catalog
+        )
+        catalog = _load(catalog_path)
+        report = build_i5b_scoring_detail_selection(
+            catalog=catalog,
+            selection={
+                "schema_version": "i5b-scoring-detail-selection-v1",
+                "rulers": [args.ruler],
+                "people": list(args.person),
+                "rules": list(args.rule),
+                "person_scope": "selected_rulers",
+                "strict": True,
+            },
+            ruler_reports=_catalog_reports(catalog, workspace_root),
+        )
+        output_dir = (
+            args.output_dir
+            if args.output_dir.is_absolute()
+            else workspace_root / args.output_dir
+        ) / args.ruler
+        output_dir.mkdir(parents=True, exist_ok=True)
+        json_path = output_dir / "scoring-detail.json"
+        markdown_path = output_dir / "scoring-detail.md"
+        json_path.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        markdown_path.write_text(
+            render_i5b_scoring_detail_selection_markdown(report),
+            encoding="utf-8",
+            newline="\n",
+        )
+        ruler_report = report["selected_ruler_reports"][0]
+        selection_summary = ruler_report["selection_summary"]
+        print(f"皇帝：{args.ruler}")
+        print(
+            "历史覆盖："
+            f"{ruler_report['summary']['historical_coverage_complete_rule_count']}/5"
+        )
+        print(
+            "五条rule加权raw signal："
+            f"{selection_summary['selected_rule_weighted_raw_signal']}"
+        )
+        print(f"Markdown：{markdown_path}")
+        print(f"JSON：{json_path}")
+        return 0
     else:
         raise AssertionError("unreachable")
 

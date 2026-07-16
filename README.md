@@ -50,8 +50,12 @@ $env:PYTHONPATH = "src"
 python -m emperor_v4.eval model-policy --policy config/model-policy.yml
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output tmp/factor-semantics.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
-python -m emperor_v4.eval i5b-scoring-detail-select --catalog eval/i5b_scoring_detail/catalog.yml --selection eval/i5b_scoring_detail/selection_example.yml --workspace-root . --format markdown --output tmp/scoring-detail.md
+python -m emperor_v4.eval i5b-scoring-detail-export --ruler 李世民
 ```
+
+最后一条命令默认导出该皇帝全部五条rule，同时生成
+`tmp/i5b_scoring_detail/<皇帝>/scoring-detail.md` 和 `scoring-detail.json`。
+需要筛选时可重复传入 `--rule` 或 `--person`。
 
 ## 当前事实源
 

@@ -6,6 +6,7 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     _appointment_density,
     build_i5b_material_budget_shadow,
@@ -49,6 +50,37 @@ def test_policy_requires_gate_then_strongest_n_without_empty_slot_penalty() -> N
     assert policy["rules"]["appointment_delegation"]["appointment_effect"][
         "exceptional_success"
     ] == 1.8
+
+
+def test_one_command_exports_full_ruler_scoring_detail(
+    tmp_path: Path, capsys,
+) -> None:
+    assert eval_main(
+        [
+            "i5b-scoring-detail-export",
+            "--ruler",
+            "李世民",
+            "--workspace-root",
+            str(ROOT),
+            "--output-dir",
+            str(tmp_path),
+        ]
+    ) == 0
+    output_dir = tmp_path / "李世民"
+    payload = json.loads(
+        (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
+    )
+    ruler = payload["selected_ruler_reports"][0]
+    assert ruler["summary"]["historical_coverage_complete_rule_count"] == 5
+    assert ruler["selection_summary"] == {
+        "complete_five_rule_signal": True,
+        "selected_rule_count": 5,
+        "selected_rule_weighted_raw_signal": "7.248",
+    }
+    assert (output_dir / "scoring-detail.md").is_file()
+    stdout = capsys.readouterr().out
+    assert "历史覆盖：5/5" in stdout
+    assert "五条rule加权raw signal：7.248" in stdout
 
 
 def test_appointment_density_uses_competition_rank_for_ties() -> None:
