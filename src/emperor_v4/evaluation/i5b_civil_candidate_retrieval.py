@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from copy import deepcopy
 from hashlib import sha256
 import json
-from pathlib import Path
-import time
-from typing import Any, Callable, Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 
 GRADE_ORDER = {"historic": 0, "top": 1, "important": 2}
+SOURCE_PACK_SCHEMA_VERSION = "i5b-civil-browser-source-pack-v1"
 FACTOR_VALUES = {
     "appointment_importance": {
         "nominal_or_light": 0.6,
@@ -74,20 +72,30 @@ def _civil_candidate_queue(
     )
 
 
-def _load_cache(path: Path) -> dict[str, Any]:
-    if not path.is_file():
-        return {}
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    return payload if isinstance(payload, dict) else {}
-
-
-def _save_cache(path: Path, payload: Mapping[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+def build_civil_browser_worklist(
+    *,
+    ruler: str,
+    ruler_names: Sequence[str],
+    team_source: Mapping[str, Any],
+    current_profiles: Mapping[str, Mapping[str, Any]],
+    max_candidate_judge_items: int,
+) -> list[dict[str, Any]]:
+    people = _civil_candidate_queue(team_source, current_profiles, ruler_names)[
+        : max(0, max_candidate_judge_items - 1)
+    ]
+    return [
+        *(
+            dict(row) | {"query": f"{row['person']} 举措"}
+            for row in people
+        ),
+        {
+            "person": f"{ruler}用人政策",
+            "person_ref": f"POLICY-{_fingerprint(ruler)[:16].upper()}",
+            "talent_grade": "policy",
+            "role_families": ["policy"],
+            "query": f"{ruler} 用人政策",
+        },
+    ]
 
 
 def run_civil_candidate_retrieval(
@@ -96,72 +104,50 @@ def run_civil_candidate_retrieval(
     ruler_names: Sequence[str],
     team_source: Mapping[str, Any],
     current_profiles: Mapping[str, Mapping[str, Any]],
-    cache_path: Path,
-    max_network_requests: int,
     max_candidate_judge_items: int,
-    max_wall_clock_seconds: float,
-    completion_reserve_seconds: float,
-    provider_policy: Mapping[str, Any],
-    discover: Callable[..., tuple[Mapping[str, Any], Mapping[str, Any]]],
-    clock: Callable[[], float] = time.monotonic,
+    source_pack: Mapping[str, Any],
 ) -> dict[str, Any]:
     candidates = _civil_candidate_queue(team_source, current_profiles, ruler_names)
-    window = team_source.get("window")
-    selected_people = candidates[: max(0, max_candidate_judge_items - 1)]
-    selected = [
-        *selected_people,
-        {
-            "person": f"{ruler}用人政策",
-            "person_ref": f"POLICY-{_fingerprint(ruler)[:16].upper()}",
-            "talent_grade": "policy",
-            "role_families": ["policy"],
-        },
-    ]
-    cache_key = _fingerprint(
-        {
-            "version": "civil-two-hop-shadow-v1",
-            "ruler": ruler,
-            "ruler_names": list(ruler_names),
-            "window": window,
-            "candidates": selected,
-            "provider": dict(provider_policy),
-        }
-    )
-    cache = _load_cache(cache_path)
-    if cache_key in cache:
-        result = deepcopy(cache[cache_key])
-        first_elapsed = result["runtime"]["elapsed_seconds"]
-        result["runtime"] = {
-            "cache_hit": True,
-            "elapsed_seconds": 0,
-            "first_run_elapsed_seconds": first_elapsed,
-            "model_call_count": 0,
-        }
-        return result
-
-    started = clock()
-    payload, provider_runtime = discover(
+    selected = build_civil_browser_worklist(
         ruler=ruler,
         ruler_names=ruler_names,
-        evaluation_window=window,
-        candidates=selected,
-        timeout_seconds=max(
-            1, int(max_wall_clock_seconds - completion_reserve_seconds)
-        ),
+        team_source=team_source,
+        current_profiles=current_profiles,
+        max_candidate_judge_items=max_candidate_judge_items,
     )
+    selected_people = [row for row in selected if row["talent_grade"] != "policy"]
+    if source_pack.get("schema_version") != SOURCE_PACK_SCHEMA_VERSION:
+        raise ValueError("浏览器文官候选包版本不支持")
+    if source_pack.get("ruler") != ruler:
+        raise ValueError("浏览器文官候选包皇帝不匹配")
+    payload_candidates = source_pack.get("candidates") or ()
+    allowed = {row["person_ref"]: row["person"] for row in selected}
+    supplied = {str(row.get("person_ref") or "") for row in payload_candidates}
+    if supplied != set(allowed):
+        raise ValueError("浏览器文官候选包必须完整且不得越过候选边界")
     materials = []
     eligible = []
     excluded = []
-    for candidate in payload.get("candidates") or ():
-        for lead in candidate.get("leads") or ():
+    for candidate in payload_candidates:
+        person_ref = str(candidate.get("person_ref") or "")
+        if str(candidate.get("person") or "") != allowed[person_ref]:
+            raise ValueError("浏览器文官候选包人物标识不匹配")
+        leads = candidate.get("leads") or ()
+        if len(leads) > 3:
+            raise ValueError("每个文官最多保留三条浏览器候选")
+        for lead in leads:
             material_id = "WEB-AD-" + _fingerprint(
-                [candidate["person_ref"], lead["measure"], lead["source_url"]]
+                [person_ref, lead["measure"], lead["source_url"]]
             )[:16].upper()
             option_codes = {name: str(lead[name]) for name in FACTOR_VALUES}
-            factor_values = {
-                name: FACTOR_VALUES[name][option]
-                for name, option in option_codes.items()
-            } | {
+            try:
+                factor_values = {
+                    name: FACTOR_VALUES[name][option]
+                    for name, option in option_codes.items()
+                }
+            except KeyError as exc:
+                raise ValueError("浏览器文官候选包因子档位非法") from exc
+            factor_values |= {
                 "attribution_factor": 1.0,
                 "source_factor": 1.1,
                 "context_factor": 1.0,
@@ -175,7 +161,7 @@ def run_civil_candidate_retrieval(
                 {
                     "material_id": material_id,
                     "subject": candidate["person"],
-                    "object_ref": candidate["person_ref"],
+                    "object_ref": person_ref,
                     "side": "positive",
                     "factor_values": factor_values,
                     "factor_option_codes": option_codes,
@@ -198,7 +184,7 @@ def run_civil_candidate_retrieval(
             (eligible if lead["judge_disposition"] == "eligible" else excluded).append(
                 decision
             )
-    result = {
+    return {
         "ruler": ruler,
         "candidate_count": len(candidates),
         "processed_candidate_count": len(selected_people),
@@ -206,12 +192,4 @@ def run_civil_candidate_retrieval(
         "materials": materials,
         "eligible": eligible,
         "excluded": excluded,
-        "runtime": {
-            "cache_hit": False,
-            "elapsed_seconds": round(clock() - started, 3),
-            "model_call_count": int(provider_runtime["model_call_count"]),
-        },
     }
-    cache[cache_key] = result
-    _save_cache(cache_path, cache)
-    return result

@@ -11,11 +11,8 @@ import yaml
 
 from emperor_v4.evaluation.i5b_factor_semantics import evaluate_i5b_factor_semantics
 from emperor_v4.evaluation.i5b_civil_candidate_retrieval import (
+    build_civil_browser_worklist,
     run_civil_candidate_retrieval,
-)
-from emperor_v4.adapters.civil_web_discovery_codex import (
-    PROMPT_POLICY_VERSION as CIVIL_WEB_PROMPT_POLICY_VERSION,
-    run_codex_civil_web_discovery,
 )
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
@@ -113,6 +110,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     detail_export.add_argument("--person", action="append", default=[])
     detail_export.add_argument("--rule", action="append", default=[])
+    detail_export.add_argument("--civil-source-pack", type=Path)
 
     closeout = commands.add_parser("i5b-historical-closeout")
     closeout.add_argument("--ruler", required=True)
@@ -124,6 +122,7 @@ def _parser() -> argparse.ArgumentParser:
     closeout.add_argument("--workspace-root", type=Path, default=Path("."))
     closeout.add_argument("--person", action="append", default=[])
     closeout.add_argument("--rule", action="append", default=[])
+    closeout.add_argument("--civil-source-pack", type=Path)
     closeout.add_argument(
         "--output-dir", type=Path, default=Path("tmp/i5b_historical_closeout")
     )
@@ -134,6 +133,15 @@ def _load(path: Path) -> Any:
     if path.suffix.lower() == ".json":
         return json.loads(path.read_text(encoding="utf-8"))
     return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def _load_civil_source_pack(path: Path) -> Mapping[str, Any]:
+    if not path.is_file():
+        raise FileNotFoundError(path)
+    payload = _load(path)
+    if not isinstance(payload, Mapping):
+        raise ValueError("浏览器文官候选包必须是 JSON object")
+    return payload
 
 
 def _build_detail(
@@ -247,6 +255,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             forwarded.extend(("--person", person))
         for rule in args.rule:
             forwarded.extend(("--rule", rule))
+        if args.civil_source_pack:
+            forwarded.extend(("--civil-source-pack", str(args.civil_source_pack)))
         return main(forwarded)
     elif args.command == "i5b-historical-closeout":
         started = time.monotonic()
@@ -267,6 +277,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "preflight.json",
             "civil-retrieval.json",
             "civil-retrieval-cache.json",
+            "civil-materials.json",
         ):
             obsolete_path = output_dir / obsolete_name
             if obsolete_path.is_file():
@@ -292,50 +303,41 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             material_manifest = _load(material_manifest_path)
             work_budget = _load(workspace_root / closeout["work_budget"])
-            per_ruler_budget = work_budget["per_ruler_run"]
-            ruler_deadline_seconds = float(
-                per_ruler_budget["max_wall_clock_minutes"]
-            ) * 60
-            model_policy = _load(workspace_root / "config/model-policy.yml")
-            routing = model_policy["workflow_agent_routing"]
-            stage = routing["stages"]["independent_cross_source_retrieval"]
-            profile = routing["profiles"][stage["primary_profile"]]
             team_source = _load(
                 workspace_root
                 / material_manifest["rules"]["team_building"]["source"]
             )
+            source_pack_path = args.civil_source_pack or (
+                workspace_root / "tmp/i5b_browser_sources" / f"{args.ruler}.json"
+            )
+            if not source_pack_path.is_absolute():
+                source_pack_path = workspace_root / source_pack_path
+            try:
+                source_pack = _load_civil_source_pack(source_pack_path)
+            except FileNotFoundError:
+                worklist = build_civil_browser_worklist(
+                    ruler=args.ruler,
+                    ruler_names=tuple(closeout["retrieval_names"]),
+                    team_source=team_source,
+                    current_profiles=profiles,
+                    max_candidate_judge_items=int(
+                        work_budget["per_rule_run"]["max_candidate_judge_items"]
+                    ),
+                )
+                print(f"皇帝：{args.ruler}")
+                print(f"缺少浏览器文官候选包：{source_pack_path}")
+                print("待检索：" + "；".join(row["query"] for row in worklist))
+                print("请先在 Codex 主会话完成每人一次、最多等待10秒的 Google 宽检索与史料回源")
+                return 3
             civil_retrieval_report = run_civil_candidate_retrieval(
                 ruler=args.ruler,
                 ruler_names=tuple(closeout["retrieval_names"]),
                 team_source=team_source,
                 current_profiles=profiles,
-                cache_path=(
-                    workspace_root / "tmp/i5b_historical_cache" / f"{args.ruler}.json"
-                ),
-                max_network_requests=int(
-                    per_ruler_budget["max_network_requests"]
-                ),
                 max_candidate_judge_items=int(
                     work_budget["per_rule_run"]["max_candidate_judge_items"]
                 ),
-                max_wall_clock_seconds=(
-                    ruler_deadline_seconds - (time.monotonic() - started)
-                ),
-                completion_reserve_seconds=float(
-                    per_ruler_budget.get("completion_reserve_seconds") or 0
-                ),
-                provider_policy={
-                    "provider": "codex_cli_web_search",
-                    "prompt_policy_version": CIVIL_WEB_PROMPT_POLICY_VERSION,
-                    "model": str(profile["model"]),
-                    "reasoning_effort": str(profile["reasoning_effort"]),
-                },
-                discover=lambda **kwargs: run_codex_civil_web_discovery(
-                    **kwargs,
-                    codex_bin="codex",
-                    model=str(profile["model"]),
-                    reasoning_effort=str(profile["reasoning_effort"]),
-                ),
+                source_pack=source_pack,
             )
             appointment = material_manifest["rules"]["appointment_delegation"]
             appointment.setdefault("direct_materials", []).extend(
@@ -373,18 +375,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         detail_markdown_path = output_dir / "scoring-detail.md"
         material_json_path = output_dir / "material-budget-shadow.json"
         material_markdown_path = output_dir / "material-budget-shadow.md"
-        if civil_retrieval_report is not None:
-            (output_dir / "civil-materials.json").write_text(
-                json.dumps(
-                    civil_retrieval_report,
-                    ensure_ascii=False,
-                    indent=2,
-                    sort_keys=True,
-                )
-                + "\n",
-                encoding="utf-8",
-                newline="\n",
-            )
         if fresh_material_report is not None:
             material_json_path.write_text(
                 json.dumps(

@@ -27,11 +27,11 @@ from emperor_v4.evaluation.i5b_appointment_responsibility_contract import (
 )
 from emperor_v4.evaluation.i5b_scoring_policy import evaluate_i5b_scoring_policy
 from emperor_v4.evaluation.i5b_civil_candidate_retrieval import (
+    SOURCE_PACK_SCHEMA_VERSION,
     _civil_candidate_queue,
+    _fingerprint,
+    build_civil_browser_worklist,
     run_civil_candidate_retrieval,
-)
-from emperor_v4.adapters.civil_web_discovery_codex import (
-    build_civil_web_discovery_prompt,
 )
 from emperor_v4.persistence.person_profile_read import (
     PROFILE_COLUMNS,
@@ -108,6 +108,10 @@ def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
         lambda _dsn: _offline_current_profiles(),
     )
     monkeypatch.setattr(
+        "emperor_v4.eval._load_civil_source_pack",
+        lambda _path: {},
+    )
+    monkeypatch.setattr(
         "emperor_v4.eval.run_civil_candidate_retrieval",
         lambda **_kwargs: {
             "candidate_count": 0,
@@ -116,11 +120,6 @@ def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
             "materials": [],
             "eligible": [],
             "excluded": [],
-            "runtime": {
-                "cache_hit": False,
-                "elapsed_seconds": 0,
-                "model_call_count": 0,
-            },
         },
     )
 
@@ -153,9 +152,7 @@ def test_current_person_profile_reader_contract_maps_the_one_table_shape() -> No
         _profile_from_row(row[:-1])
 
 
-def test_civil_retrieval_is_generic_bounded_and_cache_idempotent(
-    tmp_path: Path,
-) -> None:
+def test_civil_browser_source_pack_is_generic_bounded_and_deterministic() -> None:
     team = {
         "window": {"start": 1, "end": 10},
         "members": [
@@ -181,66 +178,68 @@ def test_civil_retrieval_is_generic_bounded_and_cache_idempotent(
         "PER-V4-000000000002": {"talent_grade": "historic"},
         "PER-V4-000000000003": {"talent_grade": "top"},
     }
-    calls = []
-
-    def discover(**kwargs):
-        calls.append(kwargs)
-        rows = []
-        for candidate in kwargs["candidates"]:
-            rows.append(
-                {
-                    "person": candidate["person"],
-                    "person_ref": candidate["person_ref"],
-                    "leads": [
-                        {
-                            "measure": "通用检索发现的举措",
-                            "delegated_responsibility": "受命治理",
-                            "policy_or_civil_outcome": "形成治理结果",
-                            "source_title": "测试史源",
-                            "source_url": "https://example.invalid/source",
-                            "source_locator": "卷一",
-                            "source_excerpt": "受命治理并形成结果",
-                            "judge_disposition": "eligible",
-                            "judge_reason": "职责、运行和结果闭合",
-                            "independence_key": "appointment:test:governance",
-                            "appointment_importance": "major_affairs",
-                            "appointment_effect": "major_success",
-                            "continuity_factor": "stable",
-                        }
-                    ],
-                }
+    source_pack = {
+        "schema_version": SOURCE_PACK_SCHEMA_VERSION,
+        "ruler": "测试帝",
+        "candidates": [
+            {
+                "person": person,
+                "person_ref": person_ref,
+                "leads": [
+                    {
+                        "measure": "通用浏览器检索发现的举措",
+                        "delegated_responsibility": "受命治理",
+                        "policy_or_civil_outcome": "形成治理结果",
+                        "source_title": "测试史源",
+                        "source_url": f"https://example.invalid/{person_ref}",
+                        "source_locator": "卷一",
+                        "source_excerpt": "受命治理并形成结果",
+                        "judge_disposition": "eligible",
+                        "judge_reason": "职责、运行和结果闭合",
+                        "independence_key": f"appointment:{person_ref}:governance",
+                        "appointment_importance": "major_affairs",
+                        "appointment_effect": "major_success",
+                        "continuity_factor": "stable",
+                    }
+                ],
+            }
+            for person, person_ref in (
+                ("甲相", "PER-V4-000000000001"),
+                (
+                    "测试帝用人政策",
+                    f"POLICY-{_fingerprint('测试帝')[:16].upper()}",
+                ),
             )
-        return {"candidates": rows}, {"model_call_count": 1}
+        ],
+    }
 
     queue = _civil_candidate_queue(team, profiles, ("测试帝",))
+    worklist = build_civil_browser_worklist(
+        ruler="测试帝",
+        ruler_names=("测试帝",),
+        team_source=team,
+        current_profiles=profiles,
+        max_candidate_judge_items=2,
+    )
     first = run_civil_candidate_retrieval(
         ruler="测试帝",
         ruler_names=("测试帝",),
         team_source=team,
         current_profiles=profiles,
-        cache_path=tmp_path / "cache.json",
-        max_network_requests=4,
         max_candidate_judge_items=2,
-        max_wall_clock_seconds=900,
-        completion_reserve_seconds=90,
-        provider_policy={"provider": "fake", "version": "v1"},
-        discover=discover,
+        source_pack=source_pack,
     )
     second = run_civil_candidate_retrieval(
         ruler="测试帝",
         ruler_names=("测试帝",),
         team_source=team,
         current_profiles=profiles,
-        cache_path=tmp_path / "cache.json",
-        max_network_requests=4,
         max_candidate_judge_items=2,
-        max_wall_clock_seconds=900,
-        completion_reserve_seconds=90,
-        provider_policy={"provider": "fake", "version": "v1"},
-        discover=discover,
+        source_pack=source_pack,
     )
 
     assert [row["person"] for row in queue] == ["甲相", "丙官"]
+    assert [row["query"] for row in worklist] == ["甲相 举措", "测试帝 用人政策"]
     assert len(first["eligible"]) == 2
     assert first["materials"][0]["factor_option_codes"] == {
         "appointment_importance": "major_affairs",
@@ -250,38 +249,7 @@ def test_civil_retrieval_is_generic_bounded_and_cache_idempotent(
         "source_factor": "complete_direct_chain",
         "context_factor": "clear",
     }
-    assert second["runtime"] == {
-        "cache_hit": True,
-        "elapsed_seconds": 0,
-        "first_run_elapsed_seconds": first["runtime"]["elapsed_seconds"],
-        "model_call_count": 0,
-    }
-    assert len(calls) == 1
-    assert len(calls[0]["candidates"]) == 2
-    assert calls[0]["timeout_seconds"] == 810
-
-
-def test_civil_web_discovery_prompt_uses_generic_two_hop_windowed_search() -> None:
-    prompt = build_civil_web_discovery_prompt(
-        ruler="测试帝",
-        ruler_names=("测试帝", "庙号"),
-        evaluation_window={"start": 1, "end": 10},
-        candidates=(
-            {
-                "person": "甲相",
-                "person_ref": "PER-V4-000000000001",
-                "talent_grade": "historic",
-                "role_families": ["administration"],
-            },
-        ),
-    )
-
-    assert "人物名 举措" in prompt
-    assert "皇帝名 用人政策" in prompt
-    assert "每个对象只做一次宽检索" in prompt
-    assert "完全发生在窗口外" in prompt
-    assert "不得为某个人发明专用规则" in prompt
-    assert "Wikisource" in prompt
+    assert second == first
 
 
 def test_one_command_exports_full_ruler_scoring_detail(
