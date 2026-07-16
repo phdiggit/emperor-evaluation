@@ -123,6 +123,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     closeout.add_argument("--workspace-root", type=Path, default=Path("."))
     closeout.add_argument("--person", action="append", default=[])
+    closeout.add_argument("--rule", action="append", default=[])
     closeout.add_argument(
         "--output-dir", type=Path, default=Path("tmp/i5b_historical_closeout")
     )
@@ -235,68 +236,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         output_format = args.format
     elif args.command == "i5b-scoring-detail-export":
-        if any(value in args.ruler for value in ("/", "\\", "..")):
-            raise ValueError("--ruler 不得包含路径字符")
-        workspace_root = args.workspace_root.resolve()
-        catalog_path = (
-            args.catalog
-            if args.catalog.is_absolute()
-            else workspace_root / args.catalog
-        )
-        catalog = _load(catalog_path)
-        report = build_i5b_scoring_detail_selection(
-            catalog=catalog,
-            selection={
-                "schema_version": "i5b-scoring-detail-selection-v1",
-                "rulers": [args.ruler],
-                "people": list(args.person),
-                "rules": list(args.rule),
-                "person_scope": "selected_rulers",
-                "strict": True,
-            },
-            ruler_reports=_catalog_reports(catalog, workspace_root),
-        )
-        output_dir = (
-            args.output_dir
-            if args.output_dir.is_absolute()
-            else workspace_root / args.output_dir
-        ) / args.ruler
-        output_dir.mkdir(parents=True, exist_ok=True)
-        json_path = output_dir / "scoring-detail.json"
-        markdown_path = output_dir / "scoring-detail.md"
-        json_path.write_text(
-            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
-        markdown_path.write_text(
-            render_i5b_scoring_detail_selection_markdown(report),
-            encoding="utf-8",
-            newline="\n",
-        )
-        ruler_report = report["selected_ruler_reports"][0]
-        selection_summary = ruler_report["selection_summary"]
-        print(f"皇帝：{args.ruler}")
-        if args.person:
-            print(f"臣子：{'、'.join(args.person)}")
-            print(f"详情：{markdown_path}")
-            return 0
-        print(f"结果状态：{ruler_report['status']}")
-        print(
-            "历史覆盖："
-            f"{ruler_report['summary']['historical_coverage_complete_rule_count']}/5"
-        )
-        print(
-            "完成声明："
-            f"{ruler_report['declarations']['completion_claim_allowed']}"
-        )
-        print(
-            "五条rule加权raw signal："
-            f"{selection_summary['selected_rule_weighted_raw_signal']}"
-        )
-        print(f"Markdown：{markdown_path}")
-        print(f"JSON：{json_path}")
-        return 0
+        forwarded = [
+            "i5b-historical-closeout",
+            "--ruler", args.ruler,
+            "--catalog", str(args.catalog),
+            "--workspace-root", str(args.workspace_root),
+            "--output-dir", str(args.output_dir),
+        ]
+        for person in args.person:
+            forwarded.extend(("--person", person))
+        for rule in args.rule:
+            forwarded.extend(("--rule", rule))
+        return main(forwarded)
     elif args.command == "i5b-historical-closeout":
         started = time.monotonic()
         if any(value in args.ruler for value in ("/", "\\", "..")):
@@ -312,6 +263,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             else workspace_root / args.output_dir
         ) / args.ruler
         output_dir.mkdir(parents=True, exist_ok=True)
+        for obsolete_name in (
+            "preflight.json",
+            "civil-retrieval.json",
+            "civil-retrieval-cache.json",
+        ):
+            obsolete_path = output_dir / obsolete_name
+            if obsolete_path.is_file():
+                obsolete_path.unlink()
         entries = [
             row
             for row in catalog.get("entries") or ()
@@ -350,7 +309,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 ruler_names=tuple(closeout["retrieval_names"]),
                 team_source=team_source,
                 current_profiles=profiles,
-                cache_path=output_dir / "civil-retrieval-cache.json",
+                cache_path=(
+                    workspace_root / "tmp/i5b_historical_cache" / f"{args.ruler}.json"
+                ),
                 max_network_requests=int(
                     per_ruler_budget["max_network_requests"]
                 ),
@@ -452,7 +413,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "schema_version": "i5b-scoring-detail-selection-v1",
                     "rulers": [args.ruler],
                     "people": list(args.person),
-                    "rules": [],
+                    "rules": list(args.rule),
                     "person_scope": "selected_rulers",
                     "strict": True,
                 },

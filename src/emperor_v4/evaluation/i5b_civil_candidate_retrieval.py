@@ -107,8 +107,15 @@ def run_civil_candidate_retrieval(
 ) -> dict[str, Any]:
     candidates = _civil_candidate_queue(team_source, current_profiles, ruler_names)
     window = team_source.get("window")
-    selected = candidates[
-        : min(max_candidate_judge_items, max_network_requests // 2)
+    selected_people = candidates[: max(0, max_candidate_judge_items - 1)]
+    selected = [
+        *selected_people,
+        {
+            "person": f"{ruler}用人政策",
+            "person_ref": f"POLICY-{_fingerprint(ruler)[:16].upper()}",
+            "talent_grade": "policy",
+            "role_families": ["policy"],
+        },
     ]
     cache_key = _fingerprint(
         {
@@ -194,8 +201,8 @@ def run_civil_candidate_retrieval(
     result = {
         "ruler": ruler,
         "candidate_count": len(candidates),
-        "processed_candidate_count": len(selected),
-        "deferred_candidate_count": len(candidates) - len(selected),
+        "processed_candidate_count": len(selected_people),
+        "deferred_candidate_count": len(candidates) - len(selected_people),
         "materials": materials,
         "eligible": eligible,
         "excluded": excluded,

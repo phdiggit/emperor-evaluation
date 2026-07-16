@@ -276,16 +276,18 @@ def test_civil_web_discovery_prompt_uses_generic_two_hop_windowed_search() -> No
         ),
     )
 
-    assert "人物名 举措 政绩 改革 制度" in prompt
-    assert "人物名 + 具体举措名" in prompt
+    assert "人物名 举措" in prompt
+    assert "皇帝名 用人政策" in prompt
+    assert "每个对象只做一次宽检索" in prompt
     assert "完全发生在窗口外" in prompt
     assert "不得为某个人发明专用规则" in prompt
     assert "Wikisource" in prompt
 
 
 def test_one_command_exports_full_ruler_scoring_detail(
-    tmp_path: Path, capsys,
+    tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    _mock_profile_read(monkeypatch)
     assert eval_main(
         [
             "i5b-scoring-detail-export",
@@ -350,21 +352,20 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "**反馈入口强度**" not in markdown
     assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
     assert "### 未计入材料" in markdown
-    assert "| 材料 | 因子赋值 | 材料分 |" in markdown
+    assert "| 材料 | 因子赋值 | 材料分 | 事实 |" in markdown
     assert "未计分材料与 judge 理由" not in markdown
     assert "已确认事实或争议点" not in markdown
     assert "材料分低于当前正向预算边界" not in markdown
     assert "judge_reviews" not in json.dumps(ruler, ensure_ascii=False)
     stdout = capsys.readouterr().out
-    assert "结果状态：report_only_scoring_detail_export" in stdout
-    assert "历史覆盖：5/5" in stdout
-    assert "完成声明：True" in stdout
-    assert "五条rule加权raw signal：10.091" in stdout
+    assert "文官材料：0条通过，0条排除，0人未领取" in stdout
+    assert "计分详情：" in stdout
 
 
 def test_person_filter_exports_group_material_individual_material_and_episodes(
-    tmp_path: Path, capsys,
+    tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    _mock_profile_read(monkeypatch)
     assert eval_main(
         [
             "i5b-scoring-detail-export",
@@ -430,7 +431,7 @@ def test_person_filter_exports_group_material_individual_material_and_episodes(
     assert "supporting_judgment" not in markdown
     stdout = capsys.readouterr().out
     assert "臣子：房玄龄、杜如晦" in stdout
-    assert "详情：" in stdout
+    assert "计分详情：" in stdout
     assert "结果状态" not in stdout
     assert "历史覆盖" not in stdout
     assert "raw signal" not in stdout
@@ -591,6 +592,19 @@ def test_appointment_density_uses_competition_rank_for_ties() -> None:
 
     expected = Decimal("1.5") * (
         Decimal("2.5") + Decimal("2.5") + Decimal("1") / Decimal("3").sqrt()
+    )
+    assert _appointment_density(selected, "positive") == expected
+
+
+def test_appointment_density_merges_multiple_materials_for_same_person() -> None:
+    selected = [
+        {"object_ref": "PERSON-A", "material_magnitude": Decimal("2")},
+        {"object_ref": "PERSON-A", "material_magnitude": Decimal("1")},
+        {"object_ref": "PERSON-B", "material_magnitude": Decimal("2")},
+    ]
+
+    expected = Decimal("1.5") * (
+        Decimal("3") + Decimal("2") / Decimal("2").sqrt()
     )
     assert _appointment_density(selected, "positive") == expected
 
