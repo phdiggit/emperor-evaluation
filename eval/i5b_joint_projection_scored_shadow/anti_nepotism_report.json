@@ -257,6 +257,7 @@
   },
   "declarations": {
     "all_projected_materials_contributed_before_object_cap": true,
+    "all_projected_materials_use_current_v4_factor_contract": true,
     "formal_scoring_allowed": false,
     "old_gold_modified": false,
     "opened_sealed_used_as_new_qualification": false,
@@ -297,13 +298,22 @@
         "raw_material_score": 1.232,
         "rule_code": "anti_nepotism",
         "schema_version": "i5b-material-numeric-projection-v1",
-        "side": "positive"
+        "side": "positive",
+        "v4_factor_projection": {
+          "contract_version": "anti-nepotism-factor-agent-v2",
+          "factor_choices": {
+            "capability_basis": "verified_merit",
+            "network_effect": "dismantled_by_ruler",
+            "process_integrity": "bypass_but_correctable",
+            "public_power_exposure": "major_affairs"
+          }
+        }
       },
       "object_ref": "ANTI-NEPOTISM-LSM-ROYAL-TITLE-SYSTEM",
       "projection_basis": "太宗直接审查广封宗室造成的公共负担，并系统降疏属爵位、仅保留有功者王爵；按单次制度纠正投影，不外推长期制度化。",
       "rule_evidence_unit_ref": "REU-2B48AB3D178FBC9265DD",
       "ruler": "李世民",
-      "semantic_fingerprint": "845b2d8b048fc27515433912150c35611557b33311fc9534a2d05783d65e03f1",
+      "semantic_fingerprint": "ada99aab189bc3c2106df5b4ba69a19e14895e8dfeb4c3e6e599ad8da4340cc7",
       "side": "positive",
       "source_refs": [
         "SP-11007EAE3C9A5CDB3386",
@@ -344,13 +354,22 @@
         "raw_material_score": 1.1,
         "rule_code": "anti_nepotism",
         "schema_version": "i5b-material-numeric-projection-v1",
-        "side": "positive"
+        "side": "positive",
+        "v4_factor_projection": {
+          "contract_version": "anti-nepotism-factor-agent-v2",
+          "factor_choices": {
+            "capability_basis": "verified_merit",
+            "network_effect": "isolated_no_network",
+            "process_integrity": "open_or_formal",
+            "public_power_exposure": "major_affairs"
+          }
+        }
       },
       "object_ref": "ANTI-NEPOTISM-LSM-QINFU-PREFERENCE",
       "projection_basis": "秦府旧人以长期侍从要求任官优先，太宗明确拒绝按新旧亲疏取人并要求择贤；只结算该次公共任用 Gate。",
       "rule_evidence_unit_ref": "REU-4BDE46429CB03BC192A1",
       "ruler": "李世民",
-      "semantic_fingerprint": "e01ef016061a34bdd8ec73f0be176e1c91f715ebddc8741b0e9aa579944fdc39",
+      "semantic_fingerprint": "44ddc0055b9aedb287950aa79321f53d2e5c69ca9c9aa361a94ae91edb7d079e",
       "side": "positive",
       "source_refs": [
         "SP-39BBF63F7585D126215F",
@@ -377,14 +396,14 @@
     }
   ],
   "policy_version": "i5b-joint-projection-score-contribution-v2",
-  "projection_input_version": "anti-nepotism-lishimin-historical-closeout-v1",
-  "report_sha256": "3fc28c736550d09197ef7a3e010675ad07219560f15dbab938d16f134da086fb",
+  "projection_input_version": "anti-nepotism-lishimin-historical-closeout-v2-current-factor-contract",
+  "report_sha256": "f71b95155fce5f0005bade6142967393d7b5a0fa4e116cda3d732f53ea8e6d2a",
   "rule_code": "anti_nepotism",
   "schema_version": "i5b-joint-projection-scored-shadow-report-v1",
   "score_contributions": [
     {
       "contribution_ref": "SC-I5B-363D02DD6E5D05702EEEC791",
-      "dedup_key": "4154373d620998ca0b0d7d25f09262c39dc8bb615bf182d42641bb56ca0af88f",
+      "dedup_key": "1d1ce2cb2ec20c228596d7c2df9a0b782d88a7de8a0181f5fdc2e27ecc703c2f",
       "insufficient_projection_count": 0,
       "insufficient_rule_evidence_unit_refs": [],
       "negative_signal": "0.000",
@@ -404,17 +423,19 @@
       "ruler": "李世民",
       "score": null,
       "score_rate": null,
-      "semantic_fingerprint": "6eb5c0a6c20a76e8becb4ea9d0ea3107d633636e9e74af63f6da0aadeab038ba",
+      "semantic_fingerprint": "e43c187da2fc1b90fbfe5db14c75d4b1d3732b023cfafeec8a8c800394830264",
       "supporting_only_rules": [],
       "tier": null
     }
   ],
   "status": "opened_regression_scored_shadow_raw_signal_only",
   "summary": {
+    "current_v4_factor_projection_count": 2,
     "database_write_count": 0,
     "formal_scoring_allowed": false,
     "input_unit_count": 2,
     "insufficient_projection_count": 0,
+    "legacy_factor_projection_count": 0,
     "model_call_count": 0,
     "projected_material_count": 2,
     "ruler_count": 1,

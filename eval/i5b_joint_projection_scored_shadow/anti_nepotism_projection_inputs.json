@@ -55,7 +55,7 @@
       "zero_fill_used": false
     }
   ],
-  "input_version": "anti-nepotism-lishimin-historical-closeout-v1",
+  "input_version": "anti-nepotism-lishimin-historical-closeout-v2-current-factor-contract",
   "report_sha256": "ac476b535d1f6bb97bedd4220201ecc7657ae4fc5b77651429c794cbf10313b9",
   "rule_code": "anti_nepotism",
   "schema_version": "i5b-joint-projection-input-v1",
@@ -82,7 +82,13 @@
       ],
       "status": "projected",
       "subject": "唐宗室封爵制度",
-      "unit_ref": "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1"
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1",
+      "v4_factor_choices": {
+        "capability_basis": "verified_merit",
+        "network_effect": "dismantled_by_ruler",
+        "process_integrity": "bypass_but_correctable",
+        "public_power_exposure": "major_affairs"
+      }
     },
     {
       "canonical_event_group": "EVD-I5B-LISHIMIN-ANTI-QINFU-PREFERENCE-001",
@@ -105,7 +111,13 @@
       ],
       "status": "projected",
       "subject": "秦府旧人任官优先诉求",
-      "unit_ref": "REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1"
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1",
+      "v4_factor_choices": {
+        "capability_basis": "verified_merit",
+        "network_effect": "isolated_no_network",
+        "process_integrity": "open_or_formal",
+        "public_power_exposure": "major_affairs"
+      }
     }
   ]
 }

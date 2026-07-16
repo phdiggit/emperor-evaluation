@@ -36,7 +36,7 @@
   },
   "policy_ref": "config/i5b-scoring-policy.yml",
   "policy_sha256": "380dbc07672c54665f61e2e6658737e79674d315f19d032563cad3d3910692dd",
-  "report_sha256": "103ff6d6066f923e8a4fd6f7da728b02ff3936a0c11731e7678ce76193b5cfc4",
+  "report_sha256": "1671d2a027f7ff572b9067ace74058c7e5248189344b8ee9bd97fc725d16fd0e",
   "ruler": "李世民",
   "ruler_ref": "PER-V4-78F48EBC67F8",
   "rules": [
@@ -81,7 +81,16 @@
             "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v2.json#TD-HC-WEIZHENG",
             "eval/person_profiles/talent_grade_v9_high_tier_calibration_report.json#魏徵"
           ],
-          "subject": "魏徵"
+          "subject": "魏徵",
+          "v4_factor_projection": {
+            "contract_version": "talent-discovery-factor-agent-v2",
+            "factor_choices": {
+              "barrier_crossing": "cross_camp_barrier_crossed",
+              "conversion_to_use": "trial_then_scaled_use",
+              "recognition_basis": "direct_observation_or_interview",
+              "recognition_novelty": "cross_regime_or_camp_entry"
+            }
+          }
         },
         {
           "fact": "寒微家客经代拟奏议进入视野，太宗追问、召见验证并转化为门下及中书任用；只结算识才链。",
@@ -114,7 +123,16 @@
             "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json#TD-HC-MAZHOU",
             "eval/person_profiles/authorized_profile_promotion.json#马周"
           ],
-          "subject": "马周"
+          "subject": "马周",
+          "v4_factor_projection": {
+            "contract_version": "talent-discovery-factor-agent-v2",
+            "factor_choices": {
+              "barrier_crossing": "status_or_access_barrier_crossed",
+              "conversion_to_use": "trial_then_scaled_use",
+              "recognition_basis": "work_product_then_interview",
+              "recognition_novelty": "newly_visible_outsider"
+            }
+          }
         },
         {
           "fact": "李靖推荐后，太宗明确自行选择岑文本并授中书枢密职责，随后扩大为辽东支度重任。",
@@ -147,12 +165,21 @@
             "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json#TD-HC-CENWENBEN",
             "eval/person_profiles/talent_grade_v8_final_calibration_report.json#岑文本"
           ],
-          "subject": "岑文本"
+          "subject": "岑文本",
+          "v4_factor_projection": {
+            "contract_version": "talent-discovery-factor-agent-v2",
+            "factor_choices": {
+              "barrier_crossing": "no_material_barrier",
+              "conversion_to_use": "trial_then_scaled_use",
+              "recognition_basis": "recommendation_verified_by_ruler",
+              "recognition_novelty": "newly_visible_internal"
+            }
+          }
         }
       ],
       "source_candidate_count": 4,
       "source_ref": "eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json",
-      "source_sha256": "a102b6a288d4d916664cdcbaa6d9150de034df253810d1d8bd764bc34775f6bf",
+      "source_sha256": "197f2435eae0794638ff1a763f820dfd6f8ec1d67956dc658478c5d7d50b99fc",
       "supplemental_source_refs": [],
       "supplemental_source_sha256s": [],
       "supporting_only_materials": [
@@ -866,7 +893,16 @@
             "SP-39BBF63F7585D126215F",
             "352eb6fbb2bb0e08f45e58097d2a449a95a1b63e3ec81ae497ff6d2953bb05ed"
           ],
-          "subject": "秦府旧人任官优先诉求"
+          "subject": "秦府旧人任官优先诉求",
+          "v4_factor_projection": {
+            "contract_version": "anti-nepotism-factor-agent-v2",
+            "factor_choices": {
+              "capability_basis": "verified_merit",
+              "network_effect": "isolated_no_network",
+              "process_integrity": "open_or_formal",
+              "public_power_exposure": "major_affairs"
+            }
+          }
         },
         {
           "fact": "太宗直接审查广封宗室造成的公共负担，并系统降疏属爵位、仅保留有功者王爵；按单次制度纠正投影，不外推长期制度化。",
@@ -901,12 +937,21 @@
             "SP-11007EAE3C9A5CDB3386",
             "352eb6fbb2bb0e08f45e58097d2a449a95a1b63e3ec81ae497ff6d2953bb05ed"
           ],
-          "subject": "唐宗室封爵制度"
+          "subject": "唐宗室封爵制度",
+          "v4_factor_projection": {
+            "contract_version": "anti-nepotism-factor-agent-v2",
+            "factor_choices": {
+              "capability_basis": "verified_merit",
+              "network_effect": "dismantled_by_ruler",
+              "process_integrity": "bypass_but_correctable",
+              "public_power_exposure": "major_affairs"
+            }
+          }
         }
       ],
       "source_candidate_count": 2,
       "source_ref": "eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json",
-      "source_sha256": "a93d5e518cd9accac8e8075cde221014be31911eaeed9a827573b215bc1e95af",
+      "source_sha256": "347e655ed3edd80a69566f3e8e4e24cfd713a0bb2bb03ffa025a8753c20660b5",
       "supplemental_source_refs": [],
       "supplemental_source_sha256s": [],
       "supporting_only_materials": []

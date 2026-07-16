@@ -78,7 +78,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["status"] == "report_only_scoring_detail_incomplete_or_stale"
     assert ruler["summary"]["historical_coverage_complete_rule_count"] == 0
     assert ruler["declarations"]["historical_coverage_complete"] is False
-    assert ruler["declarations"]["current_factor_contracts_satisfied"] is False
+    assert ruler["declarations"]["current_factor_contracts_satisfied"] is True
     assert ruler["declarations"]["completion_claim_allowed"] is False
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
@@ -95,6 +95,12 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert not by_rule["tolerate_talent"]["factor_contract"][
         "missing_v4_factor_inputs"
     ]
+    assert by_rule["talent_discovery"]["factor_contract"]["status"] == (
+        "current_contract"
+    )
+    assert by_rule["anti_nepotism"]["factor_contract"]["status"] == (
+        "current_contract"
+    )
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
     assert "### 计入材料" in markdown
     assert "| 对象 | 实际计入信号 | 方向 | 材料分 |" in markdown
@@ -235,6 +241,32 @@ def test_tolerate_projection_uses_current_v4_contract_and_rejudges_weizheng() ->
             projection_payload=broken,
             scoring_policy=scoring_policy,
         )
+
+
+@pytest.mark.parametrize(
+    ("report_path", "expected_count"),
+    (
+        (
+            "eval/i5b_talent_discovery_historical_coverage/"
+            "lishimin_scored_shadow_report_v2.json",
+            7,
+        ),
+        (
+            "eval/i5b_anti_nepotism_historical_coverage/"
+            "lishimin_scored_shadow_report_v2.json",
+            2,
+        ),
+    ),
+)
+def test_event_rule_canonical_reports_use_current_v4_factor_contract(
+    report_path: str, expected_count: int,
+) -> None:
+    report = json.loads((ROOT / report_path).read_text(encoding="utf-8"))
+    assert report["summary"]["current_v4_factor_projection_count"] == expected_count
+    assert report["summary"]["legacy_factor_projection_count"] == 0
+    assert report["declarations"][
+        "all_projected_materials_use_current_v4_factor_contract"
+    ] is True
 
 
 def test_appointment_uses_strongest_eligible_materials_without_domain_quota() -> None:

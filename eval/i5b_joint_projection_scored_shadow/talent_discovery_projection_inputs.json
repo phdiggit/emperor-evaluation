@@ -1,5 +1,5 @@
 {
-  "input_version": "talent-discovery-lishimin-historical-closeout-v3-zhangxuansu-profile",
+  "input_version": "talent-discovery-lishimin-historical-closeout-v4-current-factor-contract",
   "rule_code": "talent_discovery",
   "schema_version": "i5b-joint-projection-input-v1",
   "status": "human_frozen_regression_input",
@@ -25,7 +25,13 @@
       ],
       "status": "projected",
       "subject": "岑文本",
-      "unit_ref": "REU-LSM-CENWENBEN-DISCOVERY-HC-v1"
+      "unit_ref": "REU-LSM-CENWENBEN-DISCOVERY-HC-v1",
+      "v4_factor_choices": {
+        "barrier_crossing": "no_material_barrier",
+        "conversion_to_use": "trial_then_scaled_use",
+        "recognition_basis": "recommendation_verified_by_ruler",
+        "recognition_novelty": "newly_visible_internal"
+      }
     },
     {
       "canonical_event_group": "EVN-TD-MAZHOU-DISCOVERY",
@@ -48,7 +54,13 @@
       ],
       "status": "projected",
       "subject": "马周",
-      "unit_ref": "REU-LSM-MAZHOU-DISCOVERY-HC-v1"
+      "unit_ref": "REU-LSM-MAZHOU-DISCOVERY-HC-v1",
+      "v4_factor_choices": {
+        "barrier_crossing": "status_or_access_barrier_crossed",
+        "conversion_to_use": "trial_then_scaled_use",
+        "recognition_basis": "work_product_then_interview",
+        "recognition_novelty": "newly_visible_outsider"
+      }
     },
     {
       "canonical_event_group": "EVN-TD-ZHANGXUANSU-DISCOVERY",
@@ -73,7 +85,13 @@
       ],
       "status": "projected",
       "subject": "张玄素",
-      "unit_ref": "REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1"
+      "unit_ref": "REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1",
+      "v4_factor_choices": {
+        "barrier_crossing": "no_material_barrier",
+        "conversion_to_use": "trial_then_scaled_use",
+        "recognition_basis": "reputation_then_direct_demonstration",
+        "recognition_novelty": "newly_visible_internal"
+      }
     },
     {
       "canonical_event_group": "EP-YUAN-HBL-LIUBINGZHONG-DISCOVERY@v1",
@@ -120,7 +138,13 @@
       ],
       "status": "projected",
       "subject": "刘基",
-      "unit_ref": "REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1"
+      "unit_ref": "REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1",
+      "v4_factor_choices": {
+        "barrier_crossing": "reluctance_or_access_barrier_crossed",
+        "conversion_to_use": "direct_substantive_use",
+        "recognition_basis": "reputation_then_direct_demonstration",
+        "recognition_novelty": "cross_regime_or_camp_entry"
+      }
     },
     {
       "canonical_event_group": "jiayi_summon_and_rapid_promotion",
@@ -146,7 +170,13 @@
       ],
       "status": "projected",
       "subject": "贾谊",
-      "unit_ref": "TD-S01"
+      "unit_ref": "TD-S01",
+      "v4_factor_choices": {
+        "barrier_crossing": "no_material_barrier",
+        "conversion_to_use": "trial_then_scaled_use",
+        "recognition_basis": "reputation_only_unverified",
+        "recognition_novelty": "newly_visible_outsider"
+      }
     },
     {
       "canonical_event_group": "ningwanwo_reputation_summon_wenguan_entry",
@@ -172,7 +202,41 @@
       ],
       "status": "projected",
       "subject": "宁完我",
-      "unit_ref": "TD-S02"
+      "unit_ref": "TD-S02",
+      "v4_factor_choices": {
+        "barrier_crossing": "status_or_access_barrier_crossed",
+        "conversion_to_use": "direct_substantive_use",
+        "recognition_basis": "reputation_then_direct_demonstration",
+        "recognition_novelty": "newly_visible_outsider"
+      }
+    },
+    {
+      "canonical_event_group": "EVN-TD-WEIZHENG-DISCOVERY",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "direction_sign": "positive",
+        "discovery_level": "difficult_cross_boundary_discovery",
+        "source_factor": "complete_direct_chain",
+        "talent_quality_factor": "top"
+      },
+      "object_ref": "PER-V4-B0E10D8903E7",
+      "projection_basis": "626年召见敌对阵营旧属魏徵，经当面对答后跨阵营擢用并持续问政；只结算识才链。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v2.json#TD-HC-WEIZHENG",
+        "eval/person_profiles/talent_grade_v9_high_tier_calibration_report.json#魏徵"
+      ],
+      "status": "projected",
+      "subject": "魏徵",
+      "unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-HC-v1",
+      "v4_factor_choices": {
+        "barrier_crossing": "cross_camp_barrier_crossed",
+        "conversion_to_use": "trial_then_scaled_use",
+        "recognition_basis": "direct_observation_or_interview",
+        "recognition_novelty": "cross_regime_or_camp_entry"
+      }
     }
   ]
 }

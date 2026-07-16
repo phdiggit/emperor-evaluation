@@ -1,0 +1,904 @@
+{
+  "declarations": {
+    "draft_only": false,
+    "explicit_assertion_decisions_complete": true,
+    "explicit_event_node_mapping": true,
+    "formal_fact_acceptance": true,
+    "ready_for_episode_shadow": true,
+    "score_or_ranking_write": false
+  },
+  "input_refs": {
+    "acceptance_decision_report_sha256": "b157b9dcad854387064abe71b4304cd7bab0ee735ae03768d40dfcb0775510e1",
+    "reviewed_assertion_report_sha256": "9772b25818151526f53f1f3665f73dd61e3e2d409d7392d2c1cb0d966349714e"
+  },
+  "profile_code": "talent_discovery_chain_v1",
+  "report_sha256": "cb7b0c271d07c2d7a2ca51ce702633a9849c4412215f915fda47bd260cd8037e",
+  "rule_code": "talent_discovery",
+  "ruler": "李世民",
+  "schema_version": "i5b-formal-fact-acceptance-v2",
+  "scope": {
+    "end": "649",
+    "pre_reign_events": "excluded",
+    "rule_code": "talent_discovery",
+    "ruler": {
+      "canonical_ref": "PER-V4-78F48EBC67F8",
+      "name": "李世民"
+    },
+    "ruler_ref": "PER-V4-78F48EBC67F8",
+    "start": "626"
+  },
+  "status": "formally_accepted_for_core_registry",
+  "summary": {
+    "accepted_assertion_count": 13,
+    "accepted_unit_count": 4,
+    "accepted_with_uncertainty_assertion_count": 0,
+    "assertion_count": 13,
+    "database_write_count": 0,
+    "existing_accepted_assertion_count": 0,
+    "existing_reviewed_assertion_count": 0,
+    "formal_scoring_allowed": false,
+    "newly_accepted_assertion_count": 13,
+    "pending_blocking_review_unit_count": 0,
+    "rejected_existing_assertion_count": 0
+  },
+  "units": [
+    {
+      "assertion_draft_count": 3,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-D632B5AB58A95E54F2C9",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-MAZHOU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-MAZHOU-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-D632B5AB58A95E54F2C9"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "馬周",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-6D691185ED79664A59F77570",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-6D691185ED79664A59F77570"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "转呈代拟奏议",
+          "qualifiers": {
+            "accepted_outcome": "奏议进入皇帝识别入口",
+            "candidate_focal_person_refs": [
+              "PER-V4-1E978B22A450"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "馬周",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "何遂以聞。太宗大駭，召問何",
+            "speaker": "常何",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-019DA0300949F4E21055",
+          "subject": "常何",
+          "time_expression": "貞觀初"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-91ED04893A90C65012CE",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-MAZHOU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-MAZHOU-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-91ED04893A90C65012CE"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "馬周",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-AE46901E2597445179426FEC",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-AE46901E2597445179426FEC"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "召见验证",
+          "qualifiers": {
+            "accepted_outcome": "面谈后认为其才异",
+            "candidate_focal_person_refs": [
+              "PER-V4-1E978B22A450"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "馬周",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "遽召周，與語甚奇之",
+            "speaker": "李世民",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-019DA0300949F4E21055",
+          "subject": "李世民",
+          "time_expression": "貞觀初"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-0C77305B0C00361AE143",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-MAZHOU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-MAZHOU-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-0C77305B0C00361AE143"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "馬周",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-7392F0FB0391098D03942F80",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-7392F0FB0391098D03942F80"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "转化使用",
+          "qualifiers": {
+            "accepted_outcome": "直门下并累迁中书令",
+            "candidate_focal_person_refs": [
+              "PER-V4-1E978B22A450"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "馬周",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "直門下省，寵冠卿相，累遷中書令",
+            "speaker": "李世民",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-019DA0300949F4E21055",
+          "subject": "李世民",
+          "time_expression": "貞觀初"
+        }
+      ],
+      "duplicate_settlement_boundary": "只结算寒微家客经奏议被发现、召见验证并转化使用；后续职权收益归任用授权规则。",
+      "formal_acceptance_basis": "TD-HC-MAZHOU",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "馬周",
+      "unit_ref": "REU-LSM-MAZHOU-DISCOVERY-HC-v1"
+    },
+    {
+      "assertion_draft_count": 4,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-EA1E8B764628C7718315",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-ZHANGXUANSU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-ZHANGXUANSU-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-EA1E8B764628C7718315"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "張玄素",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-7D8D145E433FEE05A7D628BA",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-7D8D145E433FEE05A7D628BA"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "闻名后召见问政",
+          "qualifiers": {
+            "accepted_outcome": "亲自验证治理见解",
+            "candidate_focal_person_refs": [
+              "PER-NAME-CANDIDATE-ZHANG-XUANSU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "張玄素",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "太宗聞其名，及即位，召見，訪以政道",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-10ED09C124EE165F3D14",
+          "subject": "李世民",
+          "time_expression": "即位初至貞觀四年"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-93AE5BE275F71F8BED64",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-ZHANGXUANSU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-ZHANGXUANSU-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-93AE5BE275F71F8BED64"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "張玄素",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-1FF429CE3927B7137BC85231",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-1FF429CE3927B7137BC85231"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "擢任",
+          "qualifiers": {
+            "accepted_outcome": "拜侍御史并迁给事中",
+            "candidate_focal_person_refs": [
+              "PER-NAME-CANDIDATE-ZHANG-XUANSU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "張玄素",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "太宗善其對，擢拜侍御史，尋遷給事中",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-10ED09C124EE165F3D14",
+          "subject": "李世民",
+          "time_expression": "即位初至貞觀四年"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-01AAD80535DE3EC23840",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-ZHANGXUANSU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-ZHANGXUANSU-FEEDBACK",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-01AAD80535DE3EC23840"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "洛阳宫作役",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-562E4BDBD0242A33D8F08A2F",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-562E4BDBD0242A33D8F08A2F"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "采纳履职反馈",
+          "qualifiers": {
+            "accepted_outcome": "下令停工",
+            "candidate_focal_person_refs": [
+              "PER-NAME-CANDIDATE-ZHANG-XUANSU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "張玄素",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "所有作役，宜即停之",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-1A7A958F0D6DBEB12167",
+          "subject": "李世民",
+          "time_expression": "即位初至貞觀四年"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-32AB4F3AE4F53FAFCCD5",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-ZHANGXUANSU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-ZHANGXUANSU-FEEDBACK",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-32AB4F3AE4F53FAFCCD5"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "張玄素",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-CF002FC0E7369922A978564E",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-CF002FC0E7369922A978564E"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "奖励履职",
+          "qualifiers": {
+            "accepted_outcome": "赐彩二百匹",
+            "candidate_focal_person_refs": [
+              "PER-NAME-CANDIDATE-ZHANG-XUANSU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "張玄素",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "可賜彩二百匹",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-1A7A958F0D6DBEB12167",
+          "subject": "李世民",
+          "time_expression": "即位初至貞觀四年"
+        }
+      ],
+      "duplicate_settlement_boundary": "发现与擢任归本规则；停止洛阳宫工程的政策收益只作人才质量反馈，不重复结算。",
+      "formal_acceptance_basis": "TD-HC-ZHANGXUANSU",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "insufficient_projection",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "張玄素",
+      "unit_ref": "REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1"
+    },
+    {
+      "assertion_draft_count": 3,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-EEF45609B4C94B575AEC",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-CENWENBEN",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-CENWENBEN-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-EEF45609B4C94B575AEC"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "岑文本",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-7BB5E3327B1C97213AF3B446",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-7BB5E3327B1C97213AF3B446"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "推荐人才",
+          "qualifiers": {
+            "accepted_outcome": "进入中书人才入口",
+            "candidate_focal_person_refs": [
+              "PER-V4-E0A3901BD51B"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "岑文本",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "李靖驟稱其才，擢拜中書舍人",
+            "speaker": "李靖",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-F31B1C053FFB40167148",
+          "subject": "李靖",
+          "time_expression": "貞觀年間"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-9FCF1DCB8B56C7C91AD4",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-CENWENBEN",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-CENWENBEN-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-9FCF1DCB8B56C7C91AD4"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "岑文本",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-8641BB11F94AB6AA75E1BEC4",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-8641BB11F94AB6AA75E1BEC4"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "独立选择并转化使用",
+          "qualifiers": {
+            "accepted_outcome": "任中书侍郎专掌枢密",
+            "candidate_focal_person_refs": [
+              "PER-V4-E0A3901BD51B"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "岑文本",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "太宗曰：「我自舉一人，公勿復也。」乃以文本為中書侍郎，專與樞密",
+            "speaker": "李世民",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-F31B1C053FFB40167148",
+          "subject": "李世民",
+          "time_expression": "貞觀年間"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-5D3E0062AC782DC00D33",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-CENWENBEN",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TD-CENWENBEN-FEEDBACK",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-5D3E0062AC782DC00D33"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "岑文本",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-DD5BEFCD8E5464693FA40055",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-DD5BEFCD8E5464693FA40055"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "扩大实质使用",
+          "qualifiers": {
+            "accepted_outcome": "辽东之役支度全委",
+            "candidate_focal_person_refs": [
+              "PER-V4-E0A3901BD51B"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "岑文本",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "遼東之役，凡所支度，一以委之",
+            "speaker": "李世民",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-F31B1C053FFB40167148",
+          "subject": "李世民",
+          "time_expression": "貞觀年間"
+        }
+      ],
+      "duplicate_settlement_boundary": "只结算李靖推荐后皇帝独立选择并转化使用；辽东支度结果归任用授权规则。",
+      "formal_acceptance_basis": "TD-HC-CENWENBEN",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "岑文本",
+      "unit_ref": "REU-LSM-CENWENBEN-DISCOVERY-HC-v1"
+    },
+    {
+      "assertion_draft_count": 3,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-9B78E13F2FA4B187C001",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-WEIZHENG",
+          "confidence": 0.98,
+          "event_node_ref": "EVN-TD-WEIZHENG-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-9B78E13F2FA4B187C001"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "魏徵",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-65F224AAD17A5FA5E78C3162",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-65F224AAD17A5FA5E78C3162"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "召见敌对旧属并验证",
+          "qualifiers": {
+            "accepted_outcome": "当面对答完成跨阵营识才验证",
+            "candidate_focal_person_refs": [
+              "PER-V4-B0E10D8903E7"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "魏徵",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "及敗，太宗使召之，謂曰：「汝離間我兄弟，何也？」徵曰：「皇太子若從徵言，必無今日之禍。」太宗素器之",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-D826159D11DB463515E7",
+          "subject": "李世民",
+          "time_expression": "武德九年至貞觀初"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-9B78E13F2FA4B187C002",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-WEIZHENG",
+          "confidence": 0.98,
+          "event_node_ref": "EVN-TD-WEIZHENG-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-9B78E13F2FA4B187C002"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "魏徵",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-D9266F06279695C5B218C124",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-D9266F06279695C5B218C124"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "跨阵营擢用",
+          "qualifiers": {
+            "accepted_outcome": "由敌对旧属转化为谏议任用",
+            "candidate_focal_person_refs": [
+              "PER-V4-B0E10D8903E7"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "魏徵",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "太宗素器之，引爲詹事主簿。及踐祚，擢拜諫議大夫",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-D826159D11DB463515E7",
+          "subject": "李世民",
+          "time_expression": "武德九年至貞觀初"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "ASTA-9B78E13F2FA4B187C003",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TD-HC-WEIZHENG",
+          "confidence": 0.98,
+          "event_node_ref": "EVN-TD-WEIZHENG-DISCOVERY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "ASTA-9B78E13F2FA4B187C003"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "魏徵",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-57A7D79C31311F40D133829D",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-57A7D79C31311F40D133829D"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "持续问政复用",
+          "qualifiers": {
+            "accepted_outcome": "识才判断得到持续复用验证",
+            "candidate_focal_person_refs": [
+              "PER-V4-B0E10D8903E7"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "魏徵",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "數引徵入臥內，訪以得失",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-D826159D11DB463515E7",
+          "subject": "李世民",
+          "time_expression": "武德九年至貞觀初"
+        }
+      ],
+      "duplicate_settlement_boundary": "只结算626年跨阵营召见、验证、擢用和持续复用所证明的识才链；官职授权及具体规谏收益分别归相邻规则。",
+      "formal_acceptance_basis": "TD-HC-WEIZHENG",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "魏徵",
+      "unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-HC-v1"
+    }
+  ]
+}
