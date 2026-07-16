@@ -83,7 +83,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "7.902",
+        "selected_rule_weighted_raw_signal": "9.190",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
@@ -104,7 +104,8 @@ def test_one_command_exports_full_ruler_scoring_detail(
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
     assert "### 计入材料" in markdown
     assert "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 |" in markdown
-    assert "| 人物 | 计入正池 | 计入负池 |" in markdown
+    assert "| 人物 | 正池贡献 | 负池贡献 |" in markdown
+    assert "排名 / 衰减" not in markdown
     assert "### 人才发现候选优先级" in markdown
     assert "| 1 | 李靖 | 历史级 | 1.200 | 2.614 | 计入 |" in markdown
     assert "| 2 | 房玄龄 | 历史级 | 1.000 | 2.178 | 计入 |" in markdown
@@ -126,7 +127,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "结果状态：report_only_scoring_detail_export" in stdout
     assert "历史覆盖：5/5" in stdout
     assert "完成声明：True" in stdout
-    assert "五条rule加权raw signal：7.902" in stdout
+    assert "五条rule加权raw signal：9.190" in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
@@ -235,14 +236,14 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "7.901979"
+    assert report["summary"]["weighted_raw_signal"] == "9.190188"
     assert report["summary"]["settled_event_positive_count"] == 12
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
     assert report["summary"]["team_negative_member_count"] == 1
     assert rules["talent_discovery"]["rule_raw_net"] == "6.897000"
     assert rules["appointment_delegation"]["rule_raw_net"] == "10.212233"
-    assert rules["team_building"]["rule_raw_net"] == "7.632074"
+    assert rules["team_building"]["rule_raw_net"] == "13.766400"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "2.961200"
     assert "candidate_boundary_audit" not in rules["talent_discovery"]
@@ -384,6 +385,8 @@ def test_unfilled_budget_is_neutral_and_team_is_one_window_unit() -> None:
     assert len(team["positive_members"]) == 8
     assert len(team["negative_members"]) == 1
     assert len(team["supporting_only_members"]) == 15
+    assert team["positive_pool"] == "10.200000"
+    assert team["negative_pool"] == "0.640000"
 
 
 def test_report_is_deterministic_readable_and_byte_idempotent(tmp_path: Path) -> None:

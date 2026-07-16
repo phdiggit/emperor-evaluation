@@ -613,18 +613,10 @@ def _build_team_rule(
         key=lambda row: (-_decimal(row["negative_value"]), str(row["person"])),
     )
     positive_pool = sum(
-        (
-            _decimal(row["talent_value"]) / _decimal(rank).sqrt()
-            for rank, row in enumerate(positive_rows, start=1)
-        ),
-        Decimal("0"),
+        (_decimal(row["talent_value"]) for row in positive_rows), Decimal("0")
     )
     negative_pool = sum(
-        (
-            _decimal(row["negative_value"]) / _decimal(rank).sqrt()
-            for rank, row in enumerate(negative_rows, start=1)
-        ),
-        Decimal("0"),
+        (_decimal(row["negative_value"]) for row in negative_rows), Decimal("0")
     )
     team_policy = policy["rules"]["team_building"]
     complementarity_option = str(rule_manifest["functional_complementarity"])
@@ -703,20 +695,8 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
     )
     team_budget = policy["settlement_budget"]["team_building"]
     team_policy = policy["rules"]["team_building"]
-    positive_rank_sum = sum(
-        (
-            Decimal("1") / _decimal(rank).sqrt()
-            for rank in range(1, int(team_budget["positive_member_budget"]) + 1)
-        ),
-        Decimal("0"),
-    )
-    negative_rank_sum = sum(
-        (
-            Decimal("1") / _decimal(rank).sqrt()
-            for rank in range(1, int(team_budget["negative_member_budget"]) + 1)
-        ),
-        Decimal("0"),
-    )
+    positive_member_count = _decimal(team_budget["positive_member_budget"])
+    negative_member_count = _decimal(team_budget["negative_member_budget"])
     structure_max = max(
         _decimal(value)
         for value in team_policy["role_complementarity_factor"].values()
@@ -739,7 +719,7 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
                     _decimal(value)
                     for value in team_policy["talent_quality_factor"].values()
                 )
-                * positive_rank_sum
+                * positive_member_count
                 * structure_max
             ),
             "tolerate_talent": _rounded(generic_event_max),
@@ -757,7 +737,7 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
                     _decimal(value)
                     for value in team_policy["negative_talent_class_relevance"].values()
                 )
-                * negative_rank_sum
+                * negative_member_count
                 * structure_max
             ),
             "tolerate_talent": _rounded(generic_event_max),

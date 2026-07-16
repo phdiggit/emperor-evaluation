@@ -178,28 +178,12 @@ def build_team_building_historical_scored_shadow(
             else severity_values[str(risk_severity)] * class_values[str(risk_class)]
         )
 
-    positive_order = sorted(
-        members, key=lambda row: (-row["talent_value"], row["person_ref"])
+    positive_pool = sum(
+        (member["talent_value"] for member in members), Decimal("0")
     )
-    positive_pool = Decimal("0")
-    for rank, member in enumerate(positive_order, start=1):
-        weight = Decimal("1") / Decimal(rank).sqrt()
-        member["positive_rank"] = rank
-        member["positive_weight"] = weight
-        member["positive_weighted_value"] = member["talent_value"] * weight
-        positive_pool += member["positive_weighted_value"]
-
-    negative_order = sorted(
-        (row for row in members if row["negative_value"] > 0),
-        key=lambda row: (-row["negative_value"], row["person_ref"]),
+    negative_pool = sum(
+        (member["negative_value"] for member in members), Decimal("0")
     )
-    negative_pool = Decimal("0")
-    for rank, member in enumerate(negative_order, start=1):
-        weight = Decimal("1") / Decimal(rank).sqrt()
-        member["negative_rank"] = rank
-        member["negative_weight"] = weight
-        member["negative_weighted_value"] = member["negative_value"] * weight
-        negative_pool += member["negative_weighted_value"]
 
     matching = _maximum_role_matching(members)
     complementarity = (

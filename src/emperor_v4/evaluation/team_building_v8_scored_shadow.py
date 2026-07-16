@@ -297,29 +297,12 @@ def build_team_building_v8_scored_shadow(
                 }
             )
 
-        positive_order = sorted(
-            members, key=lambda row: (-row["talent_value"], row["person_ref"])
+        positive_pool = sum(
+            (member["talent_value"] for member in members), Decimal("0")
         )
-        positive_pool = Decimal("0")
-        for rank, member in enumerate(positive_order, start=1):
-            weight = Decimal("1") / Decimal(rank).sqrt()
-            weighted = member["talent_value"] * weight
-            member["positive_rank"] = rank
-            member["positive_weight"] = weight
-            member["positive_weighted_value"] = weighted
-            positive_pool += weighted
-        negative_order = sorted(
-            (member for member in members if member["negative_value"] > 0),
-            key=lambda row: (-row["negative_value"], row["person_ref"]),
+        negative_pool = sum(
+            (member["negative_value"] for member in members), Decimal("0")
         )
-        negative_pool = Decimal("0")
-        for rank, member in enumerate(negative_order, start=1):
-            weight = Decimal("1") / Decimal(rank).sqrt()
-            weighted = member["negative_value"] * weight
-            member["negative_rank"] = rank
-            member["negative_weight"] = weight
-            member["negative_weighted_value"] = weighted
-            negative_pool += weighted
 
         historic_count = sum(member["effective_talent_grade"] == "historic" for member in members)
         high_count = sum(member["effective_talent_grade"] in {"historic", "top"} for member in members)

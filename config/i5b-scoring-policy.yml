@@ -136,13 +136,12 @@ rules:
   team_building:
     projection_mode: v4_person_profile_and_team_window
     formulas:
-      positive_pool: sum(talent_quality_factor_rank / rank ^ 0.5)
+      positive_pool: sum(talent_quality_factor)
       negative_team_contribution: negative_talent_severity_value * negative_talent_class_relevance
-      negative_pool: sum(negative_team_contribution_rank / rank ^ 0.5)
+      negative_pool: sum(negative_team_contribution)
       positive_signal: positive_pool * role_complementarity_factor * long_term_stability_factor
       negative_signal: negative_pool * role_complementarity_factor * long_term_stability_factor
       rule_raw_net: positive_signal - negative_signal
-    person_decay: 0.5
     talent_quality_factor:
       ordinary: 0.35
       usable: 0.55
@@ -184,7 +183,7 @@ rules:
       continuity_structure: maps_long_term_stability_factor
       confidant_dependency: diagnostic_only_not_a_multiplier
       negative_profile_exposure: audit_summary_of_negative_pool
-    aggregation_policy: v3-team-object-pool-v1
+    aggregation_policy: bounded-team-pool-no-rank-decay-v1
 
   tolerate_talent:
     projection_mode: v4_joint_factor_projection
@@ -289,11 +288,11 @@ aggregation_policies:
     top_k: false
     settled_units_only: true
     max_settled_units_per_side: 3
-  v3-team-object-pool-v1:
+  bounded-team-pool-no-rank-decay-v1:
     mode: orthogonal_person_profile_pool
     canonical_person_unique_per_window: true
     positive_and_negative_axes_independent: true
-    person_decay: 0.5
+    rank_decay: false
     top_k: false
     positive_member_budget: 8
     negative_member_budget: 3

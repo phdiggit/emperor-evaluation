@@ -237,11 +237,11 @@ appointment_delegation.rule_raw_net = positive_signal - negative_signal
 本分项以“皇帝—时间窗口”为唯一计分单元。人物能力与政治风险分别计算，不得因政治风险降低人才等级；成员所属决策、行政、军事、纠错等角色只用于判断团队互补性，不形成必填槽位。
 
 ```text
-positive_pool = sum(talent_value_rank / rank ^ 0.5)
+positive_pool = sum(talent_value)
 negative_member_value =
   negative_talent_severity_value × negative_talent_class_relevance
 
-negative_pool = sum(negative_member_value_rank / rank ^ 0.5)
+negative_pool = sum(negative_member_value)
 
 team_building.positive_signal =
   positive_pool × functional_complementarity_factor × long_term_stability_factor
@@ -253,6 +253,8 @@ team_building.rule_raw_net = team_building.positive_signal - team_building.negat
 ```
 
 正池最多冻结8名能够代表窗口团队结构的成员，负池最多冻结3名在窗口内实际暴露风险的成员。成员冻结由人工在数值投影前完成，不按人才档位或计算后数值自动取前N名。正池预算已满后，新增同质成员只补充团队 lineage；只有可能改变互补性、稳定性或现有成员代表性的材料才重新进入 Judge。
+
+团队成员已经受正负池人数预算约束，不再叠加名次衰减。冻结成员在各自池内按其人才值或负面成员值全额进入求和，成员顺序仅用于可读展示，不影响数值。
 
 ### 1. 人才能力档位 `talent_quality_factor`
 

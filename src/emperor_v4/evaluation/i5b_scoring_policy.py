@@ -380,12 +380,17 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
         "team confidant dependency",
     )
     team_policy = (policy.get("aggregation_policies") or {}).get(
-        "v3-team-object-pool-v1"
+        "bounded-team-pool-no-rank-decay-v1"
     ) or {}
     _require_exact(
         team_policy.get("positive_and_negative_axes_independent"),
         True,
         "team 正交双轴",
+    )
+    _require_exact(
+        team_policy.get("rank_decay"),
+        False,
+        "team 成员排名衰减",
     )
 
     for rule_code in ("talent_discovery", "tolerate_talent", "anti_nepotism"):

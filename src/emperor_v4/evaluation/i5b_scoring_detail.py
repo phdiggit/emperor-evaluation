@@ -159,10 +159,7 @@ def _source_detail(
                 for row in budget_rule.get("negative_members") or ()
             }
             members = []
-            for rank, row in enumerate(
-                budget_rule.get("positive_members") or (), start=1
-            ):
-                weight = Decimal("1") / Decimal(rank).sqrt()
+            for row in budget_rule.get("positive_members") or ():
                 negative = negative_by_person.pop(str(row["person"]), None)
                 members.append(
                     {
@@ -171,13 +168,7 @@ def _source_detail(
                         "talent_value": row["talent_value"],
                         "talent_grade_basis": row.get("talent_grade_basis"),
                         "roles": list(row.get("role_families") or ()),
-                        "positive_rank": rank,
-                        "positive_weight": str(weight),
-                        "positive_weighted_value": str(
-                            _decimal(row["talent_value"]) * weight
-                        ),
-                        "negative_rank": None,
-                        "negative_weight": None,
+                        "positive_weighted_value": str(row["talent_value"]),
                         "negative_weighted_value": "0",
                         "window_negative_class": (
                             negative.get("negative_class") if negative else None
@@ -190,14 +181,11 @@ def _source_detail(
                         ),
                     }
                 )
-            for rank, row in enumerate(
-                budget_rule.get("negative_members") or (), start=1
-            ):
+            for row in budget_rule.get("negative_members") or ():
                 matching = next(
                     (item for item in members if item["person"] == row["person"]),
                     None,
                 )
-                weight = Decimal("1") / Decimal(rank).sqrt()
                 if matching is None:
                     matching = {
                         "person": row["person"],
@@ -205,8 +193,6 @@ def _source_detail(
                         "talent_value": row.get("talent_value"),
                         "talent_grade_basis": row.get("talent_grade_basis"),
                         "roles": list(row.get("role_families") or ()),
-                        "positive_rank": None,
-                        "positive_weight": None,
                         "positive_weighted_value": "0",
                         "supporting_unit_refs": list(
                             row.get("supporting_unit_refs") or ()
@@ -215,11 +201,7 @@ def _source_detail(
                     members.append(matching)
                 matching.update(
                     {
-                        "negative_rank": rank,
-                        "negative_weight": str(weight),
-                        "negative_weighted_value": str(
-                            _decimal(row["negative_value"]) * weight
-                        ),
+                        "negative_weighted_value": str(row["negative_value"]),
                         "window_negative_class": row.get("negative_class"),
                         "window_negative_severity": row.get("negative_severity"),
                     }
@@ -1111,7 +1093,7 @@ def _team_member_grade_text(row: Mapping[str, Any], member: Mapping[str, Any]) -
 def _team_member_negative_pool_text(
     row: Mapping[str, Any], member: Mapping[str, Any]
 ) -> str:
-    if not member.get("negative_rank"):
+    if not _decimal(member.get("negative_weighted_value") or 0):
         return "—"
     risk_class = member.get("window_negative_class")
     severity = member.get("window_negative_severity")
@@ -1147,8 +1129,8 @@ def _team_multiplier_lines(
     for label, factor_code, option_code in pairs:
         option = _factor_option(row, factor_code, option_code)
         lines.append(
-            f"- {label} (`{factor_code}`)：{option.get('label_zh', option_code)} "
-            f"(`{option_code}`) = `{option.get('value', '—')}`"
+            f"- {label}：{option.get('label_zh', option_code)} = "
+            f"`{option.get('value', '—')}`"
         )
     return lines
 
@@ -1634,22 +1616,15 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 "",
                 "### 计入材料",
                 "",
-                "| 人物 | 计入正池 | 计入负池 | 人才档 / 基础系数 | 正向排名 / 衰减 | 负向排名 / 衰减 | 角色 | 计分事实 |",
-                "|---|---:|---:|---|---|---|---|---|",
+                "| 人物 | 正池贡献 | 负池贡献 | 人才档 / 基础系数 | 角色 | 计分事实 |",
+                "|---|---:|---:|---|---|---|",
             ]
             for member in members:
-                positive_rank = (
-                    f"第{member.get('positive_rank')}名 / `{_rounded(member.get('positive_weight'))}`"
-                    if member.get("positive_rank")
-                    else "—"
-                )
                 lines.append(
                     f"| {member['person']} | "
                     f"{_rounded(member.get('positive_weighted_value'))} | "
                     f"{_team_member_negative_pool_text(row, member)} | "
                     f"{_team_member_grade_text(row, member)} | "
-                    f"{positive_rank} | "
-                    f"{('第' + str(member.get('negative_rank')) + '名 / `' + _rounded(member.get('negative_weight')) + '`') if member.get('negative_rank') else '—'} | "
                     f"{_role_text(member.get('roles'))} | "
                     f"{_md_cell(_team_member_fact_text(detail, member))} |"
                 )
