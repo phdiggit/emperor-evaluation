@@ -889,15 +889,6 @@ def _choice_text(
     return ""
 
 
-def _option_status_suffix(option: Mapping[str, Any]) -> str:
-    parts = []
-    if option.get("current_projection_status_zh"):
-        parts.append(f"当前投影状态={option['current_projection_status_zh']}")
-    if option.get("contract_reachability_zh"):
-        parts.append(f"合同可达性={option['contract_reachability_zh']}")
-    return f"（{'；'.join(parts)}）" if parts else ""
-
-
 def _display_materials(
     detail: Mapping[str, Any],
     fact_summaries: Mapping[str, str] | None = None,
@@ -1355,6 +1346,24 @@ def _unscored_review_rows(row: Mapping[str, Any]) -> list[dict[str, str]]:
 
 def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
     summary = report["summary"]
+    selection_summary = report.get("selection_summary")
+    complete_selection = not selection_summary or selection_summary[
+        "complete_five_rule_signal"
+    ]
+    weighted_signal_label = (
+        "当前 declared-workset weighted raw signal"
+        if complete_selection
+        else "所选 Rule weighted raw signal 小计"
+    )
+    weighted_signal = (
+        summary["declared_workset_weighted_raw_signal"]
+        if complete_selection
+        else selection_summary["selected_rule_weighted_raw_signal"]
+    )
+    coverage_complete_count = sum(
+        row["historical_coverage_status"] == "coverage_complete"
+        for row in report["rules"]
+    )
     lines = [
         f"# {_text(report['ruler'])}当前计分详情",
         "",
@@ -1373,8 +1382,8 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
         )
     lines += [
         "",
-        f"- 当前 declared-workset weighted raw signal：`{summary['declared_workset_weighted_raw_signal']}`",
-        f"- 历史覆盖完成：`{summary['historical_coverage_complete_rule_count']}/5`",
+        f"- {weighted_signal_label}：`{weighted_signal}`",
+        f"- 历史覆盖完成：`{coverage_complete_count}/{len(report['rules'])}`",
         "- 正式45分、tier、排名：均未生成",
         "",
         "### 通用证据因子",
@@ -1739,86 +1748,50 @@ def build_i5b_scoring_detail_selection(
 
 def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> str:
     selection = report["selection"]
+    ruler_sections = [
+        render_i5b_scoring_detail_markdown(ruler_report).rstrip()
+        for ruler_report in report["selected_ruler_reports"]
+    ]
+    if not report["people"]:
+        return "\n\n".join(ruler_sections) + "\n"
+
     lines = [
-        "# 指定皇帝、臣子与 Rule 的计分详情",
+        "# 臣子计分材料参与详情",
         "",
-        f"- 皇帝：{_text(selection['rulers'])}",
         f"- 臣子：{_text(selection['people'])}",
         f"- Rules：{_text(selection['rules'])}",
-        f"- 臣子检索范围：`{selection['person_scope']}`",
+        f"- 检索范围：`{selection['person_scope']}`",
         "",
-        "> Rule 子集只展示加权 raw signal 小计；臣子条目只表示参与，不构成臣子个人分数。",
+        "> 臣子条目只表示材料参与，不构成臣子个人分数。",
     ]
-    for ruler_report in report["selected_ruler_reports"]:
-        selection_summary = ruler_report["selection_summary"]
-        lines += [
-            "",
-            f"## 皇帝：{ruler_report['ruler']}",
-            "",
-            "| Rule | 正向 | 负向 | 净值 | 权重 | 加权贡献 |",
-            "|---|---:|---:|---:|---:|---:|",
-        ]
-        for row in ruler_report["rules"]:
-            lines.append(
-                f"| {row['rule_label']} (`{row['rule_code']}`) | {row['positive_signal']} | "
-                f"{row['negative_signal']} | {row['rule_raw_net']} | {row['rule_weight']} | "
-                f"{row['weighted_raw_contribution']} |"
-            )
-        lines += [
-            "",
-            f"所选 Rule 加权 raw signal 小计：`{selection_summary['selected_rule_weighted_raw_signal']}`",
-        ]
-        for row in ruler_report["rules"]:
-            primary = next(
-                source for source in row["detail_sources"] if source["role"] == "primary"
-            )
-            lines += [
-                "",
-                f"### {row['rule_label']}明细",
-                "",
-                f"- 公式：`{_text(row['formula'])}`",
-                f"- 对账：`{row['detail_reconciliation']['status']}`",
-                f"- Primary：`{primary['path']}`",
-            ]
-            for factor in row["factor_catalog_zh"]:
-                lines.append(
-                    f"- **{factor['label_zh']}** (`{factor['factor_code']}`)："
-                    f"{factor['description_zh']}"
-                )
-                lines.extend(
-                    f"  - {option['label_zh']} (`{option['option_code']}`) = "
-                    f"`{option['value']}`：{option['description_zh']}"
-                    + _option_status_suffix(option)
-                    for option in factor["options"]
-                )
-            materials = primary["detail"].get("materials") or ()
-            for material in materials:
-                subject = material.get("person") or material.get("subject") or "—"
-                unit = material.get("unit_ref") or material.get("material_code") or "—"
-                lines.append(
-                    f"- {_text(subject)} / `{unit}` / 材料分 "
-                    f"`{_text(material.get('material_score') or material.get('absolute_material_score'))}` / "
-                    f"因子：{_choice_text(material, row['factor_catalog_zh'], ruler_report['evidence_factor_catalog_zh'])}"
-                )
-            members = primary["detail"].get("members") or ()
-            if members:
-                lines.append(f"- 团队成员池：{_text([row['person'] for row in members])}")
-
     for person in report["people"]:
         lines += [
             "",
             f"## 臣子：{person['person']}",
             "",
             f"参与项数量：`{person['participation_count']}`；个人分数：未生成。",
+            "",
+            "| 皇帝 | Rule | 参与类型 | 材料 / 单元 | 材料分 |",
+            "|---|---|---|---|---:|",
         ]
         for participation in person["participations"]:
             detail = participation["detail"]
-            unit = detail.get("unit_ref") or detail.get("material_code") or detail.get("person") or "—"
-            score = detail.get("material_score") or detail.get("absolute_material_score")
+            unit = (
+                detail.get("unit_ref")
+                or detail.get("material_code")
+                or detail.get("person")
+                or "—"
+            )
+            score = (
+                detail.get("material_score")
+                or detail.get("absolute_material_score")
+                or "—"
+            )
             lines.append(
-                f"- {participation['ruler']} / {participation['rule_label']} / "
-                f"`{participation['participation_kind']}` / `{unit}`"
-                + (f" / 材料分 `{score}`" if score is not None else "")
+                f"| {_md_cell(participation['ruler'])} | "
+                f"{_md_cell(participation['rule_label'])} | "
+                f"`{participation['participation_kind']}` | "
+                f"{_md_cell(unit)} | {_text(score)} |"
             )
     lines += [
         "",
@@ -1829,4 +1802,5 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
         "- 模型调用和数据库写入均为0",
         "",
     ]
-    return "\n".join(lines)
+    sections = ruler_sections + ["\n".join(lines)]
+    return "\n\n".join(sections)

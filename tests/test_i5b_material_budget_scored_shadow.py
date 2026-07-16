@@ -77,7 +77,12 @@ def test_one_command_exports_full_ruler_scoring_detail(
         "selected_rule_count": 5,
         "selected_rule_weighted_raw_signal": "7.248",
     }
-    assert (output_dir / "scoring-detail.md").is_file()
+    markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
+    assert "### 计入材料" in markdown
+    assert "| 对象 | 实际计入信号 | 方向 | 材料分 |" in markdown
+    assert "| 人物 | 计入正池 | 计入负池 |" in markdown
+    assert "**反馈入口强度**" not in markdown
+    assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
     stdout = capsys.readouterr().out
     assert "历史覆盖：5/5" in stdout
     assert "五条rule加权raw signal：7.248" in stdout
