@@ -282,8 +282,7 @@ def _direct_materials(
         magnitude, rendered_values = _factor_product(
             material.get("factor_values") or {}, names_by_side[side], material_id
         )
-        rows.append(
-            {
+        row = {
                 "material_id": material_id,
                 "subject": str(material["subject"]),
                 "object_ref": str(material.get("object_ref") or material["subject"]),
@@ -297,7 +296,9 @@ def _direct_materials(
                 ),
                 "source_refs": list(material.get("source_refs") or ()),
             }
-        )
+        if material.get("talent_quality_basis"):
+            row["talent_quality_basis"] = dict(material["talent_quality_basis"])
+        rows.append(row)
     return rows
 
 
@@ -484,6 +485,14 @@ def _build_material_rule(
                 "subject": material["subject"],
                 "rule_evidence_unit_ref": material["rule_evidence_unit_ref"],
                 "material_magnitude": _rounded(material["material_magnitude"]),
+                "factor_values": {
+                    key: _rounded(_decimal(value))
+                    for key, value in (material.get("factor_values") or {}).items()
+                },
+                "factor_option_codes": dict(
+                    material.get("factor_option_codes") or {}
+                ),
+                "fact": str(material.get("fact") or ""),
                 "judge_reason": (
                     "已通过适用性、归责、独立性和去重 Gate；"
                     f"材料分低于当前{'正向' if side == 'positive' else '负向'}"
@@ -498,6 +507,16 @@ def _build_material_rule(
             "subject": by_id[material_id]["subject"],
             "rule_evidence_unit_ref": by_id[material_id]["rule_evidence_unit_ref"],
             "material_magnitude": _rounded(by_id[material_id]["material_magnitude"]),
+            "factor_values": {
+                key: _rounded(_decimal(value))
+                for key, value in (
+                    by_id[material_id].get("factor_values") or {}
+                ).items()
+            },
+            "factor_option_codes": dict(
+                by_id[material_id].get("factor_option_codes") or {}
+            ),
+            "fact": str(by_id[material_id].get("fact") or ""),
             "judge_reason": reason,
             "selection_status": "excluded_by_eligibility_gate",
         }

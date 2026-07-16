@@ -8,8 +8,45 @@ policy: config/i5b-scoring-policy.yml
 rules:
   talent_discovery:
     source: eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json
+    direct_materials:
+      - material_id: TD-LSM-LIJING-PREACCESSION
+        subject: 李靖
+        object_ref: PER-LSM-LIJING
+        side: positive
+        factor_values: {direction_sign: 1.0, discovery_level: 1.2, talent_quality_factor: 1.8, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {direction_sign: positive, discovery_level: difficult_cross_boundary_discovery, talent_quality_factor: historic, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 高祖将斩李靖时，李世民坚持请求保全；李靖获免后，太宗随即召入幕府，完成跨敌意背景的识别、保全和转化使用。
+        source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷67]
+        talent_quality_basis: {talent_grade: historic, policy_civil_outcome_basis: 平萧铣、灭东突厥、平吐谷浑形成跨战区国家级重复兑现。, shared_attribution_boundary: 战果只校准人才档，发现人才只结算保全并召入幕府的首次转化。}
+      - material_id: TD-LSM-FANGXUANLING-PREACCESSION
+        subject: 房玄龄
+        object_ref: PER-LSM-FANGXUANLING
+        side: positive
+        factor_values: {direction_sign: 1.0, discovery_level: 1.0, talent_quality_factor: 1.8, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {direction_sign: positive, discovery_level: attributable_interview_trial_or_appointment, talent_quality_factor: historic, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 李世民徇地渭北时，房玄龄入军门求见；李世民一见即识其才并署为行军记室参军，随后长期纳入秦王府核心团队。
+        source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷66]
+        talent_quality_basis: {talent_grade: historic, policy_civil_outcome_basis: 创业定策、贞观长期治理和国家修史组织形成跨阶段成果。, shared_attribution_boundary: 治理成果只校准人才档，发现人才只结算初见识别和首次转化。}
+      - material_id: TD-LSM-DURUHUI-PREACCESSION
+        subject: 杜如晦
+        object_ref: PER-LSM-DURUHUI
+        side: positive
+        factor_values: {direction_sign: 1.0, discovery_level: 0.8, talent_quality_factor: 1.45, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {direction_sign: positive, discovery_level: recommendation_entry, talent_quality_factor: top, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 房玄龄向李世民明确推荐杜如晦为王佐才，李世民据此奏请留任、加以礼重并转入核心幕府，后续任用验证了推荐判断。
+        source_refs: [SP-766D8DEADA6FE28B38DA, SP-DC99668A072E3A8009C5]
+        talent_quality_basis: {talent_grade: top, policy_civil_outcome_basis: 创业谋划和贞观核心决策形成国家级兑现。, shared_attribution_boundary: 中枢成果只校准人才档，识才只结算推荐后的留任和转化。}
     eligible:
       positive:
+        - material_id: TD-LSM-LIJING-PREACCESSION
+          independence_key: discovery:lijing:rescue-and-recruit
+          judge_reason: 历史级人才在处刑风险下由李世民主动保全并召入本人幕府，识别和转化链直接闭合。
+        - material_id: TD-LSM-FANGXUANLING-PREACCESSION
+          independence_key: discovery:fangxuanling:first-interview
+          judge_reason: 历史级人才主动入见后由李世民当场识别并首次任用，随后延续进入评价窗口。
+        - material_id: TD-LSM-DURUHUI-PREACCESSION
+          independence_key: discovery:duruhui:recommend-and-retain
+          judge_reason: 顶级人才经房玄龄推荐后由李世民直接留任并转化使用，链条闭合但发现程度低于直接识别。
         - material_id: REU-LSM-WEIZHENG-DISCOVERY-HC-v1
           independence_key: discovery:weizheng:cross-camp
           judge_reason: 敌对阵营旧属经直接召见验证并转化使用，形成独立跨阵营识才链。
@@ -46,6 +83,14 @@ rules:
         factor_option_codes: {appointment_importance: major_affairs, appointment_effect: major_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
         fact: 太宗命房玄龄、魏徵及礼官学士修订礼典，形成百卷成果、增补二十九条并颁行内外。
         source_refs: [SP-FA3B1771EC66E916D0C4]
+      - material_id: MAT-LSM-HONGWEN-HALL-POS
+        subject: 弘文馆文儒人才池与议政通道
+        object_ref: GOVOBJ-CAND-LSM-HONGWEN-HALL
+        side: positive
+        factor_values: {appointment_importance: 1.25, appointment_effect: 1.0, continuity_factor: 1.0, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: major_affairs, appointment_effect: normal_success, continuity_factor: stable, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 太宗即位后设置弘文馆，精选虞世南、褚亮、姚思廉等文儒轮值宿直，并在听朝之暇召入内殿讲论经义、商议政事，人才池和使用通道均实际运行。
+        source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷189上]
     eligible:
       positive:
         - material_id: MAT-LSM-FANGXUANLING-POS-V2
@@ -80,6 +125,9 @@ rules:
         - material_id: MAT-LSM-ZHENGUAN-RITES-POS
           independence_key: appointment:zhenguan-rites:expert-commission
           judge_reason: 修礼责任群体、完成物、制度增补及颁行结果闭合。
+        - material_id: MAT-LSM-HONGWEN-HALL-POS
+          independence_key: appointment:hongwen-hall:scholar-pool
+          judge_reason: 弘文馆作为责任机构形成明确人才选择、轮值权限和持续议政运行，符合机构型任用授权链。
       negative:
         - material_id: MAT-LSM-HOUJUNJI-NEG
           independence_key: appointment:houjunji:control-failure
@@ -110,6 +158,8 @@ rules:
         source_refs: [SP-8A9C97DF836016533342]
       - result: 颜师古考定、房玄龄组织复核、孔颖达等编疏并付国学施行
         source_refs: [SP-0FD28DD01694EC7F4FE8]
+      - result: 弘文馆精选文儒轮值宿直，并持续进入内殿讲论经义、商议政事
+        source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷189上]
 
   tolerate_talent:
     source: eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json

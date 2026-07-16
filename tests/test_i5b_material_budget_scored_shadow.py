@@ -83,7 +83,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "7.516",
+        "selected_rule_weighted_raw_signal": "7.902",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
@@ -103,20 +103,30 @@ def test_one_command_exports_full_ruler_scoring_detail(
     )
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
     assert "### 计入材料" in markdown
-    assert "| 对象 | 实际计入信号 | 方向 | 材料分 |" in markdown
+    assert "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 |" in markdown
     assert "| 人物 | 计入正池 | 计入负池 |" in markdown
-    assert "### 人才质量与政策文治成果依据" in markdown
-    assert "| 张玄素 | `usable` | 政道问答与洛阳宫停工" in markdown
+    assert "### 人才发现候选优先级" in markdown
+    assert "| 1 | 李靖 | 历史级 | 1.200 | 2.614 | 计入 |" in markdown
+    assert "| 2 | 房玄龄 | 历史级 | 1.000 | 2.178 | 计入 |" in markdown
+    assert "| 3 | 魏徵 | 顶级 | 1.200 | 2.105 | 计入 |" in markdown
+    assert "| 4 | 马周 | 重要 | 1.200 | 1.670 | 合格，预算外 |" in markdown
     assert "候选扫描与材料预算边界" not in markdown
     assert "### 政策 / 文治成果" in markdown
     assert "五经定本与五经正义" in markdown
+    assert "弘文馆精选文儒轮值宿直" in markdown
+    assert "量才授职和精简员额边界" in markdown
+    assert "发现强度 1.200" in markdown
+    assert "[discovery_level=" not in markdown
+    assert "SP-8A9C97DF836016533342" not in markdown
+    assert "投影模式：" not in markdown
+    assert "明细对账：" not in markdown
     assert "**反馈入口强度**" not in markdown
     assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
     stdout = capsys.readouterr().out
     assert "结果状态：report_only_scoring_detail_export" in stdout
     assert "历史覆盖：5/5" in stdout
     assert "完成声明：True" in stdout
-    assert "五条rule加权raw signal：7.516" in stdout
+    assert "五条rule加权raw signal：7.902" in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
@@ -225,12 +235,12 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "7.515747"
+    assert report["summary"]["weighted_raw_signal"] == "7.901979"
     assert report["summary"]["settled_event_positive_count"] == 12
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
     assert report["summary"]["team_negative_member_count"] == 1
-    assert rules["talent_discovery"]["rule_raw_net"] == "4.864200"
+    assert rules["talent_discovery"]["rule_raw_net"] == "6.897000"
     assert rules["appointment_delegation"]["rule_raw_net"] == "10.212233"
     assert rules["team_building"]["rule_raw_net"] == "7.632074"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
@@ -339,7 +349,8 @@ def test_appointment_uses_strongest_eligible_materials_without_domain_quota() ->
     assert "MAT-LSM-FANGXUANLING-POS-V2" in supporting_ids
     assert "MAT-LSM-ZHENGUAN-RITES-POS" in supporting_ids
     assert "MAT-LSM-INSTITUTION-MERIT-STAFFING-POS" in supporting_ids
-    assert appointment["eligible_candidate_count"] == 11
+    assert "MAT-LSM-HONGWEN-HALL-POS" in supporting_ids
+    assert appointment["eligible_candidate_count"] == 12
     assert all(
         row["selection_basis"] == "eligibility_gate_then_strongest_n"
         for row in appointment["settled_materials"]

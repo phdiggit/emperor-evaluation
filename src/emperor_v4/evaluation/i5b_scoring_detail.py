@@ -139,9 +139,12 @@ def _source_detail(
             {
                 "material": row.get("subject") or row.get("person"),
                 "observation": (
-                    "责任链已保留，但证据合同尚未闭合"
-                    if row.get("selection_status") == "insufficient_contract_evidence"
-                    else "已通过计分 Gate，未进入本版结算预算"
+                    row.get("fact")
+                    or (
+                        "责任链已保留，但证据合同尚未闭合"
+                        if row.get("selection_status") == "insufficient_contract_evidence"
+                        else "已通过计分 Gate，未进入本版结算预算"
+                    )
                 ),
                 "reason": row.get("judge_reason"),
             }
@@ -335,6 +338,11 @@ def _source_detail(
                 "subject": row.get("subject"),
                 "talent_quality_basis": dict(row["talent_quality_basis"]),
                 "selection_status": "settled",
+                "material_score": row.get("material_magnitude"),
+                "factor_values": dict(row.get("factor_values") or {}),
+                "factor_option_codes": dict(
+                    row.get("factor_option_codes") or {}
+                ),
             }
             for row in selected
             if row.get("talent_quality_basis")
@@ -344,6 +352,11 @@ def _source_detail(
                 "subject": row.get("subject"),
                 "talent_quality_basis": dict(row["talent_quality_basis"]),
                 "selection_status": row.get("selection_status"),
+                "material_score": row.get("material_magnitude"),
+                "factor_values": dict(row.get("factor_values") or {}),
+                "factor_option_codes": dict(
+                    row.get("factor_option_codes") or {}
+                ),
             }
             for row in budget_rule.get("supporting_only_materials") or ()
             if row.get("talent_quality_basis")
@@ -965,15 +978,14 @@ def _choice_text(
         or {}
     )
     if isinstance(choices, Mapping):
-        option_lookup = {
-            (factor["factor_code"], option["option_code"]): option
+        factor_labels = {
+            factor["factor_code"]: factor["label_zh"]
             for factor in (*factor_catalog_zh, *evidence_factor_catalog_zh)
-            for option in factor["options"]
         }
         return "；".join(
-            f"{option_lookup.get((key, choice), {}).get('label_zh', choice)}"
-            f"[{key}={choice}]"
-            + (f"({values[key]})" if key in values else "")
+            f"{factor_labels.get(key, key)} {_rounded(values[key])}"
+            if key in values
+            else f"{factor_labels.get(key, key)} {_text(choice)}"
             for key, choice in choices.items()
         )
     return ""
@@ -1440,11 +1452,7 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
     complete_selection = not selection_summary or selection_summary[
         "selected_all_five_rules"
     ]
-    weighted_signal_label = (
-        "当前 declared-workset weighted raw signal"
-        if complete_selection
-        else "所选 Rule weighted raw signal 小计"
-    )
+    weighted_signal_label = "五条规则加权信号" if complete_selection else "所选规则加权信号小计"
     weighted_signal = (
         summary["declared_workset_weighted_raw_signal"]
         if complete_selection
@@ -1466,15 +1474,15 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
     ]
     for row in report["rules"]:
         lines.append(
-            f"| {row['rule_label']} (`{row['rule_code']}`) | {row['positive_signal']} | "
+            f"| {row['rule_label']} | {row['positive_signal']} | "
             f"{row['negative_signal']} | {row['rule_raw_net']} | {row['rule_weight']} | "
-            f"{row['weighted_raw_contribution']} | `{row['historical_coverage_status']}` |"
+            f"{row['weighted_raw_contribution']} | "
+            f"{'完成' if row['historical_coverage_status'] == 'coverage_complete' else '未完成'} |"
         )
     lines += [
         "",
         f"- {weighted_signal_label}：`{weighted_signal}`",
         f"- 历史覆盖完成：`{coverage_complete_count}/{len(report['rules'])}`",
-        f"- 当前因子合同一致：`{report['declarations']['current_factor_contracts_satisfied']}`",
         "- 正式45分、tier、排名：均未生成",
         "",
         "### 通用证据因子",
@@ -1489,15 +1497,10 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
         detail = primary["detail"]
         lines += [
             "",
-            f"## {row['rule_label']} (`{row['rule_code']}`)",
+            f"## {row['rule_label']}",
             "",
             f"- 当前净值：`{row['positive_signal']} - {row['negative_signal']} = {row['rule_raw_net']}`",
             f"- 加权贡献：`{row['rule_raw_net']} × {row['rule_weight']} = {row['weighted_raw_contribution']}`",
-            f"- 投影模式：`{_text(row['projection_mode'])}`",
-            f"- 聚合策略：`{_text(row['aggregation_policy'])}`",
-            f"- 公式：`{_text(row['formula'])}`",
-            f"- 明细对账：`{row['detail_reconciliation']['status']}`（`{primary['adapter']}`）",
-            f"- 因子合同：`{row['factor_contract']['status']}`",
         ]
         if row["factor_contract"]["missing_v4_factor_inputs"]:
             lines.append(
@@ -1542,8 +1545,8 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 "",
                 "### 计分聚合" if episode_facts else "### 计入材料",
                 "",
-                f"| 对象 | 实际计入信号 | 方向 | 材料分 | 聚合参数 | 因子选择 | {fact_column_label} |",
-                "|---|---:|---|---:|---|---|---|",
+                f"| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | {fact_column_label} |",
+                "|---|---|---:|---:|---|---|",
             ]
             for material in materials:
                 subject = _display_name(
@@ -1553,11 +1556,9 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 weighted = material.get("weighted_signal") or material.get(
                     "weighted_value"
                 ) or "—"
-                aggregation = material.get("aggregation_text") or "材料直接计入"
                 lines.append(
-                    f"| {subject} | {_rounded(weighted)} | "
-                    f"{_side_text(material.get('side'))} | {_rounded(score)} | "
-                    f"{_text(aggregation)} | "
+                    f"| {subject} | {_side_text(material.get('side'))} | "
+                    f"{_rounded(score)} | {_rounded(weighted)} | "
                     f"{_choice_text(material, row['factor_catalog_zh'], report['evidence_factor_catalog_zh'])} | "
                     f"{_md_cell(material.get('fact_summary'))} |"
                 )
@@ -1567,11 +1568,38 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
             if quality_rows:
                 lines += [
                     "",
-                    "### 人才质量与政策文治成果依据",
+                    "### 人才发现候选优先级",
                     "",
-                    "| 人物 | 人才档 | 政策 / 文治成果依据 | 共享归责与防重复边界 |",
-                    "|---|---|---|---|",
+                    "| 顺序 | 人物 | 人才档 | 发现程度 | 材料分 | 结算结果 | 政策 / 文治依据 |",
+                    "|---:|---|---|---:|---:|---|---|",
                 ]
+                ordered_quality_rows = sorted(
+                    quality_rows,
+                    key=lambda item: (
+                        -_decimal(item.get("material_score") or 0),
+                        str(item.get("subject") or ""),
+                    ),
+                )
+                for rank, material in enumerate(ordered_quality_rows, start=1):
+                    basis = material["talent_quality_basis"]
+                    grade_label = {
+                        "ordinary": "普通",
+                        "usable": "可用",
+                        "important": "重要",
+                        "top": "顶级",
+                        "historic": "历史级",
+                    }.get(str(basis.get("talent_grade")), _text(basis.get("talent_grade")))
+                    discovery_value = (material.get("factor_values") or {}).get(
+                        "discovery_level"
+                    )
+                    lines.append(
+                        f"| {rank} | {_md_cell(material.get('subject'))} | "
+                        f"{grade_label} | "
+                        f"{_rounded(discovery_value) if discovery_value is not None else '—'} | "
+                        f"{_rounded(material.get('material_score'))} | "
+                        f"{'计入' if material.get('selection_status') == 'settled' else '合格，预算外'} | "
+                        f"{_md_cell(basis.get('policy_civil_outcome_basis'))} |"
+                    )
 
         governance_results = detail.get("governance_results") or ()
         if governance_results:
@@ -1579,22 +1607,13 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 "",
                 "### 政策 / 文治成果",
                 "",
-                "| 已落实成果 | 史源 |",
-                "|---|---|",
+                "| 已落实成果 |",
+                "|---|",
             ]
             for result in governance_results:
                 lines.append(
-                    f"| {_md_cell(result.get('result'))} | "
-                    f"{_md_cell(result.get('source_refs'))} |"
+                    f"| {_md_cell(result.get('result'))} |"
                 )
-                for material in quality_rows:
-                    basis = material["talent_quality_basis"]
-                    lines.append(
-                        f"| {_md_cell(material.get('subject'))} | "
-                        f"`{_text(basis.get('talent_grade'))}` | "
-                        f"{_md_cell(basis.get('policy_civil_outcome_basis'))} | "
-                        f"{_md_cell(basis.get('shared_attribution_boundary'))} |"
-                    )
             boundary = detail.get("candidate_boundary_audit") or {}
             if boundary:
                 lines += [
