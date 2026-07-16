@@ -50,7 +50,7 @@ $env:PYTHONPATH = "src"
 python -m emperor_v4.eval model-policy --policy config/model-policy.yml
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output tmp/factor-semantics.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
-python -m emperor_v4.eval i5b-scoring-detail-export --ruler 李世民
+python v4.py i5b-scoring-detail-export --ruler 李世民
 ```
 
 最后一条命令默认导出该皇帝全部五条rule，同时生成
