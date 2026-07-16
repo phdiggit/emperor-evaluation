@@ -67,6 +67,22 @@ rules:
     supplemental_sources:
       - eval/i5b_team_building_historical_coverage/lishimin_appointment_responsibility_projection_v1.json
     direct_materials:
+      - material_id: MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS
+        subject: 房玄龄、杜如晦跨阶段中枢治理责任群体
+        object_ref: GOVOBJ-LSM-FANGDU-CENTRAL-GOVERNANCE
+        side: positive
+        factor_values: {appointment_importance: 1.4, appointment_effect: 1.8, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: critical_national_or_long_term, appointment_effect: exceptional_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 李世民自秦王府阶段持续以房玄龄、杜如晦承担人才延揽、军国筹划和中枢选任职责；即位后两人先后进入尚书省并共同主持朝政、选官和台阁制度运行，形成跨创业与贞观治理阶段的基础中枢责任链。
+        source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷66]
+      - material_id: MAT-LSM-CHANGSUN-WUJI-CENTRAL-TRUST-POS
+        subject: 长孙无忌跨阶段中枢决策与辅政责任
+        object_ref: PER-V4-839C5A8CB43C
+        side: positive
+        factor_values: {appointment_importance: 1.4, appointment_effect: 1.5, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: critical_national_or_long_term, appointment_effect: major_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 李世民自秦王府阶段持续委任长孙无忌参与核心筹划；即位后授予吏部、中枢决策和储位辅政责任，其对突厥政策、世封刺史纠偏和继承安排形成多个可区分的履职反馈。
+        source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷65, https://zh.wikisource.org/zh-hans/资治通鉴/卷195]
       - material_id: MAT-LSM-FIVE-CLASSICS-POS
         subject: 五经定本与五经正义
         object_ref: GOVOBJ-CAND-LSM-FIVE-CLASSICS
@@ -93,6 +109,12 @@ rules:
         source_refs: [https://zh.wikisource.org/zh-hans/旧唐书/卷189上]
     eligible:
       positive:
+        - material_id: MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS
+          independence_key: appointment:fangdu:cross-stage-central-governance
+          judge_reason: 秦王府至贞观中枢的责任主体、权限、跨阶段运行和基础治理结果闭合；共同成果以责任群体结算，不再分别给房杜重复加总。
+        - material_id: MAT-LSM-CHANGSUN-WUJI-CENTRAL-TRUST-POS
+          independence_key: appointment:changsun-wuji:cross-stage-central-trust
+          judge_reason: 跨阶段核心决策、吏部与辅政责任形成多个独立履职反馈，按重大长期中枢授权结算。
         - material_id: MAT-LSM-FANGXUANLING-POS-V2
           independence_key: appointment:fangxuanling:central-left-behind
           judge_reason: 中枢与留守便宜权及其实际处置反馈闭合，是清晰的文官授权链。

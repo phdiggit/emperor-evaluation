@@ -10,12 +10,12 @@
 | Rule | 正向信号 | 负向信号 | 净信号 |
 | --- | ---: | ---: | ---: |
 | 发现人才 | 6.897000 | 0.000000 | 6.897000 |
-| 任用授权 | 10.618793 | 0.406560 | 10.212233 |
+| 任用授权 | 13.050396 | 0.406560 | 12.643836 |
 | 团队建设 | 14.688000 | 0.800000 | 13.888000 |
 | 容人保全 | 6.957500 | 0.653400 | 6.304100 |
 | 避免任人唯亲 | 2.961200 | 0.000000 | 2.961200 |
 
-加权 raw signal：`9.215724`。
+加权 raw signal：`10.091101`。
 
 ## 振幅诊断
 
@@ -48,23 +48,25 @@
 
 | 方向 | 对象 | REU | 材料值 | Judge理由 | 计分事实 |
 | --- | --- | --- | ---: | --- | --- |
+| 正向 | 房玄龄、杜如晦跨阶段中枢治理责任群体 | MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS | 3.506580 | 秦王府至贞观中枢的责任主体、权限、跨阶段运行和基础治理结果闭合；共同成果以责任群体结算，不再分别给房杜重复加总。 | 李世民自秦王府阶段持续以房玄龄、杜如晦承担人才延揽、军国筹划和中枢选任职责；即位后两人先后进入尚书省并共同主持朝政、选官和台阁制度运行，形成跨创业与贞观治理阶段的基础中枢责任链。 |
 | 正向 | 李靖 | REU-LSM-LIJING-MILITARY-AUTHORITY-HC-v1 | 3.506580 | 两次国家级主帅授权分别改变东突厥与吐谷浑战略格局，受任者总帅贡献高度直接，按极重大成功投影。 | 太宗先后授李靖国家级方面统帅权；李靖以主帅身份灭东突厥、平吐谷浑，形成两个可区分的战略格局改变结果。 |
-| 正向 | 侯君集 | REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1 | 2.922150 | 高昌主帅授权与重大结果闭合；吐谷浑阶段属于李靖总帅链下的重要建议和执行贡献，不与李靖总帅成果等量归责。 | 太宗授侯君集高昌方面主帅权并取得重大直接成果；吐谷浑阶段保留其建议和执行贡献，但不作为独立总帅级战略成果重复抬档。 |
-| 正向 | 五经定本与五经正义 | MAT-LSM-FIVE-CLASSICS-POS | 2.609063 | 皇帝命题、专家考定、集体复核及国学施行构成完整文治授权链。 | 太宗委任颜师古考定五经，命房玄龄组织诸儒复核，并命孔颖达等编成《五经正义》付国学施行。 |
+| 正向 | 长孙无忌跨阶段中枢决策与辅政责任 | MAT-LSM-CHANGSUN-WUJI-CENTRAL-TRUST-POS | 2.922150 | 跨阶段核心决策、吏部与辅政责任形成多个独立履职反馈，按重大长期中枢授权结算。 | 李世民自秦王府阶段持续委任长孙无忌参与核心筹划；即位后授予吏部、中枢决策和储位辅政责任，其对突厥政策、世封刺史纠偏和继承安排形成多个可区分的履职反馈。 |
 | 负向 | 侯君集 | REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1 | 0.406560 | 高昌任务后存在私取与未能约束部属，但现有史源未证明屠城、系统性劫掠或持续公共损害；太宗先令下狱，后听岑文本谏而释放，属于有限控制失误及部分纠正，不能按国家级任务重要性直接抬成重大损害。 | 侯君集平高昌后未奏配没罪人并私取珍宝妇女，部属亦随之盗取；太宗令其下狱，后听岑文本劝谏而释放复列，形成有限控制失误与部分纠正的完整链。 |
 
 ### 未计分支持材料
 
 | 对象 | REU | Judge理由 |
 | --- | --- | --- |
-| 杜如晦 | REU-LSM-DURUHUI-AUTHORITY-HC-v2 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 房玄龄 | REU-LSM-FANGXUANLING-AUTHORITY-HC-v2 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 弘文馆文儒人才池与议政通道 | MAT-LSM-HONGWEN-HALL-POS | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 房玄龄等中枢员额责任群体 | REU-LSM-INSTITUTION-MERIT-STAFFING-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 李绩 | REU-LSM-LIJI-AUTHORITY-HC-v2 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 馬周 | REU-LSM-MAZHOU-AUTHORIZATION-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 魏徵 | REU-LSM-WEIZHENG-APPOINTMENT-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
-| 贞观礼修订与颁行 | MAT-LSM-ZHENGUAN-RITES-POS | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。 |
+| 杜如晦 | REU-LSM-DURUHUI-AUTHORITY-HC-v2 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 房玄龄 | REU-LSM-FANGXUANLING-AUTHORITY-HC-v2 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 五经定本与五经正义 | MAT-LSM-FIVE-CLASSICS-POS | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 弘文馆文儒人才池与议政通道 | MAT-LSM-HONGWEN-HALL-POS | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 侯君集 | REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 房玄龄等中枢员额责任群体 | REU-LSM-INSTITUTION-MERIT-STAFFING-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 李绩 | REU-LSM-LIJI-AUTHORITY-HC-v2 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 馬周 | REU-LSM-MAZHOU-AUTHORIZATION-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 魏徵 | REU-LSM-WEIZHENG-APPOINTMENT-HC-v1 | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
+| 贞观礼修订与颁行 | MAT-LSM-ZHENGUAN-RITES-POS | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.922150，本版不计分。 |
 | 刺史与五品以上荐举责任群体 | REU-LSM-INSTITUTION-LOCAL-SELECTION-HC-v1 | 已确认责任主体和权限边界，但没有实际运行观察，不进入数值候选集。 |
 
 ## 团队建设
@@ -73,15 +75,15 @@
 
 | 方向 | 对象 | 档位/风险 | 数值 | 支撑REU |
 | --- | --- | --- | ---: | --- |
-| 正向 | 房玄龄 | historic | 1.600000000000 | REU-LSM-TEAM-FANGDU-HC-v1、REU-LSM-TEAM-SUCCESSION-HC-v1、REU-LSM-TEAM-LATE-CONTINUITY-HC-v1 |
-| 正向 | 李绩 | historic | 1.600000000000 | REU-LSM-TEAM-SUCCESSION-HC-v1 |
-| 正向 | 李靖 | historic | 1.600000000000 | REU-LSM-TEAM-LIJING-HC-v1 |
-| 正向 | 杜如晦 | top | 1.200000000000 | REU-LSM-TEAM-FANGDU-HC-v1 |
-| 正向 | 长孙无忌 | top | 1.200000000000 | REU-LSM-TEAM-SUCCESSION-HC-v1 |
-| 正向 | 魏徵 | top | 1.200000000000 | REU-LSM-TEAM-WEIZHENG-HC-v1 |
-| 正向 | 褚遂良 | important | 0.900000000000 | REU-LSM-TEAM-SUCCESSION-HC-v1、REU-LSM-TEAM-LATE-CONTINUITY-HC-v1 |
-| 正向 | 马周 | important | 0.900000000000 | REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693 |
-| 负向 | 侯君集 | traitorous_actor / major | 0.800000000000 | REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1 |
+| 正向 | 房玄龄 | historic | 1.6 | REU-LSM-TEAM-FANGDU-HC-v1、REU-LSM-TEAM-SUCCESSION-HC-v1、REU-LSM-TEAM-LATE-CONTINUITY-HC-v1 |
+| 正向 | 李绩 | historic | 1.6 | REU-LSM-TEAM-SUCCESSION-HC-v1 |
+| 正向 | 李靖 | historic | 1.6 | REU-LSM-TEAM-LIJING-HC-v1 |
+| 正向 | 杜如晦 | top | 1.2 | REU-LSM-TEAM-FANGDU-HC-v1 |
+| 正向 | 长孙无忌 | top | 1.2 | REU-LSM-TEAM-SUCCESSION-HC-v1 |
+| 正向 | 魏徵 | top | 1.2 | REU-LSM-TEAM-WEIZHENG-HC-v1 |
+| 正向 | 褚遂良 | important | 0.9 | REU-LSM-TEAM-SUCCESSION-HC-v1、REU-LSM-TEAM-LATE-CONTINUITY-HC-v1 |
+| 正向 | 马周 | important | 0.9 | REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693 |
+| 负向 | 侯君集 | traitorous_actor / major | 0.8 | REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1 |
 
 团队结构系数：`1.200000 × 1.200000`。
 
@@ -124,4 +126,4 @@
 | --- | --- | --- |
 | 唐宗室封爵制度 | REU-2B48AB3D178FBC9265DD | 已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 0.880000，本版不计分。 |
 
-报告指纹：`6d15397ac32e3e625d9d0da70ae3f9534a296ce790083f45ddfa773deb65f16c`
+报告指纹：`ab8ef24ada7efd0e21057bed3eb8fdfafcd96bcf36a5f00bf5920264fb833e22`

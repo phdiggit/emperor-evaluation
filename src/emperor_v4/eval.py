@@ -227,6 +227,8 @@ def _historical_closeout_preflight(
     work_budget = _load(workspace_root / closeout["work_budget"])
     max_minutes = int(work_budget["per_ruler_run"]["max_wall_clock_minutes"])
     blockers = []
+    if not detail_report["declarations"]["historical_coverage_complete"]:
+        blockers.append("candidate_disposition_incomplete")
     if not detail_report["declarations"]["current_factor_contracts_satisfied"]:
         blockers.append("factor_contract_mismatch")
     if settled_positive < talent_budget:

@@ -51,7 +51,26 @@ def _negative_review_state(
 ) -> tuple[str, bool]:
     review_completed = evaluation.get("review_completed")
     if isinstance(review_completed, bool):
-        return str(evaluation.get("finding_status") or ""), review_completed
+        status = str(evaluation.get("finding_status") or "")
+        if not review_completed:
+            return status, False
+        risk_class = evaluation.get("class")
+        risk_severity = evaluation.get("severity")
+        if (risk_class is None) != (risk_severity is None):
+            return status, False
+        if evaluation.get("evidence_coverage") == "insufficient":
+            return "insufficient_evidence", False
+        try:
+            confidence = Decimal(str(evaluation.get("confidence")))
+        except Exception:
+            return status, False
+        if confidence <= 0:
+            return "insufficient_evidence", False
+        if status == "established":
+            return status, risk_class is not None
+        if status == "no_established_negative_class":
+            return status, risk_class is None
+        return status, False
     supplemental_version = str(snapshot.get("negative_talent_version") or "")
     required = {
         "authority_consensus", "basis", "confidence", "evidence_coverage",

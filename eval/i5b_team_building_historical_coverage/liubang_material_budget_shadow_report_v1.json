@@ -20,6 +20,7 @@
     }
   },
   "declarations": {
+    "candidate_disposition_complete": true,
     "context_labels_used_as_scoring_slots": false,
     "database_write_count": 0,
     "domain_representation_quota_used": false,
@@ -31,16 +32,18 @@
     "numeric_top_k_selection_used": true,
     "ranking": null,
     "score": null,
+    "team_profile_source_enforced": true,
     "tier": null,
     "unfilled_budget_penalty_used": false
   },
   "policy_ref": "config/i5b-scoring-policy.yml",
   "policy_sha256": "8d4dead072ea7f5b97d61a0c82999ec64598aeffe8861d1f83be4abf0ac239ad",
-  "report_sha256": "1af743253bd9d3d3b72ee80000ceaec4d717f3aa7e934ad919f77a8138d538db",
+  "report_sha256": "96a5e7bac32dadb58fed4e22f4eaed1a8185f09d216e09d1ff38dcc1c49ed61e",
   "ruler": "刘邦",
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
   "rules": [
     {
+      "candidate_disposition_complete": true,
       "eligible_candidate_count": 3,
       "negative_budget": 3,
       "negative_signal": "0.000000",
@@ -197,14 +200,15 @@
       "supporting_only_materials": []
     },
     {
-      "eligible_candidate_count": 3,
+      "candidate_disposition_complete": true,
+      "eligible_candidate_count": 7,
       "negative_budget": 3,
-      "negative_signal": "0.000000",
+      "negative_signal": "4.464851",
       "positive_budget": 3,
       "positive_signal": "13.231157",
       "rule_code": "appointment_delegation",
       "rule_label": "任用授权",
-      "rule_raw_net": "13.231157",
+      "rule_raw_net": "8.766306",
       "settled_materials": [
         {
           "fact": "刘邦拜韩信为大将并持续授予独立方面统兵权，韩信完成三秦及魏赵燕齐等多战区战略任务。",
@@ -301,113 +305,430 @@
             "https://zh.wikisource.org/zh-hans/史记/卷055"
           ],
           "subject": "张良长期战略参议"
+        },
+        {
+          "fact": "刘邦使陈豨以赵相国长期统辖赵、代边兵；陈豨宾客过盛、擅兵数年风险暴露后反叛并使常山二十五城失二十城，形成重大直接授权控制损害。",
+          "factor_option_codes": {
+            "appointment_effect": "major_direct_damage",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "long_term_multi_stage",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "1.800000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.150000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "appointment:chenxi:border-control-failure",
+          "judge_reason": "长期重兵授权、事前风险暴露和大范围失城结果闭合，构成重大直接控制失败。",
+          "material_id": "AD-LB-CHENXI-BORDER-CONTROL-FAILURE",
+          "material_magnitude": "3.506580",
+          "object_ref": "PERSON-CHENXI",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "AD-LB-CHENXI-BORDER-CONTROL-FAILURE",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "negative",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/史记/卷093"
+          ],
+          "subject": "陈豨长期边兵授权与控制失败"
+        },
+        {
+          "fact": "刘邦将韩王信改封太原以北负责备御匈奴并准其移治马邑；其后韩王信在受围与问责压力下反汉降匈奴，边防授权形成明确但责任混合的直接损害。",
+          "factor_option_codes": {
+            "appointment_effect": "limited_direct_damage",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "stable",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "0.800000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "appointment:hanwangxin:border-failure",
+          "judge_reason": "边防授权与反叛损害成立，但受围、问责与本人选择共同作用，按有限直接损害而非重大档结算。",
+          "material_id": "AD-LB-HANWANGXIN-BORDER-FAILURE",
+          "material_magnitude": "1.355200",
+          "object_ref": "PERSON-HANWANGXIN",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "AD-LB-HANWANGXIN-BORDER-FAILURE",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "negative",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/史记/卷093"
+          ],
+          "subject": "韩王信北部边防授权失控"
         }
       ],
-      "source_candidate_count": 3,
+      "source_candidate_count": 7,
       "source_ref": "eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json",
       "source_sha256": "e656fb752ed2a6c3c69e29706b99dc3e8aa523175d4ec4e4ac9aba2cd102f23d",
       "supplemental_source_refs": [],
       "supplemental_source_sha256s": [],
-      "supporting_only_materials": []
+      "supporting_only_materials": [
+        {
+          "fact": "刘邦使曹参承担齐地军事与行政整合责任；曹参平定地方后任齐相，采用盖公清静方略治理人口众多的齐国，形成方面治理授权与持续结果。",
+          "factor_option_codes": {
+            "appointment_effect": "major_success",
+            "appointment_importance": "major_affairs",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "stable",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "1.500000",
+            "appointment_importance": "1.250000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 3.130875，本版不计分。",
+          "material_id": "AD-LB-CAOCAN-QI-GOVERNANCE",
+          "material_magnitude": "2.268750",
+          "rule_evidence_unit_ref": "AD-LB-CAOCAN-QI-GOVERNANCE",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "曹参齐地治理责任"
+        },
+        {
+          "fact": "刘邦同意叔孙通征集儒生、试制朝仪并命群臣习行；长乐宫朝会正式运行后又授太常，形成责任主体、程序边界、试运行和制度结果闭合的文官授权链。",
+          "factor_option_codes": {
+            "appointment_effect": "major_success",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "stable",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "1.500000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 3.130875，本版不计分。",
+          "material_id": "AD-LB-SHUSUNTONG-RITES",
+          "material_magnitude": "2.541000",
+          "rule_evidence_unit_ref": "AD-LB-SHUSUNTONG-RITES",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "叔孙通朝仪责任群体与制度运行"
+        }
+      ]
     },
     {
+      "candidate_disposition_complete": true,
       "functional_complementarity": "balanced_four",
       "functional_complementarity_factor": "1.200000",
       "governance_results": [
         {
           "result": "萧何守关中并持续供给前线，张良、韩信、陈平分别承担战略、军事与危机处理职责。"
+        },
+        {
+          "result": "叔孙通主持朝仪试行与正式运行，曹参承担齐地治理，补足汉初文官制度与地方治理结果。"
         }
       ],
       "long_term_stability": "durable_multi_stage",
       "long_term_stability_factor": "1.200000",
       "negative_member_budget": 3,
-      "negative_members": [],
-      "negative_pool": "0.000000",
-      "negative_signal": "0.000000",
+      "negative_members": [
+        {
+          "negative_class": "cruel_official",
+          "negative_severity": "material",
+          "negative_value": "0.45",
+          "person": "樊哙",
+          "profile_ref": "PROFILE-PER-V4-E517D0145D0D@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
+          "role_families": [
+            "military",
+            "correction"
+          ],
+          "supporting_unit_refs": [
+            "TB-LB-FANKUAI"
+          ],
+          "talent_grade": "important",
+          "talent_grade_basis": "长期从征、护卫和平叛形成持续重大军事行动成果。",
+          "talent_value": "0.9"
+        }
+      ],
+      "negative_pool": "0.450000",
+      "negative_signal": "0.450000",
       "positive_member_budget": 8,
       "positive_members": [
         {
           "person": "张良",
+          "profile_ref": "PROFILE-PER-V4-3E4BA2094B57@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
           "role_families": [
             "decision"
           ],
           "supporting_unit_refs": [
-            "TB-O01-ZHANGLIANG"
+            "TB-LB-ZHANGLIANG"
           ],
           "talent_grade": "historic",
-          "talent_grade_basis": "跨楚汉创业、定都与功臣秩序形成多项国家级战略兑现。",
+          "talent_grade_basis": "楚汉战略、定都与功臣秩序形成跨阶段国家级兑现。",
           "talent_value": "1.6"
         },
         {
           "person": "曹参",
+          "profile_ref": "PROFILE-PER-V4-F6B28703F893@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
           "role_families": [
             "administration"
           ],
           "supporting_unit_refs": [
-            "TB-O01-CAOCAN"
+            "TB-LB-CAOCAN"
           ],
           "talent_grade": "historic",
-          "talent_grade_basis": "统一战争、齐地治理和继相后维持休养秩序形成跨领域成果。",
+          "talent_grade_basis": "统一战争、齐地治理及汉初休养秩序形成跨领域成果。",
           "talent_value": "1.6"
         },
         {
           "person": "萧何",
+          "profile_ref": "PROFILE-PER-V4-75DF03E09409@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
           "role_families": [
             "administration"
           ],
           "supporting_unit_refs": [
-            "TB-O01-XIAOHE"
+            "TB-LB-XIAOHE"
           ],
           "talent_grade": "historic",
-          "talent_grade_basis": "关中治理、后勤组织和汉初制度建设形成长期基础遗产。",
+          "talent_grade_basis": "关中治理、军需组织和汉初制度建设形成长期基础遗产。",
           "talent_value": "1.6"
         },
         {
           "person": "韩信",
+          "profile_ref": "PROFILE-PER-V4-E0E14338F94B@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
           "role_families": [
             "military"
           ],
           "supporting_unit_refs": [
-            "TB-O01-HANXIN"
+            "TB-LB-HANXIN"
           ],
           "talent_grade": "historic",
           "talent_grade_basis": "多战区连续战略胜利直接改变楚汉战争格局。",
           "talent_value": "1.6"
         },
         {
+          "person": "周勃",
+          "profile_ref": "PROFILE-PER-V4-D7FBC6D47CAE@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
+          "role_families": [
+            "military"
+          ],
+          "supporting_unit_refs": [
+            "TB-LB-ZHOUBO"
+          ],
+          "talent_grade": "top",
+          "talent_grade_basis": "汉初多战区平定形成持续重大军事成果。",
+          "talent_value": "1.2"
+        },
+        {
           "person": "陈平",
+          "profile_ref": "PROFILE-PER-V4-6B644ADA6B87@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
           "role_families": [
             "decision",
             "correction"
           ],
           "supporting_unit_refs": [
-            "TB-O01-CHENPING"
+            "TB-LB-CHENPING"
           ],
           "talent_grade": "top",
-          "talent_grade_basis": "多次国家存亡危机处理和长期中枢谋划达到第一梯队。",
+          "talent_grade_basis": "多次国家危机处置和长期中枢谋划达到同时代第一梯队。",
           "talent_value": "1.2"
+        },
+        {
+          "person": "叔孙通",
+          "profile_ref": "PROFILE-PER-V4-6F877F064B0B@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
+          "role_families": [
+            "administration",
+            "correction"
+          ],
+          "supporting_unit_refs": [
+            "TB-LB-SHUSUNTONG"
+          ],
+          "talent_grade": "important",
+          "talent_grade_basis": "汉初朝仪与宗庙仪法的主持、试行和正式运行形成重要制度成果。",
+          "talent_value": "0.9"
+        },
+        {
+          "person": "樊哙",
+          "profile_ref": "PROFILE-PER-V4-E517D0145D0D@liubang-team-profile-freeze-v1",
+          "profile_snapshot_version": "liubang-team-profile-freeze-v1",
+          "role_families": [
+            "military",
+            "correction"
+          ],
+          "supporting_unit_refs": [
+            "TB-LB-FANKUAI"
+          ],
+          "talent_grade": "important",
+          "talent_grade_basis": "长期从征、护卫和平叛形成持续重大军事行动成果。",
+          "talent_value": "0.9"
         }
       ],
-      "positive_pool": "7.600000",
-      "positive_signal": "10.944000",
+      "positive_pool": "10.600000",
+      "positive_signal": "15.264000",
+      "profile_source_enforced": true,
       "rule_code": "team_building",
       "rule_label": "团队建设",
-      "rule_raw_net": "10.944000",
-      "source_candidate_count": 5,
-      "source_ref": "eval/i5b_team_building_historical_coverage/liubang_team_member_pool_v1.json",
-      "source_sha256": "282fb0ac3aa55d337d627ce0f6cf4f113482310d07b460ba9e7eaae10c8119dd",
+      "rule_raw_net": "14.814000",
+      "source_candidate_count": 8,
+      "source_ref": "eval/i5b_team_building_historical_coverage/liubang_team_profile_freeze_v1.json",
+      "source_sha256": "4ade14ae1f1c0a41cf91784904cb18f719c05931a87c69a543bf10122151b80a",
       "supporting_only_members": []
     },
     {
-      "eligible_candidate_count": 1,
+      "candidate_disposition_complete": true,
+      "eligible_candidate_count": 4,
       "negative_budget": 3,
       "negative_signal": "3.267000",
       "positive_budget": 3,
-      "positive_signal": "0.000000",
+      "positive_signal": "3.388000",
       "rule_code": "tolerate_talent",
       "rule_label": "容人保全",
-      "rule_raw_net": "-3.267000",
+      "rule_raw_net": "0.121000",
       "settled_materials": [
+        {
+          "fact": "张良在入关、楚汉战争、定都及安定功臣等多个阶段反复提出不同意见，刘邦持续采用并保留其核心参议位置；多个后续用策观察共同证明表达基本安全。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "expression_safety": "basically_safe",
+            "feedback_entry": "durable_multi_stage_feedback",
+            "protection_repair": "none",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "expression_safety": "1.000000",
+            "feedback_entry": "1.300000",
+            "protection_repair": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "tolerate:zhangliang:multi-stage-counsel",
+          "judge_reason": "多阶段反馈、持续采用及后续留任共同证明基本表达安全。",
+          "material_id": "TT-LB-ZHANGLIANG-REPEATED-COUNSEL",
+          "material_magnitude": "1.573000",
+          "object_ref": "PER-V4-3E4BA2094B57",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "TT-LB-ZHANGLIANG-REPEATED-COUNSEL",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/史记/卷055"
+          ],
+          "subject": "张良",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "stable_without_conflict",
+              "feedback_reception": "accepted_without_conflict",
+              "professional_autonomy": "professional_judgment_respected",
+              "talent_safety": "safe_without_retaliation"
+            }
+          }
+        },
+        {
+          "fact": "周昌在废立太子问题上犯颜强谏，刘邦虽欲更立如意仍容其直言并继续重任，后使其为赵相保护如意，形成冲突后保留职责的安全观察。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "expression_safety": "tense_or_case_dependent",
+            "feedback_entry": "repeated_feedback_retained",
+            "protection_repair": "none",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "expression_safety": "0.800000",
+            "feedback_entry": "1.000000",
+            "protection_repair": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "tolerate:zhouchang:succession-remonstrance",
+          "judge_reason": "激烈分歧后仍保留并继续授予重要职责，形成独立安全观察。",
+          "material_id": "TT-LB-ZHOUCHANG-SUCCESSION-REMONSTRANCE",
+          "material_magnitude": "0.968000",
+          "object_ref": "PER-V4-D7FBC6D47CAE",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "TT-LB-ZHOUCHANG-SUCCESSION-REMONSTRANCE",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hant/史記/卷096"
+          ],
+          "subject": "周昌",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "stable_without_conflict",
+              "feedback_reception": "tolerated_not_adopted",
+              "professional_autonomy": "professional_judgment_respected",
+              "talent_safety": "safe_without_retaliation"
+            }
+          }
+        },
+        {
+          "fact": "叔孙通以愿伏诛强谏不可易太子，刘邦停止斥退并最终未更换太子；其后仍继续承担太傅等职责，形成采纳与后续安全链。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "expression_safety": "basically_safe",
+            "feedback_entry": "single_acceptance_or_tolerance",
+            "protection_repair": "none",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "expression_safety": "1.000000",
+            "feedback_entry": "0.700000",
+            "protection_repair": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "tolerate:shusuntong:succession-remonstrance",
+          "judge_reason": "强谏、最终采纳和后续留任形成完整反馈安全链。",
+          "material_id": "TT-LB-SHUSUNTONG-SUCCESSION-REMONSTRANCE",
+          "material_magnitude": "0.847000",
+          "object_ref": "PER-V4-6F877F064B0B",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "TT-LB-SHUSUNTONG-SUCCESSION-REMONSTRANCE",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/史记/卷099"
+          ],
+          "subject": "叔孙通",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "stable_without_conflict",
+              "feedback_reception": "accepted_after_conflict",
+              "professional_autonomy": "professional_judgment_respected",
+              "talent_safety": "safe_without_retaliation"
+            }
+          }
+        },
         {
           "fact": "萧何因请求开放上林苑余地利民而被下廷尉、械系，数日后经王卫尉进言赦出；已实现拘禁对应 imprisonment_or_severe_nonpermanent_harm，伤害直接由反馈触发，对象没有材料所示重大过错，映射 framed_or_harmed_for_feedback。",
           "factor_option_codes": {
@@ -450,7 +771,7 @@
           }
         }
       ],
-      "source_candidate_count": 1,
+      "source_candidate_count": 4,
       "source_ref": "eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json",
       "source_sha256": "04518ad779f9fd8b38232288a6b640d0592d43a7d999285b8562f2bae0cdf252",
       "supplemental_source_refs": [],
@@ -458,58 +779,103 @@
       "supporting_only_materials": []
     },
     {
-      "eligible_candidate_count": 1,
+      "candidate_disposition_complete": true,
+      "eligible_candidate_count": 2,
       "negative_budget": 3,
-      "negative_signal": "4.000000",
+      "negative_signal": "0.974050",
       "positive_budget": 3,
-      "positive_signal": "0.000000",
+      "positive_signal": "1.739375",
       "rule_code": "anti_nepotism",
       "rule_label": "避免任人唯亲",
-      "rule_raw_net": "-4.000000",
+      "rule_raw_net": "0.765325",
       "settled_materials": [
         {
-          "fact": "刘邦以白马之盟规定非刘氏不得为王，把最高层公共权力按宗族身份设置制度性排他门槛。",
+          "fact": "刘邦持续使萧何、曹参、周勃、樊哙、叔孙通等不同出身者进入相国、中枢、方面军事和制度职责，形成跨身份开放使用的重复实践；本聚合不复用张良、韩信、陈平三条已结算识才事件。",
           "factor_option_codes": {
             "attribution_factor": "direct",
-            "context_factor": "clear",
-            "displacement_harm": "durable_institutional_pollution",
-            "favoritism_intensity": "systemic_private_network_capture",
+            "context_factor": "core_mechanism_direct",
+            "institutionalization": "repeated_stable_practice",
+            "office_weight": "central_military_or_succession",
+            "selection_openness": "cross_identity_open_selection",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "institutionalization": "1.000000",
+            "office_weight": "1.150000",
+            "selection_openness": "1.250000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "anti-nepotism:cross-identity-core-selection",
+          "judge_reason": "使用未在发现人才结算的多名不同出身者，形成跨身份核心任用的重复开放实践。",
+          "material_id": "AN-LB-CROSS-IDENTITY-CORE-SELECTION",
+          "material_magnitude": "1.739375",
+          "object_ref": "AGGREGATE-LB-CROSS-IDENTITY-CORE-SELECTION",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "AN-LB-CROSS-IDENTITY-CORE-SELECTION",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/史记/卷053",
+            "https://zh.wikisource.org/zh-hans/史记/卷054",
+            "https://zh.wikisource.org/zh-hans/史记/卷057",
+            "https://zh.wikisource.org/zh-hans/史记/卷099"
+          ],
+          "subject": "跨出身人才持续进入核心军政岗位",
+          "v4_factor_projection": {
+            "contract_version": "anti-nepotism-factor-agent-v3",
+            "factor_choices": {
+              "capability_basis": "demonstrated_capability",
+              "network_effect": "cross_identity_open_network",
+              "process_integrity": "repeated_open_selection",
+              "public_power_exposure": "central_and_military_core"
+            }
+          }
+        },
+        {
+          "fact": "卢绾与刘邦私人亲爱、亲幸超过萧何曹参；燕王空缺时群臣明知刘邦欲王卢绾而顺势推举，私人关系明确进入最高地方军政岗位决定，后来燕地出现重大失控。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "displacement_harm": "qualified_people_or_key_office_harmed",
+            "favoritism_intensity": "visible_private_relation",
             "office_weight": "central_military_or_succession",
             "source_factor": "complete_direct_chain"
           },
           "factor_values": {
             "attribution_factor": "1.000000",
-            "context_factor": "1.000000",
-            "displacement_harm": "2.000000",
-            "favoritism_intensity": "2.000000",
+            "context_factor": "1.100000",
+            "displacement_harm": "1.000000",
+            "favoritism_intensity": "0.700000",
             "office_weight": "1.150000",
             "source_factor": "1.100000"
           },
-          "independence_key": "anti-nepotism:nonliu-king-covenant",
-          "judge_reason": "最高层王权被宗族身份制度性垄断，私人血缘直接改变公共任用资格。",
-          "material_id": "AN-LB-NONLIU-KING-COVENANT",
-          "material_magnitude": "4.000000",
-          "object_ref": "INSTITUTION-LB-NONLIU-KING-COVENANT",
+          "independence_key": "anti-nepotism:luwan:yan-king",
+          "judge_reason": "私人亲幸明确影响最高地方军政岗位，但卢绾亦有真实军功，故只按明显私人关系和关键岗位损害结算，不作系统性网络上限惩罚。",
+          "material_id": "AN-LB-LUWAN-YAN-KING",
+          "material_magnitude": "0.974050",
+          "object_ref": "PERSON-LUWAN",
           "override_reasons": [],
-          "rule_evidence_unit_ref": "AN-LB-NONLIU-KING-COVENANT",
+          "rule_evidence_unit_ref": "AN-LB-LUWAN-YAN-KING",
           "selection_basis": "eligibility_gate_then_strongest_n",
           "side": "negative",
           "source_refs": [
-            "https://zh.wikisource.org/zh-hans/史记/卷009"
+            "https://zh.wikisource.org/zh-hans/史记/卷093"
           ],
-          "subject": "非刘氏不王的宗族王权垄断",
+          "subject": "卢绾私人亲幸与燕王任用",
           "v4_factor_projection": {
             "contract_version": "anti-nepotism-factor-agent-v3",
             "factor_choices": {
-              "capability_basis": "lineage_over_capability",
-              "network_effect": "durable_dynastic_capture",
-              "process_integrity": "explicit_kinship_exclusion",
+              "capability_basis": "merit_present_but_private_relation_salient",
+              "network_effect": "single_core_appointment_pollution",
+              "process_integrity": "preferred_candidate_signaled_to_court",
               "public_power_exposure": "highest_feudal_office"
             }
           }
         }
       ],
-      "source_candidate_count": 1,
+      "source_candidate_count": 2,
       "source_ref": "eval/i5b_joint_projection_scored_shadow/anti_nepotism_report.json",
       "source_sha256": "347e655ed3edd80a69566f3e8e4e24cfd713a0bb2bb03ffa025a8753c20660b5",
       "supplemental_source_refs": [],
@@ -521,11 +887,11 @@
   "status": "material_budget_scored_shadow_complete",
   "summary": {
     "rule_count": 5,
-    "settled_event_negative_count": 2,
-    "settled_event_positive_count": 6,
-    "team_negative_member_count": 0,
-    "team_positive_member_count": 5,
-    "weighted_raw_signal": "7.244957"
+    "settled_event_negative_count": 4,
+    "settled_event_positive_count": 10,
+    "team_negative_member_count": 1,
+    "team_positive_member_count": 8,
+    "weighted_raw_signal": "7.346070"
   },
   "task_code": "I5B-LIUBANG-MATERIAL-BUDGET-SHADOW-BC206-BC195-V1",
   "window": "前206—前195"

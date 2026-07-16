@@ -693,7 +693,11 @@ def build_i5b_scoring_detail(
             row["rule_code"]: {
                 **dict(row),
                 "calculation_status": "material_budget_shadow_complete",
-                "historical_coverage_status": "coverage_complete",
+                "historical_coverage_status": (
+                    "coverage_complete"
+                    if row.get("candidate_disposition_complete") is True
+                    else "coverage_incomplete"
+                ),
                 "rule_weight": str(weights[row["rule_code"]]),
                 "weighted_raw_contribution": str(
                     _decimal(row["rule_raw_net"])

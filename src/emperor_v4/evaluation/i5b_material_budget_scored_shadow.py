@@ -567,6 +567,7 @@ def _build_material_rule(
         "positive_signal": _rounded(positive),
         "negative_signal": _rounded(negative),
         "rule_raw_net": _rounded(positive - negative),
+        "candidate_disposition_complete": True,
     }
     candidate_inventory_ref = rule_manifest.get("candidate_inventory_ref")
     if rule_code == "talent_discovery" and candidate_inventory_ref:
@@ -583,6 +584,93 @@ def _build_material_rule(
     return result
 
 
+def _team_profile_members(
+    source: Mapping[str, Any], team_policy: Mapping[str, Any]
+) -> tuple[dict[str, dict[str, Any]], set[str]]:
+    rows = list(source.get("members") or ())
+    if source.get("schema_version") != "i5b-team-member-profile-pool-v1":
+        members = {str(row["person"]): dict(row) for row in rows}
+        if any(not row.get("profile_ref") for row in members.values()):
+            raise ValueError("team source member 缺少版本化人物画像")
+        talent_values = team_policy["talent_quality_factor"]
+        severity_values = team_policy["negative_talent_severity_value"]
+        for row in members.values():
+            grade = str(row["effective_talent_grade"])
+            row["talent_value"] = str(talent_values[grade])
+            severity = row.get("negative_talent_severity")
+            row["negative_value"] = (
+                "0" if severity is None else str(severity_values[str(severity)])
+            )
+        return members, {
+            name
+            for name, row in members.items()
+            if row.get("negative_talent_severity") is not None
+        }
+
+    if source.get("frozen_member_set_complete") is not True:
+        raise ValueError("team profile pool 必须冻结完整成员集合")
+    talent_values = team_policy["talent_quality_factor"]
+    severity_values = team_policy["negative_talent_severity_value"]
+    members: dict[str, dict[str, Any]] = {}
+    exposed: set[str] = set()
+    for profile in rows:
+        name = str(profile["person"])
+        if name in members:
+            raise ValueError("team profile pool 人物重复")
+        if (
+            profile.get("review_status") != "human_frozen"
+            or not profile.get("profile_ref")
+            or not profile.get("profile_snapshot_version")
+        ):
+            raise ValueError(f"{name} 缺少人工冻结版本化人物画像")
+        negative = profile.get("negative_profile") or {}
+        if negative.get("review_completed") is not True:
+            raise ValueError(f"{name} 政治风险画像尚未审完")
+        finding = str(negative.get("finding_status") or "")
+        risk_class = negative.get("class")
+        risk_severity = negative.get("severity")
+        if finding == "established":
+            if not risk_class or risk_severity not in severity_values:
+                raise ValueError(f"{name} 政治风险画像不完整")
+        elif finding == "reviewed_no_finding":
+            if risk_class is not None or risk_severity is not None:
+                raise ValueError(f"{name} 无负类画像不得携带风险档位")
+        else:
+            raise ValueError(f"{name} 政治风险画像状态不可计分: {finding}")
+        exposure = profile.get("window_exposure") or {}
+        exposure_status = str(exposure.get("status") or "")
+        if exposure_status not in {"exposed", "not_observed"}:
+            raise ValueError(f"{name} 缺少当前皇帝窗口政治风险暴露判断")
+        if exposure_status == "exposed":
+            if finding != "established" or not list(exposure.get("source_refs") or ()):
+                raise ValueError(f"{name} 窗口风险暴露缺少画像负类或史源")
+            exposed.add(name)
+        grade = str(profile["effective_talent_grade"])
+        if grade not in talent_values:
+            raise ValueError(f"{name} 人才档位不在当前画像映射")
+        members[name] = {
+            "person": name,
+            "person_ref": str(profile["person_ref"]),
+            "profile_ref": str(profile["profile_ref"]),
+            "profile_snapshot_version": str(profile["profile_snapshot_version"]),
+            "effective_talent_grade": grade,
+            "talent_value": str(talent_values[grade]),
+            "talent_grade_basis": str(profile.get("talent_grade_basis") or ""),
+            "role_families": list(profile.get("role_families") or ()),
+            "supporting_unit_refs": list(profile.get("supporting_unit_refs") or ()),
+            "negative_talent_class": risk_class if exposure_status == "exposed" else None,
+            "negative_talent_severity": (
+                risk_severity if exposure_status == "exposed" else None
+            ),
+            "negative_value": (
+                str(severity_values[str(risk_severity)])
+                if exposure_status == "exposed"
+                else "0"
+            ),
+        }
+    return members, exposed
+
+
 def _build_team_rule(
     *, rule_manifest: Mapping[str, Any], policy: Mapping[str, Any], ruler: str
 ) -> dict[str, Any]:
@@ -590,7 +678,8 @@ def _build_team_rule(
     source = _load_json(source_path)
     if source.get("ruler") != ruler:
         raise ValueError("team source ruler 不匹配")
-    members = {str(row["person"]): row for row in source.get("members") or []}
+    team_policy = policy["rules"]["team_building"]
+    members, exposed_risk_names = _team_profile_members(source, team_policy)
     positive_names = [str(name) for name in rule_manifest.get("positive_members") or []]
     negative_names = [str(name) for name in rule_manifest.get("negative_members") or []]
     budget = policy["settlement_budget"]["team_building"]
@@ -598,6 +687,11 @@ def _build_team_rule(
         raise ValueError("team_building 正池超出预算")
     if len(negative_names) > int(budget["negative_member_budget"]):
         raise ValueError("team_building 负池超出预算")
+    if source.get("schema_version") == "i5b-team-member-profile-pool-v1":
+        if set(positive_names) != set(members):
+            raise ValueError("team_building 正池必须消费完整冻结画像成员集合")
+        if set(negative_names) != exposed_risk_names:
+            raise ValueError("team_building 负池必须等于画像确认的窗口风险成员")
     if len(positive_names) != len(set(positive_names)) or len(negative_names) != len(
         set(negative_names)
     ):
@@ -620,7 +714,6 @@ def _build_team_rule(
     negative_pool = sum(
         (_decimal(row["negative_value"]) for row in negative_rows), Decimal("0")
     )
-    team_policy = policy["rules"]["team_building"]
     complementarity_option = str(rule_manifest["functional_complementarity"])
     stability_option = str(rule_manifest["long_term_stability"])
     complementarity = _decimal(
@@ -642,6 +735,8 @@ def _build_team_rule(
         "positive_members": [
             {
                 "person": row["person"],
+                "profile_ref": row["profile_ref"],
+                "profile_snapshot_version": row.get("profile_snapshot_version"),
                 "talent_grade": row["effective_talent_grade"],
                 "talent_value": str(row["talent_value"]),
                 "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
@@ -653,6 +748,8 @@ def _build_team_rule(
         "negative_members": [
             {
                 "person": row["person"],
+                "profile_ref": row["profile_ref"],
+                "profile_snapshot_version": row.get("profile_snapshot_version"),
                 "negative_class": row["negative_talent_class"],
                 "negative_severity": row["negative_talent_severity"],
                 "negative_value": str(row["negative_value"]),
@@ -677,6 +774,10 @@ def _build_team_rule(
         "positive_signal": _rounded(positive),
         "negative_signal": _rounded(negative),
         "rule_raw_net": _rounded(positive - negative),
+        "candidate_disposition_complete": True,
+        "profile_source_enforced": all(
+            bool(row.get("profile_ref")) for row in members.values()
+        ),
     }
 
 
@@ -830,6 +931,12 @@ def build_i5b_material_budget_shadow(manifest_path: Path) -> dict[str, Any]:
             "numeric_top_k_applied_after_eligibility_gate": True,
             "domain_representation_quota_used": False,
             "unfilled_budget_penalty_used": False,
+            "candidate_disposition_complete": all(
+                row.get("candidate_disposition_complete") is True for row in rules
+            ),
+            "team_profile_source_enforced": next(
+                row for row in rules if row["rule_code"] == "team_building"
+            ).get("profile_source_enforced") is True,
             "external_retrieval_count": 0,
             "model_call_count": 0,
             "database_write_count": 0,

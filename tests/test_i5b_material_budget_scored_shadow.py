@@ -10,9 +10,13 @@ import yaml
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     _appointment_density,
+    _team_profile_members,
     build_i5b_material_budget_shadow,
     render_i5b_material_budget_shadow_markdown,
     write_i5b_material_budget_shadow,
+)
+from emperor_v4.evaluation.team_building_v8_scored_shadow import (
+    _negative_review_state,
 )
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
@@ -28,6 +32,10 @@ ROOT = Path(__file__).parents[1]
 MANIFEST = (
     ROOT
     / "eval/i5b_team_building_historical_coverage/lishimin_material_budget_shadow_manifest_v1.yml"
+)
+LIUBANG_MANIFEST = (
+    ROOT
+    / "eval/i5b_team_building_historical_coverage/liubang_material_budget_shadow_manifest_v1.yml"
 )
 RESPONSIBILITY_MANIFEST = (
     ROOT
@@ -83,7 +91,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "9.216",
+        "selected_rule_weighted_raw_signal": "10.091",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
@@ -127,7 +135,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "结果状态：report_only_scoring_detail_export" in stdout
     assert "历史覆盖：5/5" in stdout
     assert "完成声明：True" in stdout
-    assert "五条rule加权raw signal：9.216" in stdout
+    assert "五条rule加权raw signal：10.091" in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
@@ -286,7 +294,15 @@ def test_liubang_minimal_five_rule_package_closes_out_within_budget(
     assert rules["talent_discovery"]["factor_contract"]["status"] == "current_contract"
     assert rules["anti_nepotism"]["factor_contract"]["status"] == "current_contract"
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
-    for expected in ("张良", "韩信", "陈平", "萧何守关中", "非刘氏不王"):
+    for expected in (
+        "张良",
+        "韩信",
+        "陈平",
+        "萧何守关中",
+        "叔孙通朝仪",
+        "樊哙",
+        "卢绾私人亲幸",
+    ):
         assert expected in markdown
     assert "状态：bounded_shadow_ready" in capsys.readouterr().out
 
@@ -308,13 +324,13 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "9.215724"
+    assert report["summary"]["weighted_raw_signal"] == "10.091101"
     assert report["summary"]["settled_event_positive_count"] == 12
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
     assert report["summary"]["team_negative_member_count"] == 1
     assert rules["talent_discovery"]["rule_raw_net"] == "6.897000"
-    assert rules["appointment_delegation"]["rule_raw_net"] == "10.212233"
+    assert rules["appointment_delegation"]["rule_raw_net"] == "12.643836"
     assert rules["team_building"]["rule_raw_net"] == "13.888000"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "2.961200"
@@ -414,16 +430,18 @@ def test_appointment_uses_strongest_eligible_materials_without_domain_quota() ->
     }
 
     assert {
+        "MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS",
         "MAT-LSM-LIJING-POS",
-        "MAT-LSM-HOUJUNJI-POS",
-        "MAT-LSM-FIVE-CLASSICS-POS",
+        "MAT-LSM-CHANGSUN-WUJI-CENTRAL-TRUST-POS",
     } <= selected_ids
+    assert "MAT-LSM-HOUJUNJI-POS" in supporting_ids
+    assert "MAT-LSM-FIVE-CLASSICS-POS" in supporting_ids
     assert "MAT-LSM-MAZHOU-POS" in supporting_ids
     assert "MAT-LSM-FANGXUANLING-POS-V2" in supporting_ids
     assert "MAT-LSM-ZHENGUAN-RITES-POS" in supporting_ids
     assert "MAT-LSM-INSTITUTION-MERIT-STAFFING-POS" in supporting_ids
     assert "MAT-LSM-HONGWEN-HALL-POS" in supporting_ids
-    assert appointment["eligible_candidate_count"] == 12
+    assert appointment["eligible_candidate_count"] == 14
     assert all(
         row["selection_basis"] == "eligibility_gate_then_strongest_n"
         for row in appointment["settled_materials"]
@@ -436,13 +454,66 @@ def test_appointment_uses_strongest_eligible_materials_without_domain_quota() ->
         "appointment_effect"
     ] == "exceptional_success"
     assert by_id["MAT-LSM-LIJING-POS"]["material_magnitude"] == "3.506580"
-    assert by_id["MAT-LSM-HOUJUNJI-POS"]["material_magnitude"] == "2.922150"
-    assert "李靖总帅链下" in by_id["MAT-LSM-HOUJUNJI-POS"]["judge_reason"]
+    assert by_id["MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS"][
+        "material_magnitude"
+    ] == "3.506580"
+    assert by_id["MAT-LSM-CHANGSUN-WUJI-CENTRAL-TRUST-POS"][
+        "material_magnitude"
+    ] == "2.922150"
     assert by_id["MAT-LSM-HOUJUNJI-NEG"]["factor_option_codes"][
         "appointment_effect"
     ] == "bounded_control_failure"
     assert by_id["MAT-LSM-HOUJUNJI-NEG"]["material_magnitude"] == "0.406560"
     assert "释放" in by_id["MAT-LSM-HOUJUNJI-NEG"]["fact"]
+
+
+def test_liubang_team_pool_derives_values_from_frozen_profiles() -> None:
+    report = build_i5b_material_budget_shadow(LIUBANG_MANIFEST)
+    team = _by_rule(report)["team_building"]
+    profile_pool = json.loads(
+        (
+            ROOT
+            / "eval/i5b_team_building_historical_coverage/"
+            "liubang_team_profile_freeze_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert all("talent_value" not in row for row in profile_pool["members"])
+    assert all("negative_value" not in row for row in profile_pool["members"])
+    assert team["profile_source_enforced"] is True
+    assert len(team["positive_members"]) == 8
+    assert all(row["profile_ref"].startswith("PROFILE-") for row in team["positive_members"])
+    assert all(row["profile_snapshot_version"] for row in team["positive_members"])
+    assert [row["person"] for row in team["negative_members"]] == ["樊哙"]
+    assert team["negative_members"][0]["negative_class"] == "cruel_official"
+    assert team["negative_members"][0]["negative_severity"] == "material"
+    assert team["negative_pool"] == "0.450000"
+    assert report["declarations"]["team_profile_source_enforced"] is True
+
+    broken = json.loads(json.dumps(profile_pool, ensure_ascii=False))
+    fankuai = next(row for row in broken["members"] if row["person"] == "樊哙")
+    fankuai["negative_profile"]["review_completed"] = False
+    policy = yaml.safe_load(
+        (ROOT / "config/i5b-scoring-policy.yml").read_text(encoding="utf-8")
+    )
+    with pytest.raises(ValueError, match="政治风险画像尚未审完"):
+        _team_profile_members(broken, policy["rules"]["team_building"])
+
+
+def test_insufficient_negative_profile_cannot_claim_completed_review() -> None:
+    status, completed = _negative_review_state(
+        {
+            "review_completed": True,
+            "finding_status": "no_established_negative_class",
+            "class": None,
+            "severity": None,
+            "confidence": 0.0,
+            "evidence_coverage": "insufficient",
+        },
+        {"negative_talent_version": "negative-talent-v1"},
+    )
+    assert status == "insufficient_evidence"
+    assert completed is False
 
 
 def test_unfilled_budget_is_neutral_and_team_is_one_window_unit() -> None:
