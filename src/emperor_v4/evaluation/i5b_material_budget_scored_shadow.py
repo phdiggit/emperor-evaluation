@@ -159,8 +159,7 @@ def _projected_materials(
             FACTOR_NAMES[rule_code][side],
             material_id,
         )
-        rows.append(
-            {
+        row = {
                 "material_id": material_id,
                 "subject": str(material.get("subject") or material.get("object_ref") or "—"),
                 "object_ref": str(material.get("object_ref") or material.get("subject") or material_id),
@@ -174,7 +173,9 @@ def _projected_materials(
                 ),
                 "source_refs": list(material.get("source_refs") or []),
             }
-        )
+        if projection.get("v4_factor_projection"):
+            row["v4_factor_projection"] = dict(projection["v4_factor_projection"])
+        rows.append(row)
     return rows
 
 
@@ -292,7 +293,7 @@ def _apply_overrides(
 def _material_view(
     material: Mapping[str, Any], decision: Mapping[str, Any]
 ) -> dict[str, Any]:
-    return {
+    row = {
         "material_id": material["material_id"],
         "side": material["side"],
         "subject": material["subject"],
@@ -307,6 +308,9 @@ def _material_view(
         "fact": str(decision.get("fact_override") or material["fact"]),
         "source_refs": material["source_refs"],
     }
+    if material.get("v4_factor_projection"):
+        row["v4_factor_projection"] = material["v4_factor_projection"]
+    return row
 
 
 def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:

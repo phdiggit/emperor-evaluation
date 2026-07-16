@@ -55,6 +55,40 @@ def _object_side_score(values: Sequence[Decimal]) -> Decimal:
     )
 
 
+def _v4_factor_projection(
+    *,
+    rule_code: str,
+    item: Mapping[str, Any],
+    scoring_policy: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    rule_policy = (scoring_policy.get("rules") or {}).get(rule_code) or {}
+    required = {str(value) for value in rule_policy.get("v4_factor_inputs") or ()}
+    if not required:
+        return None
+    choices = item.get("v4_factor_choices")
+    if choices is None:
+        return None
+    if not isinstance(choices, Mapping) or set(choices) != required:
+        raise ValueError(f"{item.get('unit_ref')} V4 factor choices 不完整")
+    if any(not str(value).strip() for value in choices.values()):
+        raise ValueError(f"{item.get('unit_ref')} V4 factor choice 不能为空")
+    contract_version = str(
+        (
+            (scoring_policy.get("factor_semantics_contract") or {}).get(
+                "contract_versions"
+            )
+            or {}
+        ).get(rule_code)
+        or ""
+    )
+    if not contract_version:
+        raise ValueError(f"{rule_code} 缺少 V4 factor contract version")
+    return {
+        "contract_version": contract_version,
+        "factor_choices": {key: str(choices[key]) for key in sorted(required)},
+    }
+
+
 def build_i5b_joint_projection_scored_shadow(
     *,
     rule_code: str,
@@ -121,6 +155,13 @@ def build_i5b_joint_projection_scored_shadow(
             choices=item.get("choices") or {},
             side=side if rule_code != "talent_discovery" else None,
         )
+        v4_projection = _v4_factor_projection(
+            rule_code=rule_code,
+            item=item,
+            scoring_policy=scoring_policy,
+        )
+        if v4_projection is not None:
+            projection["v4_factor_projection"] = v4_projection
         if projection["side"] != side:
             raise ValueError("talent discovery direction and declared side disagree")
         score = Decimal(str(projection["material_score"]))
@@ -242,6 +283,14 @@ def build_i5b_joint_projection_scored_shadow(
             "model_call_count": 0,
             "database_write_count": 0,
             "formal_scoring_allowed": False,
+            "current_v4_factor_projection_count": sum(
+                "v4_factor_projection" in material["numeric_projection"]
+                for material in material_rows
+            ),
+            "legacy_factor_projection_count": sum(
+                "v4_factor_projection" not in material["numeric_projection"]
+                for material in material_rows
+            ),
         },
         "materials": material_rows,
         "insufficient_projections": insufficient_rows,
@@ -253,6 +302,10 @@ def build_i5b_joint_projection_scored_shadow(
             "all_projected_materials_contributed_before_object_cap": True,
             "top_k_applied": False,
             "formal_scoring_allowed": False,
+            "all_projected_materials_use_current_v4_factor_contract": all(
+                "v4_factor_projection" in material["numeric_projection"]
+                for material in material_rows
+            ),
         },
     }
     if assertion_trace is not None:

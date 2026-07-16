@@ -89,7 +89,12 @@ def _factor_contract_audit(
         str(key)
         for material in detail.get("materials") or ()
         for key in (
-            (material.get("numeric_projection") or {}).get("factor_option_codes")
+            (
+                (material.get("numeric_projection") or {}).get(
+                    "v4_factor_projection"
+                )
+                or {}
+            ).get("factor_choices")
             or {}
         )
     }
@@ -302,6 +307,9 @@ def _source_detail(
                     ),
                     "deterministic_dimension_values": dict(
                         row.get("factor_values") or {}
+                    ),
+                    "v4_factor_projection": dict(
+                        row.get("v4_factor_projection") or {}
                     ),
                 },
             }

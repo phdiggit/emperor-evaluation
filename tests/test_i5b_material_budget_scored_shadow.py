@@ -14,6 +14,9 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     render_i5b_material_budget_shadow_markdown,
     write_i5b_material_budget_shadow,
 )
+from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
+    build_i5b_joint_projection_scored_shadow,
+)
 from emperor_v4.evaluation.i5b_appointment_responsibility_contract import (
     build_appointment_responsibility_projection,
     render_appointment_responsibility_markdown,
@@ -80,22 +83,17 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "7.248",
+        "selected_rule_weighted_raw_signal": "7.304",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
         "coverage_unverified"
     )
     assert by_rule["tolerate_talent"]["factor_contract"]["status"] == (
-        "legacy_or_incomplete_projection_contract"
+        "current_contract"
     )
-    assert by_rule["tolerate_talent"]["factor_contract"][
+    assert not by_rule["tolerate_talent"]["factor_contract"][
         "missing_v4_factor_inputs"
-    ] == [
-        "conflict_repair_continuity",
-        "feedback_reception",
-        "professional_autonomy",
-        "talent_safety",
     ]
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
     assert "### 计入材料" in markdown
@@ -107,7 +105,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "结果状态：report_only_scoring_detail_incomplete_or_stale" in stdout
     assert "历史覆盖：0/5" in stdout
     assert "完成声明：False" in stdout
-    assert "五条rule加权raw signal：7.248" in stdout
+    assert "五条rule加权raw signal：7.304" in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
@@ -170,7 +168,7 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "7.248086"
+    assert report["summary"]["weighted_raw_signal"] == "7.303625"
     assert report["summary"]["settled_event_positive_count"] == 11
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
@@ -178,7 +176,7 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     assert rules["talent_discovery"]["rule_raw_net"] == "4.864200"
     assert rules["appointment_delegation"]["rule_raw_net"] == "9.823203"
     assert rules["team_building"]["rule_raw_net"] == "7.632074"
-    assert rules["tolerate_talent"]["rule_raw_net"] == "5.995550"
+    assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "1.760000"
     assert all("slot_rows" not in rule for rule in report["rules"])
     assert report["amplitude_diagnostic"]["amplitude_change_recommended"] is None
@@ -186,6 +184,57 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     assert report["amplitude_diagnostic"]["theoretical_positive_envelope"][
         "appointment_delegation"
     ] == "13.706742"
+
+
+def test_tolerate_projection_uses_current_v4_contract_and_rejudges_weizheng() -> None:
+    projection_payload = json.loads(
+        (
+            ROOT
+            / "eval/i5b_joint_projection_scored_shadow/"
+            "tolerate_talent_projection_inputs.json"
+        ).read_text(encoding="utf-8")
+    )
+    scoring_policy = yaml.safe_load(
+        (ROOT / "config/i5b-scoring-policy.yml").read_text(encoding="utf-8")
+    )
+    report = build_i5b_joint_projection_scored_shadow(
+        rule_code="tolerate_talent",
+        projection_payload=projection_payload,
+        scoring_policy=scoring_policy,
+    )
+    assert report["summary"]["current_v4_factor_projection_count"] == 11
+    assert report["summary"]["legacy_factor_projection_count"] == 0
+    assert report["declarations"][
+        "all_projected_materials_use_current_v4_factor_contract"
+    ] is True
+    by_unit = {row["unit_ref"]: row for row in report["materials"]}
+    weizheng = by_unit["TT-O01"]
+    assert weizheng["material_score"] == "2.366"
+    assert weizheng["numeric_projection"]["factor_option_codes"][
+        "expression_safety"
+    ] == "actively_protected_or_encouraged"
+    assert weizheng["numeric_projection"]["v4_factor_projection"] == {
+        "contract_version": "tolerate-talent-factor-agent-v3",
+        "factor_choices": {
+            "conflict_repair_continuity": "timely_repair",
+            "feedback_reception": "accepted_after_conflict",
+            "professional_autonomy": "professional_judgment_respected",
+            "talent_safety": "safe_without_retaliation",
+        },
+    }
+    assert by_unit["TT-O05"]["material_score"] == "0.653"
+
+    broken = json.loads(json.dumps(projection_payload, ensure_ascii=False))
+    broken_weizheng = next(
+        row for row in broken["units"] if row["unit_ref"] == "TT-O01"
+    )
+    del broken_weizheng["v4_factor_choices"]["talent_safety"]
+    with pytest.raises(ValueError, match="V4 factor choices 不完整"):
+        build_i5b_joint_projection_scored_shadow(
+            rule_code="tolerate_talent",
+            projection_payload=broken,
+            scoring_policy=scoring_policy,
+        )
 
 
 def test_appointment_uses_strongest_eligible_materials_without_domain_quota() -> None:

@@ -36,7 +36,7 @@
   },
   "policy_ref": "config/i5b-scoring-policy.yml",
   "policy_sha256": "380dbc07672c54665f61e2e6658737e79674d315f19d032563cad3d3910692dd",
-  "report_sha256": "73cef8d4060e80ddc4bf27d6d6766719e5acbaf5e58f3f99994042b0502fbae0",
+  "report_sha256": "103ff6d6066f923e8a4fd6f7da728b02ff3936a0c11731e7678ce76193b5cfc4",
   "ruler": "李世民",
   "ruler_ref": "PER-V4-78F48EBC67F8",
   "rules": [
@@ -597,10 +597,10 @@
       "negative_budget": 3,
       "negative_signal": "0.653400",
       "positive_budget": 3,
-      "positive_signal": "6.648950",
+      "positive_signal": "6.957500",
       "rule_code": "tolerate_talent",
       "rule_label": "容人保全",
-      "rule_raw_net": "5.995550",
+      "rule_raw_net": "6.304100",
       "settled_materials": [
         {
           "fact": "《贞观政要·求谏第四》记录贞观元年建立谏官随宰相议政的正式入口，并以三、五、六、八、十五、十六、十七年多个独立后续证明多主体、跨阶段运行及主动安全鼓励；本单元只结算制度级通道，不重复结算各臣子的个人反馈收益。",
@@ -634,14 +634,23 @@
             "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json#TT-LSM-INSTITUTIONAL-REM-01",
             "https://zh.wikisource.org/zh-hant/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702"
           ],
-          "subject": "贞观求谏机制"
+          "subject": "贞观求谏机制",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "stable_without_conflict",
+              "feedback_reception": "actively_solicited",
+              "professional_autonomy": "no_autonomy_issue",
+              "talent_safety": "actively_protected"
+            }
+          }
         },
         {
-          "fact": "《旧唐书》直接记载李世民称魏徵所陈谏前后二百余事，且具体谏诤覆盖用人、刑赏、礼制、边政、封禅等多个重大政务领域；V4回源另冻结贞观八年留其箴规君失、十年仍参议得失、十六年继续知门下省事及病重营宅临视等按时间可区分的独立后续。因此同时满足高密度、跨领域、长期犯颜和持续保留门槛，反馈入口映射exceptional_dense_cross_domain_remonstrance，生前表达安全映射basically_safe；这些后续不抵销TT-O05的身后信用撤销。",
+          "fact": "《旧唐书》记载李世民称魏徵前后进谏二百余事，并有贞观八年留其箴规君失、十年继续参议得失、十六年仍知门下省事及病重营宅临视等独立后续。现行语义据此冻结为冲突后接纳、无报复且持续安全、专业判断受尊重和及时修复；数值桥的生前表达安全改为主动保护或鼓励。TT-O05身后信用撤销继续独立负向结算。",
           "factor_option_codes": {
             "attribution_factor": "direct",
             "context_factor": "core_mechanism_direct",
-            "expression_safety": "basically_safe",
+            "expression_safety": "actively_protected_or_encouraged",
             "feedback_entry": "exceptional_dense_cross_domain_remonstrance",
             "protection_repair": "none",
             "source_factor": "complete_direct_chain"
@@ -649,7 +658,7 @@
           "factor_values": {
             "attribution_factor": "1.000000",
             "context_factor": "1.100000",
-            "expression_safety": "1.000000",
+            "expression_safety": "1.150000",
             "feedback_entry": "1.700000",
             "protection_repair": "1.000000",
             "source_factor": "1.100000"
@@ -657,7 +666,7 @@
           "independence_key": "tolerate:weizheng:repeated-personal-feedback",
           "judge_reason": "魏徵个人长期犯颜、表达安全与持续留任构成人物级独立链，不重复制度通道收益。",
           "material_id": "TT-O01",
-          "material_magnitude": "2.057000",
+          "material_magnitude": "2.365550",
           "object_ref": "PER-V4-B0E10D8903E7",
           "override_reasons": [],
           "rule_evidence_unit_ref": "REU-AE2712B83AC0EE34E6A4",
@@ -674,7 +683,16 @@
             "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-3F85A11B3D39A844FBE3",
             "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-2B8BEC1B32A2637C63DB"
           ],
-          "subject": "魏徵"
+          "subject": "魏徵",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "timely_repair",
+              "feedback_reception": "accepted_after_conflict",
+              "professional_autonomy": "professional_judgment_respected",
+              "talent_safety": "safe_without_retaliation"
+            }
+          }
         },
         {
           "fact": "即位初期律令减刑与去世前役赋营修进言形成早晚两个阶段和不同专业领域，后者获明确嘉许，闭合跨阶段持续反馈与主动鼓励。",
@@ -709,7 +727,16 @@
             "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-0777852E72A659A520F3",
             "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-A81C2C2246893D065304"
           ],
-          "subject": "戴胄"
+          "subject": "戴胄",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "stable_without_conflict",
+              "feedback_reception": "accepted_without_conflict",
+              "professional_autonomy": "professional_judgment_respected",
+              "talent_safety": "safe_without_retaliation"
+            }
+          }
         },
         {
           "fact": "停婚、踣碑属于公开信用撤销而非人身或职业处分，映射 symbolic_or_light；疑阿党来自荐人和示史官等争议线索，且后续复碑，故对象过错按 disputed_suspicion。材料直接连接皇帝判断、处置及反转。",
@@ -744,12 +771,21 @@
             "SP-6348662139CA103DC270",
             "eval/i5b_source_ingestion/lishimin_tolerate_talent_sourcepack_v1.json#TT-O05"
           ],
-          "subject": "魏徵身后信用"
+          "subject": "魏徵身后信用",
+          "v4_factor_projection": {
+            "contract_version": "tolerate-talent-factor-agent-v3",
+            "factor_choices": {
+              "conflict_repair_continuity": "delayed_partial_repair",
+              "feedback_reception": "no_feedback_event",
+              "professional_autonomy": "no_autonomy_issue",
+              "talent_safety": "localized_penalty"
+            }
+          }
         }
       ],
       "source_candidate_count": 8,
       "source_ref": "eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json",
-      "source_sha256": "a8256c110f7689da57c004387521952dd80d5e30e6af71857feefbc8fd0d678c",
+      "source_sha256": "04518ad779f9fd8b38232288a6b640d0592d43a7d999285b8562f2bae0cdf252",
       "supplemental_source_refs": [],
       "supplemental_source_sha256s": [],
       "supporting_only_materials": [
@@ -884,7 +920,7 @@
     "settled_event_positive_count": 11,
     "team_negative_member_count": 1,
     "team_positive_member_count": 8,
-    "weighted_raw_signal": "7.248086"
+    "weighted_raw_signal": "7.303625"
   },
   "task_code": "I5B-LISHIMIN-MATERIAL-BUDGET-SHADOW-626-649-V1",
   "window": "626-649"
