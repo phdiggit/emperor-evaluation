@@ -123,12 +123,6 @@ def build_team_building_historical_scored_shadow(
             team_policy.get("negative_talent_severity_value") or {}
         ).items()
     }
-    class_values = {
-        key: _decimal(value, f"negative class {key}")
-        for key, value in (
-            team_policy.get("negative_talent_class_relevance") or {}
-        ).items()
-    }
     complementarity_values = {
         key: _decimal(value, f"complementarity {key}")
         for key, value in (
@@ -175,7 +169,7 @@ def build_team_building_historical_scored_shadow(
         member["negative_value"] = (
             Decimal("0")
             if risk_class is None
-            else severity_values[str(risk_severity)] * class_values[str(risk_class)]
+            else severity_values[str(risk_severity)]
         )
 
     positive_pool = sum(
@@ -203,7 +197,7 @@ def build_team_building_historical_scored_shadow(
     complementarity_factor = complementarity_values[complementarity]
     continuity_factor = continuity_values[continuity]
     positive_signal = positive_pool * complementarity_factor * continuity_factor
-    negative_signal = negative_pool * complementarity_factor * continuity_factor
+    negative_signal = negative_pool
     rule_raw_net = positive_signal - negative_signal
 
     historic_count = sum(row["effective_talent_grade"] == "historic" for row in members)

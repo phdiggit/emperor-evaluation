@@ -626,7 +626,7 @@ def _build_team_rule(
     )
     stability = _decimal(team_policy["long_term_stability_factor"][stability_option])
     positive = positive_pool * complementarity * stability
-    negative = negative_pool * complementarity * stability
+    negative = negative_pool
     support_reason = str(rule_manifest["remaining_member_judge_reason"])
     supporting = sorted(set(members) - set(positive_names) - set(negative_names))
     return {
@@ -733,12 +733,7 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
                     _decimal(value)
                     for value in team_policy["negative_talent_severity_value"].values()
                 )
-                * max(
-                    _decimal(value)
-                    for value in team_policy["negative_talent_class_relevance"].values()
-                )
                 * negative_member_count
-                * structure_max
             ),
             "tolerate_talent": _rounded(generic_event_max),
             "anti_nepotism": _rounded(generic_event_max),

@@ -83,7 +83,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "9.190",
+        "selected_rule_weighted_raw_signal": "9.216",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
@@ -127,7 +127,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "结果状态：report_only_scoring_detail_export" in stdout
     assert "历史覆盖：5/5" in stdout
     assert "完成声明：True" in stdout
-    assert "五条rule加权raw signal：9.190" in stdout
+    assert "五条rule加权raw signal：9.216" in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
@@ -236,14 +236,14 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "9.190188"
+    assert report["summary"]["weighted_raw_signal"] == "9.215724"
     assert report["summary"]["settled_event_positive_count"] == 12
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
     assert report["summary"]["team_negative_member_count"] == 1
     assert rules["talent_discovery"]["rule_raw_net"] == "6.897000"
     assert rules["appointment_delegation"]["rule_raw_net"] == "10.212233"
-    assert rules["team_building"]["rule_raw_net"] == "13.766400"
+    assert rules["team_building"]["rule_raw_net"] == "13.888000"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "2.961200"
     assert "candidate_boundary_audit" not in rules["talent_discovery"]
@@ -386,7 +386,31 @@ def test_unfilled_budget_is_neutral_and_team_is_one_window_unit() -> None:
     assert len(team["negative_members"]) == 1
     assert len(team["supporting_only_members"]) == 15
     assert team["positive_pool"] == "10.200000"
-    assert team["negative_pool"] == "0.640000"
+    assert team["negative_pool"] == "0.800000"
+    assert team["negative_signal"] == "0.800000"
+
+
+def test_team_negative_pool_is_independent_of_positive_structure_factors(
+    tmp_path: Path,
+) -> None:
+    manifest = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))
+    team = manifest["rules"]["team_building"]
+    team["functional_complementarity"] = "homogeneous"
+    team["long_term_stability"] = "fragmented"
+    weak_structure_manifest = tmp_path / "weak-structure.yml"
+    weak_structure_manifest.write_text(
+        yaml.safe_dump(manifest, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    weak_structure = _by_rule(
+        build_i5b_material_budget_shadow(weak_structure_manifest)
+    )["team_building"]
+    baseline = _by_rule(build_i5b_material_budget_shadow(MANIFEST))["team_building"]
+
+    assert weak_structure["positive_signal"] != baseline["positive_signal"]
+    assert weak_structure["negative_pool"] == baseline["negative_pool"] == "0.800000"
+    assert weak_structure["negative_signal"] == baseline["negative_signal"] == "0.800000"
 
 
 def test_report_is_deterministic_readable_and_byte_idempotent(tmp_path: Path) -> None:

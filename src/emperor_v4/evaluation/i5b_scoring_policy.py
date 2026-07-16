@@ -379,6 +379,13 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
         "diagnostic_only_not_a_multiplier",
         "team confidant dependency",
     )
+    _require_exact(
+        (team.get("formulas") or {}).get("negative_signal"),
+        "negative_pool",
+        "team 负池不得复用正向结构系数",
+    )
+    if "negative_talent_class_relevance" in team:
+        raise ValueError("team 负面类型只作标签，不得保留数值系数")
     team_policy = (policy.get("aggregation_policies") or {}).get(
         "bounded-team-pool-no-rank-decay-v1"
     ) or {}

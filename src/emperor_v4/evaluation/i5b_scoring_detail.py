@@ -1097,15 +1097,23 @@ def _team_member_negative_pool_text(
         return "—"
     risk_class = member.get("window_negative_class")
     severity = member.get("window_negative_severity")
-    class_value = _factor_option(
-        row, "negative_talent_class_relevance", risk_class
-    ).get("value")
     severity_value = _factor_option(
         row, "negative_talent_severity_value", severity
     ).get("value")
+    class_label = {
+        "sycophant": "谄媚迎合",
+        "favorite": "私宠亲信",
+        "power_abuser": "滥权",
+        "framer": "构陷",
+        "extractive_official": "聚敛",
+        "cruel_official": "酷烈执法",
+        "incompetent_harmful": "无能致害",
+        "traitorous_actor": "谋逆或严重背叛",
+        "mixed_or_disputed": "混合或有争议",
+    }.get(str(risk_class), str(risk_class))
     return (
         f"{_rounded(member.get('negative_weighted_value'))}"
-        f"（{class_value}×{severity_value}）"
+        f"（{class_label}；严重度 {severity_value}）"
     )
 
 
@@ -1161,8 +1169,8 @@ def _team_aggregation_lines(
     return [
         f"- 正池：`{_rounded(positive_pool)}` × `{complementarity}` × `{stability}` "
         f"= `{row['positive_signal']}`",
-        f"- 负池：`{_rounded(negative_pool)}` × `{complementarity}` × `{stability}` "
-        f"= `{row['negative_signal']}`",
+        f"- 负池：`{_rounded(negative_pool)}` = `{row['negative_signal']}`"
+        "（不乘正向团队结构系数）",
     ]
 
 

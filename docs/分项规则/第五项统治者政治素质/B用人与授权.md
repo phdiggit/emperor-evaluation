@@ -238,16 +238,14 @@ appointment_delegation.rule_raw_net = positive_signal - negative_signal
 
 ```text
 positive_pool = sum(talent_value)
-negative_member_value =
-  negative_talent_severity_value × negative_talent_class_relevance
+negative_member_value = negative_talent_severity_value
 
 negative_pool = sum(negative_member_value)
 
 team_building.positive_signal =
   positive_pool × functional_complementarity_factor × long_term_stability_factor
 
-team_building.negative_signal =
-  negative_pool × functional_complementarity_factor × long_term_stability_factor
+team_building.negative_signal = negative_pool
 
 team_building.rule_raw_net = team_building.positive_signal - team_building.negative_signal
 ```
@@ -277,21 +275,9 @@ team_building.rule_raw_net = team_building.positive_signal - team_building.negat
 
 只有风险在当前皇帝窗口内实际暴露，才进入负池；后朝风险不得倒灌前朝窗口。
 
-### 3. 负面类型相关度 `negative_talent_class_relevance`
+### 3. 负面类型
 
-| 档位代码 | 中文档位 | 系数 |
-| --- | --- | ---: |
-| `sycophant` | 谄媚迎合 | 0.80 |
-| `favorite` | 私宠亲信 | 0.70 |
-| `power_abuser` | 滥权者 | 1.00 |
-| `framer` | 构陷者 | 1.00 |
-| `extractive_official` | 掊克聚敛者 | 0.90 |
-| `cruel_official` | 酷烈执法者 | 0.90 |
-| `incompetent_harmful` | 无能且造成实害者 | 1.00 |
-| `traitorous_actor` | 谋逆或严重背叛者 | 0.80 |
-| `mixed_or_disputed` | 类型混合或存在争议 | 0.50 |
-
-负面严重度评价风险造成的实际强度，负面类型相关度评价该风险与“建立团队”规则的贴合程度；二者不得合并为同一个档位。
+谄媚、私宠、滥权、构陷、聚敛、酷烈、无能致害、背叛和争议混合等类型只用于说明风险性质、归责和去重，不再附加数值系数。进入负池的前提仍是该风险在当前皇帝窗口内实际暴露并通过 Judge；数值只取已冻结的负面严重度，避免同一事实被“类型相关度”和严重度重复缩放。
 
 ### 4. 功能互补系数 `functional_complementarity_factor`
 
@@ -312,6 +298,8 @@ team_building.rule_raw_net = team_building.positive_signal - team_building.negat
 | `durable_multi_stage` | 跨多个阶段持续稳定运行 | 1.20 |
 
 亲信依赖只在形成反馈失真、滥权或任人唯亲事实时进入负池，不另设重复系数。
+
+功能互补和长期稳定是正向团队结构系数，只作用于正池。负池按实际暴露风险的严重度直接求和，不因正向团队越互补、越稳定而被放大或缩小。
 
 ## 五、容人保全 `tolerate_talent`
 

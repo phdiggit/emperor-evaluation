@@ -231,10 +231,6 @@ def build_team_building_v8_scored_shadow(
         key: _decimal(value, f"negative severity {key}")
         for key, value in (team_policy.get("negative_talent_severity_value") or {}).items()
     }
-    class_values = {
-        key: _decimal(value, f"negative class {key}")
-        for key, value in (team_policy.get("negative_talent_class_relevance") or {}).items()
-    }
     complementarity_values = {
         key: _decimal(value, f"complementarity {key}")
         for key, value in (team_policy.get("role_complementarity_factor") or {}).items()
@@ -278,7 +274,7 @@ def build_team_building_v8_scored_shadow(
             negative_value = (
                 Decimal("0")
                 if risk_class is None
-                else severity_values[str(risk_severity)] * class_values[str(risk_class)]
+                else severity_values[str(risk_severity)]
             )
             members.append(
                 {
@@ -338,7 +334,7 @@ def build_team_building_v8_scored_shadow(
         complementarity_factor = complementarity_values[structures["functional_complementarity"]]
         continuity_factor = continuity_values[structures["continuity_structure"]]
         positive_signal = positive_pool * complementarity_factor * continuity_factor
-        negative_signal = negative_pool * complementarity_factor * continuity_factor
+        negative_signal = negative_pool
         rule_raw_net = positive_signal - negative_signal
         effective_profile_set_fingerprint = _hash(
             [

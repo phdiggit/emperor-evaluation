@@ -137,10 +137,10 @@ rules:
     projection_mode: v4_person_profile_and_team_window
     formulas:
       positive_pool: sum(talent_quality_factor)
-      negative_team_contribution: negative_talent_severity_value * negative_talent_class_relevance
+      negative_team_contribution: negative_talent_severity_value
       negative_pool: sum(negative_team_contribution)
       positive_signal: positive_pool * role_complementarity_factor * long_term_stability_factor
-      negative_signal: negative_pool * role_complementarity_factor * long_term_stability_factor
+      negative_signal: negative_pool
       rule_raw_net: positive_signal - negative_signal
     talent_quality_factor:
       ordinary: 0.35
@@ -154,16 +154,6 @@ rules:
       material: 0.45
       major: 0.8
       historic: 1.2
-    negative_talent_class_relevance:
-      sycophant: 0.8
-      favorite: 0.7
-      power_abuser: 1.0
-      framer: 1.0
-      extractive_official: 0.9
-      cruel_official: 0.9
-      incompetent_harmful: 1.0
-      traitorous_actor: 0.8
-      mixed_or_disputed: 0.5
     role_complementarity_factor:
       homogeneous: 0.9
       ordinary_two: 1.0
