@@ -380,7 +380,6 @@ def test_campaign_online_source_cache_observes_actual_network_usage(
     job = {
         "source_request_ref": "inputs/request.yml",
         "source_plan_ref": "inputs/plan.yml",
-        "allow_network": True,
     }
 
     first_response, first_audit = handler._run_source_cache_job(

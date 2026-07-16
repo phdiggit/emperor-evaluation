@@ -1159,7 +1159,7 @@ class WorkspaceCampaignHandlers:
                     "network_request_count", 0
                 ),
             }
-        elif job.get("allow_network") is True:
+        else:
             planned_requests = len(
                 {
                     str(section.get("page_code") or "")
@@ -1186,10 +1186,6 @@ class WorkspaceCampaignHandlers:
                 ruler_code=claim.ruler_code,
                 reserved_count=planned_requests,
                 actual_count=int(audit.get("network_request_count") or 0),
-            )
-        else:
-            raise CampaignContractError(
-                "无本地 snapshot 或冻结 response 的 Source plan 必须显式允许联网"
             )
         if audit.get("model_call_count") != 0:
             raise CampaignContractError("campaign Source Cache 必须保持零模型")
