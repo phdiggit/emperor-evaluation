@@ -26,6 +26,13 @@ from emperor_v4.evaluation.i5b_appointment_responsibility_contract import (
     render_appointment_responsibility_markdown,
 )
 from emperor_v4.evaluation.i5b_scoring_policy import evaluate_i5b_scoring_policy
+from emperor_v4.evaluation.i5b_civil_candidate_retrieval import (
+    _civil_candidate_queue,
+    run_civil_candidate_retrieval,
+)
+from emperor_v4.adapters.civil_web_discovery_codex import (
+    build_civil_web_discovery_prompt,
+)
 from emperor_v4.persistence.person_profile_read import (
     PROFILE_COLUMNS,
     _profile_from_row,
@@ -100,6 +107,22 @@ def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
         "emperor_v4.eval.read_current_person_profiles",
         lambda _dsn: _offline_current_profiles(),
     )
+    monkeypatch.setattr(
+        "emperor_v4.eval.run_civil_candidate_retrieval",
+        lambda **_kwargs: {
+            "status": "retrieval_complete_no_hits",
+            "candidate_count": 0,
+            "processed_candidate_count": 0,
+            "deferred_candidate_count": 0,
+            "judge_intake": [],
+            "runtime_audit": {
+                "cache_hit": False,
+                "network_search_budget_reserved": 0,
+                "database_write_count": 0,
+                "model_call_count": 0,
+            },
+        },
+    )
 
 
 def test_policy_requires_gate_then_strongest_n_without_empty_slot_penalty() -> None:
@@ -128,6 +151,129 @@ def test_current_person_profile_reader_contract_maps_the_one_table_shape() -> No
     assert profile["person_ref"] == "value-0"
     with pytest.raises(ValueError, match="查询列与读取合同不一致"):
         _profile_from_row(row[:-1])
+
+
+def test_civil_retrieval_is_generic_bounded_and_cache_idempotent(
+    tmp_path: Path,
+) -> None:
+    team = {
+        "window": {"start": 1, "end": 10},
+        "members": [
+            {
+                "person": "甲相",
+                "person_ref": "PER-V4-000000000001",
+                "role_families": ["administration"],
+            },
+            {
+                "person": "乙将",
+                "person_ref": "PER-V4-000000000002",
+                "role_families": ["military", "decision"],
+            },
+            {
+                "person": "丙官",
+                "person_ref": "PER-V4-000000000003",
+                "role_families": ["correction"],
+            },
+        ]
+    }
+    profiles = {
+        "PER-V4-000000000001": {"talent_grade": "historic"},
+        "PER-V4-000000000002": {"talent_grade": "historic"},
+        "PER-V4-000000000003": {"talent_grade": "top"},
+    }
+    calls = []
+
+    def discover(**kwargs):
+        calls.append(kwargs)
+        rows = []
+        for candidate in kwargs["candidates"]:
+            rows.append(
+                {
+                    "person": candidate["person"],
+                    "person_ref": candidate["person_ref"],
+                    "leads": [
+                        {
+                            "measure": "通用检索发现的举措",
+                            "delegated_responsibility": "受命治理",
+                            "policy_or_civil_outcome": "形成治理结果",
+                            "source_title": "测试史源",
+                            "source_url": "https://example.invalid/source",
+                            "source_locator": "卷一",
+                            "source_excerpt": "受命治理并形成结果",
+                        }
+                    ],
+                }
+            )
+        return {"status": "complete", "candidates": rows, "coverage_gaps": []}, {
+            "model_call_count": 1
+        }
+
+    queue = _civil_candidate_queue(team, profiles, ("测试帝",))
+    first = run_civil_candidate_retrieval(
+        ruler="测试帝",
+        ruler_names=("测试帝",),
+        team_source=team,
+        current_profiles=profiles,
+        cache_path=tmp_path / "cache.json",
+        max_network_requests=4,
+        max_candidate_judge_items=2,
+        max_wall_clock_seconds=900,
+        completion_reserve_seconds=90,
+        provider_policy={"provider": "fake", "version": "v1"},
+        discover=discover,
+    )
+    second = run_civil_candidate_retrieval(
+        ruler="测试帝",
+        ruler_names=("测试帝",),
+        team_source=team,
+        current_profiles=profiles,
+        cache_path=tmp_path / "cache.json",
+        max_network_requests=4,
+        max_candidate_judge_items=2,
+        max_wall_clock_seconds=900,
+        completion_reserve_seconds=90,
+        provider_policy={"provider": "fake", "version": "v1"},
+        discover=discover,
+    )
+
+    assert [row["person"] for row in queue] == ["甲相", "丙官"]
+    assert first["status"] == "judge_required"
+    assert first["runtime_audit"]["network_search_budget_reserved"] == 4
+    assert first["declarations"]["person_specific_query_patch_used"] is False
+    assert first["declarations"]["two_hop_web_discovery_used"] is True
+    assert second["runtime_audit"] == {
+        "cache_hit": True,
+        "network_search_budget_reserved": 0,
+        "database_write_count": 0,
+        "model_call_count": 0,
+        "initial_elapsed_seconds": first["runtime_audit"]["elapsed_seconds"],
+        "cached_provider": {"model_call_count": 1},
+    }
+    assert len(calls) == 1
+    assert len(calls[0]["candidates"]) == 2
+    assert calls[0]["timeout_seconds"] == 810
+
+
+def test_civil_web_discovery_prompt_uses_generic_two_hop_windowed_search() -> None:
+    prompt = build_civil_web_discovery_prompt(
+        ruler="测试帝",
+        ruler_names=("测试帝", "庙号"),
+        evaluation_window={"start": 1, "end": 10},
+        candidates=(
+            {
+                "person": "甲相",
+                "person_ref": "PER-V4-000000000001",
+                "talent_grade": "historic",
+                "role_families": ["administration"],
+            },
+        ),
+    )
+
+    assert "人物名 举措 政绩 改革 制度" in prompt
+    assert "人物名 + 具体举措名" in prompt
+    assert "完全发生在窗口外" in prompt
+    assert "不得为某个人发明专用规则" in prompt
+    assert "Wikisource" in prompt
 
 
 def test_one_command_exports_full_ruler_scoring_detail(
