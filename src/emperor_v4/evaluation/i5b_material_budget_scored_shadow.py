@@ -265,6 +265,42 @@ def _appointment_responsibility_materials(
     return rows
 
 
+def _direct_materials(
+    *, rule_code: str, rule_manifest: Mapping[str, Any]
+) -> list[dict[str, Any]]:
+    names_by_side = (
+        {"positive": APPOINTMENT_FACTORS, "negative": APPOINTMENT_FACTORS}
+        if rule_code == "appointment_delegation"
+        else FACTOR_NAMES[rule_code]
+    )
+    rows = []
+    for material in rule_manifest.get("direct_materials") or ():
+        material_id = str(material["material_id"])
+        side = str(material["side"])
+        if side not in names_by_side:
+            raise ValueError(f"{material_id} direct material 方向非法")
+        magnitude, rendered_values = _factor_product(
+            material.get("factor_values") or {}, names_by_side[side], material_id
+        )
+        rows.append(
+            {
+                "material_id": material_id,
+                "subject": str(material["subject"]),
+                "object_ref": str(material.get("object_ref") or material["subject"]),
+                "side": side,
+                "material_magnitude": magnitude,
+                "factor_values": rendered_values,
+                "factor_option_codes": dict(material.get("factor_option_codes") or {}),
+                "fact": str(material["fact"]),
+                "rule_evidence_unit_ref": str(
+                    material.get("rule_evidence_unit_ref") or material_id
+                ),
+                "source_refs": list(material.get("source_refs") or ()),
+            }
+        )
+    return rows
+
+
 def _apply_overrides(
     materials: list[dict[str, Any]], overrides: Mapping[str, Any]
 ) -> None:
@@ -315,86 +351,6 @@ def _material_view(
     if material.get("talent_quality_basis"):
         row["talent_quality_basis"] = material["talent_quality_basis"]
     return row
-
-
-def _talent_candidate_boundary_audit(
-    *, inventory_path: Path, positive_boundary: Decimal
-) -> dict[str, Any]:
-    inventory = _load_json(inventory_path)
-    inventory_schema = inventory.get("schema_version")
-    if (
-        inventory_schema not in {
-            "i5b-talent-discovery-candidate-inventory-v3",
-            "i5b-talent-discovery-candidate-inventory-v4",
-        }
-        or inventory.get("rule_code") != "talent_discovery"
-        or inventory.get("ruler") != "李世民"
-    ):
-        raise ValueError("发现人才候选 inventory 身份或版本不匹配")
-    pending_dispositions = {
-        "candidate_pending_primary_source_acceptance",
-        "deferred_pre_accession_budget",
-        "pending_pre_accession_ruler_agency_review",
-    }
-    pending = [
-        row
-        for row in inventory.get("candidate_inventory") or ()
-        if row.get("final_disposition") in pending_dispositions
-    ]
-    if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4":
-        pending = [
-            row
-            for row in inventory.get("cross_rule_pre_accession_review") or ()
-            if row.get("route_status") == "next_bounded_boundary_batch"
-        ]
-
-    def focal_person(row: Mapping[str, Any]) -> str:
-        return next(
-            (
-                str(person)
-                for person in row.get("candidate_persons") or ()
-                if str(person) != "李世民"
-            ),
-            "未命名候选",
-        )
-
-    focal_people = sorted(
-        {focal_person(row) for row in pending}
-    )
-    summary = inventory.get("candidate_summary") or {}
-    declared_unresolved = int(
-        summary.get(
-            (
-                "next_boundary_candidate_count"
-                if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4"
-                else "unresolved_candidate_count"
-            ),
-            -1,
-        )
-    )
-    expected_declared = (
-        len(focal_people)
-        if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4"
-        else len(pending)
-    )
-    if declared_unresolved != expected_declared:
-        raise ValueError("发现人才 inventory unresolved 计数不一致")
-    return {
-        "status": (
-            "boundary_not_stable_next_bounded_batch"
-            if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4"
-            else "boundary_not_stable_pending_review"
-        ),
-        "inventory_ref": inventory_path.relative_to(ROOT).as_posix(),
-        "inventory_sha256": _sha256(inventory_path.read_bytes()),
-        "raw_unresolved_candidate_count": len(pending),
-        "deduplicated_boundary_candidate_count": len(focal_people),
-        "deduplicated_boundary_candidates": focal_people,
-        "current_positive_settlement_floor": _rounded(positive_boundary),
-        "boundary_changing_candidates_remain": bool(focal_people),
-        "exhaustive_search_required": False,
-        "next_batch_within_rule_budget": len(focal_people) <= 6,
-    }
 
 
 def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:
@@ -457,6 +413,9 @@ def _build_material_rule(
         if supplemental_sources:
             raise ValueError(f"{rule_code} 不支持 supplemental_sources")
         materials = _projected_materials(source, ruler, rule_code)
+    materials.extend(
+        _direct_materials(rule_code=rule_code, rule_manifest=rule_manifest)
+    )
     _apply_overrides(materials, rule_manifest.get("factor_overrides") or {})
     by_id = {row["material_id"]: row for row in materials}
     if len(by_id) != len(materials):
@@ -695,6 +654,7 @@ def _build_team_rule(
         "supporting_only_members": [
             {"person": name, "judge_reason": support_reason} for name in supporting
         ],
+        "governance_results": list(rule_manifest.get("governance_results") or ()),
         "functional_complementarity": complementarity_option,
         "functional_complementarity_factor": _rounded(complementarity),
         "long_term_stability": stability_option,

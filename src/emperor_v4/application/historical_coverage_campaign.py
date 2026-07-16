@@ -863,8 +863,6 @@ class WorkspaceCampaignHandlers:
             )
 
             self._run_candidate_preprocessors(claim, payload)
-            if payload.get("adapter") == "scholar_guided_retrieval_v1":
-                self._run_scholar_guided_retrieval(claim, payload)
             gate = payload.get("retrieval_gate")
             if not isinstance(gate, dict):
                 raise CampaignContractError("candidate_freeze 缺少 retrieval_gate")
@@ -1006,61 +1004,6 @@ class WorkspaceCampaignHandlers:
                     f"未知 candidate preprocessor: {adapter or 'missing'}"
                 )
         payload["candidate_preprocessor_audits"] = audits
-
-    def _run_scholar_guided_retrieval(
-        self, claim: ClaimedPhase, payload: dict[str, Any]
-    ) -> None:
-        self._require_time_remaining(claim)
-        from emperor_v4.evaluation.i5b_scholar_guided_retrieval import (
-            build_scholar_guided_retrieval_report,
-        )
-
-        report = build_scholar_guided_retrieval_report(
-            mechanism_contract_path=self._reference_path(
-                payload.get("scholar_guided_mechanism_ref")
-            ),
-            task_contract_path=self._reference_path(
-                payload.get("scholar_guided_task_ref")
-            ),
-        )
-        expected = json.loads(
-            self._reference_path(payload.get("scholar_guided_report_ref")).read_text(
-                encoding="utf-8"
-            )
-        )
-        if report.get("report_sha256") != expected.get("report_sha256"):
-            raise CampaignContractError("学术引导检索输出与冻结报告不一致")
-
-        rule = claim.rule_code.lower()
-        rule_tasks = [
-            row
-            for row in report.get("source_cache_tasks") or ()
-            if rule in row.get("target_rules", ())
-        ]
-        judge_intake = json.loads(
-            self._reference_path(payload.get("scholar_guided_judge_intake_ref")).read_text(
-                encoding="utf-8"
-            )
-        )
-        bound_codes = {
-            str(row.get("source_cache_task_code") or "")
-            for row in judge_intake.get("items") or ()
-            if str(row.get("rule_code") or "").lower() == rule
-            and row.get("status") in {"ready_for_candidate_judge", "judged"}
-        }
-        task_codes = {str(row["task_code"]) for row in rule_tasks}
-        if not task_codes or not task_codes <= bound_codes:
-            raise CampaignContractError("学术引导候选尚未全部绑定到 Judge intake")
-        gate = payload.get("retrieval_gate")
-        if not isinstance(gate, dict):
-            raise CampaignContractError("candidate_freeze 缺少 retrieval_gate")
-        gate["scholar_guided_retrieval"] = {
-            "status": "complete",
-            "report_sha256": report["report_sha256"],
-            "task_count": len(rule_tasks),
-            "source_cache_routed_task_count": len(rule_tasks),
-            "judge_bound_task_count": len(task_codes & bound_codes),
-        }
 
     def _run_source_cache(self, claim: ClaimedPhase, payload: dict[str, Any]) -> None:
         from emperor_v4.runtime.source_cache import run_fixture_ensure

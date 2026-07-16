@@ -36,30 +36,11 @@
   },
   "policy_ref": "config/i5b-scoring-policy.yml",
   "policy_sha256": "380dbc07672c54665f61e2e6658737e79674d315f19d032563cad3d3910692dd",
-  "report_sha256": "7135ddff9d50f54a8b4f2ce9a8e11aab1c2c089bd0d3d9836be2c2c538fbd412",
+  "report_sha256": "41d4da1080ae79acef104cacb5def70d878b181b882501b64cc3eca301ed8fe2",
   "ruler": "李世民",
   "ruler_ref": "PER-V4-78F48EBC67F8",
   "rules": [
     {
-      "candidate_boundary_audit": {
-        "boundary_changing_candidates_remain": true,
-        "current_positive_settlement_floor": "1.089000",
-        "deduplicated_boundary_candidate_count": 6,
-        "deduplicated_boundary_candidates": [
-          "侯君集",
-          "唐俭",
-          "屈突通",
-          "李靖",
-          "秦琼",
-          "虞世南"
-        ],
-        "exhaustive_search_required": false,
-        "inventory_ref": "eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v4.json",
-        "inventory_sha256": "caed1f8f96017fe0f5af879e1d7c67e9f5ad94ec77cb57a71287fe78b8844f47",
-        "next_batch_within_rule_budget": true,
-        "raw_unresolved_candidate_count": 9,
-        "status": "boundary_not_stable_next_bounded_batch"
-      },
       "eligible_candidate_count": 4,
       "negative_budget": 3,
       "negative_signal": "0.000000",
@@ -237,14 +218,14 @@
       ]
     },
     {
-      "eligible_candidate_count": 9,
+      "eligible_candidate_count": 11,
       "negative_budget": 3,
       "negative_signal": "0.406560",
       "positive_budget": 3,
-      "positive_signal": "10.229763",
+      "positive_signal": "10.618793",
       "rule_code": "appointment_delegation",
       "rule_label": "任用授权",
-      "rule_raw_net": "9.823203",
+      "rule_raw_net": "10.212233",
       "settled_materials": [
         {
           "fact": "太宗先后授李靖国家级方面统帅权；李靖以主帅身份灭东突厥、平吐谷浑，形成两个可区分的战略格局改变结果。",
@@ -323,37 +304,36 @@
           "subject": "侯君集"
         },
         {
-          "fact": "授予薛延陀处置统帅权并划定边界；执行招降与讨叛；李世勣；薛延陀余众",
+          "fact": "太宗委任颜师古考定五经，命房玄龄组织诸儒复核，并命孔颖达等编成《五经正义》付国学施行。",
           "factor_option_codes": {
             "appointment_effect": "major_success",
-            "appointment_importance": "critical_national_or_long_term",
+            "appointment_importance": "major_affairs",
             "attribution_factor": "direct",
             "context_factor": "core_mechanism_direct",
-            "continuity_factor": "short_or_one_off",
+            "continuity_factor": "long_term_multi_stage",
             "source_factor": "complete_direct_chain"
           },
           "factor_values": {
             "appointment_effect": "1.500000",
-            "appointment_importance": "1.400000",
+            "appointment_importance": "1.250000",
             "attribution_factor": "1.000000",
             "context_factor": "1.100000",
-            "continuity_factor": "0.850000",
+            "continuity_factor": "1.150000",
             "source_factor": "1.100000"
           },
-          "independence_key": "appointment:liji:military-command",
-          "judge_reason": "方面统帅授权、权限和重大履职反馈闭合，不因已有军事材料而排除。",
-          "material_id": "MAT-LSM-LIJI-POS-V2",
-          "material_magnitude": "2.159850",
-          "object_ref": "李绩",
+          "independence_key": "appointment:five-classics:expert-commission",
+          "judge_reason": "皇帝命题、专家考定、集体复核及国学施行构成完整文治授权链。",
+          "material_id": "MAT-LSM-FIVE-CLASSICS-POS",
+          "material_magnitude": "2.609063",
+          "object_ref": "GOVOBJ-CAND-LSM-FIVE-CLASSICS",
           "override_reasons": [],
-          "rule_evidence_unit_ref": "REU-LSM-LIJI-AUTHORITY-HC-v2",
+          "rule_evidence_unit_ref": "MAT-LSM-FIVE-CLASSICS-POS",
           "selection_basis": "eligibility_gate_then_strongest_n",
           "side": "positive",
           "source_refs": [
-            "ASTA-AD-LIJI-AUTH-V2",
-            "ASTA-AD-LIJI-RESULT-V2"
+            "SP-0FD28DD01694EC7F4FE8"
           ],
-          "subject": "李绩"
+          "subject": "五经定本与五经正义"
         },
         {
           "fact": "侯君集平高昌后未奏配没罪人并私取珍宝妇女，部属亦随之盗取；太宗令其下狱，后听岑文本劝谏而释放复列，形成有限控制失误与部分纠正的完整链。",
@@ -395,7 +375,7 @@
           "subject": "侯君集"
         }
       ],
-      "source_candidate_count": 9,
+      "source_candidate_count": 11,
       "source_ref": "eval/i5b_team_building_historical_coverage/lishimin_appointment_scored_shadow_v2.json",
       "source_sha256": "4785e6d84dda9c3225021430f7cea9fc83d6c9877baec72268c860db3fc48b6e",
       "supplemental_source_refs": [
@@ -406,7 +386,7 @@
       ],
       "supporting_only_materials": [
         {
-          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
           "material_id": "MAT-LSM-DURUHUI-POS-V2",
           "material_magnitude": "1.439900",
           "rule_evidence_unit_ref": "REU-LSM-DURUHUI-AUTHORITY-HC-v2",
@@ -414,7 +394,7 @@
           "subject": "杜如晦"
         },
         {
-          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
           "material_id": "MAT-LSM-FANGXUANLING-POS-V2",
           "material_magnitude": "1.948100",
           "rule_evidence_unit_ref": "REU-LSM-FANGXUANLING-AUTHORITY-HC-v2",
@@ -422,7 +402,7 @@
           "subject": "房玄龄"
         },
         {
-          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
           "material_id": "MAT-LSM-INSTITUTION-MERIT-STAFFING-POS",
           "material_magnitude": "1.439900",
           "rule_evidence_unit_ref": "REU-LSM-INSTITUTION-MERIT-STAFFING-HC-v1",
@@ -430,7 +410,15 @@
           "subject": "房玄龄等中枢员额责任群体"
         },
         {
-          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
+          "material_id": "MAT-LSM-LIJI-POS-V2",
+          "material_magnitude": "2.159850",
+          "rule_evidence_unit_ref": "REU-LSM-LIJI-AUTHORITY-HC-v2",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "李绩"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
           "material_id": "MAT-LSM-MAZHOU-POS",
           "material_magnitude": "1.948100",
           "rule_evidence_unit_ref": "REU-LSM-MAZHOU-AUTHORIZATION-HC-v1",
@@ -438,12 +426,20 @@
           "subject": "馬周"
         },
         {
-          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
           "material_id": "MAT-LSM-WEIZHENG-POS",
           "material_magnitude": "1.739375",
           "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-APPOINTMENT-HC-v1",
           "selection_status": "eligible_below_budget_boundary",
           "subject": "魏徵"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.609063，本版不计分。",
+          "material_id": "MAT-LSM-ZHENGUAN-RITES-POS",
+          "material_magnitude": "2.609063",
+          "rule_evidence_unit_ref": "MAT-LSM-ZHENGUAN-RITES-POS",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "贞观礼修订与颁行"
         },
         {
           "judge_reason": "已确认责任主体和权限边界，但没有实际运行观察，不进入数值候选集。",
@@ -458,6 +454,20 @@
     {
       "functional_complementarity": "balanced_four",
       "functional_complementarity_factor": "1.200000",
+      "governance_results": [
+        {
+          "result": "房玄龄、杜如晦共掌朝政并形成台阁规模与典章文物",
+          "source_refs": [
+            "SP-8A9C97DF836016533342"
+          ]
+        },
+        {
+          "result": "颜师古考定、房玄龄组织复核、孔颖达等编疏并付国学施行",
+          "source_refs": [
+            "SP-0FD28DD01694EC7F4FE8"
+          ]
+        }
+      ],
       "long_term_stability": "durable_multi_stage",
       "long_term_stability_factor": "1.200000",
       "negative_member_budget": 3,
@@ -663,7 +673,7 @@
       ]
     },
     {
-      "eligible_candidate_count": 8,
+      "eligible_candidate_count": 9,
       "negative_budget": 3,
       "negative_signal": "0.653400",
       "positive_budget": 3,
@@ -853,7 +863,7 @@
           }
         }
       ],
-      "source_candidate_count": 8,
+      "source_candidate_count": 9,
       "source_ref": "eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json",
       "source_sha256": "04518ad779f9fd8b38232288a6b640d0592d43a7d999285b8562f2bae0cdf252",
       "supplemental_source_refs": [],
@@ -866,6 +876,14 @@
           "rule_evidence_unit_ref": "REU-3626D0F3EE1DB391427D",
           "selection_status": "eligible_below_budget_boundary",
           "subject": "褚遂良"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.808950，本版不计分。",
+          "material_id": "TT-LSM-HISTORIOGRAPHY-01",
+          "material_magnitude": "0.968000",
+          "rule_evidence_unit_ref": "TT-LSM-HISTORIOGRAPHY-01",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "起居注与国史直书"
         },
         {
           "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.808950，本版不计分。",
@@ -894,15 +912,79 @@
       ]
     },
     {
-      "eligible_candidate_count": 2,
+      "eligible_candidate_count": 4,
       "negative_budget": 3,
       "negative_signal": "0.000000",
       "positive_budget": 3,
-      "positive_signal": "1.760000",
+      "positive_signal": "2.961200",
       "rule_code": "anti_nepotism",
       "rule_label": "避免任人唯亲",
-      "rule_raw_net": "1.760000",
+      "rule_raw_net": "2.961200",
       "settled_materials": [
+        {
+          "fact": "太宗听取反对世袭刺史的意见后撤销宗室和功臣世袭安排，使公共岗位重新服从能力与实际任用。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "institutionalization": "single_event",
+            "office_weight": "central_military_or_succession",
+            "selection_openness": "merit_or_formal_basis",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "institutionalization": "0.800000",
+            "office_weight": "1.150000",
+            "selection_openness": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "anti-nepotism:hereditary-prefecture-correction",
+          "judge_reason": "撤销宗室功臣世袭刺史直接纠正身份关系对公共岗位的预占。",
+          "material_id": "AN-LSM-HEREDITARY-PREFECTURE-CORRECTION",
+          "material_magnitude": "1.113200",
+          "object_ref": "GOVOBJ-CAND-LSM-MERIT-SELECTION",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "AN-LSM-HEREDITARY-PREFECTURE-CORRECTION",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "SP-EC8CCCB753F74210E4C7"
+          ],
+          "subject": "取消宗室功臣世袭刺史"
+        },
+        {
+          "fact": "太宗压低旧门望的当然优先并颁行《氏族志》，但仍按当朝官品和人才重建等级，按有限纠正处理。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "institutionalization": "single_event",
+            "office_weight": "important",
+            "selection_openness": "merit_or_formal_basis",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "institutionalization": "0.800000",
+            "office_weight": "1.000000",
+            "selection_openness": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "anti-nepotism:clan-registry-correction",
+          "judge_reason": "降低旧门望当然优先并完成颁行，但保留新等级，按有限正向纠正。",
+          "material_id": "AN-LSM-CLAN-REGISTRY-CORRECTION",
+          "material_magnitude": "0.968000",
+          "object_ref": "GOVOBJ-CAND-LSM-CLAN-REGISTRY",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "AN-LSM-CLAN-REGISTRY-CORRECTION",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "SP-1A27FE5F98CE3843A427"
+          ],
+          "subject": "氏族志重修与门望纠正"
+        },
         {
           "fact": "秦府旧人以长期侍从要求任官优先，太宗明确拒绝按新旧亲疏取人并要求择贤；只结算该次公共任用 Gate。",
           "factor_option_codes": {
@@ -946,58 +1028,23 @@
               "public_power_exposure": "major_affairs"
             }
           }
-        },
-        {
-          "fact": "太宗直接审查广封宗室造成的公共负担，并系统降疏属爵位、仅保留有功者王爵；按单次制度纠正投影，不外推长期制度化。",
-          "factor_option_codes": {
-            "attribution_factor": "direct",
-            "context_factor": "core_mechanism_direct",
-            "institutionalization": "single_event",
-            "office_weight": "important",
-            "selection_openness": "merit_or_formal_basis",
-            "source_factor": "standard"
-          },
-          "factor_values": {
-            "attribution_factor": "1.000000",
-            "context_factor": "1.100000",
-            "institutionalization": "0.800000",
-            "office_weight": "1.000000",
-            "selection_openness": "1.000000",
-            "source_factor": "1.000000"
-          },
-          "independence_key": "anti-nepotism:royal-title-correction",
-          "judge_reason": "宗室封爵纠偏直接呈现公共标准压过血缘关系。",
-          "material_id": "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1",
-          "material_magnitude": "0.880000",
-          "object_ref": "ANTI-NEPOTISM-LSM-ROYAL-TITLE-SYSTEM",
-          "override_reasons": [
-            "该事实证明功绩和公共标准压过血缘，但不等于跨身份广泛开放。"
-          ],
-          "rule_evidence_unit_ref": "REU-2B48AB3D178FBC9265DD",
-          "selection_basis": "eligibility_gate_then_strongest_n",
-          "side": "positive",
-          "source_refs": [
-            "SP-11007EAE3C9A5CDB3386",
-            "352eb6fbb2bb0e08f45e58097d2a449a95a1b63e3ec81ae497ff6d2953bb05ed"
-          ],
-          "subject": "唐宗室封爵制度",
-          "v4_factor_projection": {
-            "contract_version": "anti-nepotism-factor-agent-v2",
-            "factor_choices": {
-              "capability_basis": "verified_merit",
-              "network_effect": "dismantled_by_ruler",
-              "process_integrity": "bypass_but_correctable",
-              "public_power_exposure": "major_affairs"
-            }
-          }
         }
       ],
-      "source_candidate_count": 2,
+      "source_candidate_count": 4,
       "source_ref": "eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json",
       "source_sha256": "347e655ed3edd80a69566f3e8e4e24cfd713a0bb2bb03ffa025a8753c20660b5",
       "supplemental_source_refs": [],
       "supplemental_source_sha256s": [],
-      "supporting_only_materials": []
+      "supporting_only_materials": [
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 0.880000，本版不计分。",
+          "material_id": "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1",
+          "material_magnitude": "0.880000",
+          "rule_evidence_unit_ref": "REU-2B48AB3D178FBC9265DD",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "唐宗室封爵制度"
+        }
+      ]
     }
   ],
   "schema_version": "i5b-material-budget-shadow-report-v1",
@@ -1005,10 +1052,10 @@
   "summary": {
     "rule_count": 5,
     "settled_event_negative_count": 2,
-    "settled_event_positive_count": 11,
+    "settled_event_positive_count": 12,
     "team_negative_member_count": 1,
     "team_positive_member_count": 8,
-    "weighted_raw_signal": "7.303625"
+    "weighted_raw_signal": "7.515747"
   },
   "task_code": "I5B-LISHIMIN-MATERIAL-BUDGET-SHADOW-626-649-V1",
   "window": "626-649"

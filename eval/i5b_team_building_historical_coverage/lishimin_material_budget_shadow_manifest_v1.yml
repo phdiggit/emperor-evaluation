@@ -8,7 +8,6 @@ policy: config/i5b-scoring-policy.yml
 rules:
   talent_discovery:
     source: eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json
-    candidate_inventory_ref: eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v4.json
     eligible:
       positive:
         - material_id: REU-LSM-WEIZHENG-DISCOVERY-HC-v1
@@ -30,6 +29,23 @@ rules:
     source: eval/i5b_team_building_historical_coverage/lishimin_appointment_scored_shadow_v2.json
     supplemental_sources:
       - eval/i5b_team_building_historical_coverage/lishimin_appointment_responsibility_projection_v1.json
+    direct_materials:
+      - material_id: MAT-LSM-FIVE-CLASSICS-POS
+        subject: 五经定本与五经正义
+        object_ref: GOVOBJ-CAND-LSM-FIVE-CLASSICS
+        side: positive
+        factor_values: {appointment_importance: 1.25, appointment_effect: 1.5, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: major_affairs, appointment_effect: major_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 太宗委任颜师古考定五经，命房玄龄组织诸儒复核，并命孔颖达等编成《五经正义》付国学施行。
+        source_refs: [SP-0FD28DD01694EC7F4FE8]
+      - material_id: MAT-LSM-ZHENGUAN-RITES-POS
+        subject: 贞观礼修订与颁行
+        object_ref: GOVOBJ-CAND-LSM-ZHENGUAN-RITES
+        side: positive
+        factor_values: {appointment_importance: 1.25, appointment_effect: 1.5, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: major_affairs, appointment_effect: major_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 太宗命房玄龄、魏徵及礼官学士修订礼典，形成百卷成果、增补二十九条并颁行内外。
+        source_refs: [SP-FA3B1771EC66E916D0C4]
     eligible:
       positive:
         - material_id: MAT-LSM-FANGXUANLING-POS-V2
@@ -58,6 +74,12 @@ rules:
         - material_id: MAT-LSM-INSTITUTION-MERIT-STAFFING-POS
           independence_key: appointment:central-staffing:responsibility-group
           judge_reason: 责任群体、权限边界和实际运行观察闭合，通过机构责任链 Gate。
+        - material_id: MAT-LSM-FIVE-CLASSICS-POS
+          independence_key: appointment:five-classics:expert-commission
+          judge_reason: 皇帝命题、专家考定、集体复核及国学施行构成完整文治授权链。
+        - material_id: MAT-LSM-ZHENGUAN-RITES-POS
+          independence_key: appointment:zhenguan-rites:expert-commission
+          judge_reason: 修礼责任群体、完成物、制度增补及颁行结果闭合。
       negative:
         - material_id: MAT-LSM-HOUJUNJI-NEG
           independence_key: appointment:houjunji:control-failure
@@ -83,9 +105,23 @@ rules:
     functional_complementarity: balanced_four
     long_term_stability: durable_multi_stage
     remaining_member_judge_reason: 窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。
+    governance_results:
+      - result: 房玄龄、杜如晦共掌朝政并形成台阁规模与典章文物
+        source_refs: [SP-8A9C97DF836016533342]
+      - result: 颜师古考定、房玄龄组织复核、孔颖达等编疏并付国学施行
+        source_refs: [SP-0FD28DD01694EC7F4FE8]
 
   tolerate_talent:
     source: eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json
+    direct_materials:
+      - material_id: TT-LSM-HISTORIOGRAPHY-01
+        subject: 起居注与国史直书
+        object_ref: GOVOBJ-CAND-LSM-HISTORIOGRAPHY
+        side: positive
+        factor_values: {feedback_entry: 1.0, expression_safety: 0.8, protection_repair: 1.0, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {feedback_entry: repeated_feedback_retained, expression_safety: tense_or_case_dependent, protection_repair: none, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 褚遂良、刘洎坚持史官直书，太宗要求阅看国史但最终要求直书其事，专业独立呈正负并存。
+        source_refs: [SP-F84C0E7B15C219BF788E]
     eligible:
       positive:
         - material_id: TT-LSM-INSTITUTIONAL-REM-01
@@ -109,6 +145,9 @@ rules:
         - material_id: TT-LSM-WG-WYB-ZXS-01
           independence_key: tolerate:multi-official:feedback-safety
           judge_reason: 多主体反馈安全链通过适用性、归责和去重 Gate。
+        - material_id: TT-LSM-HISTORIOGRAPHY-01
+          independence_key: tolerate:historiography:professional-independence
+          judge_reason: 起居注与国史直书形成独立专业表达链；因皇帝索阅而按紧张、正负并存档处理。
       negative:
         - material_id: TT-O05
           independence_key: tolerate:weizheng:posthumous-credit-reversal
@@ -117,6 +156,23 @@ rules:
 
   anti_nepotism:
     source: eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json
+    direct_materials:
+      - material_id: AN-LSM-HEREDITARY-PREFECTURE-CORRECTION
+        subject: 取消宗室功臣世袭刺史
+        object_ref: GOVOBJ-CAND-LSM-MERIT-SELECTION
+        side: positive
+        factor_values: {selection_openness: 1.0, institutionalization: 0.8, office_weight: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {selection_openness: merit_or_formal_basis, institutionalization: single_event, office_weight: central_military_or_succession, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 太宗听取反对世袭刺史的意见后撤销宗室和功臣世袭安排，使公共岗位重新服从能力与实际任用。
+        source_refs: [SP-EC8CCCB753F74210E4C7]
+      - material_id: AN-LSM-CLAN-REGISTRY-CORRECTION
+        subject: 氏族志重修与门望纠正
+        object_ref: GOVOBJ-CAND-LSM-CLAN-REGISTRY
+        side: positive
+        factor_values: {selection_openness: 1.0, institutionalization: 0.8, office_weight: 1.0, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {selection_openness: merit_or_formal_basis, institutionalization: single_event, office_weight: important, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 太宗压低旧门望的当然优先并颁行《氏族志》，但仍按当朝官品和人才重建等级，按有限纠正处理。
+        source_refs: [SP-1A27FE5F98CE3843A427]
     eligible:
       positive:
         - material_id: REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1
@@ -125,6 +181,12 @@ rules:
         - material_id: REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1
           independence_key: anti-nepotism:qinfu-preference-refusal
           judge_reason: 拒绝秦府旧人按亲旧优先形成独立公共任用Gate。
+        - material_id: AN-LSM-HEREDITARY-PREFECTURE-CORRECTION
+          independence_key: anti-nepotism:hereditary-prefecture-correction
+          judge_reason: 撤销宗室功臣世袭刺史直接纠正身份关系对公共岗位的预占。
+        - material_id: AN-LSM-CLAN-REGISTRY-CORRECTION
+          independence_key: anti-nepotism:clan-registry-correction
+          judge_reason: 降低旧门望当然优先并完成颁行，但保留新等级，按有限正向纠正。
       negative: []
     excluded: []
     factor_overrides:

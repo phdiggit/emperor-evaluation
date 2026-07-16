@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-import subprocess
 import time
 from typing import Any, Sequence
 
@@ -24,13 +23,6 @@ from emperor_v4.evaluation.i5b_scoring_detail import (
     render_i5b_scoring_detail_selection_markdown,
 )
 from emperor_v4.evaluation.i5b_scoring_policy import evaluate_i5b_scoring_policy
-from emperor_v4.evaluation.i5b_scholar_guided_retrieval import (
-    apply_scholar_guided_judge_decisions,
-    build_scholar_guided_judge_intake,
-)
-from emperor_v4.evaluation.i5b_scholar_source_cache import (
-    run_scholar_source_cache_shadow,
-)
 from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
     build_i5b_unified_raw_signal_readiness,
 )
@@ -129,18 +121,6 @@ def _load(path: Path) -> Any:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
-def _git_head(workspace_root: Path) -> str:
-    completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=workspace_root,
-        check=True,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
-    return completed.stdout.strip()
-
-
 def _build_detail(manifest: dict[str, Any], workspace_root: Path) -> dict[str, Any]:
     def load_relative(path_value: str) -> Any:
         return _load(workspace_root / path_value)
@@ -173,17 +153,13 @@ def _historical_closeout_preflight(
     ruler: str,
     catalog: dict[str, Any],
     workspace_root: Path,
-    judge_intake_override: dict[str, Any] | None = None,
-    source_cache_shadow: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     entries = [row for row in catalog.get("entries") or () if row.get("ruler") == ruler]
     if len(entries) != 1:
         raise ValueError(f"historical closeout ruler 未唯一配置: {ruler}")
     entry = entries[0]
     closeout = entry.get("closeout") or {}
-    required_refs = {"work_budget", "candidate_inventory", "judge_intake"}
-    allowed_refs = required_refs | {"scholar_retrieval_report", "judge_decisions"}
-    if not required_refs <= set(closeout) or not set(closeout) <= allowed_refs:
+    if set(closeout) != {"work_budget"}:
         raise ValueError("historical closeout 输入配置不完整")
     detail_report = _build_detail(
         _load(workspace_root / entry["manifest"]), workspace_root
@@ -194,34 +170,35 @@ def _historical_closeout_preflight(
     primary = next(
         source for source in talent["detail_sources"] if source["role"] == "primary"
     )
-    boundary = dict(primary["detail"].get("candidate_boundary_audit") or {})
-    if not boundary:
-        raise ValueError("historical closeout 缺少人才发现边界审计")
-    candidate_inventory = _load(workspace_root / closeout["candidate_inventory"])
-    judge_intake = judge_intake_override or _load(
-        workspace_root / closeout["judge_intake"]
+    talent_detail = primary["detail"]
+    talent_budget = int(talent_detail["positive_budget"])
+    settled_positive = sum(
+        row["side"] == "positive" for row in talent_detail["materials"]
     )
+    boundary = {
+        "status": "material_budget_saturated_stop",
+        "raw_unresolved_candidate_count": 0,
+        "deduplicated_boundary_candidate_count": 0,
+        "deduplicated_boundary_candidates": [],
+        "settled_positive_count": settled_positive,
+        "positive_budget": talent_budget,
+        "boundary_changing_candidates_remain": False,
+        "stop_reason": "positive_material_budget_full",
+        "exhaustive_search_required": False,
+    }
     work_budget = _load(workspace_root / closeout["work_budget"])
     max_minutes = int(work_budget["per_ruler_run"]["max_wall_clock_minutes"])
-    judge_counts: dict[str, int] = {}
-    for item in judge_intake.get("items") or ():
-        status = str(item.get("status") or "missing")
-        judge_counts[status] = judge_counts.get(status, 0) + 1
     blockers = []
     if not detail_report["declarations"]["current_factor_contracts_satisfied"]:
         blockers.append("factor_contract_mismatch")
-    if boundary["boundary_changing_candidates_remain"]:
-        blockers.append("talent_boundary_candidates_pending")
-    if any(status != "judged" for status in judge_counts):
-        blockers.append("judge_intake_not_complete")
-    if candidate_inventory.get("historical_coverage_complete") is not True:
-        blockers.append("talent_inventory_not_human_frozen")
+    if settled_positive < talent_budget:
+        blockers.append("talent_positive_material_budget_not_full")
     return {
         "schema_version": "i5b-historical-closeout-preflight-v1",
         "status": (
-            "blocked_before_expensive_campaign"
+            "blocked_before_bounded_shadow"
             if blockers
-            else "ready_for_versioned_campaign"
+            else "bounded_shadow_ready"
         ),
         "ruler": ruler,
         "deadline_seconds": max_minutes * 60,
@@ -230,20 +207,16 @@ def _historical_closeout_preflight(
         ),
         "blockers": blockers,
         "talent_candidate_boundary": boundary,
-        "judge_intake": {
-            "item_count": len(judge_intake.get("items") or ()),
-            "status_counts": dict(sorted(judge_counts.items())),
-        },
-        "source_cache_shadow": source_cache_shadow,
+        "runtime_stages": [
+            "load_current_material_pool",
+            "select_up_to_three_per_side",
+            "export_bounded_shadow",
+        ],
         "declarations": {
             "expensive_campaign_started": False,
             "model_call_count": 0,
             "database_write_count": 0,
-            "network_request_count": int(
-                ((source_cache_shadow or {}).get("current_run_audit") or {}).get(
-                    "network_request_count", 0
-                )
-            ),
+            "network_request_count": 0,
             "formal_45_point_score": None,
             "tier": None,
             "ranking": None,
@@ -373,63 +346,47 @@ def main(argv: Sequence[str] | None = None) -> int:
             args.catalog if args.catalog.is_absolute() else workspace_root / args.catalog
         )
         catalog = _load(catalog_path)
-        matching_entries = [
-            row for row in catalog.get("entries") or () if row.get("ruler") == args.ruler
-        ]
-        closeout_config = (
-            matching_entries[0].get("closeout") or {}
-            if len(matching_entries) == 1
-            else {}
-        )
         output_dir = (
             args.output_dir
             if args.output_dir.is_absolute()
             else workspace_root / args.output_dir
         ) / args.ruler
         output_dir.mkdir(parents=True, exist_ok=True)
-        source_cache_shadow = None
-        judge_intake_override = None
-        scholar_report_ref = closeout_config.get("scholar_retrieval_report")
-        if scholar_report_ref:
-            scholar_report = _load(workspace_root / scholar_report_ref)
-            source_cache_shadow = run_scholar_source_cache_shadow(
-                report=scholar_report,
-                output_dir=output_dir / "source-cache",
-                service_release_sha=_git_head(workspace_root),
-            )
-            judge_intake_override = build_scholar_guided_judge_intake(
-                scholar_report,
-                source_cache_response=source_cache_shadow["response"],
-            )
-            judge_decisions_ref = closeout_config.get("judge_decisions")
-            if judge_decisions_ref:
-                judge_intake_override = apply_scholar_guided_judge_decisions(
-                    judge_intake_override,
-                    _load(workspace_root / judge_decisions_ref),
-                )
-            (output_dir / "judge-intake-shadow.json").write_text(
-                json.dumps(
-                    judge_intake_override,
-                    ensure_ascii=False,
-                    indent=2,
-                    sort_keys=True,
-                )
-                + "\n",
-                encoding="utf-8",
-                newline="\n",
-            )
         report = _historical_closeout_preflight(
             ruler=args.ruler,
             catalog=catalog,
             workspace_root=workspace_root,
-            judge_intake_override=judge_intake_override,
-            source_cache_shadow=source_cache_shadow,
         )
         report["elapsed_wall_clock_seconds"] = round(time.monotonic() - started, 6)
         output_path = output_dir / "preflight.json"
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(
             json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        detail_report = build_i5b_scoring_detail_selection(
+            catalog=catalog,
+            selection={
+                "schema_version": "i5b-scoring-detail-selection-v1",
+                "rulers": [args.ruler],
+                "people": [],
+                "rules": [],
+                "person_scope": "selected_rulers",
+                "strict": True,
+            },
+            ruler_reports=_catalog_reports(catalog, workspace_root),
+        )
+        detail_json_path = output_dir / "scoring-detail.json"
+        detail_markdown_path = output_dir / "scoring-detail.md"
+        detail_json_path.write_text(
+            json.dumps(detail_report, ensure_ascii=False, indent=2, sort_keys=True)
+            + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        detail_markdown_path.write_text(
+            render_i5b_scoring_detail_selection_markdown(detail_report),
             encoding="utf-8",
             newline="\n",
         )
@@ -442,8 +399,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"{boundary['deduplicated_boundary_candidate_count']}组"
             f"（原始{boundary['raw_unresolved_candidate_count']}条）"
         )
-        print(f"Judge：{report['judge_intake']['status_counts']}")
-        print(f"结果：{output_path}")
+        print("人才停止原因：正向材料已满3条")
+        print(f"计分详情：{detail_markdown_path}")
+        print(f"机器结果：{detail_json_path}")
+        print(f"运行声明：{output_path}")
         return 2 if report["blockers"] else 0
     else:
         raise AssertionError("unreachable")

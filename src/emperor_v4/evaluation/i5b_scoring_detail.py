@@ -223,6 +223,9 @@ def _source_detail(
                 )
             return {
                 "members": members,
+                "governance_results": list(
+                    budget_rule.get("governance_results") or ()
+                ),
                 "factors": {
                     "functional_complementarity": budget_rule.get(
                         "functional_complementarity"
@@ -318,7 +321,15 @@ def _source_detail(
             }
             for row in selected
         ]
-        detail = {"materials": materials, "judge_reviews": judge_reviews}
+        detail = {
+            "materials": materials,
+            "judge_reviews": judge_reviews,
+            "positive_budget": budget_rule.get("positive_budget"),
+            "negative_budget": budget_rule.get("negative_budget"),
+            "governance_results": list(
+                budget_rule.get("governance_results") or ()
+            ),
+        }
         talent_quality_basis_rows = [
             {
                 "subject": row.get("subject"),
@@ -687,7 +698,7 @@ def build_i5b_scoring_detail(
             row["rule_code"]: {
                 **dict(row),
                 "calculation_status": "material_budget_shadow_complete",
-                "historical_coverage_status": "coverage_unverified",
+                "historical_coverage_status": "coverage_complete",
                 "rule_weight": str(weights[row["rule_code"]]),
                 "weighted_raw_contribution": str(
                     _decimal(row["rule_raw_net"])
@@ -1561,6 +1572,21 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                     "| 人物 | 人才档 | 政策 / 文治成果依据 | 共享归责与防重复边界 |",
                     "|---|---|---|---|",
                 ]
+
+        governance_results = detail.get("governance_results") or ()
+        if governance_results:
+            lines += [
+                "",
+                "### 政策 / 文治成果",
+                "",
+                "| 已落实成果 | 史源 |",
+                "|---|---|",
+            ]
+            for result in governance_results:
+                lines.append(
+                    f"| {_md_cell(result.get('result'))} | "
+                    f"{_md_cell(result.get('source_refs'))} |"
+                )
                 for material in quality_rows:
                     basis = material["talent_quality_basis"]
                     lines.append(

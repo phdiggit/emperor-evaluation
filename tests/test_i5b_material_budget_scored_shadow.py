@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 import yaml
 
-import emperor_v4.eval as eval_module
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     _appointment_density,
@@ -76,19 +75,19 @@ def test_one_command_exports_full_ruler_scoring_detail(
         (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
     )
     ruler = payload["selected_ruler_reports"][0]
-    assert ruler["status"] == "report_only_scoring_detail_incomplete_or_stale"
-    assert ruler["summary"]["historical_coverage_complete_rule_count"] == 0
-    assert ruler["declarations"]["historical_coverage_complete"] is False
+    assert ruler["status"] == "report_only_scoring_detail_export"
+    assert ruler["summary"]["historical_coverage_complete_rule_count"] == 5
+    assert ruler["declarations"]["historical_coverage_complete"] is True
     assert ruler["declarations"]["current_factor_contracts_satisfied"] is True
-    assert ruler["declarations"]["completion_claim_allowed"] is False
+    assert ruler["declarations"]["completion_claim_allowed"] is True
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "7.304",
+        "selected_rule_weighted_raw_signal": "7.516",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
-        "coverage_unverified"
+            "coverage_complete"
     )
     assert by_rule["tolerate_talent"]["factor_contract"]["status"] == (
         "current_contract"
@@ -108,16 +107,16 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "| 人物 | 计入正池 | 计入负池 |" in markdown
     assert "### 人才质量与政策文治成果依据" in markdown
     assert "| 张玄素 | `usable` | 政道问答与洛阳宫停工" in markdown
-    assert "状态：`boundary_not_stable_pending_review`" in markdown
-    assert "原始 unresolved：`12`" in markdown
-    assert "同源去重后边界候选：`6`" in markdown
+    assert "候选扫描与材料预算边界" not in markdown
+    assert "### 政策 / 文治成果" in markdown
+    assert "五经定本与五经正义" in markdown
     assert "**反馈入口强度**" not in markdown
     assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
     stdout = capsys.readouterr().out
-    assert "结果状态：report_only_scoring_detail_incomplete_or_stale" in stdout
-    assert "历史覆盖：0/5" in stdout
-    assert "完成声明：False" in stdout
-    assert "五条rule加权raw signal：7.304" in stdout
+    assert "结果状态：report_only_scoring_detail_export" in stdout
+    assert "历史覆盖：5/5" in stdout
+    assert "完成声明：True" in stdout
+    assert "五条rule加权raw signal：7.516" in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
@@ -163,51 +162,9 @@ def test_material_budget_detail_rejects_historical_coverage_override(
         )
 
 
-def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
-    tmp_path: Path, capsys, monkeypatch,
+def test_one_command_closeout_stops_after_talent_budget_is_full(
+    tmp_path: Path, capsys,
 ) -> None:
-    def fake_source_cache_shadow(*, report, **_kwargs):
-        passages = []
-        for task in report["source_cache_tasks"]:
-            passages.append(
-                {
-                    "passage_id": f"SP-{task['case_ref']}",
-                    "source_cache_task_code": task["task_code"],
-                    "selection_reason": task[
-                        "required_source_cache_selection_keys"
-                    ],
-                }
-            )
-        return {
-            "response": {"passages": passages},
-            "current_run_audit": {
-                "exact_response_reused": False,
-                "network_request_count": 3,
-                "shadow_state_write_count": 9,
-                "database_write_count": 0,
-                "model_call_count": 0,
-            },
-        }
-
-    monkeypatch.setattr(
-        eval_module,
-        "run_scholar_source_cache_shadow",
-        fake_source_cache_shadow,
-    )
-    def fake_apply_judge(intake, _decisions):
-        items = [
-            {**row, "status": "judged"}
-            if row["status"] == "ready_for_candidate_judge"
-            else row
-            for row in intake["items"]
-        ]
-        return {**intake, "items": items}
-
-    monkeypatch.setattr(
-        eval_module,
-        "apply_scholar_guided_judge_decisions",
-        fake_apply_judge,
-    )
     assert eval_main(
         [
             "i5b-historical-closeout",
@@ -218,27 +175,37 @@ def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
             "--output-dir",
             str(tmp_path),
         ]
-    ) == 2
+    ) == 0
     report = json.loads(
         (tmp_path / "李世民/preflight.json").read_text(encoding="utf-8")
     )
-    assert report["status"] == "blocked_before_expensive_campaign"
+    assert report["status"] == "bounded_shadow_ready"
     assert report["deadline_seconds"] == 900
     assert report["completion_reserve_seconds"] == 90
-    assert report["talent_candidate_boundary"][
-        "deduplicated_boundary_candidate_count"
-    ] == 6
-    assert report["judge_intake"]["status_counts"] == {
-        "judged": 13,
-    }
+    assert report["talent_candidate_boundary"]["settled_positive_count"] == 3
+    assert report["talent_candidate_boundary"]["stop_reason"] == (
+        "positive_material_budget_full"
+    )
+    assert report["declarations"]["network_request_count"] == 0
     assert report["declarations"]["expensive_campaign_started"] is False
     assert report["declarations"]["model_call_count"] == 0
     assert report["declarations"]["database_write_count"] == 0
     assert report["elapsed_wall_clock_seconds"] < 15
+    markdown = (tmp_path / "李世民/scoring-detail.md").read_text(encoding="utf-8")
+    detail = json.loads(
+        (tmp_path / "李世民/scoring-detail.json").read_text(encoding="utf-8")
+    )
+    assert "### 政策 / 文治成果" in markdown
+    assert "五经定本与五经正义" in markdown
+    assert detail["selected_ruler_reports"][0]["selection_summary"][
+        "selected_rule_count"
+    ] == 5
     stdout = capsys.readouterr().out
-    assert "状态：blocked_before_expensive_campaign" in stdout
+    assert "状态：bounded_shadow_ready" in stdout
     assert "15分钟昂贵流程已启动：False" in stdout
-    assert "人才边界候选：6组（原始12条）" in stdout
+    assert "人才边界候选：0组（原始0条）" in stdout
+    assert "人才停止原因：正向材料已满3条" in stdout
+    assert "计分详情：" in stdout
 
 
 def test_appointment_density_uses_competition_rank_for_ties() -> None:
@@ -258,32 +225,17 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "7.303625"
-    assert report["summary"]["settled_event_positive_count"] == 11
+    assert report["summary"]["weighted_raw_signal"] == "7.515747"
+    assert report["summary"]["settled_event_positive_count"] == 12
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
     assert report["summary"]["team_negative_member_count"] == 1
     assert rules["talent_discovery"]["rule_raw_net"] == "4.864200"
-    assert rules["appointment_delegation"]["rule_raw_net"] == "9.823203"
+    assert rules["appointment_delegation"]["rule_raw_net"] == "10.212233"
     assert rules["team_building"]["rule_raw_net"] == "7.632074"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
-    assert rules["anti_nepotism"]["rule_raw_net"] == "1.760000"
-    boundary = rules["talent_discovery"]["candidate_boundary_audit"]
-    assert boundary["status"] == "boundary_not_stable_next_bounded_batch"
-    assert boundary["raw_unresolved_candidate_count"] == 9
-    assert boundary["deduplicated_boundary_candidate_count"] == 6
-    assert boundary["deduplicated_boundary_candidates"] == [
-        "侯君集",
-        "唐俭",
-        "屈突通",
-        "李靖",
-        "秦琼",
-        "虞世南",
-    ]
-    assert boundary["current_positive_settlement_floor"] == "1.089000"
-    assert boundary["boundary_changing_candidates_remain"] is True
-    assert boundary["exhaustive_search_required"] is False
-    assert boundary["next_batch_within_rule_budget"] is True
+    assert rules["anti_nepotism"]["rule_raw_net"] == "2.961200"
+    assert "candidate_boundary_audit" not in rules["talent_discovery"]
     assert all("slot_rows" not in rule for rule in report["rules"])
     assert report["amplitude_diagnostic"]["amplitude_change_recommended"] is None
     assert report["amplitude_diagnostic"]["cohort_ruler_count"] == 1
@@ -381,12 +333,13 @@ def test_appointment_uses_strongest_eligible_materials_without_domain_quota() ->
     assert {
         "MAT-LSM-LIJING-POS",
         "MAT-LSM-HOUJUNJI-POS",
-        "MAT-LSM-LIJI-POS-V2",
+        "MAT-LSM-FIVE-CLASSICS-POS",
     } <= selected_ids
     assert "MAT-LSM-MAZHOU-POS" in supporting_ids
     assert "MAT-LSM-FANGXUANLING-POS-V2" in supporting_ids
+    assert "MAT-LSM-ZHENGUAN-RITES-POS" in supporting_ids
     assert "MAT-LSM-INSTITUTION-MERIT-STAFFING-POS" in supporting_ids
-    assert appointment["eligible_candidate_count"] == 9
+    assert appointment["eligible_candidate_count"] == 11
     assert all(
         row["selection_basis"] == "eligibility_gate_then_strongest_n"
         for row in appointment["settled_materials"]
@@ -414,9 +367,9 @@ def test_unfilled_budget_is_neutral_and_team_is_one_window_unit() -> None:
     anti = rules["anti_nepotism"]
     team = rules["team_building"]
 
-    assert len(anti["settled_materials"]) == 2
+    assert len(anti["settled_materials"]) == 3
     assert anti["positive_budget"] == 3
-    assert anti["positive_signal"] == "1.760000"
+    assert anti["positive_signal"] == "2.961200"
     assert len(team["positive_members"]) == 8
     assert len(team["negative_members"]) == 1
     assert len(team["supporting_only_members"]) == 15
