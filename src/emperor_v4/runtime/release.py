@@ -36,6 +36,7 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "deploy/v4/emperor-v4-source-cache-worker.timer",
     "deploy/v4/source-cache.env.example",
     "deploy/v4/provision-prerequisites.sh",
+    "deploy/v4/verify-server-runtime.sh",
 )
 CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "pyproject.toml",
@@ -63,6 +64,7 @@ CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "deploy/v4/emperor-v4-claim-extractor-worker.timer",
     "deploy/v4/claim-extractor.env.example",
     "deploy/v4/provision-prerequisites.sh",
+    "deploy/v4/verify-server-runtime.sh",
 )
 
 

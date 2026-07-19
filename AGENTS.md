@@ -88,6 +88,14 @@
 - 任务结束时只清理本会话创建的临时标签页，不得关闭用户或其他 Agent 的标签页。
 - 必须接管已有标签页时，应先确认该标签页未被其他会话控制。
 
+## 服务器运行环境
+
+- 项目后台服务器通过本机 SSH alias `emperor-runtime` 连接；真实 IP、用户与密钥只保存在操作者的 `~/.ssh/config`，不得进入 Git。
+- Git commit 是服务器代码事实源。服务器不维护可编辑工作树，不使用 `git pull` 热更新；必须从干净 commit 构建带 manifest 的不可变 release，部署到 `/opt/emperor-evaluation-v4/<service>/releases/<git-sha>/`，再原子切换 `current`。
+- 项目可变运行状态统一位于 `/data1/emperor-evaluation/runtime/`；服务状态根为 `/data1/emperor-evaluation/runtime/services/emperor-v4/`，中性材料批任务位于其 `neutral-material-batches/` 子目录。
+- 凭据和机器私有环境文件位于 `/etc/emperor-evaluation-v4/`，不得读取明文到日志或提交。Source Cache 与 Claim Extractor 分别由 `emperor-v4-source-cache-worker.timer`、`emperor-v4-claim-extractor-worker.timer` 调度。
+- 新会话在服务器操作前先运行 release/runtime 只读验证脚本；不得复用 `/home/penghao/**` 作为服务状态或模型认证目录。
+
 ## I5B 浏览器检索
 
 - 政策与文官治理候选由当前 Codex 主会话直接使用 Chrome 检索；不得为此启动嵌套 Codex 子进程。

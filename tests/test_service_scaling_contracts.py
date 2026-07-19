@@ -35,11 +35,31 @@ from emperor_v4.runtime.claim_extractor import (
     request_profile_from_mapping,
 )
 from emperor_v4.runtime.source_cache import run_wikisource_ensure
+from emperor_v4.runtime.release import (
+    CLAIM_EXTRACTOR_RELEASE_PATHS,
+    SOURCE_CACHE_RELEASE_PATHS,
+)
 
 
 ROOT = Path(__file__).parents[1]
 PROFILES = ROOT / "config" / "claim-extraction-profiles.yml"
 OUTPUT_SCHEMA = ROOT / "config" / "claim-extraction-output.schema.json"
+
+
+def test_service_releases_include_runtime_verification_and_data1_state() -> None:
+    verifier = "deploy/v4/verify-server-runtime.sh"
+    assert verifier in SOURCE_CACHE_RELEASE_PATHS
+    assert verifier in CLAIM_EXTRACTOR_RELEASE_PATHS
+    claim_unit = (
+        ROOT / "deploy/v4/emperor-v4-claim-extractor-worker.service"
+    ).read_text(encoding="utf-8")
+    provisioner = (ROOT / "deploy/v4/provision-prerequisites.sh").read_text(
+        encoding="utf-8"
+    )
+    state_root = "/data1/emperor-evaluation/runtime/services/emperor-v4"
+    assert f"Environment=CODEX_HOME={state_root}/claim-extractor/codex" in claim_unit
+    assert f"ReadWritePaths={state_root}" in claim_unit
+    assert f"EMPEROR_EVAL_V4_STATE_ROOT:-{state_root}" in provisioner
 
 
 def _claim_payload() -> dict:
