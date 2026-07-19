@@ -101,18 +101,24 @@ def _factor_contract_audit(
         )
     }
     missing = sorted(required - observed)
+    materials = list(detail.get("materials") or ())
+    top_level_complete = all(
+        bool(material.get("factor_option_codes")) for material in materials
+    )
     return {
         "status": (
             "not_declared"
             if not required
             else "current_contract"
             if not missing
-            else "legacy_or_incomplete_projection_contract"
+            else "legacy_projection_diagnostic_only"
         ),
         "required_v4_factor_inputs": sorted(required),
         "observed_factor_inputs": sorted(observed),
         "missing_v4_factor_inputs": missing,
-        "blocks_historical_completion": bool(missing),
+        "legacy_projection_diagnostic_only": bool(required),
+        "top_level_factor_contract_complete": top_level_complete,
+        "blocks_historical_completion": False,
         "rule_code": rule_code,
     }
 
@@ -233,7 +239,12 @@ def _source_detail(
             for side in ("positive", "negative")
         }
         weighted: dict[str, Decimal] = {}
-        if rule_code == "appointment_delegation":
+        if selected and all("actual_signal_contribution" in row for row in selected):
+            weighted = {
+                str(row["material_id"]): _decimal(row["actual_signal_contribution"])
+                for row in selected
+            }
+        elif rule_code == "appointment_delegation":
             for side, rows in by_side.items():
                 scale = Decimal("1.5") if side == "positive" else Decimal("1")
                 if any(
@@ -283,9 +294,18 @@ def _source_detail(
                     previous = total
         else:
             for side, rows in by_side.items():
+                if all("object_internal_contribution" in row for row in rows):
+                    for row in rows:
+                        weighted[str(row["material_id"])] = _decimal(
+                            row["object_internal_contribution"]
+                        )
+                    continue
                 grouped: dict[str, list[dict[str, Any]]] = {}
                 for row in rows:
-                    grouped.setdefault(str(row.get("object_ref")), []).append(row)
+                    grouped.setdefault(
+                        str(row.get("settlement_object_ref") or row.get("object_ref")),
+                        [],
+                    ).append(row)
                 for group in grouped.values():
                     ordered = sorted(
                         group,
@@ -734,6 +754,7 @@ def build_i5b_scoring_detail(
                 "historical_coverage_status": (
                     "coverage_complete"
                     if row.get("candidate_disposition_complete") is True
+                    and row.get("source_projection_coverage_complete") is not False
                     else "coverage_incomplete"
                 ),
                 "rule_weight": str(weights[row["rule_code"]]),
@@ -741,10 +762,22 @@ def build_i5b_scoring_detail(
                     _decimal(row["rule_raw_net"])
                     * _decimal(weights[row["rule_code"]])
                 ),
-                "limitations": [
-                    "事件型分项只结算 Gate 后最终材料分最高的预算内单元；其余合格材料保留为支持证据。",
-                    "未用满预算不扣分，场景标签不作为计分槽位。",
-                ],
+                "limitations": (
+                    [
+                        "本轮为 all-eligible shadow：所有通过 Gate 的独立材料均进入聚合，未执行 strongest-N 截断。",
+                        "该模式只用于本轮质量审查，不改写正式计分政策、45分映射或排名。",
+                    ]
+                    + (
+                        ["部分材料投影未闭合，保留旧材料并记录缺口；本轮历史覆盖尚未完成。"]
+                        if row.get("source_projection_coverage_complete") is False
+                        else []
+                    )
+                    if row.get("settlement_mode") == "all_eligible_shadow"
+                    else [
+                        "事件型分项只结算 Gate 后最终材料分最高的预算内单元；其余合格材料保留为支持证据。",
+                        "未用满预算不扣分，场景标签不作为计分槽位。",
+                    ]
+                ),
                 "sensitivity_scenarios": [],
                 "source_refs": [str(manifest.get("ruler_rule_net") or "")],
                 "material_refs": [
@@ -1465,7 +1498,7 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
         ]
         if row["factor_contract"]["missing_v4_factor_inputs"]:
             lines.append(
-                "- 缺少当前 V4 因子输入："
+                "- 旧投影诊断字段未提供（不阻断顶层规则因子计分）："
                 f"`{_text(row['factor_contract']['missing_v4_factor_inputs'])}`"
             )
 
@@ -1680,6 +1713,55 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 f"{_md_cell(item['factor_assignment'])} | "
                 f"{item['material_score']} | {_md_cell(item['fact'])} |"
                 for item in unscored
+            )
+
+    source_review_quality = report.get("source_review_quality") or {}
+    if source_review_quality:
+        policy_review = source_review_quality.get("policy_review") or {}
+        disposition_counts = {
+            disposition: sum(
+                len(row.get("passage_refs") or ())
+                for row in policy_review.get("dispositions") or ()
+                if row.get("disposition") == disposition
+            )
+            for disposition in ("counted", "supporting", "excluded")
+        }
+        lines += [
+            "",
+            "## 新回源质量闭合",
+            "",
+            f"- 当前计分实际引用：`{source_review_quality.get('source_passage_count', 0)}` 条精确 passage",
+            f"- 皇帝政策精确回源池：`{policy_review.get('exact_policy_passage_count', 0)}` 条",
+            f"- 政策处置：计分 `{disposition_counts['counted']}`，支撑 `{disposition_counts['supporting']}`，排除 `{disposition_counts['excluded']}`",
+            "- 人物完整生涯与当前皇帝 episode 分离："
+            + (
+                "已通过"
+                if (source_review_quality.get("quality_declarations") or {}).get(
+                    "full_career_profile_ruler_window_separation"
+                )
+                else "旧版输入未声明"
+            ),
+        ]
+        candidate_reviews = policy_review.get("candidate_reviews") or ()
+        if candidate_reviews:
+            disposition_labels = {
+                "counted": "计入",
+                "supporting": "支撑",
+                "excluded": "排除",
+                "insufficient": "证据不足",
+            }
+            lines += [
+                "",
+                "### 政策候选 Judge",
+                "",
+                "| 政策候选 | 结论 | Judge理由 |",
+                "|---|---|---|",
+            ]
+            lines.extend(
+                f"| {_md_cell(item['label'])} | "
+                f"{disposition_labels.get(item['disposition'], item['disposition'])} | "
+                f"{_md_cell(item['reason'])} |"
+                for item in candidate_reviews
             )
 
     lines += [

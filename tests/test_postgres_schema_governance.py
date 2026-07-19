@@ -6,8 +6,6 @@ from emperor_v4.persistence.postgres_schema_governance import (
     MIGRATION_KEY,
     _inventory_sha256,
     canonical_assertion_id,
-    canonical_freeze_ref,
-    canonical_import_batch_id,
     canonical_person_ref,
     canonical_section_id,
     canonical_source_profile_ref,
@@ -38,13 +36,10 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
         "person_ref",
         "evaluation_context",
         "document_id",
-        "import_batch_id",
-        "source_freeze_ref",
         "historical_context",
-        "source_ref",
         "section_id",
-        "ruler_ref",
         "source_profile_ref",
+        "talent_grade",
     ):
         assert f"'{contract_column}'" in sql
 
@@ -52,7 +47,7 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
     assert "assertions_semantic_key_family_check" in sql
     assert "episode_participants_canonical_person_ref_check" in sql
     assert "historical_episodes_canonical_evaluation_context_check" in sql
-    assert sql.count("NOT VALID") == 14
+    assert sql.count("NOT VALID") == 9
     assert "legacy_policy" in sql
     assert "quarantined_debt" in sql
     assert "field_quality_baselines" in sql
@@ -81,8 +76,6 @@ def test_full_field_canonicalizers_are_stable_and_typed() -> None:
         "AST-V4-0123456789ABCDEF0123"
     )
     assert canonical_section_id("卷一").startswith("SEC-V4-")
-    assert canonical_import_batch_id("profile-batch").startswith("V4PP-BATCH-")
-    assert canonical_freeze_ref("freeze:v1").startswith("FRZ-V4-")
     assert canonical_source_profile_ref("人物画像：李世民").startswith("SPR-V4-")
     assert canonical_person_ref("RULER-NAME-CANDIDATE-737E2C4D60AC") == (
         "PER-V4-737E2C4D60AC"
@@ -159,7 +152,7 @@ def test_all_postgres_bootstraps_route_through_schema_governance() -> None:
     assert release.count("postgres_schema_governance.py") == 2
 
 
-def test_postgres_writers_canonicalize_governed_fields_before_insert() -> None:
+def test_active_postgres_writers_canonicalize_governed_fields_before_insert() -> None:
     root = Path(__file__).parents[1] / "src" / "emperor_v4"
     registry = (root / "persistence" / "postgres_registry.py").read_text(
         encoding="utf-8"
@@ -167,10 +160,6 @@ def test_postgres_writers_canonicalize_governed_fields_before_insert() -> None:
     source_cache = (root / "persistence" / "postgres_source_cache.py").read_text(
         encoding="utf-8"
     )
-    person_profile = (
-        root / "infrastructure" / "postgres_person_profile_repository.py"
-    ).read_text(encoding="utf-8")
-
     for helper in (
         "canonical_assertion_id",
         "canonical_section_id",
@@ -178,14 +167,9 @@ def test_postgres_writers_canonicalize_governed_fields_before_insert() -> None:
     ):
         assert helper in registry
     assert "canonical_section_id" in source_cache
-    for helper in (
-        "canonical_import_batch_id",
-        "canonical_freeze_ref",
-        "canonical_person_ref",
-        "canonical_source_profile_ref",
-        "normalize_chinese_explanatory_text",
-    ):
-        assert helper in person_profile
+    assert not (
+        root / "infrastructure" / "postgres_person_profile_repository.py"
+    ).exists()
 
 
 def test_text_quality_metrics_are_ratcheted_and_physically_normalized() -> None:
@@ -216,8 +200,6 @@ def test_text_quality_metrics_are_ratcheted_and_physically_normalized() -> None:
     for column in (
         "talent_grade_basis",
         "negative_talent_basis",
-        "source_basis",
-        "review_basis",
         "reason",
         "follow_up",
     ):

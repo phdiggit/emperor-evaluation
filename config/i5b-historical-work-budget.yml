@@ -3,6 +3,9 @@ status: active
 per_ruler_run:
   rule_count: 5
   max_wall_clock_minutes: 15
+  max_person_retrieval_entries: 12
+  policy_entries_count_against_person_limit: false
+  person_overflow_policy: deferred_boundary_candidate
   deadline_scope: end_to_end_from_first_claim
   hard_deadline: true
   clock_continues_across_resume: true

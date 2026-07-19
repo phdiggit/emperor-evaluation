@@ -10,11 +10,37 @@ import yaml
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     _appointment_density,
+    _object_density,
     _team_profile_members,
     build_i5b_material_budget_shadow,
     render_i5b_material_budget_shadow_markdown,
     write_i5b_material_budget_shadow,
 )
+
+
+def test_object_density_uses_explicit_settlement_chain_instead_of_ruler_ref() -> None:
+    materials = [
+        {
+            "material_id": "M1",
+            "object_ref": "RULER",
+            "settlement_object_ref": "POLICY-MERIT",
+            "material_magnitude": Decimal("1.4"),
+        },
+        {
+            "material_id": "M2",
+            "object_ref": "RULER",
+            "settlement_object_ref": "POLICY-MERIT",
+            "material_magnitude": Decimal("1.0"),
+        },
+        {
+            "material_id": "M3",
+            "object_ref": "RULER",
+            "settlement_object_ref": "CASE-UNCLE-MERIT",
+            "material_magnitude": Decimal("0.8"),
+        },
+    ]
+
+    assert _object_density(materials) == Decimal("2.55")
 from emperor_v4.evaluation.team_building_v8_scored_shadow import (
     _negative_review_state,
 )
@@ -32,6 +58,10 @@ from emperor_v4.evaluation.i5b_civil_candidate_retrieval import (
     _fingerprint,
     build_civil_browser_worklist,
     run_civil_candidate_retrieval,
+)
+from emperor_v4.evaluation.i5b_civil_discovery_compass import (
+    DISCOVERY_COMPASS_SCHEMA_VERSION,
+    record_discovery_compass,
 )
 from emperor_v4.persistence.person_profile_read import (
     PROFILE_COLUMNS,
@@ -244,6 +274,8 @@ def test_civil_browser_source_pack_is_generic_bounded_and_deterministic() -> Non
 
     assert [row["person"] for row in queue] == ["甲相", "丙官"]
     assert [row["query"] for row in worklist] == ["甲相 举措", "测试帝 用人政策"]
+    assert all(row["task_code"].startswith("I5B-CIVIL-") for row in worklist)
+    assert len({row["task_code"] for row in worklist}) == 2
     assert len(first["eligible"]) == 2
     assert first["materials"][0]["factor_option_codes"] == {
         "appointment_importance": "major_affairs",
@@ -254,6 +286,58 @@ def test_civil_browser_source_pack_is_generic_bounded_and_deterministic() -> Non
         "context_factor": "clear",
     }
     assert second == first
+
+
+def test_discovery_compass_records_each_completed_search_atomically(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "compass.json"
+    record = {
+        "task_code": "I5B-CIVIL-TEST-FANGXUANLING",
+        "person": "房玄龄",
+        "person_ref": "PER-V4-C37ED24688F5",
+        "query": "房玄龄 举措",
+        "leads": [
+            {
+                "measure": "修定贞观律",
+                "source_hint": "新唐书 刑法志",
+            }
+        ],
+    }
+
+    assert record_discovery_compass(path, ruler="李世民", record=record) is True
+    first_bytes = path.read_bytes()
+    assert record_discovery_compass(path, ruler="李世民", record=record) is False
+    assert path.read_bytes() == first_bytes
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload == {
+        "schema_version": DISCOVERY_COMPASS_SCHEMA_VERSION,
+        "ruler": "李世民",
+        "records": [record],
+    }
+    assert list(tmp_path.glob(".*.tmp")) == []
+
+    conflict = dict(record) | {"query": "房玄龄 其他查询"}
+    with pytest.raises(ValueError, match="task_code 已存在且内容冲突"):
+        record_discovery_compass(path, ruler="李世民", record=conflict)
+
+
+def test_discovery_compass_keeps_more_than_three_provisional_leads(tmp_path: Path) -> None:
+    record = {
+        "task_code": "I5B-CIVIL-TEST-PERSON",
+        "person": "测试人物",
+        "person_ref": "PER-V4-000000000001",
+        "query": "测试人物 举措",
+        "leads": [
+            {"measure": f"举措{index}", "source_hint": "史书"}
+            for index in range(4)
+        ],
+    }
+
+    path = tmp_path / "compass.json"
+    assert record_discovery_compass(path, ruler="测试帝", record=record) is True
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert len(payload["records"][0]["leads"]) == 4
 
 
 def test_one_command_exports_full_ruler_scoring_detail(
@@ -284,7 +368,7 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert ruler["selection_summary"] == {
         "selected_rule_count": 5,
         "selected_all_five_rules": True,
-        "selected_rule_weighted_raw_signal": "10.091",
+        "selected_rule_weighted_raw_signal": "10.049",
     }
     by_rule = _by_rule(ruler)
     assert by_rule["talent_discovery"]["historical_coverage_status"] == (
@@ -673,14 +757,14 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     report = build_i5b_material_budget_shadow(MANIFEST)
     rules = _by_rule(report)
 
-    assert report["summary"]["weighted_raw_signal"] == "10.091101"
+    assert report["summary"]["weighted_raw_signal"] == "10.049101"
     assert report["summary"]["settled_event_positive_count"] == 12
     assert report["summary"]["settled_event_negative_count"] == 2
     assert report["summary"]["team_positive_member_count"] == 8
     assert report["summary"]["team_negative_member_count"] == 1
     assert rules["talent_discovery"]["rule_raw_net"] == "6.897000"
     assert rules["appointment_delegation"]["rule_raw_net"] == "12.643836"
-    assert rules["team_building"]["rule_raw_net"] == "13.888000"
+    assert rules["team_building"]["rule_raw_net"] == "13.688000"
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "2.961200"
     assert "candidate_boundary_audit" not in rules["talent_discovery"]
@@ -838,7 +922,7 @@ def test_liubang_team_pool_derives_values_from_frozen_profiles() -> None:
     assert [row["person"] for row in team["negative_members"]] == ["樊哙"]
     assert team["negative_members"][0]["negative_class"] == "cruel_official"
     assert team["negative_members"][0]["negative_severity"] == "material"
-    assert team["negative_pool"] == "0.450000"
+    assert team["negative_pool"] == "0.550000"
     assert report["declarations"]["team_profile_source_enforced"] is True
 
     broken = json.loads(json.dumps(profile_pool, ensure_ascii=False))
@@ -880,8 +964,55 @@ def test_unfilled_budget_is_neutral_and_team_is_one_window_unit() -> None:
     assert len(team["negative_members"]) == 1
     assert len(team["supporting_only_members"]) == 15
     assert team["positive_pool"] == "10.200000"
-    assert team["negative_pool"] == "0.800000"
-    assert team["negative_signal"] == "0.800000"
+    assert team["negative_pool"] == "1.000000"
+    assert team["negative_signal"] == "1.000000"
+
+
+def test_all_eligible_shadow_removes_material_count_limits_without_changing_default() -> None:
+    manifest = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))
+    manifest["settlement_mode"] = "all_eligible_shadow"
+
+    report = build_i5b_material_budget_shadow(
+        MANIFEST,
+        manifest_payload=manifest,
+    )
+    rules = _by_rule(report)
+
+    assert report["settlement_mode"] == "all_eligible_shadow"
+    assert report["declarations"]["numeric_top_k_selection_used"] is False
+    assert report["declarations"]["all_eligible_materials_settled"] is True
+    for rule_code in (
+        "talent_discovery",
+        "appointment_delegation",
+        "tolerate_talent",
+        "anti_nepotism",
+    ):
+        rule = rules[rule_code]
+        assert len(rule["settled_materials"]) == rule["eligible_candidate_count"]
+        assert not any(
+            row["selection_status"] == "eligible_below_budget_boundary"
+            for row in rule["supporting_only_materials"]
+        )
+
+    assert len(rules["talent_discovery"]["settled_materials"]) == 7
+    assert len(rules["appointment_delegation"]["settled_materials"]) == 14
+    assert report["summary"]["weighted_raw_signal"] == "16.607686"
+
+
+def test_all_eligible_shadow_keeps_team_positive_eight_negative_three_caps() -> None:
+    manifest = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))
+    manifest["settlement_mode"] = "all_eligible_shadow"
+    team = manifest["rules"]["team_building"]
+    source = json.loads((ROOT / team["source"]).read_text(encoding="utf-8"))
+    ninth = next(
+        row["person"]
+        for row in source["members"]
+        if row["person"] not in team["positive_members"]
+    )
+    team["positive_members"].append(ninth)
+
+    with pytest.raises(ValueError, match="正池超出预算"):
+        build_i5b_material_budget_shadow(MANIFEST, manifest_payload=manifest)
 
 
 def test_team_negative_pool_is_independent_of_positive_structure_factors(
@@ -903,8 +1034,8 @@ def test_team_negative_pool_is_independent_of_positive_structure_factors(
     baseline = _by_rule(build_i5b_material_budget_shadow(MANIFEST))["team_building"]
 
     assert weak_structure["positive_signal"] != baseline["positive_signal"]
-    assert weak_structure["negative_pool"] == baseline["negative_pool"] == "0.800000"
-    assert weak_structure["negative_signal"] == baseline["negative_signal"] == "0.800000"
+    assert weak_structure["negative_pool"] == baseline["negative_pool"] == "1.000000"
+    assert weak_structure["negative_signal"] == baseline["negative_signal"] == "1.000000"
 
 
 def test_report_is_deterministic_readable_and_byte_idempotent(tmp_path: Path) -> None:

@@ -101,10 +101,11 @@ rules:
         label_zh: 负向人才严重度
         description_zh: 衡量窗口内已实现负向行为的严重程度。
         options:
-          minor: {label_zh: 轻微, description_zh: 有限且可控的负向影响。}
-          material: {label_zh: 实质, description_zh: 已产生明确实质损害。}
-          major: {label_zh: 重大, description_zh: 对团队或政权造成重大损害。}
-          historic: {label_zh: 历史级损害, description_zh: 产生长期或时代级结构损害。}
+          limited: {label_zh: 有限风险, description_zh: 已形成政治风险，但影响局限且可控。}
+          material: {label_zh: 实质风险, description_zh: 已造成明确的人事、治理或军事损害。}
+          serious: {label_zh: 严重风险, description_zh: 对关键机构、重大事务或团队稳定造成严重损害。}
+          major: {label_zh: 重大风险, description_zh: 危及政权核心安全、储位秩序或国家级事务。}
+          systemic: {label_zh: 系统性风险, description_zh: 造成跨阶段、跨机构或时代级结构损害。}
       role_complementarity_factor:
         label_zh: 角色互补度
         description_zh: 衡量决策、行政、军事、纠错四类核心角色覆盖。

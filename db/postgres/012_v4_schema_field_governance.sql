@@ -202,30 +202,18 @@ INSERT INTO v4_governance.field_contracts (
     ('public', 'source_documents', 'document_id', 'typed_identifier',
      'SCD|WSD', 'accepted_typed',
      'SCD 与 WSD 是两类显式文献载体标识。'),
-    ('v4_person_profile', 'import_batches', 'import_batch_id', 'typed_identifier',
-     'V4PP-BATCH-16HEX', 'canonical_only',
-     '人物画像导入批次统一为 V4PP-BATCH 加十六位大写十六进制摘要。'),
-    ('v4_person_profile', 'import_batches', 'source_freeze_ref', 'typed_reference',
-     'FRZ-V4-16HEX', 'canonical_only',
-     '人物画像冻结引用统一为 FRZ-V4 加十六位大写十六进制摘要；原始标签留在 payload。'),
     ('v4_person_profile', 'person_identity_registry', 'person_ref', 'canonical_reference',
      'PER-V4-12HEX', 'canonical_only',
      '人物身份注册表只保存 PER-V4 规范人物引用。'),
-    ('v4_person_profile', 'ruler_team_window_snapshots', 'ruler_ref', 'canonical_reference',
-     'PER-V4-12HEX', 'canonical_only',
-     '统治者团队窗口统一保存 PER-V4 规范统治者引用。'),
-    ('v4_person_profile', 'person_profile_snapshots', 'source_profile_ref', 'typed_reference',
+    ('v4_person_profile', 'person_profiles', 'source_profile_ref', 'typed_reference',
      'SPR-V4-16HEX', 'canonical_only',
-     '人物画像快照的来源画像引用统一为 SPR-V4 规范格式。'),
-    ('v4_person_profile', 'person_profile_catalog', 'source_profile_ref', 'typed_reference',
-     'SPR-V4-16HEX', 'canonical_only',
-     '人物画像目录的来源画像引用统一为 SPR-V4 规范格式。'),
+     '当前唯一人物画像表的来源画像引用统一为 SPR-V4 规范格式。'),
+    ('v4_person_profile', 'person_profiles', 'talent_grade', 'business_enum',
+     'historic|top|important|usable|ordinary', 'canonical_only',
+     '当前人物画像只暴露合并校准后的唯一有效人才等级。'),
     ('v4_person_profile', 'person_identity_registry', 'historical_context',
      'code_or_narrative', 'machine-code|Chinese narrative', 'accepted_typed',
-     '机器上下文码与人物说明是两种显式内容类型，消费者不得把该字段当作单一枚举。'),
-    ('v4_person_profile', 'person_profile_lineage', 'source_ref',
-     'typed_lineage_reference', 'classified by lineage_kind', 'accepted_typed',
-     '引用格式由 lineage_kind 解释，不得脱离类型按字符串前缀猜测。')
+     '机器上下文码与人物说明是两种显式内容类型，消费者不得把该字段当作单一枚举。')
 ON CONFLICT (schema_name, table_name, column_name) DO UPDATE SET
     contract_kind = EXCLUDED.contract_kind,
     contract_value = EXCLUDED.contract_value,
@@ -313,60 +301,20 @@ BEGIN
             CHECK (person_ref ~ '^PER-V4-[0-9A-F]{12}$') NOT VALID;
     END IF;
 
-    IF to_regclass('v4_person_profile.ruler_team_window_snapshots') IS NOT NULL THEN
-        ALTER TABLE v4_person_profile.ruler_team_window_snapshots
-            DROP CONSTRAINT IF EXISTS ruler_team_window_snapshots_canonical_ruler_ref_check;
-        ALTER TABLE v4_person_profile.ruler_team_window_snapshots
-            ADD CONSTRAINT ruler_team_window_snapshots_canonical_ruler_ref_check
-            CHECK (ruler_ref ~ '^PER-V4-[0-9A-F]{12}$') NOT VALID;
-    END IF;
-
-    IF to_regclass('v4_person_profile.person_profile_snapshots') IS NOT NULL THEN
-        ALTER TABLE v4_person_profile.person_profile_snapshots
-            DROP CONSTRAINT IF EXISTS person_profile_snapshots_source_profile_ref_check;
-        ALTER TABLE v4_person_profile.person_profile_snapshots
-            ADD CONSTRAINT person_profile_snapshots_source_profile_ref_check
+    IF to_regclass('v4_person_profile.person_profiles') IS NOT NULL THEN
+        ALTER TABLE v4_person_profile.person_profiles
+            DROP CONSTRAINT IF EXISTS person_profiles_source_profile_ref_check;
+        ALTER TABLE v4_person_profile.person_profiles
+            ADD CONSTRAINT person_profiles_source_profile_ref_check
             CHECK (source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$') NOT VALID;
-    END IF;
-
-    IF to_regclass('v4_person_profile.person_profile_catalog') IS NOT NULL THEN
-        ALTER TABLE v4_person_profile.person_profile_catalog
-            DROP CONSTRAINT IF EXISTS person_profile_catalog_source_profile_ref_check;
-        ALTER TABLE v4_person_profile.person_profile_catalog
-            ADD CONSTRAINT person_profile_catalog_source_profile_ref_check
-            CHECK (source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$') NOT VALID;
-        ALTER TABLE v4_person_profile.person_profile_catalog
-            DROP CONSTRAINT IF EXISTS person_profile_catalog_chinese_basis_check;
-        ALTER TABLE v4_person_profile.person_profile_catalog
-            ADD CONSTRAINT person_profile_catalog_chinese_basis_check
+        ALTER TABLE v4_person_profile.person_profiles
+            DROP CONSTRAINT IF EXISTS person_profiles_chinese_basis_check;
+        ALTER TABLE v4_person_profile.person_profiles
+            ADD CONSTRAINT person_profiles_chinese_basis_check
             CHECK (
                 NOT (talent_grade_basis ~ '[一-龥]' AND talent_grade_basis ~ '[A-Za-z]')
                 AND NOT (negative_talent_basis ~ '[一-龥]' AND negative_talent_basis ~ '[A-Za-z]')
             ) NOT VALID;
-    END IF;
-
-    IF to_regclass('v4_person_profile.talent_grade_calibrations') IS NOT NULL THEN
-        ALTER TABLE v4_person_profile.talent_grade_calibrations
-            DROP CONSTRAINT IF EXISTS talent_grade_calibrations_chinese_basis_check;
-        ALTER TABLE v4_person_profile.talent_grade_calibrations
-            ADD CONSTRAINT talent_grade_calibrations_chinese_basis_check
-            CHECK (
-                NOT (source_basis ~ '[一-龥]' AND source_basis ~ '[A-Za-z]')
-                AND NOT (review_basis ~ '[一-龥]' AND review_basis ~ '[A-Za-z]')
-            ) NOT VALID;
-    END IF;
-
-    IF to_regclass('v4_person_profile.import_batches') IS NOT NULL THEN
-        ALTER TABLE v4_person_profile.import_batches
-            DROP CONSTRAINT IF EXISTS import_batches_id_family_check;
-        ALTER TABLE v4_person_profile.import_batches
-            ADD CONSTRAINT import_batches_id_family_check
-            CHECK (import_batch_id ~ '^V4PP-BATCH-[0-9A-F]{16}$') NOT VALID;
-        ALTER TABLE v4_person_profile.import_batches
-            DROP CONSTRAINT IF EXISTS import_batches_source_freeze_ref_type_check;
-        ALTER TABLE v4_person_profile.import_batches
-            ADD CONSTRAINT import_batches_source_freeze_ref_type_check
-            CHECK (source_freeze_ref ~ '^FRZ-V4-[0-9A-F]{16}$') NOT VALID;
     END IF;
 END
 $governance$;
@@ -431,15 +379,8 @@ DECLARE
         'jobs', '可租约重试的异步作业。',
         'request_assertions', '抽取请求与断言草稿的关联。',
         'requests', '服务请求及其幂等状态。',
-        'import_batches', '人物画像导入批次及来源冻结。',
         'person_identity_registry', 'V4 人物规范身份注册表。',
-        'person_legacy_refs', '旧人物引用到 V4 身份的 lineage 映射。',
-        'person_profile_catalog', '可直接读取的人物画像目录。',
-        'person_profile_lineage', '人物画像版本的来源 lineage。',
-        'person_profile_snapshots', '不可变人物画像快照。',
-        'ruler_team_window_members', '统治者团队窗口成员快照。',
-        'ruler_team_window_snapshots', '统治者团队窗口定义。',
-        'talent_grade_calibrations', '多政策版本的人才档位校准记录。',
+        'person_profiles', '当前工作流唯一人物画像表。',
         'document_revisions', 'Source Cache 文献修订内容。',
         'passages', 'Source Cache 的证据片段缓存。',
         'request_documents', 'Source Cache 请求与文献修订关联。',

@@ -100,6 +100,42 @@ def _rounded(value: Decimal) -> str:
     return format(value.quantize(Q, rounding=ROUND_HALF_UP), "f")
 
 
+def _factor_label_catalog(rule_code: str) -> dict[str, str]:
+    display = yaml.safe_load(
+        (ROOT / "config/i5b-scoring-detail-display.yml").read_text(encoding="utf-8")
+    )
+    labels = {
+        str(code): str(value["label_zh"])
+        for code, value in (display.get("common_factors") or {}).items()
+    }
+    labels.update(
+        {
+            str(code): str(value["label_zh"])
+            for code, value in (
+                ((display.get("rules") or {}).get(rule_code) or {}).get("factors")
+                or {}
+            ).items()
+        }
+    )
+    return labels
+
+
+def _factor_value_text(rule_code: str, row: Mapping[str, Any]) -> str:
+    labels = _factor_label_catalog(rule_code)
+    side = str(row["side"])
+    factor_order = (
+        APPOINTMENT_FACTORS
+        if rule_code == "appointment_delegation"
+        else FACTOR_NAMES[rule_code][side]
+    )
+    values = row.get("factor_values") or {}
+    return "；".join(
+        f"{labels.get(code, code)} {_rounded(_decimal(values[code]))}"
+        for code in factor_order
+        if code in values
+    )
+
+
 def _canonical_bytes(payload: Mapping[str, Any]) -> bytes:
     return json.dumps(
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
@@ -248,20 +284,25 @@ def _appointment_responsibility_materials(
             factor: _decimal(material["factor_values"][factor])
             for factor in APPOINTMENT_FACTORS
         }
-        rows.append(
-            {
-                "material_id": str(material["material_id"]),
-                "side": str(material["side"]),
-                "subject": str(material["subject"]),
-                "object_ref": str(material["object_ref"]),
-                "rule_evidence_unit_ref": str(material["rule_evidence_unit_ref"]),
-                "factor_values": values,
-                "factor_option_codes": dict(material["factor_option_codes"]),
-                "material_magnitude": _decimal(material["material_magnitude"]),
-                "fact": str(material["fact"]),
-                "source_refs": list(material.get("source_refs") or ()),
-            }
-        )
+        row = {
+            "material_id": str(material["material_id"]),
+            "side": str(material["side"]),
+            "subject": str(material["subject"]),
+            "object_ref": str(material["object_ref"]),
+            "rule_evidence_unit_ref": str(material["rule_evidence_unit_ref"]),
+            "factor_values": values,
+            "factor_option_codes": dict(material["factor_option_codes"]),
+            "material_magnitude": _decimal(material["material_magnitude"]),
+            "fact": str(material["fact"]),
+            "source_refs": list(material.get("source_refs") or ()),
+        }
+        if material.get("projection_observations"):
+            row["projection_observations"] = [
+                dict(value) for value in material["projection_observations"]
+            ]
+        if material.get("projection_coverage"):
+            row["projection_coverage"] = dict(material["projection_coverage"])
+        rows.append(row)
     return rows
 
 
@@ -300,6 +341,12 @@ def _direct_materials(
             row["talent_quality_basis"] = dict(material["talent_quality_basis"])
         if material.get("v4_factor_projection"):
             row["v4_factor_projection"] = dict(material["v4_factor_projection"])
+        if material.get("projection_observations"):
+            row["projection_observations"] = [
+                dict(value) for value in material["projection_observations"]
+            ]
+        if material.get("projection_coverage"):
+            row["projection_coverage"] = dict(material["projection_coverage"])
         rows.append(row)
     return rows
 
@@ -343,35 +390,76 @@ def _material_view(
         "independence_key": str(decision["independence_key"]),
         "judge_reason": str(decision["judge_reason"]),
         "material_magnitude": _rounded(material["material_magnitude"]),
-        "factor_values": material["factor_values"],
+        "factor_values": {
+            key: _rounded(_decimal(value))
+            for key, value in (material.get("factor_values") or {}).items()
+        },
         "factor_option_codes": material["factor_option_codes"],
         "override_reasons": list(material.get("override_reasons") or []),
         "fact": str(decision.get("fact_override") or material["fact"]),
         "source_refs": material["source_refs"],
     }
+    if material.get("settlement_object_ref"):
+        row["settlement_object_ref"] = str(material["settlement_object_ref"])
     if material.get("v4_factor_projection"):
         row["v4_factor_projection"] = material["v4_factor_projection"]
+    if material.get("projection_observations"):
+        row["projection_observations"] = [
+            dict(value) for value in material["projection_observations"]
+        ]
+    if material.get("projection_coverage"):
+        row["projection_coverage"] = dict(material["projection_coverage"])
     if material.get("talent_quality_basis"):
         row["talent_quality_basis"] = material["talent_quality_basis"]
     return row
 
 
-def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:
-    by_object: dict[str, list[Decimal]] = {}
+def _object_density_projection(
+    selected: Sequence[Mapping[str, Any]],
+) -> tuple[Decimal, dict[str, Decimal], dict[str, Decimal]]:
+    by_object: dict[str, list[Mapping[str, Any]]] = {}
     for material in selected:
-        by_object.setdefault(str(material["object_ref"]), []).append(
-            material["material_magnitude"]
+        settlement_object_ref = str(
+            material.get("settlement_object_ref") or material["object_ref"]
         )
+        by_object.setdefault(settlement_object_ref, []).append(material)
     total = Decimal("0")
-    for values in by_object.values():
-        ordered = sorted(values, reverse=True)
-        strongest = ordered[0]
+    object_values: dict[str, Decimal] = {}
+    material_contributions: dict[str, Decimal] = {}
+    for settlement_object_ref, materials in by_object.items():
+        ordered = sorted(
+            materials,
+            key=lambda row: (-row["material_magnitude"], row["material_id"]),
+        )
+        strongest = ordered[0]["material_magnitude"]
+        raw_contributions = {
+            str(row["material_id"]): (
+                row["material_magnitude"]
+                if index == 0
+                else Decimal("0.35") * row["material_magnitude"]
+            )
+            for index, row in enumerate(ordered)
+        }
+        raw_value = sum(raw_contributions.values(), Decimal("0"))
         object_value = min(
-            strongest + Decimal("0.35") * sum(ordered[1:], Decimal("0")),
+            raw_value,
             strongest * Decimal("1.5"),
             Decimal("4"),
         )
+        scale = object_value / raw_value if raw_value else Decimal("0")
+        object_values[settlement_object_ref] = object_value
+        material_contributions.update(
+            {
+                material_id: contribution * scale
+                for material_id, contribution in raw_contributions.items()
+            }
+        )
         total += object_value
+    return total, object_values, material_contributions
+
+
+def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:
+    total, _, _ = _object_density_projection(selected)
     return total
 
 
@@ -446,6 +534,7 @@ def _build_material_rule(
     rule_manifest: Mapping[str, Any],
     policy: Mapping[str, Any],
     ruler: str,
+    settlement_mode: str,
 ) -> dict[str, Any]:
     source_path = _resolve(str(rule_manifest["source"]))
     source = _load_json(source_path)
@@ -485,6 +574,7 @@ def _build_material_rule(
     object_aggregate_by_side: dict[str, dict[str, Decimal]] = {}
     object_material_contribution_by_side: dict[str, dict[str, Decimal]] = {}
     object_boundary_by_side: dict[str, Decimal] = {}
+    object_rank_by_side: dict[str, dict[str, int]] = {}
     for side in ("positive", "negative"):
         decisions = list((rule_manifest.get("eligible") or {}).get(side) or [])
         keys = [str(row["independence_key"]) for row in decisions]
@@ -499,6 +589,11 @@ def _build_material_rule(
             if material["side"] != side:
                 raise ValueError(f"{material_id} 方向与结算池不一致")
             eligible_ids.add(material_id)
+            if rule_code == "anti_nepotism":
+                material["settlement_object_ref"] = str(
+                    decision.get("aggregation_key")
+                    or decision["independence_key"]
+                )
             candidates.append((material, decision))
         if rule_code == "appointment_delegation":
             grouped: dict[
@@ -515,9 +610,23 @@ def _build_material_rule(
                 grouped,
                 key=lambda object_ref: (-object_totals[object_ref], object_ref),
             )
-            selected_objects = ranked_objects[: int(budget[side])]
+            selected_objects = (
+                ranked_objects
+                if settlement_mode == "all_eligible_shadow"
+                else ranked_objects[: int(budget[side])]
+            )
             object_aggregate_by_side[side] = object_totals
             object_material_contribution_by_side[side] = material_contributions
+            ranks: dict[str, int] = {}
+            previous_value: Decimal | None = None
+            competition_rank = 0
+            for index, object_ref in enumerate(ranked_objects, start=1):
+                value = object_totals[object_ref]
+                if previous_value is None or value != previous_value:
+                    competition_rank = index
+                ranks[object_ref] = competition_rank
+                previous_value = value
+            object_rank_by_side[side] = ranks
             object_boundary_by_side[side] = min(
                 (object_totals[object_ref] for object_ref in selected_objects),
                 default=Decimal("0"),
@@ -539,7 +648,11 @@ def _build_material_rule(
                     -row[0]["material_magnitude"], row[0]["material_id"]
                 )
             )
-            selected_candidates = candidates[: int(budget[side])]
+            selected_candidates = (
+                candidates
+                if settlement_mode == "all_eligible_shadow"
+                else candidates[: int(budget[side])]
+            )
         selected = [row[0] for row in selected_candidates]
         for material, decision in selected_candidates:
             material_id = str(material["material_id"])
@@ -548,7 +661,9 @@ def _build_material_rule(
             if rule_code == "appointment_delegation":
                 object_ref = str(material["object_ref"])
                 view["selection_basis"] = (
-                    "eligibility_gate_then_object_merge_then_strongest_n_objects"
+                    "eligibility_gate_then_object_merge_all_eligible_shadow"
+                    if settlement_mode == "all_eligible_shadow"
+                    else "eligibility_gate_then_object_merge_then_strongest_n_objects"
                 )
                 view["object_aggregate_magnitude"] = _rounded(
                     object_aggregate_by_side[side][object_ref]
@@ -556,8 +671,17 @@ def _build_material_rule(
                 view["object_internal_contribution"] = _rounded(
                     object_material_contribution_by_side[side][material_id]
                 )
+                view["actual_signal_contribution"] = _rounded(
+                    (Decimal("1.5") if side == "positive" else Decimal("1"))
+                    * object_material_contribution_by_side[side][material_id]
+                    / _decimal(object_rank_by_side[side][object_ref]).sqrt()
+                )
             else:
-                view["selection_basis"] = "eligibility_gate_then_strongest_n"
+                view["selection_basis"] = (
+                    "eligibility_gate_all_eligible_shadow"
+                    if settlement_mode == "all_eligible_shadow"
+                    else "eligibility_gate_then_strongest_n"
+                )
             selected_views.append(view)
         selected_by_side[side] = selected
 
@@ -670,8 +794,28 @@ def _build_material_rule(
             selected_by_side["negative"], "negative", appointment_object_cap
         )
     else:
-        positive = _object_density(selected_by_side["positive"])
-        negative = _object_density(selected_by_side["negative"])
+        positive, positive_objects, positive_contributions = _object_density_projection(
+            selected_by_side["positive"]
+        )
+        negative, negative_objects, negative_contributions = _object_density_projection(
+            selected_by_side["negative"]
+        )
+        object_values = {**positive_objects, **negative_objects}
+        contributions = {**positive_contributions, **negative_contributions}
+        for view in selected_views:
+            material_id = str(view["material_id"])
+            settlement_object_ref = str(
+                view.get("settlement_object_ref") or view["object_ref"]
+            )
+            view["object_aggregate_magnitude"] = _rounded(
+                object_values[settlement_object_ref]
+            )
+            view["object_internal_contribution"] = _rounded(
+                contributions[material_id]
+            )
+            view["actual_signal_contribution"] = view[
+                "object_internal_contribution"
+            ]
     result = {
         "rule_code": rule_code,
         "rule_label": RULE_LABELS[rule_code],
@@ -685,8 +829,19 @@ def _build_material_rule(
         ],
         "source_candidate_count": len(materials),
         "eligible_candidate_count": len(eligible_ids),
-        "positive_budget": int(budget["positive"]),
-        "negative_budget": int(budget["negative"]),
+        "settlement_mode": settlement_mode,
+        "configured_positive_budget": int(budget["positive"]),
+        "configured_negative_budget": int(budget["negative"]),
+        "positive_budget": (
+            sum(row["side"] == "positive" for row in selected_views)
+            if settlement_mode == "all_eligible_shadow"
+            else int(budget["positive"])
+        ),
+        "negative_budget": (
+            sum(row["side"] == "negative" for row in selected_views)
+            if settlement_mode == "all_eligible_shadow"
+            else int(budget["negative"])
+        ),
         "settlement_budget_unit": str(budget["unit"]),
         **(
             {"same_object_value_cap": _rounded(appointment_object_cap)}
@@ -699,6 +854,13 @@ def _build_material_rule(
         "negative_signal": _rounded(negative),
         "rule_raw_net": _rounded(positive - negative),
         "candidate_disposition_complete": True,
+        "source_projection_coverage_complete": all(
+            (by_id[material_id].get("projection_coverage") or {}).get(
+                "coverage_complete", True
+            )
+            is True
+            for material_id in eligible_ids
+        ),
     }
     candidate_inventory_ref = rule_manifest.get("candidate_inventory_ref")
     if rule_code == "talent_discovery" and candidate_inventory_ref:
@@ -877,6 +1039,7 @@ def _build_team_rule(
     policy: Mapping[str, Any],
     ruler: str,
     current_profiles: Mapping[str, Mapping[str, Any]] | None = None,
+    settlement_mode: str,
 ) -> dict[str, Any]:
     source_path = _resolve(str(rule_manifest["source"]))
     source = _load_json(source_path)
@@ -940,6 +1103,9 @@ def _build_team_rule(
         "source_ref": str(rule_manifest["source"]),
         "source_sha256": _sha256(source_path.read_bytes()),
         "source_candidate_count": len(members),
+        "settlement_mode": settlement_mode,
+        "configured_positive_member_budget": int(budget["positive_member_budget"]),
+        "configured_negative_member_budget": int(budget["negative_member_budget"]),
         "positive_member_budget": int(budget["positive_member_budget"]),
         "negative_member_budget": int(budget["negative_member_budget"]),
         "positive_members": [
@@ -950,6 +1116,8 @@ def _build_team_rule(
                 "talent_grade": row["effective_talent_grade"],
                 "talent_value": str(row["talent_value"]),
                 "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
+                "talent_profile_basis": dict(row.get("talent_profile_basis") or {}),
+                "political_risk": dict(row.get("political_risk") or {}),
                 "role_families": list(row.get("role_families") or []),
                 "supporting_unit_refs": list(row.get("supporting_unit_refs") or []),
             }
@@ -966,6 +1134,8 @@ def _build_team_rule(
                 "talent_grade": row["effective_talent_grade"],
                 "talent_value": str(row["talent_value"]),
                 "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
+                "talent_profile_basis": dict(row.get("talent_profile_basis") or {}),
+                "political_risk": dict(row.get("political_risk") or {}),
                 "role_families": list(row.get("role_families") or []),
                 "supporting_unit_refs": list(row.get("supporting_unit_refs") or []),
             }
@@ -1072,6 +1242,9 @@ def build_i5b_material_budget_shadow(
     policy = _load_yaml(policy_path)
     if policy.get("status") != "v3_scoring_skeleton_with_v4_settlement_budget_shadow":
         raise ValueError("计分政策未启用材料结算预算")
+    settlement_mode = str(manifest.get("settlement_mode") or "policy_budget")
+    if settlement_mode not in {"policy_budget", "all_eligible_shadow"}:
+        raise ValueError("材料结算模式只允许 policy_budget 或 all_eligible_shadow")
     ruler = str(manifest["ruler"])
     rules: list[dict[str, Any]] = []
     for rule_code in RULE_ORDER:
@@ -1083,6 +1256,7 @@ def build_i5b_material_budget_shadow(
                     policy=policy,
                     ruler=ruler,
                     current_profiles=current_profiles,
+                    settlement_mode=settlement_mode,
                 )
             )
         else:
@@ -1092,6 +1266,7 @@ def build_i5b_material_budget_shadow(
                     rule_manifest=rule_manifest,
                     policy=policy,
                     ruler=ruler,
+                    settlement_mode=settlement_mode,
                 )
             )
     weights = policy["item_raw_signal"]["rule_weights"]
@@ -1109,6 +1284,7 @@ def build_i5b_material_budget_shadow(
         "ruler": ruler,
         "ruler_ref": str(manifest["ruler_ref"]),
         "window": str(manifest["window"]),
+        "settlement_mode": settlement_mode,
         "policy_ref": str(manifest["policy"]),
         "policy_sha256": _sha256(policy_path.read_bytes()),
         "rules": rules,
@@ -1146,12 +1322,24 @@ def build_i5b_material_budget_shadow(
                 )["negative_members"]
             ),
         },
-        "amplitude_diagnostic": _amplitude_diagnostic(policy),
+        "amplitude_diagnostic": (
+            {
+                "decision_status": "not_applicable_all_eligible_shadow",
+                "cohort_ruler_count": 1,
+                "amplitude_change_recommended": None,
+                "reason": "本轮暂时取消材料数量上限，政策预算理论包络不适用于该影子结果。",
+            }
+            if settlement_mode == "all_eligible_shadow"
+            else _amplitude_diagnostic(policy)
+        ),
         "declarations": {
             "existing_formal_facts_only": True,
             "context_labels_used_as_scoring_slots": False,
-            "numeric_top_k_selection_used": True,
-            "numeric_top_k_applied_after_eligibility_gate": True,
+            "numeric_top_k_selection_used": settlement_mode == "policy_budget",
+            "numeric_top_k_applied_after_eligibility_gate": settlement_mode
+            == "policy_budget",
+            "all_eligible_materials_settled": settlement_mode
+            == "all_eligible_shadow",
             "domain_representation_quota_used": False,
             "unfilled_budget_penalty_used": False,
             "candidate_disposition_complete": all(
@@ -1178,9 +1366,10 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
         f"# {report['ruler']}第五项B材料预算计分验证",
         "",
         f"- 计分窗口：`{report['window']}`",
-        "- 沿用材料级因子和原聚合公式；不使用领域固定槽位。",
-        "- 事件材料先通过人工 Gate，再按同侧最终材料分结算 strongest-N；未用满预算不扣分。",
-        "- 本报告不生成45分、tier或排名。",
+        "- 沿用材料级因子和聚合公式，不使用领域固定槽位。",
+        "- 事件材料先通过 Judge，再按独立结算对象聚合。",
+        "- 未用满预算不扣分。",
+        "- 本报告不生成45分、tier或排名，只展示 shadow raw signal。",
         "",
         "## 汇总",
         "",
@@ -1196,12 +1385,6 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
         [
             "",
             f"加权 raw signal：`{report['summary']['weighted_raw_signal']}`。",
-            "",
-            "## 振幅诊断",
-            "",
-            f"- 状态：`{report['amplitude_diagnostic']['decision_status']}`",
-            "- 当前是否建议修改振幅：`待定`",
-            f"- 判断：{report['amplitude_diagnostic']['reason']}",
         ]
     )
     for rule in report["rules"]:
@@ -1212,20 +1395,24 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
                     f"正池 `{len(rule['positive_members'])}/{rule['positive_member_budget']}`，"
                     f"负池 `{len(rule['negative_members'])}/{rule['negative_member_budget']}`。",
                     "",
-                    "| 方向 | 对象 | 档位/风险 | 数值 | 支撑REU |",
-                    "| --- | --- | --- | ---: | --- |",
+                    "| 对象 | 方向 | 数值 | 档位 / 风险 | 计分事实 |",
+                    "| --- | --- | ---: | --- | --- |",
                 ]
             )
             for row in rule["positive_members"]:
                 lines.append(
-                    f"| 正向 | {row['person']} | {row['talent_grade']} | "
-                    f"{row['talent_value']} | {'、'.join(row['supporting_unit_refs'])} |"
+                    f"| {row['person']} | 正向 | {row['talent_value']} | "
+                    f"{row['talent_grade']} | {row['talent_grade_basis']} |"
                 )
             for row in rule["negative_members"]:
+                risk_events = (row.get("political_risk") or {}).get(
+                    "event_assessments"
+                ) or ()
+                risk_fact = str(risk_events[0].get("summary") or "") if risk_events else ""
                 lines.append(
-                    f"| 负向 | {row['person']} | {row['negative_class']} / "
-                    f"{row['negative_severity']} | {row['negative_value']} | "
-                    f"{'、'.join(row['supporting_unit_refs'])} |"
+                    f"| {row['person']} | 负向 | {row['negative_value']} | "
+                    f"{row['negative_class']} / {row['negative_severity']} | "
+                    f"{risk_fact} |"
                 )
             lines.extend(
                 [
@@ -1233,7 +1420,7 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
                     f"团队结构系数：`{rule['functional_complementarity_factor']} × "
                     f"{rule['long_term_stability_factor']}`。",
                     "",
-                    "未计分成员均保留为团队 lineage，不因领域空缺扣分。",
+                    "未进入正8或负3的成员不计分，不因领域空缺另行扣分。",
                 ]
             )
             continue
@@ -1245,19 +1432,23 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
         )
         lines.extend(
             [
-                f"正向结算 `{positive_count}/{rule['positive_budget']}`，"
-                f"负向结算 `{negative_count}/{rule['negative_budget']}`。",
+                f"正向材料 `{positive_count}`，负向材料 `{negative_count}`。",
                 "",
-                "| 方向 | 对象 | REU | 材料值 | Judge理由 | 计分事实 |",
-                "| --- | --- | --- | ---: | --- | --- |",
+                "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |",
+                "| --- | --- | ---: | ---: | --- | --- |",
             ]
         )
         for row in rule["settled_materials"]:
             direction = "正向" if row["side"] == "positive" else "负向"
             fact = str(row["fact"]).replace("|", "｜").replace("\n", " ")
+            actual_signal = row.get(
+                "actual_signal_contribution",
+                row.get("object_internal_contribution", row["material_magnitude"]),
+            )
             lines.append(
-                f"| {direction} | {row['subject']} | {row['rule_evidence_unit_ref']} | "
-                f"{row['material_magnitude']} | {row['judge_reason']} | {fact} |"
+                f"| {row['subject']} | {direction} | {row['material_magnitude']} | "
+                f"{actual_signal} | {_factor_value_text(rule['rule_code'], row)} | "
+                f"{fact} |"
             )
         if rule["supporting_only_materials"]:
             lines.extend(
@@ -1265,16 +1456,16 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
                     "",
                     "### 未计分支持材料",
                     "",
-                    "| 对象 | REU | Judge理由 |",
-                    "| --- | --- | --- |",
+                    "| 对象 | 判定 | 说明 | 事实 |",
+                    "| --- | --- | --- | --- |",
                 ]
             )
             for row in rule["supporting_only_materials"]:
                 lines.append(
-                    f"| {row['subject']} | {row['rule_evidence_unit_ref']} | "
-                    f"{row['judge_reason']} |"
+                    f"| {row['subject']} | 未计入 | {row['judge_reason']} | "
+                    f"{str(row.get('fact') or '').replace('|', '｜').replace(chr(10), ' ')} |"
                 )
-    lines.extend(["", f"报告指纹：`{report['report_sha256']}`", ""])
+    lines.append("")
     return "\n".join(lines)
 
 

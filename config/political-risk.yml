@@ -1,0 +1,370 @@
+schema_version: political-risk-v4
+status: shadow_reassessment
+scope: all_person_profiles
+
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_may_publish_formal_assessment: false
+  database_writes_allowed: false
+  talent_grade_mutation_allowed: false
+  formal_scoring_allowed: false
+  ranking_allowed: false
+
+assessment_statuses:
+  - established
+  - below_floor
+  - reviewed_no_material_risk
+  - insufficient_evidence
+
+risk_domains:
+  - mass_violence
+  - unlawful_repression
+  - power_abuse
+  - corruption_extraction
+  - factional_capture
+  - state_subversion
+  - military_command_harm
+  - governance_harm
+  - mixed_or_disputed
+
+event_dimensions:
+  realization: [alleged, attempted, realized]
+  responsibility: [direct_order, command_responsibility, policy_design, enabling, disputed]
+  victim_scope: [individual, bounded_group, city_or_population, multi_region, state_system]
+  recurrence: [single, repeated, systematic]
+  duration: [short, multi_year, institutional, era_shaping]
+
+evidence_gate:
+  accepted_source_refs_required: true
+  event_fact_refs_required_for_established: true
+  source_quote_or_precise_locator_required: true
+  responsibility_must_be_explicit: true
+  allegation_alone_cannot_establish_risk: true
+  absence_may_not_be_inferred_from_missing_material: true
+  local_source_inventory_lookup_required_before_web_discovery: true
+  prior_profile_summary_is_not_a_source_cache_receipt: true
+  reviewed_no_material_risk_requires:
+    - comprehensive_dedicated_negative_search
+    - accepted_source_coverage
+    - counterevidence_review
+  insufficient_evidence_when_any:
+    - dedicated_negative_search_incomplete
+    - event_fact_missing
+    - responsibility_unresolved
+    - source_conflict_unresolved
+
+retrieval_protocol:
+  identity_first:
+    required_fields: [canonical_name, aliases, dynasty, offices, active_period]
+    disambiguation_required: true
+  local_source_inventory:
+    lookup_order:
+      - V4版本化source_documents与source cache
+      - 只读V3版本化source_documents与source pack
+      - 当前人物画像lineage指向的既有史源
+    receipt_required_even_when_zero_hit: true
+    relevant_cached_source_must_be_read: true
+    cache_miss_may_fall_back_to_web: true
+    cache_miss_does_not_prove_absence: true
+  source_layers:
+    required:
+      - 正史本传及相关本纪列传
+      - 编年史或同层级交叉记载
+    conditional:
+      - 实录会要政书奏议
+      - 墓志文集地方志
+    secondary_only_cannot_establish_risk: true
+  passes:
+    - code: broad_reputation_discovery
+      rule: 用一次风险与重大败绩宽搜提取事件线索，再反向定位一手史源
+    - code: focused_candidate_readback
+      rule: 只读取候选事件所在本传或相关本纪列传的必要上下文；同页多线索合并回源
+    - code: conditional_counterevidence
+      rule: 仅当候选含指控、诬告、责任争议、败绩或材料冲突时补读反证上下文
+    - code: adjudication
+      rule: 将命中材料拆为事件并判断实现状态责任损害范围重复性和持续性
+  shadow_fast_path:
+    applies_to: [established, below_floor, insufficient_evidence]
+    required: [broad_reputation_discovery, focused_candidate_readback, adjudication]
+    does_not_require: [biography_full_scan, cross_record_search, domain_query_matrix]
+    counterevidence_only_for: [allegation, disputed_responsibility, military_defeat, source_conflict]
+    no_risk_conclusion_forbidden: true
+  no_risk_exhaustive_path:
+    applies_to: [reviewed_no_material_risk]
+    required: [biography_full_scan, cross_record_search, domain_query_matrix, counterevidence_search]
+  discovery_acceleration:
+    purpose: 快速发现事件名地点年份行为和可能史书，减少八域盲搜
+    broad_query_templates:
+      - 姓名 政治风险与重大军事败绩
+    broad_query_count: 1
+    receipt_contract:
+      required: true
+      channel: google_ai_overview_browser
+      overview_statuses: [visible, unavailable, blocked]
+      fields: [query, channel, overview_status, lead_summaries, source_links]
+      query_contract:
+        mode: structured_discovery_prompt
+        required_focus_terms: [政治风险, 劣迹, 败绩]
+      visible_requires: [lead_summaries, source_links]
+      unavailable_or_blocked_may_establish_zero_hit: false
+      browser_session_or_tab_metadata_allowed: false
+    overview_and_snippet_authority: lead_only
+    ai_overview_may_establish_fact: false
+    encyclopedia_or_forum_may_establish_fact: false
+    lead_extraction_fields: [event_name, place, time, alleged_action, alleged_victims, possible_primary_source]
+    reverse_source_queries:
+      - 姓名加事件加正史或史书名
+      - 地点加年份加行为词
+      - 概览关键句片段加原文
+      - 人物本传加事件关键词
+    candidate_requires_primary_source_readback: true
+    discovery_zero_hit_does_not_prove_absence: true
+  domain_query_matrix:
+    mass_violence:
+      concepts: [屠城, 坑杀, 杀降, 滥杀, 纵兵杀掠, 焚掠, 灭族, 大规模报复]
+      exclusion_review: [通常战场杀伤, 数字夸饰, 敌对宣传, 责任主体不明]
+    unlawful_repression:
+      concepts: [罗织, 构陷, 诬奏, 酷刑, 枉法, 滥狱, 族诛, 清洗, 压制进谏]
+      exclusion_review: [依法定罪, 奉命执行且无裁量, 仅受后世道德批评]
+    power_abuse:
+      concepts: [专权, 矫诏, 越权, 擅杀, 强夺, 威逼, 私用公器, 违法干预任免]
+      exclusion_review: [合法授权, 战时紧急裁量, 单纯权位显赫]
+    corruption_extraction:
+      concepts: [贪赃, 受赂, 侵吞, 掠夺, 私取财物, 横征暴敛, 卖官, 强占田宅]
+      exclusion_review: [军需征发, 经核实的诬告, 私德奢侈但无公共损害]
+    factional_capture:
+      concepts: [植党, 结党, 任人唯亲, 把持铨选, 壅蔽, 排斥异己, 控制言路]
+      exclusion_review: [正常政治联盟, 推荐亲友但有能力审查, 后世党争标签]
+    state_subversion:
+      concepts: [谋反, 叛乱, 通敌, 卖国, 政变, 废立阴谋, 割据, 资敌]
+      exclusion_review: [被迫降敌, 未核实指控, 改朝换代中的一般阵营转换]
+    military_command_harm:
+      concepts: [擅自出兵, 违令冒进, 弃军弃城, 杀降毁约, 纵兵劫掠, 严重失职, 持续损兵]
+      exclusion_review: [单次战败, 合理战术失败, 仅凭伤亡结果反推责任]
+    governance_harm:
+      concepts: [苛政, 扰民, 饥荒处置失当, 工役致害, 财政崩坏, 制度破坏, 长期失政, 压制救济]
+      exclusion_review: [政策争议但无已实现损害, 后见之明, 皇帝责任被错误转嫁]
+  reverse_source_query_variants:
+    apply_only_to_discovered_leads: true
+    variants:
+      - 姓名加概念词
+      - 别名加概念词
+      - 官职地域加概念词
+      - 已知事件加责任词
+      - 本传内同义词扫描
+  historical_term_variants:
+    action_terms:
+      - [屠, 屠戮, 诛屠, 屠灭]
+      - [坑, 阬, 坑杀, 阬杀, 坑降]
+      - [杀降, 诛降, 斩降, 尽杀降者]
+      - [焚, 烧, 燔, 火]
+      - [掠, 略, 钞掠, 抄掠, 剽掠, 虏掠, 鹵掠]
+      - [殄, 歼, 夷, 族, 灭门, 无遗]
+    protected_object_terms: [百姓, 民, 吏民, 军民, 男女, 老弱, 妇女, 丁壮, 良人, 生口, 降卒, 降者, 俘, 系虏, 归附, 归命]
+    consequence_terms: [死者, 尸, 骸, 流血, 创痍, 无遗, 殆尽, 不可胜数]
+    control_terms: [命, 令, 使, 遣, 纵, 放兵, 禁, 止, 救, 免, 不听]
+  semantic_adjudication:
+    era_changes_prior_not_gate: true
+    keyword_hit_only_creates_candidate: true
+    gates:
+      - proper_noun_occupation_heading_exclusion
+      - polarity_and_modality
+      - grammatical_subject_object_and_event_identity
+      - protected_status_or_property_object
+      - cooccurring_action_and_consequence
+      - proposed_ordered_attempted_realized_or_prevented
+      - responsibility
+      - genre_source_distance_and_cross_source_conflict
+    semantic_readings:
+      - mass_harm
+      - city_capture_or_destruction
+      - combat_killing
+      - punitive_execution
+      - property_destruction
+      - figurative
+      - ambiguous
+      - not_applicable
+    hard_rules:
+      - 屠加明确人群且为已实现叙事才可直接支持群体暴力候选
+      - 屠加地点默认歧义，不得自动解释为屠民
+      - 可屠欲屠请屠将屠只表示预测提议或威胁，不得记为已实现
+      - 坑加降卒可支持大规模处决，但无活埋语句不得推断具体处决方法
+      - 杀降必须先建立已降或受降链条，战斗斩首不得等同杀降
+      - 焚只直接证明焚毁，必须按桥舟粮营或庐舍村邑区分对象
+      - 掠地不得自动等同抢掠人口财物，纵兵钞掠且对象明确才可支持
+      - 普通战斗伤亡和单次战败不得自动记为政治风险
+    review_reason_codes:
+      - PROPER_NOUN_XIUTU
+      - OCCUPATION_BUTCHER
+      - EDITORIAL_HEADING
+      - NEGATED_OR_PREVENTED
+      - NON_REALIZED_MODAL
+      - LOCATION_OBJECT_POLYSEMY
+      - CONQUEST_BOAST_FORMULA
+      - OBJECT_UNRESOLVED
+      - SUBJECT_UNRESOLVED
+      - COMBATANT_STATUS_UNRESOLVED
+      - SURRENDER_STATUS_UNRESOLVED
+      - METHOD_OVERCLAIM
+      - LATER_SUMMARY_ONLY
+      - CONFLICTING_SOURCES
+      - DIRECT_EVENT_EVIDENCE
+      - CROSS_SOURCE_CORROBORATED
+      - RESPONSIBILITY_EXPLICIT
+      - CONFLICT_RESOLVED
+      - BELOW_POLITICAL_MATERIALITY_FLOOR
+  per_domain_receipt_fields:
+    - domain
+    - applicability
+    - queries
+    - sources_scanned
+    - hit_refs
+    - included_hit_refs
+    - excluded_hit_refs
+    - unresolved_hit_refs
+    - hit_dispositions
+    - coverage_status
+  coverage_statuses: [complete, partial]
+  no_risk_gate:
+    all_applicable_domains_complete: true
+    all_eight_domains_required: true
+    biography_full_scan_complete: true
+    cross_record_search_complete: true
+    counterevidence_review_complete: true
+    unresolved_hits_must_be_empty: true
+  established_gate:
+    primary_or_equivalent_explicit_event_required: true
+    independent_corroboration_or_context_review_required: true
+    counterevidence_review_complete: true
+    responsibility_and_realized_harm_required_for_major_or_systemic: true
+    all_unrelated_domains_complete_required: false
+    severity_is_minimum_supported_by_accepted_events: true
+    partial_unrelated_domains_reduce_confidence_only: true
+    included_hit_required: true
+    every_risk_domain_requires_realized_or_attempted_event: true
+    local_normalization_may_not_change_assessment_status: true
+    conclusion_changing_normalization_requires_task_retry: true
+  stop_conditions:
+    established: 风险事件已饱和且严重度不会因新增同类材料改变，同时反证检索完成
+    reviewed_no_material_risk: 全部适用风险域完成且无未解决命中
+    insufficient_evidence: 候选事件回源后仍缺少责任、实现状态或反证；不得为补齐无关风险域继续检索
+
+severity_policy:
+  severity_values: [limited, material, serious, major, systemic]
+  historical_reach_values: [bounded, regional, national, era_shaping]
+  political_materiality_floor:
+    establish_only_when_any:
+      - 已实现死亡或严重人身伤害且具有直接责任
+      - 重复或系统性非法拘禁酷刑强夺压制
+      - 对群体人口军民造成明确已实现损害
+      - 造成有意义的公共财产军需民生或制度损害
+      - 已实现或严肃尝试破坏国家政权安全
+    exclude_as_below_floor:
+      - 单次纵酒失仪
+      - 单次少量私取且没有强制侵夺或显著公共损害
+      - 私德恶评但没有公共权力责任或公共损害
+      - 仅因史料记述细密而显得事件很多
+    hard_rules:
+      - 史料详略不得提高风险档位
+      - 同类行为按责任实现损害范围重复性持续性统一比较
+      - 单次故意或无正当依据致人死亡不得低于material
+      - 多次直接致死严重身体伤害或群体伤害不得低于major
+      - 低于门槛的命中必须excluded并记录BELOW_POLITICAL_MATERIALITY_FLOOR
+  limited:
+    all:
+      - bounded_nonlethal_public_power_misconduct_or_serious_attempt
+      - no_population_scale_harm
+      - no_repeated_serious_harm
+  material:
+    any:
+      - bounded_realized_abuse_or_extraction
+      - repeated_limited_harm
+  serious:
+    any:
+      - repeated_or_sustained_serious_harm
+      - group_scale_realized_harm
+      - substantial_public_or_governance_damage
+  major:
+    any:
+      - realized_city_or_population_scale_harm
+      - repeated_serious_direct_harm
+      - realized_state_level_disruption
+  systemic:
+    any:
+      - systematic_or_institutional_severe_harm
+      - sustained_multi_region_severe_harm
+      - exceptional_realized_state_system_harm
+  historical_reach:
+    rule: 独立于严重度，只按历史影响覆盖范围判断，不得以知名度替代
+    bounded: 个体或有限群体，影响未超出局部事件
+    regional: 对一个地区或跨地区人群形成明确影响
+    national: 对全国人口、中央制度或国家运行形成明确影响
+    era_shaping: 对时代制度或长期历史进程形成明确且可归责的塑造
+  precedence:
+    - realized_harm_over_attempted_harm
+    - direct_or_command_responsibility_over_enabling
+    - scope_and_recurrence_over_reputation_label
+    - comparable_harm_requires_comparable_floor
+  prohibitions:
+    - fame_or_traditional_villain_label_alone
+    - execution_or_political_defeat_alone
+    - ordinary_battlefield_killing_alone
+    - talent_grade_or_military_success_as_offset
+    - source_detail_density_as_severity
+    - petty_private_misconduct_without_public_harm
+
+calibration_regressions:
+  - case: tang_jian_private_sheep
+    fact_pattern: 单次纵酒并托人收取少量私羊
+    expected: excluded_below_political_materiality_floor
+    forbidden: [limited, material, serious, major, systemic]
+  - case: huo_qubing_kills_li_gan
+    fact_pattern: 无正当依据直接射杀个人且由皇权掩盖
+    expected_minimum: material
+    forbidden: [limited]
+  - case: xiao_yu_punishment_causes_death
+    fact_pattern: 巡省行使公权施加重刑并直接致死
+    expected_minimum: material
+  - case: zhu_shuang_repeated_abuse
+    fact_pattern: 重复私刑致死儿童伤害强征财物和压制进谏
+    expected_minimum: major
+    forbidden_statuses: [reviewed_no_material_risk, insufficient_evidence]
+    required_source_lead: 御制纪非录或同源御制祭文
+
+output_contract:
+  required_fields:
+    - task_code
+    - person_ref
+    - input_version
+    - policy_version
+    - assessment_status
+    - risk_domains
+    - severity
+    - historical_reach
+    - discovery_receipt
+    - event_assessments
+    - retrieval_receipts
+    - source_refs
+    - counterevidence_refs
+    - confidence
+    - review_status
+  established_requires_nonempty:
+    - risk_domains
+    - severity
+    - historical_reach
+    - event_assessments
+    - source_refs
+  reviewed_no_material_risk_requires_empty:
+    - risk_domains
+    - severity
+    - historical_reach
+  below_floor_requires_empty:
+    - risk_domains
+    - severity
+    - historical_reach
+  insufficient_evidence_requires_empty:
+    - risk_domains
+    - severity
+    - historical_reach
+  review_statuses: [shadow_candidate, human_accepted]
+  formal_consumers_require_review_status: human_accepted

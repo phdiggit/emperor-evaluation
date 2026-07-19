@@ -9,6 +9,21 @@ profiles:
       - 不做规则路由、factor 判断或评分
       - 不使用模型记忆补写原文未支持的事实
       - 每条事实必须绑定唯一 passage support
+  person_rebuild_atomic_v1:
+    output_contract: assertion-extraction-contract-v2
+    purpose: 从人物重建回源 passage 抽取足以复核原子事件和人物画像的最小充分事实，不展开完整传记
+    required_chains:
+      - 普通事件或成就 passage 只抽取一条主要评分相关 Assertion，把本人行动、责任方式和直接结果放在同一最小充分链中
+      - 风险 passage 最多抽取两条，一条保留弹劾或控告及 disputed 极性，一条保留原文明确写出的后续查验或处置；未见后续则只报 gap
+      - 权威评价 passage 只抽取一条 historiographical_evaluation，保留 attribution 与评价对象
+    prohibitions:
+      - 每个 passage 不得展开官职、数字、敌方伤亡、旁人行动和背景事实；除风险处置外最多输出一条 Assertion
+      - 不从 discovery lead 补写 passage 原文没有的事实
+      - 不因 required_chains 罗列多个字段就拆成多条 Assertion，字段放入 qualifiers 或同一 object
+      - 不将被诬告受害遇险或遭猜忌改写为本人政治风险
+      - 不用战役成功抵销风险，也不用风险降低人才成就
+      - 不决定人才档位、政治风险档位、评分或排名
+      - 每条事实必须绑定唯一 passage support
   talent_discovery_chain_v1:
     output_contract: assertion-extraction-contract-v2
     purpose: 抽取人才发现链中可独立复核的事实环节

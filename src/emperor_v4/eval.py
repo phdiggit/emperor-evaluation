@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -14,6 +15,9 @@ from emperor_v4.evaluation.i5b_factor_semantics import evaluate_i5b_factor_seman
 from emperor_v4.evaluation.i5b_civil_candidate_retrieval import (
     build_civil_browser_worklist,
     run_civil_candidate_retrieval,
+)
+from emperor_v4.evaluation.i5b_civil_discovery_compass import (
+    record_discovery_compass,
 )
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
@@ -33,6 +37,12 @@ from emperor_v4.evaluation.i5b_scoring_detail import (
     render_i5b_scoring_detail_selection_markdown,
 )
 from emperor_v4.evaluation.i5b_scoring_policy import evaluate_i5b_scoring_policy
+from emperor_v4.evaluation.i5b_source_review_quality_probe import (
+    build_i5b_source_review_quality_probe,
+)
+from emperor_v4.evaluation.i5b_source_review_decision import (
+    merge_i5b_source_review_decisions,
+)
 from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
     build_i5b_unified_raw_signal_readiness,
 )
@@ -124,9 +134,19 @@ def _parser() -> argparse.ArgumentParser:
     closeout.add_argument("--person", action="append", default=[])
     closeout.add_argument("--rule", action="append", default=[])
     closeout.add_argument("--civil-source-pack", type=Path)
+    closeout.add_argument("--source-review-decision", type=Path)
+    closeout.add_argument("--baseline-source-review-decision", type=Path)
+    closeout.add_argument("--source-review-refetch-result", type=Path)
+    closeout.add_argument("--all-eligible-materials", action="store_true")
     closeout.add_argument(
         "--output-dir", type=Path, default=Path("tmp/i5b_historical_closeout")
     )
+
+    compass = commands.add_parser("i5b-discovery-compass-record")
+    compass.add_argument("--ruler", required=True)
+    compass.add_argument("--record", type=Path, required=True)
+    compass.add_argument("--workspace-root", type=Path, default=Path("."))
+    compass.add_argument("--compass", type=Path)
     return parser
 
 
@@ -166,6 +186,86 @@ def _build_detail(
             for source in manifest["detail_sources"]
         ],
     )
+
+
+def _build_source_review_detail(
+    *,
+    decision: Mapping[str, Any],
+    refetch: Mapping[str, Any],
+    workspace_root: Path,
+    runtime_dir: Path,
+    all_eligible_materials: bool,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    decision_payload = deepcopy(dict(decision))
+    if all_eligible_materials:
+        decision_payload["settlement_mode"] = "all_eligible_shadow"
+    policy_path = Path(str(decision_payload["policy"]))
+    if not policy_path.is_absolute():
+        policy_path = workspace_root / policy_path
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    probe = build_i5b_source_review_quality_probe(
+        decision_payload,
+        refetch=refetch,
+        policy=_load(policy_path),
+        runtime_dir=runtime_dir,
+    )
+    material_report = probe["material_report"]
+    runtime_ref = "runtime:source-review-material-budget-shadow"
+    detail_manifest = {
+        "schema_version": "i5b-scoring-detail-manifest-v1",
+        "ruler_rule_net": runtime_ref,
+        "scoring_policy": str(decision_payload["policy"]),
+        "display_catalog": "config/i5b-scoring-detail-display.yml",
+        "detail_sources": [
+            {
+                "rule_code": rule_code,
+                "role": "primary",
+                "adapter": "material_budget_report",
+                "path": runtime_ref,
+            }
+            for rule_code in (
+                "talent_discovery",
+                "appointment_delegation",
+                "team_building",
+                "tolerate_talent",
+                "anti_nepotism",
+            )
+        ],
+    }
+    detail_report = build_i5b_scoring_detail(
+        manifest=detail_manifest,
+        rule_net=material_report,
+        scoring_policy=_load(policy_path),
+        display_catalog=_load(
+            workspace_root / "config/i5b-scoring-detail-display.yml"
+        ),
+        detail_sources=[
+            {"payload": material_report}
+            for _ in detail_manifest["detail_sources"]
+        ],
+    )
+    detail_report["source_review_quality"] = {
+        "input_schema_version": str(decision_payload["schema_version"]),
+        "source_passage_count": probe["source_passage_count"],
+        "source_passage_refs": list(probe["source_passage_refs"]),
+        "quality_declarations": dict(probe["quality_declarations"]),
+        **(
+            {"policy_review": deepcopy(probe["policy_review"])}
+            if probe.get("policy_review") is not None
+            else {}
+        ),
+        "quality_probe_report_sha256": probe["report_sha256"],
+    }
+    detail_report.pop("report_sha256", None)
+    detail_report["report_sha256"] = hashlib.sha256(
+        json.dumps(
+            detail_report,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    return material_report, detail_report, probe
 
 
 def _catalog_reports(
@@ -259,6 +359,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.civil_source_pack:
             forwarded.extend(("--civil-source-pack", str(args.civil_source_pack)))
         return main(forwarded)
+    elif args.command == "i5b-discovery-compass-record":
+        workspace_root = args.workspace_root.resolve()
+        compass_path = args.compass or (
+            Path("tmp/i5b_discovery_compass") / f"{args.ruler}.json"
+        )
+        if not compass_path.is_absolute():
+            compass_path = workspace_root / compass_path
+        record = _load(args.record)
+        if not isinstance(record, Mapping):
+            raise ValueError("检索罗盘记录必须是 JSON object")
+        changed = record_discovery_compass(
+            compass_path,
+            ruler=args.ruler,
+            record=record,
+        )
+        print(f"检索罗盘：{compass_path}")
+        print("写入：新增" if changed else "写入：已存在，无变化")
+        return 0
     elif args.command == "i5b-historical-closeout":
         started = time.monotonic()
         if any(value in args.ruler for value in ("/", "\\", "..")):
@@ -295,29 +413,87 @@ def main(argv: Sequence[str] | None = None) -> int:
         fresh_material_report = None
         fresh_detail_report = None
         civil_retrieval_report = None
+        source_review_probe = None
+        if bool(args.source_review_decision) != bool(
+            args.source_review_refetch_result
+        ):
+            raise ValueError(
+                "--source-review-decision 与 --source-review-refetch-result 必须同时提供"
+            )
+        if args.baseline_source_review_decision and not args.source_review_decision:
+            raise ValueError(
+                "--baseline-source-review-decision 必须与新回源审阅输入同时提供"
+            )
+        if args.all_eligible_materials and not args.source_review_decision:
+            raise ValueError(
+                "--all-eligible-materials 当前只允许用于新回源审阅影子输入"
+            )
         if len(entries) == 1:
             entry = entries[0]
             closeout = entry.get("closeout") or {}
-            profiles = read_current_person_profiles(_v4_dsn(workspace_root))
-            material_manifest_path = (
-                workspace_root / closeout["material_budget_manifest"]
-            )
-            material_manifest = _load(material_manifest_path)
-            work_budget = _load(workspace_root / closeout["work_budget"])
-            team_source = _load(
-                workspace_root
-                / material_manifest["rules"]["team_building"]["source"]
-            )
-            source_pack_path = args.civil_source_pack or closeout.get(
-                "civil_source_pack"
-            ) or (workspace_root / "tmp/i5b_browser_sources" / f"{args.ruler}.json")
-            source_pack_path = Path(source_pack_path)
-            if not source_pack_path.is_absolute():
-                source_pack_path = workspace_root / source_pack_path
-            try:
-                source_pack = _load_civil_source_pack(source_pack_path)
-            except FileNotFoundError:
-                worklist = build_civil_browser_worklist(
+            if args.source_review_decision:
+                decision_path = args.source_review_decision
+                refetch_path = args.source_review_refetch_result
+                if not decision_path.is_absolute():
+                    decision_path = workspace_root / decision_path
+                if not refetch_path.is_absolute():
+                    refetch_path = workspace_root / refetch_path
+                decision_payload = _load(decision_path)
+                if decision_payload.get("ruler") != args.ruler:
+                    raise ValueError("新回源审阅输入与 --ruler 不一致")
+                if args.baseline_source_review_decision:
+                    baseline_path = args.baseline_source_review_decision
+                    if not baseline_path.is_absolute():
+                        baseline_path = workspace_root / baseline_path
+                    decision_payload = merge_i5b_source_review_decisions(
+                        _load(baseline_path), decision_payload
+                    )
+                (
+                    fresh_material_report,
+                    fresh_detail_report,
+                    source_review_probe,
+                ) = _build_source_review_detail(
+                    decision=decision_payload,
+                    refetch=_load(refetch_path),
+                    workspace_root=workspace_root,
+                    runtime_dir=output_dir / "source-review-runtime",
+                    all_eligible_materials=args.all_eligible_materials,
+                )
+            else:
+                profiles = read_current_person_profiles(_v4_dsn(workspace_root))
+                material_manifest_path = (
+                    workspace_root / closeout["material_budget_manifest"]
+                )
+                material_manifest = _load(material_manifest_path)
+                work_budget = _load(workspace_root / closeout["work_budget"])
+                team_source = _load(
+                    workspace_root
+                    / material_manifest["rules"]["team_building"]["source"]
+                )
+                source_pack_path = args.civil_source_pack or closeout.get(
+                    "civil_source_pack"
+                ) or (workspace_root / "tmp/i5b_browser_sources" / f"{args.ruler}.json")
+                source_pack_path = Path(source_pack_path)
+                if not source_pack_path.is_absolute():
+                    source_pack_path = workspace_root / source_pack_path
+                try:
+                    source_pack = _load_civil_source_pack(source_pack_path)
+                except FileNotFoundError:
+                    worklist = build_civil_browser_worklist(
+                        ruler=args.ruler,
+                        ruler_names=tuple(closeout["retrieval_names"]),
+                        team_source=team_source,
+                        current_profiles=profiles,
+                        max_candidate_judge_items=int(
+                            work_budget["per_rule_run"]["max_candidate_judge_items"]
+                        ),
+                    )
+                    print(f"皇帝：{args.ruler}")
+                    print(f"缺少浏览器文官候选包：{source_pack_path}")
+                    print("待检索：" + "；".join(row["query"] for row in worklist))
+                    print("请先通过本机桥接完成逐项串行、单项最多等待30秒的 Google AI 宽搜，再独立完成史料回源")
+                    return 3
+                civil_retrieval_report = run_civil_candidate_retrieval(
                     ruler=args.ruler,
                     ruler_names=tuple(closeout["retrieval_names"]),
                     team_source=team_source,
@@ -325,66 +501,52 @@ def main(argv: Sequence[str] | None = None) -> int:
                     max_candidate_judge_items=int(
                         work_budget["per_rule_run"]["max_candidate_judge_items"]
                     ),
+                    source_pack=source_pack,
                 )
-                print(f"皇帝：{args.ruler}")
-                print(f"缺少浏览器文官候选包：{source_pack_path}")
-                print("待检索：" + "；".join(row["query"] for row in worklist))
-                print("请先在 Codex 主会话完成每人一次、最多等待10秒的 Google 宽检索与史料回源")
-                return 3
-            civil_retrieval_report = run_civil_candidate_retrieval(
-                ruler=args.ruler,
-                ruler_names=tuple(closeout["retrieval_names"]),
-                team_source=team_source,
-                current_profiles=profiles,
-                max_candidate_judge_items=int(
-                    work_budget["per_rule_run"]["max_candidate_judge_items"]
-                ),
-                source_pack=source_pack,
-            )
-            appointment = material_manifest["rules"]["appointment_delegation"]
-            appointment.setdefault("direct_materials", []).extend(
-                civil_retrieval_report["materials"]
-            )
-            appointment.setdefault("eligible", {}).setdefault("positive", []).extend(
-                civil_retrieval_report["eligible"]
-            )
-            appointment.setdefault("excluded", []).extend(
-                civil_retrieval_report["excluded"]
-            )
-            fresh_material_report = build_i5b_material_budget_shadow(
-                material_manifest_path,
-                current_profiles=profiles,
-                manifest_payload=material_manifest,
-            )
-            detail_manifest = _load(workspace_root / entry["manifest"])
-            material_paths = {
-                str(detail_manifest["ruler_rule_net"]),
-                *(
-                    str(source["path"])
-                    for source in detail_manifest["detail_sources"]
-                    if source.get("adapter") == "material_budget_report"
-                ),
-            }
-            payload_overrides: dict[str, Any] = {
-                path: fresh_material_report for path in material_paths
-            }
-            for source in detail_manifest["detail_sources"]:
-                if source.get("adapter") != "appointment_parity_report":
-                    continue
-                path = str(source["path"])
-                appointment_payload = deepcopy(_load(workspace_root / path))
-                trace = appointment_payload.setdefault(
-                    "assertion_episode_reu_trace", {}
+                appointment = material_manifest["rules"]["appointment_delegation"]
+                appointment.setdefault("direct_materials", []).extend(
+                    civil_retrieval_report["materials"]
                 )
-                episodes = trace.setdefault("episodes", [])
-                episodes.extend(civil_retrieval_report.get("episodes") or ())
-                trace["episode_count"] = len(episodes)
-                payload_overrides[path] = appointment_payload
-            fresh_detail_report = _build_detail(
-                detail_manifest,
-                workspace_root,
-                payload_overrides=payload_overrides,
-            )
+                appointment.setdefault("eligible", {}).setdefault("positive", []).extend(
+                    civil_retrieval_report["eligible"]
+                )
+                appointment.setdefault("excluded", []).extend(
+                    civil_retrieval_report["excluded"]
+                )
+                fresh_material_report = build_i5b_material_budget_shadow(
+                    material_manifest_path,
+                    current_profiles=profiles,
+                    manifest_payload=material_manifest,
+                )
+                detail_manifest = _load(workspace_root / entry["manifest"])
+                material_paths = {
+                    str(detail_manifest["ruler_rule_net"]),
+                    *(
+                        str(source["path"])
+                        for source in detail_manifest["detail_sources"]
+                        if source.get("adapter") == "material_budget_report"
+                    ),
+                }
+                payload_overrides: dict[str, Any] = {
+                    path: fresh_material_report for path in material_paths
+                }
+                for source in detail_manifest["detail_sources"]:
+                    if source.get("adapter") != "appointment_parity_report":
+                        continue
+                    path = str(source["path"])
+                    appointment_payload = deepcopy(_load(workspace_root / path))
+                    trace = appointment_payload.setdefault(
+                        "assertion_episode_reu_trace", {}
+                    )
+                    episodes = trace.setdefault("episodes", [])
+                    episodes.extend(civil_retrieval_report.get("episodes") or ())
+                    trace["episode_count"] = len(episodes)
+                    payload_overrides[path] = appointment_payload
+                fresh_detail_report = _build_detail(
+                    detail_manifest,
+                    workspace_root,
+                    payload_overrides=payload_overrides,
+                )
         elapsed_seconds = round(time.monotonic() - started, 6)
         detail_json_path = output_dir / "scoring-detail.json"
         detail_markdown_path = output_dir / "scoring-detail.md"
@@ -444,6 +606,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 f"{len(civil_retrieval_report['eligible'])}条通过，"
                 f"{len(civil_retrieval_report['excluded'])}条排除，"
                 f"{civil_retrieval_report['deferred_candidate_count']}人未领取"
+            )
+        if source_review_probe is not None:
+            print(
+                f"新回源材料：{source_review_probe['source_passage_count']}条精确 passage；"
+                f"结算模式：{fresh_material_report['settlement_mode']}"
             )
         if fresh_detail_report is not None:
             print(f"计分详情：{detail_markdown_path}")

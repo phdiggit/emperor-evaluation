@@ -106,6 +106,14 @@ workflow_agent_routing:
         - classical_chinese_subject_ellipsis
         - overlapping_event_boundaries
         - contradictory_passages
+    person_rebuild_minimum_claim:
+      allowed_use: assertion_extraction_draft
+      primary_profile: luna_low
+      escalation_profile: luna_medium
+      escalation_triggers:
+        - focal_subject_identity_not_explicit
+        - accusation_and_direct_action_mixed
+        - political_risk_disposition_missing
     episode_candidate_normalization:
       allowed_use: episode_merge_split_suggestion
       primary_profile: luna_medium
@@ -122,6 +130,13 @@ workflow_agent_routing:
         - cross_person_institution_inference
         - unresolved_material_conflict
         - historical_coverage_attestation
+    i5b_source_review_projection:
+      allowed_use: rule_projection_draft_when_ambiguous
+      primary_profile: luna_low
+      escalation_profile: luna_medium
+      escalation_triggers:
+        - classical_chinese_subject_ellipsis
+        - unresolved_material_conflict
     final_gate_review_support:
       allowed_use: reviewer_worklist_generation
       primary_profile: sol_high

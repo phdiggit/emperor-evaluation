@@ -11,6 +11,21 @@ from emperor_v4.application.source_cache_service import source_content_version
 from emperor_v4.contracts.source import SourceRevisionContent
 
 
+def _same_revision_identity(
+    left: SourceRevisionContent | Mapping[str, Any],
+    right: SourceRevisionContent | Mapping[str, Any],
+) -> bool:
+    left_payload = (
+        asdict(left) if isinstance(left, SourceRevisionContent) else dict(left)
+    )
+    right_payload = (
+        asdict(right) if isinstance(right, SourceRevisionContent) else dict(right)
+    )
+    left_payload.pop("retrieved_at", None)
+    right_payload.pop("retrieved_at", None)
+    return left_payload == right_payload
+
+
 class InMemorySourceCacheRepository:
     def __init__(self) -> None:
         self._entries: dict[str, CachedSourceCacheResult] = {}
@@ -35,7 +50,7 @@ class InMemorySourceCacheRepository:
         for document_id, revision in source_revisions.items():
             key = (document_id, source_content_version(revision))
             existing = self._revisions.setdefault(key, revision)
-            if existing != revision:
+            if not _same_revision_identity(existing, revision):
                 raise ValueError("Source Cache repository revision identity 冲突")
         return 1
 
@@ -96,7 +111,7 @@ class ShadowJsonSourceCacheRepository:
                 key,
                 revision_payload,
             )
-            if existing != revision_payload:
+            if not _same_revision_identity(existing, revision_payload):
                 raise ValueError("Source Cache shadow revision identity 冲突")
         rendered = (
             json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"

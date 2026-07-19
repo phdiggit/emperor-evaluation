@@ -5,7 +5,7 @@ from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 from urllib.parse import quote, urlencode, urljoin
 from urllib.request import Request, urlopen
 
@@ -118,6 +118,127 @@ def fetch_wikisource_plaintext(
             f"expected={expected_revision_id} actual={snapshot.revision_id}"
         )
     return snapshot
+
+
+def snapshot_from_revision_payload(
+    *,
+    page_code: str,
+    requested_title: str,
+    payload: Mapping[str, Any],
+    retrieved_at: str,
+) -> WikisourcePageSnapshot:
+    pages = tuple((payload.get("query") or {}).get("pages") or ())
+    if len(pages) != 1 or pages[0].get("missing") is True:
+        raise ValueError(f"Wikisource revision 页面不存在或响应不唯一: {requested_title}")
+    page = pages[0]
+    revisions = tuple(page.get("revisions") or ())
+    if len(revisions) != 1:
+        raise ValueError(f"Wikisource 页面缺少唯一原始 revision: {requested_title}")
+    revision = revisions[0]
+    main_slot = (revision.get("slots") or {}).get("main") or {}
+    raw_text = str(main_slot.get("content") or revision.get("content") or "")
+    canonical_title = str(page.get("title") or "")
+    if not raw_text.strip() or not canonical_title:
+        raise ValueError(f"Wikisource 页面缺少原始 revision 正文: {requested_title}")
+    return WikisourcePageSnapshot(
+        page_code=page_code,
+        requested_title=requested_title,
+        canonical_title=canonical_title,
+        canonical_url=urljoin(
+            DEFAULT_PAGE_BASE,
+            quote(canonical_title.replace(" ", "_")),
+        ),
+        revision_id=int(revision["revid"]),
+        revision_timestamp=str(revision["timestamp"]),
+        retrieved_at=retrieved_at,
+        raw_text=raw_text,
+        content_hash=sha256(raw_text.encode("utf-8")).hexdigest(),
+    )
+
+
+def fetch_wikisource_revision_text(
+    *,
+    page_code: str,
+    page_title: str,
+    expected_revision_id: int | None = None,
+    api_endpoint: str = DEFAULT_API_ENDPOINT,
+    timeout_seconds: float = 30.0,
+) -> WikisourcePageSnapshot:
+    params = {
+        "action": "query",
+        "format": "json",
+        "formatversion": "2",
+        "prop": "revisions",
+        "redirects": "1",
+        "rvprop": "ids|timestamp|content",
+        "rvslots": "main",
+        "titles": page_title,
+    }
+    request = Request(
+        api_endpoint + "?" + urlencode(params),
+        headers={"User-Agent": DEFAULT_USER_AGENT},
+    )
+    retrieved_at = datetime.now(UTC).isoformat()
+    with urlopen(request, timeout=timeout_seconds) as response:
+        payload = json.load(response)
+    snapshot = snapshot_from_revision_payload(
+        page_code=page_code,
+        requested_title=page_title,
+        payload=payload,
+        retrieved_at=retrieved_at,
+    )
+    if expected_revision_id is not None and snapshot.revision_id != expected_revision_id:
+        raise ValueError(
+            f"Wikisource revision 已变化: {page_title} "
+            f"expected={expected_revision_id} actual={snapshot.revision_id}"
+        )
+    return snapshot
+
+
+def fetch_wikisource_revision_batch(
+    *,
+    page_titles: Sequence[str],
+    api_endpoint: str = DEFAULT_API_ENDPOINT,
+    timeout_seconds: float = 60.0,
+) -> dict[str, WikisourcePageSnapshot]:
+    titles = tuple(dict.fromkeys(str(title).strip() for title in page_titles if str(title).strip()))
+    if not titles or len(titles) > 50:
+        raise ValueError("Wikisource batch 必须包含 1 至 50 个唯一标题")
+    params = {
+        "action": "query",
+        "format": "json",
+        "formatversion": "2",
+        "prop": "revisions",
+        "redirects": "1",
+        "rvprop": "ids|timestamp|content",
+        "rvslots": "main",
+        "titles": "|".join(titles),
+    }
+    request = Request(
+        api_endpoint,
+        data=urlencode(params).encode("utf-8"),
+        headers={
+            "User-Agent": DEFAULT_USER_AGENT,
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        },
+    )
+    retrieved_at = datetime.now(UTC).isoformat()
+    with urlopen(request, timeout=timeout_seconds) as response:
+        payload = json.load(response)
+    pages = tuple((payload.get("query") or {}).get("pages") or ())
+    if len(pages) != len(titles):
+        raise ValueError("Wikisource batch 返回页面数量与请求不一致")
+    snapshots = {}
+    for page in pages:
+        canonical_title = str(page.get("title") or "")
+        snapshot = snapshot_from_revision_payload(
+            page_code="SOURCEPAGE-" + sha256(canonical_title.encode("utf-8")).hexdigest()[:20].upper(),
+            requested_title=canonical_title,
+            payload={"query": {"pages": [page]}},
+            retrieved_at=retrieved_at,
+        )
+        snapshots[canonical_title] = snapshot
+    return snapshots
 
 
 def write_wikisource_snapshot(

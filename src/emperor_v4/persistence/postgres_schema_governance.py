@@ -89,36 +89,20 @@ QUALITY_METRIC_SPECS = (
         "evaluation_context !~ '^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$'",
     ),
     (
-        "mixed_text:person_profile_catalog:talent_grade_basis",
+        "mixed_text:person_profiles:talent_grade_basis",
         "v4_person_profile",
-        "person_profile_catalog",
+        "person_profiles",
         "talent_grade_basis",
         "mixed_han_latin",
         "talent_grade_basis ~ '[一-龥]' AND talent_grade_basis ~ '[A-Za-z]'",
     ),
     (
-        "mixed_text:person_profile_catalog:negative_talent_basis",
+        "mixed_text:person_profiles:negative_talent_basis",
         "v4_person_profile",
-        "person_profile_catalog",
+        "person_profiles",
         "negative_talent_basis",
         "mixed_han_latin",
         "negative_talent_basis ~ '[一-龥]' AND negative_talent_basis ~ '[A-Za-z]'",
-    ),
-    (
-        "mixed_text:talent_grade_calibrations:source_basis",
-        "v4_person_profile",
-        "talent_grade_calibrations",
-        "source_basis",
-        "mixed_han_latin",
-        "source_basis ~ '[一-龥]' AND source_basis ~ '[A-Za-z]'",
-    ),
-    (
-        "mixed_text:talent_grade_calibrations:review_basis",
-        "v4_person_profile",
-        "talent_grade_calibrations",
-        "review_basis",
-        "mixed_han_latin",
-        "review_basis ~ '[一-龥]' AND review_basis ~ '[A-Za-z]'",
     ),
     (
         "mixed_text:episode_assertion_dispositions:reason",
@@ -171,14 +155,6 @@ def canonical_assertion_id(value: object) -> str:
 
 def canonical_section_id(value: object) -> str:
     return canonical_hashed_ref("SEC-V4", value)
-
-
-def canonical_import_batch_id(value: object) -> str:
-    return canonical_hashed_ref("V4PP-BATCH", value)
-
-
-def canonical_freeze_ref(value: object) -> str:
-    return canonical_hashed_ref("FRZ-V4", value)
 
 
 def canonical_source_profile_ref(value: object) -> str:
@@ -693,7 +669,7 @@ def _apply_physical_identity_backfill(cursor: Any) -> dict[str, int]:
             INSERT INTO v4_person_profile.person_identity_registry (
                 person_ref, canonical_name, historical_context,
                 identity_fingerprint, identity_status, semantic_version,
-                supersedes_person_ref, idempotency_key, import_batch_id,
+                supersedes_person_ref, idempotency_key, source_import_batch_ref,
                 payload, created_at, updated_at
             ) VALUES (
                 %s, %s, %s, %s, 'active', 1, NULL, %s, NULL,
@@ -981,336 +957,32 @@ def _normalize_assertion_ids(cursor: Any) -> int:
     return writes
 
 
-def _normalize_import_batches(cursor: Any) -> tuple[int, int]:
-    cursor.execute(
-        """
-        SELECT import_batch_id, idempotency_key, source_system,
-               source_freeze_ref, source_package_fingerprint,
-               contract_version, status, legacy_numeric_id_reused,
-               database_write_mode, payload, created_at
-        FROM v4_person_profile.import_batches
-        ORDER BY import_batch_id
-        """
-    )
-    rows = cursor.fetchall()
-    batch_writes = 0
-    freeze_writes = 0
-    child_tables = (
-        "person_identity_registry",
-        "person_legacy_refs",
-        "person_profile_snapshots",
-        "person_profile_catalog",
-        "ruler_team_window_snapshots",
-        "talent_grade_calibrations",
-    )
-    for row in rows:
-        source_id = str(row[0])
-        target_id = canonical_import_batch_id(source_id)
-        source_freeze = str(row[3])
-        target_freeze = canonical_freeze_ref(source_freeze)
-        if source_id == target_id and source_freeze == target_freeze:
-            continue
-        payload = dict(row[9])
-        if "import_batch_id" in payload:
-            payload["import_batch_id"] = target_id
-        if "source_freeze_ref" in payload:
-            payload["source_freeze_ref"] = target_freeze
-        cursor.execute(
-            """
-            INSERT INTO v4_person_profile.import_batches (
-                import_batch_id, idempotency_key, source_system,
-                source_freeze_ref, source_package_fingerprint,
-                contract_version, status, legacy_numeric_id_reused,
-                database_write_mode, payload, created_at
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s)
-            ON CONFLICT (import_batch_id) DO NOTHING
-            """,
-            (
-                target_id,
-                f"field-normalized:{target_id}",
-                row[2],
-                target_freeze,
-                row[4],
-                row[5],
-                row[6],
-                row[7],
-                row[8],
-                json.dumps(payload, ensure_ascii=False),
-                row[10],
-            ),
-        )
-        for table_name in child_tables:
-            cursor.execute(
-                f'UPDATE v4_person_profile."{table_name}" '
-                'SET import_batch_id = %s WHERE import_batch_id = %s',
-                (target_id, source_id),
-            )
-        cursor.execute(
-            "DELETE FROM v4_person_profile.import_batches WHERE import_batch_id = %s",
-            (source_id,),
-        )
-        batch_writes += 1
-        freeze_writes += int(source_freeze != target_freeze)
-        _record_field_backfill(
-            cursor,
-            schema_name="v4_person_profile",
-            table_name="import_batches",
-            column_name="import_batch_id",
-            source_value=source_id,
-            target_value=target_id,
-            normalization_kind="canonical_import_batch_id",
-            source_row_count=1,
-            applied_row_count=1,
-        )
-        _record_field_backfill(
-            cursor,
-            schema_name="v4_person_profile",
-            table_name="import_batches",
-            column_name="source_freeze_ref",
-            source_value=source_freeze,
-            target_value=target_freeze,
-            normalization_kind="canonical_freeze_ref",
-            source_row_count=1,
-            applied_row_count=int(source_freeze != target_freeze),
-        )
-    return batch_writes, freeze_writes
-
-
-def _normalize_candidate_identities(cursor: Any) -> int:
-    cursor.execute(
-        """
-        SELECT person_ref, canonical_name, historical_context,
-               identity_fingerprint, identity_status, semantic_version,
-               supersedes_person_ref, idempotency_key, import_batch_id,
-               payload, created_at, updated_at
-        FROM v4_person_profile.person_identity_registry
-        WHERE person_ref LIKE '%CANDIDATE%' OR person_ref = 'PER-LI-SHIMIN'
-        ORDER BY person_ref
-        """
-    )
-    rows = cursor.fetchall()
-    writes = 0
-    for row in rows:
-        source_ref = str(row[0])
-        target_ref = canonical_person_ref(source_ref)
-        if target_ref == source_ref:
-            continue
-        fingerprint = sha256(
-            f"field-normalized-person-v1|{target_ref}|{row[1]}|{row[2]}".encode(
-                "utf-8"
-            )
-        ).hexdigest()
-        payload = dict(row[9])
-        for key in ("person_ref", "canonical_person_ref", "ruler_ref"):
-            if payload.get(key) == source_ref:
-                payload[key] = target_ref
-        cursor.execute(
-            """
-            INSERT INTO v4_person_profile.person_identity_registry (
-                person_ref, canonical_name, historical_context,
-                identity_fingerprint, identity_status, semantic_version,
-                supersedes_person_ref, idempotency_key, import_batch_id,
-                payload, created_at, updated_at
-            ) VALUES (%s, %s, %s, %s, 'active', %s, NULL, %s, %s, %s, %s, %s)
-            ON CONFLICT (person_ref) DO NOTHING
-            """,
-            (
-                target_ref,
-                row[1],
-                row[2],
-                fingerprint,
-                row[5],
-                f"field-normalized-person-v1:{target_ref}",
-                row[8],
-                json.dumps(payload, ensure_ascii=False),
-                row[10],
-                row[11],
-            ),
-        )
-        cursor.execute(
-            """
-            SELECT window_ref, window_policy_version, payload
-            FROM v4_person_profile.ruler_team_window_snapshots
-            WHERE ruler_ref = %s
-            """,
-            (source_ref,),
-        )
-        for window_ref, policy_version, window_payload in cursor.fetchall():
-            normalized_payload = dict(window_payload)
-            normalized_payload["ruler_ref"] = target_ref
-            cursor.execute(
-                """
-                UPDATE v4_person_profile.ruler_team_window_snapshots
-                SET ruler_ref = %s, payload = %s::jsonb,
-                    semantic_fingerprint = %s
-                WHERE window_ref = %s AND window_policy_version = %s
-                """,
-                (
-                    target_ref,
-                    json.dumps(normalized_payload, ensure_ascii=False),
-                    _stable_json_hash(normalized_payload),
-                    window_ref,
-                    policy_version,
-                ),
-            )
-        cursor.execute(
-            "DELETE FROM v4_person_profile.person_identity_registry WHERE person_ref = %s",
-            (source_ref,),
-        )
-        writes += 1
-        _record_field_backfill(
-            cursor,
-            schema_name="v4_person_profile",
-            table_name="person_identity_registry",
-            column_name="person_ref",
-            source_value=source_ref,
-            target_value=target_ref,
-            normalization_kind="canonical_person_ref",
-            source_row_count=1,
-            applied_row_count=1,
-        )
-    return writes
-
-
-def _normalize_source_profile_refs(cursor: Any) -> int:
-    cursor.execute(
-        """
-        SELECT DISTINCT source_profile_ref
-        FROM v4_person_profile.person_profile_snapshots
-        UNION
-        SELECT DISTINCT source_profile_ref
-        FROM v4_person_profile.person_profile_catalog
-        ORDER BY 1
-        """
-    )
-    sources = [str(row[0]) for row in cursor.fetchall()]
-    writes = 0
-    for source_ref in sources:
-        target_ref = canonical_source_profile_ref(source_ref)
-        if source_ref == target_ref:
-            continue
-        cursor.execute(
-            """
-            SELECT profile_ref, snapshot_version, payload
-            FROM v4_person_profile.person_profile_snapshots
-            WHERE source_profile_ref = %s
-            """,
-            (source_ref,),
-        )
-        snapshot_rows = cursor.fetchall()
-        for profile_ref, snapshot_version, payload in snapshot_rows:
-            normalized_payload = dict(payload)
-            normalized_payload["source_profile_ref"] = target_ref
-            fingerprint_payload = dict(normalized_payload)
-            fingerprint_payload.pop("semantic_fingerprint", None)
-            fingerprint = _stable_json_hash(fingerprint_payload)
-            if "semantic_fingerprint" in normalized_payload:
-                normalized_payload["semantic_fingerprint"] = fingerprint
-            cursor.execute(
-                """
-                UPDATE v4_person_profile.person_profile_snapshots
-                SET source_profile_ref = %s, payload = %s::jsonb,
-                    semantic_fingerprint = %s
-                WHERE profile_ref = %s AND snapshot_version = %s
-                """,
-                (
-                    target_ref,
-                    json.dumps(normalized_payload, ensure_ascii=False),
-                    fingerprint,
-                    profile_ref,
-                    snapshot_version,
-                ),
-            )
-        cursor.execute(
-            """
-            UPDATE v4_person_profile.person_profile_catalog
-            SET source_profile_ref = %s,
-                payload = jsonb_set(payload, '{source_profile_ref}', to_jsonb(%s::text), TRUE)
-            WHERE source_profile_ref = %s
-            """,
-            (target_ref, target_ref, source_ref),
-        )
-        applied = len(snapshot_rows) + max(int(cursor.rowcount), 0)
-        writes += applied
-        _record_field_backfill(
-            cursor,
-            schema_name="v4_person_profile",
-            table_name="person_profile_snapshots/person_profile_catalog",
-            column_name="source_profile_ref",
-            source_value=source_ref,
-            target_value=target_ref,
-            normalization_kind="canonical_source_profile_ref",
-            source_row_count=applied,
-            applied_row_count=applied,
-        )
-    return writes
-
-
 def _normalize_explanatory_columns(cursor: Any) -> int:
-    specifications = (
-        ("person_profile_catalog", "profile_ref", "snapshot_version", "talent_grade_basis"),
-        ("person_profile_catalog", "profile_ref", "snapshot_version", "negative_talent_basis"),
-        ("talent_grade_calibrations", "calibration_ref", None, "source_basis"),
-        ("talent_grade_calibrations", "calibration_ref", None, "review_basis"),
-    )
     writes = 0
-    for table_name, key_column, second_key, column_name in specifications:
-        key_select = f", {second_key}" if second_key else ""
+    for column_name in ("talent_grade_basis", "negative_talent_basis"):
         cursor.execute(
-            f"SELECT {key_column}{key_select}, {column_name} "
-            f"FROM v4_person_profile.{table_name} ORDER BY {key_column}"
+            f"SELECT person_ref, {column_name} "
+            "FROM v4_person_profile.person_profiles ORDER BY person_ref"
         )
         rows = cursor.fetchall()
-        before_sha = _stable_json_hash([str(row[-1]) for row in rows])
+        before_sha = _stable_json_hash([str(row[1]) for row in rows])
         source_count = 0
         applied_count = 0
-        for row in rows:
-            source_text = str(row[-1])
+        for person_ref, source_value in rows:
+            source_text = str(source_value)
             target_text = normalize_chinese_explanatory_text(source_text)
             if source_text == target_text:
                 continue
             source_count += 1
-            if second_key:
-                cursor.execute(
-                    f"""
-                    UPDATE v4_person_profile.{table_name}
-                    SET {column_name} = %s,
-                        payload = jsonb_set(payload, %s::text[], to_jsonb(%s::text), TRUE)
-                    WHERE {key_column} = %s AND {second_key} = %s
-                    """,
-                    (target_text, [column_name], target_text, row[0], row[1]),
-                )
-            else:
-                cursor.execute(
-                    f"SELECT payload FROM v4_person_profile.{table_name} "
-                    f"WHERE {key_column} = %s",
-                    (row[0],),
-                )
-                payload = dict(cursor.fetchone()[0])
-                payload[column_name] = target_text
-                fingerprint_payload = dict(payload)
-                fingerprint_payload.pop("semantic_fingerprint", None)
-                fingerprint = _stable_json_hash(fingerprint_payload)
-                if "semantic_fingerprint" in payload:
-                    payload["semantic_fingerprint"] = fingerprint
-                cursor.execute(
-                    f"""
-                    UPDATE v4_person_profile.{table_name}
-                    SET {column_name} = %s, payload = %s::jsonb,
-                        semantic_fingerprint = %s
-                    WHERE {key_column} = %s
-                    """,
-                    (
-                        target_text,
-                        json.dumps(payload, ensure_ascii=False),
-                        fingerprint,
-                        row[0],
-                    ),
-                )
+            cursor.execute(
+                f"UPDATE v4_person_profile.person_profiles SET {column_name} = %s "
+                "WHERE person_ref = %s",
+                (target_text, person_ref),
+            )
             applied_count += max(int(cursor.rowcount), 0)
         cursor.execute(
-            f"SELECT {column_name} FROM v4_person_profile.{table_name} "
-            f"ORDER BY {key_column}"
+            f"SELECT {column_name} FROM v4_person_profile.person_profiles "
+            "ORDER BY person_ref"
         )
         after_values = [str(row[0]) for row in cursor.fetchall()]
         remaining = sum(
@@ -1324,8 +996,8 @@ def _normalize_explanatory_columns(cursor: Any) -> int:
                 source_row_count, applied_row_count, remaining_mixed_row_count,
                 before_sha256, after_sha256, applied_at
             ) VALUES (
-                'v4_person_profile', %s, %s, %s, %s, %s, %s, %s, %s,
-                CURRENT_TIMESTAMP
+                'v4_person_profile', 'person_profiles', %s, %s, %s, %s, %s,
+                %s, %s, CURRENT_TIMESTAMP
             )
             ON CONFLICT (schema_name, table_name, column_name, normalization_version)
             DO UPDATE SET
@@ -1337,7 +1009,6 @@ def _normalize_explanatory_columns(cursor: Any) -> int:
                 applied_at = EXCLUDED.applied_at
             """,
             (
-                table_name,
                 column_name,
                 FIELD_NORMALIZATION_VERSION,
                 source_count,
@@ -1349,7 +1020,7 @@ def _normalize_explanatory_columns(cursor: Any) -> int:
         )
         if remaining:
             raise RuntimeError(
-                f"{table_name}.{column_name} still has {remaining} mixed-language rows"
+                f"person_profiles.{column_name} still has {remaining} mixed-language rows"
             )
         writes += applied_count
     return writes
@@ -1361,111 +1032,54 @@ def _apply_full_field_normalization(cursor: Any) -> dict[str, int]:
         ("public.source_passages", "source_passages_section_id_family_check", "section_id ~ '^SEC-V4-[0-9A-F]{16}$'"),
         ("v4_source_cache.passages", "source_cache_passages_section_id_family_check", "section_id ~ '^SEC-V4-[0-9A-F]{16}$'"),
         ("v4_person_profile.person_identity_registry", "person_identity_registry_canonical_ref_check", "person_ref ~ '^PER-V4-[0-9A-F]{12}$'"),
-        ("v4_person_profile.ruler_team_window_snapshots", "ruler_team_window_snapshots_canonical_ruler_ref_check", "ruler_ref ~ '^PER-V4-[0-9A-F]{12}$'"),
-        ("v4_person_profile.person_profile_snapshots", "person_profile_snapshots_source_profile_ref_check", "source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$'"),
-        ("v4_person_profile.person_profile_catalog", "person_profile_catalog_source_profile_ref_check", "source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$'"),
+        ("v4_person_profile.person_profiles", "person_profiles_source_profile_ref_check", "source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$'"),
         (
-            "v4_person_profile.person_profile_catalog",
-            "person_profile_catalog_chinese_basis_check",
+            "v4_person_profile.person_profiles",
+            "person_profiles_chinese_basis_check",
             "NOT (talent_grade_basis ~ '[一-龥]' AND talent_grade_basis ~ '[A-Za-z]') AND NOT (negative_talent_basis ~ '[一-龥]' AND negative_talent_basis ~ '[A-Za-z]')",
         ),
-        (
-            "v4_person_profile.talent_grade_calibrations",
-            "talent_grade_calibrations_chinese_basis_check",
-            "NOT (source_basis ~ '[一-龥]' AND source_basis ~ '[A-Za-z]') AND NOT (review_basis ~ '[一-龥]' AND review_basis ~ '[A-Za-z]')",
-        ),
-        ("v4_person_profile.import_batches", "import_batches_id_family_check", "import_batch_id ~ '^V4PP-BATCH-[0-9A-F]{16}$'"),
-        ("v4_person_profile.import_batches", "import_batches_source_freeze_ref_type_check", "source_freeze_ref ~ '^FRZ-V4-[0-9A-F]{16}$'"),
     )
     for table_name, constraint_name, _ in normalization_constraints:
         cursor.execute(
             f'ALTER TABLE {table_name} DROP CONSTRAINT IF EXISTS "{constraint_name}"'
         )
-    immutable_triggers = (
-        ("person_profile_snapshots", "person_profile_snapshots_immutable"),
-        ("person_profile_catalog", "person_profile_catalog_immutable"),
-        ("ruler_team_window_snapshots", "ruler_team_window_snapshots_immutable"),
-        ("ruler_team_window_members", "ruler_team_window_members_immutable"),
-        ("talent_grade_calibrations", "talent_grade_calibrations_immutable"),
+
+    assertion_writes = _normalize_assertion_ids(cursor)
+    public_section_writes = _normalize_reference_column(
+        cursor,
+        schema_name="public",
+        table_name="source_passages",
+        column_name="section_id",
+        canonicalizer=canonical_section_id,
+        normalization_kind="canonical_section_id",
     )
-    for table_name, trigger_name in immutable_triggers:
-        cursor.execute(
-            f'ALTER TABLE v4_person_profile."{table_name}" '
-            f'DISABLE TRIGGER "{trigger_name}"'
-        )
-    try:
-        assertion_writes = _normalize_assertion_ids(cursor)
-        public_section_writes = _normalize_reference_column(
-            cursor,
-            schema_name="public",
-            table_name="source_passages",
-            column_name="section_id",
-            canonicalizer=canonical_section_id,
-            normalization_kind="canonical_section_id",
-        )
-        source_cache_section_writes = _normalize_reference_column(
-            cursor,
-            schema_name="v4_source_cache",
-            table_name="passages",
-            column_name="section_id",
-            canonicalizer=canonical_section_id,
-            normalization_kind="canonical_section_id",
-        )
-        explanatory_writes = _normalize_explanatory_columns(cursor)
-        candidate_identity_writes = _normalize_candidate_identities(cursor)
-        source_profile_writes = _normalize_source_profile_refs(cursor)
-        batch_writes, freeze_writes = _normalize_import_batches(cursor)
-    finally:
-        for table_name, trigger_name in immutable_triggers:
-            cursor.execute(
-                f'ALTER TABLE v4_person_profile."{table_name}" '
-                f'ENABLE TRIGGER "{trigger_name}"'
-            )
+    source_cache_section_writes = _normalize_reference_column(
+        cursor,
+        schema_name="v4_source_cache",
+        table_name="passages",
+        column_name="section_id",
+        canonicalizer=canonical_section_id,
+        normalization_kind="canonical_section_id",
+    )
+    explanatory_writes = _normalize_explanatory_columns(cursor)
 
     for table_name, constraint_name, expression in normalization_constraints:
         cursor.execute(
             f'ALTER TABLE {table_name} ADD CONSTRAINT "{constraint_name}" '
             f'CHECK ({expression}) NOT VALID'
         )
+        cursor.execute(
+            f'ALTER TABLE {table_name} VALIDATE CONSTRAINT "{constraint_name}"'
+        )
 
-    cursor.execute(
-        """
-        ALTER TABLE public.assertions
-            VALIDATE CONSTRAINT assertions_assertion_id_family_check;
-        ALTER TABLE public.source_passages
-            VALIDATE CONSTRAINT source_passages_section_id_family_check;
-        ALTER TABLE v4_source_cache.passages
-            VALIDATE CONSTRAINT source_cache_passages_section_id_family_check;
-        ALTER TABLE public.episode_participants
-            VALIDATE CONSTRAINT episode_participants_canonical_person_ref_check;
-        ALTER TABLE public.historical_episodes
-            VALIDATE CONSTRAINT historical_episodes_canonical_evaluation_context_check;
-        ALTER TABLE v4_person_profile.person_identity_registry
-            VALIDATE CONSTRAINT person_identity_registry_canonical_ref_check;
-        ALTER TABLE v4_person_profile.ruler_team_window_snapshots
-            VALIDATE CONSTRAINT ruler_team_window_snapshots_canonical_ruler_ref_check;
-        ALTER TABLE v4_person_profile.person_profile_snapshots
-            VALIDATE CONSTRAINT person_profile_snapshots_source_profile_ref_check;
-        ALTER TABLE v4_person_profile.person_profile_catalog
-            VALIDATE CONSTRAINT person_profile_catalog_source_profile_ref_check;
-        ALTER TABLE v4_person_profile.person_profile_catalog
-            VALIDATE CONSTRAINT person_profile_catalog_chinese_basis_check;
-        ALTER TABLE v4_person_profile.talent_grade_calibrations
-            VALIDATE CONSTRAINT talent_grade_calibrations_chinese_basis_check;
-        ALTER TABLE v4_person_profile.import_batches
-            VALIDATE CONSTRAINT import_batches_id_family_check;
-        ALTER TABLE v4_person_profile.import_batches
-            VALIDATE CONSTRAINT import_batches_source_freeze_ref_type_check;
-        """
-    )
     return {
         "assertion_id_rows_updated": assertion_writes,
         "public_section_id_rows_updated": public_section_writes,
         "source_cache_section_id_rows_updated": source_cache_section_writes,
-        "candidate_identity_rows_updated": candidate_identity_writes,
-        "source_profile_ref_rows_updated": source_profile_writes,
-        "import_batch_rows_updated": batch_writes,
-        "source_freeze_rows_updated": freeze_writes,
+        "candidate_identity_rows_updated": 0,
+        "source_profile_ref_rows_updated": 0,
+        "import_batch_rows_updated": 0,
+        "source_freeze_rows_updated": 0,
         "explanatory_text_rows_updated": explanatory_writes,
     }
 

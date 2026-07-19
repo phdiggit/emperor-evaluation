@@ -15,6 +15,29 @@ current_scope:
   shadow_only: true
   five_rule_wall_clock_budget_minutes: 15
   wall_clock_budget_priority: highest
+  person_retrieval_entry_limit: 12
+  policy_entry_counts_against_person_limit: false
+
+person_profile_storage:
+  canonical_profile_table: v4_person_profile.person_profiles
+  canonical_identity_table: v4_person_profile.person_identity_registry
+  profile_table_count: 1
+  legacy_schema_archive: archive/v4_person_profile_legacy_20260716.sql
+
+person_political_risk_shadow:
+  policy: config/political-risk.yml
+  policy_version: political-risk-v2
+  profile_count: 254
+  rejected_run: tmp/political_risk_review/full_v2
+  global_gate: failed_closed
+  rejection_reasons:
+    - severity_calibration_inconsistent
+    - conclusion_changing_normalization_accepted
+    - local_source_inventory_not_bound_to_tasks
+  calibration_required: [唐俭, 霍去病, 萧瑀, 朱樉]
+  database_write_count: 0
+  talent_grade_mutation_count: 0
+  formal_acceptance: closed
 
 current_rule_raw_signal:
   talent_discovery: 4.864

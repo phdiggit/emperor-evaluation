@@ -234,10 +234,14 @@ class CodexCliClaimExtractionProvider:
                 diagnostic_hash = sha256(
                     completed.stderr.encode("utf-8")
                 ).hexdigest()[:16]
+                diagnostic_tail = " ".join(
+                    completed.stderr.strip().splitlines()[-20:]
+                )[-3000:]
                 raise RuntimeError(
                     "Codex Claim provider 失败: "
                     f"exit={completed.returncode}; "
-                    f"stderr_sha256={diagnostic_hash}"
+                    f"stderr_sha256={diagnostic_hash}; "
+                    f"stderr_tail={diagnostic_tail!r}"
                 )
             if not output_path.is_file():
                 raise RuntimeError(

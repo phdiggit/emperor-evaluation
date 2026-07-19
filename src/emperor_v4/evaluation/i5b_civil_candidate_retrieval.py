@@ -34,6 +34,15 @@ def _fingerprint(value: object) -> str:
     ).hexdigest()
 
 
+def _discovery_task_code(ruler: str, person_ref: str) -> str:
+    ruler_key = _fingerprint(ruler)[:12].upper()
+    person_key = "".join(
+        character if character.isascii() and character.isalnum() else "-"
+        for character in person_ref.upper()
+    ).strip("-")
+    return f"I5B-CIVIL-{ruler_key}-{person_key}"
+
+
 def _civil_candidate_queue(
     team_source: Mapping[str, Any],
     current_profiles: Mapping[str, Mapping[str, Any]],
@@ -85,7 +94,11 @@ def build_civil_browser_worklist(
     ]
     return [
         *(
-            dict(row) | {"query": f"{row['person']} 举措"}
+            dict(row)
+            | {
+                "task_code": _discovery_task_code(ruler, row["person_ref"]),
+                "query": f"{row['person']} 举措",
+            }
             for row in people
         ),
         {
@@ -93,6 +106,9 @@ def build_civil_browser_worklist(
             "person_ref": f"POLICY-{_fingerprint(ruler)[:16].upper()}",
             "talent_grade": "policy",
             "role_families": ["policy"],
+            "task_code": _discovery_task_code(
+                ruler, f"POLICY-{_fingerprint(ruler)[:16].upper()}"
+            ),
             "query": f"{ruler} 用人政策",
         },
     ]
