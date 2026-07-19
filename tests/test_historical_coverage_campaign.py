@@ -37,7 +37,11 @@ from emperor_v4.evaluation.i5b_appointment_delegation_historical_scored_shadow i
     build_appointment_historical_scored_shadow,
 )
 from emperor_v4.evaluation.i5b_formal_fact_acceptance import (
+    build_formal_fact_acceptance,
     merge_formal_fact_acceptance,
+)
+from emperor_v4.evaluation.i5b_assertion_episode_trace import (
+    build_assertion_episode_trace,
 )
 
 
@@ -1062,18 +1066,31 @@ def test_appointment_shadow_traces_formal_unit_without_auto_projection() -> None
             "unit_ref": unit_ref,
             "subject": "测试对象",
             "assertion_drafts": [
-                {
-                    "assertion_code": "AST-TEST-INSUFFICIENT",
-                    "event_node_ref": "EVN-TEST-INSUFFICIENT",
-                    "source_passage_ref": "SP-TEST-INSUFFICIENT",
-                    "predicate": "正式事实已接受",
-                    "object": "测试对象",
-                    "qualifiers": {
-                        "candidate_focal_person_refs": ["PER-TEST-OBJECT"]
-                    },
-                    "passage_support": {
-                        "supported_fields": ["identity", "action"]
-                    },
+                    {
+                        "assertion_code": "AST-TEST-INSUFFICIENT",
+                        "assertion_type": "event_fact",
+                        "event_node_ref": "EVN-TEST-INSUFFICIENT",
+                        "source_passage_ref": "SP-TEST-INSUFFICIENT",
+                        "subject": "李世民",
+                        "predicate": "正式事实已接受",
+                        "object": "测试对象",
+                        "time_expression": "贞观初",
+                        "location_expression": None,
+                        "qualifiers": {
+                            "candidate_focal_person_refs": ["PER-TEST-OBJECT"],
+                            "evaluation_context": "PER-V4-LISHIMIN",
+                            "episode_type": "political_action",
+                            "outcome": "形成可核验结果",
+                        },
+                        "polarity": "asserted",
+                        "source_attribution": {},
+                        "confidence": 1.0,
+                        "passage_support": {
+                            "support_mode": "single_passage",
+                            "assertion_semantic_key": "ASK-TEST-INSUFFICIENT",
+                            "binding_provenance": {},
+                            "supported_fields": ["identity", "action"]
+                        },
                     "ambiguity_flags": [],
                     "remaining_uncertainties": [],
                 }
@@ -1108,3 +1125,214 @@ def test_appointment_shadow_traces_formal_unit_without_auto_projection() -> None
     assert report["summary"]["insufficient_projection_count"] == 1
     assert report["insufficient_projections"][0]["unit_ref"] == unit_ref
     assert report["summary"]["judgment_count"] == 0
+
+
+def test_formal_episode_identity_is_neutral_across_rule_projections() -> None:
+    assertion = {
+        "assertion_code": "AST-NEUTRAL-EPISODE",
+        "assertion_type": "event_fact",
+        "event_node_ref": "EVN-NEUTRAL-EPISODE",
+        "source_passage_ref": "SP-NEUTRAL-EPISODE",
+        "subject": "李世民",
+        "predicate": "任命并授权",
+        "object": "房玄龄主持中枢政务",
+        "time_expression": "贞观元年",
+        "location_expression": None,
+        "qualifiers": {
+            "candidate_focal_person_refs": ["PER-FANG-XUANLING"],
+            "evaluation_context": "PER-LI-SHIMIN",
+            "episode_type": "political_action",
+            "office_or_domain": "中枢政务",
+            "outcome": "中枢政务持续运转",
+        },
+        "polarity": "asserted",
+        "source_attribution": {},
+        "confidence": 1.0,
+        "passage_support": {
+            "support_mode": "single_passage",
+            "assertion_semantic_key": "ASK-NEUTRAL-EPISODE",
+            "binding_provenance": {},
+            "supported_fields": ["identity", "action", "outcome"],
+        },
+        "ambiguity_flags": [],
+    }
+
+    def run(rule_code: str) -> dict:
+        unit_ref = f"REU-{rule_code}"
+        return build_assertion_episode_trace(
+            rule_code=rule_code,
+            trace_units=[
+                {
+                    "unit_ref": unit_ref,
+                    "side": "positive",
+                    "projection_basis": "同一历史事实的规则投影",
+                }
+            ],
+            assertion_payload={
+                "schema_version": "i5b-formal-fact-acceptance-v3",
+                "profile_code": f"{rule_code}_chain_v1",
+                "scope": {"ruler_ref": "PER-LI-SHIMIN"},
+                "summary": {"pending_blocking_review_unit_count": 0},
+                "declarations": {"formal_fact_acceptance": True},
+                "units": [
+                    {
+                        "unit_ref": unit_ref,
+                        "assertion_drafts": [deepcopy(assertion)],
+                        "review_disposition": "formally_accepted",
+                    }
+                ],
+                "report_sha256": "accepted-facts-v3",
+            },
+        )
+
+    appointment = run("appointment_delegation")
+    team = run("team_building")
+    appointment_episode = appointment["episodes"][0]
+    team_episode = team["episodes"][0]
+    assert appointment_episode["episode_id"] == team_episode["episode_id"]
+    assert appointment_episode["episode_type"] == "political_action"
+    assert appointment_episode["provenance"]["builder"] == "deterministic_episode_kernel_v1"
+    assert "unit_ref" not in appointment_episode["lineage"]
+    assert appointment["rule_evidence_units"][0]["rule_code"] == "appointment_delegation"
+    assert team["rule_evidence_units"][0]["rule_code"] == "team_building"
+
+
+def test_formal_episode_merges_distinct_rule_hints_for_same_neutral_fact() -> None:
+    assertions = []
+    for suffix in ("A", "B"):
+        assertions.append(
+            {
+                "assertion_code": f"AST-SAME-FACT-{suffix}",
+                "assertion_type": "event_fact",
+                "event_node_ref": f"EVN-RULE-HINT-{suffix}",
+                "source_passage_ref": f"SP-SAME-FACT-{suffix}",
+                "subject": "李世民",
+                "predicate": "任命并授权",
+                "object": "房玄龄主持中枢政务",
+                "time_expression": "贞观元年",
+                "location_expression": None,
+                "qualifiers": {
+                    "candidate_focal_person_refs": ["PER-FANG-XUANLING"],
+                    "evaluation_context": "PER-LI-SHIMIN",
+                    "episode_type": "political_action",
+                    "office_or_domain": "中枢政务",
+                    "outcome": "中枢政务持续运转",
+                },
+                "polarity": "asserted",
+                "source_attribution": {},
+                "confidence": 1.0,
+                "passage_support": {
+                    "support_mode": "single_passage",
+                    "assertion_semantic_key": f"ASK-SAME-FACT-{suffix}",
+                    "binding_provenance": {},
+                    "supported_fields": ["identity", "action", "outcome"],
+                },
+                "ambiguity_flags": [],
+            }
+        )
+    units = [
+        {
+            "unit_ref": f"UNIT-{suffix}",
+            "assertion_drafts": [assertion],
+            "review_disposition": "formally_accepted",
+        }
+        for suffix, assertion in zip(("A", "B"), assertions, strict=True)
+    ]
+    report = build_assertion_episode_trace(
+        rule_code="appointment_delegation",
+        trace_units=[
+            {
+                "unit_ref": f"UNIT-{suffix}",
+                "side": "positive",
+                "projection_basis": "同一史实的不同规则边界提示",
+            }
+            for suffix in ("A", "B")
+        ],
+        assertion_payload={
+            "schema_version": "i5b-formal-fact-acceptance-v3",
+            "profile_code": "appointment_delegation_chain_v1",
+            "scope": {"ruler_ref": "PER-LI-SHIMIN"},
+            "summary": {"pending_blocking_review_unit_count": 0},
+            "declarations": {"formal_fact_acceptance": True},
+            "units": units,
+            "report_sha256": "same-neutral-fact-v3",
+        },
+    )
+
+    assert report["episode_count"] == 1
+    assert len(report["episodes"][0]["assertion_links"]) == 2
+    episode_refs = {
+        next(
+            member["member_ref"]
+            for member in unit["members"]
+            if member["member_type"] == "episode"
+        )
+        for unit in report["rule_evidence_units"]
+    }
+    assert episode_refs == {report["episodes"][0]["episode_id"]}
+
+
+def test_formal_fact_acceptance_emits_neutral_assertion_contract() -> None:
+    report = build_formal_fact_acceptance(
+        reviewed_assertions={
+            "profile_code": "appointment_delegation_chain_v1",
+            "scope": {
+                "rule_code": "appointment_delegation",
+                "ruler": "李世民",
+                "ruler_ref": "PER-LI-SHIMIN",
+            },
+            "summary": {"pending_blocking_review_unit_count": 0},
+            "units": [],
+            "report_sha256": "reviewed",
+        },
+        acceptance_decisions={
+            "rule_code": "appointment_delegation",
+            "ruler": "李世民",
+            "existing_assertion_decisions": [],
+            "accepted_assertions": [
+                {
+                    "assertion_code": "AST-NEUTRAL-ACCEPTANCE",
+                    "decision": "accept",
+                    "event_node_ref": "EVN-NEUTRAL-ACCEPTANCE",
+                    "candidate_code": "CANDIDATE-NEUTRAL-ACCEPTANCE",
+                    "passage_id": "SP-NEUTRAL-ACCEPTANCE",
+                    "predicate": "任命并授权",
+                    "object": "房玄龄主持中枢政务",
+                    "outcome": "中枢政务持续运转",
+                    "quoted_text": "任以政事",
+                    "subject": "李世民",
+                }
+            ],
+            "accepted_candidate_groups": [
+                {
+                    "candidate_code": "CANDIDATE-NEUTRAL-ACCEPTANCE",
+                    "assertion_refs": ["AST-NEUTRAL-ACCEPTANCE"],
+                    "minimum_sufficient_event_nodes": [
+                        {"event_node_ref": "EVN-NEUTRAL-ACCEPTANCE"}
+                    ],
+                    "factor_support": {"importance": "critical"},
+                }
+            ],
+            "report_sha256": "decisions",
+        },
+        unit_specs={
+            "CANDIDATE-NEUTRAL-ACCEPTANCE": {
+                "unit_ref": "REU-NEUTRAL-ACCEPTANCE",
+                "subject": "房玄龄",
+                "candidate_focal_person_refs": ["PER-FANG-XUANLING"],
+                "projection_disposition": "eligible",
+                "source_work": "旧唐书",
+                "time_expression": "贞观元年",
+                "office_or_domain": "中枢政务",
+            }
+        },
+    )
+    qualifiers = report["units"][0]["assertion_drafts"][0]["qualifiers"]
+    assert qualifiers["evaluation_context"] == "PER-V4-737E2C4D60AC"
+    assert qualifiers["episode_type"] == "political_action"
+    assert qualifiers["outcome"] == "中枢政务持续运转"
+    assert qualifiers["candidate_participant_roles"] == [
+        ["PER-V4-737E2C4D60AC", "ruler"],
+        ["PER-V4-C37ED24688F5", "focal_person"],
+    ]
+    assert "factor_support" not in qualifiers

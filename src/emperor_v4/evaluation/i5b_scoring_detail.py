@@ -401,7 +401,7 @@ def _source_detail(
 
     if adapter == "formal_acceptance_report":
         if (
-            payload.get("schema_version") != "i5b-formal-fact-acceptance-v2"
+            payload.get("schema_version") != "i5b-formal-fact-acceptance-v3"
             or payload.get("rule_code") != rule_code
             or payload.get("ruler") != ruler
         ):
@@ -660,7 +660,7 @@ def _source_detail(
         return {
             "accepted_assertion_outcomes": {
                 str(assertion.get("assertion_code")): str(
-                    (assertion.get("qualifiers") or {}).get("accepted_outcome")
+                    (assertion.get("qualifiers") or {}).get("outcome")
                     or assertion.get("object")
                     or ""
                 )
@@ -1225,32 +1225,43 @@ def _appointment_episode_facts(
     detail: Mapping[str, Any],
     assertion_outcomes: Mapping[str, str],
 ) -> list[dict[str, Any]]:
-    people = {
-        judgment.get("rule_evidence_unit_ref"): _display_name(judgment.get("person"))
+    judgments = {
+        str(judgment.get("rule_evidence_unit_ref")): judgment
         for judgment in detail.get("judgments") or ()
     }
+    trace = detail.get("assertion_episode_reu_trace") or {}
+    projections: dict[str, list[tuple[str, str]]] = {}
+    for unit in trace.get("rule_evidence_units") or ():
+        judgment = judgments.get(str(unit.get("unit_code"))) or {}
+        projection = (
+            _display_name(judgment.get("person")),
+            str(judgment.get("side") or "positive"),
+        )
+        for member in unit.get("members") or ():
+            if member.get("member_type") == "episode":
+                projections.setdefault(str(member.get("member_ref")), []).append(
+                    projection
+                )
     facts = []
-    for episode in (
-        (detail.get("assertion_episode_reu_trace") or {}).get("episodes") or ()
-    ):
-        unit_ref = (episode.get("lineage") or {}).get("unit_ref")
+    for episode in trace.get("episodes") or ():
         action = str(episode.get("action") or "")
-        side = "negative" if "授权控制失败" in action else "positive"
         accepted_outcomes = [
             assertion_outcomes.get(str(link.get("assertion_ref")))
             for link in episode.get("assertion_links") or ()
         ]
         accepted_outcomes = [value for value in accepted_outcomes if value]
-        facts.append(
-            {
-                "person": people.get(unit_ref, "—"),
-                "unit_ref": unit_ref,
-                "side": side,
-                "action": action,
-                "outcome": "、".join(accepted_outcomes)
-                or "、".join(episode.get("outcome") or ()),
-            }
-        )
+        for person, side in projections.get(str(episode.get("episode_id"))) or [
+            ("—", "positive")
+        ]:
+            facts.append(
+                {
+                    "person": person,
+                    "side": side,
+                    "action": action,
+                    "outcome": "、".join(accepted_outcomes)
+                    or "、".join(episode.get("outcome") or ()),
+                }
+            )
     return facts
 
 

@@ -96,3 +96,51 @@ class AssertionDraft:
             raise ValueError(f"未知 assertion_type: {self.assertion_type}")
         if not 0.0 <= self.confidence <= 1.0:
             raise ValueError("AssertionDraft confidence 必须在 0 到 1 之间")
+
+
+def assertion_draft_from_payload(payload: Mapping[str, Any]) -> AssertionDraft:
+    """Rehydrate the stable Assertion contract without project-specific adapters."""
+
+    support_payload = payload.get("passage_support")
+    support = (
+        PassageSupport(
+            support_mode=str(support_payload["support_mode"]),
+            assertion_semantic_key=str(support_payload["assertion_semantic_key"]),
+            supported_fields=tuple(support_payload.get("supported_fields") or ()),
+            binding_provenance=dict(
+                support_payload.get("binding_provenance") or {}
+            ),
+        )
+        if support_payload
+        else None
+    )
+    return AssertionDraft(
+        assertion_code=str(payload["assertion_code"]),
+        source_passage_ref=str(payload["source_passage_ref"]),
+        assertion_type=str(payload["assertion_type"]),
+        subject=str(payload["subject"]),
+        predicate=str(payload["predicate"]),
+        object=str(payload["object"]),
+        time_expression=(
+            str(payload["time_expression"])
+            if payload.get("time_expression") is not None
+            else None
+        ),
+        location_expression=(
+            str(payload["location_expression"])
+            if payload.get("location_expression") is not None
+            else None
+        ),
+        qualifiers=dict(payload.get("qualifiers") or {}),
+        polarity=str(payload["polarity"]),
+        source_attribution=dict(payload.get("source_attribution") or {}),
+        candidate_episode_key=(
+            str(payload["candidate_episode_key"])
+            if payload.get("candidate_episode_key") is not None
+            else None
+        ),
+        confidence=float(payload["confidence"]),
+        ambiguity_flags=tuple(payload.get("ambiguity_flags") or ()),
+        extraction_provenance=dict(payload.get("extraction_provenance") or {}),
+        passage_support=support,
+    )

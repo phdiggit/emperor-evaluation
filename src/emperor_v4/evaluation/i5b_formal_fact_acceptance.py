@@ -7,8 +7,10 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from emperor_v4.persistence.postgres_schema_governance import canonical_person_ref
 
-SCHEMA_VERSION = "i5b-formal-fact-acceptance-v2"
+
+SCHEMA_VERSION = "i5b-formal-fact-acceptance-v3"
 _ACCEPTED_DECISIONS = frozenset({"accept", "accept_with_uncertainty"})
 _EXISTING_DECISIONS = _ACCEPTED_DECISIONS | {"reject"}
 
@@ -42,6 +44,52 @@ def _strings(*values: object) -> list[str]:
             if text and text not in result:
                 result.append(text)
     return result
+
+
+def _neutral_qualifiers(
+    assertion: Mapping[str, Any], *, ruler_ref: str
+) -> dict[str, Any]:
+    """Project accepted facts onto the shared Assertion contract only."""
+
+    source = assertion.get("qualifiers") or {}
+    focal_refs = [
+        canonical_person_ref(value)
+        for value in _strings(
+            source.get("candidate_focal_person_refs"),
+            (source.get("focal_person_ref"),) if source.get("focal_person_ref") else (),
+        )
+    ]
+    focal_refs = [
+        value
+        for value in dict.fromkeys(focal_refs)
+        if value.startswith("PER-") and value != ruler_ref
+    ]
+    return {
+        "responsibility_family": source.get("responsibility_family"),
+        "office_or_domain": source.get("office_or_domain"),
+        "outcome": source.get("outcome"),
+        "cost_or_damage": source.get("cost_or_damage"),
+        "focal_person_ref": focal_refs[0] if len(focal_refs) == 1 else None,
+        "candidate_focal_person_refs": focal_refs,
+        "event_scope": source.get("event_scope"),
+        "normalized_time": source.get("normalized_time"),
+        "evaluation_context": ruler_ref,
+        "episode_type": "political_action",
+        "candidate_participant_roles": [
+            [ruler_ref, "ruler"],
+            *[[ref, "focal_person"] for ref in focal_refs],
+        ],
+    }
+
+
+def _neutralize_unit_assertions(
+    units: list[dict[str, Any]], *, ruler_ref: str
+) -> None:
+    for unit in units:
+        for assertion in unit.get("assertion_drafts") or ():
+            assertion["qualifiers"] = _neutral_qualifiers(
+                assertion, ruler_ref=ruler_ref
+            )
 
 
 def _existing_decisions(
@@ -147,7 +195,7 @@ def _accepted_new_units(
     *,
     acceptance_decisions: Mapping[str, Any],
     unit_specs: Mapping[str, Mapping[str, Any]],
-    ruler: str,
+    ruler_ref: str,
     existing_assertion_refs: set[str],
 ) -> tuple[list[dict[str, Any]], int, int]:
     assertions_by_candidate: dict[str, list[Mapping[str, Any]]] = {}
@@ -253,13 +301,24 @@ def _accepted_new_units(
                     "polarity": "asserted",
                     "predicate": str(row["predicate"]),
                     "qualifiers": {
-                        "accepted_outcome": str(row["outcome"]),
+                        "outcome": str(row["outcome"]),
+                        "responsibility_family": spec.get("responsibility_family"),
+                        "office_or_domain": spec.get("office_or_domain"),
+                        "cost_or_damage": spec.get("cost_or_damage"),
+                        "event_scope": spec.get("event_scope"),
+                        "normalized_time": spec.get("normalized_time"),
                         "candidate_focal_person_refs": focal_refs,
-                        "candidate_participant_roles": list(
-                            spec.get("candidate_participant_roles") or ()
-                        ),
-                        "evaluation_context": ruler,
-                        "factor_support": deepcopy(group.get("factor_support") or {}),
+                        "candidate_participant_roles": [
+                            [ruler_ref, "ruler"],
+                            *[
+                                [canonical_person_ref(ref), "focal_person"]
+                                for ref in focal_refs
+                                if canonical_person_ref(ref).startswith("PER-")
+                                and canonical_person_ref(ref) != ruler_ref
+                            ],
+                        ],
+                        "evaluation_context": ruler_ref,
+                        "episode_type": "political_action",
                     },
                     "remaining_uncertainties": remaining_uncertainties,
                     "source_attribution": {
@@ -315,6 +374,9 @@ def build_formal_fact_acceptance(
     scope = reviewed_assertions.get("scope") or {}
     rule_code = _required_text(scope.get("rule_code"), field="scope.rule_code")
     ruler = _ruler_name(scope.get("ruler"))
+    ruler_ref = canonical_person_ref(
+        _required_text(scope.get("ruler_ref"), field="scope.ruler_ref")
+    )
     if _required_text(
         acceptance_decisions.get("rule_code"), field="acceptance_decisions.rule_code"
     ) != rule_code:
@@ -340,10 +402,11 @@ def build_formal_fact_acceptance(
     new_units, new_accepted, new_uncertain = _accepted_new_units(
         acceptance_decisions=acceptance_decisions,
         unit_specs=unit_specs,
-        ruler=ruler,
+        ruler_ref=ruler_ref,
         existing_assertion_refs=existing_assertion_refs,
     )
     units = existing_units + new_units
+    _neutralize_unit_assertions(units, ruler_ref=ruler_ref)
     assertion_count = existing_accepted + new_accepted
     uncertain_count = existing_uncertain + new_uncertain
     payload: dict[str, Any] = {

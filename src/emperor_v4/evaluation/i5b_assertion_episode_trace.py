@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from collections import defaultdict
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from hashlib import sha256
 import json
 from typing import Any, Mapping, Sequence
@@ -12,6 +11,16 @@ from emperor_v4.contracts.episode import (
     HistoricalEpisodePacket,
 )
 from emperor_v4.domain.boundary import draft_rule_evidence_unit
+from emperor_v4.contracts.assertion import (
+    AssertionDraft,
+    assertion_draft_from_payload,
+)
+from emperor_v4.domain.episode import (
+    EpisodeCandidateGroup,
+    build_episode_packet,
+    group_episode_candidates_with_hints,
+)
+from emperor_v4.persistence.postgres_schema_governance import canonical_person_ref
 
 
 def _hash(value: object) -> str:
@@ -30,16 +39,6 @@ def _rows(value: object, label: str) -> list[Mapping[str, Any]]:
     return list(value)
 
 
-def _string_values(value: object) -> tuple[str, ...]:
-    if value is None:
-        return ()
-    if isinstance(value, str):
-        return (value,) if value else ()
-    if not isinstance(value, Sequence):
-        return (str(value),)
-    return tuple(str(item) for item in value if str(item))
-
-
 def _event_node_ref(assertion: Mapping[str, Any]) -> str:
     return str(
         assertion.get("event_node_ref")
@@ -48,20 +47,164 @@ def _event_node_ref(assertion: Mapping[str, Any]) -> str:
     ).strip()
 
 
-def _episode_uncertainties(
-    unit: Mapping[str, Any], assertions: Sequence[Mapping[str, Any]]
-) -> tuple[str, ...]:
-    values: list[str] = []
-    values.extend(_string_values(unit.get("remaining_uncertainties")))
-    for assertion in assertions:
-        values.extend(_string_values(assertion.get("ambiguity_flags")))
-        values.extend(_string_values(assertion.get("remaining_uncertainties")))
-        values.extend(
-            _string_values(
-                (assertion.get("qualifiers") or {}).get("remaining_uncertainties")
-            )
+def _canonical_assertion(
+    payload: Mapping[str, Any], *, ruler_ref: str
+) -> AssertionDraft:
+    draft = assertion_draft_from_payload(payload)
+    qualifiers = dict(draft.qualifiers)
+    focal_refs = tuple(
+        dict.fromkeys(
+            canonical_person_ref(ref)
+            for ref in qualifiers.get("candidate_focal_person_refs") or ()
+            if canonical_person_ref(ref).startswith("PER-")
+            and canonical_person_ref(ref) != ruler_ref
         )
-    return tuple(dict.fromkeys(values))
+    )
+    qualifiers = {
+        "responsibility_family": qualifiers.get("responsibility_family"),
+        "office_or_domain": qualifiers.get("office_or_domain"),
+        "outcome": qualifiers.get("outcome"),
+        "cost_or_damage": qualifiers.get("cost_or_damage"),
+        "focal_person_ref": focal_refs[0] if len(focal_refs) == 1 else None,
+        "candidate_focal_person_refs": list(focal_refs),
+        "event_scope": qualifiers.get("event_scope"),
+        "normalized_time": qualifiers.get("normalized_time"),
+        "evaluation_context": ruler_ref,
+        "episode_type": "political_action",
+        "candidate_participant_roles": (
+            (ruler_ref, "ruler"),
+            *((ref, "focal_person") for ref in focal_refs),
+        ),
+    }
+    return replace(draft, qualifiers=qualifiers)
+
+
+def _accepted_episode(
+    group: EpisodeCandidateGroup,
+    *,
+    assertion_payload: Mapping[str, Any],
+    formal_acceptance: bool,
+) -> HistoricalEpisodePacket:
+    packet = build_episode_packet(group)
+    if not formal_acceptance:
+        return replace(
+            packet,
+            evaluation_context=str((assertion_payload.get("scope") or {})["ruler_ref"]),
+            provenance={
+                "builder": "deterministic_episode_kernel_v1",
+                "input_version": str(
+                    assertion_payload.get("schema_version") or "unknown"
+                ),
+                "input_hash": str(
+                    assertion_payload.get("report_sha256") or "unknown"
+                ),
+            },
+        )
+
+    uncertainties = tuple(
+        dict.fromkeys(
+            flag
+            for assertion in group.assertions
+            for flag in assertion.ambiguity_flags
+        )
+    )
+    links = tuple(
+        AssertionLink(
+            assertion_ref=assertion.assertion_code,
+            source_passage_ref=assertion.source_passage_ref,
+            relation=(
+                "contradicts" if assertion.polarity == "disputed" else "supports"
+            ),
+            supported_fields=(
+                tuple(assertion.passage_support.supported_fields)
+                if assertion.passage_support is not None
+                else ("identity", "action")
+            ),
+            evidence_status="accepted",
+            representative=index == 0,
+        )
+        for index, assertion in enumerate(group.assertions)
+    )
+    roles_by_person: dict[str, set[str]] = {}
+    for assertion in group.assertions:
+        for person_ref, role_code in (
+            assertion.qualifiers.get("candidate_participant_roles") or ()
+        ):
+            canonical_ref = canonical_person_ref(person_ref)
+            if canonical_ref.startswith("PER-"):
+                roles_by_person.setdefault(canonical_ref, set()).add(str(role_code))
+    participants = tuple(
+        EpisodeParticipant(
+            person_ref=person_ref,
+            role_codes=tuple(sorted(role_codes)),
+            role_status="resolved",
+        )
+        for person_ref, role_codes in sorted(roles_by_person.items())
+    )
+    completeness = dict(packet.completeness)
+    if completeness.get("responsibility") == "missing":
+        completeness["responsibility"] = "not_applicable"
+    source_passage_refs = sorted({link.source_passage_ref for link in links})
+    episode_status = (
+        "needs_evidence_review"
+        if completeness.get("outcome") == "missing"
+        else "accepted_with_uncertainty"
+        if uncertainties
+        else "accepted"
+    )
+    if episode_status == "needs_evidence_review":
+        uncertainties = tuple(
+            dict.fromkeys((*uncertainties, "outcome completeness missing"))
+        )
+    return replace(
+        packet,
+        episode_status=episode_status,
+        evaluation_context=canonical_person_ref(
+            (assertion_payload.get("scope") or {})["ruler_ref"]
+        ),
+        participants=participants,
+        assertion_links=links,
+        uncertainties=uncertainties,
+        completeness=completeness,
+        lineage={
+            "origin": "created",
+            "assertion_report_sha256": str(
+                assertion_payload.get("report_sha256") or ""
+            ),
+            "source_passage_refs": ",".join(source_passage_refs),
+        },
+        provenance={
+            "builder": "deterministic_episode_kernel_v1",
+            "input_version": str(
+                assertion_payload.get("schema_version") or "unknown"
+            ),
+            "input_hash": str(
+                assertion_payload.get("report_sha256") or "unknown"
+            ),
+        },
+    )
+
+
+def _merge_neutral_identity_groups(
+    groups: Sequence[EpisodeCandidateGroup],
+) -> tuple[EpisodeCandidateGroup, ...]:
+    """Collapse rule-boundary hints that resolve to the same neutral fact."""
+    merged: dict[str, tuple[Any, dict[str, AssertionDraft]]] = {}
+    for group in groups:
+        fingerprint = group.key.fingerprint
+        if fingerprint not in merged:
+            merged[fingerprint] = (group.key, {})
+        assertions = merged[fingerprint][1]
+        for assertion in group.assertions:
+            assertions[assertion.assertion_code] = assertion
+    return tuple(
+        EpisodeCandidateGroup(
+            key=key,
+            assertions=tuple(assertions[ref] for ref in sorted(assertions)),
+            boundary_hint=None,
+        )
+        for fingerprint, (key, assertions) in sorted(merged.items())
+    )
 
 
 def build_assertion_episode_trace(
@@ -81,209 +224,87 @@ def build_assertion_episode_trace(
     formal_acceptance = bool(
         (assertion_payload.get("declarations") or {}).get("formal_fact_acceptance")
     )
+    ruler_ref = canonical_person_ref(ruler_ref)
     units = {
         str(item.get("unit_ref") or ""): item
         for item in _rows(assertion_payload.get("units"), "assertion review units")
     }
-    episodes: list[dict[str, Any]] = []
+    selected_unit_refs = {
+        str(material.get("unit_ref") or "") for material in trace_units
+    }
+    allowed_dispositions = (
+        {"formally_accepted"}
+        if formal_acceptance
+        else {"reviewed_ready_for_episode_shadow"}
+    )
+    assertion_by_ref: dict[str, AssertionDraft] = {}
+    boundary_hints: dict[str, str] = {}
+    assertion_refs_by_unit: dict[str, set[str]] = {}
+    for unit_ref in sorted(selected_unit_refs):
+        unit = units.get(unit_ref)
+        if unit is None:
+            continue
+        if unit.get("review_disposition") not in allowed_dispositions:
+            raise ValueError(f"assertion unit 尚未完成 review: {unit_ref}")
+        unit_assertion_refs: set[str] = set()
+        for raw_assertion in _rows(
+            unit.get("assertion_drafts"), f"{unit_ref} assertions"
+        ):
+            assertion = _canonical_assertion(raw_assertion, ruler_ref=ruler_ref)
+            if assertion.assertion_code in assertion_by_ref:
+                raise ValueError(f"正式事实 Assertion 重复: {assertion.assertion_code}")
+            group_ref = (
+                _event_node_ref(raw_assertion)
+                if formal_acceptance
+                else assertion.source_passage_ref
+            )
+            if not group_ref:
+                raise ValueError(
+                    f"Assertion 缺少事件边界: {unit_ref}/{assertion.assertion_code}"
+                )
+            assertion_by_ref[assertion.assertion_code] = assertion
+            boundary_hints[assertion.assertion_code] = group_ref
+            unit_assertion_refs.add(assertion.assertion_code)
+        assertion_refs_by_unit[unit_ref] = unit_assertion_refs
+
+    groups = _merge_neutral_identity_groups(
+        group_episode_candidates_with_hints(
+            assertion_by_ref.values(), boundary_hints
+        )
+    )
+    packets = tuple(
+        _accepted_episode(
+            group,
+            assertion_payload=assertion_payload,
+            formal_acceptance=formal_acceptance,
+        )
+        for group in groups
+    )
+    episode_by_assertion = {
+        link.assertion_ref: packet.episode_id
+        for packet in packets
+        if packet.episode_status in {"accepted", "accepted_with_uncertainty"}
+        for link in packet.assertion_links
+    }
+    episodes = [asdict(packet) for packet in packets]
     evidence_units: list[dict[str, Any]] = []
-    assertion_link_count = 0
+    assertion_link_count = sum(len(packet.assertion_links) for packet in packets)
     for material in trace_units:
         unit_ref = material["unit_ref"]
         unit = units.get(unit_ref)
         if unit is None:
             continue
-        allowed_dispositions = (
-            {"formally_accepted"}
-            if formal_acceptance
-            else {"reviewed_ready_for_episode_shadow"}
+        assertion_refs = sorted(assertion_refs_by_unit.get(unit_ref) or ())
+        member_role = (
+            "negative_credit_chain_component"
+            if material["side"] == "negative"
+            else "positive_feedback_chain_component"
         )
-        if unit.get("review_disposition") not in allowed_dispositions:
-            raise ValueError(f"assertion unit 尚未完成 review: {unit_ref}")
-        assertions = _rows(unit.get("assertion_drafts"), f"{unit_ref} assertions")
-
-        grouped_assertions: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
-        grouping_mode = "explicit_event_node" if formal_acceptance else "source_passage"
-        for assertion in assertions:
-            passage_ref = str(assertion.get("source_passage_ref") or "")
-            if not passage_ref:
-                raise ValueError(f"assertion 缺少 passage lineage: {unit_ref}")
-            if formal_acceptance:
-                group_ref = _event_node_ref(assertion)
-                if not group_ref:
-                    raise ValueError(
-                        f"formal assertion 缺少 event_node_ref/candidate_episode_key: "
-                        f"{unit_ref}/{assertion.get('assertion_code')}"
-                    )
-            else:
-                group_ref = passage_ref
-            grouped_assertions[group_ref].append(assertion)
-
-        episode_members: dict[str, str] = {}
-        assertion_refs: list[str] = []
-        for group_ref, episode_assertions in sorted(grouped_assertions.items()):
-            assertion_refs.extend(
-                str(item.get("assertion_code") or "") for item in episode_assertions
-            )
-            focal_refs = sorted(
-                {
-                    str(ref)
-                    for item in episode_assertions
-                    for ref in (
-                        (item.get("qualifiers") or {}).get(
-                            "candidate_focal_person_refs"
-                        )
-                        or ()
-                    )
-                    if str(ref).startswith("PER-") and str(ref) != ruler_ref
-                }
-            )
-            participants = [
-                EpisodeParticipant(ruler_ref, ("ruler",), "resolved")
-            ] + [
-                EpisodeParticipant(ref, ("focal_person",), "resolved")
-                for ref in focal_refs
-            ]
-            links = tuple(
-                AssertionLink(
-                    assertion_ref=str(item["assertion_code"]),
-                    source_passage_ref=str(item["source_passage_ref"]),
-                    relation=(
-                        "supports_accepted_episode"
-                        if formal_acceptance
-                        else "supports_episode_draft"
-                    ),
-                    supported_fields=tuple(
-                        (item.get("passage_support") or {}).get("supported_fields")
-                        or ()
-                    ),
-                    evidence_status="accepted" if formal_acceptance else "draft",
-                    representative=index == 0,
-                )
-                for index, item in enumerate(episode_assertions)
-            )
-            assertion_link_count += len(links)
-            source_passage_refs = sorted(
-                {item.source_passage_ref for item in links}
-            )
-            uncertainties = (
-                _episode_uncertainties(unit, episode_assertions)
-                if formal_acceptance
-                else ()
-            )
-            episode_payload = (
-                {
-                    "rule_code": rule_code,
-                    "unit_ref": unit_ref,
-                    "grouping_mode": grouping_mode,
-                    "group_ref": group_ref,
-                    "assertion_refs": [item.assertion_ref for item in links],
-                }
-                if formal_acceptance
-                else {
-                    "rule_code": rule_code,
-                    "unit_ref": unit_ref,
-                    "passage_ref": group_ref,
-                    "assertion_refs": [item.assertion_ref for item in links],
-                }
-            )
-            episode_fingerprint = _hash(episode_payload)
-            episode = HistoricalEpisodePacket(
-                episode_id=f"EP-{episode_fingerprint[:20].upper()}",
-                episode_type=f"{rule_code}_evidence_episode",
-                episode_status=(
-                    "accepted_with_uncertainty"
-                    if formal_acceptance and uncertainties
-                    else "accepted" if formal_acceptance else "proposed"
-                ),
-                evaluation_context=ruler_ref,
-                semantic_version=1,
-                evidence_version=1,
-                semantic_fingerprint=episode_fingerprint,
-                time_start=None,
-                time_end=None,
-                time_precision="source_expression_only",
-                locations=tuple(
-                    sorted(
-                        {
-                            str(item["location_expression"])
-                            for item in episode_assertions
-                            if item.get("location_expression")
-                        }
-                    )
-                ),
-                participants=tuple(participants),
-                action="；".join(
-                    dict.fromkeys(str(item["predicate"]) for item in episode_assertions)
-                ),
-                responsibility=(
-                    "formal ruler-context attribution accepted"
-                    if formal_acceptance
-                    else "shadow routing only; formal attribution not accepted"
-                ),
-                outcome=tuple(
-                    dict.fromkeys(str(item["object"]) for item in episode_assertions)
-                ),
-                consequence=(),
-                assertion_links=links,
-                conflicts=(),
-                uncertainties=(
-                    uncertainties
-                    if formal_acceptance
-                    else tuple(
-                        dict.fromkeys(
-                            (*uncertainties, "draft assertions; no formal fact acceptance")
-                        )
-                    )
-                ),
-                completeness={
-                    "identity": "complete",
-                    "time": "partial",
-                    "action": "complete",
-                    "responsibility": "partial",
-                    "outcome": "partial",
-                    "consequence": "partial",
-                    "source_diversity": "partial",
-                    "conflict_resolution": "not_applicable",
-                },
-                lineage=(
-                    {
-                        "assertion_report_sha256": str(
-                            assertion_payload.get("report_sha256") or ""
-                        ),
-                        "unit_ref": unit_ref,
-                        "event_node_ref": group_ref,
-                        "source_passage_refs": ",".join(source_passage_refs),
-                    }
-                    if formal_acceptance
-                    else {
-                        "assertion_report_sha256": str(
-                            assertion_payload.get("report_sha256") or ""
-                        ),
-                        "unit_ref": unit_ref,
-                        "source_passage_ref": group_ref,
-                    }
-                ),
-                provenance={
-                    "builder": (
-                        "i5b_assertion_episode_trace_v2"
-                        if formal_acceptance
-                        else "i5b_joint_projection_episode_trace_v1"
-                    ),
-                    "input_version": str(
-                        assertion_payload.get("schema_version") or "unknown"
-                    ),
-                    "input_hash": str(
-                        assertion_payload.get("report_sha256") or "unknown"
-                    ),
-                },
-            )
-            episodes.append(asdict(episode))
-            episode_members[episode.episode_id] = (
-                "negative_credit_chain_component"
-                if material["side"] == "negative"
-                else "positive_feedback_chain_component"
-            )
+        episode_members = {
+            episode_by_assertion[assertion_ref]: member_role
+            for assertion_ref in assertion_refs
+            if assertion_ref in episode_by_assertion
+        }
         reu = draft_rule_evidence_unit(
             rule_code=rule_code,
             rule_version="i5b-factor-semantics-v2",

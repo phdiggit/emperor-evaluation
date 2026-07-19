@@ -9,7 +9,10 @@ import os
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
+from emperor_v4.contracts.assertion import (
+    AssertionDraft,
+    assertion_draft_from_payload,
+)
 from emperor_v4.contracts.episode import HistoricalEpisodePacket
 from emperor_v4.contracts.source import (
     LinkedPassageRef,
@@ -74,52 +77,6 @@ def reusable_prior_first_run(
     if int(first_run.get("business_write_count", 0)) <= 0:
         return None
     return dict(first_run)
-
-
-def assertion_from_payload(payload: Mapping[str, Any]) -> AssertionDraft:
-    support_payload = payload.get("passage_support")
-    support = (
-        PassageSupport(
-            support_mode=str(support_payload["support_mode"]),
-            assertion_semantic_key=str(support_payload["assertion_semantic_key"]),
-            supported_fields=tuple(support_payload.get("supported_fields") or ()),
-            binding_provenance=dict(
-                support_payload.get("binding_provenance") or {}
-            ),
-        )
-        if support_payload
-        else None
-    )
-    return AssertionDraft(
-        assertion_code=str(payload["assertion_code"]),
-        source_passage_ref=str(payload["source_passage_ref"]),
-        assertion_type=str(payload["assertion_type"]),
-        subject=str(payload["subject"]),
-        predicate=str(payload["predicate"]),
-        object=str(payload["object"]),
-        time_expression=(
-            str(payload["time_expression"])
-            if payload.get("time_expression") is not None
-            else None
-        ),
-        location_expression=(
-            str(payload["location_expression"])
-            if payload.get("location_expression") is not None
-            else None
-        ),
-        qualifiers=dict(payload.get("qualifiers") or {}),
-        polarity=str(payload["polarity"]),
-        source_attribution=dict(payload.get("source_attribution") or {}),
-        candidate_episode_key=(
-            str(payload["candidate_episode_key"])
-            if payload.get("candidate_episode_key") is not None
-            else None
-        ),
-        confidence=float(payload["confidence"]),
-        ambiguity_flags=tuple(payload.get("ambiguity_flags") or ()),
-        extraction_provenance=dict(payload.get("extraction_provenance") or {}),
-        passage_support=support,
-    )
 
 
 def build_episode_split_supersessions(
@@ -391,7 +348,7 @@ def build_core_registry_batch(
     if not trace.get("formal_acceptance_performed"):
         raise ValueError("scored report does not contain a formal acceptance trace")
     assertions = tuple(
-        assertion_from_payload(row)
+        assertion_draft_from_payload(row)
         for unit in acceptance_payload.get("units") or ()
         for row in unit.get("assertion_drafts") or ()
     )
