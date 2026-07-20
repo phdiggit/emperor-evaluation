@@ -9,9 +9,6 @@ project:
 
 current_scope:
   item: fifth_item_b
-  ruler: 李世民
-  historical_coverage_status: complete
-  rule_count: 5
   shadow_only: true
   five_rule_wall_clock_budget_minutes: 15
   wall_clock_budget_priority: highest
@@ -21,110 +18,34 @@ current_scope:
 person_profile_storage:
   canonical_profile_table: v4_person_profile.person_profiles
   canonical_identity_table: v4_person_profile.person_identity_registry
-  profile_table_count: 1
-  legacy_schema_archive: archive/v4_person_profile_legacy_20260716.sql
 
-neutral_material_reuse_shadow:
-  status: shared_read_and_deterministic_fanout_validated
+neutral_material_reuse:
   structured_output_contract: codex-structured-output-contract-v1
-  batch_release_requires: ready_for_batch_fanout
   schema_preflight_before_model_call: true
   single_canary_before_fanout: true
   tool_free_extraction_required: true
   ignored_manifest_fields_fail_closed: true
   result_schema_and_exact_quote_acceptance_required: true
-  ruler_side_tested: [李世民, 刘邦]
-  person_side_shared_page_tested: true
-  validated_person_scan_count: 38
-  validated_page_task_count: 29
-  validated_unique_source_page_count: 26
-  validated_neutral_record_count: 588
-  validated_evaluation_lead_count: 88
-  validated_exact_quote_count: 2051
   source_identity: [canonical_subject, source_page, source_revision, extraction_contract]
   shared_read_does_not_merge_responsibility: true
   raw_mediawiki_markup_allowed_for_model_scan: false
-  dynasty_governance_scan_status: han_tang_histories_and_tongdian_pilot_accepted_shadow
   dynasty_governance_output_schema: config/dynasty-neutral-governance-output.schema.json
-  dynasty_governance_source_page_count: 23
-  dynasty_governance_source_char_count: 265627
-  dynasty_governance_task_count: 10
-  dynasty_governance_neutral_chain_count: 174
-  dynasty_governance_exact_quote_count: 339
-  dynasty_governance_source_works: [漢書, 舊唐書, 新唐書]
   dynasty_governance_actor_contribution_phases_required: true
   dynasty_governance_quote_ignores_only: [layout_whitespace, numeric_editorial_note_anchor]
-  dynasty_specialist_pilot_work: 通典
-  dynasty_specialist_pilot_target_scope: 唐
-  dynasty_specialist_pilot_source_page_count: 6
-  dynasty_specialist_pilot_source_char_count: 65090
-  dynasty_specialist_pilot_task_count: 2
-  dynasty_specialist_pilot_neutral_chain_count: 35
-  dynasty_specialist_pilot_exact_quote_count: 63
-  dynasty_specialist_expansion_source_page_count: 20
-  dynasty_specialist_expansion_source_char_count: 182857
-  dynasty_specialist_expansion_task_count: 6
-  dynasty_specialist_expansion_neutral_chain_count: 73
-  dynasty_specialist_expansion_exact_quote_count: 159
-  dynasty_specialist_expansion_comparison_baseline_count: 209
-  dynasty_specialist_expansion_new_fact_count: 55
-  dynasty_specialist_expansion_enrichment_count: 17
-  dynasty_specialist_expansion_restatement_count: 1
-  dynasty_specialist_expansion_settlement_component_count: 68
-  dynasty_specialist_expansion_settlement_review_queue_count: 5
   dynasty_source_increment_output_schema: config/dynasty-neutral-source-increment-output.schema.json
-  dynasty_source_increment_status: accepted_shadow
-  dynasty_source_increment_baseline_count: 174
-  dynasty_source_increment_candidate_count: 35
-  dynasty_source_increment_new_fact_count: 17
-  dynasty_source_increment_enrichment_count: 16
-  dynasty_source_increment_restatement_count: 2
   dynasty_material_settlement_contract: dynasty-neutral-material-settlement-v1
-  dynasty_material_settlement_status: accepted_shadow
-  dynasty_material_settlement_candidate_count: 35
-  dynasty_material_settlement_component_count: 31
-  dynasty_material_settlement_review_queue_count: 0
   dynasty_material_settlement_mixed_chain_partial_overlap_review_required: true
   dynasty_material_settlement_preserves_fact_variants: true
-  dynasty_material_settlement_episode_projection_status: pending_atomization_review
-  dynasty_material_settlement_actor_identity_status: pending_canonical_person_resolution
   dynasty_material_atomization_contract: dynasty-neutral-material-atomization-audit-v1
-  dynasty_material_atomization_status: accepted_shadow
-  dynasty_material_atomization_candidate_count: 5
-  dynasty_material_atomization_atom_count: 16
-  dynasty_material_atomization_new_fact_count: 11
-  dynasty_material_atomization_enrichment_count: 4
-  dynasty_material_atomization_restatement_count: 1
   governance_achievement_registry_schema: config/governance-achievement-registry.schema.json
   governance_achievement_candidate_output_schema: config/governance-achievement-candidate-output.schema.json
-  governance_achievement_candidate_policy: governance-achievement-judgment-v2
-  governance_achievement_registry_status: shadow_batch_validated
-  governance_achievement_component_universe_count: 236
-  governance_achievement_person_attributable_component_count: 120
-  governance_achievement_batch_task_count: 10
-  governance_achievement_registered_component_count: 90
-  governance_achievement_omitted_component_count: 26
-  governance_achievement_uncertain_component_count: 4
-  governance_achievement_count: 87
-  governance_achievement_scale_local_count: 13
-  governance_achievement_scale_important_count: 43
-  governance_achievement_scale_regional_count: 9
-  governance_achievement_scale_national_count: 22
-  governance_achievement_lineage_refinement_count: 10
-  governance_achievement_batch_wall_seconds: 359.503
-  governance_achievement_batch_input_tokens: 338640
-  governance_achievement_batch_output_tokens: 53719
-  governance_achievement_profile_grade_change_candidate_count: 2
-  governance_achievement_registry_formal_write_count: 0
+  governance_achievement_lineage_output_schema: config/governance-achievement-lineage-output.schema.json
   governance_achievement_actor_identity_script_alias_normalization: opencc_s2t_t2s
   historical_character_normalization_allowed: false
-  formal_fact_write_count: 0
-  person_profile_write_count: 0
-  score_write_count: 0
+  formal_writes_allowed: false
 
-talent_grade_shadow:
+talent_grade:
   active_policy: config/talent-grade-v11-domain-equivalent-historic.yml
-  policy_version: talent-grade-v11-domain-equivalent-historic-v1
   cross_stage_legacy_is_common_historic_requirement: false
   domain_paths_operationalize_historic_height: true
   separate_unstructured_height_gate: false
@@ -137,61 +58,21 @@ talent_grade_shadow:
   civil_responsibility_roles: [exclusive, lead, participant]
   clear_professional_success_survives_cross_domain_costs: true
   campaign_registry_schema: config/campaign-registry.schema.json
-  campaign_registry_status: contract_ready_no_canonical_rows
-  formal_grade_write_count: 0
-  score_write_count: 0
+  formal_writes_allowed: false
 
-person_political_risk_shadow:
+person_political_risk:
   policy: config/political-risk.yml
-  policy_version: political-risk-v2
-  profile_count: 254
-  rejected_run: tmp/political_risk_review/full_v2
-  global_gate: failed_closed
-  rejection_reasons:
-    - severity_calibration_inconsistent
-    - conclusion_changing_normalization_accepted
-    - local_source_inventory_not_bound_to_tasks
-  calibration_required: [唐俭, 霍去病, 萧瑀, 朱樉]
-  database_write_count: 0
-  talent_grade_mutation_count: 0
-  formal_acceptance: closed
-
-current_rule_raw_signal:
-  talent_discovery: 4.864
-  appointment_delegation: 9.823
-  team_building: 7.632
-  tolerate_talent: 5.996
-  anti_nepotism: 1.760
-  declared_workset_weighted_raw_signal: 7.248
+  talent_grade_mutation_allowed: false
+  formal_writes_allowed: false
 
 current_gates:
   formal_45_point_score: closed
   tier: closed
   ranking: closed
   production_deployment: closed
-  model_call_count: 0
-  score_database_write_count: 0
-  ranking_database_write_count: 0
-  blockers:
-  - tolerate_talent_has_3_insufficient_projection_units
-  - second_complete_five_rule_ruler_missing
-
-next_delivery:
-  code: second_ruler_five_rule_small_cohort
-  required_outcomes:
-  - close_tolerate_talent_insufficient_projection_units
-  - complete_second_ruler_five_rule_coverage
-  - keep_report_only_shadow_first
-  forbidden_outcomes:
-  - formal_scoring_before_multi_ruler_calibration
-  - zero_fill_insufficient_projection
-  - ruler_specific_runtime_copy
 
 governance:
   highest_driver: docs/项目总纲/皇帝综合评价体系评分标准.md
-  active_status_sources:
-  - README.md
-  - config/project.yml
   git_is_only_history_source: true
   historical_audit_artifacts_allowed: false
   stage_artifacts_must_be_deleted_after_closeout: true

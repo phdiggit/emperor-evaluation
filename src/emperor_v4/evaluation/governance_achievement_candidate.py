@@ -10,6 +10,7 @@ from typing import Iterable, Mapping, Sequence
 from uuid import uuid4
 
 from opencc import OpenCC
+import yaml
 
 from emperor_v4.adapters.structured_output_contract import (
     validate_codex_output_schema,
@@ -166,6 +167,91 @@ def _extend_with_provisional_actors(
         binding = {"person_ref": person_ref, "canonical_name": canonical_name}
         for alias in aliases:
             alias_index[alias] = binding
+
+
+def _ruler_resolver(
+    ruler_aliases: Mapping[str, object] | None,
+    *,
+    dynasty_token: str,
+    dynasty_name: str,
+):
+    by_alias: dict[str, list[str]] = defaultdict(list)
+    dynasty_owners: set[str] = set()
+    for owner, rows in (ruler_aliases or {}).items():
+        canonical = str(owner)
+        aliases = [canonical]
+        for row in rows or ():
+            if isinstance(row, Mapping) and str(row.get("alias") or ""):
+                aliases.append(str(row["alias"]))
+        variants = {
+            value
+            for alias in aliases
+            for value in (alias, _S2T.convert(alias), _T2S.convert(alias))
+        }
+        if dynasty_name and any(value.startswith(dynasty_name) for value in variants):
+            dynasty_owners.add(canonical)
+        for alias in variants:
+            by_alias[alias].append(canonical)
+
+    explicit_special_titles = {"武后", "武太后", "天后", "则天", "則天"}
+
+    def resolve(name: str) -> dict[str, str] | None:
+        variants = {name, _S2T.convert(name), _T2S.convert(name)}
+        candidates = {
+            owner for variant in variants for owner in by_alias.get(variant, ())
+        }
+        scoped = candidates & dynasty_owners
+        if len(scoped) == 1:
+            canonical_name = next(iter(scoped))
+        elif len(candidates) == 1:
+            canonical_name = next(iter(candidates))
+        else:
+            simplified = _T2S.convert(name)
+            dynasty_prefixed_title = bool(
+                dynasty_name
+                and simplified.startswith(dynasty_name)
+                and len(simplified) == len(dynasty_name) + 2
+                and simplified.endswith(("帝", "宗"))
+            )
+            looks_like_ruler = (
+                (len(simplified) == 2 and simplified.endswith(("帝", "宗")))
+                or dynasty_prefixed_title
+                or simplified in explicit_special_titles
+            )
+            if not looks_like_ruler:
+                return None
+            canonical_name = (
+                simplified[len(dynasty_name) :]
+                if dynasty_prefixed_title
+                else simplified
+            )
+        identity = f"{dynasty_token.upper()}::{canonical_name}"
+        return {
+            "ruler_ref": "RULER-" + sha256(identity.encode("utf-8")).hexdigest()[:16].upper(),
+            "ruler_name": canonical_name,
+        }
+
+    return resolve
+
+
+def _ruler_authorization_status(
+    person_ref: str,
+    component_refs: Sequence[str],
+    components: Mapping[str, Mapping[str, object]],
+) -> str:
+    phases = {
+        str(phase)
+        for component_ref in component_refs
+        for fact in components[component_ref]["facts"]
+        for actor in fact.get("actors") or ()
+        if str(actor.get("person_ref") or "") == person_ref
+        for phase in actor.get("contribution_phases") or ()
+    }
+    if "authorized" in phases:
+        return "explicit"
+    if phases & {"maintained", "operated"}:
+        return "maintained"
+    return "implicit"
 
 
 def _material_variants(
@@ -457,7 +543,6 @@ INPUT
     preparation = {
         "schema_version": PREPARATION_SCHEMA_VERSION,
         "dynasty_token": dynasty_token.upper(),
-        "policy_version": POLICY_VERSION,
         "component_universe_count": len(all_components),
         "eligible_component_count": len(eligible),
         "ineligible_component_count": len(all_components) - len(eligible),
@@ -469,9 +554,6 @@ INPUT
             {name for row in all_components for name in row["unresolved_actor_names"]}
         ),
         "output_schema_path": str(output_schema_path.resolve()),
-        "registry_writes": 0,
-        "person_profile_writes": 0,
-        "score_writes": 0,
     }
     _atomic_json(output_root / "preparation.json", preparation)
     return preparation
@@ -493,6 +575,8 @@ def audit_governance_achievement_candidates(
     *,
     output_schema_path: Path,
     registry_schema_path: Path,
+    ruler_aliases: Mapping[str, object] | None = None,
+    dynasty_name: str = "",
 ) -> dict[str, object]:
     if preparation.get("schema_version") != PREPARATION_SCHEMA_VERSION:
         raise ValueError("governance achievement preparation 版本不支持")
@@ -503,6 +587,11 @@ def audit_governance_achievement_candidates(
     if len(actual_codes) != len(set(actual_codes)) or set(actual_codes) != set(expected_tasks):
         raise ValueError("governance achievement task 覆盖不唯一")
     candidates_by_key: dict[str, list[dict[str, object]]] = defaultdict(list)
+    resolve_ruler = _ruler_resolver(
+        ruler_aliases,
+        dynasty_token=str(preparation["dynasty_token"]),
+        dynasty_name=dynasty_name,
+    )
     decisions = []
     limitations = []
     disposition_counts: Counter[str] = Counter()
@@ -574,10 +663,24 @@ def audit_governance_achievement_candidates(
             }
         )
         participants_by_ref: dict[str, dict[str, object]] = {}
+        rulers_by_ref: dict[str, dict[str, str]] = {}
         role_rank = {"participant": 0, "lead": 1, "exclusive": 2}
         for row in rows:
             for participant in row["participants"]:
                 person_ref = str(participant["person_ref"])
+                person = preparation["people"][person_ref]
+                ruler = resolve_ruler(str(person["canonical_name"]))
+                if ruler is not None:
+                    ruler_ref = str(ruler["ruler_ref"])
+                    rulers_by_ref[ruler_ref] = {
+                        **ruler,
+                        "authorization_status": _ruler_authorization_status(
+                            person_ref,
+                            row["component_refs"],
+                            preparation["components"],
+                        ),
+                    }
+                    continue
                 previous = participants_by_ref.get(person_ref)
                 if previous is None or role_rank[str(participant["responsibility_role"])] > role_rank[str(previous["responsibility_role"] )]:
                     participants_by_ref[person_ref] = dict(participant)
@@ -589,6 +692,25 @@ def audit_governance_achievement_candidates(
                 "contribution_scope": participant["contribution_scope"],
             }
             for person_ref, participant in sorted(participants_by_ref.items())
+        ]
+        ruler_links = [
+            {
+                "ruler_ref": ruler_ref,
+                "ruler_name": ruler["ruler_name"],
+                "authorization_status": ruler["authorization_status"],
+                "reign_window": "；".join(
+                    sorted(
+                        {
+                            str(period)
+                            for component_ref in component_refs
+                            for period in preparation["components"][component_ref]["periods"]
+                            if str(period)
+                        }
+                    )
+                )
+                or "统治窗口待后置校准",
+            }
+            for ruler_ref, ruler in sorted(rulers_by_ref.items())
         ]
         domain = str(first["domain"])
         broad_components = [
@@ -628,7 +750,7 @@ def audit_governance_achievement_candidates(
                 "stable_delivery": first["stable_delivery"],
                 "important_method_or_legacy": first["important_method_or_legacy"],
                 "participants": participants,
-                "ruler_links": [],
+                "ruler_links": ruler_links,
                 "neutral_fact_refs": component_refs,
                 "source_refs": source_refs,
                 "reuse_targets": sorted({"talent_grade_civil_governance", *REUSE_BY_DOMAIN[domain]}),
@@ -647,9 +769,6 @@ def audit_governance_achievement_candidates(
         )
     registry = {
         "schema_version": "governance-achievement-registry-v1",
-        "registry_version": "governance-achievement-auto-shadow-" + sha256(
-            json.dumps(achievements, ensure_ascii=False, sort_keys=True).encode("utf-8")
-        ).hexdigest()[:16].upper(),
         "status": "shadow",
         "achievements": achievements,
     }
@@ -663,6 +782,10 @@ def audit_governance_achievement_candidates(
         "component_count": len(decisions),
         "disposition_counts": dict(sorted(disposition_counts.items())),
         "achievement_count": len(achievements),
+        "minister_participant_count": sum(
+            len(row["participants"]) for row in achievements
+        ),
+        "ruler_link_count": sum(len(row["ruler_links"]) for row in achievements),
         "conflict_count": len(conflicts),
         "conflicts": conflicts,
         "lineage_refinement_count": len(lineage_refinement_queue),
@@ -671,9 +794,6 @@ def audit_governance_achievement_candidates(
         "registry": registry,
         "registry_validation": registry_validation,
         "limitations": sorted(set(limitations)),
-        "registry_writes": 0,
-        "person_profile_writes": 0,
-        "score_writes": 0,
     }
 
 
@@ -694,6 +814,8 @@ def _parser() -> argparse.ArgumentParser:
     audit.add_argument("--results-dir", type=Path, required=True)
     audit.add_argument("--output-schema", type=Path, required=True)
     audit.add_argument("--registry-schema", type=Path, required=True)
+    audit.add_argument("--ruler-aliases", type=Path)
+    audit.add_argument("--dynasty-name", default="")
     audit.add_argument("--output", type=Path, required=True)
     return parser
 
@@ -729,6 +851,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             payloads,
             output_schema_path=args.output_schema,
             registry_schema_path=args.registry_schema,
+            ruler_aliases=(
+                yaml.safe_load(args.ruler_aliases.read_text(encoding="utf-8"))
+                if args.ruler_aliases
+                else None
+            ),
+            dynasty_name=args.dynasty_name,
         )
         _atomic_json(args.output, report)
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))

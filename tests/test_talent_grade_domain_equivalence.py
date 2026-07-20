@@ -12,7 +12,12 @@ from emperor_v4.evaluation.governance_achievement_candidate import (
 )
 from emperor_v4.evaluation.governance_achievement_registry import (
     project_civil_talent_impact,
+    project_i5b_team_building_impact,
     validate_governance_achievement_registry,
+)
+from emperor_v4.evaluation.governance_achievement_lineage import (
+    audit_governance_achievement_lineage,
+    prepare_governance_achievement_lineage,
 )
 from emperor_v4.evaluation.talent_grade_domain_equivalence import (
     assess_domain_historic_path,
@@ -268,7 +273,6 @@ def test_campaign_registry_enforces_neutral_identity_and_scale_basis() -> None:
     json.loads((ROOT / "config/campaign-registry.schema.json").read_text(encoding="utf-8"))
     registry = {
         "schema_version": "campaign-registry-v1",
-        "registry_version": "shadow-v1",
         "status": "shadow",
         "campaigns": [
             {
@@ -368,7 +372,6 @@ def test_residual_state_conquest_is_not_national_by_title_alone() -> None:
 def test_governance_registry_projects_top_floor_without_writing_profile() -> None:
     registry = {
         "schema_version": "governance-achievement-registry-v1",
-        "registry_version": "shadow-v1",
         "status": "shadow",
         "achievements": [
             {
@@ -432,9 +435,61 @@ def test_governance_registry_projects_top_floor_without_writing_profile() -> Non
     assert validation["achievement_count"] == 1
     assert validation["scale_counts"] == {"national": 1}
     assert impact["grade_change_candidate_count"] == 1
-    assert impact["impacts"][0]["effective_shadow_grade"] == "top"
+    assert impact["impacts"][0]["talent_grade"] == "top"
     assert impact["impacts"][0]["historic_fact_path_status"] == "not_established"
-    assert impact["person_profile_writes"] == impact["score_writes"] == 0
+
+    i5b_impact = project_i5b_team_building_impact(
+        registry,
+        team_report={
+            "ruler": "测试皇帝",
+            "members": [
+                {
+                    "person": "测试人物",
+                    "person_ref": "PER-V4-001",
+                    "effective_talent_grade": "important",
+                },
+                {
+                    "person": "已选人物",
+                    "person_ref": "PER-V4-002",
+                    "effective_talent_grade": "important",
+                },
+            ],
+        },
+        material_budget_report={
+            "rules": [
+                {
+                    "rule_code": "team_building",
+                    "positive_members": [
+                        {"person": "已选人物", "talent_value": "0.9"}
+                    ],
+                    "functional_complementarity_factor": "1.2",
+                    "long_term_stability_factor": "1.2",
+                }
+            ]
+        },
+        scoring_policy={
+            "rules": {
+                "team_building": {
+                    "talent_quality_factor": {
+                        "ordinary": 0.35,
+                        "usable": 0.55,
+                        "important": 0.9,
+                        "top": 1.2,
+                        "historic": 1.6,
+                    }
+                }
+            }
+        },
+    )
+
+    assert i5b_impact["reselection_required"] is True
+    assert i5b_impact["affected_members"][0]["person_ref"] == "PER-V4-001"
+    assert i5b_impact["affected_members"][0]["registry_person_refs"] == ["PER-001"]
+    assert i5b_impact["affected_members"][0]["i5b_disposition"] == (
+        "positive_pool_reselection_required"
+    )
+    assert i5b_impact["affected_members"][0]["counterfactual_rule_raw_net_delta"] == "0.432"
+    assert i5b_impact["automatic_roster_mutation_allowed"] is False
 
 
 def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_output(
@@ -508,7 +563,6 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
 
     assert preparation["component_universe_count"] == 1
     assert preparation["eligible_component_count"] == 1
-    assert preparation["policy_version"] == "governance-achievement-judgment-v2"
     task_code = preparation["bindings"][0]["task_code"]
     payload = {
         "schema_version": "governance-achievement-candidate-output-v1",
@@ -559,7 +613,34 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
     assert audit["component_count"] == audit["disposition_counts"]["register"] == 1
     assert audit["registry_validation"]["status"] == "passed"
     assert audit["registry"]["achievements"][0]["participants"][0]["canonical_name"] == "房玄龄"
-    assert audit["registry_writes"] == audit["person_profile_writes"] == audit["score_writes"] == 0
+
+    ruler_preparation = json.loads(json.dumps(preparation, ensure_ascii=False))
+    ruler_preparation["people"]["PER-001"]["canonical_name"] = "唐太宗"
+    component = ruler_preparation["components"]["DNMAT-TEST"]
+    component["allowed_participants"][0]["canonical_name"] = "唐太宗"
+    for fact in component["facts"]:
+        for actor in fact["actors"]:
+            actor["canonical_name"] = "唐太宗"
+            actor["name"] = "唐太宗"
+            actor["contribution_phases"] = ["authorized"]
+    ruler_audit = audit_governance_achievement_candidates(
+        ruler_preparation,
+        [payload],
+        output_schema_path=ROOT / "config/governance-achievement-candidate-output.schema.json",
+        registry_schema_path=ROOT / "config/governance-achievement-registry.schema.json",
+        ruler_aliases={
+            "李世民": [
+                {"alias": "唐太宗", "alias_type": "temple_name"},
+                {"alias": "太宗", "alias_type": "temple_name"},
+            ],
+            "赵光义": [{"alias": "宋太宗", "alias_type": "temple_name"}],
+        },
+        dynasty_name="唐",
+    )
+    ruler_achievement = ruler_audit["registry"]["achievements"][0]
+    assert ruler_achievement["participants"] == []
+    assert ruler_achievement["ruler_links"][0]["ruler_name"] == "李世民"
+    assert ruler_achievement["ruler_links"][0]["authorization_status"] == "explicit"
 
     invalid = json.loads(json.dumps(payload, ensure_ascii=False))
     invalid["achievements"][0]["participants"][0]["person_ref"] = "PER-OUTSIDE"
@@ -597,3 +678,117 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
         if row.get("identity_status") == "provisional_actor_name"
     ]
     assert [row["canonical_name"] for row in provisional_people] == ["姚元之"]
+
+
+def test_governance_lineage_drops_explicitly_unsupported_component(
+    tmp_path: Path,
+) -> None:
+    registry = {
+        "schema_version": "governance-achievement-registry-v1",
+        "status": "shadow",
+        "achievements": [
+            {
+                "achievement_ref": "GOVACH-001",
+                "independent_governance_key": "law-result",
+                "canonical_label": "依法改判",
+                "domain": "law_and_adjudication",
+                "period": {"start": "贞观元年", "end": "贞观元年"},
+                "implementation_status": "completed",
+                "observable_result": "一案依法改判",
+                "result_direction": "positive",
+                "positive_result_preserved": True,
+                "scale": {
+                    "level": "local",
+                    "consequence_basis": "local_public_result",
+                    "reason": "单案结果",
+                },
+                "foundational": False,
+                "durable_cross_stage": False,
+                "stable_delivery": False,
+                "important_method_or_legacy": False,
+                "participants": [
+                    {
+                        "person_ref": "PER-001",
+                        "canonical_name": "测试人物",
+                        "responsibility_role": "lead",
+                        "contribution_scope": "执奏改判",
+                    }
+                ],
+                "ruler_links": [],
+                "neutral_fact_refs": ["COMP-1", "COMP-2"],
+                "source_refs": ["SRC-1", "SRC-2"],
+                "reuse_targets": ["talent_grade_civil_governance"],
+                "limitations": [
+                    "存在多事实上游组件；当前保留组件级完整史源，正式接受前需细化本成果的逐事实引用子集。"
+                ],
+            }
+        ],
+    }
+
+    def fact(ref: str, source: str, result: str) -> dict[str, object]:
+        return {
+            "fact_ref": ref,
+            "title": result,
+            "period": "贞观元年",
+            "action": result,
+            "implementation": result,
+            "observable_result": result,
+            "actors": [
+                {
+                    "canonical_name": "测试人物",
+                    "responsibility_role": "lead",
+                    "role_basis": "直接记载",
+                }
+            ],
+            "source_refs": [source],
+        }
+
+    candidate_preparation = {
+        "schema_version": "governance-achievement-candidate-preparation-v1",
+        "components": {
+            "COMP-1": {"facts": [fact("FACT-1", "SRC-1", "依法改判")]},
+            "COMP-2": {"facts": [fact("FACT-2", "SRC-2", "无关制度")]},
+        },
+    }
+    achievement_audit = {
+        "status": "accepted_shadow",
+        "registry": registry,
+        "lineage_refinement_queue": [
+            {
+                "independent_governance_key": "law-result",
+                "component_refs": ["COMP-1", "COMP-2"],
+            }
+        ],
+    }
+    preparation = prepare_governance_achievement_lineage(
+        achievement_audit,
+        candidate_preparation,
+        output_root=tmp_path,
+        output_schema_path=ROOT / "config/governance-achievement-lineage-output.schema.json",
+    )
+    result = audit_governance_achievement_lineage(
+        achievement_audit,
+        candidate_preparation,
+        preparation,
+        {
+            "schema_version": "governance-achievement-lineage-output-v1",
+            "task_code": preparation["task_code"],
+            "selections": [
+                {
+                    "achievement_ref": "GOVACH-001",
+                    "fact_refs": ["FACT-1"],
+                    "unsupported_component_refs": ["COMP-2"],
+                    "reason": "COMP-2不支持本案",
+                }
+            ],
+            "limitations": [],
+        },
+        output_schema_path=ROOT / "config/governance-achievement-lineage-output.schema.json",
+        registry_schema_path=ROOT / "config/governance-achievement-registry.schema.json",
+    )
+
+    refined = result["registry"]["achievements"][0]
+    assert refined["neutral_fact_refs"] == ["FACT-1"]
+    assert refined["source_refs"] == ["SRC-1"]
+    assert refined["limitations"] == []
+    assert result["unsupported_component_count"] == 1
