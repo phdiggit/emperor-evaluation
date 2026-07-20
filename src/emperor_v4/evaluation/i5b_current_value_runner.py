@@ -653,18 +653,33 @@ def build_i5b_current_value(
         key=lambda value: value.episode_id,
     )
     episodes = [*score_episodes, *outcome_episodes]
-    by_person: dict[str, list[str]] = {}
-    fact_owner = {str(row["person_ref"]): str(row["canonical_name"]) for row in facts.values()}
-    for episode in episodes:
+    profile_name_by_ref = {
+        str(row["person_ref"]): str(row["person"])
+        for row in pack.get("members") or ()
+    }
+    fact_owner = {
+        str(row["person_ref"]): str(row["canonical_name"])
+        for row in facts.values()
+    }
+    score_by_person: dict[str, set[str]] = {}
+    for episode in score_episodes:
         owner = fact_owner.get(episode.evaluation_context)
         if owner:
-            by_person.setdefault(owner, []).append(episode.episode_id)
+            score_by_person.setdefault(owner, set()).add(episode.episode_id)
+    outcome_by_person: dict[str, set[str]] = {}
     for cluster in outcome_clusters:
         for member in cluster["members"]:
-            if member["actor_kind"] == "person":
-                by_person.setdefault(str(member["actor_name"]), []).append(
+            person_name = profile_name_by_ref.get(str(member["actor_ref"]))
+            if member["actor_kind"] == "person" and person_name:
+                outcome_by_person.setdefault(person_name, set()).add(
                     str(cluster["episode_refs"][0])
                 )
+    combined_by_person = {
+        name: sorted(
+            score_by_person.get(name, set()) | outcome_by_person.get(name, set())
+        )
+        for name in sorted(set(score_by_person) | set(outcome_by_person))
+    }
     report: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "status": (
@@ -692,7 +707,13 @@ def build_i5b_current_value(
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
         "episodes": [asdict(value) for value in episodes],
-        "episode_index_by_person": {name: sorted(ids) for name, ids in sorted(by_person.items())},
+        "score_episode_index_by_person": {
+            name: sorted(ids) for name, ids in sorted(score_by_person.items())
+        },
+        "outcome_episode_index_by_person": {
+            name: sorted(ids) for name, ids in sorted(outcome_by_person.items())
+        },
+        "episode_index_by_person": combined_by_person,
         "rule_evidence_units": [asdict(value) for value in (*reus, team_reu)],
         "excluded_units": pack["excluded_units"],
         "material_budget": budget,
@@ -766,14 +787,12 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 rules_by_episode.setdefault(member["member_ref"], set()).add(
                     reu["rule_code"]
                 )
-    for person, ids in report["episode_index_by_person"].items():
+    for person, ids in report["score_episode_index_by_person"].items():
         lines.append(f"### {person}")
         lines.append("")
         for episode_id in ids:
             episode = episode_by_id[episode_id]
-            rule_labels = "、".join(
-                sorted(rules_by_episode.get(episode_id) or {"outcome_registry"})
-            )
+            rule_labels = "、".join(sorted(rules_by_episode[episode_id]))
             lines.append(f"- `{episode_id}`（{rule_labels}）：{episode['action']}")
         lines.append("")
     return "\n".join(lines)
@@ -989,7 +1008,9 @@ def main() -> int:
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_markdown.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    args.output_markdown.write_text(render_markdown(report), encoding="utf-8")
+    args.output_markdown.write_text(
+        render_scoring_detail_markdown(report), encoding="utf-8", newline="\n"
+    )
     print(json.dumps({"ruler": report["ruler"], "status": report["status"], "episode_count": report["declarations"]["episode_count"], "reu_count": report["declarations"]["rule_evidence_unit_count"], "net_signal": report["net_signal"], "report_sha256": report["report_sha256"]}, ensure_ascii=False, sort_keys=True))
     return 0
 

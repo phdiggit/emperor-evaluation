@@ -4,11 +4,13 @@ from decimal import Decimal
 import hashlib
 import json
 from pathlib import Path
+import sys
 
 import pytest
 
 from emperor_v4.evaluation.i5b_current_value_runner import (
     build_i5b_current_value,
+    main as runner_main,
     render_scoring_detail_markdown,
 )
 from emperor_v4.eval import main as eval_main
@@ -168,6 +170,48 @@ def test_governance_support_is_selected_by_current_result_quality() -> None:
     }
     assert "房玄龄主持中枢政务并参与贞观律令修订" in selected_labels
     assert "贡举中以文体轻薄黜落知名候选人" not in selected_labels
+    disposition_by_label = {
+        next(
+            cluster["canonical_label"]
+            for cluster in report["historical_outcome_clusters"]
+            if cluster["outcome_ref"] == row["outcome_ref"]
+        ): row["disposition"]
+        for row in report["governance_dispositions"]
+    }
+    assert disposition_by_label["建立州县义仓并用于饥馑赈给"] == (
+        "excluded_no_preserved_positive_result"
+    )
+    assert disposition_by_label["贞观律令与刑罚体系修订"] == (
+        "supporting_policy_context_not_i5b_team_score"
+    )
+    assert disposition_by_label["建立并扩充多层官学网络"] == (
+        "supporting_policy_context_not_i5b_team_score"
+    )
+
+
+def test_representative_ruler_policies_render_with_current_disposition() -> None:
+    li = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    li_rendered = render_scoring_detail_markdown(li)
+    assert "| 功臣世袭刺史 | 正向 |" in li_rendered
+    assert "| 皇子出任地方实职 | 未计入 |" in li_rendered
+    assert "建立州县义仓并用于饥馑赈给" in li_rendered
+    assert "专业目标已实现，整体混合结果及跨领域代价另行结算" in li_rendered
+
+    liu = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
+    )
+    policy_contexts = {
+        next(
+            cluster["canonical_label"]
+            for cluster in liu["historical_outcome_clusters"]
+            if cluster["outcome_ref"] == row["outcome_ref"]
+        )
+        for row in liu["governance_dispositions"]
+        if row["disposition"] == "supporting_policy_context_not_i5b_team_score"
+    }
+    assert policy_contexts == {"汉初约法轻租与财政节用", "疑狱逐级上报程序"}
 
 
 def test_representative_military_materials_keep_three_channel_lineage() -> None:
@@ -213,6 +257,37 @@ def test_current_value_cli_writes_only_current_result(tmp_path: Path) -> None:
     ]) == 0
     assert (tmp_path / "result.json").is_file()
     assert (tmp_path / "result.md").is_file()
+    report = json.loads((tmp_path / "result.json").read_text(encoding="utf-8"))
+    result_markdown = (tmp_path / "result.md").read_text(encoding="utf-8")
+    assert result_markdown == render_scoring_detail_markdown(report)
+    assert "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |" in result_markdown
+    assert "## 各臣子 Episode" not in result_markdown
+
+
+def test_direct_runner_uses_the_same_markdown_contract(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    output_json = tmp_path / "result.json"
+    output_markdown = tmp_path / "result.md"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "i5b_current_value_runner",
+            "--source-pack",
+            str(ROOT / "eval/i5b_current_value/刘邦/source-pack.json"),
+            "--output-json",
+            str(output_json),
+            "--output-markdown",
+            str(output_markdown),
+        ],
+    )
+
+    assert runner_main() == 0
+    report = json.loads(output_json.read_text(encoding="utf-8"))
+    assert output_markdown.read_text(encoding="utf-8") == (
+        render_scoring_detail_markdown(report)
+    )
 
 
 def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
@@ -281,6 +356,12 @@ def test_current_scoring_detail_export_uses_factor_values_for_unscored_materials
     assert "| 对象 | 判定 | 说明 | 事实 |" not in rendered
     assert "识才方向 1.000000" in rendered
     assert "材料分低于当前" not in rendered
+    team = next(
+        row for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "team_building"
+    )
+    assert all(row["political_risk"].get("basis") for row in team["negative_members"])
+    assert all(row["political_risk"]["basis"] in rendered for row in team["negative_members"])
 
     output = tmp_path / "scoring-detail.md"
     assert eval_main([
@@ -314,6 +395,9 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
     assert "屠浑都存在地名与人名断句争议" in rendered
     assert "## HistoricalEpisode" in rendered
     assert "英布 |" not in rendered
+    outcome_ids = report["outcome_episode_index_by_person"]["周勃"]
+    assert len(outcome_ids) == len(set(outcome_ids)) == 1
+    assert all(rendered.count(outcome_id) == 1 for outcome_id in outcome_ids)
 
     output = tmp_path / "zhou-bo.md"
     assert eval_main([
@@ -331,6 +415,35 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="不存在臣子"):
         render_scoring_detail_markdown(report, person="不存在")
+
+
+def test_default_detail_export_rebuilds_from_source_pack_not_stale_result(
+    tmp_path: Path,
+) -> None:
+    workspace = tmp_path / "workspace"
+    current_dir = workspace / "eval/i5b_current_value/刘邦"
+    current_dir.mkdir(parents=True)
+    source = ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
+    (current_dir / "source-pack.json").write_bytes(source.read_bytes())
+    (current_dir / "result.json").write_text(
+        '{"ruler":"刘邦","stale":true}', encoding="utf-8"
+    )
+    output = tmp_path / "han-xin.md"
+
+    assert eval_main([
+        "i5b-scoring-detail",
+        "--ruler",
+        "刘邦",
+        "--person",
+        "韩信",
+        "--workspace-root",
+        str(workspace),
+        "--output",
+        str(output),
+    ]) == 0
+    assert "# 刘邦 / 韩信第五项B材料预算计分验证" in output.read_text(
+        encoding="utf-8"
+    )
 
 
 @pytest.mark.parametrize("ruler", ["李世民", "刘邦"])

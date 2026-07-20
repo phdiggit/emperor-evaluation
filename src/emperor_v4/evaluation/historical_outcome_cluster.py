@@ -330,11 +330,15 @@ def assess_person_talent_grade(
         rule_path = "common_scale.local"
         counted = []
     role_labels = {**CAMPAIGN_ROLES, **GOVERNANCE_ROLES}
-    basis_parts = [
-        f"作为{role_labels[str(member['role_code'])]}完成“{cluster['canonical_label']}”，"
-        f"属{cluster['scale']['level']}级结果"
-        for cluster, member in counted
-    ]
+    basis_parts = []
+    for cluster, member in counted:
+        result_scope = ""
+        if cluster["result_direction"] == "mixed":
+            result_scope = "；专业目标已实现，整体混合结果及跨领域代价另行结算"
+        basis_parts.append(
+            f"作为{role_labels[str(member['role_code'])]}完成“{cluster['canonical_label']}”，"
+            f"属{cluster['scale']['level']}级结果{result_scope}"
+        )
     basis = "；".join(basis_parts) or "完整覆盖后未建立达到可用门槛的独立成果簇"
     return {
         "grade": grade,

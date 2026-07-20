@@ -10,8 +10,8 @@
 - 李世民当前影子结果：66个 Episode、39个 REU、30条统一成果簇，本纪补证链接11条、治理结果支持6条，加权净信号 `7.580190`。
 - 刘邦当前影子结果：32个 Episode、20个 REU、14条统一成果簇，本纪补证链接4条、治理结果支持3条；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `6.727011`。
 - 同一事件的正负 REU 共用中性 Episode；皇帝本纪只作明确 lineage 补证，文治结果由结果质量和团队人物交集确定性选择，同一皇帝决策按结算事件键只结算一次。
-- 李世民11名、刘邦10名团队成员已补齐完整本传、窗口政治风险、三路 lineage 和统一成果簇；人才等级全部由成果角色、结果规模与规则路径确定性重算，覆盖缺口为0，画像当前值可冻结。戴胄因主导的国家级稳定治理成果由旧暂定 `important` 重算为 `top`。
-- 每位皇帝只保留一个 `source-pack.json` 和一组 `result.json` / `result.md`；旧 source pack、审计展开、同步状态和并行版本已删除。
+- 李世民11名、刘邦10名团队成员已补齐完整本传、窗口政治风险、三路 lineage 和统一成果簇；人才等级全部由成果角色、结果规模与规则路径确定性重算，覆盖缺口为0，画像当前值可冻结。戴胄因主导并实际运行国家级义仓系统评为 `top`；该专业能力判断不抹去政策的整体混合结果，义仓事项因后续挪用与负担不进入皇帝团队正向结果池。
+- 每位皇帝只保留一个 `source-pack.json` 和一组 `result.json` / `result.md`；`result.md` 固定为五项规则的计分详情表，未计分材料显示因子取值，不再混入汇总性臣子 Episode 清单。旧 source pack、审计展开、同步状态和并行版本已删除。
 - 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人物政治风险首轮254人shadow结果因严重度失真和结论改变型归一被拒绝，当前全局Gate为 `failed_closed`。该轮未写人物画像表、不改人才等级，也不进入正式评分；通过唐俭、霍去病、萧瑀、朱樉校准回归前不启动全员重跑。
@@ -118,6 +118,8 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 本地全文索引是不可裁剪的召回底座。当前语料、索引、召回输入和影子报告统一保存在 NAS 的 `X:\emperor-evaluation\runtime\active\source_text_indexes\tang-core-current`；仓库 `tmp/**` 只作可删除的构建暂存，不是长期数据位置。大索引先在本地临时路径构建，校验身份和 SHA-256 后再发布到 NAS，避免直接在 SMB 目录构建半成品。`recall-report` 的 UTF-8 JSON 输入按对象提供 `works`、`recall_terms`、`attribution_terms`、`priority_terms`、显式朝代 `page_ranges` 和可选的 `priority_window_chars`；姓名命中页全部输出，不设 Top-K，也不受 FTS 候选上限影响。完整姓名只在本地标记明确归责，不触发第二次联网查询；主题词只在姓名附近的字符窗内增加优先级。仅短称出现或未命中主题的本朝页面仍完整保留。
 
 I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 strongest-N 预算结算，团队保持正8、负3；它不会合并旧基线，也不会生成45分、档位或排名。
+
+`i5b-scoring-detail` 默认同样从当前 source pack 在内存中重建后导出，`--person` 只过滤展示对象，不读取可能过期的 canonical `result.json`；只有显式传入 `--result` 时才按指定结果快照导出。
 
 任用材料投影按责任对象最多5路并行，单对象75秒、全阶段120秒硬截止且不自动重试。智能体只输出带短引用码的原子观察和 disposition，服务端映射回精确 revision 段落并确定性推导连续性；只有 `coverage_complete=true` 才替换既有 shadow 材料，不完整草案仅保留 gap，不得用残缺摘要覆盖现有事实。
 

@@ -79,6 +79,23 @@ def test_grade_reason_is_derived_from_registered_role_and_scale() -> None:
     assert len(grade["outcome_refs"]) == 3
 
 
+def test_mixed_professional_result_keeps_talent_scope_distinct_from_ruler_net() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    dai_zhou = next(row for row in pack["members"] if row["person"] == "戴胄")
+    grade = assess_person_talent_grade(
+        person_ref=dai_zhou["person_ref"],
+        clusters=pack["outcome_registry"]["clusters"],
+    )
+
+    assert grade["grade"] == "top"
+    assert "专业目标已实现" in grade["basis"]
+    assert "整体混合结果及跨领域代价另行结算" in grade["basis"]
+
+
 @pytest.mark.parametrize("ruler", ["刘邦", "李世民"])
 def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     report = build_i5b_current_value(

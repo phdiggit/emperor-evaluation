@@ -933,6 +933,13 @@ def _team_profile_members(
             row["negative_value"] = (
                 "0" if severity is None else str(severity_values[str(severity)])
             )
+            profile_review = row.get("profile_review") or {}
+            row["talent_profile_basis"] = dict(
+                profile_review.get("talent_grade") or {}
+            )
+            row["political_risk"] = dict(
+                profile_review.get("political_risk") or {}
+            )
         return members, {
             name
             for name, row in members.items()
@@ -1406,10 +1413,13 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
                     f"{row['talent_grade']} | {row['talent_grade_basis']} |"
                 )
             for row in rule["negative_members"]:
-                risk_events = (row.get("political_risk") or {}).get(
-                    "event_assessments"
-                ) or ()
-                risk_fact = str(risk_events[0].get("summary") or "") if risk_events else ""
+                political_risk = row.get("political_risk") or {}
+                risk_events = political_risk.get("event_assessments") or ()
+                risk_fact = (
+                    str(risk_events[0].get("summary") or "")
+                    if risk_events
+                    else str(political_risk.get("basis") or "")
+                )
                 lines.append(
                     f"| {row['person']} | 负向 | {row['negative_value']} | "
                     f"{row['negative_class']} / {row['negative_severity']} | "

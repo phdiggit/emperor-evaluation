@@ -13,7 +13,6 @@ from emperor_v4.evaluation.i5b_civil_discovery_compass import (
 from emperor_v4.evaluation.i5b_current_value_runner import (
     build_outcome_database_dry_run,
     build_i5b_current_value,
-    render_markdown as render_i5b_current_value_markdown,
     render_scoring_detail_markdown,
 )
 from emperor_v4.evaluation.i5b_factor_semantics import evaluate_i5b_factor_semantics
@@ -148,7 +147,7 @@ def _run_current_value(args: argparse.Namespace) -> int:
         newline="\n",
     )
     markdown_path.write_text(
-        render_i5b_current_value_markdown(report),
+        render_scoring_detail_markdown(report),
         encoding="utf-8",
         newline="\n",
     )
@@ -185,7 +184,7 @@ def _run_i5b(args: argparse.Namespace) -> int:
     )
     markdown_path = result_path.with_suffix(".md")
     markdown_path.write_text(
-        render_i5b_current_value_markdown(report),
+        render_scoring_detail_markdown(report),
         encoding="utf-8",
         newline="\n",
     )
@@ -210,12 +209,23 @@ def _run_scoring_detail(args: argparse.Namespace) -> int:
     if any(value in args.ruler for value in ("/", "\\", "..")):
         raise ValueError("--ruler 不得包含路径字符")
     workspace_root = args.workspace_root.resolve()
-    result_path = args.result or (
-        Path("eval/i5b_current_value") / args.ruler / "result.json"
-    )
-    if not result_path.is_absolute():
-        result_path = workspace_root / result_path
-    report = _load(result_path)
+    if args.result is None:
+        source_pack = (
+            workspace_root
+            / "eval"
+            / "i5b_current_value"
+            / args.ruler
+            / "source-pack.json"
+        )
+        report = build_i5b_current_value(
+            source_pack,
+            workspace_root=workspace_root,
+        )
+    else:
+        result_path = args.result
+        if not result_path.is_absolute():
+            result_path = workspace_root / result_path
+        report = _load(result_path)
     if not isinstance(report, Mapping) or report.get("ruler") != args.ruler:
         raise ValueError("当前 I5B 结果与 --ruler 不匹配")
     output = args.output

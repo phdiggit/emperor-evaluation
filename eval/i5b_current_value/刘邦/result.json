@@ -47,24 +47,20 @@
     ],
     "周勃": [
       "EP-0163706158C87E7EBC38",
-      "EP-OUTCOME-57AC21A42B1CEBC82CAA",
       "EP-OUTCOME-57AC21A42B1CEBC82CAA"
     ],
     "张良": [
       "EP-756378563E922299F13E",
-      "EP-OUTCOME-F5AE1FD07A5862E9016A",
       "EP-OUTCOME-F5AE1FD07A5862E9016A"
     ],
     "彭越": [
       "EP-12420C7674C18DF912EF",
       "EP-84BE8DC695F66823D2A4",
       "EP-B1A9174E62023E84D7C8",
-      "EP-OUTCOME-08256C2EDF7DE3248988",
       "EP-OUTCOME-08256C2EDF7DE3248988"
     ],
     "曹参": [
       "EP-8405C05B192389998DD0",
-      "EP-OUTCOME-DB94D1339E72D5325CEC",
       "EP-OUTCOME-DB94D1339E72D5325CEC"
     ],
     "樊哙": [
@@ -75,35 +71,27 @@
       "EP-164CBAA98FB0B646C7B3",
       "EP-392EE0A4637CBB480068",
       "EP-D8741F1F69CED6B9446C",
-      "EP-OUTCOME-BA987014E2597DE42157",
       "EP-OUTCOME-BA987014E2597DE42157"
     ],
     "英布": [
-      "EP-OUTCOME-76D5BE000B783D979F70",
       "EP-OUTCOME-76D5BE000B783D979F70"
     ],
     "萧何": [
       "EP-213D339B5533621815CC",
       "EP-311C3D4E16758B9FA2BB",
       "EP-EEC40AA520AD63BFBAE8",
-      "EP-OUTCOME-7D14CA93E90377E54E3A",
       "EP-OUTCOME-7D14CA93E90377E54E3A"
     ],
     "陈平": [
-      "EP-OUTCOME-96FB32C56361BC265904",
       "EP-OUTCOME-96FB32C56361BC265904"
     ],
     "陈豨": [
-      "EP-OUTCOME-3F2A4B4053BB52B9D7E7",
       "EP-OUTCOME-3F2A4B4053BB52B9D7E7"
     ],
     "韩信": [
       "EP-9A0CD694CBFD3A9A253A",
       "EP-OUTCOME-41803E452EF6A2C31286",
-      "EP-OUTCOME-41803E452EF6A2C31286",
       "EP-OUTCOME-6A06AD025DD8BFCCC53F",
-      "EP-OUTCOME-6A06AD025DD8BFCCC53F",
-      "EP-OUTCOME-928BA9FFF40C8BBAEBB7",
       "EP-OUTCOME-928BA9FFF40C8BBAEBB7"
     ],
     "韩王信": [
@@ -5737,7 +5725,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "5f40ddf75f1ecca3f6067608fe79bf8496e2300ad02bc3175f73fd019a766d8b",
-    "report_sha256": "0daa972b4f36aa8346ded50daaf8b014626b00112ac49a73d3264069b0011e9e",
+    "report_sha256": "424fa46b63ed0370d55f46b527f1c413ee252e61f909e11a10efc767d1bbe476",
     "ruler": "刘邦",
     "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
     "rules": [
@@ -5866,7 +5854,7 @@
         "source_candidate_count": 4,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
+        "source_sha256": "0b89def46f9dbe0b9b989599860fa3be5f42479828c92a5e8f42988e8163bb85",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -6057,7 +6045,7 @@
         "source_candidate_count": 6,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
+        "source_sha256": "0b89def46f9dbe0b9b989599860fa3be5f42479828c92a5e8f42988e8163bb85",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -6183,7 +6171,24 @@
             "negative_severity": "major",
             "negative_value": "1.0",
             "person": "英布",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "established",
+              "basis": "汉十一年诛灭贲赫家并发兵反汉，随后攻荆、楚并夺军，形成已实现的国家级叛乱损害。",
+              "evidence_refs": [
+                "PFACT-9CC648DB67184646FC0D"
+              ],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": "window_exposed_political_or_discipline_risk",
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "2509940",
+                "source_page": "史記/卷091"
+              },
+              "severity": "major"
+            },
             "profile_ref": "PINV-C7F5B2D5BB46703E45D0",
             "role_families": [
               "military",
@@ -6192,7 +6197,23 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主帅完成“英布举九江兵归汉并参与垓下破楚”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主帅完成“英布举九江兵归汉并参与垓下破楚”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-52EE6A258D0DBD87651D"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-887779550B1FAC8D9719"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
@@ -6200,7 +6221,24 @@
             "negative_severity": "major",
             "negative_value": "1.0",
             "person": "陈豨",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "established",
+              "basis": "在刘邦窗口内自立代王、劫掠赵代并控制大片区域，形成已实现的国家级叛乱损害。",
+              "evidence_refs": [
+                "PFACT-37C7092539559681BAA1"
+              ],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": "window_exposed_political_or_discipline_risk",
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "368019",
+                "source_page": "史記/卷093"
+              },
+              "severity": "major"
+            },
             "profile_ref": "PINV-80D1147D56FBFA1FB627",
             "role_families": [
               "border_command",
@@ -6209,7 +6247,23 @@
             "supporting_unit_refs": [],
             "talent_grade": "important",
             "talent_grade_basis": "作为主帅完成“陈豨受任统辖赵代边兵并形成区域军事实绩”，属important级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主帅完成“陈豨受任统辖赵代边兵并形成区域军事实绩”，属important级结果。",
+              "evidence_refs": [
+                "PFACT-37C7092539559681BAA1"
+              ],
+              "grade": "important",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-35908CC7B4F50E2D2F42"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "common_scale.important",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "0.9"
           },
           {
@@ -6217,7 +6271,25 @@
             "negative_severity": "serious",
             "negative_value": "0.75",
             "person": "周勃",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "established",
+              "basis": "屠马邑与本纪所载马邑不下、攻残之互证为已实现的毁灭性攻城；原文未明确平民或死亡范围，按快速门禁封顶serious。屠浑都存在地名与人名断句争议，不参与严重度累计。",
+              "evidence_refs": [
+                "PFACT-B16F3241641256A60A24",
+                "PFACT-41CE7721509571B8E874"
+              ],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": "window_exposed_political_or_discipline_risk",
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "1569360",
+                "source_page": "史記/卷057"
+              },
+              "severity": "serious"
+            },
             "profile_ref": "PINV-52400B80718A7DB029CE",
             "role_families": [
               "military",
@@ -6226,7 +6298,25 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-41CE7721509571B8E874",
+                "PFACT-69ABEDD8E89EDEC6153A",
+                "PFACT-B16F3241641256A60A24"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-FF66B22D44E93E091059"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           }
         ],
@@ -6236,7 +6326,25 @@
         "positive_members": [
           {
             "person": "周勃",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "established",
+              "basis": "屠马邑与本纪所载马邑不下、攻残之互证为已实现的毁灭性攻城；原文未明确平民或死亡范围，按快速门禁封顶serious。屠浑都存在地名与人名断句争议，不参与严重度累计。",
+              "evidence_refs": [
+                "PFACT-B16F3241641256A60A24",
+                "PFACT-41CE7721509571B8E874"
+              ],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": "window_exposed_political_or_discipline_risk",
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "1569360",
+                "source_page": "史記/卷057"
+              },
+              "severity": "serious"
+            },
             "profile_ref": "PINV-52400B80718A7DB029CE",
             "role_families": [
               "military",
@@ -6245,12 +6353,45 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-41CE7721509571B8E874",
+                "PFACT-69ABEDD8E89EDEC6153A",
+                "PFACT-B16F3241641256A60A24"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-FF66B22D44E93E091059"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "张良",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "2666612",
+                "source_page": "史記/卷055"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-86823167DF7635448A82",
             "role_families": [
               "decision",
@@ -6260,12 +6401,45 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主导完成“张良完成楚汉战略纠偏与诸侯协同”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主导完成“张良完成楚汉战略纠偏与诸侯协同”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-1070789A40FE72C73714",
+                "PFACT-630C9A0F3160F8D18E00",
+                "PFACT-FE03D100E3F0F1A347EB"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-CDAA006F86CD636C05F1"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "彭越",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "376055",
+                "source_page": "史記/卷090"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-A62CD1FCDBD092A0062B",
             "role_families": [
               "military",
@@ -6275,12 +6449,46 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主帅完成“彭越经营梁地并断楚粮道会师垓下”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主帅完成“彭越经营梁地并断楚粮道会师垓下”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-A2F78F8093F92FBF1D2E",
+                "PFACT-A774006FF76294242415",
+                "PFACT-CA27D7E8EB8364BC5561",
+                "PFACT-DBED9120F1CED0DD6424"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-E15C10618A96B7FEF819"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "曹参",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "1490182",
+                "source_page": "史記/卷054"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-F0B52E757F8CF7B15202",
             "role_families": [
               "military",
@@ -6290,12 +6498,44 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主将完成“曹参还定三秦并平定魏地”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主将完成“曹参还定三秦并平定魏地”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-C93CEDBE0B43D48920CE",
+                "PFACT-D13369328D10243E176E"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-4DA8771A874EDE938B4F"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "萧何",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "2087971",
+                "source_page": "史記/卷053"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-BF9509B5C455C62EC580",
             "role_families": [
               "administration",
@@ -6305,12 +6545,47 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为独占完成“萧何持续经营关中法制财政与后勤”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为独占完成“萧何持续经营关中法制财政与后勤”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-15C3DF643C725B46AABE",
+                "PFACT-236391B7092A78279EB6",
+                "PFACT-44BA547853A92B19310D",
+                "PFACT-626A85B2FACB08EFDDC3",
+                "PFACT-E8FD462585D33178BA89"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-4617EB700F6864BFD89B"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "陈平",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "1961615",
+                "source_page": "史記/卷056"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-6E6E489A566CC84CFB90",
             "role_families": [
               "decision",
@@ -6320,12 +6595,43 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主导完成“陈平连续筹划国家级危机处置”，属national级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主导完成“陈平连续筹划国家级危机处置”，属national级结果。",
+              "evidence_refs": [
+                "PFACT-0967C2ECDA0DB512410B"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-E23F2F12A16A6B753540"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "韩信",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "2256147",
+                "source_page": "史記/卷092"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-5D3EAE4300BFA555D86E",
             "role_families": [
               "military",
@@ -6334,12 +6640,47 @@
             "supporting_unit_refs": [],
             "talent_grade": "top",
             "talent_grade_basis": "作为主帅完成“韩信井陉破赵”，属regional级结果；作为主帅完成“韩信潍水破齐并平定齐地”，属national级结果；作为主帅完成“韩信平定魏地”，属regional级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主帅完成“韩信井陉破赵”，属regional级结果；作为主帅完成“韩信潍水破齐并平定齐地”，属national级结果；作为主帅完成“韩信平定魏地”，属regional级结果。",
+              "evidence_refs": [
+                "PFACT-0F07F86B6D23F5CC4420",
+                "PFACT-D54B6797E52C1D601CD0",
+                "PFACT-EFF72F509B7A2945F38D"
+              ],
+              "grade": "top",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-8BAC3F12DB4845145202",
+                  "OUTCOME-B8D5B7D96663158320CC",
+                  "OUTCOME-F30CA0936672E97612F7"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "top_fallback",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "1.2"
           },
           {
             "person": "灌婴",
-            "political_risk": {},
+            "political_risk": {
+              "assessment_status": "reviewed_no_material_risk",
+              "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+              "evidence_refs": [],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": null,
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "2298709",
+                "source_page": "史記/卷095"
+              },
+              "severity": null
+            },
             "profile_ref": "PINV-32C39157FEEBFFA00618",
             "role_families": [
               "military",
@@ -6349,7 +6690,26 @@
             "supporting_unit_refs": [],
             "talent_grade": "important",
             "talent_grade_basis": "作为主将完成“灌婴统骑兵破楚并追击定地”，属important级结果。",
-            "talent_profile_basis": {},
+            "talent_profile_basis": {
+              "basis": "作为主将完成“灌婴统骑兵破楚并追击定地”，属important级结果。",
+              "evidence_refs": [
+                "PFACT-52115866ED44FDE289AC",
+                "PFACT-5C6312C7F35A84095531",
+                "PFACT-822D18EE4EAB25DA3EC0",
+                "PFACT-B78200FDC67F6A7EA634"
+              ],
+              "grade": "important",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-8CD064757A8EEF430EA3"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "common_scale.important",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
             "talent_value": "0.9"
           }
         ],
@@ -6363,7 +6723,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 10,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
+        "source_sha256": "0b89def46f9dbe0b9b989599860fa3be5f42479828c92a5e8f42988e8163bb85",
         "supporting_only_members": []
       },
       {
@@ -6556,7 +6916,7 @@
         "source_candidate_count": 6,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
+        "source_sha256": "0b89def46f9dbe0b9b989599860fa3be5f42479828c92a5e8f42988e8163bb85",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -6714,7 +7074,7 @@
         "source_candidate_count": 3,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
+        "source_sha256": "0b89def46f9dbe0b9b989599860fa3be5f42479828c92a5e8f42988e8163bb85",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6736,6 +7096,40 @@
   },
   "net_signal": "6.727011",
   "net_signal_status": "stable_profile_inputs",
+  "outcome_episode_index_by_person": {
+    "周勃": [
+      "EP-OUTCOME-57AC21A42B1CEBC82CAA"
+    ],
+    "张良": [
+      "EP-OUTCOME-F5AE1FD07A5862E9016A"
+    ],
+    "彭越": [
+      "EP-OUTCOME-08256C2EDF7DE3248988"
+    ],
+    "曹参": [
+      "EP-OUTCOME-DB94D1339E72D5325CEC"
+    ],
+    "灌婴": [
+      "EP-OUTCOME-BA987014E2597DE42157"
+    ],
+    "英布": [
+      "EP-OUTCOME-76D5BE000B783D979F70"
+    ],
+    "萧何": [
+      "EP-OUTCOME-7D14CA93E90377E54E3A"
+    ],
+    "陈平": [
+      "EP-OUTCOME-96FB32C56361BC265904"
+    ],
+    "陈豨": [
+      "EP-OUTCOME-3F2A4B4053BB52B9D7E7"
+    ],
+    "韩信": [
+      "EP-OUTCOME-41803E452EF6A2C31286",
+      "EP-OUTCOME-6A06AD025DD8BFCCC53F",
+      "EP-OUTCOME-928BA9FFF40C8BBAEBB7"
+    ]
+  },
   "outcome_registry_validation": {
     "actor_count": 11,
     "cluster_count": 14,
@@ -7931,7 +8325,7 @@
       "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "45c26ee8e61fa0b87880928ff3b374a4928ea6724a61659da9464cd6049d4d3c",
+  "report_sha256": "8d412ef4c6d57b4409c4691e67966c077064fb08716516386743430e120ddda2",
   "rule_evidence_units": [
     {
       "direction": "positive",
@@ -8546,6 +8940,46 @@
   "ruler": "刘邦",
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
   "schema_version": "i5b-current-value-report-v5",
+  "score_episode_index_by_person": {
+    "卢绾": [
+      "EP-632308A88950FB7D8A7E",
+      "EP-D251F95D17D1A884E6BD"
+    ],
+    "周勃": [
+      "EP-0163706158C87E7EBC38"
+    ],
+    "张良": [
+      "EP-756378563E922299F13E"
+    ],
+    "彭越": [
+      "EP-12420C7674C18DF912EF",
+      "EP-84BE8DC695F66823D2A4",
+      "EP-B1A9174E62023E84D7C8"
+    ],
+    "曹参": [
+      "EP-8405C05B192389998DD0"
+    ],
+    "樊哙": [
+      "EP-A17EC140860C19A07CA7",
+      "EP-DFFDC21177D558CE0384"
+    ],
+    "灌婴": [
+      "EP-164CBAA98FB0B646C7B3",
+      "EP-392EE0A4637CBB480068",
+      "EP-D8741F1F69CED6B9446C"
+    ],
+    "萧何": [
+      "EP-213D339B5533621815CC",
+      "EP-311C3D4E16758B9FA2BB",
+      "EP-EEC40AA520AD63BFBAE8"
+    ],
+    "韩信": [
+      "EP-9A0CD694CBFD3A9A253A"
+    ],
+    "韩王信": [
+      "EP-E74833D53793B163CB60"
+    ]
+  },
   "source_pack_ref": "eval\\i5b_current_value\\刘邦\\source-pack.json",
   "source_pack_sha256": "8654da3d40101fea8dd9271994137e8377dd239c7401cf89a78d5153a24b4125",
   "status": "current_shadow_chain_complete",
