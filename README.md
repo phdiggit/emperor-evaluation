@@ -135,7 +135,11 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，而是保留全部 `fact_variants`、去重后的逐字 evidence 和检索用人物/领域索引。首轮35条《通典》候选结算为31个材料组件、0条待复核；第二轮73条候选对209条基线结算为68个材料组件，其中5条 `mixed_chain` 因只与基线部分重合而进入拆分复核队列。复核前连通分量只用于保存跨书变体，不能直接投影 Episode。人物名称索引不承担别名归一或功劳归责，进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向；本层不得创建 HistoricalEpisode、推定人物功劳或写分数。
 
-`dynasty_neutral_material_atomization` 只消费上述复核队列和已经验真的引文编号，不联网、不补史实。唐代5条真实 `mixed_chain` 在98.804秒内拆为16个原子，得到11条新事实、4条补强和1条复述，全部原引文闭合；拆分结果仍停在 `pending_person_and_window_resolution`。随后治理成果登记试样把人物材料、皇帝材料和制度史材料按独立成果键合并为3项：房玄龄的长期中枢运作与贞观律令体系、长孙无忌的永徽法制体系。它能把早期临时人物候选中的二人从 `important` 校准到至少 `top`；对当前 I5B 已冻结的房玄龄 `historic`、长孙无忌 `top` 则产生零档位变化，只补充结构化实绩依据，因此不得重复抬高团队建设或任用授权信号。杜如晦、魏徵、张玄素在本批制度史中没有直接人物命中，保持无新增，不用同处中枢推定共同成果。
+`dynasty_neutral_material_atomization` 只消费上述复核队列和已经验真的引文编号，不联网、不补史实。唐代5条真实 `mixed_chain` 在98.804秒内拆为16个原子，得到11条新事实、4条补强和1条复述，全部原引文闭合；拆分结果仍停在 `pending_person_and_window_resolution`。
+
+`governance_achievement_candidate` 再把结算组件、未被增量命中的朝代基线和上述原子确定性编译为一次性消费集合；同一组件只进入一个模型任务。已有人物先绑定现有 `person_ref`，简繁由 OpenCC 统一；其余人名生成朝代内 provisional actor ref，机构和复数官署不冒充人物。模型只能在允许组件、人物和字段内作 `register / omit / uncertain` 判断，不能生成史源、ID、规则方向、Episode、REU或分数；审计器再确定性生成 `governance-achievement-registry-v1`。判断 policy 进入 `task_code` 指纹，Prompt 变化不会复用旧结果。影响尺度看已实现结果而不是法令名义覆盖：单案、窄条款、资格线或一次程序调整不得仅因“颁行天下”升为国家级，`stable_delivery` 与 `important_method_or_legacy` 也必须有运行或延续证据。
+
+真实唐代批次从236个去重组件中识别120个含个人归责的组件，以4并发、10个领域任务在359.503秒内完成；90个组件登记、26个省略、4个不确定，形成87项治理成果，尺度为13项地方、43项重要、9项区域、22项国家级，0个跨批同键冲突。现有画像中长孙无忌和戴胄的事实下限形成 `top` 候选，房玄龄和张亮不变；这只是实绩下限，`historic` 仍需权威评价校准。10项成果使用了含多个事实变体的上游组件，当前保留组件级完整史源并进入 lineage refinement 指标，正式接受前应回到上游细化引用子集，不为此增加常规二次模型路由。全链保持零 registry、人物画像和评分正式写入。
 
 推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 
@@ -147,6 +151,8 @@ python -m emperor_v4.adapters.dynasty_neutral_source_increment audit --preparati
 python -m emperor_v4.adapters.dynasty_neutral_material_settlement --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --increment-audit <comparison-root>/audit.json --output <settlement.json>
 python -m emperor_v4.adapters.dynasty_neutral_material_atomization prepare --settlement <settlement.json> --output-root <atomization-root> --output-schema config/dynasty-neutral-material-atomization-output.schema.json
 python -m emperor_v4.adapters.dynasty_neutral_material_atomization audit --preparation <atomization-root>/preparation.json --result <atomization-root>/result.json --output-schema config/dynasty-neutral-material-atomization-output.schema.json --output <atomization-root>/audit.json
+python -m emperor_v4.evaluation.governance_achievement_candidate prepare --baseline <baseline-audit.json> --settlement <settlement.json> --atomization <atomization-root>/audit.json --people <profiles-or-people.json> --dynasty-token <TANG> --output-root <achievement-root> --output-schema config/governance-achievement-candidate-output.schema.json
+python -m emperor_v4.evaluation.governance_achievement_candidate audit --preparation <achievement-root>/preparation.json --results-dir <achievement-root>/results --output-schema config/governance-achievement-candidate-output.schema.json --registry-schema config/governance-achievement-registry.schema.json --output <achievement-root>/audit.json
 python -m emperor_v4.evaluation.governance_achievement_registry --registry <registry.json> --profiles <profiles.json> --schema config/governance-achievement-registry.schema.json --output <impact.json>
 ```
 

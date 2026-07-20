@@ -6,6 +6,10 @@ from pathlib import Path
 import pytest
 import yaml
 
+from emperor_v4.evaluation.governance_achievement_candidate import (
+    audit_governance_achievement_candidates,
+    prepare_governance_achievement_candidates,
+)
 from emperor_v4.evaluation.governance_achievement_registry import (
     project_civil_talent_impact,
     validate_governance_achievement_registry,
@@ -431,3 +435,165 @@ def test_governance_registry_projects_top_floor_without_writing_profile() -> Non
     assert impact["impacts"][0]["effective_shadow_grade"] == "top"
     assert impact["impacts"][0]["historic_fact_path_status"] == "not_established"
     assert impact["person_profile_writes"] == impact["score_writes"] == 0
+
+
+def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_output(
+    tmp_path: Path,
+) -> None:
+    def chain(key: str, actor: str, quote_ref: str) -> dict[str, object]:
+        return {
+            "chain_key": key,
+            "task_code": "DYNGOV-TANG-01-TEST",
+            "title": "律令修订",
+            "domain": "law_and_adjudication",
+            "period": "贞观年间",
+            "action": "修订律令",
+            "implementation": "颁行天下",
+            "operation_status": "operated",
+            "observable_result": "形成全国施用的律令体系",
+            "cost_or_burden": "原文未载",
+            "actors": [
+                {
+                    "name": actor,
+                    "responsibility_role": "lead",
+                    "contribution_phases": ["designed", "implemented"],
+                    "role_basis": "主持修订和颁行",
+                    "quote_refs": [quote_ref],
+                }
+            ],
+            "evidence": [
+                {
+                    "page_title": "通典/卷一",
+                    "revision_ref": "1",
+                    "quote_ref": quote_ref,
+                    "exact_quote": "房玄齡等刪定律令，頒行天下。",
+                }
+            ],
+            "uncertainty": "",
+        }
+
+    baseline_chain = chain("tang-law-baseline", "房玄齡", "q1")
+    candidate_chain = chain("tang-law-candidate", "房玄齡", "q2")
+    preparation = prepare_governance_achievement_candidates(
+        {
+            "status": "accepted_shadow",
+            "chains": [baseline_chain],
+        },
+        {
+            "status": "accepted_shadow",
+            "materials": [
+                {
+                    "material_ref": "DNMAT-TEST",
+                    "candidate_chain_keys": ["tang-law-candidate"],
+                    "fact_variants": [
+                        {"source_kind": "baseline", "chain_key": "tang-law-baseline", "chain": baseline_chain},
+                        {"source_kind": "candidate", "chain_key": "tang-law-candidate", "chain": candidate_chain},
+                    ],
+                }
+            ],
+            "review_queue": [],
+        },
+        {"status": "accepted_shadow", "atoms": []},
+        [
+            {
+                "person_ref": "PER-001",
+                "canonical_name": "房玄龄",
+                "aliases": ["房玄齡"],
+            }
+        ],
+        dynasty_token="TANG",
+        output_root=tmp_path,
+        output_schema_path=ROOT / "config/governance-achievement-candidate-output.schema.json",
+    )
+
+    assert preparation["component_universe_count"] == 1
+    assert preparation["eligible_component_count"] == 1
+    assert preparation["policy_version"] == "governance-achievement-judgment-v2"
+    task_code = preparation["bindings"][0]["task_code"]
+    payload = {
+        "schema_version": "governance-achievement-candidate-output-v1",
+        "task_code": task_code,
+        "component_decisions": [
+            {"component_ref": "DNMAT-TEST", "disposition": "register", "reason": "已颁行并形成结果"}
+        ],
+        "achievements": [
+            {
+                "local_key": "achievement-1",
+                "independent_governance_key": "tang-national-law-system",
+                "canonical_label": "唐代全国律令体系",
+                "domain": "law_and_adjudication",
+                "component_refs": ["DNMAT-TEST"],
+                "period_start": "贞观初",
+                "period_end": "贞观末",
+                "implementation_status": "operated",
+                "observable_result": "律令颁行天下并实际施用",
+                "result_direction": "positive",
+                "positive_result_preserved": True,
+                "scale_level": "national",
+                "scale_basis": "national_core_subsystem",
+                "scale_reason": "形成全国刑律核心子系统",
+                "foundational": False,
+                "durable_cross_stage": True,
+                "stable_delivery": True,
+                "important_method_or_legacy": True,
+                "participants": [
+                    {
+                        "person_ref": "PER-001",
+                        "responsibility_role": "lead",
+                        "contribution_scope": "主持修订和颁行",
+                    }
+                ],
+                "limitations": [],
+            }
+        ],
+        "limitations": [],
+    }
+    audit = audit_governance_achievement_candidates(
+        preparation,
+        [payload],
+        output_schema_path=ROOT / "config/governance-achievement-candidate-output.schema.json",
+        registry_schema_path=ROOT / "config/governance-achievement-registry.schema.json",
+    )
+
+    assert audit["status"] == "accepted_shadow"
+    assert audit["component_count"] == audit["disposition_counts"]["register"] == 1
+    assert audit["registry_validation"]["status"] == "passed"
+    assert audit["registry"]["achievements"][0]["participants"][0]["canonical_name"] == "房玄龄"
+    assert audit["registry_writes"] == audit["person_profile_writes"] == audit["score_writes"] == 0
+
+    invalid = json.loads(json.dumps(payload, ensure_ascii=False))
+    invalid["achievements"][0]["participants"][0]["person_ref"] = "PER-OUTSIDE"
+    with pytest.raises(ValueError, match="participant 越界"):
+        audit_governance_achievement_candidates(
+            preparation,
+            [invalid],
+            output_schema_path=ROOT / "config/governance-achievement-candidate-output.schema.json",
+            registry_schema_path=ROOT / "config/governance-achievement-registry.schema.json",
+        )
+
+    provisional = prepare_governance_achievement_candidates(
+        {
+            "status": "accepted_shadow",
+            "chains": [
+                chain("tang-provisional-person", "姚元之", "q3"),
+                chain("tang-collective-office", "刑部", "q4"),
+            ],
+        },
+        {"status": "accepted_shadow", "materials": [], "review_queue": []},
+        {"status": "accepted_shadow", "atoms": []},
+        [],
+        dynasty_token="TANG",
+        output_root=tmp_path / "provisional",
+        output_schema_path=ROOT / "config/governance-achievement-candidate-output.schema.json",
+    )
+
+    assert provisional["component_universe_count"] == 2
+    assert provisional["eligible_component_count"] == 1
+    assert provisional["ineligible_component_count"] == 1
+    assert "刑部" in provisional["unresolved_actor_names"]
+    provisional_people = [
+        row
+        for row in provisional["people"].values()
+        if row.get("identity_status") == "provisional_actor_name"
+    ]
+    assert [row["canonical_name"] for row in provisional_people] == ["姚元之"]

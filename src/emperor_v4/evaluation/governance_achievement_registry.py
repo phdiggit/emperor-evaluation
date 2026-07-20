@@ -201,11 +201,22 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
-    registry = json.loads(args.registry.read_text(encoding="utf-8"))
+    registry_payload = json.loads(args.registry.read_text(encoding="utf-8"))
+    registry = (
+        registry_payload.get("registry", registry_payload)
+        if isinstance(registry_payload, Mapping)
+        else registry_payload
+    )
     validation = validate_governance_achievement_registry(
         registry, schema_path=args.schema
     )
-    profiles = json.loads(args.profiles.read_text(encoding="utf-8"))
+    profiles_payload = json.loads(args.profiles.read_text(encoding="utf-8"))
+    if isinstance(profiles_payload, Mapping):
+        profiles = profiles_payload.get("profiles")
+        if profiles is None:
+            raise ValueError("profiles 输入对象必须包含 profiles")
+    else:
+        profiles = profiles_payload
     projection = project_civil_talent_impact(registry, profiles)
     report = {"validation": validation, "projection": projection}
     _atomic_json(args.output, report)
