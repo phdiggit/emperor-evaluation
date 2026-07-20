@@ -57,6 +57,7 @@ python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-sema
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
 python v4.py i5b-current-value --ruler 李世民
 python v4.py i5b-current-value --ruler 刘邦
+python v4.py i5b-scoring-detail --ruler 李世民 --output tmp/李世民-I5B计分详情.md
 ```
 
 臣子 Episode 直接查看对应皇帝的 `result.md`；机器可读的完整 Episode、REU、结算材料和净信号在 `result.json`。

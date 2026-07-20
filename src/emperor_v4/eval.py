@@ -13,6 +13,7 @@ from emperor_v4.evaluation.i5b_civil_discovery_compass import (
 from emperor_v4.evaluation.i5b_current_value_runner import (
     build_i5b_current_value,
     render_markdown as render_i5b_current_value_markdown,
+    render_scoring_detail_markdown,
 )
 from emperor_v4.evaluation.i5b_factor_semantics import evaluate_i5b_factor_semantics
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
@@ -46,6 +47,12 @@ def _parser() -> argparse.ArgumentParser:
     current_value.add_argument("--workspace-root", type=Path, default=Path("."))
     current_value.add_argument("--source-pack", type=Path)
     current_value.add_argument("--output-dir", type=Path)
+
+    scoring_detail = commands.add_parser("i5b-scoring-detail")
+    scoring_detail.add_argument("--ruler", required=True)
+    scoring_detail.add_argument("--workspace-root", type=Path, default=Path("."))
+    scoring_detail.add_argument("--result", type=Path)
+    scoring_detail.add_argument("--output", type=Path, required=True)
 
     model_policy = commands.add_parser("model-policy")
     model_policy.add_argument("--policy", type=Path, required=True)
@@ -142,11 +149,39 @@ def _run_current_value(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_scoring_detail(args: argparse.Namespace) -> int:
+    if any(value in args.ruler for value in ("/", "\\", "..")):
+        raise ValueError("--ruler 不得包含路径字符")
+    workspace_root = args.workspace_root.resolve()
+    result_path = args.result or (
+        Path("eval/i5b_current_value") / args.ruler / "result.json"
+    )
+    if not result_path.is_absolute():
+        result_path = workspace_root / result_path
+    report = _load(result_path)
+    if not isinstance(report, Mapping) or report.get("ruler") != args.ruler:
+        raise ValueError("当前 I5B 结果与 --ruler 不匹配")
+    output = args.output
+    if not output.is_absolute():
+        output = workspace_root / output
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        render_scoring_detail_markdown(report),
+        encoding="utf-8",
+        newline="\n",
+    )
+    print(f"皇帝：{report['ruler']}")
+    print(f"计分详情：{output}")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
 
     if args.command == "i5b-current-value":
         return _run_current_value(args)
+    if args.command == "i5b-scoring-detail":
+        return _run_scoring_detail(args)
     if args.command == "i5b-discovery-compass-record":
         workspace_root = args.workspace_root.resolve()
         compass_path = args.compass or (

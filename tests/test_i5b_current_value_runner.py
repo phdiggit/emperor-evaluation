@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+from decimal import Decimal
 import hashlib
 import json
 from pathlib import Path
 
 import pytest
 
-from emperor_v4.evaluation.i5b_current_value_runner import build_i5b_current_value
+from emperor_v4.evaluation.i5b_current_value_runner import (
+    build_i5b_current_value,
+    render_scoring_detail_markdown,
+)
 from emperor_v4.eval import main as eval_main
 
 
@@ -178,3 +182,48 @@ def test_current_value_cli_writes_only_current_result(tmp_path: Path) -> None:
     ]) == 0
     assert (tmp_path / "result.json").is_file()
     assert (tmp_path / "result.md").is_file()
+
+
+def test_current_scoring_detail_export_uses_factor_values_for_unscored_materials(
+    tmp_path: Path,
+) -> None:
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    rendered = render_scoring_detail_markdown(report)
+
+    assert "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |" in rendered
+    assert "### 未计分支持材料" in rendered
+    assert "| 对象 | 判定 | 因子取值 | 事实 |" in rendered
+    assert "| 对象 | 判定 | 说明 | 事实 |" not in rendered
+    assert "识才方向 1.000000" in rendered
+    assert "材料分低于当前" not in rendered
+
+    output = tmp_path / "scoring-detail.md"
+    assert eval_main([
+        "i5b-scoring-detail",
+        "--ruler",
+        "李世民",
+        "--workspace-root",
+        str(ROOT),
+        "--output",
+        str(output),
+    ]) == 0
+    assert output.read_text(encoding="utf-8") == rendered
+
+
+@pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
+def test_current_signals_do_not_exceed_theoretical_envelopes(ruler: str) -> None:
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value" / ruler / "source-pack.json"
+    )
+    diagnostic = report["material_budget"]["amplitude_diagnostic"]
+
+    for rule in report["material_budget"]["rules"]:
+        code = rule["rule_code"]
+        assert Decimal(rule["positive_signal"]) <= Decimal(
+            diagnostic["theoretical_positive_envelope"][code]
+        )
+        assert Decimal(rule["negative_signal"]) <= Decimal(
+            diagnostic["theoretical_negative_envelope"][code]
+        )

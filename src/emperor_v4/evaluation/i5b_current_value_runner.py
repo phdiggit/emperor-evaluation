@@ -16,6 +16,7 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     FACTOR_NAMES,
     ROOT,
     build_i5b_material_budget_shadow,
+    render_i5b_material_budget_shadow_markdown,
 )
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
@@ -626,6 +627,19 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             lines.append(f"- `{episode_id}`（{rule_labels}）：{episode['action']}")
         lines.append("")
     return "\n".join(lines)
+
+
+def render_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
+    if report.get("schema_version") != SCHEMA_VERSION:
+        raise ValueError("计分详情只接受当前 I5B 结果")
+    unsigned = dict(report)
+    declared_hash = str(unsigned.pop("report_sha256", ""))
+    if declared_hash != _digest(unsigned):
+        raise ValueError("当前 I5B 结果 report_sha256 不匹配")
+    material_budget = report.get("material_budget")
+    if not isinstance(material_budget, Mapping):
+        raise ValueError("当前 I5B 结果缺少 material_budget")
+    return render_i5b_material_budget_shadow_markdown(material_budget)
 
 
 def main() -> int:

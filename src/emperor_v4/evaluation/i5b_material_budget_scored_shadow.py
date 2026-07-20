@@ -122,12 +122,18 @@ def _factor_label_catalog(rule_code: str) -> dict[str, str]:
 
 def _factor_value_text(rule_code: str, row: Mapping[str, Any]) -> str:
     labels = _factor_label_catalog(rule_code)
-    side = str(row["side"])
-    factor_order = (
-        APPOINTMENT_FACTORS
-        if rule_code == "appointment_delegation"
-        else FACTOR_NAMES[rule_code][side]
-    )
+    if rule_code == "appointment_delegation":
+        factor_order = APPOINTMENT_FACTORS
+    else:
+        side = str(row.get("side") or "")
+        if not side:
+            side = (
+                "negative"
+                if (row.get("factor_option_codes") or {}).get("direction_sign")
+                == "negative"
+                else "positive"
+            )
+        factor_order = FACTOR_NAMES[rule_code][side]
     values = row.get("factor_values") or {}
     return "；".join(
         f"{labels.get(code, code)} {_rounded(_decimal(values[code]))}"
@@ -1165,14 +1171,11 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
     generic_event_max = material_max * _decimal(
         event_budget["talent_discovery"]["positive"]
     )
-    appointment_rank_sum = sum(
-        (
-            Decimal("1") / _decimal(rank).sqrt()
-            for rank in range(
-                1, int(event_budget["appointment_delegation"]["positive"]) + 1
-            )
-        ),
-        Decimal("0"),
+    appointment_policy = policy["rules"]["appointment_delegation"]
+    appointment_object_cap = _decimal(
+        policy["aggregation_policies"][appointment_policy["aggregation_policy"]][
+            "same_object_value_cap"
+        ]
     )
     team_budget = policy["settlement_budget"]["team_building"]
     team_policy = policy["rules"]["team_building"]
@@ -1193,7 +1196,9 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
         "theoretical_positive_envelope": {
             "talent_discovery": _rounded(generic_event_max),
             "appointment_delegation": _rounded(
-                Decimal("1.5") * material_max * appointment_rank_sum
+                Decimal("1.5")
+                * appointment_object_cap
+                * _decimal(event_budget["appointment_delegation"]["positive"])
             ),
             "team_building": _rounded(
                 max(
@@ -1208,7 +1213,10 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
         },
         "theoretical_negative_envelope": {
             "talent_discovery": _rounded(generic_event_max),
-            "appointment_delegation": _rounded(material_max * appointment_rank_sum),
+            "appointment_delegation": _rounded(
+                appointment_object_cap
+                * _decimal(event_budget["appointment_delegation"]["negative"])
+            ),
             "team_building": _rounded(
                 max(
                     _decimal(value)
@@ -1449,13 +1457,13 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
                     "",
                     "### 未计分支持材料",
                     "",
-                    "| 对象 | 判定 | 说明 | 事实 |",
+                    "| 对象 | 判定 | 因子取值 | 事实 |",
                     "| --- | --- | --- | --- |",
                 ]
             )
             for row in rule["supporting_only_materials"]:
                 lines.append(
-                    f"| {row['subject']} | 未计入 | {row['judge_reason']} | "
+                    f"| {row['subject']} | 未计入 | {_factor_value_text(rule['rule_code'], row)} | "
                     f"{str(row.get('fact') or '').replace('|', '｜').replace(chr(10), ' ')} |"
                 )
     lines.append("")
