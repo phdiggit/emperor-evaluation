@@ -54,6 +54,7 @@ CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "src/emperor_v4/adapters/claim_extractor.py",
     "src/emperor_v4/adapters/claim_extractor_frozen.py",
     "src/emperor_v4/adapters/claim_extractor_codex.py",
+    "src/emperor_v4/adapters/structured_output_contract.py",
     "src/emperor_v4/application/claim_extractor_service.py",
     "src/emperor_v4/application/source_cache_worker.py",
     "src/emperor_v4/contracts/assertion.py",

@@ -93,6 +93,9 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         "src/emperor_v4/adapters/dynasty_neutral_source_increment.py",
         "src/emperor_v4/adapters/structured_output_contract.py",
     } <= set(SOURCE_CACHE_RELEASE_PATHS)
+    assert "src/emperor_v4/adapters/structured_output_contract.py" in (
+        CLAIM_EXTRACTOR_RELEASE_PATHS
+    )
 
 
 def _claim_payload() -> dict:
