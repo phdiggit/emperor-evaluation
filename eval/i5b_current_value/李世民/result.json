@@ -7,11 +7,11 @@
     "formal_score_write_count": 0,
     "formal_scoring_ready": false,
     "linked_ruler_context_count": 11,
-    "profile_freeze_gate_passed": false,
-    "profile_material_coverage_complete": false,
+    "profile_freeze_gate_passed": true,
+    "profile_material_coverage_complete": true,
     "profile_member_count": 11,
-    "profile_member_with_open_gap_count": 11,
-    "profile_values_frozen": false,
+    "profile_member_with_open_gap_count": 0,
+    "profile_values_frozen": true,
     "ranking": null,
     "rule_evidence_unit_count": 39,
     "runtime_model_call_count": 0,
@@ -4925,7 +4925,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "5f40ddf75f1ecca3f6067608fe79bf8496e2300ad02bc3175f73fd019a766d8b",
-    "report_sha256": "34323a5064b4d5b4e99efbc485b96d252cb63b63c00cf2d198e99daaed3fae51",
+    "report_sha256": "f627f0cb355bea50b6501ba078bd8719f420839b6405a1e9773c939c82d59594",
     "ruler": "李世民",
     "ruler_ref": "RULER-58130F2446A25CC1",
     "rules": [
@@ -5053,7 +5053,7 @@
         "source_candidate_count": 9,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cf860830a9870132b4e0cc01375da3595cdb2528361bc39a093cbc15a148e44c",
+        "source_sha256": "fd777e5320e6e48816844962ec24d0e5a362901424ebb82867ed7861d2f1eb48",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -5369,7 +5369,7 @@
         "source_candidate_count": 10,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cf860830a9870132b4e0cc01375da3595cdb2528361bc39a093cbc15a148e44c",
+        "source_sha256": "fd777e5320e6e48816844962ec24d0e5a362901424ebb82867ed7861d2f1eb48",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -5764,7 +5764,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 11,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cf860830a9870132b4e0cc01375da3595cdb2528361bc39a093cbc15a148e44c",
+        "source_sha256": "fd777e5320e6e48816844962ec24d0e5a362901424ebb82867ed7861d2f1eb48",
         "supporting_only_members": []
       },
       {
@@ -5957,7 +5957,7 @@
         "source_candidate_count": 10,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cf860830a9870132b4e0cc01375da3595cdb2528361bc39a093cbc15a148e44c",
+        "source_sha256": "fd777e5320e6e48816844962ec24d0e5a362901424ebb82867ed7861d2f1eb48",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -6251,7 +6251,7 @@
         "source_candidate_count": 9,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cf860830a9870132b4e0cc01375da3595cdb2528361bc39a093cbc15a148e44c",
+        "source_sha256": "fd777e5320e6e48816844962ec24d0e5a362901424ebb82867ed7861d2f1eb48",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -6394,21 +6394,21 @@
       "team_positive_member_count": 8,
       "weighted_raw_signal": "7.497030"
     },
-    "task_code": "I5B-CURRENT-171559ADEFDDD141",
+    "task_code": "I5B-CURRENT-741E867A53E0D37A",
     "window": "626-649"
   },
   "net_signal": "7.497030",
-  "net_signal_status": "provisional_profile_inputs",
+  "net_signal_status": "stable_profile_inputs",
   "profile_projection_gate": {
-    "freeze_allowed": false,
-    "material_coverage_complete": false,
+    "freeze_allowed": true,
+    "material_coverage_complete": true,
     "required_inputs": [
       "full_lifecycle_biography",
       "authoritative_grade_calibration",
       "window_exposed_risk_events",
       "three_channel_lineage"
     ],
-    "status": "material_coverage_open"
+    "status": "frozen_after_complete_coverage"
   },
   "profile_projection_review": [
     {
@@ -6421,16 +6421,94 @@
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "serious",
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration",
-        "missing_window_risk_source"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "侯君集",
       "person_ref": "PER-CAND-851A4B92D193",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ],
+        "political_risk": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ],
+        "talent_grade": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-2185E0B1718BD304840E",
+            "PFACT-7C9F8E8DF45A5F84E7FE",
+            "PFACT-8D58091452904A0EEB84",
+            "PFACT-B52E0C525C0BD460D5B4"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-2185E0B1718BD304840E",
+            "PFACT-7C9F8E8DF45A5F84E7FE",
+            "PFACT-8D58091452904A0EEB84",
+            "PFACT-B52E0C525C0BD460D5B4"
+          ],
+          "revision_ref": "2610556",
+          "scan_status": "complete_section",
+          "section_chars": 2856,
+          "section_heading": "侯君集",
+          "source_page": "舊唐書/卷69"
+        },
+        "political_risk": {
+          "assessment_status": "established",
+          "basis": "高昌任内擅自没收无罪者并私取财物，继而放任军士盗掠；后参与承乾谋反，形成重复且已实现的严重公权损害。",
+          "evidence_refs": [
+            "PFACT-2185E0B1718BD304840E",
+            "PFACT-7C9F8E8DF45A5F84E7FE",
+            "PFACT-8D58091452904A0EEB84",
+            "PFACT-B52E0C525C0BD460D5B4"
+          ],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": "window_exposed_political_or_discipline_risk",
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2610556",
+            "source_page": "舊唐書/卷69"
+          },
+          "severity": "serious"
+        },
+        "talent_grade": {
+          "basis": "只采用李世民窗口内已经实施或进入执行阶段的玄武门谋划、高昌滥权和承乾同谋；均按校准serious。",
+          "evidence_refs": [
+            "PFACT-2185E0B1718BD304840E",
+            "PFACT-7C9F8E8DF45A5F84E7FE",
+            "PFACT-8D58091452904A0EEB84",
+            "PFACT-B52E0C525C0BD460D5B4"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-071A873261BFEFE03A74",
         "NMAT-14A58678066E1FE952FC",
@@ -6448,7 +6526,7 @@
         "NMAT-F28BF63C15D30212B2E9"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6461,16 +6539,102 @@
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "major",
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration",
-        "missing_window_risk_source"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "尉迟敬德",
       "person_ref": "PER-CAND-A49FCFF85405",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ],
+        "political_risk": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ],
+        "talent_grade": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-0E2B2C4E04F98FF69939",
+            "PFACT-3EF3BF404B1A3787190E",
+            "PFACT-51E7B775A8A36EAD6494",
+            "PFACT-D54647FD03DFCC8F581F",
+            "PFACT-FB5F6FB26D4F81F8675A"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-0E2B2C4E04F98FF69939",
+            "PFACT-3EF3BF404B1A3787190E",
+            "PFACT-51E7B775A8A36EAD6494",
+            "PFACT-D54647FD03DFCC8F581F",
+            "PFACT-FB5F6FB26D4F81F8675A"
+          ],
+          "revision_ref": "1757055",
+          "scan_status": "complete_section",
+          "section_chars": 7079,
+          "section_heading": "尉遲敬德",
+          "source_page": "舊唐書/卷68"
+        },
+        "political_risk": {
+          "assessment_status": "established",
+          "basis": "武德九年直接追射李元吉，贞观朝又拳击李道宗几近失明，属于重复直接人身伤害。",
+          "evidence_refs": [
+            "PFACT-0E2B2C4E04F98FF69939",
+            "PFACT-3EF3BF404B1A3787190E",
+            "PFACT-51E7B775A8A36EAD6494",
+            "PFACT-D54647FD03DFCC8F581F",
+            "PFACT-FB5F6FB26D4F81F8675A"
+          ],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": "window_exposed_political_or_discipline_risk",
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "1757055",
+            "source_page": "舊唐書/卷68"
+          },
+          "severity": "major"
+        },
+        "talent_grade": {
+          "basis": "武德九年处于李世民取得权力的626窗口，武装夺权及射杀元吉已实施；贞观朝另有殴伤李道宗近失明事件。",
+          "evidence_refs": [
+            "PFACT-0E2B2C4E04F98FF69939",
+            "PFACT-3EF3BF404B1A3787190E",
+            "PFACT-51E7B775A8A36EAD6494",
+            "PFACT-D54647FD03DFCC8F581F",
+            "PFACT-FB5F6FB26D4F81F8675A"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-24A33A6E662F11850570",
         "NMAT-3AD27FF0E5C084E31129",
@@ -6483,7 +6647,7 @@
         "NMAT-C450706B495B7899E9A9"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6494,11 +6658,7 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [
         "GOVACH-6DDFAAF0746687851C08",
         "GOVACH-930FFC579A6C587F951C",
@@ -6507,7 +6667,74 @@
       ],
       "person": "戴胄",
       "person_ref": "PER-CAND-947836AF2584",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-41800BF1F65F4C449560",
+          "PFACT-8B92E1B7122B0F03E37D",
+          "PFACT-E3629BBEDF15D65B4907"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-41800BF1F65F4C449560",
+          "PFACT-8B92E1B7122B0F03E37D",
+          "PFACT-E3629BBEDF15D65B4907"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-41800BF1F65F4C449560",
+          "PFACT-8B92E1B7122B0F03E37D",
+          "PFACT-E3629BBEDF15D65B4907"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-41800BF1F65F4C449560",
+            "PFACT-8B92E1B7122B0F03E37D",
+            "PFACT-E3629BBEDF15D65B4907"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-41800BF1F65F4C449560",
+            "PFACT-8B92E1B7122B0F03E37D",
+            "PFACT-E3629BBEDF15D65B4907"
+          ],
+          "revision_ref": "2585040",
+          "scan_status": "complete_section",
+          "section_chars": 2218,
+          "section_heading": "戴胄",
+          "source_page": "舊唐書/卷70"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2585040",
+            "source_page": "舊唐書/卷70"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "李世民朝司法纠偏、尚书省事务及义仓方案均在窗口内；权威覆盖不足作为限制而非降档。",
+          "evidence_refs": [
+            "PFACT-41800BF1F65F4C449560",
+            "PFACT-8B92E1B7122B0F03E37D",
+            "PFACT-E3629BBEDF15D65B4907"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-2294E52CE4341B12A1C7",
         "NMAT-829C201EFA0E26C69331",
@@ -6516,7 +6743,7 @@
         "NMAT-FD7B17194427773EAFF7"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6528,17 +6755,86 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [
         "GOVACH-74B3A10FA62F4D512DA2"
       ],
       "person": "房玄龄",
       "person_ref": "PER-CAND-0E58D2EA4AC4",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-83844E7D9ED9561C3A12",
+          "PFACT-994A65B71FE16E7026A3",
+          "PFACT-ABF416F0DD78DFA9422A",
+          "PFACT-F8D0B68DD0E6429F93F5"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-83844E7D9ED9561C3A12",
+          "PFACT-994A65B71FE16E7026A3",
+          "PFACT-ABF416F0DD78DFA9422A",
+          "PFACT-F8D0B68DD0E6429F93F5"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-83844E7D9ED9561C3A12",
+          "PFACT-994A65B71FE16E7026A3",
+          "PFACT-ABF416F0DD78DFA9422A",
+          "PFACT-F8D0B68DD0E6429F93F5"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-83844E7D9ED9561C3A12",
+            "PFACT-994A65B71FE16E7026A3",
+            "PFACT-ABF416F0DD78DFA9422A",
+            "PFACT-F8D0B68DD0E6429F93F5"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-83844E7D9ED9561C3A12",
+            "PFACT-994A65B71FE16E7026A3",
+            "PFACT-ABF416F0DD78DFA9422A",
+            "PFACT-F8D0B68DD0E6429F93F5"
+          ],
+          "revision_ref": "2034579",
+          "scan_status": "complete_section",
+          "section_chars": 4639,
+          "section_heading": "房玄齡",
+          "source_page": "舊唐書/卷66"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2034579",
+            "source_page": "舊唐書/卷66"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "采用秦王府及贞观中枢行政、法令审定、人才整合和国史项目；校准档为important。",
+          "evidence_refs": [
+            "PFACT-83844E7D9ED9561C3A12",
+            "PFACT-994A65B71FE16E7026A3",
+            "PFACT-ABF416F0DD78DFA9422A",
+            "PFACT-F8D0B68DD0E6429F93F5"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-02EA04186C54A532E533",
         "NMAT-03991163C2F6B851087C",
@@ -6567,7 +6863,7 @@
         "NMAT-F28BF63C15D30212B2E9"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6576,15 +6872,66 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "李勣",
       "person_ref": "PER-CAND-8CF6E0AAF5E5",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-FB34B3E66967110F62E2"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-FB34B3E66967110F62E2"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-FB34B3E66967110F62E2"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-FB34B3E66967110F62E2"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-FB34B3E66967110F62E2"
+          ],
+          "revision_ref": "2296327",
+          "scan_status": "complete_section",
+          "section_chars": 9812,
+          "section_heading": "李勣",
+          "source_page": "舊唐書/卷67"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2296327",
+            "source_page": "舊唐書/卷67"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "只采用李世民时期的东突厥、薛延陀、并州边防及辽东成果；隋末运河劫取风险不倒灌本窗口。",
+          "evidence_refs": [
+            "PFACT-FB34B3E66967110F62E2"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-03991163C2F6B851087C",
         "NMAT-1FA624730A3ADB720940",
@@ -6608,7 +6955,7 @@
         "NMAT-FCB6AD71289605D660CD"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6621,15 +6968,90 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "李靖",
       "person_ref": "PER-CAND-D29808A822E4",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-287074885322342E76DC",
+          "PFACT-29FAF51DCF8DB07BE46E",
+          "PFACT-782A74C3771AF1731119",
+          "PFACT-A0056AD61FA6870E926C",
+          "PFACT-E75BE36B2CD8CDB87D61"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-287074885322342E76DC",
+          "PFACT-29FAF51DCF8DB07BE46E",
+          "PFACT-782A74C3771AF1731119",
+          "PFACT-A0056AD61FA6870E926C",
+          "PFACT-E75BE36B2CD8CDB87D61"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-287074885322342E76DC",
+          "PFACT-29FAF51DCF8DB07BE46E",
+          "PFACT-782A74C3771AF1731119",
+          "PFACT-A0056AD61FA6870E926C",
+          "PFACT-E75BE36B2CD8CDB87D61"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-287074885322342E76DC",
+            "PFACT-29FAF51DCF8DB07BE46E",
+            "PFACT-782A74C3771AF1731119",
+            "PFACT-A0056AD61FA6870E926C",
+            "PFACT-E75BE36B2CD8CDB87D61"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-287074885322342E76DC",
+            "PFACT-29FAF51DCF8DB07BE46E",
+            "PFACT-782A74C3771AF1731119",
+            "PFACT-A0056AD61FA6870E926C",
+            "PFACT-E75BE36B2CD8CDB87D61"
+          ],
+          "revision_ref": "2296327",
+          "scan_status": "complete_section",
+          "section_chars": 4171,
+          "section_heading": "李靖",
+          "source_page": "舊唐書/卷67"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2296327",
+            "source_page": "舊唐書/卷67"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "李世民窗口内在东突厥、吐谷浑等独立国家级战区持续兑现；校准已拒绝把普通战争斩俘改写为政治风险。",
+          "evidence_refs": [
+            "PFACT-287074885322342E76DC",
+            "PFACT-29FAF51DCF8DB07BE46E",
+            "PFACT-782A74C3771AF1731119",
+            "PFACT-A0056AD61FA6870E926C",
+            "PFACT-E75BE36B2CD8CDB87D61"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-071A873261BFEFE03A74",
         "NMAT-242673E5F65BF5CCF6AA",
@@ -6644,23 +7066,75 @@
         "NMAT-ECE453BAEE216607C5C6"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
-      "biography_fact_refs": [],
+      "biography_fact_refs": [
+        "PFACT-C8A872B651268592E0DA"
+      ],
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_current_biography_fact",
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "杜如晦",
       "person_ref": "PER-CAND-52D752B16F85",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-C8A872B651268592E0DA"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-C8A872B651268592E0DA"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-C8A872B651268592E0DA"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-C8A872B651268592E0DA"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-C8A872B651268592E0DA"
+          ],
+          "revision_ref": "2034579",
+          "scan_status": "complete_section",
+          "section_chars": 2458,
+          "section_heading": "杜如晦",
+          "source_page": "舊唐書/卷66"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2034579",
+            "source_page": "舊唐書/卷66"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "采用李世民窗口内军国决断及与房玄龄共同形成台阁典章的成果。",
+          "evidence_refs": [
+            "PFACT-C8A872B651268592E0DA"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-2BFEC1EB1A9C66605A48",
         "NMAT-3AD27FF0E5C084E31129",
@@ -6671,7 +7145,7 @@
         "NMAT-EB2FEA9E4A23BBC96E48"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6682,15 +7156,78 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "褚遂良",
       "person_ref": "PER-CAND-6212A403EABA",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-4B3F00F43705BE34F471",
+          "PFACT-A201EA4B26D1F014872B",
+          "PFACT-C0CDA447D64C46588DEF"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-4B3F00F43705BE34F471",
+          "PFACT-A201EA4B26D1F014872B",
+          "PFACT-C0CDA447D64C46588DEF"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-4B3F00F43705BE34F471",
+          "PFACT-A201EA4B26D1F014872B",
+          "PFACT-C0CDA447D64C46588DEF"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-4B3F00F43705BE34F471",
+            "PFACT-A201EA4B26D1F014872B",
+            "PFACT-C0CDA447D64C46588DEF"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-4B3F00F43705BE34F471",
+            "PFACT-A201EA4B26D1F014872B",
+            "PFACT-C0CDA447D64C46588DEF"
+          ],
+          "revision_ref": "2588763",
+          "scan_status": "complete_section",
+          "section_chars": 5685,
+          "section_heading": "褚遂良",
+          "source_page": "舊唐書/卷80"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2588763",
+            "source_page": "舊唐書/卷80"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "采用贞观朝持续谏奏、立储共同决策、起居监督与书迹鉴别成果；不使用后朝争议。",
+          "evidence_refs": [
+            "PFACT-4B3F00F43705BE34F471",
+            "PFACT-A201EA4B26D1F014872B",
+            "PFACT-C0CDA447D64C46588DEF"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-12C01DB2F40AC45CB121",
         "NMAT-137615B5EC484250FC5A",
@@ -6709,7 +7246,7 @@
         "NMAT-EFD3F5A24C0790B57AF9"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6720,15 +7257,78 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "长孙无忌",
       "person_ref": "PER-CAND-6D5FA3B48F40",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-2FE1DDE510117AA09D70",
+          "PFACT-AFDB4E7B80FA0E10E30B",
+          "PFACT-C01899B0DCE914EBBF09"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-2FE1DDE510117AA09D70",
+          "PFACT-AFDB4E7B80FA0E10E30B",
+          "PFACT-C01899B0DCE914EBBF09"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-2FE1DDE510117AA09D70",
+          "PFACT-AFDB4E7B80FA0E10E30B",
+          "PFACT-C01899B0DCE914EBBF09"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-2FE1DDE510117AA09D70",
+            "PFACT-AFDB4E7B80FA0E10E30B",
+            "PFACT-C01899B0DCE914EBBF09"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-2FE1DDE510117AA09D70",
+            "PFACT-AFDB4E7B80FA0E10E30B",
+            "PFACT-C01899B0DCE914EBBF09"
+          ],
+          "revision_ref": "1768276",
+          "scan_status": "complete_section",
+          "section_chars": 5717,
+          "section_heading": "長孫無忌",
+          "source_page": "舊唐書/卷65"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "1768276",
+            "source_page": "舊唐書/卷65"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "采用窗口内储位维持、制度劝止、边政判断和修史监领成果；玄武门风险另入负池评价。",
+          "evidence_refs": [
+            "PFACT-2FE1DDE510117AA09D70",
+            "PFACT-AFDB4E7B80FA0E10E30B",
+            "PFACT-C01899B0DCE914EBBF09"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-3AD27FF0E5C084E31129",
         "NMAT-44404A9B67A01D74F643",
@@ -6746,7 +7346,7 @@
         "NMAT-FCA79A6534CDB231E0DD"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6755,16 +7355,70 @@
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "serious",
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration",
-        "missing_window_risk_source"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "高士廉",
       "person_ref": "PER-CAND-564F932D7FB5",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ],
+        "political_risk": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ],
+        "talent_grade": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-AD0F8C4C4C578CED7C34"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-AD0F8C4C4C578CED7C34"
+          ],
+          "revision_ref": "1768276",
+          "scan_status": "complete_section",
+          "section_chars": 2690,
+          "section_heading": "高儉",
+          "source_page": "舊唐書/卷65"
+        },
+        "political_risk": {
+          "assessment_status": "established",
+          "basis": "武德九年释放囚犯并授兵参与继承冲突，贞观元年又扣压王珪密表，形成重复的权力与信息门控风险。",
+          "evidence_refs": [
+            "PFACT-AD0F8C4C4C578CED7C34"
+          ],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": "window_exposed_political_or_discipline_risk",
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "1768276",
+            "source_page": "舊唐書/卷65"
+          },
+          "severity": "serious"
+        },
+        "talent_grade": {
+          "basis": "武德九年前后参与释放囚犯、发给武器投入继承斗争；贞观元年又实际扣压密表。",
+          "evidence_refs": [
+            "PFACT-AD0F8C4C4C578CED7C34"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-2409616203FCA7070E4F",
         "NMAT-3AD27FF0E5C084E31129",
@@ -6776,7 +7430,7 @@
         "NMAT-EB2FEA9E4A23BBC96E48"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -6789,15 +7443,90 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "魏徵",
       "person_ref": "PER-CAND-1DA5E84241DE",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-46E0202B0B9754A3CC6A",
+          "PFACT-A111DE6D11F43B330228",
+          "PFACT-B35B1D73AD95C67058A9",
+          "PFACT-CAC16A94AC88CFD6D8BC",
+          "PFACT-FD9071BFF74E1637E3FE"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-46E0202B0B9754A3CC6A",
+          "PFACT-A111DE6D11F43B330228",
+          "PFACT-B35B1D73AD95C67058A9",
+          "PFACT-CAC16A94AC88CFD6D8BC",
+          "PFACT-FD9071BFF74E1637E3FE"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-46E0202B0B9754A3CC6A",
+          "PFACT-A111DE6D11F43B330228",
+          "PFACT-B35B1D73AD95C67058A9",
+          "PFACT-CAC16A94AC88CFD6D8BC",
+          "PFACT-FD9071BFF74E1637E3FE"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-46E0202B0B9754A3CC6A",
+            "PFACT-A111DE6D11F43B330228",
+            "PFACT-B35B1D73AD95C67058A9",
+            "PFACT-CAC16A94AC88CFD6D8BC",
+            "PFACT-FD9071BFF74E1637E3FE"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-46E0202B0B9754A3CC6A",
+            "PFACT-A111DE6D11F43B330228",
+            "PFACT-B35B1D73AD95C67058A9",
+            "PFACT-CAC16A94AC88CFD6D8BC",
+            "PFACT-FD9071BFF74E1637E3FE"
+          ],
+          "revision_ref": "2020238",
+          "scan_status": "complete_section",
+          "section_chars": 9412,
+          "section_heading": "=魏-{徵}-=",
+          "source_page": "舊唐書/卷71"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2020238",
+            "source_page": "舊唐書/卷71"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "李世民朝二百余事陈谏、具体撤令纠偏和史学礼学成果均在窗口内。",
+          "evidence_refs": [
+            "PFACT-46E0202B0B9754A3CC6A",
+            "PFACT-A111DE6D11F43B330228",
+            "PFACT-B35B1D73AD95C67058A9",
+            "PFACT-CAC16A94AC88CFD6D8BC",
+            "PFACT-FD9071BFF74E1637E3FE"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-1551A24ABD55463C1149",
         "NMAT-15C308394D2C24DE33C2",
@@ -6839,10 +7568,10 @@
         "NMAT-FCDD04ED0F4D5853B84B"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "5d93ba2ac81aea2594cce7fabc97052570308e3619e07fcf103026fc2737b8ab",
+  "report_sha256": "f6401714a0e661695e40cf13013cd5908a5b4cc7892d513573b741c83169ab89",
   "rule_evidence_units": [
     {
       "direction": "positive",
@@ -8031,7 +8760,7 @@
           "戴胄",
           "褚遂良"
         ],
-        "profile_value_status": "provisional_material_coverage_open",
+        "profile_value_status": "frozen_after_complete_coverage",
         "ruler_context_inventory_fingerprint": "5e77fa1890c46f299a0943120262f37d45c332f5f615c68436f56cb39f183526"
       },
       "rule_code": "team_building",
@@ -8042,10 +8771,10 @@
   ],
   "ruler": "李世民",
   "ruler_ref": "RULER-58130F2446A25CC1",
-  "schema_version": "i5b-current-value-report-v2",
+  "schema_version": "i5b-current-value-report-v3",
   "source_pack_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-  "source_pack_sha256": "95f2404065f975a4dbf8330105d86aba5aa170244d2d2436b418e6104d362c75",
-  "status": "current_shadow_chain_complete_profile_values_provisional",
+  "source_pack_sha256": "e63ff6286b461138f0f1eee7addb75aff5535e887583b3e4a7623e11365346f9",
+  "status": "current_shadow_chain_complete",
   "three_channel_disposition": {
     "dynasty_governance": {
       "disposition": "deterministic_team_support_or_policy_context",

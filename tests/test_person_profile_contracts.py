@@ -341,6 +341,10 @@ def test_political_risk_policy_remains_shadow_and_talent_orthogonal() -> None:
     assert policy["retrieval_protocol"]["no_risk_exhaustive_path"]["applies_to"] == [
         "reviewed_no_material_risk"
     ]
+    slaughter_rules = policy["retrieval_protocol"]["semantic_adjudication"]["hard_rules"]
+    assert any("最高暂定serious" in rule for rule in slaughter_rules)
+    assert any("人名断句" in rule for rule in slaughter_rules)
+    assert any("不得单独作为未发生屠杀的反证" in rule for rule in slaughter_rules)
 
 
 def test_ambiguous_location_object_hit_cannot_be_included() -> None:

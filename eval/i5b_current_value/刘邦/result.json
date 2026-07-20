@@ -7,11 +7,11 @@
     "formal_score_write_count": 0,
     "formal_scoring_ready": false,
     "linked_ruler_context_count": 4,
-    "profile_freeze_gate_passed": false,
-    "profile_material_coverage_complete": false,
+    "profile_freeze_gate_passed": true,
+    "profile_material_coverage_complete": true,
     "profile_member_count": 10,
-    "profile_member_with_open_gap_count": 10,
-    "profile_values_frozen": false,
+    "profile_member_with_open_gap_count": 0,
+    "profile_values_frozen": true,
     "ranking": null,
     "rule_evidence_unit_count": 20,
     "runtime_model_call_count": 0,
@@ -2957,7 +2957,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "5f40ddf75f1ecca3f6067608fe79bf8496e2300ad02bc3175f73fd019a766d8b",
-    "report_sha256": "1cf43a93a0cc1d5b42d4f042558a2c14971f537a53327ffe8eed44b717d35160",
+    "report_sha256": "eefb1ce9bb482b0c444dde8503d47a39606cfe083a961798bc8c67bd0c351d07",
     "ruler": "刘邦",
     "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
     "rules": [
@@ -3086,7 +3086,7 @@
         "source_candidate_count": 4,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "f209dda42f78cc4f7b06ec84f49cfbdf4c720954d477e4903ef97a9ed612ec41",
+        "source_sha256": "25825e1c535f9f257bd8861d01081928618b1de71f083c5256de85aa6ce303bf",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -3277,7 +3277,7 @@
         "source_candidate_count": 6,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "f209dda42f78cc4f7b06ec84f49cfbdf4c720954d477e4903ef97a9ed612ec41",
+        "source_sha256": "25825e1c535f9f257bd8861d01081928618b1de71f083c5256de85aa6ce303bf",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -3350,23 +3350,6 @@
             "negative_class": "window_exposed_political_or_discipline_risk",
             "negative_severity": "major",
             "negative_value": "1.0",
-            "person": "周勃",
-            "political_risk": {},
-            "profile_ref": "PINV-52400B80718A7DB029CE",
-            "role_families": [
-              "military",
-              "pacification"
-            ],
-            "supporting_unit_refs": [],
-            "talent_grade": "top",
-            "talent_grade_basis": "高帝时期讨陈豨屠马邑、讨卢绾屠浑都，两项均已在刘邦窗口实施。",
-            "talent_profile_basis": {},
-            "talent_value": "1.2"
-          },
-          {
-            "negative_class": "window_exposed_political_or_discipline_risk",
-            "negative_severity": "major",
-            "negative_value": "1.0",
             "person": "英布",
             "political_risk": {},
             "profile_ref": "PINV-C7F5B2D5BB46703E45D0",
@@ -3396,10 +3379,27 @@
             "talent_grade_basis": "刘邦时期组织反叛、自立代王、劫掠赵代并控制邯郸以北，已造成跨区域战争损害。",
             "talent_profile_basis": {},
             "talent_value": "0.9"
+          },
+          {
+            "negative_class": "window_exposed_political_or_discipline_risk",
+            "negative_severity": "serious",
+            "negative_value": "0.75",
+            "person": "周勃",
+            "political_risk": {},
+            "profile_ref": "PINV-52400B80718A7DB029CE",
+            "role_families": [
+              "military",
+              "pacification"
+            ],
+            "supporting_unit_refs": [],
+            "talent_grade": "top",
+            "talent_grade_basis": "高帝时期承担长期军事授权并平定多郡；屠马邑另按毁灭性攻城计serious风险，屠浑都因断句争议不累计。",
+            "talent_profile_basis": {},
+            "talent_value": "1.2"
           }
         ],
-        "negative_pool": "3.000000",
-        "negative_signal": "3.000000",
+        "negative_pool": "2.750000",
+        "negative_signal": "2.750000",
         "positive_member_budget": 8,
         "positive_members": [
           {
@@ -3412,7 +3412,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "高帝时期讨陈豨屠马邑、讨卢绾屠浑都，两项均已在刘邦窗口实施。",
+            "talent_grade_basis": "高帝时期承担长期军事授权并平定多郡；屠马邑另按毁灭性攻城计serious风险，屠浑都因断句争议不累计。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3527,11 +3527,11 @@
         "profile_source_enforced": true,
         "rule_code": "team_building",
         "rule_label": "团队建设",
-        "rule_raw_net": "10.392000",
+        "rule_raw_net": "10.642000",
         "settlement_mode": "policy_budget",
         "source_candidate_count": 10,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "f209dda42f78cc4f7b06ec84f49cfbdf4c720954d477e4903ef97a9ed612ec41",
+        "source_sha256": "25825e1c535f9f257bd8861d01081928618b1de71f083c5256de85aa6ce303bf",
         "supporting_only_members": []
       },
       {
@@ -3724,7 +3724,7 @@
         "source_candidate_count": 6,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "f209dda42f78cc4f7b06ec84f49cfbdf4c720954d477e4903ef97a9ed612ec41",
+        "source_sha256": "25825e1c535f9f257bd8861d01081928618b1de71f083c5256de85aa6ce303bf",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -3882,7 +3882,7 @@
         "source_candidate_count": 3,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "f209dda42f78cc4f7b06ec84f49cfbdf4c720954d477e4903ef97a9ed612ec41",
+        "source_sha256": "25825e1c535f9f257bd8861d01081928618b1de71f083c5256de85aa6ce303bf",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -3897,23 +3897,23 @@
       "settled_event_positive_count": 11,
       "team_negative_member_count": 3,
       "team_positive_member_count": 8,
-      "weighted_raw_signal": "6.674511"
+      "weighted_raw_signal": "6.727011"
     },
-    "task_code": "I5B-CURRENT-431CE5CC9B42E1C0",
+    "task_code": "I5B-CURRENT-75A78E9A3F3CC970",
     "window": "前206-前195"
   },
-  "net_signal": "6.674511",
-  "net_signal_status": "provisional_profile_inputs",
+  "net_signal": "6.727011",
+  "net_signal_status": "stable_profile_inputs",
   "profile_projection_gate": {
-    "freeze_allowed": false,
-    "material_coverage_complete": false,
+    "freeze_allowed": true,
+    "material_coverage_complete": true,
     "required_inputs": [
       "full_lifecycle_biography",
       "authoritative_grade_calibration",
       "window_exposed_risk_events",
       "three_channel_lineage"
     ],
-    "status": "material_coverage_open"
+    "status": "frozen_after_complete_coverage"
   },
   "profile_projection_review": [
     {
@@ -3923,16 +3923,23 @@
         "PFACT-B16F3241641256A60A24"
       ],
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
-      "candidate_negative_talent_severity": "major",
+      "candidate_negative_talent_severity": "serious",
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "周勃",
       "person_ref": "PER-CAND-746B660CC80F",
       "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-41CE7721509571B8E874",
+          "PFACT-69ABEDD8E89EDEC6153A",
+          "PFACT-B16F3241641256A60A24"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-41CE7721509571B8E874",
+          "PFACT-69ABEDD8E89EDEC6153A",
+          "PFACT-B16F3241641256A60A24"
+        ],
         "political_risk": [
           "PFACT-41CE7721509571B8E874",
           "PFACT-B16F3241641256A60A24"
@@ -3943,6 +3950,59 @@
           "PFACT-B16F3241641256A60A24"
         ]
       },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-41CE7721509571B8E874",
+            "PFACT-69ABEDD8E89EDEC6153A",
+            "PFACT-B16F3241641256A60A24"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-41CE7721509571B8E874",
+            "PFACT-69ABEDD8E89EDEC6153A",
+            "PFACT-B16F3241641256A60A24"
+          ],
+          "revision_ref": "1569360",
+          "scan_status": "complete_section",
+          "section_chars": 3546,
+          "section_heading": "周勃",
+          "source_page": "史記/卷057"
+        },
+        "political_risk": {
+          "assessment_status": "established",
+          "basis": "屠马邑与本纪所载马邑不下、攻残之互证为已实现的毁灭性攻城；原文未明确平民或死亡范围，按快速门禁封顶serious。屠浑都存在地名与人名断句争议，不参与严重度累计。",
+          "evidence_refs": [
+            "PFACT-B16F3241641256A60A24",
+            "PFACT-41CE7721509571B8E874"
+          ],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": "window_exposed_political_or_discipline_risk",
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "1569360",
+            "source_page": "史記/卷057"
+          },
+          "severity": "serious"
+        },
+        "talent_grade": {
+          "basis": "高帝时期承担长期军事授权并平定多郡；屠马邑另按毁灭性攻城计serious风险，屠浑都因断句争议不累计。",
+          "evidence_refs": [
+            "PFACT-41CE7721509571B8E874",
+            "PFACT-69ABEDD8E89EDEC6153A",
+            "PFACT-B16F3241641256A60A24"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-023546A259B7CE86CC30",
         "NMAT-20D51EF5A0FFEB8D2B9E",
@@ -3952,7 +4012,7 @@
         "NMAT-E268A9D7FFDEBDDA1467"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -3963,15 +4023,78 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "张良",
       "person_ref": "PER-CAND-2FFB15145AF5",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-1070789A40FE72C73714",
+          "PFACT-630C9A0F3160F8D18E00",
+          "PFACT-FE03D100E3F0F1A347EB"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-1070789A40FE72C73714",
+          "PFACT-630C9A0F3160F8D18E00",
+          "PFACT-FE03D100E3F0F1A347EB"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-1070789A40FE72C73714",
+          "PFACT-630C9A0F3160F8D18E00",
+          "PFACT-FE03D100E3F0F1A347EB"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-1070789A40FE72C73714",
+            "PFACT-630C9A0F3160F8D18E00",
+            "PFACT-FE03D100E3F0F1A347EB"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-1070789A40FE72C73714",
+            "PFACT-630C9A0F3160F8D18E00",
+            "PFACT-FE03D100E3F0F1A347EB"
+          ],
+          "revision_ref": "2666612",
+          "scan_status": "complete_section",
+          "section_chars": 5032,
+          "section_heading": "留侯",
+          "source_page": "史記/卷055"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2666612",
+            "source_page": "史記/卷055"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "刘邦窗口内跨入关、楚汉战争、定都及继承危机反复承担国家战略谋划。",
+          "evidence_refs": [
+            "PFACT-1070789A40FE72C73714",
+            "PFACT-630C9A0F3160F8D18E00",
+            "PFACT-FE03D100E3F0F1A347EB"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-0C2E7AE1256D14D79CA1",
         "NMAT-0D1224AF8A805A70B90F",
@@ -4007,7 +4130,7 @@
         "NMAT-F9201CD5A851E591C0D5"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4019,15 +4142,84 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "彭越",
       "person_ref": "PER-CAND-CB012BC1F12F",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-A2F78F8093F92FBF1D2E",
+          "PFACT-A774006FF76294242415",
+          "PFACT-CA27D7E8EB8364BC5561",
+          "PFACT-DBED9120F1CED0DD6424"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-A2F78F8093F92FBF1D2E",
+          "PFACT-A774006FF76294242415",
+          "PFACT-CA27D7E8EB8364BC5561",
+          "PFACT-DBED9120F1CED0DD6424"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-A2F78F8093F92FBF1D2E",
+          "PFACT-A774006FF76294242415",
+          "PFACT-CA27D7E8EB8364BC5561",
+          "PFACT-DBED9120F1CED0DD6424"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-A2F78F8093F92FBF1D2E",
+            "PFACT-A774006FF76294242415",
+            "PFACT-CA27D7E8EB8364BC5561",
+            "PFACT-DBED9120F1CED0DD6424"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-A2F78F8093F92FBF1D2E",
+            "PFACT-A774006FF76294242415",
+            "PFACT-CA27D7E8EB8364BC5561",
+            "PFACT-DBED9120F1CED0DD6424"
+          ],
+          "revision_ref": "376055",
+          "scan_status": "complete_section",
+          "section_chars": 1220,
+          "section_heading": "彭越",
+          "source_page": "史記/卷090"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "376055",
+            "source_page": "史記/卷090"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "归汉后在刘邦授权下长期承担梁地游兵、断粮、攻城供粮及垓下会师。",
+          "evidence_refs": [
+            "PFACT-A2F78F8093F92FBF1D2E",
+            "PFACT-A774006FF76294242415",
+            "PFACT-CA27D7E8EB8364BC5561",
+            "PFACT-DBED9120F1CED0DD6424"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-0C2E7AE1256D14D79CA1",
         "NMAT-1A3E538C84579DF7449F",
@@ -4040,7 +4232,7 @@
         "NMAT-F49AEE5615E14F98D512"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4050,15 +4242,72 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "曹参",
       "person_ref": "PER-CAND-D60B93B81159",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-C93CEDBE0B43D48920CE",
+          "PFACT-D13369328D10243E176E"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-C93CEDBE0B43D48920CE",
+          "PFACT-D13369328D10243E176E"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-C93CEDBE0B43D48920CE",
+          "PFACT-D13369328D10243E176E"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-C93CEDBE0B43D48920CE",
+            "PFACT-D13369328D10243E176E"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-C93CEDBE0B43D48920CE",
+            "PFACT-D13369328D10243E176E"
+          ],
+          "revision_ref": "1490182",
+          "scan_status": "complete_section",
+          "section_chars": 2490,
+          "section_heading": "曹相國",
+          "source_page": "史記/卷054"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "1490182",
+            "source_page": "史記/卷054"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "刘邦窗口内持续军事履职并承担齐地军事行政整合。",
+          "evidence_refs": [
+            "PFACT-C93CEDBE0B43D48920CE",
+            "PFACT-D13369328D10243E176E"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-023546A259B7CE86CC30",
         "NMAT-48123F203604E6966A5C",
@@ -4067,7 +4316,7 @@
         "NMAT-EF526E6E91B1E661CEEE"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4079,39 +4328,163 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "灌婴",
       "person_ref": "PER-CAND-39DB5536EF01",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-52115866ED44FDE289AC",
+          "PFACT-5C6312C7F35A84095531",
+          "PFACT-822D18EE4EAB25DA3EC0",
+          "PFACT-B78200FDC67F6A7EA634"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-52115866ED44FDE289AC",
+          "PFACT-5C6312C7F35A84095531",
+          "PFACT-822D18EE4EAB25DA3EC0",
+          "PFACT-B78200FDC67F6A7EA634"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-52115866ED44FDE289AC",
+          "PFACT-5C6312C7F35A84095531",
+          "PFACT-822D18EE4EAB25DA3EC0",
+          "PFACT-B78200FDC67F6A7EA634"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-52115866ED44FDE289AC",
+            "PFACT-5C6312C7F35A84095531",
+            "PFACT-822D18EE4EAB25DA3EC0",
+            "PFACT-B78200FDC67F6A7EA634"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-52115866ED44FDE289AC",
+            "PFACT-5C6312C7F35A84095531",
+            "PFACT-822D18EE4EAB25DA3EC0",
+            "PFACT-B78200FDC67F6A7EA634"
+          ],
+          "revision_ref": "2298709",
+          "scan_status": "complete_section",
+          "section_chars": 1834,
+          "section_heading": "灌嬰",
+          "source_page": "史記/卷095"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2298709",
+            "source_page": "史記/卷095"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "刘邦窗口内长期统率骑兵、别击追击并跨战区平定郡县。",
+          "evidence_refs": [
+            "PFACT-52115866ED44FDE289AC",
+            "PFACT-5C6312C7F35A84095531",
+            "PFACT-822D18EE4EAB25DA3EC0",
+            "PFACT-B78200FDC67F6A7EA634"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-7519D000B41974C6CD8A",
         "NMAT-841D4683F3DC3DB7184F",
         "NMAT-EF526E6E91B1E661CEEE"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
-      "biography_fact_refs": [],
+      "biography_fact_refs": [
+        "PFACT-9CC648DB67184646FC0D"
+      ],
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "major",
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_current_biography_fact",
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration",
-        "missing_window_risk_source"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "英布",
       "person_ref": "PER-CAND-1471155D486E",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-9CC648DB67184646FC0D"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-9CC648DB67184646FC0D"
+        ],
+        "political_risk": [
+          "PFACT-9CC648DB67184646FC0D"
+        ],
+        "talent_grade": [
+          "PFACT-9CC648DB67184646FC0D"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-9CC648DB67184646FC0D"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-9CC648DB67184646FC0D"
+          ],
+          "revision_ref": "2509940",
+          "scan_status": "complete_section",
+          "section_chars": 3228,
+          "section_heading": "黥布",
+          "source_page": "史記/卷091"
+        },
+        "political_risk": {
+          "assessment_status": "established",
+          "basis": "汉十一年诛灭贲赫家并发兵反汉，随后攻荆、楚并夺军，形成已实现的国家级叛乱损害。",
+          "evidence_refs": [
+            "PFACT-9CC648DB67184646FC0D"
+          ],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": "window_exposed_political_or_discipline_risk",
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2509940",
+            "source_page": "史記/卷091"
+          },
+          "severity": "major"
+        },
+        "talent_grade": {
+          "basis": "汉十一年在刘邦窗口内发动跨区域反汉战争，并另有诛灭贲赫家族的已实施损害；项籍窗口风险不倒灌。",
+          "evidence_refs": [
+            "PFACT-9CC648DB67184646FC0D"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-1E1832344544E475BD63",
         "NMAT-2704C05392133F9FF19E",
@@ -4127,7 +4500,7 @@
         "NMAT-F8ABB18565CE1E86ADE8"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4140,15 +4513,90 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "萧何",
       "person_ref": "PER-CAND-C4F753AA4405",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-15C3DF643C725B46AABE",
+          "PFACT-236391B7092A78279EB6",
+          "PFACT-44BA547853A92B19310D",
+          "PFACT-626A85B2FACB08EFDDC3",
+          "PFACT-E8FD462585D33178BA89"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-15C3DF643C725B46AABE",
+          "PFACT-236391B7092A78279EB6",
+          "PFACT-44BA547853A92B19310D",
+          "PFACT-626A85B2FACB08EFDDC3",
+          "PFACT-E8FD462585D33178BA89"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-15C3DF643C725B46AABE",
+          "PFACT-236391B7092A78279EB6",
+          "PFACT-44BA547853A92B19310D",
+          "PFACT-626A85B2FACB08EFDDC3",
+          "PFACT-E8FD462585D33178BA89"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-15C3DF643C725B46AABE",
+            "PFACT-236391B7092A78279EB6",
+            "PFACT-44BA547853A92B19310D",
+            "PFACT-626A85B2FACB08EFDDC3",
+            "PFACT-E8FD462585D33178BA89"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-15C3DF643C725B46AABE",
+            "PFACT-236391B7092A78279EB6",
+            "PFACT-44BA547853A92B19310D",
+            "PFACT-626A85B2FACB08EFDDC3",
+            "PFACT-E8FD462585D33178BA89"
+          ],
+          "revision_ref": "2087971",
+          "scan_status": "complete_section",
+          "section_chars": 2311,
+          "section_heading": "蕭相國",
+          "source_page": "史記/卷053"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2087971",
+            "source_page": "史記/卷053"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "刘邦窗口内长期负责关中治理、制度建置、转漕补兵和后方稳定。",
+          "evidence_refs": [
+            "PFACT-15C3DF643C725B46AABE",
+            "PFACT-236391B7092A78279EB6",
+            "PFACT-44BA547853A92B19310D",
+            "PFACT-626A85B2FACB08EFDDC3",
+            "PFACT-E8FD462585D33178BA89"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-023546A259B7CE86CC30",
         "NMAT-0B1CE350DDE0E00522E2",
@@ -4168,23 +4616,75 @@
         "NMAT-F9193AC23648C59984A1"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
-      "biography_fact_refs": [],
+      "biography_fact_refs": [
+        "PFACT-0967C2ECDA0DB512410B"
+      ],
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_current_biography_fact",
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "陈平",
       "person_ref": "PER-CAND-F67C4F794042",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-0967C2ECDA0DB512410B"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-0967C2ECDA0DB512410B"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-0967C2ECDA0DB512410B"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-0967C2ECDA0DB512410B"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-0967C2ECDA0DB512410B"
+          ],
+          "revision_ref": "1961615",
+          "scan_status": "complete_section",
+          "section_chars": 4213,
+          "section_heading": "陳平",
+          "source_page": "史記/卷056"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "1961615",
+            "source_page": "史記/卷056"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "刘邦窗口内在荥阳、平城及诸侯处置等危机中反复提供应变方案。",
+          "evidence_refs": [
+            "PFACT-0967C2ECDA0DB512410B"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-023546A259B7CE86CC30",
         "NMAT-1A3E538C84579DF7449F",
@@ -4205,24 +4705,79 @@
         "NMAT-E6673384740165B2231C"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
-      "biography_fact_refs": [],
+      "biography_fact_refs": [
+        "PFACT-37C7092539559681BAA1"
+      ],
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "major",
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_current_biography_fact",
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration",
-        "missing_window_risk_source"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "陈豨",
       "person_ref": "PER-CAND-622BEAAA2820",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-37C7092539559681BAA1"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-37C7092539559681BAA1"
+        ],
+        "political_risk": [
+          "PFACT-37C7092539559681BAA1"
+        ],
+        "talent_grade": [
+          "PFACT-37C7092539559681BAA1"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-37C7092539559681BAA1"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-37C7092539559681BAA1"
+          ],
+          "revision_ref": "368019",
+          "scan_status": "complete_section",
+          "section_chars": 760,
+          "section_heading": "陳豨",
+          "source_page": "史記/卷093"
+        },
+        "political_risk": {
+          "assessment_status": "established",
+          "basis": "在刘邦窗口内自立代王、劫掠赵代并控制大片区域，形成已实现的国家级叛乱损害。",
+          "evidence_refs": [
+            "PFACT-37C7092539559681BAA1"
+          ],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": "window_exposed_political_or_discipline_risk",
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "368019",
+            "source_page": "史記/卷093"
+          },
+          "severity": "major"
+        },
+        "talent_grade": {
+          "basis": "刘邦时期组织反叛、自立代王、劫掠赵代并控制邯郸以北，已造成跨区域战争损害。",
+          "evidence_refs": [
+            "PFACT-37C7092539559681BAA1"
+          ],
+          "grade": "important",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-20D51EF5A0FFEB8D2B9E",
         "NMAT-781A6D0F0F04FFBAEDB8",
@@ -4231,7 +4786,7 @@
         "NMAT-D1011B81979AA203A03B"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4240,15 +4795,66 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_lineage",
-        "missing_full_lifecycle_biography_lineage",
-        "missing_authoritative_grade_calibration"
-      ],
+      "coverage_gaps": [],
       "governance_achievement_refs": [],
       "person": "韩信",
       "person_ref": "PER-CAND-039AFE91A974",
-      "profile_evidence_refs": {},
+      "profile_evidence_refs": {
+        "authority_grade_calibration": [
+          "PFACT-9802601463879D58629A"
+        ],
+        "full_lifecycle_biography": [
+          "PFACT-9802601463879D58629A"
+        ],
+        "political_risk": [],
+        "talent_grade": [
+          "PFACT-9802601463879D58629A"
+        ]
+      },
+      "profile_review": {
+        "authority_grade_calibration": {
+          "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+          "evidence_refs": [
+            "PFACT-9802601463879D58629A"
+          ],
+          "status": "accepted_current"
+        },
+        "full_lifecycle_biography": {
+          "evidence_refs": [
+            "PFACT-9802601463879D58629A"
+          ],
+          "revision_ref": "2256147",
+          "scan_status": "complete_section",
+          "section_chars": 7626,
+          "section_heading": "淮陰侯",
+          "source_page": "史記/卷092"
+        },
+        "political_risk": {
+          "assessment_status": "reviewed_no_material_risk",
+          "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+          "evidence_refs": [],
+          "policy_ref": "config/political-risk.yml",
+          "risk_class": null,
+          "scan_receipt": {
+            "biography_full_scan": true,
+            "counterevidence_review": true,
+            "cross_record_search": true,
+            "domain_query_matrix": true,
+            "revision_ref": "2256147",
+            "source_page": "史記/卷092"
+          },
+          "severity": null
+        },
+        "talent_grade": {
+          "basis": "刘邦授权窗口内完成平魏破代、井陉破赵、平齐及潍水破楚等多战区任务。",
+          "evidence_refs": [
+            "PFACT-9802601463879D58629A"
+          ],
+          "grade": "top",
+          "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+          "status": "accepted_current"
+        }
+      },
       "ruler_context_refs": [
         "NMAT-0B1CE350DDE0E00522E2",
         "NMAT-0C2E7AE1256D14D79CA1",
@@ -4285,10 +4891,10 @@
         "NMAT-F9193AC23648C59984A1"
       ],
       "supporting_unit_refs": [],
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "46b1208fba8c39698dc52123f0ec741e349da451e61130eedf5e22b8fae5e44e",
+  "report_sha256": "cca77b0723fe278259ec365129c49e5efa9edd10d231feb0d2ac36bba2187859",
   "rule_evidence_units": [
     {
       "direction": "positive",
@@ -4864,7 +5470,7 @@
           "彭越",
           "灌婴"
         ],
-        "profile_value_status": "provisional_material_coverage_open",
+        "profile_value_status": "frozen_after_complete_coverage",
         "ruler_context_inventory_fingerprint": "37215c6152a1aa3b641ea3332161d26e2617dde1c44e0be511e94b9ee21b5178"
       },
       "rule_code": "team_building",
@@ -4875,10 +5481,10 @@
   ],
   "ruler": "刘邦",
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
-  "schema_version": "i5b-current-value-report-v2",
+  "schema_version": "i5b-current-value-report-v3",
   "source_pack_ref": "eval\\i5b_current_value\\刘邦\\source-pack.json",
-  "source_pack_sha256": "57864e051c870b0bda07a5560f27a1d98e7d1c91dfc0b8bedff8530218bed963",
-  "status": "current_shadow_chain_complete_profile_values_provisional",
+  "source_pack_sha256": "0a5990b20d00be15c179a06b86a3702b7a1234c7a7fa419a45a3c9b00b5c270d",
+  "status": "current_shadow_chain_complete",
   "three_channel_disposition": {
     "dynasty_governance": {
       "disposition": "deterministic_team_support_or_policy_context",

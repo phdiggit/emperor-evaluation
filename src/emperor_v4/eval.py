@@ -48,10 +48,16 @@ def _parser() -> argparse.ArgumentParser:
     current_value.add_argument("--source-pack", type=Path)
     current_value.add_argument("--output-dir", type=Path)
 
+    i5b_run = commands.add_parser("i5b-run")
+    i5b_run.add_argument("--ruler", required=True)
+    i5b_run.add_argument("--workspace-root", type=Path, default=Path("."))
+    i5b_run.add_argument("--detail-output", type=Path)
+
     scoring_detail = commands.add_parser("i5b-scoring-detail")
     scoring_detail.add_argument("--ruler", required=True)
     scoring_detail.add_argument("--workspace-root", type=Path, default=Path("."))
     scoring_detail.add_argument("--result", type=Path)
+    scoring_detail.add_argument("--person")
     scoring_detail.add_argument("--output", type=Path, required=True)
 
     model_policy = commands.add_parser("model-policy")
@@ -124,7 +130,9 @@ def _run_current_value(args: argparse.Namespace) -> int:
     if not output_dir.is_absolute():
         output_dir = workspace_root / output_dir
 
-    report = build_i5b_current_value(source_pack)
+    report = build_i5b_current_value(source_pack, workspace_root=workspace_root)
+    if report["ruler"] != args.ruler:
+        raise ValueError("当前 I5B source pack 与 --ruler 不匹配")
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "result.json"
     markdown_path = output_dir / "result.md"
@@ -149,6 +157,49 @@ def _run_current_value(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_i5b(args: argparse.Namespace) -> int:
+    if any(value in args.ruler for value in ("/", "\\", "..")):
+        raise ValueError("--ruler 不得包含路径字符")
+    workspace_root = args.workspace_root.resolve()
+    project = _load(workspace_root / "config/project.yml")
+    rulers = (project.get("i5b_current_value") or {}).get("rulers") or {}
+    configured = rulers.get(args.ruler)
+    if not isinstance(configured, Mapping):
+        raise ValueError(f"皇帝尚未进入当前 I5B 运行目录: {args.ruler}")
+    source_pack = workspace_root / str(configured["source_pack"])
+    result_path = workspace_root / str(configured["result"])
+    report = build_i5b_current_value(source_pack, workspace_root=workspace_root)
+    if report["ruler"] != args.ruler:
+        raise ValueError("当前 I5B source pack 与 --ruler 不匹配")
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    result_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    markdown_path = result_path.with_suffix(".md")
+    markdown_path.write_text(
+        render_i5b_current_value_markdown(report),
+        encoding="utf-8",
+        newline="\n",
+    )
+    if args.detail_output:
+        detail_output = args.detail_output
+        if not detail_output.is_absolute():
+            detail_output = workspace_root / detail_output
+        detail_output.parent.mkdir(parents=True, exist_ok=True)
+        detail_output.write_text(
+            render_scoring_detail_markdown(report),
+            encoding="utf-8",
+            newline="\n",
+        )
+    print(f"皇帝：{report['ruler']}")
+    print(f"I5B 净信号：{report['net_signal']}")
+    print(f"画像状态：{report['net_signal_status']}")
+    print(f"当前结果：{markdown_path}")
+    return 0
+
+
 def _run_scoring_detail(args: argparse.Namespace) -> int:
     if any(value in args.ruler for value in ("/", "\\", "..")):
         raise ValueError("--ruler 不得包含路径字符")
@@ -166,11 +217,13 @@ def _run_scoring_detail(args: argparse.Namespace) -> int:
         output = workspace_root / output
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
-        render_scoring_detail_markdown(report),
+        render_scoring_detail_markdown(report, person=args.person),
         encoding="utf-8",
         newline="\n",
     )
     print(f"皇帝：{report['ruler']}")
+    if args.person:
+        print(f"臣子：{args.person}")
     print(f"计分详情：{output}")
     return 0
 
@@ -180,6 +233,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "i5b-current-value":
         return _run_current_value(args)
+    if args.command == "i5b-run":
+        return _run_i5b(args)
     if args.command == "i5b-scoring-detail":
         return _run_scoring_detail(args)
     if args.command == "i5b-discovery-compass-record":

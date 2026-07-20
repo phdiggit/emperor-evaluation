@@ -8,9 +8,9 @@
 - 第五项 B 的当前链路已统一为“三路中性材料 → Rule Judge → HistoricalEpisode → RuleEvidenceUnit → 因子语义确定性映射 → strongest-N 材料预算 → 加权净信号”。
 - 唯一当前三路输入指纹为 `f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878`，包含皇帝篇章236条、臣子列传588条、朝代文治135条。
 - 李世民当前影子结果：36个 Episode、39个 REU，本纪补证链接11条、文治结果支持2条，加权净信号 `7.497030`。
-- 刘邦当前影子结果：18个 Episode、20个 REU，本纪补证链接4条；两条汉初文治政策进入政策上下文但不冒充臣子团队得分；补回漏装的周勃长期军事授权链后，加权净信号仍为 `6.674511`（该材料未进入 strongest-N）。
+- 刘邦当前影子结果：18个 Episode、20个 REU，本纪补证链接4条；两条汉初文治政策进入政策上下文但不冒充臣子团队得分；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `6.727011`。
 - 同一事件的正负 REU 共用中性 Episode；皇帝本纪只作明确 lineage 补证，文治结果由结果质量和团队人物交集确定性选择，同一皇帝决策按结算事件键只结算一次。
-- 人才等级与政治风险当前均为暂定画像输入；完整生涯列传、权威档位校准、窗口风险事件和三路 lineage 未全部闭合前，画像冻结门禁及正式计分门禁保持关闭。当前李世民11名、刘邦10名团队候选均仍有画像覆盖缺口，净信号因此标记为 `provisional_profile_inputs`。
+- 李世民11名、刘邦10名团队候选均已补齐完整本传分节、人才档位校准、窗口政治风险复核和三路 lineage；画像冻结门禁通过，净信号标记为 `stable_profile_inputs`。画像冻结只表示这两个当前 source pack 的材料覆盖已闭合，不授权正式45分或排名。
 - 每位皇帝只保留一个 `source-pack.json` 和一组 `result.json` / `result.md`；旧 source pack、审计展开、同步状态和并行版本已删除。
 - 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
@@ -21,10 +21,12 @@
 ## 当前架构
 
 ```text
-三路 neutral-material-intake
+输入皇帝 → 当前 source pack
+→ 三路 neutral-material-intake
 → Rule Judge
 → HistoricalEpisode
 → RuleEvidenceUnit
+→ 人才档位与窗口政治风险覆盖门禁
 → factor option → policy numeric mapping
 → strongest-N material budget
 → weighted raw net signal
@@ -55,12 +57,13 @@ codex-win run -- python -m pip install -e .
 python -m emperor_v4.eval model-policy --policy config/model-policy.yml
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output tmp/factor-semantics.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
-python v4.py i5b-current-value --ruler 李世民
-python v4.py i5b-current-value --ruler 刘邦
+python v4.py i5b-run --ruler 李世民
+python v4.py i5b-run --ruler 刘邦
 python v4.py i5b-scoring-detail --ruler 李世民 --output tmp/李世民-I5B计分详情.md
+python v4.py i5b-scoring-detail --ruler 刘邦 --person 周勃 --output tmp/周勃-I5B计分详情.md
 ```
 
-臣子 Episode 直接查看对应皇帝的 `result.md`；机器可读的完整 Episode、REU、结算材料和净信号在 `result.json`。
+臣子详情使用 `--person`，只显示该臣子的计分与未计分材料、当前人才档位、窗口政治风险和 HistoricalEpisode；机器可读的完整 Episode、REU、结算材料和净信号仍在对应皇帝的 `result.json`。
 
 ### Google AI 无人值守宽搜
 

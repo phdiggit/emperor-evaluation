@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
     report = build_i5b_current_value(ROOT / "eval/i5b_current_value" / ruler / "source-pack.json")
 
-    assert report["status"] == "current_shadow_chain_complete_profile_values_provisional"
+    assert report["status"] == "current_shadow_chain_complete"
     assert report["declarations"]["three_channel_materials_consumed"] is True
     assert report["declarations"]["linked_ruler_context_count"] > 0
     assert set(report["three_channel_input"]["channel_counts"]) == {
@@ -35,16 +35,14 @@ def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
     assert any(row["rule_code"] == "team_building" for row in report["rule_evidence_units"])
     assert report["declarations"]["database_write_count"] == 0
     assert report["declarations"]["formal_score_write_count"] == 0
-    assert report["declarations"]["profile_material_coverage_complete"] is False
-    assert report["declarations"]["profile_values_frozen"] is False
-    assert report["declarations"]["profile_freeze_gate_passed"] is False
+    assert report["declarations"]["profile_material_coverage_complete"] is True
+    assert report["declarations"]["profile_values_frozen"] is True
+    assert report["declarations"]["profile_freeze_gate_passed"] is True
     assert report["declarations"]["formal_scoring_ready"] is False
-    assert report["declarations"]["profile_member_with_open_gap_count"] == report[
-        "declarations"
-    ]["profile_member_count"]
-    assert report["net_signal_status"] == "provisional_profile_inputs"
+    assert report["declarations"]["profile_member_with_open_gap_count"] == 0
+    assert report["net_signal_status"] == "stable_profile_inputs"
     assert all(
-        row["value_status"] == "provisional_material_coverage_open"
+        row["value_status"] == "frozen_after_complete_coverage"
         for row in report["profile_projection_review"]
     )
     assert report["declarations"]["score_45"] is None
@@ -109,6 +107,7 @@ def test_profile_values_cannot_freeze_before_material_coverage(tmp_path: Path) -
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
     payload = json.loads(source.read_text(encoding="utf-8"))
     payload["profile_projection_gate"]["freeze_allowed"] = True
+    payload["profile_projection_gate"]["material_coverage_complete"] = False
     payload["source_pack_sha256"] = hashlib.sha256(
         json.dumps(
             {key: value for key, value in payload.items() if key != "source_pack_sha256"},
@@ -164,6 +163,7 @@ def test_representative_military_materials_keep_three_channel_lineage() -> None:
     zhou_bo = next(
         row for row in liu["profile_projection_review"] if row["person"] == "周勃"
     )
+    assert zhou_bo["candidate_negative_talent_severity"] == "serious"
     assert set(zhou_bo["profile_evidence_refs"]["political_risk"]) == {
         "PFACT-B16F3241641256A60A24",
         "PFACT-41CE7721509571B8E874",
@@ -182,6 +182,58 @@ def test_current_value_cli_writes_only_current_result(tmp_path: Path) -> None:
     ]) == 0
     assert (tmp_path / "result.json").is_file()
     assert (tmp_path / "result.md").is_file()
+
+
+def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
+    tmp_path: Path,
+) -> None:
+    workspace = tmp_path / "workspace"
+    source_dir = workspace / "eval/current/ruler"
+    source_dir.mkdir(parents=True)
+    source = ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
+    (source_dir / "source-pack.json").write_bytes(source.read_bytes())
+    config_dir = workspace / "config"
+    config_dir.mkdir()
+    (config_dir / "project.yml").write_text(
+        """i5b_current_value:
+  rulers:
+    刘邦:
+      source_pack: eval/current/ruler/source-pack.json
+      result: eval/current/ruler/result.json
+""",
+        encoding="utf-8",
+    )
+    detail = tmp_path / "detail.md"
+
+    assert eval_main([
+        "i5b-run",
+        "--ruler",
+        "刘邦",
+        "--workspace-root",
+        str(workspace),
+        "--detail-output",
+        str(detail),
+    ]) == 0
+    assert (source_dir / "result.json").is_file()
+    assert (source_dir / "result.md").is_file()
+    assert "未计分支持材料" in detail.read_text(encoding="utf-8")
+
+
+def test_i5b_run_rejects_unconfigured_ruler(tmp_path: Path) -> None:
+    config_dir = tmp_path / "config"
+    config_dir.mkdir()
+    (config_dir / "project.yml").write_text(
+        "i5b_current_value:\n  rulers: {}\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="尚未进入当前 I5B 运行目录"):
+        eval_main([
+            "i5b-run",
+            "--ruler",
+            "unknown",
+            "--workspace-root",
+            str(tmp_path),
+        ])
 
 
 def test_current_scoring_detail_export_uses_factor_values_for_unscored_materials(
@@ -210,6 +262,38 @@ def test_current_scoring_detail_export_uses_factor_values_for_unscored_materials
         str(output),
     ]) == 0
     assert output.read_text(encoding="utf-8") == rendered
+
+
+def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
+    )
+    rendered = render_scoring_detail_markdown(report, person="周勃")
+
+    assert "# 刘邦 / 周勃第五项B材料预算计分验证" in rendered
+    assert "## 当前人物画像" in rendered
+    assert "serious" in rendered
+    assert "屠马邑" in rendered
+    assert "屠浑都存在地名与人名断句争议" in rendered
+    assert "## HistoricalEpisode" in rendered
+    assert "英布 |" not in rendered
+
+    output = tmp_path / "zhou-bo.md"
+    assert eval_main([
+        "i5b-scoring-detail",
+        "--ruler",
+        "刘邦",
+        "--person",
+        "周勃",
+        "--workspace-root",
+        str(ROOT),
+        "--output",
+        str(output),
+    ]) == 0
+    assert output.read_text(encoding="utf-8") == rendered
+
+    with pytest.raises(ValueError, match="不存在臣子"):
+        render_scoring_detail_markdown(report, person="不存在")
 
 
 @pytest.mark.parametrize("ruler", ["李世民", "刘邦"])

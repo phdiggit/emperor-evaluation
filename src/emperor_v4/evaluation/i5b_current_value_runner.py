@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from dataclasses import asdict
+from decimal import Decimal
 import hashlib
 import json
 from pathlib import Path
@@ -21,8 +23,8 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
 
-SCHEMA_VERSION = "i5b-current-value-report-v2"
-SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v2"
+SCHEMA_VERSION = "i5b-current-value-report-v3"
+SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v3"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
 
 
@@ -196,7 +198,11 @@ def _episode_and_reu(
     return episode, reu
 
 
-def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
+def build_i5b_current_value(
+    source_pack_path: Path,
+    *,
+    workspace_root: Path = ROOT,
+) -> dict[str, Any]:
     source_pack_path = source_pack_path.resolve()
     pack = _load_json(source_pack_path)
     if pack.get("schema_version") != SOURCE_PACK_SCHEMA_VERSION:
@@ -417,9 +423,22 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         supporting_unit_refs = sorted(
             str(value) for value in member.get("supporting_unit_refs") or ()
         )
+        profile_review = member.get("profile_review") or {}
+        biography_scan = profile_review.get("full_lifecycle_biography") or {}
+        talent_review = profile_review.get("talent_grade") or {}
+        authority_review = profile_review.get("authority_grade_calibration") or {}
+        risk_review = profile_review.get("political_risk") or {}
         profile_evidence_refs = {
-            str(kind): sorted(str(value) for value in refs)
-            for kind, refs in (member.get("profile_evidence_refs") or {}).items()
+            "talent_grade": sorted(str(value) for value in talent_review.get("evidence_refs") or ()),
+            "full_lifecycle_biography": sorted(
+                str(value) for value in biography_scan.get("evidence_refs") or ()
+            ),
+            "authority_grade_calibration": sorted(
+                str(value) for value in authority_review.get("evidence_refs") or ()
+            ),
+            "political_risk": sorted(
+                str(value) for value in risk_review.get("evidence_refs") or ()
+            ),
         }
         known_profile_refs = (
             set(facts) | set(ruler_contexts) | set(governance_by_ref)
@@ -433,18 +452,61 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         if unknown_profile_refs:
             raise ValueError(f"{member['person']} 人物画像引用未知当前材料: {unknown_profile_refs}")
         gaps = []
+        biography_sources = {
+            (str(row["source_page"]), str(row["revision_ref"]))
+            for row in facts.values()
+            if str(row["person_ref"]) == person_ref
+        }
         if not biography_fact_refs:
             gaps.append("missing_current_biography_fact")
-        if not profile_evidence_refs.get("talent_grade"):
-            gaps.append("missing_talent_grade_lineage")
-        if not profile_evidence_refs.get("full_lifecycle_biography"):
+        if (
+            biography_scan.get("scan_status") != "complete_section"
+            or not biography_scan.get("source_page")
+            or not biography_scan.get("revision_ref")
+            or int(biography_scan.get("section_chars") or 0) <= 0
+            or (
+                str(biography_scan.get("source_page")),
+                str(biography_scan.get("revision_ref")),
+            )
+            not in biography_sources
+            or not profile_evidence_refs.get("full_lifecycle_biography")
+        ):
             gaps.append("missing_full_lifecycle_biography_lineage")
-        if not profile_evidence_refs.get("authority_grade_calibration"):
+        if (
+            talent_review.get("status") != "accepted_current"
+            or talent_review.get("grade") != member["effective_talent_grade"]
+            or talent_review.get("policy_ref")
+            != "config/talent-grade-v11-domain-equivalent-historic.yml"
+            or not profile_evidence_refs.get("talent_grade")
+        ):
+            gaps.append("missing_talent_grade_lineage")
+        if (
+            authority_review.get("status") != "accepted_current"
+            or not profile_evidence_refs.get("authority_grade_calibration")
+        ):
             gaps.append("missing_authoritative_grade_calibration")
-        if member.get("negative_talent_severity") is not None and not profile_evidence_refs.get(
-            "political_risk"
+        risk_status = risk_review.get("assessment_status")
+        risk_scan = risk_review.get("scan_receipt") or {}
+        if (
+            risk_status not in {"established", "reviewed_no_material_risk"}
+            or risk_review.get("policy_ref") != "config/political-risk.yml"
+            or risk_scan.get("biography_full_scan") is not True
+            or risk_scan.get("cross_record_search") is not True
+            or risk_scan.get("domain_query_matrix") is not True
         ):
             gaps.append("missing_window_risk_source")
+        elif risk_status == "established" and (
+            risk_review.get("risk_class") != member.get("negative_talent_class")
+            or risk_review.get("severity") != member.get("negative_talent_severity")
+            or not profile_evidence_refs.get("political_risk")
+        ):
+            gaps.append("window_risk_value_mismatch")
+        elif risk_status == "reviewed_no_material_risk" and (
+            member.get("negative_talent_class") is not None
+            or member.get("negative_talent_severity") is not None
+            or risk_scan.get("counterevidence_review") is not True
+        ):
+            gaps.append("window_no_risk_review_mismatch")
         profile_projection_review.append(
             {
                 "person": member["person"],
@@ -457,6 +519,7 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
                 "governance_achievement_refs": member_governance_refs,
                 "supporting_unit_refs": supporting_unit_refs,
                 "profile_evidence_refs": profile_evidence_refs,
+                "profile_review": profile_review,
                 "coverage_gaps": gaps,
                 "value_status": (
                     "frozen_after_complete_coverage"
@@ -541,7 +604,7 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         "ruler": pack["ruler"],
         "ruler_ref": pack["ruler_ref"],
         "window": pack["window"],
-        "source_pack_ref": str(source_pack_path.relative_to(ROOT)),
+        "source_pack_ref": str(source_pack_path.relative_to(workspace_root)),
         "source_pack_sha256": declared_hash,
         "three_channel_input": three_channel,
         "three_channel_disposition": dispositions,
@@ -629,7 +692,78 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def render_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
+def _decimal_text(value: Decimal) -> str:
+    return str(value.quantize(Decimal("0.000001")))
+
+
+def _person_material_budget(
+    report: Mapping[str, Any], *, person: str, person_ref: str
+) -> dict[str, Any]:
+    budget = copy.deepcopy(report["material_budget"])
+    owner_by_reu = {
+        str(row["unit_ref"]): str(row["evaluation_context"])
+        for row in report["rule_evidence_units"]
+    }
+    for rule in budget["rules"]:
+        if rule["rule_code"] == "team_building":
+            rule["positive_members"] = [
+                row for row in rule["positive_members"] if row["person"] == person
+            ]
+            rule["negative_members"] = [
+                row for row in rule["negative_members"] if row["person"] == person
+            ]
+            rule["supporting_only_members"] = [
+                row
+                for row in rule.get("supporting_only_members") or ()
+                if row["person"] == person
+            ]
+            positive_pool = sum(
+                (Decimal(str(row["talent_value"])) for row in rule["positive_members"]),
+                Decimal("0"),
+            )
+            positive = (
+                positive_pool
+                * Decimal(str(rule["functional_complementarity_factor"]))
+                * Decimal(str(rule["long_term_stability_factor"]))
+            )
+            negative = sum(
+                (Decimal(str(row["negative_value"])) for row in rule["negative_members"]),
+                Decimal("0"),
+            )
+        else:
+            for key in ("settled_materials", "supporting_only_materials"):
+                rule[key] = [
+                    row
+                    for row in rule[key]
+                    if owner_by_reu.get(str(row["rule_evidence_unit_ref"])) == person_ref
+                ]
+            positive = sum(
+                (
+                    Decimal(str(row["actual_signal_contribution"]))
+                    for row in rule["settled_materials"]
+                    if row["side"] == "positive"
+                ),
+                Decimal("0"),
+            )
+            negative = sum(
+                (
+                    Decimal(str(row["actual_signal_contribution"]))
+                    for row in rule["settled_materials"]
+                    if row["side"] == "negative"
+                ),
+                Decimal("0"),
+            )
+        rule["positive_signal"] = _decimal_text(positive)
+        rule["negative_signal"] = _decimal_text(negative)
+        rule["rule_raw_net"] = _decimal_text(positive - negative)
+    budget["ruler"] = f"{report['ruler']} / {person}"
+    budget["summary"]["weighted_raw_signal"] = "人物过滤视图不单独汇总"
+    return budget
+
+
+def render_scoring_detail_markdown(
+    report: Mapping[str, Any], *, person: str | None = None
+) -> str:
     if report.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("计分详情只接受当前 I5B 结果")
     unsigned = dict(report)
@@ -639,7 +773,61 @@ def render_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
     material_budget = report.get("material_budget")
     if not isinstance(material_budget, Mapping):
         raise ValueError("当前 I5B 结果缺少 material_budget")
-    return render_i5b_material_budget_shadow_markdown(material_budget)
+    if person is None:
+        return render_i5b_material_budget_shadow_markdown(material_budget)
+    profile = next(
+        (row for row in report["profile_projection_review"] if row["person"] == person),
+        None,
+    )
+    if profile is None:
+        raise ValueError(f"当前 I5B 结果不存在臣子: {person}")
+    lines = render_i5b_material_budget_shadow_markdown(
+        _person_material_budget(
+            report,
+            person=person,
+            person_ref=str(profile["person_ref"]),
+        )
+    ).rstrip().splitlines()
+    risk = profile["profile_review"]["political_risk"]
+    biography = profile["profile_review"]["full_lifecycle_biography"]
+    lines.extend(
+        [
+            "",
+            "## 当前人物画像",
+            "",
+            "| 人才档位 | 政治风险状态 | 风险严重度 | 画像状态 | 本传史源 |",
+            "| --- | --- | --- | --- | --- |",
+            f"| {profile['candidate_talent_grade']} | {risk['assessment_status']} | "
+            f"{risk.get('severity') or '无'} | {profile['value_status']} | "
+            f"{biography['source_page']}@{biography['revision_ref']} |",
+            "",
+            f"政治风险判定：{risk['basis']}",
+            "",
+            "## HistoricalEpisode",
+            "",
+        ]
+    )
+    episodes = {
+        row["episode_id"]: row
+        for row in report["episodes"]
+        if row["evaluation_context"] == profile["person_ref"]
+    }
+    if not episodes:
+        lines.append("当前没有进入计分链的 Episode。")
+    for episode_id, episode in sorted(episodes.items()):
+        source_refs = episode["lineage"].get("source_refs") or ""
+        lines.extend(
+            [
+                f"### `{episode_id}`",
+                "",
+                f"- 行为：{episode['action']}",
+                f"- 责任：{episode['responsibility']}",
+                f"- 结果：{'；'.join(episode['outcome'])}",
+                f"- 史源：{source_refs}",
+                "",
+            ]
+        )
+    return "\n".join(lines)
 
 
 def main() -> int:
