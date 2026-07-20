@@ -3366,6 +3366,10 @@
       "material_id": "MAT-李世民-TD-YUCHI-CROSS-CAMP",
       "person_ref": "PER-CAND-A49FCFF85405",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-24A33A6E662F11850570",
+        "NMAT-42AA973C5897239189A0"
+      ],
       "rule_code": "talent_discovery",
       "source_unit_code": "TD-YUCHI-CROSS-CAMP",
       "subject": "尉迟敬德"
@@ -3916,6 +3920,11 @@
       "material_id": "MAT-李世民-AD-EXISTING-MILITARY-DUPLICATES-1",
       "person_ref": "PER-CAND-D29808A822E4",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-071A873261BFEFE03A74",
+        "NMAT-242673E5F65BF5CCF6AA",
+        "NMAT-2830CE53C58D4AF38E77"
+      ],
       "rule_code": "appointment_delegation",
       "source_unit_code": "AD-EXISTING-MILITARY-DUPLICATES",
       "subject": "李靖"
@@ -4027,6 +4036,9 @@
       "material_id": "MAT-李世民-TT-YUCHI-SUSPECTED-DEFECTION",
       "person_ref": "PER-CAND-A49FCFF85405",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-900F470DB8A079C3F11F"
+      ],
       "rule_code": "tolerate_talent",
       "source_unit_code": "TT-YUCHI-SUSPECTED-DEFECTION",
       "subject": "尉迟敬德"
@@ -4137,6 +4149,9 @@
       "material_id": "MAT-李世民-TT-DAIZHOU-LAW-CONFLICT",
       "person_ref": "PER-CAND-947836AF2584",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-FD7B17194427773EAFF7"
+      ],
       "rule_code": "tolerate_talent",
       "source_unit_code": "TT-DAIZHOU-LAW-CONFLICT",
       "subject": "戴胄"
@@ -4282,6 +4297,9 @@
       "material_id": "MAT-李世民-TT-LIJING-PROTECTION-REPAIR",
       "person_ref": "PER-CAND-D29808A822E4",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-BF233306890FD683FB26"
+      ],
       "rule_code": "tolerate_talent",
       "source_unit_code": "TT-LIJING-PROTECTION-REPAIR",
       "subject": "李靖"
@@ -4321,6 +4339,10 @@
       "material_id": "MAT-李世民-TT-WEIZHENG-CAREER-SUPPLEMENT-1",
       "person_ref": "PER-CAND-1DA5E84241DE",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-829C201EFA0E26C69331",
+        "NMAT-E332CF7B6FF04BF6E0D6"
+      ],
       "rule_code": "tolerate_talent",
       "source_unit_code": "TT-WEIZHENG-CAREER-SUPPLEMENT",
       "subject": "魏徵"
@@ -4358,6 +4380,9 @@
       "material_id": "MAT-李世民-TT-WEIZHENG-CAREER-SUPPLEMENT-2",
       "person_ref": "PER-CAND-1DA5E84241DE",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-19D158A9DAB7A9DCA0B4"
+      ],
       "rule_code": "tolerate_talent",
       "source_unit_code": "TT-WEIZHENG-CAREER-SUPPLEMENT",
       "subject": "魏徵"
@@ -4646,6 +4671,9 @@
       "material_id": "MAT-李世民-AN-WEIZHENG-POSTHUMOUS-MARRIAGE",
       "person_ref": "PER-CAND-1DA5E84241DE",
       "remaining_gap": "",
+      "ruler_context_refs": [
+        "NMAT-19D158A9DAB7A9DCA0B4"
+      ],
       "rule_code": "anti_nepotism",
       "source_unit_code": "AN-WEIZHENG-POSTHUMOUS-MARRIAGE",
       "subject": "魏徵家族婚约"
@@ -8756,18 +8784,26 @@
       ]
     }
   ],
+  "profile_projection_gate": {
+    "freeze_allowed": false,
+    "material_coverage_complete": false,
+    "required_inputs": [
+      "full_lifecycle_biography",
+      "authoritative_grade_calibration",
+      "window_exposed_risk_events",
+      "three_channel_lineage"
+    ],
+    "status": "material_coverage_open"
+  },
   "ruler_ref": "RULER-58130F2446A25CC1",
-  "schema_version": "i5b-current-value-source-pack-v1",
-  "source_pack_sha256": "bff3025ec75cbe82b4ce1b9982db90d6ebb89f53d18bb4b26f2aa77458cf91c5",
+  "schema_version": "i5b-current-value-source-pack-v2",
+  "source_pack_sha256": "95f2404065f975a4dbf8330105d86aba5aa170244d2d2436b418e6104d362c75",
   "status": "current_only_rule_judged_and_factor_accepted",
   "team": {
     "coverage_judgment": "adequate_with_uncertainty",
     "functional_complementarity": "balanced_four",
-    "governance_achievement_refs": [
-      "GOVACH-05D296EF7EE008316103"
-    ],
     "limitations": [
-      "正池按校准档、代表性和角色互补冻结，不按分数机械排序；马周校准为usable，故不再占用八席。",
+      "正池按当前候选档、代表性和角色互补暂定，不按分数机械排序；材料覆盖闭合前，马周与现有八席均不得冻结。",
       "房玄龄、杜如晦、高士廉、戴胄等部分画像来自单一本传或缺实施规模，权威不足已保留为限制，未据此自动降档。",
       "负池只采用626—649窗口内已实施、暴露或造成损害的风险；李勣隋末风险、马周武德助教风险均未倒灌。",
       "李靖的阴山战争风险经独立校准action=reject，未进入负池；战争斩级和俘获未改写为杀俘。"
@@ -8791,10 +8827,10 @@
   },
   "three_channel_disposition": {
     "dynasty_governance": {
-      "disposition": "team_reu_support_or_no_applicable_fact",
-      "received_count": 133,
+      "disposition": "deterministic_team_support_or_policy_context",
+      "received_count": 135,
       "ruler_window_achievement_count": 18,
-      "team_support_count": 1
+      "team_support_count": 2
     },
     "person_biography": {
       "accepted_fact_count": 43,
@@ -8809,14 +8845,14 @@
   },
   "three_channel_input": {
     "channel_counts": {
-      "dynasty_governance": 133,
+      "dynasty_governance": 135,
       "person_biography": 588,
       "ruler_chronicle": 236
     },
-    "fingerprint": "302f1c57883a7fc49d01e71f499e56f53a15a274379d5d9bdd2572119429a1bd",
-    "governance_achievement_count": 87,
+    "fingerprint": "f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878",
+    "governance_achievement_count": 89,
     "governance_applicable_to_ruler_count": 18,
-    "material_count": 957
+    "material_count": 959
   },
   "window": "626-649"
 }

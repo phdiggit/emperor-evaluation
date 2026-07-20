@@ -20,8 +20,8 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
 
-SCHEMA_VERSION = "i5b-current-value-report-v1"
-SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v1"
+SCHEMA_VERSION = "i5b-current-value-report-v2"
+SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v2"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
 
 
@@ -59,8 +59,24 @@ def _required_factor_names(rule: str, direction: str) -> tuple[str, ...]:
     return FACTOR_NAMES[rule][direction]
 
 
+def _neutral_episode_key(material: Mapping[str, Any]) -> str:
+    return _digest(
+        {
+            "person_ref": material["person_ref"],
+            "facts": material["fact_refs"],
+            "action": material["episode_action"],
+            "responsibility": material["episode_responsibility"],
+            "outcomes": material["episode_outcomes"],
+        }
+    )
+
+
 def _episode_and_reu(
-    *, material: Mapping[str, Any], facts: Mapping[str, Mapping[str, Any]], ruler: str
+    *,
+    material: Mapping[str, Any],
+    facts: Mapping[str, Mapping[str, Any]],
+    ruler_contexts: Mapping[str, Mapping[str, Any]],
+    ruler: str,
 ) -> tuple[HistoricalEpisodePacket, RuleEvidenceUnitRecord]:
     fact_rows = [facts[str(ref)] for ref in material["fact_refs"]]
     assertion_links: list[AssertionLink] = []
@@ -86,24 +102,41 @@ def _episode_and_reu(
                     representative=index == 1,
                 )
             )
+    context_refs = tuple(str(ref) for ref in material.get("ruler_context_refs") or ())
+    for context_ref in context_refs:
+        context = ruler_contexts[context_ref]
+        for source_ref in context.get("source_refs") or ():
+            page_revision = str(source_ref)
+            for index, anchor_value in enumerate(context.get("assertion_anchors") or (), start=1):
+                anchor = str(anchor_value)
+                source_refs.add(f"{page_revision}#{anchor}")
+                passage_ref = "SP-" + _digest(
+                    {"source_ref": page_revision, "anchor": anchor}, 20
+                ).upper()
+                assertion_links.append(
+                    AssertionLink(
+                        assertion_ref="AS-" + _digest(
+                            {"passage": passage_ref, "context": context_ref}, 20
+                        ).upper(),
+                        source_passage_ref=passage_ref,
+                        relation="corroborates",
+                        supported_fields=("action", "responsibility", "outcome"),
+                        evidence_status="accepted",
+                        representative=index == 1,
+                    )
+                )
     if not assertion_links:
         raise ValueError(f"{material['material_id']} 没有可接受 Assertion")
     uncertainties = tuple([str(material["remaining_gap"])]) if material.get("remaining_gap") else ()
     episode_semantic = _digest(
-        {
-            "person_ref": material["person_ref"],
-            "facts": material["fact_refs"],
-            "action": material["episode_action"],
-            "responsibility": material["episode_responsibility"],
-            "outcomes": material["episode_outcomes"],
-        }
+        {"neutral_episode": _neutral_episode_key(material), "ruler_context_refs": context_refs}
     )
     reu_semantic = _digest(
         {
             "episode_semantic": episode_semantic,
             "rule": material["rule_code"],
             "direction": material["direction"],
-            "independence_key": material["independence_key"],
+            "settlement_event_key": material.get("settlement_event_key", material["independence_key"]),
         }
     )
     episode_id = "EP-" + episode_semantic[:20].upper()
@@ -136,7 +169,11 @@ def _episode_and_reu(
             "source_diversity": "complete" if len(source_refs) > 1 else "partial",
             "conflict_resolution": "not_applicable",
         },
-        lineage={"fact_refs": ";".join(str(ref) for ref in material["fact_refs"]), "source_refs": ";".join(sorted(source_refs))},
+        lineage={
+            "fact_refs": ";".join(str(ref) for ref in material["fact_refs"]),
+            "ruler_context_refs": ";".join(context_refs),
+            "source_refs": ";".join(sorted(source_refs)),
+        },
         provenance={"ruler": ruler, "source_unit_code": str(material["source_unit_code"]), "mode": "current_shadow"},
     )
     unit_ref = "REU-" + reu_semantic[:20].upper()
@@ -149,6 +186,7 @@ def _episode_and_reu(
         status="accepted_shadow",
         payload={
             "independence_key": material["independence_key"],
+            "settlement_event_key": material.get("settlement_event_key", material["independence_key"]),
             "judge_reason": material["judge_reason"],
             "factor_option_codes": dict(material["factor_option_codes"]),
         },
@@ -180,21 +218,47 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         raise ValueError("朝代文治成果处置数量不一致")
     if pack.get("declarations", {}).get("formal_write") is not False:
         raise ValueError("current source pack 不得授权正式写入")
+    profile_gate = pack.get("profile_projection_gate") or {}
+    if profile_gate.get("status") not in {
+        "material_coverage_open",
+        "ready_for_freeze_review",
+        "frozen_after_complete_coverage",
+    }:
+        raise ValueError("人物画像投影缺少当前覆盖门禁")
+    profile_coverage_complete = profile_gate.get("material_coverage_complete") is True
+    profile_freeze_allowed = profile_gate.get("freeze_allowed") is True
+    if profile_freeze_allowed and not profile_coverage_complete:
+        raise ValueError("材料覆盖未闭合时不得冻结人才等级或政治风险")
 
     policy_path = ROOT / str(pack["factor_acceptance"]["policy_ref"])
     policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
     facts = {str(row["record_ref"]): row for row in pack.get("facts") or ()}
+    ruler_contexts = {
+        str(row["material_ref"]): row
+        for row in pack.get("ruler_context_materials") or ()
+    }
     materials = list(pack.get("materials") or ())
     material_ids = [str(row["material_id"]) for row in materials]
     if len(material_ids) != len(set(material_ids)):
         raise ValueError("current source pack material_id 重复")
+    context_refs_by_episode: dict[str, set[str]] = {}
+    for material in materials:
+        context_refs_by_episode.setdefault(_neutral_episode_key(material), set()).update(
+            str(ref) for ref in material.get("ruler_context_refs") or ()
+        )
     episode_by_id: dict[str, HistoricalEpisodePacket] = {}
     reus = []
     direct_by_rule: dict[str, list[dict[str, Any]]] = {rule: [] for rule in RULES}
     eligible_by_rule: dict[str, dict[str, list[dict[str, str]]]] = {
         rule: {"positive": [], "negative": []} for rule in RULES
     }
+    settlement_keys: set[tuple[str, str, str]] = set()
+    linked_ruler_context_refs: set[str] = set()
     for material in materials:
+        material = dict(material)
+        material["ruler_context_refs"] = sorted(
+            context_refs_by_episode[_neutral_episode_key(material)]
+        )
         rule = str(material["rule_code"])
         direction = str(material["direction"])
         if rule not in RULES or direction not in {"positive", "negative"}:
@@ -202,6 +266,28 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         unknown_facts = sorted(set(str(ref) for ref in material["fact_refs"]) - set(facts))
         if unknown_facts:
             raise ValueError(f"{material['material_id']} 引用未知当前事实: {unknown_facts}")
+        material_context_refs = {
+            str(ref) for ref in material.get("ruler_context_refs") or ()
+        }
+        unknown_contexts = sorted(material_context_refs - set(ruler_contexts))
+        if unknown_contexts:
+            raise ValueError(f"{material['material_id']} 引用未知皇帝篇章材料: {unknown_contexts}")
+        unrelated_contexts = sorted(
+            ref
+            for ref in material_context_refs
+            if str(material["person_ref"])
+            not in {str(value) for value in ruler_contexts[ref].get("person_refs") or ()}
+        )
+        if unrelated_contexts:
+            raise ValueError(f"{material['material_id']} 皇帝篇章人物不匹配: {unrelated_contexts}")
+        linked_ruler_context_refs.update(material_context_refs)
+        settlement_event_key = str(
+            material.get("settlement_event_key") or material["independence_key"]
+        )
+        settlement_identity = (rule, direction, settlement_event_key)
+        if settlement_identity in settlement_keys:
+            raise ValueError(f"重复结算事件: {settlement_identity}")
+        settlement_keys.add(settlement_identity)
         options = dict(material["factor_option_codes"])
         required = set(_required_factor_names(rule, direction))
         if set(options) != required:
@@ -211,7 +297,12 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         mapped_values = {name: str(value) for name, value in values.items()}
         if declared_values != mapped_values:
             raise ValueError(f"{material['material_id']} 数值不是政策确定性映射")
-        episode, reu = _episode_and_reu(material=material, facts=facts, ruler=str(pack["ruler"]))
+        episode, reu = _episode_and_reu(
+            material=material,
+            facts=facts,
+            ruler_contexts=ruler_contexts,
+            ruler=str(pack["ruler"]),
+        )
         existing_episode = episode_by_id.setdefault(episode.episode_id, episode)
         if existing_episode != episode:
             raise ValueError(f"Episode 语义指纹冲突: {episode.episode_id}")
@@ -236,7 +327,7 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         eligible_by_rule[rule][direction].append(
             {
                 "material_id": str(material["material_id"]),
-                "independence_key": str(material["independence_key"]),
+                "independence_key": settlement_event_key,
                 "judge_reason": str(material["judge_reason"]),
             }
         )
@@ -263,12 +354,20 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         str(row["achievement_ref"]): row
         for row in pack.get("governance_achievements") or ()
     }
-    team_governance_refs = [
-        str(value) for value in team.get("governance_achievement_refs") or ()
-    ]
-    unknown_governance = sorted(set(team_governance_refs) - set(governance_by_ref))
-    if unknown_governance:
-        raise ValueError(f"团队 REU 引用未知治理成果: {unknown_governance}")
+    positive_member_refs = {
+        str(row["person_ref"])
+        for row in facts.values()
+        if str(row["canonical_name"]) in set(team["positive_members"])
+    }
+    team_governance_refs = sorted(
+        ref
+        for ref, row in governance_by_ref.items()
+        if row["payload"].get("result_direction") == "positive"
+        and row["payload"].get("positive_result_preserved") is True
+        and row["payload"].get("implementation_status") in {"operated", "completed"}
+        and row["payload"].get("scale", {}).get("level") in {"national", "important"}
+        and positive_member_refs.intersection(str(value) for value in row.get("person_refs") or ())
+    )
     governance_results = [
         {
             "result": governance_by_ref[ref]["payload"]["observable_result"],
@@ -277,13 +376,105 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         }
         for ref in team_governance_refs
     ]
+    governance_dispositions = [
+        {
+            "governance_achievement_ref": ref,
+            "disposition": (
+                "selected_team_result_support"
+                if ref in team_governance_refs
+                else "supporting_policy_context_not_i5b_team_score"
+                if row["payload"].get("result_direction") == "positive"
+                and row["payload"].get("positive_result_preserved") is True
+                else "excluded_no_preserved_positive_result"
+            ),
+        }
+        for ref, row in sorted(governance_by_ref.items())
+    ]
+    declared_team_support_count = int(
+        dispositions["dynasty_governance"].get("team_support_count") or 0
+    )
+    if declared_team_support_count != len(team_governance_refs):
+        raise ValueError("朝代文治团队支持数量与确定性选择不一致")
+    profile_projection_review = []
+    for member in sorted(pack.get("members") or (), key=lambda row: str(row["person"])):
+        person_ref = str(member["person_ref"])
+        biography_fact_refs = sorted(
+            str(row["record_ref"])
+            for row in facts.values()
+            if str(row["person_ref"]) == person_ref
+        )
+        member_context_refs = sorted(
+            ref
+            for ref, row in ruler_contexts.items()
+            if person_ref in {str(value) for value in row.get("person_refs") or ()}
+        )
+        member_governance_refs = sorted(
+            ref
+            for ref, row in governance_by_ref.items()
+            if person_ref in {str(value) for value in row.get("person_refs") or ()}
+        )
+        supporting_unit_refs = sorted(
+            str(value) for value in member.get("supporting_unit_refs") or ()
+        )
+        profile_evidence_refs = {
+            str(kind): sorted(str(value) for value in refs)
+            for kind, refs in (member.get("profile_evidence_refs") or {}).items()
+        }
+        known_profile_refs = (
+            set(facts) | set(ruler_contexts) | set(governance_by_ref)
+        )
+        unknown_profile_refs = sorted(
+            ref
+            for refs in profile_evidence_refs.values()
+            for ref in refs
+            if ref not in known_profile_refs
+        )
+        if unknown_profile_refs:
+            raise ValueError(f"{member['person']} 人物画像引用未知当前材料: {unknown_profile_refs}")
+        gaps = []
+        if not biography_fact_refs:
+            gaps.append("missing_current_biography_fact")
+        if not profile_evidence_refs.get("talent_grade"):
+            gaps.append("missing_talent_grade_lineage")
+        if not profile_evidence_refs.get("full_lifecycle_biography"):
+            gaps.append("missing_full_lifecycle_biography_lineage")
+        if not profile_evidence_refs.get("authority_grade_calibration"):
+            gaps.append("missing_authoritative_grade_calibration")
+        if member.get("negative_talent_severity") is not None and not profile_evidence_refs.get(
+            "political_risk"
+        ):
+            gaps.append("missing_window_risk_source")
+        profile_projection_review.append(
+            {
+                "person": member["person"],
+                "person_ref": person_ref,
+                "candidate_talent_grade": member["effective_talent_grade"],
+                "candidate_negative_talent_class": member.get("negative_talent_class"),
+                "candidate_negative_talent_severity": member.get("negative_talent_severity"),
+                "biography_fact_refs": biography_fact_refs,
+                "ruler_context_refs": member_context_refs,
+                "governance_achievement_refs": member_governance_refs,
+                "supporting_unit_refs": supporting_unit_refs,
+                "profile_evidence_refs": profile_evidence_refs,
+                "coverage_gaps": gaps,
+                "value_status": (
+                    "frozen_after_complete_coverage"
+                    if profile_freeze_allowed
+                    else "provisional_material_coverage_open"
+                ),
+            }
+        )
+    if profile_coverage_complete and any(
+        row["coverage_gaps"] for row in profile_projection_review
+    ):
+        raise ValueError("人物画像声明覆盖闭合但仍存在 lineage 缺口")
     manifest["rules"]["team_building"] = {
         "source": str(source_pack_path),
         "positive_members": team["positive_members"],
         "negative_members": team["negative_members"],
         "functional_complementarity": team["functional_complementarity"],
         "long_term_stability": team["long_term_stability"],
-        "remaining_member_judge_reason": "当前人物画像与窗口风险冻结后未进入正8/负3的成员仅作支持。",
+        "remaining_member_judge_reason": "当前人物画像与窗口风险仍为暂定值；未进入正8/负3的成员仅作支持。",
         "governance_results": governance_results,
     }
     budget = build_i5b_material_budget_shadow(source_pack_path, manifest_payload=manifest)
@@ -310,6 +501,13 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
             "functional_complementarity": team["functional_complementarity"],
             "long_term_stability": team["long_term_stability"],
             "ruler_context_inventory_fingerprint": _digest(pack["ruler_context_materials"]),
+            "linked_ruler_context_refs": sorted(linked_ruler_context_refs),
+            "governance_dispositions": governance_dispositions,
+            "profile_value_status": (
+                "frozen_after_complete_coverage"
+                if profile_freeze_allowed
+                else "provisional_material_coverage_open"
+            ),
         },
         members=(
             RuleEvidenceMember(
@@ -334,7 +532,11 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         by_person.setdefault(fact_owner[episode.evaluation_context], []).append(episode.episode_id)
     report: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "current_shadow_chain_complete",
+        "status": (
+            "current_shadow_chain_complete"
+            if profile_freeze_allowed
+            else "current_shadow_chain_complete_profile_values_provisional"
+        ),
         "ruler": pack["ruler"],
         "ruler_ref": pack["ruler_ref"],
         "window": pack["window"],
@@ -343,15 +545,36 @@ def build_i5b_current_value(source_pack_path: Path) -> dict[str, Any]:
         "three_channel_input": three_channel,
         "three_channel_disposition": dispositions,
         "judge_coverage": pack["judge_coverage"],
+        "linked_ruler_context_refs": sorted(linked_ruler_context_refs),
+        "governance_results": governance_results,
+        "governance_dispositions": governance_dispositions,
+        "profile_projection_gate": profile_gate,
+        "profile_projection_review": profile_projection_review,
         "episodes": [asdict(value) for value in episodes],
         "episode_index_by_person": {name: sorted(ids) for name, ids in sorted(by_person.items())},
         "rule_evidence_units": [asdict(value) for value in (*reus, team_reu)],
         "excluded_units": pack["excluded_units"],
         "material_budget": budget,
         "net_signal": budget["summary"]["weighted_raw_signal"],
+        "net_signal_status": (
+            "stable_profile_inputs"
+            if profile_freeze_allowed
+            else "provisional_profile_inputs"
+        ),
         "declarations": {
             "current_value_only": True,
             "three_channel_materials_consumed": True,
+            "linked_ruler_context_count": len(linked_ruler_context_refs),
+            "selected_governance_result_count": len(team_governance_refs),
+            "profile_material_coverage_complete": profile_coverage_complete,
+            "profile_values_frozen": profile_freeze_allowed,
+            "profile_freeze_gate_passed": profile_coverage_complete
+            and profile_freeze_allowed,
+            "formal_scoring_ready": False,
+            "profile_member_count": len(profile_projection_review),
+            "profile_member_with_open_gap_count": sum(
+                bool(row["coverage_gaps"]) for row in profile_projection_review
+            ),
             "episode_count": len(episodes),
             "rule_evidence_unit_count": len(reus) + 1,
             "external_retrieval_count": 0,
@@ -373,7 +596,9 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "",
         f"- 三路输入指纹：`{report['three_channel_input']['fingerprint']}`",
         f"- Episode：`{report['declarations']['episode_count']}`；REU：`{report['declarations']['rule_evidence_unit_count']}`",
+        f"- 本纪补证链接：`{report['declarations']['linked_ruler_context_count']}`；文治结果支持：`{report['declarations']['selected_governance_result_count']}`",
         f"- 加权净信号：`{report['net_signal']}`",
+        "- 人才等级与政治风险：材料覆盖仍开放，当前值仅为暂定输入，未冻结。",
         "- 45 分、档位和排名：未生成。",
         "",
         "## 五条规则",
