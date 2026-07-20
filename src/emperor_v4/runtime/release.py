@@ -17,6 +17,7 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "config/dynasty-neutral-source-increment-output.schema.json",
     "src/emperor_v4/__init__.py",
     "src/emperor_v4/adapters/dynasty_neutral_governance.py",
+    "src/emperor_v4/adapters/dynasty_neutral_material_settlement.py",
     "src/emperor_v4/adapters/dynasty_neutral_source_increment.py",
     "src/emperor_v4/adapters/source_cache_fixture.py",
     "src/emperor_v4/adapters/source_cache_plan.py",

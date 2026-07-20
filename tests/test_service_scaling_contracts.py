@@ -32,6 +32,9 @@ from emperor_v4.adapters.dynasty_neutral_source_increment import (
     audit_comparison,
     prepare_comparison,
 )
+from emperor_v4.adapters.dynasty_neutral_material_settlement import (
+    settle_neutral_materials,
+)
 from emperor_v4.adapters.source_cache_wikisource import (
     WikisourceSourceMaterialProvider,
 )
@@ -80,6 +83,7 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         "config/dynasty-neutral-governance-output.schema.json",
         "config/dynasty-neutral-source-increment-output.schema.json",
         "src/emperor_v4/adapters/dynasty_neutral_governance.py",
+        "src/emperor_v4/adapters/dynasty_neutral_material_settlement.py",
         "src/emperor_v4/adapters/dynasty_neutral_source_increment.py",
         "src/emperor_v4/adapters/structured_output_contract.py",
     } <= set(SOURCE_CACHE_RELEASE_PATHS)
@@ -692,6 +696,7 @@ def test_dynasty_neutral_governance_prepare_and_audit_stay_rule_neutral(
     assert "EXECUTION_MODE: STRUCTURED_OUTPUT_NO_TOOLS" in prompt
     assert "规则复用建议" in prompt
     assert "跨朝代政书中的前代制度" in prompt
+    assert "不得自行补右引号" in prompt
     assert "只抽取汉代实际发生的事实" in prompt
     assert "reuse_candidates" not in prompt
 
@@ -860,6 +865,91 @@ def test_dynasty_neutral_source_increment_closes_candidate_coverage(
     ]
     with pytest.raises(ValueError, match="缺少实质新增维度"):
         audit_comparison(preparation, invalid, output_schema_path=schema_path)
+
+
+def test_dynasty_neutral_material_settlement_coalesces_same_fact_components() -> None:
+    def chain(key: str, result: str, quote: str) -> dict:
+        return {
+            "chain_key": key,
+            "title": "分段漕运",
+            "domain": "military_logistics",
+            "period": "开元",
+            "action": "设置仓储分段漕运",
+            "implementation": "设置河阴仓",
+            "observable_result": result,
+            "cost_or_burden": "原文未载",
+            "operation_status": "implemented",
+            "temporal_scope": "long_term_pattern",
+            "geographic_scope": "multi_region",
+            "actors": [{"name": "裴耀卿"}],
+            "evidence": [
+                {
+                    "page_title": key,
+                    "revision_ref": "1",
+                    "exact_quote": quote,
+                }
+            ],
+        }
+
+    baseline = {
+        "status": "accepted_shadow",
+        "failures": [],
+        "chains": [chain("base-canal", "原文未载", "置河阴仓")],
+    }
+    candidate = {
+        "status": "accepted_shadow",
+        "failures": [],
+        "chains": [
+            chain("candidate-canal-a", "三年运七百万石", "三岁漕七百万石"),
+            chain("candidate-canal-b", "省陆运佣钱", "省佣钱三十万缗"),
+            chain("candidate-new", "渠成", "新开一渠"),
+        ],
+    }
+    increment = {
+        "status": "accepted_shadow",
+        "baseline_count": 1,
+        "candidate_count": 3,
+        "comparisons": [
+            {
+                "candidate_chain_key": "candidate-canal-a",
+                "classification": "same_fact_enrichment",
+                "baseline_chain_keys": ["base-canal"],
+                "rationale": "补运量",
+                "confidence": "high",
+            },
+            {
+                "candidate_chain_key": "candidate-canal-b",
+                "classification": "same_fact_enrichment",
+                "baseline_chain_keys": ["base-canal"],
+                "rationale": "补成本",
+                "confidence": "high",
+            },
+            {
+                "candidate_chain_key": "candidate-new",
+                "classification": "new_fact",
+                "baseline_chain_keys": [],
+                "rationale": "独立工程",
+                "confidence": "high",
+            },
+        ],
+    }
+
+    report = settle_neutral_materials(baseline, candidate, increment)
+
+    assert report["status"] == "accepted_shadow"
+    assert report["settled_material_count"] == 2
+    canal = next(
+        row for row in report["materials"] if row["baseline_chain_keys"]
+    )
+    assert canal["candidate_chain_keys"] == [
+        "candidate-canal-a",
+        "candidate-canal-b",
+    ]
+    assert len(canal["fact_variants"]) == 3
+    assert len(canal["evidence"]) == 3
+    assert canal["episode_projection_status"] == "pending_atomization_review"
+    assert report["indexes"]["by_actor"]["裴耀卿"]
+    assert report["historical_episode_writes"] == report["score_writes"] == 0
 
 def test_codex_provider_keeps_windows_runtime_identity_without_business_secrets(
     monkeypatch: pytest.MonkeyPatch,
