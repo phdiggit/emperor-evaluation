@@ -78,6 +78,18 @@ def _richness(chain: Mapping[str, object]) -> tuple[int, int, int, str]:
     )
 
 
+def _requires_atomization_review(
+    chain: Mapping[str, object],
+    classification: str,
+    baseline_keys: Sequence[str],
+) -> bool:
+    return (
+        bool(baseline_keys)
+        and classification in {"same_fact_enrichment", "same_fact_restatement"}
+        and str(chain.get("operation_status") or "") == "mixed_chain"
+    )
+
+
 class _Components:
     def __init__(self) -> None:
         self.parent: dict[str, str] = {}
@@ -149,6 +161,18 @@ def settle_neutral_materials(
                 }
             )
             continue
+        if _requires_atomization_review(
+            candidate[candidate_key], classification, baseline_keys
+        ):
+            review_queue.append(
+                {
+                    "candidate_chain_key": candidate_key,
+                    "possible_baseline_chain_keys": list(baseline_keys),
+                    "rationale": str(row.get("rationale") or ""),
+                    "confidence": str(row.get("confidence") or ""),
+                    "review_reason": "mixed_chain_partial_overlap_requires_atomization",
+                }
+            )
         components.add(candidate_ref)
         for baseline_key in baseline_keys:
             baseline_ref = f"baseline:{baseline_key}"

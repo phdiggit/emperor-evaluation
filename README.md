@@ -131,7 +131,9 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 跨朝政书按 `source_genre + source_work + target_scope` 显式限定目标朝代，卷内前代制度只有在原文明示被目标朝代继承、修改、废除或实际运用时才可进入同一事实链。《通典》唐代试样扫描食货、选举和刑法6卷共65090字，2个任务得到35条事实链和63条引文；与上述174条基线逐条比较后，17条为新事实、16条为同一事项的实质补强、2条为纯复述，均通过一一覆盖和候选边界验收。这个结果只证明制度专书在当前样本中具有高增量价值，不外推为整书、整朝或其他书目的固定产出率。
 
-跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，而是保留全部 `fact_variants`、去重后的逐字 evidence 和检索用人物/领域索引。当前35条《通典》候选结算为31个材料组件、0条待复核；人物名称索引不承担别名归一或功劳归责，进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向；本层不得创建 HistoricalEpisode、推定人物功劳或写分数。
+第二轮《通典》唐代扩展另扫20卷、182857字，6个并发任务得到73条事实链和159条逐字引文；以既有174条正史事实链和首轮35条《通典》事实链合成209条跨书基线后，增量比较得到55条新事实、17条实质补强和1条纯复述。模型比较只读取每条候选的有限召回窗，因此 `new_fact` 表示“当前召回与预算下未匹配”，不等于穷尽全部既有史料后的全局唯一。一次越界但冗余的基线引用被失败关闭，保留原始输出后确定性删除该引用并重新通过完整合同审计；分类与合法基线引用未改写。
+
+跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，而是保留全部 `fact_variants`、去重后的逐字 evidence 和检索用人物/领域索引。首轮35条《通典》候选结算为31个材料组件、0条待复核；第二轮73条候选对209条基线结算为68个材料组件，其中5条 `mixed_chain` 因只与基线部分重合而进入拆分复核队列。复核前连通分量只用于保存跨书变体，不能直接投影 Episode。人物名称索引不承担别名归一或功劳归责，进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向；本层不得创建 HistoricalEpisode、推定人物功劳或写分数。
 
 推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 

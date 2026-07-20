@@ -952,6 +952,70 @@ def test_dynasty_neutral_material_settlement_coalesces_same_fact_components() ->
     assert report["indexes"]["by_actor"]["裴耀卿"]
     assert report["historical_episode_writes"] == report["score_writes"] == 0
 
+
+def test_dynasty_neutral_material_settlement_queues_mixed_partial_overlap() -> None:
+    def chain(key: str, operation_status: str) -> dict:
+        return {
+            "chain_key": key,
+            "title": key,
+            "domain": "fiscal_taxation",
+            "period": "唐",
+            "action": key,
+            "implementation": "已执行",
+            "observable_result": "原文未载",
+            "cost_or_burden": "原文未载",
+            "operation_status": operation_status,
+            "temporal_scope": "repeated_pattern",
+            "geographic_scope": "multi_region",
+            "actors": [],
+            "evidence": [
+                {
+                    "page_title": key,
+                    "revision_ref": "1",
+                    "exact_quote": key,
+                }
+            ],
+        }
+
+    baseline = {
+        "status": "accepted_shadow",
+        "failures": [],
+        "chains": [chain("tea-tax", "implemented")],
+    }
+    candidate = {
+        "status": "accepted_shadow",
+        "failures": [],
+        "chains": [chain("three-unrelated-taxes", "mixed_chain")],
+    }
+    increment = {
+        "status": "accepted_shadow",
+        "baseline_count": 1,
+        "candidate_count": 1,
+        "comparisons": [
+            {
+                "candidate_chain_key": "three-unrelated-taxes",
+                "classification": "same_fact_enrichment",
+                "baseline_chain_keys": ["tea-tax"],
+                "rationale": "只有茶税部分重合",
+                "confidence": "medium",
+            }
+        ],
+    }
+
+    report = settle_neutral_materials(baseline, candidate, increment)
+
+    assert report["settled_material_count"] == 1
+    assert report["review_queue_count"] == 1
+    assert report["review_queue"] == [
+        {
+            "candidate_chain_key": "three-unrelated-taxes",
+            "possible_baseline_chain_keys": ["tea-tax"],
+            "rationale": "只有茶税部分重合",
+            "confidence": "medium",
+            "review_reason": "mixed_chain_partial_overlap_requires_atomization",
+        }
+    ]
+
 def test_codex_provider_keeps_windows_runtime_identity_without_business_secrets(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
