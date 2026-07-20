@@ -1,10 +1,10 @@
 # 李世民 I5B 当前值影子结果
 
 - 三路输入指纹：`f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878`
-- Episode：`36`；REU：`39`
-- 本纪补证链接：`11`；文治结果支持：`2`
-- 加权净信号：`7.497030`
-- 人才等级与政治风险：材料覆盖仍开放，当前值仅为暂定输入，未冻结。
+- Episode：`66`；REU：`39`
+- 本纪补证链接：`11`；文治结果支持：`6`
+- 加权净信号：`7.580190`
+- 人才等级与政治风险：材料覆盖已闭合，当前值已冻结。
 - 45 分、档位和排名：未生成。
 
 ## 五条规则
@@ -13,7 +13,7 @@
 | --- | ---: | ---: | ---: |
 | 发现人才 | 5.346000 | 0.000000 | 5.346000 |
 | 任用授权 | 14.345100 | 1.100000 | 13.245100 |
-| 团队建设 | 10.692000 | 2.500000 | 8.192000 |
+| 团队建设 | 11.088000 | 2.500000 | 8.588000 |
 | 容人保全 | 4.400000 | 5.980000 | -1.580000 |
 | 避免任人唯亲 | 5.388900 | 0.770000 | 4.618900 |
 
@@ -23,6 +23,17 @@
 
 - `EP-0CFAFF3573DDC07606D8`（talent_discovery）：李世民在藩府已有独立用人、统军权限时亲自将侯君集引入幕府，继而授军职、使其随征并参与谋议，形成引入—实质使用—持续转化的完整发现链。
 - `EP-EAF9F2E2C44BD4EAA65B`（appointment_delegation）：李靖东突厥与吐谷浑、李勣薛延陀、侯君集高昌等新传记材料，与基线相同战争、相同总管任命及相同结果链重合。
+- `EP-OUTCOME-6ADD4C5DDAA4E9EEF133`（outcome_registry）：侯君集主持高昌战役并迫使其投降
+- `EP-OUTCOME-6ADD4C5DDAA4E9EEF133`（outcome_registry）：侯君集主持高昌战役并迫使其投降
+
+### 刘德威
+
+- `EP-OUTCOME-69A396DC2F2B8A684AF4`（outcome_registry）：纠正法官失入失出责任失衡
+- `EP-OUTCOME-E204F4AE6EEA8274FFD3`（outcome_registry）：恢复司法失入失出依律处理
+
+### 孙伏伽
+
+- `EP-OUTCOME-B0A00018E49ABF6041FC`（outcome_registry）：撤销司农木橦案定罪
 
 ### 尉迟敬德
 
@@ -31,6 +42,8 @@
 - `EP-6AB4C9F1BF3FA2CA5A4B`（tolerate_talent）：其他降将叛变后诸将囚禁尉迟敬德并请求立即处死，李世民独立判断其不会继叛，立即释放，构成高压猜疑下的直接保护。
 - `EP-88B74E388ABB0A928BA5`（appointment_delegation）：太宗授尉迟敬德泾州道行军总管出击突厥；其以轻骑挑战、杀敌名将并使敌军败退，责任、运行和战果完整。
 - `EP-B881BD35781F66759B5F`（tolerate_talent）：尉迟敬德因元吉谗告被高祖下狱并面临处死，李世民坚决进谏使其获释，形成外部迫害下的实际保全。
+- `EP-OUTCOME-FD8CE34D136AC68CB216`（outcome_registry）：尉迟敬德在关键战役独立承担主将责任
+- `EP-OUTCOME-FD8CE34D136AC68CB216`（outcome_registry）：尉迟敬德在关键战役独立承担主将责任
 
 ### 岑文本
 
@@ -42,6 +55,7 @@
 
 - `EP-7CBF2DD6D21E9A6F8F20`（appointment_delegation）：太宗派张亮赴洛阳统领千余人、秘密招引豪杰并支用金帛；张亮实际组织执行，受审获释后仍返回洛阳继续任务。
 - `EP-B09C11F1C0FD080BFA8E`（tolerate_talent）：太宗在李道裕提出“反形未具”后仍盛怒处死张亮并籍没，构成压过专业异议的负向处置；一年多后又承认李道裕意见正确、追悔并任其刑部侍郎，形成迟到修复。
+- `EP-OUTCOME-6F9467506043D7DB7724`（outcome_registry）：张仲文案由拟斩改以妖言论处
 
 ### 张玄素
 
@@ -54,32 +68,95 @@
 - `EP-7B8CBC2B172C1CD451BE`（talent_discovery）：太宗克武牢取得戴胄后，直接将其引入秦王府任士曹参军，构成战后跨阵营取得并首次转化使用。
 - `EP-B0511FF174583B27E183`（appointment_delegation）：太宗任戴胄为大理少卿后，其在长孙无忌佩刀案和伪门荫案中依法驳议，分别促成免死及维持成法，显示司法责任实际运行并取得纠偏结果。
 - `EP-C4CC9C333EF0717C5392`（tolerate_talent）：戴胄在佩刀案及伪门荫案反复顶住太宗原处分，坚持法律一致性；太宗嘉许并改判，形成稳定的专业异议容纳。
+- `EP-OUTCOME-4138D13FD99F1B9D1259`（outcome_registry）：建立州县义仓并用于饥馑赈给
+- `EP-OUTCOME-7866C72DD078216D8FBA`（outcome_registry）：误带刀入阁门案依法同等处理
+- `EP-OUTCOME-7866C72DD078216D8FBA`（outcome_registry）：误带刀入阁门案依法同等处理
+- `EP-OUTCOME-D22063C0D4A540645181`（outcome_registry）：诈伪资荫案依法改判流刑
+- `EP-OUTCOME-D22063C0D4A540645181`（outcome_registry）：诈伪资荫案依法改判流刑
+- `EP-OUTCOME-F6E643BE6BA8F8D8CEB4`（outcome_registry）：柳雄案依法免除死刑
+- `EP-OUTCOME-F6E643BE6BA8F8D8CEB4`（outcome_registry）：柳雄案依法免除死刑
 
 ### 房玄龄
 
 - `EP-7F629225187B1B128C08`（appointment_delegation）：新材料补充房玄龄总领百司、监修国史、辽东留守及病中总留台等持续运行，进一步确认长期多阶段中枢授权，但不得拆成多个重复满额链。
+- `EP-OUTCOME-2D6E7C2FEB157886AA17`（outcome_registry）：房玄龄主持中枢政务并参与贞观律令修订
+- `EP-OUTCOME-2D6E7C2FEB157886AA17`（outcome_registry）：房玄龄主持中枢政务并参与贞观律令修订
+- `EP-OUTCOME-6BE47E8EECD7072E8BF8`（outcome_registry）：贞观律令与刑罚体系修订
+
+### 敬播
+
+- `EP-OUTCOME-850B13DDB21C5D595678`（outcome_registry）：不加重谋反者兄弟之刑
 
 ### 李勣
 
 - `EP-AC19EB74A5072527FACC`（appointment_delegation）：李靖东突厥与吐谷浑、李勣薛延陀、侯君集高昌等新传记材料，与基线相同战争、相同总管任命及相同结果链重合。
+- `EP-OUTCOME-5841B2E7C73864E402F4`（outcome_registry）：李勣击破薛延陀主力
+- `EP-OUTCOME-5841B2E7C73864E402F4`（outcome_registry）：李勣击破薛延陀主力
+- `EP-OUTCOME-DE167001186060C6C3BF`（outcome_registry）：李勣攻克平壤平定高句丽
+- `EP-OUTCOME-DE167001186060C6C3BF`（outcome_registry）：李勣攻克平壤平定高句丽
+
+### 李干祐
+
+- `EP-OUTCOME-9F7F3F53FDD754D838AB`（outcome_registry）：裴仁轨案拒绝法外处死
 
 ### 李靖
 
 - `EP-5D8769B9FDB6D3D97142`（talent_discovery）：新扫描中的李靖临刑获救入幕、魏徵跨东宫转化、马周代奏条陈获召，均是基线已经完整结算的同一发现决定及连续步骤。
 - `EP-5E9BBF8E4A3BADF0EE11`（appointment_delegation）：李靖东突厥与吐谷浑、李勣薛延陀、侯君集高昌等新传记材料，与基线相同战争、相同总管任命及相同结果链重合。
 - `EP-60F0E17DA5F07B44DE4B`（tolerate_talent）：新材料补充诬告调查、告发者获罪，以及太宗因谗言先严责后明确悔悟、录功并恢复重用，强化对李靖专业权责和信用的保护修复。
+- `EP-OUTCOME-CDC57E054EDCDA03FA16`（outcome_registry）：李靖远征吐谷浑
+- `EP-OUTCOME-CDC57E054EDCDA03FA16`（outcome_registry）：李靖远征吐谷浑
+- `EP-OUTCOME-EDFFC1B4E7A73FDA6299`（outcome_registry）：李靖奇袭定襄破东突厥
+- `EP-OUTCOME-EDFFC1B4E7A73FDA6299`（outcome_registry）：李靖奇袭定襄破东突厥
+
+### 杜如晦
+
+- `EP-OUTCOME-AFE7384E4AD4E4EC72F7`（outcome_registry）：杜如晦与房玄龄共同掌政并定台阁典章
+- `EP-OUTCOME-AFE7384E4AD4E4EC72F7`（outcome_registry）：杜如晦与房玄龄共同掌政并定台阁典章
+
+### 王师明
+
+- `EP-OUTCOME-2D0AA5E59FC4D28129A2`（outcome_registry）：贡举中以文体轻薄黜落知名候选人
+
+### 王珪
+
+- `EP-OUTCOME-292E430F85450DAB1E7D`（outcome_registry）：死刑集体议决与多次覆奏制度
+
+### 裴弘献
+
+- `EP-OUTCOME-6BE47E8EECD7072E8BF8`（outcome_registry）：贞观律令与刑罚体系修订
+
+### 裴矩
+
+- `EP-OUTCOME-2FCBF7874EAE2D90B088`（outcome_registry）：反对诱试官吏后处以极刑
 
 ### 褚遂良
 
 - `EP-16CB934100E9C7EA80E6`（anti_nepotism）：太宗采纳褚遂良关于太子、诸王名分的建议，形成王府官僚任职不得超过四考的限制，防止宗室府属长期私人依附。
 - `EP-3C835C84644879816679`（talent_discovery）：太宗据魏徵对褚遂良书法专长的推荐，当日召令侍书；其后鉴别王羲之书迹无误，完成推荐—专业任用—结果验证。
 - `EP-8D4C54F2C9CF7E796EE1`（anti_nepotism）：褚遂良要求年幼皇子先受教育、确认具备治州能力后方可出镇；太宗充分采纳，以能力门槛约束亲子凭身份取得地方实职。
+- `EP-OUTCOME-041668E48F3A3C465B8A`（outcome_registry）：褚遂良推动王府任职与皇子外任规则纠偏
+- `EP-OUTCOME-041668E48F3A3C465B8A`（outcome_registry）：褚遂良推动王府任职与皇子外任规则纠偏
 
 ### 长孙无忌
 
 - `EP-1FD14FF18230228532FB`（anti_nepotism）：长孙无忌、房玄龄进一步从子孙能力、违法和扰民风险反对世袭刺史，太宗最终停止方案，补强基线同一撤销决定。
 - `EP-7FA5CE425EF20C176A1A`（anti_nepotism）：长孙无忌因外戚身份担忧偏私之讥而辞司空，太宗公开以才行、鉴悟和武略说明任用依据，显示亲属任用需接受能力化论证。
 - `EP-AD9448ABCD0D6973A8BB`（anti_nepotism）：面对外戚权宠过盛风险及本人、皇后请辞，太宗解除长孙无忌尚书右仆射机密职，改授非机密高位，实际调整亲属权力集中。
+- `EP-OUTCOME-C55884A77E553E79F0C2`（outcome_registry）：长孙无忌推动停止功臣世袭刺史方案
+- `EP-OUTCOME-C55884A77E553E79F0C2`（outcome_registry）：长孙无忌推动停止功臣世袭刺史方案
+
+### 韦悰
+
+- `EP-OUTCOME-B0A00018E49ABF6041FC`（outcome_registry）：撤销司农木橦案定罪
+
+### 韦挺
+
+- `EP-OUTCOME-6F9467506043D7DB7724`（outcome_registry）：张仲文案由拟斩改以妖言论处
+
+### 韩仲良
+
+- `EP-OUTCOME-4138D13FD99F1B9D1259`（outcome_registry）：建立州县义仓并用于饥馑赈给
 
 ### 马周
 
@@ -88,6 +165,8 @@
 ### 高士廉
 
 - `EP-D458B79E7AE8EAA8D679`（anti_nepotism）：太宗命高士廉等征集谱牒、据史传核验真伪并按忠逆褒贬，编成《氏族志》颁行天下，以公共考订标准纠正单纯门第评价。
+- `EP-OUTCOME-F69847800A55DD16E727`（outcome_registry）：高士廉主持氏族志考订并完成颁行
+- `EP-OUTCOME-F69847800A55DD16E727`（outcome_registry）：高士廉主持氏族志考订并完成颁行
 
 ### 魏徵
 
@@ -96,3 +175,5 @@
 - `EP-94C55D868279169B7CD9`（tolerate_talent）：二百余事、四疏优纳、具体撤令和对犯颜方式的正面评价强化长期容谏；身后停婚材料则补强基线已结算的信用压制，正负两端均不得拆成多条重复满额事件。
 - `EP-CFAEB50C6F84BA1A2928`（talent_discovery）：新扫描中的李靖临刑获救入幕、魏徵跨东宫转化、马周代奏条陈获召，均是基线已经完整结算的同一发现决定及连续步骤。
 - `EP-DA3539197918C2FAC725`（appointment_delegation）：太宗诏魏徵总加撰定诸史；魏徵实际损益定稿、撰写序论总论，成果当时获称良史。
+- `EP-OUTCOME-D388650874E85876830C`（outcome_registry）：魏徵持续谏政并总裁多部史书
+- `EP-OUTCOME-D388650874E85876830C`（outcome_registry）：魏徵持续谏政并总裁多部史书

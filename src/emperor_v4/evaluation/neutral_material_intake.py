@@ -6,8 +6,8 @@ import json
 from typing import Mapping, Sequence
 
 from emperor_v4.persistence.core_registry import (
-    GovernanceAchievementMember,
-    GovernanceAchievementRecord,
+    HistoricalOutcomeClusterRecord,
+    HistoricalOutcomeMember,
 )
 
 
@@ -264,41 +264,39 @@ def build_neutral_material_intake(
     }
 
 
-def governance_records_from_registry(
-    registry: Mapping[str, object], *, dynasty: str
-) -> tuple[GovernanceAchievementRecord, ...]:
-    """Convert an accepted registry to current-value PostgreSQL records."""
+def outcome_records_from_registry(
+    registry: Mapping[str, object],
+) -> tuple[HistoricalOutcomeClusterRecord, ...]:
+    """Convert a validated outcome registry to current-value PostgreSQL records."""
 
     records = []
-    for row in registry.get("achievements") or ():
+    for row in registry.get("clusters") or ():
         members = tuple(
-            [
-                GovernanceAchievementMember(
-                    str(item["person_ref"]), "person", str(item["responsibility_role"])
-                )
-                for item in row.get("participants") or ()
-            ]
-            + [
-                GovernanceAchievementMember(
-                    str(item["ruler_ref"]), "ruler", "authorized"
-                )
-                for item in row.get("ruler_links") or ()
-                if item.get("authorization_status") != "not_established"
-            ]
+            HistoricalOutcomeMember(
+                actor_ref=str(item["actor_ref"]),
+                actor_kind=str(item["actor_kind"]),
+                role_code=str(item["role_code"]),
+                contribution_scope=str(item["contribution_scope"]),
+            )
+            for item in row.get("members") or ()
         )
         records.append(
-            GovernanceAchievementRecord(
-                achievement_ref=str(row["achievement_ref"]),
-                independent_governance_key=str(row["independent_governance_key"]),
-                dynasty=dynasty,
-                domain=str(row["domain"]),
-                title=str(row["canonical_label"]),
-                implementation_status=str(row["implementation_status"]),
+            HistoricalOutcomeClusterRecord(
+                outcome_ref=str(row["outcome_ref"]),
+                outcome_kind=str(row["outcome_kind"]),
+                independent_key=str(row["independent_key"]),
+                canonical_label=str(row["canonical_label"]),
+                result_status=str(row["result_status"]),
                 result_direction=str(row["result_direction"]),
-                impact_level=str(row["scale"]["level"]),
-                semantic_fingerprint=_hash(row),
+                scale_level=str(row["scale"]["level"]),
+                semantic_fingerprint=str(row["semantic_fingerprint"]),
+                input_fingerprint=_hash(
+                    {"fact_refs": row["fact_refs"], "source_refs": row["source_refs"]}
+                ),
+                acceptance_status=str(registry["status"]),
                 payload=dict(row),
                 members=members,
+                episode_refs=tuple(str(value) for value in row["episode_refs"]),
             )
         )
-    return tuple(sorted(records, key=lambda item: item.achievement_ref))
+    return tuple(sorted(records, key=lambda item: item.outcome_ref))

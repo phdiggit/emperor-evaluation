@@ -20,17 +20,16 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     build_i5b_material_budget_shadow,
     render_i5b_material_budget_shadow_markdown,
 )
-from emperor_v4.evaluation.governance_achievement_registry import (
-    validate_governance_achievement_registry,
-)
-from emperor_v4.evaluation.talent_grade_domain_equivalence import (
-    validate_campaign_registry,
+from emperor_v4.evaluation.historical_outcome_cluster import (
+    assess_person_talent_grade,
+    build_outcome_episode,
+    validate_historical_outcome_registry,
 )
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
 
-SCHEMA_VERSION = "i5b-current-value-report-v4"
-SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v4"
+SCHEMA_VERSION = "i5b-current-value-report-v5"
+SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v5"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
 
 
@@ -227,7 +226,13 @@ def build_i5b_current_value(
         raise ValueError("current source pack 三路处置不闭合")
     if len(pack.get("ruler_context_materials") or ()) != int(dispositions["ruler_chronicle"]["ruler_window_context_count"]):
         raise ValueError("皇帝篇章 supporting context 数量不一致")
-    if len(pack.get("governance_achievements") or ()) != int(dispositions["dynasty_governance"]["ruler_window_achievement_count"]):
+    outcome_registry = pack.get("outcome_registry") or {}
+    outcome_clusters = list(outcome_registry.get("clusters") or ())
+    dynasty_governance_count = sum(
+        row["origin"] == "dynasty_governance" and row["outcome_kind"] == "governance"
+        for row in outcome_clusters
+    )
+    if dynasty_governance_count != int(dispositions["dynasty_governance"]["ruler_window_achievement_count"]):
         raise ValueError("朝代文治成果处置数量不一致")
     if pack.get("declarations", {}).get("formal_write") is not False:
         raise ValueError("current source pack 不得授权正式写入")
@@ -245,22 +250,15 @@ def build_i5b_current_value(
 
     policy_path = ROOT / str(pack["factor_acceptance"]["policy_ref"])
     policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
-    campaign_registry = pack.get("campaign_registry") or {}
-    governance_grade_registry = pack.get("governance_achievement_registry") or {}
-    campaign_validation = validate_campaign_registry(campaign_registry)
-    governance_grade_validation = validate_governance_achievement_registry(
-        governance_grade_registry,
-        schema_path=ROOT / "config/governance-achievement-registry.schema.json",
-    )
-    campaign_refs = {
-        str(row["campaign_ref"]): row
-        for row in campaign_registry.get("campaigns") or ()
-    }
-    governance_grade_refs = {
-        str(row["achievement_ref"]): row
-        for row in governance_grade_registry.get("achievements") or ()
-    }
     facts = {str(row["record_ref"]): row for row in pack.get("facts") or ()}
+    outcome_validation = validate_historical_outcome_registry(
+        outcome_registry,
+        schema_path=ROOT / "config/historical-outcome-cluster-registry.schema.json",
+        facts=facts,
+    )
+    outcome_by_ref = {
+        str(row["outcome_ref"]): row for row in outcome_clusters
+    }
     ruler_contexts = {
         str(row["material_ref"]): row
         for row in pack.get("ruler_context_materials") or ()
@@ -379,40 +377,43 @@ def build_i5b_current_value(
         }
     team = pack["team"]
     governance_by_ref = {
-        str(row["achievement_ref"]): row
-        for row in pack.get("governance_achievements") or ()
+        ref: row
+        for ref, row in outcome_by_ref.items()
+        if row["outcome_kind"] == "governance"
     }
     positive_member_refs = {
         str(row["person_ref"])
-        for row in facts.values()
-        if str(row["canonical_name"]) in set(team["positive_members"])
+        for row in pack.get("members") or ()
+        if str(row["person"]) in set(team["positive_members"])
     }
     team_governance_refs = sorted(
         ref
         for ref, row in governance_by_ref.items()
-        if row["payload"].get("result_direction") == "positive"
-        and row["payload"].get("positive_result_preserved") is True
-        and row["payload"].get("implementation_status") in {"operated", "completed"}
-        and row["payload"].get("scale", {}).get("level") in {"national", "important"}
-        and positive_member_refs.intersection(str(value) for value in row.get("person_refs") or ())
+        if row["result_direction"] == "positive"
+        and row["result_status"] in {"implemented", "operated", "completed", "mixed"}
+        and row["scale"]["level"] in {"national", "important", "era_shaping"}
+        and any(
+            member["actor_ref"] in positive_member_refs
+            and member["role_code"] in {"exclusive", "lead"}
+            for member in row["members"]
+        )
     )
     governance_results = [
         {
-            "result": governance_by_ref[ref]["payload"]["observable_result"],
-            "source_refs": governance_by_ref[ref]["payload"]["source_refs"],
-            "governance_achievement_ref": ref,
+            "result": governance_by_ref[ref]["observable_result"],
+            "source_refs": governance_by_ref[ref]["source_refs"],
+            "outcome_ref": ref,
         }
         for ref in team_governance_refs
     ]
     governance_dispositions = [
         {
-            "governance_achievement_ref": ref,
+            "outcome_ref": ref,
             "disposition": (
                 "selected_team_result_support"
                 if ref in team_governance_refs
                 else "supporting_policy_context_not_i5b_team_score"
-                if row["payload"].get("result_direction") == "positive"
-                and row["payload"].get("positive_result_preserved") is True
+                if row["result_direction"] == "positive"
                 else "excluded_no_preserved_positive_result"
             ),
         }
@@ -439,7 +440,7 @@ def build_i5b_current_value(
         member_governance_refs = sorted(
             ref
             for ref, row in governance_by_ref.items()
-            if person_ref in {str(value) for value in row.get("person_refs") or ()}
+            if person_ref in {str(value["actor_ref"]) for value in row["members"]}
         )
         supporting_unit_refs = sorted(
             str(value) for value in member.get("supporting_unit_refs") or ()
@@ -462,9 +463,7 @@ def build_i5b_current_value(
                 str(value) for value in risk_review.get("evidence_refs") or ()
             ),
         }
-        known_profile_refs = (
-            set(facts) | set(ruler_contexts) | set(governance_by_ref)
-        )
+        known_profile_refs = set(facts) | set(ruler_contexts) | set(outcome_by_ref)
         unknown_profile_refs = sorted(
             ref
             for refs in profile_evidence_refs.values()
@@ -505,27 +504,29 @@ def build_i5b_current_value(
             or not profile_evidence_refs.get("talent_grade")
         ):
             gaps.append("missing_talent_grade_lineage")
-        registry_kind = str(grade_alignment.get("registry_kind") or "")
         grade_registry_refs = sorted(
-            str(value) for value in grade_alignment.get("registry_refs") or ()
+            str(value) for value in grade_alignment.get("outcome_refs") or ()
         )
-        known_grade_registry_refs = (
-            campaign_refs if registry_kind == "campaign" else governance_grade_refs
+        computed_grade = assess_person_talent_grade(
+            person_ref=person_ref, clusters=outcome_clusters
         )
         if (
             grade_alignment.get("status") != "accepted_current"
             or grade_alignment.get("policy_ref")
             != "config/talent-grade-v11-domain-equivalent-historic.yml"
             or not grade_alignment.get("rule_path")
-            or registry_kind not in {"campaign", "governance_achievement"}
             or not grade_registry_refs
+            or computed_grade["grade"] != member["effective_talent_grade"]
+            or computed_grade["basis"] != talent_review.get("basis")
+            or computed_grade["rule_path"] != grade_alignment.get("rule_path")
+            or computed_grade["outcome_refs"] != grade_registry_refs
         ):
             gaps.append("missing_talent_grade_rule_alignment")
         elif unknown_registry_refs := sorted(
-            set(grade_registry_refs) - set(known_grade_registry_refs)
+            set(grade_registry_refs) - set(outcome_by_ref)
         ):
             raise ValueError(
-                f"{member['person']} 人才等级引用未知{registry_kind}登记: "
+                f"{member['person']} 人才等级引用未知成果登记: "
                 f"{unknown_registry_refs}"
             )
         if (
@@ -564,7 +565,10 @@ def build_i5b_current_value(
                 "candidate_negative_talent_severity": member.get("negative_talent_severity"),
                 "biography_fact_refs": biography_fact_refs,
                 "ruler_context_refs": member_context_refs,
-                "governance_achievement_refs": member_governance_refs,
+                "outcome_refs": sorted(
+                    ref for ref, row in outcome_by_ref.items()
+                    if any(value["actor_ref"] == person_ref for value in row["members"])
+                ),
                 "supporting_unit_refs": supporting_unit_refs,
                 "profile_evidence_refs": profile_evidence_refs,
                 "profile_review": profile_review,
@@ -580,7 +584,12 @@ def build_i5b_current_value(
     if profile_coverage_complete and any(
         row["coverage_gaps"] for row in profile_projection_review
     ):
-        raise ValueError("人物画像声明覆盖闭合但仍存在 lineage 缺口")
+        open_rows = {
+            row["person"]: row["coverage_gaps"]
+            for row in profile_projection_review
+            if row["coverage_gaps"]
+        }
+        raise ValueError(f"人物画像声明覆盖闭合但仍存在 lineage 缺口: {open_rows}")
     manifest["rules"]["team_building"] = {
         "source": str(source_pack_path),
         "positive_members": team["positive_members"],
@@ -596,7 +605,7 @@ def build_i5b_current_value(
             "ruler_ref": pack["ruler_ref"],
             "positive_members": team["positive_members"],
             "negative_members": team["negative_members"],
-            "governance_achievement_refs": team_governance_refs,
+            "outcome_refs": team_governance_refs,
             "functional_complementarity": team["functional_complementarity"],
             "long_term_stability": team["long_term_stability"],
         }
@@ -631,18 +640,31 @@ def build_i5b_current_value(
             *tuple(
                 RuleEvidenceMember(
                     member_ref=ref,
-                    member_type="governance_achievement",
+                    member_type="outcome_cluster",
                     member_role="governance_result_support",
                 )
                 for ref in team_governance_refs
             ),
         ),
     )
-    episodes = sorted(episode_by_id.values(), key=lambda value: value.episode_id)
+    score_episodes = sorted(episode_by_id.values(), key=lambda value: value.episode_id)
+    outcome_episodes = sorted(
+        (build_outcome_episode(row, facts=facts) for row in outcome_clusters),
+        key=lambda value: value.episode_id,
+    )
+    episodes = [*score_episodes, *outcome_episodes]
     by_person: dict[str, list[str]] = {}
     fact_owner = {str(row["person_ref"]): str(row["canonical_name"]) for row in facts.values()}
     for episode in episodes:
-        by_person.setdefault(fact_owner[episode.evaluation_context], []).append(episode.episode_id)
+        owner = fact_owner.get(episode.evaluation_context)
+        if owner:
+            by_person.setdefault(owner, []).append(episode.episode_id)
+    for cluster in outcome_clusters:
+        for member in cluster["members"]:
+            if member["actor_kind"] == "person":
+                by_person.setdefault(str(member["actor_name"]), []).append(
+                    str(cluster["episode_refs"][0])
+                )
     report: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "status": (
@@ -653,7 +675,11 @@ def build_i5b_current_value(
         "ruler": pack["ruler"],
         "ruler_ref": pack["ruler_ref"],
         "window": pack["window"],
-        "source_pack_ref": str(source_pack_path.relative_to(workspace_root)),
+        "source_pack_ref": (
+            str(source_pack_path.relative_to(workspace_root))
+            if source_pack_path.is_relative_to(workspace_root)
+            else str(source_pack_path)
+        ),
         "source_pack_sha256": declared_hash,
         "three_channel_input": three_channel,
         "three_channel_disposition": dispositions,
@@ -661,10 +687,8 @@ def build_i5b_current_value(
         "linked_ruler_context_refs": sorted(linked_ruler_context_refs),
         "governance_results": governance_results,
         "governance_dispositions": governance_dispositions,
-        "talent_grade_registries": {
-            "campaign": campaign_validation,
-            "governance_achievement": governance_grade_validation,
-        },
+        "outcome_registry_validation": outcome_validation,
+        "historical_outcome_clusters": outcome_clusters,
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
         "episodes": [asdict(value) for value in episodes],
@@ -692,10 +716,9 @@ def build_i5b_current_value(
             "profile_member_with_open_gap_count": sum(
                 bool(row["coverage_gaps"]) for row in profile_projection_review
             ),
-            "talent_campaign_registry_count": len(campaign_refs),
-            "talent_governance_achievement_registry_count": len(
-                governance_grade_refs
-            ),
+            "historical_outcome_cluster_count": len(outcome_by_ref),
+            "campaign_outcome_count": outcome_validation["kind_counts"]["campaign"],
+            "governance_outcome_count": outcome_validation["kind_counts"]["governance"],
             "episode_count": len(episodes),
             "rule_evidence_unit_count": len(reus) + 1,
             "external_retrieval_count": 0,
@@ -707,6 +730,7 @@ def build_i5b_current_value(
             "ranking": None,
         },
     }
+    report["database_dry_run"] = build_outcome_database_dry_run(report)
     report["report_sha256"] = _digest(report)
     return report
 
@@ -747,7 +771,9 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         lines.append("")
         for episode_id in ids:
             episode = episode_by_id[episode_id]
-            rule_labels = "、".join(sorted(rules_by_episode[episode_id]))
+            rule_labels = "、".join(
+                sorted(rules_by_episode.get(episode_id) or {"outcome_registry"})
+            )
             lines.append(f"- `{episode_id}`（{rule_labels}）：{episode['action']}")
         lines.append("")
     return "\n".join(lines)
@@ -755,6 +781,30 @@ def render_markdown(report: Mapping[str, Any]) -> str:
 
 def _decimal_text(value: Decimal) -> str:
     return str(value.quantize(Decimal("0.000001")))
+
+
+def build_outcome_database_dry_run(report: Mapping[str, Any]) -> dict[str, Any]:
+    """Return the exact current-row plan without opening a database connection."""
+
+    clusters = list(report.get("historical_outcome_clusters") or ())
+    migration = ROOT / "db/postgres/007_v4_historical_outcome_clusters.sql"
+    return {
+        "schema_version": "historical-outcome-database-dry-run-v1",
+        "status": "ready_before_database_write",
+        "ruler": report["ruler"],
+        "source_pack_sha256": report["source_pack_sha256"],
+        "planned_current_rows": {
+            "historical_episodes": len(clusters),
+            "historical_outcome_clusters": len(clusters),
+            "outcome_cluster_members": sum(len(row["members"]) for row in clusters),
+            "outcome_episode_links": sum(len(row["episode_refs"]) for row in clusters),
+        },
+        "migration_ref": "db/postgres/007_v4_historical_outcome_clusters.sql",
+        "migration_sha256": hashlib.sha256(migration.read_bytes()).hexdigest(),
+        "database_connection_opened": False,
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+    }
 
 
 def _person_material_budget(
@@ -853,7 +903,7 @@ def render_scoring_detail_markdown(
     biography = profile["profile_review"]["full_lifecycle_biography"]
     talent = profile["profile_review"]["talent_grade"]
     alignment = profile.get("talent_grade_rule_alignment") or {}
-    registry_refs = alignment.get("registry_refs") or []
+    registry_refs = alignment.get("outcome_refs") or []
     rule_alignment = (
         f"{alignment['policy_ref']}#{alignment['rule_path']}"
         if alignment.get("policy_ref") and alignment.get("rule_path")
@@ -875,14 +925,41 @@ def render_scoring_detail_markdown(
             "",
             f"政治风险判定：{risk['basis']}",
             "",
+            "## 人才等级成果登记",
+            "",
+            "| 成果 | 类型 | 角色 | 规模 | 已实现结果 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    outcome_by_ref = {
+        row["outcome_ref"]: row for row in report["historical_outcome_clusters"]
+    }
+    for outcome_ref in registry_refs:
+        outcome = outcome_by_ref[outcome_ref]
+        role = next(
+            row["role_code"]
+            for row in outcome["members"]
+            if row["actor_ref"] == profile["person_ref"]
+        )
+        lines.append(
+            f"| {outcome['canonical_label']} | {outcome['outcome_kind']} | {role} | "
+            f"{outcome['scale']['level']} | {outcome['observable_result']} | "
+            f"{'、'.join(outcome['source_refs'])} |"
+        )
+    lines.extend(
+        [
+            "",
             "## HistoricalEpisode",
             "",
         ]
     )
+    indexed_episode_refs = set(
+        report["episode_index_by_person"].get(person) or ()
+    )
     episodes = {
         row["episode_id"]: row
         for row in report["episodes"]
-        if row["evaluation_context"] == profile["person_ref"]
+        if row["episode_id"] in indexed_episode_refs
     }
     if not episodes:
         lines.append("当前没有进入计分链的 Episode。")

@@ -46,25 +46,28 @@ class EpisodeDispositionRecord:
 
 
 @dataclass(frozen=True, slots=True)
-class GovernanceAchievementMember:
-    member_ref: str
-    member_kind: str
-    contribution_role: str
+class HistoricalOutcomeMember:
+    actor_ref: str
+    actor_kind: str
+    role_code: str
+    contribution_scope: str
 
 
 @dataclass(frozen=True, slots=True)
-class GovernanceAchievementRecord:
-    achievement_ref: str
-    independent_governance_key: str
-    dynasty: str
-    domain: str
-    title: str
-    implementation_status: str
+class HistoricalOutcomeClusterRecord:
+    outcome_ref: str
+    outcome_kind: str
+    independent_key: str
+    canonical_label: str
+    result_status: str
     result_direction: str
-    impact_level: str
+    scale_level: str
     semantic_fingerprint: str
+    input_fingerprint: str
+    acceptance_status: str
     payload: Mapping[str, object]
-    members: tuple[GovernanceAchievementMember, ...] = ()
+    members: tuple[HistoricalOutcomeMember, ...] = ()
+    episode_refs: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -87,7 +90,7 @@ class CoreRegistryBatch:
     episodes: tuple[HistoricalEpisodePacket, ...] = ()
     episode_dispositions: tuple[EpisodeDispositionRecord, ...] = ()
     episode_identity_anchors: Mapping[str, str] = field(default_factory=dict)
-    governance_achievements: tuple[GovernanceAchievementRecord, ...] = ()
+    outcome_clusters: tuple[HistoricalOutcomeClusterRecord, ...] = ()
     rule_evidence_units: tuple[RuleEvidenceUnitRecord, ...] = ()
 
 
@@ -112,8 +115,9 @@ class InMemoryCoreRegistry:
     _episode_dispositions: dict[
         tuple[str, str, str], EpisodeDispositionRecord
     ] = field(default_factory=dict)
-    _governance_achievements: dict[str, GovernanceAchievementRecord] = field(default_factory=dict)
-    _governance_achievement_members: dict[tuple[str, str, str], str] = field(default_factory=dict)
+    _historical_outcome_clusters: dict[str, HistoricalOutcomeClusterRecord] = field(default_factory=dict)
+    _outcome_cluster_members: dict[tuple[str, str, str], str] = field(default_factory=dict)
+    _outcome_episode_links: dict[tuple[str, str], str] = field(default_factory=dict)
     _rule_evidence_units: dict[str, RuleEvidenceUnitRecord] = field(default_factory=dict)
     _rule_evidence_members: dict[tuple[str, str, str], str] = field(default_factory=dict)
 
@@ -136,8 +140,9 @@ class InMemoryCoreRegistry:
                 "episode_anchor_by_id",
                 "episode_participants",
                 "episode_dispositions",
-                "governance_achievements",
-                "governance_achievement_members",
+                "historical_outcome_clusters",
+                "outcome_cluster_members",
+                "outcome_episode_links",
                 "rule_evidence_units",
                 "rule_evidence_members",
             )
@@ -149,8 +154,9 @@ class InMemoryCoreRegistry:
             "historical_episodes": 0,
             "episode_participants": 0,
             "episode_assertion_dispositions": 0,
-            "governance_achievements": 0,
-            "governance_achievement_members": 0,
+            "historical_outcome_clusters": 0,
+            "outcome_cluster_members": 0,
+            "outcome_episode_links": 0,
             "rule_evidence_units": 0,
             "rule_evidence_members": 0,
         }
@@ -211,16 +217,31 @@ class InMemoryCoreRegistry:
             writes["episode_assertion_dispositions"] += self._upsert_current(
                 state["episode_dispositions"], disposition.key, disposition
             )
-        for achievement in batch.governance_achievements:
-            writes["governance_achievements"] += self._upsert_current(
-                state["governance_achievements"], achievement.achievement_ref, achievement
+        for cluster in batch.outcome_clusters:
+            unknown_episode_refs = sorted(set(cluster.episode_refs) - set(state["episodes"]))
+            if unknown_episode_refs:
+                raise ValueError(
+                    f"HistoricalOutcomeCluster 引用未知 Episode: {unknown_episode_refs}"
+                )
+            writes["historical_outcome_clusters"] += self._upsert_current(
+                state["historical_outcome_clusters"], cluster.outcome_ref, cluster
             )
-            current = {
-                (achievement.achievement_ref, member.member_ref, member.member_kind): member.contribution_role
-                for member in achievement.members
+            current_members = {
+                (cluster.outcome_ref, member.actor_ref, member.actor_kind): (
+                    member.role_code,
+                    member.contribution_scope,
+                )
+                for member in cluster.members
             }
-            writes["governance_achievement_members"] += self._replace_members(
-                state["governance_achievement_members"], achievement.achievement_ref, current
+            writes["outcome_cluster_members"] += self._replace_members(
+                state["outcome_cluster_members"], cluster.outcome_ref, current_members
+            )
+            current_episodes = {
+                (cluster.outcome_ref, episode_ref): "core_result_chain"
+                for episode_ref in cluster.episode_refs
+            }
+            writes["outcome_episode_links"] += self._replace_members(
+                state["outcome_episode_links"], cluster.outcome_ref, current_episodes
             )
         for unit in batch.rule_evidence_units:
             writes["rule_evidence_units"] += self._upsert_current(
@@ -268,8 +289,9 @@ class InMemoryCoreRegistry:
             "historical_episodes": len(self._episodes),
             "episode_participants": len(self._episode_participants),
             "episode_assertion_dispositions": len(self._episode_dispositions),
-            "governance_achievements": len(self._governance_achievements),
-            "governance_achievement_members": len(self._governance_achievement_members),
+            "historical_outcome_clusters": len(self._historical_outcome_clusters),
+            "outcome_cluster_members": len(self._outcome_cluster_members),
+            "outcome_episode_links": len(self._outcome_episode_links),
             "rule_evidence_units": len(self._rule_evidence_units),
             "rule_evidence_members": len(self._rule_evidence_members),
         }

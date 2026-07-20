@@ -11,6 +11,7 @@ from emperor_v4.evaluation.i5b_civil_discovery_compass import (
     record_discovery_compass,
 )
 from emperor_v4.evaluation.i5b_current_value_runner import (
+    build_outcome_database_dry_run,
     build_i5b_current_value,
     render_markdown as render_i5b_current_value_markdown,
     render_scoring_detail_markdown,
@@ -59,6 +60,11 @@ def _parser() -> argparse.ArgumentParser:
     scoring_detail.add_argument("--result", type=Path)
     scoring_detail.add_argument("--person")
     scoring_detail.add_argument("--output", type=Path, required=True)
+
+    outcome_dry_run = commands.add_parser("historical-outcome-dry-run")
+    outcome_dry_run.add_argument("--ruler", required=True)
+    outcome_dry_run.add_argument("--workspace-root", type=Path, default=Path("."))
+    outcome_dry_run.add_argument("--output", type=Path)
 
     model_policy = commands.add_parser("model-policy")
     model_policy.add_argument("--policy", type=Path, required=True)
@@ -228,6 +234,16 @@ def _run_scoring_detail(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_outcome_dry_run(args: argparse.Namespace) -> int:
+    if any(value in args.ruler for value in ("/", "\\", "..")):
+        raise ValueError("--ruler 不得包含路径字符")
+    workspace_root = args.workspace_root.resolve()
+    source_pack = workspace_root / "eval/i5b_current_value" / args.ruler / "source-pack.json"
+    report = build_i5b_current_value(source_pack, workspace_root=workspace_root)
+    dry_run = build_outcome_database_dry_run(report)
+    return _write_report(dry_run, args.output)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
 
@@ -237,6 +253,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_i5b(args)
     if args.command == "i5b-scoring-detail":
         return _run_scoring_detail(args)
+    if args.command == "historical-outcome-dry-run":
+        return _run_outcome_dry_run(args)
     if args.command == "i5b-discovery-compass-record":
         workspace_root = args.workspace_root.resolve()
         compass_path = args.compass or (

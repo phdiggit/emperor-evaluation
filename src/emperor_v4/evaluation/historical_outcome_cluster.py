@@ -1,0 +1,363 @@
+from __future__ import annotations
+
+from dataclasses import asdict
+from hashlib import sha256
+import json
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+from emperor_v4.adapters.structured_output_contract import (
+    validate_payload_against_schema,
+)
+from emperor_v4.contracts.episode import (
+    AssertionLink,
+    EpisodeParticipant,
+    HistoricalEpisodePacket,
+)
+from emperor_v4.persistence.canonical_refs import canonical_hashed_ref, canonical_person_ref
+
+
+SCHEMA_VERSION = "historical-outcome-cluster-registry-v1"
+SCALES = ("local", "important", "regional", "national", "era_shaping")
+REALIZED_RESULTS = {"implemented", "operated", "completed", "mixed"}
+CAMPAIGN_ROLES = {
+    "commander_in_chief": "主帅",
+    "principal_commander": "主将",
+    "deputy_commander": "副将",
+    "participant": "从攻",
+}
+GOVERNANCE_ROLES = {
+    "exclusive": "独占",
+    "lead": "主导",
+    "governance_participant": "参与",
+    "authorized": "授权",
+}
+COUNTED_TOP_ROLES = {
+    "campaign": {"commander_in_chief", "principal_commander"},
+    "governance": {"exclusive", "lead"},
+}
+COUNTED_IMPORTANT_ROLES = {
+    "campaign": {*COUNTED_TOP_ROLES["campaign"], "deputy_commander"},
+    "governance": COUNTED_TOP_ROLES["governance"],
+}
+CAMPAIGN_SCALE_BASES = {
+    "local": {"local_tactical"},
+    "important": {"important_objective"},
+    "regional": {"regional_theater_control"},
+    "national": {
+        "national_war_outcome",
+        "state_survival",
+        "unification",
+        "state_conquest",
+    },
+    "era_shaping": {"era_order_reconstruction"},
+}
+GOVERNANCE_SCALE_BASES = {
+    "local": {"local_public_result"},
+    "important": {"important_public_result"},
+    "regional": {"regional_governance_result"},
+    "national": {"national_core_subsystem", "national_public_result"},
+    "era_shaping": {"era_order_reconstruction"},
+}
+
+
+def _digest(value: object) -> str:
+    return sha256(
+        json.dumps(
+            value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def outcome_episode_ref(cluster: Mapping[str, object]) -> str:
+    identity = {
+        "kind": cluster["outcome_kind"],
+        "independent_key": cluster["independent_key"],
+    }
+    return "EP-OUTCOME-" + _digest(identity)[:20].upper()
+
+
+def cluster_semantic_fingerprint(cluster: Mapping[str, object]) -> str:
+    unsigned = dict(cluster)
+    unsigned.pop("semantic_fingerprint", None)
+    return _digest(unsigned)
+
+
+def validate_historical_outcome_registry(
+    registry: Mapping[str, object],
+    *,
+    schema_path: Path,
+    facts: Mapping[str, Mapping[str, object]],
+) -> dict[str, object]:
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    validate_payload_against_schema(registry, schema)
+    clusters = list(registry.get("clusters") or ())
+    refs: set[str] = set()
+    keys: set[tuple[str, str]] = set()
+    episode_refs: set[str] = set()
+    actor_refs: set[str] = set()
+    counts = {"campaign": 0, "governance": 0}
+    for cluster in clusters:
+        ref = str(cluster["outcome_ref"])
+        kind = str(cluster["outcome_kind"])
+        key = (kind, str(cluster["independent_key"]))
+        if ref in refs or key in keys:
+            raise ValueError("成果簇身份或同类 independent_key 重复")
+        refs.add(ref)
+        keys.add(key)
+        counts[kind] += 1
+        expected_episode_ref = outcome_episode_ref(cluster)
+        if list(cluster["episode_refs"]) != [expected_episode_ref]:
+            raise ValueError(f"{ref} 当前成果簇必须引用确定性 Episode")
+        if expected_episode_ref in episode_refs:
+            raise ValueError("不同成果簇不得共享同一个确定性 Episode 身份")
+        episode_refs.add(expected_episode_ref)
+        if cluster["semantic_fingerprint"] != cluster_semantic_fingerprint(cluster):
+            raise ValueError(f"{ref} semantic_fingerprint 不匹配")
+        unknown_facts = sorted(set(cluster["fact_refs"]) - set(facts))
+        if unknown_facts:
+            raise ValueError(f"{ref} 引用未知当前事实: {unknown_facts}")
+        derived_sources = {
+            f"{facts[str(fact_ref)]['source_page']}@"
+            f"{facts[str(fact_ref)]['revision_ref']}"
+            for fact_ref in cluster["fact_refs"]
+        }
+        if any(
+            not any(str(source_ref).startswith(derived) for source_ref in cluster["source_refs"])
+            for derived in derived_sources
+        ):
+            raise ValueError(f"{ref} source_refs 未覆盖事实史源")
+        role_contract = CAMPAIGN_ROLES if kind == "campaign" else GOVERNANCE_ROLES
+        members = list(cluster["members"])
+        member_keys = {
+            (str(row["actor_ref"]), str(row["actor_kind"])) for row in members
+        }
+        if len(member_keys) != len(members):
+            raise ValueError(f"{ref} 成果成员重复")
+        for member in members:
+            if member["role_code"] not in role_contract:
+                raise ValueError(f"{ref} 成员角色不属于 {kind} 合同")
+            actor_refs.add(str(member["actor_ref"]))
+        level = str(cluster["scale"]["level"])
+        basis = str(cluster["scale"]["consequence_basis"])
+        bases = CAMPAIGN_SCALE_BASES if kind == "campaign" else GOVERNANCE_SCALE_BASES
+        if basis not in bases[level]:
+            raise ValueError(f"{ref} 规模与 consequence_basis 不匹配")
+        if kind == "campaign":
+            payload = cluster["payload"]
+            if level in {"national", "era_shaping"} and payload[
+                "opponent_condition"
+            ] == "residual":
+                raise ValueError("残余对手不能仅凭灭国名义登记为国家级")
+        if (
+            cluster["result_direction"] == "positive"
+            and cluster["result_status"] not in REALIZED_RESULTS
+        ):
+            raise ValueError("未实现成果不得登记为正向结果")
+    return {
+        "schema_version": "historical-outcome-cluster-validation-v1",
+        "status": "passed",
+        "cluster_count": len(clusters),
+        "kind_counts": counts,
+        "episode_count": len(episode_refs),
+        "actor_count": len(actor_refs),
+        "database_write_count": 0,
+    }
+
+
+def build_outcome_episode(
+    cluster: Mapping[str, object],
+    *,
+    facts: Mapping[str, Mapping[str, object]],
+) -> HistoricalEpisodePacket:
+    fact_rows = [facts[str(ref)] for ref in cluster["fact_refs"]]
+    assertion_links = []
+    for fact in fact_rows:
+        for assertion in fact.get("assertions") or ():
+            assertion_links.append(
+                AssertionLink(
+                    assertion_ref=str(assertion["assertion_ref"]),
+                    source_passage_ref=(
+                        f"{fact['source_page']}@{fact['revision_ref']}#"
+                        f"{assertion['locator_anchor']}"
+                    ),
+                    relation="supports",
+                    supported_fields=("identity", "action", "outcome"),
+                    evidence_status="accepted",
+                    representative=not assertion_links,
+                )
+            )
+    if not assertion_links:
+        raise ValueError(f"{cluster['outcome_ref']} 缺少 Assertion lineage")
+    members = list(cluster["members"])
+    primary = next(
+        (row for row in members if row["actor_kind"] == "person"), members[0]
+    )
+    def episode_person_ref(actor_ref: object) -> str:
+        canonical = canonical_person_ref(actor_ref)
+        return (
+            canonical
+            if canonical.startswith("PER-")
+            else canonical_hashed_ref("PER-V4", actor_ref, length=12)
+        )
+
+    participants = tuple(
+        EpisodeParticipant(
+            person_ref=episode_person_ref(row["actor_ref"]),
+            role_codes=(str(row["role_code"]),),
+            role_status="resolved",
+        )
+        for row in members
+    )
+    provenance = {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": cluster_semantic_fingerprint(cluster),
+    }
+    return HistoricalEpisodePacket(
+        episode_id=outcome_episode_ref(cluster),
+        episode_type=f"{cluster['outcome_kind']}_outcome_chain",
+        episode_status="accepted",
+        evaluation_context=episode_person_ref(primary["actor_ref"]),
+        semantic_fingerprint=_digest(
+            {
+                "cluster": cluster["semantic_fingerprint"],
+                "facts": list(cluster["fact_refs"]),
+            }
+        ),
+        time_start=str(cluster["period"]["start"]),
+        time_end=str(cluster["period"]["end"]),
+        time_precision="historical_text_range",
+        locations=tuple(
+            [str(cluster["payload"]["theater"])]
+            if cluster["outcome_kind"] == "campaign"
+            else ()
+        ),
+        participants=participants,
+        action=str(cluster["canonical_label"]),
+        responsibility="；".join(
+            f"{row['actor_name']}以{row['role_code']}承担{row['contribution_scope']}"
+            for row in members
+        ),
+        outcome=(str(cluster["observable_result"]),),
+        consequence=(str(cluster["scale"]["reason"]),),
+        assertion_links=tuple(assertion_links),
+        conflicts=(),
+        uncertainties=tuple(str(value) for value in cluster["limitations"]),
+        completeness={
+            "identity": "complete",
+            "time": "complete",
+            "action": "complete",
+            "responsibility": "complete",
+            "outcome": "complete",
+            "consequence": "complete",
+            "source_diversity": "partial",
+            "conflict_resolution": "not_applicable",
+        },
+        lineage={"source_refs": ";".join(cluster["source_refs"])},
+        provenance=provenance,
+    )
+
+
+def assess_person_talent_grade(
+    *,
+    person_ref: str,
+    clusters: Sequence[Mapping[str, object]],
+) -> dict[str, object]:
+    scale_rank = {value: index for index, value in enumerate(SCALES)}
+    eligible = []
+    for cluster in clusters:
+        if cluster["result_status"] not in REALIZED_RESULTS:
+            continue
+        member = next(
+            (
+                row
+                for row in cluster["members"]
+                if str(row["actor_ref"]) == person_ref
+            ),
+            None,
+        )
+        if member is None:
+            continue
+        kind = str(cluster["outcome_kind"])
+        role = str(member["role_code"])
+        if role not in COUNTED_IMPORTANT_ROLES[kind]:
+            continue
+        eligible.append((cluster, member))
+    top_eligible = [
+        (cluster, member)
+        for cluster, member in eligible
+        if member["role_code"] in COUNTED_TOP_ROLES[str(cluster["outcome_kind"])]
+    ]
+    national = [
+        row
+        for row in top_eligible
+        if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["national"]
+    ]
+    second_major = [
+        row
+        for row in top_eligible
+        if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["regional"]
+    ]
+    top_anchor = national[0] if national else None
+    top_supported = bool(
+        top_anchor
+        and (
+            top_anchor[0]["stable_delivery"]
+            or top_anchor[0]["important_method_or_legacy"]
+            or any(row[0]["outcome_ref"] != top_anchor[0]["outcome_ref"] for row in second_major)
+        )
+    )
+    if top_supported:
+        grade = "top"
+        rule_path = "top_fallback"
+        counted = second_major
+    elif eligible:
+        important = [
+            row
+            for row in eligible
+            if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["important"]
+        ]
+        if important:
+            grade = "important"
+            rule_path = "common_scale.important"
+            counted = important
+        else:
+            grade = "usable"
+            rule_path = "common_scale.local"
+            counted = eligible
+    else:
+        grade = "ordinary"
+        rule_path = "common_scale.local"
+        counted = []
+    role_labels = {**CAMPAIGN_ROLES, **GOVERNANCE_ROLES}
+    basis_parts = [
+        f"作为{role_labels[str(member['role_code'])]}完成“{cluster['canonical_label']}”，"
+        f"属{cluster['scale']['level']}级结果"
+        for cluster, member in counted
+    ]
+    basis = "；".join(basis_parts) or "完整覆盖后未建立达到可用门槛的独立成果簇"
+    return {
+        "grade": grade,
+        "basis": basis + "。",
+        "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+        "rule_path": rule_path,
+        "outcome_refs": sorted(str(row[0]["outcome_ref"]) for row in counted),
+        "eligible_outcome_count": len(eligible),
+        "status": "accepted_current",
+    }
+
+
+def outcome_registry_report(
+    registry: Mapping[str, object],
+    *,
+    facts: Mapping[str, Mapping[str, object]],
+    schema_path: Path,
+) -> dict[str, object]:
+    validation = validate_historical_outcome_registry(
+        registry, schema_path=schema_path, facts=facts
+    )
+    episodes = [
+        asdict(build_outcome_episode(cluster, facts=facts))
+        for cluster in registry["clusters"]
+    ]
+    return {"validation": validation, "episodes": episodes}

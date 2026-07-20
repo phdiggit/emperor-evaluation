@@ -111,10 +111,9 @@ top_fallback:
     - important_method_or_legacy
 
 registry_contracts:
-  military_campaign_registry_schema: config/campaign-registry.schema.json
-  civil_governance_achievement_registry_schema: config/governance-achievement-registry.schema.json
-  campaign_is_neutral_fact_overlay_not_scoring_episode_copy: true
-  governance_achievement_is_neutral_fact_overlay_not_scoring_episode_copy: true
+  historical_outcome_cluster_registry_schema: config/historical-outcome-cluster-registry.schema.json
+  outcome_kinds: [campaign, governance]
+  outcome_cluster_is_neutral_fact_overlay_not_scoring_episode_copy: true
   reusable_targets:
     - talent_grade_military
     - item1_c1_campaign_contribution

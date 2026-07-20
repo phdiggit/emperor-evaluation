@@ -1,10 +1,10 @@
 # 刘邦 I5B 当前值影子结果
 
 - 三路输入指纹：`f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878`
-- Episode：`18`；REU：`20`
-- 本纪补证链接：`4`；文治结果支持：`0`
+- Episode：`32`；REU：`20`
+- 本纪补证链接：`4`；文治结果支持：`3`
 - 加权净信号：`6.727011`
-- 人才等级与政治风险：材料覆盖仍开放，当前值仅为暂定输入，未冻结。
+- 人才等级与政治风险：材料覆盖已闭合，当前值已冻结。
 - 45 分、档位和排名：未生成。
 
 ## 五条规则
@@ -27,20 +27,28 @@
 ### 周勃
 
 - `EP-0163706158C87E7EBC38`（appointment_delegation）：汉王任周勃为将军，周勃持续承担三秦作战、峣关与敖仓守备、追击项籍及战后平定泗水和东海二郡的军事责任。
+- `EP-OUTCOME-57AC21A42B1CEBC82CAA`（outcome_registry）：周勃平定楚汉后方与燕代叛乱
+- `EP-OUTCOME-57AC21A42B1CEBC82CAA`（outcome_registry）：周勃平定楚汉后方与燕代叛乱
 
 ### 张良
 
 - `EP-756378563E922299F13E`（tolerate_talent）：复立六国撤印、下邑用人配置、固陵动员等材料进一步证明张良能持续提出关键专业判断，刘邦多次采纳并保持其谋划职责，补强基线多阶段反馈安全链。
+- `EP-OUTCOME-F5AE1FD07A5862E9016A`（outcome_registry）：张良完成楚汉战略纠偏与诸侯协同
+- `EP-OUTCOME-F5AE1FD07A5862E9016A`（outcome_registry）：张良完成楚汉战略纠偏与诸侯协同
 
 ### 彭越
 
 - `EP-12420C7674C18DF912EF`（talent_discovery）：彭越率三万余人归汉且已有收取魏地十余城的可观察成绩；刘邦据此验证其能力，任为魏相国并准其自领原部略定梁地，形成归附—核验—关键职责转化的独立完整链。
 - `EP-84BE8DC695F66823D2A4`（appointment_delegation）：刘邦任彭越为魏相国，准其自行统率原有三万余部众略定梁地；后续长期游兵断楚粮道、攻取城邑并供应十余万斛军粮，构成独立方面授权、持续运行和重要结果。
 - `EP-B1A9174E62023E84D7C8`（tolerate_talent）：彭越以魏地初定、畏楚为由拒绝首次会师召令；刘邦未立即处分，而调整利益和动员条件后再次遣使，最终彭越尽率其军会垓下并参与破楚，形成冲突—调整—继续合作的完整独立链。
+- `EP-OUTCOME-08256C2EDF7DE3248988`（outcome_registry）：彭越经营梁地并断楚粮道会师垓下
+- `EP-OUTCOME-08256C2EDF7DE3248988`（outcome_registry）：彭越经营梁地并断楚粮道会师垓下
 
 ### 曹参
 
 - `EP-8405C05B192389998DD0`（appointment_delegation）：新材料补足刘邦任曹参为将军、中尉及假左丞相后，曹参守景陵、围章邯、平魏和平叛的多阶段运行和结果，增强基线中曹参方面治理及军事行政整合画像。
+- `EP-OUTCOME-DB94D1339E72D5325CEC`（outcome_registry）：曹参还定三秦并平定魏地
+- `EP-OUTCOME-DB94D1339E72D5325CEC`（outcome_registry）：曹参还定三秦并平定魏地
 
 ### 樊哙
 
@@ -52,16 +60,41 @@
 - `EP-164CBAA98FB0B646C7B3`（appointment_delegation）：刘邦配置灌婴统率骑兵后，又多次诏其别击、断粮、统合多国车骑及追击项籍；灌婴持续运行并完成破楚骑、追击项籍及平定东南多郡县等结果，形成独立骑兵兵种与追击责任链。
 - `EP-392EE0A4637CBB480068`（talent_discovery）：军中推荐李必、骆甲后，刘邦结合二人的身份顾虑及灌婴屡次力战表现，比较候选并采用灌婴主将、李必骆甲为校尉的配置；该骑兵队随后大破楚骑，完成比较、验证、转化和结果链。
 - `EP-D8741F1F69CED6B9446C`（anti_nepotism）：李必、骆甲因原秦民身份明确担忧军中不信，刘邦没有排除其专业能力，而采用灌婴为主将、二人为左右校尉的岗位设计，并取得大破楚骑结果，形成识别壁垒—开放配置—运行结果的完整链。
+- `EP-OUTCOME-BA987014E2597DE42157`（outcome_registry）：灌婴统骑兵破楚并追击定地
+- `EP-OUTCOME-BA987014E2597DE42157`（outcome_registry）：灌婴统骑兵破楚并追击定地
+
+### 英布
+
+- `EP-OUTCOME-76D5BE000B783D979F70`（outcome_registry）：英布举九江兵归汉并参与垓下破楚
+- `EP-OUTCOME-76D5BE000B783D979F70`（outcome_registry）：英布举九江兵归汉并参与垓下破楚
 
 ### 萧何
 
 - `EP-213D339B5533621815CC`（tolerate_talent）：新材料补足萧何请求、刘邦拘系理由、王卫尉进谏、当日赦放及公开承认己过等环节；负面拘禁仍成立，同时形成及时修复补证。
 - `EP-311C3D4E16758B9FA2BB`（appointment_delegation）：新材料明确刘邦授萧何巴蜀、关中留守、军粮、补兵、太子与制度建置职责，并准紧急事务便宜施行；持续结果使刘邦进一步专属关中事务，完整补强基线长期后方治理链。
 - `EP-EEC40AA520AD63BFBAE8`（anti_nepotism）：功臣位次争议中，刘邦听取补兵、转漕、保全关中的具体贡献论证，以可检验公共绩效确认萧何居第一，补强基线跨身份、按能力和贡献使用核心人才的开放实践。
+- `EP-OUTCOME-7D14CA93E90377E54E3A`（outcome_registry）：萧何持续经营关中法制财政与后勤
+- `EP-OUTCOME-7D14CA93E90377E54E3A`（outcome_registry）：萧何持续经营关中法制财政与后勤
+
+### 陈平
+
+- `EP-OUTCOME-96FB32C56361BC265904`（outcome_registry）：陈平连续筹划国家级危机处置
+- `EP-OUTCOME-96FB32C56361BC265904`（outcome_registry）：陈平连续筹划国家级危机处置
+
+### 陈豨
+
+- `EP-OUTCOME-3F2A4B4053BB52B9D7E7`（outcome_registry）：陈豨受任统辖赵代边兵并形成区域军事实绩
+- `EP-OUTCOME-3F2A4B4053BB52B9D7E7`（outcome_registry）：陈豨受任统辖赵代边兵并形成区域军事实绩
 
 ### 韩信
 
 - `EP-9A0CD694CBFD3A9A253A`（talent_discovery）：萧何力荐、刘邦正式拜韩信为大将的材料复述了基线已结算的推荐入口、皇帝核验与关键转化事项。
+- `EP-OUTCOME-41803E452EF6A2C31286`（outcome_registry）：韩信井陉破赵
+- `EP-OUTCOME-41803E452EF6A2C31286`（outcome_registry）：韩信井陉破赵
+- `EP-OUTCOME-6A06AD025DD8BFCCC53F`（outcome_registry）：韩信潍水破齐并平定齐地
+- `EP-OUTCOME-6A06AD025DD8BFCCC53F`（outcome_registry）：韩信潍水破齐并平定齐地
+- `EP-OUTCOME-928BA9FFF40C8BBAEBB7`（outcome_registry）：韩信平定魏地
+- `EP-OUTCOME-928BA9FFF40C8BBAEBB7`（outcome_registry）：韩信平定魏地
 
 ### 韩王信
 

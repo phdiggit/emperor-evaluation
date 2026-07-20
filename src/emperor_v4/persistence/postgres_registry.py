@@ -101,8 +101,9 @@ class PostgresCoreRegistry:
             "historical_episodes": 0,
             "episode_participants": 0,
             "episode_assertion_dispositions": 0,
-            "governance_achievements": 0,
-            "governance_achievement_members": 0,
+            "historical_outcome_clusters": 0,
+            "outcome_cluster_members": 0,
+            "outcome_episode_links": 0,
             "rule_evidence_units": 0,
             "rule_evidence_members": 0,
         }
@@ -325,54 +326,84 @@ class PostgresCoreRegistry:
                     writes["episode_assertion_dispositions"] += int(
                         cursor.fetchone() is not None
                     )
-                for achievement in batch.governance_achievements:
+                for cluster in batch.outcome_clusters:
+                    for episode_ref in cluster.episode_refs:
+                        cursor.execute(
+                            "SELECT 1 FROM historical_episodes WHERE episode_id = %s",
+                            (episode_ref,),
+                        )
+                        if cursor.fetchone() is None:
+                            raise ValueError(
+                                "HistoricalOutcomeCluster 引用未知 Episode"
+                            )
                     cursor.execute(
                         """
-                        INSERT INTO governance_achievements (
-                            achievement_ref, independent_governance_key, dynasty, domain,
-                            title, implementation_status, result_direction, impact_level,
-                            semantic_fingerprint, payload
-                        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                        ON CONFLICT (achievement_ref) DO UPDATE SET
-                            independent_governance_key = EXCLUDED.independent_governance_key,
-                            dynasty = EXCLUDED.dynasty, domain = EXCLUDED.domain,
-                            title = EXCLUDED.title,
-                            implementation_status = EXCLUDED.implementation_status,
+                        INSERT INTO historical_outcome_clusters (
+                            outcome_ref, outcome_kind, independent_key, canonical_label,
+                            result_status, result_direction, scale_level,
+                            semantic_fingerprint, input_fingerprint, acceptance_status,
+                            payload
+                        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                        ON CONFLICT (outcome_ref) DO UPDATE SET
+                            outcome_kind = EXCLUDED.outcome_kind,
+                            independent_key = EXCLUDED.independent_key,
+                            canonical_label = EXCLUDED.canonical_label,
+                            result_status = EXCLUDED.result_status,
                             result_direction = EXCLUDED.result_direction,
-                            impact_level = EXCLUDED.impact_level,
+                            scale_level = EXCLUDED.scale_level,
                             semantic_fingerprint = EXCLUDED.semantic_fingerprint,
+                            input_fingerprint = EXCLUDED.input_fingerprint,
+                            acceptance_status = EXCLUDED.acceptance_status,
                             payload = EXCLUDED.payload, updated_at = CURRENT_TIMESTAMP
-                        WHERE governance_achievements.payload IS DISTINCT FROM EXCLUDED.payload
-                           OR governance_achievements.semantic_fingerprint IS DISTINCT FROM EXCLUDED.semantic_fingerprint
+                        WHERE historical_outcome_clusters.payload IS DISTINCT FROM EXCLUDED.payload
+                           OR historical_outcome_clusters.semantic_fingerprint IS DISTINCT FROM EXCLUDED.semantic_fingerprint
                         RETURNING 1
                         """,
                         (
-                            achievement.achievement_ref,
-                            achievement.independent_governance_key,
-                            achievement.dynasty,
-                            achievement.domain,
-                            achievement.title,
-                            achievement.implementation_status,
-                            achievement.result_direction,
-                            achievement.impact_level,
-                            achievement.semantic_fingerprint,
-                            Jsonb(dict(achievement.payload)),
+                            cluster.outcome_ref,
+                            cluster.outcome_kind,
+                            cluster.independent_key,
+                            cluster.canonical_label,
+                            cluster.result_status,
+                            cluster.result_direction,
+                            cluster.scale_level,
+                            cluster.semantic_fingerprint,
+                            cluster.input_fingerprint,
+                            cluster.acceptance_status,
+                            Jsonb(dict(cluster.payload)),
                         ),
                     )
                     changed = cursor.fetchone() is not None
-                    writes["governance_achievements"] += int(changed)
+                    writes["historical_outcome_clusters"] += int(changed)
                     if changed:
                         cursor.execute(
-                            "DELETE FROM governance_achievement_members WHERE achievement_ref = %s",
-                            (achievement.achievement_ref,),
+                            "DELETE FROM outcome_cluster_members WHERE outcome_ref = %s",
+                            (cluster.outcome_ref,),
                         )
-                        writes["governance_achievement_members"] += cursor.rowcount
-                        for member in achievement.members:
+                        writes["outcome_cluster_members"] += cursor.rowcount
+                        for member in cluster.members:
                             cursor.execute(
-                                "INSERT INTO governance_achievement_members VALUES (%s,%s,%s,%s)",
-                                (achievement.achievement_ref, member.member_ref, member.member_kind, member.contribution_role),
+                                "INSERT INTO outcome_cluster_members VALUES (%s,%s,%s,%s,%s)",
+                                (
+                                    cluster.outcome_ref,
+                                    canonical_person_ref(member.actor_ref),
+                                    member.actor_kind,
+                                    member.role_code,
+                                    member.contribution_scope,
+                                ),
                             )
-                            writes["governance_achievement_members"] += 1
+                            writes["outcome_cluster_members"] += 1
+                        cursor.execute(
+                            "DELETE FROM outcome_episode_links WHERE outcome_ref = %s",
+                            (cluster.outcome_ref,),
+                        )
+                        writes["outcome_episode_links"] += cursor.rowcount
+                        for episode_ref in cluster.episode_refs:
+                            cursor.execute(
+                                "INSERT INTO outcome_episode_links VALUES (%s,%s,%s)",
+                                (cluster.outcome_ref, episode_ref, "core_result_chain"),
+                            )
+                            writes["outcome_episode_links"] += 1
                 for unit in batch.rule_evidence_units:
                     cursor.execute(
                         """

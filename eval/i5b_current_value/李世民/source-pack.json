@@ -1,10 +1,4 @@
 {
-  "campaign_registry": {
-    "campaigns": [],
-    "registry_version": "current",
-    "schema_version": "campaign-registry-v1",
-    "status": "shadow"
-  },
   "declarations": {
     "database_write": false,
     "formal_write": false,
@@ -160,6 +154,27 @@
       ],
       "source_page": "舊唐書/卷69",
       "subject_role": "攻城主将"
+    },
+    {
+      "assertions": [
+        {
+          "assertion_ref": "PASS-96F4F09F5A78BF536F8E",
+          "exact_quote": "經月餘，克其城，虜其王高藏及男建等",
+          "fact": "李勣任辽东道行军大总管，攻克平壤、俘高藏并平定高句丽。",
+          "kind": "outcome",
+          "locator_anchor": "克其城，虜其王高藏"
+        }
+      ],
+      "canonical_name": "李勣",
+      "date": "总章元年",
+      "neutral_summary": "李勣任辽东道行军大总管，攻克平壤、俘高藏并平定高句丽。",
+      "person_ref": "PER-CAND-8CF6E0AAF5E5",
+      "person_scan_key": "PSCAN-OUTCOME-E9C1B11B31C52D53",
+      "record_ref": "PFACT-25DE1AA89B76C1D9D696",
+      "record_type": "event",
+      "revision_ref": "2296327",
+      "ruler_contexts": [],
+      "source_page": "舊唐書/卷67"
     },
     {
       "assertions": [
@@ -2017,1328 +2032,348 @@
       ],
       "source_page": "舊唐書/卷69",
       "subject_role": "被定罪处死的大臣"
-    }
-  ],
-  "governance_achievement_registry": {
-    "achievements": [],
-    "schema_version": "governance-achievement-registry-v1",
-    "status": "shadow"
-  },
-  "governance_achievements": [
-    {
-      "achievement_ref": "GOVACH-05D296EF7EE008316103",
-      "canonical_label": "贡举中以文体轻薄黜落知名候选人",
-      "independent_governance_key": "literary-style-based-examination-exclusion",
-      "neutral_material_refs": [
-        "NMAT-F9878E6947BEAD3C6AF1"
-      ],
-      "payload": {
-        "achievement_ref": "GOVACH-05D296EF7EE008316103",
-        "canonical_label": "贡举中以文体轻薄黜落知名候选人",
-        "domain": "official_selection",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "literary-style-based-examination-exclusion",
-        "limitations": [
-          "材料所谓二人后来情况如王师明所言没有具体事实，不能据此确认黜落产生正面结果。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
-          "结果仅涉及两名候选人的一次考试评定。"
-        ],
-        "neutral_fact_refs": [
-          "tang-wangshiming-gongju-zhenguan22"
-        ],
-        "observable_result": "王师明将张昌龄、王公理的文策评为全下，二人未列入奏报等第；唐太宗召问后认可其黜落理由。",
-        "participants": [
-          {
-            "canonical_name": "王师明",
-            "contribution_scope": "主持贡举、评定文策并实际黜落两名候选人。",
-            "person_ref": "PER-ACTOR-4E7A8A6C47A0",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观二十二年九月",
-          "start": "贞观二十二年九月"
-        },
-        "positive_result_preserved": false,
-        "result_direction": "unclear",
-        "reuse_targets": [
-          "i5b_team_building",
-          "item2_central_governance",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "implicit",
-            "reign_window": "貞觀二十二年九月",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "local_public_result",
-          "level": "local",
-          "reason": "这是一次贡举中的具体评定和黜落结果，未形成制度性调整或更大范围的可观察公共结果。"
-        },
-        "source_refs": [
-          "通典/卷017@1480814#q2",
-          "通典/卷017@1480814#q3"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-4E7A8A6C47A0"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
     },
     {
-      "achievement_ref": "GOVACH-05F0F1C6F74797D88D31",
-      "canonical_label": "纠正法官失入失出责任失衡",
-      "independent_governance_key": "balanced-judicial-error-liability",
-      "neutral_material_refs": [
-        "NMAT-ED879D84736CE217BE9B"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-6308646F8D2B5BB2",
+          "fact": "中央死刑案件实行高级官员集体议决和两日五覆奏，地方死罪实行三覆奏；制度著于令，门下复理后保全多人生命。",
+          "kind": "outcome",
+          "locator_anchor": "Q19"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-05F0F1C6F74797D88D31",
-        "canonical_label": "纠正法官失入失出责任失衡",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "implemented",
-        "important_method_or_legacy": true,
-        "independent_governance_key": "balanced-judicial-error-liability",
-        "limitations": [
-          "持平为原文总体评价，未附案件统计或持续年限。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_wrongful_inclusion_exclusion_liability"
-        ],
-        "observable_result": "失入、失出两类司法错误均被命令依律追责，材料称此后司法官吏也能持平。",
-        "participants": [
-          {
-            "canonical_name": "刘德威",
-            "contribution_scope": "报告两类司法错误的法定责任及现实执行偏差。",
-            "person_ref": "PER-ACTOR-17240C005FCF",
-            "responsibility_role": "participant"
-          }
-        ],
-        "period": {
-          "end": "太宗时期",
-          "start": "太宗时期"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "太宗时期",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "纠正了法官因避责而倾向从重定罪的普遍执行偏差，但没有案件数量或全国裁判统计。"
-        },
-        "source_refs": [
-          "新唐書/卷056@2017606#Q24"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-17240C005FCF"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观五年",
+      "neutral_summary": "中央死刑案件实行高级官员集体议决和两日五覆奏，地方死罪实行三覆奏；制度著于令，门下复理后保全多人生命。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-168193CB31697496",
+      "record_type": "governance_outcome",
+      "revision_ref": "2017606",
+      "ruler_contexts": [],
+      "source_page": "新唐書/卷056"
     },
     {
-      "achievement_ref": "GOVACH-1F94A3ABDAAB42769B6F",
-      "canonical_label": "反对诱试官吏后处以极刑",
-      "independent_governance_key": "official-entrapment-capital-punishment-rejected",
-      "neutral_material_refs": [
-        "NMAT-9B135A44D20D605A5BE7"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-15FD9900B6DDF9B4",
+          "fact": "京师死刑复奏改为两日内五覆，州县维持三覆，并允许奏报情可宽宥者；材料记载此后因此保全性命者很多。",
+          "kind": "outcome",
+          "locator_anchor": "Q25"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-1F94A3ABDAAB42769B6F",
-        "canonical_label": "反对诱试官吏后处以极刑",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "official-entrapment-capital-punishment-rejected",
-        "limitations": [
-          "最终具体刑罚未载。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_legal_officials_resist_excess_zhenguan"
-        ],
-        "observable_result": "裴矩反对以财物诱试官吏后立即处以极刑，太宗采纳，司门令史未按极刑处置。",
-        "participants": [
-          {
-            "canonical_name": "裴矩",
-            "contribution_scope": "指出诱人入罪后处以极刑不当并促成纠正。",
-            "person_ref": "PER-ACTOR-64FC04E025FC",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观初年",
-          "start": "贞观初年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观初年至贞观十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "local_public_result",
-          "level": "local",
-          "reason": "结果限于一次诱试官吏案件。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q10",
-          "通典/卷169@1997055#q6",
-          "通典/卷169@1997055#q7",
-          "通典/卷169@1997055#q8",
-          "通典/卷169@1997055#q9"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-64FC04E025FC"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观年间",
+      "neutral_summary": "京师死刑复奏改为两日内五覆，州县维持三覆，并允许奏报情可宽宥者；材料记载此后因此保全性命者很多。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-2566B40AF59B4FC4",
+      "record_type": "governance_outcome",
+      "revision_ref": "1461339",
+      "ruler_contexts": [],
+      "source_page": "舊唐書/卷50"
     },
     {
-      "achievement_ref": "GOVACH-29B70B045874713FFFF1",
-      "canonical_label": "死刑集体议决与多次覆奏制度",
-      "independent_governance_key": "death-sentence-collective-review-and-multiple-memorials",
-      "neutral_material_refs": [
-        "NMAT-656FE2A95B576E24A022",
-        "NMAT-BA966460F6848222AD6A"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-C32EF8B200071C6A",
+          "fact": "戴胄坚持同属过误应依法同等处理，监门校尉免于死刑。",
+          "kind": "outcome",
+          "locator_anchor": "q10"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-29B70B045874713FFFF1",
-        "canonical_label": "死刑集体议决与多次覆奏制度",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": true,
-        "implementation_status": "operated",
-        "important_method_or_legacy": true,
-        "independent_governance_key": "death-sentence-collective-review-and-multiple-memorials",
-        "limitations": [
-          "制度持续到贞观以后多久未载。",
-          "恶逆案件仅一覆奏，构成制度例外。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
-          "获全活者的具体人数未载。"
-        ],
-        "neutral_fact_refs": [
-          "tongdian-pilot::tang_death_sentence_collective_review",
-          "tang_death_sentence_review"
-        ],
-        "observable_result": "中央死刑案件实行高级官员集体议决和两日五覆奏，地方死罪实行三覆奏；制度著于令，门下复理后保全多人生命。",
-        "participants": [
-          {
-            "canonical_name": "王珪",
-            "contribution_scope": "提出选任平恕断狱者并以赏罚纠正司法取向。",
-            "person_ref": "PER-ACTOR-309B9032FB74",
-            "responsibility_role": "participant"
-          }
-        ],
-        "period": {
-          "end": "贞观时期",
-          "start": "贞观五年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "太宗贞观时期；贞观五年以后",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "national_core_subsystem",
-          "level": "national",
-          "reason": "建立中央和地方死刑裁判的全国核心复核子系统，并有多人获救的系统级结果。"
-        },
-        "source_refs": [
-          "新唐書/卷056@2017606#Q19",
-          "通典/卷170@1480973#q12",
-          "通典/卷170@1480973#q13"
-        ],
-        "stable_delivery": true
-      },
-      "person_refs": [
-        "PER-ACTOR-309B9032FB74"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观时期",
+      "neutral_summary": "戴胄坚持同属过误应依法同等处理，监门校尉免于死刑。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-258DBCD66D9CEF1C",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     },
     {
-      "achievement_ref": "GOVACH-2F2F85E4872266397DCE",
-      "canonical_label": "建立并扩充多层官学网络",
-      "independent_governance_key": "state-school-network-establishment-and-expansion",
-      "neutral_material_refs": [
-        "NMAT-5FBCB801E710B98F366A"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-546D4D06C070E600",
+          "fact": "太宗认可刑网加密导致司法官竞用深文的问题后，恢复失入、失出各依律文处理。",
+          "kind": "outcome",
+          "locator_anchor": "q10"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-2F2F85E4872266397DCE",
-        "canonical_label": "建立并扩充多层官学网络",
-        "domain": "education_talent",
-        "durable_cross_stage": true,
-        "foundational": true,
-        "implementation_status": "operated",
-        "important_method_or_legacy": true,
-        "independent_governance_key": "state-school-network-establishment-and-expansion",
-        "limitations": [
-          "八千余人的具体统计时点及学生类别构成不明。",
-          "材料未载扩建和运行所需的具体财力、人力成本。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang-education-network-expansion"
-        ],
-        "observable_result": "京师至州县、乡的官学与生员体系得到设置并继续扩充，学舍增至一千二百区，入学者达到八千余人。",
-        "participants": [],
-        "period": {
-          "end": "太宗十三年以后",
-          "start": "高祖初年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_central_governance",
-          "item6_cultural_legacy",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "高祖初年至太宗十三年以后",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          },
-          {
-            "authorization_status": "explicit",
-            "reign_window": "高祖初年至太宗十三年以后",
-            "ruler_name": "李渊",
-            "ruler_ref": "RULER-61CA8C1B7F414357"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "national_public_result",
-          "level": "national",
-          "reason": "材料载明学校设置覆盖京师、州、县、乡，并给出一千二百区学舍和八千余名入学者的系统级实际结果，超过单一机构或局部地区的成果。"
-        },
-        "source_refs": [
-          "新唐書/卷044@2017555#Q1"
-        ],
-        "stable_delivery": true
-      },
-      "person_refs": [],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1",
-        "RULER-61CA8C1B7F414357"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观十一年",
+      "neutral_summary": "太宗认可刑网加密导致司法官竞用深文的问题后，恢复失入、失出各依律文处理。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-296BFE57F54FC4C6",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     },
     {
-      "achievement_ref": "GOVACH-424E82D6B4DEFE67CA30",
-      "canonical_label": "恢复司法失入失出依律处理",
-      "independent_governance_key": "judicial-error-statutory-liability-restored",
-      "neutral_material_refs": [
-        "NMAT-9B135A44D20D605A5BE7"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-F936EF2C39875B60",
+          "fact": "经孙伏伽说明官木定价对民间价格的影响后，司农之罪被撤销。",
+          "kind": "outcome",
+          "locator_anchor": "q1"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-424E82D6B4DEFE67CA30",
-        "canonical_label": "恢复司法失入失出依律处理",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "implemented",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "judicial-error-statutory-liability-restored",
-        "limitations": [
-          "恢复后的执行数量和对裁判取向的实际影响未载。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_legal_officials_resist_excess_zhenguan"
-        ],
-        "observable_result": "太宗认可刑网加密导致司法官竞用深文的问题后，恢复失入、失出各依律文处理。",
-        "participants": [
-          {
-            "canonical_name": "刘德威",
-            "contribution_scope": "报告刑网加密及司法官竞用深文的原因。",
-            "person_ref": "PER-ACTOR-17240C005FCF",
-            "responsibility_role": "participant"
-          }
-        ],
-        "period": {
-          "end": "贞观十一年",
-          "start": "贞观十一年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观初年至贞观十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "纠正司法官责任标准，但材料未给出实施后的案件或全国司法结果。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q10",
-          "通典/卷169@1997055#q6",
-          "通典/卷169@1997055#q7",
-          "通典/卷169@1997055#q8",
-          "通典/卷169@1997055#q9"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-17240C005FCF"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观十四年",
+      "neutral_summary": "经孙伏伽说明官木定价对民间价格的影响后，司农之罪被撤销。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-2EADFB9391F10AC7",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997061",
+      "ruler_contexts": [],
+      "source_page": "通典/卷167"
     },
     {
-      "achievement_ref": "GOVACH-45D09BF497564508BAA4",
-      "canonical_label": "贞观年间丰稔、低粮价与治安改善",
-      "independent_governance_key": "zhenguan-prosperity-low-grain-prices-and-public-order",
-      "neutral_material_refs": [
-        "NMAT-50D471DC21B2550B8867"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-DAE56223C955B625",
+          "fact": "裴矩反对以财物诱试官吏后立即处以极刑，太宗采纳，司门令史未按极刑处置。",
+          "kind": "outcome",
+          "locator_anchor": "q10"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-45D09BF497564508BAA4",
-        "canonical_label": "贞观年间丰稔、低粮价与治安改善",
-        "domain": "economy_production",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "operated",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "zhenguan-prosperity-low-grain-prices-and-public-order",
-        "limitations": [
-          "材料仅作概括性因果承接，没有列明产生丰稔、低粮价和治安景象的具体政策。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
-          "麟德三年的米价记录超出唐太宗统治期，未纳入本成果的归责结果。"
-        ],
-        "neutral_fact_refs": [
-          "tang-zhenguan-agricultural-prosperity-prices"
-        ],
-        "observable_result": "贞观八、九年连续丰稔，米价降至每斗四五钱，马牛遍野，外户常数月不闭；至贞观十五年米价进一步降至每斗两钱。",
-        "participants": [],
-        "period": {
-          "end": "贞观十五年",
-          "start": "贞观八年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item3_fiscal_and_livelihood",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "maintained",
-            "reign_window": "貞觀八年至十五年，兼及麟德三年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "材料给出跨多年持续出现的粮食丰收、低粮价和治安景象，但未明确列出跨区域覆盖或全国人口层面的直接结果。"
-        },
-        "source_refs": [
-          "通典/卷007@1501088#q5"
-        ],
-        "stable_delivery": true
-      },
-      "person_refs": [],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观初年",
+      "neutral_summary": "裴矩反对以财物诱试官吏后立即处以极刑，太宗采纳，司门令史未按极刑处置。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-3AEFC5DA7B6E069E",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     },
     {
-      "achievement_ref": "GOVACH-4C849E0721B6356D0516",
-      "canonical_label": "死囚暂释归家、按期返回并获赦",
-      "independent_governance_key": "death-row-prisoner-temporary-release-and-pardon",
-      "neutral_material_refs": [
-        "NMAT-2BDBFAC267DBDABF5105"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-AF55BF5FE7CF0EDC",
+          "fact": "断趾被废除并改为流三千里、居作二年；九十二项大辟降为流、七十一项流降为徒，律令格式完成颁行并在太宗时期持续施用。",
+          "kind": "outcome",
+          "locator_anchor": "Q15"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-4C849E0721B6356D0516",
-        "canonical_label": "死囚暂释归家、按期返回并获赦",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "death-row-prisoner-temporary-release-and-pardon",
-        "limitations": [
-          "囚犯地域分布、监管方式及赦免后情况未载。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tongdian-pilot::tang_taizong_prisoner_release_return"
-        ],
-        "observable_result": "三百九十名死罪囚暂释归家后全部按期返回，随后全部获赦。",
-        "participants": [],
-        "period": {
-          "end": "次年秋",
-          "start": "贞观六年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观六年至次年秋",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "直接涉及三百九十名死囚，但材料未证明跨区域制度化运行。"
-        },
-        "source_refs": [
-          "通典/卷170@1480973#q19"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观时期",
+      "neutral_summary": "断趾被废除并改为流三千里、居作二年；九十二项大辟降为流、七十一项流降为徒，律令格式完成颁行并在太宗时期持续施用。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-43F0DA17AEE1DE53",
+      "record_type": "governance_outcome",
+      "revision_ref": "2017606",
+      "ruler_contexts": [],
+      "source_page": "新唐書/卷056"
     },
     {
-      "achievement_ref": "GOVACH-5C99E58B9A3A5295F6D1",
-      "canonical_label": "裴仁轨案拒绝法外处死",
-      "independent_governance_key": "pei-rengui-capital-order-rejected",
-      "neutral_material_refs": [
-        "NMAT-9B135A44D20D605A5BE7"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-8AA070BBB16D3A37",
+          "fact": "贞观八、九年连续丰稔，米价降至每斗四五钱，马牛遍野，外户常数月不闭；至贞观十五年米价进一步降至每斗两钱。",
+          "kind": "outcome",
+          "locator_anchor": "q5"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-5C99E58B9A3A5295F6D1",
-        "canonical_label": "裴仁轨案拒绝法外处死",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "pei-rengui-capital-order-rejected",
-        "limitations": [
-          "最终执行的法定刑罚未载。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_legal_officials_resist_excess_zhenguan"
-        ],
-        "observable_result": "李干祐以法令应统一为由拒绝执行太宗欲斩命令，裴仁轨未被处死。",
-        "participants": [
-          {
-            "canonical_name": "李干祐",
-            "contribution_scope": "援引法令统一原则，拒绝执行法外死刑命令。",
-            "person_ref": "PER-ACTOR-229119C309A9",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观时期",
-          "start": "贞观时期"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观初年至贞观十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "local_public_result",
-          "level": "local",
-          "reason": "结果限于一个私役门夫案件。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q10",
-          "通典/卷169@1997055#q6",
-          "通典/卷169@1997055#q7",
-          "通典/卷169@1997055#q8",
-          "通典/卷169@1997055#q9"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-229119C309A9"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观八年",
+      "neutral_summary": "贞观八、九年连续丰稔，米价降至每斗四五钱，马牛遍野，外户常数月不闭；至贞观十五年米价进一步降至每斗两钱。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-4A5329BD729789A6",
+      "record_type": "governance_outcome",
+      "revision_ref": "1501088",
+      "ruler_contexts": [],
+      "source_page": "通典/卷007"
     },
     {
-      "achievement_ref": "GOVACH-6DDFAAF0746687851C08",
-      "canonical_label": "误带刀入阁门案依法同等处理",
-      "independent_governance_key": "palace-gate-weapon-case-equal-treatment",
-      "neutral_material_refs": [
-        "NMAT-9B135A44D20D605A5BE7"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-AD86C390EFBD43C2",
+          "fact": "王师明将张昌龄、王公理的文策评为全下，二人未列入奏报等第；唐太宗召问后认可其黜落理由。",
+          "kind": "outcome",
+          "locator_anchor": "q2"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-6DDFAAF0746687851C08",
-        "canonical_label": "误带刀入阁门案依法同等处理",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "palace-gate-weapon-case-equal-treatment",
-        "limitations": [
-          "涉案各方最终完整刑罚未载。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_legal_officials_resist_excess_zhenguan"
-        ],
-        "observable_result": "戴胄坚持同属过误应依法同等处理，监门校尉免于死刑。",
-        "participants": [
-          {
-            "canonical_name": "戴胄",
-            "contribution_scope": "坚持对同类过误依法同等定罪。",
-            "person_ref": "PER-CAND-947836AF2584",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观时期",
-          "start": "贞观时期"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观初年至贞观十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "local_public_result",
-          "level": "local",
-          "reason": "结果限于一个误带刀入阁门案件。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q10",
-          "通典/卷169@1997055#q6",
-          "通典/卷169@1997055#q7",
-          "通典/卷169@1997055#q8",
-          "通典/卷169@1997055#q9"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-CAND-947836AF2584"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观二十二年九月",
+      "neutral_summary": "王师明将张昌龄、王公理的文策评为全下，二人未列入奏报等第；唐太宗召问后认可其黜落理由。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-5D625053484D5617",
+      "record_type": "governance_outcome",
+      "revision_ref": "1480814",
+      "ruler_contexts": [],
+      "source_page": "通典/卷017"
     },
     {
-      "achievement_ref": "GOVACH-74B3A10FA62F4D512DA2",
-      "canonical_label": "贞观律令与刑罚体系修订",
-      "independent_governance_key": "zhenguan-code-and-penalty-system-revision",
-      "neutral_material_refs": [
-        "NMAT-0DAC5A441D0D02C5AED5",
-        "NMAT-99DD15D45376DBC50E69",
-        "NMAT-E12DF8968E70FFDD05AD"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-D058C318E168E7B9",
+          "fact": "三百九十名死罪囚暂释归家后全部按期返回，随后全部获赦。",
+          "kind": "outcome",
+          "locator_anchor": "q19"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-74B3A10FA62F4D512DA2",
-        "canonical_label": "贞观律令与刑罚体系修订",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": true,
-        "foundational": true,
-        "implementation_status": "operated",
-        "important_method_or_legacy": true,
-        "independent_governance_key": "zhenguan-code-and-penalty-system-revision",
-        "limitations": [
-          "加役流仍包含远距离流放和二年居作负担。",
-          "死刑约减一半为原书概括，统计口径未详。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tongdian-pilot::tang_taizong_penalty_and_code_revision",
-          "tang_early_code_revision",
-          "tang-wude-zhenguan-code-revision"
-        ],
-        "observable_result": "断趾被废除并改为流三千里、居作二年；九十二项大辟降为流、七十一项流降为徒，律令格式完成颁行并在太宗时期持续施用。",
-        "participants": [
-          {
-            "canonical_name": "裴弘献",
-            "contribution_scope": "驳议不便条文并参与删改刑律。",
-            "person_ref": "PER-ACTOR-406D8DE4AC42",
-            "responsibility_role": "lead"
-          },
-          {
-            "canonical_name": "房玄龄",
-            "contribution_scope": "参与议定加役流方案和律令格式编修。",
-            "person_ref": "PER-CAND-0E58D2EA4AC4",
-            "responsibility_role": "participant"
-          }
-        ],
-        "period": {
-          "end": "贞观十一年",
-          "start": "贞观时期"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "太宗贞观时期；武德元年至贞观时期；武德初年至贞观年间；贞观二十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "national_core_subsystem",
-          "level": "national",
-          "reason": "重构全国刑律核心系统并形成系统级、量化的减刑结果。"
-        },
-        "source_refs": [
-          "新唐書/卷056@2017606#Q15",
-          "新唐書/卷056@2017606#Q16",
-          "新唐書/卷056@2017606#Q17",
-          "新唐書/卷056@2017606#Q18",
-          "舊唐書/卷50@1461339#Q22",
-          "舊唐書/卷50@1461339#Q23",
-          "舊唐書/卷50@1461339#Q24",
-          "通典/卷165@2195537#q3",
-          "通典/卷165@2195537#q5",
-          "通典/卷170@1480973#q4"
-        ],
-        "stable_delivery": true
-      },
-      "person_refs": [
-        "PER-ACTOR-406D8DE4AC42",
-        "PER-CAND-0E58D2EA4AC4"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观六年",
+      "neutral_summary": "三百九十名死罪囚暂释归家后全部按期返回，随后全部获赦。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-6E1ECAFB2926E6BC",
+      "record_type": "governance_outcome",
+      "revision_ref": "1480973",
+      "ruler_contexts": [],
+      "source_page": "通典/卷170"
     },
     {
-      "achievement_ref": "GOVACH-8562B459C84F5BD425DE",
-      "canonical_label": "张仲文案由拟斩改以妖言论处",
-      "independent_governance_key": "zhang-zhongwen-case-capital-sentence-correction",
-      "neutral_material_refs": [
-        "NMAT-ED65FC4CA0CCFFCDE6EF"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-08024C74163B3588",
+          "fact": "天下州县开始设置义仓，并在饥馑时开仓赈给或贷作种子；高宗以后仓粮逐渐被借作他费，至神龙时期储备接近耗尽。",
+          "kind": "outcome",
+          "locator_anchor": "Q07"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-8562B459C84F5BD425DE",
-        "canonical_label": "张仲文案由拟斩改以妖言论处",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "zhang-zhongwen-case-capital-sentence-correction",
-        "limitations": [
-          "原文未载张仲文最终所受具体刑罚。",
-          "成果限于单个案件，未显示形成通行裁判规则。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_zhang_zhongwen_yaoyan_zhenguan18"
-        ],
-        "observable_result": "张仲文未按指斥乘舆处斩，最终改以妖言罪处置。",
-        "participants": [
-          {
-            "canonical_name": "韦挺",
-            "contribution_scope": "首次奏请按妖言及赦法免死。",
-            "person_ref": "PER-ACTOR-7FA5BDDE55E2",
-            "responsibility_role": "participant"
-          },
-          {
-            "canonical_name": "张亮",
-            "contribution_scope": "再次奏请依妖言论处并促成最终获准。",
-            "person_ref": "PER-CAND-2E7E8F559309",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观十八年九月",
-          "start": "贞观十八年九月"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观十八年九月",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "这是单个案件的死刑裁判纠错，实际结果重大但未形成跨案件或全国系统结果。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q11",
-          "通典/卷169@1997055#q12"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-7FA5BDDE55E2",
-        "PER-CAND-2E7E8F559309"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观初",
+      "neutral_summary": "天下州县开始设置义仓，并在饥馑时开仓赈给或贷作种子；高宗以后仓粮逐渐被借作他费，至神龙时期储备接近耗尽。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-79285A58160EA125",
+      "record_type": "governance_outcome",
+      "revision_ref": "2017600",
+      "ruler_contexts": [],
+      "source_page": "新唐書/卷051"
     },
     {
-      "achievement_ref": "GOVACH-930FFC579A6C587F951C",
-      "canonical_label": "柳雄案依法免除死刑",
-      "independent_governance_key": "liu-xiong-capital-sentence-corrected",
-      "neutral_material_refs": [
-        "NMAT-9B135A44D20D605A5BE7"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-1A7C5D7F863951D9",
+          "fact": "戴胄坚持依法律定罪，柳雄获赦免死。",
+          "kind": "outcome",
+          "locator_anchor": "q10"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-930FFC579A6C587F951C",
-        "canonical_label": "柳雄案依法免除死刑",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "liu-xiong-capital-sentence-corrected",
-        "limitations": [
-          "免死后的具体刑罚未完整记载。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_legal_officials_resist_excess_zhenguan"
-        ],
-        "observable_result": "戴胄坚持依法律定罪，柳雄获赦免死。",
-        "participants": [
-          {
-            "canonical_name": "戴胄",
-            "contribution_scope": "坚持按法定刑处理柳雄案件。",
-            "person_ref": "PER-CAND-947836AF2584",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观时期",
-          "start": "贞观时期"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观初年至贞观十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "local_public_result",
-          "level": "local",
-          "reason": "结果限于一个虚假资级案件。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q10",
-          "通典/卷169@1997055#q6",
-          "通典/卷169@1997055#q7",
-          "通典/卷169@1997055#q8",
-          "通典/卷169@1997055#q9"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-CAND-947836AF2584"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观时期",
+      "neutral_summary": "戴胄坚持依法律定罪，柳雄获赦免死。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-9E18818370CEB923",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     },
     {
-      "achievement_ref": "GOVACH-998DBDCEA92781566440",
-      "canonical_label": "撤销司农木橦案定罪",
-      "independent_governance_key": "agricultural-office-timber-conviction-reversal",
-      "neutral_material_refs": [
-        "NMAT-EEAD1D9D6CF8CF7F94F4"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-E5343C2F045E08D9",
+          "fact": "京师至州县、乡的官学与生员体系得到设置并继续扩充，学舍增至一千二百区，入学者达到八千余人。",
+          "kind": "outcome",
+          "locator_anchor": "Q1"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-998DBDCEA92781566440",
-        "canonical_label": "撤销司农木橦案定罪",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "agricultural-office-timber-conviction-reversal",
-        "limitations": [
-          "材料只显示个案纠错，没有记载后续同类案件处理或制度化影响。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_prison_farm_timber_case_zhenguan14"
-        ],
-        "observable_result": "经孙伏伽说明官木定价对民间价格的影响后，司农之罪被撤销。",
-        "participants": [
-          {
-            "canonical_name": "韦悰",
-            "contribution_scope": "核查官民价格并提出最初追责事项。",
-            "person_ref": "PER-ACTOR-A31BFF18FB18",
-            "responsibility_role": "participant"
-          },
-          {
-            "canonical_name": "孙伏伽",
-            "contribution_scope": "解释价格关系、认定司农无罪并促成撤罪。",
-            "person_ref": "PER-ACTOR-C248CE757370",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观十四年",
-          "start": "贞观十四年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观十四年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "local_public_result",
-          "level": "local",
-          "reason": "实际结果是撤销一个具体案件中的定罪，未显示扩展为跨案件制度成果。"
-        },
-        "source_refs": [
-          "通典/卷167@1997061#q1",
-          "通典/卷167@1997061#q2"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-A31BFF18FB18",
-        "PER-ACTOR-C248CE757370"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "高祖初年",
+      "neutral_summary": "京师至州县、乡的官学与生员体系得到设置并继续扩充，学舍增至一千二百区，入学者达到八千余人。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-9F9D47087577447D",
+      "record_type": "governance_outcome",
+      "revision_ref": "2017555",
+      "ruler_contexts": [],
+      "source_page": "新唐書/卷044"
     },
     {
-      "achievement_ref": "GOVACH-B0D593C13E775ACC5C4C",
-      "canonical_label": "建立京师死刑五覆奏程序",
-      "independent_governance_key": "capital-punishment-fivefold-review-procedure",
-      "neutral_material_refs": [
-        "NMAT-CA43ED5585F79EA12D2F"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-4B660E88FEA2F96C",
+          "fact": "失入、失出两类司法错误均被命令依律追责，材料称此后司法官吏也能持平。",
+          "kind": "outcome",
+          "locator_anchor": "Q24"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-B0D593C13E775ACC5C4C",
-        "canonical_label": "建立京师死刑五覆奏程序",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "operated",
-        "important_method_or_legacy": true,
-        "independent_governance_key": "capital-punishment-fivefold-review-procedure",
-        "limitations": [
-          "原文未载具体复核案件数和减死人数。",
-          "恶逆案件仅实行一覆。",
-          "材料未证明该程序跨统治阶段延续。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang-capital-review-five-reports"
-        ],
-        "observable_result": "京师死刑复奏改为两日内五覆，州县维持三覆，并允许奏报情可宽宥者；材料记载此后因此保全性命者很多。",
-        "participants": [],
-        "period": {
-          "end": "贞观年间",
-          "start": "贞观年间"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观年间",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "national_core_subsystem",
-          "level": "national",
-          "reason": "该成果重构了中央与州县死刑执行前的复核程序，并有反复运行后保全多人性命的系统级结果。"
-        },
-        "source_refs": [
-          "舊唐書/卷50@1461339#Q25",
-          "舊唐書/卷50@1461339#Q26"
-        ],
-        "stable_delivery": true
-      },
-      "person_refs": [],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "太宗时期",
+      "neutral_summary": "失入、失出两类司法错误均被命令依律追责，材料称此后司法官吏也能持平。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-A929846EA16EDEEC",
+      "record_type": "governance_outcome",
+      "revision_ref": "2017606",
+      "ruler_contexts": [],
+      "source_page": "新唐書/卷056"
     },
     {
-      "achievement_ref": "GOVACH-DA98E07461E6C4878DD5",
-      "canonical_label": "建立州县义仓并用于饥馑赈给",
-      "independent_governance_key": "prefectural-charity-granary-system",
-      "neutral_material_refs": [
-        "NMAT-B36FCC29DDC9B0959F8B"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-F689611579AA6026",
+          "fact": "张仲文未按指斥乘舆处斩，最终改以妖言罪处置。",
+          "kind": "outcome",
+          "locator_anchor": "q11"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-DA98E07461E6C4878DD5",
-        "canonical_label": "建立州县义仓并用于饥馑赈给",
-        "domain": "fiscal_taxation",
-        "durable_cross_stage": true,
-        "foundational": true,
-        "implementation_status": "mixed",
-        "important_method_or_legacy": true,
-        "independent_governance_key": "prefectural-charity-granary-system",
-        "limitations": [
-          "后期义仓被借作其他财政和军费用途，削弱灾荒储备。",
-          "材料未载全国库存、赈给人数、覆盖率和地方执行差异。",
-          "王公以下垦田者承担按亩纳粮的持续负担，商贾无田者亦按户等出粟。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang-charity-normal-granaries"
-        ],
-        "observable_result": "天下州县开始设置义仓，并在饥馑时开仓赈给或贷作种子；高宗以后仓粮逐渐被借作他费，至神龙时期储备接近耗尽。",
-        "participants": [
-          {
-            "canonical_name": "韩仲良",
-            "contribution_scope": "拟定每亩纳二升及依土地条件储存粮食品类的具体标准。",
-            "person_ref": "PER-ACTOR-BDF8815A850B",
-            "responsibility_role": "participant"
-          },
-          {
-            "canonical_name": "戴胄",
-            "contribution_scope": "提出按垦田和秋苗征粮、由各地建立义仓并在饥馑时赈给的方案。",
-            "person_ref": "PER-CAND-947836AF2584",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "神龙以后",
-          "start": "贞观初"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "mixed",
-        "reuse_targets": [
-          "item3_fiscal_and_livelihood",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观二年至神龙以后；贞观初；贞观至德宗时期",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "national_core_subsystem",
-          "level": "national",
-          "reason": "建立了以持续征粮、州县储存和灾年赈给为一体的全国性灾荒储备子系统，并有反复开仓赈给的运行结果。"
-        },
-        "source_refs": [
-          "新唐書/卷051@2017600#Q07",
-          "新唐書/卷052@2017601#Q08",
-          "新唐書/卷052@2017601#Q09"
-        ],
-        "stable_delivery": true
-      },
-      "person_refs": [
-        "PER-ACTOR-BDF8815A850B",
-        "PER-CAND-947836AF2584"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观十八年九月",
+      "neutral_summary": "张仲文未按指斥乘舆处斩，最终改以妖言罪处置。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-B321932021761E41",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     },
     {
-      "achievement_ref": "GOVACH-E3971ADA97C268D1B0C8",
-      "canonical_label": "诈伪资荫案依法改判流刑",
-      "independent_governance_key": "fraudulent-qualification-capital-sentence-reduced-to-exile",
-      "neutral_material_refs": [
-        "NMAT-9B135A44D20D605A5BE7"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-61155375A6622E9C",
+          "fact": "戴胄坚持依律处理，诈伪资荫者未被处死而断流。",
+          "kind": "outcome",
+          "locator_anchor": "q10"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-E3971ADA97C268D1B0C8",
-        "canonical_label": "诈伪资荫案依法改判流刑",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "fraudulent-qualification-capital-sentence-reduced-to-exile",
-        "limitations": [
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
-          "适用案件人数及流放执行情况未载。"
-        ],
-        "neutral_fact_refs": [
-          "tang_legal_officials_resist_excess_zhenguan"
-        ],
-        "observable_result": "戴胄坚持依律处理，诈伪资荫者未被处死而断流。",
-        "participants": [
-          {
-            "canonical_name": "戴胄",
-            "contribution_scope": "坚持诈伪资荫者依律处以流刑。",
-            "person_ref": "PER-CAND-947836AF2584",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观时期",
-          "start": "贞观时期"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "贞观初年至贞观十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "涉及一类诈伪资荫案件的统一依法处断，但未形成系统重构证据。"
-        },
-        "source_refs": [
-          "通典/卷169@1997055#q10",
-          "通典/卷169@1997055#q6",
-          "通典/卷169@1997055#q7",
-          "通典/卷169@1997055#q8",
-          "通典/卷169@1997055#q9"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-CAND-947836AF2584"
-      ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观时期",
+      "neutral_summary": "戴胄坚持依律处理，诈伪资荫者未被处死而断流。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-CDFA86ECE2E997F0",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     },
     {
-      "achievement_ref": "GOVACH-EAD9B2E48F7DEC74328B",
-      "canonical_label": "不加重谋反者兄弟之刑",
-      "independent_governance_key": "treason-brothers-penalty-aggravation-rejected",
-      "neutral_material_refs": [
-        "NMAT-95228AB2B5D04C2F8FC3"
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-2BB49FBE8425E5B7",
+          "fact": "太宗采纳敬播意见，未按刑部请求加重谋反大逆者兄弟的刑罚。",
+          "kind": "outcome",
+          "locator_anchor": "q3"
+        }
       ],
-      "payload": {
-        "achievement_ref": "GOVACH-EAD9B2E48F7DEC74328B",
-        "canonical_label": "不加重谋反者兄弟之刑",
-        "domain": "law_and_adjudication",
-        "durable_cross_stage": false,
-        "foundational": false,
-        "implementation_status": "completed",
-        "important_method_or_legacy": false,
-        "independent_governance_key": "treason-brothers-penalty-aggravation-rejected",
-        "limitations": [
-          "未说明该决定是否另行形成成文法修改。",
-          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
-        ],
-        "neutral_fact_refs": [
-          "tang_treason_brothers_penalty_zhenguan21"
-        ],
-        "observable_result": "太宗采纳敬播意见，未按刑部请求加重谋反大逆者兄弟的刑罚。",
-        "participants": [
-          {
-            "canonical_name": "敬播",
-            "contribution_scope": "提出反对加重兄弟缘坐刑的法律与情理理由。",
-            "person_ref": "PER-ACTOR-2A1665BC5EC2",
-            "responsibility_role": "lead"
-          }
-        ],
-        "period": {
-          "end": "贞观二十一年",
-          "start": "贞观二十一年"
-        },
-        "positive_result_preserved": true,
-        "result_direction": "positive",
-        "reuse_targets": [
-          "item2_institutional_reform",
-          "item2_law_and_adjudication",
-          "talent_grade_civil_governance"
-        ],
-        "ruler_links": [
-          {
-            "authorization_status": "explicit",
-            "reign_window": "武德初年至贞观年间；贞观二十一年",
-            "ruler_name": "李世民",
-            "ruler_ref": "RULER-58130F2446A25CC1"
-          }
-        ],
-        "scale": {
-          "consequence_basis": "important_public_result",
-          "level": "important",
-          "reason": "纠正一项特定连坐刑罚调整，未构成刑律系统重建。"
-        },
-        "source_refs": [
-          "通典/卷167@1997061#q3"
-        ],
-        "stable_delivery": false
-      },
-      "person_refs": [
-        "PER-ACTOR-2A1665BC5EC2"
+      "canonical_name": "李世民",
+      "date": "贞观二十一年",
+      "neutral_summary": "太宗采纳敬播意见，未按刑部请求加重谋反大逆者兄弟的刑罚。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-DDB920892DF26212",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997061",
+      "ruler_contexts": [],
+      "source_page": "通典/卷167"
+    },
+    {
+      "assertions": [
+        {
+          "assertion_ref": "PASS-OUTCOME-139CF71EE9E4C3F4",
+          "fact": "李干祐以法令应统一为由拒绝执行太宗欲斩命令，裴仁轨未被处死。",
+          "kind": "outcome",
+          "locator_anchor": "q10"
+        }
       ],
-      "projection_status": "ready_for_rule_judge",
-      "ruler_refs": [
-        "RULER-58130F2446A25CC1"
-      ],
-      "unresolved_neutral_fact_refs": []
+      "canonical_name": "李世民",
+      "date": "贞观时期",
+      "neutral_summary": "李干祐以法令应统一为由拒绝执行太宗欲斩命令，裴仁轨未被处死。",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "record_ref": "PFACT-OUTCOME-EB73C0078C97401B",
+      "record_type": "governance_outcome",
+      "revision_ref": "1997055",
+      "ruler_contexts": [],
+      "source_page": "通典/卷169"
     }
   ],
   "judge_coverage": {
@@ -4820,7 +3855,7 @@
           "severity": "serious"
         },
         "talent_grade": {
-          "basis": "作为交河道行军大总管主持高昌战役，组织攻城并迫使高昌投降；important为待战役登记复核的候选档位。",
+          "basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果。",
           "evidence_refs": [
             "PFACT-2185E0B1718BD304840E",
             "PFACT-7C9F8E8DF45A5F84E7FE",
@@ -4830,13 +3865,14 @@
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-14362BF6B1E8AEC32313"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -4845,7 +3881,7 @@
         "occupation_abuse"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "作为交河道行军大总管主持高昌战役，组织攻城并迫使高昌投降；important为待战役登记复核的候选档位。"
+      "talent_grade_basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果。"
     },
     {
       "effective_talent_grade": "important",
@@ -4903,7 +3939,7 @@
           "severity": "major"
         },
         "talent_grade": {
-          "basis": "随秦王参加主战线作战，并在泾阳率轻骑击退突厥；important为待战役登记复核的候选档位。",
+          "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果。",
           "evidence_refs": [
             "PFACT-0E2B2C4E04F98FF69939",
             "PFACT-3EF3BF404B1A3787190E",
@@ -4914,13 +3950,14 @@
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-64B54DF4E5A2E78325BA"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -4928,10 +3965,10 @@
         "armed_political_execution"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "随秦王参加主战线作战，并在泾阳率轻骑击退突厥；important为待战役登记复核的候选档位。"
+      "talent_grade_basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果。"
     },
     {
-      "effective_talent_grade": "important",
+      "effective_talent_grade": "top",
       "negative_talent_class": null,
       "negative_talent_severity": null,
       "person": "戴胄",
@@ -4976,22 +4013,27 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "李世民朝司法纠偏、尚书省事务及义仓方案均在窗口内；权威覆盖不足作为限制而非降档。",
+          "basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级结果。",
           "evidence_refs": [
             "PFACT-41800BF1F65F4C449560",
             "PFACT-8B92E1B7122B0F03E37D",
-            "PFACT-E3629BBEDF15D65B4907"
+            "PFACT-E3629BBEDF15D65B4907",
+            "PFACT-OUTCOME-258DBCD66D9CEF1C",
+            "PFACT-OUTCOME-79285A58160EA125",
+            "PFACT-OUTCOME-9E18818370CEB923",
+            "PFACT-OUTCOME-CDFA86ECE2E997F0"
           ],
-          "grade": "important",
+          "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-61732E30C9C6E275EDD2"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
-            "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "rule_path": "top_fallback",
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5001,7 +4043,7 @@
         "administration"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "李世民朝司法纠偏、尚书省事务及义仓方案均在窗口内；权威覆盖不足作为限制而非降档。"
+      "talent_grade_basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级结果。"
     },
     {
       "effective_talent_grade": "important",
@@ -5051,7 +4093,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "采用秦王府及贞观中枢行政、法令审定、人才整合和国史项目；校准档为important。",
+          "basis": "作为主导完成“房玄龄主持中枢政务并参与贞观律令修订”，属important级结果。",
           "evidence_refs": [
             "PFACT-83844E7D9ED9561C3A12",
             "PFACT-994A65B71FE16E7026A3",
@@ -5061,13 +4103,14 @@
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-F6D2FEBCABDFC25295BF"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5077,7 +4120,7 @@
         "coordination"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "采用秦王府及贞观中枢行政、法令审定、人才整合和国史项目；校准档为important。"
+      "talent_grade_basis": "作为主导完成“房玄龄主持中枢政务并参与贞观律令修订”，属important级结果。"
     },
     {
       "effective_talent_grade": "top",
@@ -5121,20 +4164,23 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "只采用李世民时期的东突厥、薛延陀、并州边防及辽东成果；隋末运河劫取风险不倒灌本窗口。",
+          "basis": "作为主帅完成“李勣击破薛延陀主力”，属national级结果；作为主帅完成“李勣攻克平壤平定高句丽”，属national级结果。",
           "evidence_refs": [
+            "PFACT-25DE1AA89B76C1D9D696",
             "PFACT-FB34B3E66967110F62E2"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-049DADFAB2AF90ADB3A4",
+              "OUTCOME-F4E0D154F563ED193E48"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5143,7 +4189,7 @@
         "long_term_command"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "只采用李世民时期的东突厥、薛延陀、并州边防及辽东成果；隋末运河劫取风险不倒灌本窗口。"
+      "talent_grade_basis": "作为主帅完成“李勣击破薛延陀主力”，属national级结果；作为主帅完成“李勣攻克平壤平定高句丽”，属national级结果。"
     },
     {
       "effective_talent_grade": "top",
@@ -5195,24 +4241,23 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主帅攻破东突厥并远征吐谷浑，现有本传已见独立国家级战果候选；top仍须由战役登记逐项确认。",
+          "basis": "作为主帅完成“李靖奇袭定襄破东突厥”，属national级结果；作为主帅完成“李靖远征吐谷浑”，属national级结果。",
           "evidence_refs": [
             "PFACT-287074885322342E76DC",
-            "PFACT-29FAF51DCF8DB07BE46E",
-            "PFACT-782A74C3771AF1731119",
-            "PFACT-A0056AD61FA6870E926C",
-            "PFACT-E75BE36B2CD8CDB87D61"
+            "PFACT-782A74C3771AF1731119"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-BE5748B1A230842D8187",
+              "OUTCOME-F49DBC756CFF9A08C273"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5221,7 +4266,7 @@
         "frontier"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "作为主帅攻破东突厥并远征吐谷浑，现有本传已见独立国家级战果候选；top仍须由战役登记逐项确认。"
+      "talent_grade_basis": "作为主帅完成“李靖奇袭定襄破东突厥”，属national级结果；作为主帅完成“李靖远征吐谷浑”，属national级结果。"
     },
     {
       "effective_talent_grade": "important",
@@ -5265,20 +4310,21 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "采用李世民窗口内军国决断及与房玄龄共同形成台阁典章的成果。",
+          "basis": "作为主导完成“杜如晦与房玄龄共同掌政并定台阁典章”，属important级结果。",
           "evidence_refs": [
             "PFACT-C8A872B651268592E0DA"
           ],
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-66593E9500E13D957AF7"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5287,7 +4333,7 @@
         "personnel"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "采用李世民窗口内军国决断及与房玄龄共同形成台阁典章的成果。"
+      "talent_grade_basis": "作为主导完成“杜如晦与房玄龄共同掌政并定台阁典章”，属important级结果。"
     },
     {
       "effective_talent_grade": "important",
@@ -5335,7 +4381,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "采用贞观朝持续谏奏、立储共同决策、起居监督与书迹鉴别成果；不使用后朝争议。",
+          "basis": "作为主导完成“褚遂良推动王府任职与皇子外任规则纠偏”，属important级结果。",
           "evidence_refs": [
             "PFACT-4B3F00F43705BE34F471",
             "PFACT-A201EA4B26D1F014872B",
@@ -5344,13 +4390,14 @@
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-F7A648059628A3595F16"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5360,7 +4407,7 @@
         "court_supervision"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "采用贞观朝持续谏奏、立储共同决策、起居监督与书迹鉴别成果；不使用后朝争议。"
+      "talent_grade_basis": "作为主导完成“褚遂良推动王府任职与皇子外任规则纠偏”，属important级结果。"
     },
     {
       "effective_talent_grade": "important",
@@ -5408,7 +4455,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "参与储位维持、制度劝止、边政判断和修史监领；important仍须由治理成果登记确认责任与结果规模。",
+          "basis": "作为主导完成“长孙无忌推动停止功臣世袭刺史方案”，属important级结果。",
           "evidence_refs": [
             "PFACT-2FE1DDE510117AA09D70",
             "PFACT-AFDB4E7B80FA0E10E30B",
@@ -5417,13 +4464,14 @@
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-22883FC5C4F80925828C"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5433,7 +4481,7 @@
         "law"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "参与储位维持、制度劝止、边政判断和修史监领；important仍须由治理成果登记确认责任与结果规模。"
+      "talent_grade_basis": "作为主导完成“长孙无忌推动停止功臣世袭刺史方案”，属important级结果。"
     },
     {
       "effective_talent_grade": "important",
@@ -5479,20 +4527,21 @@
           "severity": "serious"
         },
         "talent_grade": {
-          "basis": "主持《氏族志》核验、分类、定等并完成颁行；important仍须由治理成果登记确认责任与结果规模。",
+          "basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级结果。",
           "evidence_refs": [
             "PFACT-AD0F8C4C4C578CED7C34"
           ],
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-1EE17720B75501CABF8E"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5501,7 +4550,7 @@
         "information_gatekeeping"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "主持《氏族志》核验、分类、定等并完成颁行；important仍须由治理成果登记确认责任与结果规模。"
+      "talent_grade_basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级结果。"
     },
     {
       "effective_talent_grade": "top",
@@ -5553,7 +4602,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "李世民朝二百余事陈谏、具体撤令纠偏和史学礼学成果均在窗口内。",
+          "basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级结果。",
           "evidence_refs": [
             "PFACT-46E0202B0B9754A3CC6A",
             "PFACT-A111DE6D11F43B330228",
@@ -5564,13 +4613,14 @@
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-9467020FD483B4C5B435"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "role_families": [
@@ -5580,21 +4630,1781 @@
         "historiography"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "李世民朝二百余事陈谏、具体撤令纠偏和史学礼学成果均在窗口内。"
+      "talent_grade_basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级结果。"
     }
   ],
+  "outcome_registry": {
+    "clusters": [
+      {
+        "canonical_label": "李勣击破薛延陀主力",
+        "episode_refs": [
+          "EP-OUTCOME-5841B2E7C73864E402F4"
+        ],
+        "fact_refs": [
+          "PFACT-FB34B3E66967110F62E2"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "liji-0",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "actor_ref": "PER-CAND-8CF6E0AAF5E5",
+            "contribution_scope": "作为方面主帅独立统兵并完成国家级战争目标。",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "observable_result": "薛延陀南侵时，李勣率三千轻骑追至青山，大破八万骑兵，斩名王、俘首领与五万余众。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-049DADFAB2AF90ADB3A4",
+        "payload": {
+          "battle_result": "victory",
+          "objective_completion": "complete",
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "national_peer",
+          "strategic_objective": "薛延陀南侵时，李勣率三千轻骑追至青山，大破八万骑兵，斩名王、俘首领与五万余众。",
+          "theater": "李勣击破薛延陀主力"
+        },
+        "period": {
+          "end": "貞觀十五年",
+          "start": "貞觀十五年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "national_war_outcome",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "4a09713fbcb42b50233a66d9335bd6d2318dc61af73683f05e3a32b3ef1292ea",
+        "source_refs": [
+          "舊唐書/卷67@2296327#擊大破之",
+          "舊唐書/卷67@2296327#率輕騎三千"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "贞观年间丰稔、低粮价与治安改善",
+        "episode_refs": [
+          "EP-OUTCOME-AB1AD5902EAF781307A4"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-4A5329BD729789A6"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "zhenguan-prosperity-low-grain-prices-and-public-order",
+        "limitations": [
+          "材料仅作概括性因果承接，没有列明产生丰稔、低粮价和治安景象的具体政策。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
+          "麟德三年的米价记录超出唐太宗统治期，未纳入本成果的归责结果。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          }
+        ],
+        "observable_result": "贞观八、九年连续丰稔，米价降至每斗四五钱，马牛遍野，外户常数月不闭；至贞观十五年米价进一步降至每斗两钱。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-1211BA0FF1FA80D10CB7",
+        "payload": {
+          "authorization_status": "maintained",
+          "domain": "economy_production",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观八年",
+          "start": "贞观八年"
+        },
+        "result_direction": "positive",
+        "result_status": "operated",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "f29636778efa27d5d58d0f7daa7a582f807419a2cf9fd055a6ad6b73fd20ab93",
+        "source_refs": [
+          "通典/卷007@1501088#q5"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "侯君集主持高昌战役并迫使其投降",
+        "episode_refs": [
+          "EP-OUTCOME-6ADD4C5DDAA4E9EEF133"
+        ],
+        "fact_refs": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-851A4B92D193-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "侯君集",
+            "actor_ref": "PER-CAND-851A4B92D193",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "observable_result": "侯君集先劝谕守军但未奏效，继而组织填壕、撞车、抛车等攻城行动，攻克城池并俘获七千余人。；太宗任侯君集为交河道行军大总管讨高昌。文泰死后，诸将请求趁葬礼袭击，侯君集以不合问罪之师为由拒绝，改为公开进军攻城。；智盛致书求怜后，侯君集要求其束手军门；智盛仍不出降，侯君集继续填壕、使用抛车及高楼攻城。智盛失去西突厥援助后投降，侯君集分兵略地，平定高昌并俘获智盛及其将吏。；太宗在藩时将侯君集引入幕府；侯君集多次随从征伐，历任左虞侯、车骑将军，并逐渐参与谋议。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-14362BF6B1E8AEC32313",
+        "payload": {
+          "battle_result": "victory",
+          "objective_completion": "complete",
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "regional_major",
+          "strategic_objective": "侯君集先劝谕守军但未奏效，继而组织填壕、撞车、抛车等攻城行动，攻克城池并俘获七千余人。；太宗任侯君集为交河道行军大总管讨高昌。文泰死后，诸将请求趁葬礼袭击，侯君集以不合问罪之师为由拒绝，改为公开进军攻城。；智盛致书求怜后，侯君集要求其束手军门；智盛仍不出降，侯君集继续填壕、使用抛车及高楼攻城。智盛失去西突厥援助后投降，侯君集分兵略地，平定高昌并俘获智盛及其将吏。；太宗在藩时将侯君集引入幕府；侯君集多次随从征伐，历任左虞侯、车骑将军，并逐渐参与谋议。",
+          "theater": "侯君集主持高昌战役并迫使其投降"
+        },
+        "period": {
+          "end": "太宗在籓时",
+          "start": "高昌之役"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_objective",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "3f28f990ea81314f8a64002521579a9886ad7bc0cd114597384b3d568b10dcb1",
+        "source_refs": [
+          "舊唐書/卷69@2610556#七千餘口",
+          "舊唐書/卷69@2610556#不行",
+          "舊唐書/卷69@2610556#交河道行軍大總管",
+          "舊唐書/卷69@2610556#俯視城內",
+          "舊唐書/卷69@2610556#刊木填隍",
+          "舊唐書/卷69@2610556#參預謀議",
+          "舊唐書/卷69@2610556#命士卒填其隍塹",
+          "舊唐書/卷69@2610556#引入幕府",
+          "舊唐書/卷69@2610556#從征伐",
+          "舊唐書/卷69@2610556#束手軍門",
+          "舊唐書/卷69@2610556#車騎將軍",
+          "舊唐書/卷69@2610556#遂平其國",
+          "舊唐書/卷69@2610556#非問罪之師也",
+          "舊唐書/卷69@2610556#鼓行而前"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "反对诱试官吏后处以极刑",
+        "episode_refs": [
+          "EP-OUTCOME-2FCBF7874EAE2D90B088"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-3AEFC5DA7B6E069E"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "official-entrapment-capital-punishment-rejected",
+        "limitations": [
+          "最终具体刑罚未载。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "裴矩",
+            "actor_ref": "PER-ACTOR-64FC04E025FC",
+            "contribution_scope": "指出诱人入罪后处以极刑不当并促成纠正。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "裴矩反对以财物诱试官吏后立即处以极刑，太宗采纳，司门令史未按极刑处置。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-164B1C44804707498809",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观初年",
+          "start": "贞观初年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "local_public_result",
+          "decisiveness": "supporting",
+          "level": "local",
+          "reason": "按已经实现且可归责的结果登记为local级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "e7a9ff79c20f8d81ccce4b10cdac41d3261eacd273d7db2f2c1f02661d97a99b",
+        "source_refs": [
+          "通典/卷169@1997055#q10"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "死刑集体议决与多次覆奏制度",
+        "episode_refs": [
+          "EP-OUTCOME-292E430F85450DAB1E7D"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-168193CB31697496"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "death-sentence-collective-review-and-multiple-memorials",
+        "limitations": [
+          "制度持续到贞观以后多久未载。",
+          "恶逆案件仅一覆奏，构成制度例外。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
+          "获全活者的具体人数未载。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "王珪",
+            "actor_ref": "PER-ACTOR-309B9032FB74",
+            "contribution_scope": "提出选任平恕断狱者并以赏罚纠正司法取向。",
+            "role_code": "governance_participant"
+          }
+        ],
+        "observable_result": "中央死刑案件实行高级官员集体议决和两日五覆奏，地方死罪实行三覆奏；制度著于令，门下复理后保全多人生命。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-172BD88DA3104D86A65B",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": true
+        },
+        "period": {
+          "end": "贞观五年",
+          "start": "贞观五年"
+        },
+        "result_direction": "positive",
+        "result_status": "operated",
+        "scale": {
+          "consequence_basis": "national_core_subsystem",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "fe0e2a2b819ff8ca513c1c1ef51617e8f0f0adcf37c850f231dbc567b196ad5a",
+        "source_refs": [
+          "新唐書/卷056@2017606#Q19"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "高士廉主持氏族志考订并完成颁行",
+        "episode_refs": [
+          "EP-OUTCOME-F69847800A55DD16E727"
+        ],
+        "fact_refs": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-564F932D7FB5-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "高士廉",
+            "actor_ref": "PER-CAND-564F932D7FB5",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "太宗命高士廉与韦挺、岑文本、令狐德棻等共同刊正姓氏。他们普遍征集天下谱牒，依据史传核验真伪，按忠贤与悖逆褒贬，编成《氏族志》；高士廉分类定等进呈。太宗纠正崔干等级后，该书完成并颁行天下。",
+        "origin": "person_biography",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-1EE17720B75501CABF8E",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "strategic_coordination",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观年间",
+          "start": "贞观年间"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "dfa0fa77ca4d611c6575dd2da8f47a70c5f8188109b0b0cdf698fff23c43ba1a",
+        "source_refs": [
+          "舊唐書/卷65@1768276#刊正姓氏",
+          "舊唐書/卷65@1768276#考其真偽",
+          "舊唐書/卷65@1768276#詔頒於天下",
+          "舊唐書/卷65@1768276#類其等第以進"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "长孙无忌推动停止功臣世袭刺史方案",
+        "episode_refs": [
+          "EP-OUTCOME-C55884A77E553E79F0C2"
+        ],
+        "fact_refs": [
+          "PFACT-2FE1DDE510117AA09D70",
+          "PFACT-AFDB4E7B80FA0E10E30B",
+          "PFACT-C01899B0DCE914EBBF09"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-6D5FA3B48F40-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "长孙无忌",
+            "actor_ref": "PER-CAND-6D5FA3B48F40",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "长孙无忌被册拜司空后多次坚辞，称自己身为外戚，担心招致君主偏私亲属的讥议；太宗不许，并说明任用是基于其才行、聪明鉴悟和武略。；有人密表称长孙无忌权宠过盛。长孙无忌以盈满自戒，恳请辞去机密职任；在文德皇后也代为请求后，太宗解除其尚书右仆射职，改授开府仪同三司。；太宗拟令长孙无忌等功臣世袭刺史。长孙无忌等先陈述不愿离朝，又与房玄龄联名上表，从制度不合时宜、滥赏、子孙能力和地方治理风险等方面请求停止；太宗最终停止实施。",
+        "origin": "person_biography",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-22883FC5C4F80925828C",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "strategic_coordination",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观十一年",
+          "start": "贞观七年十月"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "ecc1fcb70eb68fb063bfa4f7ce842d8e551544539d49b92c17a766786a407a36",
+        "source_refs": [
+          "舊唐書/卷65@1768276#下擾生民",
+          "舊唐書/卷65@1768276#不願違離",
+          "舊唐書/卷65@1768276#恐招聖主私親之誚",
+          "舊唐書/卷65@1768276#懇辭機密",
+          "舊唐書/卷65@1768276#無忌聰明鑑悟",
+          "舊唐書/卷65@1768276#解尚書右僕射",
+          "舊唐書/卷65@1768276#遂止"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "柳雄案依法免除死刑",
+        "episode_refs": [
+          "EP-OUTCOME-F6E643BE6BA8F8D8CEB4"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-9E18818370CEB923"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "liu-xiong-capital-sentence-corrected",
+        "limitations": [
+          "免死后的具体刑罚未完整记载。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "戴胄",
+            "actor_ref": "PER-CAND-947836AF2584",
+            "contribution_scope": "坚持按法定刑处理柳雄案件。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "戴胄坚持依法律定罪，柳雄获赦免死。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-29B0C201AB296DCAAEB2",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观时期",
+          "start": "贞观时期"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "local_public_result",
+          "decisiveness": "supporting",
+          "level": "local",
+          "reason": "按已经实现且可归责的结果登记为local级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "dc4e19cc78bf70ec9ae34de8af6d9a51a6bbf2068a5370abde7b0be03e62ca5b",
+        "source_refs": [
+          "通典/卷169@1997055#q10"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "贞观律令与刑罚体系修订",
+        "episode_refs": [
+          "EP-OUTCOME-6BE47E8EECD7072E8BF8"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-43F0DA17AEE1DE53"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "zhenguan-code-and-penalty-system-revision",
+        "limitations": [
+          "加役流仍包含远距离流放和二年居作负担。",
+          "死刑约减一半为原书概括，统计口径未详。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "裴弘献",
+            "actor_ref": "PER-ACTOR-406D8DE4AC42",
+            "contribution_scope": "驳议不便条文并参与删改刑律。",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "房玄龄",
+            "actor_ref": "PER-CAND-0E58D2EA4AC4",
+            "contribution_scope": "参与议定加役流方案和律令格式编修。",
+            "role_code": "governance_participant"
+          }
+        ],
+        "observable_result": "断趾被废除并改为流三千里、居作二年；九十二项大辟降为流、七十一项流降为徒，律令格式完成颁行并在太宗时期持续施用。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-3BE9F931EFCF2E191FE6",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": true,
+          "foundational": true
+        },
+        "period": {
+          "end": "贞观时期",
+          "start": "贞观时期"
+        },
+        "result_direction": "positive",
+        "result_status": "operated",
+        "scale": {
+          "consequence_basis": "national_core_subsystem",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "1b6b037a0ba45197dbc829b9970a2bdcca003b5ef05c2b5f0b9139d862ecd07b",
+        "source_refs": [
+          "新唐書/卷056@2017606#Q15"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "建立并扩充多层官学网络",
+        "episode_refs": [
+          "EP-OUTCOME-3523BDDCA7DFE7D0B573"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-9F9D47087577447D"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "state-school-network-establishment-and-expansion",
+        "limitations": [
+          "八千余人的具体统计时点及学生类别构成不明。",
+          "材料未载扩建和运行所需的具体财力、人力成本。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          }
+        ],
+        "observable_result": "京师至州县、乡的官学与生员体系得到设置并继续扩充，学舍增至一千二百区，入学者达到八千余人。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-41F9D6C2207852099F1B",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "education_talent",
+          "durable_cross_stage": true,
+          "foundational": true
+        },
+        "period": {
+          "end": "高祖初年",
+          "start": "高祖初年"
+        },
+        "result_direction": "positive",
+        "result_status": "operated",
+        "scale": {
+          "consequence_basis": "national_public_result",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "945739016d552bea093a89e11a7b0af7ffce0f653d029c7e0db56ae559a0b750",
+        "source_refs": [
+          "新唐書/卷044@2017555#Q1"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "不加重谋反者兄弟之刑",
+        "episode_refs": [
+          "EP-OUTCOME-850B13DDB21C5D595678"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-DDB920892DF26212"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "treason-brothers-penalty-aggravation-rejected",
+        "limitations": [
+          "未说明该决定是否另行形成成文法修改。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "敬播",
+            "actor_ref": "PER-ACTOR-2A1665BC5EC2",
+            "contribution_scope": "提出反对加重兄弟缘坐刑的法律与情理理由。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "太宗采纳敬播意见，未按刑部请求加重谋反大逆者兄弟的刑罚。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-5422AB63AEEC016843D4",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观二十一年",
+          "start": "贞观二十一年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "0b0cdff6492e7f6d99ebb5ef216c200460bb9f8e032beeb77494d6dc0ca32c2b",
+        "source_refs": [
+          "通典/卷167@1997061#q3"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "建立州县义仓并用于饥馑赈给",
+        "episode_refs": [
+          "EP-OUTCOME-4138D13FD99F1B9D1259"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-79285A58160EA125"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "prefectural-charity-granary-system",
+        "limitations": [
+          "后期义仓被借作其他财政和军费用途，削弱灾荒储备。",
+          "材料未载全国库存、赈给人数、覆盖率和地方执行差异。",
+          "王公以下垦田者承担按亩纳粮的持续负担，商贾无田者亦按户等出粟。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "韩仲良",
+            "actor_ref": "PER-ACTOR-BDF8815A850B",
+            "contribution_scope": "拟定每亩纳二升及依土地条件储存粮食品类的具体标准。",
+            "role_code": "governance_participant"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "戴胄",
+            "actor_ref": "PER-CAND-947836AF2584",
+            "contribution_scope": "提出按垦田和秋苗征粮、由各地建立义仓并在饥馑时赈给的方案。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "天下州县开始设置义仓，并在饥馑时开仓赈给或贷作种子；高宗以后仓粮逐渐被借作他费，至神龙时期储备接近耗尽。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-61732E30C9C6E275EDD2",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "fiscal_taxation",
+          "durable_cross_stage": true,
+          "foundational": true
+        },
+        "period": {
+          "end": "贞观初",
+          "start": "贞观初"
+        },
+        "result_direction": "mixed",
+        "result_status": "mixed",
+        "scale": {
+          "consequence_basis": "national_core_subsystem",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "c236cea9ef81e0f28f25510f3accbe62d0a0540f4f768c68796591412557e2be",
+        "source_refs": [
+          "新唐書/卷051@2017600#Q07"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "尉迟敬德在关键战役独立承担主将责任",
+        "episode_refs": [
+          "EP-OUTCOME-FD8CE34D136AC68CB216"
+        ],
+        "fact_refs": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-A49FCFF85405-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "尉迟敬德",
+            "actor_ref": "PER-CAND-A49FCFF85405",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "principal_commander"
+          }
+        ],
+        "observable_result": "尋相等降將叛變後，諸將懷疑尉遲敬德也會叛變並將其囚禁；屈突通、殷開山主張殺他，太宗判斷其不會繼尋相而反，命令釋放並以財物相贈。；突厥入寇時，尉遲敬德被授為涇州道行軍總管出擊；敵軍到涇陽後，他以輕騎挑戰，殺其名將並使敵軍敗退。；宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。；太宗命尉遲敬德侍衛高祖；他披甲持矛到高祖處，宣稱太子、齊王作亂而被秦王誅殺，自己奉命宿衛，使高祖安心。面對各部兵馬仍在交戰，他請高祖降手敕，令諸軍接受秦王處分，隨後內外平定。；建成、元吉一方以金銀器物招攬尉遲敬德，他以已受秦王救命之恩、不可懷二心為由拒絕並報告太宗。元吉後派刺客行刺未果，又向高祖讒告，使敬德被下詔獄訊、面臨處死，經太宗堅決進諫而獲釋。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-64B54DF4E5A2E78325BA",
+        "payload": {
+          "battle_result": "victory",
+          "objective_completion": "complete",
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "regional_major",
+          "strategic_objective": "尋相等降將叛變後，諸將懷疑尉遲敬德也會叛變並將其囚禁；屈突通、殷開山主張殺他，太宗判斷其不會繼尋相而反，命令釋放並以財物相贈。；突厥入寇時，尉遲敬德被授為涇州道行軍總管出擊；敵軍到涇陽後，他以輕騎挑戰，殺其名將並使敵軍敗退。；宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。；太宗命尉遲敬德侍衛高祖；他披甲持矛到高祖處，宣稱太子、齊王作亂而被秦王誅殺，自己奉命宿衛，使高祖安心。面對各部兵馬仍在交戰，他請高祖降手敕，令諸軍接受秦王處分，隨後內外平定。；建成、元吉一方以金銀器物招攬尉遲敬德，他以已受秦王救命之恩、不可懷二心為由拒絕並報告太宗。元吉後派刺客行刺未果，又向高祖讒告，使敬德被下詔獄訊、面臨處死，經太宗堅決進諫而獲釋。",
+          "theater": "尉迟敬德在关键战役独立承担主将责任"
+        },
+        "period": {
+          "end": "武德年間玄武門之變前",
+          "start": "武德三年後"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_objective",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "27717a2bff78c602ce0bc1b33d199588e397711e97e5d3cbb8a127065b29cbd4",
+        "source_refs": [
+          "舊唐書/卷68@1757055#下詔獄訊驗",
+          "舊唐書/卷68@1757055#便是二心，徇利忘忠",
+          "舊唐書/卷68@1757055#內外遂定",
+          "舊唐書/卷68@1757055#命敬德侍衞高祖",
+          "舊唐書/卷68@1757055#奏請降手敕",
+          "舊唐書/卷68@1757055#引爲右一府統軍",
+          "舊唐書/卷68@1757055#得釋",
+          "舊唐書/卷68@1757055#從擊王世充",
+          "舊唐書/卷68@1757055#意乃安",
+          "舊唐書/卷68@1757055#授涇州道行軍總管",
+          "舊唐書/卷68@1757055#敬德尋以啟聞",
+          "舊唐書/卷68@1757055#敬德收其餘眾",
+          "舊唐書/卷68@1757055#敬德與尋相舉城來降",
+          "舊唐書/卷68@1757055#敬德輕騎與之挑戰",
+          "舊唐書/卷68@1757055#終不敢入",
+          "舊唐書/卷68@1757055#請即殺之",
+          "舊唐書/卷68@1757055#諸將疑敬德必叛",
+          "舊唐書/卷68@1757055#賊遂敗",
+          "舊唐書/卷68@1757055#遣臣來宿衞",
+          "舊唐書/卷68@1757055#遽命釋之"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "杜如晦与房玄龄共同掌政并定台阁典章",
+        "episode_refs": [
+          "EP-OUTCOME-AFE7384E4AD4E4EC72F7"
+        ],
+        "fact_refs": [
+          "PFACT-C8A872B651268592E0DA"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-52D752B16F85-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "杜如晦",
+            "actor_ref": "PER-CAND-52D752B16F85",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "杜如晦由秦王府参军进入核心幕府，参与军国决断，贞观三年任尚书右仆射并与房玄龄共同掌政。",
+        "origin": "person_biography",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-66593E9500E13D957AF7",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "strategic_coordination",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "武德末至貞觀四年",
+          "start": "武德末至貞觀四年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "7382c3e88bcda1f329f51acf6bf3ab1b0cfe3ff5b5d9484ed6bf91ff546fc41f",
+        "source_refs": [
+          "舊唐書/卷66@2034579#共掌朝政",
+          "舊唐書/卷66@2034579#剖斷如流",
+          "舊唐書/卷66@2034579#秦王府兵曹參軍"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "纠正法官失入失出责任失衡",
+        "episode_refs": [
+          "EP-OUTCOME-69A396DC2F2B8A684AF4"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-A929846EA16EDEEC"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "balanced-judicial-error-liability",
+        "limitations": [
+          "持平为原文总体评价，未附案件统计或持续年限。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "刘德威",
+            "actor_ref": "PER-ACTOR-17240C005FCF",
+            "contribution_scope": "报告两类司法错误的法定责任及现实执行偏差。",
+            "role_code": "governance_participant"
+          }
+        ],
+        "observable_result": "失入、失出两类司法错误均被命令依律追责，材料称此后司法官吏也能持平。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-6F67C523DC9A50C923B9",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "太宗时期",
+          "start": "太宗时期"
+        },
+        "result_direction": "positive",
+        "result_status": "implemented",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "f3ec69bc924d1ddd85674080fcf3d0d4b5f64489d73371905e60f490f6fde126",
+        "source_refs": [
+          "新唐書/卷056@2017606#Q24"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "诈伪资荫案依法改判流刑",
+        "episode_refs": [
+          "EP-OUTCOME-D22063C0D4A540645181"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-CDFA86ECE2E997F0"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "fraudulent-qualification-capital-sentence-reduced-to-exile",
+        "limitations": [
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
+          "适用案件人数及流放执行情况未载。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "戴胄",
+            "actor_ref": "PER-CAND-947836AF2584",
+            "contribution_scope": "坚持诈伪资荫者依律处以流刑。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "戴胄坚持依律处理，诈伪资荫者未被处死而断流。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-7516700BA78A30646127",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观时期",
+          "start": "贞观时期"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "af48ddbb30427b683399aa1f3347e1948160817786fe5db6e26be0ceca0d834f",
+        "source_refs": [
+          "通典/卷169@1997055#q10"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "贡举中以文体轻薄黜落知名候选人",
+        "episode_refs": [
+          "EP-OUTCOME-2D0AA5E59FC4D28129A2"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-5D625053484D5617"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "literary-style-based-examination-exclusion",
+        "limitations": [
+          "材料所谓二人后来情况如王师明所言没有具体事实，不能据此确认黜落产生正面结果。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。",
+          "结果仅涉及两名候选人的一次考试评定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "王师明",
+            "actor_ref": "PER-ACTOR-4E7A8A6C47A0",
+            "contribution_scope": "主持贡举、评定文策并实际黜落两名候选人。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "王师明将张昌龄、王公理的文策评为全下，二人未列入奏报等第；唐太宗召问后认可其黜落理由。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-7D9A2903547E99A089E2",
+        "payload": {
+          "authorization_status": "implicit",
+          "domain": "official_selection",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观二十二年九月",
+          "start": "贞观二十二年九月"
+        },
+        "result_direction": "unclear",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "local_public_result",
+          "decisiveness": "supporting",
+          "level": "local",
+          "reason": "按已经实现且可归责的结果登记为local级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "52f4b9225e2f455d90f033275736365d4781ceec79b8fbbd6b04fbd08ca08e38",
+        "source_refs": [
+          "通典/卷017@1480814#q2"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "恢复司法失入失出依律处理",
+        "episode_refs": [
+          "EP-OUTCOME-E204F4AE6EEA8274FFD3"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-296BFE57F54FC4C6"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "judicial-error-statutory-liability-restored",
+        "limitations": [
+          "恢复后的执行数量和对裁判取向的实际影响未载。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "刘德威",
+            "actor_ref": "PER-ACTOR-17240C005FCF",
+            "contribution_scope": "报告刑网加密及司法官竞用深文的原因。",
+            "role_code": "governance_participant"
+          }
+        ],
+        "observable_result": "太宗认可刑网加密导致司法官竞用深文的问题后，恢复失入、失出各依律文处理。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-83B8364C63D4966AC384",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观十一年",
+          "start": "贞观十一年"
+        },
+        "result_direction": "positive",
+        "result_status": "implemented",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "48f2d852f45ecb3f3ed2e72b6f5f8f31f788a313178cf6c9f1acba3e8b057e7f",
+        "source_refs": [
+          "通典/卷169@1997055#q10"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "建立京师死刑五覆奏程序",
+        "episode_refs": [
+          "EP-OUTCOME-6CF095DD6285309E67EB"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-2566B40AF59B4FC4"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "capital-punishment-fivefold-review-procedure",
+        "limitations": [
+          "原文未载具体复核案件数和减死人数。",
+          "恶逆案件仅实行一覆。",
+          "材料未证明该程序跨统治阶段延续。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          }
+        ],
+        "observable_result": "京师死刑复奏改为两日内五覆，州县维持三覆，并允许奏报情可宽宥者；材料记载此后因此保全性命者很多。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-8BE085E9C73B2CF8E8F1",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观年间",
+          "start": "贞观年间"
+        },
+        "result_direction": "positive",
+        "result_status": "operated",
+        "scale": {
+          "consequence_basis": "national_core_subsystem",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "d7746b4021e1a918d261ac8bcca34f1d5b2616a9df6cd381608c8541cfbe4d84",
+        "source_refs": [
+          "舊唐書/卷50@1461339#Q25"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "魏徵持续谏政并总裁多部史书",
+        "episode_refs": [
+          "EP-OUTCOME-D388650874E85876830C"
+        ],
+        "fact_refs": [
+          "PFACT-46E0202B0B9754A3CC6A",
+          "PFACT-A111DE6D11F43B330228",
+          "PFACT-B35B1D73AD95C67058A9",
+          "PFACT-CAC16A94AC88CFD6D8BC",
+          "PFACT-FD9071BFF74E1637E3FE"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-1DA5E84241DE-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "魏徵",
+            "actor_ref": "PER-CAND-1DA5E84241DE",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "太宗多次召魏徵入內詢問政務得失；魏徵抗直不屈、知無不言，太宗稱其前後陳諫二百餘事。；魏徵生前自行記錄與太宗往復的諫諍言辭並交給史官褚遂良；太宗在魏徵死後得知此事，更加不悅，停止原已允諾的衡山公主與魏叔玉婚事。；魏徵以四疏系統進言居安思危、厚德節欲、慎刑賞、保持誠信並任用君子；太宗手詔嘉獎並優厚採納。；魏徵奉詔總加撰定《周史》《隋史》《梁史》《陳史》《齊史》等，多有損益，以簡正著稱；其所作序論、總論被時人稱為良史。；太宗素來器重魏徵，先引為詹事主簿；即位後擢為諫議大夫並派其安輯河北，授予便宜處置權。",
+        "origin": "person_biography",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-9467020FD483B4C5B435",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "strategic_coordination",
+          "durable_cross_stage": true,
+          "foundational": true
+        },
+        "period": {
+          "end": "隱太子敗後至太宗踐祚初",
+          "start": "太宗新即位後"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "national_public_result",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "1333307d41bd9f7fde3364edd4d4d42500030ad568f7a59631ec4ed23757b0e8",
+        "source_refs": [
+          "舊唐書/卷71@2020238#以示史官起居郎褚遂良",
+          "舊唐書/卷71@2020238#優納之",
+          "舊唐書/卷71@2020238#其家漸衰矣",
+          "舊唐書/卷71@2020238#前後二百餘事",
+          "舊唐書/卷71@2020238#受詔總加撰定",
+          "舊唐書/卷71@2020238#多所損益",
+          "舊唐書/卷71@2020238#居安思危，戒貪以儉",
+          "舊唐書/卷71@2020238#引爲詹事主簿",
+          "舊唐書/卷71@2020238#愈不悅",
+          "舊唐書/卷71@2020238#手詔停婚",
+          "舊唐書/卷71@2020238#擢拜諫議大夫",
+          "舊唐書/卷71@2020238#時稱良史",
+          "舊唐書/卷71@2020238#漸惡直言",
+          "舊唐書/卷71@2020238#皆徵所作",
+          "舊唐書/卷71@2020238#知無不言",
+          "舊唐書/卷71@2020238#簡能而任之",
+          "舊唐書/卷71@2020238#訪以得失",
+          "舊唐書/卷71@2020238#許以便宜從事",
+          "舊唐書/卷71@2020238#責罰稍多，威怒微厲",
+          "舊唐書/卷71@2020238#雅有經國之才"
+        ],
+        "stable_delivery": true
+      },
+      {
+        "canonical_label": "张仲文案由拟斩改以妖言论处",
+        "episode_refs": [
+          "EP-OUTCOME-6F9467506043D7DB7724"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-B321932021761E41"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "zhang-zhongwen-case-capital-sentence-correction",
+        "limitations": [
+          "原文未载张仲文最终所受具体刑罚。",
+          "成果限于单个案件，未显示形成通行裁判规则。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "韦挺",
+            "actor_ref": "PER-ACTOR-7FA5BDDE55E2",
+            "contribution_scope": "首次奏请按妖言及赦法免死。",
+            "role_code": "governance_participant"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "张亮",
+            "actor_ref": "PER-CAND-2E7E8F559309",
+            "contribution_scope": "再次奏请依妖言论处并促成最终获准。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "张仲文未按指斥乘舆处斩，最终改以妖言罪处置。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-9C4C15B50E7CA6BF0130",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观十八年九月",
+          "start": "贞观十八年九月"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "2c3b1364cc3436c236e14ef23a7bc9cfd68f3436c923e67d0e3e120c9ceef269",
+        "source_refs": [
+          "通典/卷169@1997055#q11"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "死囚暂释归家、按期返回并获赦",
+        "episode_refs": [
+          "EP-OUTCOME-4EB16E668CD4AB490A32"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-6E1ECAFB2926E6BC"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "death-row-prisoner-temporary-release-and-pardon",
+        "limitations": [
+          "囚犯地域分布、监管方式及赦免后情况未载。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          }
+        ],
+        "observable_result": "三百九十名死罪囚暂释归家后全部按期返回，随后全部获赦。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-A36A6D569113A0AC8819",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观六年",
+          "start": "贞观六年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "b494acca6e67111c58dabb0f112bd908e3934f3d2cf013a32d29e4e978dbdc6b",
+        "source_refs": [
+          "通典/卷170@1480973#q19"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "撤销司农木橦案定罪",
+        "episode_refs": [
+          "EP-OUTCOME-B0A00018E49ABF6041FC"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-2EADFB9391F10AC7"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "agricultural-office-timber-conviction-reversal",
+        "limitations": [
+          "材料只显示个案纠错，没有记载后续同类案件处理或制度化影响。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "韦悰",
+            "actor_ref": "PER-ACTOR-A31BFF18FB18",
+            "contribution_scope": "核查官民价格并提出最初追责事项。",
+            "role_code": "governance_participant"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "孙伏伽",
+            "actor_ref": "PER-ACTOR-C248CE757370",
+            "contribution_scope": "解释价格关系、认定司农无罪并促成撤罪。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "经孙伏伽说明官木定价对民间价格的影响后，司农之罪被撤销。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-AB8878640DD12C79C595",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观十四年",
+          "start": "贞观十四年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "local_public_result",
+          "decisiveness": "supporting",
+          "level": "local",
+          "reason": "按已经实现且可归责的结果登记为local级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "5ef718a19a9a4023533139e17bf677bd54507e2465b9c8b2e8f0edb39455dc74",
+        "source_refs": [
+          "通典/卷167@1997061#q1"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "李靖奇袭定襄破东突厥",
+        "episode_refs": [
+          "EP-OUTCOME-EDFFC1B4E7A73FDA6299"
+        ],
+        "fact_refs": [
+          "PFACT-782A74C3771AF1731119"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "pfact-782a74c3771af1731119",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李靖",
+            "actor_ref": "PER-CAND-D29808A822E4",
+            "contribution_scope": "作为主帅独立统筹并完成国家级战争目标。",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "observable_result": "李靖以三千骑兵出其不意深入突厥境，运用间谍离间其心腹，继而攻破定襄，俘杨正道及萧后；太宗评价此举古今未有。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-BE5748B1A230842D8187",
+        "payload": {
+          "battle_result": "victory",
+          "objective_completion": "complete",
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "national_peer",
+          "strategic_objective": "李靖以三千骑兵出其不意深入突厥境，运用间谍离间其心腹，继而攻破定襄，俘杨正道及萧后；太宗评价此举古今未有。",
+          "theater": "李靖奇袭定襄破东突厥"
+        },
+        "period": {
+          "end": "貞觀三年至四年",
+          "start": "貞觀三年至四年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "national_war_outcome",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "99ff5252400fb1603477a4e86274aca2b44bf94b9d581ab6718b1894b8faa1bf",
+        "source_refs": [
+          "舊唐書/卷67@2296327#古今所未有",
+          "舊唐書/卷67@2296327#潛令間諜離其心腹",
+          "舊唐書/卷67@2296327#率驍騎三千",
+          "舊唐書/卷67@2296327#靖進擊定襄，破之"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "误带刀入阁门案依法同等处理",
+        "episode_refs": [
+          "EP-OUTCOME-7866C72DD078216D8FBA"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-258DBCD66D9CEF1C"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "palace-gate-weapon-case-equal-treatment",
+        "limitations": [
+          "涉案各方最终完整刑罚未载。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "戴胄",
+            "actor_ref": "PER-CAND-947836AF2584",
+            "contribution_scope": "坚持对同类过误依法同等定罪。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "戴胄坚持同属过误应依法同等处理，监门校尉免于死刑。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-C58CB293EF3A7C3758E7",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观时期",
+          "start": "贞观时期"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "local_public_result",
+          "decisiveness": "supporting",
+          "level": "local",
+          "reason": "按已经实现且可归责的结果登记为local级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "62da1fa65b16e9b591aa37355f3566d978928e9e2dbe7843abb1ea4c068b0cff",
+        "source_refs": [
+          "通典/卷169@1997055#q10"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "李靖远征吐谷浑",
+        "episode_refs": [
+          "EP-OUTCOME-CDC57E054EDCDA03FA16"
+        ],
+        "fact_refs": [
+          "PFACT-287074885322342E76DC"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "pfact-287074885322342e76dc",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李靖",
+            "actor_ref": "PER-CAND-D29808A822E4",
+            "contribution_scope": "作为主帅独立统筹并完成国家级战争目标。",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "observable_result": "吐谷浑入寇时，年老足疾的李靖主动表示仍能出征，遂统率三总管。面对诸将因草未生、马羸而反对追敌，他独自决意深入，越积石山，经过数十战大破吐谷浑，并拥立慕容顺后还师。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-F49DBC756CFF9A08C273",
+        "payload": {
+          "battle_result": "victory",
+          "objective_completion": "complete",
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "national_peer",
+          "strategic_objective": "吐谷浑入寇时，年老足疾的李靖主动表示仍能出征，遂统率三总管。面对诸将因草未生、马羸而反对追敌，他独自决意深入，越积石山，经过数十战大破吐谷浑，并拥立慕容顺后还师。",
+          "theater": "李靖远征吐谷浑"
+        },
+        "period": {
+          "end": "貞觀九年",
+          "start": "貞觀九年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "national_war_outcome",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "e74ffa9262edd8e071e0459f291051ad66a9aa7307a4142f9dc2ef3b1ee0c2d6",
+        "source_refs": [
+          "舊唐書/卷67@2296327#唯靖決計而進",
+          "舊唐書/卷67@2296327#大破其國",
+          "舊唐書/卷67@2296327#西海道行軍大總管",
+          "舊唐書/卷67@2296327#靖雖年老，固堪一行"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "李勣攻克平壤平定高句丽",
+        "episode_refs": [
+          "EP-OUTCOME-DE167001186060C6C3BF"
+        ],
+        "fact_refs": [
+          "PFACT-25DE1AA89B76C1D9D696"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "liji-1",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "actor_ref": "PER-CAND-8CF6E0AAF5E5",
+            "contribution_scope": "作为方面主帅独立统兵并完成国家级战争目标。",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "observable_result": "李勣任辽东道行军大总管，攻克平壤、俘高藏并平定高句丽。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-F4E0D154F563ED193E48",
+        "payload": {
+          "battle_result": "victory",
+          "objective_completion": "complete",
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "national_peer",
+          "strategic_objective": "李勣任辽东道行军大总管，攻克平壤、俘高藏并平定高句丽。",
+          "theater": "李勣攻克平壤平定高句丽"
+        },
+        "period": {
+          "end": "总章元年",
+          "start": "总章元年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "national_war_outcome",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "1ac6ce4100181176be4d64f26b884a5fb9038e87fe6c239e7e46581a3b5203e7",
+        "source_refs": [
+          "舊唐書/卷67@2296327#克其城，虜其王高藏"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "房玄龄主持中枢政务并参与贞观律令修订",
+        "episode_refs": [
+          "EP-OUTCOME-2D6E7C2FEB157886AA17"
+        ],
+        "fact_refs": [
+          "PFACT-83844E7D9ED9561C3A12",
+          "PFACT-994A65B71FE16E7026A3",
+          "PFACT-ABF416F0DD78DFA9422A",
+          "PFACT-F8D0B68DD0E6429F93F5"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-0E58D2EA4AC4-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "房玄龄",
+            "actor_ref": "PER-CAND-0E58D2EA4AC4",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "房玄齡與高士廉等共同撰成《文思博要》，後任司空並繼續總理朝政、監修國史。他上表辭讓，太宗以國家不能忽失良相為由勸止，房玄齡遂停止辭讓。；房玄齡固辭太子少師而未受，改攝太子詹事兼禮部尚書；次年任尚書左僕射並監修國史，總領百司。；房玄齡丁繼母憂離職後不久起復。太宗親征遼東時命其留守京城，將軍械與軍糧的處置發遣交由他負責；房玄齡屢次上言不可輕敵、應加戒慎。；房玄齡舊疾復發後奉詔臥病總理留臺。病勢危篤時，他認為持續東征高麗將成國患，遂上表力諫停止用兵、准許高麗自新；本頁只記載太宗閱讀並稱其病危仍憂國，未載採納停戰。",
+        "origin": "person_biography",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-F6D2FEBCABDFC25295BF",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "strategic_coordination",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "貞觀二十三年",
+          "start": "貞觀十六年至十八年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "41f5cf50118c5933d7939f27708a3ac70aa26adba7a1d03f332f35c0291e2c3f",
+        "source_refs": [
+          "舊唐書/卷66@2034579#丁繼母憂去職",
+          "舊唐書/卷66@2034579#並委令處分發遣",
+          "舊唐書/卷66@2034579#仍綜朝政",
+          "舊唐書/卷66@2034579#同撰《文思博要》成",
+          "舊唐書/卷66@2034579#命玄齡京城留守",
+          "舊唐書/卷66@2034579#固讓不受",
+          "舊唐書/卷66@2034579#尚書左僕射",
+          "舊唐書/卷66@2034579#尚能憂我國家",
+          "舊唐書/卷66@2034579#抗表陳讓",
+          "舊唐書/卷66@2034579#攝太子詹事",
+          "舊唐書/卷66@2034579#敵不可輕",
+          "舊唐書/卷66@2034579#方爲國患",
+          "舊唐書/卷66@2034579#玄齡遂止",
+          "舊唐書/卷66@2034579#總百司",
+          "舊唐書/卷66@2034579#臥總留臺",
+          "舊唐書/卷66@2034579#許高麗以自新",
+          "舊唐書/卷66@2034579#起復本官"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "褚遂良推动王府任职与皇子外任规则纠偏",
+        "episode_refs": [
+          "EP-OUTCOME-041668E48F3A3C465B8A"
+        ],
+        "fact_refs": [
+          "PFACT-4B3F00F43705BE34F471",
+          "PFACT-A201EA4B26D1F014872B",
+          "PFACT-C0CDA447D64C46588DEF"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "RULER-58130F2446A25CC1-PER-CAND-6212A403EABA-primary",
+        "limitations": [],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "褚遂良",
+            "actor_ref": "PER-CAND-6212A403EABA",
+            "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "針對魏王受寵、太子與諸王名分問題，褚遂良建議明定太子和諸王的分際；太宗肯定其言，隨後限制王府官僚任職不得超過四考。；針對年幼皇子出任都督、刺史，褚遂良建議先留京受經學與禮法教育，確認具備治理州郡能力後再派出；太宗充分採納。；褚遂良以文史素養及隸書專長受到歐陽詢、魏徵推重；太宗據魏徵所言召其侍書。其後鑑別所獻王羲之書跡，對來源真偽的判斷未見錯誤。",
+        "origin": "person_biography",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-F7A648059628A3595F16",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "strategic_coordination",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "貞觀十年後",
+          "start": "貞觀十五年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "f304c9d80899524e6765448de5e2157d943ffed4bcd5580865bcada3157da43c",
+        "source_refs": [
+          "舊唐書/卷80@2588763#一無舛誤",
+          "舊唐書/卷80@2588763#下筆遒勁",
+          "舊唐書/卷80@2588763#不得過四考",
+          "舊唐書/卷80@2588763#且留京師，教以經學",
+          "舊唐書/卷80@2588763#召令侍書",
+          "舊唐書/卷80@2588763#太子、諸王，須有定分",
+          "舊唐書/卷80@2588763#尤工隸書",
+          "舊唐書/卷80@2588763#常為擇賢",
+          "舊唐書/卷80@2588763#歐陽詢甚重之",
+          "舊唐書/卷80@2588763#此言是也",
+          "舊唐書/卷80@2588763#深納之",
+          "舊唐書/卷80@2588763#然後遣出"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "裴仁轨案拒绝法外处死",
+        "episode_refs": [
+          "EP-OUTCOME-9F7F3F53FDD754D838AB"
+        ],
+        "fact_refs": [
+          "PFACT-OUTCOME-EB73C0078C97401B"
+        ],
+        "important_method_or_legacy": false,
+        "independent_key": "pei-rengui-capital-order-rejected",
+        "limitations": [
+          "最终执行的法定刑罚未载。",
+          "皇帝授权与统治窗口由后置规则投影，不在本轮中性成果裁决中推定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "actor_ref": "RULER-58130F2446A25CC1",
+            "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李干祐",
+            "actor_ref": "PER-ACTOR-229119C309A9",
+            "contribution_scope": "援引法令统一原则，拒绝执行法外死刑命令。",
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "李干祐以法令应统一为由拒绝执行太宗欲斩命令，裴仁轨未被处死。",
+        "origin": "dynasty_governance",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-FD26FDC15E4A354861DC",
+        "payload": {
+          "authorization_status": "explicit",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "贞观时期",
+          "start": "贞观时期"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "scale": {
+          "consequence_basis": "local_public_result",
+          "decisiveness": "supporting",
+          "level": "local",
+          "reason": "按已经实现且可归责的结果登记为local级；不以官名、名义覆盖或声誉抬档。"
+        },
+        "semantic_fingerprint": "7d7cf659276c8ad0264254ac7b50e041a31c269725048ff4aa61fe6380edb6e2",
+        "source_refs": [
+          "通典/卷169@1997055#q10"
+        ],
+        "stable_delivery": false
+      }
+    ],
+    "schema_version": "historical-outcome-cluster-registry-v1",
+    "status": "human_frozen"
+  },
   "profile_projection_gate": {
-    "freeze_allowed": false,
-    "material_coverage_complete": false,
+    "freeze_allowed": true,
+    "material_coverage_complete": true,
     "required_inputs": [
       "full_lifecycle_biography",
-      "authoritative_grade_calibration",
-      "talent_grade_rule_alignment",
-      "campaign_or_governance_achievement_registry",
-      "window_exposed_risk_events",
-      "three_channel_lineage"
+      "historical_outcome_cluster_registry",
+      "window_political_risk_review"
     ],
-    "status": "material_coverage_open"
+    "status": "frozen_after_complete_coverage"
   },
   "ruler": "李世民",
   "ruler_context_materials": [
@@ -9495,8 +10305,8 @@
     }
   ],
   "ruler_ref": "RULER-58130F2446A25CC1",
-  "schema_version": "i5b-current-value-source-pack-v4",
-  "source_pack_sha256": "048c8bdb5e087364bbe6210338108874dc5c68073117a5ef9987c32f8271b10c",
+  "schema_version": "i5b-current-value-source-pack-v5",
+  "source_pack_sha256": "e296fd608126501a16b858f8a982a6c653ef2aeda05f0cf36aaac97a746481dd",
   "status": "current_only_rule_judged_and_factor_accepted",
   "team": {
     "coverage_judgment": "complete_current_coverage",
@@ -9528,7 +10338,7 @@
       "disposition": "deterministic_team_support_or_policy_context",
       "received_count": 135,
       "ruler_window_achievement_count": 18,
-      "team_support_count": 2
+      "team_support_count": 6
     },
     "person_biography": {
       "accepted_fact_count": 43,

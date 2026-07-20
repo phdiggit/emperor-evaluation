@@ -9,6 +9,7 @@ from emperor_v4.persistence.postgres import (
     G3ASchemaStateError,
     decide_schema_action,
     migration_path,
+    migration_paths,
 )
 
 
@@ -39,3 +40,8 @@ def test_packaged_migration_path_is_stable() -> None:
     assert isinstance(path, Path)
     assert path.name == "001_g3a_episode_core.sql"
     assert path.is_file()
+    assert [value.name for value in migration_paths()] == [
+        "001_g3a_episode_core.sql",
+        "007_v4_historical_outcome_clusters.sql",
+    ]
+    assert all(value.is_file() for value in migration_paths())

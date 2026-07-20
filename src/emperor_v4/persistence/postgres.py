@@ -15,8 +15,9 @@ G3A_TABLES = frozenset(
         "episode_participants",
         "episode_assertion_dispositions",
         "episode_relations",
-        "governance_achievements",
-        "governance_achievement_members",
+        "historical_outcome_clusters",
+        "outcome_cluster_members",
+        "outcome_episode_links",
         "rule_evidence_units",
         "rule_evidence_members",
     }
@@ -37,6 +38,14 @@ class G3ASchemaBootstrapResult:
 
 def migration_path() -> Path:
     return Path(__file__).resolve().parents[3] / "db" / "postgres" / "001_g3a_episode_core.sql"
+
+
+def migration_paths() -> tuple[Path, ...]:
+    root = Path(__file__).resolve().parents[3] / "db" / "postgres"
+    return (
+        root / "001_g3a_episode_core.sql",
+        root / "007_v4_historical_outcome_clusters.sql",
+    )
 
 
 def decide_schema_action(existing_tables: Iterable[str]) -> Literal["apply", "reuse"]:
@@ -75,7 +84,8 @@ def bootstrap_g3a_schema(dsn: str) -> G3ASchemaBootstrapResult:
             existing = {str(row[0]) for row in cursor.fetchall()}
             action = decide_schema_action(existing)
             if action == "apply":
-                cursor.execute(migration_path().read_text(encoding="utf-8"))
+                for path in migration_paths():
+                    cursor.execute(path.read_text(encoding="utf-8"))
 
             cursor.execute(
                 """

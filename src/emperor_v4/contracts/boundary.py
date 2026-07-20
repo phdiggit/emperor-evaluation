@@ -490,7 +490,7 @@ class RuleEvidenceMember:
 
     def __post_init__(self) -> None:
         if self.member_type not in {
-            "episode", "relation", "aggregate_context", "governance_achievement"
+            "episode", "relation", "aggregate_context", "outcome_cluster"
         }:
             raise ValueError(
                 "RuleEvidenceMember type 非法"

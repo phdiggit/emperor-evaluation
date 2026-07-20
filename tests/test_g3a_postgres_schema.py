@@ -57,6 +57,12 @@ PERSON_PROFILE_SCHEMA = (
     / "postgres"
     / "006_v4_person_profiles.sql"
 )
+OUTCOME_CLUSTER_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "007_v4_historical_outcome_clusters.sql"
+)
 EXPECTED_TABLES = {
     "source_documents",
     "source_passages",
@@ -122,6 +128,21 @@ def test_relation_and_projection_memberships_are_current_fact_tables() -> None:
     assert "CREATE TABLE episode_relations" in sql
     assert "CREATE TABLE rule_evidence_units" in sql
     assert "CREATE TABLE rule_evidence_members" in sql
+
+
+def test_outcome_cluster_migration_replaces_split_governance_registry() -> None:
+    sql = OUTCOME_CLUSTER_SCHEMA.read_text(encoding="utf-8")
+    created = set(re.findall(r"CREATE TABLE\s+([a-z_]+)", sql, flags=re.I))
+    assert created == {
+        "historical_outcome_clusters",
+        "outcome_cluster_members",
+        "outcome_episode_links",
+    }
+    assert "DROP TABLE governance_achievement_members" in sql
+    assert "DROP TABLE governance_achievements" in sql
+    assert "'outcome_cluster'" in sql
+    assert sql.lstrip().startswith("BEGIN;")
+    assert sql.rstrip().endswith("COMMIT;")
 
 
 def test_source_cache_service_uses_separate_pre_acceptance_schema() -> None:

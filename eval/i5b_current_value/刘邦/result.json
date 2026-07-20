@@ -1,24 +1,42 @@
 {
+  "database_dry_run": {
+    "database_connection_opened": false,
+    "database_write_count": 0,
+    "formal_score_write_count": 0,
+    "migration_ref": "db/postgres/007_v4_historical_outcome_clusters.sql",
+    "migration_sha256": "e013816101272ff9afa527f47eb22fde2c3149e1da581ce6ef381477f2526935",
+    "planned_current_rows": {
+      "historical_episodes": 14,
+      "historical_outcome_clusters": 14,
+      "outcome_cluster_members": 14,
+      "outcome_episode_links": 14
+    },
+    "ruler": "刘邦",
+    "schema_version": "historical-outcome-database-dry-run-v1",
+    "source_pack_sha256": "8654da3d40101fea8dd9271994137e8377dd239c7401cf89a78d5153a24b4125",
+    "status": "ready_before_database_write"
+  },
   "declarations": {
+    "campaign_outcome_count": 9,
     "current_value_only": true,
     "database_write_count": 0,
-    "episode_count": 18,
+    "episode_count": 32,
     "external_retrieval_count": 0,
     "formal_score_write_count": 0,
     "formal_scoring_ready": false,
+    "governance_outcome_count": 5,
+    "historical_outcome_cluster_count": 14,
     "linked_ruler_context_count": 4,
-    "profile_freeze_gate_passed": false,
-    "profile_material_coverage_complete": false,
+    "profile_freeze_gate_passed": true,
+    "profile_material_coverage_complete": true,
     "profile_member_count": 10,
-    "profile_member_with_open_gap_count": 10,
-    "profile_values_frozen": false,
+    "profile_member_with_open_gap_count": 0,
+    "profile_values_frozen": true,
     "ranking": null,
     "rule_evidence_unit_count": 20,
     "runtime_model_call_count": 0,
     "score_45": null,
-    "selected_governance_result_count": 0,
-    "talent_campaign_registry_count": 0,
-    "talent_governance_achievement_registry_count": 0,
+    "selected_governance_result_count": 3,
     "three_channel_materials_consumed": true,
     "tier": null
   },
@@ -28,18 +46,26 @@
       "EP-D251F95D17D1A884E6BD"
     ],
     "周勃": [
-      "EP-0163706158C87E7EBC38"
+      "EP-0163706158C87E7EBC38",
+      "EP-OUTCOME-57AC21A42B1CEBC82CAA",
+      "EP-OUTCOME-57AC21A42B1CEBC82CAA"
     ],
     "张良": [
-      "EP-756378563E922299F13E"
+      "EP-756378563E922299F13E",
+      "EP-OUTCOME-F5AE1FD07A5862E9016A",
+      "EP-OUTCOME-F5AE1FD07A5862E9016A"
     ],
     "彭越": [
       "EP-12420C7674C18DF912EF",
       "EP-84BE8DC695F66823D2A4",
-      "EP-B1A9174E62023E84D7C8"
+      "EP-B1A9174E62023E84D7C8",
+      "EP-OUTCOME-08256C2EDF7DE3248988",
+      "EP-OUTCOME-08256C2EDF7DE3248988"
     ],
     "曹参": [
-      "EP-8405C05B192389998DD0"
+      "EP-8405C05B192389998DD0",
+      "EP-OUTCOME-DB94D1339E72D5325CEC",
+      "EP-OUTCOME-DB94D1339E72D5325CEC"
     ],
     "樊哙": [
       "EP-A17EC140860C19A07CA7",
@@ -48,15 +74,37 @@
     "灌婴": [
       "EP-164CBAA98FB0B646C7B3",
       "EP-392EE0A4637CBB480068",
-      "EP-D8741F1F69CED6B9446C"
+      "EP-D8741F1F69CED6B9446C",
+      "EP-OUTCOME-BA987014E2597DE42157",
+      "EP-OUTCOME-BA987014E2597DE42157"
+    ],
+    "英布": [
+      "EP-OUTCOME-76D5BE000B783D979F70",
+      "EP-OUTCOME-76D5BE000B783D979F70"
     ],
     "萧何": [
       "EP-213D339B5533621815CC",
       "EP-311C3D4E16758B9FA2BB",
-      "EP-EEC40AA520AD63BFBAE8"
+      "EP-EEC40AA520AD63BFBAE8",
+      "EP-OUTCOME-7D14CA93E90377E54E3A",
+      "EP-OUTCOME-7D14CA93E90377E54E3A"
+    ],
+    "陈平": [
+      "EP-OUTCOME-96FB32C56361BC265904",
+      "EP-OUTCOME-96FB32C56361BC265904"
+    ],
+    "陈豨": [
+      "EP-OUTCOME-3F2A4B4053BB52B9D7E7",
+      "EP-OUTCOME-3F2A4B4053BB52B9D7E7"
     ],
     "韩信": [
-      "EP-9A0CD694CBFD3A9A253A"
+      "EP-9A0CD694CBFD3A9A253A",
+      "EP-OUTCOME-41803E452EF6A2C31286",
+      "EP-OUTCOME-41803E452EF6A2C31286",
+      "EP-OUTCOME-6A06AD025DD8BFCCC53F",
+      "EP-OUTCOME-6A06AD025DD8BFCCC53F",
+      "EP-OUTCOME-928BA9FFF40C8BBAEBB7",
+      "EP-OUTCOME-928BA9FFF40C8BBAEBB7"
     ],
     "韩王信": [
       "EP-E74833D53793B163CB60"
@@ -2883,6 +2931,1878 @@
       "uncertainties": [
         "萧何举宗从随也被提及，故不能将整段论功解释为纯粹排除关系因素；核心位次理由仍有具体公共绩效支撑。"
       ]
+    },
+    {
+      "action": "彭越经营梁地并断楚粮道会师垓下",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-07EC32FEDD7A5F88F2CF",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷090@376055#歸漢於外黃",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-634CD66B80084D2492DE",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#收魏地得十餘城",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-6545726C8EE07E7CB40A",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#拜彭越為魏相國",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-98FB875CC7CB15817E83",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#擅將其兵，略定梁地",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-92A13E552BE4186EFCB2",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#復下昌邑旁二十餘城",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-334FAF1C210A864D1D93",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#得穀十餘萬斛，以給漢王食",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-049A2E66CBDC0E8D1C2C",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#召彭越并力擊楚",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-0DF52765879C432F47A1",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#魏地初定，尚畏楚，未可去",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-77D96914C3D1CAFC55F0",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#如留侯策",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-08D3D009F8CB2908A3C7",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#悉引兵會垓下",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-4A401F5F10C0123EFF05",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#遂破楚",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-32EF3CB8C2C657F355BB",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#常往來為漢游兵",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-6A48316DB14B2F877A21",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷090@376055#絕其後糧於梁地",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-08256C2EDF7DE3248988",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-CB012BC1F12F",
+      "lineage": {
+        "source_refs": "史記/卷090@376055#召彭越并力擊楚;史記/卷090@376055#如留侯策;史記/卷090@376055#常往來為漢游兵;史記/卷090@376055#得穀十餘萬斛，以給漢王食;史記/卷090@376055#復下昌邑旁二十餘城;史記/卷090@376055#悉引兵會垓下;史記/卷090@376055#拜彭越為魏相國;史記/卷090@376055#擅將其兵，略定梁地;史記/卷090@376055#收魏地得十餘城;史記/卷090@376055#歸漢於外黃;史記/卷090@376055#絕其後糧於梁地;史記/卷090@376055#遂破楚;史記/卷090@376055#魏地初定，尚畏楚，未可去"
+      },
+      "locations": [
+        "彭越经营梁地并断楚粮道会师垓下"
+      ],
+      "outcome": [
+        "彭越率三萬餘兵在外黃歸漢；漢王因其已收取魏地十餘城，任命他為魏相國，允許其自行統率原有部隊，負責略定梁地。；項王南走陽夏時，彭越再次攻下昌邑附近二十餘城，取得穀物十餘萬斛供應漢王軍糧。；漢王戰敗後召彭越合兵擊楚，彭越以魏地初定且仍畏楚為由拒絕離境；漢王依留侯之策遣使許以勝楚後封地，彭越遂盡率其軍會師垓下，參與擊破楚軍。；彭越反覆往來充當漢方游兵，進攻楚軍，並在梁地截斷楚軍後方糧運。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-CB012BC1F12F",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "1c369481bd3f6c21cc09853a039eab13a33de7f16431a7c4136cb6acbf449ac9"
+      },
+      "responsibility": "彭越以commander_in_chief承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "489e9872d0d2791ee9abeeb850fff6716e00b6ac1746d293142023867f76203d",
+      "time_end": "漢王三年",
+      "time_precision": "historical_text_range",
+      "time_start": "漢王二年春",
+      "uncertainties": []
+    },
+    {
+      "action": "汉初约法轻租与财政节用",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-OUTCOME-876D12E252B05D9F",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "漢書/卷024@7498330#q1",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-2D93A021550AF4A776CC",
+      "episode_status": "accepted",
+      "episode_type": "governance_outcome_chain",
+      "evaluation_context": "PER-V4-3D3FE911CF34",
+      "lineage": {
+        "source_refs": "漢書/卷024@7498330#q1"
+      },
+      "locations": [],
+      "outcome": [
+        "高祖约法省禁、田租十五税一并核量官府支出；后续连续时期原文记衣食逐渐增殖。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-V4-3D3FE911CF34",
+          "role_codes": [
+            "authorized"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "5ad4fe0c55bae729fd33ac01d37562c83a50b8ea210d629cead82672c8011c59"
+      },
+      "responsibility": "刘邦以authorized承担在本统治窗口授权、维持或接受该治理结果。",
+      "semantic_fingerprint": "f5dd72d69fa00939ca11621ec2a02e47a8f1d290a9a4439f3a071ba65a6231c2",
+      "time_end": "高祖天下初定",
+      "time_precision": "historical_text_range",
+      "time_start": "高祖天下初定",
+      "uncertainties": [
+        "衣食滋殖见于孝惠、高后连续时期，不能独归刘邦或量化单项措施贡献。"
+      ]
+    },
+    {
+      "action": "陈豨受任统辖赵代边兵并形成区域军事实绩",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-3D5DED05BD73537397B0",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷093@368019#自立為代王",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-8E1E5A0FD7E1B394B786",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷093@368019#追斬豨於靈丘",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-3F2A4B4053BB52B9D7E7",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-622BEAAA2820",
+      "lineage": {
+        "source_refs": "史記/卷093@368019#自立為代王;史記/卷093@368019#追斬豨於靈丘"
+      },
+      "locations": [
+        "陈豨受任统辖赵代边兵并形成区域军事实绩"
+      ],
+      "outcome": [
+        "陈豨在代地反汉，自立代王并劫掠赵、代，形成跨区域战争，最终被追斩。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-622BEAAA2820",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "2fc1b2a84dc899fc930fd8cd63ae090db80f520f25421599ebc4dcf99f40faff"
+      },
+      "responsibility": "陈豨以commander_in_chief承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "2f03e5e2a3748b226157e6e1d7c912f3cbb5db390eecf952abc0ec168a3db66a",
+      "time_end": "高帝十年至十二年",
+      "time_precision": "historical_text_range",
+      "time_start": "高帝十年至十二年",
+      "uncertainties": []
+    },
+    {
+      "action": "韩信井陉破赵",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-0D5AAF82FBB21C6FB463",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷092@2256147#禽趙王歇",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为regional级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-41803E452EF6A2C31286",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-039AFE91A974",
+      "lineage": {
+        "source_refs": "史記/卷092@2256147#禽趙王歇"
+      },
+      "locations": [
+        "韩信井陉破赵"
+      ],
+      "outcome": [
+        "韩信在井陉背水列阵，大破赵军并擒赵王歇。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-039AFE91A974",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "a324e2de45c8ca552aabc28a47a18f19b155244abb23160806e1e1116eb47ba2"
+      },
+      "responsibility": "韩信以commander_in_chief承担作为独立方面主帅组织并完成战役目标。",
+      "semantic_fingerprint": "74bd03af33946228790bc1de824fbea1978611bcb9efe9d64f6dcb948468c2c8",
+      "time_end": "汉三年十月",
+      "time_precision": "historical_text_range",
+      "time_start": "汉三年十月",
+      "uncertainties": []
+    },
+    {
+      "action": "周勃平定楚汉后方与燕代叛乱",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-2B61F7A91739EB0DDE4E",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷057@1569360#勃以相國代樊噲將",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-59AFAED5617A56CFC965",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#屠渾都",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-41484FB6418132CE6F82",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#復擊破綰軍沮陽",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-55F761EE9EF16D57CF85",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#追至長城",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-9AE20A4640C9B8FEB61B",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#拜為將軍",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-1A35A1ED08E6647BC83A",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#東守峣關",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-B852126CB96C5E55E512",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#守敖倉",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-06BBD4F1A1452D4ABBB4",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#凡得二十二縣",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-68FA0ECE2D3F14DF0013",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#屠馬邑",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-F58EC8A94072AAE06710",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#於樓煩，破之",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-0666E8B16AFDDBC415BD",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#鴈門郡十七縣",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-D05E07353FF2ED6852B6",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷057@1569360#破之，斬豨",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-57AC21A42B1CEBC82CAA",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-746B660CC80F",
+      "lineage": {
+        "source_refs": "史記/卷057@1569360#凡得二十二縣;史記/卷057@1569360#勃以相國代樊噲將;史記/卷057@1569360#守敖倉;史記/卷057@1569360#屠渾都;史記/卷057@1569360#屠馬邑;史記/卷057@1569360#復擊破綰軍沮陽;史記/卷057@1569360#拜為將軍;史記/卷057@1569360#於樓煩，破之;史記/卷057@1569360#東守峣關;史記/卷057@1569360#破之，斬豨;史記/卷057@1569360#追至長城;史記/卷057@1569360#鴈門郡十七縣"
+      },
+      "locations": [
+        "周勃平定楚汉后方与燕代叛乱"
+      ],
+      "outcome": [
+        "周勃接替樊哙统军讨伐卢绾，攻城破军、屠浑都并平定五郡七十九县。；汉王任周勃为将军。周勃参与对项籍作战、承担要地守备，并在项羽死后平定泗水、东海二郡二十二县。；讨伐陈豨期间，周勃所部屠马邑，继而破敌并平定雁门、云中等地。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-746B660CC80F",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "62eff4ddc894b2c219c1fbe46c08c19030fcc993f50a255907a7f20a418219ab"
+      },
+      "responsibility": "周勃以commander_in_chief承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "6800ca9e162a8d1dc89df36c935458ae183a78d171d909ac3771681cf9b4c956",
+      "time_end": "高帝時，討陳豨",
+      "time_precision": "historical_text_range",
+      "time_start": "高帝時，燕王盧綰反",
+      "uncertainties": []
+    },
+    {
+      "action": "韩信潍水破齐并平定齐地",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-C173D98986B3598DC10A",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷092@2256147#遂皆降平齊",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-6A06AD025DD8BFCCC53F",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-039AFE91A974",
+      "lineage": {
+        "source_refs": "史記/卷092@2256147#遂皆降平齊"
+      },
+      "locations": [
+        "韩信潍水破齐并平定齐地"
+      ],
+      "outcome": [
+        "韩信在潍水击杀龙且并平定齐地。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-039AFE91A974",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "fe542d5872c65a4825822cf41c8321c27fc395afd991ba76efedca3c2f4890a6"
+      },
+      "responsibility": "韩信以commander_in_chief承担作为独立方面主帅组织并完成战役目标。",
+      "semantic_fingerprint": "eebc30b39bf93293d1ccc43c2322ba102b05bcb0d690ee5b3fec4be2ab9ded0d",
+      "time_end": "汉四年",
+      "time_precision": "historical_text_range",
+      "time_start": "汉四年",
+      "uncertainties": []
+    },
+    {
+      "action": "英布举九江兵归汉并参与垓下破楚",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-81B07EC9876DA4A8F10E",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷091@2509940#破之垓下",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-76D5BE000B783D979F70",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-1471155D486E",
+      "lineage": {
+        "source_refs": "史記/卷091@2509940#破之垓下"
+      },
+      "locations": [
+        "英布举九江兵归汉并参与垓下破楚"
+      ],
+      "outcome": [
+        "英布举九江兵归汉，与汉军合击楚军并在垓下破楚。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-1471155D486E",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "8c53a2201d18500358487ccdcf72fca742e12603ecddd8098365e08aa8150d36"
+      },
+      "responsibility": "英布以commander_in_chief承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "ba563df1ba76d16bce22c262edcc1323867832a660bad6499f02f551e4ff0bdb",
+      "time_end": "汉五年",
+      "time_precision": "historical_text_range",
+      "time_start": "汉五年",
+      "uncertainties": []
+    },
+    {
+      "action": "萧何持续经营关中法制财政与后勤",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-CBFE062ED33B598DACFE",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷053@2087971#非上所詔令召",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-1D62245173122839BAFD",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#蕭何轉漕關中，給食不乏",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-71167CEE4E217B7447AC",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#此萬世之功也",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-341E47F0D5019B4E1F3A",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#高祖曰：「善。」",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-CCAE9C1F7632CA377815",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#何以丞相留收巴蜀",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-E18276AD82993E771195",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#何守關中，侍太子，治櫟陽",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-A5FAED470BBB513B2C2B",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#立宗廟社稷宮室縣邑",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-3220CB0CF09EE3758F5D",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#輒以便宜施行",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-53B4C677AA4D8B58B6C2",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#計戶口轉漕給軍",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-097E4411F74DDBAC9634",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#何常興關中卒，輒補缺",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-A71ACA4848E7B86BB998",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#專屬任何關中事",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-C1733B1F045F0805F1BA",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#何進言韓信",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-03162A2AA76928E393CE",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#漢王以信為大將軍",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-88387567720F70F6A035",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#相國賤彊買民田宅數千萬",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-697A11926EB7E6CCAEEF",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#原令民得入田",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-F02BC9E848985DC60741",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#械繫之",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-B9C7252DB40FA0A6DDAD",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#故系治之",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-AFE7A8F6A354B834D8B3",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#赦出相國",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-2E8132DB8966295D7E33",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#徒跣謝",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-6B8F3228D9AABE02D29B",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#相國為賢相",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-89F6FCDD42176183EB71",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#欲令百姓聞吾過也",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-29BA180F2BA3C3166BD7",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#高祖以蕭何功最盛",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-3F0CF8F74ADF160057CE",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#發蹤指示，功人也",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-F60833996AAEFC4CD60C",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷053@2087971#功不可忘也",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-7D14CA93E90377E54E3A",
+      "episode_status": "accepted",
+      "episode_type": "governance_outcome_chain",
+      "evaluation_context": "PER-CAND-C4F753AA4405",
+      "lineage": {
+        "source_refs": "史記/卷053@2087971#何以丞相留收巴蜀;史記/卷053@2087971#何守關中，侍太子，治櫟陽;史記/卷053@2087971#何常興關中卒，輒補缺;史記/卷053@2087971#何進言韓信;史記/卷053@2087971#功不可忘也;史記/卷053@2087971#原令民得入田;史記/卷053@2087971#專屬任何關中事;史記/卷053@2087971#徒跣謝;史記/卷053@2087971#故系治之;史記/卷053@2087971#械繫之;史記/卷053@2087971#欲令百姓聞吾過也;史記/卷053@2087971#此萬世之功也;史記/卷053@2087971#漢王以信為大將軍;史記/卷053@2087971#發蹤指示，功人也;史記/卷053@2087971#相國為賢相;史記/卷053@2087971#相國賤彊買民田宅數千萬;史記/卷053@2087971#立宗廟社稷宮室縣邑;史記/卷053@2087971#蕭何轉漕關中，給食不乏;史記/卷053@2087971#計戶口轉漕給軍;史記/卷053@2087971#赦出相國;史記/卷053@2087971#輒以便宜施行;史記/卷053@2087971#非上所詔令召;史記/卷053@2087971#高祖以蕭何功最盛;史記/卷053@2087971#高祖曰：「善。」"
+      },
+      "locations": [],
+      "outcome": [
+        "鄂君在功臣位次爭議中具體陳述蕭何未待詔令便多次從關中補兵、在滎陽對峙期間轉漕不絕並保全關中；高祖認可其論，令蕭何位列第一。；漢王出兵時，蕭何留守巴蜀、關中，承擔收聚、安撫、告諭、供應軍糧、侍奉太子及治理櫟陽等職責；他制定法令和建置制度，能奏則奏，未及奏報時可便宜施行後補報。漢軍失利時，他屢次徵發關中兵補充缺額，因而獲專任關中事務。；蕭何向漢王推薦韓信，漢王據此任韓信為大將軍。；民眾上書指控蕭何低價強買田宅，蕭何隨後為民請求耕種上林空地。高祖以其受商人財物並藉此媚民為由交廷尉械繫審治；王衛尉進諫後，高帝當日赦放蕭何。蕭何赤足謝罪，高帝則稱其為民請苑而自己不許，並說拘繫是為使百姓聞知君主之過。；天下平定後論功，高祖判定蕭何功勞最高。面對功臣異議，高帝以追獸者與發蹤指示者為喻，並指出蕭何舉宗數十人從隨，認定其功不可忘。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-C4F753AA4405",
+          "role_codes": [
+            "exclusive"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "a93b8c6b324990343f638bd768a18421fc6bfb4c78045ee226f89a9e1754cf11"
+      },
+      "responsibility": "萧何以exclusive承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "5ecee2cbd942fd49cb839f7ed37da52be9e6f04c29544bca5ecfc45203e0c287",
+      "time_end": "漢五年",
+      "time_precision": "historical_text_range",
+      "time_start": "漢五年論功位次時",
+      "uncertainties": []
+    },
+    {
+      "action": "韩信平定魏地",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-2F5DDAFAE43BD6D13E47",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷092@2256147#定魏爲河東郡",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为regional级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-928BA9FFF40C8BBAEBB7",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-039AFE91A974",
+      "lineage": {
+        "source_refs": "史記/卷092@2256147#定魏爲河東郡"
+      },
+      "locations": [
+        "韩信平定魏地"
+      ],
+      "outcome": [
+        "韩信渡河击魏，生擒魏王豹并平定魏地。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-039AFE91A974",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "4680227b8bc73c43bf956577e4c937538fd5b1740cd3e1a0667ac451e5af50c0"
+      },
+      "responsibility": "韩信以commander_in_chief承担作为独立方面主帅组织并完成战役目标。",
+      "semantic_fingerprint": "066b7aea177634937f8ad904629f319201159fa2f73ee314446f4234c0210e69",
+      "time_end": "汉二年后",
+      "time_precision": "historical_text_range",
+      "time_start": "汉二年后",
+      "uncertainties": []
+    },
+    {
+      "action": "陈平连续筹划国家级危机处置",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-7E8D8B0C9323BBD85B49",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷056@1961615#常出奇計",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-96FB32C56361BC265904",
+      "episode_status": "accepted",
+      "episode_type": "governance_outcome_chain",
+      "evaluation_context": "PER-CAND-F67C4F794042",
+      "lineage": {
+        "source_refs": "史記/卷056@1961615#常出奇計"
+      },
+      "locations": [],
+      "outcome": [
+        "陈平归汉后多次提出应变计策，处理荥阳、平城及诸侯处置等国家危机。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-F67C4F794042",
+          "role_codes": [
+            "lead"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "a018a704af47a025744ebea0c9e822754eafaf83d76e6b15f7ce891938d408a0"
+      },
+      "responsibility": "陈平以lead承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "7b1c1fb85a89066aef7c3ce98c20a2aeb25cf4a8dc09f2c7147fd7e2e5744b0b",
+      "time_end": "高帝时期",
+      "time_precision": "historical_text_range",
+      "time_start": "高帝时期",
+      "uncertainties": []
+    },
+    {
+      "action": "灌婴统骑兵破楚并追击定地",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-7D3E0F28217966F45FF1",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷095@2298709#恐軍不信臣",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-E5E560C20CC93EE3C2B6",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#然數力戰",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-A7EA24A52CB738D7C74A",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#拜灌嬰為中大夫",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-A5D4A0880C3F2125DCE1",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#大破之",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-D0490493ACD4096DF3CA",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#以車騎將軍",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-F6F79801373350698ABC",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#取楚王信",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-B1679D0F9B7A669D4505",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#受詔別降",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-A020BE34EE391EA220EB",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#并將燕、趙、齊、梁、楚車騎",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-95C38EB64EB280079572",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#受詔別攻",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-3762D4C030E8DDFF1303",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#以車騎將軍先出",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-92CE534E22AA95385B72",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#絕其餉道",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-73FD89239E59D40A5192",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#所將卒斬右司馬",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-18CE97BEC823FF261181",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#送漢王到雒陽",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-24775DD753074B1F9F2D",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#嬰遷為御史大夫",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-0752A93AAE19D22F2956",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#盡降其城邑",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-8B9E1A19AC8169326A67",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#斬薛公",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-6BA03567FFF1B2962C67",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#虜柱國項佗",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-495C381080C809C01094",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#別追項籍至東城",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-EEF87A06AA43E6BF1B91",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#所將卒五人共斬項籍",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-51E2AC5596E57626BCB9",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#遂定吳、豫章、會稽郡",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-522640E15CFAFA969CDB",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷095@2298709#凡五十二縣",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-BA987014E2597DE42157",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-39DB5536EF01",
+      "lineage": {
+        "source_refs": "史記/卷095@2298709#以車騎將軍;史記/卷095@2298709#以車騎將軍先出;史記/卷095@2298709#凡五十二縣;史記/卷095@2298709#別追項籍至東城;史記/卷095@2298709#取楚王信;史記/卷095@2298709#受詔別攻;史記/卷095@2298709#受詔別降;史記/卷095@2298709#大破之;史記/卷095@2298709#嬰遷為御史大夫;史記/卷095@2298709#并將燕、趙、齊、梁、楚車騎;史記/卷095@2298709#恐軍不信臣;史記/卷095@2298709#所將卒五人共斬項籍;史記/卷095@2298709#所將卒斬右司馬;史記/卷095@2298709#拜灌嬰為中大夫;史記/卷095@2298709#斬薛公;史記/卷095@2298709#然數力戰;史記/卷095@2298709#盡降其城邑;史記/卷095@2298709#絕其餉道;史記/卷095@2298709#虜柱國項佗;史記/卷095@2298709#送漢王到雒陽;史記/卷095@2298709#遂定吳、豫章、會稽郡"
+      },
+      "locations": [
+        "灌婴统骑兵破楚并追击定地"
+      ],
+      "outcome": [
+        "汉王为应对楚骑兵选将时，军中推举熟悉骑兵的李必、骆甲，但二人以原秦民身份恐军中不信，要求由汉王身边善骑者统领。因灌婴年轻但屡次力战，汉王任其为中大夫，并令李必、骆甲为左右校尉辅佐，统率郎中骑兵在荥阳东大破楚骑。；汉朝建立后，灌嬰以车骑将军参与平定臧荼、控制楚王韩信，并先后对韩王信、匈奴骑兵、陈豨和黥布作战；期间多次奉诏别领或合并统率多国车骑。；灌嬰奉诏率军别击楚军后方并截断粮道，连续攻击项冠、王武及其别将；其后护送汉王到雒阳，奉使北迎韩信军，返回敖仓后升任御史大夫。；灌嬰别领军南下，渡淮攻取城邑并与楚军反复作战，降彭城及多地；与汉王会师后参加陈下之战。项籍败走后，他奉诏率车骑追至东城并击破项籍军，随后渡江平定吴、豫章、会稽三郡，再返回平定淮北五十二县。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-39DB5536EF01",
+          "role_codes": [
+            "principal_commander"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "201dae2266bab7c9db8e6013df3c5422ff2b08a8931939bedd244e4920a4472b"
+      },
+      "responsibility": "灌婴以principal_commander承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "3f05e943a164c261c0ba8d663aeeed29966c8fe84523e77fa3969b258902896d",
+      "time_end": "齊地平定後至項籍敗亡",
+      "time_precision": "historical_text_range",
+      "time_start": "楚漢戰爭滎陽階段",
+      "uncertainties": []
+    },
+    {
+      "action": "曹参还定三秦并平定魏地",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-5DE872498C34A351718A",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷054@1490182#遷為將軍",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-6324CA8F075F8A924222",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#參將兵守景陵二十日",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-BA5FA34BA975778CB468",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#圍章邯於廢丘",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-35007A6E4181AB6969ED",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#以中尉從漢王",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-331DFC8184A2A3F73ADC",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#往擊，盡破之",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-D714DEBFBA1D85F24464",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#進破取衍氏",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-2802736F5100DEDABE59",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#拜為假左丞相",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-62A0FCFD5D35915B1F67",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#別與韓信東攻",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-59B5FC5E0F182F9228B1",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#生得魏王豹",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-8097E2AF77F21178263C",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷054@1490182#盡定魏地",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-DB94D1339E72D5325CEC",
+      "episode_status": "accepted",
+      "episode_type": "campaign_outcome_chain",
+      "evaluation_context": "PER-CAND-D60B93B81159",
+      "lineage": {
+        "source_refs": "史記/卷054@1490182#以中尉從漢王;史記/卷054@1490182#別與韓信東攻;史記/卷054@1490182#參將兵守景陵二十日;史記/卷054@1490182#圍章邯於廢丘;史記/卷054@1490182#往擊，盡破之;史記/卷054@1490182#拜為假左丞相;史記/卷054@1490182#生得魏王豹;史記/卷054@1490182#盡定魏地;史記/卷054@1490182#進破取衍氏;史記/卷054@1490182#遷為將軍"
+      },
+      "locations": [
+        "曹参还定三秦并平定魏地"
+      ],
+      "outcome": [
+        "汉王封曹参为建成侯，曹参随至汉中后迁将军，参与还定三秦；其后任中尉随汉王作战，并独自领兵守景陵、围章邯及平定多处反叛。；曹参被任为假左丞相，入关中屯兵；魏王豹反后，曹参与韩信分兵东攻魏军，擒魏王豹、取得平阳并平定魏地五十二城。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-D60B93B81159",
+          "role_codes": [
+            "principal_commander"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "86250ba1d33c87e1329bdc49935ca287ee5939917630fcb768f0fd7bda4b1320"
+      },
+      "responsibility": "曹参以principal_commander承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "25cd370ee0033e6d6e665a57f837feb0db237bae3d86cb1336129959ddce4136",
+      "time_end": "高祖二年",
+      "time_precision": "historical_text_range",
+      "time_start": "項羽以沛公為漢王後至項羽敗",
+      "uncertainties": []
+    },
+    {
+      "action": "疑狱逐级上报程序",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-OUTCOME-74DF940C5B2AC878",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "漢書/卷023@7908643#q14",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-F3FBFD5BB0C4325D9556",
+      "episode_status": "accepted",
+      "episode_type": "governance_outcome_chain",
+      "evaluation_context": "PER-V4-3D3FE911CF34",
+      "lineage": {
+        "source_refs": "漢書/卷023@7908643#q14"
+      },
+      "locations": [],
+      "outcome": [
+        "高帝建立县道、二千石、廷尉直至皇帝的疑狱逐级上报程序，后世继续修订运行。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-V4-3D3FE911CF34",
+          "role_codes": [
+            "authorized"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "84aa1b77bf3657eb35625a4b9b14ad6976ea9e4b1f215b38d75d3ebacd1526a5"
+      },
+      "responsibility": "刘邦以authorized承担在本统治窗口授权、维持或接受该治理结果。",
+      "semantic_fingerprint": "a1e1e3ec9ba9ea6dd3ad9a36bbc359c20c33b7fe9be4164f923a14dd5e08953f",
+      "time_end": "高帝七年",
+      "time_precision": "historical_text_range",
+      "time_start": "高帝七年",
+      "uncertainties": [
+        "较详审理结果见于景帝后续修订，刘邦只归责初始程序。"
+      ]
+    },
+    {
+      "action": "张良完成楚汉战略纠偏与诸侯协同",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-E70931A03E72A3308EAB",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "史記/卷055@2666612#韓信可屬大事",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-AD3EB1AD1B3A2BDE425D",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#使韓信將兵擊之",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-50B93D926F58AB4E47C8",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#此三人力也",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-720ED2D712EC9439B90D",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#良說漢王",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-8072EF0970A83CCB7881",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#諸侯皆至",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-8D5E32DA154E2E710CB6",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#陛下事去矣",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-CC03994DEFAFB1E14112",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#陛下與誰取天下乎",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-76237BF04A03DB2C6077",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "史記/卷055@2666612#銷印",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      ],
+      "episode_id": "EP-OUTCOME-F5AE1FD07A5862E9016A",
+      "episode_status": "accepted",
+      "episode_type": "governance_outcome_chain",
+      "evaluation_context": "PER-CAND-2FFB15145AF5",
+      "lineage": {
+        "source_refs": "史記/卷055@2666612#使韓信將兵擊之;史記/卷055@2666612#此三人力也;史記/卷055@2666612#良說漢王;史記/卷055@2666612#諸侯皆至;史記/卷055@2666612#銷印;史記/卷055@2666612#陛下事去矣;史記/卷055@2666612#陛下與誰取天下乎;史記/卷055@2666612#韓信可屬大事"
+      },
+      "locations": [],
+      "outcome": [
+        "彭城战败后，张良向汉王提出联络黥布、彭越并使韩信独当一面的用人方案；汉王随后分别遣使联络和任用，后文将破楚归于三人之力。；汉王在固陵作战不利且诸侯逾期未到时，张良提出对策；汉王采用后，诸侯均到。；汉王在荥阳受围时已同意郦食其复立六国之后并命刻印；张良从八方面反对此策，指出游士将各归其主、汉王将失去争天下之众。汉王遂停止执行并命销毁印章。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-2FFB15145AF5",
+          "role_codes": [
+            "lead"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "1f7befc913f105dae156d3276eecd0d8d15caaf2ed5cbf0f068450191647e971"
+      },
+      "responsibility": "张良以lead承担依本传完整生涯中可归责的行动与已实现结果登记。",
+      "semantic_fingerprint": "3c2c89b76a74c59afd0bbf254d2570e76e7e0807db663f839414912b76d352a3",
+      "time_end": "汉三年",
+      "time_precision": "historical_text_range",
+      "time_start": "汉军彭城败退至下邑时",
+      "uncertainties": []
     }
   ],
   "excluded_units": [
@@ -2898,14 +4818,872 @@
   "governance_dispositions": [
     {
       "disposition": "supporting_policy_context_not_i5b_team_score",
-      "governance_achievement_ref": "GOVACH-A0D57D891872F3C2A412"
+      "outcome_ref": "OUTCOME-2DFB63C14C3255337BB3"
+    },
+    {
+      "disposition": "selected_team_result_support",
+      "outcome_ref": "OUTCOME-4617EB700F6864BFD89B"
     },
     {
       "disposition": "supporting_policy_context_not_i5b_team_score",
-      "governance_achievement_ref": "GOVACH-D258310F15047764D34C"
+      "outcome_ref": "OUTCOME-694BB7AACB2D192A275C"
+    },
+    {
+      "disposition": "selected_team_result_support",
+      "outcome_ref": "OUTCOME-CDAA006F86CD636C05F1"
+    },
+    {
+      "disposition": "selected_team_result_support",
+      "outcome_ref": "OUTCOME-E23F2F12A16A6B753540"
     }
   ],
-  "governance_results": [],
+  "governance_results": [
+    {
+      "outcome_ref": "OUTCOME-4617EB700F6864BFD89B",
+      "result": "鄂君在功臣位次爭議中具體陳述蕭何未待詔令便多次從關中補兵、在滎陽對峙期間轉漕不絕並保全關中；高祖認可其論，令蕭何位列第一。；漢王出兵時，蕭何留守巴蜀、關中，承擔收聚、安撫、告諭、供應軍糧、侍奉太子及治理櫟陽等職責；他制定法令和建置制度，能奏則奏，未及奏報時可便宜施行後補報。漢軍失利時，他屢次徵發關中兵補充缺額，因而獲專任關中事務。；蕭何向漢王推薦韓信，漢王據此任韓信為大將軍。；民眾上書指控蕭何低價強買田宅，蕭何隨後為民請求耕種上林空地。高祖以其受商人財物並藉此媚民為由交廷尉械繫審治；王衛尉進諫後，高帝當日赦放蕭何。蕭何赤足謝罪，高帝則稱其為民請苑而自己不許，並說拘繫是為使百姓聞知君主之過。；天下平定後論功，高祖判定蕭何功勞最高。面對功臣異議，高帝以追獸者與發蹤指示者為喻，並指出蕭何舉宗數十人從隨，認定其功不可忘。",
+      "source_refs": [
+        "史記/卷053@2087971#何以丞相留收巴蜀",
+        "史記/卷053@2087971#何守關中，侍太子，治櫟陽",
+        "史記/卷053@2087971#何常興關中卒，輒補缺",
+        "史記/卷053@2087971#何進言韓信",
+        "史記/卷053@2087971#功不可忘也",
+        "史記/卷053@2087971#原令民得入田",
+        "史記/卷053@2087971#專屬任何關中事",
+        "史記/卷053@2087971#徒跣謝",
+        "史記/卷053@2087971#故系治之",
+        "史記/卷053@2087971#械繫之",
+        "史記/卷053@2087971#欲令百姓聞吾過也",
+        "史記/卷053@2087971#此萬世之功也",
+        "史記/卷053@2087971#漢王以信為大將軍",
+        "史記/卷053@2087971#發蹤指示，功人也",
+        "史記/卷053@2087971#相國為賢相",
+        "史記/卷053@2087971#相國賤彊買民田宅數千萬",
+        "史記/卷053@2087971#立宗廟社稷宮室縣邑",
+        "史記/卷053@2087971#蕭何轉漕關中，給食不乏",
+        "史記/卷053@2087971#計戶口轉漕給軍",
+        "史記/卷053@2087971#赦出相國",
+        "史記/卷053@2087971#輒以便宜施行",
+        "史記/卷053@2087971#非上所詔令召",
+        "史記/卷053@2087971#高祖以蕭何功最盛",
+        "史記/卷053@2087971#高祖曰：「善。」"
+      ]
+    },
+    {
+      "outcome_ref": "OUTCOME-CDAA006F86CD636C05F1",
+      "result": "彭城战败后，张良向汉王提出联络黥布、彭越并使韩信独当一面的用人方案；汉王随后分别遣使联络和任用，后文将破楚归于三人之力。；汉王在固陵作战不利且诸侯逾期未到时，张良提出对策；汉王采用后，诸侯均到。；汉王在荥阳受围时已同意郦食其复立六国之后并命刻印；张良从八方面反对此策，指出游士将各归其主、汉王将失去争天下之众。汉王遂停止执行并命销毁印章。",
+      "source_refs": [
+        "史記/卷055@2666612#使韓信將兵擊之",
+        "史記/卷055@2666612#此三人力也",
+        "史記/卷055@2666612#良說漢王",
+        "史記/卷055@2666612#諸侯皆至",
+        "史記/卷055@2666612#銷印",
+        "史記/卷055@2666612#陛下事去矣",
+        "史記/卷055@2666612#陛下與誰取天下乎",
+        "史記/卷055@2666612#韓信可屬大事"
+      ]
+    },
+    {
+      "outcome_ref": "OUTCOME-E23F2F12A16A6B753540",
+      "result": "陈平归汉后多次提出应变计策，处理荥阳、平城及诸侯处置等国家危机。",
+      "source_refs": [
+        "史記/卷056@1961615#常出奇計"
+      ]
+    }
+  ],
+  "historical_outcome_clusters": [
+    {
+      "canonical_label": "汉初约法轻租与财政节用",
+      "episode_refs": [
+        "EP-OUTCOME-2D93A021550AF4A776CC"
+      ],
+      "fact_refs": [
+        "PFACT-OUTCOME-332321A87C4A4C9F"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "han-early-recovery-tax-restraint",
+      "limitations": [
+        "衣食滋殖见于孝惠、高后连续时期，不能独归刘邦或量化单项措施贡献。"
+      ],
+      "members": [
+        {
+          "actor_kind": "ruler",
+          "actor_name": "刘邦",
+          "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+          "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+          "role_code": "authorized"
+        }
+      ],
+      "observable_result": "高祖约法省禁、田租十五税一并核量官府支出；后续连续时期原文记衣食逐渐增殖。",
+      "origin": "dynasty_governance",
+      "outcome_kind": "governance",
+      "outcome_ref": "OUTCOME-2DFB63C14C3255337BB3",
+      "payload": {
+        "authorization_status": "explicit",
+        "domain": "fiscal_taxation",
+        "durable_cross_stage": true,
+        "foundational": true
+      },
+      "period": {
+        "end": "高祖天下初定",
+        "start": "高祖天下初定"
+      },
+      "result_direction": "positive",
+      "result_status": "operated",
+      "scale": {
+        "consequence_basis": "national_core_subsystem",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "5ad4fe0c55bae729fd33ac01d37562c83a50b8ea210d629cead82672c8011c59",
+      "source_refs": [
+        "漢書/卷024@7498330#q1"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "陈豨受任统辖赵代边兵并形成区域军事实绩",
+      "episode_refs": [
+        "EP-OUTCOME-3F2A4B4053BB52B9D7E7"
+      ],
+      "fact_refs": [
+        "PFACT-37C7092539559681BAA1"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-622BEAAA2820-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "陈豨",
+          "actor_ref": "PER-CAND-622BEAAA2820",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "陈豨在代地反汉，自立代王并劫掠赵、代，形成跨区域战争，最终被追斩。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-35908CC7B4F50E2D2F42",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "regional_major",
+        "strategic_objective": "陈豨在代地反汉，自立代王并劫掠赵、代，形成跨区域战争，最终被追斩。",
+        "theater": "陈豨受任统辖赵代边兵并形成区域军事实绩"
+      },
+      "period": {
+        "end": "高帝十年至十二年",
+        "start": "高帝十年至十二年"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "important_objective",
+        "decisiveness": "major",
+        "level": "important",
+        "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "2fc1b2a84dc899fc930fd8cd63ae090db80f520f25421599ebc4dcf99f40faff",
+      "source_refs": [
+        "史記/卷093@368019#自立為代王",
+        "史記/卷093@368019#追斬豨於靈丘"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "萧何持续经营关中法制财政与后勤",
+      "episode_refs": [
+        "EP-OUTCOME-7D14CA93E90377E54E3A"
+      ],
+      "fact_refs": [
+        "PFACT-15C3DF643C725B46AABE",
+        "PFACT-236391B7092A78279EB6",
+        "PFACT-44BA547853A92B19310D",
+        "PFACT-626A85B2FACB08EFDDC3",
+        "PFACT-E8FD462585D33178BA89"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-C4F753AA4405-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "萧何",
+          "actor_ref": "PER-CAND-C4F753AA4405",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "exclusive"
+        }
+      ],
+      "observable_result": "鄂君在功臣位次爭議中具體陳述蕭何未待詔令便多次從關中補兵、在滎陽對峙期間轉漕不絕並保全關中；高祖認可其論，令蕭何位列第一。；漢王出兵時，蕭何留守巴蜀、關中，承擔收聚、安撫、告諭、供應軍糧、侍奉太子及治理櫟陽等職責；他制定法令和建置制度，能奏則奏，未及奏報時可便宜施行後補報。漢軍失利時，他屢次徵發關中兵補充缺額，因而獲專任關中事務。；蕭何向漢王推薦韓信，漢王據此任韓信為大將軍。；民眾上書指控蕭何低價強買田宅，蕭何隨後為民請求耕種上林空地。高祖以其受商人財物並藉此媚民為由交廷尉械繫審治；王衛尉進諫後，高帝當日赦放蕭何。蕭何赤足謝罪，高帝則稱其為民請苑而自己不許，並說拘繫是為使百姓聞知君主之過。；天下平定後論功，高祖判定蕭何功勞最高。面對功臣異議，高帝以追獸者與發蹤指示者為喻，並指出蕭何舉宗數十人從隨，認定其功不可忘。",
+      "origin": "person_biography",
+      "outcome_kind": "governance",
+      "outcome_ref": "OUTCOME-4617EB700F6864BFD89B",
+      "payload": {
+        "authorization_status": "explicit",
+        "domain": "strategic_coordination",
+        "durable_cross_stage": true,
+        "foundational": true
+      },
+      "period": {
+        "end": "漢五年",
+        "start": "漢五年論功位次時"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_core_subsystem",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "a93b8c6b324990343f638bd768a18421fc6bfb4c78045ee226f89a9e1754cf11",
+      "source_refs": [
+        "史記/卷053@2087971#何以丞相留收巴蜀",
+        "史記/卷053@2087971#何守關中，侍太子，治櫟陽",
+        "史記/卷053@2087971#何常興關中卒，輒補缺",
+        "史記/卷053@2087971#何進言韓信",
+        "史記/卷053@2087971#功不可忘也",
+        "史記/卷053@2087971#原令民得入田",
+        "史記/卷053@2087971#專屬任何關中事",
+        "史記/卷053@2087971#徒跣謝",
+        "史記/卷053@2087971#故系治之",
+        "史記/卷053@2087971#械繫之",
+        "史記/卷053@2087971#欲令百姓聞吾過也",
+        "史記/卷053@2087971#此萬世之功也",
+        "史記/卷053@2087971#漢王以信為大將軍",
+        "史記/卷053@2087971#發蹤指示，功人也",
+        "史記/卷053@2087971#相國為賢相",
+        "史記/卷053@2087971#相國賤彊買民田宅數千萬",
+        "史記/卷053@2087971#立宗廟社稷宮室縣邑",
+        "史記/卷053@2087971#蕭何轉漕關中，給食不乏",
+        "史記/卷053@2087971#計戶口轉漕給軍",
+        "史記/卷053@2087971#赦出相國",
+        "史記/卷053@2087971#輒以便宜施行",
+        "史記/卷053@2087971#非上所詔令召",
+        "史記/卷053@2087971#高祖以蕭何功最盛",
+        "史記/卷053@2087971#高祖曰：「善。」"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "曹参还定三秦并平定魏地",
+      "episode_refs": [
+        "EP-OUTCOME-DB94D1339E72D5325CEC"
+      ],
+      "fact_refs": [
+        "PFACT-C93CEDBE0B43D48920CE",
+        "PFACT-D13369328D10243E176E"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-D60B93B81159-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "曹参",
+          "actor_ref": "PER-CAND-D60B93B81159",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "principal_commander"
+        }
+      ],
+      "observable_result": "汉王封曹参为建成侯，曹参随至汉中后迁将军，参与还定三秦；其后任中尉随汉王作战，并独自领兵守景陵、围章邯及平定多处反叛。；曹参被任为假左丞相，入关中屯兵；魏王豹反后，曹参与韩信分兵东攻魏军，擒魏王豹、取得平阳并平定魏地五十二城。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-4DA8771A874EDE938B4F",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "national_peer",
+        "strategic_objective": "汉王封曹参为建成侯，曹参随至汉中后迁将军，参与还定三秦；其后任中尉随汉王作战，并独自领兵守景陵、围章邯及平定多处反叛。；曹参被任为假左丞相，入关中屯兵；魏王豹反后，曹参与韩信分兵东攻魏军，擒魏王豹、取得平阳并平定魏地五十二城。",
+        "theater": "曹参还定三秦并平定魏地"
+      },
+      "period": {
+        "end": "高祖二年",
+        "start": "項羽以沛公為漢王後至項羽敗"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_war_outcome",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "86250ba1d33c87e1329bdc49935ca287ee5939917630fcb768f0fd7bda4b1320",
+      "source_refs": [
+        "史記/卷054@1490182#以中尉從漢王",
+        "史記/卷054@1490182#別與韓信東攻",
+        "史記/卷054@1490182#參將兵守景陵二十日",
+        "史記/卷054@1490182#圍章邯於廢丘",
+        "史記/卷054@1490182#往擊，盡破之",
+        "史記/卷054@1490182#拜為假左丞相",
+        "史記/卷054@1490182#生得魏王豹",
+        "史記/卷054@1490182#盡定魏地",
+        "史記/卷054@1490182#進破取衍氏",
+        "史記/卷054@1490182#遷為將軍"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "疑狱逐级上报程序",
+      "episode_refs": [
+        "EP-OUTCOME-F3FBFD5BB0C4325D9556"
+      ],
+      "fact_refs": [
+        "PFACT-OUTCOME-EB5264D1B006F159"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "han-doubtful-case-escalation",
+      "limitations": [
+        "较详审理结果见于景帝后续修订，刘邦只归责初始程序。"
+      ],
+      "members": [
+        {
+          "actor_kind": "ruler",
+          "actor_name": "刘邦",
+          "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+          "contribution_scope": "在本统治窗口授权、维持或接受该治理结果。",
+          "role_code": "authorized"
+        }
+      ],
+      "observable_result": "高帝建立县道、二千石、廷尉直至皇帝的疑狱逐级上报程序，后世继续修订运行。",
+      "origin": "dynasty_governance",
+      "outcome_kind": "governance",
+      "outcome_ref": "OUTCOME-694BB7AACB2D192A275C",
+      "payload": {
+        "authorization_status": "explicit",
+        "domain": "law_and_adjudication",
+        "durable_cross_stage": true,
+        "foundational": true
+      },
+      "period": {
+        "end": "高帝七年",
+        "start": "高帝七年"
+      },
+      "result_direction": "positive",
+      "result_status": "operated",
+      "scale": {
+        "consequence_basis": "national_core_subsystem",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "84aa1b77bf3657eb35625a4b9b14ad6976ea9e4b1f215b38d75d3ebacd1526a5",
+      "source_refs": [
+        "漢書/卷023@7908643#q14"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "英布举九江兵归汉并参与垓下破楚",
+      "episode_refs": [
+        "EP-OUTCOME-76D5BE000B783D979F70"
+      ],
+      "fact_refs": [
+        "PFACT-52EE6A258D0DBD87651D"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-1471155D486E-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "英布",
+          "actor_ref": "PER-CAND-1471155D486E",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "英布举九江兵归汉，与汉军合击楚军并在垓下破楚。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-887779550B1FAC8D9719",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "national_peer",
+        "strategic_objective": "英布举九江兵归汉，与汉军合击楚军并在垓下破楚。",
+        "theater": "英布举九江兵归汉并参与垓下破楚"
+      },
+      "period": {
+        "end": "汉五年",
+        "start": "汉五年"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_war_outcome",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "8c53a2201d18500358487ccdcf72fca742e12603ecddd8098365e08aa8150d36",
+      "source_refs": [
+        "史記/卷091@2509940#破之垓下"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "韩信井陉破赵",
+      "episode_refs": [
+        "EP-OUTCOME-41803E452EF6A2C31286"
+      ],
+      "fact_refs": [
+        "PFACT-EFF72F509B7A2945F38D"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "hanxin-1",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "韩信",
+          "actor_ref": "PER-CAND-039AFE91A974",
+          "contribution_scope": "作为独立方面主帅组织并完成战役目标。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "韩信在井陉背水列阵，大破赵军并擒赵王歇。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-8BAC3F12DB4845145202",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "regional_major",
+        "strategic_objective": "韩信在井陉背水列阵，大破赵军并擒赵王歇。",
+        "theater": "韩信井陉破赵"
+      },
+      "period": {
+        "end": "汉三年十月",
+        "start": "汉三年十月"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "regional_theater_control",
+        "decisiveness": "major",
+        "level": "regional",
+        "reason": "按已经实现且可归责的结果登记为regional级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "a324e2de45c8ca552aabc28a47a18f19b155244abb23160806e1e1116eb47ba2",
+      "source_refs": [
+        "史記/卷092@2256147#禽趙王歇"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "灌婴统骑兵破楚并追击定地",
+      "episode_refs": [
+        "EP-OUTCOME-BA987014E2597DE42157"
+      ],
+      "fact_refs": [
+        "PFACT-52115866ED44FDE289AC",
+        "PFACT-5C6312C7F35A84095531",
+        "PFACT-822D18EE4EAB25DA3EC0",
+        "PFACT-B78200FDC67F6A7EA634"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-39DB5536EF01-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "灌婴",
+          "actor_ref": "PER-CAND-39DB5536EF01",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "principal_commander"
+        }
+      ],
+      "observable_result": "汉王为应对楚骑兵选将时，军中推举熟悉骑兵的李必、骆甲，但二人以原秦民身份恐军中不信，要求由汉王身边善骑者统领。因灌婴年轻但屡次力战，汉王任其为中大夫，并令李必、骆甲为左右校尉辅佐，统率郎中骑兵在荥阳东大破楚骑。；汉朝建立后，灌嬰以车骑将军参与平定臧荼、控制楚王韩信，并先后对韩王信、匈奴骑兵、陈豨和黥布作战；期间多次奉诏别领或合并统率多国车骑。；灌嬰奉诏率军别击楚军后方并截断粮道，连续攻击项冠、王武及其别将；其后护送汉王到雒阳，奉使北迎韩信军，返回敖仓后升任御史大夫。；灌嬰别领军南下，渡淮攻取城邑并与楚军反复作战，降彭城及多地；与汉王会师后参加陈下之战。项籍败走后，他奉诏率车骑追至东城并击破项籍军，随后渡江平定吴、豫章、会稽三郡，再返回平定淮北五十二县。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-8CD064757A8EEF430EA3",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "regional_major",
+        "strategic_objective": "汉王为应对楚骑兵选将时，军中推举熟悉骑兵的李必、骆甲，但二人以原秦民身份恐军中不信，要求由汉王身边善骑者统领。因灌婴年轻但屡次力战，汉王任其为中大夫，并令李必、骆甲为左右校尉辅佐，统率郎中骑兵在荥阳东大破楚骑。；汉朝建立后，灌嬰以车骑将军参与平定臧荼、控制楚王韩信，并先后对韩王信、匈奴骑兵、陈豨和黥布作战；期间多次奉诏别领或合并统率多国车骑。；灌嬰奉诏率军别击楚军后方并截断粮道，连续攻击项冠、王武及其别将；其后护送汉王到雒阳，奉使北迎韩信军，返回敖仓后升任御史大夫。；灌嬰别领军南下，渡淮攻取城邑并与楚军反复作战，降彭城及多地；与汉王会师后参加陈下之战。项籍败走后，他奉诏率车骑追至东城并击破项籍军，随后渡江平定吴、豫章、会稽三郡，再返回平定淮北五十二县。",
+        "theater": "灌婴统骑兵破楚并追击定地"
+      },
+      "period": {
+        "end": "齊地平定後至項籍敗亡",
+        "start": "楚漢戰爭滎陽階段"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "important_objective",
+        "decisiveness": "major",
+        "level": "important",
+        "reason": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "201dae2266bab7c9db8e6013df3c5422ff2b08a8931939bedd244e4920a4472b",
+      "source_refs": [
+        "史記/卷095@2298709#以車騎將軍",
+        "史記/卷095@2298709#以車騎將軍先出",
+        "史記/卷095@2298709#凡五十二縣",
+        "史記/卷095@2298709#別追項籍至東城",
+        "史記/卷095@2298709#取楚王信",
+        "史記/卷095@2298709#受詔別攻",
+        "史記/卷095@2298709#受詔別降",
+        "史記/卷095@2298709#大破之",
+        "史記/卷095@2298709#嬰遷為御史大夫",
+        "史記/卷095@2298709#并將燕、趙、齊、梁、楚車騎",
+        "史記/卷095@2298709#恐軍不信臣",
+        "史記/卷095@2298709#所將卒五人共斬項籍",
+        "史記/卷095@2298709#所將卒斬右司馬",
+        "史記/卷095@2298709#拜灌嬰為中大夫",
+        "史記/卷095@2298709#斬薛公",
+        "史記/卷095@2298709#然數力戰",
+        "史記/卷095@2298709#盡降其城邑",
+        "史記/卷095@2298709#絕其餉道",
+        "史記/卷095@2298709#虜柱國項佗",
+        "史記/卷095@2298709#送漢王到雒陽",
+        "史記/卷095@2298709#遂定吳、豫章、會稽郡"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "韩信潍水破齐并平定齐地",
+      "episode_refs": [
+        "EP-OUTCOME-6A06AD025DD8BFCCC53F"
+      ],
+      "fact_refs": [
+        "PFACT-0F07F86B6D23F5CC4420"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "hanxin-2",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "韩信",
+          "actor_ref": "PER-CAND-039AFE91A974",
+          "contribution_scope": "作为独立方面主帅组织并完成战役目标。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "韩信在潍水击杀龙且并平定齐地。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-B8D5B7D96663158320CC",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "national_peer",
+        "strategic_objective": "韩信在潍水击杀龙且并平定齐地。",
+        "theater": "韩信潍水破齐并平定齐地"
+      },
+      "period": {
+        "end": "汉四年",
+        "start": "汉四年"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_war_outcome",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "fe542d5872c65a4825822cf41c8321c27fc395afd991ba76efedca3c2f4890a6",
+      "source_refs": [
+        "史記/卷092@2256147#遂皆降平齊"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "张良完成楚汉战略纠偏与诸侯协同",
+      "episode_refs": [
+        "EP-OUTCOME-F5AE1FD07A5862E9016A"
+      ],
+      "fact_refs": [
+        "PFACT-1070789A40FE72C73714",
+        "PFACT-630C9A0F3160F8D18E00",
+        "PFACT-FE03D100E3F0F1A347EB"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-2FFB15145AF5-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "张良",
+          "actor_ref": "PER-CAND-2FFB15145AF5",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "lead"
+        }
+      ],
+      "observable_result": "彭城战败后，张良向汉王提出联络黥布、彭越并使韩信独当一面的用人方案；汉王随后分别遣使联络和任用，后文将破楚归于三人之力。；汉王在固陵作战不利且诸侯逾期未到时，张良提出对策；汉王采用后，诸侯均到。；汉王在荥阳受围时已同意郦食其复立六国之后并命刻印；张良从八方面反对此策，指出游士将各归其主、汉王将失去争天下之众。汉王遂停止执行并命销毁印章。",
+      "origin": "person_biography",
+      "outcome_kind": "governance",
+      "outcome_ref": "OUTCOME-CDAA006F86CD636C05F1",
+      "payload": {
+        "authorization_status": "explicit",
+        "domain": "strategic_coordination",
+        "durable_cross_stage": false,
+        "foundational": true
+      },
+      "period": {
+        "end": "汉三年",
+        "start": "汉军彭城败退至下邑时"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_public_result",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "1f7befc913f105dae156d3276eecd0d8d15caaf2ed5cbf0f068450191647e971",
+      "source_refs": [
+        "史記/卷055@2666612#使韓信將兵擊之",
+        "史記/卷055@2666612#此三人力也",
+        "史記/卷055@2666612#良說漢王",
+        "史記/卷055@2666612#諸侯皆至",
+        "史記/卷055@2666612#銷印",
+        "史記/卷055@2666612#陛下事去矣",
+        "史記/卷055@2666612#陛下與誰取天下乎",
+        "史記/卷055@2666612#韓信可屬大事"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "彭越经营梁地并断楚粮道会师垓下",
+      "episode_refs": [
+        "EP-OUTCOME-08256C2EDF7DE3248988"
+      ],
+      "fact_refs": [
+        "PFACT-A2F78F8093F92FBF1D2E",
+        "PFACT-A774006FF76294242415",
+        "PFACT-CA27D7E8EB8364BC5561",
+        "PFACT-DBED9120F1CED0DD6424"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-CB012BC1F12F-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "彭越",
+          "actor_ref": "PER-CAND-CB012BC1F12F",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "彭越率三萬餘兵在外黃歸漢；漢王因其已收取魏地十餘城，任命他為魏相國，允許其自行統率原有部隊，負責略定梁地。；項王南走陽夏時，彭越再次攻下昌邑附近二十餘城，取得穀物十餘萬斛供應漢王軍糧。；漢王戰敗後召彭越合兵擊楚，彭越以魏地初定且仍畏楚為由拒絕離境；漢王依留侯之策遣使許以勝楚後封地，彭越遂盡率其軍會師垓下，參與擊破楚軍。；彭越反覆往來充當漢方游兵，進攻楚軍，並在梁地截斷楚軍後方糧運。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-E15C10618A96B7FEF819",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "national_peer",
+        "strategic_objective": "彭越率三萬餘兵在外黃歸漢；漢王因其已收取魏地十餘城，任命他為魏相國，允許其自行統率原有部隊，負責略定梁地。；項王南走陽夏時，彭越再次攻下昌邑附近二十餘城，取得穀物十餘萬斛供應漢王軍糧。；漢王戰敗後召彭越合兵擊楚，彭越以魏地初定且仍畏楚為由拒絕離境；漢王依留侯之策遣使許以勝楚後封地，彭越遂盡率其軍會師垓下，參與擊破楚軍。；彭越反覆往來充當漢方游兵，進攻楚軍，並在梁地截斷楚軍後方糧運。",
+        "theater": "彭越经营梁地并断楚粮道会师垓下"
+      },
+      "period": {
+        "end": "漢王三年",
+        "start": "漢王二年春"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_war_outcome",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "1c369481bd3f6c21cc09853a039eab13a33de7f16431a7c4136cb6acbf449ac9",
+      "source_refs": [
+        "史記/卷090@376055#召彭越并力擊楚",
+        "史記/卷090@376055#如留侯策",
+        "史記/卷090@376055#常往來為漢游兵",
+        "史記/卷090@376055#得穀十餘萬斛，以給漢王食",
+        "史記/卷090@376055#復下昌邑旁二十餘城",
+        "史記/卷090@376055#悉引兵會垓下",
+        "史記/卷090@376055#拜彭越為魏相國",
+        "史記/卷090@376055#擅將其兵，略定梁地",
+        "史記/卷090@376055#收魏地得十餘城",
+        "史記/卷090@376055#歸漢於外黃",
+        "史記/卷090@376055#絕其後糧於梁地",
+        "史記/卷090@376055#遂破楚",
+        "史記/卷090@376055#魏地初定，尚畏楚，未可去"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "陈平连续筹划国家级危机处置",
+      "episode_refs": [
+        "EP-OUTCOME-96FB32C56361BC265904"
+      ],
+      "fact_refs": [
+        "PFACT-0967C2ECDA0DB512410B"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-F67C4F794042-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "陈平",
+          "actor_ref": "PER-CAND-F67C4F794042",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "lead"
+        }
+      ],
+      "observable_result": "陈平归汉后多次提出应变计策，处理荥阳、平城及诸侯处置等国家危机。",
+      "origin": "person_biography",
+      "outcome_kind": "governance",
+      "outcome_ref": "OUTCOME-E23F2F12A16A6B753540",
+      "payload": {
+        "authorization_status": "explicit",
+        "domain": "strategic_coordination",
+        "durable_cross_stage": true,
+        "foundational": true
+      },
+      "period": {
+        "end": "高帝时期",
+        "start": "高帝时期"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_public_result",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "a018a704af47a025744ebea0c9e822754eafaf83d76e6b15f7ce891938d408a0",
+      "source_refs": [
+        "史記/卷056@1961615#常出奇計"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "韩信平定魏地",
+      "episode_refs": [
+        "EP-OUTCOME-928BA9FFF40C8BBAEBB7"
+      ],
+      "fact_refs": [
+        "PFACT-D54B6797E52C1D601CD0"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "hanxin-0",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "韩信",
+          "actor_ref": "PER-CAND-039AFE91A974",
+          "contribution_scope": "作为独立方面主帅组织并完成战役目标。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "韩信渡河击魏，生擒魏王豹并平定魏地。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-F30CA0936672E97612F7",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "regional_major",
+        "strategic_objective": "韩信渡河击魏，生擒魏王豹并平定魏地。",
+        "theater": "韩信平定魏地"
+      },
+      "period": {
+        "end": "汉二年后",
+        "start": "汉二年后"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "regional_theater_control",
+        "decisiveness": "major",
+        "level": "regional",
+        "reason": "按已经实现且可归责的结果登记为regional级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "4680227b8bc73c43bf956577e4c937538fd5b1740cd3e1a0667ac451e5af50c0",
+      "source_refs": [
+        "史記/卷092@2256147#定魏爲河東郡"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "周勃平定楚汉后方与燕代叛乱",
+      "episode_refs": [
+        "EP-OUTCOME-57AC21A42B1CEBC82CAA"
+      ],
+      "fact_refs": [
+        "PFACT-41CE7721509571B8E874",
+        "PFACT-69ABEDD8E89EDEC6153A",
+        "PFACT-B16F3241641256A60A24"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "RULER-NAME-CANDIDATE-3D3FE911CF34-PER-CAND-746B660CC80F-primary",
+      "limitations": [],
+      "members": [
+        {
+          "actor_kind": "person",
+          "actor_name": "周勃",
+          "actor_ref": "PER-CAND-746B660CC80F",
+          "contribution_scope": "依本传完整生涯中可归责的行动与已实现结果登记。",
+          "role_code": "commander_in_chief"
+        }
+      ],
+      "observable_result": "周勃接替樊哙统军讨伐卢绾，攻城破军、屠浑都并平定五郡七十九县。；汉王任周勃为将军。周勃参与对项籍作战、承担要地守备，并在项羽死后平定泗水、东海二郡二十二县。；讨伐陈豨期间，周勃所部屠马邑，继而破敌并平定雁门、云中等地。",
+      "origin": "person_biography",
+      "outcome_kind": "campaign",
+      "outcome_ref": "OUTCOME-FF66B22D44E93E091059",
+      "payload": {
+        "battle_result": "victory",
+        "objective_completion": "complete",
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "national_peer",
+        "strategic_objective": "周勃接替樊哙统军讨伐卢绾，攻城破军、屠浑都并平定五郡七十九县。；汉王任周勃为将军。周勃参与对项籍作战、承担要地守备，并在项羽死后平定泗水、东海二郡二十二县。；讨伐陈豨期间，周勃所部屠马邑，继而破敌并平定雁门、云中等地。",
+        "theater": "周勃平定楚汉后方与燕代叛乱"
+      },
+      "period": {
+        "end": "高帝時，討陳豨",
+        "start": "高帝時，燕王盧綰反"
+      },
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_war_outcome",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
+      },
+      "semantic_fingerprint": "62eff4ddc894b2c219c1fbe46c08c19030fcc993f50a255907a7f20a418219ab",
+      "source_refs": [
+        "史記/卷057@1569360#凡得二十二縣",
+        "史記/卷057@1569360#勃以相國代樊噲將",
+        "史記/卷057@1569360#守敖倉",
+        "史記/卷057@1569360#屠渾都",
+        "史記/卷057@1569360#屠馬邑",
+        "史記/卷057@1569360#復擊破綰軍沮陽",
+        "史記/卷057@1569360#拜為將軍",
+        "史記/卷057@1569360#於樓煩，破之",
+        "史記/卷057@1569360#東守峣關",
+        "史記/卷057@1569360#破之，斬豨",
+        "史記/卷057@1569360#追至長城",
+        "史記/卷057@1569360#鴈門郡十七縣"
+      ],
+      "stable_delivery": true
+    }
+  ],
   "judge_coverage": {
     "anti_nepotism": "adequate_with_uncertainty",
     "appointment_delegation": "adequate_with_uncertainty",
@@ -2959,7 +5737,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "5f40ddf75f1ecca3f6067608fe79bf8496e2300ad02bc3175f73fd019a766d8b",
-    "report_sha256": "eba162a9a8ad1254683469002ab942dbe65aca6a51b604902e7d40d8c2926724",
+    "report_sha256": "0daa972b4f36aa8346ded50daaf8b014626b00112ac49a73d3264069b0011e9e",
     "ruler": "刘邦",
     "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
     "rules": [
@@ -3088,7 +5866,7 @@
         "source_candidate_count": 4,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "4bcfb18f5ea3caa0fc0134f61e770db38bee7ae185587895beccdcc8f7bbdc5c",
+        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -3279,7 +6057,7 @@
         "source_candidate_count": 6,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "4bcfb18f5ea3caa0fc0134f61e770db38bee7ae185587895beccdcc8f7bbdc5c",
+        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -3343,7 +6121,59 @@
         "configured_positive_member_budget": 8,
         "functional_complementarity": "balanced_four",
         "functional_complementarity_factor": "1.200000",
-        "governance_results": [],
+        "governance_results": [
+          {
+            "outcome_ref": "OUTCOME-4617EB700F6864BFD89B",
+            "result": "鄂君在功臣位次爭議中具體陳述蕭何未待詔令便多次從關中補兵、在滎陽對峙期間轉漕不絕並保全關中；高祖認可其論，令蕭何位列第一。；漢王出兵時，蕭何留守巴蜀、關中，承擔收聚、安撫、告諭、供應軍糧、侍奉太子及治理櫟陽等職責；他制定法令和建置制度，能奏則奏，未及奏報時可便宜施行後補報。漢軍失利時，他屢次徵發關中兵補充缺額，因而獲專任關中事務。；蕭何向漢王推薦韓信，漢王據此任韓信為大將軍。；民眾上書指控蕭何低價強買田宅，蕭何隨後為民請求耕種上林空地。高祖以其受商人財物並藉此媚民為由交廷尉械繫審治；王衛尉進諫後，高帝當日赦放蕭何。蕭何赤足謝罪，高帝則稱其為民請苑而自己不許，並說拘繫是為使百姓聞知君主之過。；天下平定後論功，高祖判定蕭何功勞最高。面對功臣異議，高帝以追獸者與發蹤指示者為喻，並指出蕭何舉宗數十人從隨，認定其功不可忘。",
+            "source_refs": [
+              "史記/卷053@2087971#何以丞相留收巴蜀",
+              "史記/卷053@2087971#何守關中，侍太子，治櫟陽",
+              "史記/卷053@2087971#何常興關中卒，輒補缺",
+              "史記/卷053@2087971#何進言韓信",
+              "史記/卷053@2087971#功不可忘也",
+              "史記/卷053@2087971#原令民得入田",
+              "史記/卷053@2087971#專屬任何關中事",
+              "史記/卷053@2087971#徒跣謝",
+              "史記/卷053@2087971#故系治之",
+              "史記/卷053@2087971#械繫之",
+              "史記/卷053@2087971#欲令百姓聞吾過也",
+              "史記/卷053@2087971#此萬世之功也",
+              "史記/卷053@2087971#漢王以信為大將軍",
+              "史記/卷053@2087971#發蹤指示，功人也",
+              "史記/卷053@2087971#相國為賢相",
+              "史記/卷053@2087971#相國賤彊買民田宅數千萬",
+              "史記/卷053@2087971#立宗廟社稷宮室縣邑",
+              "史記/卷053@2087971#蕭何轉漕關中，給食不乏",
+              "史記/卷053@2087971#計戶口轉漕給軍",
+              "史記/卷053@2087971#赦出相國",
+              "史記/卷053@2087971#輒以便宜施行",
+              "史記/卷053@2087971#非上所詔令召",
+              "史記/卷053@2087971#高祖以蕭何功最盛",
+              "史記/卷053@2087971#高祖曰：「善。」"
+            ]
+          },
+          {
+            "outcome_ref": "OUTCOME-CDAA006F86CD636C05F1",
+            "result": "彭城战败后，张良向汉王提出联络黥布、彭越并使韩信独当一面的用人方案；汉王随后分别遣使联络和任用，后文将破楚归于三人之力。；汉王在固陵作战不利且诸侯逾期未到时，张良提出对策；汉王采用后，诸侯均到。；汉王在荥阳受围时已同意郦食其复立六国之后并命刻印；张良从八方面反对此策，指出游士将各归其主、汉王将失去争天下之众。汉王遂停止执行并命销毁印章。",
+            "source_refs": [
+              "史記/卷055@2666612#使韓信將兵擊之",
+              "史記/卷055@2666612#此三人力也",
+              "史記/卷055@2666612#良說漢王",
+              "史記/卷055@2666612#諸侯皆至",
+              "史記/卷055@2666612#銷印",
+              "史記/卷055@2666612#陛下事去矣",
+              "史記/卷055@2666612#陛下與誰取天下乎",
+              "史記/卷055@2666612#韓信可屬大事"
+            ]
+          },
+          {
+            "outcome_ref": "OUTCOME-E23F2F12A16A6B753540",
+            "result": "陈平归汉后多次提出应变计策，处理荥阳、平城及诸侯处置等国家危机。",
+            "source_refs": [
+              "史記/卷056@1961615#常出奇計"
+            ]
+          }
+        ],
         "long_term_stability": "durable_multi_stage",
         "long_term_stability_factor": "1.200000",
         "negative_member_budget": 3,
@@ -3361,7 +6191,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "当前引用只覆盖窗口内反汉事件，尚无支持top的正向战役成果登记；top候选档位不能据此冻结。",
+            "talent_grade_basis": "作为主帅完成“英布举九江兵归汉并参与垓下破楚”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3378,7 +6208,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "important",
-            "talent_grade_basis": "当前引用只覆盖窗口内反汉事件，尚无支持important的正向战役成果登记；important候选档位不能据此冻结。",
+            "talent_grade_basis": "作为主帅完成“陈豨受任统辖赵代边兵并形成区域军事实绩”，属important级结果。",
             "talent_profile_basis": {},
             "talent_value": "0.9"
           },
@@ -3395,7 +6225,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "高帝时期长期承担主将与方面军任务，参与楚汉主战线并平定泗水、东海及多郡；top为待战役登记复核的候选档位。",
+            "talent_grade_basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           }
@@ -3414,7 +6244,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "高帝时期长期承担主将与方面军任务，参与楚汉主战线并平定泗水、东海及多郡；top为待战役登记复核的候选档位。",
+            "talent_grade_basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3429,7 +6259,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "刘邦窗口内跨入关、楚汉战争、定都及继承危机反复承担国家战略谋划。",
+            "talent_grade_basis": "作为主导完成“张良完成楚汉战略纠偏与诸侯协同”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3444,7 +6274,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "归汉后在刘邦授权下长期承担梁地游兵、断粮、攻城供粮及垓下会师。",
+            "talent_grade_basis": "作为主帅完成“彭越经营梁地并断楚粮道会师垓下”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3459,7 +6289,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "刘邦窗口内持续军事履职并承担齐地军事行政整合。",
+            "talent_grade_basis": "作为主将完成“曹参还定三秦并平定魏地”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3474,7 +6304,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "刘邦窗口内长期负责关中治理、制度建置、转漕补兵和后方稳定。",
+            "talent_grade_basis": "作为独占完成“萧何持续经营关中法制财政与后勤”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3489,7 +6319,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "刘邦窗口内在荥阳、平城及诸侯处置等危机中反复提供应变方案。",
+            "talent_grade_basis": "作为主导完成“陈平连续筹划国家级危机处置”，属national级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3503,7 +6333,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "当前引用只证明萧何推荐及拜大将，平魏、破代、井陉、平齐等战役成果尚未形成登记；top候选档位不能据此冻结。",
+            "talent_grade_basis": "作为主帅完成“韩信井陉破赵”，属regional级结果；作为主帅完成“韩信潍水破齐并平定齐地”，属national级结果；作为主帅完成“韩信平定魏地”，属regional级结果。",
             "talent_profile_basis": {},
             "talent_value": "1.2"
           },
@@ -3518,7 +6348,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "important",
-            "talent_grade_basis": "刘邦窗口内长期统率骑兵、别击追击并跨战区平定郡县。",
+            "talent_grade_basis": "作为主将完成“灌婴统骑兵破楚并追击定地”，属important级结果。",
             "talent_profile_basis": {},
             "talent_value": "0.9"
           }
@@ -3533,7 +6363,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 10,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "4bcfb18f5ea3caa0fc0134f61e770db38bee7ae185587895beccdcc8f7bbdc5c",
+        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
         "supporting_only_members": []
       },
       {
@@ -3726,7 +6556,7 @@
         "source_candidate_count": 6,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "4bcfb18f5ea3caa0fc0134f61e770db38bee7ae185587895beccdcc8f7bbdc5c",
+        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": [
@@ -3884,7 +6714,7 @@
         "source_candidate_count": 3,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\刘邦\\source-pack.json",
-        "source_sha256": "4bcfb18f5ea3caa0fc0134f61e770db38bee7ae185587895beccdcc8f7bbdc5c",
+        "source_sha256": "c237c958f55efe43cf506bbae8fe037c1c0ed0d96a2283e87ed961fb5552189a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -3901,23 +6731,32 @@
       "team_positive_member_count": 8,
       "weighted_raw_signal": "6.727011"
     },
-    "task_code": "I5B-CURRENT-C144CD1670E07FCD",
+    "task_code": "I5B-CURRENT-124923083D3D7E39",
     "window": "前206-前195"
   },
   "net_signal": "6.727011",
-  "net_signal_status": "provisional_profile_inputs",
+  "net_signal_status": "stable_profile_inputs",
+  "outcome_registry_validation": {
+    "actor_count": 11,
+    "cluster_count": 14,
+    "database_write_count": 0,
+    "episode_count": 14,
+    "kind_counts": {
+      "campaign": 9,
+      "governance": 5
+    },
+    "schema_version": "historical-outcome-cluster-validation-v1",
+    "status": "passed"
+  },
   "profile_projection_gate": {
-    "freeze_allowed": false,
-    "material_coverage_complete": false,
+    "freeze_allowed": true,
+    "material_coverage_complete": true,
     "required_inputs": [
       "full_lifecycle_biography",
-      "authoritative_grade_calibration",
-      "talent_grade_rule_alignment",
-      "campaign_or_governance_achievement_registry",
-      "window_exposed_risk_events",
-      "three_channel_lineage"
+      "historical_outcome_cluster_registry",
+      "window_political_risk_review"
     ],
-    "status": "material_coverage_open"
+    "status": "frozen_after_complete_coverage"
   },
   "profile_projection_review": [
     {
@@ -3929,10 +6768,10 @@
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "serious",
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-FF66B22D44E93E091059"
       ],
-      "governance_achievement_refs": [],
       "person": "周勃",
       "person_ref": "PER-CAND-746B660CC80F",
       "profile_evidence_refs": {
@@ -3998,7 +6837,7 @@
           "severity": "serious"
         },
         "talent_grade": {
-          "basis": "高帝时期长期承担主将与方面军任务，参与楚汉主战线并平定泗水、东海及多郡；top为待战役登记复核的候选档位。",
+          "basis": "作为主帅完成“周勃平定楚汉后方与燕代叛乱”，属national级结果。",
           "evidence_refs": [
             "PFACT-41CE7721509571B8E874",
             "PFACT-69ABEDD8E89EDEC6153A",
@@ -4007,13 +6846,14 @@
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-FF66B22D44E93E091059"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4026,13 +6866,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-FF66B22D44E93E091059"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4043,10 +6884,10 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-CDAA006F86CD636C05F1"
       ],
-      "governance_achievement_refs": [],
       "person": "张良",
       "person_ref": "PER-CAND-2FFB15145AF5",
       "profile_evidence_refs": {
@@ -4106,7 +6947,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "刘邦窗口内跨入关、楚汉战争、定都及继承危机反复承担国家战略谋划。",
+          "basis": "作为主导完成“张良完成楚汉战略纠偏与诸侯协同”，属national级结果。",
           "evidence_refs": [
             "PFACT-1070789A40FE72C73714",
             "PFACT-630C9A0F3160F8D18E00",
@@ -4115,13 +6956,14 @@
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-CDAA006F86CD636C05F1"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4160,13 +7002,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-CDAA006F86CD636C05F1"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "governance_achievement",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4178,10 +7021,10 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-E15C10618A96B7FEF819"
       ],
-      "governance_achievement_refs": [],
       "person": "彭越",
       "person_ref": "PER-CAND-CB012BC1F12F",
       "profile_evidence_refs": {
@@ -4246,7 +7089,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "归汉后在刘邦授权下长期承担梁地游兵、断粮、攻城供粮及垓下会师。",
+          "basis": "作为主帅完成“彭越经营梁地并断楚粮道会师垓下”，属national级结果。",
           "evidence_refs": [
             "PFACT-A2F78F8093F92FBF1D2E",
             "PFACT-A774006FF76294242415",
@@ -4256,13 +7099,14 @@
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-E15C10618A96B7FEF819"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4278,13 +7122,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-E15C10618A96B7FEF819"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4294,10 +7139,10 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-4DA8771A874EDE938B4F"
       ],
-      "governance_achievement_refs": [],
       "person": "曹参",
       "person_ref": "PER-CAND-D60B93B81159",
       "profile_evidence_refs": {
@@ -4352,7 +7197,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "刘邦窗口内持续军事履职并承担齐地军事行政整合。",
+          "basis": "作为主将完成“曹参还定三秦并平定魏地”，属national级结果。",
           "evidence_refs": [
             "PFACT-C93CEDBE0B43D48920CE",
             "PFACT-D13369328D10243E176E"
@@ -4360,13 +7205,14 @@
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-4DA8771A874EDE938B4F"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4378,13 +7224,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-4DA8771A874EDE938B4F"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4396,10 +7243,10 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-8CD064757A8EEF430EA3"
       ],
-      "governance_achievement_refs": [],
       "person": "灌婴",
       "person_ref": "PER-CAND-39DB5536EF01",
       "profile_evidence_refs": {
@@ -4464,7 +7311,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "刘邦窗口内长期统率骑兵、别击追击并跨战区平定郡县。",
+          "basis": "作为主将完成“灌婴统骑兵破楚并追击定地”，属important级结果。",
           "evidence_refs": [
             "PFACT-52115866ED44FDE289AC",
             "PFACT-5C6312C7F35A84095531",
@@ -4474,13 +7321,14 @@
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-8CD064757A8EEF430EA3"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4490,25 +7338,27 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-8CD064757A8EEF430EA3"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "common_scale.important",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
+        "PFACT-52EE6A258D0DBD87651D",
         "PFACT-9CC648DB67184646FC0D"
       ],
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "major",
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-887779550B1FAC8D9719"
       ],
-      "governance_achievement_refs": [],
       "person": "英布",
       "person_ref": "PER-CAND-1471155D486E",
       "profile_evidence_refs": {
@@ -4522,7 +7372,7 @@
           "PFACT-9CC648DB67184646FC0D"
         ],
         "talent_grade": [
-          "PFACT-9CC648DB67184646FC0D"
+          "PFACT-52EE6A258D0DBD87651D"
         ]
       },
       "profile_review": {
@@ -4562,20 +7412,21 @@
           "severity": "major"
         },
         "talent_grade": {
-          "basis": "当前引用只覆盖窗口内反汉事件，尚无支持top的正向战役成果登记；top候选档位不能据此冻结。",
+          "basis": "作为主帅完成“英布举九江兵归汉并参与垓下破楚”，属national级结果。",
           "evidence_refs": [
-            "PFACT-9CC648DB67184646FC0D"
+            "PFACT-52EE6A258D0DBD87651D"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-887779550B1FAC8D9719"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4594,13 +7445,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-887779550B1FAC8D9719"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4613,10 +7465,10 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-4617EB700F6864BFD89B"
       ],
-      "governance_achievement_refs": [],
       "person": "萧何",
       "person_ref": "PER-CAND-C4F753AA4405",
       "profile_evidence_refs": {
@@ -4686,7 +7538,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "刘邦窗口内长期负责关中治理、制度建置、转漕补兵和后方稳定。",
+          "basis": "作为独占完成“萧何持续经营关中法制财政与后勤”，属national级结果。",
           "evidence_refs": [
             "PFACT-15C3DF643C725B46AABE",
             "PFACT-236391B7092A78279EB6",
@@ -4697,13 +7549,14 @@
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-4617EB700F6864BFD89B"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4726,13 +7579,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-4617EB700F6864BFD89B"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "governance_achievement",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4741,10 +7595,10 @@
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-E23F2F12A16A6B753540"
       ],
-      "governance_achievement_refs": [],
       "person": "陈平",
       "person_ref": "PER-CAND-F67C4F794042",
       "profile_evidence_refs": {
@@ -4794,20 +7648,21 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "刘邦窗口内在荥阳、平城及诸侯处置等危机中反复提供应变方案。",
+          "basis": "作为主导完成“陈平连续筹划国家级危机处置”，属national级结果。",
           "evidence_refs": [
             "PFACT-0967C2ECDA0DB512410B"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-E23F2F12A16A6B753540"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "governance_achievement",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4831,13 +7686,14 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-E23F2F12A16A6B753540"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "governance_achievement",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -4846,10 +7702,10 @@
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "major",
       "candidate_talent_grade": "important",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-35908CC7B4F50E2D2F42"
       ],
-      "governance_achievement_refs": [],
       "person": "陈豨",
       "person_ref": "PER-CAND-622BEAAA2820",
       "profile_evidence_refs": {
@@ -4903,20 +7759,21 @@
           "severity": "major"
         },
         "talent_grade": {
-          "basis": "当前引用只覆盖窗口内反汉事件，尚无支持important的正向战役成果登记；important候选档位不能据此冻结。",
+          "basis": "作为主帅完成“陈豨受任统辖赵代边兵并形成区域军事实绩”，属important级结果。",
           "evidence_refs": [
             "PFACT-37C7092539559681BAA1"
           ],
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-35908CC7B4F50E2D2F42"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "common_scale.important",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -4928,25 +7785,31 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-35908CC7B4F50E2D2F42"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "common_scale.important",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
-        "PFACT-9802601463879D58629A"
+        "PFACT-0F07F86B6D23F5CC4420",
+        "PFACT-9802601463879D58629A",
+        "PFACT-D54B6797E52C1D601CD0",
+        "PFACT-EFF72F509B7A2945F38D"
       ],
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
-      "coverage_gaps": [
-        "missing_talent_grade_rule_alignment"
+      "coverage_gaps": [],
+      "outcome_refs": [
+        "OUTCOME-8BAC3F12DB4845145202",
+        "OUTCOME-B8D5B7D96663158320CC",
+        "OUTCOME-F30CA0936672E97612F7"
       ],
-      "governance_achievement_refs": [],
       "person": "韩信",
       "person_ref": "PER-CAND-039AFE91A974",
       "profile_evidence_refs": {
@@ -4958,7 +7821,9 @@
         ],
         "political_risk": [],
         "talent_grade": [
-          "PFACT-9802601463879D58629A"
+          "PFACT-0F07F86B6D23F5CC4420",
+          "PFACT-D54B6797E52C1D601CD0",
+          "PFACT-EFF72F509B7A2945F38D"
         ]
       },
       "profile_review": {
@@ -4996,20 +7861,25 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "当前引用只证明萧何推荐及拜大将，平魏、破代、井陉、平齐等战役成果尚未形成登记；top候选档位不能据此冻结。",
+          "basis": "作为主帅完成“韩信井陉破赵”，属regional级结果；作为主帅完成“韩信潍水破齐并平定齐地”，属national级结果；作为主帅完成“韩信平定魏地”，属regional级结果。",
           "evidence_refs": [
-            "PFACT-9802601463879D58629A"
+            "PFACT-0F07F86B6D23F5CC4420",
+            "PFACT-D54B6797E52C1D601CD0",
+            "PFACT-EFF72F509B7A2945F38D"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
+            "outcome_refs": [
+              "OUTCOME-8BAC3F12DB4845145202",
+              "OUTCOME-B8D5B7D96663158320CC",
+              "OUTCOME-F30CA0936672E97612F7"
+            ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "registry_kind": "campaign",
-            "registry_refs": [],
             "rule_path": "top_fallback",
-            "status": "registry_evidence_open"
+            "status": "accepted_current"
           },
-          "status": "provisional_registry_open"
+          "status": "accepted_current"
         }
       },
       "ruler_context_refs": [
@@ -5049,16 +7919,19 @@
       ],
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
+        "outcome_refs": [
+          "OUTCOME-8BAC3F12DB4845145202",
+          "OUTCOME-B8D5B7D96663158320CC",
+          "OUTCOME-F30CA0936672E97612F7"
+        ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "registry_kind": "campaign",
-        "registry_refs": [],
         "rule_path": "top_fallback",
-        "status": "registry_evidence_open"
+        "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "ed4ba8f4f75255908a4162394279729e8f1d03fe0b808cab73a1c07ed5b95756",
+  "report_sha256": "45c26ee8e61fa0b87880928ff3b374a4928ea6724a61659da9464cd6049d4d3c",
   "rule_evidence_units": [
     {
       "direction": "positive",
@@ -5595,9 +8468,24 @@
       "evaluation_context": "RULER-NAME-CANDIDATE-3D3FE911CF34",
       "members": [
         {
-          "member_ref": "TEAM-CONTEXT-EE0F1900DCF1B0E2",
+          "member_ref": "TEAM-CONTEXT-5CC8C4DBA0EF1EA6",
           "member_role": "team_window",
           "member_type": "aggregate_context"
+        },
+        {
+          "member_ref": "OUTCOME-4617EB700F6864BFD89B",
+          "member_role": "governance_result_support",
+          "member_type": "outcome_cluster"
+        },
+        {
+          "member_ref": "OUTCOME-CDAA006F86CD636C05F1",
+          "member_role": "governance_result_support",
+          "member_type": "outcome_cluster"
+        },
+        {
+          "member_ref": "OUTCOME-E23F2F12A16A6B753540",
+          "member_role": "governance_result_support",
+          "member_type": "outcome_cluster"
         }
       ],
       "payload": {
@@ -5605,11 +8493,23 @@
         "governance_dispositions": [
           {
             "disposition": "supporting_policy_context_not_i5b_team_score",
-            "governance_achievement_ref": "GOVACH-A0D57D891872F3C2A412"
+            "outcome_ref": "OUTCOME-2DFB63C14C3255337BB3"
+          },
+          {
+            "disposition": "selected_team_result_support",
+            "outcome_ref": "OUTCOME-4617EB700F6864BFD89B"
           },
           {
             "disposition": "supporting_policy_context_not_i5b_team_score",
-            "governance_achievement_ref": "GOVACH-D258310F15047764D34C"
+            "outcome_ref": "OUTCOME-694BB7AACB2D192A275C"
+          },
+          {
+            "disposition": "selected_team_result_support",
+            "outcome_ref": "OUTCOME-CDAA006F86CD636C05F1"
+          },
+          {
+            "disposition": "selected_team_result_support",
+            "outcome_ref": "OUTCOME-E23F2F12A16A6B753540"
           }
         ],
         "linked_ruler_context_refs": [
@@ -5634,43 +8534,27 @@
           "彭越",
           "灌婴"
         ],
-        "profile_value_status": "provisional_material_coverage_open",
+        "profile_value_status": "frozen_after_complete_coverage",
         "ruler_context_inventory_fingerprint": "37215c6152a1aa3b641ea3332161d26e2617dde1c44e0be511e94b9ee21b5178"
       },
       "rule_code": "team_building",
-      "semantic_fingerprint": "ee0f1900dcf1b0e210cc24d24eb217ff273414c7d0a99ae85cc5c9a5a23718f5",
+      "semantic_fingerprint": "5cc8c4dba0ef1ea69e3bd4b7271dea8f209675f1bfae648e9627f77d046d0beb",
       "status": "accepted_shadow",
-      "unit_ref": "REU-TEAM-EE0F1900DCF1B0E2"
+      "unit_ref": "REU-TEAM-5CC8C4DBA0EF1EA6"
     }
   ],
   "ruler": "刘邦",
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
-  "schema_version": "i5b-current-value-report-v4",
+  "schema_version": "i5b-current-value-report-v5",
   "source_pack_ref": "eval\\i5b_current_value\\刘邦\\source-pack.json",
-  "source_pack_sha256": "077d112b5f8031157ca54befae2eb6e07b228625cc79eae852951678286d124d",
-  "status": "current_shadow_chain_complete_profile_values_provisional",
-  "talent_grade_registries": {
-    "campaign": {
-      "campaign_count": 0,
-      "formal_score_write_allowed": false,
-      "participant_count": 0,
-      "schema_version": "campaign-registry-validation-v1",
-      "status": "passed"
-    },
-    "governance_achievement": {
-      "achievement_count": 0,
-      "participant_count": 0,
-      "scale_counts": {},
-      "schema_version": "governance-achievement-registry-validation-v1",
-      "status": "passed"
-    }
-  },
+  "source_pack_sha256": "8654da3d40101fea8dd9271994137e8377dd239c7401cf89a78d5153a24b4125",
+  "status": "current_shadow_chain_complete",
   "three_channel_disposition": {
     "dynasty_governance": {
       "disposition": "deterministic_team_support_or_policy_context",
       "received_count": 135,
       "ruler_window_achievement_count": 2,
-      "team_support_count": 0
+      "team_support_count": 3
     },
     "person_biography": {
       "accepted_fact_count": 29,

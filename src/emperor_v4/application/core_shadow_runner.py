@@ -95,7 +95,7 @@ def run_core_shadow_sync(
         episodes=tuple(packets_to_write),
         episode_dispositions=dispositions,
         episode_identity_anchors=anchor_by_persisted_id,
-        governance_achievements=observed.governance_achievements,
+        outcome_clusters=observed.outcome_clusters,
         rule_evidence_units=observed.rule_evidence_units,
     )
     result = registry.apply(write_batch)

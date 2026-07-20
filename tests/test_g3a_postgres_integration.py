@@ -220,8 +220,9 @@ def _table_counts(dsn: str) -> dict[str, int]:
         "episode_participants",
         "episode_assertion_dispositions",
         "episode_relations",
-        "governance_achievements",
-        "governance_achievement_members",
+        "historical_outcome_clusters",
+        "outcome_cluster_members",
+        "outcome_episode_links",
         "rule_evidence_units",
         "rule_evidence_members",
     )

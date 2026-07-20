@@ -5,18 +5,18 @@
 ## 当前状态
 
 - V3 已退役；V4 是唯一活动实现。
-- 第五项 B 的当前链路已统一为“三路中性材料 → Rule Judge → HistoricalEpisode → RuleEvidenceUnit → 因子语义确定性映射 → strongest-N 材料预算 → 加权净信号”。
+- 第五项 B 的当前链路已统一为“三路中性材料 → HistoricalEpisode / HistoricalOutcomeCluster → 人物画像 → RuleEvidenceUnit → 因子语义确定性映射 → strongest-N 材料预算 → 加权净信号”。
 - 唯一当前三路输入指纹为 `f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878`，包含皇帝篇章236条、臣子列传588条、朝代文治135条。
-- 李世民当前影子结果：36个 Episode、39个 REU，本纪补证链接11条、文治结果支持2条，加权净信号 `7.497030`。
-- 刘邦当前影子结果：18个 Episode、20个 REU，本纪补证链接4条；两条汉初文治政策进入政策上下文但不冒充臣子团队得分；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `6.727011`。
+- 李世民当前影子结果：66个 Episode、39个 REU、30条统一成果簇，本纪补证链接11条、治理结果支持6条，加权净信号 `7.580190`。
+- 刘邦当前影子结果：32个 Episode、20个 REU、14条统一成果簇，本纪补证链接4条、治理结果支持3条；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `6.727011`。
 - 同一事件的正负 REU 共用中性 Episode；皇帝本纪只作明确 lineage 补证，文治结果由结果质量和团队人物交集确定性选择，同一皇帝决策按结算事件键只结算一次。
-- 李世民11名、刘邦10名团队候选已补齐完整本传分节、窗口政治风险复核和三路 lineage；但人才等级尚未逐人接通战役登记或治理成果登记，画像冻结门禁因此重新关闭，净信号标记为 `provisional_profile_inputs`。本传摘要和权威评价只能校准判断，不能替代人才等级规则要求的成果登记。
+- 李世民11名、刘邦10名团队成员已补齐完整本传、窗口政治风险、三路 lineage 和统一成果簇；人才等级全部由成果角色、结果规模与规则路径确定性重算，覆盖缺口为0，画像当前值可冻结。戴胄因主导的国家级稳定治理成果由旧暂定 `important` 重算为 `top`。
 - 每位皇帝只保留一个 `source-pack.json` 和一组 `result.json` / `result.md`；旧 source pack、审计展开、同步状态和并行版本已删除。
 - 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人物政治风险首轮254人shadow结果因严重度失真和结论改变型归一被拒绝，当前全局Gate为 `failed_closed`。该轮未写人物画像表、不改人才等级，也不进入正式评分；通过唐俭、霍去病、萧瑀、朱樉校准回归前不启动全员重跑。
 - 人才 `historic` 当前采用 V11 分领域等价路径：军事和文官可凭多次国家级兑现达到，不再把跨时代制度或作品遗产设为通用门槛；军事常规门槛为两个独立国家级战役成果加一个独立区域级以上成果，极强的两个 `主帅` 或 `主将` 国家级决定性成果可单独通过。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
-- 战役登记使用 `campaign-registry-v1` 中性合同：同一 `independent_campaign_key` 只登记一次，并分别保存战役层级、结果、人物角色（`主帅`、`主将`、`副将`、`从攻`）、Episode 与史源引用。文官治理成果使用 `governance-achievement-registry-v1`，同一 `independent_governance_key` 只登记一次，人物只标 `独占`、`主导`、`参与`，并分别保存实施结果、影响规模、皇帝授权窗口、中性事实和史源引用。人才画像、I5B及其他评分项只做后置投影，不建立评分专属副本；两类登记表均未冻结 canonical 行。
+- 战役与治理只进入一套 `historical-outcome-cluster-registry-v1` 中性合同，以 `outcome_kind` 区分。每个独立结果只保存一次，含可观察结果、规模依据、人物角色、确定性 Episode、事实与史源；分数、因子、人才档位和复用评分项不进入成果簇。人物画像、I5B及总则其他项目只做后置投影，不建立评分专属副本。
 
 ## 当前架构
 
@@ -25,6 +25,7 @@
 → 三路 neutral-material-intake
 → Rule Judge
 → HistoricalEpisode
+→ HistoricalOutcomeCluster（战役/治理已实现结果）
 → RuleEvidenceUnit
 → 人才档位与窗口政治风险覆盖门禁
 → factor option → policy numeric mapping
@@ -34,7 +35,7 @@
 
 PostgreSQL保存V4业务状态，Git保存规则、配置、契约和当前不可变输入。人物画像当前只使用 `v4_person_profile.person_profiles`，规范身份只使用 `v4_person_profile.person_identity_registry`；旧快照、目录、校准和团队窗口表已归档后删除。JSON/Markdown只允许作为当前只读输出；被新结果取代后直接删除。
 
-皇帝篇章、臣子列传和朝代文治材料现在先进入同一 `neutral-material-intake`：只按上游稳定中性事实 ID 自动去重，合并人物、皇帝、史源和 Assertion 定位；跨来源仅因措辞相似不得自动合并。文治成果保留其底层 `neutral_fact_refs`，并只生成 `needs_rule_judge` 的复用候选，不直接生成 Episode 或分数。PostgreSQL只保存 `historical_episodes`、`governance_achievements`、`rule_evidence_units` 及当前成员关系；没有 Episode 历史版本表、活动版本指针、边界审计缓存或字段治理状态库，相同输入重跑零业务写入，历史只查 Git。
+皇帝篇章、臣子列传和朝代文治材料先进入同一 `neutral-material-intake`：只按上游稳定中性事实 ID 自动去重，跨来源仅因措辞相似不得自动合并。战役与治理结果随后统一编译为 `HistoricalOutcomeCluster`，并由一个确定性 `HistoricalEpisode` 支撑。PostgreSQL目标表只保存当前 `historical_episodes`、`historical_outcome_clusters`、`rule_evidence_units` 及成员关系；相同输入重跑零业务写入，历史只查 Git。
 
 ## 运行产物纪律
 
@@ -61,9 +62,11 @@ python v4.py i5b-run --ruler 李世民
 python v4.py i5b-run --ruler 刘邦
 python v4.py i5b-scoring-detail --ruler 李世民 --output tmp/李世民-I5B计分详情.md
 python v4.py i5b-scoring-detail --ruler 刘邦 --person 周勃 --output tmp/周勃-I5B计分详情.md
+python v4.py historical-outcome-dry-run --ruler 刘邦
+python v4.py historical-outcome-dry-run --ruler 李世民
 ```
 
-臣子详情使用 `--person`，只显示该臣子的计分与未计分材料、当前人才档位、人才等级确立理由、对应规则、战役或治理成果登记支撑、窗口政治风险和 HistoricalEpisode；缺少登记时明确显示“缺失”且画像不可冻结。机器可读的完整 Episode、REU、结算材料和净信号仍在对应皇帝的 `result.json`。
+臣子详情使用 `--person`，显示该臣子的计分与未计分材料、当前人才档位、人才等级确立理由、对应规则、逐条成果类型/角色/规模/史源、窗口政治风险和 HistoricalEpisode。`historical-outcome-dry-run` 只计算将写入的当前行数与 migration 指纹，不读取 DSN、不打开数据库连接；本轮停在该边界。
 
 ### Google AI 无人值守宽搜
 
@@ -142,7 +145,7 @@ I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 
 
 `governance_achievement_candidate` 再把结算组件、未被增量命中的朝代基线和上述原子确定性编译为一次性消费集合；同一组件只进入一个模型任务。已有人物先绑定现有 `person_ref`，简繁由 OpenCC 统一；其余人名生成朝代内 provisional actor ref，机构和复数官署不冒充人物。模型只能在允许组件、人物和字段内作 `register / omit / uncertain` 判断，不能生成史源、ID、规则方向、Episode、REU或分数；审计器再确定性生成 `governance-achievement-registry-v1`。判断 policy 进入 `task_code` 指纹，Prompt 变化不会复用旧结果。影响尺度看已实现结果而不是法令名义覆盖：单案、窄条款、资格线或一次程序调整不得仅因“颁行天下”升为国家级，`stable_delivery` 与 `important_method_or_legacy` 也必须有运行或延续证据。
 
-三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；`governance_fact_sets` 以稳定 `fact_ref` 和精确 `page@revision#quote` 史源回指接入制度史中性事实，缺少任一项即失败关闭。已接受的治理成果可由 `governance_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实引用全部解析后，治理成果才进入 `ready_for_rule_judge`；否则保持 `needs_fact_resolution`。I5B 随后消费当前 Episode、治理成果和人物画像，由各 rule Judge 生成 REU，再由现有材料预算和计分公式结算。
+三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；`governance_fact_sets` 以稳定 `fact_ref` 和精确 `page@revision#quote` 史源回指接入制度史中性事实，缺少任一项即失败关闭。已接受的统一成果由 `outcome_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实、Episode 和成员责任全部解析后才具备写库条件；I5B消费成果簇和人物画像生成 REU，再由现有材料预算与公式结算。
 
 唐代真实批次已验证朝代制度材料可以形成中性治理成果。审计器把皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，朝代批次临时 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次异常 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除，不能选择“最接近”的事实凑引用。
 

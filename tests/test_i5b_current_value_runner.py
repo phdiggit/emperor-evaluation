@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
     report = build_i5b_current_value(ROOT / "eval/i5b_current_value" / ruler / "source-pack.json")
 
-    assert report["status"] == "current_shadow_chain_complete_profile_values_provisional"
+    assert report["status"] == "current_shadow_chain_complete"
     assert report["declarations"]["three_channel_materials_consumed"] is True
     assert report["declarations"]["linked_ruler_context_count"] > 0
     assert set(report["three_channel_input"]["channel_counts"]) == {
@@ -30,39 +30,34 @@ def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
         "dynasty_governance",
     }
     assert report["declarations"]["episode_count"] > 0
-    assert report["declarations"]["episode_count"] < report["declarations"]["rule_evidence_unit_count"]
+    assert report["declarations"]["episode_count"] > report["declarations"]["rule_evidence_unit_count"]
     assert set(report["three_channel_disposition"]) == set(report["three_channel_input"]["channel_counts"])
     assert any(row["rule_code"] == "team_building" for row in report["rule_evidence_units"])
     assert report["declarations"]["database_write_count"] == 0
     assert report["declarations"]["formal_score_write_count"] == 0
-    assert report["declarations"]["profile_material_coverage_complete"] is False
-    assert report["declarations"]["profile_values_frozen"] is False
-    assert report["declarations"]["profile_freeze_gate_passed"] is False
+    assert report["declarations"]["profile_material_coverage_complete"] is True
+    assert report["declarations"]["profile_values_frozen"] is True
+    assert report["declarations"]["profile_freeze_gate_passed"] is True
     assert report["declarations"]["formal_scoring_ready"] is False
-    assert report["declarations"]["profile_member_with_open_gap_count"] == report[
-        "declarations"
-    ]["profile_member_count"]
-    assert report["declarations"]["talent_campaign_registry_count"] == 0
-    assert report["declarations"]["talent_governance_achievement_registry_count"] == 0
-    assert report["net_signal_status"] == "provisional_profile_inputs"
+    assert report["declarations"]["profile_member_with_open_gap_count"] == 0
+    assert report["declarations"]["historical_outcome_cluster_count"] > 0
+    assert report["declarations"]["campaign_outcome_count"] > 0
+    assert report["declarations"]["governance_outcome_count"] > 0
+    assert report["net_signal_status"] == "stable_profile_inputs"
     assert all(
-        row["value_status"] == "provisional_material_coverage_open"
+        row["value_status"] == "frozen_after_complete_coverage"
         for row in report["profile_projection_review"]
     )
-    assert all(
-        "missing_talent_grade_rule_alignment" in row["coverage_gaps"]
-        for row in report["profile_projection_review"]
-    )
+    assert all(not row["coverage_gaps"] for row in report["profile_projection_review"])
     assert report["declarations"]["score_45"] is None
     assert report["declarations"]["ranking"] is None
     assert report["net_signal"] == report["material_budget"]["summary"]["weighted_raw_signal"]
-    assert all(
-        episode["episode_type"] == "ruler_person_governance_event"
-        for episode in report["episodes"]
-    )
+    assert {episode["episode_type"] for episode in report["episodes"]} >= {
+        "ruler_person_governance_event", "campaign_outcome_chain", "governance_outcome_chain"
+    }
     linked_episodes = [
         episode for episode in report["episodes"]
-        if episode["lineage"]["ruler_context_refs"]
+        if episode["lineage"].get("ruler_context_refs")
     ]
     assert linked_episodes
     assert all(
@@ -138,6 +133,7 @@ def test_profile_values_cannot_claim_complete_without_grade_registries(
     payload = json.loads(source.read_text(encoding="utf-8"))
     payload["profile_projection_gate"]["freeze_allowed"] = True
     payload["profile_projection_gate"]["material_coverage_complete"] = True
+    payload["members"][0]["profile_review"]["talent_grade"]["rule_alignment"]["outcome_refs"] = []
     payload["source_pack_sha256"] = hashlib.sha256(
         json.dumps(
             {key: value for key, value in payload.items() if key != "source_pack_sha256"},
@@ -161,12 +157,17 @@ def test_governance_support_is_selected_by_current_result_quality() -> None:
         row for row in report["rule_evidence_units"] if row["rule_code"] == "team_building"
     )
     selected = {
-        row["governance_achievement_ref"]
+        row["outcome_ref"]
         for row in team_reu["payload"]["governance_dispositions"]
         if row["disposition"] == "selected_team_result_support"
     }
-    assert "GOVACH-74B3A10FA62F4D512DA2" in selected
-    assert "GOVACH-05D296EF7EE008316103" not in selected
+    selected_labels = {
+        row["canonical_label"]
+        for row in report["historical_outcome_clusters"]
+        if row["outcome_ref"] in selected
+    }
+    assert "房玄龄主持中枢政务并参与贞观律令修订" in selected_labels
+    assert "贡举中以文体轻薄黜落知名候选人" not in selected_labels
 
 
 def test_representative_military_materials_keep_three_channel_lineage() -> None:
@@ -306,7 +307,8 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
     assert "规则对应" in rendered
     assert "登记支撑" in rendered
     assert "config/talent-grade-v11-domain-equivalent-historic.yml#top_fallback" in rendered
-    assert "| 缺失 |" in rendered
+    assert "## 人才等级成果登记" in rendered
+    assert "campaign" in rendered
     assert "serious" in rendered
     assert "屠马邑" in rendered
     assert "屠浑都存在地名与人名断句争议" in rendered
