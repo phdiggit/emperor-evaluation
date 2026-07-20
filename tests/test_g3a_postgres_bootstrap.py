@@ -24,7 +24,7 @@ def test_complete_g3a_schema_is_reused_without_writes() -> None:
     "tables",
     [
         G3A_TABLES - {"assertions"},
-        G3A_TABLES | {"episode_relations"},
+        G3A_TABLES | {"judgments"},
         {"unrelated_table"},
     ],
 )

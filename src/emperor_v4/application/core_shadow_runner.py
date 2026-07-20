@@ -4,7 +4,7 @@ from dataclasses import dataclass, replace
 from typing import Mapping, Protocol
 
 from emperor_v4.contracts.episode import HistoricalEpisodePacket
-from emperor_v4.domain.versioning import apply_episode_revision
+from emperor_v4.domain.current_state import decide_current_episode
 from emperor_v4.persistence.core_registry import (
     CoreRegistryBatch,
     CoreRegistryWriteResult,
@@ -24,8 +24,7 @@ class CoreRegistry(Protocol):
 class CoreShadowRunResult:
     write_result: CoreRegistryWriteResult
     new_identity_anchors: tuple[str, ...]
-    semantic_revision_anchors: tuple[str, ...]
-    evidence_revision_anchors: tuple[str, ...]
+    changed_identity_anchors: tuple[str, ...]
     unchanged_identity_anchors: tuple[str, ...]
 
     @property
@@ -40,7 +39,7 @@ class CoreShadowRunResult:
 def run_core_shadow_sync(
     registry: CoreRegistry, observed: CoreRegistryBatch
 ) -> CoreShadowRunResult:
-    """G3B 同步 runner：按稳定事件身份做局部版本决策并单事务落库。"""
+    """按稳定事件身份同步当前值；相同输入零写入。"""
 
     observed_by_anchor: dict[str, HistoricalEpisodePacket] = {}
     for packet in observed.episodes:
@@ -57,29 +56,23 @@ def run_core_shadow_sync(
     packet_by_observed_id: dict[str, HistoricalEpisodePacket] = {}
     anchor_by_persisted_id: dict[str, str] = {}
     new_anchors = []
-    semantic_anchors = []
-    evidence_anchors = []
+    changed_anchors = []
     unchanged_anchors = []
 
     for anchor in anchors:
         packet = observed_by_anchor[anchor]
         current = current_by_anchor.get(anchor)
         if current is None:
-            if (packet.semantic_version, packet.evidence_version) != (1, 1):
-                raise ValueError("新 Episode 必须从 semantic/evidence v1 开始")
             selected = packet
             packets_to_write.append(selected)
             new_anchors.append(anchor)
         else:
             normalized = replace(packet, episode_id=current.episode_id)
-            decision = apply_episode_revision(current, normalized)
+            decision = decide_current_episode(current, normalized)
             selected = decision.packet
             if decision.write_required:
                 packets_to_write.append(selected)
-                if decision.semantic_changed:
-                    semantic_anchors.append(anchor)
-                else:
-                    evidence_anchors.append(anchor)
+                changed_anchors.append(anchor)
             else:
                 unchanged_anchors.append(anchor)
         packet_by_observed_id[packet.episode_id] = selected
@@ -101,16 +94,15 @@ def run_core_shadow_sync(
         assertions=observed.assertions,
         episodes=tuple(packets_to_write),
         episode_dispositions=dispositions,
-        review_artifacts=observed.review_artifacts,
-        boundary_cache_entries=observed.boundary_cache_entries,
         episode_identity_anchors=anchor_by_persisted_id,
+        governance_achievements=observed.governance_achievements,
+        rule_evidence_units=observed.rule_evidence_units,
     )
     result = registry.apply(write_batch)
     return CoreShadowRunResult(
         write_result=result,
         new_identity_anchors=tuple(new_anchors),
-        semantic_revision_anchors=tuple(semantic_anchors),
-        evidence_revision_anchors=tuple(evidence_anchors),
+        changed_identity_anchors=tuple(changed_anchors),
         unchanged_identity_anchors=tuple(unchanged_anchors),
     )
 
@@ -125,6 +117,4 @@ def _remap_disposition(
     return replace(
         disposition,
         episode_id=packet.episode_id,
-        semantic_version=packet.semantic_version,
-        evidence_version=packet.evidence_version,
     )

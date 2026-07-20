@@ -530,7 +530,7 @@ def test_boundary_review_keeps_atomic_episodes_and_materializes_relation():
     assert len(result.episode_packets) == 2
     assert len(result.episode_relations) == 1
     assert result.episode_relations[0].relation_type == "renews_authority"
-    assert result.episode_relations[0].semantic_version == 1
+    assert result.episode_relations[0].from_episode_ref
     assert result.episode_relations[0].evidence_links[0].source_passage_ref == "P-2"
 
 
@@ -1070,12 +1070,10 @@ def test_per_unit_executor_caches_only_ambiguous_unit():
 def _formal_relation(code: str, source: str, target: str) -> EpisodeRelation:
     return EpisodeRelation(
         relation_id=code,
-        from_episode_version_ref=source,
-        to_episode_version_ref=target,
+        from_episode_ref=source,
+        to_episode_ref=target,
         relation_type="causal_followup",
         semantic_fingerprint=f"FP-{code}",
-        semantic_version=1,
-        evidence_version=1,
         relation_status="proposed",
         evidence_links=(),
         confidence=0.9,
@@ -1085,16 +1083,16 @@ def _formal_relation(code: str, source: str, target: str) -> EpisodeRelation:
 
 
 def test_relation_graph_rejects_temporal_cycle_and_cross_context():
-    forward = _formal_relation("R1", "E1@v1", "E2@v1")
-    backward = _formal_relation("R2", "E2@v1", "E1@v1")
+    forward = _formal_relation("R1", "E1", "E2")
+    backward = _formal_relation("R2", "E2", "E1")
 
     with pytest.raises(ValueError, match="不得形成环"):
         validate_episode_relation_graph(
-            [forward, backward], {"E1@v1": "李世民", "E2@v1": "李世民"}
+            [forward, backward], {"E1": "李世民", "E2": "李世民"}
         )
     with pytest.raises(ValueError, match="不得跨 evaluation context"):
         validate_episode_relation_graph(
-            [forward], {"E1@v1": "李世民", "E2@v1": "李治"}
+            [forward], {"E1": "李世民", "E2": "李治"}
         )
 
 

@@ -8,7 +8,6 @@ import pytest
 
 from emperor_v4.application.core_shadow_runner import run_core_shadow_sync
 from emperor_v4.contracts.episode import AssertionLink
-from emperor_v4.domain.versioning import apply_episode_revision
 from emperor_v4.persistence import (
     CoreRegistryBatch,
     EpisodeDispositionRecord,
@@ -218,11 +217,13 @@ def _table_counts(dsn: str) -> dict[str, int]:
         "source_passages",
         "assertions",
         "historical_episodes",
-        "historical_episode_versions",
         "episode_participants",
         "episode_assertion_dispositions",
-        "review_artifacts",
-        "boundary_review_cache",
+        "episode_relations",
+        "governance_achievements",
+        "governance_achievement_members",
+        "rule_evidence_units",
+        "rule_evidence_members",
     )
     with psycopg.connect(dsn) as connection:
         with connection.cursor() as cursor:
@@ -281,7 +282,7 @@ def test_real_postgres_core_registry_contract() -> None:
                 ),
             ),
         )
-        evidence_revision = apply_episode_revision(current, observed).packet
+        evidence_revision = observed
         evidence_result = registry.apply(
             CoreRegistryBatch(
                 source_passages=(passage,),
@@ -290,8 +291,6 @@ def test_real_postgres_core_registry_contract() -> None:
                 episode_dispositions=(
                     EpisodeDispositionRecord(
                         episode_id="EP-1",
-                        semantic_version=1,
-                        evidence_version=2,
                         assertion_ref="A-2",
                         disposition="core_of_episode",
                         reason="新增同义证据",
@@ -299,16 +298,12 @@ def test_real_postgres_core_registry_contract() -> None:
                 ),
             )
         )
-        assert evidence_result.table_writes["historical_episode_versions"] == 1
-        assert evidence_result.table_writes["episode_participants"] == 0
+        assert evidence_result.table_writes["historical_episodes"] == 1
 
         semantic_observed = replace(evidence_revision, responsibility="财政")
-        semantic_revision = apply_episode_revision(
-            evidence_revision, semantic_observed
-        ).packet
+        semantic_revision = semantic_observed
         semantic_result = registry.apply(CoreRegistryBatch(episodes=(semantic_revision,)))
-        assert semantic_result.table_writes["historical_episode_versions"] == 1
-        assert semantic_result.table_writes["episode_participants"] == 2
+        assert semantic_result.table_writes["historical_episodes"] == 1
 
         runner_unchanged = run_core_shadow_sync(
             registry,
@@ -331,18 +326,14 @@ def test_real_postgres_core_registry_contract() -> None:
                 episode_identity_anchors={runner_observed.episode_id: "EP-1"},
             ),
         )
-        assert runner_changed.semantic_revision_anchors == ("EP-1",)
-        assert runner_changed.write_result.table_writes[
-            "historical_episode_versions"
-        ] == 1
-        assert registry.active_packets_by_identity(("EP-1",))["EP-1"].semantic_version == 3
+        assert runner_changed.changed_identity_anchors == ("EP-1",)
+        assert runner_changed.write_result.table_writes["historical_episodes"] == 1
+        assert registry.active_packets_by_identity(("EP-1",))["EP-1"].consequence == ("制度后果",)
 
         before_failure = _table_counts(schema_dsn)
         bad_episode = replace(
             runner_observed,
             episode_id="EP-BAD",
-            semantic_version=1,
-            evidence_version=1,
             assertion_links=(
                 AssertionLink(
                     assertion_ref="A-MISSING",
@@ -368,7 +359,9 @@ def test_real_postgres_core_registry_contract() -> None:
                       )
                     """
                 )
-                assert cursor.fetchall() == []
+                assert {row[0] for row in cursor.fetchall()} == {
+                    "episode_relations", "rule_evidence_units"
+                }
     finally:
         with psycopg.connect(base_dsn, autocommit=True) as connection:
             with connection.cursor() as cursor:

@@ -5,7 +5,7 @@
 ## 当前状态
 
 - V3 已退役；V4 是唯一活动实现。
-- 第五项 B 五条 rule 已进入版本化 shadow，并完成李世民皇帝级历史覆盖收口。
+- 第五项 B 五条 rule 已进入当前值 shadow，并完成李世民皇帝级历史覆盖收口。
 - 当前李世民 rule raw signal：
   - `talent_discovery`: `+4.864`
   - `appointment_delegation`: `+9.823`
@@ -32,6 +32,8 @@ Source Cache
 ```
 
 PostgreSQL保存V4业务状态，Git保存规则、配置、契约和当前不可变输入。人物画像当前只使用 `v4_person_profile.person_profiles`，规范身份只使用 `v4_person_profile.person_identity_registry`；旧快照、目录、校准和团队窗口表已归档后删除。JSON/Markdown只允许作为当前只读输出；被新结果取代后直接删除。
+
+皇帝篇章、臣子列传和朝代文治材料现在先进入同一 `neutral-material-intake`：只按上游稳定中性事实 ID 自动去重，合并人物、皇帝、史源和 Assertion 定位；跨来源仅因措辞相似不得自动合并。文治成果保留其底层 `neutral_fact_refs`，并只生成 `needs_rule_judge` 的复用候选，不直接生成 Episode 或分数。PostgreSQL只保存 `historical_episodes`、`governance_achievements`、`rule_evidence_units` 及当前成员关系；没有 Episode 历史版本表、活动版本指针、边界审计缓存或字段治理状态库，相同输入重跑零业务写入，历史只查 Git。
 
 ## 历史覆盖预算与产物
 
@@ -138,6 +140,8 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 `dynasty_neutral_material_atomization` 只消费上述复核队列和已经验真的引文编号，不联网、不补史实。唐代5条真实 `mixed_chain` 在98.804秒内拆为16个原子，得到11条新事实、4条补强和1条复述，全部原引文闭合；拆分结果仍停在 `pending_person_and_window_resolution`。
 
 `governance_achievement_candidate` 再把结算组件、未被增量命中的朝代基线和上述原子确定性编译为一次性消费集合；同一组件只进入一个模型任务。已有人物先绑定现有 `person_ref`，简繁由 OpenCC 统一；其余人名生成朝代内 provisional actor ref，机构和复数官署不冒充人物。模型只能在允许组件、人物和字段内作 `register / omit / uncertain` 判断，不能生成史源、ID、规则方向、Episode、REU或分数；审计器再确定性生成 `governance-achievement-registry-v1`。判断 policy 进入 `task_code` 指纹，Prompt 变化不会复用旧结果。影响尺度看已实现结果而不是法令名义覆盖：单案、窄条款、资格线或一次程序调整不得仅因“颁行天下”升为国家级，`stable_delivery` 与 `important_method_or_legacy` 也必须有运行或延续证据。
+
+三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；已接受的治理成果可由 `governance_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实引用全部解析后，治理成果才进入 `ready_for_rule_judge`；否则保持 `needs_fact_resolution`。I5B 随后消费当前 Episode、治理成果和人物画像，由各 rule Judge 生成 REU，再由现有材料预算和计分公式结算。
 
 唐代真实批次已验证朝代制度材料可以形成中性治理成果。审计器把皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，朝代批次临时 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次异常 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除，不能选择“最接近”的事实凑引用。
 

@@ -399,9 +399,7 @@ class PoliticalRiskAssessment:
 class PersonProfileSnapshot:
     profile_ref: str
     canonical_person_ref: str
-    snapshot_version: str
     talent_grade: str
-    talent_grade_version: str
     talent_grade_confidence: float
     talent_authority_consensus: str
     talent_performance_support: str
@@ -409,7 +407,6 @@ class PersonProfileSnapshot:
     capability_domains: tuple[str, ...]
     negative_talent_class: str | None
     negative_talent_severity: str | None
-    negative_talent_version: str
     lineage_refs: tuple[str, ...]
     source_profile_ref: str
     source_row_fingerprint: str
@@ -421,15 +418,12 @@ class PersonProfileSnapshot:
             (
                 self.profile_ref,
                 self.canonical_person_ref,
-                self.snapshot_version,
-                self.talent_grade_version,
-                self.negative_talent_version,
                 self.source_profile_ref,
                 self.source_row_fingerprint,
                 self.semantic_fingerprint,
             )
         ):
-            raise ValueError("PersonProfileSnapshot 缺少稳定身份或版本")
+            raise ValueError("PersonProfileSnapshot 缺少稳定身份")
         if self.talent_grade not in TALENT_GRADES:
             raise ValueError("PersonProfileSnapshot talent_grade 非法")
         if not 0 <= self.talent_grade_confidence <= 1:

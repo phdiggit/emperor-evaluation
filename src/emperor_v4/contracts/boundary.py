@@ -243,12 +243,10 @@ class RelationEvidenceLink:
 @dataclass(frozen=True, slots=True)
 class EpisodeRelation:
     relation_id: str
-    from_episode_version_ref: str
-    to_episode_version_ref: str
+    from_episode_ref: str
+    to_episode_ref: str
     relation_type: str
     semantic_fingerprint: str
-    semantic_version: int
-    evidence_version: int
     relation_status: str
     evidence_links: tuple[RelationEvidenceLink, ...]
     confidence: float
@@ -256,14 +254,12 @@ class EpisodeRelation:
     provenance: Mapping[str, str]
 
     def __post_init__(self) -> None:
-        if self.from_episode_version_ref == self.to_episode_version_ref:
+        if self.from_episode_ref == self.to_episode_ref:
             raise ValueError("EpisodeRelation 不得自环")
         if self.relation_type not in EPISODE_RELATION_TYPES:
             raise ValueError(f"未知 episode relation type: {self.relation_type}")
         if self.relation_status not in RELATION_STATUSES:
             raise ValueError(f"未知 relation status: {self.relation_status}")
-        if self.semantic_version < 1 or self.evidence_version < 1:
-            raise ValueError("EpisodeRelation version 必须从 1 开始")
         if not 0.0 <= self.confidence <= 1.0:
             raise ValueError("EpisodeRelation confidence 必须在 0 到 1 之间")
         if self.relation_status.startswith("accepted") and any(
@@ -444,10 +440,6 @@ class AggregateContextDraft:
     ruler_ref: str
     evaluation_window: str
     network_family: str
-    member_set_version: str
-    rule_version: str
-    semantic_version: int
-    evidence_version: int
     channel_control_mode: str
     members: tuple[AggregateContextMember, ...]
     lineage: Mapping[str, str]
@@ -460,13 +452,11 @@ class AggregateContextDraft:
                 self.ruler_ref,
                 self.evaluation_window,
                 self.network_family,
-                self.member_set_version,
-                self.rule_version,
             )
         ):
             raise ValueError("AggregateContextDraft 缺少稳定身份字段")
-        if self.status != "draft" or self.semantic_version < 1 or self.evidence_version < 1:
-            raise ValueError("AggregateContextDraft 状态或版本非法")
+        if self.status != "draft":
+            raise ValueError("AggregateContextDraft 状态非法")
         if self.channel_control_mode not in {
             "multi_member_multi_channel",
             "single_controller_appointment_channel",
@@ -488,8 +478,6 @@ class AggregateContextDraft:
                 self.ruler_ref,
                 self.evaluation_window,
                 self.network_family,
-                self.member_set_version,
-                self.rule_version,
             )
         )
 
@@ -501,9 +489,11 @@ class RuleEvidenceMember:
     member_role: str
 
     def __post_init__(self) -> None:
-        if self.member_type not in {"episode", "relation", "aggregate_context"}:
+        if self.member_type not in {
+            "episode", "relation", "aggregate_context", "governance_achievement"
+        }:
             raise ValueError(
-                "RuleEvidenceMember type 必须是 episode/relation/aggregate_context"
+                "RuleEvidenceMember type 非法"
             )
 
 
@@ -511,12 +501,8 @@ class RuleEvidenceMember:
 class RuleEvidenceUnitDraft:
     unit_code: str
     rule_code: str
-    rule_version: str
-    aggregation_policy_version: str
     evaluation_context: str
     semantic_fingerprint: str
-    semantic_version: int
-    evidence_version: int
     members: tuple[RuleEvidenceMember, ...]
     aggregation_reason: str
     status: str
@@ -526,12 +512,8 @@ class RuleEvidenceUnitDraft:
     def __post_init__(self) -> None:
         if not self.unit_code or not self.rule_code or not self.members:
             raise ValueError("RuleEvidenceUnitDraft 缺少核心字段")
-        if not self.rule_version or not self.aggregation_policy_version:
-            raise ValueError("RuleEvidenceUnitDraft 必须绑定 rule/aggregation 版本")
         if self.status != "draft":
             raise ValueError("RuleEvidenceUnitDraft 不能直接成为正式 Judgment")
-        if self.semantic_version < 1 or self.evidence_version < 1:
-            raise ValueError("RuleEvidenceUnitDraft version 必须从 1 开始")
 
     @property
     def episode_refs(self) -> tuple[str, ...]:

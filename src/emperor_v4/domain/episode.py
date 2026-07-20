@@ -570,8 +570,6 @@ def build_episode_packet(
         episode_type=group.key.episode_type,
         episode_status=episode_status,
         evaluation_context=group.key.evaluation_context,
-        semantic_version=1,
-        evidence_version=1,
         semantic_fingerprint=group.key.fingerprint,
         time_start=group.key.normalized_time or None,
         time_end=group.key.normalized_time or None,

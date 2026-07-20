@@ -254,20 +254,13 @@ def _has_path(
     return False
 
 
-def _episode_version_ref(endpoint: Mapping[str, Any]) -> str:
+def _episode_ref(endpoint: Mapping[str, Any]) -> str:
     episode_ref = str(endpoint.get("episode_ref") or "")
-    version_ref = str(endpoint.get("episode_version_ref") or "")
-    semantic_version = endpoint.get("semantic_version")
-    if (
-        not episode_ref
-        or not isinstance(semantic_version, int)
-        or semantic_version < 1
-        or version_ref != f"{episode_ref}@v{semantic_version}"
-    ):
-        raise ValueError("Fine Relation endpoint 缺少一致的 Episode 版本身份")
+    if not episode_ref:
+        raise ValueError("Fine Relation endpoint 缺少 Episode 身份")
     if not str(endpoint.get("episode_semantic_fingerprint") or ""):
         raise ValueError("Fine Relation endpoint 缺少 semantic fingerprint")
-    return version_ref
+    return episode_ref
 
 
 def materialize_fine_relation_proposals(
@@ -297,8 +290,8 @@ def materialize_fine_relation_proposals(
             str(task["right"]["episode_ref"]): task["right"],
         }
         identity = {
-            "from_episode_version_ref": _episode_version_ref(endpoint_by_ref[source]),
-            "to_episode_version_ref": _episode_version_ref(endpoint_by_ref[target]),
+            "from_episode_ref": _episode_ref(endpoint_by_ref[source]),
+            "to_episode_ref": _episode_ref(endpoint_by_ref[target]),
             "relation_type": relation_type,
         }
         semantic_fingerprint = _hash(identity)
@@ -312,8 +305,6 @@ def materialize_fine_relation_proposals(
                 "relation_id": f"ER-{semantic_fingerprint[:20].upper()}",
                 **identity,
                 "semantic_fingerprint": semantic_fingerprint,
-                "semantic_version": 1,
-                "evidence_version": 1,
                 "relation_status": "proposed",
                 "evidence_links": [
                     {
@@ -350,8 +341,8 @@ def materialize_fine_relation_proposals(
         relation_type = str(proposal["relation_type"])
         if relation_type not in _ACYCLIC_RELATION_TYPES:
             continue
-        source = str(proposal["from_episode_version_ref"])
-        target = str(proposal["to_episode_version_ref"])
+        source = str(proposal["from_episode_ref"])
+        target = str(proposal["to_episode_ref"])
         if _has_path(combined_adjacency, target, source):
             invariant_errors.append("directed_cycle:temporal_or_causal")
         combined_adjacency[source].add(target)

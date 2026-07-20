@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
-from emperor_v4.persistence.postgres_schema_governance import canonical_person_ref
+from emperor_v4.persistence.canonical_refs import canonical_person_ref
 
 
 SCHEMA_VERSION = "i5b-formal-fact-acceptance-v3"

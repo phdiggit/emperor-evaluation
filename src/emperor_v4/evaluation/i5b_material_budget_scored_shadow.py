@@ -904,7 +904,6 @@ def _team_profile_members(
                     current.get("talent_grade_basis") or ""
                 )
                 row["profile_ref"] = str(current["profile_ref"])
-                row["profile_snapshot_version"] = str(current["profile_version"])
                 if current.get("negative_risk_status") == "established":
                     row["negative_talent_class"] = current.get(
                         "negative_talent_class"
@@ -947,9 +946,8 @@ def _team_profile_members(
         if (
             profile.get("review_status") != "human_frozen"
             or not profile.get("profile_ref")
-            or not profile.get("profile_snapshot_version")
         ):
-            raise ValueError(f"{name} 缺少人工冻结版本化人物画像")
+            raise ValueError(f"{name} 缺少人工冻结人物画像")
         person_ref = str(profile["person_ref"])
         negative = profile.get("negative_profile") or {}
         if negative.get("review_completed") is not True:
@@ -967,7 +965,6 @@ def _team_profile_members(
             raise ValueError(f"{name} 政治风险画像状态不可计分: {finding}")
         grade = str(profile["effective_talent_grade"])
         profile_ref = str(profile["profile_ref"])
-        profile_version = str(profile["profile_snapshot_version"])
         grade_basis = str(profile.get("talent_grade_basis") or "")
         if current_profiles is not None:
             current = current_profiles.get(person_ref)
@@ -987,7 +984,6 @@ def _team_profile_members(
             grade = str(current["talent_grade"])
             grade_basis = str(current.get("talent_grade_basis") or "")
             profile_ref = str(current["profile_ref"])
-            profile_version = str(current["profile_version"])
             finding = (
                 "established"
                 if current_finding == "established"
@@ -1014,7 +1010,6 @@ def _team_profile_members(
             "person": name,
             "person_ref": person_ref,
             "profile_ref": profile_ref,
-            "profile_snapshot_version": profile_version,
             "effective_talent_grade": grade,
             "talent_value": str(talent_values[grade]),
             "talent_grade_basis": grade_basis,
@@ -1112,7 +1107,6 @@ def _build_team_rule(
             {
                 "person": row["person"],
                 "profile_ref": row["profile_ref"],
-                "profile_snapshot_version": row.get("profile_snapshot_version"),
                 "talent_grade": row["effective_talent_grade"],
                 "talent_value": str(row["talent_value"]),
                 "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
@@ -1127,7 +1121,6 @@ def _build_team_rule(
             {
                 "person": row["person"],
                 "profile_ref": row["profile_ref"],
-                "profile_snapshot_version": row.get("profile_snapshot_version"),
                 "negative_class": row["negative_talent_class"],
                 "negative_severity": row["negative_talent_severity"],
                 "negative_value": str(row["negative_value"]),

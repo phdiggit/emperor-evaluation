@@ -789,8 +789,8 @@ def _relation_fingerprint(
 ) -> str:
     return _hash(
         {
-            "from_episode_version_ref": from_ref,
-            "to_episode_version_ref": to_ref,
+            "from_episode_ref": from_ref,
+            "to_episode_ref": to_ref,
             "relation_type": relation_type,
         }
     )
@@ -798,25 +798,25 @@ def _relation_fingerprint(
 
 def validate_episode_relation_graph(
     relations: Iterable[EpisodeRelation],
-    episode_context_by_version_ref: Mapping[str, str],
+    episode_context_by_ref: Mapping[str, str],
 ) -> None:
     items = tuple(relations)
     for relation in items:
         if (
-            relation.from_episode_version_ref not in episode_context_by_version_ref
-            or relation.to_episode_version_ref not in episode_context_by_version_ref
+            relation.from_episode_ref not in episode_context_by_ref
+            or relation.to_episode_ref not in episode_context_by_ref
         ):
             raise ValueError("EpisodeRelation endpoint 不存在")
         if relation.relation_type != "context_for" and (
-            episode_context_by_version_ref[relation.from_episode_version_ref]
-            != episode_context_by_version_ref[relation.to_episode_version_ref]
+            episode_context_by_ref[relation.from_episode_ref]
+            != episode_context_by_ref[relation.to_episode_ref]
         ):
             raise ValueError("非 context_for Relation 不得跨 evaluation context")
     adjacency: dict[str, set[str]] = defaultdict(set)
     for relation in items:
         if relation.relation_type in _ACYCLIC_RELATION_TYPES:
-            adjacency[relation.from_episode_version_ref].add(
-                relation.to_episode_version_ref
+            adjacency[relation.from_episode_ref].add(
+                relation.to_episode_ref
             )
     visiting: set[str] = set()
     visited: set[str] = set()
@@ -1052,20 +1052,18 @@ def materialize_boundary_review(
     for draft in review.relations:
         from_packet = local_to_packet[draft.from_episode_ref]
         to_packet = local_to_packet[draft.to_episode_ref]
-        from_version_ref = f"{from_packet.episode_id}@v{from_packet.semantic_version}"
-        to_version_ref = f"{to_packet.episode_id}@v{to_packet.semantic_version}"
+        from_ref = from_packet.episode_id
+        to_ref = to_packet.episode_id
         fingerprint = _relation_fingerprint(
-            from_version_ref, to_version_ref, draft.relation_type
+            from_ref, to_ref, draft.relation_type
         )
         relations.append(
             EpisodeRelation(
                 relation_id=f"ER-{fingerprint[:20].upper()}",
-                from_episode_version_ref=from_version_ref,
-                to_episode_version_ref=to_version_ref,
+                from_episode_ref=from_ref,
+                to_episode_ref=to_ref,
                 relation_type=draft.relation_type,
                 semantic_fingerprint=fingerprint,
-                semantic_version=1,
-                evidence_version=1,
                 relation_status="proposed",
                 evidence_links=tuple(
                     RelationEvidenceLink(
@@ -1084,7 +1082,7 @@ def materialize_boundary_review(
             )
         )
     contexts = {
-        f"{packet.episode_id}@v{packet.semantic_version}": packet.evaluation_context
+        packet.episode_id: packet.evaluation_context
         for packet in packets
     }
     validate_episode_relation_graph(relations, contexts)
@@ -1128,8 +1126,6 @@ def materialize_boundary_review(
 def draft_rule_evidence_unit(
     *,
     rule_code: str,
-    rule_version: str,
-    aggregation_policy_version: str,
     evaluation_context: str,
     episode_members: Mapping[str, str],
     relation_members: Mapping[str, str],
@@ -1153,8 +1149,6 @@ def draft_rule_evidence_unit(
     semantic_fingerprint = _hash(
         {
             "rule_code": rule_code,
-            "rule_version": rule_version,
-            "aggregation_policy_version": aggregation_policy_version,
             "evaluation_context": evaluation_context,
             "members": [
                 {
@@ -1169,12 +1163,8 @@ def draft_rule_evidence_unit(
     return RuleEvidenceUnitDraft(
         unit_code=f"REU-{semantic_fingerprint[:20].upper()}",
         rule_code=rule_code,
-        rule_version=rule_version,
-        aggregation_policy_version=aggregation_policy_version,
         evaluation_context=evaluation_context,
         semantic_fingerprint=semantic_fingerprint,
-        semantic_version=1,
-        evidence_version=1,
         members=members,
         aggregation_reason=aggregation_reason,
         status="draft",

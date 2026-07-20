@@ -20,7 +20,7 @@ from emperor_v4.domain.episode import (
     build_episode_packet,
     group_episode_candidates_with_hints,
 )
-from emperor_v4.persistence.postgres_schema_governance import canonical_person_ref
+from emperor_v4.persistence.canonical_refs import canonical_person_ref
 
 
 def _hash(value: object) -> str:
@@ -307,8 +307,6 @@ def build_assertion_episode_trace(
         }
         reu = draft_rule_evidence_unit(
             rule_code=rule_code,
-            rule_version="i5b-factor-semantics-v2",
-            aggregation_policy_version="i5b-joint-projection-score-contribution-v2",
             evaluation_context=ruler_ref,
             episode_members=episode_members,
             relation_members={},

@@ -9,9 +9,6 @@ from emperor_v4.application.claim_extractor_service import (
     assertion_identity_payload,
     canonical_assertion_storage_payload,
 )
-from emperor_v4.persistence.postgres_schema_governance import (
-    ensure_schema_governance,
-)
 
 
 CLAIM_EXTRACTOR_SCHEMA = "v4_claim_extractor"
@@ -173,8 +170,6 @@ def bootstrap_claim_extractor_schema(
                 raise ClaimExtractorSchemaStateError(
                     "Claim Extractor result_status 约束未升级"
                 )
-            if ensure_schema_governance(cursor)["database_write_count"]:
-                applied = True
     return ClaimExtractorSchemaBootstrapResult(
         action="applied" if applied else "reused",
         table_count=len(CLAIM_EXTRACTOR_TABLES),

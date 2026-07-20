@@ -13,7 +13,6 @@ class CanonicalPerson:
     historical_context: str
     identity_fingerprint: str
     identity_status: str = "candidate"
-    semantic_version: int = 1
 
 
 def identity_fingerprint(

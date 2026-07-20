@@ -44,7 +44,7 @@ def test_sync_runner_unchanged_rerun_is_zero_write_and_zero_model_call() -> None
     assert second.model_call_count == 0
 
 
-def test_sync_runner_semantic_change_only_revises_target_identity() -> None:
+def test_sync_runner_semantic_change_updates_only_target_identity() -> None:
     registry = InMemoryCoreRegistry()
     initial = _two_episode_batch()
     run_core_shadow_sync(registry, initial)
@@ -65,16 +65,16 @@ def test_sync_runner_semantic_change_only_revises_target_identity() -> None:
     result = run_core_shadow_sync(registry, observed)
     active = registry.active_packets_by_identity((ANCHOR_A, ANCHOR_B))
 
-    assert result.semantic_revision_anchors == (ANCHOR_A,)
+    assert result.changed_identity_anchors == (ANCHOR_A,)
     assert result.unchanged_identity_anchors == (ANCHOR_B,)
-    assert result.write_result.table_writes["historical_episode_versions"] == 1
-    assert result.write_result.table_writes["episode_participants"] == 2
+    assert result.write_result.table_writes["historical_episodes"] == 1
+    assert result.write_result.table_writes["episode_participants"] == 0
     assert active[ANCHOR_A].episode_id == "EP-1"
-    assert active[ANCHOR_A].semantic_version == 2
-    assert active[ANCHOR_B].semantic_version == 1
+    assert active[ANCHOR_A].responsibility == "财政与军务"
+    assert active[ANCHOR_B].responsibility == "财政"
 
 
-def test_sync_runner_evidence_change_does_not_duplicate_participants() -> None:
+def test_sync_runner_evidence_change_replaces_current_packet() -> None:
     registry = InMemoryCoreRegistry()
     initial = _two_episode_batch()
     run_core_shadow_sync(registry, initial)
@@ -102,15 +102,14 @@ def test_sync_runner_evidence_change_does_not_duplicate_participants() -> None:
     result = run_core_shadow_sync(registry, observed)
     active = registry.active_packets_by_identity((ANCHOR_A, ANCHOR_B))
 
-    assert result.evidence_revision_anchors == (ANCHOR_A,)
+    assert result.changed_identity_anchors == (ANCHOR_A,)
     assert result.unchanged_identity_anchors == (ANCHOR_B,)
-    assert result.write_result.table_writes["historical_episode_versions"] == 1
+    assert result.write_result.table_writes["historical_episodes"] == 1
     assert result.write_result.table_writes["episode_participants"] == 0
-    assert active[ANCHOR_A].semantic_version == 1
-    assert active[ANCHOR_A].evidence_version == 2
+    assert len(active[ANCHOR_A].assertion_links) == 2
 
 
-def test_global_input_provenance_change_does_not_fan_out_episode_versions() -> None:
+def test_global_input_provenance_change_updates_current_rows_only() -> None:
     registry = InMemoryCoreRegistry()
     initial = _two_episode_batch()
     run_core_shadow_sync(registry, initial)
@@ -130,16 +129,16 @@ def test_global_input_provenance_change_does_not_fan_out_episode_versions() -> N
         ),
     )
 
-    assert result.unchanged_identity_anchors == (ANCHOR_A, ANCHOR_B)
-    assert result.business_write_count == 0
-    assert registry.counts()["historical_episode_versions"] == 2
+    assert result.changed_identity_anchors == (ANCHOR_A, ANCHOR_B)
+    assert result.write_result.table_writes["historical_episodes"] == 2
+    assert registry.snapshot_counts()["historical_episodes"] == 2
 
 
 def test_failed_sync_batch_rolls_back_and_valid_retry_succeeds() -> None:
     registry = InMemoryCoreRegistry()
     initial = _two_episode_batch()
     run_core_shadow_sync(registry, initial)
-    before = dict(registry.counts())
+    before = dict(registry.snapshot_counts())
     invalid = replace(
         initial.episodes[0],
         assertion_links=(
@@ -160,7 +159,7 @@ def test_failed_sync_batch_rolls_back_and_valid_retry_succeeds() -> None:
                 episode_identity_anchors={invalid.episode_id: ANCHOR_A},
             ),
         )
-    assert registry.counts() == before
+    assert registry.snapshot_counts() == before
 
     valid = replace(initial.episodes[0], responsibility="修订职责")
     result = run_core_shadow_sync(
@@ -170,5 +169,5 @@ def test_failed_sync_batch_rolls_back_and_valid_retry_succeeds() -> None:
             episode_identity_anchors={valid.episode_id: ANCHOR_A},
         ),
     )
-    assert result.semantic_revision_anchors == (ANCHOR_A,)
-    assert result.write_result.table_writes["historical_episode_versions"] == 1
+    assert result.changed_identity_anchors == (ANCHOR_A,)
+    assert result.write_result.table_writes["historical_episodes"] == 1

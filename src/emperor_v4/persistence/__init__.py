@@ -1,12 +1,13 @@
 """V4 隔离 shadow persistence 边界。"""
 
 from emperor_v4.persistence.core_registry import (
-    BoundaryReviewCacheEntry,
     CoreRegistryBatch,
     CoreRegistryWriteResult,
     EpisodeDispositionRecord,
+    GovernanceAchievementMember,
+    GovernanceAchievementRecord,
     InMemoryCoreRegistry,
-    ReviewArtifactRecord,
+    RuleEvidenceUnitRecord,
     SourceDocumentRecord,
 )
 from emperor_v4.persistence.postgres import (
@@ -36,12 +37,13 @@ from emperor_v4.persistence.source_cache_jobs import (
 )
 
 __all__ = [
-    "BoundaryReviewCacheEntry",
     "CoreRegistryBatch",
     "CoreRegistryWriteResult",
     "EpisodeDispositionRecord",
+    "GovernanceAchievementMember",
+    "GovernanceAchievementRecord",
     "InMemoryCoreRegistry",
-    "ReviewArtifactRecord",
+    "RuleEvidenceUnitRecord",
     "SourceDocumentRecord",
     "G3ASchemaBootstrapResult",
     "G3ASchemaStateError",

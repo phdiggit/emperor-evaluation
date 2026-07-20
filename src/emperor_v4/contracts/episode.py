@@ -57,8 +57,6 @@ class HistoricalEpisodePacket:
     episode_type: str
     episode_status: str
     evaluation_context: str
-    semantic_version: int
-    evidence_version: int
     semantic_fingerprint: str
     time_start: str | None
     time_end: str | None

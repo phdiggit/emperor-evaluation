@@ -111,9 +111,6 @@ def _offline_current_profiles() -> dict[str, dict]:
                 "talent_grade": str(row["effective_talent_grade"]),
                 "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
                 "profile_ref": str(row["profile_ref"]),
-                "profile_version": str(
-                    row.get("profile_snapshot_version") or "offline-test-current-v1"
-                ),
                 "negative_risk_status": (
                     "established" if risk_established else "no_established_class"
                 ),
@@ -936,7 +933,7 @@ def test_liubang_team_pool_derives_values_from_frozen_profiles() -> None:
     assert team["profile_source_enforced"] is True
     assert len(team["positive_members"]) == 8
     assert all(row["profile_ref"].startswith("PROFILE-") for row in team["positive_members"])
-    assert all(row["profile_snapshot_version"] for row in team["positive_members"])
+    assert all(row["profile_ref"] for row in team["positive_members"])
     assert [row["person"] for row in team["negative_members"]] == ["樊哙"]
     assert team["negative_members"][0]["negative_class"] == "cruel_official"
     assert team["negative_members"][0]["negative_severity"] == "material"
