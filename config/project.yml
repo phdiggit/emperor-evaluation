@@ -15,6 +15,22 @@ current_scope:
   person_retrieval_entry_limit: 12
   policy_entry_counts_against_person_limit: false
 
+i5b_current_value:
+  runner: emperor_v4.evaluation.i5b_current_value_runner
+  input_fingerprint: 302f1c57883a7fc49d01e71f499e56f53a15a274379d5d9bdd2572119429a1bd
+  rulers:
+    李世民:
+      source_pack: eval/i5b_current_value/李世民/source-pack.json
+      result: eval/i5b_current_value/李世民/result.json
+    刘邦:
+      source_pack: eval/i5b_current_value/刘邦/source-pack.json
+      result: eval/i5b_current_value/刘邦/result.json
+  settlement_mode: policy_budget
+  numeric_factor_source: config/i5b-scoring-policy.yml
+  formal_45_point_score: false
+  tier: false
+  ranking: false
+
 person_profile_storage:
   canonical_profile_table: v4_person_profile.person_profiles
   canonical_identity_table: v4_person_profile.person_identity_registry

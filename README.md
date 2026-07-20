@@ -5,15 +5,12 @@
 ## 当前状态
 
 - V3 已退役；V4 是唯一活动实现。
-- 第五项 B 五条 rule 已进入当前值 shadow，并完成李世民皇帝级历史覆盖收口。
-- 当前李世民 rule raw signal：
-  - `talent_discovery`: `+4.864`
-  - `appointment_delegation`: `+9.823`
-  - `team_building`: `+7.632`
-  - `tolerate_talent`: `+5.996`
-  - `anti_nepotism`: `+1.760`
-- 按既定五权重合成的 declared-workset raw signal 为 `7.248`。
-- `tolerate_talent` 仍有3个李世民单元证据不足；批量动态映射还缺少第二位五rule完整皇帝。因此正式45分、档位和排名保持关闭。
+- 第五项 B 的当前链路已统一为“三路中性材料 → Rule Judge → HistoricalEpisode → RuleEvidenceUnit → 因子语义确定性映射 → strongest-N 材料预算 → 加权净信号”。
+- 唯一当前三路输入指纹为 `302f1c57883a7fc49d01e71f499e56f53a15a274379d5d9bdd2572119429a1bd`，包含皇帝篇章236条、臣子列传588条、朝代文治133条。
+- 李世民当前影子结果：36个 Episode、39个 REU（同一事件的正负 REU 共用中性 Episode，另含一个团队窗口 REU），加权净信号 `7.497030`。
+- 刘邦当前影子结果：18个 Episode、20个 REU（同一事件的正负 REU 共用中性 Episode，另含一个团队窗口 REU），加权净信号 `6.676601`。
+- 每位皇帝只保留一个 `source-pack.json` 和一组 `result.json` / `result.md`；旧 source pack、审计展开、同步状态和并行版本已删除。
+- 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人物政治风险首轮254人shadow结果因严重度失真和结论改变型归一被拒绝，当前全局Gate为 `failed_closed`。该轮未写人物画像表、不改人才等级，也不进入正式评分；通过唐俭、霍去病、萧瑀、朱樉校准回归前不启动全员重跑。
 - 人才 `historic` 当前采用 V11 分领域等价路径：军事和文官可凭多次国家级兑现达到，不再把跨时代制度或作品遗产设为通用门槛；军事常规门槛为两个独立国家级战役成果加一个独立区域级以上成果，极强的两个 `主帅` 或 `主将` 国家级决定性成果可单独通过。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
@@ -22,26 +19,25 @@
 ## 当前架构
 
 ```text
-Source Cache
-→ Claim Extractor
-→ Assertion review
-→ HistoricalEpisode / RuleEvidenceUnit
-→ deterministic factor projection
-→ shadow ScoreContribution
-→ ruler rule-net / scoring detail
+三路 neutral-material-intake
+→ Rule Judge
+→ HistoricalEpisode
+→ RuleEvidenceUnit
+→ factor option → policy numeric mapping
+→ strongest-N material budget
+→ weighted raw net signal
 ```
 
 PostgreSQL保存V4业务状态，Git保存规则、配置、契约和当前不可变输入。人物画像当前只使用 `v4_person_profile.person_profiles`，规范身份只使用 `v4_person_profile.person_identity_registry`；旧快照、目录、校准和团队窗口表已归档后删除。JSON/Markdown只允许作为当前只读输出；被新结果取代后直接删除。
 
 皇帝篇章、臣子列传和朝代文治材料现在先进入同一 `neutral-material-intake`：只按上游稳定中性事实 ID 自动去重，合并人物、皇帝、史源和 Assertion 定位；跨来源仅因措辞相似不得自动合并。文治成果保留其底层 `neutral_fact_refs`，并只生成 `needs_rule_judge` 的复用候选，不直接生成 Episode 或分数。PostgreSQL只保存 `historical_episodes`、`governance_achievements`、`rule_evidence_units` 及当前成员关系；没有 Episode 历史版本表、活动版本指针、边界审计缓存或字段治理状态库，相同输入重跑零业务写入，历史只查 Git。
 
-## 历史覆盖预算与产物
+## 运行产物纪律
 
-- 单位皇帝的五条rule共用15分钟硬截止时间，从首次领取候选任务开始计时，resume不重置；到点停止领取，已超时返回的结果丢弃并保留失败checkpoint。
-- 宽搜候选池不按同侧3条结算预算或每对象固定数量截断；正式材料仍受计分政策的同侧3条结算预算约束。结算边界稳定后不为“更完整”继续穷尽材料，智能体调用上限可放宽但不得突破wall-clock预算。
-- Git只追踪当前规则、配置、合同、当前工作流必需的不可变输入和唯一canonical结果。
-- `tmp/i5b_historical_coverage/**`保存运行中的work package、checkpoint、phase artifact和state；成功后删除，失败时只保留继续运行所需checkpoint。
-- `logs/i5b_historical_coverage/**`可短期保留计时与失败诊断，但始终不进入Git。数据库复跑审计、resume报告、increment和被替代版本在收口后删除。
+- Git只追踪当前规则、配置、每位皇帝唯一 source pack 和唯一结果。
+- prompts、events、server summary、checkpoint、审计展开和同步状态只能暂存于 `tmp/**`，成功收口后删除。
+- 同侧事件结算仍受政策正3/负3预算约束；团队为正8/负3。未用满预算不扣分。
+- source pack 中的因子只保存语义选项；数值必须由 `config/i5b-scoring-policy.yml` 确定性映射，篡改 source pack 或数值映射立即失败关闭。
 
 ## 当前入口
 
@@ -57,12 +53,11 @@ codex-win run -- python -m pip install -e .
 python -m emperor_v4.eval model-policy --policy config/model-policy.yml
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output tmp/factor-semantics.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
-python v4.py i5b-scoring-detail-export --ruler 李世民
+python v4.py i5b-current-value --ruler 李世民
+python v4.py i5b-current-value --ruler 刘邦
 ```
 
-最后一条命令默认导出该皇帝全部五条rule，同时生成
-`tmp/i5b_scoring_detail/<皇帝>/scoring-detail.md` 和 `scoring-detail.json`。
-需要筛选时可重复传入 `--rule` 或 `--person`。
+臣子 Episode 直接查看对应皇帝的 `result.md`；机器可读的完整 Episode、REU、结算材料和净信号在 `result.json`。
 
 ### Google AI 无人值守宽搜
 
@@ -107,13 +102,13 @@ python -m emperor_v4.adapters.person_lifecycle_scan --manifest "$runtimeRoot\per
 python -m emperor_v4.adapters.subject_mention_index review-worklist --report "$sourceIndexRoot\subject-mention-report.json" --output "$sourceIndexRoot\subject-review-worklist.json"
 python -m emperor_v4.adapters.subject_mention_index refetch --worklist "$sourceIndexRoot\subject-review-worklist.json" --state-dir "$sourceIndexRoot\subject-review-source-cache" --output "$sourceIndexRoot\subject-review-refetch-result.json" --max-workers 6 --timeout-seconds 30 --max-attempts 3
 python -m emperor_v4.evaluation.i5b_source_review_projector --decision tmp/i5b-source-review-decision.json --refetch-result "$sourceIndexRoot\subject-review-refetch-result.json" --output-dir tmp/i5b-source-review-projection --max-workers 5 --per-task-timeout-seconds 75 --wall-clock-budget-seconds 120
-python v4.py i5b-historical-closeout --ruler 李世民 --baseline-source-review-decision tmp/i5b-source-review-baseline.json --source-review-decision tmp/i5b-source-review-projection/projected-decision.json --source-review-refetch-result tmp/i5b-source-review-projection/augmented-refetch.json --all-eligible-materials --output-dir tmp/i5b-source-review-closeout
+python v4.py i5b-current-value --ruler 李世民
 python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i5b_taizong_backfill_worklist.json --local-source-index "$sourceIndexRoot\tang-core.sqlite3" --state-dir tmp/i5b_taizong_source_state --output-dir tmp/i5b_taizong_source_reports --service-release-sha <40位提交SHA> --max-workers 6
 ```
 
 本地全文索引是不可裁剪的召回底座。当前语料、索引、召回输入和影子报告统一保存在 NAS 的 `X:\emperor-evaluation\runtime\active\source_text_indexes\tang-core-current`；仓库 `tmp/**` 只作可删除的构建暂存，不是长期数据位置。大索引先在本地临时路径构建，校验身份和 SHA-256 后再发布到 NAS，避免直接在 SMB 目录构建半成品。`recall-report` 的 UTF-8 JSON 输入按对象提供 `works`、`recall_terms`、`attribution_terms`、`priority_terms`、显式朝代 `page_ranges` 和可选的 `priority_window_chars`；姓名命中页全部输出，不设 Top-K，也不受 FTS 候选上限影响。完整姓名只在本地标记明确归责，不触发第二次联网查询；主题词只在姓名附近的字符窗内增加优先级。仅短称出现或未命中主题的本朝页面仍完整保留。
 
-`--all-eligible-materials` 只开启本轮 `all_eligible_shadow`：所有通过 Gate 的独立事件材料均进入聚合；团队候选池完整保留，但冻结计分仍受正8、负3约束。`--baseline-source-review-decision` 会先按 material/person 稳定键保留旧合格材料和团队候选，再以本轮显式处置覆盖同键，任何旧材料丢失或处置不闭合都会失败。正式政策默认的 strongest-N、45 分映射和排名均不改写。新回源审阅输入仍由同一个 `i5b-historical-closeout` 命令生成标准 `scoring-detail.md/json`。
+I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 strongest-N 预算结算，团队保持正8、负3；它不会合并旧基线，也不会生成45分、档位或排名。
 
 任用材料投影按责任对象最多5路并行，单对象75秒、全阶段120秒硬截止且不自动重试。智能体只输出带短引用码的原子观察和 disposition，服务端映射回精确 revision 段落并确定性推导连续性；只有 `coverage_complete=true` 才替换既有 shadow 材料，不完整草案仅保留 gap，不得用残缺摘要覆盖现有事实。
 
@@ -224,8 +219,4 @@ Google AI 结果属于统一 discovery artifact：它只给 Source Cache 提供�
 
 当前状态只维护在本文件和 `config/project.yml`。历史过程、旧结论和被删除产物需要时从Git查看。
 
-## 下一步
-
-- 补齐 `tolerate_talent` 3个 `insufficient_projection` 单元。
-- 选择第二位皇帝完成五rule小cohort。
-- 在多皇帝校准完成前，继续禁止正式45分、档位和排名。
+正式45分、档位和排名只有在跨皇帝动态映射快照另行批准后才能开启；当前链不隐式生成这些字段。
