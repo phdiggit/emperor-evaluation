@@ -2427,6 +2427,34 @@ def test_wikisource_plaintext_batch_preserves_revision_and_requested_key() -> No
     assert snapshots["漢書/卷023"].raw_text == "刑法志纯文本"
 
 
+def test_wikisource_plaintext_batch_uses_revision_bound_rendered_fallback() -> None:
+    payload = {
+        "query": {
+            "pages": [
+                {
+                    "title": "通典/卷002",
+                    "extract": "",
+                    "revisions": [
+                        {"revid": 2002, "timestamp": "2026-07-20T00:00:00Z"}
+                    ],
+                }
+            ]
+        }
+    }
+    snapshots = snapshots_from_plaintext_batch_payload(
+        requested_titles=("通典/卷002",),
+        payload=payload,
+        retrieved_at="2026-07-20T00:01:00Z",
+        rendered_html_by_revision={
+            2002: "<div><p>唐制租庸调。</p><table><tr><td>目录</td></tr></table>"
+            "<p>开元中更定之。</p></div>"
+        },
+    )
+
+    assert snapshots["通典/卷002"].revision_id == 2002
+    assert snapshots["通典/卷002"].raw_text == "唐制租庸调。\n开元中更定之。"
+
+
 def test_revision_payload_and_refetch_preserve_exact_offsets_and_cache(
     tmp_path: Path,
 ) -> None:

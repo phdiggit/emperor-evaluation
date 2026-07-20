@@ -4,6 +4,7 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from hashlib import sha256
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 from urllib.parse import quote, urlencode, urljoin
@@ -13,6 +14,101 @@ from urllib.request import Request, urlopen
 DEFAULT_API_ENDPOINT = "https://zh.wikisource.org/w/api.php"
 DEFAULT_PAGE_BASE = "https://zh.wikisource.org/wiki/"
 DEFAULT_USER_AGENT = "emperor-v4-source-qualification/0.1"
+
+
+class _RenderedPlaintextParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.parts: list[str] = []
+        self.ignored_depth = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag in {"style", "script", "table"}:
+            self.ignored_depth += 1
+        elif tag in {"p", "div", "br", "li", "h1", "h2", "h3", "h4"}:
+            self.parts.append("\n")
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in {"style", "script", "table"} and self.ignored_depth:
+            self.ignored_depth -= 1
+        elif tag in {"p", "div", "li", "h1", "h2", "h3", "h4"}:
+            self.parts.append("\n")
+
+    def handle_data(self, data: str) -> None:
+        if not self.ignored_depth:
+            self.parts.append(data)
+
+    def plaintext(self) -> str:
+        lines = [" ".join(line.split()) for line in "".join(self.parts).splitlines()]
+        return "\n".join(line for line in lines if line).strip()
+
+
+def _rendered_html_to_plaintext(value: str) -> str:
+    parser = _RenderedPlaintextParser()
+    parser.feed(value)
+    return parser.plaintext()
+
+
+def _resolved_batch_pages(
+    *, requested_titles: Sequence[str], payload: Mapping[str, Any]
+) -> dict[str, Mapping[str, Any]]:
+    query = payload.get("query") or {}
+    pages = tuple(query.get("pages") or ())
+    pages_by_title = {
+        str(page.get("title") or ""): page
+        for page in pages
+        if str(page.get("title") or "")
+    }
+    aliases = {
+        str(row.get("from") or ""): str(row.get("to") or "")
+        for key in ("normalized", "redirects")
+        for row in (query.get(key) or ())
+        if str(row.get("from") or "") and str(row.get("to") or "")
+    }
+    resolved = {}
+    for requested_title in requested_titles:
+        current = requested_title
+        visited = set()
+        while current in aliases and current not in visited:
+            visited.add(current)
+            current = aliases[current]
+        page = pages_by_title.get(current)
+        if page is None:
+            raise ValueError(
+                "Wikisource plaintext batch 缺少请求页面: "
+                f"requested={requested_title} resolved={current}"
+            )
+        resolved[requested_title] = page
+    return resolved
+
+
+def _fetch_rendered_revision_html(
+    *, revision_id: int, api_endpoint: str, timeout_seconds: float
+) -> str:
+    params = {
+        "action": "parse",
+        "format": "json",
+        "formatversion": "2",
+        "oldid": str(revision_id),
+        "prop": "text",
+        "disabletoc": "1",
+    }
+    request = Request(
+        api_endpoint + "?" + urlencode(params),
+        headers={"User-Agent": DEFAULT_USER_AGENT},
+    )
+    with urlopen(request, timeout=timeout_seconds) as response:
+        payload = json.load(response)
+    parsed = payload.get("parse") or {}
+    if int(parsed.get("revid") or 0) != revision_id:
+        raise ValueError(
+            "Wikisource rendered revision 漂移: "
+            f"expected={revision_id} actual={parsed.get('revid')}"
+        )
+    html = str(parsed.get("text") or "")
+    if not html:
+        raise ValueError(f"Wikisource rendered revision 缺少正文: {revision_id}")
+    return html
 
 
 @dataclass(frozen=True, slots=True)
@@ -152,10 +248,25 @@ def fetch_wikisource_plaintext_batch(
     retrieved_at = datetime.now(UTC).isoformat()
     with urlopen(request, timeout=timeout_seconds) as response:
         payload = json.load(response)
+    resolved_pages = _resolved_batch_pages(requested_titles=titles, payload=payload)
+    rendered_html_by_revision = {}
+    for page in resolved_pages.values():
+        if str(page.get("extract") or "").strip():
+            continue
+        revisions = tuple(page.get("revisions") or ())
+        if len(revisions) != 1:
+            raise ValueError("Wikisource 页面缺少唯一 revision，无法渲染回退")
+        revision_id = int(revisions[0]["revid"])
+        rendered_html_by_revision[revision_id] = _fetch_rendered_revision_html(
+            revision_id=revision_id,
+            api_endpoint=api_endpoint,
+            timeout_seconds=timeout_seconds,
+        )
     return snapshots_from_plaintext_batch_payload(
         requested_titles=titles,
         payload=payload,
         retrieved_at=retrieved_at,
+        rendered_html_by_revision=rendered_html_by_revision,
     )
 
 
@@ -164,6 +275,7 @@ def snapshots_from_plaintext_batch_payload(
     requested_titles: Sequence[str],
     payload: Mapping[str, Any],
     retrieved_at: str,
+    rendered_html_by_revision: Mapping[int, str] | None = None,
 ) -> dict[str, WikisourcePageSnapshot]:
     """Build revision-bound plaintext snapshots keyed by requested title."""
 
@@ -172,40 +284,24 @@ def snapshots_from_plaintext_batch_payload(
     )
     if not titles:
         raise ValueError("Wikisource plaintext batch 缺少请求标题")
-    query = payload.get("query") or {}
-    pages = tuple(query.get("pages") or ())
-    pages_by_title = {
-        str(page.get("title") or ""): page
-        for page in pages
-        if str(page.get("title") or "")
-    }
-    aliases = {
-        str(row.get("from") or ""): str(row.get("to") or "")
-        for key in ("normalized", "redirects")
-        for row in (query.get(key) or ())
-        if str(row.get("from") or "") and str(row.get("to") or "")
-    }
-
-    def resolved_title(requested_title: str) -> str:
-        current = requested_title
-        visited = set()
-        while current in aliases and current not in visited:
-            visited.add(current)
-            current = aliases[current]
-        return current
-
+    resolved_pages = _resolved_batch_pages(requested_titles=titles, payload=payload)
     snapshots = {}
     for requested_title in titles:
-        canonical_title = resolved_title(requested_title)
-        page = pages_by_title.get(canonical_title)
-        if page is None:
-            raise ValueError(
-                "Wikisource plaintext batch 缺少请求页面: "
-                f"requested={requested_title} resolved={canonical_title}"
-            )
+        page = resolved_pages[requested_title]
+        revisions = tuple(page.get("revisions") or ())
+        if len(revisions) != 1:
+            raise ValueError(f"Wikisource 页面缺少唯一 revision: {requested_title}")
+        revision_id = int(revisions[0]["revid"])
+        if not str(page.get("extract") or "").strip():
+            rendered_html = (rendered_html_by_revision or {}).get(revision_id, "")
+            rendered_text = _rendered_html_to_plaintext(rendered_html)
+            if not rendered_text:
+                raise ValueError(f"Wikisource 页面缺少 plain text: {requested_title}")
+            page = {**page, "extract": rendered_text}
         snapshots[requested_title] = snapshot_from_api_payload(
-            page_code="SOURCEPAGE-"
-            + sha256(canonical_title.encode("utf-8")).hexdigest()[:20].upper(),
+            page_code="SOURCEPAGE-" + sha256(
+                str(page["title"]).encode("utf-8")
+            ).hexdigest()[:20].upper(),
             requested_title=requested_title,
             payload={"query": {"pages": [page]}},
             retrieved_at=retrieved_at,
