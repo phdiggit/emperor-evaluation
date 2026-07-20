@@ -1,4 +1,10 @@
 {
+  "campaign_registry": {
+    "campaigns": [],
+    "registry_version": "current",
+    "schema_version": "campaign-registry-v1",
+    "status": "shadow"
+  },
   "declarations": {
     "database_write": false,
     "formal_write": false,
@@ -1511,6 +1517,11 @@
       "subject_role": "汉王谋士"
     }
   ],
+  "governance_achievement_registry": {
+    "achievements": [],
+    "schema_version": "governance-achievement-registry-v1",
+    "status": "shadow"
+  },
   "governance_achievements": [
     {
       "achievement_ref": "GOVACH-A0D57D891872F3C2A412",
@@ -2402,7 +2413,7 @@
           "severity": "serious"
         },
         "talent_grade": {
-          "basis": "高帝时期承担长期军事授权并平定多郡；屠马邑另按毁灭性攻城计serious风险，屠浑都因断句争议不累计。",
+          "basis": "高帝时期长期承担主将与方面军任务，参与楚汉主战线并平定泗水、东海及多郡；top为待战役登记复核的候选档位。",
           "evidence_refs": [
             "PFACT-41CE7721509571B8E874",
             "PFACT-69ABEDD8E89EDEC6153A",
@@ -2410,7 +2421,14 @@
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2418,7 +2436,7 @@
         "pacification"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "高帝时期承担长期军事授权并平定多郡；屠马邑另按毁灭性攻城计serious风险，屠浑都因断句争议不累计。"
+      "talent_grade_basis": "高帝时期长期承担主将与方面军任务，参与楚汉主战线并平定泗水、东海及多郡；top为待战役登记复核的候选档位。"
     },
     {
       "effective_talent_grade": "top",
@@ -2474,7 +2492,14 @@
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "governance_achievement",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2542,7 +2567,14 @@
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2604,7 +2636,14 @@
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2672,7 +2711,14 @@
           ],
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "common_scale.important",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2727,13 +2773,20 @@
           "severity": "major"
         },
         "talent_grade": {
-          "basis": "汉十一年在刘邦窗口内发动跨区域反汉战争，并另有诛灭贲赫家族的已实施损害；项籍窗口风险不倒灌。",
+          "basis": "当前引用只覆盖窗口内反汉事件，尚无支持top的正向战役成果登记；top候选档位不能据此冻结。",
           "evidence_refs": [
             "PFACT-9CC648DB67184646FC0D"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2741,7 +2794,7 @@
         "feudal_command"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "汉十一年在刘邦窗口内发动跨区域反汉战争，并另有诛灭贲赫家族的已实施损害；项籍窗口风险不倒灌。"
+      "talent_grade_basis": "当前引用只覆盖窗口内反汉事件，尚无支持top的正向战役成果登记；top候选档位不能据此冻结。"
     },
     {
       "effective_talent_grade": "top",
@@ -2803,7 +2856,14 @@
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "governance_achievement",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2862,7 +2922,14 @@
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "governance_achievement",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2917,13 +2984,20 @@
           "severity": "major"
         },
         "talent_grade": {
-          "basis": "刘邦时期组织反叛、自立代王、劫掠赵代并控制邯郸以北，已造成跨区域战争损害。",
+          "basis": "当前引用只覆盖窗口内反汉事件，尚无支持important的正向战役成果登记；important候选档位不能据此冻结。",
           "evidence_refs": [
             "PFACT-37C7092539559681BAA1"
           ],
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "common_scale.important",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2931,7 +3005,7 @@
         "regional_military"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "刘邦时期组织反叛、自立代王、劫掠赵代并控制邯郸以北，已造成跨区域战争损害。"
+      "talent_grade_basis": "当前引用只覆盖窗口内反汉事件，尚无支持important的正向战役成果登记；important候选档位不能据此冻结。"
     },
     {
       "effective_talent_grade": "top",
@@ -2975,13 +3049,20 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "刘邦授权窗口内完成平魏破代、井陉破赵、平齐及潍水破楚等多战区任务。",
+          "basis": "当前引用只证明萧何推荐及拜大将，平魏、破代、井陉、平齐等战役成果尚未形成登记；top候选档位不能据此冻结。",
           "evidence_refs": [
             "PFACT-9802601463879D58629A"
           ],
           "grade": "top",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-          "status": "accepted_current"
+          "rule_alignment": {
+            "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+            "registry_kind": "campaign",
+            "registry_refs": [],
+            "rule_path": "top_fallback",
+            "status": "registry_evidence_open"
+          },
+          "status": "provisional_registry_open"
         }
       },
       "role_families": [
@@ -2989,19 +3070,21 @@
         "theater_command"
       ],
       "supporting_unit_refs": [],
-      "talent_grade_basis": "刘邦授权窗口内完成平魏破代、井陉破赵、平齐及潍水破楚等多战区任务。"
+      "talent_grade_basis": "当前引用只证明萧何推荐及拜大将，平魏、破代、井陉、平齐等战役成果尚未形成登记；top候选档位不能据此冻结。"
     }
   ],
   "profile_projection_gate": {
-    "freeze_allowed": true,
-    "material_coverage_complete": true,
+    "freeze_allowed": false,
+    "material_coverage_complete": false,
     "required_inputs": [
       "full_lifecycle_biography",
       "authoritative_grade_calibration",
+      "talent_grade_rule_alignment",
+      "campaign_or_governance_achievement_registry",
       "window_exposed_risk_events",
       "three_channel_lineage"
     ],
-    "status": "frozen_after_complete_coverage"
+    "status": "material_coverage_open"
   },
   "ruler": "刘邦",
   "ruler_context_materials": [
@@ -5806,8 +5889,8 @@
     }
   ],
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
-  "schema_version": "i5b-current-value-source-pack-v3",
-  "source_pack_sha256": "0a5990b20d00be15c179a06b86a3702b7a1234c7a7fa419a45a3c9b00b5c270d",
+  "schema_version": "i5b-current-value-source-pack-v4",
+  "source_pack_sha256": "077d112b5f8031157ca54befae2eb6e07b228625cc79eae852951678286d124d",
   "status": "current_only_rule_judged_and_factor_accepted",
   "team": {
     "coverage_judgment": "complete_current_coverage",

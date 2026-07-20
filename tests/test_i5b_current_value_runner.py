@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
     report = build_i5b_current_value(ROOT / "eval/i5b_current_value" / ruler / "source-pack.json")
 
-    assert report["status"] == "current_shadow_chain_complete"
+    assert report["status"] == "current_shadow_chain_complete_profile_values_provisional"
     assert report["declarations"]["three_channel_materials_consumed"] is True
     assert report["declarations"]["linked_ruler_context_count"] > 0
     assert set(report["three_channel_input"]["channel_counts"]) == {
@@ -35,14 +35,22 @@ def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
     assert any(row["rule_code"] == "team_building" for row in report["rule_evidence_units"])
     assert report["declarations"]["database_write_count"] == 0
     assert report["declarations"]["formal_score_write_count"] == 0
-    assert report["declarations"]["profile_material_coverage_complete"] is True
-    assert report["declarations"]["profile_values_frozen"] is True
-    assert report["declarations"]["profile_freeze_gate_passed"] is True
+    assert report["declarations"]["profile_material_coverage_complete"] is False
+    assert report["declarations"]["profile_values_frozen"] is False
+    assert report["declarations"]["profile_freeze_gate_passed"] is False
     assert report["declarations"]["formal_scoring_ready"] is False
-    assert report["declarations"]["profile_member_with_open_gap_count"] == 0
-    assert report["net_signal_status"] == "stable_profile_inputs"
+    assert report["declarations"]["profile_member_with_open_gap_count"] == report[
+        "declarations"
+    ]["profile_member_count"]
+    assert report["declarations"]["talent_campaign_registry_count"] == 0
+    assert report["declarations"]["talent_governance_achievement_registry_count"] == 0
+    assert report["net_signal_status"] == "provisional_profile_inputs"
     assert all(
-        row["value_status"] == "frozen_after_complete_coverage"
+        row["value_status"] == "provisional_material_coverage_open"
+        for row in report["profile_projection_review"]
+    )
+    assert all(
+        "missing_talent_grade_rule_alignment" in row["coverage_gaps"]
         for row in report["profile_projection_review"]
     )
     assert report["declarations"]["score_45"] is None
@@ -120,6 +128,28 @@ def test_profile_values_cannot_freeze_before_material_coverage(tmp_path: Path) -
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
     with pytest.raises(ValueError, match="材料覆盖未闭合"):
+        build_i5b_current_value(target)
+
+
+def test_profile_values_cannot_claim_complete_without_grade_registries(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    payload["profile_projection_gate"]["freeze_allowed"] = True
+    payload["profile_projection_gate"]["material_coverage_complete"] = True
+    payload["source_pack_sha256"] = hashlib.sha256(
+        json.dumps(
+            {key: value for key, value in payload.items() if key != "source_pack_sha256"},
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    target = tmp_path / "source-pack.json"
+    target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="仍存在 lineage 缺口"):
         build_i5b_current_value(target)
 
 
@@ -272,6 +302,11 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
 
     assert "# 刘邦 / 周勃第五项B材料预算计分验证" in rendered
     assert "## 当前人物画像" in rendered
+    assert "人才等级确立理由" in rendered
+    assert "规则对应" in rendered
+    assert "登记支撑" in rendered
+    assert "config/talent-grade-v11-domain-equivalent-historic.yml#top_fallback" in rendered
+    assert "| 缺失 |" in rendered
     assert "serious" in rendered
     assert "屠马邑" in rendered
     assert "屠浑都存在地名与人名断句争议" in rendered

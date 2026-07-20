@@ -20,11 +20,17 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     build_i5b_material_budget_shadow,
     render_i5b_material_budget_shadow_markdown,
 )
+from emperor_v4.evaluation.governance_achievement_registry import (
+    validate_governance_achievement_registry,
+)
+from emperor_v4.evaluation.talent_grade_domain_equivalence import (
+    validate_campaign_registry,
+)
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
 
-SCHEMA_VERSION = "i5b-current-value-report-v3"
-SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v3"
+SCHEMA_VERSION = "i5b-current-value-report-v4"
+SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v4"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
 
 
@@ -239,6 +245,21 @@ def build_i5b_current_value(
 
     policy_path = ROOT / str(pack["factor_acceptance"]["policy_ref"])
     policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+    campaign_registry = pack.get("campaign_registry") or {}
+    governance_grade_registry = pack.get("governance_achievement_registry") or {}
+    campaign_validation = validate_campaign_registry(campaign_registry)
+    governance_grade_validation = validate_governance_achievement_registry(
+        governance_grade_registry,
+        schema_path=ROOT / "config/governance-achievement-registry.schema.json",
+    )
+    campaign_refs = {
+        str(row["campaign_ref"]): row
+        for row in campaign_registry.get("campaigns") or ()
+    }
+    governance_grade_refs = {
+        str(row["achievement_ref"]): row
+        for row in governance_grade_registry.get("achievements") or ()
+    }
     facts = {str(row["record_ref"]): row for row in pack.get("facts") or ()}
     ruler_contexts = {
         str(row["material_ref"]): row
@@ -426,6 +447,7 @@ def build_i5b_current_value(
         profile_review = member.get("profile_review") or {}
         biography_scan = profile_review.get("full_lifecycle_biography") or {}
         talent_review = profile_review.get("talent_grade") or {}
+        grade_alignment = talent_review.get("rule_alignment") or {}
         authority_review = profile_review.get("authority_grade_calibration") or {}
         risk_review = profile_review.get("political_risk") or {}
         profile_evidence_refs = {
@@ -473,13 +495,39 @@ def build_i5b_current_value(
         ):
             gaps.append("missing_full_lifecycle_biography_lineage")
         if (
-            talent_review.get("status") != "accepted_current"
+            talent_review.get("status") not in {
+                "accepted_current",
+                "provisional_registry_open",
+            }
             or talent_review.get("grade") != member["effective_talent_grade"]
             or talent_review.get("policy_ref")
             != "config/talent-grade-v11-domain-equivalent-historic.yml"
             or not profile_evidence_refs.get("talent_grade")
         ):
             gaps.append("missing_talent_grade_lineage")
+        registry_kind = str(grade_alignment.get("registry_kind") or "")
+        grade_registry_refs = sorted(
+            str(value) for value in grade_alignment.get("registry_refs") or ()
+        )
+        known_grade_registry_refs = (
+            campaign_refs if registry_kind == "campaign" else governance_grade_refs
+        )
+        if (
+            grade_alignment.get("status") != "accepted_current"
+            or grade_alignment.get("policy_ref")
+            != "config/talent-grade-v11-domain-equivalent-historic.yml"
+            or not grade_alignment.get("rule_path")
+            or registry_kind not in {"campaign", "governance_achievement"}
+            or not grade_registry_refs
+        ):
+            gaps.append("missing_talent_grade_rule_alignment")
+        elif unknown_registry_refs := sorted(
+            set(grade_registry_refs) - set(known_grade_registry_refs)
+        ):
+            raise ValueError(
+                f"{member['person']} 人才等级引用未知{registry_kind}登记: "
+                f"{unknown_registry_refs}"
+            )
         if (
             authority_review.get("status") != "accepted_current"
             or not profile_evidence_refs.get("authority_grade_calibration")
@@ -520,6 +568,7 @@ def build_i5b_current_value(
                 "supporting_unit_refs": supporting_unit_refs,
                 "profile_evidence_refs": profile_evidence_refs,
                 "profile_review": profile_review,
+                "talent_grade_rule_alignment": grade_alignment,
                 "coverage_gaps": gaps,
                 "value_status": (
                     "frozen_after_complete_coverage"
@@ -612,6 +661,10 @@ def build_i5b_current_value(
         "linked_ruler_context_refs": sorted(linked_ruler_context_refs),
         "governance_results": governance_results,
         "governance_dispositions": governance_dispositions,
+        "talent_grade_registries": {
+            "campaign": campaign_validation,
+            "governance_achievement": governance_grade_validation,
+        },
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
         "episodes": [asdict(value) for value in episodes],
@@ -639,6 +692,10 @@ def build_i5b_current_value(
             "profile_member_with_open_gap_count": sum(
                 bool(row["coverage_gaps"]) for row in profile_projection_review
             ),
+            "talent_campaign_registry_count": len(campaign_refs),
+            "talent_governance_achievement_registry_count": len(
+                governance_grade_refs
+            ),
             "episode_count": len(episodes),
             "rule_evidence_unit_count": len(reus) + 1,
             "external_retrieval_count": 0,
@@ -662,7 +719,11 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         f"- Episode：`{report['declarations']['episode_count']}`；REU：`{report['declarations']['rule_evidence_unit_count']}`",
         f"- 本纪补证链接：`{report['declarations']['linked_ruler_context_count']}`；文治结果支持：`{report['declarations']['selected_governance_result_count']}`",
         f"- 加权净信号：`{report['net_signal']}`",
-        "- 人才等级与政治风险：材料覆盖仍开放，当前值仅为暂定输入，未冻结。",
+        (
+            "- 人才等级与政治风险：材料覆盖已闭合，当前值已冻结。"
+            if report["declarations"]["profile_freeze_gate_passed"]
+            else "- 人才等级与政治风险：材料覆盖仍开放，当前值仅为暂定输入，未冻结。"
+        ),
         "- 45 分、档位和排名：未生成。",
         "",
         "## 五条规则",
@@ -790,15 +851,26 @@ def render_scoring_detail_markdown(
     ).rstrip().splitlines()
     risk = profile["profile_review"]["political_risk"]
     biography = profile["profile_review"]["full_lifecycle_biography"]
+    talent = profile["profile_review"]["talent_grade"]
+    alignment = profile.get("talent_grade_rule_alignment") or {}
+    registry_refs = alignment.get("registry_refs") or []
+    rule_alignment = (
+        f"{alignment['policy_ref']}#{alignment['rule_path']}"
+        if alignment.get("policy_ref") and alignment.get("rule_path")
+        else "未确立"
+    )
+    registry_support = "、".join(str(value) for value in registry_refs) or "缺失"
     lines.extend(
         [
             "",
             "## 当前人物画像",
             "",
-            "| 人才档位 | 政治风险状态 | 风险严重度 | 画像状态 | 本传史源 |",
-            "| --- | --- | --- | --- | --- |",
-            f"| {profile['candidate_talent_grade']} | {risk['assessment_status']} | "
-            f"{risk.get('severity') or '无'} | {profile['value_status']} | "
+            "| 人才档位 | 人才等级确立理由 | 规则对应 | 登记支撑 | 政治风险 | 画像状态 | 本传史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+            f"| {profile['candidate_talent_grade']} | {talent['basis']} | "
+            f"{rule_alignment} | {registry_support} | "
+            f"{risk['assessment_status']} / {risk.get('severity') or '无'} | "
+            f"{profile['value_status']} | "
             f"{biography['source_page']}@{biography['revision_ref']} |",
             "",
             f"政治风险判定：{risk['basis']}",
