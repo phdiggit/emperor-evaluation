@@ -8,6 +8,9 @@ import sys
 
 import pytest
 
+from emperor_v4.evaluation.historical_outcome_cluster import (
+    cluster_semantic_fingerprint,
+)
 from emperor_v4.evaluation.i5b_current_value_runner import (
     build_i5b_current_value,
     main as runner_main,
@@ -32,7 +35,7 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
         "dynasty_governance",
     }
     assert report["declarations"]["episode_count"] > 0
-    assert report["declarations"]["episode_count"] > report["declarations"]["rule_evidence_unit_count"]
+    assert report["declarations"]["rule_evidence_unit_count"] > 0
     assert set(report["three_channel_disposition"]) == set(report["three_channel_input"]["channel_counts"])
     assert any(row["rule_code"] == "team_building" for row in report["rule_evidence_units"])
     assert report["declarations"]["database_write_count"] == 0
@@ -83,7 +86,16 @@ def test_current_li_shimin_corrections_follow_rule_documents() -> None:
         )
     )
     members = {row["person"]: row for row in pack["members"]}
-    assert pack["team"]["long_term_stability"] == "durable_multi_stage"
+    assert "long_term_stability" not in pack["team"]
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    team = next(
+        row for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "team_building"
+    )
+    assert team["long_term_stability"] == "durable_multi_stage"
+    assert team["functional_complementarity"] == "balanced_four"
     assert len(pack["team"]["stability_stages"]) == 3
     assert members["尉迟敬德"]["negative_talent_severity"] == "material"
     assert members["高士廉"]["negative_talent_severity"] == "material"
@@ -110,6 +122,100 @@ def test_current_li_shimin_corrections_follow_rule_documents() -> None:
         "institutionalized_feedback_entry"
     )
     assert len(institution["ruler_context_refs"]) >= 3
+    assert all(
+        row.get("public_power_effect") is True
+        for row in pack["materials"]
+        if row["rule_code"] == "anti_nepotism"
+    )
+    assert "MAT-李世民-AN-WEIZHENG-POSTHUMOUS-MARRIAGE" not in materials
+    assert not any(
+        row["rule_code"] == "appointment_delegation"
+        and row["direction"] == "positive"
+        for row in pack["materials"]
+    )
+
+
+def test_profile_and_outcome_changes_rebuild_downstream_materials(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    li_jing = next(
+        row
+        for row in payload["materials"]
+        if row["material_id"] == "MAT-李世民-TD-LIJING-CROSS-BOUNDARY"
+    )
+    li_jing["factor_option_codes"]["talent_quality_factor"] = "top"
+    li_jing["factor_values"]["talent_quality_factor"] = 1.45
+    law = next(
+        row
+        for row in payload["outcome_registry"]["clusters"]
+        if row["canonical_label"] == "贞观律令与刑罚体系修订"
+    )
+    law["payload"]["durable_cross_stage"] = False
+    law["semantic_fingerprint"] = cluster_semantic_fingerprint(law)
+    payload.pop("source_pack_sha256")
+    payload["source_pack_sha256"] = hashlib.sha256(
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    target = tmp_path / "source-pack.json"
+    target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    report = build_i5b_current_value(target)
+    discovery = next(
+        row
+        for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "talent_discovery"
+    )
+    li_jing_result = next(
+        row for row in discovery["settled_materials"] if row["subject"] == "李靖"
+    )
+    assert li_jing_result["factor_option_codes"]["talent_quality_factor"] == "historic"
+    assert li_jing_result["factor_values"]["talent_quality_factor"] == "1.800000"
+    appointment = next(
+        row
+        for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "appointment_delegation"
+    )
+    law_rows = [
+        row
+        for row in appointment["settled_materials"]
+        + appointment["supporting_only_materials"]
+        if "贞观律令与刑罚体系修订" in row.get("fact", "")
+    ]
+    assert law_rows
+    assert all(
+        row["factor_option_codes"]["continuity_factor"] == "stable"
+        for row in law_rows
+    )
+
+
+def test_anti_nepotism_requires_public_power_effect(tmp_path: Path) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    material = next(
+        row for row in payload["materials"] if row["rule_code"] == "anti_nepotism"
+    )
+    material["public_power_effect"] = False
+    payload.pop("source_pack_sha256")
+    payload["source_pack_sha256"] = hashlib.sha256(
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    target = tmp_path / "source-pack.json"
+    target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="公共权力作用 Gate"):
+        build_i5b_current_value(target)
 
 
 def test_current_long_term_stability_is_derived_from_stage_coverage() -> None:
@@ -187,7 +293,7 @@ def test_profile_values_cannot_freeze_before_material_coverage(tmp_path: Path) -
         build_i5b_current_value(target)
 
 
-def test_profile_values_cannot_claim_complete_without_grade_registries(
+def test_profile_values_rebuild_missing_grade_registry_links(
     tmp_path: Path,
 ) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
@@ -206,8 +312,51 @@ def test_profile_values_cannot_claim_complete_without_grade_registries(
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
-    with pytest.raises(ValueError, match="仍存在 lineage 缺口"):
-        build_i5b_current_value(target)
+    report = build_i5b_current_value(target)
+    rebuilt = next(
+        row
+        for row in report["profile_projection_review"]
+        if row["person_ref"] == payload["members"][0]["person_ref"]
+    )
+    assert rebuilt["talent_grade_rule_alignment"]["rule_path"]
+    assert rebuilt["profile_evidence_refs"]["talent_grade"]
+
+
+def test_appointment_importance_comes_from_responsibility_not_result_scale(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    law = next(
+        row
+        for row in payload["outcome_registry"]["clusters"]
+        if row["canonical_label"] == "贞观律令与刑罚体系修订"
+    )
+    for member in law["members"]:
+        if member["actor_kind"] == "person" and member["role_code"] == "lead":
+            member["delegated_responsibility"]["scope"] = "major_affairs"
+    law["semantic_fingerprint"] = cluster_semantic_fingerprint(law)
+    payload.pop("source_pack_sha256")
+    payload["source_pack_sha256"] = hashlib.sha256(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    target = tmp_path / "source-pack.json"
+    target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    report = build_i5b_current_value(target)
+    appointment = next(
+        row for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "appointment_delegation"
+    )
+    rows = [
+        row
+        for bucket in ("settled_materials", "supporting_only_materials")
+        for row in appointment[bucket]
+        if "贞观律令与刑罚体系修订" in row.get("fact", "")
+    ]
+    assert rows
+    assert {row["factor_option_codes"]["appointment_importance"] for row in rows} == {"major_affairs"}
+    assert {row["factor_option_codes"]["appointment_effect"] for row in rows} == {"exceptional_success"}
 
 
 def test_governance_support_is_selected_by_current_result_quality() -> None:
@@ -257,6 +406,12 @@ def test_representative_ruler_policies_render_with_current_disposition() -> None
     assert "| 皇子出任地方实职 | 未计入 |" in li_rendered
     assert "建立州县义仓并用于饥馑赈给" in li_rendered
     assert "专业目标已实现，整体混合结果及跨领域代价另行结算" in li_rendered
+    assert "## 治理成果登记" in li_rendered
+    assert "## 战役登记" in li_rendered
+    assert "OUTCOME-3BE9F931EFCF2E191FE6" in li_rendered
+    assert "李靖奇袭定襄破东突厥" in li_rendered
+    assert "魏徵家族婚约 | 负向" not in li_rendered
+    assert "李靖临刑获救入幕、魏徵跨东宫转化" not in li_rendered
 
     liu = build_i5b_current_value(
         ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
@@ -288,12 +443,18 @@ def test_representative_military_materials_keep_three_channel_lineage() -> None:
         row for row in liu["material_budget"]["rules"]
         if row["rule_code"] == "appointment_delegation"
     )
-    appointment_ids = {
-        row["material_id"]
+    appointment_rows = [
+        row
         for key in ("settled_materials", "supporting_only_materials")
         for row in appointment[key]
-    }
-    assert "MAT-刘邦-AD-LB-ZHOUBO-WARTIME-COMMAND" in appointment_ids
+    ]
+    positive_effects = {"normal_success", "major_success", "exceptional_success"}
+    assert all(
+        row["material_id"].startswith("MAT-AUTO-AD-")
+        for row in appointment_rows
+        if row["factor_option_codes"]["appointment_effect"] in positive_effects
+    )
+    assert any("周勃平定楚汉后方与燕代叛乱" in row["fact"] for row in appointment_rows)
     zhou_bo = next(
         row for row in liu["profile_projection_review"] if row["person"] == "周勃"
     )

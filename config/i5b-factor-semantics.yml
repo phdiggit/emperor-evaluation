@@ -1,6 +1,5 @@
 schema_version: i5b-factor-semantics-v1
-status: fifth_item_b_factor_semantics_frozen
-frozen_on: '2026-07-14'
+status: current_active
 scope: fifth_item_b_all_rules
 
 common_contract:
@@ -38,8 +37,9 @@ rules:
           - critical_national_or_long_term
         decision_rules:
           - 只按授权当时的责任域判断，后续成果不得反向抬档
-          - critical_national_or_long_term 需要国家全局、战略地域、制度形成或长期职责直接锚点；跨域本身只足以支持 major_affairs
-          - major_affairs 需要重要军政或方面职责，但不满足国家全局或长期制度门槛
+          - critical_national_or_long_term 需要国家全局、国家安全、全国核心治理子系统、制度形成或长期职责直接锚点
+          - major_affairs 需要主要战区、中央部门、重要地方、财政法制或跨机构协调等方面职责，但不满足国家全局或长期制度门槛
+          - 军事、行政、法制、财政、地方治理、教育文化与专业技术按责任范围等价，不得用兵力、官名或叙事篇幅抬档
       appointment_effect:
         option_codes:
           - weak_feedback
@@ -53,6 +53,7 @@ rules:
         decision_rules:
           - major_success 需要异常显著且直接归属于人岗配置的反馈，不由战果规模自动推出
           - exceptional_success 需要直接改变国家战略格局或形成基础制度成果，且受任者贡献高度直接；单次重大胜利、多次复用或后世声望本身不够
+          - 决定全国战争结局、运行全国核心治理子系统和完成国家级危机处置按实际效果等价；政策颁布或战役规模本身均不够
           - bounded_control_failure 只证明授权或监督失误，未证明超出个案的公共损害
           - limited_direct_damage 需要明确、直接但范围有限的公共损害
           - 皇帝知情后的处置和恢复任用是独立观察，不进入损害档位名称
@@ -142,6 +143,7 @@ rules:
         decision_rules:
           - crossed 档同时需要 explicit_barrier_refs 与 ruler_crossing_action_refs
           - 外来身份、被召入或最终获任本身不是障碍证据
+          - 阵营、门第、地域、低位接近与专业识别障碍等价；军事降人不自动高于基层文书、策论、技术作品或地方履职识才
       conversion_to_use:
         option_codes:
           - no_conversion
@@ -364,7 +366,8 @@ rules:
           - not_applicable
           - insufficient_evidence
         decision_rules:
-          - 核心角色固定为 decision、administration、military、correction
+          - 核心角色固定为 strategic_decision、public_governance、specialist_execution、correction_feedback
+          - military 只映射为 specialist_execution 的一种；法制、财政、工程、外交、教育文化等专业执行同等映射
           - 先判断 critical_long_vacancy，再按 covered_core_role_count 取四、三、二、至多一类
       functional_complementarity:
         option_codes:
@@ -416,34 +419,25 @@ rules:
           - bounded_minor
           - material_exposure
           - core_role_concentration
-          - historic_or_systemic_exposure
+          - systemic_exposure
           - not_applicable
           - insufficient_evidence
         priority_rules:
           - 本因子只消费与 talent_grade 正交的 negative_talent_class、negative_talent_severity 和 negative_talent_version
           - 任何负面档都不得改写或降低同一人的 talent_grade
-          - historic_or_systemic_exposure 优先：任一成员 severity=historic，或至少两名有实质风险成员共同成为三类以上核心功能的唯一锚点
-          - core_role_concentration 表示一名 material/major 风险成员是至少两类核心功能的唯一锚点
-          - material_exposure 表示存在 material/major 风险，但未达核心功能集中门槛
-          - bounded_minor 表示只有 minor 风险且不构成核心功能唯一锚点
+          - systemic_exposure 优先：任一成员 severity=systemic，或至少两名 serious/major/systemic 风险成员共同成为三类以上核心功能的唯一锚点
+          - core_role_concentration 表示一名 serious/major/systemic 风险成员是至少两类核心功能的唯一锚点
+          - material_exposure 表示存在 material 以上风险，但未达核心功能集中门槛
+          - bounded_minor 表示只有 limited 风险且不构成核心功能唯一锚点
           - none_observed 需要完整覆盖且没有任何已接受负面画像；不得从未记载反推
     profile_snapshot_contract:
-      source_policy_version: v3-person-profile-readonly-adapter-v1
-      observed_source_versions: [talent-grade-v2, talent-grade-v4, talent-grade-v5]
-      mixed_versions_require_explicit_per_profile_version: true
-      accepted_source_states:
-        identity_status: active
-        review_status: accepted
-        readiness_status: profile_complete
-      talent_grade_mapping:
-        historic_talent: historic
-        top_talent: top
-        important_talent: important
-        usable_talent: usable
-        ordinary_talent: ordinary
-      negative_profile_mapping_version: negative-profile-team-v1
+      source: current_historical_outcome_and_window_risk_projection
+      talent_grade_policy: config/talent-grade-v11-domain-equivalent-historic.yml
+      political_risk_policy: config/political-risk.yml
+      rebuild_from_current_inputs: true
+      accepted_value_state: current_coverage_complete
       profile_ref_and_snapshot_version_content_unique: true
-      direct_v3_score_or_primary_key_reuse_forbidden: true
+      direct_external_score_or_primary_key_reuse_forbidden: true
     required_structural_observations:
       - historic_count
       - top_count
@@ -464,7 +458,7 @@ rules:
       talent_multi_top: {max_historic_count: 1, min_historic_or_top_count: 2}
       balanced_four: {covered_core_roles: 4, independent_role_matching_size: 4}
       strong_three: {independent_role_matching_size: 3}
-      core_role_coverage: {role_catalog: [decision, administration, military, correction], critical_long_vacancy_priority: true}
+      core_role_coverage: {role_catalog: [strategic_decision, public_governance, specialist_execution, correction_feedback], critical_long_vacancy_priority: true}
       durable_multi_stage: {min_stage_count: 2, min_roles_each_stage: 3, max_role_gap_years: 1, real_stage_boundary_required: true}
       managed_turnover: {durable_multi_stage_must_fail: true, min_transition_count: 1, max_transition_gap_years: 1, distinct_predecessor_successor_required: true}
       confidant_dependency: {single_point_min_sole_core_roles: 3, elevated_min_sole_core_roles: 2, distributed_min_independent_roles: 3}

@@ -118,6 +118,8 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 strongest-N 预算结算，团队保持正8、负3；它不会合并旧基线，也不会生成45分、档位或排名。
 
+当前链路不接受正向任用授权手填材料：人物画像由当前战役与治理成果登记重算，发现人才的人才质量因子随画像确定性更新；正向任用授权的重要性读取参与者在授权当时的结构化责任范围，效果与持续性再分别读取成果规模和运行观察。避免任人唯亲材料必须通过公共权力作用 Gate。皇帝计分详情末尾直接列出完整治理成果和战役登记；上游登记变化后，重跑同一命令即重建画像、团队正负池、功能互补、Episode、REU、材料预算和导出。
+
 `i5b-scoring-detail` 默认同样从当前 source pack 在内存中重建后导出，`--person` 只过滤展示对象，不读取可能过期的 canonical `result.json`；只有显式传入 `--result` 时才按指定结果快照导出。`--output` 可省略：皇帝详情默认写入 `tmp/i5b_scoring_detail/<皇帝>/scoring-detail.md`，臣子详情默认写入 `tmp/i5b_scoring_detail/<皇帝>/persons/<臣子>.md`；显式路径仍优先。
 
 任用材料投影按责任对象最多5路并行，单对象75秒、全阶段120秒硬截止且不自动重试。智能体只输出带短引用码的原子观察和 disposition，服务端映射回精确 revision 段落并确定性推导连续性；只有 `coverage_complete=true` 才替换既有 shadow 材料，不完整草案仅保留 gap，不得用残缺摘要覆盖现有事实。

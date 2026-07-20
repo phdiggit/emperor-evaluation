@@ -173,10 +173,10 @@ EXPECTED_STRUCTURED_GATES = {
         "strong_three": {"independent_role_matching_size": 3},
         "core_role_coverage": {
             "role_catalog": [
-                "decision",
-                "administration",
-                "military",
-                "correction",
+                "strategic_decision",
+                "public_governance",
+                "specialist_execution",
+                "correction_feedback",
             ],
             "critical_long_vacancy_priority": True,
         },
@@ -235,8 +235,8 @@ def _require_exact_subset(
 def evaluate_i5b_factor_semantics(contract: Mapping[str, Any]) -> dict[str, Any]:
     if contract.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("第五项 B 因子语义合同版本非法")
-    if contract.get("status") != "fifth_item_b_factor_semantics_frozen":
-        raise ValueError("第五项 B 因子语义尚未冻结")
+    if contract.get("status") != "current_active":
+        raise ValueError("第五项 B 当前因子语义未启用")
     common = contract.get("common_contract") or {}
     required_common = {
         "categorical_only": True,
@@ -341,31 +341,16 @@ def evaluate_i5b_factor_semantics(contract: Mapping[str, Any]) -> dict[str, Any]
         raise ValueError("anti_nepotism 公共权力档仍与程序控制重叠")
     team = rules["team_building"]
     expected_profile_contract = {
-        "source_policy_version": "v3-person-profile-readonly-adapter-v1",
-        "observed_source_versions": [
-            "talent-grade-v2",
-            "talent-grade-v4",
-            "talent-grade-v5",
-        ],
-        "mixed_versions_require_explicit_per_profile_version": True,
-        "accepted_source_states": {
-            "identity_status": "active",
-            "review_status": "accepted",
-            "readiness_status": "profile_complete",
-        },
-        "talent_grade_mapping": {
-            "historic_talent": "historic",
-            "top_talent": "top",
-            "important_talent": "important",
-            "usable_talent": "usable",
-            "ordinary_talent": "ordinary",
-        },
-        "negative_profile_mapping_version": "negative-profile-team-v1",
+        "source": "current_historical_outcome_and_window_risk_projection",
+        "talent_grade_policy": "config/talent-grade-v11-domain-equivalent-historic.yml",
+        "political_risk_policy": "config/political-risk.yml",
+        "rebuild_from_current_inputs": True,
+        "accepted_value_state": "current_coverage_complete",
         "profile_ref_and_snapshot_version_content_unique": True,
-        "direct_v3_score_or_primary_key_reuse_forbidden": True,
+        "direct_external_score_or_primary_key_reuse_forbidden": True,
     }
     if team.get("profile_snapshot_contract") != expected_profile_contract:
-        raise ValueError("team_building V3 人物画像只读适配合同未收口")
+        raise ValueError("team_building 当前人物画像投影合同未收口")
     if "capability_risk_dominated" in set(
         team["factors"]["talent_depth"]["option_codes"]
     ):
@@ -373,7 +358,7 @@ def evaluate_i5b_factor_semantics(contract: Mapping[str, Any]) -> dict[str, Any]
 
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
-        "status": "fifth_item_b_factor_semantics_frozen",
+        "status": "current_active",
         "contract_sha256": _stable_hash(contract),
         "summary": {
             "rule_count": len(report_rows),

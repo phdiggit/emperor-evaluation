@@ -21,6 +21,8 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
     render_i5b_material_budget_shadow_markdown,
 )
 from emperor_v4.evaluation.historical_outcome_cluster import (
+    CAMPAIGN_ROLES,
+    GOVERNANCE_ROLES,
     assess_person_talent_grade,
     build_outcome_episode,
     validate_historical_outcome_registry,
@@ -32,6 +34,23 @@ SCHEMA_VERSION = "i5b-current-value-report-v5"
 SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v5"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
 STABILITY_CONTINUITY = {"initial", "continuous", "managed_turnover", "gap"}
+APPOINTMENT_OUTCOME_ROLES = {
+    "campaign": {"commander_in_chief", "principal_commander", "deputy_commander"},
+    "governance": {"exclusive", "lead"},
+}
+TEAM_FUNCTION_ROLES = {
+    "strategic_decision": {"decision", "strategy", "coordination", "crisis_management"},
+    "public_governance": {
+        "administration", "civil_governance", "regional_governance", "institution_building",
+        "institution", "law", "judiciary", "finance", "personnel", "policy", "succession",
+    },
+    "specialist_execution": {
+        "military", "regional_military", "theater_command", "border_command", "feudal_command",
+        "long_term_command", "frontier", "cavalry", "mobile_warfare", "pacification", "pursuit",
+        "supply_disruption", "logistics", "historiography", "history",
+    },
+    "correction_feedback": {"feedback", "correction", "court_supervision", "information_gatekeeping"},
+}
 
 
 def _canonical(value: object) -> bytes:
@@ -97,6 +116,174 @@ def derive_long_term_stability(team: Mapping[str, Any]) -> str:
     if len(stages) >= 3:
         return "durable_multi_stage"
     return "stable_window"
+
+
+def _member_function_groups(member: Mapping[str, Any]) -> set[str]:
+    roles = {str(value) for value in member.get("role_families") or ()}
+    return {
+        function
+        for function, aliases in TEAM_FUNCTION_ROLES.items()
+        if roles & aliases
+    }
+
+
+def _independent_function_match_size(members: list[Mapping[str, Any]]) -> int:
+    matched_people: dict[str, str] = {}
+
+    def assign(function: str, seen: set[str]) -> bool:
+        for member in members:
+            person_ref = str(member["person_ref"])
+            if person_ref in seen or function not in _member_function_groups(member):
+                continue
+            seen.add(person_ref)
+            prior = matched_people.get(person_ref)
+            if prior is None or assign(prior, seen):
+                matched_people[person_ref] = function
+                return True
+        return False
+
+    return sum(assign(function, set()) for function in TEAM_FUNCTION_ROLES)
+
+
+def derive_functional_complementarity(members: list[Mapping[str, Any]]) -> str:
+    size = _independent_function_match_size(members)
+    return {4: "balanced_four", 3: "strong_three", 2: "ordinary_two"}.get(size, "homogeneous")
+
+
+def _current_fact_text(
+    material: Mapping[str, Any], facts: Mapping[str, Mapping[str, Any]]
+) -> str:
+    summaries = [
+        str(facts[str(ref)]["neutral_summary"]).strip()
+        for ref in material["fact_refs"]
+    ]
+    return "；".join(value for value in summaries if value)
+
+
+def _appointment_outcome_options(
+    cluster: Mapping[str, Any],
+    member: Mapping[str, Any],
+    policy: Mapping[str, Any],
+) -> dict[str, str]:
+    projection = policy["rules"]["appointment_delegation"]["outcome_registry_projection"]
+    scale = str(cluster["scale"]["level"])
+    responsibility = member.get("delegated_responsibility") or {}
+    importance = str(responsibility.get("scope") or "")
+    if not importance or not responsibility.get("basis") or not responsibility.get("authorization_refs"):
+        raise ValueError(
+            f"{cluster['outcome_ref']}:{member['actor_ref']} 缺少独立于成果规模的授权责任范围"
+        )
+    effect = str(projection["effect_by_result_scale"][scale])
+    payload = cluster.get("payload") or {}
+    continuity_projection = projection["continuity_by_delivery"]
+    continuity = str(
+        continuity_projection["durable_cross_stage"]
+        if payload.get("durable_cross_stage") is True
+        else continuity_projection["stable_delivery"]
+        if cluster.get("stable_delivery") is True
+        else continuity_projection["otherwise"]
+    )
+    return {
+        "appointment_importance": importance,
+        "appointment_effect": effect,
+        "continuity_factor": continuity,
+        "attribution_factor": "direct",
+        "source_factor": "standard",
+        "context_factor": "core_mechanism_direct",
+    }
+
+
+def _outcome_appointment_materials(
+    *,
+    clusters: list[Mapping[str, Any]],
+    profile_by_ref: Mapping[str, Mapping[str, Any]],
+    policy: Mapping[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, str]], list[RuleEvidenceUnitRecord]]:
+    materials: list[dict[str, Any]] = []
+    decisions: list[dict[str, str]] = []
+    units: list[RuleEvidenceUnitRecord] = []
+    for cluster in sorted(clusters, key=lambda row: str(row["outcome_ref"])):
+        if (
+            cluster["result_direction"] != "positive"
+            or cluster["result_status"] not in {"implemented", "operated", "completed", "mixed"}
+        ):
+            continue
+        kind = str(cluster["outcome_kind"])
+        for member in cluster["members"]:
+            person_ref = str(member["actor_ref"])
+            role = str(member["role_code"])
+            if (
+                member["actor_kind"] != "person"
+                or person_ref not in profile_by_ref
+                or role not in APPOINTMENT_OUTCOME_ROLES[kind]
+            ):
+                continue
+            person = str(profile_by_ref[person_ref]["person"])
+            options = _appointment_outcome_options(cluster, member, policy)
+            values = _policy_values(policy, "appointment_delegation", options)
+            identity = {
+                "outcome_ref": cluster["outcome_ref"],
+                "person_ref": person_ref,
+                "role": role,
+            }
+            suffix = _digest(identity, 16).upper()
+            material_id = f"MAT-AUTO-AD-{suffix}"
+            unit_ref = f"REU-AUTO-AD-{suffix}"
+            fact = (
+                f"{person}以{(CAMPAIGN_ROLES if kind == 'campaign' else GOVERNANCE_ROLES)[role]}"
+                f"身份承担“{cluster['canonical_label']}”；"
+                f"已实现结果：{cluster['observable_result']}"
+            )
+            materials.append(
+                {
+                    "material_id": material_id,
+                    "subject": person,
+                    "object_ref": person_ref,
+                    "side": "positive",
+                    "factor_values": values,
+                    "factor_option_codes": options,
+                    "fact": fact,
+                    "rule_evidence_unit_ref": unit_ref,
+                    "source_refs": list(cluster["source_refs"]),
+                }
+            )
+            decisions.append(
+                {
+                    "material_id": material_id,
+                    "independence_key": (
+                        f"appointment_delegation:{cluster['outcome_ref']}:{person_ref}"
+                    ),
+                    "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+                }
+            )
+            semantic = _digest({"identity": identity, "options": options})
+            units.append(
+                RuleEvidenceUnitRecord(
+                    unit_ref=unit_ref,
+                    rule_code="appointment_delegation",
+                    evaluation_context=person_ref,
+                    direction="positive",
+                    semantic_fingerprint=semantic,
+                    status="accepted_shadow",
+                    payload={
+                        "outcome_ref": cluster["outcome_ref"],
+                        "delegated_responsibility": dict(member["delegated_responsibility"]),
+                        "ruler_context_refs": list(
+                            cluster.get("ruler_context_refs") or ()
+                        ),
+                        "factor_option_codes": options,
+                        "derivation": "historical_outcome_registry",
+                    },
+                    members=(
+                        RuleEvidenceMember(
+                            member_ref=str(cluster["episode_refs"][0]),
+                            member_type="episode",
+                            member_role="core_evidence",
+                        ),
+                    ),
+                )
+            )
+    return materials, decisions, units
 
 
 def _neutral_episode_key(material: Mapping[str, Any]) -> str:
@@ -167,7 +354,7 @@ def _episode_and_reu(
                 )
     if not assertion_links:
         raise ValueError(f"{material['material_id']} 没有可接受 Assertion")
-    uncertainties = tuple([str(material["remaining_gap"])]) if material.get("remaining_gap") else ()
+    uncertainties: tuple[str, ...] = ()
     episode_semantic = _digest(
         {"neutral_episode": _neutral_episode_key(material), "ruler_context_refs": context_refs}
     )
@@ -214,7 +401,7 @@ def _episode_and_reu(
             "ruler_context_refs": ";".join(context_refs),
             "source_refs": ";".join(sorted(source_refs)),
         },
-        provenance={"ruler": ruler, "source_unit_code": str(material["source_unit_code"]), "mode": "current_shadow"},
+        provenance={"ruler": ruler, "mode": "current_shadow"},
     )
     unit_ref = "REU-" + reu_semantic[:20].upper()
     reu = RuleEvidenceUnitRecord(
@@ -228,6 +415,7 @@ def _episode_and_reu(
             "independence_key": material["independence_key"],
             "settlement_event_key": material.get("settlement_event_key", material["independence_key"]),
             "judge_reason": material["judge_reason"],
+            "remaining_gap": str(material.get("remaining_gap") or ""),
             "factor_option_codes": dict(material["factor_option_codes"]),
         },
         members=(RuleEvidenceMember(member_ref=episode_id, member_type="episode", member_role="core_evidence"),),
@@ -291,6 +479,90 @@ def build_i5b_current_value(
     outcome_by_ref = {
         str(row["outcome_ref"]): row for row in outcome_clusters
     }
+    current_members = copy.deepcopy(list(pack.get("members") or ()))
+    for member in current_members:
+        person_ref = str(member["person_ref"])
+        assessment = assess_person_talent_grade(
+            person_ref=person_ref,
+            clusters=outcome_clusters,
+        )
+        member["effective_talent_grade"] = assessment["grade"]
+        member["talent_grade_basis"] = assessment["basis"]
+        review = member["profile_review"]["talent_grade"]
+        review["grade"] = assessment["grade"]
+        review["basis"] = assessment["basis"]
+        alignment = review["rule_alignment"]
+        alignment["outcome_refs"] = assessment["outcome_refs"]
+        alignment["rule_path"] = assessment["rule_path"]
+        review["evidence_refs"] = sorted(
+            {
+                fact_ref
+                for outcome_ref in assessment["outcome_refs"]
+                for fact_ref in outcome_by_ref[outcome_ref]["fact_refs"]
+            }
+        )
+    profile_by_ref = {
+        str(row["person_ref"]): row for row in current_members
+    }
+    team_policy = policy["rules"]["team_building"]
+    team_budget = policy["settlement_budget"]["team_building"]
+    talent_values = team_policy["talent_quality_factor"]
+    risk_values = team_policy["negative_talent_severity_value"]
+    team = copy.deepcopy(pack["team"])
+    team["positive_members"] = [
+        str(row["person"])
+        for row in sorted(
+            current_members,
+            key=lambda row: (
+                -Decimal(str(talent_values[row["effective_talent_grade"]])),
+                str(row["person"]),
+            ),
+        )[: int(team_budget["positive_member_budget"])]
+    ]
+    team["negative_members"] = [
+        str(row["person"])
+        for row in sorted(
+            (
+                row
+                for row in current_members
+                if row.get("negative_talent_severity") is not None
+            ),
+            key=lambda row: (
+                -Decimal(str(risk_values[row["negative_talent_severity"]])),
+                str(row["person"]),
+            ),
+        )[: int(team_budget["negative_member_budget"])]
+    ]
+    selected_names = set(team["positive_members"])
+    selected_members = [row for row in current_members if row["person"] in selected_names]
+    team["functional_complementarity"] = derive_functional_complementarity(selected_members)
+    team["stability_required_functions"] = list(TEAM_FUNCTION_ROLES)
+    for stage in team["stability_stages"]:
+        stage_members = [
+            profile_by_ref[str(person_ref)]
+            for person_ref in stage["member_refs"]
+            if str(person_ref) in profile_by_ref
+        ]
+        stage["covered_function_groups"] = sorted(
+            {group for member in stage_members for group in _member_function_groups(member)}
+        )
+    team["long_term_stability"] = derive_long_term_stability(team)
+    current_profiles = {
+        person_ref: {
+            "review_status": "human_frozen",
+            "talent_grade": member["effective_talent_grade"],
+            "talent_grade_basis": member["talent_grade_basis"],
+            "profile_ref": member["profile_ref"],
+            "negative_risk_status": (
+                "established"
+                if member.get("negative_talent_severity") is not None
+                else "reviewed_no_finding"
+            ),
+            "negative_talent_class": member.get("negative_talent_class"),
+            "negative_talent_severity": member.get("negative_talent_severity"),
+        }
+        for person_ref, member in profile_by_ref.items()
+    }
     ruler_contexts = {
         str(row["material_ref"]): row
         for row in pack.get("ruler_context_materials") or ()
@@ -321,6 +593,10 @@ def build_i5b_current_value(
         direction = str(material["direction"])
         if rule not in RULES or direction not in {"positive", "negative"}:
             raise ValueError(f"材料规则或方向非法: {material['material_id']}")
+        if rule == "appointment_delegation" and direction == "positive":
+            raise ValueError("正向任用授权必须由当前成果登记确定性派生")
+        if rule == "anti_nepotism" and material.get("public_power_effect") is not True:
+            raise ValueError(f"{material['material_id']} 未通过公共权力作用 Gate")
         unknown_facts = sorted(set(str(ref) for ref in material["fact_refs"]) - set(facts))
         if unknown_facts:
             raise ValueError(f"{material['material_id']} 引用未知当前事实: {unknown_facts}")
@@ -349,14 +625,29 @@ def build_i5b_current_value(
             raise ValueError(f"重复结算事件: {settlement_identity}")
         settlement_keys.add(settlement_identity)
         options = dict(material["factor_option_codes"])
+        if rule == "talent_discovery":
+            profile = profile_by_ref.get(str(material["person_ref"]))
+            if profile is not None:
+                options["talent_quality_factor"] = str(
+                    profile["effective_talent_grade"]
+                )
         required = set(_required_factor_names(rule, direction))
         if set(options) != required:
             raise ValueError(f"{material['material_id']} 因子集合不闭合")
         values = _policy_values(policy, rule, options)
         declared_values = {name: str(value) for name, value in (material.get("factor_values") or {}).items()}
         mapped_values = {name: str(value) for name, value in values.items()}
-        if declared_values != mapped_values:
+        compared_names = (
+            set(mapped_values) - {"talent_quality_factor"}
+            if rule == "talent_discovery"
+            else set(mapped_values)
+        )
+        if any(declared_values.get(name) != mapped_values[name] for name in compared_names):
             raise ValueError(f"{material['material_id']} 数值不是政策确定性映射")
+        current_fact = _current_fact_text(material, facts)
+        material["fact_summary"] = current_fact
+        material["episode_action"] = current_fact
+        material["factor_option_codes"] = options
         episode, reu = _episode_and_reu(
             material=material,
             facts=facts,
@@ -365,7 +656,15 @@ def build_i5b_current_value(
         )
         existing_episode = episode_by_id.setdefault(episode.episode_id, episode)
         if existing_episode != episode:
-            raise ValueError(f"Episode 语义指纹冲突: {episode.episode_id}")
+            previous = asdict(existing_episode)
+            current = asdict(episode)
+            differing = sorted(
+                key for key in previous if previous[key] != current[key]
+            )
+            raise ValueError(
+                f"Episode 语义指纹冲突: {episode.episode_id}; fields={differing}; "
+                f"material={material['material_id']}"
+            )
         reus.append(reu)
         source_refs = sorted({
             f"{facts[str(ref)]['source_page']}@{facts[str(ref)]['revision_ref']}"
@@ -379,7 +678,7 @@ def build_i5b_current_value(
                 "side": direction,
                 "factor_values": values,
                 "factor_option_codes": options,
-                "fact": material["fact_summary"],
+                "fact": current_fact,
                 "rule_evidence_unit_ref": reu.unit_ref,
                 "source_refs": source_refs,
             }
@@ -391,6 +690,29 @@ def build_i5b_current_value(
                 "judge_reason": str(material["judge_reason"]),
             }
         )
+
+    generated_materials, generated_decisions, generated_units = (
+        _outcome_appointment_materials(
+            clusters=outcome_clusters,
+            profile_by_ref=profile_by_ref,
+            policy=policy,
+        )
+    )
+    for cluster in outcome_clusters:
+        cluster_context_refs = {
+            str(ref) for ref in cluster.get("ruler_context_refs") or ()
+        }
+        unknown_contexts = sorted(cluster_context_refs - set(ruler_contexts))
+        if unknown_contexts:
+            raise ValueError(
+                f"{cluster['outcome_ref']} 引用未知皇帝篇章材料: {unknown_contexts}"
+            )
+        linked_ruler_context_refs.update(cluster_context_refs)
+    direct_by_rule["appointment_delegation"].extend(generated_materials)
+    eligible_by_rule["appointment_delegation"]["positive"].extend(
+        generated_decisions
+    )
+    reus.extend(generated_units)
 
     manifest = {
         "schema_version": "i5b-material-budget-shadow-manifest-v1",
@@ -409,10 +731,6 @@ def build_i5b_current_value(
             "eligible": eligible_by_rule[rule],
             "excluded": [],
         }
-    team = pack["team"]
-    derived_stability = derive_long_term_stability(team)
-    if team.get("long_term_stability") != derived_stability:
-        raise ValueError("团队长期稳定档位不是阶段覆盖的确定性结果")
     governance_by_ref = {
         ref: row
         for ref, row in outcome_by_ref.items()
@@ -420,7 +738,7 @@ def build_i5b_current_value(
     }
     positive_member_refs = {
         str(row["person_ref"])
-        for row in pack.get("members") or ()
+        for row in current_members
         if str(row["person"]) in set(team["positive_members"])
     }
     team_governance_refs = sorted(
@@ -456,17 +774,11 @@ def build_i5b_current_value(
         }
         for ref, row in sorted(governance_by_ref.items())
     ]
-    declared_team_support_count = int(
-        dispositions["dynasty_governance"].get("team_support_count") or 0
+    dispositions["dynasty_governance"]["team_support_count"] = len(
+        team_governance_refs
     )
-    if declared_team_support_count != len(team_governance_refs):
-        raise ValueError(
-            "朝代文治团队支持数量与确定性选择不一致: "
-            f"declared={declared_team_support_count}, derived={len(team_governance_refs)}, "
-            f"outcome_refs={team_governance_refs}"
-        )
     profile_projection_review = []
-    for member in sorted(pack.get("members") or (), key=lambda row: str(row["person"])):
+    for member in sorted(current_members, key=lambda row: str(row["person"])):
         person_ref = str(member["person_ref"])
         biography_fact_refs = sorted(
             str(row["record_ref"])
@@ -644,7 +956,11 @@ def build_i5b_current_value(
         ),
         "governance_results": governance_results,
     }
-    budget = build_i5b_material_budget_shadow(source_pack_path, manifest_payload=manifest)
+    budget = build_i5b_material_budget_shadow(
+        source_pack_path,
+        manifest_payload=manifest,
+        current_profiles=current_profiles,
+    )
     team_semantic = _digest(
         {
             "ruler_ref": pack["ruler_ref"],
@@ -700,7 +1016,7 @@ def build_i5b_current_value(
     episodes = [*score_episodes, *outcome_episodes]
     profile_name_by_ref = {
         str(row["person_ref"]): str(row["person"])
-        for row in pack.get("members") or ()
+        for row in current_members
     }
     fact_owner = {
         str(row["person_ref"]): str(row["canonical_name"])
@@ -902,7 +1218,41 @@ def render_scoring_detail_markdown(
     if not isinstance(material_budget, Mapping):
         raise ValueError("当前 I5B 结果缺少 material_budget")
     if person is None:
-        return render_i5b_material_budget_shadow_markdown(material_budget)
+        lines = render_i5b_material_budget_shadow_markdown(material_budget).rstrip().splitlines()
+        role_catalogs = {
+            "campaign": CAMPAIGN_ROLES,
+            "governance": GOVERNANCE_ROLES,
+        }
+        section_labels = {
+            "governance": "治理成果登记",
+            "campaign": "战役登记",
+        }
+        for outcome_kind in ("governance", "campaign"):
+            lines.extend(
+                [
+                    "",
+                    f"## {section_labels[outcome_kind]}",
+                    "",
+                    "| 登记号 | 成果 | 责任对象 | 规模 | 状态 | 已实现结果 | 史源 |",
+                    "| --- | --- | --- | --- | --- | --- | --- |",
+                ]
+            )
+            for cluster in report["historical_outcome_clusters"]:
+                if cluster["outcome_kind"] != outcome_kind:
+                    continue
+                roles = role_catalogs[outcome_kind]
+                members = "、".join(
+                    f"{row['actor_name']}（{roles[row['role_code']]}）"
+                    for row in cluster["members"]
+                )
+                lines.append(
+                    f"| {cluster['outcome_ref']} | {cluster['canonical_label']} | "
+                    f"{members} | {cluster['scale']['level']} | "
+                    f"{cluster['result_direction']} / {cluster['result_status']} | "
+                    f"{cluster['observable_result']} | "
+                    f"{'、'.join(cluster['source_refs'])} |"
+                )
+        return "\n".join(lines) + "\n"
     profile = next(
         (row for row in report["profile_projection_review"] if row["person"] == person),
         None,

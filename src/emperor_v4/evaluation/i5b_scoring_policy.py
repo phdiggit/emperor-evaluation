@@ -224,16 +224,8 @@ def calculate_material_projection(
 def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
     if policy.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("第五项 B 计分政策版本非法")
-    if policy.get("status") != "v3_scoring_skeleton_with_v4_settlement_budget_shadow":
-        raise ValueError("第五项 B 计分骨架尚未冻结")
-
-    inheritance = policy.get("inheritance") or {}
-    _require_exact(inheritance.get("source_tag"), "v3-freeze-20260712", "V3 tag")
-    _require_exact(
-        inheritance.get("source_commit"),
-        "2d7f696643115d6f5f73df3c9ec44885349422f4",
-        "V3 commit",
-    )
+    if policy.get("status") != "current_report_only":
+        raise ValueError("第五项 B 当前计分政策未启用")
 
     runtime = policy.get("runtime_policy") or {}
     required_runtime = {
@@ -383,6 +375,29 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
         },
         "appointment effect",
     )
+    _require_exact(
+        appointment.get("outcome_registry_projection"),
+        {
+            "importance_source": "member.delegated_responsibility.scope",
+            "effect_by_result_scale": {
+                "local": "normal_success",
+                "important": "major_success",
+                "regional": "major_success",
+                "national": "exceptional_success",
+                "era_shaping": "exceptional_success",
+            },
+            "continuity_by_delivery": {
+                "durable_cross_stage": "long_term_multi_stage",
+                "stable_delivery": "stable",
+                "otherwise": "short_or_one_off",
+            },
+            "domain_equivalence": {
+                "campaign": "战区与国家级统军责任按授权范围定重要性，战果规模只定效果",
+                "governance": "地方、方面、全国核心治理责任按授权范围定重要性，政策结果规模只定效果",
+            },
+        },
+        "appointment outcome registry projection",
+    )
 
     team = rules["team_building"]
     _require_exact(
@@ -421,7 +436,7 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
         if rule.get("fail_closed_when_missing") != "insufficient_projection":
             raise ValueError(f"{rule_code} 缺少投影输入时必须失败关闭")
         if not tuple(rule.get("required_additional_inputs") or ()):
-            raise ValueError(f"{rule_code} 未声明 V3 公式所需额外结构输入")
+            raise ValueError(f"{rule_code} 未声明当前公式所需额外结构输入")
 
     item = policy.get("item_raw_signal") or {}
     _require_exact(tuple(item.get("rule_order") or ()), RULE_ORDER, "rule order")
@@ -429,7 +444,7 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
         rule: _decimal(value, f"rule_weights.{rule}")
         for rule, value in (item.get("rule_weights") or {}).items()
     }
-    _require_exact(weights, RULE_WEIGHTS, "V3 五 rule 权重")
+    _require_exact(weights, RULE_WEIGHTS, "五 rule 权重")
     _require_exact(sum(weights.values()), Decimal("1.00"), "rule 权重和")
     _require_exact(item.get("missing_rule_policy"), "explicit_zero_without_fake_cluster", "缺失 rule")
 
@@ -453,7 +468,7 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
 
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
-        "status": "v3_scoring_skeleton_with_v4_settlement_budget_shadow",
+        "status": "current_report_only",
         "policy_sha256": _stable_hash(policy),
         "summary": {
             "rule_count": 5,
@@ -463,8 +478,7 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
             "person_pool_projection_rule_count": 1,
             "material_numeric_projection_implemented": True,
             "weighted_raw_signal_implemented": True,
-            "dynamic_mapping_contract_frozen": True,
-            "dynamic_mapping_algorithm_inherited": False,
+            "dynamic_mapping_contract_defined": True,
             "formal_scoring_allowed": False,
             "ranking_allowed": False,
             "model_call_count": 0,
@@ -475,13 +489,6 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
             "event_rule_side_budget": 3,
             "team_positive_member_budget": 8,
             "team_negative_member_budget": 3,
-        },
-        "inheritance": {
-            "source_tag": inheritance["source_tag"],
-            "source_commit": inheritance["source_commit"],
-            "preserved_rule_weights": {
-                rule: float(weight) for rule, weight in RULE_WEIGHTS.items()
-            },
         },
     }
 

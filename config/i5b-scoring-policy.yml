@@ -1,14 +1,6 @@
 schema_version: i5b-scoring-policy-v1
-status: v3_scoring_skeleton_with_v4_settlement_budget_shadow
-frozen_on: '2026-07-16'
+status: current_report_only
 scope: fifth_item_b_raw_signal_and_batch_mapping_input
-
-inheritance:
-  source_tag: v3-freeze-20260712
-  source_commit: 2d7f696643115d6f5f73df3c9ec44885349422f4
-  source_rule_document: docs/分项规则/第五项统治者政治素质/B用人与授权.md
-  source_raw_calculator: scripts/build/i5b_item_result_calculator.py
-  inheritance_policy: preserve_v3_scoring_shape_replace_v4_semantic_and_data_contracts
 
 runtime_policy:
   mode: offline_report_only_shadow
@@ -120,7 +112,7 @@ rules:
       - source_projection
       - context_projection
     fail_closed_when_missing: insufficient_projection
-    aggregation_policy: v3_legacy_object_density-v1
+    aggregation_policy: event-object-density-current
 
   appointment_delegation:
     formula: appointment_importance * appointment_effect * continuity_factor * evidence_factor
@@ -143,7 +135,22 @@ rules:
       short_or_one_off: 0.85
       stable: 1.0
       long_term_multi_stage: 1.15
-    aggregation_policy: v3-native-density-decay-20260711
+    outcome_registry_projection:
+      importance_source: member.delegated_responsibility.scope
+      effect_by_result_scale:
+        local: normal_success
+        important: major_success
+        regional: major_success
+        national: exceptional_success
+        era_shaping: exceptional_success
+      continuity_by_delivery:
+        durable_cross_stage: long_term_multi_stage
+        stable_delivery: stable
+        otherwise: short_or_one_off
+      domain_equivalence:
+        campaign: 战区与国家级统军责任按授权范围定重要性，战果规模只定效果
+        governance: 地方、方面、全国核心治理责任按授权范围定重要性，政策结果规模只定效果
+    aggregation_policy: appointment-object-density-decay-current
 
   team_building:
     projection_mode: v4_person_profile_and_team_window
@@ -196,7 +203,7 @@ rules:
       single_acceptance_or_tolerance: 0.7
       repeated_feedback_retained: 1.0
       durable_multi_stage_feedback: 1.3
-      exceptional_dense_cross_domain_remonstrance: 1.7
+      exceptional_dense_sustained_feedback: 1.7
       institutionalized_feedback_entry: 2.0
     expression_safety:
       tense_or_case_dependent: 0.8
@@ -228,7 +235,7 @@ rules:
       - source_projection
       - context_projection
     fail_closed_when_missing: insufficient_projection
-    aggregation_policy: v3_legacy_object_density-v1
+    aggregation_policy: event-object-density-current
 
   anti_nepotism:
     projection_mode: v4_episode_and_aggregate_joint_projection
@@ -246,7 +253,7 @@ rules:
     office_weight:
       ordinary: 0.8
       important: 1.0
-      central_military_or_succession: 1.15
+      key_public_power_or_succession: 1.15
     favoritism_intensity:
       visible_private_relation: 0.7
       private_relation_over_merit: 1.1
@@ -266,10 +273,10 @@ rules:
       - source_projection
       - context_projection
     fail_closed_when_missing: insufficient_projection
-    aggregation_policy: v3_legacy_object_density-v1
+    aggregation_policy: event-object-density-current
 
 aggregation_policies:
-  v3_legacy_object_density-v1:
+  event-object-density-current:
     mode: strongest_plus_secondary_per_object
     same_object_secondary_factor: 0.35
     same_object_cap_multiplier: 1.5
@@ -279,7 +286,7 @@ aggregation_policies:
     top_k: false
     settled_units_only: true
     max_settled_units_per_side: 3
-  v3-native-density-decay-20260711:
+  appointment-object-density-decay-current:
     mode: hierarchical_rank_decay
     same_object_value_cap: 3.50658
     material_decay: 1.0

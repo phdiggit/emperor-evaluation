@@ -128,12 +128,12 @@ rules:
     factors:
       feedback_entry:
         label_zh: 反馈入口强度
-        description_zh: 衡量从单次采纳、重复反馈、跨阶段持续、高密度跨领域谏诤到正式反馈通道持续运行的层级。次数不线性累加，高档必须同时有时间、领域和独立事件覆盖。
+        description_zh: 衡量从单次采纳、重复反馈、跨阶段持续、高密度重大反馈到正式反馈通道持续运行的层级。次数不线性累加，高档必须有时间、强度和独立事件覆盖，不要求跨领域。
         options:
           single_acceptance_or_tolerance: {label_zh: 单次采纳或容忍, description_zh: 只证明一次建议被采纳，或一次表达未受压制。}
           repeated_feedback_retained: {label_zh: 多次反馈且仍被保留, description_zh: 同一臣子有两个以上独立反馈事件，皇帝未因此排斥其履职；尚不证明长期跨阶段。}
           durable_multi_stage_feedback: {label_zh: 跨阶段持续反馈, description_zh: 反馈和容纳跨越统治期的多个明显阶段，且有独立后续证明表达者持续履职。仅几次跨阶段采纳最高落在此档。}
-          exceptional_dense_cross_domain_remonstrance: {label_zh: 高密度跨领域长期犯颜, description_zh: 在长时段内存在大量可分辨谏诤，覆盖多个重大政务领域，包含逆耳或犯颜情形，且皇帝仍持续容纳、采用并保留其反馈职责。不得只凭一个模糊次数或史料篇幅推出。}
+          exceptional_dense_sustained_feedback: {label_zh: 高密度长期重大反馈, description_zh: 在长时段内存在大量可分辨的重大、专业或犯颜反馈，皇帝仍持续容纳并保留其反馈职责；可集中在一个关键专业领域，也可跨领域，不得只凭模糊次数或史料篇幅推出。}
           institutionalized_feedback_entry:
             label_zh: 制度化反馈入口
             description_zh: 皇帝预先建立正式反馈通道，且该通道跨多个独立事件持续运行；通常应面向多名表达者或正式职能主体。不能由某一臣子反复进谏、单次求言诏令或事后采纳推出。
@@ -200,7 +200,7 @@ rules:
         options:
           ordinary: {label_zh: 普通职位, description_zh: 一般公共职位或有限权力。}
           important: {label_zh: 重要职位, description_zh: 重要中枢、方面或专业权力。}
-          central_military_or_succession: {label_zh: 中枢军权或继承关键, description_zh: 涉及中枢核心、军权或继承秩序。}
+          key_public_power_or_succession: {label_zh: 关键公共权力或继承岗位, description_zh: 涉及国家中枢、关键地方、重大军政、全国核心专业系统或继承秩序。}
       favoritism_intensity:
         label_zh: 私人偏任强度
         description_zh: 衡量私人关系替代能力和程序的程度。

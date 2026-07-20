@@ -1248,7 +1248,7 @@ def build_i5b_material_budget_shadow(
         raise ValueError("材料预算 manifest schema_version 不匹配")
     policy_path = _resolve(str(manifest["policy"]))
     policy = _load_yaml(policy_path)
-    if policy.get("status") != "v3_scoring_skeleton_with_v4_settlement_budget_shadow":
+    if policy.get("status") != "current_report_only":
         raise ValueError("计分政策未启用材料结算预算")
     settlement_mode = str(manifest.get("settlement_mode") or "policy_budget")
     if settlement_mode not in {"policy_budget", "all_eligible_shadow"}:

@@ -73,6 +73,8 @@ evidence_factor = clamp(
 
 结算预算限制正式入分单元数量，不要求建立历史材料全集。军事、行政、地方、制度、储位等只作检索与覆盖标签，不设固定分值、代表名额或必填槽位。
 
+五个分项统一遵守领域等价原则：因子只评价识才难度、公共责任、实际运行、人才能力、反馈安全或公共权力损害，不评价材料是否以战役叙事呈现。相同责任范围、相同结果尺度和相同证据强度的军事、行政、法制、财政、地方治理、教育文化与专业技术事实必须进入同一档位；官名、兵力数字、史料篇幅和叙事戏剧性不得成为隐含加权项。
+
 | 分项 | 正向结算预算 | 负向结算预算 | 计数单位 |
 | --- | ---: | ---: | --- |
 | 发现人才 | 3 | 3 | 独立识才链 |
@@ -129,9 +131,9 @@ raw_material_score =
 | `passive_reputation` | 主要沿用既有名望，缺少独立验证或转化 | 0.60 |
 | `recommendation_entry` | 经荐举进入视野，并形成有限验证或试用 | 0.80 |
 | `attributable_interview_trial_or_appointment` | 皇帝直接观察、面试、试用或实质任用 | 1.00 |
-| `difficult_cross_boundary_discovery` | 突破身份、门第、地域或阵营障碍并完成实质转化 | 1.20 |
+| `difficult_cross_boundary_discovery` | 突破身份、门第、地域、阵营、低位接近或专业识别障碍并完成实质转化 | 1.20 |
 
-发现程度由识别新颖度、识别依据、障碍突破和转化使用四项观察联合判断，四项观察不分别重复相乘。
+发现程度由识别新颖度、识别依据、障碍突破和转化使用四项观察联合判断，四项观察不分别重复相乘。敌对阵营降人不因军事身份自动进入最高档；从基层文书、策论、技术作品、地方履职或非主流专业中识别人才，若存在同等可验证的接近与识别障碍，也适用最高档。
 
 ### 3. 人才等级 `talent_quality_factor`
 
@@ -184,10 +186,10 @@ raw_material_score =
 | --- | --- | ---: |
 | `nominal_or_light` | 名义性、礼仪性或轻量职责 | 0.60 |
 | `real_bounded` | 有实权但职责范围有限 | 1.00 |
-| `major_affairs` | 承担重要军政或方面事务 | 1.25 |
-| `critical_national_or_long_term` | 国家全局、战略地域、长期责任或制度形成关键职责 | 1.40 |
+| `major_affairs` | 承担重要方面职责；包括主要战区、中央部门、重要地方、财政法制或跨机构协调 | 1.25 |
+| `critical_national_or_long_term` | 承担国家全局、国家安全、全国核心治理子系统、长期制度形成或同等关键职责 | 1.40 |
 
-重要性只按授权当时的责任域判断，不得用后续成果反向抬档。
+重要性只按授权当时的责任域判断，不得用后续成果反向抬档。成果登记向本分项投影时，必须由参与者的结构化 `delegated_responsibility` 提供责任范围、依据和授权证据；成果规模只能决定 `appointment_effect`。国家级战果不能自动证明授权达到国家级，同样，全国性制度结果也不能替代授权证据。
 
 ### 2. 任用效果 `appointment_effect`
 
@@ -201,6 +203,8 @@ raw_material_score =
 | `limited_direct_damage` | 已形成明确、直接但范围有限的公共损害 | -0.80 |
 | `major_direct_damage` | 造成重大但相对一次性的直接损害 | -1.80 |
 | `structural_continuing_damage` | 造成跨期、制度性或组织能力持续损害 | -2.60 |
+
+效果档按已经实现且可归责的人岗配置反馈判断。决定全国战争结局、使全国核心治理子系统实际运行、完成国家级危机处置或产生同等公共结果，均可进入 `exceptional_success`；主要战区胜利、重要地方治理、跨机构中枢运行或重要制度持续兑现，均可进入 `major_success`。不得把单次战果天然置于长期治理兑现之上，也不得把政策目标或颁布动作当作已实现效果。
 
 ### 3. 持续性 `continuity_factor`
 
@@ -244,7 +248,7 @@ appointment_delegation.rule_raw_net = positive_signal - negative_signal
 
 ## 四、建立团队 `team_building`
 
-本分项以“皇帝—时间窗口”为唯一计分单元。人物能力与政治风险分别计算，不得因政治风险降低人才等级；成员所属决策、行政、军事、纠错等角色只用于判断团队互补性，不形成必填槽位。
+本分项以“皇帝—时间窗口”为唯一计分单元。人物能力与政治风险分别计算，不得因政治风险降低人才等级；成员功能统一归为战略决策、公共治理、专业执行、纠错反馈四类。军事只是专业执行的一种，法制、财政、工程、外交、教育文化等可按实际责任提供同等专业功能；四类只用于判断团队互补性，不形成职业配额或必填槽位。
 
 ```text
 positive_pool = sum(talent_value)
@@ -387,7 +391,7 @@ negative_raw_material_score =
 | `single_acceptance_or_tolerance` | 单次采纳或容忍不同意见 | 0.70 |
 | `repeated_feedback_retained` | 多次反馈后仍保留其职责和地位 | 1.00 |
 | `durable_multi_stage_feedback` | 跨阶段持续允许反馈 | 1.30 |
-| `exceptional_dense_cross_domain_remonstrance` | 长期、高密度、跨领域容纳犯颜直谏 | 1.70 |
+| `exceptional_dense_sustained_feedback` | 长期、高密度容纳重大或犯颜反馈；可以集中于一个关键专业领域，也可以跨领域 | 1.70 |
 | `institutionalized_feedback_entry` | 建立并持续运行制度化反馈入口 | 2.00 |
 
 同一人的进谏次数不线性累加。制度化反馈入口必须有正式通道和多个独立运行事件，不能由单次求言或一人长期进谏代替。
@@ -487,7 +491,7 @@ negative_raw_material_score =
 | --- | --- | ---: |
 | `ordinary` | 普通岗位 | 0.80 |
 | `important` | 重要岗位 | 1.00 |
-| `central_military_or_succession` | 中枢、军事或继承关键岗位 | 1.15 |
+| `key_public_power_or_succession` | 国家中枢、关键地方、重大军政、全国核心专业系统或继承关键岗位 | 1.15 |
 
 ### 4. 徇私强度 `favoritism_intensity`
 
