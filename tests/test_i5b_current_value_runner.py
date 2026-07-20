@@ -395,9 +395,11 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
     assert "屠浑都存在地名与人名断句争议" in rendered
     assert "## HistoricalEpisode" in rendered
     assert "英布 |" not in rendered
-    outcome_ids = report["outcome_episode_index_by_person"]["周勃"]
-    assert len(outcome_ids) == len(set(outcome_ids)) == 1
-    assert all(rendered.count(outcome_id) == 1 for outcome_id in outcome_ids)
+    episode_ids = report["episode_index_by_person"]["周勃"]
+    assert len(episode_ids) == len(set(episode_ids))
+    outcome_ids = [value for value in episode_ids if value.startswith("EP-OUTCOME-")]
+    assert len(outcome_ids) == 1
+    assert rendered.count(outcome_ids[0]) == 1
 
     output = tmp_path / "zhou-bo.md"
     assert eval_main([

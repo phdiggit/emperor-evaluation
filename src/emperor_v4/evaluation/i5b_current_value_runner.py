@@ -707,12 +707,6 @@ def build_i5b_current_value(
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
         "episodes": [asdict(value) for value in episodes],
-        "score_episode_index_by_person": {
-            name: sorted(ids) for name, ids in sorted(score_by_person.items())
-        },
-        "outcome_episode_index_by_person": {
-            name: sorted(ids) for name, ids in sorted(outcome_by_person.items())
-        },
         "episode_index_by_person": combined_by_person,
         "rule_evidence_units": [asdict(value) for value in (*reus, team_reu)],
         "excluded_units": pack["excluded_units"],
@@ -754,48 +748,6 @@ def build_i5b_current_value(
     report["database_dry_run"] = build_outcome_database_dry_run(report)
     report["report_sha256"] = _digest(report)
     return report
-
-
-def render_markdown(report: Mapping[str, Any]) -> str:
-    lines = [
-        f"# {report['ruler']} I5B 当前值影子结果",
-        "",
-        f"- 三路输入指纹：`{report['three_channel_input']['fingerprint']}`",
-        f"- Episode：`{report['declarations']['episode_count']}`；REU：`{report['declarations']['rule_evidence_unit_count']}`",
-        f"- 本纪补证链接：`{report['declarations']['linked_ruler_context_count']}`；文治结果支持：`{report['declarations']['selected_governance_result_count']}`",
-        f"- 加权净信号：`{report['net_signal']}`",
-        (
-            "- 人才等级与政治风险：材料覆盖已闭合，当前值已冻结。"
-            if report["declarations"]["profile_freeze_gate_passed"]
-            else "- 人才等级与政治风险：材料覆盖仍开放，当前值仅为暂定输入，未冻结。"
-        ),
-        "- 45 分、档位和排名：未生成。",
-        "",
-        "## 五条规则",
-        "",
-        "| 规则 | 正向 | 负向 | 净信号 |",
-        "| --- | ---: | ---: | ---: |",
-    ]
-    for rule in report["material_budget"]["rules"]:
-        lines.append(f"| {rule['rule_label']} | {rule['positive_signal']} | {rule['negative_signal']} | {rule['rule_raw_net']} |")
-    lines.extend(["", "## 各臣子 Episode", ""])
-    episode_by_id = {row["episode_id"]: row for row in report["episodes"]}
-    rules_by_episode: dict[str, set[str]] = {}
-    for reu in report["rule_evidence_units"]:
-        for member in reu["members"]:
-            if member["member_type"] == "episode":
-                rules_by_episode.setdefault(member["member_ref"], set()).add(
-                    reu["rule_code"]
-                )
-    for person, ids in report["score_episode_index_by_person"].items():
-        lines.append(f"### {person}")
-        lines.append("")
-        for episode_id in ids:
-            episode = episode_by_id[episode_id]
-            rule_labels = "、".join(sorted(rules_by_episode[episode_id]))
-            lines.append(f"- `{episode_id}`（{rule_labels}）：{episode['action']}")
-        lines.append("")
-    return "\n".join(lines)
 
 
 def _decimal_text(value: Decimal) -> str:

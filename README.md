@@ -11,10 +11,9 @@
 - 刘邦当前影子结果：32个 Episode、20个 REU、14条统一成果簇，本纪补证链接4条、治理结果支持3条；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `6.727011`。
 - 同一事件的正负 REU 共用中性 Episode；皇帝本纪只作明确 lineage 补证，文治结果由结果质量和团队人物交集确定性选择，同一皇帝决策按结算事件键只结算一次。
 - 李世民11名、刘邦10名团队成员已补齐完整本传、窗口政治风险、三路 lineage 和统一成果簇；人才等级全部由成果角色、结果规模与规则路径确定性重算，覆盖缺口为0，画像当前值可冻结。戴胄因主导并实际运行国家级义仓系统评为 `top`；该专业能力判断不抹去政策的整体混合结果，义仓事项因后续挪用与负担不进入皇帝团队正向结果池。
-- 每位皇帝只保留一个 `source-pack.json` 和一组 `result.json` / `result.md`；`result.md` 固定为五项规则的计分详情表，未计分材料显示因子取值，不再混入汇总性臣子 Episode 清单。旧 source pack、审计展开、同步状态和并行版本已删除。
+- 每位皇帝只保留一个 `source-pack.json` 和一组 canonical `result.json` / `result.md`；`result.md` 固定为五项规则的计分详情表，未计分材料显示因子取值。
 - 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
-- 人物政治风险首轮254人shadow结果因严重度失真和结论改变型归一被拒绝，当前全局Gate为 `failed_closed`。该轮未写人物画像表、不改人才等级，也不进入正式评分；通过唐俭、霍去病、萧瑀、朱樉校准回归前不启动全员重跑。
 - 人才 `historic` 当前采用 V11 分领域等价路径：军事和文官可凭多次国家级兑现达到，不再把跨时代制度或作品遗产设为通用门槛；军事常规门槛为两个独立国家级战役成果加一个独立区域级以上成果，极强的两个 `主帅` 或 `主将` 国家级决定性成果可单独通过。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
 - 战役与治理只进入一套 `historical-outcome-cluster-registry-v1` 中性合同，以 `outcome_kind` 区分。每个独立结果只保存一次，含可观察结果、规模依据、人物角色、确定性 Episode、事实与史源；分数、因子、人才档位和复用评分项不进入成果簇。人物画像、I5B及总则其他项目只做后置投影，不建立评分专属副本。
 
@@ -33,14 +32,14 @@
 → weighted raw net signal
 ```
 
-PostgreSQL保存V4业务状态，Git保存规则、配置、契约和当前不可变输入。人物画像当前只使用 `v4_person_profile.person_profiles`，规范身份只使用 `v4_person_profile.person_identity_registry`；旧快照、目录、校准和团队窗口表已归档后删除。JSON/Markdown只允许作为当前只读输出；被新结果取代后直接删除。
+PostgreSQL保存V4业务状态，Git保存规则、配置、契约和当前不可变输入。人物画像只使用 `v4_person_profile.person_profiles`，规范身份只使用 `v4_person_profile.person_identity_registry`。JSON/Markdown只允许作为当前只读输出；被新结果取代后直接删除。
 
 皇帝篇章、臣子列传和朝代文治材料先进入同一 `neutral-material-intake`：只按上游稳定中性事实 ID 自动去重，跨来源仅因措辞相似不得自动合并。战役与治理结果随后统一编译为 `HistoricalOutcomeCluster`，并由一个确定性 `HistoricalEpisode` 支撑。PostgreSQL目标表只保存当前 `historical_episodes`、`historical_outcome_clusters`、`rule_evidence_units` 及成员关系；相同输入重跑零业务写入，历史只查 Git。
 
 ## 运行产物纪律
 
 - Git只追踪当前规则、配置、每位皇帝唯一 source pack 和唯一结果。
-- prompts、events、server summary、checkpoint、审计展开和同步状态只能暂存于 `tmp/**`，成功收口后删除。
+- `tmp/**` 只允许保存当前运行所需的临时文件，成功收口后全部删除。
 - 同侧事件结算仍受政策正3/负3预算约束；团队为正8/负3。未用满预算不扣分。
 - source pack 中的因子只保存语义选项；数值必须由 `config/i5b-scoring-policy.yml` 确定性映射，篡改 source pack 或数值映射立即失败关闭。
 
@@ -89,7 +88,7 @@ python -m emperor_v4.infrastructure.google_ai_bridge --queue tmp/google_ai_bridg
 python -m emperor_v4.application.discovery_source_backfill --results-dir tmp/google_ai_bridge/results --output tmp/google_ai_backfill_worklist.json
 ```
 
-桥接只负责串行领取、超时、结果指纹、Google 页面来源和原子落盘。旧 discovery 模板默认使用
+桥接只负责串行领取、超时、结果指纹、Google 页面来源和原子落盘。结构化 discovery 合同使用
 `response_mode: structured_discovery` 保留现有严格字段校验；其他 Prompt/输出合同使用
 `response_mode: free_text` 原样持久化回答，再由对应模板的下游解析器校验业务字段。桥接层不得按
 `purpose_code` 写死新的评分项、人物画像或其他业务模板。
@@ -135,23 +134,19 @@ I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 
 
 共享模型输出使用 `config/shared-neutral-extraction-output.schema.json`。`shared_neutral_extraction` 会关闭缺页、缺 segment、引文不能逐字回指、actor 引用非本 segment 主体、无召回主体归责以及只靠 `mentioned_only` 强占事实归属的结果；通过后只生成 `shared-neutral-fact-fanout-v1` 影子候选。同一事实可分发给多个明确 actor，但 `affected_person`、`mentioned_only`、单纯授权者和 `context_only` 不具备人物实绩投影资格。通用 Prompt 排除未明示较大资源消耗、治理中断或严重政治影响的普通宴饮、大酺、游猎、巡幸和祭祀，并禁止输出评分项目或复用建议。该步骤不创建 HistoricalEpisode，不写人物画像、评分或排名。
 
-朝代制度史使用 `dynasty_neutral_governance` 对修订号绑定的纯文本作一次规则中立扫描，再由不同评分项后置投影。首轮汉唐样本覆盖《汉书》《旧唐书》《新唐书》23页、265627字，10个任务通过任务级原子验收，得到174条中性事实链和339条史文引文；这是当前书目样本的影子结果，不代表汉唐制度史完整覆盖。事实链分别保存行动、实施、可观察结果、成本负担、影响群体和人物贡献阶段；创设者、执行者、纠偏者与废止者不得因同处一链而混为共同责任。引文验收只忽略排版空白和 `[139]` 一类纯数字编辑脚注锚点，简繁、异体字和标点变化仍失败关闭。该扫描不输出评分方向、规则复用建议或 factor，也不写 HistoricalEpisode、人物画像和评分。
+朝代制度史使用 `dynasty_neutral_governance` 对修订号绑定的纯文本作一次规则中立扫描，再由不同评分项后置投影。事实链只保存行动、实施、可观察结果、成本负担、影响群体和人物贡献阶段；创设者、执行者、纠偏者与废止者不得因同处一链而混为共同责任。引文验收只忽略排版空白和纯数字编辑脚注锚点，简繁、异体字和标点变化仍失败关闭。该扫描不输出评分方向、规则复用建议或 factor，也不写 HistoricalEpisode、人物画像和评分。
 
-跨朝政书按 `source_genre + source_work + target_scope` 显式限定目标朝代，卷内前代制度只有在原文明示被目标朝代继承、修改、废除或实际运用时才可进入同一事实链。《通典》唐代试样扫描食货、选举和刑法6卷共65090字，2个任务得到35条事实链和63条引文；与上述174条基线逐条比较后，17条为新事实、16条为同一事项的实质补强、2条为纯复述，均通过一一覆盖和候选边界验收。这个结果只证明制度专书在当前样本中具有高增量价值，不外推为整书、整朝或其他书目的固定产出率。
+跨朝政书按 `source_genre + source_work + target_scope` 显式限定目标朝代，卷内前代制度只有在原文明示被目标朝代继承、修改、废除或实际运用时才可进入同一事实链。
 
-第二轮《通典》唐代扩展另扫20卷、182857字，6个并发任务得到73条事实链和159条逐字引文；以既有174条正史事实链和首轮35条《通典》事实链合成209条跨书基线后，增量比较得到55条新事实、17条实质补强和1条纯复述。模型比较只读取每条候选的有限召回窗，因此 `new_fact` 表示“当前召回与预算下未匹配”，不等于穷尽全部既有史料后的全局唯一。一次越界但冗余的基线引用被失败关闭，保留原始输出后确定性删除该引用并重新通过完整合同审计；分类与合法基线引用未改写。
+跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，只输出当前材料组件、去重后的逐字 evidence 和检索用人物/领域索引。复核前连通分量不能直接投影 Episode；进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向。
 
-跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，而是保留全部 `fact_variants`、去重后的逐字 evidence 和检索用人物/领域索引。首轮35条《通典》候选结算为31个材料组件、0条待复核；第二轮73条候选对209条基线结算为68个材料组件，其中5条 `mixed_chain` 因只与基线部分重合而进入拆分复核队列。复核前连通分量只用于保存跨书变体，不能直接投影 Episode。人物名称索引不承担别名归一或功劳归责，进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向；本层不得创建 HistoricalEpisode、推定人物功劳或写分数。
-
-`dynasty_neutral_material_atomization` 只消费上述复核队列和已经验真的引文编号，不联网、不补史实。唐代5条真实 `mixed_chain` 在98.804秒内拆为16个原子，得到11条新事实、4条补强和1条复述，全部原引文闭合；拆分结果仍停在 `pending_person_and_window_resolution`。
+`dynasty_neutral_material_atomization` 只消费复核队列和已经验真的引文编号，不联网、不补史实；拆分结果仍须完成人物与皇帝窗口解析。
 
 `governance_achievement_candidate` 再把结算组件、未被增量命中的朝代基线和上述原子确定性编译为一次性消费集合；同一组件只进入一个模型任务。已有人物先绑定现有 `person_ref`，简繁由 OpenCC 统一；其余人名生成朝代内 provisional actor ref，机构和复数官署不冒充人物。模型只能在允许组件、人物和字段内作 `register / omit / uncertain` 判断，不能生成史源、ID、规则方向、Episode、REU或分数；审计器再确定性生成 `governance-achievement-registry-v1`。判断 policy 进入 `task_code` 指纹，Prompt 变化不会复用旧结果。影响尺度看已实现结果而不是法令名义覆盖：单案、窄条款、资格线或一次程序调整不得仅因“颁行天下”升为国家级，`stable_delivery` 与 `important_method_or_legacy` 也必须有运行或延续证据。
 
 三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；`governance_fact_sets` 以稳定 `fact_ref` 和精确 `page@revision#quote` 史源回指接入制度史中性事实，缺少任一项即失败关闭。已接受的统一成果由 `outcome_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实、Episode 和成员责任全部解析后才具备写库条件；I5B消费成果簇和人物画像生成 REU，再由现有材料预算与公式结算。
 
-唐代真实批次已验证朝代制度材料可以形成中性治理成果。审计器把皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，朝代批次临时 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次异常 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除，不能选择“最接近”的事实凑引用。
-
-当前李世民 I5B shadow 中，戴胄的治理事实下限触发正池重选，张亮只形成边界并列。投影器只输出当前候选值和是否需要重选，不保留旧字段副本，不自动决定被替换者，也不写人物画像、registry、分数或排名。运行耗时、token、批次计数和中间审计只保留在 `tmp/**`，不再同步到 README 或项目配置。
+皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，临时人物 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除。
 
 推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 
