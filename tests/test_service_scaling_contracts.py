@@ -16,6 +16,22 @@ from emperor_v4.adapters.claim_extractor_codex import (
     _codex_subprocess_environment,
     parse_codex_claim_output,
 )
+from emperor_v4.adapters.structured_output_contract import (
+    build_canary_acceptance_report,
+    build_preflight_report,
+    validate_payload_against_schema,
+    validate_codex_output_schema,
+    validate_codex_task_plan,
+)
+from emperor_v4.adapters.dynasty_neutral_governance import (
+    audit_scan,
+    build_dynasty_neutral_governance_prompt,
+    prepare_scan,
+)
+from emperor_v4.adapters.dynasty_neutral_source_increment import (
+    audit_comparison,
+    prepare_comparison,
+)
 from emperor_v4.adapters.source_cache_wikisource import (
     WikisourceSourceMaterialProvider,
 )
@@ -416,6 +432,427 @@ def test_codex_provider_rejects_oversized_prompt_before_process_start() -> None:
             }
         )
 
+
+def test_structured_output_preflight_rejects_contract_drift_before_model_call(
+    tmp_path: Path,
+) -> None:
+    valid = {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["schema_version", "items"],
+        "properties": {
+            "schema_version": {"type": "string", "const": "fixture-v1"},
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["name", "note"],
+                    "properties": {
+                        "name": {"type": "string"},
+                        "note": {"type": ["string", "null"]},
+                    },
+                },
+            },
+        },
+    }
+    report = validate_codex_output_schema(valid)
+    assert report["contract_version"] == "codex-structured-output-contract-v1"
+    assert len(report["schema_sha256"]) == 64
+
+    missing_type = deepcopy(valid)
+    del missing_type["properties"]["schema_version"]["type"]
+    with pytest.raises(ValueError, match="缺少显式 type"):
+        validate_codex_output_schema(missing_type)
+
+    unsupported = deepcopy(valid)
+    unsupported["properties"]["items"]["uniqueItems"] = True
+    with pytest.raises(ValueError, match="uniqueItems"):
+        validate_codex_output_schema(unsupported)
+
+    optional_drift = deepcopy(valid)
+    optional_drift["properties"]["items"]["items"]["required"] = ["name"]
+    with pytest.raises(ValueError, match="可空字段也必须 required"):
+        validate_codex_output_schema(optional_drift)
+
+
+@pytest.mark.parametrize(
+    "schema_path",
+    sorted((ROOT / "config").glob("*output.schema.json")),
+    ids=lambda path: path.name,
+)
+def test_all_model_output_schemas_pass_zero_call_provider_preflight(
+    schema_path: Path,
+) -> None:
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    report = validate_codex_output_schema(
+        schema,
+        require_all_properties=(
+            schema_path.name
+            in {
+                "shared-neutral-extraction-output.schema.json",
+                "dynasty-neutral-governance-output.schema.json",
+                "dynasty-neutral-source-increment-output.schema.json",
+            }
+        ),
+    )
+    assert len(report["schema_sha256"]) == 64
+
+
+def test_structured_output_task_preflight_requires_effective_schema_and_isolation(
+    tmp_path: Path,
+) -> None:
+    schema_path = tmp_path / "output.schema.json"
+    schema_path.write_text(
+        json.dumps(
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["value"],
+                "properties": {"value": {"type": "string"}},
+            }
+        ),
+        encoding="utf-8",
+    )
+    prompt_path = tmp_path / "prompt.md"
+    prompt_path.write_text(
+        "\n".join(
+            (
+                "EXECUTION_MODE: STRUCTURED_OUTPUT_NO_TOOLS",
+                "TOOLS: FORBIDDEN",
+                "REPOSITORY_READ: FORBIDDEN",
+                "OUTPUT: JSON_ONLY",
+            )
+        ),
+        encoding="utf-8",
+    )
+    task = {
+        "task_code": "CANARY-1",
+        "prompt_path": str(prompt_path),
+        "argv": ["codex", "exec", "--output-schema", str(schema_path), "-"],
+    }
+    report = validate_codex_task_plan([task], output_schema_path=schema_path)
+    assert report["requires_respect_task_argv"] is True
+    assert report["execution_mode"] == "structured_output_no_tools"
+
+    ignored = task | {"output_schema_path": str(schema_path)}
+    with pytest.raises(ValueError, match="禁止静默字段 output_schema_path"):
+        validate_codex_task_plan([ignored], output_schema_path=schema_path)
+
+    wrong = deepcopy(task)
+    wrong["argv"][3] = str(tmp_path / "wrong.schema.json")
+    with pytest.raises(ValueError, match="与预检 schema 不一致"):
+        validate_codex_task_plan([wrong], output_schema_path=schema_path)
+
+    tasks_path = tmp_path / "tasks.jsonl"
+    tasks_path.write_text(json.dumps(task) + "\n", encoding="utf-8")
+    preflight = build_preflight_report(
+        schema_path=schema_path,
+        tasks_path=tasks_path,
+    )
+    assert preflight["status"] == "ready_for_single_canary"
+    assert preflight["model_calls"] == 0
+
+
+def test_canary_acceptance_closes_events_usage_and_payload(tmp_path: Path) -> None:
+    schema_path = tmp_path / "schema.json"
+    schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["value"],
+        "properties": {"value": {"type": "string", "minLength": 1}},
+    }
+    schema_path.write_text(json.dumps(schema), encoding="utf-8")
+    status_path = tmp_path / "status.json"
+    status_path.write_text(
+        json.dumps(
+            {
+                "status": "succeeded",
+                "tasks": [
+                    {
+                        "task_code": "CANARY-1",
+                        "status": "succeeded",
+                        "returncode": 0,
+                        "duration_sec": 3.5,
+                        "command_info": {"respect_task_argv": True},
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    events_path = tmp_path / "events.jsonl"
+    events_path.write_text(
+        "\n".join(
+            (
+                json.dumps(
+                    {
+                        "type": "item.completed",
+                        "item": {"type": "agent_message"},
+                    }
+                ),
+                json.dumps(
+                    {
+                        "type": "turn.completed",
+                        "usage": {"input_tokens": 100, "output_tokens": 20},
+                    }
+                ),
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    result_path = tmp_path / "result.json"
+    result_path.write_text(json.dumps({"value": "ok"}), encoding="utf-8")
+
+    validate_payload_against_schema({"value": "ok"}, schema)
+    report = build_canary_acceptance_report(
+        schema_path=schema_path,
+        status_path=status_path,
+        event_log_path=events_path,
+        result_path=result_path,
+        task_code="CANARY-1",
+        max_input_tokens=200,
+        max_output_tokens=50,
+    )
+    assert report["status"] == "ready_for_batch_fanout"
+    assert report["tool_event_count"] == 0
+
+    result_path.write_text(json.dumps({"value": "ok", "extra": 1}), encoding="utf-8")
+    with pytest.raises(ValueError, match="存在额外字段"):
+        build_canary_acceptance_report(
+            schema_path=schema_path,
+            status_path=status_path,
+            event_log_path=events_path,
+            result_path=result_path,
+            task_code="CANARY-1",
+            max_input_tokens=200,
+            max_output_tokens=50,
+        )
+
+    result_path.write_text(json.dumps({"value": "ok"}), encoding="utf-8")
+    events_path.write_text(
+        json.dumps(
+            {
+                "type": "item.completed",
+                "item": {"type": "command_execution"},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="工具或非输出事件"):
+        build_canary_acceptance_report(
+            schema_path=schema_path,
+            status_path=status_path,
+            event_log_path=events_path,
+            result_path=result_path,
+            task_code="CANARY-1",
+            max_input_tokens=200,
+            max_output_tokens=50,
+        )
+
+
+def test_dynasty_neutral_governance_prepare_and_audit_stay_rule_neutral(
+    tmp_path: Path,
+) -> None:
+    source_path = tmp_path / "han.txt"
+    source_text = "文帝除肉刑，[12]丞相张苍议定律令，\n诏从其议。"
+    source_path.write_text(source_text, encoding="utf-8")
+    schema_path = ROOT / "config" / "dynasty-neutral-governance-output.schema.json"
+    output_root = tmp_path / "scan"
+    preparation = prepare_scan(
+        {
+            "pages": [
+                {
+                    "dynasty": "han",
+                    "source_genre": "cross_dynastic_institutional_compendium",
+                    "source_work": "测试政书",
+                    "target_scope": "只抽取汉代实际发生的事实",
+                    "page_title": "汉书/卷023",
+                    "revision_ref": "23",
+                    "text_path": str(source_path),
+                }
+            ]
+        },
+        output_root=output_root,
+        output_schema_path=schema_path,
+    )
+    task = preparation["tasks"][0]
+    prompt = Path(output_root / "prompts" / f"{task['task_code']}.md").read_text(
+        encoding="utf-8"
+    )
+    assert "EXECUTION_MODE: STRUCTURED_OUTPUT_NO_TOOLS" in prompt
+    assert "规则复用建议" in prompt
+    assert "跨朝代政书中的前代制度" in prompt
+    assert "只抽取汉代实际发生的事实" in prompt
+    assert "reuse_candidates" not in prompt
+
+    payload = {
+        "schema_version": "dynasty-neutral-governance-output-v1",
+        "task_code": task["task_code"],
+        "dynasty": "han",
+        "source_chars": len(source_text),
+        "chains": [
+            {
+                "chain_key": "han-wendi-corporal-punishment",
+                "title": "文帝废除肉刑并议定替代律令",
+                "domain": "law_and_adjudication",
+                "period": "文帝时",
+                "action": "文帝下令废除肉刑。",
+                "implementation": "张苍议定律令，皇帝批准。",
+                "observable_result": "原文未载进一步运行结果。",
+                "cost_or_burden": "原文未载。",
+                "affected_groups": ["受刑者"],
+                "operation_status": "enacted",
+                "temporal_scope": "single_event",
+                "geographic_scope": "national",
+                "actors": [
+                    {
+                        "name": "文帝",
+                        "responsibility_role": "lead",
+                        "contribution_phases": ["initiated", "authorized"],
+                        "role_basis": "原文明示下令并批准。",
+                        "quote_refs": ["q1"],
+                    },
+                    {
+                        "name": "张苍",
+                        "responsibility_role": "participant",
+                        "contribution_phases": ["designed"],
+                        "role_basis": "原文明示参与议定律令。",
+                        "quote_refs": ["q1"],
+                    },
+                ],
+                "evidence": [
+                    {
+                        "quote_ref": "q1",
+                        "page_title": "汉书/卷023",
+                        "revision_ref": "23",
+                        "exact_quote": "文帝除肉刑，丞相张苍议定律令，诏从其议。",
+                    }
+                ],
+                "uncertainty": "替代刑罚具体内容未载。",
+            }
+        ],
+        "limitations": [],
+    }
+    (output_root / "results").mkdir(parents=True, exist_ok=True)
+    (output_root / "results" / f"{task['task_code']}.json").write_text(
+        json.dumps(payload, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    audit = audit_scan(
+        preparation,
+        results_dir=output_root / "results",
+        output_schema_path=schema_path,
+    )
+    assert audit["status"] == "accepted_shadow"
+    assert audit["chain_count"] == 1
+    assert audit["formal_writes"] == audit["score_writes"] == 0
+
+    payload["chains"].append(
+        {
+            **payload["chains"][0],
+            "chain_key": "han-wendi-invalid-quote",
+            "evidence": [
+                {
+                    **payload["chains"][0]["evidence"][0],
+                    "exact_quote": "原文中不存在的引文",
+                }
+            ],
+        }
+    )
+    (output_root / "results" / f"{task['task_code']}.json").write_text(
+        json.dumps(payload, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    failed_audit = audit_scan(
+        preparation,
+        results_dir=output_root / "results",
+        output_schema_path=schema_path,
+    )
+    assert failed_audit["status"] == "failed_closed"
+    assert failed_audit["accepted_task_count"] == 0
+    assert failed_audit["chain_count"] == failed_audit["quote_count"] == 0
+
+
+def test_dynasty_neutral_source_increment_closes_candidate_coverage(
+    tmp_path: Path,
+) -> None:
+    schema_path = ROOT / "config" / "dynasty-neutral-source-increment-output.schema.json"
+    baseline = {
+        "status": "accepted_shadow",
+        "failures": [],
+        "chains": [
+            {
+                "chain_key": "base-canal",
+                "title": "分段漕运",
+                "domain": "military_logistics",
+                "period": "开元",
+                "action": "设置仓储分段漕运",
+                "implementation": "设置河阴仓",
+                "observable_result": "原文未载",
+                "cost_or_burden": "原文未载",
+                "affected_groups": ["漕户"],
+                "operation_status": "implemented",
+                "temporal_scope": "long_term_pattern",
+                "geographic_scope": "multi_region",
+                "actors": [{"name": "裴耀卿"}],
+            }
+        ],
+    }
+    candidate = {
+        "status": "accepted_shadow",
+        "failures": [],
+        "chains": [
+            {
+                **baseline["chains"][0],
+                "chain_key": "candidate-canal",
+                "observable_result": "三年运七百万石",
+            }
+        ],
+    }
+    preparation = prepare_comparison(
+        baseline,
+        candidate,
+        output_root=tmp_path / "comparison",
+        output_schema_path=schema_path,
+    )
+    assert preparation["baseline_count"] == preparation["candidate_count"] == 1
+    prompt = (tmp_path / "comparison" / "prompt.md").read_text(encoding="utf-8")
+    assert "same_fact_enrichment" in prompt
+    payload = {
+        "schema_version": "dynasty-neutral-source-increment-output-v1",
+        "task_code": preparation["task_code"],
+        "baseline_count": 1,
+        "candidate_count": 1,
+        "comparisons": [
+            {
+                "candidate_chain_key": "candidate-canal",
+                "classification": "same_fact_enrichment",
+                "baseline_chain_keys": ["base-canal"],
+                "added_dimensions": ["observable_result"],
+                "rationale": "补充运量。",
+                "confidence": "high",
+            }
+        ],
+        "limitations": [],
+    }
+    audit = audit_comparison(
+        preparation,
+        payload,
+        output_schema_path=schema_path,
+    )
+    assert audit["status"] == "accepted_shadow"
+    assert audit["classification_counts"] == {"same_fact_enrichment": 1}
+    assert audit["formal_writes"] == audit["score_writes"] == 0
+
+    invalid = deepcopy(payload)
+    invalid["comparisons"][0]["added_dimensions"] = [
+        "independent_source_attestation"
+    ]
+    with pytest.raises(ValueError, match="缺少实质新增维度"):
+        audit_comparison(preparation, invalid, output_schema_path=schema_path)
 
 def test_codex_provider_keeps_windows_runtime_identity_without_business_secrets(
     monkeypatch: pytest.MonkeyPatch,

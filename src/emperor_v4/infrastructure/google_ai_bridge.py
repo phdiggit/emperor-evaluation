@@ -92,6 +92,9 @@ def normalize_task(task: Mapping[str, Any]) -> dict[str, Any]:
         raise GoogleAiBridgeError("Google AI purpose_code 必须是稳定英文代码")
     if len(normalized["query"]) > 4000:
         raise GoogleAiBridgeError("Google AI query 超过 4000 字符")
+    response_mode = str(task.get("response_mode") or "structured_discovery").strip()
+    if response_mode not in {"structured_discovery", "free_text"}:
+        raise GoogleAiBridgeError("Google AI response_mode 不受支持")
     requested_outputs = task.get("requested_outputs") or ()
     if (
         not isinstance(requested_outputs, (list, tuple))
@@ -137,6 +140,7 @@ def normalize_task(task: Mapping[str, Any]) -> dict[str, Any]:
     body = {
         "schema_version": TASK_SCHEMA_VERSION,
         **normalized,
+        "response_mode": response_mode,
         "subject_aliases": subject_aliases,
         "requested_outputs": [str(value) for value in requested_outputs],
         "max_attempts": max_attempts,
@@ -171,6 +175,13 @@ def validate_result(task: Mapping[str, Any], result: Mapping[str, Any]) -> dict[
     quality_requirements = task["quality_requirements"]
     if len(answer) < quality_requirements["min_answer_characters"]:
         raise GoogleAiBridgeError("Google AI answer_text 过短")
+    response_mode = task.get("response_mode", "structured_discovery")
+    if response_mode not in {"structured_discovery", "free_text"}:
+        raise GoogleAiBridgeError("Google AI response_mode 不受支持")
+    if task["query"] in answer or "您说：" in answer:
+        raise GoogleAiBridgeError("Google AI answer_text 混入查询 prompt 或模板")
+    if response_mode == "free_text":
+        return _validate_free_text_result(task, result, answer=answer)
     required_structure = (
         "\nsearched_categories:",
         "\nuncovered_categories:",
@@ -190,7 +201,7 @@ def validate_result(task: Mapping[str, Any], result: Mapping[str, Any]) -> dict[
         "LEAD <L1...>",
         "lead_type: <",
     )
-    if task["query"] in answer or any(marker in answer for marker in prompt_markers):
+    if any(marker in answer for marker in prompt_markers):
         raise GoogleAiBridgeError("Google AI answer_text 混入查询 prompt 或模板")
     expected_lead_types = {
         "person_rebuild_discovery": {"event", "achievement"},
@@ -399,6 +410,97 @@ def validate_result(task: Mapping[str, Any], result: Mapping[str, Any]) -> dict[
             "answer_characters": len(answer),
             "source_link_count": len(links),
             "ignored_off_focus_lead_count": ignored_off_focus_lead_count,
+        },
+        "provenance": {
+            "collector": "chrome_extension",
+            "usage": "discovery_lead_only",
+            "direct_assertion_write_allowed": False,
+            "source_passage_required_before_claim_extraction": True,
+            "downstream_context": dict(task["downstream_context"]),
+        },
+    }
+
+
+def _validate_free_text_result(
+    task: Mapping[str, Any], result: Mapping[str, Any], *, answer: str
+) -> dict[str, Any]:
+    """Validate transport provenance without interpreting a prompt-specific contract."""
+    quality = task["quality_requirements"]
+    matched_subject_mentions = [
+        value for value in quality["acceptable_subject_mentions"] if value in answer
+    ]
+    if quality["require_subject_mention"] and not matched_subject_mentions:
+        raise GoogleAiBridgeError("Google AI answer_text 未命中任务主体")
+    blocked_markers = (
+        "检测到异常流量",
+        "稍后重试",
+        "无法生成回答",
+        "rate limit",
+        "unusual traffic",
+        "captcha",
+    )
+    if any(marker.casefold() in answer.casefold() for marker in blocked_markers):
+        raise GoogleAiBridgeError("Google AI 页面显示限流或生成失败")
+    page_url = str(result.get("page_url") or "").strip()
+    parsed = urlparse(page_url)
+    if parsed.scheme != "https" or parsed.netloc not in {"google.com", "www.google.com"}:
+        raise GoogleAiBridgeError("Google AI page_url 非预期 Google 页面")
+    raw_links = result.get("source_links") or ()
+    if not isinstance(raw_links, (list, tuple)):
+        raise GoogleAiBridgeError("Google AI source_links 必须是 array")
+    links: list[dict[str, str]] = []
+    seen_urls: set[str] = set()
+    for row in raw_links:
+        if not isinstance(row, Mapping):
+            continue
+        url = str(row.get("url") or "").strip()
+        title = str(row.get("title") or "").strip()
+        hostname = (urlparse(url).hostname or "").casefold()
+        is_google = bool(re.search(r"(^|\.)google\.[a-z.]+$", hostname)) or hostname.endswith(
+            ".googleusercontent.com"
+        )
+        if (
+            url.startswith(("http://", "https://"))
+            and not is_google
+            and bool(urlparse(url).path.rstrip("/"))
+            and url not in seen_urls
+        ):
+            seen_urls.add(url)
+            links.append({"title": title, "url": url})
+    if len(links) < quality["min_source_links"]:
+        raise GoogleAiBridgeError("Google AI source_links 少于任务质量要求")
+    attempt_started_at = str(result.get("attempt_started_at") or "").strip()
+    answer_ready_at = str(result.get("answer_ready_at") or "").strip()
+    discovery_duration_seconds = float(result.get("discovery_duration_seconds") or 0)
+    if not attempt_started_at or not answer_ready_at or not 0 < discovery_duration_seconds <= 300:
+        raise GoogleAiBridgeError("Google AI result 检索计时非法")
+    return {
+        "schema_version": RESULT_SCHEMA_VERSION,
+        "task_code": task["task_code"],
+        "input_version": task["input_version"],
+        "input_fingerprint": task["input_fingerprint"],
+        "purpose_code": task["purpose_code"],
+        "subject_ref": task["subject_ref"],
+        "subject_name": task["subject_name"],
+        "query": task["query"],
+        "requested_outputs": list(task["requested_outputs"]),
+        "answer_text": answer,
+        "source_links": links,
+        "page_title": str(result.get("page_title") or "").strip(),
+        "page_url": page_url,
+        "captured_at": str(result.get("captured_at") or _timestamp(_now())),
+        "timing": {
+            "attempt_started_at": attempt_started_at,
+            "answer_ready_at": answer_ready_at,
+            "discovery_duration_seconds": round(discovery_duration_seconds, 3),
+        },
+        "quality": {
+            "status": "passed",
+            "subject_mentioned": bool(matched_subject_mentions),
+            "matched_subject_mentions": matched_subject_mentions,
+            "answer_characters": len(answer),
+            "source_link_count": len(links),
+            "ignored_off_focus_lead_count": 0,
         },
         "provenance": {
             "collector": "chrome_extension",

@@ -1,0 +1,127 @@
+schema_version: talent-grade-v11-domain-equivalent-historic-policy-v1
+policy_version: talent-grade-v11-domain-equivalent-historic-v1
+status: current_shadow_policy
+supersedes_for_new_shadow_judgments:
+  - talent-grade-v9-high-tier-calibration-v1
+  - talent-grade-v10-targeted-correction-v1
+
+principles:
+  historic_requires_era_or_civilization_shaping_height: true
+  domain_paths_operationalize_historic_height: true
+  separate_unstructured_height_gate: false
+  cross_stage_legacy_is_not_a_common_requirement: true
+  authority_evaluation_calibrates_confidence_not_grade_ceiling: true
+  political_risk_is_orthogonal_to_talent_grade: true
+  clear_professional_success_survives_cross_domain_costs: true
+  independent_responsibility_chains_required: true
+  regional_and_national_are_consequence_scales_not_title_scales: true
+  same_campaign_or_governance_chain_counts_once: true
+  domain_paths_are_equivalent_not_additive_bonuses: true
+
+responsibility_roles:
+  military:
+    commander_in_chief: 主帅
+    principal_commander: 主将
+    deputy_commander: 副将
+    participant: 从攻
+  civil_governance:
+    exclusive: 独占
+    lead: 主导
+    participant: 参与
+  display_rule: 只显示角色短标签，责任边界与重复结算由结构字段表达
+
+common_scale:
+  local:
+    definition: 单一地点、单位或短期局部事项，未改变主要区域或国家子系统
+  important:
+    definition: 对重要对象或职责形成清楚结果，但尚未决定主要区域、战区或国家子系统
+  regional:
+    definition: 决定一个主要区域、战区或跨地区治理单元的控制、安全或运行结果
+  national:
+    definition: 决定国家存亡、统一、灭国、整场战争结局，或重构并实际运行一个全国性核心治理子系统
+  era_shaping:
+    definition: 在国家级结果之上直接重塑一个时代的政治军事秩序、国家结构或文明范式
+
+historic_paths:
+  military:
+    normal_repeated_delivery:
+      minimum_independent_national_campaigns: 2
+      minimum_independent_regional_or_higher_campaigns: 3
+      counted_command_roles: [commander_in_chief, principal_commander]
+    exceptional_two_campaign_path:
+      independent_national_campaigns: 2
+      every_campaign_command_roles: [commander_in_chief, principal_commander]
+      every_campaign_requires_one_of:
+        - state_survival_decisive
+        - unification_decisive
+        - state_conquest_decisive
+        - whole_war_outcome_decisive
+    exclusions:
+      - opponent_is_a_formal_state_alone_does_not_make_national
+      - repeated_battles_inside_one_campaign_count_once
+      - residual_or_collapsing_polity_requires_actual_strategic_consequence
+      - comparable_catastrophic_command_failures_require_net_consistency_review
+      - posthumous_fame_or_military_title_does_not_replace_results
+    result_separation:
+      clear_battle_or_campaign_success_may_remain_counted_when: cross_domain_cost_or_coordination_harm_is_recorded_separately
+      professional_objective_failure_still_limits_grade: true
+    cross_stage_legacy_required: false
+
+  civil_governance:
+    normal_repeated_delivery:
+      minimum_independent_national_results: 2
+      minimum_independent_regional_or_higher_results: 3
+      responsibility_requirement:
+        one_exclusive_or_two_lead_national_results: true
+      counted_responsibility_roles: [exclusive, lead]
+    foundational_system_path:
+      minimum_foundational_national_systems: 1
+      foundational_system_requires_durable_cross_stage_operation: true
+      plus_one_of:
+        - one_additional_independent_national_result
+        - two_additional_independent_regional_results
+    exclusions:
+      - office_tenure_or_membership_is_not_a_result
+      - proposals_without_implementation_do_not_count
+      - general_prosperity_cannot_be_wholly_attributed_to_one_official
+      - multiple_modules_of_one_reform_count_as_one_chain_unless_independently_operated
+    cross_stage_legacy_required_for_normal_repeated_delivery: false
+
+  culture_and_scholarship:
+    civilization_foundational_single_work_path:
+      minimum_completed_works: 1
+      requires_personally_authored_or_finalized: true
+      requires_civilization_foundational_use: true
+      requires_durable_cross_stage_use: true
+      collective_name_only_is_insufficient: true
+    repeated_field_shaping_path:
+      minimum_independent_national_or_field_first_tier_results: 3
+
+  all_round:
+    multiple_top_domains_path:
+      minimum_independent_top_level_domains: 2
+      each_domain_must_independently_meet_top: true
+      small_cross_domain_results_cannot_be_stacked: true
+
+top_fallback:
+  requires_national_or_field_first_tier_achievement: true
+  requires_one_of:
+    - stable_delivery
+    - second_major_achievement
+    - important_method_or_legacy
+
+registry_contracts:
+  military_campaign_registry_schema: config/campaign-registry.schema.json
+  campaign_is_neutral_fact_overlay_not_scoring_episode_copy: true
+  reusable_targets:
+    - talent_grade_military
+    - item1_c1_campaign_contribution
+    - item1_c2_frontline_command
+    - item3_military_security
+  item_specific_eligibility_remains_in_projector: true
+
+release:
+  preserve_prior_versions: true
+  overwrite_prior_calibration: false
+  formal_scoring_allowed: false
+  ranking_allowed: false

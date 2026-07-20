@@ -504,6 +504,7 @@ def build_google_ai_discovery_task(
     requested_outputs: Sequence[str],
     downstream_context: Mapping[str, Any],
     response_timeout_seconds: int = 30,
+    response_mode: str = "structured_discovery",
 ) -> dict[str, Any]:
     return {
         "task_code": _required_text(task_code, "task_code"),
@@ -515,6 +516,7 @@ def build_google_ai_discovery_task(
         "subject_name": _required_text(subject_name, "subject_name"),
         "subject_aliases": [str(value).strip() for value in subject_aliases if str(value).strip()],
         "query": rendered.text,
+        "response_mode": _required_text(response_mode, "response_mode"),
         "requested_outputs": [str(value) for value in requested_outputs],
         "downstream_context": dict(downstream_context)
         | {

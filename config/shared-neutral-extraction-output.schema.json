@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_ref",
+    "page_title",
+    "revision_ref",
+    "segment_count",
+    "segment_reviews",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "shared-neutral-extraction-output-v1"
+    },
+    "batch_ref": {"type": "string", "minLength": 1},
+    "page_title": {"type": "string", "minLength": 1},
+    "revision_ref": {"type": "string", "minLength": 1},
+    "segment_count": {"type": "integer", "minimum": 1},
+    "segment_reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["segment_ref", "decision", "facts", "reason"],
+        "properties": {
+          "segment_ref": {"type": "string", "minLength": 1},
+          "decision": {"type": "string", "enum": ["accept", "mixed", "reject"]},
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "fact_id",
+                "exact_quote",
+                "fact_kind",
+                "action_summary",
+                "actors",
+                "implementation_status",
+                "result",
+                "legacy_status",
+                "legacy_basis",
+                "projection_eligibility",
+                "uncertainty"
+              ],
+              "properties": {
+                "fact_id": {"type": "string", "minLength": 1},
+                "exact_quote": {"type": "string", "minLength": 1},
+                "fact_kind": {
+                  "type": "string",
+                  "enum": [
+                    "political_action",
+                    "institutional_action",
+                    "legal_change",
+                    "appointment",
+                    "delegation",
+                    "admonition",
+                    "compilation",
+                    "promulgation",
+                    "implementation",
+                    "adjudication",
+                    "continuity",
+                    "repeal",
+                    "procedural_case",
+                    "statement_with_action",
+                    "other_material_fact"
+                  ]
+                },
+                "action_summary": {"type": "string", "minLength": 1},
+                "actors": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "source_name",
+                      "canonical_name",
+                      "subject_ref",
+                      "role",
+                      "responsibility_strength",
+                      "attribution_basis"
+                    ],
+                    "properties": {
+                      "source_name": {"type": "string", "minLength": 1},
+                      "canonical_name": {"type": "string", "minLength": 1},
+                      "subject_ref": {"type": ["string", "null"]},
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "initiator",
+                          "proposer",
+                          "designer",
+                          "compiler",
+                          "supervisor",
+                          "executor",
+                          "advisor",
+                          "adjudicator",
+                          "authorizer",
+                          "recipient",
+                          "affected_person",
+                          "mentioned_only"
+                        ]
+                      },
+                      "responsibility_strength": {
+                        "type": "string",
+                        "enum": ["primary", "core_joint", "important_support", "limited", "context_only"]
+                      },
+                      "attribution_basis": {"type": "string", "minLength": 1}
+                    }
+                  }
+                },
+                "implementation_status": {
+                  "type": "string",
+                  "enum": ["proposed", "adopted", "implemented", "nationally_promulgated", "completed_work", "repealed", "not_shown"]
+                },
+                "result": {"type": "string"},
+                "legacy_status": {
+                  "type": "string",
+                  "enum": ["within_reign_continuity", "cross_reign_continuity", "cross_dynastic_reuse", "enduring_canonical_work", "not_shown"]
+                },
+                "legacy_basis": {"type": "string"},
+                "projection_eligibility": {
+                  "type": "string",
+                  "enum": ["direct_neutral_fact", "context_only", "evaluation_only"]
+                },
+                "uncertainty": {"type": "string"}
+              }
+            }
+          },
+          "reason": {"type": "string"}
+        }
+      }
+    },
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

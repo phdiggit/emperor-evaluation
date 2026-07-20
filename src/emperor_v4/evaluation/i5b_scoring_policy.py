@@ -344,6 +344,22 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
         "appointment projection",
     )
     _require_exact(
+        ((policy.get("rule_boundaries") or {}).get("appointment_delegation") or {}).get(
+            "evaluation_window"
+        ),
+        {
+            "starts_when": "ruler_obtains_independent_appointment_or_command_authority",
+            "pre_accession_ruler_authorized_completed_chain_allowed": True,
+            "pre_accession_continuation_into_reign_required": False,
+            "predecessor_or_other_actor_appointment_without_ruler_agency_allowed": False,
+            "cross_accession_same_chain_must_merge": True,
+            "cross_item_outcome_used_only_as_effect_evidence": True,
+            "subsequent_reward_punishment_or_explicit_assessment_is_chain_corroboration_only": True,
+            "concurrent_conflicting_ruler_mandates_must_use_net_chain_result": True,
+        },
+        "appointment evaluation window",
+    )
+    _require_exact(
         appointment.get("appointment_importance"),
         {
             "nominal_or_light": 0.6,

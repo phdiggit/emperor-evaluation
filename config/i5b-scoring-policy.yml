@@ -45,6 +45,18 @@ material_layer:
   every_accepted_material_must_contribute: false
   supporting_only_material_allowed: true
 
+rule_boundaries:
+  appointment_delegation:
+    evaluation_window:
+      starts_when: ruler_obtains_independent_appointment_or_command_authority
+      pre_accession_ruler_authorized_completed_chain_allowed: true
+      pre_accession_continuation_into_reign_required: false
+      predecessor_or_other_actor_appointment_without_ruler_agency_allowed: false
+      cross_accession_same_chain_must_merge: true
+      cross_item_outcome_used_only_as_effect_evidence: true
+      subsequent_reward_punishment_or_explicit_assessment_is_chain_corroboration_only: true
+      concurrent_conflicting_ruler_mandates_must_use_net_chain_result: true
+
 settlement_budget:
   selection_mode: eligibility_gate_then_strongest_n
   numeric_top_k_selection_allowed_after_gate: true

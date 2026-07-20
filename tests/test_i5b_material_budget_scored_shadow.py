@@ -173,6 +173,24 @@ def test_policy_requires_gate_then_strongest_n_without_empty_slot_penalty() -> N
     assert policy["rules"]["appointment_delegation"]["appointment_effect"][
         "exceptional_success"
     ] == 1.8
+    appointment_window = policy["rule_boundaries"]["appointment_delegation"][
+        "evaluation_window"
+    ]
+    assert appointment_window[
+        "pre_accession_ruler_authorized_completed_chain_allowed"
+    ] is True
+    assert appointment_window["pre_accession_continuation_into_reign_required"] is False
+    assert appointment_window[
+        "predecessor_or_other_actor_appointment_without_ruler_agency_allowed"
+    ] is False
+    assert appointment_window["cross_accession_same_chain_must_merge"] is True
+    assert appointment_window["cross_item_outcome_used_only_as_effect_evidence"] is True
+    assert appointment_window[
+        "subsequent_reward_punishment_or_explicit_assessment_is_chain_corroboration_only"
+    ] is True
+    assert appointment_window[
+        "concurrent_conflicting_ruler_mandates_must_use_net_chain_result"
+    ] is True
 
 
 def test_current_person_profile_reader_contract_maps_the_one_table_shape() -> None:

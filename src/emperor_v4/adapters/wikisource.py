@@ -120,6 +120,99 @@ def fetch_wikisource_plaintext(
     return snapshot
 
 
+def fetch_wikisource_plaintext_batch(
+    *,
+    page_titles: Sequence[str],
+    api_endpoint: str = DEFAULT_API_ENDPOINT,
+    timeout_seconds: float = 60.0,
+) -> dict[str, WikisourcePageSnapshot]:
+    titles = tuple(
+        dict.fromkeys(str(title).strip() for title in page_titles if str(title).strip())
+    )
+    if not titles or len(titles) > 20:
+        raise ValueError("Wikisource plaintext batch 必须包含 1 至 20 个唯一标题")
+    params = {
+        "action": "query",
+        "format": "json",
+        "formatversion": "2",
+        "prop": "extracts|revisions",
+        "explaintext": "1",
+        "redirects": "1",
+        "rvprop": "ids|timestamp",
+        "titles": "|".join(titles),
+    }
+    request = Request(
+        api_endpoint,
+        data=urlencode(params).encode("utf-8"),
+        headers={
+            "User-Agent": DEFAULT_USER_AGENT,
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        },
+    )
+    retrieved_at = datetime.now(UTC).isoformat()
+    with urlopen(request, timeout=timeout_seconds) as response:
+        payload = json.load(response)
+    return snapshots_from_plaintext_batch_payload(
+        requested_titles=titles,
+        payload=payload,
+        retrieved_at=retrieved_at,
+    )
+
+
+def snapshots_from_plaintext_batch_payload(
+    *,
+    requested_titles: Sequence[str],
+    payload: Mapping[str, Any],
+    retrieved_at: str,
+) -> dict[str, WikisourcePageSnapshot]:
+    """Build revision-bound plaintext snapshots keyed by requested title."""
+
+    titles = tuple(
+        dict.fromkeys(str(title).strip() for title in requested_titles if str(title).strip())
+    )
+    if not titles:
+        raise ValueError("Wikisource plaintext batch 缺少请求标题")
+    query = payload.get("query") or {}
+    pages = tuple(query.get("pages") or ())
+    pages_by_title = {
+        str(page.get("title") or ""): page
+        for page in pages
+        if str(page.get("title") or "")
+    }
+    aliases = {
+        str(row.get("from") or ""): str(row.get("to") or "")
+        for key in ("normalized", "redirects")
+        for row in (query.get(key) or ())
+        if str(row.get("from") or "") and str(row.get("to") or "")
+    }
+
+    def resolved_title(requested_title: str) -> str:
+        current = requested_title
+        visited = set()
+        while current in aliases and current not in visited:
+            visited.add(current)
+            current = aliases[current]
+        return current
+
+    snapshots = {}
+    for requested_title in titles:
+        canonical_title = resolved_title(requested_title)
+        page = pages_by_title.get(canonical_title)
+        if page is None:
+            raise ValueError(
+                "Wikisource plaintext batch 缺少请求页面: "
+                f"requested={requested_title} resolved={canonical_title}"
+            )
+        snapshots[requested_title] = snapshot_from_api_payload(
+            page_code="SOURCEPAGE-"
+            + sha256(canonical_title.encode("utf-8")).hexdigest()[:20].upper(),
+            requested_title=requested_title,
+            payload={"query": {"pages": [page]}},
+            retrieved_at=retrieved_at,
+        )
+    return snapshots
+
+
 def snapshot_from_revision_payload(
     *,
     page_code: str,
@@ -225,19 +318,68 @@ def fetch_wikisource_revision_batch(
     retrieved_at = datetime.now(UTC).isoformat()
     with urlopen(request, timeout=timeout_seconds) as response:
         payload = json.load(response)
-    pages = tuple((payload.get("query") or {}).get("pages") or ())
-    if len(pages) != len(titles):
-        raise ValueError("Wikisource batch 返回页面数量与请求不一致")
+    return snapshots_from_revision_batch_payload(
+        requested_titles=titles,
+        payload=payload,
+        retrieved_at=retrieved_at,
+    )
+
+
+def snapshots_from_revision_batch_payload(
+    *,
+    requested_titles: Sequence[str],
+    payload: Mapping[str, Any],
+    retrieved_at: str,
+) -> dict[str, WikisourcePageSnapshot]:
+    """Build snapshots keyed by requested title while retaining canonical identity."""
+
+    titles = tuple(
+        dict.fromkeys(
+            str(title).strip()
+            for title in requested_titles
+            if str(title).strip()
+        )
+    )
+    if not titles:
+        raise ValueError("Wikisource batch 缺少请求标题")
+    query = payload.get("query") or {}
+    pages = tuple(query.get("pages") or ())
+    pages_by_title = {
+        str(page.get("title") or ""): page
+        for page in pages
+        if str(page.get("title") or "")
+    }
+    aliases = {
+        str(row.get("from") or ""): str(row.get("to") or "")
+        for key in ("normalized", "redirects")
+        for row in (query.get(key) or ())
+        if str(row.get("from") or "") and str(row.get("to") or "")
+    }
+
+    def resolved_title(requested_title: str) -> str:
+        current = requested_title
+        visited = set()
+        while current in aliases and current not in visited:
+            visited.add(current)
+            current = aliases[current]
+        return current
+
     snapshots = {}
-    for page in pages:
-        canonical_title = str(page.get("title") or "")
-        snapshot = snapshot_from_revision_payload(
-            page_code="SOURCEPAGE-" + sha256(canonical_title.encode("utf-8")).hexdigest()[:20].upper(),
-            requested_title=canonical_title,
+    for requested_title in titles:
+        canonical_title = resolved_title(requested_title)
+        page = pages_by_title.get(canonical_title)
+        if page is None:
+            raise ValueError(
+                "Wikisource batch 缺少请求页面: "
+                f"requested={requested_title} resolved={canonical_title}"
+            )
+        snapshots[requested_title] = snapshot_from_revision_payload(
+            page_code="SOURCEPAGE-"
+            + sha256(canonical_title.encode("utf-8")).hexdigest()[:20].upper(),
+            requested_title=requested_title,
             payload={"query": {"pages": [page]}},
             retrieved_at=retrieved_at,
         )
-        snapshots[canonical_title] = snapshot
     return snapshots
 
 

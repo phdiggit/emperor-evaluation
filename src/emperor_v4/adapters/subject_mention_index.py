@@ -27,6 +27,7 @@ from emperor_v4.adapters.wikisource import (
 MENTION_INDEX_SCHEMA_VERSION = "subject-mention-index-v2"
 MENTION_REPORT_SCHEMA_VERSION = "subject-mention-shadow-report-v3"
 REVIEW_WORKLIST_SCHEMA_VERSION = "subject-mention-review-worklist-v2"
+SHARED_REVIEW_PLAN_SCHEMA_VERSION = "subject-shared-review-plan-v1"
 REFETCH_RESULT_SCHEMA_VERSION = "subject-mention-refetch-result-v1"
 REVIEW_PROXIMITY_CHARS = 120
 _S2T = OpenCC("s2t")
@@ -661,6 +662,220 @@ def cluster_first_review_windows(
             ),
         )
     )
+
+
+def _merge_shared_page_windows(
+    page_title: str,
+    revision_ref: str,
+    windows: Sequence[Mapping[str, object]],
+) -> tuple[dict[str, object], ...]:
+    """Merge only overlapping exact slices; disjoint slices remain separate segments."""
+    ordered = sorted(
+        windows,
+        key=lambda item: (
+            int(item["start_offset"]),
+            int(item["end_offset"]),
+            str(item["subject_ref"]),
+            str(item["window_ref"]),
+        ),
+    )
+    merged: list[dict[str, object]] = []
+    for window in ordered:
+        start = int(window["start_offset"])
+        end = int(window["end_offset"])
+        text = str(window["text"])
+        if start < 0 or end <= start or len(text) != end - start:
+            raise ValueError("共享审阅窗口偏移与文本长度不一致")
+        member = {
+            "subject_ref": str(window["subject_ref"]),
+            "subject_name": str(window["subject_name"]),
+            "window_ref": str(window["window_ref"]),
+            "review_tier": str(window["review_tier"]),
+            "surface_forms": sorted(str(item) for item in window.get("surface_forms") or ()),
+            "mention_offsets": sorted(int(item) for item in window.get("mention_offsets") or ()),
+        }
+        if not merged or start > int(merged[-1]["end_offset"]):
+            merged.append(
+                {
+                    "start_offset": start,
+                    "end_offset": end,
+                    "text": text,
+                    "members": [member],
+                }
+            )
+            continue
+        current = merged[-1]
+        current_start = int(current["start_offset"])
+        current_end = int(current["end_offset"])
+        current_text = str(current["text"])
+        overlap_start = max(current_start, start)
+        overlap_end = min(current_end, end)
+        if overlap_end > overlap_start:
+            current_slice = current_text[
+                overlap_start - current_start : overlap_end - current_start
+            ]
+            incoming_slice = text[overlap_start - start : overlap_end - start]
+            if current_slice != incoming_slice:
+                raise ValueError("共享审阅窗口的重叠原文不一致")
+        if end > current_end:
+            current["text"] = current_text + text[max(0, current_end - start) :]
+            current["end_offset"] = end
+        current["members"].append(member)
+
+    segments = []
+    for segment in merged:
+        members = sorted(
+            segment["members"],
+            key=lambda item: (item["subject_ref"], item["window_ref"]),
+        )
+        text = str(segment["text"])
+        digest = sha256()
+        for value in (
+            page_title,
+            revision_ref,
+            segment["start_offset"],
+            segment["end_offset"],
+            sha256(text.encode("utf-8")).hexdigest(),
+        ):
+            digest.update(str(value).encode("utf-8"))
+            digest.update(b"\0")
+        segments.append(
+            {
+                "segment_ref": "SHAREDSEG-" + digest.hexdigest()[:16].upper(),
+                "start_offset": int(segment["start_offset"]),
+                "end_offset": int(segment["end_offset"]),
+                "text": text,
+                "text_sha256": sha256(text.encode("utf-8")).hexdigest(),
+                "subject_refs": sorted({item["subject_ref"] for item in members}),
+                "window_refs": sorted({item["window_ref"] for item in members}),
+                "members": members,
+            }
+        )
+    return tuple(segments)
+
+
+def build_shared_review_plan(
+    report: Mapping[str, object],
+    *,
+    review_tiers: Sequence[str] = ("A", "B"),
+) -> dict[str, object]:
+    """Build one neutral-extraction model batch per source page across subjects."""
+    if report.get("schema_version") != MENTION_REPORT_SCHEMA_VERSION:
+        raise ValueError("共享审阅计划仅支持当前 v3 人物提及报告")
+    tiers = tuple(dict.fromkeys(str(item).strip().upper() for item in review_tiers))
+    if not tiers or any(item not in {"A", "B", "C", "D"} for item in tiers):
+        raise ValueError("共享审阅层级必须从 A/B/C/D 中选择")
+    raw_subjects = report.get("subjects")
+    if not isinstance(raw_subjects, Sequence) or isinstance(raw_subjects, (str, bytes)):
+        raise ValueError("人物提及审阅报告缺少 subjects")
+
+    pages: dict[tuple[str, str], dict[str, object]] = {}
+    scheduled_window_count = 0
+    scheduled_subject_refs: set[str] = set()
+    for subject in raw_subjects:
+        if not isinstance(subject, Mapping):
+            raise ValueError("人物提及审阅报告 subjects 项必须是 object")
+        subject_ref = str(subject.get("subject_ref") or "")
+        subject_name = str(subject.get("subject_name") or "")
+        if not subject_ref or not subject_name:
+            raise ValueError("共享审阅主体必须具有 subject_ref 和 subject_name")
+        for raw_window in subject.get("windows") or ():
+            if not isinstance(raw_window, Mapping):
+                raise ValueError("共享审阅窗口必须是 object")
+            tier = str(raw_window.get("review_tier") or "").upper()
+            if tier not in tiers:
+                continue
+            page_title = str(raw_window.get("page_title") or "")
+            revision_ref = str(raw_window.get("revision_ref") or "")
+            if not page_title or not revision_ref:
+                raise ValueError("共享审阅窗口缺少页面或 revision")
+            page = pages.setdefault(
+                (page_title, revision_ref),
+                {
+                    "page_title": page_title,
+                    "work_title": str(raw_window.get("work_title") or ""),
+                    "source_url": str(raw_window.get("source_url") or ""),
+                    "revision_ref": revision_ref,
+                    "windows": [],
+                },
+            )
+            if page["work_title"] != str(raw_window.get("work_title") or ""):
+                raise ValueError("共享审阅同一页面的书名不一致")
+            page["windows"].append(
+                {
+                    **raw_window,
+                    "subject_ref": subject_ref,
+                    "subject_name": subject_name,
+                    "review_tier": tier,
+                }
+            )
+            scheduled_window_count += 1
+            scheduled_subject_refs.add(subject_ref)
+
+    batches = []
+    for (_, _), page in sorted(pages.items()):
+        segments = _merge_shared_page_windows(
+            str(page["page_title"]),
+            str(page["revision_ref"]),
+            page["windows"],
+        )
+        subject_refs = sorted(
+            {
+                str(member["subject_ref"])
+                for segment in segments
+                for member in segment["members"]
+            }
+        )
+        window_refs = sorted(
+            {
+                str(window_ref)
+                for segment in segments
+                for window_ref in segment["window_refs"]
+            }
+        )
+        digest = sha256()
+        for value in (
+            page["page_title"],
+            page["revision_ref"],
+            *[segment["segment_ref"] for segment in segments],
+        ):
+            digest.update(str(value).encode("utf-8"))
+            digest.update(b"\0")
+        batches.append(
+            {
+                "batch_ref": "SHAREDBATCH-" + digest.hexdigest()[:16].upper(),
+                "page_title": page["page_title"],
+                "work_title": page["work_title"],
+                "source_url": page["source_url"],
+                "revision_ref": page["revision_ref"],
+                "subject_refs": subject_refs,
+                "subject_count": len(subject_refs),
+                "window_refs": window_refs,
+                "window_count": len(window_refs),
+                "segments": list(segments),
+                "segment_count": len(segments),
+                "review_status": "not_started",
+                "extraction_scope": "neutral_facts_for_all_matched_subjects",
+            }
+        )
+    return {
+        "schema_version": SHARED_REVIEW_PLAN_SCHEMA_VERSION,
+        "status": "shadow_only",
+        "source_report_schema_version": MENTION_REPORT_SCHEMA_VERSION,
+        "source_index_identity": report.get("source_index_identity"),
+        "mention_index_fingerprint": report.get("mention_index_fingerprint"),
+        "review_tiers": list(tiers),
+        "subject_count": len(scheduled_subject_refs),
+        "scheduled_window_count": scheduled_window_count,
+        "source_page_count": len(batches),
+        "shared_segment_count": sum(batch["segment_count"] for batch in batches),
+        "model_call_budget": len(batches),
+        "page_batches": batches,
+        "network_requests": 0,
+        "database_writes": 0,
+        "formal_writes": 0,
+        "model_calls": 0,
+    }
 
 
 def build_first_review_worklist(report: Mapping[str, object]) -> dict[str, object]:
@@ -1658,6 +1873,10 @@ def _parser() -> argparse.ArgumentParser:
     review_worklist = subparsers.add_parser("review-worklist")
     review_worklist.add_argument("--report", type=Path, required=True)
     review_worklist.add_argument("--output", type=Path, required=True)
+    shared_review = subparsers.add_parser("shared-review-plan")
+    shared_review.add_argument("--report", type=Path, required=True)
+    shared_review.add_argument("--output", type=Path, required=True)
+    shared_review.add_argument("--review-tiers", nargs="+", default=["A", "B"])
     refetch = subparsers.add_parser("refetch")
     refetch.add_argument("--worklist", type=Path, required=True)
     refetch.add_argument("--state-dir", type=Path, required=True)
@@ -1674,6 +1893,34 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    if args.command == "shared-review-plan":
+        payload = json.loads(args.report.read_text(encoding="utf-8"))
+        if not isinstance(payload, Mapping):
+            raise ValueError("人物提及审阅报告必须是 object")
+        full_result = build_shared_review_plan(
+            payload,
+            review_tiers=args.review_tiers,
+        )
+        changed = _atomic_json(args.output, full_result)
+        result = {
+            key: full_result[key]
+            for key in (
+                "schema_version",
+                "status",
+                "review_tiers",
+                "subject_count",
+                "scheduled_window_count",
+                "source_page_count",
+                "shared_segment_count",
+                "model_call_budget",
+                "network_requests",
+                "database_writes",
+                "formal_writes",
+                "model_calls",
+            )
+        } | {"changed": changed}
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+        return 0
     if args.command == "identity-worklist":
         subject_plan = json.loads(args.subject_plan.read_text(encoding="utf-8"))
         refetch_result = json.loads(args.refetch_result.read_text(encoding="utf-8"))

@@ -35,11 +35,23 @@ from emperor_v4.adapters.source_text_index import (
 )
 from emperor_v4.adapters.subject_mention_index import (
     build_first_review_worklist,
+    build_shared_review_plan,
     build_subject_mention_index,
     build_subject_mention_report,
     build_identity_verified_passage_worklist,
     cluster_first_review_windows,
     refetch_first_review_worklist,
+)
+from emperor_v4.adapters.shared_neutral_extraction import (
+    build_shared_neutral_extraction_prompt,
+    build_shared_neutral_fact_fanout,
+)
+from emperor_v4.adapters.ruler_neutral_person_recall import (
+    build_ruler_neutral_person_fanout,
+    build_ruler_neutral_person_recall_plan,
+)
+from emperor_v4.adapters.person_lifecycle_scan import (
+    build_person_lifecycle_fanout,
 )
 from emperor_v4.evaluation.i5b_source_review_decision import (
     merge_i5b_source_review_decisions,
@@ -60,6 +72,8 @@ from emperor_v4.application.discovery_source_backfill import (
 from emperor_v4.adapters.wikisource import (
     WikisourcePageSnapshot,
     snapshot_from_revision_payload,
+    snapshots_from_plaintext_batch_payload,
+    snapshots_from_revision_batch_payload,
 )
 from emperor_v4.runtime.person_rebuild_shadow import (
     backfill_ready_people,
@@ -1945,6 +1959,474 @@ def test_first_review_clustering_requires_conservative_shared_evidence() -> None
         build_first_review_worklist({"schema_version": "old"})
 
 
+def test_shared_review_plan_merges_overlapping_people_without_merging_responsibility() -> None:
+    def window(
+        ref: str,
+        page: str,
+        revision: str,
+        start: int,
+        text: str,
+        *,
+        tier: str = "A",
+        surface: str,
+    ) -> dict[str, object]:
+        return {
+            "window_ref": ref,
+            "review_tier": tier,
+            "page_title": page,
+            "work_title": "旧唐书",
+            "source_url": "https://example.test/" + page,
+            "revision_ref": revision,
+            "start_offset": start,
+            "end_offset": start + len(text),
+            "surface_forms": [surface],
+            "mention_offsets": [start + 1],
+            "text": text,
+        }
+
+    report = {
+        "schema_version": "subject-mention-shadow-report-v3",
+        "source_index_identity": "a" * 64,
+        "mention_index_fingerprint": "b" * 64,
+        "subjects": [
+            {
+                "subject_ref": "PER-FANG",
+                "subject_name": "房玄龄",
+                "windows": [
+                    window("W1", "舊唐書/卷50", "50", 0, "abcdefghij", surface="房玄龄"),
+                    window("W3", "舊唐書/卷50", "50", 20, "pqrst", tier="B", surface="玄龄"),
+                ],
+            },
+            {
+                "subject_ref": "PER-LONGSUN",
+                "subject_name": "长孙无忌",
+                "windows": [
+                    window("W2", "舊唐書/卷50", "50", 5, "fghijklmno", surface="长孙无忌"),
+                    window("W4", "舊唐書/卷51", "51", 0, "uvwxyz", tier="C", surface="无忌"),
+                ],
+            },
+        ],
+    }
+
+    plan = build_shared_review_plan(report)
+    repeated = build_shared_review_plan(report)
+
+    assert plan == repeated
+    assert plan["schema_version"] == "subject-shared-review-plan-v1"
+    assert plan["review_tiers"] == ["A", "B"]
+    assert plan["subject_count"] == 2
+    assert plan["scheduled_window_count"] == 3
+    assert plan["source_page_count"] == 1
+    assert plan["model_call_budget"] == 1
+    batch = plan["page_batches"][0]
+    assert batch["subject_refs"] == ["PER-FANG", "PER-LONGSUN"]
+    assert batch["window_refs"] == ["W1", "W2", "W3"]
+    assert batch["segment_count"] == 2
+    shared = batch["segments"][0]
+    assert shared["text"] == "abcdefghijklmno"
+    assert shared["subject_refs"] == ["PER-FANG", "PER-LONGSUN"]
+    assert {row["window_ref"] for row in shared["members"]} == {"W1", "W2"}
+    assert all("role" not in row for row in shared["members"])
+    assert plan["formal_writes"] == 0
+    assert plan["model_calls"] == 0
+
+    broken = json.loads(json.dumps(report))
+    broken["subjects"][1]["windows"][0]["text"] = "XXXXXklmno"
+    with pytest.raises(ValueError, match="重叠原文不一致"):
+        build_shared_review_plan(broken)
+
+
+def test_shared_neutral_fact_fanout_keeps_context_actor_out_of_profile_credit() -> None:
+    text = "房玄龄与法司修定律令，颁行天下。长孙无忌误带佩刀入阁。"
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "source_index_identity": "a" * 64,
+        "mention_index_fingerprint": "b" * 64,
+        "page_batches": [
+            {
+                "batch_ref": "BATCH-1",
+                "page_title": "舊唐書/卷50",
+                "work_title": "旧唐书",
+                "source_url": "https://example.test/50",
+                "revision_ref": "50",
+                "segments": [
+                    {
+                        "segment_ref": "SEG-1",
+                        "text": text,
+                        "text_sha256": sha256(text.encode("utf-8")).hexdigest(),
+                        "subject_refs": ["PER-FANG", "PER-LONGSUN"],
+                    }
+                ],
+            }
+        ],
+    }
+    result = {
+        "schema_version": "shared-neutral-extraction-output-v1",
+        "batch_ref": "BATCH-1",
+        "page_title": "舊唐書/卷50",
+        "revision_ref": "50",
+        "segment_count": 1,
+        "segment_reviews": [
+            {
+                "segment_ref": "SEG-1",
+                "decision": "accept",
+                "facts": [
+                    {
+                        "fact_id": "F001",
+                        "exact_quote": "房玄龄与法司修定律令，颁行天下。",
+                        "fact_kind": "legal_change",
+                        "action_summary": "房玄龄与法司共同修律并颁行。",
+                        "actors": [
+                            {
+                                "source_name": "房玄龄",
+                                "canonical_name": "房玄龄",
+                                "subject_ref": "PER-FANG",
+                                "role": "designer",
+                                "responsibility_strength": "core_joint",
+                                "attribution_basis": "原文明载共同修定。",
+                            },
+                            {
+                                "source_name": "法司",
+                                "canonical_name": "未解析法司人员",
+                                "subject_ref": None,
+                                "role": "compiler",
+                                "responsibility_strength": "core_joint",
+                                "attribution_basis": "原文仅载官署。",
+                            },
+                        ],
+                        "implementation_status": "nationally_promulgated",
+                        "result": "颁行天下",
+                        "legacy_status": "not_shown",
+                        "legacy_basis": "未载后续沿用。",
+                        "projection_eligibility": "direct_neutral_fact",
+                        "uncertainty": "法司成员未具名。",
+                    },
+                    {
+                        "fact_id": "F002",
+                        "exact_quote": "长孙无忌误带佩刀入阁。",
+                        "fact_kind": "procedural_case",
+                        "action_summary": "长孙无忌误带佩刀入阁。",
+                        "actors": [
+                            {
+                                "source_name": "长孙无忌",
+                                "canonical_name": "长孙无忌",
+                                "subject_ref": "PER-LONGSUN",
+                                "role": "affected_person",
+                                "responsibility_strength": "context_only",
+                                "attribution_basis": "本人是案件对象。",
+                            }
+                        ],
+                        "implementation_status": "not_shown",
+                        "result": "形成程序案件",
+                        "legacy_status": "not_shown",
+                        "legacy_basis": "无",
+                        "projection_eligibility": "direct_neutral_fact",
+                        "uncertainty": "无",
+                    },
+                ],
+                "reason": "两项均为可回指的中性事实。",
+            }
+        ],
+        "limitations": [],
+    }
+
+    fanout = build_shared_neutral_fact_fanout(plan, [result])
+    repeated = build_shared_neutral_fact_fanout(plan, [result])
+
+    assert fanout == repeated
+    assert fanout["fact_count"] == 2
+    assert fanout["person_count"] == 2
+    assert fanout["unresolved_actor_count"] == 1
+    people = {row["subject_ref"]: row for row in fanout["person_fanout"]}
+    assert people["PER-FANG"]["profile_eligible_count"] == 1
+    assert people["PER-LONGSUN"]["profile_eligible_count"] == 0
+    assert fanout["formal_writes"] == 0
+    assert fanout["score_writes"] == 0
+
+    broken = json.loads(json.dumps(result))
+    broken["segment_reviews"][0]["facts"][0]["exact_quote"] = "不存在的引文"
+    with pytest.raises(ValueError, match="无法回指"):
+        build_shared_neutral_fact_fanout(plan, [broken])
+
+    mentioned_only = json.loads(json.dumps(result))
+    mentioned_only["segment_reviews"][0]["facts"] = [
+        mentioned_only["segment_reviews"][0]["facts"][1]
+    ]
+    mentioned_only["segment_reviews"][0]["facts"][0]["actors"][0][
+        "role"
+    ] = "mentioned_only"
+    with pytest.raises(ValueError, match="mentioned_only 不能取得事实归属"):
+        build_shared_neutral_fact_fanout(plan, [mentioned_only])
+
+
+def test_shared_neutral_prompt_is_tool_free_rule_neutral_and_filters_routine_ceremony() -> None:
+    prompt = build_shared_neutral_extraction_prompt(
+        {
+            "batch_ref": "BATCH-1",
+            "segments": [
+                {
+                    "segment_ref": "SEG-1",
+                    "subject_refs": ["PER-FANG"],
+                    "text": "是日大酺三日。",
+                }
+            ],
+        }
+    )
+
+    assert "EXECUTION_MODE: STRUCTURED_OUTPUT_NO_TOOLS" in prompt
+    assert "普通宴饮、庆典、大酺、游猎、巡幸和祭祀" in prompt
+    assert "subject_refs 只是召回候选" in prompt
+    assert "不得为了归责而创建 mentioned_only actor" in prompt
+    assert "规则复用建议" in prompt
+    assert "reuse_candidates" not in prompt
+
+
+def test_ruler_neutral_person_recall_batches_once_and_preserves_person_boundaries() -> None:
+    records = [
+        {
+            "neutral_record_id": "NREC-1",
+            "source_page": "史记/卷008",
+            "revision_ref": "R1",
+            "date": "汉五年",
+            "neutral_summary": "萧何留守关中，韩信率军出战。",
+            "assertions": [
+                {"exact_quote": "蕭何守關中", "fact": "萧何留守", "locator_anchor": "蕭何"},
+                {"exact_quote": "韓信將兵", "fact": "韩信率军", "locator_anchor": "韓信"},
+            ],
+        },
+        {
+            "neutral_record_id": "NREC-2",
+            "source_page": "史记/卷093",
+            "revision_ref": "R2",
+            "date": "汉十年",
+            "neutral_summary": "韩王信反。",
+            "assertions": [
+                {"exact_quote": "韓王信反", "fact": "韩王信反", "locator_anchor": "韓王信"}
+            ],
+        },
+    ]
+    people = [
+        {"person_ref": "PER-XH", "canonical_name": "萧何", "aliases": []},
+        {"person_ref": "PER-HX", "canonical_name": "韩信", "aliases": []},
+        {"person_ref": "PER-HWX", "canonical_name": "韩王信", "aliases": []},
+    ]
+
+    result = build_ruler_neutral_person_recall_plan(
+        ruler="刘邦", records=records, people=people, batch_count=2
+    )
+
+    assert result["candidate_record_count"] == 2
+    assert result["model_call_budget"] == 2
+    recalled = {
+        row["neutral_record_id"]: {
+            person["person_ref"] for person in row["matched_people"]
+        }
+        for batch in result["batches"]
+        for row in batch["records"]
+    }
+    assert recalled == {
+        "NREC-1": {"PER-XH", "PER-HX"},
+        "NREC-2": {"PER-HWX"},
+    }
+    assert result["database_writes"] == result["formal_writes"] == 0
+
+    batch_results = []
+    for batch in result["batches"]:
+        batch_results.append(
+            {
+                "schema_version": "ruler-neutral-shared-fanout-v1",
+                "task_code": batch["task_code"],
+                "record_count": batch["record_count"],
+                "record_reviews": [
+                    {
+                        "neutral_record_id": row["neutral_record_id"],
+                        "reason": "测试",
+                        "person_reviews": [
+                            {
+                                "person_ref": person["person_ref"],
+                                "canonical_name": person["canonical_name"],
+                                "disposition": "achievement",
+                                "role": "executor",
+                                "responsibility_strength": "primary",
+                                "actual_action": "测试行动",
+                                "result": "测试结果",
+                                "profile_eligibility": True,
+                                "supporting_assertion_anchors": [
+                                    row["assertions"][0]["locator_anchor"]
+                                ],
+                                "reason": "测试",
+                            }
+                            for person in row["matched_people"]
+                        ],
+                    }
+                    for row in batch["records"]
+                ],
+                "limitations": [],
+            }
+        )
+    fanout = build_ruler_neutral_person_fanout(result, batch_results)
+    assert fanout["reviewed_record_count"] == 2
+    assert fanout["person_review_count"] == 3
+    assert fanout["profile_eligible_count"] == 3
+    assert fanout["formal_writes"] == fanout["score_writes"] == 0
+
+
+def test_person_lifecycle_fanout_audits_plaintext_and_assigns_stable_refs() -> None:
+    source_text = "萧何留守关中，转给馈饷，军得以供。史臣称其识大体。"
+    manifest = {
+        "tasks": [
+            {
+                "task_code": "PERSON-PAGE-1",
+                "source_page": "史記/卷053",
+                "revision_ref": "53",
+                "source_sha256": sha256(source_text.encode("utf-8")).hexdigest(),
+                "people": [
+                    {
+                        "person_ref": "PER-XH",
+                        "canonical_name": "萧何",
+                        "person_scan_key": "PSCAN-XH-53",
+                    }
+                ],
+            }
+        ]
+    }
+    result = {
+        "schema_version": "neutral-person-lifecycle-source-scan-v1",
+        "task_code": "PERSON-PAGE-1",
+        "source_page": "史記/卷053",
+        "revision_ref": "53",
+        "coverage_scope": "FULL_LIFECYCLE_SOURCE",
+        "people": [
+            {
+                "person_ref": "PER-XH",
+                "person_scan_key": "PSCAN-XH-53",
+                "canonical_name": "萧何",
+                "records": [
+                    {
+                        "record_type": "pattern",
+                        "date": "楚汉之际",
+                        "dynasty_or_regime": "汉",
+                        "ruler_contexts": ["刘邦"],
+                        "subject_role": "留守",
+                        "neutral_summary": "萧何留守并供应军需。",
+                        "assertions": [
+                            {
+                                "kind": "action",
+                                "fact": "萧何留守关中并供应军需。",
+                                "exact_quote": "萧何留守关中，转给馈饷，军得以供。",
+                                "locator_anchor": "转给馈饷",
+                            }
+                        ],
+                    }
+                ],
+                "leads": [
+                    {
+                        "date": "史臣评价",
+                        "dynasty_or_regime": "汉",
+                        "ruler_contexts": [],
+                        "specific_claim": "史臣评价萧何识大体。",
+                        "exact_quote": "史臣称其识大体",
+                        "locator_anchor": "识大体",
+                        "needs": "只作权威评价。",
+                    }
+                ],
+                "scan_notes": "全页扫描。",
+            }
+        ],
+    }
+
+    fanout = build_person_lifecycle_fanout(
+        manifest,
+        [result],
+        {"史記/卷053": source_text},
+    )
+    repeated = build_person_lifecycle_fanout(
+        manifest,
+        [result],
+        {"史記/卷053": source_text},
+    )
+
+    assert fanout == repeated
+    assert fanout["person_count"] == 1
+    assert fanout["record_count"] == 1
+    assert fanout["lead_count"] == 1
+    assert fanout["audited_quote_count"] == 2
+    person = fanout["people"][0]
+    assert person["records"][0]["record_ref"].startswith("PFACT-")
+    assert person["leads"][0]["lead_ref"].startswith("PLEAD-")
+    assert person["records"][0]["formal_write"] is False
+    assert fanout["database_writes"] == fanout["score_writes"] == 0
+
+    broken = json.loads(json.dumps(result))
+    broken["people"][0]["records"][0]["assertions"][0]["exact_quote"] = "不存在"
+    with pytest.raises(ValueError, match="无法逐字回指"):
+        build_person_lifecycle_fanout(
+            manifest,
+            [broken],
+            {"史記/卷053": source_text},
+        )
+
+
+def test_wikisource_revision_batch_preserves_requested_redirect_key() -> None:
+    raw_text = "淮陰侯列傳正文"
+    payload = {
+        "query": {
+            "redirects": [{"from": "史記/卷092", "to": "史記/淮陰侯列傳"}],
+            "pages": [
+                {
+                    "title": "史記/淮陰侯列傳",
+                    "revisions": [
+                        {
+                            "revid": 92,
+                            "timestamp": "2026-07-20T00:00:00Z",
+                            "slots": {"main": {"content": raw_text}},
+                        }
+                    ],
+                }
+            ],
+        }
+    }
+
+    snapshots = snapshots_from_revision_batch_payload(
+        requested_titles=("史記/卷092",),
+        payload=payload,
+        retrieved_at="2026-07-20T00:01:00Z",
+    )
+
+    assert set(snapshots) == {"史記/卷092"}
+    assert snapshots["史記/卷092"].requested_title == "史記/卷092"
+    assert snapshots["史記/卷092"].canonical_title == "史記/淮陰侯列傳"
+    assert snapshots["史記/卷092"].raw_text == raw_text
+
+
+def test_wikisource_plaintext_batch_preserves_revision_and_requested_key() -> None:
+    payload = {
+        "query": {
+            "redirects": [{"from": "漢書/卷023", "to": "漢書/刑法志"}],
+            "pages": [
+                {
+                    "title": "漢書/刑法志",
+                    "extract": "刑法志纯文本",
+                    "revisions": [
+                        {"revid": 23, "timestamp": "2026-07-20T00:00:00Z"}
+                    ],
+                }
+            ],
+        }
+    }
+
+    snapshots = snapshots_from_plaintext_batch_payload(
+        requested_titles=("漢書/卷023",),
+        payload=payload,
+        retrieved_at="2026-07-20T00:01:00Z",
+    )
+
+    assert set(snapshots) == {"漢書/卷023"}
+    assert snapshots["漢書/卷023"].canonical_title == "漢書/刑法志"
+    assert snapshots["漢書/卷023"].revision_id == 23
+    assert snapshots["漢書/卷023"].raw_text == "刑法志纯文本"
+
+
 def test_revision_payload_and_refetch_preserve_exact_offsets_and_cache(
     tmp_path: Path,
 ) -> None:
@@ -2347,6 +2829,7 @@ def test_content_script_recovers_compact_authority_leads_after_timeout_boundary(
     assert "captureGraceDeadline = deadline + 30_000" in script
     assert "replace(/^\\s*yaml\\s*\\n/i, \"\")" in script
     assert 'task.purpose_code !== "authority_evaluation_discovery"' in script
+    assert 'task.response_mode === "free_text"' in script
 
 
 def _result(claim: dict, subject: str = "李斯") -> dict:
@@ -2386,6 +2869,34 @@ def _result(claim: dict, subject: str = "李斯") -> dict:
         "answer_ready_at": "2026-07-17T00:00:12Z",
         "discovery_duration_seconds": 12.0,
     }
+
+
+def test_free_text_response_mode_keeps_bridge_business_agnostic(tmp_path: Path) -> None:
+    queue = GoogleAiTaskQueue(tmp_path)
+    queue.enqueue(
+        [
+            _task("FREE-TEXT", "李世民", "i5a_self_discipline_discovery")
+            | {
+                "query": "请按本任务自带模板返回李世民自律与勤政宽搜结果",
+                "response_mode": "free_text",
+            }
+        ]
+    )
+    claim = queue.claim("worker")
+    assert claim
+    assert claim["response_mode"] == "free_text"
+    result = _result(claim, "李世民")
+    result["answer_text"] = (
+        "任意模板标题\nsubject: 李世民\noverall_pattern: 长期处理政务，晚年阶段仍需回源核验。"
+        * 4
+    )
+    result["source_links"] = []
+
+    artifact = queue.complete("worker", claim["lease_token"], result)
+
+    saved = json.loads(artifact.read_text(encoding="utf-8"))
+    assert saved["answer_text"].startswith("任意模板标题")
+    assert saved["purpose_code"] == "i5a_self_discipline_discovery"
 
 
 def test_locator_only_i5b_result_passes_without_external_links(tmp_path: Path) -> None:

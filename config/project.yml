@@ -24,6 +24,72 @@ person_profile_storage:
   profile_table_count: 1
   legacy_schema_archive: archive/v4_person_profile_legacy_20260716.sql
 
+neutral_material_reuse_shadow:
+  status: shared_read_and_deterministic_fanout_validated
+  structured_output_contract: codex-structured-output-contract-v1
+  batch_release_requires: ready_for_batch_fanout
+  schema_preflight_before_model_call: true
+  single_canary_before_fanout: true
+  tool_free_extraction_required: true
+  ignored_manifest_fields_fail_closed: true
+  result_schema_and_exact_quote_acceptance_required: true
+  ruler_side_tested: [李世民, 刘邦]
+  person_side_shared_page_tested: true
+  validated_person_scan_count: 38
+  validated_page_task_count: 29
+  validated_unique_source_page_count: 26
+  validated_neutral_record_count: 588
+  validated_evaluation_lead_count: 88
+  validated_exact_quote_count: 2051
+  source_identity: [canonical_subject, source_page, source_revision, extraction_contract]
+  shared_read_does_not_merge_responsibility: true
+  raw_mediawiki_markup_allowed_for_model_scan: false
+  dynasty_governance_scan_status: han_tang_histories_and_tongdian_pilot_accepted_shadow
+  dynasty_governance_output_schema: config/dynasty-neutral-governance-output.schema.json
+  dynasty_governance_source_page_count: 23
+  dynasty_governance_source_char_count: 265627
+  dynasty_governance_task_count: 10
+  dynasty_governance_neutral_chain_count: 174
+  dynasty_governance_exact_quote_count: 339
+  dynasty_governance_source_works: [漢書, 舊唐書, 新唐書]
+  dynasty_governance_actor_contribution_phases_required: true
+  dynasty_governance_quote_ignores_only: [layout_whitespace, numeric_editorial_note_anchor]
+  dynasty_specialist_pilot_work: 通典
+  dynasty_specialist_pilot_target_scope: 唐
+  dynasty_specialist_pilot_source_page_count: 6
+  dynasty_specialist_pilot_source_char_count: 65090
+  dynasty_specialist_pilot_task_count: 2
+  dynasty_specialist_pilot_neutral_chain_count: 35
+  dynasty_specialist_pilot_exact_quote_count: 63
+  dynasty_source_increment_output_schema: config/dynasty-neutral-source-increment-output.schema.json
+  dynasty_source_increment_status: accepted_shadow
+  dynasty_source_increment_baseline_count: 174
+  dynasty_source_increment_candidate_count: 35
+  dynasty_source_increment_new_fact_count: 17
+  dynasty_source_increment_enrichment_count: 16
+  dynasty_source_increment_restatement_count: 2
+  historical_character_normalization_allowed: false
+  formal_fact_write_count: 0
+  person_profile_write_count: 0
+  score_write_count: 0
+
+talent_grade_shadow:
+  active_policy: config/talent-grade-v11-domain-equivalent-historic.yml
+  policy_version: talent-grade-v11-domain-equivalent-historic-v1
+  cross_stage_legacy_is_common_historic_requirement: false
+  domain_paths_operationalize_historic_height: true
+  separate_unstructured_height_gate: false
+  domain_equivalent_paths: [military, civil_governance, culture_and_scholarship, all_round]
+  military_normal_path: two_national_plus_one_regional
+  military_exception_path_requires_two_explicit_decisive_main_command_results: true
+  military_responsibility_roles: [commander_in_chief, principal_commander, deputy_commander, participant]
+  civil_responsibility_roles: [exclusive, lead, participant]
+  clear_professional_success_survives_cross_domain_costs: true
+  campaign_registry_schema: config/campaign-registry.schema.json
+  campaign_registry_status: contract_ready_no_canonical_rows
+  formal_grade_write_count: 0
+  score_write_count: 0
+
 person_political_risk_shadow:
   policy: config/political-risk.yml
   policy_version: political-risk-v2

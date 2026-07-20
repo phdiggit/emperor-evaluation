@@ -45,6 +45,10 @@
     const candidates = [...document.querySelectorAll(".CKgc1d, .Zkbeff, .pCTyYe")]
       .filter((node) => {
         const text = normalizeMarkdownAnswer((node.innerText || "").trim());
+        if (task.response_mode === "free_text") {
+          return text.length >= task.quality_requirements.min_answer_characters &&
+            !text.includes("您说：") && !text.includes(task.query);
+        }
         return (
           text.startsWith("DISCOVERY_SUMMARY") &&
           /\nLEAD\s+L1(?:\n|$)/.test(text) &&
@@ -88,6 +92,7 @@
     const root = answerRoot(task);
     if (!root) return "";
     const text = normalizeMarkdownAnswer(root.innerText || "");
+    if (task.response_mode === "free_text") return text.trim();
     const structured = text.match(/[\s\S]*\nomission_reason:[^\n]*(?:\n|$)/);
     return (structured ? structured[0] : normalizeCompactAnswer(task, text)).trim();
   }
@@ -210,13 +215,15 @@
         acceptableMentions.some((value) => text.includes(value)),
       lengthPassed: text.length >= quality.min_answer_characters,
       structurePassed:
-        text.startsWith("DISCOVERY_SUMMARY") &&
-        /\nOMISSIONS(?:\n|$)/.test(text) &&
-        text.includes("\nsearched_categories:") &&
-        text.includes("\nuncovered_categories:") &&
-        text.includes("\nstop_reason:") &&
-        text.includes("\nomitted_leads:") &&
-        text.includes("\nomission_reason:"),
+        task.response_mode === "free_text" || (
+          text.startsWith("DISCOVERY_SUMMARY") &&
+          /\nOMISSIONS(?:\n|$)/.test(text) &&
+          text.includes("\nsearched_categories:") &&
+          text.includes("\nuncovered_categories:") &&
+          text.includes("\nstop_reason:") &&
+          text.includes("\nomitted_leads:") &&
+          text.includes("\nomission_reason:")
+        ),
       promptFree: !text.includes("您说：") && !text.includes(task.query),
       linksPassed: sourceLinks(task).length >= quality.min_source_links,
     };

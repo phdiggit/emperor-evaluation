@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_code",
+    "baseline_count",
+    "candidate_count",
+    "comparisons",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "dynasty-neutral-source-increment-output-v1"
+    },
+    "task_code": {"type": "string", "minLength": 1},
+    "baseline_count": {"type": "integer", "minimum": 1},
+    "candidate_count": {"type": "integer", "minimum": 1},
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_chain_key",
+          "classification",
+          "baseline_chain_keys",
+          "added_dimensions",
+          "rationale",
+          "confidence"
+        ],
+        "properties": {
+          "candidate_chain_key": {"type": "string", "minLength": 1},
+          "classification": {
+            "type": "string",
+            "enum": [
+              "same_fact_restatement",
+              "same_fact_enrichment",
+              "new_fact",
+              "uncertain"
+            ]
+          },
+          "baseline_chain_keys": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          },
+          "added_dimensions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "independent_source_attestation",
+                "action",
+                "implementation",
+                "observable_result",
+                "cost_or_burden",
+                "actors",
+                "temporal_scope",
+                "geographic_scope",
+                "affected_groups"
+              ]
+            }
+          },
+          "rationale": {"type": "string", "minLength": 1},
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

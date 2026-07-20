@@ -16,6 +16,8 @@
 - `tolerate_talent` 仍有3个李世民单元证据不足；批量动态映射还缺少第二位五rule完整皇帝。因此正式45分、档位和排名保持关闭。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人物政治风险首轮254人shadow结果因严重度失真和结论改变型归一被拒绝，当前全局Gate为 `failed_closed`。该轮未写人物画像表、不改人才等级，也不进入正式评分；通过唐俭、霍去病、萧瑀、朱樉校准回归前不启动全员重跑。
+- 人才 `historic` 当前采用 V11 分领域等价路径：军事和文官可凭多次国家级兑现达到，不再把跨时代制度或作品遗产设为通用门槛；军事常规门槛为两个独立国家级战役成果加一个独立区域级以上成果，极强的两个 `主帅` 或 `主将` 国家级决定性成果可单独通过。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
+- 战役登记使用 `campaign-registry-v1` 中性合同：同一 `independent_campaign_key` 只登记一次，并分别保存战役层级、结果、人物角色（`主帅`、`主将`、`副将`、`从攻`）、Episode 与史源引用。文官治理成果只标 `独占`、`主导`、`参与`。人才画像、第一项 C1/C2 和第三项只做后置投影，不建立评分专属副本。当前仅合同就绪，尚未冻结 canonical 行。
 
 ## 当前架构
 
@@ -81,6 +83,11 @@ python -m emperor_v4.infrastructure.google_ai_bridge --queue tmp/google_ai_bridg
 python -m emperor_v4.application.discovery_source_backfill --results-dir tmp/google_ai_bridge/results --output tmp/google_ai_backfill_worklist.json
 ```
 
+桥接只负责串行领取、超时、结果指纹、Google 页面来源和原子落盘。旧 discovery 模板默认使用
+`response_mode: structured_discovery` 保留现有严格字段校验；其他 Prompt/输出合同使用
+`response_mode: free_text` 原样持久化回答，再由对应模板的下游解析器校验业务字段。桥接层不得按
+`purpose_code` 写死新的评分项、人物画像或其他业务模板。
+
 I5B 的文臣治理成果和皇帝政策走同一桥接。先用 UTF-8 JSON 文件按边界优先级提供本轮人物（`[{"person_ref":"...","person_name":"...","aliases":[]}]`）；按 `person_ref` 去重后最多为前12人生成治理宽搜，超限人物留作 deferred，再单独追加一项不占人物名额的皇帝政策宽搜。入选人物的焦点内独立线索不按固定条数截断；文臣结果仅在首轮回源时按可定位性排序取三条，皇帝政策不设条数上限，回源只受本轮总时间墙约束：
 
 ```powershell
@@ -92,6 +99,9 @@ $sourceIndexRoot = "X:\emperor-evaluation\runtime\active\source_text_indexes\tan
 python -m emperor_v4.adapters.source_text_index recall-report --index "$sourceIndexRoot\tang-core.sqlite3" --input "$sourceIndexRoot\full-recall-input.json" --output "$sourceIndexRoot\full-recall-report.json"
 python -m emperor_v4.adapters.subject_mention_index build --source-index "$sourceIndexRoot\tang-core.sqlite3" --input "$sourceIndexRoot\subject-mention-plan.json" --output "$sourceIndexRoot\subject-mentions.sqlite3"
 python -m emperor_v4.adapters.subject_mention_index report --source-index "$sourceIndexRoot\tang-core.sqlite3" --mention-index "$sourceIndexRoot\subject-mentions.sqlite3" --output "$sourceIndexRoot\subject-mention-report.json" --window-chars 440 --merge-gap-chars 60
+python -m emperor_v4.adapters.subject_mention_index shared-review-plan --report "$sourceIndexRoot\subject-mention-report.json" --output "$sourceIndexRoot\subject-shared-review-plan.json" --review-tiers A B
+python -m emperor_v4.adapters.ruler_neutral_person_recall --ruler 李世民 --records "$runtimeRoot\ruler-neutral-records.jsonl" --people "$runtimeRoot\people.json" --output "$runtimeRoot\ruler-person-recall-plan.json" --batch-count 4
+python -m emperor_v4.adapters.person_lifecycle_scan --manifest "$runtimeRoot\person-scan-task-manifest.json" --results-dir "$runtimeRoot\person-scan-results" --source-dir "$runtimeRoot\person-scan-source-plaintext" --output "$runtimeRoot\person-lifecycle-fanout.json"
 python -m emperor_v4.adapters.subject_mention_index review-worklist --report "$sourceIndexRoot\subject-mention-report.json" --output "$sourceIndexRoot\subject-review-worklist.json"
 python -m emperor_v4.adapters.subject_mention_index refetch --worklist "$sourceIndexRoot\subject-review-worklist.json" --state-dir "$sourceIndexRoot\subject-review-source-cache" --output "$sourceIndexRoot\subject-review-refetch-result.json" --max-workers 6 --timeout-seconds 30 --max-attempts 3
 python -m emperor_v4.evaluation.i5b_source_review_projector --decision tmp/i5b-source-review-decision.json --refetch-result "$sourceIndexRoot\subject-review-refetch-result.json" --output-dir tmp/i5b-source-review-projection --max-workers 5 --per-task-timeout-seconds 75 --wall-clock-budget-seconds 120
@@ -108,6 +118,31 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 `subject_mention_index build` 在全文索引之外生成可重建的 `subject-mentions.sqlite3`，只固化人物称谓或指定皇帝核心篇章中“上曰、上谓、诏”等上下文标记的原文偏移，不复制正文。标题中的姓名不计作事件命中，但本传标题可为后续短称提供结构归责。`report` 围绕偏移生成约 440 字的展示窗口，邻近窗口只在合并后不超过配置窗口加间距时合并；A/B/C/D 判定另只检查每个主体偏移前后 120 字，避免把同一展示窗口中其他人的行动误归给当前主体。A 层同时具备主体、行动、实施和结果锚点，进入首轮人工复核；B 层只在 A 层不足时复核；C/D 完整保留但不进入当前回源。A 层窗口再生成稳定 `MENTIONCLUSTER`：同页必须距离不超过 800 字且共享锚点；跨书必须同时满足纪年一致、主题一致、行动或实施一致以及实施或结果一致。证据不足时保持独立窗口，不用语义猜测强行合并。主题词仍只影响排序，全部无主题窗口保留。旁路库会绑定全文索引 identity 和页面 revision，漂移时关闭；相同输入重建和相同报告重跑均为零写入。它们仍只是回源定位影子，不是 `SourcePassage`、Assertion 或评分史源。
 
 `review-worklist` 将 A 层 cluster 物化为审阅卡，并按 `page_title + revision_ref` 生成去重的 `refetch_pages`。卡片只汇总既有纪年、主题、行动、实施和结果锚点，不生成新的历史结论；缺纪年、单书、纯隐含皇帝主语、无主题锚点和跨书合并都显式标记。所有页面初始均为 `refetch_status: not_started`，生成待办本身不联网，也不代表已批准回源。
+
+`shared-review-plan` 不改变逐人物召回和 A/B/C/D 分层，只把入选层级中同一 `page_title + revision_ref` 的人物窗口组织成一个页面级模型批次。重叠原文合成共享 segment，非重叠原文保持为同一批次内的独立 segment；每个 member 继续保留自己的 `subject_ref + window_ref`，因此共享读取不等于共同归责。计划本身不调用模型、不联网、不写正式事实；后续中性抽取应按页面最多调用一次，再按明确 actor 关系确定性分发给人物画像和规则投影。
+
+所有 Codex 结构化抽取在批量放行前必须经过 `structured_output_contract`：零调用阶段递归检查显式 `type`、严格 `required`、`additionalProperties: false`、禁用 `uniqueItems`，并核对任务实际通过 `argv` 传递同一 `--output-schema`；单任务 canary 随后关闭进程状态、`respect_task_argv`、工具事件、Token 上限和结果 Schema。只有报告达到 `ready_for_batch_fanout` 才能扩大并发。子进程只填充父进程冻结的合同，不得读取仓库、调用工具或自行修改 Schema；数组去重由确定性验收层完成。
+
+皇帝侧中性材料已经抽取完成后，`ruler_neutral_person_recall` 以人物全名和显式别名一次召回记录中涉及的所有臣子，按文本负载均衡生成共享判读批次；每条记录只判读一次，再由 `build_ruler_neutral_person_fanout` 校验人物覆盖、Assertion 锚点、角色与画像资格后确定性分发。姓名命中只负责召回，任命对象、受处置者、被评价者和上下文人物不会自动取得实绩；共享批次也不合并不同人物的责任。整个计划和分发结果均为影子候选，模型调用预算按批次数而不是人物数计算。
+
+共享模型输出使用 `config/shared-neutral-extraction-output.schema.json`。`shared_neutral_extraction` 会关闭缺页、缺 segment、引文不能逐字回指、actor 引用非本 segment 主体、无召回主体归责以及只靠 `mentioned_only` 强占事实归属的结果；通过后只生成 `shared-neutral-fact-fanout-v1` 影子候选。同一事实可分发给多个明确 actor，但 `affected_person`、`mentioned_only`、单纯授权者和 `context_only` 不具备人物实绩投影资格。通用 Prompt 排除未明示较大资源消耗、治理中断或严重政治影响的普通宴饮、大酺、游猎、巡幸和祭祀，并禁止输出评分项目或复用建议。该步骤不创建 HistoricalEpisode，不写人物画像、评分或排名。
+
+朝代制度史使用 `dynasty_neutral_governance` 对修订号绑定的纯文本作一次规则中立扫描，再由不同评分项后置投影。首轮汉唐样本覆盖《汉书》《旧唐书》《新唐书》23页、265627字，10个任务通过任务级原子验收，得到174条中性事实链和339条史文引文；这是当前书目样本的影子结果，不代表汉唐制度史完整覆盖。事实链分别保存行动、实施、可观察结果、成本负担、影响群体和人物贡献阶段；创设者、执行者、纠偏者与废止者不得因同处一链而混为共同责任。引文验收只忽略排版空白和 `[139]` 一类纯数字编辑脚注锚点，简繁、异体字和标点变化仍失败关闭。该扫描不输出评分方向、规则复用建议或 factor，也不写 HistoricalEpisode、人物画像和评分。
+
+跨朝政书按 `source_genre + source_work + target_scope` 显式限定目标朝代，卷内前代制度只有在原文明示被目标朝代继承、修改、废除或实际运用时才可进入同一事实链。《通典》唐代试样扫描食货、选举和刑法6卷共65090字，2个任务得到35条事实链和63条引文；与上述174条基线逐条比较后，17条为新事实、16条为同一事项的实质补强、2条为纯复述，均通过一一覆盖和候选边界验收。这个结果只证明制度专书在当前样本中具有高增量价值，不外推为整书、整朝或其他书目的固定产出率。
+
+跨书结果先由 `dynasty_neutral_source_increment` 分类后再消费：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 只在确认同一事项后合并新增字段和史源 lineage；`same_fact_restatement` 只增加独立史源回指，不复制事实；`uncertain` 停在人工复核队列。通过验收的中性事实再按人物、时期、治理领域、受影响群体和责任阶段提供给各评分项检索，由后置 RuleEvidenceUnit 决定相关性和方向。不得在跨书比较阶段创建 HistoricalEpisode、推定人物功劳或写分数。
+
+推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
+
+```powershell
+python -m emperor_v4.adapters.dynasty_neutral_governance prepare --source-manifest <plaintext-manifest.json> --output-root <scan-root> --output-schema config/dynasty-neutral-governance-output.schema.json
+python -m emperor_v4.adapters.dynasty_neutral_governance audit --preparation <scan-root>/preparation.json --results-dir <scan-root>/results --output-schema config/dynasty-neutral-governance-output.schema.json --output <scan-root>/audit.json
+python -m emperor_v4.adapters.dynasty_neutral_source_increment prepare --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --output-root <comparison-root> --output-schema config/dynasty-neutral-source-increment-output.schema.json
+python -m emperor_v4.adapters.dynasty_neutral_source_increment audit --preparation <comparison-root>/preparation.json --result <comparison-root>/result.json --output-schema config/dynasty-neutral-source-increment-output.schema.json --output <comparison-root>/audit.json
+```
+
+人物列传或其他人物页的全生涯扫描结果由 `person_lifecycle_scan` 统一验收：任务、页面、revision、人物和 `person_scan_key` 必须完整闭合，每条 Assertion 与评价 lead 都必须逐字存在于任务绑定的 plaintext；通过后才确定性生成稳定 `PFACT` / `PLEAD` 引用并按 canonical person 分发。人物材料保留跨朝生涯，后置皇帝窗口再决定是否投影；同一页共享扫描不合并人物责任，且本步骤仍为零正式事实、画像和评分写入。
 
 `refetch` 获取待办指定的Wikisource原始revision槽位内容，而不是会改变偏移的纯文本extract。页面按MediaWiki原生批量查询串行获取，避免逐页并发触发限流；已成功页面按 `page_title + revision_ref` 缓存在独立 state 目录。每个窗口都重新按原始偏移截取并核对文本哈希，revision或窗口漂移即关闭，不自动改用新版本。成功结果只是带精确lineage的影子 `MENTIONPASSAGE`，仍不启动Claim或写Assertion。
 

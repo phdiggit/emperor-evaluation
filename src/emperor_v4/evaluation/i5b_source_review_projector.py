@@ -17,6 +17,10 @@ import yaml
 from emperor_v4.adapters.claim_extractor_codex import (
     _codex_subprocess_environment,
 )
+from emperor_v4.adapters.structured_output_contract import (
+    validate_codex_output_schema,
+    validate_payload_against_schema,
+)
 from emperor_v4.evaluation.model_policy import resolve_agent_route
 
 
@@ -361,6 +365,7 @@ def _run_task(
     model: str,
     reasoning_effort: str,
     schema_path: Path,
+    output_schema: Mapping[str, object],
     timeout_seconds: int,
 ) -> dict[str, Any]:
     prompt = build_projection_prompt(task)
@@ -405,6 +410,7 @@ def _run_task(
                 f"{task['task_code']} 投影失败: exit={completed.returncode}; {diagnostic}"
             )
         payload = _load(output_path)
+    validate_payload_against_schema(payload, output_schema)
     if payload.get("task_code") != task["task_code"] or payload.get("object_ref") != task["object_ref"]:
         raise ValueError(f"{task['task_code']} 输出身份不匹配")
     chunk_ref_by_code = {
@@ -523,6 +529,11 @@ def run_projection_batch(
 ) -> dict[str, Any]:
     if max_workers <= 0 or per_task_timeout_seconds <= 0 or wall_clock_budget_seconds <= 0:
         raise ValueError("投影并发和时间预算必须为正数")
+    output_schema = _load(schema_path)
+    validate_codex_output_schema(
+        output_schema,
+        require_all_properties=False,
+    )
     tasks, chunks = build_projection_tasks(decision, refetch)
     selected_ids = {str(value) for value in material_ids}
     if selected_ids:
@@ -550,6 +561,7 @@ def run_projection_batch(
                 model=model,
                 reasoning_effort=reasoning_effort,
                 schema_path=schema_path,
+                output_schema=output_schema,
                 timeout_seconds=timeout,
             ): task
             for task in tasks

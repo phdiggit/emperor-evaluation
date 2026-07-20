@@ -9,6 +9,10 @@ import tempfile
 from time import monotonic
 from typing import Any, Mapping
 
+from emperor_v4.adapters.structured_output_contract import (
+    validate_codex_output_schema,
+    validate_payload_against_schema,
+)
 from emperor_v4.application.claim_extractor_service import ClaimExtractionBatch
 from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 
@@ -150,6 +154,13 @@ class CodexCliClaimExtractionProvider:
         output_schema_path = output_schema_path.resolve()
         if not output_schema_path.is_file():
             raise ValueError("Codex Claim provider output schema 不存在")
+        output_schema = json.loads(output_schema_path.read_text(encoding="utf-8"))
+        if not isinstance(output_schema, Mapping):
+            raise ValueError("Codex Claim provider output schema 必须是 object")
+        validate_codex_output_schema(
+            output_schema,
+            require_all_properties=False,
+        )
         if (
             not all((codex_bin, model, reasoning_effort))
             or timeout_seconds <= 0
@@ -161,6 +172,7 @@ class CodexCliClaimExtractionProvider:
         self.model = model
         self.reasoning_effort = reasoning_effort
         self.output_schema_path = output_schema_path
+        self.output_schema = output_schema
         self.timeout_seconds = timeout_seconds
         self.max_prompt_chars = max_prompt_chars
         self.max_output_bytes = max_output_bytes
@@ -256,6 +268,7 @@ class CodexCliClaimExtractionProvider:
             payload = json.loads(output_path.read_text(encoding="utf-8"))
         if not isinstance(payload, Mapping):
             raise ValueError("Codex Claim provider 输出必须是 JSON object")
+        validate_payload_against_schema(payload, self.output_schema)
         return parse_codex_claim_output(
             payload,
             provider_code=provider_code,
