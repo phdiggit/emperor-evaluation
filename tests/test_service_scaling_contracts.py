@@ -697,6 +697,7 @@ def test_dynasty_neutral_governance_prepare_and_audit_stay_rule_neutral(
     assert "规则复用建议" in prompt
     assert "跨朝代政书中的前代制度" in prompt
     assert "不得自行补右引号" in prompt
+    assert "不得删除中间内容后拼接" in prompt
     assert "只抽取汉代实际发生的事实" in prompt
     assert "reuse_candidates" not in prompt
 

@@ -34,4 +34,6 @@ Claim 的 Codex 可执行文件固定为 `/opt/emperor-evaluation-v4/bin/codex`�
 
 新会话先执行 `ssh emperor-runtime sudo bash /opt/emperor-evaluation-v4/source-cache/current/deploy/v4/verify-server-runtime.sh`，确认release、timer、状态根和Codex运行时，再启动或恢复后台批任务。
 
-中性材料批扫描交给模型的页面正文必须来自 `fetch_wikisource_plaintext`，并用同一响应中的 revision id 锁定版本；不得把含 `{{ProperNoun|...}}`、`-{...}-` 等 MediaWiki 标记的原始 revision 正文直接嵌入模型 Prompt。否则模型通常会渲染或部分保留模板，导致 `exact_quote` 无法逐字回指。既有原始正文运行只能在单独目录生成 plaintext 派生结果，记录原结果与派生结果 hash，并通过全量引文审计后使用；不得覆盖原结果。
+中性材料批扫描交给模型的页面正文必须来自 `fetch_wikisource_plaintext`，并用同一响应中的 revision id 锁定版本；不得把含 `{{ProperNoun|...}}`、`-{...}-` 等 MediaWiki 标记的原始 revision 正文直接嵌入模型 Prompt。对于 `extracts` 为空的模板转引页，适配器按已锁定 oldid 获取 rendered HTML 后转为纯文本，不得重新按当前标题取正文。批准备按页面原子缓存 revision、plaintext 与 hash，限流或瞬时网络失败后只补缺页。既有原始正文运行只能在单独目录生成 plaintext 派生结果，记录原结果与派生结果 hash，并通过全量引文审计后使用；不得覆盖原结果。
+
+服务器上的中性材料模型批次必须复用 `/data1/emperor-evaluation/runtime/services/emperor-v4/claim-extractor/codex` 认证目录，不使用历史 `.codex` 目录，也不得读取或输出认证内容。`source-cache` release 同时携带制度史抽取、跨书增量比较、确定性材料结算及其结构化输出合同；模型批次仍写入 `neutral-material-batches/`，不进入两个定时服务的数据库状态机。

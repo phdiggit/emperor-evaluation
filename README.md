@@ -131,7 +131,7 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 跨朝政书按 `source_genre + source_work + target_scope` 显式限定目标朝代，卷内前代制度只有在原文明示被目标朝代继承、修改、废除或实际运用时才可进入同一事实链。《通典》唐代试样扫描食货、选举和刑法6卷共65090字，2个任务得到35条事实链和63条引文；与上述174条基线逐条比较后，17条为新事实、16条为同一事项的实质补强、2条为纯复述，均通过一一覆盖和候选边界验收。这个结果只证明制度专书在当前样本中具有高增量价值，不外推为整书、整朝或其他书目的固定产出率。
 
-跨书结果先由 `dynasty_neutral_source_increment` 分类后再消费：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 只在确认同一事项后合并新增字段和史源 lineage；`same_fact_restatement` 只增加独立史源回指，不复制事实；`uncertain` 停在人工复核队列。通过验收的中性事实再按人物、时期、治理领域、受影响群体和责任阶段提供给各评分项检索，由后置 RuleEvidenceUnit 决定相关性和方向。不得在跨书比较阶段创建 HistoricalEpisode、推定人物功劳或写分数。
+跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，而是保留全部 `fact_variants`、去重后的逐字 evidence 和检索用人物/领域索引。当前35条《通典》候选结算为31个材料组件、0条待复核；人物名称索引不承担别名归一或功劳归责，进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向；本层不得创建 HistoricalEpisode、推定人物功劳或写分数。
 
 推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 
@@ -140,6 +140,7 @@ python -m emperor_v4.adapters.dynasty_neutral_governance prepare --source-manife
 python -m emperor_v4.adapters.dynasty_neutral_governance audit --preparation <scan-root>/preparation.json --results-dir <scan-root>/results --output-schema config/dynasty-neutral-governance-output.schema.json --output <scan-root>/audit.json
 python -m emperor_v4.adapters.dynasty_neutral_source_increment prepare --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --output-root <comparison-root> --output-schema config/dynasty-neutral-source-increment-output.schema.json
 python -m emperor_v4.adapters.dynasty_neutral_source_increment audit --preparation <comparison-root>/preparation.json --result <comparison-root>/result.json --output-schema config/dynasty-neutral-source-increment-output.schema.json --output <comparison-root>/audit.json
+python -m emperor_v4.adapters.dynasty_neutral_material_settlement --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --increment-audit <comparison-root>/audit.json --output <settlement.json>
 ```
 
 人物列传或其他人物页的全生涯扫描结果由 `person_lifecycle_scan` 统一验收：任务、页面、revision、人物和 `person_scan_key` 必须完整闭合，每条 Assertion 与评价 lead 都必须逐字存在于任务绑定的 plaintext；通过后才确定性生成稳定 `PFACT` / `PLEAD` 引用并按 canonical person 分发。人物材料保留跨朝生涯，后置皇帝窗口再决定是否投影；同一页共享扫描不合并人物责任，且本步骤仍为零正式事实、画像和评分写入。
