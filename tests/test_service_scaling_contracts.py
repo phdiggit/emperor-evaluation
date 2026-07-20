@@ -76,6 +76,13 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
     assert f"Environment=CODEX_HOME={state_root}/claim-extractor/codex" in claim_unit
     assert f"ReadWritePaths={state_root}" in claim_unit
     assert f"EMPEROR_EVAL_V4_STATE_ROOT:-{state_root}" in provisioner
+    assert {
+        "config/dynasty-neutral-governance-output.schema.json",
+        "config/dynasty-neutral-source-increment-output.schema.json",
+        "src/emperor_v4/adapters/dynasty_neutral_governance.py",
+        "src/emperor_v4/adapters/dynasty_neutral_source_increment.py",
+        "src/emperor_v4/adapters/structured_output_contract.py",
+    } <= set(SOURCE_CACHE_RELEASE_PATHS)
 
 
 def _claim_payload() -> dict:
