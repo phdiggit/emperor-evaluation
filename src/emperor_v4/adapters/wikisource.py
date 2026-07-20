@@ -6,6 +6,7 @@ from datetime import UTC, datetime
 from hashlib import sha256
 from html.parser import HTMLParser
 from pathlib import Path
+from time import sleep
 from typing import Any, Mapping, Sequence
 from urllib.parse import quote, urlencode, urljoin
 from urllib.request import Request, urlopen
@@ -97,8 +98,7 @@ def _fetch_rendered_revision_html(
         api_endpoint + "?" + urlencode(params),
         headers={"User-Agent": DEFAULT_USER_AGENT},
     )
-    with urlopen(request, timeout=timeout_seconds) as response:
-        payload = json.load(response)
+    payload = _request_json_with_retry(request, timeout_seconds=timeout_seconds)
     parsed = payload.get("parse") or {}
     if int(parsed.get("revid") or 0) != revision_id:
         raise ValueError(
@@ -109,6 +109,22 @@ def _fetch_rendered_revision_html(
     if not html:
         raise ValueError(f"Wikisource rendered revision 缺少正文: {revision_id}")
     return html
+
+
+def _request_json_with_retry(
+    request: Request, *, timeout_seconds: float, max_attempts: int = 4
+) -> Mapping[str, Any]:
+    last_error: Exception | None = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            with urlopen(request, timeout=timeout_seconds) as response:
+                return json.load(response)
+        except Exception as exc:
+            last_error = exc
+            if attempt < max_attempts:
+                sleep(attempt * 3)
+    assert last_error is not None
+    raise last_error
 
 
 @dataclass(frozen=True, slots=True)
@@ -200,12 +216,28 @@ def fetch_wikisource_plaintext(
         headers={"User-Agent": DEFAULT_USER_AGENT},
     )
     retrieved_at = datetime.now(UTC).isoformat()
-    with urlopen(request, timeout=timeout_seconds) as response:
-        payload = json.load(response)
+    payload = _request_json_with_retry(request, timeout_seconds=timeout_seconds)
+    page = _resolved_batch_pages(
+        requested_titles=(page_title,), payload=payload
+    )[page_title]
+    if not str(page.get("extract") or "").strip():
+        revisions = tuple(page.get("revisions") or ())
+        if len(revisions) != 1:
+            raise ValueError("Wikisource 页面缺少唯一 revision，无法渲染回退")
+        revision_id = int(revisions[0]["revid"])
+        rendered_html = _fetch_rendered_revision_html(
+            revision_id=revision_id,
+            api_endpoint=api_endpoint,
+            timeout_seconds=timeout_seconds,
+        )
+        rendered_text = _rendered_html_to_plaintext(rendered_html)
+        if not rendered_text:
+            raise ValueError(f"Wikisource 页面缺少 plain text: {page_title}")
+        page = {**page, "extract": rendered_text}
     snapshot = snapshot_from_api_payload(
         page_code=page_code,
         requested_title=page_title,
-        payload=payload,
+        payload={"query": {"pages": [page]}},
         retrieved_at=retrieved_at,
     )
     if expected_revision_id is not None and snapshot.revision_id != expected_revision_id:
@@ -246,8 +278,7 @@ def fetch_wikisource_plaintext_batch(
         },
     )
     retrieved_at = datetime.now(UTC).isoformat()
-    with urlopen(request, timeout=timeout_seconds) as response:
-        payload = json.load(response)
+    payload = _request_json_with_retry(request, timeout_seconds=timeout_seconds)
     resolved_pages = _resolved_batch_pages(requested_titles=titles, payload=payload)
     rendered_html_by_revision = {}
     for page in resolved_pages.values():
