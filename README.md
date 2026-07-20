@@ -141,7 +141,7 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 `governance_achievement_candidate` 再把结算组件、未被增量命中的朝代基线和上述原子确定性编译为一次性消费集合；同一组件只进入一个模型任务。已有人物先绑定现有 `person_ref`，简繁由 OpenCC 统一；其余人名生成朝代内 provisional actor ref，机构和复数官署不冒充人物。模型只能在允许组件、人物和字段内作 `register / omit / uncertain` 判断，不能生成史源、ID、规则方向、Episode、REU或分数；审计器再确定性生成 `governance-achievement-registry-v1`。判断 policy 进入 `task_code` 指纹，Prompt 变化不会复用旧结果。影响尺度看已实现结果而不是法令名义覆盖：单案、窄条款、资格线或一次程序调整不得仅因“颁行天下”升为国家级，`stable_delivery` 与 `important_method_or_legacy` 也必须有运行或延续证据。
 
-三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；已接受的治理成果可由 `governance_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实引用全部解析后，治理成果才进入 `ready_for_rule_judge`；否则保持 `needs_fact_resolution`。I5B 随后消费当前 Episode、治理成果和人物画像，由各 rule Judge 生成 REU，再由现有材料预算和计分公式结算。
+三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；`governance_fact_sets` 以稳定 `fact_ref` 和精确 `page@revision#quote` 史源回指接入制度史中性事实，缺少任一项即失败关闭。已接受的治理成果可由 `governance_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实引用全部解析后，治理成果才进入 `ready_for_rule_judge`；否则保持 `needs_fact_resolution`。I5B 随后消费当前 Episode、治理成果和人物画像，由各 rule Judge 生成 REU，再由现有材料预算和计分公式结算。
 
 唐代真实批次已验证朝代制度材料可以形成中性治理成果。审计器把皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，朝代批次临时 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次异常 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除，不能选择“最接近”的事实凑引用。
 

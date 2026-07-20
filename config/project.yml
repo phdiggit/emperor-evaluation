@@ -22,6 +22,7 @@ person_profile_storage:
 neutral_material_reuse:
   unified_intake_contract: neutral-material-intake
   unified_intake_channels: [ruler_chronicle, person_biography, dynasty_governance]
+  dynasty_governance_fact_requires: [fact_ref, source_refs]
   automatic_dedupe_requires_same_neutral_fact_ref: true
   semantic_similarity_auto_merge_allowed: false
   governance_projection_requires_all_fact_refs_resolved: true

@@ -22,10 +22,20 @@ def _unique(values: Sequence[str]) -> list[str]:
     return sorted({value for value in values if value})
 
 
+def _is_exact_source_ref(value: str) -> bool:
+    try:
+        page_revision, quote = value.rsplit("#", 1)
+        page, revision = page_revision.rsplit("@", 1)
+    except ValueError:
+        return False
+    return bool(page and revision and quote)
+
+
 def build_neutral_material_intake(
     *,
     ruler_fanouts: Sequence[Mapping[str, object]] = (),
     person_lifecycle_fanouts: Sequence[Mapping[str, object]] = (),
+    governance_fact_sets: Sequence[Mapping[str, object]] = (),
     governance_registries: Sequence[Mapping[str, object]] = (),
 ) -> dict[str, object]:
     """Merge the three neutral-material channels without making rule judgments.
@@ -52,6 +62,7 @@ def build_neutral_material_intake(
         person_ref: str | None = None,
         ruler_contexts: Sequence[str] = (),
         assertion_anchors: Sequence[str] = (),
+        exact_source_refs: Sequence[str] = (),
         profile_eligible: bool = False,
     ) -> None:
         material_ref = f"NMAT-{_hash(fact_ref)[:20].upper()}"
@@ -73,8 +84,11 @@ def build_neutral_material_intake(
         )
         row["source_channels"] = _unique([*row["source_channels"], channel])
         row["neutral_summaries"] = _unique([*row["neutral_summaries"], summary])
+        fallback_source_ref = (
+            f"{source_page}@{revision_ref}" if revision_ref else source_page
+        )
         row["source_refs"] = _unique(
-            [*row["source_refs"], f"{source_page}@{revision_ref}" if revision_ref else source_page]
+            [*row["source_refs"], *exact_source_refs, fallback_source_ref]
         )
         row["dates"] = _unique([*row["dates"], date])
         row["ruler_contexts"] = _unique([*row["ruler_contexts"], *ruler_contexts])
@@ -132,6 +146,43 @@ def build_neutral_material_intake(
                     profile_eligible=True,
                 )
 
+    for fact_set in governance_fact_sets:
+        for fact in fact_set.get("facts") or ():
+            fact_ref = str(fact.get("fact_ref") or "")
+            source_refs = tuple(str(value) for value in fact.get("source_refs") or ())
+            if not fact_ref or not source_refs:
+                raise ValueError(
+                    "dynasty_governance fact 必须同时提供 fact_ref 和 source_refs"
+                )
+            if any(not _is_exact_source_ref(source_ref) for source_ref in source_refs):
+                raise ValueError(
+                    "dynasty_governance source_refs 必须使用 page@revision#quote"
+                )
+            summary_parts = _unique(
+                [
+                    str(fact.get("title") or ""),
+                    str(fact.get("action") or ""),
+                    str(fact.get("implementation") or ""),
+                    str(fact.get("observable_result") or ""),
+                ]
+            )
+            anchors = tuple(
+                source_ref.rsplit("#", 1)[1]
+                for source_ref in source_refs
+                if "#" in source_ref and source_ref.rsplit("#", 1)[1]
+            )
+            merge_fact(
+                fact_ref,
+                channel="dynasty_governance",
+                summary="；".join(summary_parts),
+                source_page="",
+                revision_ref="",
+                date=str(fact.get("period") or ""),
+                ruler_contexts=tuple(fact.get("ruler_contexts") or ()),
+                assertion_anchors=anchors,
+                exact_source_refs=source_refs,
+            )
+
     achievements = []
     projection_queue = []
     for registry in governance_registries:
@@ -168,15 +219,16 @@ def build_neutral_material_intake(
                     "payload": achievement,
                 }
             )
-            for target in achievement.get("reuse_targets") or ():
-                projection_queue.append(
-                    {
-                        "candidate_ref": f"PROJ-{_hash([achievement_ref, target])[:20].upper()}",
-                        "target": target,
-                        "achievement_ref": achievement_ref,
-                        "status": "needs_rule_judge",
-                    }
-                )
+            if not unresolved:
+                for target in achievement.get("reuse_targets") or ():
+                    projection_queue.append(
+                        {
+                            "candidate_ref": f"PROJ-{_hash([achievement_ref, target])[:20].upper()}",
+                            "target": target,
+                            "achievement_ref": achievement_ref,
+                            "status": "needs_rule_judge",
+                        }
+                    )
 
     material_rows = sorted(facts.values(), key=lambda row: row["material_ref"])
     return {

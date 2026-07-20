@@ -60,16 +60,38 @@ def test_three_channels_share_current_intake_without_premature_projection() -> N
             }
         ]
     }
+    governance_facts = {
+        "facts": [
+            {
+                "fact_ref": "GFACT-1",
+                "title": "制度施行",
+                "action": "制定并执行制度。",
+                "implementation": "由主管官员持续执行。",
+                "observable_result": "制度产生可观察结果。",
+                "period": "某年",
+                "source_refs": ["制度史/卷一@r3#Q1"],
+                "ruler_contexts": ["RULER-A"],
+            }
+        ]
+    }
+    governance["achievements"][0]["neutral_fact_refs"].append("GFACT-1")
 
     result = build_neutral_material_intake(
         ruler_fanouts=(ruler,),
         person_lifecycle_fanouts=(biography,),
+        governance_fact_sets=(governance_facts,),
         governance_registries=(governance,),
     )
 
-    assert result["material_count"] == 2
+    assert result["material_count"] == 3
     assert result["governance_achievements"][0]["projection_status"] == "ready_for_rule_judge"
     assert result["governance_achievements"][0]["neutral_material_refs"]
+    governance_material = next(
+        row for row in result["materials"] if row["neutral_fact_ref"] == "GFACT-1"
+    )
+    assert governance_material["source_channels"] == ["dynasty_governance"]
+    assert governance_material["source_refs"] == ["制度史/卷一@r3#Q1"]
+    assert governance_material["assertion_anchors"] == ["Q1"]
     assert result["projection_queue"] == [
         {
             "candidate_ref": result["projection_queue"][0]["candidate_ref"],
@@ -110,6 +132,56 @@ def test_only_native_fact_identity_is_automatically_deduplicated() -> None:
 
     assert result["material_count"] == 1
     assert result["materials"][0]["person_refs"] == ["PER-A", "PER-B"]
+
+
+def test_governance_fact_without_exact_lineage_fails_closed() -> None:
+    fact_set = {"facts": [{"fact_ref": "GFACT-1", "title": "无史源事实"}]}
+
+    try:
+        build_neutral_material_intake(governance_fact_sets=(fact_set,))
+    except ValueError as exc:
+        assert "fact_ref 和 source_refs" in str(exc)
+    else:
+        raise AssertionError("缺少制度史精确 lineage 时必须失败关闭")
+
+    malformed = {
+        "facts": [
+            {
+                "fact_ref": "GFACT-1",
+                "title": "定位不完整",
+                "source_refs": ["制度史/卷一@r1"],
+            }
+        ]
+    }
+    try:
+        build_neutral_material_intake(governance_fact_sets=(malformed,))
+    except ValueError as exc:
+        assert "page@revision#quote" in str(exc)
+    else:
+        raise AssertionError("缺少 quote anchor 时必须失败关闭")
+
+
+def test_unresolved_governance_achievement_does_not_enter_judge_queue() -> None:
+    registry = {
+        "achievements": [
+            {
+                "achievement_ref": "GOVACH-A",
+                "independent_governance_key": "a",
+                "canonical_label": "制度成果",
+                "participants": [],
+                "ruler_links": [],
+                "neutral_fact_refs": ["MISSING-FACT"],
+                "reuse_targets": ["i5b_team_building"],
+            }
+        ]
+    }
+
+    result = build_neutral_material_intake(governance_registries=(registry,))
+
+    assert result["governance_achievements"][0]["projection_status"] == (
+        "needs_fact_resolution"
+    )
+    assert result["projection_queue"] == []
 
 
 def test_governance_registry_converts_to_idempotent_current_rows() -> None:
