@@ -28,6 +28,10 @@ from emperor_v4.adapters.dynasty_neutral_governance import (
     build_dynasty_neutral_governance_prompt,
     prepare_scan,
 )
+from emperor_v4.adapters.dynasty_neutral_material_atomization import (
+    audit_atomization,
+    prepare_atomization,
+)
 from emperor_v4.adapters.dynasty_neutral_source_increment import (
     audit_comparison,
     prepare_comparison,
@@ -81,8 +85,10 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
     assert f"EMPEROR_EVAL_V4_STATE_ROOT:-{state_root}" in provisioner
     assert {
         "config/dynasty-neutral-governance-output.schema.json",
+        "config/dynasty-neutral-material-atomization-output.schema.json",
         "config/dynasty-neutral-source-increment-output.schema.json",
         "src/emperor_v4/adapters/dynasty_neutral_governance.py",
+        "src/emperor_v4/adapters/dynasty_neutral_material_atomization.py",
         "src/emperor_v4/adapters/dynasty_neutral_material_settlement.py",
         "src/emperor_v4/adapters/dynasty_neutral_source_increment.py",
         "src/emperor_v4/adapters/structured_output_contract.py",
@@ -1015,6 +1021,116 @@ def test_dynasty_neutral_material_settlement_queues_mixed_partial_overlap() -> N
             "review_reason": "mixed_chain_partial_overlap_requires_atomization",
         }
     ]
+
+
+def test_dynasty_neutral_material_atomization_closes_quote_and_identity_bounds(
+    tmp_path: Path,
+) -> None:
+    candidate = {
+        "chain_key": "three-taxes",
+        "title": "三项税",
+        "domain": "fiscal_taxation",
+        "period": "唐",
+        "action": "分别征收三项税",
+        "implementation": "分别执行",
+        "observable_result": "原文未载",
+        "cost_or_burden": "分别承担",
+        "affected_groups": ["商人", "田户"],
+        "operation_status": "mixed_chain",
+        "temporal_scope": "repeated_pattern",
+        "geographic_scope": "multi_region",
+        "actors": [
+            {
+                "name": "张某",
+                "responsibility_role": "lead",
+                "contribution_phases": ["initiated"],
+                "role_basis": "提出茶税",
+                "quote_refs": ["q3"],
+            }
+        ],
+        "evidence": [
+            {"quote_ref": "q1", "page_title": "通典/卷011", "revision_ref": "1", "exact_quote": "征埭程"},
+            {"quote_ref": "q2", "page_title": "通典/卷011", "revision_ref": "1", "exact_quote": "征青苗钱"},
+            {"quote_ref": "q3", "page_title": "通典/卷011", "revision_ref": "1", "exact_quote": "征茶税"},
+        ],
+        "uncertainty": "三项制度彼此独立",
+    }
+    baseline = {**candidate, "chain_key": "tea-tax", "title": "茶税", "evidence": [candidate["evidence"][2]]}
+    settlement = {
+        "status": "accepted_shadow",
+        "materials": [
+            {
+                "material_ref": "DNMAT-1",
+                "candidate_chain_keys": ["three-taxes"],
+                "fact_variants": [
+                    {"source_kind": "candidate", "chain_key": "three-taxes", "chain": candidate},
+                    {"source_kind": "baseline", "chain_key": "tea-tax", "chain": baseline},
+                ],
+            }
+        ],
+        "review_queue": [
+            {
+                "candidate_chain_key": "three-taxes",
+                "possible_baseline_chain_keys": ["tea-tax"],
+                "review_reason": "mixed_chain_partial_overlap_requires_atomization",
+            }
+        ],
+    }
+    schema_path = ROOT / "config/dynasty-neutral-material-atomization-output.schema.json"
+    preparation = prepare_atomization(
+        settlement,
+        output_root=tmp_path,
+        output_schema_path=schema_path,
+    )
+    payload = {
+        "schema_version": "dynasty-neutral-material-atomization-output-v1",
+        "task_code": preparation["task_code"],
+        "items": [
+            {
+                "candidate_chain_key": "three-taxes",
+                "atoms": [
+                    {
+                        "atom_local_key": "atom-1", "title": "埭程", "period": "唐", "action": "征埭程",
+                        "implementation": "已征", "observable_result": "", "cost_or_burden": "商人承担",
+                        "affected_groups": ["商人"], "operation_status": "implemented",
+                        "temporal_scope": "long_term_pattern", "geographic_scope": "regional", "actors": [],
+                        "evidence_refs": ["q1"], "classification": "new_fact", "baseline_chain_keys": [],
+                        "uncertainty": "",
+                    },
+                    {
+                        "atom_local_key": "atom-2", "title": "青苗钱", "period": "唐", "action": "征青苗钱",
+                        "implementation": "已征", "observable_result": "", "cost_or_burden": "田户承担",
+                        "affected_groups": ["田户"], "operation_status": "implemented",
+                        "temporal_scope": "long_term_pattern", "geographic_scope": "national", "actors": [],
+                        "evidence_refs": ["q2"], "classification": "new_fact", "baseline_chain_keys": [],
+                        "uncertainty": "",
+                    },
+                    {
+                        "atom_local_key": "atom-3", "title": "茶税", "period": "唐", "action": "征茶税",
+                        "implementation": "已征", "observable_result": "", "cost_or_burden": "茶商承担",
+                        "affected_groups": ["商人"], "operation_status": "implemented",
+                        "temporal_scope": "long_term_pattern", "geographic_scope": "national",
+                        "actors": [{"name": "张某", "responsibility_role": "lead", "contribution_phases": ["initiated"], "role_basis": "提出茶税", "evidence_refs": ["q3"]}],
+                        "evidence_refs": ["q3"], "classification": "same_fact_enrichment",
+                        "baseline_chain_keys": ["tea-tax"], "uncertainty": "",
+                    },
+                ],
+            }
+        ],
+        "limitations": [],
+    }
+
+    audit = audit_atomization(preparation, payload, output_schema_path=schema_path)
+
+    assert audit["status"] == "accepted_shadow"
+    assert audit["atom_count"] == 3
+    assert audit["classification_counts"] == {"new_fact": 2, "same_fact_enrichment": 1}
+    assert audit["historical_episode_writes"] == audit["score_writes"] == 0
+
+    invalid = deepcopy(payload)
+    invalid["items"][0]["atoms"][0]["evidence_refs"] = ["q-outside"]
+    with pytest.raises(ValueError, match="evidence_refs 越界"):
+        audit_atomization(preparation, invalid, output_schema_path=schema_path)
 
 def test_codex_provider_keeps_windows_runtime_identity_without_business_secrets(
     monkeypatch: pytest.MonkeyPatch,

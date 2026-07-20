@@ -112,12 +112,21 @@ top_fallback:
 
 registry_contracts:
   military_campaign_registry_schema: config/campaign-registry.schema.json
+  civil_governance_achievement_registry_schema: config/governance-achievement-registry.schema.json
   campaign_is_neutral_fact_overlay_not_scoring_episode_copy: true
+  governance_achievement_is_neutral_fact_overlay_not_scoring_episode_copy: true
   reusable_targets:
     - talent_grade_military
     - item1_c1_campaign_contribution
     - item1_c2_frontline_command
     - item3_military_security
+  civil_governance_reusable_targets:
+    - talent_grade_civil_governance
+    - i5b_appointment
+    - i5b_team_building
+    - item2_central_governance
+    - item2_institutional_reform
+    - item2_law_and_adjudication
   item_specific_eligibility_remains_in_projector: true
 
 release:

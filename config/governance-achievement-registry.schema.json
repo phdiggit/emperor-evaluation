@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance-achievement-registry.schema.json",
+  "title": "V4 Neutral Governance Achievement Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registry_version", "status", "achievements"],
+  "properties": {
+    "schema_version": {"const": "governance-achievement-registry-v1"},
+    "registry_version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["shadow", "human_frozen"]},
+    "achievements": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/achievement"}
+    }
+  },
+  "$defs": {
+    "achievement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "achievement_ref", "independent_governance_key", "canonical_label", "domain",
+        "period", "implementation_status", "observable_result", "result_direction",
+        "positive_result_preserved", "scale", "foundational", "durable_cross_stage",
+        "stable_delivery", "important_method_or_legacy", "participants", "ruler_links",
+        "neutral_fact_refs", "source_refs", "reuse_targets", "limitations"
+      ],
+      "properties": {
+        "achievement_ref": {"type": "string", "pattern": "^GOVACH-[A-Z0-9-]+$"},
+        "independent_governance_key": {"type": "string", "minLength": 1},
+        "canonical_label": {"type": "string", "minLength": 1},
+        "domain": {
+          "enum": [
+            "central_institutions", "law_and_adjudication", "official_selection",
+            "fiscal_taxation", "local_government", "economy_production",
+            "infrastructure_public_works", "education_talent", "other_governance"
+          ]
+        },
+        "period": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "end"],
+          "properties": {
+            "start": {"type": "string"},
+            "end": {"type": "string"}
+          }
+        },
+        "implementation_status": {
+          "enum": ["implemented", "operated", "completed", "mixed", "failed", "unclear"]
+        },
+        "observable_result": {"type": "string", "minLength": 1},
+        "result_direction": {"enum": ["positive", "mixed", "negative", "unclear"]},
+        "positive_result_preserved": {"type": "boolean"},
+        "scale": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "consequence_basis", "reason"],
+          "properties": {
+            "level": {"enum": ["local", "important", "regional", "national", "era_shaping"]},
+            "consequence_basis": {
+              "enum": [
+                "local_public_result", "important_public_result", "regional_governance_result",
+                "national_core_subsystem", "national_public_result", "era_order_reconstruction"
+              ]
+            },
+            "reason": {"type": "string", "minLength": 1}
+          }
+        },
+        "foundational": {"type": "boolean"},
+        "durable_cross_stage": {"type": "boolean"},
+        "stable_delivery": {"type": "boolean"},
+        "important_method_or_legacy": {"type": "boolean"},
+        "participants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["person_ref", "canonical_name", "responsibility_role", "contribution_scope"],
+            "properties": {
+              "person_ref": {"type": "string", "minLength": 1},
+              "canonical_name": {"type": "string", "minLength": 1},
+              "responsibility_role": {"enum": ["exclusive", "lead", "participant"]},
+              "contribution_scope": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "ruler_links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ruler_ref", "ruler_name", "authorization_status", "reign_window"],
+            "properties": {
+              "ruler_ref": {"type": "string"},
+              "ruler_name": {"type": "string", "minLength": 1},
+              "authorization_status": {"enum": ["explicit", "maintained", "implicit", "not_established"]},
+              "reign_window": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "neutral_fact_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "reuse_targets": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "talent_grade_civil_governance", "i5b_appointment", "i5b_team_building",
+              "item2_central_governance", "item2_institutional_reform",
+              "item2_law_and_adjudication", "item3_fiscal_and_livelihood",
+              "item4_governance_resilience", "item6_cultural_legacy"
+            ]
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task_code", "items", "limitations"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "dynasty-neutral-material-atomization-output-v1"
+    },
+    "task_code": {"type": "string", "minLength": 1},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_chain_key", "atoms"],
+        "properties": {
+          "candidate_chain_key": {"type": "string", "minLength": 1},
+          "atoms": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "atom_local_key",
+                "title",
+                "period",
+                "action",
+                "implementation",
+                "observable_result",
+                "cost_or_burden",
+                "affected_groups",
+                "operation_status",
+                "temporal_scope",
+                "geographic_scope",
+                "actors",
+                "evidence_refs",
+                "classification",
+                "baseline_chain_keys",
+                "uncertainty"
+              ],
+              "properties": {
+                "atom_local_key": {"type": "string", "pattern": "^atom-[1-9][0-9]*$"},
+                "title": {"type": "string", "minLength": 1},
+                "period": {"type": "string", "minLength": 1},
+                "action": {"type": "string", "minLength": 1},
+                "implementation": {"type": "string"},
+                "observable_result": {"type": "string"},
+                "cost_or_burden": {"type": "string"},
+                "affected_groups": {
+                  "type": "array",
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "operation_status": {
+                  "type": "string",
+                  "enum": [
+                    "proposed", "ordered", "enacted", "implemented", "operated",
+                    "modified", "repealed", "completed", "observed_outcome", "unclear"
+                  ]
+                },
+                "temporal_scope": {
+                  "type": "string",
+                  "enum": [
+                    "single_event", "repeated_pattern", "long_term_pattern",
+                    "cross_reign_continuity", "cross_dynastic_continuity", "unclear"
+                  ]
+                },
+                "geographic_scope": {
+                  "type": "string",
+                  "enum": ["court", "local", "regional", "national", "frontier", "multi_region", "unclear"]
+                },
+                "actors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["name", "responsibility_role", "contribution_phases", "role_basis", "evidence_refs"],
+                    "properties": {
+                      "name": {"type": "string", "minLength": 1},
+                      "responsibility_role": {"type": "string", "enum": ["exclusive", "lead", "participant"]},
+                      "contribution_phases": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "initiated", "designed", "authorized", "implemented",
+                            "operated", "corrected", "repealed", "reported_or_evaluated"
+                          ]
+                        }
+                      },
+                      "role_basis": {"type": "string", "minLength": 1},
+                      "evidence_refs": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {"type": "string", "minLength": 1}
+                      }
+                    }
+                  }
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "classification": {
+                  "type": "string",
+                  "enum": ["same_fact_restatement", "same_fact_enrichment", "new_fact", "uncertain"]
+                },
+                "baseline_chain_keys": {
+                  "type": "array",
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "uncertainty": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

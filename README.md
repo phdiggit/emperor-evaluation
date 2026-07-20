@@ -17,7 +17,7 @@
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人物政治风险首轮254人shadow结果因严重度失真和结论改变型归一被拒绝，当前全局Gate为 `failed_closed`。该轮未写人物画像表、不改人才等级，也不进入正式评分；通过唐俭、霍去病、萧瑀、朱樉校准回归前不启动全员重跑。
 - 人才 `historic` 当前采用 V11 分领域等价路径：军事和文官可凭多次国家级兑现达到，不再把跨时代制度或作品遗产设为通用门槛；军事常规门槛为两个独立国家级战役成果加一个独立区域级以上成果，极强的两个 `主帅` 或 `主将` 国家级决定性成果可单独通过。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
-- 战役登记使用 `campaign-registry-v1` 中性合同：同一 `independent_campaign_key` 只登记一次，并分别保存战役层级、结果、人物角色（`主帅`、`主将`、`副将`、`从攻`）、Episode 与史源引用。文官治理成果只标 `独占`、`主导`、`参与`。人才画像、第一项 C1/C2 和第三项只做后置投影，不建立评分专属副本。当前仅合同就绪，尚未冻结 canonical 行。
+- 战役登记使用 `campaign-registry-v1` 中性合同：同一 `independent_campaign_key` 只登记一次，并分别保存战役层级、结果、人物角色（`主帅`、`主将`、`副将`、`从攻`）、Episode 与史源引用。文官治理成果使用 `governance-achievement-registry-v1`，同一 `independent_governance_key` 只登记一次，人物只标 `独占`、`主导`、`参与`，并分别保存实施结果、影响规模、皇帝授权窗口、中性事实和史源引用。人才画像、I5B及其他评分项只做后置投影，不建立评分专属副本；两类登记表均未冻结 canonical 行。
 
 ## 当前架构
 
@@ -135,6 +135,8 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 跨书结果先由 `dynasty_neutral_source_increment` 分类，再由 `dynasty_neutral_material_settlement` 确定性结算：`new_fact` 保留为独立中性候选；`same_fact_enrichment` 和 `same_fact_restatement` 通过共同 baseline 组成同一事实连通分量，后者只追加独立史源回指；`uncertain` 停在人工复核队列。结算器不拼接新的事实叙述，而是保留全部 `fact_variants`、去重后的逐字 evidence 和检索用人物/领域索引。首轮35条《通典》候选结算为31个材料组件、0条待复核；第二轮73条候选对209条基线结算为68个材料组件，其中5条 `mixed_chain` 因只与基线部分重合而进入拆分复核队列。复核前连通分量只用于保存跨书变体，不能直接投影 Episode。人物名称索引不承担别名归一或功劳归责，进入 Episode 前仍须 canonical person 解析和原子化审阅。通过验收的中性事实再由后置 RuleEvidenceUnit 决定规则相关性和方向；本层不得创建 HistoricalEpisode、推定人物功劳或写分数。
 
+`dynasty_neutral_material_atomization` 只消费上述复核队列和已经验真的引文编号，不联网、不补史实。唐代5条真实 `mixed_chain` 在98.804秒内拆为16个原子，得到11条新事实、4条补强和1条复述，全部原引文闭合；拆分结果仍停在 `pending_person_and_window_resolution`。随后治理成果登记试样把人物材料、皇帝材料和制度史材料按独立成果键合并为3项：房玄龄的长期中枢运作与贞观律令体系、长孙无忌的永徽法制体系。它能把早期临时人物候选中的二人从 `important` 校准到至少 `top`；对当前 I5B 已冻结的房玄龄 `historic`、长孙无忌 `top` 则产生零档位变化，只补充结构化实绩依据，因此不得重复抬高团队建设或任用授权信号。杜如晦、魏徵、张玄素在本批制度史中没有直接人物命中，保持无新增，不用同处中枢推定共同成果。
+
 推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 
 ```powershell
@@ -143,6 +145,9 @@ python -m emperor_v4.adapters.dynasty_neutral_governance audit --preparation <sc
 python -m emperor_v4.adapters.dynasty_neutral_source_increment prepare --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --output-root <comparison-root> --output-schema config/dynasty-neutral-source-increment-output.schema.json
 python -m emperor_v4.adapters.dynasty_neutral_source_increment audit --preparation <comparison-root>/preparation.json --result <comparison-root>/result.json --output-schema config/dynasty-neutral-source-increment-output.schema.json --output <comparison-root>/audit.json
 python -m emperor_v4.adapters.dynasty_neutral_material_settlement --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --increment-audit <comparison-root>/audit.json --output <settlement.json>
+python -m emperor_v4.adapters.dynasty_neutral_material_atomization prepare --settlement <settlement.json> --output-root <atomization-root> --output-schema config/dynasty-neutral-material-atomization-output.schema.json
+python -m emperor_v4.adapters.dynasty_neutral_material_atomization audit --preparation <atomization-root>/preparation.json --result <atomization-root>/result.json --output-schema config/dynasty-neutral-material-atomization-output.schema.json --output <atomization-root>/audit.json
+python -m emperor_v4.evaluation.governance_achievement_registry --registry <registry.json> --profiles <profiles.json> --schema config/governance-achievement-registry.schema.json --output <impact.json>
 ```
 
 人物列传或其他人物页的全生涯扫描结果由 `person_lifecycle_scan` 统一验收：任务、页面、revision、人物和 `person_scan_key` 必须完整闭合，每条 Assertion 与评价 lead 都必须逐字存在于任务绑定的 plaintext；通过后才确定性生成稳定 `PFACT` / `PLEAD` 引用并按 canonical person 分发。人物材料保留跨朝生涯，后置皇帝窗口再决定是否投影；同一页共享扫描不合并人物责任，且本步骤仍为零正式事实、画像和评分写入。

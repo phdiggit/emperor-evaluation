@@ -192,9 +192,26 @@ def validate_payload_against_schema(
 
     errors: list[str] = []
 
+    def resolve(node: Mapping[str, object]) -> Mapping[str, object]:
+        reference = node.get("$ref")
+        if not isinstance(reference, str) or not reference.startswith("#/"):
+            return node
+        target: object = schema
+        for raw_part in reference[2:].split("/"):
+            part = raw_part.replace("~1", "/").replace("~0", "~")
+            if not isinstance(target, Mapping) or part not in target:
+                errors.append(f"schema: 无法解析本地 $ref {reference}")
+                return node
+            target = target[part]
+        if not isinstance(target, Mapping):
+            errors.append(f"schema: 本地 $ref 目标不是 object {reference}")
+            return node
+        return {**target, **{key: value for key, value in node.items() if key != "$ref"}}
+
     def walk(value: object, node: Mapping[str, object], path: str) -> None:
+        node = resolve(node)
         types = _type_names(node.get("type"))
-        if not _value_matches_types(value, types):
+        if types and not _value_matches_types(value, types):
             errors.append(f"{path}: 值不符合 type {sorted(types)}")
             return
         if "const" in node and value != node["const"]:

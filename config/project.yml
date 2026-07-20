@@ -88,6 +88,19 @@ neutral_material_reuse_shadow:
   dynasty_material_settlement_preserves_fact_variants: true
   dynasty_material_settlement_episode_projection_status: pending_atomization_review
   dynasty_material_settlement_actor_identity_status: pending_canonical_person_resolution
+  dynasty_material_atomization_contract: dynasty-neutral-material-atomization-audit-v1
+  dynasty_material_atomization_status: accepted_shadow
+  dynasty_material_atomization_candidate_count: 5
+  dynasty_material_atomization_atom_count: 16
+  dynasty_material_atomization_new_fact_count: 11
+  dynasty_material_atomization_enrichment_count: 4
+  dynasty_material_atomization_restatement_count: 1
+  governance_achievement_registry_schema: config/governance-achievement-registry.schema.json
+  governance_achievement_registry_status: shadow_pilot_validated
+  governance_achievement_registry_pilot_count: 3
+  governance_achievement_registry_legacy_candidate_grade_change_count: 2
+  governance_achievement_registry_current_i5b_grade_change_count: 0
+  governance_achievement_registry_formal_write_count: 0
   historical_character_normalization_allowed: false
   formal_fact_write_count: 0
   person_profile_write_count: 0
@@ -100,6 +113,8 @@ talent_grade_shadow:
   domain_paths_operationalize_historic_height: true
   separate_unstructured_height_gate: false
   domain_equivalent_paths: [military, civil_governance, culture_and_scholarship, all_round]
+  governance_registry_fact_floor_does_not_lower_current_grade: true
+  governance_registry_historic_path_still_requires_authority_calibration: true
   military_normal_path: two_national_plus_one_regional
   military_exception_path_requires_two_explicit_decisive_main_command_results: true
   military_responsibility_roles: [commander_in_chief, principal_commander, deputy_commander, participant]

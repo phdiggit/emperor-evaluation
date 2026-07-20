@@ -14,9 +14,11 @@ RELEASE_CONTRACT = "emperor-v4-service-release-v1"
 SOURCE_CACHE_RELEASE_PATHS = (
     "pyproject.toml",
     "config/dynasty-neutral-governance-output.schema.json",
+    "config/dynasty-neutral-material-atomization-output.schema.json",
     "config/dynasty-neutral-source-increment-output.schema.json",
     "src/emperor_v4/__init__.py",
     "src/emperor_v4/adapters/dynasty_neutral_governance.py",
+    "src/emperor_v4/adapters/dynasty_neutral_material_atomization.py",
     "src/emperor_v4/adapters/dynasty_neutral_material_settlement.py",
     "src/emperor_v4/adapters/dynasty_neutral_source_increment.py",
     "src/emperor_v4/adapters/source_cache_fixture.py",

@@ -6,6 +6,10 @@ from pathlib import Path
 import pytest
 import yaml
 
+from emperor_v4.evaluation.governance_achievement_registry import (
+    project_civil_talent_impact,
+    validate_governance_achievement_registry,
+)
 from emperor_v4.evaluation.talent_grade_domain_equivalence import (
     assess_domain_historic_path,
     validate_campaign_registry,
@@ -355,3 +359,75 @@ def test_residual_state_conquest_is_not_national_by_title_alone() -> None:
 
     with pytest.raises(ValueError, match="残余政权"):
         validate_campaign_registry(registry)
+
+
+def test_governance_registry_projects_top_floor_without_writing_profile() -> None:
+    registry = {
+        "schema_version": "governance-achievement-registry-v1",
+        "registry_version": "shadow-v1",
+        "status": "shadow",
+        "achievements": [
+            {
+                "achievement_ref": "GOVACH-LAW-001",
+                "independent_governance_key": "national-law-system",
+                "canonical_label": "全国律令体系",
+                "domain": "law_and_adjudication",
+                "period": {"start": "贞观元年", "end": "贞观十一年"},
+                "implementation_status": "operated",
+                "observable_result": "律令全国颁行并持续施用",
+                "result_direction": "positive",
+                "positive_result_preserved": True,
+                "scale": {
+                    "level": "national",
+                    "consequence_basis": "national_core_subsystem",
+                    "reason": "重构并运行全国刑律子系统",
+                },
+                "foundational": False,
+                "durable_cross_stage": True,
+                "stable_delivery": True,
+                "important_method_or_legacy": True,
+                "participants": [
+                    {
+                        "person_ref": "PER-001",
+                        "canonical_name": "测试人物",
+                        "responsibility_role": "lead",
+                        "contribution_scope": "共同主导设计和颁行",
+                    }
+                ],
+                "ruler_links": [
+                    {
+                        "ruler_ref": "RULER-001",
+                        "ruler_name": "测试皇帝",
+                        "authorization_status": "explicit",
+                        "reign_window": "测试元年至十一年",
+                    }
+                ],
+                "neutral_fact_refs": ["DNMAT-001"],
+                "source_refs": ["SRC-001"],
+                "reuse_targets": ["talent_grade_civil_governance", "i5b_appointment"],
+                "limitations": ["集体成果，不得独占归功"],
+            }
+        ],
+    }
+    schema_path = ROOT / "config/governance-achievement-registry.schema.json"
+
+    validation = validate_governance_achievement_registry(
+        registry, schema_path=schema_path
+    )
+    impact = project_civil_talent_impact(
+        registry,
+        [
+            {
+                "person_ref": "PER-001",
+                "canonical_name": "测试人物",
+                "talent_grade": "important",
+            }
+        ],
+    )
+
+    assert validation["achievement_count"] == 1
+    assert validation["scale_counts"] == {"national": 1}
+    assert impact["grade_change_candidate_count"] == 1
+    assert impact["impacts"][0]["effective_shadow_grade"] == "top"
+    assert impact["impacts"][0]["historic_fact_path_status"] == "not_established"
+    assert impact["person_profile_writes"] == impact["score_writes"] == 0
