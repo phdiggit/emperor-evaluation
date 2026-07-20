@@ -96,6 +96,49 @@ def test_mixed_professional_result_keeps_talent_scope_distinct_from_ruler_net() 
     assert "整体混合结果及跨领域代价另行结算" in grade["basis"]
 
 
+@pytest.mark.parametrize("person", ["李靖", "李勣"])
+def test_two_decisive_national_commands_activate_historic_path(person: str) -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    member = next(row for row in pack["members"] if row["person"] == person)
+    grade = assess_person_talent_grade(
+        person_ref=member["person_ref"],
+        clusters=pack["outcome_registry"]["clusters"],
+    )
+
+    assert grade["grade"] == "historic"
+    assert grade["rule_path"] == "military_exceptional_two_national_command"
+    assert len(grade["outcome_refs"]) == 2
+
+
+def test_zhenguan_law_responsibility_keeps_leads_above_clause_contributor() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    cluster = next(
+        row
+        for row in pack["outcome_registry"]["clusters"]
+        if row["canonical_label"] == "贞观律令与刑罚体系修订"
+    )
+    roles = {row["actor_name"]: row["role_code"] for row in cluster["members"]}
+
+    assert roles["房玄龄"] == "lead"
+    assert roles["长孙无忌"] == "lead"
+    assert roles["裴弘献"] == "governance_participant"
+    assert "PFACT-LSM-ZHENGUAN-LAW-RESPONSIBILITY" in cluster["fact_refs"]
+    assert next(row for row in pack["members"] if row["person"] == "房玄龄")[
+        "effective_talent_grade"
+    ] == "top"
+    assert next(row for row in pack["members"] if row["person"] == "长孙无忌")[
+        "effective_talent_grade"
+    ] == "top"
+
+
 @pytest.mark.parametrize("ruler", ["刘邦", "李世民"])
 def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     report = build_i5b_current_value(

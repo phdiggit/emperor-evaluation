@@ -31,6 +31,7 @@ from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 SCHEMA_VERSION = "i5b-current-value-report-v5"
 SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v5"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
+STABILITY_CONTINUITY = {"initial", "continuous", "managed_turnover", "gap"}
 
 
 def _canonical(value: object) -> bytes:
@@ -65,6 +66,37 @@ def _required_factor_names(rule: str, direction: str) -> tuple[str, ...]:
     if rule == "appointment_delegation":
         return APPOINTMENT_FACTORS
     return FACTOR_NAMES[rule][direction]
+
+
+def derive_long_term_stability(team: Mapping[str, Any]) -> str:
+    """Derive the factor option from current stage coverage, never from a free scalar."""
+
+    required = {str(value) for value in team.get("stability_required_functions") or ()}
+    stages = list(team.get("stability_stages") or ())
+    if not required or len(stages) < 2:
+        raise ValueError("团队长期稳定性必须声明至少两阶段及必需功能")
+    stage_codes = [str(row.get("stage_code") or "") for row in stages]
+    if "" in stage_codes or len(stage_codes) != len(set(stage_codes)):
+        raise ValueError("团队长期稳定阶段身份缺失或重复")
+    continuities = [str(row.get("continuity_from_prior") or "") for row in stages]
+    if continuities[0] != "initial" or any(
+        value not in STABILITY_CONTINUITY for value in continuities
+    ):
+        raise ValueError("团队长期稳定阶段连续性不合法")
+    if any(
+        not required.issubset(
+            {str(value) for value in row.get("covered_function_groups") or ()}
+        )
+        for row in stages
+    ):
+        return "stable_but_narrow"
+    if "gap" in continuities:
+        return "forced_turnover_collapse"
+    if "managed_turnover" in continuities:
+        return "managed_turnover"
+    if len(stages) >= 3:
+        return "durable_multi_stage"
+    return "stable_window"
 
 
 def _neutral_episode_key(material: Mapping[str, Any]) -> str:
@@ -301,7 +333,9 @@ def build_i5b_current_value(
         unrelated_contexts = sorted(
             ref
             for ref in material_context_refs
-            if str(material["person_ref"])
+            if material.get("subject_kind") != "ruler_institution"
+            and str(material["person_ref"]) != str(pack["ruler_ref"])
+            and str(material["person_ref"])
             not in {str(value) for value in ruler_contexts[ref].get("person_refs") or ()}
         )
         if unrelated_contexts:
@@ -376,6 +410,9 @@ def build_i5b_current_value(
             "excluded": [],
         }
     team = pack["team"]
+    derived_stability = derive_long_term_stability(team)
+    if team.get("long_term_stability") != derived_stability:
+        raise ValueError("团队长期稳定档位不是阶段覆盖的确定性结果")
     governance_by_ref = {
         ref: row
         for ref, row in outcome_by_ref.items()
@@ -423,7 +460,11 @@ def build_i5b_current_value(
         dispositions["dynasty_governance"].get("team_support_count") or 0
     )
     if declared_team_support_count != len(team_governance_refs):
-        raise ValueError("朝代文治团队支持数量与确定性选择不一致")
+        raise ValueError(
+            "朝代文治团队支持数量与确定性选择不一致: "
+            f"declared={declared_team_support_count}, derived={len(team_governance_refs)}, "
+            f"outcome_refs={team_governance_refs}"
+        )
     profile_projection_review = []
     for member in sorted(pack.get("members") or (), key=lambda row: str(row["person"])):
         person_ref = str(member["person_ref"])
@@ -596,7 +637,11 @@ def build_i5b_current_value(
         "negative_members": team["negative_members"],
         "functional_complementarity": team["functional_complementarity"],
         "long_term_stability": team["long_term_stability"],
-        "remaining_member_judge_reason": "当前人物画像与窗口风险仍为暂定值；未进入正8/负3的成员仅作支持。",
+        "remaining_member_judge_reason": (
+            "人物画像已在三路材料、成果登记和窗口政治风险覆盖闭合后冻结；未进入正8/负3的成员仅作支持。"
+            if profile_freeze_allowed
+            else "当前人物画像与窗口风险仍为暂定值；未进入正8/负3的成员仅作支持。"
+        ),
         "governance_results": governance_results,
     }
     budget = build_i5b_material_budget_shadow(source_pack_path, manifest_payload=manifest)
@@ -660,6 +705,7 @@ def build_i5b_current_value(
     fact_owner = {
         str(row["person_ref"]): str(row["canonical_name"])
         for row in facts.values()
+        if str(row["person_ref"]) in profile_name_by_ref
     }
     score_by_person: dict[str, set[str]] = {}
     for episode in score_episodes:

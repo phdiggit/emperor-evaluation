@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
-def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
+def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str) -> None:
     report = build_i5b_current_value(ROOT / "eval/i5b_current_value" / ruler / "source-pack.json")
 
     assert report["status"] == "current_shadow_chain_complete"
@@ -74,6 +74,65 @@ def test_current_value_chain_is_complete_and_shadow_only(ruler: str) -> None:
     ]
     assert len(episode_member_refs) > len(set(episode_member_refs))
     assert all(not any(key in episode for key in ("semantic_version", "evidence_version", "previous_status")) for episode in report["episodes"])
+
+
+def test_current_li_shimin_corrections_follow_rule_documents() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    members = {row["person"]: row for row in pack["members"]}
+    assert pack["team"]["long_term_stability"] == "durable_multi_stage"
+    assert len(pack["team"]["stability_stages"]) == 3
+    assert members["尉迟敬德"]["negative_talent_severity"] == "material"
+    assert members["高士廉"]["negative_talent_severity"] == "material"
+    assert members["尉迟敬德"]["profile_review"]["political_risk"]["evidence_refs"] == [
+        "PFACT-LSM-YUCHI-COURT-ASSAULT"
+    ]
+    assert members["高士廉"]["profile_review"]["political_risk"]["evidence_refs"] == [
+        "PFACT-LSM-GAOSHI-LIMITED-POWER-ABUSE"
+    ]
+    assert members["侯君集"]["profile_review"]["political_risk"]["evidence_refs"] == [
+        "PFACT-LSM-HOUJUNJI-LOOTING-AND-CONSPIRACY"
+    ]
+    materials = {row["material_id"]: row for row in pack["materials"]}
+    assert materials[
+        "MAT-李世民-TT-ZHANGLIANG-WRONGFUL-EXECUTION-REVIEW-1"
+    ]["factor_option_codes"]["target_fault_factor"] == "disputed_suspicion"
+    assert materials["MAT-李世民-TT-WEIZHENG-CAREER-SUPPLEMENT-1"][
+        "factor_option_codes"
+    ]["expression_safety"] == "actively_protected_or_encouraged"
+    institution = materials[
+        "MAT-李世民-TT-ZHENGUAN-FORMAL-REMONSTRANCE-CHANNEL"
+    ]
+    assert institution["factor_option_codes"]["feedback_entry"] == (
+        "institutionalized_feedback_entry"
+    )
+    assert len(institution["ruler_context_refs"]) >= 3
+
+
+def test_current_long_term_stability_is_derived_from_stage_coverage() -> None:
+    li = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    liu = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
+    )
+    li_team = next(
+        row for row in li["material_budget"]["rules"] if row["rule_code"] == "team_building"
+    )
+    liu_team = next(
+        row for row in liu["material_budget"]["rules"] if row["rule_code"] == "team_building"
+    )
+    assert (li_team["long_term_stability"], li_team["long_term_stability_factor"]) == (
+        "durable_multi_stage",
+        "1.200000",
+    )
+    assert (liu_team["long_term_stability"], liu_team["long_term_stability_factor"]) == (
+        "managed_turnover",
+        "1.100000",
+    )
 
 
 def test_source_pack_hash_fails_closed(tmp_path: Path) -> None:
@@ -168,7 +227,7 @@ def test_governance_support_is_selected_by_current_result_quality() -> None:
         for row in report["historical_outcome_clusters"]
         if row["outcome_ref"] in selected
     }
-    assert "房玄龄主持中枢政务并参与贞观律令修订" in selected_labels
+    assert "房玄龄长期主持中枢政务" in selected_labels
     assert "贡举中以文体轻薄黜落知名候选人" not in selected_labels
     disposition_by_label = {
         next(
@@ -182,7 +241,7 @@ def test_governance_support_is_selected_by_current_result_quality() -> None:
         "excluded_no_preserved_positive_result"
     )
     assert disposition_by_label["贞观律令与刑罚体系修订"] == (
-        "supporting_policy_context_not_i5b_team_score"
+        "selected_team_result_support"
     )
     assert disposition_by_label["建立并扩充多层官学网络"] == (
         "supporting_policy_context_not_i5b_team_score"

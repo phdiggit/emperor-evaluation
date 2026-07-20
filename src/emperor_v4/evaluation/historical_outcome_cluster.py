@@ -15,6 +15,9 @@ from emperor_v4.contracts.episode import (
     HistoricalEpisodePacket,
 )
 from emperor_v4.persistence.canonical_refs import canonical_hashed_ref, canonical_person_ref
+from emperor_v4.evaluation.talent_grade_domain_equivalence import (
+    assess_domain_historic_path,
+)
 
 
 SCHEMA_VERSION = "historical-outcome-cluster-registry-v1"
@@ -288,6 +291,45 @@ def assess_person_talent_grade(
         for cluster, member in eligible
         if member["role_code"] in COUNTED_TOP_ROLES[str(cluster["outcome_kind"])]
     ]
+    historic_candidates: list[tuple[str, dict[str, object], list[tuple[Mapping[str, object], Mapping[str, object]]]]] = []
+    for outcome_kind, domain in (("campaign", "military"), ("governance", "civil_governance")):
+        domain_rows = [
+            (cluster, member)
+            for cluster, member in top_eligible
+            if cluster["outcome_kind"] == outcome_kind
+        ]
+        achievements = []
+        for cluster, member in domain_rows:
+            status = str(cluster["result_status"])
+            result = (
+                "implemented_mixed"
+                if cluster["result_direction"] == "mixed"
+                else "completed_positive"
+                if status == "completed"
+                else "implemented_positive"
+            )
+            achievements.append(
+                {
+                    "independent_key": cluster["independent_key"],
+                    "scale": cluster["scale"]["level"],
+                    "responsibility_role": (
+                        "participant"
+                        if member["role_code"] == "governance_participant"
+                        else member["role_code"]
+                    ),
+                    "result": result,
+                    "positive_result_preserved": bool(cluster["stable_delivery"]),
+                    "consequence_basis": cluster["scale"]["consequence_basis"],
+                    "decisive": cluster["scale"]["decisiveness"] == "decisive",
+                    "foundational": bool((cluster.get("payload") or {}).get("foundational")),
+                    "durable_cross_stage": bool(
+                        (cluster.get("payload") or {}).get("durable_cross_stage")
+                    ),
+                }
+            )
+        assessment = assess_domain_historic_path(domain, achievements)
+        if assessment["historic_fact_path_status"] == "eligible":
+            historic_candidates.append((domain, assessment, domain_rows))
     national = [
         row
         for row in top_eligible
@@ -307,7 +349,11 @@ def assess_person_talent_grade(
             or any(row[0]["outcome_ref"] != top_anchor[0]["outcome_ref"] for row in second_major)
         )
     )
-    if top_supported:
+    if historic_candidates:
+        domain, historic_assessment, counted = historic_candidates[0]
+        grade = "historic"
+        rule_path = str(historic_assessment["matched_path"])
+    elif top_supported:
         grade = "top"
         rule_path = "top_fallback"
         counted = second_major
