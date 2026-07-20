@@ -58,7 +58,7 @@ def _parser() -> argparse.ArgumentParser:
     scoring_detail.add_argument("--workspace-root", type=Path, default=Path("."))
     scoring_detail.add_argument("--result", type=Path)
     scoring_detail.add_argument("--person")
-    scoring_detail.add_argument("--output", type=Path, required=True)
+    scoring_detail.add_argument("--output", type=Path)
 
     outcome_dry_run = commands.add_parser("historical-outcome-dry-run")
     outcome_dry_run.add_argument("--ruler", required=True)
@@ -208,6 +208,8 @@ def _run_i5b(args: argparse.Namespace) -> int:
 def _run_scoring_detail(args: argparse.Namespace) -> int:
     if any(value in args.ruler for value in ("/", "\\", "..")):
         raise ValueError("--ruler 不得包含路径字符")
+    if args.person and any(value in args.person for value in ("/", "\\", "..")):
+        raise ValueError("--person 不得包含路径字符")
     workspace_root = args.workspace_root.resolve()
     if args.result is None:
         source_pack = (
@@ -229,6 +231,13 @@ def _run_scoring_detail(args: argparse.Namespace) -> int:
     if not isinstance(report, Mapping) or report.get("ruler") != args.ruler:
         raise ValueError("当前 I5B 结果与 --ruler 不匹配")
     output = args.output
+    if output is None:
+        output_dir = Path("tmp/i5b_scoring_detail") / args.ruler
+        output = (
+            output_dir / "persons" / f"{args.person}.md"
+            if args.person
+            else output_dir / "scoring-detail.md"
+        )
     if not output.is_absolute():
         output = workspace_root / output
     output.parent.mkdir(parents=True, exist_ok=True)

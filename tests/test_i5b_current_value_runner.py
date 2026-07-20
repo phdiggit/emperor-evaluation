@@ -478,6 +478,42 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
         render_scoring_detail_markdown(report, person="不存在")
 
 
+@pytest.mark.parametrize(
+    ("ruler", "person", "relative_output"),
+    [
+        ("李世民", None, Path("tmp/i5b_scoring_detail/李世民/scoring-detail.md")),
+        ("刘邦", "周勃", Path("tmp/i5b_scoring_detail/刘邦/persons/周勃.md")),
+    ],
+)
+def test_scoring_detail_output_is_optional(
+    tmp_path: Path,
+    ruler: str,
+    person: str | None,
+    relative_output: Path,
+) -> None:
+    workspace = tmp_path / "workspace"
+    current_dir = workspace / "eval/i5b_current_value" / ruler
+    current_dir.mkdir(parents=True)
+    source = ROOT / "eval/i5b_current_value" / ruler / "source-pack.json"
+    (current_dir / "source-pack.json").write_bytes(source.read_bytes())
+    argv = [
+        "i5b-scoring-detail",
+        "--ruler",
+        ruler,
+        "--workspace-root",
+        str(workspace),
+    ]
+    if person:
+        argv.extend(("--person", person))
+
+    assert eval_main(argv) == 0
+    output = workspace / relative_output
+    assert output.is_file()
+    assert output.read_text(encoding="utf-8") == render_scoring_detail_markdown(
+        build_i5b_current_value(source), person=person
+    )
+
+
 def test_default_detail_export_rebuilds_from_source_pack_not_stale_result(
     tmp_path: Path,
 ) -> None:

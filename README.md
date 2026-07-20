@@ -59,8 +59,8 @@ python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-sema
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
 python v4.py i5b-run --ruler 李世民
 python v4.py i5b-run --ruler 刘邦
-python v4.py i5b-scoring-detail --ruler 李世民 --output tmp/李世民-I5B计分详情.md
-python v4.py i5b-scoring-detail --ruler 刘邦 --person 周勃 --output tmp/周勃-I5B计分详情.md
+python v4.py i5b-scoring-detail --ruler 李世民
+python v4.py i5b-scoring-detail --ruler 刘邦 --person 周勃
 python v4.py historical-outcome-dry-run --ruler 刘邦
 python v4.py historical-outcome-dry-run --ruler 李世民
 ```
@@ -118,7 +118,7 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 strongest-N 预算结算，团队保持正8、负3；它不会合并旧基线，也不会生成45分、档位或排名。
 
-`i5b-scoring-detail` 默认同样从当前 source pack 在内存中重建后导出，`--person` 只过滤展示对象，不读取可能过期的 canonical `result.json`；只有显式传入 `--result` 时才按指定结果快照导出。
+`i5b-scoring-detail` 默认同样从当前 source pack 在内存中重建后导出，`--person` 只过滤展示对象，不读取可能过期的 canonical `result.json`；只有显式传入 `--result` 时才按指定结果快照导出。`--output` 可省略：皇帝详情默认写入 `tmp/i5b_scoring_detail/<皇帝>/scoring-detail.md`，臣子详情默认写入 `tmp/i5b_scoring_detail/<皇帝>/persons/<臣子>.md`；显式路径仍优先。
 
 任用材料投影按责任对象最多5路并行，单对象75秒、全阶段120秒硬截止且不自动重试。智能体只输出带短引用码的原子观察和 disposition，服务端映射回精确 revision 段落并确定性推导连续性；只有 `coverage_complete=true` 才替换既有 shadow 材料，不完整草案仅保留 gap，不得用残缺摘要覆盖现有事实。
 
