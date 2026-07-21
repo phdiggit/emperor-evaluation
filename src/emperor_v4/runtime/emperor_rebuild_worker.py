@@ -58,6 +58,7 @@ def _prepare_workspace(
     *, release_root: Path, workspace_root: Path, ruler: str
 ) -> None:
     workspace_root.mkdir(parents=True, exist_ok=True)
+    _make_tree_owner_writable(workspace_root)
     shutil.copytree(
         release_root / "config",
         workspace_root / "config",
@@ -114,18 +115,16 @@ def run_background_request(
     if marker.is_file():
         previous = json.loads(marker.read_text(encoding="utf-8"))
         if previous.get("input_fingerprint") != input_fingerprint:
-            for name in ("workspace", "runtime", "exports"):
-                target = job_root / name
-                if target.exists():
-                    _make_tree_owner_writable(target)
-                    shutil.rmtree(target)
+            exports = job_root / "exports"
+            if exports.exists():
+                _make_tree_owner_writable(exports)
+                shutil.rmtree(exports)
     workspace_root = job_root / "workspace"
-    if not (workspace_root / "config/project.yml").is_file():
-        _prepare_workspace(
-            release_root=release_root,
-            workspace_root=workspace_root,
-            ruler=ruler,
-        )
+    _prepare_workspace(
+        release_root=release_root,
+        workspace_root=workspace_root,
+        ruler=ruler,
+    )
     _atomic_json(
         marker,
         {

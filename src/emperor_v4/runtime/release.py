@@ -95,6 +95,7 @@ DYNASTY_GOVERNANCE_RELEASE_PATHS = (
 EMPEROR_REBUILD_RELEASE_PATHS = (
     "pyproject.toml",
     "config",
+    "db/postgres/007_v4_historical_outcome_clusters.sql",
     "eval/i5b_current_value",
     "src/emperor_v4",
     "deploy/v4/emperor-v4-emperor-rebuild@.service",

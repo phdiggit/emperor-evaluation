@@ -548,6 +548,7 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
     assert f"{state_root}/claim-extractor/codex" in dynasty_unit
     assert {
         "config",
+        "db/postgres/007_v4_historical_outcome_clusters.sql",
         "eval/i5b_current_value",
         "src/emperor_v4",
         "deploy/v4/emperor-v4-emperor-rebuild@.service",

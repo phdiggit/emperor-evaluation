@@ -192,6 +192,12 @@ def test_background_emperor_worker_exports_and_reuses_current_result(
         / "state/jobs/LIUBANG-CALIBRATION/workspace/config/project.yml"
     )
     copied_config.chmod(stat.S_IREAD)
+    checkpoint_probe = (
+        tmp_path
+        / "state/jobs/LIUBANG-CALIBRATION/runtime/checkpoint/keep.txt"
+    )
+    checkpoint_probe.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint_probe.write_text("audited checkpoint", encoding="utf-8")
     changed_request = json.loads(request.read_text(encoding="utf-8"))
     changed_request["limits"]["wall_clock_seconds"] = 899
     request.write_text(
@@ -201,6 +207,7 @@ def test_background_emperor_worker_exports_and_reuses_current_result(
 
     assert third["status"] == "succeeded"
     assert len(calls) == 2
+    assert checkpoint_probe.read_text(encoding="utf-8") == "audited checkpoint"
 
 
 def test_structured_runner_uses_twice_comparable_median_as_anomaly_limit() -> None:
