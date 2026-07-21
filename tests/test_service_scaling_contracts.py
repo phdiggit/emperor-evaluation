@@ -64,6 +64,7 @@ from emperor_v4.runtime.source_cache import run_wikisource_ensure
 from emperor_v4.runtime.release import (
     CLAIM_EXTRACTOR_RELEASE_PATHS,
     DYNASTY_GOVERNANCE_RELEASE_PATHS,
+    EMPEROR_REBUILD_RELEASE_PATHS,
     SOURCE_CACHE_RELEASE_PATHS,
 )
 from emperor_v4.runtime import dynasty_governance_rebuild
@@ -361,6 +362,7 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
     assert verifier in SOURCE_CACHE_RELEASE_PATHS
     assert verifier in CLAIM_EXTRACTOR_RELEASE_PATHS
     assert verifier in DYNASTY_GOVERNANCE_RELEASE_PATHS
+    assert verifier in EMPEROR_REBUILD_RELEASE_PATHS
     claim_unit = (
         ROOT / "deploy/v4/emperor-v4-claim-extractor-worker.service"
     ).read_text(encoding="utf-8")
@@ -407,6 +409,17 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         "dynasty_neutral_materials" in dynasty_unit
     )
     assert f"{state_root}/claim-extractor/codex" in dynasty_unit
+    assert {
+        "config",
+        "eval/i5b_current_value",
+        "src/emperor_v4",
+        "deploy/v4/emperor-v4-emperor-rebuild@.service",
+    } <= set(EMPEROR_REBUILD_RELEASE_PATHS)
+    emperor_unit = (
+        ROOT / "deploy/v4/emperor-v4-emperor-rebuild@.service"
+    ).read_text(encoding="utf-8")
+    assert f"Environment=CODEX_HOME={state_root}/claim-extractor/codex" in emperor_unit
+    assert f"ReadWritePaths={state_root}/emperor-rebuild" in emperor_unit
 
 
 def _claim_payload() -> dict:

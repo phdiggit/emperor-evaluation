@@ -218,6 +218,13 @@ def _outcome_appointment_materials(
                 or role not in APPOINTMENT_OUTCOME_ROLES[kind]
             ):
                 continue
+            responsibility = member.get("delegated_responsibility") or {}
+            if (
+                not responsibility.get("scope")
+                or not responsibility.get("basis")
+                or not responsibility.get("authorization_refs")
+            ):
+                continue
             person = str(profile_by_ref[person_ref]["person"])
             options = _appointment_outcome_options(cluster, member, policy)
             values = _policy_values(policy, "appointment_delegation", options)
@@ -284,6 +291,24 @@ def _outcome_appointment_materials(
                 )
             )
     return materials, decisions, units
+
+
+def _ruler_window_outcomes(
+    clusters: list[Mapping[str, Any]],
+) -> list[Mapping[str, Any]]:
+    """Project lifetime outcomes into the current ruler window.
+
+    Existing current packs predate the explicit field and therefore default to
+    within-window. Newly discovered ambiguous or later-reign outcomes must be
+    marked and fail closed on the ruler side without disappearing from the
+    person's lifetime registry.
+    """
+
+    return [
+        cluster
+        for cluster in clusters
+        if cluster.get("ruler_window_status", "within_window") == "within_window"
+    ]
 
 
 def _neutral_episode_key(material: Mapping[str, Any]) -> str:
@@ -479,6 +504,10 @@ def build_i5b_current_value(
     outcome_by_ref = {
         str(row["outcome_ref"]): row for row in outcome_clusters
     }
+    ruler_outcome_clusters = _ruler_window_outcomes(outcome_clusters)
+    ruler_outcome_by_ref = {
+        str(row["outcome_ref"]): row for row in ruler_outcome_clusters
+    }
     current_members = copy.deepcopy(list(pack.get("members") or ()))
     for member in current_members:
         person_ref = str(member["person_ref"])
@@ -549,7 +578,9 @@ def build_i5b_current_value(
     team["long_term_stability"] = derive_long_term_stability(team)
     current_profiles = {
         person_ref: {
-            "review_status": "human_frozen",
+            "review_status": (
+                "human_frozen" if profile_freeze_allowed else "provisional_current"
+            ),
             "talent_grade": member["effective_talent_grade"],
             "talent_grade_basis": member["talent_grade_basis"],
             "profile_ref": member["profile_ref"],
@@ -693,7 +724,7 @@ def build_i5b_current_value(
 
     generated_materials, generated_decisions, generated_units = (
         _outcome_appointment_materials(
-            clusters=outcome_clusters,
+            clusters=ruler_outcome_clusters,
             profile_by_ref=profile_by_ref,
             policy=policy,
         )
@@ -733,7 +764,7 @@ def build_i5b_current_value(
         }
     governance_by_ref = {
         ref: row
-        for ref, row in outcome_by_ref.items()
+        for ref, row in ruler_outcome_by_ref.items()
         if row["outcome_kind"] == "governance"
     }
     positive_member_refs = {
@@ -1066,6 +1097,7 @@ def build_i5b_current_value(
         "governance_dispositions": governance_dispositions,
         "outcome_registry_validation": outcome_validation,
         "historical_outcome_clusters": outcome_clusters,
+        "ruler_historical_outcome_refs": sorted(ruler_outcome_by_ref),
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
         "episodes": [asdict(value) for value in episodes],
@@ -1094,6 +1126,10 @@ def build_i5b_current_value(
                 bool(row["coverage_gaps"]) for row in profile_projection_review
             ),
             "historical_outcome_cluster_count": len(outcome_by_ref),
+            "ruler_historical_outcome_cluster_count": len(ruler_outcome_by_ref),
+            "outside_ruler_window_outcome_count": (
+                len(outcome_by_ref) - len(ruler_outcome_by_ref)
+            ),
             "campaign_outcome_count": outcome_validation["kind_counts"]["campaign"],
             "governance_outcome_count": outcome_validation["kind_counts"]["governance"],
             "episode_count": len(episodes),
@@ -1237,7 +1273,10 @@ def render_scoring_detail_markdown(
                     "| --- | --- | --- | --- | --- | --- | --- |",
                 ]
             )
+            ruler_outcome_refs = set(report["ruler_historical_outcome_refs"])
             for cluster in report["historical_outcome_clusters"]:
+                if cluster["outcome_ref"] not in ruler_outcome_refs:
+                    continue
                 if cluster["outcome_kind"] != outcome_kind:
                     continue
                 roles = role_catalogs[outcome_kind]

@@ -25,10 +25,14 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["segment_ref", "decision", "facts", "reason"],
+        "required": ["segment_ref", "decision", "facts", "reason", "context_status"],
         "properties": {
           "segment_ref": {"type": "string", "minLength": 1},
           "decision": {"type": "string", "enum": ["accept", "mixed", "reject"]},
+          "context_status": {
+            "type": "string",
+            "enum": ["sufficient", "need_previous_block", "need_next_block", "need_both"]
+          },
           "facts": {
             "type": "array",
             "items": {
@@ -37,6 +41,7 @@
               "required": [
                 "fact_id",
                 "exact_quote",
+                "evidence_span_refs",
                 "fact_kind",
                 "action_summary",
                 "actors",
@@ -45,11 +50,18 @@
                 "legacy_status",
                 "legacy_basis",
                 "projection_eligibility",
+                "outcome_candidate_status",
+                "outcome_candidate_reason",
                 "uncertainty"
               ],
               "properties": {
                 "fact_id": {"type": "string", "minLength": 1},
                 "exact_quote": {"type": "string", "minLength": 1},
+                "evidence_span_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "minLength": 1}
+                },
                 "fact_kind": {
                   "type": "string",
                   "enum": [
@@ -128,6 +140,11 @@
                   "type": "string",
                   "enum": ["direct_neutral_fact", "context_only", "evaluation_only"]
                 },
+                "outcome_candidate_status": {
+                  "type": "string",
+                  "enum": ["clear_candidate", "clear_non_candidate", "ambiguous"]
+                },
+                "outcome_candidate_reason": {"type": "string", "minLength": 1},
                 "uncertainty": {"type": "string"}
               }
             }

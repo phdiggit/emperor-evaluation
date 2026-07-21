@@ -903,8 +903,11 @@ def _team_profile_members(
                     raise ValueError(
                         f"{row['person']} 不在唯一人物画像表 person_profiles"
                     )
-                if current.get("review_status") != "human_frozen":
-                    raise ValueError(f"{row['person']} 唯一人物画像尚未人工冻结")
+                if current.get("review_status") not in {
+                    "human_frozen",
+                    "provisional_current",
+                }:
+                    raise ValueError(f"{row['person']} 唯一人物画像状态非法")
                 row["effective_talent_grade"] = str(current["talent_grade"])
                 row["talent_grade_basis"] = str(
                     current.get("talent_grade_basis") or ""
@@ -983,8 +986,11 @@ def _team_profile_members(
             current = current_profiles.get(person_ref)
             if current is None:
                 raise ValueError(f"{name} 不在唯一人物画像表 person_profiles")
-            if current.get("review_status") != "human_frozen":
-                raise ValueError(f"{name} 唯一人物画像尚未人工冻结")
+            if current.get("review_status") not in {
+                "human_frozen",
+                "provisional_current",
+            }:
+                raise ValueError(f"{name} 唯一人物画像状态非法")
             current_finding = str(current.get("negative_risk_status") or "")
             if current_finding not in {"established", "no_established_class"}:
                 raise ValueError(f"{name} 唯一人物画像政治风险状态非法")

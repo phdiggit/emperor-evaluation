@@ -628,13 +628,11 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
         [payload],
         output_schema_path=ROOT / "config/governance-achievement-candidate-output.schema.json",
         registry_schema_path=ROOT / "config/governance-achievement-registry.schema.json",
-        ruler_aliases={
-            "李世民": [
-                {"alias": "唐太宗", "alias_type": "temple_name"},
-                {"alias": "太宗", "alias_type": "temple_name"},
-            ],
-            "赵光义": [{"alias": "宋太宗", "alias_type": "temple_name"}],
-        },
+        ruler_aliases=yaml.safe_load(
+            (ROOT / "config/historical-entity-identities.yml").read_text(
+                encoding="utf-8"
+            )
+        ),
         dynasty_name="唐",
     )
     ruler_achievement = ruler_audit["registry"]["achievements"][0]

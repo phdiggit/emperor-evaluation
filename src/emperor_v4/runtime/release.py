@@ -92,6 +92,16 @@ DYNASTY_GOVERNANCE_RELEASE_PATHS = (
     "deploy/v4/provision-prerequisites.sh",
     "deploy/v4/verify-server-runtime.sh",
 )
+EMPEROR_REBUILD_RELEASE_PATHS = (
+    "pyproject.toml",
+    "config",
+    "eval/i5b_current_value",
+    "src/emperor_v4",
+    "deploy/v4/emperor-v4-emperor-rebuild@.service",
+    "deploy/v4/emperor-rebuild.env.example",
+    "deploy/v4/provision-prerequisites.sh",
+    "deploy/v4/verify-server-runtime.sh",
+)
 
 
 def _sha256(data: bytes) -> str:
@@ -177,6 +187,24 @@ def build_dynasty_governance_release(
         service="v4-dynasty-governance",
         archive_prefix="v4-dynasty-governance",
         paths=DYNASTY_GOVERNANCE_RELEASE_PATHS,
+    )
+
+
+def build_emperor_rebuild_release(
+    *,
+    repo_root: Path,
+    output_dir: Path,
+    commit_sha: str,
+    require_clean: bool = True,
+) -> dict[str, Any]:
+    return _build_release(
+        repo_root=repo_root,
+        output_dir=output_dir,
+        commit_sha=commit_sha,
+        require_clean=require_clean,
+        service="v4-emperor-rebuild",
+        archive_prefix="v4-emperor-rebuild",
+        paths=EMPEROR_REBUILD_RELEASE_PATHS,
     )
 
 
@@ -302,7 +330,7 @@ def build_parser() -> argparse.ArgumentParser:
     build.add_argument("--commit-sha", required=True)
     build.add_argument(
         "--service",
-        choices=("source-cache", "claim-extractor", "dynasty-governance"),
+        choices=("source-cache", "claim-extractor", "dynasty-governance", "emperor-rebuild"),
         default="source-cache",
     )
     verify = sub.add_parser("verify")
@@ -319,6 +347,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "source-cache": build_source_cache_release,
                 "claim-extractor": build_claim_extractor_release,
                 "dynasty-governance": build_dynasty_governance_release,
+                "emperor-rebuild": build_emperor_rebuild_release,
             }[args.service]
         )(
             repo_root=args.repo_root,

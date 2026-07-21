@@ -1,0 +1,547 @@
+from __future__ import annotations
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from hashlib import sha256
+import json
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+from opencc import OpenCC
+
+from emperor_v4.adapters.source_text_index import LocalSourceTextIndex
+from emperor_v4.evaluation.current_source_pack_compiler import (
+    apply_source_pack_increment,
+    compile_outcome_candidate_payloads,
+)
+from emperor_v4.runtime.structured_codex_runner import (
+    ModelBatchAnomalyError,
+    StructuredCodexRunner,
+)
+
+
+SCHEMA_VERSION = "current-outcome-projection-v1"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v4"
+LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v3"
+DIRECT_MODEL_FACT_LIMIT = 16
+_T2S = OpenCC("t2s")
+
+
+def _digest(value: object) -> str:
+    return sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
+            "utf-8"
+        )
+    ).hexdigest()
+
+
+def _prompt(
+    *,
+    ruler: str,
+    ruler_window: str,
+    actors: Sequence[str],
+    existing_outcomes: Sequence[Mapping[str, Any]],
+    facts: Sequence[Mapping[str, Any]],
+    task_code: str,
+) -> str:
+    prompt_facts = []
+    for fact in facts:
+        prompt_fact = {
+            key: fact[key]
+            for key in (
+                "segment_ref",
+                "event_refs",
+                "exact_quote",
+                "fact_kind",
+                "governance_domain",
+                "governance_title",
+                "period",
+                "action_summary",
+                "implementation_status",
+                "result",
+                "uncertainty",
+            )
+            if key in fact
+        }
+        prompt_fact["actors"] = [
+            {
+                "name": str(actor.get("canonical_name") or ""),
+                "source_name": str(actor.get("source_name") or ""),
+                "role": str(actor.get("role") or ""),
+                "strength": str(actor.get("responsibility_strength") or ""),
+            }
+            for actor in fact.get("actors") or ()
+        ]
+        prompt_facts.append(prompt_fact)
+    return f"""你是皇帝评价 V4 的成果候选整理器。只把输入的中性事实整理为可登记的治理成果或战役；不能补史实、不能联网、不能评分。
+
+硬规则：
+1. 只有原文同时足以支持行动、可观察结果和参与者责任时才生成 candidate；任官、褒奖、建议、品评或单纯过程而无结果，一律放入 rejections。
+2. exact_quotes 与 authorization_quotes 必须逐字复制输入 exact_quote 的连续子串，不得转写、拼接或补字。
+3. members 只能使用允许人物：{json.dumps(list(actors), ensure_ascii=False)}。皇帝 {ruler} 用 actor_kind=ruler；其余用 person。
+4. 同一独立结果只生成一个 candidate。candidate_key 用小写 ASCII 与连字符，表达皇帝、时期和独立结果，必须稳定。
+5. campaign 只填战役六字段，治理四字段填 null；governance 反之。没有明确授权原文时 responsibility_scope=not_applicable 且 authorization_quotes=[]。
+6. ruler_window_status 只判断该成果是否发生在 {ruler} 在位窗口 {ruler_window}；人物一生其他时期的成果必须 outside_window，仍可登记到人物画像。
+7. 规模只按原文可支持的影响范围，不因人物名气上调；不确定就拒绝或 limitations 明示。
+8. campaign 的 role_code 只能是 commander_in_chief/principal_commander/deputy_commander/participant；governance 只能是 exclusive/lead/governance_participant/authorized。
+9. EXISTING_OUTCOMES 已登记的同一独立结果必须拒绝，不得换名重复生成；同一战役的过程片段不得拆成多项重复成果。
+10. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
+11. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v1，task_code={task_code}。
+
+EXISTING_OUTCOMES:
+{json.dumps(list(existing_outcomes), ensure_ascii=False, sort_keys=True, separators=(",", ":"))}
+
+INPUT_FACTS:
+{json.dumps(prompt_facts, ensure_ascii=False, sort_keys=True, separators=(",", ":"))}
+"""
+
+
+def _known_quotes(source_pack: Mapping[str, Any]) -> set[str]:
+    return {
+        str(assertion["exact_quote"])
+        for fact in source_pack.get("facts") or ()
+        for assertion in fact.get("assertions") or ()
+        if assertion.get("exact_quote")
+    }
+
+
+def _accepted_source_quotes(
+    source_pack: Mapping[str, Any]
+) -> dict[tuple[str, str], set[str]]:
+    accepted: dict[tuple[str, str], set[str]] = {}
+    for fact in source_pack.get("facts") or ():
+        if not str(fact.get("record_ref") or "").startswith("PFACT-AUTO-"):
+            continue
+        key = (str(fact["source_page"]), str(fact["revision_ref"]))
+        accepted.setdefault(key, set()).update(
+            str(row["exact_quote"])
+            for row in fact.get("assertions") or ()
+            if row.get("exact_quote")
+        )
+    return accepted
+
+
+def _normalize_candidate_sources(
+    payload: Mapping[str, Any], facts: Sequence[Mapping[str, Any]]
+) -> Mapping[str, Any]:
+    payload = dict(payload)
+    # Older split-parent checkpoints accidentally carried a top-level helper
+    # field that is not part of the candidate output contract.  Checkpoints are
+    # disposable recovery state; normalize them before schema validation rather
+    # than repeating already completed model calls.
+    payload.pop("limitations", None)
+    fact_quotes = [str(fact.get("exact_quote") or "") for fact in facts]
+
+    def canonical_quote(value: object) -> str:
+        quote = str(value)
+        normalized = _T2S.convert(quote)
+        matches = set()
+        for fact_quote in fact_quotes:
+            start = _T2S.convert(fact_quote).find(normalized)
+            if start >= 0:
+                candidate = fact_quote[start : start + len(quote)]
+                if _T2S.convert(candidate) == normalized:
+                    matches.add(candidate)
+        return next(iter(matches)) if len(matches) == 1 else quote
+
+    retained_candidates = []
+    for candidate in payload.get("candidates") or ():
+        quotes = [canonical_quote(value) for value in candidate.get("exact_quotes") or ()]
+        candidate["exact_quotes"] = quotes
+        for member in candidate.get("members") or ():
+            member["authorization_quotes"] = [
+                canonical_quote(value)
+                for value in member.get("authorization_quotes") or ()
+            ]
+        quote_matches = [
+            [
+                fact
+                for fact in facts
+                if quote and quote in str(fact.get("exact_quote") or "")
+            ]
+            for quote in quotes
+        ]
+        matches = {
+            (str(fact["page_title"]), str(fact["revision_ref"]))
+            for rows in quote_matches
+            for fact in rows
+        }
+        if not quotes or any(not rows for rows in quote_matches) or len(matches) != 1:
+            continue
+        page_title, revision_ref = next(iter(matches))
+        candidate["source_page"] = page_title
+        candidate["revision_ref"] = revision_ref
+        retained_candidates.append(candidate)
+    payload["candidates"] = retained_candidates
+    return payload
+
+
+def project_current_outcomes(
+    *,
+    source_pack_path: Path,
+    neutral_materials: Mapping[str, Any],
+    source_index: LocalSourceTextIndex,
+    schema_path: Path,
+    runner: StructuredCodexRunner,
+    checkpoint_dir: Path,
+    workspace_root: Path,
+    max_workers: int,
+    facts_per_call: int = 16,
+) -> dict[str, Any]:
+    """Project new neutral facts and atomically apply the validated increment.
+
+    A fact whose exact quote is already in the current source pack is settled and
+    never sent to the model again. Checkpoints are disposable failure recovery;
+    the source pack itself is the only successful-run state.
+    """
+
+    source_pack = json.loads(source_pack_path.read_text(encoding="utf-8"))
+    known_quotes = _known_quotes(source_pack)
+    # Accepted business output is invalidated only by projection semantics.  A
+    # model, schema transport, batch size, or worker-count change is scheduling
+    # metadata and must not force every accepted outcome through the model again.
+    policy_fingerprint = str(
+        _digest({"projection_policy": PROJECTION_POLICY_VERSION})
+    )
+    legacy_policy_fingerprint = str(
+        _digest(
+            {
+                "runner": getattr(runner, "policy_fingerprint", "settled-without-model"),
+                "projection_policy": LEGACY_PROJECTION_POLICY_VERSION,
+            }
+        )
+    )
+    current_projection = neutral_materials.get("outcome_projection") or {}
+    compatible_policy_fingerprints = {
+        policy_fingerprint,
+        legacy_policy_fingerprint,
+    }
+    current_projection_compatible = (
+        current_projection.get("policy_fingerprint")
+        in compatible_policy_fingerprints
+    )
+    full_refresh = not current_projection_compatible
+    dispositions = {
+        str(row["fact_ref"]): dict(row)
+        for row in current_projection.get("dispositions") or ()
+        if current_projection_compatible
+    }
+    accepted_quotes = {} if full_refresh else _accepted_source_quotes(source_pack)
+    all_eligible = [
+        dict(fact)
+        for fact in (neutral_materials.get("fanout") or {}).get("facts") or ()
+        if fact.get("projection_eligibility") == "direct_neutral_fact"
+        and fact.get("implementation_status")
+        in {"adopted", "implemented", "nationally_promulgated", "completed_work"}
+        and bool(str(fact.get("result") or "").strip())
+        and fact.get("fact_kind") not in {"appointment", "admonition"}
+    ]
+    for fact in all_eligible:
+        fact.setdefault("fact_ref", "NEUTRALFACT-" + _digest(fact)[:20].upper())
+        fact.setdefault("segment_ref", str(fact["fact_ref"]))
+        if fact.get("outcome_candidate_status") == "clear_non_candidate":
+            dispositions[str(fact["fact_ref"])] = {
+                "fact_ref": str(fact["fact_ref"]),
+                "decision": "rejected",
+                "reason": str(
+                    fact.get("outcome_candidate_reason")
+                    or "中性抽取已判定不构成治理成果或战役候选。"
+                ),
+            }
+    current_fact_refs = {str(fact["fact_ref"]) for fact in all_eligible}
+    dispositions = {
+        fact_ref: row
+        for fact_ref, row in dispositions.items()
+        if fact_ref in current_fact_refs
+    }
+    for fact in all_eligible:
+        fact_ref = str(fact["fact_ref"])
+        if fact_ref in dispositions:
+            continue
+        source_quotes = accepted_quotes.get(
+            (str(fact.get("page_title") or ""), str(fact.get("revision_ref") or "")),
+            set(),
+        )
+        exact_quote = str(fact.get("exact_quote") or "")
+        if exact_quote in known_quotes or any(
+            quote in exact_quote or exact_quote in quote for quote in source_quotes
+        ):
+            dispositions[fact_ref] = {
+                "fact_ref": fact_ref,
+                "decision": "accepted",
+                "reason": "当前 source-pack 已含同源逐字成果引文。",
+            }
+    eligible = [
+        fact
+        for fact in all_eligible
+        if str(fact["fact_ref"]) not in dispositions
+        and fact.get("outcome_candidate_status") != "clear_non_candidate"
+    ]
+    if not eligible:
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "candidate_count": 0,
+            "rejection_count": 0,
+            "model_call_count": 0,
+            "source_pack_changed": False,
+            "policy_fingerprint": policy_fingerprint,
+            "dispositions": [dispositions[key] for key in sorted(dispositions)],
+        }
+    ordered_eligible = sorted(
+        eligible,
+        key=lambda row: (
+            str(row["page_title"]),
+            str(row["segment_ref"]),
+            str(row["fact_ref"]),
+        ),
+    )
+    atomic_groups: dict[tuple[str, ...], list[Mapping[str, Any]]] = {}
+    for fact in ordered_eligible:
+        event_refs = tuple(sorted(str(value) for value in fact.get("event_refs") or ()))
+        key = event_refs or (str(fact["fact_ref"]),)
+        atomic_groups.setdefault(key, []).append(fact)
+    groups: list[list[Mapping[str, Any]]] = []
+    group: list[Mapping[str, Any]] = []
+    for key in sorted(atomic_groups):
+        event_facts = atomic_groups[key]
+        if group and len(group) + len(event_facts) > facts_per_call:
+            groups.append(group)
+            group = []
+        group.extend(event_facts)
+        if len(group) >= facts_per_call:
+            groups.append(group)
+            group = []
+    if group:
+        groups.append(group)
+    actor_names = [
+        str(source_pack["ruler"]),
+        *[str(row["person"]) for row in source_pack.get("members") or ()],
+    ]
+    existing_outcomes = [
+        {
+            "independent_key": row["independent_key"],
+            "canonical_label": row["canonical_label"],
+            "outcome_kind": row["outcome_kind"],
+            "period": row["period"],
+            "members": [member["actor_name"] for member in row["members"]],
+        }
+        for row in (source_pack.get("outcome_registry") or {}).get("clusters") or ()
+        if not str(row.get("outcome_ref") or "").startswith("OUTCOME-AUTO-")
+    ]
+    def make_item(group: Sequence[Mapping[str, Any]]):
+        input_fingerprint = _digest(
+            {
+                "ruler": source_pack["ruler"],
+                "facts": group,
+                "runner_policy": runner.policy_fingerprint,
+            }
+        )
+        task_code = "OUTCOME-AUTO-" + input_fingerprint[:20].upper()
+        checkpoint = checkpoint_dir / f"{task_code}.json"
+        return task_code, group, input_fingerprint, checkpoint
+
+    def load_checkpoint(item):
+        _, group, input_fingerprint, checkpoint = item
+        if checkpoint.is_file():
+            saved = json.loads(checkpoint.read_text(encoding="utf-8"))
+            if saved.get("input_fingerprint") == input_fingerprint:
+                return _normalize_candidate_sources(saved["payload"], group)
+        return None
+
+    payloads: list[Mapping[str, Any]] = []
+    pending = []
+    for group in groups:
+        item = make_item(group)
+        saved = load_checkpoint(item)
+        if saved is not None:
+            payloads.append(saved)
+        else:
+            pending.append(item)
+
+    def invoke(item: tuple[str, Sequence[Mapping[str, Any]], str, Path]):
+        task_code, group, input_fingerprint, checkpoint = item
+        payload, _ = runner.run(
+            _prompt(
+                ruler=str(source_pack["ruler"]),
+                ruler_window=str(source_pack["window"]),
+                actors=actor_names,
+                existing_outcomes=existing_outcomes,
+                facts=group,
+                task_code=task_code,
+            )
+        )
+        payload = _normalize_candidate_sources(payload, group)
+        checkpoint.parent.mkdir(parents=True, exist_ok=True)
+        temporary = checkpoint.with_suffix(".tmp")
+        temporary.write_text(
+            json.dumps(
+                {"input_fingerprint": input_fingerprint, "payload": payload},
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        temporary.replace(checkpoint)
+        return payload
+
+    def persist_payload(item, payload: Mapping[str, Any]) -> None:
+        _, _, input_fingerprint, checkpoint = item
+        checkpoint.parent.mkdir(parents=True, exist_ok=True)
+        temporary = checkpoint.with_suffix(".tmp")
+        temporary.write_text(
+            json.dumps(
+                {"input_fingerprint": input_fingerprint, "payload": payload},
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        temporary.replace(checkpoint)
+
+    def invoke_resilient(item, *, allow_single_retry: bool = True):
+        task_code, group, _, _ = item
+        saved = load_checkpoint(item)
+        if saved is not None:
+            return saved, 0
+        if len(group) > 1:
+            middle = len(group) // 2
+            child_items = (make_item(group[:middle]), make_item(group[middle:]))
+            child_saved = [load_checkpoint(child) for child in child_items]
+            if all(value is not None for value in child_saved):
+                child_payloads = child_saved
+                calls = 0
+            elif any(value is not None for value in child_saved):
+                child_payloads = []
+                calls = 0
+                for child, saved in zip(child_items, child_saved):
+                    if saved is not None:
+                        child_payloads.append(saved)
+                        continue
+                    payload, child_calls = invoke_resilient(child)
+                    child_payloads.append(payload)
+                    calls += child_calls
+            else:
+                child_payloads = []
+                calls = 0
+                if len(group) <= DIRECT_MODEL_FACT_LIMIT:
+                    try:
+                        return invoke(item), 1
+                    except ModelBatchAnomalyError:
+                        raise
+                    except Exception:
+                        calls = 1
+                for child in child_items:
+                    payload, child_calls = invoke_resilient(child)
+                    child_payloads.append(payload)
+                    calls += child_calls
+            merged = {
+                "schema_version": "current-outcome-candidate-output-v1",
+                "task_code": task_code,
+                "candidates": [
+                    row
+                    for payload in child_payloads
+                    for row in payload.get("candidates") or ()
+                ],
+                "rejections": [
+                    row
+                    for payload in child_payloads
+                    for row in payload.get("rejections") or ()
+                ],
+            }
+            persist_payload(item, merged)
+            return merged, calls
+        try:
+            return invoke(item), 1
+        except ModelBatchAnomalyError:
+            raise
+        except Exception:
+            if not allow_single_retry:
+                raise
+            payload, calls = invoke_resilient(item, allow_single_retry=False)
+            return payload, calls + 1
+
+    actual_model_calls = 0
+    errors: list[Exception] = []
+    parallel_pending = pending
+    if pending:
+        canary_payload, canary_calls = invoke_resilient(pending[0])
+        payloads.append(canary_payload)
+        actual_model_calls += canary_calls
+        parallel_pending = pending[1:]
+    with ThreadPoolExecutor(
+        max_workers=min(max_workers, len(parallel_pending) or 1)
+    ) as pool:
+        futures = [pool.submit(invoke_resilient, item) for item in parallel_pending]
+        for future in as_completed(futures):
+            try:
+                payload, calls = future.result()
+            except ModelBatchAnomalyError:
+                for pending_future in futures:
+                    pending_future.cancel()
+                raise
+            except Exception as exc:
+                errors.append(exc)
+                continue
+            payloads.append(payload)
+            actual_model_calls += calls
+    if errors:
+        raise RuntimeError(
+            f"成果投影仍有 {len(errors)} 个不可恢复批次；首个错误: {errors[0]}"
+        ) from errors[0]
+    payloads.sort(key=lambda row: str(row["task_code"]))
+    increment = compile_outcome_candidate_payloads(
+        source_pack,
+        payloads,
+        source_index=source_index,
+        schema_path=schema_path,
+    )
+    changed = apply_source_pack_increment(
+        source_pack_path,
+        increment,
+        workspace_root=workspace_root,
+        replace_auto=full_refresh,
+    )
+    candidate_keys_by_fact: dict[str, set[str]] = {}
+    rejection_reasons_by_segment: dict[str, list[str]] = {}
+    for payload in payloads:
+        for candidate in payload.get("candidates") or ():
+            candidate_key = str(candidate["candidate_key"])
+            quotes = [str(value) for value in candidate.get("exact_quotes") or ()]
+            for fact in eligible:
+                exact_quote = str(fact.get("exact_quote") or "")
+                if any(quote in exact_quote or exact_quote in quote for quote in quotes):
+                    candidate_keys_by_fact.setdefault(str(fact["fact_ref"]), set()).add(
+                        candidate_key
+                    )
+        for rejection in payload.get("rejections") or ():
+            rejection_reasons_by_segment.setdefault(
+                str(rejection["segment_ref"]), []
+            ).append(str(rejection["reason"]))
+    for fact in eligible:
+        fact_ref = str(fact["fact_ref"])
+        candidate_keys = sorted(candidate_keys_by_fact.get(fact_ref) or ())
+        reasons = rejection_reasons_by_segment.get(str(fact["segment_ref"])) or []
+        dispositions[fact_ref] = {
+            "fact_ref": fact_ref,
+            "decision": "accepted" if candidate_keys else "rejected",
+            "reason": (
+                "；".join(dict.fromkeys(reasons))
+                if reasons
+                else "当前成果投影未生成可登记候选。"
+            ),
+            **({"candidate_keys": candidate_keys} if candidate_keys else {}),
+        }
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "candidate_count": len(increment["outcomes"]),
+        "rejection_count": sum(len(row.get("rejections") or ()) for row in payloads),
+        "model_call_count": actual_model_calls,
+        "source_pack_changed": changed,
+        "policy_fingerprint": policy_fingerprint,
+        "dispositions": [dispositions[key] for key in sorted(dispositions)],
+    }

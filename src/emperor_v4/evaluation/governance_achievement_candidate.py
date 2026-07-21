@@ -175,61 +175,50 @@ def _ruler_resolver(
     dynasty_token: str,
     dynasty_name: str,
 ):
-    by_alias: dict[str, list[str]] = defaultdict(list)
-    dynasty_owners: set[str] = set()
-    for owner, rows in (ruler_aliases or {}).items():
-        canonical = str(owner)
-        aliases = [canonical]
-        for row in rows or ():
-            if isinstance(row, Mapping) and str(row.get("alias") or ""):
-                aliases.append(str(row["alias"]))
-        variants = {
-            value
-            for alias in aliases
-            for value in (alias, _S2T.convert(alias), _T2S.convert(alias))
+    if ruler_aliases is None:
+        identity_entities = []
+    elif (
+        isinstance(ruler_aliases, Mapping)
+        and ruler_aliases.get("schema_version")
+        == "historical-entity-identities-current-v1"
+    ):
+        identity_entities = ruler_aliases.get("entities") or []
+    else:
+        raise ValueError("皇帝归责只接受当前历史实体身份目录")
+    by_alias: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for row in identity_entities:
+        if not str(row.get("person_ref") or "").startswith("RULER-"):
+            continue
+        entity = {
+            "ruler_ref": str(row["person_ref"]),
+            "ruler_name": str(row["canonical_name"]),
+            "dynasty": str(row.get("dynasty") or ""),
         }
-        if dynasty_name and any(value.startswith(dynasty_name) for value in variants):
-            dynasty_owners.add(canonical)
-        for alias in variants:
-            by_alias[alias].append(canonical)
-
-    explicit_special_titles = {"武后", "武太后", "天后", "则天", "則天"}
+        surfaces = [
+            entity["ruler_name"],
+            *(str(alias["surface"]) for alias in row.get("aliases") or ()),
+        ]
+        for surface in {
+            value
+            for alias in surfaces
+            for value in (alias, _S2T.convert(alias), _T2S.convert(alias))
+        }:
+            by_alias[surface].append(entity)
 
     def resolve(name: str) -> dict[str, str] | None:
         variants = {name, _S2T.convert(name), _T2S.convert(name)}
         candidates = {
-            owner for variant in variants for owner in by_alias.get(variant, ())
+            row["ruler_ref"]: row
+            for variant in variants
+            for row in by_alias.get(variant, ())
         }
-        scoped = candidates & dynasty_owners
-        if len(scoped) == 1:
-            canonical_name = next(iter(scoped))
-        elif len(candidates) == 1:
-            canonical_name = next(iter(candidates))
-        else:
-            simplified = _T2S.convert(name)
-            dynasty_prefixed_title = bool(
-                dynasty_name
-                and simplified.startswith(dynasty_name)
-                and len(simplified) == len(dynasty_name) + 2
-                and simplified.endswith(("帝", "宗"))
-            )
-            looks_like_ruler = (
-                (len(simplified) == 2 and simplified.endswith(("帝", "宗")))
-                or dynasty_prefixed_title
-                or simplified in explicit_special_titles
-            )
-            if not looks_like_ruler:
-                return None
-            canonical_name = (
-                simplified[len(dynasty_name) :]
-                if dynasty_prefixed_title
-                else simplified
-            )
-        identity = f"{dynasty_token.upper()}::{canonical_name}"
-        return {
-            "ruler_ref": "RULER-" + sha256(identity.encode("utf-8")).hexdigest()[:16].upper(),
-            "ruler_name": canonical_name,
+        scoped = {
+            person_ref: row
+            for person_ref, row in candidates.items()
+            if not dynasty_name or row["dynasty"] == dynasty_name
         }
+        resolved = scoped if scoped else candidates
+        return next(iter(resolved.values())) if len(resolved) == 1 else None
 
     return resolve
 

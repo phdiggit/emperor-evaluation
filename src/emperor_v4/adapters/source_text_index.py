@@ -427,32 +427,39 @@ class LocalSourceTextIndex:
             ).fetchone()
         return str(row["raw_text"]) if row is not None else None
 
-    def iter_pages(
+    def iter_pages_matching_terms(
         self,
         *,
         works: Sequence[str],
-        page_ranges: Mapping[str, Sequence[int]] | None = None,
+        terms: Sequence[str],
     ) -> Iterator[LocalSourcePage]:
-        """Yield immutable discovery pages without exposing the SQLite layout."""
+        """Yield pages containing any identity term without recall ranking work."""
         work_keys = tuple(dict.fromkeys(_work_key(item) for item in works if item))
-        if not work_keys:
+        normalized_terms = tuple(
+            dict.fromkeys(
+                _normalized(term)
+                for term in terms
+                if len(_normalized(term)) >= 2
+            )
+        )
+        if not work_keys or not normalized_terms:
             return
-        placeholders = ",".join("?" for _ in work_keys)
+        work_placeholders = ",".join("?" for _ in work_keys)
+        term_predicate = " OR ".join(
+            "normalized_text LIKE ?" for _ in normalized_terms
+        )
         with self._connect() as connection:
             rows = connection.execute(
                 f"""
                 SELECT page_title, work_title, source_url, revision_ref, raw_text
                 FROM pages
-                WHERE work_key IN ({placeholders})
+                WHERE work_key IN ({work_placeholders})
+                  AND ({term_predicate})
                 ORDER BY page_title
                 """,
-                work_keys,
+                (*work_keys, *(f"%{term}%" for term in normalized_terms)),
             )
             for row in rows:
-                if page_ranges and not _page_in_ranges(
-                    str(row["page_title"]), str(row["work_title"]), page_ranges
-                ):
-                    continue
                 yield LocalSourcePage(
                     page_title=str(row["page_title"]),
                     work_title=str(row["work_title"]),
@@ -460,6 +467,61 @@ class LocalSourceTextIndex:
                     revision_ref=str(row["revision_ref"]),
                     raw_text=str(row["raw_text"]),
                 )
+
+    def iter_pages(
+        self,
+        *,
+        works: Sequence[str],
+        page_ranges: Mapping[str, Sequence[int]] | None = None,
+        page_titles: Sequence[str] | None = None,
+    ) -> Iterator[LocalSourcePage]:
+        """Yield immutable discovery pages without exposing the SQLite layout."""
+        work_keys = tuple(dict.fromkeys(_work_key(item) for item in works if item))
+        if not work_keys:
+            return
+        selected_titles = tuple(
+            sorted(dict.fromkeys(str(value) for value in page_titles or () if value))
+        )
+        if page_titles is not None and not selected_titles:
+            return
+        title_chunks: tuple[tuple[str, ...], ...] = (
+            tuple(
+                selected_titles[offset : offset + 400]
+                for offset in range(0, len(selected_titles), 400)
+            )
+            if page_titles is not None
+            else ((),)
+        )
+        work_placeholders = ",".join("?" for _ in work_keys)
+        with self._connect() as connection:
+            for title_chunk in title_chunks:
+                title_filter = ""
+                parameters: tuple[str, ...] = work_keys
+                if title_chunk:
+                    title_placeholders = ",".join("?" for _ in title_chunk)
+                    title_filter = f" AND page_title IN ({title_placeholders})"
+                    parameters = (*work_keys, *title_chunk)
+                rows = connection.execute(
+                    f"""
+                    SELECT page_title, work_title, source_url, revision_ref, raw_text
+                    FROM pages
+                    WHERE work_key IN ({work_placeholders}){title_filter}
+                    ORDER BY page_title
+                    """,
+                    parameters,
+                )
+                for row in rows:
+                    if page_ranges and not _page_in_ranges(
+                        str(row["page_title"]), str(row["work_title"]), page_ranges
+                    ):
+                        continue
+                    yield LocalSourcePage(
+                        page_title=str(row["page_title"]),
+                        work_title=str(row["work_title"]),
+                        source_url=str(row["source_url"]),
+                        revision_ref=str(row["revision_ref"]),
+                        raw_text=str(row["raw_text"]),
+                    )
 
 
 def iter_wikisource_dump(

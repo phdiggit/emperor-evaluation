@@ -28,6 +28,8 @@ from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
     build_i5b_unified_raw_signal_readiness,
 )
 from emperor_v4.evaluation.model_policy import resolve_agent_route, validate_model_policy
+from emperor_v4.evaluation.current_source_pack_compiler import apply_source_pack_increment
+from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -103,6 +105,23 @@ def _parser() -> argparse.ArgumentParser:
     compass.add_argument("--record", type=Path, required=True)
     compass.add_argument("--workspace-root", type=Path, default=Path("."))
     compass.add_argument("--compass", type=Path)
+    rebuild = commands.add_parser("emperor-rebuild")
+    rebuild.add_argument("--ruler", required=True)
+    rebuild.add_argument("--workspace-root", type=Path, default=Path("."))
+    rebuild.add_argument("--source-index", type=Path)
+    rebuild.add_argument("--source-index-root", type=Path)
+    rebuild.add_argument("--dynasty-governance-root", type=Path)
+    rebuild.add_argument("--runtime-root", type=Path)
+    rebuild.add_argument("--wall-clock-seconds", type=int, default=900)
+    rebuild.add_argument("--source-workers", type=int, default=8)
+    rebuild.add_argument("--export-workers", type=int, default=4)
+    rebuild.add_argument("--max-pages-per-subject", type=int, default=32)
+    rebuild.add_argument("--model-workers", type=int, default=4)
+    rebuild.add_argument("--model-timeout-seconds", type=int, default=120)
+    increment = commands.add_parser("source-pack-apply-increment")
+    increment.add_argument("--ruler", required=True)
+    increment.add_argument("--workspace-root", type=Path, default=Path("."))
+    increment.add_argument("--increment", type=Path, required=True)
     return parser
 
 
@@ -274,6 +293,45 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_scoring_detail(args)
     if args.command == "historical-outcome-dry-run":
         return _run_outcome_dry_run(args)
+    if args.command == "emperor-rebuild":
+        runtime_root = args.runtime_root or (
+            args.workspace_root / "tmp" / "emperor_rebuild" / args.ruler
+        )
+        report = rebuild_emperor(
+            workspace_root=args.workspace_root,
+            ruler=args.ruler,
+            source_index_path=args.source_index,
+            source_index_root=args.source_index_root,
+            dynasty_governance_root=args.dynasty_governance_root,
+            runtime_root=runtime_root,
+            limits=RebuildLimits(
+                wall_clock_seconds=args.wall_clock_seconds,
+                source_workers=args.source_workers,
+                export_workers=args.export_workers,
+                max_pages_per_subject=args.max_pages_per_subject,
+                model_workers=args.model_workers,
+                model_timeout_seconds=args.model_timeout_seconds,
+            ),
+        )
+        return _write_report(report, None)
+    if args.command == "source-pack-apply-increment":
+        workspace_root = args.workspace_root.resolve()
+        project = _load(workspace_root / "config/project.yml")
+        configured = ((project.get("i5b_current_value") or {}).get("rulers") or {}).get(
+            args.ruler
+        )
+        if not isinstance(configured, Mapping):
+            raise ValueError(f"皇帝尚未进入当前链路: {args.ruler}")
+        increment_payload = _load(args.increment)
+        if not isinstance(increment_payload, Mapping):
+            raise ValueError("source-pack increment 必须是 JSON object")
+        changed = apply_source_pack_increment(
+            workspace_root / str(configured["source_pack"]),
+            increment_payload,
+            workspace_root=workspace_root,
+        )
+        print("source-pack：已更新" if changed else "source-pack：无变化")
+        return 0
     if args.command == "i5b-discovery-compass-record":
         workspace_root = args.workspace_root.resolve()
         compass_path = args.compass or (
