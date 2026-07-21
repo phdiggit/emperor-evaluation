@@ -181,6 +181,7 @@ def test_background_emperor_worker_exports_and_reuses_current_result(
     assert second["status"] == "succeeded"
     assert second["reused"] is True
     assert len(calls) == 1
+    assert calls[0]["source_index_path"] is None
     exports = Path(first["exports"])
     assert (exports / "scoring-detail.md").is_file()
     assert len(list((exports / "persons").glob("*.md"))) == 10

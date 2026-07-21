@@ -129,6 +129,7 @@ def run_background_request(
         rebuild = rebuild_emperor(
             workspace_root=workspace_root,
             ruler=ruler,
+            source_index_path=None,
             source_index_root=source_index_root,
             dynasty_governance_root=dynasty_governance_root,
             runtime_root=job_root / "runtime",
