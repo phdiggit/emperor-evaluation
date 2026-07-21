@@ -1040,6 +1040,33 @@ def test_emperor_rebuild_index_resolution_ignores_preextracted_governance_work(
     assert resolved.identity == built["index_identity"]
 
 
+def test_emperor_rebuild_index_resolution_compares_normalized_work_names(
+    tmp_path: Path,
+) -> None:
+    index_path = tmp_path / "current/source.sqlite3"
+    built = build_local_source_index(
+        [
+            {
+                "page_title": "资治通鉴/卷1",
+                "work_title": "资治通鉴",
+                "source_url": "local:chronicle",
+                "revision_ref": "1",
+                "raw_text": "编年人物治理事实",
+            }
+        ],
+        index_path,
+    )
+
+    resolved = _resolve_source_index(
+        source_pack={"facts": []},
+        source_index_path=None,
+        source_index_root=tmp_path,
+        required_works=("資治通鑑",),
+    )
+
+    assert resolved.identity == built["index_identity"]
+
+
 def test_neutral_result_canonicalization_only_binds_owned_facts_and_layout_quotes() -> None:
     batch = {
         "batch_ref": "BATCH-1",

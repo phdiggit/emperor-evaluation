@@ -160,10 +160,13 @@ def _resolve_source_index(
         try:
             index = LocalSourceTextIndex(path)
             pages = list(index.iter_pages(works=sorted(works)))
+            covers_every_work = all(
+                next(index.iter_pages(works=[work]), None) is not None
+                for work in works
+            )
         except (OSError, ValueError):
             continue
-        indexed_works = {page.work_title for page in pages}
-        if pages and works <= indexed_works:
+        if pages and covers_every_work:
             candidates.append((len(pages), str(path), index))
     if not candidates:
         raise ValueError(f"史料索引根没有覆盖当前作品集: {sorted(works)}")
@@ -359,7 +362,19 @@ def rebuild_emperor(
             if dynasty_governance_token
             else configured_scan_works
         ),
-        preextracted_works=(supplement_works if dynasty_governance_token else ()),
+        preextracted_works=(
+            sorted(
+                {
+                    str(row["source_page"]).split("/", 1)[0]
+                    for row in source_pack.get("facts") or ()
+                    if row.get("source_page")
+                }
+                - set(backbone_works)
+                - set(backsource_works)
+            )
+            if dynasty_governance_token
+            else ()
+        ),
     )
     dynasty_governance_current: Mapping[str, Any] | None = None
     if dynasty_governance_token:
