@@ -840,6 +840,54 @@ def test_emperor_rebuild_resolves_current_index_from_runtime_root(
     assert resolved.identity == built["index_identity"]
 
 
+def test_emperor_rebuild_index_resolution_requires_configured_backbone(
+    tmp_path: Path,
+) -> None:
+    partial_path = tmp_path / "partial/source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": f"甲书/卷{position}",
+                "work_title": "甲书",
+                "source_url": f"local:partial:{position}",
+                "revision_ref": "1",
+                "raw_text": "甲书人物治理事实",
+            }
+            for position in range(3)
+        ],
+        partial_path,
+    )
+    complete_path = tmp_path / "complete/source.sqlite3"
+    complete = build_local_source_index(
+        [
+            {
+                "page_title": "甲书/卷1",
+                "work_title": "甲书",
+                "source_url": "local:complete:1",
+                "revision_ref": "1",
+                "raw_text": "甲书人物治理事实",
+            },
+            {
+                "page_title": "编年书/卷1",
+                "work_title": "编年书",
+                "source_url": "local:complete:2",
+                "revision_ref": "1",
+                "raw_text": "编年书人物治理事实",
+            },
+        ],
+        complete_path,
+    )
+
+    resolved = _resolve_source_index(
+        source_pack={"facts": [{"source_page": "甲书/卷1"}]},
+        source_index_path=None,
+        source_index_root=tmp_path,
+        required_works=("编年书",),
+    )
+
+    assert resolved.identity == complete["index_identity"]
+
+
 def test_neutral_result_canonicalization_only_binds_owned_facts_and_layout_quotes() -> None:
     batch = {
         "batch_ref": "BATCH-1",

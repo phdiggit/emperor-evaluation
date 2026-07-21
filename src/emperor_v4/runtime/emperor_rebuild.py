@@ -134,6 +134,7 @@ def _resolve_source_index(
     source_pack: Mapping[str, Any],
     source_index_path: Path | None,
     source_index_root: Path | None,
+    required_works: Sequence[str] = (),
 ) -> LocalSourceTextIndex:
     if source_index_path is not None:
         return LocalSourceTextIndex(source_index_path)
@@ -150,7 +151,7 @@ def _resolve_source_index(
         str(row["source_page"]).split("/", 1)[0]
         for row in source_pack.get("facts") or ()
         if row.get("source_page")
-    }
+    } | {str(work) for work in required_works}
     candidates = []
     for path in configured_root.rglob("*.sqlite3"):
         try:
@@ -158,7 +159,8 @@ def _resolve_source_index(
             pages = list(index.iter_pages(works=sorted(works)))
         except (OSError, ValueError):
             continue
-        if pages:
+        indexed_works = {page.work_title for page in pages}
+        if pages and works <= indexed_works:
             candidates.append((len(pages), str(path), index))
     if not candidates:
         raise ValueError(f"史料索引根没有覆盖当前作品集: {sorted(works)}")
@@ -330,10 +332,23 @@ def rebuild_emperor(
         name = str(fact.get("canonical_name") or "")
         if name in known_pages_by_subject and fact.get("source_page"):
             known_pages_by_subject[name].append(str(fact["source_page"]))
+    backbone_works = [
+        str(work) for work in configured.get("neutral_scan_backbone_works") or ()
+    ]
+    backsource_works = [
+        str(work) for work in configured.get("neutral_scan_backsource_works") or ()
+    ]
+    supplement_works = [
+        str(work) for work in configured.get("neutral_scan_supplement_works") or ()
+    ]
+    configured_scan_works = list(
+        dict.fromkeys([*backbone_works, *backsource_works, *supplement_works])
+    )
     source_index = _resolve_source_index(
         source_pack=source_pack,
         source_index_path=source_index_path,
         source_index_root=source_index_root,
+        required_works=configured_scan_works,
     )
     dynasty_governance_token = str(
         configured.get("dynasty_governance_material_token") or ""
@@ -362,7 +377,8 @@ def rebuild_emperor(
         ):
             raise ValueError("朝代政书 current 头部合同与皇帝链路不匹配")
     works = sorted(
-        {
+        set(configured_scan_works)
+        | {
             str(row["source_page"]).split("/", 1)[0]
             for row in source_pack.get("facts") or ()
             if row.get("source_page")
@@ -389,6 +405,7 @@ def rebuild_emperor(
             ),
             "known_pages_by_subject": known_pages_by_subject,
             "backbone_page_ranges": backbone_page_ranges,
+            "configured_scan_works": configured_scan_works,
         }
     )
     marker = checkpoint_dir / "source_inventory.json"
@@ -425,23 +442,11 @@ def rebuild_emperor(
         if neutral_path.is_file()
         else None
     )
-    backbone_works = [
-        str(work) for work in configured.get("neutral_scan_backbone_works") or ()
-    ]
-    backsource_works = [
-        str(work) for work in configured.get("neutral_scan_backsource_works") or ()
-    ]
-    supplement_works = [
-        str(work) for work in configured.get("neutral_scan_supplement_works") or ()
-    ]
     # A quality-accepted dynasty current is the one-time neutral extraction for
     # specialist governance works.  The ruler chain consumes it; it must not
     # rescan the same books per emperor.
     directed_supplement_works = (
         [] if dynasty_governance_current is not None else supplement_works
-    )
-    configured_scan_works = list(
-        dict.fromkeys([*backbone_works, *backsource_works, *supplement_works])
     )
     backbone_plan = build_ruler_neutral_plan(
         source_pack=source_pack,
