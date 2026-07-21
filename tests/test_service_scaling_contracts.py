@@ -247,6 +247,141 @@ dynasty_governance_scans:
     assert FakeRunner.calls == 1
 
 
+def test_dynasty_governance_resumes_only_audited_batches_after_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    workspace = tmp_path / "workspace"
+    config = workspace / "config"
+    config.mkdir(parents=True)
+    (config / "project.yml").write_text(
+        """dynasty_governance_scans:
+  output_schema: config/dynasty-neutral-governance-output.schema.json
+  dynasties:
+    test:
+      dynasty_token: TEST
+      source_works:
+        - work: TestTreatise
+          source_genre: political_treatise
+          target_scope: test dynasty only
+      required_domain_groups:
+        bureaucracy: [central_government]
+""",
+        encoding="utf-8",
+    )
+    (config / "model-policy.yml").write_bytes(
+        (ROOT / "config/model-policy.yml").read_bytes()
+    )
+    schema_path = config / "dynasty-neutral-governance-output.schema.json"
+    schema_path.write_bytes(
+        (ROOT / "config/dynasty-neutral-governance-output.schema.json").read_bytes()
+    )
+    index_path = tmp_path / "source.sqlite3"
+    raw_text = "".join(
+        f"line-{position:03d} implemented reform\n" for position in range(140)
+    )
+    build_local_source_index(
+        [
+            {
+                "page_title": "TestTreatise/1",
+                "work_title": "TestTreatise",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": raw_text,
+            }
+        ],
+        index_path,
+    )
+
+    class FlakyRunner:
+        calls = 0
+        fail_once = True
+
+        def __init__(self, **_kwargs: object) -> None:
+            pass
+
+        def run(self, prompt: str) -> tuple[dict, dict]:
+            FlakyRunner.calls += 1
+            if FlakyRunner.calls == 2 and FlakyRunner.fail_once:
+                FlakyRunner.fail_once = False
+                raise RuntimeError("synthetic interrupted batch")
+            task_code = re.search(r"task_code: (DYNGOV-[^\n]+)", prompt).group(1)
+            source_chars = int(re.search(r"source_chars: (\d+)", prompt).group(1))
+            page = re.search(
+                r"=== PAGE page_title=([^ ]+) revision_ref=([^ ]+) ===\n([^\n]+)",
+                prompt,
+            )
+            exact_quote = page.group(3)
+            return (
+                {
+                    "schema_version": "dynasty-neutral-governance-output-v1",
+                    "task_code": task_code,
+                    "dynasty": "test",
+                    "source_chars": source_chars,
+                    "chains": [
+                        {
+                            "chain_key": task_code,
+                            "title": "reform",
+                            "domain": "central_government",
+                            "period": "test period",
+                            "action": "implemented reform",
+                            "implementation": "implemented",
+                            "observable_result": "recorded",
+                            "cost_or_burden": "not recorded",
+                            "affected_groups": [],
+                            "operation_status": "implemented",
+                            "temporal_scope": "single_event",
+                            "geographic_scope": "court",
+                            "actors": [
+                                {
+                                    "name": "tester",
+                                    "responsibility_role": "lead",
+                                    "contribution_phases": ["implemented"],
+                                    "role_basis": "text",
+                                    "quote_refs": ["Q1"],
+                                }
+                            ],
+                            "evidence": [
+                                {
+                                    "quote_ref": "Q1",
+                                    "page_title": page.group(1),
+                                    "revision_ref": page.group(2),
+                                    "exact_quote": exact_quote,
+                                }
+                            ],
+                            "uncertainty": "",
+                        }
+                    ],
+                    "limitations": [],
+                },
+                {},
+            )
+
+    monkeypatch.setattr(
+        dynasty_governance_rebuild, "StructuredCodexRunner", FlakyRunner
+    )
+    arguments = {
+        "dynasty": "test",
+        "source_index_path": index_path,
+        "runtime_root": tmp_path / "runtime",
+        "workspace_root": workspace,
+        "limits": dynasty_governance_rebuild.DynastyGovernanceLimits(
+            model_workers=1, model_timeout_seconds=30, target_chars=1_500
+        ),
+    }
+    with pytest.raises(RuntimeError, match="synthetic interrupted batch"):
+        dynasty_governance_rebuild.rebuild_dynasty_governance(**arguments)
+
+    resume_files = list((tmp_path / "runtime/.resume/TEST").glob("*.json"))
+    restored_count = len(resume_files)
+    assert restored_count >= 1
+
+    result = dynasty_governance_rebuild.rebuild_dynasty_governance(**arguments)
+
+    assert result["quality"]["status"] == "passed"
+    assert result["model_call_count"] == result["quality"]["task_count"] - restored_count
+    assert not (tmp_path / "runtime/.resume/TEST").exists()
+
+
 def test_dynasty_governance_drops_only_unverifiable_chain(tmp_path: Path) -> None:
     source = tmp_path / "source.txt"
     source.write_text("exact source quote", encoding="utf-8")

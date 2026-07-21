@@ -119,6 +119,35 @@ def _sanitize_task_payload(
     return {**payload, "chains": accepted, "limitations": list(dict.fromkeys(limitations))}
 
 
+def _restore_accepted_results(
+    *,
+    preparation: Mapping[str, Any],
+    resume_root: Path,
+    results_dir: Path,
+    output_schema_path: Path,
+) -> list[str]:
+    restored: list[str] = []
+    for task in preparation["tasks"]:
+        task_code = str(task["task_code"])
+        source = resume_root / f"{task_code}.json"
+        if not source.is_file():
+            continue
+        target = results_dir / source.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+        task_audit = audit_scan(
+            preparation,
+            results_dir=results_dir,
+            output_schema_path=output_schema_path,
+            task_codes=(task_code,),
+        )
+        if task_audit["status"] == "accepted_shadow":
+            restored.append(task_code)
+        else:
+            target.unlink(missing_ok=True)
+    return restored
+
+
 @dataclass(frozen=True, slots=True)
 class DynastyGovernanceLimits:
     model_workers: int = 4
@@ -290,8 +319,11 @@ def rebuild_dynasty_governance(
     runtime_root = runtime_root.resolve()
     scan_config, configured = _load_dynasty_config(workspace_root, dynasty)
     index = LocalSourceTextIndex(source_index_path)
-    current_path = runtime_root / str(configured["dynasty_token"]) / "current.json"
+    dynasty_token = str(configured["dynasty_token"])
+    current_path = runtime_root / dynasty_token / "current.json"
+    resume_root = runtime_root / ".resume" / dynasty_token
     work_root = runtime_root / ".work" / uuid4().hex
+    succeeded = False
     try:
         manifest, source_identities = _build_source_manifest(
             index=index,
@@ -327,6 +359,7 @@ def rebuild_dynasty_governance(
                 and not current.get("extraction_policy")
             )
             if exact_current or compatible_current:
+                shutil.rmtree(resume_root, ignore_errors=True)
                 current = {
                     **current,
                     "input_fingerprint": input_fingerprint,
@@ -354,6 +387,12 @@ def rebuild_dynasty_governance(
             output_root=work_root,
             output_schema_path=schema_path,
             target_chars=limits.target_chars,
+        )
+        restored = _restore_accepted_results(
+            preparation=preparation,
+            resume_root=resume_root,
+            results_dir=work_root / "results",
+            output_schema_path=schema_path,
         )
         runner = StructuredCodexRunner(
             codex_bin=codex_bin,
@@ -427,9 +466,12 @@ def rebuild_dynasty_governance(
         tasks = list(preparation["tasks"])
         canary_code = str(preparation["canary_task_code"])
         canary = next(task for task in tasks if str(task["task_code"]) == canary_code)
-        completed: list[str] = [extract(canary)]
+        completed: list[str] = list(restored)
+        if canary_code not in completed:
+            completed.append(extract(canary))
+        completed_set = set(completed)
         remaining_tasks = [
-            task for task in tasks if str(task["task_code"]) != canary_code
+            task for task in tasks if str(task["task_code"]) not in completed_set
         ]
         with ThreadPoolExecutor(max_workers=limits.model_workers) as executor:
             futures = {
@@ -484,6 +526,8 @@ def rebuild_dynasty_governance(
             "score_writes": 0,
         }
         _atomic_json(current_path, current)
+        succeeded = True
+        shutil.rmtree(resume_root, ignore_errors=True)
         return {
             **current,
             "reused": False,
@@ -491,8 +535,17 @@ def rebuild_dynasty_governance(
             "business_write_count": 0,
             "output": str(current_path),
         }
+    except Exception:
+        results_dir = work_root / "results"
+        if results_dir.is_dir():
+            resume_root.mkdir(parents=True, exist_ok=True)
+            for result_path in results_dir.glob("*.json"):
+                shutil.copy2(result_path, resume_root / result_path.name)
+        raise
     finally:
         shutil.rmtree(work_root, ignore_errors=True)
+        if succeeded:
+            shutil.rmtree(resume_root, ignore_errors=True)
 
 
 def _parser() -> argparse.ArgumentParser:
