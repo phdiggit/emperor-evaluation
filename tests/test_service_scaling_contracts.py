@@ -558,6 +558,8 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
     ).read_text(encoding="utf-8")
     assert f"Environment=CODEX_HOME={state_root}/claim-extractor/codex" in emperor_unit
     assert f"ReadWritePaths={state_root}/emperor-rebuild" in emperor_unit
+    assert "Restart=on-failure" in emperor_unit
+    assert "StartLimitBurst=4" in emperor_unit
 
 
 def _claim_payload() -> dict:

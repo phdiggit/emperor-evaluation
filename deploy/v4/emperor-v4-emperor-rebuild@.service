@@ -1,9 +1,13 @@
 [Unit]
 Description=Emperor Evaluation V4 background emperor rebuild %i
 After=network-online.target emperor-v4-dynasty-governance-worker.service
+StartLimitIntervalSec=2h
+StartLimitBurst=4
 
 [Service]
 Type=oneshot
+Restart=on-failure
+RestartSec=5s
 User=emperor-v4
 Group=emperor-v4
 WorkingDirectory=/opt/emperor-evaluation-v4/emperor-rebuild/current
