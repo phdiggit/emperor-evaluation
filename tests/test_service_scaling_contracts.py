@@ -359,6 +359,7 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         "ReadWritePaths=/data1/emperor-evaluation/runtime/active/"
         "dynasty_neutral_materials" in dynasty_unit
     )
+    assert f"{state_root}/claim-extractor/codex" in dynasty_unit
 
 
 def _claim_payload() -> dict:
