@@ -7,6 +7,7 @@ import io
 import json
 from pathlib import Path
 import re
+import shutil
 import stat
 import subprocess
 import sys
@@ -36,7 +37,11 @@ from emperor_v4.runtime.emperor_rebuild import (
     _resolve_source_index,
     _run_with_model_anomaly_recovery,
 )
-from emperor_v4.runtime import emperor_rebuild_queue, emperor_rebuild_worker
+from emperor_v4.runtime import (
+    emperor_rebuild as emperor_rebuild_module,
+    emperor_rebuild_queue,
+    emperor_rebuild_worker,
+)
 from emperor_v4.runtime.emperor_neutral_scan import (
     NEUTRAL_EXTRACTION_POLICY_VERSION,
     _canonicalize_result,
@@ -208,6 +213,35 @@ def test_background_emperor_worker_exports_and_reuses_current_result(
     assert third["status"] == "succeeded"
     assert len(calls) == 2
     assert checkpoint_probe.read_text(encoding="utf-8") == "audited checkpoint"
+
+
+def test_emperor_rebuild_does_not_require_preextracted_governance_works_in_index(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    workspace = tmp_path / "workspace"
+    shutil.copytree(ROOT / "config", workspace / "config")
+    shutil.copytree(
+        ROOT / "eval/i5b_current_value/李世民",
+        workspace / "eval/i5b_current_value/李世民",
+    )
+    observed = {}
+
+    def resolve(**kwargs):
+        observed["required_works"] = kwargs["required_works"]
+        raise RuntimeError("stop after index contract")
+
+    monkeypatch.setattr(emperor_rebuild_module, "_resolve_source_index", resolve)
+    with pytest.raises(RuntimeError, match="index contract"):
+        emperor_rebuild_module.rebuild_emperor(
+            workspace_root=workspace,
+            ruler="李世民",
+            source_index_path=None,
+            source_index_root=tmp_path / "indexes",
+            dynasty_governance_root=tmp_path / "governance",
+            runtime_root=tmp_path / "runtime",
+        )
+
+    assert observed["required_works"] == ["資治通鑑", "舊唐書", "新唐書"]
 
 
 def test_background_emperor_worker_marks_timeout_retryable_until_attempt_limit(

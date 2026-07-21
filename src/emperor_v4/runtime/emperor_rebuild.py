@@ -344,14 +344,18 @@ def rebuild_emperor(
     configured_scan_works = list(
         dict.fromkeys([*backbone_works, *backsource_works, *supplement_works])
     )
+    dynasty_governance_token = str(
+        configured.get("dynasty_governance_material_token") or ""
+    )
     source_index = _resolve_source_index(
         source_pack=source_pack,
         source_index_path=source_index_path,
         source_index_root=source_index_root,
-        required_works=configured_scan_works,
-    )
-    dynasty_governance_token = str(
-        configured.get("dynasty_governance_material_token") or ""
+        required_works=(
+            [*backbone_works, *backsource_works]
+            if dynasty_governance_token
+            else configured_scan_works
+        ),
     )
     dynasty_governance_current: Mapping[str, Any] | None = None
     if dynasty_governance_token:
