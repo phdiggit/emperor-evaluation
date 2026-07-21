@@ -355,6 +355,7 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         f"Environment=CODEX_HOME={state_root}/claim-extractor/codex"
         in dynasty_unit
     )
+    assert "RuntimeDirectoryPreserve=yes" in dynasty_unit
     assert (
         "ReadWritePaths=/data1/emperor-evaluation/runtime/active/"
         "dynasty_neutral_materials" in dynasty_unit
