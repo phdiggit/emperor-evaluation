@@ -7,6 +7,7 @@ import io
 import json
 from pathlib import Path
 import re
+import stat
 import subprocess
 import sys
 from threading import Event, Lock
@@ -185,6 +186,21 @@ def test_background_emperor_worker_exports_and_reuses_current_result(
     exports = Path(first["exports"])
     assert (exports / "scoring-detail.md").is_file()
     assert len(list((exports / "persons").glob("*.md"))) == 10
+
+    copied_config = (
+        tmp_path
+        / "state/jobs/LIUBANG-CALIBRATION/workspace/config/project.yml"
+    )
+    copied_config.chmod(stat.S_IREAD)
+    changed_request = json.loads(request.read_text(encoding="utf-8"))
+    changed_request["limits"]["wall_clock_seconds"] = 899
+    request.write_text(
+        json.dumps(changed_request, ensure_ascii=False), encoding="utf-8"
+    )
+    third = emperor_rebuild_worker.run_background_request(**arguments)
+
+    assert third["status"] == "succeeded"
+    assert len(calls) == 2
 
 
 def test_structured_runner_uses_twice_comparable_median_as_anomaly_limit() -> None:

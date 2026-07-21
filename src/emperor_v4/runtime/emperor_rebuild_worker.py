@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 from typing import Any, Mapping, Sequence
 from uuid import uuid4
 
@@ -46,6 +47,13 @@ def _safe_token(value: object, *, field: str) -> str:
     return token
 
 
+def _make_tree_owner_writable(root: Path) -> None:
+    if not root.exists():
+        return
+    for path in (root, *root.rglob("*")):
+        path.chmod(path.stat().st_mode | stat.S_IWUSR)
+
+
 def _prepare_workspace(
     *, release_root: Path, workspace_root: Path, ruler: str
 ) -> None:
@@ -55,6 +63,7 @@ def _prepare_workspace(
         workspace_root / "config",
         dirs_exist_ok=True,
     )
+    _make_tree_owner_writable(workspace_root / "config")
     source = release_root / "eval/i5b_current_value" / ruler / "source-pack.json"
     if not source.is_file():
         raise ValueError(f"release 不含皇帝 source-pack: {ruler}")
@@ -108,6 +117,7 @@ def run_background_request(
             for name in ("workspace", "runtime", "exports"):
                 target = job_root / name
                 if target.exists():
+                    _make_tree_owner_writable(target)
                     shutil.rmtree(target)
     workspace_root = job_root / "workspace"
     if not (workspace_root / "config/project.yml").is_file():
