@@ -1,14 +1,9 @@
 [Unit]
-Description=Emperor Evaluation V4 background emperor rebuild %i
+Description=Emperor Evaluation V4 unattended emperor rebuild queue
 After=network-online.target emperor-v4-dynasty-governance-worker.service
-StartLimitIntervalSec=2h
-StartLimitBurst=4
 
 [Service]
 Type=oneshot
-Restart=on-failure
-RestartPreventExitStatus=1
-RestartSec=5s
 User=emperor-v4
 Group=emperor-v4
 WorkingDirectory=/opt/emperor-evaluation-v4/emperor-rebuild/current
@@ -16,8 +11,8 @@ EnvironmentFile=/etc/emperor-evaluation-v4/emperor-rebuild.env
 Environment=PYTHONPATH=/opt/emperor-evaluation-v4/emperor-rebuild/current/src
 Environment=PATH=/opt/emperor-evaluation-v4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 Environment=CODEX_HOME=/data1/emperor-evaluation/runtime/services/emperor-v4/claim-extractor/codex
-ExecStart=/opt/emperor-evaluation-v4/emperor-rebuild/venv/bin/python -m emperor_v4.runtime.emperor_rebuild_worker --request /data1/emperor-evaluation/runtime/services/emperor-v4/emperor-rebuild/requests/%i.json --release-root /opt/emperor-evaluation-v4/emperor-rebuild/current --state-root /data1/emperor-evaluation/runtime/services/emperor-v4/emperor-rebuild --source-index-root /data1/emperor-evaluation/runtime/active/source_text_indexes --dynasty-governance-root /data1/emperor-evaluation/runtime/active/dynasty_neutral_materials
-TimeoutStartSec=30m
+ExecStart=/opt/emperor-evaluation-v4/emperor-rebuild/venv/bin/python -m emperor_v4.runtime.emperor_rebuild_queue --release-root /opt/emperor-evaluation-v4/emperor-rebuild/current --state-root /data1/emperor-evaluation/runtime/services/emperor-v4/emperor-rebuild --source-index-root /data1/emperor-evaluation/runtime/active/source_text_indexes --dynasty-governance-root /data1/emperor-evaluation/runtime/active/dynasty_neutral_materials
+TimeoutStartSec=31m
 Nice=5
 NoNewPrivileges=true
 PrivateTmp=true

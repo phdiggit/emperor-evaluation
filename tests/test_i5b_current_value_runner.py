@@ -36,7 +36,7 @@ from emperor_v4.runtime.emperor_rebuild import (
     _resolve_source_index,
     _run_with_model_anomaly_recovery,
 )
-from emperor_v4.runtime import emperor_rebuild_worker
+from emperor_v4.runtime import emperor_rebuild_queue, emperor_rebuild_worker
 from emperor_v4.runtime.emperor_neutral_scan import (
     NEUTRAL_EXTRACTION_POLICY_VERSION,
     _canonicalize_result,
@@ -208,6 +208,89 @@ def test_background_emperor_worker_exports_and_reuses_current_result(
     assert third["status"] == "succeeded"
     assert len(calls) == 2
     assert checkpoint_probe.read_text(encoding="utf-8") == "audited checkpoint"
+
+
+def test_background_emperor_worker_marks_timeout_retryable_until_attempt_limit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    request = tmp_path / "RETRYABLE.json"
+    request.write_text(
+        json.dumps(
+            {
+                "schema_version": "emperor-rebuild-background-request-v1",
+                "task_code": "RETRYABLE",
+                "ruler": "刘邦",
+                "max_attempts": 2,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        emperor_rebuild_worker,
+        "rebuild_emperor",
+        lambda **kwargs: (_ for _ in ()).throw(TimeoutError("model timeout")),
+    )
+    arguments = {
+        "request_path": request,
+        "release_root": ROOT,
+        "state_root": tmp_path / "state",
+        "source_index_root": tmp_path / "indexes",
+        "dynasty_governance_root": tmp_path / "governance",
+    }
+
+    first = emperor_rebuild_worker.run_background_request(**arguments)
+    second = emperor_rebuild_worker.run_background_request(**arguments)
+
+    assert (first["attempt_count"], first["retryable"], first["terminal"]) == (
+        1,
+        True,
+        False,
+    )
+    assert (second["attempt_count"], second["retryable"], second["terminal"]) == (
+        2,
+        False,
+        True,
+    )
+
+
+def test_unattended_emperor_queue_processes_one_request_and_skips_terminal_jobs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    state_root = tmp_path / "state"
+    requests = state_root / "requests"
+    requests.mkdir(parents=True)
+    for task_code in ("A-TERMINAL", "B-PENDING", "C-PENDING"):
+        (requests / f"{task_code}.json").write_text("{}", encoding="utf-8")
+    terminal = state_root / "jobs/A-TERMINAL/result.json"
+    terminal.parent.mkdir(parents=True)
+    terminal.write_text(
+        json.dumps({"status": "failed", "terminal": True}), encoding="utf-8"
+    )
+    calls = []
+    monkeypatch.setattr(
+        emperor_rebuild_queue,
+        "run_background_request",
+        lambda **kwargs: calls.append(kwargs["request_path"].stem)
+        or {"status": "failed", "retryable": True},
+    )
+
+    result = emperor_rebuild_queue.run_queue_tick(
+        release_root=ROOT,
+        state_root=state_root,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    assert result == {
+        "schema_version": "emperor-rebuild-background-queue-tick-v1",
+        "status": "processed",
+        "task_code": "B-PENDING",
+        "job_status": "failed",
+        "retryable": True,
+    }
+    assert calls == ["B-PENDING"]
+    assert not (state_root / "queue.lock").exists()
 
 
 def test_structured_runner_uses_twice_comparable_median_as_anomaly_limit() -> None:

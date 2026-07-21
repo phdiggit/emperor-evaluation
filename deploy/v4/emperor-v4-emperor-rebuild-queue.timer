@@ -1,0 +1,11 @@
+[Unit]
+Description=Poll Emperor Evaluation V4 emperor rebuild requests
+
+[Timer]
+OnBootSec=2m
+OnUnitInactiveSec=1m
+Persistent=true
+Unit=emperor-v4-emperor-rebuild-queue.service
+
+[Install]
+WantedBy=timers.target

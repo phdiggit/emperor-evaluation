@@ -19,6 +19,7 @@ from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
 
 SCHEMA_VERSION = "emperor-rebuild-background-request-v1"
 RESULT_SCHEMA_VERSION = "emperor-rebuild-background-result-v1"
+RETRYABLE_EXIT_CODE = 75
 
 
 def _digest(value: object) -> str:
@@ -88,6 +89,9 @@ def run_background_request(
     ruler = _safe_token(request.get("ruler"), field="ruler")
     if request_path.stem != task_code:
         raise ValueError("后台皇帝任务文件名必须等于 task_code")
+    max_attempts = int(request.get("max_attempts", 4))
+    if not 1 <= max_attempts <= 8:
+        raise ValueError("max_attempts 必须介于 1 到 8")
     limits_payload = dict(request.get("limits") or {})
     limits = RebuildLimits(**limits_payload)
     release_root = release_root.resolve()
@@ -111,6 +115,13 @@ def run_background_request(
             and current.get("status") == "succeeded"
         ):
             return {**current, "reused": True}
+    else:
+        current = {}
+    attempt_count = (
+        int(current.get("attempt_count", 0)) + 1
+        if current.get("input_fingerprint") == input_fingerprint
+        else 1
+    )
     marker = job_root / "input.json"
     if marker.is_file():
         previous = json.loads(marker.read_text(encoding="utf-8"))
@@ -171,8 +182,13 @@ def run_background_request(
             "exports": str(exports),
             "database_write_count": 0,
             "formal_score_write_count": 0,
+            "attempt_count": attempt_count,
+            "max_attempts": max_attempts,
+            "retryable": False,
+            "terminal": True,
         }
     except Exception as exc:
+        retryable = isinstance(exc, TimeoutError) and attempt_count < max_attempts
         result = {
             "schema_version": RESULT_SCHEMA_VERSION,
             "status": "failed",
@@ -182,6 +198,10 @@ def run_background_request(
             "reused": False,
             "error_type": type(exc).__name__,
             "error": str(exc),
+            "attempt_count": attempt_count,
+            "max_attempts": max_attempts,
+            "retryable": retryable,
+            "terminal": not retryable,
             "database_write_count": 0,
             "formal_score_write_count": 0,
         }
@@ -209,7 +229,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         dynasty_governance_root=args.dynasty_governance_root,
     )
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
-    return 0 if result["status"] == "succeeded" else 1
+    if result["status"] == "succeeded":
+        return 0
+    return RETRYABLE_EXIT_CODE if result.get("retryable") else 1
 
 
 if __name__ == "__main__":

@@ -99,6 +99,8 @@ EMPEROR_REBUILD_RELEASE_PATHS = (
     "eval/i5b_current_value",
     "src/emperor_v4",
     "deploy/v4/emperor-v4-emperor-rebuild@.service",
+    "deploy/v4/emperor-v4-emperor-rebuild-queue.service",
+    "deploy/v4/emperor-v4-emperor-rebuild-queue.timer",
     "deploy/v4/emperor-rebuild.env.example",
     "deploy/v4/provision-prerequisites.sh",
     "deploy/v4/verify-server-runtime.sh",
