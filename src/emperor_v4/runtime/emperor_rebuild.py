@@ -135,6 +135,7 @@ def _resolve_source_index(
     source_index_path: Path | None,
     source_index_root: Path | None,
     required_works: Sequence[str] = (),
+    preextracted_works: Sequence[str] = (),
 ) -> LocalSourceTextIndex:
     if source_index_path is not None:
         return LocalSourceTextIndex(source_index_path)
@@ -147,11 +148,13 @@ def _resolve_source_index(
         raise ValueError(
             "未提供可用史料索引；请设置 EMPEROR_SOURCE_INDEX_ROOT 或传 --source-index-root"
         )
-    works = {
+    works = ({
         str(row["source_page"]).split("/", 1)[0]
         for row in source_pack.get("facts") or ()
         if row.get("source_page")
-    } | {str(work) for work in required_works}
+    } - {str(work) for work in preextracted_works}) | {
+        str(work) for work in required_works
+    }
     candidates = []
     for path in configured_root.rglob("*.sqlite3"):
         try:
@@ -356,6 +359,7 @@ def rebuild_emperor(
             if dynasty_governance_token
             else configured_scan_works
         ),
+        preextracted_works=(supplement_works if dynasty_governance_token else ()),
     )
     dynasty_governance_current: Mapping[str, Any] | None = None
     if dynasty_governance_token:
