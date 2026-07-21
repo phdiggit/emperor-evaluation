@@ -74,6 +74,14 @@ workflow_agent_routing:
       reasoning_effort: high
 
   stages:
+    dynasty_governance_neutral_extraction:
+      allowed_use: assertion_extraction_draft
+      primary_profile: luna_low
+      escalation_profile: luna_medium
+      escalation_triggers:
+        - classical_chinese_subject_ellipsis
+        - overlapping_event_boundaries
+        - contradictory_passages
     named_subject_source_discovery:
       allowed_use: source_candidate_discovery
       primary_profile: luna_medium

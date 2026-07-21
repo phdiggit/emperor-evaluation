@@ -17,13 +17,18 @@ current_scope:
 
 i5b_current_value:
   runner: emperor_v4.evaluation.i5b_current_value_runner
-  input_fingerprint: f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878
   rulers:
     李世民:
       source_pack: eval/i5b_current_value/李世民/source-pack.json
+      neutral_materials: eval/i5b_current_value/李世民/neutral-materials.json
       result: eval/i5b_current_value/李世民/result.json
+      neutral_scan_backbone_works: [資治通鑑]
+      neutral_scan_backbone_page_ranges: {資治通鑑: [184, 199]}
+      neutral_scan_backsource_works: [舊唐書, 新唐書]
+      dynasty_governance_material_token: TANG
     刘邦:
       source_pack: eval/i5b_current_value/刘邦/source-pack.json
+      neutral_materials: eval/i5b_current_value/刘邦/neutral-materials.json
       result: eval/i5b_current_value/刘邦/result.json
   settlement_mode: policy_budget
   numeric_factor_source: config/i5b-scoring-policy.yml
@@ -65,6 +70,26 @@ neutral_material_reuse:
   governance_achievement_actor_identity_script_alias_normalization: opencc_s2t_t2s
   historical_character_normalization_allowed: false
   formal_writes_allowed: false
+
+dynasty_governance_scans:
+  output_schema: config/dynasty-neutral-governance-output.schema.json
+  reuse_unit: [dynasty, source_index_identity, source_revision, extraction_contract]
+  accepted_current_is_never_rescanned: true
+  new_scheduler_trials_use_unaccepted_sources_only: true
+  source_selection_policy: one_primary_work_per_domain_before_supplement
+  dynasties:
+    唐:
+      dynasty_token: TANG
+      source_works:
+        - work: 貞觀政要
+          source_genre: political_treatise
+          target_scope: 仅抽取唐代实际实施、运行或产生可观察结果的治理事实；前代制度只作唐制明确承继、修改或废止时的必要背景。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+      required_domain_groups:
+        economy: [fiscal_taxation, economy_production, livelihood_social_order]
+        law: [law_and_adjudication, official_discipline]
+        military: [military_system, military_logistics, frontier_administration]
+        bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
 
 talent_grade:
   active_policy: config/talent-grade-v11-domain-equivalent-historic.yml

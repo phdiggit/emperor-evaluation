@@ -72,6 +72,26 @@ CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "deploy/v4/provision-prerequisites.sh",
     "deploy/v4/verify-server-runtime.sh",
 )
+DYNASTY_GOVERNANCE_RELEASE_PATHS = (
+    "pyproject.toml",
+    "config/project.yml",
+    "config/model-policy.yml",
+    "config/dynasty-neutral-governance-output.schema.json",
+    "src/emperor_v4/__init__.py",
+    "src/emperor_v4/adapters/dynasty_neutral_governance.py",
+    "src/emperor_v4/adapters/source_text_index.py",
+    "src/emperor_v4/adapters/structured_output_contract.py",
+    "src/emperor_v4/evaluation/model_policy.py",
+    "src/emperor_v4/runtime/dynasty_governance_rebuild.py",
+    "src/emperor_v4/runtime/dynasty_governance_worker.py",
+    "src/emperor_v4/runtime/structured_codex_runner.py",
+    "src/emperor_v4/runtime/release.py",
+    "deploy/v4/emperor-v4-dynasty-governance-worker.service",
+    "deploy/v4/emperor-v4-dynasty-governance-worker.timer",
+    "deploy/v4/dynasty-governance.env.example",
+    "deploy/v4/provision-prerequisites.sh",
+    "deploy/v4/verify-server-runtime.sh",
+)
 
 
 def _sha256(data: bytes) -> str:
@@ -139,6 +159,24 @@ def build_claim_extractor_release(
         service="v4-claim-extractor",
         archive_prefix="v4-claim-extractor",
         paths=CLAIM_EXTRACTOR_RELEASE_PATHS,
+    )
+
+
+def build_dynasty_governance_release(
+    *,
+    repo_root: Path,
+    output_dir: Path,
+    commit_sha: str,
+    require_clean: bool = True,
+) -> dict[str, Any]:
+    return _build_release(
+        repo_root=repo_root,
+        output_dir=output_dir,
+        commit_sha=commit_sha,
+        require_clean=require_clean,
+        service="v4-dynasty-governance",
+        archive_prefix="v4-dynasty-governance",
+        paths=DYNASTY_GOVERNANCE_RELEASE_PATHS,
     )
 
 
@@ -264,7 +302,7 @@ def build_parser() -> argparse.ArgumentParser:
     build.add_argument("--commit-sha", required=True)
     build.add_argument(
         "--service",
-        choices=("source-cache", "claim-extractor"),
+        choices=("source-cache", "claim-extractor", "dynasty-governance"),
         default="source-cache",
     )
     verify = sub.add_parser("verify")
@@ -277,9 +315,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     result = (
         (
-            build_source_cache_release
-            if args.service == "source-cache"
-            else build_claim_extractor_release
+            {
+                "source-cache": build_source_cache_release,
+                "claim-extractor": build_claim_extractor_release,
+                "dynasty-governance": build_dynasty_governance_release,
+            }[args.service]
         )(
             repo_root=args.repo_root,
             output_dir=args.output_dir,

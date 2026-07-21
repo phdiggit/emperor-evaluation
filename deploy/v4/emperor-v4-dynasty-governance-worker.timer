@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Emperor Evaluation V4 Dynasty Governance worker
+
+[Timer]
+OnBootSec=2m
+OnUnitActiveSec=30m
+Persistent=true
+Unit=emperor-v4-dynasty-governance-worker.service
+
+[Install]
+WantedBy=timers.target

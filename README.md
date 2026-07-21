@@ -6,6 +6,8 @@
 
 - V3 已退役；V4 是唯一活动实现。
 - 第五项 B 的当前链路已统一为“三路中性材料 → HistoricalEpisode / HistoricalOutcomeCluster → 人物画像 → RuleEvidenceUnit → 因子语义确定性映射 → strongest-N 材料预算 → 加权净信号”。
+- 皇帝链路的史源扫描必须以编年事件为单位：先按皇帝配置的卷次范围扫描《资治通鉴》建立时间连续的事件主干，再用事件中的人物、纪年、地点、行动和结果锚点定向回源本朝正史的本纪与列传；《贞观政要》《通典》等专题材料由朝代级政书链一次扫描并冻结，皇帝链只读取匹配的当前中性材料补足治理细节。主干卷次范围必须在模型前排除同名、同号和跨时代污染；正史和专题史料不得与《通鉴》并列做全书首轮模型扫描，也不得按姓名窗口重新扫描同一事件。
+- 同一模型阶段按相近 Prompt 体量记录成功子进程耗时；仍在运行的子进程一旦超过可比成功调用中位耗时的两倍，立即终止完整进程树并熔断同批调用。该异常必须直接上抛供诊断，不得降级为整批拆分、逐片重试或继续等待皇帝链路总时间墙。
 - 唯一当前三路输入指纹为 `f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878`，包含皇帝篇章236条、臣子列传588条、朝代文治135条。
 - 李世民当前影子结果：66个 Episode、39个 REU、30条统一成果簇，本纪补证链接11条、治理结果支持6条，加权净信号 `7.580190`。
 - 刘邦当前影子结果：32个 Episode、20个 REU、14条统一成果簇，本纪补证链接4条、治理结果支持3条；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `6.727011`。
@@ -150,7 +152,7 @@ I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 
 
 皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，临时人物 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除。
 
-推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章。书目扩展必须继续携带 edition/revision、篇卷、目标朝代和 source genre，并用跨书增量比较控制重复量；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
+推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。质量门通过的当前材料以朝代、史源索引 identity、页面 revision 和抽取合同为复用键冻结；输入未变化时零模型调用，后续调度优化只使用尚未验收的书目。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目按经济、法律、军制、官制等领域先各选一部高密度主书，已有领域只有在当前材料缺项或独立史源补强价值明确时才增加第二部，避免同域全文重复扫描。书目仍优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章，并继续携带 edition/revision、篇卷、目标朝代和 source genre；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 
 ```powershell
 python -m emperor_v4.adapters.dynasty_neutral_governance prepare --source-manifest <plaintext-manifest.json> --output-root <scan-root> --output-schema config/dynasty-neutral-governance-output.schema.json
@@ -161,7 +163,7 @@ python -m emperor_v4.adapters.dynasty_neutral_material_settlement --baseline-aud
 python -m emperor_v4.adapters.dynasty_neutral_material_atomization prepare --settlement <settlement.json> --output-root <atomization-root> --output-schema config/dynasty-neutral-material-atomization-output.schema.json
 python -m emperor_v4.adapters.dynasty_neutral_material_atomization audit --preparation <atomization-root>/preparation.json --result <atomization-root>/result.json --output-schema config/dynasty-neutral-material-atomization-output.schema.json --output <atomization-root>/audit.json
 python -m emperor_v4.evaluation.governance_achievement_candidate prepare --baseline <baseline-audit.json> --settlement <settlement.json> --atomization <atomization-root>/audit.json --people <profiles-or-people.json> --dynasty-token <TANG> --output-root <achievement-root> --output-schema config/governance-achievement-candidate-output.schema.json
-python -m emperor_v4.evaluation.governance_achievement_candidate audit --preparation <achievement-root>/preparation.json --results-dir <achievement-root>/results --output-schema config/governance-achievement-candidate-output.schema.json --registry-schema config/governance-achievement-registry.schema.json --ruler-aliases config/君主别名.yml --dynasty-name 唐 --output <achievement-root>/audit.json
+python -m emperor_v4.evaluation.governance_achievement_candidate audit --preparation <achievement-root>/preparation.json --results-dir <achievement-root>/results --output-schema config/governance-achievement-candidate-output.schema.json --registry-schema config/governance-achievement-registry.schema.json --ruler-aliases config/historical-entity-identities.yml --dynasty-name 唐 --output <achievement-root>/audit.json
 python -m emperor_v4.evaluation.governance_achievement_lineage prepare --achievement-audit <achievement-root>/audit.json --candidate-preparation <achievement-root>/preparation.json --output-root <achievement-root>/lineage --output-schema config/governance-achievement-lineage-output.schema.json
 python -m emperor_v4.evaluation.governance_achievement_lineage audit --achievement-audit <achievement-root>/audit.json --candidate-preparation <achievement-root>/preparation.json --lineage-preparation <achievement-root>/lineage/preparation.json --result <achievement-root>/lineage/result.json --output-schema config/governance-achievement-lineage-output.schema.json --registry-schema config/governance-achievement-registry.schema.json --output <achievement-root>/lineage/audit.json
 python -m emperor_v4.evaluation.governance_achievement_registry --registry <lineage-audit.json> --profiles <profiles.json> --schema config/governance-achievement-registry.schema.json --team-report <team-report.json> --material-budget-report <material-budget-report.json> --scoring-policy config/i5b-scoring-policy.yml --output <impact.json>
