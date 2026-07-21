@@ -539,6 +539,8 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         in dynasty_unit
     )
     assert "RuntimeDirectoryPreserve=yes" in dynasty_unit
+    assert "Restart=on-failure" in dynasty_unit
+    assert "StartLimitBurst=20" in dynasty_unit
     assert (
         "ReadWritePaths=/data1/emperor-evaluation/runtime/active/"
         "dynasty_neutral_materials" in dynasty_unit

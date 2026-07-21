@@ -1,9 +1,13 @@
 [Unit]
 Description=Emperor Evaluation V4 Dynasty Governance neutral-material worker
 After=network-online.target
+StartLimitIntervalSec=30min
+StartLimitBurst=20
 
 [Service]
 Type=oneshot
+Restart=on-failure
+RestartSec=5s
 User=emperor-v4
 Group=emperor-v4
 WorkingDirectory=/opt/emperor-evaluation-v4/dynasty-governance/current
