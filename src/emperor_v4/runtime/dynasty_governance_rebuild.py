@@ -169,6 +169,24 @@ def _build_source_manifest(
         if not work or not source_genre or not target_scope:
             raise ValueError(f"{dynasty}: 政书 work/genre/target_scope 不完整")
         selected_pages = tuple(index.iter_pages(works=(work,)))
+        configured_page_titles = tuple(
+            dict.fromkeys(
+                str(value).strip()
+                for value in spec.get("page_titles") or ()
+                if str(value).strip()
+            )
+        )
+        if configured_page_titles:
+            pages_by_title = {str(page.page_title): page for page in selected_pages}
+            missing_page_titles = sorted(set(configured_page_titles) - set(pages_by_title))
+            if missing_page_titles:
+                raise ValueError(
+                    f"{dynasty}: 本地索引缺少已配置政书页面 "
+                    + ", ".join(missing_page_titles)
+                )
+            selected_pages = tuple(
+                pages_by_title[page_title] for page_title in configured_page_titles
+            )
         if not selected_pages:
             raise ValueError(f"{dynasty}: 本地索引不含已配置政书 {work}")
         for position, page in enumerate(selected_pages, 1):

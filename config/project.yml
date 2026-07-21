@@ -26,10 +26,16 @@ i5b_current_value:
       neutral_scan_backbone_page_ranges: {資治通鑑: [184, 199]}
       neutral_scan_backsource_works: [舊唐書, 新唐書]
       dynasty_governance_material_token: TANG
+      dynasty_governance_period_terms: [貞觀, 贞观, 唐太宗]
     刘邦:
       source_pack: eval/i5b_current_value/刘邦/source-pack.json
       neutral_materials: eval/i5b_current_value/刘邦/neutral-materials.json
       result: eval/i5b_current_value/刘邦/result.json
+      neutral_scan_backbone_works: [資治通鑑]
+      neutral_scan_backbone_page_ranges: {資治通鑑: [7, 12]}
+      neutral_scan_backsource_works: [史記, 漢書]
+      dynasty_governance_material_token: HAN
+      dynasty_governance_period_terms: [高帝, 高祖, 漢王, 汉王, 劉邦, 刘邦]
   settlement_mode: policy_budget
   numeric_factor_source: config/i5b-scoring-policy.yml
   formal_45_point_score: false
@@ -85,6 +91,19 @@ dynasty_governance_scans:
           source_genre: political_treatise
           target_scope: 仅抽取唐代实际实施、运行或产生可观察结果的治理事实；前代制度只作唐制明确承继、修改或废止时的必要背景。
           domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+      required_domain_groups:
+        economy: [fiscal_taxation, economy_production, livelihood_social_order]
+        law: [law_and_adjudication, official_discipline]
+        military: [military_system, military_logistics, frontier_administration]
+        bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
+    汉:
+      dynasty_token: HAN
+      source_works:
+        - work: 漢書
+          source_genre: official_history_treatises
+          page_titles: [漢書/卷019, 漢書/卷023, 漢書/卷024, 漢書/卷029]
+          target_scope: 仅抽取汉代实际实施、运行或产生可观察结果的官制、法律刑狱、财政经济、水利与军政事实；前代制度只作汉制明确承继、修改或废止时的必要背景。
+          domain_focus: [官制, 法律刑狱, 财政经济, 水利, 军制]
       required_domain_groups:
         economy: [fiscal_taxation, economy_production, livelihood_social_order]
         law: [law_and_adjudication, official_discipline]

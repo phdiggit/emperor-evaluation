@@ -44,6 +44,7 @@ from emperor_v4.adapters.source_cache_wikisource import (
     WikisourceSourceMaterialProvider,
 )
 from emperor_v4.adapters.source_text_index import build_local_source_index
+from emperor_v4.adapters.source_text_index import LocalSourceTextIndex
 from emperor_v4.adapters.wikisource import WikisourcePageSnapshot
 from emperor_v4.application.claim_extractor_service import (
     ClaimExtractionBatch,
@@ -72,6 +73,51 @@ from emperor_v4.runtime import dynasty_governance_worker
 ROOT = Path(__file__).parents[1]
 PROFILES = ROOT / "config" / "claim-extraction-profiles.yml"
 OUTPUT_SCHEMA = ROOT / "config" / "claim-extraction-output.schema.json"
+
+
+def test_dynasty_governance_manifest_honors_configured_page_titles(
+    tmp_path: Path,
+) -> None:
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "漢書/卷019",
+                "work_title": "漢書",
+                "source_url": "local:19",
+                "revision_ref": "19",
+                "raw_text": "百官公卿表正文",
+            },
+            {
+                "page_title": "漢書/卷001",
+                "work_title": "漢書",
+                "source_url": "local:1",
+                "revision_ref": "1",
+                "raw_text": "高帝纪正文",
+            },
+        ],
+        index_path,
+    )
+
+    manifest, identities = dynasty_governance_rebuild._build_source_manifest(
+        index=LocalSourceTextIndex(index_path),
+        dynasty="汉",
+        configured={
+            "source_works": [
+                {
+                    "work": "漢書",
+                    "source_genre": "official_history_treatises",
+                    "target_scope": "只抽取汉代制度",
+                    "page_titles": ["漢書/卷019"],
+                }
+            ]
+        },
+        work_root=tmp_path / "work",
+        max_segment_chars=2_400,
+    )
+
+    assert [row["page_title"] for row in manifest["pages"]] == ["漢書/卷019"]
+    assert [row["page_title"] for row in identities] == ["漢書/卷019"]
 
 
 def test_dynasty_governance_current_reuses_accepted_source_revision(
