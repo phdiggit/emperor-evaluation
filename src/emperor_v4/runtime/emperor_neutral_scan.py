@@ -755,8 +755,18 @@ def build_ruler_neutral_plan(
             names_in_text_set = set(row["names"])
             if allowed_page_ranges:
                 normalized_segment = _normalized_anchor(text)
-                for member in source_pack.get("members") or ():
-                    member_name = str(member["person"])
+                # Directed backsource pages are often selected through a
+                # minister biography.  The same event unit can still contain
+                # an explicit ruler or another shared subject action.  Bind
+                # every configured subject that is actually named in the
+                # retained unit so the extractor does not reject the real
+                # actor merely because a different biography recalled it.
+                configured_names = [
+                    ruler_name,
+                    *(str(member["person"]) for member in source_pack.get("members") or ()),
+                    *(str(name) for name in (shared_subjects or {})),
+                ]
+                for member_name in dict.fromkeys(configured_names):
                     if any(
                         _normalized_anchor(term) in normalized_segment
                         for term in identity_resolver.recall_terms(member_name)

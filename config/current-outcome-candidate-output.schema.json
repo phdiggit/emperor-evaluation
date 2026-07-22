@@ -82,7 +82,70 @@
             }
           },
           "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
-        }
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"outcome_kind": {"const": "campaign"}}},
+            "then": {
+              "properties": {
+                "ruler_window_status": {
+                  "enum": ["within_window", "leadership_formation", "outside_window"]
+                },
+                "payload": {
+                  "properties": {
+                    "campaign_tier": {"type": "string"},
+                    "campaign_tier_basis": {"type": "string", "minLength": 1},
+                    "land_strategic_value": {"type": "string"},
+                    "process_adversity": {"type": "string"},
+                    "process_adversity_basis": {"type": "string", "minLength": 1}
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {"properties": {"outcome_kind": {"const": "governance"}}},
+            "then": {
+              "properties": {
+                "payload": {
+                  "properties": {
+                    "domain": {"type": "string"},
+                    "foundational": {"type": "boolean"},
+                    "durable_cross_stage": {"type": "boolean"},
+                    "authorization_status": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "outcome_kind": {"const": "campaign"},
+                "ruler_window_status": {
+                  "enum": ["within_window", "leadership_formation"]
+                }
+              },
+              "required": ["outcome_kind", "ruler_window_status"]
+            },
+            "then": {
+              "properties": {
+                "members": {
+                  "contains": {
+                    "type": "object",
+                    "required": ["actor_kind", "ruler_campaign_relation"],
+                    "properties": {
+                      "actor_kind": {"const": "ruler"},
+                      "ruler_campaign_relation": {"type": "string"}
+                    }
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "rejections": {

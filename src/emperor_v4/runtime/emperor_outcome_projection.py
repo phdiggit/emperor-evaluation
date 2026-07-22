@@ -20,8 +20,8 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v5"
-LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v4"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
+LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v5"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
 
@@ -79,10 +79,10 @@ def _prompt(
 2. exact_quotes 与 authorization_quotes 必须逐字复制输入 exact_quote 的连续子串，不得转写、拼接或补字。
 3. members 只能使用允许人物：{json.dumps(list(actors), ensure_ascii=False)}。皇帝 {ruler} 用 actor_kind=ruler；其余用 person。
 4. 同一独立结果只生成一个 candidate。candidate_key 用小写 ASCII 与连字符，表达皇帝、时期和独立结果，必须稳定。
-5. campaign 填战役六个既有字段，并在史料足以支持时填写 campaign_tier、campaign_tier_basis、land_strategic_value、process_adversity、process_adversity_basis；治理字段填 null。governance 反之。战役等级必须由土地轴、对手轴和已实现结果共同支持；过程逆境只描述损失、未克、修复或终局失败，不计分。
-6. ruler_window_status：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；前任朝廷独立决策或人物一生其他时期成果填 outside_window。仅凭参战、宗室身份或事后即位不得填 leadership_formation。
+5. campaign 必须填写 campaign_tier、campaign_tier_basis、land_strategic_value、process_adversity、process_adversity_basis，治理字段填 null；依据不足就拒绝候选，不能输出空字段。战役等级必须由土地轴、对手轴和已实现结果共同支持；过程逆境只描述损失、未克、修复或终局失败，不计分。
+6. ruler_window_status 每项必填：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；前任朝廷独立决策或人物一生其他时期成果填 outside_window。仅凭参战、宗室身份或事后即位不得填 leadership_formation。campaign 不得填 unresolved；窗口无法确定就拒绝候选。
 7. 规模只按原文可支持的影响范围，不因人物名气上调；不确定就拒绝或 limitations 明示。
-8. campaign 的 role_code 只能是 commander_in_chief/principal_commander/deputy_commander/participant/not_in_command_chain；皇帝只有授权、默许或阻挠而未实际进入军事指挥链时用 not_in_command_chain。governance 只能是 exclusive/lead/governance_participant/authorized。
+8. campaign 的 role_code 只能是 commander_in_chief/principal_commander/deputy_commander/participant/not_in_command_chain，并至少有一名处于实际军事指挥链的成员。within_window/leadership_formation 的父级战役群必须且只能有一个当前皇帝成员；outside_window 的臣子全生涯战役允许没有当前皇帝，不得因此删除。只要登记皇帝成员就必须填唯一皇权关系。皇帝只有授权、默许或阻挠而未实际进入军事指挥链时用 not_in_command_chain；亲征、长期统筹或临时坐镇不得用 not_in_command_chain。governance 只能是 exclusive/lead/governance_participant/authorized：exclusive=独立建立且没有同级共同主导者，lead=主导方案或持续执行，governance_participant=有逐字依据的实质参与，authorized=仅批准或维持授权而未主导实施；参会、在职和一般赞同不能推定责任。
 8a. campaign 中皇帝成员另填唯一 ruler_campaign_relation：obstructed/acquiesced/authorized/temporary_theater_control/sustained_theater_control/personal_command；非皇帝或治理成果填 null。同一父级战役群按 personal_command > sustained_theater_control > temporary_theater_control > authorized > acquiesced > obstructed 取最高实际参与，低档阶段只留在事实中，不并列登记。
 9. EXISTING_OUTCOMES 已登记的同一独立结果必须拒绝，不得换名重复生成；同一战略目标建立一个父级战役成果，阶段战斗只写入 observable_result/limitations，不得拆成多项重复成果。全局战果有得有失时父级必须 mixed；例如远征总体未达目标但取得局部胜利，不能只按局部胜利登记。规模必须同时检查土地战略价值、对手实际强度和已实现结果，不因国号、名气或史料篇幅升档。
 10. governance 只登记制度、持续程序、跨个案公共效果或明确先例。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections；不得因其有可观察结果就包装成治理成果。

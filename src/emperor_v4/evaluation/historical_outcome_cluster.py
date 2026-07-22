@@ -192,19 +192,95 @@ def validate_historical_outcome_registry(
             raise ValueError(f"{ref} 规模与 consequence_basis 不匹配")
         if kind == "campaign":
             payload = cluster["payload"]
-            tier_fields = {
+            if cluster["ruler_window_status"] == "unresolved":
+                raise ValueError(f"{ref} 战役皇帝窗口未解析，不得进入成果登记")
+            required_campaign_fields = {
+                "theater": payload.get("theater"),
+                "strategic_objective": payload.get("strategic_objective"),
+                "battle_result": payload.get("battle_result"),
+                "objective_completion": payload.get("objective_completion"),
+                "opponent_condition": payload.get("opponent_condition"),
+                "opponent_strategic_weight": payload.get(
+                    "opponent_strategic_weight"
+                ),
                 "campaign_tier": payload.get("campaign_tier"),
                 "campaign_tier_basis": payload.get("campaign_tier_basis"),
                 "land_strategic_value": payload.get("land_strategic_value"),
+                "process_adversity": payload.get("process_adversity"),
+                "process_adversity_basis": payload.get("process_adversity_basis"),
             }
-            if any(value is not None for value in tier_fields.values()) and not all(
-                value is not None for value in tier_fields.values()
+            missing_campaign_fields = [
+                key for key, value in required_campaign_fields.items() if not value
+            ]
+            if missing_campaign_fields:
+                raise ValueError(
+                    f"{ref} 战役必须声明战区、目标、三轴、等级和过程负面: "
+                    + ", ".join(missing_campaign_fields)
+                )
+            ruler_members = [
+                member for member in members if member["actor_kind"] == "ruler"
+            ]
+            current_ruler_campaign = cluster.get("ruler_window_status") in {
+                "within_window",
+                "leadership_formation",
+            }
+            if current_ruler_campaign and len(ruler_members) != 1:
+                raise ValueError(f"{ref} 当前皇帝父级战役群必须且只能登记一个皇帝成员")
+            if len(ruler_members) > 1:
+                raise ValueError(f"{ref} 战役不能登记多个皇帝成员")
+            if ruler_members:
+                ruler_member = ruler_members[0]
+                relation = str(ruler_member.get("ruler_campaign_relation") or "")
+                if not relation:
+                    raise ValueError(f"{ref} 皇帝成员缺少唯一皇权关系")
+                if relation in {"obstructed", "acquiesced", "authorized"} and (
+                    ruler_member["role_code"] != "not_in_command_chain"
+                ):
+                    raise ValueError(f"{ref} 未进入战区统筹的皇帝角色不正确")
+                if relation not in {"obstructed", "acquiesced", "authorized"} and (
+                    ruler_member["role_code"] == "not_in_command_chain"
+                ):
+                    raise ValueError(f"{ref} 进入战区统筹或亲征的皇帝角色不正确")
+            if not any(
+                member["role_code"]
+                in {"commander_in_chief", "principal_commander", "deputy_commander", "participant"}
+                for member in members
             ):
-                raise ValueError(f"{ref} 战役字母等级必须同时声明档位、依据和土地轴")
+                raise ValueError(f"{ref} 父级战役群缺少实际军事指挥链成员")
             if level in {"national", "era_shaping"} and payload[
                 "opponent_condition"
             ] == "residual":
                 raise ValueError("残余对手不能仅凭灭国名义登记为国家级")
+        else:
+            payload = cluster["payload"]
+            missing_governance_fields = [
+                key
+                for key in ("domain", "authorization_status")
+                if not payload.get(key)
+            ]
+            missing_governance_fields.extend(
+                key
+                for key in ("foundational", "durable_cross_stage")
+                if not isinstance(payload.get(key), bool)
+            )
+            if missing_governance_fields:
+                raise ValueError(
+                    f"{ref} 治理成果必须声明领域、授权与持续性: "
+                    + ", ".join(missing_governance_fields)
+                )
+            substantive_members = [
+                member
+                for member in members
+                if member["role_code"]
+                in {"exclusive", "lead", "governance_participant"}
+            ]
+            if not substantive_members:
+                raise ValueError(f"{ref} 治理成果不能只有授权者")
+            exclusive_members = [
+                member for member in members if member["role_code"] == "exclusive"
+            ]
+            if exclusive_members and len(substantive_members) != 1:
+                raise ValueError(f"{ref} exclusive 不能与其他实施责任角色并列")
         if (
             cluster["result_direction"] == "positive"
             and cluster["result_status"] not in REALIZED_RESULTS

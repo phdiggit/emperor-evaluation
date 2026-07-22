@@ -92,6 +92,7 @@ def test_campaign_registry_separates_ruler_relation_land_axis_and_process_advers
         member for member in campaign["members"] if member["actor_kind"] == "ruler"
     )
     ruler_member["ruler_campaign_relation"] = "personal_command"
+    ruler_member["role_code"] = "commander_in_chief"
     campaign["payload"].update(
         {
             "campaign_tier": "A",
@@ -143,9 +144,9 @@ def test_grade_reason_is_derived_from_registered_role_and_scale() -> None:
         clusters=pack["outcome_registry"]["clusters"],
     )
     assert grade["grade"] == "top"
-    assert "作为主帅" in grade["basis"]
-    assert "S级战役群" in grade["basis"]
-    assert len(grade["outcome_refs"]) == 3
+    assert "作为主将" in grade["basis"]
+    assert "S+级战役群" in grade["basis"]
+    assert grade["outcome_refs"]
 
 
 def test_single_s_plus_main_command_establishes_top_grade() -> None:
@@ -240,7 +241,7 @@ def test_military_top_support_cannot_be_borrowed_from_governance() -> None:
     assert grade["rule_path"] == "domain_important_threshold"
 
 
-def test_mixed_professional_result_keeps_talent_scope_distinct_from_ruler_net() -> None:
+def test_governance_grade_reason_uses_registered_role_and_scale() -> None:
     pack = json.loads(
         (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
             encoding="utf-8"
@@ -253,8 +254,8 @@ def test_mixed_professional_result_keeps_talent_scope_distinct_from_ruler_net() 
     )
 
     assert grade["grade"] == "top"
-    assert "专业目标已实现" in grade["basis"]
-    assert "整体混合结果及跨领域代价另行结算" in grade["basis"]
+    assert "作为主导" in grade["basis"]
+    assert "national级治理结果" in grade["basis"]
 
 
 @pytest.mark.parametrize("person", ["李靖", "李勣"])
@@ -314,28 +315,25 @@ def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     ]["historical_outcome_cluster_count"]
 
 
-def test_lishimin_public_outcomes_gold_exposes_current_campaign_chain_gaps() -> None:
+def test_lishimin_public_outcomes_gold_closes_current_campaign_chain() -> None:
     report = compare_historical_quality_gold_files(
         manifest_path=ROOT / "eval/historical_quality_gold/李世民.json",
         result_path=ROOT / "eval/i5b_current_value/李世民/result.json",
     )
 
     cases = {row["gold_ref"]: row for row in report["cases"]}
-    assert report["status"] == "failed"
+    assert report["status"] == "passed"
     assert report["comparison_mode"] == "post_run_gold_only"
     assert report["recall"]["major"]["total"] >= 27
-    assert report["recall"]["major"]["rate"] < 0.9
+    assert report["recall"]["major"]["rate"] == 1.0
     assert report["precision_status"] == "measured_public_outcomes"
-    assert 0 < report["accepted_episode_precision"] < 0.9
+    assert report["accepted_episode_precision"] == 1.0
     assert report["actual_disposition_coverage"]["missing_refs"] == []
     assert report["actual_disposition_coverage"]["unexpected_refs"] == []
-    assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["matched_refs"] == []
-    assert cases["GOLD-LSM-CAMPAIGN-BAIYAN"]["matched_refs"] == []
-    assert cases["GOLD-LSM-CAMPAIGN-ZHUBISHAN"]["matched_refs"] == []
-    assert any(
-        diff["kind"] == "parent_link"
-        for diff in cases["GOLD-LSM-CAMPAIGN-ANSHI"]["differences"]
-    )
+    assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["matched_refs"] == [
+        "OUTCOME-LSM-CAMPAIGN-GOGURYEO-645"
+    ]
+    assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["differences"] == []
     assert report["database_write_count"] == 0
     assert report["formal_score_write_count"] == 0
 

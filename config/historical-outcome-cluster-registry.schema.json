@@ -84,7 +84,9 @@
       "additionalProperties": false,
       "required": [
         "theater", "strategic_objective", "battle_result", "objective_completion",
-        "opponent_condition", "opponent_strategic_weight"
+        "opponent_condition", "opponent_strategic_weight", "campaign_tier",
+        "campaign_tier_basis", "land_strategic_value", "process_adversity",
+        "process_adversity_basis"
       ],
       "properties": {
         "theater": {"type": "string", "minLength": 1},
@@ -129,7 +131,8 @@
         "outcome_ref", "outcome_kind", "independent_key", "canonical_label", "origin",
         "period", "result_status", "result_direction", "observable_result", "scale",
         "stable_delivery", "important_method_or_legacy", "episode_refs", "fact_refs",
-        "source_refs", "members", "limitations", "payload", "semantic_fingerprint"
+        "source_refs", "members", "limitations", "payload", "ruler_window_status",
+        "semantic_fingerprint"
       ],
       "properties": {
         "outcome_ref": {"type": "string", "pattern": "^OUTCOME-[A-Z0-9-]+$"},
@@ -172,7 +175,46 @@
           ]
         },
         "semantic_fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"outcome_kind": {"const": "campaign"}},
+            "required": ["outcome_kind"]
+          },
+          "then": {
+            "properties": {
+              "ruler_window_status": {
+                "enum": ["within_window", "leadership_formation", "outside_window"]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome_kind": {"const": "campaign"},
+              "ruler_window_status": {
+                "enum": ["within_window", "leadership_formation"]
+              }
+            },
+            "required": ["outcome_kind", "ruler_window_status"]
+          },
+          "then": {
+            "properties": {
+              "members": {
+                "contains": {
+                  "type": "object",
+                  "required": ["actor_kind", "ruler_campaign_relation"],
+                  "properties": {"actor_kind": {"const": "ruler"}}
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

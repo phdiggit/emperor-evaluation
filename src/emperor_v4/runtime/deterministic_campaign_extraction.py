@@ -34,6 +34,11 @@ _NEGATIVE_RESULT = re.compile(
 )
 _HYPOTHETICAL_PREFIX = re.compile(r"(?:可|當|当|將|将|欲|若|俟|宜|必|願|愿|恐).{0,7}$")
 _SPEECH_AFTER_SUBJECT = re.compile(r"^(?:[^，。；：]{0,12})(?:曰|云|謂|谓|言|問|问)")
+_OBJECT_OR_PROTECTED_PREFIX = re.compile(
+    r"(?:攻|討|讨|擊|击|伐|征|圍|围|追|拒|殺|杀|翼蔽|庇護|庇护|護|护|救)"
+    r"[^，。；：]{0,8}$"
+)
+_REPORTED_SPEECH_PREFIX = re.compile(r"(?:曰|云|謂|谓|言|問|问)[^，。；：]{0,20}$")
 _CLEAR_POSITIVE_RESULT = re.compile(
     r"(?:大破之|擊破之|击破之|破之|攻克|克之|克[㐀-鿿]{1,6}(?=[，。；、：])|"
     r"拔之|平定|平之|擒之|俘(?:斬|斩|其眾|其众)|斬首|斩首|悉平|皆平)"
@@ -81,6 +86,17 @@ def _direct_action_span(value: str, terms: Sequence[str]) -> bool:
             if (
                 normalized.rfind("「", 0, start) > normalized.rfind("」", 0, start)
                 or normalized.rfind("『", 0, start) > normalized.rfind("』", 0, start)
+                or normalized.rfind("“", 0, start) > normalized.rfind("”", 0, start)
+            ):
+                start = normalized.find(anchor, start + 1)
+                continue
+            clause_prefix = re.split(r"[，。；：]", normalized[max(0, start - 24) : start])[-1]
+            # A ruler can be the target of an attack or the person being
+            # protected.  A later verb in the same source span must not turn
+            # that object mention into an executor attribution.  Likewise,
+            # names inside another speaker's report are not direct actions.
+            if _OBJECT_OR_PROTECTED_PREFIX.search(clause_prefix) or _REPORTED_SPEECH_PREFIX.search(
+                clause_prefix
             ):
                 start = normalized.find(anchor, start + 1)
                 continue
@@ -91,8 +107,13 @@ def _direct_action_span(value: str, terms: Sequence[str]) -> bool:
             if _SPEECH_AFTER_SUBJECT.match(after_anchor):
                 start = normalized.find(anchor, start + 1)
                 continue
-            right = min(len(normalized), start + len(anchor) + 32)
-            local = normalized[start:right]
+            # Keep the immediately following result clause: classical event
+            # prose commonly writes the action before a comma and its result
+            # just after it (for example “引兵追……，大破之”).  Object and
+            # protected-person inversions have already been rejected from the
+            # left context above, so retaining this short right window does
+            # not reintroduce that attribution error.
+            local = anchor + after_anchor[:32]
             # A ruler named as the speaker is not thereby the executor of a
             # proposed or predicted action later in the same sentence.
             if re.search(re.escape(anchor) + r"[^，。；：]{0,6}(?:曰|云|謂|谓|言)", local):

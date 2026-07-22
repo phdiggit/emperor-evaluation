@@ -42,6 +42,39 @@ APPOINTMENT_OUTCOME_ROLES = {
     "campaign": {"commander_in_chief", "principal_commander", "deputy_commander"},
     "governance": {"exclusive", "lead"},
 }
+OUTCOME_SCALE_LABELS = {
+    "local": "局部",
+    "important": "重要",
+    "regional": "区域",
+    "national": "全国",
+    "era_shaping": "时代秩序",
+}
+CAMPAIGN_RESULT_LABELS = {
+    "victory": "胜利",
+    "mixed": "混合",
+    "defeat": "失败",
+    "unclear": "不明",
+}
+OBJECTIVE_COMPLETION_LABELS = {
+    "complete": "完成",
+    "partial": "部分完成",
+    "failed": "未完成",
+    "unclear": "不明",
+}
+OPPONENT_CONDITION_LABELS = {
+    "strong": "强盛",
+    "viable": "仍具战力",
+    "weakened": "已削弱",
+    "residual": "残余",
+    "unclear": "不明",
+}
+OPPONENT_WEIGHT_LABELS = {
+    "minor": "次要力量",
+    "regional_major": "区域主要对手",
+    "national_peer": "全国级竞争者",
+    "imperial_main_force": "帝国主力",
+    "unclear": "不明",
+}
 TEAM_FUNCTION_ROLES = {
     "strategic_decision": {"decision", "strategy", "coordination", "crisis_management"},
     "public_governance": {
@@ -1260,10 +1293,6 @@ def render_scoring_detail_markdown(
         raise ValueError("当前 I5B 结果缺少 material_budget")
     if person is None:
         lines = render_i5b_material_budget_shadow_markdown(material_budget).rstrip().splitlines()
-        role_catalogs = {
-            "campaign": CAMPAIGN_ROLES,
-            "governance": GOVERNANCE_ROLES,
-        }
         section_labels = {
             "governance": "治理成果登记",
             "campaign": "战役登记",
@@ -1274,8 +1303,16 @@ def render_scoring_detail_markdown(
                     "",
                     f"## {section_labels[outcome_kind]}",
                     "",
-                    "| 登记号 | 成果 | 责任对象 | 规模 | 状态 | 已实现结果 | 史源 |",
-                    "| --- | --- | --- | --- | --- | --- | --- |",
+                    (
+                        "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 | 状态 | 已实现结果 | 史源 |"
+                        if outcome_kind == "governance"
+                        else "| 登记号 | 战役群 | 等级 | 战果 / 目标完成 | 过程负面 | 皇帝角色 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
+                    ),
+                    (
+                        "| --- | --- | --- | --- | --- | --- | --- | --- |"
+                        if outcome_kind == "governance"
+                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+                    ),
                 ]
             )
             ruler_outcome_refs = set(report["ruler_historical_outcome_refs"])
@@ -1284,35 +1321,70 @@ def render_scoring_detail_markdown(
                     continue
                 if cluster["outcome_kind"] != outcome_kind:
                     continue
-                roles = role_catalogs[outcome_kind]
-                members = "、".join(
-                    f"{row['actor_name']}（{roles[row['role_code']]}"
-                    + (
-                        f"；{RULER_CAMPAIGN_RELATIONS[row['ruler_campaign_relation']]}"
-                        if row.get("ruler_campaign_relation")
-                        else ""
+                if outcome_kind == "governance":
+                    members = "、".join(
+                        f"{row['actor_name']}（{GOVERNANCE_ROLES[row['role_code']]}）"
+                        for row in cluster["members"]
                     )
-                    + "）"
-                    for row in cluster["members"]
+                    scale = cluster["scale"]
+                    lines.append(
+                        f"| {cluster['outcome_ref']} | {cluster['canonical_label']} | "
+                        f"{members} | {OUTCOME_SCALE_LABELS[str(scale['level'])]} | "
+                        f"{scale['consequence_basis']}；{scale['reason']} | "
+                        f"{cluster['result_direction']} / {cluster['result_status']} | "
+                        f"{cluster['observable_result']} | "
+                        f"{'、'.join(cluster['source_refs'])} |"
+                    )
+                    continue
+                payload = cluster["payload"]
+                ruler_members = [
+                    row for row in cluster["members"] if row["actor_kind"] == "ruler"
+                ]
+                commander_members = [
+                    row for row in cluster["members"] if row["actor_kind"] != "ruler"
+                ]
+                ruler_roles = "、".join(
+                    f"{row['actor_name']}（{RULER_CAMPAIGN_RELATIONS.get(str(row.get('ruler_campaign_relation') or ''), '关系缺失')}；{CAMPAIGN_ROLES[row['role_code']]}）"
+                    for row in ruler_members
+                ) or (
+                    "不适用"
+                    if cluster.get("ruler_window_status") == "outside_window"
+                    else "缺失"
                 )
-                structure = ""
-                if outcome_kind == "campaign":
-                    payload = cluster["payload"]
-                    details = [
-                        LAND_STRATEGIC_VALUES.get(str(payload.get("land_strategic_value") or "")),
-                        PROCESS_ADVERSITY.get(str(payload.get("process_adversity") or "")),
-                    ]
-                    structure = "；" + "；".join(value for value in details if value)
-                display_scale = (
-                    campaign_tier(cluster)
-                    if outcome_kind == "campaign"
-                    else cluster["scale"]["level"]
+                commander_roles = "、".join(
+                    f"{row['actor_name']}（{CAMPAIGN_ROLES[row['role_code']]}）"
+                    for row in commander_members
+                ) or "未登记"
+                adversity = PROCESS_ADVERSITY.get(
+                    str(payload.get("process_adversity") or ""), "缺失"
+                )
+                adversity_basis = str(payload.get("process_adversity_basis") or "缺失")
+                three_axes = "；".join(
+                    (
+                        "土地="
+                        + LAND_STRATEGIC_VALUES.get(
+                            str(payload.get("land_strategic_value") or ""), "缺失"
+                        ),
+                        "对手="
+                        + OPPONENT_WEIGHT_LABELS.get(
+                            str(payload.get("opponent_strategic_weight") or ""), "缺失"
+                        )
+                        + "（"
+                        + OPPONENT_CONDITION_LABELS.get(
+                            str(payload.get("opponent_condition") or ""), "缺失"
+                        )
+                        + "）",
+                        "结果=" + str(cluster["scale"]["consequence_basis"]),
+                        "定级=" + str(payload.get("campaign_tier_basis") or "缺失"),
+                    )
                 )
                 lines.append(
                     f"| {cluster['outcome_ref']} | {cluster['canonical_label']} | "
-                    f"{members} | {display_scale} | "
-                    f"{cluster['result_direction']} / {cluster['result_status']}{structure} | "
-                    f"{cluster['observable_result']} | "
+                    f"{payload.get('campaign_tier') or '缺失'} | "
+                    f"{CAMPAIGN_RESULT_LABELS.get(str(payload.get('battle_result') or ''), '缺失')} / "
+                    f"{OBJECTIVE_COMPLETION_LABELS.get(str(payload.get('objective_completion') or ''), '缺失')} | "
+                    f"{adversity}；{adversity_basis} | {ruler_roles} | {commander_roles} | "
+                    f"{three_axes} | {cluster['observable_result']} | "
                     f"{'、'.join(cluster['source_refs'])} |"
                 )
         return "\n".join(lines) + "\n"

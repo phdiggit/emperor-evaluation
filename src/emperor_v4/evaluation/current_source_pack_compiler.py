@@ -176,6 +176,13 @@ def compile_outcome_candidate_payloads(
             if candidate_key in candidate_keys:
                 raise ValueError(f"outcome candidate_key 重复: {candidate_key}")
             candidate_keys.add(candidate_key)
+            if (
+                candidate["outcome_kind"] == "campaign"
+                and candidate["ruler_window_status"] == "unresolved"
+            ):
+                raise ValueError(
+                    f"{candidate_key} 战役皇帝窗口未解析，不得进入成果登记"
+                )
             page = pages_by_title.get(str(candidate["source_page"]))
             if page is None or page.revision_ref != candidate["revision_ref"]:
                 raise ValueError(f"{candidate_key} 史源页或 revision 不匹配")
@@ -194,13 +201,31 @@ def compile_outcome_candidate_payloads(
                         "campaign_tier",
                         "campaign_tier_basis",
                         "land_strategic_value",
+                        "process_adversity",
+                        "process_adversity_basis",
                     )
                     if candidate["payload"].get(key) is None
                 ]
                 if missing_campaign_axes:
                     raise ValueError(
-                        f"{candidate_key} 战役登记缺少字母档或土地轴: "
+                        f"{candidate_key} 战役登记缺少等级、土地轴或过程负面: "
                         + ", ".join(missing_campaign_axes)
+                    )
+            else:
+                missing_governance_fields = [
+                    key
+                    for key in (
+                        "domain",
+                        "foundational",
+                        "durable_cross_stage",
+                        "authorization_status",
+                    )
+                    if candidate["payload"].get(key) is None
+                ]
+                if missing_governance_fields:
+                    raise ValueError(
+                        f"{candidate_key} 治理登记缺少类型或实施状态: "
+                        + ", ".join(missing_governance_fields)
                     )
             scale_bases = (
                 CAMPAIGN_SCALE_BASES
@@ -295,13 +320,8 @@ def compile_outcome_candidate_payloads(
                     else governance_roles
                 )
                 if member["role_code"] not in allowed_roles:
-                    member["role_code"] = (
-                        "participant"
-                        if candidate["outcome_kind"] == "campaign"
-                        else "governance_participant"
-                    )
-                    candidate_limitations.append(
-                        f"{name}的模型角色与成果类型不兼容，保守降为参与。"
+                    raise ValueError(
+                        f"{candidate_key}/{name} 角色不属于 {candidate['outcome_kind']} 合同"
                     )
                 if raw_member["responsibility_scope"] != "not_applicable":
                     if not authorization_quotes:
@@ -318,6 +338,57 @@ def compile_outcome_candidate_payloads(
                             ],
                         }
                 members.append(member)
+            if candidate["outcome_kind"] == "campaign":
+                ruler_members = [
+                    member for member in members if member["actor_kind"] == "ruler"
+                ]
+                current_ruler_campaign = candidate["ruler_window_status"] in {
+                    "within_window",
+                    "leadership_formation",
+                }
+                if current_ruler_campaign and len(ruler_members) != 1:
+                    raise ValueError(
+                        f"{candidate_key} 当前皇帝父级战役群必须且只能登记一个皇帝成员"
+                    )
+                if len(ruler_members) > 1:
+                    raise ValueError(f"{candidate_key} 战役不能登记多个皇帝成员")
+                if ruler_members:
+                    ruler_member = ruler_members[0]
+                    relation = str(ruler_member["ruler_campaign_relation"])
+                    if relation in {"obstructed", "acquiesced", "authorized"} and (
+                        ruler_member["role_code"] != "not_in_command_chain"
+                    ):
+                        raise ValueError(
+                            f"{candidate_key} 未进入战区统筹的皇帝必须标为 not_in_command_chain"
+                        )
+                    if relation not in {"obstructed", "acquiesced", "authorized"} and (
+                        ruler_member["role_code"] == "not_in_command_chain"
+                    ):
+                        raise ValueError(
+                            f"{candidate_key} 进入战区统筹或亲征的皇帝必须登记实际指挥角色"
+                        )
+                if not any(
+                    member["role_code"]
+                    in {"commander_in_chief", "principal_commander", "deputy_commander", "participant"}
+                    for member in members
+                ):
+                    raise ValueError(f"{candidate_key} 父级战役群缺少实际军事指挥链成员")
+            else:
+                substantive_members = [
+                    member
+                    for member in members
+                    if member["role_code"]
+                    in {"exclusive", "lead", "governance_participant"}
+                ]
+                if not substantive_members:
+                    raise ValueError(f"{candidate_key} 治理成果不能只有授权者")
+                exclusive_members = [
+                    member for member in members if member["role_code"] == "exclusive"
+                ]
+                if exclusive_members and len(substantive_members) != 1:
+                    raise ValueError(
+                        f"{candidate_key} exclusive 不能与其他实施责任角色并列"
+                    )
             fact_ref = "PFACT-AUTO-" + _digest(
                 {"candidate_key": candidate_key, "quotes": quotes}
             )[:20].upper()
