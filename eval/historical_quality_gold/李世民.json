@@ -5,11 +5,26 @@
       "expected_match_count": 1,
       "expectations": {
         "fields": [
-          {"expected": "mixed", "path": "result_status"},
-          {"expected": "mixed", "path": "result_direction"},
-          {"expected": "national", "path": "scale.level"},
-          {"expected": "mixed", "path": "payload.battle_result"},
-          {"expected": "partial", "path": "payload.objective_completion"}
+          {
+            "expected": "mixed",
+            "path": "result_status"
+          },
+          {
+            "expected": "mixed",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "mixed",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "partial",
+            "path": "payload.objective_completion"
+          }
         ],
         "members": [
           {
@@ -25,7 +40,10 @@
       "review_basis": "整体战役攻克多城并击溃援军，但未攻克安市城且最终班师；整体登记为mixed，不能只以安市城替代整个战役。",
       "selector": {
         "collection": "historical_outcome_clusters",
-        "label_terms_all": ["李世民", "高句丽"],
+        "label_terms_all": [
+          "李世民",
+          "高句丽"
+        ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
@@ -39,8 +57,14 @@
       "expected_match_count": 1,
       "expectations": {
         "fields": [
-          {"expected": "completed", "path": "result_status"},
-          {"expected": "victory", "path": "payload.battle_result"}
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
         ],
         "members": [
           {
@@ -57,7 +81,9 @@
       "review_basis": "攻克城池并取得人口、粮食，是亲征高句丽战役链中的独立作战结果。",
       "selector": {
         "collection": "historical_outcome_clusters",
-        "label_terms_all": ["盖牟城"],
+        "label_terms_all": [
+          "盖牟城"
+        ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
@@ -70,8 +96,14 @@
       "expected_match_count": 1,
       "expectations": {
         "fields": [
-          {"expected": "completed", "path": "result_status"},
-          {"expected": "victory", "path": "payload.battle_result"}
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
         ],
         "members": [
           {
@@ -94,7 +126,9 @@
       "review_basis": "李勣持续攻城，李世民率精兵会合并攻克辽东城；皇帝角色为亲征，不能只登记一般授权。",
       "selector": {
         "collection": "historical_outcome_clusters",
-        "label_terms_all": ["辽东城"],
+        "label_terms_all": [
+          "辽东城"
+        ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
@@ -107,8 +141,14 @@
       "expected_match_count": 1,
       "expectations": {
         "fields": [
-          {"expected": "completed", "path": "result_status"},
-          {"expected": "victory", "path": "payload.battle_result"}
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
         ],
         "members": [],
         "require_parent_link": true
@@ -119,7 +159,9 @@
       "review_basis": "白岩城先反复后受降，属于战役链中的独立城池结果；受降处置不能把战役本身降为一般治理个案。",
       "selector": {
         "collection": "historical_outcome_clusters",
-        "label_terms_all": ["白岩城"],
+        "label_terms_all": [
+          "白岩城"
+        ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
@@ -133,8 +175,14 @@
       "expected_match_count": 1,
       "expectations": {
         "fields": [
-          {"expected": "completed", "path": "result_status"},
-          {"expected": "victory", "path": "payload.battle_result"}
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
         ],
         "members": [],
         "require_parent_link": true
@@ -145,7 +193,9 @@
       "review_basis": "唐军击溃高句丽主力并迫使高延寿等投降，是亲征战役的主战役节点，不能仅作为人物传记片段存在。",
       "selector": {
         "collection": "historical_outcome_clusters",
-        "label_terms_all": ["驻跸山"],
+        "label_terms_all": [
+          "驻跸山"
+        ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
@@ -159,10 +209,22 @@
       "expected_match_count": 1,
       "expectations": {
         "fields": [
-          {"expected": "failed", "path": "result_status"},
-          {"expected": "negative", "path": "result_direction"},
-          {"expected": "defeat", "path": "payload.battle_result"},
-          {"expected": "failed", "path": "payload.objective_completion"}
+          {
+            "expected": "failed",
+            "path": "result_status"
+          },
+          {
+            "expected": "negative",
+            "path": "result_direction"
+          },
+          {
+            "expected": "defeat",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "failed",
+            "path": "payload.objective_completion"
+          }
         ],
         "members": [
           {
@@ -180,7 +242,9 @@
       "review_basis": "独立作战目标未实现并撤军，子战役登记为failed；不得由此把整个亲征战役简化为单一失败。",
       "selector": {
         "collection": "historical_outcome_clusters",
-        "label_terms_all": ["安市城"],
+        "label_terms_all": [
+          "安市城"
+        ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
@@ -188,6 +252,1379 @@
         "貞觀政要/卷05@1161907#太宗將旋師，嘉安市城主堅守臣節，賜絹三百匹，以勸勵事君者。"
       ],
       "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "李世民登基前唐初统一主战役群",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "era_shaping",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "leadership_formation",
+            "path": "ruler_window_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李世民",
+            "role_code": "principal_commander"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION",
+      "importance": "major",
+      "review_basis": "武德年间浅水原、柏壁—介休、洛阳—武牢等均发生在李渊皇帝窗口；应归并为李世民登基前的领导形成与统一战争成果，李世民是实际主帅而不是在位皇帝亲征。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "李世民"
+        ],
+        "label_terms_any": [
+          "统一",
+          "武德",
+          "秦王"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。",
+        "舊唐書/卷1@2646080#秦王大破宋金剛於介州",
+        "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "浅水原平薛仁杲",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李世民",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-QIANSHUIYUAN",
+      "importance": "secondary",
+      "review_basis": "击降薛仁杲并平定陇右，是统一父级中的关键子战役；不得写成李世民即位后亲征。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "浅水原"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。"
+      ],
+      "unit_kind": "campaign_operation",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION"
+    },
+    {
+      "canonical_label": "柏壁—介休平刘武周宋金刚",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李世民",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-BAIBI",
+      "importance": "major",
+      "review_basis": "李世民在柏壁持久消耗后追击破宋金刚，收复河东；整体是一条战役链，不把美良川等交锋另计完整成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_any": [
+          "柏壁",
+          "宋金刚",
+          "刘武周"
+        ]
+      },
+      "source_refs": [
+        "資治通鑑/卷188@1567784#秦王世民引兵自龍門乘冰堅渡河，屯柏壁，與宋金剛相持。",
+        "舊唐書/卷1@2646080#秦王大破宋金剛於介州"
+      ],
+      "unit_kind": "campaign_operation",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION"
+    },
+    {
+      "canonical_label": "洛阳—虎牢灭王世充窦建德",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李世民",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-HULAO",
+      "importance": "major",
+      "review_basis": "围洛阳并拒窦建德援军形成同一战略终局，擒窦、降王使山东平定；不得将两敌拆成重复的两个完整统一成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_any": [
+          "虎牢",
+          "武牢",
+          "王世充",
+          "窦建德"
+        ]
+      },
+      "source_refs": [
+        "資治通鑑/卷189@1503114#宜據武牢之險以拒之，伺間而動，破之必矣。",
+        "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。"
+      ],
+      "unit_kind": "campaign_operation",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION"
+    },
+    {
+      "canonical_label": "贞观四年平东突厥",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李靖",
+            "role_code": "principal_commander"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-EASTERN-TURKS-630",
+      "importance": "major",
+      "review_basis": "李世民授权，李靖实际统帅定襄、阴山作战，颉利被擒、东突厥政权终结；皇帝不在战区指挥链，不能登记亲征。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "突厥"
+        ],
+        "label_terms_any": [
+          "颉利",
+          "定襄",
+          "阴山"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷3@2488779#定襄道行軍總管李靖大破突厥",
+        "舊唐書/卷67@2296327#遂復定襄、常安之地，斥土界自陰山北至於大漠。"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "贞观九年平吐谷浑",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李靖",
+            "role_code": "principal_commander"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "侯君集",
+            "role_code": "deputy_commander"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-TUYUHUN-635",
+      "importance": "major",
+      "review_basis": "李世民授权多路出师，李靖为总帅，侯君集等分道；大破并重立其王，皇帝关系只能是authorized。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "吐谷浑"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷3@2488779#命特進李靖、兵部尚書侯君集、刑部尚書任城王道宗、涼州都督李大亮等為大總管",
+        "舊唐書/卷67@2296327#前後戰數十合，殺傷甚眾，大破其國。"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "贞观十四年平高昌",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "regional",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "侯君集",
+            "role_code": "principal_commander"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-GAOCHANG-640",
+      "importance": "major",
+      "review_basis": "侯君集奉诏实际统帅灭高昌、置西州；战果与其随后擅自配没无罪人、私取宝物的风险事件必须分轴登记。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "高昌"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷3@2488779#交河道行軍大總管侯君集平高昌，以其地置西州。",
+        "舊唐書/卷69@2610556#君集分兵略地，遂平其國"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "贞观二十年薛延陀战役群",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "principal_commander"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-XUEYANTUO-646",
+      "importance": "secondary",
+      "review_basis": "薛延陀由和亲—决裂—出兵—覆亡构成独立北方战略链；需与东突厥分开，但只登记父级终局和关键责任，不细拆所有追击。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "薛延陀"
+        ]
+      },
+      "source_refs": [
+        "資治通鑑/卷197@1502835#薛延陀真珠可汗使其侄突利設來納幣",
+        "舊唐書/卷3@2488779#薛延陀遣使來朝"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "贞观中枢台阁典章定型",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "central_institutions",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "房玄龄",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "杜如晦",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-GOV-CENTRAL-INSTITUTIONS",
+      "importance": "major",
+      "review_basis": "房玄龄、杜如晦共同定台阁规模和典章人物，是同一中枢制度责任链；不把日常宰相履职拆成多个成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_any": [
+          "台阁",
+          "典章",
+          "中枢"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷66@2034579#至於台閣規模及典章人物，皆二人所定"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "贞观律令与依法裁判程序",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "law_and_adjudication",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "戴胄",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-GOV-LAW-ADJUDICATION",
+      "importance": "major",
+      "review_basis": "律令修订、法司依法裁判和死刑复奏形成国家级持续程序；戴胄单案抗争是制度落实证据，不另拆成个人礼遇。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_any": [
+          "律令",
+          "刑法",
+          "裁判",
+          "覆奏"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷70@2585040#法者，非朕一人之法，乃天下之法也。",
+        "舊唐書/卷3@2488779#初令天下決死刑必三覆奏，在京諸司五覆奏"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "贞观国家修史工程",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "culture_scholarship",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "房玄龄",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "魏徵",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-GOV-HISTORIOGRAPHY",
+      "importance": "secondary",
+      "review_basis": "多代史书由太宗复敕，房玄龄总监、魏徵等分工，形成国家文献成果；按一个官修工程归并。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_any": [
+          "修史",
+          "国史",
+          "诸代史"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷73@2164590#貞觀三年，太宗復敕修撰",
+        "舊唐書/卷73@2164590#與尚書左僕射房玄齡總監諸代史"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "贞观学校与经学建设",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "education_talent",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-GOV-EDUCATION",
+      "importance": "secondary",
+      "review_basis": "国子学释奠、经籍定本和学校建设形成持续教育程序；一次礼仪不是单独成果，须归并到教育建设。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_any": [
+          "学校",
+          "国子学",
+          "五经"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷3@2488779#幸國子學，親釋奠",
+        "舊唐書/卷3@2488779#頒新定《五經》"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "贞观诏敕执奏与纳谏程序",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "central_institutions",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "魏徵",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-GOV-REMONSTRANCE-PROCEDURE",
+      "importance": "secondary",
+      "review_basis": "明确要求不便诏敕执奏、持续开放直言，已超过单次纳谏，构成可重复运行的决策纠偏程序。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_any": [
+          "执奏",
+          "纳谏",
+          "进直言"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷3@2488779#詔敕不便於時，即宜執奏，不得順旨施行。",
+        "舊唐書/卷70@2585040#公等勿以此而不進直言也。"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "侯君集人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "important",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-HOU",
+      "importance": "major",
+      "review_basis": "吐谷浑副帅和高昌主帅形成重要军事成果，但不足李靖式多个决定性战区。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "侯君集"
+      },
+      "source_refs": [
+        "舊唐書/卷69@2610556#君集分兵略地，遂平其國"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "尉迟敬德人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "important",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-YUCHI",
+      "importance": "major",
+      "review_basis": "多次前锋、救主和泾阳破敌达到重要，缺少第二个独立战略战区主帅成果。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "尉迟敬德"
+      },
+      "source_refs": [
+        "舊唐書/卷68@1757055#以武勇稱"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "戴胄人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "important",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-DAI",
+      "importance": "major",
+      "review_basis": "司法守法与度支行政为两个已实现成果，范围不足top。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "戴胄"
+      },
+      "source_refs": [
+        "舊唐書/卷70@2585040#處繁理劇，眾務必舉，臣不如戴胄"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "房玄龄人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "historic",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-FANG",
+      "importance": "major",
+      "review_basis": "创业定策、长期中枢治理和国家修史跨阶段兑现，达到historic。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "房玄龄"
+      },
+      "source_refs": [
+        "舊唐書/卷66@2034579#至於台閣規模及典章人物，皆二人所定"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "李勣人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "historic",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-LIJI",
+      "importance": "major",
+      "review_basis": "唐统一、东突厥/薛延陀及跨朝高句丽等多个决定性战区主帅成果达到historic。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "李勣"
+      },
+      "source_refs": [
+        "資治通鑑/卷197@1502835#李世勣引兵助之，高麗大敗"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "李靖人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "historic",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-LIJING",
+      "importance": "major",
+      "review_basis": "江南统一、东突厥、吐谷浑三个独立高等级战区，重复高兑现达到historic。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "李靖"
+      },
+      "source_refs": [
+        "舊唐書/卷67@2296327#公南平吳會，北清沙漠，西定慕容"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "杜如晦人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "top",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-DU",
+      "importance": "major",
+      "review_basis": "创业谋划和贞观核心制度有国家级兑现，但任职短且长期成果与房玄龄共享，定top。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "杜如晦"
+      },
+      "source_refs": [
+        "舊唐書/卷66@2034579#至於台閣規模及典章人物，皆二人所定"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "褚遂良人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "important",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-CHU",
+      "importance": "major",
+      "review_basis": "书法鉴定、史官制度与储位纠偏形成重要能力，未主导国家级治世或基础制度，定important。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "褚遂良"
+      },
+      "source_refs": [
+        "舊唐書/卷80@2588763#遂良備論所出，一無舛誤"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "长孙无忌人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "top",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-ZHANGSUN",
+      "importance": "major",
+      "review_basis": "玄武门定策、受遗辅政及法典/史书组织为多个国家级成果，但非独占治世，定top。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "长孙无忌"
+      },
+      "source_refs": [
+        "舊唐書/卷65@1768276#及將誅隱太子，士廉與其甥長孫無忌並預密謀"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "高士廉人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "important",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-GAO",
+      "importance": "major",
+      "review_basis": "蜀地水利风俗学校治理及氏族志工程形成两个中型成果，定important。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "高士廉"
+      },
+      "source_refs": [
+        "舊唐書/卷65@1768276#士廉乃於故渠外別更疏決，蜀中大獲其利。"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "魏徵人才档位",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "top",
+            "path": "candidate_talent_grade"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-TALENT-WEI",
+      "importance": "major",
+      "review_basis": "长期决策纠偏、典章修史和治理思想形成多个独立成果，达到top但非房玄龄式治世主导。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "魏徵"
+      },
+      "source_refs": [
+        "舊唐書/卷70@2585040#以諫諍爲心，恥君不及-{於}-堯、舜，臣不如魏-{徵}-"
+      ],
+      "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "戴胄李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-DAI",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现戴胄在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "戴胄"
+      },
+      "source_refs": [
+        "舊唐書/卷70@2585040#處繁理劇，眾務必舉，臣不如戴胄"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "房玄龄李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-FANG",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现房玄龄在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "房玄龄"
+      },
+      "source_refs": [
+        "舊唐書/卷66@2034579#至於台閣規模及典章人物，皆二人所定"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "李勣李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-LIJI",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现李勣在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "李勣"
+      },
+      "source_refs": [
+        "資治通鑑/卷197@1502835#李世勣引兵助之，高麗大敗"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "李靖李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-LIJING",
+      "importance": "boundary",
+      "review_basis": "高甑生等告李靖谋反，经法官审理为诬罔；被诬不得成立政治风险。固定 revision 全传与交叉记录无其他达门槛事件。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "李靖"
+      },
+      "source_refs": [
+        "舊唐書/卷67@2296327#公南平吳會，北清沙漠，西定慕容"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "杜如晦李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-DU",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现杜如晦在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "杜如晦"
+      },
+      "source_refs": [
+        "舊唐書/卷66@2034579#至於台閣規模及典章人物，皆二人所定"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "褚遂良李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-CHU",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现褚遂良在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "褚遂良"
+      },
+      "source_refs": [
+        "舊唐書/卷80@2588763#遂良備論所出，一無舛誤"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "长孙无忌李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-ZHANGSUN",
+      "importance": "boundary",
+      "review_basis": "房遗爱案及显庆年间政治处置均在李世民去世后，不能污染李世民窗口；本窗口固定 revision 材料无达门槛事件。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "长孙无忌"
+      },
+      "source_refs": [
+        "舊唐書/卷65@1768276#及將誅隱太子，士廉與其甥長孫無忌並預密謀"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "高士廉李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-GAO",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现高士廉在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "高士廉"
+      },
+      "source_refs": [
+        "舊唐書/卷65@1768276#士廉乃於故渠外別更疏決，蜀中大獲其利。"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "魏徵李世民窗口政治风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "reviewed_no_material_risk",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-WEI",
+      "importance": "boundary",
+      "review_basis": "固定 revision 的本传与跨记录风险词矩阵未发现魏徵在李世民窗口内本人直接实施并达到公共损害门槛的事件；官位、亲属、被诬、普通争议或他人行为均排除。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "魏徵"
+      },
+      "source_refs": [
+        "舊唐書/卷70@2585040#以諫諍爲心，恥君不及-{於}-堯、舜，臣不如魏-{徵}-"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "侯君集高昌违法配没与私取风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "major",
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "established",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-HOU",
+      "importance": "major",
+      "review_basis": "平高昌后擅自配没无罪人并私取财物，且放任将士盗窃，属于本人直接实现的群体权力滥用与侵夺；功绩不抵消风险，严重度至少major。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "侯君集"
+      },
+      "source_refs": [
+        "舊唐書/卷69@2610556#輒配沒無罪人，又私取寶物。"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "尉迟敬德殴击任城王致几乎失明风险",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {
+            "expected": "major",
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "established",
+            "path": "profile_review.political_risk.assessment_status"
+          }
+        ],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-RISK-YUCHI",
+      "importance": "major",
+      "review_basis": "庆善宫宴中因座次直接拳殴任城王道宗眼部、几乎致盲，是已实现的严重身体伤害；按政治风险硬边界不得低于major。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "尉迟敬德"
+      },
+      "source_refs": [
+        "舊唐書/卷68@1757055#勃然，拳毆"
+      ],
+      "unit_kind": "person_risk"
+    },
+    {
+      "canonical_label": "排除霍邑作为李世民在位亲征",
+      "expected_match_count": 0,
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-EXCLUDE-HUOYI-IMPERIAL-COMMAND",
+      "importance": "boundary",
+      "review_basis": "排除霍邑作为李世民在位亲征",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "霍邑",
+          "李世民",
+          "亲征"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷1@2646080#高祖引師趨霍邑，斬宋老生，平霍邑。"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "排除玄武门政变作为治理成果",
+      "expected_match_count": 0,
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-EXCLUDE-XUANWUMEN-GOVERNANCE",
+      "importance": "boundary",
+      "review_basis": "排除玄武门政变作为治理成果",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "玄武门"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷2@2588511#太宗率長孫無忌、尉遲敬德、房玄齡、杜如晦"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "排除以安市城单败替代高句丽整体战役群",
+      "expected_match_count": 0,
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-EXCLUDE-ANSHI-AS-WHOLE",
+      "importance": "boundary",
+      "review_basis": "排除以安市城单败替代高句丽整体战役群",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "安市城",
+          "高句丽整体"
+        ]
+      },
+      "source_refs": [
+        "資治通鑑/卷198@1502841#癸未，敕班師。"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "排除单案赦免或礼遇拆成独立治理成果",
+      "expected_match_count": 0,
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "gold_ref": "GOLD-LSM-EXCLUDE-ONE-OFF-PARDON",
+      "importance": "boundary",
+      "review_basis": "排除单案赦免或礼遇拆成独立治理成果",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_any": [
+          "赐帛",
+          "礼遇",
+          "单案"
+        ]
+      },
+      "source_refs": [
+        "資治通鑑/卷198@1502841#上嘉其固守，賜縑百匹，以勵事君。"
+      ],
+      "unit_kind": "exclusion_boundary"
     }
   ],
   "input_identity": {
@@ -196,13 +1633,16 @@
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",
+    "docs/06-覆盖度与验收标准.md",
     "config/campaign-registry.schema.json",
-    "config/historical-outcome-cluster-registry.schema.json"
+    "config/historical-outcome-cluster-registry.schema.json",
+    "config/talent-grade-v11-domain-equivalent-historic.yml",
+    "config/political-risk.yml"
   ],
   "ruler": "李世民",
   "ruler_ref": "RULER-58130F2446A25CC1",
   "schema_version": "historical-quality-gold-manifest-v1",
-  "scope_code": "lishimin-goguryeo-campaign-calibration",
+  "scope_code": "lishimin-expanded-historical-quality-calibration",
   "scope_completeness": "calibration_slice",
   "status": "human_frozen"
 }
