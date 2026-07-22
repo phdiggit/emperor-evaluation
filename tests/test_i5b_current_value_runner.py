@@ -4176,7 +4176,7 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     assert goguryeo["payload"]["process_adversity"] == "material"
     assert goguryeo["payload"]["process_adversity_index"] == 0.4
     hulao = li_outcomes["OUTCOME-LSM-CAMPAIGN-HULAO"]
-    assert hulao["payload"]["campaign_tier"] == "S"
+    assert hulao["payload"]["campaign_tier"] == "S+"
     assert hulao["payload"]["process_adversity"] == "none"
 
     labels = {row["canonical_label"]: row for row in li_outcomes.values()}
@@ -4272,7 +4272,7 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
         liu_labels[name]["payload"]["campaign_tier"]
         for name in han_unification_labels
     }
-    assert tang_unification == {"S", "S-", "A"}
+    assert tang_unification == {"S+", "S-", "A"}
     assert han_unification == {"S", "S-", "A"}
     hanxin = [
         row

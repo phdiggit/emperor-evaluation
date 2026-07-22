@@ -13,7 +13,7 @@
     },
     "ruler": "李世民",
     "schema_version": "historical-outcome-database-dry-run-v1",
-    "source_pack_sha256": "6363b04cf329b35d2164261405495611f5eeb4c7e9dd4185a02ab72ac821249b",
+    "source_pack_sha256": "5cd76dcf3315be715f6d5f3ad65627ab60f4d89763d7a9555fd49f3dd6c97d12",
     "status": "ready_before_database_write"
   },
   "declarations": {
@@ -5880,10 +5880,10 @@
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "53c62ac21218e1723c749044bd081396d733ca2f938f87c72309b2d1a0ec8d1a"
+        "input_hash": "974a3490f75684059e552cd0f2949822cc7e7762ca92f85fefdb8cd21a007b8e"
       },
       "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；尉迟敬德以principal_commander承担在榆窠与虎牢等关键交战中承担主将责任。",
-      "semantic_fingerprint": "42b7766a19f038c822e2541d767c54d3ed6b5e939f4c62de4746b8bfc3e08333",
+      "semantic_fingerprint": "5484757a3443f43d22c02be968759225008fc1b32b3b7ce0ad546628fa6efe93",
       "time_end": "武德三年至四年",
       "time_precision": "historical_text_range",
       "time_start": "武德三年至四年",
@@ -8658,8 +8658,8 @@
       "outcome_ref": "OUTCOME-LSM-CAMPAIGN-HULAO",
       "payload": {
         "battle_result": "victory",
-        "campaign_tier": "S",
-        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=national_peer/strong；结果轴=victory/complete，一役终结王世充、窦建德两个主要竞争方向并促成山东悉平，横向对照汉初垓下决定性会战定S。",
+        "campaign_tier": "S+",
+        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=national_peer/strong；结果轴=victory/complete，一役同时终结王世充、窦建德两个国家级竞争方向并促成山东悉平，属于极限复合终局，定S+。",
         "land_strategic_value": "capital_or_state_survival",
         "objective_completion": "complete",
         "opponent_condition": "strong",
@@ -8685,7 +8685,7 @@
         "level": "national",
         "reason": "围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。"
       },
-      "semantic_fingerprint": "53c62ac21218e1723c749044bd081396d733ca2f938f87c72309b2d1a0ec8d1a",
+      "semantic_fingerprint": "974a3490f75684059e552cd0f2949822cc7e7762ca92f85fefdb8cd21a007b8e",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
@@ -10763,7 +10763,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "268a7faea3a16abe4184c3d19802f6bce003f2a167e37ac7556e926c1f8a7f60",
-    "report_sha256": "29caef3ea3a7d75ca5d6ff2a0c6dea73dc365e860dc225f7dcaeaeac02b676f4",
+    "report_sha256": "a99875afe519bfadf92b5ed2e0f7432ea5f37af1d630c2bc76987a26f8df33fa",
     "ruler": "李世民",
     "ruler_ref": "RULER-58130F2446A25CC1",
     "rules": [
@@ -10775,10 +10775,10 @@
         "negative_budget": 12,
         "negative_signal": "0.000000",
         "positive_budget": 12,
-        "positive_signal": "13.574000",
+        "positive_signal": "14.036000",
         "rule_code": "talent_discovery",
         "rule_label": "发现人才",
-        "rule_raw_net": "13.574000",
+        "rule_raw_net": "14.036000",
         "settled_materials": [
           {
             "actual_signal_contribution": "2.376000",
@@ -10818,6 +10818,43 @@
             "subject": "李靖"
           },
           {
+            "actual_signal_contribution": "2.376000",
+            "fact": "宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "direction_sign": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery",
+              "source_factor": "standard",
+              "talent_quality_factor": "historic"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "direction_sign": "1.000000",
+              "discovery_level": "1.200000",
+              "source_factor": "1.000000",
+              "talent_quality_factor": "1.800000"
+            },
+            "independence_key": "talent_discovery:td-yuchi-cross-camp:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按尉迟敬德的该责任链结算。",
+            "material_id": "MAT-李世民-TD-YUCHI-CROSS-CAMP",
+            "material_magnitude": "2.376000",
+            "object_aggregate_magnitude": "2.376000",
+            "object_internal_contribution": "2.376000",
+            "object_ref": "PER-CAND-A49FCFF85405",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-5BD68597260486455733",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷68@1757055"
+            ],
+            "subject": "尉迟敬德"
+          },
+          {
             "actual_signal_contribution": "1.914000",
             "fact": "太宗攻克武牢取得戴胄后，将他引入秦王府任士曹参军。",
             "factor_option_codes": {
@@ -10846,7 +10883,7 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-1B353DF9FDEBB17944C8",
             "selection_basis": "eligibility_gate_then_strongest_n",
-            "settlement_rank": 2,
+            "settlement_rank": 3,
             "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
@@ -10883,50 +10920,13 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-A18388F3F4B1E0034688",
             "selection_basis": "eligibility_gate_then_strongest_n",
-            "settlement_rank": 2,
+            "settlement_rank": 3,
             "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷71@2020238"
             ],
             "subject": "魏徵"
-          },
-          {
-            "actual_signal_contribution": "1.914000",
-            "fact": "宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "direction_sign": "positive",
-              "discovery_level": "difficult_cross_boundary_discovery",
-              "source_factor": "standard",
-              "talent_quality_factor": "top"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "direction_sign": "1.000000",
-              "discovery_level": "1.200000",
-              "source_factor": "1.000000",
-              "talent_quality_factor": "1.450000"
-            },
-            "independence_key": "talent_discovery:td-yuchi-cross-camp:1",
-            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按尉迟敬德的该责任链结算。",
-            "material_id": "MAT-李世民-TD-YUCHI-CROSS-CAMP",
-            "material_magnitude": "1.914000",
-            "object_aggregate_magnitude": "1.914000",
-            "object_internal_contribution": "1.914000",
-            "object_ref": "PER-CAND-A49FCFF85405",
-            "override_reasons": [],
-            "rule_evidence_unit_ref": "REU-5BD68597260486455733",
-            "selection_basis": "eligibility_gate_then_strongest_n",
-            "settlement_rank": 2,
-            "settlement_rank_factor": "1.000000",
-            "side": "positive",
-            "source_refs": [
-              "舊唐書/卷68@1757055"
-            ],
-            "subject": "尉迟敬德"
           },
           {
             "actual_signal_contribution": "1.276000",
@@ -11133,7 +11133,7 @@
         "source_candidate_count": 9,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cca1482bfafe61a159881a7fb088c6dd2d75df872592552b7968b8ef541a6ffe",
+        "source_sha256": "ab6130a1cebbc8fe4152ea3223722ffd976f8825ddf58f8b6d5aaf404a64ef3b",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -11209,7 +11209,7 @@
         "source_candidate_count": 1,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cca1482bfafe61a159881a7fb088c6dd2d75df872592552b7968b8ef541a6ffe",
+        "source_sha256": "ab6130a1cebbc8fe4152ea3223722ffd976f8825ddf58f8b6d5aaf404a64ef3b",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -11374,8 +11374,8 @@
               "armed_political_execution"
             ],
             "supporting_unit_refs": [],
-            "talent_grade": "top",
-            "talent_grade_basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S级战役群；作为主将完成“武德九年泾阳—渭水长安危机战役群”，属A级战役群。",
+            "talent_grade": "historic",
+            "talent_grade_basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；作为主将完成“武德九年泾阳—渭水长安危机战役群”，属A级战役群。",
             "talent_profile_basis": {
               "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果。",
               "evidence_refs": [
@@ -11397,7 +11397,7 @@
               },
               "status": "accepted_current"
             },
-            "talent_value": "1.2"
+            "talent_value": "1.6"
           },
           {
             "negative_class": "window_exposed_political_or_discipline_risk",
@@ -11455,6 +11455,57 @@
         "negative_signal": "1.850000",
         "positive_member_budget": 8,
         "positive_members": [
+          {
+            "person": "尉迟敬德",
+            "political_risk": {
+              "assessment_status": "established",
+              "basis": "贞观朝宴席争次时拳击李道宗眼部、几近失明，是单次且对象有限的已实现严重人身侵害；玄武门武装行动不与普通战场或政变交战重复累计。",
+              "evidence_refs": [
+                "PFACT-LSM-YUCHI-COURT-ASSAULT"
+              ],
+              "policy_ref": "config/political-risk.yml",
+              "risk_class": "window_exposed_political_or_discipline_risk",
+              "scan_receipt": {
+                "biography_full_scan": true,
+                "counterevidence_review": true,
+                "cross_record_search": true,
+                "domain_query_matrix": true,
+                "revision_ref": "1757055",
+                "source_page": "舊唐書/卷68"
+              },
+              "severity": "material"
+            },
+            "profile_ref": "PINV-1DBCDAB10E57FCB03956",
+            "role_families": [
+              "military",
+              "armed_political_execution"
+            ],
+            "supporting_unit_refs": [],
+            "talent_grade": "historic",
+            "talent_grade_basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；作为主将完成“武德九年泾阳—渭水长安危机战役群”，属A级战役群。",
+            "talent_profile_basis": {
+              "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果。",
+              "evidence_refs": [
+                "PFACT-0E2B2C4E04F98FF69939",
+                "PFACT-3EF3BF404B1A3787190E",
+                "PFACT-51E7B775A8A36EAD6494",
+                "PFACT-D54647FD03DFCC8F581F",
+                "PFACT-FB5F6FB26D4F81F8675A"
+              ],
+              "grade": "important",
+              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+              "rule_alignment": {
+                "outcome_refs": [
+                  "OUTCOME-64B54DF4E5A2E78325BA"
+                ],
+                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+                "rule_path": "common_scale.important",
+                "status": "accepted_current"
+              },
+              "status": "accepted_current"
+            },
+            "talent_value": "1.6"
+          },
           {
             "person": "房玄龄",
             "political_risk": {
@@ -11655,57 +11706,6 @@
             "talent_value": "1.6"
           },
           {
-            "person": "尉迟敬德",
-            "political_risk": {
-              "assessment_status": "established",
-              "basis": "贞观朝宴席争次时拳击李道宗眼部、几近失明，是单次且对象有限的已实现严重人身侵害；玄武门武装行动不与普通战场或政变交战重复累计。",
-              "evidence_refs": [
-                "PFACT-LSM-YUCHI-COURT-ASSAULT"
-              ],
-              "policy_ref": "config/political-risk.yml",
-              "risk_class": "window_exposed_political_or_discipline_risk",
-              "scan_receipt": {
-                "biography_full_scan": true,
-                "counterevidence_review": true,
-                "cross_record_search": true,
-                "domain_query_matrix": true,
-                "revision_ref": "1757055",
-                "source_page": "舊唐書/卷68"
-              },
-              "severity": "material"
-            },
-            "profile_ref": "PINV-1DBCDAB10E57FCB03956",
-            "role_families": [
-              "military",
-              "armed_political_execution"
-            ],
-            "supporting_unit_refs": [],
-            "talent_grade": "top",
-            "talent_grade_basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S级战役群；作为主将完成“武德九年泾阳—渭水长安危机战役群”，属A级战役群。",
-            "talent_profile_basis": {
-              "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果。",
-              "evidence_refs": [
-                "PFACT-0E2B2C4E04F98FF69939",
-                "PFACT-3EF3BF404B1A3787190E",
-                "PFACT-51E7B775A8A36EAD6494",
-                "PFACT-D54647FD03DFCC8F581F",
-                "PFACT-FB5F6FB26D4F81F8675A"
-              ],
-              "grade": "important",
-              "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-              "rule_alignment": {
-                "outcome_refs": [
-                  "OUTCOME-64B54DF4E5A2E78325BA"
-                ],
-                "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-                "rule_path": "common_scale.important",
-                "status": "accepted_current"
-              },
-              "status": "accepted_current"
-            },
-            "talent_value": "1.2"
-          },
-          {
             "person": "戴胄",
             "political_risk": {
               "assessment_status": "reviewed_no_material_risk",
@@ -11854,17 +11854,17 @@
             "talent_value": "1.2"
           }
         ],
-        "positive_pool": "11.200000",
-        "positive_signal": "16.128000",
+        "positive_pool": "11.600000",
+        "positive_signal": "16.704000",
         "profile_source": "v4_person_profile.person_profiles",
         "profile_source_enforced": true,
         "rule_code": "team_building",
         "rule_label": "团队建设",
-        "rule_raw_net": "14.278000",
+        "rule_raw_net": "14.854000",
         "settlement_mode": "policy_budget",
         "source_candidate_count": 11,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cca1482bfafe61a159881a7fb088c6dd2d75df872592552b7968b8ef541a6ffe",
+        "source_sha256": "ab6130a1cebbc8fe4152ea3223722ffd976f8825ddf58f8b6d5aaf404a64ef3b",
         "supporting_only_members": [
           {
             "judge_reason": "当前人物画像与窗口风险仍为暂定值；未进入正8/负3的成员仅作支持。",
@@ -12308,7 +12308,7 @@
         "source_candidate_count": 11,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cca1482bfafe61a159881a7fb088c6dd2d75df872592552b7968b8ef541a6ffe",
+        "source_sha256": "ab6130a1cebbc8fe4152ea3223722ffd976f8825ddf58f8b6d5aaf404a64ef3b",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -12650,7 +12650,7 @@
         "source_candidate_count": 8,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "cca1482bfafe61a159881a7fb088c6dd2d75df872592552b7968b8ef541a6ffe",
+        "source_sha256": "ab6130a1cebbc8fe4152ea3223722ffd976f8825ddf58f8b6d5aaf404a64ef3b",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -12665,12 +12665,12 @@
       "settled_event_positive_count": 26,
       "team_negative_member_count": 3,
       "team_positive_member_count": 8,
-      "weighted_raw_signal": "6.874904"
+      "weighted_raw_signal": "7.083644"
     },
-    "task_code": "I5B-CURRENT-E61257A3F254F5CA",
+    "task_code": "I5B-CURRENT-D859D2593BCD60D2",
     "window": "626-649"
   },
-  "net_signal": "6.874904",
+  "net_signal": "7.083644",
   "net_signal_status": "provisional_profile_inputs",
   "outcome_registry_validation": {
     "actor_count": 16,
@@ -12851,7 +12851,7 @@
       ],
       "candidate_negative_talent_class": "window_exposed_political_or_discipline_risk",
       "candidate_negative_talent_severity": "material",
-      "candidate_talent_grade": "top",
+      "candidate_talent_grade": "historic",
       "coverage_gaps": [],
       "outcome_refs": [
         "OUTCOME-LSM-CAMPAIGN-HULAO",
@@ -12930,14 +12930,14 @@
           "severity": "material"
         },
         "talent_grade": {
-          "basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S级战役群；作为主将完成“武德九年泾阳—渭水长安危机战役群”，属A级战役群。",
+          "basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；作为主将完成“武德九年泾阳—渭水长安危机战役群”，属A级战役群。",
           "evidence_refs": [
             "PFACT-GOLD-0F85E1AB0D2A7339E88D",
             "PFACT-GOLD-6F4A1D846D15C8586E23",
             "PFACT-GOLD-DA6E38E13FE631D6D54E",
             "PFACT-GOLD-EA8CC24C4CF2993CFA1C"
           ],
-          "grade": "top",
+          "grade": "historic",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
             "outcome_refs": [
@@ -12945,7 +12945,7 @@
               "OUTCOME-LSM-CAMPAIGN-JINGYANG"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "top_fallback",
+            "rule_path": "military_one_s_plus_one_a",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -12969,7 +12969,7 @@
           "OUTCOME-LSM-CAMPAIGN-JINGYANG"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "top_fallback",
+        "rule_path": "military_one_s_plus_one_a",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -14217,7 +14217,7 @@
       "value_status": "provisional_material_coverage_open"
     }
   ],
-  "report_sha256": "975ab0fb55f04aa4f50ac4e2cb2b4d726237c523f4692caa4ca7ae3e1f44f52c",
+  "report_sha256": "3b7bf164efa1182d50263910aa6c93d7531d17aa60de1d182940590b981df22d",
   "rule_evidence_units": [
     {
       "direction": "positive",
@@ -14265,7 +14265,7 @@
           "direction_sign": "positive",
           "discovery_level": "difficult_cross_boundary_discovery",
           "source_factor": "standard",
-          "talent_quality_factor": "top"
+          "talent_quality_factor": "historic"
         },
         "independence_key": "talent_discovery:td-yuchi-cross-camp:1",
         "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按尉迟敬德的该责任链结算。",
@@ -15063,7 +15063,7 @@
       "evaluation_context": "RULER-58130F2446A25CC1",
       "members": [
         {
-          "member_ref": "TEAM-CONTEXT-B2DF3C1D04797B40",
+          "member_ref": "TEAM-CONTEXT-E432C00621EF0A25",
           "member_role": "team_window",
           "member_type": "aggregate_context"
         },
@@ -15228,11 +15228,11 @@
           "高士廉"
         ],
         "positive_members": [
+          "尉迟敬德",
           "房玄龄",
           "李勣",
           "李靖",
           "长孙无忌",
-          "尉迟敬德",
           "戴胄",
           "杜如晦",
           "褚遂良"
@@ -15241,9 +15241,9 @@
         "ruler_context_inventory_fingerprint": "5e77fa1890c46f299a0943120262f37d45c332f5f615c68436f56cb39f183526"
       },
       "rule_code": "team_building",
-      "semantic_fingerprint": "b2df3c1d04797b40cdb6d42c85654ea0352c43a7485cf705d63952892821bc84",
+      "semantic_fingerprint": "e432c00621ef0a25bbecdc0de99bbf1a2d7bc3a585a6624fc9cccef3bb480c30",
       "status": "accepted_shadow",
-      "unit_ref": "REU-TEAM-B2DF3C1D04797B40"
+      "unit_ref": "REU-TEAM-E432C00621EF0A25"
     }
   ],
   "ruler": "李世民",
@@ -15289,7 +15289,7 @@
   "ruler_ref": "RULER-58130F2446A25CC1",
   "schema_version": "i5b-current-value-report-v5",
   "source_pack_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-  "source_pack_sha256": "6363b04cf329b35d2164261405495611f5eeb4c7e9dd4185a02ab72ac821249b",
+  "source_pack_sha256": "5cd76dcf3315be715f6d5f3ad65627ab60f4d89763d7a9555fd49f3dd6c97d12",
   "status": "current_shadow_chain_complete_profile_values_provisional",
   "three_channel_disposition": {
     "dynasty_governance": {
