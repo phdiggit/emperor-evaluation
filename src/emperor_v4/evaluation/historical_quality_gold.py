@@ -63,7 +63,7 @@ def _validate_manifest_semantics(manifest: Mapping[str, object]) -> None:
         if row.get("disposition") == "accepted" and not row.get("gold_refs"):
             raise ValueError("accepted actual disposition 必须绑定至少一个 gold_ref")
         allowed_kinds = (
-            {"campaign_group", "campaign_operation", "governance_outcome"}
+            {"campaign_group", "campaign_operation", "governance_outcome", "statecraft_outcome"}
             if row.get("collection") == "historical_outcome_clusters"
             else {"person_talent", "person_risk"}
         )
@@ -182,6 +182,71 @@ def compare_historical_quality_gold(
     recall_matches: Counter[str] = Counter()
     field_total = 0
     field_matches = 0
+    i5b_projection: dict[str, object] = {
+        "required": False,
+        "status": "not_frozen",
+        "differences": [],
+    }
+    expected_i5b = manifest.get("i5b_expectation")
+    if isinstance(expected_i5b, Mapping):
+        differences: list[dict[str, object]] = []
+
+        def compare_i5b(path: str, expected: object, actual: object) -> None:
+            nonlocal field_total, field_matches
+            field_total += 1
+            if actual == expected:
+                field_matches += 1
+            else:
+                differences.append(
+                    {
+                        "path": path,
+                        "expected": expected,
+                        "actual": actual,
+                    }
+                )
+
+        compare_i5b(
+            "net_signal",
+            expected_i5b["weighted_raw_signal"],
+            result.get("net_signal"),
+        )
+        budget_rules = {
+            str(row["rule_code"]): row
+            for row in (result.get("material_budget") or {}).get("rules") or ()
+        }
+        for rule_code, expected_rule in expected_i5b["rules"].items():
+            actual_rule = budget_rules.get(str(rule_code)) or {}
+            for field, expected in expected_rule.items():
+                compare_i5b(
+                    f"material_budget.rules.{rule_code}.{field}",
+                    expected,
+                    actual_rule.get(field),
+                )
+        expected_team = expected_i5b["team_projection"]
+        actual_team = budget_rules.get("team_building") or {}
+        compare_i5b(
+            "team_projection.positive_members",
+            list(expected_team["positive_members"]),
+            [str(row["person"]) for row in actual_team.get("positive_members") or ()],
+        )
+        compare_i5b(
+            "team_projection.negative_members",
+            list(expected_team["negative_members"]),
+            [str(row["person"]) for row in actual_team.get("negative_members") or ()],
+        )
+        for field in ("functional_complementarity", "long_term_stability"):
+            compare_i5b(
+                f"team_projection.{field}",
+                expected_team[field],
+                actual_team.get(field),
+            )
+        if differences:
+            blocking.append("i5b_projection_mismatch")
+        i5b_projection = {
+            "required": True,
+            "status": "matched" if not differences else "mismatch",
+            "differences": differences,
+        }
     for case in cases:
         selector = case["selector"]
         rows = list(result.get(selector["collection"]) or ())
@@ -359,6 +424,7 @@ def compare_historical_quality_gold(
         "accepted_episode_precision": precision,
         "precision_status": precision_status,
         "actual_disposition_coverage": disposition_report,
+        "i5b_projection": i5b_projection,
         "blocking_refs": blocking,
         "cases": case_reports,
         "database_write_count": 0,
@@ -373,6 +439,46 @@ def compare_historical_quality_gold_files(
         load_historical_quality_gold(manifest_path, schema_path=schema_path),
         _read_object(result_path),
     )
+
+
+def run_historical_quality_gold_blind_gate(
+    *,
+    source_pack_path: Path,
+    manifest_path: Path,
+    workspace_root: Path = ROOT,
+    schema_path: Path = DEFAULT_SCHEMA_PATH,
+) -> dict[str, Any]:
+    """Build the current shadow result before opening the frozen Gold manifest."""
+
+    # Keep the import local so the generation phase has no dependency on a Gold
+    # manifest or comparator input.  The result remains in memory and is not
+    # published as a canonical business artifact by this gate.
+    from emperor_v4.evaluation.i5b_current_value_runner import (
+        build_i5b_current_value,
+    )
+
+    result = build_i5b_current_value(
+        source_pack_path,
+        workspace_root=workspace_root,
+    )
+    manifest = load_historical_quality_gold(
+        manifest_path,
+        schema_path=schema_path,
+    )
+    report = compare_historical_quality_gold(manifest, result)
+    declarations = result.get("declarations") or {}
+    report["blind_generation"] = {
+        "status": "generated_before_gold_access",
+        "result_persisted": False,
+        "runtime_model_call_count": int(
+            declarations.get("runtime_model_call_count") or 0
+        ),
+        "database_write_count": int(declarations.get("database_write_count") or 0),
+        "formal_score_write_count": int(
+            declarations.get("formal_score_write_count") or 0
+        ),
+    }
+    return report
 
 
 def verify_historical_quality_gold_sources(

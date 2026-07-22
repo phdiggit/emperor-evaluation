@@ -20,8 +20,8 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
-LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v5"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v7"
+LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
 
@@ -72,25 +72,26 @@ def _prompt(
             for actor in fact.get("actors") or ()
         ]
         prompt_facts.append(prompt_fact)
-    return f"""你是皇帝评价 V4 的成果候选整理器。只把输入的中性事实整理为可登记的治理成果或战役；不能补史实、不能联网、不能评分。
+    return f"""你是皇帝评价 V4 的成果候选整理器。只把输入的中性事实整理为可登记的战役、治理或人物谋略成果；不能补史实、不能联网、不能评分。
 
 硬规则：
 1. 只有原文同时足以支持行动、可观察结果和参与者责任时才生成 candidate；任官、褒奖、建议、品评或单纯过程而无结果，一律放入 rejections。
 2. exact_quotes 与 authorization_quotes 必须逐字复制输入 exact_quote 的连续子串，不得转写、拼接或补字。
 3. members 只能使用允许人物：{json.dumps(list(actors), ensure_ascii=False)}。皇帝 {ruler} 用 actor_kind=ruler；其余用 person。
 4. 同一独立结果只生成一个 candidate。candidate_key 用小写 ASCII 与连字符，表达皇帝、时期和独立结果，必须稳定。
-5. campaign 必须填写 campaign_tier、campaign_tier_basis、land_strategic_value、opponent_strategic_weight、opponent_condition、process_adversity、process_adversity_basis、固定 process_adversity_index 和逐事件 process_adversity_attributions；治理字段填 null。campaign_tier_basis 固定写成“土地轴=<规范值>；对手轴=<战略权重>/<交战状态>；结果轴=<战果>/<目标完成度>，<定级解释>”，不得用“强敌”等概括替代两个对手字段。当前只互校汉初刘邦创业统一链与唐初李渊—李世民创业统一链，且只含各自统一链内部的内战、兼并和割据平定，不得混入匈奴、突厥、高句丽等对外战争；其他政权不做横向校准。正常动员、追击、敌军来援和战役困难不是过程负面；非 none 必须逐字说明责任或明确 external_unattributed，绝不能默认归责主帅。
-6. 必须先完全忽略皇帝窗口，判断事实能否形成独立战役或治理成果；窗口不明不得成为拒绝成果的理由。成果成立后才填写兼容性的后置绑定提示 ruler_window_status：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；其他时期填 outside_window；确实无法解析填 unresolved，等待绑定层复核。
-7. settlement_scope 只是后置绑定兼容字段，不参与成果成立与否：皇帝父级战役填 ruler_campaign_parent；人物在父级内独立统帅战区并形成独立终局时填 person_campaign_subresult 并给 parent_outcome_ref；当前皇帝窗口治理填 governance_result；臣子全生涯中其他皇帝窗口的独立治理成果填 person_governance_result；粮价、人口、生产或治安等宏观结果填 reign_macro_outcome。宏观结果若史源上下文明确归于皇帝总体治理，causal_attribution_status=source_attributed 且皇帝可为 lead；若只有统治窗口关系则填 limited/reign_holder。每个战役成员填写 talent_credit，父级中已由子成果承载的人物填 covered_by_child。登记器先写无窗口总登记，再单独写这些绑定字段；规则投影只能消费二者的显式连接结果。
+5. campaign 必须填写 strategic_result_class、campaign_tier、campaign_tier_basis、land_strategic_value、opponent_strategic_weight、opponent_condition、combat_difficulty、combat_difficulty_basis、process_adversity、process_adversity_basis、固定 process_adversity_index 和逐事件 process_adversity_attributions；治理字段填 null。campaign_tier 只按 strategic_result_class 固定映射：local_tactical=C、important_objective=B、major_stage_or_crisis=A、independent_direction=S-、single_pole_or_state_terminal=S、composite_poles_terminal/unification_terminal/external_hegemony_terminal=S+。S+ 只能走这三条终局路径。对手权重只能表示当时竞争体系位置：minor、regional_major、first_tier_pole、dominant_pole、external_state、external_hegemony、unclear。campaign_tier_basis 固定写成“土地轴=<规范值>；对手轴=<战略权重>/<交战状态>；结果轴=<战果>/<目标完成度>，<定级解释>”。作战难度 D0–D3 另行判断且不得改变字母级：D0=残余或显著优势，D1=常态可战，D2=强主力/坚城/复杂地形后勤，D3=极端兵力态势、霸权压迫、连续击败本方主力或近崩溃逆转；必须用当时事实说明。当前只互校汉初刘邦创业统一链与唐初李渊—李世民创业统一链，且不得混入对外战争；其他政权不做横向校准。正常动员、追击、敌军来援和战役困难不是过程负面；非 none 必须逐字说明责任或明确 external_unattributed，绝不能默认归责主帅。
+6. 必须先完全忽略皇帝窗口，判断事实能否形成独立战役、治理或谋略成果；窗口不明不得成为拒绝成果的理由。成果成立后才填写兼容性的后置绑定提示 ruler_window_status：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；其他时期填 outside_window；确实无法解析填 unresolved，等待绑定层复核。
+7. settlement_scope 只是后置绑定兼容字段，不参与成果成立与否：皇帝父级战役填 ruler_campaign_parent；人物在父级内独立统帅战区并形成独立终局时填 person_campaign_subresult 并给 parent_outcome_ref；当前皇帝窗口治理填 governance_result；臣子全生涯中其他皇帝窗口的独立治理成果填 person_governance_result；粮价、人口、生产或治安等宏观结果填 reign_macro_outcome；非指挥、非公共治理但已被采纳并形成独立战略结果的谋略填 person_statecraft_result。谋略只供人物画像消费，不进入皇帝治理投影。宏观结果若史源上下文明确归于皇帝总体治理，causal_attribution_status=source_attributed 且皇帝可为 lead；若只有统治窗口关系则填 limited/reign_holder。每个战役成员填写 talent_credit，父级中已由子成果承载的人物填 covered_by_child。登记器先写无窗口总登记，再单独写这些绑定字段；规则投影只能消费二者的显式连接结果。
 8. 奏疏、谏言和批评只证明臣下提出主张，不能单独证明被批评现象或公共后果已经发生；没有独立实施或结果史源时拒绝治理成果候选，但保留中性材料供 I5A 欲望与自我约束或其他相应规则消费。
 9. 完成并投入国家使用的一代正史、跨代通史或大型文化典籍通常至少填 national_cultural_corpus；例行修成单朝皇帝实录通常只属 important，除非完整国家史体系的规模、使用和长期影响另有直接史源。只有作品开创文明范式、长期成为基础文本且本人实际独著、主编或最终定稿，才填 civilization_foundational_corpus/era_shaping/foundational。官修不自动降档，但授权、总裁、主修、分卷撰修和挂名参与必须分别归责。
 10. 规模只按原文可支持的影响范围，不因人物名气上调；不确定就拒绝或 limitations 明示。
-11. campaign 的 role_code 只能是 commander_in_chief/principal_commander/deputy_commander/participant/not_in_command_chain，并至少有一名处于实际军事指挥链的成员。within_window/leadership_formation 的父级战役群必须且只能有一个当前皇帝成员；outside_window 的臣子全生涯战役允许没有当前皇帝，不得因此删除。只要登记皇帝成员就必须填唯一皇权关系。皇帝只有授权、默许或阻挠而未实际进入军事指挥链时用 not_in_command_chain；亲征、长期统筹或临时坐镇不得用 not_in_command_chain。governance 只能是 exclusive/lead/governance_participant/authorized：exclusive=独立建立且没有同级共同主导者，lead=主导方案或持续执行，governance_participant=有逐字依据的实质参与，authorized=仅批准或维持授权而未主导实施；参会、在职和一般赞同不能推定责任。
+11. campaign 的 role_code 只能是 commander_in_chief/principal_commander/participant/not_in_command_chain，并至少有一名处于实际军事指挥链的成员。commander_in_chief=节度战役群全局并承担最高军事责任；principal_commander=独立指挥一支主力或主要方向；participant=有作战贡献但无主力独立指挥权。史书称某人为主帅之副时，仍按实际指挥权在 principal_commander 与 participant 之间判断，不另设副将档。within_window/leadership_formation 的父级战役群必须且只能有一个当前皇帝成员；outside_window 的臣子全生涯战役允许没有当前皇帝，不得因此删除。只要登记皇帝成员就必须填唯一皇权关系。皇帝只有授权、默许或阻挠而未实际进入军事指挥链时用 not_in_command_chain；亲征、长期统筹或临时坐镇不得用 not_in_command_chain。governance/statecraft 只能是 exclusive/lead/governance_participant/authorized：exclusive=独立建立且没有同级共同主导者，lead=主导方案或持续执行，governance_participant=有逐字依据的实质参与，authorized=仅批准或维持授权而未主导实施；参会、在职和一般赞同不能推定责任。
 12. campaign 中皇帝成员另填唯一 ruler_campaign_relation：obstructed/acquiesced/authorized/temporary_theater_control/sustained_theater_control/personal_command；非皇帝或治理成果填 null。同一父级战役群按 personal_command > sustained_theater_control > temporary_theater_control > authorized > acquiesced > obstructed 取最高实际参与，低档阶段只留在事实中，不并列登记。
 13. EXISTING_OUTCOMES 已登记的同一独立结果必须拒绝，不得换名重复生成；同一战略目标建立一个父级战役成果，阶段战斗只写入 observable_result/limitations，不得拆成多项重复成果。全局战果有得有失时父级必须 mixed；例如远征总体未达目标但取得局部胜利，不能只按局部胜利登记。规模必须同时检查土地战略价值、对手实际强度和已实现结果，不因国号、名气或史料篇幅升档。
-14. governance 只登记制度、持续程序、跨个案公共效果或明确先例。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections；不得因其有可观察结果就包装成治理成果。
-15. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
-16. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v1，task_code={task_code}。
+14. governance 只登记已经实施并形成制度、持续程序、跨个案公共效果、明确先例或可独立验收公共产品的结果。迁都、设官、建机构、任命、结约或颁下一次命令若只证明动作发生，没有制度实际生效、持续运行、直接改变公共权利义务或形成可验收产品，必须拒绝；不得用预期目的代替实际结果。已实际生效并直接改变税负、服役、任期或司法程序的持续约束，其制度约束本身可作为结果。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections。
+15. statecraft 只登记本人提出或主导、已被采纳并形成独立可核实战略结果的非指挥成果。未实施建议、一般献策、纯夺权、宫廷清洗和只有手段成功而无独立战略结果者必须拒绝；不得为支撑预期人才等级反向生成谋略成果。
+16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
+17. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v1，task_code={task_code}。
 
 EXISTING_OUTCOMES:
 {json.dumps(list(existing_outcomes), ensure_ascii=False, sort_keys=True, separators=(",", ":"))}
@@ -173,7 +174,7 @@ def _normalize_candidate_sources(
         if not quotes or any(not rows for rows in quote_matches) or len(matches) != 1:
             continue
         if (
-            candidate.get("outcome_kind") == "governance"
+            candidate.get("outcome_kind") in {"governance", "statecraft"}
             and candidate.get("scale_basis") == "local_public_result"
             and candidate.get("stable_delivery") is not True
             and candidate.get("important_method_or_legacy") is not True

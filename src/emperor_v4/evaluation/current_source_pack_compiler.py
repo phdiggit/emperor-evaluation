@@ -17,6 +17,7 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     CAMPAIGN_SCALE_BASES,
     GOVERNANCE_SCALE_BASES,
     PROCESS_ADVERSITY_INDEX,
+    STRATEGIC_RESULT_TIER,
     cluster_semantic_fingerprint,
 )
 from emperor_v4.evaluation.historical_outcome_registry import (
@@ -176,7 +177,7 @@ def compile_outcome_candidate_payloads(
     outcomes: list[dict[str, Any]] = []
     candidate_keys: set[str] = set()
     campaign_roles = {
-        "commander_in_chief", "principal_commander", "deputy_commander", "participant",
+        "commander_in_chief", "principal_commander", "participant",
         "not_in_command_chain",
     }
     governance_roles = {"exclusive", "lead", "governance_participant", "authorized", "reign_holder"}
@@ -201,6 +202,11 @@ def compile_outcome_candidate_payloads(
                 "reign_macro_outcome",
             }:
                 raise ValueError(f"{candidate_key} 治理结算范围不正确")
+            if (
+                candidate["outcome_kind"] == "statecraft"
+                and settlement_scope != "person_statecraft_result"
+            ):
+                raise ValueError(f"{candidate_key} 谋略成果只能进入人物画像结算")
             if settlement_scope == "person_campaign_subresult" and not candidate.get(
                 "parent_outcome_ref"
             ):
@@ -238,6 +244,9 @@ def compile_outcome_candidate_payloads(
                         "campaign_tier",
                         "campaign_tier_basis",
                         "land_strategic_value",
+                        "strategic_result_class",
+                        "combat_difficulty",
+                        "combat_difficulty_basis",
                         "process_adversity",
                         "process_adversity_basis",
                         "process_adversity_index",
@@ -251,12 +260,40 @@ def compile_outcome_candidate_payloads(
                         + ", ".join(missing_campaign_axes)
                     )
                 tier_basis = str(candidate["payload"]["campaign_tier_basis"])
-                if not all(
-                    token in tier_basis
-                    for token in ("土地轴=", "对手轴=", "结果轴=")
+                required_axis_values = (
+                    f"土地轴={candidate['payload']['land_strategic_value']}",
+                    f"对手轴={candidate['payload']['opponent_strategic_weight']}/{candidate['payload']['opponent_condition']}",
+                    f"结果轴={candidate['payload']['battle_result']}/{candidate['payload']['objective_completion']}",
+                )
+                if not all(token in tier_basis for token in required_axis_values):
+                    raise ValueError(
+                        f"{candidate_key} 战役定级依据与土地、对手或结果字段不一致"
+                    )
+                strategic_result_class = str(
+                    candidate["payload"]["strategic_result_class"]
+                )
+                expected_tier = STRATEGIC_RESULT_TIER[strategic_result_class]
+                if candidate["payload"]["campaign_tier"] != expected_tier:
+                    raise ValueError(
+                        f"{candidate_key} 战略结果类 {strategic_result_class} 必须映射为 {expected_tier}"
+                    )
+                if expected_tier == "S+" and (
+                    candidate["payload"]["battle_result"] != "victory"
+                    or candidate["payload"]["objective_completion"] != "complete"
                 ):
                     raise ValueError(
-                        f"{candidate_key} 战役定级依据未逐项标明土地、对手与结果轴"
+                        f"{candidate_key} S+ 必须实际取得胜利并完成终局目标"
+                    )
+                required_opponent_weight = {
+                    "composite_poles_terminal": {"first_tier_pole", "dominant_pole"},
+                    "unification_terminal": {"dominant_pole"},
+                    "external_hegemony_terminal": {"external_hegemony"},
+                }.get(strategic_result_class)
+                if required_opponent_weight and candidate["payload"][
+                    "opponent_strategic_weight"
+                ] not in required_opponent_weight:
+                    raise ValueError(
+                        f"{candidate_key} S+ 战略终局与对手竞争位置不匹配"
                     )
                 adversity = str(candidate["payload"]["process_adversity"])
                 if (
@@ -285,7 +322,7 @@ def compile_outcome_candidate_payloads(
                 ]
                 if missing_governance_fields:
                     raise ValueError(
-                        f"{candidate_key} 治理登记缺少类型或实施状态: "
+                        f"{candidate_key} 治理或谋略登记缺少类型或实施状态: "
                         + ", ".join(missing_governance_fields)
                     )
             scale_bases = (
@@ -440,7 +477,7 @@ def compile_outcome_candidate_payloads(
                         )
                 if not any(
                     member["role_code"]
-                    in {"commander_in_chief", "principal_commander", "deputy_commander", "participant"}
+                    in {"commander_in_chief", "principal_commander", "participant"}
                     for member in members
                 ):
                     raise ValueError(f"{candidate_key} 父级战役群缺少实际军事指挥链成员")
@@ -455,7 +492,7 @@ def compile_outcome_candidate_payloads(
                     candidate["settlement_scope"] != "reign_macro_outcome"
                     and not substantive_members
                 ):
-                    raise ValueError(f"{candidate_key} 治理成果不能只有授权者")
+                    raise ValueError(f"{candidate_key} 治理或谋略成果不能只有授权者")
                 exclusive_members = [
                     member for member in members if member["role_code"] == "exclusive"
                 ]
@@ -536,14 +573,17 @@ def compile_outcome_candidate_payloads(
                         "strategic_objective",
                         "battle_result",
                         "objective_completion",
-                        "opponent_condition",
-                        "opponent_strategic_weight",
-                    )
+                    "opponent_condition",
+                    "opponent_strategic_weight",
+                    "strategic_result_class",
+                )
                 }
                 for key in (
                     "campaign_tier",
                     "campaign_tier_basis",
                     "land_strategic_value",
+                    "combat_difficulty",
+                    "combat_difficulty_basis",
                     "process_adversity",
                     "process_adversity_basis",
                     "process_adversity_index",

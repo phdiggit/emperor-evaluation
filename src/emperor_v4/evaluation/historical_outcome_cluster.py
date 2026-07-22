@@ -23,6 +23,16 @@ from emperor_v4.evaluation.talent_grade_domain_equivalence import (
 SCHEMA_VERSION = "historical-outcome-cluster-registry-v1"
 SCALES = ("local", "important", "regional", "national", "era_shaping")
 CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
+STRATEGIC_RESULT_TIER = {
+    "local_tactical": "C",
+    "important_objective": "B",
+    "major_stage_or_crisis": "A",
+    "independent_direction": "S-",
+    "single_pole_or_state_terminal": "S",
+    "composite_poles_terminal": "S+",
+    "unification_terminal": "S+",
+    "external_hegemony_terminal": "S+",
+}
 LEGACY_CAMPAIGN_TIER_BY_SCALE = {
     "local": "C",
     "important": "B",
@@ -31,10 +41,10 @@ LEGACY_CAMPAIGN_TIER_BY_SCALE = {
     "era_shaping": "S+",
 }
 REALIZED_RESULTS = {"implemented", "operated", "completed", "mixed"}
+TALENT_GRADES = ("ordinary", "usable", "important", "top", "historic")
 CAMPAIGN_ROLES = {
     "commander_in_chief": "主帅",
     "principal_commander": "主将",
-    "deputy_commander": "副将",
     "participant": "从攻",
     "not_in_command_chain": "不在军事指挥链",
 }
@@ -84,13 +94,16 @@ GOVERNANCE_ROLES = {
     "authorized": "授权",
     "reign_holder": "统治窗口归属",
 }
+STATECRAFT_ROLES = GOVERNANCE_ROLES
 COUNTED_TOP_ROLES = {
     "campaign": {"commander_in_chief", "principal_commander"},
     "governance": {"exclusive", "lead"},
+    "statecraft": {"exclusive", "lead"},
 }
 COUNTED_IMPORTANT_ROLES = {
-    "campaign": {*COUNTED_TOP_ROLES["campaign"], "deputy_commander"},
+    "campaign": COUNTED_TOP_ROLES["campaign"],
     "governance": COUNTED_TOP_ROLES["governance"],
+    "statecraft": COUNTED_TOP_ROLES["statecraft"],
 }
 CAMPAIGN_SCALE_BASES = {
     "local": {"local_tactical"},
@@ -156,7 +169,7 @@ def validate_historical_outcome_registry(
     keys: set[tuple[str, str]] = set()
     episode_refs: set[str] = set()
     actor_refs: set[str] = set()
-    counts = {"campaign": 0, "governance": 0}
+    counts = {"campaign": 0, "governance": 0, "statecraft": 0}
     for cluster in clusters:
         ref = str(cluster["outcome_ref"])
         kind = str(cluster["outcome_kind"])
@@ -172,6 +185,8 @@ def validate_historical_outcome_registry(
             "reign_macro_outcome",
         }:
             raise ValueError(f"{ref} 治理结算范围不正确")
+        if kind == "statecraft" and settlement_scope != "person_statecraft_result":
+            raise ValueError(f"{ref} 谋略成果只能进入人物画像结算")
         key = (kind, str(cluster["independent_key"]))
         if ref in refs or key in keys:
             raise ValueError("成果簇身份或同类 independent_key 重复")
@@ -232,9 +247,12 @@ def validate_historical_outcome_registry(
                 "opponent_strategic_weight": payload.get(
                     "opponent_strategic_weight"
                 ),
+                "strategic_result_class": payload.get("strategic_result_class"),
                 "campaign_tier": payload.get("campaign_tier"),
                 "campaign_tier_basis": payload.get("campaign_tier_basis"),
                 "land_strategic_value": payload.get("land_strategic_value"),
+                "combat_difficulty": payload.get("combat_difficulty"),
+                "combat_difficulty_basis": payload.get("combat_difficulty_basis"),
                 "process_adversity": payload.get("process_adversity"),
                 "process_adversity_basis": payload.get("process_adversity_basis"),
             }
@@ -243,8 +261,14 @@ def validate_historical_outcome_registry(
             ]
             if missing_campaign_fields:
                 raise ValueError(
-                    f"{ref} 战役必须声明战区、目标、三轴、等级和过程负面: "
+                    f"{ref} 战役必须声明战区、目标、三轴、战略结果、难度、等级和过程负面: "
                     + ", ".join(missing_campaign_fields)
+                )
+            strategic_result_class = str(payload["strategic_result_class"])
+            expected_tier = STRATEGIC_RESULT_TIER[strategic_result_class]
+            if payload["campaign_tier"] != expected_tier:
+                raise ValueError(
+                    f"{ref} 战略结果类 {strategic_result_class} 必须映射为 {expected_tier}"
                 )
             adversity = str(payload["process_adversity"])
             if payload.get("process_adversity_index") != PROCESS_ADVERSITY_INDEX[adversity]:
@@ -308,20 +332,42 @@ def validate_historical_outcome_registry(
                     raise ValueError(f"{ref} 人物子战役缺少有效父级战役群")
             if not any(
                 member["role_code"]
-                in {"commander_in_chief", "principal_commander", "deputy_commander", "participant"}
+                in {"commander_in_chief", "principal_commander", "participant"}
                 for member in members
             ):
                 raise ValueError(f"{ref} 父级战役群缺少实际军事指挥链成员")
             tier_basis = str(payload["campaign_tier_basis"])
-            if not all(
-                token in tier_basis
-                for token in ("土地轴=", "对手轴=", "结果轴=")
+            required_axis_values = (
+                f"土地轴={payload['land_strategic_value']}",
+                f"对手轴={payload['opponent_strategic_weight']}/{payload['opponent_condition']}",
+                f"结果轴={payload['battle_result']}/{payload['objective_completion']}",
+            )
+            if not all(token in tier_basis for token in required_axis_values):
+                raise ValueError(f"{ref} 战役定级依据与土地、对手或结果字段不一致")
+            if payload["campaign_tier"] == "S+" and strategic_result_class not in {
+                "composite_poles_terminal",
+                "unification_terminal",
+                "external_hegemony_terminal",
+            }:
+                raise ValueError(f"{ref} S+ 不属于允许的战略终局路径")
+            if payload["campaign_tier"] == "S+" and (
+                payload["battle_result"] != "victory"
+                or payload["objective_completion"] != "complete"
             ):
-                raise ValueError(f"{ref} 战役定级依据未逐项标明土地、对手与结果轴")
-            if level in {"national", "era_shaping"} and payload[
+                raise ValueError(f"{ref} S+ 必须实际取得胜利并完成终局目标")
+            required_opponent_weight = {
+                "composite_poles_terminal": {"first_tier_pole", "dominant_pole"},
+                "unification_terminal": {"dominant_pole"},
+                "external_hegemony_terminal": {"external_hegemony"},
+            }.get(strategic_result_class)
+            if required_opponent_weight and payload[
+                "opponent_strategic_weight"
+            ] not in required_opponent_weight:
+                raise ValueError(f"{ref} S+ 战略终局与对手竞争位置不匹配")
+            if payload["campaign_tier"] in {"S", "S+"} and payload[
                 "opponent_condition"
             ] == "residual":
-                raise ValueError("残余对手不能仅凭灭国名义登记为国家级")
+                raise ValueError("残余对手不能仅凭灭国名义登记为S级以上")
         else:
             payload = cluster["payload"]
             if (
@@ -369,7 +415,7 @@ def validate_historical_outcome_registry(
                 else:
                     raise ValueError(f"{ref} 宏观统治结果因果归责状态不正确")
             elif not substantive_members:
-                raise ValueError(f"{ref} 治理成果不能只有授权者")
+                raise ValueError(f"{ref} 治理或谋略成果不能只有授权者")
             exclusive_members = [
                 member for member in members if member["role_code"] == "exclusive"
             ]
@@ -484,7 +530,7 @@ def build_outcome_episode(
     )
 
 
-def assess_person_talent_grade(
+def _assess_person_talent_grade_single_domain(
     *,
     person_ref: str,
     clusters: Sequence[Mapping[str, object]],
@@ -519,6 +565,10 @@ def assess_person_talent_grade(
         (cluster, member)
         for cluster, member in eligible
         if member["role_code"] in COUNTED_TOP_ROLES[str(cluster["outcome_kind"])]
+        and (
+            cluster["result_direction"] != "mixed"
+            or bool(cluster["stable_delivery"])
+        )
     ]
     historic_candidates: list[tuple[str, dict[str, object], list[tuple[Mapping[str, object], Mapping[str, object]]]]] = []
     for outcome_kind, domain in (("campaign", "military"), ("governance", "civil_governance")):
@@ -622,7 +672,21 @@ def assess_person_talent_grade(
         if supported:
             top_candidate = (top_anchor, same_domain_major)
             break
-    if historic_candidates:
+    statecraft_national = [
+        row
+        for row in top_eligible
+        if row[0]["outcome_kind"] == "statecraft"
+        and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["national"]
+    ]
+    if len(statecraft_national) >= 3:
+        grade = "historic"
+        rule_path = "statecraft_three_national_results"
+        counted = statecraft_national
+    elif len(statecraft_national) >= 2:
+        grade = "top"
+        rule_path = "statecraft_two_national_results"
+        counted = statecraft_national
+    elif historic_candidates:
         domain, historic_assessment, counted = historic_candidates[0]
         grade = "historic"
         rule_path = str(historic_assessment["matched_path"])
@@ -637,6 +701,12 @@ def assess_person_talent_grade(
             if row[0]["outcome_kind"] == "governance"
             and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["important"]
         ]
+        important_statecraft = [
+            row
+            for row in eligible
+            if row[0]["outcome_kind"] == "statecraft"
+            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["regional"]
+        ]
         important_campaigns = [
             row
             for row in eligible
@@ -649,7 +719,7 @@ def assess_person_talent_grade(
             if row[0]["outcome_kind"] == "campaign"
             and tier_rank[campaign_tier(row[0])] >= tier_rank["B"]
         ]
-        important = [*important_governance, *important_campaigns]
+        important = [*important_governance, *important_campaigns, *important_statecraft]
         if not important and len(supporting_campaigns) >= 2:
             important = supporting_campaigns
         if important:
@@ -673,7 +743,11 @@ def assess_person_talent_grade(
         level_text = (
             f"{campaign_tier(cluster)}级战役群"
             if cluster["outcome_kind"] == "campaign"
-            else f"{cluster['scale']['level']}级治理结果"
+            else (
+                f"{cluster['scale']['level']}级治理结果"
+                if cluster["outcome_kind"] == "governance"
+                else f"{cluster['scale']['level']}级谋略结果"
+            )
         )
         basis_parts.append(
             f"作为{role_labels[str(member['role_code'])]}完成“{cluster['canonical_label']}”，"
@@ -687,6 +761,197 @@ def assess_person_talent_grade(
         "rule_path": rule_path,
         "outcome_refs": sorted(str(row[0]["outcome_ref"]) for row in counted),
         "eligible_outcome_count": len(eligible),
+        "status": "accepted_current",
+    }
+
+
+def _culture_talent_grade(
+    *,
+    person_ref: str,
+    clusters: Sequence[Mapping[str, object]],
+) -> dict[str, object]:
+    scale_rank = {value: index for index, value in enumerate(SCALES)}
+    eligible: list[tuple[Mapping[str, object], Mapping[str, object]]] = []
+    for cluster in clusters:
+        if cluster["outcome_kind"] != "governance":
+            continue
+        if (cluster.get("payload") or {}).get("domain") != "culture_scholarship":
+            continue
+        if cluster["result_status"] not in REALIZED_RESULTS:
+            continue
+        member = next(
+            (
+                row
+                for row in cluster["members"]
+                if str(row["actor_ref"]) == person_ref
+            ),
+            None,
+        )
+        if member is None or member["role_code"] not in {"exclusive", "lead"}:
+            continue
+        if cluster["result_direction"] == "mixed" and not cluster["stable_delivery"]:
+            continue
+        eligible.append((cluster, member))
+    national = [
+        row
+        for row in eligible
+        if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["national"]
+    ]
+    achievements = [
+        {
+            "independent_key": cluster["independent_key"],
+            "scale": cluster["scale"]["level"],
+            "responsibility_role": member["role_code"],
+            "result": (
+                "implemented_mixed"
+                if cluster["result_direction"] == "mixed"
+                else "completed_positive"
+                if cluster["result_status"] == "completed"
+                else "implemented_positive"
+            ),
+            "positive_result_preserved": bool(cluster["stable_delivery"]),
+            "foundational": bool((cluster.get("payload") or {}).get("foundational")),
+            "durable_cross_stage": bool(
+                (cluster.get("payload") or {}).get("durable_cross_stage")
+            ),
+            "personally_authored_or_finalized": bool(
+                (cluster.get("payload") or {}).get("personally_authored_or_finalized")
+            ),
+        }
+        for cluster, member in eligible
+    ]
+    historic = assess_domain_historic_path("culture_and_scholarship", achievements)
+    if historic["historic_fact_path_status"] == "eligible":
+        grade = "historic"
+        rule_path = str(historic["matched_path"])
+        counted = eligible
+    elif national and (
+        len(eligible) >= 2
+        or any(row[0]["stable_delivery"] for row in national)
+        or any(row[0]["important_method_or_legacy"] for row in national)
+    ):
+        grade = "top"
+        rule_path = "culture_top_fallback"
+        counted = eligible
+    elif eligible:
+        grade = "important"
+        rule_path = "culture_important_threshold"
+        counted = eligible
+    else:
+        grade = "ordinary"
+        rule_path = "coverage_complete_below_usable"
+        counted = []
+    basis = "；".join(
+        f"作为{GOVERNANCE_ROLES[str(member['role_code'])]}完成“{cluster['canonical_label']}”，"
+        f"属{cluster['scale']['level']}级文化学术结果"
+        for cluster, member in counted
+    )
+    return {
+        "grade": grade,
+        "basis": (basis or "未建立达到可用门槛的文化学术成果") + "。",
+        "rule_path": rule_path,
+        "outcome_refs": sorted(str(row[0]["outcome_ref"]) for row in counted),
+        "eligible_outcome_count": len(eligible),
+    }
+
+
+def assess_person_talent_grade(
+    *,
+    person_ref: str,
+    clusters: Sequence[Mapping[str, object]],
+) -> dict[str, object]:
+    """先分领域定档，再取最高领域；仅显式全能路径允许跨领域升档。"""
+
+    domain_clusters = {
+        "military": [row for row in clusters if row["outcome_kind"] == "campaign"],
+        "civil_governance": [
+            row
+            for row in clusters
+            if row["outcome_kind"] == "governance"
+            and (row.get("payload") or {}).get("domain") != "culture_scholarship"
+        ],
+        "statecraft": [row for row in clusters if row["outcome_kind"] == "statecraft"],
+    }
+    domains = {
+        name: _assess_person_talent_grade_single_domain(
+            person_ref=person_ref,
+            clusters=rows,
+        )
+        for name, rows in domain_clusters.items()
+    }
+    domains["culture_and_scholarship"] = _culture_talent_grade(
+        person_ref=person_ref,
+        clusters=clusters,
+    )
+    grade_rank = {value: index for index, value in enumerate(TALENT_GRADES)}
+    total_eligible = sum(
+        int(value["eligible_outcome_count"]) for value in domains.values()
+    )
+    historic_domains = [
+        name for name, value in domains.items() if value["grade"] == "historic"
+    ]
+    top_domains = [
+        name for name, value in domains.items() if value["grade"] == "top"
+    ]
+    if total_eligible == 0:
+        grade = "ordinary"
+        primary_domains = []
+        rule_path = "coverage_complete_below_usable"
+    elif historic_domains:
+        grade = "historic"
+        primary_domains = historic_domains
+        rule_path = str(domains[historic_domains[0]]["rule_path"])
+    elif len(top_domains) >= 2:
+        grade = "historic"
+        primary_domains = top_domains
+        rule_path = "all_round_multiple_independent_top_domains"
+    else:
+        grade = max(
+            TALENT_GRADES,
+            key=lambda value: (
+                any(row["grade"] == value for row in domains.values()),
+                grade_rank[value],
+            ),
+        )
+        primary_domains = [
+            name for name, value in domains.items() if value["grade"] == grade
+        ]
+        rule_path = str(domains[primary_domains[0]]["rule_path"])
+    counted_domains = (
+        top_domains
+        if rule_path == "all_round_multiple_independent_top_domains"
+        else primary_domains
+    )
+    outcome_refs = sorted(
+        {
+            str(ref)
+            for name in counted_domains
+            for ref in domains[name]["outcome_refs"]
+        }
+    )
+    basis = "；".join(
+        f"{name}：{str(domains[name]['basis']).rstrip('。')}"
+        for name in counted_domains
+    )
+    if rule_path == "all_round_multiple_independent_top_domains":
+        basis += "；两个领域分别达到top，按明确的全能型路径升为historic"
+    return {
+        "grade": grade,
+        "basis": (basis or "完整覆盖后未建立达到可用门槛的独立成果簇") + "。",
+        "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
+        "rule_path": rule_path,
+        "outcome_refs": outcome_refs,
+        "eligible_outcome_count": total_eligible,
+        "primary_domains": primary_domains,
+        "domain_grades": {
+            name: {
+                "grade": value["grade"],
+                "basis": value["basis"],
+                "rule_path": value["rule_path"],
+                "outcome_refs": value["outcome_refs"],
+            }
+            for name, value in domains.items()
+        },
         "status": "accepted_current",
     }
 

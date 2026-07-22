@@ -6,6 +6,7 @@ from collections.abc import Mapping, Sequence
 
 SCALES = ("local", "important", "regional", "national", "era_shaping")
 CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
+MILITARY_STRATEGIC_WEIGHTS = {"C": 0, "B": 0, "A": 1, "S-": 2, "S": 3, "S+": 4}
 LEGACY_CAMPAIGN_TIER_BY_SCALE = {
     "local": "C",
     "important": "B",
@@ -16,7 +17,6 @@ LEGACY_CAMPAIGN_TIER_BY_SCALE = {
 MILITARY_RESPONSIBILITY_ROLES = (
     "commander_in_chief",
     "principal_commander",
-    "deputy_commander",
     "participant",
 )
 CIVIL_RESPONSIBILITY_ROLES = ("exclusive", "lead", "participant")
@@ -115,7 +115,7 @@ def assess_domain_historic_path(
         s_plus = [
             row for row in eligible if str(row["campaign_tier"]) == "S+"
         ]
-        exceptional = [
+        decisive_s_or_higher = [
             row
             for row in s_or_higher
             if bool(row.get("decisive"))
@@ -124,16 +124,16 @@ def assess_domain_historic_path(
             -tier_rank[str(row["campaign_tier"])],
             str(row["independent_key"]),
         )
-        if len(exceptional) >= 2:
-            path = "military_exceptional_two_s_command"
+        if len(decisive_s_or_higher) >= 2:
+            path = "military_peak_pair"
             matched_independent_keys = [
                 str(row["independent_key"])
-                for row in sorted(exceptional, key=order_key)[:2]
+                for row in sorted(decisive_s_or_higher, key=order_key)[:2]
             ]
         else:
             decisive_s_plus = [row for row in s_plus if bool(row.get("decisive"))]
             if decisive_s_plus and len(a_or_higher) >= 2:
-                path = "military_one_s_plus_one_a"
+                path = "military_peak_pair"
                 anchor = sorted(decisive_s_plus, key=order_key)[0]
                 support = next(
                     row
@@ -144,29 +144,20 @@ def assess_domain_historic_path(
                     str(anchor["independent_key"]),
                     str(support["independent_key"]),
                 ]
-        if path is None and s_or_higher and len(s_minus_or_higher) >= 3:
-            path = "military_one_s_two_s_minus"
-            anchor = sorted(s_or_higher, key=order_key)[0]
-            supports = [
-                row
-                for row in sorted(s_minus_or_higher, key=order_key)
-                if row["independent_key"] != anchor["independent_key"]
-            ][:2]
+        strategic_weight = sum(
+            MILITARY_STRATEGIC_WEIGHTS[str(row["campaign_tier"])]
+            for row in a_or_higher
+        )
+        if (
+            path is None
+            and len(a_or_higher) >= 3
+            and s_or_higher
+            and strategic_weight >= 7
+        ):
+            path = "military_sustained_strategic_portfolio"
+            matched_rows = sorted(a_or_higher, key=order_key)
             matched_independent_keys = [
-                str(anchor["independent_key"]),
-                *(str(row["independent_key"]) for row in supports),
-            ]
-        if path is None and len(s_or_higher) >= 2 and len(a_or_higher) >= 3:
-            path = "military_two_s_plus_one_a"
-            matched_rows = sorted(s_or_higher, key=order_key)[:2]
-            matched_keys = {str(row["independent_key"]) for row in matched_rows}
-            matched_rows.extend(
-                row
-                for row in sorted(a_or_higher, key=order_key)
-                if str(row["independent_key"]) not in matched_keys
-            )
-            matched_independent_keys = [
-                str(row["independent_key"]) for row in matched_rows[:3]
+                str(row["independent_key"]) for row in matched_rows
             ]
         counts = {
             "eligible_independent": len(eligible),
@@ -174,6 +165,7 @@ def assess_domain_historic_path(
             "s_minus_or_higher": len(s_minus_or_higher),
             "s_or_higher": len(s_or_higher),
             "s_plus": len(s_plus),
+            "strategic_weight": strategic_weight,
             "tier_counts": dict(
                 Counter(str(row["campaign_tier"]) for row in eligible)
             ),
@@ -294,6 +286,23 @@ def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, objec
         campaign_tier = str(campaign.get("campaign_tier") or "")
         if campaign_tier not in CAMPAIGN_TIERS:
             raise ValueError("战役 campaign_tier 不正确")
+        strategic_result_class = str(campaign.get("strategic_result_class") or "")
+        strategic_result_tier = {
+            "local_tactical": "C",
+            "important_objective": "B",
+            "major_stage_or_crisis": "A",
+            "independent_direction": "S-",
+            "single_pole_or_state_terminal": "S",
+            "composite_poles_terminal": "S+",
+            "unification_terminal": "S+",
+            "external_hegemony_terminal": "S+",
+        }
+        if strategic_result_tier.get(strategic_result_class) != campaign_tier:
+            raise ValueError("战役战略结果类与 campaign_tier 不匹配")
+        if campaign.get("combat_difficulty") not in {"D0", "D1", "D2", "D3"}:
+            raise ValueError("战役 combat_difficulty 不正确")
+        if not campaign.get("combat_difficulty_basis"):
+            raise ValueError("战役必须说明 combat_difficulty_basis")
         if campaign.get("land_strategic_value") not in {
             "local_point",
             "important_region",
@@ -318,7 +327,7 @@ def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, objec
             campaign_tier in {"S", "S+"}
             and basis == "state_conquest"
             and scale.get("opponent_strategic_weight")
-            not in {"regional_major", "national_peer", "imperial_main_force"}
+            not in {"regional_major", "first_tier_pole", "dominant_pole", "external_state", "external_hegemony"}
         ):
             raise ValueError("S级以上灭国必须证明对手具有主要区域或更高战略分量")
         participants = campaign.get("participants")
@@ -329,7 +338,7 @@ def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, objec
             raise ValueError("同一战役人物归责不得缺失或重复")
         command_roles = [str(row.get("command_role") or "") for row in participants]
         if any(role not in MILITARY_RESPONSIBILITY_ROLES for role in command_roles):
-            raise ValueError("战役人物 command_role 不在主帅、主将、副将、从攻合同")
+            raise ValueError("战役人物 command_role 不在主帅、主将、从攻合同")
         participant_count += len(participants)
         if not campaign.get("episode_refs") or not campaign.get("source_refs"):
             raise ValueError("战役必须引用中性 Episode 与史源")

@@ -887,6 +887,48 @@ def _build_material_rule(
             view["actual_signal_contribution"] = _rounded(
                 contributions[material_id] * rank_factor
             )
+    settled_objects: list[dict[str, Any]] = []
+    if rule_code == "appointment_delegation":
+        grouped_views: dict[tuple[str, str], list[dict[str, Any]]] = {}
+        for view in selected_views:
+            grouped_views.setdefault(
+                (str(view["side"]), str(view["object_ref"])), []
+            ).append(view)
+        for (side, object_ref), rows in sorted(
+            grouped_views.items(),
+            key=lambda item: (
+                0 if item[0][0] == "positive" else 1,
+                int(item[1][0]["settlement_rank"]),
+                str(item[1][0]["subject"]),
+            ),
+        ):
+            settled_objects.append(
+                {
+                    "side": side,
+                    "object_ref": object_ref,
+                    "subject": str(rows[0]["subject"]),
+                    "supporting_chain_count": len(rows),
+                    "supporting_material_ids": sorted(
+                        str(row["material_id"]) for row in rows
+                    ),
+                    "object_aggregate_magnitude": str(
+                        rows[0]["object_aggregate_magnitude"]
+                    ),
+                    "settlement_rank": int(rows[0]["settlement_rank"]),
+                    "settlement_rank_factor": str(
+                        rows[0]["settlement_rank_factor"]
+                    ),
+                    "actual_signal_contribution": _rounded(
+                        sum(
+                            (
+                                _decimal(row["actual_signal_contribution"])
+                                for row in rows
+                            ),
+                            Decimal("0"),
+                        )
+                    ),
+                }
+            )
     result = {
         "rule_code": rule_code,
         "rule_label": RULE_LABELS[rule_code],
@@ -921,6 +963,19 @@ def _build_material_rule(
             else {}
         ),
         "settled_materials": selected_views,
+        **(
+            {
+                "settled_objects": settled_objects,
+                "positive_settled_unit_count": sum(
+                    row["side"] == "positive" for row in settled_objects
+                ),
+                "negative_settled_unit_count": sum(
+                    row["side"] == "negative" for row in settled_objects
+                ),
+            }
+            if rule_code == "appointment_delegation"
+            else {}
+        ),
         "supporting_only_materials": supporting_rows,
         "positive_signal": _rounded(positive),
         "negative_signal": _rounded(negative),
@@ -1513,14 +1568,46 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
         negative_count = sum(
             row["side"] == "negative" for row in rule["settled_materials"]
         )
-        lines.extend(
-            [
-                f"正向材料 `{positive_count}`，负向材料 `{negative_count}`。",
-                "",
-                "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |",
-                "| --- | --- | ---: | ---: | --- | --- |",
-            ]
-        )
+        if rule["rule_code"] == "appointment_delegation":
+            lines.extend(
+                [
+                    f"正向结算对象 `{rule['positive_settled_unit_count']}/"
+                    f"{rule['configured_positive_budget']}`，负向结算对象 "
+                    f"`{rule['negative_settled_unit_count']}/"
+                    f"{rule['configured_negative_budget']}`；内部责任链 "
+                    f"`{positive_count}` 正、`{negative_count}` 负。",
+                    "",
+                    "| 任用对象 | 方向 | 内部责任链 | 对象聚合值 | 名次系数 | 实际计入信号 |",
+                    "| --- | --- | ---: | ---: | ---: | ---: |",
+                ]
+            )
+            for row in rule["settled_objects"]:
+                direction = "正向" if row["side"] == "positive" else "负向"
+                lines.append(
+                    f"| {row['subject']} | {direction} | "
+                    f"{row['supporting_chain_count']} | "
+                    f"{row['object_aggregate_magnitude']} | "
+                    f"{row['settlement_rank_factor']} | "
+                    f"{row['actual_signal_contribution']} |"
+                )
+            lines.extend(
+                [
+                    "",
+                    "### 对象内责任链展开",
+                    "",
+                    "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |",
+                    "| --- | --- | ---: | ---: | --- | --- |",
+                ]
+            )
+        else:
+            lines.extend(
+                [
+                    f"正向材料 `{positive_count}`，负向材料 `{negative_count}`。",
+                    "",
+                    "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |",
+                    "| --- | --- | ---: | ---: | --- | --- |",
+                ]
+            )
         for row in rule["settled_materials"]:
             direction = "正向" if row["side"] == "positive" else "负向"
             fact = str(row["fact"]).replace("|", "｜").replace("\n", " ")

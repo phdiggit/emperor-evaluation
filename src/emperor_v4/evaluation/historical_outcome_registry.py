@@ -39,6 +39,8 @@ def _event_level(cluster: Mapping[str, Any]) -> str:
             if scope == "person_campaign_subresult"
             else "campaign_group"
         )
+    if cluster["outcome_kind"] == "statecraft":
+        return "person_statecraft_result"
     return "macro_public_result" if scope == "reign_macro_outcome" else "governance_result"
 
 
@@ -171,13 +173,14 @@ def build_unbound_historical_outcome_registry(
         )
     outcomes.sort(
         key=lambda row: (
-            0 if row["outcome_kind"] == "campaign" else 1,
+            {"campaign": 0, "governance": 1, "statecraft": 2}[row["outcome_kind"]],
             str((row.get("period") or {}).get("start") or ""),
             str(row["canonical_label"]),
         )
     )
     campaign_count = sum(row["outcome_kind"] == "campaign" for row in outcomes)
-    governance_count = len(outcomes) - campaign_count
+    governance_count = sum(row["outcome_kind"] == "governance" for row in outcomes)
+    statecraft_count = sum(row["outcome_kind"] == "statecraft" for row in outcomes)
     report = {
         "schema_version": SCHEMA_VERSION,
         "status": "needs_review" if conflicts else "current_shadow_unbound",
@@ -187,6 +190,7 @@ def build_unbound_historical_outcome_registry(
             "outcome_count": len(outcomes),
             "campaign_count": campaign_count,
             "governance_count": governance_count,
+            "statecraft_count": statecraft_count,
             "duplicate_registration_count": duplicate_count,
             "window_binding_count": 0,
             "rule_evidence_unit_count": 0,
@@ -304,6 +308,8 @@ def materialize_ruler_outcome_registry(
             cluster["parent_outcome_ref"] = parent_outcome_ref
         elif event_level == "macro_public_result":
             cluster["settlement_scope"] = "reign_macro_outcome"
+        elif event_level == "person_statecraft_result":
+            cluster["settlement_scope"] = "person_statecraft_result"
         else:
             cluster["settlement_scope"] = (
                 "person_governance_result"
@@ -435,13 +441,14 @@ def render_unbound_historical_outcome_registry_markdown(
 ) -> str:
     declarations = registry["declarations"]
     lines = [
-        "# 战役与治理成果总登记（未绑定皇帝窗口）",
+        "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）",
         "",
         "> 本表只审成果本体。皇帝窗口、规则材料、人才信用和计分均未投影。",
         "",
         f"- 总成果：{declarations['outcome_count']}",
         f"- 战役：{declarations['campaign_count']}",
         f"- 治理：{declarations['governance_count']}",
+        f"- 谋略：{declarations['statecraft_count']}",
         f"- 窗口绑定：{declarations['window_binding_count']}",
         f"- 规则材料：{declarations['rule_evidence_unit_count']}",
         f"- 计分贡献：{declarations['score_contribution_count']}",
@@ -462,8 +469,8 @@ def render_unbound_historical_outcome_registry_markdown(
         [
             "## 战役登记",
             "",
-            "| 登记号 | 战役成果 | 层级 | 时段 | 等级与依据 | 土地轴 | 对手轴 | 结果轴 | 过程负面及归责 | 参与者责任 | 已实现结果 | 史源 |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| 登记号 | 战役成果 | 层级 | 时段 | 战略结果等级 | 作战难度 | 土地轴 | 对手轴 | 结果轴 | 过程负面及归责 | 参与者责任 | 已实现结果 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in campaigns:
@@ -490,7 +497,8 @@ def render_unbound_historical_outcome_registry_markdown(
                     row["canonical_label"],
                     row["event_level"],
                     _period_text(row["period"]),
-                    f"{payload['campaign_tier']}；{payload['campaign_tier_basis']}",
+                    f"{payload['campaign_tier']} / {payload['strategic_result_class']}；{payload['campaign_tier_basis']}",
+                    f"{payload['combat_difficulty']}；{payload['combat_difficulty_basis']}",
                     payload["land_strategic_value"],
                     opponent,
                     result,
@@ -529,6 +537,39 @@ def render_unbound_historical_outcome_registry_markdown(
                     _period_text(row["period"]),
                     f"{scale['level']} / {scale['consequence_basis']}；{scale['reason']}",
                     payload["causal_attribution_status"],
+                    _members_text(row["members"]),
+                    row["observable_result"],
+                    "；".join(row["limitations"]) or "无",
+                    "、".join(row["source_refs"]),
+                )
+            )
+            + " |"
+        )
+    statecraft = [
+        row for row in registry["outcomes"] if row["outcome_kind"] == "statecraft"
+    ]
+    lines.extend(
+        [
+            "",
+            "## 人物谋略登记",
+            "",
+            "> 只供人物画像消费，不进入皇帝治理投影；未实施建议、纯夺权和只有手段成功而无独立战略结果者不登记。",
+            "",
+            "| 登记号 | 谋略成果 | 时段 | 规模 | 参与者责任 | 已实现结果 | 限制 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in statecraft:
+        scale = row["scale"]
+        lines.append(
+            "| "
+            + " | ".join(
+                _escape(value)
+                for value in (
+                    row["registration_ref"],
+                    row["canonical_label"],
+                    _period_text(row["period"]),
+                    f"{scale['level']} / {scale['consequence_basis']}；{scale['reason']}",
                     _members_text(row["members"]),
                     row["observable_result"],
                     "；".join(row["limitations"]) or "无",

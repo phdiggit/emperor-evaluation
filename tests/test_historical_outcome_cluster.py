@@ -16,6 +16,7 @@ from emperor_v4.evaluation.historical_quality_gold import (
     compare_historical_quality_gold,
     compare_historical_quality_gold_files,
     load_historical_quality_gold,
+    run_historical_quality_gold_blind_gate,
     verify_historical_quality_gold_sources,
 )
 from emperor_v4.adapters.source_text_index import (
@@ -47,6 +48,10 @@ def test_current_outcomes_validate_and_have_deterministic_episodes(ruler: str) -
     assert validation["status"] == "passed"
     assert validation["kind_counts"]["campaign"] > 0
     assert validation["kind_counts"]["governance"] > 0
+    assert validation["kind_counts"]["statecraft"] == {
+        "刘邦": 5,
+        "李世民": 1,
+    }[ruler]
     for cluster in pack["outcome_registry"]["clusters"]:
         episode = build_outcome_episode(cluster, facts=facts)
         assert episode.episode_id == cluster["episode_refs"][0]
@@ -60,12 +65,10 @@ def test_outcome_identity_and_fact_lineage_fail_closed() -> None:
         )
     )
     registry = copy.deepcopy(pack["outcome_registry"])
-    registry["clusters"][1]["independent_key"] = registry["clusters"][0][
-        "independent_key"
-    ]
-    registry["clusters"][1]["outcome_kind"] = registry["clusters"][0][
-        "outcome_kind"
-    ]
+    same_kind = [
+        row for row in registry["clusters"] if row["outcome_kind"] == "campaign"
+    ][:2]
+    same_kind[1]["independent_key"] = same_kind[0]["independent_key"]
     with pytest.raises(ValueError, match="重复"):
         validate_historical_outcome_registry(
             registry,
@@ -96,10 +99,9 @@ def test_campaign_registry_separates_ruler_relation_land_axis_and_process_advers
     campaign["payload"].update(
         {
             "campaign_tier": "A",
-            "campaign_tier_basis": "战略门户争夺，面对主要区域对手并取得阶段结果。",
+            "strategic_result_class": "major_stage_or_crisis",
+            "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=external_hegemony/weakened；结果轴=victory/complete，取得重大阶段结果，定A。",
             "land_strategic_value": "strategic_gateway",
-            "process_adversity": "material",
-            "process_adversity_basis": "阶段目标未全部实现，但已有战果仍可保留。",
         }
     )
     campaign["semantic_fingerprint"] = cluster_semantic_fingerprint(campaign)
@@ -132,6 +134,37 @@ def test_campaign_registry_separates_ruler_relation_land_axis_and_process_advers
         )
 
 
+def test_campaign_result_class_controls_tier_but_difficulty_does_not() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    facts = {row["record_ref"]: row for row in pack["facts"]}
+    registry = copy.deepcopy(pack["outcome_registry"])
+    liuheita = next(
+        row
+        for row in registry["clusters"]
+        if row["canonical_label"] == "洺水击破刘黑闼战役群"
+    )
+    assert liuheita["payload"]["campaign_tier"] == "A"
+    assert liuheita["payload"]["combat_difficulty"] == "D3"
+
+    hulao = next(
+        row
+        for row in registry["clusters"]
+        if row["canonical_label"] == "洛阳—虎牢灭王世充窦建德战役群"
+    )
+    hulao["payload"]["strategic_result_class"] = "single_pole_or_state_terminal"
+    hulao["semantic_fingerprint"] = cluster_semantic_fingerprint(hulao)
+    with pytest.raises(ValueError, match="必须映射为 S"):
+        validate_historical_outcome_registry(
+            registry,
+            schema_path=SCHEMA,
+            facts=facts,
+        )
+
+
 def test_grade_reason_is_derived_from_registered_role_and_scale() -> None:
     pack = json.loads(
         (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
@@ -143,10 +176,49 @@ def test_grade_reason_is_derived_from_registered_role_and_scale() -> None:
         person_ref=hanxin["person_ref"],
         clusters=pack["outcome_registry"]["clusters"],
     )
-    assert grade["grade"] == "top"
-    assert "作为主将" in grade["basis"]
+    assert grade["grade"] == "historic"
+    assert "作为主帅" in grade["basis"]
     assert "S+级战役群" in grade["basis"]
+    assert grade["rule_path"] == "military_peak_pair"
     assert grade["outcome_refs"]
+
+
+@pytest.mark.parametrize(
+    ("person", "expected_grade", "expected_path", "expected_count"),
+    [
+        ("张良", "historic", "statecraft_three_national_results", 3),
+        ("陈平", "top", "statecraft_two_national_results", 2),
+    ],
+)
+def test_statecraft_results_grade_people_without_becoming_governance(
+    person: str,
+    expected_grade: str,
+    expected_path: str,
+    expected_count: int,
+) -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    member = next(row for row in pack["members"] if row["person"] == person)
+    grade = assess_person_talent_grade(
+        person_ref=member["person_ref"],
+        clusters=pack["outcome_registry"]["clusters"],
+    )
+    credited = {
+        row["outcome_ref"]: row
+        for row in pack["outcome_registry"]["clusters"]
+        if row["outcome_ref"] in grade["outcome_refs"]
+    }
+
+    assert grade["grade"] == expected_grade
+    assert grade["rule_path"] == expected_path
+    assert len(credited) == expected_count
+    assert {row["outcome_kind"] for row in credited.values()} == {"statecraft"}
+    assert {
+        row["settlement_scope"] for row in credited.values()
+    } == {"person_statecraft_result"}
 
 
 def test_single_s_plus_main_command_establishes_top_grade() -> None:
@@ -272,7 +344,7 @@ def test_two_decisive_national_commands_activate_historic_path(person: str) -> N
     )
 
     assert grade["grade"] == "historic"
-    assert grade["rule_path"] == "military_exceptional_two_s_command"
+    assert grade["rule_path"] == "military_peak_pair"
     assert len(grade["outcome_refs"]) == 2
 
 
@@ -295,10 +367,10 @@ def test_zhenguan_law_responsibility_keeps_leads_above_clause_contributor() -> N
     assert "PFACT-LSM-ZHENGUAN-LAW-RESPONSIBILITY" in cluster["fact_refs"]
     assert next(row for row in pack["members"] if row["person"] == "房玄龄")[
         "effective_talent_grade"
-    ] == "top"
+    ] == "historic"
     assert next(row for row in pack["members"] if row["person"] == "长孙无忌")[
         "effective_talent_grade"
-    ] == "top"
+    ] == "historic"
 
 
 @pytest.mark.parametrize("ruler", ["刘邦", "李世民"])
@@ -315,7 +387,7 @@ def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     ]["historical_outcome_cluster_count"]
 
 
-def test_lishimin_public_outcomes_gold_closes_current_campaign_chain() -> None:
+def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
     report = compare_historical_quality_gold_files(
         manifest_path=ROOT / "eval/historical_quality_gold/李世民.json",
         result_path=ROOT / "eval/i5b_current_value/李世民/result.json",
@@ -326,7 +398,7 @@ def test_lishimin_public_outcomes_gold_closes_current_campaign_chain() -> None:
     assert report["comparison_mode"] == "post_run_gold_only"
     assert report["recall"]["major"]["total"] >= 27
     assert report["recall"]["major"]["rate"] == 1.0
-    assert report["precision_status"] == "measured_public_outcomes"
+    assert report["precision_status"] == "measured_full_ruler"
     assert report["accepted_episode_precision"] == 1.0
     assert report["actual_disposition_coverage"]["missing_refs"] == []
     assert report["actual_disposition_coverage"]["unexpected_refs"] == []
@@ -336,6 +408,84 @@ def test_lishimin_public_outcomes_gold_closes_current_campaign_chain() -> None:
     assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["differences"] == []
     assert report["database_write_count"] == 0
     assert report["formal_score_write_count"] == 0
+
+
+@pytest.mark.parametrize(
+    ("ruler", "expected_signal"),
+    [("李世民", "17.993766"), ("刘邦", "8.188958")],
+)
+def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
+    ruler: str, expected_signal: str
+) -> None:
+    report = compare_historical_quality_gold_files(
+        manifest_path=ROOT / "eval/historical_quality_gold" / f"{ruler}.json",
+        result_path=ROOT / "eval/i5b_current_value" / ruler / "result.json",
+    )
+
+    assert report["status"] == "passed"
+    assert report["i5b_projection"] == {
+        "required": True,
+        "status": "matched",
+        "differences": [],
+    }
+    manifest = load_historical_quality_gold(
+        ROOT / "eval/historical_quality_gold" / f"{ruler}.json",
+        schema_path=GOLD_SCHEMA,
+    )
+    assert manifest["i5b_expectation"]["weighted_raw_signal"] == expected_signal
+    assert manifest["i5b_expectation"]["team_projection"][
+        "functional_complementarity"
+    ] == "balanced_four"
+    assert manifest["i5b_expectation"]["team_projection"][
+        "long_term_stability"
+    ] == "durable_multi_stage"
+
+
+def test_i5b_gold_rejects_shadow_signal_drift() -> None:
+    manifest = load_historical_quality_gold(
+        ROOT / "eval/historical_quality_gold/李世民.json",
+        schema_path=GOLD_SCHEMA,
+    )
+    result = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    result["net_signal"] = "0.000000"
+
+    comparison = compare_historical_quality_gold(manifest, result)
+
+    assert comparison["status"] == "failed"
+    assert "i5b_projection_mismatch" in comparison["blocking_refs"]
+    assert comparison["i5b_projection"]["differences"] == [
+        {
+            "path": "net_signal",
+            "expected": "17.993766",
+            "actual": "0.000000",
+        }
+    ]
+
+
+@pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
+def test_current_i5b_gold_blind_gate_builds_before_gold_and_has_no_side_effects(
+    ruler: str,
+) -> None:
+    report = run_historical_quality_gold_blind_gate(
+        source_pack_path=ROOT / "eval/i5b_current_value" / ruler / "source-pack.json",
+        manifest_path=ROOT / "eval/historical_quality_gold" / f"{ruler}.json",
+        workspace_root=ROOT,
+    )
+
+    assert report["status"] == "passed"
+    assert report["comparison_mode"] == "post_run_gold_only"
+    assert report["i5b_projection"]["status"] == "matched"
+    assert report["blind_generation"] == {
+        "status": "generated_before_gold_access",
+        "result_persisted": False,
+        "runtime_model_call_count": 0,
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+    }
 
 
 def test_gold_manifest_rejects_generated_outcome_identity_selector(tmp_path: Path) -> None:

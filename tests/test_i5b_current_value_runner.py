@@ -35,6 +35,7 @@ from emperor_v4.evaluation.current_source_pack_compiler import (
     compile_source_pack_increment,
 )
 from emperor_v4.evaluation.i5b_current_value_runner import (
+    _appointment_window_outcomes,
     _ruler_window_outcomes,
     build_i5b_current_value,
     main as runner_main,
@@ -134,9 +135,12 @@ def _campaign_candidate_payload(*, relation: str | None = "personal_command") ->
                     "objective_completion": "partial",
                     "opponent_condition": "viable",
                     "opponent_strategic_weight": "regional_major",
+                    "strategic_result_class": "major_stage_or_crisis",
                     "campaign_tier": "A",
-                    "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/complete，完成重要区域目标，定A。",
+                    "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/partial，完成重要区域阶段目标，定A。",
                     "land_strategic_value": "important_region",
+                    "combat_difficulty": "D1",
+                    "combat_difficulty_basis": "常态可战对手，未见额外极端困难。",
                     "process_adversity": "none",
                     "process_adversity_basis": "未见达到过程负面门槛的事实。",
                     "process_adversity_index": 0,
@@ -200,9 +204,12 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                 "objective_completion": None,
                 "opponent_condition": None,
                 "opponent_strategic_weight": None,
+                "strategic_result_class": None,
                 "campaign_tier": None,
                 "campaign_tier_basis": None,
                 "land_strategic_value": None,
+                "combat_difficulty": None,
+                "combat_difficulty_basis": None,
                 "process_adversity": None,
                 "process_adversity_basis": None,
                 "process_adversity_index": None,
@@ -227,6 +234,18 @@ def test_campaign_candidate_requires_letter_tier_and_land_axis(tmp_path: Path) -
     payload = _campaign_candidate_payload()
     payload["candidates"][0]["payload"]["campaign_tier"] = None
     with pytest.raises(ValueError, match="缺少等级、土地轴或过程负面"):
+        compile_outcome_candidate_payloads(
+            {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
+            [payload],
+            source_index=_campaign_contract_index(tmp_path),
+            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        )
+
+
+def test_campaign_candidate_tier_is_fixed_by_strategic_result(tmp_path: Path) -> None:
+    payload = _campaign_candidate_payload()
+    payload["candidates"][0]["payload"]["campaign_tier"] = "S+"
+    with pytest.raises(ValueError, match="必须映射为 A"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
             [payload],
@@ -338,6 +357,22 @@ def test_person_governance_result_is_outside_ruler_view(tmp_path: Path) -> None:
         )
 
 
+def test_person_campaign_subresult_is_available_only_to_appointment_projection() -> None:
+    payload = json.loads(
+        (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    outcome = next(
+        row
+        for row in payload["outcome_registry"]["clusters"]
+        if row["outcome_ref"] == "OUTCOME-QUALITY-LB-HANXIN-QI"
+    )
+
+    assert outcome not in _ruler_window_outcomes([outcome])
+    assert outcome in _appointment_window_outcomes([outcome])
+
+
 def test_campaign_candidate_requires_exactly_one_ruler_member(tmp_path: Path) -> None:
     payload = _campaign_candidate_payload()
     payload["candidates"][0]["members"][0].update(
@@ -417,7 +452,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     outcome_without_campaign_context["semantic_fingerprint"] = (
         cluster_semantic_fingerprint(outcome_without_campaign_context)
     )
-    with pytest.raises(ValueError, match="战区、目标、三轴、等级和过程负面"):
+    with pytest.raises(ValueError, match="战区、目标、三轴、战略结果、难度、等级和过程负面"):
         validate_historical_outcome_registry(
             {
                 "schema_version": "historical-outcome-cluster-registry-v1",
@@ -918,12 +953,10 @@ def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
 
 
 @pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
-def test_current_value_chain_is_complete_shadow_with_provisional_profiles(ruler: str) -> None:
+def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str) -> None:
     report = build_i5b_current_value(ROOT / "eval/i5b_current_value" / ruler / "source-pack.json")
 
-    assert report["status"] == (
-        "current_shadow_chain_complete_profile_values_provisional"
-    )
+    assert report["status"] == "current_shadow_chain_complete"
     assert report["declarations"]["three_channel_materials_consumed"] is True
     assert report["declarations"]["linked_ruler_context_count"] > 0
     assert set(report["three_channel_input"]["channel_counts"]) == {
@@ -937,25 +970,56 @@ def test_current_value_chain_is_complete_shadow_with_provisional_profiles(ruler:
     assert any(row["rule_code"] == "team_building" for row in report["rule_evidence_units"])
     assert report["declarations"]["database_write_count"] == 0
     assert report["declarations"]["formal_score_write_count"] == 0
-    assert report["declarations"]["profile_material_coverage_complete"] is False
-    assert report["declarations"]["profile_values_frozen"] is False
-    assert report["declarations"]["profile_freeze_gate_passed"] is False
+    assert report["declarations"]["profile_material_coverage_complete"] is True
+    assert report["declarations"]["profile_values_frozen"] is True
+    assert report["declarations"]["profile_freeze_gate_passed"] is True
     assert report["declarations"]["formal_scoring_ready"] is False
-    assert report["declarations"]["profile_member_with_open_gap_count"] == {
-        "李世民": 0,
-        "刘邦": 4,
+    assert report["declarations"]["profile_member_with_open_gap_count"] == 0
+    assert report["declarations"]["person_profile_registry_count"] == {
+        "李世民": 15,
+        "刘邦": 13,
+    }[ruler]
+    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == {
+        "李世民": 4,
+        "刘邦": 3,
     }[ruler]
     assert report["declarations"]["historical_outcome_cluster_count"] > 0
     assert report["declarations"]["campaign_outcome_count"] > 0
     assert report["declarations"]["governance_outcome_count"] > 0
-    assert report["net_signal_status"] == "provisional_profile_inputs"
+    assert report["declarations"]["statecraft_outcome_count"] == {
+        "李世民": 1,
+        "刘邦": 5,
+    }[ruler]
+    assert report["net_signal_status"] == "stable_profile_inputs"
     assert all(
-        row["value_status"] == "provisional_material_coverage_open"
+        row["value_status"] == "frozen_after_complete_coverage"
         for row in report["profile_projection_review"]
     )
+    profile_registry = {
+        row["person"]: row for row in report["person_profile_registry"]
+    }
+    expected_unscored = {
+        "李世民": {"刘德威", "温彦博", "王珪", "裴弘献"},
+        "刘邦": {"刘敬", "叔孙通", "樊哙"},
+    }[ruler]
+    assert expected_unscored <= set(profile_registry)
+    assert all(
+        row["team_building_projection"] == ["not_in_current_team_candidate_pool"]
+        and row["coverage_status"] == "provisional_registered_outcomes_only"
+        for name, row in profile_registry.items()
+        if name in expected_unscored
+    )
+    if ruler == "李世民":
+        assert profile_registry["房玄龄"]["domain_grades"]["civil_governance"]["grade"] == "historic"
+        assert profile_registry["房玄龄"]["domain_grades"]["culture_and_scholarship"]["grade"] == "top"
+        assert profile_registry["魏徵"]["primary_domains"] == ["culture_and_scholarship"]
+    else:
+        assert profile_registry["张良"]["domain_grades"]["statecraft"]["grade"] == "historic"
+        assert profile_registry["刘敬"]["overall_grade"] == "important"
+        assert profile_registry["樊哙"]["overall_grade"] == "ordinary"
     assert sum(
         bool(row["coverage_gaps"]) for row in report["profile_projection_review"]
-    ) == {"李世民": 0, "刘邦": 4}[ruler]
+    ) == 0
     assert report["declarations"]["score_45"] is None
     assert report["declarations"]["ranking"] is None
     assert report["net_signal"] == report["material_budget"]["summary"]["weighted_raw_signal"]
@@ -998,6 +1062,16 @@ def test_current_li_shimin_corrections_follow_rule_documents() -> None:
     )
     assert team["long_term_stability"] == "durable_multi_stage"
     assert team["functional_complementarity"] == "balanced_four"
+    assert pack["team"]["positive_members"] == [
+        "房玄龄",
+        "李勣",
+        "李靖",
+        "长孙无忌",
+        "魏徵",
+        "侯君集",
+        "戴胄",
+        "杜如晦",
+    ]
     assert len(pack["team"]["stability_stages"]) == 3
     assert members["尉迟敬德"]["negative_talent_severity"] == "material"
     assert members["高士廉"]["negative_talent_severity"] == "material"
@@ -1010,6 +1084,21 @@ def test_current_li_shimin_corrections_follow_rule_documents() -> None:
     assert members["侯君集"]["profile_review"]["political_risk"]["evidence_refs"] == [
         "PFACT-LSM-HOUJUNJI-LOOTING-AND-CONSPIRACY"
     ]
+    assert members["侯君集"]["effective_talent_grade"] == "top"
+    tuyuhun = next(
+        row
+        for row in pack["outcome_registry"]["clusters"]
+        if row["outcome_ref"] == "OUTCOME-LSM-CAMPAIGN-TUYUHUN"
+    )
+    tuyuhun_members = {row["actor_name"]: row for row in tuyuhun["members"]}
+    assert tuyuhun_members["李靖"]["role_code"] == "commander_in_chief"
+    assert tuyuhun_members["侯君集"]["role_code"] == "principal_commander"
+    assert not any(
+        member["role_code"] == "deputy_commander"
+        for outcome in pack["outcome_registry"]["clusters"]
+        if outcome["outcome_kind"] == "campaign"
+        for member in outcome["members"]
+    )
     materials = {row["material_id"]: row for row in pack["materials"]}
     assert materials[
         "MAT-李世民-TT-ZHANGLIANG-WRONGFUL-EXECUTION-REVIEW-1"
@@ -1129,8 +1218,10 @@ def test_anti_nepotism_requires_public_power_effect(tmp_path: Path) -> None:
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
+    registry = build_unbound_historical_outcome_registry([payload])
+    binding = build_ruler_outcome_bindings(payload, registry)
     with pytest.raises(ValueError, match="公共权力作用 Gate"):
-        build_i5b_current_value(target)
+        build_i5b_current_value(target, outcome_layers=(registry, binding))
 
 
 def test_current_long_term_stability_is_derived_from_stage_coverage() -> None:
@@ -1151,9 +1242,34 @@ def test_current_long_term_stability_is_derived_from_stage_coverage() -> None:
         "1.200000",
     )
     assert (liu_team["long_term_stability"], liu_team["long_term_stability_factor"]) == (
-        "managed_turnover",
-        "1.100000",
+        "durable_multi_stage",
+        "1.200000",
     )
+
+
+def test_appointment_budget_counts_aggregated_objects_not_internal_chains() -> None:
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    appointment = next(
+        row
+        for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "appointment_delegation"
+    )
+
+    assert appointment["positive_settled_unit_count"] == 7
+    assert appointment["negative_settled_unit_count"] == 1
+    assert len(
+        [row for row in appointment["settled_materials"] if row["side"] == "positive"]
+    ) == 13
+    fang = next(row for row in appointment["settled_objects"] if row["subject"] == "房玄龄")
+    zhangsun = next(
+        row for row in appointment["settled_objects"] if row["subject"] == "长孙无忌"
+    )
+    assert fang["supporting_chain_count"] == 4
+    assert fang["actual_signal_contribution"] == "5.259869"
+    assert zhangsun["supporting_chain_count"] == 1
+    assert zhangsun["actual_signal_contribution"] == "4.781700"
 
 
 def test_source_pack_hash_fails_closed(tmp_path: Path) -> None:
@@ -1184,8 +1300,10 @@ def test_duplicate_settlement_event_fails_closed(tmp_path: Path) -> None:
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
+    registry = build_unbound_historical_outcome_registry([payload])
+    binding = build_ruler_outcome_bindings(payload, registry)
     with pytest.raises(ValueError, match="重复结算事件"):
-        build_i5b_current_value(target)
+        build_i5b_current_value(target, outcome_layers=(registry, binding))
 
 
 def test_profile_values_cannot_freeze_before_material_coverage(tmp_path: Path) -> None:
@@ -1204,8 +1322,10 @@ def test_profile_values_cannot_freeze_before_material_coverage(tmp_path: Path) -
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
+    registry = build_unbound_historical_outcome_registry([payload])
+    binding = build_ruler_outcome_bindings(payload, registry)
     with pytest.raises(ValueError, match="材料覆盖未闭合"):
-        build_i5b_current_value(target)
+        build_i5b_current_value(target, outcome_layers=(registry, binding))
 
 
 def test_profile_values_rebuild_missing_grade_registry_links(
@@ -1263,7 +1383,12 @@ def test_appointment_importance_comes_from_responsibility_not_result_scale(
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
-    report = build_i5b_current_value(target)
+    registry = build_unbound_historical_outcome_registry([payload])
+    binding = build_ruler_outcome_bindings(payload, registry)
+    report = build_i5b_current_value(
+        target,
+        outcome_layers=(registry, binding),
+    )
     appointment = next(
         row for row in report["material_budget"]["rules"]
         if row["rule_code"] == "appointment_delegation"
@@ -1324,12 +1449,12 @@ def test_representative_ruler_policies_render_with_current_disposition() -> None
     li_rendered = render_scoring_detail_markdown(li)
     assert "| 功臣世袭刺史 | 正向 |" in li_rendered
     assert "| 皇子出任地方实职 | 正向 |" in li_rendered
-    assert "建立州县义仓并用于饥馑赈给" in li_rendered
-    assert "专业目标已实现，整体混合结果及跨领域代价另行结算" in li_rendered
+    assert "建立州县义仓并用于赈给" in li_rendered
+    assert "高宗以后仓粮逐渐被借作他费" in li_rendered
     assert "## 治理成果登记" in li_rendered
     assert "## 战役登记" in li_rendered
-    assert "OUTCOME-3BE9F931EFCF2E191FE6" in li_rendered
-    assert "李靖奇袭定襄破东突厥" in li_rendered
+    assert "OUTCOME-LSM-CAMPAIGN-EASTERN-TURKS" in li_rendered
+    assert "贞观四年平东突厥战役群" in li_rendered
     assert any(
         row["canonical_label"] == "李勣攻克平壤平定高句丽"
         for row in li["historical_outcome_clusters"]
@@ -1364,7 +1489,11 @@ def test_representative_ruler_policies_render_with_current_disposition() -> None
         for row in liu["governance_dispositions"]
         if row["disposition"] == "supporting_policy_context_not_i5b_team_score"
     }
-    assert policy_contexts == {"汉初约法轻租与财政节用", "疑狱逐级上报程序"}
+    assert policy_contexts == {
+        "入关约法三章与秦地安堵",
+        "叔孙通制定汉朝朝仪",
+        "汉初轻田租与官用财政约束",
+    }
 
 
 @pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
@@ -1377,8 +1506,9 @@ def test_current_detail_exposes_public_outcome_review_fields(ruler: str) -> None
     rendered = render_scoring_detail_markdown(report)
     assert "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 |" in rendered
     assert (
-        "| 登记号 | 战役群 | 等级 | 战果 / 目标完成 | 过程负面 | 负面归责 | "
-        "皇帝角色 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
+        "| 登记号 | 战役群 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | "
+        "过程负面 | 负面归责 | 皇帝角色 | 将领角色 | 土地、对手与结果依据 | "
+        "已实现结果 | 史源 |"
         in rendered
     )
     assert "土地=" in rendered
@@ -1413,7 +1543,7 @@ def test_representative_military_materials_keep_three_channel_lineage() -> None:
         for row in appointment_rows
         if row["factor_option_codes"]["appointment_effect"] in positive_effects
     )
-    assert any("周勃平定楚汉后方与燕代叛乱" in row["fact"] for row in appointment_rows)
+    assert any("平定燕王卢绾叛乱战役群" in row["fact"] for row in appointment_rows)
     zhou_bo = next(
         row for row in liu["profile_projection_review"] if row["person"] == "周勃"
     )
@@ -4177,6 +4307,8 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     assert goguryeo["payload"]["process_adversity_index"] == 0.4
     hulao = li_outcomes["OUTCOME-LSM-CAMPAIGN-HULAO"]
     assert hulao["payload"]["campaign_tier"] == "S+"
+    assert hulao["payload"]["strategic_result_class"] == "composite_poles_terminal"
+    assert hulao["payload"]["combat_difficulty"] == "D3"
     assert hulao["payload"]["process_adversity"] == "none"
 
     labels = {row["canonical_label"]: row for row in li_outcomes.values()}
@@ -4206,6 +4338,13 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     veritable_records = labels["高祖太宗实录修撰"]
     assert veritable_records["scale"]["level"] == "important"
     assert veritable_records["important_method_or_legacy"] is False
+    prince_tenure = labels["王府官僚任职不得超过四考"]
+    assert prince_tenure["outcome_kind"] == "governance"
+    assert prince_tenure["result_direction"] == "positive"
+    assert prince_tenure["scale"]["level"] == "important"
+    lingnan = labels["岭南冲突遣使安抚定局"]
+    assert lingnan["outcome_kind"] == "statecraft"
+    assert lingnan["settlement_scope"] == "person_statecraft_result"
     zhangsun_lifetime = [
         row
         for row in li_outcomes.values()
@@ -4248,6 +4387,27 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
         for row in all_campaigns
     )
     liu_labels = {row["canonical_label"]: row for row in liu_outcomes}
+    statecraft_labels = {
+        row["canonical_label"]
+        for row in liu_outcomes
+        if row["outcome_kind"] == "statecraft"
+    }
+    assert statecraft_labels == {
+        "陈平白登解围处置",
+        "陈平荥阳解围与最高统帅脱险处置",
+        "张良重组彭城败后联盟与方面用将",
+        "张良修复固陵诸侯失期危机",
+        "张良制止复立六国后方案",
+    }
+    assert all(
+        row["settlement_scope"] == "person_statecraft_result"
+        for row in liu_outcomes
+        if row["outcome_kind"] == "statecraft"
+    )
+    assert "陈平云梦诱捕韩信" not in liu_labels
+    assert sum(row["outcome_kind"] == "governance" for row in liu_outcomes) == 7
+    assert "采纳娄敬张良建议定都长安" not in liu_labels
+    assert "汉匈和亲约" not in liu_labels
     assert liu_labels["平定陈豨叛乱战役群"]["payload"]["campaign_tier"] == "A"
     tang_unification_labels = {
         "洛阳—虎牢灭王世充窦建德战役群",
@@ -4273,7 +4433,12 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
         for name in han_unification_labels
     }
     assert tang_unification == {"S+", "S-", "A"}
-    assert han_unification == {"S", "S-", "A"}
+    assert han_unification == {"S+", "S-", "A"}
+    assert liu_labels["韩信垓下统帅决战"]["payload"]["strategic_result_class"] == "unification_terminal"
+    assert liu_labels["平城白登汉匈战役群"]["payload"]["combat_difficulty"] == "D3"
+    assert liu_labels["平城白登汉匈战役群"]["payload"]["campaign_tier"] == "A"
+    assert labels["洺水击破刘黑闼战役群"]["payload"]["combat_difficulty"] == "D3"
+    assert labels["贞观四年平东突厥战役群"]["payload"]["strategic_result_class"] == "external_hegemony_terminal"
     hanxin = [
         row
         for row in liu_outcomes
@@ -4295,7 +4460,7 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
                 members["刘邦"]["ruler_campaign_relation"]
                 == "temporary_theater_control"
             )
-            assert row["payload"]["campaign_tier"] == "S"
+            assert row["payload"]["campaign_tier"] == "S+"
         else:
             assert members["刘邦"]["role_code"] == "not_in_command_chain"
             assert members["刘邦"]["ruler_campaign_relation"] == "authorized"
@@ -4320,9 +4485,10 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     ]
     registry = build_unbound_historical_outcome_registry(source_packs)
     assert registry["status"] == "current_shadow_unbound"
-    assert registry["declarations"]["outcome_count"] == 68
-    assert registry["declarations"]["campaign_count"] == 32
-    assert registry["declarations"]["governance_count"] == 36
+    assert registry["declarations"]["outcome_count"] == 73
+    assert registry["declarations"]["campaign_count"] == 34
+    assert registry["declarations"]["governance_count"] == 33
+    assert registry["declarations"]["statecraft_count"] == 6
     assert registry["declarations"]["window_binding_count"] == 0
     for outcome in registry["outcomes"]:
         assert "ruler_window_status" not in outcome
@@ -4334,8 +4500,9 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
             assert "ruler_campaign_relation" not in member
 
     rendered = render_unbound_historical_outcome_registry_markdown(registry)
-    assert "# 战役与治理成果总登记（未绑定皇帝窗口）" in rendered
-    assert "总成果：68" in rendered
+    assert "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）" in rendered
+    assert "总成果：73" in rendered
+    assert "谋略：6" in rendered
     assert "永徽律令格式与《律疏》编定颁行" in rendered
     assert "ruler_window_status" not in rendered
     for source_pack in source_packs:
@@ -4370,9 +4537,9 @@ def test_direct_runner_uses_the_same_markdown_contract(
 
     assert runner_main() == 0
     report = json.loads(output_json.read_text(encoding="utf-8"))
-    assert output_markdown.read_text(encoding="utf-8") == (
-        render_scoring_detail_markdown(report)
-    )
+    markdown = output_markdown.read_text(encoding="utf-8")
+    assert markdown == render_scoring_detail_markdown(report)
+    assert "| 人物 | 总档 | 定级理由 |" in markdown
 
 
 def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
@@ -4496,8 +4663,8 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
     episode_ids = report["episode_index_by_person"]["周勃"]
     assert len(episode_ids) == len(set(episode_ids))
     outcome_ids = [value for value in episode_ids if value.startswith("EP-OUTCOME-")]
-    assert len(outcome_ids) == 1
-    assert rendered.count(outcome_ids[0]) == 1
+    assert len(outcome_ids) >= 1
+    assert all(rendered.count(outcome_id) == 1 for outcome_id in outcome_ids)
 
     output = tmp_path / "zhou-bo.md"
     assert eval_main([
@@ -4535,6 +4702,20 @@ def test_scoring_detail_output_is_optional(
     current_dir.mkdir(parents=True)
     source = ROOT / "eval/i5b_current_value" / ruler / "source-pack.json"
     (current_dir / "source-pack.json").write_bytes(source.read_bytes())
+    (workspace / "config").mkdir(parents=True)
+    shutil.copy2(ROOT / "config/project.yml", workspace / "config/project.yml")
+    registry_dir = workspace / "eval/historical_outcome_registry"
+    registry_dir.mkdir(parents=True)
+    shutil.copy2(
+        ROOT / "eval/historical_outcome_registry/current.json",
+        registry_dir / "current.json",
+    )
+    binding_dir = workspace / "eval/historical_outcome_bindings"
+    binding_dir.mkdir(parents=True)
+    shutil.copy2(
+        ROOT / "eval/historical_outcome_bindings" / f"{ruler}.json",
+        binding_dir / f"{ruler}.json",
+    )
     argv = [
         "i5b-scoring-detail",
         "--ruler",

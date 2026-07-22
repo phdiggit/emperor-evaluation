@@ -22,10 +22,13 @@ responsibility_roles:
   military:
     commander_in_chief: 主帅
     principal_commander: 主将
-    deputy_commander: 副将
     participant: 从攻
     not_in_command_chain: 不在军事指挥链
   civil_governance:
+    exclusive: 独占
+    lead: 主导
+    participant: 参与
+  statecraft:
     exclusive: 独占
     lead: 主导
     participant: 参与
@@ -49,27 +52,21 @@ military_campaign_tiers:
   A: 决定重要区域、战略门户、主力集团或重大阶段目标
   S-: 准全国或强区域终局，决定核心根据地或重大长期战略方向
   S: 决定统一、国家存亡、主要竞争政权或整场战争结局
-  S+: 极限复合终局，同时重塑多个核心方向或时代秩序
+  S+: 仅限复合竞争极终局、国内统一终局或外部霸权终局
 
 historic_paths:
   military:
-    s_plus_anchor_path:
-      minimum_independent_s_plus_campaigns: 1
-      minimum_additional_independent_a_or_higher_campaigns: 1
-      s_plus_requires_decisive: true
-      counted_command_roles: [commander_in_chief, principal_commander]
-    normal_repeated_delivery:
-      minimum_independent_s_or_higher_campaigns: 2
+    counted_command_roles: [commander_in_chief, principal_commander]
+    strategic_weights: {A: 1, S-: 2, S: 3, S+: 4}
+    peak_pair:
+      minimum_independent_campaigns: 2
+      either:
+        - one_decisive_s_plus_and_one_additional_a_or_higher
+        - two_decisive_s_or_higher
+    sustained_strategic_portfolio:
       minimum_independent_a_or_higher_campaigns: 3
-      counted_command_roles: [commander_in_chief, principal_commander]
-    exceptional_two_campaign_path:
-      independent_s_or_higher_campaigns: 2
-      every_campaign_command_roles: [commander_in_chief, principal_commander]
-      every_campaign_requires_decisive: true
-    one_s_two_s_minus_path:
       minimum_independent_s_or_higher_campaigns: 1
-      minimum_independent_s_minus_or_higher_campaigns: 3
-      counted_command_roles: [commander_in_chief, principal_commander]
+      minimum_strategic_weight: 7
     exclusions:
       - opponent_is_a_formal_state_alone_does_not_raise_tier
       - repeated_battles_inside_one_campaign_count_once
@@ -101,6 +98,22 @@ historic_paths:
       - multiple_modules_of_one_reform_count_as_one_chain_unless_independently_operated
     cross_stage_legacy_required_for_normal_repeated_delivery: false
 
+  statecraft:
+    historic:
+      minimum_independent_national_results: 3
+      counted_responsibility_roles: [exclusive, lead]
+    top:
+      minimum_independent_national_results: 2
+      counted_responsibility_roles: [exclusive, lead]
+    important:
+      minimum_independent_regional_or_higher_results: 1
+      counted_responsibility_roles: [exclusive, lead]
+    exclusions:
+      - unimplemented_advice_does_not_count
+      - pure_power_seizure_or_palace_purge_does_not_count
+      - successful_method_without_independent_strategic_result_does_not_count
+      - statecraft_does_not_enter_ruler_governance_projection
+
   culture_and_scholarship:
     civilization_foundational_single_work_path:
       minimum_completed_works: 1
@@ -128,7 +141,7 @@ top_fallback:
 
 registry_contracts:
   historical_outcome_cluster_registry_schema: config/historical-outcome-cluster-registry.schema.json
-  outcome_kinds: [campaign, governance]
+  outcome_kinds: [campaign, governance, statecraft]
   outcome_cluster_is_neutral_fact_overlay_not_scoring_episode_copy: true
   reusable_targets:
     - talent_grade_military
@@ -142,6 +155,8 @@ registry_contracts:
     - item2_central_governance
     - item2_institutional_reform
     - item2_law_and_adjudication
+  statecraft_reusable_targets:
+    - talent_grade_statecraft
   item_specific_eligibility_remains_in_projector: true
 
 release:

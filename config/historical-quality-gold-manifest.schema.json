@@ -46,9 +46,80 @@
     "actual_dispositions": {
       "type": "array",
       "items": {"$ref": "#/$defs/actual_disposition"}
+    },
+    "i5b_expectation": {
+      "$ref": "#/$defs/i5b_expectation"
     }
   },
   "$defs": {
+    "signal_value": {
+      "type": "string",
+      "pattern": "^-?[0-9]+\\.[0-9]{6}$"
+    },
+    "i5b_rule_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive_signal", "negative_signal", "rule_raw_net"],
+      "properties": {
+        "positive_signal": {"$ref": "#/$defs/signal_value"},
+        "negative_signal": {"$ref": "#/$defs/signal_value"},
+        "rule_raw_net": {"$ref": "#/$defs/signal_value"},
+        "positive_settled_unit_count": {"type": "integer", "minimum": 0},
+        "negative_settled_unit_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "i5b_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["weighted_raw_signal", "rules", "team_projection"],
+      "properties": {
+        "weighted_raw_signal": {"$ref": "#/$defs/signal_value"},
+        "rules": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "talent_discovery",
+            "appointment_delegation",
+            "team_building",
+            "tolerate_talent",
+            "anti_nepotism"
+          ],
+          "properties": {
+            "talent_discovery": {"$ref": "#/$defs/i5b_rule_expectation"},
+            "appointment_delegation": {"$ref": "#/$defs/i5b_rule_expectation"},
+            "team_building": {"$ref": "#/$defs/i5b_rule_expectation"},
+            "tolerate_talent": {"$ref": "#/$defs/i5b_rule_expectation"},
+            "anti_nepotism": {"$ref": "#/$defs/i5b_rule_expectation"}
+          }
+        },
+        "team_projection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "positive_members",
+            "negative_members",
+            "functional_complementarity",
+            "long_term_stability"
+          ],
+          "properties": {
+            "positive_members": {
+              "type": "array",
+              "maxItems": 8,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "negative_members": {
+              "type": "array",
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "functional_complementarity": {"type": "string", "minLength": 1},
+            "long_term_stability": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
     "selector": {
       "type": "object",
       "additionalProperties": false,
@@ -57,7 +128,7 @@
         "collection": {
           "enum": ["historical_outcome_clusters", "profile_projection_review"]
         },
-        "outcome_kind": {"enum": ["campaign", "governance"]},
+        "outcome_kind": {"enum": ["campaign", "governance", "statecraft"]},
         "label_terms_all": {
           "type": "array",
           "items": {"type": "string", "minLength": 1}
@@ -160,6 +231,7 @@
             "campaign_group",
             "campaign_operation",
             "governance_outcome",
+            "statecraft_outcome",
             "person_talent",
             "person_risk",
             "exclusion_boundary"

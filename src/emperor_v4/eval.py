@@ -21,6 +21,7 @@ from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
 )
 from emperor_v4.evaluation.historical_quality_gold import (
     compare_historical_quality_gold_files,
+    run_historical_quality_gold_blind_gate,
     verify_historical_quality_gold_source_files,
 )
 from emperor_v4.evaluation.historical_outcome_registry import (
@@ -96,6 +97,14 @@ def _parser() -> argparse.ArgumentParser:
     gold_sources.add_argument("--source-index", type=Path, required=True)
     gold_sources.add_argument("--schema", type=Path)
     gold_sources.add_argument("--output", type=Path)
+
+    gold_blind = commands.add_parser("historical-gold-blind-run")
+    gold_blind.add_argument("--ruler", required=True)
+    gold_blind.add_argument("--workspace-root", type=Path, default=Path("."))
+    gold_blind.add_argument("--source-pack", type=Path)
+    gold_blind.add_argument("--manifest", type=Path)
+    gold_blind.add_argument("--schema", type=Path)
+    gold_blind.add_argument("--output", type=Path)
 
     model_policy = commands.add_parser("model-policy")
     model_policy.add_argument("--policy", type=Path, required=True)
@@ -348,7 +357,12 @@ def _run_outcome_registry(args: argparse.Namespace) -> int:
     written = write_current_outcome_layers(workspace_root)
     registry = written["registry"]
     print(f"总成果：{registry['declarations']['outcome_count']}")
-    print(f"战役 / 治理：{registry['declarations']['campaign_count']} / {registry['declarations']['governance_count']}")
+    print(
+        "战役 / 治理 / 谋略："
+        f"{registry['declarations']['campaign_count']} / "
+        f"{registry['declarations']['governance_count']} / "
+        f"{registry['declarations']['statecraft_count']}"
+    )
     print(f"窗口绑定：{registry['declarations']['window_binding_count']}")
     print(f"总登记：{written['registry_markdown']}")
     return 1 if registry["status"] == "needs_review" else 0
@@ -382,6 +396,28 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _write_report(
             verify_historical_quality_gold_source_files(**kwargs), args.output
         )
+    if args.command == "historical-gold-blind-run":
+        if any(value in args.ruler for value in ("/", "\\", "..")):
+            raise ValueError("--ruler 不得包含路径字符")
+        workspace_root = args.workspace_root.resolve()
+        source_pack = args.source_pack or (
+            Path("eval/i5b_current_value") / args.ruler / "source-pack.json"
+        )
+        manifest = args.manifest or (
+            Path("eval/historical_quality_gold") / f"{args.ruler}.json"
+        )
+        if not source_pack.is_absolute():
+            source_pack = workspace_root / source_pack
+        if not manifest.is_absolute():
+            manifest = workspace_root / manifest
+        kwargs = {
+            "source_pack_path": source_pack,
+            "manifest_path": manifest,
+            "workspace_root": workspace_root,
+        }
+        if args.schema:
+            kwargs["schema_path"] = args.schema
+        return _write_report(run_historical_quality_gold_blind_gate(**kwargs), args.output)
     if args.command == "emperor-rebuild":
         runtime_root = args.runtime_root or (
             args.workspace_root / "tmp" / "emperor_rebuild" / args.ruler

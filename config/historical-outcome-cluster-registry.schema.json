@@ -51,7 +51,7 @@
         "actor_kind": {"enum": ["person", "ruler"]},
         "role_code": {
           "enum": [
-            "commander_in_chief", "principal_commander", "deputy_commander", "participant", "not_in_command_chain",
+            "commander_in_chief", "principal_commander", "participant", "not_in_command_chain",
             "exclusive", "lead", "governance_participant", "authorized", "reign_holder"
           ]
         },
@@ -87,8 +87,9 @@
       "additionalProperties": false,
       "required": [
         "theater", "strategic_objective", "battle_result", "objective_completion",
-        "opponent_condition", "opponent_strategic_weight", "campaign_tier",
-        "campaign_tier_basis", "land_strategic_value", "process_adversity",
+        "opponent_condition", "opponent_strategic_weight", "strategic_result_class",
+        "campaign_tier", "campaign_tier_basis", "land_strategic_value",
+        "combat_difficulty", "combat_difficulty_basis", "process_adversity",
         "process_adversity_basis", "process_adversity_index",
         "process_adversity_attributions"
       ],
@@ -98,12 +99,15 @@
         "battle_result": {"enum": ["victory", "mixed", "defeat", "unclear"]},
         "objective_completion": {"enum": ["complete", "partial", "failed", "unclear"]},
         "opponent_condition": {"enum": ["strong", "viable", "weakened", "residual", "unclear"]},
-        "opponent_strategic_weight": {"enum": ["minor", "regional_major", "national_peer", "imperial_main_force", "unclear"]},
+        "opponent_strategic_weight": {"enum": ["minor", "regional_major", "first_tier_pole", "dominant_pole", "external_state", "external_hegemony", "unclear"]},
+        "strategic_result_class": {"enum": ["local_tactical", "important_objective", "major_stage_or_crisis", "independent_direction", "single_pole_or_state_terminal", "composite_poles_terminal", "unification_terminal", "external_hegemony_terminal"]},
         "campaign_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
         "campaign_tier_basis": {"type": "string", "minLength": 1},
         "land_strategic_value": {
           "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
         },
+        "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3"]},
+        "combat_difficulty_basis": {"type": "string", "minLength": 1},
         "process_adversity": {
           "enum": ["none", "limited", "material", "severe_repaired", "near_collapse_repaired", "terminal_failure"]
         },
@@ -164,9 +168,9 @@
       ],
       "properties": {
         "outcome_ref": {"type": "string", "pattern": "^OUTCOME-[A-Z0-9-]+$"},
-        "outcome_kind": {"enum": ["campaign", "governance"]},
+        "outcome_kind": {"enum": ["campaign", "governance", "statecraft"]},
         "settlement_scope": {
-          "enum": ["ruler_campaign_parent", "person_campaign_subresult", "governance_result", "person_governance_result", "reign_macro_outcome"]
+          "enum": ["ruler_campaign_parent", "person_campaign_subresult", "governance_result", "person_governance_result", "reign_macro_outcome", "person_statecraft_result"]
         },
         "parent_outcome_ref": {"type": "string", "pattern": "^OUTCOME-[A-Z0-9-]+$"},
         "independent_key": {"type": "string", "minLength": 1},

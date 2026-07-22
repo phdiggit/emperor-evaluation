@@ -61,7 +61,6 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
     assert policy["responsibility_roles"]["military"] == {
         "commander_in_chief": "主帅",
         "principal_commander": "主将",
-        "deputy_commander": "副将",
         "participant": "从攻",
         "not_in_command_chain": "不在军事指挥链",
     }
@@ -70,16 +69,12 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
         "lead": "主导",
         "participant": "参与",
     }
-    assert (
-        policy["historic_paths"]["military"]["normal_repeated_delivery"]
-        ["minimum_independent_s_or_higher_campaigns"]
-        == 2
-    )
-    assert (
-        policy["historic_paths"]["military"]["s_plus_anchor_path"]
-        ["minimum_additional_independent_a_or_higher_campaigns"]
-        == 1
-    )
+    assert policy["historic_paths"]["military"]["strategic_weights"] == {
+        "A": 1,
+        "S-": 2,
+        "S": 3,
+        "S+": 4,
+    }
     assert policy["top_fallback"]["military_single_s_plus_establishes_top"] is True
     assert (
         policy["historic_paths"]["civil_governance"]["normal_repeated_delivery"]
@@ -94,7 +89,7 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
     )
 
 
-def test_military_two_s_plus_one_a_passes_without_legacy() -> None:
+def test_military_sustained_portfolio_accepts_two_s_plus_one_a() -> None:
     result = assess_domain_historic_path(
         "military",
         [
@@ -111,10 +106,11 @@ def test_military_two_s_plus_one_a_passes_without_legacy() -> None:
     )
 
     assert result["historic_fact_path_status"] == "eligible"
-    assert result["matched_path"] == "military_two_s_plus_one_a"
+    assert result["matched_path"] == "military_sustained_strategic_portfolio"
+    assert result["counts"]["strategic_weight"] == 7
 
 
-def test_military_one_s_two_s_minus_is_historic() -> None:
+def test_military_sustained_portfolio_accepts_one_s_two_s_minus() -> None:
     result = assess_domain_historic_path(
         "military",
         [
@@ -141,7 +137,8 @@ def test_military_one_s_two_s_minus_is_historic() -> None:
     )
 
     assert result["historic_fact_path_status"] == "eligible"
-    assert result["matched_path"] == "military_one_s_two_s_minus"
+    assert result["matched_path"] == "military_sustained_strategic_portfolio"
+    assert result["counts"]["strategic_weight"] == 7
 
 
 def test_one_decisive_s_plus_and_one_a_establish_historic_path() -> None:
@@ -166,7 +163,7 @@ def test_one_decisive_s_plus_and_one_a_establish_historic_path() -> None:
     )
 
     assert result["historic_fact_path_status"] == "eligible"
-    assert result["matched_path"] == "military_one_s_plus_one_a"
+    assert result["matched_path"] == "military_peak_pair"
     assert result["matched_independent_keys"] == ["SPLUS", "A"]
 
 
@@ -201,7 +198,7 @@ def test_two_exceptional_main_command_s_campaigns_can_pass_alone() -> None:
         ],
     )
 
-    assert result["matched_path"] == "military_exceptional_two_s_command"
+    assert result["matched_path"] == "military_peak_pair"
 
 
 def test_clear_military_success_survives_separately_recorded_coordination_cost() -> None:
@@ -220,7 +217,7 @@ def test_clear_military_success_survives_separately_recorded_coordination_cost()
         ],
     )
 
-    assert result["matched_path"] == "military_two_s_plus_one_a"
+    assert result["matched_path"] == "military_sustained_strategic_portfolio"
 
 
 def test_mixed_result_without_preserved_professional_success_does_not_count() -> None:
@@ -370,6 +367,9 @@ def test_campaign_registry_enforces_neutral_identity_and_scale_basis() -> None:
                 "campaign_tier": "S",
                 "campaign_tier_basis": "核心方向、全国主要对手和整场战争结果共同支持。",
                 "land_strategic_value": "core_heartland",
+                "strategic_result_class": "single_pole_or_state_terminal",
+                "combat_difficulty": "D2",
+                "combat_difficulty_basis": "对手主力仍具战力。",
                 "outcome": {
                     "battle_result": "victory",
                     "objective_completion": "complete",
@@ -380,7 +380,7 @@ def test_campaign_registry_enforces_neutral_identity_and_scale_basis() -> None:
                     "consequence_basis": "national_war_outcome",
                     "decisiveness": "decisive",
                     "opponent_condition": "viable",
-                    "opponent_strategic_weight": "national_peer",
+                    "opponent_strategic_weight": "first_tier_pole",
                     "reason": "直接决定战争结局"
                 },
                 "participants": [
@@ -429,6 +429,9 @@ def test_residual_state_conquest_is_not_national_by_title_alone() -> None:
                 "campaign_tier": "S",
                 "campaign_tier_basis": "仅凭灭国名义尝试定为S级。",
                 "land_strategic_value": "important_region",
+                "strategic_result_class": "single_pole_or_state_terminal",
+                "combat_difficulty": "D0",
+                "combat_difficulty_basis": "仅为残余力量。",
                 "outcome": {
                     "battle_result": "victory",
                     "objective_completion": "complete",

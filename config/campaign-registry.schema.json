@@ -44,6 +44,9 @@
         "campaign_tier",
         "campaign_tier_basis",
         "land_strategic_value",
+        "strategic_result_class",
+        "combat_difficulty",
+        "combat_difficulty_basis",
         "scale",
         "participants",
         "source_refs",
@@ -72,6 +75,9 @@
         "strategic_objective": {"type": "string", "minLength": 1},
         "campaign_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
         "campaign_tier_basis": {"type": "string", "minLength": 1},
+        "strategic_result_class": {"enum": ["local_tactical", "important_objective", "major_stage_or_crisis", "independent_direction", "single_pole_or_state_terminal", "composite_poles_terminal", "unification_terminal", "external_hegemony_terminal"]},
+        "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3"]},
+        "combat_difficulty_basis": {"type": "string", "minLength": 1},
         "land_strategic_value": {
           "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
         },
@@ -105,7 +111,7 @@
             },
             "decisiveness": {"enum": ["supporting", "major", "decisive"]},
             "opponent_condition": {"enum": ["strong", "viable", "weakened", "residual", "unclear"]},
-            "opponent_strategic_weight": {"enum": ["minor", "regional_major", "national_peer", "imperial_main_force", "unclear"]},
+            "opponent_strategic_weight": {"enum": ["minor", "regional_major", "first_tier_pole", "dominant_pole", "external_state", "external_hegemony", "unclear"]},
             "reason": {"type": "string", "minLength": 1}
           }
         },
@@ -118,7 +124,7 @@
             "required": ["person_ref", "command_role", "command_scope"],
             "properties": {
               "person_ref": {"type": "string", "minLength": 1},
-              "command_role": {"enum": ["commander_in_chief", "principal_commander", "deputy_commander", "participant"]},
+              "command_role": {"enum": ["commander_in_chief", "principal_commander", "participant"]},
               "command_scope": {"type": "string", "minLength": 1}
             }
           }
