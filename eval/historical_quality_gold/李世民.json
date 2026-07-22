@@ -1625,6 +1625,1561 @@
         "資治通鑑/卷198@1502841#上嘉其固守，賜縑百匹，以勵事君。"
       ],
       "unit_kind": "exclusion_boundary"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-BAIDAO",
+      "unit_kind": "campaign_operation",
+      "importance": "secondary",
+      "canonical_label": "白道击破东突厥",
+      "source_refs": [
+        "資治通鑑/卷193@2293559#李世勣出雲中，與突厥戰於白道，大破之。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "白道",
+          "突厥"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "victory"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_name": "李勣",
+            "actor_kind": "person",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-EASTERN-TURKS-630"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-647",
+      "unit_kind": "campaign_group",
+      "importance": "secondary",
+      "canonical_label": "贞观二十一年辽东道再征高句丽",
+      "source_refs": [
+        "資治通鑑/卷198@1502841#李世勣軍既渡遼，歷南蘇等數城，高麗多背城拒戰，世勣擊破其兵，焚其"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "渡辽",
+          "高句丽"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "victory"
+          },
+          {
+            "path": "payload.objective_completion",
+            "expected": "partial"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_name": "李勣",
+            "actor_kind": "person",
+            "role_code": "principal_commander"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-LIAODONG-RELIEF",
+      "unit_kind": "campaign_operation",
+      "importance": "secondary",
+      "canonical_label": "辽东城外道宗收兵反击",
+      "source_refs": [
+        "資治通鑑/卷197@1502835#既合戰，行軍總管張君乂退走，唐兵不利，道宗收散卒，登高而望，見高"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "支援",
+          "道宗",
+          "高丽"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "victory"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李勣",
+            "actor_kind": "person",
+            "role_code": "participant"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-XUYUANLANG",
+      "unit_kind": "campaign_operation",
+      "importance": "secondary",
+      "canonical_label": "曹州进军平徐圆朗",
+      "source_refs": [
+        "舊唐書/卷55@2037164#太宗平黑闥，進師曹州，遣淮安王神通及李世勣攻之。圓朗數出戰，不利"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "徐圆朗",
+          "平定"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "victory"
+          },
+          {
+            "path": "payload.objective_completion",
+            "expected": "complete"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          },
+          {
+            "actor_name": "李勣",
+            "actor_kind": "person",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-LIUHEITA-MINGZHOU-DEFEAT",
+      "unit_kind": "campaign_operation",
+      "importance": "secondary",
+      "canonical_label": "刘黑闼战役中黎州失守与洺州重创",
+      "source_refs": [
+        "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州。黑闥追擊破之，步卒五千人，皆"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "黎州",
+          "洺州",
+          "重创"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "defeat"
+          },
+          {
+            "path": "payload.objective_completion",
+            "expected": "failed"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李勣",
+            "actor_kind": "person",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-JINGYANG-626",
+      "unit_kind": "campaign_operation",
+      "importance": "secondary",
+      "canonical_label": "贞观元年泾阳击破突厥前锋",
+      "source_refs": [
+        "資治通鑑/卷191@1517706#辛巳，涇州道行軍總管尉遲敬德與突厥戰於涇陽，大破之，獲其俟斤阿史"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "泾阳",
+          "突厥"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "victory"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
+            "actor_name": "尉迟敬德",
+            "actor_kind": "person",
+            "role_code": "principal_commander"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-CAMPAIGN-YUKE",
+      "unit_kind": "campaign_operation",
+      "importance": "secondary",
+      "canonical_label": "榆窠反击王世充军",
+      "source_refs": [
+        "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "campaign",
+        "label_terms_all": [
+          "榆窠",
+          "王世充"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "payload.battle_result",
+            "expected": "victory"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          },
+          {
+            "actor_name": "尉迟敬德",
+            "actor_kind": "person",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-PREACCESSION"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-JUDICIAL-ERROR-BALANCE",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "恢复司法失入失出依律处理",
+      "source_refs": [
+        "新唐書/卷056@2017606#遂命失出入者皆如律，自此吏亦持平。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "失入",
+          "失出",
+          "责任"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          },
+          {
+            "actor_name": "刘德威",
+            "actor_kind": "person",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-MERIT-ARISTOCRACY",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "按功封赏并黜无功宗室",
+      "source_refs": [
+        "貞觀政要/卷03@802073#貞觀元年，封中書令房玄齡為邗國公，兵部尚書杜如晦為蔡國公，吏部尚"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "按功",
+          "无功宗室"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-PRINCE-ADMIN-RULES",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "纠正王府任职与皇子外任规则",
+      "source_refs": [
+        "舊唐書/卷80@2588763#一無舛誤",
+        "舊唐書/卷80@2588763#下筆遒勁",
+        "舊唐書/卷80@2588763#不得過四考",
+        "舊唐書/卷80@2588763#且留京師，教以經學",
+        "舊唐書/卷80@2588763#召令侍書",
+        "舊唐書/卷80@2588763#太子、諸王，須有定分",
+        "舊唐書/卷80@2588763#尤工隸書",
+        "舊唐書/卷80@2588763#常為擇賢",
+        "舊唐書/卷80@2588763#歐陽詢甚重之",
+        "舊唐書/卷80@2588763#此言是也",
+        "舊唐書/卷80@2588763#深納之",
+        "舊唐書/卷80@2588763#然後遣出"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "王府",
+          "皇子",
+          "规则"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          },
+          {
+            "actor_name": "褚遂良",
+            "actor_kind": "person",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-NEW-RITES",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "编定并颁行贞观新礼",
+      "source_refs": [
+        "資治通鑑/卷194@2031610#房玄齡、魏徵上所定《新禮》一百三十八篇；"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "一百三十八篇",
+          "新礼"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          },
+          {
+            "actor_name": "房玄龄",
+            "actor_kind": "person",
+            "role_code": "lead"
+          },
+          {
+            "actor_name": "魏徵",
+            "actor_kind": "person",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-CLAN-REGISTRY",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "考订并颁行氏族志",
+      "source_refs": [
+        "舊唐書/卷65@1768276#刊正姓氏",
+        "舊唐書/卷65@1768276#考其真偽",
+        "舊唐書/卷65@1768276#詔頒於天下",
+        "舊唐書/卷65@1768276#類其等第以進"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "氏族志",
+          "颁行"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          },
+          {
+            "actor_name": "高士廉",
+            "actor_kind": "person",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-GRANARY",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "建立州县义仓并用于赈给",
+      "source_refs": [
+        "舊唐書/卷70@2585040#各納所在，立爲義倉。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "义仓",
+          "饥馑"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-STREAMLINE",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "精简中枢员额并确立宰相量才授职",
+      "source_refs": [
+        "資治通鑑/卷192@2510432#命玄齡並省",
+        "資治通鑑/卷193@2293559#當廣求賢人，隨才授任",
+        "資治通鑑/卷193@2293559#台閣規模，皆二人所定"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "精简",
+          "宰相",
+          "量才"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          },
+          {
+            "actor_name": "房玄龄",
+            "actor_kind": "person",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-FIVE-CLASSICS",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "考定并颁行五经正义",
+      "source_refs": [
+        "貞觀政要/卷07@802077#貞觀四年，太宗以經籍去聖久遠，文字訛謬，詔前中書侍郎顏師古於秘書",
+        "貞觀政要/卷07@802077#詔師古與國子祭酒孔穎達等諸儒，撰定五經疏義，凡一百八十卷，名曰《"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "五经",
+          "正义"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-BINGZHOU",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "李勣长期治理并州使民夷怀服",
+      "source_refs": [
+        "資治通鑑/卷196@617858#并州大都督長史李世勣在州十六年，令行禁止，民夷懷服。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "并州",
+          "民夷怀服"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李勣",
+            "actor_kind": "person",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-LINGNAN-PACIFICATION",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "岭南冲突遣使安抚定局",
+      "source_refs": [
+        "貞觀政要/卷09@802090#今若遣使，分明曉諭，必不勞師旅，自致闕庭。」太宗從之，嶺表悉定。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "岭南",
+          "安抚"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-WESTERN-REGION",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "平高昌后设置西州与安西都护府",
+      "source_refs": [
+        "貞觀政要/卷09@802090#太宗不從，竟以其地置西州，仍以西州為安西都護府，每歲調發千餘人防"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "西州",
+          "安西都护府"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-SHANGSHU-TRIAGE",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "尚书省分流细务并保留重大冤滞奏闻",
+      "source_refs": [
+        "貞觀政要/卷03@802073#因敕尚書省，細碎務皆付左右丞，惟冤滯大事合聞奏者，關於僕射。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "尚书省",
+          "冤滞"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-SIX-DEPARTMENTS",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "设置六司侍郎与左右司郎中",
+      "source_refs": [
+        "資治通鑑/卷192@2510432#置六司侍郎，副六尚書；並置左右司郎中各一人。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "六司侍郎",
+          "左右司郎中"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-FAMINE-RELIEF",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "霜俭饥馑时期赈恤避免流离",
+      "source_refs": [
+        "貞觀政要/卷03@802073#頃歲霜儉，普天饑饉。喪亂甫爾，倉廩空虛。聖情矜湣，勤加賑恤，竟無"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "霜俭",
+          "赈恤",
+          "流离"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-INSPECTION",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "派十三使巡察天下处理民间疾苦",
+      "source_refs": [
+        "資治通鑑/卷194@2031610#乃命靖與太常卿蕭瑀等凡十三人分行天下，「察長吏賢不肖，問民間疾苦"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "十三",
+          "巡察",
+          "疾苦"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          },
+          {
+            "actor_name": "李靖",
+            "actor_kind": "person",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-SCHOLARLY-PROMOTION",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "奖励名教与明经人才擢用",
+      "source_refs": [
+        "貞觀政要/卷03@802073#弘獎名教，勸勵學徒，既擢明經於青紫，將升碩儒於卿相"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "名教",
+          "明经",
+          "擢用"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-LITERARY-HALL",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "开设文学馆组织经史讨论",
+      "source_refs": [
+        "貞觀政要/卷02@2144513#因開文館，館中號為多士，咸推世南為文學之宗。授以記室，與房玄齡對"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "文馆",
+          "经史"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-OFFICIAL-MONITORING",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "记录都督刺史姓名并持续考察善事",
+      "source_refs": [
+        "貞觀政要/卷03@802073#故於屏風上錄其姓名，坐臥恒看，在官如有善事，亦具列於名下。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "都督刺史",
+          "善事"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-TURK-RESETTLEMENT",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "突厥降部内徙与州府安置",
+      "source_refs": [
+        "貞觀政要/卷09@802090#卒用彥博策，自幽州至靈州，置順、祐、化、長四州都督府以處之，其人",
+        "貞觀政要/卷09@802090#事敗，皆捕斬之。太宗自是不直突厥，悔處其部眾於中國，還其舊部於河"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "突厥",
+          "内徙",
+          "州府"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-CURB-POWERFUL",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "约束王公豪强侵欺",
+      "source_refs": [
+        "貞觀政要/卷01@2692710#制馭王公、妃主之家，大姓豪猾之伍，皆畏威屏跡，無敢侵欺細人。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "王公",
+          "豪强",
+          "侵欺"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-ANTI-CORRUPTION",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "严惩受贿枉法并促使官吏清谨",
+      "source_refs": [
+        "貞觀政要/卷01@2692710#深惡官吏貪濁，有枉法受財者，必無赦免。在京流外有犯贓者，皆遣執奏"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "受贿",
+          "枉法",
+          "清谨"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-LABOR-BURDEN",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "徭役杂匠与正兵差使造成关中劳弊",
+      "source_refs": [
+        "貞觀政要/卷10@857543#雜匠之徒，下日悉留和雇；正兵之輩，上番多別驅使。和市之物不絕於鄉",
+        "貞觀政要/卷10@857543#頃年已來，疲於徭役，關中之人，勞弊尤甚。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "徭役",
+          "关中",
+          "劳弊"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "negative"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-PALACE-WOMEN",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "遣出后宫掖庭宫人并任其婚配",
+      "source_refs": [
+        "貞觀政要/卷06@2358176#今將出之，任求伉儷，非獨以省費，兼以息人，亦各得遂其情性。」於是"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "后宫",
+          "宫人",
+          "婚配"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-PRINCE-TUTORS",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "为太子诸王置三师实施师傅教育",
+      "source_refs": [
+        "貞觀政要/卷04@2358175#綱為太子陳君臣父子之道，問寢視膳之方，理順辭直，聽者忘倦。",
+        "貞觀政要/卷04@2358175#貞觀十一年，以禮部尚書王珪兼為魏王師。",
+        "貞觀政要/卷04@2358175#可即著令，置三師之位。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "太子诸王",
+          "三师"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-LATE-COMMUNICATION",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "贞观后期外官奏事沟通受阻",
+      "source_refs": [
+        "貞觀政要/卷10@857543#或外官充使，奏事入朝，思睹闕庭，將陳所見，欲言則顏色不接，欲請又"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "贞观后期",
+          "奏事",
+          "受阻"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "negative"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-LATE-JUSTICE",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "贞观后期刑狱转向爱憎任情",
+      "source_refs": [
+        "貞觀政要/卷05@1161907#頃年以來，意漸深刻，雖開三面之網，而察見淵中之魚，取舍在於愛憎，",
+        "貞觀政要/卷05@1161907#又五品已上有犯，悉令曹司聞奏。本欲察其情狀，有所哀矜；今乃曲求小"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "贞观后期",
+          "刑狱",
+          "爱憎"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "negative"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-LUXURY-SHIFT",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "由节俭转向珍奇征求并使风俗渐坠",
+      "source_refs": [
+        "貞觀政要/卷10@857543#今則求駿馬於萬里，市珍奇於域外，取怪於道路，見輕於戎狄",
+        "貞觀政要/卷10@857543#貞觀之初，時方克壯，抑損嗜欲，躬行節儉，內外康寧，遂臻至治。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "珍奇",
+          "风俗渐坠"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "negative"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-PALACE-CONSTRUCTION",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "贞观后期宫室营建造成劳费",
+      "source_refs": [
+        "貞觀政要/卷09@802090#妾又聞為政之本，貴在無為。竊見土木之功，不可遂兼。北闕初建，南營"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "贞观后期",
+          "宫室",
+          "劳力"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "negative"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-MIDDLE-MALE-CONSCRIPTION",
+      "unit_kind": "governance_outcome",
+      "importance": "secondary",
+      "canonical_label": "暂停中男简点入军",
+      "source_refs": [
+        "貞觀政要/卷02@2144513#乃停中男",
+        "貞觀政要/卷02@2144513#太宗召徵及王珪，作色而待之",
+        "貞觀政要/卷02@2144513#若次男已上，盡點入軍，租賦雜徭，將何取給？",
+        "貞觀政要/卷02@2144513#且比年國家衛士，不堪攻戰。"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "中男",
+          "简点",
+          "暂停"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          },
+          {
+            "actor_name": "魏徵",
+            "actor_kind": "person",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-HARVEST-SECURITY",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "贞观丰稔低粮价与治安改善",
+      "source_refs": [
+        "貞觀政要/卷01@2692710#又頻致豐稔，米斗三四錢"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "丰稔",
+          "粮价",
+          "治安"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-GOV-HEREDITARY-GOVERNOR",
+      "unit_kind": "governance_outcome",
+      "importance": "major",
+      "canonical_label": "停止功臣世袭刺史方案",
+      "source_refs": [
+        "舊唐書/卷65@1768276#下擾生民",
+        "舊唐書/卷65@1768276#不願違離",
+        "舊唐書/卷65@1768276#遂止"
+      ],
+      "expected_match_count": 1,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "outcome_kind": "governance",
+        "label_terms_all": [
+          "停止",
+          "世袭刺史"
+        ]
+      },
+      "expectations": {
+        "fields": [
+          {
+            "path": "result_direction",
+            "expected": "positive"
+          }
+        ],
+        "members": [
+          {
+            "actor_name": "李世民",
+            "actor_kind": "ruler",
+            "role_code": "lead"
+          },
+          {
+            "actor_name": "长孙无忌",
+            "actor_kind": "person",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "review_basis": "固定 revision 原文支持该重大或次要公共成果；期望在盲测前人工冻结。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-EXCLUDE-ONE-OFF-JUDICIAL-CASES",
+      "unit_kind": "exclusion_boundary",
+      "importance": "boundary",
+      "canonical_label": "排除单案改判、赦免与个案问罪作为独立治理成果",
+      "source_refs": [
+        "貞觀政要/卷02@2144513#徐州司戶柳雄於隋資妄加階級。"
+      ],
+      "expected_match_count": 0,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_any": [
+          "柳雄案",
+          "张仲文案",
+          "裴仁轨案",
+          "误带刀入阁门案"
+        ]
+      },
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "review_basis": "固定 revision 原文仅支持边界事实，不支持登记为李世民公共成果。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-EXCLUDE-PERSONAL-HONORS",
+      "unit_kind": "exclusion_boundary",
+      "importance": "boundary",
+      "canonical_label": "排除个人住宅祭祀、送葬与纪念性礼遇作为治理成果",
+      "source_refs": [
+        "貞觀政要/卷06@2358176#令有司特為之造廟。",
+        "貞觀政要/卷06@2358176#而輟其材為徵營構，五日而就。遣中使齎素褥布被而賜之",
+        "貞觀政要/卷06@2358176#遽命所司為造，當厚加賻贈。"
+      ],
+      "expected_match_count": 0,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_any": [
+          "官员住宅",
+          "送葬",
+          "凌烟阁",
+          "亲临悼念"
+        ]
+      },
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "review_basis": "固定 revision 原文仅支持边界事实，不支持登记为李世民公共成果。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-EXCLUDE-POSTHUMOUS-GOVERNANCE",
+      "unit_kind": "exclusion_boundary",
+      "importance": "boundary",
+      "canonical_label": "排除永徽辅政成果归入李世民治理窗口",
+      "source_refs": [
+        "資治通鑑/卷199@1996786#無忌與褚遂良同心輔政，上亦尊禮二人，恭己以聽之，故永徽之政，百姓"
+      ],
+      "expected_match_count": 0,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "永徽",
+          "百姓阜安"
+        ]
+      },
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "review_basis": "固定 revision 原文仅支持边界事实，不支持登记为李世民公共成果。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-EXCLUDE-LIYUAN-MINISTER-CAMPAIGNS",
+      "unit_kind": "exclusion_boundary",
+      "importance": "boundary",
+      "canonical_label": "排除李渊窗口下臣子独立战役归入李世民战役成果",
+      "source_refs": [
+        "舊唐書/卷67@2296327#三軍之任，一以委靖",
+        "舊唐書/卷67@2296327#靖又陳十策以圖蕭銑",
+        "舊唐書/卷67@2296327#銑遣使請降"
+      ],
+      "expected_match_count": 0,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_any": [
+          "平定萧铣",
+          "宇文化及",
+          "冯盎率部归降",
+          "寿阳"
+        ]
+      },
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "review_basis": "固定 revision 原文仅支持边界事实，不支持登记为李世民公共成果。"
+    },
+    {
+      "gold_ref": "GOLD-LSM-EXCLUDE-POSTHUMOUS-GOGURYEO",
+      "unit_kind": "exclusion_boundary",
+      "importance": "boundary",
+      "canonical_label": "排除李世民身后平壤战果归入其战役成果",
+      "source_refs": [
+        "舊唐書/卷67@2296327#克其城，虜其王高藏"
+      ],
+      "expected_match_count": 0,
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "平壤",
+          "平定高句丽"
+        ]
+      },
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "review_basis": "固定 revision 原文仅支持边界事实，不支持登记为李世民公共成果。"
     }
   ],
   "input_identity": {
@@ -1642,7 +3197,1005 @@
   "ruler": "李世民",
   "ruler_ref": "RULER-58130F2446A25CC1",
   "schema_version": "historical-quality-gold-manifest-v1",
-  "scope_code": "lishimin-expanded-historical-quality-calibration",
-  "scope_completeness": "calibration_slice",
-  "status": "human_frozen"
+  "scope_code": "lishimin-public-outcomes-v1",
+  "scope_completeness": "public_outcomes",
+  "status": "human_frozen",
+  "actual_dispositions": [
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-049DADFAB2AF90ADB3A4",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-XUEYANTUO-646"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-1211BA0FF1FA80D10CB7",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-HARVEST-SECURITY"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-14362BF6B1E8AEC32313",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-GAOCHANG-640"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-164B1C44804707498809",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-172BD88DA3104D86A65B",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LAW-ADJUDICATION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-1EE17720B75501CABF8E",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-CLAN-REGISTRY"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-22883FC5C4F80925828C",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-HEREDITARY-GOVERNOR"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-29B0C201AB296DCAAEB2",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-3BE9F931EFCF2E191FE6",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LAW-ADJUDICATION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-41F9D6C2207852099F1B",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-EDUCATION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-5422AB63AEEC016843D4",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-61732E30C9C6E275EDD2",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-GRANARY"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-64B54DF4E5A2E78325BA",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-YUKE"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-66593E9500E13D957AF7",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-CENTRAL-INSTITUTIONS"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-6F67C523DC9A50C923B9",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-JUDICIAL-ERROR-BALANCE"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-7516700BA78A30646127",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-7D9A2903547E99A089E2",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-83B8364C63D4966AC384",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-JUDICIAL-ERROR-BALANCE"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-8BE085E9C73B2CF8E8F1",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LAW-ADJUDICATION"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-9467020FD483B4C5B435",
+      "disposition": "false_positive",
+      "gold_refs": [],
+      "basis": "把魏徵持续谏政与总裁多部史书两个独立成果错误合并。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-9C4C15B50E7CA6BF0130",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-A36A6D569113A0AC8819",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AB8878640DD12C79C595",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-0036CD1137EEAAF72F08",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-NEW-RITES"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-0CD591EB1491B68AAA61",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-GOGURYEO-647"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-10BA46414E1A9E920CED",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-TURK-RESETTLEMENT"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-1A3DACEFCD4A9D5E51E9",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-FAMINE-RELIEF"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-24733C482E9C5D231811",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-FAMINE-RELIEF"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-2A6010F40A5CD6CFFBD4",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LITERARY-HALL"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-2EC67E42BC29C1674131",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-30321CC2362A5CE19921",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-3218E266A2FAEBFC9077",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-326AC4A3565B757D885A",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-3491281642BB505FAD6E",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-CURB-POWERFUL"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-36234704E0E7C2F551D0",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-BINGZHOU"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-3FB7A328B733C29E4B7E",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-LIAODONG"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-402EAD34D8552D95BEDD",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-42CF2F407E66D52754FD",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-PALACE-CONSTRUCTION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-44E9733FDD8B67556E85",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-47C9855C979A734D3E37",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-47DD2A040C3A09E4967D",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-MERIT-ARISTOCRACY"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-4E25043A3A311CCB9788",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-4EB21D7E2604365CBC11",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-ZHUBISHAN"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-4F150982FC8C4F588A17",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-OFFICIAL-MONITORING"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-4F6F7E57DCD8A62AF697",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-500764416AFBDAC84155",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-58F69EC00EB4ED1DD62E",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-5ACD6C40F2046B4CD4B5",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-ANTI-CORRUPTION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-5C4509451CE95178FE5A",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-ANSHI"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-5E53B0C9958822E89AD2",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-LIAODONG-RELIEF"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-5F2CF43E6CC7BF5E01C2",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-FAMINE-RELIEF"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-69C37389FEB542DC4A94",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-6E0D10F593962F8C2BAC",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-LIUHEITA-MINGZHOU-DEFEAT"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-6FD32D694D4856C3B1D9",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-727CFAAAC008571E7BE2",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-72CCF8E9B390FEA6DE2E",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-NEW-RITES"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-7423EFA9845A2D42B34A",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-FIVE-CLASSICS"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-74874A714447E353464F",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-TURK-RESETTLEMENT"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-76632247D97ADB9B8A5C",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-HISTORIOGRAPHY"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-7B11A868338652826782",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-7BD4B3D8FA54DB795279",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LINGNAN-PACIFICATION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-7DE1C1244A8CAC33499D",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-7E3B43E8BAAC866781BB",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-7E70D26FCC631329F70B",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-MIDDLE-MALE-CONSCRIPTION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-8058AE9E4ECD490F2E65",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-SCHOLARLY-PROMOTION"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-827E23E0C1B652A6AC21",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-8518B9A8C6A7C007C288",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-GAIMOU"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-86FEF7DD57F488BEFD44",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-884BE1376541B80F6FCD",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-88642886D66EC7E187EC",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-PALACE-WOMEN"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-8AD5D0C43F96C355BAC8",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-LIUHEITA-MINGZHOU-DEFEAT"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-8DB740047B81E9E3B85D",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-HARVEST-SECURITY"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-92985474CF77042C52E4",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LAW-ADJUDICATION"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-93C9702E4C544DF3C02F",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-964AC4DC567C48216204",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-SHANGSHU-TRIAGE"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-9C03BE692BD69D7AB685",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-9EF407D2B3489045C36F",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-REMONSTRANCE-PROCEDURE"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-9FC2D4C9997FD3C83807",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-A007652D64D7EE8DFC1E",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-A3EAF65FDEE6633C3FA2",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-A5DFEBA653C6E75FBD2A",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-A7ADE4B0C18E685AE7AF",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-HISTORIOGRAPHY"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-AD87CDA3FA09AC493B85",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-REMONSTRANCE-PROCEDURE"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-AF99191521880852ED94",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-HARVEST-SECURITY"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-B049FF28A836F925DC3B",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-B2BE608B1F0139B34C10",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-XUYUANLANG"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-B2FDE299AD18F94FC965",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-BC32CE9740A3B4347122",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C1FF65E22C24123352E9",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-JINGYANG-626"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C20FC4763B15DC99A66E",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C27F3AB72F2738357A33",
+      "disposition": "false_positive",
+      "gold_refs": [],
+      "basis": "主体误识：原文所杀为林士弘弟鄱阳王药师，不是李靖。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C575A93A20960E5F789C",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-PRINCE-TUTORS"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C65D59446C4DE0A1052C",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LATE-JUSTICE"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C8460C9119840B4ACD57",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-C98A493F6B3629951ECF",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-BINGZHOU"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-CB0C408B9F234FF75204",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LATE-COMMUNICATION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-CB9C9C84E23BE14A66D1",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-D0B6A4A57C84B0B6334F",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-SIX-DEPARTMENTS"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-D550E164E8E4D9A356B9",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-D5F3FBB5B996FA3B5F84",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LUXURY-SHIFT"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-D61C4FE93FBE17634C10",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-SCHOLARLY-PROMOTION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-DBA6647E8CAFBFE9D569",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-DC8E9F33540FFAACA8F9",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LUXURY-SHIFT"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-E024C87AB3C02C819B96",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-E2A4A4A017ADDC8F4A44",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-E8EB7AA5A8D1FF4C26E2",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-INSPECTION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-EE88F25ACDDC21ED1683",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-WESTERN-REGION"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-F19FA2175F805047BAB1",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-LIAODONG-RELIEF"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-F59B5A3B16557261CDF6",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-NEW-RITES"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-F63708F41E8DFCEBDBA2",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-F9C85A825DD480AA249F",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-LABOR-BURDEN"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-FAA034D73DABCD138E30",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-YUKE"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-AUTO-FD1A622E34C628F3EC9F",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-BAIDAO"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-BE5748B1A230842D8187",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-EASTERN-TURKS-630"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-C58CB293EF3A7C3758E7",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-F49DBC756CFF9A08C273",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-TUYUHUN-635"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-F4E0D154F563ED193E48",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-F6D2FEBCABDFC25295BF",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LSM-GOV-CENTRAL-INSTITUTIONS"
+      ],
+      "basis": "与所绑定 Gold case 为同一成果的重复拆分或重述，不另计成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-F7A648059628A3595F16",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-PRINCE-ADMIN-RULES"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-FD26FDC15E4A354861DC",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-LIJING-XIAOXIAN",
+      "disposition": "out_of_scope",
+      "gold_refs": [],
+      "basis": "经固定 revision 原文复核，属李渊或李世民身后窗口、个人履历/归降、单案处置、礼遇纪念或不足以独立登记的小事/非成果。"
+    },
+    {
+      "collection": "historical_outcome_clusters",
+      "actual_ref": "OUTCOME-LSM-STREAMLINE-DELEGATE-SELECTION",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-STREAMLINE"
+      ],
+      "basis": "固定 revision 原文支持该重大或次要公共成果，绑定人工 Gold case。"
+    }
+  ]
 }
