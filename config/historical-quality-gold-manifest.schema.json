@@ -40,6 +40,10 @@
       "type": "array",
       "minItems": 1,
       "items": {"$ref": "#/$defs/case"}
+    },
+    "actual_dispositions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/actual_disposition"}
     }
   },
   "$defs": {
@@ -64,7 +68,38 @@
           "type": "array",
           "items": {"type": "string", "minLength": 1}
         },
+        "content_terms_all": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "content_terms_any": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
         "person": {"type": "string", "minLength": 1}
+      }
+    },
+    "actual_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collection", "actual_ref", "disposition", "gold_refs", "basis"],
+      "properties": {
+        "collection": {
+          "enum": ["historical_outcome_clusters", "profile_projection_review"]
+        },
+        "actual_ref": {"type": "string", "minLength": 1},
+        "disposition": {
+          "enum": ["accepted", "duplicate", "false_positive", "out_of_scope"]
+        },
+        "gold_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
       }
     },
     "field_expectation": {

@@ -13,6 +13,7 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     validate_historical_outcome_registry,
 )
 from emperor_v4.evaluation.historical_quality_gold import (
+    compare_historical_quality_gold,
     compare_historical_quality_gold_files,
     load_historical_quality_gold,
     verify_historical_quality_gold_sources,
@@ -390,3 +391,34 @@ def test_gold_source_verification_requires_same_revision_and_exact_quote(
         "exact_quote_missing",
     ]
     assert report["database_write_count"] == 0
+
+
+def test_full_ruler_gold_requires_complete_actual_dispositions() -> None:
+    manifest = load_historical_quality_gold(
+        ROOT / "eval/historical_quality_gold/李世民.json",
+        schema_path=GOLD_SCHEMA,
+    )
+    result = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    manifest["scope_completeness"] = "full_ruler"
+    manifest["actual_dispositions"] = [
+        {
+            "collection": "historical_outcome_clusters",
+            "actual_ref": result["historical_outcome_clusters"][0]["outcome_ref"],
+            "disposition": "accepted",
+            "gold_refs": [manifest["cases"][0]["gold_ref"]],
+            "basis": "fixture accepted",
+        }
+    ]
+
+    comparison = compare_historical_quality_gold(manifest, result)
+
+    assert comparison["status"] == "failed"
+    assert comparison["accepted_episode_precision"] is None
+    assert comparison["precision_status"] == "blocked_incomplete_actual_dispositions"
+    assert comparison["actual_disposition_coverage"]["covered"] == 1
+    assert comparison["actual_disposition_coverage"]["actual"] > 1
+    assert "missing_actual_dispositions" in comparison["blocking_refs"]
