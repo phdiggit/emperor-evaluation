@@ -314,7 +314,7 @@ def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     ]["historical_outcome_cluster_count"]
 
 
-def test_lishimin_goguryeo_gold_exposes_current_campaign_chain_gaps() -> None:
+def test_lishimin_public_outcomes_gold_exposes_current_campaign_chain_gaps() -> None:
     report = compare_historical_quality_gold_files(
         manifest_path=ROOT / "eval/historical_quality_gold/李世民.json",
         result_path=ROOT / "eval/i5b_current_value/李世民/result.json",
@@ -325,7 +325,10 @@ def test_lishimin_goguryeo_gold_exposes_current_campaign_chain_gaps() -> None:
     assert report["comparison_mode"] == "post_run_gold_only"
     assert report["recall"]["major"]["total"] >= 27
     assert report["recall"]["major"]["rate"] < 0.9
-    assert report["accepted_episode_precision"] is None
+    assert report["precision_status"] == "measured_public_outcomes"
+    assert 0 < report["accepted_episode_precision"] < 0.9
+    assert report["actual_disposition_coverage"]["missing_refs"] == []
+    assert report["actual_disposition_coverage"]["unexpected_refs"] == []
     assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["matched_refs"] == []
     assert cases["GOLD-LSM-CAMPAIGN-BAIYAN"]["matched_refs"] == []
     assert cases["GOLD-LSM-CAMPAIGN-ZHUBISHAN"]["matched_refs"] == []
