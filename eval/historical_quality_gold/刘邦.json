@@ -1584,6 +1584,972 @@
         "史記/卷090@376055#太仆亡走汉，告梁王与扈辄谋反。"
       ],
       "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "还定三秦战役群",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "S-",
+            "path": "payload.campaign_tier"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "曹参",
+            "role_code": "principal_commander"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "周勃",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-THREE-QIN",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-CHUHAN",
+      "review_basis": "刘邦自汉中东出并还定三秦，恢复关中基地，曹参、周勃均在实际攻取链中任主将；它是楚汉父级战争开启东向竞争的独立阶段成果，不能与后来灭魏合成一条人物生涯成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "三秦"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/卷054@1490182#从还定三秦",
+        "史記/卷057@1569360#还定三秦"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "荥阳成皋相持与防御阶段",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "mixed",
+            "path": "result_status"
+          },
+          {
+            "expected": "mixed",
+            "path": "result_direction"
+          },
+          {
+            "expected": "mixed",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "partial",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "severe_repaired",
+            "path": "payload.process_adversity"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-XINGYANG-CHENGGAO",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-CHUHAN",
+      "review_basis": "彭城败后刘邦在荥阳、成皋反复被围、撤退并恢复防线；该阶段既不能包装为纯胜利，也不能从最终统一中消失，应作为楚汉父级内的混合子阶段。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "荥阳",
+          "成皋"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/卷097@1383195#汉王数困荥阳、成皋"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "韩信渡河灭魏",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "regional",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "A",
+            "path": "payload.campaign_tier"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "曹参",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-WEI",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-NORTH",
+      "review_basis": "灭魏是韩信北方战役群中具有独立对手和终局的子战役，韩信任方面主帅，曹参分兵东攻并参与擒魏豹；不能另以曹参生涯簇重复结算。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "韩信",
+          "魏"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#信遂虏豹，定魏为河东郡。",
+        "史記/卷054@1490182#生得魏王豹"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "韩信破代",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-DAI",
+      "importance": "secondary",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-NORTH",
+      "review_basis": "破代介于灭魏与井陉之间，形成明确俘将与区域阶段结果；它应保留为北方父级的次要子战役，而非被井陉或灭魏吞并。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "韩信",
+          "代"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#后九月，破代兵，禽夏说阏与。"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "韩信潍水破齐并平齐",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "S",
+            "path": "payload.campaign_tier"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-QI",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-NORTH",
+      "review_basis": "潍水击杀龙且并平定齐地改变楚汉全国力量格局，是北方父级内可独立核验的决定性子战役。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "韩信",
+          "齐"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#汉四年，遂皆降平齐。"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "韩信传檄定燕",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-YAN",
+      "importance": "secondary",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-NORTH",
+      "review_basis": "燕因韩信采纳李左车之策而降，属于北方战役群中以威势和使者完成的区域子结果；未发生会战不等于没有战役阶段成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "韩信",
+          "燕"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#发使使燕，燕从风而靡。"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "平定燕王卢绾叛乱",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "S",
+            "path": "payload.campaign_tier"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "周勃",
+            "role_code": "commander_in_chief"
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorized"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-LUWAN",
+      "importance": "major",
+      "review_basis": "卢绾反叛具有独立对手、燕地战区和跨五郡终局，周勃接替樊哙统军，刘邦在病重期间完成授权但未进入该战区实际指挥链。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "卢绾",
+          "燕"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/卷057@1569360#燕王卢绾反，勃以相国代樊哙将"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "疑狱逐级上报廷尉与皇帝程序",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "operated",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "law_and_adjudication",
+            "path": "payload.domain"
+          },
+          {
+            "expected": true,
+            "path": "payload.foundational"
+          },
+          {
+            "expected": true,
+            "path": "payload.durable_cross_stage"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "exclusive"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-GOV-DOUBTFUL-CASE-ESCALATION",
+      "importance": "major",
+      "review_basis": "高帝七年诏令把疑狱从县道逐级上报二千石、廷尉直至皇帝，已形成全国持续运行的审判程序；景帝后续修订不反向归责给刘邦。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "疑狱",
+          "上报"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "漢書/卷023@7908643#高皇帝七年，制詔御史：「獄之疑者，吏或不敢決，有罪者久而不論，無罪者久繫不決。"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "核定官俸官用与财政节制",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "operated",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "fiscal_taxation",
+            "path": "payload.domain"
+          },
+          {
+            "expected": true,
+            "path": "payload.foundational"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "exclusive"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-GOV-FISCAL-RESTRAINT",
+      "importance": "major",
+      "review_basis": "核量官吏俸禄和官府开支是与田租税率相邻但可独立核验的财政执行模块；不得把法律省禁、税率与官用控制合成一个无边界成果簇。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "量吏禄",
+          "度官用"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "漢書/卷024@7498330#量吏祿，度官用，以賦於民。"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "徙六国豪强名家实关中",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "implemented",
+            "path": "result_status"
+          },
+          {
+            "expected": "mixed",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "strategic_coordination",
+            "path": "payload.domain"
+          },
+          {
+            "expected": true,
+            "path": "payload.foundational"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "刘敬",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-GOV-RELOCATE-ELITES",
+      "importance": "major",
+      "review_basis": "刘邦采纳刘敬建议，实际迁徙齐楚大族与豪强十余万口入关中并给田宅，形成中央安全与人口配置的全国性公共结果；强制迁徙代价使净方向保留mixed。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "豪强",
+          "关中"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "資治通鑑/卷012@cache-790693f46a67446c#十一月，徙齐、楚大族昭氏、屈氏、景氏、怀氏、田氏五族及豪桀于关中，与利田、宅，凡十馀万口。"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "汉匈和亲约",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "implemented",
+            "path": "result_status"
+          },
+          {
+            "expected": "mixed",
+            "path": "result_direction"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "foreign_relations",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "explicit",
+            "path": "payload.authorization_status"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "刘敬",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "authorized"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-GOV-XIONGNU-HEQIN",
+      "importance": "secondary",
+      "review_basis": "白登之后刘邦实际遣刘敬缔结和亲约，形成已实施的国家对外程序；其缓和目的与宗室替代、未解决边患的代价并存，不能登记成无条件正向成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "匈奴",
+          "和亲"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "資治通鑑/卷012@cache-790693f46a67446c#上取家人子名为长公主，以妻单于；使刘敬往结和亲约。"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "三秦与魏地不得合并为曹参单一战役成果",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-CAOCAN-QIN-WEI-MERGE",
+      "importance": "boundary",
+      "review_basis": "还定三秦与魏王豹反叛后的灭魏具有不同对手、时段和父级链；曹参均有贡献，但人物相同不能把两个独立结果拼成一簇。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "还定三秦",
+          "平定魏地"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/卷054@1490182#从还定三秦",
+        "史記/卷054@1490182#尽定魏地"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "周勃多战区生涯不得合并为单一战役成果",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-ZHOUBO-MULTI-CAMPAIGN-MERGE",
+      "importance": "boundary",
+      "review_basis": "屠马邑属于陈豨战役，屠浑都原文位于卢绾战役且存在地点或人名断句问题；两段不得因同属周勃本传而合并成跨楚汉、韩王信、陈豨、卢绾的单一成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "屠馬邑",
+          "屠渾都"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/卷057@1569360#击陈豨，屠马邑。",
+        "史記/卷057@1569360#屠浑都。"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "灌婴跨战役生涯不得合并为单一战役成果",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-GUANYING-MULTI-CAMPAIGN-MERGE",
+      "importance": "boundary",
+      "review_basis": "灌婴先后参与楚汉战争、臧荼、韩王信、陈豨和英布等不同对手链；共同人物不能替代独立战略目标边界。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "臧荼",
+          "陈豨",
+          "黥布"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "漢書/卷041@cache-c490feba12ab49ae#还军敖仓，破项籍军成皋南，击绝楚饟道",
+        "漢書/卷041@cache-c490feba12ab49ae#以骑都尉击代，攻韩信平城下"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "约法轻租与官用控制不得跨法律财政合并",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-LAW-TAX-FISCAL-MERGE",
+      "importance": "boundary",
+      "review_basis": "约法省禁、田租税率与核量官俸官用分别具有法律和财政执行边界；相邻出现于同段史文不等于同一独立治理结果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "约法省禁",
+          "田租",
+          "度官用"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "漢書/卷024@7498330#上於是約法省禁，輕田租，什五而稅一，量吏祿，度官用，以賦於民。"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "萧何荐将赏罚与关中治理不得合并",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-XIAOHE-BIOGRAPHY-MERGE",
+      "importance": "boundary",
+      "review_basis": "萧何守关中与转漕是治理成果；推荐韩信、功臣排序、强买田宅和被械系赦出分别属于任用、评价、风险或单案处置，不能拼成一个治理成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "何進言韓信",
+          "械繫之",
+          "蕭何轉漕關中"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "史記/卷053@2087971#何进言韩信，汉王以信为大将军。",
+        "史記/卷053@2087971#械系之"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "军事战略纠偏不得登记为治理成果簇",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-ZHANGLIANG-STRATEGY-AS-GOVERNANCE",
+      "importance": "boundary",
+      "review_basis": "彭城后联络诸将、固陵召集诸侯属于楚汉战役责任链，销毁未实施的六国封印是阻止错误建议；三者既不构成一个独立治理模块，也不应跨域登记为治理成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "彭城战败",
+          "销毁印章"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "史記/卷055@2666612#汉王亦已还定三秦矣。复以良为成信侯，从东击楚。至彭城，汉败而还。",
+        "史記/卷055@2666612#销印"
+      ],
+      "unit_kind": "exclusion_boundary"
+    },
+    {
+      "canonical_label": "陈平常出奇计概括不得登记为独立治理成果",
+      "expectations": {
+        "fields": [],
+        "members": []
+      },
+      "expected_match_count": 0,
+      "gold_ref": "GOLD-LB-BOUNDARY-CHENPING-GENERIC-REPUTATION",
+      "importance": "boundary",
+      "review_basis": "‘常出奇计’是跨事件的传记概括，未给出可独立归并的制度、程序或公共结果；荥阳、平城及诸侯处置必须各归原事件，不能据名声生成治理成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "content_terms_all": [
+          "常出奇計"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "史記/卷056@1961615#常出奇计"
+      ],
+      "unit_kind": "exclusion_boundary"
+    }
+  ],
+  "actual_dispositions": [
+    {
+      "actual_ref": "OUTCOME-2DFB63C14C3255337BB3",
+      "basis": "把约法省禁、田租税率和官用控制跨法律财政边界合成一条，并把孝惠高后时期结果带入刘邦归责，违反独立治理结果边界。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [
+        "GOLD-LB-GOV-LIGHT-TAX",
+        "GOLD-LB-GOV-FISCAL-RESTRAINT"
+      ],
+      "source_refs": [
+        "漢書/卷024@7498330#上於是約法省禁，輕田租，什五而稅一，量吏祿，度官用，以賦於民。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-35908CC7B4F50E2D2F42",
+      "basis": "记录把陈豨自立劫略的叛军行动设为正向胜利并只登记陈豨为主帅，未登记刘邦亲征及周勃等平叛责任，属于结果与归责方向错误。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-CHENXI"
+      ],
+      "source_refs": [
+        "資治通鑑/卷012@cache-790693f46a67446c#上自东击之。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-4617EB700F6864BFD89B",
+      "basis": "把关中治理与转漕、推荐韩信、功臣排序、强买田宅、械系赦出等不同性质事件合成一条治理成果；真实关中成果存在，但该实际簇边界不成立。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [
+        "GOLD-LB-GOV-GUANZHONG-LOGISTICS",
+        "GOLD-LB-GOV-LAW-NINE"
+      ],
+      "source_refs": [
+        "史記/卷053@2087971#关中事计户口转漕给军"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-4DA8771A874EDE938B4F",
+      "basis": "曹参人物簇重复登记了还定三秦与韩信灭魏两个已有独立战略结果，并把不同对手与父级链拼接；曹参应作为相应成果成员而非另立跨战役成果。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-THREE-QIN",
+        "GOLD-LB-CAMPAIGN-HANXIN-WEI"
+      ],
+      "source_refs": [
+        "史記/卷054@1490182#从还定三秦",
+        "史記/卷054@1490182#尽定魏地"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-694BB7AACB2D192A275C",
+      "basis": "高帝七年诏令确立县道、二千石、廷尉直至皇帝的疑狱逐级上报程序，属于已运行的全国法律治理成果；后续景帝修订已在 Gold 边界中排除。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LB-GOV-DOUBTFUL-CASE-ESCALATION"
+      ],
+      "source_refs": [
+        "漢書/卷023@7908643#高皇帝七年，制詔御史：「獄之疑者，吏或不敢決，有罪者久而不論，無罪者久繫不決。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-887779550B1FAC8D9719",
+      "basis": "英布举九江兵参与垓下是垓下终局中的实际参战责任，不产生另一个独立战役结果；应并入垓下成员链，当前人物来源簇属于重复登记。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "duplicate",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-GAIXIA"
+      ],
+      "source_refs": [
+        "史記/卷091@2509940#遂举九江兵与汉击楚，破之垓下。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-8BAC3F12DB4845145202",
+      "basis": "井陉背水破赵具有明确对手、战斗和俘获赵王的独立子战役结果，韩信为方面主帅，登记边界成立。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-JINGXING"
+      ],
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#于是汉兵夹击，大破虏赵军，斩成安君泜水上，禽赵王歇。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-8CD064757A8EEF430EA3",
+      "basis": "记录以灌婴个人生涯为键，把楚汉、臧荼、韩王信、陈豨、英布等不同对手链合成一条，违反战役群独立战略目标与去重边界。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-CHUHAN",
+        "GOLD-LB-CAMPAIGN-ZANGTU",
+        "GOLD-LB-CAMPAIGN-HANWANGXIN-XIONGNU",
+        "GOLD-LB-CAMPAIGN-CHENXI",
+        "GOLD-LB-CAMPAIGN-YINGBU"
+      ],
+      "source_refs": [
+        "漢書/卷041@cache-c490feba12ab49ae#还军敖仓，破项籍军成皋南，击绝楚饟道"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-B8D5B7D96663158320CC",
+      "basis": "潍水击杀龙且并平定齐地形成北方战役群中全国性决定子战役，韩信实际主帅责任和终局均清楚。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-HANXIN-QI"
+      ],
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#汉四年，遂皆降平齐。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-CDAA006F86CD636C05F1",
+      "basis": "彭城后军事用人、固陵诸侯协同和停止复立六国是三个不同事件，且前两者属于楚汉战役链；合并后跨域标作治理成果，没有独立治理结果。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [],
+      "source_refs": [
+        "史記/卷055@2666612#销印"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-E15C10618A96B7FEF819",
+      "basis": "彭越在梁地持续游击、断楚粮道并供给汉军形成独立战略支援战役群，彭越实际主帅与刘邦授权关系可归责，登记核心成立。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-PENGYUE-SUPPLY"
+      ],
+      "source_refs": [
+        "史記/卷090@376055#彭越常往来为汉游兵，击楚，绝其后粮于梁地。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-E23F2F12A16A6B753540",
+      "basis": "‘常出奇计’只是跨事件传记概括，未提供可独立归并的制度、程序或公共结果；把荥阳、平城和诸侯处置统合为治理成果属于无公共结果。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [],
+      "source_refs": [
+        "史記/卷056@1961615#常出奇计"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-F30CA0936672E97612F7",
+      "basis": "韩信渡河擒魏王豹并改置河东郡，具有明确对手、方面主帅和区域终局，是北方父级内独立可核验子战役。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-HANXIN-WEI"
+      ],
+      "source_refs": [
+        "史記/淮陰侯列傳@2256147#信遂虏豹，定魏为河东郡。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-FF66B22D44E93E091059",
+      "basis": "记录以周勃个人生涯为键，把楚汉后方、韩王信、陈豨和卢绾等不同父级战役合成一条，并将‘屠浑都’争议断句纳入标题性战果，独立结果边界不成立。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "false_positive",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-CHUHAN",
+        "GOLD-LB-CAMPAIGN-HANWANGXIN-XIONGNU",
+        "GOLD-LB-CAMPAIGN-CHENXI",
+        "GOLD-LB-CAMPAIGN-LUWAN"
+      ],
+      "source_refs": [
+        "史記/卷057@1569360#击陈豨，屠马邑。",
+        "史記/卷057@1569360#屠浑都。"
+      ]
     }
   ],
   "input_identity": {
@@ -1600,7 +2566,7 @@
   "ruler": "刘邦",
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
   "schema_version": "historical-quality-gold-manifest-v1",
-  "scope_code": "liubang-major-outcomes-team-profile-calibration",
-  "scope_completeness": "calibration_slice",
+  "scope_code": "liubang-public-outcomes-full-registration",
+  "scope_completeness": "public_outcomes",
   "status": "human_frozen"
 }
