@@ -422,3 +422,43 @@ def test_full_ruler_gold_requires_complete_actual_dispositions() -> None:
     assert comparison["actual_disposition_coverage"]["covered"] == 1
     assert comparison["actual_disposition_coverage"]["actual"] > 1
     assert "missing_actual_dispositions" in comparison["blocking_refs"]
+
+
+def test_public_outcome_gold_measures_all_outcome_dispositions_only() -> None:
+    manifest = load_historical_quality_gold(
+        ROOT / "eval/historical_quality_gold/李世民.json",
+        schema_path=GOLD_SCHEMA,
+    )
+    result = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    accepted_gold = next(
+        case["gold_ref"]
+        for case in manifest["cases"]
+        if case["unit_kind"] in {"campaign_group", "campaign_operation"}
+    )
+    manifest["scope_completeness"] = "public_outcomes"
+    manifest["actual_dispositions"] = [
+        {
+            "collection": "historical_outcome_clusters",
+            "actual_ref": row["outcome_ref"],
+            "disposition": "accepted" if index == 0 else "false_positive",
+            "gold_refs": [accepted_gold] if index == 0 else [],
+            "basis": "fixture disposition",
+        }
+        for index, row in enumerate(result["historical_outcome_clusters"])
+    ]
+
+    comparison = compare_historical_quality_gold(manifest, result)
+
+    assert comparison["precision_status"] == "measured_public_outcomes"
+    assert comparison["accepted_episode_precision"] == pytest.approx(
+        1 / len(result["historical_outcome_clusters"])
+    )
+    assert comparison["actual_disposition_coverage"]["covered"] == len(
+        result["historical_outcome_clusters"]
+    )
+    assert comparison["actual_disposition_coverage"]["missing_refs"] == []
+    assert comparison["actual_disposition_coverage"]["unexpected_refs"] == []

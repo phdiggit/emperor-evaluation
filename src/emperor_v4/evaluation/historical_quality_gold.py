@@ -43,6 +43,10 @@ def _validate_manifest_semantics(manifest: Mapping[str, object]) -> None:
     if len(refs) != len(set(refs)):
         raise ValueError("Gold manifest 的 gold_ref 必须唯一")
     known = set(refs)
+    kind_by_ref = {
+        str(case.get("gold_ref") or ""): str(case.get("unit_kind") or "")
+        for case in cases
+    }
     dispositions = list(manifest.get("actual_dispositions") or ())
     disposition_keys = [
         (str(row.get("collection") or ""), str(row.get("actual_ref") or ""))
@@ -50,14 +54,28 @@ def _validate_manifest_semantics(manifest: Mapping[str, object]) -> None:
     ]
     if len(disposition_keys) != len(set(disposition_keys)):
         raise ValueError("Gold actual disposition 的 collection + actual_ref 必须唯一")
-    if manifest.get("scope_completeness") == "full_ruler" and not dispositions:
-        raise ValueError("full_ruler Gold 必须完整声明 actual_dispositions")
+    if manifest.get("scope_completeness") != "calibration_slice" and not dispositions:
+        raise ValueError("完整 Gold scope 必须声明 actual_dispositions")
     for row in dispositions:
         unknown = set(str(value) for value in row.get("gold_refs") or ()) - known
         if unknown:
             raise ValueError(f"Gold actual disposition 引用未知 gold_ref: {sorted(unknown)}")
         if row.get("disposition") == "accepted" and not row.get("gold_refs"):
             raise ValueError("accepted actual disposition 必须绑定至少一个 gold_ref")
+        allowed_kinds = (
+            {"campaign_group", "campaign_operation", "governance_outcome"}
+            if row.get("collection") == "historical_outcome_clusters"
+            else {"person_talent", "person_risk"}
+        )
+        mismatched = [
+            value
+            for value in row.get("gold_refs") or ()
+            if kind_by_ref.get(str(value)) not in allowed_kinds
+        ]
+        if mismatched:
+            raise ValueError(
+                "Gold actual disposition 跨集合绑定错误: " + ", ".join(mismatched)
+            )
     for case in cases:
         source_refs = list(case.get("source_refs") or ())
         if len(source_refs) != len(set(source_refs)):
@@ -271,19 +289,19 @@ def compare_historical_quality_gold(
     precision = None
     precision_status = "not_claimed_for_calibration_slice"
     disposition_report: dict[str, object] = {
-        "required": manifest["scope_completeness"] == "full_ruler",
+        "required": manifest["scope_completeness"] != "calibration_slice",
         "covered": 0,
         "actual": 0,
         "missing_refs": [],
         "unexpected_refs": [],
         "kind_counts": {},
     }
-    if manifest["scope_completeness"] == "full_ruler":
+    if manifest["scope_completeness"] != "calibration_slice":
         actual_keys: set[tuple[str, str]] = set()
-        for collection, reference_field in (
-            ("historical_outcome_clusters", "outcome_ref"),
-            ("profile_projection_review", "person_ref"),
-        ):
+        measured_collections = [("historical_outcome_clusters", "outcome_ref")]
+        if manifest["scope_completeness"] == "full_ruler":
+            measured_collections.append(("profile_projection_review", "person_ref"))
+        for collection, reference_field in measured_collections:
             for row in result.get(collection) or ():
                 actual_keys.add((collection, str(row[reference_field])))
         dispositions = list(manifest.get("actual_dispositions") or ())
@@ -302,7 +320,11 @@ def compare_historical_quality_gold(
         )
         if not missing and not unexpected and denominator:
             precision = kind_counts["accepted"] / denominator
-            precision_status = "measured_full_ruler"
+            precision_status = (
+                "measured_full_ruler"
+                if manifest["scope_completeness"] == "full_ruler"
+                else "measured_public_outcomes"
+            )
         else:
             precision_status = "blocked_incomplete_actual_dispositions"
             if missing:

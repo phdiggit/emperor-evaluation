@@ -21,7 +21,9 @@
     "ruler": {"type": "string", "minLength": 1},
     "ruler_ref": {"type": "string", "minLength": 1},
     "scope_code": {"type": "string", "minLength": 1},
-    "scope_completeness": {"enum": ["calibration_slice", "full_ruler"]},
+    "scope_completeness": {
+      "enum": ["calibration_slice", "public_outcomes", "full_ruler"]
+    },
     "input_identity": {
       "type": "object",
       "additionalProperties": false,
