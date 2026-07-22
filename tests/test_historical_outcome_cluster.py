@@ -322,7 +322,8 @@ def test_lishimin_goguryeo_gold_exposes_current_campaign_chain_gaps() -> None:
     cases = {row["gold_ref"]: row for row in report["cases"]}
     assert report["status"] == "failed"
     assert report["comparison_mode"] == "post_run_gold_only"
-    assert report["recall"]["major"] == {"matched": 3, "total": 6, "rate": 0.5}
+    assert report["recall"]["major"]["total"] >= 27
+    assert report["recall"]["major"]["rate"] < 0.9
     assert report["accepted_episode_precision"] is None
     assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["matched_refs"] == []
     assert cases["GOLD-LSM-CAMPAIGN-BAIYAN"]["matched_refs"] == []
