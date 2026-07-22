@@ -255,6 +255,24 @@
       ]
     },
     {
+      "actual_ref": "OUTCOME-LSM-GOV-JINSHU",
+      "basis": "《晋书》官修工程的完成规模、房玄龄组织总领及皇帝授权均经逐字史源复核。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-JINSHU"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-LSM-GOV-VERITABLE-RECORDS",
+      "basis": "高祖太宗实录作为本朝例行实录单列，并按重要公共结果而非全国大型文化典籍冻结。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-GOV-VERITABLE-RECORDS"
+      ]
+    },
+    {
       "actual_ref": "OUTCOME-LSM-GOV-JUDICIAL-ERROR-BALANCE",
       "basis": "公共成果登记经史源、粒度、归责与档位复核。",
       "collection": "historical_outcome_clusters",
@@ -835,7 +853,7 @@
             "path": "payload.objective_completion"
           },
           {
-            "expected": "S+",
+            "expected": "S",
             "path": "payload.campaign_tier"
           },
           {
@@ -2124,7 +2142,7 @@
       "unit_kind": "governance_outcome"
     },
     {
-      "canonical_label": "贞观五代史与高祖太宗实录官修工程",
+      "canonical_label": "贞观五代史官修工程",
       "expectations": {
         "fields": [
           {
@@ -2180,7 +2198,136 @@
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "房玄龄",
             "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "魏徵",
+            "role_code": "lead"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LSM-GOV-HISTORIOGRAPHY",
+      "importance": "major",
+      "review_basis": "梁、陈、齐、周、隋五代正史完成进上并藏秘阁；房玄龄承担跨书总监，魏徵奉诏总加撰定并直接撰写《隋史》序论及多部总论，皇帝只按国家授权与验收登记。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "贞观五代史官修工程"
+        ],
+        "label_terms_any": [
+          "贞观五代史官修工程"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "舊唐書/卷71@2020238#《隋史》序論，皆-{徵}-所作、《梁》、《陳》、《齊》各爲總論，時稱良史。",
+        "舊唐書/卷71@2020238#-{徵}-受詔總加撰定，多所損益，薦在簡正。",
+        "舊唐書/卷73@2164590#貞觀三年，太宗復敕修撰",
+        "舊唐書/卷73@2164590#與尚書左僕射房玄齡總監諸代史",
+        "舊唐書/卷3@2488779#尚書左僕射房玄齡、侍中魏徵上梁、陳、齊、周、隋五代史"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "贞观《晋书》官修工程",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "national_cultural_corpus",
+            "path": "scale.consequence_basis"
+          },
+          {
+            "expected": "culture_scholarship",
+            "path": "payload.domain"
+          },
+          {
+            "expected": "governance_result",
+            "path": "settlement_scope"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "房玄龄",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "褚遂良",
+            "role_code": "governance_participant"
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LSM-GOV-JINSHU",
+      "importance": "major",
+      "review_basis": "房玄龄奉诏重撰《晋书》，奏取撰修人员并组织分功撰录，贞观二十年完成一百三十卷藏于秘府；按一代官修正史登记全国文化典籍成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "贞观",
+          "晋书",
+          "官修"
+        ],
+        "outcome_kind": "governance"
+      },
+      "source_refs": [
+        "舊唐書/卷66@2034579#尋與中書侍郎褚遂良受詔重撰《晉書》",
+        "舊唐書/卷66@2034579#於是奏取太子左庶子許敬宗、中書舍人來濟、著作郎陸元仕、劉子翼、前雍州刺史令狐德棻、太子舍人李義府、薛元超、起居郎上官儀等八人，分功撰錄",
+        "舊唐書/卷66@2034579#至二十年，書成，凡一百三十捲，詔藏於秘府"
+      ],
+      "unit_kind": "governance_outcome"
+    },
+    {
+      "canonical_label": "高祖太宗实录修撰",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "important",
+            "path": "scale.level"
+          },
+          {
+            "expected": "important_public_result",
+            "path": "scale.consequence_basis"
+          },
+          {
+            "expected": false,
+            "path": "important_method_or_legacy"
+          },
+          {
+            "expected": "governance_result",
+            "path": "settlement_scope"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "authorized"
           },
           {
             "actor_kind": "person",
@@ -2195,27 +2342,21 @@
         ]
       },
       "expected_match_count": 1,
-      "gold_ref": "GOLD-LSM-GOV-HISTORIOGRAPHY",
-      "importance": "major",
-      "review_basis": "原文明确记载皇帝提出编修目的、实录完成进呈及直书原则讨论，影响涉及皇帝自我监督和官方史书编修，但未支持更高层级的国家制度重构。",
+      "gold_ref": "GOLD-LSM-GOV-VERITABLE-RECORDS",
+      "importance": "boundary",
+      "review_basis": "高祖、太宗实录各二十卷已完成进呈并形成直书要求，但属于本朝例行实录修撰，只登记重要公共结果，不与一代正史共享全国文化典籍档。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
-          "贞观五代史与高祖太宗实录官修工程"
-        ],
-        "label_terms_any": [
-          "贞观五代史与高祖太宗实录官修工程"
+          "高祖太宗实录",
+          "修撰"
         ],
         "outcome_kind": "governance"
       },
       "source_refs": [
-        "貞觀政要/卷07@802077#今欲自看國史者，蓋有善事，固不須論；若有不善，亦欲以為鑒誡，使得",
         "貞觀政要/卷07@802077#玄齡等遂刪略國史為編年體，撰高祖、太宗實錄各二十卷，表上之。",
         "貞觀政要/卷07@802077#惟有國史，用為懲惡勸善，書不以實，後嗣何觀？",
-        "貞觀政要/卷07@802077#宜即改削浮詞，直書其事。",
-        "舊唐書/卷73@2164590#貞觀三年，太宗復敕修撰",
-        "舊唐書/卷73@2164590#與尚書左僕射房玄齡總監諸代史",
-        "舊唐書/卷3@2488779#尚書左僕射房玄齡、侍中魏徵上梁、陳、齊、周、隋五代史"
+        "貞觀政要/卷07@802077#宜即改削浮詞，直書其事。"
       ],
       "unit_kind": "governance_outcome"
     },
@@ -3213,7 +3354,7 @@
   ],
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v5",
-    "source_pack_sha256": "c006fac94be46b7975e39ed015ecc976ac6d089ea41147a072bba38ad22354ae"
+    "source_pack_sha256": "6363b04cf329b35d2164261405495611f5eeb4c7e9dd4185a02ab72ac821249b"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

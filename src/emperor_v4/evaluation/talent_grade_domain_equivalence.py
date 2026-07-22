@@ -107,6 +107,11 @@ def assess_domain_historic_path(
             for row in eligible
             if tier_rank[str(row["campaign_tier"])] >= tier_rank["S"]
         ]
+        s_minus_or_higher = [
+            row
+            for row in eligible
+            if tier_rank[str(row["campaign_tier"])] >= tier_rank["S-"]
+        ]
         s_plus = [
             row for row in eligible if str(row["campaign_tier"]) == "S+"
         ]
@@ -139,6 +144,18 @@ def assess_domain_historic_path(
                     str(anchor["independent_key"]),
                     str(support["independent_key"]),
                 ]
+        if path is None and s_or_higher and len(s_minus_or_higher) >= 3:
+            path = "military_one_s_two_s_minus"
+            anchor = sorted(s_or_higher, key=order_key)[0]
+            supports = [
+                row
+                for row in sorted(s_minus_or_higher, key=order_key)
+                if row["independent_key"] != anchor["independent_key"]
+            ][:2]
+            matched_independent_keys = [
+                str(anchor["independent_key"]),
+                *(str(row["independent_key"]) for row in supports),
+            ]
         if path is None and len(s_or_higher) >= 2 and len(a_or_higher) >= 3:
             path = "military_two_s_plus_one_a"
             matched_rows = sorted(s_or_higher, key=order_key)[:2]
@@ -154,6 +171,7 @@ def assess_domain_historic_path(
         counts = {
             "eligible_independent": len(eligible),
             "a_or_higher": len(a_or_higher),
+            "s_minus_or_higher": len(s_minus_or_higher),
             "s_or_higher": len(s_or_higher),
             "s_plus": len(s_plus),
             "tier_counts": dict(

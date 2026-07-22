@@ -462,8 +462,8 @@ def render_unbound_historical_outcome_registry_markdown(
         [
             "## 战役登记",
             "",
-            "| 登记号 | 战役成果 | 层级 | 时段 | 等级 | 战果与目标 | 过程负面及归责 | 参与者责任 | 已实现结果 | 史源 |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| 登记号 | 战役成果 | 层级 | 时段 | 等级与依据 | 土地轴 | 对手轴 | 结果轴 | 过程负面及归责 | 参与者责任 | 已实现结果 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in campaigns:
@@ -477,6 +477,10 @@ def render_unbound_historical_outcome_registry_markdown(
             f"{payload['process_adversity_basis']}；{attributions}"
         )
         result = f"{payload['battle_result']} / {payload['objective_completion']}"
+        opponent = (
+            f"{payload['opponent_strategic_weight']} / "
+            f"{payload['opponent_condition']}"
+        )
         lines.append(
             "| "
             + " | ".join(
@@ -486,7 +490,9 @@ def render_unbound_historical_outcome_registry_markdown(
                     row["canonical_label"],
                     row["event_level"],
                     _period_text(row["period"]),
-                    payload["campaign_tier"],
+                    f"{payload['campaign_tier']}；{payload['campaign_tier_basis']}",
+                    payload["land_strategic_value"],
+                    opponent,
                     result,
                     adverse,
                     _members_text(row["members"]),

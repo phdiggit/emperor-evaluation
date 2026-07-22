@@ -253,6 +253,7 @@
         "GOLD-LB-CAMPAIGN-HANXIN-QI"
       ],
       "source_refs": [
+        "史記/淮陰侯列傳@2256147#拜韩信为相国，收赵兵未发者击齐。",
         "史記/淮陰侯列傳@2256147#汉四年，遂皆降平齐。"
       ]
     },
@@ -266,7 +267,21 @@
       ],
       "source_refs": [
         "史記/卷054@1490182#生得魏王豹",
+        "史記/卷055@2666612#及魏王豹反，使韩信将兵击之",
         "史記/淮陰侯列傳@2256147#信遂虏豹，定魏为河东郡。"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-QUALITY-LB-HANXIN-GAIXIA",
+      "basis": "垓下正面主阵、皇帝后阵关系、三轴等级与人物信用均按《高祖本纪》逐字史源人工冻结。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LB-CAMPAIGN-HANXIN-GAIXIA"
+      ],
+      "source_refs": [
+        "史記/卷008@2440965#淮阴侯将三十万自当之，孔将军居左，费将军居右，皇帝在后，绛侯、柴将军在皇帝后。",
+        "史記/卷008@2440965#淮阴侯复乘之，大败垓下。"
       ]
     },
     {
@@ -488,7 +503,7 @@
             "path": "payload.objective_completion"
           },
           {
-            "expected": "S-",
+            "expected": "A",
             "path": "payload.campaign_tier"
           },
           {
@@ -525,7 +540,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LB-CAMPAIGN-CHENXI",
       "importance": "major",
-      "review_basis": "赵代门户大面积失控后由刘邦、周勃分路修复，按强区域 S- 和 severe_repaired 登记。",
+      "review_basis": "赵代门户大面积失控后由刘邦、周勃分路修复；土地为战略门户、对手为可战的区域主要力量，结果虽完成但不构成准全国终局，定 A 并保留 severe_repaired。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -747,6 +762,12 @@
         ],
         "members": [
           {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
             "actor_kind": "person",
             "actor_name": "韩信",
             "role_code": "commander_in_chief"
@@ -811,6 +832,12 @@
         ],
         "members": [
           {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
             "actor_kind": "person",
             "actor_name": "韩信",
             "role_code": "commander_in_chief"
@@ -833,6 +860,7 @@
         "outcome_kind": "campaign"
       },
       "source_refs": [
+        "史記/淮陰侯列傳@2256147#拜韩信为相国，收赵兵未发者击齐。",
         "史記/淮陰侯列傳@2256147#汉四年，遂皆降平齐。"
       ],
       "unit_kind": "campaign_operation"
@@ -872,6 +900,12 @@
         ],
         "members": [
           {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorized"
+          },
+          {
             "actor_kind": "person",
             "actor_name": "韩信",
             "role_code": "commander_in_chief"
@@ -899,7 +933,76 @@
       },
       "source_refs": [
         "史記/卷054@1490182#生得魏王豹",
+        "史記/卷055@2666612#及魏王豹反，使韩信将兵击之",
         "史記/淮陰侯列傳@2256147#信遂虏豹，定魏为河东郡。"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "韩信垓下统帅决战",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "person_campaign_subresult",
+            "path": "settlement_scope"
+          },
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "S",
+            "path": "payload.campaign_tier"
+          },
+          {
+            "expected": "capital_or_state_survival",
+            "path": "payload.land_strategic_value"
+          },
+          {
+            "expected": "none",
+            "path": "payload.process_adversity"
+          },
+          {
+            "expected": 0,
+            "path": "payload.process_adversity_index"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "role_code": "principal_commander",
+            "ruler_campaign_relation": "temporary_theater_control"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LB-CAMPAIGN-HANXIN-GAIXIA",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LB-CAMPAIGN-CHUHAN",
+      "review_basis": "《高祖本纪》明确韩信统率三十万正面主阵、刘邦位于后阵，并由韩信复乘完成垓下大破；按决定主要竞争政权结局的全国性会战定 S，人物信用归韩信子成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "韩信",
+          "垓下",
+          "统帅"
+        ],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "史記/卷008@2440965#淮阴侯将三十万自当之，孔将军居左，费将军居右，皇帝在后，绛侯、柴将军在皇帝后。",
+        "史記/卷008@2440965#淮阴侯复乘之，大败垓下。"
       ],
       "unit_kind": "campaign_operation"
     },
@@ -2062,7 +2165,7 @@
   ],
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v5",
-    "source_pack_sha256": "20216745cb8736f5652ec1a4af1a1dc894068f6a2f6deee8a04c64337ad0799e"
+    "source_pack_sha256": "6913b560e35778ce2b215a964ef60c92b0276c1be93f50259f834a1c4d1a5629"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

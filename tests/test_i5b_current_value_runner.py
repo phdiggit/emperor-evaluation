@@ -135,7 +135,7 @@ def _campaign_candidate_payload(*, relation: str | None = "personal_command") ->
                     "opponent_condition": "viable",
                     "opponent_strategic_weight": "regional_major",
                     "campaign_tier": "A",
-                    "campaign_tier_basis": "土地、对手与结果共同支持。",
+                    "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/complete，完成重要区域目标，定A。",
                     "land_strategic_value": "important_region",
                     "process_adversity": "none",
                     "process_adversity_basis": "未见达到过程负面门槛的事实。",
@@ -941,7 +941,10 @@ def test_current_value_chain_is_complete_shadow_with_provisional_profiles(ruler:
     assert report["declarations"]["profile_values_frozen"] is False
     assert report["declarations"]["profile_freeze_gate_passed"] is False
     assert report["declarations"]["formal_scoring_ready"] is False
-    assert report["declarations"]["profile_member_with_open_gap_count"] == 0
+    assert report["declarations"]["profile_member_with_open_gap_count"] == {
+        "李世民": 0,
+        "刘邦": 4,
+    }[ruler]
     assert report["declarations"]["historical_outcome_cluster_count"] > 0
     assert report["declarations"]["campaign_outcome_count"] > 0
     assert report["declarations"]["governance_outcome_count"] > 0
@@ -950,7 +953,9 @@ def test_current_value_chain_is_complete_shadow_with_provisional_profiles(ruler:
         row["value_status"] == "provisional_material_coverage_open"
         for row in report["profile_projection_review"]
     )
-    assert all(not row["coverage_gaps"] for row in report["profile_projection_review"])
+    assert sum(
+        bool(row["coverage_gaps"]) for row in report["profile_projection_review"]
+    ) == {"李世民": 0, "刘邦": 4}[ruler]
     assert report["declarations"]["score_45"] is None
     assert report["declarations"]["ranking"] is None
     assert report["net_signal"] == report["material_budget"]["summary"]["weighted_raw_signal"]
@@ -1222,7 +1227,12 @@ def test_profile_values_rebuild_missing_grade_registry_links(
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
-    report = build_i5b_current_value(target)
+    registry = build_unbound_historical_outcome_registry([payload])
+    binding = build_ruler_outcome_bindings(payload, registry)
+    report = build_i5b_current_value(
+        target,
+        outcome_layers=(registry, binding),
+    )
     rebuilt = next(
         row
         for row in report["profile_projection_review"]
@@ -1366,7 +1376,11 @@ def test_current_detail_exposes_public_outcome_review_fields(ruler: str) -> None
     )
     rendered = render_scoring_detail_markdown(report)
     assert "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 |" in rendered
-    assert "| 登记号 | 战役群 | 等级 | 战果 / 目标完成 | 过程负面 | 皇帝角色 | 将领角色 |" in rendered
+    assert (
+        "| 登记号 | 战役群 | 等级 | 战果 / 目标完成 | 过程负面 | 负面归责 | "
+        "皇帝角色 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
+        in rendered
+    )
     assert "土地=" in rendered
     assert "对手=" in rendered
     assert "结果=" in rendered
@@ -4162,16 +4176,36 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     assert goguryeo["payload"]["process_adversity"] == "material"
     assert goguryeo["payload"]["process_adversity_index"] == 0.4
     hulao = li_outcomes["OUTCOME-LSM-CAMPAIGN-HULAO"]
-    assert hulao["payload"]["campaign_tier"] == "S+"
+    assert hulao["payload"]["campaign_tier"] == "S"
     assert hulao["payload"]["process_adversity"] == "none"
 
     labels = {row["canonical_label"]: row for row in li_outcomes.values()}
     clan_registry = labels["考订并颁行氏族志"]
     assert clan_registry["scale"]["level"] == "national"
     assert clan_registry["scale"]["consequence_basis"] == "national_cultural_corpus"
-    historiography = labels["贞观五代史与高祖太宗实录官修工程"]
+    historiography = labels["贞观五代史官修工程"]
     assert historiography["scale"]["level"] == "national"
     assert "五代史" in historiography["observable_result"]
+    historiography_roles = {
+        row["actor_name"]: row["role_code"] for row in historiography["members"]
+    }
+    assert historiography_roles == {
+        "李世民": "authorized",
+        "房玄龄": "lead",
+        "魏徵": "lead",
+    }
+    jinshu = labels["贞观《晋书》官修工程"]
+    assert jinshu["scale"]["consequence_basis"] == "national_cultural_corpus"
+    assert {
+        row["actor_name"]: row["role_code"] for row in jinshu["members"]
+    } == {
+        "李世民": "authorized",
+        "房玄龄": "lead",
+        "褚遂良": "governance_participant",
+    }
+    veritable_records = labels["高祖太宗实录修撰"]
+    assert veritable_records["scale"]["level"] == "important"
+    assert veritable_records["important_method_or_legacy"] is False
     zhangsun_lifetime = [
         row
         for row in li_outcomes.values()
@@ -4201,6 +4235,45 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     )
     liu_outcomes = liu["outcome_registry"]["clusters"]
     assert any(row["canonical_label"] == "西进入关灭秦战役群" for row in liu_outcomes)
+    all_campaigns = [
+        row
+        for row in [*li_outcomes.values(), *liu_outcomes]
+        if row["outcome_kind"] == "campaign"
+    ]
+    assert all(
+        all(
+            token in row["payload"]["campaign_tier_basis"]
+            for token in ("土地轴=", "对手轴=", "结果轴=")
+        )
+        for row in all_campaigns
+    )
+    liu_labels = {row["canonical_label"]: row for row in liu_outcomes}
+    assert liu_labels["平定陈豨叛乱战役群"]["payload"]["campaign_tier"] == "A"
+    tang_unification_labels = {
+        "洛阳—虎牢灭王世充窦建德战役群",
+        "柏壁—介休平刘武周宋金刚战役群",
+        "浅水原平薛仁杲战役群",
+        "洺水击破刘黑闼战役群",
+        "曹州—淮泗平徐圆朗战役群",
+    }
+    han_unification_labels = {
+        "还定三秦战役群",
+        "韩信破代赵并定燕战役群",
+        "韩信潍水破齐并平定齐地",
+        "韩信平定魏地",
+        "韩信垓下统帅决战",
+        "彭越经营梁地并断楚粮道战役群",
+    }
+    tang_unification = {
+        labels[name]["payload"]["campaign_tier"]
+        for name in tang_unification_labels
+    }
+    han_unification = {
+        liu_labels[name]["payload"]["campaign_tier"]
+        for name in han_unification_labels
+    }
+    assert tang_unification == {"S", "S-", "A"}
+    assert han_unification == {"S", "S-", "A"}
     hanxin = [
         row
         for row in liu_outcomes
@@ -4211,7 +4284,29 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
         "韩信平定魏地",
         "韩信破代赵并定燕战役群",
         "韩信潍水破齐并平定齐地",
+        "韩信垓下统帅决战",
     }
+    for row in hanxin:
+        members = {member["actor_name"]: member for member in row["members"]}
+        assert members["韩信"]["role_code"] == "commander_in_chief"
+        if row["canonical_label"] == "韩信垓下统帅决战":
+            assert members["刘邦"]["role_code"] == "principal_commander"
+            assert (
+                members["刘邦"]["ruler_campaign_relation"]
+                == "temporary_theater_control"
+            )
+            assert row["payload"]["campaign_tier"] == "S"
+        else:
+            assert members["刘邦"]["role_code"] == "not_in_command_chain"
+            assert members["刘邦"]["ruler_campaign_relation"] == "authorized"
+
+    external_wars = {
+        "贞观十九年亲征高句丽战役群",
+        "平城白登汉匈战役群",
+    }
+    assert external_wars <= set(labels) | set(liu_labels)
+    assert not external_wars & tang_unification_labels
+    assert not external_wars & han_unification_labels
 
 
 def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
@@ -4225,9 +4320,9 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     ]
     registry = build_unbound_historical_outcome_registry(source_packs)
     assert registry["status"] == "current_shadow_unbound"
-    assert registry["declarations"]["outcome_count"] == 65
-    assert registry["declarations"]["campaign_count"] == 31
-    assert registry["declarations"]["governance_count"] == 34
+    assert registry["declarations"]["outcome_count"] == 68
+    assert registry["declarations"]["campaign_count"] == 32
+    assert registry["declarations"]["governance_count"] == 36
     assert registry["declarations"]["window_binding_count"] == 0
     for outcome in registry["outcomes"]:
         assert "ruler_window_status" not in outcome
@@ -4240,7 +4335,7 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
 
     rendered = render_unbound_historical_outcome_registry_markdown(registry)
     assert "# 战役与治理成果总登记（未绑定皇帝窗口）" in rendered
-    assert "总成果：65" in rendered
+    assert "总成果：68" in rendered
     assert "永徽律令格式与《律疏》编定颁行" in rendered
     assert "ruler_window_status" not in rendered
     for source_pack in source_packs:
@@ -4466,6 +4561,20 @@ def test_default_detail_export_rebuilds_from_source_pack_not_stale_result(
     current_dir.mkdir(parents=True)
     source = ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
     (current_dir / "source-pack.json").write_bytes(source.read_bytes())
+    (workspace / "config").mkdir(parents=True)
+    shutil.copy2(ROOT / "config/project.yml", workspace / "config/project.yml")
+    registry_dir = workspace / "eval/historical_outcome_registry"
+    registry_dir.mkdir(parents=True)
+    shutil.copy2(
+        ROOT / "eval/historical_outcome_registry/current.json",
+        registry_dir / "current.json",
+    )
+    binding_dir = workspace / "eval/historical_outcome_bindings"
+    binding_dir.mkdir(parents=True)
+    shutil.copy2(
+        ROOT / "eval/historical_outcome_bindings/刘邦.json",
+        binding_dir / "刘邦.json",
+    )
     (current_dir / "result.json").write_text(
         '{"ruler":"刘邦","stale":true}', encoding="utf-8"
     )

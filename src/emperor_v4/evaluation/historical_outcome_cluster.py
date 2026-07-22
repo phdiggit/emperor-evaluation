@@ -312,6 +312,12 @@ def validate_historical_outcome_registry(
                 for member in members
             ):
                 raise ValueError(f"{ref} 父级战役群缺少实际军事指挥链成员")
+            tier_basis = str(payload["campaign_tier_basis"])
+            if not all(
+                token in tier_basis
+                for token in ("土地轴=", "对手轴=", "结果轴=")
+            ):
+                raise ValueError(f"{ref} 战役定级依据未逐项标明土地、对手与结果轴")
             if level in {"national", "era_shaping"} and payload[
                 "opponent_condition"
             ] == "residual":

@@ -66,6 +66,10 @@ historic_paths:
       independent_s_or_higher_campaigns: 2
       every_campaign_command_roles: [commander_in_chief, principal_commander]
       every_campaign_requires_decisive: true
+    one_s_two_s_minus_path:
+      minimum_independent_s_or_higher_campaigns: 1
+      minimum_independent_s_minus_or_higher_campaigns: 3
+      counted_command_roles: [commander_in_chief, principal_commander]
     exclusions:
       - opponent_is_a_formal_state_alone_does_not_raise_tier
       - repeated_battles_inside_one_campaign_count_once

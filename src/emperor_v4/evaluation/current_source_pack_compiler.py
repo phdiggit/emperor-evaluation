@@ -250,6 +250,14 @@ def compile_outcome_candidate_payloads(
                         f"{candidate_key} 战役登记缺少等级、土地轴或过程负面: "
                         + ", ".join(missing_campaign_axes)
                     )
+                tier_basis = str(candidate["payload"]["campaign_tier_basis"])
+                if not all(
+                    token in tier_basis
+                    for token in ("土地轴=", "对手轴=", "结果轴=")
+                ):
+                    raise ValueError(
+                        f"{candidate_key} 战役定级依据未逐项标明土地、对手与结果轴"
+                    )
                 adversity = str(candidate["payload"]["process_adversity"])
                 if (
                     candidate["payload"]["process_adversity_index"]

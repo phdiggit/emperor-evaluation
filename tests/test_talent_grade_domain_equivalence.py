@@ -114,6 +114,36 @@ def test_military_two_s_plus_one_a_passes_without_legacy() -> None:
     assert result["matched_path"] == "military_two_s_plus_one_a"
 
 
+def test_military_one_s_two_s_minus_is_historic() -> None:
+    result = assess_domain_historic_path(
+        "military",
+        [
+            _achievement(
+                "decisive",
+                "national",
+                campaign_tier="S",
+                responsibility_role="commander_in_chief",
+                decisive=True,
+            ),
+            _achievement(
+                "north",
+                "national",
+                campaign_tier="S-",
+                responsibility_role="commander_in_chief",
+            ),
+            _achievement(
+                "east",
+                "national",
+                campaign_tier="S-",
+                responsibility_role="commander_in_chief",
+            ),
+        ],
+    )
+
+    assert result["historic_fact_path_status"] == "eligible"
+    assert result["matched_path"] == "military_one_s_two_s_minus"
+
+
 def test_one_decisive_s_plus_and_one_a_establish_historic_path() -> None:
     result = assess_domain_historic_path(
         "military",
