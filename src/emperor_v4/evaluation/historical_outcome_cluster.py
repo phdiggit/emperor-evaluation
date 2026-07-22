@@ -61,6 +61,14 @@ PROCESS_ADVERSITY = {
     "near_collapse_repaired": "近乎崩溃但同线修复",
     "terminal_failure": "终局失败",
 }
+PROCESS_ADVERSITY_INDEX = {
+    "none": 0,
+    "limited": 0.2,
+    "material": 0.4,
+    "severe_repaired": 0.6,
+    "near_collapse_repaired": 0.7,
+    "terminal_failure": 1,
+}
 
 
 def campaign_tier(cluster: Mapping[str, object]) -> str:
@@ -74,6 +82,7 @@ GOVERNANCE_ROLES = {
     "lead": "主导",
     "governance_participant": "参与",
     "authorized": "授权",
+    "reign_holder": "统治窗口归属",
 }
 COUNTED_TOP_ROLES = {
     "campaign": {"commander_in_chief", "principal_commander"},
@@ -99,8 +108,15 @@ GOVERNANCE_SCALE_BASES = {
     "local": {"local_public_result"},
     "important": {"important_public_result"},
     "regional": {"regional_governance_result"},
-    "national": {"national_core_subsystem", "national_public_result"},
-    "era_shaping": {"era_order_reconstruction"},
+    "national": {
+        "national_core_subsystem",
+        "national_public_result",
+        "national_cultural_corpus",
+    },
+    "era_shaping": {
+        "era_order_reconstruction",
+        "civilization_foundational_corpus",
+    },
 }
 
 
@@ -135,6 +151,7 @@ def validate_historical_outcome_registry(
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     validate_payload_against_schema(registry, schema)
     clusters = list(registry.get("clusters") or ())
+    clusters_by_ref = {str(row["outcome_ref"]): row for row in clusters}
     refs: set[str] = set()
     keys: set[tuple[str, str]] = set()
     episode_refs: set[str] = set()
@@ -143,6 +160,18 @@ def validate_historical_outcome_registry(
     for cluster in clusters:
         ref = str(cluster["outcome_ref"])
         kind = str(cluster["outcome_kind"])
+        settlement_scope = str(cluster["settlement_scope"])
+        if kind == "campaign" and settlement_scope not in {
+            "ruler_campaign_parent",
+            "person_campaign_subresult",
+        }:
+            raise ValueError(f"{ref} 战役结算范围不正确")
+        if kind == "governance" and settlement_scope not in {
+            "governance_result",
+            "person_governance_result",
+            "reign_macro_outcome",
+        }:
+            raise ValueError(f"{ref} 治理结算范围不正确")
         key = (kind, str(cluster["independent_key"]))
         if ref in refs or key in keys:
             raise ValueError("成果簇身份或同类 independent_key 重复")
@@ -185,6 +214,8 @@ def validate_historical_outcome_registry(
             ):
                 raise ValueError(f"{ref} 只有战役中的皇帝可以登记皇权关系")
             actor_refs.add(str(member["actor_ref"]))
+            if kind == "campaign" and not member.get("talent_credit"):
+                raise ValueError(f"{ref} 战役成员缺少人才独立信用声明")
         level = str(cluster["scale"]["level"])
         basis = str(cluster["scale"]["consequence_basis"])
         bases = CAMPAIGN_SCALE_BASES if kind == "campaign" else GOVERNANCE_SCALE_BASES
@@ -217,13 +248,40 @@ def validate_historical_outcome_registry(
                     f"{ref} 战役必须声明战区、目标、三轴、等级和过程负面: "
                     + ", ".join(missing_campaign_fields)
                 )
+            adversity = str(payload["process_adversity"])
+            if payload.get("process_adversity_index") != PROCESS_ADVERSITY_INDEX[adversity]:
+                raise ValueError(f"{ref} 过程负面档位与指数不匹配")
+            adversity_attributions = list(
+                payload.get("process_adversity_attributions") or ()
+            )
+            if adversity == "none" and adversity_attributions:
+                raise ValueError(f"{ref} 无过程负面时不得登记责任")
+            if adversity != "none" and not adversity_attributions:
+                raise ValueError(f"{ref} 非零过程负面必须登记事件责任或明确不可归责")
+            for attribution in adversity_attributions:
+                responsibility = str(attribution["responsibility"])
+                actor_ref = attribution.get("actor_ref")
+                actor_name = attribution.get("actor_name")
+                if responsibility == "external_unattributed":
+                    if actor_ref is not None or actor_name is not None:
+                        raise ValueError(f"{ref} 外部不可归责项不得虚构责任人")
+                elif not actor_ref or not actor_name:
+                    raise ValueError(f"{ref} 人物过程负面责任必须绑定人物")
+                if any(
+                    str(source_ref) not in cluster["source_refs"]
+                    for source_ref in attribution["source_refs"]
+                ):
+                    raise ValueError(f"{ref} 过程负面责任史源必须来自战役簇")
             ruler_members = [
                 member for member in members if member["actor_kind"] == "ruler"
             ]
-            current_ruler_campaign = cluster.get("ruler_window_status") in {
+            current_ruler_campaign = (
+                settlement_scope == "ruler_campaign_parent"
+                and cluster.get("ruler_window_status") in {
                 "within_window",
                 "leadership_formation",
-            }
+                }
+            )
             if current_ruler_campaign and len(ruler_members) != 1:
                 raise ValueError(f"{ref} 当前皇帝父级战役群必须且只能登记一个皇帝成员")
             if len(ruler_members) > 1:
@@ -241,6 +299,15 @@ def validate_historical_outcome_registry(
                     ruler_member["role_code"] == "not_in_command_chain"
                 ):
                     raise ValueError(f"{ref} 进入战区统筹或亲征的皇帝角色不正确")
+            if settlement_scope == "person_campaign_subresult":
+                parent_ref = str(cluster.get("parent_outcome_ref") or "")
+                parent = clusters_by_ref.get(parent_ref)
+                if (
+                    not parent
+                    or parent.get("outcome_kind") != "campaign"
+                    or parent.get("settlement_scope") != "ruler_campaign_parent"
+                ):
+                    raise ValueError(f"{ref} 人物子战役缺少有效父级战役群")
             if not any(
                 member["role_code"]
                 in {"commander_in_chief", "principal_commander", "deputy_commander", "participant"}
@@ -253,9 +320,14 @@ def validate_historical_outcome_registry(
                 raise ValueError("残余对手不能仅凭灭国名义登记为国家级")
         else:
             payload = cluster["payload"]
+            if (
+                settlement_scope == "person_governance_result"
+                and cluster["ruler_window_status"] != "outside_window"
+            ):
+                raise ValueError(f"{ref} 人物生涯治理成果必须位于当前皇帝窗口之外")
             missing_governance_fields = [
                 key
-                for key in ("domain", "authorization_status")
+                for key in ("domain", "authorization_status", "causal_attribution_status")
                 if not payload.get(key)
             ]
             missing_governance_fields.extend(
@@ -274,7 +346,25 @@ def validate_historical_outcome_registry(
                 if member["role_code"]
                 in {"exclusive", "lead", "governance_participant"}
             ]
-            if not substantive_members:
+            if settlement_scope == "reign_macro_outcome":
+                causal_status = str(payload["causal_attribution_status"])
+                if causal_status == "source_attributed":
+                    if not any(
+                        member["actor_kind"] == "ruler"
+                        and member["role_code"] in {"exclusive", "lead"}
+                        for member in members
+                    ):
+                        raise ValueError(f"{ref} 史源归因宏观结果缺少总体治理主导者")
+                elif causal_status == "limited":
+                    if not any(
+                        member["actor_kind"] == "ruler"
+                        and member["role_code"] == "reign_holder"
+                        for member in members
+                    ):
+                        raise ValueError(f"{ref} 因果有限宏观结果缺少统治窗口归属")
+                else:
+                    raise ValueError(f"{ref} 宏观统治结果因果归责状态不正确")
+            elif not substantive_members:
                 raise ValueError(f"{ref} 治理成果不能只有授权者")
             exclusive_members = [
                 member for member in members if member["role_code"] == "exclusive"
@@ -410,6 +500,11 @@ def assess_person_talent_grade(
             None,
         )
         if member is None:
+            continue
+        if (
+            cluster["outcome_kind"] == "campaign"
+            and member.get("talent_credit") != "independent"
+        ):
             continue
         kind = str(cluster["outcome_kind"])
         role = str(member["role_code"])

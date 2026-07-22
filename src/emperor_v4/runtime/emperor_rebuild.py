@@ -771,6 +771,7 @@ def rebuild_emperor(
                 for value in configured.get("dynasty_governance_period_terms") or ()
             ],
             identity_resolver=identity_resolver,
+            ruler_ref=str(source_pack["ruler_ref"]),
             subject_ref_by_name={
                 str(source_pack["ruler"]): str(source_pack["ruler_ref"]),
                 **{

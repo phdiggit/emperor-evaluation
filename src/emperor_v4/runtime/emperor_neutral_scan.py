@@ -1698,6 +1698,7 @@ def merge_dynasty_governance_current(
     period_terms: Sequence[str],
     identity_resolver: HistoricalEntityResolver,
     subject_ref_by_name: Mapping[str, str],
+    ruler_ref: str,
     event_signatures: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Project accepted dynasty material into the ruler fanout without a model."""
@@ -1785,8 +1786,9 @@ def merge_dynasty_governance_current(
     for chain in current.get("chains") or ():
         period = str(chain.get("period") or "")
         normalized_period = _normalized_anchor(period)
-        if not any(term in normalized_period for term in normalized_period_terms):
-            continue
+        in_ruler_window = any(
+            term in normalized_period for term in normalized_period_terms
+        )
         resolved_actors = []
         for actor in chain.get("actors") or ():
             resolution = identity_resolver.resolve(
@@ -1815,6 +1817,11 @@ def merge_dynasty_governance_current(
                 }
             )
         if not resolved_actors:
+            continue
+        has_lifetime_person_actor = any(
+            str(actor["subject_ref"]) != ruler_ref for actor in resolved_actors
+        )
+        if not in_ruler_window and not has_lifetime_person_actor:
             continue
         chain_identity = {
             "dynasty_token": expected_dynasty_token,

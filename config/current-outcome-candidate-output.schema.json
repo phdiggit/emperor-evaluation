@@ -17,7 +17,7 @@
           "outcome_kind", "result_status", "result_direction", "observable_result",
           "scale_level", "scale_basis", "decisiveness", "scale_reason",
           "stable_delivery", "important_method_or_legacy", "ruler_window_status",
-          "members", "payload", "limitations"
+          "settlement_scope", "members", "payload", "limitations"
         ],
         "properties": {
           "candidate_key": {"type": "string", "pattern": "^[a-z0-9-]+$"},
@@ -30,11 +30,13 @@
           "period_end": {"type": "string", "minLength": 1},
           "origin": {"type": "string", "enum": ["person_biography", "ruler_chronicle", "dynasty_governance", "multi_channel"]},
           "outcome_kind": {"type": "string", "enum": ["campaign", "governance"]},
+          "settlement_scope": {"type": "string", "enum": ["ruler_campaign_parent", "person_campaign_subresult", "governance_result", "person_governance_result", "reign_macro_outcome"]},
+          "parent_outcome_ref": {"type": ["string", "null"]},
           "result_status": {"type": "string", "enum": ["implemented", "operated", "completed", "mixed", "failed", "unclear"]},
           "result_direction": {"type": "string", "enum": ["positive", "mixed", "negative", "unclear"]},
           "observable_result": {"type": "string", "minLength": 1},
           "scale_level": {"type": "string", "enum": ["local", "important", "regional", "national", "era_shaping"]},
-          "scale_basis": {"type": "string", "enum": ["local_tactical", "important_objective", "regional_theater_control", "national_war_outcome", "state_survival", "unification", "state_conquest", "local_public_result", "important_public_result", "regional_governance_result", "national_core_subsystem", "national_public_result", "era_order_reconstruction"]},
+          "scale_basis": {"type": "string", "enum": ["local_tactical", "important_objective", "regional_theater_control", "national_war_outcome", "state_survival", "unification", "state_conquest", "local_public_result", "important_public_result", "regional_governance_result", "national_core_subsystem", "national_public_result", "national_cultural_corpus", "era_order_reconstruction", "civilization_foundational_corpus"]},
           "decisiveness": {"type": "string", "enum": ["supporting", "major", "decisive"]},
           "scale_reason": {"type": "string", "minLength": 1},
           "stable_delivery": {"type": "boolean"},
@@ -48,7 +50,8 @@
               "properties": {
                 "actor_name": {"type": "string", "minLength": 1},
                 "actor_kind": {"type": "string", "enum": ["person", "ruler"]},
-                "role_code": {"type": "string", "enum": ["commander_in_chief", "principal_commander", "deputy_commander", "participant", "not_in_command_chain", "exclusive", "lead", "governance_participant", "authorized"]},
+                "role_code": {"type": "string", "enum": ["commander_in_chief", "principal_commander", "deputy_commander", "participant", "not_in_command_chain", "exclusive", "lead", "governance_participant", "authorized", "reign_holder"]},
+                "talent_credit": {"type": "string", "enum": ["independent", "covered_by_child", "not_applicable"]},
                 "ruler_campaign_relation": {"type": ["string", "null"], "enum": ["obstructed", "acquiesced", "authorized", "temporary_theater_control", "sustained_theater_control", "personal_command", null]},
                 "contribution_scope": {"type": "string", "minLength": 1},
                 "responsibility_scope": {"type": "string", "enum": ["nominal_or_light", "real_bounded", "major_affairs", "critical_national_or_long_term", "not_applicable"]},
@@ -68,6 +71,7 @@
               "foundational": {"type": ["boolean", "null"]},
               "durable_cross_stage": {"type": ["boolean", "null"]},
               "authorization_status": {"type": ["string", "null"], "enum": ["explicit", "maintained", "implicit", "not_established", null]},
+              "causal_attribution_status": {"type": ["string", "null"], "enum": ["established", "source_attributed", "limited", null]},
               "theater": {"type": ["string", "null"]},
               "strategic_objective": {"type": ["string", "null"]},
               "battle_result": {"type": ["string", "null"], "enum": ["victory", "mixed", "defeat", "unclear", null]},
@@ -78,7 +82,21 @@
               "campaign_tier_basis": {"type": ["string", "null"]},
               "land_strategic_value": {"type": ["string", "null"], "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival", null]},
               "process_adversity": {"type": ["string", "null"], "enum": ["none", "limited", "material", "severe_repaired", "near_collapse_repaired", "terminal_failure", null]},
-              "process_adversity_basis": {"type": ["string", "null"]}
+              "process_adversity_basis": {"type": ["string", "null"]},
+              "process_adversity_index": {"type": ["number", "null"], "enum": [0, 0.2, 0.4, 0.6, 0.7, 1, null]},
+              "process_adversity_attributions": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["responsibility", "actor_name", "basis", "exact_quotes"],
+                  "properties": {
+                    "responsibility": {"type": "string", "enum": ["primary", "shared", "subordinate_execution", "disobedience", "mitigated", "not_responsible", "external_unattributed"]},
+                    "actor_name": {"type": ["string", "null"]},
+                    "basis": {"type": "string", "minLength": 1},
+                    "exact_quotes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 2}}
+                  }
+                }
+              }
             }
           },
           "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
@@ -97,7 +115,9 @@
                     "campaign_tier_basis": {"type": "string", "minLength": 1},
                     "land_strategic_value": {"type": "string"},
                     "process_adversity": {"type": "string"},
-                    "process_adversity_basis": {"type": "string", "minLength": 1}
+                    "process_adversity_basis": {"type": "string", "minLength": 1},
+                    "process_adversity_index": {"type": "number"},
+                    "process_adversity_attributions": {"type": "array"}
                   }
                 }
               }
@@ -113,6 +133,7 @@
                     "foundational": {"type": "boolean"},
                     "durable_cross_stage": {"type": "boolean"},
                     "authorization_status": {"type": "string"}
+                    ,"causal_attribution_status": {"type": "string"}
                   }
                 }
               }

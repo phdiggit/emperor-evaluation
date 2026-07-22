@@ -344,6 +344,8 @@ def _ruler_window_outcomes(
     return [
         cluster
         for cluster in clusters
+        if cluster.get("settlement_scope")
+        not in {"person_campaign_subresult", "person_governance_result"}
         if cluster.get("ruler_window_status", "within_window")
         in {"within_window", "leadership_formation"}
     ]
@@ -1306,12 +1308,12 @@ def render_scoring_detail_markdown(
                     (
                         "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 | 状态 | 已实现结果 | 史源 |"
                         if outcome_kind == "governance"
-                        else "| 登记号 | 战役群 | 等级 | 战果 / 目标完成 | 过程负面 | 皇帝角色 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
+                        else "| 登记号 | 战役群 | 等级 | 战果 / 目标完成 | 过程负面 | 负面归责 | 皇帝角色 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
                     ),
                     (
                         "| --- | --- | --- | --- | --- | --- | --- | --- |"
                         if outcome_kind == "governance"
-                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
                     ),
                 ]
             )
@@ -1359,6 +1361,13 @@ def render_scoring_detail_markdown(
                     str(payload.get("process_adversity") or ""), "缺失"
                 )
                 adversity_basis = str(payload.get("process_adversity_basis") or "缺失")
+                adversity_index = payload.get("process_adversity_index")
+                adversity_attributions = "、".join(
+                    (
+                        f"{row.get('actor_name') or '外部因素'}（{row['responsibility']}：{row['basis']}）"
+                    )
+                    for row in payload.get("process_adversity_attributions") or ()
+                ) or "无"
                 three_axes = "；".join(
                     (
                         "土地="
@@ -1383,7 +1392,8 @@ def render_scoring_detail_markdown(
                     f"{payload.get('campaign_tier') or '缺失'} | "
                     f"{CAMPAIGN_RESULT_LABELS.get(str(payload.get('battle_result') or ''), '缺失')} / "
                     f"{OBJECTIVE_COMPLETION_LABELS.get(str(payload.get('objective_completion') or ''), '缺失')} | "
-                    f"{adversity}；{adversity_basis} | {ruler_roles} | {commander_roles} | "
+                    f"{adversity} / N={adversity_index}；{adversity_basis} | "
+                    f"{adversity_attributions} | {ruler_roles} | {commander_roles} | "
                     f"{three_axes} | {cluster['observable_result']} | "
                     f"{'、'.join(cluster['source_refs'])} |"
                 )

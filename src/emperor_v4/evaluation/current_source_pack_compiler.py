@@ -15,6 +15,7 @@ from emperor_v4.adapters.structured_output_contract import validate_payload_agai
 from emperor_v4.evaluation.historical_outcome_cluster import (
     CAMPAIGN_SCALE_BASES,
     GOVERNANCE_SCALE_BASES,
+    PROCESS_ADVERSITY_INDEX,
     cluster_semantic_fingerprint,
 )
 from emperor_v4.evaluation.i5b_current_value_runner import build_i5b_current_value
@@ -166,7 +167,7 @@ def compile_outcome_candidate_payloads(
         "commander_in_chief", "principal_commander", "deputy_commander", "participant",
         "not_in_command_chain",
     }
-    governance_roles = {"exclusive", "lead", "governance_participant", "authorized"}
+    governance_roles = {"exclusive", "lead", "governance_participant", "authorized", "reign_holder"}
     for payload in payloads:
         validate_payload_against_schema(payload, schema)
         if payload.get("schema_version") != CANDIDATE_SCHEMA_VERSION:
@@ -176,6 +177,29 @@ def compile_outcome_candidate_payloads(
             if candidate_key in candidate_keys:
                 raise ValueError(f"outcome candidate_key 重复: {candidate_key}")
             candidate_keys.add(candidate_key)
+            settlement_scope = str(candidate["settlement_scope"])
+            if candidate["outcome_kind"] == "campaign" and settlement_scope not in {
+                "ruler_campaign_parent",
+                "person_campaign_subresult",
+            }:
+                raise ValueError(f"{candidate_key} 战役结算范围不正确")
+            if candidate["outcome_kind"] == "governance" and settlement_scope not in {
+                "governance_result",
+                "person_governance_result",
+                "reign_macro_outcome",
+            }:
+                raise ValueError(f"{candidate_key} 治理结算范围不正确")
+            if settlement_scope == "person_campaign_subresult" and not candidate.get(
+                "parent_outcome_ref"
+            ):
+                raise ValueError(f"{candidate_key} 人物子战役缺少父级战役群")
+            if (
+                settlement_scope == "person_governance_result"
+                and candidate["ruler_window_status"] != "outside_window"
+            ):
+                raise ValueError(
+                    f"{candidate_key} 人物生涯治理成果必须位于当前皇帝窗口之外"
+                )
             if (
                 candidate["outcome_kind"] == "campaign"
                 and candidate["ruler_window_status"] == "unresolved"
@@ -189,6 +213,14 @@ def compile_outcome_candidate_payloads(
             quotes = list(
                 dict.fromkeys(str(value) for value in candidate["exact_quotes"])
             )
+            if candidate["outcome_kind"] == "campaign":
+                for attribution in candidate["payload"].get(
+                    "process_adversity_attributions"
+                ) or ():
+                    quotes.extend(
+                        str(value) for value in attribution.get("exact_quotes") or ()
+                    )
+                quotes = list(dict.fromkeys(quotes))
             if any(quote not in page.raw_text for quote in quotes):
                 raise ValueError(f"{candidate_key} exact_quote 无法逐字回指")
             members = []
@@ -203,6 +235,8 @@ def compile_outcome_candidate_payloads(
                         "land_strategic_value",
                         "process_adversity",
                         "process_adversity_basis",
+                        "process_adversity_index",
+                        "process_adversity_attributions",
                     )
                     if candidate["payload"].get(key) is None
                 ]
@@ -211,6 +245,19 @@ def compile_outcome_candidate_payloads(
                         f"{candidate_key} 战役登记缺少等级、土地轴或过程负面: "
                         + ", ".join(missing_campaign_axes)
                     )
+                adversity = str(candidate["payload"]["process_adversity"])
+                if (
+                    candidate["payload"]["process_adversity_index"]
+                    != PROCESS_ADVERSITY_INDEX[adversity]
+                ):
+                    raise ValueError(f"{candidate_key} 过程负面档位与指数不匹配")
+                adversity_rows = list(
+                    candidate["payload"]["process_adversity_attributions"] or ()
+                )
+                if adversity == "none" and adversity_rows:
+                    raise ValueError(f"{candidate_key} 无过程负面时不得登记责任")
+                if adversity != "none" and not adversity_rows:
+                    raise ValueError(f"{candidate_key} 非零过程负面必须登记责任或外部原因")
             else:
                 missing_governance_fields = [
                     key
@@ -219,6 +266,7 @@ def compile_outcome_candidate_payloads(
                         "foundational",
                         "durable_cross_stage",
                         "authorization_status",
+                        "causal_attribution_status",
                     )
                     if candidate["payload"].get(key) is None
                 ]
@@ -289,6 +337,13 @@ def compile_outcome_candidate_payloads(
                     "role_code": raw_member["role_code"],
                     "contribution_scope": raw_member["contribution_scope"],
                 }
+                if candidate["outcome_kind"] == "campaign":
+                    talent_credit = raw_member.get("talent_credit")
+                    if not talent_credit:
+                        raise ValueError(
+                            f"{candidate_key}/{name} 战役成员缺少人才独立信用声明"
+                        )
+                    member["talent_credit"] = talent_credit
                 ruler_campaign_relation = raw_member.get("ruler_campaign_relation")
                 if (
                     candidate["outcome_kind"] == "campaign"
@@ -342,10 +397,13 @@ def compile_outcome_candidate_payloads(
                 ruler_members = [
                     member for member in members if member["actor_kind"] == "ruler"
                 ]
-                current_ruler_campaign = candidate["ruler_window_status"] in {
-                    "within_window",
-                    "leadership_formation",
-                }
+                current_ruler_campaign = (
+                    candidate["settlement_scope"] == "ruler_campaign_parent"
+                    and candidate["ruler_window_status"] in {
+                        "within_window",
+                        "leadership_formation",
+                    }
+                )
                 if current_ruler_campaign and len(ruler_members) != 1:
                     raise ValueError(
                         f"{candidate_key} 当前皇帝父级战役群必须且只能登记一个皇帝成员"
@@ -380,7 +438,10 @@ def compile_outcome_candidate_payloads(
                     if member["role_code"]
                     in {"exclusive", "lead", "governance_participant"}
                 ]
-                if not substantive_members:
+                if (
+                    candidate["settlement_scope"] != "reign_macro_outcome"
+                    and not substantive_members
+                ):
                     raise ValueError(f"{candidate_key} 治理成果不能只有授权者")
                 exclusive_members = [
                     member for member in members if member["role_code"] == "exclusive"
@@ -389,6 +450,28 @@ def compile_outcome_candidate_payloads(
                     raise ValueError(
                         f"{candidate_key} exclusive 不能与其他实施责任角色并列"
                     )
+                if candidate["settlement_scope"] == "reign_macro_outcome":
+                    causal_status = candidate["payload"]["causal_attribution_status"]
+                    if causal_status == "source_attributed":
+                        if not any(
+                            member["actor_kind"] == "ruler"
+                            and member["role_code"] in {"exclusive", "lead"}
+                            for member in members
+                        ):
+                            raise ValueError(
+                                f"{candidate_key} 史源归因宏观结果缺少总体治理主导者"
+                            )
+                    elif causal_status == "limited":
+                        if not any(
+                            member["actor_kind"] == "ruler"
+                            and member["role_code"] == "reign_holder"
+                            for member in members
+                        ):
+                            raise ValueError(
+                                f"{candidate_key} 因果有限宏观结果缺少统治窗口归属"
+                            )
+                    else:
+                        raise ValueError(f"{candidate_key} 宏观结果因果归责状态不正确")
             fact_ref = "PFACT-AUTO-" + _digest(
                 {"candidate_key": candidate_key, "quotes": quotes}
             )[:20].upper()
@@ -450,9 +533,50 @@ def compile_outcome_candidate_payloads(
                     "land_strategic_value",
                     "process_adversity",
                     "process_adversity_basis",
+                    "process_adversity_index",
                 ):
                     if raw_payload.get(key) is not None:
                         outcome_payload[key] = raw_payload[key]
+                outcome_payload["process_adversity_attributions"] = []
+                for raw_attribution in raw_payload.get(
+                    "process_adversity_attributions"
+                ) or ():
+                    responsibility = str(raw_attribution["responsibility"])
+                    raw_actor_name = raw_attribution.get("actor_name")
+                    actor_name = None
+                    actor_ref = None
+                    if responsibility != "external_unattributed":
+                        if not raw_actor_name:
+                            raise ValueError(
+                                f"{candidate_key} 人物过程负面责任缺少 actor_name"
+                            )
+                        actor_name = actor_names_by_simplified.get(
+                            _T2S.convert(str(raw_actor_name)), str(raw_actor_name)
+                        )
+                        binding = actor_refs.get(actor_name)
+                        if binding is None:
+                            raise ValueError(
+                                f"{candidate_key} 过程负面责任人不在允许人物中: {actor_name}"
+                            )
+                        actor_ref = binding[0]
+                    attribution_quotes = list(
+                        dict.fromkeys(
+                            str(value)
+                            for value in raw_attribution["exact_quotes"]
+                        )
+                    )
+                    outcome_payload["process_adversity_attributions"].append(
+                        {
+                            "responsibility": responsibility,
+                            "actor_ref": actor_ref,
+                            "actor_name": actor_name,
+                            "basis": raw_attribution["basis"],
+                            "source_refs": [
+                                f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
+                                for quote in attribution_quotes
+                            ],
+                        }
+                    )
             else:
                 outcome_payload = {
                     key: raw_payload[key]
@@ -461,6 +585,7 @@ def compile_outcome_candidate_payloads(
                         "foundational",
                         "durable_cross_stage",
                         "authorization_status",
+                        "causal_attribution_status",
                     )
                 }
             outcome_ref = "OUTCOME-AUTO-" + _digest(candidate_key)[:20].upper()
@@ -468,6 +593,12 @@ def compile_outcome_candidate_payloads(
                 {
                     "outcome_ref": outcome_ref,
                     "outcome_kind": candidate["outcome_kind"],
+                    "settlement_scope": candidate["settlement_scope"],
+                    **(
+                        {"parent_outcome_ref": candidate["parent_outcome_ref"]}
+                        if candidate.get("parent_outcome_ref")
+                        else {}
+                    ),
                     "independent_key": candidate_key,
                     "canonical_label": candidate["canonical_label"],
                     "origin": candidate["origin"],
