@@ -80,8 +80,8 @@ def _prompt(
 3. members 只能使用允许人物：{json.dumps(list(actors), ensure_ascii=False)}。皇帝 {ruler} 用 actor_kind=ruler；其余用 person。
 4. 同一独立结果只生成一个 candidate。candidate_key 用小写 ASCII 与连字符，表达皇帝、时期和独立结果，必须稳定。
 5. campaign 必须填写 campaign_tier、campaign_tier_basis、land_strategic_value、process_adversity、process_adversity_basis、固定 process_adversity_index 和逐事件 process_adversity_attributions；治理字段填 null。正常动员、追击、敌军来援和战役困难不是过程负面；非 none 必须逐字说明责任或明确 external_unattributed，绝不能默认归责主帅。
-6. ruler_window_status 每项必填：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；前任朝廷独立决策或人物一生其他时期成果填 outside_window。仅凭参战、宗室身份或事后即位不得填 leadership_formation。campaign 不得填 unresolved；窗口无法确定就拒绝候选。
-7. settlement_scope 必填：皇帝父级战役填 ruler_campaign_parent；人物在父级内独立统帅战区并形成独立终局时填 person_campaign_subresult 并给 parent_outcome_ref；当前皇帝窗口治理填 governance_result；臣子全生涯中其他皇帝窗口的独立治理成果填 person_governance_result，必须保持 outside_window 且不得归给当前皇帝；粮价、人口、生产或治安等宏观结果填 reign_macro_outcome。宏观结果若史源上下文明确归于皇帝总体治理，causal_attribution_status=source_attributed 且皇帝可为 lead；若只有统治窗口关系则填 limited/reign_holder。每个战役成员填写 talent_credit，父级中已由子成果承载的人物填 covered_by_child。
+6. 必须先完全忽略皇帝窗口，判断事实能否形成独立战役或治理成果；窗口不明不得成为拒绝成果的理由。成果成立后才填写兼容性的后置绑定提示 ruler_window_status：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；其他时期填 outside_window；确实无法解析填 unresolved，等待绑定层复核。
+7. settlement_scope 只是后置绑定兼容字段，不参与成果成立与否：皇帝父级战役填 ruler_campaign_parent；人物在父级内独立统帅战区并形成独立终局时填 person_campaign_subresult 并给 parent_outcome_ref；当前皇帝窗口治理填 governance_result；臣子全生涯中其他皇帝窗口的独立治理成果填 person_governance_result；粮价、人口、生产或治安等宏观结果填 reign_macro_outcome。宏观结果若史源上下文明确归于皇帝总体治理，causal_attribution_status=source_attributed 且皇帝可为 lead；若只有统治窗口关系则填 limited/reign_holder。每个战役成员填写 talent_credit，父级中已由子成果承载的人物填 covered_by_child。登记器先写无窗口总登记，再单独写这些绑定字段；规则投影只能消费二者的显式连接结果。
 8. 奏疏、谏言和批评只证明臣下提出主张，不能单独证明被批评现象或公共后果已经发生；没有独立实施或结果史源时拒绝治理成果候选，但保留中性材料供 I5A 欲望与自我约束或其他相应规则消费。
 9. 完成并投入国家使用的一代正史、跨代通史或大型文化典籍通常至少填 national_cultural_corpus；例行修成单朝皇帝实录通常只属 important，除非完整国家史体系的规模、使用和长期影响另有直接史源。只有作品开创文明范式、长期成为基础文本且本人实际独著、主编或最终定稿，才填 civilization_foundational_corpus/era_shaping/foundational。官修不自动降档，但授权、总裁、主修、分卷撰修和挂名参与必须分别归责。
 10. 规模只按原文可支持的影响范围，不因人物名气上调；不确定就拒绝或 limitations 明示。

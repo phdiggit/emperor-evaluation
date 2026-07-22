@@ -20,6 +20,7 @@ i5b_current_value:
   rulers:
     李世民:
       source_pack: eval/i5b_current_value/李世民/source-pack.json
+      outcome_binding: eval/historical_outcome_bindings/李世民.json
       neutral_materials: eval/i5b_current_value/李世民/neutral-materials.json
       result: eval/i5b_current_value/李世民/result.json
       neutral_scan_backbone_works: [資治通鑑]
@@ -31,6 +32,7 @@ i5b_current_value:
       dynasty_governance_period_terms: [貞觀, 贞观, 唐太宗]
     刘邦:
       source_pack: eval/i5b_current_value/刘邦/source-pack.json
+      outcome_binding: eval/historical_outcome_bindings/刘邦.json
       neutral_materials: eval/i5b_current_value/刘邦/neutral-materials.json
       result: eval/i5b_current_value/刘邦/result.json
       neutral_scan_backbone_works: [資治通鑑]
@@ -43,6 +45,12 @@ i5b_current_value:
   formal_45_point_score: false
   tier: false
   ranking: false
+
+historical_outcome_registry:
+  current_json: eval/historical_outcome_registry/current.json
+  current_markdown: eval/historical_outcome_registry/current.md
+  audit_before_ruler_window_binding: true
+  formal_writes_allowed: false
 
 historical_quality_gold:
   schema: config/historical-quality-gold-manifest.schema.json

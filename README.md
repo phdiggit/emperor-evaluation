@@ -18,7 +18,7 @@
 - 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人才 `historic` 当前采用 V11 分领域等价路径，军事与治理分别执行各自门槛，不再互相类比。军事只使用战役字母等级：常规为两个独立 `S` 级以上加另一个独立 `A` 级以上；一个决定性 `S+` 加另一个独立 `A` 级以上，或两个 `主帅` / `主将` 的决定性 `S` 级以上战役群，可走缩短路径。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
-- 战役与治理只进入一套 `historical-outcome-cluster-registry-v1` 中性合同，以 `outcome_kind` 区分。每个独立结果只保存一次，含可观察结果、规模依据、人物角色、确定性 Episode、事实与史源；分数、因子、人才档位和复用评分项不进入成果簇。人物画像、I5B及总则其他项目只做后置投影，不建立评分专属副本。
+- 固定顺序是“中性材料 → 无皇帝窗口成果总登记 → 皇帝窗口绑定 → 规则材料 → 计分”。总登记以 `outcome_kind` 区分战役与治理，每个独立结果只保存一次，含可观察结果、规模依据、人物角色、确定性 Episode、事实与史源；不保存窗口、分数、因子或人才信用。各皇帝独立绑定表后置连接总登记，人物画像、I5B及其他项目只能消费连接结果，不建立评分专属事实副本。
 - 战役成果以父级战役群登记，阶段战斗保留为子事件。武将指挥身份与皇帝关系分轴；每个父级战役群只保存一个皇帝关系，并由亲征、长期统筹、临时坐镇、授权、默许、阻挠依次覆盖低参与档。战役字母档同时审查土地轴、对手轴和已实现结果，过程逆境使用中性档位，具体负面指数由引用分项后置映射。
 
 ## 当前架构
@@ -65,11 +65,12 @@ python v4.py i5b-run --ruler 李世民
 python v4.py i5b-run --ruler 刘邦
 python v4.py i5b-scoring-detail --ruler 李世民
 python v4.py i5b-scoring-detail --ruler 刘邦 --person 周勃
+python v4.py historical-outcome-registry
 python v4.py historical-outcome-dry-run --ruler 刘邦
 python v4.py historical-outcome-dry-run --ruler 李世民
 ```
 
-臣子详情使用 `--person`，显示该臣子的计分与未计分材料、当前人才档位、人才等级确立理由、对应规则、逐条成果类型/角色/规模/史源、窗口政治风险和 HistoricalEpisode。`historical-outcome-dry-run` 只计算将写入的当前行数与 migration 指纹，不读取 DSN、不打开数据库连接；本轮停在该边界。
+`historical-outcome-registry` 先重建 `eval/historical_outcome_registry/current.{json,md}`，再为每个皇帝生成独立窗口绑定；生成时必须能无损还原现有皇帝成果投影，否则失败关闭。臣子详情使用 `--person`，显示该臣子的计分与未计分材料、当前人才档位、人才等级确立理由、对应规则、逐条成果类型/角色/规模/史源、窗口政治风险和 HistoricalEpisode。`historical-outcome-dry-run` 只计算将写入的当前行数与 migration 指纹，不读取 DSN、不打开数据库连接；本轮停在该边界。
 
 ### Google AI 无人值守宽搜
 

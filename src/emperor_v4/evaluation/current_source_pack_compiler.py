@@ -9,6 +9,7 @@ from typing import Any, Mapping, Sequence
 from uuid import uuid4
 
 from opencc import OpenCC
+import yaml
 
 from emperor_v4.adapters.source_text_index import LocalSourceTextIndex
 from emperor_v4.adapters.structured_output_contract import validate_payload_against_schema
@@ -17,6 +18,10 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     GOVERNANCE_SCALE_BASES,
     PROCESS_ADVERSITY_INDEX,
     cluster_semantic_fingerprint,
+)
+from emperor_v4.evaluation.historical_outcome_registry import (
+    build_ruler_outcome_bindings,
+    build_unbound_historical_outcome_registry,
 )
 from emperor_v4.evaluation.i5b_current_value_runner import build_i5b_current_value
 
@@ -69,16 +74,23 @@ def compile_source_pack_increment(
         raise ValueError("source-pack increment 字段不闭合")
     compiled = json.loads(json.dumps(source_pack, ensure_ascii=False))
     if replace_auto:
-        compiled["facts"] = [
-            row
-            for row in compiled.get("facts") or ()
-            if not str(row.get("record_ref") or "").startswith("PFACT-AUTO-")
-        ]
-        compiled["outcome_registry"]["clusters"] = [
+        retained_clusters = [
             row
             for row in (compiled.get("outcome_registry") or {}).get("clusters") or ()
             if not str(row.get("outcome_ref") or "").startswith("OUTCOME-AUTO-")
         ]
+        retained_fact_refs = {
+            str(fact_ref)
+            for cluster in retained_clusters
+            for fact_ref in cluster.get("fact_refs") or ()
+        }
+        compiled["facts"] = [
+            row
+            for row in compiled.get("facts") or ()
+            if not str(row.get("record_ref") or "").startswith("PFACT-AUTO-")
+            or str(row.get("record_ref") or "") in retained_fact_refs
+        ]
+        compiled["outcome_registry"]["clusters"] = retained_clusters
     compiled["facts"] = _merge_current(
         compiled.get("facts") or (), increment.get("facts") or (), key="record_ref"
     )
@@ -199,13 +211,6 @@ def compile_outcome_candidate_payloads(
             ):
                 raise ValueError(
                     f"{candidate_key} 人物生涯治理成果必须位于当前皇帝窗口之外"
-                )
-            if (
-                candidate["outcome_kind"] == "campaign"
-                and candidate["ruler_window_status"] == "unresolved"
-            ):
-                raise ValueError(
-                    f"{candidate_key} 战役皇帝窗口未解析，不得进入成果登记"
                 )
             page = pages_by_title.get(str(candidate["source_page"]))
             if page is None or page.revision_ref != candidate["revision_ref"]:
@@ -659,7 +664,30 @@ def apply_source_pack_increment(
     with tempfile.TemporaryDirectory(prefix="emperor-source-pack-") as temporary:
         candidate = Path(temporary) / "source-pack.json"
         candidate.write_text(rendered, encoding="utf-8", newline="\n")
-        build_i5b_current_value(candidate, workspace_root=workspace_root)
+        project = yaml.safe_load(
+            (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+        )
+        configured = (project.get("i5b_current_value") or {}).get("rulers") or {}
+        source_packs = []
+        compiled_ruler = str(compiled["ruler"])
+        if compiled_ruler not in configured:
+            raise ValueError(f"current source pack 皇帝未配置: {compiled_ruler}")
+        for ruler_name, ruler_config in configured.items():
+            configured_path = (
+                workspace_root / str(ruler_config["source_pack"])
+            ).resolve()
+            source_packs.append(
+                compiled
+                if str(ruler_name) == compiled_ruler
+                else json.loads(configured_path.read_text(encoding="utf-8"))
+            )
+        registry = build_unbound_historical_outcome_registry(source_packs)
+        binding = build_ruler_outcome_bindings(compiled, registry)
+        build_i5b_current_value(
+            candidate,
+            workspace_root=workspace_root,
+            outcome_layers=(registry, binding),
+        )
     replacement = source_pack_path.with_name(f".{source_pack_path.name}.{uuid4().hex}.tmp")
     replacement.write_text(rendered, encoding="utf-8", newline="\n")
     os.replace(replacement, source_pack_path)

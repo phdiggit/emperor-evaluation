@@ -106,9 +106,6 @@
             "if": {"properties": {"outcome_kind": {"const": "campaign"}}},
             "then": {
               "properties": {
-                "ruler_window_status": {
-                  "enum": ["within_window", "leadership_formation", "outside_window"]
-                },
                 "payload": {
                   "properties": {
                     "campaign_tier": {"type": "string"},

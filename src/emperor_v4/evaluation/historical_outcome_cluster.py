@@ -223,8 +223,6 @@ def validate_historical_outcome_registry(
             raise ValueError(f"{ref} 规模与 consequence_basis 不匹配")
         if kind == "campaign":
             payload = cluster["payload"]
-            if cluster["ruler_window_status"] == "unresolved":
-                raise ValueError(f"{ref} 战役皇帝窗口未解析，不得进入成果登记")
             required_campaign_fields = {
                 "theater": payload.get("theater"),
                 "strategic_objective": payload.get("strategic_objective"),

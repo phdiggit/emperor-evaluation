@@ -23,6 +23,9 @@ from emperor_v4.evaluation.historical_quality_gold import (
     compare_historical_quality_gold_files,
     verify_historical_quality_gold_source_files,
 )
+from emperor_v4.evaluation.historical_outcome_registry import (
+    write_current_outcome_layers,
+)
 from emperor_v4.evaluation.i5b_ruler_rule_coverage import (
     evaluate_i5b_ruler_rule_coverage,
 )
@@ -78,6 +81,9 @@ def _parser() -> argparse.ArgumentParser:
     outcome_dry_run.add_argument("--ruler", required=True)
     outcome_dry_run.add_argument("--workspace-root", type=Path, default=Path("."))
     outcome_dry_run.add_argument("--output", type=Path)
+
+    outcome_registry = commands.add_parser("historical-outcome-registry")
+    outcome_registry.add_argument("--workspace-root", type=Path, default=Path("."))
 
     gold_compare = commands.add_parser("historical-gold-compare")
     gold_compare.add_argument("--manifest", type=Path, required=True)
@@ -337,6 +343,17 @@ def _run_outcome_dry_run(args: argparse.Namespace) -> int:
     return _write_report(dry_run, args.output)
 
 
+def _run_outcome_registry(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_current_outcome_layers(workspace_root)
+    registry = written["registry"]
+    print(f"总成果：{registry['declarations']['outcome_count']}")
+    print(f"战役 / 治理：{registry['declarations']['campaign_count']} / {registry['declarations']['governance_count']}")
+    print(f"窗口绑定：{registry['declarations']['window_binding_count']}")
+    print(f"总登记：{written['registry_markdown']}")
+    return 1 if registry["status"] == "needs_review" else 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
 
@@ -348,6 +365,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_scoring_detail(args)
     if args.command == "historical-outcome-dry-run":
         return _run_outcome_dry_run(args)
+    if args.command == "historical-outcome-registry":
+        return _run_outcome_registry(args)
     if args.command == "historical-gold-compare":
         kwargs = {"manifest_path": args.manifest, "result_path": args.result}
         if args.schema:
@@ -456,6 +475,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             increment_payload,
             workspace_root=workspace_root,
         )
+        if changed:
+            write_current_outcome_layers(workspace_root)
         print("source-pack：已更新" if changed else "source-pack：无变化")
         return 0
     if args.command == "i5b-discovery-compass-record":

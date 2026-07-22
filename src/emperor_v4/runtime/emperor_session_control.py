@@ -17,6 +17,9 @@ import yaml
 from emperor_v4.evaluation.i5b_current_value_runner import (
     render_scoring_detail_markdown,
 )
+from emperor_v4.evaluation.historical_outcome_registry import (
+    materialize_ruler_outcome_registry,
+)
 from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
 
 
@@ -167,11 +170,18 @@ def _canonical_paths(
     root: Path, configured: Mapping[str, object]
 ) -> dict[str, Path]:
     result = root / str(configured["result"])
+    project = yaml.safe_load(
+        (root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    registry = project.get("historical_outcome_registry") or {}
     return {
         "source_pack": root / str(configured["source_pack"]),
         "neutral_materials": root / str(configured["neutral_materials"]),
         "result_json": result,
         "result_markdown": result.with_suffix(".md"),
+        "outcome_binding": root / str(configured["outcome_binding"]),
+        "outcome_registry_json": root / str(registry["current_json"]),
+        "outcome_registry_markdown": root / str(registry["current_markdown"]),
     }
 
 
@@ -213,7 +223,11 @@ def _release_session_guard(state_root: Path, session_id: str) -> None:
 
 
 def _prepare_workspace(
-    *, release_root: Path, workspace_root: Path, ruler: str
+    *,
+    release_root: Path,
+    workspace_root: Path,
+    ruler: str,
+    configured: Mapping[str, object],
 ) -> None:
     workspace_root.mkdir(parents=True, exist_ok=False)
     shutil.copytree(release_root / "config", workspace_root / "config")
@@ -221,6 +235,13 @@ def _prepare_workspace(
     if not (source / "source-pack.json").is_file():
         raise SessionControlError(f"release 不含皇帝 source-pack: {ruler}")
     shutil.copytree(source, workspace_root / "eval/i5b_current_value" / ruler)
+    for path in _canonical_paths(release_root, configured).values():
+        relative = path.relative_to(release_root)
+        target = workspace_root / relative
+        if target.is_file():
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, target)
 
 
 def claim_session(
@@ -327,6 +348,7 @@ def claim_session(
                 release_root=release_root,
                 workspace_root=workspace_root,
                 ruler=candidate,
+                configured=configured,
             )
             canonical = _canonical_paths(release_root, configured)
             lease = {
@@ -485,6 +507,8 @@ def _validate_publish_payload(
     if missing:
         raise SessionControlError(f"会话输出不完整: {', '.join(missing)}")
     source_pack = _read_json(paths["source_pack"])
+    binding = _read_json(paths["outcome_binding"])
+    outcome_registry = _read_json(paths["outcome_registry_json"])
     neutral = _read_json(paths["neutral_materials"])
     report = _read_json(paths["result_json"])
     markdown = paths["result_markdown"].read_text(encoding="utf-8")
@@ -492,6 +516,10 @@ def _validate_publish_payload(
         raise SessionControlError("会话输出皇帝不匹配")
     if report.get("source_pack_sha256") != source_pack.get("source_pack_sha256"):
         raise SessionControlError("结果与 source-pack 当前值不匹配")
+    if materialize_ruler_outcome_registry(outcome_registry, binding) != source_pack.get(
+        "outcome_registry"
+    ):
+        raise SessionControlError("成果总登记与皇帝窗口绑定无法还原 source-pack")
     if not isinstance((neutral.get("fanout") or {}).get("facts"), list):
         raise SessionControlError("中性材料缺少 fanout facts")
     if "## 战役登记" not in markdown or "## 治理成果登记" not in markdown:
@@ -530,8 +558,12 @@ def publish_session(
     )
     target_paths = _canonical_paths(canonical_root, configured)
     control = _control_root(state_root)
+    global_publish_lock = control / "publish" / "historical-outcome-registry.json"
+    if not _claim_json(global_publish_lock, {"session_id": session_id}):
+        raise SessionControlError("成果总登记已有发布者")
     publish_lock = control / "publish" / f"{lease['ruler_ref']}.json"
     if not _claim_json(publish_lock, {"session_id": session_id}):
+        global_publish_lock.unlink(missing_ok=True)
         raise SessionControlError("目标皇帝已有发布者")
     rollback_root = path.parent / "publish-rollback"
     replaced: list[str] = []
@@ -569,6 +601,7 @@ def publish_session(
         if rollback_root.exists():
             shutil.rmtree(rollback_root)
         publish_lock.unlink(missing_ok=True)
+        global_publish_lock.unlink(missing_ok=True)
     result = {
         "schema_version": PUBLISH_SCHEMA_VERSION,
         "status": "published_current",

@@ -31,6 +31,9 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     campaign_tier,
     validate_historical_outcome_registry,
 )
+from emperor_v4.evaluation.historical_outcome_registry import (
+    materialize_ruler_outcome_registry,
+)
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
 
@@ -492,6 +495,7 @@ def build_i5b_current_value(
     source_pack_path: Path,
     *,
     workspace_root: Path = ROOT,
+    outcome_layers: tuple[Mapping[str, Any], Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     source_pack_path = source_pack_path.resolve()
     pack = _load_json(source_pack_path)
@@ -511,7 +515,35 @@ def build_i5b_current_value(
         raise ValueError("current source pack 三路处置不闭合")
     if len(pack.get("ruler_context_materials") or ()) != int(dispositions["ruler_chronicle"]["ruler_window_context_count"]):
         raise ValueError("皇帝篇章 supporting context 数量不一致")
-    outcome_registry = pack.get("outcome_registry") or {}
+    if outcome_layers is not None:
+        unbound_registry, binding_report = outcome_layers
+    else:
+        project_path = workspace_root / "config/project.yml"
+        project = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+        ruler_config = (
+            ((project.get("i5b_current_value") or {}).get("rulers") or {}).get(
+                str(pack["ruler"])
+            )
+            or {}
+        )
+        registry_config = project.get("historical_outcome_registry") or {}
+        if not ruler_config.get("outcome_binding") or not registry_config.get(
+            "current_json"
+        ):
+            raise ValueError("当前皇帝缺少成果总登记或独立窗口绑定配置")
+        unbound_registry = _load_json(
+            workspace_root / str(registry_config["current_json"])
+        )
+        binding_report = _load_json(
+            workspace_root / str(ruler_config["outcome_binding"])
+        )
+    if binding_report.get("source_pack_sha256") != declared_hash:
+        raise ValueError("皇帝窗口绑定与 current source pack 版本不一致")
+    outcome_registry = materialize_ruler_outcome_registry(
+        unbound_registry, binding_report
+    )
+    if outcome_registry != (pack.get("outcome_registry") or {}):
+        raise ValueError("成果总登记与皇帝窗口绑定无法还原 current source pack")
     outcome_clusters = list(outcome_registry.get("clusters") or ())
     dynasty_governance_count = sum(
         row["origin"] == "dynasty_governance" and row["outcome_kind"] == "governance"

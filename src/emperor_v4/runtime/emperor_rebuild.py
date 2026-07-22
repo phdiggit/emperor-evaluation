@@ -20,6 +20,9 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
     build_i5b_current_value,
     render_scoring_detail_markdown,
 )
+from emperor_v4.evaluation.historical_outcome_registry import (
+    write_current_outcome_layers,
+)
 from emperor_v4.runtime.emperor_neutral_scan import (
     build_backbone_event_signatures,
     build_compact_multi_output_schema,
@@ -840,6 +843,7 @@ def rebuild_emperor(
     )
     deadline.check("current_projection")
     source_pack_path = workspace_root / str(configured["source_pack"])
+    outcome_layers = write_current_outcome_layers(workspace_root)
     report = build_i5b_current_value(source_pack_path, workspace_root=workspace_root)
     if report["ruler"] != ruler:
         raise ValueError("链路结果皇帝不匹配")
@@ -899,6 +903,9 @@ def rebuild_emperor(
         "outcome_model_anomaly_recovery_count": outcome_recovery_count,
         "outcome_final_facts_per_call": outcome_final_facts_per_call,
         "source_pack_changed": outcome_projection["source_pack_changed"],
+        "historical_outcome_registry_fingerprint": outcome_layers["registry"][
+            "registry_fingerprint"
+        ],
         "sampled_person_exports": samples,
         "net_signal": report["net_signal"],
         "elapsed_seconds": round(deadline.elapsed, 3),

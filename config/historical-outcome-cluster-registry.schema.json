@@ -211,19 +211,6 @@
       "allOf": [
         {
           "if": {
-            "properties": {"outcome_kind": {"const": "campaign"}},
-            "required": ["outcome_kind"]
-          },
-          "then": {
-            "properties": {
-              "ruler_window_status": {
-                "enum": ["within_window", "leadership_formation", "outside_window"]
-              }
-            }
-          }
-        },
-        {
-          "if": {
             "properties": {
               "outcome_kind": {"const": "campaign"},
               "ruler_window_status": {

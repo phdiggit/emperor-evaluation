@@ -20,6 +20,12 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     outcome_episode_ref,
     validate_historical_outcome_registry,
 )
+from emperor_v4.evaluation.historical_outcome_registry import (
+    build_ruler_outcome_bindings,
+    build_unbound_historical_outcome_registry,
+    materialize_ruler_outcome_registry,
+    render_unbound_historical_outcome_registry_markdown,
+)
 from emperor_v4.adapters.historical_entity_identity import HistoricalEntityResolver
 from emperor_v4.adapters.source_text_index import LocalSourceTextIndex, build_local_source_index
 from emperor_v4.evaluation.current_source_pack_compiler import (
@@ -438,16 +444,19 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
         )
 
 
-def test_campaign_candidate_rejects_unresolved_ruler_window(tmp_path: Path) -> None:
+def test_campaign_candidate_keeps_outcome_when_ruler_window_is_unresolved(
+    tmp_path: Path,
+) -> None:
     payload = _campaign_candidate_payload()
     payload["candidates"][0]["ruler_window_status"] = "unresolved"
-    with pytest.raises(ValueError):
-        compile_outcome_candidate_payloads(
-            {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
-            [payload],
-            source_index=_campaign_contract_index(tmp_path),
-            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
-        )
+    increment = compile_outcome_candidate_payloads(
+        {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
+        [payload],
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+    )
+    assert len(increment["outcomes"]) == 1
+    assert increment["outcomes"][0]["ruler_window_status"] == "unresolved"
 
 
 def test_governance_candidate_requires_substantive_responsibility(tmp_path: Path) -> None:
@@ -566,6 +575,14 @@ def _session_release_fixture(tmp_path: Path) -> Path:
             ROOT / "eval/i5b_current_value" / ruler,
             release / "eval/i5b_current_value" / ruler,
         )
+    shutil.copytree(
+        ROOT / "eval/historical_outcome_registry",
+        release / "eval/historical_outcome_registry",
+    )
+    shutil.copytree(
+        ROOT / "eval/historical_outcome_bindings",
+        release / "eval/historical_outcome_bindings",
+    )
     return release
 
 
@@ -1046,7 +1063,20 @@ def test_profile_and_outcome_changes_rebuild_downstream_materials(
     target = tmp_path / "source-pack.json"
     target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
-    report = build_i5b_current_value(target)
+    source_packs = [
+        payload,
+        json.loads(
+            (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
+                encoding="utf-8"
+            )
+        ),
+    ]
+    registry = build_unbound_historical_outcome_registry(source_packs)
+    binding = build_ruler_outcome_bindings(payload, registry)
+    report = build_i5b_current_value(
+        target,
+        outcome_layers=(registry, binding),
+    )
     discovery = next(
         row
         for row in report["material_budget"]["rules"]
@@ -4184,6 +4214,46 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     }
 
 
+def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
+    source_packs = [
+        json.loads(
+            (ROOT / "eval/i5b_current_value" / ruler / "source-pack.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for ruler in ("李世民", "刘邦")
+    ]
+    registry = build_unbound_historical_outcome_registry(source_packs)
+    assert registry["status"] == "current_shadow_unbound"
+    assert registry["declarations"]["outcome_count"] == 65
+    assert registry["declarations"]["campaign_count"] == 31
+    assert registry["declarations"]["governance_count"] == 34
+    assert registry["declarations"]["window_binding_count"] == 0
+    for outcome in registry["outcomes"]:
+        assert "ruler_window_status" not in outcome
+        assert "settlement_scope" not in outcome
+        assert "ruler_context_refs" not in outcome
+        for member in outcome["members"]:
+            assert "actor_kind" not in member
+            assert "talent_credit" not in member
+            assert "ruler_campaign_relation" not in member
+
+    rendered = render_unbound_historical_outcome_registry_markdown(registry)
+    assert "# 战役与治理成果总登记（未绑定皇帝窗口）" in rendered
+    assert "总成果：65" in rendered
+    assert "永徽律令格式与《律疏》编定颁行" in rendered
+    assert "ruler_window_status" not in rendered
+    for source_pack in source_packs:
+        binding = build_ruler_outcome_bindings(source_pack, registry)
+        assert binding["binding_count"] == len(
+            source_pack["outcome_registry"]["clusters"]
+        )
+        assert (
+            materialize_ruler_outcome_registry(registry, binding)
+            == source_pack["outcome_registry"]
+        )
+
+
 def test_direct_runner_uses_the_same_markdown_contract(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -4218,14 +4288,26 @@ def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
     source_dir.mkdir(parents=True)
     source = ROOT / "eval/i5b_current_value/刘邦/source-pack.json"
     (source_dir / "source-pack.json").write_bytes(source.read_bytes())
+    registry_dir = workspace / "eval/outcomes"
+    registry_dir.mkdir(parents=True)
+    (registry_dir / "current.json").write_bytes(
+        (ROOT / "eval/historical_outcome_registry/current.json").read_bytes()
+    )
+    (registry_dir / "刘邦-binding.json").write_bytes(
+        (ROOT / "eval/historical_outcome_bindings/刘邦.json").read_bytes()
+    )
     config_dir = workspace / "config"
     config_dir.mkdir()
     (config_dir / "project.yml").write_text(
         """i5b_current_value:
   rulers:
-    刘邦:
-      source_pack: eval/current/ruler/source-pack.json
-      result: eval/current/ruler/result.json
+        刘邦:
+          source_pack: eval/current/ruler/source-pack.json
+          outcome_binding: eval/outcomes/刘邦-binding.json
+          result: eval/current/ruler/result.json
+historical_outcome_registry:
+  current_json: eval/outcomes/current.json
+  current_markdown: eval/outcomes/current.md
 """,
         encoding="utf-8",
     )
