@@ -12,6 +12,15 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     cluster_semantic_fingerprint,
     validate_historical_outcome_registry,
 )
+from emperor_v4.evaluation.historical_quality_gold import (
+    compare_historical_quality_gold_files,
+    load_historical_quality_gold,
+    verify_historical_quality_gold_sources,
+)
+from emperor_v4.adapters.source_text_index import (
+    LocalSourceTextIndex,
+    build_local_source_index,
+)
 from emperor_v4.evaluation.i5b_current_value_runner import (
     build_i5b_current_value,
     build_outcome_database_dry_run,
@@ -20,6 +29,7 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "config/historical-outcome-cluster-registry.schema.json"
+GOLD_SCHEMA = ROOT / "config/historical-quality-gold-manifest.schema.json"
 
 
 @pytest.mark.parametrize("ruler", ["刘邦", "李世民"])
@@ -301,3 +311,81 @@ def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     assert dry_run["planned_current_rows"]["historical_outcome_clusters"] == report[
         "declarations"
     ]["historical_outcome_cluster_count"]
+
+
+def test_lishimin_goguryeo_gold_exposes_current_campaign_chain_gaps() -> None:
+    report = compare_historical_quality_gold_files(
+        manifest_path=ROOT / "eval/historical_quality_gold/李世民.json",
+        result_path=ROOT / "eval/i5b_current_value/李世民/result.json",
+    )
+
+    cases = {row["gold_ref"]: row for row in report["cases"]}
+    assert report["status"] == "failed"
+    assert report["comparison_mode"] == "post_run_gold_only"
+    assert report["recall"]["major"] == {"matched": 3, "total": 6, "rate": 0.5}
+    assert report["accepted_episode_precision"] is None
+    assert cases["GOLD-LSM-CAMPAIGN-GOGURYEO-645"]["matched_refs"] == []
+    assert cases["GOLD-LSM-CAMPAIGN-BAIYAN"]["matched_refs"] == []
+    assert cases["GOLD-LSM-CAMPAIGN-ZHUBISHAN"]["matched_refs"] == []
+    assert any(
+        diff["kind"] == "parent_link"
+        for diff in cases["GOLD-LSM-CAMPAIGN-ANSHI"]["differences"]
+    )
+    assert report["database_write_count"] == 0
+    assert report["formal_score_write_count"] == 0
+
+
+def test_gold_manifest_rejects_generated_outcome_identity_selector(tmp_path: Path) -> None:
+    manifest = json.loads(
+        (ROOT / "eval/historical_quality_gold/李世民.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    manifest["cases"][0]["selector"]["outcome_ref"] = "OUTCOME-CURRENT"
+    path = tmp_path / "invalid-gold.json"
+    path.write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="额外字段|outcome_ref"):
+        load_historical_quality_gold(path, schema_path=GOLD_SCHEMA)
+
+
+def test_gold_source_verification_requires_same_revision_and_exact_quote(
+    tmp_path: Path,
+) -> None:
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "資治通鑑/卷198",
+                "work_title": "資治通鑑",
+                "source_url": "fixture://tongjian-198",
+                "revision_ref": "1502841",
+                "raw_text": "六月，丁酉，李世勣攻白巖城西南，上臨其西北。",
+            }
+        ],
+        index_path,
+    )
+    manifest = {
+        "ruler": "李世民",
+        "scope_code": "fixture",
+        "cases": [
+            {
+                "source_refs": [
+                    "資治通鑑/卷198@1502841#六月，丁酉，李世勣攻白巖城西南，上臨其西北。",
+                    "資治通鑑/卷198@wrong#不存在的句子",
+                ]
+            }
+        ],
+    }
+
+    report = verify_historical_quality_gold_sources(
+        manifest, source_index=LocalSourceTextIndex(index_path)
+    )
+
+    assert report["status"] == "failed"
+    assert report["verified_count"] == 1
+    assert report["sources"][1]["errors"] == [
+        "revision_mismatch",
+        "exact_quote_missing",
+    ]
+    assert report["database_write_count"] == 0

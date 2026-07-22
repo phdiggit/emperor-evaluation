@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "historical-quality-gold-manifest.schema.json",
+  "title": "V4 Human Frozen Historical Quality Gold Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "ruler",
+    "ruler_ref",
+    "scope_code",
+    "scope_completeness",
+    "input_identity",
+    "rule_refs",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {"const": "historical-quality-gold-manifest-v1"},
+    "status": {"const": "human_frozen"},
+    "ruler": {"type": "string", "minLength": 1},
+    "ruler_ref": {"type": "string", "minLength": 1},
+    "scope_code": {"type": "string", "minLength": 1},
+    "scope_completeness": {"enum": ["calibration_slice", "full_ruler"]},
+    "input_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_pack_sha256", "result_schema_version"],
+      "properties": {
+        "source_pack_sha256": {"type": "string", "minLength": 64},
+        "result_schema_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "rule_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/case"}
+    }
+  },
+  "$defs": {
+    "selector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collection"],
+      "properties": {
+        "collection": {
+          "enum": ["historical_outcome_clusters", "profile_projection_review"]
+        },
+        "outcome_kind": {"enum": ["campaign", "governance"]},
+        "label_terms_all": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "label_terms_any": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "source_refs_any": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "person": {"type": "string", "minLength": 1}
+      }
+    },
+    "field_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "expected"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "expected": {}
+      }
+    },
+    "member_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_name", "actor_kind", "role_code"],
+      "properties": {
+        "actor_name": {"type": "string", "minLength": 1},
+        "actor_kind": {"enum": ["person", "ruler"]},
+        "role_code": {"type": "string", "minLength": 1},
+        "ruler_campaign_relation": {"type": "string", "minLength": 1}
+      }
+    },
+    "expectations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fields", "members"],
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/field_expectation"}
+        },
+        "members": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/member_expectation"}
+        },
+        "require_parent_link": {"type": "boolean"}
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gold_ref",
+        "unit_kind",
+        "importance",
+        "canonical_label",
+        "source_refs",
+        "expected_match_count",
+        "selector",
+        "expectations"
+      ],
+      "properties": {
+        "gold_ref": {"type": "string", "minLength": 1},
+        "unit_kind": {
+          "enum": [
+            "campaign_group",
+            "campaign_operation",
+            "governance_outcome",
+            "person_talent",
+            "person_risk",
+            "exclusion_boundary"
+          ]
+        },
+        "importance": {"enum": ["major", "secondary", "boundary"]},
+        "canonical_label": {"type": "string", "minLength": 1},
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "parent_gold_ref": {"type": "string", "minLength": 1},
+        "expected_match_count": {"enum": [0, 1]},
+        "selector": {"$ref": "#/$defs/selector"},
+        "expectations": {"$ref": "#/$defs/expectations"},
+        "review_basis": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -44,6 +44,16 @@ i5b_current_value:
   tier: false
   ranking: false
 
+historical_quality_gold:
+  schema: config/historical-quality-gold-manifest.schema.json
+  comparator: emperor_v4.evaluation.historical_quality_gold
+  comparison_mode: post_run_gold_only
+  model_access_allowed: false
+  rulers:
+    李世民:
+      manifest: eval/historical_quality_gold/李世民.json
+      scope_completeness: calibration_slice
+
 person_profile_storage:
   canonical_profile_table: v4_person_profile.person_profiles
   canonical_identity_table: v4_person_profile.person_identity_registry

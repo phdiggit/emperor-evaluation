@@ -1,0 +1,208 @@
+{
+  "cases": [
+    {
+      "canonical_label": "贞观十九年亲征高句丽战役",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {"expected": "mixed", "path": "result_status"},
+          {"expected": "mixed", "path": "result_direction"},
+          {"expected": "national", "path": "scale.level"},
+          {"expected": "mixed", "path": "payload.battle_result"},
+          {"expected": "partial", "path": "payload.objective_completion"}
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          }
+        ]
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645",
+      "importance": "major",
+      "review_basis": "整体战役攻克多城并击溃援军，但未攻克安市城且最终班师；整体登记为mixed，不能只以安市城替代整个战役。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": ["李世民", "高句丽"],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "舊唐書/卷3@2488779#高麗大潰",
+        "舊唐書/卷3@2488779#至九月不克，乃班師"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "盖牟城之战",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {"expected": "completed", "path": "result_status"},
+          {"expected": "victory", "path": "payload.battle_result"}
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-GAIMOU",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645",
+      "review_basis": "攻克城池并取得人口、粮食，是亲征高句丽战役链中的独立作战结果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": ["盖牟城"],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "資治通鑑/卷197@1502835#壬子，李世勣、江夏王道宗攻高麗蓋牟城。丁巳，車駕至北平。癸亥，李世勣等拔蓋牟城，獲二萬餘口，糧十餘萬石。"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "辽东城之战",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {"expected": "completed", "path": "result_status"},
+          {"expected": "victory", "path": "payload.battle_result"}
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "principal_commander"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-LIAODONG",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645",
+      "review_basis": "李勣持续攻城，李世民率精兵会合并攻克辽东城；皇帝角色为亲征，不能只登记一般授权。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": ["辽东城"],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "資治通鑑/卷197@1502835#李世勣攻遼東城，晝夜不息，旬有二日，上引精兵會之，圍其城數百重"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "白岩城之战",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {"expected": "completed", "path": "result_status"},
+          {"expected": "victory", "path": "payload.battle_result"}
+        ],
+        "members": [],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-BAIYAN",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645",
+      "review_basis": "白岩城先反复后受降，属于战役链中的独立城池结果；受降处置不能把战役本身降为一般治理个案。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": ["白岩城"],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "資治通鑑/卷198@1502841#六月，丁酉，李世勣攻白巖城西南，上臨其西北。",
+        "資治通鑑/卷198@1502841#李世勣見上將受其降，帥甲士數十人請曰"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "驻跸山之战",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {"expected": "completed", "path": "result_status"},
+          {"expected": "victory", "path": "payload.battle_result"}
+        ],
+        "members": [],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-ZHUBISHAN",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645",
+      "review_basis": "唐军击溃高句丽主力并迫使高延寿等投降，是亲征战役的主战役节点，不能仅作为人物传记片段存在。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": ["驻跸山"],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "舊唐書/卷199上@2638645#高麗傾國而來，存亡所系，一麾而敗，天佑我也！",
+        "舊唐書/卷199上@2638645#因名所幸山爲駐蹕山"
+      ],
+      "unit_kind": "campaign_operation"
+    },
+    {
+      "canonical_label": "安市城之战",
+      "expected_match_count": 1,
+      "expectations": {
+        "fields": [
+          {"expected": "failed", "path": "result_status"},
+          {"expected": "negative", "path": "result_direction"},
+          {"expected": "defeat", "path": "payload.battle_result"},
+          {"expected": "failed", "path": "payload.objective_completion"}
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "personal_command"
+          }
+        ],
+        "require_parent_link": true
+      },
+      "gold_ref": "GOLD-LSM-CAMPAIGN-ANSHI",
+      "importance": "major",
+      "parent_gold_ref": "GOLD-LSM-CAMPAIGN-GOGURYEO-645",
+      "review_basis": "独立作战目标未实现并撤军，子战役登记为failed；不得由此把整个亲征战役简化为单一失败。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": ["安市城"],
+        "outcome_kind": "campaign"
+      },
+      "source_refs": [
+        "貞觀政要/卷05@1161907#詔令耨薩延壽、惠真等降，眾止其城下以招之，城中堅守不動。",
+        "貞觀政要/卷05@1161907#太宗將旋師，嘉安市城主堅守臣節，賜絹三百匹，以勸勵事君者。"
+      ],
+      "unit_kind": "campaign_operation"
+    }
+  ],
+  "input_identity": {
+    "result_schema_version": "i5b-current-value-report-v5",
+    "source_pack_sha256": "fefcd2686e08f1cfe1fe4aa9b255b932b29deb059ca5ac733618ca9df366eb98"
+  },
+  "rule_refs": [
+    "docs/证据规则/公共成果登记与人物画像规则.md",
+    "config/campaign-registry.schema.json",
+    "config/historical-outcome-cluster-registry.schema.json"
+  ],
+  "ruler": "李世民",
+  "ruler_ref": "RULER-58130F2446A25CC1",
+  "schema_version": "historical-quality-gold-manifest-v1",
+  "scope_code": "lishimin-goguryeo-campaign-calibration",
+  "scope_completeness": "calibration_slice",
+  "status": "human_frozen"
+}

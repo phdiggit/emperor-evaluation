@@ -19,6 +19,10 @@ from emperor_v4.evaluation.i5b_factor_semantics import evaluate_i5b_factor_seman
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
 )
+from emperor_v4.evaluation.historical_quality_gold import (
+    compare_historical_quality_gold_files,
+    verify_historical_quality_gold_source_files,
+)
 from emperor_v4.evaluation.i5b_ruler_rule_coverage import (
     evaluate_i5b_ruler_rule_coverage,
 )
@@ -74,6 +78,18 @@ def _parser() -> argparse.ArgumentParser:
     outcome_dry_run.add_argument("--ruler", required=True)
     outcome_dry_run.add_argument("--workspace-root", type=Path, default=Path("."))
     outcome_dry_run.add_argument("--output", type=Path)
+
+    gold_compare = commands.add_parser("historical-gold-compare")
+    gold_compare.add_argument("--manifest", type=Path, required=True)
+    gold_compare.add_argument("--result", type=Path, required=True)
+    gold_compare.add_argument("--schema", type=Path)
+    gold_compare.add_argument("--output", type=Path)
+
+    gold_sources = commands.add_parser("historical-gold-sources-verify")
+    gold_sources.add_argument("--manifest", type=Path, required=True)
+    gold_sources.add_argument("--source-index", type=Path, required=True)
+    gold_sources.add_argument("--schema", type=Path)
+    gold_sources.add_argument("--output", type=Path)
 
     model_policy = commands.add_parser("model-policy")
     model_policy.add_argument("--policy", type=Path, required=True)
@@ -332,6 +348,21 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_scoring_detail(args)
     if args.command == "historical-outcome-dry-run":
         return _run_outcome_dry_run(args)
+    if args.command == "historical-gold-compare":
+        kwargs = {"manifest_path": args.manifest, "result_path": args.result}
+        if args.schema:
+            kwargs["schema_path"] = args.schema
+        return _write_report(compare_historical_quality_gold_files(**kwargs), args.output)
+    if args.command == "historical-gold-sources-verify":
+        kwargs = {
+            "manifest_path": args.manifest,
+            "source_index_path": args.source_index,
+        }
+        if args.schema:
+            kwargs["schema_path"] = args.schema
+        return _write_report(
+            verify_historical_quality_gold_source_files(**kwargs), args.output
+        )
     if args.command == "emperor-rebuild":
         runtime_root = args.runtime_root or (
             args.workspace_root / "tmp" / "emperor_rebuild" / args.ruler
