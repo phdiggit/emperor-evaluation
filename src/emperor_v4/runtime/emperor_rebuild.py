@@ -901,7 +901,7 @@ def rebuild_emperor(
             facts_per_call=facts_per_call,
         ),
         initial_batch_size=16,
-        maximum_recoveries=0,
+        maximum_recoveries=2,
     )
     neutral_materials["outcome_projection"] = {
         "schema_version": "current-outcome-disposition-v1",

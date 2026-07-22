@@ -620,6 +620,35 @@ def test_emperor_rebuild_recovers_model_anomaly_with_fresh_smaller_runner() -> N
     assert len(runners) == 2
 
 
+def test_emperor_rebuild_can_reduce_outcome_batch_twice() -> None:
+    runners = []
+    observed_batch_sizes = []
+
+    def runner_factory():
+        runner = object()
+        runners.append(runner)
+        return runner
+
+    def operation(_runner, batch_size: int):
+        observed_batch_sizes.append(batch_size)
+        if batch_size > 4:
+            raise ModelBatchAnomalyError("成果批次超时")
+        return "completed"
+
+    result, recovery_count, final_batch_size = _run_with_model_anomaly_recovery(
+        runner_factory=runner_factory,
+        operation=operation,
+        initial_batch_size=16,
+        maximum_recoveries=2,
+    )
+
+    assert result == "completed"
+    assert recovery_count == 2
+    assert final_batch_size == 4
+    assert observed_batch_sizes == [16, 8, 4]
+    assert len(runners) == 3
+
+
 def _session_release_fixture(tmp_path: Path) -> Path:
     release = tmp_path / "release"
     shutil.copytree(ROOT / "config", release / "config")
