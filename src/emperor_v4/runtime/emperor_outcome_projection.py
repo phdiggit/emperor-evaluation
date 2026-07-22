@@ -42,11 +42,29 @@ def build_outcome_transport_schema(schema_path: Path) -> dict[str, Any]:
             return [strip(value) for value in node]
         if not isinstance(node, Mapping):
             return node
-        return {
+        result = {
             str(key): strip(value)
             for key, value in node.items()
             if key not in {"allOf", "if", "then", "else"}
         }
+        properties = result.get("properties")
+        if isinstance(properties, Mapping):
+            original_required = {
+                str(value) for value in node.get("required") or ()
+            }
+            for name, child in properties.items():
+                if name in original_required or not isinstance(child, Mapping):
+                    continue
+                types = child.get("type")
+                if isinstance(types, str):
+                    child["type"] = [types, "null"]
+                elif isinstance(types, list) and "null" not in types:
+                    child["type"] = [*types, "null"]
+                enum = child.get("enum")
+                if isinstance(enum, list) and None not in enum:
+                    child["enum"] = [*enum, None]
+            result["required"] = list(properties)
+        return result
 
     return dict(strip(schema))
 
@@ -179,6 +197,8 @@ def _normalize_candidate_sources(
         quotes = [canonical_quote(value) for value in candidate.get("exact_quotes") or ()]
         candidate["exact_quotes"] = quotes
         for member in candidate.get("members") or ():
+            if member.get("talent_credit") is None:
+                member.pop("talent_credit", None)
             member["authorization_quotes"] = [
                 canonical_quote(value)
                 for value in member.get("authorization_quotes") or ()

@@ -29,6 +29,7 @@ from emperor_v4.evaluation.historical_outcome_registry import (
 )
 from emperor_v4.adapters.historical_entity_identity import HistoricalEntityResolver
 from emperor_v4.adapters.source_text_index import LocalSourceTextIndex, build_local_source_index
+from emperor_v4.adapters.structured_output_contract import validate_codex_output_schema
 from emperor_v4.evaluation.current_source_pack_compiler import (
     SCHEMA_VERSION as SOURCE_PACK_INCREMENT_SCHEMA_VERSION,
     apply_source_pack_increment,
@@ -577,10 +578,14 @@ def test_outcome_transport_schema_drops_api_conditionals_only() -> None:
     )
 
     assert "allOf" in source["properties"]["candidates"]["items"]
-    assert "allOf" not in transport["properties"]["candidates"]["items"]
-    assert transport["properties"]["candidates"]["items"]["properties"] == source[
-        "properties"
-    ]["candidates"]["items"]["properties"]
+    candidate = transport["properties"]["candidates"]["items"]
+    assert "allOf" not in candidate
+    assert set(candidate["required"]) == set(candidate["properties"])
+    member = candidate["properties"]["members"]["items"]
+    assert set(member["required"]) == set(member["properties"])
+    assert member["properties"]["talent_credit"]["type"] == ["string", "null"]
+    assert member["properties"]["talent_credit"]["enum"][-1] is None
+    validate_codex_output_schema(transport, require_all_properties=True)
 
 
 def test_emperor_rebuild_recovers_model_anomaly_with_fresh_smaller_runner() -> None:
