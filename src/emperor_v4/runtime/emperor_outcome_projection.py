@@ -26,6 +26,31 @@ DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
 
 
+def build_outcome_transport_schema(schema_path: Path) -> dict[str, Any]:
+    """Remove API-unsupported conditionals from the model transport schema.
+
+    The repository schema remains the acceptance contract used by
+    ``compile_outcome_candidate_payloads``.  Outcome-specific campaign and
+    governance invariants are also enforced deterministically there, after the
+    model response is received.
+    """
+
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+
+    def strip(node: object) -> object:
+        if isinstance(node, list):
+            return [strip(value) for value in node]
+        if not isinstance(node, Mapping):
+            return node
+        return {
+            str(key): strip(value)
+            for key, value in node.items()
+            if key not in {"allOf", "if", "then", "else"}
+        }
+
+    return dict(strip(schema))
+
+
 def _digest(value: object) -> str:
     return sha256(
         json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(

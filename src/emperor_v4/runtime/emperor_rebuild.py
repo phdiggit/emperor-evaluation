@@ -35,6 +35,7 @@ from emperor_v4.runtime.emperor_neutral_scan import (
     seed_deterministic_campaign_facts,
 )
 from emperor_v4.runtime.emperor_outcome_projection import project_current_outcomes
+from emperor_v4.runtime.emperor_outcome_projection import build_outcome_transport_schema
 from emperor_v4.runtime.deterministic_campaign_extraction import (
     discover_deterministic_backbone_campaigns,
 )
@@ -860,12 +861,23 @@ def rebuild_emperor(
         escalation_reasons=(),
     )
     outcome_schema_path = workspace_root / "config/current-outcome-candidate-output.schema.json"
+    outcome_transport_schema_path = checkpoint_dir / "current-outcome-transport.schema.json"
+    _atomic_text(
+        outcome_transport_schema_path,
+        json.dumps(
+            build_outcome_transport_schema(outcome_schema_path),
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+    )
     def outcome_runner_factory() -> StructuredCodexRunner:
         return StructuredCodexRunner(
             codex_bin="codex",
             model=str(outcome_route["model"]),
             reasoning_effort=str(outcome_route["reasoning_effort"]),
-            output_schema_path=outcome_schema_path,
+            output_schema_path=outcome_transport_schema_path,
             timeout_seconds=limits.model_timeout_seconds,
             cwd=workspace_root,
             deadline_monotonic=deadline.deadline,

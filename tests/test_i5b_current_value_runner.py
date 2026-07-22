@@ -70,6 +70,7 @@ from emperor_v4.runtime.emperor_neutral_scan import (
 )
 from emperor_v4.runtime.emperor_outcome_projection import (
     PROJECTION_POLICY_VERSION,
+    build_outcome_transport_schema,
     project_current_outcomes,
 )
 from emperor_v4.runtime.deterministic_campaign_extraction import (
@@ -563,6 +564,23 @@ def test_structured_runner_timeout_terminates_tree_without_waiting_on_pipes(
 
     assert terminated == [12345]
     assert process.communicate_calls >= 2
+
+
+def test_outcome_transport_schema_drops_api_conditionals_only() -> None:
+    source = json.loads(
+        (ROOT / "config/current-outcome-candidate-output.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    transport = build_outcome_transport_schema(
+        ROOT / "config/current-outcome-candidate-output.schema.json"
+    )
+
+    assert "allOf" in source["properties"]["candidates"]["items"]
+    assert "allOf" not in transport["properties"]["candidates"]["items"]
+    assert transport["properties"]["candidates"]["items"]["properties"] == source[
+        "properties"
+    ]["candidates"]["items"]["properties"]
 
 
 def test_emperor_rebuild_recovers_model_anomaly_with_fresh_smaller_runner() -> None:
