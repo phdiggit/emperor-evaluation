@@ -63,6 +63,7 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
         "principal_commander": "主将",
         "deputy_commander": "副将",
         "participant": "从攻",
+        "not_in_command_chain": "不在军事指挥链",
     }
     assert policy["responsibility_roles"]["civil_governance"] == {
         "exclusive": "独占",
@@ -71,9 +72,15 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
     }
     assert (
         policy["historic_paths"]["military"]["normal_repeated_delivery"]
-        ["minimum_independent_national_campaigns"]
+        ["minimum_independent_s_or_higher_campaigns"]
         == 2
     )
+    assert (
+        policy["historic_paths"]["military"]["s_plus_anchor_path"]
+        ["minimum_additional_independent_a_or_higher_campaigns"]
+        == 1
+    )
+    assert policy["top_fallback"]["military_single_s_plus_establishes_top"] is True
     assert (
         policy["historic_paths"]["civil_governance"]["normal_repeated_delivery"]
         ["minimum_independent_regional_or_higher_results"]
@@ -87,102 +94,149 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
     )
 
 
-def test_military_two_national_plus_one_regional_passes_without_legacy() -> None:
+def test_military_two_s_plus_one_a_passes_without_legacy() -> None:
     result = assess_domain_historic_path(
         "military",
         [
-            _achievement("A", "national", responsibility_role="commander_in_chief", consequence_basis="state_conquest"),
+            _achievement("A", "national", campaign_tier="S", responsibility_role="commander_in_chief", consequence_basis="state_conquest"),
             _achievement(
                 "B",
                 "national",
+                campaign_tier="S",
                 responsibility_role="principal_commander",
                 consequence_basis="national_war_outcome",
             ),
-            _achievement("C", "regional", responsibility_role="principal_commander"),
+            _achievement("C", "regional", campaign_tier="A", responsibility_role="principal_commander"),
         ],
     )
 
     assert result["historic_fact_path_status"] == "eligible"
-    assert result["matched_path"] == "military_two_national_plus_one_regional"
+    assert result["matched_path"] == "military_two_s_plus_one_a"
 
 
-def test_two_exceptional_main_command_national_campaigns_can_pass_alone() -> None:
+def test_one_decisive_s_plus_and_one_a_establish_historic_path() -> None:
     result = assess_domain_historic_path(
         "military",
         [
             _achievement(
-                "A", "national", responsibility_role="commander_in_chief", consequence_basis="state_conquest", decisive=True
+                "SPLUS",
+                "era_shaping",
+                campaign_tier="S+",
+                responsibility_role="commander_in_chief",
+                consequence_basis="unification",
+                decisive=True,
             ),
             _achievement(
-                "B", "era_shaping", responsibility_role="principal_commander", consequence_basis="unification", decisive=True
+                "A",
+                "regional",
+                campaign_tier="A",
+                responsibility_role="principal_commander",
             ),
         ],
     )
 
-    assert result["matched_path"] == "military_exceptional_two_national_command"
+    assert result["historic_fact_path_status"] == "eligible"
+    assert result["matched_path"] == "military_one_s_plus_one_a"
+    assert result["matched_independent_keys"] == ["SPLUS", "A"]
+
+
+def test_s_plus_without_decisiveness_or_second_a_is_not_historic() -> None:
+    result = assess_domain_historic_path(
+        "military",
+        [
+            _achievement(
+                "SPLUS",
+                "era_shaping",
+                campaign_tier="S+",
+                responsibility_role="commander_in_chief",
+                consequence_basis="unification",
+            )
+        ],
+    )
+
+    assert result["historic_fact_path_status"] == "not_established"
+    assert result["counts"]["s_plus"] == 1
+
+
+def test_two_exceptional_main_command_s_campaigns_can_pass_alone() -> None:
+    result = assess_domain_historic_path(
+        "military",
+        [
+            _achievement(
+                "A", "national", campaign_tier="S", responsibility_role="commander_in_chief", consequence_basis="state_conquest", decisive=True
+            ),
+            _achievement(
+                "B", "era_shaping", campaign_tier="S+", responsibility_role="principal_commander", consequence_basis="unification", decisive=True
+            ),
+        ],
+    )
+
+    assert result["matched_path"] == "military_exceptional_two_s_command"
 
 
 def test_clear_military_success_survives_separately_recorded_coordination_cost() -> None:
     result = assess_domain_historic_path(
         "military",
         [
-            _achievement("A", "national", responsibility_role="commander_in_chief", consequence_basis="national_war_outcome"),
+            _achievement("A", "national", campaign_tier="S", responsibility_role="commander_in_chief", consequence_basis="national_war_outcome"),
             {
                 **_achievement(
-                    "B", "national", responsibility_role="principal_commander", consequence_basis="state_conquest", decisive=True
+                    "B", "national", campaign_tier="S", responsibility_role="principal_commander", consequence_basis="state_conquest", decisive=True
                 ),
                 "result": "implemented_mixed",
                 "positive_result_preserved": True,
             },
-            _achievement("C", "regional", responsibility_role="principal_commander"),
+            _achievement("C", "regional", campaign_tier="A", responsibility_role="principal_commander"),
         ],
     )
 
-    assert result["matched_path"] == "military_two_national_plus_one_regional"
+    assert result["matched_path"] == "military_two_s_plus_one_a"
 
 
 def test_mixed_result_without_preserved_professional_success_does_not_count() -> None:
     result = assess_domain_historic_path(
         "military",
         [
-            _achievement("A", "national", responsibility_role="commander_in_chief", consequence_basis="national_war_outcome"),
+            _achievement("A", "national", campaign_tier="S", responsibility_role="commander_in_chief", consequence_basis="national_war_outcome"),
             {
-                **_achievement("B", "national", responsibility_role="principal_commander", consequence_basis="state_conquest"),
+                **_achievement("B", "national", campaign_tier="S", responsibility_role="principal_commander", consequence_basis="state_conquest"),
                 "result": "implemented_mixed",
                 "positive_result_preserved": False,
             },
-            _achievement("C", "regional", responsibility_role="principal_commander"),
+            _achievement("C", "regional", campaign_tier="A", responsibility_role="principal_commander"),
         ],
     )
 
     assert result["historic_fact_path_status"] == "not_established"
 
 
-def test_two_national_campaigns_need_explicit_decisiveness_for_exception() -> None:
+def test_two_s_campaigns_need_explicit_decisiveness_for_exception() -> None:
     result = assess_domain_historic_path(
         "military",
         [
-            _achievement("A", "national", responsibility_role="commander_in_chief", consequence_basis="state_conquest"),
-            _achievement("B", "national", responsibility_role="principal_commander", consequence_basis="unification"),
+            _achievement("A", "national", campaign_tier="S", responsibility_role="commander_in_chief", consequence_basis="state_conquest"),
+            _achievement("B", "national", campaign_tier="S", responsibility_role="principal_commander", consequence_basis="unification"),
         ],
     )
 
     assert result["historic_fact_path_status"] == "not_established"
 
 
-def test_two_ordinary_national_campaigns_do_not_pass_exception_path() -> None:
+def test_two_ordinary_s_campaigns_do_not_pass_exception_path() -> None:
     result = assess_domain_historic_path(
         "military",
         [
             _achievement(
                 "A",
                 "national",
+                campaign_tier="S",
                 responsibility_role="principal_commander",
                 consequence_basis="national_war_outcome",
             ),
             _achievement(
                 "B",
                 "national",
+                campaign_tier="S",
                 responsibility_role="principal_commander",
                 consequence_basis="state_conquest",
             ),
@@ -283,6 +337,9 @@ def test_campaign_registry_enforces_neutral_identity_and_scale_basis() -> None:
                 "period": {"start": "测试元年", "end": "测试二年"},
                 "theater": "测试战区",
                 "strategic_objective": "结束整场战争",
+                "campaign_tier": "S",
+                "campaign_tier_basis": "核心方向、全国主要对手和整场战争结果共同支持。",
+                "land_strategic_value": "core_heartland",
                 "outcome": {
                     "battle_result": "victory",
                     "objective_completion": "complete",
@@ -321,7 +378,7 @@ def test_campaign_registry_enforces_neutral_identity_and_scale_basis() -> None:
     }
 
     registry["campaigns"][0]["scale"]["consequence_basis"] = "important_objective"
-    with pytest.raises(ValueError, match="国家级战役"):
+    with pytest.raises(ValueError, match="S级以上战役"):
         validate_campaign_registry(registry)
 
 
@@ -339,6 +396,9 @@ def test_residual_state_conquest_is_not_national_by_title_alone() -> None:
                 "period": {"start": "测试元年", "end": "测试元年"},
                 "theater": "测试战区",
                 "strategic_objective": "消灭残余政权",
+                "campaign_tier": "S",
+                "campaign_tier_basis": "仅凭灭国名义尝试定为S级。",
+                "land_strategic_value": "important_region",
                 "outcome": {
                     "battle_result": "victory",
                     "objective_completion": "complete",

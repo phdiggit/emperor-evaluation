@@ -41,6 +41,9 @@
         "theater",
         "strategic_objective",
         "outcome",
+        "campaign_tier",
+        "campaign_tier_basis",
+        "land_strategic_value",
         "scale",
         "participants",
         "source_refs",
@@ -67,6 +70,11 @@
         },
         "theater": {"type": "string", "minLength": 1},
         "strategic_objective": {"type": "string", "minLength": 1},
+        "campaign_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
+        "campaign_tier_basis": {"type": "string", "minLength": 1},
+        "land_strategic_value": {
+          "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
+        },
         "outcome": {
           "type": "object",
           "additionalProperties": false,

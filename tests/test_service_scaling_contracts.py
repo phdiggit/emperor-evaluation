@@ -553,27 +553,10 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         "db/postgres/007_v4_historical_outcome_clusters.sql",
         "eval/i5b_current_value",
         "src/emperor_v4",
-        "deploy/v4/emperor-v4-emperor-rebuild@.service",
-        "deploy/v4/emperor-v4-emperor-rebuild-queue.service",
-        "deploy/v4/emperor-v4-emperor-rebuild-queue.timer",
+        "docs/证据规则/公共成果登记与人物画像规则.md",
+        "docs/证据规则/单皇帝主控会话工作流.md",
     } <= set(EMPEROR_REBUILD_RELEASE_PATHS)
-    emperor_unit = (
-        ROOT / "deploy/v4/emperor-v4-emperor-rebuild@.service"
-    ).read_text(encoding="utf-8")
-    assert f"Environment=CODEX_HOME={state_root}/claim-extractor/codex" in emperor_unit
-    assert f"ReadWritePaths={state_root}/emperor-rebuild" in emperor_unit
-    assert "Restart=on-failure" in emperor_unit
-    assert "RestartPreventExitStatus=1" in emperor_unit
-    assert "StartLimitBurst=4" in emperor_unit
-    queue_unit = (
-        ROOT / "deploy/v4/emperor-v4-emperor-rebuild-queue.service"
-    ).read_text(encoding="utf-8")
-    queue_timer = (
-        ROOT / "deploy/v4/emperor-v4-emperor-rebuild-queue.timer"
-    ).read_text(encoding="utf-8")
-    assert "emperor_v4.runtime.emperor_rebuild_queue" in queue_unit
-    assert f"ReadWritePaths={state_root}/emperor-rebuild" in queue_unit
-    assert "OnUnitInactiveSec=1m" in queue_timer
+    assert not any("emperor-rebuild-queue" in path for path in EMPEROR_REBUILD_RELEASE_PATHS)
 
 
 def _claim_payload() -> dict:

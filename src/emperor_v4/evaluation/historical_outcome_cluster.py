@@ -22,13 +22,53 @@ from emperor_v4.evaluation.talent_grade_domain_equivalence import (
 
 SCHEMA_VERSION = "historical-outcome-cluster-registry-v1"
 SCALES = ("local", "important", "regional", "national", "era_shaping")
+CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
+LEGACY_CAMPAIGN_TIER_BY_SCALE = {
+    "local": "C",
+    "important": "B",
+    "regional": "A",
+    "national": "S",
+    "era_shaping": "S+",
+}
 REALIZED_RESULTS = {"implemented", "operated", "completed", "mixed"}
 CAMPAIGN_ROLES = {
     "commander_in_chief": "主帅",
     "principal_commander": "主将",
     "deputy_commander": "副将",
     "participant": "从攻",
+    "not_in_command_chain": "不在军事指挥链",
 }
+RULER_CAMPAIGN_RELATIONS = {
+    "obstructed": "阻挠",
+    "acquiesced": "默许",
+    "authorized": "授权",
+    "temporary_theater_control": "临时坐镇",
+    "sustained_theater_control": "长期统筹",
+    "personal_command": "亲征",
+}
+LAND_STRATEGIC_VALUES = {
+    "local_point": "局部据点",
+    "important_region": "重要区域",
+    "strategic_gateway": "战略门户",
+    "core_heartland": "核心根据地",
+    "capital_or_state_survival": "都城或国家存亡区",
+}
+PROCESS_ADVERSITY = {
+    "none": "无明显过程负面",
+    "limited": "有限过程负面",
+    "material": "实质过程负面",
+    "severe_repaired": "严重但同线修复",
+    "near_collapse_repaired": "近乎崩溃但同线修复",
+    "terminal_failure": "终局失败",
+}
+
+
+def campaign_tier(cluster: Mapping[str, object]) -> str:
+    payload = cluster.get("payload") or {}
+    explicit = str(payload.get("campaign_tier") or "")
+    if explicit:
+        return explicit
+    return LEGACY_CAMPAIGN_TIER_BY_SCALE[str(cluster["scale"]["level"])]
 GOVERNANCE_ROLES = {
     "exclusive": "独占",
     "lead": "主导",
@@ -140,6 +180,10 @@ def validate_historical_outcome_registry(
         for member in members:
             if member["role_code"] not in role_contract:
                 raise ValueError(f"{ref} 成员角色不属于 {kind} 合同")
+            if member.get("ruler_campaign_relation") is not None and (
+                kind != "campaign" or member["actor_kind"] != "ruler"
+            ):
+                raise ValueError(f"{ref} 只有战役中的皇帝可以登记皇权关系")
             actor_refs.add(str(member["actor_ref"]))
         level = str(cluster["scale"]["level"])
         basis = str(cluster["scale"]["consequence_basis"])
@@ -148,6 +192,15 @@ def validate_historical_outcome_registry(
             raise ValueError(f"{ref} 规模与 consequence_basis 不匹配")
         if kind == "campaign":
             payload = cluster["payload"]
+            tier_fields = {
+                "campaign_tier": payload.get("campaign_tier"),
+                "campaign_tier_basis": payload.get("campaign_tier_basis"),
+                "land_strategic_value": payload.get("land_strategic_value"),
+            }
+            if any(value is not None for value in tier_fields.values()) and not all(
+                value is not None for value in tier_fields.values()
+            ):
+                raise ValueError(f"{ref} 战役字母等级必须同时声明档位、依据和土地轴")
             if level in {"national", "era_shaping"} and payload[
                 "opponent_condition"
             ] == "residual":
@@ -267,6 +320,7 @@ def assess_person_talent_grade(
     clusters: Sequence[Mapping[str, object]],
 ) -> dict[str, object]:
     scale_rank = {value: index for index, value in enumerate(SCALES)}
+    tier_rank = {value: index for index, value in enumerate(CAMPAIGN_TIERS)}
     eligible = []
     for cluster in clusters:
         if cluster["result_status"] not in REALIZED_RESULTS:
@@ -312,6 +366,11 @@ def assess_person_talent_grade(
                 {
                     "independent_key": cluster["independent_key"],
                     "scale": cluster["scale"]["level"],
+                    "campaign_tier": (
+                        campaign_tier(cluster)
+                        if outcome_kind == "campaign"
+                        else None
+                    ),
                     "responsibility_role": (
                         "participant"
                         if member["role_code"] == "governance_participant"
@@ -329,51 +388,106 @@ def assess_person_talent_grade(
             )
         assessment = assess_domain_historic_path(domain, achievements)
         if assessment["historic_fact_path_status"] == "eligible":
-            historic_candidates.append((domain, assessment, domain_rows))
-    national = [
+            matched_keys = {
+                str(value)
+                for value in assessment.get("matched_independent_keys", [])
+            }
+            counted_rows = (
+                [
+                    row
+                    for row in domain_rows
+                    if str(row[0]["independent_key"]) in matched_keys
+                ]
+                if matched_keys
+                else domain_rows
+            )
+            historic_candidates.append((domain, assessment, counted_rows))
+    top_anchors = [
         row
         for row in top_eligible
-        if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["national"]
+        if (
+            row[0]["outcome_kind"] == "campaign"
+            and tier_rank[campaign_tier(row[0])] >= tier_rank["S-"]
+        )
+        or (
+            row[0]["outcome_kind"] == "governance"
+            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["national"]
+        )
     ]
     second_major = [
         row
         for row in top_eligible
-        if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["regional"]
-    ]
-    top_anchor = national[0] if national else None
-    top_supported = bool(
-        top_anchor
-        and (
-            top_anchor[0]["stable_delivery"]
-            or top_anchor[0]["important_method_or_legacy"]
-            or any(row[0]["outcome_ref"] != top_anchor[0]["outcome_ref"] for row in second_major)
+        if (
+            row[0]["outcome_kind"] == "campaign"
+            and tier_rank[campaign_tier(row[0])] >= tier_rank["A"]
         )
-    )
+        or (
+            row[0]["outcome_kind"] == "governance"
+            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["regional"]
+        )
+    ]
+    top_candidate = None
+    for top_anchor in top_anchors:
+        outcome_kind = str(top_anchor[0]["outcome_kind"])
+        same_domain_major = [
+            row for row in second_major if row[0]["outcome_kind"] == outcome_kind
+        ]
+        supported = bool(
+            (
+                outcome_kind == "campaign"
+                and campaign_tier(top_anchor[0]) == "S+"
+            )
+            or top_anchor[0]["stable_delivery"]
+            or top_anchor[0]["important_method_or_legacy"]
+            or any(
+                row[0]["outcome_ref"] != top_anchor[0]["outcome_ref"]
+                for row in same_domain_major
+            )
+        )
+        if supported:
+            top_candidate = (top_anchor, same_domain_major)
+            break
     if historic_candidates:
         domain, historic_assessment, counted = historic_candidates[0]
         grade = "historic"
         rule_path = str(historic_assessment["matched_path"])
-    elif top_supported:
+    elif top_candidate is not None:
         grade = "top"
         rule_path = "top_fallback"
-        counted = second_major
+        counted = top_candidate[1]
     elif eligible:
-        important = [
+        important_governance = [
             row
             for row in eligible
-            if scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["important"]
+            if row[0]["outcome_kind"] == "governance"
+            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["important"]
         ]
+        important_campaigns = [
+            row
+            for row in eligible
+            if row[0]["outcome_kind"] == "campaign"
+            and tier_rank[campaign_tier(row[0])] >= tier_rank["A"]
+        ]
+        supporting_campaigns = [
+            row
+            for row in eligible
+            if row[0]["outcome_kind"] == "campaign"
+            and tier_rank[campaign_tier(row[0])] >= tier_rank["B"]
+        ]
+        important = [*important_governance, *important_campaigns]
+        if not important and len(supporting_campaigns) >= 2:
+            important = supporting_campaigns
         if important:
             grade = "important"
-            rule_path = "common_scale.important"
+            rule_path = "domain_important_threshold"
             counted = important
         else:
             grade = "usable"
-            rule_path = "common_scale.local"
+            rule_path = "domain_usable_threshold"
             counted = eligible
     else:
         grade = "ordinary"
-        rule_path = "common_scale.local"
+        rule_path = "coverage_complete_below_usable"
         counted = []
     role_labels = {**CAMPAIGN_ROLES, **GOVERNANCE_ROLES}
     basis_parts = []
@@ -381,9 +495,14 @@ def assess_person_talent_grade(
         result_scope = ""
         if cluster["result_direction"] == "mixed":
             result_scope = "；专业目标已实现，整体混合结果及跨领域代价另行结算"
+        level_text = (
+            f"{campaign_tier(cluster)}级战役群"
+            if cluster["outcome_kind"] == "campaign"
+            else f"{cluster['scale']['level']}级治理结果"
+        )
         basis_parts.append(
             f"作为{role_labels[str(member['role_code'])]}完成“{cluster['canonical_label']}”，"
-            f"属{cluster['scale']['level']}级结果{result_scope}"
+            f"属{level_text}{result_scope}"
         )
     basis = "；".join(basis_parts) or "完整覆盖后未建立达到可用门槛的独立成果簇"
     return {

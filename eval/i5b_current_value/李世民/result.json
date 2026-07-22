@@ -21316,18 +21316,18 @@
       "decision_status": "insufficient_cross_ruler_distribution",
       "reason": "理论包络未因材料预算失去量级；须在证据合同和 strongest-N 稳定后使用多皇帝分布判断实测压缩。",
       "theoretical_negative_envelope": {
-        "anti_nepotism": "12.000000",
-        "appointment_delegation": "10.519740",
-        "talent_discovery": "12.000000",
+        "anti_nepotism": "48.000000",
+        "appointment_delegation": "42.078960",
+        "talent_discovery": "48.000000",
         "team_building": "4.050000",
-        "tolerate_talent": "12.000000"
+        "tolerate_talent": "48.000000"
       },
       "theoretical_positive_envelope": {
-        "anti_nepotism": "12.000000",
-        "appointment_delegation": "15.779610",
-        "talent_discovery": "12.000000",
+        "anti_nepotism": "48.000000",
+        "appointment_delegation": "63.118440",
+        "talent_discovery": "48.000000",
         "team_building": "18.432000",
-        "tolerate_talent": "12.000000"
+        "tolerate_talent": "48.000000"
       }
     },
     "declarations": {
@@ -21349,23 +21349,23 @@
       "unfilled_budget_penalty_used": false
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
-    "policy_sha256": "e9b157c5c0365d9b673a2c20b8346742a55156adce491c33ddc2dc5b29c9196a",
-    "report_sha256": "e82a6d8308343d50e9090c3139d550550b9d9e60156071f0c556d07104ece8ec",
+    "policy_sha256": "268a7faea3a16abe4184c3d19802f6bce003f2a167e37ac7556e926c1f8a7f60",
+    "report_sha256": "81ac75f5c3af6e98839c62b4ad59eed4880b3f51ee06967fe4f219df06da9797",
     "ruler": "李世民",
     "ruler_ref": "RULER-58130F2446A25CC1",
     "rules": [
       {
         "candidate_disposition_complete": true,
-        "configured_negative_budget": 3,
-        "configured_positive_budget": 3,
+        "configured_negative_budget": 12,
+        "configured_positive_budget": 12,
         "eligible_candidate_count": 9,
-        "negative_budget": 3,
+        "negative_budget": 12,
         "negative_signal": "0.000000",
-        "positive_budget": 3,
-        "positive_signal": "6.666000",
+        "positive_budget": 12,
+        "positive_signal": "13.123000",
         "rule_code": "talent_discovery",
         "rule_label": "发现人才",
-        "rule_raw_net": "6.666000",
+        "rule_raw_net": "13.123000",
         "settled_materials": [
           {
             "actual_signal_contribution": "2.376000",
@@ -21396,6 +21396,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-1F5C24478B87AA033AF6",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷67@2296327"
@@ -21431,6 +21433,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-A18388F3F4B1E0034688",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷71@2020238"
@@ -21466,123 +21470,16 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-1B353DF9FDEBB17944C8",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 3,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷70@2585040"
             ],
             "subject": "戴胄"
-          }
-        ],
-        "settlement_budget_unit": "independent_discovery_chain",
-        "settlement_mode": "policy_budget",
-        "source_candidate_count": 9,
-        "source_projection_coverage_complete": true,
-        "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "7a344eebb9e75175980eb1a46e01a897dff1ef2554bf276b328a9525788fed0e",
-        "supplemental_source_refs": [],
-        "supplemental_source_sha256s": [],
-        "supporting_only_materials": [
-          {
-            "fact": "岑文本任秘书郎并兼直中书省，因所作颂文才名显著，又经李靖推荐升任中书舍人，渐受太宗亲顾。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "direction_sign": "positive",
-              "discovery_level": "recommendation_entry",
-              "source_factor": "standard",
-              "talent_quality_factor": "important"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "direction_sign": "1.000000",
-              "discovery_level": "0.800000",
-              "source_factor": "1.000000",
-              "talent_quality_factor": "1.150000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.914000，本版不计分。",
-            "material_id": "MAT-李世民-TD-CEN-WRITING-VERIFICATION",
-            "material_magnitude": "1.012000",
-            "rule_evidence_unit_ref": "REU-925463A2450CF29382E8",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "岑文本"
           },
           {
-            "fact": "褚遂良以文史素養及隸書專長受到歐陽詢、魏徵推重；太宗據魏徵所言召其侍書。其後鑑別所獻王羲之書跡，對來源真偽的判斷未見錯誤。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "direction_sign": "positive",
-              "discovery_level": "recommendation_entry",
-              "source_factor": "standard",
-              "talent_quality_factor": "important"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "direction_sign": "1.000000",
-              "discovery_level": "0.800000",
-              "source_factor": "1.000000",
-              "talent_quality_factor": "1.150000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.914000，本版不计分。",
-            "material_id": "MAT-李世民-TD-CHU-CALLIGRAPHY",
-            "material_magnitude": "1.012000",
-            "rule_evidence_unit_ref": "REU-76844070FD3411E523E8",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "褚遂良"
-          },
-          {
-            "fact": "太宗在藩时将侯君集引入幕府；侯君集多次随从征伐，历任左虞侯、车骑将军，并逐渐参与谋议。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "direction_sign": "positive",
-              "discovery_level": "attributable_interview_trial_or_appointment",
-              "source_factor": "standard",
-              "talent_quality_factor": "important"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "direction_sign": "1.000000",
-              "discovery_level": "1.000000",
-              "source_factor": "1.000000",
-              "talent_quality_factor": "1.150000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.914000，本版不计分。",
-            "material_id": "MAT-李世民-TD-HOU-EARLY-ENTRY",
-            "material_magnitude": "1.265000",
-            "rule_evidence_unit_ref": "REU-0292376E052036C083AE",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "侯君集"
-          },
-          {
-            "fact": "太宗命百官上书论政得失时，马周替不通经学的常何草拟二十余项便宜，所陈都符合旨意。常何说明作者后，太宗当日征召马周并数次催促；交谈后令其在门下省任职。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "direction_sign": "positive",
-              "discovery_level": "difficult_cross_boundary_discovery",
-              "source_factor": "standard",
-              "talent_quality_factor": "usable"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "direction_sign": "1.000000",
-              "discovery_level": "1.200000",
-              "source_factor": "1.000000",
-              "talent_quality_factor": "0.900000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.914000，本版不计分。",
-            "material_id": "MAT-李世民-TD-MAZHOU-MEMORIAL-DISCOVERY",
-            "material_magnitude": "1.188000",
-            "rule_evidence_unit_ref": "REU-EE1B6E410F8FBB2A4318",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "马周"
-          },
-          {
+            "actual_signal_contribution": "1.518000",
             "fact": "宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。",
             "factor_option_codes": {
               "attribution_factor": "direct",
@@ -21600,14 +21497,63 @@
               "source_factor": "1.000000",
               "talent_quality_factor": "1.150000"
             },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.914000，本版不计分。",
+            "independence_key": "talent_discovery:td-yuchi-cross-camp:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按尉迟敬德的该责任链结算。",
             "material_id": "MAT-李世民-TD-YUCHI-CROSS-CAMP",
             "material_magnitude": "1.518000",
+            "object_aggregate_magnitude": "1.518000",
+            "object_internal_contribution": "1.518000",
+            "object_ref": "PER-CAND-A49FCFF85405",
+            "override_reasons": [],
             "rule_evidence_unit_ref": "REU-5BD68597260486455733",
-            "selection_status": "eligible_below_budget_boundary",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 4,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷68@1757055"
+            ],
             "subject": "尉迟敬德"
           },
           {
+            "actual_signal_contribution": "1.265000",
+            "fact": "太宗在藩时将侯君集引入幕府；侯君集多次随从征伐，历任左虞侯、车骑将军，并逐渐参与谋议。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "direction_sign": "positive",
+              "discovery_level": "attributable_interview_trial_or_appointment",
+              "source_factor": "standard",
+              "talent_quality_factor": "important"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "direction_sign": "1.000000",
+              "discovery_level": "1.000000",
+              "source_factor": "1.000000",
+              "talent_quality_factor": "1.150000"
+            },
+            "independence_key": "talent_discovery:td-hou-early-entry:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按侯君集的该责任链结算。",
+            "material_id": "MAT-李世民-TD-HOU-EARLY-ENTRY",
+            "material_magnitude": "1.265000",
+            "object_aggregate_magnitude": "1.265000",
+            "object_internal_contribution": "1.265000",
+            "object_ref": "PER-CAND-851A4B92D193",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-0292376E052036C083AE",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 5,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷69@2610556"
+            ],
+            "subject": "侯君集"
+          },
+          {
+            "actual_signal_contribution": "1.265000",
             "fact": "太宗即位后向张玄素询问政事。张玄素以隋亡为鉴，主张君主不应独断庶务，而应任用贤能并使百司尽职；太宗认可其回答，任命他为侍御史，后迁给事中。",
             "factor_option_codes": {
               "attribution_factor": "direct",
@@ -21625,27 +21571,172 @@
               "source_factor": "1.000000",
               "talent_quality_factor": "1.150000"
             },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.914000，本版不计分。",
+            "independence_key": "talent_discovery:td-zhangxuansu-interview:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按张玄素的该责任链结算。",
             "material_id": "MAT-李世民-TD-ZHANGXUANSU-INTERVIEW",
             "material_magnitude": "1.265000",
+            "object_aggregate_magnitude": "1.265000",
+            "object_internal_contribution": "1.265000",
+            "object_ref": "PER-CAND-716AACA0B69D",
+            "override_reasons": [],
             "rule_evidence_unit_ref": "REU-BDC161292A3805D6ABB5",
-            "selection_status": "eligible_below_budget_boundary",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 5,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "新唐書/卷103@468595"
+            ],
             "subject": "张玄素"
+          },
+          {
+            "actual_signal_contribution": "0.891000",
+            "fact": "太宗命百官上书论政得失时，马周替不通经学的常何草拟二十余项便宜，所陈都符合旨意。常何说明作者后，太宗当日征召马周并数次催促；交谈后令其在门下省任职。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "direction_sign": "positive",
+              "discovery_level": "difficult_cross_boundary_discovery",
+              "source_factor": "standard",
+              "talent_quality_factor": "usable"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "direction_sign": "1.000000",
+              "discovery_level": "1.200000",
+              "source_factor": "1.000000",
+              "talent_quality_factor": "0.900000"
+            },
+            "independence_key": "talent_discovery:td-mazhou-memorial-discovery:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按马周的该责任链结算。",
+            "material_id": "MAT-李世民-TD-MAZHOU-MEMORIAL-DISCOVERY",
+            "material_magnitude": "1.188000",
+            "object_aggregate_magnitude": "1.188000",
+            "object_internal_contribution": "1.188000",
+            "object_ref": "PER-CAND-EA103C30DDA3",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-EE1B6E410F8FBB2A4318",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 7,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷74@2428100"
+            ],
+            "subject": "马周"
+          },
+          {
+            "actual_signal_contribution": "0.759000",
+            "fact": "岑文本任秘书郎并兼直中书省，因所作颂文才名显著，又经李靖推荐升任中书舍人，渐受太宗亲顾。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "direction_sign": "positive",
+              "discovery_level": "recommendation_entry",
+              "source_factor": "standard",
+              "talent_quality_factor": "important"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "direction_sign": "1.000000",
+              "discovery_level": "0.800000",
+              "source_factor": "1.000000",
+              "talent_quality_factor": "1.150000"
+            },
+            "independence_key": "talent_discovery:td-cen-writing-verification:1",
+            "judge_reason": "以中枢文书作品作任前验证，与既有马周条陈、房玄龄面见等链条对象和验证机制均独立。",
+            "material_id": "MAT-李世民-TD-CEN-WRITING-VERIFICATION",
+            "material_magnitude": "1.012000",
+            "object_aggregate_magnitude": "1.012000",
+            "object_internal_contribution": "1.012000",
+            "object_ref": "PER-CAND-0FD82B71AFC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-925463A2450CF29382E8",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷70@2585040"
+            ],
+            "subject": "岑文本"
+          },
+          {
+            "actual_signal_contribution": "0.759000",
+            "fact": "褚遂良以文史素養及隸書專長受到歐陽詢、魏徵推重；太宗據魏徵所言召其侍書。其後鑑別所獻王羲之書跡，對來源真偽的判斷未見錯誤。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "direction_sign": "positive",
+              "discovery_level": "recommendation_entry",
+              "source_factor": "standard",
+              "talent_quality_factor": "important"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "direction_sign": "1.000000",
+              "discovery_level": "0.800000",
+              "source_factor": "1.000000",
+              "talent_quality_factor": "1.150000"
+            },
+            "independence_key": "talent_discovery:td-chu-calligraphy:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按褚遂良的该责任链结算。",
+            "material_id": "MAT-李世民-TD-CHU-CALLIGRAPHY",
+            "material_magnitude": "1.012000",
+            "object_aggregate_magnitude": "1.012000",
+            "object_internal_contribution": "1.012000",
+            "object_ref": "PER-CAND-6212A403EABA",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-76844070FD3411E523E8",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷80@2588763"
+            ],
+            "subject": "褚遂良"
           }
-        ]
+        ],
+        "settlement_budget_unit": "independent_discovery_chain",
+        "settlement_mode": "policy_budget",
+        "settlement_rank_factors": [
+          {
+            "factor": 1.0,
+            "through_rank": 6
+          },
+          {
+            "factor": 0.75,
+            "through_rank": 9
+          },
+          {
+            "factor": 0.5,
+            "through_rank": 12
+          }
+        ],
+        "source_candidate_count": 9,
+        "source_projection_coverage_complete": true,
+        "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
+        "source_sha256": "7a344eebb9e75175980eb1a46e01a897dff1ef2554bf276b328a9525788fed0e",
+        "supplemental_source_refs": [],
+        "supplemental_source_sha256s": [],
+        "supporting_only_materials": []
       },
       {
         "candidate_disposition_complete": true,
-        "configured_negative_budget": 3,
-        "configured_positive_budget": 3,
+        "configured_negative_budget": 12,
+        "configured_positive_budget": 12,
         "eligible_candidate_count": 21,
-        "negative_budget": 3,
+        "negative_budget": 12,
         "negative_signal": "1.100000",
-        "positive_budget": 3,
-        "positive_signal": "15.779610",
+        "positive_budget": 12,
+        "positive_signal": "40.637575",
         "rule_code": "appointment_delegation",
         "rule_label": "任用授权",
-        "rule_raw_net": "14.679610",
+        "rule_raw_net": "39.537575",
         "same_object_value_cap": "3.506580",
         "settled_materials": [
           {
@@ -21677,6 +21768,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-46CD96370E5E1914",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "新唐書/卷056@2017606#Q15",
@@ -21713,6 +21806,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-A9DBEF0AC6C4EAE8",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "資治通鑑/卷192@2510432#命玄齡並省",
@@ -21750,6 +21845,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-CBDCA9875FFF24C3",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷66@2034579#並委令處分發遣",
@@ -21790,6 +21887,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-C5A4EE6A19F636B0",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "貞觀政要/卷07@802077#今欲自看國史者，蓋有善事，固不須論；若有不善，亦欲以為鑒誡，使得",
@@ -21828,6 +21927,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-9F88D710DDFD5575",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷71@2020238"
@@ -21863,6 +21964,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-7EB7CC8238408A7F",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "貞觀政要/卷05@1161907#惟有魏徵勸朕『偃革興文，布德施惠，中國既安，遠人自服』。朕從此語"
@@ -21898,6 +22001,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-9CF8C2A523F35365",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "資治通鑑/卷192@2510432#命玄齡並省",
@@ -21935,6 +22040,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-A75B3723C7937A84",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷66@2034579#共掌朝政",
@@ -21942,6 +22049,506 @@
               "舊唐書/卷66@2034579#秦王府兵曹參軍"
             ],
             "subject": "杜如晦"
+          },
+          {
+            "actual_signal_contribution": "4.125472",
+            "fact": "长孙无忌以主导身份承担“贞观律令与刑罚体系修订”；已实现结果：断趾被废除并改为流三千里、居作二年；九十二项大辟降为流、七十一项流降为徒，律令格式完成颁行并在太宗时期持续施用。",
+            "factor_option_codes": {
+              "appointment_effect": "exceptional_success",
+              "appointment_importance": "critical_national_or_long_term",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "long_term_multi_stage",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.400000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.150000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-3BE9F931EFCF2E191FE6:PER-CAND-6D5FA3B48F40",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-BE7FCDA12E9AE681",
+            "material_magnitude": "3.187800",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "2.750315",
+            "object_ref": "PER-CAND-6D5FA3B48F40",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-BE7FCDA12E9AE681",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "新唐書/卷056@2017606#Q15",
+              "舊唐書/卷50@1461339#又命長孫無忌、房玄齡與學士法官"
+            ],
+            "subject": "长孙无忌"
+          },
+          {
+            "actual_signal_contribution": "1.134398",
+            "fact": "长孙无忌以主导身份承担“长孙无忌推动停止功臣世袭刺史方案”；已实现结果：太宗拟令功臣世袭刺史；长孙无忌与房玄龄从制度时宜、子孙能力和地方治理风险等方面请求停止，太宗最终停止实施。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-22883FC5C4F80925828C:PER-CAND-6D5FA3B48F40",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-863ED19753497369",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.756265",
+            "object_ref": "PER-CAND-6D5FA3B48F40",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-863ED19753497369",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷65@1768276#下擾生民",
+              "舊唐書/卷65@1768276#不願違離",
+              "舊唐書/卷65@1768276#遂止"
+            ],
+            "subject": "长孙无忌"
+          },
+          {
+            "actual_signal_contribution": "3.506580",
+            "fact": "李靖以主帅身份承担“李靖奇袭定襄破东突厥”；已实现结果：李靖以三千骑兵出其不意深入突厥境，运用间谍离间其心腹，继而攻破定襄，俘杨正道及萧后；太宗评价此举古今未有。",
+            "factor_option_codes": {
+              "appointment_effect": "exceptional_success",
+              "appointment_importance": "critical_national_or_long_term",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.400000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-BE5748B1A230842D8187:PER-CAND-D29808A822E4",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-79C6B23614666AD5",
+            "material_magnitude": "2.356200",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "2.337720",
+            "object_ref": "PER-CAND-D29808A822E4",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-79C6B23614666AD5",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷67@2296327#古今所未有",
+              "舊唐書/卷67@2296327#潛令間諜離其心腹",
+              "舊唐書/卷67@2296327#率驍騎三千",
+              "舊唐書/卷67@2296327#靖進擊定襄，破之"
+            ],
+            "subject": "李靖"
+          },
+          {
+            "actual_signal_contribution": "1.753290",
+            "fact": "李靖以主帅身份承担“李靖远征吐谷浑”；已实现结果：吐谷浑入寇时，年老足疾的李靖主动表示仍能出征，遂统率三总管。面对诸将因草未生、马羸而反对追敌，他独自决意深入，越积石山，经过数十战大破吐谷浑，并拥立慕容顺后还师。",
+            "factor_option_codes": {
+              "appointment_effect": "exceptional_success",
+              "appointment_importance": "critical_national_or_long_term",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.400000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-F49DBC756CFF9A08C273:PER-CAND-D29808A822E4",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-9C74A7AE57819CD6",
+            "material_magnitude": "2.356200",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "1.168860",
+            "object_ref": "PER-CAND-D29808A822E4",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-9C74A7AE57819CD6",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷67@2296327#唯靖決計而進",
+              "舊唐書/卷67@2296327#大破其國",
+              "舊唐書/卷67@2296327#西海道行軍大總管",
+              "舊唐書/卷67@2296327#靖雖年老，固堪一行"
+            ],
+            "subject": "李靖"
+          },
+          {
+            "actual_signal_contribution": "2.629688",
+            "fact": "戴胄以主导身份承担“诈伪资荫案依法改判流刑”；已实现结果：戴胄坚持依律处理，诈伪资荫者未被处死而断流。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-7516700BA78A30646127:PER-CAND-947836AF2584",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-8F76A864B456DBEC",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "2.532292",
+            "object_internal_contribution": "1.753125",
+            "object_ref": "PER-CAND-947836AF2584",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-8F76A864B456DBEC",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 6,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "通典/卷169@1997055#q10"
+            ],
+            "subject": "戴胄"
+          },
+          {
+            "actual_signal_contribution": "0.701250",
+            "fact": "戴胄以主导身份承担“柳雄案依法免除死刑”；已实现结果：戴胄坚持依法律定罪，柳雄获赦免死。",
+            "factor_option_codes": {
+              "appointment_effect": "normal_success",
+              "appointment_importance": "real_bounded",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.000000",
+              "appointment_importance": "1.000000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-29B0C201AB296DCAAEB2:PER-CAND-947836AF2584",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-50F57C09EC3CF7E9",
+            "material_magnitude": "0.935000",
+            "object_aggregate_magnitude": "2.532292",
+            "object_internal_contribution": "0.467500",
+            "object_ref": "PER-CAND-947836AF2584",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-50F57C09EC3CF7E9",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 6,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "通典/卷169@1997055#q10"
+            ],
+            "subject": "戴胄"
+          },
+          {
+            "actual_signal_contribution": "0.467500",
+            "fact": "戴胄以主导身份承担“误带刀入阁门案依法同等处理”；已实现结果：戴胄坚持同属过误应依法同等处理，监门校尉免于死刑。",
+            "factor_option_codes": {
+              "appointment_effect": "normal_success",
+              "appointment_importance": "real_bounded",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.000000",
+              "appointment_importance": "1.000000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-C58CB293EF3A7C3758E7:PER-CAND-947836AF2584",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-F7CEE85E081BEE33",
+            "material_magnitude": "0.935000",
+            "object_aggregate_magnitude": "2.532292",
+            "object_internal_contribution": "0.311667",
+            "object_ref": "PER-CAND-947836AF2584",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-F7CEE85E081BEE33",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 6,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "通典/卷169@1997055#q10"
+            ],
+            "subject": "戴胄"
+          },
+          {
+            "actual_signal_contribution": "2.650725",
+            "fact": "李勣以主帅身份承担“李勣击破薛延陀主力”；已实现结果：薛延陀南侵时，李勣率三千轻骑追至青山，大破八万骑兵，斩名王、俘首领与五万余众。",
+            "factor_option_codes": {
+              "appointment_effect": "exceptional_success",
+              "appointment_importance": "critical_national_or_long_term",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.400000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-049DADFAB2AF90ADB3A4:PER-CAND-8CF6E0AAF5E5",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-3D9B58FF2A5E74AA",
+            "material_magnitude": "2.356200",
+            "object_aggregate_magnitude": "2.356200",
+            "object_internal_contribution": "2.356200",
+            "object_ref": "PER-CAND-8CF6E0AAF5E5",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-3D9B58FF2A5E74AA",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 7,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷67@2296327#擊大破之",
+              "舊唐書/卷67@2296327#率輕騎三千"
+            ],
+            "subject": "李勣"
+          },
+          {
+            "actual_signal_contribution": "1.972266",
+            "fact": "高士廉以主导身份承担“高士廉主持氏族志考订并完成颁行”；已实现结果：太宗命高士廉与韦挺、岑文本、令狐德棻等共同刊正姓氏。他们普遍征集天下谱牒，依据史传核验真伪，按忠贤与悖逆褒贬，编成《氏族志》；高士廉分类定等进呈。太宗纠正崔干等级后，该书完成并颁行天下。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-1EE17720B75501CABF8E:PER-CAND-564F932D7FB5",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-FB2C69C9C471CA8F",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "1.753125",
+            "object_internal_contribution": "1.753125",
+            "object_ref": "PER-CAND-564F932D7FB5",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-FB2C69C9C471CA8F",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷65@1768276#刊正姓氏",
+              "舊唐書/卷65@1768276#考其真偽",
+              "舊唐書/卷65@1768276#詔頒於天下",
+              "舊唐書/卷65@1768276#類其等第以進"
+            ],
+            "subject": "高士廉"
+          },
+          {
+            "actual_signal_contribution": "1.972266",
+            "fact": "褚遂良以主导身份承担“褚遂良推动王府任职与皇子外任规则纠偏”；已实现结果：針對魏王受寵、太子與諸王名分問題，褚遂良建議明定太子和諸王的分際；太宗肯定其言，隨後限制王府官僚任職不得超過四考。；針對年幼皇子出任都督、刺史，褚遂良建議先留京受經學與禮法教育，確認具備治理州郡能力後再派出；太宗充分採納。；褚遂良以文史素養及隸書專長受到歐陽詢、魏徵推重；太宗據魏徵所言召其侍書。其後鑑別所獻王羲之書跡，對來源真偽的判斷未見錯誤。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-F7A648059628A3595F16:PER-CAND-6212A403EABA",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-E22BE0876BD68694",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "1.753125",
+            "object_internal_contribution": "1.753125",
+            "object_ref": "PER-CAND-6212A403EABA",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-E22BE0876BD68694",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷80@2588763#一無舛誤",
+              "舊唐書/卷80@2588763#下筆遒勁",
+              "舊唐書/卷80@2588763#不得過四考",
+              "舊唐書/卷80@2588763#且留京師，教以經學",
+              "舊唐書/卷80@2588763#召令侍書",
+              "舊唐書/卷80@2588763#太子、諸王，須有定分",
+              "舊唐書/卷80@2588763#尤工隸書",
+              "舊唐書/卷80@2588763#常為擇賢",
+              "舊唐書/卷80@2588763#歐陽詢甚重之",
+              "舊唐書/卷80@2588763#此言是也",
+              "舊唐書/卷80@2588763#深納之",
+              "舊唐書/卷80@2588763#然後遣出"
+            ],
+            "subject": "褚遂良"
+          },
+          {
+            "actual_signal_contribution": "1.972266",
+            "fact": "侯君集以主帅身份承担“侯君集主持高昌战役并迫使其投降”；已实现结果：侯君集先劝谕守军但未奏效，继而组织填壕、撞车、抛车等攻城行动，攻克城池并俘获七千余人。；太宗任侯君集为交河道行军大总管讨高昌。文泰死后，诸将请求趁葬礼袭击，侯君集以不合问罪之师为由拒绝，改为公开进军攻城。；智盛致书求怜后，侯君集要求其束手军门；智盛仍不出降，侯君集继续填壕、使用抛车及高楼攻城。智盛失去西突厥援助后投降，侯君集分兵略地，平定高昌并俘获智盛及其将吏。；太宗在藩时将侯君集引入幕府；侯君集多次随从征伐，历任左虞侯、车骑将军，并逐渐参与谋议。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-14362BF6B1E8AEC32313:PER-CAND-851A4B92D193",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-85CFA9C1CF54542F",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "1.753125",
+            "object_internal_contribution": "1.753125",
+            "object_ref": "PER-CAND-851A4B92D193",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-85CFA9C1CF54542F",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷69@2610556#七千餘口",
+              "舊唐書/卷69@2610556#不行",
+              "舊唐書/卷69@2610556#交河道行軍大總管",
+              "舊唐書/卷69@2610556#俯視城內",
+              "舊唐書/卷69@2610556#刊木填隍",
+              "舊唐書/卷69@2610556#參預謀議",
+              "舊唐書/卷69@2610556#命士卒填其隍塹",
+              "舊唐書/卷69@2610556#引入幕府",
+              "舊唐書/卷69@2610556#從征伐",
+              "舊唐書/卷69@2610556#束手軍門",
+              "舊唐書/卷69@2610556#車騎將軍",
+              "舊唐書/卷69@2610556#遂平其國",
+              "舊唐書/卷69@2610556#非問罪之師也",
+              "舊唐書/卷69@2610556#鼓行而前"
+            ],
+            "subject": "侯君集"
+          },
+          {
+            "actual_signal_contribution": "1.972266",
+            "fact": "尉迟敬德以主将身份承担“尉迟敬德在关键战役独立承担主将责任”；已实现结果：尋相等降將叛變後，諸將懷疑尉遲敬德也會叛變並將其囚禁；屈突通、殷開山主張殺他，太宗判斷其不會繼尋相而反，命令釋放並以財物相贈。；突厥入寇時，尉遲敬德被授為涇州道行軍總管出擊；敵軍到涇陽後，他以輕騎挑戰，殺其名將並使敵軍敗退。；宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。；太宗命尉遲敬德侍衛高祖；他披甲持矛到高祖處，宣稱太子、齊王作亂而被秦王誅殺，自己奉命宿衛，使高祖安心。面對各部兵馬仍在交戰，他請高祖降手敕，令諸軍接受秦王處分，隨後內外平定。；建成、元吉一方以金銀器物招攬尉遲敬德，他以已受秦王救命之恩、不可懷二心為由拒絕並報告太宗。元吉後派刺客行刺未果，又向高祖讒告，使敬德被下詔獄訊、面臨處死，經太宗堅決進諫而獲釋。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-64B54DF4E5A2E78325BA:PER-CAND-A49FCFF85405",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-E6025A04A064B1C7",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "1.753125",
+            "object_internal_contribution": "1.753125",
+            "object_ref": "PER-CAND-A49FCFF85405",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-E6025A04A064B1C7",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷68@1757055#下詔獄訊驗",
+              "舊唐書/卷68@1757055#便是二心，徇利忘忠",
+              "舊唐書/卷68@1757055#內外遂定",
+              "舊唐書/卷68@1757055#命敬德侍衞高祖",
+              "舊唐書/卷68@1757055#奏請降手敕",
+              "舊唐書/卷68@1757055#引爲右一府統軍",
+              "舊唐書/卷68@1757055#得釋",
+              "舊唐書/卷68@1757055#從擊王世充",
+              "舊唐書/卷68@1757055#意乃安",
+              "舊唐書/卷68@1757055#授涇州道行軍總管",
+              "舊唐書/卷68@1757055#敬德尋以啟聞",
+              "舊唐書/卷68@1757055#敬德收其餘眾",
+              "舊唐書/卷68@1757055#敬德與尋相舉城來降",
+              "舊唐書/卷68@1757055#敬德輕騎與之挑戰",
+              "舊唐書/卷68@1757055#終不敢入",
+              "舊唐書/卷68@1757055#請即殺之",
+              "舊唐書/卷68@1757055#諸將疑敬德必叛",
+              "舊唐書/卷68@1757055#賊遂敗",
+              "舊唐書/卷68@1757055#遣臣來宿衞",
+              "舊唐書/卷68@1757055#遽命釋之"
+            ],
+            "subject": "尉迟敬德"
           },
           {
             "actual_signal_contribution": "1.100000",
@@ -21972,6 +22579,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-F21522AE7BBDFFF88B8E",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "negative",
             "source_refs": [
               "舊唐書/卷70@2585040"
@@ -21981,326 +22590,27 @@
         ],
         "settlement_budget_unit": "delegated_person_or_group",
         "settlement_mode": "policy_budget",
+        "settlement_rank_factors": [
+          {
+            "factor": 1.0,
+            "through_rank": 6
+          },
+          {
+            "factor": 0.75,
+            "through_rank": 9
+          },
+          {
+            "factor": 0.5,
+            "through_rank": 12
+          }
+        ],
         "source_candidate_count": 21,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
         "source_sha256": "7a344eebb9e75175980eb1a46e01a897dff1ef2554bf276b328a9525788fed0e",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
-        "supporting_only_materials": [
-          {
-            "fact": "李勣以主帅身份承担“李勣击破薛延陀主力”；已实现结果：薛延陀南侵时，李勣率三千轻骑追至青山，大破八万骑兵，斩名王、俘首领与五万余众。",
-            "factor_option_codes": {
-              "appointment_effect": "exceptional_success",
-              "appointment_importance": "critical_national_or_long_term",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.800000",
-              "appointment_importance": "1.400000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-3D9B58FF2A5E74AA",
-            "material_magnitude": "2.356200",
-            "object_aggregate_magnitude": "2.356200",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-3D9B58FF2A5E74AA",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "李勣"
-          },
-          {
-            "fact": "戴胄以主导身份承担“柳雄案依法免除死刑”；已实现结果：戴胄坚持依法律定罪，柳雄获赦免死。",
-            "factor_option_codes": {
-              "appointment_effect": "normal_success",
-              "appointment_importance": "real_bounded",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.000000",
-              "appointment_importance": "1.000000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-50F57C09EC3CF7E9",
-            "material_magnitude": "0.935000",
-            "object_aggregate_magnitude": "2.532292",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-50F57C09EC3CF7E9",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "戴胄"
-          },
-          {
-            "fact": "李靖以主帅身份承担“李靖奇袭定襄破东突厥”；已实现结果：李靖以三千骑兵出其不意深入突厥境，运用间谍离间其心腹，继而攻破定襄，俘杨正道及萧后；太宗评价此举古今未有。",
-            "factor_option_codes": {
-              "appointment_effect": "exceptional_success",
-              "appointment_importance": "critical_national_or_long_term",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.800000",
-              "appointment_importance": "1.400000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-79C6B23614666AD5",
-            "material_magnitude": "2.356200",
-            "object_aggregate_magnitude": "3.506580",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-79C6B23614666AD5",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "李靖"
-          },
-          {
-            "fact": "侯君集以主帅身份承担“侯君集主持高昌战役并迫使其投降”；已实现结果：侯君集先劝谕守军但未奏效，继而组织填壕、撞车、抛车等攻城行动，攻克城池并俘获七千余人。；太宗任侯君集为交河道行军大总管讨高昌。文泰死后，诸将请求趁葬礼袭击，侯君集以不合问罪之师为由拒绝，改为公开进军攻城。；智盛致书求怜后，侯君集要求其束手军门；智盛仍不出降，侯君集继续填壕、使用抛车及高楼攻城。智盛失去西突厥援助后投降，侯君集分兵略地，平定高昌并俘获智盛及其将吏。；太宗在藩时将侯君集引入幕府；侯君集多次随从征伐，历任左虞侯、车骑将军，并逐渐参与谋议。",
-            "factor_option_codes": {
-              "appointment_effect": "major_success",
-              "appointment_importance": "major_affairs",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.500000",
-              "appointment_importance": "1.250000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-85CFA9C1CF54542F",
-            "material_magnitude": "1.753125",
-            "object_aggregate_magnitude": "1.753125",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-85CFA9C1CF54542F",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "侯君集"
-          },
-          {
-            "fact": "长孙无忌以主导身份承担“长孙无忌推动停止功臣世袭刺史方案”；已实现结果：太宗拟令功臣世袭刺史；长孙无忌与房玄龄从制度时宜、子孙能力和地方治理风险等方面请求停止，太宗最终停止实施。",
-            "factor_option_codes": {
-              "appointment_effect": "major_success",
-              "appointment_importance": "major_affairs",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.500000",
-              "appointment_importance": "1.250000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-863ED19753497369",
-            "material_magnitude": "1.753125",
-            "object_aggregate_magnitude": "3.506580",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-863ED19753497369",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "长孙无忌"
-          },
-          {
-            "fact": "戴胄以主导身份承担“诈伪资荫案依法改判流刑”；已实现结果：戴胄坚持依律处理，诈伪资荫者未被处死而断流。",
-            "factor_option_codes": {
-              "appointment_effect": "major_success",
-              "appointment_importance": "major_affairs",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.500000",
-              "appointment_importance": "1.250000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-8F76A864B456DBEC",
-            "material_magnitude": "1.753125",
-            "object_aggregate_magnitude": "2.532292",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-8F76A864B456DBEC",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "戴胄"
-          },
-          {
-            "fact": "李靖以主帅身份承担“李靖远征吐谷浑”；已实现结果：吐谷浑入寇时，年老足疾的李靖主动表示仍能出征，遂统率三总管。面对诸将因草未生、马羸而反对追敌，他独自决意深入，越积石山，经过数十战大破吐谷浑，并拥立慕容顺后还师。",
-            "factor_option_codes": {
-              "appointment_effect": "exceptional_success",
-              "appointment_importance": "critical_national_or_long_term",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.800000",
-              "appointment_importance": "1.400000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-9C74A7AE57819CD6",
-            "material_magnitude": "2.356200",
-            "object_aggregate_magnitude": "3.506580",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-9C74A7AE57819CD6",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "李靖"
-          },
-          {
-            "fact": "长孙无忌以主导身份承担“贞观律令与刑罚体系修订”；已实现结果：断趾被废除并改为流三千里、居作二年；九十二项大辟降为流、七十一项流降为徒，律令格式完成颁行并在太宗时期持续施用。",
-            "factor_option_codes": {
-              "appointment_effect": "exceptional_success",
-              "appointment_importance": "critical_national_or_long_term",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "long_term_multi_stage",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.800000",
-              "appointment_importance": "1.400000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "1.150000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-BE7FCDA12E9AE681",
-            "material_magnitude": "3.187800",
-            "object_aggregate_magnitude": "3.506580",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-BE7FCDA12E9AE681",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "长孙无忌"
-          },
-          {
-            "fact": "褚遂良以主导身份承担“褚遂良推动王府任职与皇子外任规则纠偏”；已实现结果：針對魏王受寵、太子與諸王名分問題，褚遂良建議明定太子和諸王的分際；太宗肯定其言，隨後限制王府官僚任職不得超過四考。；針對年幼皇子出任都督、刺史，褚遂良建議先留京受經學與禮法教育，確認具備治理州郡能力後再派出；太宗充分採納。；褚遂良以文史素養及隸書專長受到歐陽詢、魏徵推重；太宗據魏徵所言召其侍書。其後鑑別所獻王羲之書跡，對來源真偽的判斷未見錯誤。",
-            "factor_option_codes": {
-              "appointment_effect": "major_success",
-              "appointment_importance": "major_affairs",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.500000",
-              "appointment_importance": "1.250000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-E22BE0876BD68694",
-            "material_magnitude": "1.753125",
-            "object_aggregate_magnitude": "1.753125",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-E22BE0876BD68694",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "褚遂良"
-          },
-          {
-            "fact": "尉迟敬德以主将身份承担“尉迟敬德在关键战役独立承担主将责任”；已实现结果：尋相等降將叛變後，諸將懷疑尉遲敬德也會叛變並將其囚禁；屈突通、殷開山主張殺他，太宗判斷其不會繼尋相而反，命令釋放並以財物相贈。；突厥入寇時，尉遲敬德被授為涇州道行軍總管出擊；敵軍到涇陽後，他以輕騎挑戰，殺其名將並使敵軍敗退。；宋金剛敗走後，尉遲敬德收攏餘眾守介休；經李道宗、宇文士及招諭，他與尋相舉城降唐。太宗設宴並引任他為右一府統軍，使其隨軍攻王世充。；太宗命尉遲敬德侍衛高祖；他披甲持矛到高祖處，宣稱太子、齊王作亂而被秦王誅殺，自己奉命宿衛，使高祖安心。面對各部兵馬仍在交戰，他請高祖降手敕，令諸軍接受秦王處分，隨後內外平定。；建成、元吉一方以金銀器物招攬尉遲敬德，他以已受秦王救命之恩、不可懷二心為由拒絕並報告太宗。元吉後派刺客行刺未果，又向高祖讒告，使敬德被下詔獄訊、面臨處死，經太宗堅決進諫而獲釋。",
-            "factor_option_codes": {
-              "appointment_effect": "major_success",
-              "appointment_importance": "major_affairs",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.500000",
-              "appointment_importance": "1.250000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-E6025A04A064B1C7",
-            "material_magnitude": "1.753125",
-            "object_aggregate_magnitude": "1.753125",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-E6025A04A064B1C7",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "尉迟敬德"
-          },
-          {
-            "fact": "戴胄以主导身份承担“误带刀入阁门案依法同等处理”；已实现结果：戴胄坚持同属过误应依法同等处理，监门校尉免于死刑。",
-            "factor_option_codes": {
-              "appointment_effect": "normal_success",
-              "appointment_importance": "real_bounded",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.000000",
-              "appointment_importance": "1.000000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-F7CEE85E081BEE33",
-            "material_magnitude": "0.935000",
-            "object_aggregate_magnitude": "2.532292",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-F7CEE85E081BEE33",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "戴胄"
-          },
-          {
-            "fact": "高士廉以主导身份承担“高士廉主持氏族志考订并完成颁行”；已实现结果：太宗命高士廉与韦挺、岑文本、令狐德棻等共同刊正姓氏。他们普遍征集天下谱牒，依据史传核验真伪，按忠贤与悖逆褒贬，编成《氏族志》；高士廉分类定等进呈。太宗纠正崔干等级后，该书完成并颁行天下。",
-            "factor_option_codes": {
-              "appointment_effect": "major_success",
-              "appointment_importance": "major_affairs",
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "continuity_factor": "short_or_one_off",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "appointment_effect": "1.500000",
-              "appointment_importance": "1.250000",
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "continuity_factor": "0.850000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；同一责任对象材料合并分低于当前正向预算边界 3.506580，本版不计分。",
-            "material_id": "MAT-AUTO-AD-FB2C69C9C471CA8F",
-            "material_magnitude": "1.753125",
-            "object_aggregate_magnitude": "1.753125",
-            "rule_evidence_unit_ref": "REU-AUTO-AD-FB2C69C9C471CA8F",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "高士廉"
-          }
-        ]
+        "supporting_only_materials": []
       },
       {
         "candidate_disposition_complete": true,
@@ -22431,7 +22741,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "important",
-            "talent_grade_basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果；作为主导完成“平高昌后设置西州与安西都护府”，属regional级结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+            "talent_grade_basis": "作为主导完成“平高昌后设置西州与安西都护府”，属regional级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
             "talent_profile_basis": {
               "basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果。",
               "evidence_refs": [
@@ -22484,7 +22794,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "important",
-            "talent_grade_basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果；作为主将完成“尉迟敬德泾阳大破突厥”，属important级结果；作为主将完成“榆窠之战击溃王世充军并俘获敌军”，属important级结果。",
+            "talent_grade_basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属B级战役群；作为主将完成“尉迟敬德泾阳大破突厥”，属B级战役群；作为主将完成“榆窠之战击溃王世充军并俘获敌军”，属B级战役群。",
             "talent_profile_basis": {
               "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果。",
               "evidence_refs": [
@@ -22539,7 +22849,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "important",
-            "talent_grade_basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级结果。",
+            "talent_grade_basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级治理结果。",
             "talent_profile_basis": {
               "basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级结果。",
               "evidence_refs": [
@@ -22591,7 +22901,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级结果；作为主导完成“《文思博要》编成”，属local级结果；作为主导完成“编修并向皇帝进呈高祖、太宗实录”，属important级结果；作为主导完成“房玄龄编成《高祖实录》和《今上实录》”，属important级结果；作为主导完成“房玄龄长期主持中枢政务”，属important级结果；作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级结果。",
+            "talent_grade_basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“《文思博要》编成”，属local级治理结果；作为主导完成“编修并向皇帝进呈高祖、太宗实录”，属important级治理结果；作为主导完成“房玄龄编成《高祖实录》和《今上实录》”，属important级治理结果；作为主导完成“房玄龄长期主持中枢政务”，属important级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级治理结果。",
             "talent_profile_basis": {
               "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级结果。",
               "evidence_refs": [
@@ -22642,7 +22952,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "作为主帅完成“李勣击破薛延陀主力”，属national级结果；作为主将完成“李勣渡辽击破高句丽军并焚罗郭”，属important级结果；作为主将完成“李勣攻取寿阳并李靖进取丹阳迫使公祏东走”，属important级结果；作为主将完成“李勣与李世民会师攻克辽东城”，属important级结果；作为主将完成“李勣传檄后使二十余州遣使来降”，属regional级结果；专业目标已实现，整体混合结果及跨领域代价另行结算；作为主将完成“李勣击破王世充军并攻取获嘉、俘获刘黑闼”，属important级结果；作为主将完成“李勣以壕沟地道击败宇文化及攻城军”，属important级结果；作为主将完成“李勣攻取高丽盖牟城并缴获人口粮食”，属important级结果；作为主将完成“李勣攻克徐圆朗势力并平定其地”，属important级结果；作为主将完成“李勣守仓城阻止宇文化及军攻取粮仓”，属local级结果；作为主将完成“李勣白道大败突厥”，属important级结果；作为主帅完成“李勣攻克平壤平定高句丽”，属national级结果。",
+            "talent_grade_basis": "作为主帅完成“李勣击破薛延陀主力”，属S级战役群；作为主帅完成“李勣攻克平壤平定高句丽”，属S级战役群。",
             "talent_profile_basis": {
               "basis": "作为主帅完成“李勣击破薛延陀主力”，属national级结果；作为主帅完成“李勣攻克平壤平定高句丽”，属national级结果。",
               "evidence_refs": [
@@ -22690,7 +23000,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "作为主将完成“李勣攻取寿阳并李靖进取丹阳迫使公祏东走”，属important级结果；作为主将完成“李靖击破萧铣军并攻下水城”，属important级结果；作为主将完成“李靖檄令促成冯盎率部归降并平定岭南”，属regional级结果；作为主将完成“李靖在灵州硖石击退突厥”，属local级结果；作为主帅完成“李靖奇袭定襄破东突厥”，属national级结果；作为主帅完成“李靖远征吐谷浑”，属national级结果；作为主帅完成“李靖实际统帅平定萧铣”，属national级结果。",
+            "talent_grade_basis": "作为主帅完成“李靖远征吐谷浑”，属S级战役群；作为主帅完成“李靖实际统帅平定萧铣”，属S级战役群。",
             "talent_profile_basis": {
               "basis": "作为主帅完成“李靖奇袭定襄破东突厥”，属national级结果；作为主帅完成“李靖远征吐谷浑”，属national级结果。",
               "evidence_refs": [
@@ -22739,7 +23049,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级结果；作为主导完成“贞观时期丧服等差调整”，属important级结果；作为主导完成“偃革兴文、布德施惠后天下大宁并远方朝贡”，属national级结果。",
+            "talent_grade_basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级治理结果；作为主导完成“贞观时期丧服等差调整”，属important级治理结果；作为主导完成“偃革兴文、布德施惠后天下大宁并远方朝贡”，属national级治理结果。",
             "talent_profile_basis": {
               "basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级结果。",
               "evidence_refs": [
@@ -22790,7 +23100,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+            "talent_grade_basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
             "talent_profile_basis": {
               "basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
               "evidence_refs": [
@@ -22842,7 +23152,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级结果。",
+            "talent_grade_basis": "作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级治理结果。",
             "talent_profile_basis": {
               "basis": "作为主导完成“杜如晦与房玄龄共同掌政并定台阁典章”，属important级结果。",
               "evidence_refs": [
@@ -22889,7 +23199,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级结果。",
+            "talent_grade_basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
             "talent_profile_basis": {
               "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级结果。",
               "evidence_refs": [
@@ -22941,7 +23251,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "important",
-            "talent_grade_basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果；作为主导完成“平高昌后设置西州与安西都护府”，属regional级结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+            "talent_grade_basis": "作为主导完成“平高昌后设置西州与安西都护府”，属regional级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
             "talent_profile_basis": {
               "basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果。",
               "evidence_refs": [
@@ -22985,16 +23295,16 @@
       },
       {
         "candidate_disposition_complete": true,
-        "configured_negative_budget": 3,
-        "configured_positive_budget": 3,
+        "configured_negative_budget": 12,
+        "configured_positive_budget": 12,
         "eligible_candidate_count": 11,
-        "negative_budget": 3,
+        "negative_budget": 12,
         "negative_signal": "4.554000",
-        "positive_budget": 3,
-        "positive_signal": "6.198500",
+        "positive_budget": 12,
+        "positive_signal": "10.588064",
         "rule_code": "tolerate_talent",
         "rule_label": "容人保全",
-        "rule_raw_net": "1.644500",
+        "rule_raw_net": "6.034064",
         "settled_materials": [
           {
             "actual_signal_contribution": "2.783000",
@@ -23025,6 +23335,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-7FF885887A3FAEBCCB99",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "貞觀政要/卷02@802073"
@@ -23060,6 +23372,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-2B16F2AD2541CA602BED",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷71@2020238"
@@ -23095,11 +23409,235 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-A0CC784653FFD4706ACF",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 3,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷70@2585040"
             ],
             "subject": "戴胄"
+          },
+          {
+            "actual_signal_contribution": "1.265000",
+            "fact": "高甑生因后期而被李靖轻责，遂与唐奉义告李靖谋反；太宗命法官查办，告发者最终以诬罔获罪。此后李靖闭门自守，断绝宾客。；温彦博指控李靖军纪不整、致突厥珍宝散入乱兵，太宗严厉责备，李靖叩头谢罪；其后太宗赦其所称之罪、记录功勋，又明确表示已察觉此前为谗言，并任其为尚书右仆射。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "expression_safety": "basically_safe",
+              "feedback_entry": "repeated_feedback_retained",
+              "protection_repair": "active_protection_or_trust_repair",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "expression_safety": "1.000000",
+              "feedback_entry": "1.000000",
+              "protection_repair": "1.150000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "tolerate_talent:tt-lijing-protection-repair:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按李靖的该责任链结算。",
+            "material_id": "MAT-李世民-TT-LIJING-PROTECTION-REPAIR",
+            "material_magnitude": "1.265000",
+            "object_aggregate_magnitude": "1.265000",
+            "object_internal_contribution": "1.265000",
+            "object_ref": "PER-CAND-D29808A822E4",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-6B114A4D567FDA5B0BAC",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 3,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷67@2296327"
+            ],
+            "subject": "李靖"
+          },
+          {
+            "actual_signal_contribution": "1.018325",
+            "fact": "建成、元吉一方以金銀器物招攬尉遲敬德，他以已受秦王救命之恩、不可懷二心為由拒絕並報告太宗。元吉後派刺客行刺未果，又向高祖讒告，使敬德被下詔獄訊、面臨處死，經太宗堅決進諫而獲釋。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "expression_safety": "actively_protected_or_encouraged",
+              "feedback_entry": "single_acceptance_or_tolerance",
+              "protection_repair": "active_protection_or_trust_repair",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "expression_safety": "1.150000",
+              "feedback_entry": "0.700000",
+              "protection_repair": "1.150000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "tolerate_talent:tt-yuchi-slander-protection:1",
+            "judge_reason": "处分主体为高祖而保护行动直接归于李世民，且后续释放明确。",
+            "material_id": "MAT-李世民-TT-YUCHI-SLANDER-PROTECTION",
+            "material_magnitude": "1.018325",
+            "object_aggregate_magnitude": "1.374739",
+            "object_internal_contribution": "1.018325",
+            "object_ref": "PER-CAND-A49FCFF85405",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-8685DA4577B2C7C982C7",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 5,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷68@1757055"
+            ],
+            "subject": "尉迟敬德"
+          },
+          {
+            "actual_signal_contribution": "0.356414",
+            "fact": "尋相等降將叛變後，諸將懷疑尉遲敬德也會叛變並將其囚禁；屈突通、殷開山主張殺他，太宗判斷其不會繼尋相而反，命令釋放並以財物相贈。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "expression_safety": "actively_protected_or_encouraged",
+              "feedback_entry": "single_acceptance_or_tolerance",
+              "protection_repair": "active_protection_or_trust_repair",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "expression_safety": "1.150000",
+              "feedback_entry": "0.700000",
+              "protection_repair": "1.150000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "tolerate_talent:tt-yuchi-suspected-defection:1",
+            "judge_reason": "是登基前独立的降将保护事件，与后续谗告获释及军事任用不同。",
+            "material_id": "MAT-李世民-TT-YUCHI-SUSPECTED-DEFECTION",
+            "material_magnitude": "1.018325",
+            "object_aggregate_magnitude": "1.374739",
+            "object_internal_contribution": "0.356414",
+            "object_ref": "PER-CAND-A49FCFF85405",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-F0940147F2E0E5F170AC",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 5,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷68@1757055"
+            ],
+            "subject": "尉迟敬德"
+          },
+          {
+            "actual_signal_contribution": "0.664125",
+            "fact": "太宗下诏征发士卒修治洛阳宫乾阳殿并准备东幸，张玄素上书，从赋役、财政、民力、人心和隋亡教训等方面反对工程；面对太宗追问，他表示若宫殿最终建成将同归于乱。太宗随即下诏停役并赏赐张玄素。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "expression_safety": "actively_protected_or_encouraged",
+              "feedback_entry": "single_acceptance_or_tolerance",
+              "protection_repair": "none",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "expression_safety": "1.150000",
+              "feedback_entry": "0.700000",
+              "protection_repair": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "tolerate_talent:tt-zhangxuansu-palace-works:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按张玄素的该责任链结算。",
+            "material_id": "MAT-李世民-TT-ZHANGXUANSU-PALACE-WORKS",
+            "material_magnitude": "0.885500",
+            "object_aggregate_magnitude": "0.885500",
+            "object_internal_contribution": "0.885500",
+            "object_ref": "PER-CAND-716AACA0B69D",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-677F2426B0C06B2CE006",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 7,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "新唐書/卷103@468595"
+            ],
+            "subject": "张玄素"
+          },
+          {
+            "actual_signal_contribution": "0.577500",
+            "fact": "太宗拟令岑文本兼领东宫官，岑文本以职位已逾本分、恐招时谤为由拒绝；太宗停止该任命，但仍令他每五日到东宫参见，皇太子以宾友礼相待。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "expression_safety": "basically_safe",
+              "feedback_entry": "single_acceptance_or_tolerance",
+              "protection_repair": "none",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "expression_safety": "1.000000",
+              "feedback_entry": "0.700000",
+              "protection_repair": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "tolerate_talent:tt-cen-role-boundary:1",
+            "judge_reason": "属于对拒任意见的独立回应，与一般请退、病退链不同。",
+            "material_id": "MAT-李世民-TT-CEN-ROLE-BOUNDARY",
+            "material_magnitude": "0.770000",
+            "object_aggregate_magnitude": "0.770000",
+            "object_internal_contribution": "0.770000",
+            "object_ref": "PER-CAND-0FD82B71AFC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-2256983FCCBB9443515B",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷70@2585040"
+            ],
+            "subject": "岑文本"
+          },
+          {
+            "actual_signal_contribution": "0.508200",
+            "fact": "太宗以张亮蓄养义儿五百人为由认定其意在谋反，命百官议狱。多数人主张处死，只有李道裕认为反形未具、张亮无罪；太宗最终将张亮斩于市并籍没其家。；张亮被诛一年多后，太宗追认李道裕所说“反形未具”是正确意见，表示虽当时未采纳，至今仍后悔，并任李道裕为刑部侍郎。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "expression_safety": "tense_or_case_dependent",
+              "feedback_entry": "single_acceptance_or_tolerance",
+              "protection_repair": "restoration_or_rehabilitation",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "expression_safety": "0.800000",
+              "feedback_entry": "0.700000",
+              "protection_repair": "1.100000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "tolerate_talent:tt-zhangliang-wrongful-execution-review:2",
+            "judge_reason": "最终裁决与事后复核属于同一案件的连续处置，必须合并为单一混合链。",
+            "material_id": "MAT-李世民-TT-ZHANGLIANG-WRONGFUL-EXECUTION-REVIEW-2",
+            "material_magnitude": "0.677600",
+            "object_aggregate_magnitude": "2.574000",
+            "object_internal_contribution": "0.677600",
+            "object_ref": "PER-CAND-2E7E8F559309",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-E11C9DC7580D91A9493D",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 9,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷69@2610556"
+            ],
+            "subject": "张亮"
           },
           {
             "actual_signal_contribution": "2.574000",
@@ -23128,6 +23666,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-8033184AE97085E49707",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "negative",
             "source_refs": [
               "舊唐書/卷69@2610556"
@@ -23161,6 +23701,8 @@
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-23AE0BB942553BFAD754",
             "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
             "side": "negative",
             "source_refs": [
               "舊唐書/卷71@2020238"
@@ -23170,177 +23712,40 @@
         ],
         "settlement_budget_unit": "independent_feedback_safety_chain",
         "settlement_mode": "policy_budget",
+        "settlement_rank_factors": [
+          {
+            "factor": 1.0,
+            "through_rank": 6
+          },
+          {
+            "factor": 0.75,
+            "through_rank": 9
+          },
+          {
+            "factor": 0.5,
+            "through_rank": 12
+          }
+        ],
         "source_candidate_count": 11,
         "source_projection_coverage_complete": true,
         "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
         "source_sha256": "7a344eebb9e75175980eb1a46e01a897dff1ef2554bf276b328a9525788fed0e",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
-        "supporting_only_materials": [
-          {
-            "fact": "太宗拟令岑文本兼领东宫官，岑文本以职位已逾本分、恐招时谤为由拒绝；太宗停止该任命，但仍令他每五日到东宫参见，皇太子以宾友礼相待。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "basically_safe",
-              "feedback_entry": "single_acceptance_or_tolerance",
-              "protection_repair": "none",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "expression_safety": "1.000000",
-              "feedback_entry": "0.700000",
-              "protection_repair": "1.000000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.265000，本版不计分。",
-            "material_id": "MAT-李世民-TT-CEN-ROLE-BOUNDARY",
-            "material_magnitude": "0.770000",
-            "rule_evidence_unit_ref": "REU-2256983FCCBB9443515B",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "岑文本"
-          },
-          {
-            "fact": "高甑生因后期而被李靖轻责，遂与唐奉义告李靖谋反；太宗命法官查办，告发者最终以诬罔获罪。此后李靖闭门自守，断绝宾客。；温彦博指控李靖军纪不整、致突厥珍宝散入乱兵，太宗严厉责备，李靖叩头谢罪；其后太宗赦其所称之罪、记录功勋，又明确表示已察觉此前为谗言，并任其为尚书右仆射。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "basically_safe",
-              "feedback_entry": "repeated_feedback_retained",
-              "protection_repair": "active_protection_or_trust_repair",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "expression_safety": "1.000000",
-              "feedback_entry": "1.000000",
-              "protection_repair": "1.150000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.265000，本版不计分。",
-            "material_id": "MAT-李世民-TT-LIJING-PROTECTION-REPAIR",
-            "material_magnitude": "1.265000",
-            "rule_evidence_unit_ref": "REU-6B114A4D567FDA5B0BAC",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "李靖"
-          },
-          {
-            "fact": "建成、元吉一方以金銀器物招攬尉遲敬德，他以已受秦王救命之恩、不可懷二心為由拒絕並報告太宗。元吉後派刺客行刺未果，又向高祖讒告，使敬德被下詔獄訊、面臨處死，經太宗堅決進諫而獲釋。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "actively_protected_or_encouraged",
-              "feedback_entry": "single_acceptance_or_tolerance",
-              "protection_repair": "active_protection_or_trust_repair",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "expression_safety": "1.150000",
-              "feedback_entry": "0.700000",
-              "protection_repair": "1.150000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.265000，本版不计分。",
-            "material_id": "MAT-李世民-TT-YUCHI-SLANDER-PROTECTION",
-            "material_magnitude": "1.018325",
-            "rule_evidence_unit_ref": "REU-8685DA4577B2C7C982C7",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "尉迟敬德"
-          },
-          {
-            "fact": "尋相等降將叛變後，諸將懷疑尉遲敬德也會叛變並將其囚禁；屈突通、殷開山主張殺他，太宗判斷其不會繼尋相而反，命令釋放並以財物相贈。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "actively_protected_or_encouraged",
-              "feedback_entry": "single_acceptance_or_tolerance",
-              "protection_repair": "active_protection_or_trust_repair",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "expression_safety": "1.150000",
-              "feedback_entry": "0.700000",
-              "protection_repair": "1.150000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.265000，本版不计分。",
-            "material_id": "MAT-李世民-TT-YUCHI-SUSPECTED-DEFECTION",
-            "material_magnitude": "1.018325",
-            "rule_evidence_unit_ref": "REU-F0940147F2E0E5F170AC",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "尉迟敬德"
-          },
-          {
-            "fact": "太宗以张亮蓄养义儿五百人为由认定其意在谋反，命百官议狱。多数人主张处死，只有李道裕认为反形未具、张亮无罪；太宗最终将张亮斩于市并籍没其家。；张亮被诛一年多后，太宗追认李道裕所说“反形未具”是正确意见，表示虽当时未采纳，至今仍后悔，并任李道裕为刑部侍郎。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "tense_or_case_dependent",
-              "feedback_entry": "single_acceptance_or_tolerance",
-              "protection_repair": "restoration_or_rehabilitation",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "expression_safety": "0.800000",
-              "feedback_entry": "0.700000",
-              "protection_repair": "1.100000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.265000，本版不计分。",
-            "material_id": "MAT-李世民-TT-ZHANGLIANG-WRONGFUL-EXECUTION-REVIEW-2",
-            "material_magnitude": "0.677600",
-            "rule_evidence_unit_ref": "REU-E11C9DC7580D91A9493D",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "张亮"
-          },
-          {
-            "fact": "太宗下诏征发士卒修治洛阳宫乾阳殿并准备东幸，张玄素上书，从赋役、财政、民力、人心和隋亡教训等方面反对工程；面对太宗追问，他表示若宫殿最终建成将同归于乱。太宗随即下诏停役并赏赐张玄素。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "actively_protected_or_encouraged",
-              "feedback_entry": "single_acceptance_or_tolerance",
-              "protection_repair": "none",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "expression_safety": "1.150000",
-              "feedback_entry": "0.700000",
-              "protection_repair": "1.000000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.265000，本版不计分。",
-            "material_id": "MAT-李世民-TT-ZHANGXUANSU-PALACE-WORKS",
-            "material_magnitude": "0.885500",
-            "rule_evidence_unit_ref": "REU-677F2426B0C06B2CE006",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "张玄素"
-          }
-        ]
+        "supporting_only_materials": []
       },
       {
         "candidate_disposition_complete": true,
-        "configured_negative_budget": 3,
-        "configured_positive_budget": 3,
+        "configured_negative_budget": 12,
+        "configured_positive_budget": 12,
         "eligible_candidate_count": 8,
-        "negative_budget": 3,
+        "negative_budget": 12,
         "negative_signal": "0.000000",
-        "positive_budget": 3,
-        "positive_signal": "5.388900",
+        "positive_budget": 12,
+        "positive_signal": "10.122200",
         "rule_code": "anti_nepotism",
         "rule_label": "避免任人唯亲",
-        "rule_raw_net": "5.388900",
+        "rule_raw_net": "10.122200",
         "settled_materials": [
           {
             "actual_signal_contribution": "2.036650",
@@ -23372,6 +23777,8 @@
             "rule_evidence_unit_ref": "REU-93AF95419CAAD53BD851",
             "selection_basis": "eligibility_gate_then_strongest_n",
             "settlement_object_ref": "anti_nepotism:an-hereditary-revocation-supplement:1",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷65@1768276"
@@ -23408,6 +23815,8 @@
             "rule_evidence_unit_ref": "REU-2B28B0D032C18D02E1A7",
             "selection_basis": "eligibility_gate_then_strongest_n",
             "settlement_object_ref": "anti_nepotism:an-chu-prince-office-tenure:1",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷80@2588763"
@@ -23444,23 +23853,16 @@
             "rule_evidence_unit_ref": "REU-84A93D4013DC9AC42179",
             "selection_basis": "eligibility_gate_then_strongest_n",
             "settlement_object_ref": "anti_nepotism:an-weizheng-cross-faction:1",
+            "settlement_rank": 3,
+            "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
               "舊唐書/卷71@2020238"
             ],
             "subject": "魏徵"
-          }
-        ],
-        "settlement_budget_unit": "independent_private_public_power_chain",
-        "settlement_mode": "policy_budget",
-        "source_candidate_count": 8,
-        "source_projection_coverage_complete": true,
-        "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "7a344eebb9e75175980eb1a46e01a897dff1ef2554bf276b328a9525788fed0e",
-        "supplemental_source_refs": [],
-        "supplemental_source_sha256s": [],
-        "supporting_only_materials": [
+          },
           {
+            "actual_signal_contribution": "1.265000",
             "fact": "針對年幼皇子出任都督、刺史，褚遂良建議先留京受經學與禮法教育，確認具備治理州郡能力後再派出；太宗充分採納。",
             "factor_option_codes": {
               "attribution_factor": "direct",
@@ -23478,39 +23880,27 @@
               "selection_openness": "1.000000",
               "source_factor": "1.000000"
             },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.581250，本版不计分。",
+            "independence_key": "anti_nepotism:an-chu-prince-governors:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按皇子出任地方实职的该责任链结算。",
             "material_id": "MAT-李世民-AN-CHU-PRINCE-GOVERNORS",
             "material_magnitude": "1.265000",
+            "object_aggregate_magnitude": "1.265000",
+            "object_internal_contribution": "1.265000",
+            "object_ref": "PER-CAND-6212A403EABA",
+            "override_reasons": [],
             "rule_evidence_unit_ref": "REU-7D5A9B39ADDB4DACCE3B",
-            "selection_status": "eligible_below_budget_boundary",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:an-chu-prince-governors:1",
+            "settlement_rank": 4,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷80@2588763"
+            ],
             "subject": "皇子出任地方实职"
           },
           {
-            "fact": "戴胄任大理少卿后，就长孙无忌误带佩刀入东上阁案两次驳议，主张监门校尉与无忌同属过误而生死处分悬殊不当；太宗嘉许并最终免除校尉死刑。",
-            "factor_option_codes": {
-              "attribution_factor": "direct",
-              "context_factor": "core_mechanism_direct",
-              "institutionalization": "single_event",
-              "office_weight": "important",
-              "selection_openness": "merit_or_formal_basis",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.000000",
-              "context_factor": "1.100000",
-              "institutionalization": "0.800000",
-              "office_weight": "1.000000",
-              "selection_openness": "1.000000",
-              "source_factor": "1.000000"
-            },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.581250，本版不计分。",
-            "material_id": "MAT-李世民-AN-DAIZHOU-WUJI-EQUAL-LAW",
-            "material_magnitude": "0.880000",
-            "rule_evidence_unit_ref": "REU-19BD594C2C529732C04A",
-            "selection_status": "eligible_below_budget_boundary",
-            "subject": "长孙无忌佩刀案"
-          },
-          {
+            "actual_signal_contribution": "1.265000",
             "fact": "太宗命高士廉与韦挺、岑文本、令狐德棻等共同刊正姓氏。他们普遍征集天下谱牒，依据史传核验真伪，按忠贤与悖逆褒贬，编成《氏族志》；高士廉分类定等进呈。太宗纠正崔干等级后，该书完成并颁行天下。",
             "factor_option_codes": {
               "attribution_factor": "direct",
@@ -23528,14 +23918,27 @@
               "selection_openness": "1.000000",
               "source_factor": "1.000000"
             },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.581250，本版不计分。",
+            "independence_key": "anti_nepotism:an-shizuzhi-project:1",
+            "judge_reason": "全国性门第评价制度项目，与个案跨身份任用及宗室职位约束相互独立。",
             "material_id": "MAT-李世民-AN-SHIZUZHI-PROJECT",
             "material_magnitude": "1.265000",
+            "object_aggregate_magnitude": "1.265000",
+            "object_internal_contribution": "1.265000",
+            "object_ref": "PER-CAND-564F932D7FB5",
+            "override_reasons": [],
             "rule_evidence_unit_ref": "REU-8D625C2ED897EAED3B2F",
-            "selection_status": "eligible_below_budget_boundary",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:an-shizuzhi-project:1",
+            "settlement_rank": 4,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷65@1768276"
+            ],
             "subject": "门第评价秩序"
           },
           {
+            "actual_signal_contribution": "1.012000",
             "fact": "长孙无忌被册拜司空后多次坚辞，称自己身为外戚，担心招致君主偏私亲属的讥议；太宗不许，并说明任用是基于其才行、聪明鉴悟和武略。",
             "factor_option_codes": {
               "attribution_factor": "direct",
@@ -23553,14 +23956,65 @@
               "selection_openness": "1.000000",
               "source_factor": "1.000000"
             },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.581250，本版不计分。",
+            "independence_key": "anti_nepotism:an-wuji-merit-justification:1",
+            "judge_reason": "不是单纯任亲，而是面对裙带质疑给出公开能力依据；与解除机密职为两项不同决定。",
             "material_id": "MAT-李世民-AN-WUJI-MERIT-JUSTIFICATION",
             "material_magnitude": "1.012000",
+            "object_aggregate_magnitude": "1.012000",
+            "object_internal_contribution": "1.012000",
+            "object_ref": "PER-CAND-6D5FA3B48F40",
+            "override_reasons": [],
             "rule_evidence_unit_ref": "REU-78EF3031259970F4F998",
-            "selection_status": "eligible_below_budget_boundary",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:an-wuji-merit-justification:1",
+            "settlement_rank": 6,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷65@1768276"
+            ],
             "subject": "长孙无忌外戚任用"
           },
           {
+            "actual_signal_contribution": "0.660000",
+            "fact": "戴胄任大理少卿后，就长孙无忌误带佩刀入东上阁案两次驳议，主张监门校尉与无忌同属过误而生死处分悬殊不当；太宗嘉许并最终免除校尉死刑。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "institutionalization": "single_event",
+              "office_weight": "important",
+              "selection_openness": "merit_or_formal_basis",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "institutionalization": "0.800000",
+              "office_weight": "1.000000",
+              "selection_openness": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "anti_nepotism:an-daizhou-wuji-equal-law:1",
+            "judge_reason": "当前事实已完成适用性、归责、独立性和去重门禁，按长孙无忌佩刀案的该责任链结算。",
+            "material_id": "MAT-李世民-AN-DAIZHOU-WUJI-EQUAL-LAW",
+            "material_magnitude": "0.880000",
+            "object_aggregate_magnitude": "0.880000",
+            "object_internal_contribution": "0.880000",
+            "object_ref": "PER-CAND-947836AF2584",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-19BD594C2C529732C04A",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:an-daizhou-wuji-equal-law:1",
+            "settlement_rank": 7,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷70@2585040"
+            ],
+            "subject": "长孙无忌佩刀案"
+          },
+          {
+            "actual_signal_contribution": "0.531300",
             "fact": "有人密表称长孙无忌权宠过盛。长孙无忌以盈满自戒，恳请辞去机密职任；在文德皇后也代为请求后，太宗解除其尚书右仆射职，改授开府仪同三司。",
             "factor_option_codes": {
               "attribution_factor": "direct",
@@ -23578,14 +24032,49 @@
               "selection_openness": "0.700000",
               "source_factor": "1.000000"
             },
-            "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.581250，本版不计分。",
+            "independence_key": "anti_nepotism:an-wuji-power-adjustment:1",
+            "judge_reason": "是针对现实外戚兼权的职位调整，不与能力说明或一般请退混同。",
             "material_id": "MAT-李世民-AN-WUJI-POWER-ADJUSTMENT",
             "material_magnitude": "0.708400",
+            "object_aggregate_magnitude": "0.708400",
+            "object_internal_contribution": "0.708400",
+            "object_ref": "PER-CAND-6D5FA3B48F40",
+            "override_reasons": [],
             "rule_evidence_unit_ref": "REU-81296443396E3C199BFA",
-            "selection_status": "eligible_below_budget_boundary",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:an-wuji-power-adjustment:1",
+            "settlement_rank": 8,
+            "settlement_rank_factor": "0.750000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷65@1768276"
+            ],
             "subject": "长孙无忌外戚权力"
           }
-        ]
+        ],
+        "settlement_budget_unit": "independent_private_public_power_chain",
+        "settlement_mode": "policy_budget",
+        "settlement_rank_factors": [
+          {
+            "factor": 1.0,
+            "through_rank": 6
+          },
+          {
+            "factor": 0.75,
+            "through_rank": 9
+          },
+          {
+            "factor": 0.5,
+            "through_rank": 12
+          }
+        ],
+        "source_candidate_count": 8,
+        "source_projection_coverage_complete": true,
+        "source_ref": "E:\\code\\git\\my-cloud\\github\\emperor-evaluation\\eval\\i5b_current_value\\李世民\\source-pack.json",
+        "source_sha256": "7a344eebb9e75175980eb1a46e01a897dff1ef2554bf276b328a9525788fed0e",
+        "supplemental_source_refs": [],
+        "supplemental_source_sha256s": [],
+        "supporting_only_materials": []
       }
     ],
     "schema_version": "i5b-material-budget-shadow-report-v1",
@@ -23594,15 +24083,15 @@
     "summary": {
       "rule_count": 5,
       "settled_event_negative_count": 3,
-      "settled_event_positive_count": 17,
+      "settled_event_positive_count": 46,
       "team_negative_member_count": 3,
       "team_positive_member_count": 8,
-      "weighted_raw_signal": "10.078204"
+      "weighted_raw_signal": "21.328021"
     },
-    "task_code": "I5B-CURRENT-FF18DA0E5E8167B7",
+    "task_code": "I5B-CURRENT-E10B546E65DE95F8",
     "window": "626-649"
   },
-  "net_signal": "10.078204",
+  "net_signal": "21.328021",
   "net_signal_status": "provisional_profile_inputs",
   "outcome_registry_validation": {
     "actor_count": 24,
@@ -23663,11 +24152,7 @@
           "PFACT-LSM-HOUJUNJI-LOOTING-AND-CONSPIRACY"
         ],
         "talent_grade": [
-          "PFACT-2185E0B1718BD304840E",
-          "PFACT-7C9F8E8DF45A5F84E7FE",
-          "PFACT-8D58091452904A0EEB84",
-          "PFACT-AUTO-925D967879C330A3912A",
-          "PFACT-B52E0C525C0BD460D5B4"
+          "PFACT-AUTO-925D967879C330A3912A"
         ]
       },
       "profile_review": {
@@ -23713,23 +24198,18 @@
           "severity": "serious"
         },
         "talent_grade": {
-          "basis": "作为主帅完成“侯君集主持高昌战役并迫使其投降”，属important级结果；作为主导完成“平高昌后设置西州与安西都护府”，属regional级结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+          "basis": "作为主导完成“平高昌后设置西州与安西都护府”，属regional级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
           "evidence_refs": [
-            "PFACT-2185E0B1718BD304840E",
-            "PFACT-7C9F8E8DF45A5F84E7FE",
-            "PFACT-8D58091452904A0EEB84",
-            "PFACT-AUTO-925D967879C330A3912A",
-            "PFACT-B52E0C525C0BD460D5B4"
+            "PFACT-AUTO-925D967879C330A3912A"
           ],
           "grade": "important",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
             "outcome_refs": [
-              "OUTCOME-14362BF6B1E8AEC32313",
               "OUTCOME-AUTO-EE88F25ACDDC21ED1683"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "common_scale.important",
+            "rule_path": "domain_important_threshold",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -23754,11 +24234,10 @@
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
         "outcome_refs": [
-          "OUTCOME-14362BF6B1E8AEC32313",
           "OUTCOME-AUTO-EE88F25ACDDC21ED1683"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "common_scale.important",
+        "rule_path": "domain_important_threshold",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -23860,7 +24339,7 @@
           "severity": "material"
         },
         "talent_grade": {
-          "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属important级结果；作为主将完成“尉迟敬德泾阳大破突厥”，属important级结果；作为主将完成“榆窠之战击溃王世充军并俘获敌军”，属important级结果。",
+          "basis": "作为主将完成“尉迟敬德在关键战役独立承担主将责任”，属B级战役群；作为主将完成“尉迟敬德泾阳大破突厥”，属B级战役群；作为主将完成“榆窠之战击溃王世充军并俘获敌军”，属B级战役群。",
           "evidence_refs": [
             "PFACT-0E2B2C4E04F98FF69939",
             "PFACT-3EF3BF404B1A3787190E",
@@ -23879,7 +24358,7 @@
               "OUTCOME-AUTO-FAA034D73DABCD138E30"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "common_scale.important",
+            "rule_path": "domain_important_threshold",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -23904,7 +24383,7 @@
           "OUTCOME-AUTO-FAA034D73DABCD138E30"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "common_scale.important",
+        "rule_path": "domain_important_threshold",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -23982,7 +24461,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+          "basis": "作为主导完成“建立州县义仓并用于饥馑赈给”，属national级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
           "evidence_refs": [
             "PFACT-OUTCOME-79285A58160EA125"
           ],
@@ -24120,7 +24599,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级结果；作为主导完成“《文思博要》编成”，属local级结果；作为主导完成“编修并向皇帝进呈高祖、太宗实录”，属important级结果；作为主导完成“房玄龄编成《高祖实录》和《今上实录》”，属important级结果；作为主导完成“房玄龄长期主持中枢政务”，属important级结果；作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级结果。",
+          "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“《文思博要》编成”，属local级治理结果；作为主导完成“编修并向皇帝进呈高祖、太宗实录”，属important级治理结果；作为主导完成“房玄龄编成《高祖实录》和《今上实录》”，属important级治理结果；作为主导完成“房玄龄长期主持中枢政务”，属important级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级治理结果。",
           "evidence_refs": [
             "PFACT-83844E7D9ED9561C3A12",
             "PFACT-994A65B71FE16E7026A3",
@@ -24259,16 +24738,6 @@
         "political_risk": [],
         "talent_grade": [
           "PFACT-25DE1AA89B76C1D9D696",
-          "PFACT-AUTO-000816CD72C18C5B0AC7",
-          "PFACT-AUTO-14A67CB68C45668461D7",
-          "PFACT-AUTO-1F951526FF4C8E0FB879",
-          "PFACT-AUTO-54565700979033CE52B8",
-          "PFACT-AUTO-552052EB441B3DA965F1",
-          "PFACT-AUTO-A2136A3B714FD0EF9BCE",
-          "PFACT-AUTO-ADEB5C3E5873A23C960B",
-          "PFACT-AUTO-B0B8D8D0E8DF86B49859",
-          "PFACT-AUTO-C2C9147A073218E47ACA",
-          "PFACT-AUTO-CA1D2B2255696B2B156B",
           "PFACT-FB34B3E66967110F62E2"
         ]
       },
@@ -24307,19 +24776,9 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主帅完成“李勣击破薛延陀主力”，属national级结果；作为主将完成“李勣渡辽击破高句丽军并焚罗郭”，属important级结果；作为主将完成“李勣攻取寿阳并李靖进取丹阳迫使公祏东走”，属important级结果；作为主将完成“李勣与李世民会师攻克辽东城”，属important级结果；作为主将完成“李勣传檄后使二十余州遣使来降”，属regional级结果；专业目标已实现，整体混合结果及跨领域代价另行结算；作为主将完成“李勣击破王世充军并攻取获嘉、俘获刘黑闼”，属important级结果；作为主将完成“李勣以壕沟地道击败宇文化及攻城军”，属important级结果；作为主将完成“李勣攻取高丽盖牟城并缴获人口粮食”，属important级结果；作为主将完成“李勣攻克徐圆朗势力并平定其地”，属important级结果；作为主将完成“李勣守仓城阻止宇文化及军攻取粮仓”，属local级结果；作为主将完成“李勣白道大败突厥”，属important级结果；作为主帅完成“李勣攻克平壤平定高句丽”，属national级结果。",
+          "basis": "作为主帅完成“李勣击破薛延陀主力”，属S级战役群；作为主帅完成“李勣攻克平壤平定高句丽”，属S级战役群。",
           "evidence_refs": [
             "PFACT-25DE1AA89B76C1D9D696",
-            "PFACT-AUTO-000816CD72C18C5B0AC7",
-            "PFACT-AUTO-14A67CB68C45668461D7",
-            "PFACT-AUTO-1F951526FF4C8E0FB879",
-            "PFACT-AUTO-54565700979033CE52B8",
-            "PFACT-AUTO-552052EB441B3DA965F1",
-            "PFACT-AUTO-A2136A3B714FD0EF9BCE",
-            "PFACT-AUTO-ADEB5C3E5873A23C960B",
-            "PFACT-AUTO-B0B8D8D0E8DF86B49859",
-            "PFACT-AUTO-C2C9147A073218E47ACA",
-            "PFACT-AUTO-CA1D2B2255696B2B156B",
             "PFACT-FB34B3E66967110F62E2"
           ],
           "grade": "historic",
@@ -24327,20 +24786,10 @@
           "rule_alignment": {
             "outcome_refs": [
               "OUTCOME-049DADFAB2AF90ADB3A4",
-              "OUTCOME-AUTO-0CD591EB1491B68AAA61",
-              "OUTCOME-AUTO-3218E266A2FAEBFC9077",
-              "OUTCOME-AUTO-3FB7A328B733C29E4B7E",
-              "OUTCOME-AUTO-4E25043A3A311CCB9788",
-              "OUTCOME-AUTO-4F6F7E57DCD8A62AF697",
-              "OUTCOME-AUTO-727CFAAAC008571E7BE2",
-              "OUTCOME-AUTO-8518B9A8C6A7C007C288",
-              "OUTCOME-AUTO-B2BE608B1F0139B34C10",
-              "OUTCOME-AUTO-E2A4A4A017ADDC8F4A44",
-              "OUTCOME-AUTO-FD1A622E34C628F3EC9F",
               "OUTCOME-F4E0D154F563ED193E48"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "military_exceptional_two_national_command",
+            "rule_path": "military_exceptional_two_s_command",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -24372,20 +24821,10 @@
       "talent_grade_rule_alignment": {
         "outcome_refs": [
           "OUTCOME-049DADFAB2AF90ADB3A4",
-          "OUTCOME-AUTO-0CD591EB1491B68AAA61",
-          "OUTCOME-AUTO-3218E266A2FAEBFC9077",
-          "OUTCOME-AUTO-3FB7A328B733C29E4B7E",
-          "OUTCOME-AUTO-4E25043A3A311CCB9788",
-          "OUTCOME-AUTO-4F6F7E57DCD8A62AF697",
-          "OUTCOME-AUTO-727CFAAAC008571E7BE2",
-          "OUTCOME-AUTO-8518B9A8C6A7C007C288",
-          "OUTCOME-AUTO-B2BE608B1F0139B34C10",
-          "OUTCOME-AUTO-E2A4A4A017ADDC8F4A44",
-          "OUTCOME-AUTO-FD1A622E34C628F3EC9F",
           "OUTCOME-F4E0D154F563ED193E48"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "military_exceptional_two_national_command",
+        "rule_path": "military_exceptional_two_s_command",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -24441,11 +24880,6 @@
         "political_risk": [],
         "talent_grade": [
           "PFACT-287074885322342E76DC",
-          "PFACT-782A74C3771AF1731119",
-          "PFACT-AUTO-07CA95D2BC1B65570D71",
-          "PFACT-AUTO-552052EB441B3DA965F1",
-          "PFACT-AUTO-6EA176F6EBFC05431CE8",
-          "PFACT-AUTO-DE102E4A7B2CB3F89F49",
           "PFACT-LIJING-XIAOXIAN-CAMPAIGN"
         ]
       },
@@ -24492,30 +24926,20 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主将完成“李勣攻取寿阳并李靖进取丹阳迫使公祏东走”，属important级结果；作为主将完成“李靖击破萧铣军并攻下水城”，属important级结果；作为主将完成“李靖檄令促成冯盎率部归降并平定岭南”，属regional级结果；作为主将完成“李靖在灵州硖石击退突厥”，属local级结果；作为主帅完成“李靖奇袭定襄破东突厥”，属national级结果；作为主帅完成“李靖远征吐谷浑”，属national级结果；作为主帅完成“李靖实际统帅平定萧铣”，属national级结果。",
+          "basis": "作为主帅完成“李靖远征吐谷浑”，属S级战役群；作为主帅完成“李靖实际统帅平定萧铣”，属S级战役群。",
           "evidence_refs": [
             "PFACT-287074885322342E76DC",
-            "PFACT-782A74C3771AF1731119",
-            "PFACT-AUTO-07CA95D2BC1B65570D71",
-            "PFACT-AUTO-552052EB441B3DA965F1",
-            "PFACT-AUTO-6EA176F6EBFC05431CE8",
-            "PFACT-AUTO-DE102E4A7B2CB3F89F49",
             "PFACT-LIJING-XIAOXIAN-CAMPAIGN"
           ],
           "grade": "historic",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
             "outcome_refs": [
-              "OUTCOME-AUTO-3218E266A2FAEBFC9077",
-              "OUTCOME-AUTO-884BE1376541B80F6FCD",
-              "OUTCOME-AUTO-9C03BE692BD69D7AB685",
-              "OUTCOME-AUTO-F63708F41E8DFCEBDBA2",
-              "OUTCOME-BE5748B1A230842D8187",
               "OUTCOME-F49DBC756CFF9A08C273",
               "OUTCOME-LIJING-XIAOXIAN"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "military_exceptional_two_national_command",
+            "rule_path": "military_exceptional_two_s_command",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -24537,16 +24961,11 @@
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
         "outcome_refs": [
-          "OUTCOME-AUTO-3218E266A2FAEBFC9077",
-          "OUTCOME-AUTO-884BE1376541B80F6FCD",
-          "OUTCOME-AUTO-9C03BE692BD69D7AB685",
-          "OUTCOME-AUTO-F63708F41E8DFCEBDBA2",
-          "OUTCOME-BE5748B1A230842D8187",
           "OUTCOME-F49DBC756CFF9A08C273",
           "OUTCOME-LIJING-XIAOXIAN"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "military_exceptional_two_national_command",
+        "rule_path": "military_exceptional_two_s_command",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -24615,7 +25034,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级结果。",
+          "basis": "作为主导完成“精简中枢员额并确立宰相量才授职职责”，属national级治理结果。",
           "evidence_refs": [
             "PFACT-LSM-DELEGATE-TALENT-SELECTION",
             "PFACT-LSM-STREAMLINE-OFFICES"
@@ -24726,7 +25145,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主导完成“褚遂良推动王府任职与皇子外任规则纠偏”，属important级结果。",
+          "basis": "作为主导完成“褚遂良推动王府任职与皇子外任规则纠偏”，属important级治理结果。",
           "evidence_refs": [
             "PFACT-4B3F00F43705BE34F471",
             "PFACT-A201EA4B26D1F014872B",
@@ -24739,7 +25158,7 @@
               "OUTCOME-F7A648059628A3595F16"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "common_scale.important",
+            "rule_path": "domain_important_threshold",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -24768,7 +25187,7 @@
           "OUTCOME-F7A648059628A3595F16"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "common_scale.important",
+        "rule_path": "domain_important_threshold",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -24851,7 +25270,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级结果。",
+          "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
           "evidence_refs": [
             "PFACT-LSM-ZHENGUAN-LAW-RESPONSIBILITY",
             "PFACT-OUTCOME-43F0DA17AEE1DE53"
@@ -24964,7 +25383,7 @@
           "severity": "material"
         },
         "talent_grade": {
-          "basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级结果。",
+          "basis": "作为主导完成“高士廉主持氏族志考订并完成颁行”，属important级治理结果。",
           "evidence_refs": [
             "PFACT-AD0F8C4C4C578CED7C34"
           ],
@@ -24975,7 +25394,7 @@
               "OUTCOME-1EE17720B75501CABF8E"
             ],
             "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-            "rule_path": "common_scale.important",
+            "rule_path": "domain_important_threshold",
             "status": "accepted_current"
           },
           "status": "accepted_current"
@@ -24997,7 +25416,7 @@
           "OUTCOME-1EE17720B75501CABF8E"
         ],
         "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
-        "rule_path": "common_scale.important",
+        "rule_path": "domain_important_threshold",
         "status": "accepted_current"
       },
       "value_status": "provisional_material_coverage_open"
@@ -25125,7 +25544,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级结果；作为主导完成“贞观时期丧服等差调整”，属important级结果；作为主导完成“偃革兴文、布德施惠后天下大宁并远方朝贡”，属national级结果。",
+          "basis": "作为主导完成“魏徵持续谏政并总裁多部史书”，属national级治理结果；作为主导完成“贞观时期丧服等差调整”，属important级治理结果；作为主导完成“偃革兴文、布德施惠后天下大宁并远方朝贡”，属national级治理结果。",
           "evidence_refs": [
             "PFACT-46E0202B0B9754A3CC6A",
             "PFACT-AUTO-023B2550FA0BF95B2607",
@@ -25203,7 +25622,7 @@
       "value_status": "provisional_material_coverage_open"
     }
   ],
-  "report_sha256": "48b314df3acdf2c3dd1a0310664b87957a9b2cf0ef6cb92ad38fd102623cab26",
+  "report_sha256": "288bb773f5d324d94035930f3e8758806c8988ae2bad1aa5f86be550fc996daa",
   "rule_evidence_units": [
     {
       "direction": "positive",

@@ -30,6 +30,14 @@ from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
 from emperor_v4.evaluation.model_policy import resolve_agent_route, validate_model_policy
 from emperor_v4.evaluation.current_source_pack_compiler import apply_source_pack_increment
 from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
+from emperor_v4.runtime.emperor_session_control import (
+    abandon_session,
+    claim_session,
+    heartbeat_session,
+    publish_session,
+    run_claimed_session,
+    session_status,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -111,13 +119,44 @@ def _parser() -> argparse.ArgumentParser:
     rebuild.add_argument("--source-index", type=Path)
     rebuild.add_argument("--source-index-root", type=Path)
     rebuild.add_argument("--dynasty-governance-root", type=Path)
+    rebuild.add_argument("--shared-backbone-root", type=Path)
     rebuild.add_argument("--runtime-root", type=Path)
-    rebuild.add_argument("--wall-clock-seconds", type=int, default=900)
+    rebuild.add_argument("--wall-clock-seconds", type=int)
     rebuild.add_argument("--source-workers", type=int, default=8)
     rebuild.add_argument("--export-workers", type=int, default=4)
     rebuild.add_argument("--max-pages-per-subject", type=int, default=32)
     rebuild.add_argument("--model-workers", type=int, default=4)
     rebuild.add_argument("--model-timeout-seconds", type=int, default=120)
+    session_claim = commands.add_parser("emperor-session-claim")
+    session_claim.add_argument("--state-root", type=Path, required=True)
+    session_claim.add_argument("--release-root", type=Path, default=Path("."))
+    session_claim.add_argument("--session-id", required=True)
+    session_claim.add_argument("--ruler")
+    session_claim.add_argument("--model-slots", type=int, default=2)
+    session_run = commands.add_parser("emperor-session-run")
+    session_run.add_argument("--state-root", type=Path, required=True)
+    session_run.add_argument("--session-id", required=True)
+    session_run.add_argument("--release-root", type=Path, default=Path("."))
+    session_run.add_argument("--source-index-root", type=Path, required=True)
+    session_run.add_argument("--dynasty-governance-root", type=Path, required=True)
+    session_run.add_argument("--wall-clock-seconds", type=int)
+    session_run.add_argument("--source-workers", type=int, default=8)
+    session_run.add_argument("--export-workers", type=int, default=4)
+    session_run.add_argument("--max-pages-per-subject", type=int, default=32)
+    session_run.add_argument("--model-timeout-seconds", type=int, default=120)
+    session_heartbeat = commands.add_parser("emperor-session-heartbeat")
+    session_heartbeat.add_argument("--state-root", type=Path, required=True)
+    session_heartbeat.add_argument("--session-id", required=True)
+    session_heartbeat.add_argument("--stage", required=True)
+    session_status_parser = commands.add_parser("emperor-session-status")
+    session_status_parser.add_argument("--state-root", type=Path, required=True)
+    session_publish = commands.add_parser("emperor-session-publish")
+    session_publish.add_argument("--state-root", type=Path, required=True)
+    session_publish.add_argument("--session-id", required=True)
+    session_publish.add_argument("--canonical-root", type=Path, default=Path("."))
+    session_abandon = commands.add_parser("emperor-session-abandon")
+    session_abandon.add_argument("--state-root", type=Path, required=True)
+    session_abandon.add_argument("--session-id", required=True)
     increment = commands.add_parser("source-pack-apply-increment")
     increment.add_argument("--ruler", required=True)
     increment.add_argument("--workspace-root", type=Path, default=Path("."))
@@ -303,6 +342,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             source_index_path=args.source_index,
             source_index_root=args.source_index_root,
             dynasty_governance_root=args.dynasty_governance_root,
+            shared_backbone_root=args.shared_backbone_root,
             runtime_root=runtime_root,
             limits=RebuildLimits(
                 wall_clock_seconds=args.wall_clock_seconds,
@@ -314,6 +354,61 @@ def main(argv: Sequence[str] | None = None) -> int:
             ),
         )
         return _write_report(report, None)
+    if args.command == "emperor-session-claim":
+        return _write_report(
+            claim_session(
+                state_root=args.state_root,
+                release_root=args.release_root,
+                session_id=args.session_id,
+                ruler=args.ruler,
+                model_slot_count=args.model_slots,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-run":
+        return _write_report(
+            run_claimed_session(
+                state_root=args.state_root,
+                session_id=args.session_id,
+                release_root=args.release_root,
+                source_index_root=args.source_index_root,
+                dynasty_governance_root=args.dynasty_governance_root,
+                wall_clock_seconds=args.wall_clock_seconds,
+                source_workers=args.source_workers,
+                export_workers=args.export_workers,
+                max_pages_per_subject=args.max_pages_per_subject,
+                model_timeout_seconds=args.model_timeout_seconds,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-heartbeat":
+        return _write_report(
+            heartbeat_session(
+                state_root=args.state_root,
+                session_id=args.session_id,
+                stage=args.stage,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-status":
+        return _write_report(session_status(state_root=args.state_root), None)
+    if args.command == "emperor-session-publish":
+        return _write_report(
+            publish_session(
+                state_root=args.state_root,
+                session_id=args.session_id,
+                canonical_root=args.canonical_root,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-abandon":
+        return _write_report(
+            abandon_session(
+                state_root=args.state_root,
+                session_id=args.session_id,
+            ),
+            None,
+        )
     if args.command == "source-pack-apply-increment":
         workspace_root = args.workspace_root.resolve()
         project = _load(workspace_root / "config/project.yml")

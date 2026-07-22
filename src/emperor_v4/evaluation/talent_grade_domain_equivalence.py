@@ -5,6 +5,14 @@ from collections.abc import Mapping, Sequence
 
 
 SCALES = ("local", "important", "regional", "national", "era_shaping")
+CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
+LEGACY_CAMPAIGN_TIER_BY_SCALE = {
+    "local": "C",
+    "important": "B",
+    "regional": "A",
+    "national": "S",
+    "era_shaping": "S+",
+}
 MILITARY_RESPONSIBILITY_ROLES = (
     "commander_in_chief",
     "principal_commander",
@@ -22,12 +30,6 @@ NATIONAL_CONSEQUENCES = {
     "state_conquest",
     "era_order_reconstruction",
 }
-EXCEPTIONAL_MILITARY_CONSEQUENCES = {
-    "national_war_outcome",
-    "state_survival",
-    "unification",
-    "state_conquest",
-}
 
 
 def _eligible_achievements(
@@ -43,7 +45,15 @@ def _eligible_achievements(
         result = str(row.get("result") or "")
         if not independent_key:
             raise ValueError("成就缺少 independent_key")
-        if scale not in SCALES:
+        campaign_tier = str(row.get("campaign_tier") or "")
+        if domain == "military":
+            if not campaign_tier:
+                if scale not in SCALES:
+                    raise ValueError("军事成就缺少 campaign_tier")
+                campaign_tier = LEGACY_CAMPAIGN_TIER_BY_SCALE[scale]
+            if campaign_tier not in CAMPAIGN_TIERS:
+                raise ValueError("军事成就 campaign_tier 不在当前合同")
+        elif scale not in SCALES:
             raise ValueError("成就 scale 不在当前合同")
         allowed_roles = (
             MILITARY_RESPONSIBILITY_ROLES
@@ -63,7 +73,11 @@ def _eligible_achievements(
             COUNTED_MILITARY_ROLES if domain == "military" else COUNTED_CIVIL_ROLES
         )
         if responsibility_role in counted_roles and positive_result:
-            eligible.append(row)
+            eligible.append(
+                {**row, "campaign_tier": campaign_tier}
+                if domain == "military"
+                else row
+            )
     return eligible
 
 
@@ -77,28 +91,83 @@ def assess_domain_historic_path(
         raise ValueError(f"未知人才领域：{domain}")
     responsibility_domain = "military" if domain == "military" else "civil_governance"
     eligible = _eligible_achievements(responsibility_domain, achievements)
-    scale_rank = {scale: index for index, scale in enumerate(SCALES)}
-    national = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["national"]]
-    regional = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["regional"]]
-    exclusive_national = [
-        row for row in national if row["responsibility_role"] == "exclusive"
-    ]
-    lead_national = [row for row in national if row["responsibility_role"] == "lead"]
     path = None
+    matched_independent_keys: list[str] = []
+    counts: dict[str, object]
 
     if domain == "military":
+        tier_rank = {tier: index for index, tier in enumerate(CAMPAIGN_TIERS)}
+        a_or_higher = [
+            row
+            for row in eligible
+            if tier_rank[str(row["campaign_tier"])] >= tier_rank["A"]
+        ]
+        s_or_higher = [
+            row
+            for row in eligible
+            if tier_rank[str(row["campaign_tier"])] >= tier_rank["S"]
+        ]
+        s_plus = [
+            row for row in eligible if str(row["campaign_tier"]) == "S+"
+        ]
         exceptional = [
             row
-            for row in national
-            if str(row.get("consequence_basis") or "")
-            in EXCEPTIONAL_MILITARY_CONSEQUENCES
-            and bool(row.get("decisive"))
+            for row in s_or_higher
+            if bool(row.get("decisive"))
         ]
+        order_key = lambda row: (
+            -tier_rank[str(row["campaign_tier"])],
+            str(row["independent_key"]),
+        )
         if len(exceptional) >= 2:
-            path = "military_exceptional_two_national_command"
-        elif len(national) >= 2 and len(regional) >= 3:
-            path = "military_two_national_plus_one_regional"
+            path = "military_exceptional_two_s_command"
+            matched_independent_keys = [
+                str(row["independent_key"])
+                for row in sorted(exceptional, key=order_key)[:2]
+            ]
+        else:
+            decisive_s_plus = [row for row in s_plus if bool(row.get("decisive"))]
+            if decisive_s_plus and len(a_or_higher) >= 2:
+                path = "military_one_s_plus_one_a"
+                anchor = sorted(decisive_s_plus, key=order_key)[0]
+                support = next(
+                    row
+                    for row in sorted(a_or_higher, key=order_key)
+                    if row["independent_key"] != anchor["independent_key"]
+                )
+                matched_independent_keys = [
+                    str(anchor["independent_key"]),
+                    str(support["independent_key"]),
+                ]
+        if path is None and len(s_or_higher) >= 2 and len(a_or_higher) >= 3:
+            path = "military_two_s_plus_one_a"
+            matched_rows = sorted(s_or_higher, key=order_key)[:2]
+            matched_keys = {str(row["independent_key"]) for row in matched_rows}
+            matched_rows.extend(
+                row
+                for row in sorted(a_or_higher, key=order_key)
+                if str(row["independent_key"]) not in matched_keys
+            )
+            matched_independent_keys = [
+                str(row["independent_key"]) for row in matched_rows[:3]
+            ]
+        counts = {
+            "eligible_independent": len(eligible),
+            "a_or_higher": len(a_or_higher),
+            "s_or_higher": len(s_or_higher),
+            "s_plus": len(s_plus),
+            "tier_counts": dict(
+                Counter(str(row["campaign_tier"]) for row in eligible)
+            ),
+        }
     elif domain == "civil_governance":
+        scale_rank = {scale: index for index, scale in enumerate(SCALES)}
+        national = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["national"]]
+        regional = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["regional"]]
+        exclusive_national = [
+            row for row in national if row["responsibility_role"] == "exclusive"
+        ]
+        lead_national = [row for row in national if row["responsibility_role"] == "lead"]
         responsibility_ok = bool(exclusive_national) or len(lead_national) >= 2
         if len(national) >= 2 and len(regional) >= 3 and responsibility_ok:
             path = "civil_two_national_plus_one_regional"
@@ -127,7 +196,17 @@ def assess_domain_historic_path(
                 if other_national or len(other_regional) >= 2:
                     path = "civil_foundational_system_plus_independent_results"
                     break
+        counts = {
+            "eligible_independent": len(eligible),
+            "regional_or_higher": len(regional),
+            "national_or_higher": len(national),
+            "exclusive_national_or_higher": len(exclusive_national),
+            "lead_national_or_higher": len(lead_national),
+            "scale_counts": dict(Counter(str(row["scale"]) for row in eligible)),
+        }
     elif domain == "culture_and_scholarship":
+        scale_rank = {scale: index for index, scale in enumerate(SCALES)}
+        national = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["national"]]
         foundational_work = [
             row
             for row in eligible
@@ -140,6 +219,11 @@ def assess_domain_historic_path(
             path = "culture_civilization_foundational_single_work"
         elif len(national) >= 3:
             path = "culture_repeated_field_shaping"
+        counts = {
+            "eligible_independent": len(eligible),
+            "national_or_higher": len(national),
+            "scale_counts": dict(Counter(str(row["scale"]) for row in eligible)),
+        }
     elif domain == "all_round":
         top_domains = {
             str(row.get("top_domain") or "")
@@ -148,19 +232,17 @@ def assess_domain_historic_path(
         } - {""}
         if len(top_domains) >= 2:
             path = "all_round_multiple_independent_top_domains"
+        counts = {
+            "eligible_independent": len(eligible),
+            "top_domain_count": len(top_domains),
+        }
     return {
         "schema_version": "talent-grade-domain-equivalent-assessment-v1",
         "domain": domain,
         "historic_fact_path_status": "eligible" if path else "not_established",
         "matched_path": path,
-        "counts": {
-            "eligible_independent": len(eligible),
-            "regional_or_higher": len(regional),
-            "national_or_higher": len(national),
-            "exclusive_national_or_higher": len(exclusive_national),
-            "lead_national_or_higher": len(lead_national),
-            "scale_counts": dict(Counter(str(row["scale"]) for row in eligible)),
-        },
+        "matched_independent_keys": matched_independent_keys,
+        "counts": counts,
         "authority_calibration_required": True,
         "formal_grade_write_allowed": False,
     }
@@ -191,28 +273,36 @@ def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, objec
         scale = campaign.get("scale")
         if not isinstance(scale, Mapping) or scale.get("level") not in SCALES:
             raise ValueError("战役 scale 不正确")
-        level = str(scale["level"])
+        campaign_tier = str(campaign.get("campaign_tier") or "")
+        if campaign_tier not in CAMPAIGN_TIERS:
+            raise ValueError("战役 campaign_tier 不正确")
+        if campaign.get("land_strategic_value") not in {
+            "local_point",
+            "important_region",
+            "strategic_gateway",
+            "core_heartland",
+            "capital_or_state_survival",
+        }:
+            raise ValueError("战役 land_strategic_value 不正确")
         basis = str(scale.get("consequence_basis") or "")
         decisiveness = str(scale.get("decisiveness") or "")
         if decisiveness not in {"supporting", "major", "decisive"}:
             raise ValueError("战役 decisiveness 不正确")
-        if level in {"national", "era_shaping"} and basis not in NATIONAL_CONSEQUENCES:
-            raise ValueError("国家级战役必须由国家存亡、统一、灭国或整场战争结果支持")
+        if campaign_tier in {"S", "S+"} and basis not in NATIONAL_CONSEQUENCES:
+            raise ValueError("S级以上战役必须由统一、存亡、灭国或整场战争结果支持")
         if (
-            level in {"national", "era_shaping"}
+            campaign_tier in {"S", "S+"}
             and basis == "state_conquest"
             and scale.get("opponent_condition") == "residual"
         ):
-            raise ValueError("击败残余政权不能仅凭灭国名义登记为国家级")
+            raise ValueError("击败残余政权不能仅凭灭国名义登记为S级以上")
         if (
-            level in {"national", "era_shaping"}
+            campaign_tier in {"S", "S+"}
             and basis == "state_conquest"
             and scale.get("opponent_strategic_weight")
             not in {"regional_major", "national_peer", "imperial_main_force"}
         ):
-            raise ValueError("国家级灭国必须证明对手具有主要区域或更高战略分量")
-        if level == "regional" and basis != "regional_theater_control":
-            raise ValueError("区域级战役必须由主要战区或区域控制结果支持")
+            raise ValueError("S级以上灭国必须证明对手具有主要区域或更高战略分量")
         participants = campaign.get("participants")
         if not isinstance(participants, list) or not participants:
             raise ValueError("战役必须有参与人物")

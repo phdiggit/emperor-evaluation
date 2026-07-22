@@ -21,13 +21,20 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
     render_scoring_detail_markdown,
 )
 from emperor_v4.runtime.emperor_neutral_scan import (
+    build_backbone_event_signatures,
     build_compact_multi_output_schema,
+    build_chronicle_role_projections,
+    build_deterministic_fact_resolution_plan,
     build_event_directed_neutral_plan,
     build_ruler_neutral_plan,
     extract_current_neutral_materials,
     merge_dynasty_governance_current,
+    seed_deterministic_campaign_facts,
 )
 from emperor_v4.runtime.emperor_outcome_projection import project_current_outcomes
+from emperor_v4.runtime.deterministic_campaign_extraction import (
+    discover_deterministic_backbone_campaigns,
+)
 from emperor_v4.runtime.structured_codex_runner import (
     ModelBatchAnomalyError,
     StructuredCodexRunner,
@@ -54,7 +61,7 @@ def _atomic_text(path: Path, text: str) -> None:
 
 @dataclass(frozen=True, slots=True)
 class RebuildLimits:
-    wall_clock_seconds: int = 900
+    wall_clock_seconds: int | None = None
     source_workers: int = 8
     export_workers: int = 4
     max_pages_per_subject: int = 32
@@ -62,8 +69,8 @@ class RebuildLimits:
     model_timeout_seconds: int = 120
 
     def __post_init__(self) -> None:
-        if self.wall_clock_seconds <= 0:
-            raise ValueError("墙钟预算必须为正数")
+        if self.wall_clock_seconds is not None and self.wall_clock_seconds <= 0:
+            raise ValueError("墙钟预算启用时必须为正数")
         if not 1 <= self.source_workers <= 16:
             raise ValueError("史料召回并发必须在 1..16")
         if not 1 <= self.export_workers <= 8:
@@ -77,12 +84,12 @@ class RebuildLimits:
 
 
 class _Deadline:
-    def __init__(self, seconds: int) -> None:
+    def __init__(self, seconds: int | None) -> None:
         self.started = time.monotonic()
-        self.deadline = self.started + seconds
+        self.deadline = self.started + seconds if seconds is not None else None
 
     def check(self, stage: str) -> None:
-        if time.monotonic() >= self.deadline:
+        if self.deadline is not None and time.monotonic() >= self.deadline:
             raise TimeoutError(f"皇帝链路超过硬墙钟预算: {stage}")
 
     @property
@@ -300,6 +307,7 @@ def rebuild_emperor(
     source_index_path: Path | None,
     source_index_root: Path | None = None,
     dynasty_governance_root: Path | None = None,
+    shared_backbone_root: Path | None = None,
     runtime_root: Path,
     limits: RebuildLimits = RebuildLimits(),
 ) -> dict[str, Any]:
@@ -318,11 +326,25 @@ def rebuild_emperor(
         workspace_root / "config/historical-entity-identities.yml",
         source_pack=source_pack,
     )
+    shared_subject_refs = {
+        str(name): identity_resolver.entity_for_name(str(name)).person_ref
+        for name in configured.get("neutral_scan_shared_subjects") or ()
+    }
+    shared_backbone_token = str(
+        configured.get("neutral_scan_backbone_material_token") or ""
+    )
+    if shared_subject_refs and not shared_backbone_token:
+        raise ValueError("配置共享篇章主体时必须声明主干材料 token")
+    if shared_backbone_token and any(
+        value in shared_backbone_token for value in ("/", "\\", "..")
+    ):
+        raise ValueError("主干材料 token 含非法路径字符")
     aliases_by_subject = {
         name: identity_resolver.recall_terms(name)[1:]
         for name in (
             str(source_pack["ruler"]),
             *(str(row["person"]) for row in source_pack.get("members") or ()),
+            *sorted(shared_subject_refs),
         )
     }
     known_pages_by_subject: dict[str, list[str]] = {ruler: []}
@@ -418,12 +440,17 @@ def rebuild_emperor(
             "ruler": ruler,
             "source_pack_sha256": source_pack["source_pack_sha256"],
             "source_index_identity": source_index.identity,
-            "limits": asdict(limits),
+            "execution_limits": {
+                key: value
+                for key, value in asdict(limits).items()
+                if key != "wall_clock_seconds"
+            },
             "aliases_by_subject": aliases_by_subject,
             "identity_bindings": identity_resolver.bindings(
                 [
                     str(source_pack["ruler_ref"]),
                     *(str(row["person_ref"]) for row in source_pack.get("members") or ()),
+                    *shared_subject_refs.values(),
                 ]
             ),
             "known_pages_by_subject": known_pages_by_subject,
@@ -478,7 +505,55 @@ def rebuild_emperor(
         identity_resolver=identity_resolver,
         allowed_works=backbone_works or configured_scan_works,
         allowed_page_ranges=backbone_page_ranges,
+        shared_subjects=shared_subject_refs,
     )
+    shared_backbone_identity = _digest(
+        {
+            "source_index_identity": backbone_plan["source_index_identity"],
+            "page_batches": [
+                {
+                    **dict(batch),
+                    "segments": [
+                        {
+                            key: value
+                            for key, value in segment.items()
+                            if key != "chronicle_ruler_active"
+                        }
+                        for segment in batch["segments"]
+                    ],
+                }
+                for batch in backbone_plan["page_batches"]
+            ],
+        }
+    )
+    shared_backbone_path = None
+    if shared_backbone_root is not None and shared_backbone_token:
+        resolved_shared_root = shared_backbone_root.resolve()
+        shared_backbone_path = (
+            resolved_shared_root / shared_backbone_token / "current.json"
+        ).resolve()
+        if resolved_shared_root not in shared_backbone_path.parents:
+            raise ValueError("共享主干材料路径越界")
+    shared_backbone_current: Mapping[str, Any] | None = None
+    if shared_backbone_path is not None and shared_backbone_path.is_file():
+        candidate = json.loads(shared_backbone_path.read_text(encoding="utf-8"))
+        if (
+            candidate.get("schema_version") == "shared-chronicle-current-v1"
+            and candidate.get("status") == "quality_contract_valid_shadow"
+            and candidate.get("material_token") == shared_backbone_token
+            and candidate.get("backbone_identity") == shared_backbone_identity
+        ):
+            shared_backbone_current = candidate.get("materials")
+    combined_backbone_current = {
+        "batch_results": [
+            *((shared_backbone_current or {}).get("batch_results") or ()),
+            *((current_neutral or {}).get("batch_results") or ()),
+        ],
+        "batch_fingerprints": {
+            **dict((shared_backbone_current or {}).get("batch_fingerprints") or {}),
+            **dict((current_neutral or {}).get("batch_fingerprints") or {}),
+        },
+    }
     model_policy = yaml.safe_load(
         (workspace_root / "config/model-policy.yml").read_text(encoding="utf-8")
     )
@@ -518,6 +593,31 @@ def rebuild_emperor(
             for row in source_pack.get("members") or ()
         },
     }
+    deterministic_campaigns = discover_deterministic_backbone_campaigns(
+        backbone_plan=backbone_plan,
+        ruler_name=str(source_pack["ruler"]),
+        ruler_ref=str(source_pack["ruler_ref"]),
+        identity_resolver=identity_resolver,
+    )
+    routed_backbone_plan = build_deterministic_fact_resolution_plan(
+        backbone_plan,
+        dense_segment_refs=[
+            str(row["segment_ref"])
+            for row in deterministic_campaigns.get("events") or ()
+        ],
+    )
+    deterministic_campaign_seed = seed_deterministic_campaign_facts(
+        plan=routed_backbone_plan,
+        current=combined_backbone_current,
+        discovery=deterministic_campaigns,
+    )
+    deterministic_campaign_facts_by_segment: dict[str, list[Mapping[str, Any]]] = {}
+    for event in deterministic_campaigns.get("events") or ():
+        deterministic_campaign_facts_by_segment.setdefault(
+            str(event["segment_ref"]), []
+        ).append(event["neutral_fact"])
+    if not routed_backbone_plan["page_batches"]:
+        raise ValueError("确定性扫描未发现需要事实裁决的编年主干事件单元")
     (
         backbone_materials,
         backbone_recovery_count,
@@ -525,22 +625,54 @@ def rebuild_emperor(
     ) = _run_with_model_anomaly_recovery(
         runner_factory=neutral_runner_factory,
         operation=lambda runner, pages_per_call: extract_current_neutral_materials(
-            plan=backbone_plan,
-            current=current_neutral,
+            plan=routed_backbone_plan,
+            current=deterministic_campaign_seed["current"],
             runner=runner,
             max_workers=limits.model_workers,
             checkpoint_dir=checkpoint_dir / "neutral_extraction" / "backbone",
             pages_per_call=pages_per_call,
             subject_ref_by_name=subject_ref_by_name,
             identity_resolver=identity_resolver,
+            supplemental_facts_by_segment=deterministic_campaign_facts_by_segment,
         ),
-        initial_batch_size=5,
+        initial_batch_size=12,
+        maximum_recoveries=0,
     )
     backbone_model_call_count = int(backbone_materials.pop("model_call_count"))
+    backbone_materials["chronicle_role_projections"] = (
+        build_chronicle_role_projections(
+            plan=routed_backbone_plan,
+            neutral_materials=backbone_materials,
+        )
+    )
+    if shared_backbone_path is not None:
+        _atomic_text(
+            shared_backbone_path,
+            json.dumps(
+                {
+                    "schema_version": "shared-chronicle-current-v1",
+                    "status": "quality_contract_valid_shadow",
+                    "material_token": shared_backbone_token,
+                    "backbone_identity": shared_backbone_identity,
+                    "source_index_identity": source_index.identity,
+                    "materials": backbone_materials,
+                    "formal_write": False,
+                },
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+        )
+    accepted_event_signatures = build_backbone_event_signatures(
+        backbone_plan=routed_backbone_plan,
+        backbone_materials=backbone_materials,
+        identity_resolver=identity_resolver,
+    )
     if backbone_works and (backsource_works or directed_supplement_works):
         neutral_plan = build_event_directed_neutral_plan(
-            backbone_plan=backbone_plan,
-            backbone_materials=backbone_materials,
+            backbone_plan=routed_backbone_plan,
+            event_signatures=accepted_event_signatures,
             source_index=source_index,
             identity_resolver=identity_resolver,
             backsource_works=backsource_works,
@@ -564,48 +696,70 @@ def rebuild_emperor(
         if not required_roles <= target_roles:
             missing = ", ".join(sorted(required_roles - target_roles))
             raise ValueError(f"事件级定向回源未命中配置史源层: {missing}")
+    else:
+        neutral_plan = routed_backbone_plan
+    model_plan = build_deterministic_fact_resolution_plan(neutral_plan)
+    target_segments = [
+        segment
+        for batch in model_plan["page_batches"]
+        for segment in batch["segments"]
+        if segment.get("source_role") in {"backsource", "supplement"}
+    ]
+    if target_segments:
         directed_current = {
-            **dict(current_neutral or {}),
+            "batch_results": [
+                *((current_neutral or {}).get("batch_results") or ()),
+                *(backbone_materials.get("batch_results") or ()),
+            ],
             "batch_fingerprints": {
                 **dict((current_neutral or {}).get("batch_fingerprints") or {}),
                 **dict(backbone_materials.get("batch_fingerprints") or {}),
             },
-            "batch_results": [
-                *(
-                    row
-                    for row in (current_neutral or {}).get("batch_results") or ()
-                    if str(row.get("batch_ref") or "")
-                    not in set(backbone_materials.get("batch_fingerprints") or {})
-                ),
-                *(backbone_materials.get("batch_results") or ()),
-            ],
         }
         (
             neutral_materials,
             directed_recovery_count,
-            directed_final_pages_per_call,
+            neutral_final_pages_per_call,
         ) = _run_with_model_anomaly_recovery(
             runner_factory=neutral_runner_factory,
             operation=lambda runner, pages_per_call: extract_current_neutral_materials(
-                plan=neutral_plan,
+                plan=model_plan,
                 current=directed_current,
                 runner=runner,
                 max_workers=limits.model_workers,
-                checkpoint_dir=checkpoint_dir / "neutral_extraction" / "directed",
+                checkpoint_dir=checkpoint_dir / "neutral_extraction" / "backsource",
                 pages_per_call=pages_per_call,
                 subject_ref_by_name=subject_ref_by_name,
                 identity_resolver=identity_resolver,
             ),
-            initial_batch_size=8,
+            initial_batch_size=12,
+            maximum_recoveries=0,
         )
-        directed_model_call_count = int(neutral_materials.pop("model_call_count"))
+        backsource_model_call_count = int(
+            neutral_materials.pop("model_call_count")
+        )
     else:
-        neutral_plan = backbone_plan
         neutral_materials = backbone_materials
-        directed_model_call_count = 0
         directed_recovery_count = 0
-        directed_final_pages_per_call = 0
-    neutral_model_call_count = backbone_model_call_count + directed_model_call_count
+        neutral_final_pages_per_call = backbone_final_pages_per_call
+        backsource_model_call_count = 0
+    neutral_recovery_count = backbone_recovery_count + directed_recovery_count
+    neutral_model_call_count = (
+        backbone_model_call_count + backsource_model_call_count
+    )
+    neutral_materials["deterministic_routing"] = model_plan[
+        "deterministic_routing"
+    ]
+    neutral_materials["deterministic_campaign_discovery"] = deterministic_campaigns
+    neutral_materials["deterministic_campaign_seed"] = {
+        key: value
+        for key, value in deterministic_campaign_seed.items()
+        if key != "current"
+    }
+    neutral_materials["chronicle_role_projections"] = build_chronicle_role_projections(
+        plan=model_plan,
+        neutral_materials=neutral_materials,
+    )
     if dynasty_governance_current is not None:
         neutral_materials = merge_dynasty_governance_current(
             neutral_materials=neutral_materials,
@@ -624,7 +778,7 @@ def rebuild_emperor(
                     for row in source_pack.get("members") or ()
                 },
             },
-            event_signatures=neutral_plan.get("event_signatures") or (),
+            event_signatures=model_plan.get("event_signatures") or (),
         )
     if current_neutral and current_neutral.get("outcome_projection"):
         neutral_materials["outcome_projection"] = current_neutral[
@@ -671,6 +825,7 @@ def rebuild_emperor(
             facts_per_call=facts_per_call,
         ),
         initial_batch_size=16,
+        maximum_recoveries=0,
     )
     neutral_materials["outcome_projection"] = {
         "schema_version": "current-outcome-disposition-v1",
@@ -718,12 +873,19 @@ def rebuild_emperor(
         "source_index_missing_works": inventory["missing_works"],
         "neutral_fact_count": neutral_materials["fanout"]["fact_count"],
         "neutral_model_call_count": neutral_model_call_count,
-        "neutral_model_anomaly_recovery_count": (
-            backbone_recovery_count + directed_recovery_count
-        ),
-        "neutral_final_pages_per_call": {
-            "backbone": backbone_final_pages_per_call,
-            "directed": directed_final_pages_per_call,
+        "neutral_backbone_model_call_count": backbone_model_call_count,
+        "neutral_backsource_model_call_count": backsource_model_call_count,
+        "neutral_model_anomaly_recovery_count": neutral_recovery_count,
+        "neutral_final_pages_per_call": neutral_final_pages_per_call,
+        "neutral_deterministic_routing": {
+            key: value
+            for key, value in model_plan["deterministic_routing"].items()
+            if key != "deterministic_empty_segment_refs"
+        },
+        "neutral_deterministic_campaign_seed": {
+            key: value
+            for key, value in deterministic_campaign_seed.items()
+            if key != "current" and key != "seeded_segment_refs"
         },
         "dynasty_governance_fact_count": int(
             (neutral_materials.get("dynasty_governance_current") or {}).get(

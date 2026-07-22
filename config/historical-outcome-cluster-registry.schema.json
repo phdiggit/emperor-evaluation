@@ -51,8 +51,14 @@
         "actor_kind": {"enum": ["person", "ruler"]},
         "role_code": {
           "enum": [
-            "commander_in_chief", "principal_commander", "deputy_commander", "participant",
+            "commander_in_chief", "principal_commander", "deputy_commander", "participant", "not_in_command_chain",
             "exclusive", "lead", "governance_participant", "authorized"
+          ]
+        },
+        "ruler_campaign_relation": {
+          "enum": [
+            "obstructed", "acquiesced", "authorized", "temporary_theater_control",
+            "sustained_theater_control", "personal_command"
           ]
         },
         "contribution_scope": {"type": "string", "minLength": 1},
@@ -86,7 +92,16 @@
         "battle_result": {"enum": ["victory", "mixed", "defeat", "unclear"]},
         "objective_completion": {"enum": ["complete", "partial", "failed", "unclear"]},
         "opponent_condition": {"enum": ["strong", "viable", "weakened", "residual", "unclear"]},
-        "opponent_strategic_weight": {"enum": ["minor", "regional_major", "national_peer", "imperial_main_force", "unclear"]}
+        "opponent_strategic_weight": {"enum": ["minor", "regional_major", "national_peer", "imperial_main_force", "unclear"]},
+        "campaign_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
+        "campaign_tier_basis": {"type": "string", "minLength": 1},
+        "land_strategic_value": {
+          "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
+        },
+        "process_adversity": {
+          "enum": ["none", "limited", "material", "severe_repaired", "near_collapse_repaired", "terminal_failure"]
+        },
+        "process_adversity_basis": {"type": "string", "minLength": 1}
       }
     },
     "governance_payload": {
@@ -138,7 +153,7 @@
           "items": {"type": "string", "minLength": 1}
         },
         "ruler_window_status": {
-          "enum": ["within_window", "outside_window", "unresolved"]
+          "enum": ["within_window", "leadership_formation", "outside_window", "unresolved"]
         },
         "fact_refs": {
           "type": "array", "minItems": 1, "uniqueItems": true,

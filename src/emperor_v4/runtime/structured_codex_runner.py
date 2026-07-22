@@ -128,15 +128,21 @@ class StructuredCodexRunner:
         self, prompt_chars: int
     ) -> tuple[float, float | None, int]:
         with self._successful_calls_lock:
+            all_elapsed = [elapsed for _, elapsed in self._successful_calls]
             comparable = [
                 elapsed
                 for chars, elapsed in self._successful_calls
                 if 0.5 <= chars / max(1, prompt_chars) <= 2.0
             ]
-        if not comparable:
+        baseline_samples = comparable or all_elapsed
+        if not baseline_samples:
             return float(self.timeout_seconds), None, 0
-        baseline = float(median(comparable))
-        return min(float(self.timeout_seconds), 2.0 * baseline), baseline, len(comparable)
+        baseline = float(median(baseline_samples))
+        return (
+            min(float(self.timeout_seconds), 2.0 * baseline),
+            baseline,
+            len(baseline_samples),
+        )
 
     def _raise_anomaly(
         self,
@@ -181,7 +187,7 @@ class StructuredCodexRunner:
         prompt_refs = tuple(
             dict.fromkeys(
                 re.findall(
-                    r"(?:BATCH|OUTCOME)-AUTO-[A-F0-9]+|DYNGOV-[^\s]+",
+                    r"(?:BATCH|OUTCOME)-AUTO-[A-F0-9]+|PROMPT-GROUP-[A-F0-9]+|DYNGOV-[^\s]+",
                     prompt,
                 )
             )

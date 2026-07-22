@@ -1,5 +1,5 @@
 schema_version: talent-grade-v11-domain-equivalent-historic-policy-v1
-policy_version: talent-grade-v11-domain-equivalent-historic-v1
+policy_version: talent-grade-v11-domain-equivalent-historic-v3
 status: current_shadow_policy
 supersedes_for_new_shadow_judgments:
   - talent-grade-v9-high-tier-calibration-v1
@@ -14,7 +14,7 @@ principles:
   political_risk_is_orthogonal_to_talent_grade: true
   clear_professional_success_survives_cross_domain_costs: true
   independent_responsibility_chains_required: true
-  regional_and_national_are_consequence_scales_not_title_scales: true
+  military_campaign_tier_uses_land_opponent_and_result_axes: true
   same_campaign_or_governance_chain_counts_once: true
   domain_paths_are_equivalent_not_additive_bonuses: true
 
@@ -24,40 +24,50 @@ responsibility_roles:
     principal_commander: 主将
     deputy_commander: 副将
     participant: 从攻
+    not_in_command_chain: 不在军事指挥链
   civil_governance:
     exclusive: 独占
     lead: 主导
     participant: 参与
   display_rule: 只显示角色短标签，责任边界与重复结算由结构字段表达
 
-common_scale:
+nonmilitary_scale:
   local:
-    definition: 单一地点、单位或短期局部事项，未改变主要区域或国家子系统
+    definition: 单一地点、单位或短期局部事项，未改变跨地区制度或公共子系统
   important:
-    definition: 对重要对象或职责形成清楚结果，但尚未决定主要区域、战区或国家子系统
+    definition: 对重要对象或职责形成清楚结果，但尚未改变跨地区制度或全国核心子系统
   regional:
-    definition: 决定一个主要区域、战区或跨地区治理单元的控制、安全或运行结果
+    definition: 改变主要行政区域或跨地区治理单元的制度运行与公共结果
   national:
-    definition: 决定国家存亡、统一、灭国、整场战争结局，或重构并实际运行一个全国性核心治理子系统
+    definition: 重构并实际运行一个全国性核心治理、经济、法律、文化或选官子系统
   era_shaping:
-    definition: 在国家级结果之上直接重塑一个时代的政治军事秩序、国家结构或文明范式
+    definition: 在全国性核心子系统结果之上直接重塑时代政治结构、治理范式或文明范式
+
+military_campaign_tiers:
+  C: 局部据点、短期战术或低权重辅助结果
+  B: 一般区域、重要清障或重要防御结果，但没有形成主要战略终局
+  A: 决定重要区域、战略门户、主力集团或重大阶段目标
+  S-: 准全国或强区域终局，决定核心根据地或重大长期战略方向
+  S: 决定统一、国家存亡、主要竞争政权或整场战争结局
+  S+: 极限复合终局，同时重塑多个核心方向或时代秩序
 
 historic_paths:
   military:
+    s_plus_anchor_path:
+      minimum_independent_s_plus_campaigns: 1
+      minimum_additional_independent_a_or_higher_campaigns: 1
+      s_plus_requires_decisive: true
+      counted_command_roles: [commander_in_chief, principal_commander]
     normal_repeated_delivery:
-      minimum_independent_national_campaigns: 2
-      minimum_independent_regional_or_higher_campaigns: 3
+      minimum_independent_s_or_higher_campaigns: 2
+      minimum_independent_a_or_higher_campaigns: 3
       counted_command_roles: [commander_in_chief, principal_commander]
     exceptional_two_campaign_path:
-      independent_national_campaigns: 2
+      independent_s_or_higher_campaigns: 2
       every_campaign_command_roles: [commander_in_chief, principal_commander]
-      every_campaign_requires_one_of:
-        - state_survival_decisive
-        - unification_decisive
-        - state_conquest_decisive
-        - whole_war_outcome_decisive
+      every_campaign_requires_decisive: true
     exclusions:
-      - opponent_is_a_formal_state_alone_does_not_make_national
+      - opponent_is_a_formal_state_alone_does_not_raise_tier
       - repeated_battles_inside_one_campaign_count_once
       - residual_or_collapsing_polity_requires_actual_strategic_consequence
       - comparable_catastrophic_command_failures_require_net_consistency_review
@@ -104,7 +114,9 @@ historic_paths:
       small_cross_domain_results_cannot_be_stacked: true
 
 top_fallback:
-  requires_national_or_field_first_tier_achievement: true
+  military_single_s_plus_establishes_top: true
+  military_otherwise_requires_s_minus_or_higher_campaign: true
+  nonmilitary_requires_field_first_tier_achievement: true
   requires_one_of:
     - stable_delivery
     - second_major_achievement

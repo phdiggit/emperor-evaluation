@@ -8,7 +8,6 @@ import json
 from pathlib import Path
 import re
 import shutil
-import stat
 import subprocess
 import sys
 from threading import Event, Lock
@@ -24,6 +23,7 @@ from emperor_v4.adapters.source_text_index import LocalSourceTextIndex, build_lo
 from emperor_v4.evaluation.current_source_pack_compiler import (
     SCHEMA_VERSION as SOURCE_PACK_INCREMENT_SCHEMA_VERSION,
     apply_source_pack_increment,
+    compile_outcome_candidate_payloads,
     compile_source_pack_increment,
 )
 from emperor_v4.evaluation.i5b_current_value_runner import (
@@ -39,22 +39,28 @@ from emperor_v4.runtime.emperor_rebuild import (
 )
 from emperor_v4.runtime import (
     emperor_rebuild as emperor_rebuild_module,
-    emperor_rebuild_queue,
-    emperor_rebuild_worker,
+    emperor_session_control,
 )
 from emperor_v4.runtime.emperor_neutral_scan import (
     NEUTRAL_EXTRACTION_POLICY_VERSION,
     _canonicalize_result,
     _digest as neutral_digest,
     build_backbone_event_signatures,
+    build_chronicle_role_projections,
+    build_deterministic_backbone_event_signatures,
+    build_deterministic_fact_resolution_plan,
     build_event_directed_neutral_plan,
     build_ruler_neutral_plan,
     extract_current_neutral_materials,
     merge_dynasty_governance_current,
+    seed_deterministic_campaign_facts,
 )
 from emperor_v4.runtime.emperor_outcome_projection import (
     PROJECTION_POLICY_VERSION,
     project_current_outcomes,
+)
+from emperor_v4.runtime.deterministic_campaign_extraction import (
+    discover_deterministic_backbone_campaigns,
 )
 from emperor_v4.runtime.structured_codex_runner import (
     ModelBatchAnomalyError,
@@ -63,6 +69,105 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _campaign_candidate_payload(*, relation: str | None = "authorized") -> dict:
+    member = {
+        "actor_name": "李世民",
+        "actor_kind": "ruler",
+        "role_code": "not_in_command_chain",
+        "ruler_campaign_relation": relation,
+        "contribution_scope": "批准出兵但不在指挥链",
+        "responsibility_scope": "not_applicable",
+        "authorization_quotes": [],
+    }
+    return {
+        "schema_version": "current-outcome-candidate-output-v1",
+        "task_code": "TEST-CAMPAIGN-CONTRACT",
+        "candidates": [
+            {
+                "candidate_key": "test-campaign-contract",
+                "canonical_label": "测试战役",
+                "source_page": "史书/卷一",
+                "revision_ref": "1",
+                "exact_quotes": ["测试战役取得阶段结果。"],
+                "neutral_summary": "测试战役取得阶段结果。",
+                "period_start": "贞观元年",
+                "period_end": "贞观元年",
+                "origin": "ruler_chronicle",
+                "outcome_kind": "campaign",
+                "result_status": "completed",
+                "result_direction": "positive",
+                "observable_result": "取得阶段结果",
+                "scale_level": "regional",
+                "scale_basis": "regional_theater_control",
+                "decisiveness": "major",
+                "scale_reason": "形成区域战果",
+                "stable_delivery": True,
+                "important_method_or_legacy": False,
+                "ruler_window_status": "within_window",
+                "members": [member],
+                "payload": {
+                    "domain": None,
+                    "foundational": None,
+                    "durable_cross_stage": None,
+                    "authorization_status": None,
+                    "theater": "测试战区",
+                    "strategic_objective": "取得区域目标",
+                    "battle_result": "victory",
+                    "objective_completion": "partial",
+                    "opponent_condition": "viable",
+                    "opponent_strategic_weight": "regional_major",
+                    "campaign_tier": "A",
+                    "campaign_tier_basis": "土地、对手与结果共同支持。",
+                    "land_strategic_value": "important_region",
+                    "process_adversity": "limited",
+                    "process_adversity_basis": "存在有限阻力。",
+                },
+                "limitations": [],
+            }
+        ],
+        "rejections": [],
+    }
+
+
+def _campaign_contract_index(tmp_path: Path) -> LocalSourceTextIndex:
+    index_path = tmp_path / "campaign-contract.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "史书/卷一",
+                "work_title": "史书",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": "测试战役取得阶段结果。",
+            }
+        ],
+        index_path,
+    )
+    return LocalSourceTextIndex(index_path)
+
+
+def test_campaign_candidate_requires_one_ruler_relation(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="必须登记唯一参与关系"):
+        compile_outcome_candidate_payloads(
+            {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
+            [_campaign_candidate_payload(relation=None)],
+            source_index=_campaign_contract_index(tmp_path),
+            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        )
+
+
+def test_campaign_candidate_requires_letter_tier_and_land_axis(tmp_path: Path) -> None:
+    payload = _campaign_candidate_payload()
+    payload["candidates"][0]["payload"]["campaign_tier"] = None
+    with pytest.raises(ValueError, match="缺少字母档或土地轴"):
+        compile_outcome_candidate_payloads(
+            {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
+            [payload],
+            source_index=_campaign_contract_index(tmp_path),
+            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        )
 
 
 def test_structured_runner_timeout_terminates_tree_without_waiting_on_pipes(
@@ -143,76 +248,217 @@ def test_emperor_rebuild_recovers_model_anomaly_with_fresh_smaller_runner() -> N
     assert len(runners) == 2
 
 
-def test_background_emperor_worker_exports_and_reuses_current_result(
+def _session_release_fixture(tmp_path: Path) -> Path:
+    release = tmp_path / "release"
+    shutil.copytree(ROOT / "config", release / "config")
+    package = release / "src/emperor_v4"
+    package.mkdir(parents=True)
+    shutil.copy2(ROOT / "src/emperor_v4/__init__.py", package / "__init__.py")
+    for relative_path in emperor_session_control.SESSION_RULE_DOCUMENTS:
+        source = ROOT / relative_path
+        target = release / relative_path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+    for ruler in ("李世民", "刘邦"):
+        shutil.copytree(
+            ROOT / "eval/i5b_current_value" / ruler,
+            release / "eval/i5b_current_value" / ruler,
+        )
+    return release
+
+
+def test_emperor_sessions_atomically_split_rulers_and_global_model_slots(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    request = tmp_path / "LIUBANG-CALIBRATION.json"
-    request.write_text(
-        json.dumps(
-            {
-                "schema_version": "emperor-rebuild-background-request-v1",
-                "task_code": "LIUBANG-CALIBRATION",
-                "ruler": "刘邦",
-                "limits": {"wall_clock_seconds": 900},
-            },
-            ensure_ascii=False,
-        ),
-        encoding="utf-8",
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "a" * 40
+    )
+    state = tmp_path / "state"
+
+    first = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-A",
+        model_slot_count=2,
+    )
+    second = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-B",
+        model_slot_count=2,
+    )
+
+    assert (first["ruler"], second["ruler"]) == ("李世民", "刘邦")
+    assert set(first["model_slots"]).isdisjoint(second["model_slots"])
+    assert emperor_session_control.session_status(state_root=state)[
+        "available_model_slot_count"
+    ] == 0
+    with pytest.raises(emperor_session_control.SessionControlError, match="没有可认领皇帝"):
+        emperor_session_control.claim_session(
+            state_root=state,
+            release_root=release,
+            session_id="SESSION-C",
+            model_slot_count=1,
+        )
+
+    emperor_session_control.abandon_session(
+        state_root=state, session_id="SESSION-A"
+    )
+    emperor_session_control.abandon_session(
+        state_root=state, session_id="SESSION-B"
+    )
+    assert emperor_session_control.session_status(state_root=state)["sessions"] == []
+
+
+def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "b" * 40
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-RUN",
+        ruler="李世民",
+        model_slot_count=2,
     )
     calls = []
     monkeypatch.setattr(
-        emperor_rebuild_worker,
+        emperor_session_control,
         "rebuild_emperor",
         lambda **kwargs: calls.append(kwargs)
         or {
             "schema_version": "emperor-rebuild-v1",
             "status": "rebuilt_before_database_write",
+            "ruler": "李世民",
             "database_write_count": 0,
             "formal_score_write_count": 0,
         },
     )
 
-    arguments = {
-        "request_path": request,
-        "release_root": ROOT,
-        "state_root": tmp_path / "state",
-        "source_index_root": tmp_path / "indexes",
-        "dynasty_governance_root": tmp_path / "governance",
-    }
-    first = emperor_rebuild_worker.run_background_request(**arguments)
-    second = emperor_rebuild_worker.run_background_request(**arguments)
+    first = emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-RUN",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+    second = emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-RUN",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
 
-    assert first["status"] == "succeeded"
-    assert first["reused"] is False
-    assert second["status"] == "succeeded"
+    assert first["limits"]["model_workers"] == 2
     assert second["reused"] is True
     assert len(calls) == 1
-    assert calls[0]["source_index_path"] is None
-    exports = Path(first["exports"])
-    assert (exports / "scoring-detail.md").is_file()
-    assert len(list((exports / "persons").glob("*.md"))) == 10
+    assert calls[0]["shared_backbone_root"] == Path(lease["shared_backbone_root"])
+    assert not (
+        state / "session-control/shared-writers/TANG-EARLY-CONTINUOUS.json"
+    ).exists()
 
-    copied_config = (
-        tmp_path
-        / "state/jobs/LIUBANG-CALIBRATION/workspace/config/project.yml"
-    )
-    copied_config.chmod(stat.S_IREAD)
-    checkpoint_probe = (
-        tmp_path
-        / "state/jobs/LIUBANG-CALIBRATION/runtime/checkpoint/keep.txt"
-    )
-    checkpoint_probe.parent.mkdir(parents=True, exist_ok=True)
-    checkpoint_probe.write_text("audited checkpoint", encoding="utf-8")
-    changed_request = json.loads(request.read_text(encoding="utf-8"))
-    changed_request["limits"]["wall_clock_seconds"] = 899
-    request.write_text(
-        json.dumps(changed_request, ensure_ascii=False), encoding="utf-8"
-    )
-    third = emperor_rebuild_worker.run_background_request(**arguments)
 
-    assert third["status"] == "succeeded"
-    assert len(calls) == 2
-    assert checkpoint_probe.read_text(encoding="utf-8") == "audited checkpoint"
+def test_session_publish_fails_closed_when_canonical_changed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    canonical = tmp_path / "canonical"
+    shutil.copytree(release, canonical)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "c" * 40
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-PUBLISH",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+    monkeypatch.setattr(
+        emperor_session_control,
+        "rebuild_emperor",
+        lambda **_kwargs: {
+            "schema_version": "emperor-rebuild-v1",
+            "status": "rebuilt_before_database_write",
+            "ruler": "李世民",
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        },
+    )
+    emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-PUBLISH",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+    target = canonical / "eval/i5b_current_value/李世民/result.md"
+    target.write_text(target.read_text(encoding="utf-8") + "\nchanged\n", encoding="utf-8")
+
+    with pytest.raises(
+        emperor_session_control.SessionControlError,
+        match="canonical 在会话运行期间已变化",
+    ):
+        emperor_session_control.publish_session(
+            state_root=state,
+            session_id="SESSION-PUBLISH",
+            canonical_root=canonical,
+        )
+
+
+def test_session_publish_validates_all_people_and_releases_current_state(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    canonical = tmp_path / "canonical"
+    shutil.copytree(release, canonical)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "d" * 40
+    )
+    monkeypatch.setattr(
+        emperor_session_control,
+        "rebuild_emperor",
+        lambda **_kwargs: {
+            "schema_version": "emperor-rebuild-v1",
+            "status": "rebuilt_before_database_write",
+            "ruler": "李世民",
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        },
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-PUBLISH-OK",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+    emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-PUBLISH-OK",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    result = emperor_session_control.publish_session(
+        state_root=state,
+        session_id="SESSION-PUBLISH-OK",
+        canonical_root=canonical,
+    )
+
+    assert result["status"] == "published_current"
+    assert result["database_write_count"] == 0
+    assert emperor_session_control.session_status(state_root=state)["sessions"] == []
+    assert not list((state / "session-control/model-slots").glob("*.json"))
 
 
 def test_emperor_rebuild_does_not_require_preextracted_governance_works_in_index(
@@ -244,90 +490,7 @@ def test_emperor_rebuild_does_not_require_preextracted_governance_works_in_index
     assert observed["required_works"] == ["資治通鑑", "舊唐書", "新唐書"]
 
 
-def test_background_emperor_worker_marks_timeout_retryable_until_attempt_limit(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    request = tmp_path / "RETRYABLE.json"
-    request.write_text(
-        json.dumps(
-            {
-                "schema_version": "emperor-rebuild-background-request-v1",
-                "task_code": "RETRYABLE",
-                "ruler": "刘邦",
-                "max_attempts": 2,
-            },
-            ensure_ascii=False,
-        ),
-        encoding="utf-8",
-    )
-    monkeypatch.setattr(
-        emperor_rebuild_worker,
-        "rebuild_emperor",
-        lambda **kwargs: (_ for _ in ()).throw(TimeoutError("model timeout")),
-    )
-    arguments = {
-        "request_path": request,
-        "release_root": ROOT,
-        "state_root": tmp_path / "state",
-        "source_index_root": tmp_path / "indexes",
-        "dynasty_governance_root": tmp_path / "governance",
-    }
-
-    first = emperor_rebuild_worker.run_background_request(**arguments)
-    second = emperor_rebuild_worker.run_background_request(**arguments)
-
-    assert (first["attempt_count"], first["retryable"], first["terminal"]) == (
-        1,
-        True,
-        False,
-    )
-    assert (second["attempt_count"], second["retryable"], second["terminal"]) == (
-        2,
-        False,
-        True,
-    )
-
-
-def test_unattended_emperor_queue_processes_one_request_and_skips_terminal_jobs(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    state_root = tmp_path / "state"
-    requests = state_root / "requests"
-    requests.mkdir(parents=True)
-    for task_code in ("A-TERMINAL", "B-PENDING", "C-PENDING"):
-        (requests / f"{task_code}.json").write_text("{}", encoding="utf-8")
-    terminal = state_root / "jobs/A-TERMINAL/result.json"
-    terminal.parent.mkdir(parents=True)
-    terminal.write_text(
-        json.dumps({"status": "failed", "terminal": True}), encoding="utf-8"
-    )
-    calls = []
-    monkeypatch.setattr(
-        emperor_rebuild_queue,
-        "run_background_request",
-        lambda **kwargs: calls.append(kwargs["request_path"].stem)
-        or {"status": "failed", "retryable": True},
-    )
-
-    result = emperor_rebuild_queue.run_queue_tick(
-        release_root=ROOT,
-        state_root=state_root,
-        source_index_root=tmp_path / "indexes",
-        dynasty_governance_root=tmp_path / "governance",
-    )
-
-    assert result == {
-        "schema_version": "emperor-rebuild-background-queue-tick-v1",
-        "status": "processed",
-        "task_code": "B-PENDING",
-        "job_status": "failed",
-        "retryable": True,
-    }
-    assert calls == ["B-PENDING"]
-    assert not (state_root / "queue.lock").exists()
-
-
-def test_structured_runner_uses_twice_comparable_median_as_anomaly_limit() -> None:
+def test_structured_runner_falls_back_to_global_median_for_unmatched_size() -> None:
     runner = StructuredCodexRunner(
         codex_bin="codex",
         model="test-model",
@@ -340,7 +503,7 @@ def test_structured_runner_uses_twice_comparable_median_as_anomaly_limit() -> No
     runner._record_success(prompt_chars=5_000, elapsed_seconds=50)
 
     assert runner._adaptive_timeout_seconds(5_500) == 90
-    assert runner._adaptive_timeout_seconds(500) == 120
+    assert runner._adaptive_timeout_seconds(500) == 90
 
 
 def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
@@ -818,7 +981,7 @@ def test_representative_ruler_policies_render_with_current_disposition() -> None
     )
     li_rendered = render_scoring_detail_markdown(li)
     assert "| 功臣世袭刺史 | 正向 |" in li_rendered
-    assert "| 皇子出任地方实职 | 未计入 |" in li_rendered
+    assert "| 皇子出任地方实职 | 正向 |" in li_rendered
     assert "建立州县义仓并用于饥馑赈给" in li_rendered
     assert "专业目标已实现，整体混合结果及跨领域代价另行结算" in li_rendered
     assert "## 治理成果登记" in li_rendered
@@ -919,6 +1082,7 @@ def test_current_value_cli_writes_only_current_result(tmp_path: Path) -> None:
 
 
 def test_emperor_rebuild_limits_reject_runaway_concurrency() -> None:
+    assert RebuildLimits().wall_clock_seconds is None
     with pytest.raises(ValueError, match="史料召回并发"):
         RebuildLimits(source_workers=17)
     with pytest.raises(ValueError, match="导出并发"):
@@ -1251,6 +1415,456 @@ def test_neutral_plan_scans_whole_biography_by_event_unit_and_uses_small_context
     assert all(len(row["initial_text"]) <= 420 for row in segments)
 
 
+def test_backbone_range_scans_every_unit_and_bounds_ruler_pronouns(
+    tmp_path: Path,
+) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    minimal_pack = {
+        "ruler": source_pack["ruler"],
+        "ruler_ref": source_pack["ruler_ref"],
+        "members": [
+            next(row for row in source_pack["members"] if row["person"] == "李靖"),
+            next(row for row in source_pack["members"] if row["person"] == "魏徵"),
+        ],
+    }
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=minimal_pack
+    )
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "資治通鑑/卷184",
+                "work_title": "資治通鑑",
+                "source_url": "local:184",
+                "revision_ref": "1",
+                "raw_text": "=== 高祖神堯大聖光孝皇帝 ===\n\n上徵兵以備軍。\n\n秦王命李靖统兵平定其地。\n\n"
+                + "\n\n".join(
+                    f"秦王命军士执行事项{index}。" for index in range(11)
+                ),
+            },
+            {
+                "page_title": "資治通鑑/卷185",
+                "work_title": "資治通鑑",
+                "source_url": "local:185",
+                "revision_ref": "2",
+                "raw_text": "=== 太宗文武大聖大廣孝皇帝 ===\n\n上命诸军进击，高丽兵大溃。",
+            },
+            {
+                "page_title": "資治通鑑/卷186",
+                "work_title": "資治通鑑",
+                "source_url": "local:186",
+                "revision_ref": "3",
+                "raw_text": "李靖獨自統兵平定其地。",
+            },
+            {
+                "page_title": "資治通鑑/卷187",
+                "work_title": "資治通鑑",
+                "source_url": "local:187",
+                "revision_ref": "4",
+                "raw_text": "=== 高宗天皇大聖大弘孝皇帝 ===\n\n上命诸军进击。",
+            },
+        ],
+        index_path,
+    )
+
+    plan = build_ruler_neutral_plan(
+        source_pack=minimal_pack,
+        source_index=LocalSourceTextIndex(index_path),
+        inventory={"subjects": []},
+        identity_resolver=resolver,
+        allowed_works=["資治通鑑"],
+        allowed_page_ranges={"資治通鑑": [184, 187]},
+        shared_subjects={
+            "李渊": resolver.entity_for_name("李渊").person_ref,
+        },
+    )
+
+    assert {row["page_title"] for row in plan["page_batches"]} == {
+        "資治通鑑/卷184",
+        "資治通鑑/卷185",
+        "資治通鑑/卷186",
+        "資治通鑑/卷187",
+    }
+    page_184_batches = [
+        batch for batch in plan["page_batches"] if batch["page_title"] == "資治通鑑/卷184"
+    ]
+    assert len(page_184_batches) == 2
+    assert max(len(batch["segments"]) for batch in page_184_batches) <= 8
+    page_184 = next(
+        segment
+        for batch in page_184_batches
+        for segment in batch["segments"]
+        if "李靖" in segment["text"]
+    )
+    assert set(page_184["subject_names"]) == {"李渊", "李世民", "李靖"}
+    assert page_184["chronicle_ruler_active"] is False
+    assert page_184["chronicle_ruler_ref"] == resolver.entity_for_name("李渊").person_ref
+    assert all(
+        "魏徵" not in segment["subject_names"]
+        for batch in plan["page_batches"]
+        for segment in batch["segments"]
+    )
+    role_projections = build_chronicle_role_projections(
+        plan=plan,
+        neutral_materials={
+            "fanout": {
+                "facts": [
+                    {
+                        "fact_ref": "FACT-QIN-PRINCE",
+                        "segment_ref": page_184["segment_ref"],
+                        "actors": [
+                            {
+                                "subject_ref": source_pack["ruler_ref"],
+                                "role": "executor",
+                            }
+                        ],
+                    }
+                ]
+            }
+        },
+    )
+    assert role_projections == [
+        {
+            "chronicle_ruler_ref": resolver.entity_for_name("李渊").person_ref,
+            "profile_subject_ref": source_pack["ruler_ref"],
+            "fact_refs": ["FACT-QIN-PRINCE"],
+        }
+    ]
+    assert next(
+        segment["subject_names"]
+        for batch in page_184_batches
+        for segment in batch["segments"]
+        if "李靖" in segment["text"]
+    ) == page_184["subject_names"]
+    page_185 = next(
+        segment
+        for batch in plan["page_batches"]
+        if batch["page_title"] == "資治通鑑/卷185"
+        for segment in batch["segments"]
+        if "高丽兵大溃" in segment["text"]
+    )
+    assert page_185["subject_names"] == ["李世民"]
+    assert page_185["chronicle_ruler_active"] is True
+    assert page_185["chronicle_ruler_ref"] == source_pack["ruler_ref"]
+    page_186 = next(
+        segment
+        for batch in plan["page_batches"]
+        if batch["page_title"] == "資治通鑑/卷186"
+        for segment in batch["segments"]
+    )
+    assert page_186["subject_names"] == ["李世民", "李靖"]
+    assert page_186["chronicle_ruler_active"] is True
+    page_187 = next(
+        segment
+        for batch in plan["page_batches"]
+        if batch["page_title"] == "資治通鑑/卷187"
+        for segment in batch["segments"]
+        if "上命诸军" in segment["text"]
+    )
+    assert page_187["subject_names"] == []
+    assert page_187["subject_refs"] == []
+    assert page_187["chronicle_ruler_active"] is False
+    routed = build_deterministic_fact_resolution_plan(plan)
+    assert routed["deterministic_routing"]["unbound_segment_count"] >= 1
+    assert all(
+        page_187["segment_ref"] != segment["segment_ref"]
+        for batch in routed["page_batches"]
+        for segment in batch["segments"]
+    )
+    assert "世民" in resolver.recall_terms("李世民")
+
+
+def test_deterministic_backbone_campaign_discovery_routes_only_ambiguity() -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=source_pack
+    )
+    texts = [
+        "武德三年，秦王世民引兵追宋金剛，大破之。",
+        "太宗先克遼東城，攻安市不克，遂班師。",
+        "秦王府置文學館，召學士入直。",
+    ]
+    segments = []
+    offset = 0
+    for index, text in enumerate(texts, start=1):
+        segments.append(
+            {
+                "segment_ref": f"SEG-{index}",
+                "start_offset": offset,
+                "end_offset": offset + len(text),
+                "text": text,
+                "initial_text": text,
+                "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                "subject_refs": [source_pack["ruler_ref"]],
+                "subject_names": [source_pack["ruler"]],
+                "spans": [
+                    {
+                        "span_ref": f"SPAN-{offset}-{offset + len(text)}",
+                        "start_offset": offset,
+                        "end_offset": offset + len(text),
+                        "text": text,
+                    }
+                ],
+            }
+        )
+        offset += len(text) + 1
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "ruler": source_pack["ruler"],
+        "source_index_identity": "INDEX-1",
+        "mention_index_fingerprint": "MENTION-1",
+        "page_batches": [
+            {
+                "batch_ref": "BATCH-1",
+                "page_title": "資治通鑑/卷188",
+                "work_title": "資治通鑑",
+                "source_url": "local:188",
+                "revision_ref": "1",
+                "segments": segments,
+            }
+        ],
+    }
+
+    discovery = discover_deterministic_backbone_campaigns(
+        backbone_plan=plan,
+        ruler_name=source_pack["ruler"],
+        ruler_ref=source_pack["ruler_ref"],
+        identity_resolver=resolver,
+    )
+
+    assert discovery["model_call_count"] == 0
+    assert discovery["event_count"] == 2
+    assert discovery["deterministic_clear_count"] == 1
+    assert discovery["needs_judgment_count"] == 1
+    assert discovery["events"][0]["result_status"] == "completed"
+    assert discovery["events"][1]["result_status"] == "mixed"
+    assert discovery["events"][1]["resolution_status"] == "needs_judgment"
+    assert all(
+        event["neutral_fact"]["exact_quote"] in texts
+        for event in discovery["events"]
+    )
+
+    seeded = seed_deterministic_campaign_facts(
+        plan=plan,
+        current=None,
+        discovery=discovery,
+    )
+    assert seeded["seeded_segment_refs"] == ["SEG-1", "SEG-2"]
+    assert seeded["seeded_fact_count"] == 2
+    assert seeded["outcome_judgment_pending_segment_count"] == 1
+
+    routed = build_deterministic_fact_resolution_plan(plan)
+    assert routed["deterministic_routing"]["scanned_segment_count"] == 3
+    assert routed["deterministic_routing"]["model_segment_count"] == 3
+    no_action_plan = {
+        **plan,
+        "page_batches": [
+            {
+                **plan["page_batches"][0],
+                "segments": [
+                    {
+                        **segments[0],
+                        "segment_ref": "SEG-NO-ACTION",
+                        "text": "秦王世民朝謁之暇，與學士討論文籍。",
+                    }
+                ],
+            }
+        ],
+    }
+    no_action = build_deterministic_fact_resolution_plan(no_action_plan)
+    assert no_action["page_batches"] == []
+    assert no_action["deterministic_routing"]["deterministic_empty_count"] == 1
+
+
+def test_deterministic_clear_campaign_seed_skips_generic_model(tmp_path: Path) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=source_pack
+    )
+    text = "武德三年，秦王世民引兵追宋金剛，大破之。"
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "ruler": source_pack["ruler"],
+        "source_index_identity": "INDEX-SEED",
+        "mention_index_fingerprint": "MENTION-SEED",
+        "page_batches": [
+            {
+                "batch_ref": "BATCH-SEED",
+                "page_title": "資治通鑑/卷188",
+                "work_title": "資治通鑑",
+                "source_url": "local:188",
+                "revision_ref": "1",
+                "segments": [
+                    {
+                        "segment_ref": "SEG-SEED",
+                        "start_offset": 0,
+                        "end_offset": len(text),
+                        "text": text,
+                        "initial_text": text,
+                        "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                        "subject_refs": [source_pack["ruler_ref"]],
+                        "subject_names": [source_pack["ruler"]],
+                        "spans": [
+                            {
+                                "span_ref": f"SPAN-0-{len(text)}",
+                                "start_offset": 0,
+                                "end_offset": len(text),
+                                "text": text,
+                            }
+                        ],
+                    }
+                ],
+            }
+        ],
+    }
+    discovery = discover_deterministic_backbone_campaigns(
+        backbone_plan=plan,
+        ruler_name=source_pack["ruler"],
+        ruler_ref=source_pack["ruler_ref"],
+        identity_resolver=resolver,
+    )
+    seed = seed_deterministic_campaign_facts(
+        plan=plan,
+        current=None,
+        discovery=discovery,
+    )
+
+    materials = extract_current_neutral_materials(
+        plan=plan,
+        current=seed["current"],
+        runner=object(),
+        max_workers=1,
+        checkpoint_dir=tmp_path / "checkpoint",
+        subject_ref_by_name={source_pack["ruler"]: source_pack["ruler_ref"]},
+        identity_resolver=resolver,
+    )
+
+    assert materials["model_call_count"] == 0
+    assert materials["fanout"]["fact_count"] == 1
+    assert materials["fanout"]["facts"][0]["exact_quote"] == text
+
+    empty_current = {
+        "batch_results": [
+            {
+                "schema_version": "shared-neutral-extraction-output-v1",
+                "batch_ref": "BATCH-SEED",
+                "page_title": "資治通鑑/卷188",
+                "revision_ref": "1",
+                "segment_count": 1,
+                "segment_reviews": [
+                    {
+                        "segment_ref": "SEG-SEED",
+                        "decision": "reject",
+                        "context_status": "sufficient",
+                        "facts": [],
+                        "reason": "通用抽取未返回事实。",
+                    }
+                ],
+                "limitations": [],
+            }
+        ]
+    }
+    supplemented = extract_current_neutral_materials(
+        plan=plan,
+        current=empty_current,
+        runner=object(),
+        max_workers=1,
+        checkpoint_dir=tmp_path / "supplemental-checkpoint",
+        subject_ref_by_name={source_pack["ruler"]: source_pack["ruler_ref"]},
+        identity_resolver=resolver,
+        supplemental_facts_by_segment={
+            "SEG-SEED": [discovery["events"][0]["neutral_fact"]]
+        },
+    )
+    assert supplemented["model_call_count"] == 0
+    assert supplemented["fanout"]["fact_count"] == 1
+
+
+def test_deterministic_campaign_discovery_uses_only_active_ruler_pronouns() -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=source_pack
+    )
+    text = "上命诸军鼓噪并进，高丽兵大溃，斩首二万余级。"
+    segment = {
+        "segment_ref": "SEG-PRONOUN-CAMPAIGN",
+        "start_offset": 0,
+        "end_offset": len(text),
+        "text": text,
+        "initial_text": text,
+        "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        "subject_refs": [source_pack["ruler_ref"]],
+        "subject_names": [source_pack["ruler"]],
+        "chronicle_ruler_active": True,
+        "spans": [
+            {
+                "span_ref": f"SPAN-0-{len(text)}",
+                "start_offset": 0,
+                "end_offset": len(text),
+                "text": text,
+            }
+        ],
+    }
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "ruler": source_pack["ruler"],
+        "source_index_identity": "INDEX-PRONOUN",
+        "mention_index_fingerprint": "MENTION-PRONOUN",
+        "page_batches": [
+            {
+                "batch_ref": "BATCH-PRONOUN",
+                "page_title": "資治通鑑/卷198",
+                "work_title": "資治通鑑",
+                "source_url": "local:198",
+                "revision_ref": "1",
+                "segments": [segment],
+            }
+        ],
+    }
+
+    active = discover_deterministic_backbone_campaigns(
+        backbone_plan=plan,
+        ruler_name=source_pack["ruler"],
+        ruler_ref=source_pack["ruler_ref"],
+        identity_resolver=resolver,
+    )
+    assert active["event_count"] == 1
+    assert active["events"][0]["neutral_fact"]["actors"][0]["source_name"] == "上"
+
+    inactive = discover_deterministic_backbone_campaigns(
+        backbone_plan={
+            **plan,
+            "page_batches": [
+                {
+                    **plan["page_batches"][0],
+                    "segments": [{**segment, "chronicle_ruler_active": False}],
+                }
+            ],
+        },
+        ruler_name=source_pack["ruler"],
+        ruler_ref=source_pack["ruler_ref"],
+        identity_resolver=resolver,
+    )
+    assert inactive["event_count"] == 0
+
+
 def test_event_directed_plan_uses_backbone_signature_to_target_other_works(
     tmp_path: Path,
 ) -> None:
@@ -1277,7 +1891,7 @@ def test_event_directed_plan_uses_backbone_signature_to_target_other_works(
                 "work_title": "資治通鑑",
                 "source_url": "local:backbone",
                 "revision_ref": "1",
-                "raw_text": "貞觀四年，李靖統兵討伐突厥，平定其地。",
+                    "raw_text": "貞觀四年，太宗命李靖統兵討伐突厥，平定其地。",
             },
             {
                 "page_title": "資治通鑑/卷005",
@@ -1351,7 +1965,7 @@ def test_event_directed_plan_uses_backbone_signature_to_target_other_works(
         "page_title": "資治通鑑/卷193",
         "work_title": "資治通鑑",
         "revision_ref": "1",
-        "exact_quote": "貞觀四年，李靖統兵討伐突厥，平定其地。",
+        "exact_quote": "貞觀四年，太宗命李靖統兵討伐突厥，平定其地。",
         "action_summary": "李靖统兵讨伐突厥。",
         "result": "平定其地。",
         "actors": [
@@ -1373,6 +1987,30 @@ def test_event_directed_plan_uses_backbone_signature_to_target_other_works(
     assert signatures[0]["chronology_anchors"] == ["贞观四年"]
     assert signatures[0]["subject_bindings"][0]["canonical_name"] == "李靖"
     assert signatures[0]["backbone_quotes"][0]["revision_ref"] == "1"
+
+    pre_model_signatures = build_deterministic_backbone_event_signatures(
+        backbone_plan=backbone_plan,
+        identity_resolver=resolver,
+    )
+    assert len(pre_model_signatures) == 1
+    assert pre_model_signatures[0]["resolution_status"] == "needs_fact_resolution"
+    assert {
+        row["canonical_name"]
+        for row in pre_model_signatures[0]["subject_bindings"]
+    } == {"李世民", "李靖"}
+    assert pre_model_signatures[0]["backbone_quotes"][0]["exact_quote"] == segment["text"]
+
+    pre_model_directed = build_event_directed_neutral_plan(
+        backbone_plan=backbone_plan,
+        event_signatures=pre_model_signatures,
+        source_index=index,
+        identity_resolver=resolver,
+        backsource_works=["舊唐書", "新唐書"],
+        supplement_works=["貞觀政要"],
+    )
+    assert {
+        batch["work_title"] for batch in pre_model_directed["page_batches"]
+    } == {"資治通鑑", "舊唐書", "新唐書", "貞觀政要"}
 
     directed = build_event_directed_neutral_plan(
         backbone_plan=backbone_plan,
@@ -1396,7 +2034,7 @@ def test_event_directed_plan_uses_backbone_signature_to_target_other_works(
         "貞觀政要",
     }
     assert all("李靖" in row["initial_text"] for row in targeted)
-    assert len(directed["target_segment_event_bindings"]) == len(targeted)
+    assert len(directed["target_segment_event_bindings"]) == len(targeted) + 1
 
 
 def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> None:
@@ -1755,6 +2393,98 @@ def test_neutral_segment_reuse_survives_batch_regrouping(tmp_path: Path) -> None
     assert output["fanout"]["fact_count"] == 0
 
 
+def test_partial_neutral_segment_reuse_keeps_new_segment_in_normal_group(
+    tmp_path: Path,
+) -> None:
+    def segment(ref: str, text: str) -> dict:
+        return {
+            "segment_ref": ref,
+            "start_offset": 0,
+            "end_offset": len(text),
+            "text": text,
+            "initial_text": text,
+            "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+            "subject_refs": ["PER-1"],
+            "subject_names": ["人物"],
+            "spans": [],
+        }
+
+    stable = segment("SEG-STABLE", "人物无事")
+    fresh = segment("SEG-FRESH", "人物新行事项")
+    batch = {
+        "batch_ref": "BATCH-MIXED-CACHE",
+        "page_title": "史书/卷1",
+        "work_title": "史书",
+        "source_url": "local:1",
+        "revision_ref": "1",
+        "segments": [stable, fresh],
+    }
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "ruler": "皇帝",
+        "source_index_identity": "INDEX-1",
+        "mention_index_fingerprint": "MENTION-1",
+        "page_batches": [batch],
+    }
+    current = {
+        "batch_fingerprints": {"BATCH-OLD": "OLD"},
+        "batch_results": [
+            {
+                "schema_version": "shared-neutral-extraction-output-v1",
+                "batch_ref": "BATCH-OLD",
+                "page_title": "史书/卷1",
+                "revision_ref": "1",
+                "segment_count": 1,
+                "segment_reviews": [
+                    {
+                        "segment_ref": "SEG-STABLE",
+                        "decision": "reject",
+                        "context_status": "sufficient",
+                        "facts": [],
+                        "reason": "无直接中性事实。",
+                    }
+                ],
+                "limitations": [],
+            }
+        ],
+    }
+
+    class Runner:
+        calls = 0
+
+        def run(self, prompt: str):
+            self.calls += 1
+            input_batches = json.loads(prompt.split("INPUT_BATCHES:\n", 1)[1])
+            assert [
+                row["segment_ref"]
+                for row in input_batches[0]["segments"]
+            ] == ["SEG-FRESH"]
+            return (
+                {
+                    "schema_version": "current-compact-neutral-output-v1",
+                    "results": [],
+                },
+                {},
+            )
+
+    runner = Runner()
+    output = extract_current_neutral_materials(
+        plan=plan,
+        current=current,
+        runner=runner,
+        max_workers=1,
+        checkpoint_dir=tmp_path / "checkpoint",
+        subject_ref_by_name={"人物": "PER-1"},
+    )
+
+    assert runner.calls == 1
+    assert output["model_call_count"] == 1
+    assert [
+        row["segment_ref"] for row in output["batch_results"][0]["segment_reviews"]
+    ] == ["SEG-STABLE", "SEG-FRESH"]
+    assert output["fanout"]["fact_count"] == 0
+
+
 def test_compact_sparse_output_can_omit_an_empty_batch(tmp_path: Path) -> None:
     def batch(index: int) -> dict:
         text = f"人物无事{index}"
@@ -1903,6 +2633,149 @@ def test_neutral_scan_finishes_one_canary_before_parallel_fanout(
     assert output["model_call_count"] == 3
 
 
+def test_neutral_scan_packs_sparse_segments_but_bounds_dense_campaigns(
+    tmp_path: Path,
+) -> None:
+    def plan(weight: int) -> dict:
+        batches = []
+        for batch_index in range(2):
+            segments = []
+            for segment_index in range(8):
+                text = f"人物执行事项{batch_index}-{segment_index}。"
+                segments.append(
+                    {
+                        "segment_ref": f"SEG-{weight}-{batch_index}-{segment_index}",
+                        "start_offset": 0,
+                        "end_offset": len(text),
+                        "text": text,
+                        "initial_text": text,
+                        "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                        "subject_refs": ["PER-1"],
+                        "subject_names": ["人物"],
+                        "model_weight": weight,
+                        "spans": [],
+                    }
+                )
+            batches.append(
+                {
+                    "batch_ref": f"BATCH-{weight}-{batch_index}",
+                    "page_title": "史书/卷1",
+                    "work_title": "史书",
+                    "source_url": f"local:{batch_index}",
+                    "revision_ref": "1",
+                    "segments": segments,
+                }
+            )
+        return {
+            "schema_version": "subject-shared-review-plan-v1",
+            "ruler": "皇帝",
+            "source_index_identity": "INDEX-1",
+            "mention_index_fingerprint": f"MENTION-{weight}",
+            "page_batches": batches,
+        }
+
+    class Runner:
+        def __init__(self) -> None:
+            self.calls = 0
+            self.input_batch_counts = []
+
+        def run(self, prompt: str):
+            self.calls += 1
+            self.input_batch_counts.append(
+                len(json.loads(prompt.split("INPUT_BATCHES:\n", 1)[1]))
+            )
+            return {
+                "schema_version": "current-compact-neutral-output-v1",
+                "results": [],
+            }, {}
+
+    sparse_runner = Runner()
+    sparse = extract_current_neutral_materials(
+        plan=plan(1),
+        current=None,
+        runner=sparse_runner,
+        max_workers=2,
+        checkpoint_dir=tmp_path / "sparse",
+        pages_per_call=2,
+        subject_ref_by_name={"人物": "PER-1"},
+    )
+    dense_runner = Runner()
+    dense = extract_current_neutral_materials(
+        plan=plan(2),
+        current=None,
+        runner=dense_runner,
+        max_workers=2,
+        checkpoint_dir=tmp_path / "dense",
+        pages_per_call=2,
+        subject_ref_by_name={"人物": "PER-1"},
+    )
+
+    assert sparse["model_call_count"] == sparse_runner.calls == 1
+    assert sparse_runner.input_batch_counts == [1]
+    assert dense["model_call_count"] == dense_runner.calls == 2
+
+
+def test_neutral_scan_splits_groups_with_too_many_distinct_subjects(
+    tmp_path: Path,
+) -> None:
+    batches = []
+    subject_ref_by_name = {}
+    for batch_index in range(2):
+        refs = [f"PER-{batch_index * 3 + offset}" for offset in range(3)]
+        for ref in refs:
+            subject_ref_by_name[ref] = ref
+        text = f"人物组{batch_index}执行事项。"
+        batches.append(
+            {
+                "batch_ref": f"BATCH-SUBJECTS-{batch_index}",
+                "page_title": "史书/卷1",
+                "work_title": "史书",
+                "source_url": "local:1",
+                "revision_ref": "1",
+                "segments": [
+                    {
+                        "segment_ref": f"SEG-SUBJECTS-{batch_index}",
+                        "start_offset": 0,
+                        "end_offset": len(text),
+                        "text": text,
+                        "initial_text": text,
+                        "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                        "subject_refs": refs,
+                        "subject_names": refs,
+                        "spans": [],
+                    }
+                ],
+            }
+        )
+
+    class Runner:
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def run(self, _prompt: str):
+            self.calls += 1
+            return {"schema_version": "current-compact-neutral-output-v1", "results": []}, {}
+
+    runner = Runner()
+    output = extract_current_neutral_materials(
+        plan={
+            "schema_version": "subject-shared-review-plan-v1",
+            "ruler": "皇帝",
+            "source_index_identity": "INDEX-SUBJECTS",
+            "mention_index_fingerprint": "MENTION-SUBJECTS",
+            "page_batches": batches,
+        },
+        current=None,
+        runner=runner,
+        max_workers=2,
+        checkpoint_dir=tmp_path / "checkpoint",
+        pages_per_call=2,
+        subject_ref_by_name=subject_ref_by_name,
+    )
+
+    assert output["model_call_count"] == runner.calls == 2
+
+
 def test_neutral_scan_propagates_model_anomaly_without_segment_fallback(
     tmp_path: Path,
 ) -> None:
@@ -1956,6 +2829,80 @@ def test_neutral_scan_propagates_model_anomaly_without_segment_fallback(
 
     assert runner.calls == 1
     assert not (tmp_path / "checkpoint/_segments").exists()
+
+
+def test_neutral_scan_propagates_single_fallback_model_anomaly(
+    tmp_path: Path,
+) -> None:
+    text = "人物完成事项。"
+    batch = {
+        "batch_ref": "BATCH-ANOMALY-FALLBACK",
+        "page_title": "史书/卷1",
+        "work_title": "史书",
+        "source_url": "local:1",
+        "revision_ref": "1",
+        "segments": [
+            {
+                "segment_ref": "SEG-ANOMALY-FALLBACK",
+                "start_offset": 0,
+                "end_offset": len(text),
+                "text": text,
+                "initial_text": text,
+                "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                "subject_refs": ["PER-1"],
+                "subject_names": ["人物"],
+                "spans": [],
+            }
+        ],
+    }
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "ruler": "皇帝",
+        "source_index_identity": "INDEX-1",
+        "mention_index_fingerprint": "MENTION-1",
+        "page_batches": [batch],
+    }
+
+    class AnomalyRunner:
+        def run(self, _prompt: str):
+            raise ModelBatchAnomalyError("测试异常子进程")
+
+    segment_checkpoint = (
+        tmp_path
+        / "checkpoint/_segments/BATCH-ANOMALY-FALLBACK--SEG-ANOMALY-FALLBACK.json"
+    )
+    segment_checkpoint.parent.mkdir(parents=True)
+    segment_checkpoint.write_text(
+        json.dumps(
+            {
+                "batch_fingerprint": neutral_digest(
+                    {
+                        "batch": batch,
+                        "extraction_policy": NEUTRAL_EXTRACTION_POLICY_VERSION,
+                    }
+                ),
+                "review": {"invalid": True},
+                "limitations": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ModelBatchAnomalyError, match="测试异常子进程"):
+        extract_current_neutral_materials(
+            plan=plan,
+            current=None,
+            runner=AnomalyRunner(),
+            max_workers=1,
+            checkpoint_dir=tmp_path / "checkpoint",
+            subject_ref_by_name={"人物": "PER-1"},
+        )
+
+    # The anomaly cannot be converted into a false deterministic rejection.
+    assert segment_checkpoint.is_file()
+    assert json.loads(segment_checkpoint.read_text(encoding="utf-8"))["review"] == {
+        "invalid": True
+    }
 
 
 def test_compact_rows_route_by_segment_ref_despite_bad_batch_refs(tmp_path: Path) -> None:
@@ -2375,6 +3322,7 @@ def test_outcome_projection_makes_zero_model_calls_for_settled_quotes(
                     "implementation_status": "implemented",
                     "result": "已有结果",
                     "fact_kind": "institutional_action",
+                    "actors": [{"subject_ref": source_pack["ruler_ref"]}],
                 }
             ]
         }
@@ -2391,6 +3339,46 @@ def test_outcome_projection_makes_zero_model_calls_for_settled_quotes(
         max_workers=1,
     )
 
+    assert outcome["model_call_count"] == 0
+    assert outcome["source_pack_changed"] is False
+
+
+def test_outcome_projection_ignores_shared_fact_outside_current_team(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    neutral = {
+        "fanout": {
+            "facts": [
+                {
+                    "fact_ref": "NEUTRALFACT-LIYUAN-ONLY",
+                    "projection_eligibility": "direct_neutral_fact",
+                    "exact_quote": "高祖命有司施行。",
+                    "implementation_status": "implemented",
+                    "result": "已施行",
+                    "fact_kind": "institutional_action",
+                    "actors": [
+                        {"subject_ref": "RULER-NAME-CANDIDATE-LIYUAN"}
+                    ],
+                }
+            ]
+        }
+    }
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials=neutral,
+        source_index=None,
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+    )
+
+    assert outcome["candidate_count"] == 0
     assert outcome["model_call_count"] == 0
     assert outcome["source_pack_changed"] is False
 
@@ -2458,6 +3446,7 @@ def test_outcome_projection_keeps_accepted_dispositions_across_runner_changes(
 
 def test_outcome_projection_keeps_cross_source_event_atomic(tmp_path: Path) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
     target = tmp_path / "source-pack.json"
     target.write_bytes(source.read_bytes())
 
@@ -2496,8 +3485,9 @@ def test_outcome_projection_keeps_cross_source_event_atomic(tmp_path: Path) -> N
             "implementation_status": "implemented",
             "result": "形成可观察结果",
             "fact_kind": "institutional_action",
-            "outcome_candidate_status": "clear_candidate",
-            "event_refs": ["EVENT-SAME"],
+                "outcome_candidate_status": "clear_candidate",
+                "event_refs": ["EVENT-SAME"],
+                "actors": [{"subject_ref": source_pack["ruler_ref"]}],
         }
         for index in (1, 2)
     ]
@@ -2540,6 +3530,7 @@ def test_outcome_projection_finishes_one_canary_before_parallel_fanout(
     tmp_path: Path,
 ) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
     target = tmp_path / "source-pack.json"
     target.write_bytes(source.read_bytes())
     index_path = tmp_path / "source.sqlite3"
@@ -2601,8 +3592,9 @@ def test_outcome_projection_finishes_one_canary_before_parallel_fanout(
             "implementation_status": "implemented",
             "result": f"形成结果{index}",
             "fact_kind": "institutional_action",
-            "outcome_candidate_status": "ambiguous",
-            "event_refs": [f"EVENT-CANARY-{index}"],
+                "outcome_candidate_status": "ambiguous",
+                "event_refs": [f"EVENT-CANARY-{index}"],
+                "actors": [{"subject_ref": source_pack["ruler_ref"]}],
         }
         for index in range(3)
     ]
@@ -2628,6 +3620,7 @@ def test_outcome_projection_propagates_model_anomaly_without_split(
     tmp_path: Path,
 ) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
     target = tmp_path / "source-pack.json"
     target.write_bytes(source.read_bytes())
     index_path = tmp_path / "source.sqlite3"
@@ -2668,8 +3661,9 @@ def test_outcome_projection_propagates_model_anomaly_without_split(
                     "implementation_status": "implemented",
                     "result": "形成新的可观察结果",
                     "fact_kind": "institutional_action",
-                    "outcome_candidate_status": "clear_candidate",
-                    "event_refs": ["EVENT-ANOMALY"],
+                        "outcome_candidate_status": "clear_candidate",
+                        "event_refs": ["EVENT-ANOMALY"],
+                        "actors": [{"subject_ref": source_pack["ruler_ref"]}],
                 }
             ]
         }
@@ -2774,7 +3768,9 @@ def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
     ]) == 0
     assert (source_dir / "result.json").is_file()
     assert (source_dir / "result.md").is_file()
-    assert "未计分支持材料" in detail.read_text(encoding="utf-8")
+    assert "| 对象 | 方向 | 材料分 | 实际计入信号 |" in detail.read_text(
+        encoding="utf-8"
+    )
 
 
 def test_i5b_run_rejects_unconfigured_ruler(tmp_path: Path) -> None:
@@ -2794,7 +3790,7 @@ def test_i5b_run_rejects_unconfigured_ruler(tmp_path: Path) -> None:
         ])
 
 
-def test_current_scoring_detail_export_uses_factor_values_for_unscored_materials(
+def test_current_scoring_detail_export_uses_factor_values_for_settled_materials(
     tmp_path: Path,
 ) -> None:
     report = build_i5b_current_value(
@@ -2803,8 +3799,7 @@ def test_current_scoring_detail_export_uses_factor_values_for_unscored_materials
     rendered = render_scoring_detail_markdown(report)
 
     assert "| 对象 | 方向 | 材料分 | 实际计入信号 | 因子取值 | 计分事实 |" in rendered
-    assert "### 未计分支持材料" in rendered
-    assert "| 对象 | 判定 | 因子取值 | 事实 |" in rendered
+    assert "### 未计分支持材料" not in rendered
     assert "| 对象 | 判定 | 说明 | 事实 |" not in rendered
     assert "识才方向 1.000000" in rendered
     assert "材料分低于当前" not in rendered

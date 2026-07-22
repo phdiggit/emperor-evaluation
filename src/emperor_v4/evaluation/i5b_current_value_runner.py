@@ -23,8 +23,12 @@ from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
 from emperor_v4.evaluation.historical_outcome_cluster import (
     CAMPAIGN_ROLES,
     GOVERNANCE_ROLES,
+    LAND_STRATEGIC_VALUES,
+    PROCESS_ADVERSITY,
+    RULER_CAMPAIGN_RELATIONS,
     assess_person_talent_grade,
     build_outcome_episode,
+    campaign_tier,
     validate_historical_outcome_registry,
 )
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
@@ -307,7 +311,8 @@ def _ruler_window_outcomes(
     return [
         cluster
         for cluster in clusters
-        if cluster.get("ruler_window_status", "within_window") == "within_window"
+        if cluster.get("ruler_window_status", "within_window")
+        in {"within_window", "leadership_formation"}
     ]
 
 
@@ -1281,13 +1286,32 @@ def render_scoring_detail_markdown(
                     continue
                 roles = role_catalogs[outcome_kind]
                 members = "、".join(
-                    f"{row['actor_name']}（{roles[row['role_code']]}）"
+                    f"{row['actor_name']}（{roles[row['role_code']]}"
+                    + (
+                        f"；{RULER_CAMPAIGN_RELATIONS[row['ruler_campaign_relation']]}"
+                        if row.get("ruler_campaign_relation")
+                        else ""
+                    )
+                    + "）"
                     for row in cluster["members"]
+                )
+                structure = ""
+                if outcome_kind == "campaign":
+                    payload = cluster["payload"]
+                    details = [
+                        LAND_STRATEGIC_VALUES.get(str(payload.get("land_strategic_value") or "")),
+                        PROCESS_ADVERSITY.get(str(payload.get("process_adversity") or "")),
+                    ]
+                    structure = "；" + "；".join(value for value in details if value)
+                display_scale = (
+                    campaign_tier(cluster)
+                    if outcome_kind == "campaign"
+                    else cluster["scale"]["level"]
                 )
                 lines.append(
                     f"| {cluster['outcome_ref']} | {cluster['canonical_label']} | "
-                    f"{members} | {cluster['scale']['level']} | "
-                    f"{cluster['result_direction']} / {cluster['result_status']} | "
+                    f"{members} | {display_scale} | "
+                    f"{cluster['result_direction']} / {cluster['result_status']}{structure} | "
                     f"{cluster['observable_result']} | "
                     f"{'、'.join(cluster['source_refs'])} |"
                 )

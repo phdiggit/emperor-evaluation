@@ -163,7 +163,8 @@ def compile_outcome_candidate_payloads(
     outcomes: list[dict[str, Any]] = []
     candidate_keys: set[str] = set()
     campaign_roles = {
-        "commander_in_chief", "principal_commander", "deputy_commander", "participant"
+        "commander_in_chief", "principal_commander", "deputy_commander", "participant",
+        "not_in_command_chain",
     }
     governance_roles = {"exclusive", "lead", "governance_participant", "authorized"}
     for payload in payloads:
@@ -186,6 +187,21 @@ def compile_outcome_candidate_payloads(
             members = []
             member_names = set()
             candidate_limitations = list(candidate["limitations"])
+            if candidate["outcome_kind"] == "campaign":
+                missing_campaign_axes = [
+                    key
+                    for key in (
+                        "campaign_tier",
+                        "campaign_tier_basis",
+                        "land_strategic_value",
+                    )
+                    if candidate["payload"].get(key) is None
+                ]
+                if missing_campaign_axes:
+                    raise ValueError(
+                        f"{candidate_key} 战役登记缺少字母档或土地轴: "
+                        + ", ".join(missing_campaign_axes)
+                    )
             scale_bases = (
                 CAMPAIGN_SCALE_BASES
                 if candidate["outcome_kind"] == "campaign"
@@ -248,6 +264,31 @@ def compile_outcome_candidate_payloads(
                     "role_code": raw_member["role_code"],
                     "contribution_scope": raw_member["contribution_scope"],
                 }
+                ruler_campaign_relation = raw_member.get("ruler_campaign_relation")
+                if (
+                    candidate["outcome_kind"] == "campaign"
+                    and raw_member["actor_kind"] == "ruler"
+                    and ruler_campaign_relation is None
+                ):
+                    raise ValueError(
+                        f"{candidate_key}/{name} 战役中的皇帝必须登记唯一参与关系"
+                    )
+                if ruler_campaign_relation is not None:
+                    if (
+                        candidate["outcome_kind"] != "campaign"
+                        or raw_member["actor_kind"] != "ruler"
+                    ):
+                        raise ValueError(
+                            f"{candidate_key}/{name} 只有战役中的皇帝可以登记皇权关系"
+                        )
+                    member["ruler_campaign_relation"] = ruler_campaign_relation
+                if (
+                    raw_member["role_code"] == "not_in_command_chain"
+                    and raw_member["actor_kind"] != "ruler"
+                ):
+                    raise ValueError(
+                        f"{candidate_key}/{name} not_in_command_chain 仅用于皇帝关系"
+                    )
                 allowed_roles = (
                     campaign_roles
                     if candidate["outcome_kind"] == "campaign"
@@ -308,7 +349,8 @@ def compile_outcome_candidate_payloads(
                     "dynasty_or_regime": dynasty_or_regime,
                     "ruler_contexts": (
                         [source_pack["ruler"]]
-                        if candidate["ruler_window_status"] == "within_window"
+                        if candidate["ruler_window_status"]
+                        in {"within_window", "leadership_formation"}
                         else []
                     ),
                     "subject_role": "；".join(
@@ -331,6 +373,15 @@ def compile_outcome_candidate_payloads(
                         "opponent_strategic_weight",
                     )
                 }
+                for key in (
+                    "campaign_tier",
+                    "campaign_tier_basis",
+                    "land_strategic_value",
+                    "process_adversity",
+                    "process_adversity_basis",
+                ):
+                    if raw_payload.get(key) is not None:
+                        outcome_payload[key] = raw_payload[key]
             else:
                 outcome_payload = {
                     key: raw_payload[key]

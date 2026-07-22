@@ -93,15 +93,18 @@ DYNASTY_GOVERNANCE_RELEASE_PATHS = (
     "deploy/v4/verify-server-runtime.sh",
 )
 EMPEROR_REBUILD_RELEASE_PATHS = (
+    "AGENTS.md",
+    "README.md",
     "pyproject.toml",
     "config",
     "db/postgres/007_v4_historical_outcome_clusters.sql",
+    "docs/项目总纲/皇帝综合评价体系评分标准.md",
+    "docs/项目总纲/总规则.md",
+    "docs/证据规则/公共成果登记与人物画像规则.md",
+    "docs/证据规则/单皇帝主控会话工作流.md",
+    "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
     "eval/i5b_current_value",
     "src/emperor_v4",
-    "deploy/v4/emperor-v4-emperor-rebuild@.service",
-    "deploy/v4/emperor-v4-emperor-rebuild-queue.service",
-    "deploy/v4/emperor-v4-emperor-rebuild-queue.timer",
-    "deploy/v4/emperor-rebuild.env.example",
     "deploy/v4/provision-prerequisites.sh",
     "deploy/v4/verify-server-runtime.sh",
 )

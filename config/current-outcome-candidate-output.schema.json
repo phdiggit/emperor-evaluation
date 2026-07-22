@@ -39,7 +39,7 @@
           "scale_reason": {"type": "string", "minLength": 1},
           "stable_delivery": {"type": "boolean"},
           "important_method_or_legacy": {"type": "boolean"},
-          "ruler_window_status": {"type": "string", "enum": ["within_window", "outside_window", "unresolved"]},
+          "ruler_window_status": {"type": "string", "enum": ["within_window", "leadership_formation", "outside_window", "unresolved"]},
           "members": {
             "type": "array", "minItems": 1,
             "items": {
@@ -48,7 +48,8 @@
               "properties": {
                 "actor_name": {"type": "string", "minLength": 1},
                 "actor_kind": {"type": "string", "enum": ["person", "ruler"]},
-                "role_code": {"type": "string", "enum": ["commander_in_chief", "principal_commander", "deputy_commander", "participant", "exclusive", "lead", "governance_participant", "authorized"]},
+                "role_code": {"type": "string", "enum": ["commander_in_chief", "principal_commander", "deputy_commander", "participant", "not_in_command_chain", "exclusive", "lead", "governance_participant", "authorized"]},
+                "ruler_campaign_relation": {"type": ["string", "null"], "enum": ["obstructed", "acquiesced", "authorized", "temporary_theater_control", "sustained_theater_control", "personal_command", null]},
                 "contribution_scope": {"type": "string", "minLength": 1},
                 "responsibility_scope": {"type": "string", "enum": ["nominal_or_light", "real_bounded", "major_affairs", "critical_national_or_long_term", "not_applicable"]},
                 "authorization_quotes": {"type": "array", "items": {"type": "string", "minLength": 2}}
@@ -72,7 +73,12 @@
               "battle_result": {"type": ["string", "null"], "enum": ["victory", "mixed", "defeat", "unclear", null]},
               "objective_completion": {"type": ["string", "null"], "enum": ["complete", "partial", "failed", "unclear", null]},
               "opponent_condition": {"type": ["string", "null"], "enum": ["strong", "viable", "weakened", "residual", "unclear", null]},
-              "opponent_strategic_weight": {"type": ["string", "null"], "enum": ["minor", "regional_major", "national_peer", "imperial_main_force", "unclear", null]}
+              "opponent_strategic_weight": {"type": ["string", "null"], "enum": ["minor", "regional_major", "national_peer", "imperial_main_force", "unclear", null]},
+              "campaign_tier": {"type": ["string", "null"], "enum": ["C", "B", "A", "S-", "S", "S+", null]},
+              "campaign_tier_basis": {"type": ["string", "null"]},
+              "land_strategic_value": {"type": ["string", "null"], "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival", null]},
+              "process_adversity": {"type": ["string", "null"], "enum": ["none", "limited", "material", "severe_repaired", "near_collapse_repaired", "terminal_failure", null]},
+              "process_adversity_basis": {"type": ["string", "null"]}
             }
           },
           "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}

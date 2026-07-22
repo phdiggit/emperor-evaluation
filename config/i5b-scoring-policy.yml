@@ -58,11 +58,15 @@ settlement_budget:
   positive_and_negative_independent: true
   known_counterevidence_review_required: true
   replacement_requires_versioned_human_decision: true
+  event_rank_factors:
+    - {through_rank: 6, factor: 1.0}
+    - {through_rank: 9, factor: 0.75}
+    - {through_rank: 12, factor: 0.5}
   event_rules:
-    talent_discovery: {positive: 3, negative: 3, unit: independent_discovery_chain}
-    appointment_delegation: {positive: 3, negative: 3, unit: delegated_person_or_group}
-    tolerate_talent: {positive: 3, negative: 3, unit: independent_feedback_safety_chain}
-    anti_nepotism: {positive: 3, negative: 3, unit: independent_private_public_power_chain}
+    talent_discovery: {positive: 12, negative: 12, unit: independent_discovery_chain}
+    appointment_delegation: {positive: 12, negative: 12, unit: delegated_person_or_group}
+    tolerate_talent: {positive: 12, negative: 12, unit: independent_feedback_safety_chain}
+    anti_nepotism: {positive: 12, negative: 12, unit: independent_private_public_power_chain}
   team_building:
     positive_member_budget: 8
     negative_member_budget: 3
@@ -285,20 +289,20 @@ aggregation_policies:
     all_scored_materials_contribute_before_object_cap: true
     top_k: false
     settled_units_only: true
-    max_settled_units_per_side: 3
+    max_settled_units_per_side: 12
   appointment-object-density-decay-current:
     mode: hierarchical_rank_decay
     same_object_value_cap: 3.50658
     material_decay: 1.0
     event_decay: 1.0
-    object_decay: 0.5
+    object_decay: settlement_budget.event_rank_factors
     positive_lane_scale: 1.5
     negative_lane_scale: 1.0
     event_key: canonical_event_group
     all_scored_materials_contribute: false
     top_k: false
     settled_units_only: true
-    max_settled_units_per_side: 3
+    max_settled_units_per_side: 12
   bounded-team-pool-no-rank-decay-v1:
     mode: orthogonal_person_profile_pool
     canonical_person_unique_per_window: true

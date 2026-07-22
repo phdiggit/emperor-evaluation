@@ -296,11 +296,20 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
     _require_exact(
         budget.get("positive_and_negative_independent"), True, "正负预算独立"
     )
+    _require_exact(
+        budget.get("event_rank_factors"),
+        [
+            {"through_rank": 6, "factor": 1.0},
+            {"through_rank": 9, "factor": 0.75},
+            {"through_rank": 12, "factor": 0.5},
+        ],
+        "事件材料尾部折减",
+    )
     event_budgets = budget.get("event_rules") or {}
     _require_exact(set(event_budgets), set(RULE_ORDER) - {"team_building"}, "事件 rule 预算")
     for rule_code, rule_budget in event_budgets.items():
-        _require_exact(rule_budget.get("positive"), 3, f"{rule_code} 正向预算")
-        _require_exact(rule_budget.get("negative"), 3, f"{rule_code} 负向预算")
+        _require_exact(rule_budget.get("positive"), 12, f"{rule_code} 正向预算")
+        _require_exact(rule_budget.get("negative"), 12, f"{rule_code} 负向预算")
     team_budget = budget.get("team_building") or {}
     _require_exact(team_budget.get("positive_member_budget"), 8, "团队正池预算")
     _require_exact(team_budget.get("negative_member_budget"), 3, "团队负池预算")
@@ -486,7 +495,7 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
             "settlement_budget_enabled": True,
             "event_selection_mode": "eligibility_gate_then_strongest_n",
             "domain_representation_quota_allowed": False,
-            "event_rule_side_budget": 3,
+            "event_rule_side_budget": 12,
             "team_positive_member_budget": 8,
             "team_negative_member_budget": 3,
         },

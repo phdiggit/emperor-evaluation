@@ -24,12 +24,15 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-neutral-materials-v1"
-NEUTRAL_EXTRACTION_POLICY_VERSION = "current-neutral-extraction-policy-v13"
+NEUTRAL_EXTRACTION_POLICY_VERSION = "current-neutral-extraction-policy-v15"
 MODEL_GROUP_CHAR_LIMIT = 6_000
+MODEL_GROUP_SEGMENT_LIMIT = 8
+MODEL_GROUP_WEIGHT_LIMIT = 16
+MODEL_GROUP_SUBJECT_LIMIT = 4
 MODEL_SINGLE_BATCH_CHAR_LIMIT = 6_000
-MODEL_SINGLE_BATCH_SEGMENT_LIMIT = 16
-MODEL_GROUP_PROMPT_CHAR_LIMIT = 9_000
-MODEL_SINGLE_PROMPT_CHAR_LIMIT = 12_000
+MODEL_SINGLE_BATCH_SEGMENT_LIMIT = 8
+MODEL_GROUP_PROMPT_CHAR_LIMIT = 6_000
+MODEL_SINGLE_PROMPT_CHAR_LIMIT = 7_000
 PLAN_SCHEMA_VERSION = "subject-shared-review-plan-v1"
 MULTI_OUTPUT_SCHEMA_VERSION = "multi-page-neutral-extraction-output-v1"
 COMPACT_OUTPUT_SCHEMA_VERSION = "current-compact-neutral-output-v1"
@@ -271,6 +274,69 @@ def _biography_section_ranges(
     return ranges
 
 
+_CHRONICLE_REIGN_HEADING = re.compile(
+    r"(?m)^\s*=+\s*([^\n=]*(?:皇帝)[^\n=]*)\s*=+\s*$"
+)
+
+
+def _page_order_key(page: Any) -> tuple[str, int, str]:
+    match = re.search(r"卷0*([0-9]+)", str(page.page_title))
+    return (
+        str(page.work_title),
+        int(match.group(1)) if match else 10**9,
+        str(page.page_title),
+    )
+
+
+def _chronicle_ruler_active_ranges(
+    pages: Sequence[Any],
+    *,
+    ruler_name: str,
+    identity_resolver: HistoricalEntityResolver,
+) -> dict[str, list[tuple[int, int]]]:
+    """Locate reign-heading ranges where chronicle pronouns mean this ruler.
+
+    The configured volume range can include pre-accession campaigns and a
+    successor transition. Explicit ruler aliases remain usable everywhere,
+    while ``上``/``帝`` attribution is enabled only below a matching emperor
+    heading and disabled at the next different emperor heading.
+    """
+
+    ruler_terms = tuple(
+        _normalized_anchor(term)
+        for term in identity_resolver.recall_terms(ruler_name)
+        if term
+    )
+    ranges_by_page: dict[str, list[tuple[int, int]]] = {}
+    active = False
+    current_work = None
+    for page in sorted(pages, key=_page_order_key):
+        if current_work != str(page.work_title):
+            active = False
+            current_work = str(page.work_title)
+        transitions = [(0, active)]
+        for match in _CHRONICLE_REIGN_HEADING.finditer(str(page.raw_text)):
+            heading = _normalized_anchor(match.group(1))
+            transitions.append(
+                (
+                    int(match.start()),
+                    any(term in heading for term in ruler_terms),
+                )
+            )
+        page_ranges = []
+        for index, (start, state) in enumerate(transitions):
+            end = (
+                transitions[index + 1][0]
+                if index + 1 < len(transitions)
+                else len(str(page.raw_text))
+            )
+            if state and start < end:
+                page_ranges.append((start, end))
+        active = transitions[-1][1]
+        ranges_by_page[str(page.page_title)] = page_ranges
+    return ranges_by_page
+
+
 def _canonicalize_result(
     batch: Mapping[str, Any],
     result: Mapping[str, Any],
@@ -437,6 +503,8 @@ def build_compact_multi_page_prompt(
         "你是皇帝评价V4的中性历史事件发现器。只读INPUT_BATCHES，不联网、不评分、不补史实。\n"
         "提取与batch.subject_bindings人物直接相关的实际行动、命令、建议、任用授权、制度运行、"
         "战役、可观察结果、政治风险和重要代价；普通仪礼宴饮及仅被提名者不收。\n"
+        "编年主干若给出chronicle_ruler_ref，只能将‘上’、‘帝’、‘车驾’等皇帝代称绑定到"
+        "subject_ref等于该值的人物；未给出时必须依靠本段明确姓名或别名。\n"
         "exact_quote逐字复制segment.text的连续原文；actors只能复制batch.subject_bindings中"
         "subject_ref同时列在该segment.subject_refs内的人物，"
         "人物没有直接行动或责任不得创建actor。segment_ref逐字复制输入。\n"
@@ -504,6 +572,16 @@ def _prompt_segment_view(
         "segment_ref": str(segment["segment_ref"]),
         "subject_refs": [str(value) for value in segment.get("subject_refs") or ()],
         **(
+            {"chronicle_ruler_active": bool(segment["chronicle_ruler_active"])}
+            if "chronicle_ruler_active" in segment
+            else {}
+        ),
+        **(
+            {"chronicle_ruler_ref": str(segment["chronicle_ruler_ref"])}
+            if segment.get("chronicle_ruler_ref")
+            else {}
+        ),
+        **(
             {"source_role": str(segment["source_role"])}
             if segment.get("source_role")
             else {}
@@ -515,6 +593,18 @@ def _prompt_segment_view(
     }
 
 
+def _model_group_weight(segments: Sequence[Mapping[str, Any]]) -> int:
+    return sum(max(1, int(segment.get("model_weight") or 1)) for segment in segments)
+
+
+def _model_group_subject_refs(segments: Sequence[Mapping[str, Any]]) -> set[str]:
+    return {
+        str(subject_ref)
+        for segment in segments
+        for subject_ref in segment.get("subject_refs") or ()
+    }
+
+
 def build_ruler_neutral_plan(
     *,
     source_pack: Mapping[str, Any],
@@ -523,13 +613,17 @@ def build_ruler_neutral_plan(
     identity_resolver: HistoricalEntityResolver,
     allowed_works: Sequence[str] | None = None,
     allowed_page_ranges: Mapping[str, Sequence[int]] | None = None,
+    shared_subjects: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
+    continuous_backbone = bool(allowed_page_ranges)
+    ruler_name = str(source_pack["ruler"])
     subject_refs = {
         str(source_pack["ruler"]): str(source_pack["ruler_ref"]),
         **{
             str(row["person"]): str(row["person_ref"])
             for row in source_pack.get("members") or ()
         },
+        **{str(name): str(ref) for name, ref in (shared_subjects or {}).items()},
     }
     page_subjects: dict[str, set[str]] = {}
     allowed_work_set = set(str(value) for value in allowed_works or ())
@@ -539,12 +633,27 @@ def build_ruler_neutral_plan(
             if allowed_work_set and str(page_title).split("/", 1)[0] not in allowed_work_set:
                 continue
             page_subjects.setdefault(str(page_title), set()).add(name)
+    # The chronicle range is the ruler's continuous event backbone, not another
+    # name-recall pool. Every source event unit is retained. Explicit aliases
+    # bind pre-accession actions, while reign headings safely bind ruler
+    # pronouns after accession; known members are bindings, never scan gates.
+    if continuous_backbone:
+        for page in source_index.iter_pages(
+            works=sorted(allowed_work_set), page_ranges=allowed_page_ranges
+        ):
+            page_subjects[page.page_title] = set(subject_refs)
     works = sorted({page.split("/", 1)[0] for page in page_subjects})
     pages = {
         page.page_title: page
         for page in source_index.iter_pages(
             works=works, page_ranges=allowed_page_ranges
         )
+    }
+    chronicle_ranges_by_ruler = {
+        name: _chronicle_ruler_active_ranges(
+            list(pages.values()), ruler_name=name, identity_resolver=identity_resolver
+        )
+        for name in ([ruler_name, *sorted(shared_subjects or {})] if continuous_backbone else [])
     }
     biography_subjects: dict[str, set[str]] = {}
     for member in source_pack.get("members") or ():
@@ -575,11 +684,15 @@ def build_ruler_neutral_plan(
                         normalized_page, normalized_offsets, term
                     )
                 }
-                | {
-                    match.start()
-                    for term in identity_resolver.contextual_terms(name)
-                    for match in re.finditer(re.escape(term), page.raw_text)
-                }
+                | (
+                    set()
+                    if continuous_backbone
+                    else {
+                        match.start()
+                        for term in identity_resolver.contextual_terms(name)
+                        for match in re.finditer(re.escape(term), page.raw_text)
+                    }
+                )
             )
             for name in names
         }
@@ -604,9 +717,21 @@ def build_ruler_neutral_plan(
                 anchor_positions.extend(positions)
                 if positions:
                     matched_names.add(name)
-            if not matched_names:
+            active_ruler_names = [
+                name
+                for name, ranges_by_page in chronicle_ranges_by_ruler.items()
+                if any(
+                    start <= unit_start < end
+                    for start, end in ranges_by_page.get(page.page_title, ())
+                )
+            ]
+            matched_names.update(active_ruler_names)
+            ruler_active = ruler_name in active_ruler_names
+            if ruler_active:
+                matched_names.add(ruler_name)
+            if not continuous_backbone and not matched_names:
                 continue
-            if matched_names & set(biography_ranges):
+            if continuous_backbone or matched_names & set(biography_ranges):
                 initial_start, initial_end = unit_start, unit_end
             else:
                 initial_start, initial_end = _initial_span_range(
@@ -617,11 +742,28 @@ def build_ruler_neutral_plan(
                 "names": matched_names,
                 "initial_start": initial_start,
                 "initial_end": initial_end,
+                "chronicle_ruler_active": ruler_active,
+                "chronicle_ruler_ref": (
+                    subject_refs[active_ruler_names[0]]
+                    if len(active_ruler_names) == 1
+                    else None
+                ),
             }
         segments = []
         for row in selected.values():
             text = page.raw_text[int(row["start"]): int(row["end"])]
-            names_in_text = sorted(row["names"])
+            names_in_text_set = set(row["names"])
+            if allowed_page_ranges:
+                normalized_segment = _normalized_anchor(text)
+                for member in source_pack.get("members") or ():
+                    member_name = str(member["person"])
+                    if any(
+                        _normalized_anchor(term) in normalized_segment
+                        for term in identity_resolver.recall_terms(member_name)
+                        if term
+                    ):
+                        names_in_text_set.add(member_name)
+            names_in_text = sorted(names_in_text_set)
             refs = sorted(subject_refs[name] for name in names_in_text)
             identity = {
                 "page_title": page.page_title,
@@ -645,6 +787,20 @@ def build_ruler_neutral_plan(
                     "text_sha256": sha256(text.encode("utf-8")).hexdigest(),
                     "subject_refs": refs,
                     "subject_names": names_in_text,
+                    **(
+                        {
+                            "chronicle_ruler_active": bool(
+                                row["chronicle_ruler_active"]
+                            )
+                        }
+                        if continuous_backbone
+                        else {}
+                    ),
+                    **(
+                        {"chronicle_ruler_ref": str(row["chronicle_ruler_ref"])}
+                        if row.get("chronicle_ruler_ref")
+                        else {}
+                    ),
                 }
             )
         if not segments:
@@ -652,14 +808,23 @@ def build_ruler_neutral_plan(
         shards: list[list[dict[str, Any]]] = []
         shard: list[dict[str, Any]] = []
         shard_chars = 0
+        shard_subject_refs: set[str] = set()
         for segment in segments:
             segment_chars = len(str(segment["initial_text"]))
-            if shard and shard_chars + segment_chars > 4800:
+            segment_subject_refs = _model_group_subject_refs([segment])
+            if shard and (
+                shard_chars + segment_chars > 4800
+                or len(shard) >= MODEL_GROUP_SEGMENT_LIMIT
+                or len(shard_subject_refs | segment_subject_refs)
+                > MODEL_GROUP_SUBJECT_LIMIT
+            ):
                 shards.append(shard)
                 shard = []
                 shard_chars = 0
+                shard_subject_refs = set()
             shard.append(segment)
             shard_chars += segment_chars
+            shard_subject_refs.update(segment_subject_refs)
         if shard:
             shards.append(shard)
         for shard_segments in shards:
@@ -861,6 +1026,311 @@ def build_backbone_event_signatures(
     return signatures
 
 
+def build_deterministic_backbone_event_signatures(
+    *,
+    backbone_plan: Mapping[str, Any],
+    identity_resolver: HistoricalEntityResolver,
+) -> list[dict[str, Any]]:
+    """Create neutral recall signatures before any model extraction.
+
+    These signatures establish source-unit identity and recall anchors only.
+    They do not decide whether the unit contains a scoreable fact, merge it
+    into an outcome, or assign direction.  That keeps directed backsource
+    planning deterministic and removes the old model-stage dependency.
+    """
+
+    signatures: list[dict[str, Any]] = []
+    for batch in backbone_plan.get("page_batches") or ():
+        for segment in batch.get("segments") or ():
+            bindings = []
+            allowed_refs = {
+                str(value) for value in segment.get("subject_refs") or ()
+            }
+            for name in segment.get("subject_names") or ():
+                subject_ref = identity_resolver.entity_for_name(str(name)).person_ref
+                if subject_ref not in allowed_refs:
+                    raise ValueError(f"{segment['segment_ref']}: 人物名称与 subject_ref 不一致")
+                bindings.append(
+                    {
+                        "subject_ref": str(subject_ref),
+                        "canonical_name": str(name),
+                        "recall_terms": list(identity_resolver.recall_terms(str(name))),
+                    }
+                )
+            source_text = str(segment["text"])
+            subject_terms = {
+                _normalized_anchor(term)
+                for row in bindings
+                for term in row["recall_terms"]
+            }
+            quote_anchors = [
+                anchor
+                for anchor in _semantic_event_anchors([source_text])
+                if not any(
+                    anchor in subject_term or subject_term in anchor
+                    for subject_term in subject_terms
+                )
+            ]
+            event_identity = {
+                "policy": _EVENT_TARGET_POLICY_VERSION,
+                "page_title": batch["page_title"],
+                "revision_ref": batch["revision_ref"],
+                "segment_ref": segment["segment_ref"],
+                "subject_refs": sorted(str(row["subject_ref"]) for row in bindings),
+            }
+            signatures.append(
+                {
+                    "event_ref": "EVENT-AUTO-" + _digest(event_identity)[:20].upper(),
+                    "subject_bindings": sorted(
+                        bindings, key=lambda row: str(row["subject_ref"])
+                    ),
+                    "chronology_anchors": _chronology_event_anchors(source_text),
+                    "location_anchors": _location_event_anchors(source_text),
+                    "action_anchors": [],
+                    "result_anchors": [],
+                    "quote_anchors": quote_anchors,
+                    "backbone_quotes": [
+                        {
+                            "exact_quote": source_text,
+                            "page_title": str(batch["page_title"]),
+                            "revision_ref": str(batch["revision_ref"]),
+                            "segment_ref": str(segment["segment_ref"]),
+                            "segment_text_sha256": str(segment["text_sha256"]),
+                        }
+                    ],
+                    "resolution_status": "needs_fact_resolution",
+                }
+            )
+    return signatures
+
+
+_FACT_RESOLUTION_TRIGGER = re.compile(
+    r"(?:詔|诏|敕|制曰|令|命|遣|置|立|改|定|行|禁|罷|罢|免|減|减|省|增|"
+    r"修|築|筑|開|开|賑|赈|恤|給|给|賜|赐|收|戶籍|户籍|籍民|稅|税|租|役|徵|征|發|发|"
+    r"赦|拜|除|擢|任|黜|貶|贬|誅|诛|殺|杀|刑|法|獄|狱|"
+    r"官制|官員|官员|百官|官吏|吏治|百姓|民戶|民户|民田|"
+    r"軍|军|兵|攻|討(?!論)|讨(?!论)|擊|击|伐|圍|围|戰|战|守|救|降|破|克|敗|败|"
+    r"奏|諫|谏|拒|從之|从之|不從|不从)"
+)
+
+
+def build_deterministic_fact_resolution_plan(
+    plan: Mapping[str, Any],
+    *,
+    dense_segment_refs: Sequence[str] = (),
+) -> dict[str, Any]:
+    """Route only possible factual-action units to the extraction model.
+
+    Every source unit is still scanned locally. Units without any action,
+    command, implementation, institutional, personnel, military, or observable
+    result trigger are deterministically empty under the neutral contract.
+    """
+
+    page_batches = []
+    dense_refs = {str(value) for value in dense_segment_refs}
+    rejected_segment_refs = []
+    unbound_segment_refs = []
+    scanned_segment_count = 0
+    for batch in plan.get("page_batches") or ():
+        retained = []
+        for segment in batch.get("segments") or ():
+            scanned_segment_count += 1
+            if not segment.get("subject_refs"):
+                rejected_segment_refs.append(str(segment["segment_ref"]))
+                unbound_segment_refs.append(str(segment["segment_ref"]))
+            elif _FACT_RESOLUTION_TRIGGER.search(str(segment["text"])):
+                segment_ref = str(segment["segment_ref"])
+                retained.append(
+                    {
+                        **dict(segment),
+                        "model_weight": int(
+                            segment.get("model_weight")
+                            or (
+                                2
+                                if segment_ref in dense_refs
+                                or segment.get("source_role")
+                                in {"backsource", "supplement"}
+                                else 1
+                            )
+                        ),
+                    }
+                )
+            else:
+                rejected_segment_refs.append(str(segment["segment_ref"]))
+        if retained:
+            page_batches.append({**dict(batch), "segments": retained})
+    return {
+        **dict(plan),
+        "mention_index_fingerprint": _digest(
+            {
+                "policy": "deterministic-fact-resolution-routing-v2",
+                "input": plan.get("mention_index_fingerprint"),
+                "retained": [
+                    str(segment["segment_ref"])
+                    for batch in page_batches
+                    for segment in batch["segments"]
+                ],
+            }
+        ),
+        "page_batches": page_batches,
+        "deterministic_routing": {
+            "policy_version": "deterministic-fact-resolution-routing-v2",
+            "scanned_segment_count": scanned_segment_count,
+            "model_segment_count": sum(
+                len(batch["segments"]) for batch in page_batches
+            ),
+            "deterministic_empty_count": len(rejected_segment_refs),
+            "deterministic_empty_segment_refs": sorted(rejected_segment_refs),
+            "unbound_segment_count": len(unbound_segment_refs),
+            "model_call_count": 0,
+        },
+    }
+
+
+def seed_deterministic_campaign_facts(
+    *,
+    plan: Mapping[str, Any],
+    current: Mapping[str, Any] | None,
+    discovery: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Seed only completely covered clear campaign units into current results.
+
+    A whole event unit may skip generic model extraction only when every span
+    that could contain a neutral fact is contained in a deterministic campaign
+    quote. Outcome ambiguity remains explicit for the later projection layer;
+    it does not invalidate the neutral action fact.
+    Existing current segment results always take precedence.
+    """
+
+    existing = json.loads(json.dumps(current or {}, ensure_ascii=False))
+    existing_segment_refs = {
+        str(review.get("segment_ref") or "")
+        for result in existing.get("batch_results") or ()
+        for review in result.get("segment_reviews") or ()
+        if review.get("segment_ref")
+    }
+    events_by_segment: dict[str, list[Mapping[str, Any]]] = {}
+    for event in discovery.get("events") or ():
+        events_by_segment.setdefault(str(event["segment_ref"]), []).append(event)
+
+    seeded_by_batch: dict[str, dict[str, Any]] = {}
+    outcome_judgment_pending_segment_refs: set[str] = set()
+    uncovered_segment_refs: set[str] = set()
+    seeded_fact_count = 0
+    for batch in plan.get("page_batches") or ():
+        for segment in batch.get("segments") or ():
+            segment_ref = str(segment["segment_ref"])
+            if segment_ref in existing_segment_refs:
+                continue
+            events = events_by_segment.get(segment_ref, [])
+            if not events:
+                continue
+            clear_ranges = [
+                (int(event["start_offset"]), int(event["end_offset"]))
+                for event in events
+            ]
+            action_spans = [
+                span
+                for span in segment.get("spans") or ()
+                if _FACT_RESOLUTION_TRIGGER.search(str(span.get("text") or ""))
+            ]
+            if not action_spans or any(
+                not any(
+                    int(span["start_offset"]) >= start
+                    and int(span["end_offset"]) <= end
+                    for start, end in clear_ranges
+                )
+                for span in action_spans
+            ):
+                uncovered_segment_refs.add(segment_ref)
+                continue
+            facts = [dict(event["neutral_fact"]) for event in events]
+            row = seeded_by_batch.setdefault(
+                str(batch["batch_ref"]),
+                {
+                    "schema_version": "shared-neutral-extraction-output-v1",
+                    "batch_ref": str(batch["batch_ref"]),
+                    "page_title": str(batch["page_title"]),
+                    "revision_ref": str(batch["revision_ref"]),
+                    "segment_count": 0,
+                    "segment_reviews": [],
+                    "limitations": [],
+                },
+            )
+            row["segment_reviews"].append(
+                {
+                    "segment_ref": segment_ref,
+                    "decision": "accept",
+                    "context_status": "sufficient",
+                    "facts": facts,
+                    "reason": "事件单元内全部事实触发句均由确定性清晰战役引文覆盖。",
+                }
+            )
+            row["segment_count"] += 1
+            seeded_fact_count += len(facts)
+            if any(event.get("resolution_status") == "needs_judgment" for event in events):
+                outcome_judgment_pending_segment_refs.add(segment_ref)
+
+    seeded_rows = [seeded_by_batch[key] for key in sorted(seeded_by_batch)]
+    existing["batch_results"] = [
+        *(existing.get("batch_results") or ()),
+        *seeded_rows,
+    ]
+    return {
+        "current": existing,
+        "seeded_segment_refs": sorted(
+            str(review["segment_ref"])
+            for row in seeded_rows
+            for review in row["segment_reviews"]
+        ),
+        "seeded_segment_count": sum(row["segment_count"] for row in seeded_rows),
+        "seeded_fact_count": seeded_fact_count,
+        "outcome_judgment_pending_segment_count": len(
+            outcome_judgment_pending_segment_refs
+        ),
+        "uncovered_segment_count": len(uncovered_segment_refs),
+    }
+
+
+def build_chronicle_role_projections(
+    *,
+    plan: Mapping[str, Any],
+    neutral_materials: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    """Project reusable ruler-to-person profile inputs without changing facts."""
+
+    ruler_ref_by_segment = {
+        str(segment["segment_ref"]): str(segment["chronicle_ruler_ref"])
+        for batch in plan.get("page_batches") or ()
+        for segment in batch.get("segments") or ()
+        if segment.get("chronicle_ruler_ref")
+    }
+    fact_refs_by_pair: dict[tuple[str, str], set[str]] = {}
+    for fact in (neutral_materials.get("fanout") or {}).get("facts") or ():
+        ruler_ref = ruler_ref_by_segment.get(str(fact.get("segment_ref") or ""))
+        if not ruler_ref:
+            continue
+        for actor in fact.get("actors") or ():
+            person_ref = str(actor.get("subject_ref") or "")
+            if (
+                not person_ref
+                or person_ref == ruler_ref
+                or actor.get("role") in _NON_PROFILE_ROLES
+            ):
+                continue
+            fact_refs_by_pair.setdefault((ruler_ref, person_ref), set()).add(
+                str(fact["fact_ref"])
+            )
+    return [
+        {
+            "chronicle_ruler_ref": ruler_ref,
+            "profile_subject_ref": person_ref,
+            "fact_refs": sorted(fact_refs),
+        }
+        for (ruler_ref, person_ref), fact_refs in sorted(fact_refs_by_pair.items())
+    ]
+
+
 def _event_target_batches(
     *,
     source_index: LocalSourceTextIndex,
@@ -975,8 +1445,17 @@ def _event_target_batches(
             ]
             if not matched_names or not matched_terms:
                 continue
+            long_semantic_terms = {
+                term for term in matched_terms if len(term) >= 4
+            }
+            # A lone four-character overlap is common in long biographies and
+            # produced near-full-book recall. Keep it only when an independent
+            # chronology/location anchor agrees; otherwise require two long
+            # semantic anchors from the same backbone event.
+            if not matched_context and len(long_semantic_terms) < 2:
+                continue
             semantic_score = sum(len(term) ** 2 for term in matched_terms)
-            if not any(len(term) >= 4 for term in matched_terms):
+            if not long_semantic_terms:
                 continue
             score = (
                 20 * len(matched_names)
@@ -994,7 +1473,7 @@ def _event_target_batches(
             row = units[unit_id]
             page = row["page"]
             role = str(row["role"])
-            per_work_limit = 2 if role == "backsource" else 1
+            per_work_limit = 1
             if retained_by_work.get(page.work_title, 0) >= per_work_limit:
                 continue
             unit = row["unit"]
@@ -1101,7 +1580,10 @@ def _event_target_batches(
         shard_chars = 0
         for segment in sorted(segments, key=lambda row: str(row["segment_ref"])):
             segment_chars = len(str(segment["text"]))
-            if shard and shard_chars + segment_chars > 4800:
+            if shard and (
+                shard_chars + segment_chars > 4800
+                or len(shard) >= MODEL_GROUP_SEGMENT_LIMIT
+            ):
                 shards.append(shard)
                 shard = []
                 shard_chars = 0
@@ -1133,17 +1615,22 @@ def _event_target_batches(
 def build_event_directed_neutral_plan(
     *,
     backbone_plan: Mapping[str, Any],
-    backbone_materials: Mapping[str, Any],
+    backbone_materials: Mapping[str, Any] | None = None,
+    event_signatures: Sequence[Mapping[str, Any]] | None = None,
     source_index: LocalSourceTextIndex,
     identity_resolver: HistoricalEntityResolver,
     backsource_works: Sequence[str],
     supplement_works: Sequence[str],
 ) -> dict[str, Any]:
-    event_signatures = build_backbone_event_signatures(
-        backbone_plan=backbone_plan,
-        backbone_materials=backbone_materials,
-        identity_resolver=identity_resolver,
-    )
+    if event_signatures is None:
+        if backbone_materials is None:
+            raise ValueError("事件回源需要确定性事件签名或已抽取主干材料")
+        event_signatures = build_backbone_event_signatures(
+            backbone_plan=backbone_plan,
+            backbone_materials=backbone_materials,
+            identity_resolver=identity_resolver,
+        )
+    event_signatures = [dict(row) for row in event_signatures]
     target_batches, target_bindings = _event_target_batches(
         source_index=source_index,
         event_signatures=event_signatures,
@@ -1157,6 +1644,16 @@ def build_event_directed_neutral_plan(
         {"fact_ref": quote["fact_ref"], "event_ref": signature["event_ref"]}
         for signature in event_signatures
         for quote in signature["backbone_quotes"]
+        if quote.get("fact_ref")
+    ]
+    backbone_segment_bindings = [
+        {
+            "segment_ref": str(quote["segment_ref"]),
+            "event_ref": str(signature["event_ref"]),
+        }
+        for signature in event_signatures
+        for quote in signature["backbone_quotes"]
+        if quote.get("segment_ref")
     ]
     return {
         "schema_version": PLAN_SCHEMA_VERSION,
@@ -1174,7 +1671,10 @@ def build_event_directed_neutral_plan(
         "event_target_policy": _EVENT_TARGET_POLICY_VERSION,
         "event_signatures": event_signatures,
         "event_fact_bindings": fact_bindings,
-        "target_segment_event_bindings": target_bindings,
+        "target_segment_event_bindings": [
+            *backbone_segment_bindings,
+            *target_bindings,
+        ],
         "page_batches": [*(backbone_plan.get("page_batches") or ()), *target_batches],
     }
 
@@ -1554,6 +2054,9 @@ def extract_current_neutral_materials(
     pages_per_call: int = 5,
     subject_ref_by_name: Mapping[str, str] | None = None,
     identity_resolver: HistoricalEntityResolver | None = None,
+    supplemental_facts_by_segment: Mapping[
+        str, Sequence[Mapping[str, Any]]
+    ] | None = None,
 ) -> dict[str, Any]:
     subject_ref_by_name = dict(subject_ref_by_name or {})
     current_results = {
@@ -1593,6 +2096,8 @@ def extract_current_neutral_materials(
     results: dict[str, Mapping[str, Any]] = {}
     pending = []
     retry_seeds: dict[str, Mapping[str, Any]] = {}
+    seeded_reviews_by_batch: dict[str, dict[str, Mapping[str, Any]]] = {}
+    seeded_limitations_by_batch: dict[str, list[str]] = {}
     segment_checkpoint_dir = checkpoint_dir / "_segments"
 
     def validate_one(
@@ -1701,6 +2206,8 @@ def extract_current_neutral_materials(
                     pending.append(batch)
             else:
                 seeded, seeded_limitations = seed_current_segments(batch)
+                seeded_reviews_by_batch[batch_ref] = seeded
+                seeded_limitations_by_batch[batch_ref] = seeded_limitations
                 if len(seeded) == len(batch["segments"]):
                     reused = {
                         "schema_version": "shared-neutral-extraction-output-v1",
@@ -1717,9 +2224,20 @@ def extract_current_neutral_materials(
                     validate_one(batch, reused)
                     results[batch_ref] = reused
                 else:
-                    pending.append(batch)
+                    pending.append(
+                        {
+                            **dict(batch),
+                            "segments": [
+                                segment
+                                for segment in batch["segments"]
+                                if str(segment["segment_ref"]) not in seeded
+                            ],
+                        }
+                    )
         else:
             seeded, seeded_limitations = seed_current_segments(batch)
+            seeded_reviews_by_batch[batch_ref] = seeded
+            seeded_limitations_by_batch[batch_ref] = seeded_limitations
             if len(seeded) == len(batch["segments"]):
                 reused = {
                     "schema_version": "shared-neutral-extraction-output-v1",
@@ -1736,7 +2254,16 @@ def extract_current_neutral_materials(
                 validate_one(batch, reused)
                 results[batch_ref] = reused
             else:
-                pending.append(batch)
+                pending.append(
+                    {
+                        **dict(batch),
+                        "segments": [
+                            segment
+                            for segment in batch["segments"]
+                            if str(segment["segment_ref"]) not in seeded
+                        ],
+                    }
+                )
 
     def has_current_segment_checkpoint(batch: Mapping[str, Any]) -> bool:
         batch_ref = str(batch["batch_ref"])
@@ -1804,6 +2331,49 @@ def extract_current_neutral_materials(
             "segments": prompt_segments,
         }
 
+    def prepare_prompt_group(
+        group: Sequence[Mapping[str, Any]],
+    ) -> tuple[list[dict[str, Any]], dict[str, list[str]]]:
+        """Coalesce same-page shards before transport, preserving result owners."""
+
+        grouped: dict[tuple[str, str, str], list[Mapping[str, Any]]] = {}
+        for batch in group:
+            key = (
+                str(batch["page_title"]),
+                str(batch["revision_ref"]),
+                str(batch.get("source_role") or ""),
+            )
+            grouped.setdefault(key, []).append(batch)
+        prompt_batches = []
+        owners: dict[str, list[str]] = {}
+        for key in sorted(grouped):
+            shards = grouped[key]
+            owner_refs = [str(batch["batch_ref"]) for batch in shards]
+            if len(shards) == 1:
+                combined = dict(shards[0])
+            else:
+                combined = {
+                    **dict(shards[0]),
+                    "batch_ref": "PROMPT-GROUP-"
+                    + _digest(
+                        {
+                            "page_title": key[0],
+                            "revision_ref": key[1],
+                            "batch_refs": owner_refs,
+                        }
+                    )[:20].upper(),
+                    "segments": [
+                        segment
+                        for batch in shards
+                        for segment in batch["segments"]
+                    ],
+                }
+            prepared = prepare_prompt_batch(combined)
+            prompt_ref = str(prepared["batch_ref"])
+            owners[prompt_ref] = owner_refs
+            prompt_batches.append(prepared)
+        return prompt_batches, owners
+
     groups: list[list[Mapping[str, Any]]] = []
     oversized_fresh: list[Mapping[str, Any]] = []
     eligible_fresh: list[Mapping[str, Any]] = []
@@ -1841,11 +2411,21 @@ def extract_current_neutral_materials(
         canary_prompt_chars = prompt_chars_by_ref[str(canary_batch["batch_ref"])]
         all_eligible_prompt_chars = len(
             build_compact_multi_page_prompt(
-                [prepare_prompt_batch(row) for row in eligible_fresh]
+                prepare_prompt_group(eligible_fresh)[0]
             )
         )
         if (
             len(eligible_fresh) <= pages_per_call
+            and sum(_model_group_weight(row["segments"]) for row in eligible_fresh)
+            <= MODEL_GROUP_WEIGHT_LIMIT
+            and len(
+                {
+                    subject_ref
+                    for row in eligible_fresh
+                    for subject_ref in _model_group_subject_refs(row["segments"])
+                }
+            )
+            <= MODEL_GROUP_SUBJECT_LIMIT
             and all_eligible_prompt_chars
             <= min(MODEL_GROUP_PROMPT_CHAR_LIMIT, 2 * canary_prompt_chars)
         ):
@@ -1853,11 +2433,14 @@ def extract_current_neutral_materials(
             eligible_fresh = []
     if eligible_fresh:
         groups.append([canary_batch])
-        comparable_prompt_limit = min(
-            MODEL_GROUP_PROMPT_CHAR_LIMIT, 2 * canary_prompt_chars
-        )
+        # Both source payload and the combined prompt remain capped at 6k.
+        # Same-page coalescing removes repeated bindings before this check, so
+        # the cap controls historical output density rather than JSON overhead.
+        comparable_prompt_limit = MODEL_GROUP_PROMPT_CHAR_LIMIT
         group: list[Mapping[str, Any]] = []
         group_chars = 0
+        group_weight = 0
+        group_subject_refs: set[str] = set()
         for batch in eligible_fresh:
             if batch is canary_batch:
                 continue
@@ -1865,29 +2448,37 @@ def extract_current_neutral_materials(
                 len(_prompt_segment_view(segment)["text"])
                 for segment in batch["segments"]
             )
-            prepared_batch = prepare_prompt_batch(batch)
             candidate_prompt_chars = (
                 len(
                     build_compact_multi_page_prompt(
-                        [*(prepare_prompt_batch(row) for row in group), prepared_batch]
+                        prepare_prompt_group([*group, batch])[0]
                     )
                 )
                 if group
                 else prompt_chars_by_ref[str(batch["batch_ref"])]
             )
+            batch_subject_refs = _model_group_subject_refs(batch["segments"])
             if group and (
                 len(group) >= pages_per_call
                 or group_chars + batch_chars > MODEL_GROUP_CHAR_LIMIT
+                or group_weight + _model_group_weight(batch["segments"])
+                > MODEL_GROUP_WEIGHT_LIMIT
+                or len(group_subject_refs | batch_subject_refs)
+                > MODEL_GROUP_SUBJECT_LIMIT
                 or candidate_prompt_chars > comparable_prompt_limit
             ):
                 groups.append(group)
                 group = []
                 group_chars = 0
+                group_weight = 0
+                group_subject_refs = set()
             if prompt_chars_by_ref[str(batch["batch_ref"])] > comparable_prompt_limit:
                 groups.append([batch])
                 continue
             group.append(batch)
             group_chars += batch_chars
+            group_weight += _model_group_weight(batch["segments"])
+            group_subject_refs.update(batch_subject_refs)
         if group:
             groups.append(group)
     model_call_count = len(groups)
@@ -1903,7 +2494,7 @@ def extract_current_neutral_materials(
             and len(group[0]["segments"]) > MODEL_SINGLE_BATCH_SEGMENT_LIMIT
         ):
             raise ValueError("超长单页批次必须按 segment 拆分")
-        prompt_group = [prepare_prompt_batch(batch) for batch in group]
+        prompt_group, prompt_owners = prepare_prompt_group(group)
         payload, _ = runner.run(
             build_compact_multi_page_prompt(prompt_group, strict_quotes=strict_quotes)
         )
@@ -1928,9 +2519,12 @@ def extract_current_neutral_materials(
             raw_ref = str(raw.get("batch_ref") or "")
             if len(group) == 1:
                 raw_ref = expected[0]
-            if raw_ref in compact_by_ref:
-                seen_batch_refs.add(raw_ref)
-                compact_by_ref[raw_ref]["limitations"].extend(
+            limitation_owners = prompt_owners.get(raw_ref, [raw_ref])
+            for owner in limitation_owners:
+                if owner not in compact_by_ref:
+                    continue
+                seen_batch_refs.add(owner)
+                compact_by_ref[owner]["limitations"].extend(
                     str(value) for value in raw.get("limitations") or ()
                 )
             for key in ("facts", "context_requests"):
@@ -2149,6 +2743,27 @@ def extract_current_neutral_materials(
                 for row in plan["page_batches"]
                 if row["batch_ref"] == batch_ref
             )
+            seeded_reviews = seeded_reviews_by_batch.get(batch_ref) or {}
+            if seeded_reviews:
+                reviews = {
+                    str(review.get("segment_ref") or ""): review
+                    for review in result.get("segment_reviews") or ()
+                }
+                reviews.update(seeded_reviews)
+                result = {
+                    **dict(result),
+                    "segment_count": len(batch["segments"]),
+                    "segment_reviews": [
+                        reviews[str(segment["segment_ref"])]
+                        for segment in batch["segments"]
+                    ],
+                    "limitations": sorted(
+                        {
+                            *[str(value) for value in result.get("limitations") or ()],
+                            *seeded_limitations_by_batch.get(batch_ref, ()),
+                        }
+                    ),
+                }
             try:
                 validate_one(batch, result)
             except ValueError:
@@ -2280,6 +2895,9 @@ def extract_current_neutral_materials(
                     continue
                 valid_reviews_by_batch[batch_ref][segment_ref] = review
         fallback_tasks: list[tuple[Mapping[str, Any], list[Mapping[str, Any]]]] = []
+        fallback_chunk_char_limit = max(
+            420, 1800 * min(max(1, pages_per_call), 5) // 5
+        )
         for batch in fallback:
             batch_ref = str(batch["batch_ref"])
             chunk: list[Mapping[str, Any]] = []
@@ -2290,7 +2908,10 @@ def extract_current_neutral_materials(
                 segment_chars = len(
                     _prompt_segment_view(segment)["text"]
                 )
-                if chunk and chunk_chars + segment_chars > 1800:
+                if chunk and (
+                    chunk_chars + segment_chars > fallback_chunk_char_limit
+                    or len(chunk) >= MODEL_GROUP_SEGMENT_LIMIT
+                ):
                     fallback_tasks.append((batch, chunk))
                     chunk = []
                     chunk_chars = 0
@@ -2457,7 +3078,34 @@ def extract_current_neutral_materials(
             raise RuntimeError(
                 f"中性抽取片段重试失败，已保存其余成功页面: {failed_refs}"
             ) from first
-    ordered = [results[str(batch["batch_ref"])] for batch in plan["page_batches"]]
+    ordered = [
+        json.loads(json.dumps(results[str(batch["batch_ref"])], ensure_ascii=False))
+        for batch in plan["page_batches"]
+    ]
+    supplemental_facts_by_segment = dict(supplemental_facts_by_segment or {})
+    if supplemental_facts_by_segment:
+        for result in ordered:
+            for review in result.get("segment_reviews") or ():
+                supplemental = supplemental_facts_by_segment.get(
+                    str(review.get("segment_ref") or ""), ()
+                )
+                existing_quotes = {
+                    str(fact.get("exact_quote") or "")
+                    for fact in review.get("facts") or ()
+                }
+                additions = [
+                    dict(fact)
+                    for fact in supplemental
+                    if str(fact.get("exact_quote") or "") not in existing_quotes
+                ]
+                if not additions:
+                    continue
+                review["facts"] = [*(review.get("facts") or ()), *additions]
+                review["decision"] = "accept"
+                review["context_status"] = "sufficient"
+                review["reason"] = (
+                    "通用抽取结果已合并确定性军事行动事实；成果方向仍由后置投影裁决。"
+                )
     fanout = build_shared_neutral_fact_fanout(plan, ordered)
     event_refs_by_fact: dict[str, set[str]] = {}
     for binding in plan.get("event_fact_bindings") or ():

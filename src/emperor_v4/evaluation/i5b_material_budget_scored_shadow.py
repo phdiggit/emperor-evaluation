@@ -518,7 +518,10 @@ def _appointment_object_projection(
 
 
 def _appointment_density(
-    selected: Sequence[Mapping[str, Any]], side: str, object_cap: Decimal
+    selected: Sequence[Mapping[str, Any]],
+    side: str,
+    object_cap: Decimal,
+    rank_factors: Sequence[Mapping[str, Any]],
 ) -> Decimal:
     object_values, _ = _appointment_object_projection(selected, object_cap)
     scale = Decimal("1.5") if side == "positive" else Decimal("1")
@@ -529,9 +532,20 @@ def _appointment_density(
     for index, value in enumerate(ordered, start=1):
         if previous is None or value != previous:
             rank = index
-        total += value / _decimal(rank).sqrt()
+        total += value * _event_rank_factor(rank_factors, rank)
         previous = value
     return scale * total
+
+
+def _event_rank_factor(
+    rank_factors: Sequence[Mapping[str, Any]], rank: int
+) -> Decimal:
+    if rank < 1 or not rank_factors:
+        raise ValueError("事件材料尾部折减合同无效")
+    for row in rank_factors:
+        if rank <= int(row["through_rank"]):
+            return _decimal(row["factor"])
+    return _decimal(rank_factors[-1]["factor"])
 
 
 def _build_material_rule(
@@ -565,6 +579,7 @@ def _build_material_rule(
         raise ValueError(f"{rule_code} material_id 重复")
 
     budget = policy["settlement_budget"]["event_rules"][rule_code]
+    rank_factors = policy["settlement_budget"]["event_rank_factors"]
     appointment_object_cap = Decimal("0")
     if rule_code == "appointment_delegation":
         aggregation_code = str(policy["rules"][rule_code]["aggregation_policy"])
@@ -581,6 +596,7 @@ def _build_material_rule(
     object_material_contribution_by_side: dict[str, dict[str, Decimal]] = {}
     object_boundary_by_side: dict[str, Decimal] = {}
     object_rank_by_side: dict[str, dict[str, int]] = {}
+    material_rank_by_side: dict[str, dict[str, int]] = {}
     for side in ("positive", "negative"):
         decisions = list((rule_manifest.get("eligible") or {}).get(side) or [])
         keys = [str(row["independence_key"]) for row in decisions]
@@ -659,6 +675,16 @@ def _build_material_rule(
                 if settlement_mode == "all_eligible_shadow"
                 else candidates[: int(budget[side])]
             )
+            ranks: dict[str, int] = {}
+            previous_value: Decimal | None = None
+            competition_rank = 0
+            for index, (material, _) in enumerate(selected_candidates, start=1):
+                value = material["material_magnitude"]
+                if previous_value is None or value != previous_value:
+                    competition_rank = index
+                ranks[str(material["material_id"])] = competition_rank
+                previous_value = value
+            material_rank_by_side[side] = ranks
         selected = [row[0] for row in selected_candidates]
         for material, decision in selected_candidates:
             material_id = str(material["material_id"])
@@ -680,7 +706,15 @@ def _build_material_rule(
                 view["actual_signal_contribution"] = _rounded(
                     (Decimal("1.5") if side == "positive" else Decimal("1"))
                     * object_material_contribution_by_side[side][material_id]
-                    / _decimal(object_rank_by_side[side][object_ref]).sqrt()
+                    * _event_rank_factor(
+                        rank_factors, object_rank_by_side[side][object_ref]
+                    )
+                )
+                view["settlement_rank"] = object_rank_by_side[side][object_ref]
+                view["settlement_rank_factor"] = _rounded(
+                    _event_rank_factor(
+                        rank_factors, object_rank_by_side[side][object_ref]
+                    )
                 )
             else:
                 view["selection_basis"] = (
@@ -794,10 +828,16 @@ def _build_material_rule(
 
     if rule_code == "appointment_delegation":
         positive = _appointment_density(
-            selected_by_side["positive"], "positive", appointment_object_cap
+            selected_by_side["positive"],
+            "positive",
+            appointment_object_cap,
+            rank_factors,
         )
         negative = _appointment_density(
-            selected_by_side["negative"], "negative", appointment_object_cap
+            selected_by_side["negative"],
+            "negative",
+            appointment_object_cap,
+            rank_factors,
         )
     else:
         positive, positive_objects, positive_contributions = _object_density_projection(
@@ -808,8 +848,29 @@ def _build_material_rule(
         )
         object_values = {**positive_objects, **negative_objects}
         contributions = {**positive_contributions, **negative_contributions}
+        positive = sum(
+            (
+                contribution
+                * _event_rank_factor(
+                    rank_factors, material_rank_by_side["positive"][material_id]
+                )
+                for material_id, contribution in positive_contributions.items()
+            ),
+            Decimal("0"),
+        )
+        negative = sum(
+            (
+                contribution
+                * _event_rank_factor(
+                    rank_factors, material_rank_by_side["negative"][material_id]
+                )
+                for material_id, contribution in negative_contributions.items()
+            ),
+            Decimal("0"),
+        )
         for view in selected_views:
             material_id = str(view["material_id"])
+            side = str(view["side"])
             settlement_object_ref = str(
                 view.get("settlement_object_ref") or view["object_ref"]
             )
@@ -819,9 +880,13 @@ def _build_material_rule(
             view["object_internal_contribution"] = _rounded(
                 contributions[material_id]
             )
-            view["actual_signal_contribution"] = view[
-                "object_internal_contribution"
-            ]
+            rank = material_rank_by_side[side][material_id]
+            rank_factor = _event_rank_factor(rank_factors, rank)
+            view["settlement_rank"] = rank
+            view["settlement_rank_factor"] = _rounded(rank_factor)
+            view["actual_signal_contribution"] = _rounded(
+                contributions[material_id] * rank_factor
+            )
     result = {
         "rule_code": rule_code,
         "rule_label": RULE_LABELS[rule_code],
@@ -849,6 +914,7 @@ def _build_material_rule(
             else int(budget["negative"])
         ),
         "settlement_budget_unit": str(budget["unit"]),
+        "settlement_rank_factors": [dict(row) for row in rank_factors],
         **(
             {"same_object_value_cap": _rounded(appointment_object_cap)}
             if rule_code == "appointment_delegation"

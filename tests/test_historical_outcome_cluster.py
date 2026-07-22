@@ -9,6 +9,7 @@ import pytest
 from emperor_v4.evaluation.historical_outcome_cluster import (
     assess_person_talent_grade,
     build_outcome_episode,
+    cluster_semantic_fingerprint,
     validate_historical_outcome_registry,
 )
 from emperor_v4.evaluation.i5b_current_value_runner import (
@@ -62,6 +63,63 @@ def test_outcome_identity_and_fact_lineage_fail_closed() -> None:
         )
 
 
+def test_campaign_registry_separates_ruler_relation_land_axis_and_process_adversity() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    registry = copy.deepcopy(pack["outcome_registry"])
+    campaign = next(
+        row
+        for row in registry["clusters"]
+        if row["outcome_kind"] == "campaign"
+        and any(member["actor_kind"] == "ruler" for member in row["members"])
+        and any(member["actor_kind"] == "person" for member in row["members"])
+    )
+    ruler_member = next(
+        member for member in campaign["members"] if member["actor_kind"] == "ruler"
+    )
+    ruler_member["ruler_campaign_relation"] = "personal_command"
+    campaign["payload"].update(
+        {
+            "campaign_tier": "A",
+            "campaign_tier_basis": "战略门户争夺，面对主要区域对手并取得阶段结果。",
+            "land_strategic_value": "strategic_gateway",
+            "process_adversity": "material",
+            "process_adversity_basis": "阶段目标未全部实现，但已有战果仍可保留。",
+        }
+    )
+    campaign["semantic_fingerprint"] = cluster_semantic_fingerprint(campaign)
+
+    validation = validate_historical_outcome_registry(
+        registry,
+        schema_path=SCHEMA,
+        facts={row["record_ref"]: row for row in pack["facts"]},
+    )
+    assert validation["status"] == "passed"
+
+    invalid = copy.deepcopy(registry)
+    invalid_campaign = next(
+        row for row in invalid["clusters"] if row["outcome_ref"] == campaign["outcome_ref"]
+    )
+    person_member = next(
+        member
+        for member in invalid_campaign["members"]
+        if member["actor_kind"] == "person"
+    )
+    person_member["ruler_campaign_relation"] = "authorized"
+    invalid_campaign["semantic_fingerprint"] = cluster_semantic_fingerprint(
+        invalid_campaign
+    )
+    with pytest.raises(ValueError, match="只有战役中的皇帝"):
+        validate_historical_outcome_registry(
+            invalid,
+            schema_path=SCHEMA,
+            facts={row["record_ref"]: row for row in pack["facts"]},
+        )
+
+
 def test_grade_reason_is_derived_from_registered_role_and_scale() -> None:
     pack = json.loads(
         (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
@@ -75,8 +133,100 @@ def test_grade_reason_is_derived_from_registered_role_and_scale() -> None:
     )
     assert grade["grade"] == "top"
     assert "作为主帅" in grade["basis"]
-    assert "national级结果" in grade["basis"]
+    assert "S级战役群" in grade["basis"]
     assert len(grade["outcome_refs"]) == 3
+
+
+def test_single_s_plus_main_command_establishes_top_grade() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    campaign = copy.deepcopy(
+        next(
+            cluster
+            for cluster in pack["outcome_registry"]["clusters"]
+            if cluster["outcome_kind"] == "campaign"
+            and any(
+                member["actor_kind"] == "person"
+                and member["role_code"] in {"commander_in_chief", "principal_commander"}
+                for member in cluster["members"]
+            )
+        )
+    )
+    member = next(
+        member
+        for member in campaign["members"]
+        if member["actor_kind"] == "person"
+        and member["role_code"] in {"commander_in_chief", "principal_commander"}
+    )
+    campaign["payload"]["campaign_tier"] = "S+"
+    campaign["scale"]["decisiveness"] = "decisive"
+
+    grade = assess_person_talent_grade(
+        person_ref=member["actor_ref"],
+        clusters=[campaign],
+    )
+
+    assert grade["grade"] == "top"
+    assert grade["rule_path"] == "top_fallback"
+    assert grade["outcome_refs"] == [campaign["outcome_ref"]]
+
+
+def test_military_top_support_cannot_be_borrowed_from_governance() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    campaign = copy.deepcopy(
+        next(
+            cluster
+            for cluster in pack["outcome_registry"]["clusters"]
+            if cluster["outcome_kind"] == "campaign"
+        )
+    )
+    governance = copy.deepcopy(
+        next(
+            cluster
+            for cluster in pack["outcome_registry"]["clusters"]
+            if cluster["outcome_kind"] == "governance"
+        )
+    )
+    person_ref = "PERSON-TEST-DOMAIN-SEPARATION"
+    campaign["members"] = [
+        {
+            "actor_ref": person_ref,
+            "actor_name": "测试人物",
+            "actor_kind": "person",
+            "role_code": "commander_in_chief",
+            "contribution_scope": "独立军事成果",
+        }
+    ]
+    campaign["payload"]["campaign_tier"] = "S-"
+    campaign["stable_delivery"] = False
+    campaign["important_method_or_legacy"] = False
+    governance["members"] = [
+        {
+            "actor_ref": person_ref,
+            "actor_name": "测试人物",
+            "actor_kind": "person",
+            "role_code": "lead",
+            "contribution_scope": "独立治理成果",
+        }
+    ]
+    governance["scale"]["level"] = "regional"
+    governance["stable_delivery"] = False
+    governance["important_method_or_legacy"] = False
+
+    grade = assess_person_talent_grade(
+        person_ref=person_ref,
+        clusters=[campaign, governance],
+    )
+
+    assert grade["grade"] == "important"
+    assert grade["rule_path"] == "domain_important_threshold"
 
 
 def test_mixed_professional_result_keeps_talent_scope_distinct_from_ruler_net() -> None:
@@ -110,7 +260,7 @@ def test_two_decisive_national_commands_activate_historic_path(person: str) -> N
     )
 
     assert grade["grade"] == "historic"
-    assert grade["rule_path"] == "military_exceptional_two_national_command"
+    assert grade["rule_path"] == "military_exceptional_two_s_command"
     assert len(grade["outcome_refs"]) == 2
 
 

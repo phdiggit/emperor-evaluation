@@ -10,8 +10,8 @@ project:
 current_scope:
   item: fifth_item_b
   shadow_only: true
-  five_rule_wall_clock_budget_minutes: 15
-  wall_clock_budget_priority: highest
+  five_rule_wall_clock_budget_minutes: null
+  wall_clock_budget_priority: observability_only
   person_retrieval_entry_limit: 12
   policy_entry_counts_against_person_limit: false
 
@@ -24,6 +24,8 @@ i5b_current_value:
       result: eval/i5b_current_value/李世民/result.json
       neutral_scan_backbone_works: [資治通鑑]
       neutral_scan_backbone_page_ranges: {資治通鑑: [184, 199]}
+      neutral_scan_backbone_material_token: TANG-EARLY-CONTINUOUS
+      neutral_scan_shared_subjects: [李渊]
       neutral_scan_backsource_works: [舊唐書, 新唐書]
       dynasty_governance_material_token: TANG
       dynasty_governance_period_terms: [貞觀, 贞观, 唐太宗]
@@ -47,6 +49,8 @@ person_profile_storage:
   canonical_identity_table: v4_person_profile.person_identity_registry
 
 neutral_material_reuse:
+  public_outcome_and_profile_rules: docs/证据规则/公共成果登记与人物画像规则.md
+  single_emperor_session_workflow: docs/证据规则/单皇帝主控会话工作流.md
   unified_intake_contract: neutral-material-intake
   unified_intake_channels: [ruler_chronicle, person_biography, dynasty_governance]
   dynasty_governance_fact_requires: [fact_ref, source_refs]
@@ -118,8 +122,9 @@ talent_grade:
   domain_equivalent_paths: [military, civil_governance, culture_and_scholarship, all_round]
   governance_registry_fact_floor_does_not_lower_current_grade: true
   governance_registry_historic_path_still_requires_authority_calibration: true
-  military_normal_path: two_national_plus_one_regional
-  military_exception_path_requires_two_explicit_decisive_main_command_results: true
+  military_normal_path: two_s_plus_one_a
+  military_s_plus_path: one_decisive_s_plus_one_a
+  military_exception_path_requires_two_explicit_decisive_s_main_command_results: true
   military_responsibility_roles: [commander_in_chief, principal_commander, deputy_commander, participant]
   civil_responsibility_roles: [exclusive, lead, participant]
   clear_professional_success_survives_cross_domain_costs: true
