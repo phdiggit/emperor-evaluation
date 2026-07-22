@@ -947,8 +947,10 @@ def test_structured_runner_falls_back_to_global_median_for_unmatched_size() -> N
     runner._record_success(prompt_chars=6_000, elapsed_seconds=40)
     runner._record_success(prompt_chars=5_000, elapsed_seconds=50)
 
+    assert runner._adaptive_timeout_seconds(5_500) == 120
+    assert runner._adaptive_timeout_seconds(500) == 120
+    runner._record_success(prompt_chars=5_500, elapsed_seconds=45)
     assert runner._adaptive_timeout_seconds(5_500) == 90
-    assert runner._adaptive_timeout_seconds(500) == 90
 
 
 def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
@@ -1021,6 +1023,8 @@ def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
         timeout_seconds=10,
         cwd=ROOT,
     )
+    for _ in range(3):
+        runner._record_success(prompt_chars=len("BATCH-AUTO-BBBB"), elapsed_seconds=0.1)
 
     started = time.monotonic()
     errors = []
@@ -1039,7 +1043,7 @@ def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
     assert len(errors) == 1
     assert terminated == ["BATCH-AUTO-BBBB"]
     assert "prompt_sha256=" in str(errors[0])
-    assert "comparable_calls=1" in str(errors[0])
+    assert "comparable_calls=4" in str(errors[0])
     assert "BATCH-AUTO-BBBB" in str(errors[0])
 
 

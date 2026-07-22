@@ -23,6 +23,9 @@ class ModelBatchAnomalyError(TimeoutError):
     """A model subprocess exceeded the adaptive peer-duration envelope."""
 
 
+MIN_ADAPTIVE_BASELINE_SAMPLES = 3
+
+
 def _terminate_process_tree(process: subprocess.Popen[str]) -> None:
     """Best-effort termination without letting inherited pipes defeat timeout."""
     if process.poll() is not None:
@@ -138,6 +141,8 @@ class StructuredCodexRunner:
         if not baseline_samples:
             return float(self.timeout_seconds), None, 0
         baseline = float(median(baseline_samples))
+        if len(baseline_samples) < MIN_ADAPTIVE_BASELINE_SAMPLES:
+            return float(self.timeout_seconds), baseline, len(baseline_samples)
         return (
             min(float(self.timeout_seconds), 2.0 * baseline),
             baseline,
