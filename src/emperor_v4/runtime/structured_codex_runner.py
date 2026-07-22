@@ -24,6 +24,7 @@ class ModelBatchAnomalyError(TimeoutError):
 
 
 MIN_ADAPTIVE_BASELINE_SAMPLES = 3
+MIN_ADAPTIVE_TIMEOUT_SECONDS = 45.0
 
 
 def _terminate_process_tree(process: subprocess.Popen[str]) -> None:
@@ -144,7 +145,10 @@ class StructuredCodexRunner:
         if len(baseline_samples) < MIN_ADAPTIVE_BASELINE_SAMPLES:
             return float(self.timeout_seconds), baseline, len(baseline_samples)
         return (
-            min(float(self.timeout_seconds), 2.0 * baseline),
+            min(
+                float(self.timeout_seconds),
+                max(MIN_ADAPTIVE_TIMEOUT_SECONDS, 2.0 * baseline),
+            ),
             baseline,
             len(baseline_samples),
         )

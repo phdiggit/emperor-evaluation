@@ -1005,6 +1005,21 @@ def test_structured_runner_falls_back_to_global_median_for_unmatched_size() -> N
     assert runner._adaptive_timeout_seconds(5_500) == 90
 
 
+def test_structured_runner_keeps_absolute_adaptive_timeout_floor() -> None:
+    runner = StructuredCodexRunner(
+        codex_bin="codex",
+        model="test-model",
+        reasoning_effort="low",
+        output_schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        timeout_seconds=120,
+        cwd=ROOT,
+    )
+    for elapsed_seconds in (13, 14, 15):
+        runner._record_success(prompt_chars=5_500, elapsed_seconds=elapsed_seconds)
+
+    assert runner._adaptive_timeout_seconds(5_500) == 45
+
+
 def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -1066,6 +1081,10 @@ def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
     monkeypatch.setattr(
         "emperor_v4.runtime.structured_codex_runner._terminate_process_tree",
         lambda process: (terminated.append(process.label), process.kill()),
+    )
+    monkeypatch.setattr(
+        "emperor_v4.runtime.structured_codex_runner.MIN_ADAPTIVE_TIMEOUT_SECONDS",
+        0.5,
     )
     runner = StructuredCodexRunner(
         codex_bin="codex",
