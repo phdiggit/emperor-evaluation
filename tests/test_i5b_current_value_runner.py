@@ -48,6 +48,7 @@ from emperor_v4.runtime.emperor_rebuild import (
     RebuildLimits,
     _load_reusable_neutral_materials,
     _merge_neutral_currents,
+    _merge_outcome_projections,
     _resolve_source_index,
     _run_with_model_anomaly_recovery,
 )
@@ -806,6 +807,57 @@ def test_reusable_neutral_materials_require_matching_index_and_merge_segments(
             configured=project["i5b_current_value"]["rulers"]["目标皇帝"],
             source_index_identity="INDEX-B",
         )
+
+
+def test_reusable_neutral_materials_reuse_settled_outcome_dispositions() -> None:
+    source = {
+        "outcome_projection": {
+            "policy_fingerprint": "POLICY-A",
+            "dispositions": [
+                {
+                    "fact_ref": "FACT-A",
+                    "decision": "accepted",
+                    "candidate_keys": ["shared-outcome"],
+                    "reason": "already settled",
+                }
+            ],
+        }
+    }
+    target = {
+        "outcome_projection": {
+            "policy_fingerprint": "POLICY-A",
+            "dispositions": [
+                {
+                    "fact_ref": "FACT-B",
+                    "decision": "rejected",
+                    "reason": "target review",
+                }
+            ],
+        }
+    }
+
+    merged = _merge_outcome_projections([source, target])
+
+    assert merged == {
+        "policy_fingerprint": "POLICY-A",
+        "dispositions": [
+            {
+                "fact_ref": "FACT-A",
+                "decision": "accepted",
+                "candidate_keys": ["shared-outcome"],
+                "reason": "already settled",
+            },
+            {
+                "fact_ref": "FACT-B",
+                "decision": "rejected",
+                "reason": "target review",
+            },
+        ],
+    }
+    conflicting = json.loads(json.dumps(source))
+    conflicting["outcome_projection"]["dispositions"][0]["decision"] = "rejected"
+    with pytest.raises(ValueError, match="成果处置冲突"):
+        _merge_outcome_projections([source, conflicting])
 
 
 def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(

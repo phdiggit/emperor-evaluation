@@ -207,6 +207,37 @@ def _merge_neutral_currents(
     }
 
 
+def _merge_outcome_projections(
+    currents: Sequence[Mapping[str, Any] | None],
+) -> dict[str, Any] | None:
+    """Reuse settled neutral facts without replaying another ruler's model work."""
+
+    policy_fingerprint: str | None = None
+    dispositions: dict[str, dict[str, Any]] = {}
+    for current in currents:
+        projection = (current or {}).get("outcome_projection") or {}
+        current_policy = str(projection.get("policy_fingerprint") or "")
+        if not current_policy:
+            continue
+        if policy_fingerprint is None:
+            policy_fingerprint = current_policy
+        elif current_policy != policy_fingerprint:
+            raise ValueError("复用中性材料的成果投影策略版本不一致")
+        for row in projection.get("dispositions") or ():
+            fact_ref = str(row["fact_ref"])
+            candidate = dict(row)
+            previous = dispositions.get(fact_ref)
+            if previous is not None and previous != candidate:
+                raise ValueError(f"复用中性材料的成果处置冲突: {fact_ref}")
+            dispositions[fact_ref] = candidate
+    if policy_fingerprint is None:
+        return None
+    return {
+        "policy_fingerprint": policy_fingerprint,
+        "dispositions": [dispositions[key] for key in sorted(dispositions)],
+    }
+
+
 def _resolve_source_index(
     *,
     source_pack: Mapping[str, Any],
@@ -845,10 +876,11 @@ def rebuild_emperor(
             },
             event_signatures=model_plan.get("event_signatures") or (),
         )
-    if current_neutral and current_neutral.get("outcome_projection"):
-        neutral_materials["outcome_projection"] = current_neutral[
-            "outcome_projection"
-        ]
+    reused_projection = _merge_outcome_projections(
+        [*reusable_neutral_materials, current_neutral]
+    )
+    if reused_projection is not None:
+        neutral_materials["outcome_projection"] = reused_projection
     _atomic_text(
         neutral_path,
         json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
