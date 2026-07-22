@@ -139,6 +139,73 @@ def _load_current_config(workspace_root: Path, ruler: str) -> tuple[dict[str, An
     return source_pack, configured
 
 
+def _load_reusable_neutral_materials(
+    *,
+    workspace_root: Path,
+    configured: Mapping[str, Any],
+    source_index_identity: str,
+) -> tuple[list[Mapping[str, Any]], list[str]]:
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    rulers = (project.get("i5b_current_value") or {}).get("rulers") or {}
+    materials = []
+    reused_rulers = []
+    for ruler in configured.get("neutral_material_reuse_rulers") or ():
+        ruler_name = str(ruler)
+        source = rulers.get(ruler_name)
+        if not isinstance(source, Mapping) or not source.get("neutral_materials"):
+            raise ValueError(f"中性材料复用来源未配置: {ruler_name}")
+        path = workspace_root / str(source["neutral_materials"])
+        if not path.is_file():
+            raise ValueError(f"中性材料复用来源不存在: {ruler_name}")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if (
+            payload.get("schema_version") != "current-neutral-materials-v1"
+            or str(payload.get("source_index_identity") or "")
+            != source_index_identity
+        ):
+            raise ValueError(f"中性材料复用来源身份不匹配: {ruler_name}")
+        materials.append(payload)
+        reused_rulers.append(ruler_name)
+    return materials, reused_rulers
+
+
+def _merge_neutral_currents(
+    currents: Sequence[Mapping[str, Any] | None],
+) -> dict[str, Any]:
+    batch_results = []
+    batch_fingerprints: dict[str, Any] = {}
+    conflicting_fingerprint_keys: set[str] = set()
+    seen_results: set[str] = set()
+    for current in currents:
+        if not current:
+            continue
+        for result in current.get("batch_results") or ():
+            identity = _digest(result)
+            if identity in seen_results:
+                continue
+            seen_results.add(identity)
+            batch_results.append(result)
+        for key, value in (current.get("batch_fingerprints") or {}).items():
+            key = str(key)
+            if key in conflicting_fingerprint_keys:
+                continue
+            previous = batch_fingerprints.get(key)
+            if previous is not None and previous != value:
+                # Batch identities may legitimately be reused at segment level
+                # after a plan change.  Dropping the conflicting whole-batch
+                # fingerprint forces the stricter segment validation path.
+                batch_fingerprints.pop(key, None)
+                conflicting_fingerprint_keys.add(key)
+                continue
+            batch_fingerprints[key] = value
+    return {
+        "batch_results": batch_results,
+        "batch_fingerprints": batch_fingerprints,
+    }
+
+
 def _resolve_source_index(
     *,
     source_pack: Mapping[str, Any],
@@ -401,6 +468,13 @@ def rebuild_emperor(
             else ()
         ),
     )
+    reusable_neutral_materials, reused_neutral_rulers = (
+        _load_reusable_neutral_materials(
+            workspace_root=workspace_root,
+            configured=configured,
+            source_index_identity=source_index.identity,
+        )
+    )
     dynasty_governance_current: Mapping[str, Any] | None = None
     if dynasty_governance_token:
         governance_root = _resolve_dynasty_governance_root(
@@ -547,16 +621,9 @@ def rebuild_emperor(
             and candidate.get("backbone_identity") == shared_backbone_identity
         ):
             shared_backbone_current = candidate.get("materials")
-    combined_backbone_current = {
-        "batch_results": [
-            *((shared_backbone_current or {}).get("batch_results") or ()),
-            *((current_neutral or {}).get("batch_results") or ()),
-        ],
-        "batch_fingerprints": {
-            **dict((shared_backbone_current or {}).get("batch_fingerprints") or {}),
-            **dict((current_neutral or {}).get("batch_fingerprints") or {}),
-        },
-    }
+    combined_backbone_current = _merge_neutral_currents(
+        [shared_backbone_current, current_neutral, *reusable_neutral_materials]
+    )
     model_policy = yaml.safe_load(
         (workspace_root / "config/model-policy.yml").read_text(encoding="utf-8")
     )
@@ -709,16 +776,9 @@ def rebuild_emperor(
         if segment.get("source_role") in {"backsource", "supplement"}
     ]
     if target_segments:
-        directed_current = {
-            "batch_results": [
-                *((current_neutral or {}).get("batch_results") or ()),
-                *(backbone_materials.get("batch_results") or ()),
-            ],
-            "batch_fingerprints": {
-                **dict((current_neutral or {}).get("batch_fingerprints") or {}),
-                **dict(backbone_materials.get("batch_fingerprints") or {}),
-            },
-        }
+        directed_current = _merge_neutral_currents(
+            [current_neutral, *reusable_neutral_materials, backbone_materials]
+        )
         (
             neutral_materials,
             directed_recovery_count,
@@ -878,6 +938,11 @@ def rebuild_emperor(
         "source_index_missing_works": inventory["missing_works"],
         "neutral_fact_count": neutral_materials["fanout"]["fact_count"],
         "neutral_model_call_count": neutral_model_call_count,
+        "neutral_reuse_rulers": reused_neutral_rulers,
+        "neutral_reuse_batch_result_count": sum(
+            len(current.get("batch_results") or ())
+            for current in reusable_neutral_materials
+        ),
         "neutral_backbone_model_call_count": backbone_model_call_count,
         "neutral_backsource_model_call_count": backsource_model_call_count,
         "neutral_model_anomaly_recovery_count": neutral_recovery_count,

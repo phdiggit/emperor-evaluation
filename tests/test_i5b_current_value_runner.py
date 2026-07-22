@@ -14,6 +14,7 @@ from threading import Event, Lock
 import time
 
 import pytest
+import yaml
 
 from emperor_v4.evaluation.historical_outcome_cluster import (
     cluster_semantic_fingerprint,
@@ -44,6 +45,8 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
 from emperor_v4.eval import main as eval_main
 from emperor_v4.runtime.emperor_rebuild import (
     RebuildLimits,
+    _load_reusable_neutral_materials,
+    _merge_neutral_currents,
     _resolve_source_index,
     _run_with_model_anomaly_recovery,
 )
@@ -605,7 +608,7 @@ def _session_release_fixture(tmp_path: Path) -> Path:
         target = release / relative_path
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
-    for ruler in ("李世民", "刘邦"):
+    for ruler in ("李世民", "李渊", "刘邦"):
         shutil.copytree(
             ROOT / "eval/i5b_current_value" / ruler,
             release / "eval/i5b_current_value" / ruler,
@@ -663,6 +666,94 @@ def test_emperor_sessions_atomically_split_rulers_and_global_model_slots(
         state_root=state, session_id="SESSION-B"
     )
     assert emperor_session_control.session_status(state_root=state)["sessions"] == []
+
+
+def test_emperor_session_claim_allows_first_run_without_derived_outputs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    configured = json.loads(
+        json.dumps(
+            yaml.safe_load(
+                (release / "config/project.yml").read_text(encoding="utf-8")
+            ),
+            ensure_ascii=False,
+        )
+    )["i5b_current_value"]["rulers"]["李世民"]
+    for key in ("neutral_materials", "result", "outcome_binding"):
+        path = release / configured[key]
+        path.unlink(missing_ok=True)
+        if key == "result":
+            path.with_suffix(".md").unlink(missing_ok=True)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "e" * 40
+    )
+
+    lease = emperor_session_control.claim_session(
+        state_root=tmp_path / "state",
+        release_root=release,
+        session_id="SESSION-FIRST-RUN",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+
+    workspace = Path(lease["workspace_root"])
+    assert (workspace / configured["source_pack"]).is_file()
+    assert not (workspace / configured["result"]).exists()
+    assert (workspace / "eval/i5b_current_value/刘邦/source-pack.json").is_file()
+
+
+def test_reusable_neutral_materials_require_matching_index_and_merge_segments(
+    tmp_path: Path,
+) -> None:
+    workspace = tmp_path / "workspace"
+    (workspace / "config").mkdir(parents=True)
+    project = {
+        "i5b_current_value": {
+            "rulers": {
+                "来源皇帝": {"neutral_materials": "eval/source/neutral.json"},
+                "目标皇帝": {
+                    "neutral_material_reuse_rulers": ["来源皇帝"]
+                },
+            }
+        }
+    }
+    (workspace / "config/project.yml").write_text(
+        yaml.safe_dump(project, allow_unicode=True), encoding="utf-8"
+    )
+    source_path = workspace / "eval/source/neutral.json"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "current-neutral-materials-v1",
+                "source_index_identity": "INDEX-A",
+                "batch_results": [{"batch_ref": "BATCH-A", "segment_reviews": []}],
+                "batch_fingerprints": {"BATCH-A": "FP-A"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    materials, rulers = _load_reusable_neutral_materials(
+        workspace_root=workspace,
+        configured=project["i5b_current_value"]["rulers"]["目标皇帝"],
+        source_index_identity="INDEX-A",
+    )
+    merged = _merge_neutral_currents(
+        [materials[0], {"batch_results": materials[0]["batch_results"]}]
+    )
+
+    assert rulers == ["来源皇帝"]
+    assert len(merged["batch_results"]) == 1
+    assert merged["batch_fingerprints"] == {"BATCH-A": "FP-A"}
+    with pytest.raises(ValueError, match="身份不匹配"):
+        _load_reusable_neutral_materials(
+            workspace_root=workspace,
+            configured=project["i5b_current_value"]["rulers"]["目标皇帝"],
+            source_index_identity="INDEX-B",
+        )
 
 
 def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(

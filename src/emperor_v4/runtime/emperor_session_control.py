@@ -231,11 +231,48 @@ def _prepare_workspace(
 ) -> None:
     workspace_root.mkdir(parents=True, exist_ok=False)
     shutil.copytree(release_root / "config", workspace_root / "config")
+    project = yaml.safe_load(
+        (release_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    ruler_configs = (project.get("i5b_current_value") or {}).get("rulers") or {}
     source = release_root / "eval/i5b_current_value" / ruler
     if not (source / "source-pack.json").is_file():
         raise SessionControlError(f"release 不含皇帝 source-pack: {ruler}")
     shutil.copytree(source, workspace_root / "eval/i5b_current_value" / ruler)
+    # The public outcome registry is rebuilt from every configured source pack,
+    # even though this session may mutate only its claimed ruler.  Copy the
+    # other packs as immutable inputs, and copy explicitly declared neutral
+    # reuse sources so overlapping chronicle segments can be validated and
+    # reused without rescanning another ruler.
+    for other_ruler, other_config in ruler_configs.items():
+        if not isinstance(other_config, Mapping):
+            continue
+        if str(other_ruler) != ruler:
+            other_source = release_root / str(other_config.get("source_pack") or "")
+            if not other_source.is_file():
+                raise SessionControlError(
+                    f"release 缺少公共成果登记输入: {other_ruler}"
+                )
+            other_target = workspace_root / other_source.relative_to(release_root)
+            other_target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(other_source, other_target)
+    for reuse_ruler in configured.get("neutral_material_reuse_rulers") or ():
+        reuse_config = ruler_configs.get(str(reuse_ruler))
+        if not isinstance(reuse_config, Mapping):
+            raise SessionControlError(f"中性材料复用来源未配置: {reuse_ruler}")
+        reuse_source = release_root / str(reuse_config.get("neutral_materials") or "")
+        if not reuse_source.is_file():
+            raise SessionControlError(f"中性材料复用来源不存在: {reuse_ruler}")
+        reuse_target = workspace_root / reuse_source.relative_to(release_root)
+        reuse_target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(reuse_source, reuse_target)
     for path in _canonical_paths(release_root, configured).values():
+        if not path.is_file():
+            # A ruler's first run has only the immutable bootstrap source pack.
+            # The session owns generation of neutral materials, bindings and
+            # result views, so those outputs are intentionally absent before
+            # the first claim.
+            continue
         relative = path.relative_to(release_root)
         target = workspace_root / relative
         if target.is_file():

@@ -1,0 +1,96 @@
+{
+  "declarations": {
+    "database_write": false,
+    "formal_write": false,
+    "ranking": null,
+    "score_45": null,
+    "tier": null
+  },
+  "excluded_units": [],
+  "factor_acceptance": {
+    "method": "current_main_session_semantic_acceptance",
+    "numeric_values_supplied_by_model": false,
+    "policy_ref": "config/i5b-scoring-policy.yml"
+  },
+  "facts": [],
+  "judge_coverage": {
+    "anti_nepotism": "not_started",
+    "appointment_delegation": "not_started",
+    "talent_discovery": "not_started",
+    "tolerate_talent": "not_started"
+  },
+  "judge_task_code": "I5B-LIYUAN-CURRENT",
+  "materials": [],
+  "members": [
+    {"person": "侯君集", "person_ref": "PER-CAND-851A4B92D193"},
+    {"person": "尉迟敬德", "person_ref": "PER-CAND-A49FCFF85405"},
+    {"person": "戴胄", "person_ref": "PER-CAND-947836AF2584"},
+    {"person": "房玄龄", "person_ref": "PER-CAND-0E58D2EA4AC4"},
+    {"person": "李世民", "person_ref": "RULER-58130F2446A25CC1"},
+    {"person": "李勣", "person_ref": "PER-CAND-8CF6E0AAF5E5"},
+    {"person": "李靖", "person_ref": "PER-CAND-D29808A822E4"},
+    {"person": "杜如晦", "person_ref": "PER-CAND-52D752B16F85"},
+    {"person": "褚遂良", "person_ref": "PER-CAND-6212A403EABA"},
+    {"person": "长孙无忌", "person_ref": "PER-CAND-6D5FA3B48F40"},
+    {"person": "高士廉", "person_ref": "PER-CAND-564F932D7FB5"},
+    {"person": "魏徵", "person_ref": "PER-CAND-1DA5E84241DE"}
+  ],
+  "outcome_registry": {
+    "clusters": [],
+    "schema_version": "historical-outcome-cluster-registry-v1",
+    "status": "shadow"
+  },
+  "profile_projection_gate": {
+    "freeze_allowed": false,
+    "material_coverage_complete": false,
+    "required_inputs": [
+      "full_lifecycle_biography",
+      "historical_outcome_cluster_registry",
+      "window_political_risk_review"
+    ],
+    "status": "material_coverage_open"
+  },
+  "ruler": "李渊",
+  "ruler_context_materials": [],
+  "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+  "schema_version": "i5b-current-value-source-pack-v5",
+  "source_pack_sha256": "ac5e562915dbd6268e842dfb19864f54469d5b14159f8a4aa32366bca4617ba0",
+  "status": "bootstrap_before_public_outcome_and_profile_review",
+  "team": {
+    "coverage_judgment": "open_before_profile_review",
+    "limitations": ["首次启动输入；团队正负池与阶段连续性必须在人物画像审计后冻结。"],
+    "negative_members": [],
+    "positive_members": ["李世民"],
+    "stability_stages": []
+  },
+  "three_channel_disposition": {
+    "dynasty_governance": {
+      "disposition": "pending_current_projection",
+      "received_count": 0,
+      "ruler_window_achievement_count": 0,
+      "team_support_count": 0
+    },
+    "person_biography": {
+      "accepted_fact_count": 0,
+      "disposition": "pending_profile_review",
+      "received_count": 0
+    },
+    "ruler_chronicle": {
+      "disposition": "pending_current_projection",
+      "received_count": 0,
+      "ruler_window_context_count": 0
+    }
+  },
+  "three_channel_input": {
+    "channel_counts": {
+      "dynasty_governance": 0,
+      "person_biography": 0,
+      "ruler_chronicle": 0
+    },
+    "fingerprint": "bootstrap_pending",
+    "governance_achievement_count": 0,
+    "governance_applicable_to_ruler_count": 0,
+    "material_count": 0
+  },
+  "window": "618-626"
+}
