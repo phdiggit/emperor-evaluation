@@ -256,6 +256,26 @@ def test_outcome_projection_normalizes_governance_window_scope() -> None:
     assert normalized["candidates"][0]["settlement_scope"] == "governance_result"
 
 
+def test_outcome_projection_normalizes_ruler_talent_credit() -> None:
+    payload = _campaign_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["members"][0].pop("talent_credit")
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["members"][0]["talent_credit"] == (
+        "not_applicable"
+    )
+
+
 def test_outcome_projection_expands_quote_to_same_revision_paragraph(
     tmp_path: Path,
 ) -> None:

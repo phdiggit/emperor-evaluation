@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v11"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v12"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -261,7 +261,9 @@ def _normalize_candidate_sources(
         quotes = [canonical_quote(value) for value in candidate.get("exact_quotes") or ()]
         candidate["exact_quotes"] = quotes
         for member in candidate.get("members") or ():
-            if member.get("talent_credit") is None:
+            if member.get("actor_kind") == "ruler":
+                member["talent_credit"] = "not_applicable"
+            elif member.get("talent_credit") is None:
                 member.pop("talent_credit", None)
             member["authorization_quotes"] = [
                 canonical_quote(value)
