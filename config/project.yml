@@ -23,10 +23,7 @@ i5b_current_value:
       outcome_binding: eval/historical_outcome_bindings/李世民.json
       neutral_materials: eval/i5b_current_value/李世民/neutral-materials.json
       result: eval/i5b_current_value/李世民/result.json
-      neutral_scan_backbone_works: [資治通鑑]
-      neutral_scan_backbone_page_ranges: {資治通鑑: [184, 199]}
       neutral_scan_backbone_material_token: TANG-EARLY-CONTINUOUS
-      neutral_scan_shared_subjects: [李渊]
       neutral_scan_backsource_works: [舊唐書, 新唐書]
       dynasty_governance_material_token: TANG
       dynasty_governance_period_terms: [貞觀, 贞观, 唐太宗]
@@ -35,10 +32,7 @@ i5b_current_value:
       outcome_binding: eval/historical_outcome_bindings/李渊.json
       neutral_materials: eval/i5b_current_value/李渊/neutral-materials.json
       result: eval/i5b_current_value/李渊/result.json
-      neutral_scan_backbone_works: [資治通鑑]
-      neutral_scan_backbone_page_ranges: {資治通鑑: [184, 199]}
       neutral_scan_backbone_material_token: TANG-EARLY-CONTINUOUS
-      neutral_scan_shared_subjects: [李世民]
       neutral_scan_backsource_works: [舊唐書, 新唐書]
       dynasty_governance_material_token: TANG
       dynasty_governance_period_terms: [武德, 唐高祖, 高祖, 李渊, 李淵]
@@ -82,6 +76,12 @@ person_profile_storage:
   canonical_identity_table: v4_person_profile.person_identity_registry
 
 neutral_material_reuse:
+  shared_chronicle_materials:
+    TANG-EARLY-CONTINUOUS:
+      works: [資治通鑑]
+      page_ranges: {資治通鑑: [184, 199]}
+      subjects: [李渊, 李世民]
+      extraction_contract: shared-ruler-chronicle-neutral-v1
   public_outcome_and_profile_rules: docs/证据规则/公共成果登记与人物画像规则.md
   single_emperor_session_workflow: docs/证据规则/单皇帝主控会话工作流.md
   unified_intake_contract: neutral-material-intake

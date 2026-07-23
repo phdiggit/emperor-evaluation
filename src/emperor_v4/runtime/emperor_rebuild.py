@@ -145,66 +145,135 @@ def _shared_backbone_contract(
     project: Mapping[str, Any],
     ruler: str,
 ) -> dict[str, Any] | None:
-    """Resolve one immutable extraction contract for every shared token."""
+    """Resolve and validate the repository-wide chronicle range ownership."""
 
     rulers = (project.get("i5b_current_value") or {}).get("rulers") or {}
     configured = rulers.get(ruler)
     if not isinstance(configured, Mapping):
         raise ValueError(f"皇帝尚未进入当前链路: {ruler}")
+    shared_catalog = (
+        (project.get("neutral_material_reuse") or {}).get(
+            "shared_chronicle_materials"
+        )
+        or {}
+    )
+    if not isinstance(shared_catalog, Mapping):
+        raise ValueError("共享编年材料中央目录必须是对象")
+
+    range_owners: list[tuple[str, str, int, int]] = []
+    for catalog_token, catalog_config in shared_catalog.items():
+        token_name = str(catalog_token)
+        if not isinstance(catalog_config, Mapping):
+            raise ValueError(f"共享编年 token 合同必须是对象: {token_name}")
+        referenced_owners = {
+            str(name)
+            for name, value in rulers.items()
+            if isinstance(value, Mapping)
+            and str(value.get("neutral_scan_backbone_material_token") or "")
+            == token_name
+        }
+        subjects = {str(value) for value in catalog_config.get("subjects") or ()}
+        if subjects != referenced_owners:
+            raise ValueError(
+                f"共享编年 token 主体闭包与引用皇帝不一致: {token_name}"
+            )
+        if not str(catalog_config.get("extraction_contract") or ""):
+            raise ValueError(f"共享编年 token 缺少抽取合同版本: {token_name}")
+        works = {str(value) for value in catalog_config.get("works") or ()}
+        page_ranges = catalog_config.get("page_ranges") or {}
+        if not works or not isinstance(page_ranges, Mapping):
+            raise ValueError(f"共享编年 token 缺少史书或连续范围: {token_name}")
+        if works != {str(value) for value in page_ranges}:
+            raise ValueError(f"共享编年 token 的史书与连续范围不一致: {token_name}")
+        for work, bounds in page_ranges.items():
+            if (
+                not isinstance(bounds, Sequence)
+                or isinstance(bounds, (str, bytes))
+                or len(bounds) != 2
+            ):
+                raise ValueError(f"共享编年连续范围必须是起止页: {token_name}/{work}")
+            start, end = (int(value) for value in bounds)
+            if start > end:
+                raise ValueError(f"共享编年连续范围起止颠倒: {token_name}/{work}")
+            range_owners.append((f"token:{token_name}", str(work), start, end))
+
+    forbidden_inline_fields = (
+        "neutral_scan_backbone_works",
+        "neutral_scan_backbone_page_ranges",
+        "neutral_scan_shared_subjects",
+    )
+    for owner, owner_config in rulers.items():
+        if not isinstance(owner_config, Mapping):
+            continue
+        owner_token = str(
+            owner_config.get("neutral_scan_backbone_material_token") or ""
+        )
+        if owner_token:
+            if owner_token not in shared_catalog:
+                raise ValueError(f"共享编年 token 未在中央目录登记: {owner_token}/{owner}")
+            duplicated = [
+                field for field in forbidden_inline_fields if field in owner_config
+            ]
+            if duplicated:
+                raise ValueError(
+                    f"共享编年范围只能在中央目录定义: {owner_token}/{owner}/"
+                    f"{','.join(duplicated)}"
+                )
+            continue
+        page_ranges = owner_config.get("neutral_scan_backbone_page_ranges") or {}
+        if not isinstance(page_ranges, Mapping):
+            raise ValueError(f"皇帝编年连续范围必须是对象: {owner}")
+        for work, bounds in page_ranges.items():
+            if (
+                not isinstance(bounds, Sequence)
+                or isinstance(bounds, (str, bytes))
+                or len(bounds) != 2
+            ):
+                raise ValueError(f"皇帝编年连续范围必须是起止页: {owner}/{work}")
+            start, end = (int(value) for value in bounds)
+            if start > end:
+                raise ValueError(f"皇帝编年连续范围起止颠倒: {owner}/{work}")
+            range_owners.append((f"ruler:{owner}", str(work), start, end))
+
+    for index, left in enumerate(range_owners):
+        for right in range_owners[index + 1 :]:
+            left_owner, left_work, left_start, left_end = left
+            right_owner, right_work, right_start, right_end = right
+            if (
+                left_owner != right_owner
+                and left_work == right_work
+                and max(left_start, right_start) <= min(left_end, right_end)
+            ):
+                raise ValueError(
+                    "编年连续范围重叠但未复用同一中央 token: "
+                    f"{left_owner}/{right_owner}/{left_work}/"
+                    f"{max(left_start, right_start)}-{min(left_end, right_end)}"
+                )
+
     token = str(configured.get("neutral_scan_backbone_material_token") or "")
     if not token:
         return None
     owners = {
-        str(name): value
+        str(name)
         for name, value in rulers.items()
         if isinstance(value, Mapping)
         and str(value.get("neutral_scan_backbone_material_token") or "") == token
     }
-    expected_subjects = set(owners)
-    contracts = []
-    for owner, owner_config in owners.items():
-        subjects = {
-            owner,
-            *(
-                str(value)
-                for value in owner_config.get("neutral_scan_shared_subjects") or ()
-            ),
-        }
-        if subjects != expected_subjects:
-            raise ValueError(
-                f"共享编年 token 主体闭包不一致: {token}/{owner}"
-            )
-        works = tuple(
-            sorted(str(value) for value in owner_config.get("neutral_scan_backbone_works") or ())
-        )
-        ranges = tuple(
-            sorted(
-                (
-                    str(work),
-                    tuple(int(value) for value in bounds),
-                )
-                for work, bounds in (
-                    owner_config.get("neutral_scan_backbone_page_ranges") or {}
-                ).items()
-            )
-        )
-        contracts.append((owner, works, ranges))
-    expected = contracts[0][1:]
-    mismatched = [
-        owner for owner, works, ranges in contracts if (works, ranges) != expected
-    ]
-    if mismatched:
-        raise ValueError(
-            f"共享编年 token 的史书或连续范围不一致: {token}/{','.join(mismatched)}"
-        )
+    catalog_config = shared_catalog[token]
+    works = sorted(str(value) for value in catalog_config["works"])
+    ranges = {
+        str(work): [int(value) for value in bounds]
+        for work, bounds in sorted(catalog_config["page_ranges"].items())
+    }
+    extraction_contract = str(catalog_config.get("extraction_contract") or "")
+    if not extraction_contract:
+        raise ValueError(f"共享编年 token 缺少抽取合同版本: {token}")
     return {
         "material_token": token,
         "owners": sorted(owners),
-        "works": list(expected[0]),
-        "page_ranges": {
-            work: list(bounds)
-            for work, bounds in expected[1]
-        },
+        "works": works,
+        "page_ranges": ranges,
+        "extraction_contract": extraction_contract,
     }
 
 
@@ -243,12 +312,17 @@ def _merge_neutral_currents(
     }
 
 
-def _shared_backbone_identity(plan: Mapping[str, Any]) -> str:
+def _shared_backbone_identity(
+    plan: Mapping[str, Any],
+    *,
+    extraction_contract: str = "",
+) -> str:
     """Identify shared atoms without the current ruler's projection flag."""
 
     return _digest(
         {
             "source_index_identity": plan["source_index_identity"],
+            "extraction_contract": extraction_contract,
             "page_batches": [
                 {
                     **dict(batch),
@@ -721,7 +795,13 @@ def rebuild_emperor(
         allowed_page_ranges=backbone_page_ranges,
         shared_subjects=shared_subject_refs,
     )
-    shared_backbone_identity = _shared_backbone_identity(backbone_plan)
+    shared_backbone_extraction_contract = str(
+        (shared_contract or {}).get("extraction_contract") or ""
+    )
+    shared_backbone_identity = _shared_backbone_identity(
+        backbone_plan,
+        extraction_contract=shared_backbone_extraction_contract,
+    )
     shared_backbone_path = None
     if shared_backbone_root is not None and shared_backbone_token:
         resolved_shared_root = shared_backbone_root.resolve()
@@ -739,6 +819,8 @@ def rebuild_emperor(
             and candidate.get("status") == "quality_contract_valid_shadow"
             and candidate.get("material_token") == shared_backbone_token
             and candidate.get("source_index_identity") == source_index.identity
+            and candidate.get("extraction_contract")
+            == shared_backbone_extraction_contract
         ):
             # Exact batch/segment fingerprints inside the material remain safe
             # seeds when a shared range expands. The extractor will call the
@@ -858,6 +940,7 @@ def rebuild_emperor(
                     "material_token": shared_backbone_token,
                     "backbone_identity": shared_backbone_identity,
                     "source_index_identity": source_index.identity,
+                    "extraction_contract": shared_backbone_extraction_contract,
                     "materials": backbone_materials,
                     "formal_write": False,
                 },

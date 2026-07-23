@@ -20,7 +20,11 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
 from emperor_v4.evaluation.historical_outcome_registry import (
     materialize_ruler_outcome_registry,
 )
-from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
+from emperor_v4.runtime.emperor_rebuild import (
+    RebuildLimits,
+    _shared_backbone_contract,
+    rebuild_emperor,
+)
 
 
 LEASE_SCHEMA_VERSION = "emperor-session-lease-v1"
@@ -293,6 +297,9 @@ def claim_session(
 
     release_sha = _release_identity(release_root)
     rulers, configured_order = _project_rulers(release_root)
+    project = yaml.safe_load(
+        (release_root / "config/project.yml").read_text(encoding="utf-8")
+    )
     candidates = [ruler] if ruler else configured_order
     if ruler and ruler not in rulers:
         raise SessionControlError(f"皇帝尚未进入当前链路: {ruler}")
@@ -302,6 +309,7 @@ def claim_session(
     for candidate in candidates:
         try:
             configured = rulers[candidate]
+            _shared_backbone_contract(project=project, ruler=candidate)
             for field in ("source_pack", "neutral_materials", "result"):
                 if not configured.get(field):
                     raise SessionControlError(f"缺少 {field}")

@@ -757,24 +757,57 @@ def test_emperor_session_claim_allows_first_run_without_derived_outputs(
     assert (workspace / "eval/i5b_current_value/刘邦/source-pack.json").is_file()
 
 
+def test_emperor_session_claim_rejects_overlapping_range_before_leases(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    project_path = release / "config/project.yml"
+    project = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+    project["i5b_current_value"]["rulers"]["刘邦"][
+        "neutral_scan_backbone_page_ranges"
+    ] = {"資治通鑑": [190, 205]}
+    project_path.write_text(
+        yaml.safe_dump(project, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "f" * 40
+    )
+    state = tmp_path / "state"
+
+    with pytest.raises(
+        emperor_session_control.SessionControlError,
+        match="重叠但未复用同一中央 token",
+    ):
+        emperor_session_control.claim_session(
+            state_root=state,
+            release_root=release,
+            session_id="SESSION-OVERLAP",
+            ruler="刘邦",
+            model_slot_count=1,
+        )
+
+    assert not (state / "session-control").exists()
+
+
 def test_shared_backbone_contract_is_one_extraction_for_all_token_owners() -> None:
     project = {
         "i5b_current_value": {
             "rulers": {
-                "甲": {
-                    "neutral_scan_backbone_material_token": "SHARED",
-                    "neutral_scan_backbone_works": ["資治通鑑"],
-                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 199]},
-                    "neutral_scan_shared_subjects": ["乙"],
-                },
-                "乙": {
-                    "neutral_scan_backbone_material_token": "SHARED",
-                    "neutral_scan_backbone_works": ["資治通鑑"],
-                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 199]},
-                    "neutral_scan_shared_subjects": ["甲"],
-                },
+                "甲": {"neutral_scan_backbone_material_token": "SHARED"},
+                "乙": {"neutral_scan_backbone_material_token": "SHARED"},
             }
-        }
+        },
+        "neutral_material_reuse": {
+            "shared_chronicle_materials": {
+                "SHARED": {
+                    "works": ["某编年史"],
+                    "page_ranges": {"某编年史": [100, 120]},
+                    "subjects": ["甲", "乙"],
+                    "extraction_contract": "shared-neutral-v1",
+                }
+            }
+        },
     }
 
     first = _shared_backbone_contract(project=project, ruler="甲")
@@ -784,42 +817,123 @@ def test_shared_backbone_contract_is_one_extraction_for_all_token_owners() -> No
     assert first == {
         "material_token": "SHARED",
         "owners": ["乙", "甲"],
-        "works": ["資治通鑑"],
-        "page_ranges": {"資治通鑑": [184, 199]},
+        "works": ["某编年史"],
+        "page_ranges": {"某编年史": [100, 120]},
+        "extraction_contract": "shared-neutral-v1",
     }
 
 
-def test_shared_backbone_contract_rejects_range_or_subject_drift() -> None:
+def test_shared_backbone_contract_rejects_per_ruler_redefinition_or_subject_drift() -> None:
     project = {
         "i5b_current_value": {
             "rulers": {
                 "甲": {
                     "neutral_scan_backbone_material_token": "SHARED",
-                    "neutral_scan_backbone_works": ["資治通鑑"],
-                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 199]},
-                    "neutral_scan_shared_subjects": ["乙"],
+                    "neutral_scan_backbone_page_ranges": {"某编年史": [100, 120]},
+                },
+                "乙": {"neutral_scan_backbone_material_token": "SHARED"},
+            }
+        },
+        "neutral_material_reuse": {
+            "shared_chronicle_materials": {
+                "SHARED": {
+                    "works": ["某编年史"],
+                    "page_ranges": {"某编年史": [100, 120]},
+                    "subjects": ["甲", "乙"],
+                    "extraction_contract": "shared-neutral-v1",
+                }
+            }
+        },
+    }
+
+    with pytest.raises(ValueError, match="只能在中央目录定义"):
+        _shared_backbone_contract(project=project, ruler="甲")
+
+    del project["i5b_current_value"]["rulers"]["甲"][
+        "neutral_scan_backbone_page_ranges"
+    ]
+    project["neutral_material_reuse"]["shared_chronicle_materials"]["SHARED"][
+        "subjects"
+    ] = ["甲"]
+    with pytest.raises(ValueError, match="主体闭包与引用皇帝不一致"):
+        _shared_backbone_contract(project=project, ruler="甲")
+
+
+def test_new_ruler_overlapping_existing_catalog_must_reuse_token() -> None:
+    project = {
+        "i5b_current_value": {
+            "rulers": {
+                "前任": {"neutral_scan_backbone_material_token": "EXISTING"},
+                "新任": {
+                    "neutral_scan_backbone_works": ["某编年史"],
+                    "neutral_scan_backbone_page_ranges": {"某编年史": [115, 125]},
+                },
+            }
+        },
+        "neutral_material_reuse": {
+            "shared_chronicle_materials": {
+                "EXISTING": {
+                    "works": ["某编年史"],
+                    "page_ranges": {"某编年史": [100, 120]},
+                    "subjects": ["前任"],
+                    "extraction_contract": "shared-neutral-v1",
+                }
+            }
+        },
+    }
+
+    with pytest.raises(ValueError, match="重叠但未复用同一中央 token"):
+        _shared_backbone_contract(project=project, ruler="新任")
+
+
+def test_different_shared_tokens_may_not_own_overlapping_ranges() -> None:
+    project = {
+        "i5b_current_value": {
+            "rulers": {
+                "甲": {"neutral_scan_backbone_material_token": "FIRST"},
+                "乙": {"neutral_scan_backbone_material_token": "SECOND"},
+            }
+        },
+        "neutral_material_reuse": {
+            "shared_chronicle_materials": {
+                "FIRST": {
+                    "works": ["另一编年史"],
+                    "page_ranges": {"另一编年史": [10, 20]},
+                    "subjects": ["甲"],
+                    "extraction_contract": "shared-neutral-v1",
+                },
+                "SECOND": {
+                    "works": ["另一编年史"],
+                    "page_ranges": {"另一编年史": [20, 30]},
+                    "subjects": ["乙"],
+                    "extraction_contract": "shared-neutral-v1",
+                },
+            }
+        },
+    }
+
+    with pytest.raises(ValueError, match="重叠但未复用同一中央 token"):
+        _shared_backbone_contract(project=project, ruler="甲")
+
+
+def test_two_ruler_local_ranges_must_be_promoted_when_they_overlap() -> None:
+    project = {
+        "i5b_current_value": {
+            "rulers": {
+                "甲": {
+                    "neutral_scan_backbone_works": ["通史"],
+                    "neutral_scan_backbone_page_ranges": {"通史": [40, 50]},
                 },
                 "乙": {
-                    "neutral_scan_backbone_material_token": "SHARED",
-                    "neutral_scan_backbone_works": ["資治通鑑"],
-                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 191]},
-                    "neutral_scan_shared_subjects": ["甲"],
+                    "neutral_scan_backbone_works": ["通史"],
+                    "neutral_scan_backbone_page_ranges": {"通史": [48, 60]},
                 },
             }
         }
     }
 
-    with pytest.raises(ValueError, match="连续范围不一致"):
-        _shared_backbone_contract(project=project, ruler="甲")
-
-    project["i5b_current_value"]["rulers"]["乙"][
-        "neutral_scan_backbone_page_ranges"
-    ] = {"資治通鑑": [184, 199]}
-    project["i5b_current_value"]["rulers"]["乙"][
-        "neutral_scan_shared_subjects"
-    ] = []
-    with pytest.raises(ValueError, match="主体闭包不一致"):
-        _shared_backbone_contract(project=project, ruler="甲")
+    with pytest.raises(ValueError, match="重叠但未复用同一中央 token"):
+        _shared_backbone_contract(project=project, ruler="乙")
 
 
 def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse() -> None:
@@ -835,7 +949,14 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
         "owners": ["李世民", "李渊"],
         "works": ["資治通鑑"],
         "page_ranges": {"資治通鑑": [184, 199]},
+        "extraction_contract": "shared-ruler-chronicle-neutral-v1",
     }
+    assert all(
+        "neutral_scan_backbone_works" not in rulers[name]
+        and "neutral_scan_backbone_page_ranges" not in rulers[name]
+        and "neutral_scan_shared_subjects" not in rulers[name]
+        for name in ("李世民", "李渊")
+    )
     assert all(
         "neutral_material_reuse_rulers" not in configured
         for configured in rulers.values()
@@ -899,6 +1020,11 @@ def test_shared_backbone_identity_does_not_change_with_current_ruler(
 
     assert _shared_backbone_identity(li_shimin_plan) == _shared_backbone_identity(
         li_yuan_plan
+    )
+    assert _shared_backbone_identity(
+        li_shimin_plan, extraction_contract="shared-neutral-v1"
+    ) != _shared_backbone_identity(
+        li_shimin_plan, extraction_contract="shared-neutral-v2"
     )
     current = {
         "batch_fingerprints": {
