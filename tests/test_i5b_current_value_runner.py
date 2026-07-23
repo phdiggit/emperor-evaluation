@@ -5940,6 +5940,32 @@ def test_current_source_pack_increment_is_validated_and_idempotent(tmp_path: Pat
             {**increment, "facts": [conflicting]},
         )
 
+    replacement_outcome = dict(payload["outcome_registry"]["clusters"][0])
+    replacement_outcome["canonical_label"] += "（审定替换）"
+    replacement = compile_source_pack_increment(
+        payload,
+        {
+            **increment,
+            "facts": [conflicting],
+            "outcomes": [replacement_outcome],
+        },
+        replace_incoming=True,
+    )
+    replaced_facts = {row["record_ref"]: row for row in replacement["facts"]}
+    replaced_outcomes = {
+        row["outcome_ref"]: row
+        for row in replacement["outcome_registry"]["clusters"]
+    }
+    assert replaced_facts[conflicting["record_ref"]]["neutral_summary"] == "冲突内容"
+    assert (
+        replaced_outcomes[replacement_outcome["outcome_ref"]]["canonical_label"]
+        == replacement_outcome["canonical_label"]
+    )
+    assert len(replacement["facts"]) == len(payload["facts"])
+    assert len(replaced_outcomes) == len(payload["outcome_registry"]["clusters"])
+    untouched_outcome = payload["outcome_registry"]["clusters"][1]
+    assert replaced_outcomes[untouched_outcome["outcome_ref"]] == untouched_outcome
+
 
 def test_outcome_stage_increment_does_not_require_current_projection(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch

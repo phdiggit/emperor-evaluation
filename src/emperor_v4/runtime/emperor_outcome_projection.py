@@ -905,6 +905,7 @@ def project_current_outcomes(
         increment,
         workspace_root=workspace_root,
         replace_auto=full_refresh,
+        replace_incoming=reviewed_mode and not full_refresh,
         require_current_projection_ready=False,
     )
     candidate_keys_by_fact: dict[str, set[str]] = {}

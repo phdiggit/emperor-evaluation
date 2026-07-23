@@ -64,6 +64,7 @@ def compile_source_pack_increment(
     increment: Mapping[str, Any],
     *,
     replace_auto: bool = False,
+    replace_incoming: bool = False,
 ) -> dict[str, Any]:
     if increment.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("source-pack increment schema_version 不匹配")
@@ -91,6 +92,23 @@ def compile_source_pack_increment(
             or str(row.get("record_ref") or "") in retained_fact_refs
         ]
         compiled["outcome_registry"]["clusters"] = retained_clusters
+    elif replace_incoming:
+        incoming_fact_refs = {
+            str(row["record_ref"]) for row in increment.get("facts") or ()
+        }
+        incoming_outcome_refs = {
+            str(row["outcome_ref"]) for row in increment.get("outcomes") or ()
+        }
+        compiled["facts"] = [
+            row
+            for row in compiled.get("facts") or ()
+            if str(row.get("record_ref") or "") not in incoming_fact_refs
+        ]
+        compiled["outcome_registry"]["clusters"] = [
+            row
+            for row in (compiled.get("outcome_registry") or {}).get("clusters") or ()
+            if str(row.get("outcome_ref") or "") not in incoming_outcome_refs
+        ]
     compiled["facts"] = _merge_current(
         compiled.get("facts") or (), increment.get("facts") or (), key="record_ref"
     )
@@ -697,12 +715,16 @@ def apply_source_pack_increment(
     *,
     workspace_root: Path,
     replace_auto: bool = False,
+    replace_incoming: bool = False,
     require_current_projection_ready: bool = True,
 ) -> bool:
     source_pack_path = source_pack_path.resolve()
     current = json.loads(source_pack_path.read_text(encoding="utf-8"))
     compiled = compile_source_pack_increment(
-        current, increment, replace_auto=replace_auto
+        current,
+        increment,
+        replace_auto=replace_auto,
+        replace_incoming=replace_incoming,
     )
     rendered = json.dumps(compiled, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if source_pack_path.read_text(encoding="utf-8") == rendered:
