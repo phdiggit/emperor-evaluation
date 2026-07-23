@@ -102,6 +102,36 @@ def _contract_fingerprint(root: Path) -> str:
     return _digest(entries)
 
 
+def _bootstrap_static_contract_fingerprint(root: Path) -> str:
+    excluded = {
+        "config/project.yml",
+        "config/historical-entity-identities.yml",
+    }
+    entries = []
+    for relative_root, suffixes in (
+        ("config", {".json", ".yml", ".yaml"}),
+        ("src/emperor_v4", {".py"}),
+    ):
+        base = root / relative_root
+        if not base.is_dir():
+            raise SessionControlError(f"release 缺少合同目录: {relative_root}")
+        for path in sorted(
+            value
+            for value in base.rglob("*")
+            if value.is_file() and value.suffix.lower() in suffixes
+        ):
+            relative = path.relative_to(root).as_posix()
+            if relative in excluded:
+                continue
+            entries.append({"path": relative, "sha256": _file_sha256(path)})
+    for relative_path in SESSION_RULE_DOCUMENTS:
+        path = root / relative_path
+        if not path.is_file():
+            raise SessionControlError(f"release 缺少当前规则文档: {relative_path}")
+        entries.append({"path": relative_path, "sha256": _file_sha256(path)})
+    return _digest(entries)
+
+
 def _safe_token(value: object, *, field: str) -> str:
     token = str(value or "").strip()
     if not token or any(part in token for part in ("/", "\\", "..")):
@@ -483,6 +513,11 @@ def claim_session(
             "resource_ruler_ref": ruler_ref,
             "release_sha": release_sha,
             "release_contract_fingerprint": release_contract_fingerprint,
+            "bootstrap_static_contract_fingerprint": (
+                _bootstrap_static_contract_fingerprint(release_root)
+                if bootstrap_required
+                else None
+            ),
             "host": socket.gethostname(),
             "started_at": _now(),
             "updated_at": _now(),
@@ -1107,6 +1142,80 @@ def _validate_publish_payload(
     return paths
 
 
+def _merge_bootstrap_project(
+    *,
+    canonical_path: Path,
+    workspace_path: Path,
+    ruler: str,
+) -> str:
+    canonical = yaml.safe_load(canonical_path.read_text(encoding="utf-8"))
+    workspace = yaml.safe_load(workspace_path.read_text(encoding="utf-8"))
+    canonical_rulers = canonical.setdefault("i5b_current_value", {}).setdefault(
+        "rulers", {}
+    )
+    workspace_configured = (
+        (workspace.get("i5b_current_value") or {}).get("rulers") or {}
+    ).get(ruler)
+    if not isinstance(workspace_configured, Mapping):
+        raise SessionControlError("bootstrap workspace 缺少目标皇帝配置")
+    existing = canonical_rulers.get(ruler)
+    if existing is not None and dict(existing) != dict(workspace_configured):
+        raise SessionControlError("canonical 已存在不同的目标皇帝配置")
+    if existing is not None:
+        return canonical_path.read_text(encoding="utf-8")
+    canonical_rulers[ruler] = dict(workspace_configured)
+    _shared_backbone_contract(project=canonical, ruler=ruler)
+    text = canonical_path.read_text(encoding="utf-8")
+    marker = "  settlement_mode:"
+    if text.count(marker) != 1:
+        raise SessionControlError("config/project.yml 皇帝配置插入锚点不唯一")
+    rendered = yaml.safe_dump(
+        {ruler: dict(workspace_configured)},
+        allow_unicode=True,
+        sort_keys=False,
+    ).rstrip()
+    block = "\n".join(f"    {line}" for line in rendered.splitlines()) + "\n"
+    return text.replace(marker, block + marker, 1)
+
+
+def _merge_bootstrap_identities(
+    *,
+    canonical_path: Path,
+    workspace_path: Path,
+    ruler: str,
+) -> str:
+    canonical = yaml.safe_load(canonical_path.read_text(encoding="utf-8"))
+    workspace = yaml.safe_load(workspace_path.read_text(encoding="utf-8"))
+    canonical_by_name = {
+        str(row["canonical_name"]): row
+        for row in canonical.get("entities") or ()
+    }
+    workspace_by_name = {
+        str(row["canonical_name"]): row
+        for row in workspace.get("entities") or ()
+    }
+    if ruler not in workspace_by_name:
+        raise SessionControlError("bootstrap workspace 身份目录缺少目标皇帝")
+    additions = []
+    for name, row in workspace_by_name.items():
+        existing = canonical_by_name.get(name)
+        if existing is not None:
+            if str(existing.get("person_ref")) != str(row.get("person_ref")):
+                raise SessionControlError(f"canonical 身份冲突: {name}")
+            continue
+        additions.append(row)
+    if not additions:
+        return canonical_path.read_text(encoding="utf-8")
+    rendered = yaml.safe_dump(
+        additions,
+        allow_unicode=True,
+        sort_keys=False,
+    ).rstrip()
+    block = "\n".join(f"  {line}" for line in rendered.splitlines()) + "\n"
+    text = canonical_path.read_text(encoding="utf-8")
+    return text.rstrip() + "\n" + block
+
+
 def publish_session(
     *, state_root: Path, session_id: str, canonical_root: Path
 ) -> dict[str, Any]:
@@ -1118,12 +1227,28 @@ def publish_session(
     if lease.get("stage") != "ready_to_publish":
         raise SessionControlError("会话尚未完成重建与质量验证")
     canonical_root = canonical_root.resolve()
-    if _contract_fingerprint(canonical_root) != lease.get(
+    bootstrap_session = bool(lease.get("bootstrap_spec"))
+    if bootstrap_session:
+        if _bootstrap_static_contract_fingerprint(canonical_root) != lease.get(
+            "bootstrap_static_contract_fingerprint"
+        ):
+            raise SessionControlError("canonical 通用代码或规则在会话运行期间已变化")
+    elif _contract_fingerprint(canonical_root) != lease.get(
         "release_contract_fingerprint"
     ):
         raise SessionControlError("canonical 代码或配置在会话运行期间已变化")
     rulers, _ = _project_rulers(canonical_root)
     configured = rulers.get(str(lease["ruler"]))
+    if not isinstance(configured, Mapping) and bootstrap_session:
+        workspace_project = yaml.safe_load(
+            (
+                Path(str(lease["workspace_root"])) / "config/project.yml"
+            ).read_text(encoding="utf-8")
+        )
+        configured = (
+            (workspace_project.get("i5b_current_value") or {}).get("rulers")
+            or {}
+        ).get(str(lease["ruler"]))
     if not isinstance(configured, Mapping):
         raise SessionControlError("canonical 已移除目标皇帝配置")
     source_paths = _validate_publish_payload(
@@ -1132,6 +1257,43 @@ def publish_session(
         ruler=str(lease["ruler"]),
     )
     target_paths = _canonical_paths(canonical_root, configured)
+    generated_root = path.parent / "publish-generated"
+    if bootstrap_session:
+        generated_root.mkdir(parents=True, exist_ok=True)
+        project_source = generated_root / "project.yml"
+        project_source.write_text(
+            _merge_bootstrap_project(
+                canonical_path=canonical_root / "config/project.yml",
+                workspace_path=Path(str(lease["workspace_root"]))
+                / "config/project.yml",
+                ruler=str(lease["ruler"]),
+            ),
+            encoding="utf-8",
+            newline="\n",
+        )
+        identity_source = generated_root / "historical-entity-identities.yml"
+        identity_source.write_text(
+            _merge_bootstrap_identities(
+                canonical_path=canonical_root
+                / "config/historical-entity-identities.yml",
+                workspace_path=Path(str(lease["workspace_root"]))
+                / "config/historical-entity-identities.yml",
+                ruler=str(lease["ruler"]),
+            ),
+            encoding="utf-8",
+            newline="\n",
+        )
+        source_paths = {
+            **source_paths,
+            "bootstrap_project": project_source,
+            "bootstrap_identities": identity_source,
+        }
+        target_paths = {
+            **target_paths,
+            "bootstrap_project": canonical_root / "config/project.yml",
+            "bootstrap_identities": canonical_root
+            / "config/historical-entity-identities.yml",
+        }
     control = _control_root(state_root)
     global_publish_lock = control / "publish" / "historical-outcome-registry.json"
     if not _claim_json(global_publish_lock, {"session_id": session_id}):
@@ -1147,6 +1309,7 @@ def publish_session(
         changed_targets = [
             key
             for key, target in target_paths.items()
+            if not key.startswith("bootstrap_")
             if _file_sha256(target) != expected.get(key)
         ]
         if changed_targets:

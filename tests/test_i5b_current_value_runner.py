@@ -2541,6 +2541,124 @@ def test_session_publish_validates_all_people_and_releases_current_state(
     assert not stage_cache.exists()
 
 
+def test_bootstrap_ruler_publish_atomically_adds_config_and_identity(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    canonical = tmp_path / "canonical"
+    shutil.copytree(release, canonical)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "d" * 40
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-ZHU-PUBLISH",
+        ruler="朱元璋",
+        model_slot_count=1,
+    )
+    workspace = Path(lease["workspace_root"])
+    configured = {
+        "source_pack": "eval/i5b_current_value/朱元璋/source-pack.json",
+        "outcome_binding": "eval/historical_outcome_bindings/朱元璋.json",
+        "neutral_materials": "eval/i5b_current_value/朱元璋/neutral-materials.json",
+        "result": "eval/i5b_current_value/朱元璋/result.json",
+        "neutral_scan_backbone_works": ["明太祖實錄"],
+        "neutral_scan_backbone_page_ranges": {"明太祖實錄": [1, 2]},
+        "neutral_scan_backsource_works": ["明史"],
+        "dynasty_governance_material_token": "MING-HONGWU",
+        "dynasty_governance_period_terms": ["洪武", "明太祖"],
+    }
+    project_path = workspace / "config/project.yml"
+    project = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+    project["i5b_current_value"]["rulers"]["朱元璋"] = configured
+    project_path.write_text(
+        yaml.safe_dump(project, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    identity_path = workspace / "config/historical-entity-identities.yml"
+    identities = yaml.safe_load(identity_path.read_text(encoding="utf-8"))
+    identities["entities"].append(
+        {
+            "person_ref": "RULER-MING-ZHUYUANZHANG",
+            "canonical_name": "朱元璋",
+            "dynasty": "明",
+            "aliases": [
+                {"surface": "明太祖", "alias_type": "temple_name"}
+            ],
+        }
+    )
+    identity_path.write_text(
+        yaml.safe_dump(identities, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    source_paths = emperor_session_control._canonical_paths(
+        workspace, configured
+    )
+    for key, source in source_paths.items():
+        source.parent.mkdir(parents=True, exist_ok=True)
+        if not source.exists():
+            source.write_text(
+                "bootstrap markdown\n" if key.endswith("markdown") else "{}\n",
+                encoding="utf-8",
+            )
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_validate_publish_payload",
+        lambda **_kwargs: source_paths,
+    )
+    target_paths = emperor_session_control._canonical_paths(
+        canonical, configured
+    )
+    current_path = (
+        state
+        / "session-control/sessions/SESSION-ZHU-PUBLISH/current.json"
+    )
+    current = json.loads(current_path.read_text(encoding="utf-8"))
+    current.update(
+        {
+            "stage": "ready_to_publish",
+            "bootstrap_required": False,
+            "bootstrap_spec": str(tmp_path / "bootstrap-spec.json"),
+            "ruler_ref": "RULER-MING-ZHUYUANZHANG",
+            "canonical_expected_sha256": {
+                key: emperor_session_control._file_sha256(target)
+                for key, target in target_paths.items()
+            },
+        }
+    )
+    current_path.write_text(
+        json.dumps(current, ensure_ascii=False), encoding="utf-8"
+    )
+
+    result = emperor_session_control.publish_session(
+        state_root=state,
+        session_id="SESSION-ZHU-PUBLISH",
+        canonical_root=canonical,
+    )
+
+    assert result["status"] == "published_current"
+    canonical_project = yaml.safe_load(
+        (canonical / "config/project.yml").read_text(encoding="utf-8")
+    )
+    assert canonical_project["i5b_current_value"]["rulers"]["朱元璋"] == configured
+    canonical_identities = yaml.safe_load(
+        (
+            canonical / "config/historical-entity-identities.yml"
+        ).read_text(encoding="utf-8")
+    )
+    assert any(
+        row["canonical_name"] == "朱元璋"
+        and row["person_ref"] == "RULER-MING-ZHUYUANZHANG"
+        for row in canonical_identities["entities"]
+    )
+    assert (
+        canonical / "eval/i5b_current_value/朱元璋/source-pack.json"
+    ).is_file()
+    assert emperor_session_control.session_status(state_root=state)["sessions"] == []
+
+
 def test_session_abandon_preserves_quality_accepted_stage_cache(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
