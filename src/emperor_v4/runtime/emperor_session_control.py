@@ -31,6 +31,12 @@ LEASE_SCHEMA_VERSION = "emperor-session-lease-v1"
 STATUS_SCHEMA_VERSION = "emperor-session-control-status-v1"
 PUBLISH_SCHEMA_VERSION = "emperor-session-publish-v1"
 GLOBAL_MODEL_SLOT_COUNT = 4
+REQUIRED_REBUILD_STAGES = (
+    "source_inventory",
+    "neutral_materials",
+    "outcome_projection",
+    "current_projection",
+)
 SESSION_RULE_DOCUMENTS = (
     "AGENTS.md",
     "README.md",
@@ -394,6 +400,9 @@ def claim_session(
                 "workspace_root": str(workspace_root),
                 "runtime_root": str(session_root / "runtime"),
                 "shared_backbone_root": str(state_root / "shared-neutral-backbones"),
+                "stage_cache_root": str(
+                    state_root / "stage-cache" / ruler_ref
+                ),
                 "canonical_expected_sha256": {
                     key: _file_sha256(path) for key, path in canonical.items()
                 },
@@ -498,6 +507,19 @@ def run_claimed_session(
         model_workers=len(lease["model_slots"]),
         model_timeout_seconds=model_timeout_seconds,
     )
+
+    def update_stage(
+        stage: str, status: str, details: Mapping[str, Any]
+    ) -> None:
+        lease["stage"] = str(stage)
+        lease["stage_status"] = str(status)
+        lease["stage_input_fingerprint"] = details.get("input_fingerprint")
+        lease["stage_producer_contract_fingerprint"] = details.get(
+            "producer_contract_fingerprint"
+        )
+        lease["updated_at"] = _now()
+        _atomic_json(path, lease)
+
     try:
         report = rebuild_emperor(
             workspace_root=Path(str(lease["workspace_root"])),
@@ -506,9 +528,20 @@ def run_claimed_session(
             source_index_root=source_index_root,
             dynasty_governance_root=dynasty_governance_root,
             shared_backbone_root=Path(str(lease["shared_backbone_root"])),
+            stage_cache_root=Path(str(lease["stage_cache_root"])),
             runtime_root=Path(str(lease["runtime_root"])),
             limits=limits,
+            stage_callback=update_stage,
         )
+        stage_results = list(report.get("stage_results") or ())
+        observed_stages = [str(row.get("stage") or "") for row in stage_results]
+        if observed_stages != list(REQUIRED_REBUILD_STAGES) or any(
+            row.get("status") not in {"quality_accepted", "reused"}
+            or not row.get("input_fingerprint")
+            or not row.get("producer_contract_fingerprint")
+            for row in stage_results
+        ):
+            raise SessionControlError("阶段监督清单不完整，禁止进入发布状态")
     except Exception:
         lease["stage"] = "failed_reusable"
         lease["updated_at"] = _now()
@@ -530,6 +563,9 @@ def run_claimed_session(
         if _owned_resource(token_path, session_id):
             token_path.unlink()
     lease["shared_tokens"] = []
+    lease.pop("stage_status", None)
+    lease.pop("stage_input_fingerprint", None)
+    lease.pop("stage_producer_contract_fingerprint", None)
     _atomic_json(path, lease)
     return completed
 
@@ -651,6 +687,14 @@ def publish_session(
     }
     _release_resources(state_root, lease)
     _release_session_guard(state_root, session_id)
+    if lease.get("stage_cache_root"):
+        stage_cache_root = Path(str(lease["stage_cache_root"])).resolve()
+        expected_stage_cache_parent = state_root.resolve() / "stage-cache"
+        if (
+            expected_stage_cache_parent in stage_cache_root.parents
+            and stage_cache_root.exists()
+        ):
+            shutil.rmtree(stage_cache_root)
     shutil.rmtree(path.parent)
     return result
 

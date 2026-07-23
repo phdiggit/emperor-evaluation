@@ -46,8 +46,10 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
 from emperor_v4.eval import main as eval_main
 from emperor_v4.runtime.emperor_rebuild import (
     RebuildLimits,
+    _accept_stage,
     _project_event_signatures_for_ruler,
     _resolve_source_index,
+    _restore_stage_artifacts,
     _ruler_backbone_fact_refs,
     _run_with_model_anomaly_recovery,
     _shared_backbone_identity,
@@ -680,6 +682,18 @@ def _session_release_fixture(tmp_path: Path) -> Path:
     return release
 
 
+def _accepted_rebuild_stage_results() -> list[dict[str, str]]:
+    return [
+        {
+            "stage": stage,
+            "status": "quality_accepted",
+            "input_fingerprint": f"{stage}-input",
+            "producer_contract_fingerprint": f"{stage}-contract",
+        }
+        for stage in emperor_session_control.REQUIRED_REBUILD_STAGES
+    ]
+
+
 def test_emperor_sessions_atomically_split_rulers_and_global_model_slots(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -790,6 +804,67 @@ def test_emperor_session_claim_rejects_overlapping_range_before_leases(
         )
 
     assert not (state / "session-control").exists()
+
+
+def test_quality_accepted_stage_can_resume_across_release_workspace(
+    tmp_path: Path,
+) -> None:
+    first_workspace = tmp_path / "release-a"
+    second_workspace = tmp_path / "release-b"
+    source = first_workspace / "neutral-materials.json"
+    source.parent.mkdir(parents=True)
+    source.write_text('{"facts":["accepted"]}\n', encoding="utf-8")
+    cache = tmp_path / "state/stage-cache/RULER-A"
+
+    _accept_stage(
+        runtime_root=tmp_path / "runtime-a",
+        stage_cache_root=cache,
+        stage="neutral_materials",
+        input_fingerprint="INPUT-A",
+        producer_contract_fingerprint="CONTRACT-A",
+        quality_checks={"coverage_complete": True},
+        artifacts={"neutral_materials": source},
+    )
+    target = second_workspace / "neutral-materials.json"
+    restored = _restore_stage_artifacts(
+        stage_cache_root=cache,
+        stage="neutral_materials",
+        input_fingerprint="INPUT-A",
+        producer_contract_fingerprint="CONTRACT-A",
+        targets={"neutral_materials": target},
+    )
+
+    assert restored is not None
+    assert restored["status"] == "quality_accepted"
+    assert target.read_text(encoding="utf-8") == '{"facts":["accepted"]}\n'
+
+    target.unlink()
+    assert (
+        _restore_stage_artifacts(
+            stage_cache_root=cache,
+            stage="neutral_materials",
+            input_fingerprint="INPUT-A",
+            producer_contract_fingerprint="CONTRACT-B",
+            targets={"neutral_materials": target},
+        )
+        is None
+    )
+    assert not target.exists()
+
+    (cache / "neutral_materials/neutral_materials.json").write_text(
+        '{"facts":["corrupted"]}\n', encoding="utf-8"
+    )
+    assert (
+        _restore_stage_artifacts(
+            stage_cache_root=cache,
+            stage="neutral_materials",
+            input_fingerprint="INPUT-A",
+            producer_contract_fingerprint="CONTRACT-A",
+            targets={"neutral_materials": target},
+        )
+        is None
+    )
+    assert not target.exists()
 
 
 def test_shared_backbone_contract_is_one_extraction_for_all_token_owners() -> None:
@@ -1345,17 +1420,34 @@ def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(
         model_slot_count=2,
     )
     calls = []
-    monkeypatch.setattr(
-        emperor_session_control,
-        "rebuild_emperor",
-        lambda **kwargs: calls.append(kwargs)
-        or {
+    observed_stage = {}
+
+    def rebuild(**kwargs):
+        calls.append(kwargs)
+        kwargs["stage_callback"](
+            "neutral_materials",
+            "quality_accepted",
+            {
+                "input_fingerprint": "NEUTRAL-INPUT",
+                "producer_contract_fingerprint": "NEUTRAL-CONTRACT",
+            },
+        )
+        observed_stage.update(
+            emperor_session_control.session_status(state_root=state)["sessions"][0]
+        )
+        return {
             "schema_version": "emperor-rebuild-v1",
             "status": "rebuilt_before_database_write",
             "ruler": "李世民",
             "database_write_count": 0,
             "formal_score_write_count": 0,
-        },
+            "stage_results": _accepted_rebuild_stage_results(),
+        }
+
+    monkeypatch.setattr(
+        emperor_session_control,
+        "rebuild_emperor",
+        rebuild,
     )
 
     first = emperor_session_control.run_claimed_session(
@@ -1377,9 +1469,57 @@ def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(
     assert second["reused"] is True
     assert len(calls) == 1
     assert calls[0]["shared_backbone_root"] == Path(lease["shared_backbone_root"])
+    assert calls[0]["stage_cache_root"] == Path(lease["stage_cache_root"])
+    assert observed_stage["stage"] == "neutral_materials"
+    assert observed_stage["stage_status"] == "quality_accepted"
+    assert observed_stage["stage_input_fingerprint"] == "NEUTRAL-INPUT"
     assert not (
         state / "session-control/shared-writers/TANG-EARLY-CONTINUOUS.json"
     ).exists()
+
+
+def test_claimed_session_cannot_publish_without_every_stage_gate(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "8" * 40
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-MISSING-STAGE",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+    monkeypatch.setattr(
+        emperor_session_control,
+        "rebuild_emperor",
+        lambda **_kwargs: {
+            "schema_version": "emperor-rebuild-v1",
+            "status": "rebuilt_before_database_write",
+            "ruler": "李世民",
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+            "stage_results": _accepted_rebuild_stage_results()[:-1],
+        },
+    )
+
+    with pytest.raises(
+        emperor_session_control.SessionControlError,
+        match="阶段监督清单不完整",
+    ):
+        emperor_session_control.run_claimed_session(
+            state_root=state,
+            session_id="SESSION-MISSING-STAGE",
+            release_root=release,
+            source_index_root=tmp_path / "indexes",
+            dynasty_governance_root=tmp_path / "governance",
+        )
+
+    session = emperor_session_control.session_status(state_root=state)["sessions"][0]
+    assert session["stage"] == "failed_reusable"
 
 
 def test_session_publish_fails_closed_when_canonical_changed(
@@ -1408,6 +1548,7 @@ def test_session_publish_fails_closed_when_canonical_changed(
             "ruler": "李世民",
             "database_write_count": 0,
             "formal_score_write_count": 0,
+            "stage_results": _accepted_rebuild_stage_results(),
         },
     )
     emperor_session_control.run_claimed_session(
@@ -1449,15 +1590,21 @@ def test_session_publish_validates_all_people_and_releases_current_state(
             "ruler": "李世民",
             "database_write_count": 0,
             "formal_score_write_count": 0,
+            "stage_results": _accepted_rebuild_stage_results(),
         },
     )
     state = tmp_path / "state"
-    emperor_session_control.claim_session(
+    lease = emperor_session_control.claim_session(
         state_root=state,
         release_root=release,
         session_id="SESSION-PUBLISH-OK",
         ruler="李世民",
         model_slot_count=1,
+    )
+    stage_cache = Path(lease["stage_cache_root"])
+    stage_cache.mkdir(parents=True)
+    (stage_cache / "temporary-stage.json").write_text(
+        "{}\n", encoding="utf-8"
     )
     emperor_session_control.run_claimed_session(
         state_root=state,
@@ -1477,6 +1624,36 @@ def test_session_publish_validates_all_people_and_releases_current_state(
     assert result["database_write_count"] == 0
     assert emperor_session_control.session_status(state_root=state)["sessions"] == []
     assert not list((state / "session-control/model-slots").glob("*.json"))
+    assert not stage_cache.exists()
+
+
+def test_session_abandon_preserves_quality_accepted_stage_cache(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "9" * 40
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-ABANDON-CACHE",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+    stage_cache = Path(lease["stage_cache_root"])
+    stage_cache.mkdir(parents=True)
+    accepted = stage_cache / "neutral_materials/current.json"
+    accepted.parent.mkdir(parents=True)
+    accepted.write_text('{"status":"quality_accepted"}\n', encoding="utf-8")
+
+    emperor_session_control.abandon_session(
+        state_root=state,
+        session_id="SESSION-ABANDON-CACHE",
+    )
+
+    assert accepted.is_file()
 
 
 def test_emperor_rebuild_does_not_require_preextracted_governance_works_in_index(

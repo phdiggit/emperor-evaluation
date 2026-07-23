@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from hashlib import sha256
 import json
 import os
@@ -24,6 +24,7 @@ from emperor_v4.evaluation.historical_outcome_registry import (
     write_current_outcome_layers,
 )
 from emperor_v4.runtime.emperor_neutral_scan import (
+    NEUTRAL_EXTRACTION_POLICY_VERSION,
     build_backbone_event_signatures,
     build_compact_multi_output_schema,
     build_chronicle_role_projections,
@@ -34,8 +35,11 @@ from emperor_v4.runtime.emperor_neutral_scan import (
     merge_dynasty_governance_current,
     seed_deterministic_campaign_facts,
 )
-from emperor_v4.runtime.emperor_outcome_projection import project_current_outcomes
-from emperor_v4.runtime.emperor_outcome_projection import build_outcome_transport_schema
+from emperor_v4.runtime.emperor_outcome_projection import (
+    PROJECTION_POLICY_VERSION,
+    build_outcome_transport_schema,
+    project_current_outcomes,
+)
 from emperor_v4.runtime.deterministic_campaign_extraction import (
     discover_deterministic_backbone_campaigns,
 )
@@ -46,6 +50,13 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "emperor-rebuild-v1"
+STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
+STAGE_CONTRACTS = {
+    "source_inventory": "source-inventory-stage-v1",
+    "neutral_materials": "shared-directed-neutral-stage-v1",
+    "outcome_projection": "current-outcome-projection-stage-v1",
+    "current_projection": "registry-profile-i5b-stage-v1",
+}
 
 
 def _digest(value: object) -> str:
@@ -61,6 +72,114 @@ def _atomic_text(path: Path, text: str) -> None:
     temporary = path.with_name(f".{path.name}.{uuid4().hex}.tmp")
     temporary.write_text(text, encoding="utf-8", newline="\n")
     os.replace(temporary, path)
+
+
+def _file_digest(path: Path) -> str:
+    return sha256(path.read_bytes()).hexdigest()
+
+
+def _contract_files_fingerprint(root: Path, relative_paths: Sequence[str]) -> str:
+    return _digest(
+        {
+            relative: _file_digest(root / relative)
+            for relative in sorted(str(value) for value in relative_paths)
+        }
+    )
+
+
+def _stage_manifest_path(stage_cache_root: Path, stage: str) -> Path:
+    return stage_cache_root.resolve() / stage / "current.json"
+
+
+def _restore_stage_artifacts(
+    *,
+    stage_cache_root: Path | None,
+    stage: str,
+    input_fingerprint: str,
+    producer_contract_fingerprint: str,
+    targets: Mapping[str, Path],
+) -> dict[str, Any] | None:
+    if stage_cache_root is None:
+        return None
+    manifest_path = _stage_manifest_path(stage_cache_root, stage)
+    if not manifest_path.is_file():
+        return None
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if (
+        manifest.get("schema_version") != STAGE_MANIFEST_SCHEMA_VERSION
+        or manifest.get("stage") != stage
+        or manifest.get("status") != "quality_accepted"
+        or manifest.get("input_fingerprint") != input_fingerprint
+        or manifest.get("producer_contract_fingerprint")
+        != producer_contract_fingerprint
+    ):
+        return None
+    artifacts = manifest.get("artifacts") or {}
+    if set(artifacts) != set(targets):
+        return None
+    sources: dict[str, Path] = {}
+    for name, target in targets.items():
+        row = artifacts.get(name) or {}
+        source = manifest_path.parent / str(row.get("file") or "")
+        if (
+            not source.is_file()
+            or _file_digest(source) != str(row.get("sha256") or "")
+        ):
+            return None
+        sources[name] = source
+    for name, target in targets.items():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_name(f".{target.name}.{uuid4().hex}.tmp")
+        shutil.copy2(sources[name], temporary)
+        os.replace(temporary, target)
+    return manifest
+
+
+def _accept_stage(
+    *,
+    runtime_root: Path,
+    stage_cache_root: Path | None,
+    stage: str,
+    input_fingerprint: str,
+    producer_contract_fingerprint: str,
+    quality_checks: Mapping[str, Any],
+    artifacts: Mapping[str, Path],
+) -> dict[str, Any]:
+    manifest = {
+        "schema_version": STAGE_MANIFEST_SCHEMA_VERSION,
+        "stage": stage,
+        "status": "quality_accepted",
+        "input_fingerprint": input_fingerprint,
+        "producer_contract_fingerprint": producer_contract_fingerprint,
+        "quality_checks": dict(quality_checks),
+        "artifacts": {},
+    }
+    roots = [runtime_root.resolve() / "stages"]
+    if stage_cache_root is not None:
+        roots.append(stage_cache_root.resolve())
+    for root in roots:
+        stage_root = root / stage
+        stage_root.mkdir(parents=True, exist_ok=True)
+        rows = {}
+        for name, source in artifacts.items():
+            if not source.is_file():
+                raise ValueError(f"阶段产物不存在: {stage}/{name}")
+            artifact_name = f"{name}.json"
+            target = stage_root / artifact_name
+            temporary = target.with_name(f".{target.name}.{uuid4().hex}.tmp")
+            shutil.copy2(source, temporary)
+            os.replace(temporary, target)
+            rows[name] = {
+                "file": artifact_name,
+                "sha256": _file_digest(target),
+            }
+        payload = {**manifest, "artifacts": rows}
+        _atomic_text(
+            stage_root / "current.json",
+            json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+        manifest = payload
+    return manifest
 
 
 @dataclass(frozen=True, slots=True)
@@ -658,8 +777,10 @@ def rebuild_emperor(
     source_index_root: Path | None = None,
     dynasty_governance_root: Path | None = None,
     shared_backbone_root: Path | None = None,
+    stage_cache_root: Path | None = None,
     runtime_root: Path,
     limits: RebuildLimits = RebuildLimits(),
+    stage_callback: Callable[[str, str, Mapping[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     """Restart the current deterministic chain and atomically publish its outputs.
 
@@ -671,6 +792,21 @@ def rebuild_emperor(
     runtime_root = runtime_root.resolve()
     checkpoint_dir = runtime_root / "checkpoint"
     deadline = _Deadline(limits.wall_clock_seconds)
+    stage_results: list[dict[str, Any]] = []
+
+    def notify_stage(
+        stage: str, status: str, details: Mapping[str, Any] | None = None
+    ) -> None:
+        payload = {
+            **dict(details or {}),
+            "stage": stage,
+            "status": status,
+        }
+        if status in {"quality_accepted", "reused"}:
+            stage_results.append(payload)
+        if stage_callback is not None:
+            stage_callback(stage, status, payload)
+
     source_pack, configured = _load_current_config(workspace_root, ruler)
     project = yaml.safe_load(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
@@ -814,10 +950,10 @@ def rebuild_emperor(
             "ruler": ruler,
             "source_pack_sha256": source_pack["source_pack_sha256"],
             "source_index_identity": source_index.identity,
-            "execution_limits": {
-                key: value
-                for key, value in asdict(limits).items()
-                if key != "wall_clock_seconds"
+            # Concurrency, timeout and export settings may change while
+            # supervising a retry; they do not change historical content.
+            "inventory_limits": {
+                "max_pages_per_subject": limits.max_pages_per_subject,
             },
             "aliases_by_subject": aliases_by_subject,
             "identity_bindings": identity_resolver.bindings(
@@ -832,7 +968,24 @@ def rebuild_emperor(
             "configured_scan_works": configured_scan_works,
         }
     )
+    inventory_contract_fingerprint = _digest(
+        {
+            "contract": STAGE_CONTRACTS["source_inventory"],
+            "identity_config": _contract_files_fingerprint(
+                workspace_root,
+                ["config/historical-entity-identities.yml"],
+            ),
+        }
+    )
     marker = checkpoint_dir / "source_inventory.json"
+    notify_stage("source_inventory", "running")
+    restored_inventory = _restore_stage_artifacts(
+        stage_cache_root=stage_cache_root,
+        stage="source_inventory",
+        input_fingerprint=input_fingerprint,
+        producer_contract_fingerprint=inventory_contract_fingerprint,
+        targets={"inventory": marker},
+    )
     if marker.is_file():
         saved = json.loads(marker.read_text(encoding="utf-8"))
         inventory = saved["output"] if saved.get("input_fingerprint") == input_fingerprint else None
@@ -859,8 +1012,66 @@ def rebuild_emperor(
             )
             + "\n",
         )
+    inventory_stage = _accept_stage(
+        runtime_root=runtime_root,
+        stage_cache_root=stage_cache_root,
+        stage="source_inventory",
+        input_fingerprint=input_fingerprint,
+        producer_contract_fingerprint=inventory_contract_fingerprint,
+        quality_checks={
+            "candidate_page_count": int(inventory["candidate_page_count"]),
+            "missing_works": list(inventory["missing_works"]),
+            "source_index_identity": source_index.identity,
+        },
+        artifacts={"inventory": marker},
+    )
+    notify_stage(
+        "source_inventory",
+        "reused" if restored_inventory is not None else "quality_accepted",
+        inventory_stage,
+    )
     deadline.check("neutral_extraction")
     neutral_path = workspace_root / str(configured["neutral_materials"])
+    neutral_stage_input_fingerprint = _digest(
+        {
+            "inventory_input_fingerprint": input_fingerprint,
+            "shared_contract": shared_contract,
+            "dynasty_governance_current": (
+                {
+                    "input_fingerprint": dynasty_governance_current.get(
+                        "input_fingerprint"
+                    ),
+                    "source_index_identity": dynasty_governance_current.get(
+                        "source_index_identity"
+                    ),
+                }
+                if dynasty_governance_current is not None
+                else None
+            ),
+        }
+    )
+    neutral_stage_contract_fingerprint = _digest(
+        {
+            "contract": STAGE_CONTRACTS["neutral_materials"],
+            "neutral_policy": NEUTRAL_EXTRACTION_POLICY_VERSION,
+            "files": _contract_files_fingerprint(
+                workspace_root,
+                [
+                    "config/historical-entity-identities.yml",
+                    "config/model-policy.yml",
+                    "config/shared-neutral-extraction-output.schema.json",
+                ],
+            ),
+        }
+    )
+    notify_stage("neutral_materials", "running")
+    restored_neutral_stage = _restore_stage_artifacts(
+        stage_cache_root=stage_cache_root,
+        stage="neutral_materials",
+        input_fingerprint=neutral_stage_input_fingerprint,
+        producer_contract_fingerprint=neutral_stage_contract_fingerprint,
+        targets={"neutral_materials": neutral_path},
+    )
     current_neutral = (
         json.loads(neutral_path.read_text(encoding="utf-8"))
         if neutral_path.is_file()
@@ -1030,7 +1241,7 @@ def rebuild_emperor(
             supplemental_facts_by_segment=deterministic_campaign_facts_by_segment,
         ),
         initial_batch_size=12,
-        maximum_recoveries=0,
+        maximum_recoveries=2,
     )
     backbone_model_call_count = int(backbone_materials.pop("model_call_count"))
     backbone_materials["deterministic_routing"] = routed_backbone_plan[
@@ -1153,7 +1364,7 @@ def rebuild_emperor(
                 identity_resolver=identity_resolver,
             ),
             initial_batch_size=12,
-            maximum_recoveries=0,
+            maximum_recoveries=2,
         )
         backsource_model_call_count = int(
             neutral_materials.pop("model_call_count")
@@ -1218,7 +1429,31 @@ def rebuild_emperor(
         json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
         + "\n",
     )
+    neutral_stage = _accept_stage(
+        runtime_root=runtime_root,
+        stage_cache_root=stage_cache_root,
+        stage="neutral_materials",
+        input_fingerprint=neutral_stage_input_fingerprint,
+        producer_contract_fingerprint=neutral_stage_contract_fingerprint,
+        quality_checks={
+            "neutral_fact_count": int(neutral_materials["fanout"]["fact_count"]),
+            "shared_subject_coverage": shared_subject_coverage,
+            "backbone_model_call_count": backbone_model_call_count,
+            "backsource_model_call_count": backsource_model_call_count,
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        },
+        artifacts={"neutral_materials": neutral_path},
+    )
+    notify_stage(
+        "neutral_materials",
+        "reused"
+        if restored_neutral_stage is not None and neutral_model_call_count == 0
+        else "quality_accepted",
+        neutral_stage,
+    )
     deadline.check("outcome_projection")
+    source_pack_path = workspace_root / str(configured["source_pack"])
     outcome_route = resolve_agent_route(
         model_policy,
         stage_code="episode_candidate_normalization",
@@ -1236,6 +1471,42 @@ def rebuild_emperor(
         )
         + "\n",
     )
+    outcome_stage_input_fingerprint = _digest(
+        {
+            "neutral_materials": {
+                key: value
+                for key, value in neutral_materials.items()
+                if key != "outcome_projection"
+            },
+            "source_pack_sha256": source_pack["source_pack_sha256"],
+            "source_index_identity": source_index.identity,
+        }
+    )
+    outcome_stage_contract_fingerprint = _digest(
+        {
+            "contract": STAGE_CONTRACTS["outcome_projection"],
+            "projection_policy": PROJECTION_POLICY_VERSION,
+            "files": _contract_files_fingerprint(
+                workspace_root,
+                [
+                    "config/current-outcome-candidate-output.schema.json",
+                    "config/model-policy.yml",
+                ],
+            ),
+        }
+    )
+    notify_stage("outcome_projection", "running")
+    restored_outcome_stage = _restore_stage_artifacts(
+        stage_cache_root=stage_cache_root,
+        stage="outcome_projection",
+        input_fingerprint=outcome_stage_input_fingerprint,
+        producer_contract_fingerprint=outcome_stage_contract_fingerprint,
+        targets={
+            "neutral_materials": neutral_path,
+            "source_pack": source_pack_path,
+        },
+    )
+
     def outcome_runner_factory() -> StructuredCodexRunner:
         return StructuredCodexRunner(
             codex_bin="codex",
@@ -1247,38 +1518,100 @@ def rebuild_emperor(
             deadline_monotonic=deadline.deadline,
         )
 
-    (
-        outcome_projection,
-        outcome_recovery_count,
-        outcome_final_facts_per_call,
-    ) = _run_with_model_anomaly_recovery(
-        runner_factory=outcome_runner_factory,
-        operation=lambda runner, facts_per_call: project_current_outcomes(
-            source_pack_path=workspace_root / str(configured["source_pack"]),
-            neutral_materials=neutral_materials,
-            source_index=source_index,
-            schema_path=outcome_schema_path,
-            runner=runner,
-            checkpoint_dir=checkpoint_dir / "outcome_projection",
-            workspace_root=workspace_root,
-            max_workers=min(limits.model_workers, 4),
-            facts_per_call=facts_per_call,
-        ),
-        initial_batch_size=16,
-        maximum_recoveries=2,
+    if restored_outcome_stage is not None:
+        neutral_materials = json.loads(neutral_path.read_text(encoding="utf-8"))
+        restored_quality = restored_outcome_stage.get("quality_checks") or {}
+        restored_projection = neutral_materials.get("outcome_projection") or {}
+        outcome_projection = {
+            "policy_fingerprint": restored_projection.get("policy_fingerprint"),
+            "dispositions": list(restored_projection.get("dispositions") or ()),
+            "candidate_count": int(
+                restored_quality.get("outcome_candidate_count") or 0
+            ),
+            "model_call_count": 0,
+            "source_pack_changed": False,
+        }
+        outcome_recovery_count = 0
+        outcome_final_facts_per_call = int(
+            restored_quality.get("final_facts_per_call") or 16
+        )
+    else:
+        (
+            outcome_projection,
+            outcome_recovery_count,
+            outcome_final_facts_per_call,
+        ) = _run_with_model_anomaly_recovery(
+            runner_factory=outcome_runner_factory,
+            operation=lambda runner, facts_per_call: project_current_outcomes(
+                source_pack_path=source_pack_path,
+                neutral_materials=neutral_materials,
+                source_index=source_index,
+                schema_path=outcome_schema_path,
+                runner=runner,
+                checkpoint_dir=checkpoint_dir / "outcome_projection",
+                workspace_root=workspace_root,
+                max_workers=min(limits.model_workers, 4),
+                facts_per_call=facts_per_call,
+            ),
+            initial_batch_size=16,
+            maximum_recoveries=2,
+        )
+        neutral_materials["outcome_projection"] = {
+            "schema_version": "current-outcome-disposition-v1",
+            "policy_fingerprint": outcome_projection["policy_fingerprint"],
+            "dispositions": outcome_projection["dispositions"],
+        }
+        _atomic_text(
+            neutral_path,
+            json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
+            + "\n",
+        )
+    outcome_stage = _accept_stage(
+        runtime_root=runtime_root,
+        stage_cache_root=stage_cache_root,
+        stage="outcome_projection",
+        input_fingerprint=outcome_stage_input_fingerprint,
+        producer_contract_fingerprint=outcome_stage_contract_fingerprint,
+        quality_checks={
+            "outcome_candidate_count": int(outcome_projection["candidate_count"]),
+            "disposition_count": len(outcome_projection["dispositions"]),
+            "model_call_count": int(outcome_projection["model_call_count"]),
+            "recovery_count": outcome_recovery_count,
+            "final_facts_per_call": outcome_final_facts_per_call,
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        },
+        artifacts={
+            "neutral_materials": neutral_path,
+            "source_pack": source_pack_path,
+        },
     )
-    neutral_materials["outcome_projection"] = {
-        "schema_version": "current-outcome-disposition-v1",
-        "policy_fingerprint": outcome_projection["policy_fingerprint"],
-        "dispositions": outcome_projection["dispositions"],
-    }
-    _atomic_text(
-        neutral_path,
-        json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
-        + "\n",
+    notify_stage(
+        "outcome_projection",
+        "reused" if restored_outcome_stage is not None else "quality_accepted",
+        outcome_stage,
     )
     deadline.check("current_projection")
-    source_pack_path = workspace_root / str(configured["source_pack"])
+    current_stage_input_fingerprint = _digest(
+        {
+            "source_pack_sha256": _file_digest(source_pack_path),
+            "neutral_materials_sha256": _file_digest(neutral_path),
+        }
+    )
+    current_stage_contract_fingerprint = _digest(
+        {
+            "contract": STAGE_CONTRACTS["current_projection"],
+            "files": _contract_files_fingerprint(
+                workspace_root,
+                [
+                    "config/i5b-scoring-policy.yml",
+                    "config/project.yml",
+                    "config/talent-grade-v11-domain-equivalent-historic.yml",
+                ],
+            ),
+        }
+    )
+    notify_stage("current_projection", "running")
     outcome_layers = write_current_outcome_layers(workspace_root)
     report = build_i5b_current_value(source_pack_path, workspace_root=workspace_root)
     if report["ruler"] != ruler:
@@ -1303,6 +1636,25 @@ def rebuild_emperor(
         json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
     )
     _atomic_text(result_path.with_suffix(".md"), ruler_markdown)
+    current_stage = _accept_stage(
+        runtime_root=runtime_root,
+        stage_cache_root=None,
+        stage="current_projection",
+        input_fingerprint=current_stage_input_fingerprint,
+        producer_contract_fingerprint=current_stage_contract_fingerprint,
+        quality_checks={
+            "ruler": ruler,
+            "registry_fingerprint": outcome_layers["registry"][
+                "registry_fingerprint"
+            ],
+            "sampled_person_exports": samples,
+            "net_signal": report["net_signal"],
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        },
+        artifacts={"result": result_path},
+    )
+    notify_stage("current_projection", "quality_accepted", current_stage)
     if checkpoint_dir.exists():
         shutil.rmtree(checkpoint_dir)
     return {
@@ -1366,4 +1718,5 @@ def rebuild_emperor(
         "database_write_count": 0,
         "formal_score_write_count": 0,
         "result": str(result_path),
+        "stage_results": stage_results,
     }
