@@ -7,14 +7,14 @@
 - V3 已退役；V4 是唯一活动实现。
 - 战役登记、治理登记、人才等级和政治风险是跨评分项公共基础，统一遵循 [`docs/证据规则/公共成果登记与人物画像规则.md`](docs/证据规则/公共成果登记与人物画像规则.md)；I5B 只消费公共当前值并投影本项因子。多会话并行按 [`docs/证据规则/单皇帝主控会话工作流.md`](docs/证据规则/单皇帝主控会话工作流.md) 认领和隔离，一个会话只主控一个皇帝。运行时子模型只并发处理首次大批量中性事实或本传 Assertion 草案；公共成果、窗口、人物档位、政治风险、I5B 和 Gold 由连续主会话裁决，成果阶段默认生成 worklist 并等待 `--outcome-review`，不再以子模型重试作为主路径。
 - 第五项 B 的当前链路已统一为“三路中性材料 → 无窗口 HistoricalOutcomeCluster 总登记 → 共享人物全生涯画像总登记 → 皇帝窗口与政治风险投影 → RuleEvidenceUnit → 因子语义确定性映射 → strongest-N 材料预算 → 加权净信号”。
-- 皇帝链路的史源扫描必须以编年事件为单位：皇帝配置的《资治通鉴》卷次范围先做连续事件分段，姓名和别名只能绑定人物，不能决定主干事件单元是否被读取。同一连续篇章中出现的其他在位皇帝和评价主体一并沉淀为共享中性材料；“篇章在位者”与“本次评价入口”分离，同一事实可在李渊链投影为李世民臣子画像，也可在李世民链投影为其登基前生涯，不得重复抽取。模型前确定性判空无行动、命令、实施、制度、人事、军事或可观察结果信号的单元；事件单元内全部事实触发句均被确定性军事行动引文覆盖时，直接接纳中性行动事实并跳过通用模型，胜败和事件边界歧义保留到后置投影，不能反向阻止中性事实入流；混合内容仍须模型补足。通鉴中性事实通过合同后，才用其人物、纪年、地点和语义锚点定向回源本朝正史的本纪与列传，未形成事实的主干片段不得预先放大为唐书召回任务。《贞观政要》《通典》等专题材料由朝代级政书链一次扫描并冻结，皇帝链只读取匹配的当前中性材料补足治理细节。正史和专题史料不得与《通鉴》并列做全书首轮模型扫描，也不得按姓名窗口重新扫描同一事件。皇帝级总墙钟只作耗时观测；主控入口按史源清单、中性材料、成果投射、当前画像与 I5B 四个质量阶段监督执行，每阶段保存输入指纹、生产者合同、质量结果和临时产物 hash。未发布任务只有指纹完全一致才能跨 release 复用，发布后清理阶段缓存。
+- 皇帝链路的史源扫描必须以编年事件为单位：皇帝配置的《资治通鉴》卷次范围先做连续事件分段，姓名和别名只能绑定人物，不能决定主干事件单元是否被读取。同一连续篇章中出现的其他在位皇帝和评价主体一并沉淀为共享中性材料；“篇章在位者”与“本次评价入口”分离，同一事实可在李渊链投影为李世民臣子画像，也可在李世民链投影为其登基前生涯，不得重复抽取。模型前确定性判空无行动、命令、实施、制度、人事、军事或可观察结果信号的单元；事件单元内全部事实触发句均被确定性军事行动引文覆盖时，直接接纳中性行动事实并跳过通用模型，胜败和事件边界歧义保留到后置投影，不能反向阻止中性事实入流；混合内容仍须模型补足。通鉴中性事实通过合同后，才用其人物、纪年、地点和语义锚点定向回源本朝正史的本纪与列传，未形成事实的主干片段不得预先放大为唐书召回任务。《贞观政要》《通典》等专题材料由朝代级政书链一次扫描并冻结，皇帝链只读取匹配的当前中性材料补足治理细节。正史和专题史料不得与《通鉴》并列做全书首轮模型扫描，也不得按姓名窗口重新扫描同一事件。皇帝级总墙钟只作耗时观测；主控入口按史源清单、中性材料、成果投射、当前投影和 Gold 冻结五个质量阶段监督执行，每阶段保存输入指纹、生产者合同、质量结果和临时产物 hash。未发布任务只有指纹完全一致才能跨 release 复用，发布后清理阶段缓存。
 - 中性抽取模型阶段按相近 Prompt 体量记录成功子进程耗时；仍在运行的子进程一旦超过可比成功调用中位耗时的两倍，立即终止完整进程树并熔断当前批次。传输或超时异常先上抛给阶段监督器；监督器保留已完成片段，用新 runner 按批准批宽缩小后只恢复未完成任务，不在原 runner 内继续等待，也不重跑已验收上游阶段。内容或 Schema 校验失败只允许一次严格引文定向修订，之后交主会话；成果登记默认不启动子模型。
-- 唯一当前三路输入指纹为 `f6ae0cb3ff59b3ee1cf4e5f24942cf70575513f649c9cb060f294a862297d878`，包含皇帝篇章236条、臣子列传588条、朝代文治135条。
-- 李世民当前 I5B Gold 影子结果：79个 Episode、43个 REU，加权净信号 `18.263958`。
+- 三路输入指纹按皇帝分别冻结在各自 source pack 与 result 中，不存在跨皇帝“唯一输入指纹”；共享中性材料另按共享 token identity 复用。
+- 李世民当前 I5B Gold 影子结果：79个 Episode、46个 REU，加权净信号 `19.210646`。
 - 李渊当前 I5B Gold 影子结果：30个 Episode、20个 REU；团队正池执行非递归归责，共享人物画像与窗口投影已闭合，加权净信号 `5.617151`。
-- 刘邦当前 I5B Gold 影子结果：38个 Episode、22个 REU、26条统一成果簇，本纪补证链接3条、治理结果支持2条；周勃“屠马邑”按毁灭性攻城校准为 `serious`、有断句争议的“屠浑都”不累计严重度后，加权净信号为 `9.330003`。
+- 刘邦当前 I5B Gold 影子结果：38个 Episode、30个 REU；补齐灌婴、周勃、曹参、柴武的战役任用责任链后，加权净信号为 `13.647331`。
 - 同一事件的正负 REU 共用中性 Episode；皇帝本纪只作明确 lineage 补证，文治结果由结果质量和团队人物交集确定性选择，同一皇帝决策按结算事件键只结算一次。
-- 当前36名人物进入唯一共享画像总登记 `eval/historical_person_profiles/current.{json,md}`；人才总档、分领域档位、全生涯本传凭据和权威校准跨皇帝复用，团队预算和政治风险只在各皇帝窗口后置投影。戴胄因主导并实际运行国家级义仓系统评为 `top`；该专业能力判断不抹去政策的整体混合结果，义仓事项因后续挪用与负担不进入皇帝团队正向结果池。
+- 当前40名人物进入唯一共享画像总登记 `eval/historical_person_profiles/current.{json,md}`，其中24名画像闭合、16名保留明确覆盖缺口；人才总档、分领域档位、全生涯本传凭据和权威校准跨皇帝复用，团队预算和政治风险只在各皇帝窗口后置投影。戴胄因主导并实际运行国家级义仓系统评为 `top`；该专业能力判断不抹去政策的整体混合结果，义仓事项因后续挪用与负担不进入皇帝团队正向结果池。
 - 每位皇帝只保留一个 `source-pack.json` 和一组 canonical `result.json` / `result.md`；`result.md` 固定为五项规则的计分详情表，未计分材料显示因子取值。
 - 正式45分、档位和排名仍关闭；当前结果只表示五条 rule 的材料预算后净信号。
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
@@ -27,11 +27,12 @@
 ```text
 输入皇帝 → 当前 source pack
 → 三路 neutral-material-intake
-→ Rule Judge
 → HistoricalEpisode
 → HistoricalOutcomeCluster（战役/治理已实现结果）
+→ 共享人物全生涯画像
+→ 皇帝窗口绑定与政治风险
+→ Rule Judge
 → RuleEvidenceUnit
-→ 人才档位与窗口政治风险覆盖门禁
 → factor option → policy numeric mapping
 → strongest-N material budget
 → weighted raw net signal
@@ -63,10 +64,13 @@ python -m emperor_v4.eval model-policy --policy config/model-policy.yml
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output tmp/factor-semantics.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output tmp/scoring-policy.json
 python v4.py i5b-run --ruler 李世民
+python v4.py i5b-run --ruler 李渊
 python v4.py i5b-run --ruler 刘邦
 python v4.py i5b-scoring-detail --ruler 李世民
+python v4.py i5b-scoring-detail --ruler 李渊
 python v4.py i5b-scoring-detail --ruler 刘邦 --person 周勃
 python v4.py historical-gold-blind-run --ruler 李世民
+python v4.py historical-gold-blind-run --ruler 李渊
 python v4.py historical-gold-blind-run --ruler 刘邦
 python v4.py historical-outcome-registry
 python v4.py historical-outcome-dry-run --ruler 刘邦
@@ -126,7 +130,7 @@ python -m emperor_v4.runtime.person_rebuild_shadow i5b-backfill --worklist tmp/i
 
 I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 strongest-N 预算结算，团队保持正8、负3；它不会合并旧基线，也不会生成45分、档位或排名。
 
-李世民、李渊、刘邦的完整 I5B Gold 同时冻结公共成果、人物画像、五条规则投射、团队正8/负3代表池、各规则正负净信号和加权 raw signal；任用授权预算按聚合后的任用对象或责任群体计数，责任链仅在对象内部递减与封顶，不得把内部链条数误报为已占用预算单元。
+李世民、李渊、刘邦的完整 I5B Gold 同时冻结公共成果、人物画像、五条规则投射、团队正8/负3代表池、各规则正负净信号和加权 raw signal；任用授权预算按聚合后的任用对象或责任群体计数，对象内独立责任链按 `1/rank` 调和衰减且不另设单人硬上限，不得把内部链条数误报为已占用预算单元。
 
 `historical-gold-blind-run` 先从 current source pack 在内存生成影子结果，生成完成后才读取冻结 Gold 并比较；它不覆盖 canonical 结果，不调用模型，不连接数据库，也不写正式评分。Gold 只能揭示生成链偏差，禁止为了通过门禁反向修改冻结期望。
 
