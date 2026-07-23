@@ -341,7 +341,56 @@ def build_ruler_outcome_bindings(
                 cluster.get("ruler_context_refs") or ()
             )
         bindings.append(binding)
-    bindings.sort(key=lambda row: str(row["registration_ref"]))
+    bindings_by_ref = {
+        str(binding["registration_ref"]): binding for binding in bindings
+    }
+    pending = list(bindings)
+    window_status_priority = {
+        "unresolved": 0,
+        "outside_window": 1,
+        "leadership_formation": 2,
+        "within_window": 3,
+    }
+    outcomes_by_ref = {
+        str(row["registration_ref"]): row for row in registry["outcomes"]
+    }
+    while pending:
+        child_binding = pending.pop()
+        child_registration = outcomes_by_ref[str(child_binding["registration_ref"])]
+        parent_ref = child_registration.get("parent_registration_ref")
+        if not parent_ref:
+            continue
+        parent_ref = str(parent_ref)
+        existing_parent = bindings_by_ref.get(parent_ref)
+        if existing_parent is not None:
+            if existing_parent.get("context_only_ancestor") and (
+                window_status_priority[str(child_binding["ruler_window_status"])]
+                > window_status_priority[str(existing_parent["ruler_window_status"])]
+            ):
+                existing_parent["ruler_window_status"] = child_binding[
+                    "ruler_window_status"
+                ]
+            continue
+        parent_registration = outcomes_by_ref.get(parent_ref)
+        if parent_registration is None:
+            raise ValueError(
+                f"成果总登记缺少窗口绑定所需祖先: {child_binding['registration_ref']}"
+            )
+        origin_refs = sorted(parent_registration.get("origin_outcome_refs") or ())
+        if not origin_refs:
+            raise ValueError(f"成果祖先缺少来源 outcome_ref: {parent_ref}")
+        parent_binding = {
+            "registration_ref": parent_ref,
+            "outcome_ref": origin_refs[0],
+            "ruler_window_status": child_binding["ruler_window_status"],
+            "campaign_talent_credits": {},
+            "context_only_ancestor": True,
+        }
+        bindings_by_ref[parent_ref] = parent_binding
+        pending.append(parent_binding)
+    bindings = sorted(
+        bindings_by_ref.values(), key=lambda row: str(row["registration_ref"])
+    )
     report = {
         "schema_version": "ruler-outcome-binding-v1",
         "status": "current_shadow_binding",
@@ -502,7 +551,20 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
     for ruler_name, ruler_config, source_pack in configured_packs:
         binding = build_ruler_outcome_bindings(source_pack, registry)
         materialized = materialize_ruler_outcome_registry(registry, binding)
-        if materialized != source_pack["outcome_registry"]:
+        direct_outcome_refs = {
+            str(row["outcome_ref"])
+            for row in binding["bindings"]
+            if not row.get("context_only_ancestor")
+        }
+        direct_materialized = {
+            **materialized,
+            "clusters": [
+                cluster
+                for cluster in materialized["clusters"]
+                if str(cluster["outcome_ref"]) in direct_outcome_refs
+            ],
+        }
+        if direct_materialized != source_pack["outcome_registry"]:
             raise ValueError(f"{ruler_name} 窗口绑定无法无损还原当前成果投影")
         binding_path = ruler_config.get("outcome_binding")
         if not binding_path:

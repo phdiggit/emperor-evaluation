@@ -3300,6 +3300,47 @@ def test_historical_identity_resolver_covers_liyuan_current_team() -> None:
     assert "劉文靜" in resolver.recall_terms("刘文静")
 
 
+def test_ruler_binding_adds_missing_war_terminal_ancestor_as_context() -> None:
+    source = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    clusters = source["outcome_registry"]["clusters"]
+    terminal = next(
+        row for row in clusters if row["settlement_scope"] == "war_terminal_context"
+    )
+    child = next(
+        row
+        for row in clusters
+        if row.get("parent_outcome_ref") == terminal["outcome_ref"]
+        and row["settlement_scope"] == "ruler_campaign_parent"
+    )
+    terminal_pack = json.loads(json.dumps(source, ensure_ascii=False))
+    terminal_pack["source_pack_sha256"] = "TERMINAL-PACK"
+    terminal_pack["outcome_registry"]["clusters"] = [terminal]
+    child_pack = json.loads(json.dumps(source, ensure_ascii=False))
+    child_pack["ruler"] = "测试皇帝"
+    child_pack["ruler_ref"] = "RULER-TEST"
+    child_pack["source_pack_sha256"] = "CHILD-PACK"
+    child_pack["outcome_registry"]["clusters"] = [child]
+
+    registry = build_unbound_historical_outcome_registry(
+        [terminal_pack, child_pack]
+    )
+    binding = build_ruler_outcome_bindings(child_pack, registry)
+    context = next(
+        row for row in binding["bindings"] if row.get("context_only_ancestor")
+    )
+    materialized = materialize_ruler_outcome_registry(registry, binding)
+
+    assert binding["binding_count"] == 2
+    assert context["outcome_ref"] == terminal["outcome_ref"]
+    assert {
+        row["settlement_scope"] for row in materialized["clusters"]
+    } == {"war_terminal_context", "ruler_campaign_parent"}
+
+
 def test_neutral_plan_scans_whole_biography_by_event_unit_and_uses_small_context(
     tmp_path: Path,
 ) -> None:
