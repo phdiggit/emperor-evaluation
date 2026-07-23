@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from hashlib import sha256
 import json
 from pathlib import Path
+import re
 from typing import Any, Mapping, Sequence
 
 from opencc import OpenCC
@@ -20,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v8"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v9"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -194,6 +195,28 @@ def _normalize_candidate_sources(
 
     retained_candidates = []
     rejections = list(payload.get("rejections") or ())
+
+    def reject_candidate(
+        candidate: Mapping[str, Any],
+        quote_matches: Sequence[Sequence[Mapping[str, Any]]],
+        reason: str,
+    ) -> None:
+        for fact in {
+            str(fact["segment_ref"]): fact
+            for rows in quote_matches
+            for fact in rows
+        }.values():
+            rejections.append(
+                {
+                    "segment_ref": str(fact["segment_ref"]),
+                    "reason": f"{candidate['candidate_key']} {reason}",
+                }
+            )
+
+    def content_bigrams(value: object) -> set[str]:
+        normalized = re.sub(r"[^0-9a-z\u4e00-\u9fff]", "", _T2S.convert(str(value)).lower())
+        return {normalized[index : index + 2] for index in range(len(normalized) - 1)}
+
     for candidate in payload.get("candidates") or ():
         quotes = [canonical_quote(value) for value in candidate.get("exact_quotes") or ()]
         candidate["exact_quotes"] = quotes
@@ -237,20 +260,47 @@ def _normalize_candidate_sources(
             )
         )
         if disclaims_quote_support:
-            for fact in {
-                str(fact["segment_ref"]): fact
-                for rows in quote_matches
-                for fact in rows
-            }.values():
-                rejections.append(
-                    {
-                        "segment_ref": str(fact["segment_ref"]),
-                        "reason": (
-                            f"{candidate['candidate_key']} 自认关键结果未由 exact_quote "
-                            "直接支持，确定性拒绝并保留中性材料。"
-                        ),
-                    }
-                )
+            reject_candidate(
+                candidate,
+                quote_matches,
+                "自认关键结果未由 exact_quote 直接支持，确定性拒绝并保留中性材料。",
+            )
+            continue
+        quote_text = "".join(quotes)
+        candidate_payload = candidate.get("payload") or {}
+        if (
+            candidate.get("outcome_kind") == "campaign"
+            and candidate_payload.get("battle_result") == "victory"
+            and candidate_payload.get("objective_completion") == "complete"
+            and not re.search(r"[克破败降平定捷斩擒獲获拔]|下之", quote_text)
+        ):
+            reject_candidate(
+                candidate,
+                quote_matches,
+                "声称战役胜利并完成目标，但 exact_quote 缺少结果信号，"
+                "确定性拒绝并保留中性材料。",
+            )
+            continue
+        result_bigrams = content_bigrams(candidate.get("observable_result") or "")
+        quote_bigrams = {
+            pair for quote in quotes for pair in content_bigrams(quote)
+        }
+        limitation_admits_missing_input = any(
+            marker in normalized_limitation
+            for marker in ("输入未", "原文未", "引文未", "史料未")
+        )
+        if (
+            candidate.get("outcome_kind") in {"governance", "statecraft"}
+            and limitation_admits_missing_input
+            and result_bigrams
+            and not result_bigrams.intersection(quote_bigrams)
+        ):
+            reject_candidate(
+                candidate,
+                quote_matches,
+                "limitations 承认输入缺项，且 observable_result 与 exact_quote "
+                "无实质词组重合，确定性拒绝并保留中性材料。",
+            )
             continue
         if (
             candidate.get("outcome_kind") == "governance"
@@ -262,6 +312,16 @@ def _normalize_candidate_sources(
                 candidate["settlement_scope"] = "person_governance_result"
             elif window_status in {"within_window", "leadership_formation"}:
                 candidate["settlement_scope"] = "governance_result"
+        if candidate.get("outcome_kind") == "campaign":
+            basis = str(candidate_payload.get("campaign_tier_basis") or "")
+            explanation = basis.split("，", 1)[1] if "，" in basis else basis
+            candidate_payload["campaign_tier_basis"] = (
+                f"土地轴={candidate_payload['land_strategic_value']}；"
+                f"对手轴={candidate_payload['opponent_strategic_weight']}/"
+                f"{candidate_payload['opponent_condition']}；"
+                f"结果轴={candidate_payload['battle_result']}/"
+                f"{candidate_payload['objective_completion']}，{explanation}"
+            )
         if (
             candidate.get("outcome_kind") in {"governance", "statecraft"}
             and candidate.get("scale_basis") == "local_public_result"

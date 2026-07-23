@@ -175,6 +175,10 @@ def _parser() -> argparse.ArgumentParser:
     session_run.add_argument("--export-workers", type=int, default=4)
     session_run.add_argument("--max-pages-per-subject", type=int, default=32)
     session_run.add_argument("--model-timeout-seconds", type=int, default=120)
+    session_run.add_argument(
+        "--stop-after-stage",
+        choices=["outcome_projection"],
+    )
     session_heartbeat = commands.add_parser("emperor-session-heartbeat")
     session_heartbeat.add_argument("--state-root", type=Path, required=True)
     session_heartbeat.add_argument("--session-id", required=True)
@@ -464,6 +468,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 export_workers=args.export_workers,
                 max_pages_per_subject=args.max_pages_per_subject,
                 model_timeout_seconds=args.model_timeout_seconds,
+                stop_after_stage=args.stop_after_stage,
             ),
             None,
         )

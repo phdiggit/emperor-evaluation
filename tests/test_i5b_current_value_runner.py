@@ -278,6 +278,72 @@ def test_outcome_projection_rejects_candidate_disclaiming_quote_support() -> Non
     ]
 
 
+def test_outcome_projection_rejects_victory_without_result_quote() -> None:
+    payload = _campaign_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["payload"]["objective_completion"] = "complete"
+    candidate["exact_quotes"] = ["皇帝命诸军攻城。"]
+    candidate["members"][0]["authorization_quotes"] = ["皇帝命诸军攻城。"]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "皇帝命诸军攻城。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"] == []
+    assert "exact_quote 缺少结果信号" in normalized["rejections"][0]["reason"]
+
+
+def test_outcome_projection_rejects_missing_governance_result_support() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["observable_result"] = "约法十二条实施，前朝苛禁被废除。"
+    candidate["limitations"] = ["输入未逐条列出约法内容。"]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "皇帝命诸军攻城。",
+        }
+    ]
+    candidate["exact_quotes"] = [facts[0]["exact_quote"]]
+    candidate["members"][0]["authorization_quotes"] = [facts[0]["exact_quote"]]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"] == []
+    assert "无实质词组重合" in normalized["rejections"][0]["reason"]
+
+
+def test_outcome_projection_normalizes_campaign_tier_basis() -> None:
+    payload = _campaign_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["payload"]["campaign_tier_basis"] = (
+        "土地轴=战略网关；对手轴=强敌/常态；结果轴=攻克/完整，测试解释。"
+    )
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["payload"]["campaign_tier_basis"] == (
+        "土地轴=important_region；对手轴=regional_major/viable；"
+        "结果轴=victory/partial，测试解释。"
+    )
+
+
 def test_campaign_candidate_requires_one_ruler_relation(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="必须登记唯一参与关系"):
         compile_outcome_candidate_payloads(
@@ -1567,6 +1633,62 @@ def test_claimed_session_cannot_publish_without_every_stage_gate(
 
     session = emperor_session_control.session_status(state_root=state)["sessions"][0]
     assert session["stage"] == "failed_reusable"
+
+
+def test_claimed_session_can_pause_after_outcome_review_gate(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "7" * 40
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-OUTCOME-REVIEW",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+    observed = {}
+
+    def rebuild(**kwargs):
+        observed.update(kwargs)
+        return {
+            "schema_version": "emperor-rebuild-review-v1",
+            "status": "awaiting_review",
+            "ruler": "李世民",
+            "review_stage": "outcome_projection",
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+            "stage_results": _accepted_rebuild_stage_results()[:3],
+        }
+
+    monkeypatch.setattr(emperor_session_control, "rebuild_emperor", rebuild)
+
+    result = emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-OUTCOME-REVIEW",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+        stop_after_stage="outcome_projection",
+    )
+
+    session = emperor_session_control.session_status(state_root=state)["sessions"][0]
+    assert result["status"] == "awaiting_review"
+    assert observed["stop_after_stage"] == "outcome_projection"
+    assert session["stage"] == "awaiting_review"
+    assert session["review_stage"] == "outcome_projection"
+    with pytest.raises(
+        emperor_session_control.SessionControlError,
+        match="尚未完成重建与质量验证",
+    ):
+        emperor_session_control.publish_session(
+            state_root=state,
+            session_id="SESSION-OUTCOME-REVIEW",
+            canonical_root=release,
+        )
 
 
 def test_session_publish_fails_closed_when_canonical_changed(

@@ -54,7 +54,7 @@ STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v1",
-    "outcome_projection": "current-outcome-projection-stage-v1",
+    "outcome_projection": "current-outcome-projection-stage-v2",
     "current_projection": "registry-profile-i5b-stage-v1",
 }
 
@@ -781,6 +781,7 @@ def rebuild_emperor(
     runtime_root: Path,
     limits: RebuildLimits = RebuildLimits(),
     stage_callback: Callable[[str, str, Mapping[str, Any]], None] | None = None,
+    stop_after_stage: str | None = None,
 ) -> dict[str, Any]:
     """Restart the current deterministic chain and atomically publish its outputs.
 
@@ -1591,6 +1592,26 @@ def rebuild_emperor(
         "reused" if restored_outcome_stage is not None else "quality_accepted",
         outcome_stage,
     )
+    if stop_after_stage == "outcome_projection":
+        projected_source_pack = json.loads(
+            source_pack_path.read_text(encoding="utf-8")
+        )
+        projected_outcomes = (
+            (projected_source_pack.get("outcome_registry") or {}).get("clusters")
+            or ()
+        )
+        return {
+            "schema_version": "emperor-rebuild-review-v1",
+            "status": "awaiting_review",
+            "ruler": ruler,
+            "review_stage": "outcome_projection",
+            "source_pack": str(source_pack_path),
+            "neutral_materials": str(neutral_path),
+            "outcome_count": len(projected_outcomes),
+            "stage_results": stage_results,
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        }
     deadline.check("current_projection")
     current_stage_input_fingerprint = _digest(
         {

@@ -481,6 +481,7 @@ def run_claimed_session(
     export_workers: int = 4,
     max_pages_per_subject: int = 32,
     model_timeout_seconds: int = 120,
+    stop_after_stage: str | None = None,
 ) -> dict[str, Any]:
     path = _session_path(state_root, _safe_token(session_id, field="session_id"))
     if not path.is_file():
@@ -532,9 +533,41 @@ def run_claimed_session(
             runtime_root=Path(str(lease["runtime_root"])),
             limits=limits,
             stage_callback=update_stage,
+            stop_after_stage=stop_after_stage,
         )
         stage_results = list(report.get("stage_results") or ())
         observed_stages = [str(row.get("stage") or "") for row in stage_results]
+        if report.get("status") == "awaiting_review":
+            review_stage = str(report.get("review_stage") or "")
+            if review_stage not in REQUIRED_REBUILD_STAGES:
+                raise SessionControlError("人工审阅阶段不属于受监督职责链")
+            expected_stages = list(REQUIRED_REBUILD_STAGES)[
+                : list(REQUIRED_REBUILD_STAGES).index(review_stage) + 1
+            ]
+            if observed_stages != expected_stages or any(
+                row.get("status") not in {"quality_accepted", "reused"}
+                or not row.get("input_fingerprint")
+                or not row.get("producer_contract_fingerprint")
+                for row in stage_results
+            ):
+                raise SessionControlError("人工审阅前的阶段监督清单不完整")
+            review = {
+                **report,
+                "session_id": session_id,
+                "release_sha": lease["release_sha"],
+                "input_fingerprint": lease["input_fingerprint"],
+                "limits": asdict(limits),
+                "reused": False,
+            }
+            _atomic_json(
+                Path(str(lease["runtime_root"])) / "review.json",
+                review,
+            )
+            lease["stage"] = "awaiting_review"
+            lease["review_stage"] = review_stage
+            lease["updated_at"] = _now()
+            _atomic_json(path, lease)
+            return review
         if observed_stages != list(REQUIRED_REBUILD_STAGES) or any(
             row.get("status") not in {"quality_accepted", "reused"}
             or not row.get("input_fingerprint")
