@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v9"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v10"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -170,6 +170,45 @@ def _accepted_source_quotes(
     return accepted
 
 
+def _expand_fact_quote_to_same_revision_paragraph(
+    fact: Mapping[str, Any],
+    *,
+    pages_by_title: Mapping[str, Any],
+    max_chars: int = 1200,
+) -> dict[str, Any]:
+    expanded = dict(fact)
+    page = pages_by_title.get(str(fact.get("page_title") or ""))
+    quote = str(fact.get("exact_quote") or "")
+    if (
+        page is None
+        or page.revision_ref != str(fact.get("revision_ref") or "")
+        or not quote
+        or page.raw_text.count(quote) != 1
+    ):
+        return expanded
+    position = page.raw_text.index(quote)
+    boundaries = [
+        match.span()
+        for match in re.finditer(r"<BR>\s*(?:\r?\n)?|(?:\r?\n\s*){2,}", page.raw_text)
+    ]
+    start = max(
+        (end for boundary_start, end in boundaries if boundary_start < position),
+        default=0,
+    )
+    end = min(
+        (
+            boundary_start
+            for boundary_start, _boundary_end in boundaries
+            if boundary_start >= position + len(quote)
+        ),
+        default=len(page.raw_text),
+    )
+    paragraph = page.raw_text[start:end].strip()
+    if quote in paragraph and len(paragraph) <= max_chars:
+        expanded["exact_quote"] = paragraph
+    return expanded
+
+
 def _normalize_candidate_sources(
     payload: Mapping[str, Any], facts: Sequence[Mapping[str, Any]]
 ) -> Mapping[str, Any]:
@@ -248,14 +287,23 @@ def _normalize_candidate_sources(
         normalized_limitation = limitation_text.replace("`", "").replace(" ", "")
         disclaims_quote_support = (
             "exact_quote" in normalized_limitation
-            and any(
-                marker in normalized_limitation
-                for marker in (
-                    "未在exact_quote中",
-                    "exact_quote中未",
-                    "exact_quote未",
-                    "未由exact_quote",
-                    "不受exact_quote",
+            and (
+                any(
+                    marker in normalized_limitation
+                    for marker in (
+                        "未在exact_quote中",
+                        "exact_quote中未",
+                        "exact_quote未",
+                        "未由exact_quote",
+                        "不受exact_quote",
+                    )
+                )
+                or (
+                    "依据来自" in normalized_limitation
+                    and any(
+                        marker in normalized_limitation
+                        for marker in ("action_summary", "result字段")
+                    )
                 )
             )
         )
@@ -473,6 +521,34 @@ def project_current_outcomes(
             "policy_fingerprint": policy_fingerprint,
             "dispositions": [dispositions[key] for key in sorted(dispositions)],
         }
+    if source_index is None:
+        raise ValueError("待投射成果事实必须提供固定 revision 史源索引")
+    eligible_pages = {
+        page.page_title: page
+        for page in source_index.iter_pages(
+            works=sorted(
+                {
+                    str(fact["page_title"]).split("/", 1)[0]
+                    for fact in eligible
+                    if fact.get("page_title")
+                }
+            ),
+            page_titles=sorted(
+                {
+                    str(fact["page_title"])
+                    for fact in eligible
+                    if fact.get("page_title")
+                }
+            ),
+        )
+    }
+    eligible = [
+        _expand_fact_quote_to_same_revision_paragraph(
+            fact,
+            pages_by_title=eligible_pages,
+        )
+        for fact in eligible
+    ]
     ordered_eligible = sorted(
         eligible,
         key=lambda row: (
@@ -718,7 +794,9 @@ def project_current_outcomes(
             "fact_ref": fact_ref,
             "decision": "accepted" if candidate_keys else "rejected",
             "reason": (
-                "；".join(dict.fromkeys(reasons))
+                "生成成果候选：" + "、".join(candidate_keys)
+                if candidate_keys
+                else "；".join(dict.fromkeys(reasons))
                 if reasons
                 else "当前成果投影未生成可登记候选。"
             ),

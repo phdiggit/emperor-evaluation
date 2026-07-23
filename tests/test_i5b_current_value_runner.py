@@ -80,6 +80,7 @@ from emperor_v4.runtime.emperor_neutral_scan import (
 )
 from emperor_v4.runtime.emperor_outcome_projection import (
     PROJECTION_POLICY_VERSION,
+    _expand_fact_quote_to_same_revision_paragraph,
     _normalize_candidate_sources,
     build_outcome_transport_schema,
     project_current_outcomes,
@@ -254,6 +255,38 @@ def test_outcome_projection_normalizes_governance_window_scope() -> None:
     assert normalized["candidates"][0]["settlement_scope"] == "governance_result"
 
 
+def test_outcome_projection_expands_quote_to_same_revision_paragraph(
+    tmp_path: Path,
+) -> None:
+    index_path = tmp_path / "source.sqlite3"
+    paragraph = "皇帝命诸军攻城。军士先登，遂克都城。与民约法，悉除苛禁。"
+    build_local_source_index(
+        [
+            {
+                "page_title": "史书/卷一",
+                "work_title": "史书",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": f"前段。<BR>\n{paragraph}<BR>\n后段。",
+            }
+        ],
+        index_path,
+    )
+    index = LocalSourceTextIndex(index_path)
+    page = next(index.iter_pages(works=["史书"], page_titles=["史书/卷一"]))
+
+    expanded = _expand_fact_quote_to_same_revision_paragraph(
+        {
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "皇帝命诸军攻城。",
+        },
+        pages_by_title={page.page_title: page},
+    )
+
+    assert expanded["exact_quote"] == paragraph
+
+
 def test_outcome_projection_rejects_candidate_disclaiming_quote_support() -> None:
     payload = _governance_candidate_payload()
     candidate = payload["candidates"][0]
@@ -279,6 +312,27 @@ def test_outcome_projection_rejects_candidate_disclaiming_quote_support() -> Non
             ),
         }
     ]
+
+
+def test_outcome_projection_rejects_summary_only_quote_support() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["limitations"] = [
+        "exact_quote直接记载命令，治理结果依据来自同一输入事实的action_summary与result字段。"
+    ]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"] == []
+    assert "未由 exact_quote 直接支持" in normalized["rejections"][0]["reason"]
 
 
 def test_outcome_projection_rejects_victory_without_result_quote() -> None:
