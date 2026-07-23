@@ -34,7 +34,7 @@ SCHEMA = ROOT / "config/historical-outcome-cluster-registry.schema.json"
 GOLD_SCHEMA = ROOT / "config/historical-quality-gold-manifest.schema.json"
 
 
-@pytest.mark.parametrize("ruler", ["刘邦", "李世民"])
+@pytest.mark.parametrize("ruler", ["刘邦", "李世民", "李渊"])
 def test_current_outcomes_validate_and_have_deterministic_episodes(ruler: str) -> None:
     pack = json.loads(
         (ROOT / "eval/i5b_current_value" / ruler / "source-pack.json").read_text(
@@ -51,6 +51,7 @@ def test_current_outcomes_validate_and_have_deterministic_episodes(ruler: str) -
     assert validation["kind_counts"]["statecraft"] == {
         "刘邦": 5,
         "李世民": 1,
+        "李渊": 1,
     }[ruler]
     for cluster in pack["outcome_registry"]["clusters"]:
         episode = build_outcome_episode(cluster, facts=facts)
@@ -381,7 +382,7 @@ def test_zhenguan_law_responsibility_keeps_leads_above_clause_contributor() -> N
     ] == "historic"
 
 
-@pytest.mark.parametrize("ruler", ["刘邦", "李世民"])
+@pytest.mark.parametrize("ruler", ["刘邦", "李世民", "李渊"])
 def test_database_dry_run_never_opens_or_writes_database(ruler: str) -> None:
     report = build_i5b_current_value(
         ROOT / "eval/i5b_current_value" / ruler / "source-pack.json"
@@ -419,11 +420,18 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
 
 
 @pytest.mark.parametrize(
-    ("ruler", "expected_signal"),
-    [("李世民", "17.763451"), ("刘邦", "8.188958")],
+    ("ruler", "expected_signal", "expected_complementarity", "expected_stability"),
+    [
+        ("李世民", "17.763451", "balanced_four", "durable_multi_stage"),
+        ("李渊", "5.063115", "strong_three", "stable_but_narrow"),
+        ("刘邦", "8.188958", "balanced_four", "durable_multi_stage"),
+    ],
 )
 def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
-    ruler: str, expected_signal: str
+    ruler: str,
+    expected_signal: str,
+    expected_complementarity: str,
+    expected_stability: str,
 ) -> None:
     report = compare_historical_quality_gold_files(
         manifest_path=ROOT / "eval/historical_quality_gold" / f"{ruler}.json",
@@ -443,10 +451,10 @@ def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
     assert manifest["i5b_expectation"]["weighted_raw_signal"] == expected_signal
     assert manifest["i5b_expectation"]["team_projection"][
         "functional_complementarity"
-    ] == "balanced_four"
+    ] == expected_complementarity
     assert manifest["i5b_expectation"]["team_projection"][
         "long_term_stability"
-    ] == "durable_multi_stage"
+    ] == expected_stability
 
 
 def test_i5b_gold_rejects_shadow_signal_drift() -> None:
@@ -474,7 +482,7 @@ def test_i5b_gold_rejects_shadow_signal_drift() -> None:
     ]
 
 
-@pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
+@pytest.mark.parametrize("ruler", ["李世民", "李渊", "刘邦"])
 def test_current_i5b_gold_blind_gate_builds_before_gold_and_has_no_side_effects(
     ruler: str,
 ) -> None:

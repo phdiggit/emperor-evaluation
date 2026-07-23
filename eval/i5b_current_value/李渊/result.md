@@ -165,8 +165,8 @@
 
 | 人物 | 团队建设投影 | 政治风险 | 窗口覆盖状态 |
 | --- | --- | --- | --- |
-| 刘文静 | 正向计分 | 已复核，当前窗口无重大政治风险 | provisional_material_coverage_open |
-| 尉迟敬德 | 正向计分 | 已复核，当前窗口无重大政治风险 | provisional_material_coverage_open |
-| 李世民 | 正向计分 | 已复核，当前窗口无重大政治风险 | provisional_material_coverage_open |
-| 李勣 | 正向计分 | 已复核，当前窗口无重大政治风险 | provisional_material_coverage_open |
-| 李靖 | 正向计分 | 已复核，当前窗口无重大政治风险 | provisional_material_coverage_open |
+| 刘文静 | 正向计分 | 已复核，当前窗口无重大政治风险 | frozen_after_complete_coverage |
+| 尉迟敬德 | 正向计分 | 已复核，当前窗口无重大政治风险 | frozen_after_complete_coverage |
+| 李世民 | 正向计分 | 已复核，当前窗口无重大政治风险 | frozen_after_complete_coverage |
+| 李勣 | 正向计分 | 已复核，当前窗口无重大政治风险 | frozen_after_complete_coverage |
+| 李靖 | 正向计分 | 已复核，当前窗口无重大政治风险 | frozen_after_complete_coverage |

@@ -13,7 +13,7 @@
     },
     "ruler": "李渊",
     "schema_version": "historical-outcome-database-dry-run-v1",
-    "source_pack_sha256": "174d81e6d36059c1ee76c0ed35f398abbdbd70bc79ddcb942d5c57c3338adb80",
+    "source_pack_sha256": "07421f2fd9ec87f90228fe3b01f073ddd99a1ed2cc55e65da0c865b5c3317732",
     "status": "ready_before_database_write"
   },
   "declarations": {
@@ -31,11 +31,11 @@
     "person_profile_registry_count": 36,
     "person_profile_registry_with_open_gap_count": 12,
     "person_profile_window_projection_count": 36,
-    "profile_freeze_gate_passed": false,
+    "profile_freeze_gate_passed": true,
     "profile_material_coverage_complete": true,
     "profile_member_count": 5,
     "profile_member_with_open_gap_count": 0,
-    "profile_values_frozen": false,
+    "profile_values_frozen": true,
     "ranking": null,
     "rule_evidence_unit_count": 20,
     "ruler_historical_outcome_cluster_count": 10,
@@ -5319,7 +5319,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "268a7faea3a16abe4184c3d19802f6bce003f2a167e37ac7556e926c1f8a7f60",
-    "report_sha256": "5a2fb3a4150a037e1572d8d67e0d112b36d7166ebcdeeab8ba9f6dd54b0e22f1",
+    "report_sha256": "db6aa78172e7a6f373c1a21ab2f50a3901844bdc39e8dce0af9c184b662af9d7",
     "ruler": "李渊",
     "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
     "rules": [
@@ -5393,7 +5393,7 @@
         "source_candidate_count": 1,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
+        "source_sha256": "3eb952ecb3223f2f40acde1e474141bddb4d807a36f73eaa2d7d285224c9aa1a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6066,7 +6066,7 @@
         "source_candidate_count": 14,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
+        "source_sha256": "3eb952ecb3223f2f40acde1e474141bddb4d807a36f73eaa2d7d285224c9aa1a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6349,7 +6349,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 5,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
+        "source_sha256": "3eb952ecb3223f2f40acde1e474141bddb4d807a36f73eaa2d7d285224c9aa1a",
         "supporting_only_members": []
       },
       {
@@ -6455,7 +6455,7 @@
         "source_candidate_count": 2,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
+        "source_sha256": "3eb952ecb3223f2f40acde1e474141bddb4d807a36f73eaa2d7d285224c9aa1a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6569,7 +6569,7 @@
         "source_candidate_count": 2,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
+        "source_sha256": "3eb952ecb3223f2f40acde1e474141bddb4d807a36f73eaa2d7d285224c9aa1a",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6586,11 +6586,11 @@
       "team_positive_member_count": 5,
       "weighted_raw_signal": "5.063115"
     },
-    "task_code": "I5B-CURRENT-2691E944B07AF473",
+    "task_code": "I5B-CURRENT-A802FD8F7D6EC8F9",
     "window": "618-626"
   },
   "net_signal": "5.063115",
-  "net_signal_status": "provisional_profile_inputs",
+  "net_signal_status": "stable_profile_inputs",
   "outcome_registry_validation": {
     "actor_count": 11,
     "cluster_count": 26,
@@ -12643,7 +12643,7 @@
       ]
     }
   ],
-  "person_profile_registry_fingerprint": "9ef17b57ae28b3a457f2c922f262a5db244556855d6b66ad020e52586b6a1d89",
+  "person_profile_registry_fingerprint": "c485f46dd955aaf17e7009949badbce522e8408daf000c7b6b92ed3de520013a",
   "person_profile_window_projection": [
     {
       "person": "侯君集",
@@ -12717,7 +12717,7 @@
         "positive_scored"
       ],
       "window_coverage_gaps": [],
-      "window_coverage_status": "provisional_material_coverage_open"
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
       "person": "刘邦",
@@ -12791,7 +12791,7 @@
         "positive_scored"
       ],
       "window_coverage_gaps": [],
-      "window_coverage_status": "provisional_material_coverage_open"
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
       "person": "张良",
@@ -12897,7 +12897,7 @@
         "positive_scored"
       ],
       "window_coverage_gaps": [],
-      "window_coverage_status": "provisional_material_coverage_open"
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
       "person": "李勣",
@@ -12923,7 +12923,7 @@
         "positive_scored"
       ],
       "window_coverage_gaps": [],
-      "window_coverage_status": "provisional_material_coverage_open"
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
       "person": "李渊",
@@ -12965,7 +12965,7 @@
         "positive_scored"
       ],
       "window_coverage_gaps": [],
-      "window_coverage_status": "provisional_material_coverage_open"
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
       "person": "杜如晦",
@@ -13322,14 +13322,14 @@
       "pending_person_refs": [],
       "status": "complete"
     },
-    "freeze_allowed": false,
+    "freeze_allowed": true,
     "material_coverage_complete": true,
     "required_inputs": [
       "full_lifecycle_biography",
       "historical_outcome_cluster_registry",
       "window_political_risk_review"
     ],
-    "status": "ready_for_freeze_review"
+    "status": "frozen_after_complete_coverage"
   },
   "profile_projection_review": [
     {
@@ -13426,7 +13426,7 @@
         "rule_path": "top_fallback",
         "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -13552,7 +13552,7 @@
         "rule_path": "top_fallback",
         "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -13822,7 +13822,7 @@
         "rule_path": "military_peak_pair",
         "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -13960,7 +13960,7 @@
         "rule_path": "military_peak_pair",
         "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     },
     {
       "biography_fact_refs": [
@@ -14096,10 +14096,10 @@
         "rule_path": "military_peak_pair",
         "status": "accepted_current"
       },
-      "value_status": "provisional_material_coverage_open"
+      "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "65871c3ed5b69d7703a9fe0e9a91a409258e427370583960aa289f6cb3845084",
+  "report_sha256": "564d76436f42f0b8157e483eab8970b3f11885290cefe13608ee9b6cb7a3f161",
   "rule_evidence_units": [
     {
       "direction": "negative",
@@ -14768,7 +14768,7 @@
           "尉迟敬德",
           "刘文静"
         ],
-        "profile_value_status": "provisional_material_coverage_open",
+        "profile_value_status": "frozen_after_complete_coverage",
         "ruler_context_inventory_fingerprint": "c67758e6761ba08c0025fa0ee780b584588a22f792728f833435d90169076853"
       },
       "rule_code": "team_building",
@@ -14793,8 +14793,8 @@
   "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
   "schema_version": "i5b-current-value-report-v5",
   "source_pack_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-  "source_pack_sha256": "174d81e6d36059c1ee76c0ed35f398abbdbd70bc79ddcb942d5c57c3338adb80",
-  "status": "current_shadow_chain_complete_profile_values_provisional",
+  "source_pack_sha256": "07421f2fd9ec87f90228fe3b01f073ddd99a1ed2cc55e65da0c865b5c3317732",
+  "status": "current_shadow_chain_complete",
   "three_channel_disposition": {
     "dynasty_governance": {
       "disposition": "deterministic_team_support_or_policy_context",
