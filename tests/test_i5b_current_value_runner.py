@@ -316,6 +316,91 @@ def test_outcome_projection_normalizes_direct_ruler_command_relation() -> None:
     assert normalized_candidate["period_end"] == "创业期"
 
 
+def test_outcome_projection_binds_li_yuan_pre_accession_context() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["members"][0]["actor_name"] = "李渊"
+    candidate["ruler_window_status"] = "within_window"
+    candidate["period_start"] = "武德元年"
+    candidate["period_end"] = "武德元年"
+    candidate["exact_quotes"] = ["唐公入城，迎代王，与民约法，悉除隋苛禁。"]
+    candidate["members"][0]["authorization_quotes"] = list(
+        candidate["exact_quotes"]
+    )
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": candidate["exact_quotes"][0],
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+    normalized_candidate = normalized["candidates"][0]
+
+    assert normalized_candidate["ruler_window_status"] == "outside_window"
+    assert normalized_candidate["settlement_scope"] == "person_governance_result"
+    assert normalized_candidate["period_start"] == "创业期"
+
+
+def test_outcome_projection_rejects_palace_seizure_governance() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["canonical_label"] = "玄武门之变后平定宫廷军乱"
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"] == []
+    assert "夺权或宫廷清洗" in normalized["rejections"][0]["reason"]
+
+
+def test_outcome_projection_requires_explicit_legal_governance_candidate() -> None:
+    fact = {
+        "segment_ref": "SEG-LAW",
+        "exact_quote": "唐公入城，迎代王，与民约法十二条，悉除隋苛禁。",
+    }
+    payload = {
+        "candidates": [
+            {
+                "outcome_kind": "campaign",
+                "exact_quotes": [fact["exact_quote"]],
+            }
+        ],
+        "rejections": [],
+    }
+
+    with pytest.raises(ValueError, match="独立 governance"):
+        _validate_candidate_payload_coverage(payload, [fact])
+
+
+def test_outcome_projection_requires_explicit_chang_an_campaign_candidate() -> None:
+    fact = {
+        "segment_ref": "SEG-CAMPAIGN",
+        "exact_quote": "军头雷永吉先登，遂克长安。与民约法十二条，悉除隋苛禁。",
+    }
+    payload = {
+        "candidates": [
+            {
+                "outcome_kind": "governance",
+                "exact_quotes": [fact["exact_quote"]],
+            }
+        ],
+        "rejections": [],
+    }
+
+    with pytest.raises(ValueError, match="独立 campaign"):
+        _validate_candidate_payload_coverage(payload, [fact])
+
+
 def test_outcome_projection_maps_adversity_quote_terminal_punctuation() -> None:
     payload = _campaign_candidate_payload()
     candidate = payload["candidates"][0]

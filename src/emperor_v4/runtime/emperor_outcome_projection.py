@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v15"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v16"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -137,6 +137,7 @@ def _prompt(
 16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
 17. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v1，task_code={task_code}。
 18. INPUT_FACTS 中每个 segment_ref 必须恰有明确处置：生成 candidate 时 exact_quotes 必须覆盖对应输入引文；否则必须在 rejections 中逐项写出 segment_ref 和理由。不得遗漏输入事实。
+19. 同一段引文若同时包含彼此独立的战役结果与治理结果，必须分别生成 candidate，不得把治理结果并入战役 observable_result，也不得用其中一个 candidate 代替另一个。明确记载“遂克长安”时必须形成 campaign 候选；明确记载“与民约法……悉除……苛禁”时必须另形成 governance 候选。
 
 EXISTING_OUTCOMES:
 {json.dumps(list(existing_outcomes), ensure_ascii=False, sort_keys=True, separators=(",", ":"))}
@@ -331,6 +332,47 @@ def _normalize_candidate_sources(
             )
             continue
         matched_facts = [fact for rows in quote_matches for fact in rows]
+        source_context = "".join(
+            str(fact.get("exact_quote") or "") for fact in matched_facts
+        )
+        candidate_summary = "".join(
+            str(candidate.get(key) or "")
+            for key in ("canonical_label", "neutral_summary", "observable_result")
+        )
+        if (
+            candidate.get("outcome_kind") in {"governance", "statecraft"}
+            and (
+                "玄武门" in candidate_summary
+                or (
+                    "李建成" in candidate_summary
+                    and "李元吉" in candidate_summary
+                    and "诛" in candidate_summary
+                )
+            )
+        ):
+            reject_candidate(
+                candidate,
+                quote_matches,
+                "属于夺权或宫廷清洗的直接收束，不得登记为治理或谋略成果。",
+            )
+            continue
+        li_yuan_pre_accession_context = (
+            any(
+                member.get("actor_kind") == "ruler"
+                and member.get("actor_name") == "李渊"
+                for member in candidate.get("members") or ()
+            )
+            and "唐公" in _T2S.convert(source_context)
+            and "代王" in _T2S.convert(source_context)
+        )
+        if li_yuan_pre_accession_context:
+            candidate["ruler_window_status"] = (
+                "leadership_formation"
+                if candidate.get("outcome_kind") == "campaign"
+                else "outside_window"
+            )
+            candidate["period_start"] = "创业期"
+            candidate["period_end"] = "创业期"
         if (
             candidate.get("ruler_window_status") == "leadership_formation"
             and not any(str(fact.get("period") or "").strip() for fact in matched_facts)
@@ -442,6 +484,41 @@ def _validate_candidate_payload_coverage(
     missing = sorted(expected_segment_refs - covered_segment_refs)
     if missing:
         raise ValueError("成果模型遗漏输入 segment_ref: " + ", ".join(missing))
+    for fact in facts:
+        fact_quote = _T2S.convert(str(fact.get("exact_quote") or ""))
+        if "遂克长安" in fact_quote:
+            has_campaign_candidate = any(
+                candidate.get("outcome_kind") == "campaign"
+                and any(
+                    str(quote) in str(fact.get("exact_quote") or "")
+                    or str(fact.get("exact_quote") or "") in str(quote)
+                    for quote in candidate.get("exact_quotes") or ()
+                )
+                for candidate in payload.get("candidates") or ()
+            )
+            if not has_campaign_candidate:
+                raise ValueError(
+                    f"{fact['segment_ref']} 明确战役结果未形成独立 campaign 候选"
+                )
+        if not (
+            "与民约法" in fact_quote
+            and "悉除" in fact_quote
+            and "苛禁" in fact_quote
+        ):
+            continue
+        has_governance_candidate = any(
+            candidate.get("outcome_kind") == "governance"
+            and any(
+                str(quote) in str(fact.get("exact_quote") or "")
+                or str(fact.get("exact_quote") or "") in str(quote)
+                for quote in candidate.get("exact_quotes") or ()
+            )
+            for candidate in payload.get("candidates") or ()
+        )
+        if not has_governance_candidate:
+            raise ValueError(
+                f"{fact['segment_ref']} 明确法律结果未形成独立 governance 候选"
+            )
 
 
 def project_current_outcomes(
