@@ -6,49 +6,50 @@
     "migration_ref": "db/postgres/007_v4_historical_outcome_clusters.sql",
     "migration_sha256": "e013816101272ff9afa527f47eb22fde2c3149e1da581ce6ef381477f2526935",
     "planned_current_rows": {
-      "historical_episodes": 25,
-      "historical_outcome_clusters": 25,
-      "outcome_cluster_members": 42,
-      "outcome_episode_links": 25
+      "historical_episodes": 26,
+      "historical_outcome_clusters": 26,
+      "outcome_cluster_members": 52,
+      "outcome_episode_links": 26
     },
     "ruler": "李渊",
     "schema_version": "historical-outcome-database-dry-run-v1",
-    "source_pack_sha256": "91caaccb2311be3345bd5b746bbaf0e8508901a925fd657b8b964966d4204bd0",
+    "source_pack_sha256": "174d81e6d36059c1ee76c0ed35f398abbdbd70bc79ddcb942d5c57c3338adb80",
     "status": "ready_before_database_write"
   },
   "declarations": {
     "campaign_outcome_count": 23,
     "current_value_only": true,
     "database_write_count": 0,
-    "episode_count": 27,
+    "episode_count": 30,
     "external_retrieval_count": 0,
     "formal_score_write_count": 0,
     "formal_scoring_ready": false,
     "governance_outcome_count": 2,
-    "historical_outcome_cluster_count": 25,
+    "historical_outcome_cluster_count": 26,
     "linked_ruler_context_count": 0,
-    "outside_ruler_window_outcome_count": 15,
+    "outside_ruler_window_outcome_count": 16,
     "person_profile_registry_count": 10,
     "person_profile_registry_with_open_gap_count": 5,
     "profile_freeze_gate_passed": false,
-    "profile_material_coverage_complete": false,
+    "profile_material_coverage_complete": true,
     "profile_member_count": 5,
     "profile_member_with_open_gap_count": 0,
     "profile_values_frozen": false,
     "ranking": null,
-    "rule_evidence_unit_count": 6,
+    "rule_evidence_unit_count": 20,
     "ruler_historical_outcome_cluster_count": 10,
     "runtime_model_call_count": 0,
     "score_45": null,
     "selected_governance_result_count": 1,
-    "statecraft_outcome_count": 0,
+    "statecraft_outcome_count": 1,
     "three_channel_materials_consumed": true,
     "tier": null
   },
   "episode_index_by_person": {
     "刘文静": [
       "EP-4F4755335904DF440D08",
-      "EP-OUTCOME-05CB820703A210188EA0"
+      "EP-OUTCOME-05CB820703A210188EA0",
+      "EP-OUTCOME-A64FC24F3D34EE244A3A"
     ],
     "尉迟敬德": [
       "EP-OUTCOME-2E025E38740ABD627C5B",
@@ -84,7 +85,7 @@
       "EP-OUTCOME-FD2B248D757BB1D07D3D"
     ],
     "李靖": [
-      "EP-53839F435D30FB3F05A8",
+      "EP-3C7032F59DE4F5210168",
       "EP-OUTCOME-8FAA3BCF2631F4B5EB1F",
       "EP-OUTCOME-91D8D8E30398C7FB28BF",
       "EP-OUTCOME-AAF60C7C9B9D6481FE55",
@@ -93,6 +94,186 @@
     ]
   },
   "episodes": [
+    {
+      "action": "裴寂因与李渊旧交而受无比亲礼，在缺乏捍御才能的情况下获授晋州道行军总管和便宜从事权；介休大败、晋州以东城镇俱失后，李渊仍令其镇抚河东，继而再败并引发民乱。",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-LIYUAN-PEIJI-PRIVATE-FAVOR",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "SP-544AC9325C96B7E90BEC",
+          "supported_fields": [
+            "identity",
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-LIYUAN-PEIJI-COMMAND",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "SP-25530C1D9BF548589295",
+          "supported_fields": [
+            "identity",
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-LIYUAN-PEIJI-DEFEAT-RETAIN",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "SP-8C1E48AAE4B08EB84EB6",
+          "supported_fields": [
+            "identity",
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "complete",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "裴寂因与李渊旧交而受无比亲礼，在缺乏捍御才能的情况下获授晋州道行军总管和便宜从事权；介休大败、晋州以东城镇俱失后，李渊仍令其镇抚河东，继而再败并引发民乱。"
+      ],
+      "episode_id": "EP-0DBDCF376BFC8FB2FB71",
+      "episode_status": "accepted",
+      "episode_type": "ruler_person_governance_event",
+      "evaluation_context": "PER-V4-CC0957EB2FD8",
+      "lineage": {
+        "fact_refs": "PFACT-LIYUAN-PEIJI-JINYANG-FAILURE",
+        "ruler_context_refs": "",
+        "source_refs": "舊唐書/卷57@2019966#寂自請行，因為晉州道行軍總管，得以便宜從事。;舊唐書/卷57@2019966#師遂大潰，死散略盡。寂一日一夜馳至晉州。以東城鎮俱沒，金剛進逼絳州，寂抗表陳謝，高祖慰諭之，復令鎮撫河東之地。寂性怯，無捍禦之才，唯發使絡繹，催督虞、秦二州居人;舊唐書/卷57@2019966#高祖視朝，必引與同坐，入閣則延之臥內，言無不從，呼為裴監而不名。當朝貴戚，親禮莫與為比。"
+      },
+      "locations": [],
+      "outcome": [
+        "裴寂因与李渊旧交而受无比亲礼，在缺乏捍御才能的情况下获授晋州道行军总管和便宜从事权；介休大败、晋州以东城镇俱失后，李渊仍令其镇抚河东，继而再败并引发民乱。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-V4-CC0957EB2FD8",
+          "role_codes": [
+            "subject"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "mode": "current_shadow",
+        "ruler": "李渊"
+      },
+      "responsibility": "李渊对该任用、授权或处置承担可归属责任。",
+      "semantic_fingerprint": "0dbdcf376bfc8fb2fb7140c036214e8dc4168e0cfdfbaea7fd6d97a05f903250",
+      "time_end": null,
+      "time_precision": "source_expression",
+      "time_start": "武德二年",
+      "uncertainties": []
+    },
+    {
+      "action": "李靖察觉高祖有经营天下之志，拟赴江都告变而因道路阻塞未成；唐军克长安后他将被处斩，以言辞申辩，高祖因其言及太宗力请而释放，随后由太宗召入幕府。",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-C0CA7B0AB4274591D926",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "SP-2205A9361286C38FAF96",
+          "supported_fields": [
+            "identity",
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-919AE5DB6E93B6C82732",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "SP-23A3D5F1B8C1DE9A0C62",
+          "supported_fields": [
+            "identity",
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-D9E46DD6FCAB90E8B997",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "SP-AF3F957975C26C44BF3D",
+          "supported_fields": [
+            "identity",
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "complete",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "李渊拟因旧怨处死李靖，李靖当面申辩并经李世民坚决求情后才获释放。"
+      ],
+      "episode_id": "EP-3C7032F59DE4F5210168",
+      "episode_status": "accepted",
+      "episode_type": "ruler_person_governance_event",
+      "evaluation_context": "PER-CAND-D29808A822E4",
+      "lineage": {
+        "fact_refs": "PFACT-A0056AD61FA6870E926C",
+        "ruler_context_refs": "",
+        "source_refs": "舊唐書/卷67@2296327#以私怨斬壯士乎;舊唐書/卷67@2296327#因自鎖上變;舊唐書/卷67@2296327#太宗尋召入幕府"
+      },
+      "locations": [],
+      "outcome": [
+        "李渊拟因旧怨处死李靖，李靖当面申辩并经李世民坚决求情后才获释放。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-CAND-D29808A822E4",
+          "role_codes": [
+            "subject"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "mode": "current_shadow",
+        "ruler": "李渊"
+      },
+      "responsibility": "李渊对该任用、授权或处置承担可归属责任。",
+      "semantic_fingerprint": "3c7032f59de4f5210168a780b7cb70dbb095d4fcdecff4208b0788a99425a30d",
+      "time_end": null,
+      "time_precision": "source_expression",
+      "time_start": "大業末至唐初",
+      "uncertainties": []
+    },
     {
       "action": "刘文静参与晋阳起兵筹划并被李渊任为军司马；武德二年因怨言被控谋反，李纲、萧瑀和李世民均辨其非反，李渊仍听从裴寂意见将其处死并籍没。",
       "assertion_links": [
@@ -184,14 +365,14 @@
       "uncertainties": []
     },
     {
-      "action": "李靖察觉高祖有经营天下之志，拟赴江都告变而因道路阻塞未成；唐军克长安后他将被处斩，以言辞申辩，高祖因其言及太宗力请而释放，随后由太宗召入幕府。",
+      "action": "李渊将晋阳根本重地委托幼子李元吉；李元吉欺骗司马后携妻妾弃州逃归，晋阳随即被献给刘武周，李渊最终确认是李元吉自身不善。",
       "assertion_links": [
         {
-          "assertion_ref": "PASS-C0CA7B0AB4274591D926",
+          "assertion_ref": "PASS-LIYUAN-LIYUANJI-JINYANG-AUTH",
           "evidence_status": "accepted",
           "relation": "supports",
           "representative": true,
-          "source_passage_ref": "SP-2205A9361286C38FAF96",
+          "source_passage_ref": "SP-26F4C13E6E9C790AEFE6",
           "supported_fields": [
             "identity",
             "action",
@@ -200,11 +381,11 @@
           ]
         },
         {
-          "assertion_ref": "PASS-919AE5DB6E93B6C82732",
+          "assertion_ref": "PASS-LIYUAN-LIYUANJI-JINYANG-LOSS",
           "evidence_status": "accepted",
           "relation": "supports",
           "representative": false,
-          "source_passage_ref": "SP-23A3D5F1B8C1DE9A0C62",
+          "source_passage_ref": "SP-0DD36B15CF8F1019822B",
           "supported_fields": [
             "identity",
             "action",
@@ -213,11 +394,11 @@
           ]
         },
         {
-          "assertion_ref": "PASS-D9E46DD6FCAB90E8B997",
+          "assertion_ref": "PASS-LIYUAN-LIYUANJI-FAULT",
           "evidence_status": "accepted",
           "relation": "supports",
           "representative": false,
-          "source_passage_ref": "SP-AF3F957975C26C44BF3D",
+          "source_passage_ref": "SP-1B30F273B702D8D0F5F7",
           "supported_fields": [
             "identity",
             "action",
@@ -238,24 +419,24 @@
       },
       "conflicts": [],
       "consequence": [
-        "李靖察觉高祖有经营天下之志，拟赴江都告变而因道路阻塞未成；唐军克长安后他将被处斩，以言辞申辩，高祖因其言及太宗力请而释放，随后由太宗召入幕府。"
+        "李渊将晋阳根本重地委托幼子李元吉；李元吉欺骗司马后携妻妾弃州逃归，晋阳随即被献给刘武周，李渊最终确认是李元吉自身不善。"
       ],
-      "episode_id": "EP-53839F435D30FB3F05A8",
+      "episode_id": "EP-683931C83710C880140E",
       "episode_status": "accepted",
       "episode_type": "ruler_person_governance_event",
-      "evaluation_context": "PER-CAND-D29808A822E4",
+      "evaluation_context": "PER-V4-F60CA0D5DD47",
       "lineage": {
-        "fact_refs": "PFACT-A0056AD61FA6870E926C",
+        "fact_refs": "PFACT-LIYUAN-LIYUANJI-JINYANG-FAILURE",
         "ruler_context_refs": "",
-        "source_refs": "舊唐書/卷67@2296327#以私怨斬壯士乎;舊唐書/卷67@2296327#因自鎖上變;舊唐書/卷67@2296327#太宗尋召入幕府"
+        "source_refs": "資治通鑑/卷187@1502771#元吉自為不善，非二人所能禁也。;資治通鑑/卷187@1502771#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。;資治通鑑/卷187@1502771#辛巳，元吉夜出兵，攜其妻妾棄州奔還長安。元吉始去，武周兵已至城下，晉陽土豪薛深以城納武周。"
       },
       "locations": [],
       "outcome": [
-        "李靖察觉高祖有经营天下之志，拟赴江都告变而因道路阻塞未成；唐军克长安后他将被处斩，以言辞申辩，高祖因其言及太宗力请而释放，随后由太宗召入幕府。"
+        "李渊将晋阳根本重地委托幼子李元吉；李元吉欺骗司马后携妻妾弃州逃归，晋阳随即被献给刘武周，李渊最终确认是李元吉自身不善。"
       ],
       "participants": [
         {
-          "person_ref": "PER-CAND-D29808A822E4",
+          "person_ref": "PER-V4-F60CA0D5DD47",
           "role_codes": [
             "subject"
           ],
@@ -266,11 +447,11 @@
         "mode": "current_shadow",
         "ruler": "李渊"
       },
-      "responsibility": "李渊对该行动、任用或处置承担可归属责任。",
-      "semantic_fingerprint": "53839f435d30fb3f05a86e647163b92b534306effd61de88f9b5bf8f1030ee1b",
+      "responsibility": "李渊对该任用、授权或处置承担可归属责任。",
+      "semantic_fingerprint": "683931c83710c880140e7937794f8814535933d03f48d75114e28cab802f2afb",
       "time_end": null,
       "time_precision": "source_expression",
-      "time_start": "大業末至唐初",
+      "time_start": "武德二年",
       "uncertainties": []
     },
     {
@@ -708,26 +889,26 @@
       ],
       "participants": [
         {
-          "person_ref": "PER-V4-CF936BA48792",
+          "person_ref": "PER-V4-71CF4B99C15F",
           "role_codes": [
-            "commander_in_chief"
+            "principal_commander"
           ],
           "role_status": "resolved"
         },
         {
-          "person_ref": "PER-V4-71CF4B99C15F",
+          "person_ref": "PER-V4-CF936BA48792",
           "role_codes": [
-            "principal_commander"
+            "commander_in_chief"
           ],
           "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "cb2d416d80b8f2a46b0f7ccc33d7df8d34f9d9cf440fd7ae3128d0f025212c5b"
+        "input_hash": "a84536d33ca8beb9c9aae3432479c7428ea09705f1414aabc94ad07f6396dbd6"
       },
-      "responsibility": "李渊以commander_in_chief承担率军自晋阳南下，持续统筹霍邑作战和长安攻城，并在城破后接收隋都，承担整个关中方向最高军事责任。；李世民以principal_commander承担在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。",
-      "semantic_fingerprint": "2807bd13271e676b52e8cf1884ddbbcf7e1faaeccf9de75656ddaa4e2b8d8186",
+      "responsibility": "李世民以principal_commander承担在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。；李渊以commander_in_chief承担率军自晋阳南下，持续统筹霍邑作战和长安攻城，并在城破后接收隋都，承担整个关中方向最高军事责任。",
+      "semantic_fingerprint": "dc3469690ad32ce05b80fe7698cbe1d3e86843154bb1f2d102879e45079301b0",
       "time_end": "创业期",
       "time_precision": "historical_text_range",
       "time_start": "创业期",
@@ -859,7 +1040,7 @@
       "episode_id": "EP-OUTCOME-2F874D109B49CE852101",
       "episode_status": "accepted",
       "episode_type": "campaign_outcome_chain",
-      "evaluation_context": "PER-V4-71CF4B99C15F",
+      "evaluation_context": "PER-CAND-8CF6E0AAF5E5",
       "lineage": {
         "source_refs": "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州;資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出;資治通鑑/卷190@1502800#黑闥眾大潰，斬首萬餘級，溺死數千人;舊唐書/卷55@2037164#不能拒，棄城走"
       },
@@ -870,13 +1051,6 @@
         "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。"
       ],
       "participants": [
-        {
-          "person_ref": "PER-V4-71CF4B99C15F",
-          "role_codes": [
-            "commander_in_chief"
-          ],
-          "role_status": "resolved"
-        },
         {
           "person_ref": "PER-CAND-8CF6E0AAF5E5",
           "role_codes": [
@@ -890,20 +1064,33 @@
             "participant"
           ],
           "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-V4-71CF4B99C15F",
+          "role_codes": [
+            "commander_in_chief"
+          ],
+          "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-V4-CF936BA48792",
+          "role_codes": [
+            "not_in_command_chain"
+          ],
+          "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "03abd5e082649ab8ab1f85875d57b0da7554f08a6a18941dd72dd3490d26cf79"
+        "input_hash": "1d2b50d8be26e2af38dc02343391d25ada4aff2d5ee5c060ec161b430dde9fa2"
       },
-      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李勣以principal_commander承担承担前线作战并经历黎州失守与洺州重创。；尉迟敬德以participant承担在李世民受围时突围救援。",
-      "semantic_fingerprint": "29cabf876efe8dc90bc1aea097554d514348500bf21a30ef5749528782e06d4f",
+      "responsibility": "李勣以principal_commander承担承担前线作战并经历黎州失守与洺州重创。；尉迟敬德以participant承担在李世民受围时突围救援。；李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "5eb2d10368528e48f5a8118cf3e52e50d4732ca3c49695086fe4ff7cb5b31424",
       "time_end": "武德五年",
       "time_precision": "historical_text_range",
       "time_start": "武德五年",
       "uncertainties": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ]
     },
     {
@@ -1220,20 +1407,26 @@
             "commander_in_chief"
           ],
           "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-V4-CF936BA48792",
+          "role_codes": [
+            "not_in_command_chain"
+          ],
+          "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "f6a92455c456d92a2304f9df77048b4af674b749987d00fb617e88b455bfa4e5"
+        "input_hash": "df873ca17f31ca5957ded7288284167388d0bfdbde522ccf42981543337de4ea"
       },
-      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。",
-      "semantic_fingerprint": "4fde7c5ff032efb14b5f4025e7b83bf5ca4d42ea2fde0fa88d760fa06dc68375",
+      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "3186b0048c6f00c50c8005f7ce136f728eb89383f566b7edf15b295eafa050f6",
       "time_end": "武德元年",
       "time_precision": "historical_text_range",
       "time_start": "武德元年",
       "uncertainties": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ]
     },
     {
@@ -1352,14 +1545,21 @@
             "principal_commander"
           ],
           "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-V4-CF936BA48792",
+          "role_codes": [
+            "not_in_command_chain"
+          ],
+          "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "6d5227d11af05f6ea710196043127a499563122777b7b218054fa3a72d836cb2"
+        "input_hash": "2bf8285581823313d607434891eaa64d024ab11e97f5784b26315102be440751"
       },
-      "responsibility": "李靖以principal_commander承担统领唐军与突厥交战",
-      "semantic_fingerprint": "7a5fd2fb73f477bf1a16d2575539c570e647a73b8c116d6b5c6ea211124c3432",
+      "responsibility": "李靖以principal_commander承担统领唐军与突厥交战；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "961c80af1daddb13e7d48ebe1fcfd047113760e31085f2dfbe4b335ec2c84df6",
       "time_end": "武德九年四月",
       "time_precision": "historical_text_range",
       "time_start": "武德九年四月",
@@ -1728,6 +1928,88 @@
       ]
     },
     {
+      "action": "刘文静出使突厥借兵",
+      "assertion_links": [
+        {
+          "assertion_ref": "PASS-LIYUAN-LIUWENJING-TURK-ENVOY-AUTH",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": true,
+          "source_passage_ref": "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵，私謂文靜曰：「胡騎入中國，生民之大蠹也。吾所以欲得之者，恐劉武周引之共為邊患；又，胡馬行牧，不費芻粟，聊欲藉之以為聲勢耳。數百人之外，",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "PASS-LIYUAN-LIUWENJING-TURK-ENVOY-RESULT",
+          "evidence_status": "accepted",
+          "relation": "supports",
+          "representative": false,
+          "source_passage_ref": "資治通鑑/卷184@1502758#劉文靜至突厥，見始畢可汗，請兵，且與之約曰：「若入長安，民眾土地入唐公，金玉繒帛歸突厥。」始畢大喜，丙寅，遣其大臣級失特勒先至淵軍，告以兵已上道。",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        }
+      ],
+      "completeness": {
+        "action": "complete",
+        "conflict_resolution": "not_applicable",
+        "consequence": "complete",
+        "identity": "complete",
+        "outcome": "complete",
+        "responsibility": "complete",
+        "source_diversity": "partial",
+        "time": "complete"
+      },
+      "conflicts": [],
+      "consequence": [
+        "取得突厥援兵承诺并服务晋阳起兵，但不将后续建国成果全部归于一次使节任务。"
+      ],
+      "episode_id": "EP-OUTCOME-A64FC24F3D34EE244A3A",
+      "episode_status": "accepted",
+      "episode_type": "statecraft_outcome_chain",
+      "evaluation_context": "PER-ACTOR-9D09781AE311",
+      "lineage": {
+        "source_refs": "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵;資治通鑑/卷184@1502758#劉文靜至突厥，見始畢可汗，請兵"
+      },
+      "locations": [],
+      "outcome": [
+        "刘文静完成交涉，始毕可汗遣使确认援兵已经上道。"
+      ],
+      "participants": [
+        {
+          "person_ref": "PER-V4-CF936BA48792",
+          "role_codes": [
+            "authorized"
+          ],
+          "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-ACTOR-9D09781AE311",
+          "role_codes": [
+            "lead"
+          ],
+          "role_status": "resolved"
+        }
+      ],
+      "provenance": {
+        "builder": "historical_outcome_cluster_v1",
+        "input_hash": "2f316e92ba1ae4d7c1c500dcb6c622d455b7db008423cf0e0c7c19887290b522"
+      },
+      "responsibility": "李渊以authorized承担决定向突厥借兵并限定借兵规模与用途。；刘文静以lead承担受命出使并完成交涉，使突厥援兵上道。",
+      "semantic_fingerprint": "c343d9e7451f4374e95d0bdd33afbe9386dc24b66ac93237979f6302e9070aca",
+      "time_end": "大业十三年",
+      "time_precision": "historical_text_range",
+      "time_start": "大业十三年",
+      "uncertainties": [
+        "这是受任者完成的外交谋略结果，只进入人物谋略与任用授权投影，不作为李渊独立治理成果。"
+      ]
+    },
+    {
       "action": "武德七年平辅公祐战役群",
       "assertion_links": [
         {
@@ -1772,7 +2054,7 @@
       "episode_id": "EP-OUTCOME-AAF60C7C9B9D6481FE55",
       "episode_status": "accepted",
       "episode_type": "campaign_outcome_chain",
-      "evaluation_context": "PER-CAND-D29808A822E4",
+      "evaluation_context": "PER-CAND-8CF6E0AAF5E5",
       "lineage": {
         "source_refs": "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里;資治通鑑/卷190@1502800#执公祐，送丹杨枭首，江南皆平;資治通鑑/卷190@1502800#李世勣帥步卒一萬渡淮，拔壽陽，次硤石。;資治通鑑/卷190@1502800#李靖兵先至丹楊，公祏大懼，擁兵數萬，棄城東走"
       },
@@ -1784,6 +2066,13 @@
       ],
       "participants": [
         {
+          "person_ref": "PER-CAND-8CF6E0AAF5E5",
+          "role_codes": [
+            "principal_commander"
+          ],
+          "role_status": "resolved"
+        },
+        {
           "person_ref": "PER-CAND-D29808A822E4",
           "role_codes": [
             "principal_commander"
@@ -1791,19 +2080,19 @@
           "role_status": "resolved"
         },
         {
-          "person_ref": "PER-CAND-8CF6E0AAF5E5",
+          "person_ref": "PER-V4-CF936BA48792",
           "role_codes": [
-            "principal_commander"
+            "not_in_command_chain"
           ],
           "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "f9189f7dcd2f59b0aa40f946898b0204255eb572519e5a1a74cc23abe9c2cd67"
+        "input_hash": "ccd9b657ffa709d8a3f9774730ff1c82a1b3927f63a4167cdea6ce06fb54b374"
       },
-      "responsibility": "李靖以principal_commander承担率军先至丹阳，促使公祏弃城东走。；李勣以principal_commander承担率步卒一万渡淮并攻取寿阳、推进至硖石。",
-      "semantic_fingerprint": "81c4e6e210f51755b62cd592046bad687ae7189dc6b45c2d493ee21f4f83d592",
+      "responsibility": "李勣以principal_commander承担率步卒一万渡淮并攻取寿阳、推进至硖石。；李靖以principal_commander承担率军先至丹阳，促使公祏弃城东走。；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "e1003b412eb3b1a5e983454f6586c4c75711a0ac3ecc363924a9b48cacde0386",
       "time_end": "未注明",
       "time_precision": "historical_text_range",
       "time_start": "未注明",
@@ -1873,20 +2162,26 @@
             "commander_in_chief"
           ],
           "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-V4-CF936BA48792",
+          "role_codes": [
+            "not_in_command_chain"
+          ],
+          "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "64d59b393a7fbd066196e221e25e85a72bd62719a6d085f6199b8480d576619d"
+        "input_hash": "542b0ea2bf75af232e93aae4efb7995a0e5e86ff567337a131ce99901de9ec44"
       },
-      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。",
-      "semantic_fingerprint": "33b62e82c76e96e0a3c55c22ba0b9b036fdda581edc56eaa424ee07bb57ad7e6",
+      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "e67327612fbd2b08940df06e210cb4484c4d798061f9f5bea16bad2b673bba82",
       "time_end": "武德三年",
       "time_precision": "historical_text_range",
       "time_start": "武德三年",
       "uncertainties": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ]
     },
     {
@@ -1946,7 +2241,7 @@
       "episode_id": "EP-OUTCOME-BC20D9059C40B80D799E",
       "episode_status": "accepted",
       "episode_type": "campaign_outcome_chain",
-      "evaluation_context": "PER-V4-71CF4B99C15F",
+      "evaluation_context": "PER-CAND-A49FCFF85405",
       "lineage": {
         "source_refs": "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。;資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德;資治通鑑/卷189@1503114#宜據武牢之險以拒之，伺間而動，破之必矣。"
       },
@@ -1958,6 +2253,13 @@
       ],
       "participants": [
         {
+          "person_ref": "PER-CAND-A49FCFF85405",
+          "role_codes": [
+            "principal_commander"
+          ],
+          "role_status": "resolved"
+        },
+        {
           "person_ref": "PER-V4-71CF4B99C15F",
           "role_codes": [
             "commander_in_chief"
@@ -1965,25 +2267,24 @@
           "role_status": "resolved"
         },
         {
-          "person_ref": "PER-CAND-A49FCFF85405",
+          "person_ref": "PER-V4-CF936BA48792",
           "role_codes": [
-            "principal_commander"
+            "not_in_command_chain"
           ],
           "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "734c3731a924106fe9192b3d70a6f297bd67a5c01f8ac4957dbfca9a32ddafa9"
+        "input_hash": "0ffdcbd10ed5bca2636b0f187b197acd17e7457d8e83b2034d1344be374f39d4"
       },
-      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；尉迟敬德以principal_commander承担在榆窠与虎牢等关键交战中承担主将责任。",
-      "semantic_fingerprint": "3ba999c5f13173a4bb97606e495fdd46855122f8926c9e320e57dbad4cf633e5",
+      "responsibility": "尉迟敬德以principal_commander承担在榆窠与虎牢等关键交战中承担主将责任。；李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "80346d154a11847f88fac2c359f92b91a57fde1aec3b64bda385bee9433d0655",
       "time_end": "武德三年至四年",
       "time_precision": "historical_text_range",
       "time_start": "武德三年至四年",
       "uncertainties": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ]
     },
     {
@@ -2399,7 +2700,7 @@
       "episode_id": "EP-OUTCOME-ED6CF4D80A04ED24ACEA",
       "episode_status": "accepted",
       "episode_type": "campaign_outcome_chain",
-      "evaluation_context": "PER-V4-71CF4B99C15F",
+      "evaluation_context": "PER-CAND-8CF6E0AAF5E5",
       "lineage": {
         "source_refs": "舊唐書/卷55@2037164#太宗平黑闥，進師曹州，遣淮安王神通及李世勣攻之;資治通鑑/卷190@1502800#世民擊徐圓朗，下十餘城，聲震淮、泗"
       },
@@ -2411,6 +2712,13 @@
       ],
       "participants": [
         {
+          "person_ref": "PER-CAND-8CF6E0AAF5E5",
+          "role_codes": [
+            "principal_commander"
+          ],
+          "role_status": "resolved"
+        },
+        {
           "person_ref": "PER-V4-71CF4B99C15F",
           "role_codes": [
             "commander_in_chief"
@@ -2418,25 +2726,24 @@
           "role_status": "resolved"
         },
         {
-          "person_ref": "PER-CAND-8CF6E0AAF5E5",
+          "person_ref": "PER-V4-CF936BA48792",
           "role_codes": [
-            "principal_commander"
+            "not_in_command_chain"
           ],
           "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "8537fd0e8e6e2310e03f76672bba576de41d82e6e379490a84b2cbc2eb5ee6c4"
+        "input_hash": "e6808b128449c2567636b58410c5b8d612caa2dd86d7a60185e8a91b991a9ce8"
       },
-      "responsibility": "李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李勣以principal_commander承担奉命继续进攻并参与平定。",
-      "semantic_fingerprint": "2125cd87cce20979d7e38b9fa9b6716d692b7a8c61ac413d56c88be4fa559669",
+      "responsibility": "李勣以principal_commander承担奉命继续进攻并参与平定。；李世民以commander_in_chief承担亲自统军并承担战役群最高现场指挥。；李渊以not_in_command_chain承担国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+      "semantic_fingerprint": "312dabcb3925fa69e6f5b4a39a7a1b7c6c55ddf5cfe663f2b05c34ee0d8214b0",
       "time_end": "武德五年至六年",
       "time_precision": "historical_text_range",
       "time_start": "武德五年至六年",
       "uncertainties": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ]
     },
     {
@@ -2537,14 +2844,21 @@
             "commander_in_chief"
           ],
           "role_status": "resolved"
+        },
+        {
+          "person_ref": "PER-V4-CF936BA48792",
+          "role_codes": [
+            "not_in_command_chain"
+          ],
+          "role_status": "resolved"
         }
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "77ddc1758e4250425438d03cd98856d8f7c459638bd9ce21fd6521ca696068bf"
+        "input_hash": "3ec8fc8c9d55752f53486b803e3a32d6d2eba3781956bbea6f974b7fd8b5ce47"
       },
-      "responsibility": "李靖以commander_in_chief承担提出十策并承担三军实际指挥，率军迫使萧铣政权投降。",
-      "semantic_fingerprint": "d815ff638f2002ee34750cd6ebae12f9aab02c1138cc34a906cbea9bf9a0f618",
+      "responsibility": "李靖以commander_in_chief承担提出十策并承担三军实际指挥，率军迫使萧铣政权投降。；李渊以not_in_command_chain承担高祖将三军实际统帅责任明确委托李靖。",
+      "semantic_fingerprint": "94a3a0f89044f7c64d40819bdc037b0df1ae24dbe5ba9b8dcaba4e4ef44d80d1",
       "time_end": "武德四年",
       "time_precision": "historical_text_range",
       "time_start": "武德四年",
@@ -2745,21 +3059,50 @@
       "members": [
         {
           "actor_kind": "person",
-          "actor_name": "李靖",
-          "actor_ref": "PER-CAND-D29808A822E4",
-          "contribution_scope": "率军先至丹阳，促使公祏弃城东走。",
+          "actor_name": "李勣",
+          "actor_ref": "PER-CAND-8CF6E0AAF5E5",
+          "contribution_scope": "率步卒一万渡淮并攻取寿阳、推进至硖石。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#李世勣帥步卒一萬渡淮，拔壽陽，次硤石。"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李勣在李渊统治窗口内实际统领国家军队，承担“武德七年平辅公祐战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "principal_commander",
           "sovereign_at_event": false,
           "talent_credit": "independent"
         },
         {
           "actor_kind": "person",
-          "actor_name": "李勣",
-          "actor_ref": "PER-CAND-8CF6E0AAF5E5",
-          "contribution_scope": "率步卒一万渡淮并攻取寿阳、推进至硖石。",
+          "actor_name": "李靖",
+          "actor_ref": "PER-CAND-D29808A822E4",
+          "contribution_scope": "率军先至丹阳，促使公祏弃城东走。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
+              "資治通鑑/卷190@1502800#李靖兵先至丹楊，公祏大懼，擁兵數萬，棄城東走"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李靖在李渊统治窗口内实际统领国家军队，承担“武德七年平辅公祐战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "principal_commander",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "唐军攻取寿阳、当涂、丹阳并追至武康，执辅公祐，江南皆平。",
@@ -2797,7 +3140,7 @@
         "level": "regional",
         "reason": "平定江南重要区域叛乱并形成李靖、李勣代表性统军实绩；一国平一域不构成独立统一方向。"
       },
-      "semantic_fingerprint": "f9189f7dcd2f59b0aa40f946898b0204255eb572519e5a1a74cc23abe9c2cd67",
+      "semantic_fingerprint": "ccd9b657ffa709d8a3f9774730ff1c82a1b3927f63a4167cdea6ce06fb54b374",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
@@ -2824,6 +3167,23 @@
       ],
       "members": [
         {
+          "actor_kind": "person",
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“李渊晋阳起兵—霍邑—攻克长安战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "principal_commander",
+          "sovereign_at_event": false,
+          "talent_credit": "covered_by_child"
+        },
+        {
           "actor_kind": "ruler",
           "actor_name": "李渊",
           "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
@@ -2831,15 +3191,6 @@
           "role_code": "commander_in_chief",
           "sovereign_at_event": false,
           "talent_credit": "not_applicable"
-        },
-        {
-          "actor_kind": "person",
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。",
-          "role_code": "principal_commander",
-          "sovereign_at_event": false,
-          "talent_credit": "covered_by_child"
         }
       ],
       "observable_result": "宋老生军被击败、霍邑和长安先后被攻克，李渊取得对关中核心及隋都的控制。",
@@ -2878,7 +3229,7 @@
         "level": "national",
         "reason": "从晋阳南下至攻克长安属于一个连续的夺取关中方向；取得隋都改变全国竞争格局，但尚未终结全部国内竞争政权。"
       },
-      "semantic_fingerprint": "cb2d416d80b8f2a46b0f7ccc33d7df8d34f9d9cf440fd7ae3128d0f025212c5b",
+      "semantic_fingerprint": "a84536d33ca8beb9c9aae3432479c7428ea09705f1414aabc94ad07f6396dbd6",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥",
@@ -3177,9 +3528,30 @@
           "actor_name": "李靖",
           "actor_ref": "PER-CAND-D29808A822E4",
           "contribution_scope": "统领唐军与突厥交战",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷191@1517706#安州大都督李靖与突厥颉利可汗战于灵州之硖石，自旦至申，突厥乃退",
+              "資治通鑑/卷191@1517706#戊寅，安州大都督李靖與突厥頡利可汗戰於靈州之硤石，自旦至申，突厥"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李靖在李渊统治窗口内实际统领国家军队，承担“李靖在灵州硖石击退突厥”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "principal_commander",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "突厥退却。",
@@ -3217,7 +3589,7 @@
         "level": "important",
         "reason": "阻击颉利可汗灵州入寇"
       },
-      "semantic_fingerprint": "6d5227d11af05f6ea710196043127a499563122777b7b218054fa3a72d836cb2",
+      "semantic_fingerprint": "2bf8285581823313d607434891eaa64d024ab11e97f5784b26315102be440751",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "資治通鑑/卷191@1517706#安州大都督李靖与突厥颉利可汗战于灵州之硖石，自旦至申，突厥乃退",
@@ -3322,12 +3694,25 @@
               "舊唐書/卷67@2296327#三軍之任，一以委靖",
               "舊唐書/卷67@2296327#靖又陳十策以圖蕭銑"
             ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
             "basis": "本传明确李孝恭未更戎旅，高祖将三军责任全部委托李靖，属于国家级战争的实际主帅授权。",
             "scope": "critical_national_or_long_term"
           },
           "role_code": "commander_in_chief",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "explicit",
+          "contribution_scope": "高祖将三军实际统帅责任明确委托李靖。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "李靖实际统帅平定萧铣，继以檄令促成冯盎率部归降，岭南悉平。",
@@ -3377,7 +3762,7 @@
         "level": "national",
         "reason": "以实际主帅身份迫使割据政权投降并控制江汉，属于已实现的国家级征服结果。"
       },
-      "semantic_fingerprint": "77ddc1758e4250425438d03cd98856d8f7c459638bd9ce21fd6521ca696068bf",
+      "semantic_fingerprint": "3ec8fc8c9d55752f53486b803e3a32d6d2eba3781956bbea6f974b7fd8b5ce47",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷67@2296327#三軍之任，一以委靖",
@@ -3387,6 +3772,75 @@
         "資治通鑑/卷190@1502800#隋漢陽太守馮盎承李靖檄，帥所部來降"
       ],
       "stable_delivery": true
+    },
+    {
+      "canonical_label": "刘文静出使突厥借兵",
+      "episode_refs": [
+        "EP-OUTCOME-A64FC24F3D34EE244A3A"
+      ],
+      "fact_refs": [
+        "PFACT-LIYUAN-LIUWENJING-TURK-ENVOY"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "liuwenjing-turk-alliance-mission",
+      "limitations": [
+        "这是受任者完成的外交谋略结果，只进入人物谋略与任用授权投影，不作为李渊独立治理成果。"
+      ],
+      "members": [
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "contribution_scope": "决定向突厥借兵并限定借兵规模与用途。",
+          "role_code": "authorized"
+        },
+        {
+          "actor_kind": "person",
+          "actor_name": "刘文静",
+          "actor_ref": "PER-ACTOR-9D09781AE311",
+          "contribution_scope": "受命出使并完成交涉，使突厥援兵上道。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵"
+            ],
+            "basis": "李渊明确命刘文静出使请兵，并向其交代战略目的与借兵边界。",
+            "scope": "major_affairs"
+          },
+          "role_code": "lead"
+        }
+      ],
+      "observable_result": "刘文静完成交涉，始毕可汗遣使确认援兵已经上道。",
+      "origin": "ruler_chronicle",
+      "outcome_kind": "statecraft",
+      "outcome_ref": "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION",
+      "payload": {
+        "authorization_status": "explicit",
+        "causal_attribution_status": "established",
+        "domain": "strategic_coordination",
+        "durable_cross_stage": false,
+        "foundational": false
+      },
+      "period": {
+        "end": "大业十三年",
+        "start": "大业十三年"
+      },
+      "result_direction": "positive",
+      "result_status": "implemented",
+      "ruler_context_refs": [],
+      "ruler_window_status": "leadership_formation",
+      "scale": {
+        "consequence_basis": "important_public_result",
+        "decisiveness": "major",
+        "level": "important",
+        "reason": "取得突厥援兵承诺并服务晋阳起兵，但不将后续建国成果全部归于一次使节任务。"
+      },
+      "semantic_fingerprint": "2f316e92ba1ae4d7c1c500dcb6c622d455b7db008423cf0e0c7c19887290b522",
+      "settlement_scope": "person_statecraft_result",
+      "source_refs": [
+        "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵",
+        "資治通鑑/卷184@1502758#劉文靜至突厥，見始畢可汗，請兵"
+      ],
+      "stable_delivery": false
     },
     {
       "canonical_label": "柏壁—介休平刘武周宋金刚战役群",
@@ -3400,8 +3854,7 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-baibi",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
         {
@@ -3409,9 +3862,29 @@
           "actor_name": "李世民",
           "actor_ref": "RULER-58130F2446A25CC1",
           "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷188@1567784#秦王世民引兵自龍門乘冰堅渡河，屯柏壁，與宋金剛相持。"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“柏壁—介休平刘武周宋金刚战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "commander_in_chief",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "在柏壁相持消耗后追击击破宋金刚，收复河东。",
@@ -3450,7 +3923,7 @@
         "level": "regional",
         "reason": "在柏壁相持消耗后追击击破宋金刚，收复河东。"
       },
-      "semantic_fingerprint": "64d59b393a7fbd066196e221e25e85a72bd62719a6d085f6199b8480d576619d",
+      "semantic_fingerprint": "542b0ea2bf75af232e93aae4efb7995a0e5e86ff567337a131ce99901de9ec44",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷1@2646080#秦王大破宋金剛於介州",
@@ -3864,19 +4337,9 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-hulao",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
-        {
-          "actor_kind": "person",
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
-          "role_code": "commander_in_chief",
-          "sovereign_at_event": false,
-          "talent_credit": "independent"
-        },
         {
           "actor_kind": "person",
           "actor_name": "尉迟敬德",
@@ -3885,6 +4348,35 @@
           "role_code": "principal_commander",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "person",
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“洛阳—虎牢灭王世充窦建德战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false,
+          "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。",
@@ -3923,7 +4415,7 @@
         "level": "national",
         "reason": "围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。"
       },
-      "semantic_fingerprint": "734c3731a924106fe9192b3d70a6f297bd67a5c01f8ac4957dbfca9a32ddafa9",
+      "semantic_fingerprint": "0ffdcbd10ed5bca2636b0f187b197acd17e7457d8e83b2034d1344be374f39d4",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
@@ -4178,19 +4670,9 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-liuheita",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
-        {
-          "actor_kind": "person",
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
-          "role_code": "commander_in_chief",
-          "sovereign_at_event": false,
-          "talent_credit": "independent"
-        },
         {
           "actor_kind": "person",
           "actor_name": "李勣",
@@ -4208,6 +4690,35 @@
           "role_code": "participant",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "person",
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“洺水击破刘黑闼战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false,
+          "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。",
@@ -4257,7 +4768,7 @@
         "level": "regional",
         "reason": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。"
       },
-      "semantic_fingerprint": "03abd5e082649ab8ab1f85875d57b0da7554f08a6a18941dd72dd3490d26cf79",
+      "semantic_fingerprint": "1d2b50d8be26e2af38dc02343391d25ada4aff2d5ee5c060ec161b430dde9fa2",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
@@ -4278,8 +4789,7 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-qianshuiyuan",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
         {
@@ -4287,9 +4797,29 @@
           "actor_name": "李世民",
           "actor_ref": "RULER-58130F2446A25CC1",
           "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“浅水原平薛仁杲战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "commander_in_chief",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "击败并迫降薛仁杲，陇右平定。",
@@ -4339,7 +4869,7 @@
         "level": "regional",
         "reason": "击败并迫降薛仁杲，陇右平定。"
       },
-      "semantic_fingerprint": "f6a92455c456d92a2304f9df77048b4af674b749987d00fb617e88b455bfa4e5",
+      "semantic_fingerprint": "df873ca17f31ca5957ded7288284167388d0bfdbde522ccf42981543337de4ea",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
@@ -4565,19 +5095,9 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-xuyuanlang",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
-        {
-          "actor_kind": "person",
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
-          "role_code": "commander_in_chief",
-          "sovereign_at_event": false,
-          "talent_credit": "independent"
-        },
         {
           "actor_kind": "person",
           "actor_name": "李勣",
@@ -4586,6 +5106,35 @@
           "role_code": "principal_commander",
           "sovereign_at_event": false,
           "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "person",
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#世民擊徐圓朗，下十餘城，聲震淮、泗"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“曹州—淮泗平徐圆朗战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false,
+          "talent_credit": "independent"
+        },
+        {
+          "actor_kind": "ruler",
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "ruler_campaign_relation": "authorization_only",
+          "sovereign_at_event": true,
+          "talent_credit": "not_applicable"
         }
       ],
       "observable_result": "李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。",
@@ -4624,7 +5173,7 @@
         "level": "regional",
         "reason": "李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。"
       },
-      "semantic_fingerprint": "8537fd0e8e6e2310e03f76672bba576de41d82e6e379490a84b2cbc2eb5ee6c4",
+      "semantic_fingerprint": "e6808b128449c2567636b58410c5b8d612caa2dd86d7a60185e8a91b991a9ce8",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷55@2037164#太宗平黑闥，進師曹州，遣淮安王神通及李世勣攻之",
@@ -4769,7 +5318,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "268a7faea3a16abe4184c3d19802f6bce003f2a167e37ac7556e926c1f8a7f60",
-    "report_sha256": "d9ed17ddd6210e6548d2c5b8fd7e9680d73a002ee9b90d87c878fdee51dcb07e",
+    "report_sha256": "133c4d78bff0f6b2b25dcb8801595dda0e1e10ebbe1af7abd866ea7f33c946d3",
     "ruler": "李渊",
     "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
     "rules": [
@@ -4843,7 +5392,7 @@
         "source_candidate_count": 1,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "4d03474d1c9500498a629a689e32fdd92fc31f52da0b178c51b4bf3ffdfb1148",
+        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -4852,20 +5401,20 @@
         "candidate_disposition_complete": true,
         "configured_negative_budget": 12,
         "configured_positive_budget": 12,
-        "eligible_candidate_count": 2,
+        "eligible_candidate_count": 14,
         "negative_budget": 12,
-        "negative_settled_unit_count": 0,
-        "negative_signal": "0.000000",
+        "negative_settled_unit_count": 2,
+        "negative_signal": "6.555780",
         "positive_budget": 12,
-        "positive_settled_unit_count": 2,
-        "positive_signal": "8.939700",
+        "positive_settled_unit_count": 4,
+        "positive_signal": "18.873360",
         "rule_code": "appointment_delegation",
         "rule_label": "任用授权",
-        "rule_raw_net": "8.939700",
+        "rule_raw_net": "12.317580",
         "same_object_value_cap": "3.506580",
         "settled_materials": [
           {
-            "actual_signal_contribution": "4.781700",
+            "actual_signal_contribution": "4.125472",
             "fact": "刘文静以主导身份承担“武德律令编定并颁行天下”；已实现结果：形成以开皇律令为基础、删削烦峻并纳入五十三条格的武德律令，完成编定并颁行天下。",
             "factor_option_codes": {
               "appointment_effect": "exceptional_success",
@@ -4887,8 +5436,8 @@
             "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
             "material_id": "MAT-AUTO-AD-75627DAAC6B54B97",
             "material_magnitude": "3.187800",
-            "object_aggregate_magnitude": "3.187800",
-            "object_internal_contribution": "3.187800",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "2.750315",
             "object_ref": "PER-ACTOR-9D09781AE311",
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-75627DAAC6B54B97",
@@ -4904,7 +5453,45 @@
             "subject": "刘文静"
           },
           {
-            "actual_signal_contribution": "4.158000",
+            "actual_signal_contribution": "1.134398",
+            "fact": "刘文静以主导身份承担“刘文静出使突厥借兵”；已实现结果：刘文静完成交涉，始毕可汗遣使确认援兵已经上道。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION:PER-ACTOR-9D09781AE311",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-AA78A5CDC6998905",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.756265",
+            "object_ref": "PER-ACTOR-9D09781AE311",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-AA78A5CDC6998905",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵",
+              "資治通鑑/卷184@1502758#劉文靜至突厥，見始畢可汗，請兵"
+            ],
+            "subject": "刘文静"
+          },
+          {
+            "actual_signal_contribution": "3.246754",
             "fact": "李靖以主帅身份承担“李靖实际统帅平定萧铣”；已实现结果：李靖实际统帅平定萧铣，继以檄令促成冯盎率部归降，岭南悉平。",
             "factor_option_codes": {
               "appointment_effect": "exceptional_success",
@@ -4926,13 +5513,13 @@
             "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
             "material_id": "MAT-AUTO-AD-EB8BE95D75C2F6B8",
             "material_magnitude": "2.772000",
-            "object_aggregate_magnitude": "2.772000",
-            "object_internal_contribution": "2.772000",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "2.164503",
             "object_ref": "PER-CAND-D29808A822E4",
             "override_reasons": [],
             "rule_evidence_unit_ref": "REU-AUTO-AD-EB8BE95D75C2F6B8",
             "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
-            "settlement_rank": 2,
+            "settlement_rank": 1,
             "settlement_rank_factor": "1.000000",
             "side": "positive",
             "source_refs": [
@@ -4943,33 +5530,519 @@
               "資治通鑑/卷190@1502800#隋漢陽太守馮盎承李靖檄，帥所部來降"
             ],
             "subject": "李靖"
+          },
+          {
+            "actual_signal_contribution": "1.207870",
+            "fact": "李靖以主将身份承担“武德七年平辅公祐战役群”；已实现结果：唐军攻取寿阳、当涂、丹阳并追至武康，执辅公祐，江南皆平。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "stable",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-AUTO-3218E266A2FAEBFC9077:PER-CAND-D29808A822E4",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-00438E7678D0DD62",
+            "material_magnitude": "2.062500",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.805246",
+            "object_ref": "PER-CAND-D29808A822E4",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-00438E7678D0DD62",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
+              "資治通鑑/卷190@1502800#执公祐，送丹杨枭首，江南皆平",
+              "資治通鑑/卷190@1502800#李世勣帥步卒一萬渡淮，拔壽陽，次硤石。",
+              "資治通鑑/卷190@1502800#李靖兵先至丹楊，公祏大懼，擁兵數萬，棄城東走"
+            ],
+            "subject": "李靖"
+          },
+          {
+            "actual_signal_contribution": "0.805246",
+            "fact": "李靖以主将身份承担“李靖在灵州硖石击退突厥”；已实现结果：突厥退却。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "stable",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-AUTO-F63708F41E8DFCEBDBA2:PER-CAND-D29808A822E4",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-BBB8F9D41A74ABF9",
+            "material_magnitude": "2.062500",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.536831",
+            "object_ref": "PER-CAND-D29808A822E4",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-BBB8F9D41A74ABF9",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "資治通鑑/卷191@1517706#安州大都督李靖与突厥颉利可汗战于灵州之硖石，自旦至申，突厥乃退",
+              "資治通鑑/卷191@1517706#戊寅，安州大都督李靖與突厥頡利可汗戰於靈州之硤石，自旦至申，突厥"
+            ],
+            "subject": "李靖"
+          },
+          {
+            "actual_signal_contribution": "2.615104",
+            "fact": "李世民以主将身份承担“李渊晋阳起兵—霍邑—攻克长安战役群”；已实现结果：宋老生军被击败、霍邑和长安先后被攻克，李渊取得对关中核心及隋都的控制。",
+            "factor_option_codes": {
+              "appointment_effect": "exceptional_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "stable",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-AUTO-519F925EF3F5A5DD3A5C:RULER-58130F2446A25CC1",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-1C89F9DCAE950383",
+            "material_magnitude": "2.475000",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "1.743403",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-1C89F9DCAE950383",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥",
+              "資治通鑑/卷184@1502758#八月，己卯，雨霽。庚辰，李淵命軍中曝鎧仗行裝。辛巳旦，東南由山足",
+              "資治通鑑/卷184@1502758#甲辰，李淵命諸攻城，約「毋得犯七廟及代王、宗室，違者夷三族！」孫"
+            ],
+            "subject": "李世民"
+          },
+          {
+            "actual_signal_contribution": "1.111419",
+            "fact": "李世民以主帅身份承担“洛阳—虎牢灭王世充窦建德战役群”；已实现结果：围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。",
+            "factor_option_codes": {
+              "appointment_effect": "exceptional_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-LSM-CAMPAIGN-HULAO:RULER-58130F2446A25CC1",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-0854CD44D717168A",
+            "material_magnitude": "2.103750",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.740946",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-0854CD44D717168A",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
+              "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德",
+              "資治通鑑/卷189@1503114#宜據武牢之險以拒之，伺間而動，破之必矣。"
+            ],
+            "subject": "李世民"
+          },
+          {
+            "actual_signal_contribution": "0.617455",
+            "fact": "李世民以主帅身份承担“曹州—淮泗平徐圆朗战役群”；已实现结果：李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-LSM-CAMPAIGN-XUYUANLANG:RULER-58130F2446A25CC1",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-508F1A7A1F00F192",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.411637",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-508F1A7A1F00F192",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷55@2037164#太宗平黑闥，進師曹州，遣淮安王神通及李世勣攻之",
+              "資治通鑑/卷190@1502800#世民擊徐圓朗，下十餘城，聲震淮、泗"
+            ],
+            "subject": "李世民"
+          },
+          {
+            "actual_signal_contribution": "0.463091",
+            "fact": "李世民以主帅身份承担“柏壁—介休平刘武周宋金刚战役群”；已实现结果：在柏壁相持消耗后追击击破宋金刚，收复河东。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-LSM-CAMPAIGN-BAIBI:RULER-58130F2446A25CC1",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-52E808BAF922EF32",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.308728",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-52E808BAF922EF32",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷1@2646080#秦王大破宋金剛於介州",
+              "資治通鑑/卷188@1567784#孝基、懷恩、筠、唐儉及行軍總管劉世讓皆為所虜",
+              "資治通鑑/卷188@1567784#秦王世民引兵自龍門乘冰堅渡河，屯柏壁，與宋金剛相持。"
+            ],
+            "subject": "李世民"
+          },
+          {
+            "actual_signal_contribution": "0.370473",
+            "fact": "李世民以主帅身份承担“浅水原平薛仁杲战役群”；已实现结果：击败并迫降薛仁杲，陇右平定。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-LSM-CAMPAIGN-QIANSHUIYUAN:RULER-58130F2446A25CC1",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-8FCF2F85235D498B",
+            "material_magnitude": "1.753125",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.246982",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-8FCF2F85235D498B",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
+              "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。",
+              "新唐書/卷086@1490066#行軍長史劉文靜、殷開山觀兵於高墌，恃眾不設備，舉兵掩其後，遂大敗"
+            ],
+            "subject": "李世民"
+          },
+          {
+            "actual_signal_contribution": "0.082327",
+            "fact": "李世民以主帅身份承担“洺水击破刘黑闼战役群”；已实现结果：李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。",
+            "factor_option_codes": {
+              "appointment_effect": "weak_feedback",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "short_or_one_off",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "0.400000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "0.850000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-LSM-CAMPAIGN-LIUHEITA:RULER-58130F2446A25CC1",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-FF7CF65EACD0F113",
+            "material_magnitude": "0.467500",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "0.054885",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-FF7CF65EACD0F113",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
+              "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出",
+              "資治通鑑/卷190@1502800#黑闥眾大潰，斬首萬餘級，溺死數千人",
+              "舊唐書/卷55@2037164#不能拒，棄城走"
+            ],
+            "subject": "李世民"
+          },
+          {
+            "actual_signal_contribution": "3.093750",
+            "fact": "李勣以主将身份承担“武德七年平辅公祐战役群”；已实现结果：唐军攻取寿阳、当涂、丹阳并追至武康，执辅公祐，江南皆平。",
+            "factor_option_codes": {
+              "appointment_effect": "major_success",
+              "appointment_importance": "major_affairs",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "stable",
+              "source_factor": "standard"
+            },
+            "factor_values": {
+              "appointment_effect": "1.500000",
+              "appointment_importance": "1.250000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.000000",
+              "source_factor": "1.000000"
+            },
+            "independence_key": "appointment_delegation:OUTCOME-AUTO-3218E266A2FAEBFC9077:PER-CAND-8CF6E0AAF5E5",
+            "judge_reason": "由当前成果登记的责任、规模、结果和持续性确定性派生。",
+            "material_id": "MAT-AUTO-AD-FF884A592787F4B4",
+            "material_magnitude": "2.062500",
+            "object_aggregate_magnitude": "2.062500",
+            "object_internal_contribution": "2.062500",
+            "object_ref": "PER-CAND-8CF6E0AAF5E5",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-AUTO-AD-FF884A592787F4B4",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 4,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "source_refs": [
+              "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
+              "資治通鑑/卷190@1502800#执公祐，送丹杨枭首，江南皆平",
+              "資治通鑑/卷190@1502800#李世勣帥步卒一萬渡淮，拔壽陽，次硤石。",
+              "資治通鑑/卷190@1502800#李靖兵先至丹楊，公祏大懼，擁兵數萬，棄城東走"
+            ],
+            "subject": "李勣"
+          },
+          {
+            "actual_signal_contribution": "3.506580",
+            "fact": "裴寂因与李渊旧交而受无比亲礼，在缺乏捍御才能的情况下获授晋州道行军总管和便宜从事权；介休大败、晋州以东城镇俱失后，李渊仍令其镇抚河东，继而再败并引发民乱。",
+            "factor_option_codes": {
+              "appointment_effect": "major_direct_damage",
+              "appointment_importance": "critical_national_or_long_term",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "long_term_multi_stage",
+              "source_factor": "complete_direct_chain"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.400000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.150000",
+              "source_factor": "1.100000"
+            },
+            "independence_key": "appointment_delegation:mat-李渊-ad-peiji-jinyang-failure:1",
+            "judge_reason": "河东国家安全职责在首次大败后被明确恢复，随后再败并造成民乱，属于两次授权决定下的重大直接损害。",
+            "material_id": "MAT-李渊-AD-PEIJI-JINYANG-FAILURE",
+            "material_magnitude": "3.506580",
+            "object_aggregate_magnitude": "3.506580",
+            "object_internal_contribution": "3.506580",
+            "object_ref": "PER-V4-CC0957EB2FD8",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-B3C0FCD06D816D57FE93",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "source_refs": [
+              "舊唐書/卷57@2019966"
+            ],
+            "subject": "裴寂河东统军授权与连续失败"
+          },
+          {
+            "actual_signal_contribution": "3.049200",
+            "fact": "李渊将晋阳根本重地委托幼子李元吉；李元吉欺骗司马后携妻妾弃州逃归，晋阳随即被献给刘武周，李渊最终确认是李元吉自身不善。",
+            "factor_option_codes": {
+              "appointment_effect": "major_direct_damage",
+              "appointment_importance": "critical_national_or_long_term",
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "continuity_factor": "stable",
+              "source_factor": "complete_direct_chain"
+            },
+            "factor_values": {
+              "appointment_effect": "1.800000",
+              "appointment_importance": "1.400000",
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "continuity_factor": "1.000000",
+              "source_factor": "1.100000"
+            },
+            "independence_key": "appointment_delegation:mat-李渊-ad-liyuanji-jinyang-failure:1",
+            "judge_reason": "李渊将兴王根基晋阳全部委托幼子，结果是弃州和城池立即失守，任用链与重大损害直接闭合。",
+            "material_id": "MAT-李渊-AD-LIYUANJI-JINYANG-FAILURE",
+            "material_magnitude": "3.049200",
+            "object_aggregate_magnitude": "3.049200",
+            "object_internal_contribution": "3.049200",
+            "object_ref": "PER-V4-F60CA0D5DD47",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-F8434F9CA2A44BB5B675",
+            "selection_basis": "eligibility_gate_then_object_merge_then_strongest_n_objects",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "source_refs": [
+              "資治通鑑/卷187@1502771"
+            ],
+            "subject": "李元吉留守晋阳授权与弃州失守"
           }
         ],
         "settled_objects": [
           {
-            "actual_signal_contribution": "4.781700",
-            "object_aggregate_magnitude": "3.187800",
+            "actual_signal_contribution": "5.259870",
+            "object_aggregate_magnitude": "3.506580",
             "object_ref": "PER-ACTOR-9D09781AE311",
             "settlement_rank": 1,
             "settlement_rank_factor": "1.000000",
             "side": "positive",
             "subject": "刘文静",
-            "supporting_chain_count": 1,
+            "supporting_chain_count": 2,
             "supporting_material_ids": [
-              "MAT-AUTO-AD-75627DAAC6B54B97"
+              "MAT-AUTO-AD-75627DAAC6B54B97",
+              "MAT-AUTO-AD-AA78A5CDC6998905"
             ]
           },
           {
-            "actual_signal_contribution": "4.158000",
-            "object_aggregate_magnitude": "2.772000",
+            "actual_signal_contribution": "5.259869",
+            "object_aggregate_magnitude": "3.506580",
+            "object_ref": "RULER-58130F2446A25CC1",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "subject": "李世民",
+            "supporting_chain_count": 6,
+            "supporting_material_ids": [
+              "MAT-AUTO-AD-0854CD44D717168A",
+              "MAT-AUTO-AD-1C89F9DCAE950383",
+              "MAT-AUTO-AD-508F1A7A1F00F192",
+              "MAT-AUTO-AD-52E808BAF922EF32",
+              "MAT-AUTO-AD-8FCF2F85235D498B",
+              "MAT-AUTO-AD-FF7CF65EACD0F113"
+            ]
+          },
+          {
+            "actual_signal_contribution": "5.259870",
+            "object_aggregate_magnitude": "3.506580",
             "object_ref": "PER-CAND-D29808A822E4",
-            "settlement_rank": 2,
+            "settlement_rank": 1,
             "settlement_rank_factor": "1.000000",
             "side": "positive",
             "subject": "李靖",
+            "supporting_chain_count": 3,
+            "supporting_material_ids": [
+              "MAT-AUTO-AD-00438E7678D0DD62",
+              "MAT-AUTO-AD-BBB8F9D41A74ABF9",
+              "MAT-AUTO-AD-EB8BE95D75C2F6B8"
+            ]
+          },
+          {
+            "actual_signal_contribution": "3.093750",
+            "object_aggregate_magnitude": "2.062500",
+            "object_ref": "PER-CAND-8CF6E0AAF5E5",
+            "settlement_rank": 4,
+            "settlement_rank_factor": "1.000000",
+            "side": "positive",
+            "subject": "李勣",
             "supporting_chain_count": 1,
             "supporting_material_ids": [
-              "MAT-AUTO-AD-EB8BE95D75C2F6B8"
+              "MAT-AUTO-AD-FF884A592787F4B4"
+            ]
+          },
+          {
+            "actual_signal_contribution": "3.506580",
+            "object_aggregate_magnitude": "3.506580",
+            "object_ref": "PER-V4-CC0957EB2FD8",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "subject": "裴寂河东统军授权与连续失败",
+            "supporting_chain_count": 1,
+            "supporting_material_ids": [
+              "MAT-李渊-AD-PEIJI-JINYANG-FAILURE"
+            ]
+          },
+          {
+            "actual_signal_contribution": "3.049200",
+            "object_aggregate_magnitude": "3.049200",
+            "object_ref": "PER-V4-F60CA0D5DD47",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "subject": "李元吉留守晋阳授权与弃州失守",
+            "supporting_chain_count": 1,
+            "supporting_material_ids": [
+              "MAT-李渊-AD-LIYUANJI-JINYANG-FAILURE"
             ]
           }
         ],
@@ -4989,10 +6062,10 @@
             "through_rank": 12
           }
         ],
-        "source_candidate_count": 2,
+        "source_candidate_count": 14,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "4d03474d1c9500498a629a689e32fdd92fc31f52da0b178c51b4bf3ffdfb1148",
+        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -5275,7 +6348,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 5,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "4d03474d1c9500498a629a689e32fdd92fc31f52da0b178c51b4bf3ffdfb1148",
+        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
         "supporting_only_members": []
       },
       {
@@ -5284,50 +6357,13 @@
         "configured_positive_budget": 12,
         "eligible_candidate_count": 2,
         "negative_budget": 12,
-        "negative_signal": "2.574000",
+        "negative_signal": "4.356000",
         "positive_budget": 12,
-        "positive_signal": "1.120158",
+        "positive_signal": "0.000000",
         "rule_code": "tolerate_talent",
         "rule_label": "容人保全",
-        "rule_raw_net": "-1.453843",
+        "rule_raw_net": "-4.356000",
         "settled_materials": [
-          {
-            "actual_signal_contribution": "1.120158",
-            "fact": "李靖察觉高祖有经营天下之志，拟赴江都告变而因道路阻塞未成；唐军克长安后他将被处斩，以言辞申辩，高祖因其言及太宗力请而释放，随后由太宗召入幕府。",
-            "factor_option_codes": {
-              "attribution_factor": "direct_under_pressure",
-              "context_factor": "core_mechanism_direct",
-              "expression_safety": "actively_protected_or_encouraged",
-              "feedback_entry": "single_acceptance_or_tolerance",
-              "protection_repair": "active_protection_or_trust_repair",
-              "source_factor": "standard"
-            },
-            "factor_values": {
-              "attribution_factor": "1.100000",
-              "context_factor": "1.100000",
-              "expression_safety": "1.150000",
-              "feedback_entry": "0.700000",
-              "protection_repair": "1.150000",
-              "source_factor": "1.000000"
-            },
-            "independence_key": "tolerate_talent:mat-李渊-tt-lijing-execution-reversed:1",
-            "judge_reason": "李渊原拟处死李靖，因李靖当面申辩并经李世民坚请后改变决定；只按一次受压后的保全与恢复使用结算。",
-            "material_id": "MAT-李渊-TT-LIJING-EXECUTION-REVERSED",
-            "material_magnitude": "1.120158",
-            "object_aggregate_magnitude": "1.120158",
-            "object_internal_contribution": "1.120158",
-            "object_ref": "PER-CAND-D29808A822E4",
-            "override_reasons": [],
-            "rule_evidence_unit_ref": "REU-2F47F67B1A5A4F1CABCF",
-            "selection_basis": "eligibility_gate_then_strongest_n",
-            "settlement_rank": 1,
-            "settlement_rank_factor": "1.000000",
-            "side": "positive",
-            "source_refs": [
-              "舊唐書/卷67@2296327"
-            ],
-            "subject": "李靖获释并进入实际任用链"
-          },
           {
             "actual_signal_contribution": "2.574000",
             "fact": "刘文静参与晋阳起兵筹划并被李渊任为军司马；武德二年因怨言被控谋反，李纲、萧瑀和李世民均辨其非反，李渊仍听从裴寂意见将其处死并籍没。",
@@ -5362,6 +6398,41 @@
               "舊唐書/卷57@2019966"
             ],
             "subject": "刘文静争议罪名下被处死"
+          },
+          {
+            "actual_signal_contribution": "1.782000",
+            "fact": "李靖察觉高祖有经营天下之志，拟赴江都告变而因道路阻塞未成；唐军克长安后他将被处斩，以言辞申辩，高祖因其言及太宗力请而释放，随后由太宗召入幕府。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "handling_severity": "imprisonment_or_severe_nonpermanent_harm",
+              "source_factor": "standard",
+              "target_fault_factor": "disputed_suspicion"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "handling_severity": "1.800000",
+              "source_factor": "1.000000",
+              "target_fault_factor": "0.900000"
+            },
+            "independence_key": "tolerate_talent:mat-李渊-tt-lijing-execution-threat:1",
+            "judge_reason": "拟处死责任属于李渊；最终未执行且李靖确有告变行为，按争议嫌疑下的严重非永久伤害从严但不按实际处死结算。",
+            "material_id": "MAT-李渊-TT-LIJING-EXECUTION-THREAT",
+            "material_magnitude": "1.782000",
+            "object_aggregate_magnitude": "1.782000",
+            "object_internal_contribution": "1.782000",
+            "object_ref": "PER-CAND-D29808A822E4",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-51C57B36C9759C77E7FB",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "source_refs": [
+              "舊唐書/卷67@2296327"
+            ],
+            "subject": "李渊拟因旧怨处死李靖"
           }
         ],
         "settlement_budget_unit": "independent_feedback_safety_chain",
@@ -5383,7 +6454,7 @@
         "source_candidate_count": 2,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "4d03474d1c9500498a629a689e32fdd92fc31f52da0b178c51b4bf3ffdfb1148",
+        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -5392,15 +6463,92 @@
         "candidate_disposition_complete": true,
         "configured_negative_budget": 12,
         "configured_positive_budget": 12,
-        "eligible_candidate_count": 0,
+        "eligible_candidate_count": 2,
         "negative_budget": 12,
-        "negative_signal": "0.000000",
+        "negative_signal": "5.065060",
         "positive_budget": 12,
         "positive_signal": "0.000000",
         "rule_code": "anti_nepotism",
         "rule_label": "避免任人唯亲",
-        "rule_raw_net": "0.000000",
-        "settled_materials": [],
+        "rule_raw_net": "-5.065060",
+        "settled_materials": [
+          {
+            "actual_signal_contribution": "2.922150",
+            "fact": "裴寂因与李渊旧交而受无比亲礼，在缺乏捍御才能的情况下获授晋州道行军总管和便宜从事权；介休大败、晋州以东城镇俱失后，李渊仍令其镇抚河东，继而再败并引发民乱。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "displacement_harm": "team_policy_or_expression_structure_harmed",
+              "favoritism_intensity": "continuing_core_appointment_interference",
+              "office_weight": "key_public_power_or_succession",
+              "source_factor": "complete_direct_chain"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "displacement_harm": "1.400000",
+              "favoritism_intensity": "1.500000",
+              "office_weight": "1.150000",
+              "source_factor": "1.100000"
+            },
+            "independence_key": "anti_nepotism:mat-李渊-an-peiji-private-favor-failure:1",
+            "judge_reason": "本传同时证明私人亲礼无人可比、能力不适任、重大失败后继续授予核心军政职责，达到持续核心任用干扰。",
+            "material_id": "MAT-李渊-AN-PEIJI-PRIVATE-FAVOR-FAILURE",
+            "material_magnitude": "2.922150",
+            "object_aggregate_magnitude": "2.922150",
+            "object_internal_contribution": "2.922150",
+            "object_ref": "PER-V4-CC0957EB2FD8",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-743F1978F9B3F1971F27",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:mat-李渊-an-peiji-private-favor-failure:1",
+            "settlement_rank": 1,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "source_refs": [
+              "舊唐書/卷57@2019966"
+            ],
+            "subject": "裴寂私人亲礼压过能力校验"
+          },
+          {
+            "actual_signal_contribution": "2.142910",
+            "fact": "李渊将晋阳根本重地委托幼子李元吉；李元吉欺骗司马后携妻妾弃州逃归，晋阳随即被献给刘武周，李渊最终确认是李元吉自身不善。",
+            "factor_option_codes": {
+              "attribution_factor": "direct",
+              "context_factor": "core_mechanism_direct",
+              "displacement_harm": "team_policy_or_expression_structure_harmed",
+              "favoritism_intensity": "private_relation_over_merit",
+              "office_weight": "key_public_power_or_succession",
+              "source_factor": "complete_direct_chain"
+            },
+            "factor_values": {
+              "attribution_factor": "1.000000",
+              "context_factor": "1.100000",
+              "displacement_harm": "1.400000",
+              "favoritism_intensity": "1.100000",
+              "office_weight": "1.150000",
+              "source_factor": "1.100000"
+            },
+            "independence_key": "anti_nepotism:mat-李渊-an-liyuanji-kinship-jinyang:1",
+            "judge_reason": "皇子关系、幼弱不习时事、晋阳核心公权和实际弃州损害同时成立，按关系压过胜任校验结算。",
+            "material_id": "MAT-李渊-AN-LIYUANJI-KINSHIP-JINYANG",
+            "material_magnitude": "2.142910",
+            "object_aggregate_magnitude": "2.142910",
+            "object_internal_contribution": "2.142910",
+            "object_ref": "PER-V4-F60CA0D5DD47",
+            "override_reasons": [],
+            "rule_evidence_unit_ref": "REU-FE150881A2E767C37BF3",
+            "selection_basis": "eligibility_gate_then_strongest_n",
+            "settlement_object_ref": "anti_nepotism:mat-李渊-an-liyuanji-kinship-jinyang:1",
+            "settlement_rank": 2,
+            "settlement_rank_factor": "1.000000",
+            "side": "negative",
+            "source_refs": [
+              "資治通鑑/卷187@1502771"
+            ],
+            "subject": "李元吉以皇子身份受托晋阳并造成失守"
+          }
+        ],
         "settlement_budget_unit": "independent_private_public_power_chain",
         "settlement_mode": "policy_budget",
         "settlement_rank_factors": [
@@ -5417,10 +6565,10 @@
             "through_rank": 12
           }
         ],
-        "source_candidate_count": 0,
+        "source_candidate_count": 2,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "4d03474d1c9500498a629a689e32fdd92fc31f52da0b178c51b4bf3ffdfb1148",
+        "source_sha256": "a1da8328ee8487ccf8c2503f10614e43bf780e487ccce68789e36fbf9f546a81",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -5431,26 +6579,26 @@
     "status": "material_budget_scored_shadow_complete",
     "summary": {
       "rule_count": 5,
-      "settled_event_negative_count": 1,
-      "settled_event_positive_count": 4,
+      "settled_event_negative_count": 6,
+      "settled_event_positive_count": 13,
       "team_negative_member_count": 0,
       "team_positive_member_count": 5,
-      "weighted_raw_signal": "4.673370"
+      "weighted_raw_signal": "5.063115"
     },
-    "task_code": "I5B-CURRENT-E37221B0168FE263",
+    "task_code": "I5B-CURRENT-2691E944B07AF473",
     "window": "618-626"
   },
-  "net_signal": "4.673370",
+  "net_signal": "5.063115",
   "net_signal_status": "provisional_profile_inputs",
   "outcome_registry_validation": {
     "actor_count": 11,
-    "cluster_count": 25,
+    "cluster_count": 26,
     "database_write_count": 0,
-    "episode_count": 25,
+    "episode_count": 26,
     "kind_counts": {
       "campaign": 23,
       "governance": 2,
-      "statecraft": 0
+      "statecraft": 1
     },
     "schema_version": "historical-outcome-cluster-validation-v1",
     "status": "passed"
@@ -5538,14 +6686,17 @@
           "rule_path": "coverage_complete_below_usable"
         },
         "statecraft": {
-          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
-          "grade": "ordinary",
-          "outcome_refs": [],
-          "rule_path": "coverage_complete_below_usable"
+          "basis": "作为主导完成“刘文静出使突厥借兵”，属important级谋略结果。",
+          "grade": "usable",
+          "outcome_refs": [
+            "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION"
+          ],
+          "rule_path": "domain_usable_threshold"
         }
       },
       "outcome_refs": [
-        "OUTCOME-AUTO-D171D9DA1EA404C609F1"
+        "OUTCOME-AUTO-D171D9DA1EA404C609F1",
+        "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION"
       ],
       "overall_basis": "civil_governance：作为主导完成“武德律令编定并颁行天下”，属national级治理结果。",
       "overall_grade": "top",
@@ -6076,27 +7227,78 @@
     }
   ],
   "profile_projection_gate": {
+    "candidate_roster_review": {
+      "basis": "已覆盖当前窗口任用对象、公共成果参与者和可能达到高档的人物；裴寂、李元吉均完成固定《旧唐书》本传全分节扫描并作排除处置。",
+      "coverage_bases": [
+        "ruler_window_appointments",
+        "outcome_participants",
+        "potential_top_full_career"
+      ],
+      "excluded_candidates": [
+        {
+          "evidence_refs": [
+            "PFACT-LIYUAN-PEIJI-FULL-LIFECYCLE"
+          ],
+          "person": "裴寂",
+          "person_ref": "PER-V4-CC0957EB2FD8",
+          "reason": "虽有创业供给和劝进贡献，但没有达到 top/historic 的独立成果，且河东统军连续失败。",
+          "scan_receipt": {
+            "revision_ref": "2019966",
+            "scan_status": "complete_section",
+            "section_chars": 2320,
+            "section_heading": "裴寂",
+            "source_page": "舊唐書/卷57"
+          }
+        },
+        {
+          "evidence_refs": [
+            "PFACT-LIYUAN-LIYUANJI-FULL-LIFECYCLE"
+          ],
+          "person": "李元吉",
+          "person_ref": "PER-V4-F60CA0D5DD47",
+          "reason": "洛阳一次局部伏击不足以达到 top/historic，且留守晋阳形成重大直接损害。",
+          "scan_receipt": {
+            "revision_ref": "2573897",
+            "scan_status": "complete_section",
+            "section_chars": 1740,
+            "section_heading": "巢王元吉",
+            "source_page": "舊唐書/卷64"
+          }
+        }
+      ],
+      "included_person_refs": [
+        "PER-ACTOR-9D09781AE311",
+        "PER-CAND-A49FCFF85405",
+        "RULER-58130F2446A25CC1",
+        "PER-CAND-8CF6E0AAF5E5",
+        "PER-CAND-D29808A822E4"
+      ],
+      "pending_person_refs": [],
+      "status": "complete"
+    },
     "freeze_allowed": false,
-    "material_coverage_complete": false,
+    "material_coverage_complete": true,
     "required_inputs": [
       "full_lifecycle_biography",
       "historical_outcome_cluster_registry",
       "window_political_risk_review"
     ],
-    "status": "material_coverage_open"
+    "status": "ready_for_freeze_review"
   },
   "profile_projection_review": [
     {
       "biography_fact_refs": [
         "PFACT-AUTO-51BB0678505EC29E956F",
-        "PFACT-LIYUAN-LIUWENJING-LIFECYCLE"
+        "PFACT-LIYUAN-LIUWENJING-LIFECYCLE",
+        "PFACT-LIYUAN-LIUWENJING-TURK-ENVOY"
       ],
       "candidate_negative_talent_class": null,
       "candidate_negative_talent_severity": null,
       "candidate_talent_grade": "top",
       "coverage_gaps": [],
       "outcome_refs": [
-        "OUTCOME-AUTO-D171D9DA1EA404C609F1"
+        "OUTCOME-AUTO-D171D9DA1EA404C609F1",
+        "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION"
       ],
       "person": "刘文静",
       "person_ref": "PER-ACTOR-9D09781AE311",
@@ -6783,8 +7985,124 @@
       "value_status": "provisional_material_coverage_open"
     }
   ],
-  "report_sha256": "850a03c52281cfa9fbe3efef7dda7d6205dbfa278739ff332abf5c7e20da9750",
+  "report_sha256": "9f236230584abde75981757dd37af3e3b2b9e5797e03baedf1af158e289e0239",
   "rule_evidence_units": [
+    {
+      "direction": "negative",
+      "evaluation_context": "PER-V4-F60CA0D5DD47",
+      "members": [
+        {
+          "member_ref": "EP-683931C83710C880140E",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "factor_option_codes": {
+          "appointment_effect": "major_direct_damage",
+          "appointment_importance": "critical_national_or_long_term",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "stable",
+          "source_factor": "complete_direct_chain"
+        },
+        "independence_key": "appointment_delegation:mat-李渊-ad-liyuanji-jinyang-failure:1",
+        "judge_reason": "李渊将兴王根基晋阳全部委托幼子，结果是弃州和城池立即失守，任用链与重大损害直接闭合。",
+        "remaining_gap": "",
+        "settlement_event_key": "appointment_delegation:mat-李渊-ad-liyuanji-jinyang-failure:1"
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "f8434f9ca2a44bb5b675781003ef5c5a941da2401dcaf5809d3e003eb5edcd5d",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-F8434F9CA2A44BB5B675"
+    },
+    {
+      "direction": "negative",
+      "evaluation_context": "PER-V4-CC0957EB2FD8",
+      "members": [
+        {
+          "member_ref": "EP-0DBDCF376BFC8FB2FB71",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "factor_option_codes": {
+          "appointment_effect": "major_direct_damage",
+          "appointment_importance": "critical_national_or_long_term",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "long_term_multi_stage",
+          "source_factor": "complete_direct_chain"
+        },
+        "independence_key": "appointment_delegation:mat-李渊-ad-peiji-jinyang-failure:1",
+        "judge_reason": "河东国家安全职责在首次大败后被明确恢复，随后再败并造成民乱，属于两次授权决定下的重大直接损害。",
+        "remaining_gap": "",
+        "settlement_event_key": "appointment_delegation:mat-李渊-ad-peiji-jinyang-failure:1"
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "b3c0fcd06d816d57fe93fed12792bf9d2abea81b83992848757bb79697fd7e27",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-B3C0FCD06D816D57FE93"
+    },
+    {
+      "direction": "negative",
+      "evaluation_context": "PER-V4-F60CA0D5DD47",
+      "members": [
+        {
+          "member_ref": "EP-683931C83710C880140E",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "displacement_harm": "team_policy_or_expression_structure_harmed",
+          "favoritism_intensity": "private_relation_over_merit",
+          "office_weight": "key_public_power_or_succession",
+          "source_factor": "complete_direct_chain"
+        },
+        "independence_key": "anti_nepotism:mat-李渊-an-liyuanji-kinship-jinyang:1",
+        "judge_reason": "皇子关系、幼弱不习时事、晋阳核心公权和实际弃州损害同时成立，按关系压过胜任校验结算。",
+        "remaining_gap": "",
+        "settlement_event_key": "anti_nepotism:mat-李渊-an-liyuanji-kinship-jinyang:1"
+      },
+      "rule_code": "anti_nepotism",
+      "semantic_fingerprint": "fe150881a2e767c37bf346d02b853f723789f5c089b03185a7d353dbd97e20dc",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-FE150881A2E767C37BF3"
+    },
+    {
+      "direction": "negative",
+      "evaluation_context": "PER-V4-CC0957EB2FD8",
+      "members": [
+        {
+          "member_ref": "EP-0DBDCF376BFC8FB2FB71",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "displacement_harm": "team_policy_or_expression_structure_harmed",
+          "favoritism_intensity": "continuing_core_appointment_interference",
+          "office_weight": "key_public_power_or_succession",
+          "source_factor": "complete_direct_chain"
+        },
+        "independence_key": "anti_nepotism:mat-李渊-an-peiji-private-favor-failure:1",
+        "judge_reason": "本传同时证明私人亲礼无人可比、能力不适任、重大失败后继续授予核心军政职责，达到持续核心任用干扰。",
+        "remaining_gap": "",
+        "settlement_event_key": "anti_nepotism:mat-李渊-an-peiji-private-favor-failure:1"
+      },
+      "rule_code": "anti_nepotism",
+      "semantic_fingerprint": "743f1978f9b3f1971f276b7a103aaec25b4c72f076a4c7dc4847b1374debcfc4",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-743F1978F9B3F1971F27"
+    },
     {
       "direction": "positive",
       "evaluation_context": "PER-ACTOR-9D09781AE311",
@@ -6815,33 +8133,32 @@
       "unit_ref": "REU-2AF57F7624B43C8595E3"
     },
     {
-      "direction": "positive",
+      "direction": "negative",
       "evaluation_context": "PER-CAND-D29808A822E4",
       "members": [
         {
-          "member_ref": "EP-53839F435D30FB3F05A8",
+          "member_ref": "EP-3C7032F59DE4F5210168",
           "member_role": "core_evidence",
           "member_type": "episode"
         }
       ],
       "payload": {
         "factor_option_codes": {
-          "attribution_factor": "direct_under_pressure",
+          "attribution_factor": "direct",
           "context_factor": "core_mechanism_direct",
-          "expression_safety": "actively_protected_or_encouraged",
-          "feedback_entry": "single_acceptance_or_tolerance",
-          "protection_repair": "active_protection_or_trust_repair",
-          "source_factor": "standard"
+          "handling_severity": "imprisonment_or_severe_nonpermanent_harm",
+          "source_factor": "standard",
+          "target_fault_factor": "disputed_suspicion"
         },
-        "independence_key": "tolerate_talent:mat-李渊-tt-lijing-execution-reversed:1",
-        "judge_reason": "李渊原拟处死李靖，因李靖当面申辩并经李世民坚请后改变决定；只按一次受压后的保全与恢复使用结算。",
+        "independence_key": "tolerate_talent:mat-李渊-tt-lijing-execution-threat:1",
+        "judge_reason": "拟处死责任属于李渊；最终未执行且李靖确有告变行为，按争议嫌疑下的严重非永久伤害从严但不按实际处死结算。",
         "remaining_gap": "",
-        "settlement_event_key": "tolerate_talent:mat-李渊-tt-lijing-execution-reversed:1"
+        "settlement_event_key": "tolerate_talent:mat-李渊-tt-lijing-execution-threat:1"
       },
       "rule_code": "tolerate_talent",
-      "semantic_fingerprint": "2f47f67b1a5a4f1cabcfd9651d37221450d302eab3f4155b5d9a8a15919b7c9d",
+      "semantic_fingerprint": "51c57b36c9759c77e7fbc2bff65a38a478b74c48b2cc319f49f36eed6fff74f8",
       "status": "accepted_shadow",
-      "unit_ref": "REU-2F47F67B1A5A4F1CABCF"
+      "unit_ref": "REU-51C57B36C9759C77E7FB"
     },
     {
       "direction": "negative",
@@ -6870,6 +8187,115 @@
       "semantic_fingerprint": "305dba1b9b58fa2670dfce0f124fe2715a92b0a1644fa4cb56e648643ec6e5ec",
       "status": "accepted_shadow",
       "unit_ref": "REU-305DBA1B9B58FA2670DF"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "PER-CAND-8CF6E0AAF5E5",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-AAF60C7C9B9D6481FE55",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷190@1502800#李世勣帥步卒一萬渡淮，拔壽陽，次硤石。"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李勣在李渊统治窗口内实际统领国家军队，承担“武德七年平辅公祐战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "stable",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-AUTO-3218E266A2FAEBFC9077",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "15af19b9e1d7e70e4790e7a8ab696295b7672281b52c677d42be116ad7552294",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-FF884A592787F4B4"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "PER-CAND-D29808A822E4",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-AAF60C7C9B9D6481FE55",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
+            "資治通鑑/卷190@1502800#李靖兵先至丹楊，公祏大懼，擁兵數萬，棄城東走"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李靖在李渊统治窗口内实际统领国家军队，承担“武德七年平辅公祐战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "stable",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-AUTO-3218E266A2FAEBFC9077",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "fee7ef9789bf68496ffb5717bd8a095631ff686eb1e9fbe1d471f6d7d84be02e",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-00438E7678D0DD62"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "RULER-58130F2446A25CC1",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-0FA87CDD0F351DC80A5A",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“李渊晋阳起兵—霍邑—攻克长安战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "exceptional_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "stable",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-AUTO-519F925EF3F5A5DD3A5C",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "b4be3416ce8a24d4a4ca4a675e9d219dbb6542540efab515101c2fb9195cd0a7",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-1C89F9DCAE950383"
     },
     {
       "direction": "positive",
@@ -6911,6 +8337,43 @@
       "evaluation_context": "PER-CAND-D29808A822E4",
       "members": [
         {
+          "member_ref": "EP-OUTCOME-8FAA3BCF2631F4B5EB1F",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷191@1517706#安州大都督李靖与突厥颉利可汗战于灵州之硖石，自旦至申，突厥乃退",
+            "資治通鑑/卷191@1517706#戊寅，安州大都督李靖與突厥頡利可汗戰於靈州之硤石，自旦至申，突厥"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李靖在李渊统治窗口内实际统领国家军队，承担“李靖在灵州硖石击退突厥”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "stable",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-AUTO-F63708F41E8DFCEBDBA2",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "ec32cf0562fdfc6a864ff5678a3b3ec303bf14d73dd6ed0c931ceb228dc6272f",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-BBB8F9D41A74ABF9"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "PER-CAND-D29808A822E4",
+      "members": [
+        {
           "member_ref": "EP-OUTCOME-FBFCD848DC9CF28F55B4",
           "member_role": "core_evidence",
           "member_type": "episode"
@@ -6922,6 +8385,7 @@
             "舊唐書/卷67@2296327#三軍之任，一以委靖",
             "舊唐書/卷67@2296327#靖又陳十策以圖蕭銑"
           ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
           "basis": "本传明确李孝恭未更戎旅，高祖将三军责任全部委托李靖，属于国家级战争的实际主帅授权。",
           "scope": "critical_national_or_long_term"
         },
@@ -6941,6 +8405,221 @@
       "semantic_fingerprint": "940790ec47c4f90c5e6543e6f18d6c128aae89b96c9206ce89bc0b0b532ec3d4",
       "status": "accepted_shadow",
       "unit_ref": "REU-AUTO-AD-EB8BE95D75C2F6B8"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "PER-ACTOR-9D09781AE311",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-A64FC24F3D34EE244A3A",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵"
+          ],
+          "basis": "李渊明确命刘文静出使请兵，并向其交代战略目的与借兵边界。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "short_or_one_off",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "712ec62a11ada9ce19c50da07335bd38c4d60caab482cf19fa5cc53728f50490",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-AA78A5CDC6998905"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "RULER-58130F2446A25CC1",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-BA9309933D85478385D9",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷188@1567784#秦王世民引兵自龍門乘冰堅渡河，屯柏壁，與宋金剛相持。"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“柏壁—介休平刘武周宋金刚战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "short_or_one_off",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-LSM-CAMPAIGN-BAIBI",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "223c482be6adb0c635d7cc429f3baafc7d2f9a81ce04b292d94923d4246d07c1",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-52E808BAF922EF32"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "RULER-58130F2446A25CC1",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-BC20D9059C40B80D799E",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“洛阳—虎牢灭王世充窦建德战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "exceptional_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "short_or_one_off",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-LSM-CAMPAIGN-HULAO",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "7249588faf9ffa9d76397f365cf7cf6357ca7bcf6711b8adc52fcf4359f360cb",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-0854CD44D717168A"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "RULER-58130F2446A25CC1",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-2F874D109B49CE852101",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“洺水击破刘黑闼战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "weak_feedback",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "short_or_one_off",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-LSM-CAMPAIGN-LIUHEITA",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "de7838d1bdb44381266c06222ad16378f6c1748c0f8a99cf51226a76708e831b",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-FF7CF65EACD0F113"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "RULER-58130F2446A25CC1",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-6E1FB70FF16B0919028F",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“浅水原平薛仁杲战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "short_or_one_off",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-LSM-CAMPAIGN-QIANSHUIYUAN",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "9b5fe0bf9cdc37e2e861929e3461321525b3179d0b57b958d03a03321c517cfb",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-8FCF2F85235D498B"
+    },
+    {
+      "direction": "positive",
+      "evaluation_context": "RULER-58130F2446A25CC1",
+      "members": [
+        {
+          "member_ref": "EP-OUTCOME-ED6CF4D80A04ED24ACEA",
+          "member_role": "core_evidence",
+          "member_type": "episode"
+        }
+      ],
+      "payload": {
+        "delegated_responsibility": {
+          "authorization_refs": [
+            "資治通鑑/卷190@1502800#世民擊徐圓朗，下十餘城，聲震淮、泗"
+          ],
+          "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“曹州—淮泗平徐圆朗战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+          "scope": "major_affairs"
+        },
+        "derivation": "historical_outcome_registry",
+        "factor_option_codes": {
+          "appointment_effect": "major_success",
+          "appointment_importance": "major_affairs",
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "continuity_factor": "short_or_one_off",
+          "source_factor": "standard"
+        },
+        "outcome_ref": "OUTCOME-LSM-CAMPAIGN-XUYUANLANG",
+        "ruler_context_refs": []
+      },
+      "rule_code": "appointment_delegation",
+      "semantic_fingerprint": "32bbefb843e5b19aaa9cfc2533deac8b293bc7057f0156e10fe8de2943e72322",
+      "status": "accepted_shadow",
+      "unit_ref": "REU-AUTO-AD-508F1A7A1F00F192"
     },
     {
       "direction": "net",
@@ -7000,7 +8679,7 @@
   "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
   "schema_version": "i5b-current-value-report-v5",
   "source_pack_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-  "source_pack_sha256": "91caaccb2311be3345bd5b746bbaf0e8508901a925fd657b8b964966d4204bd0",
+  "source_pack_sha256": "174d81e6d36059c1ee76c0ed35f398abbdbd70bc79ddcb942d5c57c3338adb80",
   "status": "current_shadow_chain_complete_profile_values_provisional",
   "three_channel_disposition": {
     "dynasty_governance": {

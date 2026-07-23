@@ -73,6 +73,7 @@ from emperor_v4.runtime.emperor_neutral_scan import (
     build_deterministic_backbone_event_signatures,
     build_deterministic_fact_resolution_plan,
     build_event_directed_neutral_plan,
+    build_high_value_reject_review,
     build_ruler_neutral_plan,
     extract_current_neutral_materials,
     merge_dynasty_governance_current,
@@ -859,6 +860,49 @@ def test_campaign_candidate_allows_person_only_group_without_current_ruler(tmp_p
         schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
     )
     assert increment["outcomes"][0]["members"][0]["actor_name"] == "李靖"
+
+
+def test_campaign_commander_without_repeated_appointment_quote_gets_tacit_authorization(
+    tmp_path: Path,
+) -> None:
+    payload = _campaign_candidate_payload()
+    member = payload["candidates"][0]["members"][0]
+    member.update(
+        {
+            "actor_name": "李靖",
+            "actor_kind": "person",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": False,
+            "ruler_campaign_relation": None,
+            "authorization_mode": None,
+            "control_extent": None,
+            "obstruction_status": None,
+            "talent_credit": "independent",
+            "responsibility_scope": "major_affairs",
+            "authorization_quotes": [],
+        }
+    )
+    increment = compile_outcome_candidate_payloads(
+        {
+            "ruler": "李世民",
+            "ruler_ref": "RULER-LI-SHIMIN",
+            "members": [{"person": "李靖", "person_ref": "PERSON-LI-JING"}],
+            "facts": [],
+        },
+        [payload],
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+    )
+
+    responsibility = increment["outcomes"][0]["members"][0][
+        "delegated_responsibility"
+    ]
+    assert responsibility["authorizer_ref"] == "RULER-LI-SHIMIN"
+    assert responsibility["scope"] == "major_affairs"
+    assert responsibility["authorization_refs"] == [
+        "史书/卷一@1#测试战役取得阶段结果。"
+    ]
+    assert "默示授权" in increment["outcomes"][0]["limitations"][-1]
 
 
 def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path: Path) -> None:
@@ -2423,7 +2467,7 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
     assert report["declarations"]["formal_scoring_ready"] is False
     assert report["declarations"]["profile_member_with_open_gap_count"] == 0
     assert report["declarations"]["person_profile_registry_count"] == {
-        "李世民": 18,
+        "李世民": 19,
         "刘邦": 13,
     }[ruler]
     assert report["declarations"]["person_profile_registry_with_open_gap_count"] == {
@@ -2515,7 +2559,7 @@ def test_current_li_shimin_corrections_follow_rule_documents() -> None:
         "李靖",
         "长孙无忌",
         "魏徵",
-        "侯君集",
+        "苏定方",
         "戴胄",
         "杜如晦",
     ]
@@ -2578,13 +2622,13 @@ def test_profile_and_outcome_changes_rebuild_downstream_materials(
 ) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
     payload = json.loads(source.read_text(encoding="utf-8"))
-    li_jing = next(
+    hou_junji = next(
         row
         for row in payload["materials"]
-        if row["material_id"] == "MAT-李世民-TD-LIJING-CROSS-BOUNDARY"
+        if row["material_id"] == "MAT-李世民-TD-HOU-EARLY-ENTRY"
     )
-    li_jing["factor_option_codes"]["talent_quality_factor"] = "top"
-    li_jing["factor_values"]["talent_quality_factor"] = 1.45
+    hou_junji["factor_option_codes"]["talent_quality_factor"] = "ordinary"
+    hou_junji["factor_values"]["talent_quality_factor"] = 0.6
     law = next(
         row
         for row in payload["outcome_registry"]["clusters"]
@@ -2623,11 +2667,11 @@ def test_profile_and_outcome_changes_rebuild_downstream_materials(
         for row in report["material_budget"]["rules"]
         if row["rule_code"] == "talent_discovery"
     )
-    li_jing_result = next(
-        row for row in discovery["settled_materials"] if row["subject"] == "李靖"
+    hou_junji_result = next(
+        row for row in discovery["settled_materials"] if row["subject"] == "侯君集"
     )
-    assert li_jing_result["factor_option_codes"]["talent_quality_factor"] == "historic"
-    assert li_jing_result["factor_values"]["talent_quality_factor"] == "1.800000"
+    assert hou_junji_result["factor_option_codes"]["talent_quality_factor"] == "top"
+    assert hou_junji_result["factor_values"]["talent_quality_factor"] == "1.450000"
     appointment = next(
         row
         for row in report["material_budget"]["rules"]
@@ -2797,6 +2841,41 @@ def test_profile_values_cannot_freeze_before_material_coverage(tmp_path: Path) -
         build_i5b_current_value(target, outcome_layers=(registry, binding))
 
 
+def test_profile_freeze_review_requires_independent_candidate_roster_closure(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    payload["profile_projection_gate"] = {
+        "status": "ready_for_freeze_review",
+        "material_coverage_complete": True,
+        "freeze_allowed": False,
+        "candidate_roster_review": {
+            "status": "complete",
+            "coverage_bases": [
+                "ruler_window_appointments",
+                "outcome_participants",
+            ],
+            "included_person_refs": ["PER-EXAMPLE"],
+        },
+    }
+    payload["source_pack_sha256"] = hashlib.sha256(
+        json.dumps(
+            {key: value for key, value in payload.items() if key != "source_pack_sha256"},
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    target = tmp_path / "source-pack.json"
+    target.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    registry = build_unbound_historical_outcome_registry([payload])
+    binding = build_ruler_outcome_bindings(payload, registry)
+    with pytest.raises(ValueError, match="潜在高等级全生涯候选"):
+        build_i5b_current_value(target, outcome_layers=(registry, binding))
+
+
 def test_profile_values_rebuild_missing_grade_registry_links(
     tmp_path: Path,
 ) -> None:
@@ -2829,6 +2908,84 @@ def test_profile_values_rebuild_missing_grade_registry_links(
     )
     assert rebuilt["talent_grade_rule_alignment"]["rule_path"]
     assert rebuilt["profile_evidence_refs"]["talent_grade"]
+
+
+def test_high_value_model_rejects_require_main_session_review() -> None:
+    source_rows = [
+        (
+            "SEG-LIU",
+            "淵命劉文靜使於突厥以請兵。",
+            ["ruler_delegation"],
+        ),
+        (
+            "SEG-PEI",
+            "以裴寂為晉州道行軍總管，聽以便宜從事；寂軍遂潰，失亡略盡。",
+            ["ruler_delegation", "severe_command_failure"],
+        ),
+        (
+            "SEG-YUANJI",
+            "元吉攜其妻妾棄州奔還長安，土豪以城納武周。",
+            ["severe_command_failure"],
+        ),
+        ("SEG-ORDINARY", "群臣皆賀，宴三日。", []),
+    ]
+    plan = {
+        "page_batches": [
+            {
+                "segments": [
+                    {
+                        "segment_ref": segment_ref,
+                        "page_title": "資治通鑒/卷184",
+                        "revision_ref": "1",
+                        "subject_refs": ["RULER-LIYUAN"],
+                        "subject_names": ["李淵"],
+                        "chronicle_ruler_ref": "RULER-LIYUAN",
+                        "text": text,
+                    }
+                    for segment_ref, text, _ in source_rows
+                ]
+            }
+        ]
+    }
+    materials = {
+        "batch_results": [
+            {
+                "segment_reviews": [
+                    {
+                        "segment_ref": segment_ref,
+                        "decision": "reject",
+                        "reason": "片段未形成直接中性事实。",
+                        "facts": [],
+                    }
+                    for segment_ref, _, _ in source_rows
+                ]
+            }
+        ]
+    }
+
+    review = build_high_value_reject_review(plan=plan, materials=materials)
+
+    assert review["status"] == "pending_main_session_review"
+    assert review["candidate_count"] == 3
+    assert {row["revision_ref"] for row in review["candidates"]} == {"1"}
+    assert {
+        row["segment_ref"]: row["signal_codes"] for row in review["candidates"]
+    } == {
+        segment_ref: signals
+        for segment_ref, _, signals in source_rows
+        if signals
+    }
+
+
+def test_person_statecraft_result_can_feed_appointment_without_becoming_ruler_outcome() -> None:
+    cluster = {
+        "outcome_kind": "statecraft",
+        "settlement_scope": "person_statecraft_result",
+        "ruler_window_status": "leadership_formation",
+    }
+
+    assert _appointment_window_outcomes([cluster]) == [cluster]
+    assert _ruler_window_outcomes([cluster]) == []
 
 
 def test_appointment_importance_comes_from_responsibility_not_result_scale(
@@ -2940,6 +3097,18 @@ def test_representative_ruler_policies_render_with_current_disposition() -> None
     )
     assert not any(
         "李勣攻克平壤平定高句丽" in row.get("fact", "")
+        for bucket in ("settled_materials", "supporting_only_materials")
+        for row in appointment[bucket]
+    )
+    assert not any(
+        campaign in row.get("fact", "")
+        for campaign in (
+            "柏壁—介休平刘武周宋金刚战役群",
+            "洛阳—虎牢灭王世充窦建德战役群",
+            "洺水击破刘黑闼战役群",
+            "浅水原平薛仁杲战役群",
+            "曹州—淮泗平徐圆朗战役群",
+        )
         for bucket in ("settled_materials", "supporting_only_materials")
         for row in appointment[bucket]
     )
@@ -6233,8 +6402,8 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     ]
     registry = build_unbound_historical_outcome_registry(source_packs)
     assert registry["status"] == "current_shadow_unbound"
-    assert registry["declarations"]["outcome_count"] == 74
-    assert registry["declarations"]["campaign_count"] == 35
+    assert registry["declarations"]["outcome_count"] == 76
+    assert registry["declarations"]["campaign_count"] == 37
     assert registry["declarations"]["governance_count"] == 33
     assert registry["declarations"]["statecraft_count"] == 6
     assert registry["declarations"]["window_binding_count"] == 0
@@ -6249,7 +6418,7 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
 
     rendered = render_unbound_historical_outcome_registry_markdown(registry)
     assert "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）" in rendered
-    assert "总成果：74" in rendered
+    assert "总成果：76" in rendered
     assert "谋略：6" in rendered
     assert "永徽律令格式与《律疏》编定颁行" in rendered
     assert "ruler_window_status" not in rendered
@@ -6267,13 +6436,29 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     assert "固定 固定版本" not in rendered
     for source_pack in source_packs:
         binding = build_ruler_outcome_bindings(source_pack, registry)
+        assert binding["schema_version"] == "ruler-outcome-binding-v2"
         assert binding["binding_count"] == len(
             source_pack["outcome_registry"]["clusters"]
         )
-        assert (
-            materialize_ruler_outcome_registry(registry, binding)
-            == source_pack["outcome_registry"]
-        )
+        materialized = materialize_ruler_outcome_registry(registry, binding)
+        assert materialized == source_pack["outcome_registry"]
+        if source_pack["ruler"] == "李世民":
+            hulao = next(
+                row
+                for row in materialized["clusters"]
+                if row["outcome_ref"] == "OUTCOME-LSM-CAMPAIGN-HULAO"
+            )
+            actor_kind = {
+                row["actor_name"]: row["actor_kind"] for row in hulao["members"]
+            }
+            assert actor_kind["李渊"] == "ruler"
+            assert actor_kind["李世民"] == "ruler"
+            sovereign_at_event = {
+                row["actor_name"]: row["sovereign_at_event"]
+                for row in hulao["members"]
+                if row["actor_name"] in {"李渊", "李世民"}
+            }
+            assert sovereign_at_event == {"李世民": False, "李渊": True}
 
 
 def test_direct_runner_uses_the_same_markdown_contract(

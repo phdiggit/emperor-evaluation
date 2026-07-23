@@ -73,6 +73,7 @@
           "additionalProperties": false,
           "required": ["scope", "basis", "authorization_refs"],
           "properties": {
+            "authorizer_ref": {"type": "string", "minLength": 1},
             "scope": {
               "enum": ["nominal_or_light", "real_bounded", "major_affairs", "critical_national_or_long_term"]
             },

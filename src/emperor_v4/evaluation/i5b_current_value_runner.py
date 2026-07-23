@@ -43,6 +43,7 @@ STABILITY_CONTINUITY = {"initial", "continuous", "managed_turnover", "gap"}
 APPOINTMENT_OUTCOME_ROLES = {
     "campaign": {"commander_in_chief", "principal_commander"},
     "governance": {"exclusive", "lead"},
+    "statecraft": {"exclusive", "lead"},
 }
 OUTCOME_SCALE_LABELS = {
     "local": "局部",
@@ -214,7 +215,11 @@ def _appointment_outcome_options(
         raise ValueError(
             f"{cluster['outcome_ref']}:{member['actor_ref']} 缺少独立于成果规模的授权责任范围"
         )
-    effect = str(projection["effect_by_result_scale"][scale])
+    effect = (
+        "weak_feedback"
+        if str(cluster["result_direction"]) == "mixed"
+        else str(projection["effect_by_result_scale"][scale])
+    )
     payload = cluster.get("payload") or {}
     continuity_projection = projection["continuity_by_delivery"]
     continuity = str(
@@ -239,13 +244,14 @@ def _outcome_appointment_materials(
     clusters: list[Mapping[str, Any]],
     profile_by_ref: Mapping[str, Mapping[str, Any]],
     policy: Mapping[str, Any],
+    ruler_ref: str,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]], list[RuleEvidenceUnitRecord]]:
     materials: list[dict[str, Any]] = []
     decisions: list[dict[str, str]] = []
     units: list[RuleEvidenceUnitRecord] = []
     for cluster in sorted(clusters, key=lambda row: str(row["outcome_ref"])):
         if (
-            cluster["result_direction"] != "positive"
+            cluster["result_direction"] not in {"positive", "mixed"}
             or cluster["result_status"] not in {"implemented", "operated", "completed", "mixed"}
         ):
             continue
@@ -260,6 +266,9 @@ def _outcome_appointment_materials(
             ):
                 continue
             responsibility = member.get("delegated_responsibility") or {}
+            authorizer_ref = str(responsibility.get("authorizer_ref") or "")
+            if authorizer_ref and authorizer_ref != ruler_ref:
+                continue
             if (
                 not responsibility.get("scope")
                 or not responsibility.get("basis")
@@ -374,7 +383,7 @@ def _appointment_window_outcomes(
     return [
         cluster
         for cluster in clusters
-        if cluster.get("outcome_kind") in {"campaign", "governance"}
+        if cluster.get("outcome_kind") in {"campaign", "governance", "statecraft"}
         if cluster.get("settlement_scope") != "war_terminal_context"
         if cluster.get("ruler_window_status", "within_window")
         in {"within_window", "leadership_formation"}
@@ -597,6 +606,25 @@ def build_i5b_current_value(
     profile_freeze_allowed = profile_gate.get("freeze_allowed") is True
     if profile_freeze_allowed and not profile_coverage_complete:
         raise ValueError("材料覆盖未闭合时不得冻结人才等级或政治风险")
+    if profile_gate.get("status") == "ready_for_freeze_review":
+        roster_review = profile_gate.get("candidate_roster_review") or {}
+        required_bases = {
+            "ruler_window_appointments",
+            "outcome_participants",
+            "potential_top_full_career",
+        }
+        if (
+            roster_review.get("status") != "complete"
+            or not required_bases
+            <= {
+                str(value)
+                for value in roster_review.get("coverage_bases") or ()
+            }
+            or not roster_review.get("included_person_refs")
+        ):
+            raise ValueError(
+                "人物画像冻结审阅前必须闭合任用名单、成果参与者和潜在高等级全生涯候选"
+            )
 
     policy_path = ROOT / str(pack["factor_acceptance"]["policy_ref"])
     policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
@@ -841,6 +869,7 @@ def build_i5b_current_value(
             clusters=_appointment_window_outcomes(outcome_clusters),
             profile_by_ref=profile_by_ref,
             policy=policy,
+            ruler_ref=str(pack["ruler_ref"]),
         )
     )
     for cluster in outcome_clusters:
@@ -1512,13 +1541,25 @@ def render_scoring_detail_markdown(
                     for row in cluster["members"]
                     if row["role_code"] != "not_in_command_chain"
                 ]
+                pre_accession_ruler_members = [
+                    row
+                    for row in cluster["members"]
+                    if row.get("actor_kind") == "ruler"
+                    and row.get("sovereign_at_event") is False
+                ]
                 ruler_roles = "、".join(
                     f"{row['actor_name']}（{RULER_CAMPAIGN_RELATIONS.get(str(row.get('ruler_campaign_relation') or ''), '关系缺失')}；{CAMPAIGN_ROLES[row['role_code']]}）"
                     for row in sovereign_members
                 ) or (
-                    "不适用"
-                    if cluster.get("ruler_window_status") == "outside_window"
-                    else "缺失"
+                    "、".join(
+                        f"{row['actor_name']}（事件时尚未称帝；{CAMPAIGN_ROLES[row['role_code']]}）"
+                        for row in pre_accession_ruler_members
+                    )
+                    or (
+                        "不适用"
+                        if cluster.get("ruler_window_status") == "outside_window"
+                        else "缺失"
+                    )
                 )
                 commander_roles = "、".join(
                     f"{row['actor_name']}（{CAMPAIGN_ROLES[row['role_code']]}）"

@@ -30,6 +30,7 @@ from emperor_v4.runtime.emperor_neutral_scan import (
     build_chronicle_role_projections,
     build_deterministic_fact_resolution_plan,
     build_event_directed_neutral_plan,
+    build_high_value_reject_review,
     build_ruler_neutral_plan,
     extract_current_neutral_materials,
     merge_dynasty_governance_current,
@@ -53,7 +54,7 @@ SCHEMA_VERSION = "emperor-rebuild-v1"
 STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
-    "neutral_materials": "shared-directed-neutral-stage-v1",
+    "neutral_materials": "shared-directed-neutral-stage-v2",
     "outcome_projection": "current-outcome-projection-stage-v15",
     "current_projection": "registry-profile-i5b-stage-v2",
 }
@@ -1427,11 +1428,32 @@ def rebuild_emperor(
         neutral_materials["outcome_projection"] = current_neutral[
             "outcome_projection"
         ]
+    high_value_reject_review = build_high_value_reject_review(
+        plan=model_plan,
+        materials=neutral_materials,
+    )
+    neutral_materials["high_value_reject_review"] = high_value_reject_review
     _atomic_text(
         neutral_path,
         json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
         + "\n",
     )
+    reject_review_path = runtime_root / "neutral-reject-review.json"
+    _atomic_text(
+        reject_review_path,
+        json.dumps(
+            high_value_reject_review,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+    )
+    if high_value_reject_review["candidate_count"]:
+        raise ValueError(
+            "中性材料存在高价值拒绝片段，必须由主会话复核 "
+            f"{reject_review_path} 后再继续，不得将模型拒绝视为无事实"
+        )
     neutral_stage = _accept_stage(
         runtime_root=runtime_root,
         stage_cache_root=stage_cache_root,

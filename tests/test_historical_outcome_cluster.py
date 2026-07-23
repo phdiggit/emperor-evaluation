@@ -88,7 +88,11 @@ def test_campaign_registry_separates_ruler_control_land_axis_and_failures() -> N
         row
         for row in registry["clusters"]
         if row["outcome_kind"] == "campaign"
-        and any(member["actor_kind"] == "ruler" for member in row["members"])
+        and any(
+            member["actor_kind"] == "ruler"
+            and member["actor_ref"] == pack["ruler_ref"]
+            for member in row["members"]
+        )
         and any(member["actor_kind"] == "person" for member in row["members"])
     )
     ruler_member = next(
@@ -416,7 +420,7 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
 
 @pytest.mark.parametrize(
     ("ruler", "expected_signal"),
-    [("李世民", "17.993766"), ("刘邦", "8.188958")],
+    [("李世民", "17.763451"), ("刘邦", "8.188958")],
 )
 def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
     ruler: str, expected_signal: str
@@ -464,7 +468,7 @@ def test_i5b_gold_rejects_shadow_signal_drift() -> None:
     assert comparison["i5b_projection"]["differences"] == [
         {
             "path": "net_signal",
-            "expected": "17.993766",
+            "expected": "17.763451",
             "actual": "0.000000",
         }
     ]

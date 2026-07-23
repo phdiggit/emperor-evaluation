@@ -556,6 +556,32 @@
       ]
     },
     {
+      "actual_ref": "OUTCOME-SUDINGFANG-BAEKJE",
+      "basis": "固定本传逐字史源与公共成果结构经主会话复核后接受。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-SUDINGFANG-BAEKJE"
+      ],
+      "source_refs": [
+        "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管",
+        "舊唐書/卷83@2632780#百濟悉平，分其地為六州"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-SUDINGFANG-WESTERN-TURKS",
+      "basis": "固定本传逐字史源与公共成果结构经主会话复核后接受。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-SUDINGFANG-WESTERN-TURKS"
+      ],
+      "source_refs": [
+        "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯",
+        "舊唐書/卷83@2632780#賀魯及咥運十餘騎逼夜亡走"
+      ]
+    },
+    {
       "actual_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
       "basis": "人工复核后按当前冻结业务结构接受。",
       "collection": "historical_outcome_clusters",
@@ -667,6 +693,15 @@
       "disposition": "accepted",
       "gold_refs": [
         "GOLD-李世民-PROFILE-PER-CAND-D29808A822E4"
+      ]
+    },
+    {
+      "actual_ref": "PER-V4-CB67FCF2FC79",
+      "basis": "完整本传、公共成果登记和窗口政治风险均闭合后冻结人物画像。",
+      "collection": "profile_projection_review",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-李世民-PROFILE-PER-V4-CB67FCF2FC79"
       ]
     }
   ],
@@ -1758,6 +1793,138 @@
       "source_refs": [
         "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
         "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "苏定方平百济战役群",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "ruler_campaign_parent",
+            "path": "settlement_scope"
+          },
+          {
+            "expected": "outside_window",
+            "path": "ruler_window_status"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "S",
+            "path": "payload.campaign_tier"
+          },
+          {
+            "expected": "single_pole_or_state_terminal",
+            "path": "payload.strategic_result_class"
+          },
+          {
+            "expected": [],
+            "path": "payload.operational_costs"
+          },
+          {
+            "expected": [],
+            "path": "payload.objective_shortfalls"
+          },
+          {
+            "expected": [],
+            "path": "payload.attributable_failures"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "苏定方",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LSM-CAMPAIGN-SUDINGFANG-BAEKJE",
+      "importance": "major",
+      "review_basis": "固定《旧唐书》卷83本传，冻结苏定方渡海灭百济、俘其王族并分置六州的窗口外全生涯成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "苏定方平百济战役群"
+        ],
+        "outcome_kind": "campaign",
+        "source_refs_any": [
+          "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管",
+        "舊唐書/卷83@2632780#百濟悉平，分其地為六州"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "苏定方平西突厥战役群",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "ruler_campaign_parent",
+            "path": "settlement_scope"
+          },
+          {
+            "expected": "outside_window",
+            "path": "ruler_window_status"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "S+",
+            "path": "payload.campaign_tier"
+          },
+          {
+            "expected": "external_hegemony_terminal",
+            "path": "payload.strategic_result_class"
+          },
+          {
+            "expected": [],
+            "path": "payload.operational_costs"
+          },
+          {
+            "expected": [],
+            "path": "payload.objective_shortfalls"
+          },
+          {
+            "expected": [],
+            "path": "payload.attributable_failures"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "苏定方",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LSM-CAMPAIGN-SUDINGFANG-WESTERN-TURKS",
+      "importance": "major",
+      "review_basis": "固定《旧唐书》卷83本传，冻结苏定方以行军大总管击溃并擒贺鲁、终结西突厥统治的窗口外全生涯成果。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "苏定方平西突厥战役群"
+        ],
+        "outcome_kind": "campaign",
+        "source_refs_any": [
+          "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯",
+        "舊唐書/卷83@2632780#賀魯及咥運十餘騎逼夜亡走"
       ],
       "unit_kind": "campaign_group"
     },
@@ -4674,6 +4841,59 @@
         "舊唐書/卷67@2296327#御史大夫溫彥博害其功，譖靖軍無綱紀，致令虜中奇寶，散於亂兵之手。"
       ],
       "unit_kind": "person_talent"
+    },
+    {
+      "canonical_label": "苏定方",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "historic",
+            "path": "candidate_talent_grade"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_class"
+          },
+          {
+            "expected": null,
+            "path": "candidate_negative_talent_severity"
+          },
+          {
+            "expected": "military_peak_pair",
+            "path": "talent_grade_rule_alignment.rule_path"
+          },
+          {
+            "expected": [
+              "OUTCOME-SUDINGFANG-BAEKJE",
+              "OUTCOME-SUDINGFANG-WESTERN-TURKS"
+            ],
+            "path": "talent_grade_rule_alignment.outcome_refs"
+          },
+          {
+            "expected": [],
+            "path": "coverage_gaps"
+          },
+          {
+            "expected": "frozen_after_complete_coverage",
+            "path": "value_status"
+          }
+        ],
+        "members": []
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-李世民-PROFILE-PER-V4-CB67FCF2FC79",
+      "importance": "major",
+      "review_basis": "固定《旧唐书》卷83完整本传及两项独立灭国级主帅成果后冻结人物画像；高宗朝成果只用于全生涯人才档，不倒灌李世民皇帝窗口。",
+      "selector": {
+        "collection": "profile_projection_review",
+        "person": "苏定方"
+      },
+      "source_refs": [
+        "舊唐書/卷83@2632780#蘇定方，冀州武邑人也",
+        "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯",
+        "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管"
+      ],
+      "unit_kind": "person_talent"
     }
   ],
   "i5b_expectation": {
@@ -4692,18 +4912,18 @@
       },
       "talent_discovery": {
         "negative_signal": "0.000000",
-        "positive_signal": "13.587750",
-        "rule_raw_net": "13.587750"
+        "positive_signal": "11.528000",
+        "rule_raw_net": "11.528000"
       },
       "team_building": {
         "negative_signal": "1.850000",
-        "positive_signal": "16.128000",
-        "rule_raw_net": "14.278000"
+        "positive_signal": "16.704000",
+        "rule_raw_net": "14.854000"
       },
       "tolerate_talent": {
         "negative_signal": "4.554000",
-        "positive_signal": "10.588064",
-        "rule_raw_net": "6.034064"
+        "positive_signal": "10.810719",
+        "rule_raw_net": "6.256719"
       }
     },
     "team_projection": {
@@ -4718,18 +4938,18 @@
         "房玄龄",
         "李勣",
         "李靖",
+        "苏定方",
         "长孙无忌",
-        "侯君集",
         "戴胄",
         "杜如晦",
         "魏徵"
       ]
     },
-    "weighted_raw_signal": "17.993766"
+    "weighted_raw_signal": "17.763451"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v5",
-    "source_pack_sha256": "01d77a43465d74353ffee2a721586a3adb34d5062db96fe429c2ec0f9373fd26"
+    "source_pack_sha256": "544ebe5f7236c763db12546571483c12e0dbc3b9499d0931123f27a78caac420"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

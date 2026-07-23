@@ -334,6 +334,11 @@ def build_ruler_outcome_bindings(
             "registration_ref": registration["registration_ref"],
             "outcome_ref": cluster["outcome_ref"],
             "ruler_window_status": cluster["ruler_window_status"],
+            "ruler_actor_refs": sorted(
+                str(member["actor_ref"])
+                for member in cluster["members"]
+                if member["actor_kind"] == "ruler"
+            ),
             "campaign_talent_credits": {
                 str(member["actor_ref"]): member["talent_credit"]
                 for member in cluster["members"]
@@ -387,6 +392,7 @@ def build_ruler_outcome_bindings(
             "registration_ref": parent_ref,
             "outcome_ref": origin_refs[0],
             "ruler_window_status": child_binding["ruler_window_status"],
+            "ruler_actor_refs": [],
             "campaign_talent_credits": {},
             "context_only_ancestor": True,
         }
@@ -396,7 +402,7 @@ def build_ruler_outcome_bindings(
         bindings_by_ref.values(), key=lambda row: str(row["registration_ref"])
     )
     report = {
-        "schema_version": "ruler-outcome-binding-v1",
+        "schema_version": "ruler-outcome-binding-v2",
         "status": "current_shadow_binding",
         "ruler_ref": source_pack["ruler_ref"],
         "projected_registry_status": source_pack["outcome_registry"]["status"],
@@ -420,7 +426,6 @@ def materialize_ruler_outcome_registry(
         "registry_fingerprint"
     ):
         raise ValueError("皇帝窗口绑定与成果总登记版本不一致")
-    ruler_ref = str(binding_report["ruler_ref"])
     outcomes_by_ref = {
         str(row["registration_ref"]): row for row in registry["outcomes"]
     }
@@ -489,12 +494,17 @@ def materialize_ruler_outcome_registry(
                 else "governance_result"
             )
         talent_credits = binding.get("campaign_talent_credits") or {}
+        ruler_actor_refs = {
+            str(value) for value in binding.get("ruler_actor_refs") or ()
+        }
         members = []
         for registered_member in registered["members"]:
             member = dict(registered_member)
             sovereign_relation = member.pop("sovereign_relation", None)
             actor_ref = str(member["actor_ref"])
-            member["actor_kind"] = "ruler" if actor_ref == ruler_ref else "person"
+            member["actor_kind"] = (
+                "ruler" if actor_ref in ruler_actor_refs else "person"
+            )
             if registered["outcome_kind"] == "campaign":
                 if actor_ref not in talent_credits:
                     raise ValueError(

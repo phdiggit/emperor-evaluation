@@ -450,11 +450,42 @@ def compile_outcome_candidate_payloads(
                     )
                 if raw_member["responsibility_scope"] != "not_applicable":
                     if not authorization_quotes:
-                        candidate_limitations.append(
-                            f"{name}未提供逐字授权引文，责任范围未登记。"
-                        )
+                        if (
+                            candidate["outcome_kind"] == "campaign"
+                            and raw_member["actor_kind"] == "person"
+                            and raw_member["role_code"]
+                            in {"commander_in_chief", "principal_commander"}
+                            and candidate["ruler_window_status"]
+                            in {"within_window", "leadership_formation"}
+                        ):
+                            actor_quotes = [
+                                quote
+                                for quote in quotes
+                                if name in quote or name[1:] in quote
+                            ] or quotes[:1]
+                            member["delegated_responsibility"] = {
+                                "authorizer_ref": str(source_pack["ruler_ref"]),
+                                "scope": raw_member["responsibility_scope"],
+                                "basis": (
+                                    f"{raw_member['contribution_scope']}；固定史源明确其在"
+                                    "当前统治窗口内统领国家军队且未见自立、越权或皇帝阻挠，"
+                                    "按默示授权登记。"
+                                ),
+                                "authorization_refs": [
+                                    f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
+                                    for quote in actor_quotes
+                                ],
+                            }
+                            candidate_limitations.append(
+                                f"{name}无逐字任命引文；按当前窗口内国家军队主帅责任登记默示授权。"
+                            )
+                        else:
+                            candidate_limitations.append(
+                                f"{name}未提供逐字授权引文，责任范围未登记。"
+                            )
                     else:
                         member["delegated_responsibility"] = {
+                            "authorizer_ref": str(source_pack["ruler_ref"]),
                             "scope": raw_member["responsibility_scope"],
                             "basis": raw_member["contribution_scope"],
                             "authorization_refs": [

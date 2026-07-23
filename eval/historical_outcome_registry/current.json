@@ -1,20 +1,20 @@
 {
   "conflicts": [],
   "declarations": {
-    "campaign_count": 37,
+    "campaign_count": 39,
     "duplicate_registration_count": 21,
     "formal_write_count": 0,
     "governance_count": 35,
-    "outcome_count": 78,
+    "outcome_count": 81,
     "rule_evidence_unit_count": 0,
     "score_contribution_count": 0,
     "source_pack_count": 3,
     "source_pack_refs": [
-      "01d77a43465d74353ffee2a721586a3adb34d5062db96fe429c2ec0f9373fd26",
+      "174d81e6d36059c1ee76c0ed35f398abbdbd70bc79ddcb942d5c57c3338adb80",
       "48a9fe6206cf21140391a6844275158db96c87e65f0ba5ff11dab8c0ce2aff9d",
-      "91caaccb2311be3345bd5b746bbaf0e8508901a925fd657b8b964966d4204bd0"
+      "544ebe5f7236c763db12546571483c12e0dbc3b9499d0931123f27a78caac420"
     ],
-    "statecraft_count": 6,
+    "statecraft_count": 7,
     "window_binding_count": 0
   },
   "outcomes": [
@@ -103,17 +103,25 @@
       ],
       "members": [
         {
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“李渊晋阳起兵—霍邑—攻克长安战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "principal_commander",
+          "sovereign_at_event": false
+        },
+        {
           "actor_name": "李渊",
           "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
           "contribution_scope": "率军自晋阳南下，持续统筹霍邑作战和长安攻城，并在城破后接收隋都，承担整个关中方向最高军事责任。",
           "role_code": "commander_in_chief",
-          "sovereign_at_event": false
-        },
-        {
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。",
-          "role_code": "principal_commander",
           "sovereign_at_event": false
         }
       ],
@@ -145,7 +153,7 @@
         "end": "创业期",
         "start": "创业期"
       },
-      "registration_fingerprint": "5c237c89ae3feb97af13c58ea76ae360851c424fcd36fbeda537baa3668afccc",
+      "registration_fingerprint": "3edd2d3424869e5009d91d5a4a116a781393e2678de43ad9dedf2bb3f47ef704",
       "registration_ref": "HOUT-BA1168CA7E28CA0DFFCE",
       "result_direction": "positive",
       "result_status": "completed",
@@ -943,6 +951,148 @@
       "stable_delivery": false
     },
     {
+      "canonical_label": "苏定方平西突厥战役群",
+      "episode_refs": [
+        "EP-OUTCOME-92874F290B794CF02E97"
+      ],
+      "event_level": "campaign_group",
+      "fact_refs": [
+        "PFACT-SUDINGFANG-WESTERN-TURKS"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "sudingfang-western-turks-conquest",
+      "limitations": [],
+      "members": [
+        {
+          "actor_name": "苏定方",
+          "actor_ref": "PER-V4-CB67FCF2FC79",
+          "contribution_scope": "担任行军大总管，独立统筹进军并完成灭国级战略结果。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯"
+            ],
+            "basis": "本传明确授苏定方为行军大总管并由其直接统军完成战役终局。",
+            "scope": "critical_national_or_long_term"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false
+        }
+      ],
+      "observable_result": "击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海",
+      "origin": "person_biography",
+      "origin_outcome_refs": [
+        "OUTCOME-SUDINGFANG-WESTERN-TURKS"
+      ],
+      "outcome_kind": "campaign",
+      "payload": {
+        "attributable_failures": [],
+        "battle_result": "victory",
+        "campaign_tier": "S+",
+        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_hegemony/strong；结果轴=victory/complete，击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海，定S+。",
+        "combat_difficulty": "D3",
+        "combat_difficulty_basis": "跨区域远征并承担全军最高统帅责任，完成连续追击和国家终局。",
+        "land_strategic_value": "capital_or_state_survival",
+        "objective_completion": "complete",
+        "objective_shortfalls": [],
+        "operational_costs": [],
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "external_hegemony",
+        "strategic_objective": "击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海",
+        "strategic_result_class": "external_hegemony_terminal",
+        "theater": "苏定方平西突厥战役群"
+      },
+      "period": {
+        "end": "显庆二年",
+        "start": "显庆二年"
+      },
+      "registration_fingerprint": "c205dbf0c85011cb5dfaafe3636e220a644b77ab95aedfe91875fd8d8502df2a",
+      "registration_ref": "HOUT-A82203867A4699E29129",
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "state_conquest",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海"
+      },
+      "source_refs": [
+        "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯",
+        "舊唐書/卷83@2632780#賀魯及咥運十餘騎逼夜亡走"
+      ],
+      "stable_delivery": false
+    },
+    {
+      "canonical_label": "苏定方平百济战役群",
+      "episode_refs": [
+        "EP-OUTCOME-CCD2AD5018AA807AC324"
+      ],
+      "event_level": "campaign_group",
+      "fact_refs": [
+        "PFACT-SUDINGFANG-BAEKJE"
+      ],
+      "important_method_or_legacy": false,
+      "independent_key": "sudingfang-baekje-conquest",
+      "limitations": [],
+      "members": [
+        {
+          "actor_name": "苏定方",
+          "actor_ref": "PER-V4-CB67FCF2FC79",
+          "contribution_scope": "担任行军大总管，独立统筹进军并完成灭国级战略结果。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管"
+            ],
+            "basis": "本传明确授苏定方为行军大总管并由其直接统军完成战役终局。",
+            "scope": "critical_national_or_long_term"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false
+        }
+      ],
+      "observable_result": "渡海击破百济倾国之兵，俘其王族，百济平定并分置六州",
+      "origin": "person_biography",
+      "origin_outcome_refs": [
+        "OUTCOME-SUDINGFANG-BAEKJE"
+      ],
+      "outcome_kind": "campaign",
+      "payload": {
+        "attributable_failures": [],
+        "battle_result": "victory",
+        "campaign_tier": "S",
+        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_state/strong；结果轴=victory/complete，渡海击破百济倾国之兵，俘其王族，百济平定并分置六州，定S。",
+        "combat_difficulty": "D2",
+        "combat_difficulty_basis": "跨区域远征并承担全军最高统帅责任，完成连续追击和国家终局。",
+        "land_strategic_value": "capital_or_state_survival",
+        "objective_completion": "complete",
+        "objective_shortfalls": [],
+        "operational_costs": [],
+        "opponent_condition": "strong",
+        "opponent_strategic_weight": "external_state",
+        "strategic_objective": "渡海击破百济倾国之兵，俘其王族，百济平定并分置六州",
+        "strategic_result_class": "single_pole_or_state_terminal",
+        "theater": "苏定方平百济战役群"
+      },
+      "period": {
+        "end": "显庆五年",
+        "start": "显庆五年"
+      },
+      "registration_fingerprint": "03efa4b298ca66af215895473624fee85f75af5c4d7548575fdbbb2a3fab77fd",
+      "registration_ref": "HOUT-FAF1BD44CF0F36844D62",
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "state_conquest",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "渡海击破百济倾国之兵，俘其王族，百济平定并分置六州"
+      },
+      "source_refs": [
+        "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管",
+        "舊唐書/卷83@2632780#百濟悉平，分其地為六州"
+      ],
+      "stable_delivery": false
+    },
+    {
       "canonical_label": "李勣黎阳仓防御宇文化及战役群",
       "episode_refs": [
         "EP-OUTCOME-FD2B248D757BB1D07D3D"
@@ -1027,18 +1177,45 @@
       ],
       "members": [
         {
-          "actor_name": "李靖",
-          "actor_ref": "PER-CAND-D29808A822E4",
-          "contribution_scope": "率军先至丹阳，促使公祏弃城东走。",
+          "actor_name": "李勣",
+          "actor_ref": "PER-CAND-8CF6E0AAF5E5",
+          "contribution_scope": "率步卒一万渡淮并攻取寿阳、推进至硖石。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#李世勣帥步卒一萬渡淮，拔壽陽，次硤石。"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李勣在李渊统治窗口内实际统领国家军队，承担“武德七年平辅公祐战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "principal_commander",
           "sovereign_at_event": false
         },
         {
-          "actor_name": "李勣",
-          "actor_ref": "PER-CAND-8CF6E0AAF5E5",
-          "contribution_scope": "率步卒一万渡淮并攻取寿阳、推进至硖石。",
+          "actor_name": "李靖",
+          "actor_ref": "PER-CAND-D29808A822E4",
+          "contribution_scope": "率军先至丹阳，促使公祏弃城东走。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
+              "資治通鑑/卷190@1502800#李靖兵先至丹楊，公祏大懼，擁兵數萬，棄城東走"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李靖在李渊统治窗口内实际统领国家军队，承担“武德七年平辅公祐战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "principal_commander",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "唐军攻取寿阳、当涂、丹阳并追至武康，执辅公祐，江南皆平。",
@@ -1068,7 +1245,7 @@
         "end": "未注明",
         "start": "未注明"
       },
-      "registration_fingerprint": "0984f9531261ffb6b3587756e21a7ebe8fd575dff78c7fbd2356323a183ca4ea",
+      "registration_fingerprint": "e48326b96e9034566dfeff4635f08577df445a681923307ce1d220a19e0458fa",
       "registration_ref": "HOUT-0D3E3B625D0CAFC8D19C",
       "result_direction": "positive",
       "result_status": "completed",
@@ -1099,16 +1276,33 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-baibi",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
         {
           "actor_name": "李世民",
           "actor_ref": "RULER-58130F2446A25CC1",
           "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷188@1567784#秦王世民引兵自龍門乘冰堅渡河，屯柏壁，與宋金剛相持。"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“柏壁—介休平刘武周宋金刚战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "commander_in_chief",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "在柏壁相持消耗后追击击破宋金刚，收复河东。",
@@ -1139,7 +1333,7 @@
         "end": "武德三年",
         "start": "武德三年"
       },
-      "registration_fingerprint": "847522b839d14aa8848bf1f65f7b16c74d53b0dce6f1e2bfd17f7300b974050b",
+      "registration_fingerprint": "e90c16eef0e9c843a5527517b4e5bc42a58b366fa959b81cc755e0e79c691cb6",
       "registration_ref": "HOUT-6BA1779C05661A7D32DD",
       "result_direction": "positive",
       "result_status": "completed",
@@ -1170,23 +1364,40 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-hulao",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
-        {
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
-          "role_code": "commander_in_chief",
-          "sovereign_at_event": false
-        },
         {
           "actor_name": "尉迟敬德",
           "actor_ref": "PER-CAND-A49FCFF85405",
           "contribution_scope": "在榆窠与虎牢等关键交战中承担主将责任。",
           "role_code": "principal_commander",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“洛阳—虎牢灭王世充窦建德战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。",
@@ -1217,7 +1428,7 @@
         "end": "武德三年至四年",
         "start": "武德三年至四年"
       },
-      "registration_fingerprint": "e3c1cc267f7a98c168c1bdaff4685134245dfa38954d71796ef93419f6f6c089",
+      "registration_fingerprint": "3fa63afc989c6c44368f871c829282f3db9fc4aa11648aab8c8c889b1e63ef81",
       "registration_ref": "HOUT-A33478170FAE693A1AD9",
       "result_direction": "positive",
       "result_status": "completed",
@@ -1398,8 +1609,27 @@
           "actor_name": "李靖",
           "actor_ref": "PER-CAND-D29808A822E4",
           "contribution_scope": "统领唐军与突厥交战",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷191@1517706#安州大都督李靖与突厥颉利可汗战于灵州之硖石，自旦至申，突厥乃退",
+              "資治通鑑/卷191@1517706#戊寅，安州大都督李靖與突厥頡利可汗戰於靈州之硤石，自旦至申，突厥"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李靖在李渊统治窗口内实际统领国家军队，承担“李靖在灵州硖石击退突厥”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "principal_commander",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "突厥退却。",
@@ -1429,7 +1659,7 @@
         "end": "武德九年四月",
         "start": "武德九年四月"
       },
-      "registration_fingerprint": "bd75b803efbbb7bf27859c8bbd9531cbfe034873c52d5c0b69bbf65394c6a8e0",
+      "registration_fingerprint": "20b59ef91b0dbfb145690c69d23edab49c03b72c559cb4ea8e5053e91aab7bd9",
       "registration_ref": "HOUT-37BADCE8EAADAE8382A8",
       "result_direction": "positive",
       "result_status": "completed",
@@ -1458,17 +1688,9 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-liuheita",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
-        {
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
-          "role_code": "commander_in_chief",
-          "sovereign_at_event": false
-        },
         {
           "actor_name": "李勣",
           "actor_ref": "PER-CAND-8CF6E0AAF5E5",
@@ -1482,6 +1704,31 @@
           "contribution_scope": "在李世民受围时突围救援。",
           "role_code": "participant",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“洺水击破刘黑闼战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。",
@@ -1523,7 +1770,7 @@
         "end": "武德五年",
         "start": "武德五年"
       },
-      "registration_fingerprint": "f63ed2cac123502bffd17309f6b70010ad8f330fb9d9753f1e74b6f21ae09e50",
+      "registration_fingerprint": "4d6c7f825a360dccf001eb8859e9220debb7c716a4f1e1dfc2f317daeb7c7937",
       "registration_ref": "HOUT-B72B410AAF61E4383449",
       "result_direction": "mixed",
       "result_status": "mixed",
@@ -1554,23 +1801,40 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-xuyuanlang",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
-        {
-          "actor_name": "李世民",
-          "actor_ref": "RULER-58130F2446A25CC1",
-          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
-          "role_code": "commander_in_chief",
-          "sovereign_at_event": false
-        },
         {
           "actor_name": "李勣",
           "actor_ref": "PER-CAND-8CF6E0AAF5E5",
           "contribution_scope": "奉命继续进攻并参与平定。",
           "role_code": "principal_commander",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷190@1502800#世民擊徐圓朗，下十餘城，聲震淮、泗"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“曹州—淮泗平徐圆朗战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。",
@@ -1601,7 +1865,7 @@
         "end": "武德五年至六年",
         "start": "武德五年至六年"
       },
-      "registration_fingerprint": "9639248008ce52deb051ab92486aa04b20af717742e3bebaba446336f537a1aa",
+      "registration_fingerprint": "f0a2f726e077f28c730eb632e1f110167b87e5bffd68a7a582c5d789e08d0fe4",
       "registration_ref": "HOUT-38791AABB1CFEE9E2C8D",
       "result_direction": "positive",
       "result_status": "completed",
@@ -1718,16 +1982,33 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-qianshuiyuan",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
-        "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
       ],
       "members": [
         {
           "actor_name": "李世民",
           "actor_ref": "RULER-58130F2446A25CC1",
           "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒"
+            ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "basis": "李世民在李渊统治窗口内实际统领国家军队，承担“浅水原平薛仁杲战役群”的主帅或独立方面责任；未见自立、越权或皇帝阻挠，按默示授权登记。",
+            "scope": "major_affairs"
+          },
           "role_code": "commander_in_chief",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "tacit",
+          "contribution_scope": "国家军队在李渊统治窗口内由所列方面主帅统领出征；未见李渊阻止或否认其统军权限。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "击败并迫降薛仁杲，陇右平定。",
@@ -1769,7 +2050,7 @@
         "end": "武德元年",
         "start": "武德元年"
       },
-      "registration_fingerprint": "e8c41a0838c19752e876afeb09beab14f578116dcf9b3e4420b94bda100d58ef",
+      "registration_fingerprint": "1137a30b5e1e564acebac348bb4d84ed858cb4a3e8d5250583c4f5ad4425ade3",
       "registration_ref": "HOUT-890774038E9E45C2F15A",
       "result_direction": "positive",
       "result_status": "completed",
@@ -1878,11 +2159,22 @@
               "舊唐書/卷67@2296327#三軍之任，一以委靖",
               "舊唐書/卷67@2296327#靖又陳十策以圖蕭銑"
             ],
+            "authorizer_ref": "RULER-NAME-CANDIDATE-LIYUAN",
             "basis": "本传明确李孝恭未更戎旅，高祖将三军责任全部委托李靖，属于国家级战争的实际主帅授权。",
             "scope": "critical_national_or_long_term"
           },
           "role_code": "commander_in_chief",
           "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "authorization_mode": "explicit",
+          "contribution_scope": "高祖将三军实际统帅责任明确委托李靖。",
+          "obstruction_status": "none",
+          "role_code": "not_in_command_chain",
+          "sovereign_at_event": true,
+          "sovereign_relation": "authorization_only"
         }
       ],
       "observable_result": "李靖实际统帅平定萧铣，继以檄令促成冯盎率部归降，岭南悉平。",
@@ -1924,7 +2216,7 @@
         "end": "武德四年",
         "start": "武德四年"
       },
-      "registration_fingerprint": "d805da710c442777dc908ee341fb98e748a64713ea0e721f846a1797f269de39",
+      "registration_fingerprint": "4f17737c31cb746ba85bebb9235835a949eea0e6190545b1bb09e41ceb477b9e",
       "registration_ref": "HOUT-96B6FE5EB37DA104C5F0",
       "result_direction": "positive",
       "result_status": "completed",
@@ -5227,6 +5519,74 @@
       "stable_delivery": false
     },
     {
+      "canonical_label": "刘文静出使突厥借兵",
+      "episode_refs": [
+        "EP-OUTCOME-A64FC24F3D34EE244A3A"
+      ],
+      "event_level": "person_statecraft_result",
+      "fact_refs": [
+        "PFACT-LIYUAN-LIUWENJING-TURK-ENVOY"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "liuwenjing-turk-alliance-mission",
+      "limitations": [
+        "这是受任者完成的外交谋略结果，只进入人物谋略与任用授权投影，不作为李渊独立治理成果。"
+      ],
+      "members": [
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "contribution_scope": "决定向突厥借兵并限定借兵规模与用途。",
+          "role_code": "authorized"
+        },
+        {
+          "actor_name": "刘文静",
+          "actor_ref": "PER-ACTOR-9D09781AE311",
+          "contribution_scope": "受命出使并完成交涉，使突厥援兵上道。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵"
+            ],
+            "basis": "李渊明确命刘文静出使请兵，并向其交代战略目的与借兵边界。",
+            "scope": "major_affairs"
+          },
+          "role_code": "lead"
+        }
+      ],
+      "observable_result": "刘文静完成交涉，始毕可汗遣使确认援兵已经上道。",
+      "origin": "ruler_chronicle",
+      "origin_outcome_refs": [
+        "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION"
+      ],
+      "outcome_kind": "statecraft",
+      "payload": {
+        "authorization_status": "explicit",
+        "causal_attribution_status": "established",
+        "domain": "strategic_coordination",
+        "durable_cross_stage": false,
+        "foundational": false
+      },
+      "period": {
+        "end": "大业十三年",
+        "start": "大业十三年"
+      },
+      "registration_fingerprint": "3ed622a37620048dd617db4d6cd9ace67e714f727b457a5f27c4f224f0d300e9",
+      "registration_ref": "HOUT-8036040CF129D0C4D86A",
+      "result_direction": "positive",
+      "result_status": "implemented",
+      "scale": {
+        "consequence_basis": "important_public_result",
+        "decisiveness": "major",
+        "level": "important",
+        "reason": "取得突厥援兵承诺并服务晋阳起兵，但不将后续建国成果全部归于一次使节任务。"
+      },
+      "source_refs": [
+        "資治通鑑/卷184@1502758#淵命劉文靜使於突厥以請兵",
+        "資治通鑑/卷184@1502758#劉文靜至突厥，見始畢可汗，請兵"
+      ],
+      "stable_delivery": false
+    },
+    {
       "canonical_label": "陈平白登解围处置",
       "episode_refs": [
         "EP-OUTCOME-E768541CA381B4249F5F"
@@ -5597,7 +5957,7 @@
       "stable_delivery": true
     }
   ],
-  "registry_fingerprint": "07c3e087620157cb4cc7b4844f22a7f740ebe9c31b87af314920a9ab8ffb752d",
+  "registry_fingerprint": "afe2be6470eeaa5db7ec3b58d18b13e17e715cdf0919255ceb91ddb06091218d",
   "schema_version": "historical-outcome-unbound-registry-v2",
   "status": "current_shadow_unbound"
 }

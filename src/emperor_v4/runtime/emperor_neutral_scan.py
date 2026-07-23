@@ -24,7 +24,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-neutral-materials-v1"
-NEUTRAL_EXTRACTION_POLICY_VERSION = "current-neutral-extraction-policy-v15"
+NEUTRAL_EXTRACTION_POLICY_VERSION = "current-neutral-extraction-policy-v16"
 MODEL_GROUP_CHAR_LIMIT = 6_000
 MODEL_GROUP_SEGMENT_LIMIT = 8
 MODEL_GROUP_WEIGHT_LIMIT = 16
@@ -42,6 +42,24 @@ _NON_PROFILE_ROLES = {"authorizer", "recipient", "affected_person", "mentioned_o
 _GENERIC_EVENT_ANCHORS = {
     "皇帝", "太宗", "于是", "以为", "可以", "不得", "其事", "之事",
     "之后", "其中", "已经", "进行", "形成", "结果", "相关", "当前",
+}
+_HIGH_VALUE_REJECT_SIGNALS = {
+    "ruler_delegation": (
+        re.compile(
+            r"(?:命|遣).{0,16}(?:使於|使于|出使|請兵|请兵|將兵|将兵|討|讨|守|援)"
+        ),
+        re.compile(
+            r"(?:以|命).{1,16}(?:為|为).{0,12}"
+            r"(?:行軍總管|行军总管|太守|留守|將軍|将军|大使)"
+        ),
+        re.compile(r"(?:聽|听).{0,8}(?:便宜從事|便宜从事)"),
+        re.compile(r"(?:復使|复使).{0,12}(?:鎮撫|镇抚|討|讨|守|援)"),
+    ),
+    "severe_command_failure": (
+        re.compile(r"(?:軍遂潰|军遂溃|失亡略盡|失亡略尽)"),
+        re.compile(r"(?:棄州|弃州|棄城|弃城|以城納|以城纳|城陷)"),
+        re.compile(r"(?:大敗|大败|不能拒|不能禦|不能御)"),
+    ),
 }
 
 
@@ -437,6 +455,75 @@ def _canonicalize_result(
             }
         )
     return canonical
+
+
+def build_high_value_reject_review(
+    *,
+    plan: Mapping[str, Any],
+    materials: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Find model rejects that carry strong appointment or command-result signals."""
+
+    segments = {
+        str(segment["segment_ref"]): segment
+        for batch in plan.get("page_batches") or ()
+        for segment in batch.get("segments") or ()
+    }
+    reviews = {
+        str(review["segment_ref"]): review
+        for result in materials.get("batch_results") or ()
+        for review in result.get("segment_reviews") or ()
+        if review.get("segment_ref")
+    }
+    candidates = []
+    for segment_ref, segment in sorted(segments.items()):
+        review = reviews.get(segment_ref)
+        if (
+            review is None
+            or str(review.get("decision") or "") != "reject"
+            or review.get("facts")
+            or not segment.get("subject_refs")
+        ):
+            continue
+        text = str(segment.get("text") or "")
+        signal_codes = [
+            signal_code
+            for signal_code, patterns in _HIGH_VALUE_REJECT_SIGNALS.items()
+            if any(pattern.search(text) for pattern in patterns)
+        ]
+        if not signal_codes:
+            continue
+        candidates.append(
+            {
+                "segment_ref": segment_ref,
+                "page_title": str(segment.get("page_title") or ""),
+                "revision_ref": str(
+                    segment.get("revision_ref")
+                    or segment.get("revision_id")
+                    or ""
+                ),
+                "subject_refs": sorted(
+                    str(value) for value in segment.get("subject_refs") or ()
+                ),
+                "subject_names": sorted(
+                    str(value) for value in segment.get("subject_names") or ()
+                ),
+                "chronicle_ruler_ref": (
+                    str(segment["chronicle_ruler_ref"])
+                    if segment.get("chronicle_ruler_ref")
+                    else None
+                ),
+                "signal_codes": signal_codes,
+                "text": text,
+                "model_reject_reason": str(review.get("reason") or ""),
+            }
+        )
+    return {
+        "schema_version": "high-value-neutral-reject-review-v1",
+        "status": "pending_main_session_review" if candidates else "clear",
+        "candidate_count": len(candidates),
+        "candidates": candidates,
+    }
 
 
 def build_multi_page_output_schema(single_schema_path: Path) -> dict[str, Any]:
