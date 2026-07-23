@@ -1,23 +1,167 @@
 {
   "conflicts": [],
   "declarations": {
-    "campaign_count": 35,
+    "campaign_count": 37,
     "duplicate_registration_count": 21,
     "formal_write_count": 0,
     "governance_count": 35,
-    "outcome_count": 76,
+    "outcome_count": 78,
     "rule_evidence_unit_count": 0,
     "score_contribution_count": 0,
     "source_pack_count": 3,
     "source_pack_refs": [
       "01d77a43465d74353ffee2a721586a3adb34d5062db96fe429c2ec0f9373fd26",
-      "46c182267a0b4c6f375d89fe7c2cede7d8c9ca203ad86e74794a6f19939bbea4",
-      "48a9fe6206cf21140391a6844275158db96c87e65f0ba5ff11dab8c0ce2aff9d"
+      "48a9fe6206cf21140391a6844275158db96c87e65f0ba5ff11dab8c0ce2aff9d",
+      "91caaccb2311be3345bd5b746bbaf0e8508901a925fd657b8b964966d4204bd0"
     ],
     "statecraft_count": 6,
     "window_binding_count": 0
   },
   "outcomes": [
+    {
+      "canonical_label": "李世民霍邑南面突击指挥子成果",
+      "episode_refs": [
+        "EP-OUTCOME-87C6E01E07A3913B906D"
+      ],
+      "event_level": "person_command_result",
+      "fact_refs": [
+        "PFACT-AUTO-9FB4E01B7000CB6C48CE"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "li-shimin-huoyi-command-subresult",
+      "limitations": [
+        "该子成果只供李世民个人军事画像使用，不得与父级战役群同时进入李渊 C1。",
+        "李世民在事件时是李渊部下而非皇帝，不登记统治者控制方式。"
+      ],
+      "members": [
+        {
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "独立指挥南面主要方向，从南原冲击宋老生军背后并扭转局部战局。",
+          "role_code": "principal_commander",
+          "sovereign_at_event": false
+        }
+      ],
+      "observable_result": "李世民所部冲击敌后，李渊军恢复，宋老生军随后大败，霍邑被攻克。",
+      "origin": "ruler_chronicle",
+      "origin_outcome_refs": [
+        "OUTCOME-AUTO-0CD46352FEDC0A43B84A"
+      ],
+      "outcome_kind": "campaign",
+      "parent_registration_ref": "HOUT-BA1168CA7E28CA0DFFCE",
+      "payload": {
+        "attributable_failures": [],
+        "battle_result": "victory",
+        "campaign_tier": "B",
+        "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，完成关键局部逆转并促成霍邑门户攻克，但不独立取得整个关中方向终局，定B。",
+        "combat_difficulty": "D2",
+        "combat_difficulty_basis": "在父级部队一度小却时率南面兵冲击两三万敌军背后，并在缺少攻具的战场环境中完成关键突破。",
+        "land_strategic_value": "strategic_gateway",
+        "objective_completion": "complete",
+        "objective_shortfalls": [],
+        "operational_costs": [],
+        "opponent_condition": "viable",
+        "opponent_strategic_weight": "regional_major",
+        "strategic_objective": "冲击宋老生军背后并促成霍邑战役胜利",
+        "strategic_result_class": "important_objective",
+        "theater": "霍邑南面"
+      },
+      "period": {
+        "end": "创业期",
+        "start": "创业期"
+      },
+      "registration_fingerprint": "b75f88bc14b2cdc70a9556a4aff1feebe5c2efa5f51e7f51bc6a4f06b279c950",
+      "registration_ref": "HOUT-77C3B1D85503ADD463C8",
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "important_objective",
+        "decisiveness": "major",
+        "level": "important",
+        "reason": "该指挥行动完成霍邑战役的关键局部逆转，但其战略成果嵌套在夺取关中父级战役群内。"
+      },
+      "source_refs": [
+        "資治通鑑/卷184@1502758#八月，己卯，雨霽。庚辰，李淵命軍中曝鎧仗行裝。辛巳旦，東南由山足"
+      ],
+      "stable_delivery": true
+    },
+    {
+      "canonical_label": "李渊晋阳起兵—霍邑—攻克长安战役群",
+      "episode_refs": [
+        "EP-OUTCOME-0FA87CDD0F351DC80A5A"
+      ],
+      "event_level": "campaign_group",
+      "fact_refs": [
+        "PFACT-AUTO-B77B86639010EDFB68CA"
+      ],
+      "important_method_or_legacy": true,
+      "independent_key": "li-yuan-jinyang-changan-campaign",
+      "limitations": [
+        "霍邑和长安均服务于同一夺取关中战略方向，合并为一个 C1 父项，禁止分别重复结算。",
+        "该成果是唐初统一战争终局的子方向，不把攻克长安单独写成全国统一终局。",
+        "李渊当时尚未即皇帝位，不能把其当前受评皇帝身份倒置为事件时实际主权者。"
+      ],
+      "members": [
+        {
+          "actor_name": "李渊",
+          "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+          "contribution_scope": "率军自晋阳南下，持续统筹霍邑作战和长安攻城，并在城破后接收隋都，承担整个关中方向最高军事责任。",
+          "role_code": "commander_in_chief",
+          "sovereign_at_event": false
+        },
+        {
+          "actor_name": "李世民",
+          "actor_ref": "RULER-58130F2446A25CC1",
+          "contribution_scope": "在霍邑阶段独立指挥南面主要方向并冲击敌后，其个人信用由嵌套指挥子成果结算。",
+          "role_code": "principal_commander",
+          "sovereign_at_event": false
+        }
+      ],
+      "observable_result": "宋老生军被击败、霍邑和长安先后被攻克，李渊取得对关中核心及隋都的控制。",
+      "origin": "ruler_chronicle",
+      "origin_outcome_refs": [
+        "OUTCOME-AUTO-519F925EF3F5A5DD3A5C"
+      ],
+      "outcome_kind": "campaign",
+      "parent_registration_ref": "HOUT-EE1762D50B7A7CA339F7",
+      "payload": {
+        "attributable_failures": [],
+        "battle_result": "victory",
+        "campaign_tier": "A",
+        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=first_tier_pole/weakened；结果轴=victory/complete，连续突破霍邑并攻克长安、取得关中核心，但尚未终结全部国内竞争方向，定A。",
+        "combat_difficulty": "D2",
+        "combat_difficulty_basis": "积雨造成进军和补给困难，霍邑有两三万精兵及河东数万骁果相拒，攻城阶段又缺少攻具。",
+        "land_strategic_value": "capital_or_state_survival",
+        "objective_completion": "complete",
+        "objective_shortfalls": [],
+        "operational_costs": [],
+        "opponent_condition": "weakened",
+        "opponent_strategic_weight": "first_tier_pole",
+        "strategic_objective": "突破南下关中门户并攻克长安、控制隋都",
+        "strategic_result_class": "major_stage_or_crisis",
+        "theater": "晋阳—霍邑—长安—关中"
+      },
+      "period": {
+        "end": "创业期",
+        "start": "创业期"
+      },
+      "registration_fingerprint": "5c237c89ae3feb97af13c58ea76ae360851c424fcd36fbeda537baa3668afccc",
+      "registration_ref": "HOUT-BA1168CA7E28CA0DFFCE",
+      "result_direction": "positive",
+      "result_status": "completed",
+      "scale": {
+        "consequence_basis": "national_war_outcome",
+        "decisiveness": "decisive",
+        "level": "national",
+        "reason": "从晋阳南下至攻克长安属于一个连续的夺取关中方向；取得隋都改变全国竞争格局，但尚未终结全部国内竞争政权。"
+      },
+      "source_refs": [
+        "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥",
+        "資治通鑑/卷184@1502758#八月，己卯，雨霽。庚辰，李淵命軍中曝鎧仗行裝。辛巳旦，東南由山足",
+        "資治通鑑/卷184@1502758#甲辰，李淵命諸攻城，約「毋得犯七廟及代王、宗室，違者夷三族！」孫"
+      ],
+      "stable_delivery": true
+    },
     {
       "canonical_label": "平定燕王卢绾叛乱战役群",
       "episode_refs": [
@@ -2968,11 +3112,18 @@
           "actor_name": "李渊",
           "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
           "contribution_scope": "亲自主导约法并废除既有苛禁。",
+          "delegated_responsibility": {
+            "authorization_refs": [
+              "資治通鑑/卷184@1502758#與民約法十二條，悉除隋苛禁"
+            ],
+            "basis": "亲自主导约法并废除既有苛禁。",
+            "scope": "major_affairs"
+          },
           "role_code": "exclusive"
         }
       ],
       "observable_result": "约法十二条施行，隋朝苛禁被废除。",
-      "origin": "multi_channel",
+      "origin": "ruler_chronicle",
       "origin_outcome_refs": [
         "OUTCOME-AUTO-A1FC548497758E3E6D9E"
       ],
@@ -2988,7 +3139,7 @@
         "end": "创业期",
         "start": "创业期"
       },
-      "registration_fingerprint": "a314d6bb183e098f47ab3dcabfa4771577e026590e9a97cbf1c2678bb22ecc24",
+      "registration_fingerprint": "331863c4f78e2a819a0b7ec9c0d0c8e6dddca020565dfcfc3b8214c953fd3072",
       "registration_ref": "HOUT-3B34BD08FA9AE9E37E7F",
       "result_direction": "positive",
       "result_status": "implemented",
@@ -5446,7 +5597,7 @@
       "stable_delivery": true
     }
   ],
-  "registry_fingerprint": "3112a5f0230d20deac8f2c3c3a1f51727b6bc057d1f0b46dcc4b60524d1cb177",
+  "registry_fingerprint": "07c3e087620157cb4cc7b4844f22a7f740ebe9c31b87af314920a9ab8ffb752d",
   "schema_version": "historical-outcome-unbound-registry-v2",
   "status": "current_shadow_unbound"
 }

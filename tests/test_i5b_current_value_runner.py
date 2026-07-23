@@ -2186,6 +2186,25 @@ def test_session_publish_validates_all_people_and_releases_current_state(
 
     assert result["status"] == "published_current"
     assert result["database_write_count"] == 0
+    assert len(
+        [
+            key
+            for key in result["published_sha256"]
+            if key.startswith("outcome_binding")
+        ]
+    ) == 3
+    registry = json.loads(
+        (canonical / "eval/historical_outcome_registry/current.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for ruler in ("李世民", "李渊", "刘邦"):
+        binding = json.loads(
+            (
+                canonical / "eval/historical_outcome_bindings" / f"{ruler}.json"
+            ).read_text(encoding="utf-8")
+        )
+        assert binding["registry_fingerprint"] == registry["registry_fingerprint"]
     assert emperor_session_control.session_status(state_root=state)["sessions"] == []
     assert not list((state / "session-control/model-slots").glob("*.json"))
     assert not stage_cache.exists()

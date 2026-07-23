@@ -184,7 +184,7 @@ def _canonical_paths(
         (root / "config/project.yml").read_text(encoding="utf-8")
     )
     registry = project.get("historical_outcome_registry") or {}
-    return {
+    paths = {
         "source_pack": root / str(configured["source_pack"]),
         "neutral_materials": root / str(configured["neutral_materials"]),
         "result_json": result,
@@ -193,6 +193,17 @@ def _canonical_paths(
         "outcome_registry_json": root / str(registry["current_json"]),
         "outcome_registry_markdown": root / str(registry["current_markdown"]),
     }
+    current_binding = paths["outcome_binding"].resolve()
+    rulers = ((project.get("i5b_current_value") or {}).get("rulers") or {})
+    for ruler_name, ruler_config in rulers.items():
+        if not isinstance(ruler_config, Mapping) or not ruler_config.get(
+            "outcome_binding"
+        ):
+            continue
+        binding = (root / str(ruler_config["outcome_binding"])).resolve()
+        if binding != current_binding:
+            paths[f"outcome_binding_{ruler_name}"] = binding
+    return paths
 
 
 def _control_root(state_root: Path) -> Path:
@@ -628,6 +639,39 @@ def _validate_publish_payload(
         "outcome_registry"
     ):
         raise SessionControlError("成果总登记与皇帝窗口绑定无法还原 source-pack")
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    rulers = ((project.get("i5b_current_value") or {}).get("rulers") or {})
+    for ruler_name, ruler_config in rulers.items():
+        if not isinstance(ruler_config, Mapping):
+            continue
+        other_source_pack = _read_json(
+            workspace_root / str(ruler_config["source_pack"])
+        )
+        other_binding = _read_json(
+            workspace_root / str(ruler_config["outcome_binding"])
+        )
+        materialized = materialize_ruler_outcome_registry(
+            outcome_registry, other_binding
+        )
+        direct_outcome_refs = {
+            str(row["outcome_ref"])
+            for row in other_binding["bindings"]
+            if not row.get("context_only_ancestor")
+        }
+        direct_materialized = {
+            **materialized,
+            "clusters": [
+                cluster
+                for cluster in materialized["clusters"]
+                if str(cluster["outcome_ref"]) in direct_outcome_refs
+            ],
+        }
+        if direct_materialized != other_source_pack.get("outcome_registry"):
+            raise SessionControlError(
+                f"{ruler_name} 成果绑定无法无损还原 source-pack"
+            )
     if not isinstance((neutral.get("fanout") or {}).get("facts"), list):
         raise SessionControlError("中性材料缺少 fanout facts")
     if "## 战役登记" not in markdown or "## 治理成果登记" not in markdown:
