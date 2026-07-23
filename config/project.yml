@@ -36,6 +36,16 @@ i5b_current_value:
       neutral_scan_backsource_works: [舊唐書, 新唐書]
       dynasty_governance_material_token: TANG
       dynasty_governance_period_terms: [武德, 唐高祖, 高祖, 李渊, 李淵]
+    李治:
+      source_pack: eval/i5b_current_value/李治/source-pack.json
+      outcome_binding: eval/historical_outcome_bindings/李治.json
+      neutral_materials: eval/i5b_current_value/李治/neutral-materials.json
+      result: eval/i5b_current_value/李治/result.json
+      neutral_scan_backbone_works: [資治通鑑]
+      neutral_scan_backbone_page_ranges: {資治通鑑: [200, 203]}
+      neutral_scan_backsource_works: [舊唐書, 新唐書]
+      dynasty_governance_material_token: TANG-GAOZONG
+      dynasty_governance_period_terms: [永徽, 顯慶, 显庆, 龍朔, 龙朔, 麟德, 乾封, 總章, 总章, 咸亨, 上元, 儀鳳, 仪凤, 調露, 调露, 永隆, 開耀, 开耀, 永淳, 弘道, 唐高宗, 高宗, 李治]
     刘邦:
       source_pack: eval/i5b_current_value/刘邦/source-pack.json
       outcome_binding: eval/historical_outcome_bindings/刘邦.json
@@ -136,6 +146,19 @@ dynasty_governance_scans:
         - work: 貞觀政要
           source_genre: political_treatise
           target_scope: 仅抽取唐代实际实施、运行或产生可观察结果的治理事实；前代制度只作唐制明确承继、修改或废止时的必要背景。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+      required_domain_groups:
+        economy: [fiscal_taxation, economy_production, livelihood_social_order]
+        law: [law_and_adjudication, official_discipline]
+        military: [military_system, military_logistics, frontier_administration]
+        bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
+    tang_gaozong:
+      dynasty_token: TANG-GAOZONG
+      source_works:
+        - work: 舊唐書
+          source_genre: official_history_annals_and_treatises
+          page_titles: [舊唐書/卷4, 舊唐書/卷5, 舊唐書/卷44, 舊唐書/卷48, 舊唐書/卷50]
+          target_scope: 仅抽取唐高宗649—683年间实际实施、运行或产生可观察结果的治理事实；太宗旧制、武周改制及纯军事胜负只作高宗朝明确承继、修改或治理影响的必要背景。
           domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
       required_domain_groups:
         economy: [fiscal_taxation, economy_production, livelihood_social_order]

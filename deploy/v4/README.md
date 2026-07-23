@@ -31,6 +31,7 @@ Dynasty Governance 复用同一个只读 Codex executable 和 Claim Extractor �
 
 - `emperor-v4-source-cache-worker.timer`：当前关闭；
 - `emperor-v4-claim-extractor-worker.timer`：当前关闭；
+- `emperor-v4-emperor-rebuild-queue.timer`：旧队列入口，必须关闭；
 - `emperor-v4-dynasty-governance-worker.timer`：当前唯一活动 timer；
 - `/data1/emperor-evaluation/runtime/services/emperor-v4/neutral-material-batches/`：中性材料批任务及其结果；
 - `/data1/emperor-evaluation/runtime/active/`：现有活动索引和影子运行资产。

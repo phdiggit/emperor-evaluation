@@ -3,7 +3,11 @@ set -euo pipefail
 
 release_root=/opt/emperor-evaluation-v4
 state_root=/data1/emperor-evaluation/runtime/services/emperor-v4
-disabled_units=(emperor-v4-source-cache-worker.timer emperor-v4-claim-extractor-worker.timer)
+disabled_units=(
+  emperor-v4-source-cache-worker.timer
+  emperor-v4-claim-extractor-worker.timer
+  emperor-v4-emperor-rebuild-queue.timer
+)
 active_units=(emperor-v4-dynasty-governance-worker.timer)
 
 [[ -d $state_root ]] || { echo "missing_state_root=$state_root" >&2; exit 2; }

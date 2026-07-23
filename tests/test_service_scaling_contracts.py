@@ -498,6 +498,8 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
     assert verifier in CLAIM_EXTRACTOR_RELEASE_PATHS
     assert verifier in DYNASTY_GOVERNANCE_RELEASE_PATHS
     assert verifier in EMPEROR_REBUILD_RELEASE_PATHS
+    verifier_text = (ROOT / verifier).read_text(encoding="utf-8")
+    assert "emperor-v4-emperor-rebuild-queue.timer" in verifier_text
     claim_unit = (
         ROOT / "deploy/v4/emperor-v4-claim-extractor-worker.service"
     ).read_text(encoding="utf-8")

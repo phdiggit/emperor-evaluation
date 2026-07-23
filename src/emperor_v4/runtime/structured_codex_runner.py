@@ -25,6 +25,7 @@ class ModelBatchAnomalyError(TimeoutError):
 
 MIN_ADAPTIVE_BASELINE_SAMPLES = 3
 MIN_ADAPTIVE_TIMEOUT_SECONDS = 45.0
+COMPARABLE_PROMPT_SIZE_RATIO = 1.25
 
 
 def _terminate_process_tree(process: subprocess.Popen[str]) -> None:
@@ -132,13 +133,16 @@ class StructuredCodexRunner:
         self, prompt_chars: int
     ) -> tuple[float, float | None, int]:
         with self._successful_calls_lock:
-            all_elapsed = [elapsed for _, elapsed in self._successful_calls]
             comparable = [
                 elapsed
                 for chars, elapsed in self._successful_calls
-                if 0.5 <= chars / max(1, prompt_chars) <= 2.0
+                if (
+                    1.0 / COMPARABLE_PROMPT_SIZE_RATIO
+                    <= chars / max(1, prompt_chars)
+                    <= COMPARABLE_PROMPT_SIZE_RATIO
+                )
             ]
-        baseline_samples = comparable or all_elapsed
+        baseline_samples = comparable
         if not baseline_samples:
             return float(self.timeout_seconds), None, 0
         baseline = float(median(baseline_samples))

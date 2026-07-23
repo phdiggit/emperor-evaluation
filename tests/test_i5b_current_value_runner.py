@@ -1174,7 +1174,7 @@ def _session_release_fixture(tmp_path: Path) -> Path:
         target = release / relative_path
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
-    for ruler in ("李世民", "李渊", "刘邦"):
+    for ruler in ("李世民", "李渊", "李治", "刘邦"):
         shutil.copytree(
             ROOT / "eval/i5b_current_value" / ruler,
             release / "eval/i5b_current_value" / ruler,
@@ -1206,6 +1206,26 @@ def _accepted_rebuild_stage_results() -> list[dict[str, str]]:
     ]
 
 
+def _write_bootstrap_binding(workspace: Path, ruler: str) -> None:
+    source_pack = json.loads(
+        (
+            workspace / "eval/i5b_current_value" / ruler / "source-pack.json"
+        ).read_text(encoding="utf-8")
+    )
+    registry = json.loads(
+        (
+            workspace / "eval/historical_outcome_registry/current.json"
+        ).read_text(encoding="utf-8")
+    )
+    binding = build_ruler_outcome_bindings(source_pack, registry)
+    target = workspace / "eval/historical_outcome_bindings" / f"{ruler}.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(
+        json.dumps(binding, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def test_emperor_sessions_atomically_split_rulers_and_global_model_slots(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -1228,7 +1248,7 @@ def test_emperor_sessions_atomically_split_rulers_and_global_model_slots(
         model_slot_count=2,
     )
 
-    assert (first["ruler"], second["ruler"]) == ("李世民", "刘邦")
+    assert (first["ruler"], second["ruler"]) == ("李世民", "李治")
     assert set(first["model_slots"]).isdisjoint(second["model_slots"])
     assert emperor_session_control.session_status(state_root=state)[
         "available_model_slot_count"
@@ -1283,6 +1303,42 @@ def test_emperor_session_claim_allows_first_run_without_derived_outputs(
     assert (workspace / configured["source_pack"]).is_file()
     assert not (workspace / configured["result"]).exists()
     assert (workspace / "eval/i5b_current_value/刘邦/source-pack.json").is_file()
+
+
+def test_li_zhi_bootstrap_claims_only_its_exclusive_chronicle_range(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "d" * 40
+    )
+    state = tmp_path / "state"
+
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-LI-ZHI-BOOTSTRAP",
+        ruler="李治",
+        model_slot_count=1,
+    )
+
+    assert lease["ruler"] == "李治"
+    assert lease["shared_tokens"] == []
+    assert (
+        Path(lease["workspace_root"])
+        / "eval/i5b_current_value/李治/source-pack.json"
+    ).is_file()
+    project = yaml.safe_load(
+        (
+            Path(lease["workspace_root"]) / "config/project.yml"
+        ).read_text(encoding="utf-8")
+    )
+    assert project["i5b_current_value"]["rulers"]["李治"][
+        "neutral_scan_backbone_page_ranges"
+    ] == {"資治通鑑": [200, 203]}
+    emperor_session_control.abandon_session(
+        state_root=state, session_id="SESSION-LI-ZHI-BOOTSTRAP"
+    )
 
 
 def test_emperor_session_claim_rejects_overlapping_range_before_leases(
@@ -1531,8 +1587,10 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
 
     li_shimin = _shared_backbone_contract(project=project, ruler="李世民")
     li_yuan = _shared_backbone_contract(project=project, ruler="李渊")
+    li_zhi = _shared_backbone_contract(project=project, ruler="李治")
 
     assert li_shimin == li_yuan
+    assert li_zhi is None
     assert li_yuan == {
         "material_token": "TANG-EARLY-CONTINUOUS",
         "owners": ["李世民", "李渊"],
@@ -1546,6 +1604,9 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
         and "neutral_scan_shared_subjects" not in rulers[name]
         for name in ("李世民", "李渊")
     )
+    assert rulers["李治"]["neutral_scan_backbone_page_ranges"] == {
+        "資治通鑑": [200, 203]
+    }
     assert all(
         "neutral_material_reuse_rulers" not in configured
         for configured in rulers.values()
@@ -2151,7 +2212,7 @@ def test_session_publish_fails_closed_when_canonical_changed(
         emperor_session_control, "_release_identity", lambda _root: "c" * 40
     )
     state = tmp_path / "state"
-    emperor_session_control.claim_session(
+    lease = emperor_session_control.claim_session(
         state_root=state,
         release_root=release,
         session_id="SESSION-PUBLISH",
@@ -2177,6 +2238,7 @@ def test_session_publish_fails_closed_when_canonical_changed(
         source_index_root=tmp_path / "indexes",
         dynasty_governance_root=tmp_path / "governance",
     )
+    _write_bootstrap_binding(Path(lease["workspace_root"]), "李治")
     target = canonical / "eval/i5b_current_value/李世民/result.md"
     target.write_text(target.read_text(encoding="utf-8") + "\nchanged\n", encoding="utf-8")
 
@@ -2232,6 +2294,7 @@ def test_session_publish_validates_all_people_and_releases_current_state(
         source_index_root=tmp_path / "indexes",
         dynasty_governance_root=tmp_path / "governance",
     )
+    _write_bootstrap_binding(Path(lease["workspace_root"]), "李治")
 
     result = emperor_session_control.publish_session(
         state_root=state,
@@ -2247,7 +2310,7 @@ def test_session_publish_validates_all_people_and_releases_current_state(
             for key in result["published_sha256"]
             if key.startswith("outcome_binding")
         ]
-    ) == 3
+    ) == 4
     registry = json.loads(
         (canonical / "eval/historical_outcome_registry/current.json").read_text(
             encoding="utf-8"
@@ -2323,7 +2386,7 @@ def test_emperor_rebuild_does_not_require_preextracted_governance_works_in_index
     assert observed["required_works"] == ["資治通鑑", "舊唐書", "新唐書"]
 
 
-def test_structured_runner_falls_back_to_global_median_for_unmatched_size() -> None:
+def test_structured_runner_requires_same_size_baseline_for_adaptive_timeout() -> None:
     runner = StructuredCodexRunner(
         codex_bin="codex",
         model="test-model",
@@ -2334,11 +2397,10 @@ def test_structured_runner_falls_back_to_global_median_for_unmatched_size() -> N
     )
     runner._record_success(prompt_chars=6_000, elapsed_seconds=40)
     runner._record_success(prompt_chars=5_000, elapsed_seconds=50)
-
-    assert runner._adaptive_timeout_seconds(5_500) == 120
-    assert runner._adaptive_timeout_seconds(500) == 120
     runner._record_success(prompt_chars=5_500, elapsed_seconds=45)
+
     assert runner._adaptive_timeout_seconds(5_500) == 90
+    assert runner._adaptive_timeout_seconds(500) == 120
 
 
 def test_structured_runner_keeps_absolute_adaptive_timeout_floor() -> None:
