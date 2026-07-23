@@ -55,7 +55,7 @@ STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v1",
     "outcome_projection": "current-outcome-projection-stage-v15",
-    "current_projection": "registry-profile-i5b-stage-v1",
+    "current_projection": "registry-profile-i5b-stage-v2",
 }
 
 

@@ -932,7 +932,9 @@ def _build_material_rule(
     result = {
         "rule_code": rule_code,
         "rule_label": RULE_LABELS[rule_code],
-        "source_ref": str(rule_manifest["source"]),
+        "source_ref": str(
+            rule_manifest.get("source_ref") or rule_manifest["source"]
+        ),
         "source_sha256": _sha256(source_path.read_bytes()),
         "supplemental_source_refs": [
             str(value) for value in rule_manifest.get("supplemental_sources") or ()
@@ -1235,7 +1237,9 @@ def _build_team_rule(
     return {
         "rule_code": "team_building",
         "rule_label": RULE_LABELS["team_building"],
-        "source_ref": str(rule_manifest["source"]),
+        "source_ref": str(
+            rule_manifest.get("source_ref") or rule_manifest["source"]
+        ),
         "source_sha256": _sha256(source_path.read_bytes()),
         "source_candidate_count": len(members),
         "settlement_mode": settlement_mode,

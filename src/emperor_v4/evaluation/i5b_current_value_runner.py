@@ -525,6 +525,12 @@ def build_i5b_current_value(
     outcome_layers: tuple[Mapping[str, Any], Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     source_pack_path = source_pack_path.resolve()
+    workspace_root = workspace_root.resolve()
+    source_pack_ref = (
+        str(source_pack_path.relative_to(workspace_root))
+        if source_pack_path.is_relative_to(workspace_root)
+        else str(source_pack_path)
+    )
     pack = _load_json(source_pack_path)
     if pack.get("schema_version") != SOURCE_PACK_SCHEMA_VERSION:
         raise ValueError("current source pack schema_version 不匹配")
@@ -866,6 +872,7 @@ def build_i5b_current_value(
     for rule in RULES:
         manifest["rules"][rule] = {
             "source": str(source_pack_path),
+            "source_ref": source_pack_ref,
             "direct_materials": direct_by_rule[rule],
             "eligible": eligible_by_rule[rule],
             "excluded": [],
@@ -1089,6 +1096,7 @@ def build_i5b_current_value(
         raise ValueError(f"人物画像声明覆盖闭合但仍存在 lineage 缺口: {open_rows}")
     manifest["rules"]["team_building"] = {
         "source": str(source_pack_path),
+        "source_ref": source_pack_ref,
         "positive_members": team["positive_members"],
         "negative_members": team["negative_members"],
         "functional_complementarity": team["functional_complementarity"],
@@ -1272,11 +1280,7 @@ def build_i5b_current_value(
         "ruler": pack["ruler"],
         "ruler_ref": pack["ruler_ref"],
         "window": pack["window"],
-        "source_pack_ref": (
-            str(source_pack_path.relative_to(workspace_root))
-            if source_pack_path.is_relative_to(workspace_root)
-            else str(source_pack_path)
-        ),
+        "source_pack_ref": source_pack_ref,
         "source_pack_sha256": declared_hash,
         "three_channel_input": three_channel,
         "three_channel_disposition": dispositions,

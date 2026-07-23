@@ -6344,7 +6344,11 @@ historical_outcome_registry:
         "--detail-output",
         str(detail),
     ]) == 0
-    assert (source_dir / "result.json").is_file()
+    result = json.loads(
+        (source_dir / "result.json").read_text(encoding="utf-8")
+    )
+    assert result["source_pack_ref"] == str(Path("eval/current/ruler/source-pack.json"))
+    assert str(workspace.resolve()) not in json.dumps(result, ensure_ascii=False)
     assert (source_dir / "result.md").is_file()
     assert "| 对象 | 方向 | 材料分 | 实际计入信号 |" in detail.read_text(
         encoding="utf-8"
