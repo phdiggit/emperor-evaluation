@@ -141,6 +141,8 @@ rules:
       long_term_multi_stage: 1.15
     outcome_registry_projection:
       importance_source: member.delegated_responsibility.scope
+      effect_override_source: member.delegated_responsibility.appointment_effect
+      continuity_override_source: member.delegated_responsibility.continuity_factor
       effect_by_result_scale:
         local: normal_success
         important: major_success
@@ -292,10 +294,10 @@ aggregation_policies:
     max_settled_units_per_side: 12
   appointment-object-density-decay-current:
     mode: hierarchical_rank_decay
-    same_object_value_cap: 3.50658
     material_decay: 1.0
     event_decay: 1.0
     object_decay: settlement_budget.event_rank_factors
+    same_object_hard_cap: false
     positive_lane_scale: 1.5
     negative_lane_scale: 1.0
     event_key: canonical_event_group

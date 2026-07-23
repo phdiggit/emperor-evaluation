@@ -470,7 +470,7 @@ def _object_density(selected: Sequence[Mapping[str, Any]]) -> Decimal:
 
 
 def _appointment_object_projection(
-    materials: Sequence[Mapping[str, Any]], object_cap: Decimal
+    materials: Sequence[Mapping[str, Any]],
 ) -> tuple[dict[str, Decimal], dict[str, Decimal]]:
     grouped: dict[str, dict[str, list[Mapping[str, Any]]]] = {}
     for material in materials:
@@ -501,29 +501,17 @@ def _appointment_object_projection(
             for material_id, value in contributions.items():
                 raw_contributions[material_id] = value / Decimal(event_rank)
         raw_object_value = sum(raw_contributions.values(), Decimal("0"))
-        capped_object_value = min(raw_object_value, object_cap)
-        cap_scale = (
-            capped_object_value / raw_object_value
-            if raw_object_value > 0
-            else Decimal("0")
-        )
-        object_values[object_ref] = capped_object_value
-        material_contributions.update(
-            {
-                material_id: value * cap_scale
-                for material_id, value in raw_contributions.items()
-            }
-        )
+        object_values[object_ref] = raw_object_value
+        material_contributions.update(raw_contributions)
     return object_values, material_contributions
 
 
 def _appointment_density(
     selected: Sequence[Mapping[str, Any]],
     side: str,
-    object_cap: Decimal,
     rank_factors: Sequence[Mapping[str, Any]],
 ) -> Decimal:
-    object_values, _ = _appointment_object_projection(selected, object_cap)
+    object_values, _ = _appointment_object_projection(selected)
     scale = Decimal("1.5") if side == "positive" else Decimal("1")
     total = Decimal("0")
     ordered = sorted(object_values.values(), reverse=True)
@@ -580,14 +568,6 @@ def _build_material_rule(
 
     budget = policy["settlement_budget"]["event_rules"][rule_code]
     rank_factors = policy["settlement_budget"]["event_rank_factors"]
-    appointment_object_cap = Decimal("0")
-    if rule_code == "appointment_delegation":
-        aggregation_code = str(policy["rules"][rule_code]["aggregation_policy"])
-        appointment_object_cap = _decimal(
-            policy["aggregation_policies"][aggregation_code][
-                "same_object_value_cap"
-            ]
-        )
     selected_by_side: dict[str, list[dict[str, Any]]] = {}
     selected_views: list[dict[str, Any]] = []
     selected_ids: set[str] = set()
@@ -626,7 +606,7 @@ def _build_material_rule(
                     candidate
                 )
             object_totals, material_contributions = _appointment_object_projection(
-                [row[0] for row in candidates], appointment_object_cap
+                [row[0] for row in candidates]
             )
             ranked_objects = sorted(
                 grouped,
@@ -830,13 +810,11 @@ def _build_material_rule(
         positive = _appointment_density(
             selected_by_side["positive"],
             "positive",
-            appointment_object_cap,
             rank_factors,
         )
         negative = _appointment_density(
             selected_by_side["negative"],
             "negative",
-            appointment_object_cap,
             rank_factors,
         )
     else:
@@ -959,11 +937,6 @@ def _build_material_rule(
         ),
         "settlement_budget_unit": str(budget["unit"]),
         "settlement_rank_factors": [dict(row) for row in rank_factors],
-        **(
-            {"same_object_value_cap": _rounded(appointment_object_cap)}
-            if rule_code == "appointment_delegation"
-            else {}
-        ),
         "settled_materials": selected_views,
         **(
             {
@@ -1313,12 +1286,6 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
     generic_event_max = material_max * _decimal(
         event_budget["talent_discovery"]["positive"]
     )
-    appointment_policy = policy["rules"]["appointment_delegation"]
-    appointment_object_cap = _decimal(
-        policy["aggregation_policies"][appointment_policy["aggregation_policy"]][
-            "same_object_value_cap"
-        ]
-    )
     team_budget = policy["settlement_budget"]["team_building"]
     team_policy = policy["rules"]["team_building"]
     positive_member_count = _decimal(team_budget["positive_member_budget"])
@@ -1334,14 +1301,13 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
         "decision_status": "insufficient_cross_ruler_distribution",
         "cohort_ruler_count": 1,
         "amplitude_change_recommended": None,
-        "reason": "理论包络未因材料预算失去量级；须在证据合同和 strongest-N 稳定后使用多皇帝分布判断实测压缩。",
+        "reason": (
+            "任用授权对象内只作调和衰减、不设硬上限，故该规则不声明有限理论包络；"
+            "其余规则须在证据合同和 strongest-N 稳定后使用多皇帝分布判断实测压缩。"
+        ),
         "theoretical_positive_envelope": {
             "talent_discovery": _rounded(generic_event_max),
-            "appointment_delegation": _rounded(
-                Decimal("1.5")
-                * appointment_object_cap
-                * _decimal(event_budget["appointment_delegation"]["positive"])
-            ),
+            "appointment_delegation": None,
             "team_building": _rounded(
                 max(
                     _decimal(value)
@@ -1355,10 +1321,7 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
         },
         "theoretical_negative_envelope": {
             "talent_discovery": _rounded(generic_event_max),
-            "appointment_delegation": _rounded(
-                appointment_object_cap
-                * _decimal(event_budget["appointment_delegation"]["negative"])
-            ),
+            "appointment_delegation": None,
             "team_building": _rounded(
                 max(
                     _decimal(value)

@@ -2831,7 +2831,8 @@ def test_appointment_budget_counts_aggregated_objects_not_internal_chains() -> N
         row for row in appointment["settled_objects"] if row["subject"] == "长孙无忌"
     )
     assert fang["supporting_chain_count"] == 4
-    assert fang["actual_signal_contribution"] == "5.259869"
+    assert fang["object_aggregate_magnitude"] == "6.271238"
+    assert fang["actual_signal_contribution"] == "9.406857"
     assert zhangsun["supporting_chain_count"] == 1
     assert zhangsun["actual_signal_contribution"] == "4.781700"
 
@@ -6615,6 +6616,67 @@ def test_liyuan_team_table_explains_membership_and_links_shared_profiles() -> No
     assert "civil_governance：作为主导完成" not in team_section
 
 
+def test_liyuan_appointment_uses_harmonic_decay_without_person_cap() -> None:
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李渊/source-pack.json"
+    )
+    appointment = next(
+        row
+        for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "appointment_delegation"
+    )
+    objects = {
+        row["subject"]: row for row in appointment["settled_objects"]
+        if row["side"] == "positive"
+    }
+
+    assert "same_object_value_cap" not in appointment
+    assert Decimal(objects["李世民"]["object_aggregate_magnitude"]) == Decimal(
+        "5.192344"
+    )
+    assert Decimal(objects["李靖"]["object_aggregate_magnitude"]) == Decimal(
+        "4.490750"
+    )
+    assert Decimal(objects["刘文静"]["object_aggregate_magnitude"]) == Decimal(
+        "2.840063"
+    )
+    assert (
+        Decimal(objects["李世民"]["object_aggregate_magnitude"])
+        > Decimal(objects["李靖"]["object_aggregate_magnitude"])
+        > Decimal(objects["刘文静"]["object_aggregate_magnitude"])
+    )
+
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李渊/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    wude_code = next(
+        row
+        for row in pack["outcome_registry"]["clusters"]
+        if row["canonical_label"] == "武德律令编定并颁行天下"
+    )
+    liu_wenjing = next(
+        row for row in wude_code["members"] if row["actor_name"] == "刘文静"
+    )
+    assert liu_wenjing["role_code"] == "governance_participant"
+    assert liu_wenjing["delegated_responsibility"]["appointment_effect"] == (
+        "major_success"
+    )
+    assert liu_wenjing["delegated_responsibility"]["continuity_factor"] == (
+        "short_or_one_off"
+    )
+    liu_material = next(
+        row
+        for row in appointment["settled_materials"]
+        if row["subject"] == "刘文静"
+        and "武德律令编定并颁行天下" in row["fact"]
+    )
+    assert "个人责任范围：奉诏与通识之士据开皇律令完成初期损益编修" in (
+        liu_material["fact"]
+    )
+
+
 @pytest.mark.parametrize(
     ("ruler", "person", "basis"),
     [
@@ -6909,6 +6971,11 @@ def test_current_signals_do_not_exceed_theoretical_envelopes(ruler: str) -> None
 
     for rule in report["material_budget"]["rules"]:
         code = rule["rule_code"]
+        if code == "appointment_delegation":
+            assert diagnostic["theoretical_positive_envelope"][code] is None
+            assert diagnostic["theoretical_negative_envelope"][code] is None
+            assert "same_object_value_cap" not in rule
+            continue
         assert Decimal(rule["positive_signal"]) <= Decimal(
             diagnostic["theoretical_positive_envelope"][code]
         )

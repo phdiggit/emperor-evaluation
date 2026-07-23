@@ -655,14 +655,14 @@
           {
             "actor_kind": "person",
             "actor_name": "刘文静",
-            "role_code": "lead"
+            "role_code": "governance_participant"
           }
         ]
       },
       "expected_match_count": 1,
       "gold_ref": "GOLD-LY-GOV-WUDE-CODE",
       "importance": "major",
-      "review_basis": "按固定史源复核成果粒度、结果等级、人物责任与李渊窗口归责后冻结。",
+      "review_basis": "全国律令成果仍归李渊窗口；刘文静只归责初期损益编修，不继承后续群体完成的全国颁行终局和跨期持续性。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -1297,7 +1297,7 @@
       "expectations": {
         "fields": [
           {
-            "expected": "top",
+            "expected": "usable",
             "path": "candidate_talent_grade"
           },
           {
@@ -1309,12 +1309,12 @@
             "path": "candidate_negative_talent_severity"
           },
           {
-            "expected": "top_fallback",
+            "expected": "domain_usable_threshold",
             "path": "talent_grade_rule_alignment.rule_path"
           },
           {
             "expected": [
-              "OUTCOME-AUTO-D171D9DA1EA404C609F1"
+              "OUTCOME-LIUWENJING-TURK-ALLIANCE-MISSION"
             ],
             "path": "talent_grade_rule_alignment.outcome_refs"
           },
@@ -1332,7 +1332,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LY-PROFILE-PER-ACTOR-9D09781AE311",
       "importance": "major",
-      "review_basis": "共享人物画像已完成固定本传、合格公共成果、人才规则路径及李渊窗口政治风险复核。",
+      "review_basis": "刘文静只对武德律令初期损益编修承担参与责任，不继承后续全国颁行终局；共享画像仅以其独立完成的出使突厥成果定级。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "刘文静"
@@ -1743,18 +1743,18 @@
         "negative_settled_unit_count": 2,
         "negative_signal": "6.555780",
         "positive_settled_unit_count": 4,
-        "positive_signal": "18.873360",
-        "rule_raw_net": "12.317580"
+        "positive_signal": "21.878484",
+        "rule_raw_net": "15.322704"
       },
       "talent_discovery": {
         "negative_signal": "0.000000",
-        "positive_signal": "1.595000",
-        "rule_raw_net": "1.595000"
+        "positive_signal": "0.990000",
+        "rule_raw_net": "0.990000"
       },
       "team_building": {
         "negative_signal": "0.000000",
-        "positive_signal": "5.610000",
-        "rule_raw_net": "5.610000"
+        "positive_signal": "5.002250",
+        "rule_raw_net": "5.002250"
       },
       "tolerate_talent": {
         "negative_signal": "4.356000",
@@ -1773,11 +1773,11 @@
         "刘文静"
       ]
     },
-    "weighted_raw_signal": "4.827495"
+    "weighted_raw_signal": "5.666762"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v6",
-    "source_pack_sha256": "30a5fbed42203585e94f888f0113a1b7c798f46b978aecba689b15ae67ecb538"
+    "source_pack_sha256": "7de00f85fdb41e099d51f5813d97f45ba5f97d4b398fdef8f436b9339c32274f"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

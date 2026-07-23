@@ -45,7 +45,7 @@ RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_
 STABILITY_CONTINUITY = {"initial", "continuous", "managed_turnover", "gap"}
 APPOINTMENT_OUTCOME_ROLES = {
     "campaign": {"commander_in_chief", "principal_commander"},
-    "governance": {"exclusive", "lead"},
+    "governance": {"exclusive", "lead", "governance_participant"},
     "statecraft": {"exclusive", "lead"},
 }
 OUTCOME_SCALE_LABELS = {
@@ -218,19 +218,25 @@ def _appointment_outcome_options(
         raise ValueError(
             f"{cluster['outcome_ref']}:{member['actor_ref']} 缺少独立于成果规模的授权责任范围"
         )
-    effect = (
-        "weak_feedback"
-        if str(cluster["result_direction"]) == "mixed"
-        else str(projection["effect_by_result_scale"][scale])
+    effect = str(
+        responsibility.get("appointment_effect")
+        or (
+            "weak_feedback"
+            if str(cluster["result_direction"]) == "mixed"
+            else projection["effect_by_result_scale"][scale]
+        )
     )
     payload = cluster.get("payload") or {}
     continuity_projection = projection["continuity_by_delivery"]
     continuity = str(
-        continuity_projection["durable_cross_stage"]
-        if payload.get("durable_cross_stage") is True
-        else continuity_projection["stable_delivery"]
-        if cluster.get("stable_delivery") is True
-        else continuity_projection["otherwise"]
+        responsibility.get("continuity_factor")
+        or (
+            continuity_projection["durable_cross_stage"]
+            if payload.get("durable_cross_stage") is True
+            else continuity_projection["stable_delivery"]
+            if cluster.get("stable_delivery") is True
+            else continuity_projection["otherwise"]
+        )
     )
     return {
         "appointment_importance": importance,
@@ -292,7 +298,8 @@ def _outcome_appointment_materials(
             fact = (
                 f"{person}以{(CAMPAIGN_ROLES if kind == 'campaign' else GOVERNANCE_ROLES)[role]}"
                 f"身份承担“{cluster['canonical_label']}”；"
-                f"已实现结果：{cluster['observable_result']}"
+                f"个人责任范围：{responsibility['basis']}；"
+                f"所处公共成果：{cluster['observable_result']}"
             )
             materials.append(
                 {
