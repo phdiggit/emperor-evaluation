@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v14"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v15"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -330,6 +330,13 @@ def _normalize_candidate_sources(
                 "自认关键结果未由 exact_quote 直接支持，确定性拒绝并保留中性材料。",
             )
             continue
+        matched_facts = [fact for rows in quote_matches for fact in rows]
+        if (
+            candidate.get("ruler_window_status") == "leadership_formation"
+            and not any(str(fact.get("period") or "").strip() for fact in matched_facts)
+        ):
+            candidate["period_start"] = "创业期"
+            candidate["period_end"] = "创业期"
         quote_text = "".join(quotes)
         candidate_payload = candidate.get("payload") or {}
         if (
@@ -376,6 +383,17 @@ def _normalize_candidate_sources(
             elif window_status in {"within_window", "leadership_formation"}:
                 candidate["settlement_scope"] = "governance_result"
         if candidate.get("outcome_kind") == "campaign":
+            for member in candidate.get("members") or ():
+                if (
+                    member.get("actor_kind") == "ruler"
+                    and member.get("role_code") == "commander_in_chief"
+                    and member.get("ruler_campaign_relation") == "authorized"
+                    and any(
+                        re.search(r"[命令](?:諸|诸).{0,8}(?:攻|軍|军)", quote)
+                        for quote in member.get("authorization_quotes") or ()
+                    )
+                ):
+                    member["ruler_campaign_relation"] = "sustained_theater_control"
             basis = str(candidate_payload.get("campaign_tier_basis") or "")
             explanation = basis.split("，", 1)[1] if "，" in basis else basis
             candidate_payload["campaign_tier_basis"] = (

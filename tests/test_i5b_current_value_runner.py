@@ -287,6 +287,35 @@ def test_outcome_projection_normalizes_ruler_talent_credit() -> None:
     )
 
 
+def test_outcome_projection_normalizes_direct_ruler_command_relation() -> None:
+    payload = _campaign_candidate_payload(relation="authorized")
+    candidate = payload["candidates"][0]
+    candidate["members"][0]["role_code"] = "commander_in_chief"
+    candidate["members"][0]["authorization_quotes"] = ["皇帝命诸军攻城。"]
+    candidate["exact_quotes"] = ["皇帝命诸军攻城，遂克都城。"]
+    candidate["period_start"] = "618-11"
+    candidate["period_end"] = "618-11"
+    candidate["ruler_window_status"] = "leadership_formation"
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "period": None,
+            "exact_quote": "皇帝命诸军攻城，遂克都城。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+    normalized_candidate = normalized["candidates"][0]
+
+    assert normalized_candidate["members"][0]["ruler_campaign_relation"] == (
+        "sustained_theater_control"
+    )
+    assert normalized_candidate["period_start"] == "创业期"
+    assert normalized_candidate["period_end"] == "创业期"
+
+
 def test_outcome_projection_maps_adversity_quote_terminal_punctuation() -> None:
     payload = _campaign_candidate_payload()
     candidate = payload["candidates"][0]
