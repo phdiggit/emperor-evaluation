@@ -4,6 +4,7 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import re
 from typing import Any, Mapping, Sequence
 from uuid import uuid4
 
@@ -15,6 +16,109 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
 
 
 SCHEMA_VERSION = "historical-outcome-unbound-registry-v1"
+
+_DISPLAY_LABELS = {
+    "campaign_group": "战役群",
+    "campaign_subresult": "人物子战役",
+    "governance_result": "治理成果",
+    "macro_public_result": "宏观公共结果",
+    "person_statecraft_result": "人物谋略成果",
+    "commander_in_chief": "主帅",
+    "principal_commander": "主将",
+    "participant": "从攻",
+    "not_in_command_chain": "不在军事指挥链",
+    "exclusive": "独占",
+    "lead": "主导",
+    "governance_participant": "实质参与",
+    "authorized": "正式授权",
+    "reign_holder": "在位承接",
+    "obstructed": "阻止或掣肘",
+    "acquiesced": "知情默许",
+    "temporary_theater_control": "临时战区控制",
+    "sustained_theater_control": "持续战区统筹",
+    "personal_command": "亲征统帅",
+    "local": "局部",
+    "important": "重要",
+    "regional": "区域",
+    "national": "全国",
+    "era_shaping": "时代塑造",
+    "local_tactical": "局部战术",
+    "important_objective": "重要目标",
+    "regional_theater_control": "区域战区控制",
+    "national_war_outcome": "全国战争结果",
+    "state_survival": "国家存亡",
+    "unification": "统一",
+    "state_conquest": "灭国",
+    "local_public_result": "局部公共结果",
+    "important_public_result": "重要公共结果",
+    "regional_governance_result": "区域治理结果",
+    "national_core_subsystem": "全国核心子系统",
+    "national_public_result": "全国公共结果",
+    "national_cultural_corpus": "全国文化典籍",
+    "era_order_reconstruction": "时代秩序重构",
+    "civilization_foundational_corpus": "文明奠基典籍",
+    "major_stage_or_crisis": "重大阶段或危机",
+    "independent_direction": "独立战略方向",
+    "single_pole_or_state_terminal": "单一竞争极或国家终局",
+    "composite_poles_terminal": "复合竞争极终局",
+    "unification_terminal": "统一终局",
+    "external_hegemony_terminal": "外部霸权终局",
+    "local_point": "局部节点",
+    "important_region": "重要区域",
+    "strategic_gateway": "战略门户",
+    "core_heartland": "核心腹地",
+    "capital_or_state_survival": "都城或国家存亡",
+    "minor": "弱小力量",
+    "regional_major": "区域主要对手",
+    "first_tier_pole": "第一梯队竞争极",
+    "dominant_pole": "主导竞争极",
+    "external_state": "外部国家",
+    "external_hegemony": "外部霸权",
+    "unclear": "不明",
+    "strong": "强盛",
+    "viable": "可战",
+    "weakened": "削弱",
+    "residual": "残余",
+    "victory": "胜利",
+    "mixed": "混合",
+    "defeat": "失败",
+    "complete": "完成",
+    "partial": "部分完成",
+    "failed": "失败",
+    "none": "无",
+    "limited": "有限",
+    "material": "实质",
+    "severe_repaired": "严重但已修复",
+    "near_collapse_repaired": "近乎崩溃但已修复",
+    "terminal_failure": "终局失败",
+    "primary": "主要责任",
+    "shared": "共同责任",
+    "subordinate_execution": "部属执行",
+    "disobedience": "违令",
+    "mitigated": "已减责",
+    "not_responsible": "无责任",
+    "external_unattributed": "外部不可归责",
+    "established": "因果已建立",
+    "source_attributed": "史源归因",
+    "members": "成员列表",
+    "revision": "固定版本",
+}
+
+
+def _display_label(value: object) -> str:
+    text = str(value)
+    return _DISPLAY_LABELS.get(text, text)
+
+
+def _display_text(value: object) -> str:
+    text = str(value)
+    for token in sorted(_DISPLAY_LABELS, key=len, reverse=True):
+        text = re.sub(
+            rf"(?<![A-Za-z0-9_]){re.escape(token)}(?![A-Za-z0-9_])",
+            _DISPLAY_LABELS[token],
+            text,
+        )
+    return text.replace("固定 固定版本", "固定版本")
 
 
 def _digest(value: object) -> str:
@@ -418,10 +522,10 @@ def _members_text(members: Sequence[Mapping[str, Any]]) -> str:
     values = []
     for member in members:
         relation = member.get("sovereign_relation")
-        suffix = f"；皇权角色={relation}" if relation else ""
+        suffix = f"；皇权角色={_display_label(relation)}" if relation else ""
         values.append(
-            f"{member['actor_name']}（{member['role_code']}{suffix}；"
-            f"{member['contribution_scope']}）"
+            f"{member['actor_name']}（{_display_label(member['role_code'])}{suffix}；"
+            f"{_display_text(member['contribution_scope'])}）"
         )
     return "、".join(values)
 
@@ -476,17 +580,23 @@ def render_unbound_historical_outcome_registry_markdown(
     for row in campaigns:
         payload = row["payload"]
         attributions = "、".join(
-            f"{item.get('actor_name') or '外部因素'}:{item['responsibility']}({item['basis']})"
+            f"{item.get('actor_name') or '外部因素'}:"
+            f"{_display_label(item['responsibility'])}"
+            f"({_display_text(item['basis'])})"
             for item in payload.get("process_adversity_attributions") or ()
         ) or "无"
         adverse = (
-            f"{payload['process_adversity']} / N={payload['process_adversity_index']}；"
-            f"{payload['process_adversity_basis']}；{attributions}"
+            f"{_display_label(payload['process_adversity'])} / "
+            f"负面指数={payload['process_adversity_index']}；"
+            f"{_display_text(payload['process_adversity_basis'])}；{attributions}"
         )
-        result = f"{payload['battle_result']} / {payload['objective_completion']}"
+        result = (
+            f"{_display_label(payload['battle_result'])} / "
+            f"{_display_label(payload['objective_completion'])}"
+        )
         opponent = (
-            f"{payload['opponent_strategic_weight']} / "
-            f"{payload['opponent_condition']}"
+            f"{_display_label(payload['opponent_strategic_weight'])} / "
+            f"{_display_label(payload['opponent_condition'])}"
         )
         lines.append(
             "| "
@@ -495,16 +605,19 @@ def render_unbound_historical_outcome_registry_markdown(
                 for value in (
                     row["registration_ref"],
                     row["canonical_label"],
-                    row["event_level"],
+                    _display_label(row["event_level"]),
                     _period_text(row["period"]),
-                    f"{payload['campaign_tier']} / {payload['strategic_result_class']}；{payload['campaign_tier_basis']}",
-                    f"{payload['combat_difficulty']}；{payload['combat_difficulty_basis']}",
-                    payload["land_strategic_value"],
+                    f"{payload['campaign_tier']} / "
+                    f"{_display_label(payload['strategic_result_class'])}；"
+                    f"{_display_text(payload['campaign_tier_basis'])}",
+                    f"{payload['combat_difficulty']}；"
+                    f"{_display_text(payload['combat_difficulty_basis'])}",
+                    _display_label(payload["land_strategic_value"]),
                     opponent,
                     result,
                     adverse,
                     _members_text(row["members"]),
-                    row["observable_result"],
+                    _display_text(row["observable_result"]),
                     "、".join(row["source_refs"]),
                 )
             )
@@ -533,13 +646,16 @@ def render_unbound_historical_outcome_registry_markdown(
                 for value in (
                     row["registration_ref"],
                     row["canonical_label"],
-                    row["event_level"],
+                    _display_label(row["event_level"]),
                     _period_text(row["period"]),
-                    f"{scale['level']} / {scale['consequence_basis']}；{scale['reason']}",
-                    payload["causal_attribution_status"],
+                    f"{_display_label(scale['level'])} / "
+                    f"{_display_label(scale['consequence_basis'])}；"
+                    f"{_display_text(scale['reason'])}",
+                    _display_label(payload["causal_attribution_status"]),
                     _members_text(row["members"]),
-                    row["observable_result"],
-                    "；".join(row["limitations"]) or "无",
+                    _display_text(row["observable_result"]),
+                    "；".join(_display_text(value) for value in row["limitations"])
+                    or "无",
                     "、".join(row["source_refs"]),
                 )
             )
@@ -569,10 +685,13 @@ def render_unbound_historical_outcome_registry_markdown(
                     row["registration_ref"],
                     row["canonical_label"],
                     _period_text(row["period"]),
-                    f"{scale['level']} / {scale['consequence_basis']}；{scale['reason']}",
+                    f"{_display_label(scale['level'])} / "
+                    f"{_display_label(scale['consequence_basis'])}；"
+                    f"{_display_text(scale['reason'])}",
                     _members_text(row["members"]),
-                    row["observable_result"],
-                    "；".join(row["limitations"]) or "无",
+                    _display_text(row["observable_result"]),
+                    "；".join(_display_text(value) for value in row["limitations"])
+                    or "无",
                     "、".join(row["source_refs"]),
                 )
             )

@@ -6106,6 +6106,18 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     assert "谋略：6" in rendered
     assert "永徽律令格式与《律疏》编定颁行" in rendered
     assert "ruler_window_status" not in rendered
+    assert "战役群" in rendered
+    assert "主帅" in rendered
+    assert "亲征统帅" in rendered
+    assert "全国核心子系统" in rendered
+    assert "因果已建立" in rendered
+    assert "campaign_group" not in rendered
+    assert "commander_in_chief" not in rendered
+    assert "personal_command" not in rendered
+    assert "national_core_subsystem" not in rendered
+    assert "established" not in rendered
+    assert " / N=" not in rendered
+    assert "固定 固定版本" not in rendered
     for source_pack in source_packs:
         binding = build_ruler_outcome_bindings(source_pack, registry)
         assert binding["binding_count"] == len(

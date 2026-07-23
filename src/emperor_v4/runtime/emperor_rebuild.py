@@ -54,7 +54,7 @@ STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v1",
-    "outcome_projection": "current-outcome-projection-stage-v11",
+    "outcome_projection": "current-outcome-projection-stage-v12",
     "current_projection": "registry-profile-i5b-stage-v1",
 }
 
@@ -1639,6 +1639,7 @@ def rebuild_emperor(
             json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
             + "\n",
         )
+    outcome_review_layers = write_current_outcome_layers(workspace_root)
     outcome_stage = _accept_stage(
         runtime_root=runtime_root,
         stage_cache_root=stage_cache_root,
@@ -1651,6 +1652,12 @@ def rebuild_emperor(
             "model_call_count": int(outcome_projection["model_call_count"]),
             "recovery_count": outcome_recovery_count,
             "final_facts_per_call": outcome_final_facts_per_call,
+            "registry_outcome_count": len(
+                outcome_review_layers["registry"]["outcomes"]
+            ),
+            "registry_fingerprint": outcome_review_layers["registry"][
+                "registry_fingerprint"
+            ],
             "database_write_count": 0,
             "formal_score_write_count": 0,
         },
@@ -1679,6 +1686,13 @@ def rebuild_emperor(
             "review_stage": "outcome_projection",
             "source_pack": str(source_pack_path),
             "neutral_materials": str(neutral_path),
+            "outcome_registry_json": outcome_review_layers["registry_json"],
+            "outcome_registry_markdown": outcome_review_layers[
+                "registry_markdown"
+            ],
+            "outcome_registry_fingerprint": outcome_review_layers["registry"][
+                "registry_fingerprint"
+            ],
             "outcome_count": len(projected_outcomes),
             "stage_results": stage_results,
             "database_write_count": 0,
@@ -1705,7 +1719,7 @@ def rebuild_emperor(
         }
     )
     notify_stage("current_projection", "running")
-    outcome_layers = write_current_outcome_layers(workspace_root)
+    outcome_layers = outcome_review_layers
     report = build_i5b_current_value(source_pack_path, workspace_root=workspace_root)
     if report["ruler"] != ruler:
         raise ValueError("链路结果皇帝不匹配")
