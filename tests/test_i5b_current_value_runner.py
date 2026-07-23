@@ -77,6 +77,7 @@ from emperor_v4.runtime.emperor_neutral_scan import (
 )
 from emperor_v4.runtime.emperor_outcome_projection import (
     PROJECTION_POLICY_VERSION,
+    _normalize_candidate_sources,
     build_outcome_transport_schema,
     project_current_outcomes,
 )
@@ -229,6 +230,52 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
         }
     )
     return payload
+
+
+def test_outcome_projection_normalizes_governance_window_scope() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["settlement_scope"] = "person_governance_result"
+    candidate["ruler_window_status"] = "leadership_formation"
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["settlement_scope"] == "governance_result"
+
+
+def test_outcome_projection_rejects_candidate_disclaiming_quote_support() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["limitations"] = ["关键治理结果未在 exact_quote 中展开。"]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"] == []
+    assert normalized["rejections"] == [
+        {
+            "segment_ref": "SEG-TEST",
+            "reason": (
+                "test-governance-contract 自认关键结果未由 exact_quote "
+                "直接支持，确定性拒绝并保留中性材料。"
+            ),
+        }
+    ]
 
 
 def test_campaign_candidate_requires_one_ruler_relation(tmp_path: Path) -> None:

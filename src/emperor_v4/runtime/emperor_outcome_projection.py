@@ -20,7 +20,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v7"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v8"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -193,6 +193,7 @@ def _normalize_candidate_sources(
         return next(iter(matches)) if len(matches) == 1 else quote
 
     retained_candidates = []
+    rejections = list(payload.get("rejections") or ())
     for candidate in payload.get("candidates") or ():
         quotes = [canonical_quote(value) for value in candidate.get("exact_quotes") or ()]
         candidate["exact_quotes"] = quotes
@@ -218,6 +219,49 @@ def _normalize_candidate_sources(
         }
         if not quotes or any(not rows for rows in quote_matches) or len(matches) != 1:
             continue
+        limitation_text = "\n".join(
+            str(value) for value in candidate.get("limitations") or ()
+        ).lower()
+        normalized_limitation = limitation_text.replace("`", "").replace(" ", "")
+        disclaims_quote_support = (
+            "exact_quote" in normalized_limitation
+            and any(
+                marker in normalized_limitation
+                for marker in (
+                    "未在exact_quote中",
+                    "exact_quote中未",
+                    "exact_quote未",
+                    "未由exact_quote",
+                    "不受exact_quote",
+                )
+            )
+        )
+        if disclaims_quote_support:
+            for fact in {
+                str(fact["segment_ref"]): fact
+                for rows in quote_matches
+                for fact in rows
+            }.values():
+                rejections.append(
+                    {
+                        "segment_ref": str(fact["segment_ref"]),
+                        "reason": (
+                            f"{candidate['candidate_key']} 自认关键结果未由 exact_quote "
+                            "直接支持，确定性拒绝并保留中性材料。"
+                        ),
+                    }
+                )
+            continue
+        if (
+            candidate.get("outcome_kind") == "governance"
+            and candidate.get("settlement_scope")
+            in {"governance_result", "person_governance_result"}
+        ):
+            window_status = candidate.get("ruler_window_status")
+            if window_status == "outside_window":
+                candidate["settlement_scope"] = "person_governance_result"
+            elif window_status in {"within_window", "leadership_formation"}:
+                candidate["settlement_scope"] = "governance_result"
         if (
             candidate.get("outcome_kind") in {"governance", "statecraft"}
             and candidate.get("scale_basis") == "local_public_result"
@@ -232,6 +276,7 @@ def _normalize_candidate_sources(
         candidate["revision_ref"] = revision_ref
         retained_candidates.append(candidate)
     payload["candidates"] = retained_candidates
+    payload["rejections"] = rejections
     return payload
 
 
