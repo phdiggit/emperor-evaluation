@@ -46,11 +46,12 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
 from emperor_v4.eval import main as eval_main
 from emperor_v4.runtime.emperor_rebuild import (
     RebuildLimits,
-    _load_reusable_neutral_materials,
-    _merge_neutral_currents,
-    _merge_outcome_projections,
+    _project_event_signatures_for_ruler,
     _resolve_source_index,
+    _ruler_backbone_fact_refs,
     _run_with_model_anomaly_recovery,
+    _shared_backbone_identity,
+    _shared_backbone_contract,
 )
 from emperor_v4.runtime import (
     emperor_rebuild as emperor_rebuild_module,
@@ -756,108 +757,275 @@ def test_emperor_session_claim_allows_first_run_without_derived_outputs(
     assert (workspace / "eval/i5b_current_value/刘邦/source-pack.json").is_file()
 
 
-def test_reusable_neutral_materials_require_matching_index_and_merge_segments(
-    tmp_path: Path,
-) -> None:
-    workspace = tmp_path / "workspace"
-    (workspace / "config").mkdir(parents=True)
+def test_shared_backbone_contract_is_one_extraction_for_all_token_owners() -> None:
     project = {
         "i5b_current_value": {
             "rulers": {
-                "来源皇帝": {"neutral_materials": "eval/source/neutral.json"},
-                "目标皇帝": {
-                    "neutral_material_reuse_rulers": ["来源皇帝"]
+                "甲": {
+                    "neutral_scan_backbone_material_token": "SHARED",
+                    "neutral_scan_backbone_works": ["資治通鑑"],
+                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 199]},
+                    "neutral_scan_shared_subjects": ["乙"],
+                },
+                "乙": {
+                    "neutral_scan_backbone_material_token": "SHARED",
+                    "neutral_scan_backbone_works": ["資治通鑑"],
+                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 199]},
+                    "neutral_scan_shared_subjects": ["甲"],
                 },
             }
         }
     }
-    (workspace / "config/project.yml").write_text(
-        yaml.safe_dump(project, allow_unicode=True), encoding="utf-8"
-    )
-    source_path = workspace / "eval/source/neutral.json"
-    source_path.parent.mkdir(parents=True)
-    source_path.write_text(
-        json.dumps(
-            {
-                "schema_version": "current-neutral-materials-v1",
-                "source_index_identity": "INDEX-A",
-                "batch_results": [{"batch_ref": "BATCH-A", "segment_reviews": []}],
-                "batch_fingerprints": {"BATCH-A": "FP-A"},
-            },
-            ensure_ascii=False,
-        ),
-        encoding="utf-8",
-    )
 
-    materials, rulers = _load_reusable_neutral_materials(
-        workspace_root=workspace,
-        configured=project["i5b_current_value"]["rulers"]["目标皇帝"],
-        source_index_identity="INDEX-A",
-    )
-    merged = _merge_neutral_currents(
-        [materials[0], {"batch_results": materials[0]["batch_results"]}]
-    )
+    first = _shared_backbone_contract(project=project, ruler="甲")
+    second = _shared_backbone_contract(project=project, ruler="乙")
 
-    assert rulers == ["来源皇帝"]
-    assert len(merged["batch_results"]) == 1
-    assert merged["batch_fingerprints"] == {"BATCH-A": "FP-A"}
-    with pytest.raises(ValueError, match="身份不匹配"):
-        _load_reusable_neutral_materials(
-            workspace_root=workspace,
-            configured=project["i5b_current_value"]["rulers"]["目标皇帝"],
-            source_index_identity="INDEX-B",
-        )
-
-
-def test_reusable_neutral_materials_reuse_settled_outcome_dispositions() -> None:
-    source = {
-        "outcome_projection": {
-            "policy_fingerprint": "POLICY-A",
-            "dispositions": [
-                {
-                    "fact_ref": "FACT-A",
-                    "decision": "accepted",
-                    "candidate_keys": ["shared-outcome"],
-                    "reason": "already settled",
-                }
-            ],
-        }
+    assert first == second
+    assert first == {
+        "material_token": "SHARED",
+        "owners": ["乙", "甲"],
+        "works": ["資治通鑑"],
+        "page_ranges": {"資治通鑑": [184, 199]},
     }
-    target = {
-        "outcome_projection": {
-            "policy_fingerprint": "POLICY-A",
-            "dispositions": [
-                {
-                    "fact_ref": "FACT-B",
-                    "decision": "rejected",
-                    "reason": "target review",
-                }
-            ],
+
+
+def test_shared_backbone_contract_rejects_range_or_subject_drift() -> None:
+    project = {
+        "i5b_current_value": {
+            "rulers": {
+                "甲": {
+                    "neutral_scan_backbone_material_token": "SHARED",
+                    "neutral_scan_backbone_works": ["資治通鑑"],
+                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 199]},
+                    "neutral_scan_shared_subjects": ["乙"],
+                },
+                "乙": {
+                    "neutral_scan_backbone_material_token": "SHARED",
+                    "neutral_scan_backbone_works": ["資治通鑑"],
+                    "neutral_scan_backbone_page_ranges": {"資治通鑑": [184, 191]},
+                    "neutral_scan_shared_subjects": ["甲"],
+                },
+            }
         }
     }
 
-    merged = _merge_outcome_projections([source, target])
+    with pytest.raises(ValueError, match="连续范围不一致"):
+        _shared_backbone_contract(project=project, ruler="甲")
 
-    assert merged == {
-        "policy_fingerprint": "POLICY-A",
-        "dispositions": [
+    project["i5b_current_value"]["rulers"]["乙"][
+        "neutral_scan_backbone_page_ranges"
+    ] = {"資治通鑑": [184, 199]}
+    project["i5b_current_value"]["rulers"]["乙"][
+        "neutral_scan_shared_subjects"
+    ] = []
+    with pytest.raises(ValueError, match="主体闭包不一致"):
+        _shared_backbone_contract(project=project, ruler="甲")
+
+
+def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse() -> None:
+    project = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
+    rulers = project["i5b_current_value"]["rulers"]
+
+    li_shimin = _shared_backbone_contract(project=project, ruler="李世民")
+    li_yuan = _shared_backbone_contract(project=project, ruler="李渊")
+
+    assert li_shimin == li_yuan
+    assert li_yuan == {
+        "material_token": "TANG-EARLY-CONTINUOUS",
+        "owners": ["李世民", "李渊"],
+        "works": ["資治通鑑"],
+        "page_ranges": {"資治通鑑": [184, 199]},
+    }
+    assert all(
+        "neutral_material_reuse_rulers" not in configured
+        for configured in rulers.values()
+    )
+
+
+def test_shared_backbone_identity_does_not_change_with_current_ruler(
+    tmp_path: Path,
+) -> None:
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml"
+    )
+    index_path = tmp_path / "shared.sqlite3"
+    build_local_source_index(
+        [
             {
-                "fact_ref": "FACT-A",
-                "decision": "accepted",
-                "candidate_keys": ["shared-outcome"],
-                "reason": "already settled",
-            },
+                "page_title": "資治通鑑/卷184",
+                "work_title": "資治通鑑",
+                "source_url": "local:184",
+                "revision_ref": "1",
+                "raw_text": (
+                    "=== 高祖神堯大聖光孝皇帝 ===\n"
+                    "上命秦王李世民统军，秦王奉诏出师。\n"
+                    "=== 太宗文武大聖大廣孝皇帝 ===\n"
+                    "上即皇帝位。"
+                ),
+            }
+        ],
+        index_path,
+    )
+    index = LocalSourceTextIndex(index_path)
+    li_shimin_ref = resolver.entity_for_name("李世民").person_ref
+    li_yuan_ref = resolver.entity_for_name("李渊").person_ref
+
+    li_shimin_plan = build_ruler_neutral_plan(
+        source_pack={
+            "ruler": "李世民",
+            "ruler_ref": li_shimin_ref,
+            "members": [],
+        },
+        source_index=index,
+        inventory={"subjects": []},
+        identity_resolver=resolver,
+        allowed_works=["資治通鑑"],
+        allowed_page_ranges={"資治通鑑": [184, 184]},
+        shared_subjects={"李渊": li_yuan_ref},
+    )
+    li_yuan_plan = build_ruler_neutral_plan(
+        source_pack={
+            "ruler": "李渊",
+            "ruler_ref": li_yuan_ref,
+            "members": [],
+        },
+        source_index=index,
+        inventory={"subjects": []},
+        identity_resolver=resolver,
+        allowed_works=["資治通鑑"],
+        allowed_page_ranges={"資治通鑑": [184, 184]},
+        shared_subjects={"李世民": li_shimin_ref},
+    )
+
+    assert _shared_backbone_identity(li_shimin_plan) == _shared_backbone_identity(
+        li_yuan_plan
+    )
+    current = {
+        "batch_fingerprints": {
+            str(batch["batch_ref"]): neutral_digest(
+                {
+                    "batch": batch,
+                    "extraction_policy": NEUTRAL_EXTRACTION_POLICY_VERSION,
+                }
+            )
+            for batch in li_shimin_plan["page_batches"]
+        },
+        "batch_results": [
             {
-                "fact_ref": "FACT-B",
-                "decision": "rejected",
-                "reason": "target review",
-            },
+                "schema_version": "shared-neutral-extraction-output-v1",
+                "batch_ref": batch["batch_ref"],
+                "page_title": batch["page_title"],
+                "revision_ref": batch["revision_ref"],
+                "segment_count": len(batch["segments"]),
+                "segment_reviews": [
+                    {
+                        "segment_ref": segment["segment_ref"],
+                        "decision": "reject",
+                        "context_status": "sufficient",
+                        "facts": [],
+                        "reason": "测试共享原子已完成。",
+                    }
+                    for segment in batch["segments"]
+                ],
+                "limitations": [],
+            }
+            for batch in li_shimin_plan["page_batches"]
         ],
     }
-    conflicting = json.loads(json.dumps(source))
-    conflicting["outcome_projection"]["dispositions"][0]["decision"] = "rejected"
-    with pytest.raises(ValueError, match="成果处置冲突"):
-        _merge_outcome_projections([source, conflicting])
+
+    class NoCallRunner:
+        def run(self, _prompt: str):
+            raise AssertionError("同一共享 token 切换当前皇帝不得重新抽取")
+
+    reused = extract_current_neutral_materials(
+        plan=li_yuan_plan,
+        current=current,
+        runner=NoCallRunner(),
+        max_workers=1,
+        checkpoint_dir=tmp_path / "checkpoint",
+        subject_ref_by_name={
+            "李世民": li_shimin_ref,
+            "李渊": li_yuan_ref,
+        },
+        identity_resolver=resolver,
+    )
+    assert reused["model_call_count"] == 0
+
+
+def test_shared_atoms_project_to_each_ruler_before_directed_backsource() -> None:
+    plan = {
+        "page_batches": [
+            {
+                "segments": [
+                    {
+                        "segment_ref": "SEG-LIYUAN",
+                        "chronicle_ruler_ref": "RULER-LIYUAN",
+                    },
+                    {
+                        "segment_ref": "SEG-LISHIMIN",
+                        "chronicle_ruler_ref": "RULER-LISHIMIN",
+                    },
+                ]
+            }
+        ]
+    }
+    signatures = [
+        {
+            "event_ref": "EVENT-LIYUAN-DELEGATION",
+            "subject_bindings": [{"subject_ref": "RULER-LISHIMIN"}],
+            "backbone_quotes": [{"segment_ref": "SEG-LIYUAN"}],
+        },
+        {
+            "event_ref": "EVENT-LISHIMIN-REIGN",
+            "subject_bindings": [{"subject_ref": "RULER-LISHIMIN"}],
+            "backbone_quotes": [{"segment_ref": "SEG-LISHIMIN"}],
+        },
+    ]
+    neutral = {
+        "fanout": {
+            "facts": [
+                {
+                    "fact_ref": "FACT-DELEGATED",
+                    "segment_ref": "SEG-LIYUAN",
+                    "actors": [{"subject_ref": "RULER-LISHIMIN"}],
+                },
+                {
+                    "fact_ref": "FACT-LISHIMIN-REIGN",
+                    "segment_ref": "SEG-LISHIMIN",
+                    "actors": [{"subject_ref": "RULER-LISHIMIN"}],
+                },
+            ]
+        }
+    }
+
+    li_yuan_signatures = _project_event_signatures_for_ruler(
+        plan=plan,
+        signatures=signatures,
+        ruler_ref="RULER-LIYUAN",
+    )
+    li_shimin_signatures = _project_event_signatures_for_ruler(
+        plan=plan,
+        signatures=signatures,
+        ruler_ref="RULER-LISHIMIN",
+    )
+
+    assert [row["event_ref"] for row in li_yuan_signatures] == [
+        "EVENT-LIYUAN-DELEGATION"
+    ]
+    assert [row["event_ref"] for row in li_shimin_signatures] == [
+        "EVENT-LIYUAN-DELEGATION",
+        "EVENT-LISHIMIN-REIGN",
+    ]
+    assert _ruler_backbone_fact_refs(
+        plan=plan,
+        neutral_materials=neutral,
+        ruler_ref="RULER-LIYUAN",
+    ) == ["FACT-DELEGATED"]
+    assert _ruler_backbone_fact_refs(
+        plan=plan,
+        neutral_materials=neutral,
+        ruler_ref="RULER-LISHIMIN",
+    ) == ["FACT-DELEGATED", "FACT-LISHIMIN-REIGN"]
 
 
 def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(
@@ -4165,6 +4333,60 @@ def test_outcome_projection_ignores_shared_fact_outside_current_team(
                 }
             ]
         }
+    }
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials=neutral,
+        source_index=None,
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+    )
+
+    assert outcome["candidate_count"] == 0
+    assert outcome["model_call_count"] == 0
+    assert outcome["source_pack_changed"] is False
+
+
+def test_outcome_projection_ignores_other_ruler_view_and_governance_window(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    neutral = {
+        "ruler_neutral_projection": {
+            "ruler_ref": source_pack["ruler_ref"],
+            "backbone_fact_refs": [],
+        },
+        "fanout": {
+            "facts": [
+                {
+                    "fact_ref": "FACT-OTHER-RULER-BACKBONE",
+                    "projection_eligibility": "direct_neutral_fact",
+                    "exact_quote": "另一皇帝窗口内的共享编年事实。",
+                    "implementation_status": "implemented",
+                    "result": "已经完成",
+                    "fact_kind": "institutional_action",
+                    "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+                },
+                {
+                    "fact_ref": "FACT-OUTSIDE-GOVERNANCE-WINDOW",
+                    "source_role": "dynasty_governance",
+                    "ruler_window_match": False,
+                    "projection_eligibility": "direct_neutral_fact",
+                    "exact_quote": "另一在位窗口的政书事实。",
+                    "implementation_status": "implemented",
+                    "result": "已经完成",
+                    "fact_kind": "institutional_action",
+                    "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+                },
+            ]
+        },
     }
 
     outcome = project_current_outcomes(

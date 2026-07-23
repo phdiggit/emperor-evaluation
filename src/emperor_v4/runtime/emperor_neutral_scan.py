@@ -1947,6 +1947,7 @@ def merge_dynasty_governance_current(
                     "uncertainty": str(chain.get("uncertainty") or ""),
                     "event_refs": [event_ref],
                     "source_role": "dynasty_governance",
+                    "ruler_window_match": in_ruler_window,
                     "formal_write": False,
                 }
             )

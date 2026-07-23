@@ -290,10 +290,24 @@ def project_current_outcomes(
         str(source_pack["ruler_ref"]),
         *(str(row["person_ref"]) for row in source_pack.get("members") or ()),
     }
+    ruler_projection = neutral_materials.get("ruler_neutral_projection") or {}
+    projected_backbone_fact_refs = {
+        str(value) for value in ruler_projection.get("backbone_fact_refs") or ()
+    }
+
+    def in_current_ruler_projection(fact: Mapping[str, Any]) -> bool:
+        source_role = str(fact.get("source_role") or "")
+        if source_role == "dynasty_governance":
+            return fact.get("ruler_window_match") is True
+        if not source_role and ruler_projection:
+            return str(fact.get("fact_ref") or "") in projected_backbone_fact_refs
+        return True
+
     all_eligible = [
         dict(fact)
         for fact in (neutral_materials.get("fanout") or {}).get("facts") or ()
-        if any(
+        if in_current_ruler_projection(fact)
+        and any(
             str(actor.get("subject_ref") or "") in allowed_subject_refs
             for actor in fact.get("actors") or ()
         )

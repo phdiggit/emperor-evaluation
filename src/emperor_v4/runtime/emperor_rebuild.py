@@ -140,36 +140,72 @@ def _load_current_config(workspace_root: Path, ruler: str) -> tuple[dict[str, An
     return source_pack, configured
 
 
-def _load_reusable_neutral_materials(
+def _shared_backbone_contract(
     *,
-    workspace_root: Path,
-    configured: Mapping[str, Any],
-    source_index_identity: str,
-) -> tuple[list[Mapping[str, Any]], list[str]]:
-    project = yaml.safe_load(
-        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
-    )
+    project: Mapping[str, Any],
+    ruler: str,
+) -> dict[str, Any] | None:
+    """Resolve one immutable extraction contract for every shared token."""
+
     rulers = (project.get("i5b_current_value") or {}).get("rulers") or {}
-    materials = []
-    reused_rulers = []
-    for ruler in configured.get("neutral_material_reuse_rulers") or ():
-        ruler_name = str(ruler)
-        source = rulers.get(ruler_name)
-        if not isinstance(source, Mapping) or not source.get("neutral_materials"):
-            raise ValueError(f"中性材料复用来源未配置: {ruler_name}")
-        path = workspace_root / str(source["neutral_materials"])
-        if not path.is_file():
-            raise ValueError(f"中性材料复用来源不存在: {ruler_name}")
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        if (
-            payload.get("schema_version") != "current-neutral-materials-v1"
-            or str(payload.get("source_index_identity") or "")
-            != source_index_identity
-        ):
-            raise ValueError(f"中性材料复用来源身份不匹配: {ruler_name}")
-        materials.append(payload)
-        reused_rulers.append(ruler_name)
-    return materials, reused_rulers
+    configured = rulers.get(ruler)
+    if not isinstance(configured, Mapping):
+        raise ValueError(f"皇帝尚未进入当前链路: {ruler}")
+    token = str(configured.get("neutral_scan_backbone_material_token") or "")
+    if not token:
+        return None
+    owners = {
+        str(name): value
+        for name, value in rulers.items()
+        if isinstance(value, Mapping)
+        and str(value.get("neutral_scan_backbone_material_token") or "") == token
+    }
+    expected_subjects = set(owners)
+    contracts = []
+    for owner, owner_config in owners.items():
+        subjects = {
+            owner,
+            *(
+                str(value)
+                for value in owner_config.get("neutral_scan_shared_subjects") or ()
+            ),
+        }
+        if subjects != expected_subjects:
+            raise ValueError(
+                f"共享编年 token 主体闭包不一致: {token}/{owner}"
+            )
+        works = tuple(
+            sorted(str(value) for value in owner_config.get("neutral_scan_backbone_works") or ())
+        )
+        ranges = tuple(
+            sorted(
+                (
+                    str(work),
+                    tuple(int(value) for value in bounds),
+                )
+                for work, bounds in (
+                    owner_config.get("neutral_scan_backbone_page_ranges") or {}
+                ).items()
+            )
+        )
+        contracts.append((owner, works, ranges))
+    expected = contracts[0][1:]
+    mismatched = [
+        owner for owner, works, ranges in contracts if (works, ranges) != expected
+    ]
+    if mismatched:
+        raise ValueError(
+            f"共享编年 token 的史书或连续范围不一致: {token}/{','.join(mismatched)}"
+        )
+    return {
+        "material_token": token,
+        "owners": sorted(owners),
+        "works": list(expected[0]),
+        "page_ranges": {
+            work: list(bounds)
+            for work, bounds in expected[1]
+        },
+    }
 
 
 def _merge_neutral_currents(
@@ -207,35 +243,83 @@ def _merge_neutral_currents(
     }
 
 
-def _merge_outcome_projections(
-    currents: Sequence[Mapping[str, Any] | None],
-) -> dict[str, Any] | None:
-    """Reuse settled neutral facts without replaying another ruler's model work."""
+def _shared_backbone_identity(plan: Mapping[str, Any]) -> str:
+    """Identify shared atoms without the current ruler's projection flag."""
 
-    policy_fingerprint: str | None = None
-    dispositions: dict[str, dict[str, Any]] = {}
-    for current in currents:
-        projection = (current or {}).get("outcome_projection") or {}
-        current_policy = str(projection.get("policy_fingerprint") or "")
-        if not current_policy:
-            continue
-        if policy_fingerprint is None:
-            policy_fingerprint = current_policy
-        elif current_policy != policy_fingerprint:
-            raise ValueError("复用中性材料的成果投影策略版本不一致")
-        for row in projection.get("dispositions") or ():
-            fact_ref = str(row["fact_ref"])
-            candidate = dict(row)
-            previous = dispositions.get(fact_ref)
-            if previous is not None and previous != candidate:
-                raise ValueError(f"复用中性材料的成果处置冲突: {fact_ref}")
-            dispositions[fact_ref] = candidate
-    if policy_fingerprint is None:
-        return None
-    return {
-        "policy_fingerprint": policy_fingerprint,
-        "dispositions": [dispositions[key] for key in sorted(dispositions)],
+    return _digest(
+        {
+            "source_index_identity": plan["source_index_identity"],
+            "page_batches": [
+                {
+                    **dict(batch),
+                    "segments": [
+                        {
+                            key: value
+                            for key, value in segment.items()
+                            if key != "chronicle_ruler_active"
+                        }
+                        for segment in batch["segments"]
+                    ],
+                }
+                for batch in plan["page_batches"]
+            ],
+        }
+    )
+
+
+def _project_event_signatures_for_ruler(
+    *,
+    plan: Mapping[str, Any],
+    signatures: Sequence[Mapping[str, Any]],
+    ruler_ref: str,
+) -> list[Mapping[str, Any]]:
+    """Keep own actions and minister actions inside the current ruler window."""
+
+    chronicle_ruler_by_segment = {
+        str(segment["segment_ref"]): str(segment["chronicle_ruler_ref"])
+        for batch in plan.get("page_batches") or ()
+        for segment in batch.get("segments") or ()
+        if segment.get("chronicle_ruler_ref")
     }
+    return [
+        signature
+        for signature in signatures
+        if ruler_ref
+        in {
+            str(row.get("subject_ref") or "")
+            for row in signature.get("subject_bindings") or ()
+        }
+        or any(
+            chronicle_ruler_by_segment.get(str(row.get("segment_ref") or ""))
+            == ruler_ref
+            for row in signature.get("backbone_quotes") or ()
+        )
+    ]
+
+
+def _ruler_backbone_fact_refs(
+    *,
+    plan: Mapping[str, Any],
+    neutral_materials: Mapping[str, Any],
+    ruler_ref: str,
+) -> list[str]:
+    segment_ruler_refs = {
+        str(segment["segment_ref"]): str(segment.get("chronicle_ruler_ref") or "")
+        for batch in plan.get("page_batches") or ()
+        for segment in batch.get("segments") or ()
+    }
+    return sorted(
+        str(fact["fact_ref"])
+        for fact in (neutral_materials.get("fanout") or {}).get("facts") or ()
+        if str(fact.get("segment_ref") or "") in segment_ruler_refs
+        and (
+            segment_ruler_refs[str(fact["segment_ref"])] == ruler_ref
+            or any(
+                str(actor.get("subject_ref") or "") == ruler_ref
+                for actor in fact.get("actors") or ()
+            )
+        )
+    )
 
 
 def _resolve_source_index(
@@ -424,16 +508,24 @@ def rebuild_emperor(
     checkpoint_dir = runtime_root / "checkpoint"
     deadline = _Deadline(limits.wall_clock_seconds)
     source_pack, configured = _load_current_config(workspace_root, ruler)
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    shared_contract = _shared_backbone_contract(project=project, ruler=ruler)
     identity_resolver = HistoricalEntityResolver.load(
         workspace_root / "config/historical-entity-identities.yml",
         source_pack=source_pack,
     )
+    shared_owner_names = (
+        list(shared_contract["owners"]) if shared_contract is not None else []
+    )
     shared_subject_refs = {
         str(name): identity_resolver.entity_for_name(str(name)).person_ref
-        for name in configured.get("neutral_scan_shared_subjects") or ()
+        for name in shared_owner_names
+        if str(name) != ruler
     }
     shared_backbone_token = str(
-        configured.get("neutral_scan_backbone_material_token") or ""
+        (shared_contract or {}).get("material_token") or ""
     )
     if shared_subject_refs and not shared_backbone_token:
         raise ValueError("配置共享篇章主体时必须声明主干材料 token")
@@ -462,9 +554,14 @@ def rebuild_emperor(
         name = str(fact.get("canonical_name") or "")
         if name in known_pages_by_subject and fact.get("source_page"):
             known_pages_by_subject[name].append(str(fact["source_page"]))
-    backbone_works = [
-        str(work) for work in configured.get("neutral_scan_backbone_works") or ()
-    ]
+    backbone_works = (
+        [str(work) for work in shared_contract["works"]]
+        if shared_contract is not None
+        else [
+            str(work)
+            for work in configured.get("neutral_scan_backbone_works") or ()
+        ]
+    )
     backsource_works = [
         str(work) for work in configured.get("neutral_scan_backsource_works") or ()
     ]
@@ -500,13 +597,6 @@ def rebuild_emperor(
             else ()
         ),
     )
-    reusable_neutral_materials, reused_neutral_rulers = (
-        _load_reusable_neutral_materials(
-            workspace_root=workspace_root,
-            configured=configured,
-            source_index_identity=source_index.identity,
-        )
-    )
     dynasty_governance_current: Mapping[str, Any] | None = None
     if dynasty_governance_token:
         governance_root = _resolve_dynasty_governance_root(
@@ -538,12 +628,19 @@ def rebuild_emperor(
             if row.get("source_page")
         }
     )
-    backbone_page_ranges = {
-        str(work): [int(value) for value in bounds]
-        for work, bounds in (
-            configured.get("neutral_scan_backbone_page_ranges") or {}
-        ).items()
-    }
+    backbone_page_ranges = (
+        {
+            str(work): [int(value) for value in bounds]
+            for work, bounds in shared_contract["page_ranges"].items()
+        }
+        if shared_contract is not None
+        else {
+            str(work): [int(value) for value in bounds]
+            for work, bounds in (
+                configured.get("neutral_scan_backbone_page_ranges") or {}
+            ).items()
+        }
+    )
     input_fingerprint = _digest(
         {
             "ruler": ruler,
@@ -607,8 +704,16 @@ def rebuild_emperor(
     directed_supplement_works = (
         [] if dynasty_governance_current is not None else supplement_works
     )
+    # A shared token is extracted from one stable subject closure. Team members
+    # belong to later ruler/profile projections and must not change the shared
+    # chronicle plan or force another model extraction.
+    backbone_source_pack = {
+        "ruler": source_pack["ruler"],
+        "ruler_ref": source_pack["ruler_ref"],
+        "members": [],
+    }
     backbone_plan = build_ruler_neutral_plan(
-        source_pack=source_pack,
+        source_pack=backbone_source_pack,
         source_index=source_index,
         inventory=inventory,
         identity_resolver=identity_resolver,
@@ -616,25 +721,7 @@ def rebuild_emperor(
         allowed_page_ranges=backbone_page_ranges,
         shared_subjects=shared_subject_refs,
     )
-    shared_backbone_identity = _digest(
-        {
-            "source_index_identity": backbone_plan["source_index_identity"],
-            "page_batches": [
-                {
-                    **dict(batch),
-                    "segments": [
-                        {
-                            key: value
-                            for key, value in segment.items()
-                            if key != "chronicle_ruler_active"
-                        }
-                        for segment in batch["segments"]
-                    ],
-                }
-                for batch in backbone_plan["page_batches"]
-            ],
-        }
-    )
+    shared_backbone_identity = _shared_backbone_identity(backbone_plan)
     shared_backbone_path = None
     if shared_backbone_root is not None and shared_backbone_token:
         resolved_shared_root = shared_backbone_root.resolve()
@@ -644,17 +731,25 @@ def rebuild_emperor(
         if resolved_shared_root not in shared_backbone_path.parents:
             raise ValueError("共享主干材料路径越界")
     shared_backbone_current: Mapping[str, Any] | None = None
+    shared_backbone_previous_identity: str | None = None
     if shared_backbone_path is not None and shared_backbone_path.is_file():
         candidate = json.loads(shared_backbone_path.read_text(encoding="utf-8"))
         if (
             candidate.get("schema_version") == "shared-chronicle-current-v1"
             and candidate.get("status") == "quality_contract_valid_shadow"
             and candidate.get("material_token") == shared_backbone_token
-            and candidate.get("backbone_identity") == shared_backbone_identity
+            and candidate.get("source_index_identity") == source_index.identity
         ):
+            # Exact batch/segment fingerprints inside the material remain safe
+            # seeds when a shared range expands. The extractor will call the
+            # model only for genuinely missing or contract-changed atoms, then
+            # replace the current with the new complete identity.
             shared_backbone_current = candidate.get("materials")
+            shared_backbone_previous_identity = str(
+                candidate.get("backbone_identity") or ""
+            )
     combined_backbone_current = _merge_neutral_currents(
-        [shared_backbone_current, current_neutral, *reusable_neutral_materials]
+        [shared_backbone_current, current_neutral]
     )
     model_policy = yaml.safe_load(
         (workspace_root / "config/model-policy.yml").read_text(encoding="utf-8")
@@ -695,6 +790,12 @@ def rebuild_emperor(
             for row in source_pack.get("members") or ()
         },
     }
+    backbone_subject_ref_by_name = {
+        name: identity_resolver.entity_for_name(name).person_ref
+        for name in shared_owner_names
+    } or {
+        str(source_pack["ruler"]): str(source_pack["ruler_ref"])
+    }
     deterministic_campaigns = discover_deterministic_backbone_campaigns(
         backbone_plan=backbone_plan,
         ruler_name=str(source_pack["ruler"]),
@@ -733,7 +834,7 @@ def rebuild_emperor(
             max_workers=limits.model_workers,
             checkpoint_dir=checkpoint_dir / "neutral_extraction" / "backbone",
             pages_per_call=pages_per_call,
-            subject_ref_by_name=subject_ref_by_name,
+            subject_ref_by_name=backbone_subject_ref_by_name,
             identity_resolver=identity_resolver,
             supplemental_facts_by_segment=deterministic_campaign_facts_by_segment,
         ),
@@ -771,10 +872,15 @@ def rebuild_emperor(
         backbone_materials=backbone_materials,
         identity_resolver=identity_resolver,
     )
+    current_event_signatures = _project_event_signatures_for_ruler(
+        plan=routed_backbone_plan,
+        signatures=accepted_event_signatures,
+        ruler_ref=str(source_pack["ruler_ref"]),
+    )
     if backbone_works and (backsource_works or directed_supplement_works):
         neutral_plan = build_event_directed_neutral_plan(
             backbone_plan=routed_backbone_plan,
-            event_signatures=accepted_event_signatures,
+            event_signatures=current_event_signatures,
             source_index=source_index,
             identity_resolver=identity_resolver,
             backsource_works=backsource_works,
@@ -809,7 +915,7 @@ def rebuild_emperor(
     ]
     if target_segments:
         directed_current = _merge_neutral_currents(
-            [current_neutral, *reusable_neutral_materials, backbone_materials]
+            [current_neutral, backbone_materials]
         )
         (
             neutral_materials,
@@ -855,6 +961,14 @@ def rebuild_emperor(
         plan=model_plan,
         neutral_materials=neutral_materials,
     )
+    neutral_materials["ruler_neutral_projection"] = {
+        "ruler_ref": str(source_pack["ruler_ref"]),
+        "backbone_fact_refs": _ruler_backbone_fact_refs(
+            plan=routed_backbone_plan,
+            neutral_materials=neutral_materials,
+            ruler_ref=str(source_pack["ruler_ref"]),
+        ),
+    }
     if dynasty_governance_current is not None:
         neutral_materials = merge_dynasty_governance_current(
             neutral_materials=neutral_materials,
@@ -876,11 +990,10 @@ def rebuild_emperor(
             },
             event_signatures=model_plan.get("event_signatures") or (),
         )
-    reused_projection = _merge_outcome_projections(
-        [*reusable_neutral_materials, current_neutral]
-    )
-    if reused_projection is not None:
-        neutral_materials["outcome_projection"] = reused_projection
+    if current_neutral and current_neutral.get("outcome_projection"):
+        neutral_materials["outcome_projection"] = current_neutral[
+            "outcome_projection"
+        ]
     _atomic_text(
         neutral_path,
         json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
@@ -982,10 +1095,22 @@ def rebuild_emperor(
         "source_index_missing_works": inventory["missing_works"],
         "neutral_fact_count": neutral_materials["fanout"]["fact_count"],
         "neutral_model_call_count": neutral_model_call_count,
-        "neutral_reuse_rulers": reused_neutral_rulers,
-        "neutral_reuse_batch_result_count": sum(
-            len(current.get("batch_results") or ())
-            for current in reusable_neutral_materials
+        "shared_backbone_material_token": shared_backbone_token or None,
+        "shared_backbone_identity": shared_backbone_identity,
+        "shared_backbone_previous_identity": shared_backbone_previous_identity,
+        "shared_backbone_zero_model_reuse": (
+            shared_backbone_current is not None
+            and backbone_model_call_count == 0
+        ),
+        "shared_backbone_event_signature_count": len(
+            accepted_event_signatures
+        ),
+        "ruler_event_signature_count": len(current_event_signatures),
+        "ruler_backbone_fact_count": len(
+            (
+                neutral_materials.get("ruler_neutral_projection") or {}
+            ).get("backbone_fact_refs")
+            or ()
         ),
         "neutral_backbone_model_call_count": backbone_model_call_count,
         "neutral_backsource_model_call_count": backsource_model_call_count,
