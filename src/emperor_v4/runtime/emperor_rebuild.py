@@ -54,7 +54,7 @@ SCHEMA_VERSION = "emperor-rebuild-v1"
 STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
-    "neutral_materials": "shared-directed-neutral-stage-v2",
+    "neutral_materials": "shared-directed-neutral-stage-v3",
     "outcome_projection": "shared-outcome-profile-projection-stage-v16",
     "current_projection": "shared-profile-window-i5b-stage-v3",
 }
@@ -1040,6 +1040,11 @@ def rebuild_emperor(
         {
             "inventory_input_fingerprint": input_fingerprint,
             "shared_contract": shared_contract,
+            "ruler_heading_terms": list(
+                configured.get("neutral_scan_ruler_heading_terms")
+                or configured.get("dynasty_governance_period_terms")
+                or ()
+            ),
             "dynasty_governance_current": (
                 {
                     "input_fingerprint": dynasty_governance_current.get(
@@ -1093,7 +1098,11 @@ def rebuild_emperor(
     backbone_source_pack = {
         "ruler": source_pack["ruler"],
         "ruler_ref": source_pack["ruler_ref"],
-        "members": [],
+        # A published shared token owns a fixed ruler closure and must remain
+        # independent of one consumer's team roster. An independent ruler
+        # backbone has no such owner closure, so dropping members here removes
+        # the very actors needed to extract appointments and campaign results.
+        "members": [] if shared_contract is not None else source_pack.get("members") or [],
     }
     backbone_plan = build_ruler_neutral_plan(
         source_pack=backbone_source_pack,
@@ -1103,6 +1112,13 @@ def rebuild_emperor(
         allowed_works=backbone_works or configured_scan_works,
         allowed_page_ranges=backbone_page_ranges,
         shared_subjects=shared_subject_refs,
+        ruler_window=str(source_pack.get("window") or "") or None,
+        discover_explicit_actors=shared_contract is None,
+        ruler_heading_terms=(
+            configured.get("neutral_scan_ruler_heading_terms")
+            or configured.get("dynasty_governance_period_terms")
+            or ()
+        ),
     )
     shared_backbone_extraction_contract = str(
         (shared_contract or {}).get("extraction_contract") or ""
@@ -1199,8 +1215,27 @@ def rebuild_emperor(
             for row in source_pack.get("members") or ()
         },
     }
-    backbone_subject_ref_by_name = shared_owner_refs or {
-        str(source_pack["ruler"]): str(source_pack["ruler_ref"])
+    provisional_subject_ref_by_name = {
+        str(row["canonical_name"]): str(row["subject_ref"])
+        for row in backbone_plan.get("provisional_subject_bindings") or ()
+    }
+    subject_ref_by_name.update(provisional_subject_ref_by_name)
+    backbone_subject_ref_by_name = {
+        **(
+            shared_owner_refs
+            or {
+                str(source_pack["ruler"]): str(source_pack["ruler_ref"]),
+                **(
+                    {
+                        str(row["person"]): str(row["person_ref"])
+                        for row in source_pack.get("members") or ()
+                    }
+                    if shared_contract is None
+                    else {}
+                ),
+            }
+        ),
+        **provisional_subject_ref_by_name,
     }
     deterministic_campaigns = discover_deterministic_backbone_campaigns(
         backbone_plan=backbone_plan,

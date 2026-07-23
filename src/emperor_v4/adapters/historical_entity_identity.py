@@ -199,3 +199,14 @@ class HistoricalEntityResolver:
             None,
             refs,
         )
+
+    def resolve_any(
+        self, surface: str, *, dynasty: str | None = None
+    ) -> IdentityResolution:
+        """Resolve an explicit source surface without preselecting a ruler roster."""
+
+        return self.resolve(
+            surface,
+            allowed_subject_refs=sorted(self._by_ref),
+            dynasty=dynasty,
+        )

@@ -46,6 +46,7 @@ from emperor_v4.runtime.emperor_session_control import (
     publish_session,
     run_claimed_session,
     session_status,
+    upgrade_failed_session_release,
 )
 
 
@@ -193,6 +194,10 @@ def _parser() -> argparse.ArgumentParser:
         choices=["outcome_projection"],
     )
     session_heartbeat = commands.add_parser("emperor-session-heartbeat")
+    session_upgrade = commands.add_parser("emperor-session-upgrade-release")
+    session_upgrade.add_argument("--state-root", type=Path, required=True)
+    session_upgrade.add_argument("--session-id", required=True)
+    session_upgrade.add_argument("--release-root", type=Path, default=Path("."))
     session_heartbeat.add_argument("--state-root", type=Path, required=True)
     session_heartbeat.add_argument("--session-id", required=True)
     session_heartbeat.add_argument("--stage", required=True)
@@ -514,6 +519,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                 state_root=args.state_root,
                 session_id=args.session_id,
                 stage=args.stage,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-upgrade-release":
+        return _write_report(
+            upgrade_failed_session_release(
+                state_root=args.state_root,
+                session_id=args.session_id,
+                release_root=args.release_root,
             ),
             None,
         )

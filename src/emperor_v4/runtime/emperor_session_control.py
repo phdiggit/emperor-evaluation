@@ -34,6 +34,7 @@ STATUS_SCHEMA_VERSION = "emperor-session-control-status-v1"
 PUBLISH_SCHEMA_VERSION = "emperor-session-publish-v1"
 BOOTSTRAP_SCHEMA_VERSION = "emperor-session-bootstrap-v1"
 BOOTSTRAP_REPORT_SCHEMA_VERSION = "emperor-session-bootstrap-report-v1"
+RELEASE_UPGRADE_SCHEMA_VERSION = "emperor-session-release-upgrade-v1"
 GLOBAL_MODEL_SLOT_COUNT = 4
 REQUIRED_REBUILD_STAGES = (
     "source_inventory",
@@ -709,6 +710,17 @@ def complete_session_bootstrap(
         or not configured.get("neutral_scan_backbone_page_ranges")
     ):
         raise SessionControlError("bootstrap ruler_config 缺少编年主干及连续范围")
+    configured = dict(configured)
+    if not configured.get("neutral_scan_backbone_material_token"):
+        ruler_heading_terms = list(
+            configured.get("neutral_scan_ruler_heading_terms")
+            or configured.get("dynasty_governance_period_terms")
+            or ()
+        )
+        if not ruler_heading_terms:
+            raise SessionControlError("bootstrap 独占编年主干缺少皇帝标题词")
+        configured["neutral_scan_ruler_heading_terms"] = ruler_heading_terms
+    spec = {**spec, "ruler_config": configured}
 
     member_rows = []
     for member in members:
@@ -1059,6 +1071,124 @@ def run_claimed_session(
     lease.pop("stage_producer_contract_fingerprint", None)
     _atomic_json(path, lease)
     return completed
+
+
+def upgrade_failed_session_release(
+    *,
+    state_root: Path,
+    session_id: str,
+    release_root: Path,
+) -> dict[str, Any]:
+    """Adopt a repaired immutable release without discarding checkpoints."""
+
+    session_id = _safe_token(session_id, field="session_id")
+    path = _session_path(state_root, session_id)
+    if not path.is_file():
+        raise SessionControlError("会话租约不存在")
+    lease = _read_json(path)
+    if lease.get("stage") != "failed_reusable":
+        raise SessionControlError("只有 failed_reusable 会话可以升级 release")
+    control = _control_root(state_root)
+    resource_ruler_ref = str(
+        lease.get("resource_ruler_ref") or lease["ruler_ref"]
+    )
+    owned_resources = [
+        control / "rulers" / f"{resource_ruler_ref}.json",
+        *(
+            control / "model-slots" / f"{int(slot)}.json"
+            for slot in lease.get("model_slots") or ()
+        ),
+    ]
+    if not all(_owned_resource(resource, session_id) for resource in owned_resources):
+        raise SessionControlError("会话资源租约不完整，拒绝升级 release")
+
+    release_root = release_root.resolve()
+    target_release_sha = _release_identity(release_root)
+    target_contract_fingerprint = _contract_fingerprint(release_root)
+    rulers, _ = _project_rulers(release_root)
+    configured = rulers.get(str(lease["ruler"]))
+    bootstrap_session = bool(lease.get("bootstrap_spec"))
+    workspace_root = Path(str(lease["workspace_root"]))
+    workspace_project_path = workspace_root / "config/project.yml"
+    workspace_project = yaml.safe_load(
+        workspace_project_path.read_text(encoding="utf-8")
+    )
+    if not isinstance(configured, Mapping) and bootstrap_session:
+        configured = (
+            (workspace_project.get("i5b_current_value") or {}).get("rulers")
+            or {}
+        ).get(str(lease["ruler"]))
+    if not isinstance(configured, Mapping):
+        raise SessionControlError("目标 release 已移除当前皇帝")
+    expected = dict(lease.get("canonical_expected_sha256") or {})
+    changed_inputs = [
+        key
+        for key, target in _canonical_paths(release_root, configured).items()
+        if expected.get(key) is not None
+        and _file_sha256(target) != expected.get(key)
+    ]
+    if changed_inputs:
+        raise SessionControlError(
+            "目标 release 改变了会话已认领的 canonical 输入: "
+            + ", ".join(changed_inputs)
+        )
+    workspace_source_pack = workspace_root / str(configured["source_pack"])
+    if expected.get("source_pack") is not None:
+        if _file_sha256(workspace_source_pack) != expected.get("source_pack"):
+            raise SessionControlError("会话 workspace source-pack 已偏离认领输入")
+    else:
+        source_pack = _read_json(workspace_source_pack)
+        source_pack_digest = str(source_pack.pop("source_pack_sha256", ""))
+        if (
+            source_pack.get("ruler") != lease["ruler"]
+            or source_pack.get("ruler_ref") != lease["ruler_ref"]
+            or _digest(source_pack) != source_pack_digest
+        ):
+            raise SessionControlError("bootstrap workspace source-pack 身份或摘要无效")
+    if bootstrap_session:
+        configured = dict(configured)
+        if (
+            not configured.get("neutral_scan_backbone_material_token")
+            and not configured.get("neutral_scan_ruler_heading_terms")
+        ):
+            heading_terms = list(
+                configured.get("dynasty_governance_period_terms") or ()
+            )
+            if not heading_terms:
+                raise SessionControlError("bootstrap workspace 缺少皇帝编年标题词")
+            configured["neutral_scan_ruler_heading_terms"] = heading_terms
+            workspace_project["i5b_current_value"]["rulers"][
+                str(lease["ruler"])
+            ] = configured
+            workspace_project_path.write_text(
+                yaml.safe_dump(
+                    workspace_project, allow_unicode=True, sort_keys=False
+                ),
+                encoding="utf-8",
+                newline="\n",
+            )
+
+    previous_release_sha = str(lease["release_sha"])
+    lease["release_sha"] = target_release_sha
+    lease["release_contract_fingerprint"] = target_contract_fingerprint
+    if bootstrap_session:
+        lease["bootstrap_static_contract_fingerprint"] = (
+            _bootstrap_static_contract_fingerprint(release_root)
+        )
+    lease["updated_at"] = _now()
+    _atomic_json(path, lease)
+    return {
+        "schema_version": RELEASE_UPGRADE_SCHEMA_VERSION,
+        "status": "failed_session_release_upgraded",
+        "session_id": session_id,
+        "ruler": lease["ruler"],
+        "from_release_sha": previous_release_sha,
+        "release_sha": target_release_sha,
+        "checkpoint_preserved": True,
+        "workspace_preserved": True,
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+    }
 
 
 def _validate_publish_payload(

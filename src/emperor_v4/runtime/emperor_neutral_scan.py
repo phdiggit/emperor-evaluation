@@ -61,6 +61,29 @@ _HIGH_VALUE_REJECT_SIGNALS = {
         re.compile(r"(?:大敗|大败|不能拒|不能禦|不能御)"),
     ),
 }
+_COMMON_ERA_YEAR = re.compile(
+    r"公元([〇零一二三四五六七八九0-9]{3,4})年"
+)
+_COMMON_ERA_DIGITS = str.maketrans("〇零一二三四五六七八九", "00123456789")
+_RULER_DEATH = re.compile(r"(?:上崩|(?<!先)帝崩)")
+_APPOINTMENT_ACTION = (
+    r"(?:(?:為|为)(?=[^，；。]{0,16}(?:總管|总管|大使|都督|將軍|将军|"
+    r"留守|刺史|太守|可汗|使))|檢校|检校)"
+)
+_COMMAND_ACTION = (
+    r"(?:使於|使于|將兵|将兵|屯|討|讨|守|援|專知|专知|鎮守|镇守)"
+)
+_ACTOR_TITLE_SUFFIX = re.compile(
+    r"(?:大將軍|大将军|中郎將|中郎将|郎將|郎将|將軍|将军|"
+    r"大都督|都督|司馬|司马|刺史|御史|大夫|少常伯|長史|长史|"
+    r"副率|都護|都护|太守|留守|尚書|尚书|侍郎|駙馬都尉|驸马都尉|"
+    r"皇太子|可汗|右肅機|右肃机|大司憲|大司宪|右相|侍中|卿|監|监|尉|守|令|率)"
+)
+_COLLECTIVE_ACTOR_NAMES = {
+    "朝廷", "有司", "百官", "公卿", "官軍", "官军", "王師", "王师",
+    "吐蕃", "突厥", "新羅", "新罗", "高麗", "高丽", "百濟", "百济",
+    "回紇", "回纥", "軍中", "军中", "諸軍", "诸军",
+}
 
 
 def _digest(value: object) -> str:
@@ -187,7 +210,9 @@ def _sentence_spans(text: str, *, absolute_start: int = 0) -> list[dict[str, Any
     ]
 
 
-def _source_event_units(text: str, *, max_chars: int = 900) -> list[dict[str, Any]]:
+def _source_event_units(
+    text: str, *, max_chars: int = 900, split_offsets: Sequence[int] = ()
+) -> list[dict[str, Any]]:
     """Split raw editions on their own entry/paragraph boundaries, then sentences."""
 
     boundaries = [0]
@@ -210,6 +235,18 @@ def _source_event_units(text: str, *, max_chars: int = 900) -> list[dict[str, An
             continue
         group = []
         for span in spans:
+            if group and any(
+                int(group[-1]["end_offset"]) <= int(offset) <= int(span["start_offset"])
+                for offset in split_offsets
+            ):
+                units.append(
+                    {
+                        "start": group[0]["start_offset"],
+                        "end": group[-1]["end_offset"],
+                        "spans": group,
+                    }
+                )
+                group = []
             proposed_start = group[0]["start_offset"] if group else span["start_offset"]
             if group and int(span["end_offset"]) - int(proposed_start) > max_chars:
                 units.append(
@@ -292,8 +329,12 @@ def _biography_section_ranges(
     return ranges
 
 
-_CHRONICLE_REIGN_HEADING = re.compile(
-    r"(?m)^\s*=+\s*([^\n=]*(?:皇帝)[^\n=]*)\s*=+\s*$"
+_CHRONICLE_HEADING = re.compile(r"(?m)^\s*=+\s*([^\n=]+?)\s*=+\s*$")
+_CHRONICLE_YEAR_HEADING = re.compile(
+    r"(?:元|[一二三四五六七八九十百]{1,4})年"
+)
+_CHRONICLE_TERMINAL_HEADING = re.compile(
+    r"^(?:贊|赞|校勘記|校勘记|附錄|附录|表|序)$"
 )
 
 
@@ -311,6 +352,8 @@ def _chronicle_ruler_active_ranges(
     *,
     ruler_name: str,
     identity_resolver: HistoricalEntityResolver,
+    ruler_window: str | None = None,
+    ruler_heading_terms: Sequence[str] = (),
 ) -> dict[str, list[tuple[int, int]]]:
     """Locate reign-heading ranges where chronicle pronouns mean this ruler.
 
@@ -325,6 +368,19 @@ def _chronicle_ruler_active_ranges(
         for term in identity_resolver.recall_terms(ruler_name)
         if term
     )
+    heading_terms = tuple(
+        dict.fromkeys(
+            _normalized_anchor(term)
+            for term in ruler_heading_terms
+            if str(term).strip()
+        )
+    )
+    window_match = re.fullmatch(r"\s*(\d{3,4})\s*-\s*(\d{3,4})\s*", ruler_window or "")
+    window_bounds = (
+        (int(window_match.group(1)), int(window_match.group(2)))
+        if window_match is not None
+        else None
+    )
     ranges_by_page: dict[str, list[tuple[int, int]]] = {}
     active = False
     current_work = None
@@ -333,14 +389,39 @@ def _chronicle_ruler_active_ranges(
             active = False
             current_work = str(page.work_title)
         transitions = [(0, active)]
-        for match in _CHRONICLE_REIGN_HEADING.finditer(str(page.raw_text)):
+        for match in _CHRONICLE_HEADING.finditer(str(page.raw_text)):
             heading = _normalized_anchor(match.group(1))
-            transitions.append(
-                (
-                    int(match.start()),
-                    any(term in heading for term in ruler_terms),
-                )
+            year_match = _COMMON_ERA_YEAR.search(match.group(1))
+            common_era_year = (
+                int(year_match.group(1).translate(_COMMON_ERA_DIGITS))
+                if year_match is not None
+                else None
             )
+            within_window = (
+                window_bounds is None
+                or common_era_year is None
+                or window_bounds[0] <= common_era_year <= window_bounds[1]
+            )
+            target_heading = any(
+                term in heading for term in (*ruler_terms, *heading_terms)
+            )
+            if target_heading:
+                next_state = within_window
+            elif (
+                "皇帝" in heading
+                or _CHRONICLE_YEAR_HEADING.search(heading)
+                or _CHRONICLE_TERMINAL_HEADING.fullmatch(heading)
+            ):
+                next_state = False
+            else:
+                # Editorial or nested topical headings do not silently end a
+                # reign. Only another emperor/year or a terminal appendix can.
+                next_state = transitions[-1][1]
+            transitions.append((int(match.start()), next_state))
+        if active or any(state for _, state in transitions):
+            for death in _RULER_DEATH.finditer(str(page.raw_text)):
+                transitions.append((int(death.start()), False))
+        transitions.sort(key=lambda row: row[0])
         page_ranges = []
         for index, (start, state) in enumerate(transitions):
             end = (
@@ -353,6 +434,75 @@ def _chronicle_ruler_active_ranges(
         active = transitions[-1][1]
         ranges_by_page[str(page.page_title)] = page_ranges
     return ranges_by_page
+
+
+def _candidate_actor_name(value: str) -> str | None:
+    value = value.strip("，。、；：『』「」“” ")
+    value = re.sub(r"^(?:以|其弟|其子|其將|其将|則|则|召)", "", value)
+    matches = list(_ACTOR_TITLE_SUFFIX.finditer(value))
+    if matches:
+        value = value[matches[-1].end():]
+    value = value.strip("，。、；： ")
+    simplified = _T2S.convert(value)
+    if (
+        not re.fullmatch(r"[\u3400-\u9fff]{2,5}", value)
+        or any(
+            marker in value
+            for marker in (
+                "其", "等", "代", "並", "并", "俱", "若", "乃", "為", "为",
+                "所", "與", "与", "之", "言", "地", "宮", "宫", "軍", "军",
+                "兵", "官", "事", "術", "术", "詔", "诏", "命",
+            )
+        )
+        or simplified in {
+            "唯别", "上金", "旧安西夏", "妾请", "虏相", "皇帝", "吾属", "兴昔亡"
+        }
+        or simplified.endswith(("先", "果", "至京", "擐甲"))
+    ):
+        return None
+    if (
+        value in _COLLECTIVE_ACTOR_NAMES
+        or simplified in {_T2S.convert(name) for name in _COLLECTIVE_ACTOR_NAMES}
+        or simplified.endswith(("国", "军", "兵", "众", "部", "州", "县", "城"))
+    ):
+        return None
+    return value
+
+
+def _explicit_actor_names(text: str) -> list[str]:
+    """Return only names occupying an explicit appointment/command slot."""
+
+    candidates = []
+    trigger_prefix = r"(?:^|[，；。]|上)(?:仍|乃|又|因)?"
+    for triggers, action in (
+        (r"(?:詔起|诏起|詔以|诏以|詔|诏|以)", _APPOINTMENT_ACTION),
+        (r"(?:敕|命|遣)", _COMMAND_ACTION),
+    ):
+        for match in re.finditer(
+            rf"{trigger_prefix}{triggers}"
+            rf"(?P<prefix>[^，；。：「」\n]{{2,30}}?)(?={action})",
+            text,
+        ):
+            candidate = _candidate_actor_name(match.group("prefix"))
+            if candidate:
+                candidates.append(candidate)
+    for match in re.finditer(
+        rf"(?:^|[，；、])(?P<name>[\u3400-\u9fff]{{2,6}})"
+        rf"(?=為(?:[\u3400-\u9fff]{{0,12}}(?:總管|总管|大使|都督|將軍|将军|留守)))",
+        text,
+    ):
+        candidate = _candidate_actor_name(match.group("name"))
+        if candidate:
+            candidates.append(candidate)
+    for match in re.finditer(
+        r"(?:^|[，；。])(?P<name>[\u3400-\u9fff]{2,6})(?:等)?"
+        r"(?=引兵|帥|率兵|棄軍|弃军|拒守)",
+        text,
+    ):
+        candidate = _candidate_actor_name(match.group("name"))
+        if candidate:
+            candidates.append(candidate)
+    return list(dict.fromkeys(candidates))
 
 
 def _canonicalize_result(
@@ -412,7 +562,10 @@ def _canonicalize_result(
                     actor["canonical_name"] = resolution.canonical_name
                     actor["subject_ref"] = resolution.person_ref
                 elif identity_resolver is not None:
-                    actor["subject_ref"] = None
+                    mapped = subject_ref_by_name.get(
+                        str(actor.get("canonical_name") or "")
+                    ) or subject_ref_by_name.get(source_name)
+                    actor["subject_ref"] = mapped if mapped in allowed else None
                 else:
                     mapped = subject_ref_by_name.get(
                         str(actor.get("canonical_name") or "")
@@ -718,8 +871,16 @@ def build_ruler_neutral_plan(
     allowed_works: Sequence[str] | None = None,
     allowed_page_ranges: Mapping[str, Sequence[int]] | None = None,
     shared_subjects: Mapping[str, str] | None = None,
+    ruler_window: str | None = None,
+    discover_explicit_actors: bool = True,
+    ruler_heading_terms: Sequence[str] = (),
 ) -> dict[str, Any]:
     continuous_backbone = bool(allowed_page_ranges)
+    bounded_independent_window = bool(
+        continuous_backbone
+        and not shared_subjects
+        and re.fullmatch(r"\s*\d{3,4}\s*-\s*\d{3,4}\s*", ruler_window or "")
+    )
     ruler_name = str(source_pack["ruler"])
     subject_refs = {
         str(source_pack["ruler"]): str(source_pack["ruler_ref"]),
@@ -755,7 +916,11 @@ def build_ruler_neutral_plan(
     }
     chronicle_ranges_by_ruler = {
         name: _chronicle_ruler_active_ranges(
-            list(pages.values()), ruler_name=name, identity_resolver=identity_resolver
+            list(pages.values()),
+            ruler_name=name,
+            identity_resolver=identity_resolver,
+            ruler_window=ruler_window if name == ruler_name else None,
+            ruler_heading_terms=ruler_heading_terms if name == ruler_name else (),
         )
         for name in ([ruler_name, *sorted(shared_subjects or {})] if continuous_backbone else [])
     }
@@ -767,6 +932,8 @@ def build_ruler_neutral_plan(
                 str(member["person"])
             )
     batches = []
+    provisional_subject_bindings: dict[str, dict[str, Any]] = {}
+    dynasty_token = identity_resolver.entity_for_name(ruler_name).dynasty
     for page_title, names in sorted(page_subjects.items()):
         page = pages.get(page_title)
         if page is None:
@@ -801,7 +968,11 @@ def build_ruler_neutral_plan(
             for name in names
         }
         units = _source_event_units(
-            page.raw_text, max_chars=420 if biography_ranges else 900
+            page.raw_text,
+            max_chars=420 if biography_ranges else 900,
+            split_offsets=[
+                match.start() for match in _RULER_DEATH.finditer(page.raw_text)
+            ],
         )
         selected: dict[tuple[int, int], dict[str, Any]] = {}
         for unit in units:
@@ -857,6 +1028,8 @@ def build_ruler_neutral_plan(
         for row in selected.values():
             text = page.raw_text[int(row["start"]): int(row["end"])]
             names_in_text_set = set(row["names"])
+            if bounded_independent_window and not row["chronicle_ruler_active"]:
+                names_in_text_set.clear()
             if allowed_page_ranges:
                 normalized_segment = _normalized_anchor(text)
                 # Directed backsource pages are often selected through a
@@ -870,13 +1043,57 @@ def build_ruler_neutral_plan(
                     *(str(member["person"]) for member in source_pack.get("members") or ()),
                     *(str(name) for name in (shared_subjects or {})),
                 ]
-                for member_name in dict.fromkeys(configured_names):
+                for member_name in (
+                    dict.fromkeys(configured_names)
+                    if not bounded_independent_window
+                    or row["chronicle_ruler_active"]
+                    else ()
+                ):
                     if any(
                         _normalized_anchor(term) in normalized_segment
                         for term in identity_resolver.recall_terms(member_name)
                         if term
                     ):
                         names_in_text_set.add(member_name)
+                for actor_name in (
+                    _explicit_actor_names(text)
+                    if discover_explicit_actors
+                    and (
+                        not bounded_independent_window
+                        or row["chronicle_ruler_active"]
+                    )
+                    else ()
+                ):
+                    try:
+                        resolved = identity_resolver.resolve_any(
+                            actor_name, dynasty=dynasty_token
+                        )
+                    except ValueError:
+                        resolved = None
+                    if resolved is not None and resolved.status == "resolved":
+                        names_in_text_set.add(str(resolved.canonical_name))
+                        continue
+                    canonical_name = _T2S.convert(actor_name)
+                    person_ref = (
+                        "PER-ACTOR-"
+                        + sha256(
+                            f"{dynasty_token.upper()}::{canonical_name}".encode("utf-8")
+                        ).hexdigest()[:12].upper()
+                    )
+                    subject_refs.setdefault(canonical_name, person_ref)
+                    provisional_subject_bindings[person_ref] = {
+                        "subject_ref": person_ref,
+                        "canonical_name": canonical_name,
+                        "aliases": [
+                            {
+                                "surface": actor_name,
+                                "alias_type": "source_surface",
+                                "contextual": False,
+                            }
+                        ],
+                        "identity_status": "provisional_actor_name",
+                    }
+                    names_in_text_set.add(canonical_name)
             names_in_text = sorted(names_in_text_set)
             refs = sorted(subject_refs[name] for name in names_in_text)
             identity = {
@@ -967,18 +1184,40 @@ def build_ruler_neutral_plan(
             {
                 "ruler": source_pack["ruler"],
                 "subjects": subject_refs,
-                "identity_bindings": identity_resolver.bindings(sorted(subject_refs.values())),
+                "identity_bindings": [
+                    *identity_resolver.bindings(sorted(subject_refs.values())),
+                    *[
+                        provisional_subject_bindings[key]
+                        for key in sorted(provisional_subject_bindings)
+                    ],
+                ],
                 "allowed_works": sorted(allowed_work_set),
                 "allowed_page_ranges": dict(allowed_page_ranges or {}),
+                "ruler_heading_terms": sorted(
+                    str(value) for value in ruler_heading_terms
+                ),
                 "segmentation": NEUTRAL_EXTRACTION_POLICY_VERSION,
             }
         ),
+        "provisional_subject_bindings": [
+            provisional_subject_bindings[key]
+            for key in sorted(provisional_subject_bindings)
+        ],
         "page_batches": batches,
     }
 
 
 def _normalized_anchor(value: str) -> str:
     return "".join(_T2S.convert(str(value)).split())
+
+
+def _safe_recall_terms(
+    identity_resolver: HistoricalEntityResolver, canonical_name: str
+) -> tuple[str, ...]:
+    try:
+        return identity_resolver.recall_terms(canonical_name)
+    except ValueError:
+        return (canonical_name,)
 
 
 def _semantic_event_anchors(
@@ -1082,7 +1321,9 @@ def build_backbone_event_signatures(
                 subject_rows[str(subject_ref)] = {
                     "subject_ref": str(subject_ref),
                     "canonical_name": canonical_name,
-                    "recall_terms": list(identity_resolver.recall_terms(canonical_name)),
+                    "recall_terms": list(
+                        _safe_recall_terms(identity_resolver, canonical_name)
+                    ),
                 }
         quote_lineage = [
             {
@@ -1161,14 +1402,34 @@ def build_deterministic_backbone_event_signatures(
                 str(value) for value in segment.get("subject_refs") or ()
             }
             for name in segment.get("subject_names") or ():
-                subject_ref = identity_resolver.entity_for_name(str(name)).person_ref
+                try:
+                    subject_ref = identity_resolver.entity_for_name(str(name)).person_ref
+                except ValueError:
+                    subject_ref = next(
+                        (
+                            str(value)
+                            for value in segment.get("subject_refs") or ()
+                            if str(value).startswith("PER-ACTOR-")
+                            and any(
+                                str(binding.get("canonical_name") or "") == str(name)
+                                and str(binding.get("subject_ref") or "") == str(value)
+                                for binding in backbone_plan.get(
+                                    "provisional_subject_bindings"
+                                )
+                                or ()
+                            )
+                        ),
+                        "",
+                    )
                 if subject_ref not in allowed_refs:
                     raise ValueError(f"{segment['segment_ref']}: 人物名称与 subject_ref 不一致")
                 bindings.append(
                     {
                         "subject_ref": str(subject_ref),
                         "canonical_name": str(name),
-                        "recall_terms": list(identity_resolver.recall_terms(str(name))),
+                        "recall_terms": list(
+                            _safe_recall_terms(identity_resolver, str(name))
+                        ),
                     }
                 )
             source_text = str(segment["text"])
@@ -1458,7 +1719,7 @@ def _event_target_batches(
         for row in signature.get("subject_bindings") or ()
     }
     recall_terms_by_subject = {
-        name: tuple(identity_resolver.recall_terms(name))
+        name: tuple(_safe_recall_terms(identity_resolver, name))
         for name in signature_subjects
     }
     normalized_recall_terms_by_subject = {
@@ -2187,7 +2448,8 @@ def extract_current_neutral_materials(
     }
     current_segments: dict[str, tuple[str, str, Mapping[str, Any], Sequence[str]]] = {}
     conflicting_current_segments: set[str] = set()
-    for current_result in current_results.values():
+
+    def register_seed_result(current_result: Mapping[str, Any]) -> None:
         page_title = str(current_result.get("page_title") or "")
         revision_ref = str(current_result.get("revision_ref") or "")
         limitations = tuple(
@@ -2201,8 +2463,26 @@ def extract_current_neutral_materials(
             previous = current_segments.get(segment_ref)
             if previous is not None and _digest(previous[2]) != _digest(review):
                 conflicting_current_segments.add(segment_ref)
+            else:
+                current_segments[segment_ref] = candidate
+
+    for current_result in current_results.values():
+        register_seed_result(current_result)
+    # Contract repairs can change subject bindings and therefore batch refs
+    # without changing most source segments. Recover old checkpoint reviews as
+    # untrusted seeds; seed_current_segments re-canonicalizes each review
+    # against the exact new segment and validates quotes/ownership before use.
+    if checkpoint_dir.is_dir():
+        for checkpoint_path in sorted(checkpoint_dir.glob("*.json")):
+            try:
+                checkpoint_payload = json.loads(
+                    checkpoint_path.read_text(encoding="utf-8")
+                )
+                checkpoint_result = checkpoint_payload.get("result")
+                if isinstance(checkpoint_result, Mapping):
+                    register_seed_result(checkpoint_result)
+            except (OSError, ValueError, json.JSONDecodeError):
                 continue
-            current_segments[segment_ref] = candidate
     for segment_ref in conflicting_current_segments:
         current_segments.pop(segment_ref, None)
     current_fingerprints = dict((current or {}).get("batch_fingerprints") or {})
@@ -2437,6 +2717,20 @@ def extract_current_neutral_materials(
                 }
                 for binding in subject_bindings
             ]
+            known_binding_refs = {
+                str(binding["subject_ref"]) for binding in subject_bindings
+            }
+            subject_bindings.extend(
+                {
+                    "canonical_name": name,
+                    "subject_ref": subject_ref_by_name[name],
+                    "aliases": [],
+                    "identity_status": "provisional_actor_name",
+                }
+                for name in sorted(subject_ref_by_name)
+                if subject_ref_by_name[name] in allowed_subject_refs
+                and subject_ref_by_name[name] not in known_binding_refs
+            )
         else:
             subject_bindings = [
                 {

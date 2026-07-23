@@ -2308,6 +2308,54 @@ def test_claimed_session_cannot_publish_without_every_stage_gate(
     assert session["stage"] == "failed_reusable"
 
 
+def test_failed_session_can_adopt_repaired_release_without_losing_checkpoint(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    release_sha = {"value": "1" * 40}
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_release_identity",
+        lambda _root: release_sha["value"],
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-UPGRADE",
+        ruler="李治",
+        model_slot_count=1,
+    )
+    lease_path = (
+        state
+        / "session-control/sessions/SESSION-UPGRADE/current.json"
+    )
+    failed = json.loads(lease_path.read_text(encoding="utf-8"))
+    failed["stage"] = "failed_reusable"
+    lease_path.write_text(
+        json.dumps(failed, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    checkpoint = Path(lease["runtime_root"]) / "checkpoint/keep.json"
+    checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint.write_text("{}\n", encoding="utf-8")
+    release_sha["value"] = "2" * 40
+
+    report = emperor_session_control.upgrade_failed_session_release(
+        state_root=state,
+        session_id="SESSION-UPGRADE",
+        release_root=release,
+    )
+    upgraded = json.loads(lease_path.read_text(encoding="utf-8"))
+
+    assert report["from_release_sha"] == "1" * 40
+    assert report["release_sha"] == "2" * 40
+    assert report["checkpoint_preserved"] is True
+    assert checkpoint.is_file()
+    assert upgraded["stage"] == "failed_reusable"
+    assert upgraded["release_sha"] == "2" * 40
+
+
 def test_claimed_session_can_pause_after_outcome_review_gate(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -4277,6 +4325,133 @@ def test_backbone_range_scans_every_unit_and_bounds_ruler_pronouns(
     assert "世民" in resolver.recall_terms("李世民")
 
 
+def test_independent_backbone_closes_explicit_actors_and_stops_at_ruler_death(
+    tmp_path: Path,
+) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李治/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=source_pack
+    )
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "資治通鑑/卷203",
+                "work_title": "資治通鑑",
+                "source_url": "local:203",
+                "revision_ref": "1",
+                "raw_text": (
+                    "=== 高宗天皇大聖大弘孝皇帝下弘道元年（癸未，公元六八三年）===\n"
+                    "以左武衛大將軍程務挺為單于道安撫大使，以備突厥。\n"
+                    "上崩於貞觀殿。命劉仁軌專知西京留守事。\n"
+                    "=== 高宗天皇大聖大弘孝皇帝下光宅元年（甲申，公元六八四年）===\n"
+                    "詔以李孝逸為左玉鈐衛大將軍，討徐敬業。"
+                ),
+            }
+        ],
+        index_path,
+    )
+
+    plan = build_ruler_neutral_plan(
+        source_pack=source_pack,
+        source_index=LocalSourceTextIndex(index_path),
+        inventory={"subjects": []},
+        identity_resolver=resolver,
+        allowed_works=["資治通鑑"],
+        allowed_page_ranges={"資治通鑑": [203, 203]},
+        ruler_window="649-683",
+    )
+    segments = [
+        segment
+        for batch in plan["page_batches"]
+        for segment in batch["segments"]
+    ]
+    appointment = next(segment for segment in segments if "程務挺" in segment["text"])
+    assert "李治" in appointment["subject_names"]
+    assert "程务挺" in appointment["subject_names"]
+    provisional = next(
+        row
+        for row in plan["provisional_subject_bindings"]
+        if row["canonical_name"] == "程务挺"
+    )
+    assert provisional["identity_status"] == "provisional_actor_name"
+    assert provisional["subject_ref"] in appointment["subject_refs"]
+    assert all(
+        segment.get("chronicle_ruler_ref") != source_pack["ruler_ref"]
+        for segment in segments
+        if "劉仁軌專知" in segment["text"] or "徐敬業" in segment["text"]
+    )
+
+
+@pytest.mark.parametrize(
+    ("heading_terms", "active_heading"),
+    [
+        (["洪武"], "洪武元年"),
+        (["建隆", "乾德", "開寶"], "乾德元年"),
+        (["康熙"], "康熙元年"),
+        (["秦始皇帝"], "秦始皇帝"),
+    ],
+)
+def test_chronicle_heading_contract_is_dynasty_agnostic(
+    tmp_path: Path,
+    heading_terms: list[str],
+    active_heading: str,
+) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李治/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=source_pack
+    )
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "编年史/卷1",
+                "work_title": "编年史",
+                "source_url": "local:1",
+                "revision_ref": "1",
+                "raw_text": (
+                    f"== {active_heading} ==\n上命甲统兵。\n"
+                    "== 贊 ==\n后世论其功。"
+                ),
+            }
+        ],
+        index_path,
+    )
+
+    plan = build_ruler_neutral_plan(
+        source_pack=source_pack,
+        source_index=LocalSourceTextIndex(index_path),
+        inventory={"subjects": []},
+        identity_resolver=resolver,
+        allowed_works=["编年史"],
+        allowed_page_ranges={"编年史": [1, 1]},
+        ruler_window="649-683",
+        ruler_heading_terms=heading_terms,
+    )
+    segments = [
+        segment
+        for batch in plan["page_batches"]
+        for segment in batch["segments"]
+    ]
+
+    assert next(
+        segment for segment in segments if "上命甲统兵" in segment["text"]
+    )["chronicle_ruler_ref"] == source_pack["ruler_ref"]
+    assert all(
+        segment.get("chronicle_ruler_ref") != source_pack["ruler_ref"]
+        for segment in segments
+        if "后世论其功" in segment["text"]
+    )
+
+
 def test_deterministic_backbone_campaign_discovery_routes_only_ambiguity() -> None:
     source_pack = json.loads(
         (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
@@ -5113,7 +5288,9 @@ def test_seeded_invalid_neutral_segment_retries_without_fresh_page_group(
     assert (tmp_path / "checkpoint/BATCH-1.json").is_file()
 
 
-def test_neutral_segment_reuse_survives_batch_regrouping(tmp_path: Path) -> None:
+def test_neutral_checkpoint_segment_reuse_survives_batch_regrouping(
+    tmp_path: Path,
+) -> None:
     segment = {
         "segment_ref": "SEG-STABLE",
         "start_offset": 0,
@@ -5162,6 +5339,18 @@ def test_neutral_segment_reuse_survives_batch_regrouping(tmp_path: Path) -> None
             }
         ],
     }
+    checkpoint_dir = tmp_path / "checkpoint"
+    checkpoint_dir.mkdir()
+    (checkpoint_dir / "BATCH-OLD.json").write_text(
+        json.dumps(
+            {
+                "batch_fingerprint": "OLD",
+                "result": current["batch_results"][0],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
 
     class NoCallRunner:
         def run(self, _prompt: str):
@@ -5169,10 +5358,10 @@ def test_neutral_segment_reuse_survives_batch_regrouping(tmp_path: Path) -> None
 
     output = extract_current_neutral_materials(
         plan=plan,
-        current=current,
+        current=None,
         runner=NoCallRunner(),
         max_workers=1,
-        checkpoint_dir=tmp_path / "checkpoint",
+        checkpoint_dir=checkpoint_dir,
         subject_ref_by_name={"人物": "PER-1"},
     )
 
