@@ -211,21 +211,49 @@ def _appointment_outcome_options(
     policy: Mapping[str, Any],
 ) -> dict[str, str]:
     projection = policy["rules"]["appointment_delegation"]["outcome_registry_projection"]
-    scale = str(cluster["scale"]["level"])
     responsibility = member.get("delegated_responsibility") or {}
     importance = str(responsibility.get("scope") or "")
-    if not importance or not responsibility.get("basis") or not responsibility.get("authorization_refs"):
+    if (
+        not importance
+        or not responsibility.get("importance_basis")
+        or not responsibility.get("basis")
+        or not responsibility.get("authorization_refs")
+    ):
         raise ValueError(
-            f"{cluster['outcome_ref']}:{member['actor_ref']} 缺少独立于成果规模的授权责任范围"
+            f"{cluster['outcome_ref']}:{member['actor_ref']} "
+            "缺少独立于成果规模的授权责任范围或重要度依据"
         )
-    effect = str(
-        responsibility.get("appointment_effect")
-        or (
-            "weak_feedback"
-            if str(cluster["result_direction"]) == "mixed"
-            else projection["effect_by_result_scale"][scale]
+    if responsibility.get("appointment_effect"):
+        effect = str(responsibility["appointment_effect"])
+    elif (
+        str(cluster["result_direction"]) == "mixed"
+        or str((cluster.get("payload") or {}).get("objective_completion") or "")
+        == "partial"
+    ):
+        effect = str(projection["mixed_or_partial_effect"])
+    elif str(cluster["outcome_kind"]) == "campaign":
+        effect = str(
+            projection["effect_by_campaign_result_class"][
+                str((cluster.get("payload") or {})["strategic_result_class"])
+            ]
         )
-    )
+    else:
+        consequence_basis = str(cluster["scale"]["consequence_basis"])
+        exceptional_bases = set(
+            projection[
+                "governance_exceptional_consequence_bases"
+                if str(cluster["outcome_kind"]) == "governance"
+                else "statecraft_exceptional_consequence_bases"
+            ]
+        )
+        effect = (
+            "exceptional_success"
+            if consequence_basis in exceptional_bases
+            else "normal_success"
+            if str(cluster["scale"]["level"])
+            in set(projection["bounded_result_scales"])
+            else "major_success"
+        )
     payload = cluster.get("payload") or {}
     continuity_projection = projection["continuity_by_delivery"]
     continuity = str(
@@ -298,6 +326,7 @@ def _outcome_appointment_materials(
             fact = (
                 f"{person}以{(CAMPAIGN_ROLES if kind == 'campaign' else GOVERNANCE_ROLES)[role]}"
                 f"身份承担“{cluster['canonical_label']}”；"
+                f"责任重要度依据：{responsibility['importance_basis']}；"
                 f"个人责任范围：{responsibility['basis']}；"
                 f"所处公共成果：{cluster['observable_result']}"
             )

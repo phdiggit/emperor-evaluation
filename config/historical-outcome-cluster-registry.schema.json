@@ -71,19 +71,30 @@
         "delegated_responsibility": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["scope", "basis", "authorization_refs"],
+          "required": [
+            "scope", "importance_basis", "basis", "authorization_refs"
+          ],
           "properties": {
             "authorizer_ref": {"type": "string", "minLength": 1},
-              "scope": {
-                "enum": ["nominal_or_light", "real_bounded", "major_affairs", "critical_national_or_long_term"]
-              },
-              "appointment_effect": {
-                "enum": ["weak_feedback", "normal_success", "major_success", "exceptional_success"]
-              },
-              "continuity_factor": {
-                "enum": ["short_or_one_off", "stable", "long_term_multi_stage"]
-              },
-              "basis": {"type": "string", "minLength": 1},
+            "scope": {
+              "enum": [
+                "nominal_or_light", "real_bounded", "major_affairs",
+                "critical_national_or_long_term"
+              ]
+            },
+            "appointment_effect": {
+              "enum": [
+                "weak_feedback", "normal_success", "major_success",
+                "exceptional_success"
+              ]
+            },
+            "continuity_factor": {
+              "enum": [
+                "short_or_one_off", "stable", "long_term_multi_stage"
+              ]
+            },
+            "importance_basis": {"type": "string", "minLength": 1},
+            "basis": {"type": "string", "minLength": 1},
             "authorization_refs": {
               "type": "array", "minItems": 1, "uniqueItems": true,
               "items": {"type": "string", "minLength": 1}

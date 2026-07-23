@@ -143,12 +143,21 @@ rules:
       importance_source: member.delegated_responsibility.scope
       effect_override_source: member.delegated_responsibility.appointment_effect
       continuity_override_source: member.delegated_responsibility.continuity_factor
-      effect_by_result_scale:
-        local: normal_success
-        important: major_success
-        regional: major_success
-        national: exceptional_success
-        era_shaping: exceptional_success
+      mixed_or_partial_effect: weak_feedback
+      effect_by_campaign_result_class:
+        local_tactical: normal_success
+        important_objective: normal_success
+        major_stage_or_crisis: major_success
+        independent_direction: exceptional_success
+        single_pole_or_state_terminal: exceptional_success
+        composite_poles_terminal: exceptional_success
+        unification_terminal: exceptional_success
+        external_hegemony_terminal: exceptional_success
+      governance_exceptional_consequence_bases:
+        [national_core_subsystem, era_order_reconstruction, civilization_foundational_corpus]
+      statecraft_exceptional_consequence_bases:
+        [state_survival, unification, era_order_reconstruction]
+      bounded_result_scales: [local]
       continuity_by_delivery:
         durable_cross_stage: long_term_multi_stage
         stable_delivery: stable

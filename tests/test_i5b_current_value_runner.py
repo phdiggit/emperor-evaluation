@@ -2831,8 +2831,8 @@ def test_appointment_budget_counts_aggregated_objects_not_internal_chains() -> N
         row for row in appointment["settled_objects"] if row["subject"] == "长孙无忌"
     )
     assert fang["supporting_chain_count"] == 4
-    assert fang["object_aggregate_magnitude"] == "6.271238"
-    assert fang["actual_signal_contribution"] == "9.406857"
+    assert fang["object_aggregate_magnitude"] == "6.165294"
+    assert fang["actual_signal_contribution"] == "9.247941"
     assert zhangsun["supporting_chain_count"] == 1
     assert zhangsun["actual_signal_contribution"] == "4.781700"
 
@@ -6632,13 +6632,13 @@ def test_liyuan_appointment_uses_harmonic_decay_without_person_cap() -> None:
 
     assert "same_object_value_cap" not in appointment
     assert Decimal(objects["李世民"]["object_aggregate_magnitude"]) == Decimal(
-        "5.192344"
+        "5.540013"
     )
     assert Decimal(objects["李靖"]["object_aggregate_magnitude"]) == Decimal(
-        "4.490750"
+        "4.261583"
     )
     assert Decimal(objects["刘文静"]["object_aggregate_magnitude"]) == Decimal(
-        "2.840063"
+        "2.629688"
     )
     assert (
         Decimal(objects["李世民"]["object_aggregate_magnitude"])
@@ -6660,6 +6660,10 @@ def test_liyuan_appointment_uses_harmonic_decay_without_person_cap() -> None:
         row for row in wude_code["members"] if row["actor_name"] == "刘文静"
     )
     assert liu_wenjing["role_code"] == "governance_participant"
+    assert liu_wenjing["delegated_responsibility"]["scope"] == "major_affairs"
+    assert "未覆盖国家存亡或全国核心制度" in (
+        liu_wenjing["delegated_responsibility"]["importance_basis"]
+    )
     assert liu_wenjing["delegated_responsibility"]["appointment_effect"] == (
         "major_success"
     )
@@ -6675,6 +6679,72 @@ def test_liyuan_appointment_uses_harmonic_decay_without_person_cap() -> None:
     assert "个人责任范围：奉诏与通识之士据开皇律令完成初期损益编修" in (
         liu_material["fact"]
     )
+
+
+@pytest.mark.parametrize(
+    ("ruler", "subject", "label", "importance", "effect"),
+    [
+        (
+            "李渊",
+            "李世民",
+            "柏壁—介休平刘武周宋金刚战役群",
+            "critical_national_or_long_term",
+            "exceptional_success",
+        ),
+        (
+            "李渊",
+            "李世民",
+            "洛阳—虎牢灭王世充窦建德战役群",
+            "critical_national_or_long_term",
+            "exceptional_success",
+        ),
+        (
+            "李渊",
+            "李靖",
+            "李靖在灵州硖石击退突厥",
+            "major_affairs",
+            "normal_success",
+        ),
+        (
+            "李世民",
+            "房玄龄",
+            "贞观五代史官修工程",
+            "major_affairs",
+            "major_success",
+        ),
+        (
+            "刘邦",
+            "韩信",
+            "垓下灭楚终局战役群",
+            "critical_national_or_long_term",
+            "exceptional_success",
+        ),
+    ],
+)
+def test_appointment_importance_and_effect_use_independent_boundaries(
+    ruler: str,
+    subject: str,
+    label: str,
+    importance: str,
+    effect: str,
+) -> None:
+    report = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value" / ruler / "source-pack.json"
+    )
+    appointment = next(
+        row
+        for row in report["material_budget"]["rules"]
+        if row["rule_code"] == "appointment_delegation"
+    )
+    material = next(
+        row
+        for row in appointment["settled_materials"]
+        if row["subject"] == subject and label in row["fact"]
+    )
+
+    assert material["factor_option_codes"]["appointment_importance"] == importance
+    assert material["factor_option_codes"]["appointment_effect"] == effect
+    assert "责任重要度依据：" in material["fact"]
 
 
 @pytest.mark.parametrize(
