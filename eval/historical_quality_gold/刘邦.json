@@ -867,6 +867,18 @@
               }
             ],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "汉军在北方连续作战后深入平城，匈奴具备压倒性机动优势并能直接围困皇帝及汉军主力。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若最高统帅和被围主力不能脱出，新建汉朝的军事中枢与政权存续将直接受威胁。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -958,9 +970,33 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“消灭陈豨叛乱并恢复北方郡县控制”；对手属于区域主要对手，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "灌婴",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "周勃",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -969,12 +1005,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "frontline_command",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "周勃",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -992,7 +1022,9 @@
       },
       "source_refs": [
         "史記/卷093@cache-a877c2b43dc07a7c#九月，遂与王黄等反，自立为代王，劫略赵、代。",
-        "史記/卷057@1569360#定雁门郡十七县，云中郡十二县。"
+        "史記/卷057@1569360#定雁门郡十七县，云中郡十二县。",
+        "漢書/卷001@cache-1c3faa6be9c74cc8#太尉周勃道太原入定代地",
+        "漢書/卷041@cache-c490feba12ab49ae#从击陈豨，别攻豨丞相侯敞军曲逆下"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1055,6 +1087,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“消灭项羽主要竞争政权并完成统一”；对手属于主导竞争极，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将直接威胁首都、核心根据地、国家主力或全国统一成败。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": []
@@ -1136,9 +1180,39 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“终结韩王信叛乱并恢复太原代地门户控制”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "灌婴",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "周勃",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "柴武",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -1147,12 +1221,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "frontline_command",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "周勃",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -1170,7 +1238,10 @@
       },
       "source_refs": [
         "史記/卷093@cache-a877c2b43dc07a7c#七年冬，上自往击，破信军铜鞮，斩其将王喜。信亡走匈奴。",
-        "史記/卷057@1569360#击韩信、陈豨、赵利军于楼烦，破之。"
+        "史記/卷057@1569360#击韩信、陈豨、赵利军于楼烦，破之。",
+        "漢書/卷001@cache-1c3faa6be9c74cc8#将军柴武斩韩王信于参合",
+        "漢書/卷041@cache-c490feba12ab49ae#别降楼烦以北六县",
+        "漢書/卷041@cache-c490feba12ab49ae#又受诏并将燕、赵、齐、梁、楚车骑"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1221,9 +1292,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“控制北方主要方向并压缩楚方战略空间”；对手属于区域主要对手，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -1232,12 +1321,6 @@
             "role_code": "not_in_command_chain",
             "ruler_campaign_relation": "authorization_only",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "韩信",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
           }
         ],
         "require_parent_link": true
@@ -1309,18 +1392,21 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "楚汉主力长期相持后进入全国终局，项羽仍是能够决定天下归属的主导竞争极。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若会师决战失败，汉方统一终局将被逆转，既有联盟和全国军事优势可能瓦解。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
-          {
-            "actor_kind": "ruler",
-            "actor_name": "刘邦",
-            "control_extent": "partial",
-            "obstruction_status": "none",
-            "role_code": "principal_commander",
-            "ruler_campaign_relation": "operational_direction",
-            "sovereign_at_event": true
-          },
           {
             "actor_kind": "person",
             "actor_name": "韩信",
@@ -1332,6 +1418,15 @@
             "actor_name": "英布",
             "role_code": "principal_commander",
             "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "control_extent": "partial",
+            "obstruction_status": "none",
+            "role_code": "principal_commander",
+            "ruler_campaign_relation": "operational_direction",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -1405,9 +1500,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击破齐楚联军并平定齐地”；对手属于第一梯队竞争极，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "韩信",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -1416,12 +1529,6 @@
             "role_code": "not_in_command_chain",
             "ruler_campaign_relation": "authorization_only",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "韩信",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
           }
         ],
         "require_parent_link": true
@@ -1493,18 +1600,21 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“消灭魏王豹政权并控制河东门户”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
-          {
-            "actor_kind": "ruler",
-            "actor_name": "刘邦",
-            "authorization_mode": "explicit",
-            "obstruction_status": "none",
-            "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorization_only",
-            "sovereign_at_event": true
-          },
           {
             "actor_kind": "person",
             "actor_name": "韩信",
@@ -1513,9 +1623,24 @@
           },
           {
             "actor_kind": "person",
+            "actor_name": "灌婴",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
             "actor_name": "曹参",
             "role_code": "principal_commander",
             "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "authorization_mode": "explicit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -1535,7 +1660,8 @@
       },
       "source_refs": [
         "史記/卷054@1490182#生得魏王豹",
-        "史記/卷055@2666612#及魏王豹反，使韩信将兵击之"
+        "史記/卷055@2666612#及魏王豹反，使韩信将兵击之",
+        "資治通鑑/卷009@cache-730a8d8652e0c7a9#汉王以韩信为左丞相，与灌婴、曹参俱击魏"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1594,6 +1720,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“终结卢绾叛乱并恢复东北控制”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -1679,6 +1817,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“经营梁地并持续截断楚军后方粮运”；对手属于主导竞争极，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -1770,17 +1920,26 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "刘邦被封汉中后失去关中核心，三秦阻断其东出；能否重新取得关中决定汉方是否保有统一战争根据地。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若不能还定三秦，汉方将被限制在巴蜀汉中，失去争夺天下所需的核心根据地和东向通道。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
           {
-            "actor_kind": "ruler",
-            "actor_name": "刘邦",
-            "control_extent": "sustained",
-            "obstruction_status": "none",
-            "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "frontline_command",
-            "sovereign_at_event": true
+            "actor_kind": "person",
+            "actor_name": "周勃",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
           },
           {
             "actor_kind": "person",
@@ -1789,10 +1948,13 @@
             "sovereign_at_event": false
           },
           {
-            "actor_kind": "person",
-            "actor_name": "周勃",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
+            "actor_kind": "ruler",
+            "actor_name": "刘邦",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
+            "role_code": "commander_in_chief",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -1862,9 +2024,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“先入关中并终结秦政权”；对手属于主导竞争极，已经受到削弱但仍可作战，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "樊哙",
+            "role_code": "participant",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -1873,12 +2053,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "frontline_command",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "樊哙",
-            "role_code": "participant",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -1967,9 +2141,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“终结英布叛乱并恢复淮南控制”；对手属于区域主要对手，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "灌婴",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -1978,12 +2170,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "frontline_command",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "灌婴",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -2001,7 +2187,8 @@
       },
       "source_refs": [
         "資治通鑑/卷012@cache-790693f46a67446c#遂族赫家，发兵反。",
-        "漢書/卷001@cache-1c3faa6be9c74cc8#上破布军于会缶，布走，令别将追之。"
+        "漢書/卷001@cache-1c3faa6be9c74cc8#上破布军于会缶，布走，令别将追之。",
+        "漢書/卷041@cache-c490feba12ab49ae#以车骑将军先出"
       ],
       "unit_kind": "campaign_group"
     },
@@ -2064,9 +2251,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“终结臧荼叛乱并恢复区域控制”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "灌婴",
+            "role_code": "participant",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
@@ -2075,12 +2280,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "frontline_command",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "灌婴",
-            "role_code": "participant",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -2880,7 +3079,10 @@
           },
           {
             "expected": [
-              "OUTCOME-QUALITY-00D8D77E3DA87015434B"
+              "OUTCOME-QUALITY-00D8D77E3DA87015434B",
+              "OUTCOME-QUALITY-906584A5507566463BCC",
+              "OUTCOME-QUALITY-AD575D15421EF2621DDA",
+              "OUTCOME-QUALITY-LB-HANXIN-WEI"
             ],
             "path": "talent_grade_rule_alignment.outcome_refs"
           },
@@ -3228,9 +3430,9 @@
       "appointment_delegation": {
         "negative_settled_unit_count": 1,
         "negative_signal": "3.187800",
-        "positive_settled_unit_count": 4,
-        "positive_signal": "19.398638",
-        "rule_raw_net": "16.210838"
+        "positive_settled_unit_count": 6,
+        "positive_signal": "31.391216",
+        "rule_raw_net": "28.203416"
       },
       "talent_discovery": {
         "negative_signal": "0.000000",
@@ -3267,11 +3469,11 @@
         "灌婴"
       ]
     },
-    "weighted_raw_signal": "9.330003"
+    "weighted_raw_signal": "13.647331"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v6",
-    "source_pack_sha256": "9ee8c99b2d2bb868be539a12f9744be8ea60068af17c2dd640a7095d82b1f094"
+    "source_pack_sha256": "a58a6aebd14f3853deb5beaf6397387cc5d46dc26e3ce73b561800051571a567"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

@@ -83,6 +83,12 @@ OPPONENT_WEIGHT_LABELS = {
     "external_hegemony": "外部霸权",
     "unclear": "不明",
 }
+STRATEGIC_STAKES_LABELS = {
+    "bounded": "局部可承受",
+    "major": "重大",
+    "critical": "关键",
+    "existential": "存亡级",
+}
 TEAM_FUNCTION_ROLES = {
     "strategic_decision": {"decision", "strategy", "coordination", "crisis_management"},
     "public_governance": {
@@ -1595,12 +1601,12 @@ def render_scoring_detail_markdown(
                     (
                         "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 | 状态 | 已实现结果 | 史源 |"
                         if outcome_kind in {"governance", "statecraft"}
-                        else "| 登记号 | 战役群 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | 战争成本 | 目标未完成 | 可归责失败 | 统治者控制 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
+                        else "| 登记号 | 战役群 | 战前背景 | 失败利害 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | 战争成本 | 目标未完成 | 可归责失败 | 统治者控制 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
                     ),
                     (
                         "| --- | --- | --- | --- | --- | --- | --- | --- |"
                         if outcome_kind in {"governance", "statecraft"}
-                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
                     ),
                 ]
             )
@@ -1696,6 +1702,9 @@ def render_scoring_detail_markdown(
                 )
                 lines.append(
                     f"| {cluster['outcome_ref']} | {cluster['canonical_label']} | "
+                    f"{payload.get('prewar_context') or '缺失'} | "
+                    f"{STRATEGIC_STAKES_LABELS.get(str(payload.get('strategic_stakes') or ''), '缺失')}；"
+                    f"{payload.get('failure_stakes') or '缺失'} | "
                     f"{payload.get('campaign_tier') or '缺失'} / {payload.get('strategic_result_class') or '缺失'} | "
                     f"{payload.get('combat_difficulty') or '缺失'}；{payload.get('combat_difficulty_basis') or '缺失'} | "
                     f"{CAMPAIGN_RESULT_LABELS.get(str(payload.get('battle_result') or ''), '缺失')} / "

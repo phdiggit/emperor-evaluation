@@ -778,6 +778,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "bounded",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击破逼近泾阳的突厥前锋”；对手属于能够压迫本国核心安全秩序的外部霸权，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，损失主要限于当前据点或单一战术目标，可由后续行动吸收。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -866,6 +878,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "晋阳已经失守，刘武周、宋金刚控制河东并向关中安全施压，唐军此前在该方向遭受重大损失。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若河东不能收复，李唐将失去起兵根本和关中东北屏障，政权存续直接受威胁。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -874,6 +898,15 @@
             "actor_name": "李世民",
             "role_code": "commander_in_chief",
             "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "authorization_mode": "tacit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -958,17 +991,26 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "东突厥长期能够深入唐朝核心疆域并迫使全国安全部署围绕其调整，汗国此时又遭内部分裂与灾荒削弱。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若多路出击失败，东突厥仍可恢复对关中及北方核心疆域的存亡级压迫。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
           {
-            "actor_kind": "ruler",
-            "actor_name": "李世民",
-            "authorization_mode": "explicit",
-            "obstruction_status": "none",
-            "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorization_only",
-            "sovereign_at_event": true
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
           },
           {
             "actor_kind": "person",
@@ -977,10 +1019,13 @@
             "sovereign_at_event": false
           },
           {
-            "actor_kind": "person",
-            "actor_name": "李勣",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "authorization_mode": "explicit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ]
       },
@@ -1067,9 +1112,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“侯君集率军迫使高昌投降，唐设置西州，取得西域战略门户。”；对手属于外部国家，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "侯君集",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -1078,12 +1141,6 @@
             "role_code": "not_in_command_chain",
             "ruler_campaign_relation": "authorization_only",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "侯君集",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -1188,9 +1245,39 @@
               }
             ],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "唐朝在国内秩序稳定后发动跨辽远征，高句丽依托山城、纵深和全国主力防御，战争目标包括连续拔城并压迫其国都方向。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，主要损失是远征主力、国力与东北战略主动权；不会立即造成唐朝核心政权崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李道宗",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "张亮",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -1199,12 +1286,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "frontline_command",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "李勣",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -1224,12 +1305,15 @@
       },
       "source_refs": [
         "舊唐書/卷199上@2638645#因名所幸山爲駐蹕山",
-        "舊唐書/卷199上@2638645#高麗傾國而來，存亡所系，一麾而敗，天佑我也！"
+        "舊唐書/卷199上@2638645#高麗傾國而來，存亡所系，一麾而敗，天佑我也！",
+        "新唐書/卷002@2017026#李世勣、馬周為遼東道行軍大總管",
+        "新唐書/卷002@2017026#張亮為平壤道行軍大總管",
+        "資治通鑑/卷197@1502835#遼東道副大總管江夏王道宗將兵數千至新城"
       ],
       "unit_kind": "campaign_group"
     },
     {
-      "canonical_label": "贞观二十一年辽东道再征高句丽战役群",
+      "canonical_label": "贞观二十一年两路再征高句丽战役群",
       "expectations": {
         "fields": [
           {
@@ -1287,9 +1371,33 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "前次亲征未能完成灭国目标，唐朝改用辽东道与青丘道偏师持续袭扰，使高句丽生产和守备长期承压。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若两路行动失败，唐朝将丧失后续战争的阶段主动并承受重要边境与远征损失，但不直接危及国家存续。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "牛进达",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -1298,12 +1406,6 @@
             "role_code": "principal_commander",
             "ruler_campaign_relation": "operational_direction",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "李勣",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -1314,16 +1416,19 @@
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
-          "贞观二十一年辽东道再征高句丽"
+          "贞观二十一年",
+          "两路再征高句丽"
         ],
         "label_terms_any": [
-          "贞观二十一年辽东道再征高句丽战役群"
+          "贞观二十一年两路再征高句丽战役群"
         ],
         "outcome_kind": "campaign"
       },
       "source_refs": [
         "資治通鑑/卷198@1502841#今若數遣偏師，更迭擾其疆場，使彼疲於奔命",
-        "資治通鑑/卷198@1502841#李世勣軍既渡遼，歷南蘇等數城，高麗多背城拒戰，世勣擊破其兵，焚其"
+        "資治通鑑/卷198@1502841#李世勣軍既渡遼，歷南蘇等數城，高麗多背城拒戰，世勣擊破其兵，焚其",
+        "資治通鑑/卷198@1502841#又以太子詹事李世勣為遼東道行軍大總管",
+        "資治通鑑/卷198@1502841#以左武衛大將軍牛進達為青丘道行軍大總管"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1390,9 +1495,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "王世充据洛阳，窦建德率援军西进；两个第一梯队竞争极存在合流并夹击唐军的现实可能。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若围洛与阻援同时失败，唐军主力及统一主动权可能一并丧失，直接逆转李唐统一与存续。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "尉迟敬德",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -1400,10 +1523,13 @@
             "sovereign_at_event": false
           },
           {
-            "actor_kind": "person",
-            "actor_name": "尉迟敬德",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "authorization_mode": "tacit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -1425,7 +1551,8 @@
       },
       "source_refs": [
         "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
-        "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德"
+        "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德",
+        "舊唐書/卷68@1757055#引爲右一府統軍"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1488,9 +1615,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "李世民即位之初政局未稳，颉利率军深入泾阳、渭水并直接逼近长安。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若危机处置失败，首都与新政权中枢将立即暴露在突厥主力威胁下。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "尉迟敬德",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -1499,12 +1644,6 @@
             "role_code": "commander_in_chief",
             "ruler_campaign_relation": "operational_direction",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "尉迟敬德",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -1559,15 +1698,21 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“清除梁师都割据并解除突厥援助下的北方残余威胁”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
-          {
-            "actor_kind": "person",
-            "actor_name": "柴绍",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
-          },
           {
             "actor_kind": "person",
             "actor_name": "薛万均",
@@ -1578,6 +1723,12 @@
             "actor_kind": "person",
             "actor_name": "薛万彻",
             "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "柴绍",
+            "role_code": "commander_in_chief",
             "sovereign_at_event": false
           }
         ],
@@ -1599,7 +1750,8 @@
         ]
       },
       "source_refs": [
-        "舊唐書/卷69@2610556#柴紹之擊梁師都，以萬徹為副。未至朔方數十里，突厥四面而至，官軍稍"
+        "舊唐書/卷69@2610556#柴紹之擊梁師都，以萬徹為副。未至朔方數十里，突厥四面而至，官軍稍",
+        "舊唐書/卷56@2413344#太宗遣右衛大將軍柴紹、殿中少監薛萬均討之"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1673,15 +1825,21 @@
               }
             ],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击溃入据河北的刘黑闼主力并恢复唐朝对山东地区的控制”；对手属于区域主要对手，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
-          {
-            "actor_kind": "ruler",
-            "actor_name": "李世民",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
-          },
           {
             "actor_kind": "person",
             "actor_name": "李勣",
@@ -1693,6 +1851,21 @@
             "actor_name": "尉迟敬德",
             "role_code": "participant",
             "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "authorization_mode": "tacit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -1789,6 +1962,18 @@
               }
             ],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击败并迫降薛仁杲，陇右平定。”；对手属于区域主要对手，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -1797,6 +1982,15 @@
             "actor_name": "李世民",
             "role_code": "commander_in_chief",
             "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "authorization_mode": "tacit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -1857,6 +2051,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“渡海击破百济倾国之兵，俘其王族，百济平定并分置六州”；对手属于外部国家，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -1943,6 +2149,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击败并围降都曼，恢复葱岭以西秩序”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -2036,6 +2254,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击破高丽军并攻取平壤”；对手属于外部国家，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -2101,6 +2331,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海”；对手属于外部国家，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
@@ -2163,6 +2405,18 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "existential",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“清除主要竞争政权与持续割据方向并完成唐初国内统一”；对手属于主导竞争极，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将直接威胁首都、核心根据地、国家主力或全国统一成败。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": []
@@ -2255,17 +2509,32 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“唐军深入青海高原连续击破吐谷浑，伏允败亡，完成西北重要战略终局。”；对手属于外部国家，仍处强盛状态，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
           {
-            "actor_kind": "ruler",
-            "actor_name": "李世民",
-            "authorization_mode": "explicit",
-            "obstruction_status": "none",
-            "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorization_only",
-            "sovereign_at_event": true
+            "actor_kind": "person",
+            "actor_name": "李道宗",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "侯君集",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
           },
           {
             "actor_kind": "person",
@@ -2274,10 +2543,13 @@
             "sovereign_at_event": false
           },
           {
-            "actor_kind": "person",
-            "actor_name": "侯君集",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
+            "actor_kind": "ruler",
+            "actor_name": "李世民",
+            "authorization_mode": "explicit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ]
       },
@@ -2299,7 +2571,8 @@
         "舊唐書/卷69@2610556#時將討吐谷渾伏允，命李靖為西海道行軍大總管，以君集及任城王道宗並為之副",
         "舊唐書/卷69@2610556#靖乃中分士馬為兩道併入，靖與薛萬均、李大亮趣北路，使侯君集、道宗趣南路",
         "舊唐書/卷3@2488779#命特進李靖、兵部尚書侯君集、刑部尚書任城王道宗、涼州都督李大亮等為大總管",
-        "舊唐書/卷67@2296327#前後戰數十合，殺傷甚眾，大破其國。"
+        "舊唐書/卷67@2296327#前後戰數十合，殺傷甚眾，大破其國。",
+        "舊唐書/卷69@2610556#使侯君集、道宗趣南路"
       ],
       "unit_kind": "campaign_group"
     },
@@ -2362,9 +2635,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "critical",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“李勣击破薛延陀主力并促成其政权覆亡，北方草原主要竞争者终结。”；对手属于外部国家，已经受到削弱但仍可作战，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将丧失关键战略方向、核心区域或国家级战争主动，并显著改变整体安全或统一进程。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -2373,12 +2664,6 @@
             "role_code": "principal_commander",
             "ruler_campaign_relation": "operational_direction",
             "sovereign_at_event": true
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "李勣",
-            "role_code": "commander_in_chief",
-            "sovereign_at_event": false
           }
         ]
       },
@@ -2461,9 +2746,27 @@
           {
             "expected": [],
             "path": "payload.attributable_failures"
+          },
+          {
+            "expected": "major",
+            "path": "payload.strategic_stakes"
+          },
+          {
+            "expected": "开战前需要完成“李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。”；对手属于区域主要对手，仍具完整作战能力，该方向尚未形成可验收终局。",
+            "path": "payload.prewar_context"
+          },
+          {
+            "expected": "若失败，将造成重要区域、战区或战争阶段损失，但现有事实不足以证明国家核心会直接崩溃。",
+            "path": "payload.failure_stakes"
           }
         ],
         "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "李勣",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false
+          },
           {
             "actor_kind": "ruler",
             "actor_name": "李世民",
@@ -2471,10 +2774,13 @@
             "sovereign_at_event": false
           },
           {
-            "actor_kind": "person",
-            "actor_name": "李勣",
-            "role_code": "principal_commander",
-            "sovereign_at_event": false
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "authorization_mode": "tacit",
+            "obstruction_status": "none",
+            "role_code": "not_in_command_chain",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true
           }
         ],
         "require_parent_link": true
@@ -5112,9 +5418,9 @@
       "appointment_delegation": {
         "negative_settled_unit_count": 1,
         "negative_signal": "1.100000",
-        "positive_settled_unit_count": 7,
-        "positive_signal": "33.612769",
-        "rule_raw_net": "32.512769"
+        "positive_settled_unit_count": 8,
+        "positive_signal": "36.242456",
+        "rule_raw_net": "35.142456"
       },
       "talent_discovery": {
         "negative_signal": "0.000000",
@@ -5150,11 +5456,11 @@
         "魏徵"
       ]
     },
-    "weighted_raw_signal": "18.263958"
+    "weighted_raw_signal": "19.210646"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v6",
-    "source_pack_sha256": "6001ec8fe6e2f6f0f5bbfdcef991413561c8eb14d7ea76b894dcb6c9b05c4d8c"
+    "source_pack_sha256": "227622109bad375c0423824a010b20218a2ceb8c375cb6feb18b97290cf0aec2"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

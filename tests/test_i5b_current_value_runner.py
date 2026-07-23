@@ -169,6 +169,9 @@ def _campaign_candidate_payload(*, relation: str | None = "frontline_command") -
                     "campaign_tier": "A",
                     "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/partial，完成重要区域阶段目标，定A。",
                     "land_strategic_value": "important_region",
+                    "strategic_stakes": "major",
+                    "prewar_context": "开战前需要夺取测试区域目标，对手仍具完整作战能力。",
+                    "failure_stakes": "若失败将造成重要区域或战区阶段损失，但不会直接导致国家核心崩溃。",
                     "combat_difficulty": "D1",
                     "combat_difficulty_basis": "常态可战对手，未见额外极端困难。",
                     "operational_costs": [],
@@ -968,7 +971,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     outcome_without_campaign_context["semantic_fingerprint"] = (
         cluster_semantic_fingerprint(outcome_without_campaign_context)
     )
-    with pytest.raises(ValueError, match="战区、目标、三轴、战略结果、难度和等级"):
+    with pytest.raises(ValueError, match="战区、目标、背景、利害、三轴、战略结果、难度和等级"):
         validate_historical_outcome_registry(
             {
                 "schema_version": "historical-outcome-cluster-registry-v2",
@@ -2474,8 +2477,8 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
     assert report["declarations"]["profile_freeze_gate_passed"] is True
     assert report["declarations"]["formal_scoring_ready"] is False
     assert report["declarations"]["profile_member_with_open_gap_count"] == 0
-    assert report["declarations"]["person_profile_registry_count"] == 36
-    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == 12
+    assert report["declarations"]["person_profile_registry_count"] == 40
+    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == 16
     assert report["declarations"]["historical_outcome_cluster_count"] > 0
     assert report["declarations"]["campaign_outcome_count"] > 0
     assert report["declarations"]["governance_outcome_count"] > 0
@@ -2821,11 +2824,11 @@ def test_appointment_budget_counts_aggregated_objects_not_internal_chains() -> N
         if row["rule_code"] == "appointment_delegation"
     )
 
-    assert appointment["positive_settled_unit_count"] == 7
+    assert appointment["positive_settled_unit_count"] == 8
     assert appointment["negative_settled_unit_count"] == 1
     assert len(
         [row for row in appointment["settled_materials"] if row["side"] == "positive"]
-    ) == 13
+    ) == 16
     fang = next(row for row in appointment["settled_objects"] if row["subject"] == "房玄龄")
     zhangsun = next(
         row for row in appointment["settled_objects"] if row["subject"] == "长孙无忌"
@@ -2835,6 +2838,69 @@ def test_appointment_budget_counts_aggregated_objects_not_internal_chains() -> N
     assert fang["actual_signal_contribution"] == "9.247941"
     assert zhangsun["supporting_chain_count"] == 1
     assert zhangsun["actual_signal_contribution"] == "4.781700"
+
+
+def test_campaign_appointment_audit_keeps_direct_chains_and_window_boundary() -> None:
+    expected = {
+        "李世民": {
+            "OUTCOME-LSM-CAMPAIGN-GOGURYEO-645": {"李勣", "张亮", "李道宗"},
+            "OUTCOME-LSM-CAMPAIGN-GOGURYEO-647": {"李勣", "牛进达"},
+            "OUTCOME-LSM-CAMPAIGN-JINGYANG-FRONTLINE": {"尉迟敬德"},
+            "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU": {"柴绍", "薛万均"},
+            "OUTCOME-LSM-CAMPAIGN-TUYUHUN": {"李道宗"},
+        },
+        "刘邦": {
+            "OUTCOME-QUALITY-00D8D77E3DA87015434B": {"灌婴"},
+            "OUTCOME-QUALITY-906584A5507566463BCC": {"灌婴", "周勃"},
+            "OUTCOME-QUALITY-AD575D15421EF2621DDA": {"灌婴", "柴武"},
+            "OUTCOME-QUALITY-E5BBCD4462D4825DE72F": {"曹参", "周勃"},
+            "OUTCOME-QUALITY-LB-HANXIN-WEI": {"曹参", "灌婴"},
+        },
+    }
+    authorizers = {
+        "李世民": "RULER-58130F2446A25CC1",
+        "刘邦": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+    }
+    for ruler, expected_outcomes in expected.items():
+        source_pack = json.loads(
+            (ROOT / "eval/i5b_current_value" / ruler / "source-pack.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        clusters = {
+            row["outcome_ref"]: row
+            for row in source_pack["outcome_registry"]["clusters"]
+        }
+        for outcome_ref, expected_people in expected_outcomes.items():
+            actual_people = {
+                member["actor_name"]
+                for member in clusters[outcome_ref]["members"]
+                if (member.get("delegated_responsibility") or {}).get(
+                    "authorizer_ref"
+                )
+                == authorizers[ruler]
+            }
+            assert expected_people <= actual_people
+
+    lishimin = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for outcome_ref in (
+        "OUTCOME-LSM-CAMPAIGN-HULAO",
+        "OUTCOME-LSM-CAMPAIGN-XUYUANLANG",
+    ):
+        cluster = next(
+            row
+            for row in lishimin["outcome_registry"]["clusters"]
+            if row["outcome_ref"] == outcome_ref
+        )
+        assert not any(
+            (member.get("delegated_responsibility") or {}).get("authorizer_ref")
+            == authorizers["李世民"]
+            for member in cluster["members"]
+        )
 
 
 def test_source_pack_hash_fails_closed(tmp_path: Path) -> None:
@@ -3196,7 +3262,7 @@ def test_current_detail_exposes_public_outcome_review_fields(ruler: str) -> None
     rendered = render_scoring_detail_markdown(report)
     assert "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 |" in rendered
     assert (
-        "| 登记号 | 战役群 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | "
+            "| 登记号 | 战役群 | 战前背景 | 失败利害 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | "
         "战争成本 | 目标未完成 | 可归责失败 | 统治者控制 | 将领角色 | 土地、对手与结果依据 | "
         "已实现结果 | 史源 |"
         in rendered
@@ -6540,7 +6606,7 @@ def test_shared_person_profile_registry_precedes_ruler_window_projection() -> No
     outcomes = build_unbound_historical_outcome_registry(source_packs)
     profiles = build_historical_person_profile_registry(outcomes, source_packs)
 
-    assert profiles["declarations"]["profile_count"] == 36
+    assert profiles["declarations"]["profile_count"] == 40
     assert profiles["declarations"]["ruler_window_binding_count"] == 0
     assert profiles["declarations"]["team_projection_count"] == 0
     assert profiles["declarations"]["political_risk_projection_count"] == 0

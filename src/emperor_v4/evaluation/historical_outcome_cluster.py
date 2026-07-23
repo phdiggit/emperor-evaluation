@@ -231,6 +231,9 @@ def validate_historical_outcome_registry(
                 "campaign_tier": payload.get("campaign_tier"),
                 "campaign_tier_basis": payload.get("campaign_tier_basis"),
                 "land_strategic_value": payload.get("land_strategic_value"),
+                "strategic_stakes": payload.get("strategic_stakes"),
+                "prewar_context": payload.get("prewar_context"),
+                "failure_stakes": payload.get("failure_stakes"),
                 "combat_difficulty": payload.get("combat_difficulty"),
                 "combat_difficulty_basis": payload.get("combat_difficulty_basis"),
             }
@@ -239,7 +242,7 @@ def validate_historical_outcome_registry(
             ]
             if missing_campaign_fields:
                 raise ValueError(
-                    f"{ref} 战役必须声明战区、目标、三轴、战略结果、难度和等级: "
+                    f"{ref} 战役必须声明战区、目标、背景、利害、三轴、战略结果、难度和等级: "
                     + ", ".join(missing_campaign_fields)
                 )
             strategic_result_class = str(payload["strategic_result_class"])

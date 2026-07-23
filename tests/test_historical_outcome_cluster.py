@@ -428,9 +428,9 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
 @pytest.mark.parametrize(
     ("ruler", "expected_signal", "expected_complementarity", "expected_stability"),
     [
-        ("李世民", "18.263958", "balanced_four", "durable_multi_stage"),
+        ("李世民", "19.210646", "balanced_four", "durable_multi_stage"),
         ("李渊", "5.617151", "strong_three", "stable_but_narrow"),
-        ("刘邦", "9.330003", "balanced_four", "durable_multi_stage"),
+        ("刘邦", "13.647331", "balanced_four", "durable_multi_stage"),
     ],
 )
 def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
@@ -489,7 +489,7 @@ def test_i5b_gold_rejects_shadow_signal_drift() -> None:
     assert comparison["i5b_projection"]["differences"] == [
         {
             "path": "net_signal",
-            "expected": "18.263958",
+                "expected": "19.210646",
             "actual": "0.000000",
         }
     ]

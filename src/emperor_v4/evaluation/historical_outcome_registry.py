@@ -71,6 +71,10 @@ _DISPLAY_LABELS = {
     "strategic_gateway": "战略门户",
     "core_heartland": "核心腹地",
     "capital_or_state_survival": "都城或国家存亡",
+    "bounded": "局部可承受",
+    "major": "重大",
+    "critical": "关键",
+    "existential": "存亡级",
     "minor": "弱小力量",
     "regional_major": "区域主要对手",
     "first_tier_pole": "第一梯队竞争极",
@@ -715,8 +719,8 @@ def render_unbound_historical_outcome_registry_markdown(
         [
             "## 战役登记",
             "",
-            "| 登记号 | 战役成果 | 层级 | 时段 | 战略结果等级 | 作战难度 | 土地轴 | 对手轴 | 结果轴 | 战争成本 | 目标未完成 | 可归责失败 | 参与者责任 | 已实现结果 | 史源 |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| 登记号 | 战役成果 | 层级 | 时段 | 战前背景 | 失败利害 | 战略结果等级 | 作战难度 | 土地轴 | 对手轴 | 结果轴 | 战争成本 | 目标未完成 | 可归责失败 | 参与者责任 | 已实现结果 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in campaigns:
@@ -752,6 +756,9 @@ def render_unbound_historical_outcome_registry_markdown(
                     row["canonical_label"],
                     _display_label(row["event_level"]),
                     _period_text(row["period"]),
+                    _display_text(payload["prewar_context"]),
+                    f"{_display_label(payload['strategic_stakes'])}；"
+                    f"{_display_text(payload['failure_stakes'])}",
                     f"{payload['campaign_tier']} / "
                     f"{_display_label(payload['strategic_result_class'])}；"
                     f"{_display_text(payload['campaign_tier_basis'])}",

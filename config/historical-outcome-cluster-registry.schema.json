@@ -110,6 +110,7 @@
         "theater", "strategic_objective", "battle_result", "objective_completion",
         "opponent_condition", "opponent_strategic_weight", "strategic_result_class",
         "campaign_tier", "campaign_tier_basis", "land_strategic_value",
+        "strategic_stakes", "prewar_context", "failure_stakes",
         "combat_difficulty", "combat_difficulty_basis", "operational_costs",
         "objective_shortfalls", "attributable_failures"
       ],
@@ -126,6 +127,11 @@
         "land_strategic_value": {
           "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
         },
+        "strategic_stakes": {
+          "enum": ["bounded", "major", "critical", "existential"]
+        },
+        "prewar_context": {"type": "string", "minLength": 1},
+        "failure_stakes": {"type": "string", "minLength": 1},
         "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3"]},
         "combat_difficulty_basis": {"type": "string", "minLength": 1},
         "operational_costs": {

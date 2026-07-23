@@ -268,6 +268,9 @@ def compile_outcome_candidate_payloads(
                         "campaign_tier",
                         "campaign_tier_basis",
                         "land_strategic_value",
+                        "strategic_stakes",
+                        "prewar_context",
+                        "failure_stakes",
                         "strategic_result_class",
                         "combat_difficulty",
                         "combat_difficulty_basis",
@@ -628,10 +631,13 @@ def compile_outcome_candidate_payloads(
                         "strategic_objective",
                         "battle_result",
                         "objective_completion",
-                    "opponent_condition",
-                    "opponent_strategic_weight",
-                    "strategic_result_class",
-                )
+                        "opponent_condition",
+                        "opponent_strategic_weight",
+                        "strategic_result_class",
+                        "strategic_stakes",
+                        "prewar_context",
+                        "failure_stakes",
+                    )
                 }
                 for key in (
                     "campaign_tier",
