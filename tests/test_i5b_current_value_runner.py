@@ -255,6 +255,17 @@ def test_outcome_projection_normalizes_governance_window_scope() -> None:
 
     assert normalized["candidates"][0]["settlement_scope"] == "governance_result"
 
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["settlement_scope"] = "person_statecraft_result"
+    candidate["ruler_window_status"] = "outside_window"
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["settlement_scope"] == (
+        "person_governance_result"
+    )
+
 
 def test_outcome_projection_normalizes_ruler_talent_credit() -> None:
     payload = _campaign_candidate_payload()

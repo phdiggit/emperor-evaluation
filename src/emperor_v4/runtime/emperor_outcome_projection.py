@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v12"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v13"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -355,8 +355,7 @@ def _normalize_candidate_sources(
             continue
         if (
             candidate.get("outcome_kind") == "governance"
-            and candidate.get("settlement_scope")
-            in {"governance_result", "person_governance_result"}
+            and candidate.get("settlement_scope") != "reign_macro_outcome"
         ):
             window_status = candidate.get("ruler_window_status")
             if window_status == "outside_window":
