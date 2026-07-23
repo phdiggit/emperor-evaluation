@@ -4,7 +4,7 @@
   "additionalProperties": false,
   "required": ["schema_version", "task_code", "candidates", "rejections"],
   "properties": {
-    "schema_version": {"type": "string", "const": "current-outcome-candidate-output-v1"},
+    "schema_version": {"type": "string", "const": "current-outcome-candidate-output-v2"},
     "task_code": {"type": "string", "minLength": 1},
     "candidates": {
       "type": "array",
@@ -30,7 +30,7 @@
           "period_end": {"type": "string", "minLength": 1},
           "origin": {"type": "string", "enum": ["person_biography", "ruler_chronicle", "dynasty_governance", "multi_channel"]},
           "outcome_kind": {"type": "string", "enum": ["campaign", "governance", "statecraft"]},
-          "settlement_scope": {"type": "string", "enum": ["ruler_campaign_parent", "person_campaign_subresult", "governance_result", "person_governance_result", "reign_macro_outcome", "person_statecraft_result"]},
+          "settlement_scope": {"type": "string", "enum": ["war_terminal_context", "ruler_campaign_parent", "person_campaign_subresult", "governance_result", "person_governance_result", "reign_macro_outcome", "person_statecraft_result"]},
           "parent_outcome_ref": {"type": ["string", "null"]},
           "result_status": {"type": "string", "enum": ["implemented", "operated", "completed", "mixed", "failed", "unclear"]},
           "result_direction": {"type": "string", "enum": ["positive", "mixed", "negative", "unclear"]},
@@ -43,7 +43,7 @@
           "important_method_or_legacy": {"type": "boolean"},
           "ruler_window_status": {"type": "string", "enum": ["within_window", "leadership_formation", "outside_window", "unresolved"]},
           "members": {
-            "type": "array", "minItems": 1,
+            "type": "array",
             "items": {
               "type": "object", "additionalProperties": false,
               "required": ["actor_name", "actor_kind", "role_code", "contribution_scope", "responsibility_scope", "authorization_quotes"],
@@ -52,7 +52,11 @@
                 "actor_kind": {"type": "string", "enum": ["person", "ruler"]},
                 "role_code": {"type": "string", "enum": ["commander_in_chief", "principal_commander", "participant", "not_in_command_chain", "exclusive", "lead", "governance_participant", "authorized", "reign_holder"]},
                 "talent_credit": {"type": "string", "enum": ["independent", "covered_by_child", "not_applicable"]},
-                "ruler_campaign_relation": {"type": ["string", "null"], "enum": ["obstructed", "acquiesced", "authorized", "temporary_theater_control", "sustained_theater_control", "personal_command", null]},
+                "sovereign_at_event": {"type": ["boolean", "null"]},
+                "ruler_campaign_relation": {"type": ["string", "null"], "enum": ["authorization_only", "operational_direction", "frontline_command", null]},
+                "authorization_mode": {"type": ["string", "null"], "enum": ["explicit", "tacit", null]},
+                "control_extent": {"type": ["string", "null"], "enum": ["partial", "sustained", null]},
+                "obstruction_status": {"type": ["string", "null"], "enum": ["none", "confirmed", null]},
                 "contribution_scope": {"type": "string", "minLength": 1},
                 "responsibility_scope": {"type": "string", "enum": ["nominal_or_light", "real_bounded", "major_affairs", "critical_national_or_long_term", "not_applicable"]},
                 "authorization_quotes": {"type": "array", "items": {"type": "string", "minLength": 2}}
@@ -85,17 +89,37 @@
               "land_strategic_value": {"type": ["string", "null"], "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival", null]},
               "combat_difficulty": {"type": ["string", "null"], "enum": ["D0", "D1", "D2", "D3", null]},
               "combat_difficulty_basis": {"type": ["string", "null"]},
-              "process_adversity": {"type": ["string", "null"], "enum": ["none", "limited", "material", "severe_repaired", "near_collapse_repaired", "terminal_failure", null]},
-              "process_adversity_basis": {"type": ["string", "null"]},
-              "process_adversity_index": {"type": ["number", "null"], "enum": [0, 0.2, 0.4, 0.6, 0.7, 1, null]},
-              "process_adversity_attributions": {
+              "operational_costs": {
                 "type": ["array", "null"],
                 "items": {
                   "type": "object", "additionalProperties": false,
-                  "required": ["responsibility", "actor_name", "basis", "exact_quotes"],
+                  "required": ["basis", "exact_quotes"],
                   "properties": {
-                    "responsibility": {"type": "string", "enum": ["primary", "shared", "subordinate_execution", "disobedience", "mitigated", "not_responsible", "external_unattributed"]},
-                    "actor_name": {"type": ["string", "null"]},
+                    "basis": {"type": "string", "minLength": 1},
+                    "exact_quotes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 2}}
+                  }
+                }
+              },
+              "objective_shortfalls": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["basis", "exact_quotes"],
+                  "properties": {
+                    "basis": {"type": "string", "minLength": 1},
+                    "exact_quotes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 2}}
+                  }
+                }
+              },
+              "attributable_failures": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["responsibility", "severity_index", "actor_name", "basis", "exact_quotes"],
+                  "properties": {
+                    "responsibility": {"type": "string", "enum": ["primary", "shared", "subordinate_execution", "disobedience", "mitigated", "not_responsible"]},
+                    "severity_index": {"type": "number", "enum": [0.2, 0.4, 0.6, 0.7, 1]},
+                    "actor_name": {"type": "string", "minLength": 1},
                     "basis": {"type": "string", "minLength": 1},
                     "exact_quotes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 2}}
                   }
@@ -118,10 +142,9 @@
                     "strategic_result_class": {"type": "string"},
                     "combat_difficulty": {"type": "string"},
                     "combat_difficulty_basis": {"type": "string", "minLength": 1},
-                    "process_adversity": {"type": "string"},
-                    "process_adversity_basis": {"type": "string", "minLength": 1},
-                    "process_adversity_index": {"type": "number"},
-                    "process_adversity_attributions": {"type": "array"}
+                    "operational_costs": {"type": "array"},
+                    "objective_shortfalls": {"type": "array"},
+                    "attributable_failures": {"type": "array"}
                   }
                 }
               }
@@ -155,33 +178,6 @@
                     "authorization_status": {"type": "string"},
                     "causal_attribution_status": {"type": "string"}
                   }
-                }
-              }
-            }
-          },
-          {
-            "if": {
-              "properties": {
-                "outcome_kind": {"const": "campaign"},
-                "ruler_window_status": {
-                  "enum": ["within_window", "leadership_formation"]
-                }
-              },
-              "required": ["outcome_kind", "ruler_window_status"]
-            },
-            "then": {
-              "properties": {
-                "members": {
-                  "contains": {
-                    "type": "object",
-                    "required": ["actor_kind", "ruler_campaign_relation"],
-                    "properties": {
-                      "actor_kind": {"const": "ruler"},
-                      "ruler_campaign_relation": {"type": "string"}
-                    }
-                  },
-                  "minContains": 1,
-                  "maxContains": 1
                 }
               }
             }

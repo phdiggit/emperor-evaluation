@@ -192,7 +192,11 @@
         "actor_name": {"type": "string", "minLength": 1},
         "actor_kind": {"enum": ["person", "ruler"]},
         "role_code": {"type": "string", "minLength": 1},
-        "ruler_campaign_relation": {"type": "string", "minLength": 1}
+        "sovereign_at_event": {"type": "boolean"},
+        "ruler_campaign_relation": {"type": "string", "minLength": 1},
+        "authorization_mode": {"type": "string", "minLength": 1},
+        "control_extent": {"type": "string", "minLength": 1},
+        "obstruction_status": {"type": "string", "minLength": 1}
       }
     },
     "expectations": {

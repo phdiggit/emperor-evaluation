@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v17"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v18"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 _T2S = OpenCC("t2s")
 
@@ -122,19 +122,19 @@ def _prompt(
 2. exact_quotes 与 authorization_quotes 必须逐字复制输入 exact_quote 的连续子串，不得转写、拼接或补字。
 3. members 只能使用允许人物：{json.dumps(list(actors), ensure_ascii=False)}。皇帝 {ruler} 用 actor_kind=ruler；其余用 person。
 4. 同一独立结果只生成一个 candidate。candidate_key 用小写 ASCII 与连字符，表达皇帝、时期和独立结果，必须稳定。
-5. campaign 必须填写 strategic_result_class、campaign_tier、campaign_tier_basis、land_strategic_value、opponent_strategic_weight、opponent_condition、combat_difficulty、combat_difficulty_basis、process_adversity、process_adversity_basis、固定 process_adversity_index 和逐事件 process_adversity_attributions；治理字段填 null。campaign_tier 只按 strategic_result_class 固定映射：local_tactical=C、important_objective=B、major_stage_or_crisis=A、independent_direction=S-、single_pole_or_state_terminal=S、composite_poles_terminal/unification_terminal/external_hegemony_terminal=S+。S+ 只能走这三条终局路径。对手权重只能表示当时竞争体系位置：minor、regional_major、first_tier_pole、dominant_pole、external_state、external_hegemony、unclear。campaign_tier_basis 固定写成“土地轴=<规范值>；对手轴=<战略权重>/<交战状态>；结果轴=<战果>/<目标完成度>，<定级解释>”。作战难度 D0–D3 另行判断且不得改变字母级：D0=残余或显著优势，D1=常态可战，D2=强主力/坚城/复杂地形后勤，D3=极端兵力态势、霸权压迫、连续击败本方主力或近崩溃逆转；必须用当时事实说明。当前只互校汉初刘邦创业统一链与唐初李渊—李世民创业统一链，且不得混入对外战争；其他政权不做横向校准。正常动员、追击、敌军来援和战役困难不是过程负面；非 none 必须逐字说明责任或明确 external_unattributed，绝不能默认归责主帅。
+5. campaign 必须填写 strategic_result_class、campaign_tier、campaign_tier_basis、land_strategic_value、opponent_strategic_weight、opponent_condition、combat_difficulty、combat_difficulty_basis，并分别填写 operational_costs、objective_shortfalls、attributable_failures；治理字段填 null。campaign_tier 只按 strategic_result_class 固定映射：local_tactical=C、important_objective=B、major_stage_or_crisis=A、independent_direction=S-、single_pole_or_state_terminal=S、composite_poles_terminal/unification_terminal/external_hegemony_terminal=S+。S+ 只能走这三条终局路径。对手权重只能表示当时竞争体系位置：minor、regional_major、first_tier_pole、dominant_pole、external_state、external_hegemony、unclear。campaign_tier_basis 固定写成“土地轴=<规范值>；对手轴=<战略权重>/<交战状态>；结果轴=<战果>/<目标完成度>，<定级解释>”。作战难度 D0–D3 另行判断且不得改变字母级：D0=残余或显著优势，D1=常态可战，D2=强主力/坚城/复杂地形后勤，D3=极端兵力态势、霸权压迫、连续击败本方主力或近崩溃逆转；必须用当时事实说明。正常动员、追击、受伤和敌军来援不得自动算负面。实际兵力或机动力损耗写 operational_costs；目标未完成写 objective_shortfalls；只有原文明示责任时才写 attributable_failures，并逐项给出责任人、责任类型、严重度、依据与逐字引文。不得把作战难度重复登记为成本或失败。
 6. 必须先完全忽略皇帝窗口，判断事实能否形成独立战役、治理或谋略成果；窗口不明不得成为拒绝成果的理由。成果成立后才填写兼容性的后置绑定提示 ruler_window_status：在位期填 within_window；{ruler} 登基前已取得独立统军权并对战役负核心责任的成果填 leadership_formation；其他时期填 outside_window；确实无法解析填 unresolved，等待绑定层复核。
-7. settlement_scope 只是后置绑定兼容字段，不参与成果成立与否：皇帝父级战役填 ruler_campaign_parent；人物在父级内独立统帅战区并形成独立终局时填 person_campaign_subresult 并给 parent_outcome_ref；当前皇帝窗口治理填 governance_result；臣子全生涯中其他皇帝窗口的独立治理成果填 person_governance_result；粮价、人口、生产或治安等宏观结果填 reign_macro_outcome；非指挥、非公共治理但已被采纳并形成独立战略结果的谋略填 person_statecraft_result。谋略只供人物画像消费，不进入皇帝治理投影。宏观结果若史源上下文明确归于皇帝总体治理，causal_attribution_status=source_attributed 且皇帝可为 lead；若只有统治窗口关系则填 limited/reign_holder。每个战役成员填写 talent_credit，父级中已由子成果承载的人物填 covered_by_child。登记器先写无窗口总登记，再单独写这些绑定字段；规则投影只能消费二者的显式连接结果。
+7. 战争最多三层：war_terminal_context 只表达整个统一战争的总终局，不进入 C1 或人才结算；ruler_campaign_parent 表达可独立定级的战役群；person_campaign_subresult 仅用于同一战役群内确有独立指挥、独立结果的人物子成果并给 parent_outcome_ref。祖先与后代不得重复结算。当前皇帝窗口治理填 governance_result；臣子全生涯中其他皇帝窗口的独立治理成果填 person_governance_result；粮价、人口、生产或治安等宏观结果填 reign_macro_outcome；非指挥、非公共治理但已被采纳并形成独立战略结果的谋略填 person_statecraft_result。谋略只供人物画像消费，不进入皇帝治理投影。宏观结果若史源上下文明确归于皇帝总体治理，causal_attribution_status=source_attributed 且皇帝可为 lead；若只有统治窗口关系则填 limited/reign_holder。
 8. 奏疏、谏言和批评只证明臣下提出主张，不能单独证明被批评现象或公共后果已经发生；没有独立实施或结果史源时拒绝治理成果候选，但保留中性材料供 I5A 欲望与自我约束或其他相应规则消费。
 9. 完成并投入国家使用的一代正史、跨代通史或大型文化典籍通常至少填 national_cultural_corpus；例行修成单朝皇帝实录通常只属 important，除非完整国家史体系的规模、使用和长期影响另有直接史源。只有作品开创文明范式、长期成为基础文本且本人实际独著、主编或最终定稿，才填 civilization_foundational_corpus/era_shaping/foundational。官修不自动降档，但授权、总裁、主修、分卷撰修和挂名参与必须分别归责。
 10. 规模只按原文可支持的影响范围，不因人物名气上调；不确定就拒绝或 limitations 明示。
 11. campaign 的 role_code 只能是 commander_in_chief/principal_commander/participant/not_in_command_chain，并至少有一名处于实际军事指挥链的成员。commander_in_chief=节度战役群全局并承担最高军事责任；principal_commander=独立指挥一支主力或主要方向；participant=有作战贡献但无主力独立指挥权。史书称某人为主帅之副时，仍按实际指挥权在 principal_commander 与 participant 之间判断，不另设副将档。within_window/leadership_formation 的父级战役群必须且只能有一个当前皇帝成员；outside_window 的臣子全生涯战役允许没有当前皇帝，不得因此删除。只要登记皇帝成员就必须填唯一皇权关系。皇帝只有授权、默许或阻挠而未实际进入军事指挥链时用 not_in_command_chain；亲征、长期统筹或临时坐镇不得用 not_in_command_chain。governance/statecraft 只能是 exclusive/lead/governance_participant/authorized：exclusive=独立建立且没有同级共同主导者，lead=主导方案或持续执行，governance_participant=有逐字依据的实质参与，authorized=仅批准或维持授权而未主导实施；参会、在职和一般赞同不能推定责任。
-12. campaign 中皇帝成员另填唯一 ruler_campaign_relation：obstructed/acquiesced/authorized/temporary_theater_control/sustained_theater_control/personal_command；非皇帝或治理成果填 null。同一父级战役群按 personal_command > sustained_theater_control > temporary_theater_control > authorized > acquiesced > obstructed 取最高实际参与，低档阶段只留在事实中，不并列登记。
+12. campaign 成员必须区分“事件发生时的实际皇帝”与“当前评价对象”：只有 sovereign_at_event=true 的皇帝成员可以填写皇权控制。ruler_campaign_relation 只分 authorization_only、operational_direction、frontline_command；授权明示/默示另填 authorization_mode，战区控制局部/持续另填 control_extent，阻挠另填 obstruction_status。登基前的李世民是臣子，不得填写皇帝关系。详细制定分路、进军路线或作战部署属于 operational_direction；本人进入前线并承担最高现场指挥才是 frontline_command。
 13. EXISTING_OUTCOMES 已登记的同一独立结果必须拒绝，不得换名重复生成；同一战略目标建立一个父级战役成果，阶段战斗只写入 observable_result/limitations，不得拆成多项重复成果。全局战果有得有失时父级必须 mixed；例如远征总体未达目标但取得局部胜利，不能只按局部胜利登记。规模必须同时检查土地战略价值、对手实际强度和已实现结果，不因国号、名气或史料篇幅升档。
 14. governance 只登记已经实施并形成制度、持续程序、跨个案公共效果、明确先例或可独立验收公共产品的结果。迁都、设官、建机构、任命、结约或颁下一次命令若只证明动作发生，没有制度实际生效、持续运行、直接改变公共权利义务或形成可验收产品，必须拒绝；不得用预期目的代替实际结果。已实际生效并直接改变税负、服役、任期或司法程序的持续约束，其制度约束本身可作为结果。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections。
 15. statecraft 只登记本人提出或主导、已被采纳并形成独立可核实战略结果的非指挥成果。未实施建议、一般献策、纯夺权、宫廷清洗和只有手段成功而无独立战略结果者必须拒绝；不得为支撑预期人才等级反向生成谋略成果。
 16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
-17. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v1，task_code={task_code}。
+17. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v2，task_code={task_code}。
 18. INPUT_FACTS 中每个 segment_ref 必须恰有明确处置：生成 candidate 时 exact_quotes 必须覆盖对应输入引文；否则必须在 rejections 中逐项写出 segment_ref 和理由。不得遗漏输入事实。
 19. 同一段引文若同时包含彼此独立的战役结果与治理结果，必须分别生成 candidate，不得把治理结果并入战役 observable_result，也不得用其中一个 candidate 代替另一个。明确记载“遂克长安”时必须形成 campaign 候选；明确记载“与民约法……悉除……苛禁”时必须另形成 governance 候选。
 
@@ -275,13 +275,16 @@ def _normalize_candidate_sources(
                 canonical_quote(value)
                 for value in member.get("authorization_quotes") or ()
             ]
-        for attribution in (candidate.get("payload") or {}).get(
-            "process_adversity_attributions"
-        ) or ():
-            attribution["exact_quotes"] = [
-                canonical_quote(value)
-                for value in attribution.get("exact_quotes") or ()
-            ]
+        for field in (
+            "operational_costs",
+            "objective_shortfalls",
+            "attributable_failures",
+        ):
+            for item in (candidate.get("payload") or {}).get(field) or ():
+                item["exact_quotes"] = [
+                    canonical_quote(value)
+                    for value in item.get("exact_quotes") or ()
+                ]
         quote_matches = [
             [
                 fact
@@ -438,26 +441,6 @@ def _normalize_candidate_sources(
         ):
             candidate_payload["durable_cross_stage"] = False
         if candidate.get("outcome_kind") == "campaign":
-            for member in candidate.get("members") or ():
-                if (
-                    "遂克长安" in simplified_source_context
-                    and member.get("actor_kind") == "ruler"
-                    and member.get("actor_name") == "李渊"
-                    and member.get("ruler_campaign_relation") == "personal_command"
-                ):
-                    member["ruler_campaign_relation"] = (
-                        "sustained_theater_control"
-                    )
-                if (
-                    member.get("actor_kind") == "ruler"
-                    and member.get("role_code") == "commander_in_chief"
-                    and member.get("ruler_campaign_relation") == "authorized"
-                    and any(
-                        re.search(r"[命令](?:諸|诸).{0,8}(?:攻|軍|军)", quote)
-                        for quote in member.get("authorization_quotes") or ()
-                    )
-                ):
-                    member["ruler_campaign_relation"] = "sustained_theater_control"
             basis = str(candidate_payload.get("campaign_tier_basis") or "")
             explanation = basis.split("，", 1)[1] if "，" in basis else basis
             candidate_payload["campaign_tier_basis"] = (
@@ -773,7 +756,7 @@ def project_current_outcomes(
                 "facts": ordered_eligible,
                 "required_output_schema": str(schema_path),
                 "output_template": {
-                    "schema_version": "current-outcome-candidate-output-v1",
+                    "schema_version": "current-outcome-candidate-output-v2",
                     "task_code": review_task_code,
                     "candidates": [],
                     "rejections": [],
@@ -791,7 +774,7 @@ def project_current_outcomes(
     if reviewed_mode:
         payload = {
             **dict(reviewed_payload or {}),
-            "schema_version": "current-outcome-candidate-output-v1",
+            "schema_version": "current-outcome-candidate-output-v2",
             "task_code": review_task_code,
         }
         payload = _normalize_candidate_sources(payload, ordered_eligible)

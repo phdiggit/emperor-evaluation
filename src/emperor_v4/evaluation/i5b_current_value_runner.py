@@ -24,7 +24,6 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     CAMPAIGN_ROLES,
     GOVERNANCE_ROLES,
     LAND_STRATEGIC_VALUES,
-    PROCESS_ADVERSITY,
     RULER_CAMPAIGN_RELATIONS,
     assess_person_talent_grade,
     build_outcome_episode,
@@ -351,6 +350,7 @@ def _ruler_window_outcomes(
         for cluster in clusters
         if cluster.get("settlement_scope")
         not in {
+            "war_terminal_context",
             "person_campaign_subresult",
             "person_governance_result",
             "person_statecraft_result",
@@ -375,6 +375,7 @@ def _appointment_window_outcomes(
         cluster
         for cluster in clusters
         if cluster.get("outcome_kind") in {"campaign", "governance"}
+        if cluster.get("settlement_scope") != "war_terminal_context"
         if cluster.get("ruler_window_status", "within_window")
         in {"within_window", "leadership_formation"}
     ]
@@ -1463,12 +1464,12 @@ def render_scoring_detail_markdown(
                     (
                         "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 | 状态 | 已实现结果 | 史源 |"
                         if outcome_kind in {"governance", "statecraft"}
-                        else "| 登记号 | 战役群 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | 过程负面 | 负面归责 | 皇帝角色 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
+                        else "| 登记号 | 战役群 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | 战争成本 | 目标未完成 | 可归责失败 | 统治者控制 | 将领角色 | 土地、对手与结果依据 | 已实现结果 | 史源 |"
                     ),
                     (
                         "| --- | --- | --- | --- | --- | --- | --- | --- |"
                         if outcome_kind in {"governance", "statecraft"}
-                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+                        else "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
                     ),
                 ]
             )
@@ -1497,15 +1498,19 @@ def render_scoring_detail_markdown(
                     )
                     continue
                 payload = cluster["payload"]
-                ruler_members = [
-                    row for row in cluster["members"] if row["actor_kind"] == "ruler"
+                sovereign_members = [
+                    row
+                    for row in cluster["members"]
+                    if row.get("sovereign_at_event") is True
                 ]
                 commander_members = [
-                    row for row in cluster["members"] if row["actor_kind"] != "ruler"
+                    row
+                    for row in cluster["members"]
+                    if row["role_code"] != "not_in_command_chain"
                 ]
                 ruler_roles = "、".join(
                     f"{row['actor_name']}（{RULER_CAMPAIGN_RELATIONS.get(str(row.get('ruler_campaign_relation') or ''), '关系缺失')}；{CAMPAIGN_ROLES[row['role_code']]}）"
-                    for row in ruler_members
+                    for row in sovereign_members
                 ) or (
                     "不适用"
                     if cluster.get("ruler_window_status") == "outside_window"
@@ -1515,16 +1520,17 @@ def render_scoring_detail_markdown(
                     f"{row['actor_name']}（{CAMPAIGN_ROLES[row['role_code']]}）"
                     for row in commander_members
                 ) or "未登记"
-                adversity = PROCESS_ADVERSITY.get(
-                    str(payload.get("process_adversity") or ""), "缺失"
-                )
-                adversity_basis = str(payload.get("process_adversity_basis") or "缺失")
-                adversity_index = payload.get("process_adversity_index")
-                adversity_attributions = "、".join(
-                    (
-                        f"{row.get('actor_name') or '外部因素'}（{row['responsibility']}：{row['basis']}）"
-                    )
-                    for row in payload.get("process_adversity_attributions") or ()
+                operational_costs = "、".join(
+                    str(row["basis"])
+                    for row in payload.get("operational_costs") or ()
+                ) or "无"
+                shortfalls = "、".join(
+                    str(row["basis"])
+                    for row in payload.get("objective_shortfalls") or ()
+                ) or "无"
+                failures = "、".join(
+                    f"{row['actor_name']}（{row['responsibility']}；严重度={row['severity_index']}：{row['basis']}）"
+                    for row in payload.get("attributable_failures") or ()
                 ) or "无"
                 three_axes = "；".join(
                     (
@@ -1551,8 +1557,8 @@ def render_scoring_detail_markdown(
                     f"{payload.get('combat_difficulty') or '缺失'}；{payload.get('combat_difficulty_basis') or '缺失'} | "
                     f"{CAMPAIGN_RESULT_LABELS.get(str(payload.get('battle_result') or ''), '缺失')} / "
                     f"{OBJECTIVE_COMPLETION_LABELS.get(str(payload.get('objective_completion') or ''), '缺失')} | "
-                    f"{adversity} / N={adversity_index}；{adversity_basis} | "
-                    f"{adversity_attributions} | {ruler_roles} | {commander_roles} | "
+                    f"{operational_costs} | {shortfalls} | {failures} | "
+                    f"{ruler_roles} | {commander_roles} | "
                     f"{three_axes} | {cluster['observable_result']} | "
                     f"{'、'.join(cluster['source_refs'])} |"
                 )

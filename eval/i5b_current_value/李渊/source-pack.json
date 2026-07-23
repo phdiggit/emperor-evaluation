@@ -12,7 +12,72 @@
     "numeric_values_supplied_by_model": false,
     "policy_ref": "config/i5b-scoring-policy.yml"
   },
-  "facts": [],
+  "facts": [
+    {
+      "assertions": [
+        {
+          "assertion_ref": "PASS-AUTO-F3FD6994E268615633F4",
+          "exact_quote": "及受禪，詔納言劉文靜與當朝通識之士，因開皇律令而損益之，盡削大業所用煩峻之法。又制五十三條格，務在寬簡，取便於時。",
+          "fact": "李渊诏令刘文静与通识之士损益开皇律令、删削大业烦峻之法，其后组织群臣撰定律令，并在武德七年颁行天下。",
+          "kind": "outcome",
+          "locator_anchor": "及受禪，詔納言劉文靜與當朝通識之士，因開皇律令而損益之，盡削大業"
+        },
+        {
+          "assertion_ref": "PASS-AUTO-F2C66E7BD196A40F8481",
+          "exact_quote": "尋又敕尚書左僕射裴寂、尚書右僕射蕭瑀及大理卿崔善為、給事中王敬業、中書舍人劉林甫顏師古王孝遠、涇州別駕靖延、太常丞丁孝烏、隋大理丞房軸、上將府參軍李桐客、太常博士徐上機等，撰定律令，大略以開皇為准。",
+          "fact": "李渊诏令刘文静与通识之士损益开皇律令、删削大业烦峻之法，其后组织群臣撰定律令，并在武德七年颁行天下。",
+          "kind": "outcome",
+          "locator_anchor": "尋又敕尚書左僕射裴寂、尚書右僕射蕭瑀及大理卿崔善為、給事中王敬業"
+        },
+        {
+          "assertion_ref": "PASS-AUTO-1C1C1C9443AB8E914189",
+          "exact_quote": "於是頒行天下。",
+          "fact": "李渊诏令刘文静与通识之士损益开皇律令、删削大业烦峻之法，其后组织群臣撰定律令，并在武德七年颁行天下。",
+          "kind": "outcome",
+          "locator_anchor": "於是頒行天下。"
+        }
+      ],
+      "canonical_name": "刘文静",
+      "date": "武德元年",
+      "dynasty_or_regime": "唐",
+      "neutral_summary": "李渊诏令刘文静与通识之士损益开皇律令、删削大业烦峻之法，其后组织群臣撰定律令，并在武德七年颁行天下。",
+      "person_ref": "PER-ACTOR-9D09781AE311",
+      "person_scan_key": "PSCAN-AUTO-D171D9DA1EA404C6",
+      "record_ref": "PFACT-AUTO-51BB0678505EC29E956F",
+      "record_type": "event",
+      "revision_ref": "1461339",
+      "ruler_contexts": [
+        "李渊"
+      ],
+      "source_page": "舊唐書/卷50",
+      "subject_role": "lead；lead"
+    },
+    {
+      "assertions": [
+        {
+          "assertion_ref": "PASS-AUTO-CD5B67BAA9DF866215E6",
+          "exact_quote": "淵還，捨於長樂宮，與民約法十二條，悉除隋苛禁。",
+          "fact": "李渊入长安后与民约法十二条，并废除隋朝苛刻禁令。",
+          "kind": "outcome",
+          "locator_anchor": "淵還，捨於長樂宮，與民約法十二條，悉除隋苛禁。"
+        }
+      ],
+      "canonical_name": "李渊",
+      "date": "创业期",
+      "dynasty_or_regime": "唐",
+      "neutral_summary": "李渊入长安后与民约法十二条，并废除隋朝苛刻禁令。",
+      "person_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+      "person_scan_key": "PSCAN-AUTO-A1FC548497758E3E",
+      "record_ref": "PFACT-AUTO-929EEFC2C7ED413161C9",
+      "record_type": "event",
+      "revision_ref": "1502758",
+      "ruler_contexts": [
+        "李渊"
+      ],
+      "source_page": "資治通鑑/卷184",
+      "subject_role": "exclusive"
+    }
+  ],
   "judge_coverage": {
     "anti_nepotism": "not_started",
     "appointment_delegation": "not_started",
@@ -22,22 +87,189 @@
   "judge_task_code": "I5B-LIYUAN-CURRENT",
   "materials": [],
   "members": [
-    {"person": "侯君集", "person_ref": "PER-CAND-851A4B92D193"},
-    {"person": "尉迟敬德", "person_ref": "PER-CAND-A49FCFF85405"},
-    {"person": "戴胄", "person_ref": "PER-CAND-947836AF2584"},
-    {"person": "房玄龄", "person_ref": "PER-CAND-0E58D2EA4AC4"},
-    {"person": "李世民", "person_ref": "RULER-58130F2446A25CC1"},
-    {"person": "李勣", "person_ref": "PER-CAND-8CF6E0AAF5E5"},
-    {"person": "李靖", "person_ref": "PER-CAND-D29808A822E4"},
-    {"person": "杜如晦", "person_ref": "PER-CAND-52D752B16F85"},
-    {"person": "褚遂良", "person_ref": "PER-CAND-6212A403EABA"},
-    {"person": "长孙无忌", "person_ref": "PER-CAND-6D5FA3B48F40"},
-    {"person": "高士廉", "person_ref": "PER-CAND-564F932D7FB5"},
-    {"person": "魏徵", "person_ref": "PER-CAND-1DA5E84241DE"}
+    {
+      "person": "刘文静",
+      "person_ref": "PER-ACTOR-9D09781AE311"
+    },
+    {
+      "person": "房玄龄",
+      "person_ref": "PER-CAND-0E58D2EA4AC4"
+    },
+    {
+      "person": "魏徵",
+      "person_ref": "PER-CAND-1DA5E84241DE"
+    },
+    {
+      "person": "杜如晦",
+      "person_ref": "PER-CAND-52D752B16F85"
+    },
+    {
+      "person": "高士廉",
+      "person_ref": "PER-CAND-564F932D7FB5"
+    },
+    {
+      "person": "褚遂良",
+      "person_ref": "PER-CAND-6212A403EABA"
+    },
+    {
+      "person": "长孙无忌",
+      "person_ref": "PER-CAND-6D5FA3B48F40"
+    },
+    {
+      "person": "侯君集",
+      "person_ref": "PER-CAND-851A4B92D193"
+    },
+    {
+      "person": "李勣",
+      "person_ref": "PER-CAND-8CF6E0AAF5E5"
+    },
+    {
+      "person": "戴胄",
+      "person_ref": "PER-CAND-947836AF2584"
+    },
+    {
+      "person": "尉迟敬德",
+      "person_ref": "PER-CAND-A49FCFF85405"
+    },
+    {
+      "person": "李靖",
+      "person_ref": "PER-CAND-D29808A822E4"
+    },
+    {
+      "person": "李世民",
+      "person_ref": "RULER-58130F2446A25CC1"
+    }
   ],
   "outcome_registry": {
-    "clusters": [],
-    "schema_version": "historical-outcome-cluster-registry-v1",
+    "clusters": [
+      {
+        "canonical_label": "李渊入长安约法十二条并废除隋苛禁",
+        "episode_refs": [
+          "EP-OUTCOME-D2ED2FC42FB5ADC5B6D3"
+        ],
+        "fact_refs": [
+          "PFACT-AUTO-929EEFC2C7ED413161C9"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "li-yuan-changan-twelve-laws",
+        "limitations": [
+          "原文未列十二条具体内容，也未记载遍行告谕、民众安堵或后续制度寿命。",
+          "与刘邦入关约法三章属于不同政权、不同事件，不作重复成果；规模分别按各自结果史源确定。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "contribution_scope": "亲自主导约法并废除既有苛禁。",
+            "role_code": "exclusive"
+          }
+        ],
+        "observable_result": "约法十二条施行，隋朝苛禁被废除。",
+        "origin": "multi_channel",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-AUTO-A1FC548497758E3E6D9E",
+        "payload": {
+          "authorization_status": "explicit",
+          "causal_attribution_status": "established",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": false,
+          "foundational": false
+        },
+        "period": {
+          "end": "创业期",
+          "start": "创业期"
+        },
+        "result_direction": "positive",
+        "result_status": "implemented",
+        "ruler_context_refs": [],
+        "ruler_window_status": "leadership_formation",
+        "scale": {
+          "consequence_basis": "important_public_result",
+          "decisiveness": "decisive",
+          "level": "important",
+          "reason": "措施直接改变新控制长安地区适用的禁令；原文未载条文、遍行范围和安堵等后果，故不机械比照刘邦约法三章升为区域级。"
+        },
+        "semantic_fingerprint": "205d33925f530c413127b80025f2a6bd713b7a79898a818a6ccee37171ed3d40",
+        "settlement_scope": "governance_result",
+        "source_refs": [
+          "資治通鑑/卷184@1502758#淵還，捨於長樂宮，與民約法十二條，悉除隋苛禁。"
+        ],
+        "stable_delivery": false
+      },
+      {
+        "canonical_label": "武德律令编定并颁行天下",
+        "episode_refs": [
+          "EP-OUTCOME-05CB820703A210188EA0"
+        ],
+        "fact_refs": [
+          "PFACT-AUTO-51BB0678505EC29E956F"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "li-yuan-wude-code-promulgation",
+        "limitations": [
+          "现有允许人物仅列刘文静；裴寂、萧瑀等共同撰定者保留在逐字史源，不虚构个人分工。",
+          "本成果止于武德律令的编定和颁行，不合并贞观废断趾、减死刑与律令格式重修。"
+        ],
+        "members": [
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李渊",
+            "actor_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+            "contribution_scope": "下诏启动损益、组织群臣撰定并颁行武德律令。",
+            "role_code": "lead"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "刘文静",
+            "actor_ref": "PER-ACTOR-9D09781AE311",
+            "contribution_scope": "奉诏与通识之士据开皇律令完成初期损益编修。",
+            "delegated_responsibility": {
+              "authorization_refs": [
+                "舊唐書/卷50@1461339#詔納言劉文靜與當朝通識之士，因開皇律令而損益之"
+              ],
+              "basis": "奉诏与通识之士据开皇律令完成初期损益编修。",
+              "scope": "critical_national_or_long_term"
+            },
+            "role_code": "lead"
+          }
+        ],
+        "observable_result": "形成以开皇律令为基础、删削烦峻并纳入五十三条格的武德律令，完成编定并颁行天下。",
+        "origin": "multi_channel",
+        "outcome_kind": "governance",
+        "outcome_ref": "OUTCOME-AUTO-D171D9DA1EA404C609F1",
+        "payload": {
+          "authorization_status": "explicit",
+          "causal_attribution_status": "established",
+          "domain": "law_and_adjudication",
+          "durable_cross_stage": true,
+          "foundational": true
+        },
+        "period": {
+          "end": "武德七年",
+          "start": "武德元年"
+        },
+        "result_direction": "positive",
+        "result_status": "operated",
+        "ruler_context_refs": [],
+        "ruler_window_status": "within_window",
+        "scale": {
+          "consequence_basis": "national_core_subsystem",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "正式编定并向全国颁行国家律令格，构成武德时期全国法律核心子系统；后续贞观修律是另一皇帝窗口的独立制度修订。"
+        },
+        "semantic_fingerprint": "f1e1f56823ec0a3ed95252ae7455d37fc95ce1eefc213e7c2d3557cedec9ba73",
+        "settlement_scope": "governance_result",
+        "source_refs": [
+          "舊唐書/卷50@1461339#及受禪，詔納言劉文靜與當朝通識之士，因開皇律令而損益之，盡削大業",
+          "舊唐書/卷50@1461339#尋又敕尚書左僕射裴寂、尚書右僕射蕭瑀及大理卿崔善為、給事中王敬業",
+          "舊唐書/卷50@1461339#於是頒行天下。"
+        ],
+        "stable_delivery": true
+      }
+    ],
+    "schema_version": "historical-outcome-cluster-registry-v2",
     "status": "shadow"
   },
   "profile_projection_gate": {
@@ -54,13 +286,17 @@
   "ruler_context_materials": [],
   "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
   "schema_version": "i5b-current-value-source-pack-v5",
-  "source_pack_sha256": "ac5e562915dbd6268e842dfb19864f54469d5b14159f8a4aa32366bca4617ba0",
+  "source_pack_sha256": "fdb96cceb24514c3a6499c6cef2cd7ee8c635e1d4cdb4ca087712d7fc5aab432",
   "status": "bootstrap_before_public_outcome_and_profile_review",
   "team": {
     "coverage_judgment": "open_before_profile_review",
-    "limitations": ["首次启动输入；团队正负池与阶段连续性必须在人物画像审计后冻结。"],
+    "limitations": [
+      "首次启动输入；团队正负池与阶段连续性必须在人物画像审计后冻结。"
+    ],
     "negative_members": [],
-    "positive_members": ["李世民"],
+    "positive_members": [
+      "李世民"
+    ],
     "stability_stages": []
   },
   "three_channel_disposition": {

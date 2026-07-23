@@ -98,23 +98,31 @@ from emperor_v4.runtime.structured_codex_runner import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _campaign_candidate_payload(*, relation: str | None = "personal_command") -> dict:
+def _campaign_candidate_payload(*, relation: str | None = "frontline_command") -> dict:
     member = {
         "actor_name": "李世民",
         "actor_kind": "ruler",
         "role_code": (
             "not_in_command_chain"
-            if relation in {"obstructed", "acquiesced", "authorized"}
+            if relation == "authorization_only"
             else "commander_in_chief"
         ),
         "talent_credit": "not_applicable",
+        "sovereign_at_event": True,
         "ruler_campaign_relation": relation,
+        "authorization_mode": "explicit" if relation else None,
+        "control_extent": (
+            "sustained"
+            if relation in {"operational_direction", "frontline_command"}
+            else None
+        ),
+        "obstruction_status": "none" if relation else None,
         "contribution_scope": "亲征并承担前线核心统帅责任",
         "responsibility_scope": "not_applicable",
         "authorization_quotes": [],
     }
     return {
-        "schema_version": "current-outcome-candidate-output-v1",
+        "schema_version": "current-outcome-candidate-output-v2",
         "task_code": "TEST-CAMPAIGN-CONTRACT",
         "candidates": [
             {
@@ -158,10 +166,9 @@ def _campaign_candidate_payload(*, relation: str | None = "personal_command") ->
                     "land_strategic_value": "important_region",
                     "combat_difficulty": "D1",
                     "combat_difficulty_basis": "常态可战对手，未见额外极端困难。",
-                    "process_adversity": "none",
-                    "process_adversity_basis": "未见达到过程负面门槛的事实。",
-                    "process_adversity_index": 0,
-                    "process_adversity_attributions": [],
+                    "operational_costs": [],
+                    "objective_shortfalls": [],
+                    "attributable_failures": [],
                 },
                 "limitations": [],
             }
@@ -227,10 +234,9 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                 "land_strategic_value": None,
                 "combat_difficulty": None,
                 "combat_difficulty_basis": None,
-                "process_adversity": None,
-                "process_adversity_basis": None,
-                "process_adversity_index": None,
-                "process_adversity_attributions": None,
+                "operational_costs": None,
+                "objective_shortfalls": None,
+                "attributable_failures": None,
             },
         }
     )
@@ -288,7 +294,7 @@ def test_outcome_projection_normalizes_ruler_talent_credit() -> None:
 
 
 def test_outcome_projection_normalizes_direct_ruler_command_relation() -> None:
-    payload = _campaign_candidate_payload(relation="authorized")
+    payload = _campaign_candidate_payload(relation="operational_direction")
     candidate = payload["candidates"][0]
     candidate["members"][0]["role_code"] = "commander_in_chief"
     candidate["members"][0]["authorization_quotes"] = ["皇帝命诸军攻城。"]
@@ -310,7 +316,7 @@ def test_outcome_projection_normalizes_direct_ruler_command_relation() -> None:
     normalized_candidate = normalized["candidates"][0]
 
     assert normalized_candidate["members"][0]["ruler_campaign_relation"] == (
-        "sustained_theater_control"
+        "operational_direction"
     )
     assert normalized_candidate["period_start"] == "创业期"
     assert normalized_candidate["period_end"] == "创业期"
@@ -389,7 +395,7 @@ def test_outcome_projection_rejects_disguised_palace_seizure_governance() -> Non
 
 
 def test_outcome_projection_normalizes_chang_an_command_relation() -> None:
-    payload = _campaign_candidate_payload(relation="personal_command")
+    payload = _campaign_candidate_payload(relation="operational_direction")
     candidate = payload["candidates"][0]
     candidate["members"][0]["actor_name"] = "李渊"
     source_quote = "甲辰，李渊命诸攻城。军头雷永吉先登，遂克长安。"
@@ -408,7 +414,7 @@ def test_outcome_projection_normalizes_chang_an_command_relation() -> None:
 
     assert normalized["candidates"][0]["members"][0][
         "ruler_campaign_relation"
-    ] == "sustained_theater_control"
+    ] == "operational_direction"
 
 
 def test_outcome_projection_does_not_invent_cross_stage_durability() -> None:
@@ -468,13 +474,11 @@ def test_outcome_projection_requires_explicit_chang_an_campaign_candidate() -> N
         _validate_candidate_payload_coverage(payload, [fact])
 
 
-def test_outcome_projection_maps_adversity_quote_terminal_punctuation() -> None:
+def test_outcome_projection_maps_operational_cost_quote_terminal_punctuation() -> None:
     payload = _campaign_candidate_payload()
     candidate = payload["candidates"][0]
-    candidate["payload"]["process_adversity_attributions"] = [
+    candidate["payload"]["operational_costs"] = [
         {
-            "actor_name": None,
-            "responsibility": "external_unattributed",
             "basis": "测试",
             "exact_quotes": ["前军战小却。"],
         }
@@ -491,7 +495,7 @@ def test_outcome_projection_maps_adversity_quote_terminal_punctuation() -> None:
     normalized = _normalize_candidate_sources(payload, facts)
 
     assert normalized["candidates"][0]["payload"][
-        "process_adversity_attributions"
+        "operational_costs"
     ][0]["exact_quotes"] == ["前军战小却"]
 
 
@@ -681,7 +685,7 @@ def test_outcome_projection_normalizes_campaign_tier_basis() -> None:
 
 
 def test_campaign_candidate_requires_one_ruler_relation(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="必须登记唯一参与关系"):
+    with pytest.raises(ValueError, match="必须登记唯一控制方式"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
             [_campaign_candidate_payload(relation=None)],
@@ -693,7 +697,7 @@ def test_campaign_candidate_requires_one_ruler_relation(tmp_path: Path) -> None:
 def test_campaign_candidate_requires_letter_tier_and_land_axis(tmp_path: Path) -> None:
     payload = _campaign_candidate_payload()
     payload["candidates"][0]["payload"]["campaign_tier"] = None
-    with pytest.raises(ValueError, match="缺少等级、土地轴或过程负面"):
+    with pytest.raises(ValueError, match="缺少等级、土地轴或成本责任分轴"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
             [payload],
@@ -714,10 +718,10 @@ def test_campaign_candidate_tier_is_fixed_by_strategic_result(tmp_path: Path) ->
         )
 
 
-def test_campaign_candidate_requires_process_adversity_pair(tmp_path: Path) -> None:
+def test_campaign_candidate_requires_cost_shortfall_failure_axes(tmp_path: Path) -> None:
     payload = _campaign_candidate_payload()
-    payload["candidates"][0]["payload"]["process_adversity_basis"] = None
-    with pytest.raises(ValueError, match="缺少等级、土地轴或过程负面"):
+    payload["candidates"][0]["payload"]["objective_shortfalls"] = None
+    with pytest.raises(ValueError, match="缺少等级、土地轴或成本责任分轴"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
             [payload],
@@ -726,26 +730,20 @@ def test_campaign_candidate_requires_process_adversity_pair(tmp_path: Path) -> N
         )
 
 
-def test_campaign_candidate_requires_adversity_index_and_attribution(tmp_path: Path) -> None:
+def test_campaign_candidate_requires_failure_actor_in_allowed_people(tmp_path: Path) -> None:
     payload = _campaign_candidate_payload()
     candidate = payload["candidates"][0]
     source_index = _campaign_contract_index(tmp_path)
-    candidate["payload"].update(
+    candidate["payload"]["attributable_failures"] = [
         {
-            "process_adversity": "material",
-            "process_adversity_basis": "敌方行动造成实际机动力损耗。",
-            "process_adversity_index": 0,
+            "responsibility": "primary",
+            "severity_index": 0.4,
+            "actor_name": "不存在人物",
+            "basis": "测试可归责失败。",
+            "exact_quotes": ["测试战役取得阶段结果。"],
         }
-    )
-    with pytest.raises(ValueError, match="档位与指数不匹配"):
-        compile_outcome_candidate_payloads(
-            {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
-            [payload],
-            source_index=source_index,
-            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
-        )
-    candidate["payload"]["process_adversity_index"] = 0.4
-    with pytest.raises(ValueError, match="必须登记责任或外部原因"):
+    ]
+    with pytest.raises(ValueError, match="责任人不在允许人物中"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
             [payload],
@@ -817,7 +815,7 @@ def test_person_governance_result_is_outside_ruler_view(tmp_path: Path) -> None:
         )
 
 
-def test_person_campaign_subresult_is_available_only_to_appointment_projection() -> None:
+def test_independent_campaign_group_is_available_to_ruler_and_appointment_projection() -> None:
     payload = json.loads(
         (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
             encoding="utf-8"
@@ -829,32 +827,38 @@ def test_person_campaign_subresult_is_available_only_to_appointment_projection()
         if row["outcome_ref"] == "OUTCOME-QUALITY-LB-HANXIN-QI"
     )
 
-    assert outcome not in _ruler_window_outcomes([outcome])
+    assert outcome["settlement_scope"] == "ruler_campaign_parent"
+    assert outcome in _ruler_window_outcomes([outcome])
     assert outcome in _appointment_window_outcomes([outcome])
 
 
-def test_campaign_candidate_requires_exactly_one_ruler_member(tmp_path: Path) -> None:
+def test_campaign_candidate_allows_person_only_group_without_current_ruler(tmp_path: Path) -> None:
     payload = _campaign_candidate_payload()
     payload["candidates"][0]["members"][0].update(
         {
             "actor_name": "李靖",
             "actor_kind": "person",
             "role_code": "commander_in_chief",
+            "sovereign_at_event": False,
             "ruler_campaign_relation": None,
+            "authorization_mode": None,
+            "control_extent": None,
+            "obstruction_status": None,
+            "talent_credit": "independent",
         }
     )
-    with pytest.raises(ValueError, match="必须且只能登记一个皇帝成员"):
-        compile_outcome_candidate_payloads(
-            {
-                "ruler": "李世民",
-                "ruler_ref": "RULER-LI-SHIMIN",
-                "members": [{"person": "李靖", "person_ref": "PERSON-LI-JING"}],
-                "facts": [],
-            },
-            [payload],
-            source_index=_campaign_contract_index(tmp_path),
-            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
-        )
+    increment = compile_outcome_candidate_payloads(
+        {
+            "ruler": "李世民",
+            "ruler_ref": "RULER-LI-SHIMIN",
+            "members": [{"person": "李靖", "person_ref": "PERSON-LI-JING"}],
+            "facts": [],
+        },
+        [payload],
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+    )
+    assert increment["outcomes"][0]["members"][0]["actor_name"] == "李靖"
 
 
 def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path: Path) -> None:
@@ -868,7 +872,11 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
             "actor_name": "李靖",
             "actor_kind": "person",
             "role_code": "commander_in_chief",
+            "sovereign_at_event": False,
             "ruler_campaign_relation": None,
+            "authorization_mode": None,
+            "control_extent": None,
+            "obstruction_status": None,
             "talent_credit": "independent",
         }
     )
@@ -898,7 +906,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     parent["semantic_fingerprint"] = cluster_semantic_fingerprint(parent)
     validation = validate_historical_outcome_registry(
         {
-            "schema_version": "historical-outcome-cluster-registry-v1",
+            "schema_version": "historical-outcome-cluster-registry-v2",
             "status": "shadow",
             "clusters": [parent, outcome],
         },
@@ -912,10 +920,10 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     outcome_without_campaign_context["semantic_fingerprint"] = (
         cluster_semantic_fingerprint(outcome_without_campaign_context)
     )
-    with pytest.raises(ValueError, match="战区、目标、三轴、战略结果、难度、等级和过程负面"):
+    with pytest.raises(ValueError, match="战区、目标、三轴、战略结果、难度和等级"):
         validate_historical_outcome_registry(
             {
-                "schema_version": "historical-outcome-cluster-registry-v1",
+                "schema_version": "historical-outcome-cluster-registry-v2",
                 "status": "shadow",
                 "clusters": [parent, outcome_without_campaign_context],
             },
@@ -930,7 +938,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     with pytest.raises(ValueError):
         validate_historical_outcome_registry(
             {
-                "schema_version": "historical-outcome-cluster-registry-v1",
+                "schema_version": "historical-outcome-cluster-registry-v2",
                 "status": "shadow",
                 "clusters": [parent, outcome_without_window],
             },
@@ -2278,7 +2286,7 @@ def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = {
-        "schema_version": "current-outcome-candidate-output-v1",
+        "schema_version": "current-outcome-candidate-output-v2",
         "task_code": "TEST",
         "candidates": [],
         "rejections": [],
@@ -2396,11 +2404,11 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
     assert report["declarations"]["formal_scoring_ready"] is False
     assert report["declarations"]["profile_member_with_open_gap_count"] == 0
     assert report["declarations"]["person_profile_registry_count"] == {
-        "李世民": 15,
+        "李世民": 18,
         "刘邦": 13,
     }[ruler]
     assert report["declarations"]["person_profile_registry_with_open_gap_count"] == {
-        "李世民": 4,
+        "李世民": 7,
         "刘邦": 3,
     }[ruler]
     assert report["declarations"]["historical_outcome_cluster_count"] > 0
@@ -2927,7 +2935,7 @@ def test_current_detail_exposes_public_outcome_review_fields(ruler: str) -> None
     assert "| 登记号 | 成果 | 参与角色 | 规模 | 规模依据 |" in rendered
     assert (
         "| 登记号 | 战役群 | 战略结果等级 | 作战难度 | 战果 / 目标完成 | "
-        "过程负面 | 负面归责 | 皇帝角色 | 将领角色 | 土地、对手与结果依据 | "
+        "战争成本 | 目标未完成 | 可归责失败 | 统治者控制 | 将领角色 | 土地、对手与结果依据 | "
         "已实现结果 | 史源 |"
         in rendered
     )
@@ -5599,7 +5607,7 @@ def test_outcome_projection_keeps_cross_source_event_atomic(tmp_path: Path) -> N
             assert task_code is not None
             return (
                 {
-                    "schema_version": "current-outcome-candidate-output-v1",
+                    "schema_version": "current-outcome-candidate-output-v2",
                     "task_code": task_code.group(1),
                     "candidates": [],
                     "rejections": [
@@ -5706,7 +5714,7 @@ def test_outcome_projection_finishes_one_canary_before_parallel_fanout(
             assert task_code is not None
             return (
                 {
-                    "schema_version": "current-outcome-candidate-output-v1",
+                    "schema_version": "current-outcome-candidate-output-v2",
                     "task_code": task_code.group(1),
                     "candidates": [],
                     "rejections": [
@@ -5904,13 +5912,19 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     }
     goguryeo = li_outcomes["OUTCOME-LSM-CAMPAIGN-GOGURYEO-645"]
     assert goguryeo["payload"]["campaign_tier"] == "S-"
-    assert goguryeo["payload"]["process_adversity"] == "material"
-    assert goguryeo["payload"]["process_adversity_index"] == 0.4
+    assert goguryeo["payload"]["operational_costs"] == []
+    assert len(goguryeo["payload"]["objective_shortfalls"]) == 1
+    assert [
+        (row["actor_name"], row["severity_index"])
+        for row in goguryeo["payload"]["attributable_failures"]
+    ] == [("张君乂", 0.2)]
     hulao = li_outcomes["OUTCOME-LSM-CAMPAIGN-HULAO"]
     assert hulao["payload"]["campaign_tier"] == "S+"
     assert hulao["payload"]["strategic_result_class"] == "composite_poles_terminal"
     assert hulao["payload"]["combat_difficulty"] == "D3"
-    assert hulao["payload"]["process_adversity"] == "none"
+    assert hulao["payload"]["operational_costs"] == []
+    assert hulao["payload"]["objective_shortfalls"] == []
+    assert hulao["payload"]["attributable_failures"] == []
 
     labels = {row["canonical_label"]: row for row in li_outcomes.values()}
     clan_registry = labels["考订并颁行氏族志"]
@@ -6022,7 +6036,7 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
         "韩信破代赵并定燕战役群",
         "韩信潍水破齐并平定齐地",
         "韩信平定魏地",
-        "韩信垓下统帅决战",
+        "垓下灭楚终局战役群",
         "彭越经营梁地并断楚粮道战役群",
     }
     tang_unification = {
@@ -6035,7 +6049,7 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     }
     assert tang_unification == {"S+", "S-", "A"}
     assert han_unification == {"S+", "S-", "A"}
-    assert liu_labels["韩信垓下统帅决战"]["payload"]["strategic_result_class"] == "unification_terminal"
+    assert liu_labels["垓下灭楚终局战役群"]["payload"]["strategic_result_class"] == "unification_terminal"
     assert liu_labels["平城白登汉匈战役群"]["payload"]["combat_difficulty"] == "D3"
     assert liu_labels["平城白登汉匈战役群"]["payload"]["campaign_tier"] == "A"
     assert labels["洺水击破刘黑闼战役群"]["payload"]["combat_difficulty"] == "D3"
@@ -6043,28 +6057,29 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     hanxin = [
         row
         for row in liu_outcomes
-        if row["settlement_scope"] == "person_campaign_subresult"
+        if row["settlement_scope"] == "ruler_campaign_parent"
         and "韩信" in {member["actor_name"] for member in row["members"]}
+        and row["canonical_label"] in han_unification_labels
     ]
     assert {row["canonical_label"] for row in hanxin} == {
         "韩信平定魏地",
         "韩信破代赵并定燕战役群",
         "韩信潍水破齐并平定齐地",
-        "韩信垓下统帅决战",
+        "垓下灭楚终局战役群",
     }
     for row in hanxin:
         members = {member["actor_name"]: member for member in row["members"]}
         assert members["韩信"]["role_code"] == "commander_in_chief"
-        if row["canonical_label"] == "韩信垓下统帅决战":
+        if row["canonical_label"] == "垓下灭楚终局战役群":
             assert members["刘邦"]["role_code"] == "principal_commander"
             assert (
                 members["刘邦"]["ruler_campaign_relation"]
-                == "temporary_theater_control"
+                == "operational_direction"
             )
             assert row["payload"]["campaign_tier"] == "S+"
         else:
             assert members["刘邦"]["role_code"] == "not_in_command_chain"
-            assert members["刘邦"]["ruler_campaign_relation"] == "authorized"
+            assert members["刘邦"]["ruler_campaign_relation"] == "authorization_only"
 
     external_wars = {
         "贞观十九年亲征高句丽战役群",
@@ -6086,8 +6101,8 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     ]
     registry = build_unbound_historical_outcome_registry(source_packs)
     assert registry["status"] == "current_shadow_unbound"
-    assert registry["declarations"]["outcome_count"] == 73
-    assert registry["declarations"]["campaign_count"] == 34
+    assert registry["declarations"]["outcome_count"] == 74
+    assert registry["declarations"]["campaign_count"] == 35
     assert registry["declarations"]["governance_count"] == 33
     assert registry["declarations"]["statecraft_count"] == 6
     assert registry["declarations"]["window_binding_count"] == 0
@@ -6102,18 +6117,18 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
 
     rendered = render_unbound_historical_outcome_registry_markdown(registry)
     assert "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）" in rendered
-    assert "总成果：73" in rendered
+    assert "总成果：74" in rendered
     assert "谋略：6" in rendered
     assert "永徽律令格式与《律疏》编定颁行" in rendered
     assert "ruler_window_status" not in rendered
     assert "战役群" in rendered
     assert "主帅" in rendered
-    assert "亲征统帅" in rendered
+    assert "前线指挥" in rendered
     assert "全国核心子系统" in rendered
     assert "因果已建立" in rendered
     assert "campaign_group" not in rendered
     assert "commander_in_chief" not in rendered
-    assert "personal_command" not in rendered
+    assert "frontline_command" not in rendered
     assert "national_core_subsystem" not in rendered
     assert "established" not in rendered
     assert " / N=" not in rendered

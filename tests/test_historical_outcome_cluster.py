@@ -77,7 +77,7 @@ def test_outcome_identity_and_fact_lineage_fail_closed() -> None:
         )
 
 
-def test_campaign_registry_separates_ruler_relation_land_axis_and_process_adversity() -> None:
+def test_campaign_registry_separates_ruler_control_land_axis_and_failures() -> None:
     pack = json.loads(
         (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
             encoding="utf-8"
@@ -94,7 +94,11 @@ def test_campaign_registry_separates_ruler_relation_land_axis_and_process_advers
     ruler_member = next(
         member for member in campaign["members"] if member["actor_kind"] == "ruler"
     )
-    ruler_member["ruler_campaign_relation"] = "personal_command"
+    ruler_member["sovereign_at_event"] = True
+    ruler_member["ruler_campaign_relation"] = "frontline_command"
+    ruler_member["authorization_mode"] = "explicit"
+    ruler_member["control_extent"] = "sustained"
+    ruler_member["obstruction_status"] = "none"
     ruler_member["role_code"] = "commander_in_chief"
     campaign["payload"].update(
         {
@@ -122,11 +126,11 @@ def test_campaign_registry_separates_ruler_relation_land_axis_and_process_advers
         for member in invalid_campaign["members"]
         if member["actor_kind"] == "person"
     )
-    person_member["ruler_campaign_relation"] = "authorized"
+    person_member["ruler_campaign_relation"] = "authorization_only"
     invalid_campaign["semantic_fingerprint"] = cluster_semantic_fingerprint(
         invalid_campaign
     )
-    with pytest.raises(ValueError, match="只有战役中的皇帝"):
+    with pytest.raises(ValueError, match="只有事件发生时的实际统治者"):
         validate_historical_outcome_registry(
             invalid,
             schema_path=SCHEMA,

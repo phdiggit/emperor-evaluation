@@ -4100,81 +4100,6 @@
         "stable_delivery": true
       },
       {
-        "canonical_label": "英布率九江兵合击垓下子战役群",
-        "episode_refs": [
-          "EP-OUTCOME-710B5EC5A40A7F89FB46"
-        ],
-        "fact_refs": [
-          "PFACT-52EE6A258D0DBD87651D"
-        ],
-        "important_method_or_legacy": false,
-        "independent_key": "liubang-yingbu-gaixia-subresult",
-        "limitations": [
-          "只结算英布率九江兵参与垓下合击的独立人物信用，不重复结算楚汉战争总体终局。"
-        ],
-        "members": [
-          {
-            "actor_kind": "ruler",
-            "actor_name": "刘邦",
-            "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
-            "contribution_scope": "承担楚汉战争总体最高统筹；英布本支人物信用由子成果承载。",
-            "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "sustained_theater_control",
-            "talent_credit": "not_applicable"
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "英布",
-            "actor_ref": "PER-CAND-1471155D486E",
-            "contribution_scope": "率九江兵与汉军合击楚军并在垓下破楚。",
-            "role_code": "commander_in_chief",
-            "talent_credit": "independent"
-          }
-        ],
-        "observable_result": "英布举九江兵与汉军合击楚军，并在垓下取得破楚的已实现战果。",
-        "origin": "person_biography",
-        "outcome_kind": "campaign",
-        "outcome_ref": "OUTCOME-LB-YINGBU-GAIXIA",
-        "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
-        "payload": {
-          "battle_result": "victory",
-          "campaign_tier": "A",
-          "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=dominant_pole/strong；结果轴=victory/complete。参加楚汉战争全国终局合击并形成明确破楚战果，但不是独立终结项羽政权的唯一方面统帅，定A。",
-          "combat_difficulty": "D2",
-          "combat_difficulty_basis": "面对强盛国家级对手的终局主力会战，史源未显示本支承受极端逆境。",
-          "land_strategic_value": "capital_or_state_survival",
-          "objective_completion": "complete",
-          "opponent_condition": "strong",
-          "opponent_strategic_weight": "dominant_pole",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见英布本支在垓下合击中发生可核实的重大损失或可归责挫败。",
-          "process_adversity_index": 0,
-          "strategic_objective": "参加垓下终局合击并击破楚军",
-          "strategic_result_class": "major_stage_or_crisis",
-          "theater": "垓下"
-        },
-        "period": {
-          "end": "汉五年",
-          "start": "汉五年"
-        },
-        "result_direction": "positive",
-        "result_status": "completed",
-        "ruler_window_status": "leadership_formation",
-        "scale": {
-          "consequence_basis": "national_war_outcome",
-          "decisiveness": "major",
-          "level": "national",
-          "reason": "直接参加全国统一战争终局合击，但人物信用仅结算其九江兵支线贡献。"
-        },
-        "semantic_fingerprint": "559edcceb6dea2ed8fe097ac25991e847dd1b4616cacd75acaa64c413288c1b1",
-        "settlement_scope": "person_campaign_subresult",
-        "source_refs": [
-          "史記/卷091@2509940#遂舉九江兵與漢擊楚，破之垓下"
-        ],
-        "stable_delivery": true
-      },
-      {
         "canonical_label": "张良重组彭城败后联盟与方面用将",
         "episode_refs": [
           "EP-OUTCOME-7A8F21E03976916B5103"
@@ -4377,8 +4302,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲征英布并承担主战统帅责任",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -4387,6 +4315,7 @@
             "actor_ref": "PER-CAND-39DB5536EF01",
             "contribution_scope": "先出并连续击破英布多路军队",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -4395,6 +4324,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-00D8D77E3DA87015434B",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/strong；结果轴=victory/complete，平定淮南、荆楚重要区域叛乱，但未形成全国战争终局，定A。",
@@ -4402,22 +4332,17 @@
           "combat_difficulty_basis": "强盛区域叛军形成主要阶段威胁，需要皇帝亲征平定。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
-          "opponent_condition": "strong",
-          "opponent_strategic_weight": "regional_major",
-          "process_adversity": "material",
-          "process_adversity_attributions": [
+          "objective_shortfalls": [],
+          "operational_costs": [
             {
-              "actor_name": null,
-              "actor_ref": null,
-              "basis": "刘邦在交战中为敌方流矢所中；现有史源只能确认敌方造成的战场损害，不能据此归责本方主帅或主将。",
-              "responsibility": "external_unattributed",
+              "basis": "刘邦亲征期间为敌方流矢所中并在行军途中发病；这是本人战场风险和战争损害，不是指挥失败。",
               "source_refs": [
                 "漢書/卷001@cache-1c3faa6be9c74cc8#上击布时，为流矢所中，行道疾。"
               ]
             }
           ],
-          "process_adversity_basis": "刘邦亲征期间为敌方流矢所中并在行军途中发病，构成可核实的实质过程损害。",
-          "process_adversity_index": 0.4,
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "regional_major",
           "strategic_objective": "终结英布叛乱并恢复淮南控制",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "淮南荆楚"
@@ -4435,7 +4360,7 @@
           "level": "regional",
           "reason": "英布攻荆、楚并控制淮南方向，平叛恢复重要区域控制；不以异姓王名号抬成全国决定战。"
         },
-        "semantic_fingerprint": "1d776a8a5be50926b6dfe1a76a7ea73f2f5c22e0f21522882a251dad74a9ef82",
+        "semantic_fingerprint": "3b774cf7b3279502b2f39bb7010f06ddd8195c0d4d119cbbada3461cd19fdd1d",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷012@cache-790693f46a67446c#遂族赫家，发兵反。",
@@ -4636,8 +4561,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲自统率征燕",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -4646,6 +4574,7 @@
             "actor_ref": "PER-CAND-39DB5536EF01",
             "contribution_scope": "以车骑将领身份随军从击臧荼",
             "role_code": "participant",
+            "sovereign_at_event": false,
             "talent_credit": "not_applicable"
           }
         ],
@@ -4654,6 +4583,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-59A99E722DD35415926A",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "B",
           "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/complete，恢复燕地控制但未形成主要战略终局，定B。",
@@ -4661,12 +4591,10 @@
           "combat_difficulty_basis": "可战区域叛乱的常态平定行动。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有史源只见刘邦亲征、汉军击破并使臧荼降，未见可核实挫败或损耗",
-          "process_adversity_index": 0,
           "strategic_objective": "终结臧荼叛乱并恢复区域控制",
           "strategic_result_class": "important_objective",
           "theater": "燕地"
@@ -4684,7 +4612,7 @@
           "level": "important",
           "reason": "终结新建王国的一次区域叛乱，史料不足以支持更高层级的战区重构。"
         },
-        "semantic_fingerprint": "3d689884ea2a9d7f3da932b3a7225248c885fabfc8cfbc29e07c1bfe7e044549",
+        "semantic_fingerprint": "f0bd919a52df655a967719a0b06da3fe7e00575f47c000811aa3ceeceada1225",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷011@cache-8e0e32cf1c9e04f4#秋，七月，燕王臧荼反；上自将征之。",
@@ -4769,8 +4697,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲征并统筹赵代平叛",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -4779,6 +4710,7 @@
             "actor_ref": "PER-CAND-746B660CC80F",
             "contribution_scope": "破敌、斩陈豨并平定雁门云中",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -4787,6 +4719,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-906584A5507566463BCC",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/strong；结果轴=victory/complete，恢复赵代与邯郸以北的北方门户，但仍是区域平叛终局，定A。",
@@ -4794,22 +4727,10 @@
           "combat_difficulty_basis": "强盛区域叛乱威胁战略门户，并与北方力量相连。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "severe_repaired",
-          "process_adversity_attributions": [
-            {
-              "actor_name": null,
-              "actor_ref": null,
-              "basis": "陈豨叛乱导致常山二十五城失去二十城；现有引文没有把失控归因于刘邦或周勃的具体错误。",
-              "responsibility": "external_unattributed",
-              "source_refs": [
-                "史記/卷093@cache-a877c2b43dc07a7c#常山二十五城，豨反，亡其二十城。"
-              ]
-            }
-          ],
-          "process_adversity_basis": "陈豨一度使常山二十五城失去二十城，形成严重战区失控，随后在同一平叛链中修复。",
-          "process_adversity_index": 0.6,
           "strategic_objective": "消灭陈豨叛乱并恢复北方郡县控制",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "赵代雁门云中"
@@ -4827,7 +4748,7 @@
           "level": "national",
           "reason": "赵代北方门户大面积失控后恢复，具有国家安全结果；但不等同全国统一或国家存亡战。"
         },
-        "semantic_fingerprint": "12ec214ec8c9a84966d1d6acc149ad2ea431aca2e400b93dd7da0f766ee5a809",
+        "semantic_fingerprint": "298d8ec957babd4059372ffa26f2d4bb1e455d65663ce44efb509e61a8e5d798",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷093@cache-a877c2b43dc07a7c#九月，遂与王黄等反，自立为代王，劫略赵、代。",
@@ -4855,8 +4776,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲率汉军深入平城并承担白登失败终局责任",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           }
         ],
@@ -4865,6 +4789,18 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-A274FA5A1E1F29A87B4C",
         "payload": {
+          "attributable_failures": [
+            {
+              "actor_name": "刘邦",
+              "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+              "basis": "刘邦亲自决定并实施北进，在平城白登被围七日；该亲征决策与终局失败具有直接责任链。",
+              "responsibility": "primary",
+              "severity_index": 1,
+              "source_refs": [
+                "史記/卷099@368013#遂往，至平城，匈奴果出奇兵围高帝白登，七日然后得解。"
+              ]
+            }
+          ],
           "battle_result": "defeat",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=external_hegemony/strong；结果轴=defeat/failed，与外部霸权主力在北方门户交战但战略目标失败，规模与负向终局合定A。",
@@ -4872,22 +4808,17 @@
           "combat_difficulty_basis": "面对强盛外部霸权并被围七日，形成极端不利战场态势。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "failed",
-          "opponent_condition": "strong",
-          "opponent_strategic_weight": "external_hegemony",
-          "process_adversity": "terminal_failure",
-          "process_adversity_attributions": [
+          "objective_shortfalls": [
             {
-              "actor_name": "刘邦",
-              "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
-              "basis": "刘邦亲自决定并实施北进，在平城白登被围七日；该亲征决策与终局失败具有直接责任链。",
-              "responsibility": "primary",
+              "basis": "亲征未能解除匈奴威胁，白登脱围后该次军事目标失败。",
               "source_refs": [
                 "史記/卷099@368013#遂往，至平城，匈奴果出奇兵围高帝白登，七日然后得解。"
               ]
             }
           ],
-          "process_adversity_basis": "刘邦亲征北进后在白登被围七日，虽脱围但未在同线解除匈奴威胁，目标终局失败。",
-          "process_adversity_index": 1,
+          "operational_costs": [],
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "external_hegemony",
           "strategic_objective": "击破匈奴主力并解除北境威胁",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "平城白登北境"
@@ -4905,7 +4836,7 @@
           "level": "regional",
           "reason": "战场位于北方战略门户，对手为匈奴帝国主力；脱围不等于完成进击目标，按失败终局独立登记。"
         },
-        "semantic_fingerprint": "d71aff1357159f73ed45ddd643956f473bd5d9d55446e1a6e18eb2180e9fa767",
+        "semantic_fingerprint": "eb5a68eb9299d0e12b8cfe3aaf2257eeec549d4692cf482c32adb978f73366c7",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷099@368013#汉七年，韩王信反，高帝自往击之。",
@@ -4986,8 +4917,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲征韩王信并承担初期主战统帅责任",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -4996,6 +4930,7 @@
             "actor_ref": "PER-CAND-746B660CC80F",
             "contribution_scope": "在楼烦方向击破韩王信、陈豨和赵利军",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -5004,6 +4939,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-AD575D15421EF2621DDA",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，终结太原、代地门户的区域叛乱但未解决匈奴帝国威胁，定A。",
@@ -5011,12 +4947,10 @@
           "combat_difficulty_basis": "战略门户叛乱与外部霸权相连，作战压力高于常态区域行动。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "韩王信败走匈奴及后续清剿属于敌方延续活动；现有史源未见本方明确挫败、重大损耗或失控结果。",
-          "process_adversity_index": 0,
           "strategic_objective": "终结韩王信叛乱并恢复太原代地门户控制",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "太原代地楼烦"
@@ -5034,7 +4968,7 @@
           "level": "regional",
           "reason": "韩王信叛乱涉及太原、代地门户并与匈奴合流，汉军经过持续清剿终结区域叛乱；不与白登对匈失败混算。"
         },
-        "semantic_fingerprint": "041bf464dc0d1790dacc181cbd2244fd148b5c9dff5ad241f1d0f732b8d0fabc",
+        "semantic_fingerprint": "f6d8ff13b506b925f4ac4d5bb8fa60c705b26873b642ed74d042aabb00bbd69d",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷093@cache-a877c2b43dc07a7c#七年冬，上自往击，破信军铜鞮，斩其将王喜。信亡走匈奴。",
@@ -5069,15 +5003,19 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+            "authorization_mode": "explicit",
             "contribution_scope": "确认反叛、任命统帅并授权征燕",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           }
         ],
@@ -5086,21 +5024,20 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-B65E51384602C98C49D0",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
-          "campaign_tier": "A",
-          "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，恢复燕及东北边郡门户控制但未形成全国性终局，定A。",
+          "campaign_tier": "B",
+          "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，恢复燕及东北五郡控制，但卢绾逃入匈奴且未形成主要战略终局，定B。",
           "combat_difficulty": "D1",
           "combat_difficulty_basis": "对手仍具战力，但现有事实未显示极端作战困难。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "跨郡和持续作战本身不构成过程负面；现有史源未见重要目标挫败或己方重大损耗",
-          "process_adversity_index": 0,
           "strategic_objective": "终结卢绾叛乱并恢复东北控制",
-          "strategic_result_class": "major_stage_or_crisis",
+          "strategic_result_class": "important_objective",
           "theater": "燕及东北五郡"
         },
         "period": {
@@ -5111,12 +5048,12 @@
         "result_status": "completed",
         "ruler_window_status": "within_window",
         "scale": {
-          "consequence_basis": "regional_theater_control",
+          "consequence_basis": "important_objective",
           "decisiveness": "major",
-          "level": "regional",
-          "reason": "周勃接替樊哙后恢复燕及东北边郡控制；卢绾本人逃入匈奴，不抬成全国决定战。"
+          "level": "important",
+          "reason": "恢复燕及东北五郡控制并形成周勃代表性统军实绩；卢绾本人逃入匈奴，未形成更高战略终局。"
         },
-        "semantic_fingerprint": "6556bcd6987b4cdfa15cd94425ecb5b2df17de379a25d82318b48b5447a13f4e",
+        "semantic_fingerprint": "03aeaaf9d887e06bab561e9b2c3fee03e072fcf0df4b1125fd3a316c17d9b4e5",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷057@1569360#燕王卢绾反，勃以相国代樊哙将",
@@ -5238,14 +5175,14 @@
       {
         "canonical_label": "还定三秦战役群",
         "episode_refs": [
-          "EP-OUTCOME-F34B5AD0F203B9DA6AD0"
+          "EP-OUTCOME-46052448FCA36FB4DF3E"
         ],
         "fact_refs": [
           "PFACT-QUALITY-5F1DB122C8AC3A731A13",
           "PFACT-QUALITY-B018D5CBE416D8A6FC40"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "three-qin-reconquest",
+        "independent_key": "chuhan-three-qin",
         "limitations": [],
         "members": [
           {
@@ -5253,8 +5190,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲自统率东出还定三秦",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -5263,6 +5203,7 @@
             "actor_ref": "PER-CAND-D60B93B81159",
             "contribution_scope": "守景陵、围章邯并参与恢复关中",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -5271,6 +5212,7 @@
             "actor_ref": "PER-CAND-746B660CC80F",
             "contribution_scope": "随军攻取关中据点",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -5278,7 +5220,9 @@
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-E5BBCD4462D4825DE72F",
+        "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=core_heartland；对手轴=regional_major/viable；结果轴=victory/complete，还定三秦、恢复核心根据地并开启全国竞争阶段，横向对照唐初核心方向终局定S-。",
@@ -5286,12 +5230,10 @@
           "combat_difficulty_basis": "从汉中越秦岭返回关中并连续击破三秦防线。",
           "land_strategic_value": "core_heartland",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "章邯据守废丘属于作战难度；现有逐字史源未见己方重大损耗、阶段目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "恢复关中根据地并打开东向战略",
           "strategic_result_class": "independent_direction",
           "theater": "关中陈仓废丘"
@@ -5309,7 +5251,7 @@
           "level": "national",
           "reason": "刘邦自汉中东出并还定三秦，恢复关中基地，曹参、周勃均在实际攻取链中任主将；它是楚汉父级战争开启东向竞争的独立阶段成果，不能与后来灭魏合成一条人物生涯成果。"
         },
-        "semantic_fingerprint": "a93f501fa1c3ac94ea5128ca4d05246c2ce1eb5de46043fc5b774c89a39516eb",
+        "semantic_fingerprint": "c6c0b71ed98bfc89030ed21d8878de4c300ac623599f8186ec92c470fbc2cf2c",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷054@1490182#从还定三秦",
@@ -5318,7 +5260,7 @@
         "stable_delivery": true
       },
       {
-        "canonical_label": "楚汉战争统一战役群",
+        "canonical_label": "楚汉战争统一终局",
         "episode_refs": [
           "EP-OUTCOME-12B6A615A494839267A6"
         ],
@@ -5335,38 +5277,13 @@
         "limitations": [
           "本父级只供刘邦皇帝战争终局结算；韩信平魏、北方、齐地与垓下及彭越梁地战区以子成果保存人物信用，同一评分对象不得父子重复消费。"
         ],
-        "members": [
-          {
-            "actor_kind": "ruler",
-            "actor_name": "刘邦",
-            "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
-            "contribution_scope": "亲自统筹主战并承担彭城、荥阳成皋和终局决策责任",
-            "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
-            "talent_credit": "not_applicable"
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "韩信",
-            "actor_ref": "PER-CAND-039AFE91A974",
-            "contribution_scope": "统率终局主力并完成北方战略包围",
-            "role_code": "principal_commander",
-            "talent_credit": "covered_by_child"
-          },
-          {
-            "actor_kind": "person",
-            "actor_name": "彭越",
-            "actor_ref": "PER-CAND-CB012BC1F12F",
-            "contribution_scope": "持续断楚粮道并会师垓下",
-            "role_code": "principal_commander",
-            "talent_credit": "covered_by_child"
-          }
-        ],
+        "members": [],
         "observable_result": "刘邦统筹楚汉战争，经历彭城惨败、荥阳成皋相持和固陵失利后，复用韩信北方连续战略与彭越梁地断粮战区成果，重组多路军并在垓下终结项羽政权，完成统一。",
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S+",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=dominant_pole/strong；结果轴=victory/complete，终结楚汉主要竞争并完成天下统一，横向对照唐初统一总终局定S+。",
@@ -5374,23 +5291,10 @@
           "combat_difficulty_basis": "主导竞争极长期压迫汉军，并经历彭城惨败、荥阳相持和固陵失利后才完成逆转。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "dominant_pole",
-          "process_adversity": "near_collapse_repaired",
-          "process_adversity_attributions": [
-            {
-              "actor_name": null,
-              "actor_ref": null,
-              "basis": "现有直接引文确认彭城大败及荥阳、成皋反复受困，但不足以把全部战役链负面机械归责刘邦、韩信或彭越。",
-              "responsibility": "external_unattributed",
-              "source_refs": [
-                "史記/卷054@1490182#击项籍军，汉军大败走。",
-                "史記/卷097@1383195#汉王数困荥阳、成皋"
-              ]
-            }
-          ],
-          "process_adversity_basis": "彭城大败、荥阳成皋反复受困及固陵失利使主战争链接近崩溃，随后通过联盟和多战区协同完成修复与统一；现有引文不支持默认归责任一主将。",
-          "process_adversity_index": 0.7,
           "strategic_objective": "消灭项羽主要竞争政权并完成统一",
           "strategic_result_class": "unification_terminal",
           "theater": "楚汉全国主战区"
@@ -5408,8 +5312,8 @@
           "level": "era_shaping",
           "reason": "楚汉战争以消灭项羽并完成统一为父级终局；彭城惨败、荥阳成皋相持和垓下胜利是同一战略链，不能只保留终局胜利或拆成相互独立的完整战争。"
         },
-        "semantic_fingerprint": "d22cd21ffbf1c601e269cf1cceb44acb9c82c6f4c304aa829932774673dd3fc9",
-        "settlement_scope": "ruler_campaign_parent",
+        "semantic_fingerprint": "525ab9839fa0792c6b3b3294ee9f04423654e0f1503a0d8769bb5cfa6e1745b9",
+        "settlement_scope": "war_terminal_context",
         "source_refs": [
           "漢書/卷001@cache-1c3faa6be9c74cc8#三者皆人杰，吾能用之，此吾所以取天下者也。",
           "史記/卷022@2607038#冬，破楚垓下，杀项籍。",
@@ -5423,7 +5327,7 @@
       {
         "canonical_label": "韩信破代赵并定燕战役群",
         "episode_refs": [
-          "EP-OUTCOME-B5F093D97E3D63167852"
+          "EP-OUTCOME-644CE8A1239F45DB0D9A"
         ],
         "fact_refs": [
           "PFACT-QUALITY-04C830E9865CF96A6A93",
@@ -5432,16 +5336,19 @@
           "PFACT-QUALITY-DB12A46614FC5EF0C4B3"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "liubang-hanxin-dai-zhao-yan-subresult",
+        "independent_key": "chuhan-hanxin-dai-zhao-yan",
         "limitations": [],
         "members": [
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+            "authorization_mode": "explicit",
             "contribution_scope": "批准韩信请兵北举燕赵、东击齐的方面战略，但未进入代赵燕前线指挥链。",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -5457,6 +5364,7 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -5466,6 +5374,7 @@
         "outcome_ref": "OUTCOME-QUALITY-LB-HANXIN-DAI-ZHAO-YAN",
         "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/strong；结果轴=victory/complete，连续消灭代赵主要力量并使燕归附，形成北方强区域终局，横向对照唐初主要独立方向定S-。",
@@ -5473,12 +5382,10 @@
           "combat_difficulty_basis": "井陉方向在兵力与地形均不利的态势下破赵，并继续完成北方战区终局。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见该独立战区成果发生可核实的重大损失、目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "控制北方主要方向并压缩楚方战略空间",
           "strategic_result_class": "independent_direction",
           "theater": "代赵燕北方战区"
@@ -5496,8 +5403,8 @@
           "level": "regional",
           "reason": "多个北方区域政权先后被击破或归附，形成强区域终局。"
         },
-        "semantic_fingerprint": "b947f3be1d600046fc19e3d77df3afdc55e01a946414df2b5acb7434c00db96a",
-        "settlement_scope": "person_campaign_subresult",
+        "semantic_fingerprint": "6aea06446f8033e6dc3152fab26302ca1c72d0bed8c90c6fcf97e99121415e85",
+        "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/淮陰侯列傳@2256147#于是汉兵夹击，大破虏赵军，斩成安君泜水上，禽赵王歇。",
           "史記/淮陰侯列傳@2256147#发使使燕，燕从风而靡。",
@@ -5508,25 +5415,31 @@
         "stable_delivery": true
       },
       {
-        "canonical_label": "韩信垓下统帅决战",
+        "canonical_label": "垓下灭楚终局战役群",
         "episode_refs": [
-          "EP-OUTCOME-95EEB76E42EE050B10EC"
+          "EP-OUTCOME-74D84D827B9565F9F569"
         ],
         "fact_refs": [
+          "PFACT-52EE6A258D0DBD87651D",
           "PFACT-GOLD-LB-GAIXIA",
           "PFACT-GOLD-LB-GAIXIA-APPRAISAL"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "liubang-hanxin-gaixia-subresult",
-        "limitations": [],
+        "independent_key": "chuhan-gaixia-terminal",
+        "limitations": [
+          "韩信正面主阵与英布会师贡献在同一战役群分列成员责任，不重复建立皇帝成果。"
+        ],
         "members": [
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "位于垓下后阵，统合诸侯军与终局资源，但正面三十万主阵由韩信实际统率。",
+            "control_extent": "partial",
+            "obstruction_status": "none",
             "role_code": "principal_commander",
-            "ruler_campaign_relation": "temporary_theater_control",
+            "ruler_campaign_relation": "operational_direction",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -5542,15 +5455,26 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
+            "talent_credit": "independent"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "英布",
+            "actor_ref": "PER-CAND-1471155D486E",
+            "contribution_scope": "率九江兵与汉军合击楚军并在垓下破楚。",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
-        "observable_result": "韩信率军会于垓下并完成灭楚终局；人物本传记项羽被破，司马光进一步将垓下灭楚及汉得天下的主要功绩归于韩信。",
+        "observable_result": "韩信统率正面主军，英布等独立主力会师合击，在垓下终结项羽主导竞争极并完成楚汉统一终局。",
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-LB-HANXIN-GAIXIA",
         "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S+",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=dominant_pole/strong；结果轴=victory/complete，直接摧毁楚军主力并终结主导竞争极，直接完成汉初统一链，走统一终局路径，定S+。",
@@ -5558,12 +5482,10 @@
           "combat_difficulty_basis": "对手为强盛主导竞争极，但汉军已形成多路合围和总体兵力优势。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "dominant_pole",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "首合不利后依既定左右军配合立即修复并完成决胜，未达到独立过程负面门槛。",
-          "process_adversity_index": 0,
           "strategic_objective": "在垓下摧毁项羽主力并完成楚汉战争终局",
           "strategic_result_class": "unification_terminal",
           "theater": "垓下决战战区"
@@ -5581,9 +5503,10 @@
           "level": "era_shaping",
           "reason": "该战直接摧毁楚军主力并终结楚汉国家级竞争，是统一总链的决定性终局；作为韩信人物子成果保存实际统帅信用。"
         },
-        "semantic_fingerprint": "09669b2453436b3ab3dbc79466d7ee5bfd79e72625f6f5d43f864462fc4eb403",
-        "settlement_scope": "person_campaign_subresult",
+        "semantic_fingerprint": "796141d26b2422aaa4bfa411c5712d7ad88f141debbb02fec7501edaba48559e",
+        "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
+          "史記/卷091@2509940#遂舉九江兵與漢擊楚，破之垓下",
           "史記/淮陰侯列傳@2256147#遂将兵会垓下。项羽已破，高祖袭夺齐王军。",
           "資治通鑑/卷011@7904618#漢王追項羽至固陵，與齊王信、魏相國越期會擊楚",
           "資治通鑑/卷012@cache-790693f46a67446c#南灭楚垓下，汉之所以得天下者，大抵皆信之功也。"
@@ -5593,23 +5516,26 @@
       {
         "canonical_label": "韩信潍水破齐并平定齐地",
         "episode_refs": [
-          "EP-OUTCOME-DBB93BB4CB0F9CBEDB58"
+          "EP-OUTCOME-97C9E46CD5C2D26F37DA"
         ],
         "fact_refs": [
           "PFACT-GOLD-LB-HANXIN-QI-AUTH",
           "PFACT-QUALITY-E246F85AC21DF972337C"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "liubang-hanxin-qi-subresult",
+        "independent_key": "chuhan-hanxin-qi",
         "limitations": [],
         "members": [
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+            "authorization_mode": "explicit",
             "contribution_scope": "重新配置赵军并命韩信率未发之兵东击齐，但未进入齐地前线指挥链。",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -5625,6 +5551,7 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -5634,6 +5561,7 @@
         "outcome_ref": "OUTCOME-QUALITY-LB-HANXIN-QI",
         "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=core_heartland；对手轴=first_tier_pole/strong；结果轴=victory/complete，灭齐并击破楚方重要援军，决定东方核心战区方向但未单独完成统一，定S-。",
@@ -5641,12 +5569,10 @@
           "combat_difficulty_basis": "面对齐地与楚援主力，需通过潍水战术完成战区终局。",
           "land_strategic_value": "core_heartland",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "first_tier_pole",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见该独立战区成果发生可核实的重大损失、目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "击破齐楚联军并平定齐地",
           "strategic_result_class": "independent_direction",
           "theater": "齐地潍水东方战区"
@@ -5664,8 +5590,8 @@
           "level": "regional",
           "reason": "完成齐地强区域终局，并直接压缩项羽战略空间。"
         },
-        "semantic_fingerprint": "9e4504bb91d740ae61177fe861d8133b253343e4b423ff0b1e40b92582c1cfb3",
-        "settlement_scope": "person_campaign_subresult",
+        "semantic_fingerprint": "af2aad114b3e40db940d034f8dae66a919193f5d810ca812076cd8cdaabc2234",
+        "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/淮陰侯列傳@2256147#拜韩信为相国，收赵兵未发者击齐。",
           "史記/淮陰侯列傳@2256147#汉四年，遂皆降平齐。",
@@ -5676,7 +5602,7 @@
       {
         "canonical_label": "韩信平定魏地",
         "episode_refs": [
-          "EP-OUTCOME-7B10E320DAE32D16D838"
+          "EP-OUTCOME-59DD2392C0CBC04823FE"
         ],
         "fact_refs": [
           "PFACT-1070789A40FE72C73714",
@@ -5684,16 +5610,19 @@
           "PFACT-QUALITY-D2694D2292A9C9DA1457"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "liubang-hanxin-wei-subresult",
+        "independent_key": "chuhan-hanxin-wei",
         "limitations": [],
         "members": [
           {
             "actor_kind": "ruler",
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+            "authorization_mode": "explicit",
             "contribution_scope": "在魏王豹反叛后命韩信领兵击魏，但未进入河东前线指挥链。",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -5709,6 +5638,7 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -5717,6 +5647,7 @@
             "actor_ref": "PER-CAND-D60B93B81159",
             "contribution_scope": "与韩信分兵攻魏并参与擒魏王豹、平定魏地。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -5726,6 +5657,7 @@
         "outcome_ref": "OUTCOME-QUALITY-LB-HANXIN-WEI",
         "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，取得河东门户并消灭魏方主要力量，完成重要阶段目标，定A。",
@@ -5733,12 +5665,10 @@
           "combat_difficulty_basis": "对可战区域政权实施独立方向进攻，未见极端逆境。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见该独立战区成果发生可核实的重大损失、目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "消灭魏王豹政权并控制河东门户",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "河东魏地"
@@ -5756,8 +5686,8 @@
           "level": "regional",
           "reason": "形成河东战区控制，但不单独等同楚汉战争全国终局。"
         },
-        "semantic_fingerprint": "bd41a9d32105a71573a46ff4daf7e02749d6d53263ca89d5441a12308be61408",
-        "settlement_scope": "person_campaign_subresult",
+        "semantic_fingerprint": "a13944e6a627e1fc0e372ee4f040c4b4bdeb04b0f410da4c5bb5c4d63f0f2a85",
+        "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷054@1490182#生得魏王豹",
           "史記/卷055@2666612#及魏王豹反，使韓信將兵擊之",
@@ -5769,7 +5699,7 @@
       {
         "canonical_label": "彭越经营梁地并断楚粮道战役群",
         "episode_refs": [
-          "EP-OUTCOME-D8CF52CFBFC1052DCE2C"
+          "EP-OUTCOME-60E96443C2977139C6FD"
         ],
         "fact_refs": [
           "PFACT-A2F78F8093F92FBF1D2E",
@@ -5778,7 +5708,7 @@
           "PFACT-QUALITY-5228BCDCC8CE6B3A96F6"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "liubang-pengyue-liang-subresult",
+        "independent_key": "chuhan-pengyue-liang",
         "limitations": [],
         "members": [
           {
@@ -5794,6 +5724,7 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -5803,6 +5734,7 @@
         "outcome_ref": "OUTCOME-QUALITY-LB-PENGYUE-LIANG",
         "parent_outcome_ref": "OUTCOME-QUALITY-E8F04DBBDCE4BBA4EFB4",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=important_region；对手轴=dominant_pole/strong；结果轴=victory/complete，在楚方后方形成持续独立战区、控制梁地并破坏粮道，决定重大长期战略方向，定S-。",
@@ -5810,12 +5742,10 @@
           "combat_difficulty_basis": "长期在主导竞争极控制区后方反复作战并承担断粮压力。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "dominant_pole",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见该独立战区成果发生可核实的重大损失、目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "经营梁地并持续截断楚军后方粮运",
           "strategic_result_class": "independent_direction",
           "theater": "梁地昌邑楚军后方"
@@ -5833,8 +5763,8 @@
           "level": "regional",
           "reason": "形成持续梁地战区控制与战略断粮成果，但统一终局仍由楚汉父级承载。"
         },
-        "semantic_fingerprint": "d08872612d0a8f1936f027ba360d3632b155dbc291f454fb8260cbb52ab73765",
-        "settlement_scope": "person_campaign_subresult",
+        "semantic_fingerprint": "146be4a1de1d54c71e78df37a780dd995283a69a4776d3dee76fbfe01ec29263",
+        "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "史記/卷090@376055#彭将军收魏地得十馀城",
           "史記/卷090@376055#彭越常往来为汉游兵，击楚，绝其后粮于梁地。",
@@ -5862,8 +5792,11 @@
             "actor_name": "刘邦",
             "actor_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
             "contribution_scope": "亲自统帅西进主战，攻入关中并接受秦地归附。",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -5872,6 +5805,7 @@
             "actor_ref": "PER-CAND-A8233A37A583",
             "contribution_scope": "随军攻武关、至霸上并取得明确战果。",
             "role_code": "participant",
+            "sovereign_at_event": false,
             "talent_credit": "not_applicable"
           }
         ],
@@ -5880,6 +5814,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-QUALITY-LB-WEST-QIN",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=core_heartland；对手轴=dominant_pole/weakened；结果轴=victory/complete，攻入秦核心根据地并终结衰弱秦政权，结果重大但对手状态限制上档，定S-。",
@@ -5887,12 +5822,10 @@
           "combat_difficulty_basis": "穿越战略门户进入关中，对手虽已削弱仍保有帝国纵深与关隘。",
           "land_strategic_value": "core_heartland",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "weakened",
           "opponent_strategic_weight": "dominant_pole",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见该独立战区成果发生可核实的重大损失、目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "先入关中并终结秦政权",
           "strategic_result_class": "independent_direction",
           "theater": "武关霸上关中"
@@ -5910,7 +5843,7 @@
           "level": "national",
           "reason": "攻入关中并形成秦政权终局，但对手实际状态已显著衰弱，战役等级不升至S。"
         },
-        "semantic_fingerprint": "d09894a136effc8375b9d6eb5d5877d50c6d46e6f0bbd5a59f7cd8c60c20d844",
+        "semantic_fingerprint": "008194c084411df00b047b50468534b78d5fa74ce0fbfb32af61d0b5e493091f",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷009@cache-730a8d8652e0c7a9#沛公至霸上。秦王子婴素车、白马，系颈以组，封皇帝玺、符、节，降轵道旁。",
@@ -5919,7 +5852,7 @@
         "stable_delivery": true
       }
     ],
-    "schema_version": "historical-outcome-cluster-registry-v1",
+    "schema_version": "historical-outcome-cluster-registry-v2",
     "status": "human_frozen"
   },
   "profile_projection_gate": {
@@ -8736,7 +8669,7 @@
   ],
   "ruler_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
   "schema_version": "i5b-current-value-source-pack-v5",
-  "source_pack_sha256": "d8b96b27b9619413afc7521eec46d25d7c56f06e1e1340d4f39046daf7bc4728",
+  "source_pack_sha256": "48a9fe6206cf21140391a6844275158db96c87e65f0ba5ff11dab8c0ce2aff9d",
   "status": "current_only_rule_judged_and_factor_accepted",
   "team": {
     "coverage_judgment": "complete_current_coverage",

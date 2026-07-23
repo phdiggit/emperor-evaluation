@@ -4269,6 +4269,31 @@
     {
       "assertions": [
         {
+          "assertion_ref": "PASS-D32CD570320539D833BC",
+          "exact_quote": "柴紹之擊梁師都，以萬徹為副。未至朔方數十里，突厥四面而至，官軍稍卻。萬均與萬徹橫出擊之，斬其驍將，虜陣亂，因而乘之，殺傷被野。鼓行而進，遂圍師都。俄而師都見殺，城降，突厥不敢來援。",
+          "fact": "柴绍进击梁师都，薛万均、薛万彻击破突厥援军，围城后梁师都被杀、城降。",
+          "kind": "outcome",
+          "locator_anchor": "柴紹之擊梁師都，以萬徹為副。未至朔方數十里，突厥四面而至，官軍稍"
+        }
+      ],
+      "canonical_name": "柴绍",
+      "date": "贞观二年",
+      "dynasty_or_regime": "唐",
+      "neutral_summary": "柴绍率军进击梁师都，薛万均、薛万彻击溃突厥援军，围夏州后梁师都被杀、举城投降。",
+      "person_ref": "PER-CAND-8A3F71312E09",
+      "person_scan_key": "PSCAN-D0E41CCF0421D724",
+      "record_ref": "PFACT-F387D57194A39CF7246B",
+      "record_type": "event",
+      "revision_ref": "2610556",
+      "ruler_contexts": [
+        "李世民"
+      ],
+      "source_page": "舊唐書/卷69",
+      "subject_role": "主帅；主要方向指挥"
+    },
+    {
+      "assertions": [
+        {
           "assertion_ref": "PASS-0487E45B1C69D4269F09",
           "exact_quote": "時玄齡舊疾發，詔令臥總留臺。",
           "fact": "房玄齡舊疾發作後，詔令其臥病總理留臺。",
@@ -9076,6 +9101,7 @@
             "actor_ref": "PER-CAND-D29808A822E4",
             "contribution_scope": "率军先至丹阳，促使公祏弃城东走。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -9084,6 +9110,7 @@
             "actor_ref": "PER-CAND-8CF6E0AAF5E5",
             "contribution_scope": "率步卒一万渡淮并攻取寿阳、推进至硖石。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9092,21 +9119,20 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-AUTO-3218E266A2FAEBFC9077",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
-          "campaign_tier": "S-",
-          "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/complete，平定东南强区域叛乱并形成独立终局，定S-。",
+          "campaign_tier": "A",
+          "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/complete，解除江南重要区域叛乱但不构成对等政权或统一终局，定A。",
           "combat_difficulty": "D1",
           "combat_difficulty_basis": "区域对手仍具战力，但现有事实未显示极端兵力、地形或后勤逆境。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见唐军重大损失；父级战役群最终执辅公祐、江南皆平。",
-          "process_adversity_index": 0,
           "strategic_objective": "击破辅公祐政权并平定江南",
-          "strategic_result_class": "independent_direction",
+          "strategic_result_class": "major_stage_or_crisis",
           "theater": "寿阳—当涂—丹阳—武康"
         },
         "period": {
@@ -9119,11 +9145,11 @@
         "ruler_window_status": "outside_window",
         "scale": {
           "consequence_basis": "regional_theater_control",
-          "decisiveness": "decisive",
+          "decisiveness": "major",
           "level": "regional",
-          "reason": "击破辅公祐政权并平定江南"
+          "reason": "平定江南重要区域叛乱并形成李靖、李勣代表性统军实绩；一国平一域不构成独立统一方向。"
         },
-        "semantic_fingerprint": "7eb427f37465e59b08ab4a4d4b05ab525323f6f57dd110dd1432a4cb2d5540dd",
+        "semantic_fingerprint": "838ae86797edc70e7ea6b60b505e8ba775d989bb67245a8dbfd8762455e974a4",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
@@ -9215,6 +9241,7 @@
             "actor_ref": "PER-CAND-8CF6E0AAF5E5",
             "contribution_scope": "组织挖掘深沟、开凿地道并出兵反击。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9223,6 +9250,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-AUTO-727CFAAAC008571E7BE2",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "B",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，守住黎阳仓但成果限于重要防御节点、未形成整场战争终局，定B。",
@@ -9230,12 +9258,10 @@
           "combat_difficulty_basis": "在战略粮仓方向抗击具规模的区域政权军队并完成防御。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有史源未见守军出现重大损失或仓城失守。",
-          "process_adversity_index": 0,
           "strategic_objective": "保卫黎阳粮仓并击退宇文化及攻城军",
           "strategic_result_class": "important_objective",
           "theater": "黎阳仓城"
@@ -9254,7 +9280,7 @@
           "level": "important",
           "reason": "保卫黎阳粮仓并击退宇文化及攻城军"
         },
-        "semantic_fingerprint": "52006386f4420a29be1c56a3aa9d1cb7bab972a2b87174eeeb6e0212220dd731",
+        "semantic_fingerprint": "1ac2ed40b32de01f2f8c065e8d2e0bb88ea140fbc6d90459d04142d023d4cc48",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷53@2690610#密遣徐世勣守倉城，化及攻之不能下。",
@@ -9285,6 +9311,7 @@
             "actor_ref": "PER-CAND-564F932D7FB5",
             "contribution_scope": "担任军司马并率水陆诸军反击。",
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9293,6 +9320,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-AUTO-7B11A868338652826782",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "C",
           "campaign_tier_basis": "土地轴=local_point；对手轴=regional_major/viable；结果轴=victory/complete，完成局部击破但没有主要战略终局，定C。",
@@ -9300,12 +9328,10 @@
           "combat_difficulty_basis": "常态区域对手的局部水陆作战。",
           "land_strategic_value": "local_point",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未显示改变成果终局的额外过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "击退宁长真海路进攻并保住交趾",
           "strategic_result_class": "local_tactical",
           "theater": "交趾"
@@ -9324,7 +9350,7 @@
           "level": "local",
           "reason": "击退宁长真海路进攻并保住交趾"
         },
-        "semantic_fingerprint": "2892d6123b0f90394a24d57708a40730b4b6ff74277431eb0b7a1bea4ca2552f",
+        "semantic_fingerprint": "ee26b94d10a4ed9dee6a96c73a00909b1c18537cb5d6eeb12ff36a3082a1c510",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷185@2551225#以士廉为军司马，将水陆诸军逆击，破之，长真仅以身免，尽俘其众",
@@ -9352,6 +9378,7 @@
             "actor_ref": "PER-CAND-D29808A822E4",
             "contribution_scope": "统领唐军与突厥交战",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9360,6 +9387,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-AUTO-F63708F41E8DFCEBDBA2",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "B",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=external_hegemony/strong；结果轴=victory/complete，击退灵州硖石方向突厥进攻但只形成防御节点结果，定B。",
@@ -9367,12 +9395,10 @@
           "combat_difficulty_basis": "面对强盛外部霸权军队完成边地击退，但未见近乎崩溃的战局。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "external_hegemony",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未显示改变成果终局的额外过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "阻击颉利可汗灵州入寇",
           "strategic_result_class": "important_objective",
           "theater": "灵州硖石"
@@ -9391,7 +9417,7 @@
           "level": "important",
           "reason": "阻击颉利可汗灵州入寇"
         },
-        "semantic_fingerprint": "059d40aab2088e50343f48cfc647155f9e570deb5e347e76d2db72869c9b101c",
+        "semantic_fingerprint": "4f781766384b292a8f527d3f5bd7f4a038870acd25cfe516b348457cb464c129",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷191@1517706#安州大都督李靖与突厥颉利可汗战于灵州之硖石，自旦至申，突厥乃退",
@@ -9481,6 +9507,7 @@
               "scope": "critical_national_or_long_term"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9489,6 +9516,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-F4E0D154F563ED193E48",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_state/weakened；结果轴=victory/complete，攻克平壤、俘获高藏并终结高句丽政权，定S。",
@@ -9496,12 +9524,10 @@
           "combat_difficulty_basis": "跨境远征并攻克外部国家都城，对手虽已削弱仍有城防和纵深。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "weakened",
           "opponent_strategic_weight": "external_state",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未显示改变成果终局的额外过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "李勣任辽东道行军大总管，攻克平壤、俘高藏并平定高句丽。",
           "strategic_result_class": "single_pole_or_state_terminal",
           "theater": "李勣攻克平壤平定高句丽"
@@ -9520,7 +9546,7 @@
           "level": "national",
           "reason": "按已经实现且可归责的结果登记为national级；不以官名、名义覆盖或声誉抬档。"
         },
-        "semantic_fingerprint": "564892d758f52b8c615c5319029da8347678386bad0bf0b400c23788abdedd6f",
+        "semantic_fingerprint": "b4c9d81935e4e9e2295e466d2257b36f28e297eb7b2346a0c7373910fe921dfb",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷67@2296327#总章元年，命勣为辽东道行军总管",
@@ -9557,6 +9583,7 @@
               "scope": "critical_national_or_long_term"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9564,7 +9591,20 @@
         "origin": "person_biography",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LIJING-XIAOXIAN",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
         "payload": {
+          "attributable_failures": [
+            {
+              "actor_name": "李孝恭",
+              "actor_ref": "PER-ACTOR-78E990B3616F",
+              "basis": "李孝恭未从李靖建议，率师交战败奔；随后李靖乘敌军乱反击。",
+              "responsibility": "disobedience",
+              "severity_index": 0.6,
+              "source_refs": [
+                "舊唐書/卷67@2296327#孝恭不从，率师与贼合战。孝恭果败，奔于南岸；靖见其军乱，纵兵击破之"
+              ]
+            }
+          ],
           "battle_result": "victory",
           "campaign_tier": "S",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=first_tier_pole/strong；结果轴=victory/complete，攻灭萧铣政权并终结主要竞争方向，定S。",
@@ -9572,22 +9612,10 @@
           "combat_difficulty_basis": "对手为第一梯队竞争极，行动包含跨江推进和国家终局。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "first_tier_pole",
-          "process_adversity": "severe_repaired",
-          "process_adversity_attributions": [
-            {
-              "actor_name": "李孝恭",
-              "actor_ref": "PER-ACTOR-78E990B3616F",
-              "basis": "李孝恭未从李靖建议，率师交战败奔；随后李靖乘敌军乱反击。",
-              "responsibility": "disobedience",
-              "source_refs": [
-                "舊唐書/卷67@2296327#孝恭不从，率师与贼合战。孝恭果败，奔于南岸；靖见其军乱，纵兵击破之"
-              ]
-            }
-          ],
-          "process_adversity_basis": "李孝恭不听建议与文士弘精兵交战而败，后由李靖趁敌军掠舟负重之际反击、立即修复并完成终局。",
-          "process_adversity_index": 0.6,
           "strategic_objective": "灭萧铣并完成荆江、岭南方向平定",
           "strategic_result_class": "single_pole_or_state_terminal",
           "theater": "平定萧铣"
@@ -9606,7 +9634,7 @@
           "level": "national",
           "reason": "以实际主帅身份迫使割据政权投降并控制江汉，属于已实现的国家级征服结果。"
         },
-        "semantic_fingerprint": "c45a904b93f27bad9c677eab9bc00c65439add23fb85275eb7f6bd9f6f3d7a6d",
+        "semantic_fingerprint": "af24439fc9c73e86136894b27259635c499e35a49a4ce194eff0405c59605348",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷67@2296327#三軍之任，一以委靖",
@@ -9629,7 +9657,8 @@
         "important_method_or_legacy": false,
         "independent_key": "lishimin-campaign-baibi",
         "limitations": [
-          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
+          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
+          "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
         ],
         "members": [
           {
@@ -9638,7 +9667,7 @@
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9646,7 +9675,9 @@
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-BAIBI",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=core_heartland；对手轴=regional_major/strong；结果轴=victory/complete，在柏壁相持消耗后追击击破宋金刚并收复河东，横向对照汉初核心方向终局定S-。",
@@ -9654,22 +9685,10 @@
           "combat_difficulty_basis": "敌军先席卷河东并击败俘获唐军将领，唐军在门户失控后完成同线逆转。",
           "land_strategic_value": "core_heartland",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "severe_repaired",
-          "process_adversity_attributions": [
-            {
-              "actor_name": null,
-              "actor_ref": null,
-              "basis": "李世民接掌前，唐军既有指挥链已败并有多名将领被俘，不能倒归李世民。",
-              "responsibility": "external_unattributed",
-              "source_refs": [
-                "資治通鑑/卷188@1567784#孝基、懷恩、筠、唐儉及行軍總管劉世讓皆為所虜"
-              ]
-            }
-          ],
-          "process_adversity_basis": "刘武周陷并州、河东州县大部陷落，永安王孝基等多名总管被俘，李世民后在柏壁相持并追击至介休修复。",
-          "process_adversity_index": 0.6,
           "strategic_objective": "在柏壁相持消耗后追击击破宋金刚，收复河东。",
           "strategic_result_class": "independent_direction",
           "theater": "柏壁—介休平刘武周宋金刚战役群"
@@ -9688,7 +9707,7 @@
           "level": "regional",
           "reason": "在柏壁相持消耗后追击击破宋金刚，收复河东。"
         },
-        "semantic_fingerprint": "81f4bb7f0c6a7b82cddcb1705fba9b17e075559254248442f80da7bf54f2a7b6",
+        "semantic_fingerprint": "bb568f70aad7bb12b6c3c9475ad51e443248cc0a80ef89d9116a885c082e397c",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷1@2646080#秦王大破宋金剛於介州",
@@ -9717,9 +9736,12 @@
             "actor_kind": "ruler",
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
+            "authorization_mode": "explicit",
             "contribution_scope": "确定目标、任命统帅并授权多路出兵。",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -9736,6 +9758,7 @@
               "scope": "critical_national_or_long_term"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -9751,6 +9774,7 @@
               "scope": "major_affairs"
             },
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9759,6 +9783,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-EASTERN-TURKS",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S+",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_hegemony/weakened；结果轴=victory/complete，多路军击破东突厥、俘颉利并使汗国覆灭，汗国统治结构崩解并逆转唐初安全秩序，定S+。",
@@ -9766,12 +9791,10 @@
           "combat_difficulty_basis": "跨漠北多路远征并追击汗庭；对手当时受灾削弱，故不以历史峰值升至D3。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "weakened",
           "opponent_strategic_weight": "external_hegemony",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "当前史源未见唐军出现不克核心目标或重大兵力、机动力损失。",
-          "process_adversity_index": 0,
           "strategic_objective": "多路军击破东突厥，白道等子战作为同链节点，颉利被俘，东突厥汗国覆灭。",
           "strategic_result_class": "external_hegemony_terminal",
           "theater": "贞观四年平东突厥战役群"
@@ -9792,7 +9815,7 @@
           "level": "national",
           "reason": "多路军击破东突厥，白道等子战作为同链节点，颉利被俘，东突厥汗国覆灭。"
         },
-        "semantic_fingerprint": "f453b1c83cc1047938c94b0917edc6d287bf599424f2a0bb6d6c94f3de1bcdaf",
+        "semantic_fingerprint": "8006bcfe4087be419131ba87583b992bf21a2940a4b30d5c0856f5330153bf9f",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷194上@1461493#靖乘間襲擊，大破之，遂滅其國",
@@ -9827,9 +9850,12 @@
             "actor_kind": "ruler",
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
+            "authorization_mode": "explicit",
             "contribution_scope": "决定征讨并任命主帅。",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -9845,6 +9871,7 @@
               "scope": "major_affairs"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9853,6 +9880,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-GAOCHANG",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=external_state/viable；结果轴=victory/complete，灭高昌并设置西州，但对手体量未达全国级竞争者，定A。",
@@ -9860,12 +9888,10 @@
           "combat_difficulty_basis": "对手为可战外部国家，但未见足以成立D2以上的特殊交战困难。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "external_state",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "远征风险和战后违法不是已发生的战役损失；战后违法另入人物政治风险。",
-          "process_adversity_index": 0,
           "strategic_objective": "侯君集率军迫使高昌投降，唐设置西州，取得西域战略门户。",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "贞观十四年平高昌战役群"
@@ -9884,7 +9910,7 @@
           "level": "regional",
           "reason": "侯君集率军迫使高昌投降，唐设置西州，取得西域战略门户。"
         },
-        "semantic_fingerprint": "d3b93c30fa0fff81bdf21951a2a27b02b77836d722b972e08e6c372a9eed0481",
+        "semantic_fingerprint": "0a7ce27967daaecba15b267a96711df2b827a6a55a6d6145870ff933e734b23c",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷198@2690612#太宗乃命吏部尚書侯君集為交河道大總管",
@@ -9916,8 +9942,11 @@
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲征并直接承担前线最高统帅责任。",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "frontline_command",
+            "sovereign_at_event": true,
             "talent_credit": "independent"
           },
           {
@@ -9926,6 +9955,7 @@
             "actor_ref": "PER-CAND-8CF6E0AAF5E5",
             "contribution_scope": "承担盖牟、辽东、白岩、安市等前线主攻。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -9934,6 +9964,18 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-GOGURYEO-645",
         "payload": {
+          "attributable_failures": [
+            {
+              "actor_name": "张君乂",
+              "actor_ref": "PER-ACTOR-E6A3A9F49347",
+              "basis": "驻跸山会战初段退走导致唐兵一度不利，但该局部不利随后被道宗等收束。",
+              "responsibility": "subordinate_execution",
+              "severity_index": 0.2,
+              "source_refs": [
+                "資治通鑑/卷197@1502835#既合戰，行軍總管張君乂退走，唐兵不利"
+              ]
+            }
+          ],
           "battle_result": "mixed",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=external_state/strong；结果轴=mixed/partial，攻取多城并在驻跸山击溃主力，但安市不克且总体目标未完成，定S-。",
@@ -9941,31 +9983,17 @@
           "combat_difficulty_basis": "跨辽东远征连续攻坚，安市坚守与后勤、撤军损耗共同形成极高难度。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "partial",
-          "opponent_condition": "strong",
-          "opponent_strategic_weight": "external_state",
-          "process_adversity": "material",
-          "process_adversity_attributions": [
+          "objective_shortfalls": [
             {
-              "actor_name": "李世民",
-              "actor_ref": "RULER-58130F2446A25CC1",
-              "basis": "亲征并承担最高现场统帅责任；安市久攻不克后下令班师。",
-              "responsibility": "primary",
+              "basis": "安市城久攻不克后班师，远征整体目标只部分完成。",
               "source_refs": [
                 "舊唐書/卷3@2488779#至九月不克，乃班師"
               ]
-            },
-            {
-              "actor_name": "张君乂",
-              "actor_ref": "PER-ACTOR-E6A3A9F49347",
-              "basis": "驻跸山会战初段退走导致唐兵一度不利，但该局部不利随后被道宗等收束。",
-              "responsibility": "subordinate_execution",
-              "source_refs": [
-                "資治通鑑/卷197@1502835#既合戰，行軍總管張君乂退走，唐兵不利"
-              ]
             }
           ],
-          "process_adversity_basis": "安市城不克、撤军及远征机动力损耗构成实质过程负面。",
-          "process_adversity_index": 0.4,
+          "operational_costs": [],
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "external_state",
           "strategic_objective": "亲征攻取盖牟、辽东、白岩等城，在驻跸山击溃高句丽主力并受降；安市城久攻不克，九月班师，整体目标仅部分完成。",
           "strategic_result_class": "independent_direction",
           "theater": "贞观十九年亲征高句丽战役群"
@@ -9984,7 +10012,7 @@
           "level": "national",
           "reason": "亲征攻取盖牟、辽东、白岩等城，在驻跸山击溃高句丽主力并受降；安市城久攻不克，九月班师，整体目标仅部分完成。"
         },
-        "semantic_fingerprint": "1ba0d29044f91773dc1b9aa95f9c5f350d99d9aafe6e25f62a7438716864b18c",
+        "semantic_fingerprint": "e90b33cd1c9f3cc36b70e9099def795dd65d3637be871a5b585531b06b9bc819",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷199上@2638645#因名所幸山爲駐蹕山",
@@ -10021,8 +10049,11 @@
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "授权辽东道再征。",
-            "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "control_extent": "sustained",
+            "obstruction_status": "none",
+            "role_code": "principal_commander",
+            "ruler_campaign_relation": "operational_direction",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -10031,6 +10062,7 @@
             "actor_ref": "PER-CAND-8CF6E0AAF5E5",
             "contribution_scope": "担任辽东道主帅完成行动。",
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10039,6 +10071,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-GOGURYEO-647",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "B",
           "campaign_tier_basis": "土地轴=important_region；对手轴=external_state/strong；结果轴=victory/complete，完成渡辽击破与焚罗郭的阶段目标，但未形成战争终局，定B。",
@@ -10046,12 +10079,10 @@
           "combat_difficulty_basis": "对强盛外部国家实施跨境袭击并受辽东地理和补给约束。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "external_state",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "按计划实施袭扰并取得战果，未登记唐军实际重大损失；未达灭国终局属于本次有限目标的范围，不构成过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "以偏师扰境、破坏城郭和生产，使高句丽疲于奔命",
           "strategic_result_class": "important_objective",
           "theater": "贞观二十一年辽东道再征高句丽战役群"
@@ -10070,7 +10101,7 @@
           "level": "important",
           "reason": "李勣率军渡辽，击破沿途高句丽军并焚其罗郭后返回，取得有限阶段战果但未形成战争终局。"
         },
-        "semantic_fingerprint": "8f5f2ac52caa68303a21c6ae879a38a6a7c437c4e844d913866f41fa45ef8553",
+        "semantic_fingerprint": "318099cba228bf383fc70c1c5ff8484bc9d5e21dabb8870702e6f34f59a092b6",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷198@1502841#今若數遣偏師，更迭擾其疆場，使彼疲於奔命",
@@ -10092,7 +10123,8 @@
         "important_method_or_legacy": false,
         "independent_key": "lishimin-campaign-hulao",
         "limitations": [
-          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
+          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
+          "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
         ],
         "members": [
           {
@@ -10101,7 +10133,7 @@
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -10110,6 +10142,7 @@
             "actor_ref": "PER-CAND-A49FCFF85405",
             "contribution_scope": "在榆窠与虎牢等关键交战中承担主将责任。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10117,7 +10150,9 @@
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-HULAO",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S+",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=first_tier_pole/strong；结果轴=victory/complete，一役同时终结王世充、窦建德两个第一梯队竞争极并促成山东悉平，属于复合竞争极终局，定S+。",
@@ -10125,12 +10160,10 @@
           "combat_difficulty_basis": "围洛阳同时迎击窦建德大规模援军，一役面对两个第一梯队竞争极。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "first_tier_pole",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "洛阳久围与窦建德来援属于战役难度；未造成唐军已实现的重大损失或失控，不登记过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。",
           "strategic_result_class": "composite_poles_terminal",
           "theater": "洛阳—虎牢灭王世充窦建德战役群"
@@ -10149,7 +10182,7 @@
           "level": "national",
           "reason": "围困洛阳并在虎牢击溃窦建德援军，迫使王世充投降，山东平定；榆窠反击作为同链前置交战保留。"
         },
-        "semantic_fingerprint": "41c4a0b8684a07e97869d2738a97c6cb3ec57671ff7a75517960bf594d9f8238",
+        "semantic_fingerprint": "08fb8629429aeaecdc7540e48f811e6ce44d39e77b0c7ace30a65ae4212c4837",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
@@ -10178,8 +10211,11 @@
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲临渭水，命诸军布阵、与颉利交涉并部署后续伏兵，承担战役群最高统筹。",
+            "control_extent": "partial",
+            "obstruction_status": "none",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "ruler_campaign_relation": "operational_direction",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -10188,6 +10224,7 @@
             "actor_ref": "PER-CAND-A49FCFF85405",
             "contribution_scope": "率军在泾阳击破突厥前锋；人物信用由子成果独立承载。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "covered_by_child"
           }
         ],
@@ -10196,6 +10233,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-JINGYANG",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_hegemony/strong；结果轴=victory/complete。战略目标是保卫长安并迫使突厥退兵，目标已实现；未歼灭主力或终结外部霸权，故定A，敌军强压另计D3。",
@@ -10203,12 +10241,10 @@
           "combat_difficulty_basis": "外部霸权大军逼近都城，国家安全处于直接压迫之下。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "external_hegemony",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "突厥主力逼近都城已计入D3作战难度；现有材料未见唐方在本处置链中发生可核实的重大损失、目标丧失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "击退深入泾阳、渭水的突厥主力并保卫长安",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "泾阳—渭水—长安"
@@ -10227,7 +10263,7 @@
           "level": "regional",
           "reason": "击退深入泾阳、渭水的突厥主力并保卫长安"
         },
-        "semantic_fingerprint": "1407189133849eb5a4998753df4f175b9d9b86455cd781d42a036c2e2b1c46ee",
+        "semantic_fingerprint": "613fe8d67bc35dd70cb76f744cd0ac017ad573cbea3ddb6ecbdd5c46efa8d738",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷191@1517706#上麾諸軍使卻而布陳，獨留與頡利語。",
@@ -10252,20 +10288,12 @@
         ],
         "members": [
           {
-            "actor_kind": "ruler",
-            "actor_name": "李世民",
-            "actor_ref": "RULER-58130F2446A25CC1",
-            "contribution_scope": "承担长安危机战役群最高统筹；泾阳前锋交战人物信用不重复归于皇帝。",
-            "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
-            "talent_credit": "not_applicable"
-          },
-          {
             "actor_kind": "person",
             "actor_name": "尉迟敬德",
             "actor_ref": "PER-CAND-A49FCFF85405",
             "contribution_scope": "作为泾州道行军总管率军在泾阳击破突厥前锋并俘获俟斤。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10275,6 +10303,7 @@
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-JINGYANG-FRONTLINE",
         "parent_outcome_ref": "OUTCOME-LSM-CAMPAIGN-JINGYANG",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "B",
           "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_hegemony/strong；结果轴=victory/complete。实现重要局部目标但未独立决定整个长安危机，定B。",
@@ -10282,12 +10311,10 @@
           "combat_difficulty_basis": "在外部霸权大军逼近都城的高压背景下击破其前锋，但逐字材料未显示兵力悬殊或极端战术逆境。",
           "land_strategic_value": "capital_or_state_survival",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "external_hegemony",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "现有逐字史源未见本次泾阳交战发生可核实的重大损失或可归责挫败。",
-          "process_adversity_index": 0,
           "strategic_objective": "击破逼近泾阳的突厥前锋",
           "strategic_result_class": "important_objective",
           "theater": "泾阳"
@@ -10305,12 +10332,97 @@
           "level": "important",
           "reason": "击破都城安全方向的敌军前锋，但整体危机仍由父级战役群结算。"
         },
-        "semantic_fingerprint": "f8c385b5a10cebf22475826e5fb32c4617aa4e93a780cd335cce4e0545c142d1",
+        "semantic_fingerprint": "70607a8384862b00eb05ad6b579990b7f622a78777ea7c7b972de856d3803745",
         "settlement_scope": "person_campaign_subresult",
         "source_refs": [
           "資治通鑑/卷191@1517706#辛巳，涇州道行軍總管尉遲敬德與突厥戰於涇陽，大破之，獲其俟斤阿史"
         ],
         "stable_delivery": false
+      },
+      {
+        "canonical_label": "夏州平梁师都战役群",
+        "episode_refs": [
+          "EP-OUTCOME-056B31444A0C5E18BCBE"
+        ],
+        "fact_refs": [
+          "PFACT-F387D57194A39CF7246B"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "tang-unification-liang-shidu",
+        "limitations": [
+          "现有固定引文未证明李世民详细制定作战计划，不登记其统治者控制方式。"
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "柴绍",
+            "actor_ref": "PER-CAND-8A3F71312E09",
+            "contribution_scope": "统率唐军进击并围困夏州",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
+            "talent_credit": "independent"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "薛万均",
+            "actor_ref": "PER-CAND-17BEE27A6876",
+            "contribution_scope": "与薛万彻横击突厥援军并促成围城",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false,
+            "talent_credit": "independent"
+          },
+          {
+            "actor_kind": "person",
+            "actor_name": "薛万彻",
+            "actor_ref": "PER-CAND-38F0DDA22267",
+            "contribution_scope": "作为柴绍之副并与薛万均击溃突厥援军",
+            "role_code": "principal_commander",
+            "sovereign_at_event": false,
+            "talent_credit": "independent"
+          }
+        ],
+        "observable_result": "柴绍军击退突厥援军并围夏州，梁师都被杀、举城投降，唐清除延续自隋末的最后割据方向之一。",
+        "origin": "person_biography",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
+        "payload": {
+          "attributable_failures": [],
+          "battle_result": "victory",
+          "campaign_tier": "B",
+          "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=regional_major/viable；结果轴=victory/complete，清除长期割据夏州的重要方向但未形成对等国家终局，定B。",
+          "combat_difficulty": "D2",
+          "combat_difficulty_basis": "梁师都据夏州多年并有突厥四面来援，唐军先退后由薛万均、薛万彻横击破援。",
+          "land_strategic_value": "strategic_gateway",
+          "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
+          "opponent_condition": "viable",
+          "opponent_strategic_weight": "regional_major",
+          "strategic_objective": "清除梁师都割据并解除突厥援助下的北方残余威胁",
+          "strategic_result_class": "important_objective",
+          "theater": "夏州、朔方"
+        },
+        "period": {
+          "end": "贞观二年",
+          "start": "贞观二年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "ruler_context_refs": [],
+        "ruler_window_status": "within_window",
+        "scale": {
+          "consequence_basis": "important_objective",
+          "decisiveness": "major",
+          "level": "important",
+          "reason": "清除长期据夏州并依附突厥的割据势力，是统一链末端的重要清障，但不是对等国家终局。"
+        },
+        "semantic_fingerprint": "cd32d57ac6991705ab25671137155539e64cc1bcce4c89f5636250f97d0251c1",
+        "settlement_scope": "ruler_campaign_parent",
+        "source_refs": [
+          "舊唐書/卷69@2610556#柴紹之擊梁師都，以萬徹為副。未至朔方數十里，突厥四面而至，官軍稍"
+        ],
+        "stable_delivery": true
       },
       {
         "canonical_label": "洺水击破刘黑闼战役群",
@@ -10324,7 +10436,8 @@
         "important_method_or_legacy": false,
         "independent_key": "lishimin-campaign-liuheita",
         "limitations": [
-          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
+          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
+          "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
         ],
         "members": [
           {
@@ -10333,7 +10446,7 @@
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -10342,6 +10455,7 @@
             "actor_ref": "PER-CAND-8CF6E0AAF5E5",
             "contribution_scope": "承担前线作战并经历黎州失守与洺州重创。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -10350,6 +10464,7 @@
             "actor_ref": "PER-CAND-A49FCFF85405",
             "contribution_scope": "在李世民受围时突围救援。",
             "role_code": "participant",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10357,7 +10472,20 @@
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-LIUHEITA",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
         "payload": {
+          "attributable_failures": [
+            {
+              "actor_name": "李勣",
+              "actor_ref": "PER-ACTOR-A0665C80ECC8",
+              "basis": "李勣不能拒敌而弃城，构成该战役链前段严重挫败。",
+              "responsibility": "primary",
+              "severity_index": 0.6,
+              "source_refs": [
+                "舊唐書/卷55@2037164#不能拒，棄城走"
+              ]
+            }
+          ],
           "battle_result": "mixed",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/strong；结果轴=mixed/partial，击溃刘黑闼主力并使山东暂平但其后复起，未形成最终终局，定A。",
@@ -10365,22 +10493,10 @@
           "combat_difficulty_basis": "刘黑闼此前连续击败唐军主力并造成黎州、洺州重大损失，唐军在高压态势下反击。",
           "land_strategic_value": "important_region",
           "objective_completion": "partial",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "severe_repaired",
-          "process_adversity_attributions": [
-            {
-              "actor_name": "李勣",
-              "actor_ref": "PER-ACTOR-A0665C80ECC8",
-              "basis": "李勣不能拒敌而弃城，构成该战役链前段严重挫败。",
-              "responsibility": "primary",
-              "source_refs": [
-                "舊唐書/卷55@2037164#不能拒，棄城走"
-              ]
-            }
-          ],
-          "process_adversity_basis": "黎州失守、五千步卒死亡，虽洺水大胜但对手后来复起。",
-          "process_adversity_index": 0.6,
           "strategic_objective": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "洺水击破刘黑闼战役群"
@@ -10399,7 +10515,7 @@
           "level": "regional",
           "reason": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。"
         },
-        "semantic_fingerprint": "e6269a66279800ffe50e0df3cd3c5b22887ff3c9adad89074c207046ad62c7ea",
+        "semantic_fingerprint": "1feec7f1e9746231184f5cb70df21e4f2cb0c738065e8075668c474cb2691233",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
@@ -10420,7 +10536,8 @@
         "important_method_or_legacy": false,
         "independent_key": "lishimin-campaign-qianshuiyuan",
         "limitations": [
-          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
+          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
+          "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
         ],
         "members": [
           {
@@ -10429,7 +10546,7 @@
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10437,7 +10554,20 @@
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-QIANSHUIYUAN",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
         "payload": {
+          "attributable_failures": [
+            {
+              "actor_name": "刘文静、殷开山",
+              "actor_ref": "PER-ACTOR-C373D5466167",
+              "basis": "二人恃众不设备，遭敌军从后掩击而大败；史源未写明违令，不作违令归责。",
+              "responsibility": "shared",
+              "severity_index": 0.6,
+              "source_refs": [
+                "新唐書/卷086@1490066#行軍長史劉文靜、殷開山觀兵於高墌，恃眾不設備，舉兵掩其後，遂大敗"
+              ]
+            }
+          ],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/strong；结果轴=victory/complete，击败并迫降薛仁杲、平定陇右，横向对照汉初主要独立方向定S-。",
@@ -10445,22 +10575,10 @@
           "combat_difficulty_basis": "首战遭受严重失败后面对强盛区域主力完成同一方向逆转。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "strong",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "severe_repaired",
-          "process_adversity_attributions": [
-            {
-              "actor_name": "刘文静、殷开山",
-              "actor_ref": "PER-ACTOR-C373D5466167",
-              "basis": "二人恃众不设备，遭敌军从后掩击而大败；史源未写明违令，不作违令归责。",
-              "responsibility": "shared",
-              "source_refs": [
-                "新唐書/卷086@1490066#行軍長史劉文靜、殷開山觀兵於高墌，恃眾不設備，舉兵掩其後，遂大敗"
-              ]
-            }
-          ],
-          "process_adversity_basis": "刘文静、殷开山恃众不设备，遭敌军从后掩击而大败，八总管军多没；李世民复掌后完成灭国终局。",
-          "process_adversity_index": 0.6,
           "strategic_objective": "击败并迫降薛仁杲，陇右平定。",
           "strategic_result_class": "independent_direction",
           "theater": "浅水原平薛仁杲战役群"
@@ -10479,7 +10597,7 @@
           "level": "regional",
           "reason": "击败并迫降薛仁杲，陇右平定。"
         },
-        "semantic_fingerprint": "7339d68fd5a25cb16b539116f7bbdc130a650fa0dd38c1fdb8ad018e177fca04",
+        "semantic_fingerprint": "9ebc086de0511a8522078bc95863129fdb873506e8ba2cf044ddd321d379dae7",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
@@ -10507,9 +10625,12 @@
             "actor_kind": "ruler",
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
+            "authorization_mode": "explicit",
             "contribution_scope": "任命大总管并授权远征。",
+            "obstruction_status": "none",
             "role_code": "not_in_command_chain",
-            "ruler_campaign_relation": "authorized",
+            "ruler_campaign_relation": "authorization_only",
+            "sovereign_at_event": true,
             "talent_credit": "not_applicable"
           },
           {
@@ -10525,6 +10646,7 @@
               "scope": "critical_national_or_long_term"
             },
             "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -10541,6 +10663,7 @@
               "scope": "major_affairs"
             },
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10549,6 +10672,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-TUYUHUN",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "S-",
           "campaign_tier_basis": "土地轴=strategic_gateway；对手轴=external_state/strong；结果轴=victory/complete，深入青海连续击破吐谷浑、伏允败亡，形成西北重要战略终局，定S-。",
@@ -10556,22 +10680,17 @@
           "combat_difficulty_basis": "长距离高原追击，并面对烧草阻马等显著地形和补给困难。",
           "land_strategic_value": "strategic_gateway",
           "objective_completion": "complete",
-          "opponent_condition": "strong",
-          "opponent_strategic_weight": "external_state",
-          "process_adversity": "material",
-          "process_adversity_attributions": [
+          "objective_shortfalls": [],
+          "operational_costs": [
             {
-              "actor_name": null,
-              "actor_ref": null,
-              "basis": "吐谷浑焚烧野草，春草未生导致唐军马匹羸瘦，属于敌方与环境造成的实质困难。",
-              "responsibility": "external_unattributed",
+              "basis": "吐谷浑焚草清野，春草未生时唐军马匹已经羸瘦，形成已发生的远征机动力损耗。",
               "source_refs": [
                 "舊唐書/卷67@2296327#吐谷渾燒去野草，以餧我師，退保大非川，諸將咸言春草未生，馬已羸瘦"
               ]
             }
           ],
-          "process_adversity_basis": "吐谷浑焚草清野，唐军春草未生而马已羸瘦，对远征机动力形成已发生的实质损耗，后深入敌境完成修复。",
-          "process_adversity_index": 0.4,
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "external_state",
           "strategic_objective": "唐军深入青海高原连续击破吐谷浑，伏允败亡，完成西北重要战略终局。",
           "strategic_result_class": "independent_direction",
           "theater": "贞观九年平吐谷浑战役群"
@@ -10590,7 +10709,7 @@
           "level": "national",
           "reason": "唐军深入青海高原连续击破吐谷浑，伏允败亡，完成西北重要战略终局。"
         },
-        "semantic_fingerprint": "3ae1fb6c9391bf401943701883807501bccb3d337900c445e01871f638b4d393",
+        "semantic_fingerprint": "5b9623d49730adc4c2ba9a35206f754de9c94841929e32feeb9372bef693f8d6",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷3@2488779#命特進李靖、兵部尚書侯君集、刑部尚書任城王道宗、涼州都督李大亮等為大總管",
@@ -10623,8 +10742,11 @@
             "actor_name": "李世民",
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲临战区临时坐镇并承担该阶段最高统筹。",
-            "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "temporary_theater_control",
+            "control_extent": "partial",
+            "obstruction_status": "none",
+            "role_code": "principal_commander",
+            "ruler_campaign_relation": "operational_direction",
+            "sovereign_at_event": true,
             "talent_credit": "independent"
           },
           {
@@ -10639,7 +10761,8 @@
               "basis": "太宗遣李世勣出击薛延陀，人物、方面统军任务与已实现战果同链明确。",
               "scope": "major_affairs"
             },
-            "role_code": "principal_commander",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10648,6 +10771,7 @@
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-XUEYANTUO",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=important_region；对手轴=external_state/weakened；结果轴=victory/complete，完成军事收束并促成北荒州府秩序，但未决战消灭强盛主力，定A。",
@@ -10655,12 +10779,10 @@
           "combat_difficulty_basis": "远距离草原作战仍有后勤难度，但对手已经削弱。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "weakened",
           "opponent_strategic_weight": "external_state",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "战役链取得终局且未登记唐军已发生的重大损失；常规动员与追击不构成过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "李勣击破薛延陀主力并促成其政权覆亡，北方草原主要竞争者终结。",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "贞观二十年平薛延陀战役群"
@@ -10679,7 +10801,7 @@
           "level": "regional",
           "reason": "李勣击破薛延陀主力并促成其政权覆亡，北方草原主要竞争者终结。"
         },
-        "semantic_fingerprint": "d9b2f1e911b63b01dbeca7c0a6db7e20ad394a4e60696df7c15e42387889e47b",
+        "semantic_fingerprint": "478769c627bfee0e697a3750911e42e0791dcb6b40c29682b9af75f5a6879c1b",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷199下@2543103#太宗親幸靈州，爲諸軍聲援",
@@ -10701,7 +10823,8 @@
         "important_method_or_legacy": false,
         "independent_key": "lishimin-campaign-xuyuanlang",
         "limitations": [
-          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
+          "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
+          "李世民在此战发生时尚未即位，只登记实际军事身份；李渊控制方式待李渊窗口固定引文补齐。"
         ],
         "members": [
           {
@@ -10710,7 +10833,7 @@
             "actor_ref": "RULER-58130F2446A25CC1",
             "contribution_scope": "亲自统军并承担战役群最高现场指挥。",
             "role_code": "commander_in_chief",
-            "ruler_campaign_relation": "personal_command",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           },
           {
@@ -10719,6 +10842,7 @@
             "actor_ref": "PER-CAND-8CF6E0AAF5E5",
             "contribution_scope": "奉命继续进攻并参与平定。",
             "role_code": "principal_commander",
+            "sovereign_at_event": false,
             "talent_credit": "independent"
           }
         ],
@@ -10726,7 +10850,9 @@
         "origin": "multi_channel",
         "outcome_kind": "campaign",
         "outcome_ref": "OUTCOME-LSM-CAMPAIGN-XUYUANLANG",
+        "parent_outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
         "payload": {
+          "attributable_failures": [],
           "battle_result": "victory",
           "campaign_tier": "A",
           "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/viable；结果轴=victory/complete，攻下十余城并由后续诸军完成徐圆朗方向平定，定A。",
@@ -10734,12 +10860,10 @@
           "combat_difficulty_basis": "常态区域平定行动，未见极端兵力或环境逆境。",
           "land_strategic_value": "important_region",
           "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
           "opponent_condition": "viable",
           "opponent_strategic_weight": "regional_major",
-          "process_adversity": "none",
-          "process_adversity_attributions": [],
-          "process_adversity_basis": "当前史源未见唐军重大损失或核心目标不克，指挥权接续不本身构成过程负面。",
-          "process_adversity_index": 0,
           "strategic_objective": "李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。",
           "strategic_result_class": "major_stage_or_crisis",
           "theater": "曹州—淮泗平徐圆朗战役群"
@@ -10758,7 +10882,7 @@
           "level": "regional",
           "reason": "李世民进军曹州并攻下十余城，随后由神通、李勣等继续进攻，徐圆朗败亡，其地平定。"
         },
-        "semantic_fingerprint": "525cfc6ce66f9766bbca2f823213879821962bf5415418ca70a5708b7b65ae6b",
+        "semantic_fingerprint": "e008f6edfac185b143d71fd96efa589a9e5e38419db4716519e6b9fa9e682632",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷55@2037164#太宗平黑闥，進師曹州，遣淮安王神通及李世勣攻之",
@@ -12333,9 +12457,97 @@
           "貞觀政要/卷09@802090#太宗不從，竟以其地置西州，仍以西州為安西都護府，每歲調發千餘人防"
         ],
         "stable_delivery": true
+      },
+      {
+        "canonical_label": "唐初统一战争终局",
+        "episode_refs": [
+          "EP-OUTCOME-93C5E5DA453D84CAB743"
+        ],
+        "fact_refs": [
+          "PFACT-AUTO-6EA176F6EBFC05431CE8",
+          "PFACT-F387D57194A39CF7246B",
+          "PFACT-GOLD-0F85E1AB0D2A7339E88D",
+          "PFACT-GOLD-46D40BDB0123531712EC",
+          "PFACT-GOLD-6F4A1D846D15C8586E23",
+          "PFACT-GOLD-819E1B98B51BD3D3D27E",
+          "PFACT-GOLD-917CA6667F94FCC6F83F",
+          "PFACT-GOLD-9C5FA72216469CEE5BED",
+          "PFACT-GOLD-A8FD699EF1261F4A442B",
+          "PFACT-GOLD-DA6E38E13FE631D6D54E",
+          "PFACT-GOLD-F8DAC0F4E46B51CE1787",
+          "PFACT-GOLD-FEF32DC085E29750EC76",
+          "PFACT-LIJING-XIAOXIAN-CAMPAIGN"
+        ],
+        "important_method_or_legacy": true,
+        "independent_key": "tang-initial-unification-terminal",
+        "limitations": [
+          "跨李渊、李世民两个统治窗口；统治者与将领责任只在各子战役群登记。"
+        ],
+        "members": [],
+        "observable_result": "唐政权先后清除陇右、河东、河南河北、山东、江南及夏州等独立竞争方向，完成唐初国内统一。",
+        "origin": "multi_channel",
+        "outcome_kind": "campaign",
+        "outcome_ref": "OUTCOME-TANG-UNIFICATION-TERMINAL",
+        "payload": {
+          "attributable_failures": [],
+          "battle_result": "victory",
+          "campaign_tier": "S+",
+          "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=dominant_pole/strong；结果轴=victory/complete，多方向累计清除主要竞争极并完成唐初国内统一，定S+；根节点不直接计分。",
+          "combat_difficulty": "D3",
+          "combat_difficulty_basis": "统一链包含多个第一梯队竞争势力、跨区域连续战争及突厥介入。",
+          "land_strategic_value": "capital_or_state_survival",
+          "objective_completion": "complete",
+          "objective_shortfalls": [],
+          "operational_costs": [],
+          "opponent_condition": "strong",
+          "opponent_strategic_weight": "dominant_pole",
+          "strategic_objective": "清除主要竞争政权与持续割据方向并完成唐初国内统一",
+          "strategic_result_class": "unification_terminal",
+          "theater": "关中、陇右、河东、河南河北、山东、江南、夏州"
+        },
+        "period": {
+          "end": "贞观二年",
+          "start": "武德元年"
+        },
+        "result_direction": "positive",
+        "result_status": "completed",
+        "ruler_context_refs": [],
+        "ruler_window_status": "unresolved",
+        "scale": {
+          "consequence_basis": "unification",
+          "decisiveness": "decisive",
+          "level": "national",
+          "reason": "多个独立战略方向共同完成唐初国内统一；该根节点只表达总终局，不进入皇帝或人才结算。"
+        },
+        "semantic_fingerprint": "0b7408fbc5f9cee5d6de1ed936e8c3c29d79b530eff534ab17b183162db33340",
+        "settlement_scope": "war_terminal_context",
+        "source_refs": [
+          "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
+          "新唐書/卷086@1490066#行軍長史劉文靜、殷開山觀兵於高墌，恃眾不設備，舉兵掩其後，遂大敗",
+          "舊唐書/卷1@2646080#秦王大破宋金剛於介州",
+          "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。",
+          "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
+          "舊唐書/卷55@2037164#不能拒，棄城走",
+          "舊唐書/卷55@2037164#太宗平黑闥，進師曹州，遣淮安王神通及李世勣攻之",
+          "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
+          "舊唐書/卷67@2296327#三軍之任，一以委靖",
+          "舊唐書/卷67@2296327#孝恭不从，率师与贼合战。孝恭果败，奔于南岸；靖见其军乱，纵兵击破之",
+          "舊唐書/卷67@2296327#銑遣使請降",
+          "舊唐書/卷67@2296327#靖又陳十策以圖蕭銑",
+          "舊唐書/卷69@2610556#柴紹之擊梁師都，以萬徹為副。未至朔方數十里，突厥四面而至，官軍稍",
+          "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德",
+          "資治通鑑/卷188@1567784#孝基、懷恩、筠、唐儉及行軍總管劉世讓皆為所虜",
+          "資治通鑑/卷188@1567784#秦王世民引兵自龍門乘冰堅渡河，屯柏壁，與宋金剛相持。",
+          "資治通鑑/卷189@1503114#宜據武牢之險以拒之，伺間而動，破之必矣。",
+          "資治通鑑/卷190@1502800#世民擊徐圓朗，下十餘城，聲震淮、泗",
+          "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出",
+          "資治通鑑/卷190@1502800#隋漢陽太守馮盎承李靖檄，帥所部來降",
+          "資治通鑑/卷190@1502800#黑闥眾大潰，斬首萬餘級，溺死數千人"
+        ],
+        "stable_delivery": true
       }
     ],
-    "schema_version": "historical-outcome-cluster-registry-v1",
+    "schema_version": "historical-outcome-cluster-registry-v2",
     "status": "shadow"
   },
   "profile_projection_gate": {
@@ -16248,7 +16460,7 @@
   ],
   "ruler_ref": "RULER-58130F2446A25CC1",
   "schema_version": "i5b-current-value-source-pack-v5",
-  "source_pack_sha256": "3aee5f7aeca64d8d4d2cb75c1e7b3c086b404f1840ae3f73b4bc843bd69a4f3c",
+  "source_pack_sha256": "01d77a43465d74353ffee2a721586a3adb34d5062db96fe429c2ec0f9373fd26",
   "status": "current_only_rule_judged_and_factor_accepted",
   "team": {
     "coverage_judgment": "complete_current_coverage",

@@ -15,11 +15,12 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
 )
 
 
-SCHEMA_VERSION = "historical-outcome-unbound-registry-v1"
+SCHEMA_VERSION = "historical-outcome-unbound-registry-v2"
 
 _DISPLAY_LABELS = {
+    "war_terminal": "战争终局根节点",
     "campaign_group": "战役群",
-    "campaign_subresult": "人物子战役",
+    "person_command_result": "人物指挥子成果",
     "governance_result": "治理成果",
     "macro_public_result": "宏观公共结果",
     "person_statecraft_result": "人物谋略成果",
@@ -32,11 +33,9 @@ _DISPLAY_LABELS = {
     "governance_participant": "实质参与",
     "authorized": "正式授权",
     "reign_holder": "在位承接",
-    "obstructed": "阻止或掣肘",
-    "acquiesced": "知情默许",
-    "temporary_theater_control": "临时战区控制",
-    "sustained_theater_control": "持续战区统筹",
-    "personal_command": "亲征统帅",
+    "authorization_only": "仅授权",
+    "operational_direction": "战役筹划与统筹",
+    "frontline_command": "前线最高指挥",
     "local": "局部",
     "important": "重要",
     "regional": "区域",
@@ -138,8 +137,10 @@ def _registration_ref(outcome_kind: str, independent_key: str) -> str:
 def _event_level(cluster: Mapping[str, Any]) -> str:
     scope = str(cluster.get("settlement_scope") or "")
     if cluster["outcome_kind"] == "campaign":
+        if scope == "war_terminal_context":
+            return "war_terminal"
         return (
-            "campaign_subresult"
+            "person_command_result"
             if scope == "person_campaign_subresult"
             else "campaign_group"
         )
@@ -401,9 +402,23 @@ def materialize_ruler_outcome_registry(
                 binding.get("ruler_context_refs") or ()
             )
         event_level = str(registered["event_level"])
-        if event_level == "campaign_group":
+        if event_level == "war_terminal":
+            cluster["settlement_scope"] = "war_terminal_context"
+        elif event_level == "campaign_group":
             cluster["settlement_scope"] = "ruler_campaign_parent"
-        elif event_level == "campaign_subresult":
+            if registered.get("parent_registration_ref"):
+                parent_registration_ref = str(
+                    registered["parent_registration_ref"]
+                )
+                parent_outcome_ref = outcome_ref_by_registration.get(
+                    parent_registration_ref
+                )
+                if parent_outcome_ref is None:
+                    raise ValueError(
+                        f"窗口绑定缺少战役群战争终局父级: {registration_ref}"
+                    )
+                cluster["parent_outcome_ref"] = parent_outcome_ref
+        elif event_level == "person_command_result":
             cluster["settlement_scope"] = "person_campaign_subresult"
             parent_registration_ref = str(registered["parent_registration_ref"])
             parent_outcome_ref = outcome_ref_by_registration.get(parent_registration_ref)
@@ -441,7 +456,7 @@ def materialize_ruler_outcome_registry(
         clusters.append(cluster)
     clusters.sort(key=lambda row: str(row["outcome_ref"]))
     return {
-        "schema_version": "historical-outcome-cluster-registry-v1",
+        "schema_version": "historical-outcome-cluster-registry-v2",
         "status": binding_report["projected_registry_status"],
         "clusters": clusters,
     }
@@ -522,7 +537,28 @@ def _members_text(members: Sequence[Mapping[str, Any]]) -> str:
     values = []
     for member in members:
         relation = member.get("sovereign_relation")
-        suffix = f"；皇权角色={_display_label(relation)}" if relation else ""
+        relation_parts = []
+        if relation:
+            relation_parts.append(f"统治者控制={_display_label(relation)}")
+        if member.get("authorization_mode"):
+            relation_parts.append(
+                "授权方式="
+                + {
+                    "explicit": "正式",
+                    "tacit": "默许",
+                }[str(member["authorization_mode"])]
+            )
+        if member.get("control_extent"):
+            relation_parts.append(
+                "控制范围="
+                + {
+                    "partial": "局部",
+                    "sustained": "持续",
+                }[str(member["control_extent"])]
+            )
+        if member.get("obstruction_status") == "confirmed":
+            relation_parts.append("存在明确阻挠")
+        suffix = "；" + "；".join(relation_parts) if relation_parts else ""
         values.append(
             f"{member['actor_name']}（{_display_label(member['role_code'])}{suffix}；"
             f"{_display_text(member['contribution_scope'])}）"
@@ -573,23 +609,26 @@ def render_unbound_historical_outcome_registry_markdown(
         [
             "## 战役登记",
             "",
-            "| 登记号 | 战役成果 | 层级 | 时段 | 战略结果等级 | 作战难度 | 土地轴 | 对手轴 | 结果轴 | 过程负面及归责 | 参与者责任 | 已实现结果 | 史源 |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| 登记号 | 战役成果 | 层级 | 时段 | 战略结果等级 | 作战难度 | 土地轴 | 对手轴 | 结果轴 | 战争成本 | 目标未完成 | 可归责失败 | 参与者责任 | 已实现结果 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in campaigns:
         payload = row["payload"]
-        attributions = "、".join(
+        failures = "、".join(
             f"{item.get('actor_name') or '外部因素'}:"
             f"{_display_label(item['responsibility'])}"
-            f"({_display_text(item['basis'])})"
-            for item in payload.get("process_adversity_attributions") or ()
+            f"(严重度={item['severity_index']}；{_display_text(item['basis'])})"
+            for item in payload.get("attributable_failures") or ()
         ) or "无"
-        adverse = (
-            f"{_display_label(payload['process_adversity'])} / "
-            f"负面指数={payload['process_adversity_index']}；"
-            f"{_display_text(payload['process_adversity_basis'])}；{attributions}"
-        )
+        operational_costs = "、".join(
+            _display_text(item["basis"])
+            for item in payload.get("operational_costs") or ()
+        ) or "无"
+        shortfalls = "、".join(
+            _display_text(item["basis"])
+            for item in payload.get("objective_shortfalls") or ()
+        ) or "无"
         result = (
             f"{_display_label(payload['battle_result'])} / "
             f"{_display_label(payload['objective_completion'])}"
@@ -615,7 +654,9 @@ def render_unbound_historical_outcome_registry_markdown(
                     _display_label(payload["land_strategic_value"]),
                     opponent,
                     result,
-                    adverse,
+                    operational_costs,
+                    shortfalls,
+                    failures,
                     _members_text(row["members"]),
                     _display_text(row["observable_result"]),
                     "、".join(row["source_refs"]),
