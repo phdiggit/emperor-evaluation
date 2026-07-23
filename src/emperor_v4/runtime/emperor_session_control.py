@@ -184,6 +184,7 @@ def _canonical_paths(
         (root / "config/project.yml").read_text(encoding="utf-8")
     )
     registry = project.get("historical_outcome_registry") or {}
+    profiles = project.get("historical_person_profile_registry") or {}
     paths = {
         "source_pack": root / str(configured["source_pack"]),
         "neutral_materials": root / str(configured["neutral_materials"]),
@@ -192,6 +193,9 @@ def _canonical_paths(
         "outcome_binding": root / str(configured["outcome_binding"]),
         "outcome_registry_json": root / str(registry["current_json"]),
         "outcome_registry_markdown": root / str(registry["current_markdown"]),
+        "person_profile_registry_json": root / str(profiles["current_json"]),
+        "person_profile_registry_markdown": root
+        / str(profiles["current_markdown"]),
     }
     current_binding = paths["outcome_binding"].resolve()
     rulers = ((project.get("i5b_current_value") or {}).get("rulers") or {})
@@ -260,7 +264,8 @@ def _prepare_workspace(
     if not (source / "source-pack.json").is_file():
         raise SessionControlError(f"release 不含皇帝 source-pack: {ruler}")
     shutil.copytree(source, workspace_root / "eval/i5b_current_value" / ruler)
-    # The public outcome registry is rebuilt from every configured source pack,
+    # The public outcome and person-profile registries are rebuilt from every
+    # configured source pack,
     # even though this session may mutate only its claimed ruler. Copy the
     # other packs as immutable inputs. Shared neutral atoms live under the
     # session controller's token store; another ruler's derived neutral view is
@@ -628,6 +633,7 @@ def _validate_publish_payload(
     source_pack = _read_json(paths["source_pack"])
     binding = _read_json(paths["outcome_binding"])
     outcome_registry = _read_json(paths["outcome_registry_json"])
+    person_profiles = _read_json(paths["person_profile_registry_json"])
     neutral = _read_json(paths["neutral_materials"])
     report = _read_json(paths["result_json"])
     markdown = paths["result_markdown"].read_text(encoding="utf-8")
@@ -639,6 +645,17 @@ def _validate_publish_payload(
         "outcome_registry"
     ):
         raise SessionControlError("成果总登记与皇帝窗口绑定无法还原 source-pack")
+    if (
+        (person_profiles.get("declarations") or {}).get(
+            "outcome_registry_fingerprint"
+        )
+        != outcome_registry.get("registry_fingerprint")
+        or report.get("person_profile_registry_fingerprint")
+        != person_profiles.get("registry_fingerprint")
+        or report.get("person_profile_registry")
+        != person_profiles.get("profiles")
+    ):
+        raise SessionControlError("共享人物画像与成果总登记或皇帝结果不一致")
     project = yaml.safe_load(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
     )

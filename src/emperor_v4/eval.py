@@ -372,7 +372,15 @@ def _run_outcome_registry(args: argparse.Namespace) -> int:
         f"{registry['declarations']['statecraft_count']}"
     )
     print(f"窗口绑定：{registry['declarations']['window_binding_count']}")
-    print(f"总登记：{written['registry_markdown']}")
+    profiles = written["profile_registry"]
+    print(
+        "共享人物画像："
+        f"{profiles['declarations']['profile_count']} "
+        f"（闭合 {profiles['declarations']['complete_profile_count']} / "
+        f"开放 {profiles['declarations']['open_profile_count']}）"
+    )
+    print(f"成果总登记：{written['registry_markdown']}")
+    print(f"人物画像总登记：{written['profile_registry_markdown']}")
     return 1 if registry["status"] == "needs_review" else 0
 
 

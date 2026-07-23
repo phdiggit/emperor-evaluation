@@ -23,6 +23,9 @@ from emperor_v4.evaluation.historical_outcome_registry import (
     build_ruler_outcome_bindings,
     build_unbound_historical_outcome_registry,
 )
+from emperor_v4.evaluation.historical_person_profile_registry import (
+    build_historical_person_profile_registry,
+)
 from emperor_v4.evaluation.i5b_current_value_runner import build_i5b_current_value
 
 
@@ -783,10 +786,14 @@ def apply_source_pack_increment(
         registry = build_unbound_historical_outcome_registry(source_packs)
         binding = build_ruler_outcome_bindings(compiled, registry)
         if require_current_projection_ready:
+            profile_registry = build_historical_person_profile_registry(
+                registry, source_packs
+            )
             build_i5b_current_value(
                 candidate,
                 workspace_root=workspace_root,
                 outcome_layers=(registry, binding),
+                shared_profile_registry=profile_registry,
             )
     replacement = source_pack_path.with_name(f".{source_pack_path.name}.{uuid4().hex}.tmp")
     replacement.write_text(rendered, encoding="utf-8", newline="\n")

@@ -27,6 +27,10 @@ from emperor_v4.evaluation.historical_outcome_registry import (
     materialize_ruler_outcome_registry,
     render_unbound_historical_outcome_registry_markdown,
 )
+from emperor_v4.evaluation.historical_person_profile_registry import (
+    build_historical_person_profile_registry,
+    render_historical_person_profile_registry_markdown,
+)
 from emperor_v4.adapters.historical_entity_identity import HistoricalEntityResolver
 from emperor_v4.adapters.source_text_index import LocalSourceTextIndex, build_local_source_index
 from emperor_v4.adapters.structured_output_contract import validate_codex_output_schema
@@ -1175,6 +1179,10 @@ def _session_release_fixture(tmp_path: Path) -> Path:
     shutil.copytree(
         ROOT / "eval/historical_outcome_registry",
         release / "eval/historical_outcome_registry",
+    )
+    shutil.copytree(
+        ROOT / "eval/historical_person_profiles",
+        release / "eval/historical_person_profiles",
     )
     shutil.copytree(
         ROOT / "eval/historical_outcome_bindings",
@@ -2466,14 +2474,8 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
     assert report["declarations"]["profile_freeze_gate_passed"] is True
     assert report["declarations"]["formal_scoring_ready"] is False
     assert report["declarations"]["profile_member_with_open_gap_count"] == 0
-    assert report["declarations"]["person_profile_registry_count"] == {
-        "李世民": 19,
-        "刘邦": 13,
-    }[ruler]
-    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == {
-        "李世民": 7,
-        "刘邦": 3,
-    }[ruler]
+    assert report["declarations"]["person_profile_registry_count"] == 36
+    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == 12
     assert report["declarations"]["historical_outcome_cluster_count"] > 0
     assert report["declarations"]["campaign_outcome_count"] > 0
     assert report["declarations"]["governance_outcome_count"] > 0
@@ -2489,16 +2491,10 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
     profile_registry = {
         row["person"]: row for row in report["person_profile_registry"]
     }
-    expected_unscored = {
-        "李世民": {"刘德威", "温彦博", "王珪", "裴弘献"},
-        "刘邦": {"刘敬", "叔孙通", "樊哙"},
-    }[ruler]
-    assert expected_unscored <= set(profile_registry)
+    assert {"侯君集", "高士廉", "房玄龄", "韩信"} <= set(profile_registry)
     assert all(
-        row["team_building_projection"] == ["not_in_current_team_candidate_pool"]
-        and row["coverage_status"] == "provisional_registered_outcomes_only"
-        for name, row in profile_registry.items()
-        if name in expected_unscored
+        "team_building_projection" not in row and "political_risk" not in row
+        for row in profile_registry.values()
     )
     if ruler == "李世民":
         assert profile_registry["房玄龄"]["domain_grades"]["civil_governance"]["grade"] == "historic"
@@ -2533,7 +2529,35 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
         if member["member_type"] == "episode"
     ]
     assert len(episode_member_refs) > len(set(episode_member_refs))
-    assert all(not any(key in episode for key in ("semantic_version", "evidence_version", "previous_status")) for episode in report["episodes"])
+
+
+def test_person_profiles_are_shared_before_ruler_window_projection() -> None:
+    li_shimin = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    li_yuan = build_i5b_current_value(
+        ROOT / "eval/i5b_current_value/李渊/source-pack.json"
+    )
+
+    assert (
+        li_shimin["person_profile_registry_fingerprint"]
+        == li_yuan["person_profile_registry_fingerprint"]
+    )
+    assert li_shimin["person_profile_registry"] == li_yuan[
+        "person_profile_registry"
+    ]
+    profiles = {
+        row["person"]: row for row in li_shimin["person_profile_registry"]
+    }
+    assert profiles["侯君集"]["overall_grade"] == "top"
+    assert profiles["高士廉"]["overall_grade"] == "top"
+    assert all(
+        not any(
+            key in episode
+            for key in ("semantic_version", "evidence_version", "previous_status")
+        )
+        for episode in li_shimin["episodes"]
+    )
 
 
 def test_current_li_shimin_corrections_follow_rule_documents() -> None:
@@ -6355,6 +6379,12 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     assert liu_labels["平城白登汉匈战役群"]["payload"]["campaign_tier"] == "A"
     assert labels["洺水击破刘黑闼战役群"]["payload"]["combat_difficulty"] == "D3"
     assert labels["贞观四年平东突厥战役群"]["payload"]["strategic_result_class"] == "external_hegemony_terminal"
+    western_turks = labels["苏定方平西突厥战役群"]["payload"]
+    assert western_turks["campaign_tier"] == "S"
+    assert western_turks["strategic_result_class"] == "single_pole_or_state_terminal"
+    assert western_turks["opponent_strategic_weight"] == "external_state"
+    assert "万余" in western_turks["combat_difficulty_basis"]
+    assert "十万" in western_turks["combat_difficulty_basis"]
     hanxin = [
         row
         for row in liu_outcomes
@@ -6461,6 +6491,32 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
             assert sovereign_at_event == {"李世民": False, "李渊": True}
 
 
+def test_shared_person_profile_registry_precedes_ruler_window_projection() -> None:
+    source_packs = [
+        json.loads(
+            (ROOT / "eval/i5b_current_value" / ruler / "source-pack.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for ruler in ("李世民", "李渊", "刘邦")
+    ]
+    outcomes = build_unbound_historical_outcome_registry(source_packs)
+    profiles = build_historical_person_profile_registry(outcomes, source_packs)
+
+    assert profiles["declarations"]["profile_count"] == 36
+    assert profiles["declarations"]["ruler_window_binding_count"] == 0
+    assert profiles["declarations"]["team_projection_count"] == 0
+    assert profiles["declarations"]["political_risk_projection_count"] == 0
+    assert all(
+        "political_risk" not in row and "team_building_projection" not in row
+        for row in profiles["profiles"]
+    )
+    rendered = render_historical_person_profile_registry_markdown(profiles)
+    assert "# 人物全生涯画像总登记（未绑定皇帝窗口）" in rendered
+    assert "侯君集" in rendered
+    assert "高士廉" in rendered
+
+
 def test_direct_runner_uses_the_same_markdown_contract(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -6484,7 +6540,7 @@ def test_direct_runner_uses_the_same_markdown_contract(
     report = json.loads(output_json.read_text(encoding="utf-8"))
     markdown = output_markdown.read_text(encoding="utf-8")
     assert markdown == render_scoring_detail_markdown(report)
-    assert "| 人物 | 总档 | 定级理由 |" in markdown
+    assert "| 画像号 | 人物 | 总档 | 定级理由 |" in markdown
 
 
 def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
@@ -6659,6 +6715,12 @@ def test_scoring_detail_output_is_optional(
         ROOT / "eval/historical_outcome_registry/current.json",
         registry_dir / "current.json",
     )
+    profile_dir = workspace / "eval/historical_person_profiles"
+    profile_dir.mkdir(parents=True)
+    shutil.copy2(
+        ROOT / "eval/historical_person_profiles/current.json",
+        profile_dir / "current.json",
+    )
     binding_dir = workspace / "eval/historical_outcome_bindings"
     binding_dir.mkdir(parents=True)
     shutil.copy2(
@@ -6698,6 +6760,12 @@ def test_default_detail_export_rebuilds_from_source_pack_not_stale_result(
     shutil.copy2(
         ROOT / "eval/historical_outcome_registry/current.json",
         registry_dir / "current.json",
+    )
+    profile_dir = workspace / "eval/historical_person_profiles"
+    profile_dir.mkdir(parents=True)
+    shutil.copy2(
+        ROOT / "eval/historical_person_profiles/current.json",
+        profile_dir / "current.json",
     )
     binding_dir = workspace / "eval/historical_outcome_bindings"
     binding_dir.mkdir(parents=True)

@@ -13,6 +13,10 @@ import yaml
 from emperor_v4.evaluation.historical_outcome_cluster import (
     cluster_semantic_fingerprint,
 )
+from emperor_v4.evaluation.historical_person_profile_registry import (
+    build_historical_person_profile_registry,
+    render_historical_person_profile_registry_markdown,
+)
 
 
 SCHEMA_VERSION = "historical-outcome-unbound-registry-v2"
@@ -533,7 +537,7 @@ def _atomic_text(path: Path, content: str) -> None:
 
 
 def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
-    """Publish unbound outcomes first, then isolated ruler bindings."""
+    """Publish shared outcomes and profiles first, then ruler bindings."""
 
     workspace_root = workspace_root.resolve()
     project = yaml.safe_load(
@@ -560,6 +564,18 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
     output_markdown = workspace_root / str(
         registry_config.get("current_markdown")
         or "eval/historical_outcome_registry/current.md"
+    )
+    profile_registry = build_historical_person_profile_registry(
+        registry, [row[2] for row in configured_packs]
+    )
+    profile_config = project.get("historical_person_profile_registry") or {}
+    profile_json = workspace_root / str(
+        profile_config.get("current_json")
+        or "eval/historical_person_profiles/current.json"
+    )
+    profile_markdown = workspace_root / str(
+        profile_config.get("current_markdown")
+        or "eval/historical_person_profiles/current.md"
     )
     prepared_bindings = []
     for ruler_name, ruler_config, source_pack in configured_packs:
@@ -594,6 +610,17 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         output_markdown,
         render_unbound_historical_outcome_registry_markdown(registry),
     )
+    _atomic_text(
+        profile_json,
+        json.dumps(
+            profile_registry, ensure_ascii=False, indent=2, sort_keys=True
+        )
+        + "\n",
+    )
+    _atomic_text(
+        profile_markdown,
+        render_historical_person_profile_registry_markdown(profile_registry),
+    )
     binding_paths = {}
     for ruler_name, binding_output, binding in prepared_bindings:
         _atomic_text(
@@ -605,6 +632,9 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         "registry": registry,
         "registry_json": str(output_json),
         "registry_markdown": str(output_markdown),
+        "profile_registry": profile_registry,
+        "profile_registry_json": str(profile_json),
+        "profile_registry_markdown": str(profile_markdown),
         "binding_paths": binding_paths,
     }
 

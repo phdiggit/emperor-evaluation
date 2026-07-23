@@ -55,8 +55,8 @@ STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v2",
-    "outcome_projection": "current-outcome-projection-stage-v15",
-    "current_projection": "registry-profile-i5b-stage-v2",
+    "outcome_projection": "shared-outcome-profile-projection-stage-v16",
+    "current_projection": "shared-profile-window-i5b-stage-v3",
 }
 
 
@@ -1680,6 +1680,12 @@ def rebuild_emperor(
             "registry_fingerprint": outcome_review_layers["registry"][
                 "registry_fingerprint"
             ],
+            "shared_profile_count": len(
+                outcome_review_layers["profile_registry"]["profiles"]
+            ),
+            "shared_profile_registry_fingerprint": outcome_review_layers[
+                "profile_registry"
+            ]["registry_fingerprint"],
             "database_write_count": 0,
             "formal_score_write_count": 0,
         },
@@ -1715,6 +1721,15 @@ def rebuild_emperor(
             "outcome_registry_fingerprint": outcome_review_layers["registry"][
                 "registry_fingerprint"
             ],
+            "person_profile_registry_json": outcome_review_layers[
+                "profile_registry_json"
+            ],
+            "person_profile_registry_markdown": outcome_review_layers[
+                "profile_registry_markdown"
+            ],
+            "person_profile_registry_fingerprint": outcome_review_layers[
+                "profile_registry"
+            ]["registry_fingerprint"],
             "outcome_count": len(projected_outcomes),
             "stage_results": stage_results,
             "database_write_count": 0,
@@ -1725,6 +1740,12 @@ def rebuild_emperor(
         {
             "source_pack_sha256": _file_digest(source_pack_path),
             "neutral_materials_sha256": _file_digest(neutral_path),
+            "outcome_registry_fingerprint": outcome_review_layers["registry"][
+                "registry_fingerprint"
+            ],
+            "person_profile_registry_fingerprint": outcome_review_layers[
+                "profile_registry"
+            ]["registry_fingerprint"],
         }
     )
     current_stage_contract_fingerprint = _digest(
@@ -1775,6 +1796,9 @@ def rebuild_emperor(
             "ruler": ruler,
             "registry_fingerprint": outcome_layers["registry"][
                 "registry_fingerprint"
+            ],
+            "person_profile_registry_fingerprint": report[
+                "person_profile_registry_fingerprint"
             ],
             "sampled_person_exports": samples,
             "net_signal": report["net_signal"],

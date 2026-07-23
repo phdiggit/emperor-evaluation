@@ -13,7 +13,7 @@
     },
     "ruler": "李世民",
     "schema_version": "historical-outcome-database-dry-run-v1",
-    "source_pack_sha256": "544ebe5f7236c763db12546571483c12e0dbc3b9499d0931123f27a78caac420",
+    "source_pack_sha256": "72679ae4a73b81737f28a47526fafc35c5a0a2c573cea917a4c1852eccd781bc",
     "status": "ready_before_database_write"
   },
   "declarations": {
@@ -28,8 +28,9 @@
     "historical_outcome_cluster_count": 50,
     "linked_ruler_context_count": 13,
     "outside_ruler_window_outcome_count": 13,
-    "person_profile_registry_count": 19,
-    "person_profile_registry_with_open_gap_count": 7,
+    "person_profile_registry_count": 36,
+    "person_profile_registry_with_open_gap_count": 12,
+    "person_profile_window_projection_count": 36,
     "profile_freeze_gate_passed": true,
     "profile_material_coverage_complete": true,
     "profile_member_count": 12,
@@ -5391,10 +5392,10 @@
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "07c55e75907a94e62c02ef4dea57c83aa9bcf5353111f02dac4d5f0d82cf7de0"
+        "input_hash": "4fca7557f747b7e949660b4b651d84206315b2f4e915895bd22f423bc3ef4774"
       },
       "responsibility": "苏定方以commander_in_chief承担担任行军大总管，独立统筹进军并完成灭国级战略结果。",
-      "semantic_fingerprint": "7ee9ef326dff57015f0a124969ca3aa799971cce341dda9c419341a4383fd44c",
+      "semantic_fingerprint": "09fc93521a7926c54ac3b85be9bf9c1735b9616710697c6bc909e78dbaa4c8e0",
       "time_end": "显庆二年",
       "time_precision": "historical_text_range",
       "time_start": "显庆二年",
@@ -11955,18 +11956,18 @@
       "payload": {
         "attributable_failures": [],
         "battle_result": "victory",
-        "campaign_tier": "S+",
-        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_hegemony/strong；结果轴=victory/complete，击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海，定S+。",
+        "campaign_tier": "S",
+        "campaign_tier_basis": "土地轴=capital_or_state_survival；对手轴=external_state/strong；结果轴=victory/complete，击溃并擒获阿史那贺鲁、终结西突厥政权，属于单一外部国家终局；现有史源虽证明十万主力和广域结果，但不足以证明其在显庆二年仍是相对唐朝的外部霸权，定S。",
         "combat_difficulty": "D3",
-        "combat_difficulty_basis": "跨区域远征并承担全军最高统帅责任，完成连续追击和国家终局。",
+        "combat_difficulty_basis": "苏定方以汉兵、回纥合计万余迎击贺鲁十万兵马，步骑配合顶住三次冲击后反攻并连续追击，属极端兵力态势下的跨区域远征。",
         "land_strategic_value": "capital_or_state_survival",
         "objective_completion": "complete",
         "objective_shortfalls": [],
         "operational_costs": [],
         "opponent_condition": "strong",
-        "opponent_strategic_weight": "external_hegemony",
+        "opponent_strategic_weight": "external_state",
         "strategic_objective": "击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海",
-        "strategic_result_class": "external_hegemony_terminal",
+        "strategic_result_class": "single_pole_or_state_terminal",
         "theater": "苏定方平西突厥战役群"
       },
       "period": {
@@ -11983,7 +11984,7 @@
         "level": "national",
         "reason": "击溃并擒获阿史那贺鲁，西突厥统治终结，其地列为州县直至西海"
       },
-      "semantic_fingerprint": "07c55e75907a94e62c02ef4dea57c83aa9bcf5353111f02dac4d5f0d82cf7de0",
+      "semantic_fingerprint": "4fca7557f747b7e949660b4b651d84206315b2f4e915895bd22f423bc3ef4774",
       "settlement_scope": "ruler_campaign_parent",
       "source_refs": [
         "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯",
@@ -12142,7 +12143,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "268a7faea3a16abe4184c3d19802f6bce003f2a167e37ac7556e926c1f8a7f60",
-    "report_sha256": "055a9e44d5786c13dd67c2061e23f5800c49774a06b357cae5b1918002773a29",
+    "report_sha256": "f4475a71f25ca6a98a7ba804ef6fd8f807063d716be6aa408eb2030b08c267ef",
     "ruler": "李世民",
     "ruler_ref": "RULER-58130F2446A25CC1",
     "rules": [
@@ -12475,7 +12476,7 @@
         "source_candidate_count": 8,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "e580207d6ddebf0e5a4522512b120b032c6103cb679ad1140f2f2c2b4e3e41de",
+        "source_sha256": "8b1b96f7626f548a0b9eef73bf4ee799bad6981f6e713e78652dbe732aa3369d",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -13212,7 +13213,7 @@
         "source_candidate_count": 14,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "e580207d6ddebf0e5a4522512b120b032c6103cb679ad1140f2f2c2b4e3e41de",
+        "source_sha256": "8b1b96f7626f548a0b9eef73bf4ee799bad6981f6e713e78652dbe732aa3369d",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -13332,7 +13333,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "top",
-            "talent_grade_basis": "military：作为主帅完成“贞观十四年平高昌战役群”，属A级战役群；作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群。",
+            "talent_grade_basis": "military：作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群；作为主帅完成“贞观十四年平高昌战役群”，属A级战役群。",
             "talent_profile_basis": {
               "basis": "military：作为主帅完成“贞观十四年平高昌战役群”，属A级战役群；作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群。",
               "evidence_refs": [
@@ -13492,7 +13493,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "civil_governance：作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
+            "talent_grade_basis": "civil_governance：作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
             "talent_profile_basis": {
               "basis": "civil_governance：作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
               "evidence_refs": [
@@ -13646,9 +13647,9 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S+级战役群。",
+            "talent_grade_basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S级战役群。",
             "talent_profile_basis": {
-              "basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S+级战役群。",
+              "basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S级战役群。",
               "evidence_refs": [
                 "PFACT-SUDINGFANG-WESTERN-TURKS",
                 "PFACT-SUDINGFANG-BAEKJE"
@@ -13695,7 +13696,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "civil_governance：作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果；作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
+            "talent_grade_basis": "civil_governance：作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。",
             "talent_profile_basis": {
               "basis": "civil_governance：作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果；作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
               "evidence_refs": [
@@ -13879,7 +13880,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 12,
         "source_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "e580207d6ddebf0e5a4522512b120b032c6103cb679ad1140f2f2c2b4e3e41de",
+        "source_sha256": "8b1b96f7626f548a0b9eef73bf4ee799bad6981f6e713e78652dbe732aa3369d",
         "supporting_only_members": [
           {
             "judge_reason": "人物画像已在三路材料、成果登记和窗口政治风险覆盖闭合后冻结；未进入正8/负3的成员仅作支持。",
@@ -14360,7 +14361,7 @@
         "source_candidate_count": 12,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "e580207d6ddebf0e5a4522512b120b032c6103cb679ad1140f2f2c2b4e3e41de",
+        "source_sha256": "8b1b96f7626f548a0b9eef73bf4ee799bad6981f6e713e78652dbe732aa3369d",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -14702,7 +14703,7 @@
         "source_candidate_count": 8,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-        "source_sha256": "e580207d6ddebf0e5a4522512b120b032c6103cb679ad1140f2f2c2b4e3e41de",
+        "source_sha256": "8b1b96f7626f548a0b9eef73bf4ee799bad6981f6e713e78652dbe732aa3369d",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -14719,7 +14720,7 @@
       "team_positive_member_count": 8,
       "weighted_raw_signal": "17.763451"
     },
-    "task_code": "I5B-CURRENT-8A60694C14478A40",
+    "task_code": "I5B-CURRENT-06B3F623ABD2DF5F",
     "window": "626-649"
   },
   "net_signal": "17.763451",
@@ -14739,8 +14740,18 @@
   },
   "person_profile_registry": [
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -14755,11 +14766,11 @@
           "rule_path": "coverage_complete_below_usable"
         },
         "military": {
-          "basis": "作为主帅完成“贞观十四年平高昌战役群”，属A级战役群；作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群。",
+          "basis": "作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群；作为主帅完成“贞观十四年平高昌战役群”，属A级战役群。",
           "grade": "top",
           "outcome_refs": [
-            "OUTCOME-LSM-CAMPAIGN-GAOCHANG",
-            "OUTCOME-LSM-CAMPAIGN-TUYUHUN"
+            "HOUT-24B4619E0752A4DDA724",
+            "HOUT-63FFCD57059718566F1F"
           ],
           "rule_path": "top_fallback"
         },
@@ -14770,52 +14781,62 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-2185E0B1718BD304840E",
+          "PFACT-7C9F8E8DF45A5F84E7FE",
+          "PFACT-8D58091452904A0EEB84",
+          "PFACT-B52E0C525C0BD460D5B4"
+        ],
+        "revision_ref": "2610556",
+        "scan_status": "complete_section",
+        "section_chars": 2856,
+        "section_heading": "侯君集",
+        "source_page": "舊唐書/卷69"
+      },
       "outcome_refs": [
-        "OUTCOME-LSM-CAMPAIGN-GAOCHANG",
-        "OUTCOME-LSM-CAMPAIGN-TUYUHUN"
+        "HOUT-24B4619E0752A4DDA724",
+        "HOUT-63FFCD57059718566F1F"
       ],
-      "overall_basis": "military：作为主帅完成“贞观十四年平高昌战役群”，属A级战役群；作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群。",
+      "overall_basis": "military：作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群；作为主帅完成“贞观十四年平高昌战役群”，属A级战役群。",
       "overall_grade": "top",
       "overall_rule_path": "top_fallback",
       "person": "侯君集",
       "person_ref": "PER-CAND-851A4B92D193",
-      "political_risk": {
-        "assessment_status": "established",
-        "basis": "平高昌后擅配没无罪者、私取宝物并因自保放任将士竞相盗窃，后又参与承乾不轨谋划；属于重复且已实现的群体财产与公共权力损害，按serious登记。",
-        "evidence_refs": [
-          "PFACT-LSM-HOUJUNJI-LOOTING-AND-CONSPIRACY"
-        ],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": "window_exposed_political_or_discipline_risk",
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2610556",
-          "source_page": "舊唐書/卷69"
-        },
-        "severity": "serious"
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "negative_scored"
+      "profile_fingerprint": "67a7478026f554aeb1d10f5e458a1b68d0bd46617a1b4a487e734fba6cd471aa",
+      "profile_ref": "PINV-9A6184E6043B791C957D",
+      "role_families": [
+        "military",
+        "occupation_abuse",
+        "political_conspiracy"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-2BF5480984E75FDDF375",
+        "PFACT-GOLD-2D4A618AC07463715E81",
+        "PFACT-GOLD-50912960C91FC71FDA3E",
+        "PFACT-GOLD-8172511881E4E201CB92"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-24B4619E0752A4DDA724",
+        "HOUT-63FFCD57059718566F1F"
       ]
     },
     {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "作为主导完成“恢复司法失入失出依律处理”，属important级治理结果。",
           "grade": "important",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-JUDICIAL-ERROR-BALANCE"
+            "HOUT-D2E2F75769D6652DD7DB"
           ],
           "rule_path": "domain_important_threshold"
         },
@@ -14838,30 +14859,406 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-JUDICIAL-ERROR-BALANCE"
+        "HOUT-D2E2F75769D6652DD7DB"
       ],
       "overall_basis": "civil_governance：作为主导完成“恢复司法失入失出依律处理”，属important级治理结果。",
       "overall_grade": "important",
       "overall_rule_path": "domain_important_threshold",
       "person": "刘德威",
       "person_ref": "PER-GOLD-ABD3D878719A4DC73D1A",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [
         "civil_governance"
       ],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
+      "profile_fingerprint": "121065c3682c3dfb245ad796d1cf436c85dbe2990df4bc0a1274a28de97d53a2",
+      "profile_ref": "PROFILE-BF48F1A0E178DFF6",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-A96F9C801AF3C706E52E",
+        "PFACT-OUTCOME-A929846EA16EDEEC"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-D2E2F75769D6652DD7DB"
       ]
     },
     {
+      "authority_grade_calibration": null,
+      "coverage_gaps": [
+        "missing_full_lifecycle_biography_lineage",
+        "missing_authoritative_grade_calibration"
+      ],
+      "coverage_status": "registered_outcomes_only",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“徙六国豪强名家实关中”，属national级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+          "grade": "important",
+          "outcome_refs": [
+            "HOUT-35EBBEE17661BD220755"
+          ],
+          "rule_path": "domain_important_threshold"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": null,
+      "outcome_refs": [
+        "HOUT-35EBBEE17661BD220755"
+      ],
+      "overall_basis": "civil_governance：作为主导完成“徙六国豪强名家实关中”，属national级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。",
+      "overall_grade": "important",
+      "overall_rule_path": "domain_important_threshold",
+      "person": "刘敬",
+      "person_ref": "PER-CAND-EFA9B4B27853",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "ca9700fe7b9306b68d33f5ba493797b8395559e7f4dab4a802631d3df732dfdc",
+      "profile_ref": "PROFILE-AE56A4224E1E10D3",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-QUALITY-29DFDF61ABD311A1CB8F"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-35EBBEE17661BD220755"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按固定本传、独立公共成果、结果规模和责任角色校准；不以官职或声誉抬档。",
+        "evidence_refs": [
+          "PFACT-LIYUAN-LIUWENJING-LIFECYCLE",
+          "PFACT-AUTO-51BB0678505EC29E956F"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“武德律令编定并颁行天下”，属national级治理结果。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-BF6BC03956AF2C3FF52A"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "作为主导完成“刘文静出使突厥借兵”，属important级谋略结果。",
+          "grade": "usable",
+          "outcome_refs": [
+            "HOUT-8036040CF129D0C4D86A"
+          ],
+          "rule_path": "domain_usable_threshold"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-LIYUAN-LIUWENJING-LIFECYCLE",
+          "PFACT-AUTO-51BB0678505EC29E956F"
+        ],
+        "revision_ref": "2019966",
+        "scan_status": "complete_section",
+        "section_chars": 4300,
+        "section_heading": "刘文静",
+        "source_page": "舊唐書/卷57"
+      },
+      "outcome_refs": [
+        "HOUT-8036040CF129D0C4D86A",
+        "HOUT-BF6BC03956AF2C3FF52A"
+      ],
+      "overall_basis": "civil_governance：作为主导完成“武德律令编定并颁行天下”，属national级治理结果。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "刘文静",
+      "person_ref": "PER-ACTOR-9D09781AE311",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "21c152c9863b76d10aff306b5fa63c87dcc91b16fc1fcbf1b451981f48ece46e",
+      "profile_ref": "PINV-2B52C50A372A44824C66",
+      "role_families": [
+        "administration",
+        "law",
+        "strategy"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-AUTO-51BB0678505EC29E956F"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-BF6BC03956AF2C3FF52A"
+      ]
+    },
+    {
+      "authority_grade_calibration": null,
+      "coverage_gaps": [
+        "missing_full_lifecycle_biography_lineage",
+        "missing_authoritative_grade_calibration"
+      ],
+      "coverage_status": "registered_outcomes_only",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为独占完成“入关约法三章与秦地安堵”，属regional级治理结果；作为独占完成“汉初轻田租与官用财政约束”，属national级治理结果。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-0226CC0093ED85D1BFBD",
+            "HOUT-568A5F7118E3C8557E3E"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": null,
+      "outcome_refs": [
+        "HOUT-0226CC0093ED85D1BFBD",
+        "HOUT-1C40BA22E7199FFBF4EF",
+        "HOUT-28F37176AA608F12E6B0",
+        "HOUT-311C52639F95E8A3138C",
+        "HOUT-35EBBEE17661BD220755",
+        "HOUT-3A619C223DABBD7BF372",
+        "HOUT-442F62117FF05B88972F",
+        "HOUT-497E84AD3A3B60AC8640",
+        "HOUT-4DEABB5E57CDD127B5F2",
+        "HOUT-568A5F7118E3C8557E3E",
+        "HOUT-704D13811AE8D45D1A86",
+        "HOUT-89AB597909CE8260E108",
+        "HOUT-8A8F0846EFBCBA5DFB4D",
+        "HOUT-95BEE22695CF5D4774AE",
+        "HOUT-99971DB5BCEBB8F915C1",
+        "HOUT-9E72C5A569F2F6886ADB",
+        "HOUT-B6B095C2B6E7107E4DD1",
+        "HOUT-B7088E24527EFA775F30",
+        "HOUT-B981546E990EF74846B4",
+        "HOUT-C085B718A26194C7B500",
+        "HOUT-E13B910B67BD40FC6D60",
+        "HOUT-F088400D8445B7B685F0",
+        "HOUT-F8DC44598AAF7C7656F1"
+      ],
+      "overall_basis": "civil_governance：作为独占完成“入关约法三章与秦地安堵”，属regional级治理结果；作为独占完成“汉初轻田租与官用财政约束”，属national级治理结果。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "刘邦",
+      "person_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "da0cb612a27ef985da1aceb8e53989653c0bbe8f9e93d68d2a624d6d60d16acd",
+      "profile_ref": "PROFILE-2D644C0EFDE2D497",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-QUALITY-06A927A323CD58F5A9AA",
+        "PFACT-QUALITY-6BC095D394A7A8960EC4",
+        "PFACT-QUALITY-B2220662293FB49BC22A"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-0226CC0093ED85D1BFBD",
+        "HOUT-568A5F7118E3C8557E3E"
+      ]
+    },
+    {
+      "authority_grade_calibration": null,
+      "coverage_gaps": [
+        "missing_full_lifecycle_biography_lineage",
+        "missing_authoritative_grade_calibration"
+      ],
+      "coverage_status": "registered_outcomes_only",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“叔孙通制定汉朝朝仪”，属important级治理结果。",
+          "grade": "important",
+          "outcome_refs": [
+            "HOUT-704D13811AE8D45D1A86"
+          ],
+          "rule_path": "domain_important_threshold"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": null,
+      "outcome_refs": [
+        "HOUT-704D13811AE8D45D1A86"
+      ],
+      "overall_basis": "civil_governance：作为主导完成“叔孙通制定汉朝朝仪”，属important级治理结果。",
+      "overall_grade": "important",
+      "overall_rule_path": "domain_important_threshold",
+      "person": "叔孙通",
+      "person_ref": "PER-CAND-5C3BAA7627B8",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "909591dc28e65df52cb2d002bc2c7003ed7234573c443907e30b4d92c5d3d076",
+      "profile_ref": "PROFILE-E7FB21D931232ED7",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-QUALITY-8C8BFC671786D44B888E"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-704D13811AE8D45D1A86"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-41CE7721509571B8E874",
+          "PFACT-69ABEDD8E89EDEC6153A",
+          "PFACT-B16F3241641256A60A24"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主将完成“平定陈豨叛乱战役群”，属A级战役群；作为主将完成“平定韩王信叛乱战役群”，属A级战役群；作为主将完成“还定三秦战役群”，属S-级战役群。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-311C52639F95E8A3138C",
+            "HOUT-8A8F0846EFBCBA5DFB4D",
+            "HOUT-9E72C5A569F2F6886ADB"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-41CE7721509571B8E874",
+          "PFACT-69ABEDD8E89EDEC6153A",
+          "PFACT-B16F3241641256A60A24"
+        ],
+        "revision_ref": "1569360",
+        "scan_status": "complete_section",
+        "section_chars": 3546,
+        "section_heading": "周勃",
+        "source_page": "史記/卷057"
+      },
+      "outcome_refs": [
+        "HOUT-311C52639F95E8A3138C",
+        "HOUT-8A8F0846EFBCBA5DFB4D",
+        "HOUT-95BEE22695CF5D4774AE",
+        "HOUT-9E72C5A569F2F6886ADB"
+      ],
+      "overall_basis": "military：作为主将完成“平定陈豨叛乱战役群”，属A级战役群；作为主将完成“平定韩王信叛乱战役群”，属A级战役群；作为主将完成“还定三秦战役群”，属S-级战役群。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "周勃",
+      "person_ref": "PER-CAND-746B660CC80F",
+      "primary_domains": [
+        "military"
+      ],
+      "profile_fingerprint": "67f090eb7c35d07bf1cabb2e86bb635004fb1554edc787f501f1ac63a8a09e8b",
+      "profile_ref": "PINV-52400B80718A7DB029CE",
+      "role_families": [
+        "military",
+        "pacification"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-B16F3241641256A60A24",
+        "PFACT-QUALITY-5F1DB122C8AC3A731A13",
+        "PFACT-QUALITY-6A0AA06FF85237640095",
+        "PFACT-QUALITY-B018D5CBE416D8A6FC40",
+        "PFACT-QUALITY-EC98E0B832FBC651E9D1",
+        "PFACT-QUALITY-EE7DFD6479EF320B3821"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-311C52639F95E8A3138C",
+        "HOUT-8A8F0846EFBCBA5DFB4D",
+        "HOUT-9E72C5A569F2F6886ADB"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -14879,7 +15276,7 @@
           "basis": "作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。",
           "grade": "top",
           "outcome_refs": [
-            "OUTCOME-LSM-CAMPAIGN-HULAO"
+            "HOUT-A33478170FAE693A1AD9"
           ],
           "rule_path": "top_fallback"
         },
@@ -14890,51 +15287,234 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-0E2B2C4E04F98FF69939",
+          "PFACT-3EF3BF404B1A3787190E",
+          "PFACT-51E7B775A8A36EAD6494",
+          "PFACT-D54647FD03DFCC8F581F",
+          "PFACT-FB5F6FB26D4F81F8675A"
+        ],
+        "revision_ref": "1757055",
+        "scan_status": "complete_section",
+        "section_chars": 7079,
+        "section_heading": "尉遲敬德",
+        "source_page": "舊唐書/卷68"
+      },
       "outcome_refs": [
-        "OUTCOME-LSM-CAMPAIGN-HULAO",
-        "OUTCOME-LSM-CAMPAIGN-JINGYANG",
-        "OUTCOME-LSM-CAMPAIGN-JINGYANG-FRONTLINE",
-        "OUTCOME-LSM-CAMPAIGN-LIUHEITA"
+        "HOUT-0661B7F51D8A04D7E54A",
+        "HOUT-91981E9C40B5D612EC1E",
+        "HOUT-A33478170FAE693A1AD9",
+        "HOUT-B72B410AAF61E4383449"
       ],
       "overall_basis": "military：作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。",
       "overall_grade": "top",
       "overall_rule_path": "top_fallback",
       "person": "尉迟敬德",
       "person_ref": "PER-CAND-A49FCFF85405",
-      "political_risk": {
-        "assessment_status": "established",
-        "basis": "贞观朝宴席争次时拳击李道宗眼部、几近失明，是单次且对象有限的已实现严重人身侵害；玄武门武装行动不与普通战场或政变交战重复累计。",
-        "evidence_refs": [
-          "PFACT-LSM-YUCHI-COURT-ASSAULT"
-        ],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": "window_exposed_political_or_discipline_risk",
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "1757055",
-          "source_page": "舊唐書/卷68"
-        },
-        "severity": "material"
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "negative_scored"
+      "profile_fingerprint": "e59b92df3b0d98d8a769dad8999f2c4eff969e94a1e8bc538db6b3585ab8fcfb",
+      "profile_ref": "PINV-1DBCDAB10E57FCB03956",
+      "role_families": [
+        "armed_political_execution",
+        "military"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-0F85E1AB0D2A7339E88D",
+        "PFACT-GOLD-6F4A1D846D15C8586E23",
+        "PFACT-GOLD-DA6E38E13FE631D6D54E"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-A33478170FAE693A1AD9"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-1070789A40FE72C73714",
+          "PFACT-630C9A0F3160F8D18E00",
+          "PFACT-FE03D100E3F0F1A347EB"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "作为主导完成“张良修复固陵诸侯失期危机”，属national级谋略结果；作为主导完成“张良制止复立六国后方案”，属national级谋略结果；作为主导完成“张良重组彭城败后联盟与方面用将”，属national级谋略结果。",
+          "grade": "historic",
+          "outcome_refs": [
+            "HOUT-1C40BA22E7199FFBF4EF",
+            "HOUT-B7088E24527EFA775F30",
+            "HOUT-E13B910B67BD40FC6D60"
+          ],
+          "rule_path": "statecraft_three_national_results"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-1070789A40FE72C73714",
+          "PFACT-630C9A0F3160F8D18E00",
+          "PFACT-FE03D100E3F0F1A347EB"
+        ],
+        "revision_ref": "2666612",
+        "scan_status": "complete_section",
+        "section_chars": 5032,
+        "section_heading": "留侯",
+        "source_page": "史記/卷055"
+      },
+      "outcome_refs": [
+        "HOUT-1C40BA22E7199FFBF4EF",
+        "HOUT-B7088E24527EFA775F30",
+        "HOUT-E13B910B67BD40FC6D60"
+      ],
+      "overall_basis": "statecraft：作为主导完成“张良修复固陵诸侯失期危机”，属national级谋略结果；作为主导完成“张良制止复立六国后方案”，属national级谋略结果；作为主导完成“张良重组彭城败后联盟与方面用将”，属national级谋略结果。",
+      "overall_grade": "historic",
+      "overall_rule_path": "statecraft_three_national_results",
+      "person": "张良",
+      "person_ref": "PER-CAND-2FFB15145AF5",
+      "primary_domains": [
+        "statecraft"
+      ],
+      "profile_fingerprint": "530a76cf1247576c93fe344d1f06c3de6d7f3cee68fd97ebd3f3b0f910613782",
+      "profile_ref": "PINV-86823167DF7635448A82",
+      "role_families": [
+        "correction",
+        "decision",
+        "strategy"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-1070789A40FE72C73714",
+        "PFACT-630C9A0F3160F8D18E00",
+        "PFACT-FE03D100E3F0F1A347EB"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-1C40BA22E7199FFBF4EF",
+        "HOUT-B7088E24527EFA775F30",
+        "HOUT-E13B910B67BD40FC6D60"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-A2F78F8093F92FBF1D2E",
+          "PFACT-A774006FF76294242415",
+          "PFACT-CA27D7E8EB8364BC5561",
+          "PFACT-DBED9120F1CED0DD6424"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主帅完成“彭越经营梁地并断楚粮道战役群”，属S-级战役群。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-204E7EE709130182E335"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-A2F78F8093F92FBF1D2E",
+          "PFACT-A774006FF76294242415",
+          "PFACT-CA27D7E8EB8364BC5561",
+          "PFACT-DBED9120F1CED0DD6424"
+        ],
+        "revision_ref": "376055",
+        "scan_status": "complete_section",
+        "section_chars": 1220,
+        "section_heading": "彭越",
+        "source_page": "史記/卷090"
+      },
+      "outcome_refs": [
+        "HOUT-204E7EE709130182E335"
+      ],
+      "overall_basis": "military：作为主帅完成“彭越经营梁地并断楚粮道战役群”，属S-级战役群。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "彭越",
+      "person_ref": "PER-CAND-CB012BC1F12F",
+      "primary_domains": [
+        "military"
+      ],
+      "profile_fingerprint": "b91f25fc603a696bf97ae6187f3bbc237f1d374f99153b6b2d8194673849e984",
+      "profile_ref": "PINV-A62CD1FCDBD092A0062B",
+      "role_families": [
+        "military",
+        "mobile_warfare",
+        "supply_disruption"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-A2F78F8093F92FBF1D2E",
+        "PFACT-A774006FF76294242415",
+        "PFACT-DBED9120F1CED0DD6424",
+        "PFACT-QUALITY-5228BCDCC8CE6B3A96F6"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-204E7EE709130182E335"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-41800BF1F65F4C449560",
+          "PFACT-8B92E1B7122B0F03E37D",
+          "PFACT-E3629BBEDF15D65B4907"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "作为主导完成“建立州县义仓并用于赈给”，属national级治理结果。",
           "grade": "top",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-GRANARY"
+            "HOUT-BB10580F0A4BA7D3B03E"
           ],
           "rule_path": "top_fallback"
         },
@@ -14957,57 +15537,75 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-41800BF1F65F4C449560",
+          "PFACT-8B92E1B7122B0F03E37D",
+          "PFACT-E3629BBEDF15D65B4907"
+        ],
+        "revision_ref": "2585040",
+        "scan_status": "complete_section",
+        "section_chars": 2218,
+        "section_heading": "戴胄",
+        "source_page": "舊唐書/卷70"
+      },
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-GRANARY"
+        "HOUT-BB10580F0A4BA7D3B03E"
       ],
       "overall_basis": "civil_governance：作为主导完成“建立州县义仓并用于赈给”，属national级治理结果。",
       "overall_grade": "top",
       "overall_rule_path": "top_fallback",
       "person": "戴胄",
       "person_ref": "PER-CAND-947836AF2584",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2585040",
-          "source_page": "舊唐書/卷70"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "civil_governance"
       ],
-      "team_building_projection": [
-        "positive_scored"
+      "profile_fingerprint": "3790eda35f1a4070cc9066fe4ec8261942c06d5e5b24b76e956a8b737f5d6833",
+      "profile_ref": "PINV-AFCFE83DA8DAF981FAEE",
+      "role_families": [
+        "administration",
+        "finance",
+        "judiciary",
+        "law"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-F7F335A2F9FA93E4A1FD",
+        "PFACT-OUTCOME-79285A58160EA125"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-BB10580F0A4BA7D3B03E"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-83844E7D9ED9561C3A12",
+          "PFACT-994A65B71FE16E7026A3",
+          "PFACT-ABF416F0DD78DFA9422A",
+          "PFACT-F8D0B68DD0E6429F93F5"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
-          "basis": "作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
+          "basis": "作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
           "grade": "historic",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-LAW-ADJUDICATION",
-            "OUTCOME-LSM-GOV-STREAMLINE"
+            "HOUT-2154EE83509CE20D5CF6",
+            "HOUT-22F1AA510986FA0AC497"
           ],
           "rule_path": "civil_foundational_system_plus_independent_results"
         },
         "culture_and_scholarship": {
-          "basis": "作为主导完成“贞观五代史官修工程”，属national级文化学术结果；作为主导完成“贞观《晋书》官修工程”，属national级文化学术结果；作为主导完成“高祖太宗实录修撰”，属important级文化学术结果。",
+          "basis": "作为主导完成“贞观《晋书》官修工程”，属national级文化学术结果；作为主导完成“贞观五代史官修工程”，属national级文化学术结果；作为主导完成“高祖太宗实录修撰”，属important级文化学术结果。",
           "grade": "top",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-HISTORIOGRAPHY",
-            "OUTCOME-LSM-GOV-JINSHU",
-            "OUTCOME-LSM-GOV-VERITABLE-RECORDS"
+            "HOUT-1A903E137F87A1A9C454",
+            "HOUT-5A8250619690939076D2",
+            "HOUT-5CB5C0829A88DE1B26DA"
           ],
           "rule_path": "culture_top_fallback"
         },
@@ -15024,50 +15622,320 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-83844E7D9ED9561C3A12",
+          "PFACT-994A65B71FE16E7026A3",
+          "PFACT-ABF416F0DD78DFA9422A",
+          "PFACT-F8D0B68DD0E6429F93F5"
+        ],
+        "revision_ref": "2034579",
+        "scan_status": "complete_section",
+        "section_chars": 4639,
+        "section_heading": "房玄齡",
+        "source_page": "舊唐書/卷66"
+      },
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-HISTORIOGRAPHY",
-        "OUTCOME-LSM-GOV-JINSHU",
-        "OUTCOME-LSM-GOV-LAW-ADJUDICATION",
-        "OUTCOME-LSM-GOV-STREAMLINE",
-        "OUTCOME-LSM-GOV-VERITABLE-RECORDS"
+        "HOUT-1A903E137F87A1A9C454",
+        "HOUT-2154EE83509CE20D5CF6",
+        "HOUT-22F1AA510986FA0AC497",
+        "HOUT-5A8250619690939076D2",
+        "HOUT-5CB5C0829A88DE1B26DA"
       ],
-      "overall_basis": "civil_governance：作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
+      "overall_basis": "civil_governance：作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
       "overall_grade": "historic",
       "overall_rule_path": "civil_foundational_system_plus_independent_results",
       "person": "房玄龄",
       "person_ref": "PER-CAND-0E58D2EA4AC4",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2034579",
-          "source_page": "舊唐書/卷66"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "civil_governance"
       ],
-      "team_building_projection": [
-        "positive_scored"
+      "profile_fingerprint": "98d10356472ec575704fcc5826bca8439e3015ee43f179540891e1dfc57c2404",
+      "profile_ref": "PINV-324D15732DCB7DBCCB08",
+      "role_families": [
+        "administration",
+        "coordination",
+        "institution",
+        "personnel"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-2B6BE4DA75ABAE8577B4",
+        "PFACT-GOLD-41920A85F172325B9034",
+        "PFACT-GOLD-433ED0D78B881CCAFC17",
+        "PFACT-LSM-DELEGATE-TALENT-SELECTION",
+        "PFACT-LSM-STREAMLINE-OFFICES",
+        "PFACT-LSM-ZHENGUAN-LAW-RESPONSIBILITY",
+        "PFACT-OUTCOME-43F0DA17AEE1DE53"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-2154EE83509CE20D5CF6",
+        "HOUT-22F1AA510986FA0AC497"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-C93CEDBE0B43D48920CE",
+          "PFACT-D13369328D10243E176E"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主将完成“还定三秦战役群”，属S-级战役群；作为主将完成“韩信平定魏地”，属A级战役群。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-311C52639F95E8A3138C",
+            "HOUT-497E84AD3A3B60AC8640"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-C93CEDBE0B43D48920CE",
+          "PFACT-D13369328D10243E176E"
+        ],
+        "revision_ref": "1490182",
+        "scan_status": "complete_section",
+        "section_chars": 2490,
+        "section_heading": "曹相國",
+        "source_page": "史記/卷054"
+      },
+      "outcome_refs": [
+        "HOUT-311C52639F95E8A3138C",
+        "HOUT-497E84AD3A3B60AC8640"
+      ],
+      "overall_basis": "military：作为主将完成“还定三秦战役群”，属S-级战役群；作为主将完成“韩信平定魏地”，属A级战役群。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "曹参",
+      "person_ref": "PER-CAND-D60B93B81159",
+      "primary_domains": [
+        "military"
+      ],
+      "profile_fingerprint": "c2b595311a2e7ae38e062704a2c8cb5c80d7471f129ff56eca723e0fb749b507",
+      "profile_ref": "PINV-F0B52E757F8CF7B15202",
+      "role_families": [
+        "administration",
+        "military",
+        "regional_governance"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-1070789A40FE72C73714",
+        "PFACT-QUALITY-2F8CEA282089269B2586",
+        "PFACT-QUALITY-5F1DB122C8AC3A731A13",
+        "PFACT-QUALITY-B018D5CBE416D8A6FC40",
+        "PFACT-QUALITY-D2694D2292A9C9DA1457"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-311C52639F95E8A3138C",
+        "HOUT-497E84AD3A3B60AC8640"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按固定本传、独立公共成果、结果规模和责任角色校准；不以官职或声誉抬档。",
+        "evidence_refs": [
+          "PFACT-GOLD-917CA6667F94FCC6F83F"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“严惩受贿枉法并促使官吏清谨”，属important级治理结果；作为主导完成“为太子诸王置三师实施师傅教育”，属important级治理结果；作为主导完成“尚书省分流细务并保留重大冤滞奏闻”，属important级治理结果；作为独占完成“平高昌后设置西州与安西都护府”，属regional级治理结果；作为独占完成“按功封赏并黜无功宗室”，属important级治理结果；作为独占完成“死刑三覆五覆与门下复理程序”，属important级治理结果；作为主导完成“王府官僚任职不得超过四考”，属important级治理结果；作为主导完成“约束王公豪强侵欺”，属important级治理结果；作为主导完成“考订并颁行氏族志”，属national级治理结果；作为主导完成“贞观中书门下诏敕执奏复核程序”，属important级治理结果；作为主导完成“贞观初中期丰稔、低粮价与跨区域治安改善”，属national级治理结果；作为主导完成“贞观学校与经学建设”，属national级治理结果；作为主导完成“贞观谏官随宰相议政与持续纳谏机制”，属important级治理结果；作为独占完成“遣出后宫掖庭宫人并任其婚配”，属important级治理结果。",
+          "grade": "historic",
+          "outcome_refs": [
+            "HOUT-002254CD0807A312C246",
+            "HOUT-360C318B7671948E31AD",
+            "HOUT-3DB71A0411F6A63B3D1D",
+            "HOUT-6506DC8C7B3F0DDBF0C3",
+            "HOUT-69B56D7D2878C3A3C65A",
+            "HOUT-6B2D5FC4009E0E608F6A",
+            "HOUT-74E59A226BB4B151EFF0",
+            "HOUT-756382187008E7A0EB18",
+            "HOUT-7A0C179366A8E1F2A09C",
+            "HOUT-8B97419ED04122A049EC",
+            "HOUT-C6C5D31D2E1B992DA7E1",
+            "HOUT-C75134BE4933B4C219FE",
+            "HOUT-CA0216A6FCAFDC144B45",
+            "HOUT-F4C166D186675ECFE037"
+          ],
+          "rule_path": "civil_two_national_plus_one_regional"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。",
+          "grade": "historic",
+          "outcome_refs": [
+            "HOUT-6BA1779C05661A7D32DD",
+            "HOUT-A33478170FAE693A1AD9"
+          ],
+          "rule_path": "military_peak_pair"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-GOLD-917CA6667F94FCC6F83F"
+        ],
+        "revision_ref": "2646080",
+        "scan_status": "complete_section",
+        "section_chars": 8349,
+        "section_heading": "太宗",
+        "source_page": "舊唐書/卷1"
+      },
+      "outcome_refs": [
+        "HOUT-002254CD0807A312C246",
+        "HOUT-0661B7F51D8A04D7E54A",
+        "HOUT-1A903E137F87A1A9C454",
+        "HOUT-2154EE83509CE20D5CF6",
+        "HOUT-22F1AA510986FA0AC497",
+        "HOUT-24B4619E0752A4DDA724",
+        "HOUT-360C318B7671948E31AD",
+        "HOUT-38791AABB1CFEE9E2C8D",
+        "HOUT-3B8A0E393DF9BDAF8AF4",
+        "HOUT-3DB71A0411F6A63B3D1D",
+        "HOUT-55B53974C497A9258DEB",
+        "HOUT-57AC2D469BAF10B2AC7A",
+        "HOUT-5A8250619690939076D2",
+        "HOUT-5CB5C0829A88DE1B26DA",
+        "HOUT-63FFCD57059718566F1F",
+        "HOUT-6506DC8C7B3F0DDBF0C3",
+        "HOUT-69B56D7D2878C3A3C65A",
+        "HOUT-6B2D5FC4009E0E608F6A",
+        "HOUT-6BA1779C05661A7D32DD",
+        "HOUT-74E59A226BB4B151EFF0",
+        "HOUT-756382187008E7A0EB18",
+        "HOUT-77C3B1D85503ADD463C8",
+        "HOUT-7A0C179366A8E1F2A09C",
+        "HOUT-7B13FD293C88E3E8A651",
+        "HOUT-890774038E9E45C2F15A",
+        "HOUT-8B97419ED04122A049EC",
+        "HOUT-A0BE8146D752CFAFC3B8",
+        "HOUT-A33478170FAE693A1AD9",
+        "HOUT-B72B410AAF61E4383449",
+        "HOUT-BA1168CA7E28CA0DFFCE",
+        "HOUT-BB10580F0A4BA7D3B03E",
+        "HOUT-C6C5D31D2E1B992DA7E1",
+        "HOUT-C75134BE4933B4C219FE",
+        "HOUT-C894377F45EC1482FF09",
+        "HOUT-CA0216A6FCAFDC144B45",
+        "HOUT-D2E2F75769D6652DD7DB",
+        "HOUT-D94538B72A1EBFE1045F",
+        "HOUT-F4C166D186675ECFE037"
+      ],
+      "overall_basis": "military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；civil_governance：作为主导完成“严惩受贿枉法并促使官吏清谨”，属important级治理结果；作为主导完成“为太子诸王置三师实施师傅教育”，属important级治理结果；作为主导完成“尚书省分流细务并保留重大冤滞奏闻”，属important级治理结果；作为独占完成“平高昌后设置西州与安西都护府”，属regional级治理结果；作为独占完成“按功封赏并黜无功宗室”，属important级治理结果；作为独占完成“死刑三覆五覆与门下复理程序”，属important级治理结果；作为主导完成“王府官僚任职不得超过四考”，属important级治理结果；作为主导完成“约束王公豪强侵欺”，属important级治理结果；作为主导完成“考订并颁行氏族志”，属national级治理结果；作为主导完成“贞观中书门下诏敕执奏复核程序”，属important级治理结果；作为主导完成“贞观初中期丰稔、低粮价与跨区域治安改善”，属national级治理结果；作为主导完成“贞观学校与经学建设”，属national级治理结果；作为主导完成“贞观谏官随宰相议政与持续纳谏机制”，属important级治理结果；作为独占完成“遣出后宫掖庭宫人并任其婚配”，属important级治理结果。",
+      "overall_grade": "historic",
+      "overall_rule_path": "military_peak_pair",
+      "person": "李世民",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "primary_domains": [
+        "military",
+        "civil_governance"
+      ],
+      "profile_fingerprint": "21d155066fcf3286f469b7a3fe5286f99a62402f000432f2f6ccaee49fb7eb45",
+      "profile_ref": "PINV-637B07646A8DD7C229DC",
+      "role_families": [
+        "decision",
+        "military",
+        "strategy"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-4B3F00F43705BE34F471",
+        "PFACT-AD0F8C4C4C578CED7C34",
+        "PFACT-GOLD-0CCAA406C15E7C273539",
+        "PFACT-GOLD-0F85E1AB0D2A7339E88D",
+        "PFACT-GOLD-25EC64743D9A82A18EF0",
+        "PFACT-GOLD-37DC2BEC13712297823B",
+        "PFACT-GOLD-44D512A224C4E43A4676",
+        "PFACT-GOLD-4CF47A2558AACE2F7837",
+        "PFACT-GOLD-58F1B16F82E997C119A4",
+        "PFACT-GOLD-618F60E8F80930DF84A5",
+        "PFACT-GOLD-61D22788724FEDD364F2",
+        "PFACT-GOLD-6F4A1D846D15C8586E23",
+        "PFACT-GOLD-74C65D81DF6982CC99A0",
+        "PFACT-GOLD-790A013C0DB8E9D52C44",
+        "PFACT-GOLD-A8FD699EF1261F4A442B",
+        "PFACT-GOLD-AC0D070B63FE39760AAE",
+        "PFACT-GOLD-C3791C731023C1035002",
+        "PFACT-GOLD-CBF0DD0BFD26B59C2DFB",
+        "PFACT-GOLD-DA6E38E13FE631D6D54E",
+        "PFACT-GOLD-F8DAC0F4E46B51CE1787",
+        "PFACT-GOLD-FCC7CD6EC14F5EC7EA92",
+        "PFACT-LSM-FORMAL-REMONSTRANCE-CHANNEL",
+        "PFACT-OUTCOME-168193CB31697496",
+        "PFACT-OUTCOME-2566B40AF59B4FC4",
+        "PFACT-OUTCOME-4A5329BD729789A6"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-002254CD0807A312C246",
+        "HOUT-360C318B7671948E31AD",
+        "HOUT-3DB71A0411F6A63B3D1D",
+        "HOUT-6506DC8C7B3F0DDBF0C3",
+        "HOUT-69B56D7D2878C3A3C65A",
+        "HOUT-6B2D5FC4009E0E608F6A",
+        "HOUT-6BA1779C05661A7D32DD",
+        "HOUT-74E59A226BB4B151EFF0",
+        "HOUT-756382187008E7A0EB18",
+        "HOUT-7A0C179366A8E1F2A09C",
+        "HOUT-8B97419ED04122A049EC",
+        "HOUT-A33478170FAE693A1AD9",
+        "HOUT-C6C5D31D2E1B992DA7E1",
+        "HOUT-C75134BE4933B4C219FE",
+        "HOUT-CA0216A6FCAFDC144B45",
+        "HOUT-F4C166D186675ECFE037"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-FB34B3E66967110F62E2"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "作为主导完成“李勣长期治理并州使民夷怀服”，属regional级治理结果。",
           "grade": "important",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-BINGZHOU"
+            "HOUT-0234A715B104B7F54E71"
           ],
           "rule_path": "domain_important_threshold"
         },
@@ -15081,8 +15949,8 @@
           "basis": "作为主帅完成“李勣攻克平壤平定高句丽”，属S级战役群；作为主将完成“贞观四年平东突厥战役群”，属S+级战役群。",
           "grade": "historic",
           "outcome_refs": [
-            "OUTCOME-F4E0D154F563ED193E48",
-            "OUTCOME-LSM-CAMPAIGN-EASTERN-TURKS"
+            "HOUT-D94538B72A1EBFE1045F",
+            "HOUT-E7762D0EE9FAA2E87142"
           ],
           "rule_path": "military_peak_pair"
         },
@@ -15093,49 +15961,136 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-FB34B3E66967110F62E2"
+        ],
+        "revision_ref": "2296327",
+        "scan_status": "complete_section",
+        "section_chars": 9812,
+        "section_heading": "李勣",
+        "source_page": "舊唐書/卷67"
+      },
       "outcome_refs": [
-        "OUTCOME-AUTO-3218E266A2FAEBFC9077",
-        "OUTCOME-AUTO-727CFAAAC008571E7BE2",
-        "OUTCOME-F4E0D154F563ED193E48",
-        "OUTCOME-LSM-CAMPAIGN-EASTERN-TURKS",
-        "OUTCOME-LSM-CAMPAIGN-GOGURYEO-645",
-        "OUTCOME-LSM-CAMPAIGN-GOGURYEO-647",
-        "OUTCOME-LSM-CAMPAIGN-LIUHEITA",
-        "OUTCOME-LSM-CAMPAIGN-XUEYANTUO",
-        "OUTCOME-LSM-CAMPAIGN-XUYUANLANG",
-        "OUTCOME-LSM-GOV-BINGZHOU"
+        "HOUT-0234A715B104B7F54E71",
+        "HOUT-0D3E3B625D0CAFC8D19C",
+        "HOUT-38791AABB1CFEE9E2C8D",
+        "HOUT-3B8A0E393DF9BDAF8AF4",
+        "HOUT-A0BE8146D752CFAFC3B8",
+        "HOUT-B72B410AAF61E4383449",
+        "HOUT-C894377F45EC1482FF09",
+        "HOUT-D94538B72A1EBFE1045F",
+        "HOUT-E7762D0EE9FAA2E87142",
+        "HOUT-EB7ED072A17C2639B851"
       ],
       "overall_basis": "military：作为主帅完成“李勣攻克平壤平定高句丽”，属S级战役群；作为主将完成“贞观四年平东突厥战役群”，属S+级战役群。",
       "overall_grade": "historic",
       "overall_rule_path": "military_peak_pair",
       "person": "李勣",
       "person_ref": "PER-CAND-8CF6E0AAF5E5",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2296327",
-          "source_page": "舊唐書/卷67"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "positive_scored"
+      "profile_fingerprint": "a6343e519a533f997dc265f9e06b4d5438c25287433371e7f86bc0e5bef9818f",
+      "profile_ref": "PINV-9A4E230A9738E7111C6C",
+      "role_families": [
+        "frontier",
+        "long_term_command",
+        "military"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-25DE1AA89B76C1D9D696",
+        "PFACT-GOLD-CF02D343792BEC71B0DF",
+        "PFACT-GOLD-D84ED0A8BB32A4A4C718",
+        "PFACT-GOLD-FDFE5BF1BD77C085121B"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-D94538B72A1EBFE1045F",
+        "HOUT-E7762D0EE9FAA2E87142"
       ]
     },
     {
+      "authority_grade_calibration": null,
+      "coverage_gaps": [
+        "missing_full_lifecycle_biography_lineage",
+        "missing_authoritative_grade_calibration"
+      ],
+      "coverage_status": "registered_outcomes_only",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“武德律令编定并颁行天下”，属national级治理结果。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-BF6BC03956AF2C3FF52A"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": null,
+      "outcome_refs": [
+        "HOUT-0D3E3B625D0CAFC8D19C",
+        "HOUT-37BADCE8EAADAE8382A8",
+        "HOUT-38791AABB1CFEE9E2C8D",
+        "HOUT-3B34BD08FA9AE9E37E7F",
+        "HOUT-6BA1779C05661A7D32DD",
+        "HOUT-8036040CF129D0C4D86A",
+        "HOUT-890774038E9E45C2F15A",
+        "HOUT-96B6FE5EB37DA104C5F0",
+        "HOUT-A33478170FAE693A1AD9",
+        "HOUT-B72B410AAF61E4383449",
+        "HOUT-BA1168CA7E28CA0DFFCE",
+        "HOUT-BF6BC03956AF2C3FF52A"
+      ],
+      "overall_basis": "civil_governance：作为主导完成“武德律令编定并颁行天下”，属national级治理结果。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "李渊",
+      "person_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "e0a4359dae1ba5d14b4b7d9f815354a44431e8af3c2849034f23cba74574f6cb",
+      "profile_ref": "PROFILE-19C2DEEF6D696762",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-AUTO-51BB0678505EC29E956F"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-BF6BC03956AF2C3FF52A"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-287074885322342E76DC",
+          "PFACT-29FAF51DCF8DB07BE46E",
+          "PFACT-782A74C3771AF1731119",
+          "PFACT-A0056AD61FA6870E926C",
+          "PFACT-E75BE36B2CD8CDB87D61"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15153,8 +16108,8 @@
           "basis": "作为主帅完成“李靖实际统帅平定萧铣”，属S级战役群；作为主帅完成“贞观四年平东突厥战役群”，属S+级战役群。",
           "grade": "historic",
           "outcome_refs": [
-            "OUTCOME-LIJING-XIAOXIAN",
-            "OUTCOME-LSM-CAMPAIGN-EASTERN-TURKS"
+            "HOUT-96B6FE5EB37DA104C5F0",
+            "HOUT-D94538B72A1EBFE1045F"
           ],
           "rule_path": "military_peak_pair"
         },
@@ -15165,50 +16120,70 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-287074885322342E76DC",
+          "PFACT-29FAF51DCF8DB07BE46E",
+          "PFACT-782A74C3771AF1731119",
+          "PFACT-A0056AD61FA6870E926C",
+          "PFACT-E75BE36B2CD8CDB87D61"
+        ],
+        "revision_ref": "2296327",
+        "scan_status": "complete_section",
+        "section_chars": 4171,
+        "section_heading": "李靖",
+        "source_page": "舊唐書/卷67"
+      },
       "outcome_refs": [
-        "OUTCOME-AUTO-3218E266A2FAEBFC9077",
-        "OUTCOME-AUTO-F63708F41E8DFCEBDBA2",
-        "OUTCOME-LIJING-XIAOXIAN",
-        "OUTCOME-LSM-CAMPAIGN-EASTERN-TURKS",
-        "OUTCOME-LSM-CAMPAIGN-TUYUHUN"
+        "HOUT-0D3E3B625D0CAFC8D19C",
+        "HOUT-24B4619E0752A4DDA724",
+        "HOUT-37BADCE8EAADAE8382A8",
+        "HOUT-96B6FE5EB37DA104C5F0",
+        "HOUT-D94538B72A1EBFE1045F"
       ],
       "overall_basis": "military：作为主帅完成“李靖实际统帅平定萧铣”，属S级战役群；作为主帅完成“贞观四年平东突厥战役群”，属S+级战役群。",
       "overall_grade": "historic",
       "overall_rule_path": "military_peak_pair",
       "person": "李靖",
       "person_ref": "PER-CAND-D29808A822E4",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2296327",
-          "source_page": "舊唐書/卷67"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "positive_scored"
+      "profile_fingerprint": "dce02fc2eee268d798f8b733ada03f550a963f23264231ee5e5f9512a6580e78",
+      "profile_ref": "PINV-311D02ACA9FF608B682C",
+      "role_families": [
+        "frontier",
+        "military",
+        "strategy"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-AUTO-6EA176F6EBFC05431CE8",
+        "PFACT-GOLD-CF02D343792BEC71B0DF",
+        "PFACT-GOLD-D84ED0A8BB32A4A4C718",
+        "PFACT-GOLD-FDFE5BF1BD77C085121B",
+        "PFACT-LIJING-XIAOXIAN-CAMPAIGN"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-96B6FE5EB37DA104C5F0",
+        "HOUT-D94538B72A1EBFE1045F"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-C8A872B651268592E0DA"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
           "grade": "top",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-STREAMLINE"
+            "HOUT-22F1AA510986FA0AC497"
           ],
           "rule_path": "top_fallback"
         },
@@ -15231,43 +16206,52 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-C8A872B651268592E0DA"
+        ],
+        "revision_ref": "2034579",
+        "scan_status": "complete_section",
+        "section_chars": 2458,
+        "section_heading": "杜如晦",
+        "source_page": "舊唐書/卷66"
+      },
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-STREAMLINE"
+        "HOUT-22F1AA510986FA0AC497"
       ],
       "overall_basis": "civil_governance：作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
       "overall_grade": "top",
       "overall_rule_path": "top_fallback",
       "person": "杜如晦",
       "person_ref": "PER-CAND-52D752B16F85",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2034579",
-          "source_page": "舊唐書/卷66"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "civil_governance"
       ],
-      "team_building_projection": [
-        "positive_scored"
+      "profile_fingerprint": "e8b4e0e2607905b20f4fffeb239e568424cf2de86efd05816c005500dede7a11",
+      "profile_ref": "PINV-86EC70CEF2034C60A54A",
+      "role_families": [
+        "administration",
+        "decision",
+        "personnel"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-2B6BE4DA75ABAE8577B4",
+        "PFACT-GOLD-41920A85F172325B9034",
+        "PFACT-GOLD-433ED0D78B881CCAFC17",
+        "PFACT-LSM-DELEGATE-TALENT-SELECTION",
+        "PFACT-LSM-STREAMLINE-OFFICES"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-22F1AA510986FA0AC497"
       ]
     },
     {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15285,7 +16269,7 @@
           "basis": "作为主帅完成“夏州平梁师都战役群”，属B级战役群。",
           "grade": "usable",
           "outcome_refs": [
-            "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU"
+            "HOUT-35814FF03C0CA23936C7"
           ],
           "rule_path": "domain_usable_threshold"
         },
@@ -15296,39 +16280,90 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU"
+        "HOUT-35814FF03C0CA23936C7"
       ],
       "overall_basis": "military：作为主帅完成“夏州平梁师都战役群”，属B级战役群。",
       "overall_grade": "usable",
       "overall_rule_path": "domain_usable_threshold",
       "person": "柴绍",
       "person_ref": "PER-CAND-8A3F71312E09",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
+      "profile_fingerprint": "e7afb78f9fb9e397bde5fe23bb5049727bd09d3c056bed322aec06373fbfb535",
+      "profile_ref": "PROFILE-372D7B06A5DFBDFE",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-F387D57194A39CF7246B"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-35814FF03C0CA23936C7"
       ]
     },
     {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": null,
+      "outcome_refs": [
+        "HOUT-4DEABB5E57CDD127B5F2"
+      ],
+      "overall_basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+      "overall_grade": "ordinary",
+      "overall_rule_path": "coverage_complete_below_usable",
+      "person": "樊哙",
+      "person_ref": "PER-CAND-A8233A37A583",
+      "primary_domains": [],
+      "profile_fingerprint": "81df08750c85e17fceb96a68dd51a0d3b9373d1f859dbc33e03bcabec6842aaa",
+      "profile_ref": "PROFILE-FC235AA4EB2B0D94",
+      "role_families": [],
+      "talent_grade_evidence_refs": [],
+      "talent_grade_outcome_refs": []
+    },
+    {
+      "authority_grade_calibration": null,
+      "coverage_gaps": [
+        "missing_full_lifecycle_biography_lineage",
+        "missing_authoritative_grade_calibration"
+      ],
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "作为主导完成“突厥降部内徙与州府安置”，属regional级治理结果。",
           "grade": "important",
           "outcome_refs": [
-            "OUTCOME-LSM-GOV-TURK-RESETTLEMENT"
+            "HOUT-57AC2D469BAF10B2AC7A"
           ],
           "rule_path": "domain_important_threshold"
         },
@@ -15351,33 +16386,116 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-TURK-RESETTLEMENT"
+        "HOUT-57AC2D469BAF10B2AC7A"
       ],
       "overall_basis": "civil_governance：作为主导完成“突厥降部内徙与州府安置”，属regional级治理结果。",
       "overall_grade": "important",
       "overall_rule_path": "domain_important_threshold",
       "person": "温彦博",
       "person_ref": "PER-GOLD-974BDC0229904FD7B743",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [
         "civil_governance"
       ],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
+      "profile_fingerprint": "475fb84d9cc67b270ae57a90ec5e76a92812837e8a8005c667afdf3abd5fa267",
+      "profile_ref": "PROFILE-BB4140D1EC9EED3B",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-86ACA21B2AF0D7231938"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-57AC2D469BAF10B2AC7A"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-52115866ED44FDE289AC",
+          "PFACT-5C6312C7F35A84095531",
+          "PFACT-822D18EE4EAB25DA3EC0",
+          "PFACT-B78200FDC67F6A7EA634"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主将完成“平定淮南王英布叛乱战役群”，属A级战役群。",
+          "grade": "important",
+          "outcome_refs": [
+            "HOUT-C085B718A26194C7B500"
+          ],
+          "rule_path": "domain_important_threshold"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-52115866ED44FDE289AC",
+          "PFACT-5C6312C7F35A84095531",
+          "PFACT-822D18EE4EAB25DA3EC0",
+          "PFACT-B78200FDC67F6A7EA634"
+        ],
+        "revision_ref": "2298709",
+        "scan_status": "complete_section",
+        "section_chars": 1834,
+        "section_heading": "灌嬰",
+        "source_page": "史記/卷095"
+      },
+      "outcome_refs": [
+        "HOUT-B981546E990EF74846B4",
+        "HOUT-C085B718A26194C7B500"
+      ],
+      "overall_basis": "military：作为主将完成“平定淮南王英布叛乱战役群”，属A级战役群。",
+      "overall_grade": "important",
+      "overall_rule_path": "domain_important_threshold",
+      "person": "灌婴",
+      "person_ref": "PER-CAND-39DB5536EF01",
+      "primary_domains": [
+        "military"
+      ],
+      "profile_fingerprint": "7d48cc5714bcdb6efa49f599ac2a4b882e0dac06240ef0604ec24158d189e3df",
+      "profile_ref": "PINV-32C39157FEEBFFA00618",
+      "role_families": [
+        "cavalry",
+        "military",
+        "pursuit"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-QUALITY-0666AF76EB15BB6BCC03",
+        "PFACT-QUALITY-787635DF4B3E5D1C4680"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-C085B718A26194C7B500"
+      ]
+    },
+    {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15404,28 +16522,34 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-REMONSTRANCE-PROCEDURE"
+        "HOUT-8B97419ED04122A049EC"
       ],
       "overall_basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
       "overall_grade": "ordinary",
       "overall_rule_path": "coverage_complete_below_usable",
       "person": "王珪",
       "person_ref": "PER-ACTOR-F0AE1AB696CD",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
-      ]
+      "profile_fingerprint": "6313d357a0d50034b45351f4a2b5a6ae16afd478181847a67546095872a3557a",
+      "profile_ref": "PROFILE-E795159C94445F6D",
+      "role_families": [],
+      "talent_grade_evidence_refs": [],
+      "talent_grade_outcome_refs": []
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按固定本传完整生涯、独立国家级战役结果和最高统帅责任校准；不以官职或后世声望抬档。",
+        "evidence_refs": [
+          "PFACT-LISHIMIN-SUDINGFANG-EASTERN-TURKS",
+          "PFACT-SUDINGFANG-WESTERN-TURKS",
+          "PFACT-SUDINGFANG-BAEKJE"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15440,11 +16564,11 @@
           "rule_path": "coverage_complete_below_usable"
         },
         "military": {
-          "basis": "作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S+级战役群。",
+          "basis": "作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S级战役群。",
           "grade": "historic",
           "outcome_refs": [
-            "OUTCOME-SUDINGFANG-BAEKJE",
-            "OUTCOME-SUDINGFANG-WESTERN-TURKS"
+            "HOUT-A82203867A4699E29129",
+            "HOUT-FAF1BD44CF0F36844D62"
           ],
           "rule_path": "military_peak_pair"
         },
@@ -15455,44 +16579,213 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-LISHIMIN-SUDINGFANG-EASTERN-TURKS",
+          "PFACT-SUDINGFANG-WESTERN-TURKS",
+          "PFACT-SUDINGFANG-BAEKJE"
+        ],
+        "revision_ref": "2632780",
+        "scan_status": "complete_section",
+        "section_chars": 1784,
+        "section_heading": "苏定方",
+        "source_page": "舊唐書/卷83"
+      },
       "outcome_refs": [
-        "OUTCOME-SUDINGFANG-BAEKJE",
-        "OUTCOME-SUDINGFANG-WESTERN-TURKS"
+        "HOUT-A82203867A4699E29129",
+        "HOUT-FAF1BD44CF0F36844D62"
       ],
-      "overall_basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S+级战役群。",
+      "overall_basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S级战役群。",
       "overall_grade": "historic",
       "overall_rule_path": "military_peak_pair",
       "person": "苏定方",
       "person_ref": "PER-V4-CB67FCF2FC79",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描固定本传完整分节，并复核李世民窗口内外的公共损害；现有材料未建立达到政治风险门槛的事实。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2632780",
-          "source_page": "舊唐書/卷83"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "positive_scored"
+      "profile_fingerprint": "777c34eedb32e9650fbbc079248b080f769f677cd57f1d17252123e78735aa4b",
+      "profile_ref": "PINV-737E7F2EBD9DCE1CE489",
+      "role_families": [
+        "amphibious_campaign",
+        "frontier",
+        "military"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-SUDINGFANG-BAEKJE",
+        "PFACT-SUDINGFANG-WESTERN-TURKS"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-A82203867A4699E29129",
+        "HOUT-FAF1BD44CF0F36844D62"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-9CC648DB67184646FC0D"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主将完成“垓下灭楚终局战役群”，属S+级战役群。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-442F62117FF05B88972F"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-9CC648DB67184646FC0D"
+        ],
+        "revision_ref": "2509940",
+        "scan_status": "complete_section",
+        "section_chars": 3228,
+        "section_heading": "黥布",
+        "source_page": "史記/卷091"
+      },
+      "outcome_refs": [
+        "HOUT-442F62117FF05B88972F"
+      ],
+      "overall_basis": "military：作为主将完成“垓下灭楚终局战役群”，属S+级战役群。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "英布",
+      "person_ref": "PER-CAND-1471155D486E",
+      "primary_domains": [
+        "military"
+      ],
+      "profile_fingerprint": "7c81fc3d76e80c71c8e2bfb97296a991ddfccaf78949faf90ad9a019a4b4ef62",
+      "profile_ref": "PINV-C7F5B2D5BB46703E45D0",
+      "role_families": [
+        "feudal_command",
+        "military"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-52EE6A258D0DBD87651D",
+        "PFACT-GOLD-LB-GAIXIA",
+        "PFACT-GOLD-LB-GAIXIA-APPRAISAL"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-442F62117FF05B88972F"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-15C3DF643C725B46AABE",
+          "PFACT-236391B7092A78279EB6",
+          "PFACT-44BA547853A92B19310D",
+          "PFACT-626A85B2FACB08EFDDC3",
+          "PFACT-E8FD462585D33178BA89"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“萧何守关中建制与持续军需”，属national级治理结果；作为主导完成“萧何律九章与汉初刑法体系”，属national级治理结果。",
+          "grade": "historic",
+          "outcome_refs": [
+            "HOUT-3A619C223DABBD7BF372",
+            "HOUT-7D70850B725580CDF22D"
+          ],
+          "rule_path": "civil_foundational_system_plus_independent_results"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-15C3DF643C725B46AABE",
+          "PFACT-236391B7092A78279EB6",
+          "PFACT-44BA547853A92B19310D",
+          "PFACT-626A85B2FACB08EFDDC3",
+          "PFACT-E8FD462585D33178BA89"
+        ],
+        "revision_ref": "2087971",
+        "scan_status": "complete_section",
+        "section_chars": 2311,
+        "section_heading": "蕭相國",
+        "source_page": "史記/卷053"
+      },
+      "outcome_refs": [
+        "HOUT-3A619C223DABBD7BF372",
+        "HOUT-7D70850B725580CDF22D"
+      ],
+      "overall_basis": "civil_governance：作为主导完成“萧何守关中建制与持续军需”，属national级治理结果；作为主导完成“萧何律九章与汉初刑法体系”，属national级治理结果。",
+      "overall_grade": "historic",
+      "overall_rule_path": "civil_foundational_system_plus_independent_results",
+      "person": "萧何",
+      "person_ref": "PER-CAND-C4F753AA4405",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "c4b606e94dccc569a5f4ea37ad319351acc6de0ff2c8d21116cc6d7aeb8226a5",
+      "profile_ref": "PINV-BF9509B5C455C62EC580",
+      "role_families": [
+        "administration",
+        "institution_building",
+        "logistics"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-QUALITY-6E1F7F6395E4EA80A725",
+        "PFACT-QUALITY-88DD58331EE8B57961CD",
+        "PFACT-QUALITY-ACF093A02D9298690B41"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-3A619C223DABBD7BF372",
+        "HOUT-7D70850B725580CDF22D"
+      ]
+    },
+    {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15510,7 +16803,7 @@
           "basis": "作为主将完成“夏州平梁师都战役群”，属B级战役群。",
           "grade": "usable",
           "outcome_refs": [
-            "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU"
+            "HOUT-35814FF03C0CA23936C7"
           ],
           "rule_path": "domain_usable_threshold"
         },
@@ -15521,33 +16814,35 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU"
+        "HOUT-35814FF03C0CA23936C7"
       ],
       "overall_basis": "military：作为主将完成“夏州平梁师都战役群”，属B级战役群。",
       "overall_grade": "usable",
       "overall_rule_path": "domain_usable_threshold",
       "person": "薛万均",
       "person_ref": "PER-CAND-17BEE27A6876",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
+      "profile_fingerprint": "8682dedc71106772b05075eeaebfe52833a1563d3cc1ec635fb8e4ccf32814c3",
+      "profile_ref": "PROFILE-5A5827A562099FF1",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-F387D57194A39CF7246B"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-35814FF03C0CA23936C7"
       ]
     },
     {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15565,7 +16860,7 @@
           "basis": "作为主将完成“夏州平梁师都战役群”，属B级战役群。",
           "grade": "usable",
           "outcome_refs": [
-            "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU"
+            "HOUT-35814FF03C0CA23936C7"
           ],
           "rule_path": "domain_usable_threshold"
         },
@@ -15576,33 +16871,35 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-CAMPAIGN-LIANGSHIDU"
+        "HOUT-35814FF03C0CA23936C7"
       ],
       "overall_basis": "military：作为主将完成“夏州平梁师都战役群”，属B级战役群。",
       "overall_grade": "usable",
       "overall_rule_path": "domain_usable_threshold",
       "person": "薛万彻",
       "person_ref": "PER-CAND-38F0DDA22267",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [
         "military"
       ],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
+      "profile_fingerprint": "4328de0bb2a97d6dfe915c21ab61e96f8db610b94495166602e2b60b3b067334",
+      "profile_ref": "PROFILE-77E44E952CB9D1B9",
+      "role_families": [],
+      "talent_grade_evidence_refs": [
+        "PFACT-F387D57194A39CF7246B"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-35814FF03C0CA23936C7"
       ]
     },
     {
+      "authority_grade_calibration": null,
       "coverage_gaps": [
         "missing_full_lifecycle_biography_lineage",
-        "missing_window_risk_source"
+        "missing_authoritative_grade_calibration"
       ],
-      "coverage_status": "provisional_registered_outcomes_only",
+      "coverage_status": "registered_outcomes_only",
       "domain_grades": {
         "civil_governance": {
           "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
@@ -15629,34 +16926,40 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": null,
       "outcome_refs": [
-        "OUTCOME-LSM-GOV-LAW-ADJUDICATION"
+        "HOUT-2154EE83509CE20D5CF6"
       ],
       "overall_basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
       "overall_grade": "ordinary",
       "overall_rule_path": "coverage_complete_below_usable",
       "person": "裴弘献",
       "person_ref": "PER-ACTOR-406D8DE4AC42",
-      "political_risk": {
-        "assessment_status": "not_reviewed",
-        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
-        "risk_class": null,
-        "severity": null
-      },
       "primary_domains": [],
-      "team_building_projection": [
-        "not_in_current_team_candidate_pool"
-      ]
+      "profile_fingerprint": "0ec6a3bd5404ba1bf11a82bbf8e8f70d60d9cff0e77bba9e1466bc259dee6074",
+      "profile_ref": "PROFILE-74679AC3199C611B",
+      "role_families": [],
+      "talent_grade_evidence_refs": [],
+      "talent_grade_outcome_refs": []
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-4B3F00F43705BE34F471",
+          "PFACT-A201EA4B26D1F014872B",
+          "PFACT-C0CDA447D64C46588DEF"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
           "basis": "作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。",
           "grade": "top",
           "outcome_refs": [
-            "OUTCOME-AUTO-69C37389FEB542DC4A94"
+            "HOUT-AA31F311431012D43CF2"
           ],
           "rule_path": "top_fallback"
         },
@@ -15679,50 +16982,66 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-4B3F00F43705BE34F471",
+          "PFACT-A201EA4B26D1F014872B",
+          "PFACT-C0CDA447D64C46588DEF"
+        ],
+        "revision_ref": "2588763",
+        "scan_status": "complete_section",
+        "section_chars": 5685,
+        "section_heading": "褚遂良",
+        "source_page": "舊唐書/卷80"
+      },
       "outcome_refs": [
-        "OUTCOME-AUTO-69C37389FEB542DC4A94",
-        "OUTCOME-LSM-GOV-JINSHU",
-        "OUTCOME-LSM-GOV-PRINCE-ADMIN-RULES"
+        "HOUT-360C318B7671948E31AD",
+        "HOUT-5CB5C0829A88DE1B26DA",
+        "HOUT-AA31F311431012D43CF2"
       ],
       "overall_basis": "civil_governance：作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。",
       "overall_grade": "top",
       "overall_rule_path": "top_fallback",
       "person": "褚遂良",
       "person_ref": "PER-CAND-6212A403EABA",
-      "political_risk": {
-        "assessment_status": "reviewed_no_material_risk",
-        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
-        "evidence_refs": [],
-        "policy_ref": "config/political-risk.yml",
-        "risk_class": null,
-        "scan_receipt": {
-          "biography_full_scan": true,
-          "counterevidence_review": true,
-          "cross_record_search": true,
-          "domain_query_matrix": true,
-          "revision_ref": "2588763",
-          "source_page": "舊唐書/卷80"
-        },
-        "severity": null
-      },
       "primary_domains": [
         "civil_governance"
       ],
-      "team_building_projection": [
-        "candidate_supporting_only"
+      "profile_fingerprint": "951257421d4a60a378088a113e538834b2961abf061bebbddb28de640bc3fea2",
+      "profile_ref": "PINV-1EA4BE08555392C01DA2",
+      "role_families": [
+        "court_supervision",
+        "feedback",
+        "history",
+        "succession"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-AUTO-D4F66E171B8E1D302E67"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-AA31F311431012D43CF2"
       ]
     },
     {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-2FE1DDE510117AA09D70",
+          "PFACT-AFDB4E7B80FA0E10E30B",
+          "PFACT-C01899B0DCE914EBBF09"
+        ],
+        "status": "accepted_current"
+      },
       "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
+      "coverage_status": "complete_shared_profile",
       "domain_grades": {
         "civil_governance": {
-          "basis": "作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果；作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
+          "basis": "作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。",
           "grade": "historic",
           "outcome_refs": [
-            "OUTCOME-AUTO-69C37389FEB542DC4A94",
-            "OUTCOME-CHANGSUN-YONGHUI-LAW-CODE",
-            "OUTCOME-LSM-GOV-LAW-ADJUDICATION"
+            "HOUT-2154EE83509CE20D5CF6",
+            "HOUT-AA31F311431012D43CF2",
+            "HOUT-D2CC1A762E3B6849BC23"
           ],
           "rule_path": "civil_two_national_plus_one_regional"
         },
@@ -15745,14 +17064,1021 @@
           "rule_path": "coverage_complete_below_usable"
         }
       },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-2FE1DDE510117AA09D70",
+          "PFACT-AFDB4E7B80FA0E10E30B",
+          "PFACT-C01899B0DCE914EBBF09"
+        ],
+        "revision_ref": "1768276",
+        "scan_status": "complete_section",
+        "section_chars": 5717,
+        "section_heading": "長孫無忌",
+        "source_page": "舊唐書/卷65"
+      },
       "outcome_refs": [
-        "OUTCOME-AUTO-69C37389FEB542DC4A94",
-        "OUTCOME-CHANGSUN-YONGHUI-LAW-CODE",
-        "OUTCOME-LSM-GOV-LAW-ADJUDICATION"
+        "HOUT-2154EE83509CE20D5CF6",
+        "HOUT-AA31F311431012D43CF2",
+        "HOUT-D2CC1A762E3B6849BC23"
       ],
-      "overall_basis": "civil_governance：作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果；作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
+      "overall_basis": "civil_governance：作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。",
       "overall_grade": "historic",
       "overall_rule_path": "civil_two_national_plus_one_regional",
+      "person": "长孙无忌",
+      "person_ref": "PER-CAND-6D5FA3B48F40",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "7b93138e0ccb620556e8c2646fc750a19aecb6cf239fbf4d58febba3d05a01fd",
+      "profile_ref": "PINV-94E07E4D11AD82C54680",
+      "role_families": [
+        "institution",
+        "law",
+        "strategy",
+        "succession"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-AUTO-D4F66E171B8E1D302E67",
+        "PFACT-CHANGSUN-XIANQING-LAW-MAINTENANCE",
+        "PFACT-CHANGSUN-YONGHUI-LAW-CODE",
+        "PFACT-LSM-ZHENGUAN-LAW-RESPONSIBILITY",
+        "PFACT-OUTCOME-43F0DA17AEE1DE53"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-2154EE83509CE20D5CF6",
+        "HOUT-AA31F311431012D43CF2",
+        "HOUT-D2CC1A762E3B6849BC23"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-0967C2ECDA0DB512410B"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "作为主导完成“陈平白登解围处置”，属national级谋略结果；作为主导完成“陈平荥阳解围与最高统帅脱险处置”，属national级谋略结果。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-89AB597909CE8260E108",
+            "HOUT-F8DC44598AAF7C7656F1"
+          ],
+          "rule_path": "statecraft_two_national_results"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-0967C2ECDA0DB512410B"
+        ],
+        "revision_ref": "1961615",
+        "scan_status": "complete_section",
+        "section_chars": 4213,
+        "section_heading": "陳平",
+        "source_page": "史記/卷056"
+      },
+      "outcome_refs": [
+        "HOUT-89AB597909CE8260E108",
+        "HOUT-F8DC44598AAF7C7656F1"
+      ],
+      "overall_basis": "statecraft：作为主导完成“陈平白登解围处置”，属national级谋略结果；作为主导完成“陈平荥阳解围与最高统帅脱险处置”，属national级谋略结果。",
+      "overall_grade": "top",
+      "overall_rule_path": "statecraft_two_national_results",
+      "person": "陈平",
+      "person_ref": "PER-CAND-F67C4F794042",
+      "primary_domains": [
+        "statecraft"
+      ],
+      "profile_fingerprint": "bbdd9855a893914c6fbf13c7774bab9e40b7202c6084240f0bafc30f16b3c4d7",
+      "profile_ref": "PINV-6E6E489A566CC84CFB90",
+      "role_families": [
+        "correction",
+        "crisis_management",
+        "decision"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-GOLD-CHENPING-BAIDENG",
+        "PFACT-GOLD-CHENPING-XINGYANG"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-89AB597909CE8260E108",
+        "HOUT-F8DC44598AAF7C7656F1"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-37C7092539559681BAA1"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-37C7092539559681BAA1"
+        ],
+        "revision_ref": "cache-a877c2b43dc07a7c",
+        "scan_status": "complete_section",
+        "section_chars": 760,
+        "section_heading": "陳豨",
+        "source_page": "史記/卷093"
+      },
+      "outcome_refs": [],
+      "overall_basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+      "overall_grade": "ordinary",
+      "overall_rule_path": "coverage_complete_below_usable",
+      "person": "陈豨",
+      "person_ref": "PER-CAND-622BEAAA2820",
+      "primary_domains": [],
+      "profile_fingerprint": "4d415be56f8bc707072f69e1090e1a5ea979d9af9e5333746e84e490e3155593",
+      "profile_ref": "PINV-80D1147D56FBFA1FB627",
+      "role_families": [
+        "border_command",
+        "regional_military"
+      ],
+      "talent_grade_evidence_refs": [],
+      "talent_grade_outcome_refs": []
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-9802601463879D58629A"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主帅完成“垓下灭楚终局战役群”，属S+级战役群；作为主帅完成“韩信破代赵并定燕战役群”，属S-级战役群。",
+          "grade": "historic",
+          "outcome_refs": [
+            "HOUT-28F37176AA608F12E6B0",
+            "HOUT-442F62117FF05B88972F"
+          ],
+          "rule_path": "military_peak_pair"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-9802601463879D58629A"
+        ],
+        "revision_ref": "2256147",
+        "scan_status": "complete_section",
+        "section_chars": 7626,
+        "section_heading": "淮陰侯",
+        "source_page": "史記/卷092"
+      },
+      "outcome_refs": [
+        "HOUT-28F37176AA608F12E6B0",
+        "HOUT-442F62117FF05B88972F",
+        "HOUT-497E84AD3A3B60AC8640",
+        "HOUT-99971DB5BCEBB8F915C1"
+      ],
+      "overall_basis": "military：作为主帅完成“垓下灭楚终局战役群”，属S+级战役群；作为主帅完成“韩信破代赵并定燕战役群”，属S-级战役群。",
+      "overall_grade": "historic",
+      "overall_rule_path": "military_peak_pair",
+      "person": "韩信",
+      "person_ref": "PER-CAND-039AFE91A974",
+      "primary_domains": [
+        "military"
+      ],
+      "profile_fingerprint": "45c1d11ce0338a9432a31bc1deb553dd5bf0e5bf31e1a9ac3dd904404848eec5",
+      "profile_ref": "PINV-5D3EAE4300BFA555D86E",
+      "role_families": [
+        "military",
+        "theater_command"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-52EE6A258D0DBD87651D",
+        "PFACT-GOLD-LB-GAIXIA",
+        "PFACT-GOLD-LB-GAIXIA-APPRAISAL",
+        "PFACT-QUALITY-04C830E9865CF96A6A93",
+        "PFACT-QUALITY-2BB9604320E0917774A7",
+        "PFACT-QUALITY-986A29515DDDF42D6889",
+        "PFACT-QUALITY-DB12A46614FC5EF0C4B3"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-28F37176AA608F12E6B0",
+        "HOUT-442F62117FF05B88972F"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“考订并颁行氏族志”，属national级治理结果。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-002254CD0807A312C246"
+          ],
+          "rule_path": "top_fallback"
+        },
+        "culture_and_scholarship": {
+          "basis": "未建立达到可用门槛的文化学术成果。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "military": {
+          "basis": "作为主帅完成“高士廉率水陆军击破宁长真军”，属C级战役群。",
+          "grade": "usable",
+          "outcome_refs": [
+            "HOUT-6C3BCDFAB6C2A76881DA"
+          ],
+          "rule_path": "domain_usable_threshold"
+        },
+        "statecraft": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-AD0F8C4C4C578CED7C34"
+        ],
+        "revision_ref": "1768276",
+        "scan_status": "complete_section",
+        "section_chars": 2690,
+        "section_heading": "高儉",
+        "source_page": "舊唐書/卷65"
+      },
+      "outcome_refs": [
+        "HOUT-002254CD0807A312C246",
+        "HOUT-6C3BCDFAB6C2A76881DA"
+      ],
+      "overall_basis": "civil_governance：作为主导完成“考订并颁行氏族志”，属national级治理结果。",
+      "overall_grade": "top",
+      "overall_rule_path": "top_fallback",
+      "person": "高士廉",
+      "person_ref": "PER-CAND-564F932D7FB5",
+      "primary_domains": [
+        "civil_governance"
+      ],
+      "profile_fingerprint": "f1a34deb8b266cc5bd7740f0a684a391dca76039030ddebcebb2faf403b94b4a",
+      "profile_ref": "PINV-0A736B2BD950771DB21D",
+      "role_families": [
+        "administration",
+        "information_gatekeeping",
+        "succession_conflict"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-AD0F8C4C4C578CED7C34",
+        "PFACT-GOLD-74C65D81DF6982CC99A0"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-002254CD0807A312C246"
+      ]
+    },
+    {
+      "authority_grade_calibration": {
+        "basis": "按本传完整生涯、独立责任链、结果规模与角色边界校准；官名和声誉不单独抬档。",
+        "evidence_refs": [
+          "PFACT-46E0202B0B9754A3CC6A",
+          "PFACT-A111DE6D11F43B330228",
+          "PFACT-B35B1D73AD95C67058A9",
+          "PFACT-CAC16A94AC88CFD6D8BC",
+          "PFACT-FD9071BFF74E1637E3FE"
+        ],
+        "status": "accepted_current"
+      },
+      "coverage_gaps": [],
+      "coverage_status": "complete_shared_profile",
+      "domain_grades": {
+        "civil_governance": {
+          "basis": "作为主导完成“暂停中男简点入军”，属important级治理结果。",
+          "grade": "important",
+          "outcome_refs": [
+            "HOUT-55B53974C497A9258DEB"
+          ],
+          "rule_path": "domain_important_threshold"
+        },
+        "culture_and_scholarship": {
+          "basis": "作为主导完成“贞观五代史官修工程”，属national级文化学术结果。",
+          "grade": "top",
+          "outcome_refs": [
+            "HOUT-5A8250619690939076D2"
+          ],
+          "rule_path": "culture_top_fallback"
+        },
+        "military": {
+          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
+          "grade": "ordinary",
+          "outcome_refs": [],
+          "rule_path": "coverage_complete_below_usable"
+        },
+        "statecraft": {
+          "basis": "作为主导完成“岭南冲突遣使安抚定局”，属regional级谋略结果。",
+          "grade": "important",
+          "outcome_refs": [
+            "HOUT-7B13FD293C88E3E8A651"
+          ],
+          "rule_path": "domain_important_threshold"
+        }
+      },
+      "full_lifecycle_biography": {
+        "evidence_refs": [
+          "PFACT-46E0202B0B9754A3CC6A",
+          "PFACT-A111DE6D11F43B330228",
+          "PFACT-B35B1D73AD95C67058A9",
+          "PFACT-CAC16A94AC88CFD6D8BC",
+          "PFACT-FD9071BFF74E1637E3FE"
+        ],
+        "revision_ref": "2020238",
+        "scan_status": "complete_section",
+        "section_chars": 9412,
+        "section_heading": "=魏-{徵}-=",
+        "source_page": "舊唐書/卷71"
+      },
+      "outcome_refs": [
+        "HOUT-1A903E137F87A1A9C454",
+        "HOUT-55B53974C497A9258DEB",
+        "HOUT-5A8250619690939076D2",
+        "HOUT-7B13FD293C88E3E8A651",
+        "HOUT-8B97419ED04122A049EC"
+      ],
+      "overall_basis": "culture_and_scholarship：作为主导完成“贞观五代史官修工程”，属national级文化学术结果。",
+      "overall_grade": "top",
+      "overall_rule_path": "culture_top_fallback",
+      "person": "魏徵",
+      "person_ref": "PER-CAND-1DA5E84241DE",
+      "primary_domains": [
+        "culture_and_scholarship"
+      ],
+      "profile_fingerprint": "c01b36dfc9ef00310730f417f97ddd9f697f1ef5e5361c81035738085dd4cc12",
+      "profile_ref": "PINV-F2BBE97115858C0350A6",
+      "role_families": [
+        "feedback",
+        "historiography",
+        "institution",
+        "policy"
+      ],
+      "talent_grade_evidence_refs": [
+        "PFACT-CAC16A94AC88CFD6D8BC",
+        "PFACT-GOLD-C0DAB78751F795326D0F",
+        "PFACT-LSM-FIVE-DYNASTY-HISTORIES"
+      ],
+      "talent_grade_outcome_refs": [
+        "HOUT-5A8250619690939076D2"
+      ]
+    }
+  ],
+  "person_profile_registry_fingerprint": "504edfc446291f1ecbfe30e8d7559223bdcdaa40357b00c49a56a5cbde1bf5fd",
+  "person_profile_window_projection": [
+    {
+      "person": "侯君集",
+      "person_ref": "PER-CAND-851A4B92D193",
+      "political_risk": {
+        "assessment_status": "established",
+        "basis": "平高昌后擅配没无罪者、私取宝物并因自保放任将士竞相盗窃，后又参与承乾不轨谋划；属于重复且已实现的群体财产与公共权力损害，按serious登记。",
+        "evidence_refs": [
+          "PFACT-LSM-HOUJUNJI-LOOTING-AND-CONSPIRACY"
+        ],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": "window_exposed_political_or_discipline_risk",
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2610556",
+          "source_page": "舊唐書/卷69"
+        },
+        "severity": "serious"
+      },
+      "profile_ref": "PINV-9A6184E6043B791C957D",
+      "team_building_projection": [
+        "negative_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "刘德威",
+      "person_ref": "PER-GOLD-ABD3D878719A4DC73D1A",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-BF48F1A0E178DFF6",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "刘敬",
+      "person_ref": "PER-CAND-EFA9B4B27853",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-AE56A4224E1E10D3",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "刘文静",
+      "person_ref": "PER-ACTOR-9D09781AE311",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-2B52C50A372A44824C66",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "刘邦",
+      "person_ref": "RULER-NAME-CANDIDATE-3D3FE911CF34",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-2D644C0EFDE2D497",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "叔孙通",
+      "person_ref": "PER-CAND-5C3BAA7627B8",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-E7FB21D931232ED7",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "周勃",
+      "person_ref": "PER-CAND-746B660CC80F",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-52400B80718A7DB029CE",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "尉迟敬德",
+      "person_ref": "PER-CAND-A49FCFF85405",
+      "political_risk": {
+        "assessment_status": "established",
+        "basis": "贞观朝宴席争次时拳击李道宗眼部、几近失明，是单次且对象有限的已实现严重人身侵害；玄武门武装行动不与普通战场或政变交战重复累计。",
+        "evidence_refs": [
+          "PFACT-LSM-YUCHI-COURT-ASSAULT"
+        ],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": "window_exposed_political_or_discipline_risk",
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "1757055",
+          "source_page": "舊唐書/卷68"
+        },
+        "severity": "material"
+      },
+      "profile_ref": "PINV-1DBCDAB10E57FCB03956",
+      "team_building_projection": [
+        "negative_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "张良",
+      "person_ref": "PER-CAND-2FFB15145AF5",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-86823167DF7635448A82",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "彭越",
+      "person_ref": "PER-CAND-CB012BC1F12F",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-A62CD1FCDBD092A0062B",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "戴胄",
+      "person_ref": "PER-CAND-947836AF2584",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2585040",
+          "source_page": "舊唐書/卷70"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-AFCFE83DA8DAF981FAEE",
+      "team_building_projection": [
+        "positive_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "房玄龄",
+      "person_ref": "PER-CAND-0E58D2EA4AC4",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2034579",
+          "source_page": "舊唐書/卷66"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-324D15732DCB7DBCCB08",
+      "team_building_projection": [
+        "positive_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "曹参",
+      "person_ref": "PER-CAND-D60B93B81159",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-F0B52E757F8CF7B15202",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "李世民",
+      "person_ref": "RULER-58130F2446A25CC1",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-637B07646A8DD7C229DC",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "李勣",
+      "person_ref": "PER-CAND-8CF6E0AAF5E5",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2296327",
+          "source_page": "舊唐書/卷67"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-9A4E230A9738E7111C6C",
+      "team_building_projection": [
+        "positive_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "李渊",
+      "person_ref": "RULER-NAME-CANDIDATE-LIYUAN",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-19C2DEEF6D696762",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "李靖",
+      "person_ref": "PER-CAND-D29808A822E4",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2296327",
+          "source_page": "舊唐書/卷67"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-311D02ACA9FF608B682C",
+      "team_building_projection": [
+        "positive_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "杜如晦",
+      "person_ref": "PER-CAND-52D752B16F85",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2034579",
+          "source_page": "舊唐書/卷66"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-86EC70CEF2034C60A54A",
+      "team_building_projection": [
+        "positive_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "柴绍",
+      "person_ref": "PER-CAND-8A3F71312E09",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-372D7B06A5DFBDFE",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "樊哙",
+      "person_ref": "PER-CAND-A8233A37A583",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-FC235AA4EB2B0D94",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "温彦博",
+      "person_ref": "PER-GOLD-974BDC0229904FD7B743",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-BB4140D1EC9EED3B",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "灌婴",
+      "person_ref": "PER-CAND-39DB5536EF01",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-32C39157FEEBFFA00618",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "王珪",
+      "person_ref": "PER-ACTOR-F0AE1AB696CD",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-E795159C94445F6D",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "苏定方",
+      "person_ref": "PER-V4-CB67FCF2FC79",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描固定本传完整分节，并复核李世民窗口内外的公共损害；现有材料未建立达到政治风险门槛的事实。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2632780",
+          "source_page": "舊唐書/卷83"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-737E7F2EBD9DCE1CE489",
+      "team_building_projection": [
+        "positive_scored"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
+      "person": "英布",
+      "person_ref": "PER-CAND-1471155D486E",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-C7F5B2D5BB46703E45D0",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "萧何",
+      "person_ref": "PER-CAND-C4F753AA4405",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-BF9509B5C455C62EC580",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "薛万均",
+      "person_ref": "PER-CAND-17BEE27A6876",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-5A5827A562099FF1",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "薛万彻",
+      "person_ref": "PER-CAND-38F0DDA22267",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-77E44E952CB9D1B9",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "裴弘献",
+      "person_ref": "PER-ACTOR-406D8DE4AC42",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PROFILE-74679AC3199C611B",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "褚遂良",
+      "person_ref": "PER-CAND-6212A403EABA",
+      "political_risk": {
+        "assessment_status": "reviewed_no_material_risk",
+        "basis": "已扫描本传完整分节，并以本纪窗口和八域词表交叉复核；命中均属他人事件、窗口外事件、普通战争行为或低于政治风险门槛。",
+        "evidence_refs": [],
+        "policy_ref": "config/political-risk.yml",
+        "risk_class": null,
+        "scan_receipt": {
+          "biography_full_scan": true,
+          "counterevidence_review": true,
+          "cross_record_search": true,
+          "domain_query_matrix": true,
+          "revision_ref": "2588763",
+          "source_page": "舊唐書/卷80"
+        },
+        "severity": null
+      },
+      "profile_ref": "PINV-1EA4BE08555392C01DA2",
+      "team_building_projection": [
+        "candidate_supporting_only"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
+    },
+    {
       "person": "长孙无忌",
       "person_ref": "PER-CAND-6D5FA3B48F40",
       "political_risk": {
@@ -15771,53 +18097,62 @@
         },
         "severity": null
       },
-      "primary_domains": [
-        "civil_governance"
-      ],
+      "profile_ref": "PINV-94E07E4D11AD82C54680",
       "team_building_projection": [
         "positive_scored"
-      ]
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
-      "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
-      "domain_grades": {
-        "civil_governance": {
-          "basis": "作为主导完成“考订并颁行氏族志”，属national级治理结果。",
-          "grade": "top",
-          "outcome_refs": [
-            "OUTCOME-LSM-GOV-CLAN-REGISTRY"
-          ],
-          "rule_path": "top_fallback"
-        },
-        "culture_and_scholarship": {
-          "basis": "未建立达到可用门槛的文化学术成果。",
-          "grade": "ordinary",
-          "outcome_refs": [],
-          "rule_path": "coverage_complete_below_usable"
-        },
-        "military": {
-          "basis": "作为主帅完成“高士廉率水陆军击破宁长真军”，属C级战役群。",
-          "grade": "usable",
-          "outcome_refs": [
-            "OUTCOME-AUTO-7B11A868338652826782"
-          ],
-          "rule_path": "domain_usable_threshold"
-        },
-        "statecraft": {
-          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
-          "grade": "ordinary",
-          "outcome_refs": [],
-          "rule_path": "coverage_complete_below_usable"
-        }
+      "person": "陈平",
+      "person_ref": "PER-CAND-F67C4F794042",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
       },
-      "outcome_refs": [
-        "OUTCOME-AUTO-7B11A868338652826782",
-        "OUTCOME-LSM-GOV-CLAN-REGISTRY"
+      "profile_ref": "PINV-6E6E489A566CC84CFB90",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
       ],
-      "overall_basis": "civil_governance：作为主导完成“考订并颁行氏族志”，属national级治理结果。",
-      "overall_grade": "top",
-      "overall_rule_path": "top_fallback",
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "陈豨",
+      "person_ref": "PER-CAND-622BEAAA2820",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-80D1147D56FBFA1FB627",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
+      "person": "韩信",
+      "person_ref": "PER-CAND-039AFE91A974",
+      "political_risk": {
+        "assessment_status": "not_reviewed",
+        "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
+        "risk_class": null,
+        "severity": null
+      },
+      "profile_ref": "PINV-5D3EAE4300BFA555D86E",
+      "team_building_projection": [
+        "not_in_current_team_candidate_pool"
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "not_projected"
+    },
+    {
       "person": "高士廉",
       "person_ref": "PER-CAND-564F932D7FB5",
       "political_risk": {
@@ -15838,58 +18173,14 @@
         },
         "severity": "material"
       },
-      "primary_domains": [
-        "civil_governance"
-      ],
+      "profile_ref": "PINV-0A736B2BD950771DB21D",
       "team_building_projection": [
         "negative_scored"
-      ]
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
     },
     {
-      "coverage_gaps": [],
-      "coverage_status": "frozen_after_complete_coverage",
-      "domain_grades": {
-        "civil_governance": {
-          "basis": "作为主导完成“暂停中男简点入军”，属important级治理结果。",
-          "grade": "important",
-          "outcome_refs": [
-            "OUTCOME-LSM-GOV-MIDDLE-MALE-CONSCRIPTION"
-          ],
-          "rule_path": "domain_important_threshold"
-        },
-        "culture_and_scholarship": {
-          "basis": "作为主导完成“贞观五代史官修工程”，属national级文化学术结果。",
-          "grade": "top",
-          "outcome_refs": [
-            "OUTCOME-LSM-GOV-HISTORIOGRAPHY"
-          ],
-          "rule_path": "culture_top_fallback"
-        },
-        "military": {
-          "basis": "完整覆盖后未建立达到可用门槛的独立成果簇。",
-          "grade": "ordinary",
-          "outcome_refs": [],
-          "rule_path": "coverage_complete_below_usable"
-        },
-        "statecraft": {
-          "basis": "作为主导完成“岭南冲突遣使安抚定局”，属regional级谋略结果。",
-          "grade": "important",
-          "outcome_refs": [
-            "OUTCOME-LSM-GOV-LINGNAN-PACIFICATION"
-          ],
-          "rule_path": "domain_important_threshold"
-        }
-      },
-      "outcome_refs": [
-        "OUTCOME-LSM-GOV-HISTORIOGRAPHY",
-        "OUTCOME-LSM-GOV-LINGNAN-PACIFICATION",
-        "OUTCOME-LSM-GOV-MIDDLE-MALE-CONSCRIPTION",
-        "OUTCOME-LSM-GOV-REMONSTRANCE-PROCEDURE",
-        "OUTCOME-LSM-GOV-VERITABLE-RECORDS"
-      ],
-      "overall_basis": "culture_and_scholarship：作为主导完成“贞观五代史官修工程”，属national级文化学术结果。",
-      "overall_grade": "top",
-      "overall_rule_path": "culture_top_fallback",
       "person": "魏徵",
       "person_ref": "PER-CAND-1DA5E84241DE",
       "political_risk": {
@@ -15908,12 +18199,12 @@
         },
         "severity": null
       },
-      "primary_domains": [
-        "culture_and_scholarship"
-      ],
+      "profile_ref": "PINV-F2BBE97115858C0350A6",
       "team_building_projection": [
         "positive_scored"
-      ]
+      ],
+      "window_coverage_gaps": [],
+      "window_coverage_status": "frozen_after_complete_coverage"
     }
   ],
   "profile_projection_gate": {
@@ -16059,7 +18350,7 @@
           "severity": "serious"
         },
         "talent_grade": {
-          "basis": "military：作为主帅完成“贞观十四年平高昌战役群”，属A级战役群；作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群。",
+          "basis": "military：作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群；作为主帅完成“贞观十四年平高昌战役群”，属A级战役群。",
           "evidence_refs": [
             "PFACT-GOLD-2BF5480984E75FDDF375",
             "PFACT-GOLD-2D4A618AC07463715E81",
@@ -16456,7 +18747,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "civil_governance：作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。",
+          "basis": "civil_governance：作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
           "evidence_refs": [
             "PFACT-GOLD-2B6BE4DA75ABAE8577B4",
             "PFACT-GOLD-41920A85F172325B9034",
@@ -17005,7 +19296,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S+级战役群。",
+          "basis": "military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S级战役群。",
           "evidence_refs": [
             "PFACT-SUDINGFANG-BAEKJE",
             "PFACT-SUDINGFANG-WESTERN-TURKS"
@@ -17237,7 +19528,7 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "civil_governance：作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果；作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。",
+          "basis": "civil_governance：作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。",
           "evidence_refs": [
             "PFACT-AUTO-D4F66E171B8E1D302E67",
             "PFACT-CHANGSUN-XIANQING-LAW-MAINTENANCE",
@@ -17575,7 +19866,7 @@
       "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "a7a6cc8b6698c1cb1e4fbf44d82a2ba017931af10210c888bcd14dba9cf6b1b6",
+  "report_sha256": "b9e02a862187578b6e8a459730ce7b7f7fd9470bce94089243792046dc4dcd51",
   "rule_evidence_units": [
     {
       "direction": "negative",
@@ -19109,7 +21400,7 @@
   "ruler_ref": "RULER-58130F2446A25CC1",
   "schema_version": "i5b-current-value-report-v5",
   "source_pack_ref": "eval\\i5b_current_value\\李世民\\source-pack.json",
-  "source_pack_sha256": "544ebe5f7236c763db12546571483c12e0dbc3b9499d0931123f27a78caac420",
+  "source_pack_sha256": "72679ae4a73b81737f28a47526fafc35c5a0a2c573cea917a4c1852eccd781bc",
   "status": "current_shadow_chain_complete",
   "three_channel_disposition": {
     "dynasty_governance": {

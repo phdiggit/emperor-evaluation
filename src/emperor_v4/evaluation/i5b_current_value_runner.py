@@ -25,13 +25,16 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     GOVERNANCE_ROLES,
     LAND_STRATEGIC_VALUES,
     RULER_CAMPAIGN_RELATIONS,
-    assess_person_talent_grade,
     build_outcome_episode,
     campaign_tier,
     validate_historical_outcome_registry,
 )
 from emperor_v4.evaluation.historical_outcome_registry import (
     materialize_ruler_outcome_registry,
+)
+from emperor_v4.evaluation.historical_person_profile_registry import (
+    SCHEMA_VERSION as PERSON_PROFILE_REGISTRY_SCHEMA_VERSION,
+    build_historical_person_profile_registry,
 )
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
@@ -532,6 +535,7 @@ def build_i5b_current_value(
     *,
     workspace_root: Path = ROOT,
     outcome_layers: tuple[Mapping[str, Any], Mapping[str, Any]] | None = None,
+    shared_profile_registry: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     source_pack_path = source_pack_path.resolve()
     workspace_root = workspace_root.resolve()
@@ -557,11 +561,15 @@ def build_i5b_current_value(
         raise ValueError("current source pack 三路处置不闭合")
     if len(pack.get("ruler_context_materials") or ()) != int(dispositions["ruler_chronicle"]["ruler_window_context_count"]):
         raise ValueError("皇帝篇章 supporting context 数量不一致")
+    project_path = workspace_root / "config/project.yml"
+    project = (
+        yaml.safe_load(project_path.read_text(encoding="utf-8"))
+        if project_path.is_file()
+        else {}
+    )
     if outcome_layers is not None:
         unbound_registry, binding_report = outcome_layers
     else:
-        project_path = workspace_root / "config/project.yml"
-        project = yaml.safe_load(project_path.read_text(encoding="utf-8"))
         ruler_config = (
             ((project.get("i5b_current_value") or {}).get("rulers") or {}).get(
                 str(pack["ruler"])
@@ -579,6 +587,42 @@ def build_i5b_current_value(
         binding_report = _load_json(
             workspace_root / str(ruler_config["outcome_binding"])
         )
+    if shared_profile_registry is None:
+        if outcome_layers is not None:
+            shared_profile_registry = build_historical_person_profile_registry(
+                unbound_registry, [pack]
+            )
+        else:
+            profile_config = project.get("historical_person_profile_registry") or {}
+            profile_path_value = profile_config.get("current_json")
+            profile_path = (
+                workspace_root / str(profile_path_value)
+                if profile_path_value
+                else None
+            )
+            if profile_path is not None and profile_path.is_file():
+                shared_profile_registry = _load_json(profile_path)
+            else:
+                shared_profile_registry = build_historical_person_profile_registry(
+                    unbound_registry, [pack]
+                )
+    if (
+        shared_profile_registry.get("schema_version")
+        != PERSON_PROFILE_REGISTRY_SCHEMA_VERSION
+    ):
+        raise ValueError("共享人物画像总登记 schema_version 不匹配")
+    profile_declarations = shared_profile_registry.get("declarations") or {}
+    if (
+        profile_declarations.get("outcome_registry_fingerprint")
+        != unbound_registry.get("registry_fingerprint")
+    ):
+        raise ValueError("共享人物画像与成果总登记版本不一致")
+    if declared_hash not in set(profile_declarations.get("source_pack_refs") or ()):
+        raise ValueError("共享人物画像未消费当前 source pack")
+    shared_profile_by_ref = {
+        str(row["person_ref"]): row
+        for row in shared_profile_registry.get("profiles") or ()
+    }
     if binding_report.get("source_pack_sha256") != declared_hash:
         raise ValueError("皇帝窗口绑定与 current source pack 版本不一致")
     outcome_registry = materialize_ruler_outcome_registry(
@@ -637,6 +681,16 @@ def build_i5b_current_value(
     outcome_by_ref = {
         str(row["outcome_ref"]): row for row in outcome_clusters
     }
+    origin_outcome_to_registration = {
+        str(origin_ref): str(outcome["registration_ref"])
+        for outcome in unbound_registry.get("outcomes") or ()
+        for origin_ref in outcome.get("origin_outcome_refs") or ()
+    }
+    registration_to_current_origin = {
+        registration_ref: origin_ref
+        for origin_ref, registration_ref in origin_outcome_to_registration.items()
+        if origin_ref in outcome_by_ref
+    }
     ruler_outcome_clusters = _ruler_window_outcomes(outcome_clusters)
     ruler_outcome_by_ref = {
         str(row["outcome_ref"]): row for row in ruler_outcome_clusters
@@ -644,26 +698,30 @@ def build_i5b_current_value(
     current_members = copy.deepcopy(list(pack.get("members") or ()))
     for member in current_members:
         person_ref = str(member["person_ref"])
-        assessment = assess_person_talent_grade(
-            person_ref=person_ref,
-            clusters=outcome_clusters,
-        )
-        member["effective_talent_grade"] = assessment["grade"]
-        member["talent_grade_basis"] = assessment["basis"]
+        shared_profile = shared_profile_by_ref.get(person_ref)
+        if shared_profile is None:
+            raise ValueError(f"共享人物画像缺少当前候选: {member['person']}")
+        member["effective_talent_grade"] = shared_profile["overall_grade"]
+        member["talent_grade_basis"] = shared_profile["overall_basis"]
         review = member["profile_review"]["talent_grade"]
-        review["grade"] = assessment["grade"]
-        review["basis"] = assessment["basis"]
+        review["grade"] = shared_profile["overall_grade"]
+        review["basis"] = shared_profile["overall_basis"]
         alignment = review["rule_alignment"]
-        alignment["outcome_refs"] = assessment["outcome_refs"]
-        alignment["rule_path"] = assessment["rule_path"]
-        outcome_evidence_refs = sorted(
-            {
-                fact_ref
-                for outcome_ref in assessment["outcome_refs"]
-                for fact_ref in outcome_by_ref[outcome_ref]["fact_refs"]
-            }
+        alignment["rule_path"] = shared_profile["overall_rule_path"]
+        alignment["outcome_refs"] = sorted(
+            registration_to_current_origin.get(ref, ref)
+            for ref in shared_profile["talent_grade_outcome_refs"]
         )
-        review["evidence_refs"] = outcome_evidence_refs or sorted(
+        review["evidence_refs"] = sorted(
+            {
+                str(fact_ref)
+                for outcome_ref in alignment["outcome_refs"]
+                for fact_ref in (
+                    outcome_by_ref.get(outcome_ref, {}).get("fact_refs")
+                    or shared_profile["talent_grade_evidence_refs"]
+                )
+            }
+        ) or sorted(
             str(value)
             for value in member["profile_review"]["full_lifecycle_biography"].get(
                 "evidence_refs"
@@ -991,7 +1049,24 @@ def build_i5b_current_value(
                 str(value) for value in risk_review.get("evidence_refs") or ()
             ),
         }
-        known_profile_refs = set(facts) | set(ruler_contexts) | set(outcome_by_ref)
+        shared_profile = shared_profile_by_ref[person_ref]
+        shared_lineage_refs = (
+            set(str(value) for value in shared_profile["outcome_refs"])
+            | set(
+                str(value)
+                for value in shared_profile["talent_grade_outcome_refs"]
+            )
+            | set(
+                str(value)
+                for value in shared_profile["talent_grade_evidence_refs"]
+            )
+        )
+        known_profile_refs = (
+            set(facts)
+            | set(ruler_contexts)
+            | set(outcome_by_ref)
+            | shared_lineage_refs
+        )
         unknown_profile_refs = sorted(
             ref
             for refs in profile_evidence_refs.values()
@@ -1035,9 +1110,16 @@ def build_i5b_current_value(
         grade_registry_refs = sorted(
             str(value) for value in grade_alignment.get("outcome_refs") or ()
         )
-        computed_grade = assess_person_talent_grade(
-            person_ref=person_ref, clusters=outcome_clusters
+        shared_grade_registry_refs = sorted(
+            origin_outcome_to_registration.get(ref, ref)
+            for ref in grade_registry_refs
         )
+        computed_grade = {
+            "grade": shared_profile["overall_grade"],
+            "basis": shared_profile["overall_basis"],
+            "rule_path": shared_profile["overall_rule_path"],
+            "outcome_refs": shared_profile["talent_grade_outcome_refs"],
+        }
         ordinary_complete_below_threshold = (
             computed_grade["grade"] == "ordinary"
             and computed_grade["rule_path"] == "coverage_complete_below_usable"
@@ -1052,14 +1134,15 @@ def build_i5b_current_value(
             or computed_grade["grade"] != member["effective_talent_grade"]
             or computed_grade["basis"] != talent_review.get("basis")
             or computed_grade["rule_path"] != grade_alignment.get("rule_path")
-            or computed_grade["outcome_refs"] != grade_registry_refs
+            or computed_grade["outcome_refs"] != shared_grade_registry_refs
         ):
             gaps.append("missing_talent_grade_rule_alignment")
         elif unknown_registry_refs := sorted(
-            set(grade_registry_refs) - set(outcome_by_ref)
+            set(shared_grade_registry_refs)
+            - set(shared_profile["talent_grade_outcome_refs"])
         ):
             raise ValueError(
-                f"{member['person']} 人才等级引用未知成果登记: "
+                f"{member['person']} 人才等级引用未知共享成果登记: "
                 f"{unknown_registry_refs}"
             )
         if (
@@ -1145,25 +1228,12 @@ def build_i5b_current_value(
     frozen_profile_by_ref = {
         str(row["person_ref"]): row for row in profile_projection_review
     }
-    outcome_person_by_ref: dict[str, str] = {}
-    for cluster in outcome_clusters:
-        for member in cluster["members"]:
-            if member["actor_kind"] == "person":
-                outcome_person_by_ref[str(member["actor_ref"])] = str(
-                    member["actor_name"]
-                )
-    for member in current_members:
-        outcome_person_by_ref[str(member["person_ref"])] = str(member["person"])
     positive_team_names = set(team["positive_members"])
     negative_team_names = set(team["negative_members"])
-    person_profile_registry = []
-    for person_ref, person_name in sorted(
-        outcome_person_by_ref.items(), key=lambda value: value[1]
-    ):
-        assessment = assess_person_talent_grade(
-            person_ref=person_ref,
-            clusters=outcome_clusters,
-        )
+    person_profile_window_projection = []
+    for shared_profile in shared_profile_registry["profiles"]:
+        person_ref = str(shared_profile["person_ref"])
+        person_name = str(shared_profile["person"])
         frozen = frozen_profile_by_ref.get(person_ref)
         team_status = []
         if person_name in positive_team_names:
@@ -1184,40 +1254,24 @@ def build_i5b_current_value(
                 "basis": "尚未完成该人物的全生涯本传与跨记录政治风险复核。",
             }
         )
-        person_profile_registry.append(
+        person_profile_window_projection.append(
             {
                 "person": person_name,
                 "person_ref": person_ref,
-                "overall_grade": assessment["grade"],
-                "overall_rule_path": assessment["rule_path"],
-                "overall_basis": assessment["basis"],
-                "primary_domains": assessment["primary_domains"],
-                "domain_grades": assessment["domain_grades"],
-                "outcome_refs": sorted(
-                    str(cluster["outcome_ref"])
-                    for cluster in outcome_clusters
-                    if any(
-                        str(member["actor_ref"]) == person_ref
-                        for member in cluster["members"]
-                    )
-                ),
+                "profile_ref": shared_profile["profile_ref"],
                 "team_building_projection": team_status,
                 "political_risk": risk,
-                "coverage_status": (
-                    str(frozen["value_status"])
-                    if frozen is not None
-                    else "provisional_registered_outcomes_only"
+                "window_coverage_status": (
+                    str(frozen["value_status"]) if frozen is not None else "not_projected"
                 ),
-                "coverage_gaps": (
-                    list(frozen["coverage_gaps"])
-                    if frozen is not None
-                    else [
-                        "missing_full_lifecycle_biography_lineage",
-                        "missing_window_risk_source",
-                    ]
+                "window_coverage_gaps": (
+                    list(frozen["coverage_gaps"]) if frozen is not None else []
                 ),
             }
         )
+    person_profile_registry = copy.deepcopy(
+        list(shared_profile_registry["profiles"])
+    )
     team_semantic = _digest(
         {
             "ruler_ref": pack["ruler_ref"],
@@ -1323,6 +1377,10 @@ def build_i5b_current_value(
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
         "person_profile_registry": person_profile_registry,
+        "person_profile_registry_fingerprint": shared_profile_registry[
+            "registry_fingerprint"
+        ],
+        "person_profile_window_projection": person_profile_window_projection,
         "episodes": [asdict(value) for value in episodes],
         "episode_index_by_person": combined_by_person,
         "rule_evidence_units": [asdict(value) for value in (*reus, team_reu)],
@@ -1351,6 +1409,9 @@ def build_i5b_current_value(
             "person_profile_registry_count": len(person_profile_registry),
             "person_profile_registry_with_open_gap_count": sum(
                 bool(row["coverage_gaps"]) for row in person_profile_registry
+            ),
+            "person_profile_window_projection_count": len(
+                person_profile_window_projection
             ),
             "historical_outcome_cluster_count": len(outcome_by_ref),
             "ruler_historical_outcome_cluster_count": len(ruler_outcome_by_ref),
@@ -1610,12 +1671,12 @@ def render_scoring_detail_markdown(
         lines.extend(
             [
                 "",
-                "## 人物画像登记",
+                "## 共享人物全生涯画像登记",
                 "",
-                "> 本表先登记全部有公共成果的人物；团队建设是否计分只作后置投影。带 * 的总档仅是现有登记支持的下限，尚未完成全生涯本传与政治风险复核。",
+                "> 本表由公共成果与全生涯本传生成，不随皇帝窗口变化；团队选择和政治风险另表投影。",
                 "",
-                "| 人物 | 总档 | 定级理由 | 军事 | 治理 | 谋略 | 文化学术 | 主领域 | 团队建设投影 | 政治风险 | 覆盖状态 |",
-                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+                "| 画像号 | 人物 | 总档 | 定级理由 | 军事 | 治理 | 谋略 | 文化学术 | 主领域 | 覆盖状态 |",
+                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
             ]
         )
         domain_labels = {
@@ -1624,23 +1685,7 @@ def render_scoring_detail_markdown(
             "statecraft": "谋略",
             "culture_and_scholarship": "文化学术",
         }
-        team_projection_labels = {
-            "positive_scored": "正向计分",
-            "negative_scored": "风险计分",
-            "candidate_supporting_only": "候选但未入预算",
-            "not_in_current_team_candidate_pool": "未列入当前团队候选",
-        }
         for profile in report["person_profile_registry"]:
-            risk = profile["political_risk"]
-            risk_summary = (
-                f"{risk.get('risk_class')} / {risk.get('severity')}"
-                if risk.get("assessment_status") == "established"
-                else (
-                    "已复核，无重大政治风险"
-                    if risk.get("assessment_status") == "reviewed_no_material_risk"
-                    else "未完成风险复核"
-                )
-            )
             domain_grades = profile["domain_grades"]
             display_grade = lambda key: (
                 "—"
@@ -1648,7 +1693,7 @@ def render_scoring_detail_markdown(
                 and not domain_grades[key]["outcome_refs"]
                 else str(domain_grades[key]["grade"])
             )
-            provisional = profile["coverage_status"] == "provisional_registered_outcomes_only"
+            provisional = profile["coverage_status"] == "registered_outcomes_only"
             overall_grade = (
                 "未确立*"
                 if provisional and profile["overall_grade"] == "ordinary"
@@ -1658,18 +1703,46 @@ def render_scoring_detail_markdown(
                 domain_labels.get(str(value), str(value))
                 for value in profile["primary_domains"]
             )
-            team_projection = "、".join(
-                team_projection_labels.get(str(value), str(value))
-                for value in profile["team_building_projection"]
-            )
             grade_basis = str(profile["overall_basis"]).replace("|", "／").replace("\n", " ")
             lines.append(
-                f"| {profile['person']} | {overall_grade} | {grade_basis} | "
+                f"| {profile['profile_ref']} | {profile['person']} | "
+                f"{overall_grade} | {grade_basis} | "
                 f"{display_grade('military')} | {display_grade('civil_governance')} | "
                 f"{display_grade('statecraft')} | "
                 f"{display_grade('culture_and_scholarship')} | "
-                f"{primary_domains or '未确立'} | {team_projection} | "
-                f"{risk_summary} | {profile['coverage_status']} |"
+                f"{primary_domains or '未确立'} | {profile['coverage_status']} |"
+            )
+        lines.extend(
+            [
+                "",
+                "## 当前皇帝窗口人物投影",
+                "",
+                "| 人物 | 团队建设投影 | 政治风险 | 窗口覆盖状态 |",
+                "| --- | --- | --- | --- |",
+            ]
+        )
+        team_projection_labels = {
+            "positive_scored": "正向计分",
+            "negative_scored": "风险计分",
+            "candidate_supporting_only": "候选但未入预算",
+            "not_in_current_team_candidate_pool": "未列入当前团队候选",
+        }
+        for projection in report["person_profile_window_projection"]:
+            if projection["window_coverage_status"] == "not_projected":
+                continue
+            risk = projection["political_risk"]
+            risk_summary = (
+                f"{risk.get('risk_class')} / {risk.get('severity')}"
+                if risk.get("assessment_status") == "established"
+                else "已复核，当前窗口无重大政治风险"
+            )
+            team_projection = "、".join(
+                team_projection_labels.get(str(value), str(value))
+                for value in projection["team_building_projection"]
+            )
+            lines.append(
+                f"| {projection['person']} | {team_projection} | "
+                f"{risk_summary} | {projection['window_coverage_status']} |"
             )
         return "\n".join(lines) + "\n"
     profile = next(
