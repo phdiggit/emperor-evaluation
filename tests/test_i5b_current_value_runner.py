@@ -363,6 +363,73 @@ def test_outcome_projection_rejects_palace_seizure_governance() -> None:
     assert "夺权或宫廷清洗" in normalized["rejections"][0]["reason"]
 
 
+def test_outcome_projection_rejects_disguised_palace_seizure_governance() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["canonical_label"] = "授权处置军队并平定宫廷冲突"
+    source_quote = (
+        "秦王以太子、齐王作乱，举兵诛之。"
+        "敬德请降手敕，令诸军并受秦王处分，上从之。"
+    )
+    candidate["exact_quotes"] = [source_quote]
+    candidate["members"][0]["authorization_quotes"] = [source_quote]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": source_quote,
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"] == []
+    assert "夺权或宫廷清洗" in normalized["rejections"][0]["reason"]
+
+
+def test_outcome_projection_normalizes_chang_an_command_relation() -> None:
+    payload = _campaign_candidate_payload(relation="personal_command")
+    candidate = payload["candidates"][0]
+    candidate["members"][0]["actor_name"] = "李渊"
+    source_quote = "甲辰，李渊命诸攻城。军头雷永吉先登，遂克长安。"
+    candidate["exact_quotes"] = [source_quote]
+    candidate["members"][0]["authorization_quotes"] = ["李渊命诸攻城"]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": source_quote,
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["members"][0][
+        "ruler_campaign_relation"
+    ] == "sustained_theater_control"
+
+
+def test_outcome_projection_does_not_invent_cross_stage_durability() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["payload"]["durable_cross_stage"] = True
+    candidate["limitations"] = ["原文未说明持续执行范围及后续制度寿命。"]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": candidate["exact_quotes"][0],
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["payload"]["durable_cross_stage"] is False
+
+
 def test_outcome_projection_requires_explicit_legal_governance_candidate() -> None:
     fact = {
         "segment_ref": "SEG-LAW",

@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v16"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v17"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -335,20 +335,24 @@ def _normalize_candidate_sources(
         source_context = "".join(
             str(fact.get("exact_quote") or "") for fact in matched_facts
         )
+        simplified_source_context = _T2S.convert(source_context)
         candidate_summary = "".join(
             str(candidate.get(key) or "")
             for key in ("canonical_label", "neutral_summary", "observable_result")
         )
+        simplified_candidate_summary = _T2S.convert(candidate_summary)
+        palace_seizure_context = (
+            "玄武门" in simplified_candidate_summary
+            or "玄武门" in simplified_source_context
+            or (
+                "太子、齐王作乱" in simplified_source_context
+                and "举兵诛之" in simplified_source_context
+            )
+            or "秦王已讨而诛之" in simplified_source_context
+        )
         if (
             candidate.get("outcome_kind") in {"governance", "statecraft"}
-            and (
-                "玄武门" in candidate_summary
-                or (
-                    "李建成" in candidate_summary
-                    and "李元吉" in candidate_summary
-                    and "诛" in candidate_summary
-                )
-            )
+            and palace_seizure_context
         ):
             reject_candidate(
                 candidate,
@@ -362,8 +366,8 @@ def _normalize_candidate_sources(
                 and member.get("actor_name") == "李渊"
                 for member in candidate.get("members") or ()
             )
-            and "唐公" in _T2S.convert(source_context)
-            and "代王" in _T2S.convert(source_context)
+            and "唐公" in simplified_source_context
+            and "代王" in simplified_source_context
         )
         if li_yuan_pre_accession_context:
             candidate["ruler_window_status"] = (
@@ -424,8 +428,27 @@ def _normalize_candidate_sources(
                 candidate["settlement_scope"] = "person_governance_result"
             elif window_status in {"within_window", "leadership_formation"}:
                 candidate["settlement_scope"] = "governance_result"
+        if (
+            candidate.get("outcome_kind") == "governance"
+            and candidate_payload.get("durable_cross_stage") is True
+            and "未说明" in limitation_text
+            and any(
+                marker in limitation_text
+                for marker in ("持续执行", "制度寿命", "后续")
+            )
+        ):
+            candidate_payload["durable_cross_stage"] = False
         if candidate.get("outcome_kind") == "campaign":
             for member in candidate.get("members") or ():
+                if (
+                    "遂克长安" in simplified_source_context
+                    and member.get("actor_kind") == "ruler"
+                    and member.get("actor_name") == "李渊"
+                    and member.get("ruler_campaign_relation") == "personal_command"
+                ):
+                    member["ruler_campaign_relation"] = (
+                        "sustained_theater_control"
+                    )
                 if (
                     member.get("actor_kind") == "ruler"
                     and member.get("role_code") == "commander_in_chief"
