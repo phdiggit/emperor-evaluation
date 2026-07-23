@@ -423,7 +423,7 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
     ("ruler", "expected_signal", "expected_complementarity", "expected_stability"),
     [
         ("李世民", "17.763451", "balanced_four", "durable_multi_stage"),
-        ("李渊", "5.063115", "strong_three", "stable_but_narrow"),
+        ("李渊", "4.827495", "strong_three", "stable_but_narrow"),
         ("刘邦", "8.188958", "balanced_four", "durable_multi_stage"),
     ],
 )
@@ -455,6 +455,13 @@ def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
     assert manifest["i5b_expectation"]["team_projection"][
         "long_term_stability"
     ] == expected_stability
+    if ruler == "李渊":
+        assert manifest["i5b_expectation"]["team_projection"]["positive_members"] == [
+            "李世民",
+            "李勣",
+            "李靖",
+            "刘文静",
+        ]
 
 
 def test_i5b_gold_rejects_shadow_signal_drift() -> None:
