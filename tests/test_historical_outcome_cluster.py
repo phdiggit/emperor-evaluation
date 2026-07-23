@@ -158,6 +158,12 @@ def test_campaign_result_class_controls_tier_but_difficulty_does_not() -> None:
     )
     assert liuheita["payload"]["campaign_tier"] == "A"
     assert liuheita["payload"]["combat_difficulty"] == "D3"
+    assert liuheita["result_status"] == "completed"
+    assert liuheita["result_direction"] == "positive"
+    assert liuheita["payload"]["battle_result"] == "victory"
+    assert liuheita["payload"]["objective_completion"] == "complete"
+    assert liuheita["stable_delivery"] is False
+    assert "后续独立事件" in liuheita["payload"]["campaign_tier_basis"]
 
     hulao = next(
         row
@@ -422,7 +428,7 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
 @pytest.mark.parametrize(
     ("ruler", "expected_signal", "expected_complementarity", "expected_stability"),
     [
-        ("李世民", "17.763451", "balanced_four", "durable_multi_stage"),
+        ("李世民", "17.279611", "balanced_four", "durable_multi_stage"),
         ("李渊", "4.827495", "strong_three", "stable_but_narrow"),
         ("刘邦", "8.188958", "balanced_four", "durable_multi_stage"),
     ],
@@ -483,7 +489,7 @@ def test_i5b_gold_rejects_shadow_signal_drift() -> None:
     assert comparison["i5b_projection"]["differences"] == [
         {
             "path": "net_signal",
-            "expected": "17.763451",
+            "expected": "17.279611",
             "actual": "0.000000",
         }
     ]

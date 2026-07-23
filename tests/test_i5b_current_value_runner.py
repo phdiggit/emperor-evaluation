@@ -2488,8 +2488,16 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
         row["value_status"] == "frozen_after_complete_coverage"
         for row in report["profile_projection_review"]
     )
+    assert "person_profile_registry" not in report
+    assert (
+        report["person_profile_registry_ref"]
+        == "eval/historical_person_profiles/current.json"
+    )
+    shared_registry = json.loads(
+        (ROOT / report["person_profile_registry_ref"]).read_text(encoding="utf-8")
+    )
     profile_registry = {
-        row["person"]: row for row in report["person_profile_registry"]
+        row["person"]: row for row in shared_registry["profiles"]
     }
     assert {"侯君集", "高士廉", "房玄龄", "韩信"} <= set(profile_registry)
     assert all(
@@ -2543,11 +2551,20 @@ def test_person_profiles_are_shared_before_ruler_window_projection() -> None:
         li_shimin["person_profile_registry_fingerprint"]
         == li_yuan["person_profile_registry_fingerprint"]
     )
-    assert li_shimin["person_profile_registry"] == li_yuan[
-        "person_profile_registry"
-    ]
+    assert "person_profile_registry" not in li_shimin
+    assert "person_profile_registry" not in li_yuan
+    assert (
+        li_shimin["person_profile_registry_ref"]
+        == li_yuan["person_profile_registry_ref"]
+        == "eval/historical_person_profiles/current.json"
+    )
+    shared_registry = json.loads(
+        (ROOT / li_shimin["person_profile_registry_ref"]).read_text(
+            encoding="utf-8"
+        )
+    )
     profiles = {
-        row["person"]: row for row in li_shimin["person_profile_registry"]
+        row["person"]: row for row in shared_registry["profiles"]
     }
     assert profiles["侯君集"]["overall_grade"] == "top"
     assert profiles["高士廉"]["overall_grade"] == "top"
@@ -2583,9 +2600,19 @@ def test_current_li_shimin_corrections_follow_rule_documents() -> None:
         "李靖",
         "长孙无忌",
         "魏徵",
-        "苏定方",
         "戴胄",
         "杜如晦",
+    ]
+    assert pack["team"]["attribution_exclusions"] == [
+        {
+            "person": "苏定方",
+            "person_ref": "PER-V4-CB67FCF2FC79",
+            "reason": (
+                "当前固定证据只证明苏定方以匡道府折冲随李靖参加平东突厥，"
+                "未证明李世民亲自识别、任用或授予其独立责任；"
+                "其高宗朝主帅成果只进入共享人物画像，不递归计入李世民团队。"
+            ),
+        }
     ]
     assert len(pack["team"]["stability_stages"]) == 3
     assert members["尉迟敬德"]["negative_talent_severity"] == "material"
@@ -6565,7 +6592,11 @@ def test_direct_runner_uses_the_same_markdown_contract(
     report = json.loads(output_json.read_text(encoding="utf-8"))
     markdown = output_markdown.read_text(encoding="utf-8")
     assert markdown == render_scoring_detail_markdown(report)
-    assert "| 画像号 | 人物 | 总档 | 定级理由 |" in markdown
+    assert "## 共享人物全生涯画像登记" not in markdown
+    assert (
+        "[共享人物画像总登记](../../historical_person_profiles/current.md)"
+        in markdown
+    )
 
 
 def test_liyuan_team_table_explains_membership_and_links_shared_profiles() -> None:
@@ -6576,9 +6607,46 @@ def test_liyuan_team_table_explains_membership_and_links_shared_profiles() -> No
 
     assert "计入团队依据 / 风险事实" in team_section
     assert "李渊在统一战争中持续直接授予方面主帅责任" in team_section
-    assert "[李世民](#profile-PINV-637B07646A8DD7C229DC)" in team_section
-    assert '<a id="profile-PINV-637B07646A8DD7C229DC"></a>李世民' in markdown
+    assert (
+        "[李世民](../../historical_person_profiles/current.md"
+        "#profile-pinv-637b07646a8dd7c229dc)"
+    ) in team_section
+    assert "## 共享人物全生涯画像登记" not in markdown
     assert "civil_governance：作为主导完成" not in team_section
+
+
+@pytest.mark.parametrize(
+    ("ruler", "person", "basis"),
+    [
+        (
+            "李世民",
+            "房玄龄",
+            "李世民亲自将房玄龄署为秦王府记室参军并引为谋主",
+        ),
+        (
+            "刘邦",
+            "韩信",
+            "刘邦直接拜韩信为大将并授予独立方面统军责任",
+        ),
+    ],
+)
+def test_team_tables_link_canonical_profiles_and_explain_ruler_attribution(
+    ruler: str,
+    person: str,
+    basis: str,
+) -> None:
+    markdown = (
+        ROOT / "eval/i5b_current_value" / ruler / "result.md"
+    ).read_text(encoding="utf-8")
+    team_section = markdown.split("## 团队建设", 1)[1].split("## 容人保全", 1)[0]
+
+    assert (
+        f"[{person}](../../historical_person_profiles/current.md#profile-pinv-"
+        in team_section
+    )
+    assert basis in team_section
+    assert "已通过当前皇帝窗口团队归责审阅。" not in team_section
+    assert "## 共享人物全生涯画像登记" not in markdown
 
 
 def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(

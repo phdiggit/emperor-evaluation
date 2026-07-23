@@ -60,14 +60,14 @@
 
 | 对象 | 方向 | 数值 | 档位 / 风险 | 计入团队依据 / 风险事实 |
 | --- | --- | ---: | --- | --- |
-| [张良](#profile-PINV-86823167DF7635448A82) | 正向 | 1.6 | historic | 已通过当前皇帝窗口团队归责审阅。 |
-| [萧何](#profile-PINV-BF9509B5C455C62EC580) | 正向 | 1.6 | historic | 已通过当前皇帝窗口团队归责审阅。 |
-| [韩信](#profile-PINV-5D3EAE4300BFA555D86E) | 正向 | 1.6 | historic | 已通过当前皇帝窗口团队归责审阅。 |
-| [周勃](#profile-PINV-52400B80718A7DB029CE) | 正向 | 1.2 | top | 已通过当前皇帝窗口团队归责审阅。 |
-| [彭越](#profile-PINV-A62CD1FCDBD092A0062B) | 正向 | 1.2 | top | 已通过当前皇帝窗口团队归责审阅。 |
-| [曹参](#profile-PINV-F0B52E757F8CF7B15202) | 正向 | 1.2 | top | 已通过当前皇帝窗口团队归责审阅。 |
-| [陈平](#profile-PINV-6E6E489A566CC84CFB90) | 正向 | 1.2 | top | 已通过当前皇帝窗口团队归责审阅。 |
-| [灌婴](#profile-PINV-32C39157FEEBFFA00618) | 正向 | 0.9 | important | 已通过当前皇帝窗口团队归责审阅。 |
+| [张良](../../historical_person_profiles/current.md#profile-pinv-86823167df7635448a82) | 正向 | 1.6 | historic | 刘邦在创业与楚汉战争中持续直接采纳张良谋划，并使其承担联盟、战略与危机处置责任。 |
+| [萧何](../../historical_person_profiles/current.md#profile-pinv-bf9509b5c455c62ec580) | 正向 | 1.6 | historic | 刘邦直接任用萧何主持关中建制、后方治理和持续军需，并在建国后维持其宰辅责任。 |
+| [韩信](../../historical_person_profiles/current.md#profile-pinv-5d3eae4300bfa555d86e) | 正向 | 1.6 | historic | 刘邦直接拜韩信为大将并授予独立方面统军责任，使其承担魏、代赵燕、齐楚等战略方向。 |
+| [周勃](../../historical_person_profiles/current.md#profile-pinv-52400b80718a7db029ce) | 正向 | 1.2 | top | 刘邦从创业阶段持续直接授予周勃将领责任，使其承担统一战争与多次国家平叛任务。 |
+| [彭越](../../historical_person_profiles/current.md#profile-pinv-a62cd1fcdbd092a0062b) | 正向 | 1.2 | top | 刘邦将彭越纳入反楚联盟并确认其梁地方面责任，使其持续承担经营梁地和断楚粮道任务。 |
+| [曹参](../../historical_person_profiles/current.md#profile-pinv-f0b52e757f8cf7b15202) | 正向 | 1.2 | top | 刘邦从创业阶段持续直接授予曹参军事和地方责任，使其承担三秦、魏地等方向任务。 |
+| [陈平](../../historical_person_profiles/current.md#profile-pinv-6e6e489a566cc84cfb90) | 正向 | 1.2 | top | 陈平来归后由刘邦直接接纳并授予决策职责，持续承担荥阳、白登等重大危机处置。 |
+| [灌婴](../../historical_person_profiles/current.md#profile-pinv-32c39157feebffa00618) | 正向 | 0.9 | important | 刘邦直接授予灌婴骑兵及方面作战责任，使其持续参与统一战争和国家平叛。 |
 | 英布 | 负向 | 1.0 | window_exposed_political_or_discipline_risk / major | 汉十一年诛灭贲赫家并发兵反汉，随后攻荆、楚并夺军，形成已实现的国家级叛乱损害。 |
 | 陈豨 | 负向 | 1.0 | window_exposed_political_or_discipline_risk / major | 在刘邦窗口内自立代王、劫掠赵代并控制大片区域，形成已实现的国家级叛乱损害。 |
 | 周勃 | 负向 | 0.75 | window_exposed_political_or_discipline_risk / serious | 屠马邑与本纪所载马邑不下、攻残之互证为已实现的毁灭性攻城；原文未明确平民或死亡范围，按快速门禁封顶serious。屠浑都存在地名与人名断句争议，不参与严重度累计。 |
@@ -139,50 +139,9 @@
 | OUTCOME-LB-ZHANGLIANG-GULING | 张良修复固陵诸侯失期危机 | 张良（主导）、刘邦（授权） | 全国 | national_public_result；直接修复楚汉终局前的诸侯联盟失约危机并恢复全国战略合力。 | positive / completed | 刘邦采用张良对策后，失期诸侯均到达，固陵阶段的联盟危机得到修复。 | 史記/卷055@2666612#諸侯期不至。良說漢王、史記/卷055@2666612#漢王用其計，諸侯皆至 |
 | OUTCOME-LB-ZHANGLIANG-SIX-STATES | 张良制止复立六国后方案 | 张良（主导）、刘邦（授权） | 全国 | national_public_result；在荥阳危机中阻止可能瓦解汉方人才与政治基础的全国战略错误。 | positive / completed | 刘邦采纳张良反对意见，停止复立六国之后的既定方案并立即销毁印章。 | 史記/卷055@2666612#誰為陛下畫此計者？陛下事去矣、史記/卷055@2666612#天下游士各歸事其主，從其親戚，反其故舊墳墓，陛下與誰取天下乎、史記/卷055@2666612#令趣銷印 |
 
-## 共享人物全生涯画像登记
-
-> 本表由公共成果与全生涯本传生成，不随皇帝窗口变化；团队选择和政治风险另表投影。
-
-| 画像号 | 人物 | 总档 | 定级理由 | 军事 | 治理 | 谋略 | 文化学术 | 主领域 | 覆盖状态 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| PINV-9A6184E6043B791C957D | <a id="profile-PINV-9A6184E6043B791C957D"></a>侯君集 | top | military：作为主将完成“贞观九年平吐谷浑战役群”，属S-级战役群；作为主帅完成“贞观十四年平高昌战役群”，属A级战役群。 | top | — | — | — | 军事 | complete_shared_profile |
-| PROFILE-BF48F1A0E178DFF6 | <a id="profile-PROFILE-BF48F1A0E178DFF6"></a>刘德威 | important* | civil_governance：作为主导完成“恢复司法失入失出依律处理”，属important级治理结果。 | — | important | — | — | 治理 | registered_outcomes_only |
-| PROFILE-AE56A4224E1E10D3 | <a id="profile-PROFILE-AE56A4224E1E10D3"></a>刘敬 | important* | civil_governance：作为主导完成“徙六国豪强名家实关中”，属national级治理结果；专业目标已实现，整体混合结果及跨领域代价另行结算。 | — | important | — | — | 治理 | registered_outcomes_only |
-| PINV-2B52C50A372A44824C66 | <a id="profile-PINV-2B52C50A372A44824C66"></a>刘文静 | top | civil_governance：作为主导完成“武德律令编定并颁行天下”，属national级治理结果。 | — | top | usable | — | 治理 | complete_shared_profile |
-| PROFILE-2D644C0EFDE2D497 | <a id="profile-PROFILE-2D644C0EFDE2D497"></a>刘邦 | top* | civil_governance：作为独占完成“入关约法三章与秦地安堵”，属regional级治理结果；作为独占完成“汉初轻田租与官用财政约束”，属national级治理结果。 | — | top | — | — | 治理 | registered_outcomes_only |
-| PROFILE-E7FB21D931232ED7 | <a id="profile-PROFILE-E7FB21D931232ED7"></a>叔孙通 | important* | civil_governance：作为主导完成“叔孙通制定汉朝朝仪”，属important级治理结果。 | — | important | — | — | 治理 | registered_outcomes_only |
-| PINV-52400B80718A7DB029CE | <a id="profile-PINV-52400B80718A7DB029CE"></a>周勃 | top | military：作为主将完成“平定陈豨叛乱战役群”，属A级战役群；作为主将完成“平定韩王信叛乱战役群”，属A级战役群；作为主将完成“还定三秦战役群”，属S-级战役群。 | top | — | — | — | 军事 | complete_shared_profile |
-| PINV-1DBCDAB10E57FCB03956 | <a id="profile-PINV-1DBCDAB10E57FCB03956"></a>尉迟敬德 | top | military：作为主将完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。 | top | — | — | — | 军事 | complete_shared_profile |
-| PINV-86823167DF7635448A82 | <a id="profile-PINV-86823167DF7635448A82"></a>张良 | historic | statecraft：作为主导完成“张良修复固陵诸侯失期危机”，属national级谋略结果；作为主导完成“张良制止复立六国后方案”，属national级谋略结果；作为主导完成“张良重组彭城败后联盟与方面用将”，属national级谋略结果。 | — | — | historic | — | 谋略 | complete_shared_profile |
-| PINV-A62CD1FCDBD092A0062B | <a id="profile-PINV-A62CD1FCDBD092A0062B"></a>彭越 | top | military：作为主帅完成“彭越经营梁地并断楚粮道战役群”，属S-级战役群。 | top | — | — | — | 军事 | complete_shared_profile |
-| PINV-AFCFE83DA8DAF981FAEE | <a id="profile-PINV-AFCFE83DA8DAF981FAEE"></a>戴胄 | top | civil_governance：作为主导完成“建立州县义仓并用于赈给”，属national级治理结果。 | — | top | — | — | 治理 | complete_shared_profile |
-| PINV-324D15732DCB7DBCCB08 | <a id="profile-PINV-324D15732DCB7DBCCB08"></a>房玄龄 | historic | civil_governance：作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果。 | — | historic | — | top | 治理 | complete_shared_profile |
-| PINV-F0B52E757F8CF7B15202 | <a id="profile-PINV-F0B52E757F8CF7B15202"></a>曹参 | top | military：作为主将完成“还定三秦战役群”，属S-级战役群；作为主将完成“韩信平定魏地”，属A级战役群。 | top | — | — | — | 军事 | complete_shared_profile |
-| PINV-637B07646A8DD7C229DC | <a id="profile-PINV-637B07646A8DD7C229DC"></a>李世民 | historic | military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；civil_governance：作为主导完成“严惩受贿枉法并促使官吏清谨”，属important级治理结果；作为主导完成“为太子诸王置三师实施师傅教育”，属important级治理结果；作为主导完成“尚书省分流细务并保留重大冤滞奏闻”，属important级治理结果；作为独占完成“平高昌后设置西州与安西都护府”，属regional级治理结果；作为独占完成“按功封赏并黜无功宗室”，属important级治理结果；作为独占完成“死刑三覆五覆与门下复理程序”，属important级治理结果；作为主导完成“王府官僚任职不得超过四考”，属important级治理结果；作为主导完成“约束王公豪强侵欺”，属important级治理结果；作为主导完成“考订并颁行氏族志”，属national级治理结果；作为主导完成“贞观中书门下诏敕执奏复核程序”，属important级治理结果；作为主导完成“贞观初中期丰稔、低粮价与跨区域治安改善”，属national级治理结果；作为主导完成“贞观学校与经学建设”，属national级治理结果；作为主导完成“贞观谏官随宰相议政与持续纳谏机制”，属important级治理结果；作为独占完成“遣出后宫掖庭宫人并任其婚配”，属important级治理结果。 | historic | historic | — | — | 军事、治理 | complete_shared_profile |
-| PINV-9A4E230A9738E7111C6C | <a id="profile-PINV-9A4E230A9738E7111C6C"></a>李勣 | historic | military：作为主帅完成“李勣攻克平壤平定高句丽”，属S级战役群；作为主将完成“贞观四年平东突厥战役群”，属S+级战役群。 | historic | important | — | — | 军事 | complete_shared_profile |
-| PROFILE-19C2DEEF6D696762 | <a id="profile-PROFILE-19C2DEEF6D696762"></a>李渊 | top* | civil_governance：作为主导完成“武德律令编定并颁行天下”，属national级治理结果。 | — | top | — | — | 治理 | registered_outcomes_only |
-| PINV-311D02ACA9FF608B682C | <a id="profile-PINV-311D02ACA9FF608B682C"></a>李靖 | historic | military：作为主帅完成“李靖实际统帅平定萧铣”，属S级战役群；作为主帅完成“贞观四年平东突厥战役群”，属S+级战役群。 | historic | — | — | — | 军事 | complete_shared_profile |
-| PINV-86EC70CEF2034C60A54A | <a id="profile-PINV-86EC70CEF2034C60A54A"></a>杜如晦 | top | civil_governance：作为主导完成“精简中枢员额并确立宰相量才授职”，属national级治理结果。 | — | top | — | — | 治理 | complete_shared_profile |
-| PROFILE-372D7B06A5DFBDFE | <a id="profile-PROFILE-372D7B06A5DFBDFE"></a>柴绍 | usable* | military：作为主帅完成“夏州平梁师都战役群”，属B级战役群。 | usable | — | — | — | 军事 | registered_outcomes_only |
-| PROFILE-FC235AA4EB2B0D94 | <a id="profile-PROFILE-FC235AA4EB2B0D94"></a>樊哙 | 未确立* | 完整覆盖后未建立达到可用门槛的独立成果簇。 | — | — | — | — | 未确立 | registered_outcomes_only |
-| PROFILE-BB4140D1EC9EED3B | <a id="profile-PROFILE-BB4140D1EC9EED3B"></a>温彦博 | important* | civil_governance：作为主导完成“突厥降部内徙与州府安置”，属regional级治理结果。 | — | important | — | — | 治理 | registered_outcomes_only |
-| PINV-32C39157FEEBFFA00618 | <a id="profile-PINV-32C39157FEEBFFA00618"></a>灌婴 | important | military：作为主将完成“平定淮南王英布叛乱战役群”，属A级战役群。 | important | — | — | — | 军事 | complete_shared_profile |
-| PROFILE-E795159C94445F6D | <a id="profile-PROFILE-E795159C94445F6D"></a>王珪 | 未确立* | 完整覆盖后未建立达到可用门槛的独立成果簇。 | — | — | — | — | 未确立 | registered_outcomes_only |
-| PINV-737E7F2EBD9DCE1CE489 | <a id="profile-PINV-737E7F2EBD9DCE1CE489"></a>苏定方 | historic | military：作为主帅完成“苏定方平百济战役群”，属S级战役群；作为主帅完成“苏定方平西突厥战役群”，属S级战役群。 | historic | — | — | — | 军事 | complete_shared_profile |
-| PINV-C7F5B2D5BB46703E45D0 | <a id="profile-PINV-C7F5B2D5BB46703E45D0"></a>英布 | top | military：作为主将完成“垓下灭楚终局战役群”，属S+级战役群。 | top | — | — | — | 军事 | complete_shared_profile |
-| PINV-BF9509B5C455C62EC580 | <a id="profile-PINV-BF9509B5C455C62EC580"></a>萧何 | historic | civil_governance：作为主导完成“萧何守关中建制与持续军需”，属national级治理结果；作为主导完成“萧何律九章与汉初刑法体系”，属national级治理结果。 | — | historic | — | — | 治理 | complete_shared_profile |
-| PROFILE-5A5827A562099FF1 | <a id="profile-PROFILE-5A5827A562099FF1"></a>薛万均 | usable* | military：作为主将完成“夏州平梁师都战役群”，属B级战役群。 | usable | — | — | — | 军事 | registered_outcomes_only |
-| PROFILE-77E44E952CB9D1B9 | <a id="profile-PROFILE-77E44E952CB9D1B9"></a>薛万彻 | usable* | military：作为主将完成“夏州平梁师都战役群”，属B级战役群。 | usable | — | — | — | 军事 | registered_outcomes_only |
-| PROFILE-74679AC3199C611B | <a id="profile-PROFILE-74679AC3199C611B"></a>裴弘献 | 未确立* | 完整覆盖后未建立达到可用门槛的独立成果簇。 | — | — | — | — | 未确立 | registered_outcomes_only |
-| PINV-1EA4BE08555392C01DA2 | <a id="profile-PINV-1EA4BE08555392C01DA2"></a>褚遂良 | top | civil_governance：作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。 | — | top | — | — | 治理 | complete_shared_profile |
-| PINV-94E07E4D11AD82C54680 | <a id="profile-PINV-94E07E4D11AD82C54680"></a>长孙无忌 | historic | civil_governance：作为主导完成“永徽律令格式与《律疏》编定颁行”，属national级治理结果；作为主导完成“贞观律令与刑罚体系修订”，属national级治理结果；作为主导完成“长孙无忌与褚遂良共同辅政并促成永徽百姓阜安”，属national级治理结果。 | — | historic | — | — | 治理 | complete_shared_profile |
-| PINV-6E6E489A566CC84CFB90 | <a id="profile-PINV-6E6E489A566CC84CFB90"></a>陈平 | top | statecraft：作为主导完成“陈平白登解围处置”，属national级谋略结果；作为主导完成“陈平荥阳解围与最高统帅脱险处置”，属national级谋略结果。 | — | — | top | — | 谋略 | complete_shared_profile |
-| PINV-80D1147D56FBFA1FB627 | <a id="profile-PINV-80D1147D56FBFA1FB627"></a>陈豨 | ordinary | 完整覆盖后未建立达到可用门槛的独立成果簇。 | — | — | — | — | 未确立 | complete_shared_profile |
-| PINV-5D3EAE4300BFA555D86E | <a id="profile-PINV-5D3EAE4300BFA555D86E"></a>韩信 | historic | military：作为主帅完成“垓下灭楚终局战役群”，属S+级战役群；作为主帅完成“韩信破代赵并定燕战役群”，属S-级战役群。 | historic | — | — | — | 军事 | complete_shared_profile |
-| PINV-0A736B2BD950771DB21D | <a id="profile-PINV-0A736B2BD950771DB21D"></a>高士廉 | top | civil_governance：作为主导完成“考订并颁行氏族志”，属national级治理结果。 | usable | top | — | — | 治理 | complete_shared_profile |
-| PINV-F2BBE97115858C0350A6 | <a id="profile-PINV-F2BBE97115858C0350A6"></a>魏徵 | top | culture_and_scholarship：作为主导完成“贞观五代史官修工程”，属national级文化学术结果。 | — | important | important | top | 文化学术 | complete_shared_profile |
-
 ## 当前皇帝窗口人物投影
+
+> 人才档位与完整定级依据只见 [共享人物画像总登记](../../historical_person_profiles/current.md)。
 
 | 人物 | 团队建设投影 | 政治风险 | 窗口覆盖状态 |
 | --- | --- | --- | --- |

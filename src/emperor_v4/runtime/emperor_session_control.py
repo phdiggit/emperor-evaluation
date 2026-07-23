@@ -652,8 +652,11 @@ def _validate_publish_payload(
         != outcome_registry.get("registry_fingerprint")
         or report.get("person_profile_registry_fingerprint")
         != person_profiles.get("registry_fingerprint")
-        or report.get("person_profile_registry")
-        != person_profiles.get("profiles")
+        or not report.get("person_profile_registry_ref")
+        or (
+            workspace_root / str(report["person_profile_registry_ref"])
+        ).resolve()
+        != paths["person_profile_registry_json"].resolve()
     ):
         raise SessionControlError("共享人物画像与成果总登记或皇帝结果不一致")
     project = yaml.safe_load(

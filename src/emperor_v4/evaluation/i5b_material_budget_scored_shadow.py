@@ -1544,7 +1544,8 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
             )
             for row in rule["positive_members"]:
                 lines.append(
-                    f"| [{row['person']}](#profile-{row['profile_ref']}) | 正向 | "
+                    f"| [{row['person']}](../../historical_person_profiles/current.md"
+                    f"#profile-{row['profile_ref'].lower()}) | 正向 | "
                     f"{row['talent_value']} | {row['talent_grade']} | "
                     f"{row['team_membership_basis']} |"
                 )

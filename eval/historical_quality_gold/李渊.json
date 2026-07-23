@@ -1030,11 +1030,11 @@
             "path": "outcome_kind"
           },
           {
-            "expected": "mixed",
+            "expected": "positive",
             "path": "result_direction"
           },
           {
-            "expected": "mixed",
+            "expected": "completed",
             "path": "result_status"
           },
           {
@@ -1058,11 +1058,11 @@
             "path": "payload.combat_difficulty"
           },
           {
-            "expected": "mixed",
+            "expected": "victory",
             "path": "payload.battle_result"
           },
           {
-            "expected": "partial",
+            "expected": "complete",
             "path": "payload.objective_completion"
           }
         ],
@@ -1099,7 +1099,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LY-CAMPAIGN-LIUHEITA",
       "importance": "major",
-      "review_basis": "按固定史源复核成果粒度、结果等级、人物责任与李渊窗口归责后冻结。",
+      "review_basis": "按本次作战目标复核：刘黑闼主力溃败、本人逃往突厥且山东悉平，故记胜利并完成；后续复起只影响成果稳定性，不倒推本次为部分完成。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -1114,7 +1114,8 @@
         "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
         "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出",
         "資治通鑑/卷190@1502800#黑闥眾大潰，斬首萬餘級，溺死數千人",
-        "舊唐書/卷55@2037164#不能拒，棄城走"
+        "舊唐書/卷55@2037164#不能拒，棄城走",
+        "資治通鑑/卷190@1502800#黑闥與范願等二百騎奔突厥，山東悉平"
       ],
       "unit_kind": "campaign_group"
     },
@@ -1775,8 +1776,8 @@
     "weighted_raw_signal": "4.827495"
   },
   "input_identity": {
-    "result_schema_version": "i5b-current-value-report-v5",
-    "source_pack_sha256": "0dc6e0a45bc592d1927a07edbba7d601c6e0f09d44d1112cb8c3e82078486012"
+    "result_schema_version": "i5b-current-value-report-v6",
+    "source_pack_sha256": "30a5fbed42203585e94f888f0113a1b7c798f46b978aecba689b15ae67ecb538"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

@@ -39,7 +39,7 @@ from emperor_v4.evaluation.historical_person_profile_registry import (
 from emperor_v4.persistence.core_registry import RuleEvidenceUnitRecord
 
 
-SCHEMA_VERSION = "i5b-current-value-report-v5"
+SCHEMA_VERSION = "i5b-current-value-report-v6"
 SOURCE_PACK_SCHEMA_VERSION = "i5b-current-value-source-pack-v5"
 RULES = ("talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism")
 STABILITY_CONTINUITY = {"initial", "continuous", "managed_turnover", "gap"}
@@ -567,6 +567,8 @@ def build_i5b_current_value(
         if project_path.is_file()
         else {}
     )
+    profile_config = project.get("historical_person_profile_registry") or {}
+    profile_registry_ref = profile_config.get("current_json")
     if outcome_layers is not None:
         unbound_registry, binding_report = outcome_layers
     else:
@@ -593,8 +595,7 @@ def build_i5b_current_value(
                 unbound_registry, [pack]
             )
         else:
-            profile_config = project.get("historical_person_profile_registry") or {}
-            profile_path_value = profile_config.get("current_json")
+            profile_path_value = profile_registry_ref
             profile_path = (
                 workspace_root / str(profile_path_value)
                 if profile_path_value
@@ -1269,9 +1270,7 @@ def build_i5b_current_value(
                 ),
             }
         )
-    person_profile_registry = copy.deepcopy(
-        list(shared_profile_registry["profiles"])
-    )
+    person_profile_registry = list(shared_profile_registry["profiles"])
     team_semantic = _digest(
         {
             "ruler_ref": pack["ruler_ref"],
@@ -1376,7 +1375,9 @@ def build_i5b_current_value(
         "ruler_historical_outcome_refs": sorted(ruler_outcome_by_ref),
         "profile_projection_gate": profile_gate,
         "profile_projection_review": profile_projection_review,
-        "person_profile_registry": person_profile_registry,
+        "person_profile_registry_ref": (
+            str(profile_registry_ref) if profile_registry_ref else None
+        ),
         "person_profile_registry_fingerprint": shared_profile_registry[
             "registry_fingerprint"
         ],
@@ -1671,52 +1672,10 @@ def render_scoring_detail_markdown(
         lines.extend(
             [
                 "",
-                "## 共享人物全生涯画像登记",
-                "",
-                "> 本表由公共成果与全生涯本传生成，不随皇帝窗口变化；团队选择和政治风险另表投影。",
-                "",
-                "| 画像号 | 人物 | 总档 | 定级理由 | 军事 | 治理 | 谋略 | 文化学术 | 主领域 | 覆盖状态 |",
-                "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-            ]
-        )
-        domain_labels = {
-            "military": "军事",
-            "civil_governance": "治理",
-            "statecraft": "谋略",
-            "culture_and_scholarship": "文化学术",
-        }
-        for profile in report["person_profile_registry"]:
-            domain_grades = profile["domain_grades"]
-            display_grade = lambda key: (
-                "—"
-                if domain_grades[key]["grade"] == "ordinary"
-                and not domain_grades[key]["outcome_refs"]
-                else str(domain_grades[key]["grade"])
-            )
-            provisional = profile["coverage_status"] == "registered_outcomes_only"
-            overall_grade = (
-                "未确立*"
-                if provisional and profile["overall_grade"] == "ordinary"
-                else str(profile["overall_grade"]) + ("*" if provisional else "")
-            )
-            primary_domains = "、".join(
-                domain_labels.get(str(value), str(value))
-                for value in profile["primary_domains"]
-            )
-            grade_basis = str(profile["overall_basis"]).replace("|", "／").replace("\n", " ")
-            lines.append(
-                f"| {profile['profile_ref']} | "
-                f"<a id=\"profile-{profile['profile_ref']}\"></a>{profile['person']} | "
-                f"{overall_grade} | {grade_basis} | "
-                f"{display_grade('military')} | {display_grade('civil_governance')} | "
-                f"{display_grade('statecraft')} | "
-                f"{display_grade('culture_and_scholarship')} | "
-                f"{primary_domains or '未确立'} | {profile['coverage_status']} |"
-            )
-        lines.extend(
-            [
-                "",
                 "## 当前皇帝窗口人物投影",
+                "",
+                "> 人才档位与完整定级依据只见"
+                " [共享人物画像总登记](../../historical_person_profiles/current.md)。",
                 "",
                 "| 人物 | 团队建设投影 | 政治风险 | 窗口覆盖状态 |",
                 "| --- | --- | --- | --- |",

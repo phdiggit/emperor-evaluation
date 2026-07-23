@@ -1608,11 +1608,11 @@
       "expectations": {
         "fields": [
           {
-            "expected": "mixed",
+            "expected": "completed",
             "path": "result_status"
           },
           {
-            "expected": "mixed",
+            "expected": "positive",
             "path": "result_direction"
           },
           {
@@ -1624,11 +1624,11 @@
             "path": "ruler_window_status"
           },
           {
-            "expected": "mixed",
+            "expected": "victory",
             "path": "payload.battle_result"
           },
           {
-            "expected": "partial",
+            "expected": "complete",
             "path": "payload.objective_completion"
           },
           {
@@ -1701,7 +1701,7 @@
       "gold_ref": "GOLD-LSM-CAMPAIGN-LIUHEITA-MINGZHOU-DEFEAT",
       "importance": "secondary",
       "parent_gold_ref": "GOLD-LSM-CAMPAIGN-TANG-UNIFICATION-ROOT",
-      "review_basis": "按土地轴、对手轴、实现结果、战争成本、目标未完成、可归责失败及皇帝/将领单一最高角色复核。",
+      "review_basis": "按本次作战目标复核：刘黑闼主力溃败、本人逃往突厥且山东悉平，故记胜利并完成；后续复起只影响成果稳定性，不倒推本次为部分完成。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -1714,7 +1714,8 @@
       },
       "source_refs": [
         "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
-        "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出"
+        "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出",
+        "資治通鑑/卷190@1502800#黑闥與范願等二百騎奔突厥，山東悉平"
       ],
       "unit_kind": "campaign_group"
     },
@@ -5122,8 +5123,8 @@
       },
       "team_building": {
         "negative_signal": "1.850000",
-        "positive_signal": "16.704000",
-        "rule_raw_net": "14.854000"
+        "positive_signal": "14.400000",
+        "rule_raw_net": "12.550000"
       },
       "tolerate_talent": {
         "negative_signal": "4.554000",
@@ -5143,18 +5144,17 @@
         "房玄龄",
         "李勣",
         "李靖",
-        "苏定方",
         "长孙无忌",
         "戴胄",
         "杜如晦",
         "魏徵"
       ]
     },
-    "weighted_raw_signal": "17.763451"
+    "weighted_raw_signal": "17.279611"
   },
   "input_identity": {
-    "result_schema_version": "i5b-current-value-report-v5",
-    "source_pack_sha256": "f4e981cfc7c5e7bcaaa86b0092aeda444a2e37ec3dc1c3fbf54b1e725ab9103b"
+    "result_schema_version": "i5b-current-value-report-v6",
+    "source_pack_sha256": "ce29081c707225961e59c4fb4f8c3b45d673589d069ca165d65acd0898f44758"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

@@ -10,9 +10,9 @@
     "score_contribution_count": 0,
     "source_pack_count": 3,
     "source_pack_refs": [
-      "0dc6e0a45bc592d1927a07edbba7d601c6e0f09d44d1112cb8c3e82078486012",
-      "48a9fe6206cf21140391a6844275158db96c87e65f0ba5ff11dab8c0ce2aff9d",
-      "f4e981cfc7c5e7bcaaa86b0092aeda444a2e37ec3dc1c3fbf54b1e725ab9103b"
+      "0baca0d1adacd0d7da36cfdd1fa041e2ec7115254c09a52a5bed05d85dcdbe17",
+      "30a5fbed42203585e94f888f0113a1b7c798f46b978aecba689b15ae67ecb538",
+      "ce29081c707225961e59c4fb4f8c3b45d673589d069ca165d65acd0898f44758"
     ],
     "statecraft_count": 7,
     "window_binding_count": 0
@@ -1759,7 +1759,9 @@
       "important_method_or_legacy": false,
       "independent_key": "lishimin-campaign-liuheita",
       "limitations": [
-        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。"
+        "刘黑闼其后复起只表示本次成果未能稳定延续，故 stable_delivery=false；不把后续独立事件倒灌为本次 mixed/partial。",
+        "阶段交战保留于本父级成果的逐字事实与已实现结果中，不另建重复成果簇。",
+        "刘黑闼其后复起只表示本次成果未能稳定延续，故 stable_delivery=false；不把后续独立事件倒灌为本次 mixed/partial。"
       ],
       "members": [
         {
@@ -1802,7 +1804,7 @@
           "sovereign_relation": "authorization_only"
         }
       ],
-      "observable_result": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。",
+      "observable_result": "李世民在洺水击溃刘黑闼主力，刘黑闼与范愿率二百骑逃往突厥，山东悉平；战役前段李勣曾失守黎州并在洺州遭受重创。",
       "origin": "multi_channel",
       "origin_outcome_refs": [
         "OUTCOME-LSM-CAMPAIGN-LIUHEITA"
@@ -1822,18 +1824,18 @@
             ]
           }
         ],
-        "battle_result": "mixed",
+        "battle_result": "victory",
         "campaign_tier": "A",
-        "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/strong；结果轴=mixed/partial，击溃刘黑闼主力并使山东暂平但其后复起，未形成最终终局，定A。",
+        "campaign_tier_basis": "土地轴=important_region；对手轴=regional_major/strong；结果轴=victory/complete，刘黑闼主力溃败、本人逃往突厥且山东悉平；其后复起属于后续独立事件，不倒推降低本次战果，定A。",
         "combat_difficulty": "D3",
         "combat_difficulty_basis": "刘黑闼此前连续击败唐军主力并造成黎州、洺州重大损失，唐军在高压态势下反击。",
         "land_strategic_value": "important_region",
-        "objective_completion": "partial",
+        "objective_completion": "complete",
         "objective_shortfalls": [],
         "operational_costs": [],
         "opponent_condition": "strong",
         "opponent_strategic_weight": "regional_major",
-        "strategic_objective": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。",
+        "strategic_objective": "击溃入据河北的刘黑闼主力并恢复唐朝对山东地区的控制",
         "strategic_result_class": "major_stage_or_crisis",
         "theater": "洺水击破刘黑闼战役群"
       },
@@ -1841,21 +1843,22 @@
         "end": "武德五年",
         "start": "武德五年"
       },
-      "registration_fingerprint": "4d6c7f825a360dccf001eb8859e9220debb7c716a4f1e1dfc2f317daeb7c7937",
+      "registration_fingerprint": "81a92bcd90357c6607fdc715c4e42068aae9410507ea0e8c07b3ce74a6ab4305",
       "registration_ref": "HOUT-B72B410AAF61E4383449",
-      "result_direction": "mixed",
-      "result_status": "mixed",
+      "result_direction": "positive",
+      "result_status": "completed",
       "scale": {
         "consequence_basis": "regional_theater_control",
         "decisiveness": "major",
         "level": "regional",
-        "reason": "李世民在洺水击溃刘黑闼主力并使山东暂平；此前李勣黎州失守、洺州受创，且刘黑闼后来复起，未形成最终终局。"
+        "reason": "李世民在洺水击溃刘黑闼主力，刘黑闼与范愿率二百骑逃往突厥，山东悉平；战役前段李勣曾失守黎州并在洺州遭受重创。"
       },
       "source_refs": [
         "舊唐書/卷55@2037164#黎州總管李世勣不能拒，棄城走保洺州",
         "資治通鑑/卷190@1502800#尉遲敬德帥壯士犯圍而入，世民與略陽公道宗乘之得出",
         "資治通鑑/卷190@1502800#黑闥眾大潰，斬首萬餘級，溺死數千人",
-        "舊唐書/卷55@2037164#不能拒，棄城走"
+        "舊唐書/卷55@2037164#不能拒，棄城走",
+        "資治通鑑/卷190@1502800#黑闥與范願等二百騎奔突厥，山東悉平"
       ],
       "stable_delivery": false
     },
@@ -6107,7 +6110,7 @@
       "stable_delivery": true
     }
   ],
-  "registry_fingerprint": "87e2fbd4395c3f84546fb5025f216cc9456b45b202b7ccea077696562fb64b9d",
+  "registry_fingerprint": "2dcee9468970589f8e3ae066987a1553e2938b45c31040c3dabad497a7c0fe54",
   "schema_version": "historical-outcome-unbound-registry-v2",
   "status": "current_shadow_unbound"
 }
