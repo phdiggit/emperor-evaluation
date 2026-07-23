@@ -2652,6 +2652,28 @@ def test_anti_nepotism_requires_public_power_effect(tmp_path: Path) -> None:
         build_i5b_current_value(target, outcome_layers=(registry, binding))
 
 
+def test_shared_outcome_reuse_preserves_first_pack_lineage_order() -> None:
+    first = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    second = json.loads(json.dumps(first, ensure_ascii=False))
+    target = next(
+        row
+        for row in second["outcome_registry"]["clusters"]
+        if len(row.get("source_refs") or ()) > 1
+    )
+    target["source_refs"] = list(reversed(target["source_refs"]))
+    second["source_pack_sha256"] = "shared-reuse-test-pack"
+
+    registry = build_unbound_historical_outcome_registry([first, second])
+    binding = build_ruler_outcome_bindings(first, registry)
+    materialized = materialize_ruler_outcome_registry(registry, binding)
+
+    assert materialized == first["outcome_registry"]
+
+
 def test_current_long_term_stability_is_derived_from_stage_coverage() -> None:
     li = build_i5b_current_value(
         ROOT / "eval/i5b_current_value/李世民/source-pack.json"

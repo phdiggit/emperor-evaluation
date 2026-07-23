@@ -249,8 +249,12 @@ def build_unbound_historical_outcome_registry(
                 )
                 continue
             for field in ("fact_refs", "source_refs", "episode_refs", "origin_outcome_refs"):
-                existing[field] = sorted(
-                    {*(existing.get(field) or ()), *(candidate.get(field) or ())}
+                current_values = list(existing.get(field) or ())
+                current_set = set(current_values)
+                existing[field] = current_values + sorted(
+                    value
+                    for value in (candidate.get(field) or ())
+                    if value not in current_set
                 )
 
     outcomes = list(by_key.values())
