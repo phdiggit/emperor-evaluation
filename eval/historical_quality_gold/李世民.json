@@ -569,6 +569,31 @@
       ]
     },
     {
+      "actual_ref": "OUTCOME-SUDINGFANG-CONGLING-DUMAN",
+      "basis": "固定本传逐字史源与公共成果结构经主会话复核后接受。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-SUDINGFANG-CONGLING-DUMAN"
+      ],
+      "source_refs": [
+        "舊唐書/卷83@2632780#俄有思結闕俟斤都曼先鎮諸胡",
+        "舊唐書/卷83@2632780#都曼自知不免，麵縛開門出降"
+      ]
+    },
+    {
+      "actual_ref": "OUTCOME-SUDINGFANG-GOGURYEO-PYONGYANG",
+      "basis": "固定本传逐字史源与公共成果结构经主会话复核后接受。",
+      "collection": "historical_outcome_clusters",
+      "disposition": "accepted",
+      "gold_refs": [
+        "GOLD-LSM-CAMPAIGN-SUDINGFANG-GOGURYEO-PYONGYANG"
+      ],
+      "source_refs": [
+        "新唐書/卷111@3517040#未幾，定方爲遼東道行軍大總管"
+      ]
+    },
+    {
       "actual_ref": "OUTCOME-SUDINGFANG-WESTERN-TURKS",
       "basis": "固定本传逐字史源与公共成果结构经主会话复核后接受。",
       "collection": "historical_outcome_clusters",
@@ -1859,6 +1884,184 @@
       "source_refs": [
         "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管",
         "舊唐書/卷83@2632780#百濟悉平，分其地為六州"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "苏定方平都曼与葱岭战役群",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "ruler_campaign_parent",
+            "path": "settlement_scope"
+          },
+          {
+            "expected": "outside_window",
+            "path": "ruler_window_status"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "completed",
+            "path": "result_status"
+          },
+          {
+            "expected": "positive",
+            "path": "result_direction"
+          },
+          {
+            "expected": "victory",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "complete",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "A",
+            "path": "payload.campaign_tier"
+          },
+          {
+            "expected": "major_stage_or_crisis",
+            "path": "payload.strategic_result_class"
+          },
+          {
+            "expected": "D2",
+            "path": "payload.combat_difficulty"
+          },
+          {
+            "expected": [],
+            "path": "payload.operational_costs"
+          },
+          {
+            "expected": [],
+            "path": "payload.objective_shortfalls"
+          },
+          {
+            "expected": [],
+            "path": "payload.attributable_failures"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "苏定方",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LSM-CAMPAIGN-SUDINGFANG-CONGLING-DUMAN",
+      "importance": "secondary",
+      "review_basis": "固定《旧唐书》卷83本传；苏定方任安抚大使独立统军，昼夜驰袭、围降都曼并使葱岭以西悉定，按重大区域阶段成果冻结为A/D2。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "苏定方平都曼与葱岭战役群"
+        ],
+        "outcome_kind": "campaign",
+        "source_refs_any": [
+          "舊唐書/卷83@2632780#俄有思結闕俟斤都曼先鎮諸胡"
+        ]
+      },
+      "source_refs": [
+        "舊唐書/卷83@2632780#俄有思結闕俟斤都曼先鎮諸胡",
+        "舊唐書/卷83@2632780#都曼自知不免，麵縛開門出降"
+      ],
+      "unit_kind": "campaign_group"
+    },
+    {
+      "canonical_label": "苏定方平壤道征高丽战役群",
+      "expectations": {
+        "fields": [
+          {
+            "expected": "ruler_campaign_parent",
+            "path": "settlement_scope"
+          },
+          {
+            "expected": "outside_window",
+            "path": "ruler_window_status"
+          },
+          {
+            "expected": "national",
+            "path": "scale.level"
+          },
+          {
+            "expected": "mixed",
+            "path": "result_status"
+          },
+          {
+            "expected": "mixed",
+            "path": "result_direction"
+          },
+          {
+            "expected": "mixed",
+            "path": "payload.battle_result"
+          },
+          {
+            "expected": "partial",
+            "path": "payload.objective_completion"
+          },
+          {
+            "expected": "A",
+            "path": "payload.campaign_tier"
+          },
+          {
+            "expected": "major_stage_or_crisis",
+            "path": "payload.strategic_result_class"
+          },
+          {
+            "expected": "D2",
+            "path": "payload.combat_difficulty"
+          },
+          {
+            "expected": [],
+            "path": "payload.operational_costs"
+          },
+          {
+            "expected": [
+              {
+                "basis": "围攻平壤后因大雪解围撤还，灭高丽目标未完成。",
+                "source_refs": [
+                  "新唐書/卷111@3517040#未幾，定方爲遼東道行軍大總管"
+                ]
+              }
+            ],
+            "path": "payload.objective_shortfalls"
+          },
+          {
+            "expected": [],
+            "path": "payload.attributable_failures"
+          }
+        ],
+        "members": [
+          {
+            "actor_kind": "person",
+            "actor_name": "苏定方",
+            "role_code": "commander_in_chief",
+            "sovereign_at_event": false
+          }
+        ]
+      },
+      "expected_match_count": 1,
+      "gold_ref": "GOLD-LSM-CAMPAIGN-SUDINGFANG-GOGURYEO-PYONGYANG",
+      "importance": "secondary",
+      "review_basis": "固定《新唐书》卷111本传；苏定方任辽东道、平壤道行军大总管，取得浿江、马邑山阶段成果并围平壤，后因大雪解围，按A/D2混合结果冻结。",
+      "selector": {
+        "collection": "historical_outcome_clusters",
+        "label_terms_all": [
+          "苏定方平壤道征高丽战役群"
+        ],
+        "outcome_kind": "campaign",
+        "source_refs_any": [
+          "新唐書/卷111@3517040#未幾，定方爲遼東道行軍大總管"
+        ]
+      },
+      "source_refs": [
+        "新唐書/卷111@3517040#未幾，定方爲遼東道行軍大總管"
       ],
       "unit_kind": "campaign_group"
     },
@@ -4883,7 +5086,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-李世民-PROFILE-PER-V4-CB67FCF2FC79",
       "importance": "major",
-      "review_basis": "固定《旧唐书》卷83完整本传及两项独立灭国级主帅成果后冻结人物画像；高宗朝成果只用于全生涯人才档，不倒灌李世民皇帝窗口。",
+      "review_basis": "固定《旧唐书》卷83与《新唐书》卷111本传，先完整登记四项合格独立统帅战役；当前人才规则由平西突厥、平百济两项S级成果命中历史级。高宗朝成果只用于全生涯人才档，不倒灌李世民皇帝窗口。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "苏定方"
@@ -4891,7 +5094,9 @@
       "source_refs": [
         "舊唐書/卷83@2632780#蘇定方，冀州武邑人也",
         "舊唐書/卷83@2632780#明年，擢定方為行軍大總管，又征賀魯",
-        "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管"
+        "舊唐書/卷83@2632780#俄有思結闕俟斤都曼先鎮諸胡",
+        "舊唐書/卷83@2632780#顯慶五年，從幸太原，製授熊津道大總管",
+        "新唐書/卷111@3517040#未幾，定方爲遼東道行軍大總管"
       ],
       "unit_kind": "person_talent"
     }
@@ -4949,7 +5154,7 @@
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v5",
-    "source_pack_sha256": "72679ae4a73b81737f28a47526fafc35c5a0a2c573cea917a4c1852eccd781bc"
+    "source_pack_sha256": "f4e981cfc7c5e7bcaaa86b0092aeda444a2e37ec3dc1c3fbf54b1e725ab9103b"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

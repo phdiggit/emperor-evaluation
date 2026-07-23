@@ -6385,6 +6385,15 @@ def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:
     assert western_turks["opponent_strategic_weight"] == "external_state"
     assert "万余" in western_turks["combat_difficulty_basis"]
     assert "十万" in western_turks["combat_difficulty_basis"]
+    congling = labels["苏定方平都曼与葱岭战役群"]["payload"]
+    assert congling["campaign_tier"] == "A"
+    assert congling["combat_difficulty"] == "D2"
+    assert congling["objective_completion"] == "complete"
+    pyongyang = labels["苏定方平壤道征高丽战役群"]["payload"]
+    assert pyongyang["campaign_tier"] == "A"
+    assert pyongyang["combat_difficulty"] == "D2"
+    assert pyongyang["battle_result"] == "mixed"
+    assert pyongyang["objective_completion"] == "partial"
     hanxin = [
         row
         for row in liu_outcomes
@@ -6432,8 +6441,8 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     ]
     registry = build_unbound_historical_outcome_registry(source_packs)
     assert registry["status"] == "current_shadow_unbound"
-    assert registry["declarations"]["outcome_count"] == 76
-    assert registry["declarations"]["campaign_count"] == 37
+    assert registry["declarations"]["outcome_count"] == 78
+    assert registry["declarations"]["campaign_count"] == 39
     assert registry["declarations"]["governance_count"] == 33
     assert registry["declarations"]["statecraft_count"] == 6
     assert registry["declarations"]["window_binding_count"] == 0
@@ -6448,7 +6457,7 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
 
     rendered = render_unbound_historical_outcome_registry_markdown(registry)
     assert "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）" in rendered
-    assert "总成果：76" in rendered
+    assert "总成果：78" in rendered
     assert "谋略：6" in rendered
     assert "永徽律令格式与《律疏》编定颁行" in rendered
     assert "ruler_window_status" not in rendered
@@ -6511,10 +6520,26 @@ def test_shared_person_profile_registry_precedes_ruler_window_projection() -> No
         "political_risk" not in row and "team_building_projection" not in row
         for row in profiles["profiles"]
     )
+    sudingfang = next(
+        row for row in profiles["profiles"] if row["person"] == "苏定方"
+    )
+    assert sudingfang["overall_grade"] == "historic"
+    assert {
+        row["canonical_label"] for row in sudingfang["grade_basis_outcomes"]
+    } == {
+        "苏定方平西突厥战役群",
+        "苏定方平都曼与葱岭战役群",
+        "苏定方平百济战役群",
+        "苏定方平壤道征高丽战役群",
+    }
+    assert len(sudingfang["talent_grade_outcome_refs"]) == 2
     rendered = render_historical_person_profile_registry_markdown(profiles)
     assert "# 人物全生涯画像总登记（未绑定皇帝窗口）" in rendered
     assert "侯君集" in rendered
     assert "高士廉" in rendered
+    assert "[4 项，查看明细]" in rendered
+    assert "## 完整定级依据" in rendered
+    assert "苏定方平壤道征高丽战役群" in rendered
 
 
 def test_direct_runner_uses_the_same_markdown_contract(
