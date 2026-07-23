@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import re
 import shutil
+import stat
 import subprocess
 import sys
 from threading import Event, Lock
@@ -1324,10 +1325,13 @@ def test_li_zhi_bootstrap_claims_only_its_exclusive_chronicle_range(
 
     assert lease["ruler"] == "李治"
     assert lease["shared_tokens"] == []
-    assert (
+    source_pack = (
         Path(lease["workspace_root"])
         / "eval/i5b_current_value/李治/source-pack.json"
-    ).is_file()
+    )
+    assert source_pack.is_file()
+    assert source_pack.stat().st_mode & stat.S_IWUSR
+    assert source_pack.parent.stat().st_mode & stat.S_IWUSR
     project = yaml.safe_load(
         (
             Path(lease["workspace_root"]) / "config/project.yml"

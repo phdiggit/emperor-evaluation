@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import stat
 import subprocess
 from typing import Any, Mapping, Sequence
 from uuid import uuid4
@@ -247,6 +248,20 @@ def _release_session_guard(state_root: Path, session_id: str) -> None:
         guard.unlink()
 
 
+def _make_workspace_owner_writable(root: Path) -> None:
+    """Undo read-only release modes only inside a session-owned workspace."""
+    if not root.exists():
+        return
+    for path in (root, *root.rglob("*")):
+        try:
+            additions = stat.S_IWUSR
+            if path.is_dir():
+                additions |= stat.S_IXUSR
+            path.chmod(path.stat().st_mode | additions)
+        except FileNotFoundError:
+            continue
+
+
 def _prepare_workspace(
     *,
     release_root: Path,
@@ -295,6 +310,7 @@ def _prepare_workspace(
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, target)
+    _make_workspace_owner_writable(workspace_root)
 
 
 def claim_session(
@@ -443,6 +459,7 @@ def claim_session(
             _release_resources(state_root, rollback)
             session_root = control / "sessions" / session_id
             if session_root.exists():
+                _make_workspace_owner_writable(session_root)
                 shutil.rmtree(session_root)
             if ruler:
                 _release_session_guard(state_root, session_id)
@@ -457,6 +474,7 @@ def claim_session(
             _release_resources(state_root, rollback)
             session_root = control / "sessions" / session_id
             if session_root.exists():
+                _make_workspace_owner_writable(session_root)
                 shutil.rmtree(session_root)
             _release_session_guard(state_root, session_id)
             raise
@@ -796,6 +814,7 @@ def publish_session(
             and stage_cache_root.exists()
         ):
             shutil.rmtree(stage_cache_root)
+    _make_workspace_owner_writable(path.parent)
     shutil.rmtree(path.parent)
     return result
 
@@ -808,6 +827,7 @@ def abandon_session(*, state_root: Path, session_id: str) -> dict[str, Any]:
     lease = _read_json(path)
     _release_resources(state_root, lease)
     _release_session_guard(state_root, session_id)
+    _make_workspace_owner_writable(path.parent)
     shutil.rmtree(path.parent)
     return {
         "schema_version": LEASE_SCHEMA_VERSION,
