@@ -41,6 +41,7 @@ from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
 from emperor_v4.runtime.emperor_session_control import (
     abandon_session,
     claim_session,
+    complete_session_bootstrap,
     heartbeat_session,
     publish_session,
     run_claimed_session,
@@ -166,6 +167,14 @@ def _parser() -> argparse.ArgumentParser:
     session_claim.add_argument("--session-id", required=True)
     session_claim.add_argument("--ruler")
     session_claim.add_argument("--model-slots", type=int, default=2)
+    session_bootstrap = commands.add_parser("emperor-session-bootstrap")
+    session_bootstrap.add_argument("--state-root", type=Path, required=True)
+    session_bootstrap.add_argument("--session-id", required=True)
+    session_bootstrap.add_argument("--spec", type=Path, required=True)
+    session_bootstrap.add_argument("--source-index-root", type=Path, required=True)
+    session_bootstrap.add_argument(
+        "--dynasty-governance-root", type=Path, required=True
+    )
     session_run = commands.add_parser("emperor-session-run")
     session_run.add_argument("--state-root", type=Path, required=True)
     session_run.add_argument("--session-id", required=True)
@@ -466,6 +475,17 @@ def main(argv: Sequence[str] | None = None) -> int:
                 session_id=args.session_id,
                 ruler=args.ruler,
                 model_slot_count=args.model_slots,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-bootstrap":
+        return _write_report(
+            complete_session_bootstrap(
+                state_root=args.state_root,
+                session_id=args.session_id,
+                bootstrap_spec_path=args.spec,
+                source_index_root=args.source_index_root,
+                dynasty_governance_root=args.dynasty_governance_root,
             ),
             None,
         )

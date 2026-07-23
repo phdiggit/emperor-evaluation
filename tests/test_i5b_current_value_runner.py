@@ -1345,6 +1345,215 @@ def test_li_zhi_bootstrap_claims_only_its_exclusive_chronicle_range(
     )
 
 
+def test_unconfigured_ruler_claim_stays_alive_for_isolated_bootstrap(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "c" * 40
+    )
+    state = tmp_path / "state"
+
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-ZHU-YUANZHANG",
+        ruler="朱元璋",
+        model_slot_count=2,
+    )
+    report = emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-ZHU-YUANZHANG",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    workspace = Path(lease["workspace_root"])
+    assert lease["stage"] == "bootstrap_required"
+    assert lease["bootstrap_required"] is True
+    assert lease["shared_tokens"] == []
+    assert report["status"] == "awaiting_bootstrap"
+    assert report["database_write_count"] == 0
+    assert report["formal_score_write_count"] == 0
+    assert (workspace / "config/project.yml").is_file()
+    assert (
+        workspace / "eval/i5b_current_value/李世民/source-pack.json"
+    ).is_file()
+    assert emperor_session_control.session_status(state_root=state)[
+        "sessions"
+    ][0]["stage"] == "bootstrap_required"
+
+
+def test_two_unconfigured_rulers_can_bootstrap_concurrently(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "c" * 40
+    )
+    state = tmp_path / "state"
+
+    first = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-ZHU-YUANZHANG",
+        ruler="朱元璋",
+        model_slot_count=2,
+    )
+    second = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-KANGXI",
+        ruler="康熙",
+        model_slot_count=2,
+    )
+
+    assert set(first["model_slots"]).isdisjoint(second["model_slots"])
+    assert first["resource_ruler_ref"] != second["resource_ruler_ref"]
+    assert emperor_session_control.session_status(state_root=state)[
+        "available_model_slot_count"
+    ] == 0
+    emperor_session_control.abandon_session(
+        state_root=state, session_id="SESSION-ZHU-YUANZHANG"
+    )
+    emperor_session_control.abandon_session(
+        state_root=state, session_id="SESSION-KANGXI"
+    )
+
+
+def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "c" * 40
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-ZHU-YUANZHANG",
+        ruler="朱元璋",
+        model_slot_count=1,
+    )
+    spec = {
+        "schema_version": emperor_session_control.BOOTSTRAP_SCHEMA_VERSION,
+        "ruler": "朱元璋",
+        "ruler_ref": "RULER-MING-ZHUYUANZHANG",
+        "dynasty": "明",
+        "window": "1368-1398",
+        "ruler_config": {
+            "source_pack": "eval/i5b_current_value/朱元璋/source-pack.json",
+            "outcome_binding": "eval/historical_outcome_bindings/朱元璋.json",
+            "neutral_materials": "eval/i5b_current_value/朱元璋/neutral-materials.json",
+            "result": "eval/i5b_current_value/朱元璋/result.json",
+            "neutral_scan_backbone_works": ["明太祖實錄"],
+            "neutral_scan_backbone_page_ranges": {"明太祖實錄": [1, 2]},
+            "neutral_scan_backsource_works": ["明史"],
+            "dynasty_governance_material_token": "MING-HONGWU",
+            "dynasty_governance_period_terms": ["洪武", "明太祖", "朱元璋"],
+        },
+        "members": [],
+        "identity_entries": [
+            {
+                "person_ref": "RULER-MING-ZHUYUANZHANG",
+                "canonical_name": "朱元璋",
+                "dynasty": "明",
+                "aliases": [
+                    {"surface": "明太祖", "alias_type": "temple_name"}
+                ],
+            }
+        ],
+    }
+    spec_path = tmp_path / "zhu-bootstrap.json"
+    spec_path.write_text(
+        json.dumps(spec, ensure_ascii=False), encoding="utf-8"
+    )
+
+    report = emperor_session_control.complete_session_bootstrap(
+        state_root=state,
+        session_id="SESSION-ZHU-YUANZHANG",
+        bootstrap_spec_path=spec_path,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    source_pack = (
+        Path(lease["workspace_root"])
+        / "eval/i5b_current_value/朱元璋/source-pack.json"
+    )
+    assert report["status"] == "awaiting_bootstrap"
+    assert any(value.startswith("fixed_source_index:") for value in report["missing"])
+    assert source_pack.is_file()
+    payload = json.loads(source_pack.read_text(encoding="utf-8"))
+    declared = payload.pop("source_pack_sha256")
+    assert declared == hashlib.sha256(
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    session = emperor_session_control.session_status(state_root=state)[
+        "sessions"
+    ][0]
+    assert session["stage"] == "bootstrap_assets_required"
+    assert session["bootstrap_required"] is True
+
+    index_path = tmp_path / "indexes/ming/ming.sqlite3"
+    index_path.parent.mkdir(parents=True)
+    build_local_source_index(
+        [
+            {
+                "page_title": "明太祖實錄/卷一",
+                "work_title": "明太祖實錄",
+                "source_url": "local:ming-annals",
+                "revision_ref": "1",
+                "raw_text": "洪武元年即皇帝位。",
+            },
+            {
+                "page_title": "明史/卷一",
+                "work_title": "明史",
+                "source_url": "local:ming-history",
+                "revision_ref": "1",
+                "raw_text": "太祖高皇帝姓朱氏。",
+            },
+        ],
+        index_path,
+    )
+    governance_path = tmp_path / "governance/MING-HONGWU/current.json"
+    governance_path.parent.mkdir(parents=True)
+    governance_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "dynasty-governance-current-v1",
+                "status": "quality_accepted_shadow",
+                "dynasty_token": "MING-HONGWU",
+                "source_index_identity": LocalSourceTextIndex(index_path).identity,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    ready = emperor_session_control.complete_session_bootstrap(
+        state_root=state,
+        session_id="SESSION-ZHU-YUANZHANG",
+        bootstrap_spec_path=spec_path,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    assert ready["status"] == "bootstrap_ready"
+    session = emperor_session_control.session_status(state_root=state)[
+        "sessions"
+    ][0]
+    assert session["stage"] == "claimed"
+    assert session["bootstrap_required"] is False
+    assert session["ruler_ref"] == "RULER-MING-ZHUYUANZHANG"
+
+
 def test_emperor_session_claim_rejects_overlapping_range_before_leases(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

@@ -23,6 +23,7 @@ from emperor_v4.evaluation.historical_outcome_registry import (
 )
 from emperor_v4.runtime.emperor_rebuild import (
     RebuildLimits,
+    _resolve_source_index,
     _shared_backbone_contract,
     rebuild_emperor,
 )
@@ -31,6 +32,8 @@ from emperor_v4.runtime.emperor_rebuild import (
 LEASE_SCHEMA_VERSION = "emperor-session-lease-v1"
 STATUS_SCHEMA_VERSION = "emperor-session-control-status-v1"
 PUBLISH_SCHEMA_VERSION = "emperor-session-publish-v1"
+BOOTSTRAP_SCHEMA_VERSION = "emperor-session-bootstrap-v1"
+BOOTSTRAP_REPORT_SCHEMA_VERSION = "emperor-session-bootstrap-report-v1"
 GLOBAL_MODEL_SLOT_COUNT = 4
 REQUIRED_REBUILD_STAGES = (
     "source_inventory",
@@ -177,6 +180,10 @@ def _project_rulers(release_root: Path) -> tuple[dict[str, Any], list[str]]:
     return rulers, [str(value) for value in rulers]
 
 
+def _provisional_ruler_ref(ruler: str) -> str:
+    return f"RULER-BOOTSTRAP-{_digest({'ruler': ruler})[:16].upper()}"
+
+
 def _canonical_paths(
     root: Path, configured: Mapping[str, object]
 ) -> dict[str, Path]:
@@ -226,8 +233,11 @@ def _owned_resource(path: Path, session_id: str) -> bool:
 def _release_resources(state_root: Path, lease: Mapping[str, object]) -> None:
     session_id = str(lease["session_id"])
     control = _control_root(state_root)
+    resource_ruler_ref = str(
+        lease.get("resource_ruler_ref") or lease["ruler_ref"]
+    )
     resource_paths = [
-        control / "rulers" / f"{lease['ruler_ref']}.json",
+        control / "rulers" / f"{resource_ruler_ref}.json",
         *(
             control / "model-slots" / f"{int(slot)}.json"
             for slot in lease.get("model_slots") or ()
@@ -313,6 +323,69 @@ def _prepare_workspace(
     _make_workspace_owner_writable(workspace_root)
 
 
+def _prepare_bootstrap_workspace(
+    *,
+    release_root: Path,
+    workspace_root: Path,
+) -> None:
+    workspace_root.mkdir(parents=True, exist_ok=False)
+    shutil.copytree(release_root / "config", workspace_root / "config")
+    project = yaml.safe_load(
+        (release_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    rulers = (project.get("i5b_current_value") or {}).get("rulers") or {}
+    for configured in rulers.values():
+        if not isinstance(configured, Mapping):
+            continue
+        source = release_root / str(configured.get("source_pack") or "")
+        if not source.is_file():
+            raise SessionControlError(f"release 缺少公共成果登记输入: {source}")
+        target = workspace_root / source.relative_to(release_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+    for section, fields in (
+        (
+            "historical_outcome_registry",
+            ("current_json", "current_markdown"),
+        ),
+        (
+            "historical_person_profile_registry",
+            ("current_json", "current_markdown"),
+        ),
+    ):
+        configured = project.get(section) or {}
+        for field in fields:
+            source = release_root / str(configured.get(field) or "")
+            if not source.is_file():
+                continue
+            target = workspace_root / source.relative_to(release_root)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+    _make_workspace_owner_writable(workspace_root)
+
+
+def _bootstrap_report(
+    *,
+    lease: Mapping[str, object],
+    missing: Sequence[str],
+    spec_path: Path | None = None,
+) -> dict[str, Any]:
+    return {
+        "schema_version": BOOTSTRAP_REPORT_SCHEMA_VERSION,
+        "status": "awaiting_bootstrap" if missing else "bootstrap_ready",
+        "session_id": lease["session_id"],
+        "ruler": lease["ruler"],
+        "stage": lease["stage"],
+        "workspace_root": lease["workspace_root"],
+        "bootstrap_spec": str(spec_path) if spec_path else None,
+        "missing": list(missing),
+        "result_persisted": False,
+        "runtime_model_call_count": 0,
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+    }
+
+
 def claim_session(
     *,
     state_root: Path,
@@ -339,12 +412,24 @@ def claim_session(
         (release_root / "config/project.yml").read_text(encoding="utf-8")
     )
     candidates = [ruler] if ruler else configured_order
-    if ruler and ruler not in rulers:
-        raise SessionControlError(f"皇帝尚未进入当前链路: {ruler}")
     release_contract_fingerprint = _contract_fingerprint(release_root)
     candidate_specs = []
     invalid_candidates: list[str] = []
     for candidate in candidates:
+        if candidate not in rulers:
+            if not ruler:
+                invalid_candidates.append(str(candidate))
+                continue
+            candidate_specs.append(
+                (
+                    str(candidate),
+                    None,
+                    _provisional_ruler_ref(str(candidate)),
+                    [],
+                    True,
+                )
+            )
+            continue
         try:
             configured = rulers[candidate]
             _shared_backbone_contract(project=project, ruler=candidate)
@@ -360,7 +445,7 @@ def claim_session(
                 if value
             ]
             candidate_specs.append(
-                (candidate, configured, ruler_ref, shared_tokens)
+                (candidate, configured, ruler_ref, shared_tokens, False)
             )
         except (KeyError, OSError, ValueError, SessionControlError) as exc:
             if ruler:
@@ -383,12 +468,19 @@ def claim_session(
             return {**_read_json(current_path), "reused": True}
         raise SessionControlError("session_id 正在被另一个认领过程使用")
     busy: list[str] = []
-    for candidate, configured, ruler_ref, shared_tokens in candidate_specs:
+    for (
+        candidate,
+        configured,
+        ruler_ref,
+        shared_tokens,
+        bootstrap_required,
+    ) in candidate_specs:
         base_payload = {
             "schema_version": LEASE_SCHEMA_VERSION,
             "session_id": session_id,
             "ruler": candidate,
             "ruler_ref": ruler_ref,
+            "resource_ruler_ref": ruler_ref,
             "release_sha": release_sha,
             "release_contract_fingerprint": release_contract_fingerprint,
             "host": socket.gethostname(),
@@ -417,16 +509,27 @@ def claim_session(
                 claimed_shared.append(token)
             session_root = control / "sessions" / session_id
             workspace_root = session_root / "workspace"
-            _prepare_workspace(
-                release_root=release_root,
-                workspace_root=workspace_root,
-                ruler=candidate,
-                configured=configured,
-            )
-            canonical = _canonical_paths(release_root, configured)
+            if bootstrap_required:
+                _prepare_bootstrap_workspace(
+                    release_root=release_root,
+                    workspace_root=workspace_root,
+                )
+                canonical: dict[str, Path] = {}
+            else:
+                assert configured is not None
+                _prepare_workspace(
+                    release_root=release_root,
+                    workspace_root=workspace_root,
+                    ruler=candidate,
+                    configured=configured,
+                )
+                canonical = _canonical_paths(release_root, configured)
             lease = {
                 **base_payload,
-                "stage": "claimed",
+                "stage": (
+                    "bootstrap_required" if bootstrap_required else "claimed"
+                ),
+                "bootstrap_required": bootstrap_required,
                 "model_slots": claimed_slots,
                 "shared_tokens": claimed_shared,
                 "workspace_root": str(workspace_root),
@@ -448,6 +551,21 @@ def claim_session(
                     }
                 ),
             }
+            if bootstrap_required:
+                bootstrap_path = session_root / "runtime" / "bootstrap" / "current.json"
+                bootstrap = _bootstrap_report(
+                    lease=lease,
+                    missing=[
+                        "ruler_identity",
+                        "ruler_window",
+                        "chronicle_range",
+                        "fixed_source_index",
+                        "dynasty_governance_current",
+                        "bootstrap_members",
+                    ],
+                )
+                _atomic_json(bootstrap_path, bootstrap)
+                lease["bootstrap_report"] = str(bootstrap_path)
             _atomic_json(current_path, lease)
             return {**lease, "reused": False}
         except SessionControlError:
@@ -503,6 +621,269 @@ def heartbeat_session(
     return lease
 
 
+def complete_session_bootstrap(
+    *,
+    state_root: Path,
+    session_id: str,
+    bootstrap_spec_path: Path,
+    source_index_root: Path,
+    dynasty_governance_root: Path,
+) -> dict[str, Any]:
+    session_id = _safe_token(session_id, field="session_id")
+    path = _session_path(state_root, session_id)
+    if not path.is_file():
+        raise SessionControlError("会话租约不存在")
+    lease = _read_json(path)
+    if lease.get("bootstrap_required") is not True:
+        raise SessionControlError("该会话不处于首次 bootstrap 阶段")
+    spec = _read_json(bootstrap_spec_path.resolve())
+    if spec.get("schema_version") != BOOTSTRAP_SCHEMA_VERSION:
+        raise SessionControlError("bootstrap spec 版本不支持")
+    ruler = str(lease["ruler"])
+    if str(spec.get("ruler") or "") != ruler:
+        raise SessionControlError("bootstrap spec 皇帝与租约不匹配")
+    ruler_ref = _safe_token(spec.get("ruler_ref"), field="ruler_ref")
+    dynasty = str(spec.get("dynasty") or "").strip()
+    window = str(spec.get("window") or "").strip()
+    configured = spec.get("ruler_config")
+    members = spec.get("members") or []
+    identities = spec.get("identity_entries") or []
+    if not dynasty or not window:
+        raise SessionControlError("bootstrap spec 缺少 dynasty 或 window")
+    if not isinstance(configured, Mapping):
+        raise SessionControlError("bootstrap spec ruler_config 必须是 object")
+    if not isinstance(members, list) or not isinstance(identities, list):
+        raise SessionControlError("bootstrap spec members/identity_entries 必须是数组")
+    expected_paths = {
+        "source_pack": f"eval/i5b_current_value/{ruler}/source-pack.json",
+        "neutral_materials": f"eval/i5b_current_value/{ruler}/neutral-materials.json",
+        "result": f"eval/i5b_current_value/{ruler}/result.json",
+        "outcome_binding": f"eval/historical_outcome_bindings/{ruler}.json",
+    }
+    for field, expected in expected_paths.items():
+        if str(configured.get(field) or "") != expected:
+            raise SessionControlError(
+                f"bootstrap ruler_config {field} 必须为 {expected}"
+            )
+    if not configured.get("neutral_scan_backsource_works"):
+        raise SessionControlError("bootstrap ruler_config 缺少定向回源正史")
+    if not configured.get("dynasty_governance_material_token"):
+        raise SessionControlError("bootstrap ruler_config 缺少朝代治理 token")
+    if not configured.get("neutral_scan_backbone_material_token") and (
+        not configured.get("neutral_scan_backbone_works")
+        or not configured.get("neutral_scan_backbone_page_ranges")
+    ):
+        raise SessionControlError("bootstrap ruler_config 缺少编年主干及连续范围")
+
+    member_rows = []
+    for member in members:
+        if not isinstance(member, Mapping):
+            raise SessionControlError("bootstrap member 必须是 object")
+        person = str(member.get("person") or "").strip()
+        person_ref = _safe_token(member.get("person_ref"), field="person_ref")
+        if not person:
+            raise SessionControlError("bootstrap member 缺少 person")
+        member_rows.append({"person": person, "person_ref": person_ref})
+    expected_identities = {
+        ruler: ruler_ref,
+        **{row["person"]: row["person_ref"] for row in member_rows},
+    }
+    supplied_identities = {}
+    for identity in identities:
+        if not isinstance(identity, Mapping):
+            raise SessionControlError("bootstrap identity entry 必须是 object")
+        name = str(identity.get("canonical_name") or "").strip()
+        person_ref = _safe_token(identity.get("person_ref"), field="person_ref")
+        if not name or str(identity.get("dynasty") or "") != dynasty:
+            raise SessionControlError("bootstrap identity 缺少姓名或朝代不匹配")
+        supplied_identities[name] = person_ref
+    if any(
+        supplied_identities.get(name) != person_ref
+        for name, person_ref in expected_identities.items()
+    ):
+        raise SessionControlError("bootstrap identity 未覆盖皇帝及全部候选成员")
+
+    workspace_root = Path(str(lease["workspace_root"]))
+    project_path = workspace_root / "config/project.yml"
+    project = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+    project.setdefault("i5b_current_value", {}).setdefault("rulers", {})[
+        ruler
+    ] = dict(configured)
+    _shared_backbone_contract(project=project, ruler=ruler)
+    project_path.write_text(
+        yaml.safe_dump(project, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    identity_path = workspace_root / "config/historical-entity-identities.yml"
+    identity_catalog = yaml.safe_load(identity_path.read_text(encoding="utf-8"))
+    existing_by_name = {
+        str(row["canonical_name"]): row
+        for row in identity_catalog.get("entities") or ()
+    }
+    for identity in identities:
+        row = dict(identity)
+        name = str(row["canonical_name"])
+        existing = existing_by_name.get(name)
+        if existing is not None and str(existing.get("person_ref")) != str(
+            row["person_ref"]
+        ):
+            raise SessionControlError(f"bootstrap identity 与现有身份冲突: {name}")
+        if existing is None:
+            identity_catalog.setdefault("entities", []).append(row)
+    identity_path.write_text(
+        yaml.safe_dump(identity_catalog, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    source_pack = {
+        "schema_version": "i5b-current-value-source-pack-v5",
+        "status": "bootstrap_ready_for_first_session",
+        "ruler": ruler,
+        "ruler_ref": ruler_ref,
+        "window": window,
+        "members": member_rows,
+        "facts": [],
+        "materials": [],
+        "ruler_context_materials": [],
+        "excluded_units": [],
+        "outcome_registry": {
+            "schema_version": "historical-outcome-cluster-registry-v2",
+            "status": "shadow",
+            "clusters": [],
+        },
+        "profile_projection_gate": {
+            "status": "material_coverage_open",
+            "material_coverage_complete": False,
+            "freeze_allowed": False,
+            "candidate_roster_review": {
+                "status": "bootstrap_open",
+                "coverage": [
+                    "ruler_window_appointments",
+                    "outcome_participants",
+                    "potential_top_full_career",
+                ],
+            },
+        },
+        "declarations": {
+            "shadow_only": True,
+            "formal_write": False,
+            "model_call_count": 0,
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        },
+    }
+    source_pack["source_pack_sha256"] = _digest(source_pack)
+    source_pack_path = workspace_root / expected_paths["source_pack"]
+    _atomic_json(source_pack_path, source_pack)
+
+    runtime_spec_path = (
+        Path(str(lease["runtime_root"])) / "bootstrap" / "spec.json"
+    )
+    _atomic_json(runtime_spec_path, spec)
+    missing: list[str] = []
+    shared_contract = _shared_backbone_contract(project=project, ruler=ruler)
+    backbone_works = (
+        list(shared_contract["works"])
+        if shared_contract is not None
+        else list(configured.get("neutral_scan_backbone_works") or ())
+    )
+    required_works = [
+        *backbone_works,
+        *list(configured.get("neutral_scan_backsource_works") or ()),
+    ]
+    source_index = None
+    try:
+        source_index = _resolve_source_index(
+            source_pack=source_pack,
+            source_index_path=None,
+            source_index_root=source_index_root,
+            required_works=required_works,
+        )
+    except (OSError, ValueError) as exc:
+        missing.append(f"fixed_source_index: {exc}")
+    governance_token = str(configured["dynasty_governance_material_token"])
+    governance_path = dynasty_governance_root / governance_token / "current.json"
+    if source_index is None:
+        missing.append("dynasty_governance_current: 等待固定索引")
+    elif not governance_path.is_file():
+        missing.append(f"dynasty_governance_current: {governance_path}")
+    else:
+        governance = _read_json(governance_path)
+        if (
+            governance.get("schema_version") != "dynasty-governance-current-v1"
+            or governance.get("status") != "quality_accepted_shadow"
+            or str(governance.get("dynasty_token") or "") != governance_token
+            or str(governance.get("source_index_identity") or "")
+            != source_index.identity
+        ):
+            missing.append("dynasty_governance_current: 头部合同与固定索引不匹配")
+
+    shared_tokens = []
+    token = str(configured.get("neutral_scan_backbone_material_token") or "")
+    if not missing and token:
+        token_path = _control_root(state_root) / "shared-writers" / f"{token}.json"
+        if not _claim_json(token_path, lease):
+            missing.append(f"shared_chronicle_writer: {token}")
+        else:
+            shared_tokens.append(token)
+    if missing:
+        lease["stage"] = "bootstrap_assets_required"
+        lease["bootstrap_spec"] = str(runtime_spec_path)
+        lease["updated_at"] = _now()
+        report = _bootstrap_report(
+            lease=lease,
+            missing=missing,
+            spec_path=runtime_spec_path,
+        )
+        _atomic_json(Path(str(lease["bootstrap_report"])), report)
+        _atomic_json(path, lease)
+        return report
+
+    canonical = _canonical_paths(workspace_root, configured)
+    lease.update(
+        {
+            "ruler_ref": ruler_ref,
+            "bootstrap_required": False,
+            "bootstrap_spec": str(runtime_spec_path),
+            "stage": "claimed",
+            "shared_tokens": shared_tokens,
+            "stage_cache_root": str(
+                state_root.resolve() / "stage-cache" / ruler_ref
+            ),
+            "canonical_expected_sha256": {
+                key: None
+                if key in {"source_pack", "neutral_materials", "result_json",
+                           "result_markdown", "outcome_binding"}
+                else _file_sha256(
+                    Path(str(lease["workspace_root"])).resolve()
+                    / target.relative_to(workspace_root)
+                )
+                for key, target in canonical.items()
+            },
+            "input_fingerprint": _digest(
+                {
+                    "release_sha": lease["release_sha"],
+                    "ruler": ruler,
+                    "bootstrap_spec": spec,
+                    "source_index_identity": source_index.identity,
+                }
+            ),
+            "updated_at": _now(),
+        }
+    )
+    report = _bootstrap_report(
+        lease=lease,
+        missing=[],
+        spec_path=runtime_spec_path,
+    )
+    _atomic_json(Path(str(lease["bootstrap_report"])), report)
+    _atomic_json(path, lease)
+    return report
+
+
 def run_claimed_session(
     *,
     state_root: Path,
@@ -529,6 +910,10 @@ def run_claimed_session(
         "release_contract_fingerprint"
     ):
         raise SessionControlError("运行 release 合同在认领后发生变化")
+    if lease.get("bootstrap_required") is True:
+        report_path = Path(str(lease["bootstrap_report"]))
+        report = _read_json(report_path)
+        return {**report, "reused": True}
     if lease.get("stage") == "ready_to_publish":
         completed_path = Path(str(lease["runtime_root"])) / "completed.json"
         if completed_path.is_file():
