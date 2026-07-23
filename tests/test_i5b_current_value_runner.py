@@ -36,6 +36,9 @@ from emperor_v4.evaluation.current_source_pack_compiler import (
     compile_outcome_candidate_payloads,
     compile_source_pack_increment,
 )
+from emperor_v4.evaluation import (
+    current_source_pack_compiler as current_source_pack_compiler_module,
+)
 from emperor_v4.evaluation.i5b_current_value_runner import (
     _appointment_window_outcomes,
     _ruler_window_outcomes,
@@ -5377,6 +5380,53 @@ def test_current_source_pack_increment_is_validated_and_idempotent(tmp_path: Pat
             payload,
             {**increment, "facts": [conflicting]},
         )
+
+
+def test_outcome_stage_increment_does_not_require_current_projection(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    current = json.loads(source.read_text(encoding="utf-8"))
+    compiled = {**current, "stage_test_marker": True}
+    monkeypatch.setattr(
+        current_source_pack_compiler_module,
+        "compile_source_pack_increment",
+        lambda *_args, **_kwargs: compiled,
+    )
+    monkeypatch.setattr(
+        current_source_pack_compiler_module,
+        "build_unbound_historical_outcome_registry",
+        lambda _packs: {"schema_version": "test-registry"},
+    )
+    monkeypatch.setattr(
+        current_source_pack_compiler_module,
+        "build_ruler_outcome_bindings",
+        lambda _pack, _registry: {"schema_version": "test-binding"},
+    )
+    monkeypatch.setattr(
+        current_source_pack_compiler_module,
+        "build_i5b_current_value",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("成果阶段不得提前运行 current_projection")
+        ),
+    )
+
+    changed = apply_source_pack_increment(
+        target,
+        {
+            "schema_version": SOURCE_PACK_INCREMENT_SCHEMA_VERSION,
+            "ruler": "李世民",
+            "facts": [],
+            "outcomes": [],
+        },
+        workspace_root=ROOT,
+        require_current_projection_ready=False,
+    )
+
+    assert changed is True
+    assert json.loads(target.read_text(encoding="utf-8"))["stage_test_marker"] is True
 
 
 def test_current_li_and_liu_outcome_quality_decisions_are_pinned() -> None:

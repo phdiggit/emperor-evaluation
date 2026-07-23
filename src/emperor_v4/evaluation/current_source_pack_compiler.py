@@ -700,6 +700,7 @@ def apply_source_pack_increment(
     *,
     workspace_root: Path,
     replace_auto: bool = False,
+    require_current_projection_ready: bool = True,
 ) -> bool:
     source_pack_path = source_pack_path.resolve()
     current = json.loads(source_pack_path.read_text(encoding="utf-8"))
@@ -731,11 +732,12 @@ def apply_source_pack_increment(
             )
         registry = build_unbound_historical_outcome_registry(source_packs)
         binding = build_ruler_outcome_bindings(compiled, registry)
-        build_i5b_current_value(
-            candidate,
-            workspace_root=workspace_root,
-            outcome_layers=(registry, binding),
-        )
+        if require_current_projection_ready:
+            build_i5b_current_value(
+                candidate,
+                workspace_root=workspace_root,
+                outcome_layers=(registry, binding),
+            )
     replacement = source_pack_path.with_name(f".{source_pack_path.name}.{uuid4().hex}.tmp")
     replacement.write_text(rendered, encoding="utf-8", newline="\n")
     os.replace(replacement, source_pack_path)
