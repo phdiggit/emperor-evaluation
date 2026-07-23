@@ -3284,6 +3284,22 @@ def test_historical_identity_resolver_prevents_lijing_liji_suffix_misbinding() -
     assert actor["subject_ref"] == liji.person_ref
 
 
+def test_historical_identity_resolver_covers_liyuan_current_team() -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李渊/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    resolver = HistoricalEntityResolver.load(
+        ROOT / "config/historical-entity-identities.yml", source_pack=source_pack
+    )
+
+    liu_wenjing = resolver.entity_for_name("刘文静")
+    assert liu_wenjing.person_ref == "PER-ACTOR-9D09781AE311"
+    assert "劉文靜" in resolver.recall_terms("刘文静")
+
+
 def test_neutral_plan_scans_whole_biography_by_event_unit_and_uses_small_context(
     tmp_path: Path,
 ) -> None:
