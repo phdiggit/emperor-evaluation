@@ -82,6 +82,7 @@ from emperor_v4.runtime.emperor_outcome_projection import (
     PROJECTION_POLICY_VERSION,
     _expand_fact_quote_to_same_revision_paragraph,
     _normalize_candidate_sources,
+    _validate_candidate_payload_coverage,
     build_outcome_transport_schema,
     project_current_outcomes,
 )
@@ -333,6 +334,45 @@ def test_outcome_projection_rejects_summary_only_quote_support() -> None:
 
     assert normalized["candidates"] == []
     assert "未由 exact_quote 直接支持" in normalized["rejections"][0]["reason"]
+
+
+def test_outcome_projection_rejects_payload_omitting_input_segment() -> None:
+    facts = [
+        {
+            "segment_ref": "SEG-ONE",
+            "exact_quote": "第一项事实已经完成。",
+        },
+        {
+            "segment_ref": "SEG-TWO",
+            "exact_quote": "第二项事实已经完成。",
+        },
+    ]
+    payload = {
+        "candidates": [],
+        "rejections": [{"segment_ref": "SEG-ONE", "reason": "明确拒绝"}],
+    }
+
+    with pytest.raises(ValueError, match="SEG-TWO"):
+        _validate_candidate_payload_coverage(payload, facts)
+
+
+def test_outcome_projection_accepts_candidate_covering_shared_segment() -> None:
+    facts = [
+        {
+            "segment_ref": "SEG-SHARED",
+            "exact_quote": "军士先登，遂克都城。",
+        },
+        {
+            "segment_ref": "SEG-SHARED",
+            "exact_quote": "军士先登，遂克都城。",
+        },
+    ]
+    payload = {
+        "candidates": [{"exact_quotes": ["遂克都城"]}],
+        "rejections": [],
+    }
+
+    _validate_candidate_payload_coverage(payload, facts)
 
 
 def test_outcome_projection_rejects_victory_without_result_quote() -> None:

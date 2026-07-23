@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v10"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v11"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -136,6 +136,7 @@ def _prompt(
 15. statecraft 只登记本人提出或主导、已被采纳并形成独立可核实战略结果的非指挥成果。未实施建议、一般献策、纯夺权、宫廷清洗和只有手段成功而无独立战略结果者必须拒绝；不得为支撑预期人才等级反向生成谋略成果。
 16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
 17. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v1，task_code={task_code}。
+18. INPUT_FACTS 中每个 segment_ref 必须恰有明确处置：生成 candidate 时 exact_quotes 必须覆盖对应输入引文；否则必须在 rejections 中逐项写出 segment_ref 和理由。不得遗漏输入事实。
 
 EXISTING_OUTCOMES:
 {json.dumps(list(existing_outcomes), ensure_ascii=False, sort_keys=True, separators=(",", ":"))}
@@ -388,6 +389,29 @@ def _normalize_candidate_sources(
     return payload
 
 
+def _validate_candidate_payload_coverage(
+    payload: Mapping[str, Any],
+    facts: Sequence[Mapping[str, Any]],
+) -> None:
+    covered_segment_refs = {
+        str(row["segment_ref"]) for row in payload.get("rejections") or ()
+    }
+    for candidate in payload.get("candidates") or ():
+        quotes = [str(value) for value in candidate.get("exact_quotes") or ()]
+        for fact in facts:
+            fact_quote = str(fact.get("exact_quote") or "")
+            if any(
+                quote in fact_quote or fact_quote in quote
+                for quote in quotes
+                if quote and fact_quote
+            ):
+                covered_segment_refs.add(str(fact["segment_ref"]))
+    expected_segment_refs = {str(fact["segment_ref"]) for fact in facts}
+    missing = sorted(expected_segment_refs - covered_segment_refs)
+    if missing:
+        raise ValueError("成果模型遗漏输入 segment_ref: " + ", ".join(missing))
+
+
 def project_current_outcomes(
     *,
     source_pack_path: Path,
@@ -607,7 +631,12 @@ def project_current_outcomes(
         if checkpoint.is_file():
             saved = json.loads(checkpoint.read_text(encoding="utf-8"))
             if saved.get("input_fingerprint") == input_fingerprint:
-                return _normalize_candidate_sources(saved["payload"], group)
+                payload = _normalize_candidate_sources(saved["payload"], group)
+                try:
+                    _validate_candidate_payload_coverage(payload, group)
+                except ValueError:
+                    return None
+                return payload
         return None
 
     payloads: list[Mapping[str, Any]] = []
@@ -633,6 +662,7 @@ def project_current_outcomes(
             )
         )
         payload = _normalize_candidate_sources(payload, group)
+        _validate_candidate_payload_coverage(payload, group)
         checkpoint.parent.mkdir(parents=True, exist_ok=True)
         temporary = checkpoint.with_suffix(".tmp")
         temporary.write_text(
