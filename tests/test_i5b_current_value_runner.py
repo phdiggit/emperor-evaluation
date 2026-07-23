@@ -5506,6 +5506,14 @@ def test_outcome_projection_applies_main_session_review_without_model(
     written = json.loads(target.read_text(encoding="utf-8"))
     assert outcome["model_call_count"] == 0
     assert outcome["source_pack_changed"] is True
+    existing_auto_refs = {
+        row["outcome_ref"]
+        for row in source_pack["outcome_registry"]["clusters"]
+        if row["outcome_ref"].startswith("OUTCOME-AUTO-")
+    }
+    assert existing_auto_refs <= {
+        row["outcome_ref"] for row in written["outcome_registry"]["clusters"]
+    }
     assert any(
         row["independent_key"] == "test-governance-contract"
         for row in written["outcome_registry"]["clusters"]

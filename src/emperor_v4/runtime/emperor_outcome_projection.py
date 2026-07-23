@@ -571,7 +571,14 @@ def project_current_outcomes(
         current_projection.get("policy_fingerprint")
         in compatible_policy_fingerprints
     )
-    full_refresh = not current_projection_compatible
+    # A main-session review payload is an audited increment over the current
+    # source pack.  It is not guaranteed to repeat accepted outcomes whose
+    # evidence came from an earlier shared source layer and is absent from the
+    # current neutral worklist.  Only autonomous/model regeneration may replace
+    # the complete AUTO projection.
+    full_refresh = (
+        not current_projection_compatible and reviewed_payload is None
+    )
     dispositions = {
         str(row["fact_ref"]): dict(row)
         for row in current_projection.get("dispositions") or ()
