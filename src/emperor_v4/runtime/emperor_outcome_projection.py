@@ -23,7 +23,6 @@ from emperor_v4.runtime.structured_codex_runner import (
 SCHEMA_VERSION = "current-outcome-projection-v1"
 PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v17"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
-DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
 
 
@@ -550,11 +549,12 @@ def project_current_outcomes(
     neutral_materials: Mapping[str, Any],
     source_index: LocalSourceTextIndex,
     schema_path: Path,
-    runner: StructuredCodexRunner,
+    runner: StructuredCodexRunner | None,
     checkpoint_dir: Path,
     workspace_root: Path,
     max_workers: int,
     facts_per_call: int = 16,
+    reviewed_payload: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Project new neutral facts and atomically apply the validated increment.
 
@@ -746,7 +746,64 @@ def project_current_outcomes(
         for row in (source_pack.get("outcome_registry") or {}).get("clusters") or ()
         if not str(row.get("outcome_ref") or "").startswith("OUTCOME-AUTO-")
     ]
+    review_task_code = "OUTCOME-REVIEW-" + _digest(
+        {
+            "ruler": source_pack["ruler"],
+            "facts": ordered_eligible,
+            "projection_policy": PROJECTION_POLICY_VERSION,
+        }
+    )[:20].upper()
+    if reviewed_payload is None and runner is None:
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "status": "awaiting_main_session_review",
+            "candidate_count": 0,
+            "rejection_count": 0,
+            "model_call_count": 0,
+            "source_pack_changed": False,
+            "policy_fingerprint": policy_fingerprint,
+            "dispositions": [dispositions[key] for key in sorted(dispositions)],
+            "review_worklist": {
+                "schema_version": "current-outcome-main-review-worklist-v1",
+                "task_code": review_task_code,
+                "ruler": str(source_pack["ruler"]),
+                "ruler_window": str(source_pack["window"]),
+                "allowed_actors": actor_names,
+                "existing_outcomes": existing_outcomes,
+                "facts": ordered_eligible,
+                "required_output_schema": str(schema_path),
+                "output_template": {
+                    "schema_version": "current-outcome-candidate-output-v1",
+                    "task_code": review_task_code,
+                    "candidates": [],
+                    "rejections": [],
+                },
+                "instructions": [
+                    "主会话逐项登记战役、治理、谋略成果或明确拒绝。",
+                    "每个 segment_ref 必须由 candidate exact_quotes 覆盖或进入 rejections。",
+                    "完成跨书归并、成果拆分、责任、窗口、等级、持续性和重复结算审计后再提交。",
+                ],
+            },
+        }
+
+    reviewed_mode = reviewed_payload is not None
+    payloads: list[Mapping[str, Any]] = []
+    if reviewed_mode:
+        payload = {
+            **dict(reviewed_payload or {}),
+            "schema_version": "current-outcome-candidate-output-v1",
+            "task_code": review_task_code,
+        }
+        payload = _normalize_candidate_sources(payload, ordered_eligible)
+        _validate_candidate_payload_coverage(payload, ordered_eligible)
+        payloads.append(payload)
+        actual_model_calls = 0
+    else:
+        if runner is None:
+            raise ValueError("成果模型草案模式缺少 runner")
+
     def make_item(group: Sequence[Mapping[str, Any]]):
+        assert runner is not None
         input_fingerprint = _digest(
             {
                 "ruler": source_pack["ruler"],
@@ -771,17 +828,18 @@ def project_current_outcomes(
                 return payload
         return None
 
-    payloads: list[Mapping[str, Any]] = []
     pending = []
-    for group in groups:
-        item = make_item(group)
-        saved = load_checkpoint(item)
-        if saved is not None:
-            payloads.append(saved)
-        else:
-            pending.append(item)
+    if not reviewed_mode:
+        for group in groups:
+            item = make_item(group)
+            saved = load_checkpoint(item)
+            if saved is not None:
+                payloads.append(saved)
+            else:
+                pending.append(item)
 
     def invoke(item: tuple[str, Sequence[Mapping[str, Any]], str, Path]):
+        assert runner is not None
         task_code, group, input_fingerprint, checkpoint = item
         payload, _ = runner.run(
             _prompt(
@@ -811,97 +869,24 @@ def project_current_outcomes(
         temporary.replace(checkpoint)
         return payload
 
-    def persist_payload(item, payload: Mapping[str, Any]) -> None:
-        _, _, input_fingerprint, checkpoint = item
-        checkpoint.parent.mkdir(parents=True, exist_ok=True)
-        temporary = checkpoint.with_suffix(".tmp")
-        temporary.write_text(
-            json.dumps(
-                {"input_fingerprint": input_fingerprint, "payload": payload},
-                ensure_ascii=False,
-                indent=2,
-                sort_keys=True,
-            )
-            + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
-        temporary.replace(checkpoint)
-
-    def invoke_resilient(item, *, allow_single_retry: bool = True):
-        task_code, group, _, _ = item
+    def invoke_once(item):
         saved = load_checkpoint(item)
         if saved is not None:
             return saved, 0
-        if len(group) > 1:
-            middle = len(group) // 2
-            child_items = (make_item(group[:middle]), make_item(group[middle:]))
-            child_saved = [load_checkpoint(child) for child in child_items]
-            if all(value is not None for value in child_saved):
-                child_payloads = child_saved
-                calls = 0
-            elif any(value is not None for value in child_saved):
-                child_payloads = []
-                calls = 0
-                for child, saved in zip(child_items, child_saved):
-                    if saved is not None:
-                        child_payloads.append(saved)
-                        continue
-                    payload, child_calls = invoke_resilient(child)
-                    child_payloads.append(payload)
-                    calls += child_calls
-            else:
-                child_payloads = []
-                calls = 0
-                if len(group) <= DIRECT_MODEL_FACT_LIMIT:
-                    try:
-                        return invoke(item), 1
-                    except ModelBatchAnomalyError:
-                        raise
-                    except Exception:
-                        calls = 1
-                for child in child_items:
-                    payload, child_calls = invoke_resilient(child)
-                    child_payloads.append(payload)
-                    calls += child_calls
-            merged = {
-                "schema_version": "current-outcome-candidate-output-v1",
-                "task_code": task_code,
-                "candidates": [
-                    row
-                    for payload in child_payloads
-                    for row in payload.get("candidates") or ()
-                ],
-                "rejections": [
-                    row
-                    for payload in child_payloads
-                    for row in payload.get("rejections") or ()
-                ],
-            }
-            persist_payload(item, merged)
-            return merged, calls
-        try:
-            return invoke(item), 1
-        except ModelBatchAnomalyError:
-            raise
-        except Exception:
-            if not allow_single_retry:
-                raise
-            payload, calls = invoke_resilient(item, allow_single_retry=False)
-            return payload, calls + 1
+        return invoke(item), 1
 
     actual_model_calls = 0
     errors: list[Exception] = []
     parallel_pending = pending
     if pending:
-        canary_payload, canary_calls = invoke_resilient(pending[0])
+        canary_payload, canary_calls = invoke_once(pending[0])
         payloads.append(canary_payload)
         actual_model_calls += canary_calls
         parallel_pending = pending[1:]
     with ThreadPoolExecutor(
         max_workers=min(max_workers, len(parallel_pending) or 1)
     ) as pool:
-        futures = [pool.submit(invoke_resilient, item) for item in parallel_pending]
+        futures = [pool.submit(invoke_once, item) for item in parallel_pending]
         for future in as_completed(futures):
             try:
                 payload, calls = future.result()

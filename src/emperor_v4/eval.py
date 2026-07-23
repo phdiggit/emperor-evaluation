@@ -158,6 +158,8 @@ def _parser() -> argparse.ArgumentParser:
     rebuild.add_argument("--max-pages-per-subject", type=int, default=32)
     rebuild.add_argument("--model-workers", type=int, default=4)
     rebuild.add_argument("--model-timeout-seconds", type=int, default=120)
+    rebuild.add_argument("--outcome-review", type=Path)
+    rebuild.add_argument("--allow-outcome-model-draft", action="store_true")
     session_claim = commands.add_parser("emperor-session-claim")
     session_claim.add_argument("--state-root", type=Path, required=True)
     session_claim.add_argument("--release-root", type=Path, default=Path("."))
@@ -175,6 +177,8 @@ def _parser() -> argparse.ArgumentParser:
     session_run.add_argument("--export-workers", type=int, default=4)
     session_run.add_argument("--max-pages-per-subject", type=int, default=32)
     session_run.add_argument("--model-timeout-seconds", type=int, default=120)
+    session_run.add_argument("--outcome-review", type=Path)
+    session_run.add_argument("--allow-outcome-model-draft", action="store_true")
     session_run.add_argument(
         "--stop-after-stage",
         choices=["outcome_projection"],
@@ -442,6 +446,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 model_workers=args.model_workers,
                 model_timeout_seconds=args.model_timeout_seconds,
             ),
+            outcome_review_path=args.outcome_review,
+            allow_outcome_model_draft=args.allow_outcome_model_draft,
         )
         return _write_report(report, None)
     if args.command == "emperor-session-claim":
@@ -469,6 +475,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 max_pages_per_subject=args.max_pages_per_subject,
                 model_timeout_seconds=args.model_timeout_seconds,
                 stop_after_stage=args.stop_after_stage,
+                outcome_review_path=args.outcome_review,
+                allow_outcome_model_draft=args.allow_outcome_model_draft,
             ),
             None,
         )

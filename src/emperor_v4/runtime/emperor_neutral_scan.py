@@ -352,6 +352,7 @@ def _canonicalize_result(
         str(segment["segment_ref"]): segment for segment in batch["segments"]
     }
     dropped_quote = False
+    deduplicated_fact = False
     for review in canonical.get("segment_reviews") or ():
         segment = segments.get(str(review.get("segment_ref") or ""))
         if segment is None:
@@ -359,6 +360,7 @@ def _canonicalize_result(
         allowed = {str(value) for value in segment.get("subject_refs") or ()}
         source_text = str(segment["text"])
         retained_facts = []
+        retained_fact_digests: set[str] = set()
         for fact in review.get("facts") or ():
             fact.setdefault("evidence_span_refs", [])
             spans = {
@@ -403,8 +405,16 @@ def _canonicalize_result(
                 and actor.get("role") != "mentioned_only"
                 for actor in fact.get("actors") or ()
             )
-            if owned and (quote_verified or not drop_unverifiable_quotes):
+            fact_digest = _digest(fact)
+            if (
+                owned
+                and (quote_verified or not drop_unverifiable_quotes)
+                and fact_digest in retained_fact_digests
+            ):
+                deduplicated_fact = True
+            elif owned and (quote_verified or not drop_unverifiable_quotes):
                 retained_facts.append(fact)
+                retained_fact_digests.add(fact_digest)
             elif owned and not quote_verified:
                 dropped_quote = True
         review["facts"] = retained_facts
@@ -417,6 +427,13 @@ def _canonicalize_result(
             {
                 *[str(value) for value in canonical.get("limitations") or ()],
                 "引文重试后仍无法逐字回指的事实已拒绝接纳。",
+            }
+        )
+    if deduplicated_fact:
+        canonical["limitations"] = sorted(
+            {
+                *[str(value) for value in canonical.get("limitations") or ()],
+                "模型返回的完全重复中性事实已确定性去重。",
             }
         )
     return canonical
@@ -2785,57 +2802,8 @@ def extract_current_neutral_materials(
             try:
                 validate_one(batch, result)
             except ValueError:
-                reviews = {
-                    str(review.get("segment_ref") or ""): review
-                    for review in result.get("segment_reviews") or ()
-                }
-                sanitized_reviews = []
-                dropped = False
-                for segment in batch["segments"]:
-                    segment_ref = str(segment["segment_ref"])
-                    review = reviews.get(segment_ref)
-                    mini_batch = {**dict(batch), "segments": [segment]}
-                    mini_result = {
-                        "schema_version": "shared-neutral-extraction-output-v1",
-                        "batch_ref": batch_ref,
-                        "page_title": batch["page_title"],
-                        "revision_ref": batch["revision_ref"],
-                        "segment_count": 1,
-                        "segment_reviews": [review] if review is not None else [],
-                        "limitations": list(result.get("limitations") or ()),
-                    }
-                    try:
-                        validate_one(mini_batch, mini_result)
-                    except ValueError:
-                        dropped = True
-                        review = {
-                            "segment_ref": segment_ref,
-                            "decision": "reject",
-                            "context_status": "sufficient",
-                            "facts": [],
-                            "reason": "模型输出未通过当前中性事实合同，已确定性拒绝。",
-                        }
-                    sanitized_reviews.append(review)
-                result = {
-                    **dict(result),
-                    "segment_count": len(batch["segments"]),
-                    "segment_reviews": sanitized_reviews,
-                    "limitations": sorted(
-                        {
-                            *[str(value) for value in result.get("limitations") or ()],
-                            *(
-                                ["未通过中性事实合同的片段已确定性拒绝接纳。"]
-                                if dropped
-                                else []
-                            ),
-                        }
-                    ),
-                }
-                try:
-                    validate_one(batch, result)
-                except ValueError:
-                    failed.append(batch)
-                    continue
+                failed.append(batch)
+                continue
             results[batch_ref] = result
             _atomic_json(
                 checkpoint_dir / f"{batch_ref}.json",
@@ -2954,80 +2922,31 @@ def extract_current_neutral_materials(
         def run_fallback_chunk(
             batch: Mapping[str, Any],
             segments: Sequence[Mapping[str, Any]],
-            *,
-            allow_single_retry: bool = True,
         ) -> tuple[Mapping[str, Any], int]:
             split = {
                 **dict(batch),
                 "batch_ref": f"{batch['batch_ref']}--FALLBACK-{segments[0]['segment_ref']}",
                 "segments": list(segments),
             }
-            try:
-                result_rows, nested_calls = run_group([split], strict_quotes=True)
-            except ModelBatchAnomalyError:
-                raise
-            except Exception:
-                if len(segments) > 1:
-                    middle = len(segments) // 2
-                    left, left_calls = run_fallback_chunk(
-                        batch, segments[:middle]
-                    )
-                    right, right_calls = run_fallback_chunk(
-                        batch, segments[middle:]
-                    )
-                    return (
-                        {
-                            **dict(left),
-                            "segment_count": len(segments),
-                            "segment_reviews": [
-                                *left["segment_reviews"],
-                                *right["segment_reviews"],
-                            ],
-                            "limitations": sorted(
-                                {
-                                    *[str(value) for value in left.get("limitations") or ()],
-                                    *[str(value) for value in right.get("limitations") or ()],
-                                }
-                            ),
-                        },
-                        1 + left_calls + right_calls,
-                    )
-                if allow_single_retry:
-                    row, calls = run_fallback_chunk(
-                        batch, segments, allow_single_retry=False
-                    )
-                    return row, calls + 1
-                raise
+            result_rows, nested_calls = run_group([split], strict_quotes=True)
             row = result_rows[0]
             reviews = {
                 str(review["segment_ref"]): review
                 for review in row.get("segment_reviews") or ()
             }
             calls = 1 + nested_calls
-            limitations = set(str(value) for value in row.get("limitations") or ())
-            for segment in segments:
-                segment_ref = str(segment["segment_ref"])
-                if segment_ref in reviews:
-                    continue
-                single = {
-                    **dict(batch),
-                    "batch_ref": f"{batch['batch_ref']}--MISSING-{segment_ref}",
-                    "segments": [segment],
-                }
-                single_rows, single_nested = run_group([single], strict_quotes=True)
-                single_reviews = list(single_rows[0].get("segment_reviews") or ())
-                if len(single_reviews) != 1:
-                    raise ValueError(f"{segment_ref}: 单片重试仍未返回审阅结果")
-                reviews[segment_ref] = single_reviews[0]
-                limitations.update(
-                    str(value)
-                    for value in single_rows[0].get("limitations") or ()
+            missing = [
+                str(segment["segment_ref"])
+                for segment in segments
+                if str(segment["segment_ref"]) not in reviews
+            ]
+            if missing:
+                raise ValueError(
+                    "定向修订仍遗漏中性片段: " + ", ".join(missing)
                 )
-                calls += 1 + single_nested
             row["segment_reviews"] = [
                 reviews[str(segment["segment_ref"])] for segment in segments
             ]
-            row["limitations"] = sorted(limitations)
             return row, calls
 
         if fallback_tasks:

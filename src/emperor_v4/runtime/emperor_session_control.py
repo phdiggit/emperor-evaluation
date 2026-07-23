@@ -482,6 +482,8 @@ def run_claimed_session(
     max_pages_per_subject: int = 32,
     model_timeout_seconds: int = 120,
     stop_after_stage: str | None = None,
+    outcome_review_path: Path | None = None,
+    allow_outcome_model_draft: bool = False,
 ) -> dict[str, Any]:
     path = _session_path(state_root, _safe_token(session_id, field="session_id"))
     if not path.is_file():
@@ -534,6 +536,8 @@ def run_claimed_session(
             limits=limits,
             stage_callback=update_stage,
             stop_after_stage=stop_after_stage,
+            outcome_review_path=outcome_review_path,
+            allow_outcome_model_draft=allow_outcome_model_draft,
         )
         stage_results = list(report.get("stage_results") or ())
         observed_stages = [str(row.get("stage") or "") for row in stage_results]

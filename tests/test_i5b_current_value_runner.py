@@ -2014,6 +2014,8 @@ def test_claimed_session_can_pause_after_outcome_review_gate(
     session = emperor_session_control.session_status(state_root=state)["sessions"][0]
     assert result["status"] == "awaiting_review"
     assert observed["stop_after_stage"] == "outcome_projection"
+    assert observed["outcome_review_path"] is None
+    assert observed["allow_outcome_model_draft"] is False
     assert session["stage"] == "awaiting_review"
     assert session["review_stage"] == "outcome_projection"
     with pytest.raises(
@@ -2025,6 +2027,55 @@ def test_claimed_session_can_pause_after_outcome_review_gate(
             session_id="SESSION-OUTCOME-REVIEW",
             canonical_root=release,
         )
+
+
+def test_claimed_session_defaults_to_main_outcome_review_worklist(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "8" * 40
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-MAIN-OUTCOME-REVIEW",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+    observed = {}
+
+    def rebuild(**kwargs):
+        observed.update(kwargs)
+        return {
+            "schema_version": "emperor-rebuild-review-v1",
+            "status": "awaiting_review",
+            "ruler": "李世民",
+            "review_stage": "neutral_materials",
+            "outcome_review_worklist": "runtime/review/outcome-worklist.json",
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+            "stage_results": _accepted_rebuild_stage_results()[:2],
+        }
+
+    monkeypatch.setattr(emperor_session_control, "rebuild_emperor", rebuild)
+
+    result = emperor_session_control.run_claimed_session(
+        state_root=state,
+        session_id="SESSION-MAIN-OUTCOME-REVIEW",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    session = emperor_session_control.session_status(state_root=state)["sessions"][0]
+    assert result["status"] == "awaiting_review"
+    assert result["review_stage"] == "neutral_materials"
+    assert observed["outcome_review_path"] is None
+    assert observed["allow_outcome_model_draft"] is False
+    assert session["stage"] == "awaiting_review"
+    assert session["review_stage"] == "neutral_materials"
 
 
 def test_session_publish_fails_closed_when_canonical_changed(
@@ -5122,7 +5173,7 @@ def test_unverifiable_compact_quote_is_rejected_without_model_retry(tmp_path: Pa
     ]
 
 
-def test_invalid_duplicate_facts_are_rejected_without_model_retry(tmp_path: Path) -> None:
+def test_duplicate_facts_are_deduplicated_without_model_retry(tmp_path: Path) -> None:
     text = "人物完成其事。"
     segment = {
         "segment_ref": "SEG-DUPLICATE",
@@ -5205,8 +5256,8 @@ def test_invalid_duplicate_facts_are_rejected_without_model_retry(tmp_path: Path
 
     assert runner.calls == 1
     assert output["model_call_count"] == 1
-    assert output["fanout"]["fact_count"] == 0
-    assert "未通过中性事实合同的片段已确定性拒绝接纳。" in output[
+    assert output["fanout"]["fact_count"] == 1
+    assert "模型返回的完全重复中性事实已确定性去重。" in output[
         "batch_results"
     ][0]["limitations"]
 
@@ -5292,6 +5343,86 @@ def test_outcome_projection_makes_zero_model_calls_for_settled_quotes(
 
     assert outcome["model_call_count"] == 0
     assert outcome["source_pack_changed"] is False
+
+
+def test_outcome_projection_pauses_for_main_session_review(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    fact = {
+        "fact_ref": "NEUTRALFACT-MAIN-REVIEW",
+        "segment_ref": "SEG-MAIN-REVIEW",
+        "page_title": "史书/卷一",
+        "revision_ref": "1",
+        "exact_quote": "测试战役取得阶段结果。",
+        "projection_eligibility": "direct_neutral_fact",
+        "implementation_status": "implemented",
+        "result": "取得阶段结果",
+        "fact_kind": "institutional_action",
+        "outcome_candidate_status": "clear_candidate",
+        "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+    }
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials={"fanout": {"facts": [fact]}},
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+    )
+
+    assert outcome["status"] == "awaiting_main_session_review"
+    assert outcome["model_call_count"] == 0
+    assert outcome["source_pack_changed"] is False
+    assert outcome["review_worklist"]["facts"][0]["fact_ref"] == fact["fact_ref"]
+
+
+def test_outcome_projection_applies_main_session_review_without_model(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    fact = {
+        "fact_ref": "NEUTRALFACT-MAIN-REVIEW",
+        "segment_ref": "SEG-MAIN-REVIEW",
+        "page_title": "史书/卷一",
+        "revision_ref": "1",
+        "exact_quote": "测试战役取得阶段结果。",
+        "projection_eligibility": "direct_neutral_fact",
+        "implementation_status": "implemented",
+        "result": "取得阶段结果",
+        "fact_kind": "institutional_action",
+        "outcome_candidate_status": "clear_candidate",
+        "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+    }
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials={"fanout": {"facts": [fact]}},
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+        reviewed_payload=_governance_candidate_payload(),
+    )
+
+    written = json.loads(target.read_text(encoding="utf-8"))
+    assert outcome["model_call_count"] == 0
+    assert outcome["source_pack_changed"] is True
+    assert any(
+        row["independent_key"] == "test-governance-contract"
+        for row in written["outcome_registry"]["clusters"]
+    )
 
 
 def test_outcome_projection_ignores_shared_fact_outside_current_team(

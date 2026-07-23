@@ -54,7 +54,7 @@ STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v1",
-    "outcome_projection": "current-outcome-projection-stage-v10",
+    "outcome_projection": "current-outcome-projection-stage-v11",
     "current_projection": "registry-profile-i5b-stage-v1",
 }
 
@@ -782,6 +782,8 @@ def rebuild_emperor(
     limits: RebuildLimits = RebuildLimits(),
     stage_callback: Callable[[str, str, Mapping[str, Any]], None] | None = None,
     stop_after_stage: str | None = None,
+    outcome_review_path: Path | None = None,
+    allow_outcome_model_draft: bool = False,
 ) -> dict[str, Any]:
     """Restart the current deterministic chain and atomically publish its outputs.
 
@@ -1455,11 +1457,6 @@ def rebuild_emperor(
     )
     deadline.check("outcome_projection")
     source_pack_path = workspace_root / str(configured["source_pack"])
-    outcome_route = resolve_agent_route(
-        model_policy,
-        stage_code="episode_candidate_normalization",
-        escalation_reasons=(),
-    )
     outcome_schema_path = workspace_root / "config/current-outcome-candidate-output.schema.json"
     outcome_transport_schema_path = checkpoint_dir / "current-outcome-transport.schema.json"
     _atomic_text(
@@ -1472,6 +1469,20 @@ def rebuild_emperor(
         )
         + "\n",
     )
+    reviewed_outcome_payload = None
+    outcome_review_fingerprint = None
+    if outcome_review_path is not None:
+        outcome_review_path = outcome_review_path.resolve()
+        if not outcome_review_path.is_file():
+            raise ValueError(f"主会话成果审阅 payload 不存在: {outcome_review_path}")
+        reviewed_outcome_payload = json.loads(
+            outcome_review_path.read_text(encoding="utf-8")
+        )
+        if not isinstance(reviewed_outcome_payload, Mapping):
+            raise ValueError("主会话成果审阅 payload 必须是 JSON object")
+        outcome_review_fingerprint = _file_digest(outcome_review_path)
+    if reviewed_outcome_payload is not None and allow_outcome_model_draft:
+        raise ValueError("主会话成果审阅与子模型草案模式不得同时启用")
     outcome_stage_input_fingerprint = _digest(
         {
             "neutral_materials": {
@@ -1481,6 +1492,14 @@ def rebuild_emperor(
             },
             "source_pack_sha256": source_pack["source_pack_sha256"],
             "source_index_identity": source_index.identity,
+            "execution_mode": (
+                "main_session_review"
+                if reviewed_outcome_payload is not None
+                else "optional_model_draft"
+                if allow_outcome_model_draft
+                else "awaiting_main_session_review"
+            ),
+            "outcome_review_fingerprint": outcome_review_fingerprint,
         }
     )
     outcome_stage_contract_fingerprint = _digest(
@@ -1508,7 +1527,19 @@ def rebuild_emperor(
         },
     )
 
+    outcome_route = (
+        resolve_agent_route(
+            model_policy,
+            stage_code="episode_candidate_normalization",
+            escalation_reasons=(),
+        )
+        if allow_outcome_model_draft
+        else None
+    )
+
     def outcome_runner_factory() -> StructuredCodexRunner:
+        if outcome_route is None:
+            raise ValueError("未显式允许成果子模型草案")
         return StructuredCodexRunner(
             codex_bin="codex",
             model=str(outcome_route["model"]),
@@ -1536,7 +1567,7 @@ def rebuild_emperor(
         outcome_final_facts_per_call = int(
             restored_quality.get("final_facts_per_call") or 16
         )
-    else:
+    elif allow_outcome_model_draft:
         (
             outcome_projection,
             outcome_recovery_count,
@@ -1553,10 +1584,51 @@ def rebuild_emperor(
                 workspace_root=workspace_root,
                 max_workers=min(limits.model_workers, 4),
                 facts_per_call=facts_per_call,
+                reviewed_payload=None,
             ),
             initial_batch_size=16,
-            maximum_recoveries=2,
+            maximum_recoveries=0,
         )
+    else:
+        outcome_projection = project_current_outcomes(
+            source_pack_path=source_pack_path,
+            neutral_materials=neutral_materials,
+            source_index=source_index,
+            schema_path=outcome_schema_path,
+            runner=None,
+            checkpoint_dir=checkpoint_dir / "outcome_projection",
+            workspace_root=workspace_root,
+            max_workers=1,
+            reviewed_payload=reviewed_outcome_payload,
+        )
+        outcome_recovery_count = 0
+        outcome_final_facts_per_call = 0
+        if outcome_projection.get("status") == "awaiting_main_session_review":
+            review_root = runtime_root / "review"
+            review_root.mkdir(parents=True, exist_ok=True)
+            worklist_path = review_root / "outcome-worklist.json"
+            _atomic_text(
+                worklist_path,
+                json.dumps(
+                    outcome_projection["review_worklist"],
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n",
+            )
+            return {
+                "schema_version": "emperor-rebuild-review-v1",
+                "status": "awaiting_review",
+                "ruler": ruler,
+                "review_stage": "neutral_materials",
+                "outcome_review_worklist": str(worklist_path),
+                "required_outcome_review_schema": str(outcome_schema_path),
+                "stage_results": stage_results,
+                "database_write_count": 0,
+                "formal_score_write_count": 0,
+            }
+    if restored_outcome_stage is None:
         neutral_materials["outcome_projection"] = {
             "schema_version": "current-outcome-disposition-v1",
             "policy_fingerprint": outcome_projection["policy_fingerprint"],
