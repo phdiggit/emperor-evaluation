@@ -341,6 +341,96 @@ def _shared_backbone_identity(
     )
 
 
+def _shared_subject_coverage(
+    *,
+    plan: Mapping[str, Any],
+    materials: Mapping[str, Any],
+    owner_refs: Mapping[str, str],
+    deterministic_empty_segment_refs: Sequence[str] = (),
+) -> dict[str, Any]:
+    """Prove that every shared ruler's eligible chronicle units were resolved."""
+
+    segments = [
+        segment
+        for batch in plan.get("page_batches") or ()
+        for segment in batch.get("segments") or ()
+    ]
+    reviewed_segment_refs = {
+        str(review["segment_ref"])
+        for result in materials.get("batch_results") or ()
+        for review in result.get("segment_reviews") or ()
+        if review.get("segment_ref")
+    }
+    deterministic_empty_refs = {
+        str(value)
+        for value in deterministic_empty_segment_refs
+    }
+    resolved_segment_refs = reviewed_segment_refs | deterministic_empty_refs
+    facts = list((materials.get("fanout") or {}).get("facts") or ())
+    subjects = []
+    for canonical_name, subject_ref in sorted(owner_refs.items()):
+        subject_ref = str(subject_ref)
+        eligible_refs = {
+            str(segment["segment_ref"])
+            for segment in segments
+            if subject_ref
+            in {
+                str(value) for value in segment.get("subject_refs") or ()
+            }
+        }
+        window_refs = {
+            str(segment["segment_ref"])
+            for segment in segments
+            if str(segment.get("chronicle_ruler_ref") or "") == subject_ref
+        }
+        missing_refs = sorted(eligible_refs - resolved_segment_refs)
+        fact_refs = sorted(
+            {
+                str(fact["fact_ref"])
+                for fact in facts
+                if fact.get("fact_ref")
+                and any(
+                    str(actor.get("subject_ref") or "") == subject_ref
+                    and actor.get("role") != "mentioned_only"
+                    for actor in fact.get("actors") or ()
+                )
+            }
+        )
+        coverage_complete = bool(eligible_refs) and bool(window_refs) and not missing_refs
+        subjects.append(
+            {
+                "canonical_name": str(canonical_name),
+                "subject_ref": subject_ref,
+                "eligible_segment_count": len(eligible_refs),
+                "window_segment_count": len(window_refs),
+                "resolved_segment_count": len(eligible_refs & resolved_segment_refs),
+                "neutral_fact_count": len(fact_refs),
+                "neutral_fact_refs": fact_refs,
+                "missing_segment_refs": missing_refs,
+                "coverage_complete": coverage_complete,
+            }
+        )
+    return {
+        "schema_version": "shared-chronicle-subject-coverage-v1",
+        "coverage_complete": bool(subjects)
+        and all(row["coverage_complete"] for row in subjects),
+        "subjects": subjects,
+    }
+
+
+def _shared_current_has_complete_subject_coverage(
+    *,
+    candidate: Mapping[str, Any],
+    expected_backbone_identity: str,
+    recomputed_coverage: Mapping[str, Any],
+) -> bool:
+    return bool(
+        candidate.get("backbone_identity") == expected_backbone_identity
+        and candidate.get("subject_coverage") == recomputed_coverage
+        and recomputed_coverage.get("coverage_complete")
+    )
+
+
 def _project_event_signatures_for_ruler(
     *,
     plan: Mapping[str, Any],
@@ -593,9 +683,13 @@ def rebuild_emperor(
     shared_owner_names = (
         list(shared_contract["owners"]) if shared_contract is not None else []
     )
-    shared_subject_refs = {
+    shared_owner_refs = {
         str(name): identity_resolver.entity_for_name(str(name)).person_ref
         for name in shared_owner_names
+    }
+    shared_subject_refs = {
+        name: subject_ref
+        for name, subject_ref in shared_owner_refs.items()
         if str(name) != ruler
     }
     shared_backbone_token = str(
@@ -802,6 +896,9 @@ def rebuild_emperor(
         backbone_plan,
         extraction_contract=shared_backbone_extraction_contract,
     )
+    expected_backbone_routing = build_deterministic_fact_resolution_plan(
+        backbone_plan
+    )["deterministic_routing"]
     shared_backbone_path = None
     if shared_backbone_root is not None and shared_backbone_token:
         resolved_shared_root = shared_backbone_root.resolve()
@@ -811,6 +908,7 @@ def rebuild_emperor(
         if resolved_shared_root not in shared_backbone_path.parents:
             raise ValueError("共享主干材料路径越界")
     shared_backbone_current: Mapping[str, Any] | None = None
+    shared_backbone_seed: Mapping[str, Any] | None = None
     shared_backbone_previous_identity: str | None = None
     if shared_backbone_path is not None and shared_backbone_path.is_file():
         candidate = json.loads(shared_backbone_path.read_text(encoding="utf-8"))
@@ -822,16 +920,30 @@ def rebuild_emperor(
             and candidate.get("extraction_contract")
             == shared_backbone_extraction_contract
         ):
+            shared_backbone_seed = candidate.get("materials")
+            candidate_subject_coverage = _shared_subject_coverage(
+                plan=backbone_plan,
+                materials=candidate.get("materials") or {},
+                owner_refs=shared_owner_refs,
+                deterministic_empty_segment_refs=expected_backbone_routing[
+                    "deterministic_empty_segment_refs"
+                ],
+            )
+            if _shared_current_has_complete_subject_coverage(
+                candidate=candidate,
+                expected_backbone_identity=shared_backbone_identity,
+                recomputed_coverage=candidate_subject_coverage,
+            ):
+                shared_backbone_current = candidate.get("materials")
             # Exact batch/segment fingerprints inside the material remain safe
             # seeds when a shared range expands. The extractor will call the
             # model only for genuinely missing or contract-changed atoms, then
             # replace the current with the new complete identity.
-            shared_backbone_current = candidate.get("materials")
             shared_backbone_previous_identity = str(
                 candidate.get("backbone_identity") or ""
             )
     combined_backbone_current = _merge_neutral_currents(
-        [shared_backbone_current, current_neutral]
+        [shared_backbone_seed, current_neutral]
     )
     model_policy = yaml.safe_load(
         (workspace_root / "config/model-policy.yml").read_text(encoding="utf-8")
@@ -872,10 +984,7 @@ def rebuild_emperor(
             for row in source_pack.get("members") or ()
         },
     }
-    backbone_subject_ref_by_name = {
-        name: identity_resolver.entity_for_name(name).person_ref
-        for name in shared_owner_names
-    } or {
+    backbone_subject_ref_by_name = shared_owner_refs or {
         str(source_pack["ruler"]): str(source_pack["ruler_ref"])
     }
     deterministic_campaigns = discover_deterministic_backbone_campaigns(
@@ -924,12 +1033,38 @@ def rebuild_emperor(
         maximum_recoveries=0,
     )
     backbone_model_call_count = int(backbone_materials.pop("model_call_count"))
+    backbone_materials["deterministic_routing"] = routed_backbone_plan[
+        "deterministic_routing"
+    ]
     backbone_materials["chronicle_role_projections"] = (
         build_chronicle_role_projections(
             plan=routed_backbone_plan,
             neutral_materials=backbone_materials,
         )
     )
+    shared_subject_coverage = (
+        _shared_subject_coverage(
+            plan=backbone_plan,
+            materials=backbone_materials,
+            owner_refs=backbone_subject_ref_by_name,
+            deterministic_empty_segment_refs=routed_backbone_plan[
+                "deterministic_routing"
+            ]["deterministic_empty_segment_refs"],
+        )
+        if shared_backbone_token
+        else None
+    )
+    if shared_subject_coverage is not None and not shared_subject_coverage[
+        "coverage_complete"
+    ]:
+        incomplete = [
+            str(row["canonical_name"])
+            for row in shared_subject_coverage["subjects"]
+            if not row["coverage_complete"]
+        ]
+        raise ValueError(
+            "共享编年主体中性抽取覆盖不完整: " + ",".join(incomplete)
+        )
     if shared_backbone_path is not None:
         _atomic_text(
             shared_backbone_path,
@@ -941,6 +1076,7 @@ def rebuild_emperor(
                     "backbone_identity": shared_backbone_identity,
                     "source_index_identity": source_index.identity,
                     "extraction_contract": shared_backbone_extraction_contract,
+                    "subject_coverage": shared_subject_coverage,
                     "materials": backbone_materials,
                     "formal_write": False,
                 },
@@ -1188,6 +1324,7 @@ def rebuild_emperor(
         "shared_backbone_event_signature_count": len(
             accepted_event_signatures
         ),
+        "shared_backbone_subject_coverage": shared_subject_coverage,
         "ruler_event_signature_count": len(current_event_signatures),
         "ruler_backbone_fact_count": len(
             (

@@ -52,6 +52,8 @@ from emperor_v4.runtime.emperor_rebuild import (
     _run_with_model_anomaly_recovery,
     _shared_backbone_identity,
     _shared_backbone_contract,
+    _shared_current_has_complete_subject_coverage,
+    _shared_subject_coverage,
 )
 from emperor_v4.runtime import (
     emperor_rebuild as emperor_rebuild_module,
@@ -949,7 +951,7 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
         "owners": ["李世民", "李渊"],
         "works": ["資治通鑑"],
         "page_ranges": {"資治通鑑": [184, 199]},
-        "extraction_contract": "shared-ruler-chronicle-neutral-v1",
+        "extraction_contract": "shared-ruler-chronicle-neutral-v2",
     }
     assert all(
         "neutral_scan_backbone_works" not in rulers[name]
@@ -960,6 +962,167 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
     assert all(
         "neutral_material_reuse_rulers" not in configured
         for configured in rulers.values()
+    )
+
+
+def test_shared_subject_coverage_requires_every_ruler_window_to_be_resolved() -> None:
+    plan = {
+        "page_batches": [
+            {
+                "segments": [
+                    {
+                        "segment_ref": "SEG-A",
+                        "subject_refs": ["RULER-A"],
+                        "chronicle_ruler_ref": "RULER-A",
+                    },
+                    {
+                        "segment_ref": "SEG-B",
+                        "subject_refs": ["RULER-B"],
+                        "chronicle_ruler_ref": "RULER-B",
+                    },
+                    {
+                        "segment_ref": "SEG-B-NAMED",
+                        "subject_refs": ["RULER-B"],
+                    },
+                ]
+            }
+        ]
+    }
+    materials = {
+        "batch_results": [
+            {
+                "segment_reviews": [
+                    {"segment_ref": "SEG-A"},
+                    {"segment_ref": "SEG-B"},
+                ]
+            }
+        ],
+        "deterministic_routing": {
+            "deterministic_empty_segment_refs": ["SEG-B-NAMED"]
+        },
+        "fanout": {
+            "facts": [
+                {
+                    "fact_ref": "FACT-A",
+                    "actors": [
+                        {
+                            "subject_ref": "RULER-A",
+                            "role": "decision_maker",
+                        }
+                    ],
+                }
+            ]
+        },
+    }
+
+    coverage = _shared_subject_coverage(
+        plan=plan,
+        materials=materials,
+        owner_refs={"甲": "RULER-A", "乙": "RULER-B"},
+        deterministic_empty_segment_refs=["SEG-B-NAMED"],
+    )
+
+    assert coverage["coverage_complete"] is True
+    assert coverage["subjects"] == [
+        {
+            "canonical_name": "乙",
+            "subject_ref": "RULER-B",
+            "eligible_segment_count": 2,
+            "window_segment_count": 1,
+            "resolved_segment_count": 2,
+            "neutral_fact_count": 0,
+            "neutral_fact_refs": [],
+            "missing_segment_refs": [],
+            "coverage_complete": True,
+        },
+        {
+            "canonical_name": "甲",
+            "subject_ref": "RULER-A",
+            "eligible_segment_count": 1,
+            "window_segment_count": 1,
+            "resolved_segment_count": 1,
+            "neutral_fact_count": 1,
+            "neutral_fact_refs": ["FACT-A"],
+            "missing_segment_refs": [],
+            "coverage_complete": True,
+        },
+    ]
+
+
+def test_shared_subject_coverage_rejects_missing_or_unidentified_ruler_window() -> None:
+    coverage = _shared_subject_coverage(
+        plan={
+            "page_batches": [
+                {
+                    "segments": [
+                        {
+                            "segment_ref": "SEG-A",
+                            "subject_refs": ["RULER-A"],
+                            "chronicle_ruler_ref": "RULER-A",
+                        },
+                        {
+                            "segment_ref": "SEG-B",
+                            "subject_refs": ["RULER-B"],
+                        },
+                    ]
+                }
+            ]
+        },
+        materials={
+            "batch_results": [
+                {"segment_reviews": [{"segment_ref": "SEG-A"}]}
+            ],
+            "deterministic_routing": {
+                "deterministic_empty_segment_refs": []
+            },
+            "fanout": {"facts": []},
+        },
+        owner_refs={"甲": "RULER-A", "乙": "RULER-B"},
+        deterministic_empty_segment_refs=[],
+    )
+
+    assert coverage["coverage_complete"] is False
+    incomplete = next(
+        row for row in coverage["subjects"] if row["subject_ref"] == "RULER-B"
+    )
+    assert incomplete["window_segment_count"] == 0
+    assert incomplete["missing_segment_refs"] == ["SEG-B"]
+    assert incomplete["coverage_complete"] is False
+
+
+def test_shared_current_without_reproducible_subject_coverage_is_not_reusable() -> None:
+    coverage = {
+        "schema_version": "shared-chronicle-subject-coverage-v1",
+        "coverage_complete": True,
+        "subjects": [
+            {"subject_ref": "RULER-A", "coverage_complete": True},
+            {"subject_ref": "RULER-B", "coverage_complete": True},
+        ],
+    }
+
+    assert _shared_current_has_complete_subject_coverage(
+        candidate={
+            "backbone_identity": "IDENTITY",
+            "subject_coverage": coverage,
+        },
+        expected_backbone_identity="IDENTITY",
+        recomputed_coverage=coverage,
+    )
+    assert not _shared_current_has_complete_subject_coverage(
+        candidate={"backbone_identity": "IDENTITY"},
+        expected_backbone_identity="IDENTITY",
+        recomputed_coverage=coverage,
+    )
+    assert not _shared_current_has_complete_subject_coverage(
+        candidate={
+            "backbone_identity": "IDENTITY",
+            "subject_coverage": {
+                **coverage,
+                "subjects": coverage["subjects"][:1],
+            },
+        },
+        expected_backbone_identity="IDENTITY",
+        recomputed_coverage=coverage,
     )
 
 
@@ -1021,6 +1184,18 @@ def test_shared_backbone_identity_does_not_change_with_current_ruler(
     assert _shared_backbone_identity(li_shimin_plan) == _shared_backbone_identity(
         li_yuan_plan
     )
+    assert {
+        str(segment.get("chronicle_ruler_ref") or "")
+        for batch in li_shimin_plan["page_batches"]
+        for segment in batch["segments"]
+        if segment.get("chronicle_ruler_ref")
+    } == {li_shimin_ref, li_yuan_ref}
+    assert {
+        str(value)
+        for batch in li_shimin_plan["page_batches"]
+        for segment in batch["segments"]
+        for value in segment["subject_refs"]
+    } == {li_shimin_ref, li_yuan_ref}
     assert _shared_backbone_identity(
         li_shimin_plan, extraction_contract="shared-neutral-v1"
     ) != _shared_backbone_identity(
