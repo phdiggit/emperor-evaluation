@@ -287,6 +287,33 @@ def test_outcome_projection_normalizes_ruler_talent_credit() -> None:
     )
 
 
+def test_outcome_projection_maps_adversity_quote_terminal_punctuation() -> None:
+    payload = _campaign_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["payload"]["process_adversity_attributions"] = [
+        {
+            "actor_name": None,
+            "responsibility": "external_unattributed",
+            "basis": "测试",
+            "exact_quotes": ["前军战小却。"],
+        }
+    ]
+    facts = [
+        {
+            "segment_ref": "SEG-TEST",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "测试战役取得阶段结果，前军战小却，后军继进。",
+        }
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert normalized["candidates"][0]["payload"][
+        "process_adversity_attributions"
+    ][0]["exact_quotes"] == ["前军战小却"]
+
+
 def test_outcome_projection_expands_quote_to_same_revision_paragraph(
     tmp_path: Path,
 ) -> None:

@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v13"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v14"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 DIRECT_MODEL_FACT_LIMIT = 16
 _T2S = OpenCC("t2s")
@@ -223,15 +223,21 @@ def _normalize_candidate_sources(
 
     def canonical_quote(value: object) -> str:
         quote = str(value)
-        normalized = _T2S.convert(quote)
-        matches = set()
-        for fact_quote in fact_quotes:
-            start = _T2S.convert(fact_quote).find(normalized)
-            if start >= 0:
-                candidate = fact_quote[start : start + len(quote)]
-                if _T2S.convert(candidate) == normalized:
-                    matches.add(candidate)
-        return next(iter(matches)) if len(matches) == 1 else quote
+        candidates = [quote]
+        if quote.endswith(("。", "；", "，", "！", "？")):
+            candidates.append(quote[:-1])
+        for candidate_quote in candidates:
+            normalized = _T2S.convert(candidate_quote)
+            matches = set()
+            for fact_quote in fact_quotes:
+                start = _T2S.convert(fact_quote).find(normalized)
+                if start >= 0:
+                    candidate = fact_quote[start : start + len(candidate_quote)]
+                    if _T2S.convert(candidate) == normalized:
+                        matches.add(candidate)
+            if len(matches) == 1:
+                return next(iter(matches))
+        return quote
 
     retained_candidates = []
     rejections = list(payload.get("rejections") or ())
@@ -268,6 +274,13 @@ def _normalize_candidate_sources(
             member["authorization_quotes"] = [
                 canonical_quote(value)
                 for value in member.get("authorization_quotes") or ()
+            ]
+        for attribution in (candidate.get("payload") or {}).get(
+            "process_adversity_attributions"
+        ) or ():
+            attribution["exact_quotes"] = [
+                canonical_quote(value)
+                for value in attribution.get("exact_quotes") or ()
             ]
         quote_matches = [
             [
