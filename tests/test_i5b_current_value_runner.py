@@ -6568,6 +6568,19 @@ def test_direct_runner_uses_the_same_markdown_contract(
     assert "| 画像号 | 人物 | 总档 | 定级理由 |" in markdown
 
 
+def test_liyuan_team_table_explains_membership_and_links_shared_profiles() -> None:
+    markdown = (
+        ROOT / "eval/i5b_current_value/李渊/result.md"
+    ).read_text(encoding="utf-8")
+    team_section = markdown.split("## 团队建设", 1)[1].split("## 容人保全", 1)[0]
+
+    assert "计入团队依据 / 风险事实" in team_section
+    assert "李渊在统一战争中持续直接授予方面主帅责任" in team_section
+    assert "[李世民](#profile-PINV-637B07646A8DD7C229DC)" in team_section
+    assert '<a id="profile-PINV-637B07646A8DD7C229DC"></a>李世民' in markdown
+    assert "civil_governance：作为主导完成" not in team_section
+
+
 def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
     tmp_path: Path,
 ) -> None:

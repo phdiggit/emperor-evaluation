@@ -1705,7 +1705,8 @@ def render_scoring_detail_markdown(
             )
             grade_basis = str(profile["overall_basis"]).replace("|", "／").replace("\n", " ")
             lines.append(
-                f"| {profile['profile_ref']} | {profile['person']} | "
+                f"| {profile['profile_ref']} | "
+                f"<a id=\"profile-{profile['profile_ref']}\"></a>{profile['person']} | "
                 f"{overall_grade} | {grade_basis} | "
                 f"{display_grade('military')} | {display_grade('civil_governance')} | "
                 f"{display_grade('statecraft')} | "

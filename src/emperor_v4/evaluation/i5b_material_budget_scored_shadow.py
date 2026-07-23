@@ -1254,6 +1254,10 @@ def _build_team_rule(
                 "talent_grade": row["effective_talent_grade"],
                 "talent_value": str(row["talent_value"]),
                 "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
+                "team_membership_basis": str(
+                    row.get("team_membership_basis")
+                    or "已通过当前皇帝窗口团队归责审阅。"
+                ),
                 "talent_profile_basis": dict(row.get("talent_profile_basis") or {}),
                 "political_risk": dict(row.get("political_risk") or {}),
                 "role_families": list(row.get("role_families") or []),
@@ -1534,14 +1538,15 @@ def render_i5b_material_budget_shadow_markdown(report: Mapping[str, Any]) -> str
                     f"正池 `{len(rule['positive_members'])}/{rule['positive_member_budget']}`，"
                     f"负池 `{len(rule['negative_members'])}/{rule['negative_member_budget']}`。",
                     "",
-                    "| 对象 | 方向 | 数值 | 档位 / 风险 | 计分事实 |",
+                    "| 对象 | 方向 | 数值 | 档位 / 风险 | 计入团队依据 / 风险事实 |",
                     "| --- | --- | ---: | --- | --- |",
                 ]
             )
             for row in rule["positive_members"]:
                 lines.append(
-                    f"| {row['person']} | 正向 | {row['talent_value']} | "
-                    f"{row['talent_grade']} | {row['talent_grade_basis']} |"
+                    f"| [{row['person']}](#profile-{row['profile_ref']}) | 正向 | "
+                    f"{row['talent_value']} | {row['talent_grade']} | "
+                    f"{row['team_membership_basis']} |"
                 )
             for row in rule["negative_members"]:
                 political_risk = row.get("political_risk") or {}
