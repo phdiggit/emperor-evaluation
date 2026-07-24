@@ -231,6 +231,14 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                 "durable_cross_stage": False,
                 "authorization_status": "explicit",
                 "causal_attribution_status": "established",
+                "value_judgment": {
+                    "overall_direction": "positive",
+                    "productivity_effect": "beneficial",
+                    "civilization_effect": "beneficial",
+                    "social_cost": "limited",
+                    "effect_horizon": "long",
+                    "basis": "制度投入运行并形成公共收益，未见足以逆转方向的社会代价。",
+                },
                 "theater": None,
                 "strategic_objective": None,
                 "battle_result": None,
@@ -1034,6 +1042,19 @@ def test_governance_candidate_keeps_scale_and_lead_role(tmp_path: Path) -> None:
     outcome = increment["outcomes"][0]
     assert outcome["scale"]["level"] == "important"
     assert outcome["members"][0]["role_code"] == "lead"
+    assert outcome["payload"]["value_judgment"]["overall_direction"] == "positive"
+    outcome["episode_refs"] = [outcome_episode_ref(outcome)]
+    outcome["semantic_fingerprint"] = cluster_semantic_fingerprint(outcome)
+    validation = validate_historical_outcome_registry(
+        {
+            "schema_version": "historical-outcome-cluster-registry-v2",
+            "status": "shadow",
+            "clusters": [outcome],
+        },
+        schema_path=ROOT / "config/historical-outcome-cluster-registry.schema.json",
+        facts={row["record_ref"]: row for row in increment["facts"]},
+    )
+    assert validation["status"] == "passed"
 
 
 def test_structured_runner_timeout_terminates_tree_without_waiting_on_pipes(

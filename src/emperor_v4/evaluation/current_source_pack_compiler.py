@@ -333,6 +333,11 @@ def compile_outcome_candidate_payloads(
                         "durable_cross_stage",
                         "authorization_status",
                         "causal_attribution_status",
+                        *(
+                            ("value_judgment",)
+                            if candidate["outcome_kind"] == "governance"
+                            else ()
+                        ),
                     )
                     if candidate["payload"].get(key) is None
                 ]
@@ -472,6 +477,7 @@ def compile_outcome_candidate_payloads(
                             member["delegated_responsibility"] = {
                                 "authorizer_ref": str(source_pack["ruler_ref"]),
                                 "scope": raw_member["responsibility_scope"],
+                                "importance_basis": candidate["scale_reason"],
                                 "basis": (
                                     f"{raw_member['contribution_scope']}；固定史源明确其在"
                                     "当前统治窗口内统领国家军队且未见自立、越权或皇帝阻挠，"
@@ -493,6 +499,7 @@ def compile_outcome_candidate_payloads(
                         member["delegated_responsibility"] = {
                             "authorizer_ref": str(source_pack["ruler_ref"]),
                             "scope": raw_member["responsibility_scope"],
+                            "importance_basis": candidate["scale_reason"],
                             "basis": raw_member["contribution_scope"],
                             "authorization_refs": [
                                 f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
@@ -696,6 +703,10 @@ def compile_outcome_candidate_payloads(
                         "causal_attribution_status",
                     )
                 }
+                if candidate["outcome_kind"] == "governance":
+                    outcome_payload["value_judgment"] = dict(
+                        raw_payload["value_judgment"]
+                    )
             outcome_ref = "OUTCOME-AUTO-" + _digest(candidate_key)[:20].upper()
             outcomes.append(
                 {

@@ -77,6 +77,22 @@
               "durable_cross_stage": {"type": ["boolean", "null"]},
               "authorization_status": {"type": ["string", "null"], "enum": ["explicit", "maintained", "implicit", "not_established", null]},
               "causal_attribution_status": {"type": ["string", "null"], "enum": ["established", "source_attributed", "limited", null]},
+              "value_judgment": {
+                "type": ["object", "null"],
+                "additionalProperties": false,
+                "required": [
+                  "overall_direction", "productivity_effect", "civilization_effect",
+                  "social_cost", "effect_horizon", "basis"
+                ],
+                "properties": {
+                  "overall_direction": {"type": "string", "enum": ["positive", "mixed", "negative", "unclear"]},
+                  "productivity_effect": {"type": "string", "enum": ["beneficial", "adverse", "mixed", "not_established"]},
+                  "civilization_effect": {"type": "string", "enum": ["beneficial", "adverse", "mixed", "not_established"]},
+                  "social_cost": {"type": "string", "enum": ["beneficial", "limited", "material", "severe", "not_established"]},
+                  "effect_horizon": {"type": "string", "enum": ["short", "medium", "long", "cross_stage", "unclear"]},
+                  "basis": {"type": "string", "minLength": 1}
+                }
+              },
               "theater": {"type": ["string", "null"]},
               "strategic_objective": {"type": ["string", "null"]},
               "battle_result": {"type": ["string", "null"], "enum": ["victory", "mixed", "defeat", "unclear", null]},
@@ -162,12 +178,14 @@
             "then": {
               "properties": {
                 "payload": {
+                  "required": ["value_judgment"],
                   "properties": {
                     "domain": {"type": "string"},
                     "foundational": {"type": "boolean"},
                     "durable_cross_stage": {"type": "boolean"},
-                    "authorization_status": {"type": "string"}
-                    ,"causal_attribution_status": {"type": "string"}
+                    "authorization_status": {"type": "string"},
+                    "causal_attribution_status": {"type": "string"},
+                    "value_judgment": {"type": "object"}
                   }
                 }
               }
