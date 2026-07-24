@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import socket
 import stat
@@ -296,6 +297,43 @@ def _read_json(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise SessionControlError(f"运行时合同不是 object: {path}")
     return payload
+
+
+def _accepted_outcome_stage_source_pack_sha(
+    *,
+    lease: Mapping[str, Any],
+    workspace_source_pack: Path,
+) -> str | None:
+    if (
+        str(lease.get("stage") or "") != "awaiting_review"
+        or str(lease.get("review_stage") or "") != "outcome_projection"
+    ):
+        return None
+    stage_root = (
+        Path(str(lease["runtime_root"])) / "stages" / "outcome_projection"
+    )
+    manifest_path = stage_root / "current.json"
+    if not manifest_path.is_file():
+        return None
+    manifest = _read_json(manifest_path)
+    artifact = (manifest.get("artifacts") or {}).get("source_pack") or {}
+    artifact_file = str(artifact.get("file") or "")
+    artifact_sha = str(artifact.get("sha256") or "")
+    if (
+        manifest.get("schema_version") != "emperor-stage-manifest-v1"
+        or manifest.get("stage") != "outcome_projection"
+        or manifest.get("status") != "quality_accepted"
+        or artifact_file != "source_pack.json"
+        or not re.fullmatch(r"[0-9a-f]{64}", artifact_sha)
+    ):
+        return None
+    staged_source_pack = stage_root / artifact_file
+    if (
+        _file_sha256(staged_source_pack) != artifact_sha
+        or _file_sha256(workspace_source_pack) != artifact_sha
+    ):
+        return None
+    return artifact_sha
 
 
 def _release_identity(release_root: Path) -> str:
@@ -1663,6 +1701,10 @@ def upgrade_failed_session_release(
         and _file_sha256(target) != expected.get(key)
     ]
     workspace_source_pack = workspace_root / str(configured["source_pack"])
+    accepted_stage_source_pack_sha = _accepted_outcome_stage_source_pack_sha(
+        lease=lease,
+        workspace_source_pack=workspace_source_pack,
+    )
     outcome_review_contract_reset = None
     if stage == "awaiting_review" and lease.get("review_stage") == (
         "outcome_projection"
@@ -1674,7 +1716,10 @@ def upgrade_failed_session_release(
         )
     if expected.get("source_pack") is not None:
         if _file_sha256(workspace_source_pack) != expected.get("source_pack"):
-            if outcome_review_contract_reset is None:
+            if (
+                outcome_review_contract_reset is None
+                and accepted_stage_source_pack_sha is None
+            ):
                 raise SessionControlError("会话 workspace source-pack 已偏离认领输入")
     current_ruler_source_pack_schema_migration = (
         "source_pack" in changed_inputs
@@ -1832,6 +1877,7 @@ def upgrade_failed_session_release(
     if (
         current_ruler_source_pack_schema_migration
         or outcome_review_contract_reset is not None
+        or accepted_stage_source_pack_sha is not None
     ):
         lease.setdefault("canonical_expected_sha256", {})["source_pack"] = (
             _file_sha256(workspace_source_pack)
@@ -1868,6 +1914,9 @@ def upgrade_failed_session_release(
         ),
         "session_owned_outcome_review_pack_preserved": (
             session_owned_outcome_review_pack
+        ),
+        "accepted_stage_source_pack_preserved": (
+            accepted_stage_source_pack_sha is not None
         ),
         "other_ruler_canonical_refreshes": other_ruler_canonical_refreshes,
         "database_write_count": 0,
