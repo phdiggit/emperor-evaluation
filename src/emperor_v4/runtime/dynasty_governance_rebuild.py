@@ -121,6 +121,7 @@ def _sanitize_task_payload(
         ):
             dropped += 1
             continue
+        chain, _normalized = _normalize_unsupported_chain_summaries(chain)
         seen_chain_keys.add(chain_key)
         seen_evidence_identities.add(evidence_identity)
         accepted.append(chain)
@@ -130,6 +131,64 @@ def _sanitize_task_payload(
             f"确定性拒绝 {dropped} 条无法逐字回指、重复或 actor 引用越界的候选链。"
         )
     return {**payload, "chains": accepted, "limitations": list(dict.fromkeys(limitations))}
+
+
+_UNSUPPORTED_SUMMARY_MARKERS = (
+    "原文未载",
+    "原文未載",
+    "未说明",
+    "未說明",
+    "未明确",
+    "未明確",
+    "not recorded",
+    "not shown",
+)
+
+
+def _is_substantive_summary(value: object) -> bool:
+    text = str(value or "").strip()
+    return bool(text) and not any(
+        marker in text for marker in _UNSUPPORTED_SUMMARY_MARKERS
+    )
+
+
+def _normalize_unsupported_chain_summaries(
+    source_chain: Mapping[str, Any],
+) -> tuple[dict[str, Any], int]:
+    """Keep chain summaries inside the roles supported by exact quotations."""
+
+    chain = dict(source_chain)
+    evidence_roles = {
+        str(role)
+        for evidence in chain.get("evidence") or ()
+        for role in evidence.get("evidence_roles") or ()
+    }
+    normalized = 0
+    if (
+        _is_substantive_summary(chain.get("observable_result"))
+        and "public_result" not in evidence_roles
+    ):
+        chain["observable_result"] = ""
+        normalized += 1
+    if (
+        _is_substantive_summary(chain.get("cost_or_burden"))
+        and "cost_or_burden" not in evidence_roles
+    ):
+        chain["cost_or_burden"] = ""
+        normalized += 1
+    return chain, normalized
+
+
+def _normalize_chain_collection(
+    chains: Sequence[Mapping[str, Any]],
+) -> tuple[list[dict[str, Any]], int]:
+    normalized_chains = []
+    normalized_summary_count = 0
+    for source_chain in chains:
+        chain, count = _normalize_unsupported_chain_summaries(source_chain)
+        normalized_chains.append(chain)
+        normalized_summary_count += count
+    return normalized_chains, normalized_summary_count
 
 
 def _restore_accepted_results(
@@ -409,7 +468,10 @@ def _build_source_manifest(
 
 
 def _quality_report(
-    *, audit: Mapping[str, Any], configured: Mapping[str, Any]
+    *,
+    audit: Mapping[str, Any],
+    configured: Mapping[str, Any],
+    semantic_summary_normalization_count: int = 0,
 ) -> dict[str, object]:
     observed_domains = sorted(
         {str(chain["domain"]) for chain in audit.get("chains") or ()}
@@ -449,32 +511,8 @@ def _quality_report(
         }
         result = str(chain.get("observable_result") or "").strip()
         cost = str(chain.get("cost_or_burden") or "").strip()
-        result_is_claim = bool(result) and not any(
-            marker in result
-            for marker in (
-                "原文未载",
-                "原文未載",
-                "未说明",
-                "未說明",
-                "未明确",
-                "未明確",
-                "not recorded",
-                "not shown",
-            )
-        )
-        cost_is_claim = bool(cost) and not any(
-            marker in cost
-            for marker in (
-                "原文未载",
-                "原文未載",
-                "未说明",
-                "未說明",
-                "未明确",
-                "未明確",
-                "not recorded",
-                "not shown",
-            )
-        )
+        result_is_claim = _is_substantive_summary(result)
+        cost_is_claim = _is_substantive_summary(cost)
         unsupported_result_summary_count += int(
             result_is_claim and "public_result" not in evidence_roles
         )
@@ -485,6 +523,11 @@ def _quality_report(
             four_axis_candidate_chain_count += 1
         else:
             context_only_chain_count += 1
+    passed = (
+        passed
+        and unsupported_result_summary_count == 0
+        and unsupported_cost_summary_count == 0
+    )
     return {
         "status": "passed" if passed else "failed_closed",
         "audit_status": str(audit.get("status") or ""),
@@ -502,6 +545,9 @@ def _quality_report(
             "context_only_chain_count": context_only_chain_count,
             "unsupported_result_summary_count": unsupported_result_summary_count,
             "unsupported_cost_summary_count": unsupported_cost_summary_count,
+            "semantic_summary_normalization_count": (
+                semantic_summary_normalization_count
+            ),
             "cross_reign_chain_count": sum(
                 str(chain.get("temporal_scope") or "")
                 in {"cross_reign_continuity", "cross_dynastic_continuity"}
@@ -605,17 +651,64 @@ def rebuild_dynasty_governance(
             )
             if exact_current or compatible_current or index_superset_compatible:
                 shutil.rmtree(resume_root, ignore_errors=True)
+                normalized_chains, normalized_summary_count = (
+                    _normalize_chain_collection(current.get("chains") or ())
+                )
+                normalized_audit = {
+                    "schema_version": AUDIT_SCHEMA_VERSION,
+                    "status": "accepted_shadow",
+                    "task_count": int(
+                        (current.get("quality") or {}).get("task_count") or 0
+                    ),
+                    "accepted_task_count": int(
+                        (current.get("quality") or {}).get(
+                            "accepted_task_count"
+                        )
+                        or 0
+                    ),
+                    "chain_count": len(normalized_chains),
+                    "quote_count": sum(
+                        len(chain.get("evidence") or ())
+                        for chain in normalized_chains
+                    ),
+                    "failures": [],
+                    "chains": normalized_chains,
+                }
+                normalized_quality = _quality_report(
+                    audit=normalized_audit,
+                    configured=configured,
+                    semantic_summary_normalization_count=(
+                        normalized_summary_count
+                    ),
+                )
+                if normalized_quality["status"] != "passed":
+                    raise ValueError(
+                        "政书中性材料复用迁移未通过四轴证据质量门: "
+                        + json.dumps(
+                            normalized_quality,
+                            ensure_ascii=False,
+                            sort_keys=True,
+                        )
+                    )
+                quality_changed = current.get("quality") != normalized_quality
                 current = {
                     **current,
                     "input_fingerprint": input_fingerprint,
                     "extraction_policy": EXTRACTION_POLICY_VERSION,
                     "source_index_identity": index.identity,
                     "sources": source_identities,
+                    "quality": normalized_quality,
+                    "chains": normalized_chains,
                     "output_schema_sha256": extraction_identity[
                         "output_schema_sha256"
                     ],
                 }
-                if compatible_current or index_superset_compatible:
+                if (
+                    compatible_current
+                    or index_superset_compatible
+                    or normalized_summary_count
+                    or quality_changed
+                ):
                     _atomic_json(current_path, current)
                 return {
                     **current,
@@ -790,10 +883,14 @@ def rebuild_dynasty_governance(
             output_schema_path=schema_path,
         )
         incremental_reused_chain_count = 0
+        semantic_summary_normalization_count = 0
         if incremental_seed is not None:
-            seeded_chains = [
-                dict(chain) for chain in incremental_seed.get("chains") or ()
-            ]
+            (
+                seeded_chains,
+                semantic_summary_normalization_count,
+            ) = _normalize_chain_collection(
+                incremental_seed.get("chains") or ()
+            )
             incremental_reused_chain_count = len(seeded_chains)
             seen_chain_keys = {
                 str(chain.get("chain_key") or "") for chain in seeded_chains
@@ -829,7 +926,26 @@ def rebuild_dynasty_governance(
                     len(chain.get("evidence") or ()) for chain in combined_chains
                 ),
             }
-        quality = _quality_report(audit=audit, configured=configured)
+        normalized_audit_chains, added_normalization_count = (
+            _normalize_chain_collection(audit.get("chains") or ())
+        )
+        semantic_summary_normalization_count += added_normalization_count
+        audit = {
+            **audit,
+            "chains": normalized_audit_chains,
+            "chain_count": len(normalized_audit_chains),
+            "quote_count": sum(
+                len(chain.get("evidence") or ())
+                for chain in normalized_audit_chains
+            ),
+        }
+        quality = _quality_report(
+            audit=audit,
+            configured=configured,
+            semantic_summary_normalization_count=(
+                semantic_summary_normalization_count
+            ),
+        )
         if quality["status"] != "passed":
             raise ValueError(
                 "政书中性材料未通过质量门: "

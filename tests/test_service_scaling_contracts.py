@@ -309,6 +309,16 @@ dynasty_governance_scans:
         ),
     }
     first = dynasty_governance_rebuild.rebuild_dynasty_governance(**arguments)
+    current_path = tmp_path / "runtime" / "TEST" / "current.json"
+    legacy_current = json.loads(current_path.read_text(encoding="utf-8"))
+    legacy_current["chains"][0]["observable_result"] = (
+        "旧 current 留有未被逐字证据角色支持的结果摘要"
+    )
+    current_path.write_text(
+        json.dumps(legacy_current, ensure_ascii=False, sort_keys=True, indent=2)
+        + "\n",
+        encoding="utf-8",
+    )
     second = dynasty_governance_rebuild.rebuild_dynasty_governance(
         **{
             **arguments,
@@ -391,18 +401,24 @@ dynasty_governance_scans:
         "policy": "evidence_role_gated",
         "four_axis_candidate_chain_count": 0,
         "context_only_chain_count": 1,
-        "unsupported_result_summary_count": 1,
+        "unsupported_result_summary_count": 0,
         "unsupported_cost_summary_count": 0,
+        "semantic_summary_normalization_count": 0,
         "cross_reign_chain_count": 0,
         "court_only_chain_count": 1,
         "observed_outcome_chain_count": 0,
     }
+    assert first["chains"][0]["observable_result"] == ""
     assert second["reused"] is True
+    assert second["model_call_count"] == 0
+    assert second["chains"][0]["observable_result"] == ""
+    assert second["quality"]["four_axis_projection_readiness"][
+        "semantic_summary_normalization_count"
+    ] == 1
     assert previous_identity != expanded_identity
     assert third["reused"] is True
     assert third["source_index_identity"] == expanded_identity
     assert third["model_call_count"] == 0
-    assert second["model_call_count"] == 0
     assert fourth["reused"] is False
     assert fourth["model_call_count"] == 1
     assert fourth["incremental_reused_chain_count"] == 1
