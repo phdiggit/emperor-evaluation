@@ -383,6 +383,32 @@ def _is_shared_migratable_canonical(key: str) -> bool:
     } or key.startswith("outcome_binding_")
 
 
+def _refresh_other_ruler_source_packs(
+    *,
+    release_root: Path,
+    workspace_root: Path,
+    rulers: Mapping[str, object],
+    current_ruler: str,
+) -> list[str]:
+    """Refresh read-only source-pack baselines owned by other ruler chains."""
+
+    refreshed = []
+    for ruler_name, ruler_config in sorted(rulers.items()):
+        if ruler_name == current_ruler or not isinstance(ruler_config, Mapping):
+            continue
+        relative = Path(str(ruler_config["source_pack"]))
+        source = release_root / relative
+        if not source.is_file():
+            continue
+        target = workspace_root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.is_file() and _file_sha256(target) == _file_sha256(source):
+            continue
+        shutil.copy2(source, target)
+        refreshed.append(relative.as_posix())
+    return refreshed
+
+
 def _control_root(state_root: Path) -> Path:
     return state_root.resolve() / "session-control"
 
@@ -1579,6 +1605,12 @@ def upgrade_failed_session_release(
         encoding="utf-8",
         newline="\n",
     )
+    other_ruler_canonical_refreshes = _refresh_other_ruler_source_packs(
+        release_root=release_root,
+        workspace_root=workspace_root,
+        rulers=rulers,
+        current_ruler=str(lease["ruler"]),
+    )
 
     previous_release_sha = str(lease["release_sha"])
     lease["release_sha"] = target_release_sha
@@ -1603,6 +1635,7 @@ def upgrade_failed_session_release(
         "checkpoint_preserved": True,
         "workspace_preserved": True,
         "shared_canonical_migrations": shared_canonical_migrations,
+        "other_ruler_canonical_refreshes": other_ruler_canonical_refreshes,
         "database_write_count": 0,
         "formal_score_write_count": 0,
     }

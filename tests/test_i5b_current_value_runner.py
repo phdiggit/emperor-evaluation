@@ -2622,6 +2622,11 @@ def test_failed_session_can_adopt_repaired_release_without_losing_checkpoint(
         ),
         encoding="utf-8",
     )
+    other_source_pack = release / "eval/i5b_current_value/李世民/source-pack.json"
+    other_source_pack.write_text(
+        other_source_pack.read_text(encoding="utf-8") + "\n",
+        encoding="utf-8",
+    )
     release_sha["value"] = "2" * 40
 
     report = emperor_session_control.upgrade_failed_session_release(
@@ -2643,6 +2648,14 @@ def test_failed_session_can_adopt_repaired_release_without_losing_checkpoint(
     assert refreshed_project["i5b_current_value"]["rulers"]["李治"][
         "dynasty_governance_material_token"
     ] == "TANG"
+    workspace_other_source_pack = (
+        Path(lease["workspace_root"])
+        / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    assert workspace_other_source_pack.read_bytes() == other_source_pack.read_bytes()
+    assert report["other_ruler_canonical_refreshes"] == [
+        "eval/i5b_current_value/李世民/source-pack.json"
+    ]
 
 
 def test_bootstrap_assets_required_session_can_adopt_repaired_release(
