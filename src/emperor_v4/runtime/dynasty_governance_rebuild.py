@@ -253,7 +253,11 @@ def _catalog_dynasty_config(
         if not isinstance(row, Mapping):
             continue
         aliases = {str(value).strip() for value in row.get("aliases") or ()}
-        if normalized == str(name) or normalized in aliases:
+        if (
+            normalized == str(name)
+            or normalized in aliases
+            or normalized == str(row.get("dynasty_token") or "").strip()
+        ):
             return str(name), {
                 **row,
                 "quality_requires_catalog_source_families": bool(

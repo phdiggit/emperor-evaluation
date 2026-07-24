@@ -1938,6 +1938,11 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
     project = yaml.safe_load(
         (ROOT / "config/project.yml").read_text(encoding="utf-8")
     )
+    token_name, token_configured = load_dynasty_governance_catalog_entry(
+        ROOT, "MING"
+    )
+    assert token_name == "明"
+    assert token_configured["dynasty_token"] == "MING"
     configured = {
         **project["dynasty_governance_catalog"]["dynasties"]["明"],
         "quality_requires_catalog_source_families": True,

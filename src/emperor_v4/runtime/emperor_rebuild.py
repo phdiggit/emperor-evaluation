@@ -972,7 +972,9 @@ def rebuild_emperor(
             )
         ):
             raise ValueError("朝代政书 current 头部合同与皇帝链路不匹配")
-        catalog_dynasty = str(source_pack.get("dynasty") or "").strip()
+        catalog_dynasty = str(
+            source_pack.get("dynasty") or dynasty_governance_token
+        ).strip()
         if catalog_dynasty:
             _canonical_dynasty, governance_catalog = (
                 load_dynasty_governance_catalog_entry(
