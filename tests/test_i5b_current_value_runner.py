@@ -1448,8 +1448,8 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
             "outcome_binding": "eval/historical_outcome_bindings/朱元璋.json",
             "neutral_materials": "eval/i5b_current_value/朱元璋/neutral-materials.json",
             "result": "eval/i5b_current_value/朱元璋/result.json",
-            "neutral_scan_backbone_works": ["明太祖實錄"],
-            "neutral_scan_backbone_page_ranges": {"明太祖實錄": [1, 2]},
+            "neutral_scan_backbone_works": ["明史"],
+            "neutral_scan_backbone_page_ranges": {"明史": [1, 3]},
             "dynasty_governance_material_token": "MING",
             "dynasty_governance_period_terms": ["洪武", "明太祖", "朱元璋"],
         },
@@ -1469,6 +1469,28 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     spec_path.write_text(
         json.dumps(spec, ensure_ascii=False), encoding="utf-8"
     )
+    rejected = json.loads(json.dumps(spec, ensure_ascii=False))
+    rejected["ruler_config"]["neutral_scan_backbone_works"] = [
+        "大明太祖高皇帝實錄"
+    ]
+    rejected["ruler_config"]["neutral_scan_backbone_page_ranges"] = {
+        "大明太祖高皇帝實錄": [1, 257]
+    }
+    rejected_path = tmp_path / "zhu-bootstrap-rejected.json"
+    rejected_path.write_text(
+        json.dumps(rejected, ensure_ascii=False), encoding="utf-8"
+    )
+    with pytest.raises(
+        emperor_session_control.SessionControlError,
+        match="禁止整套扫描高体量史书",
+    ):
+        emperor_session_control.complete_session_bootstrap(
+            state_root=state,
+            session_id="SESSION-ZHU-YUANZHANG",
+            bootstrap_spec_path=rejected_path,
+            source_index_root=tmp_path / "indexes",
+            dynasty_governance_root=tmp_path / "governance",
+        )
 
     report = emperor_session_control.complete_session_bootstrap(
         state_root=state,
@@ -1506,8 +1528,8 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     build_local_source_index(
         [
             {
-                "page_title": "明太祖實錄/卷一",
-                "work_title": "明太祖實錄",
+                "page_title": "明史/卷1",
+                "work_title": "明史",
                 "source_url": "local:ming-annals",
                 "revision_ref": "1",
                 "raw_text": "洪武元年即皇帝位。",
@@ -1553,7 +1575,7 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     emperor_session_control._atomic_json(lease_path, failed)
     revised_spec = json.loads(spec_path.read_text(encoding="utf-8"))
     revised_spec["ruler_config"]["neutral_scan_backbone_page_ranges"] = {
-        "明太祖實錄": [1, 1]
+        "明史": [1, 2]
     }
     spec_path.write_text(
         json.dumps(revised_spec, ensure_ascii=False), encoding="utf-8"
@@ -1575,7 +1597,7 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     )
     assert workspace_project["i5b_current_value"]["rulers"]["朱元璋"][
         "neutral_scan_backbone_page_ranges"
-    ] == {"明太祖實錄": [1, 1]}
+    ] == {"明史": [1, 2]}
 
 
 def test_dynasty_governance_catalog_covers_supported_eras() -> None:
@@ -1764,8 +1786,10 @@ def test_neutral_material_source_strategy_covers_supported_dynasty_routes() -> N
         "续资治通鉴长编",
     ]
     assert strategies["明"]["event_backsource"] == []
+    assert strategies["明"]["ruler_chronicles"] == ["明史"]
     assert strategies["明"]["person_biographies"] == ["明史"]
     assert strategies["清"]["event_backsource"] == []
+    assert strategies["清"]["ruler_chronicles"] == ["清史稿"]
     assert strategies["清"]["person_biographies"] == ["清史稿"]
     assert strategies["两晋十六国"]["fragmented_regime_routes"]["十六国"][
         "person_materials"

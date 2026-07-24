@@ -312,3 +312,52 @@ pinned_collections:
     assert current["inventory_complete"] is True
     assert current["carrier_missing_page_titles"] == []
     assert current["carrier_status"][0]["carriers_used"] == ["primary", "secondary"]
+
+
+def test_background_catalog_without_explicit_pages_never_downloads_whole_work(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    _write(repo / "config/project.yml", "dynasty_governance_catalog: {dynasties: {}}\n")
+    _write(
+        repo / "config/scope.yml",
+        """
+dynasties:
+  明:
+    neutral_material_strategy:
+      ruler_chronicles: [明史]
+      event_backsource: []
+      person_biographies: [明史]
+""".lstrip(),
+    )
+    _write(
+        repo / "config/catalog.yml",
+        """
+schema_version: workflow-source-cache-catalog-v1
+source_catalogs:
+  search_scope: config/scope.yml
+  project: config/project.yml
+  derive_neutral_material_works: true
+  derive_dynasty_governance_works: false
+provider: {max_pages_per_tick: 5}
+""".lstrip(),
+    )
+    fetch_count = 0
+
+    def forbidden_fetch(**_kwargs):
+        nonlocal fetch_count
+        fetch_count += 1
+        raise AssertionError("没有明确页面需求时禁止下载整书")
+
+    arguments = {
+        "catalog_path": repo / "config/catalog.yml",
+        "repo_root": repo,
+        "state_root": tmp_path / "state",
+        "request_root": tmp_path / "requests",
+        "index_root": tmp_path / "indexes",
+        "list_pages": lambda **_: ("明史/卷1", "明史/卷2", "明史/卷3"),
+        "fetch_pages": forbidden_fetch,
+    }
+    assert run_workflow_source_cache_once(**arguments)["action"] == "inventory_discovered"
+    assert run_workflow_source_cache_once(**arguments)["action"] == "idle"
+    assert fetch_count == 0

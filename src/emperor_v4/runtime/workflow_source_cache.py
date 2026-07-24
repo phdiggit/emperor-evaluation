@@ -626,6 +626,30 @@ def _build_collection(
     ]
     target_root = index_root / f"workflow-{_token(str(collection['collection_id'])).lower()}-current"
     target = target_root / f"workflow-{_token(str(collection['collection_id'])).lower()}.sqlite3"
+    current_path = target_root / "CURRENT.json"
+    collection_fingerprint = sha256(
+        json.dumps(
+            {
+                "collection_id": collection["collection_id"],
+                "works": [
+                    {
+                        "work_title": work["work_title"],
+                        "root_title": work["root_title"],
+                        "required_page_titles": list(_required_titles(work)),
+                    }
+                    for work in collection["works"]
+                ],
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    previous_fingerprint = None
+    if current_path.is_file():
+        previous_fingerprint = json.loads(
+            current_path.read_text(encoding="utf-8")
+        ).get("collection_fingerprint")
     available = set(rows)
     required = {
         title
@@ -661,7 +685,9 @@ def _build_collection(
     publish_partial = int(collection["priority"]) <= 5
     built = None
     if selected_metadata and (publish_partial or preload_complete) and (
-        force_rebuild or not target.is_file()
+        force_rebuild
+        or not target.is_file()
+        or previous_fingerprint != collection_fingerprint
     ):
         full_rows = {
             **_read_seed_rows(
@@ -682,6 +708,7 @@ def _build_collection(
     report = {
         "schema_version": "workflow-source-cache-collection-v1",
         "collection_id": collection["collection_id"],
+        "collection_fingerprint": collection_fingerprint,
         "purpose": collection["purpose"],
         "works": sorted(work_titles),
         "required_page_count": len(required),
@@ -698,7 +725,7 @@ def _build_collection(
         "model_call_count": 0,
         "updated_at": _now().isoformat(),
     }
-    _atomic_json(target_root / "CURRENT.json", report)
+    _atomic_json(current_path, report)
     return report
 
 
@@ -798,6 +825,12 @@ def run_workflow_source_cache_once(
                 catalog=catalog, work=work, state_root=state_root
             )
             required = _required_titles(work)
+            if (
+                not required
+                and str(collection.get("purpose") or "")
+                == "background_workflow_preload"
+            ):
+                continue
             for route, inventory in inventories:
                 inventory_titles = tuple(
                     str(title) for title in inventory.get("page_titles") or ()

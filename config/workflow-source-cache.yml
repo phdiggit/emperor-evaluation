@@ -17,29 +17,11 @@ carriers:
   defaults:
     - carrier_id: wikisource-zh
       provider_code: wikisource
-  works:
-    大明太祖高皇帝實錄:
-      - carrier_id: shidian-ls0026
-        provider_code: shidian
-        book_id: LS0026
-        catalog_url: https://www.shidianguji.com/zh/book/LS0026/chapter/1k6q55kfqaxwl
-        chapter_url_format: https://www.shidianguji.com/zh/book/LS0026/chapter/{chapter_id}
-        chapter_name_contains: 高皇帝實錄卷
-        first_volume: 1
-        last_volume: 257
-      - carrier_id: wikisource-zh
-        provider_code: wikisource
 
 pinned_collections:
   - collection_id: MING-HONGWU
-    purpose: 朱元璋连续实录、本纪与候选臣子列传
+    purpose: 朱元璋明史本纪与候选臣子列传
     works:
-      - work_title: 大明太祖高皇帝實錄
-        root_title: 大明太祖高皇帝實錄
-        required_page_ranges:
-          - page_title_format: 大明太祖高皇帝實錄/卷{volume:03d}
-            first: 1
-            last: 257
       - work_title: 明史
         root_title: 明史
         required_page_titles:

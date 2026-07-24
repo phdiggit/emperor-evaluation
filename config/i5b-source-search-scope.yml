@@ -12,6 +12,7 @@ neutral_material_defaults:
     - official_history_zai_ji_shi_jia_or_guo_zhuan
     - polity_chronicle_named_person_aggregation
   fragmented_regime_standalone_biography_required: false
+  max_backbone_pages_per_ruler: 64
 
 dynasties:
   秦:
@@ -204,8 +205,10 @@ dynasties:
   明:
     aliases: [南明]
     neutral_material_strategy:
-      mode: ruler_reign_record_single_backbone
-      ruler_chronicles: [明实录对应皇帝实录]
+      mode: official_annals_single_backbone
+      ruler_chronicles: [明史]
+      ruler_chronicle_sections: [对应皇帝本纪]
+      forbidden_backbone_name_fragments: [明实录, 實錄, 实录]
       event_backsource: []
       person_biographies: [明史]
       fragmented_regime_routes:
@@ -220,8 +223,10 @@ dynasties:
   清:
     aliases: [后金]
     neutral_material_strategy:
-      mode: ruler_reign_record_single_backbone
-      ruler_chronicles: [清实录对应皇帝实录]
+      mode: official_annals_single_backbone
+      ruler_chronicles: [清史稿]
+      ruler_chronicle_sections: [对应皇帝本纪]
+      forbidden_backbone_name_fragments: [清实录, 實錄, 实录]
       event_backsource: []
       person_biographies: [清史稿]
     scopes:

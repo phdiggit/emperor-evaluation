@@ -70,6 +70,120 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+_WORK_NAME_TRANSLATION = str.maketrans(
+    {
+        "實": "实",
+        "錄": "录",
+        "舊": "旧",
+        "書": "书",
+        "紀": "纪",
+        "傳": "传",
+        "資": "资",
+        "鑑": "鉴",
+        "續": "续",
+        "國": "国",
+    }
+)
+
+
+def _normalized_work_name(value: object) -> str:
+    return (
+        str(value)
+        .translate(_WORK_NAME_TRANSLATION)
+        .replace("对应皇帝", "")
+        .replace(" ", "")
+        .strip()
+    )
+
+
+def _neutral_material_strategy(
+    workspace_root: Path, dynasty: str
+) -> tuple[Mapping[str, Any], Mapping[str, Any]]:
+    path = workspace_root / "config/i5b-source-search-scope.yml"
+    payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+    defaults = payload.get("neutral_material_defaults") or {}
+    for canonical, row in (payload.get("dynasties") or {}).items():
+        if dynasty == str(canonical) or dynasty in {
+            str(alias) for alias in row.get("aliases") or ()
+        }:
+            strategy = row.get("neutral_material_strategy") or {}
+            if not isinstance(strategy, Mapping):
+                break
+            return defaults, strategy
+    raise SessionControlError(f"统一中性史源目录未覆盖朝代: {dynasty}")
+
+
+def _validate_bootstrap_source_scope(
+    *,
+    workspace_root: Path,
+    dynasty: str,
+    configured: Mapping[str, Any],
+) -> None:
+    if configured.get("neutral_scan_backbone_material_token"):
+        return
+    defaults, strategy = _neutral_material_strategy(workspace_root, dynasty)
+    backbone_works = [
+        str(work) for work in configured.get("neutral_scan_backbone_works") or ()
+    ]
+    normalized_backbones = {
+        _normalized_work_name(work) for work in backbone_works
+    }
+    forbidden_fragments = {
+        _normalized_work_name(fragment)
+        for fragment in strategy.get("forbidden_backbone_name_fragments") or ()
+    }
+    for work in normalized_backbones:
+        if any(fragment and fragment in work for fragment in forbidden_fragments):
+            raise SessionControlError(
+                f"bootstrap 连续主干禁止整套扫描高体量史书: {work}"
+            )
+    allowed_backbones = {
+        _normalized_work_name(work)
+        for work in strategy.get("ruler_chronicles") or ()
+    }
+    if allowed_backbones and not normalized_backbones <= allowed_backbones:
+        raise SessionControlError(
+            "bootstrap 连续主干不符合朝代统一书目: "
+            f"{sorted(normalized_backbones)} not in {sorted(allowed_backbones)}"
+        )
+    backsource_works = {
+        _normalized_work_name(work)
+        for work in configured.get("neutral_scan_backsource_works") or ()
+    }
+    allowed_backsources = {
+        _normalized_work_name(work)
+        for work in strategy.get("event_backsource") or ()
+    }
+    if not backsource_works <= allowed_backsources:
+        raise SessionControlError(
+            "bootstrap 事件回源不符合朝代统一书目: "
+            f"{sorted(backsource_works)} not in {sorted(allowed_backsources)}"
+        )
+    page_ranges = configured.get("neutral_scan_backbone_page_ranges") or {}
+    total_pages = 0
+    for work in backbone_works:
+        value = page_ranges.get(work)
+        if (
+            not isinstance(value, Sequence)
+            or isinstance(value, (str, bytes))
+            or len(value) != 2
+        ):
+            raise SessionControlError(f"bootstrap 连续主干缺少有效页范围: {work}")
+        start, end = int(value[0]), int(value[1])
+        if start <= 0 or end < start:
+            raise SessionControlError(f"bootstrap 连续主干页范围无效: {work}")
+        total_pages += end - start + 1
+    maximum = int(
+        strategy.get("max_backbone_pages_per_ruler")
+        or defaults.get("max_backbone_pages_per_ruler")
+        or 64
+    )
+    if total_pages > maximum:
+        raise SessionControlError(
+            f"bootstrap 连续主干超过统一页数上限: {total_pages} > {maximum}"
+        )
+
+
 def _digest(value: object) -> str:
     return sha256(
         json.dumps(
@@ -902,6 +1016,11 @@ def complete_session_bootstrap(
     ):
         raise SessionControlError("bootstrap ruler_config 缺少编年主干及连续范围")
     configured = dict(configured)
+    _validate_bootstrap_source_scope(
+        workspace_root=Path(str(lease["workspace_root"])),
+        dynasty=dynasty,
+        configured=configured,
+    )
     if not configured.get("neutral_scan_backbone_material_token"):
         ruler_heading_terms = list(
             configured.get("neutral_scan_ruler_heading_terms")
