@@ -956,21 +956,12 @@ def build_session_dynasty_governance(
     )
     if not works:
         raise SessionControlError(f"{canonical_dynasty}: 政书目录没有有效书目")
-    source_pack_path = (
-        workspace_root
-        / "eval"
-        / "i5b_current_value"
-        / str(lease["ruler"])
-        / "source-pack.json"
-    )
-    source_pack = (
-        _read_json(source_pack_path)
-        if source_pack_path.is_file()
-        else {"schema_version": "bootstrap-source-index-probe"}
-    )
     try:
         source_index = _resolve_source_index(
-            source_pack=source_pack,
+            # A dynasty-governance index is selected only for the catalogued
+            # specialist works.  Ruler source-pack facts belong to the later
+            # chronicle/person stages and must not widen this shared index.
+            source_pack={"facts": []},
             source_index_path=None,
             source_index_root=source_index_root,
             required_works=works,

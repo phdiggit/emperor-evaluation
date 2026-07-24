@@ -1976,10 +1976,16 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
         (),
         {"path": tmp_path / "tang-governance.sqlite3", "identity": "TANG-GOV-INDEX"},
     )()
+    resolved_index = {}
+
+    def resolve_index(**kwargs):
+        resolved_index.update(kwargs)
+        return fake_index
+
     monkeypatch.setattr(
         emperor_session_control,
         "_resolve_source_index",
-        lambda **_kwargs: fake_index,
+        resolve_index,
     )
     observed = {}
 
@@ -2015,6 +2021,8 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
     assert observed["workspace_root"] == Path(lease["workspace_root"]).resolve()
     assert observed["limits"].model_workers == 2
     assert observed["use_catalog"] is True
+    assert resolved_index["required_works"] == ("唐會要", "唐六典")
+    assert resolved_index["source_pack"] == {"facts": []}
 
 
 def test_ruler_session_reports_governance_catalog_before_source_fetch(
