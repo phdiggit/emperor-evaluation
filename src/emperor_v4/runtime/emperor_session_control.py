@@ -464,6 +464,41 @@ def _prepare_outcome_review_contract_reset(
     return migrated, len(clusters), len(facts)
 
 
+def _is_session_owned_outcome_review_pack(
+    workspace_path: Path,
+    target_path: Path,
+    *,
+    ruler: str,
+    ruler_ref: str,
+) -> bool:
+    """Recognize a reset v3 fact set without equating it to a release seed."""
+
+    if not workspace_path.is_file() or not target_path.is_file():
+        return False
+    workspace = _read_json(workspace_path)
+    target = _read_json(target_path)
+    for payload in (workspace, target):
+        declared = str(payload.get("source_pack_sha256") or "")
+        unsigned = dict(payload)
+        unsigned.pop("source_pack_sha256", None)
+        if (
+            not declared
+            or _digest(unsigned) != declared
+            or payload.get("ruler") != ruler
+            or payload.get("ruler_ref") != ruler_ref
+            or (payload.get("outcome_registry") or {}).get("schema_version")
+            != "historical-outcome-cluster-registry-v3"
+            or (payload.get("outcome_registry") or {}).get("clusters")
+        ):
+            return False
+    facts = list(workspace.get("facts") or ())
+    return bool(facts) and all(
+        str(row.get("record_ref") or "").startswith("PFACT-")
+        and row.get("assertions")
+        for row in facts
+    )
+
+
 def _refresh_other_ruler_source_packs(
     *,
     release_root: Path,
@@ -1631,6 +1666,17 @@ def upgrade_failed_session_release(
             workspace_source_pack, target_canonical["source_pack"]
         )
     )
+    session_owned_outcome_review_pack = (
+        "source_pack" in changed_inputs
+        and expected.get("source_pack") is not None
+        and _file_sha256(workspace_source_pack) == expected.get("source_pack")
+        and _is_session_owned_outcome_review_pack(
+            workspace_source_pack,
+            target_canonical["source_pack"],
+            ruler=str(lease["ruler"]),
+            ruler_ref=str(lease["ruler_ref"]),
+        )
+    )
     protected_changes = [
         key
         for key in changed_inputs
@@ -1639,6 +1685,7 @@ def upgrade_failed_session_release(
             key == "source_pack" and current_ruler_source_pack_schema_migration
         )
         and not (key == "source_pack" and outcome_review_contract_reset is not None)
+        and not (key == "source_pack" and session_owned_outcome_review_pack)
     ]
     if protected_changes:
         raise SessionControlError(
@@ -1800,6 +1847,9 @@ def upgrade_failed_session_release(
             }
             if outcome_review_contract_reset is not None
             else None
+        ),
+        "session_owned_outcome_review_pack_preserved": (
+            session_owned_outcome_review_pack
         ),
         "other_ruler_canonical_refreshes": other_ruler_canonical_refreshes,
         "database_write_count": 0,

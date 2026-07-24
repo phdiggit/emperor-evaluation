@@ -3296,6 +3296,15 @@ def test_release_upgrade_resets_v2_outcome_review_but_preserves_verified_facts(
         workspace_pack_path.read_bytes()
     ).hexdigest()
 
+    release_sha["value"] = "3" * 40
+    followup = emperor_session_control.upgrade_failed_session_release(
+        state_root=state,
+        session_id="SESSION-OUTCOME-CONTRACT-RESET",
+        release_root=release,
+    )
+    assert followup["session_owned_outcome_review_pack_preserved"] is True
+    assert json.loads(workspace_pack_path.read_text(encoding="utf-8")) == migrated
+
 
 def test_release_upgrade_refreshes_other_ruler_pack_before_shared_render(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
