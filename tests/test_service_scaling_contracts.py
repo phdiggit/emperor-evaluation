@@ -226,14 +226,22 @@ dynasty_governance_scans:
 
     class FakeRunner:
         calls = 0
+        prompts: list[str] = []
 
         def __init__(self, **_kwargs: object) -> None:
             pass
 
         def run(self, prompt: str) -> tuple[dict, dict]:
             FakeRunner.calls += 1
+            FakeRunner.prompts.append(prompt)
             task_code = re.search(r"task_code: (DYNGOV-[^\n]+)", prompt).group(1)
             source_chars = int(re.search(r"source_chars: (\d+)", prompt).group(1))
+            page_title = re.search(r"page_title=([^ ]+) revision_ref=", prompt).group(1)
+            exact_quote = (
+                "new policy result"
+                if page_title == "SecondTreatise/1"
+                else "implemented reform"
+            )
             return (
                 {
                     "schema_version": "dynasty-neutral-governance-output-v2",
@@ -242,11 +250,15 @@ dynasty_governance_scans:
                     "source_chars": source_chars,
                     "chains": [
                         {
-                            "chain_key": "CHAIN-1",
+                            "chain_key": (
+                                "CHAIN-2"
+                                if page_title == "SecondTreatise/1"
+                                else "CHAIN-1"
+                            ),
                             "title": "reform",
                             "domain": "central_government",
                             "period": "test period",
-                            "action": "implemented reform",
+                            "action": exact_quote,
                             "implementation": "implemented",
                             "observable_result": "recorded",
                             "cost_or_burden": "not recorded",
@@ -267,9 +279,9 @@ dynasty_governance_scans:
                             "evidence": [
                                 {
                                     "quote_ref": "Q1",
-                                    "page_title": "TestTreatise/1",
+                                    "page_title": page_title,
                                     "revision_ref": "1",
-                                    "exact_quote": "implemented reform",
+                                    "exact_quote": exact_quote,
                                     "evidence_roles": [
                                         "implementation_or_operation",
                                         "responsibility_or_attribution"
@@ -330,6 +342,48 @@ dynasty_governance_scans:
     third = dynasty_governance_rebuild.rebuild_dynasty_governance(
         **{**arguments, "source_index_path": expanded_index_path}
     )
+    (config / "project.yml").write_text(
+        """schema_version: test
+dynasty_governance_scans:
+  output_schema: config/dynasty-neutral-governance-output.schema.json
+  dynasties:
+    test:
+      dynasty_token: TEST
+      source_works:
+        - work: TestTreatise
+          source_genre: political_treatise
+          target_scope: test dynasty only
+        - work: SecondTreatise
+          source_genre: political_treatise
+          target_scope: incremental source only
+      required_domain_groups:
+        bureaucracy: [central_government]
+""",
+        encoding="utf-8",
+    )
+    source_expansion_index_path = tmp_path / "source-family-expansion.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "TestTreatise/1",
+                "work_title": "TestTreatise",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": "implemented reform",
+            },
+            {
+                "page_title": "SecondTreatise/1",
+                "work_title": "SecondTreatise",
+                "source_url": "local:second",
+                "revision_ref": "1",
+                "raw_text": "new policy result",
+            },
+        ],
+        source_expansion_index_path,
+    )
+    fourth = dynasty_governance_rebuild.rebuild_dynasty_governance(
+        **{**arguments, "source_index_path": source_expansion_index_path}
+    )
 
     assert first["reused"] is False
     assert first["quality"]["status"] == "passed"
@@ -349,7 +403,18 @@ dynasty_governance_scans:
     assert third["source_index_identity"] == expanded_identity
     assert third["model_call_count"] == 0
     assert second["model_call_count"] == 0
-    assert FakeRunner.calls == 1
+    assert fourth["reused"] is False
+    assert fourth["model_call_count"] == 1
+    assert fourth["incremental_reused_chain_count"] == 1
+    assert fourth["incremental_source_page_count"] == 1
+    assert fourth["quality"]["chain_count"] == 2
+    assert {row["work"] for row in fourth["sources"]} == {
+        "TestTreatise",
+        "SecondTreatise",
+    }
+    assert FakeRunner.calls == 2
+    assert "new policy result" in FakeRunner.prompts[-1]
+    assert "implemented reform" not in FakeRunner.prompts[-1]
 
 
 def test_dynasty_governance_resumes_only_audited_batches_after_failure(

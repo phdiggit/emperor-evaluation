@@ -42,6 +42,19 @@ def _digest(value: object) -> str:
     ).hexdigest()
 
 
+def _source_identity_key(source: Mapping[str, object]) -> tuple[str, ...]:
+    return tuple(
+        str(source.get(key) or "")
+        for key in (
+            "work",
+            "page_title",
+            "revision_ref",
+            "text_sha256",
+            "source_url",
+        )
+    )
+
+
 def _atomic_json(path: Path, payload: Mapping[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.{uuid4().hex}.tmp")
@@ -548,6 +561,8 @@ def rebuild_dynasty_governance(
             "output_schema_sha256": sha256(schema_path.read_bytes()).hexdigest(),
         }
         input_fingerprint = _digest(extraction_identity)
+        incremental_seed: dict[str, Any] | None = None
+        incremental_source_keys: set[tuple[str, str, str]] = set()
         if current_path.is_file():
             current = json.loads(current_path.read_text(encoding="utf-8"))
             catalog_current_compatible = True
@@ -608,6 +623,58 @@ def rebuild_dynasty_governance(
                     "model_call_count": 0,
                     "business_write_count": 0,
                 }
+            current_source_keys = {
+                _source_identity_key(row)
+                for row in current.get("sources") or ()
+                if isinstance(row, Mapping)
+            }
+            target_source_keys = {
+                _source_identity_key(row) for row in source_identities
+            }
+            configured_works = {
+                str(row.get("work") or "")
+                for row in configured.get("source_works") or ()
+                if isinstance(row, Mapping)
+            }
+            current_works = {key[0] for key in current_source_keys}
+            source_expansion_compatible = (
+                current.get("schema_version") == SCHEMA_VERSION
+                and current.get("status") == "quality_accepted_shadow"
+                and current.get("extraction_policy") == EXTRACTION_POLICY_VERSION
+                and (current.get("quality") or {}).get("status") == "passed"
+                and bool(current_source_keys)
+                and current_source_keys < target_source_keys
+                and current_works <= configured_works
+            )
+            if source_expansion_compatible:
+                incremental_seed = dict(current)
+                added_identities = [
+                    row
+                    for row in source_identities
+                    if _source_identity_key(row) not in current_source_keys
+                ]
+                incremental_source_keys = {
+                    (
+                        str(row.get("work") or ""),
+                        str(row.get("page_title") or ""),
+                        str(row.get("revision_ref") or ""),
+                    )
+                    for row in added_identities
+                }
+                manifest = {
+                    "pages": [
+                        page
+                        for page in manifest["pages"]
+                        if (
+                            str(page.get("source_work") or ""),
+                            str(page.get("page_title") or ""),
+                            str(page.get("revision_ref") or ""),
+                        )
+                        in incremental_source_keys
+                    ]
+                }
+                if not manifest["pages"]:
+                    raise ValueError("政书目录新增来源未形成可抽取页面")
 
         model_policy_path = workspace_root / "config/model-policy.yml"
         model_policy = yaml.safe_load(model_policy_path.read_text(encoding="utf-8"))
@@ -722,6 +789,46 @@ def rebuild_dynasty_governance(
             results_dir=work_root / "results",
             output_schema_path=schema_path,
         )
+        incremental_reused_chain_count = 0
+        if incremental_seed is not None:
+            seeded_chains = [
+                dict(chain) for chain in incremental_seed.get("chains") or ()
+            ]
+            incremental_reused_chain_count = len(seeded_chains)
+            seen_chain_keys = {
+                str(chain.get("chain_key") or "") for chain in seeded_chains
+            }
+            added_chains = []
+            for source_chain in audit.get("chains") or ():
+                chain = dict(source_chain)
+                chain_key = str(chain.get("chain_key") or "")
+                if chain_key in seen_chain_keys:
+                    chain_key = (
+                        chain_key
+                        + "-"
+                        + _digest(
+                            [
+                                (
+                                    evidence.get("page_title"),
+                                    evidence.get("revision_ref"),
+                                    evidence.get("exact_quote"),
+                                )
+                                for evidence in chain.get("evidence") or ()
+                            ]
+                        )[:12].upper()
+                    )
+                    chain["chain_key"] = chain_key
+                seen_chain_keys.add(chain_key)
+                added_chains.append(chain)
+            combined_chains = [*seeded_chains, *added_chains]
+            audit = {
+                **audit,
+                "chains": combined_chains,
+                "chain_count": len(combined_chains),
+                "quote_count": sum(
+                    len(chain.get("evidence") or ()) for chain in combined_chains
+                ),
+            }
         quality = _quality_report(audit=audit, configured=configured)
         if quality["status"] != "passed":
             raise ValueError(
@@ -744,14 +851,27 @@ def rebuild_dynasty_governance(
             "limitations": sorted(
                 {
                     str(item)
-                    for task_code in completed
                     for item in (
-                        json.loads(
-                            (work_root / "results" / f"{task_code}.json").read_text(
-                                encoding="utf-8"
+                        [
+                            str(value)
+                            for value in (
+                                (incremental_seed or {}).get("limitations") or ()
                             )
-                        ).get("limitations")
-                        or ()
+                        ]
+                        + [
+                            str(value)
+                            for task_code in completed
+                            for value in (
+                                json.loads(
+                                    (
+                                        work_root
+                                        / "results"
+                                        / f"{task_code}.json"
+                                    ).read_text(encoding="utf-8")
+                                ).get("limitations")
+                                or ()
+                            )
+                        ]
                     )
                 }
             ),
@@ -766,6 +886,8 @@ def rebuild_dynasty_governance(
             "reused": False,
             "model_call_count": len(model_calls),
             "business_write_count": 0,
+            "incremental_reused_chain_count": incremental_reused_chain_count,
+            "incremental_source_page_count": len(incremental_source_keys),
             "output": str(current_path),
         }
     except Exception:

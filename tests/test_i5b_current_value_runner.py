@@ -1994,11 +1994,18 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
         ruler="李世民",
         model_slot_count=2,
     )
-    fake_index = type(
-        "FakeIndex",
-        (),
-        {"path": tmp_path / "tang-governance.sqlite3", "identity": "TANG-GOV-INDEX"},
-    )()
+    class FakeIndex:
+        path = tmp_path / "tang-governance.sqlite3"
+        identity = "TANG-GOV-INDEX"
+
+        def iter_pages(self, *, works):
+            assert works == ("唐會要", "唐六典", "貞觀政要")
+            return tuple(
+                type("Page", (), {"page_title": f"貞觀政要/卷{number:02d}"})()
+                for number in range(1, 11)
+            )
+
+    fake_index = FakeIndex()
     resolved_index = {}
 
     def resolve_index(**kwargs):
@@ -2044,7 +2051,7 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
     assert observed["workspace_root"] == Path(lease["workspace_root"]).resolve()
     assert observed["limits"].model_workers == 2
     assert observed["use_catalog"] is True
-    assert resolved_index["required_works"] == ("唐會要", "唐六典")
+    assert resolved_index["required_works"] == ("唐會要", "唐六典", "貞觀政要")
     assert resolved_index["source_pack"] == {"facts": []}
 
 
@@ -2074,7 +2081,7 @@ def test_ruler_session_reports_governance_catalog_before_source_fetch(
     )
 
     assert report["status"] == "awaiting_governance_source_assets"
-    assert report["required_source_works"] == ["唐會要", "唐六典"]
+    assert report["required_source_works"] == ["唐會要", "唐六典", "貞觀政要"]
     assert report["source_catalog"]["dynasty_token"] == "TANG"
     assert report["runtime_model_call_count"] == 0
     assert report["database_write_count"] == 0
