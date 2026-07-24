@@ -617,6 +617,8 @@ def _resolve_source_index(
     source_index_root: Path | None,
     required_works: Sequence[str] = (),
     preextracted_works: Sequence[str] = (),
+    required_page_titles: Sequence[str] = (),
+    preferred_index_identity: str = "",
 ) -> LocalSourceTextIndex:
     if source_index_path is not None:
         return LocalSourceTextIndex(source_index_path)
@@ -636,22 +638,34 @@ def _resolve_source_index(
     } - {str(work) for work in preextracted_works}) | {
         str(work) for work in required_works
     }
+    required_pages = {str(value) for value in required_page_titles if str(value)}
     candidates = []
     for path in configured_root.rglob("*.sqlite3"):
         try:
             index = LocalSourceTextIndex(path)
             pages = list(index.iter_pages(works=sorted(works)))
+            page_titles = {str(page.page_title) for page in pages}
             covers_every_work = all(
                 next(index.iter_pages(works=[work]), None) is not None
                 for work in works
             )
         except (OSError, ValueError):
             continue
-        if pages and covers_every_work:
-            candidates.append((len(pages), str(path), index))
+        if pages and covers_every_work and required_pages <= page_titles:
+            candidates.append(
+                (
+                    index.identity == preferred_index_identity,
+                    len(pages),
+                    str(path),
+                    index,
+                )
+            )
     if not candidates:
-        raise ValueError(f"史料索引根没有覆盖当前作品集: {sorted(works)}")
-    return max(candidates, key=lambda row: (row[0], row[1]))[2]
+        detail = f"史料索引根没有覆盖当前作品集: {sorted(works)}"
+        if required_pages:
+            detail += f"，且缺少指定页面集: {sorted(required_pages)}"
+        raise ValueError(detail)
+    return max(candidates, key=lambda row: (row[0], row[1], row[2]))[3]
 
 
 def _resolve_dynasty_governance_root(

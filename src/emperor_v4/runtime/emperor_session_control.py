@@ -996,6 +996,21 @@ def build_session_dynasty_governance(
     )
     if not works:
         raise SessionControlError(f"{canonical_dynasty}: 政书目录没有有效书目")
+    required_page_titles = sorted(
+        {
+            str(page_title)
+            for source in configured.get("source_works") or ()
+            if isinstance(source, Mapping)
+            for page_title in source.get("page_titles") or ()
+            if str(page_title).strip()
+        }
+    )
+    shared_current_path = dynasty_governance_root / token / "current.json"
+    preferred_index_identity = ""
+    if shared_current_path.is_file():
+        preferred_index_identity = str(
+            _read_json(shared_current_path).get("source_index_identity") or ""
+        )
     try:
         source_index = _resolve_source_index(
             # A dynasty-governance index is selected only for the catalogued
@@ -1005,6 +1020,8 @@ def build_session_dynasty_governance(
             source_index_path=None,
             source_index_root=source_index_root,
             required_works=works,
+            required_page_titles=required_page_titles,
+            preferred_index_identity=preferred_index_identity,
         )
     except (OSError, ValueError) as exc:
         return {
@@ -1018,21 +1035,12 @@ def build_session_dynasty_governance(
             "source_catalog": configured,
             "missing": [f"fixed_governance_source_index: {exc}"],
             "shared_current_path": str(
-                dynasty_governance_root / token / "current.json"
+                shared_current_path
             ),
             "runtime_model_call_count": 0,
             "database_write_count": 0,
             "formal_score_write_count": 0,
         }
-    required_page_titles = sorted(
-        {
-            str(page_title)
-            for source in configured.get("source_works") or ()
-            if isinstance(source, Mapping)
-            for page_title in source.get("page_titles") or ()
-            if str(page_title).strip()
-        }
-    )
     if required_page_titles:
         available_page_titles = {
             str(page.page_title)

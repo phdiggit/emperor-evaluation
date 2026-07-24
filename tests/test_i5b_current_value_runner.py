@@ -2052,6 +2052,10 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
     assert observed["limits"].model_workers == 2
     assert observed["use_catalog"] is True
     assert resolved_index["required_works"] == ("唐會要", "唐六典", "貞觀政要")
+    assert resolved_index["required_page_titles"] == [
+        f"貞觀政要/卷{number:02d}" for number in range(1, 11)
+    ]
+    assert resolved_index["preferred_index_identity"] == ""
     assert resolved_index["source_pack"] == {"facts": []}
 
 
@@ -4861,6 +4865,64 @@ def test_emperor_rebuild_resolves_current_index_from_runtime_root(
     )
 
     assert resolved.identity == built["index_identity"]
+
+
+def test_governance_index_resolution_prefers_current_identity_until_catalog_expands(
+    tmp_path: Path,
+) -> None:
+    current_path = tmp_path / "current/source.sqlite3"
+    current = build_local_source_index(
+        [
+            {
+                "page_title": "政书/卷1",
+                "work_title": "政书",
+                "source_url": "local:current:1",
+                "revision_ref": "1",
+                "raw_text": "既有治理事实",
+            }
+        ],
+        current_path,
+    )
+    expanded_path = tmp_path / "expanded/source.sqlite3"
+    expanded = build_local_source_index(
+        [
+            {
+                "page_title": "政书/卷1",
+                "work_title": "政书",
+                "source_url": "local:current:1",
+                "revision_ref": "1",
+                "raw_text": "既有治理事实",
+            },
+            {
+                "page_title": "政书/卷2",
+                "work_title": "政书",
+                "source_url": "local:expanded:2",
+                "revision_ref": "2",
+                "raw_text": "新增治理事实",
+            },
+        ],
+        expanded_path,
+    )
+
+    reused = _resolve_source_index(
+        source_pack={"facts": []},
+        source_index_path=None,
+        source_index_root=tmp_path,
+        required_works=("政书",),
+        required_page_titles=("政书/卷1",),
+        preferred_index_identity=current["index_identity"],
+    )
+    expanded_for_required_page = _resolve_source_index(
+        source_pack={"facts": []},
+        source_index_path=None,
+        source_index_root=tmp_path,
+        required_works=("政书",),
+        required_page_titles=("政书/卷1", "政书/卷2"),
+        preferred_index_identity=current["index_identity"],
+    )
+
+    assert reused.identity == current["index_identity"]
+    assert expanded_for_required_page.identity == expanded["index_identity"]
 
 
 def test_emperor_rebuild_index_resolution_requires_configured_backbone(
