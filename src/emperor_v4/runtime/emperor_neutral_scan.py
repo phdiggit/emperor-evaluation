@@ -2370,7 +2370,7 @@ def merge_dynasty_governance_current(
             fact_ref = "DYNGOV-FACT-" + suffix
             segment_ref = "DYNGOV-SEG-" + suffix
             exact_quote = str(evidence.get("exact_quote") or "")
-            evidence_roles = list(
+            source_evidence_roles = list(
                 dict.fromkeys(
                     str(value)
                     for value in (
@@ -2397,6 +2397,14 @@ def merge_dynasty_governance_current(
                     )
                 )
             )
+            evidence_roles = [
+                (
+                    "public_cost_or_harm"
+                    if value == "cost_or_burden"
+                    else value
+                )
+                for value in source_evidence_roles
+            ]
             evidence_result = (
                 result if "public_result" in set(evidence_roles) else ""
             )

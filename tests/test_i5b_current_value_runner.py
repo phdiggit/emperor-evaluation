@@ -6214,6 +6214,30 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                 ],
                 "uncertainty": "",
             },
+            {
+                "chain_key": "zhenguan-public-burden",
+                "title": "贞观公共负担",
+                "domain": "livelihood_social_order",
+                "period": "贞观年间",
+                "action": "征发民力。",
+                "implementation": "征发已经执行。",
+                "observable_result": "原文未载进一步结果。",
+                "cost_or_burden": "百姓承担额外徭役。",
+                "operation_status": "implemented",
+                "temporal_scope": "single_event",
+                "effect_domains": ["productivity_livelihood"],
+                "actors": [],
+                "evidence": [
+                    {
+                        "quote_ref": "Q-5",
+                        "page_title": "唐會要/卷01",
+                        "revision_ref": "1",
+                        "exact_quote": "发民治役，百姓劳苦。",
+                        "evidence_roles": ["cost_or_burden"],
+                    }
+                ],
+                "uncertainty": "",
+            },
         ],
     }
 
@@ -6281,11 +6305,11 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
         "dynasty_token": "TANG",
         "input_fingerprint": "DYNASTY-CURRENT-1",
         "source_index_identity": "INDEX-1",
-        "selected_chain_count": 4,
+        "selected_chain_count": 5,
         "aligned_to_backbone_chain_count": 1,
-        "four_axis_candidate_chain_count": 3,
+        "four_axis_candidate_chain_count": 4,
         "context_only_chain_count": 1,
-        "fact_count": 5,
+        "fact_count": 6,
         "model_call_count": 0,
     }
     facts_by_page = {
@@ -6313,6 +6337,9 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
     assert static_context["outcome_candidate_status"] == "context_only"
     assert static_context["result"] == ""
     assert "保留为背景" in static_context["outcome_candidate_reason"]
+    public_burden = facts_by_page["唐會要/卷01"]
+    assert public_burden["outcome_candidate_status"] == "linkable_chain_fact"
+    assert public_burden["evidence_roles"] == ["public_cost_or_harm"]
 
     with pytest.raises(ValueError, match="索引版本不一致"):
         merge_dynasty_governance_current(
