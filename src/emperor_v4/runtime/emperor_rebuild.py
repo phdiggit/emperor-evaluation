@@ -948,6 +948,7 @@ def rebuild_emperor(
         ),
     )
     dynasty_governance_current: Mapping[str, Any] | None = None
+    dynasty_governance_source_index: LocalSourceTextIndex | None = None
     if dynasty_governance_token:
         governance_root = _resolve_dynasty_governance_root(
             source_index=source_index,
@@ -980,6 +981,34 @@ def rebuild_emperor(
             )
             validate_dynasty_governance_current_catalog(
                 dynasty_governance_current, governance_catalog
+            )
+            governance_works = [
+                str(row.get("work") or "")
+                for row in governance_catalog.get("source_works") or ()
+                if str(row.get("work") or "")
+            ]
+            governance_pages = [
+                str(page_title)
+                for row in governance_catalog.get("source_works") or ()
+                for page_title in row.get("page_titles") or ()
+                if str(page_title)
+            ]
+            dynasty_governance_source_index = _resolve_source_index(
+                source_pack=source_pack,
+                source_index_path=None,
+                source_index_root=source_index_root,
+                required_works=governance_works,
+                preextracted_works=sorted(
+                    {
+                        str(row["source_page"]).split("/", 1)[0]
+                        for row in source_pack.get("facts") or ()
+                        if row.get("source_page")
+                    }
+                ),
+                required_page_titles=governance_pages,
+                preferred_index_identity=str(
+                    dynasty_governance_current["source_index_identity"]
+                ),
             )
     works = sorted(
         set(configured_scan_works)
@@ -1734,7 +1763,12 @@ def rebuild_emperor(
             operation=lambda runner, facts_per_call: project_current_outcomes(
                 source_pack_path=source_pack_path,
                 neutral_materials=neutral_materials,
-                source_index=source_index,
+                source_index=(
+                    dynasty_governance_source_index
+                    if governance_review_only
+                    and dynasty_governance_source_index is not None
+                    else source_index
+                ),
                 schema_path=outcome_schema_path,
                 runner=runner,
                 checkpoint_dir=checkpoint_dir / "outcome_projection",
@@ -1753,7 +1787,12 @@ def rebuild_emperor(
         outcome_projection = project_current_outcomes(
             source_pack_path=source_pack_path,
             neutral_materials=neutral_materials,
-            source_index=source_index,
+            source_index=(
+                dynasty_governance_source_index
+                if governance_review_only
+                and dynasty_governance_source_index is not None
+                else source_index
+            ),
             schema_path=outcome_schema_path,
             runner=None,
             checkpoint_dir=checkpoint_dir / "outcome_projection",
