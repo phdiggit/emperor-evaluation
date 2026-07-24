@@ -372,6 +372,17 @@ def _canonical_paths(
     return paths
 
 
+def _is_shared_migratable_canonical(key: str) -> bool:
+    """Return whether a release may refresh this shared derived baseline."""
+
+    return key in {
+        "outcome_registry_json",
+        "outcome_registry_markdown",
+        "person_profile_registry_json",
+        "person_profile_registry_markdown",
+    } or key.startswith("outcome_binding_")
+
+
 def _control_root(state_root: Path) -> Path:
     return state_root.resolve() / "session-control"
 
@@ -1448,17 +1459,24 @@ def upgrade_failed_session_release(
     if not isinstance(configured, Mapping):
         raise SessionControlError("目标 release 已移除当前皇帝")
     expected = dict(lease.get("canonical_expected_sha256") or {})
+    target_canonical = _canonical_paths(release_root, configured)
     changed_inputs = [
         key
-        for key, target in _canonical_paths(release_root, configured).items()
+        for key, target in target_canonical.items()
         if expected.get(key) is not None
         and _file_sha256(target) != expected.get(key)
     ]
-    if changed_inputs:
+    protected_changes = [
+        key for key in changed_inputs if not _is_shared_migratable_canonical(key)
+    ]
+    if protected_changes:
         raise SessionControlError(
             "目标 release 改变了会话已认领的 canonical 输入: "
-            + ", ".join(changed_inputs)
+            + ", ".join(protected_changes)
         )
+    shared_canonical_migrations = [
+        key for key in changed_inputs if _is_shared_migratable_canonical(key)
+    ]
     workspace_source_pack = workspace_root / str(configured["source_pack"])
     if expected.get("source_pack") is not None:
         if _file_sha256(workspace_source_pack) != expected.get("source_pack"):
@@ -1565,6 +1583,10 @@ def upgrade_failed_session_release(
     previous_release_sha = str(lease["release_sha"])
     lease["release_sha"] = target_release_sha
     lease["release_contract_fingerprint"] = target_contract_fingerprint
+    for key in shared_canonical_migrations:
+        lease.setdefault("canonical_expected_sha256", {})[key] = _file_sha256(
+            target_canonical[key]
+        )
     if bootstrap_session:
         lease["bootstrap_static_contract_fingerprint"] = (
             _bootstrap_static_contract_fingerprint(release_root)
@@ -1580,6 +1602,7 @@ def upgrade_failed_session_release(
         "release_sha": target_release_sha,
         "checkpoint_preserved": True,
         "workspace_preserved": True,
+        "shared_canonical_migrations": shared_canonical_migrations,
         "database_write_count": 0,
         "formal_score_write_count": 0,
     }

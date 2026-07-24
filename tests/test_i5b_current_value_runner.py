@@ -2704,6 +2704,8 @@ def test_awaiting_review_session_can_adopt_repaired_release_without_losing_gate(
     checkpoint = Path(lease["runtime_root"]) / "checkpoint/keep.json"
     checkpoint.parent.mkdir(parents=True, exist_ok=True)
     checkpoint.write_text("{}\n", encoding="utf-8")
+    registry_path = release / "eval/historical_outcome_registry/current.json"
+    registry_path.write_text('{"migrated": true}\n', encoding="utf-8")
     release_sha["value"] = "2" * 40
 
     report = emperor_session_control.upgrade_failed_session_release(
@@ -2717,6 +2719,56 @@ def test_awaiting_review_session_can_adopt_repaired_release_without_losing_gate(
     assert checkpoint.is_file()
     assert upgraded["stage"] == "awaiting_review"
     assert upgraded["review_stage"] == "outcome_projection"
+    assert report["shared_canonical_migrations"] == ["outcome_registry_json"]
+    assert upgraded["canonical_expected_sha256"]["outcome_registry_json"] == (
+        hashlib.sha256(registry_path.read_bytes()).hexdigest()
+    )
+
+
+def test_release_upgrade_still_rejects_current_ruler_source_pack_drift(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    release_sha = {"value": "1" * 40}
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_release_identity",
+        lambda _root: release_sha["value"],
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-PROTECTED-UPGRADE",
+        ruler="李治",
+        model_slot_count=1,
+    )
+    lease_path = (
+        state
+        / "session-control/sessions/SESSION-PROTECTED-UPGRADE/current.json"
+    )
+    failed = json.loads(lease_path.read_text(encoding="utf-8"))
+    failed["stage"] = "failed_reusable"
+    lease_path.write_text(
+        json.dumps(failed, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    configured = yaml.safe_load(
+        (release / "config/project.yml").read_text(encoding="utf-8")
+    )["i5b_current_value"]["rulers"]["李治"]
+    source_pack = release / configured["source_pack"]
+    source_pack.write_text('{"changed": true}\n', encoding="utf-8")
+    release_sha["value"] = "2" * 40
+
+    with pytest.raises(
+        emperor_session_control.SessionControlError,
+        match="source_pack",
+    ):
+        emperor_session_control.upgrade_failed_session_release(
+            state_root=state,
+            session_id="SESSION-PROTECTED-UPGRADE",
+            release_root=release,
+        )
 
 
 def test_claimed_session_can_pause_after_outcome_review_gate(
