@@ -129,7 +129,7 @@
                   "overall_magnitude", "axes", "effect_horizon", "basis"
                 ],
                 "properties": {
-                  "comparison_basis": {"type": "string", "enum": ["explicit_before_after", "prior_institution_comparison", "public_effect_without_explicit_baseline", "not_established"]},
+                  "comparison_basis": {"type": "string", "enum": ["explicit_before_after", "prior_institution_comparison", "inferred_prior_state", "not_established"]},
                   "baseline_fact_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
                   "overall_direction": {"type": "string", "enum": ["positive", "mixed", "negative", "unclear"]},
                   "overall_magnitude": {"type": "string", "enum": ["limited", "significant", "structural", "era_shaping", "not_established"]},
@@ -232,6 +232,7 @@
             "if": {"properties": {"outcome_kind": {"const": "governance"}}},
             "then": {
               "properties": {
+                "result_status": {"not": {"const": "mixed"}},
                 "payload": {
                   "required": ["value_judgment"],
                   "properties": {

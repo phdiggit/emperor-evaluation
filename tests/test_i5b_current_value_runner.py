@@ -328,7 +328,7 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                 "authorization_status": "explicit",
                 "causal_attribution_status": "established",
                 "value_judgment": {
-                    "comparison_basis": "public_effect_without_explicit_baseline",
+                    "comparison_basis": "inferred_prior_state",
                     "baseline_fact_refs": [],
                     "overall_direction": "positive",
                     "overall_magnitude": "significant",
@@ -359,7 +359,7 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                         },
                     },
                     "effect_horizon": "long",
-                    "basis": "制度投入运行并形成公共收益，未见足以逆转方向的社会代价。",
+                    "basis": "基线：既有制度尚未形成该公共收益；变化：制度投入运行；结果：材料记载已经形成公共收益。",
                 },
                 "theater": None,
                 "strategic_objective": None,
@@ -1847,11 +1847,17 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
                 "catalog_fingerprint": dynasty_governance_catalog_fingerprint(
                     ming_catalog
                 ),
-                "sources": [
-                    {"page_title": page_title}
-                    for source in ming_catalog["source_works"]
-                    for page_title in source.get("page_titles") or ()
-                ],
+                    "sources": [
+                        {"page_title": page_title}
+                        for source in ming_catalog["source_works"]
+                        for page_title in source.get("page_titles") or ()
+                    ]
+                    + [
+                        {
+                            "work": "明㑹典 (四庫全書本)",
+                            "page_title": "明㑹典_(四庫全書本)/全覽6",
+                        }
+                    ],
             }
         ),
         encoding="utf-8",
@@ -1950,7 +1956,27 @@ def test_dynasty_governance_catalog_covers_supported_eras() -> None:
             assert source["domain_focus"]
             assert source["section_groups"]
     ming_pages = rows["明"]["source_works"][0]["page_titles"]
-    assert ming_pages == [f"明史/卷{number}" for number in range(69, 96)]
+    assert ming_pages == [f"明史/卷{number}" for number in range(40, 96)]
+    tang_works = {
+        (source["work"], source["source_genre"]): source
+        for source in rows["唐"]["source_works"]
+    }
+    assert tang_works[
+        ("新唐書", "official_history_geography_context")
+    ]["page_titles"] == [
+        "新唐書/卷037",
+        "新唐書/卷038",
+        "新唐書/卷039",
+        "新唐書/卷040",
+        "新唐書/卷041",
+        "新唐書/卷042",
+        "新唐書/卷043上",
+        "新唐書/卷043下",
+    ]
+    assert ("明㑹典 (四庫全書本)", "targeted_institutional_compendium") in {
+        (source["work"], source["source_genre"])
+        for source in rows["明"]["source_works"]
+    }
     eastern_han_works = {
         source["work"]: source for source in rows["东汉"]["source_works"]
     }
@@ -2021,6 +2047,12 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
         "sources": [
             {"page_title": page_title}
             for page_title in required_pages[:-1]
+        ]
+        + [
+            {
+                "work": "明㑹典 (四庫全書本)",
+                "page_title": "明㑹典_(四庫全書本)/占位",
+            }
         ],
     }
     with pytest.raises(ValueError, match="缺少目录指定专题篇章"):
@@ -2031,6 +2063,12 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
         "sources": [
             {"page_title": page_title}
             for page_title in required_pages
+        ]
+        + [
+            {
+                "work": "明㑹典 (四庫全書本)",
+                "page_title": "明㑹典_(四庫全書本)/全覽6",
+            }
         ],
     }
     validate_dynasty_governance_current_catalog(complete, configured)
@@ -2076,10 +2114,26 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
         identity = "TANG-GOV-INDEX"
 
         def iter_pages(self, *, works):
-            assert works == ("唐會要", "唐六典", "貞觀政要")
+            assert works == (
+                "唐會要",
+                "唐六典",
+                "貞觀政要",
+                "新唐書",
+            )
+            page_titles = [
+                *(f"貞觀政要/卷{number:02d}" for number in range(1, 11)),
+                "新唐書/卷037",
+                "新唐書/卷038",
+                "新唐書/卷039",
+                "新唐書/卷040",
+                "新唐書/卷041",
+                "新唐書/卷042",
+                "新唐書/卷043上",
+                "新唐書/卷043下",
+            ]
             return tuple(
-                type("Page", (), {"page_title": f"貞觀政要/卷{number:02d}"})()
-                for number in range(1, 11)
+                type("Page", (), {"page_title": page_title})()
+                for page_title in page_titles
             )
 
     fake_index = FakeIndex()
@@ -2128,10 +2182,23 @@ def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots
     assert observed["workspace_root"] == Path(lease["workspace_root"]).resolve()
     assert observed["limits"].model_workers == 2
     assert observed["use_catalog"] is True
-    assert resolved_index["required_works"] == ("唐會要", "唐六典", "貞觀政要")
-    assert resolved_index["required_page_titles"] == [
-        f"貞觀政要/卷{number:02d}" for number in range(1, 11)
-    ]
+    assert resolved_index["required_works"] == (
+        "唐會要",
+        "唐六典",
+        "貞觀政要",
+        "新唐書",
+    )
+    assert set(resolved_index["required_page_titles"]) == {
+        *(f"貞觀政要/卷{number:02d}" for number in range(1, 11)),
+        "新唐書/卷037",
+        "新唐書/卷038",
+        "新唐書/卷039",
+        "新唐書/卷040",
+        "新唐書/卷041",
+        "新唐書/卷042",
+        "新唐書/卷043上",
+        "新唐書/卷043下",
+    }
     assert resolved_index["preferred_index_identity"] == ""
     assert resolved_index["source_pack"] == {"facts": []}
 
@@ -2162,7 +2229,12 @@ def test_ruler_session_reports_governance_catalog_before_source_fetch(
     )
 
     assert report["status"] == "awaiting_governance_source_assets"
-    assert report["required_source_works"] == ["唐會要", "唐六典", "貞觀政要"]
+    assert report["required_source_works"] == [
+        "唐會要",
+        "唐六典",
+        "貞觀政要",
+        "新唐書",
+    ]
     assert report["source_catalog"]["dynasty_token"] == "TANG"
     assert report["runtime_model_call_count"] == 0
     assert report["database_write_count"] == 0
@@ -6426,6 +6498,32 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                 ],
                 "uncertainty": "",
             },
+            {
+                "chain_key": "gaozong-public-famine",
+                "title": "高宗京师饥荒",
+                "domain": "livelihood_social_order",
+                "period": "永淳元年",
+                "action": "原文未载单一举措。",
+                "implementation": "原文未载单一实施链。",
+                "observable_result": "京师人相食。",
+                "operation_status": "observed_outcome",
+                "temporal_scope": "single_event",
+                "effect_domains": [
+                    "productivity_livelihood",
+                    "state_people_security",
+                ],
+                "actors": [],
+                "evidence": [
+                    {
+                        "quote_ref": "Q-6",
+                        "page_title": "舊唐書/卷5",
+                        "revision_ref": "1",
+                        "exact_quote": "京师人相食。",
+                        "evidence_roles": ["public_result", "cost_or_burden"],
+                    }
+                ],
+                "uncertainty": "",
+            },
         ],
     }
 
@@ -6528,6 +6626,22 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
     public_burden = facts_by_page["唐會要/卷01"]
     assert public_burden["outcome_candidate_status"] == "linkable_chain_fact"
     assert public_burden["evidence_roles"] == ["public_cost_or_harm"]
+
+    dynasty_review = merge_dynasty_governance_current(
+        neutral_materials=neutral,
+        current=current,
+        expected_dynasty_token="TANG",
+        expected_source_index_identity="INDEX-1",
+        period_terms=[],
+        identity_resolver=resolver,
+        subject_ref_by_name=subject_ref_by_name,
+        ruler_ref=str(source_pack["ruler_ref"]),
+        include_all_dynasty_chains=True,
+    )
+    assert dynasty_review["dynasty_governance_current"]["selected_chain_count"] == 6
+    assert {
+        row["page_title"] for row in dynasty_review["fanout"]["facts"]
+    } >= {"舊唐書/卷50", "唐六典/卷01"}
 
     with pytest.raises(ValueError, match="索引版本不一致"):
         merge_dynasty_governance_current(

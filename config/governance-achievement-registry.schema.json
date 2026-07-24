@@ -45,7 +45,7 @@
           }
         },
         "implementation_status": {
-          "enum": ["implemented", "operated", "completed", "mixed", "failed", "unclear"]
+          "enum": ["implemented", "operated", "completed", "failed", "unclear"]
         },
         "observable_result": {"type": "string", "minLength": 1},
         "result_direction": {"enum": ["positive", "mixed", "negative", "unclear"]},
@@ -70,7 +70,7 @@
           "additionalProperties": false,
           "required": ["comparison_basis", "baseline_fact_refs", "overall_direction", "overall_magnitude", "axes", "effect_horizon", "basis"],
           "properties": {
-            "comparison_basis": {"enum": ["explicit_before_after", "prior_institution_comparison", "public_effect_without_explicit_baseline", "not_established"]},
+            "comparison_basis": {"enum": ["explicit_before_after", "prior_institution_comparison", "inferred_prior_state", "not_established"]},
             "baseline_fact_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
             "overall_direction": {"enum": ["positive", "mixed", "negative", "unclear"]},
             "overall_magnitude": {"enum": ["limited", "significant", "structural", "era_shaping", "not_established"]},

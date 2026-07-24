@@ -440,6 +440,20 @@ def validate_historical_outcome_registry(
                     "result_direction"
                 ]:
                     raise ValueError(f"{ref} 治理价值方向与成果方向不一致")
+                comparison_basis = str(value_judgment["comparison_basis"])
+                if comparison_basis == "inferred_prior_state":
+                    basis = str(value_judgment["basis"])
+                    if not all(
+                        marker in basis for marker in ("基线：", "变化：", "结果：")
+                    ):
+                        raise ValueError(
+                            f"{ref} 推定旧状态必须按“基线；变化；结果”写明具体比较"
+                        )
+                if (
+                    value_judgment["overall_direction"] != "unclear"
+                    and comparison_basis == "not_established"
+                ):
+                    raise ValueError(f"{ref} 未建立历史比较时价值方向只能不明")
                 if not {
                     str(value)
                     for value in value_judgment.get("baseline_fact_refs") or ()
@@ -466,6 +480,13 @@ def validate_historical_outcome_registry(
                     if established != bool(basis_refs):
                         raise ValueError(
                             f"{ref}/{axis_name} 已建立方向必须有依据，未建立不得伪造依据"
+                        )
+                    if (
+                        axis.get("direction") == "negative"
+                        and "改善" in str(axis.get("basis") or "")
+                    ):
+                        raise ValueError(
+                            f"{ref}/{axis_name} 负向影响不得使用“改善”表述"
                         )
             substantive_members = [
                 member

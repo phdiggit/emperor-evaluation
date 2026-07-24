@@ -293,6 +293,21 @@ dynasty_governance_catalog:
             education_and_culture: [崇儒學, 文史, 禮樂]
           target_scope: 复用既有固定 revision 与逐字引文，只补贞观时期治理举措、运行、公共结果、代价及君臣责任；人物品行和一般言论不独立登记为公共治理成果。
           domain_focus: [政治运行, 任用责任, 法律刑狱, 财政民生, 国家安全, 教育文化]
+        - work: 新唐書
+          source_genre: official_history_geography_context
+          page_titles:
+            - 新唐書/卷037
+            - 新唐書/卷038
+            - 新唐書/卷039
+            - 新唐書/卷040
+            - 新唐書/卷041
+            - 新唐書/卷042
+            - 新唐書/卷043上
+            - 新唐書/卷043下
+          section_groups:
+            geography_context: [地理志]
+          target_scope: 只抽取人口、交通、物产、行政区划、边疆形势及区域灾害的治理背景和可观察变化；静态地名沿革只作四轴基线，禁止独立包装为治理成果。
+          domain_focus: [人口与区域生产, 交通地理, 行政区划, 边疆安全, 灾害背景]
     五代十国:
       aliases: [后梁, 后唐, 后晋, 五代后汉, 后周, 十国]
       dynasty_token: FIVE-DYNASTIES-TEN-KINGDOMS
@@ -410,6 +425,35 @@ dynasty_governance_catalog:
         - work: 明史
           source_genre: official_history_treatises
           page_titles:
+            - 明史/卷40
+            - 明史/卷41
+            - 明史/卷42
+            - 明史/卷43
+            - 明史/卷44
+            - 明史/卷45
+            - 明史/卷46
+            - 明史/卷47
+            - 明史/卷48
+            - 明史/卷49
+            - 明史/卷50
+            - 明史/卷51
+            - 明史/卷52
+            - 明史/卷53
+            - 明史/卷54
+            - 明史/卷55
+            - 明史/卷56
+            - 明史/卷57
+            - 明史/卷58
+            - 明史/卷59
+            - 明史/卷60
+            - 明史/卷61
+            - 明史/卷62
+            - 明史/卷63
+            - 明史/卷64
+            - 明史/卷65
+            - 明史/卷66
+            - 明史/卷67
+            - 明史/卷68
             - 明史/卷69
             - 明史/卷70
             - 明史/卷71
@@ -438,12 +482,21 @@ dynasty_governance_catalog:
             - 明史/卷94
             - 明史/卷95
           section_groups:
+            geography: [地理志]
+            ritual_culture: [禮志, 樂志]
             bureaucracy: [職官志, 選舉志]
             economy: [食貨志, 河渠志]
             law: [刑法志]
             military: [兵志]
-          target_scope: 仅抽取《明史》卷69至95所载制度沿革、实际运行、可观察结果与实际代价；按当前皇帝纪年词增量筛选，不作为皇帝编年主干或臣子列传替代。
-          domain_focus: [官制选官, 户籍赋役, 货币贸易, 河渠工程, 军制与锦衣卫, 法律刑狱]
+          target_scope: 抽取《明史》卷40至95所载地理基线、制度沿革、实际运行、可观察结果与实际代价；静态地理沿革和纯宫廷礼仪只作背景，不独立登记成果；不按单一皇帝纪年词裁掉朝代共享事实。
+          domain_focus: [人口交通与区域地理, 礼乐文化, 官制选官, 户籍赋役, 货币贸易, 河渠工程, 军制与锦衣卫, 法律刑狱]
+        - work: 明㑹典 (四庫全書本)
+          source_genre: targeted_institutional_compendium
+          page_titles: [明㑹典_(四庫全書本)/全覽6]
+          section_groups:
+            education_and_control: [學校, 學規, 大誥, 科舉]
+          target_scope: 定向抽取学校课程、学规、科举内容、实际惩戒和《大诰》讲读要求，用于同时评估教育传播与思想约束；不全书扫描。
+          domain_focus: [教育传播, 课程内容, 思想约束, 人才选拔]
     清:
       aliases: [后金]
       dynasty_token: QING

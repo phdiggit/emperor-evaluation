@@ -2148,6 +2148,7 @@ def merge_dynasty_governance_current(
     subject_ref_by_name: Mapping[str, str],
     ruler_ref: str,
     event_signatures: Sequence[Mapping[str, Any]] = (),
+    include_all_dynasty_chains: bool = False,
 ) -> dict[str, Any]:
     """Project accepted dynasty material into the ruler fanout without a model."""
 
@@ -2159,7 +2160,7 @@ def merge_dynasty_governance_current(
         raise ValueError("朝代政书 current token 与皇帝配置不匹配")
     if str(current.get("source_index_identity") or "") != expected_source_index_identity:
         raise ValueError("朝代政书 current 与其固定政书索引版本不一致")
-    if not period_terms:
+    if not period_terms and not include_all_dynasty_chains:
         raise ValueError("皇帝配置缺少朝代政书纪年筛选词")
 
     normalized_period_terms = tuple(
@@ -2269,7 +2270,11 @@ def merge_dynasty_governance_current(
         has_lifetime_person_actor = any(
             str(actor["subject_ref"]) != ruler_ref for actor in resolved_actors
         )
-        if not in_ruler_window and not has_lifetime_person_actor:
+        if (
+            not include_all_dynasty_chains
+            and not in_ruler_window
+            and not has_lifetime_person_actor
+        ):
             continue
         chain_identity = {
             "dynasty_token": expected_dynasty_token,

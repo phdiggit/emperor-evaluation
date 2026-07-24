@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v2"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v19"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v20"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 _T2S = OpenCC("t2s")
 
@@ -148,7 +148,7 @@ def _prompt(
 14. governance 只登记已经实施并形成制度、持续程序、跨个案公共效果、明确先例或可独立验收公共产品的结果。迁都、设官、建机构、任命、结约或颁下一次命令若只证明动作发生，没有其他事实补足制度实际生效、持续运行、直接改变公共权利义务或形成可验收产品，不能单独发布成果；不得用预期目的代替实际结果。已实际生效并直接改变税负、服役、任期或司法程序的持续约束，其制度约束本身可作为结果。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections。
 15. statecraft 只登记本人提出或主导、已被采纳并形成独立可核实战略结果的非指挥成果。未实施建议、一般献策、纯夺权、宫廷清洗和只有手段成功而无独立战略结果者必须拒绝；不得为支撑预期人才等级反向生成谋略成果。
 16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
-17. 治理成果必须按相对历史基线判断四个公共价值轴：生产力与民生、文明与制度进步、国家与民众安全、文化教育与思想活力。国家安全不包括皇权自身安全。每轴分别写方向、进步强度和依据；影响范围 scale 不能代替进步强度。只比较当时既有状态与实施后的可观察变化，不按现代完美标准，也不把远期推测当作已发生结果。
+17. 治理成果必须判断生产力与民生、文明与制度进步、国家与民众安全、文化教育与思想活力四个公共价值轴；国家安全不包括皇权自身安全。不要复原抽象的“时代平均水平”，只比较这项举措前后的具体状态。value_judgment.basis 固定写“基线：举措前是什么；变化：实施后改变什么；结果：史料观察到什么”。史料直接记载前后变化用 explicit_before_after，与旧制明确比较用 prior_institution_comparison，由已引事实归纳旧状态用 inferred_prior_state；三项说不清时用 not_established 且 overall_direction=unclear。每轴分别写方向、影响强度和依据；影响范围 scale 不能代替影响强度。负向轴使用恶化、加重、压缩或损害等方向词，不得写成“改善”；不按现代完美标准，也不把远期推测当作已发生结果。
 18. 治理成员必须写 contribution_types 与 contribution_basis_fact_refs。政策/制度设计、持续治理、关键执行、纠偏和单纯授权、学术撰写必须分开；文化工程的组织授权不能自动转成治理人才信用，学术撰写也不能自动转成治理信用。
 19. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v3，task_code={task_code}。
 20. INPUT_FACTS 中每个 fact_ref 必须恰有明确处置：candidate.evidence_links 引用它，或在 rejections 中逐项写出 fact_ref 和理由。不得按 segment 粗粒度吞掉同段其他事实。
@@ -417,6 +417,10 @@ def _normalize_candidate_sources(
             ]
         if candidate.get("outcome_kind") == "governance":
             judgment = (candidate.get("payload") or {}).get("value_judgment") or {}
+            if candidate.get("result_status") == "mixed":
+                raise ValueError(
+                    f"{candidate['candidate_key']} mixed 只能表示价值方向，不能表示运行状态"
+                )
             judgment["baseline_fact_refs"] = [
                 replacement.get(str(ref), str(ref))
                 for ref in judgment.get("baseline_fact_refs") or ()
@@ -437,6 +441,31 @@ def _normalize_candidate_sources(
                         raise ValueError(
                             f"{candidate['candidate_key']} 四轴依据不属于证据链"
                         )
+            comparison_basis = str(judgment.get("comparison_basis") or "")
+            if (
+                judgment.get("overall_direction") != "unclear"
+                and comparison_basis == "not_established"
+            ):
+                raise ValueError(
+                    f"{candidate['candidate_key']} 未建立历史比较时价值方向只能不明"
+                )
+            if comparison_basis != "not_established":
+                basis = str(judgment.get("basis") or "")
+                if not all(
+                    marker in basis for marker in ("基线：", "变化：", "结果：")
+                ):
+                    raise ValueError(
+                        f"{candidate['candidate_key']} 历史比较必须写明基线、变化和结果"
+                    )
+            for axis_name, axis in (judgment.get("axes") or {}).items():
+                if (
+                    axis.get("direction") == "negative"
+                    and "改善" in str(axis.get("basis") or "")
+                ):
+                    raise ValueError(
+                        f"{candidate['candidate_key']}/{axis_name} "
+                        "负向影响不得使用“改善”表述"
+                    )
         limitation_text = "\n".join(
             str(value) for value in candidate.get("limitations") or ()
         ).lower()

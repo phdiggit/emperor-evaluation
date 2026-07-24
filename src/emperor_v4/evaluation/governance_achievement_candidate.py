@@ -485,8 +485,9 @@ OUTPUT: JSON_ONLY
 2. 同一治理对象的设计、实施、运行和结果优先合为一项 achievement；不同政策、税种、案件或不同统治期重新制定的系统不得强并。每个输入组件只由本任务读取一次。
 3. achievements 只能引用 disposition=register 的 component_refs；register 组件至少被一项 achievement 使用，omit/uncertain 组件不得使用。
 4. participants 只能使用相关组件 allowed_participants 中的 person_ref。同处中枢、共同署名或同时任职不等于同功；exclusive=材料明确独占，lead=主导，participant=明确参与。每人必须以 contribution_types 区分政策设计、治理主导、持续运行、关键执行、纠偏、授权、学术撰写或一般参与，并用 contribution_basis_fact_refs 回指 component_refs。不要写“非独占”等辩护句，只写实际负责内容。
-5. value_judgment 按相对历史基线判断生产民生、文明制度、国家与民众安全、文化教育与思想活力四轴；scale 只表示范围，不能代替 overall_magnitude。每个已建立方向的 basis_fact_refs 必须来自 component_refs，未建立轴不得伪造依据。
-5. 只登记已经观察到的实现结果。制度目的、官职重要性和后世常识不能代替 observable_result。mixed/negative 必须有材料中的实际不利公共结果；存在限制但没有不利结果时仍可 positive，并把限制写入 limitations。
+5. implementation_status 只回答是否已实施、运行、完成、失败或不明，禁止使用 mixed；mixed 只用于价值方向。
+6. value_judgment 判断生产民生、文明制度、国家与民众安全、文化教育与思想活力四轴。不要复原抽象的“时代平均水平”，只比较这项举措前后的具体状态。basis 必须写成“基线：……；变化：……；结果：……”，三段均须具体；禁止只写“以举措前状态为基线”。史料直接记载前后变化用 explicit_before_after，与旧制明确比较用 prior_institution_comparison，由已引事实归纳旧状态用 inferred_prior_state；无法说清则用 not_established 且 overall_direction=unclear。scale 只表示范围，不能代替 overall_magnitude。每个已建立方向的 basis_fact_refs 必须来自 component_refs，未建立轴不得伪造依据。
+7. 只登记已经观察到的实现结果。制度目的、官职重要性和后世常识不能代替 observable_result。mixed/negative 必须有材料中的实际不利公共结果；存在限制但没有不利结果时仍可 positive，并把限制写入 limitations。负向轴的 basis 使用“恶化、加重、压缩、损害”等方向词，不得写成“改善”。
 6. scale 衡量已实现结果的实质幅度，不衡量法令的名义管辖范围。全国颁令、中央发文或适用于天下，本身最多证明覆盖范围，不能单独证明 national。
 6A. national_core_subsystem 只用于建立、重构或长期稳定运行财政、刑律、选官、行政等全国核心系统，并且材料给出系统级实现结果。单个案件、单条刑罚标准、一个考试科目、年龄资格线、一次禁令、一次撤销或窄程序调整，即使全国适用，也只能按实际结果判 local 或 important。
 6B. national_public_result 必须有跨区域或全国人口、财政、生产、秩序等直接可观察结果；“颁行天下”及政策目的不算结果。regional 必须有主要区域的实际结果。era_shaping 必须有直接材料证明治理秩序重构，不能由“重要”推定。
@@ -559,6 +560,37 @@ def _achievement_signature(row: Mapping[str, object]) -> tuple[object, ...]:
     )
 
 
+def _validate_value_judgment(
+    row: Mapping[str, object], *, component_refs: set[str]
+) -> None:
+    judgment = row["value_judgment"]
+    comparison_basis = str(judgment["comparison_basis"])
+    overall_direction = str(judgment["overall_direction"])
+    if overall_direction != str(row["result_direction"]):
+        raise ValueError("治理成果方向与四轴总体方向不一致")
+    if overall_direction != "unclear" and comparison_basis == "not_established":
+        raise ValueError("未建立历史比较时价值方向只能不明")
+    if comparison_basis != "not_established":
+        basis = str(judgment["basis"])
+        if not all(marker in basis for marker in ("基线：", "变化：", "结果：")):
+            raise ValueError("历史比较必须按“基线；变化；结果”写明具体内容")
+    baseline_refs = {str(value) for value in judgment["baseline_fact_refs"]}
+    if not baseline_refs <= component_refs:
+        raise ValueError("历史基线依据越出本成果 component_refs")
+    if comparison_basis in {"explicit_before_after", "prior_institution_comparison"}:
+        if not baseline_refs:
+            raise ValueError("史料直接比较或旧制比较必须引用基线事实")
+    for axis_name, axis in judgment["axes"].items():
+        basis_refs = {str(value) for value in axis["basis_fact_refs"]}
+        if not basis_refs <= component_refs:
+            raise ValueError(f"{axis_name} 四轴依据越出本成果 component_refs")
+        established = axis["direction"] != "not_established"
+        if established != bool(basis_refs):
+            raise ValueError(f"{axis_name} 已建立方向必须有依据，未建立不得伪造依据")
+        if axis["direction"] == "negative" and "改善" in str(axis["basis"]):
+            raise ValueError(f"{axis_name} 负向影响不得使用“改善”表述")
+
+
 def audit_governance_achievement_candidates(
     preparation: Mapping[str, object],
     payloads: Sequence[Mapping[str, object]],
@@ -609,6 +641,7 @@ def audit_governance_achievement_candidates(
                 raise ValueError("achievement component_refs 越界或重复")
             if any(disposition_by_component[ref] != "register" for ref in component_refs):
                 raise ValueError("achievement 引用了非 register 组件")
+            _validate_value_judgment(row, component_refs=set(component_refs))
             used_components.update(component_refs)
             allowed_people = {
                 str(person["person_ref"])

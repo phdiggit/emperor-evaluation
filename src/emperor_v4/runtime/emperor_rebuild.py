@@ -1560,6 +1560,7 @@ def rebuild_emperor(
                 },
             },
             event_signatures=model_plan.get("event_signatures") or (),
+            include_all_dynasty_chains=governance_review_only,
         )
     if current_neutral and current_neutral.get("outcome_projection"):
         neutral_materials["outcome_projection"] = current_neutral[
