@@ -28,6 +28,7 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "src/emperor_v4/adapters/source_cache_fixture.py",
     "src/emperor_v4/adapters/source_cache_plan.py",
     "src/emperor_v4/adapters/source_cache_wikisource.py",
+    "src/emperor_v4/adapters/shidian.py",
     "src/emperor_v4/adapters/source_text_index.py",
     "src/emperor_v4/adapters/structured_output_contract.py",
     "src/emperor_v4/adapters/wikisource.py",

@@ -18,6 +18,10 @@ import yaml
 from emperor_v4.adapters.source_text_index import (
     build_local_source_index,
 )
+from emperor_v4.adapters.shidian import (
+    discover_shidian_chapters,
+    fetch_shidian_plaintext_batch,
+)
 from emperor_v4.adapters.wikisource import (
     WikisourcePageSnapshot,
     fetch_wikisource_plaintext_batch,
@@ -287,8 +291,13 @@ def submit_source_cache_request(
     }
 
 
-def _inventory_path(state_root: Path, root_title: str) -> Path:
-    digest = sha256(root_title.encode("utf-8")).hexdigest()
+def _provider_code(work: Mapping[str, Any]) -> str:
+    return str(work.get("provider_code") or "wikisource")
+
+
+def _inventory_path(state_root: Path, work: Mapping[str, Any]) -> Path:
+    identity = f"{_provider_code(work)}:{work['root_title']}"
+    digest = sha256(identity.encode("utf-8")).hexdigest()
     return state_root / "inventories" / f"{digest}.json"
 
 
@@ -372,15 +381,16 @@ def _cached_rows(
 
 
 def _record_cached_pages(
-    state_root: Path, snapshots: Sequence[tuple[str, WikisourcePageSnapshot]]
+    state_root: Path, snapshots: Sequence[tuple[str, Mapping[str, Any]]]
 ) -> None:
     pages = _read_page_catalog(state_root)
     for work_title, snapshot in snapshots:
-        path = _page_path(state_root, snapshot.canonical_title)
-        pages[snapshot.canonical_title] = {
+        canonical_title = str(snapshot["canonical_title"])
+        path = _page_path(state_root, canonical_title)
+        pages[canonical_title] = {
             "work_title": work_title,
-            "source_url": snapshot.canonical_url,
-            "revision_ref": str(snapshot.revision_id),
+            "source_url": str(snapshot["canonical_url"]),
+            "revision_ref": str(snapshot["revision_ref"]),
             "relative_path": path.relative_to(state_root).as_posix(),
         }
     _atomic_json(
@@ -440,7 +450,7 @@ def _build_collection(
     pending: set[str] = set()
     for work in collection["works"]:
         root = str(work["root_title"])
-        path = _inventory_path(state_root, root)
+        path = _inventory_path(state_root, work)
         inventories[root] = (
             json.loads(path.read_text(encoding="utf-8")).get("page_titles") or []
             if path.is_file()
@@ -541,21 +551,45 @@ def run_workflow_source_cache_once(
                         work
                         for work in collection["works"]
                         if not _inventory_path(
-                            state_root, str(work["root_title"])
+                            state_root, work
                         ).is_file()
                     ),
                     None,
                 )
                 if missing_inventory is not None:
                     root = str(missing_inventory["root_title"])
-                    titles = list_pages(root_title=root)
+                    provider_code = _provider_code(missing_inventory)
+                    page_metadata: Mapping[str, Mapping[str, Any]] = {}
+                    if provider_code == "shidian":
+                        page_metadata = discover_shidian_chapters(
+                            catalog_url=str(missing_inventory["catalog_url"]),
+                            work_title=str(missing_inventory["work_title"]),
+                            chapter_name_contains=str(
+                                missing_inventory["chapter_name_contains"]
+                            ),
+                            first_volume=int(
+                                (missing_inventory["required_page_ranges"] or ())[0][
+                                    "first"
+                                ]
+                            ),
+                            last_volume=int(
+                                (missing_inventory["required_page_ranges"] or ())[0][
+                                    "last"
+                                ]
+                            ),
+                        )
+                        titles = tuple(page_metadata)
+                    else:
+                        titles = list_pages(root_title=root)
                     network_requests = 1
                     _atomic_json(
-                        _inventory_path(state_root, root),
+                        _inventory_path(state_root, missing_inventory),
                         {
                             "schema_version": "workflow-source-cache-inventory-v1",
+                            "provider_code": provider_code,
                             "root_title": root,
                             "page_titles": list(titles),
+                            "page_metadata": page_metadata,
                             "page_count": len(titles),
                             "retrieved_at": _now().isoformat(),
                         },
@@ -564,11 +598,11 @@ def run_workflow_source_cache_once(
                     changed_collection = str(collection["collection_id"])
                     break
 
-                candidates: list[tuple[str, str]] = []
+                candidates: list[tuple[str, Mapping[str, Any]]] = []
                 for work in collection["works"]:
                     inventory = json.loads(
                         _inventory_path(
-                            state_root, str(work["root_title"])
+                            state_root, work
                         ).read_text(encoding="utf-8")
                     )
                     available_titles = tuple(inventory.get("page_titles") or ())
@@ -577,24 +611,68 @@ def run_workflow_source_cache_once(
                         title for title in required if title in available_titles
                     ]
                     for title in (*priority_titles, *available_titles):
-                        if title not in all_rows and (title, str(work["work_title"])) not in candidates:
-                            candidates.append((title, str(work["work_title"])))
+                        if title not in all_rows and not any(
+                            title == candidate_title
+                            for candidate_title, _candidate_work in candidates
+                        ):
+                            candidates.append((title, work))
                 if candidates:
-                    batch = candidates[:max_pages]
-                    snapshots = fetch_pages(page_titles=[title for title, _ in batch])
+                    provider_code = _provider_code(candidates[0][1])
+                    batch = [
+                        row
+                        for row in candidates
+                        if _provider_code(row[1]) == provider_code
+                    ][:max_pages]
+                    work = batch[0][1]
+                    page_titles = [title for title, _ in batch]
+                    if provider_code == "shidian":
+                        inventory = json.loads(
+                            _inventory_path(state_root, work).read_text(
+                                encoding="utf-8"
+                            )
+                        )
+                        snapshots: Mapping[str, Any] = (
+                            fetch_shidian_plaintext_batch(
+                                page_titles=page_titles,
+                                page_metadata=inventory["page_metadata"],
+                                book_id=str(work["book_id"]),
+                                chapter_url_format=str(
+                                    work["chapter_url_format"]
+                                ),
+                            )
+                        )
+                    else:
+                        snapshots = fetch_pages(page_titles=page_titles)
                     network_requests = 1
-                    work_by_title = dict(batch)
+                    work_by_title = {
+                        title: str(candidate_work["work_title"])
+                        for title, candidate_work in batch
+                    }
+                    normalized_snapshots = {}
                     for requested_title, snapshot in snapshots.items():
+                        if isinstance(snapshot, WikisourcePageSnapshot):
+                            snapshot_payload = {
+                                **asdict(snapshot),
+                                "revision_ref": str(snapshot.revision_id),
+                            }
+                        else:
+                            snapshot_payload = dict(snapshot)
                         payload = {
-                            **asdict(snapshot),
+                            **snapshot_payload,
                             "work_title": work_by_title[requested_title],
                         }
-                        _atomic_json(_page_path(state_root, snapshot.canonical_title), payload)
+                        normalized_snapshots[requested_title] = payload
+                        _atomic_json(
+                            _page_path(
+                                state_root, str(payload["canonical_title"])
+                            ),
+                            payload,
+                        )
                     _record_cached_pages(
                         state_root,
                         [
                             (work_by_title[requested_title], snapshot)
-                            for requested_title, snapshot in snapshots.items()
+                            for requested_title, snapshot in normalized_snapshots.items()
                         ],
                     )
                     cache_rows = _cached_rows(state_root)
