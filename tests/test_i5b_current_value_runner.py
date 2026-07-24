@@ -1337,6 +1337,11 @@ def test_outcome_transport_schema_drops_api_conditionals_only() -> None:
     assert set(member["required"]) == set(member["properties"])
     assert member["properties"]["talent_credit"]["type"] == ["string", "null"]
     assert member["properties"]["talent_credit"]["enum"][-1] is None
+    axes = candidate["properties"]["payload"]["properties"]["value_judgment"][
+        "properties"
+    ]["axes"]["properties"]
+    assert all(axis["type"] == "object" for axis in axes.values())
+    assert all("$ref" not in axis for axis in axes.values())
     validate_codex_output_schema(transport, require_all_properties=True)
 
 

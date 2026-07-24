@@ -47,6 +47,18 @@ def build_outcome_transport_schema(schema_path: Path) -> dict[str, Any]:
             for key, value in node.items()
             if key not in {"allOf", "if", "then", "else"}
         }
+        # OpenAI structured outputs reject JSON Schema siblings such as ``type``
+        # beside ``$ref``.  Dereference our local definitions so the transport
+        # node remains explicit enough for the strict preflight validator.
+        if "$ref" in result:
+            prefix = "#/$defs/"
+            reference = str(result["$ref"])
+            if not reference.startswith(prefix):
+                raise ValueError(f"成果 transport schema 不支持外部引用: {reference}")
+            definition = (schema.get("$defs") or {}).get(reference[len(prefix) :])
+            if not isinstance(definition, Mapping):
+                raise ValueError(f"成果 transport schema 引用不存在: {reference}")
+            return strip(definition)
         properties = result.get("properties")
         if isinstance(properties, Mapping):
             original_required = {
