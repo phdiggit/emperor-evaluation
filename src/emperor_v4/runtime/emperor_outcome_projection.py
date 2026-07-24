@@ -371,6 +371,30 @@ def _normalize_candidate_sources(
             str(row.get("fact_ref") or ""): row
             for row in candidate.get("evidence_links") or ()
         }
+        replacement: dict[str, str] = {}
+        resolved_declared_links: dict[str, Mapping[str, Any]] = {}
+        for declared_ref, link in declared_links.items():
+            resolved_ref = declared_ref if declared_ref in facts_by_ref else None
+            if resolved_ref is None:
+                declared_quote = _T2S.convert(
+                    str(link.get("exact_quote") or "")
+                )
+                quote_linked = {
+                    str(fact["fact_ref"])
+                    for fact in facts
+                    if declared_quote
+                    and (
+                        declared_quote
+                        in _T2S.convert(str(fact.get("exact_quote") or ""))
+                        or _T2S.convert(str(fact.get("exact_quote") or ""))
+                        in declared_quote
+                    )
+                }
+                if len(quote_linked) == 1:
+                    resolved_ref = next(iter(quote_linked))
+                    replacement[declared_ref] = resolved_ref
+            if resolved_ref is not None:
+                resolved_declared_links[resolved_ref] = link
         matched_facts_by_ref = {
             str(fact["fact_ref"]): fact
             for rows in quote_matches
@@ -379,7 +403,7 @@ def _normalize_candidate_sources(
         matched_facts_by_ref.update(
             {
                 fact_ref: facts_by_ref[fact_ref]
-                for fact_ref in declared_links
+                for fact_ref in resolved_declared_links
                 if fact_ref in facts_by_ref
             }
         )
@@ -395,6 +419,11 @@ def _normalize_candidate_sources(
                         declared_links.get(str(fact["fact_ref"]), {}).get(
                             "evidence_roles"
                         )
+                        or resolved_declared_links.get(
+                            str(fact["fact_ref"]), {}
+                        ).get(
+                            "evidence_roles"
+                        )
                         or fact.get("evidence_roles")
                         or ("public_result",)
                     )
@@ -404,12 +433,12 @@ def _normalize_candidate_sources(
         ]
         linked_refs = {str(row["fact_ref"]) for row in candidate["evidence_links"]}
         declared_refs = set(declared_links)
-        replacement = (
-            {next(iter(declared_refs)): next(iter(linked_refs))}
-            if len(declared_refs) == len(linked_refs) == 1
+        if (
+            not replacement
+            and len(declared_refs) == len(linked_refs) == 1
             and declared_refs != linked_refs
-            else {}
-        )
+        ):
+            replacement[next(iter(declared_refs))] = next(iter(linked_refs))
         for member in candidate.get("members") or ():
             member.setdefault(
                 "contribution_types",

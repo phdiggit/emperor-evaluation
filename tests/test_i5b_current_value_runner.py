@@ -510,18 +510,27 @@ def test_outcome_projection_normalizes_governance_window_scope() -> None:
 def test_outcome_projection_preserves_declared_fact_refs_after_quote_expansion() -> None:
     payload = _governance_candidate_payload()
     candidate = payload["candidates"][0]
+    candidate["evidence_links"][0]["fact_ref"] = "LEGACY-FACT-TEST"
+    candidate["members"][0]["contribution_basis_fact_refs"] = [
+        "LEGACY-FACT-TEST"
+    ]
+    for axis in candidate["payload"]["value_judgment"]["axes"].values():
+        axis["basis_fact_refs"] = [
+            "LEGACY-FACT-TEST"
+            for _ in axis["basis_fact_refs"]
+        ]
     candidate["evidence_links"].append(
         {
-            "fact_ref": "NEUTRALFACT-COST",
+            "fact_ref": "LEGACY-FACT-COST",
             "source_page": "史书/卷一",
             "revision_ref": "1",
-            "exact_quote": "因岁饥而停止。",
+            "exact_quote": "工程因岁饥而停止。后续另有议论。",
             "evidence_roles": ["public_cost_or_harm"],
         }
     )
     candidate["payload"]["value_judgment"]["axes"][
         "productivity_livelihood"
-    ]["basis_fact_refs"] = ["NEUTRALFACT-COST"]
+    ]["basis_fact_refs"] = ["LEGACY-FACT-COST"]
     facts = [
         {
             "fact_ref": "NEUTRALFACT-TEST",
@@ -544,6 +553,9 @@ def test_outcome_projection_preserves_declared_fact_refs_after_quote_expansion()
     assert {
         row["fact_ref"] for row in normalized["candidates"][0]["evidence_links"]
     } == {"NEUTRALFACT-TEST", "NEUTRALFACT-COST"}
+    assert normalized["candidates"][0]["payload"]["value_judgment"]["axes"][
+        "productivity_livelihood"
+    ]["basis_fact_refs"] == ["NEUTRALFACT-COST"]
 
 
 def test_outcome_projection_normalizes_ruler_talent_credit() -> None:
