@@ -423,6 +423,55 @@ def _quality_report(
         and int(audit.get("quote_count") or 0) >= int(audit.get("chain_count") or 0)
         and not missing_groups
     )
+    chains = [dict(chain) for chain in audit.get("chains") or ()]
+    unsupported_result_summary_count = 0
+    unsupported_cost_summary_count = 0
+    four_axis_candidate_chain_count = 0
+    context_only_chain_count = 0
+    for chain in chains:
+        evidence_roles = {
+            str(role)
+            for evidence in chain.get("evidence") or ()
+            for role in evidence.get("evidence_roles") or ()
+        }
+        result = str(chain.get("observable_result") or "").strip()
+        cost = str(chain.get("cost_or_burden") or "").strip()
+        result_is_claim = bool(result) and not any(
+            marker in result
+            for marker in (
+                "原文未载",
+                "原文未載",
+                "未说明",
+                "未說明",
+                "未明确",
+                "未明確",
+                "not recorded",
+                "not shown",
+            )
+        )
+        cost_is_claim = bool(cost) and not any(
+            marker in cost
+            for marker in (
+                "原文未载",
+                "原文未載",
+                "未说明",
+                "未說明",
+                "未明确",
+                "未明確",
+                "not recorded",
+                "not shown",
+            )
+        )
+        unsupported_result_summary_count += int(
+            result_is_claim and "public_result" not in evidence_roles
+        )
+        unsupported_cost_summary_count += int(
+            cost_is_claim and "cost_or_burden" not in evidence_roles
+        )
+        if evidence_roles & {"public_result", "cost_or_burden"}:
+            four_axis_candidate_chain_count += 1
+        else:
+            context_only_chain_count += 1
     return {
         "status": "passed" if passed else "failed_closed",
         "audit_status": str(audit.get("status") or ""),
@@ -434,6 +483,26 @@ def _quality_report(
         "observed_domains": observed_domains,
         "required_domain_group_coverage": coverage,
         "missing_domain_groups": missing_groups,
+        "four_axis_projection_readiness": {
+            "policy": "evidence_role_gated",
+            "four_axis_candidate_chain_count": four_axis_candidate_chain_count,
+            "context_only_chain_count": context_only_chain_count,
+            "unsupported_result_summary_count": unsupported_result_summary_count,
+            "unsupported_cost_summary_count": unsupported_cost_summary_count,
+            "cross_reign_chain_count": sum(
+                str(chain.get("temporal_scope") or "")
+                in {"cross_reign_continuity", "cross_dynastic_continuity"}
+                for chain in chains
+            ),
+            "court_only_chain_count": sum(
+                str(chain.get("geographic_scope") or "") == "court"
+                for chain in chains
+            ),
+            "observed_outcome_chain_count": sum(
+                str(chain.get("operation_status") or "") == "observed_outcome"
+                for chain in chains
+            ),
+        },
     }
 
 

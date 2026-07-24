@@ -333,6 +333,16 @@ dynasty_governance_scans:
 
     assert first["reused"] is False
     assert first["quality"]["status"] == "passed"
+    assert first["quality"]["four_axis_projection_readiness"] == {
+        "policy": "evidence_role_gated",
+        "four_axis_candidate_chain_count": 0,
+        "context_only_chain_count": 1,
+        "unsupported_result_summary_count": 1,
+        "unsupported_cost_summary_count": 0,
+        "cross_reign_chain_count": 0,
+        "court_only_chain_count": 1,
+        "observed_outcome_chain_count": 0,
+    }
     assert second["reused"] is True
     assert previous_identity != expanded_identity
     assert third["reused"] is True

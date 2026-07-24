@@ -1897,6 +1897,29 @@ def test_dynasty_governance_catalog_covers_supported_eras() -> None:
             assert source["target_scope"]
             assert source["domain_focus"]
             assert source["section_groups"]
+    ming_pages = rows["明"]["source_works"][0]["page_titles"]
+    assert ming_pages == [f"明史/卷{number}" for number in range(69, 96)]
+    eastern_han_works = {
+        source["work"]: source for source in rows["东汉"]["source_works"]
+    }
+    assert set(eastern_han_works) == {"後漢書", "東漢會要"}
+    assert set(eastern_han_works["後漢書"]["section_groups"]) == {
+        "bureaucracy",
+        "ritual_and_public_order",
+        "frontier",
+    }
+    assert set(eastern_han_works["東漢會要"]["section_groups"]) == {
+        "education_and_selection",
+        "law_and_discipline",
+        "economy_and_relief",
+        "military",
+    }
+    assert "地理志" not in {
+        term
+        for source in rows["西汉"]["source_works"]
+        for terms in source["section_groups"].values()
+        for term in terms
+    }
     assert project["i5b_current_value"]["rulers"]["李治"][
         "dynasty_governance_material_token"
     ] == "TANG"
@@ -6095,13 +6118,19 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                         "quote_ref": "Q-1",
                         "page_title": "貞觀政要/卷08",
                         "revision_ref": "1",
-                        "exact_quote": "太宗授权修订法律并颁行天下。",
+                        "exact_quote": "太宗授权群臣修订法律条文。",
                         "evidence_roles": [
                             "implementation_or_operation",
-                            "public_result",
                             "responsibility_or_attribution",
                         ],
-                    }
+                    },
+                    {
+                        "quote_ref": "Q-1R",
+                        "page_title": "貞觀政要/卷08-result",
+                        "revision_ref": "1",
+                        "exact_quote": "新律颁行天下。",
+                        "evidence_roles": ["public_result"],
+                    },
                 ],
                 "uncertainty": "",
             },
@@ -6162,6 +6191,29 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                 ],
                 "uncertainty": "本条未载单一人物责任。",
             },
+            {
+                "chain_key": "zhenguan-office-name",
+                "title": "贞观官署名称",
+                "domain": "central_government",
+                "period": "贞观年间",
+                "action": "调整官署名称。",
+                "implementation": "诏令已经发布。",
+                "observable_result": "官署形成新名称。",
+                "operation_status": "enacted",
+                "temporal_scope": "single_event",
+                "effect_domains": ["civilization_institutions"],
+                "actors": [],
+                "evidence": [
+                    {
+                        "quote_ref": "Q-4",
+                        "page_title": "唐六典/卷01",
+                        "revision_ref": "1",
+                        "exact_quote": "贞观年间改官署之名。",
+                        "evidence_roles": ["measure_or_design"],
+                    }
+                ],
+                "uncertainty": "",
+            },
         ],
     }
 
@@ -6189,7 +6241,7 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                 "result_anchors": [],
                 "quote_anchors": [],
                 "backbone_quotes": [
-                    {"exact_quote": "太宗授权修订法律并颁行天下。"}
+                    {"exact_quote": "太宗授权群臣修订法律条文。"}
                 ],
             }
         ],
@@ -6218,7 +6270,7 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                 "result_anchors": [],
                 "quote_anchors": [],
                 "backbone_quotes": [
-                    {"exact_quote": "太宗授权修订法律并颁行天下。"}
+                    {"exact_quote": "太宗授权群臣修订法律条文。"}
                 ],
             }
         ],
@@ -6229,9 +6281,11 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
         "dynasty_token": "TANG",
         "input_fingerprint": "DYNASTY-CURRENT-1",
         "source_index_identity": "INDEX-1",
-        "selected_chain_count": 3,
+        "selected_chain_count": 4,
         "aligned_to_backbone_chain_count": 1,
-        "fact_count": 3,
+        "four_axis_candidate_chain_count": 3,
+        "context_only_chain_count": 1,
+        "fact_count": 5,
         "model_call_count": 0,
     }
     facts_by_page = {
@@ -6243,6 +6297,8 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
     assert fact["actors"][0]["role"] == "authorizer"
     assert fact["outcome_candidate_status"] == "linkable_chain_fact"
     assert fact["event_refs"] == ["EVENT-TONGJIAN-LAW"]
+    assert fact["result"] == ""
+    assert facts_by_page["貞觀政要/卷08-result"]["result"] == "新律颁行。"
     lifetime_fact = facts_by_page["舊唐書/卷50"]
     assert lifetime_fact["actors"][0]["canonical_name"] == "长孙无忌"
     assert lifetime_fact["period"] == "永徽年间"
@@ -6253,6 +6309,10 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
         "productivity_livelihood",
         "state_people_security",
     ]
+    static_context = facts_by_page["唐六典/卷01"]
+    assert static_context["outcome_candidate_status"] == "context_only"
+    assert static_context["result"] == ""
+    assert "保留为背景" in static_context["outcome_candidate_reason"]
 
     with pytest.raises(ValueError, match="索引版本不一致"):
         merge_dynasty_governance_current(

@@ -165,9 +165,12 @@ dynasty_governance_catalog:
             bureaucracy: [百官公卿表]
             law: [刑法志]
             economy: [食貨志, 溝洫志]
-            territory_and_frontier: [地理志, 西域傳]
-          target_scope: 仅抽取西汉实际实施、运行或产生可观察结果的官制、选官、法律、财政、水利、军政和边疆治理事实。
-          domain_focus: [官制, 选官, 法律刑狱, 财政经济, 水利, 军制边政]
+            ritual_education: [禮樂志]
+            public_religion: [郊祀志]
+            frontier: [西域傳]
+            knowledge_context: [藝文志]
+          target_scope: 仅抽取西汉实际实施、运行或产生可观察结果的官制、选官、法律、财政、水利、军政、边疆、教育与公共礼制事实；艺文目录只作知识背景，不得独立登记为治理成果。
+          domain_focus: [官制, 选官, 法律刑狱, 财政经济, 水利, 军制边政, 教育礼制]
     东汉:
       aliases: [后汉]
       dynasty_token: EASTERN-HAN
@@ -176,12 +179,19 @@ dynasty_governance_catalog:
           source_genre: official_history_treatises
           section_groups:
             bureaucracy: [百官志]
-            local_government: [郡國志]
+            ritual_and_public_order: [禮儀志, 祭祀志]
+            frontier: [西羌傳, 南匈奴列傳]
+          target_scope: 仅抽取东汉实际实施、运行或产生可观察结果的中央官制、公共礼制与边疆治理事实；郡国静态清单不作为默认扫描范围。
+          domain_focus: [官制, 公共礼制, 边疆治理]
+        - work: 東漢會要
+          source_genre: institutional_compendium
+          section_groups:
+            education_and_selection: [學校, 選舉]
             law_and_discipline: [刑法, 黨錮]
             economy_and_relief: [食貨, 賑貸, 水利]
-            military_and_frontier: [兵, 西羌傳, 南匈奴列傳]
-          target_scope: 仅抽取东汉实际实施、运行或产生可观察结果的中央与地方官制、司法监察、财政民生、军制和边疆治理事实。
-          domain_focus: [官制, 地方治理, 法律监察, 财政民生, 军制边政]
+            military: [兵]
+          target_scope: 补足《后汉书》没有独立刑法、食货和兵志造成的制度缺口；只抽取东汉已经实施、运行或产生结果的事实，并回指其所引原始史料。
+          domain_focus: [教育选官, 法律监察, 财政民生, 军制]
     三国:
       aliases: [曹魏, 蜀汉, 孙吴]
       dynasty_token: THREE-KINGDOMS
@@ -194,9 +204,12 @@ dynasty_governance_catalog:
             economy: [食貨]
             law: [刑法]
             military: [兵]
-            local_government: [地理]
-          target_scope: 按魏、蜀、吴分别抽取实际实施、运行或产生可观察结果的制度事实，必须保留政权归属，不得把三国制度合并成同一事实。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 地方治理]
+            education: [學校]
+            public_society: [庶政, 戶口, 風俗]
+            frontier: [四夷]
+            public_ritual: [禮]
+          target_scope: 按魏、蜀、吴分别抽取实际实施、运行或产生可观察结果的制度事实，必须保留政权归属，不得把三国制度合并成同一事实；礼制仅保留具有公共社会影响的部分。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 教育, 社会治理, 边疆]
     两晋十六国:
       aliases: [西晋, 东晋, 十六国]
       dynasty_token: JIN-SIXTEEN-KINGDOMS
@@ -207,10 +220,10 @@ dynasty_governance_catalog:
             bureaucracy: [職官志]
             law: [刑法志]
             economy: [食貨志]
-            territory: [地理志]
             military: [兵, 軍]
-          target_scope: 分别保留西晋、东晋和十六国政权归属，只抽取实际实施、运行或产生可观察结果的制度与治理事实。
-          domain_focus: [官制, 法律刑狱, 财政民生, 军制, 地方治理]
+            ritual_and_culture: [禮志, 樂志]
+          target_scope: 分别保留西晋、东晋和十六国政权归属，只抽取实际实施、运行或产生可观察结果的制度与治理事实；礼乐只保留教育、社会规范或公共负担事实。
+          domain_focus: [官制, 法律刑狱, 财政民生, 军制, 教育礼乐]
     南北朝:
       aliases: [南朝, 北朝, 北魏, 东魏, 西魏, 北齐, 北周, 刘宋, 南齐, 梁, 陈]
       dynasty_token: SOUTHERN-NORTHERN
@@ -221,9 +234,9 @@ dynasty_governance_catalog:
             bureaucracy: [百官志]
             law: [刑法志]
             economy: [食貨志]
-            territory: [地理志]
-          target_scope: 仅抽取隋以前南北朝各政权实际实施的制度事实，逐条保留具体政权和年代；不得把隋制反投到前朝。
-          domain_focus: [官制, 法律刑狱, 财政民生, 地方治理, 军制边政]
+            ritual_and_culture: [禮儀, 音樂]
+          target_scope: 仅抽取隋以前南北朝各政权实际实施的制度事实，逐条保留具体政权和年代；不得把隋制反投到前朝；礼乐只保留教育、社会规范、共同体整合或公共负担事实。
+          domain_focus: [官制, 法律刑狱, 财政民生, 军制边政, 教育礼乐]
     隋:
       aliases: [隋朝]
       dynasty_token: SUI
@@ -234,9 +247,9 @@ dynasty_governance_catalog:
             bureaucracy: [百官志]
             law: [刑法志]
             economy: [食貨志]
-            territory: [地理志]
-          target_scope: 仅抽取隋代实际实施、运行或产生可观察结果的官制、选官、法律、财政、军政和地方治理事实。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 地方治理]
+            ritual_and_culture: [禮儀, 音樂]
+          target_scope: 仅抽取隋代实际实施、运行或产生可观察结果的官制、选官、法律、财政、军政及具有公共影响的礼乐事实。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 教育礼乐]
     唐:
       aliases: [武周]
       dynasty_token: TANG
@@ -272,8 +285,11 @@ dynasty_governance_catalog:
             economy: [戶口, 賦稅, 鹽鐵]
             law: [刑法, 斷獄]
             military: [軍, 兵]
-          target_scope: 按五代及十国具体政权分别抽取实际实施、运行或产生结果的制度事实，禁止跨政权合并。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制]
+            education: [褒崇先聖, 經籍, 弘文館, 集賢院]
+            public_society: [戶口, 逃戶, 奴婢, 道路, 橋梁, 疏鑿利人]
+            frontier: [回鶻, 吐渾, 契丹, 黨項, 高麗, 渤海]
+          target_scope: 按五代及十国具体政权分别抽取实际实施、运行或产生结果的制度事实，禁止跨政权合并；优先卷八至十、二十及二十五至三十中的教育、刑法、户口、工程与边疆事实。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 教育, 社会治理, 边疆]
     辽:
       aliases: [契丹, 西辽]
       dynasty_token: LIAO
@@ -281,13 +297,14 @@ dynasty_governance_catalog:
         - work: 遼史
           source_genre: official_history_treatises
           section_groups:
+            social_organization: [營衛]
             bureaucracy: [百官志]
             law: [刑法志]
             economy: [食貨志]
             military: [兵衛志]
-            territory: [地理志]
-          target_scope: 仅抽取辽及明确可归属西辽的实际制度和治理事实；制度名称不得替代实施与结果证据。
-          domain_focus: [官制, 法律刑狱, 财政民生, 军制, 地方边疆治理]
+            identity_integration: [禮志, 國樂, 本國拜儀]
+          target_scope: 仅抽取辽及明确可归属西辽的实际制度和治理事实；营卫用于覆盖部族组织和南北制度，礼乐只保留共同体整合或公共社会影响；制度名称不得替代实施与结果证据。
+          domain_focus: [部族与南北制度, 官制, 法律刑狱, 财政民生, 军制, 共同体整合]
     宋:
       aliases: [北宋, 南宋]
       dynasty_token: SONG
@@ -300,8 +317,11 @@ dynasty_governance_catalog:
             economy: [食貨]
             law: [刑法]
             military: [兵]
-          target_scope: 仅抽取宋代实际实施、运行或产生可观察结果的制度事实，保存具体纪年并区分北宋、南宋。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+            education_and_knowledge: [崇儒]
+            religion_and_society: [道釋]
+            frontier_and_external_relations: [蕃夷]
+          target_scope: 仅抽取宋代实际实施、运行或产生可观察结果的制度事实，保存具体纪年并区分北宋、南宋；礼类不全扫，只有公共社会影响明确时定向补入。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政, 教育知识, 宗教社会]
     西夏:
       aliases: [夏国]
       dynasty_token: WESTERN-XIA
@@ -319,8 +339,9 @@ dynasty_governance_catalog:
           source_genre: polity_chronicle
           section_groups:
             implementation: [詔, 定制, 置, 改, 行]
-          target_scope: 仅用于补充法典制度的实际颁行、改革和结果，不作为第二条皇帝连续主干。
-          domain_focus: [制度实施, 改革结果]
+            culture_and_society: [文字, 學校, 佛, 僧, 禮俗]
+          target_scope: 仅用于补充法典制度的实际颁行、改革和结果，以及文字、学校、宗教和社会规范的实际运行；不作为第二条皇帝连续主干。
+          domain_focus: [制度实施, 改革结果, 文字教育, 宗教社会]
     金:
       aliases: [女真]
       dynasty_token: JIN
@@ -333,8 +354,10 @@ dynasty_governance_catalog:
             economy: [食貨志]
             law: [刑志]
             military: [兵志]
-          target_scope: 仅抽取金代实际实施、运行或产生可观察结果的制度与治理事实。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+            public_works: [河渠志]
+            identity_integration: [宣聖廟, 本國拜儀]
+          target_scope: 仅抽取金代实际实施、运行或产生可观察结果的制度与治理事实；礼制只保留教育、族群整合或公共负担明确的部分。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 水利, 军制边政, 共同体整合]
     元:
       aliases: [蒙古帝国]
       dynasty_token: YUAN
@@ -350,20 +373,57 @@ dynasty_governance_catalog:
             works: [工部]
           target_scope: 仅抽取元代已经颁行、执行或产生结果的制度与治理事实，保存年代和发布主体。
           domain_focus: [官制选官, 财政民生, 礼制教化, 军制, 法律刑狱, 工程交通]
+        - work: 元史
+          source_genre: official_history_treatise_result_supplement
+          section_groups:
+            public_works: [河渠志]
+            selection: [選舉志]
+            economy: [食貨志]
+            law: [刑法志]
+            culture_and_identity: [禮樂志]
+          target_scope: 只补《元典章》难以单独证明的制度沿革、公共结果、实际代价与持续性；礼乐仅抽取教育、共同体整合或公共负担事实。
+          domain_focus: [水利交通, 选官教育, 财政民生, 法律刑狱, 共同体整合]
     明:
       aliases: [南明]
       dynasty_token: MING
       source_works:
         - work: 明史
           source_genre: official_history_treatises
-          page_titles: [明史/卷69, 明史/卷72, 明史/卷77, 明史/卷81, 明史/卷89, 明史/卷93, 明史/卷94]
+          page_titles:
+            - 明史/卷69
+            - 明史/卷70
+            - 明史/卷71
+            - 明史/卷72
+            - 明史/卷73
+            - 明史/卷74
+            - 明史/卷75
+            - 明史/卷76
+            - 明史/卷77
+            - 明史/卷78
+            - 明史/卷79
+            - 明史/卷80
+            - 明史/卷81
+            - 明史/卷82
+            - 明史/卷83
+            - 明史/卷84
+            - 明史/卷85
+            - 明史/卷86
+            - 明史/卷87
+            - 明史/卷88
+            - 明史/卷89
+            - 明史/卷90
+            - 明史/卷91
+            - 明史/卷92
+            - 明史/卷93
+            - 明史/卷94
+            - 明史/卷95
           section_groups:
             bureaucracy: [職官志, 選舉志]
             economy: [食貨志, 河渠志]
             law: [刑法志]
             military: [兵志]
-          target_scope: 仅抽取明代制度的沿革、实际运行、可观察结果与实际代价；按当前皇帝纪年词增量筛选，不作为皇帝编年主干或臣子列传替代。
-          domain_focus: [官制选官, 户籍赋役, 货币贸易, 军制与锦衣卫, 法律刑狱]
+          target_scope: 仅抽取《明史》卷69至95所载制度沿革、实际运行、可观察结果与实际代价；按当前皇帝纪年词增量筛选，不作为皇帝编年主干或臣子列传替代。
+          domain_focus: [官制选官, 户籍赋役, 货币贸易, 河渠工程, 军制与锦衣卫, 法律刑狱]
     清:
       aliases: [后金]
       dynasty_token: QING
@@ -387,8 +447,11 @@ dynasty_governance_catalog:
             economy: [食貨志, 交通志]
             law: [刑法志]
             military: [兵志]
-          target_scope: 仅补会典事例的沿革、实际运行与结果，不作为皇帝实录主干或臣子列传替代。
-          domain_focus: [制度沿革, 实施结果]
+            public_ritual: [禮志]
+            external_relations: [邦交志]
+            knowledge_context: [藝文志]
+          target_scope: 仅补会典事例的沿革、实际运行与结果，不作为皇帝实录主干或臣子列传替代；礼志只保留公共社会影响，艺文志只作知识背景。
+          domain_focus: [制度沿革, 实施结果, 公共礼制, 邦交安全, 知识背景]
     太平天国:
       aliases: [太平天囯]
       dynasty_token: TAIPING
@@ -399,8 +462,10 @@ dynasty_governance_catalog:
             land_and_economy: [天朝田畝制度]
             reform_program: [資政新篇]
             administration_and_law: [詔書, 條例, 制度]
-          target_scope: 区分主张、颁行和实际执行；只有可核验的施行、运行或结果进入治理中性事实。
-          domain_focus: [土地财政, 行政改革, 法律秩序, 社会治理]
+            religion_and_social_order: [天父, 天兄, 戒律, 禮拜]
+            gender_family_and_livelihood: [婚姻, 女館, 男館, 市場, 學校]
+          target_scope: 区分主张、颁行和实际执行；只有可核验的施行、运行或结果进入治理中性事实，《资政新篇》无实施证据时只登记为方案。
+          domain_focus: [土地财政, 行政改革, 法律秩序, 宗教社会, 婚姻性别, 市场教育]
 
 dynasty_governance_scans:
   output_schema: config/dynasty-neutral-governance-output.schema.json

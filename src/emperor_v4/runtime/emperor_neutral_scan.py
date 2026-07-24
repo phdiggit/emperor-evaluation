@@ -2230,6 +2230,8 @@ def merge_dynasty_governance_current(
     selected_chain_refs: set[str] = set()
     selected_chain_keys: set[str] = set()
     aligned_chain_keys: set[str] = set()
+    four_axis_candidate_chain_keys: set[str] = set()
+    context_only_chain_keys: set[str] = set()
     event_fact_refs: dict[str, list[str]] = {}
     for chain in current.get("chains") or ():
         period = str(chain.get("period") or "")
@@ -2274,6 +2276,33 @@ def merge_dynasty_governance_current(
             "input_fingerprint": current.get("input_fingerprint"),
             "chain_key": chain.get("chain_key"),
         }
+        result = str(chain.get("observable_result") or "")
+        meaningful_result = bool(result.strip()) and not any(
+            marker in result
+            for marker in (
+                "原文未载",
+                "原文未載",
+                "未载进一步",
+                "未載進一步",
+            )
+        )
+        explicit_chain_evidence_roles = {
+            str(role)
+            for evidence in chain.get("evidence") or ()
+            for role in evidence.get("evidence_roles") or ()
+        }
+        # V2 evidence roles are the source-of-truth for whether a chain can
+        # support a four-axis outcome review.  Legacy fixtures without roles
+        # retain their previous result-based behavior, but a V2 summary may not
+        # turn design-only or court-procedure quotes into public-result facts.
+        chain_has_public_effect_evidence = bool(
+            explicit_chain_evidence_roles
+            & {"public_result", "cost_or_burden"}
+        ) or (not explicit_chain_evidence_roles and meaningful_result)
+        if chain_has_public_effect_evidence:
+            four_axis_candidate_chain_keys.add(str(chain.get("chain_key") or ""))
+        else:
+            context_only_chain_keys.add(str(chain.get("chain_key") or ""))
         chain_text = _normalized_anchor(
             " ".join(
                 str(chain.get(key) or "")
@@ -2320,10 +2349,6 @@ def merge_dynasty_governance_current(
         else:
             event_ref = "DYNGOV-EVENT-" + _digest(chain_identity)[:20].upper()
         event_fact_refs.setdefault(event_ref, [])
-        result = str(chain.get("observable_result") or "")
-        meaningful_result = bool(result.strip()) and not any(
-            marker in result for marker in ("原文未载", "原文未載", "未载进一步", "未載進一步")
-        )
         implementation_status = implementation_by_status.get(
             str(chain.get("operation_status") or ""), "not_shown"
         )
@@ -2345,6 +2370,36 @@ def merge_dynasty_governance_current(
             fact_ref = "DYNGOV-FACT-" + suffix
             segment_ref = "DYNGOV-SEG-" + suffix
             exact_quote = str(evidence.get("exact_quote") or "")
+            evidence_roles = list(
+                dict.fromkeys(
+                    str(value)
+                    for value in (
+                        evidence.get("evidence_roles")
+                        or (
+                            [
+                                "implementation_or_operation"
+                                if implementation_status
+                                in {
+                                    "adopted",
+                                    "implemented",
+                                    "nationally_promulgated",
+                                    "completed_work",
+                                }
+                                else "measure_or_design"
+                            ]
+                            + (["public_result"] if meaningful_result else [])
+                            + (
+                                ["responsibility_or_attribution"]
+                                if evidence_actors
+                                else []
+                            )
+                        )
+                    )
+                )
+            )
+            evidence_result = (
+                result if "public_result" in set(evidence_roles) else ""
+            )
             projected_facts.append(
                 {
                     "fact_id": fact_ref,
@@ -2359,33 +2414,7 @@ def merge_dynasty_governance_current(
                     "exact_quote": exact_quote,
                     "evidence_span_refs": [quote_ref],
                     "fact_kind": "institutional_action",
-                    "evidence_roles": list(
-                        dict.fromkeys(
-                            str(value)
-                            for value in (
-                                evidence.get("evidence_roles")
-                                or (
-                                    [
-                                        "implementation_or_operation"
-                                        if implementation_status
-                                        in {
-                                            "adopted",
-                                            "implemented",
-                                            "nationally_promulgated",
-                                            "completed_work",
-                                        }
-                                        else "measure_or_design"
-                                    ]
-                                    + (["public_result"] if meaningful_result else [])
-                                    + (
-                                        ["responsibility_or_attribution"]
-                                        if evidence_actors
-                                        else []
-                                    )
-                                )
-                            )
-                        )
-                    ),
+                    "evidence_roles": evidence_roles,
                     "effect_domains": list(
                         dict.fromkeys(
                             str(value) for value in chain.get("effect_domains") or ()
@@ -2400,7 +2429,7 @@ def merge_dynasty_governance_current(
                         for actor in evidence_actors
                     ],
                     "implementation_status": implementation_status,
-                    "result": result,
+                    "result": evidence_result,
                     "legacy_status": (
                         "cross_reign_continuity"
                         if chain.get("temporal_scope") == "cross_reign_continuity"
@@ -2410,15 +2439,13 @@ def merge_dynasty_governance_current(
                     "projection_eligibility": "direct_neutral_fact",
                     "outcome_candidate_status": (
                         "linkable_chain_fact"
-                        if meaningful_result
-                        and implementation_status
-                        in {"adopted", "implemented", "completed_work", "repealed"}
-                        else "linkable_chain_fact"
+                        if chain_has_public_effect_evidence
+                        else "context_only"
                     ),
                     "outcome_candidate_reason": (
-                        "政书已载实施及可观察结果，仍需与编年和正史材料归并判断。"
-                        if meaningful_result
-                        else "政书未载足以形成独立成果的可观察结果。"
+                        "政书链含公共结果或实际代价证据，仍需与编年和正史材料归并判断。"
+                        if chain_has_public_effect_evidence
+                        else "政书仅载制度设计、行政运行或宫廷流程，保留为背景，不独立进入四轴成果审阅。"
                     ),
                     "uncertainty": str(chain.get("uncertainty") or ""),
                     "event_refs": [event_ref],
@@ -2532,6 +2559,10 @@ def merge_dynasty_governance_current(
         "source_index_identity": str(current.get("source_index_identity") or ""),
         "selected_chain_count": len(selected_chain_keys),
         "aligned_to_backbone_chain_count": len(aligned_chain_keys),
+        "four_axis_candidate_chain_count": len(
+            four_axis_candidate_chain_keys
+        ),
+        "context_only_chain_count": len(context_only_chain_keys),
         "fact_count": len(projected_facts),
         "model_call_count": 0,
     }
