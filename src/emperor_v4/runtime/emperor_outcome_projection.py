@@ -367,17 +367,23 @@ def _normalize_candidate_sources(
         }
         if not quotes or any(not rows for rows in quote_matches):
             continue
-        matched_facts = list(
-            {
-                str(fact["fact_ref"]): fact
-                for rows in quote_matches
-                for fact in rows
-            }.values()
-        )
         declared_links = {
             str(row.get("fact_ref") or ""): row
             for row in candidate.get("evidence_links") or ()
         }
+        matched_facts_by_ref = {
+            str(fact["fact_ref"]): fact
+            for rows in quote_matches
+            for fact in rows
+        }
+        matched_facts_by_ref.update(
+            {
+                fact_ref: facts_by_ref[fact_ref]
+                for fact_ref in declared_links
+                if fact_ref in facts_by_ref
+            }
+        )
+        matched_facts = list(matched_facts_by_ref.values())
         candidate["evidence_links"] = [
             {
                 "fact_ref": str(fact["fact_ref"]),
