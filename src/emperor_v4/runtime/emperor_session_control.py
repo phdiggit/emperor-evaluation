@@ -384,6 +384,38 @@ def _is_shared_migratable_canonical(key: str) -> bool:
     } or key.startswith("outcome_binding_")
 
 
+def _is_empty_outcome_registry_schema_migration(
+    current_path: Path, target_path: Path
+) -> bool:
+    """Allow only v2→v3 metadata adoption before a ruler has any outcomes."""
+
+    if not current_path.is_file() or not target_path.is_file():
+        return False
+    current = _read_json(current_path)
+    target = _read_json(target_path)
+    for payload in (current, target):
+        declared = str(payload.get("source_pack_sha256") or "")
+        unsigned = dict(payload)
+        unsigned.pop("source_pack_sha256", None)
+        if not declared or _digest(unsigned) != declared:
+            return False
+        registry = payload.get("outcome_registry")
+        if not isinstance(registry, Mapping) or registry.get("clusters") != []:
+            return False
+    current_registry = current["outcome_registry"]
+    target_registry = target["outcome_registry"]
+    if current_registry.get("schema_version") != "historical-outcome-cluster-registry-v2":
+        return False
+    if target_registry.get("schema_version") != "historical-outcome-cluster-registry-v3":
+        return False
+    normalized_current = json.loads(json.dumps(current, ensure_ascii=False))
+    normalized_target = json.loads(json.dumps(target, ensure_ascii=False))
+    for payload in (normalized_current, normalized_target):
+        payload.pop("source_pack_sha256", None)
+        payload["outcome_registry"].pop("schema_version", None)
+    return normalized_current == normalized_target
+
+
 def _refresh_other_ruler_source_packs(
     *,
     release_root: Path,
@@ -1539,8 +1571,24 @@ def upgrade_failed_session_release(
         if expected.get(key) is not None
         and _file_sha256(target) != expected.get(key)
     ]
+    workspace_source_pack = workspace_root / str(configured["source_pack"])
+    if expected.get("source_pack") is not None:
+        if _file_sha256(workspace_source_pack) != expected.get("source_pack"):
+            raise SessionControlError("会话 workspace source-pack 已偏离认领输入")
+    current_ruler_source_pack_schema_migration = (
+        "source_pack" in changed_inputs
+        and expected.get("source_pack") is not None
+        and _is_empty_outcome_registry_schema_migration(
+            workspace_source_pack, target_canonical["source_pack"]
+        )
+    )
     protected_changes = [
-        key for key in changed_inputs if not _is_shared_migratable_canonical(key)
+        key
+        for key in changed_inputs
+        if not _is_shared_migratable_canonical(key)
+        and not (
+            key == "source_pack" and current_ruler_source_pack_schema_migration
+        )
     ]
     if protected_changes:
         raise SessionControlError(
@@ -1550,11 +1598,7 @@ def upgrade_failed_session_release(
     shared_canonical_migrations = [
         key for key in changed_inputs if _is_shared_migratable_canonical(key)
     ]
-    workspace_source_pack = workspace_root / str(configured["source_pack"])
-    if expected.get("source_pack") is not None:
-        if _file_sha256(workspace_source_pack) != expected.get("source_pack"):
-            raise SessionControlError("会话 workspace source-pack 已偏离认领输入")
-    else:
+    if expected.get("source_pack") is None:
         source_pack = _read_json(workspace_source_pack)
         source_pack_digest = str(source_pack.pop("source_pack_sha256", ""))
         if (
@@ -1652,6 +1696,8 @@ def upgrade_failed_session_release(
         encoding="utf-8",
         newline="\n",
     )
+    if current_ruler_source_pack_schema_migration:
+        shutil.copy2(target_canonical["source_pack"], workspace_source_pack)
     other_ruler_canonical_refreshes = _refresh_other_ruler_source_packs(
         release_root=release_root,
         workspace_root=workspace_root,
@@ -1665,6 +1711,10 @@ def upgrade_failed_session_release(
     for key in shared_canonical_migrations:
         lease.setdefault("canonical_expected_sha256", {})[key] = _file_sha256(
             target_canonical[key]
+        )
+    if current_ruler_source_pack_schema_migration:
+        lease.setdefault("canonical_expected_sha256", {})["source_pack"] = (
+            _file_sha256(target_canonical["source_pack"])
         )
     if bootstrap_session:
         lease["bootstrap_static_contract_fingerprint"] = (
@@ -1682,6 +1732,11 @@ def upgrade_failed_session_release(
         "checkpoint_preserved": True,
         "workspace_preserved": True,
         "shared_canonical_migrations": shared_canonical_migrations,
+        "current_ruler_source_pack_schema_migration": (
+            "empty_outcome_registry_v2_to_v3"
+            if current_ruler_source_pack_schema_migration
+            else None
+        ),
         "other_ruler_canonical_refreshes": other_ruler_canonical_refreshes,
         "database_write_count": 0,
         "formal_score_write_count": 0,
