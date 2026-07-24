@@ -20,8 +20,16 @@ from emperor_v4.evaluation.talent_grade_domain_equivalence import (
 )
 
 
-SCHEMA_VERSION = "historical-outcome-cluster-registry-v2"
+SCHEMA_VERSION = "historical-outcome-cluster-registry-v3"
 SCALES = ("local", "important", "regional", "national", "era_shaping")
+PROGRESS_LEVELS = ("not_established", "limited", "significant", "structural", "era_shaping")
+GOVERNANCE_CONTRIBUTIONS = {
+    "policy_design",
+    "institutional_design",
+    "implementation_lead",
+    "operational_delivery",
+    "corrective_oversight",
+}
 CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
 STRATEGIC_RESULT_TIER = {
     "local_tactical": "C",
@@ -184,6 +192,12 @@ def validate_historical_outcome_registry(
         unknown_facts = sorted(set(cluster["fact_refs"]) - set(facts))
         if unknown_facts:
             raise ValueError(f"{ref} 引用未知当前事实: {unknown_facts}")
+        fact_refs = {str(value) for value in cluster["fact_refs"]}
+        lineage_refs = {
+            str(row["fact_ref"]) for row in cluster.get("evidence_lineage") or ()
+        }
+        if lineage_refs != fact_refs:
+            raise ValueError(f"{ref} evidence_lineage 必须完整唯一覆盖 fact_refs")
         derived_sources = {
             f"{facts[str(fact_ref)]['source_page']}@"
             f"{facts[str(fact_ref)]['revision_ref']}"
@@ -211,6 +225,16 @@ def validate_historical_outcome_registry(
             actor_refs.add(str(member["actor_ref"]))
             if kind == "campaign" and not member.get("talent_credit"):
                 raise ValueError(f"{ref} 战役成员缺少人才独立信用声明")
+            if kind != "campaign":
+                if not member.get("contribution_types"):
+                    raise ValueError(f"{ref}/{member['actor_name']} 缺少贡献类型")
+                if not {
+                    str(value)
+                    for value in member.get("contribution_basis_fact_refs") or ()
+                }.issubset(fact_refs):
+                    raise ValueError(
+                        f"{ref}/{member['actor_name']} 贡献依据不属于成果 fact_refs"
+                    )
         level = str(cluster["scale"]["level"])
         basis = str(cluster["scale"]["consequence_basis"])
         bases = CAMPAIGN_SCALE_BASES if kind == "campaign" else GOVERNANCE_SCALE_BASES
@@ -396,10 +420,11 @@ def validate_historical_outcome_registry(
             if cluster["outcome_kind"] == "governance":
                 value_judgment = payload.get("value_judgment") or {}
                 required_value_fields = {
+                    "comparison_basis",
+                    "baseline_fact_refs",
                     "overall_direction",
-                    "productivity_effect",
-                    "civilization_effect",
-                    "social_cost",
+                    "overall_magnitude",
+                    "axes",
                     "effect_horizon",
                     "basis",
                 }
@@ -408,13 +433,40 @@ def validate_historical_outcome_registry(
                 )
                 if missing_value_fields:
                     raise ValueError(
-                        f"{ref} 治理成果缺少生产力与文明进步价值判断: "
+                        f"{ref} 治理成果缺少四轴历史进步价值判断: "
                         + ", ".join(missing_value_fields)
                     )
                 if value_judgment["overall_direction"] != cluster[
                     "result_direction"
                 ]:
                     raise ValueError(f"{ref} 治理价值方向与成果方向不一致")
+                if not {
+                    str(value)
+                    for value in value_judgment.get("baseline_fact_refs") or ()
+                }.issubset(fact_refs):
+                    raise ValueError(f"{ref} 历史基线依据不属于成果 fact_refs")
+                axes = value_judgment.get("axes") or {}
+                required_axes = {
+                    "productivity_livelihood",
+                    "civilization_institutions",
+                    "state_people_security",
+                    "culture_education_thought",
+                }
+                if set(axes) != required_axes:
+                    raise ValueError(f"{ref} 必须完整声明四个公共价值轴")
+                for axis_name, axis in axes.items():
+                    basis_refs = {
+                        str(value) for value in axis.get("basis_fact_refs") or ()
+                    }
+                    if not basis_refs.issubset(fact_refs):
+                        raise ValueError(
+                            f"{ref}/{axis_name} 价值依据不属于成果 fact_refs"
+                        )
+                    established = axis.get("direction") != "not_established"
+                    if established != bool(basis_refs):
+                        raise ValueError(
+                            f"{ref}/{axis_name} 已建立方向必须有依据，未建立不得伪造依据"
+                        )
             substantive_members = [
                 member
                 for member in members
@@ -620,6 +672,14 @@ def _assess_person_talent_grade_single_domain(
             and member.get("talent_credit") != "independent"
         ):
             continue
+        if (
+            cluster["outcome_kind"] == "governance"
+            and not (
+                set(member.get("contribution_types") or ())
+                & GOVERNANCE_CONTRIBUTIONS
+            )
+        ):
+            continue
         kind = str(cluster["outcome_kind"])
         role = str(member["role_code"])
         if role not in COUNTED_IMPORTANT_ROLES[kind]:
@@ -673,6 +733,14 @@ def _assess_person_talent_grade_single_domain(
                     "durable_cross_stage": bool(
                         (cluster.get("payload") or {}).get("durable_cross_stage")
                     ),
+                    "progress_level": (
+                        (cluster.get("payload") or {})
+                        .get("value_judgment", {})
+                        .get("overall_magnitude", "not_established")
+                    ),
+                    "contribution_types": list(
+                        member.get("contribution_types") or ()
+                    ),
                 }
             )
         assessment = assess_domain_historic_path(domain, achievements)
@@ -691,6 +759,9 @@ def _assess_person_talent_grade_single_domain(
                 else domain_rows
             )
             historic_candidates.append((domain, assessment, counted_rows))
+    progress_rank = {
+        value: index for index, value in enumerate(PROGRESS_LEVELS)
+    }
     top_anchors = [
         row
         for row in top_eligible
@@ -700,7 +771,14 @@ def _assess_person_talent_grade_single_domain(
         )
         or (
             row[0]["outcome_kind"] == "governance"
-            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["national"]
+            and bool(
+                set(row[1].get("contribution_types") or ())
+                & GOVERNANCE_CONTRIBUTIONS
+            )
+            and progress_rank[
+                str(row[0]["payload"]["value_judgment"]["overall_magnitude"])
+            ]
+            >= progress_rank["structural"]
         )
     ]
     second_major = [
@@ -712,7 +790,10 @@ def _assess_person_talent_grade_single_domain(
         )
         or (
             row[0]["outcome_kind"] == "governance"
-            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["regional"]
+            and progress_rank[
+                str(row[0]["payload"]["value_judgment"]["overall_magnitude"])
+            ]
+            >= progress_rank["significant"]
         )
     ]
     top_candidate = None
@@ -763,7 +844,14 @@ def _assess_person_talent_grade_single_domain(
             row
             for row in eligible
             if row[0]["outcome_kind"] == "governance"
-            and scale_rank[str(row[0]["scale"]["level"])] >= scale_rank["important"]
+            and bool(
+                set(row[1].get("contribution_types") or ())
+                & GOVERNANCE_CONTRIBUTIONS
+            )
+            and progress_rank[
+                str(row[0]["payload"]["value_judgment"]["overall_magnitude"])
+            ]
+            >= progress_rank["significant"]
         ]
         important_statecraft = [
             row
@@ -851,7 +939,12 @@ def _culture_talent_grade(
             ),
             None,
         )
-        if member is None or member["role_code"] not in {"exclusive", "lead"}:
+        if (
+            member is None
+            or member["role_code"] not in {"exclusive", "lead"}
+            or "scholarly_authorship"
+            not in set(member.get("contribution_types") or ())
+        ):
             continue
         if member.get("talent_grade_eligible") is False:
             continue
@@ -879,6 +972,14 @@ def _culture_talent_grade(
             "foundational": bool((cluster.get("payload") or {}).get("foundational")),
             "durable_cross_stage": bool(
                 (cluster.get("payload") or {}).get("durable_cross_stage")
+            ),
+            "progress_level": (
+                (cluster.get("payload") or {})
+                .get("value_judgment", {})
+                .get("overall_magnitude", "not_established")
+            ),
+            "contribution_types": list(
+                member.get("contribution_types") or ()
             ),
             "personally_authored_or_finalized": bool(
                 (cluster.get("payload") or {}).get("personally_authored_or_finalized")

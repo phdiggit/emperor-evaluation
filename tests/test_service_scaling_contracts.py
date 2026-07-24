@@ -236,7 +236,7 @@ dynasty_governance_scans:
             source_chars = int(re.search(r"source_chars: (\d+)", prompt).group(1))
             return (
                 {
-                    "schema_version": "dynasty-neutral-governance-output-v1",
+                    "schema_version": "dynasty-neutral-governance-output-v2",
                     "task_code": task_code,
                     "dynasty": "test",
                     "source_chars": source_chars,
@@ -254,6 +254,7 @@ dynasty_governance_scans:
                             "operation_status": "implemented",
                             "temporal_scope": "single_event",
                             "geographic_scope": "court",
+                            "effect_domains": ["civilization_institutions"],
                             "actors": [
                                 {
                                     "name": "tester",
@@ -269,6 +270,10 @@ dynasty_governance_scans:
                                     "page_title": "TestTreatise/1",
                                     "revision_ref": "1",
                                     "exact_quote": "implemented reform",
+                                    "evidence_roles": [
+                                        "implementation_or_operation",
+                                        "responsibility_or_attribution"
+                                    ],
                                 }
                             ],
                             "uncertainty": "",
@@ -403,7 +408,7 @@ def test_dynasty_governance_resumes_only_audited_batches_after_failure(
             exact_quote = page.group(3)
             return (
                 {
-                    "schema_version": "dynasty-neutral-governance-output-v1",
+                    "schema_version": "dynasty-neutral-governance-output-v2",
                     "task_code": task_code,
                     "dynasty": "test",
                     "source_chars": source_chars,
@@ -421,6 +426,7 @@ def test_dynasty_governance_resumes_only_audited_batches_after_failure(
                             "operation_status": "implemented",
                             "temporal_scope": "single_event",
                             "geographic_scope": "court",
+                            "effect_domains": ["civilization_institutions"],
                             "actors": [
                                 {
                                     "name": "tester",
@@ -436,6 +442,10 @@ def test_dynasty_governance_resumes_only_audited_batches_after_failure(
                                     "page_title": page.group(1),
                                     "revision_ref": page.group(2),
                                     "exact_quote": exact_quote,
+                                    "evidence_roles": [
+                                        "implementation_or_operation",
+                                        "responsibility_or_attribution"
+                                    ],
                                 }
                             ],
                             "uncertainty": "",
@@ -1289,7 +1299,7 @@ def test_dynasty_neutral_governance_prepare_and_audit_stay_rule_neutral(
     assert "reuse_candidates" not in prompt
 
     payload = {
-        "schema_version": "dynasty-neutral-governance-output-v1",
+        "schema_version": "dynasty-neutral-governance-output-v2",
         "task_code": task["task_code"],
         "dynasty": "han",
         "source_chars": len(source_text),
@@ -1307,6 +1317,7 @@ def test_dynasty_neutral_governance_prepare_and_audit_stay_rule_neutral(
                 "operation_status": "enacted",
                 "temporal_scope": "single_event",
                 "geographic_scope": "national",
+                "effect_domains": ["civilization_institutions"],
                 "actors": [
                     {
                         "name": "文帝",
@@ -1329,6 +1340,10 @@ def test_dynasty_neutral_governance_prepare_and_audit_stay_rule_neutral(
                         "page_title": "汉书/卷023",
                         "revision_ref": "23",
                         "exact_quote": "文帝除肉刑，丞相张苍议定律令，诏从其议。",
+                        "evidence_roles": [
+                            "measure_or_design",
+                            "responsibility_or_attribution"
+                        ],
                     }
                 ],
                 "uncertainty": "替代刑罚具体内容未载。",

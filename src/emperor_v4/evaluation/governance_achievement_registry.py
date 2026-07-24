@@ -20,6 +20,7 @@ from emperor_v4.evaluation.talent_grade_domain_equivalence import (
 
 GRADE_ORDER = ("ordinary", "usable", "important", "top", "historic")
 COUNTED_ROLES = {"exclusive", "lead"}
+PROGRESS_LEVELS = ("not_established", "limited", "significant", "structural", "era_shaping")
 REALIZED_IMPLEMENTATION = {"implemented", "operated", "completed", "mixed"}
 NATIONAL_BASES = {
     "national_core_subsystem",
@@ -73,6 +74,16 @@ def validate_governance_achievement_registry(
             "positive_result_preserved"
         ]:
             raise ValueError("正向治理结果必须保留 positive_result_preserved")
+        fact_refs = {str(value) for value in achievement["neutral_fact_refs"]}
+        judgment = achievement["value_judgment"]
+        if judgment["overall_direction"] != achievement["result_direction"]:
+            raise ValueError("治理价值方向与成果方向不一致")
+        for axis_name, axis in judgment["axes"].items():
+            basis_refs = {str(value) for value in axis["basis_fact_refs"]}
+            if not basis_refs.issubset(fact_refs):
+                raise ValueError(f"{axis_name} 价值依据不属于治理成果事实")
+            if (axis["direction"] != "not_established") != bool(basis_refs):
+                raise ValueError(f"{axis_name} 价值方向与依据不闭合")
         people = [str(row["person_ref"]) for row in achievement["participants"]]
         if len(people) != len(set(people)):
             raise ValueError("同一治理成果人物归责不得重复")
@@ -82,6 +93,12 @@ def validate_governance_achievement_registry(
         if not people and not rulers:
             raise ValueError("治理成果必须至少有一名人物参与者或一条君主归责")
         participant_count += len(people)
+        for participant in achievement["participants"]:
+            if not {
+                str(value)
+                for value in participant["contribution_basis_fact_refs"]
+            }.issubset(fact_refs):
+                raise ValueError("治理人物贡献依据不属于治理成果事实")
         for key in ("neutral_fact_refs", "source_refs", "reuse_targets"):
             values = achievement[key]
             if len(values) != len(set(values)):
@@ -141,6 +158,8 @@ def _person_achievement_rows(
                 "durable_cross_stage": achievement["durable_cross_stage"],
                 "stable_delivery": achievement["stable_delivery"],
                 "important_method_or_legacy": achievement["important_method_or_legacy"],
+                "progress_level": achievement["value_judgment"]["overall_magnitude"],
+                "contribution_types": participant["contribution_types"],
             }
         )
     return rows
@@ -172,21 +191,35 @@ def project_civil_talent_impact(
         if len(registry_person_refs) > 1:
             raise ValueError(f"治理成果规范名映射到多个人物 ID: {canonical_name}")
         assessment = assess_domain_historic_path("civil_governance", rows)
-        rank = {value: index for index, value in enumerate(SCALES)}
+        progress_rank = {
+            value: index for index, value in enumerate(PROGRESS_LEVELS)
+        }
         counted = [
             row
             for row in rows
             if row["responsibility_role"] in COUNTED_ROLES
             and row["result"] in {"implemented_positive", "completed_positive"}
         ]
-        national = [row for row in counted if rank[str(row["scale"])] >= rank["national"]]
-        important = [row for row in counted if rank[str(row["scale"])] >= rank["important"]]
-        top_fallback = bool(national) and (
-            len(national) >= 2
-            or any(row["stable_delivery"] for row in counted)
-            or any(row["important_method_or_legacy"] for row in counted)
+        structural = [
+            row
+            for row in counted
+            if progress_rank[str(row["progress_level"])]
+            >= progress_rank["structural"]
+        ]
+        significant = [
+            row
+            for row in counted
+            if progress_rank[str(row["progress_level"])]
+            >= progress_rank["significant"]
+        ]
+        top_fallback = bool(structural) and (
+            len(structural) >= 2
+            or any(row["stable_delivery"] for row in structural)
+            or any(row["important_method_or_legacy"] for row in structural)
         )
-        registry_floor = "top" if top_fallback else "important" if important else "usable"
+        registry_floor = (
+            "top" if top_fallback else "important" if significant else "usable"
+        )
         current_grade = str(profile.get("talent_grade") or "")
         if current_grade not in GRADE_ORDER:
             raise ValueError("current profile talent_grade 非法")

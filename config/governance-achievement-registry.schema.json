@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["schema_version", "status", "achievements"],
   "properties": {
-    "schema_version": {"const": "governance-achievement-registry-v1"},
+    "schema_version": {"const": "governance-achievement-registry-v2"},
     "status": {"enum": ["shadow", "human_frozen"]},
     "achievements": {
       "type": "array",
@@ -20,7 +20,7 @@
       "required": [
         "achievement_ref", "independent_governance_key", "canonical_label", "domain",
         "period", "implementation_status", "observable_result", "result_direction",
-        "positive_result_preserved", "scale", "foundational", "durable_cross_stage",
+        "positive_result_preserved", "scale", "value_judgment", "foundational", "durable_cross_stage",
         "stable_delivery", "important_method_or_legacy", "participants", "ruler_links",
         "neutral_fact_refs", "source_refs", "reuse_targets", "limitations"
       ],
@@ -65,6 +65,30 @@
             "reason": {"type": "string", "minLength": 1}
           }
         },
+        "value_judgment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["comparison_basis", "baseline_fact_refs", "overall_direction", "overall_magnitude", "axes", "effect_horizon", "basis"],
+          "properties": {
+            "comparison_basis": {"enum": ["explicit_before_after", "prior_institution_comparison", "public_effect_without_explicit_baseline", "not_established"]},
+            "baseline_fact_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "overall_direction": {"enum": ["positive", "mixed", "negative", "unclear"]},
+            "overall_magnitude": {"enum": ["limited", "significant", "structural", "era_shaping", "not_established"]},
+            "axes": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["productivity_livelihood", "civilization_institutions", "state_people_security", "culture_education_thought"],
+              "properties": {
+                "productivity_livelihood": {"$ref": "#/$defs/value_axis"},
+                "civilization_institutions": {"$ref": "#/$defs/value_axis"},
+                "state_people_security": {"$ref": "#/$defs/value_axis"},
+                "culture_education_thought": {"$ref": "#/$defs/value_axis"}
+              }
+            },
+            "effect_horizon": {"enum": ["short", "medium", "long", "cross_stage", "unclear"]},
+            "basis": {"type": "string", "minLength": 1}
+          }
+        },
         "foundational": {"type": "boolean"},
         "durable_cross_stage": {"type": "boolean"},
         "stable_delivery": {"type": "boolean"},
@@ -74,12 +98,20 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["person_ref", "canonical_name", "responsibility_role", "contribution_scope"],
+            "required": ["person_ref", "canonical_name", "responsibility_role", "contribution_scope", "contribution_types", "contribution_basis_fact_refs"],
             "properties": {
               "person_ref": {"type": "string", "minLength": 1},
               "canonical_name": {"type": "string", "minLength": 1},
               "responsibility_role": {"enum": ["exclusive", "lead", "participant"]},
               "contribution_scope": {"type": "string", "minLength": 1}
+              ,"contribution_types": {
+                "type": "array", "minItems": 1, "uniqueItems": true,
+                "items": {"enum": ["policy_design", "institutional_design", "implementation_lead", "operational_delivery", "corrective_oversight", "authorization", "scholarly_authorship", "general_participation"]}
+              },
+              "contribution_basis_fact_refs": {
+                "type": "array", "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              }
             }
           }
         },
@@ -122,6 +154,17 @@
           "type": "array",
           "items": {"type": "string", "minLength": 1}
         }
+      }
+    },
+    "value_axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["direction", "magnitude", "basis_fact_refs", "basis"],
+      "properties": {
+        "direction": {"enum": ["positive", "negative", "mixed", "not_established"]},
+        "magnitude": {"enum": ["limited", "significant", "structural", "era_shaping", "not_established"]},
+        "basis_fact_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "basis": {"type": "string"}
       }
     }
   }

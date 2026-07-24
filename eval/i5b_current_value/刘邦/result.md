@@ -12,11 +12,11 @@
 | --- | ---: | ---: | ---: |
 | 发现人才 | 6.028000 | 0.000000 | 6.028000 |
 | 任用授权 | 31.391216 | 3.187800 | 28.203416 |
-| 团队建设 | 15.120000 | 2.750000 | 12.370000 |
+| 团队建设 | 14.544000 | 2.750000 | 11.794000 |
 | 容人保全 | 3.967150 | 5.544000 | -1.576850 |
 | 避免任人唯亲 | 2.530000 | 1.948100 | 0.581900 |
 
-加权 raw signal：`13.647331`。
+加权 raw signal：`13.526371`。
 
 ## 发现人才
 
@@ -71,11 +71,11 @@
 | 对象 | 方向 | 数值 | 档位 / 风险 | 计入团队依据 / 风险事实 |
 | --- | --- | ---: | --- | --- |
 | [张良](../../historical_person_profiles/current.md#profile-pinv-86823167df7635448a82) | 正向 | 1.6 | historic | 刘邦在创业与楚汉战争中持续直接采纳张良谋划，并使其承担联盟、战略与危机处置责任。 |
-| [萧何](../../historical_person_profiles/current.md#profile-pinv-bf9509b5c455c62ec580) | 正向 | 1.6 | historic | 刘邦直接任用萧何主持关中建制、后方治理和持续军需，并在建国后维持其宰辅责任。 |
 | [韩信](../../historical_person_profiles/current.md#profile-pinv-5d3eae4300bfa555d86e) | 正向 | 1.6 | historic | 刘邦直接拜韩信为大将并授予独立方面统军责任，使其承担魏、代赵燕、齐楚等战略方向。 |
 | [周勃](../../historical_person_profiles/current.md#profile-pinv-52400b80718a7db029ce) | 正向 | 1.2 | top | 刘邦从创业阶段持续直接授予周勃将领责任，使其承担统一战争与多次国家平叛任务。 |
 | [彭越](../../historical_person_profiles/current.md#profile-pinv-a62cd1fcdbd092a0062b) | 正向 | 1.2 | top | 刘邦将彭越纳入反楚联盟并确认其梁地方面责任，使其持续承担经营梁地和断楚粮道任务。 |
 | [曹参](../../historical_person_profiles/current.md#profile-pinv-f0b52e757f8cf7b15202) | 正向 | 1.2 | top | 刘邦从创业阶段持续直接授予曹参军事和地方责任，使其承担三秦、魏地等方向任务。 |
+| [萧何](../../historical_person_profiles/current.md#profile-pinv-bf9509b5c455c62ec580) | 正向 | 1.2 | top | 刘邦直接任用萧何主持关中建制、后方治理和持续军需，并在建国后维持其宰辅责任。 |
 | [陈平](../../historical_person_profiles/current.md#profile-pinv-6e6e489a566cc84cfb90) | 正向 | 1.2 | top | 陈平来归后由刘邦直接接纳并授予决策职责，持续承担荥阳、白登等重大危机处置。 |
 | [灌婴](../../historical_person_profiles/current.md#profile-pinv-32c39157feebffa00618) | 正向 | 0.9 | important | 刘邦直接授予灌婴骑兵及方面作战责任，使其持续参与统一战争和国家平叛。 |
 | 英布 | 负向 | 1.0 | window_exposed_political_or_discipline_risk / major | 汉十一年诛灭贲赫家并发兵反汉，随后攻荆、楚并夺军，形成已实现的国家级叛乱损害。 |

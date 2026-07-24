@@ -9,7 +9,7 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
 )
 
 
-SCHEMA_VERSION = "historical-person-profile-registry-v2"
+SCHEMA_VERSION = "historical-person-profile-registry-v3"
 
 
 def _digest(value: object) -> str:

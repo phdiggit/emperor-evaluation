@@ -11,6 +11,7 @@ from uuid import uuid4
 import yaml
 
 from emperor_v4.evaluation.historical_outcome_cluster import (
+    SCHEMA_VERSION as CLUSTER_SCHEMA_VERSION,
     cluster_semantic_fingerprint,
 )
 from emperor_v4.evaluation.historical_person_profile_registry import (
@@ -19,7 +20,7 @@ from emperor_v4.evaluation.historical_person_profile_registry import (
 )
 
 
-SCHEMA_VERSION = "historical-outcome-unbound-registry-v2"
+SCHEMA_VERSION = "historical-outcome-unbound-registry-v3"
 
 _DISPLAY_LABELS = {
     "war_terminal": "战争终局根节点",
@@ -113,6 +114,23 @@ _DISPLAY_LABELS = {
     "negative": "负面",
     "mixed": "利弊并存",
     "unclear": "证据不足",
+    "not_established": "未建立",
+    "incremental": "渐进改善",
+    "significant": "显著改善",
+    "structural": "结构性改善",
+    "era_shaping": "时代塑造",
+    "productivity_livelihood": "生产力与民生",
+    "civilization_institution": "文明与制度进步",
+    "civilization_institutions": "文明与制度进步",
+    "state_people_security": "国家与民众安全",
+    "culture_intellectual": "文化教育与思想活力",
+    "culture_education_thought": "文化教育与思想活力",
+    "policy_design": "政策设计",
+    "institutional_design": "制度设计",
+    "implementation_lead": "实施主导",
+    "operational_delivery": "运行交付",
+    "corrective_oversight": "纠偏监督",
+    "scholarly_authorship": "学术创作",
     "implemented": "已实施",
     "operated": "已运行",
     "completed": "已完成",
@@ -535,7 +553,7 @@ def materialize_ruler_outcome_registry(
         clusters.append(cluster)
     clusters.sort(key=lambda row: str(row["outcome_ref"]))
     return {
-        "schema_version": "historical-outcome-cluster-registry-v2",
+        "schema_version": CLUSTER_SCHEMA_VERSION,
         "status": binding_report["projected_registry_status"],
         "clusters": clusters,
     }
@@ -1096,7 +1114,7 @@ def render_unbound_historical_outcome_registry_markdown(
             "",
             "## 治理登记",
             "",
-            "| 登记号 | 治理成果 | 类型 | 时段 | 运行状态 | 价值方向 | 生产力与文明进步判定 | 规模 | 因果归责 | 参与者责任 | 已实现结果 | 限制 | 史源 |",
+            "| 登记号 | 治理成果 | 类型 | 时段 | 运行状态 | 价值方向 | 相对历史基线与四轴进步 | 规模 | 因果归责 | 参与者责任 | 已实现结果 | 限制 | 史源 |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
@@ -1115,7 +1133,16 @@ def render_unbound_historical_outcome_registry_markdown(
                     _period_text(row["period"]),
                     _display_label(row["result_status"]),
                     _display_label(value_judgment["overall_direction"]),
-                    _display_text(value_judgment["basis"]),
+                    (
+                        f"总体强度={_display_label(value_judgment['overall_magnitude'])}；"
+                        + "；".join(
+                            f"{_display_label(axis_name)}="
+                            f"{_display_label(axis['direction'])}/"
+                            f"{_display_label(axis['magnitude'])}"
+                            for axis_name, axis in value_judgment["axes"].items()
+                        )
+                        + f"；{_display_text(value_judgment['basis'])}"
+                    ),
                     f"{_display_label(scale['level'])} / "
                     f"{_display_label(scale['consequence_basis'])}；"
                     f"{_display_text(scale['reason'])}",

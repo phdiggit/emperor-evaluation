@@ -58,9 +58,9 @@ SCHEMA_VERSION = "emperor-rebuild-v1"
 STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
-    "neutral_materials": "shared-directed-neutral-stage-v4",
-    "outcome_projection": "shared-outcome-profile-projection-stage-v17",
-    "current_projection": "shared-profile-window-i5b-stage-v3",
+    "neutral_materials": "shared-directed-neutral-stage-v5",
+    "outcome_projection": "shared-outcome-profile-projection-stage-v18",
+    "current_projection": "shared-profile-window-i5b-stage-v4",
 }
 
 
@@ -923,7 +923,7 @@ def rebuild_emperor(
         )
         if (
             dynasty_governance_current.get("schema_version")
-            != "dynasty-governance-current-v1"
+            != "dynasty-governance-current-v2"
             or dynasty_governance_current.get("status")
             != "quality_accepted_shadow"
             or str(dynasty_governance_current.get("dynasty_token") or "")

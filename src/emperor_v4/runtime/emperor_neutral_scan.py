@@ -13,6 +13,7 @@ from opencc import OpenCC
 
 from emperor_v4.adapters.historical_entity_identity import HistoricalEntityResolver
 from emperor_v4.adapters.shared_neutral_extraction import (
+    OUTPUT_SCHEMA_VERSION,
     build_shared_neutral_extraction_prompt,
     build_shared_neutral_fact_fanout,
 )
@@ -23,8 +24,8 @@ from emperor_v4.runtime.structured_codex_runner import (
 )
 
 
-SCHEMA_VERSION = "current-neutral-materials-v1"
-NEUTRAL_EXTRACTION_POLICY_VERSION = "current-neutral-extraction-policy-v16"
+SCHEMA_VERSION = "current-neutral-materials-v2"
+NEUTRAL_EXTRACTION_POLICY_VERSION = "current-neutral-extraction-policy-v17"
 MODEL_GROUP_CHAR_LIMIT = 6_000
 MODEL_GROUP_SEGMENT_LIMIT = 8
 MODEL_GROUP_WEIGHT_LIMIT = 16
@@ -34,8 +35,8 @@ MODEL_SINGLE_BATCH_SEGMENT_LIMIT = 8
 MODEL_GROUP_PROMPT_CHAR_LIMIT = 6_000
 MODEL_SINGLE_PROMPT_CHAR_LIMIT = 7_000
 PLAN_SCHEMA_VERSION = "subject-shared-review-plan-v1"
-MULTI_OUTPUT_SCHEMA_VERSION = "multi-page-neutral-extraction-output-v1"
-COMPACT_OUTPUT_SCHEMA_VERSION = "current-compact-neutral-output-v1"
+MULTI_OUTPUT_SCHEMA_VERSION = "multi-page-neutral-extraction-output-v2"
+COMPACT_OUTPUT_SCHEMA_VERSION = "current-compact-neutral-output-v2"
 _T2S = OpenCC("t2s")
 _EVENT_TARGET_POLICY_VERSION = "event-directed-backsource-v1"
 _NON_PROFILE_ROLES = {"authorizer", "recipient", "affected_person", "mentioned_only"}
@@ -516,6 +517,7 @@ def _canonicalize_result(
     """Apply deterministic identity binding and layout-only quote recovery."""
 
     canonical = json.loads(json.dumps(result, ensure_ascii=False))
+    canonical["schema_version"] = OUTPUT_SCHEMA_VERSION
     segments = {
         str(segment["segment_ref"]): segment for segment in batch["segments"]
     }
@@ -530,6 +532,33 @@ def _canonicalize_result(
         retained_facts = []
         retained_fact_digests: set[str] = set()
         for fact in review.get("facts") or ():
+            legacy_status = str(fact.get("outcome_candidate_status") or "")
+            fact["outcome_candidate_status"] = {
+                "clear_candidate": "direct_outcome_candidate",
+                "ambiguous": "linkable_chain_fact",
+                "clear_non_candidate": "context_only",
+            }.get(legacy_status, legacy_status or "linkable_chain_fact")
+            if not fact.get("evidence_roles"):
+                roles = []
+                if fact.get("implementation_status") in {
+                    "proposed", "adopted", "implemented",
+                    "nationally_promulgated", "completed_work",
+                }:
+                    roles.append(
+                        "measure_or_design"
+                        if fact.get("implementation_status") in {"proposed", "adopted"}
+                        else "implementation_or_operation"
+                    )
+                if str(fact.get("result") or "").strip():
+                    roles.append("public_result")
+                if fact.get("legacy_status") not in {None, "", "not_shown"}:
+                    roles.append("continuity_or_reversal")
+                if fact.get("actors"):
+                    roles.append("responsibility_or_attribution")
+                fact["evidence_roles"] = list(dict.fromkeys(roles)) or [
+                    "historical_baseline"
+                ]
+            fact.setdefault("effect_domains", [])
             fact.setdefault("evidence_span_refs", [])
             spans = {
                 str(row["span_ref"]): str(row["text"])
@@ -576,14 +605,25 @@ def _canonicalize_result(
                 and actor.get("role") != "mentioned_only"
                 for actor in fact.get("actors") or ()
             )
+            actor_optional = not fact.get("actors") and bool(
+                set(fact["evidence_roles"])
+                & {
+                    "historical_baseline",
+                    "public_result",
+                    "public_cost_or_harm",
+                    "continuity_or_reversal",
+                }
+            )
             fact_digest = _digest(fact)
             if (
-                owned
+                (owned or actor_optional)
                 and (quote_verified or not drop_unverifiable_quotes)
                 and fact_digest in retained_fact_digests
             ):
                 deduplicated_fact = True
-            elif owned and (quote_verified or not drop_unverifiable_quotes):
+            elif (owned or actor_optional) and (
+                quote_verified or not drop_unverifiable_quotes
+            ):
                 retained_facts.append(fact)
                 retained_fact_digests.add(fact_digest)
             elif owned and not quote_verified:
@@ -714,7 +754,8 @@ def build_compact_multi_output_schema(single_schema_path: Path) -> dict[str, Any
         for key in (
             "exact_quote", "fact_kind", "action_summary", "actors",
             "implementation_status", "result", "outcome_candidate_status",
-            "outcome_candidate_reason", "uncertainty",
+            "outcome_candidate_reason", "uncertainty", "evidence_roles",
+            "effect_domains",
         )
     }
     retained["segment_ref"] = {"type": "string", "minLength": 1}
@@ -764,15 +805,20 @@ def build_compact_multi_page_prompt(
     return (
         "EXECUTION_MODE: STRUCTURED_OUTPUT_NO_TOOLS\nTOOLS: FORBIDDEN\nOUTPUT: JSON_ONLY\n\n"
         "你是皇帝评价V4的中性历史事件发现器。只读INPUT_BATCHES，不联网、不评分、不补史实。\n"
-        "提取与batch.subject_bindings人物直接相关的实际行动、命令、建议、任用授权、制度运行、"
-        "战役、可观察结果、政治风险和重要代价；普通仪礼宴饮及仅被提名者不收。\n"
+        "提取与当前窗口直接相关的历史基线、实际行动、命令、建议、任用授权、制度运行、"
+        "战役、可观察公共结果、政治风险、重要代价和跨期延续；普通仪礼宴饮及仅被提名者不收。\n"
         "编年主干若给出chronicle_ruler_ref，只能将‘上’、‘帝’、‘车驾’等皇帝代称绑定到"
         "subject_ref等于该值的人物；未给出时必须依靠本段明确姓名或别名。\n"
         "exact_quote逐字复制segment.text的连续原文；actors只能复制batch.subject_bindings中"
         "subject_ref同时列在该segment.subject_refs内的人物，"
-        "人物没有直接行动或责任不得创建actor。segment_ref逐字复制输入。\n"
-        "outcome_candidate_status只判断治理成果或战役登记：行动、结果、责任均明确填clear_candidate；"
-        "需结合紧邻事件判断填ambiguous；死亡、任免、荣典、纯言论和无结果过程填clear_non_candidate。\n"
+        "人物没有直接行动或责任不得创建actor。宏观基线、公共结果、成本或持续性可以actors=[]。"
+        "segment_ref逐字复制输入。\n"
+        "evidence_roles按事实选择historical_baseline/measure_or_design/implementation_or_operation/"
+        "public_result/public_cost_or_harm/continuity_or_reversal/responsibility_or_attribution；"
+        "effect_domains只标公共效果相关领域，不判断正负。"
+        "行动、结果、责任单条闭合填direct_outcome_candidate；仅闭合一环但可跨史源连接填"
+        "linkable_chain_fact；只作上下文填context_only；无关填irrelevant。不得把无结果的措施、"
+        "无人物的宏观结果或单独责任片段直接判无关。\n"
         "只缺紧邻上下文时写入context_requests；无事实且无需扩窗的片段完全省略。"
         "每个INPUT_BATCHES元素即使facts和context_requests都为空，也必须返回一个results元素；"
         "不得省略整个batch。"
@@ -1629,7 +1675,7 @@ def seed_deterministic_campaign_facts(
             row = seeded_by_batch.setdefault(
                 str(batch["batch_ref"]),
                 {
-                    "schema_version": "shared-neutral-extraction-output-v1",
+                    "schema_version": OUTPUT_SCHEMA_VERSION,
                     "batch_ref": str(batch["batch_ref"]),
                     "page_title": str(batch["page_title"]),
                     "revision_ref": str(batch["revision_ref"]),
@@ -2105,7 +2151,7 @@ def merge_dynasty_governance_current(
 ) -> dict[str, Any]:
     """Project accepted dynasty material into the ruler fanout without a model."""
 
-    if current.get("schema_version") != "dynasty-governance-current-v1":
+    if current.get("schema_version") != "dynasty-governance-current-v2":
         raise ValueError("朝代政书 current schema 不支持")
     if current.get("status") != "quality_accepted_shadow":
         raise ValueError("朝代政书 current 尚未通过质量门")
@@ -2218,8 +2264,6 @@ def merge_dynasty_governance_current(
                     "attribution_basis": str(actor.get("role_basis") or "政书原文归责"),
                 }
             )
-        if not resolved_actors:
-            continue
         has_lifetime_person_actor = any(
             str(actor["subject_ref"]) != ruler_ref for actor in resolved_actors
         )
@@ -2290,8 +2334,6 @@ def merge_dynasty_governance_current(
                 for actor in resolved_actors
                 if quote_ref in set(str(value) for value in actor["source"].get("quote_refs") or ())
             ]
-            if not evidence_actors:
-                continue
             evidence_identity = {
                 **chain_identity,
                 "quote_ref": quote_ref,
@@ -2317,6 +2359,38 @@ def merge_dynasty_governance_current(
                     "exact_quote": exact_quote,
                     "evidence_span_refs": [quote_ref],
                     "fact_kind": "institutional_action",
+                    "evidence_roles": list(
+                        dict.fromkeys(
+                            str(value)
+                            for value in (
+                                evidence.get("evidence_roles")
+                                or (
+                                    [
+                                        "implementation_or_operation"
+                                        if implementation_status
+                                        in {
+                                            "adopted",
+                                            "implemented",
+                                            "nationally_promulgated",
+                                            "completed_work",
+                                        }
+                                        else "measure_or_design"
+                                    ]
+                                    + (["public_result"] if meaningful_result else [])
+                                    + (
+                                        ["responsibility_or_attribution"]
+                                        if evidence_actors
+                                        else []
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    "effect_domains": list(
+                        dict.fromkeys(
+                            str(value) for value in chain.get("effect_domains") or ()
+                        )
+                    ),
                     "governance_domain": str(chain.get("domain") or ""),
                     "governance_title": str(chain.get("title") or ""),
                     "period": period,
@@ -2335,11 +2409,11 @@ def merge_dynasty_governance_current(
                     "legacy_basis": str(chain.get("temporal_scope") or "single_event"),
                     "projection_eligibility": "direct_neutral_fact",
                     "outcome_candidate_status": (
-                        "ambiguous"
+                        "linkable_chain_fact"
                         if meaningful_result
                         and implementation_status
                         in {"adopted", "implemented", "completed_work", "repealed"}
-                        else "clear_non_candidate"
+                        else "linkable_chain_fact"
                     ),
                     "outcome_candidate_reason": (
                         "政书已载实施及可观察结果，仍需与编年和正史材料归并判断。"
@@ -2570,7 +2644,7 @@ def extract_current_neutral_materials(
                 continue
             mini_batch = {**dict(batch), "segments": [segment]}
             mini_result = {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": OUTPUT_SCHEMA_VERSION,
                 "batch_ref": batch["batch_ref"],
                 "page_title": batch["page_title"],
                 "revision_ref": batch["revision_ref"],
@@ -2649,7 +2723,7 @@ def extract_current_neutral_materials(
                 seeded_limitations_by_batch[batch_ref] = seeded_limitations
                 if len(seeded) == len(batch["segments"]):
                     reused = {
-                        "schema_version": "shared-neutral-extraction-output-v1",
+                        "schema_version": OUTPUT_SCHEMA_VERSION,
                         "batch_ref": batch_ref,
                         "page_title": batch["page_title"],
                         "revision_ref": batch["revision_ref"],
@@ -2679,7 +2753,7 @@ def extract_current_neutral_materials(
             seeded_limitations_by_batch[batch_ref] = seeded_limitations
             if len(seeded) == len(batch["segments"]):
                 reused = {
-                    "schema_version": "shared-neutral-extraction-output-v1",
+                    "schema_version": OUTPUT_SCHEMA_VERSION,
                     "batch_ref": batch_ref,
                     "page_title": batch["page_title"],
                     "revision_ref": batch["revision_ref"],
@@ -3061,7 +3135,7 @@ def extract_current_neutral_materials(
                     }
             rows.append(
                 {
-                    "schema_version": "shared-neutral-extraction-output-v1",
+                    "schema_version": OUTPUT_SCHEMA_VERSION,
                     "batch_ref": batch["batch_ref"],
                     "page_title": batch["page_title"],
                     "revision_ref": batch["revision_ref"],
@@ -3154,7 +3228,7 @@ def extract_current_neutral_materials(
                 continue
             mini_batch = {**dict(batch), "segments": [segment]}
             mini_result = {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": OUTPUT_SCHEMA_VERSION,
                 "batch_ref": batch["batch_ref"],
                 "page_title": batch["page_title"],
                 "revision_ref": batch["revision_ref"],
@@ -3285,7 +3359,7 @@ def extract_current_neutral_materials(
                     continue
                 mini_batch = {**dict(batch), "segments": [segment]}
                 mini_result = {
-                    "schema_version": "shared-neutral-extraction-output-v1",
+                    "schema_version": OUTPUT_SCHEMA_VERSION,
                     "batch_ref": batch_ref,
                     "page_title": batch["page_title"],
                     "revision_ref": batch["revision_ref"],
@@ -3414,7 +3488,7 @@ def extract_current_neutral_materials(
                 for segment in batch["segments"]
             ]
             combined = {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": OUTPUT_SCHEMA_VERSION,
                 "batch_ref": batch_ref,
                 "page_title": batch["page_title"],
                 "revision_ref": batch["revision_ref"],

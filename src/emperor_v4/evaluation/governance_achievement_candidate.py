@@ -21,7 +21,7 @@ from emperor_v4.evaluation.governance_achievement_registry import (
 )
 
 
-OUTPUT_SCHEMA_VERSION = "governance-achievement-candidate-output-v1"
+OUTPUT_SCHEMA_VERSION = "governance-achievement-candidate-output-v2"
 PREPARATION_SCHEMA_VERSION = "governance-achievement-candidate-preparation-v1"
 AUDIT_SCHEMA_VERSION = "governance-achievement-candidate-audit-v1"
 POLICY_VERSION = "governance-achievement-judgment-v2"
@@ -484,7 +484,8 @@ OUTPUT: JSON_ONLY
 1. 每个 component_ref 必须且只能在 component_decisions 出现一次。已实施、运行、完成或形成可观察公共结果，且能具体归责给 allowed_participants 时才 register；纯任职、列名、未落实建议、无可观察结果的表态、一般文化编纂或纯军事行动 omit；材料不足 uncertain。
 2. 同一治理对象的设计、实施、运行和结果优先合为一项 achievement；不同政策、税种、案件或不同统治期重新制定的系统不得强并。每个输入组件只由本任务读取一次。
 3. achievements 只能引用 disposition=register 的 component_refs；register 组件至少被一项 achievement 使用，omit/uncertain 组件不得使用。
-4. participants 只能使用相关组件 allowed_participants 中的 person_ref。同处中枢、共同署名或同时任职不等于同功；exclusive=材料明确独占，lead=主导，participant=明确参与。不要写“非独占”等辩护句，只写实际负责内容。
+4. participants 只能使用相关组件 allowed_participants 中的 person_ref。同处中枢、共同署名或同时任职不等于同功；exclusive=材料明确独占，lead=主导，participant=明确参与。每人必须以 contribution_types 区分政策设计、治理主导、持续运行、关键执行、纠偏、授权、学术撰写或一般参与，并用 contribution_basis_fact_refs 回指 component_refs。不要写“非独占”等辩护句，只写实际负责内容。
+5. value_judgment 按相对历史基线判断生产民生、文明制度、国家与民众安全、文化教育与思想活力四轴；scale 只表示范围，不能代替 overall_magnitude。每个已建立方向的 basis_fact_refs 必须来自 component_refs，未建立轴不得伪造依据。
 5. 只登记已经观察到的实现结果。制度目的、官职重要性和后世常识不能代替 observable_result。mixed/negative 必须有材料中的实际不利公共结果；存在限制但没有不利结果时仍可 positive，并把限制写入 limitations。
 6. scale 衡量已实现结果的实质幅度，不衡量法令的名义管辖范围。全国颁令、中央发文或适用于天下，本身最多证明覆盖范围，不能单独证明 national。
 6A. national_core_subsystem 只用于建立、重构或长期稳定运行财政、刑律、选官、行政等全国核心系统，并且材料给出系统级实现结果。单个案件、单条刑罚标准、一个考试科目、年龄资格线、一次禁令、一次撤销或窄程序调整，即使全国适用，也只能按实际结果判 local 或 important。
@@ -679,6 +680,10 @@ def audit_governance_achievement_candidates(
                 "canonical_name": preparation["people"][person_ref]["canonical_name"],
                 "responsibility_role": participant["responsibility_role"],
                 "contribution_scope": participant["contribution_scope"],
+                "contribution_types": list(participant["contribution_types"]),
+                "contribution_basis_fact_refs": list(
+                    participant["contribution_basis_fact_refs"]
+                ),
             }
             for person_ref, participant in sorted(participants_by_ref.items())
         ]
@@ -729,6 +734,7 @@ def audit_governance_achievement_candidates(
                 "observable_result": first["observable_result"],
                 "result_direction": first["result_direction"],
                 "positive_result_preserved": first["positive_result_preserved"],
+                "value_judgment": dict(first["value_judgment"]),
                 "scale": {
                     "level": first["scale_level"],
                     "consequence_basis": first["scale_basis"],
@@ -757,7 +763,7 @@ def audit_governance_achievement_candidates(
             }
         )
     registry = {
-        "schema_version": "governance-achievement-registry-v1",
+        "schema_version": "governance-achievement-registry-v2",
         "status": "shadow",
         "achievements": achievements,
     }

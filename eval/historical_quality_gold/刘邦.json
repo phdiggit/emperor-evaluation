@@ -3217,7 +3217,7 @@
       "expectations": {
         "fields": [
           {
-            "expected": "historic",
+            "expected": "top",
             "path": "candidate_talent_grade"
           },
           {
@@ -3229,7 +3229,7 @@
             "path": "candidate_negative_talent_severity"
           },
           {
-            "expected": "civil_foundational_system_plus_independent_results",
+            "expected": "top_fallback",
             "path": "talent_grade_rule_alignment.rule_path"
           },
           {
@@ -3253,7 +3253,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-刘邦-PROFILE-PER-CAND-C4F753AA4405",
       "importance": "major",
-      "review_basis": "完整本传、公共成果登记和皇帝窗口政治风险均闭合后冻结人物画像。",
+      "review_basis": "完整本传与公共成果闭合后，按四轴进步强度和人物贡献类型重新计算并冻结；成果覆盖规模不直接换算人才档位。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "萧何"
@@ -3441,8 +3441,8 @@
       },
       "team_building": {
         "negative_signal": "2.750000",
-        "positive_signal": "15.120000",
-        "rule_raw_net": "12.370000"
+        "positive_signal": "14.544000",
+        "rule_raw_net": "11.794000"
       },
       "tolerate_talent": {
         "negative_signal": "5.544000",
@@ -3460,20 +3460,20 @@
       ],
       "positive_members": [
         "张良",
-        "萧何",
         "韩信",
         "周勃",
         "彭越",
         "曹参",
+        "萧何",
         "陈平",
         "灌婴"
       ]
     },
-    "weighted_raw_signal": "13.647331"
+    "weighted_raw_signal": "13.526371"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v6",
-    "source_pack_sha256": "0264311b07f23c68174561fcc2f39633ba4d2b4f59e89689ee0e38d7a4e892e2"
+    "source_pack_sha256": "1afdd66c8498f6db4011383f7c8c0265ebe4ca95cdd39586ba53289c764c5417"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

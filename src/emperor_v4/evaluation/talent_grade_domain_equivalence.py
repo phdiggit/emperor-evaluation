@@ -5,6 +5,7 @@ from collections.abc import Mapping, Sequence
 
 
 SCALES = ("local", "important", "regional", "national", "era_shaping")
+PROGRESS_LEVELS = ("not_established", "limited", "significant", "structural", "era_shaping")
 CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
 MILITARY_STRATEGIC_WEIGHTS = {"C": 0, "B": 0, "A": 1, "S-": 2, "S": 3, "S+": 4}
 LEGACY_CAMPAIGN_TIER_BY_SCALE = {
@@ -22,6 +23,13 @@ MILITARY_RESPONSIBILITY_ROLES = (
 CIVIL_RESPONSIBILITY_ROLES = ("exclusive", "lead", "participant")
 COUNTED_MILITARY_ROLES = {"commander_in_chief", "principal_commander"}
 COUNTED_CIVIL_ROLES = {"exclusive", "lead"}
+GOVERNANCE_CONTRIBUTIONS = {
+    "policy_design",
+    "institutional_design",
+    "implementation_lead",
+    "operational_delivery",
+    "corrective_oversight",
+}
 POSITIVE_RESULTS = {"implemented_positive", "completed_positive"}
 NATIONAL_CONSEQUENCES = {
     "national_war_outcome",
@@ -55,6 +63,8 @@ def _eligible_achievements(
                 raise ValueError("军事成就 campaign_tier 不在当前合同")
         elif scale not in SCALES:
             raise ValueError("成就 scale 不在当前合同")
+        elif str(row.get("progress_level") or "") not in PROGRESS_LEVELS:
+            raise ValueError("治理成就 progress_level 不在当前合同")
         allowed_roles = (
             MILITARY_RESPONSIBILITY_ROLES
             if domain == "military"
@@ -73,7 +83,18 @@ def _eligible_achievements(
         counted_roles = (
             COUNTED_MILITARY_ROLES if domain == "military" else COUNTED_CIVIL_ROLES
         )
-        if responsibility_role in counted_roles and positive_result:
+        if domain == "military":
+            contribution_ok = True
+        elif domain == "culture_and_scholarship":
+            contribution_ok = "scholarly_authorship" in set(
+                row.get("contribution_types") or ()
+            )
+        else:
+            contribution_ok = bool(
+                set(row.get("contribution_types") or ())
+                & GOVERNANCE_CONTRIBUTIONS
+            )
+        if responsibility_role in counted_roles and positive_result and contribution_ok:
             eligible.append(
                 {**row, "campaign_tier": campaign_tier}
                 if domain == "military"
@@ -90,7 +111,11 @@ def assess_domain_historic_path(
     domain = domain.strip()
     if domain not in {"military", "civil_governance", "culture_and_scholarship", "all_round"}:
         raise ValueError(f"未知人才领域：{domain}")
-    responsibility_domain = "military" if domain == "military" else "civil_governance"
+    responsibility_domain = (
+        domain
+        if domain in {"military", "civil_governance", "culture_and_scholarship"}
+        else "civil_governance"
+    )
     eligible = _eligible_achievements(responsibility_domain, achievements)
     path = None
     matched_independent_keys: list[str] = []
@@ -172,48 +197,40 @@ def assess_domain_historic_path(
             ),
         }
     elif domain == "civil_governance":
-        scale_rank = {scale: index for index, scale in enumerate(SCALES)}
-        national = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["national"]]
-        regional = [row for row in eligible if scale_rank[str(row["scale"])] >= scale_rank["regional"]]
-        exclusive_national = [
-            row for row in national if row["responsibility_role"] == "exclusive"
+        progress_rank = {
+            value: index for index, value in enumerate(PROGRESS_LEVELS)
+        }
+        structural = [
+            row
+            for row in eligible
+            if progress_rank[str(row["progress_level"])]
+            >= progress_rank["structural"]
         ]
-        lead_national = [row for row in national if row["responsibility_role"] == "lead"]
-        responsibility_ok = bool(exclusive_national) or len(lead_national) >= 2
-        if len(national) >= 2 and len(regional) >= 3 and responsibility_ok:
-            path = "civil_two_national_plus_one_regional"
-        else:
-            foundational = [
-                row
-                for row in national
-                if bool(row.get("foundational"))
-                and bool(row.get("durable_cross_stage"))
-                and row["responsibility_role"] in COUNTED_CIVIL_ROLES
+        significant = [
+            row
+            for row in eligible
+            if progress_rank[str(row["progress_level"])]
+            >= progress_rank["significant"]
+        ]
+        era_shaping = [
+            row for row in eligible if row["progress_level"] == "era_shaping"
+        ]
+        if era_shaping and len(significant) >= 2:
+            path = "civil_era_shaping_plus_independent_progress"
+        elif len(structural) >= 2 and len(significant) >= 3:
+            path = "civil_repeated_structural_progress"
+        if path:
+            matched_independent_keys = [
+                str(row["independent_key"]) for row in significant
             ]
-            for anchor in foundational:
-                others = [
-                    row for row in eligible if row["independent_key"] != anchor["independent_key"]
-                ]
-                other_national = [
-                    row
-                    for row in others
-                    if scale_rank[str(row["scale"])] >= scale_rank["national"]
-                ]
-                other_regional = [
-                    row
-                    for row in others
-                    if scale_rank[str(row["scale"])] >= scale_rank["regional"]
-                ]
-                if other_national or len(other_regional) >= 2:
-                    path = "civil_foundational_system_plus_independent_results"
-                    break
         counts = {
             "eligible_independent": len(eligible),
-            "regional_or_higher": len(regional),
-            "national_or_higher": len(national),
-            "exclusive_national_or_higher": len(exclusive_national),
-            "lead_national_or_higher": len(lead_national),
-            "scale_counts": dict(Counter(str(row["scale"]) for row in eligible)),
+            "significant_or_higher": len(significant),
+            "structural_or_higher": len(structural),
+            "era_shaping": len(era_shaping),
+            "progress_counts": dict(
+                Counter(str(row["progress_level"]) for row in eligible)
+            ),
         }
     elif domain == "culture_and_scholarship":
         scale_rank = {scale: index for index, scale in enumerate(SCALES)}

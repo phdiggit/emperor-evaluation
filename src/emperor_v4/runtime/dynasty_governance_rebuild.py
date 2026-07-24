@@ -25,8 +25,8 @@ from emperor_v4.evaluation.model_policy import resolve_agent_route
 from emperor_v4.runtime.structured_codex_runner import StructuredCodexRunner
 
 
-SCHEMA_VERSION = "dynasty-governance-current-v1"
-EXTRACTION_POLICY_VERSION = "dynasty-governance-neutral-extraction-v2"
+SCHEMA_VERSION = "dynasty-governance-current-v2"
+EXTRACTION_POLICY_VERSION = "dynasty-governance-neutral-extraction-v3"
 _EDITORIAL_NOTE_ANCHOR = re.compile(r"\[\d+\]")
 _LAYOUT_WHITESPACE = re.compile(r"\s+")
 

@@ -15,8 +15,8 @@ from emperor_v4.adapters.structured_output_contract import (
 )
 
 
-OUTPUT_SCHEMA_VERSION = "dynasty-neutral-governance-output-v1"
-PREPARATION_SCHEMA_VERSION = "dynasty-neutral-governance-preparation-v2"
+OUTPUT_SCHEMA_VERSION = "dynasty-neutral-governance-output-v2"
+PREPARATION_SCHEMA_VERSION = "dynasty-neutral-governance-preparation-v3"
 LEGACY_PREPARATION_SCHEMA_VERSION = "dynasty-neutral-governance-preparation-v1"
 AUDIT_SCHEMA_VERSION = "dynasty-neutral-governance-audit-v1"
 
@@ -67,17 +67,17 @@ OUTPUT: JSON_ONLY
 
 范围约束：只抽取目标朝代内实际发生、实施、运行、改变或产生结果的事实。跨朝代政书中的前代制度、议论和事例不得独立成链；只有在原文明确记载目标朝代继承、修改、废除或实际运用该制度时，前代内容才能作为同一事实链的必要背景。不得因本任务 dynasty 字段为目标朝代，就把卷内其他朝代材料改写成目标朝代事实。
 
-目标：抽取对整个朝代可复用的中性治理事实链，而不是替任何评分项目挑材料。每条链应尽可能闭合“行动或制度变化—实施或实际运行—可观察结果—实际代价或负担”，但原文没有某环节时必须明确写“原文未载”，不得推断补齐。
+目标：抽取对整个朝代可复用的中性治理事实链，而不是替任何评分项目挑材料。分别寻找并连接“历史基线—行动或制度变化—实施或实际运行—可观察结果—实际代价或负担—持续、反复或废止—人物责任”。单个页面或单条链不必闭合全部环节；原文没有某环节时必须明确写“原文未载”，不得推断补齐。粮价、人口、生产、治安、边疆压力等宏观结果即使没有人物 actor 也必须保留，供以后与本纪、列传责任事实连接。
 
 纳入：中央与地方制度、选官和吏治、监察反馈、法制刑狱诉讼、财政税役、生产流通、百姓生活和社会秩序、军制兵源后勤、边疆设治、教育人才、文化知识生产、共同体整合、公共工程以及交班韧性。命令和诏令可作为行动；若原文明示未执行、撤销、反复或产生相反结果，必须合并记录限制。domain 必须按事实对象归类：official_selection 只用于入仕、考试、资格、选授和升迁制度；官员俸禄、职田和财政供给归 fiscal_taxation 或相应中央/地方制度；succession_resilience 只用于权力交接、继承安排或跨统治期制度连续性，不用于一般政治案件。
 
 排除：纯官名清单、纯机构静态定义、仅任职时间、泛泛颂词、未实施建议、无实际信息的礼仪名称。普通宴饮、庆典、大酺、游猎、巡幸和祭祀，原文没有明确较大人力物力财力消耗、治理中断或严重政治影响时不收；宫室、大型工程和封禅等通常高成本行为可收，但不得虚构规模或代价。
 
-中性边界：不得输出评分项目、正负方向、分数、档位、规则复用建议、factor、Judgment 或 ScoreContribution。制度创设不等于运行有效；行政执行不等于民生改善；国库、户口或田亩账面增长不自动等于民富。分别记录原文明示的事实。
+中性边界：不得输出评分项目、正负方向、分数、档位、规则复用建议、factor、Judgment 或 ScoreContribution。制度创设不等于运行有效；行政执行不等于民生改善；国库、户口或田亩账面增长不自动等于民富。effect_domains 只标该事实可能为生产力民生、文明制度、国家与民众安全、文化教育思想中的哪一轴提供依据，不预判方向；皇权自身安全不属于国家与民众安全。
 
 合并与责任：同一事项的讨论、命令、制定、颁行、运行和结果尽量合为一条链；不同史书重复记载同一事项也合并。人物责任只用 exclusive、lead、participant，并以简短 role_basis 说明；同时用 contribution_phases 区分倡议、设计、授权、执行、运行、纠偏、废止、报告或评价。actors 只登记对该事实链的行动、实施、运行、纠偏或废止作出实际贡献的人；案件当事人、受害者、受益者和被管理对象只进入 affected_groups，不能仅因其遭遇触发后续改革而成为 actor。reported_or_evaluated 只用于本人实际报告事实或作出评价。人物在不同阶段作用相反时不得用笼统 participant 混在一起；同一人物可登记多个不重复阶段。不得写“非独占”“不得视为独立成果”等防御性套话。只有原文明示或同一句语法直接承接的参与者才能登记。
 
-证据：每条链至少一个 exact_quote；引文必须从对应 PAGE 正文原样复制并作连续子串匹配。可省略纯排版换行、空白和形如 [139] 的纯数字编辑脚注锚点；除此以外禁止简繁转换、异体字替换、标点改写、补字、省略或拼接不连续句段。长奏议应拆成足以分别证明事实的最短连续引文；在引语中途截断时不得自行补右引号或其他闭合标点。遇到 `〈...〉`、括注、夹注或长名单时，应在其前结束引文并另建下一条 evidence，不得删除中间内容后拼接前后句段。page_title 与 revision_ref 必须照抄 PAGE 标头。actor.quote_refs 只能引用本链 evidence.quote_ref。uncertainty 只写真正影响事实、责任或结果判断的限制，没有则为空字符串。
+证据：每条链至少一个 exact_quote；每条 evidence 用 evidence_roles 逐项标明它直接支持历史基线、举措设计、实施运行、公共结果、代价负担、持续反转或责任归因中的哪些角色，不能把链级摘要中的其他环节冒充为该引文所载。引文必须从对应 PAGE 正文原样复制并作连续子串匹配。可省略纯排版换行、空白和形如 [139] 的纯数字编辑脚注锚点；除此以外禁止简繁转换、异体字替换、标点改写、补字、省略或拼接不连续句段。长奏议应拆成足以分别证明事实的最短连续引文；在引语中途截断时不得自行补右引号或其他闭合标点。遇到 `〈...〉`、括注、夹注或长名单时，应在其前结束引文并另建下一条 evidence，不得删除中间内容后拼接前后句段。page_title 与 revision_ref 必须照抄 PAGE 标头。actor.quote_refs 只能引用本链 evidence.quote_ref。uncertainty 只写真正影响事实、责任或结果判断的限制，没有则为空字符串。
 
 固定身份：
 - schema_version: {OUTPUT_SCHEMA_VERSION}
@@ -350,6 +350,10 @@ def audit_scan(
                     if quote_ref in evidence_refs:
                         raise ValueError(f"{chain['chain_key']}: quote_ref 重复")
                     evidence_refs.add(quote_ref)
+                    if len(evidence["evidence_roles"]) != len(
+                        set(evidence["evidence_roles"])
+                    ):
+                        raise ValueError(f"{chain['chain_key']}: evidence_roles 重复")
                     page_key = (evidence["page_title"], evidence["revision_ref"])
                     if page_key not in page_map:
                         raise ValueError(f"{chain['chain_key']}: evidence 页面不属于任务")
@@ -367,6 +371,8 @@ def audit_scan(
                         raise ValueError(
                             f"{chain['chain_key']}: actor contribution_phases 重复"
                         )
+                if len(chain["effect_domains"]) != len(set(chain["effect_domains"])):
+                    raise ValueError(f"{chain['chain_key']}: effect_domains 重复")
                 identity = tuple(sorted(identity_rows))
                 if identity in seen_chain_identity or identity in task_identities:
                     raise ValueError(f"{chain['chain_key']}: 与其他任务证据链完全重复")

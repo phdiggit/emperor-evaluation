@@ -1,5 +1,5 @@
 schema_version: talent-grade-v11-domain-equivalent-historic-policy-v1
-policy_version: talent-grade-v11-domain-equivalent-historic-v3
+policy_version: talent-grade-v11-domain-equivalent-historic-v4
 status: current_shadow_policy
 supersedes_for_new_shadow_judgments:
   - talent-grade-v9-high-tier-calibration-v1
@@ -14,6 +14,10 @@ principles:
   political_risk_is_orthogonal_to_talent_grade: true
   clear_professional_success_survives_cross_domain_costs: true
   positive_governance_grade_requires_positive_net_direction: true
+  governance_progress_uses_historical_baseline_and_four_axes: true
+  governance_scale_is_reach_not_progress_or_grade: true
+  governance_credit_requires_supported_contribution_type: true
+  cultural_benefit_does_not_imply_scholarly_credit: true
   independent_responsibility_chains_required: true
   military_campaign_tier_uses_land_opponent_and_result_axes: true
   same_campaign_or_governance_chain_counts_once: true
@@ -81,20 +85,30 @@ historic_paths:
 
   civil_governance:
     counted_value_directions: [positive]
-    normal_repeated_delivery:
-      minimum_independent_national_results: 2
-      minimum_independent_regional_or_higher_results: 3
-      responsibility_requirement:
-        one_exclusive_or_two_lead_national_results: true
-      counted_responsibility_roles: [exclusive, lead]
-    foundational_system_path:
-      minimum_foundational_national_systems: 1
-      foundational_system_requires_durable_cross_stage_operation: true
-      plus_one_of:
-        - one_additional_independent_national_result
-        - two_additional_independent_regional_results
+    progress_levels: [not_established, limited, significant, structural, era_shaping]
+    counted_responsibility_roles: [exclusive, lead]
+    counted_contribution_types:
+      - policy_design
+      - institutional_design
+      - implementation_lead
+      - operational_delivery
+      - corrective_oversight
+    era_shaping_path:
+      minimum_era_shaping_results: 1
+      minimum_independent_significant_or_higher_results: 2
+    repeated_structural_path:
+      minimum_structural_or_higher_results: 2
+      minimum_independent_significant_or_higher_results: 3
+    top_path:
+      minimum_structural_anchor_results: 1
+      requires_one_of:
+        - stable_delivery
+        - one_additional_independent_significant_result
+        - important_governance_method_or_legacy
     exclusions:
       - mixed_negative_or_unclear_governance_does_not_raise_positive_talent_grade
+      - national_or_era_scale_does_not_raise_grade_without_progress
+      - authorization_without_supported_governance_contribution_does_not_count
       - office_tenure_or_membership_is_not_a_result
       - proposals_without_implementation_do_not_count
       - general_prosperity_cannot_be_wholly_attributed_to_one_official
@@ -137,7 +151,8 @@ historic_paths:
 top_fallback:
   military_single_s_plus_establishes_top: true
   military_otherwise_requires_s_minus_or_higher_campaign: true
-  nonmilitary_requires_field_first_tier_achievement: true
+  civil_governance_requires_structural_progress_anchor: true
+  culture_requires_scholarly_authorship_or_finalization: true
   requires_one_of:
     - stable_delivery
     - second_major_achievement

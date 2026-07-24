@@ -20,8 +20,8 @@ from emperor_v4.runtime.structured_codex_runner import (
 )
 
 
-SCHEMA_VERSION = "current-outcome-projection-v1"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v18"
+SCHEMA_VERSION = "current-outcome-projection-v2"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v19"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 _T2S = OpenCC("t2s")
 
@@ -95,6 +95,8 @@ def _prompt(
                 "event_refs",
                 "exact_quote",
                 "fact_kind",
+                "evidence_roles",
+                "effect_domains",
                 "governance_domain",
                 "governance_title",
                 "period",
@@ -118,7 +120,7 @@ def _prompt(
     return f"""你是皇帝评价 V4 的成果候选整理器。只把输入的中性事实整理为可登记的战役、治理或人物谋略成果；不能补史实、不能联网、不能评分。
 
 硬规则：
-1. 只有原文同时足以支持行动、可观察结果和参与者责任时才生成 candidate；任官、褒奖、建议、品评或单纯过程而无结果，一律放入 rejections。
+1. 单条事实不必同时闭合行动、结果和责任。先按 event_refs 与事实内容，把政书的措施/运行、编年或本纪的公共结果/成本、列传的责任归属跨史源合并；只有合并后的证据链足以支持措施、实际公共结果和责任时才生成 candidate。单独事实不足时不得丢失其证据角色，应与同事件事实共同判断。
 2. exact_quotes 与 authorization_quotes 必须逐字复制输入 exact_quote 的连续子串，不得转写、拼接或补字。
 3. members 只能使用允许人物：{json.dumps(list(actors), ensure_ascii=False)}。皇帝 {ruler} 用 actor_kind=ruler；其余用 person。
 4. 同一独立结果只生成一个 candidate。candidate_key 用小写 ASCII 与连字符，表达皇帝、时期和独立结果，必须稳定。
@@ -131,12 +133,14 @@ def _prompt(
 11. campaign 的 role_code 只能是 commander_in_chief/principal_commander/participant/not_in_command_chain，并至少有一名处于实际军事指挥链的成员。commander_in_chief=节度战役群全局并承担最高军事责任；principal_commander=独立指挥一支主力或主要方向；participant=有作战贡献但无主力独立指挥权。史书称某人为主帅之副时，仍按实际指挥权在 principal_commander 与 participant 之间判断，不另设副将档。within_window/leadership_formation 的父级战役群必须且只能有一个当前皇帝成员；outside_window 的臣子全生涯战役允许没有当前皇帝，不得因此删除。只要登记皇帝成员就必须填唯一皇权关系。皇帝只有授权、默许或阻挠而未实际进入军事指挥链时用 not_in_command_chain；亲征、长期统筹或临时坐镇不得用 not_in_command_chain。governance/statecraft 只能是 exclusive/lead/governance_participant/authorized：exclusive=独立建立且没有同级共同主导者，lead=主导方案或持续执行，governance_participant=有逐字依据的实质参与，authorized=仅批准或维持授权而未主导实施；参会、在职和一般赞同不能推定责任。
 12. campaign 成员必须区分“事件发生时的实际皇帝”与“当前评价对象”：只有 sovereign_at_event=true 的皇帝成员可以填写皇权控制。ruler_campaign_relation 只分 authorization_only、operational_direction、frontline_command；授权明示/默示另填 authorization_mode，战区控制局部/持续另填 control_extent，阻挠另填 obstruction_status。登基前的李世民是臣子，不得填写皇帝关系。详细制定分路、进军路线或作战部署属于 operational_direction；本人进入前线并承担最高现场指挥才是 frontline_command。
 13. EXISTING_OUTCOMES 已登记的同一独立结果必须拒绝，不得换名重复生成；同一战略目标建立一个父级战役成果，阶段战斗只写入 observable_result/limitations，不得拆成多项重复成果。全局战果有得有失时父级必须 mixed；例如远征总体未达目标但取得局部胜利，不能只按局部胜利登记。规模必须同时检查土地战略价值、对手实际强度和已实现结果，不因国号、名气或史料篇幅升档。
-14. governance 只登记已经实施并形成制度、持续程序、跨个案公共效果、明确先例或可独立验收公共产品的结果。迁都、设官、建机构、任命、结约或颁下一次命令若只证明动作发生，没有制度实际生效、持续运行、直接改变公共权利义务或形成可验收产品，必须拒绝；不得用预期目的代替实际结果。已实际生效并直接改变税负、服役、任期或司法程序的持续约束，其制度约束本身可作为结果。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections。
+14. governance 只登记已经实施并形成制度、持续程序、跨个案公共效果、明确先例或可独立验收公共产品的结果。迁都、设官、建机构、任命、结约或颁下一次命令若只证明动作发生，没有其他事实补足制度实际生效、持续运行、直接改变公共权利义务或形成可验收产品，不能单独发布成果；不得用预期目的代替实际结果。已实际生效并直接改变税负、服役、任期或司法程序的持续约束，其制度约束本身可作为结果。单案改判、一次礼遇、个人赏罚、一般言行和仅对一人的处置放入 rejections。
 15. statecraft 只登记本人提出或主导、已被采纳并形成独立可核实战略结果的非指挥成果。未实施建议、一般献策、纯夺权、宫廷清洗和只有手段成功而无独立战略结果者必须拒绝；不得为支撑预期人才等级反向生成谋略成果。
 16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
-17. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v2，task_code={task_code}。
-18. INPUT_FACTS 中每个 segment_ref 必须恰有明确处置：生成 candidate 时 exact_quotes 必须覆盖对应输入引文；否则必须在 rejections 中逐项写出 segment_ref 和理由。不得遗漏输入事实。
-19. 同一段引文若同时包含彼此独立的战役结果与治理结果，必须分别生成 candidate，不得把治理结果并入战役 observable_result，也不得用其中一个 candidate 代替另一个。明确记载“遂克长安”时必须形成 campaign 候选；明确记载“与民约法……悉除……苛禁”时必须另形成 governance 候选。
+17. 治理成果必须按相对历史基线判断四个公共价值轴：生产力与民生、文明与制度进步、国家与民众安全、文化教育与思想活力。国家安全不包括皇权自身安全。每轴分别写方向、进步强度和依据；影响范围 scale 不能代替进步强度。只比较当时既有状态与实施后的可观察变化，不按现代完美标准，也不把远期推测当作已发生结果。
+18. 治理成员必须写 contribution_types 与 contribution_basis_fact_refs。政策/制度设计、持续治理、关键执行、纠偏和单纯授权、学术撰写必须分开；文化工程的组织授权不能自动转成治理人才信用，学术撰写也不能自动转成治理信用。
+19. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v3，task_code={task_code}。
+20. INPUT_FACTS 中每个 fact_ref 必须恰有明确处置：candidate.evidence_links 引用它，或在 rejections 中逐项写出 fact_ref 和理由。不得按 segment 粗粒度吞掉同段其他事实。
+21. 同一段引文若同时包含彼此独立的战役结果与治理结果，必须分别生成 candidate，不得把治理结果并入战役 observable_result，也不得用其中一个 candidate 代替另一个。明确记载“遂克长安”时必须形成 campaign 候选；明确记载“与民约法……悉除……苛禁”时必须另形成 governance 候选。
 
 EXISTING_OUTCOMES:
 {json.dumps(list(existing_outcomes), ensure_ascii=False, sort_keys=True, separators=(",", ":"))}
@@ -214,12 +218,31 @@ def _normalize_candidate_sources(
     payload: Mapping[str, Any], facts: Sequence[Mapping[str, Any]]
 ) -> Mapping[str, Any]:
     payload = dict(payload)
+    facts = [dict(fact) for fact in facts]
+    declared_ref_by_quote = {
+        str(link.get("exact_quote") or ""): str(link.get("fact_ref") or "")
+        for candidate in payload.get("candidates") or ()
+        for link in candidate.get("evidence_links") or ()
+        if link.get("exact_quote") and link.get("fact_ref")
+    }
+    for fact in facts:
+        fact.setdefault(
+            "fact_ref",
+            declared_ref_by_quote.get(str(fact.get("exact_quote") or ""))
+            or "NEUTRALFACT-" + _digest(fact)[:20].upper(),
+        )
+        fact.setdefault("segment_ref", str(fact["fact_ref"]))
+        fact.setdefault("evidence_roles", ["public_result"])
     # Older split-parent checkpoints accidentally carried a top-level helper
     # field that is not part of the candidate output contract.  Checkpoints are
     # disposable recovery state; normalize them before schema validation rather
     # than repeating already completed model calls.
     payload.pop("limitations", None)
     fact_quotes = [str(fact.get("exact_quote") or "") for fact in facts]
+    facts_by_ref = {str(fact["fact_ref"]): fact for fact in facts}
+    facts_by_segment: dict[str, list[Mapping[str, Any]]] = {}
+    for fact in facts:
+        facts_by_segment.setdefault(str(fact["segment_ref"]), []).append(fact)
 
     def canonical_quote(value: object) -> str:
         quote = str(value)
@@ -240,7 +263,18 @@ def _normalize_candidate_sources(
         return quote
 
     retained_candidates = []
-    rejections = list(payload.get("rejections") or ())
+    rejections = []
+    for rejection in payload.get("rejections") or ():
+        if rejection.get("fact_ref"):
+            rejections.append(dict(rejection))
+            continue
+        for fact in facts_by_segment.get(str(rejection.get("segment_ref") or ""), ()):
+            rejections.append(
+                {
+                    "fact_ref": str(fact["fact_ref"]),
+                    "reason": str(rejection.get("reason") or ""),
+                }
+            )
 
     def reject_candidate(
         candidate: Mapping[str, Any],
@@ -248,13 +282,13 @@ def _normalize_candidate_sources(
         reason: str,
     ) -> None:
         for fact in {
-            str(fact["segment_ref"]): fact
+            str(fact["fact_ref"]): fact
             for rows in quote_matches
             for fact in rows
         }.values():
             rejections.append(
                 {
-                    "segment_ref": str(fact["segment_ref"]),
+                    "fact_ref": str(fact["fact_ref"]),
                     "reason": f"{candidate['candidate_key']} {reason}",
                 }
             )
@@ -298,8 +332,81 @@ def _normalize_candidate_sources(
             for rows in quote_matches
             for fact in rows
         }
-        if not quotes or any(not rows for rows in quote_matches) or len(matches) != 1:
+        if not quotes or any(not rows for rows in quote_matches):
             continue
+        matched_facts = list(
+            {
+                str(fact["fact_ref"]): fact
+                for rows in quote_matches
+                for fact in rows
+            }.values()
+        )
+        declared_links = {
+            str(row.get("fact_ref") or ""): row
+            for row in candidate.get("evidence_links") or ()
+        }
+        candidate["evidence_links"] = [
+            {
+                "fact_ref": str(fact["fact_ref"]),
+                "source_page": str(fact["page_title"]),
+                "revision_ref": str(fact["revision_ref"]),
+                "exact_quote": str(fact["exact_quote"]),
+                "evidence_roles": list(
+                    dict.fromkeys(
+                        declared_links.get(str(fact["fact_ref"]), {}).get(
+                            "evidence_roles"
+                        )
+                        or fact.get("evidence_roles")
+                        or ("public_result",)
+                    )
+                ),
+            }
+            for fact in matched_facts
+        ]
+        linked_refs = {str(row["fact_ref"]) for row in candidate["evidence_links"]}
+        declared_refs = set(declared_links)
+        replacement = (
+            {next(iter(declared_refs)): next(iter(linked_refs))}
+            if len(declared_refs) == len(linked_refs) == 1
+            and declared_refs != linked_refs
+            else {}
+        )
+        for member in candidate.get("members") or ():
+            member.setdefault(
+                "contribution_types",
+                [
+                    "authorization"
+                    if member.get("role_code") in {"authorized", "reign_holder"}
+                    else "general_participation"
+                ],
+            )
+            member.setdefault("contribution_basis_fact_refs", sorted(linked_refs))
+            member["contribution_basis_fact_refs"] = [
+                replacement.get(str(ref), str(ref))
+                for ref in member["contribution_basis_fact_refs"]
+            ]
+        if candidate.get("outcome_kind") == "governance":
+            judgment = (candidate.get("payload") or {}).get("value_judgment") or {}
+            judgment["baseline_fact_refs"] = [
+                replacement.get(str(ref), str(ref))
+                for ref in judgment.get("baseline_fact_refs") or ()
+            ]
+            for axis in (judgment.get("axes") or {}).values():
+                axis["basis_fact_refs"] = [
+                    replacement.get(str(ref), str(ref))
+                    for ref in axis.get("basis_fact_refs") or ()
+                ]
+            for ref in judgment.get("baseline_fact_refs") or ():
+                if str(ref) not in linked_refs:
+                    raise ValueError(
+                        f"{candidate['candidate_key']} baseline_fact_refs 不属于证据链"
+                    )
+            for axis in (judgment.get("axes") or {}).values():
+                for ref in axis.get("basis_fact_refs") or ():
+                    if str(ref) not in linked_refs:
+                        raise ValueError(
+                            f"{candidate['candidate_key']} 四轴依据不属于证据链"
+                        )
         limitation_text = "\n".join(
             str(value) for value in candidate.get("limitations") or ()
         ).lower()
@@ -333,7 +440,6 @@ def _normalize_candidate_sources(
                 "自认关键结果未由 exact_quote 直接支持，确定性拒绝并保留中性材料。",
             )
             continue
-        matched_facts = [fact for rows in quote_matches for fact in rows]
         source_context = "".join(
             str(fact.get("exact_quote") or "") for fact in matched_facts
         )
@@ -459,7 +565,7 @@ def _normalize_candidate_sources(
             # Keep the neutral fact and its Episode lineage, but do not turn a
             # one-off local disposition into an independent governance result.
             continue
-        page_title, revision_ref = next(iter(matches))
+        page_title, revision_ref = sorted(matches)[0]
         candidate["source_page"] = page_title
         candidate["revision_ref"] = revision_ref
         retained_candidates.append(candidate)
@@ -472,10 +578,29 @@ def _validate_candidate_payload_coverage(
     payload: Mapping[str, Any],
     facts: Sequence[Mapping[str, Any]],
 ) -> None:
-    covered_segment_refs = {
-        str(row["segment_ref"]) for row in payload.get("rejections") or ()
+    facts = [dict(fact) for fact in facts]
+    for fact in facts:
+        fact.setdefault("fact_ref", "NEUTRALFACT-" + _digest(fact)[:20].upper())
+        fact.setdefault("segment_ref", str(fact["fact_ref"]))
+    covered_fact_refs = {
+        str(row["fact_ref"])
+        for row in payload.get("rejections") or ()
+        if row.get("fact_ref")
     }
+    rejected_segments = {
+        str(row["segment_ref"])
+        for row in payload.get("rejections") or ()
+        if row.get("segment_ref")
+    }
+    covered_fact_refs.update(
+        str(fact["fact_ref"])
+        for fact in facts
+        if str(fact["segment_ref"]) in rejected_segments
+    )
     for candidate in payload.get("candidates") or ():
+        covered_fact_refs.update(
+            str(row["fact_ref"]) for row in candidate.get("evidence_links") or ()
+        )
         quotes = [str(value) for value in candidate.get("exact_quotes") or ()]
         for fact in facts:
             fact_quote = str(fact.get("exact_quote") or "")
@@ -484,11 +609,16 @@ def _validate_candidate_payload_coverage(
                 for quote in quotes
                 if quote and fact_quote
             ):
-                covered_segment_refs.add(str(fact["segment_ref"]))
-    expected_segment_refs = {str(fact["segment_ref"]) for fact in facts}
-    missing = sorted(expected_segment_refs - covered_segment_refs)
+                covered_fact_refs.add(str(fact["fact_ref"]))
+    expected_fact_refs = {str(fact["fact_ref"]) for fact in facts}
+    missing = sorted(expected_fact_refs - covered_fact_refs)
     if missing:
-        raise ValueError("成果模型遗漏输入 segment_ref: " + ", ".join(missing))
+        missing_labels = [
+            f"{fact['segment_ref']}({fact['fact_ref']})"
+            for fact in facts
+            if str(fact["fact_ref"]) in missing
+        ]
+        raise ValueError("成果模型遗漏输入 fact_ref: " + ", ".join(missing_labels))
     for fact in facts:
         fact_quote = _T2S.convert(str(fact.get("exact_quote") or ""))
         if "遂克长安" in fact_quote:
@@ -606,20 +736,46 @@ def project_current_outcomes(
         dict(fact)
         for fact in (neutral_materials.get("fanout") or {}).get("facts") or ()
         if in_current_ruler_projection(fact)
-        and any(
-            str(actor.get("subject_ref") or "") in allowed_subject_refs
-            for actor in fact.get("actors") or ()
+        and (
+            any(
+                str(actor.get("subject_ref") or "") in allowed_subject_refs
+                for actor in fact.get("actors") or ()
+            )
+            or (
+                not fact.get("actors")
+                and bool(
+                    set(fact.get("evidence_roles") or ())
+                    & {
+                        "historical_baseline",
+                        "public_result",
+                        "public_cost_or_harm",
+                        "continuity_or_reversal",
+                    }
+                )
+            )
         )
-        and fact.get("projection_eligibility") == "direct_neutral_fact"
-        and fact.get("implementation_status")
-        in {"adopted", "implemented", "nationally_promulgated", "completed_work"}
-        and bool(str(fact.get("result") or "").strip())
+        and fact.get("projection_eligibility")
+        in {"direct_neutral_fact", "linkable_chain_fact"}
+        and fact.get("outcome_candidate_status")
+        in {
+            "direct_outcome_candidate",
+            "linkable_chain_fact",
+            "clear_candidate",
+            "ambiguous",
+            "context_only",
+            "irrelevant",
+            "clear_non_candidate",
+        }
         and fact.get("fact_kind") not in {"appointment", "admonition"}
     ]
     for fact in all_eligible:
         fact.setdefault("fact_ref", "NEUTRALFACT-" + _digest(fact)[:20].upper())
         fact.setdefault("segment_ref", str(fact["fact_ref"]))
-        if fact.get("outcome_candidate_status") == "clear_non_candidate":
+        if fact.get("outcome_candidate_status") in {
+            "context_only",
+            "irrelevant",
+            "clear_non_candidate",
+        }:
             dispositions[str(fact["fact_ref"])] = {
                 "fact_ref": str(fact["fact_ref"]),
                 "decision": "rejected",
@@ -655,7 +811,8 @@ def project_current_outcomes(
         fact
         for fact in all_eligible
         if str(fact["fact_ref"]) not in dispositions
-        and fact.get("outcome_candidate_status") != "clear_non_candidate"
+        and fact.get("outcome_candidate_status")
+        not in {"context_only", "irrelevant", "clear_non_candidate"}
     ]
     if not eligible and reviewed_payload is None:
         return {
@@ -668,9 +825,19 @@ def project_current_outcomes(
             "dispositions": [dispositions[key] for key in sorted(dispositions)],
         }
     if reviewed_payload is not None:
+        reviewed_fact_refs = {
+            str(row.get("fact_ref") or "")
+            for row in reviewed_payload.get("rejections") or ()
+        }
+        reviewed_fact_refs.update(
+            str(link.get("fact_ref") or "")
+            for candidate in reviewed_payload.get("candidates") or ()
+            for link in candidate.get("evidence_links") or ()
+        )
         reviewed_segments = {
             str(row.get("segment_ref") or "")
             for row in reviewed_payload.get("rejections") or ()
+            if row.get("segment_ref")
         }
         reviewed_quotes = {
             str(quote)
@@ -680,7 +847,8 @@ def project_current_outcomes(
         eligible = [
             fact
             for fact in all_eligible
-            if str(fact.get("segment_ref") or "") in reviewed_segments
+            if str(fact.get("fact_ref") or "") in reviewed_fact_refs
+            or str(fact.get("segment_ref") or "") in reviewed_segments
             or any(
                 quote
                 and (
@@ -786,14 +954,14 @@ def project_current_outcomes(
                 "facts": ordered_eligible,
                 "required_output_schema": str(schema_path),
                 "output_template": {
-                    "schema_version": "current-outcome-candidate-output-v2",
+                "schema_version": "current-outcome-candidate-output-v3",
                     "task_code": review_task_code,
                     "candidates": [],
                     "rejections": [],
                 },
                 "instructions": [
                     "主会话逐项登记战役、治理、谋略成果或明确拒绝。",
-                    "每个 segment_ref 必须由 candidate exact_quotes 覆盖或进入 rejections。",
+                    "每个 fact_ref 必须由 candidate evidence_links 覆盖或进入 rejections。",
                     "完成跨书归并、成果拆分、责任、窗口、等级、持续性和重复结算审计后再提交。",
                 ],
             },
@@ -804,7 +972,7 @@ def project_current_outcomes(
     if reviewed_mode:
         payload = {
             **dict(reviewed_payload or {}),
-            "schema_version": "current-outcome-candidate-output-v2",
+            "schema_version": "current-outcome-candidate-output-v3",
             "task_code": review_task_code,
         }
         payload = _normalize_candidate_sources(payload, ordered_eligible)
@@ -932,7 +1100,7 @@ def project_current_outcomes(
         require_current_projection_ready=False,
     )
     candidate_keys_by_fact: dict[str, set[str]] = {}
-    rejection_reasons_by_segment: dict[str, list[str]] = {}
+    rejection_reasons_by_fact: dict[str, list[str]] = {}
     for payload in payloads:
         for candidate in payload.get("candidates") or ():
             candidate_key = str(candidate["candidate_key"])
@@ -944,13 +1112,13 @@ def project_current_outcomes(
                         candidate_key
                     )
         for rejection in payload.get("rejections") or ():
-            rejection_reasons_by_segment.setdefault(
-                str(rejection["segment_ref"]), []
+            rejection_reasons_by_fact.setdefault(
+                str(rejection["fact_ref"]), []
             ).append(str(rejection["reason"]))
     for fact in eligible:
         fact_ref = str(fact["fact_ref"])
         candidate_keys = sorted(candidate_keys_by_fact.get(fact_ref) or ())
-        reasons = rejection_reasons_by_segment.get(str(fact["segment_ref"])) or []
+        reasons = rejection_reasons_by_fact.get(fact_ref) or []
         dispositions[fact_ref] = {
             "fact_ref": fact_ref,
             "decision": "accepted" if candidate_keys else "rejected",

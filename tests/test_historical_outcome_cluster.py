@@ -102,6 +102,39 @@ def test_governance_value_judgment_must_match_result_direction() -> None:
         )
 
 
+def test_tang_governance_progress_calibrations_are_pinned() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    governance = {
+        row["canonical_label"]: row
+        for row in pack["outcome_registry"]["clusters"]
+        if row["outcome_kind"] == "governance"
+    }
+    clan = governance["考订并颁行氏族志"]["payload"]["value_judgment"]
+    assert clan["overall_direction"] == "positive"
+    assert clan["overall_magnitude"] == "significant"
+    assert clan["axes"]["civilization_institutions"]["magnitude"] == "significant"
+    assert clan["axes"]["culture_education_thought"]["magnitude"] == "limited"
+
+    macro = governance[
+        "贞观初中期丰稔、低粮价与跨区域治安改善"
+    ]["payload"]["value_judgment"]
+    assert macro["overall_magnitude"] == "era_shaping"
+    assert macro["axes"]["productivity_livelihood"]["magnitude"] == "era_shaping"
+    assert macro["axes"]["state_people_security"]["magnitude"] == "structural"
+    assert (
+        macro["axes"]["culture_education_thought"]["direction"]
+        == "not_established"
+    )
+
+    granary = governance["建立州县义仓并用于赈给"]["payload"]["value_judgment"]
+    assert granary["overall_direction"] == "positive"
+    assert granary["overall_magnitude"] == "structural"
+
+
 def test_campaign_registry_separates_ruler_control_land_axis_and_failures() -> None:
     pack = json.loads(
         (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
@@ -335,10 +368,12 @@ def test_military_top_support_cannot_be_borrowed_from_governance() -> None:
             "actor_ref": person_ref,
             "actor_name": "测试人物",
             "actor_kind": "person",
-            "role_code": "lead",
-            "contribution_scope": "独立治理成果",
-        }
-    ]
+                "role_code": "lead",
+                "contribution_scope": "独立治理成果",
+                "contribution_types": ["implementation_lead"],
+                "contribution_basis_fact_refs": list(governance["fact_refs"]),
+            }
+        ]
     governance["scale"]["level"] = "regional"
     governance["stable_delivery"] = False
     governance["important_method_or_legacy"] = False
@@ -452,9 +487,9 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
 @pytest.mark.parametrize(
     ("ruler", "expected_signal", "expected_complementarity", "expected_stability"),
     [
-        ("李世民", "18.689968", "balanced_four", "durable_multi_stage"),
+        ("李世民", "19.210646", "balanced_four", "durable_multi_stage"),
         ("李渊", "5.617151", "strong_three", "stable_but_narrow"),
-        ("刘邦", "13.647331", "balanced_four", "durable_multi_stage"),
+        ("刘邦", "13.526371", "balanced_four", "durable_multi_stage"),
     ],
 )
 def test_current_i5b_gold_freezes_rule_projection_and_shadow_signal(
@@ -513,7 +548,7 @@ def test_i5b_gold_rejects_shadow_signal_drift() -> None:
     assert comparison["i5b_projection"]["differences"] == [
         {
             "path": "net_signal",
-                "expected": "18.689968",
+                "expected": "19.210646",
             "actual": "0.000000",
         }
     ]

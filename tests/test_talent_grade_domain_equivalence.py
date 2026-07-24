@@ -43,6 +43,8 @@ def _achievement(
         "responsibility_role": responsibility_role,
         "result": "implemented_positive",
         "consequence_basis": consequence_basis,
+        "progress_level": "significant",
+        "contribution_types": ["implementation_lead"],
         **extra,
     }
 
@@ -77,13 +79,14 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
     }
     assert policy["top_fallback"]["military_single_s_plus_establishes_top"] is True
     assert (
-        policy["historic_paths"]["civil_governance"]["normal_repeated_delivery"]
-        ["minimum_independent_regional_or_higher_results"]
+        policy["historic_paths"]["civil_governance"]["repeated_structural_path"]
+        ["minimum_independent_significant_or_higher_results"]
         == 3
     )
     assert policy["historic_paths"]["civil_governance"]["counted_value_directions"] == [
         "positive"
     ]
+    assert policy["principles"]["governance_scale_is_reach_not_progress_or_grade"] is True
     assert (
         policy["historic_paths"]["culture_and_scholarship"]
         ["civilization_foundational_single_work_path"]
@@ -215,6 +218,40 @@ def test_clear_military_success_survives_separately_recorded_coordination_cost()
                 ),
                 "result": "implemented_mixed",
                 "positive_result_preserved": True,
+                "value_judgment": {
+                    "comparison_basis": "public_effect_without_explicit_baseline",
+                    "baseline_fact_refs": [],
+                    "overall_direction": "positive",
+                    "overall_magnitude": "structural",
+                    "axes": {
+                        "productivity_livelihood": {
+                            "direction": "not_established",
+                            "magnitude": "not_established",
+                            "basis_fact_refs": [],
+                            "basis": "",
+                        },
+                        "civilization_institutions": {
+                            "direction": "positive",
+                            "magnitude": "structural",
+                            "basis_fact_refs": ["DNMAT-TEST"],
+                            "basis": "全国律令投入运行。",
+                        },
+                        "state_people_security": {
+                            "direction": "positive",
+                            "magnitude": "significant",
+                            "basis_fact_refs": ["DNMAT-TEST"],
+                            "basis": "司法秩序获得制度支持。",
+                        },
+                        "culture_education_thought": {
+                            "direction": "not_established",
+                            "magnitude": "not_established",
+                            "basis_fact_refs": [],
+                            "basis": "",
+                        },
+                    },
+                    "effect_horizon": "cross_stage",
+                    "basis": "律令颁行天下并实际施用。",
+                },
             },
             _achievement("C", "regional", campaign_tier="A", responsibility_role="principal_commander"),
         ],
@@ -276,7 +313,7 @@ def test_two_ordinary_s_campaigns_do_not_pass_exception_path() -> None:
     assert result["historic_fact_path_status"] == "not_established"
 
 
-def test_civil_repeated_national_delivery_does_not_require_cross_stage_legacy() -> None:
+def test_civil_scale_alone_does_not_establish_historic_progress() -> None:
     result = assess_domain_historic_path(
         "civil_governance",
         [
@@ -288,7 +325,7 @@ def test_civil_repeated_national_delivery_does_not_require_cross_stage_legacy() 
         ],
     )
 
-    assert result["matched_path"] == "civil_two_national_plus_one_regional"
+    assert result["historic_fact_path_status"] == "not_established"
 
 
 def test_civil_participation_is_registered_but_does_not_raise_grade() -> None:
@@ -342,6 +379,8 @@ def test_single_cultural_work_requires_foundational_authorship_and_durability() 
                 foundational=True,
                 durable_cross_stage=True,
                 personally_authored_or_finalized=True,
+                contribution_types=["scholarly_authorship"],
+                progress_level="era_shaping",
             )
         ],
     )
@@ -355,6 +394,8 @@ def test_single_cultural_work_requires_foundational_authorship_and_durability() 
                 foundational=True,
                 durable_cross_stage=True,
                 personally_authored_or_finalized=False,
+                contribution_types=["scholarly_authorship"],
+                progress_level="era_shaping",
             )
         ],
     )
@@ -493,7 +534,7 @@ def test_residual_state_conquest_is_not_national_by_title_alone() -> None:
 
 def test_governance_registry_projects_top_floor_without_writing_profile() -> None:
     registry = {
-        "schema_version": "governance-achievement-registry-v1",
+        "schema_version": "governance-achievement-registry-v2",
         "status": "shadow",
         "achievements": [
             {
@@ -506,11 +547,45 @@ def test_governance_registry_projects_top_floor_without_writing_profile() -> Non
                 "observable_result": "律令全国颁行并持续施用",
                 "result_direction": "positive",
                 "positive_result_preserved": True,
-                "scale": {
+                    "scale": {
                     "level": "national",
                     "consequence_basis": "national_core_subsystem",
                     "reason": "重构并运行全国刑律子系统",
-                },
+                    },
+                    "value_judgment": {
+                        "comparison_basis": "public_effect_without_explicit_baseline",
+                        "baseline_fact_refs": [],
+                        "overall_direction": "positive",
+                        "overall_magnitude": "structural",
+                        "axes": {
+                            "productivity_livelihood": {
+                                "direction": "not_established",
+                                "magnitude": "not_established",
+                                "basis_fact_refs": [],
+                                "basis": "",
+                            },
+                            "civilization_institutions": {
+                                "direction": "positive",
+                                "magnitude": "structural",
+                                "basis_fact_refs": ["DNMAT-001"],
+                                "basis": "全国律令体系持续运行。",
+                            },
+                            "state_people_security": {
+                                "direction": "positive",
+                                "magnitude": "significant",
+                                "basis_fact_refs": ["DNMAT-001"],
+                                "basis": "司法秩序获得稳定制度支持。",
+                            },
+                            "culture_education_thought": {
+                                "direction": "not_established",
+                                "magnitude": "not_established",
+                                "basis_fact_refs": [],
+                                "basis": "",
+                            },
+                        },
+                        "effect_horizon": "cross_stage",
+                        "basis": "制度投入全国运行并持续施用。",
+                    },
                 "foundational": False,
                 "durable_cross_stage": True,
                 "stable_delivery": True,
@@ -519,8 +594,13 @@ def test_governance_registry_projects_top_floor_without_writing_profile() -> Non
                     {
                         "person_ref": "PER-001",
                         "canonical_name": "测试人物",
-                        "responsibility_role": "lead",
-                        "contribution_scope": "共同主导设计和颁行",
+                            "responsibility_role": "lead",
+                            "contribution_scope": "共同主导设计和颁行",
+                            "contribution_types": [
+                                "policy_design",
+                                "implementation_lead",
+                            ],
+                            "contribution_basis_fact_refs": ["DNMAT-001"],
                     }
                 ],
                 "ruler_links": [
@@ -687,7 +767,7 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
     assert preparation["eligible_component_count"] == 1
     task_code = preparation["bindings"][0]["task_code"]
     payload = {
-        "schema_version": "governance-achievement-candidate-output-v1",
+        "schema_version": "governance-achievement-candidate-output-v2",
         "task_code": task_code,
         "component_decisions": [
             {"component_ref": "DNMAT-TEST", "disposition": "register", "reason": "已颁行并形成结果"}
@@ -705,6 +785,40 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
                 "observable_result": "律令颁行天下并实际施用",
                 "result_direction": "positive",
                 "positive_result_preserved": True,
+                "value_judgment": {
+                    "comparison_basis": "public_effect_without_explicit_baseline",
+                    "baseline_fact_refs": [],
+                    "overall_direction": "positive",
+                    "overall_magnitude": "structural",
+                    "axes": {
+                        "productivity_livelihood": {
+                            "direction": "not_established",
+                            "magnitude": "not_established",
+                            "basis_fact_refs": [],
+                            "basis": "",
+                        },
+                        "civilization_institutions": {
+                            "direction": "positive",
+                            "magnitude": "structural",
+                            "basis_fact_refs": ["DNMAT-TEST"],
+                            "basis": "全国律令投入运行。",
+                        },
+                        "state_people_security": {
+                            "direction": "positive",
+                            "magnitude": "significant",
+                            "basis_fact_refs": ["DNMAT-TEST"],
+                            "basis": "司法秩序获得制度支持。",
+                        },
+                        "culture_education_thought": {
+                            "direction": "not_established",
+                            "magnitude": "not_established",
+                            "basis_fact_refs": [],
+                            "basis": "",
+                        },
+                    },
+                    "effect_horizon": "cross_stage",
+                    "basis": "律令颁行天下并实际施用。",
+                },
                 "scale_level": "national",
                 "scale_basis": "national_core_subsystem",
                 "scale_reason": "形成全国刑律核心子系统",
@@ -717,6 +831,11 @@ def test_governance_candidate_pipeline_reads_each_component_once_and_bounds_outp
                         "person_ref": "PER-001",
                         "responsibility_role": "lead",
                         "contribution_scope": "主持修订和颁行",
+                        "contribution_types": [
+                            "policy_design",
+                            "implementation_lead",
+                        ],
+                        "contribution_basis_fact_refs": ["DNMAT-TEST"],
                     }
                 ],
                 "limitations": [],
@@ -804,7 +923,7 @@ def test_governance_lineage_drops_explicitly_unsupported_component(
     tmp_path: Path,
 ) -> None:
     registry = {
-        "schema_version": "governance-achievement-registry-v1",
+        "schema_version": "governance-achievement-registry-v2",
         "status": "shadow",
         "achievements": [
             {
@@ -817,11 +936,45 @@ def test_governance_lineage_drops_explicitly_unsupported_component(
                 "observable_result": "一案依法改判",
                 "result_direction": "positive",
                 "positive_result_preserved": True,
-                "scale": {
+                    "scale": {
                     "level": "local",
                     "consequence_basis": "local_public_result",
                     "reason": "单案结果",
-                },
+                    },
+                    "value_judgment": {
+                        "comparison_basis": "public_effect_without_explicit_baseline",
+                        "baseline_fact_refs": [],
+                        "overall_direction": "positive",
+                        "overall_magnitude": "limited",
+                        "axes": {
+                            "productivity_livelihood": {
+                                "direction": "not_established",
+                                "magnitude": "not_established",
+                                "basis_fact_refs": [],
+                                "basis": "",
+                            },
+                            "civilization_institutions": {
+                                "direction": "positive",
+                                "magnitude": "limited",
+                                "basis_fact_refs": ["FACT-1"],
+                                "basis": "单案依法改判。",
+                            },
+                            "state_people_security": {
+                                "direction": "not_established",
+                                "magnitude": "not_established",
+                                "basis_fact_refs": [],
+                                "basis": "",
+                            },
+                            "culture_education_thought": {
+                                "direction": "not_established",
+                                "magnitude": "not_established",
+                                "basis_fact_refs": [],
+                                "basis": "",
+                            },
+                        },
+                        "effect_horizon": "short",
+                        "basis": "仅建立单案结果。",
+                    },
                 "foundational": False,
                 "durable_cross_stage": False,
                 "stable_delivery": False,
@@ -830,8 +983,10 @@ def test_governance_lineage_drops_explicitly_unsupported_component(
                     {
                         "person_ref": "PER-001",
                         "canonical_name": "测试人物",
-                        "responsibility_role": "lead",
-                        "contribution_scope": "执奏改判",
+                            "responsibility_role": "lead",
+                            "contribution_scope": "执奏改判",
+                            "contribution_types": ["corrective_oversight"],
+                            "contribution_basis_fact_refs": ["FACT-1"],
                     }
                 ],
                 "ruler_links": [],

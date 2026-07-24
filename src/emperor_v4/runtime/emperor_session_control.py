@@ -1184,7 +1184,7 @@ def complete_session_bootstrap(
         "ruler_context_materials": [],
         "excluded_units": [],
         "outcome_registry": {
-            "schema_version": "historical-outcome-cluster-registry-v2",
+            "schema_version": "historical-outcome-cluster-registry-v3",
             "status": "shadow",
             "clusters": [],
         },
@@ -1246,7 +1246,7 @@ def complete_session_bootstrap(
     else:
         governance = _read_json(governance_path)
         invalid_governance = (
-            governance.get("schema_version") != "dynasty-governance-current-v1"
+            governance.get("schema_version") != "dynasty-governance-current-v2"
             or governance.get("status") != "quality_accepted_shadow"
             or str(governance.get("dynasty_token") or "") != governance_token
             or not str(governance.get("source_index_identity") or "")

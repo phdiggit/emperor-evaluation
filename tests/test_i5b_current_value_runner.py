@@ -34,6 +34,9 @@ from emperor_v4.evaluation.historical_person_profile_registry import (
     render_historical_person_profile_registry_markdown,
 )
 from emperor_v4.adapters.historical_entity_identity import HistoricalEntityResolver
+from emperor_v4.adapters.shared_neutral_extraction import (
+    build_shared_neutral_fact_fanout,
+)
 from emperor_v4.adapters.source_text_index import LocalSourceTextIndex, build_local_source_index
 from emperor_v4.adapters.structured_output_contract import validate_codex_output_schema
 from emperor_v4.evaluation.current_source_pack_compiler import (
@@ -110,6 +113,76 @@ from emperor_v4.runtime.structured_codex_runner import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_actorless_public_result_is_preserved_before_attribution() -> None:
+    batch = {
+        "batch_ref": "BATCH-ACTORLESS",
+        "page_title": "史书/卷一",
+        "work_title": "史书",
+        "source_url": "local:test",
+        "revision_ref": "1",
+        "segments": [
+            {
+                "segment_ref": "SEG-ACTORLESS",
+                "text": "米价下降，商旅野次，无复盗贼。",
+                "text_sha256": "a" * 64,
+                "subject_refs": [],
+            }
+        ],
+    }
+    plan = {
+        "schema_version": "subject-shared-review-plan-v1",
+        "source_index_identity": "INDEX-1",
+        "mention_index_fingerprint": "MENTION-1",
+        "page_batches": [batch],
+    }
+    result = {
+        "schema_version": "shared-neutral-extraction-output-v2",
+        "batch_ref": batch["batch_ref"],
+        "page_title": batch["page_title"],
+        "revision_ref": batch["revision_ref"],
+        "segment_count": 1,
+        "segment_reviews": [
+            {
+                "segment_ref": "SEG-ACTORLESS",
+                "decision": "accept",
+                "context_status": "sufficient",
+                "facts": [
+                    {
+                        "fact_id": "F1",
+                        "exact_quote": "米价下降，商旅野次，无复盗贼。",
+                        "evidence_span_refs": ["SPAN-1"],
+                        "fact_kind": "other_material_fact",
+                        "evidence_roles": ["public_result"],
+                        "effect_domains": [
+                            "productivity_livelihood",
+                            "state_people_security",
+                        ],
+                        "action_summary": "记录米价与治安公共结果",
+                        "actors": [],
+                        "implementation_status": "not_shown",
+                        "result": "米价下降且商旅无盗",
+                        "legacy_status": "not_shown",
+                        "legacy_basis": "",
+                        "projection_eligibility": "direct_neutral_fact",
+                        "outcome_candidate_status": "linkable_chain_fact",
+                        "outcome_candidate_reason": "可与措施和责任事实闭合。",
+                        "uncertainty": "",
+                    }
+                ],
+                "reason": "",
+            }
+        ],
+        "limitations": [],
+    }
+
+    fanout = build_shared_neutral_fact_fanout(plan, [result])
+
+    assert fanout["fact_count"] == 1
+    assert fanout["person_count"] == 0
+    assert fanout["facts"][0]["actors"] == []
+    assert fanout["facts"][0]["evidence_roles"] == ["public_result"]
+
+
 def _campaign_candidate_payload(*, relation: str | None = "frontline_command") -> dict:
     member = {
         "actor_name": "李世民",
@@ -130,11 +203,13 @@ def _campaign_candidate_payload(*, relation: str | None = "frontline_command") -
         ),
         "obstruction_status": "none" if relation else None,
         "contribution_scope": "亲征并承担前线核心统帅责任",
+        "contribution_types": ["implementation_lead"],
+        "contribution_basis_fact_refs": ["NEUTRALFACT-TEST"],
         "responsibility_scope": "not_applicable",
         "authorization_quotes": [],
     }
     return {
-        "schema_version": "current-outcome-candidate-output-v2",
+        "schema_version": "current-outcome-candidate-output-v3",
         "task_code": "TEST-CAMPAIGN-CONTRACT",
         "candidates": [
             {
@@ -143,6 +218,19 @@ def _campaign_candidate_payload(*, relation: str | None = "frontline_command") -
                 "source_page": "史书/卷一",
                 "revision_ref": "1",
                 "exact_quotes": ["测试战役取得阶段结果。"],
+                "evidence_links": [
+                    {
+                        "fact_ref": "NEUTRALFACT-TEST",
+                        "source_page": "史书/卷一",
+                        "revision_ref": "1",
+                        "exact_quote": "测试战役取得阶段结果。",
+                        "evidence_roles": [
+                            "implementation_or_operation",
+                            "public_result",
+                            "responsibility_or_attribution",
+                        ],
+                    }
+                ],
                 "neutral_summary": "测试战役取得阶段结果。",
                 "period_start": "贞观元年",
                 "period_end": "贞观元年",
@@ -227,6 +315,8 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                     "role_code": role_code,
                     "ruler_campaign_relation": None,
                     "contribution_scope": "主导制度并形成公共结果",
+                    "contribution_types": ["implementation_lead"],
+                    "contribution_basis_fact_refs": ["NEUTRALFACT-TEST"],
                     "responsibility_scope": "major_affairs",
                     "authorization_quotes": ["测试战役取得阶段结果。"],
                 }
@@ -238,10 +328,36 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
                 "authorization_status": "explicit",
                 "causal_attribution_status": "established",
                 "value_judgment": {
+                    "comparison_basis": "public_effect_without_explicit_baseline",
+                    "baseline_fact_refs": [],
                     "overall_direction": "positive",
-                    "productivity_effect": "beneficial",
-                    "civilization_effect": "beneficial",
-                    "social_cost": "limited",
+                    "overall_magnitude": "significant",
+                    "axes": {
+                        "productivity_livelihood": {
+                            "direction": "positive",
+                            "magnitude": "significant",
+                            "basis_fact_refs": ["NEUTRALFACT-TEST"],
+                            "basis": "形成公共收益。",
+                        },
+                        "civilization_institutions": {
+                            "direction": "positive",
+                            "magnitude": "significant",
+                            "basis_fact_refs": ["NEUTRALFACT-TEST"],
+                            "basis": "制度投入运行。",
+                        },
+                        "state_people_security": {
+                            "direction": "not_established",
+                            "magnitude": "not_established",
+                            "basis_fact_refs": [],
+                            "basis": "",
+                        },
+                        "culture_education_thought": {
+                            "direction": "not_established",
+                            "magnitude": "not_established",
+                            "basis_fact_refs": [],
+                            "basis": "",
+                        },
+                    },
                     "effect_horizon": "long",
                     "basis": "制度投入运行并形成公共收益，未见足以逆转方向的社会代价。",
                 },
@@ -266,6 +382,99 @@ def _governance_candidate_payload(*, role_code: str = "lead") -> dict:
     return payload
 
 
+def test_governance_candidate_compiles_cross_source_lineage_once(
+    tmp_path: Path,
+) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    index_path = tmp_path / "cross-source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "政书/卷一",
+                "work_title": "政书",
+                "source_url": "local:governance",
+                "revision_ref": "1",
+                "raw_text": "下令修订制度并颁行天下。",
+            },
+            {
+                "page_title": "列传/卷二",
+                "work_title": "列传",
+                "source_url": "local:biography",
+                "revision_ref": "2",
+                "raw_text": "测试人物持续主持施行，制度遂定。",
+            },
+        ],
+        index_path,
+    )
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["source_page"] = "政书/卷一"
+    candidate["revision_ref"] = "1"
+    candidate["exact_quotes"] = [
+        "下令修订制度并颁行天下。",
+        "测试人物持续主持施行，制度遂定。",
+    ]
+    candidate["evidence_links"] = [
+        {
+            "fact_ref": "NEUTRALFACT-MEASURE",
+            "source_page": "政书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "下令修订制度并颁行天下。",
+            "evidence_roles": [
+                "measure_or_design",
+                "implementation_or_operation",
+                "public_result",
+            ],
+        },
+        {
+            "fact_ref": "NEUTRALFACT-RESPONSIBILITY",
+            "source_page": "列传/卷二",
+            "revision_ref": "2",
+            "exact_quote": "测试人物持续主持施行，制度遂定。",
+            "evidence_roles": [
+                "continuity_or_reversal",
+                "responsibility_or_attribution",
+            ],
+        },
+    ]
+    candidate["members"][0]["authorization_quotes"] = [
+        "下令修订制度并颁行天下。"
+    ]
+    candidate["members"][0]["contribution_basis_fact_refs"] = [
+        "NEUTRALFACT-MEASURE",
+        "NEUTRALFACT-RESPONSIBILITY",
+    ]
+    judgment = candidate["payload"]["value_judgment"]
+    for axis in judgment["axes"].values():
+        if axis["direction"] != "not_established":
+            axis["basis_fact_refs"] = [
+                "NEUTRALFACT-MEASURE",
+                "NEUTRALFACT-RESPONSIBILITY",
+            ]
+
+    increment = compile_outcome_candidate_payloads(
+        source_pack,
+        [payload],
+        source_index=LocalSourceTextIndex(index_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+    )
+
+    assert len(increment["outcomes"]) == 1
+    assert {row["record_ref"] for row in increment["facts"]} == {
+        "NEUTRALFACT-MEASURE",
+        "NEUTRALFACT-RESPONSIBILITY",
+    }
+    assert increment["outcomes"][0]["fact_refs"] == [
+        "NEUTRALFACT-MEASURE",
+        "NEUTRALFACT-RESPONSIBILITY",
+    ]
+    assert len(increment["outcomes"][0]["source_refs"]) == 2
+
+
 def test_outcome_projection_normalizes_governance_window_scope() -> None:
     payload = _governance_candidate_payload()
     candidate = payload["candidates"][0]
@@ -273,6 +482,7 @@ def test_outcome_projection_normalizes_governance_window_scope() -> None:
     candidate["ruler_window_status"] = "leadership_formation"
     facts = [
         {
+            "fact_ref": "NEUTRALFACT-TEST",
             "segment_ref": "SEG-TEST",
             "page_title": "史书/卷一",
             "revision_ref": "1",
@@ -572,7 +782,7 @@ def test_outcome_projection_rejects_candidate_disclaiming_quote_support() -> Non
     assert normalized["candidates"] == []
     assert normalized["rejections"] == [
         {
-            "segment_ref": "SEG-TEST",
+            "fact_ref": "NEUTRALFACT-TEST",
             "reason": (
                 "test-governance-contract 自认关键结果未由 exact_quote "
                 "直接支持，确定性拒绝并保留中性材料。"
@@ -972,7 +1182,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     parent["semantic_fingerprint"] = cluster_semantic_fingerprint(parent)
     validation = validate_historical_outcome_registry(
         {
-            "schema_version": "historical-outcome-cluster-registry-v2",
+            "schema_version": "historical-outcome-cluster-registry-v3",
             "status": "shadow",
             "clusters": [parent, outcome],
         },
@@ -989,7 +1199,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     with pytest.raises(ValueError, match="战区、目标、背景、利害、三轴、战略结果、难度和等级"):
         validate_historical_outcome_registry(
             {
-                "schema_version": "historical-outcome-cluster-registry-v2",
+                "schema_version": "historical-outcome-cluster-registry-v3",
                 "status": "shadow",
                 "clusters": [parent, outcome_without_campaign_context],
             },
@@ -1004,7 +1214,7 @@ def test_outside_window_person_campaign_does_not_require_current_ruler(tmp_path:
     with pytest.raises(ValueError):
         validate_historical_outcome_registry(
             {
-                "schema_version": "historical-outcome-cluster-registry-v2",
+                "schema_version": "historical-outcome-cluster-registry-v3",
                 "status": "shadow",
                 "clusters": [parent, outcome_without_window],
             },
@@ -1053,7 +1263,7 @@ def test_governance_candidate_keeps_scale_and_lead_role(tmp_path: Path) -> None:
     outcome["semantic_fingerprint"] = cluster_semantic_fingerprint(outcome)
     validation = validate_historical_outcome_registry(
         {
-            "schema_version": "historical-outcome-cluster-registry-v2",
+            "schema_version": "historical-outcome-cluster-registry-v3",
             "status": "shadow",
             "clusters": [outcome],
         },
@@ -1578,7 +1788,7 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     governance_path.write_text(
         json.dumps(
             {
-                "schema_version": "dynasty-governance-current-v1",
+                "schema_version": "dynasty-governance-current-v2",
                 "status": "quality_accepted_shadow",
                 "dynasty_token": "MING",
                 "source_index_identity": "INDEPENDENT-MING-GOVERNANCE-INDEX",
@@ -1705,7 +1915,7 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
         "quality_requires_catalog_source_families": True,
     }
     old_annals_only = {
-        "schema_version": "dynasty-governance-current-v1",
+        "schema_version": "dynasty-governance-current-v2",
         "status": "quality_accepted_shadow",
         "dynasty_token": "MING",
         "source_index_identity": "OLD-MING-ANNALS",
@@ -2422,7 +2632,7 @@ def test_shared_backbone_identity_does_not_change_with_current_ruler(
         },
         "batch_results": [
             {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": "shared-neutral-extraction-output-v2",
                 "batch_ref": batch["batch_ref"],
                 "page_title": batch["page_title"],
                 "revision_ref": batch["revision_ref"],
@@ -3392,7 +3602,7 @@ def test_structured_runner_stops_slow_peer_after_twice_normal_duration(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = {
-        "schema_version": "current-outcome-candidate-output-v2",
+        "schema_version": "current-outcome-candidate-output-v3",
         "task_code": "TEST",
         "candidates": [],
         "rejections": [],
@@ -3540,12 +3750,12 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
         for row in profile_registry.values()
     )
     if ruler == "李世民":
-        assert profile_registry["房玄龄"]["domain_grades"]["civil_governance"]["grade"] == "historic"
+        assert profile_registry["房玄龄"]["domain_grades"]["civil_governance"]["grade"] == "top"
         assert profile_registry["房玄龄"]["domain_grades"]["culture_and_scholarship"]["grade"] == "top"
         assert profile_registry["魏徵"]["primary_domains"] == ["culture_and_scholarship"]
     else:
         assert profile_registry["张良"]["domain_grades"]["statecraft"]["grade"] == "historic"
-        assert profile_registry["刘敬"]["overall_grade"] == "important"
+        assert profile_registry["刘敬"]["overall_grade"] == "ordinary"
         assert profile_registry["樊哙"]["overall_grade"] == "ordinary"
     assert sum(
         bool(row["coverage_gaps"]) for row in report["profile_projection_review"]
@@ -4525,7 +4735,7 @@ def test_neutral_result_canonicalization_only_binds_owned_facts_and_layout_quote
         ],
     }
     result = {
-        "schema_version": "shared-neutral-extraction-output-v1",
+        "schema_version": "shared-neutral-extraction-output-v2",
         "batch_ref": "BATCH-1",
         "page_title": "史书/卷1",
         "revision_ref": "1",
@@ -5333,7 +5543,7 @@ def test_deterministic_clear_campaign_seed_skips_generic_model(tmp_path: Path) -
     empty_current = {
         "batch_results": [
             {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": "shared-neutral-extraction-output-v2",
                 "batch_ref": "BATCH-SEED",
                 "page_title": "資治通鑑/卷188",
                 "revision_ref": "1",
@@ -5638,7 +5848,7 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
         },
     }
     current = {
-        "schema_version": "dynasty-governance-current-v1",
+        "schema_version": "dynasty-governance-current-v2",
         "status": "quality_accepted_shadow",
         "dynasty": "唐",
         "dynasty_token": "TANG",
@@ -5655,6 +5865,7 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                 "observable_result": "新律颁行。",
                 "operation_status": "implemented",
                 "temporal_scope": "long_term_pattern",
+                "effect_domains": ["civilization_institutions"],
                 "actors": [
                     {
                         "name": "太宗",
@@ -5670,6 +5881,11 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                         "page_title": "貞觀政要/卷08",
                         "revision_ref": "1",
                         "exact_quote": "太宗授权修订法律并颁行天下。",
+                        "evidence_roles": [
+                            "implementation_or_operation",
+                            "public_result",
+                            "responsibility_or_attribution",
+                        ],
                     }
                 ],
                 "uncertainty": "",
@@ -5704,6 +5920,32 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
                     ],
                     "uncertainty": "",
                 }
+            },
+            {
+                "chain_key": "zhenguan-public-order",
+                "title": "贞观社会秩序改善",
+                "domain": "livelihood_social_order",
+                "period": "贞观年间",
+                "action": "原文未载单一举措。",
+                "implementation": "原文未载单一实施链。",
+                "observable_result": "商旅野次，无复盗贼。",
+                "operation_status": "observed_outcome",
+                "temporal_scope": "repeated_pattern",
+                "effect_domains": [
+                    "productivity_livelihood",
+                    "state_people_security",
+                ],
+                "actors": [],
+                "evidence": [
+                    {
+                        "quote_ref": "Q-3",
+                        "page_title": "貞觀政要/卷01",
+                        "revision_ref": "1",
+                        "exact_quote": "商旅野次，无复盗贼。",
+                        "evidence_roles": ["public_result"],
+                    }
+                ],
+                "uncertainty": "本条未载单一人物责任。",
             },
         ],
     }
@@ -5772,9 +6014,9 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
         "dynasty_token": "TANG",
         "input_fingerprint": "DYNASTY-CURRENT-1",
         "source_index_identity": "INDEX-1",
-        "selected_chain_count": 2,
+        "selected_chain_count": 3,
         "aligned_to_backbone_chain_count": 1,
-        "fact_count": 2,
+        "fact_count": 3,
         "model_call_count": 0,
     }
     facts_by_page = {
@@ -5784,11 +6026,18 @@ def test_dynasty_governance_current_is_filtered_and_merged_without_model() -> No
     assert fact["source_role"] == "dynasty_governance"
     assert fact["actors"][0]["canonical_name"] == "李世民"
     assert fact["actors"][0]["role"] == "authorizer"
-    assert fact["outcome_candidate_status"] == "ambiguous"
+    assert fact["outcome_candidate_status"] == "linkable_chain_fact"
     assert fact["event_refs"] == ["EVENT-TONGJIAN-LAW"]
     lifetime_fact = facts_by_page["舊唐書/卷50"]
     assert lifetime_fact["actors"][0]["canonical_name"] == "长孙无忌"
     assert lifetime_fact["period"] == "永徽年间"
+    public_result = facts_by_page["貞觀政要/卷01"]
+    assert public_result["actors"] == []
+    assert public_result["evidence_roles"] == ["public_result"]
+    assert public_result["effect_domains"] == [
+        "productivity_livelihood",
+        "state_people_security",
+    ]
 
     with pytest.raises(ValueError, match="索引版本不一致"):
         merge_dynasty_governance_current(
@@ -5858,7 +6107,7 @@ def test_seeded_invalid_neutral_segment_retries_without_fresh_page_group(
         }
 
     current_result = {
-        "schema_version": "shared-neutral-extraction-output-v1",
+        "schema_version": "shared-neutral-extraction-output-v2",
         "batch_ref": "BATCH-1",
         "page_title": "史书/卷1",
         "revision_ref": "1",
@@ -5956,7 +6205,7 @@ def test_neutral_checkpoint_segment_reuse_survives_batch_regrouping(
         "batch_fingerprints": {"BATCH-OLD": "OLD"},
         "batch_results": [
             {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": "shared-neutral-extraction-output-v2",
                 "batch_ref": "BATCH-OLD",
                 "page_title": "史书/卷1",
                 "revision_ref": "1",
@@ -6042,7 +6291,7 @@ def test_partial_neutral_segment_reuse_keeps_new_segment_in_normal_group(
         "batch_fingerprints": {"BATCH-OLD": "OLD"},
         "batch_results": [
             {
-                "schema_version": "shared-neutral-extraction-output-v1",
+                "schema_version": "shared-neutral-extraction-output-v2",
                 "batch_ref": "BATCH-OLD",
                 "page_title": "史书/卷1",
                 "revision_ref": "1",
@@ -7307,7 +7556,7 @@ def test_outcome_projection_keeps_cross_source_event_atomic(tmp_path: Path) -> N
             assert task_code is not None
             return (
                 {
-                    "schema_version": "current-outcome-candidate-output-v2",
+                    "schema_version": "current-outcome-candidate-output-v3",
                     "task_code": task_code.group(1),
                     "candidates": [],
                     "rejections": [
@@ -7414,7 +7663,7 @@ def test_outcome_projection_finishes_one_canary_before_parallel_fanout(
             assert task_code is not None
             return (
                 {
-                    "schema_version": "current-outcome-candidate-output-v2",
+                    "schema_version": "current-outcome-candidate-output-v3",
                     "task_code": task_code.group(1),
                     "candidates": [],
                     "rejections": [

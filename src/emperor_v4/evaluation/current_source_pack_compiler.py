@@ -29,8 +29,8 @@ from emperor_v4.evaluation.historical_person_profile_registry import (
 from emperor_v4.evaluation.i5b_current_value_runner import build_i5b_current_value
 
 
-SCHEMA_VERSION = "current-source-pack-increment-v1"
-CANDIDATE_SCHEMA_VERSION = "current-outcome-candidate-output-v2"
+SCHEMA_VERSION = "current-source-pack-increment-v2"
+CANDIDATE_SCHEMA_VERSION = "current-outcome-candidate-output-v3"
 _T2S = OpenCC("t2s")
 
 
@@ -185,9 +185,10 @@ def compile_outcome_candidate_payloads(
         str(source_pack["ruler"]),
     )
     candidate_pages = {
-        str(candidate["source_page"])
+        str(link["source_page"])
         for payload in payloads
         for candidate in payload.get("candidates") or ()
+        for link in candidate.get("evidence_links") or ()
     }
     works = sorted({page.split("/", 1)[0] for page in candidate_pages})
     pages_by_title = {
@@ -239,9 +240,22 @@ def compile_outcome_candidate_payloads(
                 raise ValueError(
                     f"{candidate_key} 人物生涯治理成果必须位于当前皇帝窗口之外"
                 )
+            evidence_links = list(candidate["evidence_links"])
+            evidence_pages = {}
+            for link in evidence_links:
+                evidence_page = pages_by_title.get(str(link["source_page"]))
+                if (
+                    evidence_page is None
+                    or evidence_page.revision_ref != link["revision_ref"]
+                    or str(link["exact_quote"]) not in evidence_page.raw_text
+                ):
+                    raise ValueError(
+                        f"{candidate_key}/{link['fact_ref']} 史源页、revision 或引文不匹配"
+                    )
+                evidence_pages[str(link["fact_ref"])] = evidence_page
             page = pages_by_title.get(str(candidate["source_page"]))
             if page is None or page.revision_ref != candidate["revision_ref"]:
-                raise ValueError(f"{candidate_key} 史源页或 revision 不匹配")
+                raise ValueError(f"{candidate_key} 主史源页或 revision 不匹配")
             quotes = list(
                 dict.fromkeys(str(value) for value in candidate["exact_quotes"])
             )
@@ -256,8 +270,31 @@ def compile_outcome_candidate_payloads(
                             str(value) for value in item.get("exact_quotes") or ()
                         )
                 quotes = list(dict.fromkeys(quotes))
-            if any(quote not in page.raw_text for quote in quotes):
+            evidence_texts = [item.raw_text for item in evidence_pages.values()]
+            if any(not any(quote in text for text in evidence_texts) for quote in quotes):
                 raise ValueError(f"{candidate_key} exact_quote 无法逐字回指")
+            linked_fact_refs = {
+                str(link["fact_ref"]) for link in evidence_links
+            }
+            if len(linked_fact_refs) != len(evidence_links):
+                raise ValueError(f"{candidate_key} evidence_links fact_ref 重复")
+
+            def source_ref_for_quote(quote: str) -> str:
+                matches = [
+                    link
+                    for link in evidence_links
+                    if quote in str(link["exact_quote"])
+                    or str(link["exact_quote"]) in quote
+                ]
+                if len(matches) != 1:
+                    raise ValueError(
+                        f"{candidate_key} 引文无法唯一回指 evidence_link: {quote[:32]}"
+                    )
+                link = matches[0]
+                return (
+                    f"{link['source_page']}@{link['revision_ref']}#"
+                    f"{str(link['exact_quote'])[:32]}"
+                )
             members = []
             member_names = set()
             candidate_limitations = list(candidate["limitations"])
@@ -399,7 +436,10 @@ def compile_outcome_candidate_payloads(
                         str(value) for value in raw_member["authorization_quotes"]
                     )
                 )
-                if any(quote not in page.raw_text for quote in authorization_quotes):
+                if any(
+                    not any(quote in text for text in evidence_texts)
+                    for quote in authorization_quotes
+                ):
                     raise ValueError(f"{candidate_key}/{name} 授权引文无法回指")
                 member = {
                     "actor_ref": binding[0],
@@ -407,7 +447,17 @@ def compile_outcome_candidate_payloads(
                     "actor_kind": binding[1],
                     "role_code": raw_member["role_code"],
                     "contribution_scope": raw_member["contribution_scope"],
+                    "contribution_types": list(raw_member["contribution_types"]),
+                    "contribution_basis_fact_refs": list(
+                        raw_member["contribution_basis_fact_refs"]
+                    ),
                 }
+                if not set(member["contribution_basis_fact_refs"]).issubset(
+                    linked_fact_refs
+                ):
+                    raise ValueError(
+                        f"{candidate_key}/{name} 人物贡献依据不属于成果证据链"
+                    )
                 if candidate["outcome_kind"] == "campaign":
                     talent_credit = raw_member.get("talent_credit")
                     if not talent_credit:
@@ -484,7 +534,7 @@ def compile_outcome_candidate_payloads(
                                     "按默示授权登记。"
                                 ),
                                 "authorization_refs": [
-                                    f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
+                                    source_ref_for_quote(quote)
                                     for quote in actor_quotes
                                 ],
                             }
@@ -502,7 +552,7 @@ def compile_outcome_candidate_payloads(
                             "importance_basis": candidate["scale_reason"],
                             "basis": raw_member["contribution_scope"],
                             "authorization_refs": [
-                                f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
+                                source_ref_for_quote(quote)
                                 for quote in authorization_quotes
                             ],
                         }
@@ -580,9 +630,6 @@ def compile_outcome_candidate_payloads(
                             )
                     else:
                         raise ValueError(f"{candidate_key} 宏观结果因果归责状态不正确")
-            fact_ref = "PFACT-AUTO-" + _digest(
-                {"candidate_key": candidate_key, "quotes": quotes}
-            )[:20].upper()
             primary_person = next(
                 (member for member in members if member["actor_kind"] == "person"),
                 (
@@ -594,26 +641,19 @@ def compile_outcome_candidate_payloads(
                     }
                 ),
             )
-            assertions = [
-                {
-                    "assertion_ref": "PASS-AUTO-"
-                    + _digest({"candidate_key": candidate_key, "quote": quote})[:20].upper(),
-                    "exact_quote": quote,
-                    "fact": candidate["neutral_summary"],
-                    "kind": "outcome",
-                    "locator_anchor": quote[:32],
-                }
-                for quote in quotes
-            ]
-            facts.append(
-                {
+            compiled_fact_refs = []
+            for link in evidence_links:
+                fact_ref = str(link["fact_ref"])
+                compiled_fact_refs.append(fact_ref)
+                evidence_quote = str(link["exact_quote"])
+                facts.append({
                     "record_ref": fact_ref,
                     "record_type": "event",
                     "person_ref": primary_person["actor_ref"],
                     "canonical_name": primary_person["actor_name"],
                     "person_scan_key": "PSCAN-AUTO-" + _digest(candidate_key)[:16].upper(),
-                    "source_page": page.page_title,
-                    "revision_ref": page.revision_ref,
+                    "source_page": str(link["source_page"]),
+                    "revision_ref": str(link["revision_ref"]),
                     "date": candidate["period_start"],
                     "dynasty_or_regime": dynasty_or_regime,
                     "ruler_contexts": (
@@ -626,9 +666,22 @@ def compile_outcome_candidate_payloads(
                         str(member["role_code"]) for member in members
                     ),
                     "neutral_summary": candidate["neutral_summary"],
-                    "assertions": assertions,
-                }
-            )
+                    "evidence_roles": list(link["evidence_roles"]),
+                    "assertions": [{
+                        "assertion_ref": "PASS-AUTO-"
+                        + _digest(
+                            {
+                                "candidate_key": candidate_key,
+                                "fact_ref": fact_ref,
+                                "quote": evidence_quote,
+                            }
+                        )[:20].upper(),
+                        "exact_quote": evidence_quote,
+                        "fact": candidate["neutral_summary"],
+                        "kind": "outcome",
+                        "locator_anchor": evidence_quote[:32],
+                    }],
+                })
             raw_payload = dict(candidate["payload"])
             if candidate["outcome_kind"] == "campaign":
                 outcome_payload = {
@@ -660,7 +713,7 @@ def compile_outcome_candidate_payloads(
                         {
                             "basis": item["basis"],
                             "source_refs": [
-                                f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
+                                source_ref_for_quote(quote)
                                 for quote in dict.fromkeys(item["exact_quotes"])
                             ],
                         }
@@ -685,7 +738,7 @@ def compile_outcome_candidate_payloads(
                             "actor_name": actor_name,
                             "basis": raw_failure["basis"],
                             "source_refs": [
-                                f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
+                                source_ref_for_quote(quote)
                                 for quote in dict.fromkeys(
                                     raw_failure["exact_quotes"]
                                 )
@@ -707,6 +760,24 @@ def compile_outcome_candidate_payloads(
                     outcome_payload["value_judgment"] = dict(
                         raw_payload["value_judgment"]
                     )
+                    judgment_refs = {
+                        *[
+                            str(value)
+                            for value in outcome_payload["value_judgment"].get(
+                                "baseline_fact_refs"
+                            )
+                            or ()
+                        ],
+                        *[
+                            str(value)
+                            for axis in outcome_payload["value_judgment"]["axes"].values()
+                            for value in axis.get("basis_fact_refs") or ()
+                        ],
+                    }
+                    if not judgment_refs.issubset(linked_fact_refs):
+                        raise ValueError(
+                            f"{candidate_key} 价值判断依据不属于成果证据链"
+                        )
             outcome_ref = "OUTCOME-AUTO-" + _digest(candidate_key)[:20].upper()
             outcomes.append(
                 {
@@ -741,10 +812,20 @@ def compile_outcome_candidate_payloads(
                     "episode_refs": ["EP-OUTCOME-PLACEHOLDER"],
                     "ruler_context_refs": [],
                     "ruler_window_status": candidate["ruler_window_status"],
-                    "fact_refs": [fact_ref],
+                    "fact_refs": compiled_fact_refs,
                     "source_refs": [
-                        f"{page.page_title}@{page.revision_ref}#{quote[:32]}"
-                        for quote in quotes
+                        (
+                            f"{link['source_page']}@{link['revision_ref']}#"
+                            f"{str(link['exact_quote'])[:32]}"
+                        )
+                        for link in evidence_links
+                    ],
+                    "evidence_lineage": [
+                        {
+                            "fact_ref": str(link["fact_ref"]),
+                            "evidence_roles": list(link["evidence_roles"]),
+                        }
+                        for link in evidence_links
                     ],
                     "members": members,
                     "limitations": list(dict.fromkeys(candidate_limitations)),

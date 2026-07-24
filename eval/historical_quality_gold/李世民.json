@@ -3114,7 +3114,7 @@
             "path": "result_status"
           },
           {
-            "expected": "mixed",
+            "expected": "positive",
             "path": "result_direction"
           },
           {
@@ -3174,7 +3174,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LSM-GOV-CLAN-REGISTRY",
       "importance": "major",
-      "review_basis": "谱牒核验和文化整理收益与国家正式分类门第、强化身份等级的成本并存，按生产力增长与文明进步净方向冻结为 mixed。",
+      "review_basis": "相对魏晋以来门第由既有高门声望垄断的基线，氏族志以当朝官爵与忠贤标准重排并公开核验谱牒，削弱旧门阀世袭优势；虽未消除身份等级，当前证据支持制度轴显著进步、文化轴仅有限改善，总体冻结为 positive。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -4802,13 +4802,15 @@
             "path": "candidate_negative_talent_severity"
           },
           {
-            "expected": "civil_foundational_system_plus_independent_results",
+            "expected": "all_round_multiple_independent_top_domains",
             "path": "talent_grade_rule_alignment.rule_path"
           },
           {
             "expected": [
+              "OUTCOME-LSM-GOV-JINSHU",
               "OUTCOME-LSM-GOV-LAW-ADJUDICATION",
-              "OUTCOME-LSM-GOV-STREAMLINE"
+              "OUTCOME-LSM-GOV-STREAMLINE",
+              "OUTCOME-LSM-GOV-VERITABLE-RECORDS"
             ],
             "path": "talent_grade_rule_alignment.outcome_refs"
           },
@@ -4826,7 +4828,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-李世民-PROFILE-PER-CAND-0E58D2EA4AC4",
       "importance": "major",
-      "review_basis": "完整本传、公共成果登记和皇帝窗口政治风险均闭合后冻结人物画像。",
+      "review_basis": "完整本传与公共成果闭合后，按四轴进步强度和人物贡献类型重新计算并冻结；成果覆盖规模不直接换算人才档位。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "房玄龄"
@@ -5012,7 +5014,8 @@
           },
           {
             "expected": [
-              "OUTCOME-AUTO-69C37389FEB542DC4A94"
+              "OUTCOME-AUTO-69C37389FEB542DC4A94",
+              "OUTCOME-LSM-GOV-PRINCE-ADMIN-RULES"
             ],
             "path": "talent_grade_rule_alignment.outcome_refs"
           },
@@ -5030,7 +5033,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-李世民-PROFILE-PER-CAND-6212A403EABA",
       "importance": "secondary",
-      "review_basis": "完整本传、公共成果登记和皇帝窗口政治风险均闭合后冻结人物画像。",
+      "review_basis": "完整本传与公共成果闭合后，按四轴进步强度和人物贡献类型重新计算并冻结；成果覆盖规模不直接换算人才档位。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "褚遂良"
@@ -5058,7 +5061,7 @@
             "path": "candidate_negative_talent_severity"
           },
           {
-            "expected": "civil_two_national_plus_one_regional",
+            "expected": "civil_repeated_structural_progress",
             "path": "talent_grade_rule_alignment.rule_path"
           },
           {
@@ -5083,7 +5086,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-李世民-PROFILE-PER-CAND-6D5FA3B48F40",
       "importance": "major",
-      "review_basis": "完整本传、公共成果登记和皇帝窗口政治风险均闭合后冻结人物画像。",
+      "review_basis": "完整本传与公共成果闭合后，按四轴进步强度和人物贡献类型重新计算并冻结；成果覆盖规模不直接换算人才档位。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "长孙无忌"
@@ -5419,8 +5422,8 @@
         "negative_settled_unit_count": 1,
         "negative_signal": "1.100000",
         "positive_settled_unit_count": 8,
-        "positive_signal": "34.796128",
-        "rule_raw_net": "33.696128"
+        "positive_signal": "36.242456",
+        "rule_raw_net": "35.142456"
       },
       "talent_discovery": {
         "negative_signal": "0.000000",
@@ -5456,11 +5459,11 @@
         "魏徵"
       ]
     },
-    "weighted_raw_signal": "18.689968"
+    "weighted_raw_signal": "19.210646"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v6",
-    "source_pack_sha256": "32d9d10ead92ba1f5a6cd64733f4511c3def32b47d54a3b94bd0f8fe478ca365"
+    "source_pack_sha256": "60caa9d60ddfe556f047ab427604358e7a5d9e6d687b2ffbdffbeb4412441cf0"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",
