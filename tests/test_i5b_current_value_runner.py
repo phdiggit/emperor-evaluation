@@ -1239,13 +1239,28 @@ def test_campaign_candidate_keeps_outcome_when_ruler_window_is_unresolved(
 
 
 def test_governance_candidate_requires_substantive_responsibility(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="不能只有授权者"):
+    payload = _governance_candidate_payload(role_code="authorized")
+    payload["candidates"][0]["settlement_scope"] = "person_governance_result"
+    payload["candidates"][0]["ruler_window_status"] = "outside_window"
+    with pytest.raises(ValueError, match="人物治理或谋略成果不能只有授权者"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
-            [_governance_candidate_payload(role_code="authorized")],
+            [payload],
             source_index=_campaign_contract_index(tmp_path),
             schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
         )
+
+
+def test_public_governance_candidate_can_remain_unbound(tmp_path: Path) -> None:
+    payload = _governance_candidate_payload()
+    payload["candidates"][0]["members"] = []
+    increment = compile_outcome_candidate_payloads(
+        {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
+        [payload],
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+    )
+    assert increment["outcomes"][0]["members"] == []
 
 
 def test_governance_candidate_keeps_scale_and_lead_role(tmp_path: Path) -> None:

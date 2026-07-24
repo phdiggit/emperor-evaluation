@@ -597,10 +597,13 @@ def compile_outcome_candidate_payloads(
                     in {"exclusive", "lead", "governance_participant"}
                 ]
                 if (
-                    candidate["settlement_scope"] != "reign_macro_outcome"
+                    candidate["settlement_scope"]
+                    in {"person_governance_result", "person_statecraft_result"}
                     and not substantive_members
                 ):
-                    raise ValueError(f"{candidate_key} 治理或谋略成果不能只有授权者")
+                    raise ValueError(
+                        f"{candidate_key} 人物治理或谋略成果不能只有授权者"
+                    )
                 exclusive_members = [
                     member for member in members if member["role_code"] == "exclusive"
                 ]
