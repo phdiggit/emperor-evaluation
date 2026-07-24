@@ -2672,6 +2672,53 @@ def test_bootstrap_assets_required_session_can_adopt_repaired_release(
     assert upgraded["release_sha"] == "2" * 40
 
 
+def test_awaiting_review_session_can_adopt_repaired_release_without_losing_gate(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    release_sha = {"value": "1" * 40}
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_release_identity",
+        lambda _root: release_sha["value"],
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-REVIEW-UPGRADE",
+        ruler="李治",
+        model_slot_count=1,
+    )
+    lease_path = (
+        state
+        / "session-control/sessions/SESSION-REVIEW-UPGRADE/current.json"
+    )
+    waiting = json.loads(lease_path.read_text(encoding="utf-8"))
+    waiting["stage"] = "awaiting_review"
+    waiting["review_stage"] = "outcome_projection"
+    lease_path.write_text(
+        json.dumps(waiting, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    checkpoint = Path(lease["runtime_root"]) / "checkpoint/keep.json"
+    checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint.write_text("{}\n", encoding="utf-8")
+    release_sha["value"] = "2" * 40
+
+    report = emperor_session_control.upgrade_failed_session_release(
+        state_root=state,
+        session_id="SESSION-REVIEW-UPGRADE",
+        release_root=release,
+    )
+    upgraded = json.loads(lease_path.read_text(encoding="utf-8"))
+
+    assert report["release_sha"] == "2" * 40
+    assert checkpoint.is_file()
+    assert upgraded["stage"] == "awaiting_review"
+    assert upgraded["review_stage"] == "outcome_projection"
+
+
 def test_claimed_session_can_pause_after_outcome_review_gate(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

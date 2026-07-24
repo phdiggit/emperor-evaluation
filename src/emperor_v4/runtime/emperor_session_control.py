@@ -1408,12 +1408,13 @@ def upgrade_failed_session_release(
     lease = _read_json(path)
     stage = str(lease.get("stage") or "")
     bootstrap_session = bool(lease.get("bootstrap_spec"))
-    allowed_stages = {"failed_reusable"}
+    allowed_stages = {"failed_reusable", "awaiting_review"}
     if bootstrap_session:
         allowed_stages.add("bootstrap_assets_required")
     if stage not in allowed_stages:
         raise SessionControlError(
-            "只有 failed_reusable，或等待资产的 bootstrap 会话可以升级 release"
+            "只有 failed_reusable、awaiting_review，或等待资产的 bootstrap "
+            "会话可以升级 release"
         )
     control = _control_root(state_root)
     resource_ruler_ref = str(
