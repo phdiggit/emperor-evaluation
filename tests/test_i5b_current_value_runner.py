@@ -1081,6 +1081,39 @@ def test_person_governance_result_is_outside_ruler_view(tmp_path: Path) -> None:
         )
 
 
+def test_governance_window_overlap_without_ruler_responsibility_is_not_ruler_outcome() -> None:
+    shared = {
+        "outcome_kind": "governance",
+        "settlement_scope": "governance_result",
+        "ruler_window_status": "within_window",
+        "members": [
+            {
+                "actor_kind": "person",
+                "actor_ref": "PERSON-OFFICIAL",
+                "role_code": "lead",
+            }
+        ],
+    }
+    attributed = json.loads(json.dumps(shared))
+    attributed["members"].append(
+        {
+            "actor_kind": "ruler",
+            "actor_ref": "RULER-CURRENT",
+            "role_code": "authorized",
+        }
+    )
+
+    assert _ruler_window_outcomes([shared]) == []
+    assert _appointment_window_outcomes([shared]) == [shared]
+    assert _ruler_window_outcomes([attributed]) == [attributed]
+    assert (
+        _ruler_window_outcomes([attributed], ruler_ref="RULER-OTHER") == []
+    )
+    assert _ruler_window_outcomes(
+        [attributed], ruler_ref="RULER-CURRENT"
+    ) == [attributed]
+
+
 def test_independent_campaign_group_is_available_to_ruler_and_appointment_projection() -> None:
     payload = json.loads(
         (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
@@ -4252,8 +4285,8 @@ def test_current_value_chain_is_complete_shadow_with_frozen_profiles(ruler: str)
     assert report["declarations"]["profile_freeze_gate_passed"] is True
     assert report["declarations"]["formal_scoring_ready"] is False
     assert report["declarations"]["profile_member_with_open_gap_count"] == 0
-    assert report["declarations"]["person_profile_registry_count"] == 40
-    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == 16
+    assert report["declarations"]["person_profile_registry_count"] == 41
+    assert report["declarations"]["person_profile_registry_with_open_gap_count"] == 17
     assert report["declarations"]["historical_outcome_cluster_count"] > 0
     assert report["declarations"]["campaign_outcome_count"] > 0
     assert report["declarations"]["governance_outcome_count"] > 0
@@ -4566,6 +4599,102 @@ def test_shared_outcome_reuse_preserves_first_pack_lineage_order() -> None:
     assert materialized == normalize_outcome_registry_for_public_view(
         first["outcome_registry"]
     )
+
+
+def test_shared_outcome_reuse_merges_cross_source_evidence_and_members() -> None:
+    first = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    cluster = next(
+        row
+        for row in first["outcome_registry"]["clusters"]
+        if row["outcome_kind"] == "governance" and row["members"]
+    )
+    first["outcome_registry"]["clusters"] = [cluster]
+    second = json.loads(json.dumps(first, ensure_ascii=False))
+    second_cluster = second["outcome_registry"]["clusters"][0]
+    second_cluster["fact_refs"] = ["FACT-SECOND-SOURCE"]
+    second_cluster["source_refs"] = ["SOURCE-SECOND"]
+    second_cluster["evidence_lineage"] = [
+        {
+            "fact_ref": "FACT-SECOND-SOURCE",
+            "evidence_roles": ["responsibility_or_attribution"],
+        }
+    ]
+    second_judgment = second_cluster["payload"]["value_judgment"]
+    second_judgment["basis"] = "另一固定史源对同一公共效果的表述。"
+    for axis in second_judgment["axes"].values():
+        if axis["basis_fact_refs"]:
+            axis["basis"] = "另一固定史源对同一轴向效果的表述。"
+            axis["basis_fact_refs"] = ["FACT-SECOND-SOURCE"]
+    second_cluster["members"].append(
+        {
+            "actor_ref": "RULER-SECOND",
+            "actor_name": "后续皇帝",
+            "actor_kind": "ruler",
+            "role_code": "authorized",
+            "contribution_scope": "以另一固定史源证明其完成重要完善。",
+            "contribution_types": ["authorization"],
+            "contribution_basis_fact_refs": ["FACT-SECOND-SOURCE"],
+        }
+    )
+    second["source_pack_sha256"] = "second-source-pack"
+
+    registry = build_unbound_historical_outcome_registry([first, second])
+
+    assert registry["status"] == "current_shadow_unbound"
+    assert registry["declarations"]["outcome_count"] == 1
+    outcome = registry["outcomes"][0]
+    assert "FACT-SECOND-SOURCE" in outcome["fact_refs"]
+    assert "SOURCE-SECOND" in outcome["source_refs"]
+    assert any(
+        "FACT-SECOND-SOURCE" in axis["basis_fact_refs"]
+        for axis in outcome["payload"]["value_judgment"]["axes"].values()
+    )
+    assert {row["actor_ref"] for row in outcome["members"]} >= {
+        cluster["members"][0]["actor_ref"],
+        "RULER-SECOND",
+    }
+
+
+def test_shared_governance_responsibility_can_bind_without_copying_outcome() -> None:
+    first = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    cluster = next(
+        row
+        for row in first["outcome_registry"]["clusters"]
+        if row["outcome_kind"] == "governance"
+    )
+    cluster["members"].append(
+        {
+            "actor_ref": "RULER-SHARED",
+            "actor_name": "后续皇帝",
+            "actor_kind": "ruler",
+            "role_code": "authorized",
+            "contribution_scope": "完成重要完善。",
+            "contribution_types": ["authorization"],
+            "contribution_basis_fact_refs": [cluster["fact_refs"][0]],
+        }
+    )
+    first["outcome_registry"]["clusters"] = [cluster]
+    second = {
+        "ruler": "后续皇帝",
+        "ruler_ref": "RULER-SHARED",
+        "source_pack_sha256": "shared-ruler-pack",
+        "outcome_registry": {"status": "shadow", "clusters": []},
+    }
+    registry = build_unbound_historical_outcome_registry([first, second])
+
+    binding = build_ruler_outcome_bindings(second, registry)
+
+    assert binding["binding_count"] == 1
+    assert binding["bindings"][0]["ruler_actor_refs"] == ["RULER-SHARED"]
+    assert binding["bindings"][0]["ruler_window_status"] == "within_window"
 
 
 def test_public_registry_normalizes_legacy_governance_value_contract() -> None:
@@ -8944,7 +9073,7 @@ def test_shared_person_profile_registry_precedes_ruler_window_projection() -> No
     outcomes = build_unbound_historical_outcome_registry(source_packs)
     profiles = build_historical_person_profile_registry(outcomes, source_packs)
 
-    assert profiles["declarations"]["profile_count"] == 40
+    assert profiles["declarations"]["profile_count"] == 41
     assert profiles["declarations"]["ruler_window_binding_count"] == 0
     assert profiles["declarations"]["team_projection_count"] == 0
     assert profiles["declarations"]["political_risk_projection_count"] == 0

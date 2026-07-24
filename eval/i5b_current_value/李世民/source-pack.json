@@ -9405,9 +9405,7 @@
         ],
         "important_method_or_legacy": false,
         "independent_key": "lishimin-era-li-ji-li-jing-huainan-operations",
-        "limitations": [
-          "原文未注明具体年代、整体战役名称及更大范围战略结果。"
-        ],
+        "limitations": [],
         "members": [
           {
             "actor_kind": "person",
@@ -9484,8 +9482,8 @@
           "theater": "寿阳—当涂—丹阳—武康"
         },
         "period": {
-          "end": "未注明",
-          "start": "未注明"
+          "end": "武德七年（624）",
+          "start": "武德七年（624）"
         },
         "result_direction": "positive",
         "result_status": "completed",
@@ -9497,7 +9495,7 @@
           "level": "regional",
           "reason": "平定江南重要区域叛乱并形成李靖、李勣代表性统军实绩；一国平一域不构成独立统一方向。"
         },
-        "semantic_fingerprint": "37655f60710e4396b0cd0678907eb27d98303d32ccda058659b37a739309e9e1",
+        "semantic_fingerprint": "8879b556d3c815bce2777074648075597c887b72f10242c10517a18520e5bc68",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里",
@@ -9659,7 +9657,8 @@
         "important_method_or_legacy": true,
         "independent_key": "lishimin-era-li-ji-yuwen-huaji-siege-defeat",
         "limitations": [
-          "原文未注明具体城池、年代及后续整体战果。"
+          "事件发生于李勣归唐前，虽与李渊在位期历年相交，仍不归入李渊皇帝责任窗口。",
+          "现有材料只支持黎阳仓防御结果，不外推后续整体战果。"
         ],
         "members": [
           {
@@ -9697,8 +9696,8 @@
           "theater": "黎阳仓城"
         },
         "period": {
-          "end": "未注明",
-          "start": "未注明"
+          "end": "武德元年（618）",
+          "start": "武德元年（618）"
         },
         "result_direction": "positive",
         "result_status": "completed",
@@ -9710,7 +9709,7 @@
           "level": "important",
           "reason": "保卫黎阳粮仓并击退宇文化及攻城军"
         },
-        "semantic_fingerprint": "245f8556b6e37d9eca3dfab5f5e2d9a08361d248f263956ca9ae83ca6c9f3458",
+        "semantic_fingerprint": "e50acdad461661a848e05d36799e65b9dee68a9da5ee95052a8afff3e49f8cfc",
         "settlement_scope": "ruler_campaign_parent",
         "source_refs": [
           "舊唐書/卷53@2690610#密遣徐世勣守倉城，化及攻之不能下。",
@@ -9904,7 +9903,7 @@
       {
         "canonical_label": "永徽律令格式与《律疏》编定颁行",
         "episode_refs": [
-          "EP-OUTCOME-E7E5FAB644BD42BDBBB7"
+          "EP-OUTCOME-FE398C65F46A93AE52EF"
         ],
         "evidence_lineage": [
           {
@@ -9931,7 +9930,7 @@
           "PFACT-CHANGSUN-XIANQING-LAW-MAINTENANCE"
         ],
         "important_method_or_legacy": true,
-        "independent_key": "changsun-wuji-yonghui-law-code-and-commentary",
+        "independent_key": "tang-11e5d4c19e8eaa99",
         "limitations": [
           "成果由多名大臣和法官共同编撰；长孙无忌登记为主导参与者而非唯一作者，其他成员未因缺少当前完整人物绑定而共享人物成果。"
         ],
@@ -9950,10 +9949,23 @@
               "operational_delivery"
             ],
             "role_code": "lead"
+          },
+          {
+            "actor_kind": "ruler",
+            "actor_name": "李治",
+            "actor_ref": "RULER-NAME-CANDIDATE-LIZHI",
+            "contribution_basis_fact_refs": [
+              "PFACT-CHANGSUN-YONGHUI-LAW-CODE"
+            ],
+            "contribution_scope": "下诏组织永徽律令格式与《律疏》编定，并颁行天下；只记首创阶段授权，不因后续沿用追加信用。",
+            "contribution_types": [
+              "authorization"
+            ],
+            "role_code": "authorized"
           }
         ],
         "observable_result": "长孙无忌列首参与编定永徽律令格式及《律疏》三十卷；《律疏》于永徽四年奏上并颁行天下，成为断狱援引依据，显庆二年又参与修订服制条文。",
-        "origin": "person_biography",
+        "origin": "multi_channel",
         "outcome_kind": "governance",
         "outcome_ref": "OUTCOME-CHANGSUN-YONGHUI-LAW-CODE",
         "payload": {
@@ -10017,7 +10029,7 @@
           "level": "national",
           "reason": "完成并颁行全国适用的律令格式与三十卷《律疏》，且史源明确记载断狱实际援引，构成全国司法核心子系统成果。"
         },
-        "semantic_fingerprint": "16a22a830100064278c09c5b8fc106a9ab2283683ab88cbf5e8bcfcc27a4ed6f",
+        "semantic_fingerprint": "e719555ffc52d847f8a1f45a07a091e11f4ae9ba2e337b47b229f620bb4d3cc7",
         "settlement_scope": "person_governance_result",
         "source_refs": [
           "舊唐書/卷50@1461339#永徽初，敕太尉长孙无忌",
@@ -15151,10 +15163,12 @@
                 "magnitude": "not_established"
               },
               "state_people_security": {
-                "basis": "",
-                "basis_fact_refs": [],
-                "direction": "not_established",
-                "magnitude": "not_established"
+                "basis": "设置西州和安西都护府并形成持续驻防，使高昌方向由外部政权控制转为唐朝边疆设治与战略通道；现有引文同时记载每年调发千余人的驻防成本，安全收益不能掩盖征发代价。",
+                "basis_fact_refs": [
+                  "PFACT-GOLD-4CF47A2558AACE2F7837"
+                ],
+                "direction": "positive",
+                "magnitude": "significant"
               }
             },
             "baseline_fact_refs": [],
@@ -15177,9 +15191,9 @@
           "consequence_basis": "regional_governance_result",
           "decisiveness": "major",
           "level": "regional",
-          "reason": "原文明确记载对高昌地区实施州县与都护府建制，并持续驻防。"
+          "reason": "高昌纳入州县、都护府和年度驻防体系，形成西域战略通道与区域防务支点；现有材料同时保留长期征发驻防成本。"
         },
-        "semantic_fingerprint": "67c832b139f430ba633059fc7c0c33e8ea2ecc73976a7827f54fd368187d06cf",
+        "semantic_fingerprint": "ad6a6f449336310dd0cab085402551b6960685562e19dadcda2aab4967ba5bb5",
         "settlement_scope": "governance_result",
         "source_refs": [
           "貞觀政要/卷09@802090#太宗不從，竟以其地置西州，仍以西州為安西都護府，每歲調發千餘人防"
@@ -19677,7 +19691,7 @@
   ],
   "ruler_ref": "RULER-58130F2446A25CC1",
   "schema_version": "i5b-current-value-source-pack-v5",
-  "source_pack_sha256": "60caa9d60ddfe556f047ab427604358e7a5d9e6d687b2ffbdffbeb4412441cf0",
+  "source_pack_sha256": "46c8ab34e575468a443bc8619b0b63e49db6c302755b7c48aa14d44ef1897941",
   "status": "current_only_rule_judged_and_factor_accepted",
   "team": {
     "attribution_exclusions": [

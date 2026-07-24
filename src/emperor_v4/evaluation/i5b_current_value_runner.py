@@ -391,6 +391,8 @@ def _outcome_appointment_materials(
 
 def _ruler_window_outcomes(
     clusters: list[Mapping[str, Any]],
+    *,
+    ruler_ref: str | None = None,
 ) -> list[Mapping[str, Any]]:
     """Project lifetime outcomes into the current ruler window.
 
@@ -400,19 +402,34 @@ def _ruler_window_outcomes(
     person's lifetime registry.
     """
 
-    return [
-        cluster
-        for cluster in clusters
-        if cluster.get("settlement_scope")
-        not in {
+    projected = []
+    for cluster in clusters:
+        if cluster.get("settlement_scope") in {
             "war_terminal_context",
             "person_campaign_subresult",
             "person_governance_result",
             "person_statecraft_result",
-        }
-        if cluster.get("ruler_window_status", "within_window")
-        in {"within_window", "leadership_formation"}
-    ]
+        }:
+            continue
+        if cluster.get("ruler_window_status", "within_window") not in {
+            "within_window",
+            "leadership_formation",
+        }:
+            continue
+        if (
+            cluster.get("outcome_kind") == "governance"
+            and not any(
+                member.get("actor_kind") == "ruler"
+                and (
+                    ruler_ref is None
+                    or str(member.get("actor_ref") or "") == ruler_ref
+                )
+                for member in cluster.get("members") or ()
+            )
+        ):
+            continue
+        projected.append(cluster)
+    return projected
 
 
 def _appointment_window_outcomes(
@@ -737,7 +754,10 @@ def build_i5b_current_value(
         for origin_ref, registration_ref in origin_outcome_to_registration.items()
         if origin_ref in outcome_by_ref
     }
-    ruler_outcome_clusters = _ruler_window_outcomes(outcome_clusters)
+    ruler_outcome_clusters = _ruler_window_outcomes(
+        outcome_clusters,
+        ruler_ref=str(pack["ruler_ref"]),
+    )
     ruler_outcome_by_ref = {
         str(row["outcome_ref"]): row for row in ruler_outcome_clusters
     }

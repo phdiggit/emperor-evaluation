@@ -107,7 +107,7 @@ _DISPLAY_LABELS = {
     "not_responsible": "无责任",
     "external_unattributed": "外部不可归责",
     "established": "因果已建立",
-    "source_attributed": "史源归因",
+    "source_attributed": "史源支持结果归因",
     "members": "成员列表",
     "revision": "固定版本",
     "positive": "正面",
@@ -253,11 +253,28 @@ def public_registry_matches_source_pack(
     materialized: Mapping[str, Any],
     source_registry: Mapping[str, Any],
 ) -> bool:
-    """Accept an immutable legacy pack or its normalized current public view."""
+    """Accept a pack projection even when shared ruler duties add public outcomes."""
 
-    return materialized == source_registry or materialized == (
-        normalize_outcome_registry_for_public_view(source_registry)
-    )
+    normalized_source = normalize_outcome_registry_for_public_view(source_registry)
+    for expected in (source_registry, normalized_source):
+        if materialized == expected:
+            return True
+        source_keys = {
+            (str(row["outcome_kind"]), str(row["independent_key"]))
+            for row in expected.get("clusters") or ()
+        }
+        projected = {
+            **materialized,
+            "clusters": [
+                row
+                for row in materialized.get("clusters") or ()
+                if (str(row["outcome_kind"]), str(row["independent_key"]))
+                in source_keys
+            ],
+        }
+        if projected == expected:
+            return True
+    return False
 
 
 def _event_level(cluster: Mapping[str, Any]) -> str:
@@ -321,6 +338,65 @@ def build_unbound_historical_outcome_registry(
 ) -> dict[str, Any]:
     """Build the auditable outcome layer before any ruler-window projection."""
 
+    def comparable_outcome(
+        outcome: Mapping[str, Any], mergeable_fields: set[str]
+    ) -> dict[str, Any]:
+        comparable = {
+            name: value
+            for name, value in outcome.items()
+            if name not in mergeable_fields
+        }
+        payload = dict(comparable.get("payload") or {})
+        judgment = payload.get("value_judgment")
+        if isinstance(judgment, Mapping):
+            payload["value_judgment"] = {
+                "comparison_basis": judgment.get("comparison_basis"),
+                "effect_horizon": judgment.get("effect_horizon"),
+                "overall_direction": judgment.get("overall_direction"),
+                "overall_magnitude": judgment.get("overall_magnitude"),
+                "axes": {
+                    axis_name: {
+                        "direction": axis.get("direction"),
+                        "magnitude": axis.get("magnitude"),
+                    }
+                    for axis_name, axis in (judgment.get("axes") or {}).items()
+                },
+            }
+            comparable["payload"] = payload
+        return comparable
+
+    def merge_value_judgment_evidence(
+        existing: dict[str, Any], candidate: Mapping[str, Any]
+    ) -> None:
+        existing_judgment = (existing.get("payload") or {}).get("value_judgment")
+        candidate_judgment = (candidate.get("payload") or {}).get("value_judgment")
+        if not isinstance(existing_judgment, dict) or not isinstance(
+            candidate_judgment, Mapping
+        ):
+            return
+        existing_judgment["baseline_fact_refs"] = list(
+            dict.fromkeys(
+                [
+                    *existing_judgment.get("baseline_fact_refs", ()),
+                    *candidate_judgment.get("baseline_fact_refs", ()),
+                ]
+            )
+        )
+        for axis_name, candidate_axis in (
+            candidate_judgment.get("axes") or {}
+        ).items():
+            existing_axis = (existing_judgment.get("axes") or {}).get(axis_name)
+            if not isinstance(existing_axis, dict):
+                continue
+            existing_axis["basis_fact_refs"] = list(
+                dict.fromkeys(
+                    [
+                        *existing_axis.get("basis_fact_refs", ()),
+                        *candidate_axis.get("basis_fact_refs", ()),
+                    ]
+                )
+            )
+
     by_key: dict[tuple[str, str], dict[str, Any]] = {}
     origin_to_registration: dict[str, str] = {}
     conflicts: list[dict[str, Any]] = []
@@ -342,28 +418,17 @@ def build_unbound_historical_outcome_registry(
                 by_key[key] = candidate
                 continue
             duplicate_count += 1
-            comparable_existing = {
-                name: value
-                for name, value in existing.items()
-                if name
-                not in {
-                    "fact_refs",
-                    "source_refs",
-                    "episode_refs",
-                    "origin_outcome_refs",
-                }
+            mergeable_fields = {
+                "fact_refs",
+                "source_refs",
+                "episode_refs",
+                "origin_outcome_refs",
+                "evidence_lineage",
+                "members",
+                "limitations",
             }
-            comparable_candidate = {
-                name: value
-                for name, value in candidate.items()
-                if name
-                not in {
-                    "fact_refs",
-                    "source_refs",
-                    "episode_refs",
-                    "origin_outcome_refs",
-                }
-            }
+            comparable_existing = comparable_outcome(existing, mergeable_fields)
+            comparable_candidate = comparable_outcome(candidate, mergeable_fields)
             if comparable_existing != comparable_candidate:
                 conflicts.append(
                     {
@@ -379,7 +444,14 @@ def build_unbound_historical_outcome_registry(
                     }
                 )
                 continue
-            for field in ("fact_refs", "source_refs", "episode_refs", "origin_outcome_refs"):
+            merge_value_judgment_evidence(existing, candidate)
+            for field in (
+                "fact_refs",
+                "source_refs",
+                "episode_refs",
+                "origin_outcome_refs",
+                "limitations",
+            ):
                 current_values = list(existing.get(field) or ())
                 current_set = set(current_values)
                 existing[field] = current_values + sorted(
@@ -387,6 +459,92 @@ def build_unbound_historical_outcome_registry(
                     for value in (candidate.get(field) or ())
                     if value not in current_set
                 )
+            existing_lineage = [
+                dict(row) for row in existing.get("evidence_lineage") or ()
+            ]
+            lineage_by_ref = {
+                str(row["fact_ref"]): row for row in existing_lineage
+            }
+            for row in candidate.get("evidence_lineage") or ():
+                fact_ref = str(row["fact_ref"])
+                previous = lineage_by_ref.get(fact_ref)
+                if previous is None:
+                    appended = dict(row)
+                    lineage_by_ref[fact_ref] = appended
+                    existing_lineage.append(appended)
+                    continue
+                previous["evidence_roles"] = list(
+                    dict.fromkeys(
+                        [
+                            *previous.get("evidence_roles", ()),
+                            *row.get("evidence_roles", ()),
+                        ]
+                    )
+                )
+            existing["evidence_lineage"] = existing_lineage
+            existing_members = [
+                dict(row) for row in existing.get("members") or ()
+            ]
+            members_by_ref = {
+                str(row["actor_ref"]): row for row in existing_members
+            }
+            for row in candidate.get("members") or ():
+                actor_ref = str(row["actor_ref"])
+                previous = members_by_ref.get(actor_ref)
+                if previous is None:
+                    appended = dict(row)
+                    members_by_ref[actor_ref] = appended
+                    existing_members.append(appended)
+                    continue
+                comparable_previous = {
+                    key: value
+                    for key, value in previous.items()
+                    if key
+                    not in {
+                        "contribution_basis_fact_refs",
+                        "contribution_types",
+                    }
+                }
+                comparable_member = {
+                    key: value
+                    for key, value in row.items()
+                    if key
+                    not in {
+                        "contribution_basis_fact_refs",
+                        "contribution_types",
+                    }
+                }
+                if comparable_previous != comparable_member:
+                    conflicts.append(
+                        {
+                            "outcome_kind": key[0],
+                            "independent_key": key[1],
+                            "origin_outcome_refs": sorted(
+                                {
+                                    *existing["origin_outcome_refs"],
+                                    *candidate["origin_outcome_refs"],
+                                }
+                            ),
+                            "reason": (
+                                "同一全局成果键的人物责任不一致，必须先人工归并。"
+                            ),
+                        }
+                    )
+                    continue
+                for field in (
+                    "contribution_basis_fact_refs",
+                    "contribution_types",
+                ):
+                    if field in previous or field in row:
+                        previous[field] = list(
+                            dict.fromkeys(
+                                [
+                                    *previous.get(field, ()),
+                                    *row.get(field, ()),
+                                ]
+                            )
+                        )
+            existing["members"] = existing_members
 
     outcomes = list(by_key.values())
     for outcome in outcomes:
@@ -461,6 +619,7 @@ def build_ruler_outcome_bindings(
         )
         if registration is None:
             raise ValueError(f"成果未进入总登记: {cluster['outcome_ref']}")
+        current_ruler_ref = str(source_pack["ruler_ref"])
         binding = {
             "registration_ref": registration["registration_ref"],
             "outcome_ref": cluster["outcome_ref"],
@@ -481,6 +640,33 @@ def build_ruler_outcome_bindings(
                 cluster.get("ruler_context_refs") or ()
             )
         bindings.append(binding)
+    current_ruler_ref = str(source_pack["ruler_ref"])
+    existing_registration_refs = {
+        str(binding["registration_ref"]) for binding in bindings
+    }
+    for registration in registry["outcomes"]:
+        registration_ref = str(registration["registration_ref"])
+        if registration_ref in existing_registration_refs:
+            continue
+        if registration["outcome_kind"] != "governance":
+            continue
+        if not any(
+            str(member["actor_ref"]) == current_ruler_ref
+            for member in registration.get("members") or ()
+        ):
+            continue
+        origin_refs = sorted(registration.get("origin_outcome_refs") or ())
+        if not origin_refs:
+            raise ValueError(f"共享治理成果缺少来源 outcome_ref: {registration_ref}")
+        bindings.append(
+            {
+                "registration_ref": registration_ref,
+                "outcome_ref": origin_refs[0],
+                "ruler_window_status": "within_window",
+                "ruler_actor_refs": [current_ruler_ref],
+                "campaign_talent_credits": {},
+            }
+        )
     bindings_by_ref = {
         str(binding["registration_ref"]): binding for binding in bindings
     }
