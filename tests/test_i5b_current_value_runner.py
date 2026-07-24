@@ -4747,9 +4747,22 @@ def test_shared_outcome_reuse_preserves_first_pack_lineage_order() -> None:
     binding = build_ruler_outcome_bindings(first, registry)
     materialized = materialize_ruler_outcome_registry(registry, binding)
 
-    assert materialized == normalize_outcome_registry_for_public_view(
-        first["outcome_registry"]
+    assert public_registry_matches_source_pack(
+        materialized,
+        first["outcome_registry"],
+        ruler_ref=str(first["ruler_ref"]),
     )
+    materialized_target = next(
+        row
+        for row in materialized["clusters"]
+        if row["independent_key"] == target["independent_key"]
+    )
+    first_target = next(
+        row
+        for row in first["outcome_registry"]["clusters"]
+        if row["independent_key"] == target["independent_key"]
+    )
+    assert materialized_target["source_refs"] == first_target["source_refs"]
 
 
 def test_shared_outcome_reuse_merges_cross_source_evidence_and_members() -> None:
@@ -8541,6 +8554,57 @@ def test_public_registry_match_accepts_cross_source_evidence_union() -> None:
     assert not public_registry_matches_source_pack(materialized, source)
 
 
+def test_governance_without_current_ruler_is_public_but_not_bound() -> None:
+    source_pack = json.loads(
+        (
+            ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+        ).read_text(encoding="utf-8")
+    )
+    governance = next(
+        row
+        for row in source_pack["outcome_registry"]["clusters"]
+        if row["outcome_kind"] == "governance" and row.get("members")
+    )
+    public_only = json.loads(json.dumps(governance, ensure_ascii=False))
+    public_only.update(
+        {
+            "outcome_ref": "OUTCOME-AUTO-PUBLIC-ONLY",
+            "independent_key": "public-only-without-current-ruler",
+            "canonical_label": "仅登记为公共成果",
+            "members": [
+                {
+                    **public_only["members"][0],
+                    "actor_kind": "person",
+                    "actor_ref": "PERSON-PUBLIC-OFFICIAL",
+                }
+            ],
+        }
+    )
+    public_only["semantic_fingerprint"] = cluster_semantic_fingerprint(public_only)
+    source_pack["outcome_registry"]["clusters"].append(public_only)
+
+    registry = build_unbound_historical_outcome_registry([source_pack])
+    binding = build_ruler_outcome_bindings(source_pack, registry)
+    materialized = materialize_ruler_outcome_registry(registry, binding)
+
+    bound_keys = {
+        row["independent_key"] for row in materialized.get("clusters") or ()
+    }
+    assert public_only["independent_key"] not in bound_keys
+    assert any(
+        row["independent_key"] == public_only["independent_key"]
+        for row in registry["outcomes"]
+    )
+    assert public_registry_matches_source_pack(
+        materialized,
+        source_pack["outcome_registry"],
+        ruler_ref=str(source_pack["ruler_ref"]),
+    )
+    assert not public_registry_matches_source_pack(
+        materialized, source_pack["outcome_registry"]
+    )
+
+
 def test_shared_outcome_export_includes_reviewed_open_profile_pack(
     tmp_path: Path,
 ) -> None:
@@ -9037,6 +9101,33 @@ def test_current_source_pack_increment_is_validated_and_idempotent(tmp_path: Pat
     untouched_outcome = payload["outcome_registry"]["clusters"][1]
     assert replaced_outcomes[untouched_outcome["outcome_ref"]] == untouched_outcome
 
+    old_outcome = next(
+        row
+        for row in payload["outcome_registry"]["clusters"]
+        if row["outcome_ref"].startswith("OUTCOME-AUTO-")
+    )
+    old_fact_ref = old_outcome["fact_refs"][0]
+    replacement_fact = next(
+        row for row in payload["facts"] if row["record_ref"] == old_fact_ref
+    )
+    rekeyed_outcome = json.loads(json.dumps(old_outcome, ensure_ascii=False))
+    rekeyed_outcome["outcome_ref"] = "OUTCOME-AUTO-REKEYED"
+    rekeyed_outcome["independent_key"] = "rekeyed-reviewed-outcome"
+    rekeyed = compile_source_pack_increment(
+        payload,
+        {
+            **increment,
+            "facts": [replacement_fact],
+            "outcomes": [rekeyed_outcome],
+        },
+        replace_incoming=True,
+    )
+    rekeyed_refs = {
+        row["outcome_ref"] for row in rekeyed["outcome_registry"]["clusters"]
+    }
+    assert old_outcome["outcome_ref"] not in rekeyed_refs
+    assert rekeyed_outcome["outcome_ref"] in rekeyed_refs
+
 
 def test_outcome_stage_increment_does_not_require_current_projection(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
@@ -9335,12 +9426,23 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
     for source_pack in source_packs:
         binding = build_ruler_outcome_bindings(source_pack, registry)
         assert binding["schema_version"] == "ruler-outcome-binding-v2"
-        assert binding["binding_count"] == len(
-            source_pack["outcome_registry"]["clusters"]
-        )
+        registered_by_ref = {
+            row["registration_ref"]: row for row in registry["outcomes"]
+        }
+        for row in binding["bindings"]:
+            if row.get("context_only_ancestor"):
+                continue
+            registered = registered_by_ref[row["registration_ref"]]
+            if registered["outcome_kind"] == "governance":
+                assert any(
+                    member["actor_ref"] == source_pack["ruler_ref"]
+                    for member in registered["members"]
+                )
         materialized = materialize_ruler_outcome_registry(registry, binding)
-        assert materialized == normalize_outcome_registry_for_public_view(
-            source_pack["outcome_registry"]
+        assert public_registry_matches_source_pack(
+            materialized,
+            source_pack["outcome_registry"],
+            ruler_ref=str(source_pack["ruler_ref"]),
         )
         if source_pack["ruler"] == "李世民":
             hulao = next(

@@ -111,6 +111,12 @@ def compile_source_pack_increment(
             row
             for row in (compiled.get("outcome_registry") or {}).get("clusters") or ()
             if str(row.get("outcome_ref") or "") not in incoming_outcome_refs
+            and not (
+                str(row.get("outcome_ref") or "").startswith("OUTCOME-AUTO-")
+                and incoming_fact_refs.intersection(
+                    str(fact_ref) for fact_ref in row.get("fact_refs") or ()
+                )
+            )
         ]
     compiled["facts"] = _merge_current(
         compiled.get("facts") or (), increment.get("facts") or (), key="record_ref"
@@ -137,6 +143,12 @@ def compile_source_pack_increment(
     dynasty_governance["ruler_window_achievement_count"] = sum(
         row["origin"] == "dynasty_governance"
         and row["outcome_kind"] == "governance"
+        and any(
+            member.get("actor_kind") == "ruler"
+            and str(member.get("actor_ref") or "")
+            == str(compiled.get("ruler_ref") or "")
+            for member in row.get("members") or ()
+        )
         for row in clusters
     )
     dispositions["dynasty_governance"] = dynasty_governance

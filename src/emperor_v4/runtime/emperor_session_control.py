@@ -1962,6 +1962,7 @@ def _validate_publish_payload(
     if not public_registry_matches_source_pack(
         materialize_ruler_outcome_registry(outcome_registry, binding),
         source_pack.get("outcome_registry") or {},
+        ruler_ref=str(source_pack["ruler_ref"]),
     ):
         raise SessionControlError("成果总登记与皇帝窗口绑定无法还原 source-pack")
     if (
@@ -2008,7 +2009,9 @@ def _validate_publish_payload(
             ],
         }
         if not public_registry_matches_source_pack(
-            direct_materialized, other_source_pack.get("outcome_registry") or {}
+            direct_materialized,
+            other_source_pack.get("outcome_registry") or {},
+            ruler_ref=str(other_source_pack["ruler_ref"]),
         ):
             raise SessionControlError(
                 f"{ruler_name} 成果绑定无法无损还原 source-pack"

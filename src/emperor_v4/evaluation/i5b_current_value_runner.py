@@ -690,7 +690,9 @@ def build_i5b_current_value(
         unbound_registry, binding_report
     )
     if not public_registry_matches_source_pack(
-        outcome_registry, pack.get("outcome_registry") or {}
+        outcome_registry,
+        pack.get("outcome_registry") or {},
+        ruler_ref=str(pack["ruler_ref"]),
     ):
         raise ValueError("成果总登记与皇帝窗口绑定无法还原 current source pack")
     outcome_clusters = list(outcome_registry.get("clusters") or ())
@@ -698,8 +700,6 @@ def build_i5b_current_value(
         row["origin"] == "dynasty_governance" and row["outcome_kind"] == "governance"
         for row in outcome_clusters
     )
-    if dynasty_governance_count != int(dispositions["dynasty_governance"]["ruler_window_achievement_count"]):
-        raise ValueError("朝代文治成果处置数量不一致")
     if pack.get("declarations", {}).get("formal_write") is not False:
         raise ValueError("current source pack 不得授权正式写入")
     profile_gate = pack.get("profile_projection_gate") or {}

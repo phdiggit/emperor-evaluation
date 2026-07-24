@@ -252,9 +252,25 @@ def normalize_outcome_registry_for_public_view(
 def public_registry_matches_source_pack(
     materialized: Mapping[str, Any],
     source_registry: Mapping[str, Any],
+    *,
+    ruler_ref: str | None = None,
 ) -> bool:
     """Accept a pack projection even when shared ruler duties add public outcomes."""
 
+    if ruler_ref is not None:
+        source_registry = {
+            **source_registry,
+            "clusters": [
+                cluster
+                for cluster in source_registry.get("clusters") or ()
+                if cluster.get("outcome_kind") != "governance"
+                or any(
+                    member.get("actor_kind") == "ruler"
+                    and str(member.get("actor_ref") or "") == ruler_ref
+                    for member in cluster.get("members") or ()
+                )
+            ],
+        }
     normalized_source = normalize_outcome_registry_for_public_view(source_registry)
     for expected in (source_registry, normalized_source):
         if materialized == expected:
@@ -716,13 +732,19 @@ def build_ruler_outcome_bindings(
         for row in registry["outcomes"]
     }
     bindings = []
+    current_ruler_ref = str(source_pack["ruler_ref"])
     for cluster in (source_pack.get("outcome_registry") or {}).get("clusters") or ():
         registration = registration_by_key.get(
             (str(cluster["outcome_kind"]), str(cluster["independent_key"]))
         )
         if registration is None:
             raise ValueError(f"成果未进入总登记: {cluster['outcome_ref']}")
-        current_ruler_ref = str(source_pack["ruler_ref"])
+        if cluster["outcome_kind"] == "governance" and not any(
+            member.get("actor_kind") == "ruler"
+            and str(member.get("actor_ref") or "") == current_ruler_ref
+            for member in cluster.get("members") or ()
+        ):
+            continue
         binding = {
             "registration_ref": registration["registration_ref"],
             "outcome_ref": cluster["outcome_ref"],
@@ -743,7 +765,6 @@ def build_ruler_outcome_bindings(
                 cluster.get("ruler_context_refs") or ()
             )
         bindings.append(binding)
-    current_ruler_ref = str(source_pack["ruler_ref"])
     existing_registration_refs = {
         str(binding["registration_ref"]) for binding in bindings
     }
@@ -1271,7 +1292,9 @@ def write_current_outcome_layers(
             ],
         }
         if not public_registry_matches_source_pack(
-            direct_materialized, source_pack["outcome_registry"]
+            direct_materialized,
+            source_pack["outcome_registry"],
+            ruler_ref=str(source_pack["ruler_ref"]),
         ):
             raise ValueError(f"{ruler_name} 窗口绑定无法无损还原当前成果投影")
         binding_path = ruler_config.get("outcome_binding")
