@@ -21,6 +21,7 @@ from emperor_v4.evaluation.i5b_current_value_runner import (
 )
 from emperor_v4.evaluation.historical_outcome_registry import (
     materialize_ruler_outcome_registry,
+    public_registry_matches_source_pack,
 )
 from emperor_v4.runtime.emperor_rebuild import (
     RebuildLimits,
@@ -1945,8 +1946,9 @@ def _validate_publish_payload(
         raise SessionControlError("会话输出皇帝不匹配")
     if report.get("source_pack_sha256") != source_pack.get("source_pack_sha256"):
         raise SessionControlError("结果与 source-pack 当前值不匹配")
-    if materialize_ruler_outcome_registry(outcome_registry, binding) != source_pack.get(
-        "outcome_registry"
+    if not public_registry_matches_source_pack(
+        materialize_ruler_outcome_registry(outcome_registry, binding),
+        source_pack.get("outcome_registry") or {},
     ):
         raise SessionControlError("成果总登记与皇帝窗口绑定无法还原 source-pack")
     if (
@@ -1992,7 +1994,9 @@ def _validate_publish_payload(
                 if str(cluster["outcome_ref"]) in direct_outcome_refs
             ],
         }
-        if direct_materialized != other_source_pack.get("outcome_registry"):
+        if not public_registry_matches_source_pack(
+            direct_materialized, other_source_pack.get("outcome_registry") or {}
+        ):
             raise SessionControlError(
                 f"{ruler_name} 成果绑定无法无损还原 source-pack"
             )

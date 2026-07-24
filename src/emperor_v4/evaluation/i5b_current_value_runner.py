@@ -31,6 +31,7 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
 )
 from emperor_v4.evaluation.historical_outcome_registry import (
     materialize_ruler_outcome_registry,
+    public_registry_matches_source_pack,
 )
 from emperor_v4.evaluation.historical_person_profile_registry import (
     SCHEMA_VERSION as PERSON_PROFILE_REGISTRY_SCHEMA_VERSION,
@@ -671,7 +672,9 @@ def build_i5b_current_value(
     outcome_registry = materialize_ruler_outcome_registry(
         unbound_registry, binding_report
     )
-    if outcome_registry != (pack.get("outcome_registry") or {}):
+    if not public_registry_matches_source_pack(
+        outcome_registry, pack.get("outcome_registry") or {}
+    ):
         raise ValueError("成果总登记与皇帝窗口绑定无法还原 current source pack")
     outcome_clusters = list(outcome_registry.get("clusters") or ())
     dynasty_governance_count = sum(

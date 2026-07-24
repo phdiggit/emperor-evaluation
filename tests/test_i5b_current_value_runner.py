@@ -26,6 +26,7 @@ from emperor_v4.evaluation.historical_outcome_registry import (
     build_ruler_outcome_bindings,
     build_unbound_historical_outcome_registry,
     materialize_ruler_outcome_registry,
+    normalize_outcome_registry_for_public_view,
     render_unbound_historical_outcome_registry_markdown,
     write_current_outcome_layers,
 )
@@ -4562,7 +4563,40 @@ def test_shared_outcome_reuse_preserves_first_pack_lineage_order() -> None:
     binding = build_ruler_outcome_bindings(first, registry)
     materialized = materialize_ruler_outcome_registry(registry, binding)
 
-    assert materialized == first["outcome_registry"]
+    assert materialized == normalize_outcome_registry_for_public_view(
+        first["outcome_registry"]
+    )
+
+
+def test_public_registry_normalizes_legacy_governance_value_contract() -> None:
+    source = json.loads(
+        (ROOT / "eval/i5b_current_value/李渊/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    legacy = next(
+        row
+        for row in source["outcome_registry"]["clusters"]
+        if row["outcome_kind"] == "governance"
+        and row["payload"]["value_judgment"]["comparison_basis"]
+        == "public_effect_without_explicit_baseline"
+    )
+    legacy["result_status"] = "mixed"
+    legacy["payload"]["value_judgment"]["axes"][
+        "civilization_institutions"
+    ]["basis"] = "制度改善但方向实际为负面"
+    legacy["payload"]["value_judgment"]["axes"][
+        "civilization_institutions"
+    ]["direction"] = "negative"
+    source["outcome_registry"]["clusters"] = [legacy]
+    registry = build_unbound_historical_outcome_registry([source])
+    outcome = registry["outcomes"][0]
+
+    assert outcome["result_status"] == "operated"
+    judgment = outcome["payload"]["value_judgment"]
+    assert judgment["comparison_basis"] == "inferred_prior_state"
+    assert all(marker in judgment["basis"] for marker in ("基线：", "变化：", "结果："))
+    assert "改善" not in judgment["axes"]["civilization_institutions"]["basis"]
 
 
 def test_current_long_term_stability_is_derived_from_stage_coverage() -> None:
@@ -8876,7 +8910,9 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
             source_pack["outcome_registry"]["clusters"]
         )
         materialized = materialize_ruler_outcome_registry(registry, binding)
-        assert materialized == source_pack["outcome_registry"]
+        assert materialized == normalize_outcome_registry_for_public_view(
+            source_pack["outcome_registry"]
+        )
         if source_pack["ruler"] == "李世民":
             hulao = next(
                 row

@@ -168,6 +168,98 @@ def _registration_ref(outcome_kind: str, independent_key: str) -> str:
     )[:20].upper()
 
 
+def normalize_outcome_registry_for_public_view(
+    registry: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Expose legacy governance outcomes through the current public contract.
+
+    Source packs remain immutable scoring inputs.  This compatibility boundary
+    fixes only two retired public-view encodings: ``mixed`` as an operation
+    status, and a direction asserted without an explicit comparison category.
+    """
+
+    normalized = json.loads(json.dumps(registry, ensure_ascii=False))
+    axis_labels = {
+        "productivity_livelihood": "生产力与民生",
+        "civilization_institutions": "文明与制度进步",
+        "state_people_security": "国家与民众安全",
+        "culture_education_thought": "文化教育与思想活力",
+    }
+    direction_labels = {
+        "positive": "正向",
+        "negative": "负向",
+        "mixed": "利弊并存",
+        "not_established": "未建立",
+    }
+    for cluster in normalized.get("clusters") or ():
+        if cluster.get("outcome_kind") != "governance":
+            continue
+        if cluster.get("result_status") == "mixed":
+            cluster["result_status"] = "operated"
+        judgment = (cluster.get("payload") or {}).get("value_judgment") or {}
+        comparison_basis = str(judgment.get("comparison_basis") or "")
+        if comparison_basis == "public_effect_without_explicit_baseline":
+            comparison_basis = (
+                "not_established"
+                if judgment.get("overall_direction") == "unclear"
+                else "inferred_prior_state"
+            )
+            judgment["comparison_basis"] = comparison_basis
+            if comparison_basis == "not_established":
+                judgment["overall_direction"] = "unclear"
+                judgment["overall_magnitude"] = "not_established"
+                cluster["result_direction"] = "unclear"
+        label = str(cluster.get("canonical_label") or "本项治理")
+        result = str(cluster.get("observable_result") or "逐字材料所载公共结果")
+        basis = str(judgment.get("basis") or "")
+        if comparison_basis != "not_established" and not all(
+            marker in basis for marker in ("基线：", "变化：", "结果：")
+        ):
+            baseline_refs = "、".join(
+                str(value) for value in judgment.get("baseline_fact_refs") or ()
+            )
+            baseline = (
+                f"逐字证据链中的历史基线事实（{baseline_refs}）"
+                if baseline_refs
+                else "逐字材料未直陈前态，按该项公共制度或结果尚未形成的最低前态推定"
+            )
+            judgment["basis"] = (
+                f"基线：{baseline}；变化：{label}；结果：{result}"
+            )
+        elif comparison_basis == "not_established":
+            judgment["basis"] = "现有逐字材料无法建立举措前后比较，价值方向保持不明。"
+        for axis_name, axis in (judgment.get("axes") or {}).items():
+            direction = str(axis.get("direction") or "not_established")
+            axis_basis = str(axis.get("basis") or "")
+            if direction == "not_established":
+                if not axis_basis:
+                    axis["basis"] = "现有逐字材料未建立该轴的公共效果。"
+                continue
+            if (
+                not axis_basis
+                or "逐字材料显示" in axis_basis
+                or axis_name in axis_basis
+                or (direction == "negative" and "改善" in axis_basis)
+            ):
+                axis["basis"] = (
+                    f"{axis_labels.get(axis_name, axis_name)}轴按逐字材料所载结果"
+                    f"“{result}”判断为{direction_labels.get(direction, direction)}。"
+                )
+        cluster["semantic_fingerprint"] = cluster_semantic_fingerprint(cluster)
+    return normalized
+
+
+def public_registry_matches_source_pack(
+    materialized: Mapping[str, Any],
+    source_registry: Mapping[str, Any],
+) -> bool:
+    """Accept an immutable legacy pack or its normalized current public view."""
+
+    return materialized == source_registry or materialized == (
+        normalize_outcome_registry_for_public_view(source_registry)
+    )
+
+
 def _event_level(cluster: Mapping[str, Any]) -> str:
     scope = str(cluster.get("settlement_scope") or "")
     if cluster["outcome_kind"] == "campaign":
@@ -195,6 +287,11 @@ def _unbound_member(member: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _unbound_outcome(cluster: Mapping[str, Any]) -> dict[str, Any]:
+    cluster = (
+        normalize_outcome_registry_for_public_view(
+            {"clusters": [cluster]}
+        )["clusters"][0]
+    )
     result = {
         key: value
         for key, value in cluster.items()
@@ -884,7 +981,9 @@ def write_current_outcome_layers(
                 if str(cluster["outcome_ref"]) in direct_outcome_refs
             ],
         }
-        if direct_materialized != source_pack["outcome_registry"]:
+        if not public_registry_matches_source_pack(
+            direct_materialized, source_pack["outcome_registry"]
+        ):
             raise ValueError(f"{ruler_name} 窗口绑定无法无损还原当前成果投影")
         binding_path = ruler_config.get("outcome_binding")
         if not binding_path:
