@@ -23,7 +23,7 @@ Source Cache 不读取数据库凭据。它从 release 内的 `config/workflow-s
 
 Claim 的 Codex 可执行文件固定为 `/opt/emperor-evaluation-v4/bin/codex`，认证状态目录固定为 `/data1/emperor-evaluation/runtime/services/emperor-v4/claim-extractor/codex`，两者必须由 `emperor-v4` 在 `ProtectHome=true` 下读取，不得引用 `/home/penghao/**` 或复用 V3 环境文件。定时 unit 显式把当前 release 的 `src` 加入 `PYTHONPATH`，venv 只承载依赖，不复制某个 release 的业务源码。正式切换前必须依次通过 release hash 校验、`systemd-analyze verify` 和回滚 symlink 演练；预检不得启用 timer、停止历史 unit 或修改生产数据库。
 
-Source Cache 每分钟运行一次，每轮最多枚举一个作品目录或缓存五页固定 revision 纯文本；既有 LocalSourceTextIndex 直接作为种子。429 进入六小时冷却，其他瞬时错误进入半小时冷却，载体缺页写入 collection `CURRENT.json` 而不重试。页面状态位于 `/data1/emperor-evaluation/runtime/services/emperor-v4/source-cache/`，索引原子发布到 `/data1/emperor-evaluation/runtime/active/source_text_indexes/workflow-*-current/`。皇帝会话不得自行访问公网史源。
+Source Cache 每分钟运行一次，每轮最多枚举一个作品目录或缓存五页固定 revision 纯文本；既有 LocalSourceTextIndex 和通过 `workflow-source-cache-import-v1` 校验的离线固定快照直接作为种子。逻辑史书按中央载体目录依次尝试已批准载体，单一载体的 429 进入六小时冷却、其他瞬时错误进入半小时冷却，但不阻断同书备用载体；只有已批准载体覆盖并集仍缺失的页面才写入 collection `CURRENT.json`。页面 provenance 保留实际 `carrier_id`、revision 与正文 hash。页面状态位于 `/data1/emperor-evaluation/runtime/services/emperor-v4/source-cache/`，索引原子发布到 `/data1/emperor-evaluation/runtime/active/source_text_indexes/workflow-*-current/`。皇帝会话不得自行访问公网史源。
 
 Dynasty Governance 复用同一个只读 Codex executable 和 Claim Extractor 的专用认证目录，但不读取数据库凭据。它每30分钟只读发现 `/data1/emperor-evaluation/runtime/active/source_text_indexes/` 中覆盖配置书目的索引；按朝代互斥执行，并把通过质量门的唯一 current 写到 `/data1/emperor-evaluation/runtime/active/dynasty_neutral_materials/<DYNASTY>/current.json`。调度并发、单批字符或超时变化不使已验收 current 失效。
 

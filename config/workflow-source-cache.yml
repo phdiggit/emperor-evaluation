@@ -7,12 +7,28 @@ source_catalogs:
   derive_dynasty_governance_works: true
 
 provider:
-  code: wikisource
   work_title_script: traditional
   skip_name_fragments: [对应皇帝实录]
   max_pages_per_tick: 5
   transient_retry_after_seconds: 1800
   rate_limit_retry_after_seconds: 21600
+
+carriers:
+  defaults:
+    - carrier_id: wikisource-zh
+      provider_code: wikisource
+  works:
+    大明太祖高皇帝實錄:
+      - carrier_id: shidian-ls0026
+        provider_code: shidian
+        book_id: LS0026
+        catalog_url: https://www.shidianguji.com/zh/book/LS0026/chapter/1k6q55kfqaxwl
+        chapter_url_format: https://www.shidianguji.com/zh/book/LS0026/chapter/{chapter_id}
+        chapter_name_contains: 高皇帝實錄卷
+        first_volume: 1
+        last_volume: 257
+      - carrier_id: wikisource-zh
+        provider_code: wikisource
 
 pinned_collections:
   - collection_id: MING-HONGWU
@@ -20,11 +36,6 @@ pinned_collections:
     works:
       - work_title: 大明太祖高皇帝實錄
         root_title: 大明太祖高皇帝實錄
-        provider_code: shidian
-        book_id: LS0026
-        catalog_url: https://www.shidianguji.com/zh/book/LS0026/chapter/1k6q55kfqaxwl
-        chapter_url_format: https://www.shidianguji.com/zh/book/LS0026/chapter/{chapter_id}
-        chapter_name_contains: 高皇帝實錄卷
         required_page_ranges:
           - page_title_format: 大明太祖高皇帝實錄/卷{volume:03d}
             first: 1

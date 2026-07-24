@@ -44,6 +44,7 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "src/emperor_v4/runtime/source_cache.py",
     "src/emperor_v4/runtime/source_cache_worker.py",
     "src/emperor_v4/runtime/workflow_source_cache.py",
+    "src/emperor_v4/runtime/workflow_source_cache_import.py",
     "db/postgres/002_v4_source_cache_service.sql",
     "db/postgres/003_v4_source_cache_jobs.sql",
     "deploy/v4/emperor-v4-source-cache-worker.service",

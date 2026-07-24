@@ -49,7 +49,10 @@ from emperor_v4.runtime.emperor_session_control import (
     session_status,
     upgrade_failed_session_release,
 )
-from emperor_v4.runtime.workflow_source_cache import submit_source_cache_request
+from emperor_v4.runtime.workflow_source_cache import (
+    import_source_cache_snapshots,
+    submit_source_cache_request,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -181,6 +184,9 @@ def _parser() -> argparse.ArgumentParser:
     source_cache_request = commands.add_parser("workflow-source-cache-request")
     source_cache_request.add_argument("--request", type=Path, required=True)
     source_cache_request.add_argument("--request-root", type=Path, required=True)
+    source_cache_import = commands.add_parser("workflow-source-cache-import")
+    source_cache_import.add_argument("--input", type=Path, required=True)
+    source_cache_import.add_argument("--state-root", type=Path, required=True)
     session_governance = commands.add_parser(
         "emperor-session-dynasty-governance"
     )
@@ -520,6 +526,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             submit_source_cache_request(
                 request_path=args.request,
                 request_root=args.request_root,
+            ),
+            None,
+        )
+    if args.command == "workflow-source-cache-import":
+        return _write_report(
+            import_source_cache_snapshots(
+                import_path=args.input,
+                state_root=args.state_root,
             ),
             None,
         )
