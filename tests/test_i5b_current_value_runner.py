@@ -96,6 +96,11 @@ from emperor_v4.runtime.emperor_outcome_projection import (
 from emperor_v4.runtime.deterministic_campaign_extraction import (
     discover_deterministic_backbone_campaigns,
 )
+from emperor_v4.runtime.dynasty_governance_rebuild import (
+    dynasty_governance_catalog_fingerprint,
+    load_dynasty_governance_catalog_entry,
+    validate_dynasty_governance_current_catalog,
+)
 from emperor_v4.runtime.structured_codex_runner import (
     ModelBatchAnomalyError,
     StructuredCodexRunner,
@@ -1561,6 +1566,15 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     )
     governance_path = tmp_path / "governance/MING/current.json"
     governance_path.parent.mkdir(parents=True)
+    project_catalog = yaml.safe_load(
+        (release / "config/project.yml").read_text(encoding="utf-8")
+    )["dynasty_governance_catalog"]
+    ming_catalog = {
+        **project_catalog["dynasties"]["明"],
+        "quality_requires_catalog_source_families": project_catalog[
+            "quality_requires_catalog_source_families"
+        ],
+    }
     governance_path.write_text(
         json.dumps(
             {
@@ -1568,6 +1582,14 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
                 "status": "quality_accepted_shadow",
                 "dynasty_token": "MING",
                 "source_index_identity": "INDEPENDENT-MING-GOVERNANCE-INDEX",
+                "catalog_fingerprint": dynasty_governance_catalog_fingerprint(
+                    ming_catalog
+                ),
+                "sources": [
+                    {"page_title": page_title}
+                    for source in ming_catalog["source_works"]
+                    for page_title in source.get("page_titles") or ()
+                ],
             }
         ),
         encoding="utf-8",
@@ -1628,6 +1650,7 @@ def test_dynasty_governance_catalog_covers_supported_eras() -> None:
     )
     catalog = project["dynasty_governance_catalog"]
     assert catalog["schema_version"] == "dynasty-governance-catalog-v1"
+    assert catalog["quality_requires_catalog_source_families"] is True
     assert (
         catalog["shared_current_root_contract"]
         == "dynasty_neutral_materials/<dynasty_token>/current.json"
@@ -1655,6 +1678,10 @@ def test_dynasty_governance_catalog_covers_supported_eras() -> None:
     for dynasty, row in rows.items():
         assert row["dynasty_token"], dynasty
         assert row["source_works"], dynasty
+        _canonical, loaded = load_dynasty_governance_catalog_entry(
+            ROOT, dynasty
+        )
+        assert loaded["quality_requires_catalog_source_families"] is True
         for source in row["source_works"]:
             assert source["work"]
             assert source["target_scope"]
@@ -1667,6 +1694,56 @@ def test_dynasty_governance_catalog_covers_supported_eras() -> None:
         row.get("scheduler_enabled") is False
         for row in project["dynasty_governance_scans"]["dynasties"].values()
     )
+
+
+def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
+    project = yaml.safe_load(
+        (ROOT / "config/project.yml").read_text(encoding="utf-8")
+    )
+    configured = {
+        **project["dynasty_governance_catalog"]["dynasties"]["明"],
+        "quality_requires_catalog_source_families": True,
+    }
+    old_annals_only = {
+        "schema_version": "dynasty-governance-current-v1",
+        "status": "quality_accepted_shadow",
+        "dynasty_token": "MING",
+        "source_index_identity": "OLD-MING-ANNALS",
+        "sources": [
+            {"page_title": "明史/卷2"},
+            {"page_title": "明史/卷3"},
+        ],
+    }
+
+    with pytest.raises(ValueError, match="未绑定当前书目目录"):
+        validate_dynasty_governance_current_catalog(
+            old_annals_only, configured
+        )
+
+    required_pages = [
+        page_title
+        for source in configured["source_works"]
+        for page_title in source.get("page_titles") or ()
+    ]
+    missing_one = {
+        **old_annals_only,
+        "catalog_fingerprint": dynasty_governance_catalog_fingerprint(configured),
+        "sources": [
+            {"page_title": page_title}
+            for page_title in required_pages[:-1]
+        ],
+    }
+    with pytest.raises(ValueError, match="缺少目录指定专题篇章"):
+        validate_dynasty_governance_current_catalog(missing_one, configured)
+
+    complete = {
+        **missing_one,
+        "sources": [
+            {"page_title": page_title}
+            for page_title in required_pages
+        ],
+    }
+    validate_dynasty_governance_current_catalog(complete, configured)
 
 
 def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots(

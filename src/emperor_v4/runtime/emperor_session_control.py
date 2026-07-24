@@ -29,6 +29,7 @@ from emperor_v4.runtime.emperor_rebuild import (
 )
 from emperor_v4.runtime.dynasty_governance_rebuild import (
     DynastyGovernanceLimits,
+    validate_dynasty_governance_current_catalog,
     load_dynasty_governance_catalog_entry,
     rebuild_dynasty_governance,
 )
@@ -912,6 +913,45 @@ def build_session_dynasty_governance(
             "database_write_count": 0,
             "formal_score_write_count": 0,
         }
+    required_page_titles = sorted(
+        {
+            str(page_title)
+            for source in configured.get("source_works") or ()
+            if isinstance(source, Mapping)
+            for page_title in source.get("page_titles") or ()
+            if str(page_title).strip()
+        }
+    )
+    if required_page_titles:
+        available_page_titles = {
+            str(page.page_title)
+            for page in source_index.iter_pages(works=works)
+        }
+        missing_page_titles = sorted(
+            set(required_page_titles) - available_page_titles
+        )
+        if missing_page_titles:
+            return {
+                "schema_version": SESSION_DYNASTY_GOVERNANCE_SCHEMA_VERSION,
+                "status": "awaiting_governance_source_assets",
+                "session_id": session_id,
+                "ruler": lease["ruler"],
+                "dynasty": canonical_dynasty,
+                "dynasty_token": token,
+                "required_source_works": list(works),
+                "required_page_titles": required_page_titles,
+                "missing": [
+                    "fixed_governance_source_pages: "
+                    + ", ".join(missing_page_titles)
+                ],
+                "source_catalog": configured,
+                "shared_current_path": str(
+                    dynasty_governance_root / token / "current.json"
+                ),
+                "runtime_model_call_count": 0,
+                "database_write_count": 0,
+                "formal_score_write_count": 0,
+            }
     lock_path = dynasty_governance_root / ".locks" / f"{token}.lock"
     with _exclusive_lock(lock_path) as locked:
         if not locked:
@@ -1205,12 +1245,19 @@ def complete_session_bootstrap(
         missing.append(f"dynasty_governance_current: {governance_path}")
     else:
         governance = _read_json(governance_path)
-        if (
+        invalid_governance = (
             governance.get("schema_version") != "dynasty-governance-current-v1"
             or governance.get("status") != "quality_accepted_shadow"
             or str(governance.get("dynasty_token") or "") != governance_token
             or not str(governance.get("source_index_identity") or "")
-        ):
+        )
+        try:
+            validate_dynasty_governance_current_catalog(
+                governance, governance_catalog
+            )
+        except ValueError:
+            invalid_governance = True
+        if invalid_governance:
             missing.append("dynasty_governance_current: 头部合同不匹配")
 
     shared_tokens = []

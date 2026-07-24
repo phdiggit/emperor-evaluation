@@ -81,6 +81,9 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
         ["minimum_independent_regional_or_higher_results"]
         == 3
     )
+    assert policy["historic_paths"]["civil_governance"]["counted_value_directions"] == [
+        "positive"
+    ]
     assert (
         policy["historic_paths"]["culture_and_scholarship"]
         ["civilization_foundational_single_work_path"]
@@ -295,6 +298,32 @@ def test_civil_participation_is_registered_but_does_not_raise_grade() -> None:
             _achievement("A", "national", responsibility_role="participant"),
             _achievement("B", "national", responsibility_role="participant"),
             _achievement("C", "regional", responsibility_role="participant"),
+        ],
+    )
+
+    assert result["historic_fact_path_status"] == "not_established"
+    assert result["counts"]["eligible_independent"] == 0
+
+
+def test_mixed_governance_result_remains_evidence_but_does_not_raise_grade() -> None:
+    result = assess_domain_historic_path(
+        "civil_governance",
+        [
+            {
+                **_achievement("A", "national", responsibility_role="exclusive"),
+                "result": "implemented_mixed",
+                "positive_result_preserved": True,
+            },
+            {
+                **_achievement("B", "national", responsibility_role="lead"),
+                "result": "implemented_mixed",
+                "positive_result_preserved": True,
+            },
+            {
+                **_achievement("C", "regional"),
+                "result": "implemented_mixed",
+                "positive_result_preserved": True,
+            },
         ],
     )
 

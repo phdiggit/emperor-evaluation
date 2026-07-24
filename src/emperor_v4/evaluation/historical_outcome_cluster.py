@@ -609,7 +609,11 @@ def _assess_person_talent_grade_single_domain(
             continue
         if member.get("talent_grade_eligible") is False:
             continue
-        if cluster["result_direction"] not in {"positive", "mixed"}:
+        if cluster["result_direction"] not in (
+            {"positive"}
+            if cluster["outcome_kind"] == "governance"
+            else {"positive", "mixed"}
+        ):
             continue
         if (
             cluster["outcome_kind"] == "campaign"
@@ -851,9 +855,7 @@ def _culture_talent_grade(
             continue
         if member.get("talent_grade_eligible") is False:
             continue
-        if cluster["result_direction"] not in {"positive", "mixed"}:
-            continue
-        if cluster["result_direction"] == "mixed" and not cluster["stable_delivery"]:
+        if cluster["result_direction"] != "positive":
             continue
         eligible.append((cluster, member))
     national = [

@@ -13,6 +13,7 @@ principles:
   authority_evaluation_calibrates_confidence_not_grade_ceiling: true
   political_risk_is_orthogonal_to_talent_grade: true
   clear_professional_success_survives_cross_domain_costs: true
+  positive_governance_grade_requires_positive_net_direction: true
   independent_responsibility_chains_required: true
   military_campaign_tier_uses_land_opponent_and_result_axes: true
   same_campaign_or_governance_chain_counts_once: true
@@ -79,6 +80,7 @@ historic_paths:
     cross_stage_legacy_required: false
 
   civil_governance:
+    counted_value_directions: [positive]
     normal_repeated_delivery:
       minimum_independent_national_results: 2
       minimum_independent_regional_or_higher_results: 3
@@ -92,6 +94,7 @@ historic_paths:
         - one_additional_independent_national_result
         - two_additional_independent_regional_results
     exclusions:
+      - mixed_negative_or_unclear_governance_does_not_raise_positive_talent_grade
       - office_tenure_or_membership_is_not_a_result
       - proposals_without_implementation_do_not_count
       - general_prosperity_cannot_be_wholly_attributed_to_one_official
@@ -115,6 +118,7 @@ historic_paths:
       - statecraft_does_not_enter_ruler_governance_projection
 
   culture_and_scholarship:
+    counted_value_directions: [positive]
     civilization_foundational_single_work_path:
       minimum_completed_works: 1
       requires_personally_authored_or_finalized: true

@@ -139,6 +139,7 @@ neutral_material_reuse:
 dynasty_governance_catalog:
   schema_version: dynasty-governance-catalog-v1
   person_or_ruler_chronicles_are_not_governance_books: true
+  quality_requires_catalog_source_families: true
   selection_policy: resolve_configured_sections_to_fixed_revision_pages
   shared_current_root_contract: dynasty_neutral_materials/<dynasty_token>/current.json
   dynasties:
@@ -353,26 +354,16 @@ dynasty_governance_catalog:
       aliases: [南明]
       dynasty_token: MING
       source_works:
-        - work: 大明會典
-          source_genre: administrative_code
-          section_groups:
-            personnel: [吏部]
-            finance: [戶部]
-            rites: [禮部]
-            military: [兵部, 五軍都督府]
-            justice: [刑部, 都察院, 大理寺]
-            works: [工部]
-          target_scope: 只抽取能够与明代具体纪年中的施行、改革或结果相连接的制度事实；静态会典条文不得自动视为某皇帝成果。
-          domain_focus: [官制选官, 财政民生, 礼制教化, 军制, 法律监察, 工程交通]
         - work: 明史
           source_genre: official_history_treatises
+          page_titles: [明史/卷69, 明史/卷72, 明史/卷77, 明史/卷81, 明史/卷89, 明史/卷93, 明史/卷94]
           section_groups:
             bureaucracy: [職官志, 選舉志]
             economy: [食貨志, 河渠志]
             law: [刑法志]
             military: [兵志]
-          target_scope: 仅补会典制度的沿革、实际运行与结果，不作为皇帝编年主干或臣子列传替代。
-          domain_focus: [制度沿革, 实施结果]
+          target_scope: 仅抽取明代制度的沿革、实际运行、可观察结果与实际代价；按当前皇帝纪年词增量筛选，不作为皇帝编年主干或臣子列传替代。
+          domain_focus: [官制选官, 户籍赋役, 货币贸易, 军制与锦衣卫, 法律刑狱]
     清:
       aliases: [后金]
       dynasty_token: QING

@@ -176,7 +176,12 @@ def _catalog_dynasty_config(
             continue
         aliases = {str(value).strip() for value in row.get("aliases") or ()}
         if normalized == str(name) or normalized in aliases:
-            return str(name), row
+            return str(name), {
+                **row,
+                "quality_requires_catalog_source_families": bool(
+                    catalog.get("quality_requires_catalog_source_families")
+                ),
+            }
     raise ValueError(f"朝代尚未配置政书目录: {dynasty}")
 
 
@@ -187,6 +192,67 @@ def load_dynasty_governance_catalog_entry(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
     )
     return _catalog_dynasty_config(project, dynasty)
+
+
+def dynasty_governance_catalog_fingerprint(
+    configured: Mapping[str, Any],
+) -> str:
+    """Bind a shared current to the exact source-family plan that admitted it."""
+
+    return _digest(
+        {
+            "dynasty_token": str(configured.get("dynasty_token") or ""),
+            "source_works": configured.get("source_works") or (),
+            "quality_requires_catalog_source_families": bool(
+                configured.get("quality_requires_catalog_source_families")
+            ),
+        }
+    )
+
+
+def validate_dynasty_governance_current_catalog(
+    current: Mapping[str, Any],
+    configured: Mapping[str, Any],
+) -> None:
+    if not configured.get("quality_requires_catalog_source_families"):
+        return
+    expected = dynasty_governance_catalog_fingerprint(configured)
+    if str(current.get("catalog_fingerprint") or "") != expected:
+        raise ValueError("朝代政书 current 未绑定当前书目目录及专题篇章")
+    actual_pages = {
+        str(row.get("page_title") or "")
+        for row in current.get("sources") or ()
+        if isinstance(row, Mapping)
+    }
+    actual_works = {
+        str(row.get("work") or "").strip()
+        or str(row.get("page_title") or "").split("/", 1)[0]
+        for row in current.get("sources") or ()
+        if isinstance(row, Mapping)
+    }
+    required_works = {
+        str(source.get("work") or "").strip()
+        for source in configured.get("source_works") or ()
+        if isinstance(source, Mapping) and str(source.get("work") or "").strip()
+    }
+    missing_works = sorted(required_works - actual_works)
+    if missing_works:
+        raise ValueError(
+            "朝代政书 current 缺少目录指定来源族: "
+            + ", ".join(missing_works)
+        )
+    required_pages = {
+        str(page_title)
+        for source in configured.get("source_works") or ()
+        if isinstance(source, Mapping)
+        for page_title in source.get("page_titles") or ()
+        if str(page_title).strip()
+    }
+    missing = sorted(required_pages - actual_pages)
+    if missing:
+        raise ValueError(
+            "朝代政书 current 缺少目录指定专题篇章: " + ", ".join(missing)
+        )
 
 
 def _load_dynasty_config(
@@ -389,6 +455,7 @@ def rebuild_dynasty_governance(
     dynasty = canonical_dynasty
     index = LocalSourceTextIndex(source_index_path)
     dynasty_token = str(configured["dynasty_token"])
+    catalog_fingerprint = dynasty_governance_catalog_fingerprint(configured)
     current_path = runtime_root / dynasty_token / "current.json"
     resume_root = runtime_root / ".resume" / dynasty_token
     work_root = runtime_root / ".work" / uuid4().hex
@@ -414,10 +481,16 @@ def rebuild_dynasty_governance(
         input_fingerprint = _digest(extraction_identity)
         if current_path.is_file():
             current = json.loads(current_path.read_text(encoding="utf-8"))
+            catalog_current_compatible = True
+            try:
+                validate_dynasty_governance_current_catalog(current, configured)
+            except ValueError:
+                catalog_current_compatible = False
             exact_current = (
                 current.get("schema_version") == SCHEMA_VERSION
                 and current.get("status") == "quality_accepted_shadow"
                 and current.get("input_fingerprint") == input_fingerprint
+                and catalog_current_compatible
             )
             previous_index_identity = str(
                 current.get("source_index_identity") or ""
@@ -435,6 +508,7 @@ def rebuild_dynasty_governance(
                 and current.get("input_fingerprint")
                 == _digest(previous_extraction_identity)
                 and (current.get("quality") or {}).get("status") == "passed"
+                and catalog_current_compatible
             )
             compatible_current = (
                 current.get("schema_version") == SCHEMA_VERSION
@@ -443,6 +517,7 @@ def rebuild_dynasty_governance(
                 and current.get("sources") == source_identities
                 and (current.get("quality") or {}).get("status") == "passed"
                 and not current.get("extraction_policy")
+                and catalog_current_compatible
             )
             if exact_current or compatible_current or index_superset_compatible:
                 shutil.rmtree(resume_root, ignore_errors=True)
@@ -593,6 +668,7 @@ def rebuild_dynasty_governance(
             "extraction_policy": EXTRACTION_POLICY_VERSION,
             "output_schema_sha256": extraction_identity["output_schema_sha256"],
             "source_index_identity": index.identity,
+            "catalog_fingerprint": catalog_fingerprint,
             "sources": source_identities,
             "quality": quality,
             "chains": audit["chains"],

@@ -44,6 +44,10 @@ from emperor_v4.runtime.emperor_outcome_projection import (
 from emperor_v4.runtime.deterministic_campaign_extraction import (
     discover_deterministic_backbone_campaigns,
 )
+from emperor_v4.runtime.dynasty_governance_rebuild import (
+    load_dynasty_governance_catalog_entry,
+    validate_dynasty_governance_current_catalog,
+)
 from emperor_v4.runtime.structured_codex_runner import (
     ModelBatchAnomalyError,
     StructuredCodexRunner,
@@ -54,7 +58,7 @@ SCHEMA_VERSION = "emperor-rebuild-v1"
 STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
-    "neutral_materials": "shared-directed-neutral-stage-v3",
+    "neutral_materials": "shared-directed-neutral-stage-v4",
     "outcome_projection": "shared-outcome-profile-projection-stage-v17",
     "current_projection": "shared-profile-window-i5b-stage-v3",
 }
@@ -929,6 +933,16 @@ def rebuild_emperor(
             )
         ):
             raise ValueError("朝代政书 current 头部合同与皇帝链路不匹配")
+        catalog_dynasty = str(source_pack.get("dynasty") or "").strip()
+        if catalog_dynasty:
+            _canonical_dynasty, governance_catalog = (
+                load_dynasty_governance_catalog_entry(
+                    workspace_root, catalog_dynasty
+                )
+            )
+            validate_dynasty_governance_current_catalog(
+                dynasty_governance_current, governance_catalog
+            )
     works = sorted(
         set(configured_scan_works)
         | {

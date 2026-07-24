@@ -66,7 +66,8 @@ def _eligible_achievements(
             raise ValueError("同一 independent_key 必须先合并为一个成就簇")
         seen.add(independent_key)
         positive_result = result in POSITIVE_RESULTS or (
-            result == "implemented_mixed"
+            domain == "military"
+            and result == "implemented_mixed"
             and bool(row.get("positive_result_preserved"))
         )
         counted_roles = (

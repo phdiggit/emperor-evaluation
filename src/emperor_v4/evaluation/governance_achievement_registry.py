@@ -177,8 +177,7 @@ def project_civil_talent_impact(
             row
             for row in rows
             if row["responsibility_role"] in COUNTED_ROLES
-            and row["result"] in {"implemented_positive", "completed_positive", "implemented_mixed"}
-            and (row["result"] != "implemented_mixed" or row["positive_result_preserved"])
+            and row["result"] in {"implemented_positive", "completed_positive"}
         ]
         national = [row for row in counted if rank[str(row["scale"])] >= rank["national"]]
         important = [row for row in counted if rank[str(row["scale"])] >= rank["important"]]
