@@ -404,6 +404,11 @@ def build_historical_person_profile_registry(
                 if not coverage_gaps
                 else "registered_outcomes_only"
             ),
+            "overall_grade_status": (
+                "frozen"
+                if not coverage_gaps
+                else "registered_outcomes_lower_bound"
+            ),
             "coverage_gaps": coverage_gaps,
         }
         profile["profile_fingerprint"] = _digest(profile)
@@ -510,6 +515,9 @@ def render_historical_person_profile_registry_markdown(
     }
     for profile in registry["profiles"]:
         domains = profile["domain_grades"]
+        overall_grade = grade_labels[profile["overall_grade"]]
+        if profile.get("overall_grade_status") == "registered_outcomes_lower_bound":
+            overall_grade = "至少" + overall_grade
         biography = profile.get("full_lifecycle_biography") or {}
         source_versions = {
             str(source_ref).split("#", 1)[0]
@@ -534,7 +542,7 @@ def render_historical_person_profile_registry_markdown(
         )
         lines.append(
             f"| {profile['profile_ref']} | {profile['person']} | "
-            f"{grade_labels[profile['overall_grade']]} | {primary} | "
+            f"{overall_grade} | {primary} | "
             f"{grade_labels[domains['military']['grade']]} | "
             f"{grade_labels[domains['civil_governance']['grade']]} | "
             f"{grade_labels[domains['statecraft']['grade']]} | "
@@ -550,13 +558,16 @@ def render_historical_person_profile_registry_markdown(
             continue
         anchor = f"profile-{str(profile['profile_ref']).lower()}"
         current_basis = str(profile["overall_basis"]).replace("\n", " ")
+        overall_grade = grade_labels[profile["overall_grade"]]
+        if profile.get("overall_grade_status") == "registered_outcomes_lower_bound":
+            overall_grade = "至少" + overall_grade
         for source_text, display_text in basis_labels.items():
             current_basis = current_basis.replace(source_text, display_text)
         lines.extend(
             [
                 f'<a id="{anchor}"></a>',
                 "",
-                f"### {profile['person']}（{grade_labels[profile['overall_grade']]}）",
+                f"### {profile['person']}（{overall_grade}）",
                 "",
                 f"- 当前档位判定：{current_basis}",
                 f"- 全部合格成果：{len(rows)} 项",

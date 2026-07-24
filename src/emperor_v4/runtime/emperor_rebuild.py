@@ -55,7 +55,7 @@ STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v3",
-    "outcome_projection": "shared-outcome-profile-projection-stage-v16",
+    "outcome_projection": "shared-outcome-profile-projection-stage-v17",
     "current_projection": "shared-profile-window-i5b-stage-v3",
 }
 
@@ -1725,7 +1725,43 @@ def rebuild_emperor(
             json.dumps(neutral_materials, ensure_ascii=False, indent=2, sort_keys=True)
             + "\n",
         )
-    outcome_review_layers = write_current_outcome_layers(workspace_root)
+    outcome_review_layers = write_current_outcome_layers(
+        workspace_root,
+        include_rulers=[ruler],
+    )
+    if ruler not in outcome_review_layers["included_rulers"]:
+        raise ValueError(f"{ruler} 已审成果未进入公共成果登记")
+    reviewed_source_pack = json.loads(
+        source_pack_path.read_text(encoding="utf-8")
+    )
+    reviewed_outcome_refs = {
+        str(row["outcome_ref"])
+        for row in (reviewed_source_pack.get("outcome_registry") or {}).get(
+            "clusters"
+        )
+        or ()
+    }
+    registered_origin_refs = {
+        str(origin_ref)
+        for row in outcome_review_layers["registry"]["outcomes"]
+        for origin_ref in row.get("origin_outcome_refs") or ()
+    }
+    missing_reviewed_outcomes = sorted(
+        reviewed_outcome_refs - registered_origin_refs
+    )
+    if missing_reviewed_outcomes:
+        raise ValueError(
+            f"{ruler} 已审成果未完整进入公共登记: "
+            + ", ".join(missing_reviewed_outcomes)
+        )
+    dynasty_partition = str(
+        configured.get("dynasty_governance_material_token") or ""
+    )
+    if (
+        not dynasty_partition
+        or dynasty_partition not in outcome_review_layers["partition_paths"]
+    ):
+        raise ValueError(f"{ruler} 公共成果缺少朝代分区: {dynasty_partition}")
     outcome_stage = _accept_stage(
         runtime_root=runtime_root,
         stage_cache_root=stage_cache_root,
@@ -1741,6 +1777,12 @@ def rebuild_emperor(
             "registry_outcome_count": len(
                 outcome_review_layers["registry"]["outcomes"]
             ),
+            "current_ruler_outcome_count": len(reviewed_outcome_refs),
+            "current_ruler_registered_outcome_count": len(
+                reviewed_outcome_refs & registered_origin_refs
+            ),
+            "current_ruler_partition": dynasty_partition,
+            "included_rulers": outcome_review_layers["included_rulers"],
             "registry_fingerprint": outcome_review_layers["registry"][
                 "registry_fingerprint"
             ],

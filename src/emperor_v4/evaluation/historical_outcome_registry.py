@@ -697,10 +697,15 @@ def _profile_partition_map(
     return result
 
 
-def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
+def write_current_outcome_layers(
+    workspace_root: Path,
+    *,
+    include_rulers: Sequence[str] = (),
+) -> dict[str, Any]:
     """Publish shared outcomes and profiles first, then ruler bindings."""
 
     workspace_root = workspace_root.resolve()
+    explicitly_included = {str(value) for value in include_rulers}
     project = yaml.safe_load(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
     )
@@ -712,7 +717,10 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         source_path = workspace_root / str(ruler_config["source_pack"])
         source_pack = json.loads(source_path.read_text(encoding="utf-8"))
         projection_gate = source_pack.get("profile_projection_gate") or {}
-        if projection_gate.get("freeze_allowed") is not True:
+        if (
+            projection_gate.get("freeze_allowed") is not True
+            and str(ruler_name) not in explicitly_included
+        ):
             continue
         configured_packs.append((str(ruler_name), ruler_config, source_pack))
     if not configured_packs:
@@ -941,6 +949,7 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         "profile_registry_markdown": str(profile_markdown),
         "partition_paths": partition_paths,
         "binding_paths": binding_paths,
+        "included_rulers": sorted(row[0] for row in configured_packs),
     }
 
 

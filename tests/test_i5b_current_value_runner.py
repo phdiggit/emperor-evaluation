@@ -27,6 +27,7 @@ from emperor_v4.evaluation.historical_outcome_registry import (
     build_unbound_historical_outcome_registry,
     materialize_ruler_outcome_registry,
     render_unbound_historical_outcome_registry_markdown,
+    write_current_outcome_layers,
 )
 from emperor_v4.evaluation.historical_person_profile_registry import (
     build_historical_person_profile_registry,
@@ -2803,6 +2804,70 @@ def test_release_upgrade_still_rejects_current_ruler_source_pack_drift(
             session_id="SESSION-PROTECTED-UPGRADE",
             release_root=release,
         )
+
+
+def test_release_upgrade_refreshes_other_ruler_pack_before_shared_render(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    release_sha = {"value": "1" * 40}
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_release_identity",
+        lambda _root: release_sha["value"],
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-SHARED-BASELINE-UPGRADE",
+        ruler="李治",
+        model_slot_count=1,
+    )
+    lease_path = (
+        state
+        / "session-control/sessions/SESSION-SHARED-BASELINE-UPGRADE/current.json"
+    )
+    failed = json.loads(lease_path.read_text(encoding="utf-8"))
+    failed["stage"] = "failed_reusable"
+    lease_path.write_text(
+        json.dumps(failed, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    workspace = Path(lease["workspace_root"])
+    other_source_pack = (
+        workspace / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    stale = json.loads(other_source_pack.read_text(encoding="utf-8"))
+    for outcome in stale["outcome_registry"]["clusters"]:
+        if outcome["outcome_kind"] == "governance":
+            outcome["payload"].pop("value_judgment", None)
+    other_source_pack.write_text(
+        json.dumps(stale, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    release_sha["value"] = "2" * 40
+
+    report = emperor_session_control.upgrade_failed_session_release(
+        state_root=state,
+        session_id="SESSION-SHARED-BASELINE-UPGRADE",
+        release_root=release,
+    )
+    refreshed = json.loads(other_source_pack.read_text(encoding="utf-8"))
+    governance = [
+        row
+        for row in refreshed["outcome_registry"]["clusters"]
+        if row["outcome_kind"] == "governance"
+    ]
+
+    assert governance
+    assert all("value_judgment" in row["payload"] for row in governance)
+    assert report["other_ruler_canonical_refreshes"] == [
+        "eval/i5b_current_value/李世民/source-pack.json"
+    ]
+    published = write_current_outcome_layers(workspace)
+    assert Path(published["registry_json"]).is_file()
+    assert Path(published["registry_markdown"]).is_file()
 
 
 def test_claimed_session_can_pause_after_outcome_review_gate(
@@ -6898,6 +6963,69 @@ def test_outcome_projection_applies_main_session_review_without_model(
     assert any(
         row["independent_key"] == "test-governance-contract"
         for row in written["outcome_registry"]["clusters"]
+    )
+    replay = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials={"fanout": {"facts": [fact]}},
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+        reviewed_payload=_governance_candidate_payload(),
+    )
+    assert replay["candidate_count"] == 1
+    assert replay["source_pack_changed"] is False
+
+
+def test_shared_outcome_export_includes_reviewed_open_profile_pack(
+    tmp_path: Path,
+) -> None:
+    workspace = _session_release_fixture(tmp_path)
+    source_pack_path = (
+        workspace / "eval/i5b_current_value/李世民/source-pack.json"
+    )
+    source_pack = json.loads(source_pack_path.read_text(encoding="utf-8"))
+    source_pack["profile_projection_gate"].update(
+        {
+            "status": "material_coverage_open",
+            "material_coverage_complete": False,
+            "freeze_allowed": False,
+        }
+    )
+    source_pack_path.write_text(
+        json.dumps(source_pack, ensure_ascii=False, indent=2, sort_keys=True)
+        + "\n",
+        encoding="utf-8",
+    )
+
+    published = write_current_outcome_layers(
+        workspace,
+        include_rulers=["李世民"],
+    )
+    source_outcome_refs = {
+        str(row["outcome_ref"])
+        for row in source_pack["outcome_registry"]["clusters"]
+    }
+    registered_origin_refs = {
+        str(origin_ref)
+        for row in published["registry"]["outcomes"]
+        for origin_ref in row.get("origin_outcome_refs") or ()
+    }
+
+    assert "李世民" in published["included_rulers"]
+    assert source_outcome_refs <= registered_origin_refs
+    assert "TANG" in published["partition_paths"]
+    open_profiles = [
+        row
+        for row in published["profile_registry"]["profiles"]
+        if row["coverage_status"] == "registered_outcomes_only"
+    ]
+    assert open_profiles
+    assert all(
+        row["overall_grade_status"] == "registered_outcomes_lower_bound"
+        for row in open_profiles
     )
 
 

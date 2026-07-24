@@ -657,7 +657,7 @@ def project_current_outcomes(
         if str(fact["fact_ref"]) not in dispositions
         and fact.get("outcome_candidate_status") != "clear_non_candidate"
     ]
-    if not eligible:
+    if not eligible and reviewed_payload is None:
         return {
             "schema_version": SCHEMA_VERSION,
             "candidate_count": 0,
@@ -667,6 +667,8 @@ def project_current_outcomes(
             "policy_fingerprint": policy_fingerprint,
             "dispositions": [dispositions[key] for key in sorted(dispositions)],
         }
+    if reviewed_payload is not None:
+        eligible = all_eligible
     if source_index is None:
         raise ValueError("待投射成果事实必须提供固定 revision 史源索引")
     eligible_pages = {
