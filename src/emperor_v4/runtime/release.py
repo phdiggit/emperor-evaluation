@@ -13,6 +13,10 @@ from typing import Any, Iterable, Sequence
 RELEASE_CONTRACT = "emperor-v4-service-release-v1"
 SOURCE_CACHE_RELEASE_PATHS = (
     "pyproject.toml",
+    "config/i5b-source-search-scope.yml",
+    "config/project.yml",
+    "config/workflow-source-cache.yml",
+    "config/workflow-source-cache-request.schema.json",
     "config/dynasty-neutral-governance-output.schema.json",
     "config/dynasty-neutral-material-atomization-output.schema.json",
     "config/dynasty-neutral-source-increment-output.schema.json",
@@ -24,6 +28,7 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "src/emperor_v4/adapters/source_cache_fixture.py",
     "src/emperor_v4/adapters/source_cache_plan.py",
     "src/emperor_v4/adapters/source_cache_wikisource.py",
+    "src/emperor_v4/adapters/source_text_index.py",
     "src/emperor_v4/adapters/structured_output_contract.py",
     "src/emperor_v4/adapters/wikisource.py",
     "src/emperor_v4/application/source_cache_service.py",
@@ -37,6 +42,7 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "src/emperor_v4/runtime/release.py",
     "src/emperor_v4/runtime/source_cache.py",
     "src/emperor_v4/runtime/source_cache_worker.py",
+    "src/emperor_v4/runtime/workflow_source_cache.py",
     "db/postgres/002_v4_source_cache_service.sql",
     "db/postgres/003_v4_source_cache_jobs.sql",
     "deploy/v4/emperor-v4-source-cache-worker.service",

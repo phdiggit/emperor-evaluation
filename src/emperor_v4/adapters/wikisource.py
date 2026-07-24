@@ -17,6 +17,49 @@ DEFAULT_PAGE_BASE = "https://zh.wikisource.org/wiki/"
 DEFAULT_USER_AGENT = "emperor-v4-source-qualification/0.1"
 
 
+def list_wikisource_subpages(
+    *,
+    root_title: str,
+    api_endpoint: str = DEFAULT_API_ENDPOINT,
+    timeout_seconds: float = 30.0,
+) -> tuple[str, ...]:
+    """List every main-namespace subpage below one work without fetching text."""
+
+    root = str(root_title).strip().rstrip("/")
+    if not root:
+        raise ValueError("Wikisource work root 不能为空")
+    titles: list[str] = []
+    continuation: str | None = None
+    while True:
+        params = {
+            "action": "query",
+            "format": "json",
+            "formatversion": "2",
+            "list": "allpages",
+            "apnamespace": "0",
+            "apprefix": root + "/",
+            "aplimit": "max",
+        }
+        if continuation:
+            params["apcontinue"] = continuation
+        request = Request(
+            api_endpoint + "?" + urlencode(params),
+            headers={"User-Agent": DEFAULT_USER_AGENT},
+        )
+        payload = _request_json_with_retry(
+            request, timeout_seconds=timeout_seconds, max_attempts=2
+        )
+        titles.extend(
+            str(row.get("title") or "").strip()
+            for row in ((payload.get("query") or {}).get("allpages") or ())
+            if str(row.get("title") or "").strip()
+        )
+        continuation = str((payload.get("continue") or {}).get("apcontinue") or "")
+        if not continuation:
+            break
+    return tuple(dict.fromkeys(titles))
+
+
 class _RenderedPlaintextParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()

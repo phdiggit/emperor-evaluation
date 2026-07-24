@@ -2,8 +2,9 @@
 Description=Run Emperor Evaluation V4 Source Cache worker
 
 [Timer]
-OnBootSec=30s
-OnUnitActiveSec=10s
+OnBootSec=60s
+OnUnitActiveSec=60s
+RandomizedDelaySec=15s
 Unit=emperor-v4-source-cache-worker.service
 
 [Install]

@@ -29,7 +29,8 @@ id emperor-v4 >/dev/null 2>&1 || useradd --system --gid emperor-v4 --home-dir "$
 
 install -d -o root -g root -m 0755 "$root" "$root/bin"
 install -d -o root -g emperor-v4 -m 0750 "$etc_root" "$source_plan_root"
-install -d -o emperor-v4 -g emperor-v4 -m 2770 "$state_parent" "$state_root" "$state_root/claim-extractor" "$state_root/claim-extractor/codex" "$state_root/neutral-material-batches" "$state_root/session-control" "$state_root/shared-neutral-backbones"
+install -d -o emperor-v4 -g emperor-v4 -m 2770 "$state_parent" "$state_root" "$state_root/source-cache" "$state_root/source-cache/requests" "$state_root/source-cache/pages" "$state_root/source-cache/inventories" "$state_root/claim-extractor" "$state_root/claim-extractor/codex" "$state_root/neutral-material-batches" "$state_root/session-control" "$state_root/shared-neutral-backbones"
+install -d -o emperor-v4 -g emperor-v4 -m 2770 "/data1/emperor-evaluation/runtime/active/source_text_indexes"
 install -d -o emperor-v4 -g emperor-v4 -m 0750 "/data1/emperor-evaluation/runtime/active/dynasty_neutral_materials"
 install -o root -g root -m 0755 "$codex_source" "$root/bin/codex"
 

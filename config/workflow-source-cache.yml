@@ -1,0 +1,41 @@
+schema_version: workflow-source-cache-catalog-v1
+
+source_catalogs:
+  search_scope: config/i5b-source-search-scope.yml
+  project: config/project.yml
+  derive_neutral_material_works: true
+  derive_dynasty_governance_works: true
+
+provider:
+  code: wikisource
+  work_title_script: traditional
+  skip_name_fragments: [对应皇帝实录]
+  max_pages_per_tick: 5
+  transient_retry_after_seconds: 1800
+  rate_limit_retry_after_seconds: 21600
+
+pinned_collections:
+  - collection_id: MING-HONGWU
+    purpose: 朱元璋连续实录、本纪与候选臣子列传
+    works:
+      - work_title: 大明太祖高皇帝實錄
+        root_title: 大明太祖高皇帝實錄
+        required_page_ranges:
+          - page_title_format: 大明太祖高皇帝實錄/卷{volume:03d}
+            first: 1
+            last: 257
+      - work_title: 明史
+        root_title: 明史
+        required_page_titles:
+          - 明史/卷1
+          - 明史/卷2
+          - 明史/卷3
+          - 明史/卷125
+          - 明史/卷126
+          - 明史/卷127
+          - 明史/卷128
+          - 明史/卷129
+          - 明史/卷132
+          - 明史/卷133
+          - 明史/卷136
+          - 明史/卷308

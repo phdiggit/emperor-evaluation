@@ -1,5 +1,5 @@
 [Unit]
-Description=Emperor Evaluation V4 Source Cache lease worker
+Description=Emperor Evaluation V4 workflow source cache warmer
 After=network-online.target
 
 [Service]
@@ -7,10 +7,10 @@ Type=oneshot
 User=emperor-v4
 Group=emperor-v4
 WorkingDirectory=/opt/emperor-evaluation-v4/source-cache/current
-EnvironmentFile=/etc/emperor-evaluation-v4/source-cache.env
 Environment=PYTHONPATH=/opt/emperor-evaluation-v4/source-cache/current/src
-ExecStart=/opt/emperor-evaluation-v4/source-cache/venv/bin/python -m emperor_v4.runtime.source_cache_worker --worker-id %H-source-cache --provider wikisource --plan /etc/emperor-evaluation-v4/source-cache-plans --service-release-sha ${EMPEROR_EVAL_V4_RELEASE_SHA} --repo-root /opt/emperor-evaluation-v4/source-cache/current
+ExecStart=/opt/emperor-evaluation-v4/source-cache/venv/bin/python -m emperor_v4.runtime.workflow_source_cache --catalog /opt/emperor-evaluation-v4/source-cache/current/config/workflow-source-cache.yml --repo-root /opt/emperor-evaluation-v4/source-cache/current --state-root /data1/emperor-evaluation/runtime/services/emperor-v4/source-cache --request-root /data1/emperor-evaluation/runtime/services/emperor-v4/source-cache/requests --source-index-root /data1/emperor-evaluation/runtime/active/source_text_indexes
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
+ReadWritePaths=/data1/emperor-evaluation/runtime/services/emperor-v4/source-cache /data1/emperor-evaluation/runtime/active/source_text_indexes
