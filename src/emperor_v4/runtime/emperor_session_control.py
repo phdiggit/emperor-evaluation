@@ -670,7 +670,17 @@ def complete_session_bootstrap(
     if not path.is_file():
         raise SessionControlError("会话租约不存在")
     lease = _read_json(path)
-    if lease.get("bootstrap_required") is not True:
+    revising_failed_source_scope = bool(
+        lease.get("bootstrap_scope_revision")
+    ) or (
+        lease.get("bootstrap_required") is not True
+        and bool(lease.get("bootstrap_spec"))
+        and lease.get("stage") == "failed_reusable"
+    )
+    if (
+        lease.get("bootstrap_required") is not True
+        and not revising_failed_source_scope
+    ):
         raise SessionControlError("该会话不处于首次 bootstrap 阶段")
     spec = _read_json(bootstrap_spec_path.resolve())
     if spec.get("schema_version") != BOOTSTRAP_SCHEMA_VERSION:
@@ -678,6 +688,23 @@ def complete_session_bootstrap(
     ruler = str(lease["ruler"])
     if str(spec.get("ruler") or "") != ruler:
         raise SessionControlError("bootstrap spec 皇帝与租约不匹配")
+    if revising_failed_source_scope:
+        previous_spec = _read_json(Path(str(lease["bootstrap_spec"])))
+        immutable_fields = (
+            "ruler",
+            "ruler_ref",
+            "dynasty",
+            "window",
+            "members",
+            "identity_entries",
+        )
+        if any(
+            previous_spec.get(field) != spec.get(field)
+            for field in immutable_fields
+        ):
+            raise SessionControlError(
+                "failed_reusable 只允许修订 bootstrap 史源范围"
+            )
     ruler_ref = _safe_token(spec.get("ruler_ref"), field="ruler_ref")
     dynasty = str(spec.get("dynasty") or "").strip()
     window = str(spec.get("window") or "").strip()
@@ -701,8 +728,6 @@ def complete_session_bootstrap(
             raise SessionControlError(
                 f"bootstrap ruler_config {field} 必须为 {expected}"
             )
-    if not configured.get("neutral_scan_backsource_works"):
-        raise SessionControlError("bootstrap ruler_config 缺少定向回源正史")
     if not configured.get("dynasty_governance_material_token"):
         raise SessionControlError("bootstrap ruler_config 缺少朝代治理 token")
     if not configured.get("neutral_scan_backbone_material_token") and (
@@ -877,6 +902,9 @@ def complete_session_bootstrap(
         else:
             shared_tokens.append(token)
     if missing:
+        lease["bootstrap_required"] = True
+        if revising_failed_source_scope:
+            lease["bootstrap_scope_revision"] = True
         lease["stage"] = "bootstrap_assets_required"
         lease["bootstrap_spec"] = str(runtime_spec_path)
         lease["updated_at"] = _now()
@@ -921,6 +949,7 @@ def complete_session_bootstrap(
             "updated_at": _now(),
         }
     )
+    lease.pop("bootstrap_scope_revision", None)
     report = _bootstrap_report(
         lease=lease,
         missing=[],

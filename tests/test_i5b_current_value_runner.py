@@ -1450,7 +1450,6 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
             "result": "eval/i5b_current_value/朱元璋/result.json",
             "neutral_scan_backbone_works": ["明太祖實錄"],
             "neutral_scan_backbone_page_ranges": {"明太祖實錄": [1, 2]},
-            "neutral_scan_backsource_works": ["明史"],
             "dynasty_governance_material_token": "MING-HONGWU",
             "dynasty_governance_period_terms": ["洪武", "明太祖", "朱元璋"],
         },
@@ -1513,13 +1512,6 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
                 "revision_ref": "1",
                 "raw_text": "洪武元年即皇帝位。",
             },
-            {
-                "page_title": "明史/卷一",
-                "work_title": "明史",
-                "source_url": "local:ming-history",
-                "revision_ref": "1",
-                "raw_text": "太祖高皇帝姓朱氏。",
-            },
         ],
         index_path,
     )
@@ -1552,6 +1544,38 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     assert session["stage"] == "claimed"
     assert session["bootstrap_required"] is False
     assert session["ruler_ref"] == "RULER-MING-ZHUYUANZHANG"
+
+    lease_path = emperor_session_control._session_path(
+        state, "SESSION-ZHU-YUANZHANG"
+    )
+    failed = json.loads(lease_path.read_text(encoding="utf-8"))
+    failed["stage"] = "failed_reusable"
+    emperor_session_control._atomic_json(lease_path, failed)
+    revised_spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    revised_spec["ruler_config"]["neutral_scan_backbone_page_ranges"] = {
+        "明太祖實錄": [1, 1]
+    }
+    spec_path.write_text(
+        json.dumps(revised_spec, ensure_ascii=False), encoding="utf-8"
+    )
+
+    revised = emperor_session_control.complete_session_bootstrap(
+        state_root=state,
+        session_id="SESSION-ZHU-YUANZHANG",
+        bootstrap_spec_path=spec_path,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=tmp_path / "governance",
+    )
+
+    assert revised["status"] == "bootstrap_ready"
+    workspace_project = yaml.safe_load(
+        (
+            Path(lease["workspace_root"]) / "config/project.yml"
+        ).read_text(encoding="utf-8")
+    )
+    assert workspace_project["i5b_current_value"]["rulers"]["朱元璋"][
+        "neutral_scan_backbone_page_ranges"
+    ] == {"明太祖實錄": [1, 1]}
 
 
 def test_emperor_session_claim_rejects_overlapping_range_before_leases(
@@ -4351,7 +4375,14 @@ def test_independent_backbone_closes_explicit_actors_and_stops_at_ruler_death(
                     "=== 高宗天皇大聖大弘孝皇帝下光宅元年（甲申，公元六八四年）===\n"
                     "詔以李孝逸為左玉鈐衛大將軍，討徐敬業。"
                 ),
-            }
+            },
+            {
+                "page_title": "舊唐書/卷84",
+                "work_title": "舊唐書",
+                "source_url": "local:84",
+                "revision_ref": "2",
+                "raw_text": "任雅相奉詔出師，與諸將分道進討，破其眾。",
+            },
         ],
         index_path,
     )
@@ -4385,6 +4416,43 @@ def test_independent_backbone_closes_explicit_actors_and_stops_at_ruler_death(
         for segment in segments
         if "劉仁軌專知" in segment["text"] or "徐敬業" in segment["text"]
     )
+
+    provisional_name = "任雅相"
+    provisional_ref = "PER-ACTOR-TEST-REN"
+    event_signatures = [
+        {
+            "event_ref": "EVENT-REN-YAXIANG",
+            "subject_bindings": [
+                {
+                    "subject_ref": provisional_ref,
+                    "canonical_name": provisional_name,
+                    "recall_terms": [provisional_name],
+                }
+            ],
+            "chronology_anchors": [],
+            "location_anchors": [],
+            "action_anchors": ["奉诏出师", "分道进讨"],
+            "result_anchors": ["破其众"],
+            "quote_anchors": ["奉诏出师", "分道进讨", "破其众"],
+            "backbone_quotes": [],
+        }
+    ]
+    directed = build_event_directed_neutral_plan(
+        backbone_plan=plan,
+        event_signatures=event_signatures,
+        source_index=LocalSourceTextIndex(index_path),
+        identity_resolver=resolver,
+        backsource_works=["舊唐書"],
+        supplement_works=[],
+    )
+    targeted = [
+        segment
+        for batch in directed["page_batches"]
+        for segment in batch["segments"]
+        if segment.get("source_role") == "backsource"
+    ]
+    assert targeted
+    assert targeted[0]["subject_refs"] == [provisional_ref]
 
 
 @pytest.mark.parametrize(

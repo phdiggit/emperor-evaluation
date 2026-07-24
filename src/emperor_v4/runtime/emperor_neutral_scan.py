@@ -1713,13 +1713,44 @@ def _event_target_batches(
     identity_resolver: HistoricalEntityResolver,
     works_by_role: Mapping[str, Sequence[str]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    signature_subjects = {
-        str(row["canonical_name"])
-        for signature in event_signatures
-        for row in signature.get("subject_bindings") or ()
-    }
+    signature_subject_bindings: dict[str, dict[str, Any]] = {}
+    for signature in event_signatures:
+        for raw_binding in signature.get("subject_bindings") or ():
+            name = str(raw_binding.get("canonical_name") or "").strip()
+            subject_ref = str(raw_binding.get("subject_ref") or "").strip()
+            if not name or not subject_ref:
+                raise ValueError("事件回源 subject binding 缺少人物名称或稳定身份")
+            binding = {
+                "canonical_name": name,
+                "subject_ref": subject_ref,
+                "recall_terms": [
+                    str(value)
+                    for value in raw_binding.get("recall_terms") or ()
+                    if str(value)
+                ],
+            }
+            existing = signature_subject_bindings.get(name)
+            if existing is not None and existing["subject_ref"] != subject_ref:
+                raise ValueError(f"事件回源人物身份冲突: {name}")
+            if existing is None:
+                signature_subject_bindings[name] = binding
+            else:
+                existing["recall_terms"] = list(
+                    dict.fromkeys(
+                        [
+                            *existing["recall_terms"],
+                            *binding["recall_terms"],
+                        ]
+                    )
+                )
+    signature_subjects = set(signature_subject_bindings)
+    if not signature_subjects:
+        raise ValueError("事件回源缺少人物绑定")
     recall_terms_by_subject = {
-        name: tuple(_safe_recall_terms(identity_resolver, name))
+        name: tuple(
+            signature_subject_bindings[name]["recall_terms"]
+            or _safe_recall_terms(identity_resolver, name)
+        )
         for name in signature_subjects
     }
     normalized_recall_terms_by_subject = {
@@ -1861,7 +1892,7 @@ def _event_target_batches(
                     matched_entity_names.add(name)
             subject_refs = sorted(
                 {
-                    identity_resolver.entity_for_name(name).person_ref
+                    str(signature_subject_bindings[name]["subject_ref"])
                     for name in matched_entity_names
                 }
             )

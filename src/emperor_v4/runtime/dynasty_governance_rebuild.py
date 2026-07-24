@@ -350,6 +350,23 @@ def rebuild_dynasty_governance(
                 and current.get("status") == "quality_accepted_shadow"
                 and current.get("input_fingerprint") == input_fingerprint
             )
+            previous_index_identity = str(
+                current.get("source_index_identity") or ""
+            )
+            previous_extraction_identity = {
+                **extraction_identity,
+                "source_index_identity": previous_index_identity,
+            }
+            index_superset_compatible = (
+                current.get("schema_version") == SCHEMA_VERSION
+                and current.get("status") == "quality_accepted_shadow"
+                and bool(previous_index_identity)
+                and previous_index_identity != index.identity
+                and current.get("sources") == source_identities
+                and current.get("input_fingerprint")
+                == _digest(previous_extraction_identity)
+                and (current.get("quality") or {}).get("status") == "passed"
+            )
             compatible_current = (
                 current.get("schema_version") == SCHEMA_VERSION
                 and current.get("status") == "quality_accepted_shadow"
@@ -358,17 +375,19 @@ def rebuild_dynasty_governance(
                 and (current.get("quality") or {}).get("status") == "passed"
                 and not current.get("extraction_policy")
             )
-            if exact_current or compatible_current:
+            if exact_current or compatible_current or index_superset_compatible:
                 shutil.rmtree(resume_root, ignore_errors=True)
                 current = {
                     **current,
                     "input_fingerprint": input_fingerprint,
                     "extraction_policy": EXTRACTION_POLICY_VERSION,
+                    "source_index_identity": index.identity,
+                    "sources": source_identities,
                     "output_schema_sha256": extraction_identity[
                         "output_schema_sha256"
                     ],
                 }
-                if compatible_current:
+                if compatible_current or index_superset_compatible:
                     _atomic_json(current_path, current)
                 return {
                     **current,

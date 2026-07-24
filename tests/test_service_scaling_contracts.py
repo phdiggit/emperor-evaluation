@@ -239,10 +239,39 @@ dynasty_governance_scans:
             ),
         }
     )
+    previous_identity = LocalSourceTextIndex(index_path).identity
+    expanded_index_path = tmp_path / "expanded-source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "TestTreatise/1",
+                "work_title": "TestTreatise",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": "implemented reform",
+            },
+            {
+                "page_title": "UnrelatedChronicle/1",
+                "work_title": "UnrelatedChronicle",
+                "source_url": "local:unrelated",
+                "revision_ref": "1",
+                "raw_text": "unrelated fixed source expansion",
+            },
+        ],
+        expanded_index_path,
+    )
+    expanded_identity = LocalSourceTextIndex(expanded_index_path).identity
+    third = dynasty_governance_rebuild.rebuild_dynasty_governance(
+        **{**arguments, "source_index_path": expanded_index_path}
+    )
 
     assert first["reused"] is False
     assert first["quality"]["status"] == "passed"
     assert second["reused"] is True
+    assert previous_identity != expanded_identity
+    assert third["reused"] is True
+    assert third["source_index_identity"] == expanded_identity
+    assert third["model_call_count"] == 0
     assert second["model_call_count"] == 0
     assert FakeRunner.calls == 1
 
