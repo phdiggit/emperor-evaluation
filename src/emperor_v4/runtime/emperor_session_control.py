@@ -1406,8 +1406,15 @@ def upgrade_failed_session_release(
     if not path.is_file():
         raise SessionControlError("会话租约不存在")
     lease = _read_json(path)
-    if lease.get("stage") != "failed_reusable":
-        raise SessionControlError("只有 failed_reusable 会话可以升级 release")
+    stage = str(lease.get("stage") or "")
+    bootstrap_session = bool(lease.get("bootstrap_spec"))
+    allowed_stages = {"failed_reusable"}
+    if bootstrap_session:
+        allowed_stages.add("bootstrap_assets_required")
+    if stage not in allowed_stages:
+        raise SessionControlError(
+            "只有 failed_reusable，或等待资产的 bootstrap 会话可以升级 release"
+        )
     control = _control_root(state_root)
     resource_ruler_ref = str(
         lease.get("resource_ruler_ref") or lease["ruler_ref"]
@@ -1427,7 +1434,6 @@ def upgrade_failed_session_release(
     target_contract_fingerprint = _contract_fingerprint(release_root)
     rulers, _ = _project_rulers(release_root)
     configured = rulers.get(str(lease["ruler"]))
-    bootstrap_session = bool(lease.get("bootstrap_spec"))
     workspace_root = Path(str(lease["workspace_root"]))
     workspace_project_path = workspace_root / "config/project.yml"
     workspace_project = yaml.safe_load(
