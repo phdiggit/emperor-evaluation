@@ -3409,10 +3409,108 @@ def test_review_upgrade_preserves_quality_accepted_stage_source_pack(
     upgraded = json.loads(lease_path.read_text(encoding="utf-8"))
 
     assert report["accepted_stage_source_pack_preserved"] is True
+    assert report["accepted_stage_source_pack_restored"] is False
     assert json.loads(workspace_pack.read_text(encoding="utf-8")) == accepted
     assert upgraded["canonical_expected_sha256"]["source_pack"] == accepted_sha
     assert upgraded["stage"] == lease_stage
     assert upgraded["review_stage"] == "outcome_projection"
+
+
+def test_failed_review_upgrade_restores_quality_accepted_stage_source_pack(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    release_sha = {"value": "1" * 40}
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_release_identity",
+        lambda _root: release_sha["value"],
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-FAILED-REVIEW-RESTORE",
+        ruler="李治",
+        model_slot_count=1,
+    )
+    lease_path = (
+        state
+        / "session-control/sessions/SESSION-FAILED-REVIEW-RESTORE/current.json"
+    )
+    failed = json.loads(lease_path.read_text(encoding="utf-8"))
+    failed["stage"] = "failed_reusable"
+    failed["review_stage"] = "outcome_projection"
+    lease_path.write_text(
+        json.dumps(failed, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    configured = yaml.safe_load(
+        (release / "config/project.yml").read_text(encoding="utf-8")
+    )["i5b_current_value"]["rulers"]["李治"]
+    workspace_pack = Path(lease["workspace_root"]) / configured["source_pack"]
+    accepted = json.loads(workspace_pack.read_text(encoding="utf-8"))
+    accepted["facts"] = [{"record_ref": "PFACT-ACCEPTED"}]
+    accepted.pop("source_pack_sha256", None)
+    accepted["source_pack_sha256"] = emperor_session_control._digest(accepted)
+    workspace_pack.write_text(
+        json.dumps(accepted, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    accepted_sha = hashlib.sha256(workspace_pack.read_bytes()).hexdigest()
+    stage_root = (
+        Path(lease["runtime_root"]) / "stages" / "outcome_projection"
+    )
+    stage_root.mkdir(parents=True)
+    shutil.copy2(workspace_pack, stage_root / "source_pack.json")
+    (stage_root / "current.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "emperor-stage-manifest-v1",
+                "stage": "outcome_projection",
+                "status": "quality_accepted",
+                "artifacts": {
+                    "source_pack": {
+                        "file": "source_pack.json",
+                        "sha256": accepted_sha,
+                    }
+                },
+            },
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    failed_replay = json.loads(
+        json.dumps(accepted, ensure_ascii=False)
+    )
+    failed_replay["facts"].append({"record_ref": "PFACT-FAILED-REPLAY"})
+    failed_replay.pop("source_pack_sha256", None)
+    failed_replay["source_pack_sha256"] = emperor_session_control._digest(
+        failed_replay
+    )
+    workspace_pack.write_text(
+        json.dumps(
+            failed_replay, ensure_ascii=False, indent=2, sort_keys=True
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    release_sha["value"] = "2" * 40
+
+    report = emperor_session_control.upgrade_failed_session_release(
+        state_root=state,
+        session_id="SESSION-FAILED-REVIEW-RESTORE",
+        release_root=release,
+    )
+
+    assert report["accepted_stage_source_pack_preserved"] is True
+    assert report["accepted_stage_source_pack_restored"] is True
+    assert json.loads(workspace_pack.read_text(encoding="utf-8")) == accepted
+    upgraded = json.loads(lease_path.read_text(encoding="utf-8"))
+    assert upgraded["canonical_expected_sha256"]["source_pack"] == accepted_sha
 
 
 def test_release_upgrade_still_rejects_current_ruler_source_pack_drift(

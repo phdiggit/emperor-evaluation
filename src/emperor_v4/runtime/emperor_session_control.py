@@ -329,10 +329,7 @@ def _accepted_outcome_stage_source_pack_sha(
     ):
         return None
     staged_source_pack = stage_root / artifact_file
-    if (
-        _file_sha256(staged_source_pack) != artifact_sha
-        or _file_sha256(workspace_source_pack) != artifact_sha
-    ):
+    if _file_sha256(staged_source_pack) != artifact_sha:
         return None
     return artifact_sha
 
@@ -1706,6 +1703,11 @@ def upgrade_failed_session_release(
         lease=lease,
         workspace_source_pack=workspace_source_pack,
     )
+    accepted_stage_source_pack_restored = bool(
+        accepted_stage_source_pack_sha
+        and _file_sha256(workspace_source_pack)
+        != accepted_stage_source_pack_sha
+    )
     outcome_review_contract_reset = None
     if stage == "awaiting_review" and lease.get("review_stage") == (
         "outcome_projection"
@@ -1862,6 +1864,14 @@ def upgrade_failed_session_release(
     )
     if outcome_review_contract_reset is not None:
         _atomic_json(workspace_source_pack, outcome_review_contract_reset[0])
+    elif accepted_stage_source_pack_restored:
+        staged_source_pack = (
+            Path(str(lease["runtime_root"]))
+            / "stages"
+            / "outcome_projection"
+            / "source_pack.json"
+        )
+        shutil.copy2(staged_source_pack, workspace_source_pack)
     elif current_ruler_source_pack_schema_migration:
         shutil.copy2(target_canonical["source_pack"], workspace_source_pack)
     other_ruler_canonical_refreshes = _refresh_other_ruler_source_packs(
@@ -1921,6 +1931,9 @@ def upgrade_failed_session_release(
         ),
         "accepted_stage_source_pack_preserved": (
             accepted_stage_source_pack_sha is not None
+        ),
+        "accepted_stage_source_pack_restored": (
+            accepted_stage_source_pack_restored
         ),
         "other_ruler_canonical_refreshes": other_ruler_canonical_refreshes,
         "database_write_count": 0,
