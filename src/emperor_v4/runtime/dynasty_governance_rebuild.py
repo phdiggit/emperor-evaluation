@@ -163,17 +163,46 @@ class DynastyGovernanceLimits:
             raise ValueError("政书单批目标字符数必须在 1500..12000")
 
 
-def _load_dynasty_config(
+def _catalog_dynasty_config(
+    project: Mapping[str, Any], dynasty: str
+) -> tuple[str, Mapping[str, Any]]:
+    catalog = project.get("dynasty_governance_catalog") or {}
+    rows = catalog.get("dynasties") or {}
+    if not isinstance(rows, Mapping):
+        raise ValueError("朝代政书目录 dynasties 必须是 object")
+    normalized = str(dynasty).strip()
+    for name, row in rows.items():
+        if not isinstance(row, Mapping):
+            continue
+        aliases = {str(value).strip() for value in row.get("aliases") or ()}
+        if normalized == str(name) or normalized in aliases:
+            return str(name), row
+    raise ValueError(f"朝代尚未配置政书目录: {dynasty}")
+
+
+def load_dynasty_governance_catalog_entry(
     workspace_root: Path, dynasty: str
-) -> tuple[Mapping[str, Any], Mapping[str, Any]]:
+) -> tuple[str, Mapping[str, Any]]:
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    return _catalog_dynasty_config(project, dynasty)
+
+
+def _load_dynasty_config(
+    workspace_root: Path, dynasty: str, *, use_catalog: bool = False
+) -> tuple[Mapping[str, Any], Mapping[str, Any], str]:
     project = yaml.safe_load(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
     )
     scan_config = project.get("dynasty_governance_scans") or {}
+    if use_catalog:
+        canonical_dynasty, configured = _catalog_dynasty_config(project, dynasty)
+        return scan_config, configured, canonical_dynasty
     configured = (scan_config.get("dynasties") or {}).get(dynasty)
     if not isinstance(configured, Mapping):
         raise ValueError(f"朝代尚未配置政书扫描: {dynasty}")
-    return scan_config, configured
+    return scan_config, configured, dynasty
 
 
 def _build_source_manifest(
@@ -216,6 +245,42 @@ def _build_source_manifest(
             selected_pages = tuple(
                 pages_by_title[page_title] for page_title in configured_page_titles
             )
+        section_groups = spec.get("section_groups") or {}
+        if section_groups and not configured_page_titles and not spec.get(
+            "scan_all_pages"
+        ):
+            if not isinstance(section_groups, Mapping):
+                raise ValueError(f"{dynasty}: {work} section_groups 必须是 object")
+            selected_by_ref = {}
+            missing_groups = []
+            for group, terms in section_groups.items():
+                normalized_terms = tuple(
+                    str(term).replace(" ", "").strip()
+                    for term in terms or ()
+                    if str(term).strip()
+                )
+                if not normalized_terms:
+                    raise ValueError(
+                        f"{dynasty}: {work} section group {group} 没有检索词"
+                    )
+                matched = []
+                for page in selected_pages:
+                    heading_text = (
+                        str(page.page_title) + "\n" + page.raw_text[:2_000]
+                    ).replace(" ", "")
+                    if any(term in heading_text for term in normalized_terms):
+                        matched.append(page)
+                        selected_by_ref[
+                            (str(page.page_title), str(page.revision_ref))
+                        ] = page
+                if not matched:
+                    missing_groups.append(str(group))
+            if missing_groups:
+                raise ValueError(
+                    f"{dynasty}: 本地索引缺少 {work} 政书篇章组 "
+                    + ", ".join(missing_groups)
+                )
+            selected_pages = tuple(selected_by_ref.values())
         if not selected_pages:
             raise ValueError(f"{dynasty}: 本地索引不含已配置政书 {work}")
         for position, page in enumerate(selected_pages, 1):
@@ -314,10 +379,14 @@ def rebuild_dynasty_governance(
     workspace_root: Path,
     limits: DynastyGovernanceLimits = DynastyGovernanceLimits(),
     codex_bin: str = "codex",
+    use_catalog: bool = False,
 ) -> dict[str, object]:
     workspace_root = workspace_root.resolve()
     runtime_root = runtime_root.resolve()
-    scan_config, configured = _load_dynasty_config(workspace_root, dynasty)
+    scan_config, configured, canonical_dynasty = _load_dynasty_config(
+        workspace_root, dynasty, use_catalog=use_catalog
+    )
+    dynasty = canonical_dynasty
     index = LocalSourceTextIndex(source_index_path)
     dynasty_token = str(configured["dynasty_token"])
     current_path = runtime_root / dynasty_token / "current.json"

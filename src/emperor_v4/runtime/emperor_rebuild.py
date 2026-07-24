@@ -924,8 +924,9 @@ def rebuild_emperor(
             != "quality_accepted_shadow"
             or str(dynasty_governance_current.get("dynasty_token") or "")
             != dynasty_governance_token
-            or str(dynasty_governance_current.get("source_index_identity") or "")
-            != source_index.identity
+            or not str(
+                dynasty_governance_current.get("source_index_identity") or ""
+            )
         ):
             raise ValueError("朝代政书 current 头部合同与皇帝链路不匹配")
     works = sorted(
@@ -1443,7 +1444,9 @@ def rebuild_emperor(
             neutral_materials=neutral_materials,
             current=dynasty_governance_current,
             expected_dynasty_token=dynasty_governance_token,
-            expected_source_index_identity=source_index.identity,
+            expected_source_index_identity=str(
+                dynasty_governance_current["source_index_identity"]
+            ),
             period_terms=[
                 str(value)
                 for value in configured.get("dynasty_governance_period_terms") or ()

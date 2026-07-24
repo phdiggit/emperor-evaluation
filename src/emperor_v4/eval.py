@@ -40,6 +40,7 @@ from emperor_v4.evaluation.current_source_pack_compiler import apply_source_pack
 from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
 from emperor_v4.runtime.emperor_session_control import (
     abandon_session,
+    build_session_dynasty_governance,
     claim_session,
     complete_session_bootstrap,
     heartbeat_session,
@@ -176,6 +177,22 @@ def _parser() -> argparse.ArgumentParser:
     session_bootstrap.add_argument(
         "--dynasty-governance-root", type=Path, required=True
     )
+    session_governance = commands.add_parser(
+        "emperor-session-dynasty-governance"
+    )
+    session_governance.add_argument("--state-root", type=Path, required=True)
+    session_governance.add_argument("--session-id", required=True)
+    session_governance.add_argument(
+        "--release-root", type=Path, default=Path(".")
+    )
+    session_governance.add_argument("--source-index-root", type=Path, required=True)
+    session_governance.add_argument(
+        "--dynasty-governance-root", type=Path, required=True
+    )
+    session_governance.add_argument("--dynasty", required=True)
+    session_governance.add_argument("--codex-bin", default="codex")
+    session_governance.add_argument("--model-timeout-seconds", type=int, default=120)
+    session_governance.add_argument("--target-chars", type=int, default=2_400)
     session_run = commands.add_parser("emperor-session-run")
     session_run.add_argument("--state-root", type=Path, required=True)
     session_run.add_argument("--session-id", required=True)
@@ -491,6 +508,21 @@ def main(argv: Sequence[str] | None = None) -> int:
                 bootstrap_spec_path=args.spec,
                 source_index_root=args.source_index_root,
                 dynasty_governance_root=args.dynasty_governance_root,
+            ),
+            None,
+        )
+    if args.command == "emperor-session-dynasty-governance":
+        return _write_report(
+            build_session_dynasty_governance(
+                state_root=args.state_root,
+                session_id=args.session_id,
+                release_root=args.release_root,
+                source_index_root=args.source_index_root,
+                dynasty_governance_root=args.dynasty_governance_root,
+                dynasty=args.dynasty,
+                codex_bin=args.codex_bin,
+                model_timeout_seconds=args.model_timeout_seconds,
+                target_chars=args.target_chars,
             ),
             None,
         )

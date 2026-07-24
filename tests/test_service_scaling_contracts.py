@@ -121,6 +121,67 @@ def test_dynasty_governance_manifest_honors_configured_page_titles(
     assert [row["page_title"] for row in identities] == ["漢書/卷019"]
 
 
+def test_dynasty_governance_manifest_resolves_all_configured_section_groups(
+    tmp_path: Path,
+) -> None:
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "遼史/百官志",
+                "work_title": "遼史",
+                "source_url": "local:liao-officials",
+                "revision_ref": "1",
+                "raw_text": "百官志正文",
+            },
+            {
+                "page_title": "遼史/食貨志",
+                "work_title": "遼史",
+                "source_url": "local:liao-economy",
+                "revision_ref": "2",
+                "raw_text": "食貨志正文",
+            },
+            {
+                "page_title": "遼史/本紀",
+                "work_title": "遼史",
+                "source_url": "local:liao-annals",
+                "revision_ref": "3",
+                "raw_text": "本紀正文",
+            },
+        ],
+        index_path,
+    )
+
+    manifest, identities = dynasty_governance_rebuild._build_source_manifest(
+        index=LocalSourceTextIndex(index_path),
+        dynasty="辽",
+        configured={
+            "source_works": [
+                {
+                    "work": "遼史",
+                    "source_genre": "official_history_treatises",
+                    "target_scope": "只抽取辽代制度",
+                    "section_groups": {
+                        "bureaucracy": ["百官志"],
+                        "economy": ["食貨志"],
+                    },
+                }
+            ]
+        },
+        work_root=tmp_path / "work",
+        max_segment_chars=2_400,
+    )
+
+    assert {row["page_title"] for row in manifest["pages"]} == {
+        "遼史/百官志",
+        "遼史/食貨志",
+    }
+    assert {row["page_title"] for row in identities} == {
+        "遼史/百官志",
+        "遼史/食貨志",
+    }
+
+
 def test_dynasty_governance_current_reuses_accepted_source_revision(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -511,6 +572,29 @@ def test_dynasty_governance_worker_discovers_index_and_noops_reused_current(
     assert report["dynasties"][0]["status"] == "reused"
     assert calls[0]["source_index_path"] == index_path
     assert calls[0]["codex_bin"] == "codex-test"
+
+
+def test_repository_dynasty_governance_scheduler_defers_to_ruler_sessions(
+    tmp_path: Path,
+) -> None:
+    report = dynasty_governance_worker.run_worker_once(
+        source_index_root=tmp_path / "indexes",
+        runtime_root=tmp_path / "runtime",
+        workspace_root=ROOT,
+        codex_bin="codex",
+        limits=dynasty_governance_rebuild.DynastyGovernanceLimits(
+            model_workers=1,
+            model_timeout_seconds=30,
+            target_chars=2_400,
+        ),
+    )
+
+    assert report["status"] == "noop"
+    assert report["model_call_count"] == 0
+    assert report["business_write_count"] == 0
+    assert {row["status"] for row in report["dynasties"]} == {
+        "session_managed"
+    }
 
 
 def test_dynasty_governance_lock_refuses_overlapping_worker(tmp_path: Path) -> None:

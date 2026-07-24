@@ -127,6 +127,17 @@ def run_worker_once(
         if not token:
             failures.append({"dynasty": str(dynasty), "error": "缺少 dynasty_token"})
             continue
+        if configured.get("scheduler_enabled") is False:
+            rows.append(
+                {
+                    "dynasty": str(dynasty),
+                    "dynasty_token": token,
+                    "status": "session_managed",
+                    "model_call_count": 0,
+                    "business_write_count": 0,
+                }
+            )
+            continue
         works = _configured_works(configured)
         index = discover_source_index(source_index_root, works=works)
         if index is None:

@@ -27,6 +27,12 @@ from emperor_v4.runtime.emperor_rebuild import (
     _shared_backbone_contract,
     rebuild_emperor,
 )
+from emperor_v4.runtime.dynasty_governance_rebuild import (
+    DynastyGovernanceLimits,
+    load_dynasty_governance_catalog_entry,
+    rebuild_dynasty_governance,
+)
+from emperor_v4.runtime.dynasty_governance_worker import _exclusive_lock
 
 
 LEASE_SCHEMA_VERSION = "emperor-session-lease-v1"
@@ -35,6 +41,9 @@ PUBLISH_SCHEMA_VERSION = "emperor-session-publish-v1"
 BOOTSTRAP_SCHEMA_VERSION = "emperor-session-bootstrap-v1"
 BOOTSTRAP_REPORT_SCHEMA_VERSION = "emperor-session-bootstrap-report-v1"
 RELEASE_UPGRADE_SCHEMA_VERSION = "emperor-session-release-upgrade-v1"
+SESSION_DYNASTY_GOVERNANCE_SCHEMA_VERSION = (
+    "emperor-session-dynasty-governance-v1"
+)
 GLOBAL_MODEL_SLOT_COUNT = 4
 REQUIRED_REBUILD_STAGES = (
     "source_inventory",
@@ -657,6 +666,149 @@ def heartbeat_session(
     return lease
 
 
+def build_session_dynasty_governance(
+    *,
+    state_root: Path,
+    session_id: str,
+    release_root: Path,
+    source_index_root: Path,
+    dynasty_governance_root: Path,
+    dynasty: str,
+    codex_bin: str = "codex",
+    model_timeout_seconds: int = 120,
+    target_chars: int = 2_400,
+) -> dict[str, Any]:
+    session_id = _safe_token(session_id, field="session_id")
+    path = _session_path(state_root, session_id)
+    if not path.is_file():
+        raise SessionControlError("会话租约不存在")
+    lease = _read_json(path)
+    release_root = release_root.resolve()
+    if _release_identity(release_root) != lease.get("release_sha"):
+        raise SessionControlError("政书构建 release 与认领 release 不一致")
+    if _contract_fingerprint(release_root) != lease.get(
+        "release_contract_fingerprint"
+    ):
+        raise SessionControlError("政书构建 release 合同在认领后发生变化")
+    workspace_root = Path(str(lease["workspace_root"])).resolve()
+    dynasty_governance_root = dynasty_governance_root.resolve()
+    if dynasty_governance_root == workspace_root or workspace_root in (
+        dynasty_governance_root,
+        *dynasty_governance_root.parents,
+    ):
+        raise SessionControlError("朝代政书 current 根不得位于皇帝 workspace")
+    canonical_dynasty, configured = load_dynasty_governance_catalog_entry(
+        workspace_root, dynasty
+    )
+    token = _safe_token(
+        configured.get("dynasty_token"), field="dynasty_governance_token"
+    )
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    ruler_config = (
+        (project.get("i5b_current_value") or {}).get("rulers") or {}
+    ).get(str(lease["ruler"])) or {}
+    expected_token = str(
+        ruler_config.get("dynasty_governance_material_token") or ""
+    )
+    if expected_token != token:
+        raise SessionControlError(
+            "当前皇帝的朝代治理 token 与请求目录不匹配: "
+            f"{expected_token or '<missing>'} != {token}"
+        )
+    works = tuple(
+        str(row.get("work") or "").strip()
+        for row in configured.get("source_works") or ()
+        if isinstance(row, Mapping) and str(row.get("work") or "").strip()
+    )
+    if not works:
+        raise SessionControlError(f"{canonical_dynasty}: 政书目录没有有效书目")
+    source_pack_path = (
+        workspace_root
+        / "eval"
+        / "i5b_current_value"
+        / str(lease["ruler"])
+        / "source-pack.json"
+    )
+    source_pack = (
+        _read_json(source_pack_path)
+        if source_pack_path.is_file()
+        else {"schema_version": "bootstrap-source-index-probe"}
+    )
+    try:
+        source_index = _resolve_source_index(
+            source_pack=source_pack,
+            source_index_path=None,
+            source_index_root=source_index_root,
+            required_works=works,
+        )
+    except (OSError, ValueError) as exc:
+        return {
+            "schema_version": SESSION_DYNASTY_GOVERNANCE_SCHEMA_VERSION,
+            "status": "awaiting_governance_source_assets",
+            "session_id": session_id,
+            "ruler": lease["ruler"],
+            "dynasty": canonical_dynasty,
+            "dynasty_token": token,
+            "required_source_works": list(works),
+            "source_catalog": configured,
+            "missing": [f"fixed_governance_source_index: {exc}"],
+            "shared_current_path": str(
+                dynasty_governance_root / token / "current.json"
+            ),
+            "runtime_model_call_count": 0,
+            "database_write_count": 0,
+            "formal_score_write_count": 0,
+        }
+    lock_path = dynasty_governance_root / ".locks" / f"{token}.lock"
+    with _exclusive_lock(lock_path) as locked:
+        if not locked:
+            return {
+                "schema_version": SESSION_DYNASTY_GOVERNANCE_SCHEMA_VERSION,
+                "status": "already_running",
+                "session_id": session_id,
+                "ruler": lease["ruler"],
+                "dynasty": canonical_dynasty,
+                "dynasty_token": token,
+                "runtime_model_call_count": 0,
+                "database_write_count": 0,
+                "formal_score_write_count": 0,
+            }
+        result = rebuild_dynasty_governance(
+            dynasty=canonical_dynasty,
+            source_index_path=source_index.path,
+            runtime_root=dynasty_governance_root,
+            workspace_root=workspace_root,
+            limits=DynastyGovernanceLimits(
+                model_workers=len(lease.get("model_slots") or ()),
+                model_timeout_seconds=model_timeout_seconds,
+                target_chars=target_chars,
+            ),
+            codex_bin=codex_bin,
+            use_catalog=True,
+        )
+    lease["updated_at"] = _now()
+    _atomic_json(path, lease)
+    return {
+        "schema_version": SESSION_DYNASTY_GOVERNANCE_SCHEMA_VERSION,
+        "status": "reused" if result.get("reused") else "quality_accepted",
+        "session_id": session_id,
+        "ruler": lease["ruler"],
+        "dynasty": canonical_dynasty,
+        "dynasty_token": token,
+        "source_index": str(source_index.path),
+        "source_index_identity": source_index.identity,
+        "shared_current_path": str(
+            dynasty_governance_root / token / "current.json"
+        ),
+        "runtime_model_call_count": int(result.get("model_call_count") or 0),
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+        "quality": result.get("quality"),
+    }
+
+
 def complete_session_bootstrap(
     *,
     state_root: Path,
@@ -730,6 +882,20 @@ def complete_session_bootstrap(
             )
     if not configured.get("dynasty_governance_material_token"):
         raise SessionControlError("bootstrap ruler_config 缺少朝代治理 token")
+    catalog_dynasty, governance_catalog = (
+        load_dynasty_governance_catalog_entry(
+            Path(str(lease["workspace_root"])), dynasty
+        )
+    )
+    governance_token = str(
+        configured["dynasty_governance_material_token"]
+    )
+    catalog_token = str(governance_catalog.get("dynasty_token") or "")
+    if governance_token != catalog_token:
+        raise SessionControlError(
+            "bootstrap 朝代治理 token 与统一政书目录不匹配: "
+            f"{governance_token} != {catalog_token}"
+        )
     if not configured.get("neutral_scan_backbone_material_token") and (
         not configured.get("neutral_scan_backbone_works")
         or not configured.get("neutral_scan_backbone_page_ranges")
@@ -876,7 +1042,6 @@ def complete_session_bootstrap(
         )
     except (OSError, ValueError) as exc:
         missing.append(f"fixed_source_index: {exc}")
-    governance_token = str(configured["dynasty_governance_material_token"])
     governance_path = dynasty_governance_root / governance_token / "current.json"
     if source_index is None:
         missing.append("dynasty_governance_current: 等待固定索引")
@@ -888,10 +1053,9 @@ def complete_session_bootstrap(
             governance.get("schema_version") != "dynasty-governance-current-v1"
             or governance.get("status") != "quality_accepted_shadow"
             or str(governance.get("dynasty_token") or "") != governance_token
-            or str(governance.get("source_index_identity") or "")
-            != source_index.identity
+            or not str(governance.get("source_index_identity") or "")
         ):
-            missing.append("dynasty_governance_current: 头部合同与固定索引不匹配")
+            missing.append("dynasty_governance_current: 头部合同不匹配")
 
     shared_tokens = []
     token = str(configured.get("neutral_scan_backbone_material_token") or "")
@@ -913,6 +1077,14 @@ def complete_session_bootstrap(
             missing=missing,
             spec_path=runtime_spec_path,
         )
+        report["dynasty_governance_assets"] = {
+            "dynasty": catalog_dynasty,
+            "dynasty_token": governance_token,
+            "source_catalog": governance_catalog,
+            "shared_current_path": str(governance_path),
+            "ownership": "dynasty_shared_not_ruler_workspace",
+            "build_command": "emperor-session-dynasty-governance",
+        }
         _atomic_json(Path(str(lease["bootstrap_report"])), report)
         _atomic_json(path, lease)
         return report

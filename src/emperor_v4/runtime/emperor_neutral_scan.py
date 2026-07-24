@@ -2106,7 +2106,7 @@ def merge_dynasty_governance_current(
     if str(current.get("dynasty_token") or "") != expected_dynasty_token:
         raise ValueError("朝代政书 current token 与皇帝配置不匹配")
     if str(current.get("source_index_identity") or "") != expected_source_index_identity:
-        raise ValueError("朝代政书 current 与皇帝史料索引版本不一致")
+        raise ValueError("朝代政书 current 与其固定政书索引版本不一致")
     if not period_terms:
         raise ValueError("皇帝配置缺少朝代政书纪年筛选词")
 

@@ -44,7 +44,7 @@ i5b_current_value:
       neutral_scan_backbone_works: [資治通鑑]
       neutral_scan_backbone_page_ranges: {資治通鑑: [200, 203]}
       neutral_scan_backsource_works: [舊唐書, 新唐書]
-      dynasty_governance_material_token: TANG-GAOZONG
+      dynasty_governance_material_token: TANG
       dynasty_governance_period_terms: [永徽, 顯慶, 显庆, 龍朔, 龙朔, 麟德, 乾封, 總章, 总章, 咸亨, 上元, 儀鳳, 仪凤, 調露, 调露, 永隆, 開耀, 开耀, 永淳, 弘道, 唐高宗, 高宗, 李治]
     刘邦:
       source_pack: eval/i5b_current_value/刘邦/source-pack.json
@@ -133,6 +133,281 @@ neutral_material_reuse:
   historical_character_normalization_allowed: false
   formal_writes_allowed: false
 
+dynasty_governance_catalog:
+  schema_version: dynasty-governance-catalog-v1
+  person_or_ruler_chronicles_are_not_governance_books: true
+  selection_policy: resolve_configured_sections_to_fixed_revision_pages
+  shared_current_root_contract: dynasty_neutral_materials/<dynasty_token>/current.json
+  dynasties:
+    秦:
+      aliases: [秦朝]
+      dynasty_token: QIN
+      source_works:
+        - work: 史記
+          source_genre: official_history_treatise_and_core_governance_biography
+          section_groups:
+            central_policy: [秦始皇本紀, 李斯列傳]
+            law_and_bureaucracy: [商君列傳, 李斯列傳]
+            economy_and_public_works: [平準書, 河渠書]
+          target_scope: 仅抽取秦政权实际实施、运行或产生可观察结果的官制、法律、财政、工程和地方治理事实；先秦制度背景不得单独成为秦朝事实。
+          domain_focus: [官制, 法律刑狱, 财政经济, 工程交通, 地方治理]
+    西汉:
+      aliases: [汉, 前汉]
+      dynasty_token: HAN
+      source_works:
+        - work: 漢書
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [百官公卿表]
+            law: [刑法志]
+            economy: [食貨志, 溝洫志]
+            territory_and_frontier: [地理志, 西域傳]
+          target_scope: 仅抽取西汉实际实施、运行或产生可观察结果的官制、选官、法律、财政、水利、军政和边疆治理事实。
+          domain_focus: [官制, 选官, 法律刑狱, 财政经济, 水利, 军制边政]
+    东汉:
+      aliases: [后汉]
+      dynasty_token: EASTERN-HAN
+      source_works:
+        - work: 後漢書
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [百官志]
+            local_government: [郡國志]
+            law_and_discipline: [刑法, 黨錮]
+            economy_and_relief: [食貨, 賑貸, 水利]
+            military_and_frontier: [兵, 西羌傳, 南匈奴列傳]
+          target_scope: 仅抽取东汉实际实施、运行或产生可观察结果的中央与地方官制、司法监察、财政民生、军制和边疆治理事实。
+          domain_focus: [官制, 地方治理, 法律监察, 财政民生, 军制边政]
+    三国:
+      aliases: [曹魏, 蜀汉, 孙吴]
+      dynasty_token: THREE-KINGDOMS
+      source_works:
+        - work: 三國會要
+          source_genre: institutional_compendium
+          section_groups:
+            bureaucracy: [職官]
+            selection: [選舉]
+            economy: [食貨]
+            law: [刑法]
+            military: [兵]
+            local_government: [地理]
+          target_scope: 按魏、蜀、吴分别抽取实际实施、运行或产生可观察结果的制度事实，必须保留政权归属，不得把三国制度合并成同一事实。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 地方治理]
+    两晋十六国:
+      aliases: [西晋, 东晋, 十六国]
+      dynasty_token: JIN-SIXTEEN-KINGDOMS
+      source_works:
+        - work: 晉書
+          source_genre: official_history_treatises_and_records
+          section_groups:
+            bureaucracy: [職官志]
+            law: [刑法志]
+            economy: [食貨志]
+            territory: [地理志]
+            military: [兵, 軍]
+          target_scope: 分别保留西晋、东晋和十六国政权归属，只抽取实际实施、运行或产生可观察结果的制度与治理事实。
+          domain_focus: [官制, 法律刑狱, 财政民生, 军制, 地方治理]
+    南北朝:
+      aliases: [南朝, 北朝, 北魏, 东魏, 西魏, 北齐, 北周, 刘宋, 南齐, 梁, 陈]
+      dynasty_token: SOUTHERN-NORTHERN
+      source_works:
+        - work: 隋書
+          source_genre: official_history_treatises_covering_pre_sui_polities
+          section_groups:
+            bureaucracy: [百官志]
+            law: [刑法志]
+            economy: [食貨志]
+            territory: [地理志]
+          target_scope: 仅抽取隋以前南北朝各政权实际实施的制度事实，逐条保留具体政权和年代；不得把隋制反投到前朝。
+          domain_focus: [官制, 法律刑狱, 财政民生, 地方治理, 军制边政]
+    隋:
+      aliases: [隋朝]
+      dynasty_token: SUI
+      source_works:
+        - work: 隋書
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [百官志]
+            law: [刑法志]
+            economy: [食貨志]
+            territory: [地理志]
+          target_scope: 仅抽取隋代实际实施、运行或产生可观察结果的官制、选官、法律、财政、军政和地方治理事实。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制, 地方治理]
+    唐:
+      aliases: [武周]
+      dynasty_token: TANG
+      source_works:
+        - work: 唐會要
+          source_genre: institutional_compendium
+          section_groups:
+            bureaucracy: [官號, 省, 臺, 寺, 監]
+            selection: [選舉, 貢舉]
+            economy: [戶口, 租庸調, 賦稅, 鹽鐵]
+            law: [刑法, 斷獄]
+            military: [府兵, 軍]
+          target_scope: 仅抽取唐代实际实施、运行或产生可观察结果的制度事实，并保存具体纪年；前代沿革只作唐制承继或改革背景。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+        - work: 唐六典
+          source_genre: administrative_code
+          section_groups:
+            central_government: [三師, 三公, 尚書省, 門下省, 中書省]
+            supervision_and_justice: [御史臺, 大理寺, 刑部]
+            finance_and_people: [戶部, 度支, 倉部]
+            military: [兵部, 衛尉寺, 諸衛]
+          target_scope: 只抽取可与唐代实际运行、改革或可观察结果相连接的制度结构；纯静态官名表不得独立登记为治理成果。
+          domain_focus: [中央官制, 监察司法, 财政民生, 军制]
+    五代十国:
+      aliases: [后梁, 后唐, 后晋, 五代后汉, 后周, 十国]
+      dynasty_token: FIVE-DYNASTIES-TEN-KINGDOMS
+      source_works:
+        - work: 五代會要
+          source_genre: institutional_compendium
+          section_groups:
+            bureaucracy: [官制, 職官]
+            selection: [選舉, 貢舉]
+            economy: [戶口, 賦稅, 鹽鐵]
+            law: [刑法, 斷獄]
+            military: [軍, 兵]
+          target_scope: 按五代及十国具体政权分别抽取实际实施、运行或产生结果的制度事实，禁止跨政权合并。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制]
+    辽:
+      aliases: [契丹, 西辽]
+      dynasty_token: LIAO
+      source_works:
+        - work: 遼史
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [百官志]
+            law: [刑法志]
+            economy: [食貨志]
+            military: [兵衛志]
+            territory: [地理志]
+          target_scope: 仅抽取辽及明确可归属西辽的实际制度和治理事实；制度名称不得替代实施与结果证据。
+          domain_focus: [官制, 法律刑狱, 财政民生, 军制, 地方边疆治理]
+    宋:
+      aliases: [北宋, 南宋]
+      dynasty_token: SONG
+      source_works:
+        - work: 宋會要輯稿
+          source_genre: institutional_compendium
+          section_groups:
+            bureaucracy: [職官]
+            selection: [選舉]
+            economy: [食貨]
+            law: [刑法]
+            military: [兵]
+          target_scope: 仅抽取宋代实际实施、运行或产生可观察结果的制度事实，保存具体纪年并区分北宋、南宋。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+    西夏:
+      aliases: [夏国]
+      dynasty_token: WESTERN-XIA
+      source_works:
+        - work: 天盛改舊新定律令
+          source_genre: primary_legal_and_administrative_code
+          section_groups:
+            bureaucracy: [司序行文門, 官階封爵門]
+            law: [罪則, 斷獄]
+            economy: [田土, 賦稅, 倉庫]
+            military: [軍事, 兵]
+          target_scope: 只抽取能够与西夏实际运行、执行或结果相连接的法律与行政事实；法典静态条文不得自动视为已实施成果。
+          domain_focus: [官制, 法律刑狱, 财政民生, 军制]
+        - work: 西夏書事
+          source_genre: polity_chronicle
+          section_groups:
+            implementation: [詔, 定制, 置, 改, 行]
+          target_scope: 仅用于补充法典制度的实际颁行、改革和结果，不作为第二条皇帝连续主干。
+          domain_focus: [制度实施, 改革结果]
+    金:
+      aliases: [女真]
+      dynasty_token: JIN
+      source_works:
+        - work: 金史
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [百官志]
+            selection: [選舉志]
+            economy: [食貨志]
+            law: [刑志]
+            military: [兵志]
+          target_scope: 仅抽取金代实际实施、运行或产生可观察结果的制度与治理事实。
+          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
+    元:
+      aliases: [蒙古帝国]
+      dynasty_token: YUAN
+      source_works:
+        - work: 元典章
+          source_genre: administrative_precedent_collection
+          section_groups:
+            personnel: [吏部]
+            finance: [戶部]
+            rites: [禮部]
+            military: [兵部]
+            justice: [刑部]
+            works: [工部]
+          target_scope: 仅抽取元代已经颁行、执行或产生结果的制度与治理事实，保存年代和发布主体。
+          domain_focus: [官制选官, 财政民生, 礼制教化, 军制, 法律刑狱, 工程交通]
+    明:
+      aliases: [南明]
+      dynasty_token: MING
+      source_works:
+        - work: 大明會典
+          source_genre: administrative_code
+          section_groups:
+            personnel: [吏部]
+            finance: [戶部]
+            rites: [禮部]
+            military: [兵部, 五軍都督府]
+            justice: [刑部, 都察院, 大理寺]
+            works: [工部]
+          target_scope: 只抽取能够与明代具体纪年中的施行、改革或结果相连接的制度事实；静态会典条文不得自动视为某皇帝成果。
+          domain_focus: [官制选官, 财政民生, 礼制教化, 军制, 法律监察, 工程交通]
+        - work: 明史
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [職官志, 選舉志]
+            economy: [食貨志, 河渠志]
+            law: [刑法志]
+            military: [兵志]
+          target_scope: 仅补会典制度的沿革、实际运行与结果，不作为皇帝编年主干或臣子列传替代。
+          domain_focus: [制度沿革, 实施结果]
+    清:
+      aliases: [后金]
+      dynasty_token: QING
+      source_works:
+        - work: 大清會典事例
+          source_genre: administrative_code_and_precedents
+          section_groups:
+            personnel: [吏部]
+            finance: [戶部]
+            rites: [禮部]
+            military: [兵部]
+            justice: [刑部, 都察院, 大理寺]
+            frontier: [理藩院]
+            works: [工部]
+          target_scope: 仅抽取清代已有具体年代、施行主体或运行结果的制度事实；静态条文不得自动归给某皇帝。
+          domain_focus: [官制选官, 财政民生, 礼制教化, 军制, 法律监察, 边疆治理, 工程交通]
+        - work: 清史稿
+          source_genre: official_history_treatises
+          section_groups:
+            bureaucracy: [職官志, 選舉志]
+            economy: [食貨志, 交通志]
+            law: [刑法志]
+            military: [兵志]
+          target_scope: 仅补会典事例的沿革、实际运行与结果，不作为皇帝实录主干或臣子列传替代。
+          domain_focus: [制度沿革, 实施结果]
+    太平天国:
+      aliases: [太平天囯]
+      dynasty_token: TAIPING
+      source_works:
+        - work: 太平天國文書
+          source_genre: regime_primary_documents
+          section_groups:
+            land_and_economy: [天朝田畝制度]
+            reform_program: [資政新篇]
+            administration_and_law: [詔書, 條例, 制度]
+          target_scope: 区分主张、颁行和实际执行；只有可核验的施行、运行或结果进入治理中性事实。
+          domain_focus: [土地财政, 行政改革, 法律秩序, 社会治理]
+
 dynasty_governance_scans:
   output_schema: config/dynasty-neutral-governance-output.schema.json
   reuse_unit: [dynasty, source_index_identity, source_revision, extraction_contract]
@@ -142,6 +417,7 @@ dynasty_governance_scans:
   dynasties:
     唐:
       dynasty_token: TANG
+      scheduler_enabled: false
       source_works:
         - work: 貞觀政要
           source_genre: political_treatise
@@ -152,21 +428,9 @@ dynasty_governance_scans:
         law: [law_and_adjudication, official_discipline]
         military: [military_system, military_logistics, frontier_administration]
         bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
-    tang_gaozong:
-      dynasty_token: TANG-GAOZONG
-      source_works:
-        - work: 舊唐書
-          source_genre: official_history_annals_and_treatises
-          page_titles: [舊唐書/卷4, 舊唐書/卷5, 舊唐書/卷44, 舊唐書/卷48, 舊唐書/卷50]
-          target_scope: 仅抽取唐高宗649—683年间实际实施、运行或产生可观察结果的治理事实；太宗旧制、武周改制及纯军事胜负只作高宗朝明确承继、修改或治理影响的必要背景。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
-      required_domain_groups:
-        economy: [fiscal_taxation, economy_production, livelihood_social_order]
-        law: [law_and_adjudication, official_discipline]
-        military: [military_system, military_logistics, frontier_administration]
-        bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
     汉:
       dynasty_token: HAN
+      scheduler_enabled: false
       source_works:
         - work: 漢書
           source_genre: official_history_treatises

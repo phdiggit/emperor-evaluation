@@ -1450,7 +1450,7 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
             "result": "eval/i5b_current_value/朱元璋/result.json",
             "neutral_scan_backbone_works": ["明太祖實錄"],
             "neutral_scan_backbone_page_ranges": {"明太祖實錄": [1, 2]},
-            "dynasty_governance_material_token": "MING-HONGWU",
+            "dynasty_governance_material_token": "MING",
             "dynasty_governance_period_terms": ["洪武", "明太祖", "朱元璋"],
         },
         "members": [],
@@ -1515,15 +1515,15 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
         ],
         index_path,
     )
-    governance_path = tmp_path / "governance/MING-HONGWU/current.json"
+    governance_path = tmp_path / "governance/MING/current.json"
     governance_path.parent.mkdir(parents=True)
     governance_path.write_text(
         json.dumps(
             {
                 "schema_version": "dynasty-governance-current-v1",
                 "status": "quality_accepted_shadow",
-                "dynasty_token": "MING-HONGWU",
-                "source_index_identity": LocalSourceTextIndex(index_path).identity,
+                "dynasty_token": "MING",
+                "source_index_identity": "INDEPENDENT-MING-GOVERNANCE-INDEX",
             }
         ),
         encoding="utf-8",
@@ -1576,6 +1576,146 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     assert workspace_project["i5b_current_value"]["rulers"]["朱元璋"][
         "neutral_scan_backbone_page_ranges"
     ] == {"明太祖實錄": [1, 1]}
+
+
+def test_dynasty_governance_catalog_covers_supported_eras() -> None:
+    project = yaml.safe_load(
+        (ROOT / "config/project.yml").read_text(encoding="utf-8")
+    )
+    catalog = project["dynasty_governance_catalog"]
+    assert catalog["schema_version"] == "dynasty-governance-catalog-v1"
+    assert (
+        catalog["shared_current_root_contract"]
+        == "dynasty_neutral_materials/<dynasty_token>/current.json"
+    )
+    rows = catalog["dynasties"]
+    assert set(rows) == {
+        "秦",
+        "西汉",
+        "东汉",
+        "三国",
+        "两晋十六国",
+        "南北朝",
+        "隋",
+        "唐",
+        "五代十国",
+        "辽",
+        "宋",
+        "西夏",
+        "金",
+        "元",
+        "明",
+        "清",
+        "太平天国",
+    }
+    for dynasty, row in rows.items():
+        assert row["dynasty_token"], dynasty
+        assert row["source_works"], dynasty
+        for source in row["source_works"]:
+            assert source["work"]
+            assert source["target_scope"]
+            assert source["domain_focus"]
+            assert source["section_groups"]
+    assert project["i5b_current_value"]["rulers"]["李治"][
+        "dynasty_governance_material_token"
+    ] == "TANG"
+    assert all(
+        row.get("scheduler_enabled") is False
+        for row in project["dynasty_governance_scans"]["dynasties"].values()
+    )
+
+
+def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "a" * 40
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-DYNASTY-GOVERNANCE",
+        ruler="李世民",
+        model_slot_count=2,
+    )
+    fake_index = type(
+        "FakeIndex",
+        (),
+        {"path": tmp_path / "tang-governance.sqlite3", "identity": "TANG-GOV-INDEX"},
+    )()
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_resolve_source_index",
+        lambda **_kwargs: fake_index,
+    )
+    observed = {}
+
+    def rebuild(**kwargs):
+        observed.update(kwargs)
+        return {
+            "reused": False,
+            "model_call_count": 3,
+            "quality": {"status": "passed"},
+        }
+
+    monkeypatch.setattr(
+        emperor_session_control, "rebuild_dynasty_governance", rebuild
+    )
+    governance_root = tmp_path / "active/dynasty_neutral_materials"
+
+    report = emperor_session_control.build_session_dynasty_governance(
+        state_root=state,
+        session_id="SESSION-DYNASTY-GOVERNANCE",
+        release_root=release,
+        source_index_root=tmp_path / "indexes",
+        dynasty_governance_root=governance_root,
+        dynasty="唐",
+    )
+
+    assert report["status"] == "quality_accepted"
+    assert report["dynasty_token"] == "TANG"
+    assert report["shared_current_path"] == str(
+        governance_root.resolve() / "TANG/current.json"
+    )
+    assert report["runtime_model_call_count"] == 3
+    assert observed["runtime_root"] == governance_root.resolve()
+    assert observed["workspace_root"] == Path(lease["workspace_root"]).resolve()
+    assert observed["limits"].model_workers == 2
+    assert observed["use_catalog"] is True
+
+
+def test_ruler_session_reports_governance_catalog_before_source_fetch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    monkeypatch.setattr(
+        emperor_session_control, "_release_identity", lambda _root: "b" * 40
+    )
+    state = tmp_path / "state"
+    emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-GOVERNANCE-ASSETS",
+        ruler="李世民",
+        model_slot_count=1,
+    )
+
+    report = emperor_session_control.build_session_dynasty_governance(
+        state_root=state,
+        session_id="SESSION-GOVERNANCE-ASSETS",
+        release_root=release,
+        source_index_root=tmp_path / "empty-indexes",
+        dynasty_governance_root=tmp_path / "active/dynasty_neutral_materials",
+        dynasty="唐",
+    )
+
+    assert report["status"] == "awaiting_governance_source_assets"
+    assert report["required_source_works"] == ["唐會要", "唐六典"]
+    assert report["source_catalog"]["dynasty_token"] == "TANG"
+    assert report["runtime_model_call_count"] == 0
+    assert report["database_write_count"] == 0
 
 
 def test_neutral_material_source_strategy_covers_supported_dynasty_routes() -> None:
