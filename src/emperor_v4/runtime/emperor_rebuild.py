@@ -187,6 +187,28 @@ def _accept_stage(
     return manifest
 
 
+def _load_accepted_ruler_neutral(runtime_root: Path) -> dict[str, Any]:
+    stage_root = runtime_root.resolve() / "stages" / "neutral_materials"
+    manifest_path = stage_root / "current.json"
+    if not manifest_path.is_file():
+        raise ValueError("缺少已验收的皇帝中性材料阶段，不能只刷新朝代政书投射")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    artifact = (manifest.get("artifacts") or {}).get("neutral_materials") or {}
+    artifact_path = stage_root / str(artifact.get("file") or "")
+    if (
+        manifest.get("status") != "quality_accepted"
+        or not str(manifest.get("input_fingerprint") or "")
+        or not str(manifest.get("producer_contract_fingerprint") or "")
+        or not artifact_path.is_file()
+        or _file_digest(artifact_path) != str(artifact.get("sha256") or "")
+    ):
+        raise ValueError("已验收的皇帝中性材料阶段清单或产物校验失败")
+    neutral = json.loads(artifact_path.read_text(encoding="utf-8"))
+    if not isinstance((neutral.get("fanout") or {}).get("facts"), list):
+        raise ValueError("已验收的皇帝中性材料缺少 fanout facts")
+    return neutral
+
+
 @dataclass(frozen=True, slots=True)
 class RebuildLimits:
     wall_clock_seconds: int | None = None
@@ -803,6 +825,7 @@ def rebuild_emperor(
     stop_after_stage: str | None = None,
     outcome_review_path: Path | None = None,
     allow_outcome_model_draft: bool = False,
+    reuse_accepted_ruler_neutral: bool = False,
 ) -> dict[str, Any]:
     """Restart the current deterministic chain and atomically publish its outputs.
 
@@ -1086,6 +1109,7 @@ def rebuild_emperor(
                 if dynasty_governance_current is not None
                 else None
             ),
+            "reuse_accepted_ruler_neutral": reuse_accepted_ruler_neutral,
         }
     )
     neutral_stage_contract_fingerprint = _digest(
@@ -1115,6 +1139,8 @@ def rebuild_emperor(
         if neutral_path.is_file()
         else None
     )
+    if reuse_accepted_ruler_neutral:
+        current_neutral = _load_accepted_ruler_neutral(runtime_root)
     # A quality-accepted dynasty current is the one-time neutral extraction for
     # specialist governance works.  The ruler chain consumes it; it must not
     # rescan the same books per emperor.
@@ -1291,27 +1317,36 @@ def rebuild_emperor(
         ).append(event["neutral_fact"])
     if not routed_backbone_plan["page_batches"]:
         raise ValueError("确定性扫描未发现需要事实裁决的编年主干事件单元")
-    (
-        backbone_materials,
-        backbone_recovery_count,
-        backbone_final_pages_per_call,
-    ) = _run_with_model_anomaly_recovery(
-        runner_factory=neutral_runner_factory,
-        operation=lambda runner, pages_per_call: extract_current_neutral_materials(
-            plan=routed_backbone_plan,
-            current=deterministic_campaign_seed["current"],
-            runner=runner,
-            max_workers=limits.model_workers,
-            checkpoint_dir=checkpoint_dir / "neutral_extraction" / "backbone",
-            pages_per_call=pages_per_call,
-            subject_ref_by_name=backbone_subject_ref_by_name,
-            identity_resolver=identity_resolver,
-            supplemental_facts_by_segment=deterministic_campaign_facts_by_segment,
-        ),
-        initial_batch_size=12,
-        maximum_recoveries=2,
-    )
-    backbone_model_call_count = int(backbone_materials.pop("model_call_count"))
+    if reuse_accepted_ruler_neutral:
+        backbone_materials = json.loads(
+            json.dumps(current_neutral, ensure_ascii=False)
+        )
+        backbone_materials.pop("outcome_projection", None)
+        backbone_recovery_count = 0
+        backbone_final_pages_per_call = 0
+        backbone_model_call_count = 0
+    else:
+        (
+            backbone_materials,
+            backbone_recovery_count,
+            backbone_final_pages_per_call,
+        ) = _run_with_model_anomaly_recovery(
+            runner_factory=neutral_runner_factory,
+            operation=lambda runner, pages_per_call: extract_current_neutral_materials(
+                plan=routed_backbone_plan,
+                current=deterministic_campaign_seed["current"],
+                runner=runner,
+                max_workers=limits.model_workers,
+                checkpoint_dir=checkpoint_dir / "neutral_extraction" / "backbone",
+                pages_per_call=pages_per_call,
+                subject_ref_by_name=backbone_subject_ref_by_name,
+                identity_resolver=identity_resolver,
+                supplemental_facts_by_segment=deterministic_campaign_facts_by_segment,
+            ),
+            initial_batch_size=12,
+            maximum_recoveries=2,
+        )
+        backbone_model_call_count = int(backbone_materials.pop("model_call_count"))
     backbone_materials["deterministic_routing"] = routed_backbone_plan[
         "deterministic_routing"
     ]
@@ -1405,12 +1440,16 @@ def rebuild_emperor(
     else:
         neutral_plan = routed_backbone_plan
     model_plan = build_deterministic_fact_resolution_plan(neutral_plan)
-    target_segments = [
-        segment
-        for batch in model_plan["page_batches"]
-        for segment in batch["segments"]
-        if segment.get("source_role") in {"backsource", "supplement"}
-    ]
+    target_segments = (
+        []
+        if reuse_accepted_ruler_neutral
+        else [
+            segment
+            for batch in model_plan["page_batches"]
+            for segment in batch["segments"]
+            if segment.get("source_role") in {"backsource", "supplement"}
+        ]
+    )
     if target_segments:
         directed_current = _merge_neutral_currents(
             [current_neutral, backbone_materials]

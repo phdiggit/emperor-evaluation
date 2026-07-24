@@ -2862,6 +2862,7 @@ def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(
         release_root=release,
         source_index_root=tmp_path / "indexes",
         dynasty_governance_root=tmp_path / "governance",
+        reuse_accepted_ruler_neutral=True,
     )
     second = emperor_session_control.run_claimed_session(
         state_root=state,
@@ -2876,6 +2877,7 @@ def test_claimed_session_uses_owned_slots_and_reuses_completed_runtime(
     assert len(calls) == 1
     assert calls[0]["shared_backbone_root"] == Path(lease["shared_backbone_root"])
     assert calls[0]["stage_cache_root"] == Path(lease["stage_cache_root"])
+    assert calls[0]["reuse_accepted_ruler_neutral"] is True
     assert observed_stage["stage"] == "neutral_materials"
     assert observed_stage["stage_status"] == "quality_accepted"
     assert observed_stage["stage_input_fingerprint"] == "NEUTRAL-INPUT"
@@ -3804,6 +3806,44 @@ def test_session_abandon_preserves_quality_accepted_stage_cache(
     )
 
     assert accepted.is_file()
+
+
+def test_accepted_ruler_neutral_reuse_requires_verified_stage_artifact(
+    tmp_path: Path,
+) -> None:
+    runtime = tmp_path / "runtime"
+    stage = runtime / "stages/neutral_materials"
+    stage.mkdir(parents=True)
+    artifact = stage / "neutral_materials.json"
+    artifact.write_text(
+        json.dumps({"fanout": {"facts": []}}, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    (stage / "current.json").write_text(
+        json.dumps(
+            {
+                "status": "quality_accepted",
+                "input_fingerprint": "INPUT",
+                "producer_contract_fingerprint": "CONTRACT",
+                "artifacts": {
+                    "neutral_materials": {
+                        "file": artifact.name,
+                        "sha256": hashlib.sha256(artifact.read_bytes()).hexdigest(),
+                    }
+                },
+            },
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    assert emperor_rebuild_module._load_accepted_ruler_neutral(runtime) == {
+        "fanout": {"facts": []}
+    }
+    artifact.write_text('{"fanout":{"facts":[{}]}}\n', encoding="utf-8")
+    with pytest.raises(ValueError, match="产物校验失败"):
+        emperor_rebuild_module._load_accepted_ruler_neutral(runtime)
 
 
 def test_emperor_rebuild_does_not_require_preextracted_governance_works_in_index(

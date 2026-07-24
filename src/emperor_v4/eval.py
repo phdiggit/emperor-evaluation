@@ -217,6 +217,11 @@ def _parser() -> argparse.ArgumentParser:
     session_run.add_argument("--outcome-review", type=Path)
     session_run.add_argument("--allow-outcome-model-draft", action="store_true")
     session_run.add_argument(
+        "--reuse-accepted-ruler-neutral",
+        action="store_true",
+        help="复用已验收皇帝中性材料，只重挂新版朝代政书 current",
+    )
+    session_run.add_argument(
         "--stop-after-stage",
         choices=["outcome_projection"],
     )
@@ -568,6 +573,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 stop_after_stage=args.stop_after_stage,
                 outcome_review_path=args.outcome_review,
                 allow_outcome_model_draft=args.allow_outcome_model_draft,
+                reuse_accepted_ruler_neutral=args.reuse_accepted_ruler_neutral,
             ),
             None,
         )
