@@ -8293,6 +8293,123 @@ def test_outcome_projection_applies_main_session_review_without_model(
     ]
 
 
+def test_outcome_review_keeps_explicit_actorless_measure_chain_fact(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    index_path = tmp_path / "review-measure-chain.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "政书/卷一",
+                "work_title": "政书",
+                "source_url": "local:measure",
+                "revision_ref": "1",
+                "raw_text": "下令建立制度。",
+            },
+            {
+                "page_title": "政书/卷二",
+                "work_title": "政书",
+                "source_url": "local:result",
+                "revision_ref": "2",
+                "raw_text": "制度投入运行并形成公共收益。",
+            },
+        ],
+        index_path,
+    )
+    measure = {
+        "fact_ref": "NEUTRALFACT-MEASURE",
+        "segment_ref": "SEG-MEASURE",
+        "page_title": "政书/卷一",
+        "revision_ref": "1",
+        "exact_quote": "下令建立制度。",
+        "source_role": "dynasty_governance",
+        "ruler_window_match": True,
+        "projection_eligibility": "linkable_chain_fact",
+        "implementation_status": "implemented",
+        "result": "建立制度",
+        "fact_kind": "institutional_action",
+        "outcome_candidate_status": "linkable_chain_fact",
+        "evidence_roles": ["measure_or_design"],
+        "actors": [],
+    }
+    result = {
+        **measure,
+        "fact_ref": "NEUTRALFACT-RESULT",
+        "segment_ref": "SEG-RESULT",
+        "page_title": "政书/卷二",
+        "revision_ref": "2",
+        "exact_quote": "制度投入运行并形成公共收益。",
+        "projection_eligibility": "direct_neutral_fact",
+        "result": "形成公共收益",
+        "outcome_candidate_status": "clear_candidate",
+        "evidence_roles": ["public_result"],
+        "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+    }
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["source_page"] = measure["page_title"]
+    candidate["revision_ref"] = measure["revision_ref"]
+    candidate["exact_quotes"] = [
+        measure["exact_quote"],
+        result["exact_quote"],
+    ]
+    candidate["evidence_links"] = [
+        {
+            "fact_ref": measure["fact_ref"],
+            "source_page": measure["page_title"],
+            "revision_ref": measure["revision_ref"],
+            "exact_quote": measure["exact_quote"],
+            "evidence_roles": measure["evidence_roles"],
+        },
+        {
+            "fact_ref": result["fact_ref"],
+            "source_page": result["page_title"],
+            "revision_ref": result["revision_ref"],
+            "exact_quote": result["exact_quote"],
+            "evidence_roles": result["evidence_roles"],
+        },
+    ]
+    candidate["members"][0]["contribution_basis_fact_refs"] = [
+        measure["fact_ref"]
+    ]
+    candidate["members"][0]["authorization_quotes"] = [
+        measure["exact_quote"]
+    ]
+    for axis in candidate["payload"]["value_judgment"]["axes"].values():
+        if axis["basis_fact_refs"]:
+            axis["basis_fact_refs"] = [result["fact_ref"]]
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials={"fanout": {"facts": [measure, result]}},
+        source_index=LocalSourceTextIndex(index_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+        reviewed_payload=payload,
+        included_source_roles=["dynasty_governance"],
+    )
+
+    assert outcome["model_call_count"] == 0
+    assert outcome["candidate_count"] == 1
+    written = json.loads(target.read_text(encoding="utf-8"))
+    registered = next(
+        row
+        for row in written["outcome_registry"]["clusters"]
+        if row["independent_key"] == "test-governance-contract"
+    )
+    assert set(registered["fact_refs"]) == {
+        measure["fact_ref"],
+        result["fact_ref"],
+    }
+
+
 def test_shared_outcome_export_includes_reviewed_open_profile_pack(
     tmp_path: Path,
 ) -> None:

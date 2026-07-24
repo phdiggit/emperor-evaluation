@@ -822,6 +822,40 @@ def project_current_outcomes(
         str(value) for value in ruler_projection.get("backbone_fact_refs") or ()
     }
     source_role_filter = {str(value) for value in included_source_roles if value}
+    reviewed_fact_refs = {
+        str(row.get("fact_ref") or "")
+        for row in (reviewed_payload or {}).get("rejections") or ()
+    }
+    reviewed_fact_refs.update(
+        str(link.get("fact_ref") or "")
+        for candidate in (reviewed_payload or {}).get("candidates") or ()
+        for link in candidate.get("evidence_links") or ()
+    )
+    reviewed_segments = {
+        str(row.get("segment_ref") or "")
+        for row in (reviewed_payload or {}).get("rejections") or ()
+        if row.get("segment_ref")
+    }
+    reviewed_quotes = {
+        str(quote)
+        for candidate in (reviewed_payload or {}).get("candidates") or ()
+        for quote in candidate.get("exact_quotes") or ()
+    }
+
+    def explicitly_reviewed(fact: Mapping[str, Any]) -> bool:
+        exact_quote = str(fact.get("exact_quote") or "")
+        return (
+            str(fact.get("fact_ref") or "") in reviewed_fact_refs
+            or str(fact.get("segment_ref") or "") in reviewed_segments
+            or any(
+                quote
+                and (
+                    quote in exact_quote
+                    or exact_quote in quote
+                )
+                for quote in reviewed_quotes
+            )
+        )
 
     def in_current_ruler_projection(fact: Mapping[str, Any]) -> bool:
         source_role = str(fact.get("source_role") or "")
@@ -856,6 +890,7 @@ def project_current_outcomes(
                     }
                 )
             )
+            or explicitly_reviewed(fact)
         )
         and fact.get("projection_eligibility")
         in {"direct_neutral_fact", "linkable_chain_fact"}
@@ -928,38 +963,10 @@ def project_current_outcomes(
             "dispositions": [dispositions[key] for key in sorted(dispositions)],
         }
     if reviewed_payload is not None:
-        reviewed_fact_refs = {
-            str(row.get("fact_ref") or "")
-            for row in reviewed_payload.get("rejections") or ()
-        }
-        reviewed_fact_refs.update(
-            str(link.get("fact_ref") or "")
-            for candidate in reviewed_payload.get("candidates") or ()
-            for link in candidate.get("evidence_links") or ()
-        )
-        reviewed_segments = {
-            str(row.get("segment_ref") or "")
-            for row in reviewed_payload.get("rejections") or ()
-            if row.get("segment_ref")
-        }
-        reviewed_quotes = {
-            str(quote)
-            for candidate in reviewed_payload.get("candidates") or ()
-            for quote in candidate.get("exact_quotes") or ()
-        }
         eligible = [
             fact
             for fact in all_eligible
-            if str(fact.get("fact_ref") or "") in reviewed_fact_refs
-            or str(fact.get("segment_ref") or "") in reviewed_segments
-            or any(
-                quote
-                and (
-                    quote in str(fact.get("exact_quote") or "")
-                    or str(fact.get("exact_quote") or "") in quote
-                )
-                for quote in reviewed_quotes
-            )
+            if explicitly_reviewed(fact)
         ]
     if source_index is None:
         raise ValueError("待投射成果事实必须提供固定 revision 史源索引")
