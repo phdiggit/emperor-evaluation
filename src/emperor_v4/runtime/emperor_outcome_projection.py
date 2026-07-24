@@ -200,10 +200,28 @@ def _expand_fact_quote_to_same_revision_paragraph(
         page is None
         or page.revision_ref != str(fact.get("revision_ref") or "")
         or not quote
-        or page.raw_text.count(quote) != 1
     ):
         return expanded
-    position = page.raw_text.index(quote)
+    matched_quote = quote
+    if page.raw_text.count(matched_quote) != 1:
+        raw_compact_chars: list[str] = []
+        raw_offsets: list[int] = []
+        for offset, character in enumerate(page.raw_text):
+            if character.isspace():
+                continue
+            raw_compact_chars.append(character)
+            raw_offsets.append(offset)
+        compact_quote = "".join(
+            character for character in quote if not character.isspace()
+        )
+        compact_raw = "".join(raw_compact_chars)
+        if not compact_quote or compact_raw.count(compact_quote) != 1:
+            return expanded
+        compact_position = compact_raw.index(compact_quote)
+        start_offset = raw_offsets[compact_position]
+        end_offset = raw_offsets[compact_position + len(compact_quote) - 1] + 1
+        matched_quote = page.raw_text[start_offset:end_offset]
+    position = page.raw_text.index(matched_quote)
     boundaries = [
         match.span()
         for match in re.finditer(r"<BR>\s*(?:\r?\n)?|(?:\r?\n\s*){2,}", page.raw_text)
@@ -221,7 +239,7 @@ def _expand_fact_quote_to_same_revision_paragraph(
         default=len(page.raw_text),
     )
     paragraph = page.raw_text[start:end].strip()
-    if quote in paragraph and len(paragraph) <= max_chars:
+    if matched_quote in paragraph and len(paragraph) <= max_chars:
         expanded["exact_quote"] = paragraph
     return expanded
 

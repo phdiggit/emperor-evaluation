@@ -764,6 +764,38 @@ def test_outcome_projection_expands_quote_to_same_revision_paragraph(
     assert expanded["exact_quote"] == paragraph
 
 
+def test_outcome_projection_restores_dropped_paragraph_whitespace(
+    tmp_path: Path,
+) -> None:
+    index_path = tmp_path / "source.sqlite3"
+    paragraph = "弘道元年十二月。遗诏废之。\n\n　　文明元年二月。改为道观。"
+    build_local_source_index(
+        [
+            {
+                "page_title": "史书/卷一",
+                "work_title": "史书",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": f"前段。\n\n{paragraph}\n\n后段。",
+            }
+        ],
+        index_path,
+    )
+    index = LocalSourceTextIndex(index_path)
+    page = next(index.iter_pages(works=["史书"], page_titles=["史书/卷一"]))
+
+    expanded = _expand_fact_quote_to_same_revision_paragraph(
+        {
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "弘道元年十二月。遗诏废之。文明元年二月。改为道观。",
+        },
+        pages_by_title={page.page_title: page},
+    )
+
+    assert expanded["exact_quote"] == paragraph
+
+
 def test_outcome_projection_rejects_candidate_disclaiming_quote_support() -> None:
     payload = _governance_candidate_payload()
     candidate = payload["candidates"][0]
