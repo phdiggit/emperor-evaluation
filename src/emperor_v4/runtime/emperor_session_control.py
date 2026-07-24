@@ -1346,7 +1346,74 @@ def upgrade_failed_session_release(
             or _digest(source_pack) != source_pack_digest
         ):
             raise SessionControlError("bootstrap workspace source-pack 身份或摘要无效")
+    preserved_bootstrap_ruler_config = None
+    preserved_bootstrap_identities = []
     if bootstrap_session:
+        preserved_bootstrap_ruler_config = dict(
+            (
+                (workspace_project.get("i5b_current_value") or {}).get(
+                    "rulers"
+                )
+                or {}
+            ).get(str(lease["ruler"]))
+            or {}
+        )
+        workspace_identity_path = (
+            workspace_root / "config/historical-entity-identities.yml"
+        )
+        if workspace_identity_path.is_file():
+            workspace_identities = yaml.safe_load(
+                workspace_identity_path.read_text(encoding="utf-8")
+            )
+            preserved_bootstrap_identities = list(
+                workspace_identities.get("entities") or ()
+            )
+    release_config_root = release_root / "config"
+    workspace_config_root = workspace_root / "config"
+    for source in sorted(
+        value for value in release_config_root.rglob("*") if value.is_file()
+    ):
+        target = workspace_config_root / source.relative_to(release_config_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+    workspace_project = yaml.safe_load(
+        workspace_project_path.read_text(encoding="utf-8")
+    )
+    if bootstrap_session:
+        if not preserved_bootstrap_ruler_config:
+            raise SessionControlError("bootstrap workspace 皇帝配置缺失")
+        workspace_project.setdefault("i5b_current_value", {}).setdefault(
+            "rulers", {}
+        )[str(lease["ruler"])] = preserved_bootstrap_ruler_config
+        workspace_identity_path = (
+            workspace_root / "config/historical-entity-identities.yml"
+        )
+        refreshed_identities = yaml.safe_load(
+            workspace_identity_path.read_text(encoding="utf-8")
+        )
+        refreshed_by_name = {
+            str(row.get("canonical_name") or ""): row
+            for row in refreshed_identities.get("entities") or ()
+        }
+        for row in preserved_bootstrap_identities:
+            name = str(row.get("canonical_name") or "")
+            existing = refreshed_by_name.get(name)
+            if existing is not None and str(existing.get("person_ref") or "") != str(
+                row.get("person_ref") or ""
+            ):
+                raise SessionControlError(
+                    f"目标 release 与 bootstrap 身份冲突: {name}"
+                )
+            if existing is None:
+                refreshed_identities.setdefault("entities", []).append(row)
+                refreshed_by_name[name] = row
+        workspace_identity_path.write_text(
+            yaml.safe_dump(
+                refreshed_identities, allow_unicode=True, sort_keys=False
+            ),
+            encoding="utf-8",
+            newline="\n",
+        )
         configured = dict(configured)
         if (
             not configured.get("neutral_scan_backbone_material_token")
@@ -1361,13 +1428,13 @@ def upgrade_failed_session_release(
             workspace_project["i5b_current_value"]["rulers"][
                 str(lease["ruler"])
             ] = configured
-            workspace_project_path.write_text(
-                yaml.safe_dump(
-                    workspace_project, allow_unicode=True, sort_keys=False
-                ),
-                encoding="utf-8",
-                newline="\n",
-            )
+    workspace_project_path.write_text(
+        yaml.safe_dump(
+            workspace_project, allow_unicode=True, sort_keys=False
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
 
     previous_release_sha = str(lease["release_sha"])
     lease["release_sha"] = target_release_sha

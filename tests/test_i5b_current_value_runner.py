@@ -2564,6 +2564,19 @@ def test_failed_session_can_adopt_repaired_release_without_losing_checkpoint(
     checkpoint = Path(lease["runtime_root"]) / "checkpoint/keep.json"
     checkpoint.parent.mkdir(parents=True, exist_ok=True)
     checkpoint.write_text("{}\n", encoding="utf-8")
+    workspace_project_path = Path(lease["workspace_root"]) / "config/project.yml"
+    workspace_project = yaml.safe_load(
+        workspace_project_path.read_text(encoding="utf-8")
+    )
+    workspace_project["i5b_current_value"]["rulers"]["李治"][
+        "dynasty_governance_material_token"
+    ] = "TANG-GAOZONG-LEGACY"
+    workspace_project_path.write_text(
+        yaml.safe_dump(
+            workspace_project, allow_unicode=True, sort_keys=False
+        ),
+        encoding="utf-8",
+    )
     release_sha["value"] = "2" * 40
 
     report = emperor_session_control.upgrade_failed_session_release(
@@ -2579,6 +2592,12 @@ def test_failed_session_can_adopt_repaired_release_without_losing_checkpoint(
     assert checkpoint.is_file()
     assert upgraded["stage"] == "failed_reusable"
     assert upgraded["release_sha"] == "2" * 40
+    refreshed_project = yaml.safe_load(
+        workspace_project_path.read_text(encoding="utf-8")
+    )
+    assert refreshed_project["i5b_current_value"]["rulers"]["李治"][
+        "dynasty_governance_material_token"
+    ] == "TANG"
 
 
 def test_claimed_session_can_pause_after_outcome_review_gate(
@@ -3716,11 +3735,11 @@ def test_high_value_model_rejects_require_main_session_review() -> None:
     plan = {
         "page_batches": [
             {
+                "page_title": "資治通鑒/卷184",
+                "revision_ref": "1",
                 "segments": [
                     {
                         "segment_ref": segment_ref,
-                        "page_title": "資治通鑒/卷184",
-                        "revision_ref": "1",
                         "subject_refs": ["RULER-LIYUAN"],
                         "subject_names": ["李淵"],
                         "chronicle_ruler_ref": "RULER-LIYUAN",

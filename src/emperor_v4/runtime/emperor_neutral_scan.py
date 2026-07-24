@@ -618,7 +618,13 @@ def build_high_value_reject_review(
     """Find model rejects that carry strong appointment or command-result signals."""
 
     segments = {
-        str(segment["segment_ref"]): segment
+        str(segment["segment_ref"]): {
+            "page_title": str(batch.get("page_title") or ""),
+            "revision_ref": str(
+                batch.get("revision_ref") or batch.get("revision_id") or ""
+            ),
+            **dict(segment),
+        }
         for batch in plan.get("page_batches") or ()
         for segment in batch.get("segments") or ()
     }

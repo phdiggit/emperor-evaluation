@@ -1470,6 +1470,22 @@ def rebuild_emperor(
         plan=model_plan,
         materials=neutral_materials,
     )
+    neutral_run_metrics = {
+        "schema_version": "neutral-material-run-metrics-v1",
+        "ruler": ruler,
+        "backbone_model_call_count": backbone_model_call_count,
+        "backsource_model_call_count": backsource_model_call_count,
+        "runtime_model_call_count": neutral_model_call_count,
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+    }
+    high_value_reject_review["runtime_model_call_count"] = (
+        neutral_model_call_count
+    )
+    high_value_reject_review["model_call_breakdown"] = {
+        "backbone": backbone_model_call_count,
+        "backsource": backsource_model_call_count,
+    }
     neutral_materials["high_value_reject_review"] = high_value_reject_review
     _atomic_text(
         neutral_path,
@@ -1477,6 +1493,16 @@ def rebuild_emperor(
         + "\n",
     )
     reject_review_path = runtime_root / "neutral-reject-review.json"
+    _atomic_text(
+        runtime_root / "neutral-run-metrics.json",
+        json.dumps(
+            neutral_run_metrics,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+    )
     _atomic_text(
         reject_review_path,
         json.dumps(
