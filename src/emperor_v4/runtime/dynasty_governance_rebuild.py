@@ -136,7 +136,14 @@ def _sanitize_task_payload(
         limitations.append(
             f"确定性拒绝 {dropped} 条无法逐字回指、重复或 actor 引用越界的候选链。"
         )
-    return {**payload, "chains": accepted, "limitations": list(dict.fromkeys(limitations))}
+    return {
+        **payload,
+        "task_code": str(task["task_code"]),
+        "dynasty": str(task["dynasty"]),
+        "source_chars": int(task["source_chars"]),
+        "chains": accepted,
+        "limitations": list(dict.fromkeys(limitations)),
+    }
 
 
 _UNSUPPORTED_SUMMARY_MARKERS = (

@@ -25,6 +25,7 @@ class ModelBatchAnomalyError(TimeoutError):
 
 MIN_ADAPTIVE_BASELINE_SAMPLES = 3
 MIN_ADAPTIVE_TIMEOUT_SECONDS = 45.0
+MIN_ADAPTIVE_TIMEOUT_RATIO = 0.75
 COMPARABLE_PROMPT_SIZE_RATIO = 1.25
 
 
@@ -151,7 +152,11 @@ class StructuredCodexRunner:
         return (
             min(
                 float(self.timeout_seconds),
-                max(MIN_ADAPTIVE_TIMEOUT_SECONDS, 2.0 * baseline),
+                max(
+                    MIN_ADAPTIVE_TIMEOUT_SECONDS,
+                    MIN_ADAPTIVE_TIMEOUT_RATIO * float(self.timeout_seconds),
+                    2.0 * baseline,
+                ),
             ),
             baseline,
             len(baseline_samples),

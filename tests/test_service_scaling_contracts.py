@@ -597,8 +597,17 @@ def test_dynasty_governance_drops_only_unverifiable_chain(tmp_path: Path) -> Non
     bad["chain_key"] = "BAD"
     bad["evidence"][0]["exact_quote"] = "rewritten quote"
     sanitized = dynasty_governance_rebuild._sanitize_task_payload(
-        {"chains": [good, bad], "limitations": []},
         {
+            "task_code": "WRONG",
+            "dynasty": "错误朝代",
+            "source_chars": 1,
+            "chains": [good, bad],
+            "limitations": [],
+        },
+        {
+            "task_code": "DYNGOV-TEST-01",
+            "dynasty": "测试朝代",
+            "source_chars": len("exact source quote"),
             "pages": [
                 {
                     "page_title": "Treatise/1",
@@ -611,6 +620,9 @@ def test_dynasty_governance_drops_only_unverifiable_chain(tmp_path: Path) -> Non
 
     assert [chain["chain_key"] for chain in sanitized["chains"]] == ["GOOD"]
     assert "确定性拒绝 1 条" in sanitized["limitations"][0]
+    assert sanitized["task_code"] == "DYNGOV-TEST-01"
+    assert sanitized["dynasty"] == "测试朝代"
+    assert sanitized["source_chars"] == len("exact source quote")
 
 
 def test_dynasty_governance_worker_discovers_index_and_noops_reused_current(
