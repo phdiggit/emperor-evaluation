@@ -1855,7 +1855,7 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
                     + [
                         {
                             "work": "明㑹典 (四庫全書本)",
-                            "page_title": "明㑹典_(四庫全書本)/全覽6",
+                            "page_title": "明㑹典 (四庫全書本)/全覽6",
                         }
                     ],
             }
@@ -2051,7 +2051,7 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
         + [
             {
                 "work": "明㑹典 (四庫全書本)",
-                "page_title": "明㑹典_(四庫全書本)/占位",
+                "page_title": "明㑹典 (四庫全書本)/占位",
             }
         ],
     }
@@ -2067,7 +2067,7 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
         + [
             {
                 "work": "明㑹典 (四庫全書本)",
-                "page_title": "明㑹典_(四庫全書本)/全覽6",
+                "page_title": "明㑹典 (四庫全書本)/全覽6",
             }
         ],
     }
