@@ -306,7 +306,7 @@ def _accepted_outcome_stage_source_pack_sha(
     workspace_source_pack: Path,
 ) -> str | None:
     if (
-        str(lease.get("stage") or "") != "awaiting_review"
+        str(lease.get("stage") or "") not in {"awaiting_review", "failed_reusable"}
         or str(lease.get("review_stage") or "") != "outcome_projection"
     ):
         return None

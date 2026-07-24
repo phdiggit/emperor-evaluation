@@ -3313,8 +3313,9 @@ def test_awaiting_review_session_can_adopt_repaired_release_without_losing_gate(
     )
 
 
-def test_awaiting_review_upgrade_preserves_quality_accepted_stage_source_pack(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+@pytest.mark.parametrize("lease_stage", ["awaiting_review", "failed_reusable"])
+def test_review_upgrade_preserves_quality_accepted_stage_source_pack(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, lease_stage: str
 ) -> None:
     release = _session_release_fixture(tmp_path)
     release_sha = {"value": "1" * 40}
@@ -3336,7 +3337,7 @@ def test_awaiting_review_upgrade_preserves_quality_accepted_stage_source_pack(
         / "session-control/sessions/SESSION-ACCEPTED-STAGE-UPGRADE/current.json"
     )
     waiting = json.loads(lease_path.read_text(encoding="utf-8"))
-    waiting["stage"] = "awaiting_review"
+    waiting["stage"] = lease_stage
     waiting["review_stage"] = "outcome_projection"
     lease_path.write_text(
         json.dumps(waiting, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -3397,7 +3398,7 @@ def test_awaiting_review_upgrade_preserves_quality_accepted_stage_source_pack(
     assert report["accepted_stage_source_pack_preserved"] is True
     assert json.loads(workspace_pack.read_text(encoding="utf-8")) == accepted
     assert upgraded["canonical_expected_sha256"]["source_pack"] == accepted_sha
-    assert upgraded["stage"] == "awaiting_review"
+    assert upgraded["stage"] == lease_stage
     assert upgraded["review_stage"] == "outcome_projection"
 
 
