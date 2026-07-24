@@ -27,6 +27,7 @@ from emperor_v4.evaluation.historical_outcome_registry import (
     build_unbound_historical_outcome_registry,
     materialize_ruler_outcome_registry,
     normalize_outcome_registry_for_public_view,
+    public_registry_matches_source_pack,
     render_unbound_historical_outcome_registry_markdown,
     write_current_outcome_layers,
 )
@@ -8408,6 +8409,38 @@ def test_outcome_review_keeps_explicit_actorless_measure_chain_fact(
         measure["fact_ref"],
         result["fact_ref"],
     }
+
+
+def test_public_registry_match_accepts_cross_source_evidence_union() -> None:
+    source = json.loads(
+        (
+            ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+        ).read_text(encoding="utf-8")
+    )["outcome_registry"]
+    expected = normalize_outcome_registry_for_public_view(source)
+    materialized = json.loads(json.dumps(expected, ensure_ascii=False))
+    target = materialized["clusters"][0]
+    target["fact_refs"].append("PFACT-CROSS-SOURCE")
+    target["source_refs"].append("政书/卷一@1#新增证据")
+    target["episode_refs"].append("EP-CROSS-SOURCE")
+    target["limitations"].append("新增史源只补证据，不改变成果本体。")
+    target["evidence_lineage"].append(
+        {
+            "fact_ref": "PFACT-CROSS-SOURCE",
+            "evidence_roles": ["public_result"],
+        }
+    )
+    target["members"][0]["contribution_basis_fact_refs"].append(
+        "PFACT-CROSS-SOURCE"
+    )
+    target["members"][0]["contribution_types"].append("operational_delivery")
+    target["semantic_fingerprint"] = cluster_semantic_fingerprint(target)
+
+    assert public_registry_matches_source_pack(materialized, source)
+
+    target["observable_result"] = "改写了成果本体。"
+    target["semantic_fingerprint"] = cluster_semantic_fingerprint(target)
+    assert not public_registry_matches_source_pack(materialized, source)
 
 
 def test_shared_outcome_export_includes_reviewed_open_profile_pack(

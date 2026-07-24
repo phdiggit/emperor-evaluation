@@ -274,6 +274,109 @@ def public_registry_matches_source_pack(
         }
         if projected == expected:
             return True
+
+    def comparable_cluster(cluster: Mapping[str, Any]) -> dict[str, Any]:
+        comparable = {
+            key: value
+            for key, value in cluster.items()
+            if key
+            not in {
+                "fact_refs",
+                "source_refs",
+                "episode_refs",
+                "evidence_lineage",
+                "members",
+                "limitations",
+                "semantic_fingerprint",
+            }
+        }
+        payload = dict(comparable.get("payload") or {})
+        judgment = payload.get("value_judgment")
+        if isinstance(judgment, Mapping):
+            payload["value_judgment"] = {
+                "comparison_basis": judgment.get("comparison_basis"),
+                "effect_horizon": judgment.get("effect_horizon"),
+                "overall_direction": judgment.get("overall_direction"),
+                "overall_magnitude": judgment.get("overall_magnitude"),
+                "axes": {
+                    axis_name: {
+                        "direction": axis.get("direction"),
+                        "magnitude": axis.get("magnitude"),
+                    }
+                    for axis_name, axis in (judgment.get("axes") or {}).items()
+                },
+            }
+            comparable["payload"] = payload
+        return comparable
+
+    def member_core(member: Mapping[str, Any]) -> dict[str, Any]:
+        return {
+            key: value
+            for key, value in member.items()
+            if key
+            not in {
+                "contribution_basis_fact_refs",
+                "contribution_types",
+            }
+        }
+
+    def merged_cluster_contains_source(
+        actual: Mapping[str, Any],
+        expected: Mapping[str, Any],
+    ) -> bool:
+        if comparable_cluster(actual) != comparable_cluster(expected):
+            return False
+        for field in ("fact_refs", "source_refs", "episode_refs", "limitations"):
+            if not set(expected.get(field) or ()).issubset(
+                set(actual.get(field) or ())
+            ):
+                return False
+        actual_lineage = {
+            str(row["fact_ref"]): set(row.get("evidence_roles") or ())
+            for row in actual.get("evidence_lineage") or ()
+        }
+        for row in expected.get("evidence_lineage") or ():
+            if not set(row.get("evidence_roles") or ()).issubset(
+                actual_lineage.get(str(row["fact_ref"]), set())
+            ):
+                return False
+        actual_members = {
+            str(row["actor_ref"]): row for row in actual.get("members") or ()
+        }
+        for expected_member in expected.get("members") or ():
+            actual_member = actual_members.get(str(expected_member["actor_ref"]))
+            if actual_member is None:
+                return False
+            if member_core(actual_member) != member_core(expected_member):
+                return False
+            for field in (
+                "contribution_basis_fact_refs",
+                "contribution_types",
+            ):
+                if not set(expected_member.get(field) or ()).issubset(
+                    set(actual_member.get(field) or ())
+                ):
+                    return False
+        return True
+
+    if (
+        materialized.get("schema_version") == normalized_source.get("schema_version")
+        and materialized.get("status") == normalized_source.get("status")
+    ):
+        actual_by_key = {
+            (str(row["outcome_kind"]), str(row["independent_key"])): row
+            for row in materialized.get("clusters") or ()
+        }
+        expected_by_key = {
+            (str(row["outcome_kind"]), str(row["independent_key"])): row
+            for row in normalized_source.get("clusters") or ()
+        }
+        if all(
+            key in actual_by_key
+            and merged_cluster_contains_source(actual_by_key[key], expected)
+            for key, expected in expected_by_key.items()
+        ):
+            return True
     return False
 
 
