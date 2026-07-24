@@ -1978,6 +1978,26 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
     }
     validate_dynasty_governance_current_catalog(complete, configured)
 
+    traditional_work = {
+        "dynasty_token": "TANG",
+        "source_works": [{"work": "貞觀政要"}],
+        "quality_requires_catalog_source_families": True,
+    }
+    normalized_current = {
+        "catalog_fingerprint": dynasty_governance_catalog_fingerprint(
+            traditional_work
+        ),
+        "sources": [
+            {
+                "work": "贞观政要",
+                "page_title": "貞觀政要/卷01",
+            }
+        ],
+    }
+    validate_dynasty_governance_current_catalog(
+        normalized_current, traditional_work
+    )
+
 
 def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch

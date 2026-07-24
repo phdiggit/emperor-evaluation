@@ -13,6 +13,7 @@ from threading import Lock
 from typing import Any, Mapping, Sequence
 from uuid import uuid4
 
+from opencc import OpenCC
 import yaml
 
 from emperor_v4.adapters.dynasty_neutral_governance import (
@@ -29,6 +30,7 @@ SCHEMA_VERSION = "dynasty-governance-current-v2"
 EXTRACTION_POLICY_VERSION = "dynasty-governance-neutral-extraction-v3"
 _EDITORIAL_NOTE_ANCHOR = re.compile(r"\[\d+\]")
 _LAYOUT_WHITESPACE = re.compile(r"\s+")
+_T2S = OpenCC("t2s")
 
 
 def _digest(value: object) -> str:
@@ -53,6 +55,10 @@ def _source_identity_key(source: Mapping[str, object]) -> tuple[str, ...]:
             "source_url",
         )
     )
+
+
+def _work_key(value: object) -> str:
+    return re.sub(r"[《》〈〉\s]", "", _T2S.convert(str(value or "")))
 
 
 def _atomic_json(path: Path, payload: Mapping[str, object]) -> None:
@@ -297,17 +303,22 @@ def validate_dynasty_governance_current_catalog(
         if isinstance(row, Mapping)
     }
     actual_works = {
-        str(row.get("work") or "").strip()
-        or str(row.get("page_title") or "").split("/", 1)[0]
+        _work_key(
+            str(row.get("work") or "").strip()
+            or str(row.get("page_title") or "").split("/", 1)[0]
+        )
         for row in current.get("sources") or ()
         if isinstance(row, Mapping)
     }
-    required_works = {
-        str(source.get("work") or "").strip()
+    required_work_rows = {
+        _work_key(source.get("work")): str(source.get("work") or "").strip()
         for source in configured.get("source_works") or ()
         if isinstance(source, Mapping) and str(source.get("work") or "").strip()
     }
-    missing_works = sorted(required_works - actual_works)
+    missing_works = sorted(
+        required_work_rows[key]
+        for key in set(required_work_rows) - actual_works
+    )
     if missing_works:
         raise ValueError(
             "朝代政书 current 缺少目录指定来源族: "
@@ -725,11 +736,11 @@ def rebuild_dynasty_governance(
                 _source_identity_key(row) for row in source_identities
             }
             configured_works = {
-                str(row.get("work") or "")
+                _work_key(row.get("work"))
                 for row in configured.get("source_works") or ()
                 if isinstance(row, Mapping)
             }
-            current_works = {key[0] for key in current_source_keys}
+            current_works = {_work_key(key[0]) for key in current_source_keys}
             source_expansion_compatible = (
                 current.get("schema_version") == SCHEMA_VERSION
                 and current.get("status") == "quality_accepted_shadow"
