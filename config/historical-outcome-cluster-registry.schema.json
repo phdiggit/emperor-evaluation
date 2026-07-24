@@ -203,7 +203,23 @@
         "foundational": {"type": "boolean"},
         "durable_cross_stage": {"type": "boolean"},
         "authorization_status": {"enum": ["explicit", "maintained", "implicit", "not_established"]},
-        "causal_attribution_status": {"enum": ["established", "source_attributed", "limited"]}
+        "causal_attribution_status": {"enum": ["established", "source_attributed", "limited"]},
+        "value_judgment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "overall_direction", "productivity_effect", "civilization_effect",
+            "social_cost", "effect_horizon", "basis"
+          ],
+          "properties": {
+            "overall_direction": {"enum": ["positive", "mixed", "negative", "unclear"]},
+            "productivity_effect": {"enum": ["beneficial", "adverse", "mixed", "not_established"]},
+            "civilization_effect": {"enum": ["beneficial", "adverse", "mixed", "not_established"]},
+            "social_cost": {"enum": ["beneficial", "limited", "material", "severe", "not_established"]},
+            "effect_horizon": {"enum": ["short", "medium", "long", "cross_stage", "unclear"]},
+            "basis": {"type": "string", "minLength": 1}
+          }
+        }
       }
     },
     "cluster": {

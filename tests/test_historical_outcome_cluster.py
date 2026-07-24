@@ -57,6 +57,10 @@ def test_current_outcomes_validate_and_have_deterministic_episodes(ruler: str) -
         episode = build_outcome_episode(cluster, facts=facts)
         assert episode.episode_id == cluster["episode_refs"][0]
         assert episode.assertion_links
+        if cluster["outcome_kind"] == "governance":
+            judgment = cluster["payload"]["value_judgment"]
+            assert judgment["overall_direction"] == cluster["result_direction"]
+            assert judgment["basis"]
 
 
 def test_outcome_identity_and_fact_lineage_fail_closed() -> None:
@@ -71,6 +75,26 @@ def test_outcome_identity_and_fact_lineage_fail_closed() -> None:
     ][:2]
     same_kind[1]["independent_key"] = same_kind[0]["independent_key"]
     with pytest.raises(ValueError, match="重复"):
+        validate_historical_outcome_registry(
+            registry,
+            schema_path=SCHEMA,
+            facts={row["record_ref"]: row for row in pack["facts"]},
+        )
+
+
+def test_governance_value_judgment_must_match_result_direction() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    registry = copy.deepcopy(pack["outcome_registry"])
+    governance = next(
+        row for row in registry["clusters"] if row["outcome_kind"] == "governance"
+    )
+    governance["payload"]["value_judgment"]["overall_direction"] = "negative"
+    governance["semantic_fingerprint"] = cluster_semantic_fingerprint(governance)
+    with pytest.raises(ValueError, match="价值方向与成果方向不一致"):
         validate_historical_outcome_registry(
             registry,
             schema_path=SCHEMA,
@@ -428,7 +452,7 @@ def test_lishimin_full_ruler_gold_closes_outcomes_and_profiles() -> None:
 @pytest.mark.parametrize(
     ("ruler", "expected_signal", "expected_complementarity", "expected_stability"),
     [
-        ("李世民", "19.210646", "balanced_four", "durable_multi_stage"),
+        ("李世民", "18.689968", "balanced_four", "durable_multi_stage"),
         ("李渊", "5.617151", "strong_three", "stable_but_narrow"),
         ("刘邦", "13.647331", "balanced_four", "durable_multi_stage"),
     ],
@@ -489,7 +513,7 @@ def test_i5b_gold_rejects_shadow_signal_drift() -> None:
     assert comparison["i5b_projection"]["differences"] == [
         {
             "path": "net_signal",
-                "expected": "19.210646",
+                "expected": "18.689968",
             "actual": "0.000000",
         }
     ]

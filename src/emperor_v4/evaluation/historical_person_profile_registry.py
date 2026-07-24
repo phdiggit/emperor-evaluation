@@ -29,6 +29,11 @@ def _assessment_clusters(
         for source_pack in source_packs
         for cluster in (source_pack.get("outcome_registry") or {}).get("clusters") or ()
     }
+    origin_rulers = {
+        str(cluster["outcome_ref"]): str(source_pack.get("ruler_ref") or "")
+        for source_pack in source_packs
+        for cluster in (source_pack.get("outcome_registry") or {}).get("clusters") or ()
+    }
     clusters = []
     for outcome in outcome_registry.get("outcomes") or ():
         cluster = dict(outcome)
@@ -59,6 +64,24 @@ def _assessment_clusters(
                 )
             if credits:
                 projected["talent_credit"] = next(iter(credits))
+            own_reign_governance = (
+                str(outcome["outcome_kind"]) == "governance"
+                and any(
+                    origin_rulers.get(str(origin["outcome_ref"])) == str(member["actor_ref"])
+                    and str(origin.get("ruler_window_status") or "") == "within_window"
+                    and any(
+                        str(origin_member["actor_ref"]) == str(member["actor_ref"])
+                        and str(origin_member.get("actor_kind") or "") == "ruler"
+                        for origin_member in origin.get("members") or ()
+                    )
+                    for origin in origin_rows
+                )
+            )
+            projected["talent_grade_eligible"] = not own_reign_governance
+            if own_reign_governance:
+                projected[
+                    "talent_grade_exclusion_reason"
+                ] = "ruler_own_reign_governance"
             members.append(projected)
         cluster["members"] = members
         clusters.append(cluster)
@@ -111,6 +134,8 @@ def _complete_grade_basis_outcomes(
             None,
         )
         if member is None:
+            continue
+        if member.get("talent_grade_eligible") is False:
             continue
         kind = str(cluster["outcome_kind"])
         role_code = str(member["role_code"])
@@ -312,6 +337,20 @@ def build_historical_person_profile_registry(
                 for fact_ref in outcome.get("fact_refs") or ()
             }
         )
+        talent_grade_exclusions = sorted(
+            (
+                {
+                    "outcome_ref": str(cluster["outcome_ref"]),
+                    "canonical_label": str(cluster["canonical_label"]),
+                    "reason": str(member["talent_grade_exclusion_reason"]),
+                }
+                for cluster in clusters
+                for member in cluster.get("members") or ()
+                if str(member["actor_ref"]) == person_ref
+                and member.get("talent_grade_eligible") is False
+            ),
+            key=lambda row: (row["canonical_label"], row["outcome_ref"]),
+        )
         coverage_gaps = []
         if (
             biography.get("scan_status") != "complete_section"
@@ -347,6 +386,7 @@ def build_historical_person_profile_registry(
             "primary_domains": assessment["primary_domains"],
             "domain_grades": assessment["domain_grades"],
             "talent_grade_outcome_refs": assessment["outcome_refs"],
+            "talent_grade_exclusions": talent_grade_exclusions,
             "outcome_refs": sorted(
                 str(outcome["registration_ref"])
                 for outcome in outcome_registry.get("outcomes") or ()
@@ -402,7 +442,7 @@ def render_historical_person_profile_registry_markdown(
     lines = [
         "# 人物全生涯画像总登记（未绑定皇帝窗口）",
         "",
-        "> 人才档位与全生涯本传凭据在此共享；团队选择和政治风险按皇帝窗口另行投影。",
+        "> 人才档位与全生涯本传凭据在此共享；皇帝本人在位治理保留为生涯事实但不抬高其人才档位；团队选择和政治风险按皇帝窗口另行投影。",
         "",
         f"- 总人物：{declarations['profile_count']}",
         f"- 画像闭合：{declarations['complete_profile_count']}",
@@ -505,7 +545,8 @@ def render_historical_person_profile_registry_markdown(
     lines.extend(["", "## 完整定级依据", ""])
     for profile in registry["profiles"]:
         rows = profile["grade_basis_outcomes"]
-        if not rows:
+        exclusions = profile.get("talent_grade_exclusions") or []
+        if not rows and not exclusions:
             continue
         anchor = f"profile-{str(profile['profile_ref']).lower()}"
         current_basis = str(profile["overall_basis"]).replace("\n", " ")
@@ -519,9 +560,19 @@ def render_historical_person_profile_registry_markdown(
                 "",
                 f"- 当前档位判定：{current_basis}",
                 f"- 全部合格成果：{len(rows)} 项",
+                f"- 定级排除：{len(exclusions)} 项",
                 "",
             ]
         )
+        if exclusions:
+            lines.append(
+                "- 排除明细："
+                + "；".join(
+                    f"{row['canonical_label']}（{row['reason']}）"
+                    for row in exclusions
+                )
+            )
+            lines.append("")
         for index, row in enumerate(rows, start=1):
             assessment = row["current_outcome_assessment"]
             if row["outcome_kind"] == "campaign":

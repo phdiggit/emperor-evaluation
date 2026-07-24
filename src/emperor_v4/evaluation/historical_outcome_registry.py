@@ -109,6 +109,14 @@ _DISPLAY_LABELS = {
     "source_attributed": "史源归因",
     "members": "成员列表",
     "revision": "固定版本",
+    "positive": "正面",
+    "negative": "负面",
+    "mixed": "利弊并存",
+    "unclear": "证据不足",
+    "implemented": "已实施",
+    "operated": "已运行",
+    "completed": "已完成",
+    "failed": "失败",
 }
 
 
@@ -540,6 +548,155 @@ def _atomic_text(path: Path, content: str) -> None:
     os.replace(replacement, path)
 
 
+def _partition_outcome_registry(
+    registry: Mapping[str, Any],
+    *,
+    partition_token: str,
+    outcome_partitions: Mapping[str, str],
+    source_pack_refs: Sequence[str],
+) -> dict[str, Any]:
+    outcomes = [
+        json.loads(json.dumps(row, ensure_ascii=False))
+        for row in registry["outcomes"]
+        if outcome_partitions[str(row["registration_ref"])] == partition_token
+    ]
+    declarations = dict(registry["declarations"])
+    declarations.update(
+        {
+            "source_pack_count": len(source_pack_refs),
+            "source_pack_refs": sorted(source_pack_refs),
+            "outcome_count": len(outcomes),
+            "campaign_count": sum(
+                row["outcome_kind"] == "campaign" for row in outcomes
+            ),
+            "governance_count": sum(
+                row["outcome_kind"] == "governance" for row in outcomes
+            ),
+            "statecraft_count": sum(
+                row["outcome_kind"] == "statecraft" for row in outcomes
+            ),
+            "duplicate_registration_count": sum(
+                max(0, len(row.get("origin_outcome_refs") or ()) - 1)
+                for row in outcomes
+            ),
+        }
+    )
+    report = {
+        "schema_version": registry["schema_version"],
+        "status": registry["status"],
+        "registry_partition": partition_token,
+        "declarations": declarations,
+        "conflicts": [
+            dict(row)
+            for row in registry.get("conflicts") or ()
+            if outcome_partitions.get(
+                _registration_ref(
+                    str(row["outcome_kind"]), str(row["independent_key"])
+                )
+            )
+            == partition_token
+        ],
+        "outcomes": outcomes,
+    }
+    report["registry_fingerprint"] = _digest(report)
+    return report
+
+
+def _partition_profile_registry(
+    registry: Mapping[str, Any],
+    *,
+    partition_token: str,
+    profile_partitions: Mapping[str, str],
+    outcome_registry_fingerprint: str,
+    source_pack_refs: Sequence[str],
+) -> dict[str, Any]:
+    profiles = [
+        json.loads(json.dumps(row, ensure_ascii=False))
+        for row in registry["profiles"]
+        if profile_partitions[str(row["person_ref"])] == partition_token
+    ]
+    declarations = dict(registry["declarations"])
+    declarations.update(
+        {
+            "profile_count": len(profiles),
+            "complete_profile_count": sum(
+                not profile["coverage_gaps"] for profile in profiles
+            ),
+            "open_profile_count": sum(
+                bool(profile["coverage_gaps"]) for profile in profiles
+            ),
+            "outcome_registry_fingerprint": outcome_registry_fingerprint,
+            "source_pack_count": len(source_pack_refs),
+            "source_pack_refs": sorted(source_pack_refs),
+        }
+    )
+    report = {
+        "schema_version": registry["schema_version"],
+        "status": registry["status"],
+        "registry_partition": partition_token,
+        "profiles": profiles,
+        "declarations": declarations,
+    }
+    report["registry_fingerprint"] = _digest(report)
+    return report
+
+
+def _dynasty_token_lookup(project: Mapping[str, Any]) -> dict[str, str]:
+    lookup: dict[str, str] = {}
+    dynasties = (project.get("dynasty_governance_catalog") or {}).get(
+        "dynasties"
+    ) or {}
+    for dynasty_name, dynasty in dynasties.items():
+        token = str(dynasty["dynasty_token"])
+        for label in (str(dynasty_name), *(dynasty.get("aliases") or ())):
+            existing = lookup.setdefault(str(label), token)
+            if existing != token:
+                raise ValueError(f"朝代别名映射冲突: {label}")
+    return lookup
+
+
+def _profile_partition_map(
+    *,
+    workspace_root: Path,
+    project: Mapping[str, Any],
+    profile_registry: Mapping[str, Any],
+    configured_packs: Sequence[tuple[str, Mapping[str, Any], Mapping[str, Any]]],
+) -> dict[str, str]:
+    identity_path = workspace_root / "config/historical-entity-identities.yml"
+    identity_registry = yaml.safe_load(identity_path.read_text(encoding="utf-8"))
+    dynasty_tokens = _dynasty_token_lookup(project)
+    identity_partitions = {}
+    for entity in identity_registry.get("entities") or ():
+        dynasty = str(entity.get("dynasty") or "")
+        token = dynasty_tokens.get(dynasty)
+        if token:
+            identity_partitions[str(entity["person_ref"])] = token
+    observed: dict[str, set[str]] = {}
+    for _ruler_name, ruler_config, source_pack in configured_packs:
+        token = str(ruler_config["dynasty_governance_material_token"])
+        for member in source_pack.get("members") or ():
+            observed.setdefault(str(member["person_ref"]), set()).add(token)
+        for cluster in (source_pack.get("outcome_registry") or {}).get(
+            "clusters"
+        ) or ():
+            for member in cluster.get("members") or ():
+                observed.setdefault(str(member["actor_ref"]), set()).add(token)
+    result = {}
+    for profile in profile_registry["profiles"]:
+        person_ref = str(profile["person_ref"])
+        token = identity_partitions.get(person_ref)
+        if token is None:
+            candidates = observed.get(person_ref) or set()
+            if len(candidates) != 1:
+                raise ValueError(
+                    f"人物画像缺少唯一朝代分区: {profile['person']} / "
+                    f"{sorted(candidates)}"
+                )
+            token = next(iter(candidates))
+        result[person_ref] = token
+    return result
+
+
 def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
     """Publish shared outcomes and profiles first, then ruler bindings."""
 
@@ -554,6 +711,9 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
             continue
         source_path = workspace_root / str(ruler_config["source_pack"])
         source_pack = json.loads(source_path.read_text(encoding="utf-8"))
+        projection_gate = source_pack.get("profile_projection_gate") or {}
+        if projection_gate.get("freeze_allowed") is not True:
+            continue
         configured_packs.append((str(ruler_name), ruler_config, source_pack))
     if not configured_packs:
         raise ValueError("当前配置没有可汇总的成果 source pack")
@@ -581,6 +741,106 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         profile_config.get("current_markdown")
         or "eval/historical_person_profiles/current.md"
     )
+    origin_partitions: dict[str, set[str]] = {}
+    source_refs_by_partition: dict[str, list[str]] = {}
+    for _ruler_name, ruler_config, source_pack in configured_packs:
+        token = str(ruler_config["dynasty_governance_material_token"])
+        source_ref = str(source_pack["source_pack_sha256"])
+        source_refs_by_partition.setdefault(token, []).append(source_ref)
+        for cluster in (source_pack.get("outcome_registry") or {}).get(
+            "clusters"
+        ) or ():
+            origin_partitions.setdefault(str(cluster["outcome_ref"]), set()).add(
+                token
+            )
+    owner_overrides = registry_config.get(
+        "cross_dynasty_outcome_partition_owners"
+    ) or {}
+    outcome_partitions = {}
+    for outcome in registry["outcomes"]:
+        candidates = {
+            token
+            for origin_ref in outcome.get("origin_outcome_refs") or ()
+            for token in origin_partitions.get(str(origin_ref), set())
+        }
+        override = owner_overrides.get(str(outcome["independent_key"]))
+        if override:
+            candidates = {str(override)}
+        if len(candidates) != 1:
+            raise ValueError(
+                f"公共成果缺少唯一朝代分区: {outcome['canonical_label']} / "
+                f"{sorted(candidates)}"
+            )
+        outcome_partitions[str(outcome["registration_ref"])] = next(
+            iter(candidates)
+        )
+    profile_partitions = _profile_partition_map(
+        workspace_root=workspace_root,
+        project=project,
+        profile_registry=profile_registry,
+        configured_packs=configured_packs,
+    )
+    partition_tokens = sorted(
+        {
+            *outcome_partitions.values(),
+            *profile_partitions.values(),
+        }
+    )
+    outcome_partition_root = workspace_root / str(
+        registry_config.get("partition_root")
+        or "eval/historical_outcome_registry"
+    )
+    profile_partition_root = workspace_root / str(
+        profile_config.get("partition_root")
+        or "eval/historical_person_profiles"
+    )
+    outcome_partitions_payload = {
+        token: _partition_outcome_registry(
+            registry,
+            partition_token=token,
+            outcome_partitions=outcome_partitions,
+            source_pack_refs=source_refs_by_partition.get(token, ()),
+        )
+        for token in partition_tokens
+    }
+    merged_outcomes = sorted(
+        (
+            outcome
+            for partition in outcome_partitions_payload.values()
+            for outcome in partition["outcomes"]
+        ),
+        key=lambda row: (
+            {"campaign": 0, "governance": 1, "statecraft": 2}[
+                row["outcome_kind"]
+            ],
+            str((row.get("period") or {}).get("start") or ""),
+            str(row["canonical_label"]),
+        ),
+    )
+    if merged_outcomes != registry["outcomes"]:
+        raise ValueError("朝代成果分区无法确定性无损合并为全局 current")
+    profile_partitions_payload = {
+        token: _partition_profile_registry(
+            profile_registry,
+            partition_token=token,
+            profile_partitions=profile_partitions,
+            outcome_registry_fingerprint=outcome_partitions_payload[token][
+                "registry_fingerprint"
+            ],
+            source_pack_refs=source_refs_by_partition.get(token, ()),
+        )
+        for token in partition_tokens
+    }
+    merged_profiles = sorted(
+        (
+            profile
+            for partition in profile_partitions_payload.values()
+            for profile in partition["profiles"]
+        ),
+        key=lambda row: str(row["person"]),
+    )
+    if merged_profiles != profile_registry["profiles"]:
+        raise ValueError("朝代人物画像分区无法确定性无损合并为全局 current")
     prepared_bindings = []
     for ruler_name, ruler_config, source_pack in configured_packs:
         binding = build_ruler_outcome_bindings(source_pack, registry)
@@ -625,6 +885,46 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         profile_markdown,
         render_historical_person_profile_registry_markdown(profile_registry),
     )
+    partition_paths = {}
+    for token in partition_tokens:
+        outcome_partition = outcome_partitions_payload[token]
+        outcome_json = outcome_partition_root / token / "current.json"
+        outcome_markdown = outcome_partition_root / token / "current.md"
+        profile_partition = profile_partitions_payload[token]
+        person_json = profile_partition_root / token / "current.json"
+        person_markdown = profile_partition_root / token / "current.md"
+        _atomic_text(
+            outcome_json,
+            json.dumps(
+                outcome_partition, ensure_ascii=False, indent=2, sort_keys=True
+            )
+            + "\n",
+        )
+        _atomic_text(
+            outcome_markdown,
+            render_unbound_historical_outcome_registry_markdown(
+                outcome_partition
+            ),
+        )
+        _atomic_text(
+            person_json,
+            json.dumps(
+                profile_partition, ensure_ascii=False, indent=2, sort_keys=True
+            )
+            + "\n",
+        )
+        _atomic_text(
+            person_markdown,
+            render_historical_person_profile_registry_markdown(
+                profile_partition
+            ),
+        )
+        partition_paths[token] = {
+            "outcome_json": str(outcome_json),
+            "outcome_markdown": str(outcome_markdown),
+            "profile_json": str(person_json),
+            "profile_markdown": str(person_markdown),
+        }
     binding_paths = {}
     for ruler_name, binding_output, binding in prepared_bindings:
         _atomic_text(
@@ -639,6 +939,7 @@ def write_current_outcome_layers(workspace_root: Path) -> dict[str, Any]:
         "profile_registry": profile_registry,
         "profile_registry_json": str(profile_json),
         "profile_registry_markdown": str(profile_markdown),
+        "partition_paths": partition_paths,
         "binding_paths": binding_paths,
     }
 
@@ -786,13 +1087,14 @@ def render_unbound_historical_outcome_registry_markdown(
             "",
             "## 治理登记",
             "",
-            "| 登记号 | 治理成果 | 类型 | 时段 | 规模 | 因果归责 | 参与者责任 | 已实现结果 | 限制 | 史源 |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| 登记号 | 治理成果 | 类型 | 时段 | 运行状态 | 价值方向 | 生产力与文明进步判定 | 规模 | 因果归责 | 参与者责任 | 已实现结果 | 限制 | 史源 |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in governance:
         payload = row["payload"]
         scale = row["scale"]
+        value_judgment = payload["value_judgment"]
         lines.append(
             "| "
             + " | ".join(
@@ -802,6 +1104,9 @@ def render_unbound_historical_outcome_registry_markdown(
                     row["canonical_label"],
                     _display_label(row["event_level"]),
                     _period_text(row["period"]),
+                    _display_label(row["result_status"]),
+                    _display_label(value_judgment["overall_direction"]),
+                    _display_text(value_judgment["basis"]),
                     f"{_display_label(scale['level'])} / "
                     f"{_display_label(scale['consequence_basis'])}；"
                     f"{_display_text(scale['reason'])}",

@@ -13,7 +13,7 @@
     },
     "ruler": "李渊",
     "schema_version": "historical-outcome-database-dry-run-v1",
-    "source_pack_sha256": "37a7f253ac2b4d26fcf206f393f1f08368c6b408c1266bbddcfa050c58a26275",
+    "source_pack_sha256": "e6397296ddc2cfeaf58f6b034cdff59584d26265e52f409b4b38c8dca5df2c52",
     "status": "ready_before_database_write"
   },
   "declarations": {
@@ -823,10 +823,10 @@
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "6c9a490f47ed522741cd42a6824a0dc96b2de2ec4ac20bad019059c549b23af1"
+        "input_hash": "024ac52b12c0673094aff966238d9a8893f351dea324ebd68938c595b3867121"
       },
       "responsibility": "李渊以lead承担下诏启动损益、组织群臣撰定并颁行武德律令。；刘文静以governance_participant承担奉诏与通识之士据开皇律令完成初期损益编修。",
-      "semantic_fingerprint": "437c25a0470dba4dfc42b0dd16198b6a1258ec91994651c97a89e4421caa345c",
+      "semantic_fingerprint": "d6cdc29c96b5a6d37191ac9dedb5797ffc1351ccbfc26b632b8dd149314ff66a",
       "time_end": "武德七年",
       "time_precision": "historical_text_range",
       "time_start": "武德元年",
@@ -2447,10 +2447,10 @@
       ],
       "provenance": {
         "builder": "historical_outcome_cluster_v1",
-        "input_hash": "acc7974d72c876f4282efce32322a5d42315dcc88abcf3667a4cce9406854827"
+        "input_hash": "9a641404f8a4ee327926e0269abdc3e5b225f6f64bb8c7e80f2ed8bd21b55e72"
       },
       "responsibility": "李渊以exclusive承担亲自主导约法并废除既有苛禁。",
-      "semantic_fingerprint": "ada13207bdfc4f18a2869cb43e47f7577d6b13a615e8cb78efb329dd38bdfe5c",
+      "semantic_fingerprint": "07c8527ddb148f57421814bee0ae09682159150e2657803e4d56c4df93e73404",
       "time_end": "创业期",
       "time_precision": "historical_text_range",
       "time_start": "创业期",
@@ -3455,7 +3455,15 @@
         "causal_attribution_status": "established",
         "domain": "law_and_adjudication",
         "durable_cross_stage": false,
-        "foundational": false
+        "foundational": false,
+        "value_judgment": {
+          "basis": "废除苛禁并恢复基本法秩序，直接降低社会压迫和交易成本，按生产力增长与文明进步判为正面。",
+          "civilization_effect": "beneficial",
+          "effect_horizon": "medium",
+          "overall_direction": "positive",
+          "productivity_effect": "beneficial",
+          "social_cost": "beneficial"
+        }
       },
       "period": {
         "end": "创业期",
@@ -3471,7 +3479,7 @@
         "level": "important",
         "reason": "措施直接改变新控制长安地区适用的禁令；原文未载条文、遍行范围和安堵等后果，故不机械比照刘邦约法三章升为区域级。"
       },
-      "semantic_fingerprint": "acc7974d72c876f4282efce32322a5d42315dcc88abcf3667a4cce9406854827",
+      "semantic_fingerprint": "9a641404f8a4ee327926e0269abdc3e5b225f6f64bb8c7e80f2ed8bd21b55e72",
       "settlement_scope": "person_governance_result",
       "source_refs": [
         "資治通鑑/卷184@1502758#淵還，捨於長樂宮，與民約法十二條，悉除隋苛禁。"
@@ -3527,7 +3535,15 @@
         "causal_attribution_status": "established",
         "domain": "law_and_adjudication",
         "durable_cross_stage": true,
-        "foundational": true
+        "foundational": true,
+        "value_judgment": {
+          "basis": "形成并颁行统一法律秩序，降低制度不确定性并支持生产恢复；刑罚制度仍有实质社会成本，净方向判为正面。",
+          "civilization_effect": "beneficial",
+          "effect_horizon": "long",
+          "overall_direction": "positive",
+          "productivity_effect": "beneficial",
+          "social_cost": "material"
+        }
       },
       "period": {
         "end": "武德七年",
@@ -3543,7 +3559,7 @@
         "level": "national",
         "reason": "正式编定并向全国颁行国家律令格，构成武德时期全国法律核心子系统；后续贞观修律是另一皇帝窗口的独立制度修订。"
       },
-      "semantic_fingerprint": "6c9a490f47ed522741cd42a6824a0dc96b2de2ec4ac20bad019059c549b23af1",
+      "semantic_fingerprint": "024ac52b12c0673094aff966238d9a8893f351dea324ebd68938c595b3867121",
       "settlement_scope": "governance_result",
       "source_refs": [
         "舊唐書/卷50@1461339#及受禪，詔納言劉文靜與當朝通識之士，因開皇律令而損益之，盡削大業",
@@ -5571,7 +5587,7 @@
     },
     "policy_ref": "config/i5b-scoring-policy.yml",
     "policy_sha256": "48aad22a16200ba1916e51c977b5c11264d415f584de4d8b2332365d341e68d4",
-    "report_sha256": "7f2102945a475386b485f80cb26539059debef7e58691f8d7f49c29fae3f079d",
+    "report_sha256": "b0750e407dc46017056b93adced32e74d0bc2a4baab4d3b49d9771f84ecf2a6d",
     "ruler": "李渊",
     "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
     "rules": [
@@ -5645,7 +5661,7 @@
         "source_candidate_count": 1,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "dc7b2b59ed54e472e6e17e3cf3f9ef88a6b387d4ae58b6bd07c339755b658f11",
+        "source_sha256": "428fe1b4a4e43628e7b8fcddd04f95aa499cfeb2c8dc1de07d3b479581940284",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6319,7 +6335,7 @@
         "source_candidate_count": 14,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "dc7b2b59ed54e472e6e17e3cf3f9ef88a6b387d4ae58b6bd07c339755b658f11",
+        "source_sha256": "428fe1b4a4e43628e7b8fcddd04f95aa499cfeb2c8dc1de07d3b479581940284",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6365,7 +6381,7 @@
             ],
             "supporting_unit_refs": [],
             "talent_grade": "historic",
-            "talent_grade_basis": "military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；civil_governance：作为主导完成“严惩受贿枉法并促使官吏清谨”，属important级治理结果；作为主导完成“为太子诸王置三师实施师傅教育”，属important级治理结果；作为主导完成“尚书省分流细务并保留重大冤滞奏闻”，属important级治理结果；作为独占完成“平高昌后设置西州与安西都护府”，属regional级治理结果；作为独占完成“按功封赏并黜无功宗室”，属important级治理结果；作为独占完成“死刑三覆五覆与门下复理程序”，属important级治理结果；作为主导完成“王府官僚任职不得超过四考”，属important级治理结果；作为主导完成“约束王公豪强侵欺”，属important级治理结果；作为主导完成“考订并颁行氏族志”，属national级治理结果；作为主导完成“贞观中书门下诏敕执奏复核程序”，属important级治理结果；作为主导完成“贞观初中期丰稔、低粮价与跨区域治安改善”，属national级治理结果；作为主导完成“贞观学校与经学建设”，属national级治理结果；作为主导完成“贞观谏官随宰相议政与持续纳谏机制”，属important级治理结果；作为独占完成“遣出后宫掖庭宫人并任其婚配”，属important级治理结果。",
+            "talent_grade_basis": "military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。",
             "talent_profile_basis": {
               "basis": "military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。",
               "evidence_refs": [
@@ -6549,7 +6565,7 @@
         "settlement_mode": "policy_budget",
         "source_candidate_count": 5,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "dc7b2b59ed54e472e6e17e3cf3f9ef88a6b387d4ae58b6bd07c339755b658f11",
+        "source_sha256": "428fe1b4a4e43628e7b8fcddd04f95aa499cfeb2c8dc1de07d3b479581940284",
         "supporting_only_members": [
           {
             "judge_reason": "人物画像已在三路材料、成果登记和窗口政治风险覆盖闭合后冻结；未进入正8/负3的成员仅作支持。",
@@ -6660,7 +6676,7 @@
         "source_candidate_count": 2,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "dc7b2b59ed54e472e6e17e3cf3f9ef88a6b387d4ae58b6bd07c339755b658f11",
+        "source_sha256": "428fe1b4a4e43628e7b8fcddd04f95aa499cfeb2c8dc1de07d3b479581940284",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6774,7 +6790,7 @@
         "source_candidate_count": 2,
         "source_projection_coverage_complete": true,
         "source_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-        "source_sha256": "dc7b2b59ed54e472e6e17e3cf3f9ef88a6b387d4ae58b6bd07c339755b658f11",
+        "source_sha256": "428fe1b4a4e43628e7b8fcddd04f95aa499cfeb2c8dc1de07d3b479581940284",
         "supplemental_source_refs": [],
         "supplemental_source_sha256s": [],
         "supporting_only_materials": []
@@ -6791,7 +6807,7 @@
       "team_positive_member_count": 4,
       "weighted_raw_signal": "5.617151"
     },
-    "task_code": "I5B-CURRENT-EE184BEDD5134E6B",
+    "task_code": "I5B-CURRENT-47BF5F4A8E0A1001",
     "window": "618-626"
   },
   "net_signal": "5.617151",
@@ -6809,7 +6825,7 @@
     "schema_version": "historical-outcome-cluster-validation-v1",
     "status": "passed"
   },
-  "person_profile_registry_fingerprint": "0b05dcdf38a09469ffed0419311a97a4569890494a6eb1ef64c9a71e8abcbbf5",
+  "person_profile_registry_fingerprint": "e337b401bef459356b2ad417eedcaba33dedf719456410d2ad5024aeb8a79477",
   "person_profile_registry_ref": "eval/historical_person_profiles/current.json",
   "person_profile_window_projection": [
     {
@@ -7898,31 +7914,11 @@
         ],
         "political_risk": [],
         "talent_grade": [
-          "PFACT-4B3F00F43705BE34F471",
-          "PFACT-AD0F8C4C4C578CED7C34",
-          "PFACT-GOLD-0CCAA406C15E7C273539",
           "PFACT-GOLD-0F85E1AB0D2A7339E88D",
-          "PFACT-GOLD-25EC64743D9A82A18EF0",
-          "PFACT-GOLD-37DC2BEC13712297823B",
-          "PFACT-GOLD-44D512A224C4E43A4676",
-          "PFACT-GOLD-4CF47A2558AACE2F7837",
-          "PFACT-GOLD-58F1B16F82E997C119A4",
-          "PFACT-GOLD-618F60E8F80930DF84A5",
-          "PFACT-GOLD-61D22788724FEDD364F2",
           "PFACT-GOLD-6F4A1D846D15C8586E23",
-          "PFACT-GOLD-74C65D81DF6982CC99A0",
-          "PFACT-GOLD-790A013C0DB8E9D52C44",
           "PFACT-GOLD-A8FD699EF1261F4A442B",
-          "PFACT-GOLD-AC0D070B63FE39760AAE",
-          "PFACT-GOLD-C3791C731023C1035002",
-          "PFACT-GOLD-CBF0DD0BFD26B59C2DFB",
           "PFACT-GOLD-DA6E38E13FE631D6D54E",
-          "PFACT-GOLD-F8DAC0F4E46B51CE1787",
-          "PFACT-GOLD-FCC7CD6EC14F5EC7EA92",
-          "PFACT-LSM-FORMAL-REMONSTRANCE-CHANNEL",
-          "PFACT-OUTCOME-168193CB31697496",
-          "PFACT-OUTCOME-2566B40AF59B4FC4",
-          "PFACT-OUTCOME-4A5329BD729789A6"
+          "PFACT-GOLD-F8DAC0F4E46B51CE1787"
         ]
       },
       "profile_review": {
@@ -7960,52 +7956,18 @@
           "severity": null
         },
         "talent_grade": {
-          "basis": "military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群；civil_governance：作为主导完成“严惩受贿枉法并促使官吏清谨”，属important级治理结果；作为主导完成“为太子诸王置三师实施师傅教育”，属important级治理结果；作为主导完成“尚书省分流细务并保留重大冤滞奏闻”，属important级治理结果；作为独占完成“平高昌后设置西州与安西都护府”，属regional级治理结果；作为独占完成“按功封赏并黜无功宗室”，属important级治理结果；作为独占完成“死刑三覆五覆与门下复理程序”，属important级治理结果；作为主导完成“王府官僚任职不得超过四考”，属important级治理结果；作为主导完成“约束王公豪强侵欺”，属important级治理结果；作为主导完成“考订并颁行氏族志”，属national级治理结果；作为主导完成“贞观中书门下诏敕执奏复核程序”，属important级治理结果；作为主导完成“贞观初中期丰稔、低粮价与跨区域治安改善”，属national级治理结果；作为主导完成“贞观学校与经学建设”，属national级治理结果；作为主导完成“贞观谏官随宰相议政与持续纳谏机制”，属important级治理结果；作为独占完成“遣出后宫掖庭宫人并任其婚配”，属important级治理结果。",
+          "basis": "military：作为主帅完成“柏壁—介休平刘武周宋金刚战役群”，属S-级战役群；作为主帅完成“洛阳—虎牢灭王世充窦建德战役群”，属S+级战役群。",
           "evidence_refs": [
-            "PFACT-4B3F00F43705BE34F471",
-            "PFACT-AD0F8C4C4C578CED7C34",
-            "PFACT-GOLD-0CCAA406C15E7C273539",
             "PFACT-GOLD-0F85E1AB0D2A7339E88D",
-            "PFACT-GOLD-25EC64743D9A82A18EF0",
-            "PFACT-GOLD-37DC2BEC13712297823B",
-            "PFACT-GOLD-44D512A224C4E43A4676",
-            "PFACT-GOLD-4CF47A2558AACE2F7837",
-            "PFACT-GOLD-58F1B16F82E997C119A4",
-            "PFACT-GOLD-618F60E8F80930DF84A5",
-            "PFACT-GOLD-61D22788724FEDD364F2",
             "PFACT-GOLD-6F4A1D846D15C8586E23",
-            "PFACT-GOLD-74C65D81DF6982CC99A0",
-            "PFACT-GOLD-790A013C0DB8E9D52C44",
             "PFACT-GOLD-A8FD699EF1261F4A442B",
-            "PFACT-GOLD-AC0D070B63FE39760AAE",
-            "PFACT-GOLD-C3791C731023C1035002",
-            "PFACT-GOLD-CBF0DD0BFD26B59C2DFB",
             "PFACT-GOLD-DA6E38E13FE631D6D54E",
-            "PFACT-GOLD-F8DAC0F4E46B51CE1787",
-            "PFACT-GOLD-FCC7CD6EC14F5EC7EA92",
-            "PFACT-LSM-FORMAL-REMONSTRANCE-CHANNEL",
-            "PFACT-OUTCOME-168193CB31697496",
-            "PFACT-OUTCOME-2566B40AF59B4FC4",
-            "PFACT-OUTCOME-4A5329BD729789A6"
+            "PFACT-GOLD-F8DAC0F4E46B51CE1787"
           ],
           "grade": "historic",
           "policy_ref": "config/talent-grade-v11-domain-equivalent-historic.yml",
           "rule_alignment": {
             "outcome_refs": [
-              "HOUT-002254CD0807A312C246",
-              "HOUT-360C318B7671948E31AD",
-              "HOUT-3DB71A0411F6A63B3D1D",
-              "HOUT-6506DC8C7B3F0DDBF0C3",
-              "HOUT-69B56D7D2878C3A3C65A",
-              "HOUT-6B2D5FC4009E0E608F6A",
-              "HOUT-74E59A226BB4B151EFF0",
-              "HOUT-756382187008E7A0EB18",
-              "HOUT-7A0C179366A8E1F2A09C",
-              "HOUT-8B97419ED04122A049EC",
-              "HOUT-C6C5D31D2E1B992DA7E1",
-              "HOUT-C75134BE4933B4C219FE",
-              "HOUT-CA0216A6FCAFDC144B45",
-              "HOUT-F4C166D186675ECFE037",
               "OUTCOME-LSM-CAMPAIGN-BAIBI",
               "OUTCOME-LSM-CAMPAIGN-HULAO"
             ],
@@ -8032,20 +7994,6 @@
       "supporting_unit_refs": [],
       "talent_grade_rule_alignment": {
         "outcome_refs": [
-          "HOUT-002254CD0807A312C246",
-          "HOUT-360C318B7671948E31AD",
-          "HOUT-3DB71A0411F6A63B3D1D",
-          "HOUT-6506DC8C7B3F0DDBF0C3",
-          "HOUT-69B56D7D2878C3A3C65A",
-          "HOUT-6B2D5FC4009E0E608F6A",
-          "HOUT-74E59A226BB4B151EFF0",
-          "HOUT-756382187008E7A0EB18",
-          "HOUT-7A0C179366A8E1F2A09C",
-          "HOUT-8B97419ED04122A049EC",
-          "HOUT-C6C5D31D2E1B992DA7E1",
-          "HOUT-C75134BE4933B4C219FE",
-          "HOUT-CA0216A6FCAFDC144B45",
-          "HOUT-F4C166D186675ECFE037",
           "OUTCOME-LSM-CAMPAIGN-BAIBI",
           "OUTCOME-LSM-CAMPAIGN-HULAO"
         ],
@@ -8330,7 +8278,7 @@
       "value_status": "frozen_after_complete_coverage"
     }
   ],
-  "report_sha256": "e68921ed6594c4164aed919a752866b4d8e15749e783bc8345dd41abea301863",
+  "report_sha256": "7336c4d2287079b4a28f30f8a2b74f0133b3916bf68409057c9e72ea73cb4b55",
   "rule_evidence_units": [
     {
       "direction": "negative",
@@ -9032,7 +8980,7 @@
   "ruler_ref": "RULER-NAME-CANDIDATE-LIYUAN",
   "schema_version": "i5b-current-value-report-v6",
   "source_pack_ref": "eval\\i5b_current_value\\李渊\\source-pack.json",
-  "source_pack_sha256": "37a7f253ac2b4d26fcf206f393f1f08368c6b408c1266bbddcfa050c58a26275",
+  "source_pack_sha256": "e6397296ddc2cfeaf58f6b034cdff59584d26265e52f409b4b38c8dca5df2c52",
   "status": "current_shadow_chain_complete",
   "three_channel_disposition": {
     "dynasty_governance": {

@@ -3114,7 +3114,7 @@
             "path": "result_status"
           },
           {
-            "expected": "positive",
+            "expected": "mixed",
             "path": "result_direction"
           },
           {
@@ -3174,7 +3174,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LSM-GOV-CLAN-REGISTRY",
       "importance": "major",
-      "review_basis": "按已经实现且可归责的结果登记为important级；不以官名、名义覆盖或声誉抬档。",
+      "review_basis": "谱牒核验和文化整理收益与国家正式分类门第、强化身份等级的成本并存，按生产力增长与文明进步净方向冻结为 mixed。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -4589,7 +4589,7 @@
             "path": "result_status"
           },
           {
-            "expected": "positive",
+            "expected": "mixed",
             "path": "result_direction"
           },
           {
@@ -4641,7 +4641,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LSM-GOV-TURK-RESETTLEMENT",
       "importance": "major",
-      "review_basis": "原文明确涉及自幽州至灵州的四州都督府、近万名居长安者及后续河北重置，影响跨多个地区。",
+      "review_basis": "安置形成州府与人口配置结果，但后来因冲突撤回并伴随捕斩、再次迁置，按净方向冻结为 mixed。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -4725,7 +4725,7 @@
             "path": "result_status"
           },
           {
-            "expected": "positive",
+            "expected": "mixed",
             "path": "result_direction"
           },
           {
@@ -4772,7 +4772,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-LSM-GOV-WESTERN-REGION",
       "importance": "major",
-      "review_basis": "原文明确记载对高昌地区实施州县与都护府建制，并持续驻防。",
+      "review_basis": "州县与都护府确已运行，但疆域控制本身不自动算正面，且伴随长期征发驻防成本，按净方向冻结为 mixed。",
       "selector": {
         "collection": "historical_outcome_clusters",
         "label_terms_all": [
@@ -4944,7 +4944,7 @@
       "expectations": {
         "fields": [
           {
-            "expected": "top",
+            "expected": "important",
             "path": "candidate_talent_grade"
           },
           {
@@ -4956,7 +4956,7 @@
             "path": "candidate_negative_talent_severity"
           },
           {
-            "expected": "top_fallback",
+            "expected": "domain_important_threshold",
             "path": "talent_grade_rule_alignment.rule_path"
           },
           {
@@ -4979,7 +4979,7 @@
       "expected_match_count": 1,
       "gold_ref": "GOLD-李世民-PROFILE-PER-CAND-564F932D7FB5",
       "importance": "secondary",
-      "review_basis": "完整本传、公共成果登记和皇帝窗口政治风险均闭合后冻结人物画像。",
+      "review_basis": "氏族志净方向改为 mixed 后仍保留已实现的专业成果，但不足以建立 top 复验，冻结为 important。",
       "selector": {
         "collection": "profile_projection_review",
         "person": "高士廉"
@@ -5419,8 +5419,8 @@
         "negative_settled_unit_count": 1,
         "negative_signal": "1.100000",
         "positive_settled_unit_count": 8,
-        "positive_signal": "36.242456",
-        "rule_raw_net": "35.142456"
+        "positive_signal": "34.796128",
+        "rule_raw_net": "33.696128"
       },
       "talent_discovery": {
         "negative_signal": "0.000000",
@@ -5456,11 +5456,11 @@
         "魏徵"
       ]
     },
-    "weighted_raw_signal": "19.210646"
+    "weighted_raw_signal": "18.689968"
   },
   "input_identity": {
     "result_schema_version": "i5b-current-value-report-v6",
-    "source_pack_sha256": "227622109bad375c0423824a010b20218a2ceb8c375cb6feb18b97290cf0aec2"
+    "source_pack_sha256": "32d9d10ead92ba1f5a6cd64733f4511c3def32b47d54a3b94bd0f8fe478ca365"
   },
   "rule_refs": [
     "docs/证据规则/公共成果登记与人物画像规则.md",

@@ -3327,7 +3327,7 @@ def test_person_profiles_are_shared_before_ruler_window_projection() -> None:
         row["person"]: row for row in shared_registry["profiles"]
     }
     assert profiles["侯君集"]["overall_grade"] == "top"
-    assert profiles["高士廉"]["overall_grade"] == "top"
+    assert profiles["高士廉"]["overall_grade"] == "important"
     assert all(
         not any(
             key in episode
@@ -7569,6 +7569,23 @@ def test_shared_person_profile_registry_precedes_ruler_window_projection() -> No
         "苏定方平壤道征高丽战役群",
     }
     assert len(sudingfang["talent_grade_outcome_refs"]) == 2
+    lishimin = next(
+        row for row in profiles["profiles"] if row["person"] == "李世民"
+    )
+    assert lishimin["domain_grades"]["civil_governance"]["grade"] == "ordinary"
+    assert lishimin["talent_grade_exclusions"]
+    assert {
+        row["reason"] for row in lishimin["talent_grade_exclusions"]
+    } == {"ruler_own_reign_governance"}
+    assert {
+        row["outcome_ref"] for row in lishimin["talent_grade_exclusions"]
+    } <= set(lishimin["outcome_refs"])
+    assert not (
+        {
+            row["outcome_ref"] for row in lishimin["talent_grade_exclusions"]
+        }
+        & set(lishimin["talent_grade_outcome_refs"])
+    )
     rendered = render_historical_person_profile_registry_markdown(profiles)
     assert "# 人物全生涯画像总登记（未绑定皇帝窗口）" in rendered
     assert "侯君集" in rendered
@@ -7576,6 +7593,52 @@ def test_shared_person_profile_registry_precedes_ruler_window_projection() -> No
     assert "[4 项，查看明细]" in rendered
     assert "## 完整定级依据" in rendered
     assert "苏定方平壤道征高丽战役群" in rendered
+    assert "ruler_own_reign_governance" in rendered
+
+
+def test_dynasty_partitions_merge_without_duplicate_public_objects() -> None:
+    outcome_root = ROOT / "eval/historical_outcome_registry"
+    profile_root = ROOT / "eval/historical_person_profiles"
+    global_outcomes = json.loads(
+        (outcome_root / "current.json").read_text(encoding="utf-8")
+    )
+    global_profiles = json.loads(
+        (profile_root / "current.json").read_text(encoding="utf-8")
+    )
+    outcome_partitions = [
+        json.loads((outcome_root / token / "current.json").read_text(encoding="utf-8"))
+        for token in ("HAN", "TANG")
+    ]
+    profile_partitions = [
+        json.loads((profile_root / token / "current.json").read_text(encoding="utf-8"))
+        for token in ("HAN", "TANG")
+    ]
+    assert [row["registry_partition"] for row in outcome_partitions] == [
+        "HAN",
+        "TANG",
+    ]
+    assert [row["registry_partition"] for row in profile_partitions] == [
+        "HAN",
+        "TANG",
+    ]
+    partition_outcome_refs = [
+        row["registration_ref"]
+        for partition in outcome_partitions
+        for row in partition["outcomes"]
+    ]
+    partition_person_refs = [
+        row["person_ref"]
+        for partition in profile_partitions
+        for row in partition["profiles"]
+    ]
+    assert len(partition_outcome_refs) == len(set(partition_outcome_refs))
+    assert len(partition_person_refs) == len(set(partition_person_refs))
+    assert set(partition_outcome_refs) == {
+        row["registration_ref"] for row in global_outcomes["outcomes"]
+    }
+    assert set(partition_person_refs) == {
+        row["person_ref"] for row in global_profiles["profiles"]
+    }
 
 
 def test_direct_runner_uses_the_same_markdown_contract(

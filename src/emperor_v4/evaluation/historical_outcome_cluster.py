@@ -393,6 +393,28 @@ def validate_historical_outcome_registry(
                     f"{ref} 治理成果必须声明领域、授权与持续性: "
                     + ", ".join(missing_governance_fields)
                 )
+            if cluster["outcome_kind"] == "governance":
+                value_judgment = payload.get("value_judgment") or {}
+                required_value_fields = {
+                    "overall_direction",
+                    "productivity_effect",
+                    "civilization_effect",
+                    "social_cost",
+                    "effect_horizon",
+                    "basis",
+                }
+                missing_value_fields = sorted(
+                    required_value_fields - set(value_judgment)
+                )
+                if missing_value_fields:
+                    raise ValueError(
+                        f"{ref} 治理成果缺少生产力与文明进步价值判断: "
+                        + ", ".join(missing_value_fields)
+                    )
+                if value_judgment["overall_direction"] != cluster[
+                    "result_direction"
+                ]:
+                    raise ValueError(f"{ref} 治理价值方向与成果方向不一致")
             substantive_members = [
                 member
                 for member in members
@@ -584,6 +606,10 @@ def _assess_person_talent_grade_single_domain(
             None,
         )
         if member is None:
+            continue
+        if member.get("talent_grade_eligible") is False:
+            continue
+        if cluster["result_direction"] not in {"positive", "mixed"}:
             continue
         if (
             cluster["outcome_kind"] == "campaign"
@@ -822,6 +848,10 @@ def _culture_talent_grade(
             None,
         )
         if member is None or member["role_code"] not in {"exclusive", "lead"}:
+            continue
+        if member.get("talent_grade_eligible") is False:
+            continue
+        if cluster["result_direction"] not in {"positive", "mixed"}:
             continue
         if cluster["result_direction"] == "mixed" and not cluster["stable_delivery"]:
             continue
