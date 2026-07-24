@@ -668,7 +668,28 @@ def project_current_outcomes(
             "dispositions": [dispositions[key] for key in sorted(dispositions)],
         }
     if reviewed_payload is not None:
-        eligible = all_eligible
+        reviewed_segments = {
+            str(row.get("segment_ref") or "")
+            for row in reviewed_payload.get("rejections") or ()
+        }
+        reviewed_quotes = {
+            str(quote)
+            for candidate in reviewed_payload.get("candidates") or ()
+            for quote in candidate.get("exact_quotes") or ()
+        }
+        eligible = [
+            fact
+            for fact in all_eligible
+            if str(fact.get("segment_ref") or "") in reviewed_segments
+            or any(
+                quote
+                and (
+                    quote in str(fact.get("exact_quote") or "")
+                    or str(fact.get("exact_quote") or "") in quote
+                )
+                for quote in reviewed_quotes
+            )
+        ]
     if source_index is None:
         raise ValueError("待投射成果事实必须提供固定 revision 史源索引")
     eligible_pages = {

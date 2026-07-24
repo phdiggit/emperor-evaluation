@@ -6964,9 +6964,27 @@ def test_outcome_projection_applies_main_session_review_without_model(
         row["independent_key"] == "test-governance-contract"
         for row in written["outcome_registry"]["clusters"]
     )
+    settled_fact = {
+        **fact,
+        "fact_ref": "NEUTRALFACT-ALREADY-SETTLED",
+        "segment_ref": "SEG-ALREADY-SETTLED",
+        "exact_quote": "法者，非朕一人之法，乃天下之法也。",
+    }
+    clear_non_candidate = {
+        **fact,
+        "fact_ref": "NEUTRALFACT-CLEAR-NON-CANDIDATE",
+        "segment_ref": "SEG-CLEAR-NON-CANDIDATE",
+        "exact_quote": "仅为背景叙述，不构成独立成果。",
+        "outcome_candidate_status": "clear_non_candidate",
+        "outcome_candidate_reason": "背景叙述无独立可验收结果。",
+    }
     replay = project_current_outcomes(
         source_pack_path=target,
-        neutral_materials={"fanout": {"facts": [fact]}},
+        neutral_materials={
+            "fanout": {
+                "facts": [fact, settled_fact, clear_non_candidate],
+            }
+        },
         source_index=_campaign_contract_index(tmp_path),
         schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
         runner=None,
@@ -6977,6 +6995,15 @@ def test_outcome_projection_applies_main_session_review_without_model(
     )
     assert replay["candidate_count"] == 1
     assert replay["source_pack_changed"] is False
+    clear_disposition = next(
+        row
+        for row in replay["dispositions"]
+        if row["fact_ref"] == clear_non_candidate["fact_ref"]
+    )
+    assert clear_disposition["decision"] == "rejected"
+    assert clear_disposition["reason"] == clear_non_candidate[
+        "outcome_candidate_reason"
+    ]
 
 
 def test_shared_outcome_export_includes_reviewed_open_profile_pack(
