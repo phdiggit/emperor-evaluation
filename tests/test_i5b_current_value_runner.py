@@ -1578,6 +1578,67 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
     ] == {"明太祖實錄": [1, 1]}
 
 
+def test_neutral_material_source_strategy_covers_supported_dynasty_routes() -> None:
+    payload = yaml.safe_load(
+        (ROOT / "config/i5b-source-search-scope.yml").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert payload["schema_version"] == "i5b-source-search-scope-v4"
+    defaults = payload["neutral_material_defaults"]
+    assert defaults["scan_start"] == {
+        "polity_founder": "verified_independent_foundation_activity",
+        "non_founder": "accession",
+    }
+    assert defaults["fragmented_regime_person_fallback"] == [
+        "polity_official_biography",
+        "official_history_zai_ji_shi_jia_or_guo_zhuan",
+        "polity_chronicle_named_person_aggregation",
+    ]
+    strategies = {
+        dynasty: row["neutral_material_strategy"]
+        for dynasty, row in payload["dynasties"].items()
+    }
+    assert set(strategies) == {
+        "秦",
+        "西汉",
+        "东汉",
+        "三国",
+        "两晋十六国",
+        "南北朝",
+        "隋",
+        "唐",
+        "五代十国",
+        "辽",
+        "宋",
+        "西夏",
+        "金",
+        "元",
+        "明",
+        "清",
+        "太平天国",
+    }
+    assert strategies["秦"]["ruler_chronicles"] == ["资治通鉴"]
+    assert strategies["宋"]["period_routes"]["北宋"] == [
+        "资治通鉴",
+        "续资治通鉴长编",
+    ]
+    assert strategies["明"]["event_backsource"] == []
+    assert strategies["明"]["person_biographies"] == ["明史"]
+    assert strategies["清"]["event_backsource"] == []
+    assert strategies["清"]["person_biographies"] == ["清史稿"]
+    assert strategies["两晋十六国"]["fragmented_regime_routes"]["十六国"][
+        "person_materials"
+    ] == ["晋书载记", "十六国春秋", "资治通鉴"]
+    assert strategies["五代十国"]["fragmented_regime_routes"]["十国"][
+        "person_materials"
+    ][0] == "十国春秋"
+    assert strategies["明"]["fragmented_regime_routes"]["南明"][
+        "person_materials"
+    ] == ["明史列传", "海东逸史", "南疆绎史"]
+    assert strategies["西夏"]["standalone_biography_required"] is False
+
+
 def test_emperor_session_claim_rejects_overlapping_range_before_leases(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

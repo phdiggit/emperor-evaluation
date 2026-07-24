@@ -1,8 +1,26 @@
-schema_version: i5b-source-search-scope-v3
+schema_version: i5b-source-search-scope-v4
+
+neutral_material_defaults:
+  scan_start:
+    polity_founder: verified_independent_foundation_activity
+    non_founder: accession
+  scan_end: death_or_loss_of_rule
+  person_material_mode: candidate_official_biographies_only
+  prohibit_full_biography_collection_scan: true
+  fragmented_regime_person_fallback:
+    - polity_official_biography
+    - official_history_zai_ji_shi_jia_or_guo_zhuan
+    - polity_chronicle_named_person_aggregation
+  fragmented_regime_standalone_biography_required: false
 
 dynasties:
   秦:
     page_ranges: {资治通鉴: [6, 7]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [史记]
+      person_biographies: [史记]
     scopes:
       civil_governance_discovery: [史记, 汉书, 资治通鉴]
       ruler_policy_discovery: [史记, 汉书, 资治通鉴, 册府元龟]
@@ -10,6 +28,11 @@ dynasties:
   西汉:
     aliases: [汉, 前汉]
     page_ranges: {资治通鉴: [8, 39]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [史记, 汉书]
+      person_biographies: [史记, 汉书]
     scopes:
       civil_governance_discovery: [史记, 汉书, 资治通鉴]
       ruler_policy_discovery: [史记, 汉书, 资治通鉴, 册府元龟]
@@ -17,6 +40,11 @@ dynasties:
   东汉:
     aliases: [后汉]
     page_ranges: {资治通鉴: [40, 68]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [后汉书]
+      person_biographies: [后汉书]
     scopes:
       civil_governance_discovery: [后汉书, 资治通鉴]
       ruler_policy_discovery: [后汉书, 资治通鉴, 册府元龟]
@@ -24,6 +52,11 @@ dynasties:
   三国:
     aliases: [曹魏, 蜀汉, 孙吴]
     page_ranges: {资治通鉴: [69, 78]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [三国志]
+      person_biographies: [三国志]
     scopes:
       civil_governance_discovery: [三国志, 资治通鉴]
       ruler_policy_discovery: [三国志, 资治通鉴, 册府元龟]
@@ -31,6 +64,16 @@ dynasties:
   两晋十六国:
     aliases: [西晋, 东晋, 十六国]
     page_ranges: {资治通鉴: [79, 118]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [晋书]
+      person_biographies: [晋书]
+      fragmented_regime_routes:
+        十六国:
+          ruler_chronicles: [资治通鉴]
+          event_backsource: [晋书载记, 十六国春秋]
+          person_materials: [晋书载记, 十六国春秋, 资治通鉴]
     scopes:
       civil_governance_discovery: [晋书, 资治通鉴]
       ruler_policy_discovery: [晋书, 资治通鉴, 册府元龟]
@@ -38,12 +81,22 @@ dynasties:
   南北朝:
     aliases: [南朝, 北朝, 北魏, 东魏, 西魏, 北齐, 北周, 刘宋, 南齐, 梁, 陈]
     page_ranges: {资治通鉴: [119, 184]}
+    neutral_material_strategy:
+      mode: chronicle_plus_polity_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [宋书, 南齐书, 梁书, 陈书, 魏书, 北齐书, 周书, 南史, 北史]
+      person_biographies: [宋书, 南齐书, 梁书, 陈书, 魏书, 北齐书, 周书, 南史, 北史]
     scopes:
       civil_governance_discovery: [宋书, 南齐书, 梁书, 陈书, 魏书, 北齐书, 周书, 南史, 北史, 资治通鉴]
       ruler_policy_discovery: [宋书, 南齐书, 梁书, 陈书, 魏书, 北齐书, 周书, 南史, 北史, 资治通鉴, 册府元龟]
 
   隋:
     page_ranges: {资治通鉴: [175, 184]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [隋书]
+      person_biographies: [隋书]
     scopes:
       civil_governance_discovery: [隋书, 北史, 资治通鉴, 通典]
       ruler_policy_discovery: [隋书, 北史, 资治通鉴, 通典, 册府元龟]
@@ -51,6 +104,11 @@ dynasties:
   唐:
     aliases: [武周]
     page_ranges: {资治通鉴: [185, 265]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [旧唐书, 新唐书]
+      person_biographies: [旧唐书, 新唐书]
     scopes:
       civil_governance_discovery: [旧唐书, 新唐书, 资治通鉴, 贞观政要, 唐会要, 唐六典, 通典, 册府元龟]
       ruler_policy_discovery: [资治通鉴, 旧唐书, 新唐书, 贞观政要, 唐会要, 唐大诏令集, 唐六典, 通典, 册府元龟, 唐律疏议]
@@ -58,51 +116,126 @@ dynasties:
   五代十国:
     aliases: [后梁, 后唐, 后晋, 五代后汉, 后周, 十国]
     page_ranges: {资治通鉴: [266, 294]}
+    neutral_material_strategy:
+      mode: chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴]
+      event_backsource: [旧五代史, 新五代史, 十国春秋]
+      person_biographies: [旧五代史, 新五代史, 十国春秋]
+      fragmented_regime_routes:
+        五代:
+          ruler_chronicles: [资治通鉴]
+          event_backsource: [旧五代史, 新五代史]
+          person_materials: [旧五代史, 新五代史]
+        十国:
+          ruler_chronicles: [资治通鉴]
+          event_backsource: [十国春秋, 旧五代史, 新五代史]
+          person_materials: [十国春秋, 旧五代史, 新五代史, 资治通鉴]
     scopes:
       civil_governance_discovery: [旧五代史, 新五代史, 资治通鉴, 十国春秋]
       ruler_policy_discovery: [旧五代史, 新五代史, 资治通鉴, 十国春秋, 册府元龟]
 
   辽:
     aliases: [契丹, 西辽]
+    neutral_material_strategy:
+      mode: continuation_chronicle_plus_official_history
+      ruler_chronicles: [资治通鉴, 续资治通鉴长编, 续资治通鉴]
+      event_backsource: [辽史]
+      person_biographies: [辽史]
+      fragmented_regime_routes:
+        西辽:
+          ruler_chronicles: [辽史, 续资治通鉴]
+          event_backsource: [辽史, 元史, 契丹国志]
+          person_materials: [辽史, 元史, 契丹国志]
     scopes:
       civil_governance_discovery: [辽史, 契丹国志, 续资治通鉴长编]
       ruler_policy_discovery: [辽史, 契丹国志, 续资治通鉴长编, 册府元龟]
 
   宋:
     aliases: [北宋, 南宋]
+    neutral_material_strategy:
+      mode: period_routed_continuation_chronicle
+      period_routes:
+        北宋: [资治通鉴, 续资治通鉴长编]
+        南宋: [建炎以来系年要录, 续资治通鉴]
+      event_backsource: [宋史]
+      person_biographies: [宋史]
     scopes:
       civil_governance_discovery: [宋史, 续资治通鉴长编, 建炎以来系年要录, 宋会要辑稿]
       ruler_policy_discovery: [宋史, 续资治通鉴长编, 建炎以来系年要录, 宋会要辑稿, 宋大诏令集]
 
   西夏:
+    neutral_material_strategy:
+      mode: continuation_chronicle_plus_official_history
+      ruler_chronicles: [续资治通鉴长编, 续资治通鉴]
+      event_backsource: [宋史, 辽史, 金史, 西夏书事]
+      person_biographies: [宋史, 辽史, 金史, 西夏书事]
+      person_material_mode: distributed_named_person_aggregation
+      standalone_biography_required: false
     scopes:
       civil_governance_discovery: [宋史, 辽史, 金史, 西夏书事]
       ruler_policy_discovery: [宋史, 辽史, 金史, 西夏书事]
 
   金:
+    neutral_material_strategy:
+      mode: continuation_chronicle_plus_official_history
+      ruler_chronicles: [续资治通鉴]
+      event_backsource: [金史]
+      person_biographies: [金史]
     scopes:
       civil_governance_discovery: [金史, 大金国志, 续资治通鉴]
       ruler_policy_discovery: [金史, 大金国志, 续资治通鉴]
 
   元:
     aliases: [蒙古帝国]
+    neutral_material_strategy:
+      mode: official_annals_single_backbone
+      ruler_chronicles: [元史本纪]
+      event_backsource: []
+      person_biographies: [元史]
+      fragmented_regime_routes:
+        蒙古帝国:
+          ruler_chronicles: [元史本纪, 蒙古秘史]
+          event_backsource: [元史]
+          person_materials: [元史列传, 蒙古秘史]
     scopes:
       civil_governance_discovery: [元史, 新元史, 元典章, 续资治通鉴]
       ruler_policy_discovery: [元史, 新元史, 元典章, 续资治通鉴]
 
   明:
     aliases: [南明]
+    neutral_material_strategy:
+      mode: ruler_reign_record_single_backbone
+      ruler_chronicles: [明实录对应皇帝实录]
+      event_backsource: []
+      person_biographies: [明史]
+      fragmented_regime_routes:
+        南明:
+          ruler_chronicles: [明史, 小腆纪年, 南疆绎史]
+          event_backsource: [明史, 小腆纪年, 南疆绎史]
+          person_materials: [明史列传, 海东逸史, 南疆绎史]
     scopes:
       civil_governance_discovery: [明史, 明实录, 大明会典, 国榷, 明通鉴]
       ruler_policy_discovery: [明史, 明实录, 大明会典, 大明诏令, 国榷, 明通鉴]
 
   清:
     aliases: [后金]
+    neutral_material_strategy:
+      mode: ruler_reign_record_single_backbone
+      ruler_chronicles: [清实录对应皇帝实录]
+      event_backsource: []
+      person_biographies: [清史稿]
     scopes:
       civil_governance_discovery: [清史稿, 清实录, 大清会典, 东华录]
       ruler_policy_discovery: [清史稿, 清实录, 大清会典, 东华录]
 
   太平天国:
+    neutral_material_strategy:
+      mode: regime_primary_documents
+      ruler_chronicles: [太平天国文书, 太平天国史料]
+      event_backsource: [钦定剿平粤匪方略]
+      person_biographies: [太平天国史料, 钦定剿平粤匪方略]
+      person_material_mode: distributed_named_person_aggregation
+      standalone_biography_required: false
     scopes:
       civil_governance_discovery: [太平天国文书, 太平天国史料]
       ruler_policy_discovery: [太平天国文书, 太平天国史料]
