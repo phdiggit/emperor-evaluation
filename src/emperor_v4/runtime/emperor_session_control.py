@@ -1470,6 +1470,7 @@ def run_claimed_session(
     outcome_review_path: Path | None = None,
     allow_outcome_model_draft: bool = False,
     reuse_accepted_ruler_neutral: bool = False,
+    governance_review_only: bool = False,
 ) -> dict[str, Any]:
     path = _session_path(state_root, _safe_token(session_id, field="session_id"))
     if not path.is_file():
@@ -1529,6 +1530,7 @@ def run_claimed_session(
             outcome_review_path=outcome_review_path,
             allow_outcome_model_draft=allow_outcome_model_draft,
             reuse_accepted_ruler_neutral=reuse_accepted_ruler_neutral,
+            governance_review_only=governance_review_only,
         )
         stage_results = list(report.get("stage_results") or ())
         observed_stages = [str(row.get("stage") or "") for row in stage_results]

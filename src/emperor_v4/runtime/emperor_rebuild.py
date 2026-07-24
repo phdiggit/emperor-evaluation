@@ -826,6 +826,7 @@ def rebuild_emperor(
     outcome_review_path: Path | None = None,
     allow_outcome_model_draft: bool = False,
     reuse_accepted_ruler_neutral: bool = False,
+    governance_review_only: bool = False,
 ) -> dict[str, Any]:
     """Restart the current deterministic chain and atomically publish its outputs.
 
@@ -1653,6 +1654,9 @@ def rebuild_emperor(
                 else "awaiting_main_session_review"
             ),
             "outcome_review_fingerprint": outcome_review_fingerprint,
+            "included_source_roles": (
+                ["dynasty_governance"] if governance_review_only else []
+            ),
         }
     )
     outcome_stage_contract_fingerprint = _digest(
@@ -1738,6 +1742,9 @@ def rebuild_emperor(
                 max_workers=min(limits.model_workers, 4),
                 facts_per_call=facts_per_call,
                 reviewed_payload=None,
+                included_source_roles=(
+                    ["dynasty_governance"] if governance_review_only else []
+                ),
             ),
             initial_batch_size=16,
             maximum_recoveries=0,
@@ -1753,6 +1760,9 @@ def rebuild_emperor(
             workspace_root=workspace_root,
             max_workers=1,
             reviewed_payload=reviewed_outcome_payload,
+            included_source_roles=(
+                ["dynasty_governance"] if governance_review_only else []
+            ),
         )
         outcome_recovery_count = 0
         outcome_final_facts_per_call = 0

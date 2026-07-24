@@ -222,6 +222,11 @@ def _parser() -> argparse.ArgumentParser:
         help="复用已验收皇帝中性材料，只重挂新版朝代政书 current",
     )
     session_run.add_argument(
+        "--governance-review-only",
+        action="store_true",
+        help="成果审阅仅包含朝代治理事实，不改判战役与其他事实",
+    )
+    session_run.add_argument(
         "--stop-after-stage",
         choices=["outcome_projection"],
     )
@@ -574,6 +579,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 outcome_review_path=args.outcome_review,
                 allow_outcome_model_draft=args.allow_outcome_model_draft,
                 reuse_accepted_ruler_neutral=args.reuse_accepted_ruler_neutral,
+                governance_review_only=args.governance_review_only,
             ),
             None,
         )

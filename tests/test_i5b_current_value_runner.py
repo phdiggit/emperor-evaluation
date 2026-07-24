@@ -3470,6 +3470,7 @@ def test_claimed_session_can_pause_after_outcome_review_gate(
         release_root=release,
         source_index_root=tmp_path / "indexes",
         dynasty_governance_root=tmp_path / "governance",
+        governance_review_only=True,
         stop_after_stage="outcome_projection",
     )
 
@@ -3478,6 +3479,7 @@ def test_claimed_session_can_pause_after_outcome_review_gate(
     assert observed["stop_after_stage"] == "outcome_projection"
     assert observed["outcome_review_path"] is None
     assert observed["allow_outcome_model_draft"] is False
+    assert observed["governance_review_only"] is True
     assert session["stage"] == "awaiting_review"
     assert session["review_stage"] == "outcome_projection"
     with pytest.raises(
@@ -7676,6 +7678,56 @@ def test_outcome_projection_pauses_for_main_session_review(
     assert outcome["model_call_count"] == 0
     assert outcome["source_pack_changed"] is False
     assert outcome["review_worklist"]["facts"][0]["fact_ref"] == fact["fact_ref"]
+
+
+def test_outcome_projection_can_limit_review_to_dynasty_governance(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    base = {
+        "page_title": "史书/卷一",
+        "revision_ref": "1",
+        "projection_eligibility": "direct_neutral_fact",
+        "implementation_status": "implemented",
+        "result": "取得结果",
+        "fact_kind": "institutional_action",
+        "outcome_candidate_status": "clear_candidate",
+        "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+    }
+    governance = {
+        **base,
+        "fact_ref": "DYNGOV-FACT-REVIEW",
+        "segment_ref": "DYNGOV-SEG-REVIEW",
+        "exact_quote": "测试治理取得结果。",
+        "source_role": "dynasty_governance",
+        "ruler_window_match": True,
+    }
+    campaign = {
+        **base,
+        "fact_ref": "NEUTRALFACT-CAMPAIGN",
+        "segment_ref": "SEG-CAMPAIGN",
+        "exact_quote": "测试战役取得结果。",
+        "source_role": "backbone",
+    }
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials={"fanout": {"facts": [governance, campaign]}},
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+        included_source_roles=["dynasty_governance"],
+    )
+
+    assert [
+        row["fact_ref"] for row in outcome["review_worklist"]["facts"]
+    ] == ["DYNGOV-FACT-REVIEW"]
 
 
 def test_outcome_projection_applies_main_session_review_without_model(

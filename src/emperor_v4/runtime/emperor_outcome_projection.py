@@ -680,6 +680,7 @@ def project_current_outcomes(
     max_workers: int,
     facts_per_call: int = 16,
     reviewed_payload: Mapping[str, Any] | None = None,
+    included_source_roles: Sequence[str] = (),
 ) -> dict[str, Any]:
     """Project new neutral facts and atomically apply the validated increment.
 
@@ -735,6 +736,7 @@ def project_current_outcomes(
     projected_backbone_fact_refs = {
         str(value) for value in ruler_projection.get("backbone_fact_refs") or ()
     }
+    source_role_filter = {str(value) for value in included_source_roles if value}
 
     def in_current_ruler_projection(fact: Mapping[str, Any]) -> bool:
         source_role = str(fact.get("source_role") or "")
@@ -748,6 +750,10 @@ def project_current_outcomes(
         dict(fact)
         for fact in (neutral_materials.get("fanout") or {}).get("facts") or ()
         if in_current_ruler_projection(fact)
+        and (
+            not source_role_filter
+            or str(fact.get("source_role") or "") in source_role_filter
+        )
         and (
             any(
                 str(actor.get("subject_ref") or "") in allowed_subject_refs
