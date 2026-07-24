@@ -495,17 +495,18 @@ class LocalSourceTextIndex:
         work_placeholders = ",".join("?" for _ in work_keys)
         with self._connect() as connection:
             for title_chunk in title_chunks:
-                title_filter = ""
                 parameters: tuple[str, ...] = work_keys
                 if title_chunk:
                     title_placeholders = ",".join("?" for _ in title_chunk)
-                    title_filter = f" AND page_title IN ({title_placeholders})"
-                    parameters = (*work_keys, *title_chunk)
+                    where_clause = f"page_title IN ({title_placeholders})"
+                    parameters = title_chunk
+                else:
+                    where_clause = f"work_key IN ({work_placeholders})"
                 rows = connection.execute(
                     f"""
                     SELECT page_title, work_title, source_url, revision_ref, raw_text
                     FROM pages
-                    WHERE work_key IN ({work_placeholders}){title_filter}
+                    WHERE {where_clause}
                     ORDER BY page_title
                     """,
                     parameters,

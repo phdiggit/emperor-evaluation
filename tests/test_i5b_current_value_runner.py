@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from copy import deepcopy
 from decimal import Decimal
+from functools import lru_cache
 import hashlib
 import io
 import json
@@ -53,7 +55,7 @@ from emperor_v4.evaluation import (
 from emperor_v4.evaluation.i5b_current_value_runner import (
     _appointment_window_outcomes,
     _ruler_window_outcomes,
-    build_i5b_current_value,
+    build_i5b_current_value as _build_i5b_current_value,
     main as runner_main,
     render_scoring_detail_markdown,
 )
@@ -113,6 +115,20 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@lru_cache(maxsize=None)
+def _cached_current_value_report(source_pack_path: str) -> dict:
+    return _build_i5b_current_value(Path(source_pack_path))
+
+
+def build_i5b_current_value(source_pack_path: Path, **kwargs) -> dict:
+    """Reuse immutable checked-in source packs within this regression module."""
+    resolved = Path(source_pack_path).resolve()
+    current_root = (ROOT / "eval/i5b_current_value").resolve()
+    if not kwargs and resolved.is_relative_to(current_root):
+        return deepcopy(_cached_current_value_report(str(resolved)))
+    return _build_i5b_current_value(source_pack_path, **kwargs)
 
 
 def test_actorless_public_result_is_preserved_before_attribution() -> None:
@@ -936,6 +952,54 @@ def test_outcome_projection_accepts_candidate_covering_shared_segment() -> None:
     _validate_candidate_payload_coverage(payload, facts)
 
 
+def test_outcome_projection_declared_fact_link_does_not_absorb_neighbour_fact() -> None:
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["exact_quotes"] = ["同段制度施行，形成甲项结果。"]
+    candidate["evidence_links"][0].update(
+        {
+            "fact_ref": "NEUTRALFACT-ONE",
+            "exact_quote": "同段制度施行，形成甲项结果。",
+        }
+    )
+    candidate["members"][0]["contribution_basis_fact_refs"] = ["NEUTRALFACT-ONE"]
+    candidate["members"][0]["authorization_quotes"] = [
+        "同段制度施行，形成甲项结果。"
+    ]
+    judgment = candidate["payload"]["value_judgment"]
+    judgment["axes"]["productivity_livelihood"]["basis_fact_refs"] = [
+        "NEUTRALFACT-ONE"
+    ]
+    judgment["axes"]["civilization_institutions"]["basis_fact_refs"] = [
+        "NEUTRALFACT-ONE"
+    ]
+    facts = [
+        {
+            "fact_ref": "NEUTRALFACT-ONE",
+            "segment_ref": "SEG-SHARED",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "同段制度施行，形成甲项结果。",
+            "evidence_roles": ["implementation_or_operation", "public_result"],
+        },
+        {
+            "fact_ref": "NEUTRALFACT-TWO",
+            "segment_ref": "SEG-SHARED",
+            "page_title": "史书/卷一",
+            "revision_ref": "1",
+            "exact_quote": "同段制度施行，形成甲项结果。另有乙项结果。",
+            "evidence_roles": ["implementation_or_operation", "public_result"],
+        },
+    ]
+
+    normalized = _normalize_candidate_sources(payload, facts)
+
+    assert [
+        row["fact_ref"]
+        for row in normalized["candidates"][0]["evidence_links"]
+    ] == ["NEUTRALFACT-ONE"]
+
+
 def test_outcome_projection_rejects_victory_without_result_quote() -> None:
     payload = _campaign_candidate_payload()
     candidate = payload["candidates"][0]
@@ -1356,14 +1420,13 @@ def test_campaign_candidate_keeps_outcome_when_ruler_window_is_unresolved(
     assert increment["outcomes"][0]["ruler_window_status"] == "unresolved"
 
 
-def test_governance_candidate_requires_substantive_responsibility(tmp_path: Path) -> None:
-    payload = _governance_candidate_payload(role_code="authorized")
-    payload["candidates"][0]["settlement_scope"] = "person_governance_result"
-    payload["candidates"][0]["ruler_window_status"] = "outside_window"
-    with pytest.raises(ValueError, match="人物治理或谋略成果不能只有授权者"):
+def test_governance_candidate_rejects_authorization_only_member(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(ValueError, match="角色不属于 governance 合同"):
         compile_outcome_candidate_payloads(
             {"ruler": "李世民", "ruler_ref": "RULER-LI-SHIMIN", "members": [], "facts": []},
-            [payload],
+            [_governance_candidate_payload(role_code="authorized")],
             source_index=_campaign_contract_index(tmp_path),
             schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
         )
@@ -3326,6 +3389,7 @@ def test_awaiting_review_session_can_adopt_repaired_release_without_losing_gate(
     )
 
 
+@pytest.mark.acceptance
 @pytest.mark.parametrize("lease_stage", ["awaiting_review", "failed_reusable"])
 def test_review_upgrade_preserves_quality_accepted_stage_source_pack(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, lease_stage: str
@@ -3416,6 +3480,7 @@ def test_review_upgrade_preserves_quality_accepted_stage_source_pack(
     assert upgraded["review_stage"] == "outcome_projection"
 
 
+@pytest.mark.acceptance
 def test_failed_review_upgrade_restores_quality_accepted_stage_source_pack(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -3513,6 +3578,7 @@ def test_failed_review_upgrade_restores_quality_accepted_stage_source_pack(
     assert upgraded["canonical_expected_sha256"]["source_pack"] == accepted_sha
 
 
+@pytest.mark.acceptance
 def test_release_upgrade_still_rejects_current_ruler_source_pack_drift(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -3559,6 +3625,7 @@ def test_release_upgrade_still_rejects_current_ruler_source_pack_drift(
         )
 
 
+@pytest.mark.acceptance
 def test_release_upgrade_adopts_only_empty_current_ruler_registry_schema(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -3631,6 +3698,7 @@ def test_release_upgrade_adopts_only_empty_current_ruler_registry_schema(
     ).hexdigest()
 
 
+@pytest.mark.acceptance
 @pytest.mark.parametrize("bootstrap_source_pack", [False, True])
 def test_release_upgrade_resets_v2_outcome_review_but_preserves_verified_facts(
     tmp_path: Path,
@@ -3766,6 +3834,7 @@ def test_release_upgrade_resets_v2_outcome_review_but_preserves_verified_facts(
     assert json.loads(workspace_pack_path.read_text(encoding="utf-8")) == migrated
 
 
+@pytest.mark.acceptance
 def test_release_upgrade_refreshes_other_ruler_pack_before_shared_render(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -3939,6 +4008,7 @@ def test_claimed_session_defaults_to_main_outcome_review_worklist(
     assert session["review_stage"] == "neutral_materials"
 
 
+@pytest.mark.acceptance
 def test_session_publish_fails_closed_when_canonical_changed(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -3990,6 +4060,7 @@ def test_session_publish_fails_closed_when_canonical_changed(
         )
 
 
+@pytest.mark.acceptance
 def test_session_publish_validates_all_people_and_releases_current_state(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -4065,6 +4136,7 @@ def test_session_publish_validates_all_people_and_releases_current_state(
     assert not stage_cache.exists()
 
 
+@pytest.mark.acceptance
 def test_bootstrap_ruler_publish_atomically_adds_config_and_identity(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -5353,6 +5425,7 @@ def test_representative_ruler_policies_render_with_current_disposition() -> None
     }
 
 
+@pytest.mark.acceptance
 @pytest.mark.parametrize("ruler", ["李世民", "刘邦"])
 def test_current_detail_exposes_public_outcome_review_fields(ruler: str) -> None:
     report = json.loads(
@@ -5411,6 +5484,7 @@ def test_representative_military_materials_keep_three_channel_lineage() -> None:
     }
 
 
+@pytest.mark.acceptance
 def test_current_value_cli_writes_only_current_result(tmp_path: Path) -> None:
     assert eval_main([
         "i5b-current-value",
@@ -8405,6 +8479,52 @@ def test_outcome_projection_applies_main_session_review_without_model(
     ]
 
 
+def test_main_review_fact_refs_do_not_expand_by_quote_containment(
+    tmp_path: Path,
+) -> None:
+    source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
+    source_pack = json.loads(source.read_text(encoding="utf-8"))
+    target = tmp_path / "source-pack.json"
+    target.write_bytes(source.read_bytes())
+    reviewed = {
+        "fact_ref": "NEUTRALFACT-MAIN-REVIEW",
+        "segment_ref": "SEG-MAIN-REVIEW",
+        "page_title": "史书/卷一",
+        "revision_ref": "1",
+        "exact_quote": "测试战役取得阶段结果。",
+        "projection_eligibility": "direct_neutral_fact",
+        "implementation_status": "implemented",
+        "result": "取得阶段结果",
+        "fact_kind": "institutional_action",
+        "outcome_candidate_status": "clear_candidate",
+        "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+    }
+    neighbouring = {
+        **reviewed,
+        "fact_ref": "NEUTRALFACT-NEIGHBOUR",
+        "segment_ref": "SEG-NEIGHBOUR",
+        "exact_quote": "测试战役取得阶段结果。另有相邻事实。",
+    }
+
+    outcome = project_current_outcomes(
+        source_pack_path=target,
+        neutral_materials={"fanout": {"facts": [reviewed, neighbouring]}},
+        source_index=_campaign_contract_index(tmp_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        runner=None,
+        checkpoint_dir=tmp_path / "checkpoint",
+        workspace_root=ROOT,
+        max_workers=1,
+        reviewed_payload=_governance_candidate_payload(),
+    )
+
+    assert outcome["candidate_count"] == 1
+    assert all(
+        row["fact_ref"] != neighbouring["fact_ref"]
+        for row in outcome["dispositions"]
+    )
+
+
 def test_outcome_review_keeps_explicit_actorless_measure_chain_fact(
     tmp_path: Path,
 ) -> None:
@@ -8695,39 +8815,42 @@ def test_outcome_projection_ignores_shared_fact_outside_current_team(
     assert outcome["source_pack_changed"] is False
 
 
-def test_outcome_projection_ignores_other_ruler_view_and_governance_window(
+def test_outcome_projection_includes_dynasty_governance_outside_ruler_window(
     tmp_path: Path,
 ) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
-    source_pack = json.loads(source.read_text(encoding="utf-8"))
     target = tmp_path / "source-pack.json"
     target.write_bytes(source.read_bytes())
+    index_path = tmp_path / "source.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "政书/卷一",
+                "work_title": "政书",
+                "source_url": "local:test",
+                "revision_ref": "1",
+                "raw_text": "另一在位窗口的政书事实形成公共结果。",
+            }
+        ],
+        index_path,
+    )
     neutral = {
-        "ruler_neutral_projection": {
-            "ruler_ref": source_pack["ruler_ref"],
-            "backbone_fact_refs": [],
-        },
         "fanout": {
             "facts": [
-                {
-                    "fact_ref": "FACT-OTHER-RULER-BACKBONE",
-                    "projection_eligibility": "direct_neutral_fact",
-                    "exact_quote": "另一皇帝窗口内的共享编年事实。",
-                    "implementation_status": "implemented",
-                    "result": "已经完成",
-                    "fact_kind": "institutional_action",
-                    "actors": [{"subject_ref": source_pack["ruler_ref"]}],
-                },
                 {
                     "fact_ref": "FACT-OUTSIDE-GOVERNANCE-WINDOW",
                     "source_role": "dynasty_governance",
                     "ruler_window_match": False,
                     "projection_eligibility": "direct_neutral_fact",
-                    "exact_quote": "另一在位窗口的政书事实。",
+                    "outcome_candidate_status": "clear_candidate",
+                    "evidence_roles": ["public_result"],
+                    "page_title": "政书/卷一",
+                    "revision_ref": "1",
+                    "exact_quote": "另一在位窗口的政书事实形成公共结果。",
                     "implementation_status": "implemented",
                     "result": "已经完成",
                     "fact_kind": "institutional_action",
-                    "actors": [{"subject_ref": source_pack["ruler_ref"]}],
+                    "actors": [{"subject_ref": "RULER-OTHER"}],
                 },
             ]
         },
@@ -8736,7 +8859,7 @@ def test_outcome_projection_ignores_other_ruler_view_and_governance_window(
     outcome = project_current_outcomes(
         source_pack_path=target,
         neutral_materials=neutral,
-        source_index=None,
+        source_index=LocalSourceTextIndex(index_path),
         schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
         runner=None,
         checkpoint_dir=tmp_path / "checkpoint",
@@ -8744,7 +8867,10 @@ def test_outcome_projection_ignores_other_ruler_view_and_governance_window(
         max_workers=1,
     )
 
-    assert outcome["candidate_count"] == 0
+    assert outcome["status"] == "awaiting_main_session_review"
+    assert [row["fact_ref"] for row in outcome["review_worklist"]["facts"]] == [
+        "FACT-OUTSIDE-GOVERNANCE-WINDOW"
+    ]
     assert outcome["model_call_count"] == 0
     assert outcome["source_pack_changed"] is False
 
@@ -9129,7 +9255,7 @@ def test_current_source_pack_increment_is_validated_and_idempotent(tmp_path: Pat
     assert rekeyed_outcome["outcome_ref"] in rekeyed_refs
 
 
-def test_outcome_stage_increment_does_not_require_current_projection(
+def test_source_pack_increment_does_not_run_downstream_projection(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     source = ROOT / "eval/i5b_current_value/李世民/source-pack.json"
@@ -9142,24 +9268,6 @@ def test_outcome_stage_increment_does_not_require_current_projection(
         "compile_source_pack_increment",
         lambda *_args, **_kwargs: compiled,
     )
-    monkeypatch.setattr(
-        current_source_pack_compiler_module,
-        "build_unbound_historical_outcome_registry",
-        lambda _packs: {"schema_version": "test-registry"},
-    )
-    monkeypatch.setattr(
-        current_source_pack_compiler_module,
-        "build_ruler_outcome_bindings",
-        lambda _pack, _registry: {"schema_version": "test-binding"},
-    )
-    monkeypatch.setattr(
-        current_source_pack_compiler_module,
-        "build_i5b_current_value",
-        lambda *_args, **_kwargs: (_ for _ in ()).throw(
-            AssertionError("成果阶段不得提前运行 current_projection")
-        ),
-    )
-
     changed = apply_source_pack_increment(
         target,
         {
@@ -9169,7 +9277,6 @@ def test_outcome_stage_increment_does_not_require_current_projection(
             "outcomes": [],
         },
         workspace_root=ROOT,
-        require_current_projection_ready=False,
     )
 
     assert changed is True
@@ -9568,6 +9675,7 @@ def test_dynasty_partitions_merge_without_duplicate_public_objects() -> None:
     }
 
 
+@pytest.mark.acceptance
 def test_direct_runner_uses_the_same_markdown_contract(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -9779,6 +9887,7 @@ def test_team_tables_link_canonical_profiles_and_explain_ruler_attribution(
     assert "## 共享人物全生涯画像登记" not in markdown
 
 
+@pytest.mark.acceptance
 def test_i5b_run_uses_current_ruler_catalog_and_can_export_detail(
     tmp_path: Path,
 ) -> None:
@@ -9849,6 +9958,7 @@ def test_i5b_run_rejects_unconfigured_ruler(tmp_path: Path) -> None:
         ])
 
 
+@pytest.mark.acceptance
 def test_current_scoring_detail_export_uses_factor_values_for_settled_materials(
     tmp_path: Path,
 ) -> None:
@@ -9932,6 +10042,7 @@ def test_scoring_detail_can_filter_one_person(tmp_path: Path) -> None:
         ("刘邦", "周勃", Path("tmp/i5b_scoring_detail/刘邦/persons/周勃.md")),
     ],
 )
+@pytest.mark.acceptance
 def test_scoring_detail_output_is_optional(
     tmp_path: Path,
     ruler: str,
@@ -9981,6 +10092,7 @@ def test_scoring_detail_output_is_optional(
     )
 
 
+@pytest.mark.acceptance
 def test_default_detail_export_rebuilds_from_source_pack_not_stale_result(
     tmp_path: Path,
 ) -> None:

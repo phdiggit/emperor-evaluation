@@ -12,9 +12,10 @@ dependencies = ["PyYAML>=6.0", "opencc-python-reimplemented>=0.1.7"]
 postgres = ["psycopg[binary]>=3.2"]
 
 [tool.pytest.ini_options]
-addopts = "--strict-markers"
+addopts = "--strict-markers -m 'not acceptance'"
 pythonpath = ["src"]
 testpaths = ["tests"]
 markers = [
+  "acceptance: slower vertical tests over checked-in canonical data or release publication",
   "db: deterministic database contract tests",
 ]

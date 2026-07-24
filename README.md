@@ -162,11 +162,11 @@ I5B 当前值命令只消费当前 source pack：事件材料通过 Gate 后按 
 
 `dynasty_neutral_material_atomization` 只消费复核队列和已经验真的引文编号，不联网、不补史实；拆分结果仍须完成人物与皇帝窗口解析。
 
-`governance_achievement_candidate` 再把结算组件、未被增量命中的朝代基线和上述原子确定性编译为一次性消费集合；同一组件只进入一个模型任务。已有人物先绑定现有 `person_ref`，简繁由 OpenCC 统一；其余人名生成朝代内 provisional actor ref，机构和复数官署不冒充人物。模型只能在允许组件、人物和字段内作 `register / omit / uncertain` 判断，不能生成史源、ID、规则方向、Episode、REU或分数；审计器再确定性生成 `governance-achievement-registry-v1`。判断 policy 进入 `task_code` 指纹，Prompt 变化不会复用旧结果。影响尺度看已实现结果而不是法令名义覆盖：单案、窄条款、资格线或一次程序调整不得仅因“颁行天下”升为国家级，`stable_delivery` 与 `important_method_or_legacy` 也必须有运行或延续证据。
+通过验收的朝代政书事实直接进入共享公共成果裁决；共享层不得用单一皇帝的在位窗口预先过滤。公共成果先由 `historical_outcome_registry` 无皇帝绑定登记，再由人物责任与皇帝窗口分别生成画像和投影。只有开创、重新建立、重大变革或形成独立结果的撤废者可以挂成果成员，单纯沿用者不登记责任。
 
 三路协同入口由 `emperor_v4.evaluation.neutral_material_intake.build_neutral_material_intake` 提供；`governance_fact_sets` 以稳定 `fact_ref` 和精确 `page@revision#quote` 史源回指接入制度史中性事实，缺少任一项即失败关闭。已接受的统一成果由 `outcome_records_from_registry` 转为当前 PostgreSQL 记录。只有底层事实、Episode 和成员责任全部解析后才具备写库条件；I5B消费成果簇和人物画像生成 REU，再由现有材料预算与公式结算。
 
-皇帝从文臣 `participants` 分离为 `ruler_links`；正式人物 ID 优先，临时人物 ID 只能按唯一规范名桥接，歧义即失败。多事实上游成果只在必要时走一次 lineage refinement，常规单事实成果确定性收窄；不支持成果的组件必须明确剔除。
+皇帝与文臣责任分别登记；正式人物 ID 优先，临时人物 ID 只能按唯一规范名桥接，歧义即失败。不支持成果的事实必须明确拒绝，不能靠窗口重叠或例行授权补足责任。
 
 推广以“朝代一次扫描、项目多次投影”为单位，不按皇帝或评分项重复扫书。质量门通过的当前材料以朝代、史源索引 identity、页面 revision 和抽取合同为复用键冻结；输入未变化时零模型调用，后续调度优化只使用尚未验收的书目。新增朝代先做少量高复用章节 canary，再依据新事实与补强比例决定是否扩卷；新增书目按经济、法律、军制、官制等领域先各选一部高密度主书，已有领域只有在当前材料缺项或独立史源补强价值明确时才增加第二部，避免同域全文重复扫描。书目仍优先覆盖正史志、会要政书、通制法典以及财政、选举、刑法、军制等可观察实施与结果较密集的篇章，并继续携带 edition/revision、篇卷、目标朝代和 source genre；低增量书目可停止扩卷，但不能据此宣称该领域没有史实。
 
@@ -178,11 +178,6 @@ python -m emperor_v4.adapters.dynasty_neutral_source_increment audit --preparati
 python -m emperor_v4.adapters.dynasty_neutral_material_settlement --baseline-audit <baseline-audit.json> --candidate-audit <candidate-audit.json> --increment-audit <comparison-root>/audit.json --output <settlement.json>
 python -m emperor_v4.adapters.dynasty_neutral_material_atomization prepare --settlement <settlement.json> --output-root <atomization-root> --output-schema config/dynasty-neutral-material-atomization-output.schema.json
 python -m emperor_v4.adapters.dynasty_neutral_material_atomization audit --preparation <atomization-root>/preparation.json --result <atomization-root>/result.json --output-schema config/dynasty-neutral-material-atomization-output.schema.json --output <atomization-root>/audit.json
-python -m emperor_v4.evaluation.governance_achievement_candidate prepare --baseline <baseline-audit.json> --settlement <settlement.json> --atomization <atomization-root>/audit.json --people <profiles-or-people.json> --dynasty-token <TANG> --output-root <achievement-root> --output-schema config/governance-achievement-candidate-output.schema.json
-python -m emperor_v4.evaluation.governance_achievement_candidate audit --preparation <achievement-root>/preparation.json --results-dir <achievement-root>/results --output-schema config/governance-achievement-candidate-output.schema.json --registry-schema config/governance-achievement-registry.schema.json --ruler-aliases config/historical-entity-identities.yml --dynasty-name 唐 --output <achievement-root>/audit.json
-python -m emperor_v4.evaluation.governance_achievement_lineage prepare --achievement-audit <achievement-root>/audit.json --candidate-preparation <achievement-root>/preparation.json --output-root <achievement-root>/lineage --output-schema config/governance-achievement-lineage-output.schema.json
-python -m emperor_v4.evaluation.governance_achievement_lineage audit --achievement-audit <achievement-root>/audit.json --candidate-preparation <achievement-root>/preparation.json --lineage-preparation <achievement-root>/lineage/preparation.json --result <achievement-root>/lineage/result.json --output-schema config/governance-achievement-lineage-output.schema.json --registry-schema config/governance-achievement-registry.schema.json --output <achievement-root>/lineage/audit.json
-python -m emperor_v4.evaluation.governance_achievement_registry --registry <lineage-audit.json> --profiles <profiles.json> --schema config/governance-achievement-registry.schema.json --team-report <team-report.json> --material-budget-report <material-budget-report.json> --scoring-policy config/i5b-scoring-policy.yml --output <impact.json>
 ```
 
 人物列传或其他人物页的全生涯扫描结果由 `person_lifecycle_scan` 统一验收：任务、页面、revision、人物和 `person_scan_key` 必须完整闭合，每条 Assertion 与评价 lead 都必须逐字存在于任务绑定的 plaintext；通过后才确定性生成稳定 `PFACT` / `PLEAD` 引用并按 canonical person 分发。人物材料保留跨朝生涯，后置皇帝窗口再决定是否投影；同一页共享扫描不合并人物责任，且本步骤仍为零正式事实、画像和评分写入。

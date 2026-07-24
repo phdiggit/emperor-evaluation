@@ -1202,8 +1202,6 @@ def test_all_model_output_schemas_pass_zero_call_provider_preflight(
                 "shared-neutral-extraction-output.schema.json",
                 "dynasty-neutral-governance-output.schema.json",
                 "dynasty-neutral-source-increment-output.schema.json",
-                "governance-achievement-candidate-output.schema.json",
-                "governance-achievement-lineage-output.schema.json",
             }
         ),
     )

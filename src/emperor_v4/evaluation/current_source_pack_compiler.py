@@ -4,7 +4,6 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
-import tempfile
 from typing import Any, Mapping, Sequence
 from uuid import uuid4
 
@@ -19,14 +18,6 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     STRATEGIC_RESULT_TIER,
     cluster_semantic_fingerprint,
 )
-from emperor_v4.evaluation.historical_outcome_registry import (
-    build_ruler_outcome_bindings,
-    build_unbound_historical_outcome_registry,
-)
-from emperor_v4.evaluation.historical_person_profile_registry import (
-    build_historical_person_profile_registry,
-)
-from emperor_v4.evaluation.i5b_current_value_runner import build_i5b_current_value
 
 
 SCHEMA_VERSION = "current-source-pack-increment-v2"
@@ -204,7 +195,11 @@ def compile_outcome_candidate_payloads(
     }
     works = sorted({page.split("/", 1)[0] for page in candidate_pages})
     pages_by_title = {
-        page.page_title: page for page in source_index.iter_pages(works=works)
+        page.page_title: page
+        for page in source_index.iter_pages(
+            works=works,
+            page_titles=sorted(candidate_pages),
+        )
     }
     facts: list[dict[str, Any]] = []
     outcomes: list[dict[str, Any]] = []
@@ -213,7 +208,7 @@ def compile_outcome_candidate_payloads(
         "commander_in_chief", "principal_commander", "participant",
         "not_in_command_chain",
     }
-    governance_roles = {"exclusive", "lead", "governance_participant", "authorized", "reign_holder"}
+    governance_roles = {"exclusive", "lead", "governance_participant", "reign_holder"}
     for payload in payloads:
         validate_payload_against_schema(payload, schema)
         if payload.get("schema_version") != CANDIDATE_SCHEMA_VERSION:
@@ -863,7 +858,6 @@ def apply_source_pack_increment(
     workspace_root: Path,
     replace_auto: bool = False,
     replace_incoming: bool = False,
-    require_current_projection_ready: bool = True,
 ) -> bool:
     source_pack_path = source_pack_path.resolve()
     current = json.loads(source_pack_path.read_text(encoding="utf-8"))
@@ -876,38 +870,12 @@ def apply_source_pack_increment(
     rendered = json.dumps(compiled, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if source_pack_path.read_text(encoding="utf-8") == rendered:
         return False
-    with tempfile.TemporaryDirectory(prefix="emperor-source-pack-") as temporary:
-        candidate = Path(temporary) / "source-pack.json"
-        candidate.write_text(rendered, encoding="utf-8", newline="\n")
-        project = yaml.safe_load(
-            (workspace_root / "config/project.yml").read_text(encoding="utf-8")
-        )
-        configured = (project.get("i5b_current_value") or {}).get("rulers") or {}
-        source_packs = []
-        compiled_ruler = str(compiled["ruler"])
-        if compiled_ruler not in configured:
-            raise ValueError(f"current source pack 皇帝未配置: {compiled_ruler}")
-        for ruler_name, ruler_config in configured.items():
-            configured_path = (
-                workspace_root / str(ruler_config["source_pack"])
-            ).resolve()
-            source_packs.append(
-                compiled
-                if str(ruler_name) == compiled_ruler
-                else json.loads(configured_path.read_text(encoding="utf-8"))
-            )
-        registry = build_unbound_historical_outcome_registry(source_packs)
-        binding = build_ruler_outcome_bindings(compiled, registry)
-        if require_current_projection_ready:
-            profile_registry = build_historical_person_profile_registry(
-                registry, source_packs
-            )
-            build_i5b_current_value(
-                candidate,
-                workspace_root=workspace_root,
-                outcome_layers=(registry, binding),
-                shared_profile_registry=profile_registry,
-            )
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    configured = (project.get("i5b_current_value") or {}).get("rulers") or {}
+    if str(compiled["ruler"]) not in configured:
+        raise ValueError(f"current source pack 皇帝未配置: {compiled['ruler']}")
     replacement = source_pack_path.with_name(f".{source_pack_path.name}.{uuid4().hex}.tmp")
     replacement.write_text(rendered, encoding="utf-8", newline="\n")
     os.replace(replacement, source_pack_path)

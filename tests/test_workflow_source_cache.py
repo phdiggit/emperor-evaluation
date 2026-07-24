@@ -107,6 +107,13 @@ pinned_collections:
     assert [page.page_title for page in index.iter_pages(works=("測試書",))] == [
         "測試書/卷1",
     ]
+    assert [
+        page.page_title
+        for page in index.iter_pages(
+            works=("目录别名",),
+            page_titles=("測試書/卷1",),
+        )
+    ] == ["測試書/卷1"]
     assert current["database_write_count"] == 0
     assert current["formal_score_write_count"] == 0
     assert current["model_call_count"] == 0

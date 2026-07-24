@@ -18,7 +18,7 @@ from emperor_v4.adapters.source_text_index import LocalSourceTextIndex
 
 WORKLIST_SCHEMA_VERSION = "discovery-source-backfill-worklist-v1"
 RESULT_SCHEMA_VERSION = "google-ai-browser-result-v1"
-I5B_SOURCE_SCOPE_SCHEMA_VERSION = "i5b-source-search-scope-v3"
+I5B_SOURCE_SCOPE_SCHEMA_VERSION = "i5b-source-search-scope-v4"
 DEFAULT_I5B_SOURCE_SCOPE_PATH = (
     Path(__file__).parents[3] / "config/i5b-source-search-scope.yml"
 )

@@ -2061,7 +2061,7 @@ def test_shared_neutral_fact_fanout_keeps_context_actor_out_of_profile_credit() 
         ],
     }
     result = {
-        "schema_version": "shared-neutral-extraction-output-v1",
+        "schema_version": "shared-neutral-extraction-output-v2",
         "batch_ref": "BATCH-1",
         "page_title": "舊唐書/卷50",
         "revision_ref": "50",

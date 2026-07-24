@@ -277,15 +277,23 @@ def _normalize_candidate_sources(
     for fact in facts:
         facts_by_segment.setdefault(str(fact["segment_ref"]), []).append(fact)
 
-    def canonical_quote(value: object) -> str:
+    def canonical_quote(
+        value: object,
+        candidate_fact_quotes: Sequence[str] | None = None,
+    ) -> str:
         quote = str(value)
         candidates = [quote]
         if quote.endswith(("。", "；", "，", "！", "？")):
             candidates.append(quote[:-1])
+        searchable_quotes = (
+            list(candidate_fact_quotes)
+            if candidate_fact_quotes is not None
+            else fact_quotes
+        )
         for candidate_quote in candidates:
             normalized = _T2S.convert(candidate_quote)
             matches = set()
-            for fact_quote in fact_quotes:
+            for fact_quote in searchable_quotes:
                 start = _T2S.convert(fact_quote).find(normalized)
                 if start >= 0:
                     candidate = fact_quote[start : start + len(candidate_quote)]
@@ -331,7 +339,25 @@ def _normalize_candidate_sources(
         return {normalized[index : index + 2] for index in range(len(normalized) - 1)}
 
     for candidate in payload.get("candidates") or ():
-        quotes = [canonical_quote(value) for value in candidate.get("exact_quotes") or ()]
+        declared_links = {
+            str(row.get("fact_ref") or ""): row
+            for row in candidate.get("evidence_links") or ()
+        }
+        declared_refs_are_current = bool(declared_links) and all(
+            fact_ref in facts_by_ref for fact_ref in declared_links
+        )
+        candidate_facts = (
+            [facts_by_ref[fact_ref] for fact_ref in declared_links]
+            if declared_refs_are_current
+            else facts
+        )
+        candidate_fact_quotes = [
+            str(fact.get("exact_quote") or "") for fact in candidate_facts
+        ]
+        quotes = [
+            canonical_quote(value, candidate_fact_quotes)
+            for value in candidate.get("exact_quotes") or ()
+        ]
         candidate["exact_quotes"] = quotes
         for member in candidate.get("members") or ():
             if member.get("actor_kind") == "ruler":
@@ -339,7 +365,7 @@ def _normalize_candidate_sources(
             elif member.get("talent_credit") is None:
                 member.pop("talent_credit", None)
             member["authorization_quotes"] = [
-                canonical_quote(value)
+                canonical_quote(value, candidate_fact_quotes)
                 for value in member.get("authorization_quotes") or ()
             ]
         for field in (
@@ -349,13 +375,13 @@ def _normalize_candidate_sources(
         ):
             for item in (candidate.get("payload") or {}).get(field) or ():
                 item["exact_quotes"] = [
-                    canonical_quote(value)
+                    canonical_quote(value, candidate_fact_quotes)
                     for value in item.get("exact_quotes") or ()
                 ]
         quote_matches = [
             [
                 fact
-                for fact in facts
+                for fact in candidate_facts
                 if quote and quote in str(fact.get("exact_quote") or "")
             ]
             for quote in quotes
@@ -367,10 +393,6 @@ def _normalize_candidate_sources(
         }
         if not quotes or any(not rows for rows in quote_matches):
             continue
-        declared_links = {
-            str(row.get("fact_ref") or ""): row
-            for row in candidate.get("evidence_links") or ()
-        }
         replacement: dict[str, str] = {}
         resolved_declared_links: dict[str, Mapping[str, Any]] = {}
         for declared_ref, link in declared_links.items():
@@ -395,18 +417,22 @@ def _normalize_candidate_sources(
                     replacement[declared_ref] = resolved_ref
             if resolved_ref is not None:
                 resolved_declared_links[resolved_ref] = link
-        matched_facts_by_ref = {
-            str(fact["fact_ref"]): fact
-            for rows in quote_matches
-            for fact in rows
-        }
-        matched_facts_by_ref.update(
-            {
+        if resolved_declared_links:
+            # A paragraph-expanded quote may contain several atomic facts from
+            # different event chains.  Explicit fact links are the ownership
+            # boundary; quote containment only repairs stale/missing refs and
+            # must not silently attach every neighbouring fact to a candidate.
+            matched_facts_by_ref = {
                 fact_ref: facts_by_ref[fact_ref]
                 for fact_ref in resolved_declared_links
                 if fact_ref in facts_by_ref
             }
-        )
+        else:
+            matched_facts_by_ref = {
+                str(fact["fact_ref"]): fact
+                for rows in quote_matches
+                for fact in rows
+            }
         matched_facts = list(matched_facts_by_ref.values())
         candidate["evidence_links"] = [
             {
@@ -841,26 +867,69 @@ def project_current_outcomes(
         for candidate in (reviewed_payload or {}).get("candidates") or ()
         for quote in candidate.get("exact_quotes") or ()
     }
+    input_facts = list((neutral_materials.get("fanout") or {}).get("facts") or ())
+    input_fact_refs = {
+        str(fact.get("fact_ref") or "") for fact in input_facts if fact.get("fact_ref")
+    }
+    resolved_reviewed_fact_refs = reviewed_fact_refs.intersection(input_fact_refs)
+    for candidate in (reviewed_payload or {}).get("candidates") or ():
+        for link in candidate.get("evidence_links") or ():
+            declared_ref = str(link.get("fact_ref") or "")
+            if declared_ref in input_fact_refs:
+                resolved_reviewed_fact_refs.add(declared_ref)
+                continue
+            declared_quote = str(link.get("exact_quote") or "")
+            exact_matches = {
+                str(fact.get("fact_ref") or "")
+                for fact in input_facts
+                if declared_quote
+                and str(fact.get("exact_quote") or "") == declared_quote
+                and fact.get("fact_ref")
+            }
+            if len(exact_matches) == 1:
+                resolved_reviewed_fact_refs.update(exact_matches)
+                continue
+            containment_matches = {
+                str(fact.get("fact_ref") or "")
+                for fact in input_facts
+                if declared_quote
+                and (
+                    declared_quote in str(fact.get("exact_quote") or "")
+                    or str(fact.get("exact_quote") or "") in declared_quote
+                )
+                and fact.get("fact_ref")
+            }
+            if len(containment_matches) == 1:
+                resolved_reviewed_fact_refs.update(containment_matches)
+    reviewed_payload_has_refs = bool(
+        reviewed_fact_refs or reviewed_segments
+    )
 
     def explicitly_reviewed(fact: Mapping[str, Any]) -> bool:
         exact_quote = str(fact.get("exact_quote") or "")
         return (
-            str(fact.get("fact_ref") or "") in reviewed_fact_refs
+            str(fact.get("fact_ref") or "") in resolved_reviewed_fact_refs
             or str(fact.get("segment_ref") or "") in reviewed_segments
-            or any(
-                quote
-                and (
-                    quote in exact_quote
-                    or exact_quote in quote
+            or (
+                not reviewed_payload_has_refs
+                and any(
+                    quote
+                    and (
+                        quote in exact_quote
+                        or exact_quote in quote
+                    )
+                    for quote in reviewed_quotes
                 )
-                for quote in reviewed_quotes
             )
         )
 
     def in_current_ruler_projection(fact: Mapping[str, Any]) -> bool:
         source_role = str(fact.get("source_role") or "")
         if source_role == "dynasty_governance":
-            return fact.get("ruler_window_match") is True
+            # Dynasty governance is a shared public-results input.  Ruler windows
+            # bind responsibility later; they must not suppress the dynasty-wide
+            # review universe.
+            return True
         if not source_role and ruler_projection:
             return str(fact.get("fact_ref") or "") in projected_backbone_fact_refs
         return True
@@ -874,7 +943,8 @@ def project_current_outcomes(
             or str(fact.get("source_role") or "") in source_role_filter
         )
         and (
-            any(
+            str(fact.get("source_role") or "") == "dynasty_governance"
+            or any(
                 str(actor.get("subject_ref") or "") in allowed_subject_refs
                 for actor in fact.get("actors") or ()
             )
@@ -1207,7 +1277,6 @@ def project_current_outcomes(
         workspace_root=workspace_root,
         replace_auto=full_refresh,
         replace_incoming=reviewed_mode and not full_refresh,
-        require_current_projection_ready=False,
     )
     candidate_keys_by_fact: dict[str, set[str]] = {}
     rejection_reasons_by_fact: dict[str, list[str]] = {}
