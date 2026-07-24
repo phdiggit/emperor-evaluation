@@ -3307,6 +3307,11 @@ def test_awaiting_review_upgrade_preserves_quality_accepted_stage_source_pack(
         + "\n",
         encoding="utf-8",
     )
+    release_pack = release / configured["source_pack"]
+    release_pack.write_text(
+        release_pack.read_text(encoding="utf-8") + "\n",
+        encoding="utf-8",
+    )
     release_sha["value"] = "2" * 40
 
     report = emperor_session_control.upgrade_failed_session_release(

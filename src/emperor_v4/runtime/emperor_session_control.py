@@ -1749,6 +1749,9 @@ def upgrade_failed_session_release(
         )
         and not (key == "source_pack" and outcome_review_contract_reset is not None)
         and not (key == "source_pack" and session_owned_outcome_review_pack)
+        and not (
+            key == "source_pack" and accepted_stage_source_pack_sha is not None
+        )
     ]
     if protected_changes:
         raise SessionControlError(
