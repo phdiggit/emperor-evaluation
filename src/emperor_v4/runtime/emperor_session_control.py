@@ -470,14 +470,19 @@ def _is_session_owned_outcome_review_pack(
     *,
     ruler: str,
     ruler_ref: str,
+    allow_missing_target: bool = False,
 ) -> bool:
     """Recognize a reset v3 fact set without equating it to a release seed."""
 
-    if not workspace_path.is_file() or not target_path.is_file():
+    if not workspace_path.is_file():
         return False
     workspace = _read_json(workspace_path)
-    target = _read_json(target_path)
-    for payload in (workspace, target):
+    payloads = [workspace]
+    if target_path.is_file():
+        payloads.append(_read_json(target_path))
+    elif not allow_missing_target:
+        return False
+    for payload in payloads:
         declared = str(payload.get("source_pack_sha256") or "")
         unsigned = dict(payload)
         unsigned.pop("source_pack_sha256", None)
@@ -1675,6 +1680,7 @@ def upgrade_failed_session_release(
             target_canonical["source_pack"],
             ruler=str(lease["ruler"]),
             ruler_ref=str(lease["ruler_ref"]),
+            allow_missing_target=bootstrap_session,
         )
     )
     protected_changes = [

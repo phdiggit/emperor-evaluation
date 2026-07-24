@@ -3296,6 +3296,8 @@ def test_release_upgrade_resets_v2_outcome_review_but_preserves_verified_facts(
         workspace_pack_path.read_bytes()
     ).hexdigest()
 
+    if bootstrap_source_pack:
+        source_pack_path.unlink()
     release_sha["value"] = "3" * 40
     followup = emperor_session_control.upgrade_failed_session_release(
         state_root=state,
