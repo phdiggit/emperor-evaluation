@@ -416,6 +416,54 @@ def _is_empty_outcome_registry_schema_migration(
     return normalized_current == normalized_target
 
 
+def _prepare_outcome_review_contract_reset(
+    workspace_path: Path,
+    *,
+    ruler: str,
+    ruler_ref: str,
+) -> tuple[dict[str, Any], int, int] | None:
+    """Keep verified facts but invalidate v2 reviewed outcomes for a v3 replay."""
+
+    if not workspace_path.is_file():
+        return None
+    payload = _read_json(workspace_path)
+    declared = str(payload.get("source_pack_sha256") or "")
+    unsigned = dict(payload)
+    unsigned.pop("source_pack_sha256", None)
+    if not declared or _digest(unsigned) != declared:
+        return None
+    if payload.get("ruler") != ruler or payload.get("ruler_ref") != ruler_ref:
+        return None
+    registry = payload.get("outcome_registry")
+    if not isinstance(registry, Mapping):
+        return None
+    clusters = list(registry.get("clusters") or ())
+    if (
+        registry.get("schema_version")
+        != "historical-outcome-cluster-registry-v2"
+        or not clusters
+        or any(not str(row.get("outcome_ref") or "") for row in clusters)
+    ):
+        return None
+    facts = list(payload.get("facts") or ())
+    if any(
+        not str(row.get("record_ref") or "").startswith("PFACT-")
+        or not row.get("assertions")
+        for row in facts
+    ):
+        return None
+    migrated = json.loads(json.dumps(payload, ensure_ascii=False))
+    migrated["outcome_registry"] = {
+        **migrated["outcome_registry"],
+        "schema_version": "historical-outcome-cluster-registry-v3",
+        "clusters": [],
+    }
+    migrated.pop("three_channel_disposition", None)
+    migrated.pop("source_pack_sha256", None)
+    migrated["source_pack_sha256"] = _digest(migrated)
+    return migrated, len(clusters), len(facts)
+
+
 def _refresh_other_ruler_source_packs(
     *,
     release_root: Path,
@@ -1572,9 +1620,19 @@ def upgrade_failed_session_release(
         and _file_sha256(target) != expected.get(key)
     ]
     workspace_source_pack = workspace_root / str(configured["source_pack"])
+    outcome_review_contract_reset = None
+    if stage == "awaiting_review" and lease.get("review_stage") == (
+        "outcome_projection"
+    ):
+        outcome_review_contract_reset = _prepare_outcome_review_contract_reset(
+            workspace_source_pack,
+            ruler=str(lease["ruler"]),
+            ruler_ref=str(lease["ruler_ref"]),
+        )
     if expected.get("source_pack") is not None:
         if _file_sha256(workspace_source_pack) != expected.get("source_pack"):
-            raise SessionControlError("会话 workspace source-pack 已偏离认领输入")
+            if outcome_review_contract_reset is None:
+                raise SessionControlError("会话 workspace source-pack 已偏离认领输入")
     current_ruler_source_pack_schema_migration = (
         "source_pack" in changed_inputs
         and expected.get("source_pack") is not None
@@ -1589,6 +1647,7 @@ def upgrade_failed_session_release(
         and not (
             key == "source_pack" and current_ruler_source_pack_schema_migration
         )
+        and not (key == "source_pack" and outcome_review_contract_reset is not None)
     ]
     if protected_changes:
         raise SessionControlError(
@@ -1696,7 +1755,9 @@ def upgrade_failed_session_release(
         encoding="utf-8",
         newline="\n",
     )
-    if current_ruler_source_pack_schema_migration:
+    if outcome_review_contract_reset is not None:
+        _atomic_json(workspace_source_pack, outcome_review_contract_reset[0])
+    elif current_ruler_source_pack_schema_migration:
         shutil.copy2(target_canonical["source_pack"], workspace_source_pack)
     other_ruler_canonical_refreshes = _refresh_other_ruler_source_packs(
         release_root=release_root,
@@ -1712,9 +1773,12 @@ def upgrade_failed_session_release(
         lease.setdefault("canonical_expected_sha256", {})[key] = _file_sha256(
             target_canonical[key]
         )
-    if current_ruler_source_pack_schema_migration:
+    if (
+        current_ruler_source_pack_schema_migration
+        or outcome_review_contract_reset is not None
+    ):
         lease.setdefault("canonical_expected_sha256", {})["source_pack"] = (
-            _file_sha256(target_canonical["source_pack"])
+            _file_sha256(workspace_source_pack)
         )
     if bootstrap_session:
         lease["bootstrap_static_contract_fingerprint"] = (
@@ -1735,6 +1799,15 @@ def upgrade_failed_session_release(
         "current_ruler_source_pack_schema_migration": (
             "empty_outcome_registry_v2_to_v3"
             if current_ruler_source_pack_schema_migration
+            else None
+        ),
+        "outcome_review_contract_reset": (
+            {
+                "invalidated_outcome_count": outcome_review_contract_reset[1],
+                "preserved_fact_count": outcome_review_contract_reset[2],
+                "review_payload_reuse_allowed": False,
+            }
+            if outcome_review_contract_reset is not None
             else None
         ),
         "other_ruler_canonical_refreshes": other_ruler_canonical_refreshes,

@@ -3165,6 +3165,130 @@ def test_release_upgrade_adopts_only_empty_current_ruler_registry_schema(
     ).hexdigest()
 
 
+@pytest.mark.parametrize("bootstrap_source_pack", [False, True])
+def test_release_upgrade_resets_v2_outcome_review_but_preserves_verified_facts(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    bootstrap_source_pack: bool,
+) -> None:
+    release = _session_release_fixture(tmp_path)
+    configured = yaml.safe_load(
+        (release / "config/project.yml").read_text(encoding="utf-8")
+    )["i5b_current_value"]["rulers"]["李治"]
+    source_pack_path = release / configured["source_pack"]
+    source_pack = json.loads(source_pack_path.read_text(encoding="utf-8"))
+    source_pack["outcome_registry"]["schema_version"] = (
+        "historical-outcome-cluster-registry-v2"
+    )
+    source_pack.pop("source_pack_sha256", None)
+    source_pack["source_pack_sha256"] = emperor_session_control._digest(source_pack)
+    source_pack_path.write_text(
+        json.dumps(source_pack, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    release_sha = {"value": "1" * 40}
+    monkeypatch.setattr(
+        emperor_session_control,
+        "_release_identity",
+        lambda _root: release_sha["value"],
+    )
+    state = tmp_path / "state"
+    lease = emperor_session_control.claim_session(
+        state_root=state,
+        release_root=release,
+        session_id="SESSION-OUTCOME-CONTRACT-RESET",
+        ruler="李治",
+        model_slot_count=1,
+    )
+    lease_path = (
+        state
+        / "session-control/sessions/SESSION-OUTCOME-CONTRACT-RESET/current.json"
+    )
+    waiting = json.loads(lease_path.read_text(encoding="utf-8"))
+    waiting["stage"] = "awaiting_review"
+    waiting["review_stage"] = "outcome_projection"
+    if bootstrap_source_pack:
+        waiting["bootstrap_spec"] = str(tmp_path / "bootstrap-spec.json")
+        waiting["canonical_expected_sha256"].pop("source_pack", None)
+    lease_path.write_text(
+        json.dumps(waiting, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    checkpoint = Path(lease["runtime_root"]) / "checkpoint/keep.json"
+    checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint.write_text("{}\n", encoding="utf-8")
+
+    workspace_pack_path = Path(lease["workspace_root"]) / configured["source_pack"]
+    workspace_pack = json.loads(workspace_pack_path.read_text(encoding="utf-8"))
+    workspace_pack["facts"] = [
+        {
+            "record_ref": "PFACT-VERIFIED-001",
+            "assertions": [{"assertion_ref": "ASSERTION-VERIFIED-001"}],
+        }
+    ]
+    workspace_pack["outcome_registry"]["clusters"] = [
+        {"outcome_ref": "HOUT-REVIEWED-001"}
+    ]
+    workspace_pack["three_channel_disposition"] = {
+        "dynasty_governance": {"ruler_window_achievement_count": 1}
+    }
+    workspace_pack.pop("source_pack_sha256", None)
+    workspace_pack["source_pack_sha256"] = emperor_session_control._digest(
+        workspace_pack
+    )
+    workspace_pack_path.write_text(
+        json.dumps(
+            workspace_pack, ensure_ascii=False, indent=2, sort_keys=True
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    source_pack["outcome_registry"]["schema_version"] = (
+        "historical-outcome-cluster-registry-v3"
+    )
+    source_pack.pop("source_pack_sha256", None)
+    source_pack["source_pack_sha256"] = emperor_session_control._digest(source_pack)
+    source_pack_path.write_text(
+        json.dumps(source_pack, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    release_sha["value"] = "2" * 40
+
+    report = emperor_session_control.upgrade_failed_session_release(
+        state_root=state,
+        session_id="SESSION-OUTCOME-CONTRACT-RESET",
+        release_root=release,
+    )
+
+    migrated = json.loads(workspace_pack_path.read_text(encoding="utf-8"))
+    assert migrated["facts"] == workspace_pack["facts"]
+    assert migrated["outcome_registry"]["schema_version"] == (
+        "historical-outcome-cluster-registry-v3"
+    )
+    assert migrated["outcome_registry"]["clusters"] == []
+    assert "three_channel_disposition" not in migrated
+    assert migrated["source_pack_sha256"] == emperor_session_control._digest(
+        {
+            key: value
+            for key, value in migrated.items()
+            if key != "source_pack_sha256"
+        }
+    )
+    assert checkpoint.is_file()
+    assert report["outcome_review_contract_reset"] == {
+        "invalidated_outcome_count": 1,
+        "preserved_fact_count": 1,
+        "review_payload_reuse_allowed": False,
+    }
+    upgraded = json.loads(lease_path.read_text(encoding="utf-8"))
+    assert upgraded["stage"] == "awaiting_review"
+    assert upgraded["review_stage"] == "outcome_projection"
+    assert upgraded["canonical_expected_sha256"]["source_pack"] == hashlib.sha256(
+        workspace_pack_path.read_bytes()
+    ).hexdigest()
+
+
 def test_release_upgrade_refreshes_other_ruler_pack_before_shared_render(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
