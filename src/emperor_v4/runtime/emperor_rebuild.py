@@ -33,7 +33,6 @@ from emperor_v4.runtime.emperor_neutral_scan import (
     build_high_value_reject_review,
     build_ruler_neutral_plan,
     extract_current_neutral_materials,
-    merge_dynasty_governance_current,
     seed_deterministic_campaign_facts,
 )
 from emperor_v4.runtime.emperor_outcome_projection import (
@@ -58,8 +57,8 @@ SCHEMA_VERSION = "emperor-rebuild-v1"
 STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
-    "neutral_materials": "shared-directed-neutral-stage-v5",
-    "outcome_projection": "shared-outcome-profile-projection-stage-v19",
+    "neutral_materials": "shared-directed-neutral-stage-v6",
+    "outcome_projection": "shared-outcome-profile-projection-stage-v20",
     "current_projection": "shared-profile-window-i5b-stage-v4",
 }
 
@@ -826,7 +825,6 @@ def rebuild_emperor(
     outcome_review_path: Path | None = None,
     allow_outcome_model_draft: bool = False,
     reuse_accepted_ruler_neutral: bool = False,
-    governance_review_only: bool = False,
 ) -> dict[str, Any]:
     """Restart the current deterministic chain and atomically publish its outputs.
 
@@ -948,7 +946,8 @@ def rebuild_emperor(
         ),
     )
     dynasty_governance_current: Mapping[str, Any] | None = None
-    dynasty_governance_source_index: LocalSourceTextIndex | None = None
+    dynasty_governance_handoff: Mapping[str, Any] | None = None
+    dynasty_governance_outcome_pack: Mapping[str, Any] | None = None
     if dynasty_governance_token:
         governance_root = _resolve_dynasty_governance_root(
             source_index=source_index,
@@ -957,8 +956,14 @@ def rebuild_emperor(
         governance_path = governance_root / dynasty_governance_token / "current.json"
         if not governance_path.is_file():
             raise ValueError(f"朝代政书 current 不存在: {governance_path}")
+        handoff_path = governance_root / dynasty_governance_token / "handoff.json"
+        if not handoff_path.is_file():
+            raise ValueError(f"朝代治理交接物不存在: {handoff_path}")
         dynasty_governance_current = json.loads(
             governance_path.read_text(encoding="utf-8")
+        )
+        dynasty_governance_handoff = json.loads(
+            handoff_path.read_text(encoding="utf-8")
         )
         if (
             dynasty_governance_current.get("schema_version")
@@ -984,34 +989,67 @@ def rebuild_emperor(
             validate_dynasty_governance_current_catalog(
                 dynasty_governance_current, governance_catalog
             )
-            governance_works = [
-                str(row.get("work") or "")
-                for row in governance_catalog.get("source_works") or ()
-                if str(row.get("work") or "")
-            ]
-            governance_pages = [
-                str(page_title)
-                for row in governance_catalog.get("source_works") or ()
-                for page_title in row.get("page_titles") or ()
-                if str(page_title)
-            ]
-            dynasty_governance_source_index = _resolve_source_index(
-                source_pack=source_pack,
-                source_index_path=None,
-                source_index_root=source_index_root,
-                required_works=governance_works,
-                preextracted_works=sorted(
-                    {
-                        str(row["source_page"]).split("/", 1)[0]
-                        for row in source_pack.get("facts") or ()
-                        if row.get("source_page")
-                    }
-                ),
-                required_page_titles=governance_pages,
-                preferred_index_identity=str(
-                    dynasty_governance_current["source_index_identity"]
-                ),
+        if (
+            dynasty_governance_handoff.get("schema_version")
+            != "dynasty-governance-handoff-v1"
+            or dynasty_governance_handoff.get("status")
+            != "quality_accepted_shadow"
+            or str(dynasty_governance_handoff.get("dynasty_token") or "")
+            != dynasty_governance_token
+            or str(
+                dynasty_governance_handoff.get(
+                    "governance_input_fingerprint"
+                )
+                or ""
             )
+            != str(dynasty_governance_current.get("input_fingerprint") or "")
+        ):
+            raise ValueError("朝代治理交接物与已验收政书 current 不匹配")
+        outcome_pack_path = Path(
+            str(dynasty_governance_handoff.get("outcome_pack") or "")
+        )
+        if not outcome_pack_path.is_file():
+            raise ValueError(f"朝代治理成果包不存在: {outcome_pack_path}")
+        dynasty_governance_outcome_pack = json.loads(
+            outcome_pack_path.read_text(encoding="utf-8")
+        )
+        if (
+            dynasty_governance_outcome_pack.get("pack_scope")
+            != "dynasty_governance"
+            or str(
+                dynasty_governance_outcome_pack.get("dynasty_token") or ""
+            )
+            != dynasty_governance_token
+            or str(
+                dynasty_governance_outcome_pack.get("source_pack_sha256") or ""
+            )
+            != str(
+                dynasty_governance_handoff.get("outcome_pack_sha256") or ""
+            )
+        ):
+            raise ValueError("朝代治理成果包与交接物不匹配")
+        outcome_registry_path = Path(
+            str(
+                dynasty_governance_handoff.get(
+                    "outcome_registry_current"
+                )
+                or ""
+            )
+        )
+        if not outcome_registry_path.is_file():
+            raise ValueError(
+                f"朝代治理成果分区不存在: {outcome_registry_path}"
+            )
+        dynasty_governance_registry = json.loads(
+            outcome_registry_path.read_text(encoding="utf-8")
+        )
+        if str(
+            dynasty_governance_registry.get("registry_fingerprint") or ""
+        ) != str(
+            dynasty_governance_handoff.get("outcome_registry_fingerprint")
+            or ""
+        ):
+            raise ValueError("朝代治理成果分区与交接物不匹配")
     works = sorted(
         set(configured_scan_works)
         | {
@@ -1134,8 +1172,8 @@ def rebuild_emperor(
                     "input_fingerprint": dynasty_governance_current.get(
                         "input_fingerprint"
                     ),
-                    "source_index_identity": dynasty_governance_current.get(
-                        "source_index_identity"
+                    "outcome_pack_sha256": dynasty_governance_handoff.get(
+                        "outcome_pack_sha256"
                     ),
                 }
                 if dynasty_governance_current is not None
@@ -1538,30 +1576,22 @@ def rebuild_emperor(
             ruler_ref=str(source_pack["ruler_ref"]),
         ),
     }
-    if dynasty_governance_current is not None:
-        neutral_materials = merge_dynasty_governance_current(
-            neutral_materials=neutral_materials,
-            current=dynasty_governance_current,
-            expected_dynasty_token=dynasty_governance_token,
-            expected_source_index_identity=str(
-                dynasty_governance_current["source_index_identity"]
-            ),
-            period_terms=[
-                str(value)
-                for value in configured.get("dynasty_governance_period_terms") or ()
+    if dynasty_governance_handoff is not None:
+        neutral_materials["dynasty_governance_baseline"] = {
+            "dynasty_token": dynasty_governance_token,
+            "governance_input_fingerprint": dynasty_governance_handoff[
+                "governance_input_fingerprint"
             ],
-            identity_resolver=identity_resolver,
-            ruler_ref=str(source_pack["ruler_ref"]),
-            subject_ref_by_name={
-                str(source_pack["ruler"]): str(source_pack["ruler_ref"]),
-                **{
-                    str(row["person"]): str(row["person_ref"])
-                    for row in source_pack.get("members") or ()
-                },
-            },
-            event_signatures=model_plan.get("event_signatures") or (),
-            include_all_dynasty_chains=governance_review_only,
-        )
+            "outcome_pack_sha256": dynasty_governance_handoff[
+                "outcome_pack_sha256"
+            ],
+            "outcome_registry_fingerprint": dynasty_governance_handoff[
+                "outcome_registry_fingerprint"
+            ],
+            "outcome_count": int(
+                dynasty_governance_handoff.get("outcome_count") or 0
+            ),
+        }
     if current_neutral and current_neutral.get("outcome_projection"):
         neutral_materials["outcome_projection"] = current_neutral[
             "outcome_projection"
@@ -1686,9 +1716,7 @@ def rebuild_emperor(
                 else "awaiting_main_session_review"
             ),
             "outcome_review_fingerprint": outcome_review_fingerprint,
-            "included_source_roles": (
-                ["dynasty_governance"] if governance_review_only else []
-            ),
+            "included_source_roles": [],
         }
     )
     outcome_stage_contract_fingerprint = _digest(
@@ -1766,12 +1794,7 @@ def rebuild_emperor(
             operation=lambda runner, facts_per_call: project_current_outcomes(
                 source_pack_path=source_pack_path,
                 neutral_materials=neutral_materials,
-                source_index=(
-                    dynasty_governance_source_index
-                    if governance_review_only
-                    and dynasty_governance_source_index is not None
-                    else source_index
-                ),
+                source_index=source_index,
                 schema_path=outcome_schema_path,
                 runner=runner,
                 checkpoint_dir=checkpoint_dir / "outcome_projection",
@@ -1779,9 +1802,7 @@ def rebuild_emperor(
                 max_workers=min(limits.model_workers, 4),
                 facts_per_call=facts_per_call,
                 reviewed_payload=None,
-                included_source_roles=(
-                    ["dynasty_governance"] if governance_review_only else []
-                ),
+                included_source_roles=(),
             ),
             initial_batch_size=16,
             maximum_recoveries=0,
@@ -1790,21 +1811,14 @@ def rebuild_emperor(
         outcome_projection = project_current_outcomes(
             source_pack_path=source_pack_path,
             neutral_materials=neutral_materials,
-            source_index=(
-                dynasty_governance_source_index
-                if governance_review_only
-                and dynasty_governance_source_index is not None
-                else source_index
-            ),
+            source_index=source_index,
             schema_path=outcome_schema_path,
             runner=None,
             checkpoint_dir=checkpoint_dir / "outcome_projection",
             workspace_root=workspace_root,
             max_workers=1,
             reviewed_payload=reviewed_outcome_payload,
-            included_source_roles=(
-                ["dynasty_governance"] if governance_review_only else []
-            ),
+            included_source_roles=(),
         )
         outcome_recovery_count = 0
         outcome_final_facts_per_call = 0
@@ -1847,6 +1861,11 @@ def rebuild_emperor(
     outcome_review_layers = write_current_outcome_layers(
         workspace_root,
         include_rulers=[ruler],
+        dynasty_outcome_packs=(
+            {dynasty_governance_token: dynasty_governance_outcome_pack}
+            if dynasty_governance_outcome_pack is not None
+            else None
+        ),
     )
     if ruler not in outcome_review_layers["included_rulers"]:
         raise ValueError(f"{ruler} 已审成果未进入公共成果登记")
@@ -2076,9 +2095,9 @@ def rebuild_emperor(
             for key, value in deterministic_campaign_seed.items()
             if key != "current" and key != "seeded_segment_refs"
         },
-        "dynasty_governance_fact_count": int(
-            (neutral_materials.get("dynasty_governance_current") or {}).get(
-                "fact_count"
+        "dynasty_governance_outcome_count": int(
+            (neutral_materials.get("dynasty_governance_baseline") or {}).get(
+                "outcome_count"
             )
             or 0
         ),

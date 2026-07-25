@@ -267,6 +267,11 @@ def _catalog_dynasty_config(
         ):
             return str(name), {
                 **row,
+                "required_domain_groups": (
+                    row.get("required_domain_groups")
+                    or catalog.get("required_domain_groups")
+                    or {}
+                ),
                 "quality_requires_catalog_source_families": bool(
                     catalog.get("quality_requires_catalog_source_families")
                 ),
@@ -350,19 +355,14 @@ def validate_dynasty_governance_current_catalog(
 
 
 def _load_dynasty_config(
-    workspace_root: Path, dynasty: str, *, use_catalog: bool = False
+    workspace_root: Path, dynasty: str
 ) -> tuple[Mapping[str, Any], Mapping[str, Any], str]:
     project = yaml.safe_load(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
     )
-    scan_config = project.get("dynasty_governance_scans") or {}
-    if use_catalog:
-        canonical_dynasty, configured = _catalog_dynasty_config(project, dynasty)
-        return scan_config, configured, canonical_dynasty
-    configured = (scan_config.get("dynasties") or {}).get(dynasty)
-    if not isinstance(configured, Mapping):
-        raise ValueError(f"朝代尚未配置政书扫描: {dynasty}")
-    return scan_config, configured, dynasty
+    catalog = project.get("dynasty_governance_catalog") or {}
+    canonical_dynasty, configured = _catalog_dynasty_config(project, dynasty)
+    return catalog, configured, canonical_dynasty
 
 
 def _build_source_manifest(
@@ -595,12 +595,11 @@ def rebuild_dynasty_governance(
     workspace_root: Path,
     limits: DynastyGovernanceLimits = DynastyGovernanceLimits(),
     codex_bin: str = "codex",
-    use_catalog: bool = False,
 ) -> dict[str, object]:
     workspace_root = workspace_root.resolve()
     runtime_root = runtime_root.resolve()
     scan_config, configured, canonical_dynasty = _load_dynasty_config(
-        workspace_root, dynasty, use_catalog=use_catalog
+        workspace_root, dynasty
     )
     dynasty = canonical_dynasty
     index = LocalSourceTextIndex(source_index_path)

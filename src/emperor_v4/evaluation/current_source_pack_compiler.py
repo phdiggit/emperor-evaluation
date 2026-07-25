@@ -922,7 +922,10 @@ def apply_source_pack_increment(
         (workspace_root / "config/project.yml").read_text(encoding="utf-8")
     )
     configured = (project.get("i5b_current_value") or {}).get("rulers") or {}
-    if str(compiled["ruler"]) not in configured:
+    if (
+        compiled.get("pack_scope") != "dynasty_governance"
+        and str(compiled["ruler"]) not in configured
+    ):
         raise ValueError(f"current source pack 皇帝未配置: {compiled['ruler']}")
     replacement = source_pack_path.with_name(f".{source_pack_path.name}.{uuid4().hex}.tmp")
     replacement.write_text(rendered, encoding="utf-8", newline="\n")

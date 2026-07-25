@@ -1027,6 +1027,45 @@ def _partition_outcome_registry(
     return report
 
 
+def write_dynasty_outcome_partition(
+    *,
+    outcome_pack: Mapping[str, Any],
+    dynasty_token: str,
+    output_root: Path,
+) -> dict[str, Any]:
+    """Write one dynasty governance partition without a ruler source pack."""
+
+    token = str(dynasty_token).strip()
+    if not token or any(value in token for value in ("/", "\\", "..")):
+        raise ValueError("朝代治理 token 含非法路径字符")
+    registry = build_unbound_historical_outcome_registry([outcome_pack])
+    outcome_partitions = {
+        str(row["registration_ref"]): token for row in registry["outcomes"]
+    }
+    partition = _partition_outcome_registry(
+        registry,
+        partition_token=token,
+        outcome_partitions=outcome_partitions,
+        source_pack_refs=[str(outcome_pack["source_pack_sha256"])],
+    )
+    partition_root = output_root.resolve() / token
+    json_path = partition_root / "current.json"
+    markdown_path = partition_root / "current.md"
+    _atomic_text(
+        json_path,
+        json.dumps(partition, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+    )
+    _atomic_text(
+        markdown_path,
+        render_unbound_historical_outcome_registry_markdown(partition),
+    )
+    return {
+        "registry": partition,
+        "current_json": str(json_path),
+        "current_markdown": str(markdown_path),
+    }
+
+
 def _partition_profile_registry(
     registry: Mapping[str, Any],
     *,
@@ -1085,7 +1124,7 @@ def _profile_partition_map(
     workspace_root: Path,
     project: Mapping[str, Any],
     profile_registry: Mapping[str, Any],
-    configured_packs: Sequence[tuple[str, Mapping[str, Any], Mapping[str, Any]]],
+    partitioned_packs: Sequence[tuple[str, Mapping[str, Any]]],
 ) -> dict[str, str]:
     identity_path = workspace_root / "config/historical-entity-identities.yml"
     identity_registry = yaml.safe_load(identity_path.read_text(encoding="utf-8"))
@@ -1097,8 +1136,7 @@ def _profile_partition_map(
         if token:
             identity_partitions[str(entity["person_ref"])] = token
     observed: dict[str, set[str]] = {}
-    for _ruler_name, ruler_config, source_pack in configured_packs:
-        token = str(ruler_config["dynasty_governance_material_token"])
+    for token, source_pack in partitioned_packs:
         for member in source_pack.get("members") or ():
             observed.setdefault(str(member["person_ref"]), set()).add(token)
         for cluster in (source_pack.get("outcome_registry") or {}).get(
@@ -1126,6 +1164,7 @@ def write_current_outcome_layers(
     workspace_root: Path,
     *,
     include_rulers: Sequence[str] = (),
+    dynasty_outcome_packs: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Publish shared outcomes and profiles first, then ruler bindings."""
 
@@ -1148,10 +1187,23 @@ def write_current_outcome_layers(
         ):
             continue
         configured_packs.append((str(ruler_name), ruler_config, source_pack))
-    if not configured_packs:
+    partitioned_packs = [
+        (
+            str(ruler_config["dynasty_governance_material_token"]),
+            source_pack,
+        )
+        for _ruler_name, ruler_config, source_pack in configured_packs
+    ]
+    for token, source_pack in (dynasty_outcome_packs or {}).items():
+        if source_pack.get("pack_scope") != "dynasty_governance":
+            raise ValueError(f"{token} 朝代治理成果包 scope 不匹配")
+        if str(source_pack.get("dynasty_token") or "") != str(token):
+            raise ValueError(f"{token} 朝代治理成果包 token 不匹配")
+        partitioned_packs.append((str(token), source_pack))
+    if not partitioned_packs:
         raise ValueError("当前配置没有可汇总的成果 source pack")
     registry = build_unbound_historical_outcome_registry(
-        [row[2] for row in configured_packs]
+        [row[1] for row in partitioned_packs]
     )
     registry_config = project.get("historical_outcome_registry") or {}
     output_json = workspace_root / str(
@@ -1163,7 +1215,7 @@ def write_current_outcome_layers(
         or "eval/historical_outcome_registry/current.md"
     )
     profile_registry = build_historical_person_profile_registry(
-        registry, [row[2] for row in configured_packs]
+        registry, [row[1] for row in partitioned_packs]
     )
     profile_config = project.get("historical_person_profile_registry") or {}
     profile_json = workspace_root / str(
@@ -1176,8 +1228,7 @@ def write_current_outcome_layers(
     )
     origin_partitions: dict[str, set[str]] = {}
     source_refs_by_partition: dict[str, list[str]] = {}
-    for _ruler_name, ruler_config, source_pack in configured_packs:
-        token = str(ruler_config["dynasty_governance_material_token"])
+    for token, source_pack in partitioned_packs:
         source_ref = str(source_pack["source_pack_sha256"])
         source_refs_by_partition.setdefault(token, []).append(source_ref)
         for cluster in (source_pack.get("outcome_registry") or {}).get(
@@ -1211,7 +1262,7 @@ def write_current_outcome_layers(
         workspace_root=workspace_root,
         project=project,
         profile_registry=profile_registry,
-        configured_packs=configured_packs,
+        partitioned_packs=partitioned_packs,
     )
     partition_tokens = sorted(
         {

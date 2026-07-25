@@ -34,7 +34,7 @@ install -d -o emperor-v4 -g emperor-v4 -m 2770 "/data1/emperor-evaluation/runtim
 install -d -o emperor-v4 -g emperor-v4 -m 0750 "/data1/emperor-evaluation/runtime/active/dynasty_neutral_materials"
 install -o root -g root -m 0755 "$codex_source" "$root/bin/codex"
 
-for service in source-cache claim-extractor dynasty-governance emperor-rebuild; do
+for service in source-cache claim-extractor emperor-rebuild; do
   archive="$upload_root/v4-${service}-${release_sha}.tar"
   manifest="$upload_root/v4-${service}-${release_sha}.manifest.json"
   service_root="$root/$service"
@@ -85,5 +85,4 @@ mv "$source_plan_root.next" "$source_plan_root"
 
 install -o root -g emperor-v4 -m 0640 "$root/source-cache/current/deploy/v4/source-cache.env.example" "$etc_root/source-cache.env.example"
 install -o root -g emperor-v4 -m 0640 "$root/claim-extractor/current/deploy/v4/claim-extractor.env.example" "$etc_root/claim-extractor.env.example"
-install -o root -g emperor-v4 -m 0640 "$root/dynasty-governance/current/deploy/v4/dynasty-governance.env.example" "$etc_root/dynasty-governance.env.example"
 echo "provisioned_without_database_credentials_or_unit_enablement"

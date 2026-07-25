@@ -63,12 +63,10 @@ from emperor_v4.runtime.claim_extractor import (
 from emperor_v4.runtime.source_cache import run_wikisource_ensure
 from emperor_v4.runtime.release import (
     CLAIM_EXTRACTOR_RELEASE_PATHS,
-    DYNASTY_GOVERNANCE_RELEASE_PATHS,
     EMPEROR_REBUILD_RELEASE_PATHS,
     SOURCE_CACHE_RELEASE_PATHS,
 )
 from emperor_v4.runtime import dynasty_governance_rebuild
-from emperor_v4.runtime import dynasty_governance_worker
 
 
 ROOT = Path(__file__).parents[1]
@@ -190,7 +188,7 @@ def test_dynasty_governance_current_reuses_accepted_source_revision(
     config.mkdir(parents=True)
     (config / "project.yml").write_text(
         """schema_version: test
-dynasty_governance_scans:
+dynasty_governance_catalog:
   output_schema: config/dynasty-neutral-governance-output.schema.json
   dynasties:
     test:
@@ -354,7 +352,7 @@ dynasty_governance_scans:
     )
     (config / "project.yml").write_text(
         """schema_version: test
-dynasty_governance_scans:
+dynasty_governance_catalog:
   output_schema: config/dynasty-neutral-governance-output.schema.json
   dynasties:
     test:
@@ -440,7 +438,7 @@ def test_dynasty_governance_resumes_only_audited_batches_after_failure(
     config = workspace / "config"
     config.mkdir(parents=True)
     (config / "project.yml").write_text(
-        """dynasty_governance_scans:
+        """dynasty_governance_catalog:
   output_schema: config/dynasty-neutral-governance-output.schema.json
   dynasties:
     test:
@@ -625,104 +623,10 @@ def test_dynasty_governance_drops_only_unverifiable_chain(tmp_path: Path) -> Non
     assert sanitized["source_chars"] == len("exact source quote")
 
 
-def test_dynasty_governance_worker_discovers_index_and_noops_reused_current(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    workspace = tmp_path / "workspace"
-    (workspace / "config").mkdir(parents=True)
-    (workspace / "config/project.yml").write_text(
-        """dynasty_governance_scans:
-  dynasties:
-    test:
-      dynasty_token: TEST
-      source_works:
-        - work: TestTreatise
-""",
-        encoding="utf-8",
-    )
-    index_root = tmp_path / "indexes"
-    index_root.mkdir()
-    index_path = index_root / "source.sqlite3"
-    build_local_source_index(
-        [
-            {
-                "page_title": "TestTreatise/1",
-                "work_title": "TestTreatise",
-                "source_url": "local:test",
-                "revision_ref": "1",
-                "raw_text": "test source",
-            }
-        ],
-        index_path,
-    )
-    calls = []
-
-    def fake_rebuild(**kwargs: object) -> dict:
-        calls.append(kwargs)
-        return {
-            "reused": True,
-            "model_call_count": 0,
-            "business_write_count": 0,
-            "quality": {"chain_count": 3},
-        }
-
-    monkeypatch.setattr(
-        dynasty_governance_worker, "rebuild_dynasty_governance", fake_rebuild
-    )
-    report = dynasty_governance_worker.run_worker_once(
-        source_index_root=index_root,
-        runtime_root=tmp_path / "runtime",
-        workspace_root=workspace,
-        codex_bin="codex-test",
-        limits=dynasty_governance_rebuild.DynastyGovernanceLimits(
-            model_workers=2, model_timeout_seconds=30, target_chars=1_500
-        ),
-    )
-
-    assert report["status"] == "noop"
-    assert report["model_call_count"] == 0
-    assert report["business_write_count"] == 0
-    assert report["dynasties"][0]["status"] == "reused"
-    assert calls[0]["source_index_path"] == index_path
-    assert calls[0]["codex_bin"] == "codex-test"
-
-
-def test_repository_dynasty_governance_scheduler_defers_to_ruler_sessions(
-    tmp_path: Path,
-) -> None:
-    report = dynasty_governance_worker.run_worker_once(
-        source_index_root=tmp_path / "indexes",
-        runtime_root=tmp_path / "runtime",
-        workspace_root=ROOT,
-        codex_bin="codex",
-        limits=dynasty_governance_rebuild.DynastyGovernanceLimits(
-            model_workers=1,
-            model_timeout_seconds=30,
-            target_chars=2_400,
-        ),
-    )
-
-    assert report["status"] == "noop"
-    assert report["model_call_count"] == 0
-    assert report["business_write_count"] == 0
-    assert {row["status"] for row in report["dynasties"]} == {
-        "session_managed"
-    }
-
-
-def test_dynasty_governance_lock_refuses_overlapping_worker(tmp_path: Path) -> None:
-    lock_path = tmp_path / "TANG.lock"
-    with dynasty_governance_worker._exclusive_lock(lock_path) as first:
-        with dynasty_governance_worker._exclusive_lock(lock_path) as second:
-            assert first is True
-            assert second is False
-
-
 def test_service_releases_include_runtime_verification_and_data1_state() -> None:
     verifier = "deploy/v4/verify-server-runtime.sh"
     assert verifier in SOURCE_CACHE_RELEASE_PATHS
     assert verifier in CLAIM_EXTRACTOR_RELEASE_PATHS
-    assert verifier in DYNASTY_GOVERNANCE_RELEASE_PATHS
     assert verifier in EMPEROR_REBUILD_RELEASE_PATHS
     verifier_text = (ROOT / verifier).read_text(encoding="utf-8")
     assert "emperor-v4-emperor-rebuild-queue.timer" in verifier_text
@@ -752,36 +656,12 @@ def test_service_releases_include_runtime_verification_and_data1_state() -> None
         CLAIM_EXTRACTOR_RELEASE_PATHS
     )
     assert {
-        "config/project.yml",
-        "config/model-policy.yml",
-        "config/dynasty-neutral-governance-output.schema.json",
-        "src/emperor_v4/runtime/dynasty_governance_rebuild.py",
-        "src/emperor_v4/runtime/dynasty_governance_worker.py",
-        "src/emperor_v4/runtime/structured_codex_runner.py",
-        "deploy/v4/emperor-v4-dynasty-governance-worker.service",
-        "deploy/v4/emperor-v4-dynasty-governance-worker.timer",
-    } <= set(DYNASTY_GOVERNANCE_RELEASE_PATHS)
-    dynasty_unit = (
-        ROOT / "deploy/v4/emperor-v4-dynasty-governance-worker.service"
-    ).read_text(encoding="utf-8")
-    assert (
-        f"Environment=CODEX_HOME={state_root}/claim-extractor/codex"
-        in dynasty_unit
-    )
-    assert "RuntimeDirectoryPreserve=yes" in dynasty_unit
-    assert "Restart=on-failure" in dynasty_unit
-    assert "StartLimitBurst=20" in dynasty_unit
-    assert (
-        "ReadWritePaths=/data1/emperor-evaluation/runtime/active/"
-        "dynasty_neutral_materials" in dynasty_unit
-    )
-    assert f"{state_root}/claim-extractor/codex" in dynasty_unit
-    assert {
         "config",
         "db/postgres/007_v4_historical_outcome_clusters.sql",
         "eval/i5b_current_value",
         "src/emperor_v4",
         "docs/证据规则/公共成果登记与人物画像规则.md",
+        "docs/证据规则/单朝代治理会话工作流.md",
         "docs/证据规则/单皇帝主控会话工作流.md",
     } <= set(EMPEROR_REBUILD_RELEASE_PATHS)
     assert not any("emperor-rebuild-queue" in path for path in EMPEROR_REBUILD_RELEASE_PATHS)

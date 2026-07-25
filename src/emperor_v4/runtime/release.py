@@ -80,26 +80,6 @@ CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "deploy/v4/provision-prerequisites.sh",
     "deploy/v4/verify-server-runtime.sh",
 )
-DYNASTY_GOVERNANCE_RELEASE_PATHS = (
-    "pyproject.toml",
-    "config/project.yml",
-    "config/model-policy.yml",
-    "config/dynasty-neutral-governance-output.schema.json",
-    "src/emperor_v4/__init__.py",
-    "src/emperor_v4/adapters/dynasty_neutral_governance.py",
-    "src/emperor_v4/adapters/source_text_index.py",
-    "src/emperor_v4/adapters/structured_output_contract.py",
-    "src/emperor_v4/evaluation/model_policy.py",
-    "src/emperor_v4/runtime/dynasty_governance_rebuild.py",
-    "src/emperor_v4/runtime/dynasty_governance_worker.py",
-    "src/emperor_v4/runtime/structured_codex_runner.py",
-    "src/emperor_v4/runtime/release.py",
-    "deploy/v4/emperor-v4-dynasty-governance-worker.service",
-    "deploy/v4/emperor-v4-dynasty-governance-worker.timer",
-    "deploy/v4/dynasty-governance.env.example",
-    "deploy/v4/provision-prerequisites.sh",
-    "deploy/v4/verify-server-runtime.sh",
-)
 EMPEROR_REBUILD_RELEASE_PATHS = (
     "AGENTS.md",
     "README.md",
@@ -109,6 +89,7 @@ EMPEROR_REBUILD_RELEASE_PATHS = (
     "docs/项目总纲/皇帝综合评价体系评分标准.md",
     "docs/项目总纲/总规则.md",
     "docs/证据规则/公共成果登记与人物画像规则.md",
+    "docs/证据规则/单朝代治理会话工作流.md",
     "docs/证据规则/单皇帝主控会话工作流.md",
     "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
     "eval/i5b_current_value",
@@ -183,24 +164,6 @@ def build_claim_extractor_release(
         service="v4-claim-extractor",
         archive_prefix="v4-claim-extractor",
         paths=CLAIM_EXTRACTOR_RELEASE_PATHS,
-    )
-
-
-def build_dynasty_governance_release(
-    *,
-    repo_root: Path,
-    output_dir: Path,
-    commit_sha: str,
-    require_clean: bool = True,
-) -> dict[str, Any]:
-    return _build_release(
-        repo_root=repo_root,
-        output_dir=output_dir,
-        commit_sha=commit_sha,
-        require_clean=require_clean,
-        service="v4-dynasty-governance",
-        archive_prefix="v4-dynasty-governance",
-        paths=DYNASTY_GOVERNANCE_RELEASE_PATHS,
     )
 
 
@@ -344,7 +307,7 @@ def build_parser() -> argparse.ArgumentParser:
     build.add_argument("--commit-sha", required=True)
     build.add_argument(
         "--service",
-        choices=("source-cache", "claim-extractor", "dynasty-governance", "emperor-rebuild"),
+        choices=("source-cache", "claim-extractor", "emperor-rebuild"),
         default="source-cache",
     )
     verify = sub.add_parser("verify")
@@ -360,7 +323,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             {
                 "source-cache": build_source_cache_release,
                 "claim-extractor": build_claim_extractor_release,
-                "dynasty-governance": build_dynasty_governance_release,
                 "emperor-rebuild": build_emperor_rebuild_release,
             }[args.service]
         )(

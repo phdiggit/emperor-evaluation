@@ -141,10 +141,17 @@ neutral_material_reuse:
 
 dynasty_governance_catalog:
   schema_version: dynasty-governance-catalog-v1
+  output_schema: config/dynasty-neutral-governance-output.schema.json
   person_or_ruler_chronicles_are_not_governance_books: true
   quality_requires_catalog_source_families: true
   selection_policy: resolve_configured_sections_to_fixed_revision_pages
   shared_current_root_contract: dynasty_neutral_materials/<dynasty_token>/current.json
+  handoff_contract: dynasty_neutral_materials/<dynasty_token>/handoff.json
+  required_domain_groups:
+    economy: [fiscal_taxation, economy_production, livelihood_social_order]
+    law: [law_and_adjudication, official_discipline]
+    military: [military_system, military_logistics, frontier_administration]
+    bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
   dynasties:
     秦:
       aliases: [秦朝]
@@ -542,41 +549,6 @@ dynasty_governance_catalog:
             gender_family_and_livelihood: [婚姻, 女館, 男館, 市場, 學校]
           target_scope: 区分主张、颁行和实际执行；只有可核验的施行、运行或结果进入治理中性事实，《资政新篇》无实施证据时只登记为方案。
           domain_focus: [土地财政, 行政改革, 法律秩序, 宗教社会, 婚姻性别, 市场教育]
-
-dynasty_governance_scans:
-  output_schema: config/dynasty-neutral-governance-output.schema.json
-  reuse_unit: [dynasty, source_index_identity, source_revision, extraction_contract]
-  accepted_current_is_never_rescanned: true
-  new_scheduler_trials_use_unaccepted_sources_only: true
-  source_selection_policy: one_primary_work_per_domain_before_supplement
-  dynasties:
-    唐:
-      dynasty_token: TANG
-      scheduler_enabled: false
-      source_works:
-        - work: 貞觀政要
-          source_genre: political_treatise
-          target_scope: 仅抽取唐代实际实施、运行或产生可观察结果的治理事实；前代制度只作唐制明确承继、修改或废止时的必要背景。
-          domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政]
-      required_domain_groups:
-        economy: [fiscal_taxation, economy_production, livelihood_social_order]
-        law: [law_and_adjudication, official_discipline]
-        military: [military_system, military_logistics, frontier_administration]
-        bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
-    汉:
-      dynasty_token: HAN
-      scheduler_enabled: false
-      source_works:
-        - work: 漢書
-          source_genre: official_history_treatises
-          page_titles: [漢書/卷019, 漢書/卷023, 漢書/卷024, 漢書/卷029]
-          target_scope: 仅抽取汉代实际实施、运行或产生可观察结果的官制、法律刑狱、财政经济、水利与军政事实；前代制度只作汉制明确承继、修改或废止时的必要背景。
-          domain_focus: [官制, 法律刑狱, 财政经济, 水利, 军制]
-      required_domain_groups:
-        economy: [fiscal_taxation, economy_production, livelihood_social_order]
-        law: [law_and_adjudication, official_discipline]
-        military: [military_system, military_logistics, frontier_administration]
-        bureaucracy: [central_government, local_government, official_selection, supervision_feedback]
 
 talent_grade:
   active_policy: config/talent-grade-v11-domain-equivalent-historic.yml

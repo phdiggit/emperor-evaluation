@@ -38,9 +38,11 @@ from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
 from emperor_v4.evaluation.model_policy import resolve_agent_route, validate_model_policy
 from emperor_v4.evaluation.current_source_pack_compiler import apply_source_pack_increment
 from emperor_v4.runtime.emperor_rebuild import RebuildLimits, rebuild_emperor
+from emperor_v4.runtime.dynasty_governance_session import (
+    run_dynasty_governance_session,
+)
 from emperor_v4.runtime.emperor_session_control import (
     abandon_session,
-    build_session_dynasty_governance,
     claim_session,
     complete_session_bootstrap,
     heartbeat_session,
@@ -187,20 +189,14 @@ def _parser() -> argparse.ArgumentParser:
     source_cache_import = commands.add_parser("workflow-source-cache-import")
     source_cache_import.add_argument("--input", type=Path, required=True)
     source_cache_import.add_argument("--state-root", type=Path, required=True)
-    session_governance = commands.add_parser(
-        "emperor-session-dynasty-governance"
-    )
-    session_governance.add_argument("--state-root", type=Path, required=True)
-    session_governance.add_argument("--session-id", required=True)
-    session_governance.add_argument(
-        "--release-root", type=Path, default=Path(".")
-    )
+    session_governance = commands.add_parser("dynasty-governance-session-run")
+    session_governance.add_argument("--workspace-root", type=Path, default=Path("."))
     session_governance.add_argument("--source-index-root", type=Path, required=True)
-    session_governance.add_argument(
-        "--dynasty-governance-root", type=Path, required=True
-    )
+    session_governance.add_argument("--runtime-root", type=Path, required=True)
     session_governance.add_argument("--dynasty", required=True)
+    session_governance.add_argument("--outcome-review", type=Path)
     session_governance.add_argument("--codex-bin", default="codex")
+    session_governance.add_argument("--model-workers", type=int, default=4)
     session_governance.add_argument("--model-timeout-seconds", type=int, default=120)
     session_governance.add_argument("--target-chars", type=int, default=2_400)
     session_run = commands.add_parser("emperor-session-run")
@@ -219,12 +215,7 @@ def _parser() -> argparse.ArgumentParser:
     session_run.add_argument(
         "--reuse-accepted-ruler-neutral",
         action="store_true",
-        help="复用已验收皇帝中性材料，只重挂新版朝代政书 current",
-    )
-    session_run.add_argument(
-        "--governance-review-only",
-        action="store_true",
-        help="成果审阅仅包含朝代治理事实，不改判战役与其他事实",
+        help="复用已验收皇帝中性材料，只更新朝代治理交接物引用",
     )
     session_run.add_argument(
         "--stop-after-stage",
@@ -547,16 +538,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             ),
             None,
         )
-    if args.command == "emperor-session-dynasty-governance":
+    if args.command == "dynasty-governance-session-run":
         return _write_report(
-            build_session_dynasty_governance(
-                state_root=args.state_root,
-                session_id=args.session_id,
-                release_root=args.release_root,
+            run_dynasty_governance_session(
+                workspace_root=args.workspace_root,
                 source_index_root=args.source_index_root,
-                dynasty_governance_root=args.dynasty_governance_root,
+                runtime_root=args.runtime_root,
                 dynasty=args.dynasty,
+                outcome_review_path=args.outcome_review,
                 codex_bin=args.codex_bin,
+                model_workers=args.model_workers,
                 model_timeout_seconds=args.model_timeout_seconds,
                 target_chars=args.target_chars,
             ),
@@ -579,7 +570,6 @@ def main(argv: Sequence[str] | None = None) -> int:
                 outcome_review_path=args.outcome_review,
                 allow_outcome_model_draft=args.allow_outcome_model_draft,
                 reuse_accepted_ruler_neutral=args.reuse_accepted_ruler_neutral,
-                governance_review_only=args.governance_review_only,
             ),
             None,
         )

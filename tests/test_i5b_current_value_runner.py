@@ -74,6 +74,7 @@ from emperor_v4.runtime.emperor_rebuild import (
     _shared_subject_coverage,
 )
 from emperor_v4.runtime import (
+    dynasty_governance_session,
     emperor_rebuild as emperor_rebuild_module,
     emperor_session_control,
 )
@@ -587,6 +588,95 @@ def test_dynasty_governance_new_actor_requires_verbatim_name(
             source_index=_campaign_contract_index(tmp_path),
             schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
         )
+
+
+def test_dynasty_governance_session_reaches_review_without_ruler_lease(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    index_root = tmp_path / "indexes"
+    index_root.mkdir()
+    index_path = index_root / "han.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "漢書/卷019",
+                "work_title": "漢書",
+                "source_url": "local:han",
+                "revision_ref": "1",
+                "raw_text": "漢朝治理材料。",
+            }
+        ],
+        index_path,
+    )
+
+    def fake_rebuild(**kwargs: object) -> dict:
+        runtime_root = Path(str(kwargs["runtime_root"]))
+        current = {
+            "schema_version": "dynasty-governance-current-v2",
+            "status": "quality_accepted_shadow",
+            "dynasty": "西汉",
+            "dynasty_token": "HAN",
+            "input_fingerprint": "INPUT-HAN",
+            "source_index_identity": LocalSourceTextIndex(index_path).identity,
+            "chains": [],
+        }
+        target = runtime_root / "HAN/current.json"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(
+            json.dumps(current, ensure_ascii=False), encoding="utf-8"
+        )
+        return {"model_call_count": 0, "reused": True}
+
+    monkeypatch.setattr(
+        dynasty_governance_session, "rebuild_dynasty_governance", fake_rebuild
+    )
+    monkeypatch.setattr(
+        dynasty_governance_session,
+        "project_current_outcomes",
+        lambda **_kwargs: {
+            "status": "awaiting_main_session_review",
+            "review_worklist": {
+                "schema_version": "current-outcome-main-review-worklist-v1",
+                "task_code": "DYNASTY-HAN-REVIEW",
+                "facts": [],
+            },
+        },
+    )
+
+    report = dynasty_governance_session.run_dynasty_governance_session(
+        workspace_root=ROOT,
+        source_index_root=index_root,
+        runtime_root=tmp_path / "runtime",
+        dynasty="汉",
+    )
+
+    assert report["status"] == "awaiting_review"
+    assert report["dynasty"] == "西汉"
+    assert report["dynasty_token"] == "HAN"
+    assert Path(report["outcome_worklist"]).is_file()
+    assert not (tmp_path / "runtime/session-control").exists()
+
+    review_path = tmp_path / "han-review.json"
+    review_path.write_text("{}\n", encoding="utf-8")
+    monkeypatch.setattr(
+        dynasty_governance_session,
+        "project_current_outcomes",
+        lambda **_kwargs: {"status": "quality_accepted"},
+    )
+    accepted = dynasty_governance_session.run_dynasty_governance_session(
+        workspace_root=ROOT,
+        source_index_root=index_root,
+        runtime_root=tmp_path / "runtime",
+        dynasty="汉",
+        outcome_review_path=review_path,
+    )
+    handoff = json.loads(
+        Path(accepted["handoff"]).read_text(encoding="utf-8")
+    )
+    assert accepted["status"] == "quality_accepted"
+    assert handoff["dynasty_token"] == "HAN"
+    assert Path(handoff["outcome_registry_current"]).is_file()
+    assert handoff["outcome_count"] == 0
 
 
 def test_outcome_projection_normalizes_governance_window_scope() -> None:
@@ -2089,6 +2179,7 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
                 "status": "quality_accepted_shadow",
                 "dynasty_token": "MING",
                 "source_index_identity": "INDEPENDENT-MING-GOVERNANCE-INDEX",
+                "input_fingerprint": "MING-GOVERNANCE-FINGERPRINT",
                 "catalog_fingerprint": dynasty_governance_catalog_fingerprint(
                     ming_catalog
                 ),
@@ -2103,6 +2194,43 @@ def test_unconfigured_ruler_bootstrap_materializes_spec_and_waits_for_assets(
                             "page_title": "明㑹典 (四庫全書本)/全覽6",
                         }
                     ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    outcome_pack_path = governance_path.with_name("outcome-pack.json")
+    outcome_pack_path.write_text(
+        json.dumps(
+            {
+                "pack_scope": "dynasty_governance",
+                "dynasty_token": "MING",
+                "source_pack_sha256": "MING-OUTCOME-PACK",
+            }
+        ),
+        encoding="utf-8",
+    )
+    registry_path = (
+        tmp_path
+        / "governance/historical_outcome_registry/MING/current.json"
+    )
+    registry_path.parent.mkdir(parents=True)
+    registry_path.write_text(
+        json.dumps({"registry_fingerprint": "MING-REGISTRY"}),
+        encoding="utf-8",
+    )
+    governance_path.with_name("handoff.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "dynasty-governance-handoff-v1",
+                "status": "quality_accepted_shadow",
+                "dynasty_token": "MING",
+                "governance_input_fingerprint": (
+                    "MING-GOVERNANCE-FINGERPRINT"
+                ),
+                "outcome_pack": str(outcome_pack_path),
+                "outcome_pack_sha256": "MING-OUTCOME-PACK",
+                "outcome_registry_current": str(registry_path),
+                "outcome_registry_fingerprint": "MING-REGISTRY",
             }
         ),
         encoding="utf-8",
@@ -2246,10 +2374,7 @@ def test_dynasty_governance_catalog_covers_supported_eras() -> None:
     assert project["i5b_current_value"]["rulers"]["李治"][
         "dynasty_governance_material_token"
     ] == "TANG"
-    assert all(
-        row.get("scheduler_enabled") is False
-        for row in project["dynasty_governance_scans"]["dynasties"].values()
-    )
+    assert "dynasty_governance_scans" not in project
 
 
 def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
@@ -2337,152 +2462,6 @@ def test_ming_governance_current_must_bind_catalog_and_treatise_pages() -> None:
     validate_dynasty_governance_current_catalog(
         normalized_current, traditional_work
     )
-
-
-def test_ruler_session_builds_dynasty_current_outside_workspace_with_lease_slots(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    release = _session_release_fixture(tmp_path)
-    monkeypatch.setattr(
-        emperor_session_control, "_release_identity", lambda _root: "a" * 40
-    )
-    state = tmp_path / "state"
-    lease = emperor_session_control.claim_session(
-        state_root=state,
-        release_root=release,
-        session_id="SESSION-DYNASTY-GOVERNANCE",
-        ruler="李世民",
-        model_slot_count=2,
-    )
-    class FakeIndex:
-        path = tmp_path / "tang-governance.sqlite3"
-        identity = "TANG-GOV-INDEX"
-
-        def iter_pages(self, *, works):
-            assert works == (
-                "唐會要",
-                "唐六典",
-                "貞觀政要",
-                "新唐書",
-            )
-            page_titles = [
-                *(f"貞觀政要/卷{number:02d}" for number in range(1, 11)),
-                "新唐書/卷037",
-                "新唐書/卷038",
-                "新唐書/卷039",
-                "新唐書/卷040",
-                "新唐書/卷041",
-                "新唐書/卷042",
-                "新唐書/卷043上",
-                "新唐書/卷043下",
-            ]
-            return tuple(
-                type("Page", (), {"page_title": page_title})()
-                for page_title in page_titles
-            )
-
-    fake_index = FakeIndex()
-    resolved_index = {}
-
-    def resolve_index(**kwargs):
-        resolved_index.update(kwargs)
-        return fake_index
-
-    monkeypatch.setattr(
-        emperor_session_control,
-        "_resolve_source_index",
-        resolve_index,
-    )
-    observed = {}
-
-    def rebuild(**kwargs):
-        observed.update(kwargs)
-        return {
-            "reused": False,
-            "model_call_count": 3,
-            "quality": {"status": "passed"},
-        }
-
-    monkeypatch.setattr(
-        emperor_session_control, "rebuild_dynasty_governance", rebuild
-    )
-    governance_root = tmp_path / "active/dynasty_neutral_materials"
-
-    report = emperor_session_control.build_session_dynasty_governance(
-        state_root=state,
-        session_id="SESSION-DYNASTY-GOVERNANCE",
-        release_root=release,
-        source_index_root=tmp_path / "indexes",
-        dynasty_governance_root=governance_root,
-        dynasty="唐",
-    )
-
-    assert report["status"] == "quality_accepted"
-    assert report["dynasty_token"] == "TANG"
-    assert report["shared_current_path"] == str(
-        governance_root.resolve() / "TANG/current.json"
-    )
-    assert report["runtime_model_call_count"] == 3
-    assert observed["runtime_root"] == governance_root.resolve()
-    assert observed["workspace_root"] == Path(lease["workspace_root"]).resolve()
-    assert observed["limits"].model_workers == 2
-    assert observed["use_catalog"] is True
-    assert resolved_index["required_works"] == (
-        "唐會要",
-        "唐六典",
-        "貞觀政要",
-        "新唐書",
-    )
-    assert set(resolved_index["required_page_titles"]) == {
-        *(f"貞觀政要/卷{number:02d}" for number in range(1, 11)),
-        "新唐書/卷037",
-        "新唐書/卷038",
-        "新唐書/卷039",
-        "新唐書/卷040",
-        "新唐書/卷041",
-        "新唐書/卷042",
-        "新唐書/卷043上",
-        "新唐書/卷043下",
-    }
-    assert resolved_index["preferred_index_identity"] == ""
-    assert resolved_index["source_pack"] == {"facts": []}
-
-
-def test_ruler_session_reports_governance_catalog_before_source_fetch(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    release = _session_release_fixture(tmp_path)
-    monkeypatch.setattr(
-        emperor_session_control, "_release_identity", lambda _root: "b" * 40
-    )
-    state = tmp_path / "state"
-    emperor_session_control.claim_session(
-        state_root=state,
-        release_root=release,
-        session_id="SESSION-GOVERNANCE-ASSETS",
-        ruler="李世民",
-        model_slot_count=1,
-    )
-
-    report = emperor_session_control.build_session_dynasty_governance(
-        state_root=state,
-        session_id="SESSION-GOVERNANCE-ASSETS",
-        release_root=release,
-        source_index_root=tmp_path / "empty-indexes",
-        dynasty_governance_root=tmp_path / "active/dynasty_neutral_materials",
-        dynasty="唐",
-    )
-
-    assert report["status"] == "awaiting_governance_source_assets"
-    assert report["required_source_works"] == [
-        "唐會要",
-        "唐六典",
-        "貞觀政要",
-        "新唐書",
-    ]
-    assert report["source_catalog"]["dynasty_token"] == "TANG"
-    assert report["runtime_model_call_count"] == 0
-    assert report["database_write_count"] == 0
 
 
 def test_neutral_material_source_strategy_covers_supported_dynasty_routes() -> None:
@@ -4049,7 +4028,6 @@ def test_claimed_session_can_pause_after_outcome_review_gate(
         release_root=release,
         source_index_root=tmp_path / "indexes",
         dynasty_governance_root=tmp_path / "governance",
-        governance_review_only=True,
         stop_after_stage="outcome_projection",
     )
 
@@ -4058,7 +4036,7 @@ def test_claimed_session_can_pause_after_outcome_review_gate(
     assert observed["stop_after_stage"] == "outcome_projection"
     assert observed["outcome_review_path"] is None
     assert observed["allow_outcome_model_draft"] is False
-    assert observed["governance_review_only"] is True
+    assert "governance_review_only" not in observed
     assert session["stage"] == "awaiting_review"
     assert session["review_stage"] == "outcome_projection"
     with pytest.raises(
@@ -8886,6 +8864,66 @@ def test_shared_outcome_export_includes_reviewed_open_profile_pack(
         row["overall_grade_status"] == "registered_outcomes_lower_bound"
         for row in open_profiles
     )
+
+
+def test_shared_outcome_export_merges_dynasty_baseline_before_ruler_binding(
+    tmp_path: Path,
+) -> None:
+    workspace = _session_release_fixture(tmp_path)
+    ruler_pack = json.loads(
+        (
+            workspace / "eval/i5b_current_value/李世民/source-pack.json"
+        ).read_text(encoding="utf-8")
+    )
+    baseline_cluster = deepcopy(ruler_pack["outcome_registry"]["clusters"][0])
+    baseline_cluster.update(
+        {
+            "outcome_ref": "OUTCOME-DYNASTY-BASELINE-ONLY",
+            "independent_key": "DYNASTY-BASELINE-ONLY",
+            "canonical_label": "朝代政书独立治理成果",
+        }
+    )
+    baseline_cluster["semantic_fingerprint"] = cluster_semantic_fingerprint(
+        baseline_cluster
+    )
+    baseline_pack = {
+        "schema_version": "dynasty-governance-outcome-pack-v1",
+        "pack_scope": "dynasty_governance",
+        "dynasty": "唐",
+        "dynasty_token": "TANG",
+        "ruler": "唐治理底账",
+        "ruler_ref": "DYNASTY-TANG",
+        "window": "全朝",
+        "members": [],
+        "facts": [],
+        "source_pack_sha256": "DYNASTY-BASELINE-PACK",
+        "outcome_registry": {
+            "schema_version": "historical-outcome-cluster-registry-v1",
+            "status": "shadow",
+            "clusters": [baseline_cluster],
+        },
+    }
+
+    published = write_current_outcome_layers(
+        workspace,
+        include_rulers=["李世民"],
+        dynasty_outcome_packs={"TANG": baseline_pack},
+    )
+
+    registered = {
+        str(origin_ref)
+        for row in published["registry"]["outcomes"]
+        for origin_ref in row.get("origin_outcome_refs") or ()
+    }
+    assert "OUTCOME-DYNASTY-BASELINE-ONLY" in registered
+    partition = json.loads(
+        Path(published["partition_paths"]["TANG"]["outcome_json"]).read_text(
+            encoding="utf-8"
+        )
+    )
+    assert "DYNASTY-BASELINE-PACK" in partition["declarations"][
+        "source_pack_refs"
+    ]
 
 
 def test_outcome_projection_ignores_shared_fact_outside_current_team(

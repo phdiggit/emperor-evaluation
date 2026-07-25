@@ -18,6 +18,7 @@ from emperor_v4.adapters.shared_neutral_extraction import (
     build_shared_neutral_fact_fanout,
 )
 from emperor_v4.adapters.source_text_index import LocalSourceTextIndex
+from emperor_v4.persistence.canonical_refs import canonical_hashed_ref
 from emperor_v4.runtime.structured_codex_runner import (
     ModelBatchAnomalyError,
     StructuredCodexRunner,
@@ -2150,7 +2151,7 @@ def merge_dynasty_governance_current(
     event_signatures: Sequence[Mapping[str, Any]] = (),
     include_all_dynasty_chains: bool = False,
 ) -> dict[str, Any]:
-    """Project accepted dynasty material into the ruler fanout without a model."""
+    """Project accepted dynasty material into neutral facts without a model."""
 
     if current.get("schema_version") != "dynasty-governance-current-v2":
         raise ValueError("朝代政书 current schema 不支持")
@@ -2242,24 +2243,40 @@ def merge_dynasty_governance_current(
         )
         resolved_actors = []
         for actor in chain.get("actors") or ():
-            resolution = identity_resolver.resolve(
-                str(actor.get("name") or ""),
-                allowed_subject_refs=allowed_subject_refs,
-                dynasty=dynasty or None,
+            resolution = (
+                identity_resolver.resolve_any(
+                    str(actor.get("name") or ""),
+                    dynasty=dynasty or None,
+                )
+                if include_all_dynasty_chains
+                else identity_resolver.resolve(
+                    str(actor.get("name") or ""),
+                    allowed_subject_refs=allowed_subject_refs,
+                    dynasty=dynasty or None,
+                )
             )
-            if resolution.status != "resolved":
-                continue
             phases = [str(value) for value in actor.get("contribution_phases") or ()]
             role = next(
                 (role_by_phase[phase] for phase in phases if phase in role_by_phase),
                 "executor",
             )
+            source_name = str(actor.get("name") or "")
+            if resolution.status == "resolved":
+                canonical_name = str(resolution.canonical_name)
+                subject_ref = str(resolution.person_ref)
+            elif include_all_dynasty_chains and source_name:
+                canonical_name = source_name
+                subject_ref = canonical_hashed_ref(
+                    "PER-V4", canonical_name, length=12
+                )
+            else:
+                continue
             resolved_actors.append(
                 {
                     "source": actor,
-                    "source_name": str(actor.get("name") or ""),
-                    "canonical_name": str(resolution.canonical_name),
-                    "subject_ref": str(resolution.person_ref),
+                    "source_name": source_name,
+                    "canonical_name": canonical_name,
+                    "subject_ref": subject_ref,
                     "role": role,
                     "responsibility_strength": strength_by_responsibility.get(
                         str(actor.get("responsibility_role") or ""), "limited"
