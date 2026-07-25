@@ -1,0 +1,71 @@
+schema_version: talent-grade-v8-final-calibration-policy-v1
+policy_version: talent-grade-v8-final-calibration-v1
+status: human_review_required
+scope:
+  current_effective_grades: [historic, usable, ordinary]
+  reviewed_profile_count: 74
+  top_upward_reopen: false
+principles:
+  promotion_and_demotion_are_both_allowed: true
+  office_or_fame_is_not_an_achievement_cluster: true
+  same_duty_chain_is_one_cluster: true
+  repeated_similar_cases_are_one_cluster: true
+  joint_participation_requires_personal_attribution: true
+  proposals_without_implemented_results_do_not_pass_achievement_gates: true
+  political_risk_is_orthogonal_to_talent_grade: true
+  missing_input_is_not_negative_ability_evidence: true
+  distribution_is_an_alert_not_a_quota: true
+military_materiality_gate:
+  applies_before_cluster_counting: true
+  external_war:
+    factors:
+      - opponent_state_strength_at_time
+      - opponent_mobilization_capacity
+      - strategic_threat_to_the_ruler_state
+      - campaign_difficulty_and_cost
+    weak_collapsing_or_residual_polity_is_not_automatically_major: true
+  internal_war:
+    factors:
+      - force_and_geographic_scale
+      - duration
+      - threat_to_state_survival_or_unification
+      - strategic_consequence_after_victory
+    minor_rebellion_is_not_automatically_major: true
+  multiple_low_materiality_results_cannot_compose_historic: true
+historic_gate:
+  primary_path:
+    minimum_independent_era_shaping_clusters: 3
+  alternative_path:
+    foundational_long_term_system_or_work_cluster: 1
+    additional_independent_major_clusters: 2
+  civilization_foundational_single_cluster_path:
+    minimum_clusters: 1
+    requires_completed_personally_authored_or_finalized_work: true
+    requires_centuries_of_cross_stage_foundational_use: true
+    excludes_general_fame_and_collective_compilation: true
+  requires_clear_result_for_every_counted_cluster: true
+  requires_high_personal_attribution: true
+  requires_cross_stage_persistence: true
+  failure_path: evaluate_top_then_important
+top_gate:
+  inherited_from: talent-grade-v6-calibration-v1
+  upward_candidate_count: 0
+important_gate:
+  inherited_from: talent-grade-v7-important-calibration-v1
+  primary_path: one_clear_important_scale_cluster
+  alternative_path: two_independent_clear_medium_clusters
+usable_gate:
+  minimum_positive_basis:
+    - stable_competence_supported_by_specific_facts
+    - one_local_or_assisting_implemented_result
+    - one_demonstrated_specialized_capability
+  office_title_alone_passes: false
+  fame_alone_passes: false
+  failure_grade: ordinary
+ordinary_semantics:
+  description: no_stable_positive_capability_result_established
+  political_risk_alone_is_insufficient: true
+release:
+  preserve_prior_grade_and_version: true
+  overwrite_prior_calibration: false
+  formal_scoring_allowed: false

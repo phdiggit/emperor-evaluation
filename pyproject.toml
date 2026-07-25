@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emperor-v4"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["PyYAML>=6.0", "opencc-python-reimplemented>=0.1.7"]
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.2"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers -m 'not acceptance'"
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+  "acceptance: slower vertical tests over checked-in canonical data or release publication",
+  "db: deterministic database contract tests",
+]

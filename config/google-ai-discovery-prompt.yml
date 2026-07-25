@@ -1,0 +1,100 @@
+schema_version: google-ai-discovery-prompt-policy-v1
+prompt_version: google-ai-discovery-project-utility-v37
+status: shadow_discovery_only
+default_max_leads: 0
+maximum_max_leads: 50
+
+authority_template: |-
+  为“皇帝综合评价体系 V4”宽搜【{{subject_name}}】的人才等级权威评价。
+  焦点：{{focus}}；只查：{{search_categories}}；别名：{{aliases}}。
+  武将只收统帅、用兵、战功、战略或治军的直接评价；文官只收治政、决策、用人、制度或行政实绩的直接评价。武将必查宋至清兵学家、将领、军事史家专评；武庙、托名兵书、泛及不算。无项写“后世军事专评未覆盖”。
+  每评价者或作品最多一项，必须各自另起一个 LEAD L#，一个 LEAD 内不得列多人。lead 仅为“评价者或作品｜正/负｜评价维度”。所有字段只写现代白话短语；不得出现“”、英文引号、原话、比喻、心理或荣典。候选史源范围：{{source_scope}}。史源只报规范书名、篇章或卷次和短定位锚词，不查也不输出外链；不能确认篇章时写未核，不得猜卷次。project_relevance 只填 talent_profile_candidate。
+  用途：{{relevance_criteria}}；需要：{{requested_outputs}}；数量：{{max_leads}}；类型：{{lead_type_scope}}。
+  DISCOVERY_SUMMARY
+  subject: {{subject_name}}
+  searched_categories:
+  uncovered_categories:
+  stop_reason: <exhausted_categories|no_more_independent_leads|source_link_unavailable|time_or_search_limit>
+  LEAD L1
+  lead_type: authority_evaluation
+  lead:
+  period_or_ruler_context:
+  subject_action: 不适用
+  responsibility: not_applicable
+  observable_result:
+  project_relevance:
+  source_hints:
+    - source_type: <biography|chronicle|annals|law_code|institutional_treatise|edict_collection|political_compendium|historiography|epitaph|other>
+      source_work:
+      volume_or_section:
+      locator_anchor:
+      locator_confidence: <exact|probable|work_only>
+      locator_uncertainty:
+      source_url: 未核
+  uncertainty:
+  OMISSIONS
+  omitted_leads:
+  omission_reason:
+
+risk_template: |-
+  为“皇帝综合评价体系 V4”宽搜【{{subject_name}}】的政治风险与重大军事败绩线索。
+  焦点：{{focus}}；只查：{{search_categories}}；别名：{{aliases}}。
+  只收本人造成实质损害，或本人以主帅、总管、实际统帅身份对总体战果负 direct 或 command 责任的重大败绩及损失。败绩不等于风险成立；部将单独失利、本人被诬告或受害不算。候选史源范围：{{source_scope}}。每项独立，写行动、归责、结果、规范书名、篇章或卷次和短定位锚词；不查也不输出外链，不能确认篇章时写未核，不得猜卷次，争议写 disputed。所有字段只写现代白话短语；不得出现“”、英文引号、原话、心理、比喻或官职罗列。project_relevance 只填 historical_episode_candidate 或 political_risk_profile_candidate。
+  用途：{{relevance_criteria}}；需要：{{requested_outputs}}；数量：{{max_leads}}；类型：{{lead_type_scope}}。
+  DISCOVERY_SUMMARY
+  subject: {{subject_name}}
+  searched_categories:
+  uncovered_categories:
+  stop_reason: <exhausted_categories|no_more_independent_leads|source_link_unavailable|time_or_search_limit>
+  LEAD L1
+  lead_type: risk
+  lead:
+  period_or_ruler_context:
+  subject_action:
+  responsibility:
+  observable_result:
+  project_relevance:
+  source_hints:
+    - source_type: <biography|chronicle|annals|law_code|institutional_treatise|edict_collection|political_compendium|historiography|epitaph|other>
+      source_work:
+      volume_or_section:
+      locator_anchor:
+      locator_confidence: <exact|probable|work_only>
+      locator_uncertainty:
+      source_url: 未核
+  uncertainty:
+  OMISSIONS
+  omitted_leads:
+  omission_reason:
+
+template: |-
+  为“皇帝综合评价体系 V4”宽搜【{{subject_name}}】的历史线索。
+  焦点：{{focus}}；类别：{{search_categories}}；别名：{{aliases}}。
+  这是回源前罗盘，不写完整传记或最终结论。只列焦点内、彼此独立、可回源且可能影响{{relevance_criteria}}的事项；需要：{{requested_outputs}}；数量：{{max_leads}}；类型：{{lead_type_scope}}。
+  event、achievement、policy 必须写本人已实施行为和可观察结果；risk 只收本人可归责的实质损害；authority_evaluation 只收专评本人。本人被指控、受害、遭猜忌或遇险不算本人行动。政策制定者、建议者与执行者必须分开，不得把建议者自动写成共同制定者。observable_result 只写候选史源明确记载的实施后结果；制度目的、后世概括或因果推断一律写待核，不得自行写提升、减少、削弱、遏制等效果。所有字段只写现代白话短语；不得出现“”、英文引号、原话、心理、比喻或官职罗列。
+  本任务候选史源范围：{{source_scope}}。这是检索优先级而不是答案；某书不实际承载该事项就不得列入 source_hints，也不得为了覆盖书单机械罗列。史源定位只报规范书名、篇章或卷次和短定位锚词，不查也不输出外链。只有确信该事见于所报篇章时才写具体卷次，否则写未核；不得把人物本传卷次猜作制度材料卷次。每条给 1 至 3 个候选史源。project_relevance 只填 historical_episode_candidate 或 talent_profile_candidate。
+  DISCOVERY_SUMMARY
+  subject: {{subject_name}}
+  searched_categories:
+  uncovered_categories:
+  stop_reason: <exhausted_categories|no_more_independent_leads|source_link_unavailable|time_or_search_limit>
+  LEAD L1
+  lead_type:
+  lead:
+  period_or_ruler_context:
+  subject_action:
+  responsibility:
+  observable_result:
+  project_relevance:
+  source_hints:
+    - source_type: <biography|chronicle|annals|law_code|institutional_treatise|edict_collection|political_compendium|historiography|epitaph|other>
+      source_work:
+      volume_or_section:
+      locator_anchor: <用于书内检索的短语或人名加事项；未核>
+      locator_confidence: <exact|probable|work_only>
+      locator_uncertainty: <卷次或归属仍需核对之处；无则写无>
+      source_url: 未核
+  uncertainty:
+  OMISSIONS
+  omitted_leads:
+  omission_reason:

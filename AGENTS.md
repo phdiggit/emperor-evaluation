@@ -1,88 +1,157 @@
 # AGENTS.md
 
-本仓库是“皇帝综合评价体系”工作区。执行任务时先守边界，再动手。
-English anchors are included for execution stability; Chinese remains the source wording for humans.
+本仓库是“皇帝综合评价体系 V4”工作区。执行任务时先守边界，再动手。中文是业务事实源；必要的英文锚点只用于执行稳定性。
 
-## 优先级 / Priority
+## 优先级
 
-执行顺序：Issue / PR 白名单与禁止事项 > 本 `AGENTS.md` > 当前会话已确认的仓库规则。冲突时以上层规则为准。
-Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed local repo rules.
+执行顺序：
 
-## 基本原则 / Basic Rules
+1. 当前 Issue / PR / 用户任务中的白名单、禁止事项和显式批准；
+2. 本 `AGENTS.md`；
+3. V4 当前有效文档与配置；
+4. 既有实现和生成物。
 
-- 先用本地事实和命令判断；范围明确时一次完成白名单内必要步骤。Use local facts first and complete in-scope work end to end.
-- 只读诊断保持只读；需要改文件时，先锁定最小改动路径。Read-only means read-only; find the minimal edit path before writing.
-- 任务卡“必读”默认指定位相关段落；大文件先用 `rg` / `git grep` / 定向行号读取，除非要整体重写，不得全文读取大型 exporter、registry、tests 或生成物。
-- 修改前后核对 `git diff --name-only`；白名单外改动必须还原。Check diff scope before and after edits.
-- 返工或收口先定位最小修改点；通常只确认 branch、PR head 和 `git status`。For repair or closeout, start from the smallest fix.
-- 评分、证据、裁判、档位、分值和排名等业务语义先读 `docs/皇帝综合评价体系评分标准.md`；生成物不是事实源，冲突时不得静默覆盖。Generated outputs are views; find the generator before editing exports.
-- 评分因子赋值 skill 只按 `docs/证据规则/评分因子赋值Skill治理.md` 的三档治理启用；只对不小比例系统性偏差的因子建窄 skill，小比例问题走诊断或 worklist，不做大而全通用 skill。
-- 检索包→史料→对象池流程按 `data/query_profile_batches/AGENTS.md` 路由；retrieval v3 clean 抓包、判读和补抓流程先读 `docs/数据结构与生成库/retrieval_v3_clean抓包流程.md`；配套开发工具按 `scripts/dev/AGENTS.md` 路由，根文件只保留入口指向。
-- 清理、归档、删除和 `data/*_batches/` 治理，第一轮只写诊断或候选清单。Cleanup/archive/delete and batch-data governance start with diagnostics only.
+冲突时以上层规则为准。发现文档冲突必须显式记录，不得由代码、模型输出、V3 数据或生成物静默覆盖。
+
+## V4 基线
+
+- `docs/项目总纲/皇帝综合评价体系评分标准.md` 是最高业务驱动文档。HistoricalEpisode、EpisodeRelation、RuleEvidenceUnit、人物画像、智能体裁决和 PostgreSQL 状态机都只是评分基础设施。
+- V4 不以构建完备历史知识图谱为目标。新增对象、关系、Gate 或智能体调用必须直接改善评分正确性、归责、去重或追溯。
+- 正式评分单元采用“最小充分证据”：足以完成皇帝归责、权责方向、结果、净收益、重复结算和档位判断后，不得因非评分必要的官名匹配、完整仕途或细类型 Relation 缺失而阻断。
+- “足够评分”不等于放松史实。对象、行为、皇帝归责、结果方向和史源 lineage 仍须严格。
+- V4 保留从 V3 冻结点继承的 Git 历史，不得改为 orphan 或回退旧基线。
+- V3 已废弃，不再承担运行、生产评分或发布职责；V4 的业务写入、任务队列和发布链仍不得回流 V3。
+- 可按需使用 `.env` 中已配置的 DSN 只读连接 V3 数据库，用于迁移、回归、差异诊断和事实线索核对；不需要逐次取得连接授权。
+- V3 资产和数据库记录不得直接成为 V4 正式事实或评分；必须经过版本化快照、lineage、V4 合同校验和相应接受门禁。
+- `HistoricalEpisode` 是事件型规则第一语义工作单元；`Assertion` 是证据断言。
+- 当前处于第五项 B 皇帝级历史覆盖与正式接受前收口期：`appointment_delegation` 的 factor、ScoreContribution 和统一 scored shadow runner 已完成；其余四条 rule 已进入版本化 shadow 实现，但正式评分、45 分映射和排名仍关闭。
+
+## 事实源优先级
+
+1. `docs/项目总纲/皇帝综合评价体系评分标准.md`
+2. `docs/00-V4项目章程.md`、`docs/项目总纲/总规则.md`
+3. V4 领域模型、证据规则、服务契约与不可妥协约束
+4. 分项规则
+5. `config/*.yml`
+
+生成视图、模型输出、V3 数据和临时补丁不属于事实源。
+
+## 基本工作规则
+
+- 先用仓库事实判断；范围明确时一次完成白名单内的必要步骤。
+- 只读诊断保持只读；写入前锁定最小改动路径和受影响文档。
+- 大文件先用 `rg`、标题或定向行号读取；除非整体重写，不全文扫描无关大文件。
+- 修改前后核对分支、工作树和 diff 范围。
+- 不覆盖用户已有改动，不默认执行 `stash`、`clean`、`reset --hard`、强制推送或历史改写。
+- 需要复用 V3 资产时，先提取需求和失败样本，再写 V4 契约与验收条件；不得整文件搬运旧 orchestrator、consumer、migration 或 scorer。
+
+## 纵向交付与收束纪律
+
+- 每个实现周期必须产生一个用户可运行或可阅读的纵向结果；不得只新增中间层、Gate、文档和测试。
+- 不得为每个微步骤新建 `G3X` 字母阶段、顶层编号文档和镜像测试模块。只有用户可见输出边界、正式业务契约或不可逆架构决策改变时，才允许新增长期文档。
+- 当前实现只在 `README.md` 和 `config/project.yml` 维护；不得另建活动实施摘要、阶段报告或状态镜像。
+- Git 是唯一历史载体。工作树只保留当前有效规则、契约、不可变输入和唯一 canonical 结果；任务完成时必须删除中间运行、旧版本结果、审计展开和被取代文件，不得为了追溯继续维护它们。
+- 业务记录和派生输出只保留当前值，不新增 `original_*`、`previous_*`、`effective_*`、并行版本列或兼容旧值分支；结构合同可保留一个顶层 schema 标识用于拒绝错型输入，但不得把字段演化史复制进业务对象。
+- 运行耗时、token、批次数量和阶段状态只进入 `tmp/**` 运行结果或 Git 提交说明，不同步到 `config/project.yml`、README 或长期报告。配置只保存当前可执行接口与不变量。
+- `eval/` 只允许保留当前运行必需输入和当前 canonical 输出；失败运行、重复 run、checkpoint、resume、逐步 state、review 展开和旧报告不得长期留在仓库。
+- 不得要求后续任务读取、扫描、更新或同步旧报告和阶段产物；需要追溯时使用 Git。
+- 测试按业务不变量组织，不按实现模块镜像。新增测试模块必须证明既有参数化测试无法承载；退役实现与专属测试同提交删除。
+
+## 数据与副作用
+
+- 默认 `report-only`、`offline-first`、`shadow-first`。
+- V3 数据库只读查询默认允许；修改 V3 数据库仍需用户显式授权。未经明确授权，不执行生产部署，不写正式评分或排名。
+- Git 保存规则、配置和契约；PostgreSQL 保存 V4 业务状态；Markdown/JSON 导出只作只读视图。
+- runtime 路径、并发、超时、凭据和部署参数不得写入核心项目配置。
+- 真实 `.env`、令牌、口令、DSN 和私有地址不得提交。未经明确授权不改写 Git 历史。
+- 模型只能在 `config/model-policy.yml` 允许的场景调用，输出必须经过规则或人工门禁。
 
 ## GitHub
 
-- 远端读写默认优先用已认证的 `gh` CLI；只有 `gh` 不可用、未认证、权限不足或确实做不到时才退回 connector，并说明原因。Prefer authenticated `gh`.
-- GitHub 写操作先用最少读取确认目标，再执行一次写入；不要对同一目标反复调用不同接口。Confirm target, then write once.
-- 涉及 PR 创建、更新、审查、返修、review package、Issue/PR 评论或 GitHub 正文写入时，先读 `docs/展示与协作/GitHub发布与认证规范.md`。
-- 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
-- PR 说明必须包含最终 changed files 列表；创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`，不做 merge decision。
-- evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
-- PR timing / evidence batch timing 只使用 `codex-win timer` 和命令日志的实测结果；没有 timer 时写 `timing unavailable` / `precise timing unavailable`，不得估算 total、per-person 或 per-phase 时间，具体流程见 GitHub 发布规范。
-- `pwsh` 中不要拼复杂 `gh --jq`；复杂 JSON 检查优先用 `codex-win gh pr-view`、Python JSON 解析或工具自带 verify。
+- 远端读写优先使用已认证工具；写操作前用最少读取确认仓库、分支、文件 SHA 和范围。
+- 对同一目标只选择一种写入路径，不反复混用多个接口。
+- 提交信息应说明业务意图。
+- 未经明确要求不创建 PR、不合并、不改默认分支。
+- 推送前读回关键文件或比较分支，确认目标分支与内容正确。
 
-## Shell 与编码 / Shell And Encoding
+## Shell 与编码
 
-- Windows 上涉及 PowerShell 的命令默认使用 `pwsh.exe`；Python/pytest/validator/export/build/matrix 等子进程优先用 `codex-win run -- ...`；只有 5.1 专属兼容验证或任务明确要求时才用 `powershell.exe`。
-- 在 `pwsh` 中使用 PowerShell 语法，可以使用 `&&` / `||`；需要 Bash 工具链、POSIX 管道、`.sh` 脚本或 Bash here-doc 时切到 Git Bash。
-- 禁止用 `pwsh` / PowerShell inline、管道或 here-string 传递大段中文给 Python 或 `gh`；改用 UTF-8 临时文件、`codex-win body` 或 Git Bash here-doc。
-- 仓库根 `.tmp/**` 可能被 pytest session 或清理工具自动删除；跨命令、跨子进程、跨会话仍要复用的临时脚本、handoff 文件、patch 输入输出一律放 `tmp/**`、服务器 runtime 目录或正式 `scripts/dev/**`，不要放 `.tmp/**`。
-- 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
-- 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或 `codex-win run -- git ...`。
-- 中文文本、Markdown、JSON / JSONL 结构化改写优先用 `codex-win encoding`、仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
+- Windows 上优先使用 `pwsh.exe`；需要 POSIX 工具链或 `.sh` 时使用 Git Bash。
+- 禁止用 PowerShell inline、管道或 here-string 传递大段中文给 Python、GitHub CLI 或模型任务；改用 UTF-8 文件。
+- 中文 Markdown、YAML、JSON/JSONL 使用 UTF-8 no BOM；JSON 使用 `ensure_ascii=False` 和稳定排序/缩进。
+- 跨步骤临时文件放 `tmp/**` 或仓库外 runtime；`.tmp/**` 仅用于可随时丢弃的单步产物。
 
-## 子 Agent 与批量任务 / Subagents And Batch Tasks
-- 批量、后台或并发 Codex 子任务优先用 `codex-win agent run-plan`；它只负责进程监管、权限画像、输出契约和结果收集，不替代 retrieval v3 readiness、dry-run、幂等校验、patch 验收、scorer 或落库逻辑。patch / review / factorization 类默认用 `--permission-profile tmp-jsonl-review --deny-policy deny-rewrite --git-snapshot minimal`，只写 `tmp/**`；无 git 上下文用 `none`，需要 diff stat/name-status 才用 `full`。
-- `codex_tasks.jsonl` 应声明 `task_code`、`prompt_path`、`last_message_path`、`log_path` 和 `expected_outputs`；JSONL patch 用 `expected_outputs.kind=jsonl_patch` 与 `PATCH_JSONL_BEGIN` / `PATCH_JSONL_END` fallback，不只依赖旧式顶层 `patch_path`。prompt、workitems、patch 和 last message 一律通过 UTF-8 文件传递。
-- 子 agent 结果不得只看退出码；必须检查 `results.jsonl` / `summary.json` 的 `status`、`error_type`、`permission_analysis`、`deny_resolution`、`output_analysis`，再交给项目脚本验收。源码写入才用 `repo-editor`，用户明确接受风险才用 `bypass`；后台 run 用 `status`、`wait`、`collect` 收尾，异常后先 `cleanup-stale`。
+## 浏览器并发隔离
 
-## GitHub 正文安全 / GitHub Body Safety
+- 浏览器任务默认使用 `browser.tabs.new()` 创建当前任务专属标签页，不接管已有标签页。
+- 未经用户明确指定，不得使用 `browser.user.claimTab()`。
+- 每个浏览器任务必须设置可识别的独立 session 名称。
+- 只允许操作、刷新和关闭当前会话自行创建的标签页。
+- 任务结束时只清理本会话创建的临时标签页，不得关闭用户或其他 Agent 的标签页。
+- 必须接管已有标签页时，应先确认该标签页未被其他会话控制。
 
-- 禁止用 `pwsh` / PowerShell inline 字符串直接写大段 Markdown PR body。
-- PR body、长 issue comment、长 review comment 的生成、校验、写回和坏字符检查按 `docs/展示与协作/GitHub发布与认证规范.md` 执行。
+## 服务器运行环境
 
-## 脚本治理 / Script Governance
+- 项目后台服务器通过本机 SSH alias `emperor-runtime` 连接；真实 IP、用户与密钥只保存在操作者的 `~/.ssh/config`，不得进入 Git。
+- Git commit 是服务器代码事实源。服务器不维护可编辑工作树，不使用 `git pull` 热更新；必须从干净 commit 构建带 manifest 的不可变 release，部署到 `/opt/emperor-evaluation-v4/<service>/releases/<git-sha>/`，再原子切换 `current`。
+- 项目可变运行状态统一位于 `/data1/emperor-evaluation/runtime/`；服务状态根为 `/data1/emperor-evaluation/runtime/services/emperor-v4/`，中性材料批任务位于其 `neutral-material-batches/` 子目录。
+- 凭据和机器私有环境文件位于 `/etc/emperor-evaluation-v4/`，不得读取明文到日志或提交。Source Cache 与 Claim Extractor 分别由 `emperor-v4-source-cache-worker.timer`、`emperor-v4-claim-extractor-worker.timer` 调度。
+- 新会话在服务器操作前先运行 release/runtime 只读验证脚本；不得复用 `/home/penghao/**` 作为服务状态或模型认证目录。
 
-- 任务涉及 `scripts/**` 先读 `scripts/AGENTS.md`；涉及 `docs/**` 先读 `docs/AGENTS.md`。
-- 开发工具、validator、exporter 和共享工具按 `scripts/AGENTS.md` 分层；`scripts/` 根目录不再保留 Python wrapper，只允许 registry `root_exceptions` 登记的非 Python 稳定入口。
-- 修改已迁移脚本时只改 canonical 真实实现，并验证 canonical import/CLI；不得恢复已退役 wrapper。
-- 普通功能 PR 不顺手迁移其他职责域；迁移任务按同一职责链成批处理。
-- 当前路径、迁移状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/文档与脚本登记/scripts_registry.json` 为准。
-- scripts 治理提交前必须运行当前工作流 pytest、Python compileall、registry 完整性测试和 `git diff --check`。
+## I5B 浏览器检索
 
-## 改动与验证 / Changes And Validation
+- 政策与文官治理候选由当前 Codex 主会话直接使用 Chrome 检索；不得为此启动嵌套 Codex 子进程。
+- 宽搜与史料回源是两个异步阶段；异步表示流程解耦，不表示并发浏览器检索。宽搜阶段不得同步执行史料回源、Judge 或因子赋值。
+- 宽搜通过本机 Google AI Chrome 桥接逐项串行执行，不并发提问；单项最多等待30秒，普通超时只重试该任务，只有验证码或明确限流才暂停全局队列。
+- 宽搜候选不按每个对象固定数量截断；只保留与单一焦点直接相关、彼此独立且存在可回源定位的事项。每完成一个对象，立即将包含稳定 `task_code` 的记录原子写入 `tmp/i5b_discovery_compass/<皇帝>.json`，然后搜索下一个对象。罗盘存在该 `task_code` 即表示该对象宽搜完成，中断恢复只补缺失记录。
+- 全部宽搜完成后释放本会话浏览器标签页。史料回源阶段只消费已落盘罗盘，按可能改变当前前三对象边界的优先级处理，并使用“举措名＋史书名”定位正史、实录、政书或诏令奏议。
+- Google AI 概览和普通网页摘要仅作线索，不得作为评分史源。
+- 回源、Judge 和因子赋值完成后才写入受 Git 追踪的 canonical source pack；source pack 生成并验证后可删除原始罗盘。
+- `i5b-historical-closeout` 只消费 canonical source pack 并确定性导出，不得在命令内部联网或调用模型。
 
-- 大范围改脚本前，先用 `rg` / `git grep` 精确定位，再做小补丁。Locate precisely before large script edits.
-- 机械替换只在白名单路径内做；测试文件只改展示断言，不全局替换 fixture key。Keep mechanical rewrites scoped.
-- 大脚本治理必须小步重构并有测试锁定；业务 PR 不顺手拆脚本。Keep business PRs scoped.
-- 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的提交，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再运行 focused tests；full pytest 同一 head SHA 最多一次。
-- 验证命令若生成或重写 `exports/`、generated docs 或其他范围外副产物，先记录通过结果，再用 `codex-win cleanup generated --profile emperor-markdown-exports --config .codex/generated-cleanup.json --target .` dry-run 后按需 `--apply` 清理；清理后只做范围核对，不重复运行会再次生成副产物的全量命令。
+## 子 Agent 与批量任务
 
-- 人工阅读型 Markdown 导出规则路由到 `docs/AGENTS.md` 和 `docs/展示与协作/人工阅读型Markdown导出规范.md`。
+- 批量任务必须有稳定 `task_code`、输入版本、允许写入范围、输出契约和失败恢复方式。
+- 子任务不得直接写正式事实、规则判断、分数或生产数据库。
+- 结果不得只看退出码；必须检查状态、权限、输出契约和项目校验结果。
+- 默认只允许写 `tmp/**`；源码写入需要显式 `repo-editor` 范围。
+- 正式数据链不得依赖“模型写补丁—人工复制—再落库”作为主状态机；必须使用结构化请求、Schema 校验和持久化结果。
 
-## 默认忽略 / Default Ignore
+## 单皇帝主控会话
 
-除非 Issue / PR / 用户请求明确点名，或为了清理已知生成副产物，不主动读取、总结或改写：
+- 用户要求启动或继续朝代政书扫描、治理事实抽取或治理底账登记时，先完整读取 `docs/证据规则/单朝代治理会话工作流.md`；该会话只交付朝代共享治理底账，不启动皇帝编年、列传、窗口绑定或评分。
+- 用户要求启动或继续单皇帝全链路时，先完整读取 `docs/证据规则/单皇帝主控会话工作流.md`，再认领皇帝和执行；用户未指定皇帝时，由工作流按当前配置和运行时独占状态自动选择，不要求用户逐个调度。
+- 一个会话只主控一个皇帝。史料索引和已验收朝代政书只读共享；皇帝 workspace、runtime、checkpoint 和导出必须隔离。同一共享编年材料 token 只能有一个写入者，canonical 结果只能由单一发布者写入。
+- 多会话模型并发按全局总量计算，不得把每个会话的局部并发上限相加后同时放行。
+
+## 实现不变量
+
+- Schema、最小实现、测试和 migration 在同一职责链中落地。
+- 每个写入口必须有数据库级幂等键。
+- 正常运行不得以全表删除重建为默认路径。
+- 每项派生结果声明输入版本并可追溯。
+- 无变化重跑产生零业务写入和零模型调用。
+- 正式评分前必须通过独立 factor、Rule Gold、ScoreContribution 和 shadow 差异 Gate。
+
+## 验证
+
+- 默认快速套件保持离线、零模型、零外部数据库。
+- 同一 head 的全量测试原则上只运行一次；小改动使用 focused tests。
+- Markdown 相对链接、YAML、compileall、migration dry-run、`git diff --check` 按受影响范围执行。
+- 不以测试数量、文件数量或阶段数量作为进度指标。
+
+## 默认忽略
+
+除非任务明确点名，不主动读取或改写：
 
 ```text
-exports/
-logs/
-data/configs/
 tmp/
+.tmp/
 .cache/
+logs/
+exports/
+.env
 .codex/
 ```
 
-只做范围核对时，优先用 `git diff --name-only` / `git status --short`，不要展开读取目录内容。`docs/`、`tests/` 不默认全量扫描；仅在任务点名、PR diff 涉及、验证失败、或需要查某份具体规范/测试时按文件读取。
-
-`.tmp/**` 只用于一次性报告、PR body、短命令输出等“可随时丢弃”的临时产物；需要在多步执行中复用的脚本或交接文件使用 `tmp/**` 或仓库外 runtime 目录。
+`.codex/config.toml` 的高权限配置不覆盖本文件的数据、生产和安全边界。

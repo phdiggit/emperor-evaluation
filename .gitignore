@@ -1,55 +1,28 @@
-# Python caches
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-
-# Test / coverage artifacts
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
-.junit_cache/
-
-# Type / lint / tool caches
-.cache/
-.mypy_cache/
-.ruff_cache/
-.hypothesis/
-.tox/
-.nox/
-
-# Local virtual environments
-.venv/
-venv/
-ENV/
-
-# Local environment / secrets
+# Local secrets and environment overrides
 .env
 .env.*
 !.env.example
 
-# Build / package artifacts at the repository root
-/dist/
-/build/
-*.egg-info/
-
-# Local databases and SQLite sidecars
-evidence_cache.sqlite
-*.sqlite
-*.sqlite-*
-*.db
-*.db-*
-
-# Codex local runtime state
-.codex/test-plan-state.json
-
-# Logs and temp files
-*.log
-*.tmp
-*.bak
-.tmp/
+# Local runtime and generated artifacts
 tmp/
+.tmp/
+.cache/
+logs/
+exports/
+coverage/
+dist/
+build/
 
-# OS metadata
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Editors and operating systems
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
+*.egg-info/

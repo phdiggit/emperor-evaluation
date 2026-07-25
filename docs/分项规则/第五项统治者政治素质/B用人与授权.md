@@ -1,517 +1,532 @@
-# 第五项B 用人与授权计分规则
+# 第五项 B：用人与授权计分规则（V4）
 
-本文规定第五项B“用人与授权”五个 `rule_code` 的材料计分公式、材料信号映射、因子档位和总分层权重。五个 `rule_code` 固定为：
+第五项 B 评价统治者发现人才、合理任用与授权、建立团队、容纳并保护人才、避免任人唯亲的能力。本项满分为 45 分。
 
-```text
-talent_discovery
-appointment_delegation
-team_building
-tolerate_talent
-anti_nepotism
-```
+本规则包含五个计分分项：
 
-## 机器消费摘要
+| 分项代码 | 中文名称 | 项内权重 |
+| --- | --- | ---: |
+| `talent_discovery` | 发现人才 | 19% |
+| `appointment_delegation` | 任用授权质量 | 36% |
+| `team_building` | 建立团队 | 21% |
+| `tolerate_talent` | 容人保全 | 18% |
+| `anti_nepotism` | 避免任人唯亲 | 6% |
 
-抓包端只需要识别候选事实，不直接判定因子档位或正式入分。推荐把候选事实抽成以下稳定字段：
+## 一、通用计算规则
 
-```json
-{
-  "personnel_profile": {
-    "person": "人才或用人对象",
-    "person_role": "岗位、任务、身份或团队角色",
-    "talent_quality": "ordinary | usable | important | top | historic | negative",
-    "action_type": "discover | appoint | delegate | reuse | build_team | tolerate | protect | select_openly | favor_private",
-    "appointment_or_authorization": "任用、授权、复用或托付事实",
-    "feedback_or_result": "履职结果、复用反馈、损害或治理后果",
-    "team_function": "decision | administration | military | correction | resource | other",
-    "selection_channel": "荐举、公开选任、破格拔擢、亲旧近幸、外戚宦官等渠道",
-    "same_event_chain": true
-  }
-}
-```
+### 1. 材料分
 
-候选路由先按“用人行为重心”分流：
-
-| `rule_code` | 快速路由口径 |
-| --- | --- |
-| `talent_discovery` | 识别、引入、召见、试用或拔擢此前未进入核心视野的人才。 |
-| `appointment_delegation` | 把具体人才放到岗位、任务、权责链或长期托付关系中，并可见适配反馈。 |
-| `team_building` | 皇帝对象池整体人才结构、功能互补、核心班底和长期团队质量。 |
-| `tolerate_talent` | 容谏、保全能臣、维护表达安全、修复授权信用，或对应负向破坏。 |
-| `anti_nepotism` | 抑制亲旧、近幸、外戚、宦官、宠臣、小圈子对任免的污染，或公开择才。 |
-
-factorization prompt 只注入当前 rule 的因子表和短边界：
-
-- `team_building` 使用对象池聚合，不以单条 claim 临场给团队成员定级。
-- 其余 rule 使用单材料公式、材料层封顶和正负信号聚合。
-- 任用、授权、复用、信任和结果反馈在 `appointment_delegation` 内一次判读；不得拆成多个旧口径重复入分。
-- 相邻项边界只注入与当前候选最可能混淆的二至三条；不得把本文件全文作为常规 prompt 上下文。
-
-数据链硬边界：
-
-- 第五项B当前正式计分链只认已回源对象、史源、规则、结构化因子和计算明细；不得直接手写人物级分数或单人 override。
-- `raw_objs` 保持原始对象粒度，不能合并加工；每个 `raw_objs` 至少有一条 `obj_srcs` 史料链，`talent_quality` 等对象属性必须来自 `obj_attrs`。
-- 第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_cluster_calc_details.calc_detail`；规则承载对象另由 `rule_evidence_units` / `rule_evidence_unit_members` / `fact_relations` 表达。
-- `calc_detail.covered_material_ids`、`scored_material_ids` 和 `supporting_material_ids` 必须能回到源材料；`query_profiles` / `data/query_profile_batches/**`、`search_logs`、`source_review_log` 只记录召回、抓包和复核过程。
-- 正向、负向、相邻项 query lanes 的覆盖、对象化、入库、未决和排除理由必须可审计；本公式不设置严重负向硬上限。
-
-## 一、材料信号尺度
-
-单条材料先计算 `raw_material_score`，再进入材料层封顶：
+每条有效材料先按所属分项公式计算原始材料分，再限制在 `-4.0—+4.0`：
 
 ```text
 material_score = clamp(raw_material_score, -4.0, +4.0)
 ```
 
-单条材料有效区间为 `[-4.0, +4.0]`。
-
-材料强度解释：
-
-| abs(material_score) | 解释 |
+| 材料分绝对值 | 中文解释 |
 | ---: | --- |
-| `0.3 - 0.8` | 弱证、边界证、辅助性材料。 |
-| `0.8 - 1.6` | 常规有效材料。 |
-| `1.6 - 2.8` | 强材料。 |
-| `2.8 - 4.0` | 极强材料。 |
+| `0.3—0.8` | 弱证、边界证或辅助材料 |
+| `0.8—1.6` | 常规有效材料 |
+| `1.6—2.8` | 强材料 |
+| `2.8—4.0` | 极强材料 |
 
-除 `team_building` 外，同一 `claim_id + object_id + side` 下拆出的多个 role binding，默认只保留一条最能代表本 rule 的 `score` 材料；其余材料若有上下文价值，记为 `supporting_only`。
+只有人工接受且具备 Assertion、HistoricalEpisode、RuleEvidenceUnit 和史源 lineage 的正式材料参加计分。同一事实被技术性拆成多条记录时只计一次。
 
-这里排除的是同一 claim 被技术性拆成多个 role binding 造成的重复绑定，不是删除已经独立成立的入分材料。凡已通过门禁并形成正式 material score 的材料，都必须进入后续聚合；不得用 Top-K、只取最强材料或材料数量硬上限裁掉。
+### 2. 证据修正系数
 
-## 二、证据修正因子
-
-三项证据修正因子适用于除 `team_building` 聚合内置对象排序外的材料公式：
+除“建立团队”外，其余分项使用统一证据修正系数：
 
 ```text
-evidence_factor =
-  attribution_factor
-  * source_factor
-  * context_factor
+evidence_factor = clamp(
+  attribution_factor × source_factor × context_factor,
+  0.45,
+  1.25
+)
 ```
 
-计算时对合乘结果封顶：
+#### 皇帝归责系数 `attribution_factor`
+
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `indirect` | 间接归责 | 0.80 |
+| `direct` | 直接归责 | 1.00 |
+| `direct_under_pressure` | 在明确反对或现实压力下仍由皇帝直接决策 | 1.10 |
+
+#### 史源系数 `source_factor`
+
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `weak_or_compressed` | 史源较弱或记载过度压缩 | 0.75 |
+| `standard` | 标准有效史源 | 1.00 |
+| `complete_direct_chain` | 直接且完整的证据链 | 1.10 |
+
+#### 语境系数 `context_factor`
+
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `weak_but_applicable` | 语境较弱但仍可适用 | 0.70 |
+| `clear` | 事实链与规则边界清楚 | 1.00 |
+| `core_mechanism_direct` | 直接呈现本分项核心机制 | 1.10 |
+
+材料缺少必要输入时记为“无法投影”，不得用默认值补齐，也不得把证据不足当作零分。
+
+### 3. 结算预算
+
+结算预算限制正式入分单元数量，不要求建立历史材料全集。军事、行政、地方、制度、储位等只作检索与覆盖标签，不设固定分值、代表名额或必填槽位。
+
+五个分项统一遵守领域等价原则：因子只评价识才难度、公共责任、实际运行、人才能力、反馈安全或公共权力损害，不评价材料是否以战役叙事呈现。相同责任范围、相同结果尺度和相同证据强度的军事、行政、法制、财政、地方治理、教育文化与专业技术事实必须进入同一档位；官名、兵力数字、史料篇幅和叙事戏剧性不得成为隐含加权项。
+
+| 分项 | 正向上限 | 负向上限 | 计数单位 |
+| --- | ---: | ---: | --- |
+| 发现人才 | 12 | 12 | 独立识才链 |
+| 任用授权质量 | 12 | 12 | 聚合后的独立任用对象或责任群体 |
+| 建立团队 | 8名成员 | 3名风险成员 | 一个皇帝—窗口团队单元 |
+| 容人保全 | 12 | 12 | 独立反馈—回应—安全—修复链 |
+| 避免任人唯亲 | 12 | 12 | 独立私人关系—公共任用影响链 |
+
+事件型分项正负两侧独立结算最强12个合格单元：第1—6名按`1.00`、第7—9名按`0.75`、第10—12名按`0.50`计入。未用满不扣分；Judge 只能因事实、路由、归责、独立性或重复边界排除，不得因领域或名额平衡排除。
+
+同一事件、同一履职结果或同一制度运行事实被拆成多条记录时只算一个结算单元。同一对象的连续材料优先聚合为主事实及持续性证据；重复性、持续性和制度化程度只由专属因子表达，不按材料篇数再次累加。
+
+正向与负向独立；一侧已满不关闭另一侧、反证或路由纠错。第12名以后只在可能改变方向、档位、去重或预算边界时重审，否则仅补 lineage。
+
+单一皇帝的五个分项共享 15 分钟历史覆盖硬截止时间，自该皇帝首个宽搜任务被领取时开始，恢复运行不得重置。宽搜、按文献页回源和最小充分 Claim 抽取应解耦并允许阶段重叠；到点停止领取新任务，超时返回只形成待补缺口，不得进入本轮候选，也不得把未经回源线索转为正式材料。
+
+单一皇帝每轮最多启动12个人物检索入口；皇帝政策和责任群体不占名额。人物稳定去重后截取，旧材料复用不耗名额，不得用别名或拆分焦点绕过上限。
+
+### 4. 聚合与停止
+
+各分项沿用本规则规定的材料聚合公式，不增加领域权重。预算内单元聚合后得到：
 
 ```text
-evidence_factor = clamp(evidence_factor, 0.45, 1.25)
+rule_raw_net = positive_signal - negative_signal
 ```
 
-### `attribution_factor`
+该侧已有12个合格单元、候选和反证均已处置，且没有可能越过预算边界的未决线索时停止扩展检索。
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.8` | 间接归因；通过臣僚荐举、既有制度链、群体决策或后见整理才能归因于皇帝。 |
-| `1.0` | 皇帝决策链清楚；材料可见皇帝任用、授权、采纳、处置或保全动作。 |
-| `1.1` | 皇帝亲自判断清楚，且存在逆阻力、反常规取舍或关键取舍压力。 |
+## 二、发现人才 `talent_discovery`
 
-### `source_factor`
+本分项评价统治者在首次实质使用前，识别、验证、引入人才并将其转化为实际使用的能力。使用后的政绩或战果不得反向充当识才依据。
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.75` | 史源链较弱、事实链压缩、片段性强，或需要较多旁证才能支撑。 |
-| `1.0` | 标准史源，事实链清楚。 |
-| `1.1` | 标准史源且关键事实链完整、对象和动作均明确。 |
-
-### `context_factor`
-
-| 值 | 口径 |
-| ---: | --- |
-| `0.7` | 已满足本 rule 的适用条件，但事实链较弱或上下文不完整。 |
-| `1.0` | 本 rule 语境成立，事实和对象关系清楚。 |
-| `1.1` | 本 rule 语境强，材料直接展示该 rule 的核心机制。 |
-
-## 三、`talent_discovery` 发现人才
-
-适用：识别、引入、召见、试用或拔擢此前未进入核心视野的人才。
-
-计分承载对象：被发现、被推荐、被识别、被引入核心视野或被破格拔擢的人才本人。
+评价窗口仍以在位期为主，但发现行为允许回溯到统治者取得独立用人或统军权限后的储位、藩府或创业阶段。只有统治者本人或其直接授权者完成招募、验证和转化，且对象进入其本人团队并延续到评价窗口，才进入候选；由前任君主、父祖朝廷或其他政治主体独立招募者不得仅因后来被沿用而归责给本统治者。登基前材料必须标记 `pre_accession_leadership_formation`，不得与登基后的同一识才链重复结算。
 
 ```text
 raw_material_score =
   direction_sign
-  * discovery_level
-  * talent_quality_factor
-  * channel_factor
-  * evidence_factor
+  × discovery_level
+  × talent_quality_factor
+  × evidence_factor
 ```
 
-`direction_sign` 默认为 `+1`；负向材料只在错失、压制或拒绝关键人才发现机会时使用 `-1`。
+### 1. 方向 `direction_sign`
 
-“提拔、拔擢、擢用”可作为发现人才的代理信号，但必须同时显示对象此前低位、被埋没、未充分显名、异质来源、旧阵营，或存在破格识别、试用、荐举链条。普通升迁、已知重臣任命或单纯授权办事，不得仅凭任官事实计入发现人才。
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `positive` | 成功发现并转化人才 | +1.00 |
+| `missed_or_suppressed_discovery` | 错失或压制人才发现 | -1.00 |
 
-TODO：待更多皇帝样本跑完后复核“仅有提拔、擢用、任命事实，缺少显性发现信号”的材料是否需要放宽；若多数样本 `talent_discovery` 原始信号系统性偏低，再讨论是否调整本段口径。
+### 2. 发现程度 `discovery_level`
 
-### `discovery_level`
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `passive_reputation` | 主要沿用既有名望，缺少独立验证或转化 | 0.60 |
+| `recommendation_entry` | 经荐举进入视野，并形成有限验证或试用 | 0.80 |
+| `attributable_interview_trial_or_appointment` | 皇帝直接观察、面试、试用或实质任用 | 1.00 |
+| `difficult_cross_boundary_discovery` | 突破身份、门第、地域、阵营、低位接近或专业识别障碍并完成实质转化 | 1.20 |
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.6` | 仅沿用已有名望或被动听闻，发现动作弱。 |
-| `0.8` | 接受荐举、引入视野，但主要发现动作来自他人推荐。 |
-| `1.0` | 皇帝形成召见、试用、任用或拔擢链条，发现动作可归因。 |
-| `1.2` | 对低位、被遮蔽、旧阵营、异质身份等高识别难度对象，完成破格发现并进入核心任用链。 |
+发现程度由识别新颖度、识别依据、障碍突破和转化使用四项观察联合判断，四项观察不分别重复相乘。敌对阵营降人不因军事身份自动进入最高档；从基层文书、策论、技术作品、地方履职或非主流专业中识别人才，若存在同等可验证的接近与识别障碍，也适用最高档。
 
-### `talent_quality_factor`
+### 3. 人才等级 `talent_quality_factor`
 
-`talent_quality_factor` 必须来自对象属性 `talent_quality`，不得在材料计分时临场定级。
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `ordinary` | 普通人才 | 0.60 |
+| `usable` | 可用人才 | 0.90 |
+| `important` | 重要人才 | 1.15 |
+| `top` | 顶级人才 | 1.45 |
+| `historic` | 历史级人才 | 1.80 |
 
-| 人才层级 | 因子 |
-| --- | ---: |
-| 普通人才 | `0.6` |
-| 可用人才 | `0.9` |
-| 重要人才 | `1.15` |
-| 顶级人才 | `1.45` |
-| 历史级人才 | `1.8` |
+人才等级取人物画像的当前有效档位，不得由官职、声望或单次战果临时反推。五档统一事实门槛见 `docs/证据规则/公共成果登记与人物画像规则.md`；本分项只使用该档位，不另行评定人物能力。
 
-### `channel_factor`
+### 4. 发现人才聚合
 
-| 值 | 口径 |
-| ---: | --- |
-| `1.0` | 普通单线发现、单次荐举或个案拔擢。 |
-| `1.1` | 跨阵营、跨身份、寒门或异质人才通道成立。 |
-| `1.2` | 形成可重复的人才发现机制或稳定荐才网络。 |
+同一对象同一方向最多保留3条独立识才链并先做密度控制；全局正负各按通用12条上限和尾部衰减结算。人物领域只作检索标签。
 
-## 四、`appointment_delegation` 任用授权质量
+```text
+object_side_score = min(
+  strongest_material + 0.35 × sum(secondary_materials),
+  strongest_material × 1.5,
+  4.0
+)
 
-适用：任用、信任、复用关键人才，或授予其岗位、任务、军政权责、机要职责。任用授权质量评价的是“皇帝是否把合适的人放到合适的位置、任务或权责链上，并产生合理后果”。
+side_signal = sum(settled_object_side_score)
+talent_discovery.rule_raw_net = positive_signal - negative_signal
+```
 
-计分承载对象：被任用、被信任、被复用、被授权或被长期托付的具体人物及其岗位、任务或权责链。
+## 三、任用授权质量 `appointment_delegation`
+
+本分项评价统治者是否把合适的人放在合适的职责上，并给予与职责匹配、边界清楚且可持续的授权。
+
+任用授权既允许“具体人物—具体职责—履职反馈”链，也允许“责任机构或责任群体—制度化权限—持续运行反馈”链。文官治理不得因成果由集体完成、分散在多个时点或表现为制度运行而被排除；史料数量和职责领域不附加权重。
+
+评价窗口从统治者取得独立用人或统军权限开始。登基前的幕府、储位或创业阶段，只要授权主体确为该统治者，并已形成“具体责任—实际运行—可归责结果”的完整任用授权链，即使该项具体职责在登基前已经结束，也可以作为独立材料进入本分项；不强制要求同一职责延续进入在位期。若同一责任链跨越登基前后，应合并为一个跨阶段单元，不得重复结算。
+
+单纯由前任朝廷、父祖或其他政治主体授官，没有该统治者本人的任命、授权、采纳或维持行为，仍不适用；仅因相关人物后来继续受任，也不得倒推为该统治者登基前的任用成绩。登基前任用的实际结果只用于判断人岗配置和授权机制是否有效，夺权、战争、制度或治理结果本身仍回到对应项目结算。与发现人才使用同一事实链时，只能分别提取“识别并转化使用”和“具体授权后的履职效果”，不得重复使用同一观察抬高两条材料。
 
 ```text
 raw_material_score =
   appointment_importance
-  * appointment_effect
-  * continuity_factor
-  * evidence_factor
+  × appointment_effect
+  × continuity_factor
+  × evidence_factor
 ```
 
-同一条事实链中，“任命某人”“授予某项职责”“该职责结果如何”只在本规则内形成一条入分判断，不拆入多个 rule 重复计分。若同一 claim/object 拆出多个 role binding，默认只保留最能代表任用授权质量的一条 `score`。
+### 1. 任用重要性 `appointment_importance`
 
-`appointment_effect` 可以为负；对象明显不适任、佞幸化、破坏公共任用秩序，或授权安排直接造成军政治理损害时，任用授权重要性会放大负向分。
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `nominal_or_light` | 名义性、礼仪性或轻量职责 | 0.60 |
+| `real_bounded` | 有实权但仅负责局部据点、普通地方、单项专业事务或其他失败影响可局部吸收的职责 | 1.00 |
+| `major_affairs` | 承担重要战区、中央部门、重要地方或跨机构任务；失败会造成重大损失，但国家核心仍可承受 | 1.25 |
+| `critical_national_or_long_term` | 直接控制国家存亡、首都或核心根据地、国家主力、统一战争关键方向，或全国核心制度的形成与长期运行 | 1.40 |
 
-撤权、诛废、猜忌、清洗、功臣不保等处置性材料，本身不作为本规则的结果反馈；只有材料证明其是某次任用授权安排的直接履职后果时，才计入 `appointment_effect`。
+重要性只按授权当时的责任域和可预见失败后果判断，不得用后来恰好取得的大成果反向抬档。战役优先复用公共登记的 `strategic_stakes / prewar_context / failure_stakes`，参与者的 `delegated_responsibility` 只补本人承担了该战役群的哪一层责任，并分别提供 `scope`、`importance_basis`、授权者和授权证据；不得为每名将领重复抄写整段战役背景。虎牢承担同时应对王世充、窦建德并关系唐朝统一成败，柏壁发生在晋阳失守、刘武周宋金刚进逼关中安全之后，均可进入 `critical_national_or_long_term`；普通方面远征、区域平叛或全国性但非核心的文化工程不得因此跟随抬档。
 
-本 rule 当前采用的 claim-material 聚合策略版本为 `v3-native-density-decay-20260711`。通用聚合机制和本 rule 的实例参数统一见“八、规则原始信号聚合”；本章只规定任用授权材料语义和因子档位。
+战役父项中的国家军队方面主帅不得因史书省略重复任命文字而记成“无皇帝授权”。有逐字任命、遣将或专任引文时登记 `explicit`；没有逐字任命引文，但固定史源明确该人在对应皇帝窗口内实际统领国家军队、独立承担方面或战役群主帅职责，且没有自立、越权或抗命证据时，可登记 `tacit`。默示授权只能由主帅或可证明独立方面责任的将领取得，普通参战者和现场副将不得自动取得。显式或默示只决定归责证据是否成立，不限制责任重要度；重要度仍按授权时可证的任务边界和失败后果判断。`authorizer_ref` 必须指向实际授权者，防止同一人物在受任皇帝窗口和本人后来称帝窗口之间发生归责倒置。
 
-### `appointment_importance`
+### 2. 任用效果 `appointment_effect`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.6` | 名义任命、名义授权、职责不清或职责较轻。 |
-| `1.0` | 有实际职责的任用、信任或单一领域真实授权。 |
-| `1.25` | 中枢、军政关键岗位、核心职掌或重大军政事务授权。 |
-| `1.4` | 托孤、危局、旧敌转用、重大机密、国家级或长期关键任用授权。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `weak_feedback` | 有正向反馈，但效果较弱 | +0.40 |
+| `normal_success` | 完成局部、常规或边界明确的职责，没有改变主要战略方向 | +1.00 |
+| `major_success` | 完成重要战区、重要区域、中央子系统或重大阶段任务，形成重大且直接的正向反馈 | +1.50 |
+| `exceptional_success` | 实际解除国家存亡危机、终结第一梯队竞争极、完成决定统一成败的独立战略方向，或建成国家运行所依赖的核心制度 | +1.80 |
+| `bounded_control_failure` | 授权或监督失误成立，但未证明超出个案的公共损害 | -0.30 |
+| `limited_direct_damage` | 已形成明确、直接但范围有限的公共损害 | -0.80 |
+| `major_direct_damage` | 造成重大但相对一次性的直接损害 | -1.80 |
+| `structural_continuing_damage` | 造成跨期、制度性或组织能力持续损害 | -2.60 |
 
-其中 `1.4` 是稀有档，必须由任用动作本身证明托孤、危局全权处置、旧敌转用、重大机密或国家级长期总责；重大战果、人物历史地位和后续长期成功不得反向抬高任命重要性。`1.25` 必须有明确的中枢、方面军、核心职掌或重大事务权限；一般将领出征、普通官职、单次任务和泛称重用默认不高于 `1.0`。
+效果档按已经实现且可归责的人岗配置反馈判断。战役依次读取完成度和 `strategic_result_class`：局部战术、普通重要目标为正常成功，重大阶段或危机为重大成功，独立战略方向及各类战争终局为卓越成功；`mixed / partial` 默认只记有限反馈。治理和谋略不得再按 `scale.level` 机械映射：全国性文化工程通常仍是重大成功，只有全国核心治理子系统、时代秩序重建或文明奠基成果才进入卓越成功。个人只承担成果一段工作时，继续以 `delegated_responsibility.appointment_effect` 收窄，不得继承整个成果的终局。
 
-### `appointment_effect`
+### 3. 持续性 `continuity_factor`
 
-| 值 | 口径 |
-| ---: | --- |
-| `+1.5` | 高风险、关键岗位或高强度授权高度适配，并产生重大成功或强烈体现任用授权合理。 |
-| `+1.0` | 人岗匹配成立，有明确任后表现、职责履行、政策、军事、行政成果或持续复用反馈。 |
-| `+0.4` | 任用、信任、授权关系存在，但只见任官、亲近、名望、任务交付或弱反馈，缺少充分结果或岗位适配证明。 |
-| `-0.8` | 错任、错信、偏信、弱匹配或授权后结果较差，显示任用授权判断有问题。 |
-| `-1.8` | 深度任用授权明显不适任对象，并直接造成重大军政失败、治理损害、关键职责失守或人才生态损害。 |
-| `-2.6` | 长期或国家级错误任用授权造成连续性、结构性、大规模后续损害，或系统性任用污染、表达压制、关键人才损害。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `short_or_one_off` | 短期或一次性授权 | 0.85 |
+| `stable` | 稳定授权，并有至少两个可区分的履职或反馈观察 | 1.00 |
+| `long_term_multi_stage` | 长期多阶段授权；可以是至少两次可区分的授权决定，也可以是同一持续授权下跨阶段运行且至少有两个独立履职反馈 | 1.15 |
 
-### `continuity_factor`
+### 4. 任用责任链证据合同
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.85` | 短期、单次、临时任用授权，或未形成持续复用。 |
-| `1.0` | 稳定任用授权。 |
-| `1.15` | 长期复用、多阶段持续信任，或同一对象跨阶段承担关键职责。 |
+| 合同字段 | 计分要求 |
+| --- | --- |
+| 皇帝归责 | 必须有皇帝设立、任命、授权、采纳或维持该责任机制的 Assertion。 |
+| 责任主体 | 可以是具体人物、正式机构或边界明确的责任群体；不得强制要求唯一受任者。 |
+| 权限或程序边界 | 必须说明该主体负责什么、可以决定什么或必须履行什么程序。 |
+| 实际运行观察 | 必须至少有一次区别于制度设立动作的执行、履职、复核或反馈观察；只有诏令、原则或政策入口不得投影。 |
+| 运行结果 | 用于判断 `appointment_effect`；政策本身的社会净收益不在本分项重复结算。 |
+| 个人贡献边界 | 若受任者只承担公共成果的一段工作，必须在 `delegated_responsibility` 中单列其实际效果与持续性；不得继承整个成果的规模、终局或跨期持续性。 |
+| 事后奖惩或明确评价 | 统治者在责任运行后作出的奖惩、留任、升降或明确功过归因，可以补强受任者角色、运行反馈和皇帝归责；它只能并入已有责任链，不得在缺少具体责任与实际运行观察时单独建立材料，也不得另行加分。 |
+| 并行授权冲突 | 统治者同时维持彼此冲突、足以互相破坏的命令或授权时，必须合并观察整体协调责任和净运行结果；不得把其中一个子任务的阶段成功拆出单独正向结算。受任者依仍然有效的命令行动，不得误判为违令而切断统治者归责。 |
+| 负向损害与纠正 | 分别记录受任者行为、实际公共损害、皇帝事前可预见性、知情后的收权/停职/惩处/补救及是否恢复任用；不得仅按任务级别放大个人违法。 |
+| Lineage | 上述字段必须分别绑定已接受 Assertion，并归入同一 HistoricalEpisode / RuleEvidenceUnit 责任链。 |
 
-## 五、`team_building` 建立团队
+### 5. 任用授权聚合
 
-适用：形成互补团队、核心幕府、中枢班底、荐才网络或长期人才结构。
+制度运行材料必须至少证明皇帝归责、责任主体或责任机构、权限或程序边界、实际运行观察四项；若另有可归责结果，可提高 `appointment_effect`，但不得因缺少唯一受任者而直接判为无法投影。`appointment_effect` 只评价选任、授权或责任机制是否有效运转；政策本身的社会净收益仍回到前四项结算。
 
-计分承载对象：该皇帝对象池中的全部具体人才对象；团队质量由对象池聚合，不由单条材料临场定级。不得因对象不是核心官职、核心将相或长期班底成员而在候选阶段排除；是否弱贡献、负贡献或仅作上下文，由对象属性、团队聚合排序和 `target_action` 决定。
+负向档位只按实际损害分档：只证明授权或监督失误、未证明超出个案的公共损害，使用 `bounded_control_failure`；已形成明确、直接但范围有限的公共损害，使用 `limited_direct_damage`；屠城、系统性劫掠、大规模强制劳役等重大一次性损害，使用 `major_direct_damage`；损害继续破坏人口、财政、制度或组织能力时，使用 `structural_continuing_damage`。皇帝知情前后的收权、停职、惩处、补救和恢复任用单独记录，用于归责和净损害判断，不进入档位名称。若严重行为是受任者违令所为且皇帝及时制止、惩处并补救，主要归责于受任者，不得自动按皇帝直接重大损害结算。
+
+同一对象的独立责任链先按强度排序，以 `1 / rank` 调和衰减聚合，再以对象或责任群体作为全局结算单元；不另设对象硬上限。正负各按通用12个对象上限和对象尾部衰减结算。任用领域只作检索标签。相同责任链跨期或换名仍须合并，只有目标、权限边界或独立结果不同的责任链才能进入下一顺位；不得用重复史料制造额外顺位。
 
 ```text
-positive_pool =
-  sum(talent_quality_factor_rank / rank ^ 0.5)
+material_weight(rank) = 1 / rank
+event_weight(rank) = 1 / rank
+object_weight(rank) = 1 / rank ^ 0.5
 
-negative_pool =
-  sum(negative_team_contribution_rank / rank ^ 0.5)
-
-negative_team_contribution =
-  negative_talent_severity_value
-  * negative_talent_class_relevance
-
-positive_signal =
-  positive_pool
-  * role_complementarity_factor
-  * long_term_stability_factor
-
-negative_signal =
-  negative_pool
-  * role_complementarity_factor
-  * long_term_stability_factor
-
-team_raw_net =
-  positive_signal - negative_signal
+positive_signal = 1.5 × sum(settled_object_value × object_weight)
+negative_signal = 1.0 × sum(settled_object_value × object_weight)
+appointment_delegation.rule_raw_net = positive_signal - negative_signal
 ```
 
-`team_raw_net` 直接作为本 rule 的原始净信号输出，不在 rule 层做响应函数、二次封顶或最终得分映射。
+## 四、建立团队 `team_building`
 
-`team_building` 以对象池中的人才对象为计分单元。每个对象在同一目标皇帝下只贡献一次团队信号；多条史料只用于支撑该对象画像、身份和人才层级，不因多条 claim 形成重复入分。若数据链意外产生同一对象多条 `score`，只保留最能代表该对象团队贡献的一条，其余不得叠分。
+本分项以“皇帝—时间窗口”为唯一计分单元。人物能力与政治风险分别计算，不得因政治风险降低人才等级；成员功能统一归为战略决策、公共治理、专业执行、纠错反馈四类。军事只是专业执行的一种，法制、财政、工程、外交、教育文化等可按实际责任提供同等专业功能；四类只用于判断团队互补性，不形成职业配额或必填槽位。
 
-正负两侧均按人物贡献绝对值降序执行人物级密度聚合，固定 `person_decay=0.5`。这是对象池密度控制，不是 claim-material 聚合；它保留团队广度价值，同时避免关联对象发现数量近似线性决定得分。
+```text
+positive_pool = sum(talent_value)
+negative_member_value = political_risk_severity_value
 
-`talent_quality_factor` 是人物级属性，只能由已接受且版本匹配的人物画像预填；材料 factorization 不得临场赋值或改档。`role_complementarity_factor` 与 `long_term_stability_factor` 是目标皇帝团队级属性，在对象池求和后各乘一次，不属于单条材料属性。
+negative_pool = sum(negative_member_value)
 
-人物画像采用两条正交轴。`talent_grade` 只表示全局能力和历史地位，按“史论共识基础档 + 具体事迹校准”确定；材料覆盖不足只降低 `talent_evidence_coverage` 与 `talent_grade_confidence`，不得直接把人物降为普通。`negative_talent_class` 只表示稳定的负面政治风险类型，并另记 `negative_talent_severity`、史论共识、事实支持、覆盖度和置信度；不得把忠奸、被诛被贬或政治结局混入能力档位。
+team_building.positive_signal =
+  positive_pool × functional_complementarity_factor × long_term_stability_factor
 
-负面人物画像不直接复用 `talent_quality_factor` 的正面人才档位，也不因存在负面风险而抹去其能力等级。具体 rule 是否以及如何消费负面类型，必须另有规则级相关性和因子映射；同一负面画像不得在多个 rule 中无条件重复扣分。
+team_building.negative_signal = negative_pool
 
-`team_building` 对负面轴使用版本化映射 `negative-profile-team-v1`。严重度基础值为：`minor=0.20`、`material=0.45`、`major=0.80`、`historic=1.20`。类型相关系数为：`sycophant=0.80`、`favorite=0.70`、`power_abuser=1.00`、`framer=1.00`、`extractive_official=0.90`、`cruel_official=0.90`、`incompetent_harmful=1.00`、`traitorous_actor=0.80`、`mixed_or_disputed=0.50`。同一人物可以同时产生能力正贡献和政治风险负贡献。
+team_building.rule_raw_net = team_building.positive_signal - team_building.negative_signal
+```
 
-### `talent_quality_factor`
+正池最多冻结8名能够代表窗口团队结构的成员，负池最多冻结3名在窗口内实际暴露风险的成员。成员冻结由人工在数值投影前完成，不按人才档位或计算后数值自动取前N名。正池预算已满后，新增同质成员只补充团队 lineage；只有可能改变互补性、稳定性或现有成员代表性的材料才重新进入 Judge。
 
-| 人才层级 | 因子 |
+正池成员还必须通过非递归归责门：统治者本人须有直接选拔、任命、调入、维持，或授予独立国家责任的行为。下属、皇子、藩王和方面统帅自行建立的幕府或班底，默认只归其直接组织者；上级的例行官名批准、同朝任职或授权该组织者，不得使上级递归继承整套下属团队。只有统治者后来以独立行为将该人纳入本人责任体系时，才从该节点起计入。
+
+团队成员已经受正负池人数预算约束，不再叠加名次衰减。冻结成员在各自池内按其人才值或负面成员值全额进入求和，成员顺序仅用于可读展示，不影响数值。
+
+### 1. 人才能力档位 `talent_quality_factor`
+
+人才等级的事实门槛、成果归并和跨领域等价路径统一见 `docs/证据规则/公共成果登记与人物画像规则.md`，执行合同为 `config/talent-grade-v11-domain-equivalent-historic.yml`。本分项只把已经成立的公共档位映射为团队正池值，不在这里重新定档。
+
+| 公共档位 | 团队正池值 |
 | --- | ---: |
-| 历史级人才 | `1.6` |
-| 顶级人才 | `1.2` |
-| 重要人才 | `0.9` |
-| 可用人才 | `0.55` |
-| 普通人才 | `0.35` |
+| `ordinary` | 0.35 |
+| `usable` | 0.55 |
+| `important` | 0.90 |
+| `top` | 1.20 |
+| `historic` | 1.60 |
 
-### `role_complementarity_factor`
+### 2. 政治风险严重度 `political_risk_severity`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.9` | 功能同质化明显，主要集中在单一文官、军功、近幸或地方执行序列。 |
-| `1.0` | 常规互补，至少两个功能面有称职对象。 |
-| `1.1` | 较强互补，至少三个功能面有重要及以上对象承担。 |
-| `1.2` | 高度互补，决策、行政资源、军事安全、纠偏整合四个功能面均有重要及以上对象支撑。 |
+政治风险的事实门槛、排除项、严重度与影响范围统一见 `docs/证据规则/公共成果登记与人物画像规则.md`，执行合同为 `config/political-risk.yml`。本分项只消费当前皇帝窗口内已经成立的公共风险档位。
 
-### `long_term_stability_factor`
+| 公共严重度 | 团队负池值 |
+| --- | ---: |
+| `limited` | 0.25 |
+| `material` | 0.55 |
+| `serious` | 0.75 |
+| `major` | 1.00 |
+| `systemic` | 1.35 |
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.85` | 零散、短期、临时组合。 |
-| `1.0` | 稳定团队。 |
-| `1.1` | 长期稳定核心班底。 |
-| `1.2` | 长期可持续人才结构或成熟中枢团队。 |
+### 3. 负面类型
 
-## 六、`tolerate_talent` 容人保全
+公共风险类型只用于归责与去重，不附加本分项数值。
 
-适用：容谏、保全能臣、维护表达安全、避免滥杀能臣，以及相关负向反转。
+### 4. 功能互补系数 `functional_complementarity_factor`
 
-正向承载对象：被容纳、被保全、表达安全被保护或授权信用被修复的具体人才。
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `homogeneous` | 团队功能明显单一 | 0.90 |
+| `ordinary_two` | 具备两个主要功能面 | 1.00 |
+| `strong_three` | 三个主要功能面形成有效互补 | 1.10 |
+| `balanced_four` | 多个主要功能面均衡协同 | 1.20 |
 
-负向承载对象：被处置、受损、表达安全受压或人才安全受损的具体人才。
+### 5. 长期稳定系数 `long_term_stability_factor`
 
-### 正向公式
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `unstable_or_narrow` | 功能碎片化、强制更替断裂或长期覆盖过窄 | 0.85 |
+| `stable_window` | 窗口内稳定运行 | 1.00 |
+| `managed_turnover` | 成员有序更替且核心功能不断裂 | 1.10 |
+| `durable_multi_stage` | 跨多个阶段持续稳定运行 | 1.20 |
+
+亲信依赖只在形成反馈失真、滥权或任人唯亲事实时进入负池，不另设重复系数。
+
+功能互补和长期稳定是正向团队结构系数，只作用于正池。负池按实际暴露风险的严重度直接求和，不因正向团队越互补、越稳定而被放大或缩小。
+
+## 五、容人保全 `tolerate_talent`
+
+本分项评价统治者是否允许人才提出不同意见、保持专业自主、免受不当报复，并在冲突后完成修复。正向事件和负向处置分别计算。
 
 ```text
-raw_material_score =
+positive_raw_material_score =
   feedback_entry
-  * expression_safety
-  * protection_repair
-  * evidence_factor
-```
+  × expression_safety
+  × protection_repair
+  × evidence_factor
 
-### 负向公式
-
-```text
-raw_material_score =
+negative_raw_material_score =
   - handling_severity
-  * target_fault_factor
-  * evidence_factor
+  × target_fault_factor
+  × evidence_factor
 ```
 
-### `feedback_entry`
+### 1. 反馈入口 `feedback_entry`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.7` | 单次采纳或个案容忍。 |
-| `1.3` | 多次谏诤、犯颜、纠错仍能保留。 |
-| `1.7` | 反馈入口制度化，或谏臣能进入中枢议政链条。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `single_acceptance_or_tolerance` | 单次采纳或容忍不同意见 | 0.70 |
+| `repeated_feedback_retained` | 多次反馈后仍保留其职责和地位 | 1.00 |
+| `durable_multi_stage_feedback` | 跨阶段持续允许反馈 | 1.30 |
+| `exceptional_dense_sustained_feedback` | 长期、高密度容纳重大或犯颜反馈；可以集中于一个关键专业领域，也可以跨领域 | 1.70 |
+| `institutionalized_feedback_entry` | 建立并持续运行制度化反馈入口 | 2.00 |
 
-### `expression_safety`
+同一人的进谏次数不线性累加。制度化反馈入口必须有正式通道和多个独立运行事件，不能由单次求言或一人长期进谏代替。
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.8` | 能容忍但气氛紧张或依赖个案恩免。 |
-| `1.0` | 表达安全基本稳定。 |
-| `1.15` | 明确保护、保全或鼓励高质量反馈。 |
+### 2. 表达安全 `expression_safety`
 
-### `protection_repair`
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `tense_or_case_dependent` | 表达环境紧张，或依赖个案恩免 | 0.80 |
+| `basically_safe` | 基本安全，无实质报复 | 1.00 |
+| `actively_protected_or_encouraged` | 皇帝主动保护或鼓励表达 | 1.15 |
 
-| 值 | 口径 |
-| ---: | --- |
-| `1.0` | 无特殊补救。 |
-| `1.1` | 有恢复、平反、复碑、复官等补救。 |
-| `1.15` | 主动保护人才安全或修复授权信用。 |
+### 3. 保护与修复 `protection_repair`
 
-### `handling_severity`
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `none` | 无特殊保护或补救 | 1.00 |
+| `restoration_or_rehabilitation` | 恢复、平反或复官 | 1.10 |
+| `active_protection_or_trust_repair` | 主动保护或完整修复信用与信任 | 1.15 |
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.6` | 象征性信用撤销或轻处分。 |
-| `1.2` | 贬黜、压制、表达入口受损。 |
-| `1.8` | 下狱、械系、拷讯、重罚等严重但非永久性的人身处置。 |
-| `2.6` | 处死、赐死、逼令自尽，永久消灭单个具体人才。 |
-| `3.2` | 夷族、大规模牵连、功臣集团清洗、系统清洗或长期人才生态破坏。 |
+### 4. 处置严重度 `handling_severity`
 
-### `target_fault_factor`
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `symbolic_or_light` | 象征性或轻微处分 | 0.60 |
+| `demotion_or_suppression` | 贬黜、压制或排斥 | 1.20 |
+| `imprisonment_or_severe_nonpermanent_harm` | 监禁或严重但非永久性伤害 | 1.80 |
+| `execution_or_forced_suicide` | 处死或逼令自尽 | 2.60 |
+| `clan_or_systemic_purge` | 集团、家族或系统性清洗 | 3.20 |
 
-| 值 | 口径 |
-| ---: | --- |
-| `1.5` | 无故构陷、冤杀，或因谏言、表达、纠错而受害。 |
-| `1.2` | 过错轻微，处置明显不相称。 |
-| `1.0` | 材料能确认处置，但未说明具体罪名、证据或过错是否成立；不得因信息缺失排除负向。 |
-| `0.9` | 过错边界争议大，或嫌疑明显但未坐实。 |
-| `0.5` | 违法乱纪、重大过错或危险行为基本成立，但处置仍显过重。 |
-| `0.2` | 谋反、叛乱或严重危害基本坐实，但仍保留极弱的人才安全、表达安全或授权信用残余。 |
+### 5. 对象过错系数 `target_fault_factor`
 
-## 七、`anti_nepotism` 避免任人唯亲
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `framed_or_harmed_for_feedback` | 因反馈受害或遭构陷 | 1.50 |
+| `minor_fault_disproportionate_harm` | 轻过重罚 | 1.20 |
+| `fault_unknown` | 对象过错不明 | 1.00 |
+| `disputed_suspicion` | 存在争议性嫌疑 | 0.90 |
+| `major_fault_but_excessive_harm` | 有重大过错，但处置仍明显过重 | 0.50 |
+| `proven_rebellion_residual_talent_harm` | 谋反坐实后仅剩极弱的人才生态损害 | 0.20 |
 
-适用：抑制亲旧、近幸、外戚、宦官、宠臣或小圈子对核心任免的污染；也适用于公开择才、制度化选任、跨身份用人等正向材料。
+缺少实际处置、反馈模式或对象过错判断时，不得计算负向材料分。
 
-正向承载对象：被公开、公议、制度化或跨身份任用的具体对象或岗位任用链。
+### 6. 容人保全聚合
 
-负向承载对象：造成任用污染、排挤称职人才或扰乱关键岗位的小圈子、近幸、亲旧、外戚、宦官、宠臣或被其占据的岗位链。
-
-### 正向公式
+政策、行政、军事、专业、人事等只作场景标签，不设必填项。独立反馈—回应—安全—修复链先做对象内密度控制，再按通用12条上限和尾部衰减结算：
 
 ```text
-raw_material_score =
+object_side_score = min(
+  strongest_material + 0.35 × sum(secondary_materials),
+  strongest_material × 1.5,
+  4.0
+)
+
+side_signal = sum(settled_object_side_score)
+tolerate_talent.rule_raw_net = positive_signal - negative_signal
+```
+
+## 六、避免任人唯亲 `anti_nepotism`
+
+本分项处理公共任用对私人关系的抵抗、预防和纠偏，以及私人网络造成的任用污染。普通公开择才不自动计分；跨身份人才进入关键岗位或形成稳定开放机制时，可以计入正向槽位，无须存在同案私人关系对照。
+
+```text
+positive_raw_material_score =
   selection_openness
-  * institutionalization
-  * office_weight
-  * evidence_factor
-```
+  × institutionalization
+  × office_weight
+  × evidence_factor
 
-### 负向公式
-
-```text
-raw_material_score =
+negative_raw_material_score =
   - favoritism_intensity
-  * office_weight
-  * displacement_harm
-  * evidence_factor
+  × office_weight
+  × displacement_harm
+  × evidence_factor
 ```
 
-### `selection_openness`
+### 1. 选拔开放度 `selection_openness`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.7` | 个案中能避免明显私旧干扰。 |
-| `1.0` | 以能力、职掌或公议为主要任用依据。 |
-| `1.25` | 跨宗族、跨身份、跨阵营或破格公开择才。 |
-| `1.4` | 制度化、长期化地压制任人唯亲。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `avoids_private_interference_case` | 在个案中回避私人干预 | 0.70 |
+| `merit_or_formal_basis` | 依据能力或正式程序选拔 | 1.00 |
+| `cross_identity_open_selection` | 跨身份开放选拔 | 1.25 |
+| `broad_cross_identity_open_selection` | 在多个身份边界和关键岗位保持广泛开放 | 1.40 |
 
-### `institutionalization`
+### 2. 制度化程度 `institutionalization`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.8` | 单次事件。 |
-| `1.0` | 多次稳定做法。 |
-| `1.15` | 形成制度、规则或可持续选任机制。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `single_event` | 单次事件 | 0.80 |
+| `repeated_stable_practice` | 重复且稳定的实践 | 1.00 |
+| `durable_institution` | 持久运行的制度 | 1.15 |
 
-### `office_weight`
+### 3. 岗位权重 `office_weight`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.8` | 普通岗位。 |
-| `1.0` | 重要岗位。 |
-| `1.15` | 中枢、军政或继承相关关键岗位。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `ordinary` | 普通岗位 | 0.80 |
+| `important` | 重要岗位 | 1.00 |
+| `key_public_power_or_succession` | 国家中枢、关键地方、重大军政、全国核心专业系统或继承关键岗位 | 1.15 |
 
-### `favoritism_intensity`
+### 4. 徇私强度 `favoritism_intensity`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.7` | 亲旧、私人关系或近幸色彩明显。 |
-| `1.1` | 明显以私关系任用不称职对象。 |
-| `1.5` | 近幸、外戚、宦官或宠臣持续干预核心任免。 |
-| `2.0` | 小圈子、裙带或私人集团系统性污染用人秩序。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `visible_private_relation` | 私人关系明显，但尚未替代能力判断 | 0.70 |
+| `private_relation_over_merit` | 私人关系压过能力或正式程序 | 1.10 |
+| `continuing_core_appointment_interference` | 持续干预核心任用 | 1.50 |
+| `systemic_private_network_capture` | 私人网络系统性控制公共任用 | 2.00 |
 
-### `displacement_harm`
+### 5. 排挤损害 `displacement_harm`
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.7` | 未见实际排挤称职人才，主要停留在道德观感或任用观感。 |
-| `1.0` | 排挤称职人才或扰乱关键岗位。 |
-| `1.4` | 损害团队结构、政策执行或表达安全。 |
-| `2.0` | 形成长期制度性任用污染。 |
+| 档位代码 | 中文档位 | 系数 |
+| --- | --- | ---: |
+| `optics_only` | 主要损害任用公信与观感 | 0.70 |
+| `qualified_people_or_key_office_harmed` | 合格人才或关键岗位受到损害 | 1.00 |
+| `team_policy_or_expression_structure_harmed` | 团队、政策或表达结构受到损害 | 1.40 |
+| `durable_institutional_pollution` | 形成长期制度污染 | 2.00 |
 
-## 八、规则原始信号聚合
+网络范围不能直接代替实际排挤损害；缺少损害观察时，不得计算负向材料分。
 
-各 rule 的材料按正负两侧分别聚合，再直接相减，得到规则原始净信号。规则层不做人物档位重映射。claim-material 聚合器是跨 rule 的通用能力，完整通用约束见 [`证据簇计算公式.md#claim-入分材料密度聚合`](../../证据规则/证据簇计算公式.md#claim-入分材料密度聚合)；是否启用及具体参数只由各 rule 的 `eval_rule_material_policies.policy_payload.side_aggregation` 决定。
+### 6. 避免任人唯亲聚合
 
-声明 `mode=hierarchical_rank_decay` 的 claim-driven rule 对正负两侧分别执行：
+中枢、军事、地方、宫廷、宗室、储位和选任制度只作场景标签。独立私人关系—公共任用影响链先做对象内密度控制，再按通用12条上限和尾部衰减结算：
 
 ```text
-material_weight(rank) = 1 / rank ^ material_decay
-event_weight(rank) = 1 / rank ^ event_decay
-object_weight(rank) = 1 / rank ^ object_decay
+object_side_score = min(
+  strongest_material + 0.35 × sum(secondary_materials),
+  strongest_material × 1.5,
+  4.0
+)
 
-event_value = sum(material_score_i * material_weight(rank_i))
-object_value = sum(event_value_j * event_weight(rank_j))
-side_signal = lane_scale * sum(object_value_k * object_weight(rank_k))
+side_signal = sum(settled_object_side_score)
+anti_nepotism.rule_raw_net = positive_signal - negative_signal
 ```
 
-每条正式入分材料的聚合权重必须严格大于零；不使用 Top-K，不设置事件数、对象数或材料数硬上限，不在聚合层截断侧向总信号。材料先按 `canonical_event_group` 聚合；缺少 event group 的正式入分材料以自身 claim key 作为独立事件键，不得丢弃。单条材料仍遵守本文件既有 `[-4.0, +4.0]` 因子结果边界，这不是材料数量上限。
+## 七、第五项 B 原始信号
 
-当前已启用实例：
-
-| rule | policy version | material decay | event decay | object decay | positive scale | negative scale |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| `appointment_delegation` | `v3-native-density-decay-20260711` | `1.0` | `1.0` | `0.5` | `1.5` | `1.0` |
-
-该实例参数是刘邦、李世民、朱元璋三人试点的临时尺度。扩展其他皇帝前必须对全体样本重新做敏感性分析，不得自动复制到其他 rule。其他 claim-driven rule 若未在自己的规则表声明该 mode，继续使用其当前聚合公式；`team_building` 以对象池为计分单元，不进入 claim-material 聚合器。
-
-所有启用实例都必须在 `rank_decay_detail` 中为每条正式入分材料记录 `claim_key`、`binding_code`、`factor_judgment_id`、rank、weight 和 weighted value。raw claim 数量只进入覆盖和诊断报告，不作为额外加分因子。
-
-聚合后统一输出：
-
-```text
-rule_raw_net(rule) =
-  positive_signal(rule) - negative_signal(rule)
-```
-
-`rule_raw_net` 是动态计分前的原始数据。它只表达本 rule 下已回源材料的正负净信号，不直接等同于最终得分率、最终档位或历史极限。
-
-某个 `rule_code` 没有证据簇时，按：
-
-```text
-positive_signal = 0
-negative_signal = 0
-rule_raw_net = 0
-```
-
-## 九、动态计分输入权重
-
-输入：
-
-```text
-rule_raw_net(rule) = positive_signal(rule) - negative_signal(rule)
-max_score          = 45
-```
-
-批量动态计分前，先保留各 rule 的 `positive_signal`、`negative_signal` 和 `rule_raw_net`。若需要形成单项综合原始信号，可使用以下权重：
+五个分项先各自得到净原始信号，再按固定权重合成：
 
 ```text
 weighted_raw_signal =
-  0.19 * talent_discovery.rule_raw_net
-+ 0.36 * appointment_delegation.rule_raw_net
-+ 0.21 * team_building.rule_raw_net
-+ 0.18 * tolerate_talent.rule_raw_net
-+ 0.06 * anti_nepotism.rule_raw_net
+  0.19 × talent_discovery.rule_raw_net
++ 0.36 × appointment_delegation.rule_raw_net
++ 0.21 × team_building.rule_raw_net
++ 0.18 × tolerate_talent.rule_raw_net
++ 0.06 × anti_nepotism.rule_raw_net
 ```
 
-最终 `score_rate` 和 `score` 不在单个皇帝完成时按固定公式即时生成。应在一批目标的原始信号全部算完后，以标杆人物、分布形态、合理区分度和评分总则档位为约束，进行动态区间映射。评分总则中的历史极限、历史顶级、优秀等最终得分率档位仍保留在最终解释层，不在 rule 原始信号层重复定档。
+`weighted_raw_signal` 是批次动态映射的输入，不是得分率，也不是 45 分制得分。经适用性判断确认无可计分材料的侧信号记为零；证据不足或无法投影时结果为空，不得以零分代替。
 
-## 十、跨项复用边界
+## 八、45 分动态映射
 
-本章只用于人工审核和跨项候选复用，不得作为 candidate 或 factorization prompt 的排他性门禁。每个 rule 必须按自己的“适用”说明独立判断：材料满足当前 rule 时必须保留当前候选并正常计分；即使同一事实也能支持其他 rule 或 item，也不得因此降低 `context_factor`、改成 `supporting_only` 或 `exclude`。
+最终得分必须在包含多名皇帝的冻结批次中，根据原始信号分布和标杆进行单调映射。单名皇帝只能计算稳定的五项净原始信号与加权原始信号，不能单独完成 45 分定标。
 
-- 与 I5C：I5B 评价用人、授权、团队、容才和反亲私；I5C 评价权力结构是否可控、可约束、可纠偏。任用某人及其授权结果按 I5B rule 独立判断；同一事实涉及权力结构平衡或失控时，可同时保留 I5C 候选。
-- 与 I5D：I5D 评价政治品格、待功臣、猜忌滥杀、仁暴取向等价值面；I5B 只在这些行为影响人才识别、任用授权、团队质量、容人保全或任用公正时入分。
-- 与 I5E：I5E 评价认知、纳谏、学习、纠错能力；I5B 只评价反馈对象是否作为人才被容纳、保全、任用或进入稳定团队链条。
-- 与 I6：I6 评价关键决策质量；I5B 评价关键决策中的用人和授权质量。同一事实满足两边 rule 时分别保留候选，不以“更像决策”排除任用授权结果。
-- 与 I3：I3 评价军事边疆结果；I5B 评价将帅发现、任用授权、团队配置和人才保全。军事成果若是同一任用授权链的职责结果，必须计入 `appointment_delegation` 的结果反馈，也可同时作为 I3 候选。
+动态映射快照必须固定以下内容：
 
-同一材料可以服务多个 rule 或 item，分别按各自规则独立窄验。单个 rule 内仍执行同一 `claim_id + object_id + side` 的 role 去重；跨 rule 或跨 item 不以“语义重叠”为由预先排除符合规则的材料。
+| 固定项 | 中文解释 |
+| --- | --- |
+| 校准版本 | 本次映射规则的唯一版本 |
+| 皇帝批次 | 共同参与定标的皇帝集合 |
+| 输入指纹 | 各分项原始信号及批次输入的内容指纹 |
+| 标杆 | 用于校准高、中、低位置的参照对象 |
+| 分布摘要 | 批次原始信号的范围与分布 |
+| 单调映射定义 | 原始信号越高，映射结果不得反向降低 |
+| 间距诊断 | 检查结果是否具有合理区分度 |
+| 人工批准 | 对本次映射快照的正式接受决定 |
+
+映射快照未批准时，45 分得分、得分率和档位均保持为空；重新映射必须生成新版本，不得覆盖旧结果。
+
+## 九、重复结算边界
+
+| 事实类型 | 主要计入分项 | 不重复计入 |
+| --- | --- | --- |
+| 首次进入有效视野 | 发现人才 | 后续岗位适配不再计发现人才 |
+| 跨身份人才的识别与晋升 | 首次识别归发现人才；后续进入关键岗位或开放机制归避免任人唯亲 | 同一次识别或任用决定不得同时计入两条 rule |
+| 人岗配置与授权反馈 | 任用授权质量 | 实际军事、治理或文明净收益仍归对应大项 |
+| 时间窗口内的团队整体结构 | 建立团队 | 不重复累加成员的单次发现或任用材料分 |
+| 人才反馈、安全与冲突修复 | 容人保全 | 一般纳谏能力不在本分项重复结算 |
+| 私人关系对公共任用的影响 | 避免任人唯亲 | 一般权力失控不在本分项重复结算 |
+
+同一决策弧、同一业务收益或同一损害只能有一个主要结算归属。其他分项可以引用同一事实作辅助证据，但不得再次计分。
