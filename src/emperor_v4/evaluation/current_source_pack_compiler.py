@@ -18,6 +18,7 @@ from emperor_v4.evaluation.historical_outcome_cluster import (
     STRATEGIC_RESULT_TIER,
     cluster_semantic_fingerprint,
 )
+from emperor_v4.persistence.canonical_refs import canonical_hashed_ref
 
 
 SCHEMA_VERSION = "current-source-pack-increment-v2"
@@ -129,6 +130,34 @@ def compile_source_pack_increment(
         ]
         cluster["semantic_fingerprint"] = cluster_semantic_fingerprint(cluster)
     compiled["outcome_registry"]["clusters"] = clusters
+    roster_rows = [
+        json.loads(json.dumps(row, ensure_ascii=False))
+        for row in compiled.get("members") or ()
+    ]
+    roster_by_name = {
+        str(row["person"]): str(row["person_ref"]) for row in roster_rows
+    }
+    roster_names_by_ref = {ref: name for name, ref in roster_by_name.items()}
+    added_roster_rows: list[dict[str, str]] = []
+    for cluster in increment.get("outcomes") or ():
+        for member in cluster.get("members") or ():
+            if str(member.get("actor_kind") or "") != "person":
+                continue
+            name = str(member.get("actor_name") or "")
+            ref = str(member.get("actor_ref") or "")
+            if not name or not ref:
+                continue
+            previous_ref = roster_by_name.get(name)
+            previous_name = roster_names_by_ref.get(ref)
+            if previous_ref not in {None, ref} or previous_name not in {None, name}:
+                raise ValueError(f"公共成果人物身份冲突: {name}/{ref}")
+            if previous_ref is None:
+                added_roster_rows.append({"person": name, "person_ref": ref})
+            roster_by_name[name] = ref
+            roster_names_by_ref[ref] = name
+    compiled["members"] = roster_rows + sorted(
+        added_roster_rows, key=lambda row: (row["person"], row["person_ref"])
+    )
     dispositions = compiled.get("three_channel_disposition") or {}
     dynasty_governance = dispositions.get("dynasty_governance") or {}
     dynasty_governance["ruler_window_achievement_count"] = sum(
@@ -436,6 +465,25 @@ def compile_outcome_candidate_payloads(
                     raise ValueError(f"{candidate_key} 参与者重复: {name}")
                 member_names.add(name)
                 binding = actor_refs.get(name)
+                if (
+                    binding is None
+                    and candidate["origin"] == "dynasty_governance"
+                    and raw_member["actor_kind"] in {"person", "ruler"}
+                    and _T2S.convert(name)
+                    in "\n".join(_T2S.convert(text) for text in evidence_texts)
+                ):
+                    prefix = (
+                        "RULER"
+                        if raw_member["actor_kind"] == "ruler"
+                        else "PER-V4"
+                    )
+                    length = 16 if prefix == "RULER" else 12
+                    binding = (
+                        canonical_hashed_ref(prefix, name, length=length),
+                        raw_member["actor_kind"],
+                    )
+                    actor_refs[name] = binding
+                    actor_names_by_simplified[_T2S.convert(name)] = name
                 if binding is None or binding[1] != raw_member["actor_kind"]:
                     raise ValueError(f"{candidate_key} 参与者不属于当前皇帝或团队: {name}")
                 authorization_quotes = list(

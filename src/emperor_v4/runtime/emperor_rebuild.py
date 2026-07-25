@@ -59,7 +59,7 @@ STAGE_MANIFEST_SCHEMA_VERSION = "emperor-stage-manifest-v1"
 STAGE_CONTRACTS = {
     "source_inventory": "source-inventory-stage-v1",
     "neutral_materials": "shared-directed-neutral-stage-v5",
-    "outcome_projection": "shared-outcome-profile-projection-stage-v18",
+    "outcome_projection": "shared-outcome-profile-projection-stage-v19",
     "current_projection": "shared-profile-window-i5b-stage-v4",
 }
 

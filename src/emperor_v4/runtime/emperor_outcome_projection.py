@@ -21,7 +21,7 @@ from emperor_v4.runtime.structured_codex_runner import (
 
 
 SCHEMA_VERSION = "current-outcome-projection-v2"
-PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v20"
+PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v21"
 LEGACY_PROJECTION_POLICY_VERSION = "current-outcome-projection-policy-v6"
 _T2S = OpenCC("t2s")
 
@@ -150,12 +150,13 @@ def _prompt(
 16. 带有同一 event_refs 的跨书事实属于同一中性事件，只能合并判断，不得按史书重复生成成果。
 17. 治理成果必须判断生产力与民生、文明与制度进步、国家与民众安全、文化教育与思想活力四个公共价值轴；国家安全不包括皇权自身安全。不要复原抽象的“时代平均水平”，只比较这项举措前后的具体状态。value_judgment.basis 固定写“基线：举措前是什么；变化：实施后改变什么；结果：史料观察到什么”。史料直接记载前后变化用 explicit_before_after，与旧制明确比较用 prior_institution_comparison，由已引事实归纳旧状态用 inferred_prior_state；三项说不清时用 not_established 且 overall_direction=unclear。每轴分别写方向、影响强度和依据；影响范围 scale 不能代替影响强度。负向轴使用恶化、加重、压缩或损害等方向词，不得写成“改善”；不按现代完美标准，也不把远期推测当作已发生结果。
 18. 治理成员必须写 contribution_types 与 contribution_basis_fact_refs。政策/制度设计、持续治理、关键执行、纠偏和单纯授权、学术撰写必须分开；文化工程的组织授权不能自动转成治理人才信用，学术撰写也不能自动转成治理信用。
-19. 治理成果的时段只用于寻找窗口候选，不能单独归责皇帝。只有逐字事实支持皇帝首创、重新建立或对适用范围、权利义务、执行结构、公共结果作出重要完善时，才登记 ruler 成员；单纯沿用和仅与在位期重叠者不登记。无 ruler 成员的共享治理成果不得伪填 within_window 来取得皇帝治理信用；跨朝结果链须在成员 contribution_scope 中写清责任阶段，独立的重大改造或撤废另立成果。
-20. 都护府、军镇、边疆州县与人口安置必须检查国家与民众安全轴及战略范围。疆域或机构增长不自动算正面；只有边患下降、防线或交通稳定、战略压力改善等实际结果才建立正向安全价值，长期征发、失地、骚扰与地方冲突同时进入代价判断。
-21. EXISTING_OUTCOMES 中同一历史结果即使来自另一史源或名称略有差异，也必须并入既有成果，不得因人物列传与政书分别抽取而重复登记。
-22. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v3，task_code={task_code}。
-23. INPUT_FACTS 中每个 fact_ref 必须恰有明确处置：candidate.evidence_links 引用它，或在 rejections 中逐项写出 fact_ref 和理由。不得按 segment 粗粒度吞掉同段其他事实。
-24. 同一段引文若同时包含彼此独立的战役结果与治理结果，必须分别生成 candidate，不得把治理结果并入战役 observable_result，也不得用其中一个 candidate 代替另一个。明确记载“遂克长安”时必须形成 campaign 候选；明确记载“与民约法……悉除……苛禁”时必须另形成 governance 候选。
+19. 朝代政书成果的人物归责不受当前皇帝团队名单限制。逐字证据明确点名政策设计者、制度开创者、关键实施交付者或重大纠偏者时必须登记；仅沿用既有制度、普通参与、奉行常规职务或只在场者不得登记。新人物姓名必须能在该成果 evidence_links 的逐字引文中回指，否则失败关闭。
+20. 治理成果的时段只用于寻找窗口候选，不能单独归责皇帝。只有逐字事实支持皇帝首创、重新建立或对适用范围、权利义务、执行结构、公共结果作出重要完善时，才登记 ruler 成员；单纯沿用和仅与在位期重叠者不登记。无 ruler 成员的共享治理成果不得伪填 within_window 来取得皇帝治理信用；跨朝结果链须在成员 contribution_scope 中写清责任阶段，独立的重大改造或撤废另立成果。
+21. 都护府、军镇、边疆州县与人口安置必须检查国家与民众安全轴及战略范围。疆域或机构增长不自动算正面；只有边患下降、防线或交通稳定、战略压力改善等实际结果才建立正向安全价值，长期征发、失地、骚扰与地方冲突同时进入代价判断。
+22. EXISTING_OUTCOMES 中同一历史结果即使来自另一史源或名称略有差异，也必须并入既有成果，不得因人物列传与政书分别抽取而重复登记。
+23. 输出严格符合 schema；schema_version=current-outcome-candidate-output-v3，task_code={task_code}。
+24. INPUT_FACTS 中每个 fact_ref 必须恰有明确处置：candidate.evidence_links 引用它，或在 rejections 中逐项写出 fact_ref 和理由。不得按 segment 粗粒度吞掉同段其他事实。
+25. 同一段引文若同时包含彼此独立的战役结果与治理结果，必须分别生成 candidate，不得把治理结果并入战役 observable_result，也不得用其中一个 candidate 代替另一个。明确记载“遂克长安”时必须形成 campaign 候选；明确记载“与民约法……悉除……苛禁”时必须另形成 governance 候选。
 
 EXISTING_OUTCOMES:
 {json.dumps(list(existing_outcomes), ensure_ascii=False, sort_keys=True, separators=(",", ":"))}

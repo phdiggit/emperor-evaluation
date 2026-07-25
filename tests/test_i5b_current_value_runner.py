@@ -493,6 +493,102 @@ def test_governance_candidate_compiles_cross_source_lineage_once(
     assert len(increment["outcomes"][0]["source_refs"]) == 2
 
 
+def test_dynasty_governance_named_creator_joins_public_roster(
+    tmp_path: Path,
+) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    quote = "孟简主持开浚孟渎，得沃壤四千余顷。"
+    index_path = tmp_path / "dynasty-governance-attribution.sqlite3"
+    build_local_source_index(
+        [
+            {
+                "page_title": "政书/卷一",
+                "work_title": "政书",
+                "source_url": "local:governance",
+                "revision_ref": "1",
+                "raw_text": quote,
+            }
+        ],
+        index_path,
+    )
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate.update(
+        {
+            "origin": "dynasty_governance",
+            "source_page": "政书/卷一",
+            "revision_ref": "1",
+            "exact_quotes": [quote],
+            "neutral_summary": "孟简主持开浚孟渎并形成沃壤。",
+            "observable_result": "开浚孟渎后形成沃壤四千余顷。",
+            "evidence_links": [
+                {
+                    "fact_ref": "NEUTRALFACT-TEST",
+                    "source_page": "政书/卷一",
+                    "revision_ref": "1",
+                    "exact_quote": quote,
+                    "evidence_roles": [
+                        "implementation_or_operation",
+                        "public_result",
+                        "responsibility_or_attribution",
+                    ],
+                }
+            ],
+        }
+    )
+    candidate["members"][0].update(
+        {
+            "actor_name": "孟简",
+            "actor_kind": "person",
+            "contribution_scope": "主持开浚孟渎并交付沃壤结果",
+            "contribution_types": ["implementation_lead", "operational_delivery"],
+            "authorization_quotes": [quote],
+        }
+    )
+
+    increment = compile_outcome_candidate_payloads(
+        source_pack,
+        [payload],
+        source_index=LocalSourceTextIndex(index_path),
+        schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+    )
+    member = increment["outcomes"][0]["members"][0]
+    assert member["actor_name"] == "孟简"
+    assert member["actor_ref"].startswith("PER-V4-")
+
+    compiled = compile_source_pack_increment(source_pack, increment)
+    assert {
+        (row["person"], row["person_ref"]) for row in compiled["members"]
+    } >= {("孟简", member["actor_ref"])}
+
+
+def test_dynasty_governance_new_actor_requires_verbatim_name(
+    tmp_path: Path,
+) -> None:
+    source_pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    payload = _governance_candidate_payload()
+    candidate = payload["candidates"][0]
+    candidate["origin"] = "dynasty_governance"
+    candidate["members"][0].update(
+        {"actor_name": "未见于引文者", "actor_kind": "person"}
+    )
+    with pytest.raises(ValueError, match="参与者不属于当前皇帝或团队"):
+        compile_outcome_candidate_payloads(
+            source_pack,
+            [payload],
+            source_index=_campaign_contract_index(tmp_path),
+            schema_path=ROOT / "config/current-outcome-candidate-output.schema.json",
+        )
+
+
 def test_outcome_projection_normalizes_governance_window_scope() -> None:
     payload = _governance_candidate_payload()
     candidate = payload["candidates"][0]
