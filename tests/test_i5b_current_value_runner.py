@@ -2792,6 +2792,7 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
     project = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
     rulers = project["i5b_current_value"]["rulers"]
     dynasty_execution = project["i5b_current_value"]["dynasty_execution"]
+    neutral_reuse = project["neutral_material_reuse"]
 
     li_shimin = _shared_backbone_contract(project=project, ruler="李世民")
     li_yuan = _shared_backbone_contract(project=project, ruler="李渊")
@@ -2828,6 +2829,12 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
         ],
         "next_ruler_requires_previous_public_registry_accepted": True,
     }
+    assert neutral_reuse["single_dynasty_governance_workflow"] == (
+        "docs/证据规则/单朝代治理会话工作流.md"
+    )
+    assert neutral_reuse["single_emperor_session_workflow"] == (
+        "docs/证据规则/单皇帝主控会话工作流.md"
+    )
 
 
 def test_shared_subject_coverage_requires_every_ruler_window_to_be_resolved() -> None:
