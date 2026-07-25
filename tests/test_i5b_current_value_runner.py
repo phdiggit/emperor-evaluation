@@ -2791,6 +2791,7 @@ def test_two_ruler_local_ranges_must_be_promoted_when_they_overlap() -> None:
 def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse() -> None:
     project = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
     rulers = project["i5b_current_value"]["rulers"]
+    dynasty_execution = project["i5b_current_value"]["dynasty_execution"]
 
     li_shimin = _shared_backbone_contract(project=project, ruler="李世民")
     li_yuan = _shared_backbone_contract(project=project, ruler="李渊")
@@ -2818,6 +2819,15 @@ def test_current_tang_shared_backbone_has_one_contract_and_no_ruler_pack_reuse()
         "neutral_material_reuse_rulers" not in configured
         for configured in rulers.values()
     )
+    assert dynasty_execution == {
+        "same_dynasty_ruler_mode": "serial",
+        "governance_baseline_before_ruler_chain": True,
+        "ruler_governance_increment_sources": [
+            "ruler_chronicle",
+            "person_biography",
+        ],
+        "next_ruler_requires_previous_public_registry_accepted": True,
+    }
 
 
 def test_shared_subject_coverage_requires_every_ruler_window_to_be_resolved() -> None:

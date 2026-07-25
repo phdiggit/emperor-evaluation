@@ -17,6 +17,11 @@ current_scope:
 
 i5b_current_value:
   runner: emperor_v4.evaluation.i5b_current_value_runner
+  dynasty_execution:
+    same_dynasty_ruler_mode: serial
+    governance_baseline_before_ruler_chain: true
+    ruler_governance_increment_sources: [ruler_chronicle, person_biography]
+    next_ruler_requires_previous_public_registry_accepted: true
   rulers:
     李世民:
       source_pack: eval/i5b_current_value/李世民/source-pack.json
