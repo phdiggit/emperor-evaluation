@@ -161,6 +161,78 @@ def test_source_cache_request_submission_is_idempotent_and_conflicts_fail(
         raise AssertionError("same request_id with changed content must fail")
 
 
+def test_directory_only_request_discovers_inventory_without_caching_pages(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    _write(
+        repo / "config/project.yml",
+        "dynasty_governance_catalog: {dynasties: {}}\n",
+    )
+    _write(repo / "config/scope.yml", "dynasties: {}\n")
+    catalog = repo / "config/workflow-source-cache.yml"
+    _write(
+        catalog,
+        """
+schema_version: workflow-source-cache-catalog-v1
+source_catalogs:
+  search_scope: config/scope.yml
+  project: config/project.yml
+  derive_neutral_material_works: false
+  derive_dynasty_governance_works: false
+carriers:
+  defaults:
+    - carrier_id: test
+      provider_code: wikisource
+""",
+    )
+    request = tmp_path / "directory-request.json"
+    request.write_text(
+        json.dumps(
+            {
+                "schema_version": "workflow-source-cache-request-v1",
+                "request_id": "directory-only",
+                "collection_id": "DIRECTORY",
+                "works": [{"work_title": "大典", "root_title": "大典"}],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    request_root = tmp_path / "requests"
+    assert submit_source_cache_request(
+        request_path=request, request_root=request_root
+    )["status"] == "submitted"
+
+    fetched: list[tuple[str, ...]] = []
+    first = run_workflow_source_cache_once(
+        catalog_path=catalog,
+        repo_root=repo,
+        state_root=tmp_path / "state",
+        request_root=request_root,
+        index_root=tmp_path / "indexes",
+        list_pages=lambda **_kwargs: ("大典/卷1", "大典/卷2"),
+        fetch_pages=lambda *, page_titles, **_kwargs: (
+            fetched.append(tuple(page_titles)) or {}
+        ),
+    )
+    assert first["action"] == "inventory_discovered"
+    second = run_workflow_source_cache_once(
+        catalog_path=catalog,
+        repo_root=repo,
+        state_root=tmp_path / "state",
+        request_root=request_root,
+        index_root=tmp_path / "indexes",
+        list_pages=lambda **_kwargs: ("大典/卷1", "大典/卷2"),
+        fetch_pages=lambda *, page_titles, **_kwargs: (
+            fetched.append(tuple(page_titles)) or {}
+        ),
+    )
+    assert second["action"] == "idle"
+    assert second["network_request_count"] == 0
+    assert fetched == []
+
+
 def test_existing_local_index_is_a_zero_download_seed(tmp_path: Path) -> None:
     repo = tmp_path / "repo"
     _write(repo / "config/project.yml", "dynasty_governance_catalog: {dynasties: {}}\n")

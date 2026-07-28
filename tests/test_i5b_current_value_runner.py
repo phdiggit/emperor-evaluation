@@ -9664,16 +9664,18 @@ def test_unbound_outcome_registry_precedes_ruler_window_projection() -> None:
             assert "ruler_campaign_relation" not in member
 
     rendered = render_unbound_historical_outcome_registry_markdown(registry)
-    assert "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）" in rendered
-    assert "总成果：78" in rendered
+    assert "# 战役与谋略成果总登记（旧治理登记已停用）" in rendered
+    assert "## 治理登记（旧制停用）" in rendered
+    assert "当前可消费成果：45" in rendered
+    assert "旧治理：33（停用，仅保留于JSON作迁移输入）" in rendered
     assert "谋略：6" in rendered
-    assert "永徽律令格式与《律疏》编定颁行" in rendered
+    assert "永徽律令格式与《律疏》编定颁行" not in rendered
     assert "ruler_window_status" not in rendered
     assert "战役群" in rendered
     assert "主帅" in rendered
     assert "前线指挥" in rendered
-    assert "全国核心子系统" in rendered
-    assert "因果已建立" in rendered
+    assert "全国核心子系统" not in rendered
+    assert "因果已建立" not in rendered
     assert "campaign_group" not in rendered
     assert "commander_in_chief" not in rendered
     assert "frontline_command" not in rendered

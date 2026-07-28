@@ -181,6 +181,16 @@ dynasty_governance_catalog:
             knowledge_context: [藝文志]
           target_scope: 仅抽取西汉实际实施、运行或产生可观察结果的官制、选官、法律、财政、水利、军政、边疆、教育与公共礼制事实；艺文目录只作知识背景，不得独立登记为治理成果。
           domain_focus: [官制, 选官, 法律刑狱, 财政经济, 水利, 军制边政, 教育礼制]
+        - work: 西漢會要
+          source_genre: institutional_compendium
+          page_titles:
+            - 西漢會要/卷61
+            - 西漢會要/卷62
+            - 西漢會要/卷63
+          section_groups:
+            law_and_adjudication: [刑法一, 刑法二, 刑法三]
+          target_scope: 补足《汉书·刑法志》对具体制议、人物责任、疑狱复核、刑罚更张和实际后果的压缩；只抽取西汉已经实施、运行或产生结果的事实，并回指其所引《汉书》等原始史料。
+          domain_focus: [法律刑狱, 司法复核, 制度归责]
     东汉:
       aliases: [后汉]
       dynasty_token: EASTERN-HAN
@@ -193,8 +203,11 @@ dynasty_governance_catalog:
             frontier: [西羌傳, 南匈奴列傳]
           target_scope: 仅抽取东汉实际实施、运行或产生可观察结果的中央官制、公共礼制与边疆治理事实；郡国静态清单不作为默认扫描范围。
           domain_focus: [官制, 公共礼制, 边疆治理]
-        - work: 東漢會要
+        - work: 東漢㑹要 (四庫全書本)
           source_genre: institutional_compendium
+          page_titles:
+            - 東漢㑹要 (四庫全書本)/卷35
+            - 東漢㑹要 (四庫全書本)/卷36
           section_groups:
             education_and_selection: [學校, 選舉]
             law_and_discipline: [刑法, 黨錮]
@@ -356,6 +369,15 @@ dynasty_governance_catalog:
       source_works:
         - work: 宋會要輯稿
           source_genre: institutional_compendium
+          page_titles:
+            - 宋會要輯稿/卷224
+            - 宋會要輯稿/卷225
+            - 宋會要輯稿/卷226
+            - 宋會要輯稿/卷227
+            - 宋會要輯稿/卷228
+            - 宋會要輯稿/卷229
+            - 宋會要輯稿/卷230
+            - 宋會要輯稿/卷231
           section_groups:
             bureaucracy: [職官]
             selection: [選舉]
@@ -367,6 +389,25 @@ dynasty_governance_catalog:
             frontier_and_external_relations: [蕃夷]
           target_scope: 仅抽取宋代实际实施、运行或产生可观察结果的制度事实，保存具体纪年并区分北宋、南宋；礼类不全扫，只有公共社会影响明确时定向补入。
           domain_focus: [官制, 选官, 法律刑狱, 财政民生, 军制边政, 教育知识, 宗教社会]
+        - work: 文獻通考 (四庫全書本)
+          source_genre: cross_dynasty_institutional_compendium
+          page_titles:
+            - 文獻通考 (四庫全書本)/卷162
+            - 文獻通考 (四庫全書本)/卷163
+            - 文獻通考 (四庫全書本)/卷164
+            - 文獻通考 (四庫全書本)/卷165
+            - 文獻通考 (四庫全書本)/卷166
+            - 文獻通考 (四庫全書本)/卷167
+            - 文獻通考 (四庫全書本)/卷168
+            - 文獻通考 (四庫全書本)/卷169
+            - 文獻通考 (四庫全書本)/卷170
+            - 文獻通考 (四庫全書本)/卷171
+            - 文獻通考 (四庫全書本)/卷172
+            - 文獻通考 (四庫全書本)/卷173
+          section_groups:
+            law: [刑考]
+          target_scope: 作为上古至宋代的跨朝法律节点与横向校准材料；各条必须回填到其所述朝代，宋代部分用于补《宋会要辑稿》当前载体缺页，不把后世政书作者意见直接登记为本朝成果。
+          domain_focus: [法律刑狱]
     西夏:
       aliases: [夏国]
       dynasty_token: WESTERN-XIA
@@ -511,6 +552,12 @@ dynasty_governance_catalog:
       aliases: [后金]
       dynasty_token: QING
       source_works:
+        - work: 皇朝文獻通考 (四庫全書本)
+          source_genre: imperial_institutional_compendium
+          required_page_titles:
+            law: [卷195, 卷196, 卷197, 卷198, 卷199, 卷200, 卷201, 卷202, 卷203, 卷204, 卷205, 卷206, 卷207, 卷208, 卷209, 卷210]
+          target_scope: 以顺治至乾隆的具年制度节点、奏议采纳、复核运行和人物责任补清史稿主干；史臣颂词与一般个案不得直接计分。
+          domain_focus: [律例编修, 刑罚变革, 死刑复核, 详谳平反, 徒流赎刑, 运行指标]
         - work: 大清會典事例
           source_genre: administrative_code_and_precedents
           section_groups:
