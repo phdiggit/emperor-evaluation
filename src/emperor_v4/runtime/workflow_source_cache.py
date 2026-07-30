@@ -259,8 +259,6 @@ def submit_source_cache_request(
     for work in works:
         if not isinstance(work, Mapping) or not str(work.get("work_title") or "").strip():
             raise ValueError("workflow Source Cache request work 缺少 work_title")
-        if not _required_titles(work):
-            raise ValueError("workflow Source Cache request work 缺少明确 page 需求")
     encoded = (
         json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     ).encode("utf-8")
@@ -825,11 +823,7 @@ def run_workflow_source_cache_once(
                 catalog=catalog, work=work, state_root=state_root
             )
             required = _required_titles(work)
-            if (
-                not required
-                and str(collection.get("purpose") or "")
-                == "background_workflow_preload"
-            ):
+            if not required:
                 continue
             for route, inventory in inventories:
                 inventory_titles = tuple(

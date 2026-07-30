@@ -1480,14 +1480,18 @@ def render_unbound_historical_outcome_registry_markdown(
     registry: Mapping[str, Any],
 ) -> str:
     declarations = registry["declarations"]
+    active_outcome_count = (
+        int(declarations["campaign_count"])
+        + int(declarations["statecraft_count"])
+    )
     lines = [
-        "# 战役、治理与谋略成果总登记（未绑定皇帝窗口）",
+        "# 战役与谋略成果总登记（旧治理登记已停用）",
         "",
-        "> 本表只审成果本体。皇帝窗口、规则材料、人才信用和计分均未投影。",
+        "> 旧治理登记不再作为正式事实或评分输入；待各治理领域底账完成后确定性重建。现表只消费战役与人物谋略，且仍未绑定皇帝窗口或计分。",
         "",
-        f"- 总成果：{declarations['outcome_count']}",
+        f"- 当前可消费成果：{active_outcome_count}",
         f"- 战役：{declarations['campaign_count']}",
-        f"- 治理：{declarations['governance_count']}",
+        f"- 旧治理：{declarations['governance_count']}（停用，仅保留于JSON作迁移输入）",
         f"- 谋略：{declarations['statecraft_count']}",
         f"- 窗口绑定：{declarations['window_binding_count']}",
         f"- 规则材料：{declarations['rule_evidence_unit_count']}",
@@ -1568,16 +1572,13 @@ def render_unbound_historical_outcome_registry_markdown(
             + " |"
         )
 
-    governance = [
-        row for row in registry["outcomes"] if row["outcome_kind"] == "governance"
-    ]
+    governance: list[Mapping[str, Any]] = []
     lines.extend(
         [
             "",
-            "## 治理登记",
+            "## 治理登记（旧制停用）",
             "",
-            "| 登记号 | 治理成果 | 类型 | 时段 | 运行状态 | 价值方向 | 相对历史基线与四轴进步 | 规模 | 因果归责 | 参与者责任 | 已实现结果 | 限制 | 史源 |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "> 旧35项治理记录不再展示、增补或参与评分；Git保留历史。新的综合治理登记只能由法律、财政民生、行政、文化教育等正式领域底账派生。",
         ]
     )
     for row in governance:
