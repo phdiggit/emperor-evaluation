@@ -1,0 +1,6011 @@
+{
+  "schema_id": "emperor-v4-c2-formal-settlement-v1",
+  "scope": "秦至唐95人C2经济活力与财政健康正式结算",
+  "formal_document": true,
+  "database_write": false,
+  "max_score": 40,
+  "rules": "../../../分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md",
+  "formalization_gates": {
+    "reviewed_exact_95": true,
+    "evidence_trace_95": true,
+    "D2_inference_cap": true,
+    "C2_score_range": true,
+    "D2_score_range": true,
+    "C2_peak_gate": true,
+    "all_review_status_closed": true
+  },
+  "derivation_fingerprints": {
+    "banding_sha256": "6a5764cf202ed786154a223dcf81e461aa09961b462f6cc691a4bdd3530fe6de",
+    "score_candidate_sha256": "9ded8edd0580abc82b038065a99f4c513ad7280bfe39ff50d2da461d31175c35",
+    "macro_input_sha256": "565acc91b6f044c47c10e1640138e757d6a60999bddfd0be25c9f7f7bbf35aa4"
+  },
+  "scores": [
+    {
+      "ruler_id": "RULER-HAN-LIUXUN",
+      "ruler_name": "刘询",
+      "polity": "汉",
+      "reign_range": "前74—前48",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-5",
+        "S_end": "C2-5"
+      },
+      "main_band": "C2-5",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 40.0,
+      "calculation": {
+        "state_base": 34.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.72,
+            "realized_value": 4.32
+          },
+          {
+            "transition": "C2-4→C2-5",
+            "marginal_value": 7.0,
+            "duration_factor": 0.6,
+            "realized_value": 4.2
+          }
+        ],
+        "uplift_bonus": 10.65,
+        "positive_after_cap": 40.0,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "灾年赈贷、减算口、常平与近籴省漕推动昭宣恢复，水利和税役纠偏有公共结果；盐铁反复和灾害压力使财政未取满档。",
+      "direct_evidence": [
+        {
+          "anchor_time": "昭帝至宣帝五凤年间",
+          "source_works": [
+            "汉书·食货志",
+            "资治通鉴卷二十四财政民生卡"
+          ],
+          "verbatim_excerpt": "至昭帝時，流民稍還，田野益闢，頗有畜積。宣帝即位……百姓安土，歲數豐穰，穀至石五錢，農人少利……常平倉。民便之。夏侯勝追述武帝時‘天下虛耗’并称‘積蓄至今未復’。",
+          "described_state": "武帝末耗敝后出现返乡、复业和初步积蓄，但刘询即位附近仍有‘积蓄至今未复’的反证；其后才见百姓安土、连续丰穰、仓储与漕运便利，极低谷价又压低农民收益。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "珠崖长期反乱、跨海征发与罢郡",
+            "cost_scale": "WC5",
+            "fact": "**财政民生后果与父级去重**：仅持有已发生出兵的下限；`campaign_group HAN-ZHUYAI-52-46`，后卷承接，不重复立根"
+          },
+          {
+            "title": "西羌战争、分化战略与金城屯田",
+            "cost_scale": "WC4",
+            "fact": "**财政民生后果与父级去重**"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 1
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冯太后",
+      "ruler_name": "冯太后",
+      "polity": "北魏",
+      "reign_range": [
+        465,
+        490
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-5",
+        "S_end": "C2-5"
+      },
+      "main_band": "C2-5",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 39.7,
+      "calculation": {
+        "state_base": 34.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-4→C2-5",
+            "marginal_value": 7.0,
+            "duration_factor": 0.65,
+            "realized_value": 4.55
+          }
+        ],
+        "uplift_bonus": 5.688,
+        "positive_after_cap": 39.688,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "均田三长、官禄整顿和财政生产重组形成持续结构收益，宫廷与迁都前期成本未改变高位主趋势。",
+      "direct_evidence": [
+        {
+          "anchor_time": "冯太后实际掌权的太和改革期至拓跋宏太和十二年后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "公私丰赡，虽有水旱而民不困。",
+          "described_state": "常平方案及多项治理并行后形成公私充足和水旱不困的综合结果。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 2
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXIU",
+      "ruler_name": "刘秀",
+      "polity": "汉",
+      "reign_range": "25—57",
+      "state_anchors": {
+        "S0": "C2-1",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K3",
+      "confidence": "LOW",
+      "score": 39.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-1→C2-2",
+            "marginal_value": 4.0,
+            "duration_factor": 0.75,
+            "realized_value": 3.0
+          },
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.75,
+            "realized_value": 3.75
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.75,
+            "realized_value": 4.5
+          }
+        ],
+        "uplift_bonus": 14.062,
+        "positive_after_cap": 40.0,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "战后复员归业、三十税一、恢复五铢、释放奴婢与减贡共同支撑长期人口生产复苏；度田扰民和礼制役费未改主趋势。",
+      "direct_evidence": [
+        {
+          "anchor_time": "王莽末、更始赤眉之乱至光武中兴，约23—27年",
+          "source_works": [
+            "东汉会要卷二十八引帝王世记、郡国志注"
+          ],
+          "verbatim_excerpt": "及王莽簒位續以更始赤眉之亂至光武中興百姓虚耗十有二存。",
+          "described_state": "新莽末与更始赤眉战争后，人口、生产和行政登记处于极重耗损状态。"
+        },
+        {
+          "anchor_time": "建武初至中元二年，25—57年",
+          "source_works": [
+            "东汉会要卷二十八户口",
+            "东汉会要卷三十一田租",
+            "东汉财政专题总结"
+          ],
+          "verbatim_excerpt": "中元二年民户四百二十七萬九千六百三十四，口二千一百萬七千八百二十人……頃者師旅未解用度不足故行什一之稅，今軍士屯田糧儲差積，其令郡國收見田租三十稅一如舊制。",
+          "described_state": "从战争后耗损起点恢复户口、粮储、低田租和通行货币，生产与财政运行重新稳定；度田执行仍造成民害。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 7,
+        "representative_events": [
+          {
+            "title": "卢芳匈奴持续侵边",
+            "cost_scale": "WC5",
+            "fact": "数千匈奴骑兵介入安定及地方武装动员为实际边防威胁；卷内尚无明确交战、杀掠数字，不预支后卷战争成本"
+          },
+          {
+            "title": "武陵五溪战争",
+            "cost_scale": "WC5",
+            "fact": "这里有四万余明确基数，疫死按数万量级处理，不以路险本身抬档"
+          },
+          {
+            "title": "征侧征贰六十五城战争",
+            "cost_scale": "WC4",
+            "fact": "原文未载汉方万人级死亡、多个核心区生产崩溃或中央财政危机"
+          },
+          {
+            "title": "陇西先零羌战争与复业",
+            "cost_scale": "WC4",
+            "fact": "随后修城郭、起坞候、开沟洫、劝耕牧为独立复业结果。敌方死亡不直接进入汉军损失，但同属受汉治理人口者的人道后果保留"
+          },
+          {
+            "title": "烧当羌允街、允吾战争",
+            "cost_scale": "WC4",
+            "fact": "无总死亡数，不机械换算"
+          }
+        ],
+        "omitted_event_count": 2
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 3
+    },
+    {
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "polity": "隋",
+      "reign_range": [
+        581,
+        604
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-5",
+        "S_end": "C2-5"
+      },
+      "main_band": "C2-5",
+      "stability_class": "K3",
+      "confidence": "MEDIUM_HIGH",
+      "score": 39.5,
+      "calculation": {
+        "state_base": 34.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.75,
+            "realized_value": 4.5
+          },
+          {
+            "transition": "C2-4→C2-5",
+            "marginal_value": 7.0,
+            "duration_factor": 0.75,
+            "realized_value": 5.25
+          }
+        ],
+        "uplift_bonus": 12.188,
+        "positive_after_cap": 40.0,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "减役减调、统一币制、常平义仓、运输与财政节用形成多轴高位；大索貌阅、仁寿宫死亡和后期钱币问题构成重大但非主导性负面。",
+      "direct_evidence": [
+        {
+          "anchor_time": "开皇三年",
+          "source_works": [
+            "《隋书》卷二十四《食货志》"
+          ],
+          "verbatim_excerpt": "開皇三年，朝廷以京師倉廩尚虛，議為水旱之備，於衛州置黎陽倉，洛州置河陽倉，陝州置常平倉，華州置廣通倉，轉相灌注。漕關東及汾、晉之粟，以給京師。",
+          "described_state": "杨坚即位初期京师仓廪尚未充实，国家需要新建仓系并组织跨区漕运，不能把后来开皇府库高位倒填为接班即有。"
+        },
+        {
+          "anchor_time": "开皇中期至十二年",
+          "source_works": [
+            "《隋书》卷二十四《食货志》"
+          ],
+          "verbatim_excerpt": "時百姓承平日久，雖數遭水旱，而戶口歲增……由是內外率職，府帑充實……十二年，有司上言，庫藏皆滿……略計每年賜用，至數百萬段，曾無減損。",
+          "described_state": "即使数遭水旱，官方观察仍为户口逐年增加；中央在减免、赏赐支出同时维持府帑充实与库藏满，显示开皇中期存在持续积累。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "开皇十八年高丽战争",
+            "cost_scale": "WC5",
+            "fact": "三十万水陆军已经出动；馈运失败、乏食、疾疫、船舶漂没和死亡均为隋方实际成本。按明确基数，“死者什八九”约为二十四万至二十七万；水潦、疾疫、漂没只解释机制，不另加人数"
+          },
+          {
+            "title": "隋突厥连续战争阶段卡",
+            "cost_scale": "WC5",
+            "fact": "- **财政民生后果**：隋给衣食、车服并出兵，是已证国家投入；所获全给沙钵略，不形成隋府库战利。苏尼部万人余归附首先记人口保全与整合，后续供给数额未知，不据人数推定异常负担"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 3
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHENG",
+      "ruler_name": "刘恒",
+      "polity": "汉",
+      "reign_range": "前180—前157",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-5"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 36.8,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.78,
+            "realized_value": 4.68
+          },
+          {
+            "transition": "C2-4→C2-5",
+            "marginal_value": 7.0,
+            "duration_factor": 0.45,
+            "realized_value": 3.15
+          }
+        ],
+        "uplift_bonus": 9.787,
+        "positive_after_cap": 36.788,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "减田租算赋、节用薄葬、开仓赈济并形成家给人足与仓储高位；灾年和私铸代价存在，但未改变长期广泛改善。",
+      "direct_evidence": [
+        {
+          "anchor_time": "文帝前二年附近",
+          "source_works": [
+            "汉书·食货志引贾谊论积贮疏",
+            "资治通鉴卷十三通读总结"
+          ],
+          "verbatim_excerpt": "漢之為漢幾四十年矣，公私之積猶可哀痛。失時不雨，民且狼顧……兵旱相乘，天下大屈。",
+          "described_state": "衣食和农业已经恢复，但公私储备仍薄，对大范围歉收与战争叠加的承受能力不足。"
+        },
+        {
+          "anchor_time": "文帝前十二年，前168年",
+          "source_works": [
+            "资治通鉴卷十五财政民生卡",
+            "通典卷一引晁错贵粟疏",
+            "西汉会要卷五十引晁错贵粟疏",
+            "汉书卷二十四食货志"
+          ],
+          "verbatim_excerpt": "今農夫五口之家，其服役者不下二人……給繇役……急政暴賦，賦斂不時，朝令而暮改……有賣田宅、鬻子孫以償責者矣……此商人所以兼并農人，農人所以流亡者也。",
+          "described_state": "典型农户在常规生产、徭役和社会互助之外余量有限；急征、时令失序和高利贷能够迅速转化为半价变卖、卖田宅子孙、兼并与流亡，说明文帝中期恢复并未消除农户承压和分配裂缝。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "六万骑入边与细柳防御",
+            "cost_scale": "WC4",
+            "fact": ""
+          },
+          {
+            "title": "老上单于十四万骑深入",
+            "cost_scale": "WC4",
+            "fact": "被杀掳人口、牲畜、回中宫焚毁及边区生产扰动进入安全状态"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 5
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李雄",
+      "ruler_name": "李雄",
+      "polity": "成汉",
+      "reign_range": [
+        304,
+        334
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 36.6,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.75,
+            "realized_value": 3.75
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.65,
+            "realized_value": 3.9
+          }
+        ],
+        "uplift_bonus": 9.562,
+        "positive_after_cap": 36.562,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "成汉减赋、劝农和相对宽政使战乱区域恢复并保持民众承载，政权规模较小但材料支持持续公共结果。",
+      "direct_evidence": [
+        {
+          "anchor_time": "李雄中后期",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "蜀中连年丰收，民多富实，门不闭、路不拾遗。",
+          "described_state": "轻赋稀役、新附复除与连年丰收共同形成民多富实和稳定秩序。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 6
+    },
+    {
+      "ruler_id": "RULER-TANG-LISHIMIN",
+      "ruler_name": "李世民",
+      "polity": "唐",
+      "reign_range": "626-649",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K3",
+      "confidence": "HIGH",
+      "score": 36.4,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.72,
+            "realized_value": 3.6
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.72,
+            "realized_value": 4.32
+          }
+        ],
+        "uplift_bonus": 9.9,
+        "positive_after_cap": 36.9,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "贞观前期由饥馑低位恢复至生活生产高位，义仓、减扰和财政节用有公共结果；宫苑役费与战争成本保留，但未改变长期恢复和交班余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "贞观二年对近时状态的诊断",
+          "source_works": [
+            "《旧唐书》卷四十九《食货志》所载戴胄奏议"
+          ],
+          "verbatim_excerpt": "今喪亂之後，戶口凋殘，每歲納租，未實倉廩。隨時出給，才供當年，若有凶災，將何賑恤？",
+          "described_state": "唐初统一后不久，户口仍凋残、年度租入不足以充实仓廪，国家储备仅够当年支用，抵御歉收的余量很小。"
+        },
+        {
+          "anchor_time": "贞观四年至十五年",
+          "source_works": [
+            "《新唐书》卷五十一《食货志》",
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "至四年，米斗四五錢，外戶不閉者數月，馬牛被野，人行數千里不齎糧，民物蕃息……至八年、九年，頻至豐稔……至十五年，米每斗值兩錢。",
+          "described_state": "贞观初低位后，四年至十五年间出现连续丰稔、低粮价、畜力恢复、道路和社会安全改善及民物繁衍。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 7
+    },
+    {
+      "ruler_id": "RULER-SHADOW-石勒",
+      "ruler_name": "石勒",
+      "polity": "后赵",
+      "reign_range": [
+        319,
+        333
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 33.8,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.55,
+            "realized_value": 2.75
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.45000000000000007,
+            "realized_value": 2.7
+          }
+        ],
+        "uplift_bonus": 6.812,
+        "positive_after_cap": 33.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "恢复农业、定税、安置流民和战后归业形成后赵早期改善，财政制度仍带军政汲取色彩但交班基础较强。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷092-通读总结.md",
+          "source_line": 260,
+          "verbatim_excerpt": "### FIN-LEAD-SHILE-COMPENSATION-323 樊坦被掠后的补偿",
+          "anchor_time": "S0",
+          "source_works": [
+            "石勒补偿樊坦被掠财物"
+          ],
+          "described_state": "石勒补偿樊坦被掠财物"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷091-通读总结.md",
+          "source_line": 253,
+          "verbatim_excerpt": "### FIN-LEAD-RECOVERY-321 后赵复业、禁酿与乡里复除",
+          "anchor_time": "S0",
+          "source_works": [
+            "解散三万余户流民复业并以禁酿恢复粮储"
+          ],
+          "described_state": "解散三万余户流民复业并以禁酿恢复粮储"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 8
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马炎",
+      "ruler_name": "司马炎",
+      "polity": "西晋",
+      "reign_range": [
+        265,
+        290
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 31.9,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.65,
+            "realized_value": 3.9
+          }
+        ],
+        "uplift_bonus": 4.875,
+        "positive_after_cap": 31.875,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "户调、常平、开荒和统一后恢复推动阶段高位，官僚土地特权、卖官和后期奢费侵蚀财政民生，交班裂缝已经显著。",
+      "direct_evidence": [
+        {
+          "anchor_time": "平吴后太康阶段",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "是時天下無事，賦稅平均，人咸安其業而樂其事。",
+          "described_state": "史书明确称当时赋税平均、百姓安业乐事，说明制度在太康阶段形成实际稳定结果；但官品特权、广泛荫亲与佃客额度把身份不平等制度化。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 3,
+        "representative_events": [
+          {
+            "title": "马隆平凉州",
+            "cost_scale": "WC4",
+            "fact": "晋投入三千五百精选兵、三年军资及扁箱车沿狭道转战；本方伤亡未载。鲜卑一万余落归降先记人口与国家整合，不作战利资产"
+          },
+          {
+            "title": "慕容部与扶余战争",
+            "cost_scale": "WC4",
+            "fact": "辽西遭慕容每年侵扰并杀掠甚众，扶余国城被毁、万余人被掳；扶余复国不作晋方资产"
+          },
+          {
+            "title": "晋破吴皖城屯田",
+            "cost_scale": "WC4",
+            "fact": "晋军焚吴积谷一百八十余万斛、践稻田四千余顷、毁船六百余艘，造成吴方粮储、农业和运输生产体系的实际破坏"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 9
+    },
+    {
+      "ruler_id": "RULER-HAN-LUYU",
+      "ruler_name": "吕雉",
+      "polity": "汉",
+      "reign_range": "前195—前180",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 31.1,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 4.125,
+        "positive_after_cap": 31.125,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "总体维持汉初轻徭恢复和社会运行，灾害与宫室支出未扭转主趋势；贡献以维持高位和避免重新透支为主。",
+      "direct_evidence": [
+        {
+          "anchor_time": "孝惠、高后之间，约前195—前180",
+          "source_works": [
+            "汉书·刑法志",
+            "汉书·食货志",
+            "汉书·高后纪"
+          ],
+          "verbatim_excerpt": "當孝惠、高后時……從民之欲，而不擾亂，是以衣食滋殖，刑罰用稀。",
+          "described_state": "相对于战争后低谷，农业、衣食和社会秩序出现明确且广域的持续恢复。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 10
+    },
+    {
+      "ruler_id": "RULER-SHADOW-宇文邕",
+      "ruler_name": "宇文邕",
+      "polity": "北周",
+      "reign_range": [
+        560,
+        578
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 31.1,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 4.125,
+        "positive_after_cap": 31.125,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "节用、释放官口、水利与统一北方后的独立安置改善生产社会；府兵和对突厥支出构成持续负担但未压倒恢复。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷168-通读总结.md",
+          "source_line": 378,
+          "verbatim_excerpt": "### FIN-LEAD-168-ZHOU-SERVICE-561 北周十二丁兵役制",
+          "anchor_time": "S0",
+          "source_works": [
+            "西魏北周府兵供给及十二丁兵役制度"
+          ],
+          "described_state": "西魏北周府兵供给及十二丁兵役制度"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷168-通读总结.md",
+          "source_line": 400,
+          "verbatim_excerpt": "### FIN-LEAD-168-ZHOU-WATERWORKS-562 北周蒲州河渠与同州龙首渠",
+          "anchor_time": "S0",
+          "source_works": [
+            "北周修蒲州河渠和同州龙首渠扩大灌溉运输"
+          ],
+          "described_state": "北周修蒲州河渠和同州龙首渠扩大灌溉运输"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 10
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋嗣",
+      "ruler_name": "拓跋嗣",
+      "polity": "北魏",
+      "reign_range": [
+        409,
+        423
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 31.1,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 4.125,
+        "positive_after_cap": 31.125,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "灾年迁食、给养鳏民、恢复生产并保持北魏财政连续，冲击后恢复能力较强。",
+      "direct_evidence": [
+        {
+          "anchor_time": "拓跋嗣415—416年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "次年丰收，民众富安。",
+          "described_state": "定向迁食、安集和劝农后，次年明确出现丰收与民众富安。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "北魏宫廷变乱",
+            "cost_scale": "WC4",
+            "fact": "拓跋珪滥杀官员、百官失摄、盗贼公行和里巷人口稀少已实际发生；宫禁武装弑君后各部聚众，拓跋绍以布帛大赏维持权位。继位后召回"
+          },
+          {
+            "title": "北魏平河西胡",
+            "cost_scale": "WC4",
+            "fact": "首轮魏军死伤甚众，战事跨年并与饥荒叠加；敌众十万余被俘是人口损害，不作魏方资产"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 10
+    },
+    {
+      "ruler_id": "RULER-TANG-LICHEN",
+      "ruler_name": "李忱",
+      "polity": "唐",
+      "reign_range": "846-859",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K3",
+      "confidence": "LOW",
+      "score": 30.6,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 4.125,
+        "positive_after_cap": 31.125,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "灾区先赈后报、清除横税和财政纠偏推动会昌后恢复，仍有盐茶法与边费压力但交班社会余量较强。",
+      "direct_evidence": [
+        {
+          "anchor_time": "会昌末至大中六年",
+          "source_works": [
+            "《新唐书》卷五十二《食货志》",
+            "《旧唐书》卷四十九《食货志》"
+          ],
+          "verbatim_excerpt": "會昌末，戶增至四百九十五萬五千一百五十一……諸州府常平、義倉斛鬥，本防水旱，賑貸百姓。其有災沴州府地遠，申奏往復，已至流亡……便任先從貧下不支濟戶給貸。",
+          "described_state": "李忱接手时官方户数较武宗初明显回升；大中六年材料同时证明原有层层申报会拖延至流亡，并改为地方核实后先行赈贷，反映国家仍有仓储工具且在修正救济时效。"
+        },
+        {
+          "anchor_time": "大中五年至九年",
+          "source_works": [
+            "《旧唐书》卷四十九《食货志》",
+            "《资治通鉴》卷二百四十九"
+          ],
+          "verbatim_excerpt": "始者，漕米歲四十萬斛，其能至渭倉者，十不三四……由是三歲漕米至渭濱，積一百二十萬斛，無升合沉棄焉。另据《资治通鉴》大中九年：淮南饑，民多流亡……上聞之……以崔鉉充淮南節度使。",
+          "described_state": "大中时期漕运整顿产生到仓量和损耗的明确改善；但淮南仍发生饥民多流亡，中央闻报后更换失职节度使，说明财政运输能力改善并不等于各区域民生无脆弱点。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 4,
+        "representative_events": [
+          {
+            "title": "高骈收复交趾与安南十年战争终局",
+            "cost_scale": "WC5",
+            "fact": "父级吸收交趾两陷、邕州居民十不存一、十五万杀掳、八千官军覆没、巂州戍卒尽杀、多道瘴死与长期供军；战后筑城、建屋、开海道和恢复行政是已实现恢复。十五万杀掳类别不明，按最低被掳折算为三万P4；另有明确八千死、四百余死、巂州守军和瘴死，不机械相加至P5，父级稳健定P4"
+          },
+          {
+            "title": "昭义远戍兵变与太平驿追杀",
+            "cost_scale": "WC4",
+            "fact": "二千军人被征发远戍，监军实际受伤后死亡，乱兵随后被尽杀；多路邻镇兵调至边境形成实际动员。正文未载城市焚掠、民户财产或生产破坏"
+          },
+          {
+            "title": "蛮寇安南与邻道军进讨",
+            "cost_scale": "WC4",
+            "fact": "强买马牛、杀蛮酋、撤戍导致边民离叛；安南饥乱相继六年、无上供、军无犒赏，是完整行政区生产财政体系持续受损。王式恢复贡赋、犒军和外交是已实现恢复；被捕诛乱众人数不详"
+          },
+          {
+            "title": "裘甫陷象山与浙东战争开端",
+            "cost_scale": "WC4",
+            "fact": "象山失守、明州城门昼闭、浙东秩序受扰；人员与财产数量未载"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 13
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMAZHAO",
+      "ruler_name": "司马昭",
+      "polity": "魏",
+      "reign_range": "255—265",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 30.4,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.45,
+            "realized_value": 2.7
+          }
+        ],
+        "uplift_bonus": 3.375,
+        "positive_after_cap": 30.375,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "维持生产财政并在灭蜀后实施益州五年减税等独立恢复，统一资产不计收益；交班社会基础总体可承接。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/财政赋役与民生经济/朝代底账/04-三国财政赋役与民生经济结构化登记前底账.md",
+          "source_line": 63,
+          "verbatim_excerpt": "| `P3·F4·READY` | 曹操募民屯田、定额租调并形成跨区域粮储 | 本轮不登记 | 曹操:+R4；枣祗:+R4；韩浩:+R3；任峻:+R4 | （建安元年在许下募民屯田，随后郡国置田官，得谷百万斛并数年积粟；平袁氏后定亩粟四升、户绢二匹绵二斤，禁止额外加征和藏强赋弱。军粮收益只在生产恢复、固定负担和防加征范围内结算） |",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "曹操募民屯田、定额租调并形成跨区域粮储"
+          ],
+          "described_state": "曹操募民屯田、定额租调并形成跨区域粮储"
+        },
+        {
+          "source_file": "tmp/治理/财政赋役与民生经济/朝代底账/04-三国财政赋役与民生经济结构化登记前底账.md",
+          "source_line": 64,
+          "verbatim_excerpt": "| `P3·F3·READY` | 盐利购牛支持关中流民返乡复业 | 本轮不登记 | 曹操:+R4；卫觊:+R4 | （十余万家流民缺少生产资料，采恢复盐官、以盐利购耕牛方案后，流民确实返回并使关中丰实；只结算耕牛、复业和区域生产结果，不泛化盐业垄断为正面） |",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "盐利购牛支持关中流民返乡复业"
+          ],
+          "described_state": "盐利购牛支持关中流民返乡复业"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 14
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈蒨",
+      "ruler_name": "陈蒨",
+      "polity": "陈",
+      "reign_range": [
+        559,
+        566
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 30.4,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.45,
+            "realized_value": 2.7
+          }
+        ],
+        "uplift_bonus": 3.375,
+        "positive_after_cap": 30.375,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "节用减役、拒绝奢侈进奉并延续战后农桑恢复，财政规模有限但交班社会仍有较强余量。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷168-通读总结.md",
+          "source_line": 388,
+          "verbatim_excerpt": "### FIN-LEAD-168-CHEN-SALT-WINE-561 陈设盐赋与榷酤",
+          "anchor_time": "S0",
+          "source_works": [
+            "陈朝设置盐赋和榷酒形成专卖税负"
+          ],
+          "described_state": "陈朝设置盐赋和榷酒形成专卖税负"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷168-通读总结.md",
+          "source_line": 410,
+          "verbatim_excerpt": "### FIN-LEAD-168-CHEN-AUSTERITY-562 陈因军费与民困减省宫廷百司",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+          ],
+          "described_state": "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 14
+    },
+    {
+      "ruler_id": "RULER-WEI-CAOCAO",
+      "ruler_name": "曹操",
+      "polity": "汉末魏政权",
+      "reign_range": "196—220",
+      "state_anchors": {
+        "S0": "C2-1",
+        "S_avg": "C2-3",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K3",
+      "confidence": "MEDIUM_HIGH",
+      "score": 28.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-1→C2-2",
+            "marginal_value": 4.0,
+            "duration_factor": 0.75,
+            "realized_value": 3.0
+          },
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.7,
+            "realized_value": 3.5
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 12.25,
+        "positive_after_cap": 29.25,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "屯田、水利、农业组织和流民安置在长期战争中恢复生产税基；征调与战争成本很重，但交班仍留下可运行的财政生产体系。",
+      "direct_evidence": [
+        {
+          "anchor_time": "建安初起、数年持续；不可无界延伸至司马氏执政期",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "數年之中，所在積粟，倉廩皆滿。",
+          "described_state": "建安初，枣祗提出屯田，曹操命任峻为典农中郎将，在许下募百姓屯田，得到粮食百万斛；郡国设置田官后，数年间各地积粟、仓廪充满。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 16
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHUANG",
+      "ruler_name": "刘庄",
+      "polity": "汉",
+      "reign_range": "57—75",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 27.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "维持明章高位并完成汴渠等长期生产收益，北宫与工程大征发形成明确代价；及时停工和薄陵限制保留了交班余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "建武初至中元二年，25—57年",
+          "source_works": [
+            "东汉会要卷二十八户口",
+            "东汉会要卷三十一田租",
+            "东汉财政专题总结"
+          ],
+          "verbatim_excerpt": "中元二年民户四百二十七萬九千六百三十四，口二千一百萬七千八百二十人……頃者師旅未解用度不足故行什一之稅，今軍士屯田糧儲差積，其令郡國收見田租三十稅一如舊制。",
+          "described_state": "从战争后耗损起点恢复户口、粮储、低田租和通行货币，生产与财政运行重新稳定；度田执行仍造成民害。"
+        },
+        {
+          "anchor_time": "永平、建初至和帝元兴，57—105年",
+          "source_works": [
+            "东汉会要卷二十八明帝纪",
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷二十九荒政"
+          ],
+          "verbatim_excerpt": "明帝遵奉建武制度無敢違者，故吏稱其官，民安其業，遠近肅服，戶口滋殖焉……和帝永興元年戶九百二十三萬七千一百一十二，口五千三百二十五萬六千二百二十九，墾田七百三十二萬一百七十頃。",
+          "described_state": "从明帝至和帝，民业、户口、人口和垦田长期增长，荒政与流民返乡保障扩展，形成广域恢复高点。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "耿恭救援、撤守与班超西域战线",
+            "cost_scale": "WC5",
+            "fact": "跨卷汉军驻屯、救援死亡、军镇覆没、在地盟军动员和常年财政供给统一去重；焉耆斩杀掳获的人口损害保留，敌军死亡不进汉方P"
+          },
+          {
+            "title": "烧当羌允街、允吾战争",
+            "cost_scale": "WC4",
+            "fact": "无总死亡数，不机械换算"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 17
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHAO",
+      "ruler_name": "刘肇",
+      "polity": "汉",
+      "reign_range": "88—105",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 27.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "多年荒政、免积欠和停止高成本贡运增强救济传导，财政与人口仍处高位；材料显示灾害频密，故不按无冲击满档。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永平、建初至和帝元兴，57—105年",
+          "source_works": [
+            "东汉会要卷二十八明帝纪",
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷二十九荒政"
+          ],
+          "verbatim_excerpt": "明帝遵奉建武制度無敢違者，故吏稱其官，民安其業，遠近肅服，戶口滋殖焉……和帝永興元年戶九百二十三萬七千一百一十二，口五千三百二十五萬六千二百二十九，墾田七百三十二萬一百七十頃。",
+          "described_state": "从明帝至和帝，民业、户口、人口和垦田长期增长，荒政与流民返乡保障扩展，形成广域恢复高点。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 4,
+        "representative_events": [
+          {
+            "title": "窦宪北伐与北单于败亡",
+            "cost_scale": "WC5",
+            "fact": "父树多年征发、财政挤压及本卷伊吾护屯千骑追讨由唯一终端汇总；人口降附不是回报"
+          },
+          {
+            "title": "耿恭救援、撤守与班超西域战线",
+            "cost_scale": "WC5",
+            "fact": "跨卷汉军驻屯、救援死亡、军镇覆没、在地盟军动员和常年财政供给统一去重；焉耆斩杀掳获的人口损害保留，敌军死亡不进汉方P"
+          },
+          {
+            "title": "烧当羌迷吾、迷唐连续战争",
+            "cost_scale": "WC4",
+            "fact": "傅育军死亡八百八十为本方最高优先损失"
+          },
+          {
+            "title": "迷唐十年战争与榆谷终局",
+            "cost_scale": "WC4",
+            "fact": ""
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 17
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋焘",
+      "ruler_name": "拓跋焘",
+      "polity": "北魏",
+      "reign_range": [
+        423,
+        452
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 27.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "农业与税基扩展、边区安置和灾年恢复维持中高位；宗教工程、征役和战争成本降低档内位置。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷119-通读总结.md",
+          "source_line": 123,
+          "verbatim_excerpt": "### FIN-LEAD-NC-SONG-IMPERIAL-FRUGALITY 刘裕宫廷节用与禁劳民细布",
+          "anchor_time": "S0",
+          "source_works": [
+            "刘宋南齐多次节用、裁署、减役并约束奢侈供奉"
+          ],
+          "described_state": "刘宋南齐多次节用、裁署、减役并约束奢侈供奉"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷121-通读总结.md",
+          "source_line": 132,
+          "verbatim_excerpt": "### FIN-LEAD-NC-SONG-FOUR-ZHU-430 刘宋铸四铢钱",
+          "anchor_time": "S0",
+          "source_works": [
+            "刘宋币制反复与轻钱私铸导致粮价和市场崩坏"
+          ],
+          "described_state": "刘宋币制反复与轻钱私铸导致粮价和市场崩坏"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 17
+    },
+    {
+      "ruler_id": "RULER-HAN-DENGSUI",
+      "ruler_name": "邓绥",
+      "polity": "汉",
+      "reign_range": "106—121",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 27.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "削减宫廷贡献、离宫与陵墓役费，并在连续灾害中维持赈济和财政调度，交班社会仍有较强余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永初、元初至延光四年，107—125年",
+          "source_works": [
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷二十九安帝诏",
+            "东汉荒政总结",
+            "后汉书·陈宠附陈忠传",
+            "资治通鉴卷五十财政民生卡"
+          ],
+          "verbatim_excerpt": "及孝安永初元初之間兵饑之苦民人復損……遭永初之際人離荒戹……比年雖獲豐穰尚乏儲積。邓太后临朝十年，终至‘天下复平，岁还丰穰’。",
+          "described_state": "前期人口生产高点后，兵灾饥荒使人口与垦田回落，京师及多地流亡、储积不足；邓绥临朝末史家明确记载天下复平、岁还丰穰，证明其交班点已恢复基本运行，但持续时长与家庭供给高位未证。122—125年的新一轮压力属于刘祜独掌阶段。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 8,
+        "representative_events": [
+          {
+            "title": "永初羌乱唯一终端",
+            "cost_scale": "WC6",
+            "fact": "明确汉军死亡千余、八千余、三千余、八百余、三千余及多次数百，二十余万屯兵、四郡强迁死散过半、粮价万钱、道路与生产破坏均由大型父树持有"
+          },
+          {
+            "title": "封离与益州十余万战争",
+            "cost_scale": "WC5",
+            "fact": "敌方三万余死亡不计汉方P"
+          },
+          {
+            "title": "龟兹解围与撤都护",
+            "cost_scale": "WC5",
+            "fact": "羌乱死亡破坏由羌WAR结算"
+          },
+          {
+            "title": "玄菟辽东战争终端",
+            "cost_scale": "WC4",
+            "fact": "归还人口是恢复责任"
+          },
+          {
+            "title": "张伯路滨海九郡战争",
+            "cost_scale": "WC4",
+            "fact": ""
+          }
+        ],
+        "omitted_event_count": 3
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 17
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUQI",
+      "ruler_name": "刘启",
+      "polity": "汉",
+      "reign_range": "前157—前141",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K3",
+      "confidence": "LOW",
+      "score": 26.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "长期维持三十税一和文景高位，吸收七国之乱与多灾冲击后仍保持财富、生产和社会余量，属于高位守成而非低增量降档。",
+      "direct_evidence": [
+        {
+          "anchor_time": "文帝二十三年统治卷末总评，前157附近",
+          "source_works": [
+            "资治通鉴卷十五通读总结"
+          ],
+          "verbatim_excerpt": "海内安宁，家给人足，后世鲜能及之。",
+          "described_state": "文帝末社会安宁、家庭供给与长期节用获得高度正面的综合评价。"
+        },
+        {
+          "anchor_time": "汉初至武帝初七十年总评",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "至武帝之初七十年間，國家亡事，非遇水旱，則民人給家足，都鄙廩庾盡滿，而府庫餘財……太倉之粟陳陳相因……於是罔疏而民富……或至并兼豪黨之徒以武斷於鄉曲。",
+          "described_state": "至武帝初形成家庭供给、仓储和府库的长期高积累，同时已出现兼并、豪强和奢侈等分配裂缝。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "七国之乱",
+            "cost_scale": "WC5",
+            "fact": "战后赦免另作复业政策，不抵扣战争死亡"
+          },
+          {
+            "title": "景帝中后期和亲与连续入侵",
+            "cost_scale": "WC4",
+            "fact": ""
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 21
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUDA",
+      "ruler_name": "刘炟",
+      "polity": "汉",
+      "reign_range": "75—88",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K3",
+      "confidence": "LOW",
+      "score": 26.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "授贫田、灾区赈济、生育减负与土地分等推动人口生产延续高位；赏赐、宅第和盐铁扰民降低财政档内位置。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永平、建初至和帝元兴，57—105年",
+          "source_works": [
+            "东汉会要卷二十八明帝纪",
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷二十九荒政"
+          ],
+          "verbatim_excerpt": "明帝遵奉建武制度無敢違者，故吏稱其官，民安其業，遠近肅服，戶口滋殖焉……和帝永興元年戶九百二十三萬七千一百一十二，口五千三百二十五萬六千二百二十九，墾田七百三十二萬一百七十頃。",
+          "described_state": "从明帝至和帝，民业、户口、人口和垦田长期增长，荒政与流民返乡保障扩展，形成广域恢复高点。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 4,
+        "representative_events": [
+          {
+            "title": "窦宪北伐与北单于败亡",
+            "cost_scale": "WC5",
+            "fact": "父树多年征发、财政挤压及本卷伊吾护屯千骑追讨由唯一终端汇总；人口降附不是回报"
+          },
+          {
+            "title": "耿恭救援、撤守与班超西域战线",
+            "cost_scale": "WC5",
+            "fact": "跨卷汉军驻屯、救援死亡、军镇覆没、在地盟军动员和常年财政供给统一去重；焉耆斩杀掳获的人口损害保留，敌军死亡不进汉方P"
+          },
+          {
+            "title": "烧当羌五万与临洮解围",
+            "cost_scale": "WC4",
+            "fact": "被斩羌众不作为汉方人员成本，但人道损失保留"
+          },
+          {
+            "title": "烧当羌迷吾、迷唐连续战争",
+            "cost_scale": "WC4",
+            "fact": "傅育军死亡八百八十为本方最高优先损失"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 21
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋宏",
+      "ruler_name": "拓跋宏",
+      "polity": "北魏",
+      "reign_range": [
+        490,
+        499
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K3",
+      "confidence": "MEDIUM_HIGH",
+      "score": 26.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "均田三长、常平农官和迁都后的市场整合支撑高位，迁洛与宫道役费形成大规模代价，交班仍有较强余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "冯太后实际掌权的太和改革期至拓跋宏太和十二年后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "公私丰赡，虽有水旱而民不困。",
+          "described_state": "常平方案及多项治理并行后形成公私充足和水旱不困的综合结果。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 21
+    },
+    {
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "ruler_name": "武则天",
+      "polity": "唐",
+      "reign_range": "684-705",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 25.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "人口生产增长链未中断，灾害救济和财政运行仍具韧性；币制监管反复、宫苑礼制和权贵财政成本压低档内位置。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永淳元年（682）",
+          "source_works": [
+            "《通典》卷七《食货》",
+            "《资治通鉴》财政民生卡"
+          ],
+          "verbatim_excerpt": "永淳元年，京師大雨，饑荒，米每斗四百錢，加以疾疫，死者甚衆。关中饥、米斗三百至四百，高宗仓促东幸，扈从有饿死者；两京之间死者相枕于路，并发生人相食。",
+          "described_state": "682年京师与两京交通圈出现粮价激升、途中饿死、道路积尸和人相食，说明前期低粮价状态在交班前发生严重核心区域危机，且现有材料未载恢复。"
+        },
+        {
+          "anchor_time": "高宗、武则天数十年至中宗神龙以后",
+          "source_works": [
+            "《旧唐书》卷四十九《食货志》"
+          ],
+          "verbatim_excerpt": "以至高宗、則天，數十年間，義倉不許雜用。其後公私窘迫，漸貸義倉支用。自中宗神龍之後，天下義倉費用向盡。",
+          "described_state": "高宗至武则天时期义仓长期保持专用，随后公私窘迫导致借用，神龙以后天下义仓趋于耗尽，社会抗冲击储备出现结构性下滑。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 3,
+        "representative_events": [
+          {
+            "title": "契丹营州叛乱与黄獐谷连环伏击",
+            "cost_scale": "WC6",
+            "fact": "营州、冀州陷落，冀州吏民被屠数千，两支唐军近乎覆没并丧失大量马械"
+          },
+          {
+            "title": "琅邪王冲、越王贞起兵",
+            "cost_scale": "WC4",
+            "fact": "博、豫等核心农业州发生募兵、攻城、纵火与官军进讨；投降后杀戮、破千余家及五千口籍没流徙是实际人身财产损害，但与战场人员损失分列"
+          },
+          {
+            "title": "寅识迦河败战与二十五部归附",
+            "cost_scale": "WC4",
+            "fact": "唐军已经发生冻饿、死亡甚众与粮运中断；二十五部归附是国家整合成果，不把人口本身作资产，也不以正常任官推负担"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 24
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋珪",
+      "ruler_name": "拓跋珪",
+      "polity": "北魏",
+      "reign_range": [
+        386,
+        409
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 25.2,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.65,
+            "realized_value": 3.25
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 8.188,
+        "positive_after_cap": 25.188,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "给牛授田、农业组织和迁民生产恢复形成北魏早期基础；强迁与苑囿劳役造成明显负担，净结果中上。",
+      "direct_evidence": [
+        {
+          "anchor_time": "拓跋珪定中原后至季年",
+          "source_works": [
+            "魏书·刑罚志"
+          ],
+          "verbatim_excerpt": "天下民久苦兵亂，畏法樂安……季年災異屢見，綱紀褫頓，刑罰頗為濫酷。",
+          "described_state": "战后安定需求与季年社会治理失序并存，不能以任一端代表全期。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "柏肆败讯与北魏三部叛乱",
+            "cost_scale": "WC5",
+            "fact": "魏实际动员步骑四十余万、另开韩信；并州仓储不足、早霜和燕军索粮造成居民供给危机；魏接管并州后招抚离散、劝农桑，恢复结果已执行"
+          },
+          {
+            "title": "北魏宫廷变乱",
+            "cost_scale": "WC4",
+            "fact": "拓跋珪滥杀官员、百官失摄、盗贼公行和里巷人口稀少已实际发生；宫禁武装弑君后各部聚众，拓跋绍以布帛大赏维持权位。继位后召回"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 25
+    },
+    {
+      "ruler_id": "RULER-SHADOW-苻坚",
+      "ruler_name": "苻坚",
+      "polity": "前秦",
+      "reign_range": [
+        357,
+        385
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-5",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-5",
+      "stability_class": "K0",
+      "confidence": "MEDIUM",
+      "score": 25.0,
+      "calculation": {
+        "state_base": 34.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 34.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 9.0
+      },
+      "adjudication_reason": "前期休养劝农和财政秩序改善形成高位，后期大规模迁徙与淝水后崩解迅速耗尽承载；C保留前期持续成绩，D2服从交班裂缝。",
+      "direct_evidence": [
+        {
+          "anchor_time": "苻坚361—364年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "田畴开辟，仓库充实，盗贼屏息。",
+          "described_state": "生产开辟、公共储备和治安在前中期同步改善。"
+        },
+        {
+          "anchor_time": "苻坚371—375年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "国富兵强，秦国大治。",
+          "described_state": "劝农桑和官政治理后形成国富、大治的中期总叙。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 11,
+        "representative_events": [
+          {
+            "title": "淝水之战",
+            "cost_scale": "WC6",
+            "fact": "评价方东晋未载自身损失；秦境屯田遭实际生产破坏，六百余户被掳离原居地，属于敌方平民与生产损害，不伪装成晋方军事成本"
+          },
+          {
+            "title": "前秦四公叛乱",
+            "cost_scale": "WC5",
+            "fact": "四公同时据蒲阪、上邽、陕城、安定起兵，秦军在多个关中核心节点持续一年以上作战；榆眉明确斩获一万五千，蒲阪二万军被尽俘。斩获不全等于死亡，妻子与七子处置按原文分开，不机械叠加"
+          },
+          {
+            "title": "前秦平曹毂、刘卫辰",
+            "cost_scale": "WC4",
+            "fact": "曹毂二万进攻杏城，秦军平定后强迁豪杰六千余户；刘卫辰被擒又保留本部。强迁是人口损害，行政、土地与供给安排未知；苻幼袭长安被斩属于同年内部武装威胁收束"
+          },
+          {
+            "title": "前秦侵荆州",
+            "cost_scale": "WC4",
+            "fact": "东晋受保护人口万余户被秦军强制掠走，是明确人口与生计损害；行政、土地与供给安排未知。秦军撤回，未形成当地复业或人口归还"
+          },
+          {
+            "title": "桓温枋头之败",
+            "cost_scale": "WC4",
+            "fact": "晋为五万大军凿巨野水道三百里，投入延绵数百里的舟师；因石门水路未通、粮储竭尽而焚舟，并遗弃辎重、铠仗。慕容宙伏击使晋军“死者甚众”，襄邑夹击又“死者复以万计”；徐翻、高平与孙元一度归附均未转为持续控制"
+          }
+        ],
+        "omitted_event_count": 6
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 26
+    },
+    {
+      "ruler_id": "RULER-SHADOW-元恪",
+      "ruler_name": "元恪",
+      "polity": "北魏",
+      "reign_range": [
+        499,
+        515
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 24.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 3.0
+      },
+      "adjudication_reason": "承接太和改革高位并维持生产财政，灾害、宗教宫廷支出和地方压力逐渐显现，未至系统失效。",
+      "direct_evidence": [
+        {
+          "anchor_time": "元恪512—513年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "魏饥，民饿死数万；仍拟兴军馈运，谏止未被采纳。",
+          "described_state": "迁食救荒与严重死亡并存，且饥荒中仍维持拟议军馈，交班稳定性受限。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 27
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘义隆",
+      "ruler_name": "刘义隆",
+      "polity": "刘宋",
+      "reign_range": [
+        424,
+        453
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "HIGH",
+      "score": 24.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 3.0
+      },
+      "adjudication_reason": "元嘉生产恢复、节用和社会安定形成长期高位，但晚期北伐成本与灾害逆转多轴状态，交班社会余量显著下降。",
+      "direct_evidence": [
+        {
+          "anchor_time": "刘义隆元嘉三十年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "三十年间四境相对安定、户口繁息；出租供徭，止于岁赋。",
+          "described_state": "元嘉主要时期长期安定、户口繁息且常态额外征役较少。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 4,
+        "representative_events": [
+          {
+            "title": "沔北山部战争",
+            "cost_scale": "WC4",
+            "fact": "- **财政民生后果**：明确斩首三千、俘二万八千余口，二万五千余户降后被迁；户数不换算个人死亡。宋军使用山中存粮，属于战争供给，不另建FIN"
+          },
+          {
+            "title": "沿沔战争与人口俘迁",
+            "cost_scale": "WC4",
+            "fact": "- **财政民生后果**：早期“杀虏万余”包含死亡和俘获，二者比例不明；后续十万余口被俘、其中万余口强迁建康，是明确人口损害。不能把俘口全部当死亡，也不能把人口当WR"
+          },
+          {
+            "title": "刘骏讨刘劭与建康内战父卡",
+            "cost_scale": "WC4",
+            "fact": "- **财政民生后果**：新亭两战与建康攻防明确造成大量死亡但无数字；淮南岸屋舍、船舫被焚，居民被强迁，破埭、凿壕、设栅与男女服役均已实际发生。军械散落道路是军资控制损失。战后家属集体处死另列政治人道损害，不计入战场P"
+          },
+          {
+            "title": "盱眙守城准备与首攻",
+            "cost_scale": "WC4",
+            "fact": "- **财政民生后果**：明确发生的宋方损害包括六州杀掠、丁壮和婴儿被杀、民万余尽死、城邑生产赤地、五万余家人口被北魏迁置；魏方明确发生士马死伤过半。战后宋赈恤与免税调在独立政策卡登记，但不复抄战争成本"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 27
+    },
+    {
+      "ruler_id": "RULER-SHADOW-姚兴",
+      "ruler_name": "姚兴",
+      "polity": "后秦",
+      "reign_range": [
+        394,
+        416
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "LOW",
+      "score": 24.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 3.0
+      },
+      "adjudication_reason": "休养、农业与城市财政恢复使后秦达到较稳状态，但末期战争和政权裂缝压低交班韧性。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷108-通读总结.md",
+          "source_line": 262,
+          "verbatim_excerpt": "### FIN-LEAD-108-JIN-GOVERNANCE-392-396 东晋财政吏治与宫苑旁扫",
+          "anchor_time": "S0",
+          "source_works": [
+            "王道子东第工程与卖官聚财"
+          ],
+          "described_state": "王道子东第工程与卖官聚财"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷111-通读总结.md",
+          "source_line": 275,
+          "verbatim_excerpt": "### FIN-LEAD-111-JIN-FISCAL-399 东晋财政旁扫",
+          "anchor_time": "S0",
+          "source_works": [
+            "国用空竭时司马元显仍聚敛巨富"
+          ],
+          "described_state": "国用空竭时司马元显仍聚敛巨富"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 27
+    },
+    {
+      "ruler_id": "RULER-TANG-LICHUN",
+      "ruler_name": "李纯",
+      "polity": "唐",
+      "reign_range": "805-820",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-4",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 24.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 3.0
+      },
+      "adjudication_reason": "罢额外榷率、赈贷免旧贷、屯田和债务减免形成中兴恢复；后期和籴、盐法严刑与进奉聚敛留下交班裂缝。",
+      "direct_evidence": [
+        {
+          "anchor_time": "贞元十二年前后对二十年两税运行的诊断",
+          "source_works": [
+            "《新唐书》卷五十二《食货志》所载齐抗奏议"
+          ],
+          "verbatim_excerpt": "二十年間，府庫充牣……百姓本出布帛，而稅反配錢，至輸時復取布帛，更為三估計折，州縣升降成姦……蓋以錢為稅，則人力竭而有司不之覺。",
+          "described_state": "两税运行使府库充实，但钱税与多重估折让农户实际负担上升，出现国家财政有积而民力枯竭的分配背离。"
+        },
+        {
+          "anchor_time": "元和初至平定刘辟、李锜后",
+          "source_works": [
+            "《新唐书》卷五十二《食货志》"
+          ],
+          "verbatim_excerpt": "是時，因德宗府庫之積，頗約費用……及劉闢、李錡既平，訾藏皆入內庫……方鎮進獻，因緣為姦，以侵百姓……然獨不知進獻之取於人者重矣。",
+          "described_state": "宪宗继承德宗府库积累并一度约束费用，但平叛所得与方镇进献进入内库，进献实际向百姓转嫁，财政可用性与民间负担并存。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 6,
+        "representative_events": [
+          {
+            "title": "淮西四年战争收束：分化降将、雪夜入蔡与三州复治",
+            "cost_scale": "WC5",
+            "fact": "屠城、焚掠、边柵毁灭、八州府库耗尽和长期动员为负向"
+          },
+          {
+            "title": "成德第二次战争无功罢兵与献德棣归朝",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "淄青战争收束、十二州接管与河朔秩序重组",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "成德征讨、二十万兵久战与无功复镇",
+            "cost_scale": "WC4",
+            "fact": ""
+          },
+          {
+            "title": "沂州酷役兵变、王弁被诱与千二百人屠杀",
+            "cost_scale": "WC4",
+            "fact": ""
+          }
+        ],
+        "omitted_event_count": 1
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 27
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈顼",
+      "ruler_name": "陈顼",
+      "polity": "陈",
+      "reign_range": [
+        569,
+        582
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "HIGH",
+      "score": 24.0,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 3.0
+      },
+      "adjudication_reason": "维持陈朝生产财政和部分减省，盐酒专卖、对外军费与宫廷用度增加压力，整体仍可运行。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷172-通读总结.md",
+          "source_line": 165,
+          "verbatim_excerpt": "### FIN-LEAD-172-CHEN-REFUSE-TRIBUTE-575 陈退青牛、焚罗锦进奉",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+          ],
+          "described_state": "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+        },
+        {
+          "source_file": "tmp/治理/财政赋役与民生经济/朝代底账/06-南北朝财政赋役与民生经济结构化登记前底账.md",
+          "source_line": 41,
+          "verbatim_excerpt": "| `P2·F2·READY` | 陈文帝恢复五铢纠正梁末劣币 | 陈蒨:+R4 | 本轮不登记 | （重建标准币，缺恢复后物价和长期交易结果，故不抬P3） |",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "陈文帝恢复五铢纠正梁末劣币"
+          ],
+          "described_state": "陈文帝恢复五铢纠正梁末劣币"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 27
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUSHI",
+      "ruler_name": "刘奭",
+      "polity": "汉",
+      "reign_range": "前48—前33",
+      "state_anchors": {
+        "S0": "C2-5",
+        "S_avg": "C2-4",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K2",
+      "confidence": "MEDIUM",
+      "score": 23.8,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 1.75,
+        "decline_attribution": 0.5,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "灾荒救济、宫廷减省和推迟口赋缓和负担，但河患与结构性财政压力使文宣高位回落，交班仍可运行而裂缝已显。",
+      "direct_evidence": [
+        {
+          "anchor_time": "元帝初元元年至二年附近",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "元帝即位，天下大水，關東郡十一尤甚。二年，齊地飢，穀石三百餘，民多餓死，琅邪郡人相食……轉穀振貸窮乏。其後用度不足，獨復鹽鐵官。",
+          "described_state": "关东多郡出现极重温饱与生命损失，中央实施财政减省和转谷振贷后仍有用度不足。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "珠崖长期反乱、跨海征发与罢郡",
+            "cost_scale": "WC5",
+            "fact": "**财政民生后果与父级去重**：仅持有已发生出兵的下限；`campaign_group HAN-ZHUYAI-52-46`，后卷承接，不重复立根"
+          },
+          {
+            "title": "陇西羌反、初战败与重兵平定",
+            "cost_scale": "WC4",
+            "fact": "**财政民生后果与去重**"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 32
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘裕",
+      "ruler_name": "刘裕",
+      "polity": "刘宋",
+      "reign_range": [
+        404,
+        422
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 23.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.55,
+            "realized_value": 2.75
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.45000000000000007,
+            "realized_value": 2.7
+          }
+        ],
+        "uplift_bonus": 6.812,
+        "positive_after_cap": 23.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "实际掌权期节用、战后复业与江南秩序恢复推动低位重建；统一战争成本排除，财政规模和连续性仍有限。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷119-通读总结.md",
+          "source_line": 123,
+          "verbatim_excerpt": "### FIN-LEAD-NC-SONG-IMPERIAL-FRUGALITY 刘裕宫廷节用与禁劳民细布",
+          "anchor_time": "S_end",
+          "source_works": [
+            "刘宋南齐多次节用、裁署、减役并约束奢侈供奉"
+          ],
+          "described_state": "刘宋南齐多次节用、裁署、减役并约束奢侈供奉"
+        },
+        {
+          "source_file": "tmp/治理/财政赋役与民生经济/朝代底账/06-南北朝财政赋役与民生经济结构化登记前底账.md",
+          "source_line": 39,
+          "verbatim_excerpt": "| `N3·F4·READY` | 南朝官僚荫客免役、无定折课与交易重税长期化 | 本轮不登记 | 本轮不登记 | （官品配置数十户佃客、典计、衣食客免课；军国杂物临时折取，田宅牛马交易税百分之四、津税十分之一且时人甚苦） |",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "南朝官僚荫客免役、无定折课与交易重税长期化"
+          ],
+          "described_state": "南朝官僚荫客免役、无定折课与交易重税长期化"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 32
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高欢",
+      "ruler_name": "高欢",
+      "polity": "东魏",
+      "reign_range": [
+        534,
+        547
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 23.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.55,
+            "realized_value": 2.75
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.45000000000000007,
+            "realized_value": 2.7
+          }
+        ],
+        "uplift_bonus": 6.812,
+        "positive_after_cap": 23.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "东魏整饬仓盐、屯田与税役使北方战乱区恢复运行，军事负担持续但交班基础总体稳固。",
+      "direct_evidence": [
+        {
+          "anchor_time": "高欢控制下元善见时期",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "连年丰收后谷一斛九钱，山东民众逐渐恢复。",
+          "described_state": "仓储转漕、盐业供给与连年丰收后，军国费用粗足、山东民众逐渐恢复。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 32
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冯跋",
+      "ruler_name": "冯跋",
+      "polity": "北燕",
+      "reign_range": [
+        409,
+        430
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 23.7,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.65,
+            "realized_value": 3.25
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 8.188,
+        "positive_after_cap": 25.188,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "轻徭薄赋、劝农和降低扰动形成燕人悦服与生产恢复，区域规模与财政证据限制C2上档。",
+      "direct_evidence": [
+        {
+          "anchor_time": "冯跋411—414年前后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "劝课农桑，省徭役，薄赋敛，燕人悦服。",
+          "described_state": "轻税省役和劝农实施后形成广泛社会接受，但未直接证明普遍温饱。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 35
+    },
+    {
+      "ruler_id": "RULER-SHADOW-宇文泰",
+      "ruler_name": "宇文泰",
+      "polity": "西魏",
+      "reign_range": [
+        535,
+        556
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-4"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 23.7,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.65,
+            "realized_value": 3.25
+          },
+          {
+            "transition": "C2-3→C2-4",
+            "marginal_value": 6.0,
+            "duration_factor": 0.55,
+            "realized_value": 3.3
+          }
+        ],
+        "uplift_bonus": 8.188,
+        "positive_after_cap": 25.188,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "西魏北周财政军户重组、仓储和农业恢复形成可持续基础，兵役供给负担限制民生档内位置。",
+      "direct_evidence": [
+        {
+          "anchor_time": "宇文泰541—544年及数年后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "六条与后续新制颁行，数年后百姓得到便利。",
+          "described_state": "西魏减官、基层治理、屯田和六条连续实施后出现数年运行结果。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "西魏攻陷江陵与梁元帝政权覆亡",
+            "cost_scale": "WC5",
+            "fact": "数千家与二十五城楼被火焚；冰雪中冻死填沟；数万人口强迁奴役、小弱被杀、迁途中践冻死高比例；图书十四万卷焚毁，府库法物被运走。属于已发生的首都圈人口、文化、财政与生产系统严重毁坏"
+          },
+          {
+            "title": "武陵王纪峡口内战与覆亡",
+            "cost_scale": "WC4",
+            "fact": "蜀军粮乏、多死，最终明确八千余溺死；大量金银未用于军需即失去作用。事后对宗室绝食处死是政治人道损害，不冒充战斗死亡"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 35
+    },
+    {
+      "ruler_id": "RULER-TANG-LILONGJI",
+      "ruler_name": "李隆基",
+      "polity": "唐",
+      "reign_range": "712-756",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-5",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-5",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 23.0,
+      "calculation": {
+        "state_base": 34.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 34.0,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 11.0
+      },
+      "adjudication_reason": "开元前中期税役、漕运、水利和市场形成长期高峰，但天宝后期聚敛与安史冲击使生活、财政和人口体系断崖崩溃；C保留长期高位，D2只看交班。",
+      "direct_evidence": [
+        {
+          "anchor_time": "开元八年",
+          "source_works": [
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "八年，天下戶口逃亡，色役僞濫，朝廷深以爲患。",
+          "described_state": "开元八年仍存在全国户口逃亡和色役虚伪滥免，说明后来的开元天宝高位并非即位后自动形成。"
+        },
+        {
+          "anchor_time": "开元后期至天宝前中期",
+          "source_works": [
+            "《新唐书》卷五十一《食货志》"
+          ],
+          "verbatim_excerpt": "是時，海內富實，米斗之價錢十三，青、齊間斗纔三錢，絹一匹錢二百。道路列肆，具酒食以待行人……行千里不持尺兵。天下歲入之物，租錢二百餘萬緡，粟千九百八十餘萬斛……",
+          "described_state": "开元后期至天宝前中期，史家综合描述海内富实、粮帛价格低、道路商业服务和安全良好，并列出大规模财政实物收入。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 14,
+        "representative_events": [
+          {
+            "title": "鲁炅守南阳",
+            "cost_scale": "WC6",
+            "fact": "魏州失守并有三万人被杀，是河北核心区重大人命与城市治理损害；李处崟事前被腰斩另作政治处置，不计战争P"
+          },
+          {
+            "title": "安禄山征契丹大败",
+            "cost_scale": "WC5",
+            "fact": "六万军杀伤殆尽和何思德被杀只在本WAR卡登记；史思明保师州是安全止损，未载民生恢复，不建收益项"
+          },
+          {
+            "title": "岭南两次大规模平叛",
+            "cost_scale": "WC5",
+            "fact": "两次唐境内战分别造成二万级与六万斩首，后者覆盖四十余城并施用酷刑；双方损失按同一战争群父级去重，但不合并伪作单次数字"
+          },
+          {
+            "title": "李宓七万军覆没",
+            "cost_scale": "WC5",
+            "fact": "三十二州被取、六万战死、强捕连枷、瘴区未战死什八九和沿途哭声均在本WAR卡登记；本卷没有可证复业返乡等正面结果"
+          },
+          {
+            "title": "石堡攻城争议与止损",
+            "cost_scale": "WC5",
+            "fact": "达化县被屠、石堡失陷和多年攻守造成受保护人口与边防资产损害；敌军号称四十万及唐五千出战均不作死亡数"
+          }
+        ],
+        "omitted_event_count": 9
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 37
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUCHE",
+      "ruler_name": "刘彻",
+      "polity": "汉",
+      "reign_range": "前141—前87",
+      "state_anchors": {
+        "S0": "C2-5",
+        "S_avg": "C2-4",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 22.2,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 1.75,
+        "decline_attribution": 0.5,
+        "stability_penalty": 3.0
+      },
+      "adjudication_reason": "前期承接并发展生产、币制、水利和财政调度，后期战争财政、迁徙、宫苑巡幸与灾荒显著耗损；轮台转向止住继续恶化但未恢复前期高位。",
+      "direct_evidence": [
+        {
+          "anchor_time": "汉初至武帝初七十年总评",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "至武帝之初七十年間，國家亡事，非遇水旱，則民人給家足，都鄙廩庾盡滿，而府庫餘財……太倉之粟陳陳相因……於是罔疏而民富……或至并兼豪黨之徒以武斷於鄉曲。",
+          "described_state": "至武帝初形成家庭供给、仓储和府库的长期高积累，同时已出现兼并、豪强和奢侈等分配裂缝。"
+        },
+        {
+          "anchor_time": "武帝外事四夷、内兴功利至末期纠偏前",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "是後，外事四夷，內興功利，役費並興，而民去本……故貧民常衣牛馬之衣，而食犬彘之食……民愁亡聊，亡逃山林，轉為盜賊……仲舒死後，功費愈甚，天下虛耗，人復相食。",
+          "described_state": "既有文景积累被战争、工程和财政汲取持续消耗，贫民生活、生产本业和社会稳定显著恶化。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 12,
+        "representative_events": [
+          {
+            "title": "两次大宛战争",
+            "cost_scale": "WC5",
+            "fact": "万里距离只核查后勤，饥饿死亡与实际转运才定成本"
+          },
+          {
+            "title": "东方群盗与镇压",
+            "cost_scale": "WC5",
+            "fact": "当地反叛者也是国家人口，不能按敌军损失从国家状态删除"
+          },
+          {
+            "title": "河南地、朔方城与旧秦塞",
+            "cost_scale": "WC5",
+            "fact": "牛羊百余万可作后续启动资产，人口不作战利品"
+          },
+          {
+            "title": "漠北决战",
+            "cost_scale": "WC5",
+            "fact": "#### 三账、财政民生后果与父级去重"
+          },
+          {
+            "title": "长安巫蛊内战",
+            "cost_scale": "WC5",
+            "fact": "此前全国巫蛊审讯处刑与战后族诛仍属 POL，不重抄为战争成本"
+          }
+        ],
+        "omitted_event_count": 7
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 38
+    },
+    {
+      "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+      "ruler_name": "沮渠蒙逊",
+      "polity": "北凉",
+      "reign_range": [
+        401,
+        433
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 21.7,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.75,
+            "realized_value": 3.75
+          }
+        ],
+        "uplift_bonus": 4.688,
+        "positive_after_cap": 21.688,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "北凉在河西维持农业、交通与财政运行，战争成本不轻但未造成主导性崩溃，按区域稳态给中档。",
+      "direct_evidence": [
+        {
+          "source_file": "docs/共享史料/资治通鉴/两晋/卷118-通读总结.md",
+          "source_line": 401,
+          "verbatim_excerpt": "- 北凉418年伐西凉时芟除秋稼后撤，造成明确农作物和当季生产损失",
+          "anchor_time": "任内后段",
+          "source_works": [
+            "北凉对西凉秋稼造成战时生产损害"
+          ],
+          "described_state": "缺少全国宏观财政直证；结合政权长期运行与持续战争压力，只推定基本运转，不上健康档。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 39
+    },
+    {
+      "ruler_id": "RULER-TANG-LIZHI",
+      "ruler_name": "李治",
+      "polity": "唐",
+      "reign_range": "649-683",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 21.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "stability_penalty": 5.5
+      },
+      "adjudication_reason": "延续贞观增长、义仓与财政秩序并扩大生产人口高位；乾封钱、三门漕运和后期宫廷军费造成反复，交班仍能承接。",
+      "direct_evidence": [
+        {
+          "anchor_time": "贞观四年至十五年",
+          "source_works": [
+            "《新唐书》卷五十一《食货志》",
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "至四年，米斗四五錢，外戶不閉者數月，馬牛被野，人行數千里不齎糧，民物蕃息……至八年、九年，頻至豐稔……至十五年，米每斗值兩錢。",
+          "described_state": "贞观初低位后，四年至十五年间出现连续丰稔、低粮价、畜力恢复、道路和社会安全改善及民物繁衍。"
+        },
+        {
+          "anchor_time": "永徽三年",
+          "source_works": [
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "去年進戶一十五萬……比來國家無事，戶口稍多……今戶三百八十萬。",
+          "described_state": "永徽初官方登记户数一年增加十五万，高宗与户部把它理解为国家无事下户口持续恢复。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 5,
+        "representative_events": [
+          {
+            "title": "吐谷浑流亡、四镇失陷与大非川惨败",
+            "cost_scale": "WC5",
+            "fact": "十八万军败及前军覆没造成实际军民人力损失，九成宫巡幸冻死另按巡幸事实登记；河源屯田已形成粮食产出，安戎陷落则使西洱交通和边民安全恶化，正负不相抵"
+          },
+          {
+            "title": "陈硕真起兵",
+            "cost_scale": "WC4",
+            "fact": ""
+          },
+          {
+            "title": "高丽灭国、设治与离叛",
+            "cost_scale": "WC4",
+            "fact": ""
+          },
+          {
+            "title": "高丽余众、新罗战争与安东熊津退缩",
+            "cost_scale": "WC4",
+            "fact": "安东、熊津反复迁治，高丽与百济旧众先迁回又再散迁河南、陇右，形成已发生的迁徙与生计扰动；海略南境和多次交战造成当地破坏，但数字不明"
+          },
+          {
+            "title": "黄花堆胜利与爨宝璧全军覆没",
+            "cost_scale": "WC4",
+            "fact": "忻州唐军明确死五千余，多州刺史被杀或俘，边州反复遭掠；保留丰州避免了实际迁民，未发生的迁徙成本不入账"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 40
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李暠",
+      "ruler_name": "李暠",
+      "polity": "西凉",
+      "reign_range": [
+        400,
+        417
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 20.4,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.55,
+            "realized_value": 2.75
+          }
+        ],
+        "uplift_bonus": 3.438,
+        "positive_after_cap": 20.438,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "西凉劝农、节用和相对低扰动治理支持河西生产恢复；规模小且材料稀疏，5档门禁不满足。",
+      "direct_evidence": [
+        {
+          "source_file": "docs/共享史料/资治通鉴/两晋/卷111-通读总结.md",
+          "source_line": 184,
+          "verbatim_excerpt": "- 敦煌官员因李暠惠政推其为太守，北凉段业先予承认；索嗣随后劝段业撤换李暠，率骑五百赴任",
+          "anchor_time": "任内",
+          "source_works": [
+            "敦煌官员以惠政推举李暠"
+          ],
+          "described_state": "可证地方行政获得认可且保持连续，但不足以证明全境达到健康繁荣，故只定C2-3、D2-3。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 41
+    },
+    {
+      "ruler_id": "RULER-TANG-LIYU",
+      "ruler_name": "李豫",
+      "polity": "唐",
+      "reign_range": "762-779",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K3",
+      "confidence": "MEDIUM_HIGH",
+      "score": 19.9,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.55,
+            "realized_value": 2.75
+          }
+        ],
+        "uplift_bonus": 3.438,
+        "positive_after_cap": 20.438,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "刘晏盐漕、币制恢复、提高成丁年龄和流民复除推动战后恢复；新增亩税和财政汲取限制民间余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "安史余波、吐蕃入侵至大历阶段的本纪卷末总评",
+          "source_works": [
+            "《旧唐书》卷十一《代宗本纪》史臣曰"
+          ],
+          "verbatim_excerpt": "自三盜合從，九州羹沸，軍士膏於原野，民力殫於轉輸，室家相弔，人不聊生……然而代宗皇帝少屬亂離，老於軍旅……猶有李靈耀作梗，田承嗣負恩，命將出軍，勞師弊賦。",
+          "described_state": "本纪卷末把安史及其后续冲突概括为九州动荡、民力耗尽于转输、家庭相吊和难以维生；代宗时期虽有关辅再宁等恢复，仍持续出现出军劳师与赋役受损。"
+        },
+        {
+          "anchor_time": "大历中至建中初",
+          "source_works": [
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "戶至大曆中，唯有百三十萬戶。建中初，命黜陟使往諸道按比戶口，約都得土戶百八十餘萬，客戶百三十餘萬。",
+          "described_state": "大历中官方户籍仍极低；建中初重新按比后识别出大量土户与客户，说明战后恢复存在，但税基、人口定着和登记覆盖仍不稳定。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 18,
+        "representative_events": [
+          {
+            "title": "鲁炅守南阳",
+            "cost_scale": "WC6",
+            "fact": "魏州失守并有三万人被杀，是河北核心区重大人命与城市治理损害；李处崟事前被腰斩另作政治处置，不计战争P"
+          },
+          {
+            "title": "西部边患",
+            "cost_scale": "WC5",
+            "fact": "西平、河源军续失使军镇、屯田与边道控制进一步流失；原文未给出人员结局或军资毁失，故不从“陷”推算死亡、俘掳或资产损失"
+          },
+          {
+            "title": "泾阳联军危机与回纥转盟",
+            "cost_scale": "WC5",
+            "fact": "男女数万被掠、民居官廨焚毁、禾稼殆尽及坊州三千余家被焚；救回士女四千为实际人口恢复，缯帛支出致府藏空竭"
+          },
+          {
+            "title": "剑南、浙东及西部边患旁扫",
+            "cost_scale": "WC5",
+            "fact": "绵剑、浙东多州内战及西部大掠造成军民死亡、赋敛疲敝和生产破坏；袁晁近二十万为聚众数，不作死亡"
+          },
+          {
+            "title": "西川内乱与成都争夺",
+            "cost_scale": "WC5",
+            "fact": "雪谷士马冻死甚众、成都攻战屠家、邛泸剑多军起兵及家财数十万募兵均为实损，蜀中大乱影响核心人口财赋区"
+          }
+        ],
+        "omitted_event_count": 13
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 42
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘渊",
+      "ruler_name": "刘渊",
+      "polity": "汉赵",
+      "reign_range": [
+        304,
+        310
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 19.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.45,
+            "realized_value": 2.25
+          }
+        ],
+        "uplift_bonus": 2.812,
+        "positive_after_cap": 19.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "政权初建且战争材料占主导，排除创业成本后只见有限税粮和社会组织线索，未足以证明高位或系统崩溃。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷087-通读总结.md",
+          "source_line": 320,
+          "verbatim_excerpt": "### FIN-LEAD-JIN-REFUGEES-310 强遣雍州流民与王如起兵",
+          "anchor_time": "S_end",
+          "source_works": [
+            "强遣雍州流民归残破故土并引发大规模反抗"
+          ],
+          "described_state": "强遣雍州流民归残破故土并引发大规模反抗"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷087-通读总结.md",
+          "source_line": 339,
+          "verbatim_excerpt": "### FIN-LEAD-NINGZHOU-310 王逊恢复宁州",
+          "anchor_time": "S_end",
+          "source_works": [
+            "王逊聚集离散人口并使宁州复安"
+          ],
+          "described_state": "王逊聚集离散人口并使宁州复安"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 43
+    },
+    {
+      "ruler_id": "RULER-SHADOW-姚苌",
+      "ruler_name": "姚苌",
+      "polity": "后秦",
+      "reign_range": [
+        384,
+        393
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 19.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.45,
+            "realized_value": 2.25
+          }
+        ],
+        "uplift_bonus": 2.812,
+        "positive_after_cap": 19.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "后秦初建期财政民生证据稀疏，排除创业战争后只可确认局部恢复和持续承压，按低中位推断。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷107-通读总结.md",
+          "source_line": 280,
+          "verbatim_excerpt": "### FIN-LEAD-107-JIN-GOVERNANCE-389 东晋财政与吏治旁扫",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "东晋孝武道子奢费、仓空与百姓全年无休"
+          ],
+          "described_state": "东晋孝武道子奢费、仓空与百姓全年无休"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷108-通读总结.md",
+          "source_line": 262,
+          "verbatim_excerpt": "### FIN-LEAD-108-JIN-GOVERNANCE-392-396 东晋财政吏治与宫苑旁扫",
+          "anchor_time": "S_end",
+          "source_works": [
+            "王道子东第工程与卖官聚财"
+          ],
+          "described_state": "王道子东第工程与卖官聚财"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 43
+    },
+    {
+      "ruler_id": "RULER-SHADOW-慕容德",
+      "ruler_name": "慕容德",
+      "polity": "南燕",
+      "reign_range": [
+        398,
+        405
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 19.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.45,
+            "realized_value": 2.25
+          }
+        ],
+        "uplift_bonus": 2.812,
+        "positive_after_cap": 19.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "南燕有免役与检籍带来的税基恢复，财政民生总体可运行；政权短促且外部冲击强，按有限恢复定档。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷110-通读总结.md",
+          "source_line": 201,
+          "verbatim_excerpt": "### FIN-LEAD-110-NORTHERNWEI-GOVERNANCE-398 北魏制度与迁都旁扫",
+          "anchor_time": "S0",
+          "source_works": [
+            "北魏强迁六州人口豪杰至代都"
+          ],
+          "described_state": "北魏强迁六州人口豪杰至代都"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷110-通读总结.md",
+          "source_line": 201,
+          "verbatim_excerpt": "### FIN-LEAD-110-NORTHERNWEI-GOVERNANCE-398 北魏制度与迁都旁扫",
+          "anchor_time": "S0",
+          "source_works": [
+            "北魏统一道里权衡度量并巡察郡国"
+          ],
+          "described_state": "北魏统一道里权衡度量并巡察郡国"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 43
+    },
+    {
+      "ruler_id": "RULER-TANG-LIYUAN",
+      "ruler_name": "李渊",
+      "polity": "唐",
+      "reign_range": "618-626",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 19.8,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.45,
+            "realized_value": 2.25
+          }
+        ],
+        "uplift_bonus": 2.812,
+        "positive_after_cap": 19.812,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "统一战争成本排除后，租庸调框架、开元通宝、复员给复和战后安置推动恢复；短任且交班仍处恢复期，不以创业成果拔高。",
+      "direct_evidence": [
+        {
+          "anchor_time": "大业末至隋亡",
+          "source_works": [
+            "《隋书》卷二十四《食货志》"
+          ],
+          "verbatim_excerpt": "人愁不堪，離棄室宇……盜賊充斥。宮觀鞠為茂草，鄉亭絕其煙火，人相啖食，十而四五……代王開永豐之粟，以振飢人……頓臥墟野，欲返不能，死人如積，不可勝計。",
+          "described_state": "大业末出现大范围弃居、乡里停摆、盗乱、相食和大量死亡；开仓赈济存在，但运输距离、官吏贪残与组织失灵使救济可达性很差。"
+        },
+        {
+          "anchor_time": "贞观二年对近时状态的诊断",
+          "source_works": [
+            "《旧唐书》卷四十九《食货志》所载戴胄奏议"
+          ],
+          "verbatim_excerpt": "今喪亂之後，戶口凋殘，每歲納租，未實倉廩。隨時出給，才供當年，若有凶災，將何賑恤？",
+          "described_state": "唐初统一后不久，户口仍凋残、年度租入不足以充实仓廪，国家储备仅够当年支用，抵御歉收的余量很小。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 43
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧衍",
+      "ruler_name": "萧衍",
+      "polity": "梁",
+      "reign_range": [
+        502,
+        549
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-4",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-4",
+      "stability_class": "K0",
+      "confidence": "HIGH",
+      "score": 19.5,
+      "calculation": {
+        "state_base": 27.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 27.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 7.5
+      },
+      "adjudication_reason": "前中期恢复、赈济和江南经济运行应保留，但寺塔舍身、地方贪敛与侯景乱前后的财政社会崩溃决定交班韧性为0档。",
+      "direct_evidence": [
+        {
+          "anchor_time": "萧衍545年前后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "天下户口减少，州郡层层征敛、使者骚扰，民众流移，复业蠲赋未能返居。",
+          "described_state": "侯景乱前已出现户口减少、层层征敛和流移，说明晚期下行并非只从围城开始。"
+        },
+        {
+          "anchor_time": "萧衍546年及梁末",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "物价腾跃，交易载钱不计数；足陌禁令后钱陌继续减少。",
+          "described_state": "私铸、铁钱和短陌分区使交易成本持续恶化，强制足陌政策未能恢复秩序。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 47
+    },
+    {
+      "ruler_id": "RULER-SHU-LIUBEI",
+      "ruler_name": "刘备",
+      "polity": "蜀汉",
+      "reign_range": "221—223",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 18.9,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.3,
+            "realized_value": 1.5
+          }
+        ],
+        "uplift_bonus": 1.875,
+        "positive_after_cap": 18.875,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "短任处于蜀汉建政与夷陵冲击，统一创业成本排除后可见的财政民生恢复有限；交班尚保有区域生产基础但证据稀疏。",
+      "direct_evidence": [
+        {
+          "source_file": "docs/共享史料/资治通鉴/汉/卷067-通读总结.md",
+          "source_line": 141,
+          "verbatim_excerpt": "- `FIN-LEAD-HAN-YIZHOU-RECOVERY-214`：成都破后归还田宅、安居复业；直百钱与官市数月充府库，货币物价后效未载。",
+          "anchor_time": "入蜀创业阶段",
+          "source_works": [
+            "成都破后归还田宅、安居复业并以直百钱和官市补府库"
+          ],
+          "described_state": "同时存在恢复生产与财政应急，货币物价后效未载，支持由低位恢复到基本运转而非健康高位。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 48
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马睿",
+      "ruler_name": "司马睿",
+      "polity": "东晋",
+      "reign_range": [
+        317,
+        322
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 18.9,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.3,
+            "realized_value": 1.5
+          }
+        ],
+        "uplift_bonus": 1.875,
+        "positive_after_cap": 18.875,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "东晋草创期推广麦作、赈济减役和安置流民，财政基础狭窄且军粮转嫁开始形成，属于低位恢复而非高位繁荣。",
+      "direct_evidence": [
+        {
+          "anchor_time": "太兴元年前后",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "其後頻年麥雖有旱蝗，而為益猶多。",
+          "described_state": "元帝按地方官入谷多少考核，要求非宿卫要员赴农、军队自行佃作；太兴元年推广徐扬种麦，后虽有旱蝗仍“为益犹多”。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 6,
+        "representative_events": [
+          {
+            "title": "河南防线再收缩",
+            "cost_scale": "WC5",
+            "fact": "邹山数万众因三年战争陷入极端饥饿，掘野鼠、蛰燕为食，是明确生计危机；不把后赵取得州县自动换算为晋方财政金额"
+          },
+          {
+            "title": "陈川叛降与浚仪战",
+            "cost_scale": "WC4",
+            "fact": "祖逖军失浚仪、蓬关等河南节点，受保护的陈川部众五千户被石虎强迁襄国；迁离本身为人口损害，行政、土地与供给安排未载，五万敌兵不作晋方死亡"
+          },
+          {
+            "title": "陶侃轻敌、宛城解围与荆州再乱",
+            "cost_scale": "WC4",
+            "fact": "陶侃军死数百，宛城绝粮、襄阳受围；陶侃被调又使三千部众转叛、官军再败。宛城解围与区域继续恶化分别记实，不互相抵销"
+          },
+          {
+            "title": "扬口陷落、女观湖败军与周访反击",
+            "cost_scale": "WC4",
+            "fact": "扬口、女观湖与沌阳连续战斗造成朱伺、赵诱等多名晋将死亡、两翼败退"
+          },
+          {
+            "title": "赵固郭默河东战与愍帝被杀",
+            "cost_scale": "WC4",
+            "fact": "归奔晋军的三万余部民遭刘勋追杀一万余，死者军民身份不强拆；归奔人口是晋方保全责任而非资产，河东未恢复且救帝失败"
+          }
+        ],
+        "omitted_event_count": 1
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 48
+    },
+    {
+      "ruler_id": "RULER-SHADOW-慕容垂",
+      "ruler_name": "慕容垂",
+      "polity": "后燕",
+      "reign_range": [
+        384,
+        396
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 18.9,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.55,
+            "realized_value": 2.75
+          }
+        ],
+        "uplift_bonus": 3.438,
+        "positive_after_cap": 20.438,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "后燕重建中恢复户口生产和财政运行，长期战争成本限制民间余量；材料支持中位改善而非高档繁荣。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷107-通读总结.md",
+          "source_line": 280,
+          "verbatim_excerpt": "### FIN-LEAD-107-JIN-GOVERNANCE-389 东晋财政与吏治旁扫",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "东晋孝武道子奢费、仓空与百姓全年无休"
+          ],
+          "described_state": "东晋孝武道子奢费、仓空与百姓全年无休"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷108-通读总结.md",
+          "source_line": 262,
+          "verbatim_excerpt": "### FIN-LEAD-108-JIN-GOVERNANCE-392-396 东晋财政吏治与宫苑旁扫",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "王道子东第工程与卖官聚财"
+          ],
+          "described_state": "王道子东第工程与卖官聚财"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 48
+    },
+    {
+      "ruler_id": "RULER-SHADOW-苻健",
+      "ruler_name": "苻健",
+      "polity": "前秦",
+      "reign_range": [
+        351,
+        355
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 18.9,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.3,
+            "realized_value": 1.5
+          }
+        ],
+        "uplift_bonus": 1.875,
+        "positive_after_cap": 18.875,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "关中政权草创后恢复生产财政并缓和部分负担，材料密度有限，未把创业扩张或征服资产计入。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷099-通读总结.md",
+          "source_line": 275,
+          "verbatim_excerpt": "### FIN-LEAD-099-QIN-REFORM 苻健初政",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "苻健减重敛、开放禁地并形成秦人悦服"
+          ],
+          "described_state": "苻健减重敛、开放禁地并形成秦人悦服"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷100-通读总结.md",
+          "source_line": 252,
+          "verbatim_excerpt": "### FIN-LEAD-100-QIN-355-357 苻生灾荒与暴政",
+          "anchor_time": "S_end",
+          "source_works": [
+            "苻生灾荒期横征与暴虐统治"
+          ],
+          "described_state": "苻生灾荒期横征与暴虐统治"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 48
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈霸先",
+      "ruler_name": "陈霸先",
+      "polity": "陈",
+      "reign_range": [
+        557,
+        559
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 18.9,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.3,
+            "realized_value": 1.5
+          }
+        ],
+        "uplift_bonus": 1.875,
+        "positive_after_cap": 18.875,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "梁末废墟上恢复江南基本财政、农桑和秩序，短任与材料稀疏限制高档。",
+      "direct_evidence": [
+        {
+          "source_file": "docs/共享史料/资治通鉴/南北朝/卷164-通读总结.md",
+          "source_line": 193,
+          "verbatim_excerpt": "- 已实现投入与收益：陈霸先所部有粮五十万石，在西军乏食时实际分出三十万石，补给王僧辩军并支撑寻阳、晋熙方向继续推进。物资给付是国家反攻投入和已实现的供给恢复。",
+          "anchor_time": "创业阶段",
+          "source_works": [
+            "陈霸先以所部五十万石粮分三十万石资西军"
+          ],
+          "described_state": "证明创业集团具备可观粮储与调度能力，但属于战争供给个案，不能单独推出全国民富或财政强盛。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 48
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBAO",
+      "ruler_name": "刘保",
+      "polity": "汉",
+      "reign_range": "125—144",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "灾损分级免赋与赈贷持续运行，但地方怠惰、灾害和救济不到位限制恢复，维持运行多于实质改善。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永建至建和初，126—150年",
+          "source_works": [
+            "东汉会要卷三十顺帝诏",
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷三十桓帝建和三年诏"
+          ],
+          "verbatim_excerpt": "連年災潦冀部尤甚，比蠲除實傷、贍恤窮匱，而百姓猶有棄業流亡不絕，疑郡縣吏用心怠惰，恩澤不宣……質帝本初元年口四千七百五十六萬六千七百七十二。",
+          "described_state": "人口垦田仍有较大存量，但灾区弃业流亡持续，中央已承认既有减免赈恤未有效传导；至梁太后、桓帝初京师与郡县贫死问题显现。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 7,
+        "representative_events": [
+          {
+            "title": "西羌十万动员与射姑山败战",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "南庭叛乱与四州边患",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "章河六郡四十九县武装阶段",
+            "cost_scale": "WC5",
+            "fact": "六郡四十九县行政与治安受扰、长吏被杀伤已发生；人数不详保留P1估正式档"
+          },
+          {
+            "title": "象林—交趾九真战争",
+            "cost_scale": "WC4",
+            "fact": "长吏被杀、万余征发及兵变、州府受攻、贾昌一年余被围和兵谷断绝为已发成本"
+          },
+          {
+            "title": "增赋引发澧中溇中战争",
+            "cost_scale": "WC4",
+            "fact": ""
+          }
+        ],
+        "omitted_event_count": 2
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUYING",
+      "ruler_name": "刘盈",
+      "polity": "汉",
+      "reign_range": "前195—前188",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "延续低田租和恢复主线，并有力田免役；长安城墙、复道等征发造成负担，短任主要是高位守成而非独立跃升。",
+      "direct_evidence": [
+        {
+          "anchor_time": "孝惠、高后之间，约前195—前180",
+          "source_works": [
+            "汉书·刑法志",
+            "汉书·食货志",
+            "汉书·高后纪"
+          ],
+          "verbatim_excerpt": "當孝惠、高后時……從民之欲，而不擾亂，是以衣食滋殖，刑罰用稀。",
+          "described_state": "相对于战争后低谷，农业、衣食和社会秩序出现明确且广域的持续恢复。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMASHI",
+      "ruler_name": "司马师",
+      "polity": "魏",
+      "reign_range": "251—255",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "掌权窗口短且材料以军事政治为主，财政民生没有足以证明高档或崩溃的独立状态链，按连续魏晋结构保守定档。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/财政赋役与民生经济/朝代底账/04-三国财政赋役与民生经济结构化登记前底账.md",
+          "source_line": 65,
+          "verbatim_excerpt": "| `P3·F4·READY` | 曹魏多区域水利、耕牛和农业技术改进群 | 本轮不登记 | 刘馥:+R4；贾逵:+R4；颜斐:+R4；郑浑:+R4；徐邈:+R4；皇甫隆:+R4 | （合肥、豫州、京兆、沛郡、凉州、敦煌分别出现灌溉、运输、户有车牛、连年丰收、贸易流通、节劳过半和增产等结果；合并为跨区域臣子治理群，不按每一地重复给全国成果，也不自动转给曹魏皇帝） |",
+          "anchor_time": "接班结构",
+          "source_works": [
+            "曹魏多区域水利、耕牛和农业技术改进群"
+          ],
+          "described_state": "只作司马师接手时的共享结构背景，不转记为其个人贡献；其短掌权窗缺少另行升降档的宏观结果。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMAYI",
+      "ruler_name": "司马懿",
+      "polity": "魏",
+      "reign_range": "249—251",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "实际掌权短窗主要继承曹魏财政生产结构，已证治理与战争成本均有限，按中位持续状态和未见崩溃作约束推断。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/财政赋役与民生经济/朝代底账/04-三国财政赋役与民生经济结构化登记前底账.md",
+          "source_line": 66,
+          "verbatim_excerpt": "| `P3·F3·READY` | 淮北淮南水运屯田体系形成灌溉、储粮和避水患结果 | 本轮不登记 | 司马懿:+R4；邓艾:+R4 | （修渠三百余里、灌田二万顷并形成连续屯守与水运，实际达到资食有储、运输便利且无水害；军屯和战争用途限制正向，不采用三千万斛计划值拔档） |",
+          "anchor_time": "掌权前后",
+          "source_works": [
+            "淮北淮南水运屯田形成储粮、灌溉和避水患结果"
+          ],
+          "described_state": "这是司马懿与邓艾可归责的直接结构成果；短掌权窗仍不足以把整个曹魏财政状态上推到健康档。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马绍",
+      "ruler_name": "司马绍",
+      "polity": "东晋",
+      "reign_range": [
+        322,
+        325
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "短任主要维持东晋初步恢复，材料没有证明大幅跃升或崩溃；按草创财政和民生连续性作中档推断。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷092-通读总结.md",
+          "source_line": 247,
+          "verbatim_excerpt": "### FIN-LEAD-FIRE-323 三县大火",
+          "anchor_time": "S0",
+          "source_works": [
+            "江东大饥、北方灾害与三县大火状态"
+          ],
+          "described_state": "江东大饥、北方灾害与三县大火状态"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷092-通读总结.md",
+          "source_line": 260,
+          "verbatim_excerpt": "### FIN-LEAD-SHILE-COMPENSATION-323 樊坦被掠后的补偿",
+          "anchor_time": "S0",
+          "source_works": [
+            "石勒补偿樊坦被掠财物"
+          ],
+          "described_state": "石勒补偿樊坦被掠财物"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-WU-SUNQUAN",
+      "ruler_name": "孙权",
+      "polity": "吴",
+      "reign_range": "222—252",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "江东农业与区域经营维持运行，但大钱、句容工程与晚期征发反复造成市场和民户负担，长期状态混合。",
+      "direct_evidence": [
+        {
+          "anchor_time": "大钱发行至停止回收阶段",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "錢既太貴，但有空名，人間患之。",
+          "described_state": "孙权先后铸一当五百、一当千的大钱，名义币值过高，百姓以为不便。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 6,
+        "representative_events": [
+          {
+            "title": "淮西四年战争收束：分化降将、雪夜入蔡与三州复治",
+            "cost_scale": "WC5",
+            "fact": "屠城、焚掠、边柵毁灭、八州府库耗尽和长期动员为负向"
+          },
+          {
+            "title": "吴三路攻魏",
+            "cost_scale": "WC4",
+            "fact": "魏调步兵五千、精骑三千及休兵并亲援寿春"
+          },
+          {
+            "title": "丹阳山民封锁、毁稼与募兵",
+            "cost_scale": "WC4",
+            "fact": "吴军跨四郡封锁险口并割尽将熟谷物，以饥饿迫使山民携老幼出降，随后迁往外县并吸纳四万人为兵源；毁稼、饥饿和举家离土均为实际损害，不因免"
+          },
+          {
+            "title": "廖式叛乱",
+            "cost_scale": "WC4",
+            "fact": "廖式先杀太守并跨郡攻掠，战争持续一年，吴方连续增援后恢复郡县；具体军民死亡、征发、掠夺与生产破坏未载"
+          },
+          {
+            "title": "彭绮叛乱",
+            "cost_scale": "WC4",
+            "fact": "彭绮跨年攻没郡县，吴方实际出兵收复；具体军民死亡、掠夺与生产破坏未载，恢复行政控制不自动折算财政收益"
+          }
+        ],
+        "omitted_event_count": 1
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-HAN-LIANGNA",
+      "ruler_name": "梁妠",
+      "polity": "汉",
+      "reign_range": "144—150",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "摄政窗口材料以承接顺帝后灾害与财政压力为主，未见足以改变总体状态的独立高强度政策，按连续状态作保守推断。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永建至建和初，126—150年",
+          "source_works": [
+            "东汉会要卷三十顺帝诏",
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷三十桓帝建和三年诏"
+          ],
+          "verbatim_excerpt": "連年災潦冀部尤甚，比蠲除實傷、贍恤窮匱，而百姓猶有棄業流亡不絕，疑郡縣吏用心怠惰，恩澤不宣……質帝本初元年口四千七百五十六萬六千七百七十二。",
+          "described_state": "人口垦田仍有较大存量，但灾区弃业流亡持续，中央已承认既有减免赈恤未有效传导；至梁太后、桓帝初京师与郡县贫死问题显现。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "西羌十万动员与射姑山败战",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "章河六郡四十九县武装阶段",
+            "cost_scale": "WC5",
+            "fact": "六郡四十九县行政与治安受扰、长吏被杀伤已发生；人数不详保留P1估正式档"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧道成",
+      "ruler_name": "萧道成",
+      "polity": "南齐",
+      "reign_range": [
+        479,
+        482
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 17.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "南齐初政减役省官、整籍屯田和拒增税形成恢复，短任主要留下可承接的社会财政余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "萧道成建元初",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "罢候官千数、停繁密台使、断众募，吏民始得安业。",
+          "described_state": "齐初多项减役止扰措施形成‘始得安业’的直接结果，但同期重赋破产材料仍成立。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 53
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHU",
+      "ruler_name": "刘祜",
+      "polity": "汉",
+      "reign_range": "105—125",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 15.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 1.5,
+        "decline_attribution": 0.5,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "跨区救济与释放奴婢提供局部修复，但兵饥、流亡、卖官和宫廷供亿使生活、生产及财政明显回落。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永初、元初至延光四年，107—125年",
+          "source_works": [
+            "东汉会要卷二十八户口垦田",
+            "东汉会要卷二十九安帝诏",
+            "东汉荒政总结",
+            "后汉书·陈宠附陈忠传",
+            "资治通鉴卷五十财政民生卡"
+          ],
+          "verbatim_excerpt": "及孝安永初元初之間兵饑之苦民人復損……遭永初之際人離荒戹……比年雖獲豐穰尚乏儲積。邓太后临朝十年，终至‘天下复平，岁还丰穰’。",
+          "described_state": "前期人口生产高点后，兵灾饥荒使人口与垦田回落，京师及多地流亡、储积不足；邓绥临朝末史家明确记载天下复平、岁还丰穰，证明其交班点已恢复基本运行，但持续时长与家庭供给高位未证。122—125年的新一轮压力属于刘祜独掌阶段。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "玄菟辽东战争终端",
+            "cost_scale": "WC4",
+            "fact": "归还人口是恢复责任"
+          },
+          {
+            "title": "索班覆没至班勇复通前部",
+            "cost_scale": "WC4",
+            "fact": "索班千余覆没、河西反复受害、三百与五百屯兵及诸国万余动员由本树持有；西域人口归附不是资产"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 61
+    },
+    {
+      "ruler_id": "RULER-SHU-LIUSHAN",
+      "ruler_name": "刘禅",
+      "polity": "蜀汉",
+      "reign_range": "223—263",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 15.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "长期维持蜀汉农业财政和基本生活，后期持续军费与政务失效压低状态；亡国前社会承压已弱但未等同隋末灾难。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/三国/资治通鉴/卷072-通读总结.md",
+          "source_line": 273,
+          "verbatim_excerpt": "### FIN-LEAD-SG-231-DROUGHT 230—231连续无雨",
+          "anchor_time": "S0",
+          "source_works": [
+            "魏吴旱涝及吴地饥荒状态"
+          ],
+          "described_state": "魏吴旱涝及吴地饥荒状态"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/三国/资治通鉴/卷074-通读总结.md",
+          "source_line": 160,
+          "verbatim_excerpt": "### FIN-LEAD-SG-240-DISASTER 旱灾与吴饥",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "魏吴旱涝及吴地饥荒状态"
+          ],
+          "described_state": "魏吴旱涝及吴地饥荒状态"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 61
+    },
+    {
+      "ruler_id": "RULER-WU-SUNXIU",
+      "ruler_name": "孙休",
+      "polity": "吴",
+      "reign_range": "258—264",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "MEDIUM",
+      "score": 15.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "短任承接吴末财政脆弱结构，见币制回撤和有限纠偏而无全面恢复证据，交班仍能运行但余量一般。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/三国/资治通鉴/卷077-通读总结.md",
+          "source_line": 181,
+          "verbatim_excerpt": "### FIN-LEAD-SG-PULITANG-260 浦里塘工程",
+          "anchor_time": "S0",
+          "source_works": [
+            "浦里塘耗费无数、士卒多死且民众愁怨"
+          ],
+          "described_state": "浦里塘耗费无数、士卒多死且民众愁怨"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 61
+    },
+    {
+      "ruler_id": "RULER-TANG-LIDAN",
+      "ruler_name": "李旦",
+      "polity": "唐",
+      "reign_range": "710-712",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 15.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "短任完成部分回撤和稳定，为开元恢复保留条件；独立财政民生证据有限，不把后续盛世倒算为其个人成果。",
+      "direct_evidence": [
+        {
+          "anchor_time": "高宗、武则天数十年至中宗神龙以后",
+          "source_works": [
+            "《旧唐书》卷四十九《食货志》"
+          ],
+          "verbatim_excerpt": "以至高宗、則天，數十年間，義倉不許雜用。其後公私窘迫，漸貸義倉支用。自中宗神龍之後，天下義倉費用向盡。",
+          "described_state": "高宗至武则天时期义仓长期保持专用，随后公私窘迫导致借用，神龙以后天下义仓趋于耗尽，社会抗冲击储备出现结构性下滑。"
+        },
+        {
+          "anchor_time": "武则天长安年间至神龙、先天之际",
+          "source_works": [
+            "《旧唐书》卷四十八《食货志》",
+            "《通典》卷九《食货·钱币》"
+          ],
+          "verbatim_excerpt": "則天長安中，又令懸樣於市……簡擇艱難，交易留滯……自是盜鑄蜂起，濫惡益眾……以至神龍、先天之際，兩京用錢尤濫惡。",
+          "described_state": "武周末货币筛选规则先造成交易滞留，放宽后盗铸与恶钱增多；这种流通失序延续至中宗、睿宗时期的两京。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 61
+    },
+    {
+      "ruler_id": "RULER-WEI-CAOPI",
+      "ruler_name": "曹丕",
+      "polity": "魏",
+      "reign_range": "220—226",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 14.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "承接曹操生产基础，废五铢用谷帛造成交易欺诈，重复南征和宫室支出增加负担；任期短且未至系统崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "建安初起、数年持续；不可无界延伸至司马氏执政期",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "數年之中，所在積粟，倉廩皆滿。",
+          "described_state": "建安初，枣祗提出屯田，曹操命任峻为典农中郎将，在许下募百姓屯田，得到粮食百万斛；郡国设置田官后，数年间各地积粟、仓廪充满。"
+        },
+        {
+          "anchor_time": "曹丕废五铢后至曹叡纠偏前",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "人間巧偽漸多，競濕穀以要利，作薄絹以為市，雖處以嚴刑而不能禁也。",
+          "described_state": "长期运行后出现湿谷、薄绢等普遍欺诈，严刑仍无法禁止。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 65
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧鸾",
+      "ruler_name": "萧鸾",
+      "polity": "南齐",
+      "reign_range": [
+        494,
+        498
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 14.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "宫苑出游、权幸赏赐、重税与政治清洗侵蚀永明积累，节用措施不足以维持高位。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷139-通读总结.md",
+          "source_line": 84,
+          "verbatim_excerpt": "### FIN-LEAD-139-02 迁洛免税、禁异地进献与停县令常贡",
+          "anchor_time": "S0",
+          "source_works": [
+            "迁洛营都、行宫供顿与人口安置形成长期工程和迁徙负担"
+          ],
+          "described_state": "迁洛营都、行宫供顿与人口安置形成长期工程和迁徙负担"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷139-通读总结.md",
+          "source_line": 79,
+          "verbatim_excerpt": "### FIN-LEAD-139-01 郁林王耗竭武帝积储",
+          "anchor_time": "S0",
+          "source_works": [
+            "南齐宫苑出游、权幸赏赐和重税营建消耗积储"
+          ],
+          "described_state": "南齐宫苑出游、权幸赏赐和重税营建消耗积储"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 65
+    },
+    {
+      "ruler_id": "RULER-TANG-LIXIAN",
+      "ruler_name": "李显",
+      "polity": "唐",
+      "reign_range": "705-710",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K3",
+      "confidence": "LOW",
+      "score": 13.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.5
+      },
+      "adjudication_reason": "景龙封户侵渔、宫廷赏赐与权贵汲取加重，继承高位未转化为稳健守成，社会财政余量明显收窄。",
+      "direct_evidence": [
+        {
+          "anchor_time": "高宗、武则天数十年至中宗神龙以后",
+          "source_works": [
+            "《旧唐书》卷四十九《食货志》"
+          ],
+          "verbatim_excerpt": "以至高宗、則天，數十年間，義倉不許雜用。其後公私窘迫，漸貸義倉支用。自中宗神龍之後，天下義倉費用向盡。",
+          "described_state": "高宗至武则天时期义仓长期保持专用，随后公私窘迫导致借用，神龙以后天下义仓趋于耗尽，社会抗冲击储备出现结构性下滑。"
+        },
+        {
+          "anchor_time": "武则天长安年间至神龙、先天之际",
+          "source_works": [
+            "《旧唐书》卷四十八《食货志》",
+            "《通典》卷九《食货·钱币》"
+          ],
+          "verbatim_excerpt": "則天長安中，又令懸樣於市……簡擇艱難，交易留滯……自是盜鑄蜂起，濫惡益眾……以至神龍、先天之際，兩京用錢尤濫惡。",
+          "described_state": "武周末货币筛选规则先造成交易滞留，放宽后盗铸与恶钱增多；这种流通失序延续至中宗、睿宗时期的两京。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "宗楚客干预突骑施内争与安西覆败",
+            "cost_scale": "WC4",
+            "fact": "安西陷落、四镇道路断绝、唐使与将领死亡及城战损失均已发生；事后册封止战未证明交通与生产恢复"
+          },
+          {
+            "title": "默啜连续侵边",
+            "cost_scale": "WC4",
+            "fact": "陇右诸监马万余匹被掠是明确军用畜力损失，盐夏并代忻等州连续受寇；多项元帅部署未行，不计完整动员成本"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 67
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘骏",
+      "ruler_name": "刘骏",
+      "polity": "刘宋",
+      "reign_range": [
+        453,
+        464
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 12.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "承接元嘉基础但宫苑、宗王财政与征敛增强，币制和灾害压力使生活生产下滑，局部水利不足以改变主趋势。",
+      "direct_evidence": [
+        {
+          "anchor_time": "刘骏孝建三年前后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "盗铸仍加剧，物价踊贵；府藏空匮实为重忧。",
+          "described_state": "薄小货币、盗铸失控、物价上涨和府藏空匮共同形成中期困顿。"
+        },
+        {
+          "anchor_time": "刘骏末年（464）",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "东方诸郡连岁旱饥，米一升数百钱，饿死者十之六七。",
+          "described_state": "东方诸郡出现高粮价和严重死亡，卷内未载有效赈济或恢复。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "刘骏讨刘劭与建康内战父卡",
+            "cost_scale": "WC4",
+            "fact": "- **财政民生后果**：新亭两战与建康攻防明确造成大量死亡但无数字；淮南岸屋舍、船舫被焚，居民被强迁，破埭、凿壕、设栅与男女服役均已实际发生。军械散落道路是军资控制损失。战后家属集体处死另列政治人道损害，不计入战场P"
+          },
+          {
+            "title": "刘义宣、臧质之乱父卡",
+            "cost_scale": "WC4",
+            "fact": "- **财政民生后果**：徐遗宝焚城；西垒守军、援军将领及多场战斗有实际死亡；江中舟舰和西岸营垒大批焚毁。战后义宣十六子、臧质子孙及党人被诛属政治司法人道损害，不全部并入战斗P。官米和船队投入由本WAR卡唯一承载"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 68
+    },
+    {
+      "ruler_id": "RULER-WEI-CAORUI",
+      "ruler_name": "曹叡",
+      "polity": "魏",
+      "reign_range": "226—239",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "HIGH",
+      "score": 12.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "恢复五铢和部分水利维持经济运行，但宫室劳役妨农、灾年支出和战争动员长期压低民生，交班余量明显收窄。",
+      "direct_evidence": [
+        {
+          "anchor_time": "曹丕废五铢后至曹叡纠偏前",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "人間巧偽漸多，競濕穀以要利，作薄絹以為市，雖處以嚴刑而不能禁也。",
+          "described_state": "长期运行后出现湿谷、薄绢等普遍欺诈，严刑仍无法禁止。"
+        },
+        {
+          "anchor_time": "魏明帝宫室与辽东用兵叠加阶段",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "關東遇水，民亡產業，而興師遼陽，坐甲江甸，皆以國乏經用。",
+          "described_state": "关东水灾后百姓失业时仍叠加辽东用兵和江淮驻军；《通鉴》卡又明载力役不已、农桑失业及荥阳区域近乎绝收，后期生产和财政承压明确。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "第一次北伐与街亭",
+            "cost_scale": "WC4",
+            "fact": "街亭前锋溃散、全军撤回；诸葛亮所列汉中一年间八名人物、七十余基层军官与一千余精锐为混合减员，不全改写战死。西县千余家迁入蜀境是人口迁移，意愿与安置安排未载，不作资产"
+          },
+          {
+            "title": "吴三路攻魏",
+            "cost_scale": "WC4",
+            "fact": "魏调步兵五千、精骑三千及休兵并亲援寿春"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 68
+    },
+    {
+      "ruler_id": "RULER-TANG-LISHI",
+      "ruler_name": "李适",
+      "polity": "唐",
+      "reign_range": "779-805",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 12.5,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "两税法有整合税基收益，但加征、逃户摊邻、借商、间架除陌和宫市使负担长期化，局部粮政纠偏不足以消除结构压力。",
+      "direct_evidence": [
+        {
+          "anchor_time": "大历中至建中初",
+          "source_works": [
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "戶至大曆中，唯有百三十萬戶。建中初，命黜陟使往諸道按比戶口，約都得土戶百八十餘萬，客戶百三十餘萬。",
+          "described_state": "大历中官方户籍仍极低；建中初重新按比后识别出大量土户与客户，说明战后恢复存在，但税基、人口定着和登记覆盖仍不稳定。"
+        },
+        {
+          "anchor_time": "朱泚之乱平定后至贞元",
+          "source_works": [
+            "《新唐书》卷五十二《食货志》"
+          ],
+          "verbatim_excerpt": "朱泚平，天下戶口三耗其二……物價愈下，所納愈多……雖賦不增舊，而民愈困矣……逃死闕稅，取於居者，一室空而四鄰亦盡……唯安居不遷之民，賦役日重。",
+          "described_state": "朱泚之乱后户口严重耗损；固定钱额折纳在物价变化下增加实际征收，逃死户缺额继续转嫁给留居者，形成迁逃与税负加重的反馈螺旋。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 16,
+        "representative_events": [
+          {
+            "title": "梁崇义襄阳拒命、李希烈攻取与战后掠夺",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "贝州野战与朱滔军溃败",
+            "cost_scale": "WC5",
+            "fact": "军民冻馁、馆陶物资车牛被掠、贝州受水围、诸县遭掠并供军食均只在本WAR卡结算；没有可证的实际恢复结果"
+          },
+          {
+            "title": "泾原兵变、长安失守与朱泚僭位",
+            "cost_scale": "WC5",
+            "fact": "援军与守城双方死亡伤残、城中断粮冻馁，以及解围后金商运路重开、贡赋恢复，均只在本WAR卡结算"
+          },
+          {
+            "title": "马燧劝降长春宫与河中平定",
+            "cost_scale": "WC5",
+            "fact": "军粮积储耗尽、官民被杀与逃徙、追驾剽掠、强迁威胁以及十二县全面洗劫均只在本WAR卡结算；没有记载同一事件造成的返乡复业或被掠物资归还"
+          },
+          {
+            "title": "淮西归降、吴少诚夺权与陈许恢复",
+            "cost_scale": "WC5",
+            "fact": "强迫民众转输土木、填垒害人、民房拆毁及死亡均只在本WAR卡结算；没有可证的实际恢复"
+          }
+        ],
+        "omitted_event_count": 11
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 68
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBANG",
+      "ruler_name": "刘邦",
+      "polity": "汉",
+      "reign_range": "前202—前195",
+      "state_anchors": {
+        "S0": "C2-1",
+        "S_avg": "C2-2",
+        "S_end": "C2-3"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K4",
+      "confidence": "MEDIUM",
+      "score": 12.4,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-1→C2-2",
+            "marginal_value": 4.0,
+            "duration_factor": 0.45,
+            "realized_value": 1.8
+          },
+          {
+            "transition": "C2-2→C2-3",
+            "marginal_value": 5.0,
+            "duration_factor": 0.35,
+            "realized_value": 1.75
+          }
+        ],
+        "uplift_bonus": 4.438,
+        "positive_after_cap": 12.438,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "统一成本排除后，复员返籍、复田宅、减役与关中重建使战后社会恢复；宫城与迁徙负担压低档内位置，但交班仍有继续恢复余量。",
+      "direct_evidence": [
+        {
+          "anchor_time": "秦末战争至汉初天下既定，约前209—前202",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "民失作業，而大饑饉。凡米石五千，人相食，死者過半……天下既定，民亡蓋臧，自天子不能具醇駟，而將相或乘牛車。",
+          "described_state": "战争后生产、温饱、人口、民间储蓄和国家财用同时处于严重耗损起点。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "陈豨叛乱",
+            "cost_scale": "WC4",
+            "fact": "守尉处置和战后封赏不抵扣战争破坏"
+          },
+          {
+            "title": "英布叛乱",
+            "cost_scale": "WC4",
+            "fact": "功臣清除的政治前因仅作归责背景"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 71
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXIN",
+      "ruler_name": "刘欣",
+      "polity": "汉",
+      "reign_range": "前7—前1",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-3",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K0",
+      "confidence": "LOW",
+      "score": 12.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 5.0
+      },
+      "adjudication_reason": "裁乐府、释放宫人与部分减役形成纠偏，但董贤聚敛、葬礼征发、祭祀扩张和灾害使改善短促，交班仍处脆弱状态。",
+      "direct_evidence": [
+        {
+          "anchor_time": "哀帝至平帝末、王莽居摄前",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "今累世承平，豪富吏民訾數鉅萬，而貧弱俞困……詔書且須後，遂寢不行。宮室苑囿府庫之臧已侈，百姓訾富雖不及文景，然天下戶口最盛矣。",
+          "described_state": "人口与户口存量达到西汉高峰，但财富分配、兼并和贫弱困窘同步加剧，限田奴婢改革未能实施。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 72
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马曜",
+      "ruler_name": "司马曜",
+      "polity": "东晋",
+      "reign_range": [
+        372,
+        396
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 12.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 5.0
+      },
+      "adjudication_reason": "前期承接淝水后恢复，后期按口征米加重、奢费聚敛、仓空与百姓全年无休，财政压力显著转嫁并侵蚀交班韧性。",
+      "direct_evidence": [
+        {
+          "anchor_time": "太元后期",
+          "source_works": [
+            "正史《晋书·食货志》固定文本及通读总结"
+          ],
+          "verbatim_excerpt": "天下無事，時和年豐，百姓樂業，穀帛殷阜，幾乎家給人足矣。",
+          "described_state": "后期天下无事、年丰，史书称百姓乐业、谷帛丰富、接近家给人足。"
+        },
+        {
+          "anchor_time": "司马曜太元十四年（389）前后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "仓库空匮，百姓全年几无休息，甚至不育婴儿、鳏寡不婚。",
+          "described_state": "范宁奏报边烽未举而仓储、征役和家庭再生产已出现严重压力。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 1,
+        "representative_events": [
+          {
+            "title": "淝水之战",
+            "cost_scale": "WC6",
+            "fact": "评价方东晋未载自身损失；秦境屯田遭实际生产破坏，六百余户被掳离原居地，属于敌方平民与生产损害，不伪装成晋方军事成本"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 72
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高湛",
+      "ruler_name": "高湛",
+      "polity": "北齐",
+      "reign_range": [
+        561,
+        565
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-3",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K0",
+      "confidence": "MEDIUM",
+      "score": 12.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 5.0
+      },
+      "adjudication_reason": "承接北齐脆弱结构，宫廷工程、权贵与税役负担继续积累，虽有币制与行政运行但不足以扭转下行。",
+      "direct_evidence": [
+        {
+          "anchor_time": "高湛末年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "骄奢淫泆，役繁赋重，官吏百姓困苦。",
+          "described_state": "武成帝时期税役压力和奢费已形成广泛困苦。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "北周二十万攻齐与邙山解围",
+            "cost_scale": "WC4",
+            "fact": "周方二十万动员、杨檦军大败、邙山坠谷甚众、三十里军资遗弃、杨忠粮运不继均为实证成本；齐方洛阳被围三十日、核心交通受压，是实际S轴损害。齐军接收的遗弃军资形成军事资产回报，但不可与安全收益冲销成本"
+          },
+          {
+            "title": "突厥两次入长城寇幽州",
+            "cost_scale": "WC4",
+            "fact": "十余万入长城和“大掠”证明边民与物资受害，但原文不给人口死亡或财物数量；重复入寇证明威胁没有因前次晋阳败退消失"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 72
+    },
+    {
+      "ruler_id": "RULER-TANG-LIHENG",
+      "ruler_name": "李亨",
+      "polity": "唐",
+      "reign_range": "756-762",
+      "state_anchors": {
+        "S0": "C2-1",
+        "S_avg": "C2-2",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 10.2,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [
+          {
+            "transition": "C2-1→C2-2",
+            "marginal_value": 4.0,
+            "duration_factor": 0.45,
+            "realized_value": 1.8
+          }
+        ],
+        "uplift_bonus": 2.25,
+        "positive_after_cap": 10.25,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "接管安史崩溃低点并维持国家供给，但乾元大钱、率贷、卖官免役与战争财政把压力广泛转嫁，恢复有限。",
+      "direct_evidence": [
+        {
+          "anchor_time": "天宝十四载至乾元三年",
+          "source_works": [
+            "《新唐书》卷五十一《食货志》",
+            "《通典》卷七《食货》"
+          ],
+          "verbatim_excerpt": "自兩京陷沒，民物耗弊，天下蕭然……自天寶十四年至乾元三年，損戶總五百九十八萬二千五百八十四……戶至大曆中，唯有百三十萬戶。",
+          "described_state": "两京陷落后民物耗弊、天下萧然；官方到帐户口从天宝峰值断崖下落，反映死亡、流离、失控与登记崩解共同造成的国家财政和社会基础断裂。"
+        },
+        {
+          "anchor_time": "安史余波、吐蕃入侵至大历阶段的本纪卷末总评",
+          "source_works": [
+            "《旧唐书》卷十一《代宗本纪》史臣曰"
+          ],
+          "verbatim_excerpt": "自三盜合從，九州羹沸，軍士膏於原野，民力殫於轉輸，室家相弔，人不聊生……然而代宗皇帝少屬亂離，老於軍旅……猶有李靈耀作梗，田承嗣負恩，命將出軍，勞師弊賦。",
+          "described_state": "本纪卷末把安史及其后续冲突概括为九州动荡、民力耗尽于转输、家庭相吊和难以维生；代宗时期虽有关辅再宁等恢复，仍持续出现出军劳师与赋役受损。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 6,
+        "representative_events": [
+          {
+            "title": "鲁炅守南阳",
+            "cost_scale": "WC6",
+            "fact": "魏州失守并有三万人被杀，是河北核心区重大人命与城市治理损害；李处崟事前被腰斩另作政治处置，不计战争P"
+          },
+          {
+            "title": "西部边患",
+            "cost_scale": "WC5",
+            "fact": "西平、河源军续失使军镇、屯田与边道控制进一步流失；原文未给出人员结局或军资毁失，故不从“陷”推算死亡、俘掳或资产损失"
+          },
+          {
+            "title": "刘展败亡与江淮军民受害",
+            "cost_scale": "WC5",
+            "fact": "渡江五舟兵被屠沉、江淮十余日大掠使民众首次遭安史以来大规模兵灾；平乱恢复州控不冲销抢掠"
+          },
+          {
+            "title": "剑南、浙东及西部边患旁扫",
+            "cost_scale": "WC5",
+            "fact": "绵剑、浙东多州内战及西部大掠造成军民死亡、赋敛疲敝和生产破坏；袁晁近二十万为聚众数，不作死亡"
+          },
+          {
+            "title": "河北降将留镇与田承嗣扩军",
+            "cost_scale": "WC4",
+            "fact": "和平留镇避免即时再战，但田承嗣尽籍壮丁为兵、仅留老弱耕作，已经造成区域兵农生产结构重组；独立FIN只记该制度机制，不重复三账"
+          }
+        ],
+        "omitted_event_count": 1
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 75
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUAO",
+      "ruler_name": "刘骜",
+      "polity": "汉",
+      "reign_range": "前33—前7",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K0",
+      "confidence": "LOW",
+      "score": 9.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 5.0
+      },
+      "adjudication_reason": "治河修复等局部正面不足以抵销昌陵、宫祠、权贵工程和连续灾害，民间与财政承受持续下滑，交班韧性偏弱。",
+      "direct_evidence": [
+        {
+          "anchor_time": "成帝时期，重点永始二年附近",
+          "source_works": [
+            "汉书·食货志",
+            "资治通鉴卷三十一财政民生卡"
+          ],
+          "verbatim_excerpt": "成帝時，天下亡兵革之事，號為安樂，然俗奢侈，不以畜聚為意。永始二年，梁國、平原郡比年傷水災，人相食，刺史守相坐免。谷永又称昌陵五年后‘天下遍劳、饥馑流散、道路饿死以百万数’。",
+          "described_state": "无大规模战争且号称安乐，但储蓄倾向和奢侈存在结构隐患；昌陵长期动员后的谏臣诊断又指向广域劳役、饥馑流散与道路饿死，局部连续灾区并已出现人相食。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 76
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高洋",
+      "ruler_name": "高洋",
+      "polity": "北齐",
+      "reign_range": [
+        550,
+        559
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-3",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-3",
+      "stability_class": "K0",
+      "confidence": "HIGH",
+      "score": 9.0,
+      "calculation": {
+        "state_base": 17.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 17.0,
+        "starting_decline_penalty": 3.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 5.0
+      },
+      "adjudication_reason": "北齐初期税制与屯田维持财政，后期役使扩张、户籍租调崩坏和宫廷高压使民生与交班余量明显恶化。",
+      "direct_evidence": [
+        {
+          "anchor_time": "高洋末年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "府库不足，削减百官俸禄、撤军人常粮。",
+          "described_state": "战争、长城、台殿和无节赏赐叠加后，财政不足已传导为削俸撤粮和裁撤职位。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 4,
+        "representative_events": [
+          {
+            "title": "北齐十万军侵建康与幕府山决战",
+            "cost_scale": "WC5",
+            "fact": "双方均有饥饿、粮运断绝、户口流散；齐军马驴被杀食、船粮被夺、士卒大规模战死溺死；陈方获得即时粮援三千斛和鸭千头支撑决战。战争收益与成本分别列，不冲销"
+          },
+          {
+            "title": "北齐袭建康与东关水战",
+            "cost_scale": "WC4",
+            "fact": "北齐水军明确万人级溺死，属于北齐本方成本；东关军垒实际修筑并发挥防御作用"
+          },
+          {
+            "title": "宿预—涇州—广陵江淮战役",
+            "cost_scale": "WC4",
+            "fact": "多城围攻数月、四万与万余军跨区机动，海西守具耗尽到纸羽；未载本方万人级死亡。盟后杀白额属于处置和信用损害，不作战斗死亡"
+          },
+          {
+            "title": "徐嗣徽、任约袭建康与北齐第一次渡江",
+            "cost_scale": "WC4",
+            "fact": "齐方船千余被焚、千余溺死、军资尽失；石头缺水价格暴涨，建康粮运不继。陈方交出人质是实际外交成本，人口不作资产"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 76
+    },
+    {
+      "ruler_id": "RULER-SHADOW-吕光",
+      "ruler_name": "吕光",
+      "polity": "后凉",
+      "reign_range": [
+        386,
+        399
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-2",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 6.8,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 1.25,
+        "decline_attribution": 0.5,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "后凉长期战争、宫室与征敛压低生产财政，未见足以逆转的救济恢复链，交班社会余量较弱。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷107-通读总结.md",
+          "source_line": 280,
+          "verbatim_excerpt": "### FIN-LEAD-107-JIN-GOVERNANCE-389 东晋财政与吏治旁扫",
+          "anchor_time": "S0",
+          "source_works": [
+            "东晋孝武道子奢费、仓空与百姓全年无休"
+          ],
+          "described_state": "东晋孝武道子奢费、仓空与百姓全年无休"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷108-通读总结.md",
+          "source_line": 262,
+          "verbatim_excerpt": "### FIN-LEAD-108-JIN-GOVERNANCE-392-396 东晋财政吏治与宫苑旁扫",
+          "anchor_time": "S_avg",
+          "source_works": [
+            "王道子东第工程与卖官聚财"
+          ],
+          "described_state": "王道子东第工程与卖官聚财"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 78
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXUAN",
+      "ruler_name": "刘玄",
+      "polity": "汉",
+      "reign_range": "23—25",
+      "state_anchors": {
+        "S0": "C2-1",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "LOW",
+      "score": 6.0,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 2.0
+      },
+      "adjudication_reason": "短期接管新末崩溃区，未形成可持续财政民生恢复机制，统一战争排除后只见首都供给和社会秩序继续失效。",
+      "direct_evidence": [
+        {
+          "anchor_time": "货布六年后至王莽末，约20—23年",
+          "source_works": [
+            "汉书·食货志货币段",
+            "汉书·食货志新莽末总评"
+          ],
+          "verbatim_excerpt": "民搖手觸禁，不得耕桑，繇役煩劇……富者不得自保，貧者無以自存，起為盜賊……戰鬥死亡……飢疫，人相食，及莽未誅，而天下戶口減半矣。",
+          "described_state": "生产受到禁令和徭役压制，俸禄失常引发私征腐败，流民、战争、饥疫和救济克扣共同造成系统性人口社会崩解。"
+        },
+        {
+          "anchor_time": "王莽末、更始赤眉之乱至光武中兴，约23—27年",
+          "source_works": [
+            "东汉会要卷二十八引帝王世记、郡国志注"
+          ],
+          "verbatim_excerpt": "及王莽簒位續以更始赤眉之亂至光武中興百姓虚耗十有二存。",
+          "described_state": "新莽末与更始赤眉战争后，人口、生产和行政登记处于极重耗损状态。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 79
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧绎",
+      "ruler_name": "萧绎",
+      "polity": "梁",
+      "reign_range": [
+        552,
+        555
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "HIGH",
+      "score": 6.0,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 2.0
+      },
+      "adjudication_reason": "接管侯景乱后的极低基线，有局部恢复和荆州财政基础，但江陵末局迅速崩溃，短期正面不足以形成可持续交班。",
+      "direct_evidence": [
+        {
+          "anchor_time": "萧纲末至萧绎初",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "金帛掠尽，继而掠人为食或卖往北境，遗民殆尽。",
+          "described_state": "原富庶贡赋和商旅腹地在侯景乱中出现资产耗尽与人口近绝。"
+        },
+        {
+          "anchor_time": "萧绎承圣元年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "政令所及不足千里，著籍民户不到三万。",
+          "described_state": "侯景乱后主要州郡丧失，实际控制区和著籍户同时缩至极低。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 4,
+        "representative_events": [
+          {
+            "title": "西魏攻陷江陵与梁元帝政权覆亡",
+            "cost_scale": "WC5",
+            "fact": "数千家与二十五城楼被火焚；冰雪中冻死填沟；数万人口强迁奴役、小弱被杀、迁途中践冻死高比例；图书十四万卷焚毁，府库法物被运走。属于已发生的首都圈人口、文化、财政与生产系统严重毁坏"
+          },
+          {
+            "title": "北齐袭建康与东关水战",
+            "cost_scale": "WC4",
+            "fact": "北齐水军明确万人级溺死，属于北齐本方成本；东关军垒实际修筑并发挥防御作用"
+          },
+          {
+            "title": "宿预—涇州—广陵江淮战役",
+            "cost_scale": "WC4",
+            "fact": "多城围攻数月、四万与万余军跨区机动，海西守具耗尽到纸羽；未载本方万人级死亡。盟后杀白额属于处置和信用损害，不作战斗死亡"
+          },
+          {
+            "title": "武陵王纪峡口内战与覆亡",
+            "cost_scale": "WC4",
+            "fact": "蜀军粮乏、多死，最终明确八千余溺死；大量金银未用于军需即失去作用。事后对宗室绝食处死是政治人道损害，不冒充战斗死亡"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 79
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHI",
+      "ruler_name": "刘志",
+      "polity": "汉",
+      "reign_range": "146—168",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-2",
+        "S_end": "C2-2"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K2",
+      "confidence": "LOW",
+      "score": 4.0,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 2.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "灾区免租赈给和没收梁冀财产后的减租是实质纠偏，但南巡供亿、新税、流亡饥死与权贵汲取长期占主导。",
+      "direct_evidence": [
+        {
+          "anchor_time": "永兴元年至延熹九年，153—166年",
+          "source_works": [
+            "东汉会要卷三十桓帝荒政",
+            "东汉荒政总结"
+          ],
+          "verbatim_excerpt": "郡國三十二蝗，河水溢，百姓饑窮，流冗道路，至有數十萬戶……司隸、冀州饑，人相食……司隸、豫州饑死者什四五，至有滅戶者。",
+          "described_state": "多区域连续出现数十万户流亡、人相食、极高比例饥死和灭户，常规仓储市场救济不足，社会承压达到灾难级事实。"
+        },
+        {
+          "anchor_time": "桓帝至灵帝党锢、黄巾兴起前后，约159—184年",
+          "source_works": [
+            "后汉书·党锢列传",
+            "后汉书·党锢列传序"
+          ],
+          "verbatim_excerpt": "時中常侍蘇康、管霸用事於內，遂固天下良田美業、山林湖澤，民庶窮困，州郡累氣……其後黃巾遂盛，朝野崩離，綱紀文章蕩然矣。",
+          "described_state": "权宦侵占良田、产业与山泽资源，使民庶困穷、州郡受压；党锢长期破坏政治反馈与社会精英网络，黄巾兴起后朝野秩序崩离。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 5,
+        "representative_events": [
+          {
+            "title": "九郡南匈奴乌桓鲜卑战争",
+            "cost_scale": "WC5",
+            "fact": "诸胡归降不作人口资产"
+          },
+          {
+            "title": "段颎西羌追剿阶段",
+            "cost_scale": "WC5",
+            "fact": "长期山地行军和多轮军需为实际成本；敌军斩获及降落不进汉方P或WR"
+          },
+          {
+            "title": "公孙举东郭窦三州战争",
+            "cost_scale": "WC5",
+            "fact": ""
+          },
+          {
+            "title": "荆州岭南战争唯一终端",
+            "cost_scale": "WC5",
+            "fact": "桂阳零陵苍梧行政失守、两万余及诸郡兵、十余日围城和木城水工由父树持有；敌军死亡不进汉方P"
+          },
+          {
+            "title": "鲜卑三部战争阶段",
+            "cost_scale": "WC5",
+            "fact": "幽并多次受寇、长期边防与被掳人口由父树持有"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 81
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冉闵",
+      "ruler_name": "冉闵",
+      "polity": "冉魏",
+      "reign_range": [
+        350,
+        352
+      ],
+      "state_anchors": {
+        "S0": "C2-1",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "LOW",
+      "score": 2.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 0.0,
+        "decline_attribution": null,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "极短政权处于战争和人口屠杀背景，排除创业战争后仍无可持续生产财政或社会恢复证据，交班即崩溃。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷098-通读总结.md",
+          "source_line": 160,
+          "verbatim_excerpt": "- 族群屠杀：冉闵先令六夷持兵者斩，又以官爵悬赏赵人斩胡首；一日数万首，继而亲率军不分贵贱男女老少屠杀胡羯二十余万。四方赵将亦奉书杀胡，高鼻多须者被误杀约半",
+          "anchor_time": "建国起点",
+          "source_works": [
+            "屠胡羯二十余万并引发广泛逃亡"
+          ],
+          "described_state": "明确造成国家级人口与生产秩序重创，且政权旋即陷入围困和崩溃，C2、D2均落崩溃档。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 82
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘彧",
+      "ruler_name": "刘彧",
+      "polity": "刘宋",
+      "reign_range": [
+        465,
+        472
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "MEDIUM",
+      "score": 1.5,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 2.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 4.0
+      },
+      "adjudication_reason": "内战后宫廷征敛、宗王暴力和人口生产损失叠加，财政与社会承载在短期内严重崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "465年刘子业末至刘彧初",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "斗米一万钱，商货不行。",
+          "described_state": "恶钱失控后交易不计枚、粮价极高、商货停滞；刘彧禁最劣钱但未见恢复结果。"
+        },
+        {
+          "anchor_time": "刘彧末至刘昱初",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "府藏空竭，内外百官全部停俸；仍奢费营造。",
+          "described_state": "淮泗用兵后中央财政空竭、停俸，奢建和贿赂继续，未形成恢复。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 83
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘聪",
+      "ruler_name": "刘聪",
+      "polity": "汉赵",
+      "reign_range": [
+        310,
+        318
+      ],
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "LOW",
+      "score": 1.5,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 2.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 4.0
+      },
+      "adjudication_reason": "宫室财政、征发与都城饥荒叠加，洛阳长安人口生产体系遭持续破坏，末期社会承载接近全面崩溃。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷088-通读总结.md",
+          "source_line": 342,
+          "verbatim_excerpt": "### FIN-LEAD-HAN-PALACES-312-313 刘聪宫殿营建、供奉与谏止",
+          "anchor_time": "S0",
+          "source_works": [
+            "刘聪四十余殿观与宫廷供奉造成饥疫期役费"
+          ],
+          "described_state": "刘聪四十余殿观与宫廷供奉造成饥疫期役费"
+        },
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷088-通读总结.md",
+          "source_line": 361,
+          "verbatim_excerpt": "### FIN-LEAD-WANGJUN-313 王浚苛征与蝗旱",
+          "anchor_time": "S0",
+          "source_works": [
+            "永嘉时期旱蝗疫饥、食人与关中人口崩落"
+          ],
+          "described_state": "永嘉时期旱蝗疫饥、食人与关中人口崩落"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 83
+    },
+    {
+      "ruler_id": "RULER-WU-SUNHAO",
+      "ruler_name": "孙皓",
+      "polity": "吴",
+      "reign_range": "264—280",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 1.5,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 2.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 4.0
+      },
+      "adjudication_reason": "宫室、迁都、征发和财政汲取加重，生产市场与社会承载在亡国前持续恶化，局部工程不能改变终局崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "孙皓宝鼎至建衡年间",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "仓库空匮、编户失业；民贫役繁，家无一甔石之储。",
+          "described_state": "仓库空匮、编户失业和家庭无储时仍持续巨额宫苑及后宫消费。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 83
+    },
+    {
+      "ruler_id": "RULER-XIN-WANGMANG",
+      "ruler_name": "王莽",
+      "polity": "新",
+      "reign_range": "6—23",
+      "state_anchors": {
+        "S0": "C2-3",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "MEDIUM_HIGH",
+      "score": 1.5,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 2.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 4.0
+      },
+      "adjudication_reason": "王田五均、反复币制和重役造成交易、人口与社会灾难，河决拒治和大型工程进一步放大冲击，末期财政民生全面崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "王莽居摄、篡位至改革展开初期，约6—14年",
+          "source_works": [
+            "汉书·食货志"
+          ],
+          "verbatim_excerpt": "王莽因漢承平之業……府庫百官之富，天下晏然。莽一朝有之……募發天下囚徒丁男甲卒轉委輸兵器……海內擾矣……制度又不定，吏緣為姦，天下謷謷然，陷刑者眾。",
+          "described_state": "接手时承平、府库和行政存量强，随后边疆扩张、频繁改制和不稳定法令迅速增加社会与行政扰动。"
+        },
+        {
+          "anchor_time": "货布六年后至王莽末，约20—23年",
+          "source_works": [
+            "汉书·食货志货币段",
+            "汉书·食货志新莽末总评"
+          ],
+          "verbatim_excerpt": "民搖手觸禁，不得耕桑，繇役煩劇……富者不得自保，貧者無以自存，起為盜賊……戰鬥死亡……飢疫，人相食，及莽未誅，而天下戶口減半矣。",
+          "described_state": "生产受到禁令和徭役压制，俸禄失常引发私征腐败，流民、战争、饥疫和救济克扣共同造成系统性人口社会崩解。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 6,
+        "representative_events": [
+          {
+            "title": "赤眉绿林与舂陵兵全国性内战",
+            "cost_scale": "WC6",
+            "fact": "一般灾荒人口另在FIN记录，避免把相同饥亡重复相加"
+          },
+          {
+            "title": "翟义、赵明霍鸿核心区内战",
+            "cost_scale": "WC6",
+            "fact": "战后灭族、掘墓、陈尸属于政治暴力，另作旁录而不冒充战斗死亡"
+          },
+          {
+            "title": "西南三十万人役与疫亡",
+            "cost_scale": "WC5",
+            "fact": "冯茂部疫死六七成因基数不明不强换算"
+          },
+          {
+            "title": "北边二十万屯兵、复征与持续入寇",
+            "cost_scale": "WC5",
+            "fact": "军费导致的五原代郡民变也在本父级去重，不另造纯FIN战争投影"
+          },
+          {
+            "title": "车师叛降与西域瓦解",
+            "cost_scale": "WC4",
+            "fact": "人口不作资产，北边三十万征发不重复"
+          }
+        ],
+        "omitted_event_count": 1
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 83
+    },
+    {
+      "ruler_id": "RULER-TANG-LIXUAN",
+      "ruler_name": "李儇",
+      "polity": "唐",
+      "reign_range": "873-888",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 1.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 1.0,
+        "decline_attribution": 0.5,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "急征、地方进奉、灾荒与黄巢战争叠加，流亡、生产和财政体系全面失效；局部平乱或恢复不能抬高交班韧性。",
+      "direct_evidence": [
+        {
+          "anchor_time": "懿宗后期至僖宗乾符、广明前后（截至888窗口）",
+          "source_works": [
+            "《新唐书》卷五十二《食货志》"
+          ],
+          "verbatim_excerpt": "淮北大水，征賦不能辦，人人思亂。及龐勛反，附者六七萬。自關東至海大旱，冬蔬皆盡，貧者以蓬子為麵，槐葉為齏。乾符初，大水，山東饑。中官田令孜……督賦益急。王仙芝、黃巢等起，天下遂亂，公私困竭。",
+          "described_state": "李儇接班前已出现征赋难办、贫民以非常食物维生和广泛思乱；乾符初山东饥而催赋更急，王仙芝、黄巢起事后天下大乱、公私困竭，构成窗口内持续崩解。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 22,
+        "representative_events": [
+          {
+            "title": "秦宗权跨区毁灭战争父链入口",
+            "cost_scale": "WC7",
+            "fact": ""
+          },
+          {
+            "title": "黄巢战争874—884唯一终局",
+            "cost_scale": "WC6",
+            "fact": "河东钱米支出、阳曲榆次居民遭掠为实际成本"
+          },
+          {
+            "title": "盐池争夺、沙苑战争与第二次播迁",
+            "cost_scale": "WC6",
+            "fact": ""
+          },
+          {
+            "title": "淮南战争887—892终局",
+            "cost_scale": "WC6",
+            "fact": ""
+          },
+          {
+            "title": "李克用据云与代北战争终局",
+            "cost_scale": "WC5",
+            "fact": ""
+          }
+        ],
+        "omitted_event_count": 17
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 87
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHONG",
+      "ruler_name": "刘宏",
+      "polity": "汉",
+      "reign_range": "168—189",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "MEDIUM",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 2.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "卖官、宫室加征、公帑私藏和贡献附加费与连续灾害叠加，财政压力广泛转嫁，黄巾前后社会承载已系统崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "桓帝至灵帝党锢、黄巾兴起前后，约159—184年",
+          "source_works": [
+            "后汉书·党锢列传",
+            "后汉书·党锢列传序"
+          ],
+          "verbatim_excerpt": "時中常侍蘇康、管霸用事於內，遂固天下良田美業、山林湖澤，民庶窮困，州郡累氣……其後黃巾遂盛，朝野崩離，綱紀文章蕩然矣。",
+          "described_state": "权宦侵占良田、产业与山泽资源，使民庶困穷、州郡受压；党锢长期破坏政治反馈与社会精英网络，黄巾兴起后朝野秩序崩离。"
+        },
+        {
+          "anchor_time": "建宁至中平末，168—189年",
+          "source_works": [
+            "东汉会要卷三十一灵帝财政",
+            "东汉会要卷二十八东汉末人口序",
+            "后汉书·党锢列传序"
+          ],
+          "verbatim_excerpt": "初開西邸賣官……斂天下田畝十錢以修宮室……刺史二千石及茂才孝廉遷除皆責助軍修宮錢……又造萬金堂於西園，引司農金錢繒帛仞積其中……調廣民困、費多獻少、姦吏因其利、百姓受其敝。",
+          "described_state": "卖官、田亩加征、任官议价、贡献导行费和公帑私藏连成系统性财政转嫁，百姓与州郡承受持续额外成本；黄巾战争进一步破坏运行。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 10,
+        "representative_events": [
+          {
+            "title": "黄巾全国战争",
+            "cost_scale": "WC6",
+            "fact": "八州官府聚邑被焚劫、州郡失据、长吏逃亡、两王被执，中央发天下精兵并动用中藏钱西园马；起事前流徙病死万数属动员社会背景，不与战场死亡混算。敌方数十万死亡不进东汉P"
+          },
+          {
+            "title": "河东白波与南匈奴战争阶段",
+            "cost_scale": "WC5",
+            "fact": "并州刺史被杀、太原河东郡县被寇及十余万规模动乱由父树承担"
+          },
+          {
+            "title": "凉州战争陈仓阶段",
+            "cost_scale": "WC5",
+            "fact": "校尉太守被杀、州郡攻烧、汉军辎重丧失、十余万级中央动员、天下役赋持续征发由本父树承担"
+          },
+          {
+            "title": "段颎西羌追剿阶段",
+            "cost_scale": "WC5",
+            "fact": "长期山地行军和多轮军需为实际成本；敌军斩获及降落不进汉方P或WR"
+          },
+          {
+            "title": "鲜卑三部战争阶段",
+            "cost_scale": "WC5",
+            "fact": "幽并多次受寇、长期边防与被掳人口由父树持有"
+          }
+        ],
+        "omitted_event_count": 5
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-QIN-YINGZHENG",
+      "ruler_name": "嬴政",
+      "polity": "秦",
+      "reign_range": "前246—前210",
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 7.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "统一后的标准化、货币与郑国渠留下生产流通收益，但高赋重役、宫陵工程和对外动员使民生承受持续恶化，交班时社会裂缝已深。",
+      "direct_evidence": [
+        {
+          "anchor_time": "秦始皇元年以后郑国渠完成、秦统一前",
+          "source_works": [
+            "资治通鉴卷六财政民生卡",
+            "汉书·沟洫志秦基线总结"
+          ],
+          "verbatim_excerpt": "渠成，注填閼之水，溉舄鹵之地四萬餘頃，收皆畝一鍾，於是關中為沃野，無凶年，秦以富強。",
+          "described_state": "郑国渠完成后，关中核心农业区获得明确灌溉、收成和富饶结果，证明嬴政早期并非只有抽象制度能力或未知生产基线。"
+        },
+        {
+          "anchor_time": "秦始皇统一后至末年，约前221—前210",
+          "source_works": [
+            "汉书·食货志",
+            "秦统一后财政赋役专题总结"
+          ],
+          "verbatim_excerpt": "至於始皇，遂并天下，內興功作，外攘夷狄，收泰半之賦，發閭左之戍。男子力耕不足糧饟，女子紡績不足衣服。竭天下之資財以奉其政，猶未足以澹其欲也。海內愁怨，遂用潰畔。",
+          "described_state": "国家汲取和跨区动员能力极强，但农业、纺织、民间负担与财政需求同时失衡，并已形成广域怨叛基础。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "岭南征服、设郡与五十万戍民",
+            "cost_scale": "WC5",
+            "fact": "人口不得作为战利品，也不得把五十万迁徙人口换算成死亡"
+          },
+          {
+            "title": "北击匈奴、河南地与长城防线",
+            "cost_scale": "WC5",
+            "fact": "ED与线路长度不直接抬档，实际长期军役和工程动员才进入成本"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-SHADOW-杨广",
+      "ruler_name": "杨广",
+      "polity": "隋",
+      "reign_range": [
+        604,
+        618
+      ],
+      "state_anchors": {
+        "S0": "C2-5",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "HIGH",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 11.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "运河具有长期效用，但东都、运河长城、巡游和战争财政造成超大役使死亡、破产、饥荒与币制崩坏，末期多轴系统崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "开皇十七年",
+          "source_works": [
+            "《隋书》卷二十四《食货志》",
+            "《通典》卷七《食货·历代盛衰户口》"
+          ],
+          "verbatim_excerpt": "開皇十七年，戶口滋盛，中外倉庫，無不盈積……京司帑屋既充，積於廊廡之下，高祖遂停此年正賦，以賜黎元。煬皇嗣守鴻基，國家殷富。",
+          "described_state": "开皇后期户口与中外仓库处于高积累状态，中央能够停征当年正赋；杨广接手时史家明言国家殷富。"
+        },
+        {
+          "anchor_time": "大业前中期大型营建与征发累积",
+          "source_works": [
+            "《隋书》卷二十四《食货志》"
+          ],
+          "verbatim_excerpt": "長城御河，不計於人力……天下死於役而家傷於財……老弱耕稼，不足以救飢餒，婦工紡績，不足以贍資裝……租賦之外，一切徵斂，趣以周備，不顧元元。",
+          "described_state": "文本不是只列工程规模，而是明确记载役丁死亡、家庭财产受损、主劳力离开后农业与纺织不足、正税外征敛加重的广域后果。"
+        }
+      ],
+      "material_limitations": [],
+      "war_evidence_summary": {
+        "high_cost_event_count": 5,
+        "representative_events": [
+          {
+            "title": "黎阳仓、水灾与河南山东归附",
+            "cost_scale": "WC6",
+            "fact": "高邮、历阳和属县易手，江淮交通行政控制流失；缴获用于军赏属于叛军内部资源，非隋WR"
+          },
+          {
+            "title": "第二次征高丽",
+            "cost_scale": "WC6",
+            "fact": "重复征兵、修粮城、百余万土囊和大型楼车均已投入；撤退时大批军用资产实际丧失。围城双方死亡事实成立，但只有隋方最后数千羸弱者可明确纳入本方人员损失"
+          },
+          {
+            "title": "高丽征役诱发的山东河南群盗链",
+            "cost_scale": "WC5",
+            "fact": "黎阳漕运中断、仓储被军用，东都围城和河洛—弘农—潼关通道多军反复争夺。玄感开仓赈民是已执行给付；事后朝廷把受米者全部坑杀，另杀党与三万余、籍没家庭、流徙六千余。这些是镇压后的政治司法和人道损害，不冒充交战死亡，但纳入本事件广义民生后果"
+          },
+          {
+            "title": "吐谷浑战争、四郡占领与西北转输",
+            "cost_scale": "WC4",
+            "fact": ""
+          },
+          {
+            "title": "雁门围城与解围",
+            "cost_scale": "WC4",
+            "fact": "三十九城实际失守、十五万兵民粮危、民屋被拆、守军死伤；围城解除避免更严重饥饿和城陷，是已实现止损，但不与成本冲销"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-SHADOW-石虎",
+      "ruler_name": "石虎",
+      "polity": "后赵",
+      "reign_range": [
+        334,
+        349
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "LOW",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 5.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 4.0
+      },
+      "adjudication_reason": "宫城、陵墓和大规模役使伴随死亡与府库耗竭，税役和社会暴力系统化，早期继承高位不能抬高末期韧性。",
+      "direct_evidence": [
+        {
+          "anchor_time": "石虎345年前后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "关中役烦赋重；发十六万人治未央宫，又发二十六万人修洛阳宫。",
+          "described_state": "数十万级工程征发、夺取人口牲畜及广泛流亡，形成生产和家庭承载瓦解。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖0/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。",
+        "没有C2三锚直接宏观材料，未据政策数量上档，C2-5以上门禁关闭。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 8,
+        "representative_events": [
+          {
+            "title": "梁犊高力兵变",
+            "cost_scale": "WC5",
+            "fact": "强谪与夺马、徒步推粮车直接触发兵变；梁犊军沿途掠民斧、攻陷郡县、杀长吏并东掠荥阳、陈留，后赵又在长安—洛阳主轴连续投入十万级军队。梁犊余党“尽灭”只证明武装集团被清除，不把峰值十万众全换算为死亡；始平为勖聚兵另遭诛三千余家，作为同期平乱的人口损害并入父级"
+          },
+          {
+            "title": "后赵、前燕夹击段辽",
+            "cost_scale": "WC4",
+            "fact": "前燕斩首数千并掠五千户、畜产万计，后赵追军又斩首三千；石虎把段国民二万余户强迁司、雍、兖、豫。四十余城归赵先记整合，迁离损害不外推行政土地供给成本"
+          },
+          {
+            "title": "棘城攻防",
+            "cost_scale": "WC4",
+            "fact": "赵军退时斩获三万余级、诸军弃甲；燕收复叛城后诛灭甚众，刘翔申理及孙泳赦同谋数百均实际保全人口。斩获合并口径不全作死亡"
+          },
+          {
+            "title": "后赵五十万攻燕准备",
+            "cost_scale": "WC4",
+            "fact": "七州按丁抽兵、造船万艘、转运谷一千一百万斛、括民马四万余匹及强迁三郡万余户均已执行；另有海岛谷三百万斛、高句丽三百船三十万斛、海滨屯田万余人和青州造船千艘。全部为本战动员唯一事实，不另建FIN投影"
+          },
+          {
+            "title": "邾城失守与石城防御",
+            "cost_scale": "WC4",
+            "fact": "邾城明确死六千，蔡怀、郑豹等将领及毛宝、樊峻死亡"
+          }
+        ],
+        "omitted_event_count": 3
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-QIN-HUHAI",
+      "ruler_name": "胡亥",
+      "polity": "秦",
+      "reign_range": "前210—前207",
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "MEDIUM_HIGH",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 2.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "继承已透支的高压结构后继续阿房、转输与督责，未形成有效纠偏，生产、财政和社会承载在短任内共同崩溃。",
+      "direct_evidence": [
+        {
+          "anchor_time": "秦始皇统一后至末年，约前221—前210",
+          "source_works": [
+            "汉书·食货志",
+            "秦统一后财政赋役专题总结"
+          ],
+          "verbatim_excerpt": "至於始皇，遂并天下，內興功作，外攘夷狄，收泰半之賦，發閭左之戍。男子力耕不足糧饟，女子紡績不足衣服。竭天下之資財以奉其政，猶未足以澹其欲也。海內愁怨，遂用潰畔。",
+          "described_state": "国家汲取和跨区动员能力极强，但农业、纺织、民间负担与财政需求同时失衡，并已形成广域怨叛基础。"
+        },
+        {
+          "anchor_time": "秦二世元年至三年，约前209—前207",
+          "source_works": [
+            "史记·秦始皇本纪",
+            "史记卷六财政节点总结",
+            "资治通鉴卷七通读总结"
+          ],
+          "verbatim_excerpt": "二世在骊山工程结束后恢复阿房，又征五万人屯卫咸阳，命郡县转输粮食草料、运输者自带口粮，并禁止咸阳三百里内食用当地谷物。冯去疾、李斯、冯劫明确把群盗并起与戍、漕、转、作及赋税过重相连，请停阿房、减省四边戍转；二世拒绝并继续执行。",
+          "described_state": "既有高汲取结构在反抗已起时继续加码，中央供给以郡县和运输者额外承压维持，纠偏机制失效。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 1,
+        "representative_events": [
+          {
+            "title": "陈胜起事与秦帝国军事应急",
+            "cost_scale": "WC6",
+            "fact": "秦方具体死亡、粮费无可采基数，不以敌军死亡或所破政权数量替代成本"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-SHADOW-赫连勃勃",
+      "ruler_name": "赫连勃勃",
+      "polity": "胡夏",
+      "reign_range": [
+        407,
+        425
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K4",
+      "confidence": "MEDIUM",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 2.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 0.0
+      },
+      "adjudication_reason": "统万城十万人征发与工匠死亡、持续战争和高压汲取构成灾难性负担，未见可持续恢复机制。",
+      "direct_evidence": [
+        {
+          "source_file": "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷120-通读总结.md",
+          "source_line": 129,
+          "verbatim_excerpt": "### FIN-LEAD-NC-TONGWAN-WORKS 统万城与宫殿营造",
+          "anchor_time": "S_end",
+          "source_works": [
+            "统万城征十万人并杀工匠数千"
+          ],
+          "described_state": "统万城征十万人并杀工匠数千"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈叔宝",
+      "ruler_name": "陈叔宝",
+      "polity": "陈",
+      "reign_range": [
+        582,
+        589
+      ],
+      "state_anchors": {
+        "S0": "C2-4",
+        "S_avg": "C2-2",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-2",
+      "stability_class": "K0",
+      "confidence": "MEDIUM",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 8.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 8.0,
+        "starting_decline_penalty": 5.5,
+        "decline_attribution": 1.0,
+        "stability_penalty": 4.0
+      },
+      "adjudication_reason": "三阁营造、关市重税、聚敛与宫廷消费耗尽有限积储，交班前社会财政失去持续运行能力。",
+      "direct_evidence": [
+        {
+          "anchor_time": "陈叔宝至德二年前后",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "盛修宫室，府库空虚；关市收入过常格数十倍，士民嗟怨。",
+          "described_state": "三阁奢建造成府库不足，扩税和苛征虽增加收入，却把压力转嫁给军士、士人和普通民众。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖1/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": null,
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高纬",
+      "ruler_name": "高纬",
+      "polity": "北齐",
+      "reign_range": [
+        565,
+        577
+      ],
+      "state_anchors": {
+        "S0": "C2-2",
+        "S_avg": "C2-1",
+        "S_end": "C2-1"
+      },
+      "main_band": "C2-1",
+      "stability_class": "K2",
+      "confidence": "MEDIUM_HIGH",
+      "score": 0.0,
+      "calculation": {
+        "state_base": 2.0,
+        "retained_transitions": [],
+        "uplift_bonus": 0.0,
+        "positive_after_cap": 2.0,
+        "starting_decline_penalty": 2.0,
+        "decline_attribution": 1.0,
+        "stability_penalty": 1.5
+      },
+      "adjudication_reason": "宫苑佛寺、关市重税、救济失效与连续饥荒共同摧毁民生财政，亡国前社会韧性已失。",
+      "direct_evidence": [
+        {
+          "anchor_time": "高纬即位初",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "罢各地百工细作，释放老病宫人官口，准坐流徙者还乡。",
+          "described_state": "高纬即位初实施停役、释人和返乡，构成对高湛末期压力的直接止损。"
+        },
+        {
+          "anchor_time": "高纬武平六年",
+          "source_works": [
+            "《资治通鉴》共享通读卡正文"
+          ],
+          "verbatim_excerpt": "府藏空竭，卖官取直；赋繁役重，民不聊生。",
+          "described_state": "持续奢建和赏赐使府库空竭，卖官后地方贪纵，税役最终传导为民不聊生。"
+        }
+      ],
+      "material_limitations": [
+        "生产及财政市场直证覆盖2/3个锚点，其余按相邻交接、任期方向、实际政策结果及战争工程后果推断。"
+      ],
+      "war_evidence_summary": {
+        "high_cost_event_count": 2,
+        "representative_events": [
+          {
+            "title": "宜阳—汾北连续战争父级",
+            "cost_scale": "WC4",
+            "fact": "两国连续三年多军出动、围城断粮、新筑并反复攻拔城戍，构成地区军粮、城工和人口控制成本；定阳外城被屠、守军粮尽、全军被俘是实际严重损害。韦孝宽关于“劳师弥年、涂炭疲弊之民”既含已发生的长期战争事实，也含政策批评，二者分开使用"
+          },
+          {
+            "title": "陈续取潼州、下邳与彭城吕梁胜利",
+            "cost_scale": "WC4",
+            "fact": "陈十万长期多路动员、攻城水工为实际成本；寿阳城内病死什六七、历阳戍卒尽杀、齐军与地方反复交战为齐方及受保护人口损害。合肥禁掠和抚劳、诸城降附减少进一步伤害，是已实现止损。人口降俘不作资产；驼马辎重和稳定州镇控制分别进入WR"
+          }
+        ],
+        "omitted_event_count": 0
+      },
+      "deduplication": "政策、工程和战争后果已进入三锚、升档持续性或K；不另加直接贡献余额。",
+      "rank": 88
+    }
+  ]
+}
