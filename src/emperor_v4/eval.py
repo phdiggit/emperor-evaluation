@@ -25,7 +25,23 @@ from emperor_v4.evaluation.historical_quality_gold import (
     verify_historical_quality_gold_source_files,
 )
 from emperor_v4.evaluation.historical_outcome_registry import (
+    load_configured_dynasty_outcome_packs,
     write_current_outcome_layers,
+)
+from emperor_v4.evaluation.battle_outcome_worklist import (
+    write_battle_outcome_worklist,
+)
+from emperor_v4.evaluation.battle_exact_evidence import (
+    write_current_battle_exact_evidence,
+)
+from emperor_v4.evaluation.ordinary_battle_outcome_pack import (
+    write_ordinary_battle_outcome_packs,
+)
+from emperor_v4.evaluation.battle_parent_contract_registry import (
+    write_battle_parent_contract_registry,
+)
+from emperor_v4.evaluation.military_talent_grade_registry import (
+    write_military_talent_grade_registry,
 )
 from emperor_v4.evaluation.i5b_ruler_rule_coverage import (
     evaluate_i5b_ruler_rule_coverage,
@@ -94,6 +110,40 @@ def _parser() -> argparse.ArgumentParser:
 
     outcome_registry = commands.add_parser("historical-outcome-registry")
     outcome_registry.add_argument("--workspace-root", type=Path, default=Path("."))
+
+    battle_worklist = commands.add_parser("battle-outcome-worklist")
+    battle_worklist.add_argument("--workspace-root", type=Path, default=Path("."))
+    battle_worklist.add_argument("--output-dir", type=Path)
+
+    battle_pack_check = commands.add_parser("battle-outcome-pack-check")
+    battle_pack_check.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+
+    battle_exact_evidence = commands.add_parser("battle-exact-evidence")
+    battle_exact_evidence.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    battle_exact_evidence.add_argument("--output", type=Path)
+
+    ordinary_battle_packs = commands.add_parser("ordinary-battle-outcome-packs")
+    ordinary_battle_packs.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+
+    battle_parent_registry = commands.add_parser(
+        "battle-parent-contract-registry"
+    )
+    battle_parent_registry.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+
+    military_talent_grades = commands.add_parser(
+        "military-talent-grade-registry"
+    )
+    military_talent_grades.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
 
     gold_compare = commands.add_parser("historical-gold-compare")
     gold_compare.add_argument("--manifest", type=Path, required=True)
@@ -426,6 +476,165 @@ def _run_outcome_registry(args: argparse.Namespace) -> int:
     return 1 if registry["status"] == "needs_review" else 0
 
 
+def _run_battle_outcome_worklist(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    output_dir = args.output_dir.resolve() if args.output_dir else None
+    written = write_battle_outcome_worklist(workspace_root, output_dir)
+    report = json.loads(written["json"].read_text(encoding="utf-8"))
+    declarations = report["declarations"]
+    print(f"战役底账行：{declarations['ledger_row_count']}")
+    print(f"战役成果候选：{declarations['candidate_count']}")
+    print(
+        "四路分流："
+        + " / ".join(
+            f"{key}={value}"
+            for key, value in declarations["disposition_counts"].items()
+        )
+    )
+    print(
+        "普通战役吞吐试批："
+        f"{report['ordinary_throughput_probe']['selected_count']}"
+    )
+    print(
+        "AUTO候选非Gold裁决："
+        f"{declarations['ordinary_campaign_adjudicated_count']} / "
+        f"{declarations['ordinary_campaign_adjudicated_count'] + len(declarations['ordinary_campaign_pending_ids'])}"
+    )
+    print(
+        "全部普通候选裁决："
+        f"{declarations['ordinary_candidate_adjudicated_count']} / "
+        f"{declarations['ordinary_candidate_adjudicated_count'] + len(declarations['ordinary_candidate_pending_ids'])}"
+    )
+    print(
+        "统一深审分型："
+        + " / ".join(
+            f"{key}={value}"
+            for key, value in declarations["unification_scope_counts"].items()
+        )
+    )
+    print(f"谋略线索候选：{declarations['statecraft_lead_candidate_count']}")
+    print(f"JSON：{written['json']}")
+    print(f"Markdown：{written['markdown']}")
+    return 1 if (
+        declarations["unification_scope_missing_ids"]
+        or declarations["unification_scope_extra_ids"]
+    ) else 0
+
+
+def _run_battle_outcome_pack_check(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    project = yaml.safe_load(
+        (workspace_root / "config/project.yml").read_text(encoding="utf-8")
+    )
+    packs = load_configured_dynasty_outcome_packs(workspace_root, project)
+    battle_packs = {
+        token: pack
+        for token, pack in packs.items()
+        if pack.get("pack_scope") == "dynasty_battle"
+    }
+    cluster_count = 0
+    war_event_refs: set[str] = set()
+    for token, pack in sorted(battle_packs.items()):
+        clusters = (pack.get("outcome_registry") or {}).get("clusters") or ()
+        cluster_count += len(clusters)
+        token_refs = {
+            str(ref)
+            for cluster in clusters
+            for ref in cluster.get("source_war_event_refs") or ()
+        }
+        war_event_refs.update(token_refs)
+        print(f"{token}：{len(clusters)} 项成果 / {len(token_refs)} 个最终战役事件")
+    print(f"朝代战役成果包：{len(battle_packs)}")
+    print(f"成果：{cluster_count}")
+    print(f"最终 war_event_id：{len(war_event_refs)}")
+    return 0
+
+
+def _run_battle_exact_evidence(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    output = args.output.resolve() if args.output else None
+    written = write_current_battle_exact_evidence(
+        workspace_root,
+        output_path=output,
+    )
+    payload = json.loads(written.read_text(encoding="utf-8"))
+    print(f"正式候选：{payload['item_count']}")
+    print(f"逐字证据：{payload['evidence_unit_count']}")
+    print(
+        "朝代覆盖："
+        + " / ".join(
+            f"{dynasty}={count}"
+            for dynasty, count in payload["dynasty_counts"].items()
+        )
+    )
+    print(f"JSON：{written}")
+    return 0
+
+
+def _run_ordinary_battle_outcome_packs(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_ordinary_battle_outcome_packs(workspace_root)
+    total_clusters = 0
+    for token, path in sorted(written.items()):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        clusters = (payload.get("outcome_registry") or {}).get("clusters") or ()
+        ordinary_count = sum(
+            str(row.get("independent_key") or "").startswith("ordinary-campaign:")
+            for row in clusters
+        )
+        total_clusters += ordinary_count
+        print(f"{token}：普通父战役 {ordinary_count}")
+    print(f"普通父战役成果：{total_clusters}")
+    return 0
+
+
+def _run_battle_parent_contract_registry(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_battle_parent_contract_registry(workspace_root)
+    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    print(f"普通候选：{payload['ordinary_candidate_count']}")
+    print(
+        f"普通父结果登记："
+        f"{payload.get('ordinary_public_outcome_count', payload['public_outcome_count'])}"
+    )
+    print(f"统一链父结果登记：{payload.get('unification_public_outcome_count', 0)}")
+    print(f"父结果登记合计：{payload['public_outcome_count']}")
+    print(f"待审：{payload['pending_count']}")
+    print(
+        "处置："
+        + " / ".join(
+            f"{key}={value}"
+            for key, value in payload["disposition_counts"].items()
+        )
+    )
+    print(f"JSON：{written['json']}")
+    print(f"Markdown：{written['markdown']}")
+    return 0
+
+
+def _run_military_talent_grade_registry(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_military_talent_grade_registry(workspace_root)
+    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    print(f"武将人物：{payload['profile_count']}")
+    print(
+        "等级："
+        + " / ".join(
+            f"{key}={value}" for key, value in payload["grade_counts"].items()
+        )
+    )
+    print(
+        "状态："
+        + " / ".join(
+            f"{key}={value}"
+            for key, value in payload["grade_status_counts"].items()
+        )
+    )
+    print(f"JSON：{written['json']}")
+    print(f"Markdown：{written['markdown']}")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
 
@@ -439,6 +648,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_outcome_dry_run(args)
     if args.command == "historical-outcome-registry":
         return _run_outcome_registry(args)
+    if args.command == "battle-outcome-worklist":
+        return _run_battle_outcome_worklist(args)
+    if args.command == "battle-outcome-pack-check":
+        return _run_battle_outcome_pack_check(args)
+    if args.command == "battle-exact-evidence":
+        return _run_battle_exact_evidence(args)
+    if args.command == "ordinary-battle-outcome-packs":
+        return _run_ordinary_battle_outcome_packs(args)
+    if args.command == "battle-parent-contract-registry":
+        return _run_battle_parent_contract_registry(args)
+    if args.command == "military-talent-grade-registry":
+        return _run_military_talent_grade_registry(args)
     if args.command == "historical-gold-compare":
         kwargs = {"manifest_path": args.manifest, "result_path": args.result}
         if args.schema:

@@ -25,7 +25,7 @@
 - 当前实现默认 `offline-first`、`report-only`、`shadow-first`；模型调用、正式评分写入和排名写入均为0。
 - 人才 `historic` 当前采用 V11 分领域等价路径，军事与治理分别执行各自门槛，不再互相类比。军事先按主帅/主将责任过滤，再用 `A=1、S-=2、S=3、S+=4` 的战略权重表达“巅峰双成果”或“三项以上持续战略统帅”两类路径，避免穷举战役等级组合；权重只用于人才门槛，不改变战役定级和分项计分。文化单一作品路径仍限本人著成或最终定稿且具有文明奠基和长期基础使用的极少数成果。
 - 固定顺序是“朝代政书治理底账 → 单皇帝本纪/列传治理增量 → 无皇帝窗口成果总登记 → 共享人物全生涯画像总登记 → 皇帝窗口绑定与窗口政治风险 → 规则材料 → 计分”。成果总登记以 `outcome_kind` 区分战役、治理与谋略，每个独立结果只保存一次；共享画像以 `person_ref` 唯一归并全生涯档位。各皇帝独立绑定表只能后置连接和投影，不得复制或改写共享人才档位。
-- 战争最多登记为“战争终局背景 → 皇帝战役群父项 → 人物指挥子成果”三级树。战争终局只用于统一总成果校准，不进入 C1 或人才结算；C1 消费互不重叠的战役群，人才优先消费本人指挥子成果，同一人物不得同时消费祖先与后代节点。统治者控制分为授权、作战部署和前线指挥，并另记授权方式、控制范围与阻挠状态。战役字母档只表示已实现的战略结果，作战难度另以 `D0–D3` 登记；不利事实拆为战争成本、目标未完成和可归责失败，禁止用统一“过程负面”机械扣分。
+- 战争最多登记为“战争终局背景 → 皇帝战役群父项 → 人物指挥子成果”三级树。战争终局只用于统一总成果校准，不进入 C1 或人才结算；C1 消费互不重叠的战役群，人才优先消费本人指挥子成果，同一人物不得同时消费祖先与后代节点。统治者控制分为授权、作战部署和前线指挥，并另记授权方式、控制范围与阻挠状态。战役字母档只表示已实现的战略结果，作战难度另以 `D0–D4` 登记，从无有效抵抗到显著逆风或濒危逆转；规模、距离和后勤单独最多支持 `D2`。不利事实拆为战争成本、目标未完成和可归责失败，禁止用统一“过程负面”机械扣分。
 
 ## 当前架构
 
@@ -78,11 +78,27 @@ python v4.py historical-gold-blind-run --ruler 李世民
 python v4.py historical-gold-blind-run --ruler 李渊
 python v4.py historical-gold-blind-run --ruler 刘邦
 python v4.py historical-outcome-registry
+python v4.py battle-outcome-worklist
+python v4.py battle-parent-contract-registry
+python v4.py military-talent-grade-registry
+python v4.py battle-outcome-pack-check
 python v4.py historical-outcome-dry-run --ruler 刘邦
 python v4.py historical-outcome-dry-run --ruler 李世民
 ```
 
 `historical-outcome-registry` 依次重建 `eval/historical_outcome_registry/current.{json,md}` 和 `eval/historical_person_profiles/current.{json,md}`，两份公共登记通过后才为每个皇帝生成独立窗口绑定；生成时必须能无损还原现有皇帝成果投影，否则失败关闭。人物画像按军事、治理、谋略和文化学术分别定档，总档取最高独立领域；未完成全生涯本传者只显示现有登记支持的档位下限。臣子详情使用 `--person`，窗口政治风险与共享档位分开展示。`historical-outcome-dry-run` 只计算将写入的当前行数与 migration 指纹，不读取 DSN、不打开数据库连接；本轮停在该边界。
+
+`battle-outcome-worklist` 只读消费 `tmp/治理/正式底账/01-战役/**/战役底账.jsonl`，按最终 `war_event_id` 聚合已闭合终局并展开终局事实与阶段节点，同时接入既有 SB/SN、WR、WC 结算，输出到 `tmp/战役登记/公共成果候选/current.{json,md}`。候选确定性分为 `UNIFICATION_DEEP_REVIEW`、`AUTO_REGISTER`、`BATCH_REVIEW`、`HOLD_OR_REJECT` 四路；统一深审候选再按 `config/unification-campaign-scope-adjudications.json` 分成全国统一组合组成事件、区域创业、区域兼并和非统一组合，运行时必须82项完整覆盖且无多余ID。`config/unification-campaign-tier-adjudications.json` 只保存六个大一统朝代统一进程组合，`config/ordinary-campaign-adjudications.json` 保存普通战役当前非Gold裁决；两者都不得写数值权重。普通平乱、宫廷政变和一般军中哗变不因已有战争卡而自动晋升，必须先证明显著战略结果或有区分度的个人军事能力证据。正式战役群必须填写指挥拓扑、人物轻量指挥索引、土地—对手—结果三轴、D0—D4作战难度、负面过程和史源；正式裁决的 `source_refs` 必须覆盖终局卡及全部吸收阶段的修订引用，缺一即拒绝生成。单一统合指挥的唯一实质主帅可以完整消费父成果；前任无正向成果而后任独立扭转并终结同一目标时，顺序接任拓扑允许后任完整消费、前任只留负面。共同统帅、分立方面、敌对指挥链、分散响应和指挥未决分别处理。逐字回源未完成时只能标记 `ADJUDICATED_SOURCE_BACKFILL_REQUIRED`，不得晋升成果包。自动路由只生成候选，不自动定档或建立人物信用，谋略命中也仍只是回源线索。
+
+`battle-parent-contract-registry` 消费战争卡、普通父链裁决、合同裁决和六条开国统一链，将全部普通候选关闭为三轴完整的当前父结果、合并/排除/转域或证据终态，并把统一链完整并入 [`docs/公共成果/军事/01-秦至唐战役登记.json`](docs/公共成果/军事/01-秦至唐战役登记.json) 与对应Markdown阅读视图。SB/SN与WC只作复核线索，不能换算战役档；D轴、指挥拓扑和人物信用按实际消费展开。
+
+`military-talent-grade-registry` 只消费上述最新父战役总登记，按人物实际能力贡献、本人结果、作战难度和独立能力情境去重，确定性生成 [`docs/公共成果/军事/02-秦至唐武将人才等级.json`](docs/公共成果/军事/02-秦至唐武将人才等级.json) 与对应Markdown阅读视图。它明确推翻既有军事人才等级，不读取旧人物画像；待建人物指挥子成果只保留下限和升级队列。军事领域使用 `ordinary / usable / capable / important / elite / top / historic` 七档：硬门槛判断能力上限和跨情境复验，同档再以履历结构和净战略值解释单峰、持续、统筹及重大败责差异；净值不得反推档位。
+
+`battle-exact-evidence` 将分朝逐字回填合并为 `eval/battle_exact_evidence/current.json`，并同时校验125项正式普通战役全覆盖、固定修订原文命中、跨战役引文不复用、人物指挥、已声明成本以及 D3/D4 实际攻守过程；任一未解决项都会拒绝生成。该文件仍是 `REGISTERED_NOT_GOLD` 的当前证据层，不会把人物局部方向自动复制为父战役成果。
+
+`ordinary-battle-outcome-packs` 将上述125项编译为 `eval/ordinary_battle_outcomes/<dynasty_token>/current.json` 八个未接线朝代包。父成果原样保留指挥拓扑；只有 `full_parent` 可在父层获得独立人才信用，其余共同、分立、敌对或待细化方向统一标为 `covered_by_child`，须另建人物子成果。`command_unresolved` 与 `distributed_response` 可以不绑定具名主帅；旧严重度未迁移的可归责失败只进入局限说明，不机械换档。此批包在人物子成果和皇帝窗口绑定完成前不得加入 `historical_outcome_registry.dynasty_outcome_packs`。
+
+审定后的朝代共享战役成果以 `pack_scope=dynasty_battle` 的当前成果包接入 `historical_outcome_registry.dynasty_outcome_packs`；`battle-outcome-pack-check` 可在不重写总登记的情况下验证包哈希、公共成果Schema、最终 `war_event_id` 血缘和皇帝窗口隔离。正式生成器通过同一门禁后，再与皇帝级、朝代治理成果无损合并。战役成果包不包含皇帝窗口绑定。
 
 ### Google AI 无人值守宽搜
 

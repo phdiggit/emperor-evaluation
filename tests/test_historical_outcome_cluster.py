@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from hashlib import sha256
 import json
 from pathlib import Path
 
@@ -18,6 +19,9 @@ from emperor_v4.evaluation.historical_quality_gold import (
     load_historical_quality_gold,
     run_historical_quality_gold_blind_gate,
     verify_historical_quality_gold_sources,
+)
+from emperor_v4.evaluation.historical_outcome_registry import (
+    load_configured_dynasty_outcome_packs,
 )
 from emperor_v4.adapters.source_text_index import (
     LocalSourceTextIndex,
@@ -179,6 +183,38 @@ def test_campaign_registry_separates_ruler_control_land_axis_and_failures() -> N
     )
     assert validation["status"] == "passed"
 
+    planned_from_rear = copy.deepcopy(registry)
+    planned_campaign = next(
+        row
+        for row in planned_from_rear["clusters"]
+        if row["outcome_ref"] == campaign["outcome_ref"]
+    )
+    planned_ruler = next(
+        member
+        for member in planned_campaign["members"]
+        if member["actor_kind"] == "ruler"
+    )
+    planned_ruler["ruler_campaign_relation"] = "operational_direction"
+    planned_ruler["role_code"] = "not_in_command_chain"
+    planned_campaign["semantic_fingerprint"] = cluster_semantic_fingerprint(
+        planned_campaign
+    )
+    validation = validate_historical_outcome_registry(
+        planned_from_rear,
+        schema_path=SCHEMA,
+        facts={row["record_ref"]: row for row in pack["facts"]},
+    )
+    assert validation["status"] == "passed"
+
+    campaign["source_war_event_refs"] = ["WAR-LEAD-TEST-001"]
+    campaign["semantic_fingerprint"] = cluster_semantic_fingerprint(campaign)
+    validation = validate_historical_outcome_registry(
+        registry,
+        schema_path=SCHEMA,
+        facts={row["record_ref"]: row for row in pack["facts"]},
+    )
+    assert validation["status"] == "passed"
+
     invalid = copy.deepcopy(registry)
     invalid_campaign = next(
         row for row in invalid["clusters"] if row["outcome_ref"] == campaign["outcome_ref"]
@@ -197,6 +233,96 @@ def test_campaign_registry_separates_ruler_control_land_axis_and_failures() -> N
             invalid,
             schema_path=SCHEMA,
             facts={row["record_ref"]: row for row in pack["facts"]},
+        )
+
+
+def test_configured_dynasty_battle_pack_is_unbound_and_validated(
+    tmp_path: Path,
+) -> None:
+    source = json.loads(
+        (ROOT / "eval/i5b_current_value/刘邦/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    cluster = copy.deepcopy(
+        next(
+            row
+            for row in source["outcome_registry"]["clusters"]
+            if row["outcome_kind"] == "statecraft"
+        )
+    )
+    cluster["ruler_window_status"] = "unresolved"
+    cluster["origin"] = "dynasty_battle"
+    cluster["source_war_event_refs"] = ["WAR-LEAD-HAN-TEST"]
+    cluster.pop("ruler_context_refs", None)
+    cluster["semantic_fingerprint"] = cluster_semantic_fingerprint(cluster)
+    fact_refs = set(cluster["fact_refs"])
+    pack = {
+        "schema_version": "dynasty-battle-outcome-pack-v1",
+        "pack_scope": "dynasty_battle",
+        "dynasty_token": "HAN",
+        "status": "current_human_adjudicated",
+        "facts": [
+            row for row in source["facts"] if row["record_ref"] in fact_refs
+        ],
+        "members": [],
+        "outcome_registry": {
+            "schema_version": source["outcome_registry"]["schema_version"],
+            "status": source["outcome_registry"]["status"],
+            "clusters": [cluster],
+        },
+    }
+    pack["source_pack_sha256"] = sha256(
+        json.dumps(
+            pack, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+    config_dir = tmp_path / "config"
+    config_dir.mkdir()
+    (config_dir / "historical-outcome-cluster-registry.schema.json").write_bytes(
+        SCHEMA.read_bytes()
+    )
+    pack_path = tmp_path / "han-battle.json"
+    pack_path.write_text(
+        json.dumps(pack, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    loaded = load_configured_dynasty_outcome_packs(
+        tmp_path,
+        {
+            "historical_outcome_registry": {
+                "dynasty_outcome_packs": {"HAN": "han-battle.json"}
+            }
+        },
+    )
+    assert loaded["HAN"]["source_pack_sha256"]
+    assert loaded["HAN"]["outcome_registry"]["clusters"][0][
+        "ruler_window_status"
+    ] == "unresolved"
+
+    pack["outcome_registry"]["clusters"][0]["ruler_window_status"] = (
+        "within_window"
+    )
+    pack_without_sha = dict(pack)
+    pack_without_sha.pop("source_pack_sha256")
+    pack["source_pack_sha256"] = sha256(
+        json.dumps(
+            pack_without_sha,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    pack_path.write_text(
+        json.dumps(pack, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="不得携带皇帝窗口"):
+        load_configured_dynasty_outcome_packs(
+            tmp_path,
+            {
+                "historical_outcome_registry": {
+                    "dynasty_outcome_packs": {"HAN": "han-battle.json"}
+                }
+            },
         )
 
 
@@ -230,6 +356,33 @@ def test_campaign_result_class_controls_tier_but_difficulty_does_not() -> None:
     hulao["payload"]["strategic_result_class"] = "single_pole_or_state_terminal"
     hulao["semantic_fingerprint"] = cluster_semantic_fingerprint(hulao)
     with pytest.raises(ValueError, match="必须映射为 S"):
+        validate_historical_outcome_registry(
+            registry,
+            schema_path=SCHEMA,
+            facts=facts,
+        )
+
+
+def test_single_state_terminal_requires_first_tier_or_national_external_opponent() -> None:
+    pack = json.loads(
+        (ROOT / "eval/i5b_current_value/李世民/source-pack.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    facts = {row["record_ref"]: row for row in pack["facts"]}
+    registry = copy.deepcopy(pack["outcome_registry"])
+    xiaoxian = next(
+        row
+        for row in registry["clusters"]
+        if row["canonical_label"] == "李靖实际统帅平定萧铣"
+    )
+    xiaoxian["payload"]["opponent_strategic_weight"] = "regional_major"
+    xiaoxian["payload"]["campaign_tier_basis"] = xiaoxian["payload"][
+        "campaign_tier_basis"
+    ].replace("first_tier_pole", "regional_major")
+    xiaoxian["semantic_fingerprint"] = cluster_semantic_fingerprint(xiaoxian)
+
+    with pytest.raises(ValueError, match="高档战略终局与对手竞争位置不匹配"):
         validate_historical_outcome_registry(
             registry,
             schema_path=SCHEMA,

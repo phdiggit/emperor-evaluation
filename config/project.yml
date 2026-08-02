@@ -71,6 +71,8 @@ historical_outcome_registry:
   current_json: eval/historical_outcome_registry/current.json
   current_markdown: eval/historical_outcome_registry/current.md
   partition_root: eval/historical_outcome_registry
+  dynasty_outcome_packs:
+    QIN: eval/dynasty_battle_outcomes/QIN/current.json
   cross_dynasty_outcome_partition_owners: {}
   audit_before_ruler_window_binding: true
   formal_writes_allowed: false
@@ -81,6 +83,13 @@ historical_person_profile_registry:
   partition_root: eval/historical_person_profiles
   audit_before_ruler_window_binding: true
   formal_writes_allowed: false
+
+military_talent_grade_registry:
+  source_registry: docs/公共成果/军事/01-秦至唐战役登记.json
+  current_json: docs/公共成果/军事/02-秦至唐武将人才等级.json
+  current_markdown: docs/公共成果/军事/02-秦至唐武将人才等级.md
+  supersedes_prior_military_talent_grades: true
+  formal_score_write: false
 
 historical_quality_gold:
   schema: config/historical-quality-gold-manifest.schema.json

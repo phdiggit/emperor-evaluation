@@ -384,6 +384,12 @@ def compile_outcome_candidate_payloads(
                         f"{candidate_key} S+ 必须实际取得胜利并完成终局目标"
                     )
                 required_opponent_weight = {
+                    "single_pole_or_state_terminal": {
+                        "first_tier_pole",
+                        "dominant_pole",
+                        "external_state",
+                        "external_hegemony",
+                    },
                     "composite_poles_terminal": {"first_tier_pole", "dominant_pole"},
                     "unification_terminal": {"dominant_pole"},
                     "external_hegemony_terminal": {"external_hegemony"},
@@ -392,7 +398,7 @@ def compile_outcome_candidate_payloads(
                     "opponent_strategic_weight"
                 ] not in required_opponent_weight:
                     raise ValueError(
-                        f"{candidate_key} S+ 战略终局与对手竞争位置不匹配"
+                        f"{candidate_key} 高档战略终局与对手竞争位置不匹配"
                     )
                 for failure in candidate["payload"]["attributable_failures"]:
                     if not failure.get("actor_name"):
@@ -761,6 +767,7 @@ def compile_outcome_candidate_payloads(
                     "campaign_tier",
                     "campaign_tier_basis",
                     "land_strategic_value",
+                    "opponent_force_effect",
                     "combat_difficulty",
                     "combat_difficulty_basis",
                 ):
@@ -788,8 +795,7 @@ def compile_outcome_candidate_payloads(
                         raise ValueError(
                             f"{candidate_key} 可归责失败责任人不在允许人物中: {actor_name}"
                         )
-                    outcome_payload["attributable_failures"].append(
-                        {
+                    compiled_failure = {
                             "responsibility": raw_failure["responsibility"],
                             "severity_index": raw_failure["severity_index"],
                             "actor_ref": binding[0],
@@ -802,6 +808,12 @@ def compile_outcome_candidate_payloads(
                                 )
                             ],
                         }
+                    if raw_failure.get("failure_impact_tier") is not None:
+                        compiled_failure["failure_impact_tier"] = raw_failure[
+                            "failure_impact_tier"
+                        ]
+                    outcome_payload["attributable_failures"].append(
+                        compiled_failure
                     )
             else:
                 outcome_payload = {
