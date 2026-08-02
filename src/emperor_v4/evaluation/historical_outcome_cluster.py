@@ -74,6 +74,8 @@ def campaign_tier(cluster: Mapping[str, object]) -> str:
     if explicit:
         return explicit
     return LEGACY_CAMPAIGN_TIER_BY_SCALE[str(cluster["scale"]["level"])]
+
+
 GOVERNANCE_ROLES = {
     "exclusive": "独占",
     "lead": "主导",
@@ -309,10 +311,18 @@ def validate_historical_outcome_registry(
                 ):
                     raise ValueError(f"{ref} 仅授权的统治者不得进入军事指挥链")
                 if (
-                    relation != "authorization_only"
-                    and sovereign_member["role_code"] == "not_in_command_chain"
+                    relation == "frontline_command"
+                    and sovereign_member["role_code"] != "commander_in_chief"
                 ):
-                    raise ValueError(f"{ref} 进入战区统筹的统治者必须登记实际指挥角色")
+                    raise ValueError(f"{ref} 完整亲征必须进入最高实际指挥层")
+                if relation == "operational_direction" and sovereign_member[
+                    "role_code"
+                ] not in {
+                    "commander_in_chief",
+                    "principal_commander",
+                    "not_in_command_chain",
+                }:
+                    raise ValueError(f"{ref} 战役筹划与统筹角色非法")
                 if relation == "authorization_only" and not sovereign_member.get(
                     "authorization_mode"
                 ):
@@ -357,10 +367,25 @@ def validate_historical_outcome_registry(
                     or parent.get("settlement_scope") != "ruler_campaign_parent"
                 ):
                     raise ValueError(f"{ref} 人物子战役缺少有效父级战役群")
-            if settlement_scope != "war_terminal_context" and not any(
-                member["role_code"]
-                in {"commander_in_chief", "principal_commander", "participant"}
-                for member in members
+            command_topology = str(
+                cluster.get("campaign_command_topology") or ""
+            )
+            command_chain_optional = command_topology in {
+                "distributed_response",
+                "command_unresolved",
+            }
+            if (
+                settlement_scope != "war_terminal_context"
+                and not command_chain_optional
+                and not any(
+                    member["role_code"]
+                    in {
+                        "commander_in_chief",
+                        "principal_commander",
+                        "participant",
+                    }
+                    for member in members
+                )
             ):
                 raise ValueError(f"{ref} 父级战役群缺少实际军事指挥链成员")
             tier_basis = str(payload["campaign_tier_basis"])
@@ -383,6 +408,12 @@ def validate_historical_outcome_registry(
             ):
                 raise ValueError(f"{ref} S+ 必须实际取得胜利并完成终局目标")
             required_opponent_weight = {
+                "single_pole_or_state_terminal": {
+                    "first_tier_pole",
+                    "dominant_pole",
+                    "external_state",
+                    "external_hegemony",
+                },
                 "composite_poles_terminal": {"first_tier_pole", "dominant_pole"},
                 "unification_terminal": {"dominant_pole"},
                 "external_hegemony_terminal": {"external_hegemony"},
@@ -390,7 +421,7 @@ def validate_historical_outcome_registry(
             if required_opponent_weight and payload[
                 "opponent_strategic_weight"
             ] not in required_opponent_weight:
-                raise ValueError(f"{ref} S+ 战略终局与对手竞争位置不匹配")
+                raise ValueError(f"{ref} 高档战略终局与对手竞争位置不匹配")
             if payload["campaign_tier"] in {"S", "S+"} and payload[
                 "opponent_condition"
             ] == "residual":

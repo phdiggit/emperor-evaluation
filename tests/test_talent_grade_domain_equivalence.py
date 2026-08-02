@@ -8,6 +8,7 @@ import yaml
 
 from emperor_v4.evaluation.talent_grade_domain_equivalence import (
     assess_domain_historic_path,
+    assess_military_talent_grade_shadow,
     validate_campaign_registry,
 )
 
@@ -32,6 +33,18 @@ def _achievement(
         "consequence_basis": consequence_basis,
         "progress_level": "significant",
         "contribution_types": ["implementation_lead"],
+        **(
+            {
+                "combat_difficulty": "D3",
+                "settlement_scope": (
+                    "person_campaign_subresult"
+                    if responsibility_role == "principal_commander"
+                    else "ruler_campaign_parent"
+                ),
+            }
+            if responsibility_role in {"commander_in_chief", "principal_commander"}
+            else {}
+        ),
         **extra,
     }
 
@@ -64,7 +77,11 @@ def test_v11_policy_makes_domain_paths_equivalent_without_common_legacy_gate() -
         "S": 3,
         "S+": 4,
     }
-    assert policy["top_fallback"]["military_single_s_plus_establishes_top"] is True
+    assert policy["top_fallback"]["military_paths"] == [
+        "stable_s_plus_at_d2_or_higher",
+        "s_minus_or_s_at_d3_or_higher_with_stability_second_a_d2_or_method",
+        "two_s_minus_or_higher_at_d2_or_higher_with_one_stable",
+    ]
     assert (
         policy["historic_paths"]["civil_governance"]["repeated_structural_path"]
         ["minimum_independent_significant_or_higher_results"]
@@ -298,6 +315,190 @@ def test_two_ordinary_s_campaigns_do_not_pass_exception_path() -> None:
     )
 
     assert result["historic_fact_path_status"] == "not_established"
+
+
+def test_shadow_military_grade_does_not_let_principal_inherit_parent_campaign() -> None:
+    result = assess_military_talent_grade_shadow(
+        [
+            _achievement(
+                "PARENT",
+                "national",
+                campaign_tier="S+",
+                combat_difficulty="D4",
+                responsibility_role="principal_commander",
+                settlement_scope="ruler_campaign_parent",
+                decisive=True,
+                stable_delivery=True,
+            )
+        ],
+        coverage_complete=True,
+    )
+
+    assert result["grade"] == "ordinary"
+
+
+def test_shadow_military_top_requires_result_and_difficulty_review() -> None:
+    top = assess_military_talent_grade_shadow(
+        [
+            _achievement(
+                "ANCHOR",
+                "national",
+                campaign_tier="S-",
+                combat_difficulty="D3",
+                responsibility_role="commander_in_chief",
+                stable_delivery=True,
+            )
+        ],
+        coverage_complete=True,
+    )
+    low_difficulty = assess_military_talent_grade_shadow(
+        [
+            _achievement(
+                "ANCHOR",
+                "national",
+                campaign_tier="S-",
+                combat_difficulty="D1",
+                responsibility_role="commander_in_chief",
+                stable_delivery=True,
+            )
+        ],
+        coverage_complete=True,
+    )
+
+    assert top["grade"] == "top"
+    assert low_difficulty["grade"] == "important"
+
+
+def test_shadow_military_safe_projection_stops_at_important() -> None:
+    result = assess_military_talent_grade_shadow(
+        [
+            _achievement(
+                "SAFE-A",
+                "national",
+                campaign_tier="A",
+                combat_difficulty="D2",
+                responsibility_role="principal_commander",
+                evidence_detail_status="safe_projection",
+                stable_delivery=True,
+            ),
+            _achievement(
+                "SAFE-B",
+                "national",
+                campaign_tier="A",
+                combat_difficulty="D2",
+                responsibility_role="principal_commander",
+                evidence_detail_status="safe_projection",
+                stable_delivery=True,
+            ),
+        ],
+        coverage_complete=False,
+    )
+
+    assert result["grade"] == "important"
+    assert result["rule_path"] == "one_a_or_two_b"
+
+
+def test_shadow_military_ruler_operational_direction_needs_person_result() -> None:
+    parent = _achievement(
+        "RULER-DIRECTION",
+        "national",
+        campaign_tier="S",
+        combat_difficulty="D4",
+        responsibility_role="commander_in_chief",
+        settlement_scope="ruler_campaign_parent",
+        ruler_campaign_relation="operational_direction",
+        stable_delivery=True,
+    )
+    child = {
+        **parent,
+        "settlement_scope": "person_campaign_subresult",
+    }
+    frontline = {
+        **parent,
+        "ruler_campaign_relation": "frontline_command",
+        "control_extent": "sustained",
+    }
+
+    parent_result = assess_military_talent_grade_shadow(
+        [parent], coverage_complete=False
+    )
+    child_result = assess_military_talent_grade_shadow(
+        [child], coverage_complete=False
+    )
+    frontline_result = assess_military_talent_grade_shadow(
+        [frontline], coverage_complete=False
+    )
+
+    assert parent_result["grade"] is None
+    assert child_result["grade"] == "top"
+    assert frontline_result["grade"] == "top"
+
+
+def test_shadow_military_historic_peak_pair_requires_difficulty_pair() -> None:
+    base = [
+        _achievement(
+            "SPLUS",
+            "era_shaping",
+            campaign_tier="S+",
+            combat_difficulty="D4",
+            responsibility_role="commander_in_chief",
+            decisive=True,
+            stable_delivery=True,
+        ),
+        _achievement(
+            "SUPPORT",
+            "regional",
+            campaign_tier="A",
+            combat_difficulty="D2",
+            responsibility_role="principal_commander",
+        ),
+    ]
+    passed = assess_military_talent_grade_shadow(base, coverage_complete=True)
+    failed = assess_military_talent_grade_shadow(
+        [{**row, "combat_difficulty": "D1"} for row in base],
+        coverage_complete=True,
+    )
+
+    assert passed["grade"] == "historic"
+    assert failed["grade"] == "important"
+
+
+def test_shadow_military_incomplete_empty_coverage_does_not_guess_ordinary() -> None:
+    result = assess_military_talent_grade_shadow([], coverage_complete=False)
+
+    assert result["grade"] is None
+    assert result["rule_path"] == "coverage_incomplete_no_grade"
+
+
+def test_sui_chen_campaign_uses_contribution_not_formal_role_for_credit() -> None:
+    payload = json.loads(
+        (ROOT / "config/unification-campaign-tier-adjudications.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    portfolio = next(
+        row
+        for row in payload["adjudications"]
+        if row["portfolio_ref"] == "UCP-SUI-YANGJIAN-587-591"
+    )
+    campaign = next(
+        row
+        for row in portfolio["campaign_groups"]
+        if row["campaign_group_id"] == "WAR-PARENT-SUI-UNIFICATION-589"
+    )
+    members = {row["actor_name"]: row for row in campaign["members"]}
+
+    assert members["高颎"]["role_code"] == "principal_commander"
+    assert members["高颎"]["talent_credit"] == "independent"
+    assert members["高颎"]["person_command_index"]["consumption_mode"] == (
+        "operational_result"
+    )
+    assert members["杨广"]["role_code"] == "commander_in_chief"
+    assert members["杨广"]["talent_credit"] == "not_applicable"
+    assert members["杨广"]["person_command_index"]["consumption_mode"] == "none"
+    assert members["杨素"]["talent_credit"] == "covered_by_child"
+    assert members["贺若弼"]["talent_credit"] == "covered_by_child"
+    assert members["韩擒虎"]["talent_credit"] == "covered_by_child"
 
 
 def test_civil_scale_alone_does_not_establish_historic_progress() -> None:

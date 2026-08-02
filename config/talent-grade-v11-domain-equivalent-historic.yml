@@ -1,5 +1,5 @@
 schema_version: talent-grade-v11-domain-equivalent-historic-policy-v1
-policy_version: talent-grade-v11-domain-equivalent-historic-v4
+policy_version: talent-grade-v11-domain-equivalent-historic-v6
 status: current_shadow_policy
 supersedes_for_new_shadow_judgments:
   - talent-grade-v9-high-tier-calibration-v1
@@ -20,6 +20,11 @@ principles:
   cultural_benefit_does_not_imply_scholarly_credit: true
   independent_responsibility_chains_required: true
   military_campaign_tier_uses_land_opponent_and_result_axes: true
+  military_high_grades_require_result_and_difficulty_evidence: true
+  military_command_facts_preserved_independently_of_current_grade_thresholds: true
+  principal_commander_safe_projection_is_capped_at_a_d2: true
+  safe_projection_may_support_only_usable_or_important_grade: true
+  high_or_disputed_person_credit_requires_person_command_result: true
   same_campaign_or_governance_chain_counts_once: true
   domain_paths_are_equivalent_not_additive_bonuses: true
 
@@ -62,16 +67,32 @@ military_campaign_tiers:
 historic_paths:
   military:
     counted_command_roles: [commander_in_chief, principal_commander]
+    attribution:
+      commander_in_chief_may_consume_campaign_parent: true
+      command_index_consumption_modes: [full_parent, joint_parent, scoped_projection, person_result, person_result_required, none]
+      scoped_projection_maximum_result_tier: A
+      scoped_projection_maximum_combat_difficulty: D2
+      operational_direction_requires_person_command_result: true
+      high_or_disputed_credit_requires_person_command_result: true
+      principal_commander_must_not_inherit_parent_tier_or_difficulty: true
+      participant_does_not_raise_grade: true
+    combat_difficulty_order: [D0, D1, D2, D3, D4]
     strategic_weights: {A: 1, S-: 2, S: 3, S+: 4}
     peak_pair:
       minimum_independent_campaigns: 2
       either:
         - one_decisive_s_plus_and_one_additional_a_or_higher
         - two_decisive_s_or_higher
+      difficulty_requires_one_of:
+        - one_d4_and_other_d2_or_higher
+        - both_d3_or_higher
     sustained_strategic_portfolio:
       minimum_independent_a_or_higher_campaigns: 3
       minimum_independent_s_or_higher_campaigns: 1
       minimum_strategic_weight: 7
+      difficulty_requires_one_of:
+        - two_d3_or_higher
+        - one_d4_and_two_additional_d2_or_higher
     exclusions:
       - opponent_is_a_formal_state_alone_does_not_raise_tier
       - repeated_battles_inside_one_campaign_count_once
@@ -149,8 +170,10 @@ historic_paths:
       small_cross_domain_results_cannot_be_stacked: true
 
 top_fallback:
-  military_single_s_plus_establishes_top: true
-  military_otherwise_requires_s_minus_or_higher_campaign: true
+  military_paths:
+    - stable_s_plus_at_d2_or_higher
+    - s_minus_or_s_at_d3_or_higher_with_stability_second_a_d2_or_method
+    - two_s_minus_or_higher_at_d2_or_higher_with_one_stable
   civil_governance_requires_structural_progress_anchor: true
   culture_requires_scholarly_authorship_or_finalization: true
   requires_one_of:

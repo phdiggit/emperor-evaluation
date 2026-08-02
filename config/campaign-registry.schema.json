@@ -75,11 +75,14 @@
         "strategic_objective": {"type": "string", "minLength": 1},
         "campaign_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
         "campaign_tier_basis": {"type": "string", "minLength": 1},
-        "strategic_result_class": {"enum": ["local_tactical", "important_objective", "major_stage_or_crisis", "independent_direction", "single_pole_or_state_terminal", "composite_poles_terminal", "unification_terminal", "external_hegemony_terminal"]},
-        "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3"]},
+        "strategic_result_class": {"enum": ["local_tactical", "important_objective", "major_stage_or_crisis", "independent_direction", "external_hegemony_decisive_defeat", "single_pole_or_state_terminal", "composite_poles_terminal", "unification_terminal", "external_hegemony_terminal"]},
+        "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3", "D4"]},
         "combat_difficulty_basis": {"type": "string", "minLength": 1},
         "land_strategic_value": {
           "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
+        },
+        "opponent_force_effect": {
+          "enum": ["none", "limited_attrition", "major_degradation", "main_force_destroyed", "military_system_collapsed"]
         },
         "outcome": {
           "type": "object",

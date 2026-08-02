@@ -13,6 +13,7 @@ import yaml
 from emperor_v4.evaluation.historical_outcome_cluster import (
     SCHEMA_VERSION as CLUSTER_SCHEMA_VERSION,
     cluster_semantic_fingerprint,
+    validate_historical_outcome_registry,
 )
 from emperor_v4.evaluation.historical_person_profile_registry import (
     build_historical_person_profile_registry,
@@ -1160,6 +1161,99 @@ def _profile_partition_map(
     return result
 
 
+def validate_dynasty_outcome_pack(
+    workspace_root: Path,
+    *,
+    token: str,
+    source_pack: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate one sealed dynasty-wide outcome pack without publishing it."""
+
+    source_pack = json.loads(json.dumps(source_pack, ensure_ascii=False))
+    if source_pack.get("pack_scope") not in {
+        "dynasty_battle",
+        "dynasty_governance",
+    }:
+        raise ValueError(f"{token} 朝代公共成果包 scope 不匹配")
+    if str(source_pack.get("dynasty_token") or "") != str(token):
+        raise ValueError(f"{token} 朝代公共成果包 token 不匹配")
+    if source_pack.get("pack_scope") == "dynasty_battle":
+        invalid_lineage = [
+            str(cluster.get("canonical_label") or cluster.get("outcome_ref"))
+            for cluster in (source_pack.get("outcome_registry") or {}).get(
+                "clusters"
+            )
+            or ()
+            if cluster.get("origin") != "dynasty_battle"
+            or not cluster.get("source_war_event_refs")
+        ]
+        if invalid_lineage:
+            raise ValueError(
+                f"{token} 朝代战役成果包缺少战役底账血缘: {invalid_lineage}"
+            )
+        invalid_windowed = [
+            str(cluster.get("canonical_label") or cluster.get("outcome_ref"))
+            for cluster in (source_pack.get("outcome_registry") or {}).get(
+                "clusters"
+            )
+            or ()
+            if cluster.get("ruler_window_status") != "unresolved"
+            or cluster.get("ruler_context_refs")
+        ]
+        if invalid_windowed:
+            raise ValueError(
+                f"{token} 朝代战役成果包不得携带皇帝窗口: {invalid_windowed}"
+            )
+        invalid_kinds = [
+            str(cluster.get("canonical_label") or cluster.get("outcome_ref"))
+            for cluster in (source_pack.get("outcome_registry") or {}).get(
+                "clusters"
+            )
+            or ()
+            if cluster.get("outcome_kind") not in {"campaign", "statecraft"}
+        ]
+        if invalid_kinds:
+            raise ValueError(
+                f"{token} 朝代战役成果包出现非战役、谋略成果: {invalid_kinds}"
+            )
+    declared_sha = str(source_pack.pop("source_pack_sha256", ""))
+    computed_sha = _digest(source_pack)
+    if not declared_sha or declared_sha != computed_sha:
+        raise ValueError(f"{token} 朝代公共成果包 source_pack_sha256 不匹配")
+    source_pack["source_pack_sha256"] = declared_sha
+    facts = {
+        str(row["record_ref"]): row for row in source_pack.get("facts") or ()
+    }
+    validate_historical_outcome_registry(
+        source_pack.get("outcome_registry") or {},
+        schema_path=(
+            workspace_root
+            / "config/historical-outcome-cluster-registry.schema.json"
+        ),
+        facts=facts,
+    )
+    return source_pack
+
+
+def load_configured_dynasty_outcome_packs(
+    workspace_root: Path, project: Mapping[str, Any]
+) -> dict[str, Mapping[str, Any]]:
+    """Load current dynasty-wide public outcome inputs from project config."""
+
+    registry_config = project.get("historical_outcome_registry") or {}
+    configured = registry_config.get("dynasty_outcome_packs") or {}
+    loaded: dict[str, Mapping[str, Any]] = {}
+    for token, relative_path in sorted(configured.items()):
+        path = workspace_root / str(relative_path)
+        source_pack = validate_dynasty_outcome_pack(
+            workspace_root,
+            token=str(token),
+            source_pack=json.loads(path.read_text(encoding="utf-8")),
+        )
+        loaded[str(token)] = source_pack
+    return loaded
+
+
 def write_current_outcome_layers(
     workspace_root: Path,
     *,
@@ -1194,12 +1288,41 @@ def write_current_outcome_layers(
         )
         for _ruler_name, ruler_config, source_pack in configured_packs
     ]
+    for token, source_pack in load_configured_dynasty_outcome_packs(
+        workspace_root, project
+    ).items():
+        partitioned_packs.append((token, source_pack))
     for token, source_pack in (dynasty_outcome_packs or {}).items():
-        if source_pack.get("pack_scope") != "dynasty_governance":
-            raise ValueError(f"{token} 朝代治理成果包 scope 不匹配")
+        if source_pack.get("pack_scope") not in {
+            "dynasty_battle",
+            "dynasty_governance",
+        }:
+            raise ValueError(f"{token} 朝代公共成果包 scope 不匹配")
         if str(source_pack.get("dynasty_token") or "") != str(token):
-            raise ValueError(f"{token} 朝代治理成果包 token 不匹配")
+            raise ValueError(f"{token} 朝代公共成果包 token 不匹配")
+        if source_pack.get("pack_scope") == "dynasty_battle":
+            source_pack = validate_dynasty_outcome_pack(
+                workspace_root,
+                token=str(token),
+                source_pack=source_pack,
+            )
         partitioned_packs.append((str(token), source_pack))
+    battle_event_owners: dict[str, str] = {}
+    for token, source_pack in partitioned_packs:
+        if source_pack.get("pack_scope") != "dynasty_battle":
+            continue
+        for cluster in (source_pack.get("outcome_registry") or {}).get(
+            "clusters"
+        ) or ():
+            for war_event_ref in cluster.get("source_war_event_refs") or ():
+                previous = battle_event_owners.setdefault(
+                    str(war_event_ref), str(token)
+                )
+                if previous != str(token):
+                    raise ValueError(
+                        f"最终 war_event_id 跨朝代成果包重复拥有: "
+                        f"{war_event_ref} / {previous} / {token}"
+                    )
     if not partitioned_packs:
         raise ValueError("当前配置没有可汇总的成果 source pack")
     registry = build_unbound_historical_outcome_registry(

@@ -138,18 +138,21 @@
         "objective_completion": {"enum": ["complete", "partial", "failed", "unclear"]},
         "opponent_condition": {"enum": ["strong", "viable", "weakened", "residual", "unclear"]},
         "opponent_strategic_weight": {"enum": ["minor", "regional_major", "first_tier_pole", "dominant_pole", "external_state", "external_hegemony", "unclear"]},
-        "strategic_result_class": {"enum": ["local_tactical", "important_objective", "major_stage_or_crisis", "independent_direction", "single_pole_or_state_terminal", "composite_poles_terminal", "unification_terminal", "external_hegemony_terminal"]},
+        "strategic_result_class": {"enum": ["local_tactical", "important_objective", "major_stage_or_crisis", "independent_direction", "external_hegemony_decisive_defeat", "single_pole_or_state_terminal", "composite_poles_terminal", "unification_terminal", "external_hegemony_terminal"]},
         "campaign_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
         "campaign_tier_basis": {"type": "string", "minLength": 1},
         "land_strategic_value": {
           "enum": ["local_point", "important_region", "strategic_gateway", "core_heartland", "capital_or_state_survival"]
+        },
+        "opponent_force_effect": {
+          "enum": ["none", "limited_attrition", "major_degradation", "main_force_destroyed", "military_system_collapsed"]
         },
         "strategic_stakes": {
           "enum": ["bounded", "major", "critical", "existential"]
         },
         "prewar_context": {"type": "string", "minLength": 1},
         "failure_stakes": {"type": "string", "minLength": 1},
-        "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3"]},
+        "combat_difficulty": {"enum": ["D0", "D1", "D2", "D3", "D4"]},
         "combat_difficulty_basis": {"type": "string", "minLength": 1},
         "operational_costs": {
           "type": "array",
@@ -192,6 +195,7 @@
                 "enum": ["primary", "shared", "subordinate_execution", "disobedience", "mitigated", "not_responsible"]
               },
               "severity_index": {"enum": [0.2, 0.4, 0.6, 0.7, 1]},
+              "failure_impact_tier": {"enum": ["C", "B", "A", "S-", "S", "S+"]},
               "actor_ref": {"type": "string", "minLength": 1},
               "actor_name": {"type": "string", "minLength": 1},
               "basis": {"type": "string", "minLength": 1},
@@ -281,7 +285,15 @@
         "parent_outcome_ref": {"type": "string", "pattern": "^OUTCOME-[A-Z0-9-]+$"},
         "independent_key": {"type": "string", "minLength": 1},
         "canonical_label": {"type": "string", "minLength": 1},
-        "origin": {"enum": ["person_biography", "ruler_chronicle", "dynasty_governance", "multi_channel"]},
+        "origin": {"enum": ["person_biography", "ruler_chronicle", "dynasty_governance", "dynasty_battle", "multi_channel"]},
+        "campaign_command_topology": {
+          "enum": [
+            "single_integrated_command", "joint_integrated_command",
+            "federated_directions", "opposed_commands",
+            "distributed_response", "command_unresolved",
+            "sequential_successor_command"
+          ]
+        },
         "period": {"$ref": "#/$defs/period"},
         "result_status": {"enum": ["implemented", "operated", "completed", "mixed", "failed", "unclear"]},
         "result_direction": {"enum": ["positive", "mixed", "negative", "unclear"]},
@@ -307,6 +319,10 @@
         "source_refs": {
           "type": "array", "minItems": 1, "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
+        },
+        "source_war_event_refs": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^WAR-[A-Z0-9][A-Z0-9/._-]*$"}
         },
         "evidence_lineage": {
           "type": "array",

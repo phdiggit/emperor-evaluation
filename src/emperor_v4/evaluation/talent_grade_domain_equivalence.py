@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from collections import Counter
 from collections.abc import Mapping, Sequence
+from itertools import combinations
 
 
 SCALES = ("local", "important", "regional", "national", "era_shaping")
 PROGRESS_LEVELS = ("not_established", "limited", "significant", "structural", "era_shaping")
 CAMPAIGN_TIERS = ("C", "B", "A", "S-", "S", "S+")
+COMBAT_DIFFICULTIES = ("D0", "D1", "D2", "D3", "D4")
 MILITARY_STRATEGIC_WEIGHTS = {"C": 0, "B": 0, "A": 1, "S-": 2, "S": 3, "S+": 4}
 LEGACY_CAMPAIGN_TIER_BY_SCALE = {
     "local": "C",
@@ -61,6 +63,9 @@ def _eligible_achievements(
                 campaign_tier = LEGACY_CAMPAIGN_TIER_BY_SCALE[scale]
             if campaign_tier not in CAMPAIGN_TIERS:
                 raise ValueError("军事成就 campaign_tier 不在当前合同")
+            combat_difficulty = str(row.get("combat_difficulty") or "")
+            if combat_difficulty and combat_difficulty not in COMBAT_DIFFICULTIES:
+                raise ValueError("军事成就 combat_difficulty 不在当前合同")
         elif scale not in SCALES:
             raise ValueError("成就 scale 不在当前合同")
         elif str(row.get("progress_level") or "") not in PROGRESS_LEVELS:
@@ -104,7 +109,10 @@ def _eligible_achievements(
 
 
 def assess_domain_historic_path(
-    domain: str, achievements: Sequence[Mapping[str, object]]
+    domain: str,
+    achievements: Sequence[Mapping[str, object]],
+    *,
+    apply_military_difficulty_gate: bool = False,
 ) -> dict[str, object]:
     """判定分领域 historic 事实路径是否闭合，不替代权威校准或人工冻结。"""
 
@@ -123,6 +131,29 @@ def assess_domain_historic_path(
 
     if domain == "military":
         tier_rank = {tier: index for index, tier in enumerate(CAMPAIGN_TIERS)}
+        difficulty_rank = {
+            difficulty: index
+            for index, difficulty in enumerate(COMBAT_DIFFICULTIES)
+        }
+
+        def difficulty_at_least(row: Mapping[str, object], floor: str) -> bool:
+            value = str(row.get("combat_difficulty") or "")
+            return value in difficulty_rank and difficulty_rank[value] >= difficulty_rank[floor]
+
+        def peak_pair_difficulty_ok(
+            pair: tuple[Mapping[str, object], Mapping[str, object]],
+        ) -> bool:
+            left, right = pair
+            return (
+                difficulty_at_least(left, "D3")
+                and difficulty_at_least(right, "D3")
+            ) or (
+                difficulty_at_least(left, "D4")
+                and difficulty_at_least(right, "D2")
+            ) or (
+                difficulty_at_least(right, "D4")
+                and difficulty_at_least(left, "D2")
+            )
         a_or_higher = [
             row
             for row in eligible
@@ -141,44 +172,60 @@ def assess_domain_historic_path(
         s_plus = [
             row for row in eligible if str(row["campaign_tier"]) == "S+"
         ]
-        decisive_s_or_higher = [
-            row
-            for row in s_or_higher
-            if bool(row.get("decisive"))
-        ]
         order_key = lambda row: (
             -tier_rank[str(row["campaign_tier"])],
+            -difficulty_rank.get(str(row.get("combat_difficulty") or ""), -1),
             str(row["independent_key"]),
         )
-        if len(decisive_s_or_higher) >= 2:
+        peak_pairs = []
+        for pair in combinations(a_or_higher, 2):
+            left, right = pair
+            left_tier = str(left["campaign_tier"])
+            right_tier = str(right["campaign_tier"])
+            result_gate = (
+                left_tier == "S+" and bool(left.get("decisive"))
+            ) or (
+                right_tier == "S+" and bool(right.get("decisive"))
+            ) or (
+                tier_rank[left_tier] >= tier_rank["S"]
+                and tier_rank[right_tier] >= tier_rank["S"]
+                and bool(left.get("decisive"))
+                and bool(right.get("decisive"))
+            )
+            if result_gate and (
+                not apply_military_difficulty_gate
+                or peak_pair_difficulty_ok(pair)
+            ):
+                peak_pairs.append(pair)
+        if peak_pairs:
             path = "military_peak_pair"
+            matched_pair = sorted(
+                peak_pairs,
+                key=lambda pair: tuple(order_key(row) for row in sorted(pair, key=order_key)),
+            )[0]
             matched_independent_keys = [
                 str(row["independent_key"])
-                for row in sorted(decisive_s_or_higher, key=order_key)[:2]
+                for row in sorted(matched_pair, key=order_key)
             ]
-        else:
-            decisive_s_plus = [row for row in s_plus if bool(row.get("decisive"))]
-            if decisive_s_plus and len(a_or_higher) >= 2:
-                path = "military_peak_pair"
-                anchor = sorted(decisive_s_plus, key=order_key)[0]
-                support = next(
-                    row
-                    for row in sorted(a_or_higher, key=order_key)
-                    if row["independent_key"] != anchor["independent_key"]
-                )
-                matched_independent_keys = [
-                    str(anchor["independent_key"]),
-                    str(support["independent_key"]),
-                ]
         strategic_weight = sum(
             MILITARY_STRATEGIC_WEIGHTS[str(row["campaign_tier"])]
             for row in a_or_higher
+        )
+        d3_or_higher = [row for row in a_or_higher if difficulty_at_least(row, "D3")]
+        d4 = [row for row in a_or_higher if difficulty_at_least(row, "D4")]
+        d2_or_higher = [row for row in a_or_higher if difficulty_at_least(row, "D2")]
+        sustained_difficulty_ok = len(d3_or_higher) >= 2 or (
+            bool(d4) and len(d2_or_higher) >= 3
         )
         if (
             path is None
             and len(a_or_higher) >= 3
             and s_or_higher
             and strategic_weight >= 7
+            and (
+                not apply_military_difficulty_gate
+                or sustained_difficulty_ok
+            )
         ):
             path = "military_sustained_strategic_portfolio"
             matched_rows = sorted(a_or_higher, key=order_key)
@@ -192,6 +239,10 @@ def assess_domain_historic_path(
             "s_or_higher": len(s_or_higher),
             "s_plus": len(s_plus),
             "strategic_weight": strategic_weight,
+            "d2_or_higher": len(d2_or_higher),
+            "d3_or_higher": len(d3_or_higher),
+            "d4": len(d4),
+            "sustained_difficulty_gate": sustained_difficulty_ok,
             "tier_counts": dict(
                 Counter(str(row["campaign_tier"]) for row in eligible)
             ),
@@ -276,6 +327,166 @@ def assess_domain_historic_path(
     }
 
 
+def assess_military_talent_grade_shadow(
+    achievements: Sequence[Mapping[str, object]],
+    *,
+    coverage_complete: bool,
+) -> dict[str, object]:
+    """按成果、人物归责与难度双门槛试算军事人才档，不改写既有正式画像。"""
+
+    scoped = []
+    for row in achievements:
+        role = str(row.get("responsibility_role") or "")
+        settlement_scope = str(row.get("settlement_scope") or "")
+        ruler_relation = str(row.get("ruler_campaign_relation") or "")
+        if role not in COUNTED_MILITARY_ROLES:
+            continue
+        if ruler_relation == "authorization_only":
+            continue
+        if (
+            ruler_relation == "operational_direction"
+            and settlement_scope != "person_campaign_subresult"
+        ):
+            continue
+        if (
+            ruler_relation == "frontline_command"
+            and str(row.get("control_extent") or "") != "sustained"
+            and settlement_scope != "person_campaign_subresult"
+        ):
+            continue
+        if role == "principal_commander" and settlement_scope != "person_campaign_subresult":
+            continue
+        if role == "commander_in_chief" and settlement_scope not in {
+            "ruler_campaign_parent",
+            "person_campaign_subresult",
+        }:
+            continue
+        scoped.append(row)
+    eligible = _eligible_achievements("military", scoped)
+    high_detail_scoped = [
+        row
+        for row in scoped
+        if str(row.get("evidence_detail_status") or "complete") != "safe_projection"
+    ]
+    high_detail_eligible = _eligible_achievements("military", high_detail_scoped)
+    tier_rank = {tier: index for index, tier in enumerate(CAMPAIGN_TIERS)}
+    difficulty_rank = {
+        difficulty: index
+        for index, difficulty in enumerate(COMBAT_DIFFICULTIES)
+    }
+
+    def tier_at_least(row: Mapping[str, object], floor: str) -> bool:
+        return tier_rank[str(row["campaign_tier"])] >= tier_rank[floor]
+
+    def difficulty_at_least(row: Mapping[str, object], floor: str) -> bool:
+        value = str(row.get("combat_difficulty") or "")
+        return value in difficulty_rank and difficulty_rank[value] >= difficulty_rank[floor]
+
+    historic = assess_domain_historic_path(
+        "military",
+        high_detail_scoped,
+        apply_military_difficulty_gate=True,
+    )
+    if historic["historic_fact_path_status"] == "eligible":
+        return {
+            "grade": "historic",
+            "rule_path": historic["matched_path"],
+            "matched_independent_keys": historic["matched_independent_keys"],
+            "coverage_status": "complete" if coverage_complete else "lower_bound",
+            "formal_grade_write_allowed": False,
+        }
+
+    strategic = [row for row in high_detail_eligible if tier_at_least(row, "S-")]
+    major = [row for row in high_detail_eligible if tier_at_least(row, "A")]
+    top_path = None
+    top_keys: list[str] = []
+    for anchor in strategic:
+        peers = [
+            row
+            for row in strategic
+            if row["independent_key"] != anchor["independent_key"]
+            and difficulty_at_least(row, "D2")
+        ]
+        supports = [
+            row
+            for row in major
+            if row["independent_key"] != anchor["independent_key"]
+            and difficulty_at_least(row, "D2")
+        ]
+        if (
+            str(anchor["campaign_tier"]) == "S+"
+            and difficulty_at_least(anchor, "D2")
+            and bool(anchor.get("stable_delivery"))
+        ):
+            top_path = "stable_s_plus_at_d2_or_higher"
+            top_keys = [str(anchor["independent_key"])]
+            break
+        if (
+            str(anchor["campaign_tier"]) in {"S-", "S"}
+            and difficulty_at_least(anchor, "D3")
+            and bool(
+                anchor.get("stable_delivery")
+                or anchor.get("important_method_or_legacy")
+                or supports
+            )
+        ):
+            top_path = "high_difficulty_strategic_anchor_with_review"
+            top_keys = [str(anchor["independent_key"])] + (
+                [str(supports[0]["independent_key"])] if supports else []
+            )
+            break
+        if (
+            difficulty_at_least(anchor, "D2")
+            and peers
+            and bool(
+                anchor.get("stable_delivery")
+                or any(row.get("stable_delivery") for row in peers)
+            )
+        ):
+            top_path = "paired_strategic_anchors"
+            top_keys = [
+                str(anchor["independent_key"]),
+                str(peers[0]["independent_key"]),
+            ]
+            break
+    if top_path:
+        return {
+            "grade": "top",
+            "rule_path": top_path,
+            "matched_independent_keys": top_keys,
+            "coverage_status": "complete" if coverage_complete else "lower_bound",
+            "formal_grade_write_allowed": False,
+        }
+
+    important = [row for row in eligible if tier_at_least(row, "A")]
+    b_or_higher = [row for row in eligible if tier_at_least(row, "B")]
+    if important or len(b_or_higher) >= 2:
+        grade = "important"
+        matched = important or b_or_higher
+        rule_path = "one_a_or_two_b"
+    elif eligible:
+        grade = "usable"
+        matched = eligible
+        rule_path = "one_c_or_higher"
+    elif coverage_complete:
+        grade = "ordinary"
+        matched = []
+        rule_path = "coverage_complete_below_usable"
+    else:
+        grade = None
+        matched = []
+        rule_path = "coverage_incomplete_no_grade"
+    return {
+        "grade": grade,
+        "rule_path": rule_path,
+        "matched_independent_keys": [
+            str(row["independent_key"]) for row in matched
+        ],
+        "coverage_status": "complete" if coverage_complete else "lower_bound",
+        "formal_grade_write_allowed": False,
+    }
+
+
 def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, object]:
     """执行 JSON Schema 之外的战役身份、层级和人物归责不变量。"""
 
@@ -317,7 +528,7 @@ def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, objec
         }
         if strategic_result_tier.get(strategic_result_class) != campaign_tier:
             raise ValueError("战役战略结果类与 campaign_tier 不匹配")
-        if campaign.get("combat_difficulty") not in {"D0", "D1", "D2", "D3"}:
+        if campaign.get("combat_difficulty") not in set(COMBAT_DIFFICULTIES):
             raise ValueError("战役 combat_difficulty 不正确")
         if not campaign.get("combat_difficulty_basis"):
             raise ValueError("战役必须说明 combat_difficulty_basis")
@@ -345,9 +556,9 @@ def validate_campaign_registry(payload: Mapping[str, object]) -> dict[str, objec
             campaign_tier in {"S", "S+"}
             and basis == "state_conquest"
             and scale.get("opponent_strategic_weight")
-            not in {"regional_major", "first_tier_pole", "dominant_pole", "external_state", "external_hegemony"}
+            not in {"first_tier_pole", "dominant_pole", "external_state", "external_hegemony"}
         ):
-            raise ValueError("S级以上灭国必须证明对手具有主要区域或更高战略分量")
+            raise ValueError("S级以上灭国必须证明对手属于第一梯队或具全国分量的外部国家")
         participants = campaign.get("participants")
         if not isinstance(participants, list) or not participants:
             raise ValueError("战役必须有参与人物")
