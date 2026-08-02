@@ -81,6 +81,9 @@ python v4.py historical-outcome-registry
 python v4.py battle-outcome-worklist
 python v4.py battle-parent-contract-registry
 python v4.py military-talent-grade-registry
+python v4.py first-item-a-registry
+python v4.py first-item-b-registry
+python v4.py first-item-c-registry
 python v4.py battle-outcome-pack-check
 python v4.py historical-outcome-dry-run --ruler 刘邦
 python v4.py historical-outcome-dry-run --ruler 李世民
@@ -93,6 +96,12 @@ python v4.py historical-outcome-dry-run --ruler 李世民
 `battle-parent-contract-registry` 消费战争卡、普通父链裁决、合同裁决和六条开国统一链，将全部普通候选关闭为三轴完整的当前父结果、合并/排除/转域或证据终态，并把统一链完整并入 [`docs/公共成果/军事/01-秦至唐战役登记.json`](docs/公共成果/军事/01-秦至唐战役登记.json) 与对应Markdown阅读视图。SB/SN与WC只作复核线索，不能换算战役档；D轴、指挥拓扑和人物信用按实际消费展开。
 
 `military-talent-grade-registry` 只消费上述最新父战役总登记，按人物实际能力贡献、本人结果、作战难度和独立能力情境去重，确定性生成 [`docs/公共成果/军事/02-秦至唐武将人才等级.json`](docs/公共成果/军事/02-秦至唐武将人才等级.json) 与对应Markdown阅读视图。它明确推翻既有军事人才等级，不读取旧人物画像；待建人物指挥子成果只保留下限和升级队列。军事领域使用 `ordinary / usable / capable / important / elite / top / historic` 七档：硬门槛判断能力上限和跨情境复验，同档再以履历结构和净战略值解释单峰、持续、统筹及重大败责差异；净值不得反推档位。
+
+`first-item-a-registry`先执行王朝奠基资格门，再结算A1创业战略增益与难度兑现、A2创业路线效率与稳固。当前95人阅读名册中38名奠基者进入canonical结算，其余57名非奠基者为空分不适用。A读取扣除起点后的王朝级净控制量、项目完成度、统一时间和对手环境；个人军事统筹与战区贡献统一归C1/C2。人物战略判断只由具名非战役正向战略锚点和具名误判结算。起点按同期开局全部主要势力的有效战略资源份额计算；对手压力由公共战役编译的战场压力与同期相对资源压力各占50%。38名奠基人的战役来源已逐项复核起止窗口；杨坚只读取580年尉迟迥之乱和589年灭陈，排除统一完成后的590年江南、岭南巩固。刘黑闼第一阶段的李世民`A/D4`与复起后李建成的`A/D2`人物结果分开。原D已并入A1，第一项保持A100+B60+C100=260。A结果是当前唯一有效值；在B完成前不写数据库、不形成第一项总分或全榜排名。
+
+`first-item-b-registry`不建立全生涯抽象人才等级，也不按五职能占位或人头评分。B1逐条结算非本人团队完成的不重复开国成果，按成果量级、团队贡献信用和完成度累计至30分；B2按创业窗口内实际成果评价顶端人才贡献质量，允许萧何式跨领域支柱一人取得最高档，并对前四位贡献者作位次衰减。奠基人参与同一结果不反向压低成员已经形成的贡献。当前覆盖38名奠基人，未决为零，是B项当前唯一有效结果；不写数据库或全榜排名。
+
+`first-item-c-registry`只消费本人在创业战争中的实际作战设计、统筹和前线指挥；授权、挂名和他人独立战果不进入C。区域控制与价值只保存在`config/first-item-c-territorial-control-adjudications.json`，不得反写公共战役档、人才等级或已经完成的第三项结算。当前30个组合窗口和14个手工创业窗口已完成控制与区域价值校准，并确定性生成秦至唐95人canonical当前值；史料主链仍缺的对象采用明确的0档LOW保守默认，不留未决。第一大项A100+B60+C100的38名奠基者当前总表与分析见[`01-第一大项结算总结分析.md`](docs/评分结算/第一项创业与政权取得能力/01-第一大项结算总结分析.md)，不写数据库或跨七大项总排名。
 
 `battle-exact-evidence` 将分朝逐字回填合并为 `eval/battle_exact_evidence/current.json`，并同时校验125项正式普通战役全覆盖、固定修订原文命中、跨战役引文不复用、人物指挥、已声明成本以及 D3/D4 实际攻守过程；任一未解决项都会拒绝生成。该文件仍是 `REGISTERED_NOT_GOLD` 的当前证据层，不会把人物局部方向自动复制为父战役成果。
 

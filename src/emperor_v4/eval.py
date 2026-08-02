@@ -43,6 +43,9 @@ from emperor_v4.evaluation.battle_parent_contract_registry import (
 from emperor_v4.evaluation.military_talent_grade_registry import (
     write_military_talent_grade_registry,
 )
+from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
+from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
+from emperor_v4.evaluation.first_item_c_registry import write_first_item_c_registry
 from emperor_v4.evaluation.i5b_ruler_rule_coverage import (
     evaluate_i5b_ruler_rule_coverage,
 )
@@ -142,6 +145,21 @@ def _parser() -> argparse.ArgumentParser:
         "military-talent-grade-registry"
     )
     military_talent_grades.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+
+    first_item_a_registry = commands.add_parser("first-item-a-registry")
+    first_item_a_registry.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+
+    first_item_b_registry = commands.add_parser("first-item-b-registry")
+    first_item_b_registry.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+
+    first_item_c_registry = commands.add_parser("first-item-c-registry")
+    first_item_c_registry.add_argument(
         "--workspace-root", type=Path, default=Path(".")
     )
 
@@ -635,6 +653,42 @@ def _run_military_talent_grade_registry(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_first_item_c_registry(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_first_item_c_registry(workspace_root)
+    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    print(f"登记对象：{payload['record_count']}")
+    print(f"可结算：{payload['score_ready_count']}")
+    print(f"证据缺口保守默认：{payload['default_count']}")
+    print(f"JSON：{written['json']}")
+    print(f"Markdown：{written['markdown']}")
+    return 0
+
+
+def _run_first_item_a_registry(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_first_item_a_registry(workspace_root)
+    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    print(f"名册对象：{payload['record_count']}")
+    print(f"奠基者结算：{payload['eligible_count']}")
+    print(f"非奠基者不适用：{payload['excluded_count']}")
+    print(f"JSON：{written['json']}")
+    print(f"Markdown：{written['markdown']}")
+    return 0
+
+
+def _run_first_item_b_registry(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    written = write_first_item_b_registry(workspace_root)
+    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    print(f"名册对象：{payload['record_count']}")
+    print(f"奠基者结算：{payload['eligible_count']}")
+    print(f"非奠基者不适用：{payload['excluded_count']}")
+    print(f"JSON：{written['json']}")
+    print(f"Markdown：{written['markdown']}")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
 
@@ -660,6 +714,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_battle_parent_contract_registry(args)
     if args.command == "military-talent-grade-registry":
         return _run_military_talent_grade_registry(args)
+    if args.command == "first-item-a-registry":
+        return _run_first_item_a_registry(args)
+    if args.command == "first-item-b-registry":
+        return _run_first_item_b_registry(args)
+    if args.command == "first-item-c-registry":
+        return _run_first_item_c_registry(args)
     if args.command == "historical-gold-compare":
         kwargs = {"manifest_path": args.manifest, "result_path": args.result}
         if args.schema:
