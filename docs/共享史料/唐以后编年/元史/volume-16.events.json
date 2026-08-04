@@ -1,0 +1,1595 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-016-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-016-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷016",
+    "revision_ref": "1812929",
+    "start_locator": "至元二十七年辽阳赈济与合丹战事",
+    "end_locator": "至元二十八年户口学校寺宇统计",
+    "overlap_context": "续卷15至元二十六年末；卷16载至元二十七至二十八年，卷17续至元二十九年。",
+    "input_fingerprint": "76573e424681c1031c2998c5329161da5b6afba9b5fad35dbbda131c7eda7791"
+  },
+  "limitations": [
+    "普通任免不单列，战争、灾赈、财政、工程及制度闭环登记。",
+    "合丹、南方盗乱、黎蛮与琉求军事行动交战役工作流。",
+    "灾赈按地区和连续处置合并，未知伤亡、执行效果不作外推。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-016-LIAOYANG-RELIEF-1290",
+      "time": "至元二十七年正月",
+      "loc": [
+        "遼陽"
+      ],
+      "action": "因乃颜叛乱后辽阳民疲敝，发钞五千八十锭赈济。",
+      "result": "叛乱受损地区获得专项救济。",
+      "quote": [
+        "叛，民甚疲敝",
+        "發鈔五千八十錠賑之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-LIAOYANG-RELIEF-1290",
+        "candidate": "FIN-CAND-YUAN-LIAOYANG-RELIEF-1290",
+        "summary": "发钞5080锭赈辽阳。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "乃颜叛后民疲。",
+          "fiscal_state": "支钞5080锭。",
+          "livelihood_state": "赈济居民。",
+          "production_circulation": "未载。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-NAYAN-AFTERMATH",
+          [],
+          "叛乱民生后果。"
+        ]
+      ],
+      "unknown": [
+        "受益户数和实际发放未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-HADAN-LIAODONG-WAR",
+      "time": "至元二十七年正月至九月",
+      "loc": [
+        "海陽",
+        "開元",
+        "瓦法"
+      ],
+      "action": "合丹余部反复寇辽东海阳、开元，元军在瓦法大破其军。",
+      "result": "辽东长期受扰后取得一次决定性胜利。",
+      "quote": [
+        "合丹餘寇未平",
+        "合丹寇遼東海陽",
+        "合丹寇開元",
+        "與合丹戰于瓦法，大破之"
+      ],
+      "battle": "CAMPAIGN-YUAN-HADAN-LIAODONG-1290",
+      "unknown": [
+        "双方兵力、伤亡和战后控制范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-EARLY-FAMINE-RELIEF-1290",
+      "time": "至元二十七年正月至三月",
+      "loc": [
+        "馬站",
+        "豐閏",
+        "開元",
+        "浙東",
+        "保定等"
+      ],
+      "action": "多处民户、站户、屯户及僧道饥，朝廷按三十至九十日给粮并发钞粟。",
+      "result": "北方与浙东多类人口获得分期口粮。",
+      "quote": [
+        "賑馬站戶饑",
+        "饑，給六十日糧。無",
+        "發鈔二千錠賑之",
+        "給糧九十日",
+        "發粟五千二百六十四石賑之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-EARLY-FAMINE-1290",
+        "candidate": "FIN-CAND-YUAN-EARLY-FAMINE-1290",
+        "summary": "多地饥民按期给粮发钞。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "民站屯户广泛饥荒。",
+          "fiscal_state": "钞2000锭、粟5264石等。",
+          "livelihood_state": "给粮30至90日。",
+          "production_circulation": "部分给牛种。"
+        }
+      },
+      "unknown": [
+        "总受益人数和死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-SOUTHERN-BANDIT-WAR-1290",
+      "time": "至元二十七年二月至十二月",
+      "loc": [
+        "江西",
+        "浙東",
+        "福建",
+        "寧國",
+        "溫州"
+      ],
+      "action": "江西、浙东、福建等盗乱反复，官军征讨、招降并处置多支武装。",
+      "result": "多股盗乱被平或降，但钟明亮等一度复叛。",
+      "quote": [
+        "江西諸郡盜未平",
+        "行樞密院討平之",
+        "凡為民者千六百九十五人",
+        "賊呂重二、楊元六等反",
+        "處州青田賊劉甲、乙等集眾萬餘人"
+      ],
+      "battle": "CAMPAIGN-YUAN-SOUTHERN-BANDITS-1290",
+      "unknown": [
+        "各支伤亡、俘获和民产损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-AGRICULTURAL-ADMIN-REFORM",
+      "time": "至元二十七年三月",
+      "loc": [
+        "全国",
+        "江南"
+      ],
+      "action": "罢行司农司及各道劝农营田司，以按察司兼总劝农，并另立江南营田提举司掌僧寺资产。",
+      "result": "劝农职责转归监察系统，江南寺产营田另设专司。",
+      "quote": [
+        "罷行司農司及各道勸農營田司",
+        "員，總勸農事",
+        "立江南營田提舉司",
+        "掌僧寺貲產"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-AGRICULTURAL-ADMIN-1290",
+        "candidate": "POL-CAND-YUAN-AGRICULTURAL-ADMIN-1290",
+        "summary": "劝农职责并入按察司。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "农业行政重组。",
+          "decision_question": "劝农机构如何整并。",
+          "alternatives": "保留行司农系统。",
+          "decision": "罢旧司、按察司兼管。",
+          "direct_result": "职责重配。",
+          "power_change": "监察系统扩权。",
+          "risk_or_damage": "专业性变化未载。",
+          "follow_up": "次年改廉访司。"
+        }
+      },
+      "unknown": [
+        "地方执行和成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-MANUMISSION-AND-SERVICE-RELIEF",
+      "time": "至元二十七年三月至六月",
+      "loc": [
+        "福建",
+        "壽州",
+        "潁州",
+        "保定等"
+      ],
+      "action": "多批猎户、工匠、屯田军及无役人匠被放为民，并赎回饥荒中卖出的子女奴产。",
+      "result": "部分专业与军役户脱籍复民。",
+      "quote": [
+        "放罷福建獵戶、沙魚皮戶為民",
+        "命甘肅省贖還，給米賑之",
+        "放壽、潁屯田軍千九百五十九戶為民",
+        "放保定工匠楚通等三百四十一戶為民"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MANUMISSION-1290",
+        "candidate": "POL-CAND-YUAN-MANUMISSION-1290",
+        "summary": "多类役户放民并赎饥卖人口。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "户籍役属调整。",
+          "decision_question": "无役专业户与困民如何处置。",
+          "alternatives": "维持原籍。",
+          "decision": "放民或官赎。",
+          "direct_result": "减役复民。",
+          "power_change": "有司接管。",
+          "risk_or_damage": "原役供给变化未载。",
+          "follow_up": "无载。"
+        }
+      },
+      "unknown": [
+        "总户数与后续赋役未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-ANTI-PLUNDER-REVIEW",
+      "time": "至元二十七年三月及十一月",
+      "loc": [
+        "浙東",
+        "江南"
+      ],
+      "action": "针对讨贼军俘掠良民并以生口赠遗，命御史台甄别归民。",
+      "result": "至少一千六百九十五名被掠者恢复民籍。",
+      "quote": [
+        "多俘掠良民",
+        "敕行御史臺分揀之",
+        "敕行御史臺分揀之，凡為民者千六百九十五人",
+        "請給還其家"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ANTI-PLUNDER-1290",
+        "candidate": "POL-CAND-YUAN-ANTI-PLUNDER-1290",
+        "summary": "甄别讨贼军所掠良民。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "军纪与人口救济。",
+          "decision_question": "被军队俘掠良民如何处置。",
+          "alternatives": "充俘赠遗。",
+          "decision": "御史甄别归家。",
+          "direct_result": "1695人复民。",
+          "power_change": "御史监督军队。",
+          "risk_or_damage": "仍有遗漏可能。",
+          "follow_up": "十一月再议归还。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SOUTHERN-BANDITS-1290",
+          [],
+          "讨贼军侵害平民。"
+        ]
+      ],
+      "unknown": [
+        "十一月归还人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-TONGZHOU-REFUGEE-RELIEF",
+      "time": "至元二十七年四月",
+      "loc": [
+        "通州",
+        "河西務"
+      ],
+      "action": "大都路出粟六万二千五百六十四石赈流民。",
+      "result": "京畿流民获得大规模粮食救济。",
+      "quote": [
+        "以粟六萬二千五百六十四石",
+        "賑通州、河西務等處流民"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-TONGZHOU-RELIEF-1290",
+        "candidate": "FIN-CAND-YUAN-TONGZHOU-RELIEF-1290",
+        "summary": "出粟62564石赈京畿流民。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "京畿出现流民。",
+          "fiscal_state": "支粟62564石。",
+          "livelihood_state": "流民获赈。",
+          "production_circulation": "未载。"
+        }
+      },
+      "unknown": [
+        "流民人数与每人给量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGNAN-BURDEN-DEFERRED",
+      "time": "至元二十七年四月",
+      "loc": [
+        "江南"
+      ],
+      "action": "江淮行省以增课、料民、括马已苦民为由，请缓发兼并户与宋宗族赴京，获准。",
+      "result": "一项可能引发动荡的强制迁发暂缓。",
+      "quote": [
+        "江南之民方患增課、料民、括馬之苦",
+        "宜俟它日行之",
+        "之。」從之。阿速"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-JIANGNAN-BURDEN-DEFERRED",
+        "candidate": "POL-CAND-YUAN-JIANGNAN-BURDEN-DEFERRED",
+        "summary": "因民负重暂缓迁发兼并户。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "强制措施缓行。",
+          "decision_question": "是否立即迁发。",
+          "alternatives": "照令执行。",
+          "decision": "延期。",
+          "direct_result": "避免即时骚动。",
+          "power_change": "行省建议获采纳。",
+          "risk_or_damage": "既有增课括马仍在。",
+          "follow_up": "无载。"
+        }
+      },
+      "unknown": [
+        "涉及户数和后续执行未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-FAMINE-FISCAL-RELIEF-1290",
+      "time": "至元二十七年四月至八月",
+      "loc": [
+        "上都",
+        "大都",
+        "河北十七郡",
+        "四路"
+      ],
+      "action": "荐饥蝗旱下，多地发粟钞赈济并免银俸钞、田租及酒醋课。",
+      "result": "灾区兼用直接救济和税课减免。",
+      "quote": [
+        "河北十七郡蝗",
+        "以荐饑免今歲銀俸鈔",
+        "敕發粟賑之",
+        "免大都、平灤、河間、保定四路流民租賦及酒醋課"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-FAMINE-RELIEF-1290",
+        "candidate": "FIN-CAND-YUAN-FAMINE-RELIEF-1290",
+        "summary": "北方饥荒发赈并减免税课。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "荐饥蝗旱。",
+          "fiscal_state": "减银俸钞与租课。",
+          "livelihood_state": "多处发粮发钞。",
+          "production_circulation": "流民税负减免。"
+        }
+      },
+      "unknown": [
+        "总赈额与受益人口未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-ZHONGLIANG-RECURRENCE",
+      "time": "至元二十七年五月",
+      "loc": [
+        "江西",
+        "贛州"
+      ],
+      "action": "钟明亮降后因行省官违诏不送京，再率众寇赣州；朝廷追究管如德等并罢江西行枢密院。",
+      "result": "招降处置失当引发复叛并导致军政机构调整。",
+      "quote": [
+        "明亮復率眾寇贛州",
+        "以如德等違詔縱賊",
+        "請詰之，從之",
+        "詔罷江西行樞密院"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ZHONGLIANG-ACCOUNTABILITY",
+        "candidate": "POL-CAND-YUAN-ZHONGLIANG-ACCOUNTABILITY",
+        "summary": "钟明亮复叛后追责并罢行院。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军政问责。",
+          "decision_question": "违诏留下降将如何处置。",
+          "alternatives": "不追责。",
+          "decision": "诘责并罢机构。",
+          "direct_result": "江西行院撤销。",
+          "power_change": "行省军政结构改变。",
+          "risk_or_damage": "复叛已造成损害。",
+          "follow_up": "行省移吉州捕盗。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-ZHONGLIANG-1290",
+          [],
+          "复叛与追责。"
+        ]
+      ],
+      "unknown": [
+        "官员最终处分与复叛损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-YUNNAN-SILVER-MINE",
+      "time": "至元二十七年五月",
+      "loc": [
+        "雲南"
+      ],
+      "action": "尚书省勘云南银洞，得银四千四十八两并奏立银场官。",
+      "result": "云南银矿转为设官开采。",
+      "quote": [
+        "行視雲南銀洞",
+        "獲銀四千四十八兩",
+        "奏立銀場官"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-YUNNAN-SILVER-1290",
+        "candidate": "FIN-CAND-YUAN-YUNNAN-SILVER-1290",
+        "summary": "勘银洞得银并设银场官。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "云南银洞待勘。",
+          "fiscal_state": "获银4048两并设官。",
+          "livelihood_state": "矿役影响未载。",
+          "production_circulation": "银矿官营化。"
+        }
+      },
+      "routes": [
+        [
+          "public_works",
+          "WORK_CANDIDATE",
+          "WORK-CAND-YUAN-YUNNAN-SILVER-MINE",
+          [],
+          "矿场设施。"
+        ]
+      ],
+      "unknown": [
+        "矿工、成本与后续产量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-PRINCELY-JURISDICTION",
+      "time": "至元二十七年五月",
+      "loc": [
+        "诸王分地"
+      ],
+      "action": "规定诸王分地民讼由王傅与监郡共治，无监郡则王傅听理。",
+      "result": "诸王与国家监郡的司法权限获得明确。",
+      "quote": [
+        "諸王分地之民有訟",
+        "王傅與所置監郡同治",
+        "無監郡者王傅聽之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-PRINCELY-JURISDICTION",
+        "candidate": "POL-CAND-YUAN-PRINCELY-JURISDICTION",
+        "summary": "明确诸王分地民讼管辖。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "司法管辖规则。",
+          "decision_question": "分地民讼由谁审理。",
+          "alternatives": "王傅或监郡单独审理。",
+          "decision": "原则共治。",
+          "direct_result": "权限边界明确。",
+          "power_change": "王傅与监郡共享。",
+          "risk_or_damage": "冲突处理未载。",
+          "follow_up": "无载。"
+        }
+      },
+      "unknown": [
+        "实际案件与上诉机制未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-YEAR27-FLOOD-TAX-RELIEF",
+      "time": "至元二十七年五月至七月",
+      "loc": [
+        "江陰",
+        "太康",
+        "河間",
+        "保定",
+        "汴梁等"
+      ],
+      "action": "河溢霖雨大水广泛害田，朝廷按地免租并减岁赋丝。",
+      "result": "多处灾田获租赋减免。",
+      "quote": [
+        "江陰大水，免田租萬七百九十石",
+        "沒民田三十一萬九千八百餘畝",
+        "免河間、保定、平灤歲賦絲之半",
+        "蠲田租八千八百二十八石"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-FLOOD-TAX-RELIEF-1290",
+        "candidate": "FIN-CAND-YUAN-FLOOD-TAX-RELIEF-1290",
+        "summary": "多地水灾减免田租岁赋。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "河溢霖雨害田。",
+          "fiscal_state": "免租并减丝赋。",
+          "livelihood_state": "灾户减负。",
+          "production_circulation": "数十万亩受损。"
+        }
+      },
+      "unknown": [
+        "合计免租与灾民死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-WUPING-EARTHQUAKE",
+      "time": "至元二十七年八月",
+      "loc": [
+        "武平"
+      ],
+      "action": "武平大地震，压死官民七千二百二十人，毁仓署四百八十间及大量民居。",
+      "result": "形成卷内最严重的单次灾害。",
+      "quote": [
+        "地大震，武平尤甚",
+        "民七千二百二十人",
+        "壞倉庫局四百八十間",
+        "民居不可勝計"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WUPING-QUAKE-1290",
+        "candidate": "FIN-CAND-YUAN-WUPING-QUAKE-1290",
+        "summary": "武平地震死7220人并毁官民房屋。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "强震毁城。",
+          "fiscal_state": "仓库局损毁。",
+          "livelihood_state": "死7220人。",
+          "production_circulation": "民居大量毁坏。"
+        }
+      },
+      "routes": [
+        [
+          "public_works",
+          "WORK_CANDIDATE",
+          "WORK-CAND-YUAN-WUPING-RECONSTRUCTION",
+          [],
+          "灾后修复需求。"
+        ]
+      ],
+      "unknown": [
+        "伤者、无家者和直接财损未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-WUPING-EMERGENCY-RELIEF",
+      "time": "至元二十七年九月",
+      "loc": [
+        "武平"
+      ],
+      "action": "震后盗起，铁木儿便宜免租、罢商税、弛酒禁、惩盗，并发钞八百四十锭、海运米万石赈济。",
+      "result": "灾区实施治安、税费与粮钞并行的紧急处置。",
+      "quote": [
+        "蠲租賦，罷商稅，弛酒禁",
+        "發鈔八百四十錠",
+        "轉海運米萬石以賑之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WUPING-EMERGENCY-1290",
+        "candidate": "FIN-CAND-YUAN-WUPING-EMERGENCY-1290",
+        "summary": "武平震后免税并赈钞米。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "震后盗劫民恐。",
+          "fiscal_state": "免租商税、钞840锭。",
+          "livelihood_state": "赈米1万石。",
+          "production_circulation": "弛酒禁恢复交易。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "POLITICAL_EVENT_CANDIDATE",
+          "POL-CAND-YUAN-WUPING-EMERGENCY",
+          [],
+          "地方便宜处置。"
+        ]
+      ],
+      "unknown": [
+        "覆盖人口与恢复周期未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-HUITONG-RIVER-ADMIN",
+      "time": "至元二十七年九月至十月",
+      "loc": [
+        "會通河",
+        "汶泗河"
+      ],
+      "action": "以原陆运夫为护河兵但禁发民挽舟，并设会通汶泗河道提举司。",
+      "result": "会通河形成专门管理机构与护运人力规则。",
+      "quote": [
+        "以所罷陸運夫為兵",
+        "禁發民挽舟",
+        "立會通汶泗河道提舉司"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-HUITONG-RIVER",
+        "candidate": "WORK-CAND-YUAN-HUITONG-RIVER-ADMIN",
+        "summary": "设会通河提举司并禁发民挽舟。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "会通汶泗河运。",
+          "phase": "运营建制。",
+          "purpose": "漕运护送。",
+          "resource_input": "原陆运夫编兵。",
+          "operation": "提举司管理。",
+          "benefit": "禁临时役民挽舟。",
+          "harm": "原陆运夫仍军事化。"
+        }
+      },
+      "unknown": [
+        "护河兵数与实际役负未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGNAN-MASS-RELIEF",
+      "time": "至元二十七年十月",
+      "loc": [
+        "江陰",
+        "寧國等"
+      ],
+      "action": "江南大水致四十五万八千四百七十八户流移，急发粟五十八万二千八百八十九石赈济。",
+      "result": "对大规模流民实施中央催办的粮赈。",
+      "quote": [
+        "民流移者四十五萬八千四百七十八戶",
+        "聞，當速賑之",
+        "凡出粟五十八萬二千八百八十九石"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JIANGNAN-MASS-RELIEF-1290",
+        "candidate": "FIN-CAND-YUAN-JIANGNAN-MASS-RELIEF-1290",
+        "summary": "出粟582889石赈江南458478流移户。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "江南大水流移。",
+          "fiscal_state": "支粟582889石。",
+          "livelihood_state": "458478户待赈。",
+          "production_circulation": "水灾阻断生计。"
+        }
+      },
+      "unknown": [
+        "人均粮量、死亡与复业未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-SOUTHEAST-DEFENSE-REFORM",
+      "time": "至元二十七年十一月",
+      "loc": [
+        "浙東",
+        "福建",
+        "江淮沿海"
+      ],
+      "action": "按盗区重新部署万户军，沿海沿江增水战训练点，并扩钱塘战船。",
+      "result": "东南形成分区驻军与海江巡防体系。",
+      "quote": [
+        "今擇瀕海沿江要害二十二所",
+        "分兵閱習，伺察諸盜",
+        "今增置戰船百艘、海船二十艘",
+        "故盜賊不敢發"
+      ],
+      "battle": "CAMPAIGN-YUAN-SOUTHEAST-DEFENSE-1290",
+      "routes": [
+        [
+          "public_works",
+          "WORK_CANDIDATE",
+          "WORK-CAND-YUAN-SOUTHEAST-FLEET",
+          [],
+          "战船与训练点。"
+        ],
+        [
+          "political_event",
+          "POLITICAL_EVENT_CANDIDATE",
+          "POL-CAND-YUAN-SOUTHEAST-GARRISON",
+          [],
+          "驻军重组。"
+        ]
+      ],
+      "unknown": [
+        "建造成本、实战效果和地方负担未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-YISHUI-DIKE-AND-RIVER-WORKS",
+      "time": "至元二十七年十一月",
+      "loc": [
+        "易水",
+        "雄州",
+        "莫州",
+        "任丘",
+        "新安"
+      ],
+      "action": "易水漂没田庐无遗，命有司筑堤防护；另对御河决口命塞治。",
+      "result": "严重水患地区启动堵口筑堤。",
+      "quote": [
+        "御河決高唐",
+        "命有司塞之",
+        "田廬漂沒無遺",
+        "命有司築堤障之"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-YISHUI-DIKES-1290",
+        "candidate": "WORK-CAND-YUAN-YISHUI-DIKES-1290",
+        "summary": "御河易水堵口筑堤。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "御河易水堤防。",
+          "phase": "下令修筑。",
+          "purpose": "防洪护田庐。",
+          "resource_input": "未载。",
+          "operation": "塞决筑堤。",
+          "benefit": "预防续灾。",
+          "harm": "工役负担未载。"
+        }
+      },
+      "unknown": [
+        "工程规模、完工与效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-ARREARS-CANCELLATION-1290",
+      "time": "至元二十七年十二月",
+      "loc": [
+        "大都",
+        "平灤",
+        "保定",
+        "河間"
+      ],
+      "action": "免四路至元二十四至二十六年逋租十三万零五百六十二石。",
+      "result": "三年积欠田租一次性豁免。",
+      "quote": [
+        "自至元二十四年至二十六年",
+        "逋租十三萬五百六十二石"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-ARREARS-1290",
+        "candidate": "FIN-CAND-YUAN-ARREARS-1290",
+        "summary": "免四路三年逋租130562石。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "四路积欠三年田租。",
+          "fiscal_state": "核免130562石。",
+          "livelihood_state": "欠租户减负。",
+          "production_circulation": "未载。"
+        }
+      },
+      "unknown": [
+        "户数与财政缺口未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-MILITARY-REGISTRATION-RESTRAINT",
+      "time": "至元二十七年十二月",
+      "loc": [
+        "安西",
+        "鳳翔",
+        "延安"
+      ],
+      "action": "阅实军户在原籍四千外又得三万三千二百八十丁，枢密院欲征兵，桑哥反对并获帝准。",
+      "result": "新增查得丁口未立即转为军役。",
+      "quote": [
+        "復得三萬三千二百八十丁",
+        "樞密院欲以為兵",
+        "桑哥不可，帝從之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MILITARY-REGISTRATION-1290",
+        "candidate": "POL-CAND-YUAN-MILITARY-REGISTRATION-1290",
+        "summary": "阻止新验33280丁立即征兵。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军户扩编裁决。",
+          "decision_question": "新验丁是否征兵。",
+          "alternatives": "全部编军。",
+          "decision": "不许。",
+          "direct_result": "33280丁暂免军役。",
+          "power_change": "皇帝采纳反对意见。",
+          "risk_or_damage": "后续身份未载。",
+          "follow_up": "无载。"
+        }
+      },
+      "unknown": [
+        "是否承担其他徭役未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGHUAI-ARREARS-CANCELLATION-1291",
+      "time": "至元二十八年正月",
+      "loc": [
+        "江淮"
+      ],
+      "action": "免贫民多年逋田租二百九十七万六千余石及后续租钞丝绵欠额。",
+      "result": "江淮巨额历史欠赋被集中豁免。",
+      "quote": [
+        "免江淮貧民",
+        "所逋田租二百九十七萬六千餘石",
+        "田租十三萬石、鈔千一百五十錠"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JIANGHUAI-ARREARS-1291",
+        "candidate": "FIN-CAND-YUAN-JIANGHUAI-ARREARS-1291",
+        "summary": "免江淮贫民巨额多年逋赋。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "贫民累积欠赋。",
+          "fiscal_state": "免租逾310万石及钞丝绵。",
+          "livelihood_state": "贫民债负解除。",
+          "production_circulation": "未载。"
+        }
+      },
+      "unknown": [
+        "受益户数与地方财政影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-SANGGE-FALL",
+      "time": "至元二十八年正月至七月",
+      "loc": [
+        "中央"
+      ],
+      "action": "桑哥等因罪罢，反复廷辨后籍家资、系狱，七月伏诛，其党羽陆续被诛或清查。",
+      "result": "尚书省权臣集团覆灭。",
+      "quote": [
+        "尚書省臣桑哥等以罪罷",
+        "復召御史臺及中書、尚書兩省官辨論桑哥之罪",
+        "籍桑哥家貲",
+        "巳，桑哥伏誅"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SANGGE-FALL",
+        "candidate": "POL-CAND-YUAN-SANGGE-FALL",
+        "summary": "桑哥罢职审讯并伏诛。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "权臣问罪。",
+          "decision_question": "桑哥及党羽如何处置。",
+          "alternatives": "留任或轻处。",
+          "decision": "罢、籍、诛。",
+          "direct_result": "权力集团清除。",
+          "power_change": "中书与御史恢复权力。",
+          "risk_or_damage": "牵连范围广。",
+          "follow_up": "罢尚书省与钩考。"
+        }
+      },
+      "unknown": [
+        "全部涉案者罪证与资产总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-NORTHERN-FAMINE-1291",
+      "time": "至元二十八年正月至三月",
+      "loc": [
+        "上都",
+        "大同",
+        "太原",
+        "真定等"
+      ],
+      "action": "北方大饥，复验官粮名册、免多年逋租并按口给粮二三月；流移六万七千户、饥死三百七十一人。",
+      "result": "清理冒领同时实施广泛赈免。",
+      "quote": [
+        "大同仰食于官者七萬人",
+        "不當給者萬三千五百人",
+        "民流移就食者六萬七千戶",
+        "饑而死者三百七十一人"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-NORTHERN-FAMINE-1291",
+        "candidate": "FIN-CAND-YUAN-NORTHERN-FAMINE-1291",
+        "summary": "北方大饥复验名册并赈免。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "北方多路大饥。",
+          "fiscal_state": "免欠租并核减冒领。",
+          "livelihood_state": "流移67000户、死371人。",
+          "production_circulation": "按口给粮2至3月。"
+        }
+      },
+      "unknown": [
+        "总给粮与复业人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-CENSORIAL-INDEPENDENCE-REFORM",
+      "time": "至元二十八年二月",
+      "loc": [
+        "全国"
+      ],
+      "action": "规定行御史台不听行省节度，并将提刑按察司改肃政廉访司，分员巡临民事、钱谷与官吏奸弊。",
+      "result": "地方监察独立性与巡察职责加强。",
+      "quote": [
+        "行御史臺勿聽行省節度",
+        "改提刑按察司為肅政廉訪司",
+        "民事、錢穀、官吏奸弊，一切委之",
+        "歲終，省、臺遣官考其功效"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CENSORIAL-REFORM-1291",
+        "candidate": "POL-CAND-YUAN-CENSORIAL-REFORM-1291",
+        "summary": "行台独立并改设廉访司。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "监察制度改革。",
+          "decision_question": "地方监察如何摆脱行省并考核。",
+          "alternatives": "维持按察司旧制。",
+          "decision": "改廉访司、分巡年考。",
+          "direct_result": "职责与独立性强化。",
+          "power_change": "御史系统扩权。",
+          "risk_or_damage": "执行冲突未载。",
+          "follow_up": "岁终考核。"
+        }
+      },
+      "unknown": [
+        "首年考核结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-SANGGE-CORRUPTION-REVERSALS",
+      "time": "至元二十八年二月至七月",
+      "loc": [
+        "中央",
+        "江淮"
+      ],
+      "action": "清查桑哥时期贿进、削民与冤案，处死要束木等、归还周祚妻子家资及刘秉忠田地。",
+      "result": "部分人事、财产和冤案获得纠正。",
+      "quote": [
+        "諸臣多以賄進",
+        "唯以欺蔽九重、朘削百姓為事",
+        "並除名為民",
+        "給還行臺監察御史周祚妻子",
+        "敕以地百頃還之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SANGGE-REVERSALS",
+        "candidate": "POL-CAND-YUAN-SANGGE-REVERSALS",
+        "summary": "清理桑哥党与纠正冤产。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治清算与平反。",
+          "decision_question": "桑哥旧政如何纠正。",
+          "alternatives": "仅处本人。",
+          "decision": "清党、除名、返产。",
+          "direct_result": "部分冤抑恢复。",
+          "power_change": "旧党失势。",
+          "risk_or_damage": "清算边界未载。",
+          "follow_up": "持续审理党羽。"
+        }
+      },
+      "unknown": [
+        "全部返还财产与平反人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-CENTRAL-GOVERNMENT-RESTRUCTURE",
+      "time": "至元二十八年五月",
+      "loc": [
+        "中央"
+      ],
+      "action": "罢尚书省，政事悉归中书，原尚书省主要官员改任中书，并撤并烧钞等机构。",
+      "result": "双省并行结束，中央决策重新集中中书省。",
+      "quote": [
+        "罷尚書省事皆入中書",
+        "以政事悉委中書",
+        "，仍遣使布告中外",
+        "罷大都燒鈔庫"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CENTRAL-RESTRUCTURE-1291",
+        "candidate": "POL-CAND-YUAN-CENTRAL-RESTRUCTURE-1291",
+        "summary": "罢尚书省、政归中书。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "中央机构重组。",
+          "decision_question": "桑哥败后两省如何设置。",
+          "alternatives": "保留尚书省。",
+          "decision": "并入中书。",
+          "direct_result": "政令归一。",
+          "power_change": "中书省集中权力。",
+          "risk_or_damage": "原官员多留任。",
+          "follow_up": "布告中外。"
+        }
+      },
+      "unknown": [
+        "机构合并成本与地方响应未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-ZHIYUAN-NEW-CODE",
+      "time": "至元二十八年五月",
+      "loc": [
+        "全国"
+      ],
+      "action": "何荣祖将公规、治民、御盗、理财等十事编为《至元新格》，奉命刻版颁行。",
+      "result": "综合行政规范形成成文法令并下发百司。",
+      "quote": [
+        "公規、治民、禦盜、理財等十事",
+        "名曰至元新格",
+        "命刻版頒行",
+        "使百司遵守"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ZHIYUAN-NEW-CODE",
+        "candidate": "POL-CAND-YUAN-ZHIYUAN-NEW-CODE",
+        "summary": "刻颁《至元新格》。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "法令编纂颁行。",
+          "decision_question": "行政规则如何统一。",
+          "alternatives": "分散旧例。",
+          "decision": "编十事成书刻颁。",
+          "direct_result": "百司有统一规范。",
+          "power_change": "中央规范化加强。",
+          "risk_or_damage": "适用冲突未载。",
+          "follow_up": "百司遵守。"
+        }
+      },
+      "unknown": [
+        "条文全文和执行案件未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGNAN-FAMINE-RELIEF-1291",
+      "time": "至元二十八年三月至七月",
+      "loc": [
+        "杭州",
+        "平江",
+        "湖廣",
+        "遼陽等"
+      ],
+      "action": "江南、湖广、辽阳多地饥，发粟米并弛湖泊渔捕之禁，灾田全免、未灾田减半。",
+      "result": "粮赈、资源开放与租免共同缓解饥荒。",
+      "quote": [
+        "發粟賑之，仍弛湖泊蒲、魚之禁",
+        "凡州郡田嘗被災者悉免其租",
+        "不被災者免十之五",
+        "湖廣饑，敕以剌里海牙米七萬石賑之",
+        "發米二萬石賑之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JIANGNAN-FAMINE-1291",
+        "candidate": "FIN-CAND-YUAN-JIANGNAN-FAMINE-1291",
+        "summary": "南方饥荒发粮弛禁并分档免租。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "多路饥荒并受军旅。",
+          "fiscal_state": "灾田全免、余田减半。",
+          "livelihood_state": "发米并开放渔捕。",
+          "production_circulation": "湖泊资源开放。"
+        }
+      },
+      "unknown": [
+        "合计受益人口与死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-LI-CAMPAIGN",
+      "time": "至元二十八年五月",
+      "loc": [
+        "海北",
+        "海南",
+        "瓊州"
+      ],
+      "action": "组建海北海南宣慰军政体系，调二千二百人征黎蛮。",
+      "result": "对黎蛮的军事行动与地方统治机构同步展开。",
+      "quote": [
+        "達海北海南道宣慰使都元帥",
+        "將二千二百人以征黎蠻",
+        "立左右兩江宣慰司都元帥府"
+      ],
+      "battle": "CAMPAIGN-YUAN-LI-1291",
+      "routes": [
+        [
+          "political_event",
+          "POLITICAL_EVENT_CANDIDATE",
+          "POL-CAND-YUAN-HAINAN-MILITARY-ADMIN",
+          [],
+          "军政机构设置。"
+        ]
+      ],
+      "unknown": [
+        "战果、伤亡与当地民众影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGHUAI-BANDIT-SUPPRESSION-1291",
+      "time": "至元二十八年六月至七月",
+      "loc": [
+        "郴州",
+        "桂陽",
+        "寶慶",
+        "武岡",
+        "江南"
+      ],
+      "action": "增江淮行院兵二万攻四路盗贼，后又遣憨散总兵讨平江南盗乱。",
+      "result": "江南反盗战事投入大规模兵力。",
+      "quote": [
+        "益江淮行院兵二萬",
+        "擊郴州、桂陽、寶慶、武岡四路盜賊",
+        "遣憨散總兵討平江南盜賊"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIANGHUAI-BANDITS-1291",
+      "unknown": [
+        "军队伤亡、盗众规模和地方损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGNAN-WASTELAND-GRANTS",
+      "time": "至元二十八年七月",
+      "loc": [
+        "江南"
+      ],
+      "action": "募民耕江南旷土，每户不超过五顷，官给永业券，三年后征租。",
+      "result": "以产权凭证和三年免租鼓励垦荒。",
+      "quote": [
+        "募民耕江南曠土",
+        "戶不過五頃",
+        "官授之券，俾為永業",
+        "三年後徵租"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JIANGNAN-WASTELAND-1291",
+        "candidate": "FIN-CAND-YUAN-JIANGNAN-WASTELAND-1291",
+        "summary": "江南旷土限额授永业并缓征租。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "江南有旷土。",
+          "fiscal_state": "三年后起租。",
+          "livelihood_state": "民获每户最多五顷永业。",
+          "production_circulation": "鼓励垦殖。"
+        }
+      },
+      "unknown": [
+        "招募户数、垦成面积与原权属未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-CAPITAL-RAIN-REPAIR",
+      "time": "至元二十八年七月",
+      "loc": [
+        "大都"
+      ],
+      "action": "雨坏都城，发兵二万人修筑。",
+      "result": "都城灾损启动大规模军役修复。",
+      "quote": [
+        "司。雨壞都城",
+        "發兵二萬人築之"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-CAPITAL-REPAIR-1291",
+        "candidate": "WORK-CAND-YUAN-CAPITAL-REPAIR-1291",
+        "summary": "发兵2万修雨坏都城。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "大都城墙。",
+          "phase": "灾后修筑。",
+          "purpose": "恢复城防。",
+          "resource_input": "兵2万人。",
+          "operation": "筑城。",
+          "benefit": "恢复都城设施。",
+          "harm": "军役投入。"
+        }
+      },
+      "unknown": [
+        "工期、费用与损坏范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-PINGYANG-EARTHQUAKE",
+      "time": "至元二十八年八月",
+      "loc": [
+        "平陽"
+      ],
+      "action": "平阳地震毁民舍一万零八百二十六区，压死一百五十人。",
+      "result": "造成明确人口与住房损失。",
+      "quote": [
+        "朔，平陽地震",
+        "壞民廬舍萬有八百二十六區",
+        "壓死者百五十人"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-PINGYANG-QUAKE-1291",
+        "candidate": "FIN-CAND-YUAN-PINGYANG-QUAKE-1291",
+        "summary": "平阳地震毁舍10826区、死150人。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "地震。",
+          "fiscal_state": "未载赈额。",
+          "livelihood_state": "死150人。",
+          "production_circulation": "毁舍10826区。"
+        }
+      },
+      "unknown": [
+        "伤者、赈济与重建未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-ADMINISTRATIVE-DOWNSIZING",
+      "time": "至元二十八年五月至十一月",
+      "loc": [
+        "中央",
+        "江南"
+      ],
+      "action": "连续裁减中外冗官，撤并泉府、匠局、提举司、库监等机构，并将事务归有司。",
+      "result": "桑哥倒台后实施机构与员额收缩。",
+      "quote": [
+        "減中外冗官三十七員",
+        "罷江西等處行泉府司",
+        "罷淘金提舉司、江淮人匠提舉司凡五",
+        "減太府監冗員三十一人"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ADMIN-DOWNSIZING-1291",
+        "candidate": "POL-CAND-YUAN-ADMIN-DOWNSIZING-1291",
+        "summary": "裁冗官并撤并多类机构。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "行政精简。",
+          "decision_question": "冗官与专门机构如何处置。",
+          "alternatives": "维持旧设。",
+          "decision": "裁员撤司归有司。",
+          "direct_result": "至少减员68人。",
+          "power_change": "事务回归常设机构。",
+          "risk_or_damage": "裁撤后能力未载。",
+          "follow_up": "继续撤库监。"
+        }
+      },
+      "unknown": [
+        "总节省和受影响人员安置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-YEAR28-DISASTER-TAX-RELIEF",
+      "time": "至元二十八年八月至十二月",
+      "loc": [
+        "撫州",
+        "大名",
+        "婺州",
+        "景州",
+        "平灤等"
+      ],
+      "action": "水灾霖雨岁荒地区按地免去年或当年田租，收成地区减半。",
+      "result": "多地灾民获得分档田租减免。",
+      "quote": [
+        "免去歲未輸田租四千五百石",
+        "免田租萬六千六百六十九石",
+        "免田租四萬一千六百五十石",
+        "被災者全免，收成者半之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DISASTER-TAX-1291",
+        "candidate": "FIN-CAND-YUAN-DISASTER-TAX-1291",
+        "summary": "至元二十八年多路灾荒分档免租。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "水灾霖雨岁荒。",
+          "fiscal_state": "多笔免租、灾区全免。",
+          "livelihood_state": "灾户减负。",
+          "production_circulation": "收成地减半征。"
+        }
+      },
+      "unknown": [
+        "全年合计免额和受灾户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-RYUKYU-MISSION",
+      "time": "至元二十八年九月至次年",
+      "loc": [
+        "福建",
+        "瑠求"
+      ],
+      "action": "最初命杨祥等统军征瑠求，后改先行招谕；使团不能抵达，吴志斗途中死亡，疑被害但遇赦不治。",
+      "result": "军事征服转招谕仍告失败，责任调查终止。",
+      "quote": [
+        "將兵征瑠求",
+        "宜先招諭之",
+        "不能達瑠求而還",
+        "時人疑為祥所殺",
+        "問，會赦，不治。"
+      ],
+      "battle": "CAMPAIGN-YUAN-RYUKYU-1291",
+      "routes": [
+        [
+          "political_event",
+          "POLITICAL_EVENT_CANDIDATE",
+          "POL-CAND-YUAN-RYUKYU-MISSION",
+          [],
+          "方略改变与调查终止。"
+        ]
+      ],
+      "unknown": [
+        "死亡真相、航程与当地接触情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-KOREA-FAMINE-AID",
+      "time": "至元二十八年十月",
+      "loc": [
+        "高麗"
+      ],
+      "action": "高丽饥，元廷给米二十万斛。",
+      "result": "藩属获得大额跨境粮援。",
+      "quote": [
+        "物。高麗國饑",
+        "給以米二十萬斛"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-KOREA-AID-1291",
+        "candidate": "FIN-CAND-YUAN-KOREA-AID-1291",
+        "summary": "给高丽饥民米20万斛。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "高丽饥荒。",
+          "fiscal_state": "拨米20万斛。",
+          "livelihood_state": "跨境赈济。",
+          "production_circulation": "粮食转运。"
+        }
+      },
+      "unknown": [
+        "运输、分配与受益人口未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-NAYAN-HADAN-RESETTLEMENT-AID",
+      "time": "至元二十八年十月至十二月",
+      "loc": [
+        "遼陽",
+        "開元",
+        "南京",
+        "水達達"
+      ],
+      "action": "乃颜、合丹叛乱后，给内附蒙古人与三万人牛畜田器，并补给高丽十九驿牛。",
+      "result": "受战乱人口与驿站获得恢复生产和运输的资产。",
+      "quote": [
+        "以乃顏、合丹相繼叛",
+        "三萬人牛畜、田器",
+        "掠其馬畜，給以牛各四十"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-NAYAN-HADAN-AID-1291",
+        "candidate": "FIN-CAND-YUAN-NAYAN-HADAN-AID-1291",
+        "summary": "给叛乱受损3万人及驿站牛具。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "叛乱掠夺畜力。",
+          "fiscal_state": "拨牛畜田器。",
+          "livelihood_state": "3万人及驿户获助。",
+          "production_circulation": "恢复农耕驿运。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-NAYAN-HADAN-AFTERMATH",
+          [],
+          "战后恢复。"
+        ]
+      ],
+      "unknown": [
+        "牛畜总数、分配与恢复效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-HOOK-AUDIT-ABOLITION",
+      "time": "至元二十八年十二月",
+      "loc": [
+        "全国"
+      ],
+      "action": "御史指出阿合马、桑哥以来钩考钱谷及受贿扰民，诏罢钩考并封存历年逋负文卷，非奉命不得查阅。",
+      "result": "持续三十余年的追欠审计被终止。",
+      "quote": [
+        "國，設法已極",
+        "賂，民不堪命",
+        "罷鈎考錢穀",
+        "昔年逋負錢穀文卷，聚置一室",
+        "非朕命而視之者有罪"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HOOK-AUDIT-ABOLITION",
+        "candidate": "POL-CAND-YUAN-HOOK-AUDIT-ABOLITION",
+        "summary": "罢钩考并封存旧逋负文卷。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "财政审计政策终止。",
+          "decision_question": "旧欠追核是否继续。",
+          "alternatives": "继续钩考。",
+          "decision": "停办封卷。",
+          "direct_result": "旧欠停止常规追查。",
+          "power_change": "限制官吏查卷权。",
+          "risk_or_damage": "财政追缴终止。",
+          "follow_up": "布告中外。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "FISCAL_LIVELIHOOD_CANDIDATE",
+          "FIN-CAND-YUAN-HOOK-AUDIT-ABOLITION",
+          [],
+          "停止追欠减轻民扰。"
+        ]
+      ],
+      "unknown": [
+        "豁免总额与文卷数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-JIANGNAN-TAX-DEBATE",
+      "time": "至元二十八年十二月",
+      "loc": [
+        "江南",
+        "中央"
+      ],
+      "action": "中书拟恢复宋时七十余种江南差徭以供封邑和增俸，何荣祖建议召各省钱谷官集议科取法，获准。",
+      "result": "扩大江南征赋尚停留在跨省集议阶段。",
+      "quote": [
+        "差徭為名七十有餘",
+        "少，似宜量添",
+        "集議科取之法以聞",
+        "聞。」從之。甲戍"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-JIANGNAN-TAX-DEBATE",
+        "candidate": "POL-CAND-YUAN-JIANGNAN-TAX-DEBATE",
+        "summary": "江南增赋方案转交跨省集议。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "财政政策议决。",
+          "decision_question": "是否恢复宋时诸名征赋。",
+          "alternatives": "直接尽征或维持现制。",
+          "decision": "先召省官集议。",
+          "direct_result": "未即时全面加征。",
+          "power_change": "中书与省官共同议法。",
+          "risk_or_damage": "潜在民负大增。",
+          "follow_up": "待集议。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "FISCAL_LIVELIHOOD_CANDIDATE",
+          "FIN-CAND-YUAN-JIANGNAN-TAX-DEBATE",
+          [],
+          "拟扩大征赋。"
+        ]
+      ],
+      "unknown": [
+        "最终税法与实际征收未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-BAHE-DREDGING",
+      "time": "至元二十八年十二月",
+      "loc": [
+        "壩河"
+      ],
+      "action": "疏浚运粮坝河并筑堤防。",
+      "result": "漕粮水道和防洪设施得到整治。",
+      "quote": [
+        "濬運糧壩河",
+        "河，築隄防。授"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-BAHE-DREDGING",
+        "candidate": "WORK-CAND-YUAN-BAHE-DREDGING",
+        "summary": "浚运粮坝河并筑堤。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "运粮坝河。",
+          "phase": "疏浚筑堤。",
+          "purpose": "漕运防洪。",
+          "resource_input": "未载。",
+          "operation": "浚河筑堤。",
+          "benefit": "改善运粮水道。",
+          "harm": "工役影响未载。"
+        }
+      },
+      "unknown": [
+        "河段、工期、费用与成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-016-YEAR28-STATE-STATISTICS",
+      "time": "至元二十八年岁末",
+      "loc": [
+        "全国"
+      ],
+      "action": "户部、司农司、宣政院分别上报户口游食、学校垦地植树义粮及寺宇僧尼统计。",
+      "result": "形成全国人口、农业教育和宗教机构的汇总数据。",
+      "quote": [
+        "口五千九百八十四萬八千九百六十四",
+        "游食者四十二萬九千一百一十八",
+        "所設學校二萬一千三百餘",
+        "義糧九萬九千九百六十石",
+        "寺宇四萬二千三百一十八區"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-STATE-STATISTICS-1291",
+        "candidate": "POL-CAND-YUAN-STATE-STATISTICS-1291",
+        "summary": "三部门上报全国户农寺统计。",
+        "operation": "completed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "国家统计。",
+          "decision_question": "人口农业宗教资源如何汇总。",
+          "alternatives": "无统一年报。",
+          "decision": "分部门上报。",
+          "direct_result": "形成多域基数。",
+          "power_change": "中央掌握统计。",
+          "risk_or_damage": "统计口径误差未载。",
+          "follow_up": "无载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "FISCAL_LIVELIHOOD_CANDIDATE",
+          "FIN-CAND-YUAN-STATE-STATISTICS-1291",
+          [],
+          "户口垦地义粮数据。"
+        ]
+      ],
+      "unknown": [
+        "统计方法、漏报和地区明细未载。"
+      ]
+    }
+  ]
+}

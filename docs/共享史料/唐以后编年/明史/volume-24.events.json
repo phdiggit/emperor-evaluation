@@ -1,0 +1,878 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V24-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V24-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷24",
+    "revision_ref": "2594640",
+    "start_locator": "崇祯十一年洪承畴梓潼败贼",
+    "end_locator": "崇祯十七年北京陷落与明亡",
+    "overlap_context": "承接卷23崇祯十年流寇、灾荒和辽东战线；本卷登记崇祯后七年入塞与松锦战争、流寇建政扩张、灾饷疫赈、开封水灾及北京陷落。",
+    "input_fingerprint": "3e9eca50096eccdf634b5ea14b356cb8d22ffc10fabe02a55e4d41e0136dd249"
+  },
+  "limitations": [
+    "仅据固定《明史》卷24正文登记，未知保持未知。",
+    "每事实仅保留完成归责、行为与结果所需的最小逐字锚点；普通任免、祭祀、贡聘、祥异与科举不单列；明亡后清军山海关及改葬仅作卷尾史源背景，不路由为明朝可消费事件。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V24-ANMIN-FACTORY-DISASTER-1638",
+      "time": [
+        "崇祯十一年六月",
+        "1638",
+        "month"
+      ],
+      "subject": "崇祯朝廷与安民厂、京城居民",
+      "action": "安民厂发生爆炸，毁坏城墙。",
+      "result": "一万余人受伤，城防设施受损。",
+      "cost": "伤万余人，死亡与财产损失未载。",
+      "groups": [
+        "军工厂人员",
+        "京城居民",
+        "城防役户"
+      ],
+      "quote": [
+        "安民廠災，壞城垣，傷萬餘人。"
+      ],
+      "unknown": [
+        "爆炸原因、死亡人数、财产损失、修复费用与工期未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ANMIN-FACTORY-DISASTER-1638",
+        "summary": "安民厂爆炸毁城并伤万余人。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-DROUGHT-FAMINE-1638",
+      "time": [
+        "崇祯十一年六月至九月",
+        "1638",
+        "range"
+      ],
+      "subject": "崇祯朝廷与两畿山东河南陕西山西灾民",
+      "action": "大范围旱蝗饥荒发生，崇祯斋居并命廷臣修省。",
+      "result": "多省农业与民生受灾，本卷未载直接赈济规模。",
+      "groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "地方官员"
+      ],
+      "quote": [
+        "兩畿、山東、河南大旱蝗。",
+        "以災異屢見，齋居永壽宮，諭廷臣修省。",
+        "陝西、山西旱饑。"
+      ],
+      "unknown": [
+        "死亡人数、减产、流民、赈济与蠲免总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DROUGHT-FAMINE-1638",
+        "summary": "两畿鲁豫陕晋旱蝗饥荒。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-TONGGUAN-VICTORY-1638",
+      "time": [
+        "崇祯十一年三月至十月",
+        "1638",
+        "range"
+      ],
+      "subject": "洪承畴、曹变蛟等明军与李自成军",
+      "action": "明军追击李自成并在潼关南原大败其军。",
+      "result": "李自成仅以数骑逃脱，起事军暂遭重创。",
+      "cost": "双方伤亡未载。",
+      "groups": [
+        "明军",
+        "李自成军",
+        "陕甘地方民众"
+      ],
+      "quote": [
+        "總兵官曹變蛟追破之",
+        "洪承疇、曹變蛟大破賊於潼關南原，李自成以數騎遁。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、俘获、军费和地方损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-TONGGUAN-1638",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-ZHANG-XIANZHONG-FALSE-SURRENDER-1638-1639",
+      "time": [
+        "崇祯十一年四月",
+        "崇祯十二年五月",
+        "range"
+      ],
+      "subject": "熊文灿与张献忠罗汝才等起事军",
+      "action": "张献忠在谷城伪降并获熊文灿接受，次年再叛，罗汝才等响应并攻陷房县。",
+      "result": "招抚失败，熊文灿被削籍逮捕，起事战争重新扩大。",
+      "groups": [
+        "起事军",
+        "明军",
+        "湖广地方民众"
+      ],
+      "quote": [
+        "張獻忠偽降於穀城，熊文燦受之。",
+        "張獻忠叛於穀城，羅汝才等起應之，陷房縣。",
+        "熊文燦削籍，尋逮下獄。"
+      ],
+      "unknown": [
+        "伪降条件、受抚人数、再叛兵力、伤亡和地方损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-ZHANG-FALSE-SURRENDER-1638-1639",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-QING-INVASION-1638-1639",
+      "time": [
+        "崇祯十一年九月",
+        "崇祯十二年三月",
+        "range"
+      ],
+      "subject": "卢象升等明军与后金入塞军",
+      "action": "后金军由墙子岭入塞，攻高阳、入济南并横行畿鲁；明援军分督而卢象升在巨鹿战死。",
+      "result": "后金五个月深入二千里、攻下七十余城后出青山口北归。",
+      "cost": "吴阿衡、孙承宗、卢象升、张秉文等死，德王被执，军民总损失未载。",
+      "groups": [
+        "明军",
+        "后金军",
+        "畿鲁州县军民",
+        "藩王宗室"
+      ],
+      "quote": [
+        "大清兵克高陽，致仕大學士孫承宗死之。",
+        "盧象昇兵敗於鉅鹿，死之。",
+        "凡深入二千里，閱五月，下畿內、山東七十餘城。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、俘掠人口、城镇财产损失与援军军费未载。"
+      ],
+      "battle": "CAMPAIGN-MING-QING-INVASION-1638-1639",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-TRAINING-LEVY-1639",
+      "time": [
+        "崇祯十二年六月",
+        "1639",
+        "month"
+      ],
+      "subject": "崇祯朝廷、各镇军与天下纳税民户",
+      "action": "朝廷抽练各镇精兵，并再次加征练饷。",
+      "result": "军队重组与新增专项军费同步实施。",
+      "groups": [
+        "各镇军士",
+        "纳税农户",
+        "财政官员"
+      ],
+      "quote": [
+        "抽練各鎮精兵，復加徵練餉。"
+      ],
+      "unknown": [
+        "抽练兵数、练饷税率、实收金额和民户负担未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TRAINING-LEVY-1639",
+        "summary": "抽练各镇精兵并复加练饷。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-BORDER-FAILURE-EXECUTIONS-1639",
+      "time": [
+        "崇祯十二年八月",
+        "1639",
+        "month"
+      ],
+      "subject": "崇祯帝与颜继祖、倪宠、祖宽、邓希诏等失事文武内臣",
+      "action": "崇祯下令处死三十三名封疆失事官员和内臣。",
+      "result": "入塞与战败责任以大规模死刑追究。",
+      "cost": "三十三人被弃市。",
+      "groups": [
+        "边疆文武官员",
+        "内臣",
+        "涉案家属"
+      ],
+      "quote": [
+        "詔誅封疆失事巡撫都御史顏繼祖，總兵官倪寵、祖寬，內臣鄧希詔、孫茂霖等三十三人，俱棄市。"
+      ],
+      "unknown": [
+        "各人罪证、审判程序、家属与财产处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BORDER-FAILURE-EXECUTIONS-1639",
+        "summary": "处死三十三名封疆失事文武内臣。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V24-RELIEF-1639-1640",
+      "time": [
+        "崇祯十二年八月",
+        "崇祯十三年八月",
+        "range"
+      ],
+      "subject": "崇祯朝廷与唐县真定京师山东畿内江北等灾民",
+      "action": "朝廷免四十州县部分田租，连续赈真定、京师、山东、畿内和江北饥民，并发帑救蝗灾州县。",
+      "result": "旱蝗饥荒地区获得蠲租、发帑和赈济。",
+      "groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "地方官员"
+      ],
+      "quote": [
+        "免唐縣等四十州縣去年田租之半。",
+        "振京師饑民。癸卯，振山東饑。",
+        "發帑振被蝗州縣。"
+      ],
+      "unknown": [
+        "蠲租赈帑总额、受益户数、死亡人数和恢复成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RELIEF-1639-1640",
+        "summary": "旱蝗饥荒地区获蠲租发帑赈济。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-SOUTHWEST-REBELLION-1640",
+      "time": [
+        "崇祯十三年二月至十二月",
+        "1640",
+        "range"
+      ],
+      "subject": "郑崇俭、秦良玉、左良玉等明军与张献忠罗汝才军",
+      "action": "明军在玛瑙山等地击败张献忠罗汝才，秦良玉守夔州；起事军转战后再陷剑州绵州泸州。",
+      "result": "官军虽多次获胜，仍未阻止张献忠罗汝才合兵扩张。",
+      "cost": "张令等战死，其他伤亡未载。",
+      "groups": [
+        "明军",
+        "石砫军",
+        "起事军",
+        "川湖地方民众"
+      ],
+      "quote": [
+        "大破張獻忠於太平縣之瑪瑙山",
+        "石砫女官秦良玉連戰卻之。",
+        "張獻忠陷瀘州。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、城镇损失和军费未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SOUTHWEST-1640",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-FAMINE-CANNIBALISM-1640",
+      "time": [
+        "崇祯十三年",
+        "1640",
+        "year"
+      ],
+      "subject": "两畿山东河南山西陕西灾民与崇祯朝廷",
+      "action": "多省旱蝗导致严重饥荒，饥民相食。",
+      "result": "全国核心区域出现极端生存危机，并推动饥民附入起事军。",
+      "groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "流民"
+      ],
+      "quote": [
+        "兩畿、山東、河南、山、陝旱蝗，人相食。",
+        "李自成自湖廣走河南，饑民附之"
+      ],
+      "unknown": [
+        "死亡人数、受灾面积、粮价、流民规模和救济覆盖未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FAMINE-CANNIBALISM-1640",
+        "summary": "五省旱蝗饥荒达到人相食。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-HENAN-XIANGYANG-FALLS-1641",
+      "time": [
+        "崇祯十四年正月至二月",
+        "1641",
+        "range"
+      ],
+      "subject": "李自成张献忠军与河南襄阳明军宗室",
+      "action": "李自成攻陷河南杀福王，张献忠攻陷襄阳杀襄王贵阳王并陷光州。",
+      "result": "中原和襄阳重要城藩接连失守，宗室与地方官员大量死亡。",
+      "cost": "福王、襄王、贵阳王及吕维祺、张克俭等死，军民伤亡未载。",
+      "groups": [
+        "起事军",
+        "明军",
+        "宗室",
+        "河南湖广民众"
+      ],
+      "quote": [
+        "李自成陷河南，福王常洵遇害",
+        "張獻忠陷襄陽，襄王翊銘、貴陽王常法並遇害",
+        "李自成攻開封"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、掳掠、宗室财产和城镇损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-HENAN-XIANGYANG-1641",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-SONGJIN-CAMPAIGN-1641-1642",
+      "time": [
+        "崇祯十四年三月",
+        "崇祯十五年三月",
+        "range"
+      ],
+      "subject": "洪承畴、祖大寿等明军与后金军",
+      "action": "后金围锦州，洪承畴率八镇援军驻松山；吴三桂王朴先遁致诸军夜溃，次年松山被攻克。",
+      "result": "洪承畴投降，丘民仰、曹变蛟等死，祖大寿以锦州投降。",
+      "cost": "杨国柱、丘民仰、曹变蛟、王廷臣、江翥、饶勋等死，军民总伤亡未载。",
+      "groups": [
+        "明军",
+        "后金军",
+        "松锦军民",
+        "援军"
+      ],
+      "quote": [
+        "大清兵攻錦州，祖大壽拒守。",
+        "總兵官吳三桂、王樸自松山遁，諸軍夜潰。",
+        "大清兵克松山，洪承疇降"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、俘虏、军资损失和降军人数未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SONGJIN-1641-1642",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-TAIXUE-RECONSTRUCTION-1641",
+      "time": [
+        "崇祯十四年八月",
+        "1641",
+        "month"
+      ],
+      "subject": "崇祯朝廷与太学工程役户师生",
+      "action": "朝廷完成重建太学并举行释奠。",
+      "result": "国家最高学校灾后或旧制重建完成。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "太学生员",
+        "礼官"
+      ],
+      "quote": [
+        "重建太學成，釋奠於先師孔子。"
+      ],
+      "unknown": [
+        "重建原因、费用、用工、工期和校舍规模未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "TAIXUE-RECONSTRUCTION-1641",
+        "summary": "重建太学完成。",
+        "continuity": "single_event",
+        "phase": "重建竣工",
+        "purpose": "国家教育祭祀",
+        "operation_result": "太学成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-FU-ZONGLONG-DEFEAT-1641",
+      "time": [
+        "崇祯十四年九月",
+        "1641",
+        "month"
+      ],
+      "subject": "傅宗龙、杨文岳等明军与李自成罗汝才军",
+      "action": "傅宗龙与杨文岳会师新蔡后遇敌，贺人龙部溃散，傅宗龙突围后被俘杀。",
+      "result": "援豫官军遭重败，起事军继陷叶县并屠项城商水扶沟。",
+      "cost": "傅宗龙、刘国能等死，多县军民被屠。",
+      "groups": [
+        "明军",
+        "起事军",
+        "豫东州县民众"
+      ],
+      "quote": [
+        "賀人龍師潰，宗龍被圍",
+        "傅宗龍潰圍出，趨項城，被執死之。",
+        "賊屠項城及商水、扶溝。"
+      ],
+      "unknown": [
+        "双方兵力、屠杀人数、总伤亡和财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-FU-ZONGLONG-1641",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-ARREARS-AMNESTY-1642",
+      "time": [
+        "崇祯十五年正月",
+        "1642",
+        "month"
+      ],
+      "subject": "崇祯朝廷与天下欠赋民户",
+      "action": "朝廷免除全国崇祯十二年以前的逋赋。",
+      "result": "多年积欠获得一次全国性清免。",
+      "groups": [
+        "欠赋农户",
+        "商民",
+        "财政官员"
+      ],
+      "quote": [
+        "免天下十二年以前逋賦。"
+      ],
+      "unknown": [
+        "免除总额、地区分布、执行率和财政缺口未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ARREARS-AMNESTY-1642",
+        "summary": "免天下崇祯十二年前逋赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-KAIFENG-FLOOD-1642",
+      "time": [
+        "崇祯十五年四月至十一月",
+        "1642",
+        "range"
+      ],
+      "subject": "李自成军、开封守军与城内士民",
+      "action": "李自成再围开封，九月决河灌城，城墙崩塌。",
+      "result": "开封士民溺死数十万人，朝廷随后发帑赈难民宗室兵民。",
+      "cost": "士民溺死数十万人，城池财产损失未载。",
+      "groups": [
+        "开封士民",
+        "宗室",
+        "守军",
+        "起事军",
+        "灾民"
+      ],
+      "quote": [
+        "李自成復圍開封。",
+        "賊決河灌開封。癸未，城圮，士民溺死者數十萬人。",
+        "發帑振開封被難宗室兵民。"
+      ],
+      "unknown": [
+        "决河具体责任过程、准确死亡数、发帑金额、幸存者安置和河工修复未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "KAIFENG-FLOOD-1642",
+        "summary": "围城中决河灌开封致数十万人溺死并发帑赈济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-QING-INVASION-1642-1643",
+      "time": [
+        "崇祯十五年十一月",
+        "崇祯十六年四月",
+        "range"
+      ],
+      "subject": "明朝京畿山东援军与后金入塞军",
+      "action": "后金军分道入塞，攻蓟州、畿南及山东多县，次年北归时在螺山击溃八镇兵。",
+      "result": "畿鲁大片州县失守，鲁王自杀，援军在后金出塞时仍遭败没。",
+      "cost": "张登科、和应荐等败没，州县军民伤亡与俘掠未载。",
+      "groups": [
+        "明军",
+        "后金军",
+        "畿鲁州县民众",
+        "宗室"
+      ],
+      "quote": [
+        "大清兵克薊州。",
+        "大清兵南下，畿南郡邑多不守。",
+        "戰於螺山，總兵官張登科、和應薦敗沒，八鎮兵皆潰。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、俘掠人口、财产损失和援军军费未载。"
+      ],
+      "battle": "CAMPAIGN-MING-QING-INVASION-1642-1643",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-CENTRAL-CHINA-FALLS-1642-1643",
+      "time": [
+        "崇祯十五年十二月",
+        "崇祯十六年五月",
+        "range"
+      ],
+      "subject": "李自成张献忠军与明朝湖广河南官军宗室",
+      "action": "李自成陷襄阳并攻承天，张献忠连陷蕲州黄州汉阳武昌等地。",
+      "result": "湖广重镇与宗藩体系大规模崩溃，楚王及多名官员死亡。",
+      "cost": "楚王、贺逢圣、宋一鹤、沈寿崇等死，军民伤亡未载。",
+      "groups": [
+        "起事军",
+        "明军",
+        "宗室",
+        "湖广河南民众"
+      ],
+      "quote": [
+        "李自成陷襄陽，據之。",
+        "李自成陷承天",
+        "張獻忠陷武昌，沈楚王華奎於江"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、屠掠、财产损失和宗室家属处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-CENTRAL-CHINA-1642-1643",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-THREE-LEVIES-RELIEF-1643",
+      "time": [
+        "崇祯十六年六月",
+        "1643",
+        "month"
+      ],
+      "subject": "崇祯朝廷与残破州县民户",
+      "action": "朝廷免除各省残破州县辽饷、剿饷、练饷及全部常赋两年。",
+      "result": "战争破坏地区获得两年全面税赋减免。",
+      "groups": [
+        "战乱州县民户",
+        "纳税农户",
+        "地方财政官员"
+      ],
+      "quote": [
+        "詔免直省殘破州縣三餉及一切常賦二年。"
+      ],
+      "unknown": [
+        "覆盖州县、免税总额、执行率和中央财政缺口未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "THREE-LEVIES-RELIEF-1643",
+        "summary": "残破州县三饷及常赋全免两年。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-CAPITAL-PLAGUE-RELIEF-1643",
+      "time": [
+        "崇祯十六年二月至七月",
+        "1643",
+        "range"
+      ],
+      "subject": "崇祯朝廷与京师疫民、囚犯及暴骸死者",
+      "action": "京师大疫持续半年，朝廷释放轻犯、发帑治疗并收瘗五城暴骸。",
+      "result": "中央采取司法减免、公共医疗和遗体安葬措施应对疫情。",
+      "groups": [
+        "疫民",
+        "轻犯",
+        "医护施治者",
+        "死者家属",
+        "五城居民"
+      ],
+      "quote": [
+        "京師自二月至於是月大疫",
+        "詔釋輕犯，發帑療治，瘞五城暴骸。"
+      ],
+      "unknown": [
+        "染疫和死亡人数、发帑金额、治疗覆盖及疗效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CAPITAL-PLAGUE-RELIEF-1643",
+        "summary": "京师大疫中释轻犯、发帑治疗并瘗暴骸。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-ZHANG-XIANZHONG-HUNAN-1643",
+      "time": [
+        "崇祯十六年八月至十二月",
+        "1643",
+        "range"
+      ],
+      "subject": "张献忠军与明朝湖广江西官军",
+      "action": "张献忠连续攻陷岳州长沙衡州宝庆永州常德吉安建昌抚州等地，左良玉一度收复武昌汉阳及长沙。",
+      "result": "湖广江西大片区域反复易手，明军无法稳定恢复。",
+      "cost": "刘熙祚等死，军民总伤亡与屠掠未载。",
+      "groups": [
+        "张献忠军",
+        "明军",
+        "湖广江西民众"
+      ],
+      "quote": [
+        "張獻忠陷岳州。丙戌，陷長沙。庚寅，陷衡州。",
+        "張獻忠陷永州，巡按御史劉熙祚死之。",
+        "左良玉復長沙。"
+      ],
+      "unknown": [
+        "各城兵力、总伤亡、屠掠、财产损失与短期收复范围未载。"
+      ],
+      "battle": "CAMPAIGN-MING-ZHANG-HUNAN-1643",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-SUN-CHUANTING-DEFEAT-1643",
+      "time": [
+        "崇祯十六年九月至十月",
+        "1643",
+        "range"
+      ],
+      "subject": "孙传庭明军与李自成军",
+      "action": "孙传庭在郏县初胜后因军粮不足撤退，遭追击大败，退守潼关后战死。",
+      "result": "潼关失守，明朝西北主力军瓦解。",
+      "cost": "孙传庭战死，所部伤亡未载。",
+      "groups": [
+        "明军",
+        "李自成军",
+        "军粮承办民户",
+        "潼关军民"
+      ],
+      "quote": [
+        "孫傳庭兵以乏食引退，賊追及之，還戰大敗",
+        "李自成陷潼關，督師尚書孫傳庭死之。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、军粮短缺数额和俘获未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SUN-CHUANTING-1643",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-LI-ZICHENG-NORTHWEST-1643",
+      "time": [
+        "崇祯十六年十月至十二月",
+        "1643",
+        "range"
+      ],
+      "subject": "李自成军与陕西山西甘宁明朝军政宗室",
+      "action": "李自成攻陷西安、延安、榆林、平阳、甘州等西北州府并屠商州凤翔。",
+      "result": "陕西、宁夏、庆阳及山西多地相继溃降，明朝西北统治崩溃。",
+      "cost": "冯师孔、黄絅、都任、尤世威、林日瑞、马爌等死，多城被屠。",
+      "groups": [
+        "李自成军",
+        "明军",
+        "宗室",
+        "西北州县民众"
+      ],
+      "quote": [
+        "李自成陷西安，秦王存樞降",
+        "李自成陷榆林",
+        "賊渡河，陷平陽，山西州縣相繼潰降。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、屠城人数、降军数和财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-LI-NORTHWEST-1643",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-RANSOM-FINES-FOR-PAY-1643",
+      "time": [
+        "崇祯十六年十月",
+        "1643",
+        "month"
+      ],
+      "subject": "崇祯朝廷、司法罚金体系与军饷",
+      "action": "朝廷命地方将赎罪罚金用于军饷。",
+      "result": "司法赎锾被直接转作军事财政来源。",
+      "groups": [
+        "缴纳赎锾者",
+        "军队",
+        "司法财政官员"
+      ],
+      "quote": [
+        "命有司以贖鍰充餉。"
+      ],
+      "unknown": [
+        "赎锾金额、军饷分配、案件范围和司法激励影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RANSOM-FINES-FOR-PAY-1643",
+        "summary": "以司法赎锾充军饷。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-LI-ZICHENG-MARCH-NORTH-1644",
+      "time": [
+        "崇祯十七年正月至三月",
+        "1644",
+        "range"
+      ],
+      "subject": "李自成军与山西河北明军宗室地方官",
+      "action": "李自成由汾州、太原、潞安、宁武、大同、宣府一路向京师推进，多地守将投降。",
+      "result": "北方防线连续崩溃，宁武周遇吉战死，居庸关守军投降，起事军进入京畿。",
+      "cost": "蔡懋德、周遇吉、卫景瑗、朱之冯等死，军民总伤亡未载。",
+      "groups": [
+        "李自成军",
+        "明军",
+        "宗室",
+        "山西河北地方民众"
+      ],
+      "quote": [
+        "李自成陷汾州",
+        "李自成陷寧武，周遇吉力戰死之。",
+        "唐通、杜之秩降於自成，賊遂入關。"
+      ],
+      "unknown": [
+        "各军兵力、总伤亡、降军人数、州县损失和行军军需未载。"
+      ],
+      "battle": "CAMPAIGN-MING-LI-MARCH-BEIJING-1644",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V24-SOUTHERN-RETREAT-REFUSED-1644",
+      "time": [
+        "崇祯十七年二月至三月",
+        "1644",
+        "range"
+      ],
+      "subject": "崇祯帝、李邦华李明睿李建泰等廷臣与皇太子",
+      "action": "廷臣多次请求皇帝南迁或令太子抚军南京，崇祯以国君死社稷为由拒绝。",
+      "result": "明廷未建立南方预备中枢，皇帝与太子继续留京。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "南京军政人员",
+        "京师居民"
+      ],
+      "quote": [
+        "請南遷及太子撫軍江南，皆不許。",
+        "國君死社稷，朕將焉往？",
+        "李邦華等復請太子撫軍南京，不聽。"
+      ],
+      "unknown": [
+        "南迁具体方案、支持反对人数、军事可行性与太子后续安排未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SOUTHERN-RETREAT-REFUSED-1644",
+        "summary": "崇祯拒绝南迁及太子抚军南京。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V24-BEIJING-FALL-MING-END-1644",
+      "time": [
+        "崇祯十七年三月",
+        "1644",
+        "month"
+      ],
+      "subject": "崇祯帝、李自成军与北京守军臣民",
+      "action": "李自成军攻破京师外城内城，京营崩溃；周皇后与崇祯帝死亡，王承恩及范景文等数十臣殉死。",
+      "result": "北京陷落，明朝灭亡。",
+      "cost": "皇帝皇后、王承恩及数十官员死亡，京师军民伤亡与掳掠未载。",
+      "groups": [
+        "皇室成员",
+        "李自成军",
+        "京营守军",
+        "中央官员",
+        "京师居民"
+      ],
+      "quote": [
+        "賊犯京師，京營兵潰。",
+        "丁未，昧爽，內城陷。帝崩於萬歲山，王承恩從死。",
+        "墓以葬。明亡。\n　　"
+      ],
+      "unknown": [
+        "京师攻守兵力、军民总伤亡、皇室其余成员结局、财产损失与政权接收过程未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BEIJING-FALL-MING-END-1644",
+        "summary": "李自成军攻陷北京，崇祯帝死，明亡。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

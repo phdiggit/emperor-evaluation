@@ -1,0 +1,686 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V26-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V26-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷26",
+    "revision_ref": "1748690",
+    "start_locator": "壽隆元年春正月己亥，如混同江。",
+    "end_locator": "六月庚子，上尊謚仁聖大孝文皇帝，廟號道宗。",
+    "overlap_context": "本卷承卷25大安十年，记寿隆元年至寿昌七年（1095—1101）。西北战事按拔思母、耶睹刮、梅里急、磨古斯及茶紥剌等对象和阶段收束；赈济、迁徙、防务、司法、考试及延禧权责按各自因果链登记。常规巡幸、贡聘、单次任免、礼仪、天象及未具实施结果的外交请求不单列。卷末为道宗崩逝，未读卷27。",
+    "input_fingerprint": "f924ef2e1c38c44a9e5022fb5356bdd9f4b82d7f36194e30a35800b03e9a619d"
+  },
+  "limitations": [
+    "仅据固定《遼史》卷26正文登记，未知保持未知。",
+    "西北各部的兵力、战场、伤亡、降附条件及各次捷报间的完整连续性多未载。",
+    "赈济、免租、购牛、给绢和迁徙的数量、受助人数、执行期限及后续恢复多未载。",
+    "道宗病情、继位准备与崩后政局仅按卷内所载记录，不外推。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V26-REGIONAL-POOR-RELIEF-1095",
+      "time": [
+        "壽隆元年正月至三月",
+        "1095",
+        "range"
+      ],
+      "subject": "奉圣州、左右二皮室、东北路贫民",
+      "action": "朝廷赈奉圣州贫民，赐左右二皮室贫民钱，并赐东北路贫民绢。",
+      "result": "三地贫民获得钱或绢赈助。",
+      "cost": "受助户数、钱绢数额、灾因及后续生活恢复未载。",
+      "groups": [
+        "各地贫民",
+        "二皮室贫民",
+        "东北路贫民"
+      ],
+      "quote": [
+        "振奉聖州貧民。",
+        "賜左、右二皮室貧民錢。",
+        "賜東北路貧民絹。"
+      ],
+      "unknown": [
+        "各地贫困是否同因、物资来源和实际分配未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REGIONAL-POOR-RELIEF-1095",
+        "summary": "1095年向奉圣州、二皮室和东北路贫民发放赈助。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V26-BASMUL-CAMPAIGNS-1095-1096",
+      "time": [
+        "壽隆元年至壽昌二年",
+        "1095—1096",
+        "range"
+      ],
+      "subject": "拔思母部与辽西南面招讨司军",
+      "action": "西南面招讨司先后报告拔思母来侵及出讨破敌。",
+      "result": "卷内记载辽军两次击破拔思母。",
+      "cost": "来侵缘由、战场、兵力、伤亡、战后降附和治安结果未载。",
+      "groups": [
+        "拔思母部",
+        "西南面招讨司军",
+        "边地居民"
+      ],
+      "quote": [
+        "西南面招討司奏拔思母來侵，蕭阿魯帶等擊破之。",
+        "西南面招討司討拔思母，破之。"
+      ],
+      "unknown": [
+        "两次战斗是否为同一持续行动及双方损失未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-BASMUL-1095-1096",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-YEDUGUA-REPEATED-VICTORY-REPORTS-1095-1099",
+      "time": [
+        "壽隆元年至壽昌五年",
+        "1095—1099",
+        "range"
+      ],
+      "subject": "耶睹刮部、斡特剌与西北路军",
+      "action": "卷内在1095年与1099年均记斡特剌奏报讨耶睹刮获捷；1095年朝廷另录西北路有功将士。",
+      "result": "卷内两次记录对耶睹刮战事获捷，西北路有功将士得到登记。",
+      "cost": "两次战场、斩获、兵员奖赏内容及后续边防状况未载。",
+      "groups": [
+        "耶睹刮部",
+        "西北路军",
+        "有功将士"
+      ],
+      "quote": [
+        "，斡特剌奏討耶睹刮捷。乙",
+        "錄討阻卜有功將士。"
+      ],
+      "unknown": [
+        "两次捷报是否为同一连续战役及录功对象与具体奖励未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-YEDUGUA-1095-1099",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-NORTHWEST-CROSSBOW-AND-ARTILLERY-TRAINING-1095",
+      "time": [
+        "壽隆元年九月",
+        "1095",
+        "month"
+      ],
+      "subject": "西京炮人弩人与西北路汉军",
+      "action": "朝廷命西京炮人、弩人教授西北路汉军。",
+      "result": "西北路汉军被安排接受炮弩技术训练。",
+      "cost": "教授人数、训练期限、器械、军力变化和战场效果未载。",
+      "groups": [
+        "西京炮人弩人",
+        "西北路汉军",
+        "西北边防居民"
+      ],
+      "quote": "詔西京炮人、弩人教西北路漢軍。",
+      "unknown": [
+        "训练是否完成及其实际军事效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NORTHWEST-CROSSBOW-AND-ARTILLERY-TRAINING-1095",
+        "summary": "命西京炮弩人员训练西北路汉军。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-IMPERIAL-EXAMINATION-SELECTION-1095-1100",
+      "time": [
+        "壽隆元年至壽昌六年",
+        "1095—1100",
+        "range"
+      ],
+      "subject": "进士与辽廷选官体系",
+      "action": "朝廷在1095年录取陈衡甫等一百三十人，1100年再录取康秉俭等八十七人。",
+      "result": "卷内两次进士录取合计二百一十七人。",
+      "cost": "应试人数、取士标准、任官去向和后续政绩未载。",
+      "groups": [
+        "进士",
+        "考选官员",
+        "地方士人"
+      ],
+      "quote": [
+        "是年，放進士陳衡甫等百三十人。",
+        "放進士康秉儉等八十七人。"
+      ],
+      "unknown": [
+        "两次录取间考试制度是否调整及录取者后续任用未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "IMPERIAL-EXAMINATION-SELECTION-1095-1100",
+        "summary": "卷内两次录取进士共二百一十七人。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-NORTHERN-TRIBAL-AND-BORDER-RELIEF-1096",
+      "time": [
+        "壽昌二年正月至四月",
+        "1096",
+        "range"
+      ],
+      "subject": "乌古、敌烈、隈乌古、达麻里别古部及西北边军",
+      "action": "朝廷购买牛只给乌古、敌烈、隈乌古部贫民，赈达麻里别古部，并赈西北边军。",
+      "result": "北方部族贫民获得耕畜或赈济，西北边军得到赈助。",
+      "cost": "购牛数量与价格、受助人口、边军补给量和持续时间未载。",
+      "groups": [
+        "北方部族贫民",
+        "达麻里别古部",
+        "西北边军"
+      ],
+      "quote": [
+        "市牛給烏古、敵烈、隈烏古部貧民。",
+        "振達麻裏別古部。",
+        "振西北邊軍。"
+      ],
+      "unknown": [
+        "各项援助是否出于同一灾情或边患及执行效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NORTHERN-TRIBAL-AND-BORDER-RELIEF-1096",
+        "summary": "购牛与赈济北方部族贫民，并赈西北边军。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-UGU-DILIE-DEFENSIVE-RESETTLEMENT-1096",
+      "time": [
+        "壽昌二年九月",
+        "1096",
+        "month"
+      ],
+      "subject": "乌古敌烈部、乌纳水与北边防务",
+      "action": "朝廷将乌古敌烈部迁至乌纳水，以扼守北边冲要。",
+      "result": "乌古敌烈部被迁往乌纳水，卷内明示目的为北边防御。",
+      "cost": "迁徙人数、安置条件、当地居民影响、后勤与防务成效未载。",
+      "groups": [
+        "乌古敌烈部",
+        "北边居民",
+        "边防军"
+      ],
+      "quote": "徙烏古敵烈部於烏納水，以扼北邊之沖。",
+      "unknown": [
+        "迁徙是否完成及其防务结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "UGU-DILIE-DEFENSIVE-RESETTLEMENT-1096",
+        "summary": "迁乌古敌烈部至乌纳水以守北边冲要。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-MELIJI-CAMPAIGNS-1096-1097",
+      "time": [
+        "壽昌二年十二月至三年十二月",
+        "1096—1097",
+        "range"
+      ],
+      "subject": "梅里急部、斡特剌与西北路军",
+      "action": "斡特剌先后出讨梅里急并两次奏捷。",
+      "result": "卷内记载辽军击破梅里急，后续又报讨梅里急获捷。",
+      "cost": "两次战斗的地点、兵力、伤亡、梅里急部处置及是否为同一战役阶段未载。",
+      "groups": [
+        "梅里急部",
+        "西北路军",
+        "边地居民"
+      ],
+      "quote": [
+        "斡特剌討梅裏急，破之。",
+        "斡特剌奏討梅裏急捷。",
+        "西北路統軍司奏討梅裏急捷。"
+      ],
+      "unknown": [
+        "两次捷报的具体对应战斗和长期结果未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-MELIJI-1096-1097",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-NANJING-FLOOD-RELIEF-1097",
+      "time": [
+        "壽昌三年二月",
+        "1097",
+        "month"
+      ],
+      "subject": "南京水灾民众与赈济使者",
+      "action": "南京发生水灾，朝廷遣使赈济。",
+      "result": "卷内记录南京水灾后已派遣使者救济。",
+      "cost": "灾情范围、受灾人口、赈物数额、使者措施和恢复情况未载。",
+      "groups": [
+        "南京受灾民众",
+        "赈济使者",
+        "地方官员"
+      ],
+      "quote": "南京水，遣使振之。",
+      "unknown": [
+        "洪水成因、损失和救助结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NANJING-FLOOD-RELIEF-1097",
+        "summary": "南京水灾后遣使赈济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-NORTHERN-TRIBAL-LAND-RESTORATION-AND-SUBMISSION-1097",
+      "time": [
+        "壽昌三年閏月至八月",
+        "1097",
+        "range"
+      ],
+      "subject": "阻卜、粘八葛、梅里急与蒲卢毛朵部",
+      "action": "阻卜、粘八葛、梅里急诸长请求恢复旧地并进贡，朝廷准许；蒲卢毛朵部长后率其民来归。",
+      "result": "诸部获准恢复旧地，蒲卢毛朵部带民归附。",
+      "cost": "旧地范围、归还条件、归附人口、贡物及长期服属关系未载。",
+      "groups": [
+        "北方诸部",
+        "蒲卢毛朵部民",
+        "边地居民"
+      ],
+      "quote": [
+        "阻卜長猛撒葛、粘八葛長禿骨撒、梅裏急長忽魯八等請復舊地，貢方物，從之。",
+        "蒲盧毛朵部長率其民來歸。"
+      ],
+      "unknown": [
+        "各部请求与前后战事的关系、复地实施及归附稳定性未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NORTHERN-TRIBAL-LAND-RESTORATION-AND-SUBMISSION-1097",
+        "summary": "准北方诸部复旧地，并记蒲卢毛朵部率民归附。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-POSTAL-TRIBUTE-PROHIBITION-1097",
+      "time": [
+        "壽昌三年六月",
+        "1097",
+        "month"
+      ],
+      "subject": "诸路驰驿贡奉者与邮传民役",
+      "action": "朝廷下诏停止诸路以驰驿进贡新物。",
+      "result": "诸路驰驿进贡新物被停止。",
+      "cost": "所停贡物、邮传民役规模、替代办法和实际减负结果未载。",
+      "groups": [
+        "诸路贡奉者",
+        "驿传人员",
+        "承担民役者"
+      ],
+      "quote": "詔罷諸路馳驲貢新。",
+      "unknown": [
+        "禁令持续时间和执法范围未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POSTAL-TRIBUTE-PROHIBITION-1097",
+        "summary": "停止诸路以驰驿进贡新物。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-WINTER-ENCAMPMENT-HOUSING-LABOR-PROTECTION-1097",
+      "time": [
+        "壽昌三年六月",
+        "1097",
+        "month"
+      ],
+      "subject": "冬季驻跸地、宰相以下官员与当地民众",
+      "action": "朝廷规定冬季驻跸地由宰相以下自建居宅，不得役使民众。",
+      "result": "官员在冬驻地营建住所被明令禁止征发民力。",
+      "cost": "住房规模、既有役使、执行监督和民役减免成效未载。",
+      "groups": [
+        "冬驻地民众",
+        "宰相以下官员",
+        "营建劳作者"
+      ],
+      "quote": "詔每冬駐蹕之所，宰相以下構宅，毋役其民。",
+      "unknown": [
+        "该规定是否普遍执行及其对营建的影响未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "WINTER-ENCAMPMENT-HOUSING-LABOR-PROTECTION-1097",
+        "summary": "禁止冬驻地官员建宅役民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-ZUBU-POOR-RESETTLEMENT-1098",
+      "time": [
+        "壽昌四年正月",
+        "1098",
+        "month"
+      ],
+      "subject": "阻卜贫民与山前安置地",
+      "action": "朝廷将阻卜等贫民迁往山前。",
+      "result": "阻卜等贫民被安排迁至山前。",
+      "cost": "迁徙人数、安置供给、迁徙原因、原居地及后续生计未载。",
+      "groups": [
+        "阻卜贫民",
+        "山前居民",
+        "安置执行者"
+      ],
+      "quote": "徙阻卜等貧民於山前。",
+      "unknown": [
+        "迁徙是否自愿及安置结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ZUBU-POOR-RESETTLEMENT-1098",
+        "summary": "迁阻卜等贫民至山前安置。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-LIAOZHOU-FAMINE-RELIEF-AND-TAX-REMISSION-1099",
+      "time": [
+        "壽昌五年十月",
+        "1099",
+        "month"
+      ],
+      "subject": "辽州饥民与租赋承担者",
+      "action": "朝廷赈辽州饥民，并恢复其一年租赋。",
+      "result": "辽州饥民获得赈济，当地租赋获一年减免。",
+      "cost": "饥荒规模、赈物数额、免租户数及恢复状况未载。",
+      "groups": [
+        "辽州饥民",
+        "辽州租赋承担者",
+        "赈济执行者"
+      ],
+      "quote": "振遼州饑，仍免租賦一年。",
+      "unknown": [
+        "赈济与免租的具体覆盖范围未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LIAOZHOU-FAMINE-RELIEF-AND-TAX-REMISSION-1099",
+        "summary": "赈辽州饥并免一年租赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-MOGUSI-CAPTURE-AND-EXECUTION-1100",
+      "time": [
+        "壽昌六年正月至二月",
+        "1100",
+        "range"
+      ],
+      "subject": "磨古斯、斡特剌与辽廷司法军政机构",
+      "action": "斡特剌将磨古斯擒获献上，朝廷随后在市中磔杀磨古斯。",
+      "result": "磨古斯被擒并处以公开磔刑。",
+      "cost": "擒获地点、程序、同部处置、相关伤亡及西北局势后续未载。",
+      "groups": [
+        "磨古斯",
+        "辽军",
+        "西北路居民",
+        "司法执行者"
+      ],
+      "quote": [
+        "斡特剌執磨古斯來獻。",
+        "磔磨古斯於市。"
+      ],
+      "unknown": [
+        "磨古斯部后续归附、惩处范围和边地效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MOGUSI-CAPTURE-AND-EXECUTION-1100",
+        "summary": "磨古斯被斡特剌擒获献上，继而在市中处死。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-POOR-HOUSEHOLD-AID-AND-PINGZHOU-RELIEF-1100",
+      "time": [
+        "壽昌六年二月至十月",
+        "1100",
+        "range"
+      ],
+      "subject": "五院贫民、平州饥民与租赋承担者",
+      "action": "朝廷出绢赐五院贫民；平州发生饥荒后，又恢复其一年租赋。",
+      "result": "五院贫民获绢，平州饥民获得租赋一年减免。",
+      "cost": "给绢数量、平州饥荒规模、免租户数和恢复状况未载。",
+      "groups": [
+        "五院贫民",
+        "平州饥民",
+        "平州租赋承担者"
+      ],
+      "quote": [
+        "出絹賜五院貧民。",
+        "以平州饑，復其租賦一年。"
+      ],
+      "unknown": [
+        "两项贫困救助是否有共同财政安排及实际效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POOR-HOUSEHOLD-AID-AND-PINGZHOU-RELIEF-1100",
+        "summary": "给五院贫民绢，并因平州饥荒免一年租赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-SHUOZHOU-FOREST-BAN-REMOVAL-1100",
+      "time": [
+        "壽昌六年三月",
+        "1100",
+        "month"
+      ],
+      "subject": "朔州山林使用者与地方居民",
+      "action": "朝廷解除朔州山林禁令。",
+      "result": "朔州山林的既有限制被撤销。",
+      "cost": "禁令原内容、开放范围、资源利用和环境影响未载。",
+      "groups": [
+        "朔州居民",
+        "山林使用者",
+        "地方管理者"
+      ],
+      "quote": "馳朔州山林之禁。",
+      "unknown": [
+        "开放后实际利用、税收与生态后果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SHUOZHOU-FOREST-BAN-REMOVAL-1100",
+        "summary": "解除朔州山林禁令。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-CHAZHALA-CAMPAIGN-1100",
+      "time": [
+        "壽昌六年五月",
+        "1100",
+        "month"
+      ],
+      "subject": "乌古部、茶紥剌与辽军",
+      "action": "乌古部出讨茶紥剌并击破。",
+      "result": "卷内记载乌古部击破茶紥剌。",
+      "cost": "茶紥剌身份、战场、兵力、伤亡及战后处置未载。",
+      "groups": [
+        "乌古部",
+        "茶紥剌",
+        "边地居民"
+      ],
+      "quote": "烏古部討茶紥剌，破之。",
+      "unknown": [
+        "乌古部奉命关系和胜后局势未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-CHAZHALA-1100",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-SONG-SUCCESSION-TITULAR-PUNISHMENT-1100",
+      "time": [
+        "壽昌六年六月",
+        "1100",
+        "month"
+      ],
+      "subject": "郑颛、韩资让、韩君义与辽廷文书官员",
+      "action": "因官府案牍将宋帝嗣位书为登宝位，朝廷夺郑颛等官，并分别外任郑颛、韩资让与韩君义。",
+      "result": "相关官员被褫夺官职并调离原任。",
+      "cost": "涉案官员总数、处分期限、文书规范和政治后果未载。",
+      "groups": [
+        "涉案官员",
+        "文书官员",
+        "中央政务机构"
+      ],
+      "quote": "以有司案牘書宋帝「嗣位」為「登寶位」，詔奪宰相鄭顓以下官，出顓知興中府事，韓資讓為崇義軍節度使，御史中丞韓君義為廣順軍節度使。",
+      "unknown": [
+        "定罪依据、其他被处分者和处分后影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SONG-SUCCESSION-TITULAR-PUNISHMENT-1100",
+        "summary": "因宋帝继位称谓文书处分郑颛等官员。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V26-FIVE-CAPITALS-PRISON-REVIEW-1100",
+      "time": [
+        "壽昌六年六月",
+        "1100",
+        "month"
+      ],
+      "subject": "五京滞狱囚犯与审决使者",
+      "action": "朝廷遣使审决五京滞狱。",
+      "result": "五京积压案件被纳入遣使审决。",
+      "cost": "囚犯人数、案件性质、审决结果、释放或改判情况未载。",
+      "groups": [
+        "五京囚犯",
+        "审决使者",
+        "地方司法人员"
+      ],
+      "quote": "遣使決五京滯獄。",
+      "unknown": [
+        "各地滞狱规模和实际清理效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FIVE-CAPITALS-PRISON-REVIEW-1100",
+        "summary": "遣使审决五京滞狱。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V26-NORTHWEST-YEDUGUA-RAID-RESPONSE-1100",
+      "time": [
+        "壽昌六年七月至八月",
+        "1100",
+        "range"
+      ],
+      "subject": "耶睹刮诸部、西北路与斡特剌军",
+      "action": "耶睹刮诸部入寇西北路，斡特剌出兵击败并献捷。",
+      "result": "卷内记载耶睹刮诸部入侵被辽军击败。",
+      "cost": "入侵损失、战场、兵力、伤亡和战后防御未载。",
+      "groups": [
+        "耶睹刮诸部",
+        "西北路居民",
+        "斡特剌军"
+      ],
+      "quote": [
+        "耶睹刮諸部寇西北路。",
+        "斡特剌以兵擊敗之，使來獻捷。"
+      ],
+      "unknown": [
+        "与1095、1099年耶睹刮战事的具体连续性未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-YEDUGUA-RAID-1100",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V26-YANXI-GENERAL-OFFICER-NOMINATION-AUTHORITY-1100",
+      "time": [
+        "壽昌六年十二月",
+        "1100",
+        "month"
+      ],
+      "subject": "燕国王延禧与大将军以下官员",
+      "action": "朝廷命燕国王延禧拟注大将军以下官员。",
+      "result": "延禧获得拟定大将军以下官员任命的职权。",
+      "cost": "可拟注官职范围、实际任命数量、审核机制和权力持续时间未载。",
+      "groups": [
+        "燕国王延禧",
+        "大将军以下官员",
+        "任官机构"
+      ],
+      "quote": "詔燕國王延禧擬註大將軍以下官。",
+      "unknown": [
+        "延禧实际提名和任命结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YANXI-GENERAL-OFFICER-NOMINATION-AUTHORITY-1100",
+        "summary": "延禧获拟注大将军以下官员的职权。",
+        "continuity": "single_event"
+      }
+    }
+  ]
+}

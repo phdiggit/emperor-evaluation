@@ -1,0 +1,859 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-049",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷049",
+    "revision_ref": "2268739",
+    "start_locator": "宋仁宗慶曆七年四月",
+    "end_locator": "宋仁宗慶曆八年三月",
+    "overlap_context": "承接卷048庆历新政回撤、边费军备调整与旱灾问责；本卷登记苛察聚敛纠偏、河北分路，完整记录王则贝州起事、围城和地道破城及宫廷宿卫兵变，推进陕西冗兵财计、西夏继承和全国征策，并转出兵农财赋及边防制度重议。",
+    "input_fingerprint": "0ade4439f6e2918a7e77eb68b6c85ee1f13caebdd5f66fecba1f061635db17e0"
+  },
+  "limitations": [
+    "仅据固定 revision 2268739 的《續資治通鑑》卷049连续通读登记，不引入卷外常识。",
+    "普通任免、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末冗兵、财赋、边防和官僚制度仍在征策，西夏幼主继承与宋夏关系继续转后卷。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-049-HARSH-INSPECTORS-DEMOTED-1047",
+      "time": "庆历七年四月",
+      "loc": [
+        "京东",
+        "江东",
+        "宋境"
+      ],
+      "action": "仁宗因薛绅等四瞪、杨纮等三虎专察州县细过，贬调相关转运提刑并禁止再任部使者。",
+      "result": "庆历按察回撤进一步转化为对原按察官的集中处分。",
+      "quote": [
+        "伺察州縣細過以滋刑獄",
+        "皆苛察相尚",
+        "自今毋皆復用為部使者"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "处分苛察官并禁止再任部使。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-EXCESS-GRAIN-SURCHARGE-BANNED-1047",
+      "time": "庆历七年四月",
+      "loc": [
+        "江西",
+        "宋境"
+      ],
+      "action": "上封者揭发转运司在正税外以润官、出剩为名加耗，江西百万石税粮可另收十万石。",
+      "result": "仁宗认定聚敛为民结怨，急诏禁止无名加耗。",
+      "quote": [
+        "百姓納米一石，出剩一斗",
+        "所收已及十萬石",
+        "亟下詔止絕之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止税粮之外的润官出剩加耗。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仁宗以急诏纠正地方聚敛。"
+        ]
+      ],
+      "unknown": [
+        "其他路无名加耗规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-COLLEGIATE-PETITION-DEADLINES-1047",
+      "time": "庆历七年五月",
+      "loc": [
+        "开封"
+      ],
+      "action": "王贽指出章疏交两制、台谏同议常拖延半年，请五日内聚议、半月内联名上奏，意见不同者另状。",
+      "result": "仁宗采纳，为集议章疏设置明确处理期限。",
+      "quote": [
+        "動經半年有餘，未見結絕",
+        "限五日內聚議",
+        "半月內連書奏上"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "为两制台谏集议设定五日和半月期限。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-TANGHE-YAO-PACIFIED-1047",
+      "time": "庆历七年五月",
+      "loc": [
+        "桂阳监"
+      ],
+      "action": "宋廷授降猺唐和等为峒主。",
+      "result": "卷48桂阳侵扰的一支以任官招抚收束。",
+      "quote": [
+        "補降猺唐和等為峒主"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以授峒主招抚唐和等。"
+        ]
+      ],
+      "unknown": [
+        "唐和所部人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-SHUILUO-LIUHU-SUCCESSION-1047",
+      "time": "庆历七年五月",
+      "loc": [
+        "水洛城"
+      ],
+      "action": "水洛城都监刘沪去世，居民请求留葬立祠，熟户蕃官又请刘氏子弟继续主城。",
+      "result": "朝廷任刘沪弟刘淳为水洛城都监，维持新附地区信任和防务连续。",
+      "quote": [
+        "居人遮道號泣，請留葬水洛",
+        "熟戶蕃官牛獎逋等願得滬子弟主其城",
+        "覆命滬弟淳為水洛城都監"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以刘氏继任维持水洛城新附关系。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-NATIONAL-DEBT-REMISSION-1047",
+      "time": "庆历七年五月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗命杨察清理并除放天下欠负。",
+      "result": "中央开展全国性官民欠负减免。",
+      "quote": [
+        "命翰林學士楊察除放天下欠負"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "清理并减免天下欠负。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "设置专员执行全国欠负处置。"
+        ]
+      ],
+      "unknown": [
+        "减免总额和对象范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-TWO-BORDER-EMERGENCY-COUNCIL-1047",
+      "time": "庆历七年五月",
+      "loc": [
+        "开封",
+        "宋辽边境",
+        "宋夏边境"
+      ],
+      "action": "仁宗规定西北两边遇大事，中书、枢密须召两制以上共同议论。",
+      "result": "边防重大决策扩大到两制高级官员集议。",
+      "quote": [
+        "西北二邊有大事",
+        "中書、樞密院召兩制以上同議之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "扩大西北重大边事的集议范围。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-SHIJIE-SLANDER-CLEARED-1047",
+      "time": "庆历七年六月",
+      "loc": [
+        "奉符",
+        "濮州",
+        "青州"
+      ],
+      "action": "夏竦再称石介未死且替富弼结党谋乱，朝廷遣中使核验；吕居简以亲族门生和殓葬者具保替代发棺。",
+      "result": "石介确已病故得到确认，其被羁管妻子得以回归，富弼谋乱谣言消解。",
+      "quote": [
+        "請發棺驗視",
+        "苟召問無異，即令具軍令狀保之",
+        "事既辨明，乃得還"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以非毁墓核验澄清石介富弼谋乱谣言。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-HEBEI-FOUR-COMMANDS-1047",
+      "time": "庆历七年八月",
+      "loc": [
+        "河北"
+      ],
+      "action": "宋廷把河北划分为四路，每路各设都部署。",
+      "result": "河北军事指挥由整体路制细分为四个部署区。",
+      "quote": [
+        "析河北為四路，各置都部署"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重划河北四路并分设都部署。"
+        ]
+      ],
+      "unknown": [
+        "四路具体界域未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-ZHANGKANG-MILITARY-REWARD-VALUATION-1047",
+      "time": "庆历七年九月",
+      "loc": [
+        "渭州",
+        "磁州",
+        "寿州"
+      ],
+      "action": "张亢见三司郊赏物劣而估高、州库物良而估低，命均价便利军人。",
+      "result": "转运使以擅改估值奏劾，夏竦挟怨将张亢连贬。",
+      "quote": [
+        "州庫物良而估賤，三司所給物下而估高",
+        "亢命均其直以便軍人",
+        "夏竦挾故怨，因黜亢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "纠正郊赏物估价以保障军人。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "张亢因擅改三司估价及旧怨被贬。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-WANGZE-BEIZHOU-REBELLION-1047",
+      "time": "庆历七年十一月",
+      "loc": [
+        "贝州",
+        "河北"
+      ],
+      "action": "王则、张峦、卜吉等原约正旦断澶州浮梁起事，因同党被捕提前叛乱，劫库兵、囚知州并与田斌巷战。",
+      "result": "叛军控制贝州，杀害董元亨等官员，僭号改元并强制居民涅面编入义军。",
+      "quote": [
+        "不待期亟叛",
+        "則率其徒劫庫兵",
+        "兵馬都監田斌以從卒巷鬥，不勝而出"
+      ],
+      "battle": "CAMPAIGN-WANGZE-BEIZHOU-SEIZURE-1047",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "叛军劫军资并强制居民入军。"
+        ]
+      ],
+      "unknown": [
+        "初起双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-BEIZHOU-ENCIRCLEMENT-1047",
+      "time": "庆历七年十一月至十二月",
+      "loc": [
+        "贝州",
+        "大名府"
+      ],
+      "action": "贾昌朝遣郝质、王信等兵围贝州，仁宗令澶孟定真定预备，并派明镐体量安抚、何诚用张榜招安。",
+      "result": "官军形成贝州包围与河北阻截网，但仁宗暂未采纳立即强攻主张。",
+      "quote": [
+        "遣大名府鈐轄郝質將兵趨貝州",
+        "亟擇將領往撲滅之",
+        "仍令澶州、孟州、定州、真定府豫設守備"
+      ],
+      "battle": "CAMPAIGN-BEIZHOU-ENCIRCLEMENT-1047",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-WARTIME-ARMY-FISCAL-WARNING-1047",
+      "time": "庆历七年十二月",
+      "loc": [
+        "陕西",
+        "宋境"
+      ],
+      "action": "张方平核算陕西用兵后新增禁军八百六十余指挥、四十余万人，并指出西北输送和冗官持续扩大。",
+      "result": "三司虽已尽取茶盐酒税等收入仍经费不足，张方平要求两府以量入为出尽早裁断。",
+      "quote": [
+        "增置禁軍八百六十餘指揮，約四十有餘萬人",
+        "三司經用不贍",
+        "直以支費數廣，不量入為出所致耳"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "量化战后新增四十余万禁军造成的财政缺口。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "要求两府优先处理食货与冗兵。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-XIXIA-YUANHAO-DEATH-SUCCESSION-1048",
+      "time": "庆历八年正月",
+      "loc": [
+        "西夏兴州"
+      ],
+      "action": "宁令格因元昊夺其拟娶女子而刺杀元昊，元昊鼻伤死亡；没藏氏集团拒绝立从弟，拥立怀孕的没藏尼为太后。",
+      "result": "三个月后遗腹子谅祚出生继位，西夏政权转由没藏氏掌握。",
+      "quote": [
+        "寧令格憤而殺曩霄",
+        "曩霄遂因鼻創死",
+        "遂立密藏尼為太后"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "元昊遇刺身亡并由没藏氏拥立遗腹子继承。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-BEIZHOU-EARTHWORK-ASSAULT-1048",
+      "time": "庆历八年正月",
+      "loc": [
+        "贝州"
+      ],
+      "action": "明镐筑距闉与城齐高，王则叛军在城上建战棚对抗并纵火烧毁距闉；官军改从南城掘地道，以北面强攻牵制。",
+      "result": "正面土山攻城失败，官军转入地道战。",
+      "quote": [
+        "攻，謀築距闉",
+        "距闉將成，為賊所焚，火三日不滅",
+        "即南城鑿地道，而日攻其北以牽制之"
+      ],
+      "battle": "CAMPAIGN-BEIZHOU-EARTHWORK-1048",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修筑距闉失败后改掘地道。"
+        ]
+      ],
+      "unknown": [
+        "火攻伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-BEIZHOU-INTERNAL-ATTEMPT-1048",
+      "time": "庆历八年正月",
+      "loc": [
+        "贝州"
+      ],
+      "action": "汪文庆等约作内应，以绳引数百官军登城焚楼；先登者断绳争功，遭叛军反击。",
+      "result": "入城官军兵少不敌，随内应者复缒城撤退，贝州当夜几克而未下。",
+      "quote": [
+        "約為內應，夜，縋絙以引官軍",
+        "官軍既登，欲專其功，斷絙以絕後來者",
+        "戰，兵寡不敵"
+      ],
+      "battle": "CAMPAIGN-BEIZHOU-INTERNAL-ATTEMPT-1048",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-BEIZHOU-SORTIE-CAPTURED-1048",
+      "time": "庆历八年正月",
+      "loc": [
+        "贝州西门"
+      ],
+      "action": "王则叛军计划夜出劫持辽使，明镐预先在西门设伏。",
+      "result": "叛军三百人出城后全部被捕。",
+      "quote": [
+        "賊謀竊出要劫遼使",
+        "遣殿侍安素伏兵西門",
+        "賊果以三百人夜出，伏發，皆就獲"
+      ],
+      "battle": "CAMPAIGN-BEIZHOU-SORTIE-1048",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-JIANGNING-FIRE-MUTINY-1048",
+      "time": "庆历八年正月",
+      "loc": [
+        "江宁府"
+      ],
+      "action": "江宁营兵谋乱被诛后府城起火，知府李宥担忧再变而闭门不救。",
+      "result": "南唐旧宫府寺几乎焚尽，仅存一厅，李宥被重责致仕。",
+      "quote": [
+        "時營兵謀亂，事覺，伏誅",
+        "闔門不救，延燒幾盡",
+        "唯存一便廳"
+      ],
+      "battle": "CAMPAIGN-JIANGNING-GARRISON-CONSPIRACY-1048",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "火灾焚毁大部府寺建筑。"
+        ]
+      ],
+      "unknown": [
+        "营兵人数和火灾死伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-BEIZHOU-TUNNEL-CAPTURE-1048",
+      "time": "庆历八年闰正月",
+      "loc": [
+        "贝州"
+      ],
+      "action": "文彦博夜选二百壮士由地道入城，杀守城者、垂绳引军；叛军纵火牛反击，杨遂刺牛鼻使其回奔。",
+      "result": "叛军惊溃，王则逃出东门后被捕，余党焚死，六十五日叛乱结束。",
+      "quote": [
+        "夜選壯士二百，銜枚由地道入",
+        "楊遂以槍中牛鼻，牛還走",
+        "王信捕得則"
+      ],
+      "battle": "CAMPAIGN-BEIZHOU-TUNNEL-CAPTURE-1048",
+      "unknown": [
+        "官军总伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-DEEPZHOU-CONSPIRACY-SUPPRESSED-1048",
+      "time": "庆历八年正月",
+      "loc": [
+        "深州"
+      ],
+      "action": "深州卒庞旦等计划元日杀军校、劫库兵响应王则，知州王鼎获警后暗中调离军校并设防。",
+      "result": "叛党未敢发动，首谋十八人被捕，桀骜者先斩后全案伏诛。",
+      "quote": [
+        "謀以元日殺軍校、劫庫兵應之",
+        "而陰為之備",
+        "徐搏首謀十八人送獄"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王鼎以秘密设防阻止深州响应贝州。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-BEIZHOU-VICTORY-RELIEF-1048",
+      "time": "庆历八年闰正月",
+      "loc": [
+        "河北",
+        "贝州",
+        "恩州"
+      ],
+      "action": "贝州平定后，朝廷曲赦河北、赏将士、官葬战殁者，并免除兵践民田夏秋税。",
+      "result": "贝州改名恩州，文彦博、明镐等按功升赏。",
+      "quote": [
+        "曲赦河北，賜平貝州將士緡錢",
+        "兵所踐民田，除夏秋稅",
+        "改貝州為恩州"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赏军、葬祭并免受践民田两季税。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "平乱后改贝州为恩州并叙功。"
+        ]
+      ],
+      "unknown": [
+        "赏钱总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-PALACE-GUARD-MUTINY-1048",
+      "time": "庆历八年闰正月",
+      "loc": [
+        "开封宫城",
+        "福宁殿"
+      ],
+      "action": "颜秀、郭逵、王胜、孙利四名亲从官杀军校、劫兵械并闯入禁中，纵火帘幕。",
+      "result": "皇后组织宦官救火入卫，三人被杀、一人次日捕杀，但其本谋未能查明。",
+      "quote": [
+        "四人謀為變，殺軍校，劫兵杖",
+        "入禁中，至寢殿",
+        "卒不知其始所謀"
+      ],
+      "battle": "CAMPAIGN-PALACE-GUARD-MUTINY-1048",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-PALACE-SECURITY-ACCOUNTABILITY-1048",
+      "time": "庆历八年闰正月至二月",
+      "loc": [
+        "开封宫城"
+      ],
+      "action": "夏竦主张禁中有限审讯，丁度与御史要求外台穷治党羽并重罚失察内侍；仁宗先宽后外迁多人。",
+      "result": "御史持续追论后，杨怀敏终于落副都知外任，但其他内侍责任仍较轻。",
+      "quote": [
+        "宿衛有變，事關社稷",
+        "乞重行黜降，用振威罰",
+        "楊懷敏落入內副都知"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "围绕宫变调查范围和宿卫责任持续追责。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-JIANGNING-RECONSTRUCTION-1048",
+      "time": "庆历八年闰正月",
+      "loc": [
+        "江宁府"
+      ],
+      "action": "张奎接任江宁后，简选材料工匠，按旧制重建被火焚毁的府寺。",
+      "result": "工程不久完成，江宁官署恢复。",
+      "quote": [
+        "簡材料工，一循舊制",
+        "不逾時復完"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按旧制重建江宁府寺。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改任张奎主持灾后恢复。"
+        ]
+      ],
+      "unknown": [
+        "重建费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-HUNAN-WUXI-PACIFICATION-1048",
+      "time": "庆历八年闰正月",
+      "loc": [
+        "湖南",
+        "五溪",
+        "邵州"
+      ],
+      "action": "李絢赴湖南后命诸部按兵，派人向五溪蛮陈明祸福。",
+      "result": "蛮众接受约束而罢兵，湖南乱事以招抚收束。",
+      "quote": [
+        "戒諸部按兵無動",
+        "使人諭蠻以禍福",
+        "蠻悅，罷兵受約束"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李絢以按兵招谕平息五溪蛮。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-PALACE-SECURITY-STAFF-CAP-1048",
+      "time": "庆历八年闰正月",
+      "loc": [
+        "开封宫城"
+      ],
+      "action": "臣僚建议皇城司句当官恢复祖宗四员定额，须选沉厚有心力者且禁止请托。",
+      "result": "仁宗批准，以定员和选任规则整顿宫城情报警卫机构。",
+      "quote": [
+        "皇城司在內中最為繁劇",
+        "今後只差四員",
+        "更不許人指射陳乞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制皇城司官员为四人并禁止请托。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-QINGLI-MEDICAL-ANTIDOTE-1048",
+      "time": "庆历八年二月",
+      "loc": [
+        "福建",
+        "宋境"
+      ],
+      "action": "仁宗因福建多蛊毒案件，令收录林士元药方，并由太医汇编善治蛊毒诸方。",
+      "result": "《庆历善救方》由丁度作序颁行全国。",
+      "quote": [
+        "多以蠱毒害人者",
+        "命太醫集諸方之善治蠱者為一編",
+        "頒《慶曆善救方》"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "颁布治蛊药方以减少民间中毒伤害。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "由中央医官编纂并推广公共医方。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-FAMINE-CHILD-REDEMPTION-1048",
+      "time": "庆历八年二月",
+      "loc": [
+        "瀛州",
+        "莫州",
+        "恩州",
+        "冀州"
+      ],
+      "action": "宋廷拨缗钱二万，赎回四州饥民因饥荒卖出的子女。",
+      "result": "战乱饥荒造成的家庭离散得到官府赎救。",
+      "quote": [
+        "賜瀛、莫、恩、冀州緡錢二萬",
+        "贖還饑民鬻子"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨两万缗赎回饥民所卖子女。"
+        ]
+      ],
+      "unknown": [
+        "赎回人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-XIXIA-FUNERAL-DIPLOMACY-1048",
+      "time": "庆历八年二月",
+      "loc": [
+        "开封",
+        "西夏",
+        "辽境"
+      ],
+      "action": "西夏使杨守素向宋告元昊丧，宋遣祭奠、吊慰使并赐物；西夏也向辽告哀。",
+      "result": "宋辽均依礼派使慰奠，西夏新政权的外部关系保持连续。",
+      "quote": [
+        "夏遣楊守素來告其主曩霄之喪",
+        "命開封府判官曹穎叔為祭奠使",
+        "夏亦遣使告於遼"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋辽分别以吊祭确认西夏继承过渡。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-NATIONAL-POLICY-QUESTIONNAIRE-1048",
+      "time": "庆历八年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗召辅臣、两制、三司使、开封尹、御史中丞等就军食、冗官、边防、财赋、钱法和政令利害当场条对。",
+      "result": "战后财政、军政与官制问题被集中纳入全国性政策征询。",
+      "quote": [
+        "西垂備禦，天下繹騷",
+        "進仕多門，人浮政濫",
+        "欲聞朕躬闕失，左右朋邪，中外險詐"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将军食财赋钱法列入集中征策。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "组织高级官员当场回答军政改革问题。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-049-ZHANGFANGPING-MILITARY-FISCAL-REFORM-1048",
+      "time": "庆历八年三月",
+      "loc": [
+        "宋境",
+        "边郡"
+      ],
+      "action": "张方平估算三朝旧兵和新增军合计八九十万，请停止募兵、放停疲老，裁入仕冗途，改变无功例迁并久任边帅。",
+      "result": "仁宗惊异其奏并再次询问，冗兵、冗官、磨勘和边帅任期形成连贯改革方案。",
+      "quote": [
+        "通三朝舊兵且八九十萬人",
+        "冗兵，非惟困天下財用，方且成天下禍階",
+        "責久任以觀能效"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "主张停募裁兵和削减冗入仕以救财用。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出磨勘与边帅久任改革。"
+        ]
+      ],
+      "unknown": [
+        "方案在本卷未见整体实施。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-049-OFFICIAL-REMONSTRANCE-INCENTIVE-1048",
+      "time": "庆历八年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "何郯建议允许两制两省不拘本职论政，由中书登记奏疏，选拔时以裨补多者优先。",
+      "result": "谏议参与被设计为可记录、可用于进用的责任激励。",
+      "quote": [
+        "雖非本職，並許上章論列",
+        "仍委中書置籍具錄所上章疏",
+        "者，用為選首"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立跨职论政与奏疏记录进用机制的建议。"
+        ]
+      ],
+      "unknown": [
+        "仁宗是否正式颁行未载。"
+      ]
+    }
+  ]
+}

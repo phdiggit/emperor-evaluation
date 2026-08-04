@@ -1,0 +1,1007 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-088",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷088",
+    "revision_ref": "2299099",
+    "start_locator": "徽宗體神合道駿烈遜功聖文仁德憲慈顯孝皇帝崇甯元年",
+    "end_locator": "遼放進士馬恭回等百三人",
+    "overlap_context": "承接卷087蔡京进入政府与崇宁政治转向；本卷记讲议司、党禁、学校和救济制度、茶货币政策，以及河湟青唐军事经营。",
+    "input_fingerprint": "aac385e1dee32da302d3921db7a4793ab4680a5e0c59dfe38190c47d65519b4f"
+  },
+  "limitations": [
+    "仅据固定 revision 2299099 的《續資治通鑑》卷088连续通读登记，不引入卷外常识。",
+    "本页在崇宁二年末后连排崇宁三年标题；该标题及其后文字不属于本卷抽取范围。",
+    "同主体、同目标及连续因果链合并；纯任免不单收，未知保持未知。",
+    "复杂事件保留最小充分逐字锚，军事事项交由 battle 工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-088-CAI-JING-CHANCELLOR-AND-LECTURE-BUREAU-1102",
+      "time": "崇宁元年七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "蔡京拜尚书右仆射兼中书侍郎，朝廷在都省置讲议司，由蔡京主持，以党羽分掌宗室、冗官、国用、盐泽、赋调等政事。",
+      "result": "讲议司成为集中变更政事的机构，史载法制屡变无常。",
+      "quote": [
+        "以蔡京為尚書右僕射兼中書侍郎",
+        "詔於都省置講議司",
+        "凡所設施，皆由是出，而法制屢變無常矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蔡京执政与讲议司。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-YUANYOU-LAW-BURNING-AND-CUSTOMS-OFFICE-1102",
+      "time": "崇宁元年七月",
+      "loc": [
+        "宋境",
+        "杭州",
+        "明州"
+      ],
+      "action": "朝廷焚毁元祐法，并在杭州、明州设置市舶司。",
+      "result": "元祐法被废弃，东南海外贸易管理机构设置。",
+      "quote": [
+        "己丑，焚元祐法",
+        "詔杭州、明州置市舶司"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "法律废止。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "市舶贸易管理。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-KAIFENG-FLOOD-RELIEF-1102",
+      "time": "崇宁元年七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "雨水毁坏民房后，朝廷命开封府赈恤压溺者。",
+      "result": "受灾人员进入赈恤，规模未载。",
+      "quote": [
+        "以雨水壞民廬舍，詔開封府振恤壓溺者"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "水灾救助。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-ZHANG-LEI-PUNISHMENT-1102",
+      "time": "崇宁元年七月",
+      "loc": [
+        "黄州"
+      ],
+      "action": "张耒因闻苏轼去世而出俸饭僧、缟素哭祭，被责授房州别驾、黄州安置。",
+      "result": "张耒被贬并安置黄州。",
+      "quote": [
+        "出己俸於薦福禪院為軾飯僧",
+        "張耒責授房州別駕，黃州安置"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "因追悼苏轼受处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-ANJI-WORKSHOPS-AND-STATE-SCHOOL-EXPANSION-1102",
+      "time": "崇宁元年八月",
+      "loc": [
+        "宋诸州",
+        "京城南门外"
+      ],
+      "action": "朝廷置安济坊并令州县设置，养贫病者；又兴学贡士、建外学辟雍，推行州县学校、升贡和养士经费制度。",
+      "result": "贫病救济与州县—辟雍—太学的学校体系获制度化。",
+      "quote": [
+        "置安濟坊，養民之貧病者",
+        "詔天下興學貢士，建外學于國南",
+        "奏入，詔悉如其法施行"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "安济坊救济与养士经费。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辟雍和外学营建。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校选拔制度。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-PARTY-KIN-BAN-AND-CLASSIFICATION-1102",
+      "time": "崇宁元年八月至九月",
+      "loc": [
+        "开封",
+        "宋境"
+      ],
+      "action": "朝廷禁止司马光、苏轼等元祐臣僚子弟任官京师，并籍元符三年臣僚章疏姓名，分正邪各三等。",
+      "result": "党人亲属受京官限制，政治人物被分级定性。",
+      "quote": [
+        "子弟，並毋得官京師",
+        "籍元符三年臣僚章疏姓名，分正邪，各為三等"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党人亲属限制与政治分类。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-JUYANG-INSTITUTE-1102",
+      "time": "崇宁元年九月",
+      "loc": [
+        "京师"
+      ],
+      "action": "京师置居养院安置鳏寡孤独，并以户绝财产供给。",
+      "result": "无依者救济机构获设立并有财产来源。",
+      "quote": [
+        "京師置居養院，以處鰥寡孤獨",
+        "以戶絕財產給養"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "居养院救济与财源。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-EMPRESS-MENG-REDEPOSITION-AND-PARTY-PERSECUTION-1102",
+      "time": "崇宁元年九月至十月",
+      "loc": [
+        "瑶华宫",
+        "远州"
+      ],
+      "action": "朝廷治议复元祐皇后、谋废元符皇后者罪，继而罢元祐皇后号、复居瑶华宫，并安置、贬责多名官员。",
+      "result": "孟后再失元祐皇后号，韩忠彦、曾布等及十七人遭处分。",
+      "quote": [
+        "治臣僚議復元祐皇后及謀廢元符皇后者罪",
+        "詔罷元祐皇后之號，復居瑤華宮",
+        "安置曾肇、豐稷、陳瓘、龔夬等十七人於遠州"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后位争议与政治清算。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-YUANYOU-PARTY-LIST-AND-PUNISHMENTS-1102",
+      "time": "崇宁元年九月",
+      "loc": [
+        "端礼门",
+        "宋境"
+      ],
+      "action": "蔡京籍列文武内臣为奸党，请御书刻石端礼门；正等四十人获擢用，邪等五百四十二人被降责。",
+      "result": "党籍刻石与分等奖惩形成。",
+      "quote": [
+        "謂之奸黨，請御書刻石於端禮門",
+        "其邪等五百四十二人，降責有差"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党籍刻石与分等处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-LIAO-XIAO-HALI-REBELLION-1102",
+      "time": "崇宁元年十月",
+      "loc": [
+        "辽乾州",
+        "女直"
+      ],
+      "action": "萧哈里叛辽、劫乾州武库后逃入女直，辽廷遣兵追捕。",
+      "result": "萧哈里进入女直部，辽女直关系受影响。",
+      "quote": [
+        "蕭哈裡叛遼，劫乾州武庫器甲",
+        "蕭哈裡亡入女直之克展部"
+      ],
+      "battle": "BATTLE-LEAD-088-XIAO-HALI-REBELLION-1102",
+      "battle_reason": "辽境叛乱及其进入女直，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-088-CAI-BIAN-AND-ANTI-PARTY-RESTRICTIONS-1102",
+      "time": "崇宁元年十月至十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "蔡卞任知枢密院事；朝廷禁止党人及其子弟、趋附者擅到京师，限制责降人行动，并禁以元祐学术政事教授学生。",
+      "result": "党禁延展至迁徙、教育和日常监管。",
+      "quote": [
+        "以資政殿學士蔡卞知樞密院事",
+        "党人親子弟毋得擅到闕下",
+        "不得教授學生，犯者屏出"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党禁与教育限制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-ADMINISTRATIVE-OFFICES-AND-PROMOTION-RULES-1102",
+      "time": "崇宁元年十一月",
+      "loc": [
+        "河北",
+        "西京",
+        "南京",
+        "宋境"
+      ],
+      "action": "朝廷设置河北安济坊、西南两京宗正司及敦宗院、显谟阁学士待制，并立卿监郎官三岁黜陟法。",
+      "result": "救济、宗室管理、文官层级与考核制度扩展。",
+      "quote": [
+        "置河北安濟坊",
+        "置西、南兩京宗正司及敦宗院",
+        "立卿監、郎官三歲黜陟法"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河北安济坊。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宗室、官制与考核。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-COINAGE-AND-STATE-SCHOOLS-1102",
+      "time": "崇宁元年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷铸当五钱，颁行州县学校敕令格式并命镂板颁降。",
+      "result": "新钱铸造与州县学校规范进入施行。",
+      "quote": [
+        "鑄當五錢。\n丙寅，詔：",
+        "上《州縣學敕令格式》，乞鏤板頒降，從之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "货币铸造。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校规范颁行。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-LIAO-NVZHEN-XIAO-HALI-CAMPAIGN-1102",
+      "time": "崇宁元年",
+      "loc": [
+        "混同水",
+        "女直",
+        "辽"
+      ],
+      "action": "女直英格奉辽命捕讨萧哈里，阿古达突战杀哈里并大破其军。",
+      "result": "女直获甲兵千余并击败哈里军，英格由此认为辽兵易与。",
+      "quote": [
+        "阿古達喜曰：「有此甲兵，何事不可圖！」",
+        "阿古達策馬突戰，哈裡中流矢",
+        "英格自是知遼兵之易與矣"
+      ],
+      "battle": "BATTLE-LEAD-088-NVZHEN-XIAO-HALI-CAMPAIGN-1102",
+      "battle_reason": "女直讨萧哈里及对辽关系，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-088-ANTI-DISSENT-CENSOR-PURGE-1103",
+      "time": "崇宁二年正月",
+      "loc": [
+        "昌化军",
+        "廉州",
+        "象州"
+      ],
+      "action": "朝廷将元符末台谏任伯雨、陈瓘、龚夬等贬窜远州、除名勒停，永不得收叙。",
+      "result": "多名反对蔡京、蔡卞者被长期贬斥。",
+      "quote": [
+        "貶竄元符末台諫官於遠州",
+        "並除名勒停，編管",
+        "永不得收敘"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "言官政治清洗。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-HUNAN-GUANGXI-BUILDING-TIMBER-AND-CURRENCY-1103",
+      "time": "崇宁二年二月",
+      "loc": [
+        "湖南",
+        "湖北",
+        "陕西"
+      ],
+      "action": "朝廷相度湖南、湖北猺地材植供在京营造；又令陕西铸折十铜钱、夹锡钱并招募私铸者充工。",
+      "result": "营造木材开发与陕西新币铸造启动。",
+      "quote": [
+        "取其材植，入供在京營造",
+        "初令陝西鑄折十銅錢並夾錫錢"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "营造木材供给。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "陕西新币铸造。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-TEA-MONOPOLY-RESTORATION-1103",
+      "time": "崇宁二年二月",
+      "loc": [
+        "荆湖",
+        "江淮",
+        "两浙",
+        "福建"
+      ],
+      "action": "蔡京请七路恢复禁榷官买茶、禁止商人与园户私易，官府抽盘批引销售。",
+      "result": "茶法年入百万缗入御，但史称盗贩公行、民众受病。",
+      "quote": [
+        "仍舊禁榷官買",
+        "歲入百萬緡以進禦",
+        "自此盜販公行，民滋病矣"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "茶叶禁榷、财政收入与民众负担。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-QINGTANG-EXPEDITION-COMMAND-1103",
+      "time": "崇宁二年二月至三月",
+      "loc": [
+        "熙河",
+        "青唐",
+        "河州"
+      ],
+      "action": "王厚请求青唐事务归经略司与措置官看详，童贯与各军协力。",
+      "result": "青唐大举前的指挥集中完成。",
+      "quote": [
+        "言涉青唐利害者，依熙寧故事",
+        "公共協力濟辦"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-QINGTANG-EXPEDITION-COMMAND-1103",
+          [],
+          "青唐远征的指挥集中，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-BOOK-BURNING-AND-IMAGE-DESTRUCTION-1103",
+      "time": "崇宁二年四月",
+      "loc": [
+        "宋境",
+        "景灵西宫"
+      ],
+      "action": "朝廷毁元祐臣僚在景灵西宫绘像，并焚毁苏洵、苏轼、苏辙、黄庭坚等文集及多种著作印板。",
+      "result": "元祐相关画像和书籍出版载体被清除。",
+      "quote": [
+        "詔毀呂公著、司馬光、呂大防、范純仁",
+        "印板，悉行焚毀"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政治记忆与出版载体清除。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-QINGTANG-INITIAL-VICTORIES-1103",
+      "time": "崇宁二年六月",
+      "loc": [
+        "巴金城",
+        "湟州",
+        "绥远关"
+      ],
+      "action": "王厚、童贯军击破巴金城来敌、攻克湟州，并在洒金平建城，后赐名绥远关。",
+      "result": "宋军获湟州，招纳大首领七百五十人、管户十万，并筑绥远关固守要地。",
+      "quote": [
+        "遂克其城，遠近爭降附",
+        "黎明，大軍入湟州",
+        "建五百步城一座，後賜名曰綏遠關"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-QINGTANG-INITIAL-VICTORIES-1103",
+          [],
+          "青唐方向战事，交由战役工作流。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "绥远关建设。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-QINGTANG-CONSOLIDATION-AND-REWARD-1103",
+      "time": "崇宁二年七月至八月",
+      "loc": [
+        "湟州",
+        "熙河"
+      ],
+      "action": "湟州收复后朝廷奖王厚、童贯，王厚继续招纳河南生羌并推进至米川等地；随后朝廷再论弃湟州罪，褒胡宗回坚守主张。",
+      "result": "王厚、童贯因收复湟州受赏，旧弃地责任被再次追究。",
+      "quote": [
+        "以收復湟州，百官入賀",
+        "前後招納湟州境內漆令等族大首領七百五十人",
+        "再論棄湟州罪"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-QINGTANG-CONSOLIDATION-1103",
+          [],
+          "湟州收复后的军事经营，交由战役工作流。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战功奖惩与弃地责任追究。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-MEDICINE-TEMPLE-AND-OFFICIAL-RANKS-1103",
+      "time": "崇宁二年九月",
+      "loc": [
+        "宋诸郡"
+      ],
+      "action": "朝廷置医学、令天下郡建崇宁寺，并改吏部选人七阶名称。",
+      "result": "医学、寺院与选人阶官制度调整。",
+      "quote": [
+        "壬辰，置醫學",
+        "令天下郡皆建崇寧寺",
+        "改吏部選人七階"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "教育、宗教与官制调整。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "各郡建寺。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-PARTY-STELA-EXPANSION-AND-BORDER-ADMINISTRATION-1103",
+      "time": "崇宁二年九月至十二月",
+      "loc": [
+        "端礼门",
+        "熙河兰会"
+      ],
+      "action": "朝廷命将端礼门党籍御书刊石下发各州立石；又别建熙河兰会措置边事司，令王厚、童贯共同措置并节制兵将。",
+      "result": "党籍石刻扩展至地方，西北边事机构集中。",
+      "quote": [
+        "于監司長吏廳立石刊記",
+        "別建熙河蘭會措置邊事司",
+        "得以節制兵將，應副興發"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党籍宣传与边事机构。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-FRONTIER-ADMINISTRATION-1103",
+          [],
+          "熙河兰会边事机构，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-CHANGSHENG-PALACE-AND-THREE-YEAR-TERMS-1102",
+      "time": "崇宁元年七月",
+      "loc": [
+        "开封",
+        "宋境"
+      ],
+      "action": "朝廷建长生宫祀荧惑，并规定省台寺监、监司郡守三年成任。",
+      "result": "新建祭祀宫观，中央和地方官任期统一为三年。",
+      "quote": [
+        "建長生宮以祠熒惑",
+        "並以三年成任"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "长生宫建设。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官员任期制度。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-LECTURE-BUREAU-COMMENTS-AND-CLASSICS-POST-1102",
+      "time": "崇宁元年七月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷允许臣庶陈述讲议司事项利害，并再次罢《春秋》博士。",
+      "result": "讲议司一度开放意见输入，专经博士职位撤销。",
+      "quote": [
+        "許中外臣庶具所見利害聞奏",
+        "復罷《春秋》博士"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "议政意见与学官调整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-SEAL-PETITION-AWARDS-REVIEW-1102",
+      "time": "崇宁元年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "臣僚要求公布即位初献书者奏议并复核其授官，朝廷随后追夺鹿敏求等官身和应举资格。",
+      "result": "因献书获得的部分官资被追回。",
+      "quote": [
+        "欲望出其所上封事，布之四方",
+        "鹿敏求追所授承事郎",
+        "並不得應舉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "献书授官方式复核。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-PEI-YUN-PUNISHMENT-AND-COMMENT-CANCELLATION-1102",
+      "time": "崇宁元年十月",
+      "loc": [
+        "河南府"
+      ],
+      "action": "裴筠因上书狂悖被编管，朝廷同时取消讲议司允许陈言利害的指挥。",
+      "result": "上书者被处分，讲议司意见渠道关闭。",
+      "quote": [
+        "裴筠上書，語言狂悖",
+        "特送五百里外州軍編管",
+        "所有講議司許陳言利害指揮勿行"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "上书处分与议政渠道关闭。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-JINGZHOU-HUIZHOU-RECOVERY-1103",
+      "time": "崇宁二年正月",
+      "loc": [
+        "辰州",
+        "沅州",
+        "靖州"
+      ],
+      "action": "舒亶平定辰沅猺乱，恢复诚、徽二州，改诚州为靖州、徽州为莳竹县。",
+      "result": "西南叛乱被平，地方建制重新调整。",
+      "quote": [
+        "舒亶平辰、沅猺賊",
+        "復誠、徽二州",
+        "改誠為靖州，徽為蒔竹縣"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-CHEN-YUAN-RECOVERY-1103",
+          [],
+          "辰沅平乱与收复。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "州县建制调整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-MAOSHAN-TEMPLE-AUTHORIZATION-1103",
+      "time": "崇宁二年正月",
+      "loc": [
+        "茅山"
+      ],
+      "action": "朝廷允许刘混康修建道观并直奏灾福。",
+      "result": "道观获准营建，刘混康获得直奏权。",
+      "quote": [
+        "許茅山道士劉混康修建道觀",
+        "仍令直奏災福"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "道观营建。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "直奏权限。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-PARTY-EXAM-PUNISHMENTS-1103",
+      "time": "崇宁二年三月",
+      "loc": [
+        "礼部",
+        "宜州"
+      ],
+      "action": "黄庭坚因碑文涉谤讪被除名编管；礼部考试按正邪上书等第升黜，李阶被夺出身并黜十八人。",
+      "result": "党籍评价直接影响科举资格与文人处分。",
+      "quote": [
+        "黃庭堅，除名勒停，送宜州編管",
+        "其嘗上書在正等者升甲，邪等者黜之",
+        "遂奪階出身",
+        "黃定等十八人皆上書邪等"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党籍与考试处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-ZENG-BU-FAMILY-CORRUPTION-PUNISHMENT-1103",
+      "time": "崇宁二年五月",
+      "loc": [
+        "衡州",
+        "永州"
+      ],
+      "action": "曾布因妻子交通请托、受赂被贬，其子曾纡编管、曾繰除名。",
+      "result": "曾布一家因受贿请托案受连带处分。",
+      "quote": [
+        "交通請求，受賂狼籍",
+        "責授廉州司戶參軍",
+        "紆永州編管，繰除名"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官员受贿与家属连坐。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-PENITENT-SCHOOL-FOR-PETITIONERS-1103",
+      "time": "崇宁二年六月",
+      "loc": [
+        "宋州郡学校"
+      ],
+      "action": "朝廷令元符末上书进士进入新学自讼斋，一年改过者才准再应举，不改者远斥。",
+      "result": "政治言论处分被纳入学校观察和科举恢复程序。",
+      "quote": [
+        "令州郡遣入新學，依太學自訟齋法",
+        "候及一年能革心自新者，許將來應舉",
+        "其不變者，當屏之遠方"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校化政治审查。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-POST-QINGTANG-PENAL-RELIEF-AND-KIN-OFFICE-BAN-1103",
+      "time": "崇宁二年七月",
+      "loc": [
+        "熙河兰会路",
+        "宋境"
+      ],
+      "action": "湟州收复后朝廷减熙河兰会囚罪；又禁止戚里宗属任执政，并禁止责降人子弟任京府差遣。",
+      "result": "战区获得刑罚减免，权贵与责降人家属任官限制制度化。",
+      "quote": [
+        "減囚罪一等，流以下釋之",
+        "戚裡、宗屬勿復為執政官",
+        "責降人子弟毋得任在京及府界差遣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战区赦免与任官限制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-ZHANG-SHANGYING-PARTY-PUNISHMENT-1103",
+      "time": "崇宁二年八月",
+      "loc": [
+        "亳州",
+        "蕲州"
+      ],
+      "action": "张商英因旧作和制词被台谏指为反复，落职后又列入元祐党籍并罢职。",
+      "result": "张商英由执政被逐出并列入党籍。",
+      "quote": [
+        "張商英秉國機政，議論反復",
+        "詔以商英入元祐黨籍",
+        "尋罷職，提舉靈仙觀"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "执政处分与入党籍。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-HENAN-QIANG-CAMPAIGN-1103",
+      "time": "崇宁二年八月",
+      "loc": [
+        "河南生羌",
+        "米川城",
+        "来贺城"
+      ],
+      "action": "王厚军渡河进攻当标、平一公等城，在米川击败蕃骑，修桥时再遭阻击，随后来贺城陷。",
+      "result": "宋军推进并获一战胜利，但来贺城失陷且财物被掠。",
+      "quote": [
+        "拔當標城，又進至分水嶺、平一公城",
+        "騎，與戰，破之，",
+        "來賀城陷，賊掠取財物"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-HENAN-QIANG-CAMPAIGN-1103",
+          [],
+          "河南生羌方向战事。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-LI-ZHONG-DEFEAT-AND-DEATH-1103",
+      "time": "崇宁二年十月至十一月",
+      "loc": [
+        "来宾城",
+        "循化城",
+        "骨廷岭"
+      ],
+      "action": "郎阿章部寇来宾、循化，李忠率军救援，在骨廷岭三战皆败并负伤死亡。",
+      "result": "宋军救援失败，李忠及多将受伤、李忠死。",
+      "quote": [
+        "寇來賓、循化等城",
+        "與賊遇，三戰三敗",
+        "忠及諸將李士且、李叔詹、辛叔獻皆為賊所傷",
+        "城。是夕，忠死。"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-LI-ZHONG-DEFEAT-1103",
+          [],
+          "循化救援败绩。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-NAME-CHANGES-AND-SIX-OFFICE-ASSESSMENT-1103",
+      "time": "崇宁二年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷令与奸党同名的五名臣僚改名，并规定六曹长贰每年考核郎官、分三等上报。",
+      "result": "政治名讳干预官员姓名，六曹郎官建立年度考核。",
+      "quote": [
+        "臣僚姓名有與奸黨人同者，並令改名",
+        "時改名者五人",
+        "六曹長貳歲考郎官治狀，分三等以聞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政治改名与官员考核。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-088-DISASTERS-AND-SOUTHWEST-SURRENDER-1102-1103",
+      "time": "崇宁元年至二年",
+      "loc": [
+        "宋诸路",
+        "辰州",
+        "沅州"
+      ],
+      "action": "多路发生蝗灾、旱灾，辰沅猺入寇；后辰沅、融邵等地部族有内附。",
+      "result": "灾害损失与赈济未载，西南边地出现入寇与归附并存。",
+      "quote": [
+        "京畿、京東、河北、淮南蝗",
+        "辰、沅州猺入寇",
+        "纂府蠻楊晟銅、融州楊晟天、邵州黃聰內附"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蝗旱灾害，救助未载。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-088-SOUTHWEST-RAIDS-SURRENDER-1102-1103",
+          [],
+          "西南入寇与内附，交由战役工作流。"
+        ]
+      ]
+    }
+  ]
+}

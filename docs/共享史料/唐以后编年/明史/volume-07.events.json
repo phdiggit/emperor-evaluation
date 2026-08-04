@@ -1,0 +1,713 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V07-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V07-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷7",
+    "revision_ref": "2594620",
+    "start_locator": "永乐十二年思州苗平与亲征瓦剌",
+    "end_locator": "永乐二十二年成祖榆木川崩与葬长陵",
+    "overlap_context": "承接卷6永乐十一年交阯及北边战线，登记永乐十二年至二十二年的多次北征、交阯战事、北京迁都工程、灾赈河工、海防与成祖遗诏继承。",
+    "input_fingerprint": "4122b6aeaba57caa73a2958a271291561f1364f0bb125bbe0d16b4cb952c7b03"
+  },
+  "limitations": [
+    "仅据固定《明史》卷7正文登记，未知保持未知。",
+    "普通任免、祭祀、贡聘、祥异与重复行军节点不单列；连续战争、灾赈、运输与工程按最小充分事件链合并。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V07-JIAOZHI-WAR-CLOSE-1414",
+      "time": [
+        "永乐十二年三月",
+        "1414",
+        "month"
+      ],
+      "subject": "张辅等明军与陈季扩交阯反叛军",
+      "action": "张辅在老挝俘获陈季扩并献俘。",
+      "result": "陈季扩势力覆灭，交阯战争此阶段宣告平定。",
+      "cost": "双方伤亡未载。",
+      "groups": [
+        "明军",
+        "交阯反叛军",
+        "当地民众"
+      ],
+      "quote": [
+        "張輔俘陳季擴于老撾以獻，交阯平。"
+      ],
+      "unknown": [
+        "俘获过程、伤亡、军费与民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-JIAOZHI-REBELLION-1408-1414",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-WALA-EXPEDITION-1414",
+      "time": [
+        "永乐十二年二月至八月",
+        "1414",
+        "range"
+      ],
+      "subject": "成祖朱棣亲征明军与瓦剌马哈木部",
+      "action": "成祖亲征瓦剌，在康哈里孩、忽兰忽失温连续击败瓦剌军并追至土剌河。",
+      "result": "马哈木夜遁后谢罪请贡，明军班师并奖赏从征将士。",
+      "cost": "双方伤亡、军费与役运损耗未载。",
+      "groups": [
+        "明军",
+        "瓦剌军民",
+        "运粮民夫",
+        "沿途农户"
+      ],
+      "quote": [
+        "戌，親征瓦剌，",
+        "劉江遇瓦剌兵，戰於康哈里孩，敗之。",
+        "馬哈木帥眾來犯，大敗之，追至土剌河，馬哈木宵遁。",
+        "馬哈木謝罪請朝貢，許之。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、军粮耗费和俘获未载。"
+      ],
+      "battle": "CAMPAIGN-MING-WALA-EXPEDITION-1414",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-NORTHERN-TRANSPORT-RELIEF-1414",
+      "time": [
+        "永乐十二年正月至十一月",
+        "1414",
+        "range"
+      ],
+      "subject": "明廷与北征运粮民户、北京江南灾民",
+      "action": "朝廷征十五万山东山西河南及淮徐民运粮宣府，班师后免北京租二年，并蠲苏松杭嘉湖水灾田租四十七万九千余石。",
+      "result": "北征动员大批民夫，同时以租税减免补偿北京及江南灾区。",
+      "groups": [
+        "运粮民夫",
+        "北京民户",
+        "江南灾民",
+        "农户"
+      ],
+      "quote": [
+        "發山東、山西、河南及鳳陽、淮安、徐、邳民十五萬，運糧赴宣府。",
+        "蠲北京州縣租二年。",
+        "蠲蘇、松、杭、嘉、湖水災田租四十七萬九千餘石。"
+      ],
+      "unknown": [
+        "运输伤亡、总成本、免租财政影响和实际到位未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NORTHERN-TRANSPORT-RELIEF-1414",
+        "summary": "北征征十五万民运粮并对北京江南蠲租。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-CANAL-WORKS-1415",
+      "time": [
+        "永乐十三年五月",
+        "1415",
+        "month"
+      ],
+      "subject": "明廷与清江浦漕运河工",
+      "action": "朝廷开凿清江浦以贯通北京漕运。",
+      "result": "清江浦工程直接服务南粮北运。",
+      "groups": [
+        "河工役夫",
+        "漕运军民",
+        "沿河农户"
+      ],
+      "quote": [
+        "鑿清江浦，通北京漕運。"
+      ],
+      "unknown": [
+        "工程长度、用工、费用、伤亡与通航量未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "CANAL-WORKS-1415",
+        "summary": "开凿清江浦通北京漕运。",
+        "continuity": "single_event",
+        "phase": "开凿",
+        "purpose": "漕运",
+        "operation_result": "贯通北京漕运"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-DISASTER-RELIEF-1415-1416",
+      "time": [
+        "永乐十三年六月",
+        "永乐十四年七月",
+        "range"
+      ],
+      "subject": "明廷与北京河南山东等地灾民",
+      "action": "朝廷赈济北京、河南、山东水饥灾，蠲多省水旱田租；永乐十四年又发粟一百三十七万余石赈饥并追责瞒灾官员。",
+      "result": "京畿中原连续水旱饥灾获得大规模粮赈和蠲租。",
+      "groups": [
+        "灾民",
+        "农户",
+        "地方官员"
+      ],
+      "quote": [
+        "振北京、河南、山東水災。",
+        "蠲順天、蘇州、鳳陽、浙江、湖廣、河南、山東州縣水旱田租。",
+        "免永樂十二年逋租，發粟一百三十七萬石有奇振之。",
+        "遣使捕北京、河南、山東州縣蝗。"
+      ],
+      "unknown": [
+        "受益户数、死亡人数、发粟到位及蝗灾损失未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DISASTER-RELIEF-1415-1416",
+        "summary": "京畿中原水旱饥蝗中发粟蠲租。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-FIVE-REVIEW-DEATH-PENALTY-1415-1419",
+      "time": [
+        "永乐十三年十月",
+        "永乐十七年十二月",
+        "range"
+      ],
+      "subject": "成祖与内外法司",
+      "action": "成祖在侵冒官粮案中撤回立即处死命令，规定死罪五覆奏；后又令外地死囚送京审录、三覆奏后行刑。",
+      "result": "死刑案件形成多重奏覆与进京审录程序。",
+      "groups": [
+        "死刑犯",
+        "法司官员",
+        "地方官员"
+      ],
+      "quote": [
+        "朕過矣，仍論如律，自今死罪者皆五覆奏，著為令。",
+        "在外諸司死罪，咸送京師審錄，三覆奏然後行刑。"
+      ],
+      "unknown": [
+        "覆奏案件数量、减免死刑人数与执行差异未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FIVE-REVIEW-DEATH-PENALTY-1415-1419",
+        "summary": "确立死罪五覆奏及外地死囚送京审录。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-MING-V07-JIN-GANG-PURGES-1414-1416",
+      "time": [
+        "永乐十二年闰九月",
+        "永乐十四年七月",
+        "range"
+      ],
+      "subject": "成祖与太子近臣、晋王、锦衣卫纪纲",
+      "action": "成祖因迎驾迟将黄淮等太子近臣下狱，废晋王为庶人，后诛掌锦衣卫事的纪纲。",
+      "result": "储宫官员、宗室与特务首领先后遭政治惩处。",
+      "groups": [
+        "东宫官员",
+        "皇室成员",
+        "锦衣卫",
+        "中央官员"
+      ],
+      "quote": [
+        "徵侍讀黃淮，侍講楊士奇，正字金問及洗馬楊溥、芮善下獄",
+        "廢晉王濟熺為庶人。",
+        "，錦衣衞指揮使紀綱有罪伏誅"
+      ],
+      "unknown": [
+        "各案完整证据、牵连人数和后续处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIN-GANG-PURGES-1414-1416",
+        "summary": "太子近臣、晋王及纪纲先后遭惩处。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-MING-V07-BEIJING-CAPITAL-WORKS-1416-1420",
+      "time": [
+        "永乐十四年八月",
+        "永乐十八年十二月",
+        "range"
+      ],
+      "subject": "成祖、陈珪等与北京营建军民",
+      "action": "朝廷建北京西宫、集议营建北京，由陈珪总董宫城并运木；罪囚输作赎罪，最终郊庙宫殿建成并正式迁都。",
+      "result": "北京宫殿郊庙建成，京师由南京迁至北京。",
+      "groups": [
+        "工程役夫",
+        "罪囚",
+        "漕运军民",
+        "北京居民",
+        "中央官员"
+      ],
+      "quote": [
+        "作北京西宮。",
+        "詔文武羣臣集議營建北京。",
+        "平江伯陳瑄督漕，運木赴北京。",
+        "泰寧侯陳珪董建北京",
+        "雜犯死罪以下囚，輸作北京贖罪。",
+        "詔自明年改京師為南京，北京為京師。",
+        "北京郊廟宮殿成。"
+      ],
+      "unknown": [
+        "总工费、役夫与囚犯数量、伤亡及迁都人口成本未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "BEIJING-CAPITAL-WORKS-1416-1420",
+        "summary": "北京宫殿郊庙建成并完成迁都。",
+        "continuity": "continued_within_reign",
+        "phase": "营建至完工迁都",
+        "purpose": "建设京师",
+        "operation_result": "郊庙宫殿建成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-REFUGEE-RESETTLEMENT-1416-1417",
+      "time": [
+        "永乐十四年十一月",
+        "永乐十五年四月",
+        "range"
+      ],
+      "subject": "明廷与山东山西湖广流民、北巡沿线农户",
+      "action": "朝廷迁三省流民至保安州并复役三年；北巡时禁止军士践踏田禾，受损田租和既有水旱逋租均除。",
+      "result": "流民获得安置复役，军队行经地区农户获得田损补偿。",
+      "groups": [
+        "流民",
+        "沿途农户",
+        "军士"
+      ],
+      "quote": [
+        "徙山東、山西、湖廣流民於保安州，賜復三年。",
+        "申禁軍士毋踐民田稼，有傷者除今年租。",
+        "或先被水旱逋租，亦除之。"
+      ],
+      "unknown": [
+        "迁民人数、土地分配、田损与免租总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REFUGEE-RESETTLEMENT-1416-1417",
+        "summary": "安置三省流民并补偿军行田损。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-JIAOZHI-REBELLION-1417-1421",
+      "time": [
+        "永乐十五年六月",
+        "永乐十九年五月",
+        "range"
+      ],
+      "subject": "李彬、方政等明军与黎利及交阯各部反叛军",
+      "action": "明军先后斩黎核、杨进江，并在可蓝栅、磊江、老挝等地击败黎利；交阯民变仍反复并有明官战死。",
+      "result": "明军多次取胜但未能消灭黎利，交阯持续战争化。",
+      "cost": "侯保、冯贵等战死；双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "黎利军",
+        "交阯民众",
+        "当地官员"
+      ],
+      "quote": [
+        "李彬討交阯賊黎核，斬之。",
+        "李彬敗交阯賊楊進江，斬之。",
+        "交阯黎利反，都督朱廣擊敗之。",
+        "都督方政敗黎利於可藍柵。",
+        "李彬及都指揮孫霖、徐謜敗黎利於磊江。",
+        "交阯參政侯保、馮貴禦賊，戰死。",
+        "令交阯屯田。"
+      ],
+      "unknown": [
+        "双方总伤亡、屯田规模、军费和民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-JIAOZHI-REBELLION-1417-1421",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-COASTAL-WOKOU-WAR-1417-1421",
+      "time": [
+        "永乐十五年六月",
+        "永乐十九年二月",
+        "range"
+      ],
+      "subject": "刘江等明军与倭寇",
+      "action": "倭寇侵金乡、松门等卫，明军在金乡取胜并由刘江于望海埚歼灭倭寇，随后继续巡海捕倭。",
+      "result": "望海埚取得决定性海防胜利，刘江封广宁伯，但巡海防倭仍持续。",
+      "cost": "松门失陷损失未载。",
+      "groups": [
+        "海防军",
+        "倭寇",
+        "沿海军民"
+      ],
+      "quote": [
+        "敗倭寇於金鄉衞。",
+        "倭陷松門衞",
+        "劉江殲倭寇於望海堝，封江廣寧伯。",
+        "都督僉事胡原帥師巡海捕倭。"
+      ],
+      "unknown": [
+        "双方兵力、伤亡、舰船和沿海财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-COASTAL-WOKOU-1417-1421",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-SHAANXI-FAMINE-ACCOUNTABILITY-1418",
+      "time": [
+        "永乐十六年七月至十二月",
+        "1418",
+        "range"
+      ],
+      "subject": "成祖、陕西地方官与饥民",
+      "action": "成祖因陕西连年歉收、民众流亡饿死而责地方坐视瞒报，命速发仓赈济，并派王通驰传赈饥。",
+      "result": "陕西饥荒获得发仓与专使赈济，瞒灾失职被公开追责。",
+      "groups": [
+        "陕西饥民",
+        "流民",
+        "地方官员"
+      ],
+      "quote": [
+        "比聞所屬歲屢不登，致民流莩，有司坐視不恤，又不以聞",
+        "其速發倉儲振之。",
+        "成山侯王通馳傳振陝西饑。"
+      ],
+      "unknown": [
+        "死亡人数、发粮数量与官员处分未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SHAANXI-FAMINE-ACCOUNTABILITY-1418",
+        "summary": "追责陕西瞒灾并发仓遣使赈饥。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-TANG-SAIER-REBELLION-1420",
+      "time": [
+        "永乐十八年二月至三月",
+        "1420",
+        "range"
+      ],
+      "subject": "柳升、卫青等明军与唐赛儿起事军",
+      "action": "唐赛儿在山东起兵，柳升率军征讨；明军在卸石栅寨、安丘、诸城击败起事军，但唐赛儿逃脱。",
+      "result": "起事主力被破、俘虏献京，唐赛儿未获，多名山东官员因纵盗被诛。",
+      "cost": "都指挥刘忠战死；双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "起事民众",
+        "山东地方官民"
+      ],
+      "quote": [
+        "蒲臺妖婦唐賽兒作亂，安遠侯柳升帥師討之。",
+        "敗賊於卸石柵寨，都指揮劉忠戰沒，賽兒逸去。",
+        "山東都指揮僉事衞青敗賊於安丘",
+        "山東布政使儲埏、張海，按察使劉本等坐縱盜誅。"
+      ],
+      "unknown": [
+        "起事原因、参与人数、总伤亡和后续追捕未载。"
+      ],
+      "battle": "CAMPAIGN-MING-TANG-SAIER-1420",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-EASTERN-DEPOT-1420",
+      "time": [
+        "永乐十八年",
+        "1420",
+        "year"
+      ],
+      "subject": "成祖与东厂内臣",
+      "action": "朝廷开始设置东厂，命宦官侦察事务。",
+      "result": "由内臣控制的特务侦察机构建立。",
+      "groups": [
+        "内臣",
+        "中央地方官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "始設東廠，命中官刺事。"
+      ],
+      "unknown": [
+        "首任人员、权限、案件数量和监督机制未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EASTERN-DEPOT-1420",
+        "summary": "设东厂并命内臣刺事。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V07-PALACE-FIRE-TAX-CLEMENCY-1421",
+      "time": [
+        "永乐十九年四月",
+        "1421",
+        "month"
+      ],
+      "subject": "成祖与全国军民",
+      "action": "北京三大殿火灾后，成祖求直言，停止扰民和不急事务，蠲永乐十七年前逋赋及上年灾粮，并派二十六人巡行安抚。",
+      "result": "宫殿灾害触发行政检讨、停役蠲欠和全国巡抚。",
+      "groups": [
+        "欠赋民户",
+        "灾民",
+        "地方官员",
+        "工程役户"
+      ],
+      "quote": [
+        "奉天、華蓋、謹身三殿災，詔羣臣直陳闕失。",
+        "詔罷不便於民及不急諸務，蠲十七年以前逋賦，免去年被災田糧。",
+        "蹇義等二十六人巡行天下，安撫軍民。"
+      ],
+      "unknown": [
+        "火灾原因、工程损失、蠲免总额与巡行成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "PALACE-FIRE-TAX-CLEMENCY-1421",
+        "summary": "三殿火灾后停不急务、蠲欠并巡抚军民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-NORTHERN-EXPEDITION-LOGISTICS-1421-1422",
+      "time": [
+        "永乐十九年十一月",
+        "永乐二十年二月",
+        "range"
+      ],
+      "subject": "明廷与北征军、运粮民夫、夏原吉等官员",
+      "action": "成祖议北征军饷，将反对或经办军饷的夏原吉、吴中下狱，征多省丁壮并最终役民夫二十三万五千余、运粮三十七万石。",
+      "result": "北征以巨量民役粮运启动，财政异议官员遭惩处。",
+      "groups": [
+        "运粮民夫",
+        "北征军",
+        "户兵刑部官员",
+        "沿途民户"
+      ],
+      "quote": [
+        "議北征軍餉，下戶部尚書夏原吉、刑部尚書吳中於獄，兵部尚書方賓自殺。",
+        "發直隸、山西、河南、山東及南畿應天等五府，滁、和、徐三州丁壯運糧",
+        "役民夫二十三萬五千有奇，運糧三十七萬石。"
+      ],
+      "unknown": [
+        "民夫伤亡、运输损耗、总军费和地方生产影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NORTHERN-EXPEDITION-LOGISTICS-1421-1422",
+        "summary": "北征征二十三万余民夫运粮并惩军饷异议官员。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-NORTHERN-EXPEDITION-1422",
+      "time": [
+        "永乐二十年三月至九月",
+        "1422",
+        "range"
+      ],
+      "subject": "成祖朱棣亲征明军与阿鲁台、兀良哈部",
+      "action": "阿鲁台犯兴和后成祖亲征，阿鲁台避战北遁；明军焚其辎重、收牲畜，回师途中分五道击败兀良哈。",
+      "result": "阿鲁台主力未被捕获，兀良哈部遭重创并有余众投降，明军班师封赏。",
+      "cost": "王唤战死；双方总伤亡和军费未载。",
+      "groups": [
+        "明军",
+        "阿鲁台部",
+        "兀良哈部",
+        "运粮民夫"
+      ],
+      "quote": [
+        "阿魯台犯興和，都指揮王喚戰死。",
+        "，親征阿魯台",
+        "阿魯台棄輜重於闊欒海側北遁，發兵焚之，收其牲畜",
+        "遇於屈裂兒河，帝親擊敗之",
+        "兀良哈餘黨詣軍門降。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、牲畜数量与民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-EXPEDITION-1422",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-DISASTER-FIRST-RELIEF-RULE-1422-1424",
+      "time": [
+        "永乐二十年三月",
+        "永乐二十二年五月",
+        "range"
+      ],
+      "subject": "明廷、皇太子与水灾州县",
+      "action": "朝廷规定有司遇灾先赈后奏；皇太子在多次监国期间免南北直隶、山东、河南等地水灾粮芻田租。",
+      "result": "先赈后闻制度与监国减灾免税并行。",
+      "groups": [
+        "灾民",
+        "农户",
+        "地方官员"
+      ],
+      "quote": [
+        "詔有司遇災先振後聞。",
+        "皇太子免南、北直隸、山東、河南郡縣水災糧芻共六十一萬有奇。",
+        "皇太子免兩京、山東郡縣水災田租。",
+        "皇太子令免廣平、順德、揚州及湖廣、河南郡縣水災田租。"
+      ],
+      "unknown": [
+        "后两次免税数额、受益户数与地方执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DISASTER-FIRST-RELIEF-RULE-1422-1424",
+        "summary": "定遇灾先赈后闻并连续免水灾粮租。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-NORTHERN-EXPEDITION-1423",
+      "time": [
+        "永乐二十一年七月至十一月",
+        "1423",
+        "range"
+      ],
+      "subject": "成祖朱棣亲征明军与阿鲁台部",
+      "action": "成祖再次亲征阿鲁台并塞边险，得知阿鲁台已为瓦剌击败、部落溃散后停止深入，受降也先土干而班师。",
+      "result": "未与阿鲁台主力交战，接纳并封赏来降部众。",
+      "cost": "军费、民役和行军损耗未载。",
+      "groups": [
+        "明军",
+        "阿鲁台部",
+        "降附部众",
+        "边地民众"
+      ],
+      "quote": [
+        "復親征阿魯台",
+        "塞黑峪、長安嶺諸邊險要。",
+        "聞阿魯台為瓦剌所敗，部落潰散，遂駐師不進。",
+        "也先土干帥所部來降，封忠勇王",
+        "忠。庚午，班師。\n"
+      ],
+      "unknown": [
+        "动员兵力、降众数量、军费和民役未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-EXPEDITION-1423",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-FINAL-NORTHERN-EXPEDITION-1424",
+      "time": [
+        "永乐二十二年正月至七月",
+        "1424",
+        "range"
+      ],
+      "subject": "成祖朱棣亲征明军与阿鲁台部",
+      "action": "阿鲁台犯大同开平后成祖第五次亲征，搜山三百里未见敌，因前锋粮尽班师。",
+      "result": "远征未获阿鲁台，军粮耗尽后撤；成祖在归途中病重。",
+      "cost": "军费、民役与行军伤亡未载。",
+      "groups": [
+        "明军",
+        "阿鲁台部",
+        "运粮民夫",
+        "边地民众"
+      ],
+      "quote": [
+        "阿魯台犯大同、開平",
+        "諭諸將親征。",
+        "張輔等窮搜山谷三百里無所得",
+        "，以糧盡還。甲",
+        "甲子，班師，命"
+      ],
+      "unknown": [
+        "兵力、军费、粮耗、伤亡及边地损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-EXPEDITION-1424",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V07-CHENGZU-DEATH-SUCCESSION-1424",
+      "time": [
+        "永乐二十二年七月至九月",
+        "1424",
+        "range"
+      ],
+      "subject": "成祖朱棣、皇太子朱高炽与皇太孙朱瞻基",
+      "action": "成祖在榆木川病危，遗诏皇太子继位后去世；军中秘密治丧并驰报，皇太孙至军发丧，梓宫迎回北京。",
+      "result": "永乐朝结束，朱高炽成为法定继位者，成祖葬长陵。",
+      "groups": [
+        "皇室成员",
+        "北征军",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "至榆木川，大漸。遺詔傳位皇太子",
+        "崩，年六十有五。",
+        "以六軍在外，秘不發喪",
+        "皇太孫至軍中發喪。",
+        "廟號太宗，葬長陵。"
+      ],
+      "unknown": [
+        "遗诏形成过程、秘丧期间军心与朝廷反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CHENGZU-DEATH-SUCCESSION-1424",
+        "summary": "成祖榆木川崩并遗诏皇太子继位。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

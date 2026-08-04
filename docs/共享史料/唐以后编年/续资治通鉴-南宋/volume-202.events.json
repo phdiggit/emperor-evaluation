@@ -1,0 +1,638 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-202",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷202",
+    "revision_ref": "2334644",
+    "input_fingerprint": "3c6d3ff28a33aca5eca1e43b070a514c64ea26c04575441dc6a1029dd30f92b6",
+    "start_locator": "諱伊蘇特穆爾，顯宗噶瑪拉之長子",
+    "end_locator": "衛輝路汲縣河溢。",
+    "overlap_context": "承卷201；具体跨卷关联未裁决"
+  },
+  "limitations": [
+    "仅据固定正文；不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-202-001",
+      "time": [
+        "1324-01",
+        "1324-01",
+        "month"
+      ],
+      "action": "因御史谏言停罢禁中元夕灯山",
+      "result": "皇帝立即停办并嘉奖直谏",
+      "groups": [
+        "宫廷工役",
+        "监察御史"
+      ],
+      "quote": "帝遽命罷之，仍賜上尊酒，以嘉其忠直。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG202-WORK-LANTERN",
+        "candidate": "SONG202-WORK-LANTERN",
+        "observations": {
+          "work_identity": "禁中元夕灯山",
+          "phase": "罢止",
+          "purpose": "节制奢乐",
+          "resource_input": "未载",
+          "operation": "纳谏停罢",
+          "benefit": "避免营办",
+          "harm": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-002",
+      "time": [
+        "1324-01",
+        "1324-01",
+        "month"
+      ],
+      "action": "召还被远徙宗王并令高丽王归国",
+      "result": "图卜特穆尔等获召回，高丽王璋获归国并复印",
+      "groups": [
+        "远徙诸王",
+        "高丽王及侍从"
+      ],
+      "quote": [
+        "命諸王遠徙者悉還其部。",
+        "至是命璋還本國，仍歸其沈王印。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG202-POL-RESTORATIONS",
+        "candidate": "SONG202-POL-RESTORATIONS",
+        "observations": {
+          "event_type": "政治处置纠偏",
+          "decision_question": "前朝远徙宗王处置",
+          "alternatives": "继续远徙",
+          "decision": "召还归国",
+          "direct_result": "宗王及高丽王恢复去处",
+          "power_change": "缓和前朝宗室处置",
+          "risk_or_damage": "未载",
+          "follow_up": "图卜特穆尔后封怀王"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-003",
+      "time": [
+        "1324-01",
+        "1324-03",
+        "range"
+      ],
+      "action": "对广德、绍兴、临洮等饥区连续赈济",
+      "result": "多地饥民获得赈济",
+      "groups": [
+        "广德饥民",
+        "绍兴饥民",
+        "临洮饥民"
+      ],
+      "quote": [
+        "賑廣德諸州饑。",
+        "賑紹興諸路饑。",
+        "以臨洮諸縣旱饑，賑之。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-EARLY-RELIEF",
+        "candidate": "SONG202-FIN-EARLY-RELIEF",
+        "observations": {
+          "baseline": "多地旱饥",
+          "fiscal_state": "官府赈济",
+          "livelihood_state": "饥民受赈",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-004",
+      "time": [
+        "1324-02",
+        "1324-04",
+        "range"
+      ],
+      "action": "扩张佛事、寺殿与御容殿营造",
+      "result": "寿安山佛事延续三年，昭圣皇后御容殿开建",
+      "cost": "僧众与营造资源持续投入",
+      "groups": [
+        "僧众",
+        "军民工役"
+      ],
+      "quote": [
+        "修西番佛事于壽安山，僧四十人，三年乃罷。",
+        "作昭聖皇后御容殿于普慶寺。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG202-WORK-RELIGIOUS",
+        "candidate": "SONG202-WORK-RELIGIOUS",
+        "observations": {
+          "work_identity": "寿安山佛事及普庆寺御容殿",
+          "phase": "营办",
+          "purpose": "佛事及皇后奉祀",
+          "resource_input": "僧四十人等",
+          "operation": "修佛事建殿",
+          "benefit": "未载",
+          "harm": "持续耗用"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-005",
+      "time": [
+        "1324-02",
+        "1324-04",
+        "range"
+      ],
+      "action": "开设经筵并选师教授太子宗室",
+      "result": "张珪、吴澄等进讲，经筵形成随驾进读制度",
+      "groups": [
+        "皇太子",
+        "宗室子弟",
+        "经筵讲官"
+      ],
+      "quote": [
+        "請開經筵及擇師傅，令太子及諸王大臣子孫學。",
+        "命虞集與侍讀學士王結執經以從"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG202-POL-LECTURES",
+        "candidate": "SONG202-POL-LECTURES",
+        "observations": {
+          "event_type": "储君教育制度",
+          "decision_question": "太子宗室教育",
+          "alternatives": "未载",
+          "decision": "开经筵选师",
+          "direct_result": "讲官进读",
+          "power_change": "建立辅导机制",
+          "risk_or_damage": "未载",
+          "follow_up": "随驾经筵"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-006",
+      "time": [
+        "1324-04",
+        "1324-04",
+        "month"
+      ],
+      "action": "发兵民修筑浑河堤防",
+      "result": "浑河防洪工程实施",
+      "groups": [
+        "兵士",
+        "民夫",
+        "沿河民户"
+      ],
+      "quote": "發兵民築渾河堤。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG202-WORK-HUNHE",
+        "candidate": "SONG202-WORK-HUNHE",
+        "observations": {
+          "work_identity": "浑河堤",
+          "phase": "修筑",
+          "purpose": "河防",
+          "resource_input": "兵民",
+          "operation": "筑堤",
+          "benefit": "堤防实施",
+          "harm": "役使兵民"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-007",
+      "time": [
+        "1324-04",
+        "1324-06",
+        "range"
+      ],
+      "action": "灾异后要求整饬政务并责成守法",
+      "result": "皇帝承认失政责任、要求群臣守法，但多项具体纠劾未获准",
+      "groups": [
+        "御史",
+        "中书省臣",
+        "受冤民众"
+      ],
+      "quote": [
+        "今朝廷君子小人混淆，刑政不明，官賞太濫，故陰陽錯謬",
+        "凡有所知，宜悉以聞，使朕明知法度，斷不敢自縱。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG202-POL-DISASTER-REFORM",
+        "candidate": "SONG202-POL-DISASTER-REFORM",
+        "observations": {
+          "event_type": "灾异问政",
+          "decision_question": "刑政失度与违法失察",
+          "alternatives": "官员引退",
+          "decision": "自责并令守法",
+          "direct_result": "未见具体案件立即改判",
+          "power_change": "强化进言责任",
+          "risk_or_damage": "刑政不明冤案未伸",
+          "follow_up": "群臣续陈得失"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-008",
+      "time": [
+        "1324-05",
+        "1324-06",
+        "range"
+      ],
+      "action": "张珪等提出惩治逆党、裁冗费、减税役等系统改革",
+      "result": "奏议数千言，皇帝最终未予采行",
+      "groups": [
+        "受冤者",
+        "纳税民户",
+        "军民",
+        "中书御史诸臣"
+      ],
+      "quote": [
+        "議凡數千言，辭甚剴切。",
+        "帝終不能用。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG202-POL-ZHANGGUI-MEMORIAL",
+        "candidate": "SONG202-POL-ZHANGGUI-MEMORIAL",
+        "observations": {
+          "event_type": "综合改革奏议",
+          "decision_question": "逆党司法冗费税役与佛事改革",
+          "alternatives": "悉行奏议",
+          "decision": "不允",
+          "direct_result": "改革未施行",
+          "power_change": "现状延续",
+          "risk_or_damage": "奏议所列弊政未解",
+          "follow_up": "张珪再进言仍不用"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-009",
+      "time": [
+        "1324-06",
+        "1324-06",
+        "month"
+      ],
+      "action": "疏决系囚、恤军并减免和买杂役与蜑户差税",
+      "result": "相关军民获减役免税，瘴地亡官家属获资送返乡",
+      "groups": [
+        "系囚",
+        "军士",
+        "蜑户",
+        "亡官家属"
+      ],
+      "quote": "疏決系囚，存恤軍士，免天下和買雜役三軍，蜑戶差稅一年。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-JUNE-EDICT",
+        "candidate": "SONG202-FIN-JUNE-EDICT",
+        "observations": {
+          "baseline": "军民差役与流落负担",
+          "fiscal_state": "免差税一年",
+          "livelihood_state": "恤军资送家属",
+          "production_circulation": "免和买杂役"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-010",
+      "time": [
+        "1324-07",
+        "1324-07",
+        "month"
+      ],
+      "action": "罢广州福建采珠役并恢复蜑户民籍",
+      "result": "采珠蜑户转为民户并免差税一年",
+      "groups": [
+        "广州福建采珠蜑户"
+      ],
+      "quote": "罷廣州、福建等處采珠蜑戶為民，仍免差稅一年。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-PEARL-DIVERS",
+        "candidate": "SONG202-FIN-PEARL-DIVERS",
+        "observations": {
+          "baseline": "采珠役扰民伤亡",
+          "fiscal_state": "免差税一年",
+          "livelihood_state": "恢复民籍",
+          "production_circulation": "罢采珠"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-011",
+      "time": [
+        "1324-07",
+        "1324-12",
+        "range"
+      ],
+      "action": "黄河等水灾及延安河间等饥荒后连续赈恤",
+      "result": "灾区免河渠营田租并分等赈济，延安发义仓、河间等获赈",
+      "groups": [
+        "黄河水灾民户",
+        "延安饥民",
+        "河间饥民"
+      ],
+      "quote": [
+        "免河渠營田租，餘賑恤有差。",
+        "延安路饑，發義倉賑之；",
+        "賑河間等路饑。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-LATE-RELIEF",
+        "candidate": "SONG202-FIN-LATE-RELIEF",
+        "observations": {
+          "baseline": "水灾饥荒",
+          "fiscal_state": "免租发义仓",
+          "livelihood_state": "分等赈恤",
+          "production_circulation": "赈粜"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-012",
+      "time": [
+        "1324-10",
+        "1324-12",
+        "range"
+      ],
+      "action": "疏浚真州吴江河道并调整盐官海塘防护方案",
+      "result": "河道雇民疏浚；海塘改用石囤防御以减轻民役",
+      "groups": [
+        "河道沿岸民户",
+        "盐官州民"
+      ],
+      "quote": [
+        "詔有司傭民丁浚之。",
+        "築塘，是重勞吾民也，其增石囤捍禦。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG202-WORK-WATERWAYS",
+        "candidate": "SONG202-WORK-WATERWAYS",
+        "observations": {
+          "work_identity": "真州吴江河道及盐官海防",
+          "phase": "疏浚防护",
+          "purpose": "通河防潮",
+          "resource_input": "雇民丁与石囤",
+          "operation": "浚河并调整塘工",
+          "benefit": "减轻筑塘民役",
+          "harm": "海水屡坏堤障"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-013",
+      "time": [
+        "1324",
+        "1324",
+        "year"
+      ],
+      "action": "削减绍兴食盐额并禁止长途拘逮涉私盐妇女",
+      "result": "绍兴民食盐减五千引，禁止将妇女押解千里与吏卒杂处",
+      "groups": [
+        "绍兴食盐民户",
+        "涉私盐妇女"
+      ],
+      "quote": [
+        "首減紹興民食鹽五千引。",
+        "自今毋得逮婦人！」建議著為令。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-SALT-REFORM",
+        "candidate": "SONG202-FIN-SALT-REFORM",
+        "observations": {
+          "baseline": "盐额与拘逮扰民",
+          "fiscal_state": "减盐五千引",
+          "livelihood_state": "保护妇女免远押",
+          "production_circulation": "食盐供应"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-014",
+      "time": [
+        "1325-01",
+        "1325-01",
+        "month"
+      ],
+      "action": "灾荒后普赦并减免新增包银和灾区差税",
+      "result": "江淮创科包银废除，被灾地差税免一年，并裁不急费用",
+      "groups": [
+        "江淮民户",
+        "被灾民户"
+      ],
+      "quote": [
+        "除江淮創科包銀，免被災地差稅一年。",
+        "中書省言國用不足，請罷不急之費，從之。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-AMNESTY-RELIEF",
+        "candidate": "SONG202-FIN-AMNESTY-RELIEF",
+        "observations": {
+          "baseline": "灾荒与国用不足",
+          "fiscal_state": "除包银免差税裁冗费",
+          "livelihood_state": "灾区减负",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-015",
+      "time": [
+        "1325-01",
+        "1325-05",
+        "range"
+      ],
+      "action": "整治屯田与河防，设置汴梁行都水监并修多处堤堰",
+      "result": "河防职责落实州县，曹州与咸平大型堤工实施，浙西水患亦令疏泄",
+      "groups": [
+        "屯户",
+        "河工民丁",
+        "沿河民户"
+      ],
+      "quote": [
+        "請立行都水監於汴梁，仿古法備捍",
+        "修曹州濟陰縣河堤，役民丁一萬八千五百人。",
+        "浙西諸郡霖雨，江湖水溢，命江浙行省興役疏泄之。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG202-WORK-RIVER-GOVERNANCE",
+        "candidate": "SONG202-WORK-RIVER-GOVERNANCE",
+        "observations": {
+          "work_identity": "汴梁等河防堤堰",
+          "phase": "制度化修治",
+          "purpose": "防河泄洪",
+          "resource_input": "民丁一万八千五百等",
+          "operation": "设监修堤疏泄",
+          "benefit": "河防工程实施",
+          "harm": "大型民役"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-016",
+      "time": [
+        "1325-03",
+        "1325-04",
+        "range"
+      ],
+      "action": "御史策丹持续追劾杨庭玉贪赃",
+      "result": "首次不报后再劾，杨庭玉最终罢职受鞫",
+      "groups": [
+        "监察御史",
+        "中书官员"
+      ],
+      "quote": "策丹復上章劾庭玉，罷職鞫訊，竟如所言。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG202-POL-YANG-TINGYU",
+        "candidate": "SONG202-POL-YANG-TINGYU",
+        "observations": {
+          "event_type": "贪赃纠劾",
+          "decision_question": "杨庭玉赃罪",
+          "alternatives": "不报",
+          "decision": "罢职鞫讯",
+          "direct_result": "调查证实",
+          "power_change": "被劾官离职",
+          "risk_or_damage": "贪赃",
+          "follow_up": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-017",
+      "time": [
+        "1325-05",
+        "1325-07",
+        "range"
+      ],
+      "action": "国用不足下裁厩马卫士、诸王滥赐及金字藏经等开支",
+      "result": "多项冗费获准裁减，贾胡鬻宝与无益佛事亦令除罢",
+      "groups": [
+        "纳税民户",
+        "卫士",
+        "诸王",
+        "僧徒"
+      ],
+      "quote": [
+        "請裁廄馬，汰衛士，及節諸王濫賜，從之。",
+        "以國用不足，罷書金字《藏經》。",
+        "賈胡鬻寶，西僧修佛事，所費不貲，于國無益，並宜除罷。」從之。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG202-FIN-RETRENCHMENT",
+        "candidate": "SONG202-FIN-RETRENCHMENT",
+        "observations": {
+          "baseline": "国用不足",
+          "fiscal_state": "裁厩马卫士滥赐佛事",
+          "livelihood_state": "减少财政耗费",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-018",
+      "time": [
+        "1325-06",
+        "1325-08",
+        "range"
+      ],
+      "action": "广西多路猺乱升级后调兵二万二千讨捕",
+      "result": "静江柳州等先行讨斩，后由湖广行省统兵并设监军继续进讨",
+      "groups": [
+        "广西地方民众",
+        "湖广出征军士",
+        "廉访司"
+      ],
+      "quote": [
+        "戍兵討斬之。",
+        "遣湖廣行省左丞奇珠、兵部尚書李大成、中書舍人邁閭將兵二萬二千人討之",
+        "仍以諸王鄂爾多罕監其軍。"
+      ],
+      "battle": "CAMPAIGN-SONG202-GUANGXI-YAO",
+      "battle_reason": "静江、柳州等猺乱由地方讨捕升级为二万二千人省级军事行动，形成连续战役链。"
+    },
+    {
+      "id": "CHF-SONG-202-019",
+      "time": [
+        "1325-06",
+        "1325-07",
+        "range"
+      ],
+      "action": "因南坡旧案改革军卫统领与出师监察制度",
+      "result": "大臣不得兼领军卫，出师由廉访官监督纠正滥杀",
+      "groups": [
+        "军卫",
+        "大臣",
+        "廉访官",
+        "出征军民"
+      ],
+      "quote": [
+        "今軍衛之職，請勿以大臣領之",
+        "今凡出師，請廉訪司官一員蒞軍糾正。」從之。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG202-POL-MILITARY-CONTROL",
+        "candidate": "SONG202-POL-MILITARY-CONTROL",
+        "observations": {
+          "event_type": "军权与监察改革",
+          "decision_question": "大臣领卫及出师滥杀风险",
+          "alternatives": "维持旧任",
+          "decision": "禁止兼领并设监督",
+          "direct_result": "两项建议获准",
+          "power_change": "分离大臣与卫兵并引入监察",
+          "risk_or_damage": "逆谋与滥杀",
+          "follow_up": "廉访蒞军后又有反议"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-202-020",
+      "time": [
+        "1325-06",
+        "1325-08",
+        "range"
+      ],
+      "action": "疏浚吴淞二江并恢复河南行都水监",
+      "result": "都水庸田使司负责浚治吴淞二江，河南行都水监正式设立",
+      "groups": [
+        "江南水利民户",
+        "河南沿河民户"
+      ],
+      "quote": [
+        "立都水庸田使司，浚吳、松二江。",
+        "立河南行都水監。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG202-WORK-WATER-AGENCIES",
+        "candidate": "SONG202-WORK-WATER-AGENCIES",
+        "observations": {
+          "work_identity": "吴淞二江及河南河防",
+          "phase": "设司浚治",
+          "purpose": "水利河防",
+          "resource_input": "未载",
+          "operation": "设机构并疏浚",
+          "benefit": "形成专门治理机构",
+          "harm": "未载"
+        }
+      }
+    }
+  ]
+}

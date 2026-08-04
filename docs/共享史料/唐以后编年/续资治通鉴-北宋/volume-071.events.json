@@ -1,0 +1,1261 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-071",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷071",
+    "revision_ref": "2602746",
+    "start_locator": "宋神宗熙宁八年正月",
+    "end_locator": "宋神宗熙宁九年十二月",
+    "overlap_context": "承接卷070的熙河战后整编、宋辽黄嵬疆议、新法危机与交趾开边线；本卷记录王安石复相及二次罢相、吕惠卿失势、手实法废止、黄嵬割地、交趾攻陷钦廉邕与宋军反攻，并转出熙河果庄、冷鸡朴及安南战后边务。",
+    "input_fingerprint": "a5b8dcc912c6f15866011800051ae9dd126c36336c99645071616bebd74565cd"
+  },
+  "limitations": [
+    "仅据固定 revision 2602746 的《續資治通鑑》卷071连续通读登记，不引入卷外常识。",
+    "固定页跨熙宁八年正月至熙宁九年十二月；全文按页内年号标题连续读完，未打开卷072或卷098。",
+    "交趾、果庄、茂州、南川及冷鸡朴等明确武装行动登记为 battle；政策后果与伤亡未载处保持未知。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-071-CAI-TING-AND-FENG-JING-DISMISSED-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "蔡挺因病罢为资政殿学士、判南京留司御史台；冯京同日罢相。",
+      "result": "两名中枢大臣退出现职。",
+      "quote": "庚子，蔡挺罷",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢人事变动，未在本卷形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-ZHENGXIA-CASE-EXPANDED-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "开封",
+        "汀州",
+        "英州"
+      ],
+      "action": "吕惠卿以郑侠上书所涉禁中传闻为由扩大审讯，牵连冯京、王安国、钱藻等；郑侠改送英州编管。",
+      "result": "批评新法的郑侠案件扩大并导致多名官员贬黜或落职。",
+      "quote": "獄成，俠改送英州編管",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "案件与政治清算相连，结果边界仅限本卷记载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-LIAO-YUNZHOU-FAMINE-RELIEF-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "辽云州"
+      ],
+      "action": "辽朝赈济云州饥民。",
+      "result": "云州饥民获得赈济。",
+      "quote": "壬寅，遼賑雲州饑",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "单项赈济，未形成可闭合连续候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-JINGDONG-DIVIDED-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "京东"
+      ],
+      "action": "朝廷将京东分为东、西两路，分别统辖八州一军和七州一南京。",
+      "result": "京东路改为东西两路的行政区划。",
+      "quote": "分京東為東、西兩路",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "行政区划调整，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-JIANGNAN-RICE-REDIRECTED-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "江南东路",
+        "灾伤州军"
+      ],
+      "action": "朝廷停止征取江南东路上供米，改为均给灾伤州军。",
+      "result": "江南东路上供米转用于灾区。",
+      "quote": "輟江南東路上供米，均給災傷州軍",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾时粮食调拨，未形成可闭合连续候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-JIAOZI-COIN-BACKING-PLAN-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "商州",
+        "虢州"
+      ],
+      "action": "皮公弼建议以商虢铁冶改铸折二钱，扣除工费后作为交子本钱，神宗批令其总制营办。",
+      "result": "铁冶铸钱被纳入交子准备金方案。",
+      "quote": "可得百萬緡為交子本",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "方案获委办，实际财政成效未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-REFUGEE-RETURN-AID-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷诏令州县资遣流民归业。",
+      "result": "流民返乡得到地方资助的制度命令。",
+      "quote": "所在流民歸業者，州縣資遣之",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "归业救助命令，执行范围与结果未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-TAOXI-PORRIDGE-RELIEF-1075",
+      "time": "熙宁八年正月",
+      "loc": [
+        "洮西"
+      ],
+      "action": "洮西安抚司因旱请求煮粥赈食饥饿羌户。",
+      "result": "羌户饥荒救济被提出，是否实施未载。",
+      "quote": "請為粥以食羌戶饑者",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仅载请示，批准与实施未知。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-WANG-ANSHI-RESTORED-1075",
+      "time": "熙宁八年二月",
+      "loc": [
+        "开封",
+        "江宁"
+      ],
+      "action": "韩绛因中书事务稽留且难制吕惠卿，请神宗复用王安石；王安石七日抵京，复任同平章事。",
+      "result": "王安石第二次入相，吕惠卿受政治牵制。",
+      "quote": "王安石復以本官同平章事",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宰相复任，后续权力变化另按事件登记。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-LI-JING-FORMATION-DRILL-1075",
+      "time": "熙宁八年二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "朝廷命张诚一、李宪等勘察宽广处，调殿前司马步军二千八百人教习李靖营阵法。",
+      "result": "二千八百军人被调训营阵。",
+      "quote": "教李靖營陣法",
+      "battle": "BATTLE-LEAD-071-KAIFENG-1075",
+      "battle_reason": "明确军事训练与部队调动，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-HOUSEHOLD-HORSE-LAW-1075",
+      "time": "熙宁八年二月",
+      "loc": [
+        "河北"
+      ],
+      "action": "曾孝宽建议检行庆历旧诏，由河北坊郭第三等、乡村第二等以上每户养被甲马一匹备官买，朝廷采纳。",
+      "result": "户马法开始施行。",
+      "quote": "戶馬法始於此",
+      "battle": "BATTLE-LEAD-071-HEBEI-1075",
+      "battle_reason": "军马动员制度，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-CAPITAL-EARTHWORKS-SUSPENDED-1075",
+      "time": "熙宁八年二月",
+      "loc": [
+        "京畿"
+      ],
+      "action": "朝廷下诏停罢京畿土功七年。",
+      "result": "京畿土木工程暂停七年。",
+      "quote": "詔停京畿土功七年",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停工命令，受影响工程清单未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-RUNZHOU-RELIEF-1075",
+      "time": "熙宁八年三月",
+      "loc": [
+        "润州"
+      ],
+      "action": "朝廷赈济润州饥民。",
+      "result": "润州饥民获得赈济。",
+      "quote": "三月，丁酉，賑潤州饑",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "单项赈济，未形成可闭合连续候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HEZHOU-FAN-SCHOOL-1075",
+      "time": "熙宁八年三月",
+      "loc": [
+        "河州"
+      ],
+      "action": "鲜于师中请在河州设置蕃学，教育蕃酋子弟，赐田十顷、岁给钱千缗并增解进士名额，朝廷同意。",
+      "result": "河州蕃学获准设置并配给田钱。",
+      "quote": "乞置蕃學，教蕃酋子弟",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边地教育安排，实际办学结果未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-SHENKUO-LIAO-BOUNDARY-NEGOTIATION-1075",
+      "time": "熙宁八年三月",
+      "loc": [
+        "河东",
+        "黄嵬山",
+        "辽"
+      ],
+      "action": "辽使萧禧重提黄嵬地争议；沈括查阅旧牍，以古长城为分界与辽方六会争辩，辽方放弃黄嵬要求，改求天池。",
+      "result": "本次交涉中宋方守住黄嵬，沈括奉使归来并升翰林学士、权三司使。",
+      "quote": "凡六會，竟不可奪",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "外交争议在本卷后续发生割地，故本项仅保留阶段结果。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-CHANGRUN-RELIEF-1075",
+      "time": "熙宁八年三月",
+      "loc": [
+        "常州",
+        "润州"
+      ],
+      "action": "朝廷再次赈济常州、润州饥民。",
+      "result": "常润饥民获得续赈。",
+      "quote": "復賑常、潤饑民",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续赈事项，规模与后效未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-ZHANG-FANGPING-BORDER-ADVICE-1075",
+      "time": "熙宁八年三月",
+      "loc": [
+        "开封",
+        "宋边境"
+      ],
+      "action": "张方平陈述太祖以来守边、优将和与辽盟约之策，劝神宗勿听边臣开拓远略。",
+      "result": "朝廷获得反对开边的完整建议，是否采纳未载。",
+      "quote": "患，不可聽也",
+      "battle": "BATTLE-LEAD-071-BORDER-STRATEGY-1075",
+      "battle_reason": "涉及边防与开边军事战略，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-ANCESTRAL-RITES-FIXED-1075",
+      "time": "熙宁八年四月",
+      "loc": [
+        "开封",
+        "太庙"
+      ],
+      "action": "太常礼院请尊僖祖为太庙东向始祖，并将禘祫礼制定为常制，朝廷批准。",
+      "result": "太庙禘祫位次和礼制被固定。",
+      "quote": "自今禘祫著為定禮",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "礼制决定，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HUNAN-FLOOD-1075",
+      "time": "熙宁八年四月",
+      "loc": [
+        "湖南"
+      ],
+      "action": "湖南江水泛溢。",
+      "result": "发生水灾，损失与救济未载。",
+      "quote": "壬午，湖南江水溢",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾情仅有发生记录，影响未知。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-CHEN-SHENGZHI-RETIRES-1075",
+      "time": "熙宁八年闰月",
+      "loc": [
+        "开封",
+        "扬州"
+      ],
+      "action": "枢密使陈升之以足疾求外，罢为判扬州。",
+      "result": "陈升之离开枢密使职位。",
+      "quote": "罷為檢校太尉",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢人事变动，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-GUANGYUAN-TRIBAL-RAID-1075",
+      "time": "熙宁八年闰月",
+      "loc": [
+        "广源州",
+        "邕州",
+        "归化州"
+      ],
+      "action": "广源州蛮刘纪进攻邕州，归化州侬智会击败其军。",
+      "result": "刘纪进攻受挫。",
+      "quote": "劉紀寇邕州，歸化州儂智會敗之",
+      "battle": "BATTLE-LEAD-071-GUANGYUAN-YONGZHOU-1075",
+      "battle_reason": "明确武装进攻与击败，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-FENGYUAN-CALENDAR-IMPLEMENTED-1075",
+      "time": "熙宁八年闰月",
+      "loc": [
+        "开封"
+      ],
+      "action": "沈括上《奉元历》，朝廷颁行。",
+      "result": "《奉元历》开始施行。",
+      "quote": "沈括上《奉元曆》，行之",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "历法颁行，后续运行情况未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-QINFENG-FOUR-COMMANDS-1075",
+      "time": "熙宁八年闰月",
+      "loc": [
+        "秦凤"
+      ],
+      "action": "朝廷将秦凤兵分为四将。",
+      "result": "秦凤军改为四将编制。",
+      "quote": "分秦鳳兵為四將",
+      "battle": "BATTLE-LEAD-071-QINFENG-1075",
+      "battle_reason": "军事编制调整，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-ROYAL-REBELLION-CASE-1075",
+      "time": "熙宁八年闰月",
+      "loc": [
+        "沂州",
+        "开封"
+      ],
+      "action": "沂州民朱唐告李逢谋反，牵连宗室世居和徐革；御史等审讯后，世居赐死，李逢、徐革等伏诛。",
+      "result": "一起牵连宗室的谋反案被审结并处决多人。",
+      "quote": "世居賜死，逢、革等伏誅",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "案件审结，史料所载事实限于本案。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HUANQING-FOUR-COMMANDS-1075",
+      "time": "熙宁八年五月",
+      "loc": [
+        "环庆"
+      ],
+      "action": "朝廷将环庆兵分为四将。",
+      "result": "环庆军改为四将编制。",
+      "quote": "分環慶兵為四將",
+      "battle": "BATTLE-LEAD-071-HUANQING-1075",
+      "battle_reason": "军事编制调整，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-NORTHWEST-FAMINE-RELIEF-1075",
+      "time": "熙宁八年五月",
+      "loc": [
+        "鄜延",
+        "环庆"
+      ],
+      "action": "朝廷派使者赈济鄜延、环庆饥荒。",
+      "result": "两地饥荒获得中央赈济安排。",
+      "quote": "遣使賑鄜延、環慶饑",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赈济安排，具体规模与结果未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-JIUYU-REVISED-1075",
+      "time": "熙宁八年六月",
+      "loc": [
+        "开封"
+      ],
+      "action": "刘师旦指出《九域图》历六十余年州县名号和等级多有变动，请重修；朝廷命曾肇、李德刍删定，改名《九域志》。",
+      "result": "旧地理图书启动修订并改名。",
+      "quote": "更賜名《九域志》",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地理志修订，最终成书与内容未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-BIAN-CAI-CANAL-FAILED-1075",
+      "time": "熙宁八年六月",
+      "loc": [
+        "汴水",
+        "蔡河"
+      ],
+      "action": "朝廷依侯叔献请求将汴水引入蔡河通漕；渠成后舟不能行，旋即废止。",
+      "result": "通漕工程完成后因不能通航而废。",
+      "quote": "渠成而舟不可行，尋廢",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "工程失败，资源投入未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-THREE-CLASSICS-NEW-INTERPRETATION-1075",
+      "time": "熙宁八年六月",
+      "loc": [
+        "开封",
+        "学官"
+      ],
+      "action": "王安石进呈《诗、书、周礼义》，神宗命颁行学官，号《三经新义》。",
+      "result": "《三经新义》成为学官颁行经义。",
+      "quote": "遂頒於學官，號曰《三經新義》",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学术政策颁行，社会影响未在本卷量化。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HAN-QI-DIES-1075",
+      "time": "熙宁八年六月",
+      "loc": [
+        "相州",
+        "开封"
+      ],
+      "action": "韩琦去世，神宗哀悼并调两河卒治墓，自撰碑文，赠尚书令、谥忠献并配享英宗庙廷。",
+      "result": "朝廷以国葬规格褒赠韩琦。",
+      "quote": "發兩河卒為治塚",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "身后褒赠与营墓，资源总量未载。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "营墓为单项工程，具体工程规模未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HUANGWEI-CEDED-TO-LIAO-1075",
+      "time": "熙宁八年七月",
+      "loc": [
+        "河东",
+        "黄嵬山",
+        "辽"
+      ],
+      "action": "朝廷命韩缜赴河东，依黄嵬山划界向辽交地，东、西弃地七百里。",
+      "result": "宋向辽割让黄嵬相关东、西七百里土地。",
+      "quote": "東西棄地七百里",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "外交割地为单卷事实，长期边界后果未在本卷闭合。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-LOCUST-CAPTURE-AND-RICE-PRICE-1075",
+      "time": "熙宁八年八月",
+      "loc": [
+        "淮南",
+        "江东",
+        "两浙"
+      ],
+      "action": "朝廷募民捕蝗换粟、补偿苗损并复赋；又令发运司核实米价，对州县所供米过百万石者减价给民。",
+      "result": "形成捕蝗补偿与大宗供米减价的救灾措施。",
+      "quote": "募民捕蝗易粟，苗損者償之",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "多项灾时措施并列，实施量和效果未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-CAPITAL-WALL-REPAIR-1075",
+      "time": "熙宁八年八月",
+      "loc": [
+        "都城",
+        "河北",
+        "京东"
+      ],
+      "action": "朝廷调河北、京东兵及监牧卒修筑都城。",
+      "result": "都城修筑由地方兵和监牧卒承担。",
+      "quote": "發河北、京東兵及監牧卒修都城",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "工程规模、工期与完成情况未载。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-071-CAPITAL-WALL-1075",
+          [],
+          "调用军人参与城防工程，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-MILITARY-EXCELLENCE-EXAM-1075",
+      "time": "熙宁八年九月",
+      "loc": [
+        "开封"
+      ],
+      "action": "朝廷立武举绝伦法，能射两石弓、马射九斗者即使程文不合格亦赐第。",
+      "result": "武举以射艺破格取士的标准确立。",
+      "quote": "立武舉絕倫法",
+      "battle": "BATTLE-LEAD-071-MILITARY-EXAM-1075",
+      "battle_reason": "军事人才选拔制度，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-LIAO-NANJING-FAMINE-RELIEF-1075",
+      "time": "熙宁八年九月",
+      "loc": [
+        "辽南京"
+      ],
+      "action": "辽朝因南京饥荒免租税一年，并出钱粟赈济。",
+      "result": "辽南京获一年免税和钱粟救济。",
+      "quote": "免租稅一年，仍出錢粟賑之",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "单项赈免，后续影响未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-LU-HUIQING-DISMISSED-1075",
+      "time": "熙宁八年十月",
+      "loc": [
+        "开封",
+        "陈州"
+      ],
+      "action": "蔡承禧弹劾吕惠卿弄权结党，邓绾又发华亭借钱买田案；神宗罢吕惠卿政事，令守本官知陈州。",
+      "result": "吕惠卿退出执政，转知陈州。",
+      "quote": "尋詔惠卿守本官、知陳州",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "执政更替，案件与党争后续仅按本卷记载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HANDSHI-LAW-ABOLISHED-1075",
+      "time": "熙宁八年十月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "邓绾以手实法使民生告讦、隐匿之忧且簿书难拘商贾货物为由陈言，朝廷下诏废除手实法。",
+      "result": "手实法被正式废止。",
+      "quote": "遂詔罷手實法",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "法令废止，具体财政与民生效果未载。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政策撤销亦属朝政决定，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-CHAPTER-DUN-DISMISSED-1075",
+      "time": "熙宁八年十月",
+      "loc": [
+        "开封",
+        "湖州"
+      ],
+      "action": "邓绾称章惇与吕惠卿同恶相济，神宗罢章惇权三司使，出知湖州。",
+      "result": "章惇离开中央财政职位。",
+      "quote": "乃出惇知湖州",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢人事处置，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-LIAO-EMPRESS-EXECUTED-1075",
+      "time": "熙宁八年十一月",
+      "loc": [
+        "辽"
+      ],
+      "action": "耶律伊逊、张孝杰以宫人诬告辽后与伶人私通，严刑成狱，辽主命后自尽并诛涉案者。",
+      "result": "辽后萧氏被迫自缢，太子公开指称耶律伊逊为杀母者。",
+      "quote": "命，勒后自盡",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷政变性质事件，后续影响未在本卷结算。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-JIAOZHI-INVADES-QINZHOU-1075",
+      "time": "熙宁八年十一月",
+      "loc": [
+        "广西",
+        "钦州"
+      ],
+      "action": "沈起、刘彝在广西编保伍、练水战并禁互市，引发交趾疑惧；交趾分三道入寇并攻陷钦州。",
+      "result": "交趾军攻陷钦州。",
+      "quote": "至是分三道入寇，戊寅，陷欽州",
+      "battle": "BATTLE-LEAD-071-JIAOZHI-QINZHOU-1075",
+      "battle_reason": "明确跨境入寇与陷城，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-SHANXI-FAN-DING-LAW-1075",
+      "time": "熙宁八年十一月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "朝廷设立陕西蕃丁法。",
+      "result": "陕西蕃丁法开始设立，具体制度内容未载。",
+      "quote": "壬午，立陝西蕃丁法",
+      "battle": "BATTLE-LEAD-071-SHANXI-FANDING-1075",
+      "battle_reason": "边地兵役制度，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-JIAOZHI-INVADES-LIANZHOU-1075",
+      "time": "熙宁八年十一月",
+      "loc": [
+        "廉州"
+      ],
+      "action": "交趾军攻陷廉州。",
+      "result": "廉州失陷。",
+      "quote": "甲申，交趾陷廉州",
+      "battle": "BATTLE-LEAD-071-JIAOZHI-LIANZHOU-1075",
+      "battle_reason": "明确攻城战事，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-NANPING-MILITARY-PREFECTURE-1075",
+      "time": "熙宁八年十一月",
+      "loc": [
+        "渝州",
+        "南川",
+        "铜佛坝"
+      ],
+      "action": "熊本平定南川獠木斗叛乱，木斗献溱州五百里；朝廷以铜佛坝建南平军，并召熊本还朝。",
+      "result": "南川地区转化为四砦九堡和南平军建置。",
+      "quote": "至是建銅佛壩為南平軍",
+      "battle": "BATTLE-LEAD-071-NANCHUAN-NANPING-1075",
+      "battle_reason": "叛乱、招降与军政建置相连，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-ANANN-EXPEDITION-ORDERED-1075",
+      "time": "熙宁八年十二月",
+      "loc": [
+        "开封",
+        "安南"
+      ],
+      "action": "神宗任赵禼为安南道招讨使、李宪副之，后发布水陆兼进征讨交趾的诏令。",
+      "result": "宋朝正式下达安南征讨与水陆进军命令。",
+      "quote": "須時興師，水陸兼進",
+      "battle": "BATTLE-LEAD-071-ANANN-EXPEDITION-1075",
+      "battle_reason": "明确对外交战动员与统帅任命，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-JIAOZHI-CAPTURES-YONGZHOU-1076",
+      "time": "熙宁九年正月",
+      "loc": [
+        "邕州"
+      ],
+      "action": "交趾围攻邕州，苏缄坚守而外援未至，城陷后令家人先死并自焚；交趾屠杀城民五万八千余口。",
+      "result": "邕州失陷，苏缄殉城，城民遭大规模屠杀。",
+      "quote": "凡五萬八千餘口",
+      "battle": "BATTLE-LEAD-071-JIAOZHI-YONGZHOU-1076",
+      "battle_reason": "围城、陷城与伤亡明确，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-SHEN-QI-LIU-YI-PUNISHED-1076",
+      "time": "熙宁九年正月",
+      "loc": [
+        "郢州",
+        "随州"
+      ],
+      "action": "朝廷追治沈起、刘彝开衅致寇之罪，分别贬安置郢州、随州。",
+      "result": "两名广西边政官员因开衅致寇被贬。",
+      "quote": "治起、彝開釁之罪",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战前边政责任处置，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-ANANN-COMMAND-REASSIGNED-1076",
+      "time": "熙宁九年二月",
+      "loc": [
+        "安南"
+      ],
+      "action": "朝廷以郭逵为安南行营经略招讨使、赵禼副之，召李宪还，并诏占城、真腊合击交趾。",
+      "result": "安南战场统帅改由郭逵主领，并寻求占城、真腊协同。",
+      "quote": "仍詔占城、真臘合擊交趾",
+      "battle": "BATTLE-LEAD-071-ANANN-COMMAND-1076",
+      "battle_reason": "对外交战统帅改组与联盟动员，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-ZONGKAR-RAID-REPULSED-1076",
+      "time": "熙宁九年二月",
+      "loc": [
+        "五牟谷"
+      ],
+      "action": "宗噶尔首领果庄进寇五牟谷，蕃官蔺毡讷支等邀击大破之。",
+      "result": "果庄军在五牟谷首次进攻被击败。",
+      "quote": "邀擊，大破之",
+      "battle": "BATTLE-LEAD-071-ZONGKAR-WUMOUGU-1076",
+      "battle_reason": "明确边地进寇与击破，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-THREE-GUANGXI-PREFECTURES-RELIEF-1076",
+      "time": "熙宁九年三月",
+      "loc": [
+        "钦州",
+        "廉州",
+        "邕州"
+      ],
+      "action": "朝廷抚恤钦、廉、邕三州死事家，瘗葬战亡士卒，并免除被蹂躏地区田税。",
+      "result": "交趾战区遗属、战亡士卒和受害土地获得抚恤、安葬与免税。",
+      "quote": "踐，除其田征",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后抚恤与免税，持续效果未载。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-071-GUANGXI-AFTERMATH-1076",
+          [],
+          "战后处置与战事相连，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-ZONGKAR-SECOND-RAID-REPULSED-1076",
+      "time": "熙宁九年三月",
+      "loc": [
+        "五牟谷",
+        "岷州"
+      ],
+      "action": "果庄再寇五牟谷，韩存宝击败之；种谔随后复任知岷州。",
+      "result": "果庄第二次进攻被击退，岷州主将调整。",
+      "quote": "韓存寶敗之",
+      "battle": "BATTLE-LEAD-071-ZONGKAR-SECOND-1076",
+      "battle_reason": "明确复寇与击败，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-GUANGNAN-WAR-RELIEF-1076",
+      "time": "熙宁九年四月",
+      "loc": [
+        "广南"
+      ],
+      "action": "朝廷令转运安抚司核实广南亡没士卒及遭交趾残破百姓，议定赈恤；又发空名告身招降赏功并募武勇赴广西。",
+      "result": "广南战损调查、赈恤、招降赏功和募兵同时启动。",
+      "quote": "具實並議賑恤以聞",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战损救济待核实，落实结果未载。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-071-GUANGNAN-MOBILIZATION-1076",
+          [],
+          "战时募兵与招降赏功，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-MAOZHOU-TRIBAL-WAR-1076",
+      "time": "熙宁九年四月至六月",
+      "loc": [
+        "茂州",
+        "成都"
+      ],
+      "action": "茂州夷寇边，朝廷命王中正经制，蔡延庆持重待援；五月筑茂州，六月王庆等援军战死。",
+      "result": "茂州边患引发筑城和援军伤亡。",
+      "quote": "丁卯，城茂州",
+      "battle": "BATTLE-LEAD-071-MAOZHOU-1076",
+      "battle_reason": "边寇、筑城和援军战死相连，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-LIANGZHE-DIVIDED-AGAIN-1076",
+      "time": "熙宁九年五月",
+      "loc": [
+        "两浙"
+      ],
+      "action": "朝廷再次将两浙分为东、西路，史载次年又因财赋不可分而复合。",
+      "result": "两浙再次分路，但财政可分性问题未解决。",
+      "quote": "復分兩浙為東、西路",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "本卷仅载分合背景，后续复合在次年。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "财赋不可分为史载理由，实际财政影响未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-DONGZHENG-TRIBAL-SUBMISSION-1076",
+      "time": "熙宁九年五月",
+      "loc": [
+        "静州"
+      ],
+      "action": "静州下首领董整白等来降。",
+      "result": "静州相关首领归降。",
+      "quote": "靜州下首領董整白等來降",
+      "battle": "BATTLE-LEAD-071-JINGZHOU-SUBMISSION-1076",
+      "battle_reason": "边地归降与军事边务相连，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-LIAO-YIXUN-EXILED-1076",
+      "time": "熙宁九年六月",
+      "loc": [
+        "辽中京"
+      ],
+      "action": "萧岩寿密告耶律伊逊可能阴谋动摇太子，辽主将伊逊出为中京留守。",
+      "result": "耶律伊逊暂时离开辽廷要地。",
+      "quote": "出伊遜為中京留守",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷党争阶段变化，后续复用另按事件登记。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-XIAXI-CASTLE-BUILT-1076",
+      "time": "熙宁九年七月",
+      "loc": [
+        "下溪州",
+        "辰州"
+      ],
+      "action": "朝廷筑下溪州城，赐名会溪城，驻兵隶辰州，并按汉民标准出租赋。",
+      "result": "下溪州转为驻军、隶州并征赋的会溪城。",
+      "quote": "賜名會谿城，戍以兵",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "筑城与建置并行，工程规模未载。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-071-XIAXI-CASTLE-1076",
+          [],
+          "边地驻军建城，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-ANANN-ARMY-MARCHES-1076",
+      "time": "熙宁九年七月",
+      "loc": [
+        "桂州",
+        "广西",
+        "交趾"
+      ],
+      "action": "安南行营抵桂州，郭逵遣和斌等督水军由海路东入，诸军自广西推进。",
+      "result": "宋军水陆两路向交趾推进。",
+      "quote": "諸軍自廣西入",
+      "battle": "BATTLE-LEAD-071-ANANN-ADVANCE-1076",
+      "battle_reason": "明确水陆军推进，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-TEMPLE-SALE-ABOLISHED-1076",
+      "time": "熙宁九年八月",
+      "loc": [
+        "宋境",
+        "应天府"
+      ],
+      "action": "司农寺曾令祠庙可承买取利；刘挚、张方平上疏反对，神宗命速止，天下祠庙均不再出卖。",
+      "result": "祠庙承买取利政策被废止。",
+      "quote": "於是天下祠廟皆得不鬻",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停止以祠庙取利，收入影响未载。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政策废止与礼制维护相连，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-BIANCANAL-DREDGED-1076",
+      "time": "熙宁九年九月",
+      "loc": [
+        "汴河"
+      ],
+      "action": "朝廷疏浚汴河。",
+      "result": "汴河实施疏浚，工程效果未载。",
+      "quote": "九月，戊午，浚汴河",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仅载施工，成效与资源投入未知。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-HEBEI-RIVER-AGENCY-ABOLISHED-1076",
+      "time": "熙宁九年九月",
+      "loc": [
+        "河北"
+      ],
+      "action": "朝廷废罢都大制置河北河防水利司。",
+      "result": "河北河防水利专门机构被撤销。",
+      "quote": "詔罷都大制置河北河防水利司",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "机构撤销，后续河防安排未载。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "机构调整，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-DENG-WAN-DISMISSED-1076",
+      "time": "熙宁九年十月",
+      "loc": [
+        "开封",
+        "虢州"
+      ],
+      "action": "邓绾因参与华亭案和依附安石、惠卿党争，被罢为兵部郎中、知虢州；练亨甫同时贬漳州。",
+      "result": "邓绾离开御史中丞职位，练亨甫被贬。",
+      "quote": "鄧綰罷為兵部郎中、知虢州",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党争相关官员处置，未形成可闭合候选。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-LIAO-YIXUN-RESTORED-1076",
+      "time": "熙宁九年十月",
+      "loc": [
+        "辽"
+      ],
+      "action": "辽主因伊逊党羽陈言而反疑萧岩寿，最终召耶律伊逊复为北院枢密使。",
+      "result": "耶律伊逊恢复辽廷枢密要职。",
+      "quote": "召伊遜復為北院樞密使",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷人事反转，后续影响未在本卷闭合。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-WANG-ANSHI-SECOND-DISMISSAL-1076",
+      "time": "熙宁九年十月",
+      "loc": [
+        "开封",
+        "江宁"
+      ],
+      "action": "王安石因多次称疾、王雱去世及神宗厌其所为，请解机务；神宗罢其为镇南军节度使、同平章事、判江宁府，吴充、王珪入相。",
+      "result": "王安石第二次罢相，吴充与王珪接任宰相。",
+      "quote": "丙午，王安石罷",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宰相更替，后续政策变化不在本项结算。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-GUANGDONG-WAR-FUND-RAISED-1076",
+      "time": "熙宁九年十一月",
+      "loc": [
+        "广南东路"
+      ],
+      "action": "朝廷给广南东路空名告敕，募人入钱助军。",
+      "result": "广南东路启动以入钱换告敕的助军筹款。",
+      "quote": "募入錢助軍",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战时筹款，收入规模与后果未载. "
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-071-GUOZHUANG-DEFEATED-1076",
+      "time": "熙宁九年十一月",
+      "loc": [
+        "洮东",
+        "多移谷",
+        "岷州"
+      ],
+      "action": "包顺等在多移谷击破果庄兵；果庄再寇岷州，种谔以轻兵在铁城袭击并击败之。",
+      "result": "果庄在洮东、岷州方向的两次行动均受挫。",
+      "quote": "種諤以輕兵襲擊於鐵城，敗之",
+      "battle": "BATTLE-LEAD-071-GUOZHUANG-TIECHENG-1076",
+      "battle_reason": "明确进寇、袭击和击败，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-GUOKUI-CAPTURES-GUANGYUAN-1076",
+      "time": "熙宁九年十二月",
+      "loc": [
+        "广源州"
+      ],
+      "action": "郭逵攻取广源州，刘纪投降。",
+      "result": "宋军取得广源州并受刘纪降。",
+      "quote": "郭逵拔廣源州，偽觀察使劉紀降",
+      "battle": "BATTLE-LEAD-071-GUANGYUAN-1076",
+      "battle_reason": "明确攻取与受降，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-ANANN-FULIANG-RIVER-BATTLE-1076",
+      "time": "熙宁九年十二月",
+      "loc": [
+        "富良江",
+        "交州"
+      ],
+      "action": "郭逵军与赵禼军略有分歧后，在富良江以攻具击破交趾船舰，斩首数千并获洪真，李乾德遣使降；因兵夫冒暑涉瘴死者过半，郭逵先还，宋军班师。",
+      "result": "宋军在富良江取胜并受降，但大军未入交州即因严重疫瘴损耗班师。",
+      "quote": "地，死者過半",
+      "battle": "BATTLE-LEAD-071-ANANN-FULIANG-1076",
+      "battle_reason": "明确水战、受降、伤亡与班师，交由战役工作流。"
+    },
+    {
+      "id": "CHF-XZZTJ-071-LENGJIPU-SUPPRESSED-1076",
+      "time": "熙宁九年十二月",
+      "loc": [
+        "洮岷",
+        "威戎军"
+      ],
+      "action": "冷鸡朴诱山后生羌扰边；玛尔戩出行震慑诸羌，李宪军乘势杀获万计、斩冷鸡朴，栋戩遣使效顺，朝廷置威戎军。",
+      "result": "冷鸡朴被斩，栋戩效顺，威戎军设置。",
+      "quote": "殺獲萬計，斬冷雞樸",
+      "battle": "BATTLE-LEAD-071-LENGJIPU-WEIRONG-1076",
+      "battle_reason": "明确扰边、作战、斩首与边防建置，交由战役工作流。"
+    }
+  ]
+}

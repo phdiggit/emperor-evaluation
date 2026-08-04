@@ -1,0 +1,1011 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-005",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷005",
+    "revision_ref": "2271037",
+    "start_locator": "宋太祖乾德五年正月",
+    "end_locator": "宋太祖开宝二年六月",
+    "overlap_context": "续接卷004北汉复取辽州与西川战后收束；本卷追责平蜀诸将，推进河防、赈济与财制，并记录北汉继承危机及宋第一次围太原失败，转出岭南用兵准备。",
+    "input_fingerprint": "6d3417434e0a0469b8495e5cbdb56bfcbfea520415c025ecb3d9286a73042624"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-005-XICHUAN-SUMMER-TAX-967",
+      "time": "乾德五年正月",
+      "loc": [
+        "西川"
+      ],
+      "action": "宋廷继续减免西川当年夏租。",
+      "result": "西川民户夏租减半。",
+      "quote": [
+        "賜西川諸州民今年夏租之半"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "西川战后夏租减半。"
+        ]
+      ],
+      "unknown": [
+        "总减免额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-SHU-GENERALS-TRIED-967",
+      "time": "乾德五年正月",
+      "loc": [
+        "西川",
+        "开封"
+      ],
+      "action": "蜀臣民控告王全斌等平蜀不法，宋廷召还质证其侵吞财物、克扣装钱及杀降致乱。",
+      "result": "查明隐没六十四万六千八百余贯，百官议三将当死，宋帝特赦并降职。",
+      "quote": [
+        "蜀臣民詣闕訟王全斌",
+        "凡所取受隱沒共錢六十四萬六千八百餘貫",
+        "擅克削兵士裝錢",
+        "錢，殺降致寇",
+        "三人法當死",
+        "死，帝特赦之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追责灭蜀军队侵掠和激变。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "核出六十四万余贯隐没财物。"
+        ]
+      ],
+      "unknown": [
+        "蜀宫珍宝及未入籍库藏未计入。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-ANNUAL-DIKE-REPAIR-967",
+      "time": "乾德五年正月",
+      "loc": [
+        "黄河沿岸",
+        "京畿"
+      ],
+      "action": "宋廷分遣使者巡查河堤，征畿甸丁夫修治，并令沿河十八州府长吏兼河堤使。",
+      "result": "每年正月至三月修堤成为常制。",
+      "quote": [
+        "分遣使行視",
+        "發畿甸丁夫繕治",
+        "皆以正月首事，季春而畢",
+        "併兼本州河堤使"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立年度黄河堤防检修制度。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "固定征发畿甸丁夫。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "沿河长吏兼任河堤使。"
+        ]
+      ],
+      "unknown": [
+        "年度役夫数与费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-LIAO-YIJIN-RAID-967",
+      "time": "乾德五年二月",
+      "loc": [
+        "益津关"
+      ],
+      "action": "辽南京留守高勋请求以偏师侵扰益津关。",
+      "result": "辽主批准行动。",
+      "quote": [
+        "請以偏師擾益津關"
+      ],
+      "battle": "CAMPAIGN-LIAO-YIJIN-RAID-967",
+      "unknown": [
+        "行动结果、兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-LINGZHOU-SALT-WELL-967",
+      "time": "乾德五年四月",
+      "loc": [
+        "陵州",
+        "陵井"
+      ],
+      "action": "贾琏不顾毒气和民夫畏惧，亲自主持疏浚堵塞多年的陵井。",
+      "result": "历时逾年复得盐泉，日产盐由三百斤增至三千六百斤。",
+      "quote": [
+        "歲煉鹽八十萬斤",
+        "璉親執鍤興役",
+        "逾年而至泉脈",
+        "初煉鹽日三百斤",
+        "稍增日三千六百斤"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "疏浚废塞盐井。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复地方食盐日产。"
+        ]
+      ],
+      "unknown": [
+        "工程伤亡与成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-WEIZHOU-FLOOD-967",
+      "time": "乾德五年八月",
+      "loc": [
+        "卫州"
+      ],
+      "action": "黄河溢入卫州城。",
+      "result": "数百居民溺死。",
+      "quote": [
+        "河溢入衛州城",
+        "民溺死者數百"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河灾造成数百人死亡。"
+        ]
+      ],
+      "unknown": [
+        "财产与田亩损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-BAD-COIN-BAN-967",
+      "time": "乾德五年十二月",
+      "loc": [
+        "宋诸州"
+      ],
+      "action": "宋廷禁止轻小恶钱、铁鑞钱和粗劣布帛流通。",
+      "result": "劣币劣帛及药物掺粉被纳入查禁。",
+      "quote": [
+        "禁諸州輕小惡錢及鐵鑞錢",
+        "紕疏布帛毋鬻於市",
+        "者，捕之置罪"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿货币和商品质量。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "颁布市场查禁规则。"
+        ]
+      ],
+      "unknown": [
+        "处罚等级未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-CAPITAL-WALL-968",
+      "time": "开宝元年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "宋廷修筑京城城防。",
+      "result": "京师筑城工程实施。",
+      "quote": [
+        "甲午，城京師。\n"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修筑京师城墙。"
+        ]
+      ],
+      "unknown": [
+        "工程规模、役夫与费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-THREE-PREFECTURES-RELIEF-968",
+      "time": "开宝元年正月",
+      "loc": [
+        "陕州",
+        "绛州",
+        "怀州"
+      ],
+      "action": "陕、绛、怀三州发生饥荒。",
+      "result": "宋廷实施赈济。",
+      "quote": [
+        "陝、絳、懷等州飢",
+        "等州飢，賑之。\n"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三州饥荒赈济。"
+        ]
+      ],
+      "unknown": [
+        "赈济规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-RAIN-FLOOD-TAX-RELIEF-968",
+      "time": "开宝元年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷减免被霖雨和河水毁坏的民田税赋。",
+      "result": "灾田当年夏税及其他征物全部免除。",
+      "quote": [
+        "民田爲霖雨，河水壞者",
+        "免今年夏稅及它徵物"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "雨涝河灾田免夏税杂征。"
+        ]
+      ],
+      "unknown": [
+        "灾田面积未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-PENGZHOU-MUTINY-968",
+      "time": "开宝元年六月",
+      "loc": [
+        "彭州"
+      ],
+      "action": "州卒燕环联络屯戍军，谋在长春节宴集时发动兵变。",
+      "result": "知州辛仲甫提前擒获并处死燕环。",
+      "quote": [
+        "環誘屯戍軍",
+        "謀以長春節燕集日爲亂",
+        "仲甫擒斬之"
+      ],
+      "battle": "CAMPAIGN-PENGZHOU-MUTINY-968",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "西川余乱阶段的驻军兵变被先发制止。"
+        ]
+      ],
+      "unknown": [
+        "同谋人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TONGYUAN-BORDER-BATTLE-968",
+      "time": "开宝元年七月后数月",
+      "loc": [
+        "通远军",
+        "西蕃边境"
+      ],
+      "action": "西蕃诸部入寇，董遵诲率兵深入反击。",
+      "result": "敌军被击走，俘斩甚众、获牛马数万，边部安定。",
+      "quote": [
+        "月，復入寇，遵",
+        "誨率兵深入",
+        "入，擊走之，俘",
+        "之，俘斬甚衆",
+        "獲牛馬數萬",
+        "萬，戎落以定"
+      ],
+      "battle": "CAMPAIGN-TONGYUAN-BORDER-BATTLE-968",
+      "unknown": [
+        "双方兵力与确切伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-STRATEGY-DEFERRED-968",
+      "time": "开宝元年七月",
+      "loc": [
+        "太原",
+        "开封"
+      ],
+      "action": "宋帝与赵普讨论攻取太原，决定暂留北汉作为辽与宋之间屏障，先平诸国。",
+      "result": "刘钧在世期间宋未以大军北伐。",
+      "quote": [
+        "吾欲取太原",
+        "太原當西北二邊",
+        "之，何不姑留",
+        "俟削平諸國",
+        "終其世，不以大軍北伐"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "暂缓灭北汉的战略决定。"
+        ]
+      ],
+      "unknown": [
+        "本年后因北汉继承变化而调整。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-NORTHERN-HAN-SUCCESSION-968",
+      "time": "开宝元年七月",
+      "loc": [
+        "太原",
+        "北汉",
+        "辽"
+      ],
+      "action": "北汉主刘钧病逝，刘继恩先向辽告丧请命，获准后即位。",
+      "result": "北汉完成经辽认可的继承。",
+      "quote": [
+        "之。\n戊申，北漢主殂，繼恩遣使",
+        "之。\n戊申，北漢主殂，繼恩遣使告終稱嗣於遼，遼主許之，然後即位，上",
+        "之。\n戊申，北漢主殂，繼恩遣使告終稱嗣於遼，遼主許之，然後即位，上諡曰孝和皇帝，廟號睿宗。遼遣",
+        "，北漢主殂，繼恩遣使告終稱嗣於遼，遼主許之，然後即位，上諡曰孝和皇帝，廟號睿宗。遼遣使弔祭。\n戊"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "北汉君位更替仍受辽册准约束。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-005-FAMINE-GRANARY-LOANS-968",
+      "time": "开宝元年七月",
+      "loc": [
+        "宋诸州"
+      ],
+      "action": "宋廷命各州查验饥民。",
+      "result": "发现饥民即开仓贷粮。",
+      "quote": [
+        "令諸州察民有飢者",
+        "即發廩貸之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立地方即时饥民仓贷。"
+        ]
+      ],
+      "unknown": [
+        "实际贷款数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-SONG-MOBILIZES-AGAINST-HAN-968",
+      "time": "开宝元年八月",
+      "loc": [
+        "洺州",
+        "河东"
+      ],
+      "action": "宋廷派二十二将领兵屯洺州，并部署李继勋、曹彬等多路进攻北汉。",
+      "result": "宋军在北汉继承初期启动大规模河东战役。",
+      "quote": [
+        "二十二人領兵屯洺州",
+        "將有事於北漢",
+        "爲河東行營前軍都部署，侍",
+        "汾州路部署"
+      ],
+      "battle": "CAMPAIGN-SONG-MOBILIZES-AGAINST-HAN-968",
+      "unknown": [
+        "总兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-LIUJIEN-ASSASSINATED-968",
+      "time": "开宝元年九月",
+      "loc": [
+        "太原勒政阁"
+      ],
+      "action": "侯霸荣持刀杀北汉主刘继恩，郭无为率兵杀侯霸荣及其党并迎立刘继元。",
+      "result": "刘继恩在位六十余日被杀，刘继元继位。",
+      "quote": [
+        "以刃揕其胸，殺之",
+        "殺霸榮並其黨",
+        "迎立繼恩弟太原尹繼元",
+        "立才六十餘日"
+      ],
+      "battle": "CAMPAIGN-LIUJIEN-ASSASSINATED-968",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "北汉宫廷政变导致再次易主。"
+        ]
+      ],
+      "unknown": [
+        "郭无为是否幕后指使，正文仅载传疑。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-DONGGUO-RIVER-BATTLE-968",
+      "time": "开宝元年九月",
+      "loc": [
+        "洞过河",
+        "汾河桥",
+        "太原延夏门"
+      ],
+      "action": "刘继元遣军扼团柏谷，马峰部在洞过河遭宋先锋何继筠攻击。",
+      "result": "北汉军败、二千余首被斩，汾河桥被夺，宋军进至太原焚延夏门；郭守斌再战亦败。",
+      "quote": [
+        "與李繼勳等遇",
+        "何繼筠以先鋒擊破之",
+        "斬首二千餘級",
+        "遂奪汾河橋",
+        "下，焚延夏門",
+        "出戰，又敗，守"
+      ],
+      "battle": "CAMPAIGN-DONGGUO-RIVER-BATTLE-968",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-SONG-OFFERS-HAN-SURRENDER-968",
+      "time": "开宝元年十月",
+      "loc": [
+        "太原",
+        "北汉"
+      ],
+      "action": "宋帝分别向刘继元、郭无为、马峰等发诏，许以节度使等职位招降。",
+      "result": "郭无为隐匿多数诏书并劝降，刘继元拒绝。",
+      "quote": [
+        "諭北漢主繼元令降",
+        "別賜郭無爲、馬峯等詔四十餘道",
+        "詔，餘皆匿之",
+        "勸繼元納款",
+        "款，繼元不從"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋以官爵分化北汉君臣。"
+        ]
+      ],
+      "unknown": [
+        "被隐匿诏书具体受领人未尽载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-BOWMEN-REDUCED-968",
+      "time": "开宝元年十一月",
+      "loc": [
+        "宋诸县"
+      ],
+      "action": "宋廷因盗贼减少而裁减县级弓手。",
+      "result": "各县按等减员，县令县尉不得私留。",
+      "quote": [
+        "曰：「盜賊漸息，",
+        "減諸縣弓手有差",
+        "令、尉輒佔留者，重置其罪"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按治安改善裁减县弓手。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减少基层治安供养负担。"
+        ]
+      ],
+      "unknown": [
+        "裁减总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-OLD-ARREARS-REMISSION-968",
+      "time": "开宝元年十一月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷南郊大赦并清理旧欠。",
+      "result": "乾德五年以前逋租全部蠲免。",
+      "quote": [
+        "改元開寶，大赦",
+        "蠲乾德五年以前逋租"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全国免除乾德五年前逋租。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改元南郊大赦。"
+        ]
+      ],
+      "unknown": [
+        "免租总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-LIAO-RELIEVES-NORTHERN-HAN-968",
+      "time": "开宝元年十一月",
+      "loc": [
+        "河东",
+        "晋州",
+        "绛州"
+      ],
+      "action": "辽以耶律塔尔统诸道兵救北汉。",
+      "result": "宋军李继勋等撤退，北汉乘势进掠晋绛边境。",
+      "quote": [
+        "統諸道兵授北漢",
+        "李繼勳等皆引歸",
+        "北漢因進掠晉、絳二州之境"
+      ],
+      "battle": "CAMPAIGN-LIAO-RELIEVES-NORTHERN-HAN-968",
+      "unknown": [
+        "交战过程与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-SUPPLY-MOBILIZATION-969",
+      "time": "开宝二年正月",
+      "loc": [
+        "宋诸州",
+        "太原",
+        "潞州",
+        "晋州",
+        "磁州"
+      ],
+      "action": "宋廷分遣使者征调军储赴太原，又发诸道兵屯潞晋磁。",
+      "result": "第二轮太原亲征的兵力和后勤开始集中。",
+      "quote": [
+        "分往諸州，調發軍儲赴太原",
+        "遣使發諸道兵",
+        "屯於潞、晉、磁等州"
+      ],
+      "battle": "CAMPAIGN-TAIYUAN-SUPPLY-MOBILIZATION-969",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模征调太原军储。"
+        ]
+      ],
+      "unknown": [
+        "兵力、粮额和民役规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-LIAO-MUZONG-ASSASSINATED-969",
+      "time": "开宝二年二月",
+      "loc": [
+        "辽怀州行宫"
+      ],
+      "action": "辽穆宗长期嗜酒滥刑，春猎醉后被近侍杀害。",
+      "result": "耶律贤率甲骑千人赴行在即位，改元保宁并诛宿卫失职者。",
+      "quote": [
+        "死者至百餘人",
+        "爲近侍霄格、盥人華格、庖人錫袞等所弒",
+        "率甲騎千人馳赴行在",
+        "遂即皇帝位於柩前",
+        "赦，改元保寧"
+      ],
+      "battle": "CAMPAIGN-LIAO-MUZONG-ASSASSINATED-969",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽宫廷弑君与景宗继位。"
+        ]
+      ],
+      "unknown": [
+        "弑君是否有更广泛政治预谋未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-SONG-ENCIRCLES-TAIYUAN-969",
+      "time": "开宝二年二月至三月",
+      "loc": [
+        "潞州",
+        "太原"
+      ],
+      "action": "宋帝亲征北汉，李继勋等先围太原，宋帝抵城南后筑长连城。",
+      "result": "宋军完成对太原的包围和行营部署。",
+      "quote": [
+        "午，詔親征。己",
+        "繼勳等遂圍城",
+        "戌，次太原；庚",
+        "始命築長連城"
+      ],
+      "battle": "CAMPAIGN-SONG-ENCIRCLES-TAIYUAN-969",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "围城修筑长连城。"
+        ]
+      ],
+      "unknown": [
+        "总兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-FEN-RIVER-FLOOD-SIEGE-969",
+      "time": "开宝二年三月",
+      "loc": [
+        "太原",
+        "汾河",
+        "晋祠水"
+      ],
+      "action": "宋军征太原诸县民数万筑长堤，引汾水并决晋祠水灌城。",
+      "result": "水攻太原启动。",
+      "quote": [
+        "發太原諸縣民數萬赴城下",
+        "築長堤壅汾水",
+        "決晉祠水灌城"
+      ],
+      "battle": "CAMPAIGN-FEN-RIVER-FLOOD-SIEGE-969",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "数万民夫筑堤引水攻城。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "强征太原诸县民夫。"
+        ]
+      ],
+      "unknown": [
+        "征役伤亡与淹田范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-SORTIES-969",
+      "time": "开宝二年三月",
+      "loc": [
+        "太原西寨",
+        "太原东寨"
+      ],
+      "action": "北汉军先后突袭宋军西寨、东寨，赵赞、党进等迎战。",
+      "result": "赵赞中弩仍战，李谦溥来援迫退北汉；刘继业突骑亦败退入城。",
+      "quote": [
+        "門，潛犯西寨",
+        "弩矢貫贊足，未退",
+        "北漢人乃退",
+        "突騎數百犯東寨",
+        "業走匿壕中",
+        "業緣縋入城"
+      ],
+      "battle": "CAMPAIGN-TAIYUAN-SORTIES-969",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-YANGQU-LIAO-BATTLE-969",
+      "time": "开宝二年四月",
+      "loc": [
+        "阳曲县北",
+        "石岭关"
+      ],
+      "action": "何继筠率精兵在阳曲县北阻击由石岭关来援北汉的辽军。",
+      "result": "辽军大败，武州刺史王彦符被俘，千余首被斩。",
+      "quote": [
+        "戰於陽曲縣北",
+        "北，大敗遼兵",
+        "擒其武州刺史王彥符",
+        "斬首千餘級"
+      ],
+      "battle": "CAMPAIGN-YANGQU-LIAO-BATTLE-969",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-JIASHAN-LIAO-BATTLE-969",
+      "time": "开宝二年五月",
+      "loc": [
+        "嘉山",
+        "定州"
+      ],
+      "action": "辽军由定州方向入侵，韩重赟列阵嘉山并追击欲退辽军。",
+      "result": "辽军被大破。",
+      "quote": [
+        "遼分兵由定州來侵",
+        "陳於嘉山以待之",
+        "重贇亟擊之",
+        "之，大破其衆"
+      ],
+      "battle": "CAMPAIGN-JIASHAN-LIAO-BATTLE-969",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-NAVAL-ASSAULT-969",
+      "time": "开宝二年五月",
+      "loc": [
+        "太原"
+      ],
+      "action": "宋军引汾水灌城，并以小舟载强弩攻城，多次攻西门。",
+      "result": "王廷义、石汉卿先后中箭死亡，太原仍未下。",
+      "quote": [
+        "引汾水入新堤，灌其城",
+        "水軍乘小舟載強弩進攻其城",
+        "流矢中其腦",
+        "流矢，溺死。癸",
+        "命諸軍攻其西門"
+      ],
+      "battle": "CAMPAIGN-TAIYUAN-NAVAL-ASSAULT-969",
+      "unknown": [
+        "其他伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-LANZHOU-SURRENDERS-969",
+      "time": "开宝二年五月",
+      "loc": [
+        "岚州"
+      ],
+      "action": "宋偏师围攻岚州。",
+      "result": "赵宏势危请降，宋廷接收岚州并任周承瑨为团练使。",
+      "quote": [
+        "遣偏師圍嵐州",
+        "趙宏危蹙，請降",
+        "爲嵐州團練使"
+      ],
+      "battle": "CAMPAIGN-LANZHOU-SURRENDERS-969",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "岚州降宋并建立地方军政。"
+        ]
+      ],
+      "unknown": [
+        "围城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-BREACH-REPAIRED-969",
+      "time": "开宝二年闰五月",
+      "loc": [
+        "太原南城"
+      ],
+      "action": "汾水冲陷太原南城并灌入城内，北汉军冒宋军弩射堵口。",
+      "result": "漂草堵住水口，北汉军得以修障，城墙缺口被塞。",
+      "quote": [
+        "太原南城爲汾水所陷",
+        "水穿外城，注城中",
+        "北漢人緣城設障",
+        "積草自城中飄出",
+        "功，水口遂塞"
+      ],
+      "battle": "CAMPAIGN-TAIYUAN-BREACH-REPAIRED-969",
+      "unknown": [
+        "城内伤亡与淹没范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-NIGHT-SORTIE-969",
+      "time": "开宝二年闰五月",
+      "loc": [
+        "太原西长连城"
+      ],
+      "action": "北汉军夜间从西长连城潜出，企图焚毁宋军攻城器具。",
+      "result": "宋军击退并斩万余；北汉伪称夜降的诱敌计亦被识破。",
+      "quote": [
+        "自西長連城潛出",
+        "將焚攻戰之具",
+        "宋師擊走之",
+        "斬首萬餘級",
+        "果諜者詐爲也"
+      ],
+      "battle": "CAMPAIGN-TAIYUAN-NIGHT-SORTIE-969",
+      "unknown": [
+        "斩首数字口径未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-SONG-WITHDRAWS-TAIYUAN-969",
+      "time": "开宝二年闰五月",
+      "loc": [
+        "太原",
+        "罕山"
+      ],
+      "action": "太原久攻不下，宋军又受暑雨疾病和辽军来援，宋帝采纳班师建议。",
+      "result": "宋军移驻罕山南并决定撤围。",
+      "quote": [
+        "太原城久不下",
+        "暑雨，多被腹病",
+        "遼遣北院大王烏珍",
+        "南，始議班師"
+      ],
+      "battle": "CAMPAIGN-SONG-WITHDRAWS-TAIYUAN-969",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "太原亲征因疾病、辽援与成本而停止。"
+        ]
+      ],
+      "unknown": [
+        "病亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-TAIYUAN-HOUSEHOLDS-RELOCATED-969",
+      "time": "开宝二年闰五月",
+      "loc": [
+        "太原",
+        "山东",
+        "河南",
+        "镇州",
+        "潞州"
+      ],
+      "action": "宋廷迁徙太原民户以削弱北汉供给，并以禁军护送安置。",
+      "result": "万余家迁往山东、河南并给粮，护送军随后屯镇潞。",
+      "quote": [
+        "徙太原民萬餘家于山東、河南",
+        "河南，給粟；庚",
+        "使者十七人發禁軍護送之",
+        "因屯於鎮、潞等州"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "强制迁徙万余家并给粮安置。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以迁户削弱北汉人力赋输。"
+        ]
+      ],
+      "unknown": [
+        "迁徙途中伤亡与最终安置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-SONG-RESCUES-STRAGGLERS-969",
+      "time": "开宝二年闰五月",
+      "loc": [
+        "太原"
+      ],
+      "action": "宋军撤离时有百名军士陷于敌境，孔守正率骑军回击救援。",
+      "result": "百名军士全部被夺回。",
+      "quote": [
+        "軍士陷敵者百人",
+        "領騎軍往救",
+        "，守正奮擊，盡",
+        "擊，盡奪以還"
+      ],
+      "battle": "CAMPAIGN-SONG-RESCUES-STRAGGLERS-969",
+      "unknown": [
+        "救援伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-005-ROUTE-AUTUMN-TAX-REMISSION-969",
+      "time": "开宝二年六月",
+      "loc": [
+        "太原亲征沿途"
+      ],
+      "action": "宋廷减免车驾亲征所经地区税负。",
+      "result": "沿途民户当年秋租全免。",
+      "quote": [
+        "詔：「車駕所過，",
+        "民無出今年秋租"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "补偿亲征沿途供亿，免秋租。"
+        ]
+      ],
+      "unknown": [
+        "涉及州县与总额未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2271037 的《續資治通鑑》卷005连续通读登记，不引入卷外常识。",
+    "普通任免、朝会、贡聘、祥异及无消费结果的重复行军节点未单列。",
+    "卷末宋廷已从太原撤军并准备岭南用兵；北汉、辽援及岭南线待卷006承接。"
+  ]
+}

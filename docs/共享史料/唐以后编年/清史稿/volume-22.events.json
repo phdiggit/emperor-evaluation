@@ -1,0 +1,859 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V22-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V22-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷22",
+    "revision_ref": "2294671",
+    "start_locator": "同治六年捻军与陕甘军务",
+    "end_locator": "同治十三年穆宗崩与嗣君安排",
+    "overlap_context": "承接卷21同治五年捻军、西北回乱与新疆危局；本卷登记捻军终结、陕甘与云南贵州平乱、灾赈河工、船政海防、天津教案、日本侵台、亲政及穆宗死亡继承。",
+    "input_fingerprint": "14bd06079629c91b2a8e28d0ac2e0c71833d02e91dc83228a8710dc3f9e7ab0c"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷22正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列；连续战争按阶段合并。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V22-NIAN-WAR-END-1867-1868",
+      "time": [
+        "同治六年正月",
+        "同治七年七月",
+        "range"
+      ],
+      "subject": "任柱、赖文光、张总愚等捻军与李鸿章、左宗棠、刘铭传等清军",
+      "action": "清军以运河、黄河分区围堵捻军，先后击杀任柱、俘杀赖文光，最终迫使张总愚赴水而死。",
+      "result": "东西捻军相继被平定，持续多年的捻乱结束。",
+      "cost": "张树珊、彭毓橘等清军将领阵亡；双方和民众总损失未载。",
+      "groups": [
+        "捻军",
+        "湘淮军与清军",
+        "直鲁豫皖鄂民众"
+      ],
+      "quote": [
+        "，任柱伏誅。癸",
+        "淮軍剿賊高郵大捷，獲賴文光等，誅之。",
+        "丑，東捻平，加",
+        "張總愚赴水死，捻匪平。"
+      ],
+      "unknown": [
+        "捻军总数、各战伤亡与民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-NIAN-WAR-END-1867-1868",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-SHAANXI-GANSU-WAR-1867-1873",
+      "time": [
+        "同治六年正月",
+        "同治十二年十月",
+        "range"
+      ],
+      "subject": "左宗棠、刘松山、刘锦棠、金顺等清军与陕甘回民武装",
+      "action": "清廷由左宗棠统筹陕甘军务，清军攻取金积堡、宁夏、河州、西宁、肃州等据点，并处死马化龙、马文禄等首领。",
+      "result": "陕甘主要回军据点被逐步攻克，白彦虎余部西逃，新疆方向战事仍待继续。",
+      "cost": "刘松山、傅先荣等将领战死；回汉军民总伤亡未载。",
+      "groups": [
+        "回民武装",
+        "清军",
+        "陕甘汉回民众"
+      ],
+      "quote": [
+        "命左宗棠為欽差大臣，督辦陝、甘軍務",
+        "劉錦棠等軍克金積堡，匪首馬化龍等伏誅",
+        "金順等軍克寧夏",
+        "穆圖善克河州。",
+        "官軍克肅州，匪逆馬文祿伏誅。"
+      ],
+      "unknown": [
+        "双方和平民总伤亡、军费和安置规模未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SHAANXI-GANSU-WAR-1867-1873",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-HUAITING-HUI-RESETTLEMENT-1871",
+      "time": [
+        "同治十年二月",
+        "1871",
+        "month"
+      ],
+      "subject": "清廷与就抚陕西回民",
+      "action": "金积堡攻克后，清廷将归附回民安置于华亭化平川，并设置通判、都司管理。",
+      "result": "部分投降回民获得集中安置，形成专门地方治理安排。",
+      "groups": [
+        "投降回民",
+        "地方官员",
+        "华亭居民"
+      ],
+      "quote": [
+        "置就撫陝回於華亭之化平川，設通判、都司以綏靖之。"
+      ],
+      "unknown": [
+        "安置人口、土地来源、赋役与长期生活情况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HUI-RESETTLEMENT-HUAITING-1871",
+        "summary": "清廷集中安置就抚回民并设置行政军事机构。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-YUNNAN-WAR-END-1867-1873",
+      "time": [
+        "同治六年八月",
+        "同治十二年闰六月",
+        "range"
+      ],
+      "subject": "岑毓英、刘岳昭等清军与杜文秀等云南回军",
+      "action": "清军陆续收复楚雄、昆明、大理、腾越等地，杜文秀等首领被处死。",
+      "result": "持续十八年的云南回乱主要据点被平定，清廷转入免赋、停厘谷与整顿吏治。",
+      "cost": "双方和各族民众总伤亡未载。",
+      "groups": [
+        "云南回民武装",
+        "清军",
+        "云南汉回各族民众"
+      ],
+      "quote": [
+        "滇軍復永北、鶴慶、鎮南、楚雄。",
+        "滇軍克大理，回酋杜文秀、楊榮、蔡廷棟等伏誅。",
+        "滇軍克騰越",
+        "雲南軍興十有八年，郡縣多為賊蹂躪"
+      ],
+      "unknown": [
+        "战争总伤亡、人口流失和财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-YUNNAN-WAR-END-1867-1873",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-YUNNAN-POSTWAR-RELIEF-1873-1874",
+      "time": [
+        "同治十二年闰六月",
+        "同治十三年十二月",
+        "range"
+      ],
+      "subject": "清廷与云南战后民众",
+      "action": "清廷免除同治十一年前云南积欠粮赋、永久停征济军厘谷，并于穆宗末年再免被扰荒地钱粮十年。",
+      "result": "云南战后获得长期税负减免和停止战时征敛。",
+      "groups": [
+        "云南农户",
+        "战后流民",
+        "地方纳税人"
+      ],
+      "quote": [
+        "詔免十一年以前積欠糧賦，並永遠停徵濟軍釐穀。",
+        "詔蠲免雲南被擾荒地錢糧十年。"
+      ],
+      "unknown": [
+        "免赋金额、受益人口及恢复耕作成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "YUNNAN-POSTWAR-RELIEF-1873-1874",
+        "summary": "云南战后免积欠、停厘谷并免荒地钱粮。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-GUIZHOU-WAR-END-1867-1872",
+      "time": [
+        "同治六年八月",
+        "同治十一年十一月",
+        "range"
+      ],
+      "subject": "席宝田等湘黔川军与贵州苗民等武装",
+      "action": "清军持续收复都匀、丹江、凯里、黄平等地，攻破苗寨并在同治十一年宣布贵州苗乱平定。",
+      "result": "贵州主要战事结束，全省被宣布底定。",
+      "cost": "黄润昌、邓子垣、刘长槐等战死；军民总伤亡未载。",
+      "groups": [
+        "贵州苗民武装",
+        "清军",
+        "贵州各族民众"
+      ],
+      "quote": [
+        "黔軍克都勻",
+        "援黔湘軍復丹江、凱里等城",
+        "貴州苗匪平，賞席寶田騎都尉。",
+        "。全黔底定。丙"
+      ],
+      "unknown": [
+        "各寨伤亡、迁徙和战后安置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-GUIZHOU-WAR-END-1867-1872",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-XINJIANG-REFUGEE-DEFENSE-1867-1874",
+      "time": [
+        "同治六年三月",
+        "同治十三年七月",
+        "range"
+      ],
+      "subject": "清廷新疆官员、难民与白彦虎等武装",
+      "action": "新疆失陷后清廷安顿难民、在巴里坤和布伦托海等地屯田防守，并于同治十三年任景廉督办新疆军务、金顺帮办。",
+      "result": "清廷维持哈密、巴里坤等东疆据点，并开始为进一步收复新疆准备粮运和军务。",
+      "groups": [
+        "新疆难民",
+        "驻防军民",
+        "回民武装",
+        "屯田民户"
+      ],
+      "quote": [
+        "諭李雲麟等安頓新疆難民。",
+        "諭伊勒屯等籌辦巴里坤屯田。",
+        "諭景廉督軍赴援",
+        "景廉為欽差大臣，督辦新疆軍務，金順幫辦軍務。"
+      ],
+      "unknown": [
+        "难民人数、屯田规模和军费未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XINJIANG-RECOVERY-PREPARATION-1867-1874",
+        "summary": "新疆失陷后安置难民、设屯防并重建收复指挥体系。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-1867-DROUGHT-RELIEF",
+      "time": [
+        "同治六年五月至六月",
+        "1867",
+        "range"
+      ],
+      "subject": "清廷与顺直旱灾民众",
+      "action": "京畿久旱饥荒，清廷命恤难民、育婴、赡恤阵亡家属，并从厘捐和海关洋税拨六十五万备赈。",
+      "result": "顺直灾区获得跨省税源支持的赈济资金。",
+      "groups": [
+        "旱灾民众",
+        "孤儿",
+        "阵亡者家属"
+      ],
+      "quote": [
+        "以旱，命恤難民、育嬰孩、揜暴露、贍陣亡者家屬。",
+        "順直久旱，飢，賑恤之。",
+        "撥閩、廣、贛釐捐三十萬，浙、閩海關洋稅三十五萬備賑需。"
+      ],
+      "unknown": [
+        "实际发放、受益人口和灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SHUNZHI-DROUGHT-RELIEF-1867",
+        "summary": "清廷拨厘捐和关税六十五万赈济顺直旱灾。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-YONGDING-RIVER-WORKS-1867-1873",
+      "time": [
+        "同治六年七月",
+        "同治十二年九月",
+        "range"
+      ],
+      "subject": "清廷与永定河工程",
+      "action": "永定河在同治六、七、八、九、十一、十二年反复决溢，清廷持续修堤合龙并严禁河工侵蚀。",
+      "result": "多次决口分别合龙，但河患持续反复。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫",
+        "直隶农户"
+      ],
+      "quote": [
+        "庚午，永定河決。",
+        "永定河堤工合龍。",
+        "諭嚴禁河工偷減侵蝕諸弊。",
+        "永定河口合龍。",
+        "永定河北下汛溢。",
+        "癸酉，永定河合龍。"
+      ],
+      "unknown": [
+        "各次灾损、工费和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "YONGDING-RIVER-WORKS-1867-1873",
+        "summary": "永定河连年决溢并反复合龙。",
+        "continuity": "continued_within_reign",
+        "phase": "反复抢修",
+        "purpose": "防洪",
+        "operation_result": "多次合龙但河患未绝"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-YELLOW-RIVER-WORKS-1868-1874",
+      "time": [
+        "同治七年七月",
+        "同治十三年十一月",
+        "range"
+      ],
+      "subject": "清廷与黄河、沁河堤工机构",
+      "action": "荥泽河、沁河、侯家林等处决口后，清廷赈灾、修堤合龙，并筹议黄运两河与石庄户堤工。",
+      "result": "部分决口合龙，黄运河治理与新坝堤工程继续推进。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫",
+        "农户"
+      ],
+      "quote": [
+        "，滎澤河決。辛",
+        "武陟沁河堤決。",
+        "，滎工合龍。丙",
+        "侯家林決口合龍。",
+        "軍機大臣、六部九卿會議黃、運兩河辦法。",
+        "頒部帑百五十萬築石莊戶堤工。"
+      ],
+      "unknown": [
+        "总体工程费、灾损、用工及长期成效未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "YELLOW-RIVER-WORKS-1868-1874",
+        "summary": "黄河、沁河多处决口后实施赈修和跨部门治理。",
+        "continuity": "continued_within_reign",
+        "phase": "抢修与规划",
+        "purpose": "防洪保运",
+        "operation_result": "部分合龙，长期治理继续"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-FUJIAN-SHIPYARD-1867-1869",
+      "time": [
+        "同治六年八月",
+        "同治八年九月",
+        "range"
+      ],
+      "subject": "沈葆桢等与福建船政",
+      "action": "福建建设船坞并造出第一艘轮船，由清廷派员勘验。",
+      "result": "福建船政从建厂立制进入实际造船阶段。",
+      "groups": [
+        "船政工匠",
+        "海军人员",
+        "福建民众"
+      ],
+      "quote": [
+        "創建福建船塢。",
+        "福建新造第一輪船成，命崇厚勘驗。"
+      ],
+      "unknown": [
+        "造船成本、性能、工匠规模和后续产量未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "FUJIAN-SHIPYARD-FIRST-STEAMSHIP-1867-1869",
+        "summary": "福建船坞建成并造出首艘轮船。",
+        "continuity": "continued_within_reign",
+        "phase": "建造投产",
+        "purpose": "海军造船",
+        "operation_result": "首艘轮船完成"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-MARITIME-SELF-STRENGTHENING-1870",
+      "time": [
+        "同治九年七月至十月",
+        "1870",
+        "range"
+      ],
+      "subject": "清廷与闽沪船厂、沿海督抚",
+      "action": "清廷要求闽沪轮船长期训练、广东筹备轮船，建成天津制造局，并在大沽、北塘修筑炮台。",
+      "result": "海军、军工与北方海防被纳入持续自强建设。",
+      "groups": [
+        "海军官兵",
+        "军工匠员",
+        "沿海民众"
+      ],
+      "quote": [
+        "欲捍外侮圖自強，非二十年之久，未易收效。",
+        "閩、滬兩廠輪船告成",
+        "廣東亦應籌備輪船",
+        "天津製造局成。",
+        "築大沽、北塘炮台。"
+      ],
+      "unknown": [
+        "各项目投资、兵额、舰数和训练成效未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "MARITIME-SELF-STRENGTHENING-1870",
+        "summary": "清廷推动闽沪粤轮船、天津制造局和大沽炮台建设。",
+        "continuity": "continued_within_reign",
+        "phase": "扩建训练",
+        "purpose": "海防与军工",
+        "operation_result": "设施建成、训练持续"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-CHANGJIANG-NAVY-1868-1872",
+      "time": [
+        "同治七年五月",
+        "同治十一年二月",
+        "range"
+      ],
+      "subject": "彭玉麟等与长江水师",
+      "action": "清廷创设长江水师，设岳州、汉阳、湖口、瓜州四镇总兵，并命彭玉麟巡阅整顿。",
+      "result": "战后长江水上防务形成常设建制。",
+      "groups": [
+        "水师官兵",
+        "沿江民众",
+        "漕运商民"
+      ],
+      "quote": [
+        "創設長江水師，置岳州、漢陽、湖口、瓜州四鎮總兵官。",
+        "命彭玉麟赴江、皖會籌長江水師事宜。",
+        "起彭玉麟巡閱長江水師。"
+      ],
+      "unknown": [
+        "兵舰规模、经费和防务成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CHANGJIANG-NAVY-1868",
+        "summary": "长江水师四镇建制建立并持续巡阅整顿。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "public_works",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-BURLINGAME-MISSION-1867",
+      "time": [
+        "同治六年十月至十一月",
+        "1867",
+        "range"
+      ],
+      "subject": "清廷、蒲安臣、志刚、孙家谷等",
+      "action": "清廷派美国前使蒲安臣及中国官员出访有约各国，办理中外交涉。",
+      "result": "清廷首次组织常设性质的外交使团出访多国。",
+      "groups": [
+        "外交官员",
+        "中外商民"
+      ],
+      "quote": [
+        "派美前使蒲安臣往有約各國辦理中外交涉。",
+        "命道員志剛、郎中孫家穀往有約各國充辦理交涉事務大臣。"
+      ],
+      "unknown": [
+        "访问成果、条约文本和费用未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BURLINGAME-MISSION-1867",
+        "summary": "清廷组织蒲安臣使团出访有约各国。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-TIANJIN-MASSACRE-1870",
+      "time": [
+        "同治九年五月至九月",
+        "1870",
+        "range"
+      ],
+      "subject": "天津民众、法国领事教士与曾国藩、李鸿章等清廷官员",
+      "action": "天津民教冲突中教堂被焚、法国领事等被杀；清廷派曾国藩等查办，处死十五名凶犯、遣戍地方官并由崇厚赴法交涉。",
+      "result": "天津教案以惩办中国官民和外交交涉暂时收束。",
+      "cost": "法领事及教士教民死亡人数本纪未完整列明，处死十五人。",
+      "groups": [
+        "天津民众",
+        "天主教徒",
+        "法国外交传教人员",
+        "地方官员"
+      ],
+      "quote": [
+        "天津人與天主教啟釁，焚毀教堂，毆斃法領事。",
+        "命曾國藩與崇厚會商辦理。",
+        "命崇厚為出使法國大臣。",
+        "誅逞兇殺害之犯十五人。"
+      ],
+      "unknown": [
+        "全部死亡人数、赔偿与外交协议细目未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TIANJIN-MASSACRE-1870",
+        "summary": "天津教案后清廷惩凶、处分官员并派使赴法。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-COASTAL-TELEGRAPH-1870",
+      "time": [
+        "同治九年五月",
+        "1870",
+        "month"
+      ],
+      "subject": "清廷与英国方面",
+      "action": "清廷开始允许英国在沿海各口设置电线。",
+      "result": "沿海电报基础设施获得政策准入。",
+      "groups": [
+        "沿海商民",
+        "通信人员"
+      ],
+      "quote": [
+        "始允英國設置沿海各口電線。"
+      ],
+      "unknown": [
+        "线路位置、建设主体、费用和使用权限未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "COASTAL-TELEGRAPH-1870",
+        "summary": "清廷允许英国在沿海口岸设置电线。",
+        "continuity": "continued_within_reign",
+        "phase": "政策准入",
+        "purpose": "通信",
+        "operation_result": "准设，建设结果未载"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-JAPAN-TREATY-1871-1873",
+      "time": [
+        "同治九年十月",
+        "同治十二年六月",
+        "range"
+      ],
+      "subject": "清廷与日本政府",
+      "action": "日本请求立约通商，清廷派李鸿章等办理，随后完成换约并接待日本使臣。",
+      "result": "中日建立正式条约和外交关系。",
+      "groups": [
+        "中日商民",
+        "外交官员",
+        "通商口岸民众"
+      ],
+      "quote": [
+        "日本請立約通商",
+        "命李鴻章辦日本商約",
+        "日本換約成。",
+        "日使副島種臣"
+      ],
+      "unknown": [
+        "条约全文、税则和贸易影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SINO-JAPANESE-TREATY-1871-1873",
+        "summary": "清日完成立约换约并建立使节交往。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-TONGZHI-PERSONAL-RULE-1873",
+      "time": [
+        "同治十二年正月",
+        "1873",
+        "month"
+      ],
+      "subject": "同治帝与慈安、慈禧两太后",
+      "action": "两宫太后在亲政期届时训勉同治帝用人行政，同治帝宣布亲政并要求勤政爱民。",
+      "result": "持续十二年的垂帘听政形式结束，同治帝开始亲裁政务。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "兩宮皇太后以親政屆期",
+        "上親政，詔「恪遵慈訓，敬天法祖，勤政愛民」。"
+      ],
+      "unknown": [
+        "亲政后实际权力分工和两宫影响程度未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TONGZHI-PERSONAL-RULE-1873",
+        "summary": "同治帝结束垂帘时期并正式亲政。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V22-FOREIGN-ENVOY-AUDIENCE-1873",
+      "time": [
+        "同治十二年五月至六月",
+        "1873",
+        "range"
+      ],
+      "subject": "同治帝与日俄美英法荷等国使臣",
+      "action": "清廷允许各国公使觐见，同治帝在紫光阁接受多国使臣递交国书。",
+      "result": "外国驻华使臣觐见皇帝的外交仪式正式实施。",
+      "groups": [
+        "外交使臣",
+        "中央官员"
+      ],
+      "quote": [
+        "允各國公使覲見。",
+        "日使副島種臣、俄使倭良嘎哩、美使鏤斐迪、英使威妥瑪、法使熱福哩、荷使費果蓀覲見於紫光閣，呈遞國書。"
+      ],
+      "unknown": [
+        "礼仪细节和各国交涉成果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FOREIGN-ENVOY-AUDIENCE-1873",
+        "summary": "同治帝正式接见多国驻华使臣并受国书。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-QING-V22-CHINA-MERCHANTS-STEAM-NAVIGATION-1872",
+      "time": [
+        "同治十一年十一月",
+        "1872",
+        "month"
+      ],
+      "subject": "李鸿章与轮船招商局",
+      "action": "李鸿章奏设招商局，试办轮船运输江浙漕粮。",
+      "result": "官督商办轮船航运机构启动。",
+      "groups": [
+        "商人",
+        "航运人员",
+        "漕运民户"
+      ],
+      "quote": [
+        "李鴻章奏設招商局，試辦輪船分運江、浙漕糧。"
+      ],
+      "unknown": [
+        "资本、船数、运量和盈亏未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "CHINA-MERCHANTS-STEAM-NAVIGATION-1872",
+        "summary": "轮船招商局设立并试运江浙漕粮。",
+        "continuity": "continued_within_reign",
+        "phase": "设立试办",
+        "purpose": "近代航运与漕运",
+        "operation_result": "开始试办"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-TAX-LEVY-RELIEF-1867-1874",
+      "time": [
+        "同治六年二月",
+        "同治十三年八月",
+        "range"
+      ],
+      "subject": "清廷与各省纳税民户、商民",
+      "action": "清廷减广州米折、禁州县漕粮浮收，陆续裁减亩捐、厘捐和漕粮弊习，并禁止罂粟种植。",
+      "result": "部分地方战时和传统征收负担得到整顿，但执行效果未闭合。",
+      "groups": [
+        "农户",
+        "商民",
+        "漕粮民户"
+      ],
+      "quote": [
+        "減廣州屬徵收米折銀十九萬有奇，著為令。",
+        "申禁州縣浮收漕糧。",
+        "革高郵徵糧弊習。",
+        "詔查各省畝捐、釐捐及丁漕違制者，次第豁除。",
+        "詔各省酌裁釐局，禁種罌粟。"
+      ],
+      "unknown": [
+        "实际减征总额、执行范围和民生效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TAX-LEVY-RELIEF-1867-1874",
+        "summary": "同治后期整顿米折、漕粮、亩捐和厘捐等征收。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-MUDAN-INCIDENT-TAIWAN-1874",
+      "time": [
+        "同治十三年三月至十一月",
+        "1874",
+        "range"
+      ],
+      "subject": "日本军队、台湾原住民与沈葆桢等清廷官员",
+      "action": "日本以台湾番社事件为由出兵登陆，清廷调兵赴台、修海口炮台并与日使交涉，最终支付难民恤金及军费五十万，日军撤退。",
+      "result": "日本侵台危机以协议和赔款结束，台湾海防建设加速。",
+      "cost": "清廷支付五十万；双方与台湾居民伤亡未载。",
+      "groups": [
+        "台湾原住民",
+        "台湾民众",
+        "清军",
+        "日本军队"
+      ],
+      "quote": [
+        "日本兵船抵台灣登岸，與生番尋釁。",
+        "建台灣海口炮台，撫番社，撤疲兵。",
+        "以徐州唐定奎軍渡海赴台。",
+        "給日本難民恤金及台灣軍費共五十萬。",
+        "，日本退兵。癸"
+      ],
+      "unknown": [
+        "双方伤亡、炮台工程费和协议全文未载。"
+      ],
+      "battle": "CAMPAIGN-QING-JAPAN-TAIWAN-1874",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-COASTAL-DEFENSE-FINANCE-1874",
+      "time": [
+        "同治十三年六月至九月",
+        "1874",
+        "range"
+      ],
+      "subject": "清廷、沈葆桢、李鸿章等沿海督抚",
+      "action": "台湾危机中清廷要求节省非急支出、筹海防经费，并借洋款二百万供福建军饷，随后命李鸿章等系统条奏海防、练兵、造船和筹饷。",
+      "result": "海防建设形成全国性筹资和制度讨论，但长期方案未在本卷闭合。",
+      "groups": [
+        "沿海军民",
+        "纳税民户",
+        "海关与借款相关商民"
+      ],
+      "quote": [
+        "諭戶部撙節不急之需，豫籌海防經費。",
+        "允福建軍餉借用洋款二百萬，由海關稅分年抵還。",
+        "於總署條奏海防、練兵、簡器、造船、籌餉、用人、持久諸事"
+      ],
+      "unknown": [
+        "借款条件、后续海防预算和项目成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "COASTAL-DEFENSE-FINANCE-1874",
+        "summary": "台湾危机推动以洋款和关税筹海防经费。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-YUANMINGYUAN-REPAIR-RESTRAINT-1873-1874",
+      "time": [
+        "同治十二年十月",
+        "同治十三年八月",
+        "range"
+      ],
+      "subject": "同治帝、两宫太后与内务府",
+      "action": "清廷先限制圆明园仅修安佑宫驻跸殿宇，后再停修圆明园并改令三海工程力求节省。",
+      "result": "宫苑复建因财政与政治压力被压缩、停止。",
+      "groups": [
+        "宫廷役工",
+        "纳税民户"
+      ],
+      "quote": [
+        "僅治安佑宮為駐蹕殿宇，餘免興修。",
+        "停修圓明園工程。",
+        "諭修葺三海工程，力求撙節。"
+      ],
+      "unknown": [
+        "已支工程费、停工损失和三海工程规模未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "YUANMINGYUAN-REPAIR-RESTRAINT-1873-1874",
+        "summary": "圆明园修复被限制并停止，三海工程要求节省。",
+        "continuity": "single_event",
+        "phase": "限修停工",
+        "purpose": "宫苑修复",
+        "operation_result": "圆明园停修"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V22-TONGZHI-DEATH-SUCCESSION-1875",
+      "time": [
+        "同治十三年十二月",
+        "1875",
+        "month"
+      ],
+      "subject": "同治帝、慈安慈禧两太后与醇亲王之子载湉",
+      "action": "同治帝病重去世，两宫召集宗室和大臣，决定以醇亲王之子承继文宗为嗣皇帝。",
+      "result": "同治帝无嗣而崩，载湉被指定继承大统，光绪朝权力交接启动。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "上疾大漸，崩於養心殿，年十九。",
+        "以醇親王之子承繼文宗為嗣皇帝。"
+      ],
+      "unknown": [
+        "选定载湉的完整讨论与即位过程在本卷未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TONGZHI-DEATH-AND-GUANGXU-SUCCESSION-1875",
+        "summary": "同治帝去世后两宫指定载湉承继文宗。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1216 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-170",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷170",
+    "revision_ref": "2324276",
+    "start_locator": "理宗建道備德大功復興烈文仁武聖明安孝皇帝嘉熙四年",
+    "end_locator": "詔申嚴郡縣社倉科配之禁",
+    "overlap_context": "承卷169嘉熙三年末；本卷固定整頁自嘉熙四年至淳祐三年八月。",
+    "input_fingerprint": "46ce4668cbc714ddf6765eb902e2c2a87ff2e2e2f80bc3b583b2167d464722bc"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-170-001",
+      "time": "嘉熙四年正月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "臨安發生嚴重饑荒並出現暴力奪食與人口販賣。",
+      "result": "白晝道路無人敢行，城市秩序與民生瀕臨崩潰。",
+      "cost": "有人被殺後販肉，亦有人遭掠賣。",
+      "quote": "日未晡，路無行人",
+      "groups": [
+        "臨安饑民"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "都城大饑造成生命與治安危機。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "糧食短缺與市場失序。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-002",
+      "time": "嘉熙四年二月",
+      "loc": [
+        "沿江南北"
+      ],
+      "action": "南宋令督府、制置司和沿江州郡安置流民。",
+      "result": "沿江軍政機構被納入流民安置責任鏈。",
+      "quote": "舉行便安流民之政",
+      "groups": [
+        "沿江流民"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "安排沿江流民安置。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "向戰區機構配置安置責任。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-003",
+      "time": "嘉熙四年二月",
+      "loc": [
+        "萬州",
+        "夔門"
+      ],
+      "action": "蒙古安篤爾以巨筏和火力擊敗夔門宋軍舟師。",
+      "implementation": "順流乘巨筏，混置草舟，以弓弩密集射擊數百艘蜀船。",
+      "result": "蜀軍在夔門敗績。",
+      "quote": "蜀兵不能敵，敗績於夔門",
+      "battle": "BATTLE-LEAD-XZZTJ-170-E003"
+    },
+    {
+      "id": "CHF-XZZTJ-170-004",
+      "time": "嘉熙四年四月",
+      "loc": [
+        "四川"
+      ],
+      "action": "南宋撤回恢復鄭損官職的命令。",
+      "implementation": "程公許指出鄭損撤關外五州重屯導致蜀禍，朝廷遂收回成命。",
+      "result": "造成蜀防空虛的官員未獲復官。",
+      "quote": "乃詔收成命",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "依失守責任撤回復官方案。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E004"
+    },
+    {
+      "id": "CHF-XZZTJ-170-005",
+      "time": "嘉熙四年四月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋確立兩相輪日當筆與平章總綱制度。",
+      "implementation": "軍國重事由平章參酌，三省、樞密印亦由平章掌管。",
+      "result": "兩相並置下的文書和軍政權責獲得制度化分工。",
+      "quote": "平章總提其綱",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "調整宰執決策與印信權責。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-006",
+      "time": "嘉熙四年四月",
+      "loc": [
+        "紹興府"
+      ],
+      "action": "南宋因連年歉收蠲免紹興當年夏稅。",
+      "result": "紹興受災民戶獲減免夏季賦稅。",
+      "quote": "以紹興府薦饑，蠲今年夏稅",
+      "groups": [
+        "紹興受災民戶"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蠲免災區夏稅。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "緩解連年饑荒。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-007",
+      "time": "嘉熙四年四月",
+      "loc": [
+        "燕京",
+        "曲阜"
+      ],
+      "action": "蒙古搜集金代禮樂人員並開始製作登歌樂。",
+      "implementation": "孔元措得掌樂、掌禮及樂工九十二人，集中研習於曲阜孔廟。",
+      "result": "金代宮廷禮樂技藝被蒙古政權吸收重建。",
+      "quote": "得金掌樂許政、掌禮王節及樂工瞿剛等九十二人",
+      "groups": [
+        "金代禮樂人員"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重建國家禮樂制度。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-008",
+      "time": "嘉熙四年六月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋初置國用房。",
+      "result": "中央新增管理國家用度的專門機構。",
+      "quote": "初置國用房",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "設置國用管理機構。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "調整中央財政組織。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-009",
+      "time": "嘉熙四年六月至七月",
+      "loc": [
+        "江浙",
+        "福建",
+        "臨安"
+      ],
+      "action": "南宋因旱蝗開放直言並發錢賑濟臨安貧民。",
+      "implementation": "避殿減膳、錄囚求言，出封樁庫二十萬貫賑濟。",
+      "result": "都城貧民獲現金救助，旱蝗應對與政治自省同步展開。",
+      "quote": "出封樁庫緡錢二十萬貫賑臨安貧民",
+      "groups": [
+        "臨安貧民",
+        "旱蝗災民"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旱蝗和饑荒救濟。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "動用封樁庫二十萬貫。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "求言並錄囚。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-010",
+      "time": "嘉熙四年七月",
+      "loc": [
+        "南宋諸閫"
+      ],
+      "action": "朝廷禁止戰區官府以備邊為名經商和科斂。",
+      "implementation": "方來指出官販與科隆只使不廉者牟利，主張軍需明給錢。",
+      "result": "皇帝認可軍費應公開撥付而非隱性攤派。",
+      "quote": "不如明與之錢",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "反對以軍需名義科斂牟利。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "規範戰區財政行為。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-011",
+      "time": "嘉熙四年八月",
+      "loc": [
+        "南宋諸路"
+      ],
+      "action": "南宋禁止州縣收苗米時加量增收。",
+      "result": "納糧民戶獲得量制與額度保護。",
+      "quote": "毋得多量斛面及過數增收",
+      "groups": [
+        "納糧民戶"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止糧稅加量盤剝。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-012",
+      "time": "嘉熙四年九月",
+      "loc": [
+        "南宋境內"
+      ],
+      "action": "南宋推行十八界會子換收十六界並折定十七界比價。",
+      "implementation": "十七界以五准十八界一券，官民減折或違令可越訴並處罰。",
+      "result": "舊鈔兌換和新舊紙幣比價獲得強制規則。",
+      "quote": "將十七界以五准十八界一券行用",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "調整會子換界與折算。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立越級申訴和問責。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-013",
+      "time": "嘉熙四年十月",
+      "loc": [
+        "平江",
+        "嘉興",
+        "安吉",
+        "臨安"
+      ],
+      "action": "南宋禁止浙西糧食出海並保障米糧輸入臨安。",
+      "implementation": "禁平江、嘉興、安吉販米下海，不得阻攔販往臨安者，水軍協同執行。",
+      "result": "都城糧食供應獲優先保障。",
+      "quote": "其販至臨安府者，毋得遏糴",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "管制糧食流向以保都城供應。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "緩解臨安饑荒。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-014",
+      "time": "嘉熙四年十月",
+      "loc": [
+        "南宋境內"
+      ],
+      "action": "南宋申嚴對贓吏的監察懲治。",
+      "implementation": "令臺諫、監司持續察覺借新楮與行政權牟利者。",
+      "result": "貪腐與新鈔套利被列為專項監察對象。",
+      "quote": "其令臺諫、監司常切覺察",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "強化反貪監察。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "遏制新楮套利與民間盤剝。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-015",
+      "time": "嘉熙四年十月",
+      "loc": [
+        "襄陽",
+        "漢水",
+        "安慶",
+        "池州"
+      ],
+      "action": "張順以私財招集潰卒建立忠義、虎翼兩軍。",
+      "implementation": "收編襄漢潰卒並率軍援助安慶、池州。",
+      "result": "潰散兵源轉化為兩支可用軍隊。",
+      "quote": "以私錢招襄、漢潰卒創忠義、虎翼兩軍",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以私人資財創軍。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E015"
+    },
+    {
+      "id": "CHF-XZZTJ-170-016",
+      "time": "嘉熙四年十二月",
+      "loc": [
+        "蒙古州縣"
+      ],
+      "action": "蒙古改由失盜州縣以官物賠償。",
+      "implementation": "廢除原先強令百姓代償失盜官物的做法。",
+      "result": "民戶不再因官府未能捕盜而被迫賠償。",
+      "quote": "國初令民代償，民冬亡命，至是罷之",
+      "groups": [
+        "蒙古治下民戶"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "取消民戶代償官物。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "將治安失責成本歸還官府。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-017",
+      "time": "嘉熙四年閏十二月",
+      "loc": [
+        "蒙古境內"
+      ],
+      "action": "蒙古以官物代還高息債並限制利息上限。",
+      "implementation": "代償回鶻金七萬六千錠，規定久貸本息最多相等，並將俘虜男女籍為民。",
+      "result": "羊羔息高利貸被限制，大批債務與奴籍負擔獲緩解。",
+      "quote": "惟子母相侔而止，著為令",
+      "groups": [
+        "負債官民",
+        "被俘男女"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "代償高利債並限制利息。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "將俘虜轉為編戶民。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-018",
+      "time": "淳祐元年正月",
+      "loc": [
+        "南宋學宮"
+      ],
+      "action": "南宋將周敦頤、張載、二程、朱熹列入從祀並黜王安石。",
+      "result": "理學道統獲官方崇奉，王安石被排除於孔廟從祀。",
+      "quote": "其令學宮列諸從祀",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重定官方儒學正統。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-019",
+      "time": "淳祐元年二月",
+      "loc": [
+        "蒙古宮廷"
+      ],
+      "action": "蒙古太宗病危時依法赦免囚徒。",
+      "implementation": "耶律楚材拒絕皇后擅赦，待太宗首肯後發布赦令。",
+      "result": "囚徒獲赦，君命程序亦被維持；太宗翌日病癒。",
+      "quote": "非君命不可",
+      "groups": [
+        "蒙古囚徒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "維持赦令合法程序。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "釋放囚徒。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-020",
+      "time": "淳祐元年三月",
+      "loc": [
+        "應州"
+      ],
+      "action": "蒙古劉嶷從輕處置應州叛亂脅從者。",
+      "implementation": "僅誅首犯數人，五百餘名受脅與誤從者從輕。",
+      "result": "大規模連坐屠殺被阻止。",
+      "quote": "止誅其為首者數人，餘悉從輕典",
+      "groups": [
+        "應州脅從者"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "區分首犯與脅從的司法處置。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保全五百餘人。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-021",
+      "time": "淳祐元年五月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋重申中書、樞密院可駁回違理內降。",
+      "implementation": "採納仁宗舊制，背理求恩、負罪求貸者不得因內廷請托獲准。",
+      "result": "內廷特旨被置於法定審核之下。",
+      "quote": "求內降者，中書、樞密院執奏毋得行",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制內廷干預行政司法。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-022",
+      "time": "淳祐元年六月",
+      "loc": [
+        "南宋諸路"
+      ],
+      "action": "南宋要求監司遍察貪殘官吏並追究失察者。",
+      "implementation": "須廉得實跡、列名上報；監司庸懦不舉職則由臺諫彈劾。",
+      "result": "反貪責任同時落在地方監察與中央臺諫。",
+      "quote": "其有貪殘掊克者，廉其實跡，悉以名聞",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立反貪與失察雙重問責。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "遏制官吏盤剝。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-023",
+      "time": "淳祐元年七月",
+      "loc": [
+        "婺州",
+        "常州",
+        "江陰",
+        "廣德"
+      ],
+      "action": "南宋獎勵四地辦理濟糴有功官員。",
+      "result": "地方平糶救荒被納入官員考獎。",
+      "quote": "濟糴有勞，各進一秩",
+      "groups": [
+        "糧荒民戶"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "推動地方平糶救荒。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以升秩獎勵救荒績效。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-024",
+      "time": "淳祐元年八月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋限期彙整國史稿並校對日曆、會要。",
+      "implementation": "玉牒所與國史實錄院刪潤歸一，秘書省點對，限十一月底成書。",
+      "result": "分散史稿進入統一校勘與定稿流程。",
+      "quote": "會稡史稿，刪潤歸一",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "規範官方史書編纂。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-025",
+      "time": "淳祐元年八月",
+      "loc": [
+        "高麗",
+        "蒙古"
+      ],
+      "action": "高麗敗後以宗室子為質，向蒙古求和。",
+      "implementation": "蒙古要求高麗王入朝方罷兵，高麗王改遣族子綧質蒙古。",
+      "result": "高麗恢復入貢並以人質換取停戰，王本人未入朝。",
+      "quote": "乃以其族子綧為質於蒙古",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "高麗以入貢與人質議和。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E025"
+    },
+    {
+      "id": "CHF-XZZTJ-170-026",
+      "time": "淳祐元年十月",
+      "loc": [
+        "南宋諸路"
+      ],
+      "action": "南宋禁止挪用常平折變與義倉資源。",
+      "implementation": "常平不得侵移，義倉須分項封存並將安排報尚書省。",
+      "result": "救荒糧資獲得專項保護。",
+      "quote": "其義倉令項樁收",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "封存常平義倉資源。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保障救荒糧源。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-027",
+      "time": "淳祐元年十月",
+      "loc": [
+        "安豐"
+      ],
+      "action": "余玠以舟師擊退圍攻安豐的蒙古軍。",
+      "result": "安豐之圍解除。",
+      "quote": "以舟師戰卻之",
+      "battle": "BATTLE-LEAD-XZZTJ-170-E027"
+    },
+    {
+      "id": "CHF-XZZTJ-170-028",
+      "time": "淳祐元年十月",
+      "loc": [
+        "燕京"
+      ],
+      "action": "蒙古查實並罷免受賄專權的伊囉斡齊。",
+      "implementation": "伊囉斡齊誣陷劉敏，蒙古主遣使核實後令劉敏獨任。",
+      "result": "行省賄政與誣告遭糾正。",
+      "quote": "遣使詰問得實，罷伊囉斡齊",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "核查罷免貪賄行省官。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-029",
+      "time": "淳祐元年十一月",
+      "loc": [
+        "成都",
+        "漢州"
+      ],
+      "action": "蒙古借內應攻陷成都並屠漢州。",
+      "implementation": "田世顯夜開成都北門；陳隆之拒降被殺，王夔突圍後漢州失守。",
+      "result": "成都、漢州相繼陷落。",
+      "cost": "陳隆之一家數百口死亡，漢州居民遭屠。",
+      "quote": "漢州遂為蒙古所屠",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "守臣家族與漢州居民遭殺戮。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E029"
+    },
+    {
+      "id": "CHF-XZZTJ-170-030",
+      "time": "淳祐元年十二月",
+      "loc": [
+        "東平"
+      ],
+      "action": "嚴忠濟在東平建廟學並供養數百生徒。",
+      "implementation": "宋子貞與商挺主持興學，延康昱、王磐為教官，出粟供給並每季考試。",
+      "result": "齊魯儒學風氣顯著改變。",
+      "quote": "招致生徒幾百人，出粟贍之",
+      "groups": [
+        "東平生徒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立地方官學和考課。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "出糧供養學生。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-031",
+      "time": "淳祐元年十二月",
+      "loc": [
+        "淮上",
+        "長沙飛虎寨"
+      ],
+      "action": "南宋守將脅降蒙古議和使團並將其囚禁。",
+      "implementation": "以兵威逼伊埒默色降宋未果，將使者拘押飛虎寨。",
+      "result": "來議和的七十餘人失去自由，外交使命中斷。",
+      "quote": "乃囚之長沙飛虎寨",
+      "groups": [
+        "蒙古議和使團"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拘押外交使團。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-032",
+      "time": "淳祐二年正月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋進呈四朝史並頒重修敕令格式。",
+      "implementation": "史嵩之改寫甯宗紀涉及濟王與潛邸內容，異議稿由李心傳另存。",
+      "result": "官史和法典完成進呈，但史書內容存在權相干預爭議。",
+      "quote": "妄加毀譽，斯得等爭之不能得",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修史頒法並暴露史筆干預。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-033",
+      "time": "淳祐二年三月",
+      "loc": [
+        "沿江",
+        "兩淮"
+      ],
+      "action": "南宋將和州、無為軍、安慶府納入沿江制置司節制。",
+      "result": "沿江與兩淮脣齒地區的軍事指揮獲得整合。",
+      "quote": "聽沿江制置司節制",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "調整戰區管轄。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E033"
+    },
+    {
+      "id": "CHF-XZZTJ-170-034",
+      "time": "淳祐二年三月",
+      "loc": [
+        "南宋邊區"
+      ],
+      "action": "南宋禁止帥閫和邊戎司杖責州縣官。",
+      "result": "邊區軍事機構對地方文官的體罰權被取消。",
+      "quote": "今後州且官犯罪，毋加杖責",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制軍府對地方官的司法權。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-035",
+      "time": "淳祐二年四月至六月",
+      "loc": [
+        "重慶",
+        "夔峽",
+        "四川"
+      ],
+      "action": "南宋確立以重慶、夔峽為核心的蜀防重建方略。",
+      "implementation": "多次廷議指出成都難守、重慶可接利閬下應歸峽，遂派余玠宣諭四川並准機務先行後奏。",
+      "result": "蜀防重心轉向重慶和夔峽，余玠獲得跨制司處置權。",
+      "quote": "應事干機速，許同制臣公共措置，先行後奏",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "向余玠授予便宜權。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E035"
+    },
+    {
+      "id": "CHF-XZZTJ-170-036",
+      "time": "淳祐二年四月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋下令明堂大禮除祭祀和軍賞外全面節省。",
+      "result": "乘輿服御及中外大費被要求削減。",
+      "quote": "其乘輿服御，中外大費，並從省約",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "節省典禮與宮廷開支。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-037",
+      "time": "淳祐二年六月",
+      "loc": [
+        "安豐"
+      ],
+      "action": "南宋撥紙幣十萬與米二萬斛修備安豐。",
+      "result": "安豐軍獲得軍械修整與守備物資。",
+      "quote": "十七界楮幣十萬，米二萬斛",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "撥付紙幣與糧食。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E037"
+    },
+    {
+      "id": "CHF-XZZTJ-170-038",
+      "time": "淳祐二年六月至八月",
+      "loc": [
+        "浙西",
+        "常州",
+        "潤州",
+        "建康",
+        "兩淮",
+        "紹興",
+        "婺州"
+      ],
+      "action": "南宋應對江淮浙西大水並賑濟蠲賦。",
+      "implementation": "出封樁庫十七界會子十萬，撫集流民並蠲減秋賦。",
+      "result": "多地水災民戶獲紙幣救濟和稅負減免。",
+      "quote": "賑紹興、外、婺水澇之民",
+      "groups": [
+        "江淮浙西水災災民"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "賑濟並安置水災流民。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "撥紙幣與蠲秋賦。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-039",
+      "time": "淳祐二年七月",
+      "loc": [
+        "五河口",
+        "揚州",
+        "滁州",
+        "和州",
+        "蕭縣",
+        "天長"
+      ],
+      "action": "蒙古張柔渡淮攻掠多州，宋忠勇軍在天長戰沒。",
+      "result": "揚滁和蕭一帶受侵，王溫等二十四將戰死。",
+      "cost": "忠勇軍統領二十四人全部戰沒。",
+      "quote": "王溫等二十四人戰於天長縣東，皆沒",
+      "battle": "BATTLE-LEAD-XZZTJ-170-E039"
+    },
+    {
+      "id": "CHF-XZZTJ-170-040",
+      "time": "淳祐二年九月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋建立中央各機構資產交接清冊。",
+      "implementation": "核實錢穀、貨幣、器用、圖書後一份上朝、一份留司，長官更替聯銜申報並受御史監察。",
+      "result": "中央官署資產形成雙份登記與離任交接制度。",
+      "quote": "核實載籍，上之於朝，副在有司",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立官署資產交接問責。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "核實錢穀貨幣與器物。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-041",
+      "time": "淳祐二年十月至十二月",
+      "loc": [
+        "通州"
+      ],
+      "action": "通州守臣杜霆攜私財逃走，蒙古破城屠民，朝廷其後重罰杜霆。",
+      "implementation": "通州士庶控訴其誤民棄土，朝廷追毀出身文書並羈管南雄。",
+      "result": "通州失陷與屠城，棄守官員遭剝奪資格和流放。",
+      "cost": "通州居民遭蒙古屠殺。",
+      "quote": [
+        "城破，蒙古屠其民",
+        "羈官南雄州"
+      ],
+      "groups": [
+        "通州居民"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "居民遭屠。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追究棄城責任。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E041"
+    },
+    {
+      "id": "CHF-XZZTJ-170-042",
+      "time": "淳祐二年十一月",
+      "loc": [
+        "南宋諸軍"
+      ],
+      "action": "南宋提前發放雪寒錢並加倍補助出戍軍人。",
+      "result": "軍隊冬季生活保障獲得補充。",
+      "quote": "先給諸軍雪寒錢，出戍者倍之",
+      "groups": [
+        "南宋軍人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "發放雪寒補助。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E042"
+    },
+    {
+      "id": "CHF-XZZTJ-170-043",
+      "time": "淳祐三年正月",
+      "loc": [
+        "襄城"
+      ],
+      "action": "蒙古張柔分遣十將在襄城屯田。",
+      "result": "蒙古軍在前線建立持續供糧與駐屯基地。",
+      "quote": "分遣部下將十人屯田於襄城",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以屯田供應軍糧。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E043"
+    },
+    {
+      "id": "CHF-XZZTJ-170-044",
+      "time": "淳祐三年四月",
+      "loc": [
+        "嚴州"
+      ],
+      "action": "南宋查辦侵取酒息官員並獎勵廉吏。",
+      "implementation": "李彌高、趙與汶各奪兩官，衛湜因一無所私進兩等。",
+      "result": "同一案件形成獎廉黜貪的對照處置。",
+      "quote": "獎廉黜貪，今日先務",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以升黜落實廉政考核。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追究侵取酒息。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-045",
+      "time": "淳祐三年五月",
+      "loc": [
+        "和林"
+      ],
+      "action": "耶律楚材抵制蒙古皇后向溫都爾哈瑪爾授空白御寶文書。",
+      "implementation": "拒絕執行不合憲章的建白，面對斷書吏之手的威脅仍持續爭辯。",
+      "result": "皇后未能任意殺害楚材，但溫都爾哈瑪爾的特權是否收回不詳。",
+      "quote": "朝廷自有憲章，今欲紊之，臣不敢奉詔",
+      "unknown": [
+        "空白御寶文書最終是否全部收回不詳。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "抵制繞過制度的空白授權。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-046",
+      "time": "淳祐三年六月",
+      "loc": [
+        "嘉定"
+      ],
+      "action": "南宋依法懲治嘉定縣官貪贓。",
+      "implementation": "大理寺審結後，知縣與縣尉除名勒停並分別遠地羈管。",
+      "result": "地方貪贓案件完成中央司法裁判。",
+      "quote": "等贓狀，獄成",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "司法審理並懲治地方貪官。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-170-047",
+      "time": "淳祐三年七月",
+      "loc": [
+        "京口"
+      ],
+      "action": "南宋抽調京湖、沿江兵組建殿司策應軍。",
+      "implementation": "新軍集中屯駐京口。",
+      "result": "中央獲得可支援沿江戰區的機動兵力。",
+      "quote": "置殿司策應軍，屯京口",
+      "battle": "BATTLE-LEAD-XZZTJ-170-E047"
+    },
+    {
+      "id": "CHF-XZZTJ-170-048",
+      "time": "淳祐三年八月",
+      "loc": [
+        "福建沿海"
+      ],
+      "action": "南宋組織福建民船輪番戍守並新建武濟水軍。",
+      "implementation": "團結福泉漳興化民船，合併延祥、荻蘆二寨，抽廂禁軍中習水者一千五百人。",
+      "result": "福建沿海形成民船支援與常備水軍結合的防務。",
+      "quote": "置武濟水軍",
+      "groups": [
+        "福建民船戶",
+        "水軍士兵"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整併海防寨兵。"
+        ]
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-170-E048"
+    },
+    {
+      "id": "CHF-XZZTJ-170-049",
+      "time": "淳祐三年八月",
+      "loc": [
+        "南宋郡縣"
+      ],
+      "action": "南宋申嚴社倉不得強制攤派。",
+      "result": "地方民戶獲得免受社倉科配的制度保護。",
+      "quote": "申嚴郡縣社倉科配之禁",
+      "groups": [
+        "地方民戶"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止社倉名義的強制攤派。"
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "卷內年號僅作頁內時間，不據此切分卷界。",
+    "同日同主體同目標的連續因果鏈合併，跨地、跨主體或結果獨立者分卡。",
+    "純任免、禮儀、災異記錄及未落地議論不單獨建卡；史料未明者保持unknown。"
+  ]
+}

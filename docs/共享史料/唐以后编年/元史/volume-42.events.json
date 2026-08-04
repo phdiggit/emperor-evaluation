@@ -1,0 +1,1657 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-042-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-042-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷042",
+    "revision_ref": "1814439",
+    "start_locator": "至正九年山东河南都水监与吴天保再乱",
+    "end_locator": "至正十二年末平乱抚民与京畿屯田议",
+    "overlap_context": "承卷41至正八年吴天保、方国珍及监察谏疏。",
+    "input_fingerprint": "f20241b66214d3a7d7852cae9861e4ee5b4b22f86c659716e2668dd9fa9e9781"
+  },
+  "limitations": [
+    "普通任免、礼仪、来贡和星象不单列。",
+    "武装行动交战役工作流。",
+    "同期灾赈与同一叛乱连续阶段合并，未知保持未知。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-042-E01-RIVER-WORKS-1349",
+      "time": "至正九年正月至五月",
+      "loc": [
+        "山东",
+        "河南",
+        "坝河",
+        "黄河金堤"
+      ],
+      "action": "朝廷立行都水监专治河患，发军民各万人疏浚坝河，并修黄河金堤、按日给役夫钞。",
+      "result": "河患治理形成专门机构并投入大规模人力。",
+      "quote": [
+        "立山東河南等處行都水監，專治河患",
+        "以軍士、民夫各一萬濬之",
+        "詔修黃河金堤，民夫日給鈔三貫"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-RIVER-WORKS-1349",
+        "candidate": "WORK-CAND-YUAN-RIVER-WORKS-1349",
+        "summary": "设监疏河修堤。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "黄河与坝河治理。",
+          "phase": "机构设置和施工。",
+          "purpose": "疏运防洪。",
+          "resource_input": "军民二万人及日钞。",
+          "operation": "疏河修堤。",
+          "benefit": "专门治河。",
+          "harm": "成效未载。"
+        }
+      },
+      "unknown": [
+        "总工期、总支出与成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E02-WUTIANBAO-DAOZHOU-1349",
+      "time": "至正九年正月至十二月",
+      "loc": [
+        "道州",
+        "沅州",
+        "辰州"
+      ],
+      "action": "广西猺军再陷道州后被郑均击退，吴天保又寇沅州并于年末陷辰州。",
+      "result": "湖广猺乱持续扩张，地方反复失守。",
+      "quote": [
+        "廣西徭賊復陷道州，萬戶鄭均擊走之",
+        "賊吳天保復寇沅州",
+        "徭賊吳天保陷辰州"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-WUTIANBAO-1349",
+          [],
+          "吴天保与猺军再攻道沅辰州。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力、伤亡与辰州后续未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E03-HEJIAN-SALT-RELIEF",
+      "time": "至正九年四月壬午",
+      "loc": [
+        "河间"
+      ],
+      "action": "河间盐运司因水灾获准停煎盐三万引。",
+      "result": "灾区盐业定额得到明确减免。",
+      "quote": [
+        "以河間鹽運司水災",
+        "住煎鹽三萬引"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-HEJIAN-SALT-RELIEF",
+        "candidate": "FIN-CAND-YUAN-HEJIAN-SALT-RELIEF",
+        "summary": "河间停煎盐三万引。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "河间水灾。",
+          "fiscal_state": "停煎三万引。",
+          "livelihood_state": "盐户负担减轻。",
+          "production_circulation": "盐产暂减。"
+        }
+      },
+      "unknown": [
+        "受益盐户与财政减收未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E04-LOCAL-OFFICIAL-SUPERVISION",
+      "time": "至正九年五月",
+      "loc": [
+        "全国"
+      ],
+      "action": "朝廷令翰林国史院等荐举守令，并制定路督府、府督州、州督县的逐级督摄法。",
+      "result": "地方官荐举与层级监督制度被重整。",
+      "quote": [
+        "命翰林國史院等官薦舉守令",
+        "定守令督攝之法",
+        "路督攝府，府督攝州，州督攝縣"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-LOCAL-OFFICIAL-SUPERVISION",
+        "candidate": "POL-CAND-YUAN-LOCAL-OFFICIAL-SUPERVISION",
+        "summary": "荐举守令并定督摄法。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "地方行政整顿。",
+          "decision_question": "如何选任监督守令。",
+          "alternatives": "沿用旧制。",
+          "decision": "荐举并逐级督摄。",
+          "direct_result": "建立层级责任。",
+          "power_change": "上级督摄加强。",
+          "risk_or_damage": "执行效果未载。",
+          "follow_up": "至正十二年再改革守令选用。"
+        }
+      },
+      "unknown": [
+        "荐举人数与黜陟结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E05-FLOOD-FAMINE-1349",
+      "time": "至正九年五月至七月",
+      "loc": [
+        "沛县",
+        "汉阳",
+        "高唐",
+        "江汉"
+      ],
+      "action": "白茅河、蜀江及江汉相继泛滥，高唐城被淹，民居禾稼漂没并发生大饥。",
+      "result": "多地洪水造成城市、农业和民生重创。",
+      "quote": [
+        "白茅河東注沛縣，遂成巨浸",
+        "蜀江大溢，浸漢陽城，民大饑",
+        "水沒高唐州城；江、漢溢，漂沒民居、禾稼"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-FLOOD-FAMINE-1349",
+        "candidate": "FIN-CAND-YUAN-FLOOD-FAMINE-1349",
+        "summary": "多地洪水大饥。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "河江泛滥。",
+          "fiscal_state": "本条未载赈济。",
+          "livelihood_state": "大饥、民居漂没。",
+          "production_circulation": "禾稼受毁。"
+        }
+      },
+      "unknown": [
+        "伤亡、田亩与赈额未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E06-HAMA-IMPEACHMENT",
+      "time": "至正九年七月",
+      "loc": [
+        "大都",
+        "陕西"
+      ],
+      "action": "斡勒海寿三次弹劾哈麻兄弟，朝廷最终夺其官，却外放弹劾者并调离御史大夫韩嘉讷。",
+      "result": "权臣被罢官，但监察官亦遭外调。",
+      "quote": [
+        "劾奏殿中侍御史哈麻及其弟雪雪罪惡",
+        "章三上，詔奪哈麻、雪雪官",
+        "出海壽為陝西廉訪副使"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HAMA-IMPEACHMENT",
+        "candidate": "POL-CAND-YUAN-HAMA-IMPEACHMENT",
+        "summary": "哈麻被劾夺官。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "权臣监察案。",
+          "decision_question": "如何处置弹劾。",
+          "alternatives": "不省。",
+          "decision": "夺官并外调监察者。",
+          "direct_result": "哈麻兄弟暂失官。",
+          "power_change": "监察者离京。",
+          "risk_or_damage": "政治报复风险。",
+          "follow_up": "哈麻后复任。"
+        }
+      },
+      "unknown": [
+        "具体罪状与审理结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E07-CROWN-PRINCE-EDUCATION",
+      "time": "至正九年七月至十月",
+      "loc": [
+        "大都端本堂"
+      ],
+      "action": "皇太子开始学习汉文，朝廷设谕德、赞善、文学并令其入端本堂肄业，由脱脱等领堂授书。",
+      "result": "皇储汉文教育形成固定机构和教学秩序。",
+      "quote": [
+        "命太子愛猷識理達臘習學漢人文書",
+        "皇太子愛猷識理達臘自是日為始入端本堂肄業",
+        "太子與師傅分東西向坐授書"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CROWN-PRINCE-EDUCATION",
+        "candidate": "POL-CAND-YUAN-CROWN-PRINCE-EDUCATION",
+        "summary": "太子入端本堂学汉文。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "储位教育制度。",
+          "decision_question": "如何教育皇储。",
+          "alternatives": "旧式宫中教育。",
+          "decision": "端本堂系统授书。",
+          "direct_result": "师傅官属就位。",
+          "power_change": "太子文教基础加强。",
+          "risk_or_damage": "未载。",
+          "follow_up": "持续肄业。"
+        }
+      },
+      "unknown": [
+        "课程、学习成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E08-POLICY-PROPOSAL-SCREENING",
+      "time": "至正九年九月甲子",
+      "loc": [
+        "全国"
+      ],
+      "action": "朝廷规定中外建言利害者所陈事项须由专官筛选可行内容上报。",
+      "result": "政策建议进入制度化甄别程序。",
+      "quote": [
+        "凡建言中外利害者",
+        "詔委官選其可行之事以聞"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-POLICY-PROPOSAL-SCREENING",
+        "candidate": "POL-CAND-YUAN-POLICY-PROPOSAL-SCREENING",
+        "summary": "建言由委官择可行者。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政策议程程序。",
+          "decision_question": "如何处理建言。",
+          "alternatives": "直接上达或搁置。",
+          "decision": "委官筛选。",
+          "direct_result": "建言纳入审查。",
+          "power_change": "筛选官掌议程。",
+          "risk_or_damage": "可能阻断异议。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "入选建言数量与执行结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E09-OFFICIAL-PAY-REFORM",
+      "time": "至正九年岁末",
+      "loc": [
+        "全国"
+      ],
+      "action": "朝廷下令裁汰冗官、均平俸禄，并赐致仕官及高年者帛。",
+      "result": "官僚规模和待遇获调整，同时照顾退休及高龄者。",
+      "quote": [
+        "詔汰冗官，均俸祿",
+        "賜致仕官及高年帛"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-OFFICIAL-PAY-REFORM",
+        "candidate": "FIN-CAND-YUAN-OFFICIAL-PAY-REFORM",
+        "summary": "汰冗官均俸禄赐高年。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "冗官与俸禄不均。",
+          "fiscal_state": "裁员调薪并赐帛。",
+          "livelihood_state": "致仕官与高年获益。",
+          "production_circulation": "未载。"
+        }
+      },
+      "unknown": [
+        "裁员数、调薪额与赐帛数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E10-CANAL-REFORM-EIGHT",
+      "time": "至正九年岁末",
+      "loc": [
+        "京畿",
+        "通州",
+        "临清",
+        "运河"
+      ],
+      "action": "贾鲁提出漕运二十余策，朝廷采纳和籴、优恤漕户、疏河、调整管辖等八项。",
+      "result": "漕运人户、组织和河道治理获得综合改革。",
+      "quote": [
+        "漕運使賈魯建言便益二十餘事，從其八事",
+        "優卹漕司舊領漕戶",
+        "曰疏濬運河"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CANAL-REFORM-EIGHT",
+        "candidate": "FIN-CAND-YUAN-CANAL-REFORM-EIGHT",
+        "summary": "采纳贾鲁漕运八策。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "漕户与坝运有弊。",
+          "fiscal_state": "调整和籴及运粮组织。",
+          "livelihood_state": "优恤旧漕户。",
+          "production_circulation": "疏浚运河、统一节制。"
+        }
+      },
+      "unknown": [
+        "实施成本与运量变化未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E11-CAOQIQI-REBELLION",
+      "time": "至正九年岁末",
+      "loc": [
+        "平遥"
+      ],
+      "action": "曹七七起兵反叛，朝廷遣刑部郎中和兵马指挥讨平。",
+      "result": "平遥地方叛乱被镇压。",
+      "quote": [
+        "冀寧平遙等縣曹七七反",
+        "命刑部郎中八十、兵馬指揮沙不丁討平之"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-CAOQIQI-1349",
+          [],
+          "曹七七反叛后被官军讨平。"
+        ]
+      ],
+      "unknown": [
+        "兵力、伤亡与处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E12-CURRENCY-REFORM-1350",
+      "time": "至正十年四月至十一月",
+      "loc": [
+        "全国",
+        "京城"
+      ],
+      "action": "多名官员建议更改钞法，经省台院集议后设宝泉司，确定中统钞、至元钞与新铸至正通宝钱并用。",
+      "result": "货币体系改为钞钱并行并增设铸币管理机构。",
+      "quote": [
+        "左司都事武祺建言更鈔法",
+        "置諸路寶泉都提舉司於京城",
+        "仍鑄至正通寶錢並用，以實鈔法"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CURRENCY-REFORM-1350",
+        "candidate": "FIN-CAND-YUAN-CURRENCY-REFORM-1350",
+        "summary": "更钞法并铸至正通宝。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "旧钞法待改。",
+          "fiscal_state": "钞钱比价并行。",
+          "livelihood_state": "币值影响未载。",
+          "production_circulation": "设宝泉司铸钱。"
+        }
+      },
+      "unknown": [
+        "发行量、兑换量与物价影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E13-MEDICAL-RITES-REFORM",
+      "time": "至正十年九月辛酉",
+      "loc": [
+        "全国"
+      ],
+      "action": "朝廷将三皇祭祀提升至孔子礼制等级，补齐祭器、雅乐、仪式和乐章。",
+      "result": "医学祭祀礼仪被国家统一规范。",
+      "quote": [
+        "祭三皇，如祭孔子禮",
+        "敕工部具祭器，江浙行省造雅樂",
+        "太常定儀式，翰林撰樂章"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MEDICAL-RITES-REFORM",
+        "candidate": "POL-CAND-YUAN-MEDICAL-RITES-REFORM",
+        "summary": "规范三皇祭礼。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "国家礼制改革。",
+          "decision_question": "三皇祭礼如何完备。",
+          "alternatives": "继续由医官简祀。",
+          "decision": "比照孔子礼。",
+          "direct_result": "器乐仪章齐备。",
+          "power_change": "多机构共同制定。",
+          "risk_or_damage": "未载。",
+          "follow_up": "至是用之。"
+        }
+      },
+      "unknown": [
+        "祭礼成本与地方执行未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E14-CAPITAL-RIVER-REPAIRS",
+      "time": "至正十年九月至十二月",
+      "loc": [
+        "白河",
+        "大都"
+      ],
+      "action": "枢密院发军士五百修白河堤，年末又修大都城。",
+      "result": "京畿河防与城防得到维护。",
+      "quote": [
+        "以軍士五百修築白河堤",
+        "十二月壬午朔，修大都城"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-CAPITAL-RIVER-REPAIRS",
+        "candidate": "WORK-CAND-YUAN-CAPITAL-RIVER-REPAIRS",
+        "summary": "修白河堤与大都城。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "京畿堤防城防。",
+          "phase": "施工。",
+          "purpose": "防洪防御。",
+          "resource_input": "军士五百。",
+          "operation": "修堤修城。",
+          "benefit": "维护京畿设施。",
+          "harm": "未载。"
+        }
+      },
+      "unknown": [
+        "城役人数、工期和费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E15-ANTI-BANDIT-COMMANDS",
+      "time": "至正十年十月",
+      "loc": [
+        "大名",
+        "东平",
+        "济南",
+        "徐州"
+      ],
+      "action": "四路分别设兵马指挥司捕捉骑马盗贼。",
+      "result": "中原治安转入常设军事机构治理。",
+      "quote": [
+        "大名、東平、濟南、徐州",
+        "各立兵馬指揮司以捕上馬賊"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ANTI-BANDIT-COMMANDS",
+        "candidate": "POL-CAND-YUAN-ANTI-BANDIT-COMMANDS",
+        "summary": "四路设司捕上马贼。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "治安军事化。",
+          "decision_question": "如何遏制骑盗。",
+          "alternatives": "地方常规捕盗。",
+          "decision": "设兵马指挥司。",
+          "direct_result": "四路有专门机构。",
+          "power_change": "军事机构扩张。",
+          "risk_or_damage": "未载。",
+          "follow_up": "次年红巾大起。"
+        }
+      },
+      "unknown": [
+        "编制、经费和捕盗成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E16-FANGGUOZHEN-WAR-START",
+      "time": "至正十年十二月至十一年三月",
+      "loc": [
+        "温州",
+        "台州",
+        "黄岩港"
+      ],
+      "action": "方国珍攻温州，朝廷连续遣军征讨；招安未成后方军再入海，台州达鲁花赤泰不花战死。",
+      "result": "东南海上叛乱由进讨、招安转为持续战争。",
+      "quote": [
+        "方國珍攻溫州",
+        "命江浙行省左丞孛羅帖木兒討方國珍",
+        "方國珍復劫其黨下海，入黃巖港"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-FANGGUOZHEN-1350-1352",
+          [],
+          "方国珍海上起兵并击败多次征讨。"
+        ]
+      ],
+      "unknown": [
+        "各战兵力、伤亡及船只损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E17-YELLOW-RIVER-PROJECT-PLAN",
+      "time": "至正十年十二月至十一年四月",
+      "loc": [
+        "黄河",
+        "黄陵冈",
+        "白茅"
+      ],
+      "action": "都水官议河防后，朝廷命贾鲁开黄河故道，征十三路民十五万、十八翼军二万，开河二百八十余里并以军镇工地。",
+      "result": "大规模黄河改道工程正式启动。",
+      "quote": [
+        "集河防正官議黃河便益事",
+        "發汴梁、大名十三路民十五萬",
+        "凡二百八十里有奇"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-YELLOW-RIVER-PROJECT-1351",
+        "candidate": "WORK-CAND-YUAN-YELLOW-RIVER-PROJECT-1351",
+        "summary": "贾鲁开黄河故道。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "贾鲁治河。",
+          "phase": "议定并开工。",
+          "purpose": "黄河复故道。",
+          "resource_input": "民十五万、军二万。",
+          "operation": "开河二百八十余里。",
+          "benefit": "预期复道防洪。",
+          "harm": "大规模征役。"
+        }
+      },
+      "unknown": [
+        "资金、役夫伤亡与分段工期未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E18-RAID-VICTIM-COMPENSATION",
+      "time": "至正十一年三月",
+      "loc": [
+        "湖南",
+        "湖北"
+      ],
+      "action": "朝廷赈济遭寇百姓，死者给钞五锭、伤者三锭、房屋被毁者一锭。",
+      "result": "战乱人员伤亡和住房损毁首次按级给付。",
+      "quote": [
+        "遣使賑湖南、北被寇人民",
+        "死者鈔五錠，傷者三錠",
+        "燬所居屋者一錠"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-RAID-COMPENSATION",
+        "candidate": "FIN-CAND-YUAN-RAID-COMPENSATION",
+        "summary": "按死伤毁屋给钞。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "湖南湖北遭寇。",
+          "fiscal_state": "死五锭、伤三锭、毁屋一锭。",
+          "livelihood_state": "受害者获补偿。",
+          "production_circulation": "住房修复支持。"
+        }
+      },
+      "unknown": [
+        "受益人数与总支出未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E19-LIUFUTONG-UPRISING",
+      "time": "至正十一年五月辛亥",
+      "loc": [
+        "颍州",
+        "永年",
+        "武安"
+      ],
+      "action": "刘福通等借白莲教与韩山童宋裔说聚众，事泄后以红巾为号攻陷颍州，韩山童被捕、妻子逃走。",
+      "result": "红巾军大起，元末全国性战争爆发。",
+      "quote": [
+        "潁州妖人劉福通為亂，以紅巾為號，陷潁州",
+        "倡言天下大亂，彌勒佛下生",
+        "山童就擒，其妻楊氏，其子韓林兒，逃之武安"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-RED-TURBAN-OUTBREAK-1351",
+          [],
+          "刘福通红巾军在颍州起事。"
+        ]
+      ],
+      "unknown": [
+        "起事初始兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E20-WARTIME-POSTAL-SUBSIDY",
+      "time": "至正十一年五月丙子",
+      "loc": [
+        "大都至汴梁二十四驿"
+      ],
+      "action": "朝廷为大都至汴梁二十四驿每匹马补助钞五锭。",
+      "result": "镇压红巾所需驿传获得专项财政支持。",
+      "quote": [
+        "命大都至汴梁二十四驛",
+        "凡馬一匹助給鈔五錠"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WARTIME-POSTAL-SUBSIDY",
+        "candidate": "FIN-CAND-YUAN-WARTIME-POSTAL-SUBSIDY",
+        "summary": "二十四驿按马给钞。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "军情运输需求上升。",
+          "fiscal_state": "每马补钞五锭。",
+          "livelihood_state": "驿户负担获补。",
+          "production_circulation": "维持大都汴梁驿路。"
+        }
+      },
+      "unknown": [
+        "马匹数与总支出未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E21-LIUFUTONG-EXPANSION",
+      "time": "至正十一年六月至九月",
+      "loc": [
+        "朱皋",
+        "罗山",
+        "真阳",
+        "舞阳",
+        "叶县",
+        "汝宁",
+        "息州",
+        "光州"
+      ],
+      "action": "刘福通军由朱皋连续攻破豫南州县，九月陷汝宁等地，众至十万。",
+      "result": "红巾军迅速扩张为十万规模。",
+      "quote": [
+        "劉福通據朱臯，攻破羅山、真陽、確山",
+        "遂犯舞陽、葉縣等處",
+        "劉福通陷汝寧府及息州、光州，眾至十萬"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-LIUFUTONG-1351",
+          [],
+          "刘福通从颍州扩张至汝宁等州。"
+        ]
+      ],
+      "unknown": [
+        "各城守军、伤亡与民众损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E22-FANG-DEFEATS-IMPERIAL-ARMY",
+      "time": "至正十一年六月",
+      "loc": [
+        "江浙海上"
+      ],
+      "action": "江浙左丞孛罗帖木儿出讨方国珍，被方军击败。",
+      "result": "元军首次大规模进讨失利。",
+      "quote": [
+        "江浙左丞孛羅帖木兒",
+        "為方國珍所敗"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-FANGGUOZHEN-1350-1352",
+          [],
+          "孛罗帖木儿为方国珍所败。"
+        ]
+      ],
+      "unknown": [
+        "战地、兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E23-XUZHOU-REBELLION",
+      "time": "至正十一年八月丙戌",
+      "loc": [
+        "萧县",
+        "徐州"
+      ],
+      "action": "芝麻李等以烧香聚众，攻陷徐州并自立名号。",
+      "result": "徐州成为另一支红巾武装据点。",
+      "quote": [
+        "蕭縣李二及老彭、趙君用攻陷徐州",
+        "李二號芝麻李",
+        "亦以燒香聚眾而反"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-XUZHOU-RED-TURBAN-1351",
+          [],
+          "芝麻李等攻陷徐州。"
+        ]
+      ],
+      "unknown": [
+        "起兵人数、守军损失与城中伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E24-XUSHOUHUI-TIANWAN",
+      "time": "至正十一年八月至十月",
+      "loc": [
+        "罗田",
+        "蕲水",
+        "黄州"
+      ],
+      "action": "徐寿辉、邹普胜等以红巾起兵，攻陷蕲水、黄州，以蕲水为都，国号天完并建元称帝。",
+      "result": "长江中游出现与元朝对立的政权。",
+      "quote": [
+        "徐貞一，名壽輝",
+        "遂舉兵為亂，以紅巾為號",
+        "據蘄水為都，國號天完，僭稱皇帝"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-XUSHOUHUI-1351-1352",
+          [],
+          "徐寿辉起兵并建立天完政权。"
+        ]
+      ],
+      "unknown": [
+        "初始兵力、占城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E25-HENAN-COUNTERINSURGENCY-MOBILIZATION",
+      "time": "至正十一年九月至十月",
+      "loc": [
+        "河南",
+        "济宁"
+      ],
+      "action": "朝廷命也先帖木儿、卫王宽彻哥率大军征河南红巾，赐主将及从征者钞物，并在济宁设中书分省。",
+      "result": "中央以宗王、大军和前线分省应对红巾扩张。",
+      "quote": [
+        "總率大軍出征河南妖寇",
+        "各賜鈔一千錠，從征者賜予有差",
+        "立中書分省于濟寧"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HENAN-MOBILIZATION",
+        "candidate": "POL-CAND-YUAN-HENAN-MOBILIZATION",
+        "summary": "设前线分省统兵征河南。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "全国反乱动员。",
+          "decision_question": "如何统合河南战事。",
+          "alternatives": "地方自守。",
+          "decision": "宗王大军与分省。",
+          "direct_result": "建立前线指挥。",
+          "power_change": "军事统帅权集中。",
+          "risk_or_damage": "后续军溃。",
+          "follow_up": "至正十二年扩充行省行枢密院。"
+        }
+      },
+      "unknown": [
+        "总兵力与军费未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E26-RED-TURBAN-TERRITORIAL-GAINS",
+      "time": "至正十一年九月至十月",
+      "loc": [
+        "汝宁",
+        "息州",
+        "光州",
+        "蕲水",
+        "黄州"
+      ],
+      "action": "刘福通和徐寿辉军分别攻陷河南、湖广多地，徐寿辉建立天完政权。",
+      "result": "红巾控制区横跨河南与长江中游。",
+      "quote": [
+        "徐壽輝陷蘄水縣及黃州路",
+        "劉福通陷汝寧府及息州、光州",
+        "改元治平，以鄒普勝為太師"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-RED-TURBAN-EXPANSION-1351",
+          [],
+          "两支红巾军扩大控制区。"
+        ]
+      ],
+      "unknown": [
+        "占领区人口、守军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E27-YELLOW-RIVER-PROJECT-COMPLETED",
+      "time": "至正十一年七月至十二月",
+      "loc": [
+        "黄河",
+        "黄陵冈",
+        "汴梁"
+      ],
+      "action": "开河完成后堵塞决口，十一月黄河堤成并散役夫；贾鲁与有功官员升赏，另设河防提举司、立河平碑。",
+      "result": "贾鲁治河工程竣工并形成后续管理机构。",
+      "quote": [
+        "開河功成，乃議塞決河",
+        "黃河堤成，散軍民役夫",
+        "立河防提舉司，隸行都水監"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-YELLOW-RIVER-PROJECT-1351-COMPLETE",
+        "candidate": "WORK-CAND-YUAN-YELLOW-RIVER-PROJECT-1351-COMPLETE",
+        "summary": "黄河工程竣工设河防司。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "贾鲁治河。",
+          "phase": "完工与运营。",
+          "purpose": "复故道塞决口。",
+          "resource_input": "军民十七万。",
+          "operation": "开河塞口筑堤。",
+          "benefit": "河复故道。",
+          "harm": "役夫负担未载。"
+        }
+      },
+      "unknown": [
+        "实际耗费、伤亡与长期防洪效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E28-WARTIME-MONEY-HORSES",
+      "time": "至正十二年正月至三月",
+      "loc": [
+        "全国",
+        "河南",
+        "陕西",
+        "辽阳",
+        "迤北"
+      ],
+      "action": "朝廷印中统钞一百九十万锭、至元钞十万锭，并拘刷多省汉人马、以二十万匹币帛换取迤北军马。",
+      "result": "大规模扩张货币与征购马匹以支持战争。",
+      "quote": [
+        "印造中統元寶交鈔一百九十萬錠、至元鈔十萬錠",
+        "拘刷河南、陝西、遼陽三省",
+        "出幣帛各一十萬匹，於迤北萬戶、千戶所易馬"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WARTIME-MONEY-HORSES",
+        "candidate": "FIN-CAND-YUAN-WARTIME-MONEY-HORSES",
+        "summary": "印钞征购军马。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "全国战事扩大。",
+          "fiscal_state": "印钞二百万锭、币帛二十万匹。",
+          "livelihood_state": "汉人马被拘刷。",
+          "production_circulation": "军马供给增加。"
+        }
+      },
+      "unknown": [
+        "征马数量、补偿与通胀影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E29-WARTIME-AGRICULTURE-PROTECTION",
+      "time": "至正十二年正月壬子",
+      "loc": [
+        "河南",
+        "陕西",
+        "腹里"
+      ],
+      "action": "朝廷命农官巡察督耕，对经盗水与供给而无牛种的贫民由官府给付，并禁止驻军践踏农田。",
+      "result": "战争中建立农业生产保障和军队约束。",
+      "quote": [
+        "貧民不能自備牛、種者，所在有司給之",
+        "督勒守令，親詣鄉都",
+        "禁止屯駐軍馬，毋得踏踐"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WARTIME-AGRICULTURE",
+        "candidate": "FIN-CAND-YUAN-WARTIME-AGRICULTURE",
+        "summary": "给牛种并禁军践田。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "战乱供给妨碍春耕。",
+          "fiscal_state": "官给牛种。",
+          "livelihood_state": "贫民获生产资料。",
+          "production_circulation": "督耕并禁军践田。"
+        }
+      },
+      "unknown": [
+        "受助户数、牛种数量与执行效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E30-XUSHOUHUI-WAVE-1352",
+      "time": "至正十二年正月至二月",
+      "loc": [
+        "汉阳",
+        "兴国",
+        "武昌",
+        "安陆",
+        "沔阳",
+        "中兴",
+        "江州",
+        "南康",
+        "岳州"
+      ],
+      "action": "徐寿辉诸将连续攻陷长江中游诸府，威顺王及行省官弃城，多名守官战死或逃走。",
+      "result": "天完军迅速控制湖广江西大片地区。",
+      "quote": [
+        "徐壽輝遣鄒普勝陷武昌",
+        "曾法興陷安陸府，知府丑驢戰不勝，死之",
+        "徐壽輝兵陷江州，總管李黼死之"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-XUSHOUHUI-1352",
+          [],
+          "徐寿辉军席卷长江中游。"
+        ]
+      ],
+      "unknown": [
+        "各城兵力、平民伤亡与财产损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E31-MULTI-FRONT-MILITARY-MOBILIZATION",
+      "time": "至正十二年正月至二月",
+      "loc": [
+        "徐州",
+        "襄阳",
+        "四川",
+        "扬州",
+        "大名"
+      ],
+      "action": "朝廷募两淮盐丁五千，调诸省军、宗王及畏吾儿军分守徐州、襄阳、四川、扬州和大名。",
+      "result": "中央发动多兵种多战区的全面军事动员。",
+      "quote": [
+        "統領兩淮所募鹽丁五千討徐州",
+        "桑哥率領亦都護畏吾兒軍",
+        "命諸王禿堅領從官百人，馳驛守揚州"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MULTIFRONT-MOBILIZATION",
+        "candidate": "POL-CAND-YUAN-MULTIFRONT-MOBILIZATION",
+        "summary": "盐丁诸军分守多战区。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战区总动员。",
+          "decision_question": "如何应对多线叛乱。",
+          "alternatives": "地方军独守。",
+          "decision": "跨区调军与宗王镇守。",
+          "direct_result": "多路军投入。",
+          "power_change": "军政临时扩张。",
+          "risk_or_damage": "军需农业压力。",
+          "follow_up": "增设行省元帅府。"
+        }
+      },
+      "unknown": [
+        "总兵力、军费和协调效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E32-XUZHOU-AMNESTY",
+      "time": "至正十二年二月戊子",
+      "loc": [
+        "徐州"
+      ],
+      "action": "朝廷限徐州聚众二十日内投降，首从皆予赦免。",
+      "result": "对徐州红巾实施限期无差别招抚。",
+      "quote": [
+        "徐州內外羣聚之眾",
+        "限二十日，不分首從",
+        "從，並與赦原"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-XUZHOU-AMNESTY",
+        "candidate": "POL-CAND-YUAN-XUZHOU-AMNESTY",
+        "summary": "徐州聚众限期赦降。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战时招抚。",
+          "decision_question": "如何分化徐州叛军。",
+          "alternatives": "直接进剿。",
+          "decision": "二十日内皆赦。",
+          "direct_result": "提供投降窗口。",
+          "power_change": "未载。",
+          "risk_or_damage": "效果未载。",
+          "follow_up": "九月脱脱屠徐州。"
+        }
+      },
+      "unknown": [
+        "投降人数与实际执行未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E33-LIZHOU-RECOVERY-MARTYRS",
+      "time": "至正十二年二月辛丑",
+      "loc": [
+        "澧州"
+      ],
+      "action": "王权、张椿叛军攻陷澧州，龙镇卫指挥使等率军收复，朝廷褒赠此前伏节死义者二十七人。",
+      "result": "澧州被官军夺回并对殉难者追赠。",
+      "quote": [
+        "鄧州賊王權、張椿陷澧州",
+        "俺都剌哈蠻等帥師復之",
+        "褒贈伏節死義宣徽使帖木兒等二十七人"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-LIZHOU-1352",
+          [],
+          "叛军陷澧州后官军收复。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力、战斗伤亡与追赠内容未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E34-DONGMING-DEFENSE",
+      "time": "至正十二年二月",
+      "loc": [
+        "滑州",
+        "濬州",
+        "东明"
+      ],
+      "action": "德住受命守东明，立即疏浚城壕、严密设防，使来犯叛军不敢进攻。",
+      "result": "地方防御工程阻止叛军攻城。",
+      "quote": [
+        "命德住為河南右丞，守東明",
+        "浚城隍，嚴備禦",
+        "禦，賊不敢犯"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-DONGMING-DEFENSE-1352",
+          [],
+          "德住整备东明迫使叛军不敢犯。"
+        ]
+      ],
+      "unknown": [
+        "守军与叛军兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E35-NANYANG-RECOVERY",
+      "time": "至正十二年三月壬子",
+      "loc": [
+        "南阳"
+      ],
+      "action": "河南左丞相太不花率军收复南阳等地。",
+      "result": "元军在河南取得阶段性反攻成果。",
+      "quote": [
+        "河南左丞相太不花",
+        "克復南陽等處"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-NANYANG-RECOVERY-1352",
+          [],
+          "太不花收复南阳等处。"
+        ]
+      ],
+      "unknown": [
+        "具体收复地点、兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E36-GRAIN-OFFICES-COPPER-MINES",
+      "time": "至正十二年三月癸丑至戊辰",
+      "loc": [
+        "全国",
+        "饶州德兴"
+      ],
+      "action": "朝廷准许民间自备粮米供军者补授流官，并在德兴三处设铜冶场直属宝泉司。",
+      "result": "军粮筹集与铸币原料生产同时扩张。",
+      "quote": [
+        "自備糧米供給軍儲者",
+        "級，改授常流",
+        "膽水浸鐵，可以成銅"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-GRAIN-OFFICES-COPPER",
+        "candidate": "FIN-CAND-YUAN-GRAIN-OFFICES-COPPER",
+        "summary": "纳粮补官并设铜冶。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "军粮和铸币原料紧张。",
+          "fiscal_state": "以官位换军粮。",
+          "livelihood_state": "富户获得仕进。",
+          "production_circulation": "新设铜冶场。"
+        }
+      },
+      "unknown": [
+        "纳粮量、授官人数与铜产量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E37-WARTIME-MAGISTRATE-REFORM",
+      "time": "至正十二年三月庚午",
+      "loc": [
+        "全国残破郡县与贼境"
+      ],
+      "action": "朝廷令中央诸机构荐举循良智勇者任守令，兼管义兵防御与劝农，并按治绩和危险地区给予升降奖惩。",
+      "result": "地方官职转为军政农务合一并建立绩效激励。",
+      "quote": [
+        "各舉循良材幹、智勇兼全、堪充守令者二人",
+        "並授兼管義兵防禦諸軍奧魯勸農事",
+        "任滿，驗守令全治者，與真授"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-WARTIME-MAGISTRATE-REFORM",
+        "candidate": "POL-CAND-YUAN-WARTIME-MAGISTRATE-REFORM",
+        "summary": "战时守令兼军防劝农。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战时地方官改革。",
+          "decision_question": "如何治理残破贼境。",
+          "alternatives": "常规铨选。",
+          "decision": "荐举、加级、绩效黜陟。",
+          "direct_result": "守令兼军农职责。",
+          "power_change": "地方守令权责扩大。",
+          "risk_or_damage": "奖惩执行未载。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "荐举任用人数与实际治绩未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E38-FANGGUOZHEN-TAIBUHUA-DEATH",
+      "time": "至正十二年三月",
+      "loc": [
+        "黄岩港",
+        "台州"
+      ],
+      "action": "方国珍拒绝招安并再入海，台州达鲁花赤泰不花率官军交战身亡，朝廷随后再命诸军进讨。",
+      "result": "招抚失败，东南战争升级且地方主将战死。",
+      "quote": [
+        "方國珍不受招安之命",
+        "台州路達魯花赤泰不花率官軍與戰，死之",
+        "命江浙左丞左答納失里討之"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-FANGGUOZHEN-1350-1352",
+          [],
+          "方国珍拒招，泰不花战死。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力和伤亡总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E39-JIANGXI-HUBEI-BATTLES-SPRING",
+      "time": "至正十二年三月至闰三月",
+      "loc": [
+        "衡州",
+        "瑞州",
+        "饶州",
+        "徽州",
+        "信州",
+        "吉安",
+        "岳州"
+      ],
+      "action": "徐寿辉诸将多路攻城，地方官军和乡民或败敌复城，或失守；岳州由铁杰收复。",
+      "result": "江西湖广进入多点反复争夺。",
+      "quote": [
+        "徐壽輝偽將陶九陷瑞州",
+        "鄉民羅明遠起義兵復之",
+        "鐵傑，以湖南兵復岳州"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-JIANGXI-HUBEI-SPRING-1352",
+          [],
+          "徐寿辉诸军与地方官军争夺江西湖广。"
+        ]
+      ],
+      "unknown": [
+        "各战兵力、伤亡及部分城池控制期未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E40-HUAINAN-PROVINCE-WAR-GOVERNMENT",
+      "time": "至正十二年闰三月",
+      "loc": [
+        "扬州",
+        "淮南江北"
+      ],
+      "action": "朝廷新设淮南江北行中书省，治扬州、辖十一州路，配置二十五名官员统筹战区。",
+      "result": "淮南江北形成新的战时省级军政中心。",
+      "quote": [
+        "立淮南江北等處行中書省，治揚州",
+        "轄揚州、高郵、淮安、滁州",
+        "詔淮南行省設官二十五員"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HUAINAN-WAR-GOVERNMENT",
+        "candidate": "POL-CAND-YUAN-HUAINAN-WAR-GOVERNMENT",
+        "summary": "设淮南江北行省。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战区行政重组。",
+          "decision_question": "如何统筹淮南战事。",
+          "alternatives": "旧省分辖。",
+          "decision": "新设行省。",
+          "direct_result": "十一州路纳入统辖。",
+          "power_change": "扬州成为战区中心。",
+          "risk_or_damage": "机构扩张成本。",
+          "follow_up": "授便宜行事。"
+        }
+      },
+      "unknown": [
+        "经费、实际辖制和存续期限未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E41-FRONTLINE-DISCRETIONARY-POWERS",
+      "time": "至正十二年闰三月",
+      "loc": [
+        "江西",
+        "淮南",
+        "江浙",
+        "湖广",
+        "四川"
+      ],
+      "action": "朝廷向多省高级将臣授便宜行事权，并分派诸王、行省官和枢密官征讨南阳、襄阳、江西与江浙叛军。",
+      "result": "前线军政权力进一步下放给多战区统帅。",
+      "quote": [
+        "並以便宜行事",
+        "命諸王亦憐真班、愛因班",
+        "同討饒、信等處賊"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-FRONTLINE-DISCRETION",
+        "candidate": "POL-CAND-YUAN-FRONTLINE-DISCRETION",
+        "summary": "多战区授便宜行事。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战时授权。",
+          "decision_question": "如何提高前线决策速度。",
+          "alternatives": "逐事请旨。",
+          "decision": "授便宜行事。",
+          "direct_result": "统帅获临机权。",
+          "power_change": "中央权力下放。",
+          "risk_or_damage": "协调和滥权风险。",
+          "follow_up": "各路继续反攻。"
+        }
+      },
+      "unknown": [
+        "授权边界与问责规则未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E42-YESENTEMUR-ARMY-COLLAPSE",
+      "time": "至正十二年闰三月",
+      "loc": [
+        "沙河",
+        "朱仙镇",
+        "京师"
+      ],
+      "action": "也先帖木儿军驻沙河时夜惊溃散，退屯朱仙镇，朝廷改由蛮子总兵并召其还京。",
+      "result": "河南主力军未战先溃并更换统帅。",
+      "quote": [
+        "也先帖木兒駐軍沙河，軍中夜驚",
+        "軍潰，退屯朱仙鎮",
+        "蠻子代總其兵，也先帖木兒還京師"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-YESENTEMUR-COLLAPSE-1352",
+          [],
+          "也先帖木儿军夜惊溃散。"
+        ]
+      ],
+      "unknown": [
+        "溃军人数、伤亡和损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E43-SPRING-COUNTEROFFENSIVES-1352",
+      "time": "至正十二年四月",
+      "loc": [
+        "武昌",
+        "汉阳",
+        "邵武",
+        "渠州",
+        "荆门",
+        "归州",
+        "峡州"
+      ],
+      "action": "元军与地方武装在多地收复城池，峡州一战大破叛军并杀李太素等；武昌汉阳收复后又失。",
+      "result": "官军发动广泛反攻但部分成果不稳。",
+      "quote": [
+        "鐵傑及萬戶陶夢楨復武昌、漢陽，尋再陷",
+        "千戶魏淳以計擒塗佑、應必達，復其城",
+        "與峽州總管趙余禠大破賊兵"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SPRING-COUNTEROFFENSIVE-1352",
+          [],
+          "官军多路收复城池并在峡州获胜。"
+        ]
+      ],
+      "unknown": [
+        "各路兵力、伤亡与再失城时间未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E44-CENSORS-PUNISHED-FOR-DEFEAT-CRITIQUE",
+      "time": "至正十二年四月",
+      "loc": [
+        "陕西",
+        "湖广"
+      ],
+      "action": "十二名监察御史弹劾也先帖木儿丧师辱国，请求治罪未获准，反被外调为各路佐贰官。",
+      "result": "败军主帅免罪，批评者集体遭贬。",
+      "quote": [
+        "糾言也先帖木兒喪師辱國",
+        "乞明正其罪，詔不允",
+        "蒙古魯海牙十二人為各路添設佐貳官"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CENSORS-PUNISHED",
+        "candidate": "POL-CAND-YUAN-CENSORS-PUNISHED",
+        "summary": "御史劾败将反遭外调。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军事问责失败。",
+          "decision_question": "是否惩处败将。",
+          "alternatives": "依御史请治罪。",
+          "decision": "不允并外调御史。",
+          "direct_result": "败将免责。",
+          "power_change": "监察受挫。",
+          "risk_or_damage": "军纪问责削弱。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "不允理由与御史后续未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E45-LOCAL-MILITIA-COUNTEROFFENSIVE",
+      "time": "至正十二年五月",
+      "loc": [
+        "台州",
+        "建昌",
+        "荆门",
+        "襄阳"
+      ],
+      "action": "朝廷授权台州民丁夹攻方国珍，戴良乡兵收复建昌，答失八都鲁增募兵并在襄阳击败叛军。",
+      "result": "地方民兵、乡兵成为官军反攻的重要补充。",
+      "quote": [
+        "令其集民丁夾攻方國珍",
+        "建昌民戴良起鄉兵克復建昌路",
+        "答失八都魯至荊門，增募兵，趨襄陽"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-LOCAL-MILITIAS-1352",
+          [],
+          "地方民丁乡兵参与多路反攻。"
+        ]
+      ],
+      "unknown": [
+        "募集人数、伤亡和民兵待遇未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E46-DAMING-FAMINE-RELIEF",
+      "time": "至正十二年六月丙午",
+      "loc": [
+        "大名",
+        "开州",
+        "滑州",
+        "濬州",
+        "元城"
+      ],
+      "action": "大名十一县州受水旱虫蝗，饥民七十一万六千九百八十口，朝廷给钞十万锭赈济。",
+      "result": "大规模灾区获得有明确人口与额度的救济。",
+      "quote": [
+        "縣水旱蟲蝗",
+        "饑民七十一萬六千九百八十口",
+        "給鈔十萬錠賑之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DAMING-RELIEF-1352",
+        "candidate": "FIN-CAND-YUAN-DAMING-RELIEF-1352",
+        "summary": "赈大名饥民七十一万余。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "水旱虫蝗。",
+          "fiscal_state": "给钞十万锭。",
+          "livelihood_state": "饥民七十一万余。",
+          "production_circulation": "灾区农业受损。"
+        }
+      },
+      "unknown": [
+        "人均实领与死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E47-SUMMER-REBELLION-EXPANSION",
+      "time": "至正十二年六月至七月",
+      "loc": [
+        "道州",
+        "杭州",
+        "宝庆",
+        "福安",
+        "宁德"
+      ],
+      "action": "红巾及徐寿辉诸军相继攻陷道州、杭州、宝庆和福建多县，元军虽一度收复宝庆仍面临广域失守。",
+      "result": "叛乱从中原湖广扩展至江浙福建。",
+      "quote": [
+        "紅巾周伯顏陷道州",
+        "饒、徽賊犯昱嶺關，陷杭州路",
+        "徐壽輝偽將王善、康壽四、江二蠻等陷福安、寧德等縣"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SUMMER-EXPANSION-1352",
+          [],
+          "红巾军扩展至道州、杭州和福建。"
+        ]
+      ],
+      "unknown": [
+        "各城守军、平民伤亡和控制时长未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E48-TUOTUO-XUZHOU-CAMPAIGN",
+      "time": "至正十二年七月至九月",
+      "loc": [
+        "徐州",
+        "京师"
+      ],
+      "action": "脱脱请亲征徐州，获二十万户与便宜诛赏权，九月攻复徐州并屠城，芝麻李等逃走。",
+      "result": "徐州红巾据点被摧毁，脱脱因功加太师。",
+      "quote": [
+        "脫脫請親出師討徐州，詔許之",
+        "提調二十萬戶",
+        "脫脫復徐州，屠其城，芝麻李等遁走"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-TUOTUO-XUZHOU-1352",
+          [],
+          "脱脱率军收复并屠徐州。"
+        ]
+      ],
+      "unknown": [
+        "双方确切兵力、屠城死亡与逃散人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E49-FANGGUOZHEN-TAIZHOU-BATTLE",
+      "time": "至正十二年八月至十一月",
+      "loc": [
+        "台州",
+        "江浙海上"
+      ],
+      "action": "方国珍攻台州，被浙东、福建元帅击退；朝廷继续更换统帅追讨，海上战争未止。",
+      "result": "台州守住但方国珍势力未被消灭。",
+      "quote": [
+        "方國珍率其眾攻台州城",
+        "浙東元帥也忒迷失、福建元帥黑的兒擊退之",
+        "總兵討方國珍"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-FANGGUOZHEN-1350-1352",
+          [],
+          "方国珍攻台州被击退后仍遭追讨。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力、伤亡和船只损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E50-YEAR-END-RECOVERY-RELIEF",
+      "time": "至正十二年十一月至十二月",
+      "loc": [
+        "襄阳",
+        "杭州",
+        "常州",
+        "湖州",
+        "信州",
+        "广德",
+        "潭州",
+        "岳州"
+      ],
+      "action": "官军收复襄阳及多路州城，朝廷赦免受牵连者、免夏税秋粮并命抚恤百姓，同时奖励湖广平乱将领。",
+      "result": "年末反攻成果转化为赦免、减税和战后安抚。",
+      "quote": [
+        "答失八都魯復襄陽",
+        "赦詿誤者，蠲其夏稅、秋糧",
+        "命有司撫恤其民"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-YEAREND-RECOVERY-RELIEF",
+        "candidate": "FIN-CAND-YUAN-YEAREND-RECOVERY-RELIEF",
+        "summary": "收复州路后免税抚民。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "州路经叛乱与收复。",
+          "fiscal_state": "免夏税秋粮。",
+          "livelihood_state": "赦误并抚恤。",
+          "production_circulation": "支持战后恢复。"
+        }
+      },
+      "unknown": [
+        "免税额、受益户数和抚恤内容未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-042-E51-CAPITAL-FARMING-SCHEME",
+      "time": "至正十二年岁末",
+      "loc": [
+        "京畿",
+        "汴梁"
+      ],
+      "action": "海运不通后，脱脱建议招募江南人在京畿近地耕作，预计年产粟麦百万余石；皇帝令议行，并在汴梁设都水庸田使司掌种植。",
+      "result": "朝廷以京畿屯垦替代部分海运粮源。",
+      "quote": [
+        "歲，海運不通",
+        "召募江南人耕種，歲可得粟麥百萬餘石",
+        "立都水庸田使司于汴梁，掌種植之事"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CAPITAL-FARMING-SCHEME",
+        "candidate": "FIN-CAND-YUAN-CAPITAL-FARMING-SCHEME",
+        "summary": "海运断后议京畿屯垦。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "海运不通、京师粮源受阻。",
+          "fiscal_state": "招募耕作替代海运。",
+          "livelihood_state": "江南移民耕种。",
+          "production_circulation": "预期年产百万余石。"
+        }
+      },
+      "unknown": [
+        "招募人数、垦地规模、实际产量和成本未载。"
+      ]
+    }
+  ]
+}

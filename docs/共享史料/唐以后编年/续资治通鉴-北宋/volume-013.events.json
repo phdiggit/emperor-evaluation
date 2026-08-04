@@ -1,0 +1,950 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-013",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷013",
+    "revision_ref": "2601957",
+    "start_locator": "宋太宗雍熙三年正月",
+    "end_locator": "宋太宗雍熙四年十二月",
+    "overlap_context": "续接卷012宋廷再议燕蓟用兵与辽方诱敌；本卷记录雍熙北伐、岐沟关及君子馆败绩、杨业战死和辽军南侵，推进战后赈免、军政与民役调整，并转出边防谍报和停止禁晚蚕争议。",
+    "input_fingerprint": "dd4a89ed807ad34a90ce1fac84f977d3f143bea8c6ffd9a344c418879006279e"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-013-LIAO-HORSE-GAINS-986",
+      "time": "雍熙三年正月",
+      "loc": [
+        "女真",
+        "辽境"
+      ],
+      "action": "辽军讨女真，掠获十余万人和二十余万匹马。",
+      "result": "辽在既有群牧基础上军马势力进一步增强。",
+      "quote": [
+        "討女真所獲生口十餘萬",
+        "馬二十餘萬匹",
+        "初，遼設群牧使司",
+        "真馬，勢益強。\n"
+      ],
+      "battle": "CAMPAIGN-LIAO-HORSE-GAINS-986",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模掠获人口与军马。"
+        ]
+      ],
+      "unknown": [
+        "被俘人口处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-NORTHERN-EXPEDITION-DECISION-986",
+      "time": "雍熙三年正月",
+      "loc": [
+        "幽蓟",
+        "开封"
+      ],
+      "action": "贺令图等以辽主幼、太后与韩德让掌政且国人不满为由建议取幽蓟；李至反对亲征并警告粮石不足。",
+      "result": "太宗仍决定北伐，但未亲征，部署曹彬、田重进、潘美三路出兵。",
+      "quote": [
+        "請乘其釁以取幽薊",
+        "帝始有意北伐",
+        "萬，兵多費廣",
+        "未知邊庾可充此乎",
+        "始有意北伐。",
+        "其眾出雄州；",
+        "部署，出飛狐。\n",
+        "副之，出雁門。\n"
+      ],
+      "battle": "CAMPAIGN-NORTHERN-EXPEDITION-DECISION-986",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋廷基于辽内政判断发动雍熙北伐。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "反对者预警攻城粮费不足。"
+        ]
+      ],
+      "unknown": [
+        "主战情报的真实性未独立证实。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LI-JIQIAN-JOINS-LIAO-986",
+      "time": "雍熙三年二月",
+      "loc": [
+        "夏州",
+        "辽"
+      ],
+      "action": "李继迁向辽投降。",
+      "result": "辽授其定难节度使、都督夏州诸军事，李继迁取得辽方支持。",
+      "quote": [
+        "李繼遷降於遼",
+        "以為定難節度使",
+        "都督夏州諸軍事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李继迁转向辽并获任官。"
+        ]
+      ],
+      "unknown": [
+        "辽援助规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-NORTHERN-EXPEDITION-EARLY-VICTORIES-986",
+      "time": "雍熙三年三月至四月",
+      "loc": [
+        "固安",
+        "飞狐",
+        "涿州",
+        "寰州",
+        "朔州",
+        "应州",
+        "云州",
+        "蔚州"
+      ],
+      "action": "宋三路军连续击败辽军，攻取或受降固安、涿州、飞狐、灵丘、蔚州及云应朔寰诸州。",
+      "result": "宋军短期控制山后多处要地，辽主与太后驻军调集诸部应援。",
+      "quote": [
+        "彥辛舉州降。",
+        "希贊舉城降。",
+        "潘美克雲州。",
+        "卻，遂定蔚州",
+        "趣諸部兵以為應援"
+      ],
+      "battle": "CAMPAIGN-NORTHERN-EXPEDITION-EARLY-VICTORIES-986",
+      "unknown": [
+        "各地控制持续时间不一。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-BORDER-MILITIA-BOUNTIES-986",
+      "time": "雍熙三年四月",
+      "loc": [
+        "山后边地"
+      ],
+      "action": "宋廷鼓励边民结队支援王师，以粮械资助并按俘获、首级和马匹悬赏。",
+      "result": "愿留军者优录、归农者给复三年，应募者增加。",
+      "quote": [
+        "競團結以禦敵",
+        "資以糧食，假以兵甲",
+        "獲生口者，人賞錢五千",
+        "得首級者三千",
+        "願歸農者，給復三年",
+        "應募者益眾"
+      ],
+      "battle": "CAMPAIGN-BORDER-MILITIA-BOUNTIES-986",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以钱粮和免税招募边民作战。"
+        ]
+      ],
+      "unknown": [
+        "应募人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-CAO-BIN-SUPPLY-CRISIS-986",
+      "time": "雍熙三年四月",
+      "loc": [
+        "涿州",
+        "雄州",
+        "白沟河"
+      ],
+      "action": "耶律休格避战并袭扰粮道，曹彬军在涿州十余日粮尽而退雄州取饷，违背持重会师计划。",
+      "result": "太宗命其沿白沟与米信会合蓄锐，等待西路军，但诸将争功促使曹彬再进。",
+      "quote": [
+        "莽，絕我糧道",
+        "留十餘日，食盡",
+        "乃退師雄州以援供饋",
+        "何失策之甚也",
+        "接，按兵蓄銳",
+        "謀畫蜂起，更相矛盾"
+      ],
+      "battle": "CAMPAIGN-CAO-BIN-SUPPLY-CRISIS-986",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "粮道被断导致东路军往返疲弊。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将领争功破坏统一作战计划。"
+        ]
+      ],
+      "unknown": [
+        "粮秣损耗未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-QIGOU-PASS-DEFEAT-986",
+      "time": "雍熙三年五月",
+      "loc": [
+        "涿州",
+        "岐沟关",
+        "巨马河",
+        "高阳"
+      ],
+      "action": "曹彬军裹五十日粮再攻涿州，炎暑粮乏后弃城南撤，遭耶律休格追击。",
+      "result": "宋军在岐沟关、巨马河和高阳连续溃败，死数万人，军械堆积如丘。",
+      "quote": [
+        "裹五十日糧",
+        "暑，軍士疲乏",
+        "所齎糧不繼",
+        "至岐溝關，遼兵追及之",
+        "人畜相蹂踐而死者無算",
+        "為遼師衝擊死者數萬人",
+        "棄戈甲若丘陵"
+      ],
+      "battle": "CAMPAIGN-QIGOU-PASS-DEFEAT-986",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "粮运失败并损失大量军资。"
+        ]
+      ],
+      "unknown": [
+        "总伤亡无确数。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-NORTHERN-EXPEDITION-AUDIT-986",
+      "time": "雍熙三年五月至七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "北伐败后，太宗承认决策失误，命会审曹彬等违诏失律责任。",
+      "result": "曹彬等依法当斩但获减，曹彬、崔彦进降为上将军，米信以下贬官，死事者录子孙。",
+      "quote": [
+        "自今復作如此事否",
+        "既推誠悔過",
+        "等法皆當斬",
+        "罪，深自引咎",
+        "責彬為右驍衛上將軍",
+        "者，錄其子孫"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追究雍熙北伐主将责任并减死。"
+        ]
+      ],
+      "unknown": [
+        "枢密院决策责任未见同等处分。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-SHANHOU-RESETTLEMENT-986",
+      "time": "雍熙三年七月",
+      "loc": [
+        "山后诸州",
+        "河南府",
+        "许州",
+        "汝州"
+      ],
+      "action": "宋廷将山后诸州降民迁入河南府及许、汝等州。",
+      "result": "七万八千余口被迁离边地。",
+      "quote": [
+        "徙山后諸州降民",
+        "河南府、許、汝等州",
+        "凡七萬八千餘口"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "强制迁徙七万八千余边民。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "撤离新失山后地区人口。"
+        ]
+      ],
+      "unknown": [
+        "安置条件与途中损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LIAO-COUNTEROFFENSIVE-986",
+      "time": "雍熙三年七月",
+      "loc": [
+        "安定",
+        "五台",
+        "蔚州",
+        "飞狐",
+        "浑源",
+        "应州",
+        "寰州"
+      ],
+      "action": "耶律色珍率十万辽军反攻，连续击败贺令图、潘美等宋军并收复蔚、寰等州。",
+      "result": "宋军撤离浑源、应州，寰州守军千余被杀，北伐所得山后州县迅速丧失。",
+      "quote": [
+        "將兵十萬至安定西",
+        "戰於五台，死者數萬人",
+        "日，攻陷蔚州",
+        "狐，南師又敗",
+        "兵皆棄城走",
+        "殺守城吏卒千餘人"
+      ],
+      "battle": "CAMPAIGN-LIAO-COUNTEROFFENSIVE-986",
+      "unknown": [
+        "辽军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-YANG-YE-DEATH-986",
+      "time": "雍熙三年七月",
+      "loc": [
+        "朔州",
+        "狼牙村",
+        "陈家谷口"
+      ],
+      "action": "杨业提出避敌护民方案，被王侁等逼令正面进军；辽军诈败伏击，约定谷口援军又先撤。",
+      "result": "杨业军覆没，杨业被俘绝食三日而死，潘美削三任，王侁除名流配，刘文裕贬官。",
+      "quote": [
+        "不可，此必敗之勢也",
+        "諸君于此張步兵強弩",
+        "敗，伏兵四起",
+        "望見無人，拊膺大慟",
+        "創，士卒殆盡",
+        "食，三日而死",
+        "任，侁除名，配"
+      ],
+      "battle": "CAMPAIGN-YANG-YE-DEATH-986",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "监军逼战和撤援导致杨业全军覆没。"
+        ]
+      ],
+      "unknown": [
+        "潘美对撤援的实际决策空间不明。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LIAO-SHANXI-TAX-RELIEF-986",
+      "time": "雍熙三年八月至十月",
+      "loc": [
+        "辽山西",
+        "辽南院"
+      ],
+      "action": "辽在战后先后免山西及南院部民租赋一年。",
+      "result": "受战争影响地区获得一年税收复除。",
+      "quote": [
+        "復山西租賦一年",
+        "復南院部民租賦一年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽对战区民户免租一年。"
+        ]
+      ],
+      "unknown": [
+        "免税范围与总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-DEATH-SENTENCE-ERROR-LIABILITY-986",
+      "time": "雍熙三年九月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷规定误判死刑者不得以官荫减赎，检法、判官削任，长吏停职。",
+      "result": "死刑误判责任被具体落实到审判官员。",
+      "quote": [
+        "失入死刑者",
+        "不得以官減贖",
+        "檢法官、判官皆削一任",
+        "長吏並停見任"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "强化误判死刑的官员责任。"
+        ]
+      ],
+      "unknown": [
+        "首批适用案件未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-WAR-DEAD-FAMILY-RELIEF-986",
+      "time": "雍熙三年九月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷向北征阵亡军士家庭发放粮食。",
+      "result": "阵亡者家属获三个月口粮。",
+      "quote": [
+        "賜北征軍士陣亡者家三月糧"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "向北征阵亡军人家庭发三月粮。"
+        ]
+      ],
+      "unknown": [
+        "受给家庭数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LIAO-SOUTHERN-INVASION-986",
+      "time": "雍熙三年十一月",
+      "loc": [
+        "唐兴",
+        "滹沱河",
+        "泰州"
+      ],
+      "action": "辽太后亲阅军资，命耶律休格为先锋南下，焚滹沱桥并攻击泰州方向宋军。",
+      "result": "辽军进入河北展开报复性南侵。",
+      "quote": [
+        "太后親閱輜重兵甲",
+        "以休格為先鋒都統",
+        "之，進焚其橋",
+        "盼戰於泰州"
+      ],
+      "battle": "CAMPAIGN-LIAO-SOUTHERN-INVASION-986",
+      "unknown": [
+        "泰州战双方损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-JUNZIGUAN-DEFEAT-986",
+      "time": "雍熙三年十二月",
+      "loc": [
+        "望都",
+        "君子馆",
+        "瀛州"
+      ],
+      "action": "刘廷让率数万骑与辽军战于君子馆，严寒使宋弓弩不能张，李继隆又失期未援。",
+      "result": "宋军全军覆没、死数万人，刘廷让仅身免。",
+      "quote": [
+        "敗南師於望都",
+        "戰于君子館",
+        "宋師不能彀弓弩",
+        "隆失期不救",
+        "廷讓全軍皆沒，死者數萬人"
+      ],
+      "battle": "CAMPAIGN-JUNZIGUAN-DEFEAT-986",
+      "unknown": [
+        "被俘人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-HE-LINGTU-CAPTURED-986",
+      "time": "雍熙三年十二月",
+      "loc": [
+        "雄州",
+        "君子馆附近"
+      ],
+      "action": "贺令图误信耶律休格诈降，率数千骑赴会。",
+      "result": "随从骑兵尽被杀，贺令图被俘；其父子主谋北伐而一年内皆败。",
+      "quote": [
+        "我獲罪於契丹，旦夕願歸朝",
+        "圖不虞其詐",
+        "引麾下數千騎逆之",
+        "盡殺其從騎",
+        "反縛令圖而去",
+        "中父子皆敗"
+      ],
+      "battle": "CAMPAIGN-HE-LINGTU-CAPTURED-986",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "北伐倡议者贺令图中诈降计被俘。"
+        ]
+      ],
+      "unknown": [
+        "贺令图后续待后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-DAIZHOU-DEFENSE-986",
+      "time": "雍熙三年十二月",
+      "loc": [
+        "代州",
+        "土磴寨"
+      ],
+      "action": "张齐贤利用辽军不知潘美已退的情报，夜设旗火伪装援军，并伏兵反击。",
+      "result": "辽军败退，宋擒王子等、斩数百、俘五百余并获马千余。",
+      "quote": [
+        "意謂並師至矣",
+        "矣，駭而北走",
+        "伏步卒二千於土磴寨",
+        "掩擊，大敗之",
+        "俘五百餘人",
+        "獲馬千餘匹"
+      ],
+      "battle": "CAMPAIGN-DAIZHOU-DEFENSE-986",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LIAO-HEBEI-RAIDS-986",
+      "time": "雍熙三年十二月至四年正月",
+      "loc": [
+        "冯母镇",
+        "邢州",
+        "深州",
+        "束城",
+        "文安"
+      ],
+      "action": "辽军连续攻取河北州镇，对拒降地区杀守将、丁壮并大肆俘掠。",
+      "result": "宋沿边兵少且乡兵未练，辽军长驱推进，河北遭严重破坏。",
+      "quote": [
+        "鎮，大縱俘掠",
+        "辰，陷邢州。丁",
+        "誅守將以下",
+        "沿邊瘡痍之卒不滿萬",
+        "遼師所至長驅",
+        "盡殺其丁壯",
+        "壯，俘其老幼"
+      ],
+      "battle": "CAMPAIGN-LIAO-HEBEI-RAIDS-986",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽军杀掠造成河北人口财产损失。"
+        ]
+      ],
+      "unknown": [
+        "总伤亡和被俘数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-HEBEI-POSTWAR-RELIEF-987",
+      "time": "雍熙四年正月",
+      "loc": [
+        "河北"
+      ],
+      "action": "宋廷赦免败军将士、掩埋暴尸并赈给死事者家庭，按受敌和军队经过程度减免租税。",
+      "result": "河北逋租被免，敌军蹂躏处给复三年、宋军经过处二年、其余一年。",
+      "quote": [
+        "釋行營戰敗將士罪",
+        "罪，瘞暴骸，死",
+        "死事者廩給其家",
+        "蠲河北逋租",
+        "敵所蹂踐者給復三年",
+        "軍所過二年，餘一年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对河北战区分级免租并赈恤死者家属。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赦败军并录用死事官员子孙。"
+        ]
+      ],
+      "unknown": [
+        "赈免总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-GUANGNAN-SALT-HALT-987",
+      "time": "雍熙四年正月",
+      "loc": [
+        "广南"
+      ],
+      "action": "宋廷暂时停止广南诸州煮盐。",
+      "result": "因库存盐足供三十年，生产环节暂停。",
+      "quote": [
+        "權罷廣南諸州煮鹽",
+        "積鹽可支三十年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "因三十年库存暂停广南制盐。"
+        ]
+      ],
+      "unknown": [
+        "停产人员安置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-WANGTING-BATTLE-987",
+      "time": "雍熙四年三月",
+      "loc": [
+        "王亭"
+      ],
+      "action": "安守忠与李继迁交战。",
+      "result": "宋军败绩。",
+      "quote": [
+        "安守忠及李繼遷戰于王亭",
+        "于王亭，敗績。\n"
+      ],
+      "battle": "CAMPAIGN-WANGTING-BATTLE-987",
+      "unknown": [
+        "兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-TIMBER-SHIPYARD-REFORM-987",
+      "time": "雍熙四年四月前",
+      "loc": [
+        "秦陇",
+        "渭河",
+        "黄河",
+        "京师",
+        "阳平"
+      ],
+      "action": "张平重整木材水陆运输，并在造船场穿池引水系舟，取消每船调三户守护。",
+      "result": "九年间省官钱八十万缗，免除每年数千民户守船役。",
+      "quote": [
+        "隴，更立新制",
+        "間，良材山積",
+        "一艘調三戶守之",
+        "歲役民數千",
+        "穿池引水，系舟其中",
+        "中，不復調民",
+        "省官錢八十萬緡"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修建船池并优化木材运输。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "免除数千民役并节省八十万缗。"
+        ]
+      ],
+      "unknown": [
+        "张平被告旧奸具体事实未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-SUMMER-PRISON-SANITATION-987",
+      "time": "雍熙四年四月",
+      "loc": [
+        "宋诸州"
+      ],
+      "action": "宋廷规定暑月每五日清洗监狱、供给饮水、治疗病囚并及时处理小罪。",
+      "result": "夏季囹圄卫生和病囚救治形成定期要求。",
+      "quote": [
+        "暑月五日一滌囹圄",
+        "圄」，給飲漿，病",
+        "病者令醫治",
+        "小罪即決之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立夏季监狱清洁、饮水和医疗制度。"
+        ]
+      ],
+      "unknown": [
+        "执行效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-HENAN-MILITIA-LEVY-CANCELLED-987",
+      "time": "雍熙四年四月",
+      "loc": [
+        "河南四十余郡",
+        "河北边州"
+      ],
+      "action": "太宗拟从河南四十余郡每八丁抽一组建义军，李维清、宰相及陈王元僖反对其妨农且不习战。",
+      "result": "太宗采纳守边与慎募意见，停止河南普遍征丁并转向内修战备、外许和盟。",
+      "quote": [
+        "凡八丁取一",
+        "天下不耕矣",
+        "更妨農作之務",
+        "所集鄉兵，雖眾何用",
+        "河南諸州一切停罷",
+        "內修戰備，外許歡盟"
+      ],
+      "battle": "CAMPAIGN-HENAN-MILITIA-LEVY-CANCELLED-987",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "取消妨农的河南大规模抽丁。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "由再攻辽转向守备议和。"
+        ]
+      ],
+      "unknown": [
+        "已征集人员处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LI-YI-USURY-CASE-987",
+      "time": "雍熙四年五月",
+      "loc": [
+        "秦州长道县",
+        "河内",
+        "开封"
+      ],
+      "action": "富户李益放息钱并勾结权贵压制地方官，殴辱冯伉后又获通风逃亡；太宗命追捕会审。",
+      "result": "李益伏罪被斩籍家，州民集资饮酒庆贺。",
+      "quote": [
+        "民負益息錢數百家",
+        "督，急於租調",
+        "兩上章論其事，皆為邸吏所匿",
+        "權貴已先報益",
+        "斬益，籍其家",
+        "醵錢飲酒以相慶"
+      ],
+      "battle": "CAMPAIGN-LI-YI-USURY-CASE-987",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "惩治权贵庇护的高利贷和暴力。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "突破邸吏隐匿奏章和权贵通风。"
+        ]
+      ],
+      "unknown": [
+        "债务是否免除未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-PINGRONG-BATTLE-DIAGRAM-987",
+      "time": "雍熙四年五月",
+      "loc": [
+        "开封"
+      ],
+      "action": "太宗向潘美、田重进等亲授《平戎万全阵图》及进退攻守方法。",
+      "result": "北边将领被要求依御制阵图训练和作战。",
+      "quote": [
+        "《御製平戎萬全陣圖》",
+        "親授以進退攻擊之略",
+        "將有五才十過之說"
+      ],
+      "battle": "CAMPAIGN-PINGRONG-BATTLE-DIAGRAM-987",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "皇帝以阵图直接规范将帅作战。"
+        ]
+      ],
+      "unknown": [
+        "实战适用效果待后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-OFFICIAL-SALARY-INCREASE-987",
+      "time": "雍熙四年十一月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷提高百官俸给，将原以八折折给的钱物改为足额发放。",
+      "result": "官俸从八分折给恢复为十足。",
+      "quote": [
+        "俸給之數，宜從優厚",
+        "以八分為十者",
+        "自今給以實數"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "百官俸给由八折改为足额。"
+        ]
+      ],
+      "unknown": [
+        "年度增支未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-BORDER-FALSE-ALARMS-987",
+      "time": "雍熙四年十二月",
+      "loc": [
+        "雄州",
+        "霸州",
+        "宁边军",
+        "河北东路"
+      ],
+      "action": "边州接连报告辽军将入境，宁边数日收到八十余谍报；柳开、王嗣宗判断均为虚警。",
+      "result": "辽军未至，太宗停止拟议中的亲征。",
+      "quote": [
+        "數日間連受八十餘諜",
+        "遼人必不至",
+        "果諜者之妄",
+        "之狀，帝乃止。\n"
+      ],
+      "battle": "CAMPAIGN-BORDER-FALSE-ALARMS-987",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "识别边报虚警并停止亲征。"
+        ]
+      ],
+      "unknown": [
+        "虚报来源未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-XIXIDONG-RESETTLEMENT-987",
+      "time": "雍熙四年十二月",
+      "loc": [
+        "全州西溪洞"
+      ],
+      "action": "柳开以招抚与威慑并用，促使常劫掠民众的粟氏五百余人举族迁出。",
+      "result": "粟氏获田宅安置，酋长入朝授官，地方劫掠被平息。",
+      "quote": [
+        "聚族五百餘人",
+        "常抄掠民口糧畜",
+        "給田為屋處之",
+        "悉攜老幼至",
+        "即賦其居業"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "招抚西溪洞粟氏并授官。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "安置田宅并停止劫掠。"
+        ]
+      ],
+      "unknown": [
+        "安置土地数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-013-LATE-SILKWORM-BAN-REJECTED-987",
+      "time": "雍熙四年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "孔维建议禁晚蚕以利国马，乐史指出军马死亡源于长途运输饲养不善，晚蚕又是贫户卒岁收入。",
+      "result": "太宗停止晚蚕禁令。",
+      "quote": [
+        "請禁原蠶以利國馬",
+        "失於善視，遂致斃耗",
+        "晚蠶薄利，始及卒歲之資",
+        "遂寢原蠶之禁"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护贫户晚蚕收入并否决错误马政归因。"
+        ]
+      ],
+      "unknown": [
+        "国马死亡率未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2601957 的《續資治通鑑》卷013连续通读登记，不引入卷外常识。",
+    "普通任免、朝会、贡聘、祥异及无消费结果的重复行军节点未单列。",
+    "雍熙北伐及辽反攻按连续战争主干合并；卷末边防谍报与再议亲征转出卷014。"
+  ]
+}

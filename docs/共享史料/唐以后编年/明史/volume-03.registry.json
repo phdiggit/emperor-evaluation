@@ -1,0 +1,2615 @@
+{
+  "facts": [
+    {
+      "action": "承接卷2云南战役，明军收降中庆等路，攻克大理、鹤庆、丽江、金齿并击败乌撒蛮。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "元军",
+        "云南各族民众"
+      ],
+      "cost_or_burden": "双方伤亡与军费未载。",
+      "fact_id": "CHF-MING-V03-YUNNAN-CAMPAIGN-END-1382",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "云南主要区域平定，沐英留镇云南。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-YUNNAN-1381-1382"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-yunnan-campaign-end-1382",
+      "source_refs": [
+        "明史/卷3@2597561#元曲靖宣慰司及中慶、澂江、武定諸路俱降，雲南平。",
+        "明史/卷3@2597561#藍玉、沐英克大理，分兵徇鶴慶、麗江、金齒，俱下。",
+        "明史/卷3@2597561#傅友德、沐英擊烏撒蠻，大敗之。",
+        "明史/卷3@2597561#沐英留鎮雲南。"
+      ],
+      "time_range": {
+        "end": "1382",
+        "precision": "range",
+        "start": "洪武十五年正月至闰二月"
+      },
+      "uncertainties": [
+        "各战伤亡、地方损失和接管成本未载。"
+      ]
+    },
+    {
+      "action": "黄河多处决口及河南北平大水后，朝廷派员赈济，并连续免畿内及多省税粮、田租和逋赋。",
+      "actors": [],
+      "affected_groups": [
+        "灾民",
+        "农户",
+        "养马户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-FLOOD-TAX-RELIEF-1382-1385",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "受灾和负担较重地区获得赈济与蠲免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-FLOOD-TAX-RELIEF-1382-1385"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-flood-tax-relief-1382-1385",
+      "source_refs": [
+        "明史/卷3@2597561#河決河南，命駙馬都尉李祺振之。",
+        "明史/卷3@2597561#免畿內、浙江、江西、河南、山東稅糧。",
+        "明史/卷3@2597561#河南、北平大水，分遣駙馬都尉李祺等振之。",
+        "明史/卷3@2597561#蠲河南、山東、北平田租。"
+      ],
+      "time_range": {
+        "end": "洪武十八年二月",
+        "precision": "range",
+        "start": "洪武十五年五月"
+      },
+      "uncertainties": [
+        "赈济数量、免税总额及决口修复结果未载。"
+      ]
+    },
+    {
+      "action": "户部请开磁州铁冶，明太祖以军器已足、民业初定且采冶扰民为由拒绝。",
+      "actors": [],
+      "affected_groups": [
+        "磁州民众",
+        "矿冶役户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-IRON-MINING-RESTRAINT-1382",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "磁州铁矿未开采，避免新增采冶役扰。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-IRON-MINING-RESTRAINT-1382"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-iron-mining-restraint-1382",
+      "source_refs": [
+        "明史/卷3@2597561#今軍器不乏，而民業已定，無益於國，且重擾民。"
+      ],
+      "time_range": {
+        "end": "1382",
+        "precision": "month",
+        "start": "洪武十五年十二月"
+      },
+      "uncertainties": [
+        "矿藏规模和停采的财政影响未载。"
+      ]
+    },
+    {
+      "action": "朝廷建成太学、扩充国子学舍，恢复三年一科并颁取士式，命学校岁贡士。",
+      "actors": [],
+      "affected_groups": [
+        "学生",
+        "士人",
+        "学校官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "中央学校与科举贡士制度定型并扩大。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-education-exam-system-1382-1397",
+      "source_refs": [
+        "明史/卷3@2597561#丑，太學成，釋",
+        "明史/卷3@2597561#復設科取士，三年一行，為定制。",
+        "明史/卷3@2597561#初命天下學校歲貢士於京師。",
+        "明史/卷3@2597561#頒科舉取士式。",
+        "明史/卷3@2597561#增築國子學舍。"
+      ],
+      "time_range": {
+        "end": "洪武三十年五月",
+        "precision": "range",
+        "start": "洪武十五年五月"
+      },
+      "uncertainties": [
+        "建设费用、学生规模与各地执行差异未载。"
+      ]
+    },
+    {
+      "action": "朝廷设置都察院和殿阁大学士，后规定刑部、都察院议案并由大理寺覆谳后奏决。",
+      "actors": [],
+      "affected_groups": [
+        "中央官员",
+        "涉案民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "监察、顾问与三法司机构的审判复核程序得到确立。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-central-judicial-institutions-1382-1389",
+      "source_refs": [
+        "明史/卷3@2597561#，置都察院。丙",
+        "明史/卷3@2597561#置殿閣大學士",
+        "明史/卷3@2597561#刑部、都察院詳議，大理寺覆讞後奏決。"
+      ],
+      "time_range": {
+        "end": "洪武二十二年十二月",
+        "precision": "range",
+        "start": "洪武十五年十月"
+      },
+      "uncertainties": [
+        "机构编制、案件数量和复核效果未载。"
+      ]
+    },
+    {
+      "action": "思州蛮及五开等地相继反叛，明廷派军征讨并平定五开。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "西南部族",
+        "地方民众"
+      ],
+      "cost_or_burden": "双方伤亡未载。",
+      "fact_id": "CHF-MING-V03-SOUTHWEST-REVOLTS-1383-1385",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "部分叛乱被平定，西南边地冲突仍延续。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-SOUTHWEST-REVOLTS-1383-1385"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-southwest-revolts-1383-1385",
+      "source_refs": [
+        "明史/卷3@2597561#辰，思州蠻叛，",
+        "明史/卷3@2597561#討平五開蠻。"
+      ],
+      "time_range": {
+        "end": "洪武十八年十月",
+        "precision": "range",
+        "start": "洪武十六年十一月"
+      },
+      "uncertainties": [
+        "思州战事结局、各战伤亡和地方损失未载。"
+      ]
+    },
+    {
+      "action": "明廷巡视沿海防倭，在福建等濒海地区筑城练兵，累计筑宁海、临山等五十九城。",
+      "actors": [],
+      "affected_groups": [
+        "沿海军民",
+        "筑城役夫",
+        "倭寇"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "沿海形成大规模城防与守备体系。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-coastal-defense-works-1384-1388",
+      "source_refs": [
+        "明史/卷3@2597561#湯和巡視沿海諸城防倭。",
+        "明史/卷3@2597561#周德興築福建瀕海城，練兵防倭。",
+        "明史/卷3@2597561#湯和還，凡築寧海、臨山等五十九城。"
+      ],
+      "time_range": {
+        "end": "洪武二十一年八月",
+        "precision": "range",
+        "start": "洪武十七年九月"
+      },
+      "uncertainties": [
+        "工程费用、役夫伤亡和防御成效未载。"
+      ]
+    },
+    {
+      "action": "郭桓因盗官粮被诛，朝廷随后颁布《大诰》以整肃官吏。",
+      "actors": [],
+      "affected_groups": [
+        "中央地方官员",
+        "纳粮民户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "重大官粮贪污案被惩处并转化为全国政治法令。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-official-grain-corruption-1385",
+      "source_refs": [
+        "明史/卷3@2597561#戶部侍郎郭桓坐盜官糧誅。",
+        "明史/卷3@2597561#頒大誥於天下。"
+      ],
+      "time_range": {
+        "end": "1385",
+        "precision": "range",
+        "start": "洪武十八年三月至十月"
+      },
+      "uncertainties": [
+        "被盗粮额、牵连人数和追赃结果未载。"
+      ]
+    },
+    {
+      "action": "朝廷赎回河南饥民所卖子女，规定高龄贫民与鳏寡孤独给米酒肉，并给战伤军士复役、阵亡家属全俸及世袭优待。",
+      "actors": [],
+      "affected_groups": [
+        "饥民",
+        "被鬻子女",
+        "高龄贫民",
+        "鳏寡孤独者",
+        "军人家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-SOCIAL-WELFARE-1386-1397",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "灾民、老弱贫困者和军人家庭救济形成明确给付标准。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-SOCIAL-WELFARE-1386-1397"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-social-welfare-1386-1397",
+      "source_refs": [
+        "明史/卷3@2597561#詔贖河南饑民所鬻子女。",
+        "明史/卷3@2597561#貧民年八十以上，月給米五斗，酒三斗，肉五斤",
+        "明史/卷3@2597561#鰥寡孤獨不能自存者，歲給米六石。",
+        "明史/卷3@2597561#士卒戰傷除其籍，賜復三年。將校陣亡，其子世襲加一秩。",
+        "明史/卷3@2597561#命官軍已亡子女幼或父母老者皆給全俸，著為令。"
+      ],
+      "time_range": {
+        "end": "洪武三十年四月",
+        "precision": "range",
+        "start": "洪武十九年七月"
+      },
+      "uncertainties": [
+        "受益人数、实际发放和财政支出未载。"
+      ]
+    },
+    {
+      "action": "明军北征纳哈出并修筑大宁、宽河等城，纳哈出投降；殿军濮英后遭伏战死。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "纳哈出部",
+        "辽东边民"
+      ],
+      "cost_or_burden": "濮英战死；双方总伤亡未载。",
+      "fact_id": "CHF-MING-V03-NAHACU-CAMPAIGN-1387",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽东北元重要势力归降，明廷设置大宁都指挥使司。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-NAHACU-1387"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-nahacu-campaign-1387",
+      "source_refs": [
+        "明史/卷3@2597561#率師征納哈出。",
+        "明史/卷3@2597561#城大寧、寬河、會州、富峪。",
+        "明史/卷3@2597561#未，納哈出降。\n",
+        "明史/卷3@2597561#都督濮英殿軍遇伏，死之。",
+        "明史/卷3@2597561#置大寧都指揮使司。"
+      ],
+      "time_range": {
+        "end": "1387",
+        "precision": "range",
+        "start": "洪武二十年正月至九月"
+      },
+      "uncertainties": [
+        "归降人数、各战伤亡和筑城费用未载。"
+      ]
+    },
+    {
+      "action": "蓝玉远征捕鱼儿海，突袭并击破北元营地。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "北元军民与宗室"
+      ],
+      "cost_or_burden": "北元被俘数万人；死亡与明军损失未载。",
+      "fact_id": "CHF-MING-V03-BUIR-LAKE-CAMPAIGN-1388",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "俘北元次子、妃主王公以下数万人，北元嗣君逃走。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-BUIR-LAKE-1388"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-buir-lake-campaign-1388",
+      "source_refs": [
+        "明史/卷3@2597561#藍玉襲破元嗣君於捕魚兒海，獲其次子地保奴及妃主王公以下數萬人而還。"
+      ],
+      "time_range": {
+        "end": "1388",
+        "precision": "range",
+        "start": "洪武二十一年三月至四月"
+      },
+      "uncertainties": [
+        "死亡人数、俘虏安置和军费未载。"
+      ]
+    },
+    {
+      "action": "思伦发反叛并侵马龙他郎甸，明军先有败绩，后由宁正、沐英连续击败。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "麓川军民",
+        "云南边民"
+      ],
+      "cost_or_burden": "千户王昇战死；双方总伤亡未载。",
+      "fact_id": "CHF-MING-V03-LUCHUAN-WAR-1386-1389",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "思伦发入贡谢罪，麓川暂时平定。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LUCHUAN-1386-1389"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-luchuan-war-1386-1389",
+      "source_refs": [
+        "明史/卷3@2597561#麓川平緬宣慰使思倫發反，都督馮誠敗績，千戶王昇死之。",
+        "明史/卷3@2597561#麓川蠻思倫發入寇馬龍他郎甸，都督甯正擊敗之。",
+        "明史/卷3@2597561#沐英討思倫發敗之。",
+        "明史/卷3@2597561#思倫發入貢謝罪，麓川平。"
+      ],
+      "time_range": {
+        "end": "洪武二十二年十一月",
+        "precision": "range",
+        "start": "洪武十九年十一月"
+      },
+      "uncertainties": [
+        "各战伤亡、贡物与地方损失未载。"
+      ]
+    },
+    {
+      "action": "朝廷迁无业民到河南北方及淮南垦田，给钞备农具并复役三年。",
+      "actors": [],
+      "affected_groups": [
+        "无业民",
+        "移民农户",
+        "迁入地民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-MIGRATION-AGRICULTURE-1389-1390",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "政府资助移民垦殖，扩大中原淮南农业人口。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-MIGRATION-AGRICULTURE-1389-1390"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-migration-agriculture-1389-1390",
+      "source_refs": [
+        "明史/卷3@2597561#徙澤、潞民無業者墾河南、北田，賜鈔備農具，復三年。",
+        "明史/卷3@2597561#徙江南民田淮南，賜鈔備農具，復三年。"
+      ],
+      "time_range": {
+        "end": "洪武二十三年九月",
+        "precision": "range",
+        "start": "洪武二十二年九月"
+      },
+      "uncertainties": [
+        "移民人数、土地数量、迁徙损失和垦殖成效未载。"
+      ]
+    },
+    {
+      "action": "晋燕二王统军出塞，迫使咬住、乃儿不花等投降并多次击败北元军；朝廷授二王较大军务裁量权。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "晋燕藩府",
+        "北元军民"
+      ],
+      "cost_or_burden": "双方总伤亡与军费未载。",
+      "fact_id": "CHF-MING-V03-NORTHERN-PRINCELY-COMMAND-1390-1396",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北边军事由藩王直接统领，北元部众遭打击或归降。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-NORTHERN-PRINCELY-COMMAND-1390-1396"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-northern-princely-command-1390-1396",
+      "source_refs": [
+        "明史/卷3@2597561#晉王棡、燕王棣帥師征元丞相咬住、太尉乃兒不花",
+        "明史/卷3@2597561#都，咬住等降。\n",
+        "明史/卷3@2597561#燕王棣督傅友德諸將出塞，敗敵而還。",
+        "明史/卷3@2597561#詔二王軍務大者始以聞。"
+      ],
+      "time_range": {
+        "end": "洪武二十九年三月",
+        "precision": "range",
+        "start": "洪武二十三年正月"
+      },
+      "uncertainties": [
+        "各战伤亡、降众安置和藩王军权边界未详。"
+      ]
+    },
+    {
+      "action": "朝廷追究胡惟庸党案，将陆仲亨等下狱，赐李善长死并诛杀多人，刊行《昭示奸党录》。",
+      "actors": [],
+      "affected_groups": [
+        "开国功臣",
+        "中央官员",
+        "涉案家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-HU-WEIYONG-PURGE-1390",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "胡惟庸案扩大为对开国功臣的政治清洗。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-HU-WEIYONG-PURGE-1390"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-hu-weiyong-purge-1390",
+      "source_refs": [
+        "明史/卷3@2597561#陸仲亨等坐胡惟庸黨下獄。",
+        "明史/卷3@2597561#賜太師韓國公李善長死，陸仲亨等皆坐誅。",
+        "明史/卷3@2597561#作昭示姦黨錄，布告天下。"
+      ],
+      "time_range": {
+        "end": "1390",
+        "precision": "range",
+        "start": "洪武二十三年五月至六月"
+      },
+      "uncertainties": [
+        "案件证据、牵连总人数与家属处置未载。"
+      ]
+    },
+    {
+      "action": "全国赋役黄册编成，朝廷又规定百户为里，以富贫互助及耕获合作组织基层。",
+      "actors": [],
+      "affected_groups": [
+        "全国民户",
+        "地方官员",
+        "富户与贫户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "户籍赋役统计与里甲互助治理制度形成。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-yellow-register-lijia-1391-1395",
+      "source_refs": [
+        "明史/卷3@2597561#天下郡縣賦役黃冊成，計戶千六十八萬四千四百三十五，丁五千六百七十七萬四千五百六十一。",
+        "明史/卷3@2597561#諭戶部編民百戶為里。婚姻死喪疾病患難，里中富者助財，貧者助力。春秋耕穫，通力合作，以教民睦。"
+      ],
+      "time_range": {
+        "end": "洪武二十八年十月",
+        "precision": "range",
+        "start": "洪武二十四年十一月"
+      },
+      "uncertainties": [
+        "漏籍、执行成本和互助实际效果未载。"
+      ]
+    },
+    {
+      "action": "皇太子朱标去世后，明太祖立朱允炆为皇太孙。",
+      "actors": [],
+      "affected_groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-CROWN-PRINCE-SUCCESSION-1392",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "皇位继承人由太子改为皇太孙。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-CROWN-PRINCE-SUCCESSION-1392"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-crown-prince-succession-1392",
+      "source_refs": [
+        "明史/卷3@2597561#皇太子標薨。",
+        "明史/卷3@2597561#立皇孫允炆為皇太孫。"
+      ],
+      "time_range": {
+        "end": "1392",
+        "precision": "range",
+        "start": "洪武二十五年四月至九月"
+      },
+      "uncertainties": [
+        "继承安排的朝议过程与反对意见未载。"
+      ]
+    },
+    {
+      "action": "朝廷在山西籍民为军，于大同东胜屯田并设十六卫，又规定天下卫所七成军士屯田。",
+      "actors": [],
+      "affected_groups": [
+        "军户",
+        "卫所军",
+        "山西河南民户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-MILITARY-TUNTIAN-1392",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北边卫所扩张，全国军屯比例制度化。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-MILITARY-TUNTIAN-1392"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-military-tuntian-1392",
+      "source_refs": [
+        "明史/卷3@2597561#馮勝、傅友德帥開國公常昇等分行山西，籍民為軍，屯田於大同、東勝，立十六衞。",
+        "明史/卷3@2597561#詔天下衞所軍以十之七屯田。"
+      ],
+      "time_range": {
+        "end": "1392",
+        "precision": "range",
+        "start": "洪武二十五年八月至十月"
+      },
+      "uncertainties": [
+        "籍军人数、屯田面积、产量和民户负担未载。"
+      ]
+    },
+    {
+      "action": "蓝玉以谋反罪被杀并颁《逆臣录》，随后多名公侯相继因党案或坐事被诛。",
+      "actors": [],
+      "affected_groups": [
+        "开国武臣",
+        "中央官员",
+        "涉案家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "开国高级武臣集团遭持续大规模清洗。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-blue-jade-military-purges-1392-1395",
+      "source_refs": [
+        "明史/卷3@2597561#涼國公藍玉以謀反",
+        "明史/卷3@2597561#頒逆臣錄於天下。",
+        "明史/卷3@2597561#周德興坐事誅。",
+        "明史/卷3@2597561#潁國公傅友德坐事誅。",
+        "明史/卷3@2597561#宋國公馮勝坐事誅。"
+      ],
+      "time_range": {
+        "end": "洪武二十八年二月",
+        "precision": "range",
+        "start": "洪武二十五年八月"
+      },
+      "uncertainties": [
+        "各案证据、牵连总人数及家属处置未载。"
+      ]
+    },
+    {
+      "action": "孝感饥荒时朝廷驰传发仓粮贷民，并规定今后遇饥先赈贷再上报。",
+      "actors": [],
+      "affected_groups": [
+        "饥民",
+        "地方官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "地方灾荒救济获得先行开仓的制度授权。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-famine-first-relief-rule-1393",
+      "source_refs": [
+        "明史/卷3@2597561#孝感饑，遣使乘傳發倉貸之。",
+        "明史/卷3@2597561#詔自今遇歲饑，先貸後聞，著為令。"
+      ],
+      "time_range": {
+        "end": "1393",
+        "precision": "month",
+        "start": "洪武二十六年四月"
+      },
+      "uncertainties": [
+        "此次贷粮数量、偿还方式和后续执行未载。"
+      ]
+    },
+    {
+      "action": "朝廷发仓谷贷贫民，督促种植桑枣木棉，并派国子监生督吏民修水利。",
+      "actors": [],
+      "affected_groups": [
+        "贫民",
+        "农户",
+        "水利役夫",
+        "国子监生"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "救济、经济作物推广与农田水利督修同步推行。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-agriculture-water-conservancy-1394",
+      "source_refs": [
+        "明史/卷3@2597561#發天下倉穀貸貧民。",
+        "明史/卷3@2597561#課民樹桑棗木棉。",
+        "明史/卷3@2597561#遣國子監生分行天下，督吏民修水利。"
+      ],
+      "time_range": {
+        "end": "1394",
+        "precision": "range",
+        "start": "洪武二十七年二月至七月"
+      },
+      "uncertainties": [
+        "贷款总额、植树数量、工程规模及成效未载。"
+      ]
+    },
+    {
+      "action": "明军持续镇压西南各地叛乱，并在末期进讨水西、古州及麓川刀干孟。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "西南各部族",
+        "地方民众"
+      ],
+      "cost_or_burden": "古州守将吴得、井孚战死；双方总伤亡未详。",
+      "fact_id": "CHF-MING-V03-LATE-SOUTHWEST-WARS-1390-1398",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "多处叛乱被击破或暂平，刀干孟亦遭大败。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LATE-SOUTHWEST-WARS-1390-1398"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-late-southwest-wars-1390-1398",
+      "source_refs": [
+        "明史/卷3@2597561#阿資復叛，西平侯沐春擊敗之。",
+        "明史/卷3@2597561#何福討都勻、畢節諸蠻，平之。",
+        "明史/卷3@2597561#水西蠻叛，都督僉事顧成為征南將軍，討平之。",
+        "明史/卷3@2597561#古州蠻叛，龍里千戶吳得、鎮撫井孚戰死。",
+        "明史/卷3@2597561#麓川平緬土酋刀幹孟逐其宣慰使思倫發以叛。",
+        "明史/卷3@2597561#沐春擊刀幹孟，大敗之。"
+      ],
+      "time_range": {
+        "end": "洪武三十一年五月",
+        "precision": "range",
+        "start": "洪武二十三年正月"
+      },
+      "uncertainties": [
+        "各战完整过程、总伤亡和民生损失未载。"
+      ]
+    },
+    {
+      "action": "黄河在归德、开封、阳武等地决口，朝廷发军民抢堵并赈免；崇明海门海溢后发民二十五万筑堤。",
+      "actors": [],
+      "affected_groups": [
+        "河工军民",
+        "沿河沿海灾民",
+        "农户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-RIVER-DIKE-WORKS-1390-1397",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "多地实施大规模应急河海堤防工程，部分灾区获得赈济免租。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V03-RIVER-DIKE-WORKS-1390-1397"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-river-dike-works-1390-1397",
+      "source_refs": [
+        "明史/卷3@2597561#河決歸德，發諸軍民塞之。",
+        "明史/卷3@2597561#崇明、海門風雨海溢，遣官振之，發民二十五萬築隄。",
+        "明史/卷3@2597561#河決陽武，發軍民塞之，免被水田租。",
+        "明史/卷3@2597561#，河決開封。甲"
+      ],
+      "time_range": {
+        "end": "洪武三十年八月",
+        "precision": "range",
+        "start": "洪武二十三年五月"
+      },
+      "uncertainties": [
+        "多数工程合龙结果、工费、役夫伤亡和灾损未载。"
+      ]
+    },
+    {
+      "action": "明太祖规定后嗣遵律与《大诰》，禁止黥刺刖劓阉割等刑，禁止复设丞相，并限制法司擅自逮捕。",
+      "actors": [],
+      "affected_groups": [
+        "后世皇帝",
+        "法司官员",
+        "涉案民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "皇权继承后的刑罚、中枢结构与司法权限被遗命式制度约束。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-legal-succession-constraints-1395",
+      "source_refs": [
+        "明史/卷3@2597561#後嗣止循律與大誥，不許用黥刺、剕、劓、閹割之刑。",
+        "明史/卷3@2597561#嗣君不許復立丞相。",
+        "明史/卷3@2597561#法司祇許舉奏，毋得擅逮。"
+      ],
+      "time_range": {
+        "end": "1395",
+        "precision": "month",
+        "start": "洪武二十八年三月"
+      },
+      "uncertainties": [
+        "后世遵行程度本卷未载。"
+      ]
+    },
+    {
+      "action": "燕王在彻彻儿山及兀良哈秃城击败北元军；倭寇侵雷州、宁海时守军迎击。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "北元军",
+        "倭寇",
+        "边海民众"
+      ],
+      "cost_or_burden": "百户李玉、镇抚陶鼎战死；其他伤亡未载。",
+      "fact_id": "CHF-MING-V03-LATE-BORDER-DEFENSE-1396-1398",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北边和海疆来犯被击退，但雷州守将战死。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LATE-BORDER-DEFENSE-1396-1398"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-late-border-defense-1396-1398",
+      "source_refs": [
+        "明史/卷3@2597561#燕王敗敵於徹徹兒山，又追敗之於兀良哈禿城而還。",
+        "明史/卷3@2597561#倭寇雷州，百戶李玉、鎮撫陶鼎戰死。",
+        "明史/卷3@2597561#倭寇寧海，指揮陶鐸擊敗之。"
+      ],
+      "time_range": {
+        "end": "洪武三十一年五月",
+        "precision": "range",
+        "start": "洪武二十九年三月"
+      },
+      "uncertainties": [
+        "袭扰规模、双方总伤亡和民间损失未载。"
+      ]
+    },
+    {
+      "action": "朱元璋病重后在西宫去世，遗诏皇太孙继位，并令丧祭从俭、诸王在封国治丧不赴京。",
+      "actors": [],
+      "affected_groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V03-TAIZU-DEATH-SUCCESSION-1398",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "洪武朝结束，朱允炆成为法定继位者。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V03-TAIZU-DEATH-SUCCESSION-1398"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v03-taizu-death-succession-1398",
+      "source_refs": [
+        "明史/卷3@2597561#，帝疾大漸。乙",
+        "明史/卷3@2597561#酉，崩於西宮，",
+        "明史/卷3@2597561#皇太孫允炆仁明孝友，天下歸心，宜登大位。",
+        "明史/卷3@2597561#喪祭儀物，毋用金玉。",
+        "明史/卷3@2597561#諸王臨國中，毋至京師。"
+      ],
+      "time_range": {
+        "end": "1398",
+        "precision": "month",
+        "start": "洪武三十一年闰五月"
+      },
+      "uncertainties": [
+        "遗诏形成过程及各藩王即时反应未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "水灾后赈济并蠲免多地税粮田租。",
+      "actors": [],
+      "affected_groups": [
+        "灾民",
+        "农户",
+        "养马户"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-FLOOD-TAX-RELIEF-1382-1385",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-FLOOD-TAX-RELIEF-1382-1385"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "受灾和负担较重地区获得赈济与蠲免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-flood-tax-relief-1382-1385",
+      "source_refs": [
+        "明史/卷3@2597561#河決河南，命駙馬都尉李祺振之。",
+        "明史/卷3@2597561#免畿內、浙江、江西、河南、山東稅糧。",
+        "明史/卷3@2597561#河南、北平大水，分遣駙馬都尉李祺等振之。",
+        "明史/卷3@2597561#蠲河南、山東、北平田租。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-FLOOD-TAX-RELIEF-1382-1385",
+      "time_range": {
+        "end": "洪武十八年二月",
+        "precision": "range",
+        "start": "洪武十五年五月"
+      },
+      "uncertainties": [
+        "赈济数量、免税总额及决口修复结果未载。"
+      ]
+    },
+    {
+      "action": "以无益国用且扰民拒开磁州铁冶。",
+      "actors": [],
+      "affected_groups": [
+        "磁州民众",
+        "矿冶役户"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-IRON-MINING-RESTRAINT-1382",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-IRON-MINING-RESTRAINT-1382"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "磁州铁矿未开采，避免新增采冶役扰。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-iron-mining-restraint-1382",
+      "source_refs": [
+        "明史/卷3@2597561#今軍器不乏，而民業已定，無益於國，且重擾民。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-IRON-MINING-RESTRAINT-1382",
+      "time_range": {
+        "end": "1382",
+        "precision": "month",
+        "start": "洪武十五年十二月"
+      },
+      "uncertainties": [
+        "矿藏规模和停采的财政影响未载。"
+      ]
+    },
+    {
+      "action": "建立灾民赎子、高龄孤贫与军属定额救济。",
+      "actors": [],
+      "affected_groups": [
+        "饥民",
+        "被鬻子女",
+        "高龄贫民",
+        "鳏寡孤独者",
+        "军人家属"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-SOCIAL-WELFARE-1386-1397",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-SOCIAL-WELFARE-1386-1397"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "灾民、老弱贫困者和军人家庭救济形成明确给付标准。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-social-welfare-1386-1397",
+      "source_refs": [
+        "明史/卷3@2597561#詔贖河南饑民所鬻子女。",
+        "明史/卷3@2597561#貧民年八十以上，月給米五斗，酒三斗，肉五斤",
+        "明史/卷3@2597561#鰥寡孤獨不能自存者，歲給米六石。",
+        "明史/卷3@2597561#士卒戰傷除其籍，賜復三年。將校陣亡，其子世襲加一秩。",
+        "明史/卷3@2597561#命官軍已亡子女幼或父母老者皆給全俸，著為令。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-SOCIAL-WELFARE-1386-1397",
+      "time_range": {
+        "end": "洪武三十年四月",
+        "precision": "range",
+        "start": "洪武十九年七月"
+      },
+      "uncertainties": [
+        "受益人数、实际发放和财政支出未载。"
+      ]
+    },
+    {
+      "action": "资助泽潞江南无业民迁徙垦殖。",
+      "actors": [],
+      "affected_groups": [
+        "无业民",
+        "移民农户",
+        "迁入地民众"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-MIGRATION-AGRICULTURE-1389-1390",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-MIGRATION-AGRICULTURE-1389-1390"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "政府资助移民垦殖，扩大中原淮南农业人口。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-migration-agriculture-1389-1390",
+      "source_refs": [
+        "明史/卷3@2597561#徙澤、潞民無業者墾河南、北田，賜鈔備農具，復三年。",
+        "明史/卷3@2597561#徙江南民田淮南，賜鈔備農具，復三年。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-MIGRATION-AGRICULTURE-1389-1390",
+      "time_range": {
+        "end": "洪武二十三年九月",
+        "precision": "range",
+        "start": "洪武二十二年九月"
+      },
+      "uncertainties": [
+        "移民人数、土地数量、迁徙损失和垦殖成效未载。"
+      ]
+    },
+    {
+      "action": "编成全国黄册并以百户为里组织赋役互助。",
+      "actors": [],
+      "affected_groups": [
+        "全国民户",
+        "地方官员",
+        "富户与贫户"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "户籍赋役统计与里甲互助治理制度形成。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-yellow-register-lijia-1391-1395",
+      "source_refs": [
+        "明史/卷3@2597561#天下郡縣賦役黃冊成，計戶千六十八萬四千四百三十五，丁五千六百七十七萬四千五百六十一。",
+        "明史/卷3@2597561#諭戶部編民百戶為里。婚姻死喪疾病患難，里中富者助財，貧者助力。春秋耕穫，通力合作，以教民睦。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395",
+      "time_range": {
+        "end": "洪武二十八年十月",
+        "precision": "range",
+        "start": "洪武二十四年十一月"
+      },
+      "uncertainties": [
+        "漏籍、执行成本和互助实际效果未载。"
+      ]
+    },
+    {
+      "action": "规定遇饥先发仓贷民后奏。",
+      "actors": [],
+      "affected_groups": [
+        "饥民",
+        "地方官员"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "地方灾荒救济获得先行开仓的制度授权。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-famine-first-relief-rule-1393",
+      "source_refs": [
+        "明史/卷3@2597561#孝感饑，遣使乘傳發倉貸之。",
+        "明史/卷3@2597561#詔自今遇歲饑，先貸後聞，著為令。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393",
+      "time_range": {
+        "end": "1393",
+        "precision": "month",
+        "start": "洪武二十六年四月"
+      },
+      "uncertainties": [
+        "此次贷粮数量、偿还方式和后续执行未载。"
+      ]
+    },
+    {
+      "action": "贷粮贫民并推广种植、督修水利。",
+      "actors": [],
+      "affected_groups": [
+        "贫民",
+        "农户",
+        "水利役夫",
+        "国子监生"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "救济、经济作物推广与农田水利督修同步推行。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v03-agriculture-water-conservancy-1394",
+      "source_refs": [
+        "明史/卷3@2597561#發天下倉穀貸貧民。",
+        "明史/卷3@2597561#課民樹桑棗木棉。",
+        "明史/卷3@2597561#遣國子監生分行天下，督吏民修水利。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394",
+      "time_range": {
+        "end": "1394",
+        "precision": "range",
+        "start": "洪武二十七年二月至七月"
+      },
+      "uncertainties": [
+        "贷款总额、植树数量、工程规模及成效未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《明史》卷3正文登记，未知保持未知。",
+    "普通任免、朝贡与祥异不单列；连续战争、赈免、制度和工程按最小充分事件链合并。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "太学扩建并确立三年科举和学校岁贡制度。",
+      "actors": [],
+      "affected_groups": [
+        "学生",
+        "士人",
+        "学校官员"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "中央学校与科举贡士制度定型并扩大。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "中央学校与科举贡士制度定型并扩大。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-education-exam-system-1382-1397",
+      "source_refs": [
+        "明史/卷3@2597561#丑，太學成，釋",
+        "明史/卷3@2597561#復設科取士，三年一行，為定制。",
+        "明史/卷3@2597561#初命天下學校歲貢士於京師。",
+        "明史/卷3@2597561#頒科舉取士式。",
+        "明史/卷3@2597561#增築國子學舍。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397",
+      "time_range": {
+        "end": "洪武三十年五月",
+        "precision": "range",
+        "start": "洪武十五年五月"
+      },
+      "uncertainties": [
+        "建设费用、学生规模与各地执行差异未载。"
+      ]
+    },
+    {
+      "action": "设都察院殿阁大学士并确立三法司复核程序。",
+      "actors": [],
+      "affected_groups": [
+        "中央官员",
+        "涉案民众"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "监察、顾问与三法司机构的审判复核程序得到确立。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "监察、顾问与三法司机构的审判复核程序得到确立。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-central-judicial-institutions-1382-1389",
+      "source_refs": [
+        "明史/卷3@2597561#，置都察院。丙",
+        "明史/卷3@2597561#置殿閣大學士",
+        "明史/卷3@2597561#刑部、都察院詳議，大理寺覆讞後奏決。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389",
+      "time_range": {
+        "end": "洪武二十二年十二月",
+        "precision": "range",
+        "start": "洪武十五年十月"
+      },
+      "uncertainties": [
+        "机构编制、案件数量和复核效果未载。"
+      ]
+    },
+    {
+      "action": "郭桓盗官粮案后颁大诰整肃官吏。",
+      "actors": [],
+      "affected_groups": [
+        "中央地方官员",
+        "纳粮民户"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "重大官粮贪污案被惩处并转化为全国政治法令。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "重大官粮贪污案被惩处并转化为全国政治法令。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-official-grain-corruption-1385",
+      "source_refs": [
+        "明史/卷3@2597561#戶部侍郎郭桓坐盜官糧誅。",
+        "明史/卷3@2597561#頒大誥於天下。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385",
+      "time_range": {
+        "end": "1385",
+        "precision": "range",
+        "start": "洪武十八年三月至十月"
+      },
+      "uncertainties": [
+        "被盗粮额、牵连人数和追赃结果未载。"
+      ]
+    },
+    {
+      "action": "胡惟庸案扩大并清洗李善长等功臣。",
+      "actors": [],
+      "affected_groups": [
+        "开国功臣",
+        "中央官员",
+        "涉案家属"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-HU-WEIYONG-PURGE-1390",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-HU-WEIYONG-PURGE-1390"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "胡惟庸案扩大为对开国功臣的政治清洗。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "胡惟庸案扩大为对开国功臣的政治清洗。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-hu-weiyong-purge-1390",
+      "source_refs": [
+        "明史/卷3@2597561#陸仲亨等坐胡惟庸黨下獄。",
+        "明史/卷3@2597561#賜太師韓國公李善長死，陸仲亨等皆坐誅。",
+        "明史/卷3@2597561#作昭示姦黨錄，布告天下。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-HU-WEIYONG-PURGE-1390",
+      "time_range": {
+        "end": "1390",
+        "precision": "range",
+        "start": "洪武二十三年五月至六月"
+      },
+      "uncertainties": [
+        "案件证据、牵连总人数与家属处置未载。"
+      ]
+    },
+    {
+      "action": "朱标死后朱允炆被立为皇太孙。",
+      "actors": [],
+      "affected_groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-CROWN-PRINCE-SUCCESSION-1392",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-CROWN-PRINCE-SUCCESSION-1392"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "皇位继承人由太子改为皇太孙。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇位继承人由太子改为皇太孙。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-crown-prince-succession-1392",
+      "source_refs": [
+        "明史/卷3@2597561#皇太子標薨。",
+        "明史/卷3@2597561#立皇孫允炆為皇太孫。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-CROWN-PRINCE-SUCCESSION-1392",
+      "time_range": {
+        "end": "1392",
+        "precision": "range",
+        "start": "洪武二十五年四月至九月"
+      },
+      "uncertainties": [
+        "继承安排的朝议过程与反对意见未载。"
+      ]
+    },
+    {
+      "action": "北边设十六卫并令卫所七成军士屯田。",
+      "actors": [],
+      "affected_groups": [
+        "军户",
+        "卫所军",
+        "山西河南民户"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-MILITARY-TUNTIAN-1392",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-MILITARY-TUNTIAN-1392"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "北边卫所扩张，全国军屯比例制度化。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "北边卫所扩张，全国军屯比例制度化。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-military-tuntian-1392",
+      "source_refs": [
+        "明史/卷3@2597561#馮勝、傅友德帥開國公常昇等分行山西，籍民為軍，屯田於大同、東勝，立十六衞。",
+        "明史/卷3@2597561#詔天下衞所軍以十之七屯田。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-MILITARY-TUNTIAN-1392",
+      "time_range": {
+        "end": "1392",
+        "precision": "range",
+        "start": "洪武二十五年八月至十月"
+      },
+      "uncertainties": [
+        "籍军人数、屯田面积、产量和民户负担未载。"
+      ]
+    },
+    {
+      "action": "蓝玉案后开国高级武臣被持续清洗。",
+      "actors": [],
+      "affected_groups": [
+        "开国武臣",
+        "中央官员",
+        "涉案家属"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "开国高级武臣集团遭持续大规模清洗。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "开国高级武臣集团遭持续大规模清洗。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-blue-jade-military-purges-1392-1395",
+      "source_refs": [
+        "明史/卷3@2597561#涼國公藍玉以謀反",
+        "明史/卷3@2597561#頒逆臣錄於天下。",
+        "明史/卷3@2597561#周德興坐事誅。",
+        "明史/卷3@2597561#潁國公傅友德坐事誅。",
+        "明史/卷3@2597561#宋國公馮勝坐事誅。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395",
+      "time_range": {
+        "end": "洪武二十八年二月",
+        "precision": "range",
+        "start": "洪武二十五年八月"
+      },
+      "uncertainties": [
+        "各案证据、牵连总人数及家属处置未载。"
+      ]
+    },
+    {
+      "action": "禁止后世复丞相、酷刑及法司擅逮。",
+      "actors": [],
+      "affected_groups": [
+        "后世皇帝",
+        "法司官员",
+        "涉案民众"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "皇权继承后的刑罚、中枢结构与司法权限被遗命式制度约束。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇权继承后的刑罚、中枢结构与司法权限被遗命式制度约束。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-legal-succession-constraints-1395",
+      "source_refs": [
+        "明史/卷3@2597561#後嗣止循律與大誥，不許用黥刺、剕、劓、閹割之刑。",
+        "明史/卷3@2597561#嗣君不許復立丞相。",
+        "明史/卷3@2597561#法司祇許舉奏，毋得擅逮。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395",
+      "time_range": {
+        "end": "1395",
+        "precision": "month",
+        "start": "洪武二十八年三月"
+      },
+      "uncertainties": [
+        "后世遵行程度本卷未载。"
+      ]
+    },
+    {
+      "action": "朱元璋崩逝并遗诏朱允炆继位。",
+      "actors": [],
+      "affected_groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "candidate_ref": "POL-CAND-MING-V03-TAIZU-DEATH-SUCCESSION-1398",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-TAIZU-DEATH-SUCCESSION-1398"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "洪武朝结束，朱允炆成为法定继位者。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "洪武朝结束，朱允炆成为法定继位者。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v03-taizu-death-succession-1398",
+      "source_refs": [
+        "明史/卷3@2597561#，帝疾大漸。乙",
+        "明史/卷3@2597561#酉，崩於西宮，",
+        "明史/卷3@2597561#皇太孫允炆仁明孝友，天下歸心，宜登大位。",
+        "明史/卷3@2597561#喪祭儀物，毋用金玉。",
+        "明史/卷3@2597561#諸王臨國中，毋至京師。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V03-TAIZU-DEATH-SUCCESSION-1398",
+      "time_range": {
+        "end": "1398",
+        "precision": "month",
+        "start": "洪武三十一年闰五月"
+      },
+      "uncertainties": [
+        "遗诏形成过程及各藩王即时反应未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "沿海筑五十九城并练兵防倭。",
+      "actors": [],
+      "affected_groups": [
+        "沿海军民",
+        "筑城役夫",
+        "倭寇"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "沿海形成大规模城防与守备体系。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v03-coastal-defense-works-1384-1388",
+      "source_refs": [
+        "明史/卷3@2597561#湯和巡視沿海諸城防倭。",
+        "明史/卷3@2597561#周德興築福建瀕海城，練兵防倭。",
+        "明史/卷3@2597561#湯和還，凡築寧海、臨山等五十九城。"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388",
+      "time_range": {
+        "end": "洪武二十一年八月",
+        "precision": "range",
+        "start": "洪武十七年九月"
+      },
+      "uncertainties": [
+        "工程费用、役夫伤亡和防御成效未载。"
+      ]
+    },
+    {
+      "action": "黄河决口及海溢后发军民筑堤抢堵并赈免。",
+      "actors": [],
+      "affected_groups": [
+        "河工军民",
+        "沿河沿海灾民",
+        "农户"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V03-RIVER-DIKE-WORKS-1390-1397",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V03-RIVER-DIKE-WORKS-1390-1397"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "多地实施大规模应急河海堤防工程，部分灾区获得赈济免租。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v03-river-dike-works-1390-1397",
+      "source_refs": [
+        "明史/卷3@2597561#河決歸德，發諸軍民塞之。",
+        "明史/卷3@2597561#崇明、海門風雨海溢，遣官振之，發民二十五萬築隄。",
+        "明史/卷3@2597561#河決陽武，發軍民塞之，免被水田租。",
+        "明史/卷3@2597561#，河決開封。甲"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V03-RIVER-DIKE-WORKS-1390-1397",
+      "time_range": {
+        "end": "洪武三十年八月",
+        "precision": "range",
+        "start": "洪武二十三年五月"
+      },
+      "uncertainties": [
+        "多数工程合龙结果、工费、役夫伤亡和灾损未载。"
+      ]
+    }
+  ],
+  "registry_version": "MING-MINGSHI-V03-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "洪武三十一年闰五月太祖崩",
+    "input_fingerprint": "ae0c91c7c371e3dbe503fcf898e9e7698d3863ce56291b953ae7d4c9272f4ff4",
+    "overlap_context": "卷首承接卷2征云南；卷末太祖遗诏与皇太孙继位由卷4承接。",
+    "revision_ref": "2597561",
+    "start_locator": "洪武十五年春正月云南平定",
+    "volume_ref": "卷3",
+    "work": "明史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V03-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-FLOOD-TAX-RELIEF-1382-1385"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-flood-tax-relief-1382-1385",
+      "status": "closed",
+      "summary": "水灾后赈济并蠲免多地税粮田租。",
+      "thread_ref": "FIN-THREAD-MING-V03-FLOOD-TAX-RELIEF-1382-1385",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-IRON-MINING-RESTRAINT-1382"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-iron-mining-restraint-1382",
+      "status": "closed",
+      "summary": "以无益国用且扰民拒开磁州铁冶。",
+      "thread_ref": "FIN-THREAD-MING-V03-IRON-MINING-RESTRAINT-1382",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-education-exam-system-1382-1397",
+      "status": "closed",
+      "summary": "太学扩建并确立三年科举和学校岁贡制度。",
+      "thread_ref": "POL-THREAD-MING-V03-EDUCATION-EXAM-SYSTEM-1382-1397",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-central-judicial-institutions-1382-1389",
+      "status": "closed",
+      "summary": "设都察院殿阁大学士并确立三法司复核程序。",
+      "thread_ref": "POL-THREAD-MING-V03-CENTRAL-JUDICIAL-INSTITUTIONS-1382-1389",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v03-coastal-defense-works-1384-1388",
+      "status": "closed",
+      "summary": "沿海筑五十九城并练兵防倭。",
+      "thread_ref": "WORK-THREAD-MING-V03-COASTAL-DEFENSE-WORKS-1384-1388",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-official-grain-corruption-1385",
+      "status": "closed",
+      "summary": "郭桓盗官粮案后颁大诰整肃官吏。",
+      "thread_ref": "POL-THREAD-MING-V03-OFFICIAL-GRAIN-CORRUPTION-1385",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-SOCIAL-WELFARE-1386-1397"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-social-welfare-1386-1397",
+      "status": "closed",
+      "summary": "建立灾民赎子、高龄孤贫与军属定额救济。",
+      "thread_ref": "FIN-THREAD-MING-V03-SOCIAL-WELFARE-1386-1397",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-MIGRATION-AGRICULTURE-1389-1390"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-migration-agriculture-1389-1390",
+      "status": "closed",
+      "summary": "资助泽潞江南无业民迁徙垦殖。",
+      "thread_ref": "FIN-THREAD-MING-V03-MIGRATION-AGRICULTURE-1389-1390",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-HU-WEIYONG-PURGE-1390"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-hu-weiyong-purge-1390",
+      "status": "closed",
+      "summary": "胡惟庸案扩大并清洗李善长等功臣。",
+      "thread_ref": "POL-THREAD-MING-V03-HU-WEIYONG-PURGE-1390",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-yellow-register-lijia-1391-1395",
+      "status": "closed",
+      "summary": "编成全国黄册并以百户为里组织赋役互助。",
+      "thread_ref": "FIN-THREAD-MING-V03-YELLOW-REGISTER-LIJIA-1391-1395",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-CROWN-PRINCE-SUCCESSION-1392"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-crown-prince-succession-1392",
+      "status": "closed",
+      "summary": "朱标死后朱允炆被立为皇太孙。",
+      "thread_ref": "POL-THREAD-MING-V03-CROWN-PRINCE-SUCCESSION-1392",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-MILITARY-TUNTIAN-1392"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-military-tuntian-1392",
+      "status": "closed",
+      "summary": "北边设十六卫并令卫所七成军士屯田。",
+      "thread_ref": "POL-THREAD-MING-V03-MILITARY-TUNTIAN-1392",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-blue-jade-military-purges-1392-1395",
+      "status": "closed",
+      "summary": "蓝玉案后开国高级武臣被持续清洗。",
+      "thread_ref": "POL-THREAD-MING-V03-BLUE-JADE-MILITARY-PURGES-1392-1395",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-famine-first-relief-rule-1393",
+      "status": "closed",
+      "summary": "规定遇饥先发仓贷民后奏。",
+      "thread_ref": "FIN-THREAD-MING-V03-FAMINE-FIRST-RELIEF-RULE-1393",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v03-agriculture-water-conservancy-1394",
+      "status": "closed",
+      "summary": "贷粮贫民并推广种植、督修水利。",
+      "thread_ref": "FIN-THREAD-MING-V03-AGRICULTURE-WATER-CONSERVANCY-1394",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V03-RIVER-DIKE-WORKS-1390-1397"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v03-river-dike-works-1390-1397",
+      "status": "closed",
+      "summary": "黄河决口及海溢后发军民筑堤抢堵并赈免。",
+      "thread_ref": "WORK-THREAD-MING-V03-RIVER-DIKE-WORKS-1390-1397",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-legal-succession-constraints-1395",
+      "status": "closed",
+      "summary": "禁止后世复丞相、酷刑及法司擅逮。",
+      "thread_ref": "POL-THREAD-MING-V03-LEGAL-SUCCESSION-CONSTRAINTS-1395",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V03-TAIZU-DEATH-SUCCESSION-1398"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v03-taizu-death-succession-1398",
+      "status": "closed",
+      "summary": "朱元璋崩逝并遗诏朱允炆继位。",
+      "thread_ref": "POL-THREAD-MING-V03-TAIZU-DEATH-SUCCESSION-1398",
+      "uncertainties": []
+    }
+  ]
+}

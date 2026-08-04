@@ -1,0 +1,1047 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "FIVE-DYNASTIES-ZZTJ-275-1",
+  "status": "shadow",
+  "task_code": "FIVE-DYNASTIES-ZZTJ-275-MULTIDOMAIN",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷275",
+    "revision_ref": "803286",
+    "start_locator": "后唐庄宗天成元年四月",
+    "end_locator": "后唐明宗天成二年六月",
+    "overlap_context": "续接卷274李嗣源据汴、庄宗中央崩解及西川接管；本卷闭合庄宗之死与明宗即位，续展西川抗衡、荆南三峡和契丹继承，转交卷276。",
+    "input_fingerprint": "07de832486754aed32e6f95311ff8416baf30e1dc3d792b0d0424da951c0c161"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-275-LUOYANG-PALACE-MUTINY-926",
+      "time": "天成元年四月",
+      "loc": [
+        "洛阳",
+        "兴教门"
+      ],
+      "action": "郭从谦率从马直攻兴教门，乱兵焚门入城；庄宗亲战中流矢而死。",
+      "result": "宫城失守，庄宗政权当日瓦解。",
+      "cost": "近臣宿将溃散，宫殿被焚，洛阳遭诸军大掠。",
+      "quote": [
+        "帥所部兵自營中露刃大呼",
+        "帝為流矢所中",
+        "諸軍大掠都城"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CENTRAL-COLLAPSE-926",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闭合卷274庄宗中央崩解。"
+        ]
+      ],
+      "unknown": [
+        "郭从谦所部确切人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-LI-SIYUAN-ENTERS-LUOYANG-926",
+      "time": "天成元年四月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "李嗣源入洛阳后禁止焚掠，并从灰烬中收殓庄宗遗骨。",
+      "result": "洛阳秩序开始恢复，李嗣源取得中央控制。",
+      "quote": [
+        "嗣源入洛陽",
+        "第，禁焚掠，拾",
+        "拾莊宗骨於灰燼之中而殯之"
+      ],
+      "battle": "CAMPAIGN-LI-SIYUAN-DALIANG-926",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "承接卷274李嗣源据汴并转入洛阳接管。"
+        ]
+      ],
+      "unknown": [
+        "止掠执行范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-TAIYUAN-INTERNAL-KILLINGS-926",
+      "time": "天成元年四月",
+      "loc": [
+        "晋阳",
+        "牙城"
+      ],
+      "action": "李存沼与两内养谋据晋阳，军士先杀三人并大掠；李彦超随后号令安城。",
+      "result": "晋阳拒守计划失败，李彦超权知太原军府。",
+      "cost": "牙城整夜遭掠。",
+      "quote": [
+        "軍士共殺二內養及存沼於牙城",
+        "因大掠達旦",
+        "卒，城中始安"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-SUCCESSION-926",
+      "unknown": [
+        "掠夺与死伤规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-PALACE-WOMEN-RELEASED-926",
+      "time": "天成元年四月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "李嗣源受监国后拒收数百年轻宫人，令其归亲或自择去处。",
+      "result": "庄宗后宫及蜀中所送宫人被大批遣散。",
+      "quote": [
+        "其少年者皆出歸其親戚",
+        "無親戚者任其所適",
+        "蜀中所送宮人亦准此"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁减宫廷供养并释放被征入宫者。"
+        ]
+      ],
+      "unknown": [
+        "实际遣散人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-LATER-TANG-PRINCES-KILLED-926",
+      "time": "天成元年四月",
+      "loc": [
+        "洛阳",
+        "晋阳",
+        "凤谷"
+      ],
+      "action": "安重诲等暗杀通王、雅王；存渥、存霸及刘后先后被杀，多名庄宗幼子失踪。",
+      "result": "庄宗近支继承人被系统清除。",
+      "quote": [
+        "密遣人就田舍殺之",
+        "軍士不聽，殺之於府門碑下",
+        "監國使人就殺之"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-SUCCESSION-926",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明宗接管中的宗室清洗。"
+        ]
+      ],
+      "unknown": [
+        "失踪诸子的最终下落未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-JINGNAN-CANCELS-CHU-ATTACK-926",
+      "time": "天成元年四月",
+      "loc": [
+        "荆南",
+        "楚"
+      ],
+      "action": "高季兴大造战舰欲攻楚，孙光宪以民力初复、恐他国乘弊劝止。",
+      "result": "荆南停止对楚开战准备。",
+      "quote": [
+        "大治戰艦，欲攻楚",
+        "賴公休息士民，始有生意",
+        "也。」季興乃止。"
+      ],
+      "battle": "CAMPAIGN-JINGNAN-CHU-926",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "造舰计划因民生与安全风险中止。"
+        ]
+      ],
+      "unknown": [
+        "已造舰数及耗费未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-KONG-QIAN-FISCAL-ABOLITION-926",
+      "time": "天成元年四月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "李嗣源诛孔谦，废其苛敛法及租庸使、内勾司，恢复盐铁、户部、度支三司。",
+      "result": "庄宗末年的横征体系被撤销，财政重新归三司。",
+      "quote": [
+        "奸佞侵刻窮困軍民之罪而斬之",
+        "凡謙所立苛斂之法皆罷之",
+        "依舊為鹽鐵、戶部、度支三司"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明确废除苛敛并重建财政机构。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新政权制度清理。"
+        ]
+      ],
+      "unknown": [
+        "各苛敛项目减收数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-EUNUCH-SUPERVISORS-ABOLISHED-926",
+      "time": "天成元年四月",
+      "loc": [
+        "后唐诸道"
+      ],
+      "action": "李嗣源废诸道监军使并命各道尽杀宦官。",
+      "result": "宦官监军体系被强制清除。",
+      "cost": "各地宦官遭集体杀戮。",
+      "quote": [
+        "罷諸道監軍使",
+        "命諸道盡殺之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "庄宗亡国后的军事监察重组。"
+        ]
+      ],
+      "unknown": [
+        "全国死亡总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-LI-JIJI-DEATH-926",
+      "time": "天成元年四月",
+      "loc": [
+        "武功",
+        "渭南"
+      ],
+      "action": "魏王李继岌东进受阻、腹心逃散，命仆夫缢杀自己；任圜接领征蜀军。",
+      "result": "庄宗嫡系西征军转归明宗中央安抚。",
+      "quote": [
+        "腹心呂知柔等皆已竄匿",
+        "命僕夫李環縊殺之",
+        "任圜代將其眾而東"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-SUCCESSION-926",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "庄宗继承线闭合。"
+        ]
+      ],
+      "unknown": [
+        "随军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-MINGZONG-ACCESSION-926",
+      "time": "天成元年四月",
+      "loc": [
+        "洛阳",
+        "西宫"
+      ],
+      "action": "李嗣源拒绝改国号，在庄宗柩前以旁支入继之礼即皇帝位。",
+      "result": "后唐国号与李氏政统形式上延续。",
+      "quote": [
+        "安有同家而異國乎",
+        "宜用嗣子柩前即位之禮",
+        "於柩前即皇帝位"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "完成庄宗至明宗的政权交接。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-275-MINGZONG-AUSTERITY-AMNESTY-926",
+      "time": "天成元年四月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "明宗大赦改元，裁减后宫、宦官、教坊、鹰坊与御厨，废空名使务、分军就食，并减免税耗和贡奉。",
+      "result": "中央供养和运输负担下降，地方贡奉与百姓加派受限。",
+      "quote": [
+        "自餘任從所適",
+        "諸司使務有名無實者皆廢之",
+        "除夏、秋稅省耗",
+        "毋得斂百姓"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "多项裁费减役直接落到军民负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明宗初政。"
+        ]
+      ],
+      "unknown": [
+        "年度节省总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-REN-HUAN-FISCAL-RECOVERY-926",
+      "time": "天成元年五月起一年间",
+      "loc": [
+        "后唐"
+      ],
+      "action": "任圜判三司，选贤杜幸，以公事为家事治理财政。",
+      "result": "一年间府库充实、军民皆足，朝纲初立。",
+      "quote": [
+        "俊，杜絕僥倖",
+        "府庫充實，軍民皆足",
+        "足，朝綱粗立"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "史文明载财政与军民供给改善。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "任圜与安重诲冲突的起点。"
+        ]
+      ],
+      "unknown": [
+        "收入支出数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-EUNUCH-HUNT-TAIYUAN-926",
+      "time": "天成元年五月",
+      "loc": [
+        "晋阳"
+      ],
+      "action": "逃至晋阳的七十余宦官被诏令全部诛杀。",
+      "result": "废监军后的宦官清洗继续扩大。",
+      "cost": "七十余人死亡。",
+      "quote": [
+        "至晉陽者七十餘人",
+        "從溫悉誅之。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "承接诸道尽杀宦官之令。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-275-BIANZHOU-MUTINY-926",
+      "time": "天成元年六月",
+      "loc": [
+        "汴州",
+        "建国门"
+      ],
+      "action": "张谏等三千戍兵返城作乱焚掠，杀高逖；李彦饶诱斩首乱者并击杀其党。",
+      "result": "四百乱兵被诛，军州暂定。",
+      "cost": "坊市遭焚掠，高逖及乱兵死亡。",
+      "quote": [
+        "復還，作亂，焚掠坊市",
+        "盡誅其眾四百人"
+      ],
+      "battle": "CAMPAIGN-BIANZHOU-MUTINY-926",
+      "unknown": [
+        "平民死伤及财产损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-BIANZHOU-MASS-EXECUTION-926",
+      "time": "天成元年六月",
+      "loc": [
+        "汴州"
+      ],
+      "action": "孔循接管汴州后收捕被认作乱者三千家，全部诛杀。",
+      "result": "镇压由处置乱兵扩成按户族灭。",
+      "cost": "三千家被诛。",
+      "quote": "收為亂者三千家",
+      "battle": "CAMPAIGN-BIANZHOU-MUTINY-926",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存镇压规模与连坐。"
+        ]
+      ],
+      "unknown": [
+        "实际死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-HUAZHOU-MUTINY-926",
+      "time": "天成元年六月",
+      "loc": [
+        "滑州"
+      ],
+      "action": "于可洪等纵火作乱，攻击魏博戍兵三个指挥并逐出。",
+      "result": "滑州军权一度脱离控制。",
+      "cost": "城中发生纵火，损失未载。",
+      "quote": [
+        "等縱火作亂",
+        "攻魏博戍兵三指揮",
+        "指揮，逐出之。\n"
+      ],
+      "battle": "CAMPAIGN-HUAZHOU-MUTINY-926",
+      "unknown": [
+        "交战死伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-HUAZHOU-MUTINY-PUNISHED-926",
+      "time": "天成元年六月",
+      "loc": [
+        "滑州",
+        "洛阳"
+      ],
+      "action": "朝廷验明滑州兵变后斩于可洪，并族诛首谋全营及助乱将校百人。",
+      "result": "滑州兵变被以大规模连坐终结。",
+      "cost": "一营及百名将校家族被诛。",
+      "quote": [
+        "斬可洪於都市",
+        "牙全營族誅",
+        "將校百人亦族誅"
+      ],
+      "battle": "CAMPAIGN-HUAZHOU-MUTINY-926",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "兵变后的集体惩罚。"
+        ]
+      ],
+      "unknown": [
+        "全营户数和死亡总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-KHITAN-CONQUERS-FUYU-926",
+      "time": "天成元年七月前后",
+      "loc": [
+        "夫余城",
+        "东丹国"
+      ],
+      "action": "契丹攻拔渤海夫余城，改置东丹国，以突欲镇守。",
+      "result": "契丹完成对渤海核心区域的征服与分封。",
+      "quote": [
+        "拔其夫餘城",
+        "更命曰東丹國",
+        "命其長子突欲鎮東丹"
+      ],
+      "battle": "CAMPAIGN-KHITAN-BOHAI-926",
+      "unknown": [
+        "攻城死伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-KHITAN-DEMANDS-HEBEI-926",
+      "time": "天成元年七月前后",
+      "loc": [
+        "契丹",
+        "河北"
+      ],
+      "action": "阿保机以修好为条件索取河北，退而索镇、定、幽州；唐使姚坤拒绝作状，被囚。",
+      "result": "明宗与契丹修好谈判因领土要求僵持。",
+      "quote": [
+        "若與我大河之北，吾不復南侵矣",
+        "得鎮、定、幽州亦可也",
+        "諫，乃復囚之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "契丹边患的外交延续。"
+        ]
+      ],
+      "unknown": [
+        "当时后唐正式答复未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-KHITAN-RULER-DIES-926",
+      "time": "天成元年七月辛巳",
+      "loc": [
+        "夫余城"
+      ],
+      "action": "契丹主阿保机死于夫余城，述律后随即清洗难制诸将与酋长。",
+      "result": "契丹进入由述律后主持的继承期。",
+      "cost": "多名诸将、酋长被杀。",
+      "quote": [
+        "契丹主阿保機卒於夫餘城",
+        "見之。」遂殺之。\n<"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "契丹继承线开启。"
+        ]
+      ],
+      "unknown": [
+        "初期清洗人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-MENG-ARMY-EXPANSION-926",
+      "time": "天成元年七月至八月",
+      "loc": [
+        "成都",
+        "西川"
+      ],
+      "action": "孟知祥利用库中二十万副铠甲，先置十六营一万六千人，继而增设冲山、义宁、牢城诸营分戍各地。",
+      "result": "西川形成大规模独立常备军与州县驻军体系。",
+      "quote": [
+        "得鎧甲二十萬",
+        "營，凡萬六千人，分",
+        "分戍管內州縣就食"
+      ],
+      "battle": "CAMPAIGN-XICHUAN-AUTONOMY-926",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模军队由西川州县供养。"
+        ]
+      ],
+      "unknown": [
+        "各营实际足额与维持成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-KHITAN-BORDER-RAID-926",
+      "time": "天成元年八月",
+      "loc": [
+        "幽州",
+        "后唐北边"
+      ],
+      "action": "契丹再度犯边，后唐命安审通率兵防御。",
+      "result": "此前修好未消除北边军事压力。",
+      "quote": [
+        "言契丹寇邊",
+        "通將兵御之"
+      ],
+      "battle": "CAMPAIGN-KHITAN-TANG-BORDER-926",
+      "unknown": [
+        "侵入地点、规模与战果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-XICHUAN-RIVER-FLEET-926",
+      "time": "天成元年九月",
+      "loc": [
+        "西川",
+        "夔峡"
+      ],
+      "action": "孟知祥设置左右飞棹兵六营六千人，分戍沿江诸州并训练水战。",
+      "result": "西川建立针对夔峡方向的水军防线。",
+      "quote": [
+        "置左、右飛棹兵六營",
+        "營，凡六千人，分",
+        "習水戰以備夔、峽"
+      ],
+      "battle": "CAMPAIGN-XICHUAN-AUTONOMY-926",
+      "unknown": [
+        "船只数量与建造费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-DEGUANG-KHITAN-SUCCESSION-926",
+      "time": "天成元年九月后",
+      "loc": [
+        "西楼",
+        "契丹"
+      ],
+      "action": "述律后操纵酋长执辔拥立德光为天皇王，突欲出奔未果后归东丹。",
+      "result": "德光继位，述律太后掌决国事。",
+      "quote": [
+        "爭執德光轡歡躍",
+        "遂立之為天皇王",
+        "國事皆決焉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "契丹继承线闭合但边患开放。"
+        ]
+      ],
+      "unknown": [
+        "反对继位者规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-LULONG-WENJIN-RETURNS-926",
+      "time": "天成元年十月后",
+      "loc": [
+        "平州",
+        "幽州"
+      ],
+      "action": "卢文进所部华人杀契丹平州戍军，率十余万人、车帐八千乘归后唐。",
+      "result": "契丹在平州的驻防受挫，大批人口与军属进入后唐。",
+      "quote": [
+        "殺契丹戍平州者",
+        "帥其眾十餘萬",
+        "車帳八千乘來奔"
+      ],
+      "battle": "CAMPAIGN-LULONG-RETURN-926",
+      "unknown": [
+        "契丹戍军人数及归附者军民构成未详。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-SHU-FORCED-CONTRIBUTION-926",
+      "time": "天成元年十一月前后",
+      "loc": [
+        "西川",
+        "成都"
+      ],
+      "action": "征蜀军曾强取富民犒赏钱五百万缗，致人自杀；余二百万缗又被中央派员提取。",
+      "result": "西川财富被大规模外运，孟知祥拒绝再交州县租税。",
+      "cost": "富民昼夜受督责并有自杀者。",
+      "quote": [
+        "輸犒賞錢五百萬緡",
+        "責，有自殺者",
+        "猶二百萬緡",
+        "萬，決不可得"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征服后的强征及其死亡后果。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央与西川财政控制冲突。"
+        ]
+      ],
+      "unknown": [
+        "自杀人数和实物折价未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-MIN-FUZHOU-COUP-926",
+      "time": "天成元年十二月",
+      "loc": [
+        "建州",
+        "泉州",
+        "福州"
+      ],
+      "action": "王延禀、王延钧合兵袭福州，击败守军、夜梯入城，捕斩王延翰。",
+      "result": "王延钧被推为威武留后，闽主权更替。",
+      "cost": "守将陈陶兵败自杀，王延翰被斩。",
+      "quote": [
+        "延稟、延鈞合兵襲福州",
+        "門，梯城而入",
+        "斬於紫宸門外"
+      ],
+      "battle": "CAMPAIGN-MIN-FUZHOU-COUP-926",
+      "unknown": [
+        "双方兵力与其他死伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-SHU-TREASURE-RELIEVES-TREASURY-926",
+      "time": "天成元年十二月",
+      "loc": [
+        "成都",
+        "洛阳"
+      ],
+      "action": "赵季良等将蜀地金帛十亿运至洛阳。",
+      "result": "后唐中央匮乏的财政赖此得到缓解。",
+      "quote": [
+        "運蜀金帛十億至洛陽",
+        "乏，賴此以濟"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明确记载中央财政受益及西川外运。"
+        ]
+      ],
+      "unknown": [
+        "十亿的具体计量口径未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-MENG-DEFIANT-APPOINTMENT-927",
+      "time": "天成二年正月",
+      "loc": [
+        "西川",
+        "遂州"
+      ],
+      "action": "孟知祥援引便宜密诏先任李敬周为遂州留后，催其赴任后才上表。",
+      "result": "西川公开以先斩后奏方式行使地方任命权。",
+      "quote": [
+        "嘗受密詔許便宜從事",
+        "趣之上道，然後表聞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "直接进入西川与中央权力冲突。"
+        ]
+      ],
+      "unknown": [
+        "所谓密诏真伪未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-MENG-KILLS-LI-YAN-927",
+      "time": "天成二年正月",
+      "loc": [
+        "成都"
+      ],
+      "action": "孟知祥质问李严独来监军，随后将其斩杀，并以诈宣口敕等罪名上奏。",
+      "result": "后唐在西川恢复监军的尝试失败，中央使臣纷纷退避。",
+      "quote": [
+        "天下皆廢監軍，公獨來監吾軍，何也",
+        "遂揖下，斬之",
+        "臣輒已誅之"
+      ],
+      "battle": "CAMPAIGN-XICHUAN-AUTONOMY-927",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "西川与中央公开决裂节点。"
+        ]
+      ],
+      "unknown": [
+        "中央是否预授权李严代孟知祥未能证实。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-WU-COURT-DISCIPLINE-927",
+      "time": "天成二年正月",
+      "loc": [
+        "吴"
+      ],
+      "action": "柴再用恃功拒御史弹劾，徐知诰故意自劾并坚持罚俸示范。",
+      "result": "吴廷内外因此肃然。",
+      "quote": [
+        "再用恃功不服",
+        "固請奪一月俸",
+        "由是中外肅然"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以自我处分恢复朝廷纪律。"
+        ]
+      ],
+      "unknown": [
+        "柴再用最终处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-KHITAN-TOMB-PURGE-927",
+      "time": "天成二年正月",
+      "loc": [
+        "木叶山"
+      ],
+      "action": "述律太后借给阿保机传话之名，连续在墓所杀死强黠近臣，最终自断一腕殉葬。",
+      "result": "契丹继承期清洗继续，死亡以百数。",
+      "cost": "前后百余人被杀。",
+      "quote": [
+        "至墓所則殺之",
+        "前後所殺以百數",
+        "耳。」乃斷一腕，"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "契丹政权整肃。"
+        ]
+      ],
+      "unknown": [
+        "死者具体名录未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-JINGNAN-SEIZES-KUIZHOU-927",
+      "time": "天成二年二月",
+      "loc": [
+        "夔州",
+        "涪州",
+        "峡口"
+      ],
+      "action": "高季兴突袭夔州杀戍兵并拒纳新刺史，袭涪州未克，又杀韩珙、掠蜀珍货四十万。",
+      "result": "荆南与后唐决裂并控制夔州、峡口财运。",
+      "cost": "夔州戍兵及韩珙等被杀，四十万金帛被掠。",
+      "quote": [
+        "殺戍兵而據之",
+        "遣兵襲涪州，不克",
+        "口，盡掠取之"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存峡口劫财与交通控制。"
+        ]
+      ],
+      "unknown": [
+        "戍兵及船队死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-TANG-LAUNCHES-JINGNAN-CAMPAIGN-927",
+      "time": "天成二年二月",
+      "loc": [
+        "荆南",
+        "夔峡",
+        "湖南"
+      ],
+      "action": "明宗削高季兴官爵，命刘训等率步骑四万，并调东川、湖南三面进攻。",
+      "result": "后唐发动跨区域讨荆南战役。",
+      "quote": [
+        "削奪季興官爵",
+        "將步騎四萬討之",
+        "仍會湖南軍三面進攻"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "unknown": [
+        "东川、湖南实际投入兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-LUTAI-MUTINY-927",
+      "time": "天成二年二月",
+      "loc": [
+        "卢台军",
+        "东寨"
+      ],
+      "action": "龙晊所部受流言与军权交接刺激，在房知温诱导下杀乌震并南走。",
+      "result": "卢台戍军发生兵变，河北防契丹部署中断。",
+      "cost": "乌震在席上被杀。",
+      "quote": [
+        "誘龍晊所部兵殺震於席上",
+        "其眾噪於營外",
+        "亂兵遂南行"
+      ],
+      "battle": "CAMPAIGN-LUTAI-MUTINY-927",
+      "unknown": [
+        "乱军当时实际人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-LUTAI-MUTINY-SUPPRESSED-927",
+      "time": "天成二年二月",
+      "loc": [
+        "黄河以东",
+        "卢台军"
+      ],
+      "action": "房知温与安审通合骑兵追击，四面夹攻疲惫乱军并焚其故寨。",
+      "result": "乱军溃败，藏匿得免者不足十分之一二。",
+      "cost": "乱兵几乎全灭。",
+      "quote": [
+        "騎兵四合擊之",
+        "之，亂兵殆盡",
+        "得免者什無一二"
+      ],
+      "battle": "CAMPAIGN-LUTAI-MUTINY-927",
+      "unknown": [
+        "俘虏与追兵损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-JINGNAN-SIEGE-FAILS-927",
+      "time": "天成二年三月至五月",
+      "loc": [
+        "江陵",
+        "荆南"
+      ],
+      "action": "孔循至江陵攻城不克，招降亦遭高季兴拒绝；湖南未能提供粮饷，刘训军奉诏撤回。",
+      "result": "后唐陆路讨荆南行动失败。",
+      "quote": [
+        "陵，攻之不克",
+        "興；季興不遜",
+        "督饋糧於行營，竟不能得",
+        "詔劉訓等引兵還"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军粮无法取得直接导致撤军。"
+        ]
+      ],
+      "unknown": [
+        "疾病、伤亡与消耗数未载于此段。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-JINGNAN-WU-ALIGNMENT-927",
+      "time": "天成二年五月",
+      "loc": [
+        "江陵",
+        "吴",
+        "楚"
+      ],
+      "action": "高季兴扣押楚使并夺贡物，请举镇附吴；徐温只收贡物，不接受称臣。",
+      "result": "荆南寻求吴国保护未获正式臣属承诺。",
+      "quote": [
+        "執光憲而奪之",
+        "請舉鎮自附於吳",
+        "受其貢物，辭其稱臣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "荆南战后外交转向。"
+        ]
+      ],
+      "unknown": [
+        "楚使后续去向未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-REN-HUAN-REMOVED-927",
+      "time": "天成二年五月至六月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "任圜与安重诲争三司馆券权，先辞判三司，继而罢相。",
+      "result": "明宗初年的财政主政者失势，张延朗接判三司。",
+      "quote": [
+        "圜因求罷三司",
+        "任圜罷守太子少保",
+        "張延朗判三司"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央权力冲突改变财政主政。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三司控制权转移。"
+        ]
+      ],
+      "unknown": [
+        "政策是否随即逆转未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-275-XIFANG-YE-RETAKES-THREE-PREFECTURES-927",
+      "time": "天成二年六月",
+      "loc": [
+        "峡中",
+        "夔州",
+        "忠州",
+        "万州"
+      ],
+      "action": "西方邺在峡中击败荆南水军，重新夺取夔、忠、万三州。",
+      "result": "后唐虽撤江陵陆军，仍恢复三峡三州控制。",
+      "quote": [
+        "敗荊南水於峽中",
+        "復取夔、忠、萬三州"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "unknown": [
+        "水战兵船与伤亡数未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "明宗已完成即位并清理庄宗旧制，但任圜罢相后安重诲主导的中央权力结构仍向卷276开放。",
+    "孟知祥扩军、拒税并诛李严，西川与中央关系尚未闭合；保持其长期目标未知。",
+    "后唐撤江陵军而西方邺复取夔、忠、万，荆南归属与后续攻守转交卷276；契丹德光继位后的边患同样开放。"
+  ]
+}

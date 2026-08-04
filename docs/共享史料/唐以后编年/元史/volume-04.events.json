@@ -1,0 +1,1542 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-004-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-004-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷004",
+    "revision_ref": "2201383",
+    "start_locator": "世祖潜邸问治与领漠南汉地",
+    "end_locator": "中统二年户口与死刑数",
+    "overlap_context": "续卷3宪宗崩于钓鱼山；卷4追叙忽必烈潜邸治汉、大理与鄂州，继载中统元年至二年；卷5续中统三年。",
+    "input_fingerprint": "b2835a11ae6f911ab1929bd35029a62ac0f3c8a4e1de4e71db450416a9eb12e7"
+  },
+  "limitations": [
+    "潜邸事按岁次追叙，与即位后中统元年分段登记。",
+    "本卷政令极密，按同一时间窗、主体与共同实施闭环合并，互不相关结果不吞并。",
+    "军事伤亡、财政执行与民户受益未载处保持未知。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-004-XINGZHOU-RECOVERY",
+      "time": "宪宗元年前后",
+      "loc": [
+        "邢州"
+      ],
+      "action": "邢州封户由万余减至五七百户后，忽必烈采纳选良吏建议，承制任安抚使和商榷使。",
+      "result": "史称邢州大治。",
+      "groups": [
+        "邢州民户"
+      ],
+      "quote": [
+        "民萬餘戶，今日減月削，纔五七百戶耳",
+        "宜選良吏撫循之",
+        "使，邢乃大治"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-XINGZHOU-RECOVERY",
+        "candidate": "POL-CAND-YUAN-XINGZHOU-RECOVERY",
+        "summary": "邢州选良吏后大治。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "地方官任用与衰户恢复。",
+          "decision_question": "如何处理邢州民户锐减。",
+          "alternatives": "维持原官；史料未载。",
+          "decision": "任安抚使、商榷使。",
+          "direct_result": "邢州大治。",
+          "power_change": "潜邸承制介入封地地方治理。",
+          "risk_or_damage": "大治具体指标未载。",
+          "follow_up": "后续户口恢复数未载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "民户锐减与治理恢复涉及生计和税基。"
+        ]
+      ],
+      "unknown": [
+        "户减原因、恢复户数和官员具体举措未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-OPPOSE-SUMMARY-EXECUTIONS",
+      "time": "岁壬子",
+      "loc": [
+        "燕京"
+      ],
+      "action": "牙鲁瓦赤、不只儿总财赋首日杀二十八人，并将已杖释的盗马者追回试刀斩杀；忽必烈当面质问死刑应详审。",
+      "result": "潜邸公开反对草率滥刑，但涉事官是否处分未载。",
+      "cost": "一日二十八人被杀，其中至少一人重复受刑后被斩。",
+      "quote": [
+        "視事一日，殺二十八人",
+        "遂追還所杖者，手試刀斬之",
+        "凡死罪必詳讞而後行刑",
+        "人，必多非辜"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-OPPOSE-EXECUTIONS",
+        "candidate": "POL-CAND-YUAN-OPPOSE-EXECUTIONS",
+        "summary": "忽必烈质疑财赋官滥杀。",
+        "operation": "proposed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法纠偏质询。",
+          "decision_question": "死刑是否应经详审。",
+          "alternatives": "认可财赋官即时处决。",
+          "decision": "公开责问并主张详谳。",
+          "direct_result": "不只儿无言以对。",
+          "power_change": "潜邸对财赋官司法行为施加批评。",
+          "risk_or_damage": "二十八人已死亡且补救未载。",
+          "follow_up": "处分和制度变更未载。"
+        }
+      },
+      "unknown": [
+        "死者罪名、审理、处分和后续制度未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-FIVE-RIVER-GRANARIES",
+      "time": "岁壬子",
+      "loc": [
+        "河上",
+        "山東",
+        "河北"
+      ],
+      "action": "新卫军储所原将丁粮折收银帛，忽必烈请设官在河上筑五仓，改令民众直接纳粟。",
+      "implementation": "建五仓并调整军储征纳形态。",
+      "result": "军储由折价银帛转向沿河仓储粮食。",
+      "quote": [
+        "設官築五倉于河上",
+        "始令民入粟"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-FIVE-GRANARIES",
+        "candidate": "WORK-CAND-YUAN-FIVE-GRANARIES",
+        "summary": "河上筑五仓收民粟。",
+        "operation": "operated",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "河上五座军储仓。",
+          "phase": "建成并改收粮。",
+          "purpose": "储备军行粮食。",
+          "resource_input": "建材、役夫和容量未载。",
+          "operation": "由民入粟。",
+          "benefit": "军储获得实粮，运输效率未载。",
+          "harm": "民众纳粟与运输负担未载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军储从银帛折收改为粮食实物。"
+        ]
+      ],
+      "unknown": [
+        "五仓地点、容量、征收标准与民众负担未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-BIAN-TUNTIAN-DEFENSE",
+      "time": "岁壬子",
+      "loc": [
+        "汴州",
+        "唐州",
+        "鄧州"
+      ],
+      "action": "宋军攻虢河南卫地后，忽必烈请设汴经略司，授兵牛，在唐邓屯田，敌至防御、敌退耕种，并完邓城。",
+      "result": "形成汴唐邓边防、屯田和城防一体体系。",
+      "quote": [
+        "立經略司於汴",
+        "俾屯田唐、鄧等州，授之兵、牛",
+        "敵至則禦，敵去則耕",
+        "完城以備之"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-BIAN-TUNTIAN",
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-BIAN-TUNTIAN",
+        "candidate": "WORK-CAND-YUAN-BIAN-TUNTIAN",
+        "summary": "汴唐邓屯田与邓城防御。",
+        "operation": "operated",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "唐邓屯田及邓州城防。",
+          "phase": "设置、屯田、完城并运行。",
+          "purpose": "宋军来时防御、退时耕作。",
+          "resource_input": "授予兵力与耕牛，数量未载。",
+          "operation": "军屯轮转防耕。",
+          "benefit": "兼顾军粮与边防。",
+          "harm": "土地来源和当地民户影响未载。"
+        }
+      },
+      "unknown": [
+        "兵牛数、屯田产量、城工规模和实际战效未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-JINGZHAO-FISCAL-LOGISTICS",
+      "time": "岁癸丑",
+      "loc": [
+        "京兆",
+        "興元",
+        "解州鹽池",
+        "鳳翔",
+        "嘉陵"
+      ],
+      "action": "忽必烈将竞筑豪宅的诸将分遣戍兴元，划解州盐池供军，设从宜府、凤翔屯田，募民以盐换粟并转漕嘉陵；另设宣抚司和交钞提举司印钞。",
+      "result": "京兆形成盐粮交换、屯田、漕运、交钞和宣抚治理体系，史称关陇大治。",
+      "quote": [
+        "豪侈相尚，帝即分遣，使戍興元諸州",
+        "割河東解州鹽池以供軍食",
+        "募民受鹽入粟，轉漕嘉陵",
+        "使，關隴大治",
+        "立交鈔提舉司，印鈔以佐經用"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JINGZHAO-LOGISTICS",
+        "candidate": "FIN-CAND-YUAN-JINGZHAO-LOGISTICS",
+        "summary": "京兆盐粮、屯田、漕运与交钞组合。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "诸将竞筑豪宅，军粮与经费需整顿。",
+          "fiscal_state": "盐池供军、印钞佐用。",
+          "livelihood_state": "募民以盐入粟，民众收益和负担未载。",
+          "production_circulation": "凤翔屯田、嘉陵转漕和盐粮交换形成物流。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "遣豪侈诸将出戍并设宣抚司。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "屯田与漕运设施投入未详。"
+        ]
+      ],
+      "unknown": [
+        "钞额、盐粟比价、屯田产量与大治指标未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-DALI-THREE-ROUTES-1253",
+      "time": "岁癸丑八月至十二月",
+      "loc": [
+        "臨洮",
+        "忒剌",
+        "大渡河",
+        "金沙江",
+        "大理"
+      ],
+      "action": "忽必烈征大理，分西东中三道，越山谷二千余里，以革囊木筏渡金沙江；摩娑蛮、白蛮部分降附，拒守者被攻杀，最终入大理。",
+      "result": "大理都城失陷，三路军会合。",
+      "cost": "白蛮拒守者被杀，大理使者此前被杀。",
+      "quote": [
+        "分三道以進",
+        "經行山谷二千餘里",
+        "乘革囊及栰以渡",
+        "攻拔殺之，不及其民",
+        "軍薄大理城"
+      ],
+      "battle": "CAMPAIGN-YUAN-DALI-1253",
+      "unknown": [
+        "各道兵力、伤亡与不及其民的执行范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-DALI-SURRENDER-GOVERNANCE",
+      "time": "岁癸丑十二月",
+      "loc": [
+        "大理",
+        "姚州"
+      ],
+      "action": "高祥逃亡后被追获斩杀；忽必烈留兀良合带戍守，任刘时中宣抚，与段氏共同安辑大理后班师。",
+      "result": "大理旧权臣被处死，蒙古驻军与段氏合作治理开始。",
+      "quote": [
+        "獲高祥，斬于姚州",
+        "留大將兀良合帶戍守",
+        "與段氏同安輯大理，遂班師"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-DALI-GOVERNANCE",
+        "candidate": "POL-CAND-YUAN-DALI-GOVERNANCE",
+        "summary": "征服大理后驻军并与段氏安辑。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "征服区治理安排。",
+          "decision_question": "大理攻克后如何维持统治。",
+          "alternatives": "完全废除段氏或继续战争。",
+          "decision": "留将戍守、设宣抚使并与段氏合作。",
+          "direct_result": "大理进入蒙古监督治理。",
+          "power_change": "高氏权臣覆灭，段氏在蒙古框架下保留。",
+          "risk_or_damage": "地方抵抗和权力边界未载。",
+          "follow_up": "中统元年任大理总管并赐段氏虎符。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-DALI-1253",
+          [],
+          "驻守与安辑是征服收束。"
+        ]
+      ],
+      "unknown": [
+        "驻军人数、段氏权限、赋税与民众反应未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-KAIPING-CONSTRUCTION",
+      "time": "岁丙辰",
+      "loc": [
+        "桓州东",
+        "灤水北",
+        "開平府"
+      ],
+      "action": "忽必烈命僧子聪选址，在桓州东滦水北筑开平府并营建宫室。",
+      "result": "开平政治宫廷基地开始形成。",
+      "quote": "命僧子聰卜地于桓州東、灤水北，城開平府，經營宮室",
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-KAIPING",
+        "candidate": "WORK-CAND-YUAN-KAIPING",
+        "summary": "筑开平府、营宫室。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "work_identity": "开平府城与宫室。",
+          "phase": "选址、筑城、营建。",
+          "purpose": "潜邸与后续即位政治基地。",
+          "resource_input": "役夫、材料、财政未载。",
+          "operation": "中统元年在此即位。",
+          "benefit": "形成北方政务中心。",
+          "harm": "征地徭役和环境影响未载。"
+        }
+      },
+      "unknown": [
+        "规模、工期、人口迁入与成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-POOR-TAX-DEBT-REPAYMENT",
+      "time": "岁丁巳",
+      "loc": [
+        "京兆",
+        "河南"
+      ],
+      "action": "宪宗派员严核京兆河南财赋，贫民无力输纳者由忽必烈代为偿还。",
+      "result": "部分贫困欠税者债务被潜邸代偿。",
+      "groups": [
+        "京兆河南贫困纳税人"
+      ],
+      "quote": "其貧不能輸者，帝為代償之",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-POOR-TAX-REPAYMENT",
+        "candidate": "FIN-CAND-YUAN-POOR-TAX-REPAYMENT",
+        "summary": "代偿京兆河南贫民欠赋。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "财赋钩考下有贫民无力输纳。",
+          "fiscal_state": "欠赋由忽必烈代偿，资金来源未载。",
+          "livelihood_state": "受助贫民免于当期追征。",
+          "production_circulation": "对生产恢复影响未载。"
+        }
+      },
+      "unknown": [
+        "代偿人数、金额、资金性质与后续征收未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-SONG-CAMPAIGN-DISCIPLINE-1259",
+      "time": "岁己未七月至八月",
+      "loc": [
+        "汝南",
+        "漢上",
+        "蔡州",
+        "淮河",
+        "大勝關",
+        "黃陂",
+        "臺山寨"
+      ],
+      "action": "忽必烈南征，命前军备粮并严禁妄杀；军士犯法即处斩示众，渡淮入大胜关后破台山寨，并释放大量被俘淮民。",
+      "result": "军队纪律得到震慑，台山寨被破，被俘淮民获释。",
+      "quote": [
+        "備糧漢上，戒諸將毋妄殺",
+        "命戮以徇，諸軍凜然",
+        "淮民被俘者眾，悉縱之"
+      ],
+      "battle": "CAMPAIGN-YUAN-EZHOU-1259",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以斩刑执行禁杀军令。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "释放被俘淮民。"
+        ]
+      ],
+      "unknown": [
+        "犯法内容、释放人数与寨战伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-YANGLOG-EZHOU-CROSSING",
+      "time": "岁己未九月",
+      "loc": [
+        "陽邏堡",
+        "滸黃洲",
+        "鄂州",
+        "大江"
+      ],
+      "action": "闻宪宗死讯后诸王劝北归，忽必烈以未立功拒绝，夺宋舟、备船，在风雨中强渡大江，三路与宋军三战后抵南岸。",
+      "result": "蒙古军完成渡江并围鄂州，双方伤亡甚众。",
+      "quote": [
+        "豈可無功遽還",
+        "遣兵奪二大舟",
+        "諸將皆以為未可渡，帝不從",
+        "鼓，三道並進",
+        "與宋師接戰者三，殺獲甚眾"
+      ],
+      "battle": "CAMPAIGN-YUAN-EZHOU-1259",
+      "unknown": [
+        "双方兵力、杀获数与渡江损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-EZHOU-SIEGE-HUMANE-ORDERS",
+      "time": "岁己未九月至十一月",
+      "loc": [
+        "鄂州",
+        "滸黃洲",
+        "岳州"
+      ],
+      "action": "蒙古围鄂，招降使受阻，建立望楼、聚逃民弃粮；吕文德入城加强守御。军中擅入民家者依法处置，所俘者全部释放。",
+      "result": "鄂州围攻持续而未克，宋援入城；蒙古继续保持释放俘虏命令。",
+      "quote": [
+        "軍士有擅入民家者，以軍法從事",
+        "凡所俘獲，悉縱之",
+        "場。庚戌，圍鄂。",
+        "聚之軍中，為攻取計",
+        "文德乘夜入鄂城，守愈堅"
+      ],
+      "battle": "CAMPAIGN-YUAN-EZHOU-1259",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "约束入民家并释放俘虏。"
+        ]
+      ],
+      "unknown": [
+        "围城伤亡、逃民弃粮数量和民居损害未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-ARIQ-PLOT-MOBILIZATION",
+      "time": "岁己未十一月",
+      "loc": [
+        "漠北",
+        "漠南",
+        "開平",
+        "燕京"
+      ],
+      "action": "阿蓝答儿、浑都海等谋立阿里不哥，在漠北发兵、漠南括兵并逼近开平；皇后质问其未告真金并密报前线，请忽必烈速还。",
+      "result": "忽必烈得知继承政变风险，决定从鄂州撤回。",
+      "quote": [
+        "謀立阿里不哥",
+        "發兵於漠北諸部",
+        "括兵於漠南諸州",
+        "報，請速還。丁"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ARIQ-PLOT",
+        "candidate": "POL-CAND-YUAN-ARIQ-PLOT",
+        "summary": "阿里不哥集团发兵，皇后密报促使北还。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "继承政变与军事动员。",
+          "decision_question": "宪宗死后由谁控制国中。",
+          "alternatives": "忽必烈继续围鄂。",
+          "decision": "皇后密报，忽必烈撤军北返。",
+          "direct_result": "南征中止，继承竞争公开化。",
+          "power_change": "阿里不哥控制和林方向，忽必烈转向北方。",
+          "risk_or_damage": "漠南括兵使民甚苦。",
+          "follow_up": "中统元年双方分别称帝。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SUCCESSION-WAR-1260",
+          [],
+          "发兵直接开启内战。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "漠南强括民兵造成民苦。"
+        ]
+      ],
+      "unknown": [
+        "阿里不哥是否直接下令、兵数与真金当时权力未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-EZHOU-PEACE-WITHDRAWAL",
+      "time": "岁己未闰月",
+      "loc": [
+        "鄂州",
+        "青山磯",
+        "滸黃洲",
+        "燕京"
+      ],
+      "action": "忽必烈佯称趋临安后撤出鄂州，发降民二万北归；贾似道遣使请和，忽必烈称须请朝廷后大军北还。抵燕后又释放脱里赤所括民兵。",
+      "result": "鄂州战役结束，二万降民北迁，继承内战优先于南征；被括兵民获释。",
+      "quote": [
+        "聲言趨臨安",
+        "發降民二萬北歸",
+        "宋賈似道遣宋京請和",
+        "是日，大軍北還",
+        "所集兵皆縱之，人心大悅"
+      ],
+      "battle": "CAMPAIGN-YUAN-EZHOU-1259",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "请和与继承危机促成撤军。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "二万降民北迁，括兵获释。"
+        ]
+      ],
+      "unknown": [
+        "和议是否成立、降民安置和撤军损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-KUBLAI-ACCESSION-1260",
+      "time": "中统元年三月",
+      "loc": [
+        "開平"
+      ],
+      "action": "东西诸王与大臣在开平劝进，忽必烈三让后即皇帝位。",
+      "result": "忽必烈在开平建立皇帝政权，与阿里不哥形成竞争。",
+      "quote": [
+        "皆來會，與諸大臣勸進",
+        "進。帝三讓，諸",
+        "帝即皇帝位"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-KUBLAI-ACCESSION",
+        "candidate": "POL-CAND-YUAN-KUBLAI-ACCESSION",
+        "summary": "忽必烈在开平即位。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "皇位继承与双帝竞争。",
+          "decision_question": "宪宗死后由谁继承。",
+          "alternatives": "阿里不哥或等待全体忽里台。",
+          "decision": "东西部分诸王大臣拥立忽必烈。",
+          "direct_result": "忽必烈即帝位。",
+          "power_change": "开平政权形成。",
+          "risk_or_damage": "阿里不哥同月在和林称号，内战爆发。",
+          "follow_up": "建元中统并讨阿里不哥。"
+        }
+      },
+      "unknown": [
+        "劝进会议完整代表性与反对意见未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-KOREA-KING-RESTORATION",
+      "time": "中统元年三月至四月",
+      "loc": [
+        "高麗"
+      ],
+      "action": "廉希宪建议立在蒙三年的高丽世子倎并护送归国，认为可不烦兵得一国；忽必烈采纳，赦高丽，归还俘民逃户并禁边将擅掠。",
+      "result": "王倎返国继位，高丽获得赦令和人口归还，蒙古边将受约束。",
+      "quote": [
+        "是不煩兵而得一國也",
+        "也。」帝是其言，",
+        "以兵衞送之，仍赦其境內",
+        "仍歸所俘民及其逃戶，禁邊將勿擅掠"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-KOREA-RESTORATION",
+        "candidate": "POL-CAND-YUAN-KOREA-RESTORATION",
+        "summary": "护送王倎归国并赦高丽。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "属国继承与止战。",
+          "decision_question": "如何处理滞留的高丽世子与持续战争。",
+          "alternatives": "继续扣留或用兵。",
+          "decision": "立倎、护送归国并赦境内。",
+          "direct_result": "王倎返国，俘民逃户归还。",
+          "power_change": "蒙古通过册立影响高丽王位。",
+          "risk_or_damage": "高丽自主性和后续义务未载。",
+          "follow_up": "高丽遣使贺即位并受册印虎符。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "归还被俘与逃户并停止擅掠。"
+        ]
+      ],
+      "unknown": [
+        "归还人数、护送兵力与高丽回报条件未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-ZHONGSHU-TEN-CIRCUITS-1260",
+      "time": "中统元年四月至五月",
+      "loc": [
+        "中央",
+        "燕京",
+        "京兆",
+        "四川",
+        "西京",
+        "十路"
+      ],
+      "action": "忽必烈立中书省，任王文统、张文谦等；建元中统，宣称内立都省、外设总司，继设十路宣抚司及秦蜀等区域军政长官。",
+      "result": "中统政权形成中央中书省和十路宣抚行政体系。",
+      "quote": [
+        "朔，立中書省",
+        "戌，建元中統",
+        "內立都省，以總宏綱；外設總司，以平庶政",
+        "立十路宣撫司"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ZHONGSHU-TEN-CIRCUITS",
+        "candidate": "POL-CAND-YUAN-ZHONGSHU-TEN-CIRCUITS",
+        "summary": "中统初建中央与十路行政。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "建元与行政建制。",
+          "decision_question": "新政权如何建立中央和地方治理。",
+          "alternatives": "沿用宪宗旧制。",
+          "decision": "设中书省、宣抚司并建元。",
+          "direct_result": "中央和十路官员任命。",
+          "power_change": "文官行政体系扩大。",
+          "risk_or_damage": "战时征敛与多机构协调风险。",
+          "follow_up": "二年罢多数宣抚司。"
+        }
+      },
+      "unknown": [
+        "各司预算、属官与实际覆盖未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-ARIQ-ACCESSION-CIVIL-WAR",
+      "time": "中统元年四月至十一月",
+      "loc": [
+        "和林",
+        "西涼府",
+        "姑臧",
+        "昔木土腦兒"
+      ],
+      "action": "阿里不哥在和林西按坦河称号，刘太平、浑都海等反；忽必烈处死部分谋反者，合丹等在姑臧击杀阿蓝答儿、浑都海，后在昔木土脑儿大败阿里不哥军并追击五十余里。",
+      "result": "西方反军被平，阿里不哥主力败退北方，部分将领投降。",
+      "cost": "合丹火儿赤及三千兵被斩，其他伤亡未载。",
+      "quote": [
+        "阿里不哥僭號于和林城西按坦河",
+        "劉太平等謀反，事覺伏誅",
+        "大敗其軍于姑臧，斬阿藍答兒及渾都海",
+        "斬其將合丹火兒赤及其兵三千人",
+        "阿里不哥北遁"
+      ],
+      "battle": "CAMPAIGN-YUAN-SUCCESSION-WAR-1260",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "双帝竞争与谋反清洗。"
+        ]
+      ],
+      "unknown": [
+        "阿里不哥称号程序、双方总兵力与俘虏处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-WAR-MOBILIZATION-1260",
+      "time": "中统元年五月至十月",
+      "loc": [
+        "燕京",
+        "平陽",
+        "京兆",
+        "開平",
+        "陝西",
+        "四川"
+      ],
+      "action": "内战中朝廷签兵、征三万驻燕京、买马万匹，后又多次征一万五千、造万计冬装军械、运十万石米，并令贫不能应役者由官资给。",
+      "result": "开平政权建立大规模兵员、马匹、粮储和装备动员；部分贫兵获官给。",
+      "quote": [
+        "貧不能應役者，官為資給",
+        "徵諸路兵三萬",
+        "命諸路市馬萬匹",
+        "運米十萬石",
+        "造戰襖、裘、帽，各以萬計"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CIVIL-WAR-MOBILIZATION",
+        "candidate": "FIN-CAND-YUAN-CIVIL-WAR-MOBILIZATION",
+        "summary": "内战大规模征兵买马运粮制装。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "阿里不哥内战爆发。",
+          "fiscal_state": "征集米十万石、马万匹及大批军装，后续更多。",
+          "livelihood_state": "民户承担兵役物资，贫者部分获资给。",
+          "production_circulation": "多路运输粮马军装至开平。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SUCCESSION-WAR-1260",
+          [],
+          "动员直接服务内战。"
+        ]
+      ],
+      "unknown": [
+        "总征兵数是否重叠、物资成本和民间负担未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-PAPER-MONEY-MARKETS-1260",
+      "time": "中统元年七月至十月",
+      "loc": [
+        "潁州",
+        "漣水",
+        "光化軍",
+        "帝国境内"
+      ],
+      "action": "忽必烈下令造交钞，设置颍州、涟水、光化军互市，十月开始通行中统宝钞。",
+      "result": "中统纸币投入流通，边境互市扩展。",
+      "quote": [
+        "。詔造中統元寶交鈔",
+        "立互市于潁州、漣水、光化軍",
+        "初行中統寶鈔"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-ZHONGTONG-CURRENCY",
+        "candidate": "FIN-CAND-YUAN-ZHONGTONG-CURRENCY",
+        "summary": "造行中统交钞并设边市。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "太宗曾行交钞，中统新政需军政资金与市场秩序。",
+          "fiscal_state": "发行中统宝钞。",
+          "livelihood_state": "民间接受和币值影响未载。",
+          "production_circulation": "设三地互市，纸币进入交易。"
+        }
+      },
+      "unknown": [
+        "发行额、准备金、兑换规则和互市贸易量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-FAMINE-RELIEF-1260",
+      "time": "中统元年八月至十二月",
+      "loc": [
+        "澤州",
+        "潞州",
+        "益都",
+        "濟南",
+        "濱州",
+        "棣州"
+      ],
+      "action": "泽潞旱饥时敕赈；后发常平仓赈益都、济南、滨棣饥民。",
+      "result": "多地饥民获得官方赈济，益都等动用常平仓。",
+      "quote": [
+        "澤州、潞州旱，民饑，敕賑之",
+        "發常平倉賑益都、濟南、濱棣饑民"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-FAMINE-RELIEF-1260",
+        "candidate": "FIN-CAND-YUAN-FAMINE-RELIEF-1260",
+        "summary": "泽潞及山东多地饥赈。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "泽潞旱饥，山东多地饥荒。",
+          "fiscal_state": "动用常平仓及其他赈济资源。",
+          "livelihood_state": "饥民获得救助。",
+          "production_circulation": "旱灾生产损失与恢复未载。"
+        }
+      },
+      "unknown": [
+        "人数、粮额、赈期与死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-RELIGIOUS-RITUAL-INSTITUTIONS",
+      "time": "中统元年十二月",
+      "loc": [
+        "燕京近郊",
+        "蒙古朝廷"
+      ],
+      "action": "忽必烈开始制作太庙祭器法服，任八思巴为帝师统释教，并设玉宸院、仪凤司、符宝局、御酒库和群牧所。",
+      "result": "宗庙礼仪、佛教管理和宫廷服务机构成形。",
+      "quote": [
+        "始制祭享太廟祭器、法服",
+        "以梵僧八合思八為帝師",
+        "印，統釋教。立",
+        "立儀鳳司，又立符寶局及御酒庫、羣牧所"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-RITUAL-INSTITUTIONS",
+        "candidate": "POL-CAND-YUAN-RITUAL-INSTITUTIONS",
+        "summary": "建立宗庙、帝师和宫廷机构。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "礼制宗教与宫廷建制。",
+          "decision_question": "新朝如何组织礼仪、宗教和宫廷事务。",
+          "alternatives": "沿用旧制；史料未载。",
+          "decision": "制祭器法服、授帝师并设多司。",
+          "direct_result": "机构与主管形成。",
+          "power_change": "八思巴取得统释教地位。",
+          "risk_or_damage": "财政和宗教权力边界未载。",
+          "follow_up": "后续制度运行待志书。"
+        }
+      },
+      "unknown": [
+        "各机构员额、经费和帝师权限未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-PRINCELY-STIPENDS-1260",
+      "time": "中统元年十二月",
+      "loc": [
+        "蒙古宗室"
+      ],
+      "action": "忽必烈向多名亲王、皇后妃子分赐大量银、绢、绵、文绮，并定为年度常例。",
+      "result": "宗室岁赐形成固定财政支出。",
+      "quote": "賜諸王金銀幣帛如歲例",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-PRINCELY-STIPENDS-1260",
+        "candidate": "FIN-CAND-YUAN-PRINCELY-STIPENDS-1260",
+        "summary": "宗室金银币帛岁赐常例。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "即位内战中需维系诸王。",
+          "fiscal_state": "多名宗王获得银绢等并形成岁例。",
+          "livelihood_state": "与普通民众直接关系未载。",
+          "production_circulation": "大量银帛从国库转向宗室。"
+        }
+      },
+      "unknown": [
+        "总额、财源和持续年数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-CIVIL-WAR-DEMOBILIZATION-TAX-RELIEF",
+      "time": "中统元年十一月至十二月",
+      "loc": [
+        "昌州",
+        "撫州",
+        "蓋利泊",
+        "北方驻军区"
+      ],
+      "action": "阿里不哥败退后，忽必烈免当年赋税，命官给军粮不得扰民；年底撤所在戍兵、释放新签军，并免昌抚盖利泊等兵灾地区当年租赋。",
+      "result": "部分战时征兵驻防解除，受兵灾地区获税免。",
+      "groups": [
+        "新签军",
+        "兵灾地区民户"
+      ],
+      "quote": [
+        "詔免今年賦稅",
+        "敕官給芻糧，毋擾居民",
+        "詔撤所在戍兵，放民間新簽軍",
+        "荐罹兵革，免今歲租賦"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CIVIL-WAR-RELIEF",
+        "candidate": "FIN-CAND-YUAN-CIVIL-WAR-RELIEF",
+        "summary": "内战后撤戍放军并免兵灾租赋。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "内战征兵驻防与多地屡受兵革。",
+          "fiscal_state": "免税并由官供军粮。",
+          "livelihood_state": "新签军返民，部分民户免租且减少军扰。",
+          "production_circulation": "劳力归农可能恢复生产，实际效果未载。"
+        }
+      },
+      "unknown": [
+        "放军人数、免税额和撤戍范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-ZHENJIN-INVESTITURE",
+      "time": "中统元年十二月",
+      "loc": [
+        "蒙古朝廷"
+      ],
+      "action": "忽必烈封皇子真金为燕王并令其领中书省事。",
+      "result": "真金获得王号和中央行政领导权。",
+      "quote": "詔封皇子真金為燕王，領中書省事",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ZHENJIN-ZHONGSHU",
+        "candidate": "POL-CAND-YUAN-ZHENJIN-ZHONGSHU",
+        "summary": "真金封燕王领中书省。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "皇子授权与储位布局。",
+          "decision_question": "由谁领中央中书省。",
+          "alternatives": "继续由宰执单独主持。",
+          "decision": "封真金并领省事。",
+          "direct_result": "皇子进入中央最高行政。",
+          "power_change": "真金权力显著上升。",
+          "risk_or_damage": "与宰执分权和继承安排未载。",
+          "follow_up": "后续储位发展待后卷。"
+        }
+      },
+      "unknown": [
+        "具体权限、年龄与实际主持程度未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-PALACE-OFFICES-WEAVING",
+      "time": "中统元年十二月",
+      "loc": [
+        "蒙古朝廷"
+      ],
+      "action": "忽必烈设宫殿府专管营缮，设尚食、尚药局、控鹤军及异样局掌御用织造。",
+      "result": "宫廷营造、饮食、医药、宿卫和织造专门机构建立。",
+      "quote": [
+        "初立宮殿府",
+        "品，專職營繕",
+        "立尚食局、尚藥局",
+        "初設控鶴五百四人",
+        "掌御用織造"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-PALACE-OFFICES",
+        "candidate": "POL-CAND-YUAN-PALACE-OFFICES",
+        "summary": "设宫殿府等宫廷机构。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "宫廷机构扩张。",
+          "decision_question": "如何专业管理营造、供奉和宿卫。",
+          "alternatives": "由旧机构兼任。",
+          "decision": "设多个专局。",
+          "direct_result": "机构、品秩和部分员额确定。",
+          "power_change": "宫廷行政专业化。",
+          "risk_or_damage": "经费、徭役和冗员未载。",
+          "follow_up": "后续运行待志书。"
+        }
+      },
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫殿府专职营缮。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新增宫廷机构产生财政支出。"
+        ]
+      ],
+      "unknown": [
+        "各局预算、人员来源与产出未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-LIANSHUI-BATTLES-1261",
+      "time": "中统二年正月至二月",
+      "loc": [
+        "漣州",
+        "漣水",
+        "沙湖堰"
+      ],
+      "action": "宋军围涟州、攻涟水，李璮迎战获胜，阿术奉命增援；李璮又在沙湖堰破宋军，同时擅修益都城堑。",
+      "result": "宋军两次受挫，涟水获得增援；李璮未经命令扩建益都城防。",
+      "quote": [
+        "李璮率將士迎戰，敗之",
+        "命阿朮等帥兵赴之",
+        "璮擅發兵修益都城塹",
+        "李璮破宋兵于沙湖堰"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-LIANSHUI-1261",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李璮擅自发兵修城显示地方军权风险。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力、伤亡、修城规模和朝廷处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-TAX-LABOR-RELIEF-1261",
+      "time": "中统二年二月至四月",
+      "loc": [
+        "平陽",
+        "太原",
+        "秦蜀",
+        "十路"
+      ],
+      "action": "朝廷减免民间差发与十路课程，罢守隘军，免平阳太原军站户重科租税；秦蜀行省借民钱给军，约以当年税赋偿还。",
+      "result": "部分民户和军站户获减负，秦蜀民间军费借款取得税赋偿还承诺。",
+      "quote": [
+        "詔減免民間差發",
+        "罷守隘諸軍",
+        "以今年稅賦償之",
+        "免平陽、太原軍站戶重科租稅",
+        "量免民間課程"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-RELIEF-1261",
+        "candidate": "FIN-CAND-YUAN-RELIEF-1261",
+        "summary": "中统二年减差发课程并偿民间军费借款。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "内战与守隘造成差发、租税和军费压力。",
+          "fiscal_state": "减免差发课程，以税赋偿秦蜀借款。",
+          "livelihood_state": "军站户免重科，守隘军被罢。",
+          "production_circulation": "减负后的生产恢复未载。"
+        }
+      },
+      "unknown": [
+        "减免比例、受益户数、借款金额和实际偿付未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-TEN-CIRCUIT-AGRICULTURE-REVIEW",
+      "time": "中统二年四月",
+      "loc": [
+        "十路"
+      ],
+      "action": "命十路宣抚司劝农桑、抑游惰、礼高年、问民疾苦，荐举人才，并惩治贪污官员和不孝悌者。",
+      "result": "地方宣抚司被赋予农业、民情、选才与官吏考察职责。",
+      "quote": [
+        "勸農桑，抑游惰",
+        "禮高年，問民疾苦",
+        "舉文學才識可以從政",
+        "其職官污濫及民不孝悌者，量輕重議罰"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-TEN-CIRCUIT-REVIEW",
+        "candidate": "POL-CAND-YUAN-TEN-CIRCUIT-REVIEW",
+        "summary": "十路宣抚司兼理劝农、访疾苦与考察。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "地方行政职责扩张。",
+          "decision_question": "宣抚司如何兼顾战后治理。",
+          "alternatives": "仅理军政。",
+          "decision": "兼办劝农、民情、荐举和惩戒。",
+          "direct_result": "职责以诏令确定。",
+          "power_change": "宣抚司获得综合监察治理权。",
+          "risk_or_damage": "对民众道德行为的处罚边界不详。",
+          "follow_up": "同年十一月多数宣抚司被罢。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "劝农桑和问民疾苦涉及生计。"
+        ]
+      ],
+      "unknown": [
+        "执行地区、荐举人数和惩罚案件未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-ENVOY-ANTI-HARASSMENT",
+      "time": "中统二年五月",
+      "loc": [
+        "析津驛",
+        "诸路城邑"
+      ],
+      "action": "禁止使臣进入民家，令其止宿驿站；使臣与军士途经城邑的粮食供给改由官府承担，不得扰民。",
+      "result": "使臣军士的住宿供应转入官驿和官给框架。",
+      "quote": [
+        "禁使臣毋入民家",
+        "令止頓析津驛",
+        "官給廩餼，毋擾于民"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-ENVOY-ANTI-HARASSMENT",
+        "candidate": "FIN-CAND-YUAN-ENVOY-ANTI-HARASSMENT",
+        "summary": "使臣军士由官驿供给以免扰民。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "使臣军士过境可能侵扰民户。",
+          "fiscal_state": "廪饩改由官府供给。",
+          "livelihood_state": "民户免于承担入户食宿。",
+          "production_circulation": "驿站供应来源未载。"
+        }
+      },
+      "unknown": [
+        "官给标准、监督和违令处罚未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-HOUSEHOLD-TAX-AND-PRINCELY-LIMITS",
+      "time": "中统二年六月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "清查漏籍老幼户以协济编户赋税，同时禁止诸王擅遣使招民和征收私钱，并制定盐酒税课法。",
+      "result": "税籍扩大、盐酒税法统一，同时宗王直接控制人口和私征钱财受到限制。",
+      "quote": [
+        "括漏籍老幼等戶，協濟編戶賦稅",
+        "禁諸王擅遣使招民及徵私錢",
+        "定鹽酒稅課等法"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HOUSEHOLD-PRINCELY-LIMITS",
+        "candidate": "POL-CAND-YUAN-HOUSEHOLD-PRINCELY-LIMITS",
+        "summary": "清户定税并限制诸王招民私征。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "户籍税制与宗王权力约束。",
+          "decision_question": "如何扩充编户税基并阻止宗王私征。",
+          "alternatives": "容许宗王自招民征钱。",
+          "decision": "括户、定税法并下禁令。",
+          "direct_result": "人口税籍与宗王禁令形成。",
+          "power_change": "朝廷强化对户籍和税收的集中控制。",
+          "risk_or_damage": "漏籍老幼被纳税可能加重负担。",
+          "follow_up": "新增户口后续继续核实。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "括户与盐酒税法直接改变税负。"
+        ]
+      ],
+      "unknown": [
+        "新增户数、税率、执行冲突和诸王遵守情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-FAMINE-RELIEF-1261",
+      "time": "中统二年六月至八月",
+      "loc": [
+        "火少里驛",
+        "懿州",
+        "和林",
+        "桓州"
+      ],
+      "action": "赈济火少里驿户，转懿州米一万石赈塔察儿部饥民，又赈和林、桓州饥民。",
+      "result": "至少四处饥民获粮食或赈济。",
+      "quote": [
+        "賑火少里驛戶之乏食者",
+        "轉懿州米萬石賑親王塔察兒所部饑民",
+        "賑和林饑民",
+        "賑桓州饑民"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-FAMINE-RELIEF-1261",
+        "candidate": "FIN-CAND-YUAN-FAMINE-RELIEF-1261",
+        "summary": "中统二年多地赈饥。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "驿户、宗王部众及和林桓州发生饥乏。",
+          "fiscal_state": "懿州转米一万石，其他赈额未载。",
+          "livelihood_state": "多地饥民得到救济。",
+          "production_circulation": "灾因和恢复未载。"
+        }
+      },
+      "unknown": [
+        "总受益人数、其余粮额、赈期和死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-CONFUCIAN-SCHOOLS-HISTORIES",
+      "time": "中统二年六月至九月",
+      "loc": [
+        "诸路",
+        "翰林国史院"
+      ],
+      "action": "保护宣圣庙和书院，设翰林国史院并议修辽金二史，命许衡居家教学，后设各路学校提举官。",
+      "result": "祭学保护、国史修纂和地方学校管理制度启动。",
+      "quote": [
+        "宣聖廟及管內書院，有司歲時致祭",
+        "初立翰林國史院",
+        "請修遼、金二史",
+        "詔許衡即其家教懷孟生徒",
+        "立諸路提舉學校官"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SCHOOLS-HISTORIES",
+        "candidate": "POL-CAND-YUAN-SCHOOLS-HISTORIES",
+        "summary": "设国史院、地方学校官并保护庙学。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "文教与修史建制。",
+          "decision_question": "新政权如何组织学校和国史。",
+          "alternatives": "沿用临时讲学与旧史缺修。",
+          "decision": "设院设官并保护庙学。",
+          "direct_result": "修史、教学和地方学校官启动。",
+          "power_change": "朝廷集中组织史学文教。",
+          "risk_or_damage": "经费和成果未载。",
+          "follow_up": "辽金史修纂延续后世。"
+        }
+      },
+      "unknown": [
+        "学生人数、国史院员额、修史进度和经费未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-RELEASE-LABORERS-AND-EMBROIDERERS",
+      "time": "中统二年六月",
+      "loc": [
+        "诸路坑冶",
+        "河南舞陽",
+        "工局"
+      ],
+      "action": "罢金银铜铁等坑冶役夫及舞阳姜户、藤花户，使其归州县；放出工局绣女，准其婚嫁。",
+      "result": "一批专役户和工局女性脱离强制性差役或工籍。",
+      "quote": [
+        "罷金、銀、銅、鐵、丹粉、錫碌坑冶所役民夫",
+        "戶，還之州縣",
+        "出工局繡女，聽其婚嫁"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-RELEASE-SPECIAL-LABOR",
+        "candidate": "FIN-CAND-YUAN-RELEASE-SPECIAL-LABOR",
+        "summary": "释放坑冶专役户与工局绣女。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "役夫、姜藤专户和绣女受专门役使。",
+          "fiscal_state": "官营坑冶与工局劳力减少。",
+          "livelihood_state": "相关人员归州县或获婚嫁自由。",
+          "production_circulation": "坑冶和织造产量变化未载。"
+        }
+      },
+      "unknown": [
+        "释放人数、原役制性质、后续赋役和工局替代劳力未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-GUANGJI-CANAL",
+      "time": "中统二年六月",
+      "loc": [
+        "懷孟",
+        "沁河"
+      ],
+      "action": "王允中、杨端仁开凿沁河广济渠完工。",
+      "result": "史载灌溉田地四百六十余所。",
+      "quote": "鑿沁河渠成，溉田四百六十餘所",
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-GUANGJI-CANAL",
+        "candidate": "WORK-CAND-YUAN-GUANGJI-CANAL",
+        "summary": "怀孟广济渠完工并灌田。",
+        "operation": "operated",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "怀孟沁河广济渠。",
+          "phase": "开凿完成并灌溉。",
+          "purpose": "农田灌溉。",
+          "resource_input": "工期、役夫和费用未载。",
+          "operation": "灌田四百六十余所。",
+          "benefit": "扩大或稳定灌溉面积。",
+          "harm": "水权、淹损和徭役未载。"
+        }
+      },
+      "unknown": [
+        "四百六十余所的面积单位、受益户数和维护制度未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-TRANSPORT-AND-WATER-POSTS",
+      "time": "中统二年七月至九月",
+      "loc": [
+        "西夏",
+        "牛驛",
+        "沿河近仓"
+      ],
+      "action": "命西京造船备西夏漕运；因牛驿雨雪泥泞改设水驿；又令当年田租就近输沿河仓，由官府转漕。",
+      "result": "西夏和北方运输增加船运、水驿与近仓交纳安排，减少部分远输。",
+      "quote": [
+        "造船備西夏漕運",
+        "濘，改立水驛",
+        "田租輸沿河近倉",
+        "官為轉漕，不可勞民"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-WATER-TRANSPORT-1261",
+        "candidate": "WORK-CAND-YUAN-WATER-TRANSPORT-1261",
+        "summary": "造船设水驿并实行沿河近仓转漕。",
+        "operation": "operated",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "西夏漕船、水驿和沿河仓运体系。",
+          "phase": "造船、改驿并启用近仓。",
+          "purpose": "改善粮运并减少民众远输。",
+          "resource_input": "船数、驿站数和费用未载。",
+          "operation": "田租近仓交纳，官为转漕。",
+          "benefit": "降低部分民户运输距离。",
+          "harm": "官运成本与役夫负担未载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "田租交纳地点与运输责任改变。"
+        ]
+      ],
+      "unknown": [
+        "航线、船数、仓点和实际节省里程未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-SONG-WAR-DECLARATION-1261",
+      "time": "中统二年七月至十月",
+      "loc": [
+        "宋元边境",
+        "淮西",
+        "瀘州"
+      ],
+      "action": "忽必烈以宋扣留郝经、侵扰边境为由发布南征诏令，命水陆分道进军；随后命军略淮西，宋攻泸州又被刘整击败。",
+      "result": "对宋和议路线转为公开战争动员，边境战斗扩大。",
+      "quote": [
+        "諭將士舉兵攻宋",
+        "秋高馬肥，水陸分道而進",
+        "敕火兒赤、奴懷率所部略地淮西",
+        "宋兵攻瀘州，劉整擊敗之"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-WAR-1261",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "诏书以使臣被扣和边境冲突论证开战。"
+        ]
+      ],
+      "unknown": [
+        "实际南征规模、淮西战果和双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-AGRICULTURE-OFFICES-AND-WOMEN",
+      "time": "中统二年八月",
+      "loc": [
+        "濱棣",
+        "平陽",
+        "濟南",
+        "河間",
+        "邢洺",
+        "河南",
+        "東平",
+        "涿州"
+      ],
+      "action": "禁止将俘掠妇女强作娼妓，任姚枢为大司农，并初设劝农司、分任多路劝农使。",
+      "result": "俘掠妇女获得名义保护，农业行政形成专门中央和地方官员。",
+      "quote": [
+        "禁以俘掠婦女為娼",
+        "以姚樞為大司農",
+        "初立勸農司"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-AGRICULTURE-OFFICES",
+        "candidate": "POL-CAND-YUAN-AGRICULTURE-OFFICES",
+        "summary": "设大司农和劝农司并禁逼俘妇为娼。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "农业建制与战俘妇女保护。",
+          "decision_question": "如何专责劝农并约束俘妇处置。",
+          "alternatives": "沿用宣抚司兼理或不加限制。",
+          "decision": "设专官并发布禁令。",
+          "direct_result": "中央地方劝农官形成。",
+          "power_change": "农业事务专门化。",
+          "risk_or_damage": "禁令执行与受害者救济未载。",
+          "follow_up": "劝农制度后续待志书。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "农业生产和俘妇生计直接相关。"
+        ]
+      ],
+      "unknown": [
+        "劝农成效、员额、禁令覆盖和受保护人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-PRINCELY-LEGAL-AND-PROPERTY-LIMITS",
+      "time": "中统二年八月至九月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "禁止使臣矫称上命，限制诸王后妃等擅取官物，并规定民间诉讼不得由诸王驸马私断，须交朝廷处理。",
+      "result": "宗室与使臣对官物、民事司法的越权受到明令限制。",
+      "quote": [
+        "使臣有矯稱上命者，有司不得聽受",
+        "不許擅取官物",
+        "凡民間詞訟無得私自斷決",
+        "皆聽朝廷處置"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-PRINCELY-LEGAL-LIMITS",
+        "candidate": "POL-CAND-YUAN-PRINCELY-LEGAL-LIMITS",
+        "summary": "限制宗室擅取官物和私断民讼。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "宗室权力和使臣命令约束。",
+          "decision_question": "如何防止假传圣旨与宗室侵官。",
+          "alternatives": "容许宗室自行取物断讼。",
+          "decision": "要求奏报并将民讼归朝廷。",
+          "direct_result": "形成禁止性诏令。",
+          "power_change": "司法与官物处置进一步集中。",
+          "risk_or_damage": "违规惩罚和既往侵害补偿未载。",
+          "follow_up": "执行效果待后卷。"
+        }
+      },
+      "unknown": [
+        "违令案件、惩罚和民众申诉渠道未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-004-DEBT-RELIEF-AND-NEAR-WAREHOUSES",
+      "time": "中统二年九月",
+      "loc": [
+        "開平",
+        "清州",
+        "滄州",
+        "真定",
+        "沿河"
+      ],
+      "action": "以清沧盐课银偿还往年向民借款，设开平和籴所；命田租近仓交纳并官转漕，又免真定贫民无力偿还的官钱。",
+      "result": "部分政府欠民款和贫民官债获清偿或豁免，粮食收购运输机构建立。",
+      "quote": [
+        "以清、滄鹽課銀償往歲所貸民錢",
+        "置和糴所于開平",
+        "貧不能償，詔免之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DEBT-RELIEF-1261",
+        "candidate": "FIN-CAND-YUAN-DEBT-RELIEF-1261",
+        "summary": "偿政府借民钱、免贫民官债并设和籴。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "政府曾向民借钱，真定贫民欠官钱且无力偿还。",
+          "fiscal_state": "用盐课银偿民借款并豁免贫民官债。",
+          "livelihood_state": "债务压力降低，田租远输被限制。",
+          "production_circulation": "开平设和籴所、沿河近仓转漕。"
+        }
+      },
+      "unknown": [
+        "清偿和豁免总额、户数、和籴价格及执行时间未载。"
+      ]
+    }
+  ]
+}

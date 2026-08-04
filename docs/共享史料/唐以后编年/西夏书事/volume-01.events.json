@@ -1,0 +1,713 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V01-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V01-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "01",
+    "revision_ref": "2285237",
+    "start_locator": "唐僖宗中和元年拓跋思恭起兵",
+    "end_locator": "梁末帝龙德二年李仁福入献",
+    "overlap_context": "卷首以党项迁徙和唐代羁縻为定难军形成背景；本卷主载拓跋思恭勤王、受封夏国、定难军世袭及梁晋岐攻守。",
+    "input_fingerprint": "1745550a52aa601f2bb0a812f301b071801ff6be29fd512a7f8c65deca8cebb0"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷01正文登记，未知保持未知。",
+    "唐初党项与吐谷浑、唐军冲突仅作族群迁徙背景，不作为西夏battle消费；作者按语不替代事件结果。",
+    "普通授官、祭祀、贡聘与重复行军节点不单列；本卷无达到大型工程门槛的事件。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V01-TANGUT-SETTLEMENT-BACKGROUND",
+      "time": [
+        "唐贞观至贞元年间",
+        "7至8世纪",
+        "range"
+      ],
+      "subject": "拓跋党项各部与唐朝廷",
+      "action": "拓跋党项内附后获置州授官，受吐蕃压力及唐朝边防调整而多次迁至庆、银、夏等地，逐渐形成东山和平夏两部。",
+      "result": "拓跋部在银夏地区获得持续聚居与官职基础，成为思恭据宥夏的历史背景。",
+      "groups": [
+        "党项部众",
+        "迁徙民户",
+        "唐边州军民"
+      ],
+      "quote": [
+        "分其地爲懿、嵯、麟、可三十二州，以松州爲都督府",
+        "元宗詔慶州置靜邊等州處之",
+        "朝光居銀夏，號平夏部。"
+      ],
+      "unknown": [
+        "各次迁徙人口、土地分配、伤亡、税役及聚居范围变化未载。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-RISE-AGAINST-HUANG-CHAO-881",
+      "time": [
+        "唐僖宗中和元年三月",
+        "881",
+        "month"
+      ],
+      "subject": "宥州刺史拓跋思恭与党项、汉地勤王军",
+      "action": "黄巢占长安、僖宗入蜀后，思恭纠集夷夏数万人并约鄜延李孝昌会师讨贼。",
+      "result": "银夏党项军首次以独立勤王力量进入关中战争。",
+      "groups": [
+        "党项军",
+        "汉地军士",
+        "关中民众"
+      ],
+      "quote": [
+        "宥州刺史拓跋思恭起兵討賊。",
+        "思恭糾合夷夏兵數萬",
+        "誓牲討賊，剋日入援。"
+      ],
+      "unknown": [
+        "实到兵数、军费粮饷、沿途损失与初期战果未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANG-CHAO-881-883",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-DINGNAN-COMMAND-881",
+      "time": [
+        "唐僖宗中和元年四月至八月",
+        "881",
+        "range"
+      ],
+      "subject": "唐僖宗与拓跋思恭",
+      "action": "诸葛爽降黄巢后，僖宗以思恭权知夏绥银留后，继授夏绥银节度使。",
+      "result": "思恭取得夏绥银军政统辖权，拓跋势力获得正式方镇地位。",
+      "groups": [
+        "夏绥银军民",
+        "党项部众",
+        "唐朝官员"
+      ],
+      "quote": [
+        "權知夏綏銀節度事。",
+        "僖宗遂以思恭爲左武衛將軍，權知夏綏銀畱後。",
+        "八月，授夏綏銀節度使。"
+      ],
+      "unknown": [
+        "接管程序、辖区赋税军额、原官属处置和实际控制范围未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DINGNAN-COMMAND-881",
+        "summary": "思恭取得夏绥银节度使地位。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-WANGQIAO-DEFEAT-881",
+      "time": [
+        "唐僖宗中和元年四月",
+        "881",
+        "month"
+      ],
+      "subject": "拓跋思恭李孝昌军与黄巢军",
+      "action": "官军一度入长安后因抢掠失序被黄巢反击，思恭与李孝昌在王桥来援交战。",
+      "result": "思恭军战败，死伤甚众，黄巢重新占据长安。",
+      "cost": "思恭军死伤甚众，确数未载。",
+      "groups": [
+        "党项勤王军",
+        "黄巢军",
+        "长安市民"
+      ],
+      "quote": [
+        "巢復入長安。",
+        "思恭與李孝昌來援，與賊遇于王橋，戰不利，死傷甚衆。"
+      ],
+      "unknown": [
+        "双方兵力、具体伤亡、俘虏和市民损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANG-CHAO-881-883",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-DONGWEI-BRIDGE-881",
+      "time": [
+        "唐僖宗中和元年七月至九月",
+        "881",
+        "range"
+      ],
+      "subject": "拓跋思恭思忠军与尚让朱温军",
+      "action": "思恭军进屯东渭桥逼近长安，思忠迎击渡渭的尚让朱温部并追击。",
+      "result": "思忠深入敌阵战死，僖宗追赠宥州刺史并立祠。",
+      "cost": "思忠战死，其他伤亡未载。",
+      "groups": [
+        "党项勤王军",
+        "黄巢军",
+        "渭桥附近民众"
+      ],
+      "quote": [
+        "進軍東渭橋。",
+        "思恭遣弟思忠迎擊，戰于東渭橋。",
+        "思忠逐北深入，殁于陣。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、战果和祠祀费用未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANG-CHAO-881-883",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-FUPING-DEFEAT-881",
+      "time": [
+        "唐僖宗中和元年十一月",
+        "881",
+        "month"
+      ],
+      "subject": "拓跋思恭军与黄巢部孟楷军",
+      "action": "孟楷在富平袭击思恭军。",
+      "result": "思恭不胜，率残军自行退回夏州。",
+      "cost": "军队残破，伤亡确数未载。",
+      "groups": [
+        "党项勤王军",
+        "黄巢军",
+        "夏州军民"
+      ],
+      "quote": [
+        "戰于富平，不勝，奔夏州。",
+        "思恭力不支，領殘衆奔歸本道。"
+      ],
+      "unknown": [
+        "双方兵力、伤亡、军资损失和撤退沿途影响未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANG-CHAO-881-883",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-DINGNAN-ESTABLISHMENT-881-882",
+      "time": [
+        "唐僖宗中和元年十二月",
+        "中和二年八月",
+        "range"
+      ],
+      "subject": "唐僖宗与拓跋思恭定难军",
+      "action": "思恭回夏州整军再请讨贼，僖宗赐军号定难并先后授其京城南面、四面收复都统。",
+      "result": "定难军名号和思恭统兵地位正式确立。",
+      "groups": [
+        "定难军",
+        "夏州军民",
+        "唐勤王诸军"
+      ],
+      "quote": [
+        "夏州賜號定難軍。",
+        "繕甲訓兵，表請討賊。",
+        "授京城四面都統。"
+      ],
+      "unknown": [
+        "整军费用、军额、兵源、军饷及都统实际辖军规模未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DINGNAN-ESTABLISHMENT-881-882",
+        "summary": "夏州获定难军号，思恭掌京城收复都统。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-CHANGAN-RECOVERY-883",
+      "time": [
+        "唐僖宗中和三年四月",
+        "883",
+        "month"
+      ],
+      "subject": "拓跋思恭、李克用等勤王军与黄巢军",
+      "action": "思恭奉诏随李克用进军，连续击败尚让、黄揆部并从光泰门进入长安。",
+      "result": "黄巢焚毁宫阙后撤离，长安被官军收复。",
+      "cost": "双方伤亡与宫阙民居损失未载。",
+      "groups": [
+        "定难军",
+        "河东等勤王军",
+        "黄巢军",
+        "长安居民"
+      ],
+      "quote": [
+        "從雁門節度使李克用復長安。",
+        "一日三捷，賊衆奔潰。",
+        "黃巢焚官闕遁。"
+      ],
+      "unknown": [
+        "思恭所部兵力、伤亡、俘获、抢掠约束和战后修复未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANG-CHAO-881-883",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-XIA-DUKE-LI-SURNAME-883",
+      "time": [
+        "唐僖宗中和三年七月",
+        "883",
+        "month"
+      ],
+      "subject": "唐僖宗与拓跋思恭",
+      "action": "僖宗以讨黄巢功加思恭太子太傅、封夏国公并复赐李姓。",
+      "result": "“夏”成为拓跋定难政权封号来源，李姓成为其后历世所用。",
+      "groups": [
+        "李氏宗族",
+        "定难军官员",
+        "夏州军民"
+      ],
+      "quote": [
+        "晉爵夏國公。",
+        "加太子太傅，爵夏國公。",
+        "。\n復賜李姓。\n自"
+      ],
+      "unknown": [
+        "封爵食邑、赏赐财物、宗族改姓范围与地方行政影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XIA-DUKE-LI-SURNAME-883",
+        "summary": "思恭封夏国公并获赐李姓。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V01-SHAYUAN-DEFEAT-885",
+      "time": [
+        "唐僖宗光启元年九月至十二月",
+        "885",
+        "range"
+      ],
+      "subject": "李思恭、朱玫等军与王重荣李克用军",
+      "action": "思恭奉令与邠宁军征讨控制盐铁的河中王重荣。",
+      "result": "联军在沙苑战败，鄜夏军一并溃退。",
+      "cost": "双方伤亡与军资损失未载。",
+      "groups": [
+        "定难军",
+        "邠宁军",
+        "河中河东军",
+        "盐铁相关民户"
+      ],
+      "quote": [
+        "合邠寧軍討河中。",
+        "戰于沙苑，敗績。",
+        "鄜夏兵俱敗。"
+      ],
+      "unknown": [
+        "双方兵力、伤亡、盐铁利益规模、军费和河中民损未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SHAYUAN-885",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-XIANG-PRINCE-DELAY-886",
+      "time": [
+        "唐僖宗光启二年十一月",
+        "886",
+        "month"
+      ],
+      "subject": "李思恭定难军与襄王李煴政权",
+      "action": "思恭奉诏讨李煴，仅进至绥州观望而未出境。",
+      "result": "李煴败亡后思恭自行回军，未形成实际战果。",
+      "groups": [
+        "定难军",
+        "唐朝廷",
+        "绥州军民"
+      ],
+      "quote": [
+        "奉詔討襄王煴，次于綏州。",
+        "觀望不出境，已，聞煴敗，遂還。"
+      ],
+      "unknown": [
+        "出兵人数、停驻时间、军费和观望原因未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-XIANG-PRINCE-886",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-SEIZE-FUYAN-888",
+      "time": [
+        "唐昭宗文德元年",
+        "888",
+        "year"
+      ],
+      "subject": "李思恭、李思孝与鄜延军镇",
+      "action": "思恭派弟思孝袭取鄜延，自称留后并向朝廷请授。",
+      "result": "思孝获授鄜坊丹瞿观察使，李氏势力由夏州扩展至鄜延。",
+      "groups": [
+        "定难军",
+        "鄜延军民",
+        "李氏宗族"
+      ],
+      "quote": [
+        "李思恭取鄜延，以弟思孝知留後。",
+        "遣弟行軍司馬思孝襲取之，自稱留後。"
+      ],
+      "unknown": [
+        "交战经过、伤亡、接管赋税军额和原镇官属处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SEIZE-FUYAN-888",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-ZHANG-JUN-CAMPAIGN-890",
+      "time": [
+        "唐昭宗大顺元年六月至十月",
+        "890",
+        "range"
+      ],
+      "subject": "李思恭李思孝军、张濬官军与李克用军",
+      "action": "思恭、思孝率鄜夏兵会张濬讨李克用，官军战败后两军先渡河撤归。",
+      "result": "讨河东行动失败，思恭放弃主帅提前退军。",
+      "cost": "官军败绩，伤亡未载。",
+      "groups": [
+        "鄜夏军",
+        "唐官军",
+        "河东军",
+        "晋州民众"
+      ],
+      "quote": [
+        "出兵會都招討使張濬于晉州。",
+        "棄張濬軍先歸。",
+        "思恭與保大、靜難、鳳翔諸軍先渡河歸。"
+      ],
+      "unknown": [
+        "鄜夏兵力、伤亡、撤军损失、军费和晋州民损未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-ZHANG-JUN-890",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-HEREDITARY-DINGNAN-895",
+      "time": [
+        "唐昭宗乾宁二年",
+        "895",
+        "year"
+      ],
+      "subject": "李思恭、李思谏与定难军",
+      "action": "思恭死后，因其子早卒、孙彝昌年幼，军中拥立弟思谏继任节度使。",
+      "result": "定难军首次以军中拥立方式实现李氏家族世袭。",
+      "groups": [
+        "李氏宗族",
+        "定难军将士",
+        "夏州军民"
+      ],
+      "quote": [
+        "定難軍節度使李思恭卒，弟思諫嗣。",
+        "軍中立其弟思諫嗣爲節度使。"
+      ],
+      "unknown": [
+        "思恭死因、继承会议、朝廷确认程序和反对意见未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HEREDITARY-DINGNAN-895",
+        "summary": "思恭死后军中拥立思谏，开启李氏世袭。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V01-WANG-XINGYU-CAMPAIGN-895",
+      "time": [
+        "唐昭宗乾宁二年七月至八月",
+        "895",
+        "range"
+      ],
+      "subject": "李思孝、李思谏军与王行瑜部",
+      "action": "思孝参与攻擒邠宁将王令陶，思谏思孝随后任东北两面招讨使随李克用征王行瑜。",
+      "result": "王令陶被擒献，定难保大军加入朝廷平定邠宁行动。",
+      "groups": [
+        "定难保大军",
+        "河东军",
+        "邠宁军",
+        "关中民众"
+      ],
+      "quote": [
+        "擒邠寧將王令陶于黎園寨。",
+        "思諫、思孝充邠寧東北二面招討使。"
+      ],
+      "unknown": [
+        "鄜夏出兵规模、伤亡、后续战果和军费未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-WANG-XINGYU-895",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-SIXIAO-RETIREMENT-896",
+      "time": [
+        "唐昭宗乾宁三年三月",
+        "896",
+        "month"
+      ],
+      "subject": "李思孝、李思敬与唐昭宗",
+      "action": "保大节度使李思孝致仕并推荐弟思敬代理，朝廷授思敬留后和节度使。",
+      "result": "李氏保大军权在兄弟间完成交接，思敬后迁武定军。",
+      "groups": [
+        "李氏宗族",
+        "保大军将士",
+        "鄜延军民"
+      ],
+      "quote": [
+        "保大節度使李思孝致仕，表弟思敬自代。",
+        "思敬爲保大軍兵馬留後，旋授節度使"
+      ],
+      "unknown": [
+        "致仕原因、财产俸禄、军权交接和地方反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SIXIAO-RETIREMENT-896",
+        "summary": "思孝致仕并由弟思敬接掌保大军。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V01-LI-MAOZHEN-CAMPAIGN-897",
+      "time": [
+        "唐昭宗乾宁四年九月",
+        "897",
+        "month"
+      ],
+      "subject": "李思谏定难军与凤翔李茂贞",
+      "action": "朝廷授思谏凤翔行营副都统，命其会诸道军讨李茂贞。",
+      "result": "李茂贞上表请罪，定难军未实际出师。",
+      "groups": [
+        "定难军",
+        "凤翔军",
+        "京畿民众"
+      ],
+      "quote": [
+        "奉詔討李茂貞，授鳳翔行營四面副都統。",
+        "茂貞尋上表請罪，願得自新。師不出。"
+      ],
+      "unknown": [
+        "动员兵力、军费、停战条件和朝廷后续处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LI-MAOZHEN-897",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-SIX-TOWNS-SIEGE-906",
+      "time": [
+        "唐昭宣帝天祐三年九月至十月",
+        "906",
+        "range"
+      ],
+      "subject": "李思谏夏州守军、李继徽六镇军与梁援军",
+      "action": "李继徽率六镇军围夏州，思谏向朱全忠告急，梁将刘知俊出兵救援。",
+      "result": "刘知俊在美原击败围军并取鄜州，自此夏州转而服从梁。",
+      "cost": "双方伤亡和城内损失未载。",
+      "groups": [
+        "夏州守军民",
+        "六镇军",
+        "梁援军"
+      ],
+      "quote": [
+        "邠州李繼徽將六鎭兵攻夏州。",
+        "李思諫告急于梁，梁遣劉知俊等擊走之。",
+        "自是夏州服于梁。"
+      ],
+      "unknown": [
+        "围城兵力、伤亡、夏州粮耗、援军代价和臣梁条件未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SIX-TOWNS-SIEGE-906",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-SUBMISSION-TO-LIANG-907",
+      "time": [
+        "梁太祖开平元年五月",
+        "907",
+        "month"
+      ],
+      "subject": "梁太祖与李思谏定难军",
+      "action": "梁代唐后遣使宣谕，思谏接受新朝并获加检校太尉兼侍中。",
+      "result": "定难军正式承认后梁政权并保持方镇地位。",
+      "groups": [
+        "定难军官员",
+        "夏州军民",
+        "梁朝廷"
+      ],
+      "quote": [
+        "梁受唐禪，遣使宣諭州鎭",
+        "李思諫加檢校太尉兼侍中。"
+      ],
+      "unknown": [
+        "宣谕条件、贡赋军役义务、赏赐和地方反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SUBMISSION-TO-LIANG-907",
+        "summary": "思谏承认后梁并获进秩。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V01-YICHANG-SUCCESSION-908",
+      "time": [
+        "梁太祖开平二年十一月",
+        "908",
+        "month"
+      ],
+      "subject": "李思谏、李彝昌与定难军",
+      "action": "思谏死后，定难军遵其遗命拥立思恭孙李彝昌为留后，后获正式节钺。",
+      "result": "定难军权由思恭弟系回到其孙彝昌。",
+      "groups": [
+        "李氏宗族",
+        "定难军将吏",
+        "夏州军民"
+      ],
+      "quote": [
+        "李思諫卒，思恭孫彝昌嗣。",
+        "共立思恭孫彝昌爲畱後。",
+        "尋起復，正授旄鉞。"
+      ],
+      "unknown": [
+        "思谏死因、遗命文本、军中异议和朝廷授命条件未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YICHANG-SUCCESSION-908",
+        "summary": "思谏死后彝昌继掌定难军。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V01-YICHANG-REGICIDE-RENFU-909",
+      "time": [
+        "梁太祖开平三年二月至三月",
+        "909",
+        "range"
+      ],
+      "subject": "高宗益、李彝昌与夏州军民李仁福",
+      "action": "夏州都指挥高宗益发动叛乱杀节度使李彝昌；夏州将吏随即诛高宗益及其党，迎立李仁福。",
+      "result": "军中政变被反制，定难军仍由李氏宗族继承，梁朝授仁福节度。",
+      "cost": "李彝昌、高宗益及其党死亡，其他伤亡未载。",
+      "groups": [
+        "定难军将吏",
+        "李氏宗族",
+        "夏州军民",
+        "高宗益党羽"
+      ],
+      "quote": [
+        "夏州將高宗益弑其節度使李彝昌。",
+        "夏州人誅高宗益，迎蕃部指揮使李仁福爲畱後。",
+        "梁祖授檢校司空、定難軍節度。"
+      ],
+      "unknown": [
+        "政变兵力、彝昌家属处置、党羽人数、财产损失和迎立程序未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YICHANG-REGICIDE-RENFU-909",
+        "summary": "高宗益弑彝昌后被诛，李仁福获迎立。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-XIAZHOU-SIEGE-910",
+      "time": [
+        "梁太祖开平四年七月至十一月",
+        "910",
+        "range"
+      ],
+      "subject": "李仁福夏州军民与晋岐联军、梁鄜延援军",
+      "action": "晋岐联军五万人围夏州，仁福率州民和防卒昼夜守城并向梁求援。",
+      "result": "梁援军截击联军归路并大败之，围城解除，仁福获加官。",
+      "cost": "双方伤亡、城内粮耗与民居损失未载。",
+      "groups": [
+        "夏州军民",
+        "晋岐联军",
+        "梁援军"
+      ],
+      "quote": [
+        "晉師、岐師圍夏州，李仁福城守，不下。",
+        "率州民及防卒分陴拒，晝夜不少懈。",
+        "鄜延援師至，圍解。"
+      ],
+      "unknown": [
+        "守军人数、伤亡、粮饷消耗、城防损失和援军代价未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-XIAZHOU-SIEGE-910",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V01-HORSE-TRIBUTE-922",
+      "time": [
+        "梁末帝龙德二年二月",
+        "922",
+        "month"
+      ],
+      "subject": "李仁福定难军与后梁朝廷",
+      "action": "后梁征诸道援德胜，李仁福进献战马五百匹。",
+      "result": "定难军以军马支援后梁战争并维持臣属关系。",
+      "groups": [
+        "定难军牧户",
+        "战马承办者",
+        "后梁军队"
+      ],
+      "quote": [
+        "李仁福入獻。",
+        "貢馬五百匹助戰。"
+      ],
+      "unknown": [
+        "马匹征集来源、价值、运输损耗、牧户负担和是否另行出兵未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HORSE-TRIBUTE-922",
+        "summary": "李仁福向后梁贡马五百匹助战。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    }
+  ]
+}

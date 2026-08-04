@@ -1,0 +1,810 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-145",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷145",
+    "revision_ref": "2313254",
+    "start_locator": "孝宗紹統同道冠德昭功哲文神武明聖成孝皇帝淳熙三年",
+    "end_locator": "閱球於選德殿",
+    "overlap_context": "承卷144淳熙二年末财库军政；固定整页含页内淳熙三年、四年标题。",
+    "input_fingerprint": "a602214a8e9b3d673228f1b07a27766c5390a64168f1f3838a953deae7b0a058"
+  },
+  "limitations": [],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-145-FIN-DISASTER-RELIEF",
+      "time": "淳熙三年正月至三月",
+      "action": "宋宽常州旱欠一半、赈淮东并贷贫民种粮，金免去年水旱路租并向多路调粮赈济。",
+      "result": "宋金灾区获得免欠、口粮和生产种子支持。",
+      "quote": [
+        "寬其逋負之半",
+        "賑淮東饑，仍命",
+        "仍命貸貧民種",
+        "免去年被水旱路分租稅",
+        "可於鄰道取之以濟"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-DISASTER-RELIEF",
+        "candidate": "FIN-CAND-XZZTJ-145-DISASTER-RELIEF",
+        "summary": "宋金灾区减免赈贷。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "常州旱、淮东饥与金多路水旱",
+          "fiscal_state": "宽欠免税、赈粮并贷种",
+          "livelihood_state": "宋金灾区获得免欠、口粮和生产种子支持。",
+          "production_circulation": "跨路调仓并恢复播种"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-REGIONAL-TROOP-TRAINING",
+      "time": "淳熙三年二月至淳熙四年八月",
+      "action": "宋检阅两浙福建士兵后遣归激犒，规定内外军岁阅、沿江军岁习水战，并要求无驻军州县自行精训禁军。",
+      "result": "地方军与水军形成年度、半年度训练周期和按劾机制。",
+      "quote": [
+        "事藝已精熟",
+        "茲及時遣歸，更加激犒",
+        "內外諸軍歲一閱試",
+        "沿江諸軍，歲再習水戰",
+        "具當職官姓名按劾"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-REGIONAL-TROOP-TRAINING",
+        "candidate": "POL-CAND-XZZTJ-145-REGIONAL-TROOP-TRAINING",
+        "summary": "建立地方军水军定期训练。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "地方军常态训练",
+          "decision_question": "宋检阅两浙福建士兵后遣归激犒，规定内外军岁阅、沿江军岁习水战，并要求无驻军州县自行精训禁军。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "岁阅、水战两习并按劾失训",
+          "direct_result": "地方军与水军形成年度、半年度训练周期和按劾机制。",
+          "power_change": "州县兵官负本地训练责任",
+          "risk_or_damage": "训练废弛或临调难集",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-JIN-PALACE-FRUGALITY",
+      "time": "淳熙三年三月",
+      "action": "金主以三年未换旧服教太子亲王节省资用，有余先周亲戚。",
+      "result": "宫廷服御节俭被用作宗室示范。",
+      "quote": [
+        "資用，當務節省",
+        "以周親戚，勿妄費也",
+        "此服已三年未嘗更換"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-JIN-PALACE-FRUGALITY",
+        "candidate": "FIN-CAND-XZZTJ-145-JIN-PALACE-FRUGALITY",
+        "summary": "金主以旧服示宗室节用。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "宗室可能妄费资用",
+          "fiscal_state": "旧服继续使用并节余周亲",
+          "livelihood_state": "宫廷服御节俭被用作宗室示范。",
+          "production_circulation": "减少宫廷消费"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-SICHUAN-OFFICIAL-LANDS",
+      "time": "淳熙三年四月",
+      "action": "四川总领欲再借四路职田租十年供汰军，孝宗以圭田养廉为由拒绝并归还职田。",
+      "result": "军费缺口另筹，官员职田不再被长期挪用。",
+      "quote": [
+        "再借四路職田租課十年",
+        "四川自當一體，豈可再借",
+        "圭田所以養廉",
+        "其職田便與給還"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-SICHUAN-OFFICIAL-LANDS",
+        "candidate": "FIN-CAND-XZZTJ-145-SICHUAN-OFFICIAL-LANDS",
+        "summary": "拒借四川职田供军费。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "拟借职田十年支付汰军",
+          "fiscal_state": "拒借并立即给还",
+          "livelihood_state": "军费缺口另筹，官员职田不再被长期挪用。",
+          "production_circulation": "保护地方官养廉收入"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-MIXED-RECOMMENDATION",
+      "time": "淳熙三年四月",
+      "action": "宋令侍从台谏两省不分内外、杂举监司郡守，每岁各五人，再由中书考察。",
+      "result": "地方主官候选由多源互举和中书复核产生。",
+      "quote": [
+        "不以內外，雜舉監司、郡守",
+        "郡守，歲各五人",
+        "經中書考察而後除授"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-MIXED-RECOMMENDATION",
+        "candidate": "POL-CAND-XZZTJ-145-MIXED-RECOMMENDATION",
+        "summary": "建立监司郡守杂举复核。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "监司郡守杂举",
+          "decision_question": "宋令侍从台谏两省不分内外、杂举监司郡守，每岁各五人，再由中书考察。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "多官杂举并中书考察",
+          "direct_result": "地方主官候选由多源互举和中书复核产生。",
+          "power_change": "荐举权分散且受中书复核",
+          "risk_or_damage": "单人荐举滋生请托奔走",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-GRAIN-SURCHARGE",
+      "time": "淳熙三年四月",
+      "action": "孝宗查知州县秋苗加耗最重达纳二石抵一石，要求漕臣察劾并重罚。",
+      "result": "秋苗加耗被限定不得过三分并进入追责。",
+      "quote": [
+        "加耗不得過三分",
+        "甚者兩石以上方可納一石",
+        "民力安得不困",
+        "自當覺察奏劾"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-GRAIN-SURCHARGE",
+        "candidate": "FIN-CAND-XZZTJ-145-GRAIN-SURCHARGE",
+        "summary": "限制秋苗加耗并追责。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "州县加耗极重至翻倍",
+          "fiscal_state": "设三分上限并由漕臣劾治",
+          "livelihood_state": "秋苗加耗被限定不得过三分并进入追责。",
+          "production_circulation": "减少粮税征收耗损"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-BAT-JINGZHOU-YAO",
+      "time": "淳熙三年四月至八月",
+      "action": "靖州猺寇边，宋遣兵讨捕并于八月平定。",
+      "result": "靖州边患结束。",
+      "quote": [
+        "靖州猺寇邊，遣兵討捕之",
+        "靖州猺寇平"
+      ],
+      "battle": "HANDOFF-XZZTJ-145-YAO",
+      "battle_reason": "寇边、出兵讨捕至平定为同一边境战役链。"
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-TANG-ENVOY-DISGRACE",
+      "time": "淳熙三年四月",
+      "action": "汤邦彦奉使金求陵寝地，临武士夹道惊惧不能措辞，且受敌国赐物，归后被流新州。",
+      "result": "泛使求河南陵寝的议论停止。",
+      "quote": [
+        "夾道皆控弦露刃之士",
+        "大怖，不能措一詞而出",
+        "乃不顧名節，辱命如此",
+        "自是河南之議始息"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-TANG-ENVOY-DISGRACE",
+        "candidate": "POL-CAND-XZZTJ-145-TANG-ENVOY-DISGRACE",
+        "summary": "汤邦彦辱命后河南使议止。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "使金辱命问责",
+          "decision_question": "汤邦彦奉使金求陵寝地，临武士夹道惊惧不能措辞，且受敌国赐物，归后被流新州。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "流放使臣并停泛使",
+          "direct_result": "泛使求河南陵寝的议论停止。",
+          "power_change": "求陵寝外交路线终止",
+          "risk_or_damage": "使臣失节受赐损国体",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-ANNUAL-PRISON-REVIEW",
+      "time": "淳熙三年四月",
+      "action": "宋规定诸路提刑每年五月集中理囚。",
+      "result": "地方刑狱获得固定年度清理时点。",
+      "quote": [
+        "詔諸路提刑，歲五月理囚"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-ANNUAL-PRISON-REVIEW",
+        "candidate": "POL-CAND-XZZTJ-145-ANNUAL-PRISON-REVIEW",
+        "summary": "设提刑五月理囚。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "年度理囚制度",
+          "decision_question": "宋规定诸路提刑每年五月集中理囚。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "每年五月理囚",
+          "direct_result": "地方刑狱获得固定年度清理时点。",
+          "power_change": "提刑承担定期清狱责任",
+          "risk_or_damage": "囚狱久滞",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-COMMAND-HIERARCHY",
+      "time": "淳熙三年五月",
+      "action": "宋因钱卓不服帅臣权借印记，重申一路兵官对帅臣的阶级和分守，降钱卓一官。",
+      "result": "地方军事指挥的上下秩序得到维护。",
+      "quote": [
+        "權借印記，慍怒形於公移",
+        "一路兵官，于帥臣自有階級",
+        "祖宗立法，具有深意"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-COMMAND-HIERARCHY",
+        "candidate": "POL-CAND-XZZTJ-145-COMMAND-HIERARCHY",
+        "summary": "维护帅臣对兵官层级。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "地方军令层级",
+          "decision_question": "宋因钱卓不服帅臣权借印记，重申一路兵官对帅臣的阶级和分守，降钱卓一官。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "降官并维护帅臣事权",
+          "direct_result": "地方军事指挥的上下秩序得到维护。",
+          "power_change": "帅臣对一路兵官的指挥权确认",
+          "risk_or_damage": "兵官抗命使缓急号令不行",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-ANTI-NEPOTISM",
+      "time": "淳熙三年五月",
+      "action": "孝宗欲给亲属张默添差，因不合宗室戚里归正人范围而自行撤回。",
+      "result": "皇帝亲属未获法外添差，只授普通书库官。",
+      "quote": [
+        "欲與一添差監當",
+        "近制，惟宗室、戚裡及歸正人方得添差",
+        "朕正不欲先自廢法",
+        "朕正不欲先自廢法，可勿行"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-ANTI-NEPOTISM",
+        "candidate": "POL-CAND-XZZTJ-145-ANTI-NEPOTISM",
+        "summary": "孝宗撤回亲属法外添差。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "皇亲任官自限",
+          "decision_question": "孝宗欲给亲属张默添差，因不合宗室戚里归正人范围而自行撤回。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "撤回法外添差",
+          "direct_result": "皇帝亲属未获法外添差，只授普通书库官。",
+          "power_change": "近制约束皇帝私人恩意",
+          "risk_or_damage": "君主自废法为亲属开例",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-SICHUAN-WINE-TAX",
+      "time": "淳熙三年六月",
+      "action": "宋减四川酒课折沽虚额四十七万余缗，并从湖广上供钱拨补。",
+      "result": "地方不再为虚额酒课向民间追征。",
+      "quote": [
+        "折沽虛額錢四十七萬餘緡",
+        "請自淳熙三年為始減放",
+        "湖廣總領所上供錢內撥還"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-SICHUAN-WINE-TAX",
+        "candidate": "FIN-CAND-XZZTJ-145-SICHUAN-WINE-TAX",
+        "summary": "减四川酒课虚额并拨补。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "酒课存在四十七万余缗虚额",
+          "fiscal_state": "减放并以上供拨补",
+          "livelihood_state": "地方不再为虚额酒课向民间追征。",
+          "production_circulation": "中央转移支付替代地方虚征"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-DIRECT-SPEECH",
+      "time": "淳熙三年六月至七月",
+      "action": "孝宗追赠已故直臣魏掞之，并以馆职奖励郑鉴切直议论，表示朝廷不可无直谅之士。",
+      "result": "直谏与尽言获得身后和现任奖励。",
+      "quote": [
+        "朝廷不可無直諒之士",
+        "可贈宣教郎、直秘閣",
+        "議論切直可取",
+        "以賞其盡言"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-DIRECT-SPEECH",
+        "candidate": "POL-CAND-XZZTJ-145-DIRECT-SPEECH",
+        "summary": "褒奖魏掞之郑鉴直言。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "直谏奖励",
+          "decision_question": "孝宗追赠已故直臣魏掞之，并以馆职奖励郑鉴切直议论，表示朝廷不可无直谅之士。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "追赠旧臣并擢用尽言者",
+          "direct_result": "直谏与尽言获得身后和现任奖励。",
+          "power_change": "直言成为馆职晋用依据",
+          "risk_or_damage": "虚名矫饰或言路萎缩",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-ZHEXI-POLDER-BAN",
+      "time": "淳熙三年七月",
+      "action": "宋禁止浙西继续围田。",
+      "result": "围湖占水的扩张受到停止。",
+      "quote": [
+        "乙丑，禁浙西圍田"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-ZHEXI-POLDER-BAN",
+        "candidate": "FIN-CAND-XZZTJ-145-ZHEXI-POLDER-BAN",
+        "summary": "禁止浙西围田。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "浙西围田影响水势与民生",
+          "fiscal_state": "禁止新增围田",
+          "livelihood_state": "围湖占水的扩张受到停止。",
+          "production_circulation": "限制土地围垦"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-PALACE-FRUGALITY",
+      "time": "淳熙三年九月至十月",
+      "action": "孝宗册后沿用禁中旧珠玉、总费不及五万缗，并从宫禁推动限制戚里中官奢侈。",
+      "result": "宫廷婚礼与日常服饰节俭成为社会风俗示范。",
+      "quote": [
+        "所費不及五萬緡",
+        "革弊當自宮禁始",
+        "中宮儉德，見陛下齊家之效",
+        "令臨安守臣禁逾侈"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-PALACE-FRUGALITY",
+        "candidate": "FIN-CAND-XZZTJ-145-PALACE-FRUGALITY",
+        "summary": "册后节用并由宫禁禁奢。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "贵近仿宫禁奢侈并传至民间",
+          "fiscal_state": "用旧物并由宫中带头禁奢",
+          "livelihood_state": "宫廷婚礼与日常服饰节俭成为社会风俗示范。",
+          "production_circulation": "压低奢侈品需求扩散"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-MILITARY-FUNDS-AUDIT",
+      "time": "淳熙三年秋",
+      "action": "龚茂良派员稽核三总司钱物，查出淮东总所侵盗大军钱粮数十万，但近习阻挠使案件中止。",
+      "result": "部分别库别历获纠正，系统性军财贿赂未能彻底清理。",
+      "quote": [
+        "分往升、潤、鄂三總司驅磨錢物",
+        "侵盜大軍錢糧累數十萬",
+        "茂良以聞，其事中止",
+        "苞苴賄賂，根株盤結"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-MILITARY-FUNDS-AUDIT",
+        "candidate": "POL-CAND-XZZTJ-145-MILITARY-FUNDS-AUDIT",
+        "summary": "三总司军财审计受阻。",
+        "operation": "mixed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "总领军财审计",
+          "decision_question": "龚茂良派员稽核三总司钱物，查出淮东总所侵盗大军钱粮数十万，但近习阻挠使案件中止。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "发起审计但被近习阻断",
+          "direct_result": "部分别库别历获纠正，系统性军财贿赂未能彻底清理。",
+          "power_change": "财政审计触及总领与近习利益链",
+          "risk_or_damage": "军粮侵盗和贿赂盘结",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-EXTRA-TAX-BURDEN",
+      "time": "淳熙三年秋",
+      "action": "孝宗以彭州减课后民感恩为证，讨论将来逐步蠲除折帛、月桩等南渡后额外横赋。",
+      "result": "额外税负被确认为江浙主要民害，但受养兵费用约束尚未全免。",
+      "quote": [
+        "額外橫賦，盡蠲除之",
+        "養兵之費，勢未能去",
+        "折帛、月樁等錢",
+        "為江、浙數路之害"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-EXTRA-TAX-BURDEN",
+        "candidate": "FIN-CAND-XZZTJ-145-EXTRA-TAX-BURDEN",
+        "summary": "确认折帛月桩为民害并拟渐蠲。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "茶盐榷酤、折帛月桩数倍旧额",
+          "fiscal_state": "以节俭和未来停战为蠲除方向",
+          "livelihood_state": "额外税负被确认为江浙主要民害，但受养兵费用约束尚未全免。",
+          "production_circulation": "军费制约减税空间"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-ABOLISH-SALE-OF-RANK",
+      "time": "淳熙三年十月",
+      "action": "孝宗停止以官爵换财，只有歉岁民间入粟赈饥且有公共收益者才可特请补官。",
+      "result": "常态鬻爵被废，灾赈例外被严格保留。",
+      "quote": [
+        "鬻爵，非古制也",
+        "安用輕官爵以益貨財",
+        "其餘一切住罷"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-ABOLISH-SALE-OF-RANK",
+        "candidate": "FIN-CAND-XZZTJ-145-ABOLISH-SALE-OF-RANK",
+        "summary": "废常态鬻爵仅留赈饥例外。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "理财以出售官爵增货财",
+          "fiscal_state": "除灾赈例外外全停",
+          "livelihood_state": "常态鬻爵被废，灾赈例外被严格保留。",
+          "production_circulation": "财政不再常态依赖官爵交易"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-ORDER-REVIEW",
+      "time": "淳熙三年十月",
+      "action": "孝宗反省过去命令不审、反复收回，要求君臣再三详思后出令。",
+      "result": "政策发布强调预审以维持信用。",
+      "quote": [
+        "出令不可不審",
+        "須是再三詳熟思慮",
+        "出令多反汗",
+        "比來甚悔也"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-ORDER-REVIEW",
+        "candidate": "POL-CAND-XZZTJ-145-ORDER-REVIEW",
+        "summary": "以再三复核减少反汗。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "命令审议制度",
+          "decision_question": "孝宗反省过去命令不审、反复收回，要求君臣再三详思后出令。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "再三复核后出令",
+          "direct_result": "政策发布强调预审以维持信用。",
+          "power_change": "执政参与政策前置审查",
+          "risk_or_damage": "反汗失信天下",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-WRK-WARSHIP-MAINTENANCE",
+      "time": "淳熙三年十一月",
+      "action": "孝宗拒绝把旧车船一概改造成多桨船，要求沿江诸军损坏即修、不得擅改船型。",
+      "result": "辛巳有战功的车船保留，多桨船只作新增而不冲销原数。",
+      "quote": [
+        "車船多壞損",
+        "辛巳用以取勝",
+        "隨即修葺，不得擅有更易",
+        "止許逐軍自行創造"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-XZZTJ-145-WARSHIP-MAINTENANCE",
+        "candidate": "WORK-CAND-XZZTJ-145-WARSHIP-MAINTENANCE",
+        "summary": "保留修葺车船并另造多桨船。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "沿江车船维护",
+          "phase": "修建或整治",
+          "purpose": "维持既有有效舰型与水战能力",
+          "resource_input": "沿流诸军船厂与舰船",
+          "operation": "修旧车船、另造多桨船",
+          "benefit": "辛巳有战功的车船保留，多桨船只作新增而不冲销原数。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-ENZE-REDUCTION",
+      "time": "淳熙三年十二月",
+      "action": "皇后再次裁减受册亲属恩泽，宋廷据此申严僥倖冒滥并清理入仕源头。",
+      "result": "中宫亲属恩泽从旧例三十人减至十八后又请减八。",
+      "quote": [
+        "裁減外尚餘一十八人",
+        "更請裁減八人",
+        "明詔有司，申嚴法禁",
+        "清入仕之源"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-ENZE-REDUCTION",
+        "candidate": "POL-CAND-XZZTJ-145-ENZE-REDUCTION",
+        "summary": "再减中宫亲属恩泽。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "外戚恩泽裁减",
+          "decision_question": "皇后再次裁减受册亲属恩泽，宋廷据此申严僥倖冒滥并清理入仕源头。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "继续裁减并清查冒滥",
+          "direct_result": "中宫亲属恩泽从旧例三十人减至十八后又请减八。",
+          "power_change": "皇后亲属入仕名额显著收缩",
+          "risk_or_damage": "外戚僥倖冒滥",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-BAT-LIZHOU-BORDER",
+      "time": "淳熙三年十二月",
+      "action": "黎州蛮寇边，宋军交战失利，蛮军随后退去。",
+      "result": "边境短战未获胜但敌军撤退。",
+      "quote": [
+        "黎州蠻寇邊",
+        "官軍失利，蠻亦遁去"
+      ],
+      "battle": "HANDOFF-XZZTJ-145-BORDER",
+      "battle_reason": "蛮军寇边、官军失利与敌退为同一短促边战链。"
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-TAX-ACCOUNTING-PILOT",
+      "time": "淳熙四年正月至二月",
+      "action": "韩彦古提出按州县用度分配两税余款、统一财赋账目，先令薛元鼎在秀州以都历半年核查试行。",
+      "result": "秀州建立上供、州用实数分项与转运司半年检查机制。",
+      "quote": [
+        "州縣不得多取於民",
+        "先施行一郡",
+        "每處止置都曆一道",
+        "半年一次，索曆檢照",
+        "其它州郡。亦乞依此施行"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-TAX-ACCOUNTING-PILOT",
+        "candidate": "FIN-CAND-XZZTJ-145-TAX-ACCOUNTING-PILOT",
+        "summary": "秀州试点财赋都历半年核查。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "两税实际征纳翻倍且账目难稽",
+          "fiscal_state": "秀州先试分级留用与统一账册",
+          "livelihood_state": "秀州建立上供、州用实数分项与转运司半年检查机制。",
+          "production_circulation": "上供州用送使按实数递减"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-PRECOLLECTION-REFORM",
+      "time": "淳熙四年二月",
+      "action": "宋以调整南库六十万缗借款月份，替代州县违法预催夏税。",
+      "result": "户部春季支用获过桥资金，民户不再被提前征税。",
+      "quote": [
+        "違法預催夏稅",
+        "安可置而不問",
+        "移此六十萬緡於四月、五月支借",
+        "禁止預催之弊"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-PRECOLLECTION-REFORM",
+        "candidate": "FIN-CAND-XZZTJ-145-PRECOLLECTION-REFORM",
+        "summary": "用南库过桥款停止预催夏税。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "户部支用期限导致州县违法预催",
+          "fiscal_state": "挪移南库借款时点",
+          "livelihood_state": "户部春季支用获过桥资金，民户不再被提前征税。",
+          "production_circulation": "以库间融资替代向民户预征"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-SICHUAN-HEDI-RELIEF",
+      "time": "淳熙四年三月",
+      "action": "宋免蜀中和籴一年，关外麦收倍于常年，证明民力稍舒后农业恢复。",
+      "result": "减免和籴直接转化为增产。",
+      "quote": [
+        "關外麥熟，倍于常年",
+        "緣朝廷免和糴一年",
+        "民力稍舒，得從事於耕作",
+        "民力不可以重困也"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-SICHUAN-HEDI-RELIEF",
+        "candidate": "FIN-CAND-XZZTJ-145-SICHUAN-HEDI-RELIEF",
+        "summary": "免蜀中和籴促麦收倍增。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "和籴重困民力",
+          "fiscal_state": "全蜀免和籴一年",
+          "livelihood_state": "减免和籴直接转化为增产。",
+          "production_circulation": "农户资源回归耕作并增产"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-GRAIN-RESERVE",
+      "time": "淳熙四年三月",
+      "action": "金发现三路粮不足，命从邻道调济并规定丰年广籴作为常备。",
+      "result": "灾赈从临时调粮转为常年储备政策。",
+      "quote": [
+        "三路之粟不能周給",
+        "遇豐年即廣糴以備凶歉",
+        "自今當預備以為常"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-GRAIN-RESERVE",
+        "candidate": "FIN-CAND-XZZTJ-145-GRAIN-RESERVE",
+        "summary": "金以丰年广籴补三路缺粮。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "三路灾粮不足且旧报仓廪充盈失实",
+          "fiscal_state": "邻道调粮并丰年广籴",
+          "livelihood_state": "灾赈从临时调粮转为常年储备政策。",
+          "production_circulation": "建立跨路调剂与常年库存"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-POL-PALACE-ORDER-REVIEW",
+      "time": "淳熙四年四月至六月",
+      "action": "龚茂良与曾觌冲突后被弹劾矫旨，宋规定三省枢密所得旨意退朝即奏审、再画降才施行。",
+      "result": "口头内旨转为二次书面确认，但龚茂良仍被贬逐。",
+      "quote": [
+        "所惜者朝廷大體",
+        "三省、樞密院所得之旨",
+        "朝退即具奏審",
+        "再承畫降，方可施行",
+        "茂良責寧遠軍節度副使"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-145-PALACE-ORDER-REVIEW",
+        "candidate": "POL-CAND-XZZTJ-145-PALACE-ORDER-REVIEW",
+        "summary": "龚茂良案催生旨意二次奏审。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "内旨复审与权幸冲突",
+          "decision_question": "龚茂良与曾觌冲突后被弹劾矫旨，宋规定三省枢密所得旨意退朝即奏审、再画降才施行。",
+          "alternatives": "维持旧制；按所载措施调整",
+          "decision": "建立二次奏审并处分龚茂良",
+          "direct_result": "口头内旨转为二次书面确认，但龚茂良仍被贬逐。",
+          "power_change": "中枢旨意需书面画降，曾觌势力增强",
+          "risk_or_damage": "矫旨争议和近习打击大臣",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-MILITARY-TEA-EXTORTION",
+      "time": "淳熙四年五月",
+      "action": "宋查处金州都统司私贩茶盐、按军人每名三斤高价强配并从军粮扣除。",
+      "result": "蜀军克剥进入中央核查。",
+      "quote": [
+        "例私販茶鹽",
+        "月科與軍人每名三斤",
+        "每名三斤，高立價直",
+        "於請糧處克除"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-MILITARY-TEA-EXTORTION",
+        "candidate": "FIN-CAND-XZZTJ-145-MILITARY-TEA-EXTORTION",
+        "summary": "查金州军人茶盐克剥。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "都统司向贫军强卖茶盐并扣粮",
+          "fiscal_state": "令有关部门契勘",
+          "livelihood_state": "蜀军克剥进入中央核查。",
+          "production_circulation": "制止军粮被强制消费抵扣"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-FIN-TEA-HORSE-REFORM",
+      "time": "淳熙四年七月",
+      "action": "宋因宕昌茶多价贱、换马锐减，要求支精茶并减数量、严禁永康茶入蕃。",
+      "result": "茶马交换转向以质量和边禁恢复茶价、减少银绢外付。",
+      "quote": [
+        "一馱茶易一上駟",
+        "其價已十倍",
+        "茶賤如泥土",
+        "必支精好茶而漸損其數",
+        "嚴入蕃茶之禁"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-145-TEA-HORSE-REFORM",
+        "candidate": "FIN-CAND-XZZTJ-145-TEA-HORSE-REFORM",
+        "summary": "以精茶减量重整茶马。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "茶量过多贬值且银绢补价、蕃商深入内郡",
+          "fiscal_state": "提质减量并禁边茶泄漏",
+          "livelihood_state": "茶马交换转向以质量和边禁恢复茶价、减少银绢外付。",
+          "production_circulation": "提高茶换马能力、减少贵金属外流"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-145-WRK-SEA-DIKE",
+      "time": "淳熙四年九月",
+      "action": "宋下令修治海塘。",
+      "result": "沿海防潮工程进入施工。",
+      "quote": [
+        "己亥，命修海塘"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-XZZTJ-145-SEA-DIKE",
+        "candidate": "WORK-CAND-XZZTJ-145-SEA-DIKE",
+        "summary": "下令修海塘。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "海塘修治",
+          "phase": "修建或整治",
+          "purpose": "防御海潮水患",
+          "resource_input": "未载。",
+          "operation": "命令修建",
+          "benefit": "沿海防潮工程进入施工。",
+          "harm": "未载。"
+        }
+      }
+    }
+  ]
+}

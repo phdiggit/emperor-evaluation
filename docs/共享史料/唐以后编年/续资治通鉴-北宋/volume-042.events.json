@@ -1,0 +1,1349 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-042",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷042",
+    "revision_ref": "2633669",
+    "start_locator": "宋仁宗寶元二年九月",
+    "end_locator": "宋仁宗康定元年十二月",
+    "overlap_context": "承接卷041西川大饥、元昊称帝与陕西战备；本卷先推进四路赈荒、军储节费和边防工程，继而完整记录保安、承平、青涧、金明、三川口、延州及三川寨等宋夏战事，处理刘平败亡诬案，重组枢密与陕西经略军制，并转出宋廷决定两路入讨和铁钱筹饷。",
+    "input_fingerprint": "5ddeea685dc33fdb8079a44e482e67d932c5195bf04c323efdf68108cb19e5c5"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-042-SICHUAN-FAMINE-RELIEF-1039",
+      "time": "宝元二年九月",
+      "loc": [
+        "益州路",
+        "梓州路",
+        "利州路",
+        "夔州路"
+      ],
+      "action": "朝廷拨内库银四万两换粮赈济四路饥民。",
+      "result": "承接卷041西川大饥，中央以银购粮实施赈济。",
+      "quote": [
+        "出內庫銀四萬兩，易粟賑益、梓、利、夔路饑民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨银四万两换粮赈济四川四路。"
+        ]
+      ],
+      "unknown": [
+        "实际购粮和受赈人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-MAZUN-RESCUE-BATTLE-1039",
+      "time": "宝元二年九月追记",
+      "loc": [
+        "鄜延路"
+      ],
+      "action": "蕃兵俘获寨主及众多军民后，马遵引兵追击。",
+      "result": "被掳寨主、军民当即夺回。",
+      "quote": [
+        "西頭供奉官馬遵引兵追戰，即時奪回"
+      ],
+      "battle": "CAMPAIGN-FUYAN-MAZUN-RESCUE-1039",
+      "unknown": [
+        "双方兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-PEARLS-FOR-BORDER-RESERVE-1039",
+      "time": "宝元二年十一月",
+      "loc": [
+        "开封",
+        "陕西边地"
+      ],
+      "action": "仁宗将估值三十万缗的内库珍珠交三司变卖，所得用于购买边储。",
+      "result": "宫廷无用珍宝转为边防资金，并减少向民间征敛。",
+      "quote": [
+        "出內庫珍珠估緡錢三十萬賜三司",
+        "收其直，助糴邊儲，亦可少紓吾民之斂也"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "变卖珍珠三十万缗助购边储。"
+        ]
+      ],
+      "unknown": [
+        "实际售得金额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-EXAM-SEPARATION-RULES-1039",
+      "time": "宝元二年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "礼部省试在都堂设帘分隔内外，限制试官吏员接近，并统一题义提示和涂误退黜规则。",
+      "result": "省试出题、考校和场内隔离制度细化。",
+      "quote": [
+        "設簾都堂中間，而施帷幕兩邊，令內外不相窺見",
+        "點檢試卷官及吏人，非給使毋得輒至堂上"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "细化省试隔离与考校防弊。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-FENGSHIYUAN-PURGE-1039",
+      "time": "宝元二年十一月",
+      "loc": [
+        "开封",
+        "扬州",
+        "颍州",
+        "郓州"
+      ],
+      "action": "张士逊利用冯士元赃案牵连盛度、程琳、庞籍等，又诱孔道辅入对辩程琳而使其获罪。",
+      "result": "多名中枢与台谏官被黜，冯士元流海岛。",
+      "quote": [
+        "張士遜素惡琳而疾道輔不附己，將並逐之",
+        "皆黜罷，而士元流海島"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "冯士元案被用于清洗程琳、孔道辅等。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-THREE-REDUNDANCIES-EXPENSES-1039",
+      "time": "宝元二年十一月",
+      "loc": [
+        "宋境",
+        "开封"
+      ],
+      "action": "宋祁提出冗官、冗兵、冗僧道三冗及道场、寺观、非要州节度三费，主张由乘舆后宫先行节俭。",
+      "result": "陕西用兵下的结构性财政负担被集中揭示。",
+      "quote": [
+        "有定官，無限員，一冗也",
+        "廂軍不任戰而耗衣食，二冗也",
+        "錦采珠玉，不得妄費，請自後宮始"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出裁三冗三费以缓解军费压力。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "要求宫廷以身率俭。"
+        ]
+      ],
+      "unknown": [
+        "本卷未载整体采纳结果。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-BAOAN-CHENGPING-BATTLES-1039",
+      "time": "宝元二年十一月",
+      "loc": [
+        "保安军",
+        "承平寨"
+      ],
+      "action": "夏军侵保安军被卢守勤等击退，继以三万骑围承平寨；许怀德率千余劲兵突围反击。",
+      "result": "夏军解除承平寨包围退去。",
+      "quote": [
+        "夏人寇保安軍，鄜延鈐轄盧守勤等擊走之",
+        "以三萬騎圍承平寨",
+        "率勁兵千餘人突圍破賊，賊乃解去"
+      ],
+      "battle": "CAMPAIGN-XIXIA-BAOAN-CHENGPING-1039",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-JUDICIAL-CONTACT-BAN-1039",
+      "time": "宝元二年十二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "朝廷禁止审刑院、大理寺、刑部官员交通宾客。",
+      "result": "中央司法机关外部请托渠道受到限制。",
+      "quote": [
+        "詔審刑院、大理寺、刑部毋通賓客"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止中央司法机关交通宾客。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-CENSOR-SELECTION-CENTRALIZED-1039",
+      "time": "宝元二年十二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "因孔道辅举姻亲王素为台官，仁宗规定御史缺员由两省上班簿，皇帝亲自选择。",
+      "result": "中丞举台官权被收回，御史选任集中于皇帝。",
+      "quote": [
+        "自今御史闕官，宜如舊制，具兩省班簿來上，朕自擇舉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将御史选任权收归皇帝。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-HANQI-SICHUAN-RELIEF-1039",
+      "time": "宝元二年十二月",
+      "loc": [
+        "益州路",
+        "梓州路",
+        "利州路",
+        "夔州路",
+        "简州"
+      ],
+      "action": "韩琦在四川轻减蠲除赋役、逐贪吏、罢冗役，并把简州赈余十六余万钱发给四等以下户。",
+      "result": "原文称救活饥民一百九十余万，赈余不归官库而回到贫户。",
+      "quote": [
+        "逐貪吏，罷冗役，活饑民一百九十餘萬",
+        "發庫，盡給四等以下戶"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减赋罢役赈活四川饥民并将赈余给贫户。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "韩琦整顿灾区贪吏与冗役。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-QINGJIAN-FORT-CONSTRUCTION-1039",
+      "time": "宝元二年末",
+      "loc": [
+        "故宽州",
+        "青涧城",
+        "延安东北"
+      ],
+      "action": "种世衡请在故宽州废垒筑城当敌冲，夏军屡来争夺，宋军边战边筑，并凿地一百五十尺得泉。",
+      "result": "城成赐名青涧，兼顾延安防御与河东粮运。",
+      "quote": [
+        "請因其廢壘而興之，以當寇沖",
+        "夏人屢來爭，世衡且戰且城",
+        "城成，賜名青澗"
+      ],
+      "battle": "CAMPAIGN-QINGJIAN-FORT-CONSTRUCTION-1039",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战中修筑青涧城并深凿得泉。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立延安东北新防御支点。"
+        ]
+      ],
+      "unknown": [
+        "攻城战伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-GUOZIJIAN-SCHOOL-LAND-1040",
+      "time": "康定元年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "朝廷赐国子监学田五十顷。",
+      "result": "中央学校获得大规模固定田产。",
+      "quote": [
+        "賜國子監學田五十頃"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赐国子监学田五十顷。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "加强中央学校经费基础。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-JINMING-FALL-1040",
+      "time": "康定元年正月",
+      "loc": [
+        "保安",
+        "金明寨",
+        "延州"
+      ],
+      "action": "元昊诈称归命使范雍不设备，随即大举攻保安、破金明寨，俘李士彬父子并进至延州。",
+      "result": "金明防线因内应和分兵失守，李怀宝战死。",
+      "quote": [
+        "厚禮真而遣之，遂不設備",
+        "攻金明寨，都監李士彬父子俱被擒",
+        "諸降者為內應"
+      ],
+      "battle": "CAMPAIGN-XIXIA-JINMING-FALL-1040",
+      "unknown": [
+        "金明守军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-SANCHUANKOU-BATTLE-1040",
+      "time": "康定元年正月",
+      "loc": [
+        "三川口",
+        "保安",
+        "延州"
+      ],
+      "action": "刘平、石元孙等合步骑万余在三川口战夏军，初杀敌一千余，后黄德和率部先逃引发全军溃败。",
+      "result": "刘平、石元孙力战后被俘，宋军主力败亡。",
+      "quote": [
+        "五將合步騎萬餘",
+        "殺賊騎五七百人",
+        "遂與元孫皆被執"
+      ],
+      "battle": "CAMPAIGN-SANCHUANKOU-1040",
+      "unknown": [
+        "宋军被杀俘总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-YANZHOU-SIEGE-1040",
+      "time": "康定元年正月",
+      "loc": [
+        "延州"
+      ],
+      "action": "夏军在俘获宋方二将后围延州七日。",
+      "result": "大雪迫使夏军解围退去。",
+      "quote": [
+        "賊圍延州凡七日",
+        "會是夕大雪，賊解去"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YANZHOU-SIEGE-1040",
+      "unknown": [
+        "围城双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-SONG-BORDER-COMMAND-RESPONSE-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "陕西",
+        "潼关",
+        "鄜州"
+      ],
+      "action": "三川口败后宋廷任夏守赟统陕西与沿边招讨，又以内侍王守忠任都钤辖；富弼反对内臣监军未获采纳。",
+      "result": "战败后指挥体系扩大，但用将争议加深。",
+      "quote": [
+        "以守贇為陝西都部署兼經略安撫等使",
+        "今守忠為都鈐轄，與監軍何異"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三川口败后重组陕西军令并争论内臣监军。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-GARRISON-FAMILY-AID-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "开封",
+        "陕西"
+      ],
+      "action": "因戍边禁军家属在京难以自存，仁宗拨内藏钱十万赐济。",
+      "result": "长期戍边军人家庭获得中央生活补助。",
+      "quote": [
+        "禁兵戍邊久，其家在京師者或不能自存",
+        "出內藏緡錢十萬以賜之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨十万缗救济戍边禁军家属。"
+        ]
+      ],
+      "unknown": [
+        "受赐户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-WAR-HORSE-PURCHASE-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "京畿",
+        "京东",
+        "京西",
+        "淮南",
+        "陕西"
+      ],
+      "action": "朝廷在多路括买战马并以内库珠偿价；韩琦以陕西科扰频繁请免该路，获准。",
+      "result": "战马采购扩张，但陕西民众免于新一轮强制括买。",
+      "quote": [
+        "京畿、京東、西、淮南、陝西路括市戰馬",
+        "出內庫珠償民馬直",
+        "請免括此一路，以安眾心"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以宫珠支付战马并豁免陕西括买。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "在战马征集与民力间调整。"
+        ]
+      ],
+      "unknown": [
+        "购马数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-CHANCELLORS-SHARE-BORDER-DECISIONS-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗采纳富弼建议，规定枢密院边事必须与宰相共同参议。",
+      "result": "军政决策不再由枢密院单独承担。",
+      "quote": [
+        "邊事並與宰相參議",
+        "邊事系國安危，不當專委樞密院而宰相不與"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立宰相与枢密共同议边制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-YONGPING-DEFENSE-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "安远寨",
+        "塞门寨",
+        "永平寨"
+      ],
+      "action": "夏军继破金明后攻诸寨，永平将吏欲弃城，指挥使史吉率数百兵阻止撤退并守城。",
+      "result": "史吉率众拒守，永平寨得以保全。",
+      "quote": [
+        "遂攻安遠、塞門、永平等寨",
+        "吉率眾拒守，卒完城"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YONGPING-DEFENSE-1040",
+      "unknown": [
+        "守城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-YANZHOU-WAR-RELIEF-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "延州",
+        "保安军"
+      ],
+      "action": "朝廷赦延州、保安军流罪以下，免被掠地区夏税，并赐死难军民及内属蕃部家钱。",
+      "result": "战区居民获得赦免、蠲税和死难抚恤。",
+      "quote": [
+        "賊所劫掠地，蠲其夏稅",
+        "軍民及內屬蕃部為賊所害者，量賜其家緡錢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蠲战区夏税并抚恤死难家庭。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "实施战区赦免。"
+        ]
+      ],
+      "unknown": [
+        "赐钱总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-OVERREACH-SPEECH-BAN-LIFTED-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗因日食采纳富弼建议，允许中外臣庶上封章议朝政得失，解除范仲淹贬后形成的越职言事禁令。",
+      "result": "政治言路在战争与灾异压力下重新开放。",
+      "quote": [
+        "許中外臣庶上封章議朝政得失",
+        "願降詔求直言，盡除越職之禁，帝嘉納焉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "解除越职言事禁令并恢复求言。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-SHAANXI-LABOR-RELIEF-1040",
+      "time": "康定元年二月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "仁宗命韩琦按民力蠲减所科刍粮、登记修城民役并优恤，停诸州不急上供数十万。",
+      "result": "陕西战时征发与上供负担得到减轻。",
+      "quote": [
+        "量民力，蠲所科芻糧",
+        "調民修築城池，悉具數以聞，當加優恤",
+        "停諸州上供不急之物數十萬"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减陕西刍粮、修城民役和不急上供。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修城役夫须登记优恤。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-BORDER-FORTS-BEACONS-1040",
+      "time": "康定元年三月",
+      "loc": [
+        "陕西边境"
+      ],
+      "action": "朝廷令张存、韩琦只先修边要城池，其余渐次兴工避免伤农，并在沿边各置烽候。",
+      "result": "边防工程按重要性分期，侦报由走人扩展为烽火网络。",
+      "quote": [
+        "且治邊要之處，餘令以漸興功，毋致傷農",
+        "詔沿邊各置烽候"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "分期修城避免伤农。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修边要城池并设置沿边烽候。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整边情侦报制度。"
+        ]
+      ],
+      "unknown": [
+        "烽候数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-GUOZUN-LAST-STAND-1040",
+      "time": "康定元年三月追记",
+      "loc": [
+        "三川口"
+      ],
+      "action": "郭遵在三川口单骑突阵、杀夏将杨言，黄德和先逃后仍奋战殿后。",
+      "result": "郭遵深入敌阵后马倒中箭战死，获追赠。",
+      "quote": [
+        "揮鐵杵破其腦",
+        "又持大槊橫突之",
+        "中馬，馬踠僕地。被殺"
+      ],
+      "battle": "CAMPAIGN-SANCHUANKOU-GUOZUN-1040",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-PRIVY-COUNCIL-DISMISSAL-1040",
+      "time": "康定元年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "王鬷、陈执中、张观因不能回答边计、三川口败后议兵迟滞而同日罢枢密。",
+      "result": "宋夏战败触发最高军事决策班底更换。",
+      "quote": [
+        "帝數問邊計，不能對",
+        "於是三人同日罷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三川口战败促成三名枢密同日罢免。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-DUYAN-SHAANXI-TRANSPORT-SAVINGS-1040",
+      "time": "康定元年三月追记",
+      "loc": [
+        "永兴军",
+        "陕西"
+      ],
+      "action": "杜衍为关中战时调发规划次第运输。",
+      "result": "永兴军民费用比其他州减少近半。",
+      "quote": [
+        "使得次第輸送，永興比它州民費省幾半"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "优化军需运输使永兴民费减半。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "杜衍整顿关中调发。"
+        ]
+      ],
+      "unknown": [
+        "节省绝对金额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-LIUPING-EXONERATION-1040",
+      "time": "康定元年三月至四月",
+      "loc": [
+        "河中府",
+        "延州"
+      ],
+      "action": "黄德和诬奏刘平、石元孙降敌，文彦博等查明其退怯诬告，贾昌朝、富弼阻止先收刘平家族。",
+      "result": "黄德和被腰斩枭首，刘平、石元孙追赠并赏恤子弟。",
+      "quote": [
+        "黃德和退怯當誅；劉平等力戰而歿，子孫宜賞恤",
+        "腰斬德和於河中",
+        "第，錄其子弟"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "查明三川口败因，诛诬告逃将并追恤战死将领。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-BORDER-SOLDIER-FAMILY-SUPPORT-1040",
+      "time": "康定元年四月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷命内侍每月存问戍边军人家属，病者给医药、死者助殓葬。",
+      "result": "戍边军属获得常态化生活与丧葬保障。",
+      "quote": [
+        "諸戍邊軍，月遣內侍存問其家，病致醫藥，死為斂葬之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立戍边军属月度存问医葬保障。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以制度安定长期戍边军心。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-SHAANXI-MILITIA-REGISTRATION-1040",
+      "time": "康定元年四月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "宋廷遣使登记陕西强壮军，并从牢城与强盗配军中选四十岁以下壮健者补禁军。",
+      "result": "陕西地方兵和中央禁军兵源同时扩充。",
+      "quote": [
+        "遣使籍陝西強壯軍",
+        "年未四十、壯健者隸禁軍"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "扩充陕西强壮军与禁军兵源。"
+        ]
+      ],
+      "unknown": [
+        "新增兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-SHAANXI-MILITARY-FUNDS-1040",
+      "time": "康定元年四月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "朝廷从左藏、内藏各拨钱十万供陕西军需。",
+      "result": "陕西获得二十万缗直接军费。",
+      "quote": [
+        "出左藏、內藏庫緡錢各十萬，下陝西給軍須"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨二十万缗供陕西军需。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-JINMING-KAOLAO-REBUILD-1040",
+      "time": "康定元年四月",
+      "loc": [
+        "延州",
+        "金明",
+        "栲栳寨"
+      ],
+      "action": "明镐以百余骑督役，征陕西近里州兵修筑金明、栲栳寨。",
+      "result": "拖延的修复工程在一个月内筑成。",
+      "quote": [
+        "發陝西近裡諸州役兵築延州金明栲栳寨",
+        "一月而城之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征近里役兵修复边寨。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "一月修成金明栲栳寨。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明镐督促迟延边寨工程。"
+        ]
+      ],
+      "unknown": [
+        "役兵人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-PALANQUIN-OFFICERS-RIOT-1040",
+      "time": "康定元年五月",
+      "loc": [
+        "开封"
+      ],
+      "action": "御辇院挑选四十岁以下辇官为禁军，千余人携家遮拦宰执喧诉并惊坠张士逊。",
+      "result": "首恶曹荣、陈吉被斩，从者远配，挑选辇官为禁军照旧执行。",
+      "quote": [
+        "輦官千餘人，攜妻子遮宰相、樞密使喧訴",
+        "斬輦官曹榮、陳吉於都市",
+        "卒揀輦官為禁軍如初詔"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军兴扩军引发辇官集体抗议并被镇压。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-SAIMEN-ANYUAN-FALL-1040",
+      "time": "康定元年五月",
+      "loc": [
+        "塞门寨",
+        "安远寨"
+      ],
+      "action": "赵振拥兵七千八百余却迟迟不援仅千人守卫的塞门寨，夏军遂破塞门并继陷安远。",
+      "result": "宋军两处边寨相继失守，赵振因畏懦被贬。",
+      "quote": [
+        "有兵七千八百餘人，按甲不動",
+        "元昊陷塞門寨",
+        "元昊陷安遠寨"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SAIMEN-ANYUAN-1040",
+      "unknown": [
+        "两寨守军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-HANQI-FANZHONGYAN-SHAANXI-COMMAND-1040",
+      "time": "康定元年五月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "宋廷罢夏守赟、王守忠，以夏竦总陕西，韩琦、范仲淹同任经略安抚副使。",
+      "result": "陕西军事指挥转由夏竦、韩琦、范仲淹共同承担。",
+      "quote": [
+        "罷陝西都部署夏守贇、都鈐轄王守忠",
+        "韓琦為樞密直學士",
+        "范仲淹為龍圖閣直學士，並為陝西經略安撫副使"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战局不利后重组陕西经略指挥。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-LOCAL-MILITIA-SYSTEM-1040",
+      "time": "康定元年六月至九月",
+      "loc": [
+        "陕西",
+        "河北",
+        "河东",
+        "京东",
+        "京西"
+      ],
+      "action": "朝廷按州县户口登记乡弓手、强壮，规定二十五人为团、分都指挥，农闲轮番教阅、临时守城捕盗。",
+      "result": "多路地方民兵形成统一编制与训练制度。",
+      "quote": [
+        "量州縣戶口，籍民為鄉弓手、強壯以備盜賊",
+        "皆以二十五人為團",
+        "分番上州教閱，半月即遣歸農"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "农闲教阅、临时给粮以兼顾农业。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立跨路统一地方民兵编制。"
+        ]
+      ],
+      "unknown": [
+        "各路实际登记人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-BORDER-DEFENSIVE-STRATEGY-1040",
+      "time": "康定元年六月",
+      "loc": [
+        "宋夏边境"
+      ],
+      "action": "丁度反对千里馈粮深入夏境，主张谨守亭障、远布斥候、控扼要害，并编《备边要览》。",
+      "result": "形成以防御和情报为核心的备边方案。",
+      "quote": [
+        "莫若謹亭障，遠斥候，控扼要害",
+        "名曰《備邊要覽》"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以亭障要害构成边防体系。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁度提出持重防御方案。"
+        ]
+      ],
+      "unknown": [
+        "实际采纳范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-FANZHONGYAN-SIX-COMMANDS-1040",
+      "time": "康定元年八月",
+      "loc": [
+        "延州"
+      ],
+      "action": "范仲淹兼知延州后反对按官阶固定出战次序，将州兵分为六将、每将三千人，按敌情轮番出御。",
+      "result": "延州军制重组，诸路随后仿行，夏军不敢轻犯。",
+      "quote": [
+        "乃分州兵為六將，將三千人",
+        "量賊眾寡，使更出禦賊",
+        "即而諸路皆取法焉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "范仲淹以六将制重组延州边军。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-JINMING-ZHOUMEI-DEFENSE-1040",
+      "time": "康定元年八月",
+      "loc": [
+        "金明",
+        "延州"
+      ],
+      "action": "周美奉范仲淹命复筑金明，夏军数万来攻，周美率三千兵力战并布疑兵。",
+      "result": "夏军误以为援军至而撤退；周美又多次平部族、复城堡。",
+      "quote": [
+        "仲淹因囑美復城如故",
+        "賊數萬薄金明",
+        "美領眾三千力戰"
+      ],
+      "battle": "CAMPAIGN-JINMING-ZHOUMEI-DEFENSE-1040",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复金明城防。"
+        ]
+      ],
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-FISCAL-AUDIT-REFORM-1040",
+      "time": "康定元年九月",
+      "loc": [
+        "开封"
+      ],
+      "action": "郑戬恢复转运使考课、核校三司出入得羡钱四百万缗；叶清臣编敕删冗账并以合同审内廷索取。",
+      "result": "三司增加可用结余，并约束内侍对御厨物资的无凭支取。",
+      "quote": [
+        "句校三司出入，得羨錢四百萬緡",
+        "簿帳之叢冗者，一切刪去",
+        "乃為合同以檢其出入"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "核账得羡钱四百万并控制内廷支取。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿三司考课、诏敕和账簿。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-SANCHUANZHAI-BATTLE-1040",
+      "time": "康定元年九月",
+      "loc": [
+        "三川寨",
+        "瓦亭寨",
+        "师子堡"
+      ],
+      "action": "夏军攻三川寨，杨保吉战死，刘继宗等分兵皆败；王珪率三千骑来援，陷入重围后奋战突击。",
+      "result": "王珪杀敌将二人、获首甚多，但宋军三日战死五千余人。",
+      "quote": [
+        "夏人寇三川寨",
+        "珪奮擊，賊披靡，殺賊將二人",
+        "官軍戰歿者五千餘人"
+      ],
+      "battle": "CAMPAIGN-SANCHUANZHAI-1040",
+      "unknown": [
+        "夏军总伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-QINGJIAN-FARM-TRADE-1040",
+      "time": "康定元年九月",
+      "loc": [
+        "青涧城",
+        "无定河"
+      ],
+      "action": "种世衡在青涧开营田二千顷，贷商人本钱通货，并联络属羌共同防边。",
+      "result": "青涧城逐渐富实，属羌协助击退无定河部钞掠。",
+      "quote": [
+        "開營田二千頃",
+        "貸以本錢，使通貨得利，城遂富實",
+        "率屬羌討擊"
+      ],
+      "battle": "CAMPAIGN-QINGJIAN-WUDINGHE-1040",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "营田二千顷并贷本扶商使青涧富实。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以营田贸易巩固青涧城。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "联络属羌共同守边。"
+        ]
+      ],
+      "unknown": [
+        "无定河战斗双方兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-BAIBAO-CAPTURE-1040",
+      "time": "康定元年九月",
+      "loc": [
+        "白豹城",
+        "神林北路"
+      ],
+      "action": "任福等攻克夏白豹城，回军时范全在险崖设伏袭击追兵。",
+      "result": "宋军斩首四百、生擒七十余人。",
+      "quote": [
+        "任福等攻夏白豹城，克之",
+        "全設伏崖險",
+        "斬首四百級，生獲七十餘人"
+      ],
+      "battle": "CAMPAIGN-SONG-BAIBAO-1040",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-INNER-EDICT-REVIEW-1040",
+      "time": "康定元年十月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗规定涉及臣僚迁官、差遣的内降必须由中书、枢密院按条执奏。",
+      "result": "宗戚近幸请托形成的内降重新纳入外朝审核。",
+      "quote": [
+        "內降指揮與臣僚遷官及差遣者，並令中書、樞密院具條執奏以聞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以内外朝复核约束内降任官。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-MILLION-SILK-BORDER-FUND-1040",
+      "time": "康定元年十月",
+      "loc": [
+        "开封",
+        "陕西"
+      ],
+      "action": "仁宗拨内藏绢一百万交三司补助边费。",
+      "result": "宫廷储绢大额转入宋夏战争财政。",
+      "quote": [
+        "出內藏絹一百萬，下三司助邊費"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨内藏绢百万补助边费。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-NUZHEN-LIAO-BORDER-1040",
+      "time": "康定元年十一月",
+      "loc": [
+        "辽边",
+        "黄龙府"
+      ],
+      "action": "女真侵扰辽境，辽朝调黄龙府铁骊军抵御。",
+      "result": "辽女真边境进入武装对抗。",
+      "quote": [
+        "女真侵遼邊界，遼發黃龍府鐵驪軍拒之"
+      ],
+      "battle": "CAMPAIGN-LIAO-NUZHEN-BORDER-1040",
+      "unknown": [
+        "战果与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-ZHEDONG-MUTINY-1040",
+      "time": "康定元年十一月",
+      "loc": [
+        "浙东",
+        "湖南",
+        "福建",
+        "广南"
+      ],
+      "action": "浙东军士鄂邻等因巡检张怀信苛虐积怨，杀张后聚兵抢掠多路州县并逃入海。",
+      "result": "浙东军变扩散成跨路武装劫掠。",
+      "quote": [
+        "殺巡檢使張懷信",
+        "聚兵剽劫湖南、福建、廣南諸州縣，逃入海"
+      ],
+      "battle": "CAMPAIGN-ZHEDONG-MUTINY-1040",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "苛虐军政引发浙东军变。"
+        ]
+      ],
+      "unknown": [
+        "叛军人数和追捕结果转后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-CHANGPING-FUNDS-DIVERTED-1040",
+      "time": "康定元年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "因兵食不足，朝廷拨内藏绢一百万购军储，又动用常平钱一百万缗给军费。",
+      "result": "景祐末禁止挪用常平钱的制度在战争压力下被突破。",
+      "quote": [
+        "出內藏庫絹一百萬助糴軍儲",
+        "以常平錢百萬緡助三司給軍費",
+        "不許移用常平，至是以兵食不足，始降是詔"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以内藏绢和常平钱各百万补军储军费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战争迫使常平专款禁令失守。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-042-SONG-DECIDES-XIXIA-OFFENSIVE-1040",
+      "time": "康定元年十二月",
+      "loc": [
+        "鄜延路",
+        "泾原路",
+        "陕西"
+      ],
+      "action": "宋廷采纳韩琦等攻策，命鄜延、泾原两路次年正月同时入讨西夏；杜衍与田京反对深入未获采纳。",
+      "result": "宋夏战争由持重防御转向两路进攻准备。",
+      "quote": [
+        "取正月上旬同進兵入討西賊",
+        "始用韓琦等所畫攻策也",
+        "杜衍獨以為非萬全計"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋廷决定鄜延泾原两路入讨。"
+        ]
+      ],
+      "unknown": [
+        "出兵战果转后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-042-DONKEY-REQUISITION-IRON-MONEY-1040",
+      "time": "康定元年十二月",
+      "loc": [
+        "开封府",
+        "京东",
+        "京西",
+        "河东",
+        "陕西"
+      ],
+      "action": "朝廷为西讨括驴五万，并准备在陕西铸一当十铁钱筹措边费。",
+      "result": "进攻计划将运输牲畜与货币筹资同时推向民间，丁度警告物价和盗铸风险。",
+      "quote": [
+        "括驢五萬以備西討",
+        "鑄大錢，一當十",
+        "則糧芻增價"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "括驴五万并以当十铁钱筹边费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁度警告大钱导致物价与盗铸风险。"
+        ]
+      ],
+      "unknown": [
+        "本卷未载当十钱实际发行结果。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2633669 的《續資治通鑑》卷042连续通读登记，不引入卷外常识。",
+    "普通任免、巡幸、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末两路入讨、西夏反击、铁钱与战时财政继续转后卷。"
+  ]
+}

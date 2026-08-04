@@ -1,0 +1,430 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "JIN-JINSHI-V13-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V13-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "金史",
+    "volume_ref": "卷13",
+    "revision_ref": "2432650",
+    "start_locator": "卫绍王世系履历及章宗临终定策",
+    "end_locator": "至宁元年胡沙虎政变弑君与宣宗改葬追复",
+    "overlap_context": "承卷12章宗崩、庙号及葬道陵；卷14尚未读取。",
+    "input_fingerprint": "a3fcd0bb32472a566ab9da5dba82319ce30e23db9dcef42f0efbe7d9c11cdda5"
+  },
+  "events": [
+    {
+      "id": "CHF-JIN-V13-ZHANGZONG-DEATH-CONTEXT-1208",
+      "time": [
+        "泰和八年十一月",
+        "泰和八年十一月",
+        "month"
+      ],
+      "subject": "金章宗与元妃李氏、完颜匡等",
+      "action": "章宗病重后由李氏、李新喜和完颜匡定策留立卫王，随后章宗崩。",
+      "result": "本卷保留章宗死亡的逐卷锚点；死亡唯一可消费闭环为 CHF-JIN-V12-ZHANGZONG-DEATH-1208，本条 duplicate-of CHF-JIN-V12-ZHANGZONG-DEATH-1208 并仅作 CONTEXT_ONLY。",
+      "quote": [
+        "無何，章宗大漸，元妃李氏、黃門李新喜、平章政事完顏匡定策。",
+        "策。章宗崩，匡"
+      ],
+      "unknown": [
+        "遣诏形成过程和其他宗室意见未载。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-WEISHAO-ACCESSION-1208",
+      "time": [
+        "泰和八年十一月",
+        "泰和八年十一月",
+        "order_only"
+      ],
+      "subject": "卫王完颜永济与完颜匡等定策臣",
+      "action": "完颜匡等传章宗遣诏立卫王，永济固辞后承诏举哀，在柩前即皇帝位。",
+      "result": "卫绍王继承帝位，次日接受群臣朝见并令各地为章宗服丧七日。",
+      "quote": [
+        "匡等傳遣詔，立衛王。",
+        "乃承詔舉哀，即皇帝位於柩前。",
+        "詔路府州縣為大行皇帝服七日。"
+      ],
+      "unknown": [
+        "固让过程和反对继承者未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WEISHAO-IMPERIAL-ACCESSION",
+        "summary": "永济依章宗遣诏在柩前即位。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-JIN-V13-POSTSUCCESSION-PURGE-1209",
+      "time": [
+        "大安元年二月",
+        "大安元年四月",
+        "range"
+      ],
+      "subject": "卫绍王与章宗内人范氏、元妃李氏、承御贾氏",
+      "action": "章宗遗诏规定内人有孕生男则立储；范氏胎损后，卫绍王杀章宗元妃李氏和承御贾氏。",
+      "result": "章宗遗腹子继承可能消失，两名后宫女性被杀。",
+      "cost": "李氏、贾氏被杀。",
+      "groups": [
+        "章宗后宫",
+        "潜在遗腹继承人"
+      ],
+      "quote": [
+        "內人有娠者兩人，生男則立為儲貳。",
+        "范氏損其遣腹",
+        "殺章宗元妃李氏及承御賈氏。"
+      ],
+      "unknown": [
+        "范氏胎损原因、李贾定罪程序及政治主谋未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "POSTSUCCESSION-PALACE-PURGE",
+        "summary": "章宗遗腹继承失败后李氏和贾氏被杀。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V13-PINGYANG-EARTHQUAKE-RELIEF-1209",
+      "time": [
+        "大安元年十一月",
+        "大安元年十二月",
+        "range"
+      ],
+      "subject": "卫绍王与平阳地震灾户",
+      "action": "平阳地震后，朝廷按每户死伤人数免租一年，并给贫民死伤者葬伤钱。",
+      "result": "三人死亡户、两人死亡户及伤者均免租一年，贫民死者给五千、伤者三千。",
+      "cost": "免租一年；每名贫民死者葬钱五千、伤者三千。",
+      "groups": [
+        "平阳地震死伤者",
+        "受灾贫民家庭"
+      ],
+      "quote": [
+        "人戶三人死者免租稅一年，二人及傷者免一年",
+        "貧民死者給葬錢五千，傷者三千。"
+      ],
+      "unknown": [
+        "死伤总数、免税总额和币种未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "EARTHQUAKE-TAX-AND-CASUALTY-RELIEF",
+        "summary": "卫绍王按平阳地震死伤免租并给葬伤钱。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-DROUGHT-FAMINE-RELIEF-1210-1213",
+      "time": [
+        "大安二年六月",
+        "至宁元年正月",
+        "range"
+      ],
+      "subject": "卫绍王与西京河东陕西山东等灾民",
+      "action": "大旱与战争期间朝廷赈济缺食贫民、曲赦西京太原，后赈河东南路、南京路、陕西东路、山东西路、卫州及河东陕西饥民。",
+      "result": "多路旱饥民众获得赈济和刑罚减免，但河东陕西仍出现斗米数千、流莩满野。",
+      "groups": [
+        "河东陕西饥民",
+        "多路旱灾民户",
+        "西京太原罪囚"
+      ],
+      "quote": [
+        "大旱。下詔罪已，振貧民闕食者。",
+        "斗米錢數千，流莩滿野。",
+        "賑河東南路、南京路、陝西東路、山東西路、衛州旱災。",
+        "賑河東陝西饑。"
+      ],
+      "unknown": [
+        "赈粮钱数、受济人数和死亡总数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MULTIREGIONAL-DROUGHT-AND-WAR-FAMINE-RELIEF",
+        "summary": "卫绍王朝连续赈济多路旱饥并曲赦灾区。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-CROWN-PRINCE-1210",
+      "time": [
+        "大安二年八月",
+        "大安二年八月",
+        "month"
+      ],
+      "subject": "卫绍王与胙王完颜从恪",
+      "action": "卫绍王立子胙王从恪为皇太子。",
+      "result": "卫绍王朝确立储君。",
+      "quote": [
+        "立子胙王從恪為皇太子。"
+      ],
+      "unknown": [
+        "册立议论、太子权责和兵乱中后续未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CROWN-PRINCE-APPOINTMENT",
+        "summary": "卫绍王册立从恪为皇太子。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-JIN-V13-XIA-BORDER-WAR-1210-1213",
+      "time": [
+        "大安二年八月",
+        "至宁元年六月",
+        "range"
+      ],
+      "subject": "西夏军与金葭州、保安州、庆阳府守军",
+      "action": "夏军先后侵葭州两次，继而攻保安州、庆阳府并杀当地刺史和同知府事。",
+      "result": "金夏边境持续遭袭，两名地方长官被杀；本卷未载金方彻底反击结果。",
+      "cost": "保安州刺史、庆阳府同知被杀；其余伤亡未载。",
+      "groups": [
+        "金夏边境军民",
+        "夏军"
+      ],
+      "quote": [
+        "夏人侵葭州。",
+        "夏人犯葭州",
+        "夏人犯保安州，殺刺史，犯慶陽府，殺同知府事。"
+      ],
+      "unknown": [
+        "参战人数、城寨得失、军民伤亡与议和结果未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-XIA-BORDER-WAR-1210-1213",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-MONGOL-INVASION-1211-1212",
+      "time": [
+        "大安三年四月",
+        "崇庆元年正月",
+        "range"
+      ],
+      "subject": "大蒙古国太祖军与卫绍王金军",
+      "action": "蒙古军来征后，金朝求和并设行省备边；金军由抚州退守宣平，在会河堡败绩、居庸关失守，中都被围，西京及大片北方州路相继丧失。",
+      "result": "金朝全军覆败并失去德兴、弘州、昌平至临潢辽河、忻代等广大北方区域，中都转入戒严守御。",
+      "cost": "会河堡全军覆败，大片州路陷落；军民伤亡和流亡总数未载。",
+      "groups": [
+        "北方州路军民",
+        "中都军民",
+        "金行省军",
+        "蒙古军"
+      ],
+      "quote": [
+        "我大元太祖法天啟運驛武皇帝來征。",
+        "遣西北路招討使粘合合打乞和。",
+        "千家奴、胡沙敗績於會河堡，居庸關失守。",
+        "大元前軍至中至都，中都戒嚴。",
+        "，皆歸大元。初"
+      ],
+      "unknown": [
+        "各州陷落顺序、双方兵力伤亡和求和条件未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-MONGOL-INVASION-1211-1212",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-STRATEGIC-EVACUATION-FAILURES-1211",
+      "time": [
+        "大安三年十一月",
+        "大安三年十一月",
+        "month"
+      ],
+      "subject": "卫绍王、徒单镒、梁𤨠与胡沙虎",
+      "action": "徒单镒先请迁桓昌抚百姓内地、后请东京设行省，均被卫绍王拒绝；三州与东京相继失守后，卫绍王才悔，且仅给胡沙虎三千兵守妫川。",
+      "result": "两次预防性撤民布防建议未获采纳，相关区域随后陷落，宣德防兵也远少于所请。",
+      "groups": [
+        "桓昌抚百姓",
+        "东京军民",
+        "宣德守军"
+      ],
+      "quote": [
+        "請徒桓、昌、撫百姓入內地。",
+        "及大元已定三州，上悔之。",
+        "未幾，東京不守，上乃大悔。",
+        "請兵二萬屯宣德，詔與三千人屯媯川。"
+      ],
+      "unknown": [
+        "未迁百姓损失、拒绝原因和三千守军结局未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "REJECTED-EVACUATION-AND-DEFENSE-PLANS",
+        "summary": "卫绍王两拒迁民设省建议并少拨守兵，州路陷落后追悔。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V13-WARTIME-MOBILIZATION-1211-1212",
+      "time": [
+        "大安三年三月",
+        "崇庆元年五月",
+        "range"
+      ],
+      "subject": "卫绍王与陕西两路军民、各级职官",
+      "action": "蒙古入侵前后朝廷括民马、令职官出马，签陕西汉军五千，继而征勇敢军二万、射粮军一万赴中都并括陕西马、卖空名敕牒。",
+      "result": "中都防御取得至少三万五千陕西兵及大量马匹，军费部分以出售空名敕牒筹措。",
+      "cost": "明载征兵三万五千；马数与卖牒收入未载。",
+      "groups": [
+        "陕西勇敢军",
+        "射粮军",
+        "汉军",
+        "出马民户职官"
+      ],
+      "quote": [
+        "括民間馬，令職官出馬有差。",
+        "簽陝西兩路漢軍五千人赴中都。",
+        "簽陝西勇敢軍二萬人，射糧軍一萬人，赴中都。",
+        "詔賣空名敕牒。"
+      ],
+      "unknown": [
+        "实际到达兵数、马匹数量、军费收入和民户负担未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "EMERGENCY-TROOP-HORSE-AND-OFFICE-MOBILIZATION",
+        "summary": "卫绍王征三万五千陕西兵马并卖空名敕牒筹边。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-WARTIME-INFORMATION-CONTROL-1210-1211",
+      "time": [
+        "大安二年九月",
+        "大安三年十一月",
+        "range"
+      ],
+      "subject": "卫绍王与中都百姓、陈言人郝赞",
+      "action": "边兵危急时朝廷禁止百姓传说边事，城防紧张时又杀河南陈言人郝赞。",
+      "result": "战争信息与民间陈言受到压制。",
+      "quote": [
+        "禁百姓不得傳說邊事。",
+        "殺河南陳言人郝贊。"
+      ],
+      "unknown": [
+        "禁令处罚、郝赞陈言内容与审讯程序未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WARTIME-INFORMATION-SUPPRESSION",
+        "summary": "卫绍王在战时禁止议边并杀陈言人。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V13-HUSHAHU-COUP-1213",
+      "time": [
+        "至宁元年八月",
+        "至宁元年九月",
+        "range"
+      ],
+      "subject": "右副元帅胡沙虎与卫绍王、中都禁军",
+      "action": "胡沙虎矫诏杀福海夺兵，攻入宫门并杀守臣，迫卫绍王出宫幽禁，夺玺自称监国都元帅，最终遣宦者杀卫绍王。",
+      "result": "卫绍王被弑，胡沙虎控制宫禁并拥立宣宗，卫绍王后被降封东海郡侯。",
+      "cost": "卫绍王、福海父子、徒单南平、徒单没拈及拒战者石古乃等被杀。",
+      "groups": [
+        "中都禁军",
+        "宫廷卫士",
+        "卫绍王朝臣"
+      ],
+      "quote": [
+        "胡沙虎矯詔以誅反者",
+        "殺知大興府徒單南平、刑部會郎徒單沒拈",
+        "胡沙虎以兵入宮",
+        "，逼上出宮。以",
+        "遂使宦者李思中害上于邸。",
+        "，宣宗即位。丁"
+      ],
+      "unknown": [
+        "政变部众总数、宫城战斗伤亡和宣宗参与定策程度未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-HUSHAHU-PALACE-COUP-1213",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-COUP-RESISTERS-REWARD-1213",
+      "time": [
+        "至宁元年十月",
+        "至宁元年十月",
+        "month"
+      ],
+      "subject": "金宣宗与胡沙虎、政变拒战者家属",
+      "action": "术虎高琪杀胡沙虎后，宣宗削其官爵，并追赠赏赐石古乃、鄯阳等拒战者及其家属。",
+      "result": "政变首领被诛，抵抗者获追赠、每人二百至五百贯及升官两阶。",
+      "cost": "千户五百贯、谋克三百贯、蒲辇散军二百贯，战没者赠赏付家。",
+      "groups": [
+        "政变抵抗者",
+        "战没者家属"
+      ],
+      "quote": [
+        "朮虎高琪殺胡沙虎於其第。",
+        "宣宗乃下詔削其官爵。",
+        "千戶賞錢五百貫，謀克三百貫，蒲輦散軍二百貫，各遷官兩階，戰沒者贈賞付其家。"
+      ],
+      "unknown": [
+        "获赏总人数和胡沙虎余党处置未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "COUP-RESISTANCE-REWARD-AND-REHABILITATION",
+        "summary": "宣宗诛胡沙虎并奖赏政变抵抗者及家属。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V13-WEISHAO-REHABILITATION-1213-1216",
+      "time": [
+        "至宁元年九月",
+        "贞祐四年",
+        "range"
+      ],
+      "subject": "金宣宗与卫绍王完颜永济",
+      "action": "宣宗为卫绍王改葬，政变压力下先降封东海郡侯，后追复卫王并谥绍。",
+      "result": "被弑君主的身份由废黜降封转为身后恢复王爵和谥号。",
+      "quote": [
+        "敕以禮改葬。",
+        "乃降封東海郡侯。",
+        "貞祐四年，詔追複衛王諡曰紹。"
+      ],
+      "unknown": [
+        "改葬地点、礼制和追复政治议论未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DEPOSED-RULER-REHABILITATION",
+        "summary": "宣宗改葬并最终追复卫绍王爵谥。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ],
+  "limitations": [
+    "本卷为3951字固定正文一次连续人工通读后的紧凑shadow登记。",
+    "卷首章宗崩复述仅作 CONTEXT_ONLY duplicate-of 卷12；卫绍王柩前即位为本卷唯一可消费继承闭环。",
+    "蒙古入侵、夏边战争与胡沙虎宫廷政变按不同主体战区分别交battle；军费、战略失误和政变善后另行路由。",
+    "卷14尚未读取，宣宗即位后的完整继承过程与后续战争结果不反填。"
+  ]
+}

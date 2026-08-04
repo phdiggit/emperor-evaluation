@@ -1,0 +1,772 @@
+{
+  "facts": [
+    {
+      "action": "耶律沙、敌烈献出援汉所获宋俘后，辽廷诏赐北汉粟二十万斛；北汉再告宋侵时，辽廷又遣使助以战马。",
+      "actors": [],
+      "affected_groups": [
+        "北汉军民",
+        "辽廷供给机构",
+        "辽使",
+        "宋军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北汉获得二十万斛粮食援助及战马支援。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-northern-han-grain-and-horse-aid-977",
+      "source_refs": [
+        "遼史/卷9@1745917#耶律沙、敵烈獻援漢之役所獲宋俘。",
+        "遼史/卷9@1745917#詔以粟二十萬斛助漢。",
+        "遼史/卷9@1745917#漢以宋侵來告。",
+        "遼史/卷9@1745917#遣使助漢戰馬。"
+      ],
+      "time_range": {
+        "end": "977",
+        "precision": "range",
+        "start": "保宁九年三月至七月"
+      },
+      "uncertainties": [
+        "二十万斛的征发、运输、实际交付和受益范围，战马数量及北汉后续军需状况未载。"
+      ]
+    },
+    {
+      "action": "对叛入太原的吐谷浑四百余户加以索取并遣还。",
+      "actors": [],
+      "affected_groups": [
+        "吐谷浑四百余户",
+        "太原地方",
+        "辽廷执行者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "四百余吐谷浑户被遣回。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-tuyuhun-household-return-977",
+      "source_refs": [
+        "遼史/卷9@1745917#吐谷渾叛入太原者四百餘戶，索而還之。"
+      ],
+      "time_range": {
+        "end": "977",
+        "precision": "month",
+        "start": "保宁九年十一月"
+      },
+      "uncertainties": [
+        "各户原籍、遣还目的地、是否自愿、途中损失和遣还后的赋役安置未载。"
+      ]
+    },
+    {
+      "action": "宋准备攻刘继元时，辽廷询问兴师缘故；北汉宋兵压境求援后，辽廷命耶律沙、敌烈、斜轸等分路赴援。白马岭战败，敌烈、都敏、唐筈等死亡，士卒死伤甚众；宋兵入河东后北汉战败，刘继元降宋。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "北汉军民",
+        "宋军",
+        "白马岭参战者"
+      ],
+      "cost_or_burden": "白马岭敌烈、都敏、唐筈等死亡，士卒死伤甚众；北汉覆亡，双方兵力、其余伤亡和军民损失未载。",
+      "fact_id": "CHF-LIAO-V09-NORTHERN-HAN-RELIEF-AND-COLLAPSE-979",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军救援北汉未能阻止北汉灭亡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-NORTHERN-HAN-RELIEF-AND-COLLAPSE-979"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-northern-han-relief-and-collapse-979",
+      "source_refs": [
+        "遼史/卷9@1745917#河東朔命，所當問罪。若北朝不援，和約如舊，不然則戰。",
+        "遼史/卷9@1745917#漢以宋兵壓境，遣使乞援。",
+        "遼史/卷9@1745917#詔南府宰相耶律沙為都統、冀王敵烈為監軍赴之",
+        "遼史/卷9@1745917#耶律沙等與宋戰於白馬嶺，不利，冀王敵烈及突呂不部節度使都敏、黃皮室詳穩唐筈皆死之，士卒死傷甚眾。",
+        "遼史/卷9@1745917#劉繼元降宋，漢亡。"
+      ],
+      "time_range": {
+        "end": "979",
+        "precision": "range",
+        "start": "乾亨元年正月至六月"
+      },
+      "uncertainties": [
+        "辽军总兵力、救援路线、白马岭伤亡数、北汉降宋条件及北汉军民后续处境未载。"
+      ]
+    },
+    {
+      "action": "北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "宋军",
+        "南京守军",
+        "南京居民"
+      ],
+      "cost_or_burden": "沙河失利，围城期间南京军民损失未载；高梁河及追击中宋军死伤甚众，辽军伤亡和俘获数未载。",
+      "fact_id": "CHF-LIAO-V09-NANJING-DEFENSE-AND-GAOLIANG-VICTORY-979",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-NANJING-DEFENSE-AND-GAOLIANG-VICTORY-979"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-nanjing-defense-and-gaoliang-victory-979",
+      "source_refs": [
+        "遼史/卷9@1745917#戰於沙河，失利。",
+        "遼史/卷9@1745917#宋主圍南京。",
+        "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+        "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+        "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+        "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+      ],
+      "time_range": {
+        "end": "979",
+        "precision": "range",
+        "start": "乾亨元年六月至八月"
+      },
+      "uncertainties": [
+        "南京围城时间、辽宋双方兵力伤亡、具体俘虏和获物数、宋军撤退路线及南京民生恢复未载。"
+      ]
+    },
+    {
+      "action": "辽廷命韩匡嗣、耶律沙、休哥、斜轸等分道南伐；韩匡嗣在满城败绩，矧思在火山击败宋军。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "宋军",
+        "满城火山军民",
+        "南伐将校"
+      ],
+      "cost_or_burden": "满城及火山双方兵力、伤亡、俘获、地方损失和南伐总体成果未载。",
+      "fact_id": "CHF-LIAO-V09-SOUTHERN-CAMPAIGN-SETBACKS-AND-HUOSHAN-VICTORY-979",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南伐出现满城败绩与火山胜利的相反战果，韩匡嗣被数五罪后获赦。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-SOUTHERN-CAMPAIGN-SETBACKS-AND-HUOSHAN-VICTORY-979"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-southern-campaign-setbacks-and-huoshan-victory-979",
+      "source_refs": [
+        "遼史/卷9@1745917#各率所部兵南伐；仍命大同軍節度使善補領山西兵分道以進。",
+        "遼史/卷9@1745917#韓匡嗣與宋兵戰於滿城，敗績。",
+        "遼史/卷9@1745917#太保矧思與宋兵戰於火山，敗之。",
+        "遼史/卷9@1745917#詔數韓匡嗣五罪，赦之。"
+      ],
+      "time_range": {
+        "end": "979",
+        "precision": "range",
+        "start": "乾亨元年九月至十月"
+      },
+      "uncertainties": [
+        "南伐总兵力、满城火山伤亡、两地最终控制和赦韩匡嗣后的指挥调整未载。"
+      ]
+    },
+    {
+      "action": "辽军南伐围瓦桥关，宋军夜袭营垒被击退；休哥在瓦桥东、水南连续击败宋军，追至莫州，宋军再来又被击败。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "宋军",
+        "瓦桥关守军",
+        "莫州边地居民"
+      ],
+      "cost_or_burden": "水南与莫州一线宋军杀伤甚众；辽军伤亡、参战兵力、边地居民和城关损失未载。",
+      "fact_id": "CHF-LIAO-V09-WAQIAO-CAMPAIGN-980",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军在瓦桥关及其东侧连胜，宋军被追至莫州，辽军班师并大饗军士。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-WAQIAO-CAMPAIGN-980"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-waqiao-campaign-980",
+      "source_refs": [
+        "遼史/卷9@1745917#，圍瓦橋關。十",
+        "遼史/卷9@1745917#宋兵夜襲營，突呂不部節度使蕭幹及四捷軍詳穩耶律痕德戰卻之。",
+        "遼史/卷9@1745917#休哥敗宋兵於瓦橋東，守將張師引兵出戰，休哥奮擊，敗之。",
+        "遼史/卷9@1745917#休哥涉水擊破之，追至莫州，殺傷甚眾。",
+        "遼史/卷9@1745917#宋兵復來，擊之殆盡。"
+      ],
+      "time_range": {
+        "end": "980",
+        "precision": "range",
+        "start": "乾亨二年十月至十二月"
+      },
+      "uncertainties": [
+        "辽宋双方兵力伤亡、瓦桥关围攻结果、张师军去向和莫州军民损失未载。"
+      ]
+    },
+    {
+      "action": "喜隐再次谋反被囚祖州；次年上京汉军作乱，企图劫立喜隐未成，转而伪立其子留礼寿，后被上京留守除室擒获，留礼寿伏诛。",
+      "actors": [],
+      "affected_groups": [
+        "喜隐",
+        "留礼寿",
+        "上京汉军",
+        "上京居民",
+        "辽廷官员"
+      ],
+      "cost_or_burden": "上京发生军乱，留礼寿被处死；喜隐囚禁条件、参与人数、军乱损失和余党处置未载。",
+      "fact_id": "CHF-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "喜隐复叛被囚，以上京汉军为主体的拥立行动失败，留礼寿被处死。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-xiyin-rebellion-and-upper-capital-mutiny-980-981",
+      "source_refs": [
+        "遼史/卷9@1745917#喜隱復謀反，囚於祖州。",
+        "遼史/卷9@1745917#上京漢軍亂，劫立喜隱不克，偽立其子留禮壽",
+        "遼史/卷9@1745917#上京留守除室擒之。",
+        "遼史/卷9@1745917#留禮壽伏誅。"
+      ],
+      "time_range": {
+        "end": "980至981",
+        "precision": "range",
+        "start": "乾亨二年六月至乾亨三年七月"
+      },
+      "uncertainties": [
+        "军乱起因、参与军户、上京城内伤亡、喜隐是否知情和其余参与者处置未载。"
+      ]
+    },
+    {
+      "action": "景宗亲自南伐，至满城作战不利；守太尉奚瓦里中箭死亡，善补陷入伏兵包围后由斜轸救出，善补因失备被杖。",
+      "actors": [],
+      "affected_groups": [
+        "辽景宗",
+        "辽军",
+        "宋军",
+        "满城军民",
+        "奚瓦里所部"
+      ],
+      "cost_or_burden": "奚瓦里中箭死亡，双方伤亡、善补所部损失、围困经过和满城军民影响未载。",
+      "fact_id": "CHF-LIAO-V09-MANCHENG-CAMPAIGN-SETBACK-982",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军满城作战失利后班师。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-MANCHENG-CAMPAIGN-SETBACK-982"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-mancheng-campaign-setback-982",
+      "source_refs": [
+        "遼史/卷9@1745917#夏四月，自將南伐。",
+        "遼史/卷9@1745917#至滿城，戰不利，守太尉奚瓦里中流矢死。",
+        "遼史/卷9@1745917#統軍使善補為伏兵所圍，樞密使斜軫救免",
+        "遼史/卷9@1745917#詔以失備杖之。",
+        "遼史/卷9@1745917#。五月，班師。清"
+      ],
+      "time_range": {
+        "end": "982",
+        "precision": "range",
+        "start": "乾亨四年四月至五月"
+      },
+      "uncertainties": [
+        "景宗亲征的兵力、伏兵身份、双方伤亡、满城最终控制和班师路线未载。"
+      ]
+    },
+    {
+      "action": "景宗在祥古山游猎时患病，至焦山行在去世；遗诏立梁王隆绪嗣位，并令军国大事听皇后命。",
+      "actors": [],
+      "affected_groups": [
+        "辽景宗",
+        "梁王隆绪",
+        "皇后",
+        "行在人员",
+        "辽廷官员"
+      ],
+      "cost_or_burden": "景宗死亡，继承安排中的朝廷反应、皇后实际权力范围和病情未载。",
+      "fact_id": "CHF-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "景宗崩，隆绪被指定继位，皇后获军国大事的决断权。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v09-jingzong-death-and-regency-982",
+      "source_refs": [
+        "遼史/卷9@1745917#甲辰，獵於祥古山，帝不豫。",
+        "遼史/卷9@1745917#次焦山，崩於行在。年三十五，在位十三年。",
+        "遼史/卷9@1745917#遺詔梁王隆緒嗣位，軍國大事聽皇后命。"
+      ],
+      "time_range": {
+        "end": "982",
+        "precision": "month",
+        "start": "乾亨四年九月"
+      },
+      "uncertainties": [
+        "景宗病因、遗诏形成过程、隆绪即位前后的权力交接和其他继承人反应未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "赐北汉粟二十万斛，并在宋侵时助以战马。",
+      "actors": [],
+      "affected_groups": [
+        "北汉军民",
+        "辽廷供给机构",
+        "辽使",
+        "宋军"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "北汉获得二十万斛粮食援助及战马支援。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v09-northern-han-grain-and-horse-aid-977",
+      "source_refs": [
+        "遼史/卷9@1745917#耶律沙、敵烈獻援漢之役所獲宋俘。",
+        "遼史/卷9@1745917#詔以粟二十萬斛助漢。",
+        "遼史/卷9@1745917#漢以宋侵來告。",
+        "遼史/卷9@1745917#遣使助漢戰馬。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977",
+      "time_range": {
+        "end": "977",
+        "precision": "range",
+        "start": "保宁九年三月至七月"
+      },
+      "uncertainties": [
+        "二十万斛的征发、运输、实际交付和受益范围，战马数量及北汉后续军需状况未载。"
+      ]
+    },
+    {
+      "action": "索回并遣还叛入太原的吐谷浑四百余户。",
+      "actors": [],
+      "affected_groups": [
+        "吐谷浑四百余户",
+        "太原地方",
+        "辽廷执行者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "四百余吐谷浑户被遣回。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v09-tuyuhun-household-return-977",
+      "source_refs": [
+        "遼史/卷9@1745917#吐谷渾叛入太原者四百餘戶，索而還之。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977",
+      "time_range": {
+        "end": "977",
+        "precision": "month",
+        "start": "保宁九年十一月"
+      },
+      "uncertainties": [
+        "各户原籍、遣还目的地、是否自愿、途中损失和遣还后的赋役安置未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据服务器固定《遼史》卷9正文登记，未知保持未知。",
+    "普通贡聘、祭祀、巡幸、单次任免和重复行军不单列；战役仅交接新版战役工作流。",
+    "本卷战争兵力、伤亡和俘获数多未载；北汉粮援实际到达量及战争对民生的长期影响亦未载。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "喜隐复叛被囚；上京汉军拥立其父子失败，留礼寿伏诛。",
+      "actors": [],
+      "affected_groups": [
+        "喜隐",
+        "留礼寿",
+        "上京汉军",
+        "上京居民",
+        "辽廷官员"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "上京发生军乱，留礼寿被处死；喜隐囚禁条件、参与人数、军乱损失和余党处置未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "喜隐复叛被囚，以上京汉军为主体的拥立行动失败，留礼寿被处死。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "喜隐复叛被囚，以上京汉军为主体的拥立行动失败，留礼寿被处死。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v09-xiyin-rebellion-and-upper-capital-mutiny-980-981",
+      "source_refs": [
+        "遼史/卷9@1745917#喜隱復謀反，囚於祖州。",
+        "遼史/卷9@1745917#上京漢軍亂，劫立喜隱不克，偽立其子留禮壽",
+        "遼史/卷9@1745917#上京留守除室擒之。",
+        "遼史/卷9@1745917#留禮壽伏誅。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981",
+      "time_range": {
+        "end": "980至981",
+        "precision": "range",
+        "start": "乾亨二年六月至乾亨三年七月"
+      },
+      "uncertainties": [
+        "军乱起因、参与军户、上京城内伤亡、喜隐是否知情和其余参与者处置未载。"
+      ]
+    },
+    {
+      "action": "景宗崩，遗诏梁王隆绪继位，军国大事听皇后命。",
+      "actors": [],
+      "affected_groups": [
+        "辽景宗",
+        "梁王隆绪",
+        "皇后",
+        "行在人员",
+        "辽廷官员"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982",
+      "continuity_status": "single_event",
+      "cost_or_burden": "景宗死亡，继承安排中的朝廷反应、皇后实际权力范围和病情未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "景宗崩，隆绪被指定继位，皇后获军国大事的决断权。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "景宗崩，隆绪被指定继位，皇后获军国大事的决断权。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v09-jingzong-death-and-regency-982",
+      "source_refs": [
+        "遼史/卷9@1745917#甲辰，獵於祥古山，帝不豫。",
+        "遼史/卷9@1745917#次焦山，崩於行在。年三十五，在位十三年。",
+        "遼史/卷9@1745917#遺詔梁王隆緒嗣位，軍國大事聽皇后命。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982",
+      "time_range": {
+        "end": "982",
+        "precision": "month",
+        "start": "乾亨四年九月"
+      },
+      "uncertainties": [
+        "景宗病因、遗诏形成过程、隆绪即位前后的权力交接和其他继承人反应未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [],
+  "registry_version": "LIAO-LIAOSHI-V09-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "乾亨四年景宗崩与隆绪继位遗诏",
+    "input_fingerprint": "a5e6a6911e05d28e3e45b38a279ccc209dd0941c06d99c097b14edabe6fa787f",
+    "overlap_context": "本卷记景宗保宁九年至乾亨四年。北汉援助、宋辽战役、喜隐复叛及景宗末年南伐按连续行动与结果合并；普通贡聘、祭祀、巡幸、任免和重复行军不单列。",
+    "revision_ref": "1745917",
+    "start_locator": "景宗保宁九年援北汉与赐粟",
+    "volume_ref": "卷9",
+    "work": "遼史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V09-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v09-northern-han-grain-and-horse-aid-977",
+      "status": "closed",
+      "summary": "赐北汉粟二十万斛，并在宋侵时助以战马。",
+      "thread_ref": "FIN-THREAD-LIAO-V09-NORTHERN-HAN-GRAIN-AND-HORSE-AID-977",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v09-tuyuhun-household-return-977",
+      "status": "closed",
+      "summary": "索回并遣还叛入太原的吐谷浑四百余户。",
+      "thread_ref": "FIN-THREAD-LIAO-V09-TUYUHUN-HOUSEHOLD-RETURN-977",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v09-xiyin-rebellion-and-upper-capital-mutiny-980-981",
+      "status": "closed",
+      "summary": "喜隐复叛被囚；上京汉军拥立其父子失败，留礼寿伏诛。",
+      "thread_ref": "POL-THREAD-LIAO-V09-XIYIN-REBELLION-AND-UPPER-CAPITAL-MUTINY-980-981",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v09-jingzong-death-and-regency-982",
+      "status": "closed",
+      "summary": "景宗崩，遗诏梁王隆绪继位，军国大事听皇后命。",
+      "thread_ref": "POL-THREAD-LIAO-V09-JINGZONG-DEATH-AND-REGENCY-982",
+      "uncertainties": []
+    }
+  ]
+}

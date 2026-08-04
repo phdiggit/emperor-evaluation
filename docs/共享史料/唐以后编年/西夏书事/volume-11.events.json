@@ -1,0 +1,639 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V11-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V11-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "11",
+    "revision_ref": "2287885",
+    "start_locator": "宋仁宗天圣六年元昊取甘州",
+    "end_locator": "宋仁宗景祐元年元昊献马求经",
+    "overlap_context": "承接卷10德明建兴州与宋辽双重臣属；本卷主载元昊取甘凉、德明卒与继位、改姓改元、官制服式、氂牛城及宋境堡砦战争。",
+    "input_fingerprint": "92a3c6dfb8fa91298cce35fed2eebf7b90c1d6161a79d815304afa29fc5a91ec"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷11正文登记，未知保持未知。",
+    "瓜州归降等正文自注存疑事项按原文保留疑点；出生异征、祥异、作者按语和普通贡贺不单列。",
+    "兴庆宫城和三百余堡砦据原文规模进入工程域，普通官署名目不按数量拆分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V11-GANZHOU-CONQUEST-1028",
+      "time": [
+        "宋仁宗天圣六年五月",
+        "1028",
+        "month"
+      ],
+      "subject": "李德明所遣元昊军与甘州回鹘",
+      "action": "德明命元昊突袭甘州，击破回鹘政权。",
+      "result": "可汗夜落隔仓卒出奔，元昊留兵戍守甘州，西夏取得通西域和畜牧要地。",
+      "groups": [
+        "元昊军",
+        "甘州回鹘",
+        "甘州军民",
+        "西域商旅"
+      ],
+      "quote": [
+        "德明使子元昊攻回鶻，取甘州。",
+        "遣元昊將兵突至甘州，襲破之。",
+        "夜落隔歸順王倉卒出奔，元昊置兵戍其地而還。"
+      ],
+      "unknown": [
+        "攻城兵力伤亡、俘虏、府库和回鹘居民处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-GANZHOU-1028",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-YUANHAO-CROWN-PRINCE-1028",
+      "time": [
+        "宋仁宗天圣六年五月",
+        "1028",
+        "month"
+      ],
+      "subject": "李德明、元昊与卫慕氏",
+      "action": "元昊取甘州后，德明册其为太子，并立其母卫慕氏为后。",
+      "result": "元昊成为明确继承人，卫慕氏母族地位上升。",
+      "groups": [
+        "李氏宗族",
+        "卫慕氏族",
+        "西夏官属",
+        "党项诸族"
+      ],
+      "quote": [
+        "遂立元昊爲太子。",
+        "遂冊爲太子。",
+        "立衛慕氏爲后。"
+      ],
+      "unknown": [
+        "册立仪式、其他二子安排和反对力量未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YUANHAO-CROWN-PRINCE-1028",
+        "summary": "德明立元昊为太子并立卫慕氏为后。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-LIAO-MARRIAGE-1029",
+      "time": [
+        "宋仁宗天圣七年二月",
+        "1029",
+        "month"
+      ],
+      "subject": "李德明、元昊与契丹圣宗",
+      "action": "德明为结好契丹，替已娶卫慕氏的元昊请求辽宗室婚姻。",
+      "result": "契丹答应婚约。",
+      "groups": [
+        "李氏宗族",
+        "契丹宗室",
+        "卫慕氏族"
+      ],
+      "quote": [
+        "德明爲元昊請婚契丹。",
+        "德明欲結好契丹，遣使請婚，契丹主許之。"
+      ],
+      "unknown": [
+        "公主身份、聘礼、婚盟条件此时未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-MARRIAGE-1029",
+        "summary": "德明为元昊向辽请婚并获准。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-AYU-LINZHOU-1029",
+      "time": [
+        "宋仁宗天圣七年五月至九月",
+        "1029",
+        "range"
+      ],
+      "subject": "西夏观察使阿遇、其子与宋麟州",
+      "action": "阿遇之子因父子不合投奔麟州，阿遇为索子入境大掠民户，并以归还俘虏相交换。",
+      "result": "宋先送还遇子，再遣张岊交涉；阿遇最终按约归还全部所掳民户。",
+      "groups": [
+        "阿遇部众",
+        "麟州民户",
+        "宋使张岊",
+        "遇子随从"
+      ],
+      "quote": [
+        "觀察使阿遇子內奔，阿遇掠麟州。",
+        "約還子乃歸所擄。",
+        "悉歸所擄如約。"
+      ],
+      "unknown": [
+        "被掳户数、财产损失、遇子返家后处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-AYU-LINZHOU-1029",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-GUAZHOU-SUBMISSION-1030",
+      "time": [
+        "宋仁宗天圣八年三月",
+        "1030",
+        "month"
+      ],
+      "subject": "瓜州回鹘王贤顺与李德明",
+      "action": "瓜州回鹘王贤顺见西夏势强，率属请求归降。",
+      "result": "德明接纳其归附，但正文按语指出瓜州与西夏间隔肃州且正史不载，事实仍存疑。",
+      "groups": [
+        "瓜州回鹘",
+        "西夏官属",
+        "肃州回鹘"
+      ],
+      "quote": [
+        "回鶻瓜州王請降，德明納之。",
+        "其王賢順見德明勢日熾，率屬請降。",
+        "疑《夏國傳》有悞，俟攷。"
+      ],
+      "unknown": [
+        "归降真实性、户数、疆域接管和肃州反应均未定。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GUAZHOU-SUBMISSION-1030",
+        "summary": "正文载瓜州王归降德明但史源自注存疑。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-BUDDHIST-CANON-1030",
+      "time": [
+        "宋仁宗天圣八年十二月",
+        "1030",
+        "month"
+      ],
+      "subject": "李德明与宋仁宗",
+      "action": "德明进献马七十匹，请求宋廷赐予一藏佛经。",
+      "result": "宋仁宗批准，佛经由宋输入西夏。",
+      "groups": [
+        "西夏使团",
+        "党项牧户",
+        "佛教僧众",
+        "宋廷"
+      ],
+      "quote": [
+        "德明獻馬求經。",
+        "德明獻馬七十匹，乞賜佛經一藏，仁宗從之。"
+      ],
+      "unknown": [
+        "佛经版本卷数、运输、寺院分配和七十马来源未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BUDDHIST-CANON-1030",
+        "summary": "德明以七十马向宋求得一藏佛经。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-XINGPING-PRINCESS-1031",
+      "time": [
+        "宋仁宗天圣九年十二月",
+        "1031",
+        "month"
+      ],
+      "subject": "契丹兴宗、兴平公主与元昊",
+      "action": "辽封宗室女兴平公主嫁元昊，并封元昊驸马都尉、夏国公；元昊以数万骑托言迎亲，屯近府州。",
+      "result": "府州折惟忠严备不动，元昊未能乘机，最终退军。",
+      "groups": [
+        "元昊数万骑",
+        "契丹宗室",
+        "府州军民",
+        "兴平公主随从"
+      ],
+      "quote": [
+        "契丹以興平公主歸元昊。",
+        "元昊以數萬騎托言親迎，留屯府州境。",
+        "元昊知不可動，乃退。"
+      ],
+      "unknown": [
+        "婚礼聘礼、实际骑兵数、元昊是否确有攻府州计划未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XINGPING-PRINCESS-1031",
+        "summary": "辽公主嫁元昊，元昊借迎亲屯府州未果。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-LIANGZHOU-CONQUEST-1032",
+      "time": [
+        "宋仁宗明道元年九月",
+        "1032",
+        "month"
+      ],
+      "subject": "李德明所遣元昊军与凉州回鹘",
+      "action": "德明为恢复凉州，先遣蕃部扰环庆牵制宋军，继命元昊攻凉州。",
+      "result": "孤立的回鹘守军不能抵抗，元昊攻下凉州。",
+      "groups": [
+        "元昊军",
+        "凉州回鹘",
+        "环庆军民",
+        "六谷诸族"
+      ],
+      "quote": [
+        "九月，取涼州。",
+        "德明已命元昊將兵攻涼州，回鶻勢孤不能拒，遂拔其城。"
+      ],
+      "unknown": [
+        "双方兵力伤亡、城中居民和畜牧府库处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIANGZHOU-1032",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-DEMING-DEATH-YUANHAO-SUCCESSION-1032",
+      "time": [
+        "宋仁宗明道元年十月至十一月",
+        "1032",
+        "range"
+      ],
+      "subject": "夏王赵德明、元昊与宋仁宗",
+      "action": "德明取凉州后去世，宋廷厚加吊赠；元昊以二十九岁继位。",
+      "result": "宋授元昊定难军节度、五州观察处置等使和西平王，但元昊受诏时公开质疑对宋称臣。",
+      "groups": [
+        "李氏宗族",
+        "西夏官属",
+        "五州军民",
+        "宋使团"
+      ],
+      "quote": [
+        "冬十月，夏王趙德明卒。",
+        "子元昊嗣。十一月，授定難軍節度使、西平王。",
+        "先王大錯，有如此國，而猶臣拜于人耶！"
+      ],
+      "unknown": [
+        "德明死因、继位反对力量、宋吊赙实际分配未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DEMING-DEATH-YUANHAO-SUCCESSION-1032",
+        "summary": "德明卒，元昊继位并受宋西平王册封。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-WEIMING-SURNAME-1032",
+      "time": [
+        "宋仁宗明道元年十一月",
+        "1032",
+        "month"
+      ],
+      "subject": "元昊与李氏宗族",
+      "action": "元昊认为李赵赐姓不足尊贵，自号嵬名氏、称吾祖，并令亲近宗族改姓。",
+      "result": "西夏统治家族脱离宋赐姓体系，以嵬名氏强化本族身份和汗号。",
+      "groups": [
+        "李氏亲族",
+        "疏族",
+        "党项诸部",
+        "宋廷"
+      ],
+      "quote": [
+        "改姓嵬名氏，稱吾祖。",
+        "于是屬族悉改嵬名，蕃部尊榮之，疎族不與焉。"
+      ],
+      "unknown": [
+        "改姓人数、疏族界定、宋辽官方反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WEIMING-SURNAME-1032",
+        "summary": "元昊废李赵赐姓，改嵬名并称吾祖。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-XIANDAO-ERA-1033",
+      "time": [
+        "宋仁宗明道二年",
+        "1033",
+        "year"
+      ],
+      "subject": "元昊西夏政权",
+      "action": "元昊以避父名为由，将宋明道年号改称显道并在国内使用。",
+      "result": "西夏首次自行改元，开始脱离宋朝正朔。",
+      "groups": [
+        "西夏官属",
+        "五州军民",
+        "宋廷"
+      ],
+      "quote": [
+        "元昊改元顯道。",
+        "改中國明道元爲顯道，稱于國中。"
+      ],
+      "unknown": [
+        "正式改元月日、文书推行范围和地方反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XIANDAO-ERA-1033",
+        "summary": "元昊在国中改宋明道为显道。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-HAIR-CUT-ORDER-1033",
+      "time": [
+        "宋仁宗明道二年三月",
+        "1033",
+        "month"
+      ],
+      "subject": "元昊与西夏民众",
+      "action": "元昊先剃秃发，再命国内和属蕃三日内照办，允许众人共杀不从者。",
+      "result": "民众争相秃发并以耳垂重环区别身份，旧俗被强制改变。",
+      "groups": [
+        "西夏民众",
+        "属蕃",
+        "执法者"
+      ],
+      "quote": [
+        "三月，下禿髮令。",
+        "三日不從，許衆𠔏殺之。",
+        "于是民爭禿其髮，耳垂重環以異之。"
+      ],
+      "unknown": [
+        "拒绝者和被杀人数、地区执行差异未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HAIR-CUT-ORDER-1033",
+        "summary": "元昊以三日死令强制推行秃发重环。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-XINGQING-GOVERNMENT-1033",
+      "time": [
+        "宋仁宗明道二年五月",
+        "1033",
+        "month"
+      ],
+      "subject": "元昊与兴庆府官制",
+      "action": "元昊将兴州升为兴庆府，扩建宫城殿宇，并仿宋设置中书、枢密、三司、御史台、农田群牧等文武机构。",
+      "result": "西夏形成分掌政务、军事、财政、监察、农业牧马和选官的中央官制，蕃汉人分任。",
+      "groups": [
+        "兴庆营建民夫",
+        "蕃汉官员",
+        "五州军民",
+        "工匠"
+      ],
+      "quote": [
+        "升興州爲興慶府，遂立官制。",
+        "廣宫城，營殿宇",
+        "至是，始立文武班"
+      ],
+      "unknown": [
+        "营建规模费用、官员人数、机构实际运行和税赋调整未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XINGQING-GOVERNMENT-1033",
+        "summary": "元昊扩兴庆宫城并建立中央文武官制。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "public_works",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-DRESS-SYSTEM-1033",
+      "time": [
+        "宋仁宗明道二年五月",
+        "1033",
+        "month"
+      ],
+      "subject": "元昊政权与西夏官民",
+      "action": "元昊制定文武官、便服和民庶不同服式，以冠服佩具和颜色区分身份。",
+      "result": "官民等级获得统一可见标识。",
+      "groups": [
+        "文官",
+        "武官",
+        "民庶",
+        "服饰工匠"
+      ],
+      "quote": [
+        "文資則幞頭、靴笏、紫衣",
+        "民庶則衣青綠，以別貴賤。"
+      ],
+      "unknown": [
+        "颁行程序、制作成本、违制惩罚和地区执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DRESS-SYSTEM-1033",
+        "summary": "元昊定官民服式以别贵贱。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-MAONIU-CITY-1033",
+      "time": [
+        "宋仁宗明道二年七月至十月",
+        "1033",
+        "range"
+      ],
+      "subject": "元昊西夏军与吐蕃氂牛城军民",
+      "action": "元昊先遣苏奴儿率二万五千人攻氂牛城而败、将领被俘，随后亲率军再攻一月，以诈和诱开城门。",
+      "result": "西夏军入城后屠杀居民无遗，攻占氂牛城。",
+      "cost": "氂牛城居民被大规模杀害，西夏首战伤亡和被俘者未载。",
+      "groups": [
+        "西夏军",
+        "氂牛城军民",
+        "吐蕃唃厮啰部"
+      ],
+      "quote": [
+        "遣將蘇奴兒攻西蕃氂牛城，被執。",
+        "復攻氂牛城。冬十月，破之，屠其民。",
+        "大殺居民無遺。"
+      ],
+      "unknown": [
+        "屠城人数、双方军队伤亡、苏奴儿后续和财物处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-MAONIU-1033",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-KAIYUN-ERA-1034",
+      "time": [
+        "宋仁宗景祐元年正月",
+        "1034",
+        "month"
+      ],
+      "subject": "元昊西夏政权",
+      "action": "元昊采纳杨守素建元建议，将显道三年改为开运元年并大赦。",
+      "result": "西夏再次以自定年号强化独立王权。",
+      "groups": [
+        "西夏官民",
+        "罪犯",
+        "宋辽朝廷"
+      ],
+      "quote": [
+        "元昊開運元年春正月，改元。",
+        "改顯道三年爲開運元年，大赦國中。"
+      ],
+      "unknown": [
+        "大赦范围、改元文书和外部反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "KAIYUN-ERA-1034",
+        "summary": "元昊改元开运并大赦。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-FUZHOU-HUANQING-1034",
+      "time": [
+        "宋仁宗景祐元年二月至七月",
+        "1034",
+        "range"
+      ],
+      "subject": "元昊西夏军与宋府州环庆军民",
+      "action": "元昊在边山修筑三百余堡砦以收集老弱、驱使壮丁，继而两次攻府州，并以杀牛族为前驱掠环庆、杀戮居民。",
+      "result": "宋并代加强备战，边境进入持续武装冲突。",
+      "groups": [
+        "筑砦劳役",
+        "被驱壮丁",
+        "西夏军",
+        "宋边境军民"
+      ],
+      "quote": [
+        "于沿邊山險之地三百餘處，修築堡砦",
+        "二月，以兵攻府州。",
+        "掠環、慶州境，殺戮居人"
+      ],
+      "unknown": [
+        "堡砦工期费用、征发人数、双方伤亡和被杀居民数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-FUZHOU-HUANQING-1034",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-BAIBAO-QINGZHOU-1034",
+      "time": [
+        "宋仁宗景祐元年七月",
+        "1034",
+        "month"
+      ],
+      "subject": "元昊军与宋环庆路军",
+      "action": "元昊修复白豹城并增筑后桥堡，堡被宋蕃部攻破后，以复仇为名进犯庆州并设伏。",
+      "result": "宋军在龙马岭和节义峰接连战败，都监齐宗矩被俘后久而获释。",
+      "groups": [
+        "西夏军",
+        "筑堡劳役",
+        "宋环庆军",
+        "沿路居民"
+      ],
+      "quote": [
+        "築白豹城及後橋堡，遂犯慶州，執都監齊宗矩。",
+        "元昊先修白豹，已，復增築後橋小堡",
+        "元昊發伏，執宗矩歸。"
+      ],
+      "unknown": [
+        "双方伤亡、堡工规模、齐宗矩释放条件和民损未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-BAIBAO-QINGZHOU-1034",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V11-MATRICIDE-1034",
+      "time": [
+        "宋仁宗景祐元年十月",
+        "1034",
+        "month"
+      ],
+      "subject": "元昊、山喜族与卫慕太后",
+      "action": "卫慕氏族人山喜谋杀元昊事泄，元昊沉杀其族并以毒酒杀害生母卫慕太后，随后向宋告哀。",
+      "result": "宋廷未追究弑母，只遣使吊赠起复；元昊另立讹藏屈𡃩氏为太后。",
+      "groups": [
+        "卫慕氏族",
+        "李氏宗族",
+        "宋使团",
+        "讹藏氏族"
+      ],
+      "quote": [
+        "殺逆臣山喜，弑母衛慕氏。",
+        "元昊沉山喜族于河，進酖弑衛慕氏",
+        "復立訛藏屈𡃩氏爲兀泥。"
+      ],
+      "unknown": [
+        "山喜族被杀人数、卫慕氏死亡细节、宫廷反对和宋方调查未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MATRICIDE-1034",
+        "summary": "元昊诛山喜族并毒杀生母，另立太后。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V11-NINGLINGGE-BIRTH-1034",
+      "time": [
+        "宋仁宗景祐元年十一月",
+        "1034",
+        "month"
+      ],
+      "subject": "元昊、野利氏与宁令哥",
+      "action": "元昊第五妻野利氏生子宁令哥，因貌似元昊而特别受宠。",
+      "result": "西夏出现后续卷入皇位和宫廷政变的王子。",
+      "groups": [
+        "李氏宗族",
+        "野利氏族"
+      ],
+      "quote": [
+        "十一月，子甯令哥生。",
+        "元昊見其貌類己，特愛之。"
+      ],
+      "unknown": [
+        "出生日期、排行认定、早期继承安排未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NINGLINGGE-BIRTH-1034",
+        "summary": "宁令哥出生并受元昊宠爱。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

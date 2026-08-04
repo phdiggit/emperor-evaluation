@@ -1,0 +1,542 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V19-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V19-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷19",
+    "revision_ref": "2630077",
+    "start_locator": "道光二十一年虎门失陷",
+    "end_locator": "道光三十年宣宗崩",
+    "overlap_context": "承接卷18第一次鸦片战争开端；本卷登记战争扩大、南京议约及通商、灾赈河工、云南回乱、回疆再乱与道光继承。",
+    "input_fingerprint": "3a4e12291941a66659f1581f0a6c85129f0734f150f519334cf8d23d8c70d945"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷19正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V19-FIRST-OPIUM-WAR-1841-1842",
+      "time": [
+        "道光二十一年正月",
+        "道光二十二年八月",
+        "range"
+      ],
+      "subject": "奕山、裕谦、耆英等清军官员与英国远征舰队",
+      "action": "英军继定海之战后攻陷虎门、厦门、定海、镇海、宁波、乍浦、上海、镇江并进逼江宁；清廷多次换将防剿，最终授权耆英等议和。",
+      "result": "清军沿海防御接连失败，战争以江宁议约、英军罢兵告终。",
+      "cost": "关天培、裕谦、陈化成、海龄等阵亡，沿海军民损失和军费总数未载。",
+      "groups": [
+        "沿海民众",
+        "清军水师陆军",
+        "英国军队",
+        "商民"
+      ],
+      "quote": [
+        "英人陷廣東虎門砲台及烏涌卡座",
+        "英人再陷定海",
+        "英人陷鎮海，欽差大臣裕謙死之",
+        "英人陷江蘇寶山縣，提督陳化成死之。",
+        "英人陷鎮江",
+        "耆英奏與英兵官瑪禮遜等議罷兵。"
+      ],
+      "unknown": [
+        "双方总伤亡、赔款军费和民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-FIRST-OPIUM-WAR-1840-1842",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-NANJING-TREATY-PORTS-1842-1844",
+      "time": [
+        "道光二十二年七月",
+        "道光二十四年六月",
+        "range"
+      ],
+      "subject": "道光帝、耆英等与英国、美国等国",
+      "action": "清廷允耆英与英国定约，开放广州、福州、厦门、宁波、上海通商并议税课；随后制定通商税则及美国、意大利等国通商章程。",
+      "result": "五口通商和新税则形成，战后对外贸易制度被重构。",
+      "groups": [
+        "沿海商民",
+        "海关人员",
+        "外国商人"
+      ],
+      "quote": [
+        "請與英兵官定約，鈐御寶。",
+        "廣州、福州、廈門、寧波、上海各海口，與英國定議通商。",
+        "定通商稅則",
+        "定米利堅通商條約。",
+        "議定意大利亞國通商章程。"
+      ],
+      "unknown": [
+        "条约全文、赔款数额、关税细目和地方经济影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NANJING-TREATY-AND-TREATY-PORTS",
+        "summary": "鸦片战争后形成五口通商、税则及多国通商章程。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-WAR-AFFECTED-TAX-RELIEF-1842",
+      "time": [
+        "道光二十二年六月",
+        "道光二十二年十一月",
+        "range"
+      ],
+      "subject": "道光帝与苏浙沿海被兵民户",
+      "action": "清廷减免定海等浙江战区及江苏滨海州县新旧额赋，并给丹徒等县贫民口粮屋费。",
+      "result": "遭战争破坏地区获得赋税减免和生活重建救济。",
+      "groups": [
+        "苏浙战区民众",
+        "战争难民"
+      ],
+      "quote": [
+        "蠲緩浙江被擾之定海等十二縣新舊額賦。",
+        "減免江蘇濱海被兵太倉等四十廳州縣衛新舊額賦有差。",
+        "給江蘇濱江被兵等丹徒六縣貧民口糧屋費"
+      ],
+      "unknown": [
+        "免赋和救济总额、受益人口及战损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "OPIUM-WAR-AFFECTED-RELIEF-1842",
+        "summary": "苏浙被兵地区获免赋及口粮屋费救济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-LOWER-YELLOW-RIVER-BREACH-1841",
+      "time": [
+        "道光二十一年六月至八月",
+        "1841",
+        "range"
+      ],
+      "subject": "王鼎、牛鉴等与河南下南厅河工",
+      "action": "河南下南厅河决后，清廷派王鼎等督工，命地方移民赈恤，并处分失职河臣。",
+      "result": "沿河民众获迁移赈济，决口闭合结果在本卷未载。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫"
+      ],
+      "quote": [
+        "河南下南廳河決。",
+        "命王鼎等赴東河督工。",
+        "以河水汎濫，命牛鑒移民賑恤。"
+      ],
+      "unknown": [
+        "合龙结果、灾损、工程费和移民人数未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "LOWER-YELLOW-RIVER-BREACH-1841",
+        "summary": "河南下南厅河决后派员督工并迁民赈恤。",
+        "continuity": "continued_within_reign",
+        "phase": "督工赈迁",
+        "purpose": "防洪",
+        "operation_result": "合龙未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-ZHONGRENJIE-REBELLION-1841-1842",
+      "time": [
+        "道光二十一年十二月",
+        "道光二十二年四月",
+        "range"
+      ],
+      "subject": "裕泰等清军与湖北钟人杰起事者",
+      "action": "钟人杰攻陷崇阳并进据通山，清军收复崇阳、擒获并处死钟人杰。",
+      "result": "湖北地方起事被平定，受扰五县获免新旧额赋。",
+      "groups": [
+        "湖北民众",
+        "清军",
+        "起事民众"
+      ],
+      "quote": [
+        "湖北崇陽縣匪鍾人傑作亂，攻陷縣城",
+        "克復湖北崇陽縣，獲匪首鍾人傑。",
+        "鍾人傑伏誅。",
+        "蠲緩湖北被匪滋擾之崇陽等五縣衛新舊額賦。"
+      ],
+      "unknown": [
+        "起事原因、双方伤亡和株连人数未载。"
+      ],
+      "battle": "CAMPAIGN-QING-ZHONGRENJIE-1841-1842",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-ZHONGMOU-YONGDING-RIVER-WORKS-1843-1844",
+      "time": [
+        "道光二十三年七月",
+        "道光二十四年三月",
+        "range"
+      ],
+      "subject": "麟庆、钟祥等与中牟、永定河工程",
+      "action": "东河中牟九堡和直隶永定河相继决口，清廷多次派员督办；中牟坝工因复塌继续问责河臣。",
+      "result": "河工持续抢修但中牟工程复塌，显示修防未闭合。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫"
+      ],
+      "quote": [
+        "河決東河中牟九堡",
+        "，直隸永定河決。乙",
+        "中牟決口未塞",
+        "以中牟壩工復蟄"
+      ],
+      "unknown": [
+        "最终合龙、灾损、工费和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "ZHONGMOU-YONGDING-RIVER-WORKS-1843",
+        "summary": "中牟、永定河决口持续督修，中牟坝工复塌。",
+        "continuity": "continued_within_reign",
+        "phase": "抢修问责",
+        "purpose": "防洪",
+        "operation_result": "中牟复塌，最终结果未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-TREATY-PORT-DEFENSE-1844",
+      "time": [
+        "道光二十四年四月",
+        "1844",
+        "month"
+      ],
+      "subject": "清廷与广东虎门防御体系",
+      "action": "战后清廷重修广东虎门各内洋炮台。",
+      "result": "虎门沿海防御设施进入修复重建。",
+      "groups": [
+        "水师官兵",
+        "工程匠役",
+        "沿海民众"
+      ],
+      "quote": [
+        "修廣東虎門各內洋砲台。"
+      ],
+      "unknown": [
+        "工程规模、工费、炮位和完工时间未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "HUMEN-FORT-RECONSTRUCTION-1844",
+        "summary": "鸦片战争后重修虎门内洋炮台。",
+        "continuity": "continued_within_reign",
+        "phase": "战后重建",
+        "purpose": "海防",
+        "operation_result": "启动修复"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-ARREARS-REMISSION-1845",
+      "time": [
+        "道光二十五年八月至十二月",
+        "1845",
+        "range"
+      ],
+      "subject": "道光帝与各省欠赋民户、台湾民户",
+      "action": "为皇太后七旬万寿，清廷免道光二十年前实欠正杂田赋，并分别免直隶旗租和台湾租谷粮米。",
+      "result": "多地区多年欠赋、旗租及台湾租粮被核销。",
+      "groups": [
+        "欠赋民户",
+        "旗地佃户",
+        "台湾民户"
+      ],
+      "quote": [
+        "免道光二十年以前實欠正雜田賦。",
+        "免直隸道光二十年以前民欠各項旗租。",
+        "免台灣道光二十年以前民欠租穀糧米。"
+      ],
+      "unknown": [
+        "全国免欠总额、受益户数和执行情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ARREARS-REMISSION-1845",
+        "summary": "清廷豁免道光二十年前田赋、旗租及台湾租粮欠款。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-CHRISTIANITY-BAN-RELAXATION-1846",
+      "time": [
+        "道光二十六年正月",
+        "1846",
+        "month"
+      ],
+      "subject": "道光帝与天主教传教、信众",
+      "action": "清廷下诏弛禁天主教。",
+      "result": "长期宗教禁令得到放宽。",
+      "groups": [
+        "天主教信众",
+        "传教人员"
+      ],
+      "quote": [
+        "弛天主教禁。"
+      ],
+      "unknown": [
+        "放宽范围、教产处理和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CHRISTIANITY-BAN-RELAXATION-1846",
+        "summary": "道光二十六年放宽天主教禁令。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V19-YUNNAN-HUI-CONFLICTS-1846-1848",
+      "time": [
+        "道光二十六年二月",
+        "道光二十八年四月",
+        "range"
+      ],
+      "subject": "张必禄、林则徐等清军官员与云南回民、地方武装",
+      "action": "永昌、猛统、云州等地回民冲突接连发生，清廷调兵进剿并命林则徐审理回民控诉滥杀一万余人及杜文秀被诬案。",
+      "result": "若干武装事件被平定，但汉回积怨和滥杀指控仍待司法处理。",
+      "cost": "本纪转述控诉称被杀无辜一万余人，真实性与总伤亡未定。",
+      "groups": [
+        "云南回民",
+        "汉民",
+        "清军"
+      ],
+      "quote": [
+        "雲南永昌回匪作亂",
+        "以上年殺永昌內應回民過多",
+        "命林則徐讞雲南回民控訴香匪殺無辜一萬餘人之獄。",
+        "命林則徐讞雲南回民杜文秀控訴被誣從逆之獄。",
+        "雲南保山匪平。"
+      ],
+      "unknown": [
+        "控诉核验结果、各次伤亡和长期和解效果未载。"
+      ],
+      "battle": "CAMPAIGN-QING-YUNNAN-HUI-CONFLICTS-1846-1848",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-POSTWAR-COASTAL-DEFENSE-1846",
+      "time": [
+        "道光二十六年八月",
+        "1846",
+        "month"
+      ],
+      "subject": "道光帝与沿海七省将军督抚",
+      "action": "清廷命盛京、直隶、江南、浙江、福建、山东、广东筹办练兵储饷。",
+      "result": "鸦片战争后沿海防务被纳入跨省训练和军费储备。",
+      "groups": [
+        "沿海军民",
+        "纳税民户"
+      ],
+      "quote": [
+        "七省將軍、督、撫籌辦練兵儲餉。"
+      ],
+      "unknown": [
+        "兵额、饷银、训练内容和实施成果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "POSTWAR-COASTAL-DEFENSE-1846",
+        "summary": "沿海七省奉命练兵储饷以加强海防。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-KASHGAR-REBELLION-1847",
+      "time": [
+        "道光二十七年八月至十月",
+        "1847",
+        "range"
+      ],
+      "subject": "布彦泰、奕山等清军与安集延、布鲁特部众",
+      "action": "安集延、布鲁特部众攻喀什噶尔并围英吉沙尔，清廷调定西将军等进剿，在科科热依瓦特和英吉沙尔击败起事者。",
+      "result": "安集延部众退走，回疆危机解除。",
+      "cost": "双方总伤亡和军费未载。",
+      "groups": [
+        "回疆民众",
+        "清军",
+        "安集延与布鲁特部众"
+      ],
+      "quote": [
+        "安集延匪犯喀什噶爾",
+        "安集延匪圍英吉沙爾城",
+        "又敗之於英吉沙爾。",
+        "安集延匪遁走。"
+      ],
+      "unknown": [
+        "首领去向、双方总伤亡和战后处置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-KASHGAR-1847",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-HENAN-DROUGHT-RELIEF-1847",
+      "time": [
+        "道光二十七年七月至十一月",
+        "1847",
+        "range"
+      ],
+      "subject": "道光帝与河南旱灾民众",
+      "action": "河南大旱后，清廷先发库银十万、邻省银二十万，继由内帑和户部各拨三十万，并给四十一州县口粮、免六十四州县新旧赋。",
+      "result": "河南灾区获至少九十万两赈银及大范围口粮和赋税减免。",
+      "groups": [
+        "河南旱灾民众",
+        "受灾农户"
+      ],
+      "quote": [
+        "發庫銀十萬兩，並撥鄰省銀二十萬兩賑之。",
+        "再撥內帑銀三十萬兩，並命戶部撥銀三十萬兩賑之。",
+        "給河南禹州等四十一州縣旱災口糧。",
+        "河南禹州等六十四州縣被災新舊正雜額賦。"
+      ],
+      "unknown": [
+        "实际发放、受益人口和灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HENAN-DROUGHT-RELIEF-1847",
+        "summary": "河南旱灾获至少九十万两赈银及口粮免赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-GUANGZHOU-CITY-ENTRY-DISPUTE-1849",
+      "time": [
+        "道光二十九年三月至五月",
+        "1849",
+        "range"
+      ],
+      "subject": "徐广缙、叶名琛、广东民众与英国人",
+      "action": "广东官绅民众反对英国人进入省城，清廷认可地方严防，英国方面最终停止进城要求。",
+      "result": "广州入城争议暂以英国撤回要求结束，徐广缙、叶名琛受封赏。",
+      "groups": [
+        "广州民众",
+        "英国商人官员",
+        "地方官绅"
+      ],
+      "quote": [
+        "英人進省城一事，萬不可行。",
+        "英人罷議進城。",
+        "諭嘉獎粵人深明大義。"
+      ],
+      "unknown": [
+        "交涉条件、社会动员规模和贸易影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GUANGZHOU-CITY-ENTRY-DISPUTE-1849",
+        "summary": "广东反对英国人入城，英国最终撤回要求。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-CENTRAL-SOUTH-FLOOD-RELIEF-1848-1849",
+      "time": [
+        "道光二十八年九月",
+        "道光二十九年十一月",
+        "range"
+      ],
+      "subject": "道光帝与苏皖赣鄂湘等水灾民众",
+      "action": "长江中下游连续水灾，清廷跨省放赈、给口粮并大范围蠲缓新旧额赋和灶课。",
+      "result": "多省灾区获得连续救济和税赋减免。",
+      "groups": [
+        "水灾民众",
+        "灶户",
+        "驻灾区兵丁"
+      ],
+      "quote": [
+        "賑江寧等三府水災。",
+        "賑湖北水災。",
+        "蠲緩江蘇泰州等七十七州廳縣衛",
+        "給江西德化等五縣、湖南澧州等九州縣衛水災口糧。",
+        "給湖南澧州等六州縣、安徽和州等十三州縣水災口糧。"
+      ],
+      "unknown": [
+        "全部赈银粮额、受益人口和灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CENTRAL-SOUTH-FLOOD-RELIEF-1848-1849",
+        "summary": "道光末年长江中下游连续水灾获跨省赈免。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V19-DAOGUANG-DEATH-SUCCESSION-1850",
+      "time": [
+        "道光三十年正月",
+        "1850",
+        "month"
+      ],
+      "subject": "道光帝与皇四子奕詝",
+      "action": "皇太后去世不久，道光病重，启封密储诏书立皇四子为皇太子，并于圆明园去世。",
+      "result": "奕詝被确定为继承人，咸丰朝由此启动。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "宣示御書「皇四子立為皇太子」。",
+        "上崩於圓明園慎德堂苫次。"
+      ],
+      "unknown": [
+        "临终决策细节和新帝即位过程在本卷未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DAOGUANG-DEATH-AND-SUCCESSION",
+        "summary": "道光临终立奕詝为皇太子并于圆明园去世。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1957 @@
+{
+  "facts": [
+    {
+      "action": "太祖葬后，吴乞买在宗室百官再三拥立下即皇帝位，改天辅七年为天会元年并大赦。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-TAIZONG-SUCCESSION-1123",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "太宗完成皇位承接，随即以发粟、猛安赋米救济迁入上京和内地匮乏户口。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-TAIZONG-SUCCESSION-1123"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-taizong-succession-1123",
+      "source_refs": [
+        "金史/卷3@2432693#丙辰，即皇帝位。己未，告祀天地。丙寅，大赦中外。改天輔七年爲天會元年。",
+        "金史/卷3@2432693#癸酉，發春州粟，賑降人之徙于上京者。戊寅，詔諸猛安賦米，給戶口在內地匱乏者。"
+      ],
+      "time_range": {
+        "end": "天会元年九月",
+        "precision": "month",
+        "start": "天会元年九月"
+      },
+      "uncertainties": [
+        "首次发粟和赋米数量未载。"
+      ]
+    },
+    {
+      "action": "闍母初败后，太宗命宗望接管其军讨张觉；宗望在南京东击败张觉并迫其奔宋，南京反复叛降，闍母最终克城杀张敦固。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "闍母曾在兔耳山败绩；南京反复造成伤亡未详。",
+      "fact_id": "CHF-JIN-V03-ZHANG-JUE-1123-1124",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "张觉势力在南京被击破，南京重新由金控制；张觉本人逃宋，成为宋金冲突线索。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-ZHANG-JUE-NANJING-1123-1124"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-zhang-jue-1123-1124",
+      "source_refs": [
+        "金史/卷3@2432693#庚午，宗望及張覺戰于南京東，大敗之。張覺奔宋",
+        "金史/卷3@2432693#闍母克南京，殺都統張敦固。"
+      ],
+      "time_range": {
+        "end": "天会二年五月",
+        "precision": "range",
+        "start": "天会元年九月"
+      },
+      "uncertainties": [
+        "南京攻守伤亡与城内损失未载。"
+      ]
+    },
+    {
+      "action": "太宗在多地歉收和乏食背景下蠲免贷款利息、免南京军粮、准亲属赎回被卖子女，继而减东京田租市租一半、发种粮米粮赈新附并官赎卖身人口。",
+      "actors": [],
+      "affected_groups": [
+        "歉收民户",
+        "新附民",
+        "卖身者"
+      ],
+      "cost_or_burden": "免租、赈粮及官赎形成财政支出；已知给宗翰田种千石、米七千石，另赎六百余人。",
+      "fact_id": "CHF-JIN-V03-RELIEF-REDEMPTION-1123-1124",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "受灾、新附和被迫卖身人口获得连续减负、粮种与赎身措施。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-JIN-V03-RELIEF-REDEMPTION-1123-1124"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-relief-redemption-1123-1124",
+      "source_refs": [
+        "金史/卷3@2432693#蠲民間貸息。",
+        "金史/卷3@2432693#以東京比歲不登，詔減田租、市租之半。",
+        "金史/卷3@2432693#命給宗翰馬七百匹、田種千石、米七千石，以賑新附之民。",
+        "金史/卷3@2432693#詔贖上京路新遷甯江州戶口賣身者六百餘人。"
+      ],
+      "time_range": {
+        "end": "天会二年四月",
+        "precision": "range",
+        "start": "天会元年十二月"
+      },
+      "uncertainties": [
+        "除明载项目外，总受益户数和财政总额未载。"
+      ]
+    },
+    {
+      "action": "太宗先坚持遵守太祖向宋割让山西郡县的承诺并向西夏授地，随后因宗翰再谏而停止向宋割让山西诸镇。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-TERRITORY-COMMITMENTS-1124",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "对宋土地承诺发生逆转，对西夏称藩与授地继续执行，三方疆界安排分化。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-TERRITORY-COMMITMENTS-1124"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-territory-commitments-1124",
+      "source_refs": [
+        "金史/卷3@2432693#是違先帝之命也，其速與之。",
+        "金史/卷3@2432693#既許割山西諸鎮與宋，以宗翰言罷之。"
+      ],
+      "time_range": {
+        "end": "天会二年闰三月",
+        "precision": "range",
+        "start": "天会二年正月"
+      },
+      "uncertainties": [
+        "停止割让后各州实际控制线未在本段逐一列出。"
+      ]
+    },
+    {
+      "action": "金朝规定京师至南京每五十里设驿，并续设上京、春州、泰州之间驿站。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-POSTAL-ROUTES-1124",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "京师—南京和东北诸州形成明载的驿传线路。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-JIN-V03-POSTAL-ROUTES-1124"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-postal-routes-1124",
+      "source_refs": [
+        "金史/卷3@2432693#始自京師至南京每五十里置驛。",
+        "金史/卷3@2432693#命置驛上京、春、泰之間。"
+      ],
+      "time_range": {
+        "end": "天会二年闰三月",
+        "precision": "range",
+        "start": "天会二年正月"
+      },
+      "uncertainties": [
+        "驿站总数、人员马匹与长期运行成本未载。"
+      ]
+    },
+    {
+      "action": "高丽水军杀害越境捕海物的金人后，太宗禁止未经命令再往；又命边军不得先犯高丽，即使先犯获胜也要处罚。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-GORYEO-RESTRAINT-1124",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金方确立不因小故启战、只在高丽侵略时应战的边境约束。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-GORYEO-RESTRAINT-1124"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-goryeo-restraint-1124",
+      "source_refs": [
+        "金史/卷3@2432693#以小故起戰爭，甚非所宜。今後非奉命，毋輒往。",
+        "金史/卷3@2432693#敢先犯彼，雖捷必罰。"
+      ],
+      "time_range": {
+        "end": "天会二年七月",
+        "precision": "range",
+        "start": "天会二年五月"
+      },
+      "uncertainties": [
+        "高丽所杀人数仅称二舟之人，确数未载。"
+      ]
+    },
+    {
+      "action": "娄室在余睹谷俘获辽主，押至上京后太宗告太祖庙并降封延禧为海滨王。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-LIAO-RULER-CAPTURE-1125",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽朝皇帝被俘并降封，金灭辽的最高政治目标闭合。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-LIAO-FINAL-CAPTURE-1125"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-LIAO-RULER-CAPTURE-1125"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-liao-ruler-capture-1125",
+      "source_refs": [
+        "金史/卷3@2432693#婁室獲遼主于余睹穀",
+        "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+      ],
+      "time_range": {
+        "end": "天会三年八月丙午",
+        "precision": "range",
+        "start": "天会三年二月壬戌"
+      },
+      "uncertainties": [
+        "辽残余势力并未因此即刻全部消失。"
+      ]
+    },
+    {
+      "action": "太宗禁止内外官和宗室私役百姓，禁止权势之家买贫民为奴，并对胁买、诈买规定高额赔偿和杖刑。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-LABOR-SLAVERY-PROTECTION-1125",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "对权贵侵占劳动力和强买贫民建立明确禁令与赔偿责任。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-JIN-V03-LABOR-SLAVERY-PROTECTION-1125"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-labor-slavery-protection-1125",
+      "source_refs": [
+        "金史/卷3@2432693#禁內外官、宗室毋私役百姓。",
+        "金史/卷3@2432693#其脅買者一人償十五人，詐買者一人償二人，皆杖一百。"
+      ],
+      "time_range": {
+        "end": "天会三年七月",
+        "precision": "month",
+        "start": "天会三年七月"
+      },
+      "uncertainties": [
+        "实际执法案件和获释人数未载。"
+      ]
+    },
+    {
+      "action": "辽主被俘后，太宗命诸将分西京、南京两路伐宋，设都元帅、副元帅和各路都统。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-SONG-WAR-DECISION-1125",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金宋战争进入国家级双路进攻，十二月即突破燕山、朔代和河北多地。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-SONG-WAR-DECISION-1125"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-song-war-decision-1125",
+      "source_refs": [
+        "金史/卷3@2432693#十月甲辰，詔諸將伐宋。以諳班勃極烈杲兼領都元帥，移賚勃極烈宗翰兼左副元帥先鋒"
+      ],
+      "time_range": {
+        "end": "天会三年十月",
+        "precision": "month",
+        "start": "天会三年十月"
+      },
+      "uncertainties": [
+        "诏令未在此详列伐宋全部理由。"
+      ]
+    },
+    {
+      "action": "金军由朔代、燕山两路推进，破白河、古北口并取多州，渡河围汴；宋以质子、三镇、增岁币和伯侄称谓求和，姚平仲劫营失败后金军再围而还。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-FIRST-SONG-CAMPAIGN-1125-1126",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "第一次围汴以宋提交誓书、质子和割地增币条件暂时解围，金军撤回但太原仍受围。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-SONG-FIRST-KAIFENG-1125-1126"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-first-song-campaign-1125-1126",
+      "source_refs": [
+        "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+        "金史/卷3@2432693#，諸軍圍汴。甲",
+        "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+        "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+      ],
+      "time_range": {
+        "end": "天会四年二月",
+        "precision": "range",
+        "start": "天会三年十二月"
+      },
+      "uncertainties": [
+        "双方累计伤亡及三镇实际交割未在此闭合。"
+      ]
+    },
+    {
+      "action": "金军击败种师中、姚古等援军，第二次分路伐宋，攻克太原、真定及河东河北多州，十一月会师汴京并攻城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-SECOND-SONG-CAMPAIGN-1126",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "闰十一月汴城被克，十二月宋钦宗投降并回汴，北宋中央军事抵抗崩溃。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-SONG-SECOND-KAIFENG-1126"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-second-song-campaign-1126",
+      "source_refs": [
+        "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+        "金史/卷3@2432693#九月丙寅，宗翰克太原",
+        "金史/卷3@2432693#丙辰，克汴城。",
+        "金史/卷3@2432693#十二月癸亥，宋主桓降"
+      ],
+      "time_range": {
+        "end": "天会四年十二月",
+        "precision": "range",
+        "start": "天会四年五月"
+      },
+      "uncertainties": [
+        "各地攻守伤亡与城市损失未完整载明。"
+      ]
+    },
+    {
+      "action": "丰年时太宗按每牛具征粟一石、每谋克设廪备荒；宋主投降后又诏长吏劝农，次年将内地储粮标准调为每牛具五斗。",
+      "actors": [],
+      "affected_groups": [
+        "内地农户",
+        "新附农民"
+      ],
+      "cost_or_burden": "民户按牛具负担一石、后为五斗的储粮征收。",
+      "fact_id": "CHF-JIN-V03-AGRICULTURE-RESERVE-1126-1127",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金朝建立按牛具征储、谋克设仓的备荒制度，并把劝农用于新征服地区。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-JIN-V03-AGRICULTURE-RESERVE-1126-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-agriculture-reserve-1126-1127",
+      "source_refs": [
+        "金史/卷3@2432693#其令牛一具賦粟一石，每謀克爲一廩貯之。",
+        "金史/卷3@2432693#其令所在長吏，敦勸農功。",
+        "金史/卷3@2432693#內地諸路，每耕牛一具賦粟五鬥，以備歉歲。"
+      ],
+      "time_range": {
+        "end": "天会五年九月",
+        "precision": "range",
+        "start": "天会四年十月"
+      },
+      "uncertainties": [
+        "一石改五斗的政策关系及仓储损耗未详。"
+      ]
+    },
+    {
+      "action": "太宗将宋徽钦二帝降为庶人，不采纳复立赵氏建议，立张邦昌为大楚皇帝；赵构随后在归德即位并杀张邦昌。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北宋皇统被金废黜，金扶植的大楚迅速失败，南宋政权另行建立。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-northern-song-settlement-1127",
+      "source_refs": [
+        "金史/卷3@2432693#詔降宋二帝爲庶人。",
+        "金史/卷3@2432693#立宋太宰張邦昌爲大楚皇帝。",
+        "金史/卷3@2432693#宋康王構即位于歸德。宋殺張邦昌。"
+      ],
+      "time_range": {
+        "end": "天会五年五月",
+        "precision": "range",
+        "start": "天会五年二月"
+      },
+      "uncertainties": [
+        "大楚地方实际控制范围和民众反应未载。"
+      ]
+    },
+    {
+      "action": "金军在山西、河北、山东、河南连续攻取州县并镇压复叛，太宗要求先招辑、禁止军队为俘掠而毁城；天会六年继续夺取青州、大名、京兆、延安等地。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-NORTH-CHINA-PACIFICATION-1127-1128",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "河东河北及山东河南大片州县转入金控制，但多地叛服不常，军事占领仍需持续安抚。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-SONG-NORTH-CHINA-1127-1128"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-north-china-pacification-1127-1128",
+      "source_refs": [
+        "金史/卷3@2432693#其申諭以理，招輯安全之。儻執不移，自當致討。若諸軍敢利于俘掠輒肆蕩毀者，底于罰。",
+        "金史/卷3@2432693#宗輔克大名府。"
+      ],
+      "time_range": {
+        "end": "天会六年七月",
+        "precision": "range",
+        "start": "天会五年四月"
+      },
+      "uncertainties": [
+        "合并战区内各州伤亡和破坏程度未完整载明。"
+      ]
+    },
+    {
+      "action": "因河北河东郡县缺官，太宗下令开贡举取士，南北进士分别按原业考试以安新民。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-EXAMS-NEW-SUBJECTS-1127",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金朝以考试补充新征服地区官员，向辽宋士人开放制度化入仕通道。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-EXAMS-NEW-SUBJECTS-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-exams-new-subjects-1127",
+      "source_refs": [
+        "金史/卷3@2432693#河北、河東郡縣職員多闕，宜開貢舉取士，以安新民。其南北進士，各以所業試之。"
+      ],
+      "time_range": {
+        "end": "天会五年八月",
+        "precision": "month",
+        "start": "天会五年八月"
+      },
+      "uncertainties": [
+        "首批录取人数和任职分布未载。"
+      ]
+    },
+    {
+      "action": "金军由扬州、寿春、江宁推进，渡江攻取和州、湖州、杭州、明州等地，追宋高宗至入海；返程在镇江受挫后于江宁再胜并北还。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-SOUTHERN-PURSUIT-1129-1130",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金军深入江南并迫宋主入海，但未能擒获宋主，也未保持对江南诸城的稳定占领。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-SONG-SOUTHERN-PURSUIT-1129-1130"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-southern-pursuit-1129-1130",
+      "source_refs": [
+        "金史/卷3@2432693#丁亥，克杭州。阿里、蒲盧渾追宋主于明州。",
+        "金史/卷3@2432693#宋主入于海。",
+        "金史/卷3@2432693#宗弼及宋韓世忠戰于鎮江，不利。",
+        "金史/卷3@2432693#復戰于江寧，敗之。諸軍渡江。"
+      ],
+      "time_range": {
+        "end": "天会八年四月",
+        "precision": "range",
+        "start": "天会七年五月"
+      },
+      "uncertainties": [
+        "各城占领持续时间、民众损失及金军返程损失未完整载明。"
+      ]
+    },
+    {
+      "action": "金朝册立刘豫为大齐皇帝并都大名；宗辅在富平击败张浚军，随后攻取泾原熙河多州，但宗弼在和尚原败于吴玠。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-DAQI-FUPING-1130",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金以大齐承接部分中原统治并控制陕西多州，西线仍因和尚原败绩存在反复。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-SONG-SHAANXI-FUPING-1130-1131"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-daqi-fuping-1130",
+      "source_refs": [
+        "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+        "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+        "金史/卷3@2432693#涇原、熙河兩路皆平。",
+        "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+      ],
+      "time_range": {
+        "end": "天会九年十月",
+        "precision": "range",
+        "start": "天会八年九月"
+      },
+      "uncertainties": [
+        "大齐实际自主程度与富平双方伤亡未载。"
+      ]
+    },
+    {
+      "action": "太宗命官府赎回戍边户典质的亲属奴婢，补足每户四口，缺牛者给官牛；军粮不足时从民间借粟并赈恤，续迁户暂缓至收获和来春再行。",
+      "actors": [],
+      "affected_groups": [
+        "新迁戍边户",
+        "边军",
+        "中途待迁户"
+      ],
+      "cost_or_burden": "官府承担赎人、补奴婢、给牛和赈粮支出。",
+      "fact_id": "CHF-JIN-V03-BORDER-HOUSEHOLDS-1131",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "戍边户获得人口、耕牛、粮食和迁徙时间安排，并另遣使各路劝农。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-JIN-V03-BORDER-HOUSEHOLDS-1131"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-border-households-1131",
+      "source_refs": [
+        "金史/卷3@2432693#戶計其口而有二三者，以官奴婢益之，使戶爲四口。又乏耕牛者，給以官牛，別委官勸督田作。",
+        "金史/卷3@2432693#其續遷戍戶在中路者，姑止之，即其地種藝，俟畢獲而行"
+      ],
+      "time_range": {
+        "end": "天会九年五月",
+        "precision": "range",
+        "start": "天会九年四月"
+      },
+      "uncertainties": [
+        "受益户数、牛数和借粟总量未载。"
+      ]
+    },
+    {
+      "action": "太宗废除辽制士庶赋役等级差别，令赋役一律均平；同时立太祖孙亶为谙班勃极烈并重排勃极烈、元帅职次。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-TAX-EQUALITY-HEIR-1132",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "赋役身份规则趋于统一，皇位继承人确定回到太祖嫡孙亶，军政高层重新配置。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-TAX-EQUALITY-HEIR-1132"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-tax-equality-heir-1132",
+      "source_refs": [
+        "金史/卷3@2432693#昔遼人分士庶之族，賦役皆有等差，其悉均之。",
+        "金史/卷3@2432693#乙太祖孫亶爲諳班勃極烈"
+      ],
+      "time_range": {
+        "end": "天会十年四月",
+        "precision": "range",
+        "start": "天会十年正月"
+      },
+      "uncertainties": [
+        "赋役均平的税额变化及高层重排的完整协商过程未载。"
+      ]
+    },
+    {
+      "action": "耶律余睹谋反出奔后被追斩；撒离喝获准进取剑外十三州，攻金州、破饶峰关、取洋州兴元府，后又与吴玠持续作战并克和尚原。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-YUDU-JIANWAI-1132-1133",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "余睹叛乱被清除，金军一度深入汉中并在和尚原方向恢复战果。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-SONG-JIANWAI-1132-1133"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-yudu-jianwai-1132-1133",
+      "source_refs": [
+        "金史/卷3@2432693#元帥右都監耶律餘睹謀反，出奔。",
+        "金史/卷3@2432693#部族節度使土古廝捕斬余睹及其諸子",
+        "金史/卷3@2432693#撒離喝敗吳玠于饒峰關。",
+        "金史/卷3@2432693#宗弼克和尚原。"
+      ],
+      "time_range": {
+        "end": "天会十一年十一月",
+        "precision": "range",
+        "start": "天会十年九月"
+      },
+      "uncertainties": [
+        "剑外十三州实际控制范围和持续时间未载。"
+      ]
+    },
+    {
+      "action": "元帅府担心赈军钱币不足而请官员捐俸，太宗拒绝向臣下取钱、命全部由官府支付；随后收回帅府自行授官权，改由朝廷统一选注。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "赈军支出全部由官府库藏负担。",
+      "fact_id": "CHF-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "军士赈给责任由国库承担，战争时期的前线授官权回归中央。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-treasury-relief-central-appointment-1133",
+      "source_refs": [
+        "金史/卷3@2432693#官有府庫而取于臣下，此何理耶？其悉從官給。",
+        "金史/卷3@2432693#嘗命帥府自擇人授官，今並從朝廷選注。"
+      ],
+      "time_range": {
+        "end": "天会十一年八月",
+        "precision": "range",
+        "start": "天会十一年二月"
+      },
+      "uncertainties": [
+        "赈军金额和收权后首批选注名单未载。"
+      ]
+    },
+    {
+      "action": "太宗在天会十二年改定制度并诏告中外；次年崩于明德宫，谙班勃极烈亶在柩前即皇帝位。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "太宗朝制度整合告一阶段，皇位按此前安排回归太祖孙熙宗。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135"
+        }
+      ],
+      "semantic_fingerprint": "chf-jin-v03-institution-reform-succession-1134-1135",
+      "source_refs": [
+        "金史/卷3@2432693#初改定制度，詔中外。",
+        "金史/卷3@2432693#己巳，上崩于明德宮，年六十一。庚午，諳班勃極烈即皇帝位于柩前。"
+      ],
+      "time_range": {
+        "end": "天会十三年正月庚午",
+        "precision": "range",
+        "start": "天会十二年正月"
+      },
+      "uncertainties": [
+        "改定制度的逐项内容不在本纪展开。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "天会初年以免息、减租、粮种和官赎救济歉收及新附人口。",
+      "actors": [],
+      "affected_groups": [
+        "歉收民户",
+        "新附民",
+        "卖身者"
+      ],
+      "candidate_ref": "FIN-CAND-JIN-V03-RELIEF-REDEMPTION-1123-1124",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "免租、赈粮及官赎形成财政支出；已知给宗翰田种千石、米七千石，另赎六百余人。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-RELIEF-REDEMPTION-1123-1124"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "受灾、新附和被迫卖身人口获得连续减负、粮种与赎身措施。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-jin-v03-relief-redemption-1123-1124",
+      "source_refs": [
+        "金史/卷3@2432693#蠲民間貸息。",
+        "金史/卷3@2432693#以東京比歲不登，詔減田租、市租之半。",
+        "金史/卷3@2432693#命給宗翰馬七百匹、田種千石、米七千石，以賑新附之民。",
+        "金史/卷3@2432693#詔贖上京路新遷甯江州戶口賣身者六百餘人。"
+      ],
+      "thread_ref": "FIN-THREAD-JIN-V03-RELIEF-REDEMPTION-1123-1124",
+      "time_range": {
+        "end": "天会二年四月",
+        "precision": "range",
+        "start": "天会元年十二月"
+      },
+      "uncertainties": [
+        "除明载项目外，总受益户数和财政总额未载。"
+      ]
+    },
+    {
+      "action": "太宗以禁私役、禁买贫民和加倍赔偿保护平民人身与劳力。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-JIN-V03-LABOR-SLAVERY-PROTECTION-1125",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-LABOR-SLAVERY-PROTECTION-1125"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "对权贵侵占劳动力和强买贫民建立明确禁令与赔偿责任。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-jin-v03-labor-slavery-protection-1125",
+      "source_refs": [
+        "金史/卷3@2432693#禁內外官、宗室毋私役百姓。",
+        "金史/卷3@2432693#其脅買者一人償十五人，詐買者一人償二人，皆杖一百。"
+      ],
+      "thread_ref": "FIN-THREAD-JIN-V03-LABOR-SLAVERY-PROTECTION-1125",
+      "time_range": {
+        "end": "天会三年七月",
+        "precision": "month",
+        "start": "天会三年七月"
+      },
+      "uncertainties": [
+        "实际执法案件和获释人数未载。"
+      ]
+    },
+    {
+      "action": "太宗按牛具征粟、谋克设仓备荒并督促新附地区农业。",
+      "actors": [],
+      "affected_groups": [
+        "内地农户",
+        "新附农民"
+      ],
+      "candidate_ref": "FIN-CAND-JIN-V03-AGRICULTURE-RESERVE-1126-1127",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "民户按牛具负担一石、后为五斗的储粮征收。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-AGRICULTURE-RESERVE-1126-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "金朝建立按牛具征储、谋克设仓的备荒制度，并把劝农用于新征服地区。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-jin-v03-agriculture-reserve-1126-1127",
+      "source_refs": [
+        "金史/卷3@2432693#其令牛一具賦粟一石，每謀克爲一廩貯之。",
+        "金史/卷3@2432693#其令所在長吏，敦勸農功。",
+        "金史/卷3@2432693#內地諸路，每耕牛一具賦粟五鬥，以備歉歲。"
+      ],
+      "thread_ref": "FIN-THREAD-JIN-V03-AGRICULTURE-RESERVE-1126-1127",
+      "time_range": {
+        "end": "天会五年九月",
+        "precision": "range",
+        "start": "天会四年十月"
+      },
+      "uncertainties": [
+        "一石改五斗的政策关系及仓储损耗未详。"
+      ]
+    },
+    {
+      "action": "太宗为戍边户补人口、给牛粮并按农时调整迁徙。",
+      "actors": [],
+      "affected_groups": [
+        "新迁戍边户",
+        "边军",
+        "中途待迁户"
+      ],
+      "candidate_ref": "FIN-CAND-JIN-V03-BORDER-HOUSEHOLDS-1131",
+      "continuity_status": "single_event",
+      "cost_or_burden": "官府承担赎人、补奴婢、给牛和赈粮支出。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-BORDER-HOUSEHOLDS-1131"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "戍边户获得人口、耕牛、粮食和迁徙时间安排，并另遣使各路劝农。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-jin-v03-border-households-1131",
+      "source_refs": [
+        "金史/卷3@2432693#戶計其口而有二三者，以官奴婢益之，使戶爲四口。又乏耕牛者，給以官牛，別委官勸督田作。",
+        "金史/卷3@2432693#其續遷戍戶在中路者，姑止之，即其地種藝，俟畢獲而行"
+      ],
+      "thread_ref": "FIN-THREAD-JIN-V03-BORDER-HOUSEHOLDS-1131",
+      "time_range": {
+        "end": "天会九年五月",
+        "precision": "range",
+        "start": "天会九年四月"
+      },
+      "uncertainties": [
+        "受益户数、牛数和借粟总量未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "本卷为8741字固定正文一次人工通读后的紧凑shadow登记。",
+    "同一年度同一战略目标的州县攻取合并为战役链，不把普通任免、贡聘、巡幸和祥异单列。",
+    "战区聚合保留明确武装行动和关键结果，不据后文补写本卷未载伤亡。",
+    "卷4尚未读取，熙宗即位后的结果不反填。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "吴乞买即位并以大赦、救济开启天会朝。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-TAIZONG-SUCCESSION-1123",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TAIZONG-SUCCESSION-1123"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "太宗完成皇位承接，随即以发粟、猛安赋米救济迁入上京和内地匮乏户口。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "太宗完成皇位承接，随即以发粟、猛安赋米救济迁入上京和内地匮乏户口。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-taizong-succession-1123",
+      "source_refs": [
+        "金史/卷3@2432693#丙辰，即皇帝位。己未，告祀天地。丙寅，大赦中外。改天輔七年爲天會元年。",
+        "金史/卷3@2432693#癸酉，發春州粟，賑降人之徙于上京者。戊寅，詔諸猛安賦米，給戶口在內地匱乏者。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-TAIZONG-SUCCESSION-1123",
+      "time_range": {
+        "end": "天会元年九月",
+        "precision": "month",
+        "start": "天会元年九月"
+      },
+      "uncertainties": [
+        "首次发粟和赋米数量未载。"
+      ]
+    },
+    {
+      "action": "太宗在守太祖承诺与前线意见间逆转对宋山西割地决定。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-TERRITORY-COMMITMENTS-1124",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TERRITORY-COMMITMENTS-1124"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "对宋土地承诺发生逆转，对西夏称藩与授地继续执行，三方疆界安排分化。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "对宋土地承诺发生逆转，对西夏称藩与授地继续执行，三方疆界安排分化。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-territory-commitments-1124",
+      "source_refs": [
+        "金史/卷3@2432693#是違先帝之命也，其速與之。",
+        "金史/卷3@2432693#既許割山西諸鎮與宋，以宗翰言罷之。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-TERRITORY-COMMITMENTS-1124",
+      "time_range": {
+        "end": "天会二年闰三月",
+        "precision": "range",
+        "start": "天会二年正月"
+      },
+      "uncertainties": [
+        "停止割让后各州实际控制线未在本段逐一列出。"
+      ]
+    },
+    {
+      "action": "太宗禁止部属因捕海物或边情先犯高丽。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-GORYEO-RESTRAINT-1124",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-GORYEO-RESTRAINT-1124"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "金方确立不因小故启战、只在高丽侵略时应战的边境约束。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "金方确立不因小故启战、只在高丽侵略时应战的边境约束。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-goryeo-restraint-1124",
+      "source_refs": [
+        "金史/卷3@2432693#以小故起戰爭，甚非所宜。今後非奉命，毋輒往。",
+        "金史/卷3@2432693#敢先犯彼，雖捷必罰。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-GORYEO-RESTRAINT-1124",
+      "time_range": {
+        "end": "天会二年七月",
+        "precision": "range",
+        "start": "天会二年五月"
+      },
+      "uncertainties": [
+        "高丽所杀人数仅称二舟之人，确数未载。"
+      ]
+    },
+    {
+      "action": "辽主被俘降封，辽朝中央统治终结。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-LIAO-RULER-CAPTURE-1125",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-LIAO-RULER-CAPTURE-1125"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "辽朝皇帝被俘并降封，金灭辽的最高政治目标闭合。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "辽朝皇帝被俘并降封，金灭辽的最高政治目标闭合。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-liao-ruler-capture-1125",
+      "source_refs": [
+        "金史/卷3@2432693#婁室獲遼主于余睹穀",
+        "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-LIAO-RULER-CAPTURE-1125",
+      "time_range": {
+        "end": "天会三年八月丙午",
+        "precision": "range",
+        "start": "天会三年二月壬戌"
+      },
+      "uncertainties": [
+        "辽残余势力并未因此即刻全部消失。"
+      ]
+    },
+    {
+      "action": "太宗在灭辽后设双路统帅体系发动伐宋。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-SONG-WAR-DECISION-1125",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-SONG-WAR-DECISION-1125"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "金宋战争进入国家级双路进攻，十二月即突破燕山、朔代和河北多地。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "金宋战争进入国家级双路进攻，十二月即突破燕山、朔代和河北多地。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-song-war-decision-1125",
+      "source_refs": [
+        "金史/卷3@2432693#十月甲辰，詔諸將伐宋。以諳班勃極烈杲兼領都元帥，移賚勃極烈宗翰兼左副元帥先鋒"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-SONG-WAR-DECISION-1125",
+      "time_range": {
+        "end": "天会三年十月",
+        "precision": "month",
+        "start": "天会三年十月"
+      },
+      "uncertainties": [
+        "诏令未在此详列伐宋全部理由。"
+      ]
+    },
+    {
+      "action": "金废宋二帝并扶植张邦昌，继而面对赵构建立南宋。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "北宋皇统被金废黜，金扶植的大楚迅速失败，南宋政权另行建立。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "北宋皇统被金废黜，金扶植的大楚迅速失败，南宋政权另行建立。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-northern-song-settlement-1127",
+      "source_refs": [
+        "金史/卷3@2432693#詔降宋二帝爲庶人。",
+        "金史/卷3@2432693#立宋太宰張邦昌爲大楚皇帝。",
+        "金史/卷3@2432693#宋康王構即位于歸德。宋殺張邦昌。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127",
+      "time_range": {
+        "end": "天会五年五月",
+        "precision": "range",
+        "start": "天会五年二月"
+      },
+      "uncertainties": [
+        "大楚地方实际控制范围和民众反应未载。"
+      ]
+    },
+    {
+      "action": "太宗为新附郡县开贡举，按南北士人原业取官。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-EXAMS-NEW-SUBJECTS-1127",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-EXAMS-NEW-SUBJECTS-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "金朝以考试补充新征服地区官员，向辽宋士人开放制度化入仕通道。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "金朝以考试补充新征服地区官员，向辽宋士人开放制度化入仕通道。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-exams-new-subjects-1127",
+      "source_refs": [
+        "金史/卷3@2432693#河北、河東郡縣職員多闕，宜開貢舉取士，以安新民。其南北進士，各以所業試之。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-EXAMS-NEW-SUBJECTS-1127",
+      "time_range": {
+        "end": "天会五年八月",
+        "precision": "month",
+        "start": "天会五年八月"
+      },
+      "uncertainties": [
+        "首批录取人数和任职分布未载。"
+      ]
+    },
+    {
+      "action": "太宗统一士庶赋役规则并确立太祖孙亶为继承人。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-TAX-EQUALITY-HEIR-1132",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TAX-EQUALITY-HEIR-1132"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "赋役身份规则趋于统一，皇位继承人确定回到太祖嫡孙亶，军政高层重新配置。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "赋役身份规则趋于统一，皇位继承人确定回到太祖嫡孙亶，军政高层重新配置。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-tax-equality-heir-1132",
+      "source_refs": [
+        "金史/卷3@2432693#昔遼人分士庶之族，賦役皆有等差，其悉均之。",
+        "金史/卷3@2432693#乙太祖孫亶爲諳班勃極烈"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-TAX-EQUALITY-HEIR-1132",
+      "time_range": {
+        "end": "天会十年四月",
+        "precision": "range",
+        "start": "天会十年正月"
+      },
+      "uncertainties": [
+        "赋役均平的税额变化及高层重排的完整协商过程未载。"
+      ]
+    },
+    {
+      "action": "太宗以国库承担赈军并收回帅府授官权。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133",
+      "continuity_status": "single_event",
+      "cost_or_burden": "赈军支出全部由官府库藏负担。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "军士赈给责任由国库承担，战争时期的前线授官权回归中央。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "军士赈给责任由国库承担，战争时期的前线授官权回归中央。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-treasury-relief-central-appointment-1133",
+      "source_refs": [
+        "金史/卷3@2432693#官有府庫而取于臣下，此何理耶？其悉從官給。",
+        "金史/卷3@2432693#嘗命帥府自擇人授官，今並從朝廷選注。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133",
+      "time_range": {
+        "end": "天会十一年八月",
+        "precision": "range",
+        "start": "天会十一年二月"
+      },
+      "uncertainties": [
+        "赈军金额和收权后首批选注名单未载。"
+      ]
+    },
+    {
+      "action": "太宗改定制度后崩逝，亶按既定继承安排即位。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "太宗朝制度整合告一阶段，皇位按此前安排回归太祖孙熙宗。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "太宗朝制度整合告一阶段，皇位按此前安排回归太祖孙熙宗。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-jin-v03-institution-reform-succession-1134-1135",
+      "source_refs": [
+        "金史/卷3@2432693#初改定制度，詔中外。",
+        "金史/卷3@2432693#己巳，上崩于明德宮，年六十一。庚午，諳班勃極烈即皇帝位于柩前。"
+      ],
+      "thread_ref": "POL-THREAD-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135",
+      "time_range": {
+        "end": "天会十三年正月庚午",
+        "precision": "range",
+        "start": "天会十二年正月"
+      },
+      "uncertainties": [
+        "改定制度的逐项内容不在本纪展开。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "金朝建立京师至南京及上京—春—泰州驿传网络。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-JIN-V03-POSTAL-ROUTES-1124",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-JIN-V03-POSTAL-ROUTES-1124"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "京师—南京和东北诸州形成明载的驿传线路。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-jin-v03-postal-routes-1124",
+      "source_refs": [
+        "金史/卷3@2432693#始自京師至南京每五十里置驛。",
+        "金史/卷3@2432693#命置驛上京、春、泰之間。"
+      ],
+      "thread_ref": "WORK-THREAD-JIN-V03-POSTAL-ROUTES-1124",
+      "time_range": {
+        "end": "天会二年闰三月",
+        "precision": "range",
+        "start": "天会二年正月"
+      },
+      "uncertainties": [
+        "驿站总数、人员马匹与长期运行成本未载。"
+      ]
+    }
+  ],
+  "registry_version": "JIN-JINSHI-V03-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "天会十三年太宗崩、熙宗即位及史臣总论",
+    "input_fingerprint": "b6fef78185227ddc5e479377ee2fe851a3b436897f406ea71c2a6fb03bba79ff",
+    "overlap_context": "续卷2太祖崩与张觉之乱；卷4续熙宗天会十三年以后。",
+    "revision_ref": "2432693",
+    "start_locator": "太宗吴乞买为谙班勃极烈及天会元年即位",
+    "volume_ref": "卷3",
+    "work": "金史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V03-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TAIZONG-SUCCESSION-1123"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-taizong-succession-1123",
+      "status": "closed",
+      "summary": "吴乞买即位并以大赦、救济开启天会朝。",
+      "thread_ref": "POL-THREAD-JIN-V03-TAIZONG-SUCCESSION-1123",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-RELIEF-REDEMPTION-1123-1124"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-jin-v03-relief-redemption-1123-1124",
+      "status": "closed",
+      "summary": "天会初年以免息、减租、粮种和官赎救济歉收及新附人口。",
+      "thread_ref": "FIN-THREAD-JIN-V03-RELIEF-REDEMPTION-1123-1124",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TERRITORY-COMMITMENTS-1124"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-territory-commitments-1124",
+      "status": "closed",
+      "summary": "太宗在守太祖承诺与前线意见间逆转对宋山西割地决定。",
+      "thread_ref": "POL-THREAD-JIN-V03-TERRITORY-COMMITMENTS-1124",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-JIN-V03-POSTAL-ROUTES-1124"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-jin-v03-postal-routes-1124",
+      "status": "closed",
+      "summary": "金朝建立京师至南京及上京—春—泰州驿传网络。",
+      "thread_ref": "WORK-THREAD-JIN-V03-POSTAL-ROUTES-1124",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-GORYEO-RESTRAINT-1124"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-goryeo-restraint-1124",
+      "status": "closed",
+      "summary": "太宗禁止部属因捕海物或边情先犯高丽。",
+      "thread_ref": "POL-THREAD-JIN-V03-GORYEO-RESTRAINT-1124",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-LIAO-RULER-CAPTURE-1125"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-liao-ruler-capture-1125",
+      "status": "closed",
+      "summary": "辽主被俘降封，辽朝中央统治终结。",
+      "thread_ref": "POL-THREAD-JIN-V03-LIAO-RULER-CAPTURE-1125",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-LABOR-SLAVERY-PROTECTION-1125"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-jin-v03-labor-slavery-protection-1125",
+      "status": "closed",
+      "summary": "太宗以禁私役、禁买贫民和加倍赔偿保护平民人身与劳力。",
+      "thread_ref": "FIN-THREAD-JIN-V03-LABOR-SLAVERY-PROTECTION-1125",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-SONG-WAR-DECISION-1125"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-song-war-decision-1125",
+      "status": "closed",
+      "summary": "太宗在灭辽后设双路统帅体系发动伐宋。",
+      "thread_ref": "POL-THREAD-JIN-V03-SONG-WAR-DECISION-1125",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-AGRICULTURE-RESERVE-1126-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-jin-v03-agriculture-reserve-1126-1127",
+      "status": "closed",
+      "summary": "太宗按牛具征粟、谋克设仓备荒并督促新附地区农业。",
+      "thread_ref": "FIN-THREAD-JIN-V03-AGRICULTURE-RESERVE-1126-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-northern-song-settlement-1127",
+      "status": "closed",
+      "summary": "金废宋二帝并扶植张邦昌，继而面对赵构建立南宋。",
+      "thread_ref": "POL-THREAD-JIN-V03-NORTHERN-SONG-SETTLEMENT-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-EXAMS-NEW-SUBJECTS-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-exams-new-subjects-1127",
+      "status": "closed",
+      "summary": "太宗为新附郡县开贡举，按南北士人原业取官。",
+      "thread_ref": "POL-THREAD-JIN-V03-EXAMS-NEW-SUBJECTS-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-JIN-V03-BORDER-HOUSEHOLDS-1131"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-jin-v03-border-households-1131",
+      "status": "closed",
+      "summary": "太宗为戍边户补人口、给牛粮并按农时调整迁徙。",
+      "thread_ref": "FIN-THREAD-JIN-V03-BORDER-HOUSEHOLDS-1131",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TAX-EQUALITY-HEIR-1132"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-tax-equality-heir-1132",
+      "status": "closed",
+      "summary": "太宗统一士庶赋役规则并确立太祖孙亶为继承人。",
+      "thread_ref": "POL-THREAD-JIN-V03-TAX-EQUALITY-HEIR-1132",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-treasury-relief-central-appointment-1133",
+      "status": "closed",
+      "summary": "太宗以国库承担赈军并收回帅府授官权。",
+      "thread_ref": "POL-THREAD-JIN-V03-TREASURY-RELIEF-CENTRAL-APPOINTMENT-1133",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-jin-v03-institution-reform-succession-1134-1135",
+      "status": "closed",
+      "summary": "太宗改定制度后崩逝，亶按既定继承安排即位。",
+      "thread_ref": "POL-THREAD-JIN-V03-INSTITUTION-REFORM-SUCCESSION-1134-1135",
+      "uncertainties": []
+    }
+  ]
+}

@@ -1,0 +1,1106 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V20-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V20-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷20",
+    "revision_ref": "2433519",
+    "start_locator": "道光三十年文宗即位",
+    "end_locator": "咸丰十一年文宗崩",
+    "overlap_context": "承接卷19道光崩逝与奕詝继承；本卷登记咸丰朝太平天国、捻军及多地内乱、第二次鸦片战争、军费财政、灾赈河工、边界交涉和政制转折。",
+    "input_fingerprint": "bd6ce458c2f9794d2339e635e3ae374fdfc9aa56be538e290a0881d91d1e3994"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷20正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列；同一战区连续行动按阶段合并。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V20-XIANFENG-ACCESSION-1850",
+      "time": [
+        "道光三十年正月",
+        "1850",
+        "month"
+      ],
+      "subject": "奕詝与清廷",
+      "action": "宣宗去世后，皇太子奕詝即位并改次年为咸丰元年。",
+      "result": "咸丰朝正式开始；此为卷19同一继承事件的卷首复述锚点，duplicate-of CHF-QING-V19-DAOGUANG-DEATH-SUCCESSION-1850。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "宣宗崩，己未，上即位，頒詔覃恩，以明年為咸豐元年。"
+      ],
+      "unknown": [
+        "仅保留逐卷史源锚点，不另作可消费政治闭环；duplicate-of CHF-QING-V19-DAOGUANG-DEATH-SUCCESSION-1850。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-EARLY-ADMIN-FISCAL-REFORM-1850",
+      "time": [
+        "道光三十年四月至十一月",
+        "1850",
+        "range"
+      ],
+      "subject": "咸丰帝与中央、地方官员",
+      "action": "即位初清廷整顿财政和州县吏治，革除财弊，罢黜穆彰阿、贬耆英，并拨各省藩库杂款充作军需。",
+      "result": "新朝以整饬吏治和财政启动施政，同时把地方存款转入军费。",
+      "groups": [
+        "纳税民户",
+        "地方官员",
+        "军队"
+      ],
+      "quote": [
+        "戶部疏陳整頓財政，臚陳各弊，得旨：實力革除。",
+        "多倚胥吏而朘閭閻，民生何賴焉。",
+        "即行褫職。協辦大學士耆英無恥無能，降員外郎。",
+        "敕各省籓庫積存雜款，撥充軍需，暫緩開捐。"
+      ],
+      "unknown": [
+        "革弊成效、藩库拨款总额及基层执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EARLY-XIANFENG-ADMIN-REFORM",
+        "summary": "咸丰初整顿吏治财政并调整中枢权力。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-BAIMAO-RIVER-WORKS-1850",
+      "time": [
+        "道光三十年三月",
+        "1850",
+        "month"
+      ],
+      "subject": "清廷与江苏白茅河河工",
+      "action": "清廷疏浚江苏白茅河，并迁建海口石闸。",
+      "result": "白茅河水道与海口控制设施进入整治。",
+      "groups": [
+        "沿河民众",
+        "河工役夫"
+      ],
+      "quote": [
+        "濬江蘇白茅河，移建海口石徬於老徬橋。"
+      ],
+      "unknown": [
+        "工程规模、费用、工期和实际效益未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "BAIMAO-RIVER-DREDGING-1850",
+        "summary": "疏浚白茅河并迁建海口石闸。",
+        "continuity": "single_event",
+        "phase": "疏浚迁建",
+        "purpose": "水利与航运",
+        "operation_result": "实施结果未载"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-JINTIAN-YONGAN-UPRISING-1850-1852",
+      "time": [
+        "道光三十年六月",
+        "咸丰二年三月",
+        "range"
+      ],
+      "subject": "洪秀全太平军与清军",
+      "action": "洪秀全在金田起事，转战广西并攻占永安、建立太平天国；清军调集多省兵力围剿，太平军于咸丰二年突围进入湖南。",
+      "result": "广西地方起事发展为跨省战争，永安围堵失败，清军多名将领阵亡。",
+      "cost": "乌兰泰、长瑞、长寿、董光甲、邵鹤龄等死于军；军民总伤亡未载。",
+      "groups": [
+        "太平军",
+        "清军",
+        "广西民众",
+        "湖南民众"
+      ],
+      "quote": [
+        "廣東花縣人洪秀全在廣西桂平縣金田起事。",
+        "新墟眾首洪秀全陷永安州，踞之，僭號太平天國。",
+        "永安踞匪全數東竄",
+        "烏蘭泰追賊不利，總兵長瑞、長壽、董光甲、邵鶴齡均死之。"
+      ],
+      "unknown": [
+        "起事人数、各战伤亡与民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-TAIPING-JINTIAN-YONGAN-1850-1852",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-GUANGXI-WAR-FINANCE-1851",
+      "time": [
+        "咸丰元年三月至七月",
+        "1851",
+        "range"
+      ],
+      "subject": "咸丰帝与广西军需体系",
+      "action": "清廷发内帑银一百万两备广西军储，调运四川仓谷并拨江海关税银支应过境兵差，同时停止中外工程、限定南河岁修经费。",
+      "result": "中央和关税财源被集中用于广西战争，常规工程与河工支出受到压缩。",
+      "groups": [
+        "军队",
+        "纳税民户",
+        "河工役夫",
+        "沿河民众"
+      ],
+      "quote": [
+        "發內帑銀一百萬兩備廣西軍儲，發四川倉穀碾運湖南。",
+        "詔停中外一切工程。",
+        "撥江海關稅銀十五萬兩，解備湖北過境兵差。",
+        "敕南河歲修工程，以三百萬為率。"
+      ],
+      "unknown": [
+        "款粮实际到位、工程停办范围和长期财政影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "GUANGXI-WAR-FINANCE-1851",
+        "summary": "内帑、仓谷和关税转充广西军需，并压缩工程支出。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-DEBT-REMISSION-1851",
+      "time": [
+        "咸丰元年二月至十二月",
+        "1851",
+        "range"
+      ],
+      "subject": "咸丰帝与各省欠赋民户",
+      "action": "清廷普免道光三十年前民欠钱粮，并减免旗租、盐课及广西被兵州县额赋。",
+      "result": "长期积欠和战区税负获得大范围豁免。",
+      "groups": [
+        "欠赋民户",
+        "旗地佃户",
+        "盐户",
+        "广西战区民众"
+      ],
+      "quote": [
+        "詔免直省民欠錢糧巳入奏銷者，及於江蘇民欠漕糧，悉予蠲免。",
+        "是歲，普免道光三十年以前民欠錢糧。",
+        "又免廣西被賊八十六州縣額賦。"
+      ],
+      "unknown": [
+        "免欠总额、受益户数和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DEBT-REMISSION-1851",
+        "summary": "普免道光三十年前积欠并减轻战区、盐户等负担。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-FENGBEI-BREACH-1851-1853",
+      "time": [
+        "咸丰元年闰八月",
+        "咸丰三年九月",
+        "range"
+      ],
+      "subject": "清廷与南河丰北河工",
+      "action": "南河丰北三堡决口后，清廷议河海并运，后因军务紧急暂缓修工。",
+      "result": "河工处置让位于战争财政，修复闭环在本卷未载。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫",
+        "漕运相关民户"
+      ],
+      "quote": [
+        "南河豐北三堡河決。",
+        "詔議河海並運漕米章程。",
+        "以軍務方急，緩修豐北河工。"
+      ],
+      "unknown": [
+        "决口灾损、合龙时间、工费和漕运影响未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "FENGBEI-BREACH-1851",
+        "summary": "丰北决口修复因军务紧急而暂缓。",
+        "continuity": "continued_within_reign",
+        "phase": "决口与缓修",
+        "purpose": "防洪与漕运",
+        "operation_result": "修复未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-TAIPING-YANGTZE-ADVANCE-1852-1853",
+      "time": [
+        "咸丰二年四月",
+        "咸丰三年三月",
+        "range"
+      ],
+      "subject": "洪秀全太平军与清军",
+      "action": "太平军自广西入湖南，先后攻陷道州、郴州、岳州、汉阳、武昌，继沿江东进攻陷九江、安庆、江宁、镇江和扬州。",
+      "result": "太平军控制长江中下游多座重镇，以江宁为核心形成持续政权与战区。",
+      "cost": "常大淳、蒋文庆、祥厚等地方军政官员死难；军民总伤亡未载。",
+      "groups": [
+        "太平军",
+        "清军",
+        "长江流域民众"
+      ],
+      "quote": [
+        "洪秀全攻陷郴州。",
+        "賊陷武昌，巡撫常大淳死之。",
+        "賊陷安慶，蔣文慶死之",
+        "賊陷江寧，將軍祥厚、提督福珠洪阿等死之。",
+        "賊陷鎮江、揚州。"
+      ],
+      "unknown": [
+        "各城攻守伤亡、人口流徙和财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-TAIPING-YANGTZE-ADVANCE-1852-1853",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-TAIPING-NORTHERN-EXPEDITION-1853-1855",
+      "time": [
+        "咸丰三年五月",
+        "咸丰五年四月",
+        "range"
+      ],
+      "subject": "太平军林凤祥、李开芳部与僧格林沁、胜保等清军",
+      "action": "太平军自安徽北上，经河南、山西直入直隶并逼近天津；清军围堵独流、连镇和高唐，最终擒林凤祥、李开芳。",
+      "result": "太平天国北伐军被歼，京畿直接威胁解除。",
+      "cost": "双方总伤亡和军费未载。",
+      "groups": [
+        "太平军",
+        "清军",
+        "河南山西直隶民众"
+      ],
+      "quote": [
+        "。賊陷歸德。己",
+        "賊陷平陽，勝保兵至，敗之，復平陽。",
+        "賊陷獻縣、交河、滄州，進撲天津",
+        "僧格林沁奏攻克連鎮，首逆林鳳祥就擒。",
+        "攻克馮官屯賊巢，擒獲首逆李開芳，餘匪盡殲。"
+      ],
+      "unknown": [
+        "北伐军规模、沿途民损和各战伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-QING-TAIPING-NORTHERN-EXPEDITION-1853-1855",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-WARTIME-CURRENCY-AND-LEVIES-1853-1859",
+      "time": [
+        "咸丰三年二月",
+        "咸丰九年十月",
+        "range"
+      ],
+      "subject": "咸丰帝、户部与各省军需机构",
+      "action": "军费紧张下，清廷扣减文武官养廉充饷，发行银钞、当十大钱及铁钱铅钱，设上海关税、抽厘和米捐等多种筹饷渠道。",
+      "result": "战时财政转向货币扩张和多源征敛，军饷来源增加但民间负担与币制后果未闭合。",
+      "groups": [
+        "官员",
+        "商民",
+        "纳税民户",
+        "军队"
+      ],
+      "quote": [
+        "敕文臣三品以上養廉以四成、武臣二品以上以二成充軍饟。",
+        "，始制銀鈔。壬",
+        "始鑄當十大錢。",
+        "敕怡良於上海設關收稅。",
+        "鑄鐵錢、鉛錢。",
+        "何桂清請以海關盈餘用充軍饟，允之。",
+        "袁甲三請于山東東三府抽釐助饟，許之。"
+      ],
+      "unknown": [
+        "发行量、物价影响、征收净额和民间实际负担未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WARTIME-CURRENCY-AND-LEVIES",
+        "summary": "军兴后以减养廉、货币发行、关税抽厘和捐输筹饷。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-TUANLIAN-XIANG-ARMY-1852-1854",
+      "time": [
+        "咸丰二年十一月",
+        "咸丰四年十月",
+        "range"
+      ],
+      "subject": "曾国藩、地方绅士与湘军水陆师",
+      "action": "清廷命曾国藩和各省绅士办理团练，曾国藩编成水陆师后在湘潭取胜，进而收复岳州、武昌、汉阳并攻克田家镇。",
+      "result": "地方团练演变为能跨省作战的湘军，成为太平天国战场主要清军力量。",
+      "groups": [
+        "湘军",
+        "地方团练",
+        "太平军",
+        "湖南湖北民众"
+      ],
+      "quote": [
+        "詔在籍侍郎曾國籓督辦團練。",
+        "敕各省紳士在籍辦理團練。",
+        "曾國籓奏統帶水陸師萬七千人，自衡州起程馳赴湖北。",
+        "曾國籓克復湘潭",
+        "湖北、湖南官軍攻克武昌、漢陽。",
+        "曾國籓等奏攻克田家鎮"
+      ],
+      "unknown": [
+        "团练征集方式、总兵额、军饷和民间负担未载。"
+      ],
+      "battle": "CAMPAIGN-QING-XIANG-ARMY-COUNTEROFFENSIVE-1854",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-ARMY-REDUCTION-RELIEF-GRAIN-1852",
+      "time": [
+        "咸丰二年四月至八月",
+        "1852",
+        "range"
+      ],
+      "subject": "咸丰帝与户部、漕运和兵制机构",
+      "action": "清廷裁减乾隆朝增设名粮兵六万六千余名，截留漕米六十万石备江苏、山东赈济，并暂免米商赴湖北税。",
+      "result": "在军兴压力下压缩旧兵额，同时将漕粮和税收政策转向灾赈与粮食流通。",
+      "groups": [
+        "被裁兵丁",
+        "灾民",
+        "米商",
+        "江苏山东民众"
+      ],
+      "quote": [
+        "減乾隆朝所增名糧兵六萬六千餘名。",
+        "命截留漕米六十萬石，分運江蘇、山東備賑。",
+        "命暫免四川、江西商販運往湖北米稅。"
+      ],
+      "unknown": [
+        "裁兵安置、漕米实发数量和粮价影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ARMY-REDUCTION-AND-RELIEF-GRAIN-1852",
+        "summary": "裁减旧兵额并调漕粮、减米税以备赈济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-NIAN-CONFLICT-1850-1861",
+      "time": [
+        "道光三十年八月",
+        "咸丰十一年五月",
+        "range"
+      ],
+      "subject": "河南、安徽、山东等地捻军与清军",
+      "action": "捻军在豫皖鲁苏等地持续活动，攻陷或围攻多州县，并时与太平军协同行动；清廷不断调胜保、僧格林沁、袁甲三等分区进剿招抚。",
+      "result": "部分据点和首领被攻破、招降，但至咸丰末年战事仍未结束。",
+      "cost": "邱联恩、伊兴阿等战死；双方与民众总损失未载。",
+      "groups": [
+        "捻军",
+        "清军",
+        "豫皖鲁苏民众"
+      ],
+      "quote": [
+        "河南捻匪結黨成群，甚至擾及鄰省",
+        "安徽捻匪竄擾蒙城。",
+        "捻匪竄山東，陷單縣。",
+        "發逆、捻匪會攻壽州，官軍擊卻之。",
+        "山東捻匪、教匪連陷館陶七縣。"
+      ],
+      "unknown": [
+        "各支组织关系、战区总人口损失和最终结局在本卷未载。"
+      ],
+      "battle": "CAMPAIGN-QING-NIAN-REBELLION-1850-1861",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-TAIPING-MIDDLE-YANGTZE-COUNTEROFFENSIVE-1855-1858",
+      "time": [
+        "咸丰五年正月",
+        "咸丰八年十二月",
+        "range"
+      ],
+      "subject": "官文、胡林翼、曾国藩等清军与太平军",
+      "action": "清军围绕武昌、汉阳、九江及皖赣展开反攻，复武昌汉阳、湖北全境和九江，继攻桐城、潜山、安庆外围；三河之战李续宾部失败。",
+      "result": "湖北和九江被清军控制，战线向安徽推进，但三河惨败显示战局尚未闭合。",
+      "cost": "李续宾、曾国华等死于三河；双方总伤亡未载。",
+      "groups": [
+        "湘军与清军",
+        "太平军",
+        "鄂赣皖民众"
+      ],
+      "quote": [
+        "胡林翼克復武昌，癸未，官文克復漢陽",
+        "官文、胡林翼奏湖北全境肅清。",
+        "湖北官軍克復九江",
+        "官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+        "李續賓進剿安徽，敗績於三河集，死之"
+      ],
+      "unknown": [
+        "各阶段军费、总伤亡和民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-TAIPING-MIDDLE-YANGTZE-1855-1858",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-JIANGNAN-CAMPS-COLLAPSE-1856-1860",
+      "time": [
+        "咸丰六年六月",
+        "咸丰十年五月",
+        "range"
+      ],
+      "subject": "太平军与江南清军大营、地方守军",
+      "action": "太平军两度冲破江南大营，并在后一次攻势中连陷丹阳、常州、苏州、松江、嘉兴等地；张国梁、和春、徐有壬等死难。",
+      "result": "清廷在江南的旧大营体系崩溃，曾国藩被任为钦差大臣、两江总督接办东南军务。",
+      "cost": "张国梁、和春、徐有壬等阵亡，苏常地区损失和总伤亡未载。",
+      "groups": [
+        "太平军",
+        "江南清军",
+        "苏浙民众"
+      ],
+      "quote": [
+        "金陵賊撲陷大營，官軍退守丹陽",
+        "賊陷丹陽，張國樑死之，和春走常州。",
+        "賊犯常州，和春迎戰受傷，卒。",
+        "賊陷蘇州，巡撫徐有壬死之。",
+        "命曾國籓為欽差大臣，實授兩江總督。"
+      ],
+      "unknown": [
+        "城市人口伤亡、财产损失和军队溃散规模未载。"
+      ],
+      "battle": "CAMPAIGN-QING-TAIPING-JIANGNAN-CAMPS-1856-1860",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-HUBEI-WAR-RELIEF-1856",
+      "time": [
+        "咸丰六年十二月",
+        "1856",
+        "month"
+      ],
+      "subject": "咸丰帝与湖北战后民众",
+      "action": "武昌、汉阳收复后，清廷命分别蠲缓钱粮并筹议抚恤灾民。",
+      "result": "湖北兵燹地区获得战后赋税与救济安排。",
+      "groups": [
+        "湖北战区民众",
+        "受灾农户"
+      ],
+      "quote": [
+        "湖北累為賊踞，小民兵燹餘生，瘡痍可念。",
+        "錢糧分別蠲緩，災黎作何撫恤，其速籌議以聞。"
+      ],
+      "unknown": [
+        "实际蠲缓金额、抚恤粮款和受益人口未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HUBEI-WAR-RELIEF-1856",
+        "summary": "武汉收复后筹办蠲缓与灾民抚恤。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-REGIONAL-REBELLIONS-1853-1861",
+      "time": [
+        "咸丰三年五月",
+        "咸丰十一年五月",
+        "range"
+      ],
+      "subject": "福建、广东、广西、贵州、四川等地方武装与清军",
+      "action": "太平战争同时，各省会匪、苗民及地方武装接连攻城，清军与团练多线镇压、收复失地。",
+      "result": "多股起事被阶段性平定，但贵州、广西、四川等地动乱反复延续。",
+      "groups": [
+        "地方起事民众",
+        "清军",
+        "团练",
+        "各地居民"
+      ],
+      "quote": [
+        "海澄會匪陷同安、安谿、廈門",
+        "貴州苗匪陷都江。",
+        "廣西右江鎮標兵變，勞崇光討平之。",
+        "貴州賊陷台拱、黃平。",
+        "滇匪陷敘州，另股陷酉陽、秀山。"
+      ],
+      "unknown": [
+        "各股性质、相互关系、伤亡与最终处置多未载。"
+      ],
+      "battle": "CAMPAIGN-QING-REGIONAL-REBELLIONS-1853-1861",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-YUNNAN-HUI-REBELLION-1856-1860",
+      "time": [
+        "咸丰六年四月",
+        "咸丰十年十月",
+        "range"
+      ],
+      "subject": "云南汉回地方武装与清军",
+      "action": "楚雄汉回冲突扩展，大理回军占城并进逼省城，巡抚恒春自尽；清廷多次换督抚、调军剿办，收复部分州县。",
+      "result": "云南回乱成为持续性战区，省城危机虽缓解但全局未平。",
+      "groups": [
+        "云南回民",
+        "汉民",
+        "清军",
+        "地方官员"
+      ],
+      "quote": [
+        "雲南楚雄漢、回構釁。",
+        "雲南大理回匪戕官踞城。",
+        "雲南回匪犯省城，恆春自盡。",
+        "雲南官軍克復嵩明，陣斬賊首孫漢鼎。"
+      ],
+      "unknown": [
+        "冲突起因、双方总伤亡和长期结局在本卷未载。"
+      ],
+      "battle": "CAMPAIGN-QING-YUNNAN-HUI-REBELLION-1856-1860",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-KASHGAR-HOJAS-1855-1857",
+      "time": [
+        "咸丰五年八月",
+        "咸丰七年九月",
+        "range"
+      ],
+      "subject": "浩罕支持的回疆起事者与清军",
+      "action": "回疆武装多次入卡、占英吉沙尔并围喀什噶尔，清军调兵反攻，先后收复英吉沙尔和喀什噶尔。",
+      "result": "入侵部众被逐出主要城池，回疆危机阶段性解除。",
+      "groups": [
+        "回疆民众",
+        "清军",
+        "浩罕及相关部众"
+      ],
+      "quote": [
+        "喀什噶爾回匪入卡，倭什琿布派兵逐出之。",
+        "浩罕勾結回匪，占踞英吉沙爾城",
+        "法福理奏克復英吉沙爾回城",
+        "法福理奏收復喀什噶爾回城。"
+      ],
+      "unknown": [
+        "起事者人数、双方伤亡及后续边境安排未载。"
+      ],
+      "battle": "CAMPAIGN-QING-KASHGAR-HOJAS-1855-1857",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-NEPAL-TIBET-CONFLICT-1855-1856",
+      "time": [
+        "咸丰五年十一月",
+        "咸丰六年七月",
+        "range"
+      ],
+      "subject": "廓尔喀、唐古忒地方与驻藏清廷官员",
+      "action": "廓尔喀占据后藏济咙，清廷命扼守江孜、定日等要地并采取通信羁縻；其后双方议和撤兵。",
+      "result": "后藏边境冲突以议和和撤回戍兵告终。",
+      "groups": [
+        "后藏居民",
+        "驻藏兵员",
+        "廓尔喀部众"
+      ],
+      "quote": [
+        "廓爾喀夷人占踞後藏濟嚨。",
+        "江孜、定日汛、馬布加各地，均屬中道要害，即宜扼守。",
+        "赫特賀奏廓爾喀與唐古忒和成，撤回戍兵。"
+      ],
+      "unknown": [
+        "冲突伤亡、和约细目与地方损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-NEPAL-TIBET-1855-1856",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-ARROW-WAR-GUANGZHOU-1856-1857",
+      "time": [
+        "咸丰六年十一月",
+        "咸丰七年十二月",
+        "range"
+      ],
+      "subject": "叶名琛、广东军民与英法军队",
+      "action": "英国以查船为由炮击广州，英法战争扩大；清廷令地方相机办理，终因省城失陷、叶名琛被俘而更换两广总督。",
+      "result": "广州防御失败，第二次鸦片战争由地方冲突升级为全国性外交军事危机。",
+      "cost": "广州交战军民和英法军队总伤亡未载。",
+      "groups": [
+        "广东民众",
+        "清军",
+        "英法军队",
+        "沿海商民"
+      ],
+      "quote": [
+        "英人在廣東以查船構釁，放砲攻城。",
+        "紳團憤擊之，殲數百人。",
+        "英人入廣東省城，劫總督葉名琛以去。"
+      ],
+      "unknown": [
+        "双方总伤亡、城市损失和贸易影响未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SECOND-OPIUM-WAR-GUANGZHOU-1856-1857",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-TREATIES-OF-TIANJIN-1858",
+      "time": [
+        "咸丰八年四月至六月",
+        "1858",
+        "range"
+      ],
+      "subject": "桂良、花沙纳等与俄美英法使臣",
+      "action": "英法舰队进入大沽、逼近天津，清廷授权议和，接受长江通商、增设领事与国使驻京等要求，并与俄、美、英、法订约。",
+      "result": "天津条约体系形成，对外通商和外交安排进一步扩大。",
+      "groups": [
+        "沿海民众",
+        "商民",
+        "海关人员",
+        "外国使商"
+      ],
+      "quote": [
+        "英、法兵船入大沽，官軍退守。",
+        "英人之約於鎮江、漢口通商，長江行輪，擇地設立領事，國使駐京。",
+        "桂良、花沙納奏進俄、美、英、法四國條約。"
+      ],
+      "unknown": [
+        "条约全文、赔款和税则细目未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TREATIES-OF-TIANJIN-1858",
+        "summary": "英法军事压力下订立天津条约体系。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-AMUR-USSURI-BOUNDARY-1857-1861",
+      "time": [
+        "咸丰七年闰五月",
+        "咸丰十一年三月",
+        "range"
+      ],
+      "subject": "奕山、景淳等清廷边臣与俄罗斯",
+      "action": "俄罗斯军队进入黑龙江、乌苏里和绥芬河流域建营通商并要求划界；清廷屡令拒阻、会勘，随后更换条约并派员勘界。",
+      "result": "东北边界与俄国通商安排被重新议定，俄人获驻乌苏里、绥芬等权利。",
+      "groups": [
+        "东北旗民",
+        "边防军",
+        "俄国军民"
+      ],
+      "quote": [
+        "俄人以兵至海蘭泡，建營安砲，要求通商。",
+        "命奕山會集俄使勘定黑龍江兩岸邊界。",
+        "奕山奏請黑龍江左岸曠地割畀俄人。",
+        "許俄人駐烏蘇里、綏芬。",
+        "敕侍郎成琦赴興凱湖會勘俄人分界事宜。"
+      ],
+      "unknown": [
+        "具体划界文本、土地人口变化和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "AMUR-USSURI-BOUNDARY-1857-1861",
+        "summary": "清俄围绕黑龙江、乌苏里边界和通商持续交涉并更约。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-TIANJIN-FORTIFICATIONS-1858-1860",
+      "time": [
+        "咸丰八年六月",
+        "咸丰十年二月",
+        "range"
+      ],
+      "subject": "僧格林沁等与天津、大沽海防工程",
+      "action": "天津失事后清廷修筑营垒炮台、复设天津水师，并增筑奉天、宁河沿海炮台。",
+      "result": "北方海防设施得到扩建，但后续大沽失守显示防御未能阻止英法联军。",
+      "groups": [
+        "海防军",
+        "工程匠役",
+        "沿海民众"
+      ],
+      "quote": [
+        "瑞麟請籌款修築天津營壘砲台，下僧格林沁辦理。",
+        "復設天津水師。",
+        "僧格林沁奏天津砲台工竣。",
+        "築奉天沿海砲台。",
+        "築寧河砲台。"
+      ],
+      "unknown": [
+        "总工费、炮台数量、兵额和施工劳役未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "TIANJIN-COASTAL-FORTIFICATIONS-1858-1860",
+        "summary": "天津及北方沿海增修炮台、营垒和水师。",
+        "continuity": "continued_within_reign",
+        "phase": "海防扩建",
+        "purpose": "京畿海防",
+        "operation_result": "建成后仍于1860年失守"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-DAGU-VICTORY-1859",
+      "time": [
+        "咸丰九年五月",
+        "1859",
+        "month"
+      ],
+      "subject": "僧格林沁所部清军与英法舰队",
+      "action": "英法舰队闯入大沽，清军炮击并击沉多船，击退登陆部队。",
+      "result": "英法舰队退出，清军取得大沽防御战阶段性胜利。",
+      "cost": "提督史荣椿、副将龙汝元等伤亡；双方完整损失未载。",
+      "groups": [
+        "清军",
+        "英法军队",
+        "天津沿海民众"
+      ],
+      "quote": [
+        "英船鳴砲闖入大沽，我軍開砲轟擊，擊沈多船",
+        "我軍徑前奮擊，擊斃數百名",
+        "夷船即時出口。"
+      ],
+      "unknown": [
+        "舰船确数、双方总伤亡和民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-DAGU-DEFENSE-1859",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-SECOND-OPIUM-WAR-BEIJING-1860",
+      "time": [
+        "咸丰十年六月",
+        "咸丰十年九月",
+        "range"
+      ],
+      "subject": "英法联军与僧格林沁等清军、咸丰帝",
+      "action": "英法军队从北塘登陆，攻陷大沽、天津并在八里桥击败清军；咸丰帝避往热河，英法军进入北京，圆明园被焚。",
+      "result": "京畿防线崩溃，清廷被迫由恭亲王奕訢主持议和。",
+      "cost": "大沽提督乐善等阵亡，圆明园焚毁；双方与民众总损失未载。",
+      "groups": [
+        "清军",
+        "英法军队",
+        "京津民众",
+        "皇室与中央官员"
+      ],
+      "quote": [
+        "大沽砲台失守，提督樂善死之",
+        "英人陷天津。",
+        "瑞麟等與洋兵戰於八里橋，不利。",
+        "上幸木蘭，自圓明園啟鑾。",
+        "熟。圓明園災，"
+      ],
+      "unknown": [
+        "总伤亡、劫掠财产规模和民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SECOND-OPIUM-WAR-BEIJING-1860",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-BEIJING-CONVENTIONS-1860",
+      "time": [
+        "咸丰十年八月至十月",
+        "1860",
+        "range"
+      ],
+      "subject": "恭亲王奕訢与英法俄使臣",
+      "action": "清廷释放英使、授权奕訢议和，英法使臣入城后形成和约，并与俄国换约。",
+      "result": "第二次鸦片战争议和闭合，英法军退至天津，对外条约与俄国边界安排进一步落实。",
+      "groups": [
+        "京津民众",
+        "外国使商",
+        "中央官员"
+      ],
+      "quote": [
+        "命恭親王奕訢為欽差大臣，辦理撫局。",
+        "恭親王奏請還巴夏禮於英軍。",
+        "巳，撫局成。恭",
+        "恭親王奕訢奏換俄人和約，請用御寶，從之。"
+      ],
+      "unknown": [
+        "和约全文、赔款和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BEIJING-CONVENTIONS-1860",
+        "summary": "恭亲王主持与英法俄议和并换约。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-ZONGLI-YAMEN-1861",
+      "time": [
+        "咸丰十年十二月",
+        "1861",
+        "month"
+      ],
+      "subject": "咸丰帝、恭亲王奕訢等",
+      "action": "清廷设置总理各国通商事务衙门，由奕訢、桂良、文祥管理，并设三口通商大臣、准旗人学习外国语言。",
+      "result": "专门办理外交与通商事务的中央机构建立。",
+      "groups": [
+        "中央官员",
+        "通商口岸商民",
+        "学习外语的旗人"
+      ],
+      "quote": [
+        "始置總理各國通商事務衙門，命恭親王奕訢、桂良、文祥管理。",
+        "以崇厚充三口通商大臣",
+        "准旗人學習外國語言文字。"
+      ],
+      "unknown": [
+        "机构编制、经费和初期运作成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ZONGLI-YAMEN-ESTABLISHMENT-1861",
+        "summary": "建立总理衙门及通商管理体系。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-WARTIME-TAX-REMISSIONS-1853-1860",
+      "time": [
+        "咸丰三年十二月",
+        "咸丰十年十二月",
+        "range"
+      ],
+      "subject": "咸丰帝与各省被灾被兵民户",
+      "action": "清廷逐年减免多省被灾、被兵州县额赋、逋赋和盐课，并对克复地区、难民发给口粮。",
+      "result": "战争与灾害影响地区持续获得赋税减免和临时救济。",
+      "groups": [
+        "战区民众",
+        "灾民",
+        "盐户",
+        "难民"
+      ],
+      "quote": [
+        "免奉天、直隸、山東、山西、浙江、湖北、湖南、廣西、雲南、甘肅等省三百四十四廳州縣衛災賦。",
+        "賜臨清、冠縣被賊難民一月口糧。",
+        "免合肥三年額賦。",
+        "免直隸、安徽、福建、湖北、貴州等省九十二廳州縣被災、被賊額賦",
+        "免江蘇、浙江、安徽三省額賦逋賦"
+      ],
+      "unknown": [
+        "累计免赋额、实际到账救济及受益人口未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WARTIME-TAX-REMISSIONS-1853-1860",
+        "summary": "咸丰朝持续蠲免被灾被兵州县赋课并赈济难民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-YELLOW-YONGDING-RIVER-WORKS-1853-1857",
+      "time": [
+        "咸丰三年六月",
+        "咸丰七年十一月",
+        "range"
+      ],
+      "subject": "清廷与黄河、永定河河工",
+      "action": "黄河再决丰北、兰阳河溢，永定河多次决溢；清廷在战争压力下有时缓修、有时督办，至咸丰七年永定河合龙。",
+      "result": "永定河工程完成合龙，黄河部分工程与长期河道变化仍未闭合。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫",
+        "漕运民户"
+      ],
+      "quote": [
+        "黃河再決豐北。",
+        "河南蘭陽河溢。",
+        "辛亥，永定河溢。",
+        "俄夷至天津遞國書，命文謙卻之。永定河決。",
+        "庚子，英桂奏敗賊於汝州，豫西肅清。辛丑，永定河合龍。"
+      ],
+      "unknown": [
+        "黄河各决口最终合龙、灾损、工费和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "YELLOW-YONGDING-RIVER-WORKS-1853-1857",
+        "summary": "黄河与永定河反复决溢，永定河最终合龙。",
+        "continuity": "continued_within_reign",
+        "phase": "决溢抢修",
+        "purpose": "防洪",
+        "operation_result": "永定河合龙，黄河结果部分未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-LATE-WARTIME-LEVY-CHECK-1861",
+      "time": [
+        "咸丰十一年四月",
+        "1861",
+        "month"
+      ],
+      "subject": "咸丰帝与各省捐输机构",
+      "action": "清廷指责各类指捐、借捐、亩捐、饷捐等名目过多、取民多而归公少，命大臣督抚严查弊端、节制使用。",
+      "result": "中央承认战争征敛侵害民生并下令整顿，但成效在本卷未载。",
+      "groups": [
+        "纳捐民户",
+        "商人",
+        "地方官吏",
+        "军队"
+      ],
+      "quote": [
+        "各處辦捐，有指捐、借捐、砲船捐、畝捐、米捐、饟捐、堤工捐、船捐、房捐、鹽捐、板捐、活捐，名目滋多",
+        "其實取民者多，歸公者寡。",
+        "各大臣、督撫，尚其嚴密稽查，剔除奸蠹"
+      ],
+      "unknown": [
+        "整顿后裁撤项目、追缴数额和民生改善未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WARTIME-LEVY-ABUSE-CHECK-1861",
+        "summary": "清廷下令整顿战时多名目捐输及侵民弊端。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-ANQING-SIEGE-1861",
+      "time": [
+        "咸丰十一年六月",
+        "1861",
+        "month"
+      ],
+      "subject": "曾国藩、胡林翼、多隆阿、鲍超等清军与陈玉成太平军",
+      "action": "太平军驰援被围安庆，在集贤关外筑垒；清军攻破三垒、杀俘其部并继续围城。",
+      "result": "安庆外围援军被击溃，清军对安庆的长期围攻取得决定性进展。",
+      "cost": "本纪称太平军多被斩戮，具体人数和清军伤亡未载。",
+      "groups": [
+        "湘军与清军",
+        "太平军",
+        "安庆民众"
+      ],
+      "quote": [
+        "安慶省城自我軍長圍，逆酋陳玉成率黨回援安慶",
+        "經鮑超、成大吉會合多隆阿馬隊奮力進剿",
+        "，三壘俱降。釋"
+      ],
+      "unknown": [
+        "双方伤亡、城内民情及安庆最终陷落在本卷未载。"
+      ],
+      "battle": "CAMPAIGN-QING-ANQING-SIEGE-1861",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V20-XIANFENG-DEATH-SUCCESSION-1861",
+      "time": [
+        "咸丰十一年七月",
+        "1861",
+        "month"
+      ],
+      "subject": "咸丰帝与皇长子载淳、承写朱谕王大臣",
+      "action": "咸丰帝病危后召王大臣承写朱谕，立皇长子为皇太子，次日崩于避暑山庄行宫。",
+      "result": "载淳被确立为继承人，咸丰朝结束并开启下一朝权力交接。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "上大漸，召王大臣承寫硃諭，立皇長子為皇太子。",
+        "上崩於行宮，年三十一。"
+      ],
+      "unknown": [
+        "顾命安排和新帝即位细节在本卷未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XIANFENG-DEATH-AND-SUCCESSION-1861",
+        "summary": "咸丰临终立载淳为太子并崩于行宫。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

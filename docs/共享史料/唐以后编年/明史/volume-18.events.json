@@ -1,0 +1,888 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V18-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V18-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷18",
+    "revision_ref": "2594633",
+    "start_locator": "嘉靖二十二年采木与俺答入塞",
+    "end_locator": "嘉靖四十五年世宗崩与裕王嗣位",
+    "overlap_context": "承接卷17嘉靖二十一年俺答深入与宫变；本卷登记嘉靖后期庚戌之变、倭寇战争、边军重组、灾赈工程、严嵩集团败亡与世宗传位。",
+    "input_fingerprint": "2232b16840e3031d7e89e5e6e69998d700c7d877f54bb9a015125147ee4b48e2"
+  },
+  "limitations": [
+    "仅据固定《明史》卷18正文登记，未知保持未知。",
+    "每事实仅保留完成归责、行为与结果所需的最小逐字锚点；普通任免、祭祀、贡聘、祥异与巡幸不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V18-ANDA-WAR-1543-1546",
+      "time": [
+        "嘉靖二十二年春",
+        "嘉靖二十五年十月",
+        "range"
+      ],
+      "subject": "周尚文等明军与俺答、小王子、朵颜诸部",
+      "action": "俺答等连续侵延绥、大同、宣府、宁夏等地，明军在黑山等处取胜但多处守将战死。",
+      "result": "北边防线反复受攻，局部击退未能终止入寇。",
+      "cost": "陈舜、张文瀚、张凤、汪洪、高极等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古诸部",
+        "边地军民"
+      ],
+      "quote": [
+        "俺答犯大同，總兵官周尚文戰於黑山，敗之。",
+        "俺答犯松子嶺，殺守備張文瀚。",
+        "犯清平堡，遊擊高極戰死。"
+      ],
+      "unknown": [
+        "各役兵力、总伤亡、掳掠规模与边民损失未详。"
+      ],
+      "battle": "CAMPAIGN-MING-ANDA-WAR-1543-1546",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-REFUGEE-RESETTLEMENT-1545",
+      "time": [
+        "嘉靖二十四年二月",
+        "1545",
+        "month"
+      ],
+      "subject": "世宗朝廷与复业流民、垦荒农户",
+      "action": "朝廷命流民复业者获得牛种，开垦闲田者免役十年。",
+      "result": "返乡和垦荒民户获得生产资料与长期免役。",
+      "groups": [
+        "流民",
+        "垦荒农户",
+        "地方官员"
+      ],
+      "quote": [
+        "詔流民復業，予牛種，開墾閒田者給復十年。"
+      ],
+      "unknown": [
+        "受益人数、土地面积、牛种数量与执行成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REFUGEE-RESETTLEMENT-1545",
+        "summary": "复业流民获牛种，垦荒者免役十年。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-TAIMIAO-WORKS-1545",
+      "time": [
+        "嘉靖二十四年六月",
+        "1545",
+        "month"
+      ],
+      "subject": "世宗朝廷与太庙工程役户",
+      "action": "太庙工程完工。",
+      "result": "此前火灾后的宗庙重建完成。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "礼官"
+      ],
+      "quote": [
+        "六月壬辰，太廟成。"
+      ],
+      "unknown": [
+        "工程起始、费用、用工、伤亡及建筑规模未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "TAIMIAO-WORKS-1545",
+        "summary": "太庙工程建成。",
+        "continuity": "single_event",
+        "phase": "完工",
+        "purpose": "宗庙祭祀",
+        "operation_result": "太庙成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-BAICAO-REBELLION-1546-1547",
+      "time": [
+        "嘉靖二十五年三月",
+        "嘉靖二十六年四月",
+        "range"
+      ],
+      "subject": "张时彻、何卿等明军与四川白草番起事军",
+      "action": "四川白草番起事后，朝廷派军征讨并于次年平定。",
+      "result": "白草番叛乱被镇压。",
+      "cost": "双方伤亡与地方损失未载。",
+      "groups": [
+        "明军",
+        "白草番起事军",
+        "四川地方民众"
+      ],
+      "quote": [
+        "四川白草番亂。",
+        "巡撫四川都御史張時徹、副總兵何卿討平白草叛番。"
+      ],
+      "unknown": [
+        "起事原因、兵力、伤亡与战后处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-BAICAO-1546-1547",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-CAOXIAN-RIVER-BREACH-1547",
+      "time": [
+        "嘉靖二十六年七月",
+        "1547",
+        "month"
+      ],
+      "subject": "世宗朝廷与曹县黄河沿岸军民",
+      "action": "黄河在曹县决口。",
+      "result": "本卷未载治河行动与修复结果。",
+      "groups": [
+        "沿河灾民",
+        "河工役户",
+        "漕运军民"
+      ],
+      "quote": [
+        "秋七月丙辰，河決曹縣。"
+      ],
+      "unknown": [
+        "淹没范围、伤亡、损失、治理工程与费用均未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "CAOXIAN-RIVER-BREACH-1547",
+        "summary": "曹县河决且治理未知。",
+        "continuity": "single_event",
+        "phase": "灾害",
+        "purpose": "河防",
+        "operation_result": "未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548",
+      "time": [
+        "嘉靖二十七年正月至十月",
+        "1548",
+        "range"
+      ],
+      "subject": "世宗、严嵩集团与曾铣、夏言",
+      "action": "曾铣因议复河套被捕并处死，夏言被罢相、逮捕后亦遭处死。",
+      "result": "复套军事方案终止，夏言集团被严厉清洗。",
+      "cost": "曾铣、夏言被杀，受廷杖言官伤亡未载。",
+      "groups": [
+        "边务官员",
+        "内阁官员",
+        "言官",
+        "涉案家属"
+      ],
+      "quote": [
+        "以議復河套，逮總督陝西三邊侍郎曾銑",
+        "三月癸巳，殺曾銑，逮夏言。",
+        "冬十月癸卯，殺夏言。"
+      ],
+      "unknown": [
+        "案件证据、籍没财产、牵连人数与家属处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ZENG-XIAN-XIA-YAN-PURGE-1548",
+        "summary": "曾铣复套案引发曾铣夏言被杀。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-ANDA-WAR-1548-1549",
+      "time": [
+        "嘉靖二十七年八月",
+        "嘉靖二十八年二月",
+        "range"
+      ],
+      "subject": "周尚文、赵国忠等明军与俺答部",
+      "action": "俺答连续侵大同宣府永宁怀来，明军先有守将战死，后在次野口、曹家庄、大滹沱多次击败其军。",
+      "result": "宣大来犯被阶段性击退，但北边压力持续。",
+      "cost": "顾相、鲁承恩、董暘等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "宣大边民"
+      ],
+      "quote": [
+        "周尚文追敗之於次野口。",
+        "周尚文敗俺答於曹家莊。",
+        "宣府總兵官趙國忠又敗之於大滹沱。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、俘获与边民损失未详。"
+      ],
+      "battle": "CAMPAIGN-MING-ANDA-WAR-1548-1549",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-EARLY-COASTAL-RAIDS-1547-1549",
+      "time": [
+        "嘉靖二十六年十二月",
+        "嘉靖二十八年九月",
+        "range"
+      ],
+      "subject": "明朝海防官军与海寇、倭寇及朵颜三卫",
+      "action": "海寇侵宁波台州，浙江海贼兴起，朵颜三卫又犯辽东，东南与辽东海边防务同时恶化。",
+      "result": "沿海侵扰从零散海寇发展为持续倭患。",
+      "cost": "军民伤亡、船只与财货损失未载。",
+      "groups": [
+        "海防官军",
+        "海寇倭寇",
+        "沿海居民",
+        "商民"
+      ],
+      "quote": [
+        "海寇犯寧波、台州。",
+        "秋七月，浙江海賊起。",
+        "九月，朵顏三衞犯遼東。"
+      ],
+      "unknown": [
+        "袭击规模、伤亡、掳掠与海防应对未载。"
+      ],
+      "battle": "CAMPAIGN-MING-EARLY-COASTAL-1547-1549",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-GENGXU-INVASION-1550",
+      "time": [
+        "嘉靖二十九年六月至八月",
+        "1550",
+        "range"
+      ],
+      "subject": "仇鸾等明军与俺答部",
+      "action": "俺答由古北口突破，薊镇兵溃后掠通州畿甸并逼北京；各地援军集结但仇鸾在白羊口败绩，俺答随后撤退。",
+      "result": "京师遭直接威胁并戒严，丁汝夔、杨守谦被处死，军事指挥体系暴露严重失效。",
+      "cost": "张达、林椿等战死；畿甸军民伤亡与财产损失未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "京畿民众",
+        "援军地区民户"
+      ],
+      "quote": [
+        "俺答大舉入寇，攻古北口，薊鎮兵潰。",
+        "壬午，薄都城。",
+        "丁亥，仇鸞敗績於白羊口。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、京畿掳掠和撤军条件未详。"
+      ],
+      "battle": "CAMPAIGN-MING-GENGXU-1550",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-GENGXU-RELIEF-REFORM-1550",
+      "time": [
+        "嘉靖二十九年九月至十一月",
+        "1550",
+        "range"
+      ],
+      "subject": "世宗朝廷与京畿被寇民户、京营边军",
+      "action": "朝廷赗京畿被寇者，罢团营、恢复三大营旧制并设戎政府，撤领营中官，另选边军入卫。",
+      "result": "庚戌之变后展开受灾救济与京师军制重组。",
+      "groups": [
+        "被寇民户",
+        "京营军士",
+        "边军",
+        "中官"
+      ],
+      "quote": [
+        "振畿內被寇者。",
+        "罷團營，復三大營舊制，設戎政府，以仇鸞總督之。",
+        "罷領營中官。"
+      ],
+      "unknown": [
+        "赈济数额、兵额军费、军制调整实际效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GENGXU-RELIEF-REFORM-1550",
+        "summary": "庚戌后赈京畿并重组三大营。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552",
+      "time": [
+        "嘉靖三十年三月",
+        "嘉靖三十一年十月",
+        "range"
+      ],
+      "subject": "世宗朝廷、仇鸾集团与宣大边贸军民",
+      "action": "朝廷在宣府大同开马市，仇鸾统军赴大同；其后仇鸾被收印、死后戮尸，边市亦全部罢除。",
+      "result": "庚戌后马市与仇鸾军权均告终止。",
+      "groups": [
+        "边贸商民",
+        "边军",
+        "蒙古互市部众",
+        "仇鸾党羽"
+      ],
+      "quote": [
+        "開馬市於宣府、大同，兵部侍郎史道經理之。",
+        "收仇鸞大將軍印，尋病死。",
+        "罷各邊馬市。"
+      ],
+      "unknown": [
+        "马市交易规模、军费收益、仇鸾案财产与党羽人数未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HORSE-MARKET-QIU-LUAN-1551-1552",
+        "summary": "宣大马市与仇鸾军权先立后废。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-INNER-PALACE-ARMY-1552",
+      "time": [
+        "嘉靖三十一年二月",
+        "1552",
+        "month"
+      ],
+      "subject": "世宗朝廷与内府宦官军队",
+      "action": "朝廷建立内府营，训练内侍。",
+      "result": "宫廷宦官拥有专门武装训练组织。",
+      "groups": [
+        "内侍",
+        "京营军士",
+        "宫廷人员"
+      ],
+      "quote": [
+        "建內府營，操練內侍。"
+      ],
+      "unknown": [
+        "兵额、武器、军费、指挥体系与后续用途未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "INNER-PALACE-ARMY-1552",
+        "summary": "设内府营训练内侍。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-RIVER-WORKS-1552-1553",
+      "time": [
+        "嘉靖三十一年九月",
+        "嘉靖三十二年十月",
+        "range"
+      ],
+      "subject": "世宗朝廷与徐州河防、京师外城工程役户",
+      "action": "黄河在徐州决口；次年京师外城建成，但本卷未载徐州堵口结果。",
+      "result": "首都外城完成，而徐州河灾治理仍未知。",
+      "groups": [
+        "沿河灾民",
+        "河工役户",
+        "京城工匠",
+        "京师民众"
+      ],
+      "quote": [
+        "丁酉，河決徐州。",
+        "京師外城成。"
+      ],
+      "unknown": [
+        "河灾损失与治理、外城费用用工及伤亡未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "RIVER-OUTER-CITY-1552-1553",
+        "summary": "徐州河决，次年京师外城建成。",
+        "continuity": "single_event",
+        "phase": "灾害与完工",
+        "purpose": "河防及京城防御",
+        "operation_result": "外城成，河防未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-WOKOU-WAR-1552-1556",
+      "time": [
+        "嘉靖三十一年四月",
+        "嘉靖三十五年九月",
+        "range"
+      ],
+      "subject": "张经、俞大猷、胡宗宪等明军与汪直徐海等倭寇海盗",
+      "action": "倭寇自浙江扩至苏松江北福建，明军多有败绩；张经俞大猷在王江泾大破倭军，胡宗宪等后又在乍浦、梁庄击破徐海集团。",
+      "result": "浙江主力倭寇受到重创，但沿海战争仍延续。",
+      "cost": "周应桢、唐一岑、齐恩、宗礼等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "倭寇海盗",
+        "沿海居民",
+        "商民"
+      ],
+      "quote": [
+        "海賊汪直糾倭寇瀕海諸郡，至六月始去。",
+        "張經、副總兵俞大猷擊倭於王江涇，大破之。",
+        "胡宗憲襲破海賊徐海於梁莊。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、城镇损失与俘虏处置未详。"
+      ],
+      "battle": "CAMPAIGN-MING-WOKOU-1552-1556",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-NORTHERN-WAR-1552-1556",
+      "time": [
+        "嘉靖三十一年正月",
+        "嘉靖三十五年十二月",
+        "range"
+      ],
+      "subject": "杨博、马芳等明军与俺答、河套诸部、打来孙",
+      "action": "俺答及诸部持续侵大同宣府宁夏延绥古北口等地，明军多次迎战，马芳等在保安击退来犯。",
+      "result": "北方边战持续多年，明军有多名总兵参将战死，未形成持久停战。",
+      "cost": "王恭、史略、郭都、李涞、冯恩、岳懋、张纮等战死。",
+      "groups": [
+        "明军",
+        "蒙古诸部",
+        "边地军民"
+      ],
+      "quote": [
+        "俺答大舉入寇，犯靈丘、廣昌。",
+        "俺答犯古北口，總督楊博禦卻之。",
+        "參將馬芳敗寇於保安。"
+      ],
+      "unknown": [
+        "各役兵力、总伤亡、掳掠及边民损失未详。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-WAR-1552-1556",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-ZHANG-JING-EXECUTION-1555",
+      "time": [
+        "嘉靖三十四年五月至十月",
+        "1555",
+        "range"
+      ],
+      "subject": "世宗、赵文华与抗倭总督张经等",
+      "action": "张经在王江泾大胜后仍被逮捕，最终与李天宠、杨继盛一同被杀。",
+      "result": "抗倭统帅在取得大捷后遭政治处决。",
+      "groups": [
+        "抗倭将领",
+        "言官",
+        "廷臣",
+        "涉案家属"
+      ],
+      "quote": [
+        "逮張經下獄。",
+        "殺張經及巡撫浙江副都御史李天寵、兵部員外郎楊繼盛。"
+      ],
+      "unknown": [
+        "定罪证据、审判程序、籍没财产与军务影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ZHANG-JING-EXECUTION-1555",
+        "summary": "王江泾大捷后张经仍被逮捕处死。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-EARTHQUAKE-MINING-1555",
+      "time": [
+        "嘉靖三十四年十二月",
+        "1555",
+        "month"
+      ],
+      "subject": "世宗朝廷与晋陕豫地震灾民、山东四川矿户",
+      "action": "朝廷开山东四川银矿；同月晋陕豫发生大地震与河渭泛滥，死亡八十三万余。",
+      "result": "大规模矿业扩张与中国北方特大灾难同月发生。",
+      "cost": "史载死亡八十三万有余。",
+      "groups": [
+        "地震灾民",
+        "矿工",
+        "矿区民户",
+        "沿河居民"
+      ],
+      "quote": [
+        "開山東、四川銀礦。",
+        "山西、陝西、河南地大震，河、渭溢，死者八十三萬有奇。"
+      ],
+      "unknown": [
+        "伤者、房屋田地损失、赈济规模与矿业是否受灾未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "EARTHQUAKE-MINING-1555",
+        "summary": "开银矿同月晋陕豫大震死八十三万余。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-MINING-PEARL-POLICY-1556-1558",
+      "time": [
+        "嘉靖三十五年五月",
+        "嘉靖三十七年正月",
+        "range"
+      ],
+      "subject": "世宗朝廷与矿工、采珠户、三大营军士",
+      "action": "朝廷在玉旺峪采矿，后罢陕西河南矿，又命广东采珠；同时免三大营听征军承担营造工役。",
+      "result": "矿业采办反复启停，部分军士工程役得到免除。",
+      "groups": [
+        "矿工",
+        "采珠户",
+        "三大营军士",
+        "工程役户"
+      ],
+      "quote": [
+        "左通政王槐採礦銀於玉旺峪。",
+        "亥，罷河南礦。\n",
+        "始免三大營聽征官軍營造工役。"
+      ],
+      "unknown": [
+        "矿产税收、采珠规模、停矿工人安置与减役人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MINING-PEARL-POLICY-1556-1558",
+        "summary": "矿采反复启停并免三大营营造役。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-THREE-HALLS-REBUILD-1557-1562",
+      "time": [
+        "嘉靖三十六年四月",
+        "嘉靖四十一年九月",
+        "range"
+      ],
+      "subject": "世宗朝廷与奉天华盖谨身三殿工程役户",
+      "action": "奉天、华盖、谨身三殿火灾后重建，五年后完工并分别改名皇极、中极、建极。",
+      "result": "三大殿灾后重建完成。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "内府官员",
+        "京师民众"
+      ],
+      "quote": [
+        "奉天、華蓋、謹身三殿災。",
+        "三殿成，改奉天曰皇極，華蓋曰中極，謹身曰建極。"
+      ],
+      "unknown": [
+        "重建费用、用工、采木量、伤亡与防火改进未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "THREE-HALLS-REBUILD-1557-1562",
+        "summary": "三殿火灾后重建并改名。",
+        "continuity": "continued_within_reign",
+        "phase": "灾后重建至完工",
+        "purpose": "恢复朝会宫殿",
+        "operation_result": "三殿成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-RELIEF-1556-1562",
+      "time": [
+        "嘉靖三十五年二月",
+        "嘉靖四十一年十一月",
+        "range"
+      ],
+      "subject": "世宗朝廷与平阳延安陕辽顺永山西等灾民",
+      "action": "朝廷连续赈平阳延安、陕西、辽东、顺天永平、山西及京师等地饥灾，并蠲免多省灾粮。",
+      "result": "嘉靖后期大范围灾荒获得持续赈免与辽东牛种支持。",
+      "groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "边民"
+      ],
+      "quote": [
+        "振平陽、延安災。",
+        "振遼東饑，給牛種。",
+        "振順天、永平饑。"
+      ],
+      "unknown": [
+        "赈济免税总额、死亡人数、牛种数量与恢复成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RELIEF-1556-1562",
+        "summary": "多省及边地灾民获持续赈免与牛种。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-LATE-COASTAL-WAR-1557-1564",
+      "time": [
+        "嘉靖三十六年五月",
+        "嘉靖四十三年六月",
+        "range"
+      ],
+      "subject": "戚继光、俞大猷、刘显等明军与浙闽江北倭寇",
+      "action": "倭寇继续攻扬徐浙闽淮安，明军在安东、印庄、庙湾、平海卫、仙游等地连续反击。",
+      "result": "江北倭寇先平，戚继光等又平福建倭患并击破海丰来犯。",
+      "cost": "沿海军民伤亡与财货损失未详。",
+      "groups": [
+        "明军",
+        "倭寇海盗",
+        "沿海居民",
+        "商民"
+      ],
+      "quote": [
+        "劉景韶破倭於廟灣，江北倭平。",
+        "戚繼光破倭於平海衞。",
+        "總兵官戚繼光大敗之，福建倭平。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、俘虏处置与沿海恢复未详。"
+      ],
+      "battle": "CAMPAIGN-MING-LATE-COASTAL-1557-1564",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-LATE-NORTHERN-WAR-1557-1565",
+      "time": [
+        "嘉靖三十六年二月",
+        "嘉靖四十四年四月",
+        "range"
+      ],
+      "subject": "马芳、胡镇、姜应熊等明军与俺答、辛爱、吉能、把都儿等部",
+      "action": "蒙古诸部持续攻大同宣府蓟镇宁夏辽东，毁堡并数次深入京畿；明军在保安、密云、丰州等地反击。",
+      "result": "多次入寇被局部击退，但大量将领战死，北边战争持续至嘉靖末。",
+      "cost": "蒋承勋、陈凤、董国忠、黑春、王勋、杨照、孙膑等战死。",
+      "groups": [
+        "明军",
+        "蒙古诸部",
+        "边地军民",
+        "京畿居民"
+      ],
+      "quote": [
+        "辛愛寇應、朔，毀七十餘堡。",
+        "辛愛、把都兒破牆子嶺入寇，京師戒嚴",
+        "大同總兵官姜應熊禦寇密雲，敗之。"
+      ],
+      "unknown": [
+        "各役兵力、总伤亡、被掳人口与财产损失未详。"
+      ],
+      "battle": "CAMPAIGN-MING-LATE-NORTHERN-1557-1565",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-NANJING-MUTINY-1560",
+      "time": [
+        "嘉靖三十九年二月",
+        "1560",
+        "month"
+      ],
+      "subject": "南京振武营兵与总督粮储侍郎黄懋官",
+      "action": "南京振武营发生兵变，杀死黄懋官。",
+      "result": "南京军营秩序失控并造成中央粮储官死亡。",
+      "cost": "黄懋官被杀，其他伤亡未载。",
+      "groups": [
+        "振武营军士",
+        "南京官员",
+        "城内居民"
+      ],
+      "quote": [
+        "南京振武營兵變，殺總督糧儲侍郎黃懋官。"
+      ],
+      "unknown": [
+        "兵变原因、参与人数、后续镇压与处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NANJING-MUTINY-1560",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-YAN-SONG-DOWNFALL-1562-1565",
+      "time": [
+        "嘉靖四十一年五月",
+        "嘉靖四十四年三月",
+        "range"
+      ],
+      "subject": "世宗与严嵩、严世蕃父子集团",
+      "action": "严嵩被罢相，三年后严世蕃伏诛。",
+      "result": "长期掌权的严氏政治集团败亡。",
+      "groups": [
+        "内阁官员",
+        "严氏党羽",
+        "涉案家属"
+      ],
+      "quote": [
+        "夏五月壬寅，嚴嵩罷。",
+        "辛酉，嚴世蕃伏誅。"
+      ],
+      "unknown": [
+        "定罪过程、籍没财产、党羽人数与家属处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YAN-SONG-DOWNFALL-1562-1565",
+        "summary": "严嵩罢相后严世蕃伏诛。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-HAI-RUI-IMPRISONMENT-1566",
+      "time": [
+        "嘉靖四十五年二月",
+        "1566",
+        "month"
+      ],
+      "subject": "世宗与户部主事海瑞",
+      "action": "海瑞上疏后被下锦衣卫狱。",
+      "result": "嘉靖末直言进谏者遭监禁。",
+      "groups": [
+        "言官",
+        "锦衣卫",
+        "涉案家属"
+      ],
+      "quote": [
+        "戶部主事海瑞上疏，下錦衣衞獄。"
+      ],
+      "unknown": [
+        "疏文内容、审讯刑罚与本卷内获释情况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HAI-RUI-IMPRISONMENT-1566",
+        "summary": "海瑞上疏后下锦衣卫狱。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V18-SHIZONG-LATE-BORDER-1566",
+      "time": [
+        "嘉靖四十五年四月至闰十月",
+        "1566",
+        "range"
+      ],
+      "subject": "辽东固原大同明军与俺答部",
+      "action": "俺答连续侵辽东、万全右卫、固原、偏头关和大同，明军守将郭江、崔世荣等战死。",
+      "result": "世宗临终前北边战事仍在恶化。",
+      "cost": "郭江、崔世荣等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "边地军民"
+      ],
+      "quote": [
+        "丙戌，俺答犯遼東。",
+        "丁卯，犯固原，總兵官郭江敗死。",
+        "甲辰，犯大同，參將崔世榮力戰死。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、城堡损失与边民掳掠未载。"
+      ],
+      "battle": "CAMPAIGN-MING-LATE-BORDER-1566",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V18-SHIZONG-DEATH-SUCCESSION-1566",
+      "time": [
+        "嘉靖四十五年十一月至隆庆元年正月",
+        "1566-1567",
+        "range"
+      ],
+      "subject": "世宗朱厚熜与裕王朱载垕",
+      "action": "世宗病重后自西苑返回乾清宫去世，遗诏裕王继位。",
+      "result": "嘉靖朝结束，朱载垕成为继承者，世宗葬永陵。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "十一月己未，帝不豫。",
+        "是日崩，年六十，遺詔裕王嗣位。",
+        "廟號世宗，葬永陵。"
+      ],
+      "unknown": [
+        "病因、遗诏全文、交接程序与裕王即位细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SHIZONG-DEATH-SUCCESSION-1566",
+        "summary": "世宗崩逝并遗诏裕王继位。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

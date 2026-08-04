@@ -1,0 +1,222 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V21-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V21-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷21",
+    "revision_ref": "1748403",
+    "start_locator": "二十四年秋八月己",
+    "end_locator": "冬十二月壬午，以知黃龍府事耶律阿裏只為南院大王",
+    "overlap_context": "本卷记清宁元年至七年（1055—1061）。承卷20兴宗崩与洪基嗣位，仅将即位后诏令、司法、财用、教育、征兵、灾异处置及可观察的政权处置分项登记；常规巡幸、贡聘、祭祀、进封和单次任免不单列。卷末为七年十二月，未读卷22。",
+    "input_fingerprint": "568d8ed98c3f32883cb50f3ead296fec156d4e6d738ab297b0d7f3e139380053"
+  },
+  "limitations": [
+    "仅据固定《遼史》卷21正文登记，未知保持未知。",
+    "卷20兴宗崩与洪基嗣位只作交接上下文；本卷不重结算前卷事实。",
+    "本卷未见可独立交接的战役或大型工程；不以征兵、铸钱或国子监设置强行改作战役或工程。",
+    "诏令的执行范围、财政数额、军额、灾害损失与案件后续多未载。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V21-REMOSTRANCE-POLICY-1055",
+      "time": ["清宁元年八月至十二月", "1055", "range"],
+      "subject": "辽道宗、士庶与百僚",
+      "action": "道宗即位时命士庶直言、可用者择用；数月未见建言后，又命内外百官秩满各言一事，并转谕所部无贵贱老幼皆可直言。",
+      "result": "即位时的开放直言要求在同年十二月被细化为百官秩满言事及所部普遍进言机制。",
+      "groups": ["士庶", "内外百官", "地方所部", "贵贱老幼"],
+      "quote": ["凡爾士庶，直言無諱。可則擇用，否則不以為愆。", "其令內外百官，比秩滿，各言一事。仍轉諭所部，無貴賤老幼，皆得直言無諱。"],
+      "unknown": ["建言数量、议题、采纳情况与未言者处置未载。"],
+      "closure": {"domain": "political_event", "kind": "REMOSTRANCE-POLICY-1055", "summary": "道宗将即位直言要求细化为百官秩满言事及所部普遍进言机制。", "continuity": "continued_within_reign"}
+    },
+    {
+      "id": "CHF-LIAO-V21-PALACE-ARMS-AND-STATUS-DRESS-RESTRICTIONS-1055",
+      "time": ["清宁元年九月", "1055", "month"],
+      "subject": "入宫人员、夷离堇副使家族与民奴贱",
+      "action": "朝廷除护卫士外禁止佩刃入宫，并限制若干官职人员冠巾及夷离堇、副使家族与民奴贱使用特定裘服、器物与鞍勒。",
+      "result": "宫禁武器和部分身份标识、奢侈用品使用受到限制。",
+      "groups": ["入宫人员", "夷离堇及副使家族", "民奴贱", "大将军"],
+      "quote": ["詔除護衛士，餘不得佩刃入宮", "非勛戚後及夷離堇、副使、承應諸職事人，不得冠巾。", "夷離堇及副使之族並民奴賤，不得服駝尼、水獺裘"],
+      "unknown": ["禁令的执法频率、处罚与实际遵从情况未载。"],
+      "closure": {"domain": "political_event", "kind": "PALACE-ARMS-AND-STATUS-DRESS-RESTRICTIONS-1055", "summary": "限制入宫佩刃及若干身份群体的服饰器用。", "continuity": "single_event"},
+      "domains": ["fiscal_livelihood"]
+    },
+    {
+      "id": "CHF-LIAO-V21-SECRET-MEMORIAL-AND-LIBEL-PUNISHMENT-1055",
+      "time": ["清宁元年十二月", "1055", "month"],
+      "subject": "部署院、投谤讪书者与读者",
+      "action": "朝廷命部署院遇机密事务即奏，并规定投递谤讪书及接收、阅读者一并弃市。",
+      "result": "机密上奏义务与对谤讪书的严厉刑罚被规定。",
+      "groups": ["部署院", "投书者", "接收者", "阅读者"],
+      "quote": "詔部署院，事有機密即奏，其投謗訕書，輒受及讀者並棄市。",
+      "unknown": ["谤讪书定义、案件数量、审理程序与执行情况未载。"],
+      "closure": {"domain": "political_event", "kind": "SECRET-MEMORIAL-AND-LIBEL-PUNISHMENT-1055", "summary": "规定机密即奏，并严惩投递、接收和阅读谤讪书。", "continuity": "single_event"}
+    },
+    {
+      "id": "CHF-LIAO-V21-SCHOOL-CLASSICS-AND-IMPERIAL-EXAMINATION-1055",
+      "time": ["清宁元年十二月至是年", "1055", "range"],
+      "subject": "士人、博士助教与进士",
+      "action": "朝廷设学养士，颁行《五经》传疏并置博士、助教各一员；年内在清凉殿录取进士张孝杰等四十四人。",
+      "result": "学校师资和经学教材得到设置，四十四名进士被录取。",
+      "cost": "学校人员与考试录取所需经费、供给及后续任用未载。",
+      "groups": ["士人", "博士", "助教", "进士"],
+      "quote": ["詔設學養士，頒《五經》傳疏，置博士、助教各一員。", "是年，禦清涼殿放進士張孝傑等四十四人。"],
+      "unknown": ["学校地点、学生规模、教材实施与进士后续任官未载。"],
+      "closure": {"domain": "political_event", "kind": "SCHOOL-CLASSICS-AND-IMPERIAL-EXAMINATION-1055", "summary": "设学颁经并置师资，当年录取四十四名进士。", "continuity": "single_event"},
+      "domains": ["fiscal_livelihood"]
+    },
+    {
+      "id": "CHF-LIAO-V21-LOCAL-ADJUDICATION-AND-DEATH-PENALTY-REVIEW-1056-1058",
+      "time": ["清宁二年正月至四年二月", "1056—1058", "range"],
+      "subject": "州郡官、诸路、死罪囚犯与夷离毕",
+      "action": "朝廷先令州郡官及僚属依诸部族例决囚；两年后规定诸路死罪案件即使狱具，仍须由别州县覆按无冤后执行，称冤者具奏。",
+      "result": "州郡获得依例决囚权限，同时死罪执行增设异地覆按和申冤上奏程序。",
+      "groups": ["州郡官", "诸路官员", "囚犯", "死罪囚犯", "夷离毕"],
+      "quote": ["詔州郡官及僚屬決囚，如諸部族例。", "諸路鞫死罪，獄雖具，仍令別州縣覆按，無冤，然後決之；稱冤者，即具奏。"],
+      "unknown": ["诸部族例内容、覆按期限、具奏受理和改判数量未载。"],
+      "closure": {"domain": "political_event", "kind": "LOCAL-ADJUDICATION-AND-DEATH-PENALTY-REVIEW-1056-1058", "summary": "地方依例决囚，并为死罪增设异地覆按与申冤上奏。", "continuity": "continued_within_reign"}
+    },
+    {
+      "id": "CHF-LIAO-V21-ERNU-GU-ELITE-MILITARY-EXEMPTION-1056",
+      "time": ["清宁二年正月", "1056", "month"],
+      "subject": "二女古部与皮室军",
+      "action": "朝廷免除二女古部中世代预任宰相、节度使者的皮室军役。",
+      "result": "特定二女古部家族获得皮室军役豁免。",
+      "groups": ["二女古部", "预任宰相节度使者", "皮室军"],
+      "quote": "詔二女古部與世預宰相、節度使之選者免皮室軍。",
+      "unknown": ["豁免人数、军役替代来源及对皮室军兵额的影响未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "ERNU-GU-ELITE-MILITARY-EXEMPTION-1056", "summary": "免除特定二女古部家族的皮室军役。", "continuity": "single_event"},
+      "domains": ["political_event"]
+    },
+    {
+      "id": "CHF-LIAO-V21-TOKYO-MINTED-COIN-CIRCULATION-1056",
+      "time": ["清宁二年闰月", "1056", "month"],
+      "subject": "东京与货币使用者",
+      "action": "朝廷开始行用东京所铸的钱。",
+      "result": "东京铸钱进入流通。",
+      "groups": ["东京居民", "市场交易者", "官府"],
+      "quote": "始行東京所鑄錢。",
+      "unknown": ["币种、铸额、兑换规则、流通地域和市场效果未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "TOKYO-MINTED-COIN-CIRCULATION-1056", "summary": "开始行用东京所铸钱。", "continuity": "single_event"}
+    },
+    {
+      "id": "CHF-LIAO-V21-SPRING-FIRE-PROHIBITION-1056",
+      "time": ["清宁二年夏四月", "1056", "month"],
+      "subject": "郊野活动者与繁殖期鸟兽",
+      "action": "朝廷以夏季鸟兽孳育为由，禁止在郊野纵火。",
+      "result": "繁殖期郊野用火受到禁止。",
+      "groups": ["郊野活动者", "鸟兽", "地方居民"],
+      "quote": "方夏，長養鳥獸孳育之時，不得縱火於郊。",
+      "unknown": ["禁火地域、处罚、巡查方式和生态结果未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "SPRING-FIRE-PROHIBITION-1056", "summary": "以鸟兽孳育为由禁郊野纵火。", "continuity": "single_event"}
+    },
+    {
+      "id": "CHF-LIAO-V21-BORDER-MILITARY-REGISTRATION-AND-RECRUITMENT-1056-1058",
+      "time": ["清宁二年六月至四年三月", "1056—1058", "range"],
+      "subject": "有司、军籍人员、边戍与边地勇捷者",
+      "action": "朝廷先命有司登记军籍并补充边戍，后又招募天德、镇武、东胜等处勇捷者并登记为军。",
+      "result": "边戍补充由军籍清查延续至指定边地勇捷者的募录。",
+      "groups": ["军籍人员", "边戍军", "有司", "天德勇捷者", "镇武勇捷者", "东胜勇捷者"],
+      "quote": ["命有司籍軍補邊戍。", "募天德、鎮武、東勝等處勇捷者，籍為軍。"],
+      "unknown": ["登记和招募人数、编制、驻地、薪饷与实际到岗情况未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "BORDER-MILITARY-REGISTRATION-AND-RECRUITMENT-1056-1058", "summary": "清查军籍补边戍，并续招边地勇捷者籍为军。", "continuity": "continued_within_reign"},
+      "domains": ["political_event"]
+    },
+    {
+      "id": "CHF-LIAO-V21-HISTORIAN-COURT-DELIBERATION-RESTRICTION-1056",
+      "time": ["清宁二年六月", "1056", "month"],
+      "subject": "史官与宰相",
+      "action": "朝廷停止史官预闻朝议，令其先询宰相后再记录。",
+      "result": "史官参与朝议和记录信息的取得渠道受到限制。",
+      "groups": ["史官", "宰相", "朝议参与者"],
+      "quote": "罷史官預聞朝議，俾問宰相而後書。",
+      "unknown": ["限制持续时间、史官可得信息范围和史书记录影响未载。"],
+      "closure": {"domain": "political_event", "kind": "HISTORIAN-COURT-DELIBERATION-RESTRICTION-1056", "summary": "罢史官预闻朝议，改由询问宰相后记录。", "continuity": "single_event"}
+    },
+    {
+      "id": "CHF-LIAO-V21-ZHONGJING-LOCUST-DISASTER-1056",
+      "time": ["清宁二年六月", "1056", "month"],
+      "subject": "中京居民与蝗蝻灾害",
+      "action": "中京发生蝗蝻灾害。",
+      "result": "卷内记录中京遭受蝗蝻灾害，未载后续处置。",
+      "groups": ["中京居民", "农业生产者"],
+      "quote": "中京蝗蝻為災。",
+      "unknown": ["受灾面积、粮食损失、赈济、捕治及灾后恢复未载。"],
+      "domains": ["fiscal_livelihood"]
+    },
+    {
+      "id": "CHF-LIAO-V21-TAX-WEAPONS-AGRICULTURE-AND-ANTI-BANDITRY-MISSION-1056",
+      "time": ["清宁二年八月", "1056", "month"],
+      "subject": "分道使者、纳税者、军器使用者与农桑经营者",
+      "action": "朝廷遣使分道平赋税、修缮戎器、劝农桑并禁盗贼。",
+      "result": "赋税、军器、农业与治安被纳入分道使者的巡行职责。",
+      "cost": "赋税调整、军器修缮和遣使的具体资源投入未载。",
+      "groups": ["纳税者", "军队", "农桑经营者", "地方居民"],
+      "quote": "遣使分道平賦稅，繕戎器，勸農桑，禁盜賊。",
+      "unknown": ["分道范围、赋税调整额度、修缮规模、农业效果和治安结果未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "TAX-WEAPONS-AGRICULTURE-AND-ANTI-BANDITRY-MISSION-1056", "summary": "遣使平赋税、缮戎器、劝农桑并禁盗。", "continuity": "single_event"},
+      "domains": ["political_event"]
+    },
+    {
+      "id": "CHF-LIAO-V21-NANJING-EARTHQUAKE-PARDON-1057",
+      "time": ["清宁三年七月", "1057", "month"],
+      "subject": "南京居民、罪囚与地震灾害",
+      "action": "南京发生地震后，朝廷赦免其境内罪囚。",
+      "result": "南京境内罪囚获得赦免，地震损害未载。",
+      "groups": ["南京居民", "南京境内罪囚"],
+      "quote": "南京地震，赦其境內。",
+      "unknown": ["地震损失、赦免人数、罪名范围与救灾措施未载。"],
+      "closure": {"domain": "political_event", "kind": "NANJING-EARTHQUAKE-PARDON-1057", "summary": "南京地震后赦其境内。", "continuity": "single_event"},
+      "domains": ["fiscal_livelihood"]
+    },
+    {
+      "id": "CHF-LIAO-V21-OFFICIAL-LOCAL-LENDING-TRADE-PROHIBITION-1057",
+      "time": ["清宁三年十二月", "1057", "month"],
+      "subject": "职官与部内居民",
+      "action": "朝廷禁止职官在其部内放贷和贸易。",
+      "result": "官员对辖内居民的放贷、贸易行为受到禁止。",
+      "groups": ["职官", "部内居民", "借贷者", "交易者"],
+      "quote": "禁職官於部內假貸貿易。",
+      "unknown": ["部内范围、违法处罚、既有债务和交易处置未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "OFFICIAL-LOCAL-LENDING-TRADE-PROHIBITION-1057", "summary": "禁职官在部内放贷贸易。", "continuity": "single_event"},
+      "domains": ["political_event"]
+    },
+    {
+      "id": "CHF-LIAO-V21-INNER-TREASURY-THEFT-SLAVE-REPORTING-1058",
+      "time": ["清宁四年七月", "1058", "month"],
+      "subject": "内藏库官、奴婢与司法官",
+      "action": "朝廷准许奴婢告发掌管内藏库官员盗取两贯以上的行为。",
+      "result": "对内藏库官盗窃达到两贯以上的告发渠道向奴婢开放。",
+      "groups": ["内藏库官", "奴婢", "司法官"],
+      "quote": "制諸掌內藏庫官盜兩貫以上者，許奴婢告。",
+      "unknown": ["两贯折算、告发保护、查证程序和案件结果未载。"],
+      "closure": {"domain": "fiscal_livelihood", "kind": "INNER-TREASURY-THEFT-SLAVE-REPORTING-1058", "summary": "许奴婢告发内藏库官盗两贯以上。", "continuity": "single_event"},
+      "domains": ["political_event"]
+    },
+    {
+      "id": "CHF-LIAO-V21-ZHONGJING-IMPERIAL-ACADEMY-ESTABLISHMENT-1060",
+      "time": ["清宁六年六月", "1060", "month"],
+      "subject": "中京国子监、先圣先师祭祀者与士人",
+      "action": "朝廷在中京设置国子监，并命按时祭祀先圣先师。",
+      "result": "中京国子监及其祭祀制度被设置。",
+      "cost": "国子监的校舍、经费、师生规模和实际教学情况未载。",
+      "groups": ["中京士人", "国子监人员", "祭祀参与者"],
+      "quote": "中京置國子監，命以時祭先聖先師",
+      "unknown": ["校舍是否新建、资金来源、师生人数和课程内容未载。"],
+      "closure": {"domain": "political_event", "kind": "ZHONGJING-IMPERIAL-ACADEMY-ESTABLISHMENT-1060", "summary": "中京置国子监并令时祭先圣先师。", "continuity": "single_event"},
+      "domains": ["fiscal_livelihood"]
+    },
+    {
+      "id": "CHF-LIAO-V21-XIAO-ALA-EXECUTION-1061",
+      "time": ["清宁七年五月", "1061", "month"],
+      "subject": "东京留守陈王萧阿剌与辽廷",
+      "action": "辽廷杀东京留守陈王萧阿剌。",
+      "result": "东京留守陈王萧阿剌被处死。",
+      "groups": ["陈王萧阿剌", "东京留守机构", "辽廷"],
+      "quote": "殺東京留守陳王蕭阿剌。",
+      "unknown": ["处死缘由、审理程序、继任安排和对东京政务的影响未载。"],
+      "domains": ["political_event"]
+    }
+  ]
+}

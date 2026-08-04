@@ -1,0 +1,1343 @@
+{
+  "facts": [
+    {
+      "action": "朝廷限制將帥擅殺軍民。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-001",
+      "implementation": "僅臨陣與軍法明定事項許即行，其餘須奏報。",
+      "locations": [
+        "南宋境內"
+      ],
+      "observable_result": "軍中刑殺權被納入奏報約束。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "限制軍事長官司法裁量。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-001",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#不得遽行誅戮"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷下詔整備邊防。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-002",
+      "implementation": "並行練兵、恤民、儲糧、修器與經營屯田。",
+      "locations": [
+        "沿邊"
+      ],
+      "observable_result": "邊防準備由單一軍務擴為兵民糧械屯田的綜合措施。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E002"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "兼顧民生、糧儲與屯田。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-002",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#練兵恤民，峙糧繕器，經理營屯"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "孟珙修築黃州防禦並安置大量流民。",
+      "actors": [],
+      "affected_groups": [
+        "流民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-003",
+      "implementation": "修城浚隍、搜集兵械，建錢安與鎮淮營，築屋三萬間並賑貸。",
+      "locations": [
+        "黃州",
+        "錢安",
+        "鎮淮"
+      ],
+      "observable_result": "每日湧入的流民獲居所與生計支援，黃州防務亦獲加固。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E003"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "建屋並賑貸安置流民。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-003",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#為屋三萬間以居之，厚加賑貸"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古修築和林城及萬安宮。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-004",
+      "implementation": "營建周回五里的都城宮殿並設驛傳。",
+      "locations": [
+        "和林"
+      ],
+      "observable_result": "蒙古中樞都城與交通傳遞設施形成。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "建設中樞都城。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "動員城宮與驛站工程。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-004",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#蒙古城和林，作萬安宮"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宋子貞整頓東平吏治與村稅機構。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-005",
+      "implementation": "分置三道按察官，黜貪獎廉，撤除軍吏把持的村稅約四百所並歸州縣。",
+      "locations": [
+        "東平"
+      ],
+      "observable_result": "官府秩序恢復，民力稍蘇。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "整飭吏治及地方行政。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "裁撤軍吏控制的村稅單位。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-005",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#東平將校占民為部典戶，謂之鄉寨",
+        "續資治通鑑/卷168@2324258#黜貪惰，獎廉勤，官府始有紀綱，民得蘇息"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷籌措資源回收貶值會子。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-006",
+      "implementation": "動用度牒等財源收換第十六、十七界會子。",
+      "locations": [
+        "南宋境內"
+      ],
+      "observable_result": "試圖減少流通舊鈔並穩定紙幣。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "回籠貶值紙幣。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-006",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#廣收兩界會子"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "臨安發生大火。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-007",
+      "implementation": "",
+      "locations": [
+        "臨安"
+      ],
+      "observable_result": "城市受災，具體焚毀規模不詳。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "都城火災。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-007",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#丁卯，臨安火"
+      ],
+      "time_range": {
+        "end": "端平二年四月",
+        "precision": "month",
+        "start": "端平二年四月"
+      },
+      "uncertainties": [
+        "火災損失與傷亡不詳。"
+      ]
+    },
+    {
+      "action": "朝廷在災後削減官員俸給並倡行節用。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "官員俸給減半。",
+      "fact_id": "CHF-XZZTJ-168-008",
+      "implementation": "自五月起俸給減半支給。",
+      "locations": [
+        "臨安"
+      ],
+      "observable_result": "以壓縮官俸支出應對財政壓力。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "削減官俸以節省支出。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-008",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#俸給自五月始減半幫支"
+      ],
+      "time_range": {
+        "end": "端平二年五月",
+        "precision": "month",
+        "start": "端平二年五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷在營兵騷動後招刺新兵一萬。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-009",
+      "implementation": "懲降首惡並汰選舊軍後補充兵額。",
+      "locations": [
+        "南宋境內"
+      ],
+      "observable_result": "軍隊補入一萬新兵，營伍重新整編。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E009"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-009",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#招制刺一萬人"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古分兵大舉征蜀漢、江淮、西域與高麗。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-010",
+      "implementation": "令諸戶各出一人從軍；耶律楚材以路遠疾疫為由保留部分地方兵。",
+      "locations": [
+        "蜀漢",
+        "江淮",
+        "西域",
+        "高麗"
+      ],
+      "observable_result": "形成多線遠征動員，部分地區兵役獲減免。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E010"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "按戶徵發兵役並酌情減免。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-010",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#蒙古主命皇子庫端、庫春等侵蜀漢及江淮"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古昆布哈侵唐州，趙范軍在上閘反擊。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-011",
+      "implementation": "全子才與劉子澄夜遁，趙范部隨後擊退來軍。",
+      "locations": [
+        "唐州",
+        "上閘"
+      ],
+      "observable_result": "唐州一線暫退蒙古軍，逃遁將吏其後受罰。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E011"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "追究臨陣逃遁責任。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-011",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#蒙古將昆布哈侵唐州",
+        "續資治通鑑/卷168@2324258#全子才及軍器監簿劉子澄相繼夜遁"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷重組江淮、荊襄軍事指揮體系。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-012",
+      "implementation": "令統帥總攬列閫節制，後置兩制置司統籌軍政。",
+      "locations": [
+        "江淮",
+        "荊襄"
+      ],
+      "observable_result": "分散軍鎮被納入兩大戰區的統一指揮。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E012"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "重整地方軍政權責。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-012",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#統帥列閫，專其節制而總事權"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷開放未修復圩田由官民承佃。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-013",
+      "implementation": "",
+      "locations": [
+        "兩浙"
+      ],
+      "observable_result": "受損農地獲得重新經營的制度通道。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "促進災損田地復耕。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-013",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#許官民戶承佃經理"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "惠陽、建陽、京口軍隊相繼作亂，朝廷出兵平定。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-014",
+      "implementation": "",
+      "locations": [
+        "惠陽",
+        "建陽",
+        "京口"
+      ],
+      "observable_result": "三地軍亂被壓制，具體傷亡不詳。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E014"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "恢復地方軍政秩序。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-014",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#惠陽、建陽、京口諸軍作亂，討平之"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": [
+        "平亂兵力、過程與傷亡不詳。"
+      ]
+    },
+    {
+      "action": "朝廷要求官員按月申報無請托事項。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-015",
+      "implementation": "各官月具文申御史臺。",
+      "locations": [
+        "南宋境內"
+      ],
+      "observable_result": "建立反請托的月度申報約束。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "以定期申報約束請托。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-015",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#月具無請托事申御史臺"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古塔斯破棗陽並以筏攻郢州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "棗陽失守，李復明死亡，沿途遭劫掠。",
+      "fact_id": "CHF-XZZTJ-168-016",
+      "implementation": "李復明戰死，守軍憑堅城抵抗。",
+      "locations": [
+        "棗陽",
+        "郢州"
+      ],
+      "observable_result": "蒙古未克郢州，劫掠後退兵。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E016"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-016",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#蒙古塔斯破棗陽",
+        "續資治通鑑/卷168@2324258#城堅守，不能下"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "汪世顯以鞏昌降蒙古並參與其征伐。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-017",
+      "implementation": "向庫端輸誠，供應軍需並約束部眾。",
+      "locations": [
+        "鞏昌"
+      ],
+      "observable_result": "蒙古取得鞏昌及當地兵糧支援。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E017"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方勢力改隸蒙古。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-017",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#戒其下秋毫無犯"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷為江淮、京湖兩制置司配置專項軍費。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-018",
+      "implementation": "各給金一千兩、銀五萬兩、度牒一千與會子五百萬緡。",
+      "locations": [
+        "江淮",
+        "京湖"
+      ],
+      "observable_result": "兩戰區獲得可直接支配的防務財源。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E018"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "大額配置金銀度牒與紙幣。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-018",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#金各一千兩，銀各五萬兩",
+        "續資治通鑑/卷168@2324258#會子各五百萬緡"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古庫端攻破沔州，曹友聞馳援青野原。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "高稼戰死，沔州陷落。",
+      "fact_id": "CHF-XZZTJ-168-019",
+      "implementation": "高稼聚流民、修城防守，死於城陷；曹友聞隨後解青野原之圍。",
+      "locations": [
+        "沔州",
+        "青野原"
+      ],
+      "observable_result": "沔州失守但青野原守軍獲救。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E019"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "戰前聚民修城。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-019",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#已而蒙古兵大至，惇遁，沔州遂破"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "耶律楚材限制蒙古交鈔印造規模。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-020",
+      "implementation": "以金末濫發敗亡為戒，主張印鈔不過萬錠。",
+      "locations": [
+        "蒙古境內"
+      ],
+      "observable_result": "蒙古紙幣發行獲得數量上限。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "限制貨幣供給以防濫發。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-020",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#今印造交鈔，宜不過萬錠"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "襄陽王旻、李伯淵等兵變，焚掠後降蒙古。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "襄陽人口、糧儲、軍械與城防盡失。",
+      "fact_id": "CHF-XZZTJ-168-021",
+      "implementation": "縱火燒城與倉庫，掠民財，攜城中人口、糧械投降。",
+      "locations": [
+        "襄陽"
+      ],
+      "observable_result": "四萬七千人、糧三十萬石及兵器二十四萬件落入蒙古，襄陽成空城。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E021"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "人口、糧食與軍械大規模損失。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "叛軍轉投蒙古並引發問責。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-021",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#皆為蒙古所有",
+        "續資治通鑑/卷168@2324258#南軍大將李虎，因亂劫掠，襄陽一空"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宋帝因邊境失地與軍事失誤下罪己詔。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-022",
+      "implementation": "",
+      "locations": [
+        "臨安"
+      ],
+      "observable_result": "皇帝公開承擔施政與用人責任，後續實效不詳。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "因戰事失利公開自責求言。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-022",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#望亟降罪己之詔"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": [
+        "詔後具體整改效果不詳。"
+      ]
+    },
+    {
+      "action": "蒙古推行戶籍、封戶與賦役制度改革。",
+      "actors": [],
+      "affected_groups": [
+        "中州民戶",
+        "工匠"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-023",
+      "implementation": "以戶而非丁核籍，共括一百四萬戶；諸王勳臣得封戶但官吏任命與賦額仍受中樞限制，並定絲、地、商、鹽等稅。",
+      "locations": [
+        "中州"
+      ],
+      "observable_result": "中州人口和賦役被納入較統一的行政財政體系。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "建立戶籍與封戶治理邊界。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "確定戶稅、地稅、商稅與鹽課。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-023",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#至是詔括戶口，以大臣呼圖克領之",
+        "續資治通鑑/卷168@2324258#所括中州戶一百四萬",
+        "續資治通鑑/卷168@2324258#每二戶出絲一斤",
+        "續資治通鑑/卷168@2324258#商稅三十分之一"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "趙葵在淮東墾田練兵。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-024",
+      "implementation": "",
+      "locations": [
+        "淮東"
+      ],
+      "observable_result": "農業生產與邊備同時得到整飭。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E024"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "開墾軍民田地。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-024",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#葵墾田治兵，邊備以飭"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷因連雨水災出糧賑濟並蠲減災區賦稅。",
+      "actors": [],
+      "affected_groups": [
+        "水災災民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-025",
+      "implementation": "發常平倉米千石，令兩浙儲糧救荒並按災情減免。",
+      "locations": [
+        "臨安",
+        "兩浙"
+      ],
+      "observable_result": "災民獲得糧食與稅負緩解。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "水災賑糧。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "動用常平糧並減免災賦。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-025",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#出堂平倉米千石"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古攻取棗陽、德安，姚樞保全被俘儒士並傳播儒學典籍。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-026",
+      "implementation": "從屠戮中救出數十人，收集程朱著述帶往北方。",
+      "locations": [
+        "棗陽",
+        "德安"
+      ],
+      "observable_result": "兩地失守，但數十名士人免死，理學典籍北傳。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E026"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "救免被俘士人。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "儒學典籍向北方傳播。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-026",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#得脫死者數十"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "曹友聞被迫出守無險的大安，迎戰蒙古。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "曹友聞戰死，全軍覆沒。",
+      "fact_id": "CHF-XZZTJ-168-027",
+      "implementation": "在不利地形集軍死戰。",
+      "locations": [
+        "大安"
+      ],
+      "observable_result": "曹友聞與軍士全軍覆沒，蒙古得以深入蜀地。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E027"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "錯誤軍令導致守軍覆沒。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-027",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#與萬俱死，軍盡沒"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古以禁殺招降秦、鞏等州，並攻破拒守的徽州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "郭斌及守城者死亡。",
+      "fact_id": "CHF-XZZTJ-168-028",
+      "implementation": "諸州在免屠令下投降；徽州郭斌拒降，城破後自焚。",
+      "locations": [
+        "秦州",
+        "鞏州",
+        "徽州"
+      ],
+      "observable_result": "秦、鞏一帶多州歸附蒙古，徽州抵抗失敗。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E028"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方州郡改隸蒙古。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-028",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#詔皇子庫端招諭，諸州皆降"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古圍攻文州，守軍民在缺水中堅守半月。",
+      "actors": [],
+      "affected_groups": [
+        "文州軍民"
+      ],
+      "cost_or_burden": "軍民數萬人死亡。",
+      "fact_id": "CHF-XZZTJ-168-029",
+      "implementation": "",
+      "locations": [
+        "文州"
+      ],
+      "observable_result": "城破，劉銳一家與軍民數萬人死亡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E029"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "守城軍民遭大規模死亡。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-029",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#軍民同死者數萬人"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古軍攻破成都。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-030",
+      "implementation": "",
+      "locations": [
+        "成都"
+      ],
+      "observable_result": "成都失守；蒙古將庫春死後，來軍撤退。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E030"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-030",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#遂與庫端合兵，進破成都"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙古侵入淮西蘄、舒、光一帶，宋軍調兵應對。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-031",
+      "implementation": "部分守將棄城逃遁，朝廷從相鄰戰區增援部署。",
+      "locations": [
+        "淮西",
+        "蘄州",
+        "舒州",
+        "光州"
+      ],
+      "observable_result": "淮西多地遭侵擾，防線被迫重新配置。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E031"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "追究棄守與調整防務。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-031",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#蒙古昆布哈入淮西蘄、舒、光三州"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": [
+        "各州實際控制結果與損失不詳。"
+      ]
+    },
+    {
+      "action": "孟珙以疑兵救援江陵並反擊蒙古營寨。",
+      "actors": [],
+      "affected_groups": [
+        "被俘民眾"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-032",
+      "implementation": "遍張旗幟、燃火迷敵，乘勢連破二十四寨。",
+      "locations": [
+        "江陵"
+      ],
+      "observable_result": "江陵之圍緩解，二萬名被俘者獲救。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E032"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "救回二萬被俘者。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-032",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#破蒙古二十四寨，奪所俘二萬口而歸"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "丘岳設伏並用炮火守真州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-033",
+      "implementation": "伏兵突擊、炮石拒敵並焚燒蒙古營帳。",
+      "locations": [
+        "真州"
+      ],
+      "observable_result": "蒙古軍退去，真州得保。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E033"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-033",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#岳遣勇士襲敵營，焚其廬帳"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷分區安置沿江流民並選壯者入軍。",
+      "actors": [],
+      "affected_groups": [
+        "沿江流民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-034",
+      "implementation": "弱者給食安置，強壯者編軍，禁令軍隊侵暴。",
+      "locations": [
+        "沿江"
+      ],
+      "observable_result": "流民獲分流救濟與軍事吸納。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-168-E034"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "安置與給食流民。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-034",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#多方措置存著，無令暴露"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "濟南官府安置北方流民並授屋給田。",
+      "actors": [],
+      "affected_groups": [
+        "北方流民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-168-035",
+      "implementation": "組織流民開墾荒地、恢復生產。",
+      "locations": [
+        "濟南"
+      ],
+      "observable_result": "荒野變為耕地，濟南在蒙古中書省課績中列第一。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "授屋給田並恢復耕作。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "安置流民。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方治理獲中央課績肯定。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-168-035",
+      "source_refs": [
+        "續資治通鑑/卷168@2324258#曠野辟為樂土"
+      ],
+      "time_range": {
+        "end": "端平二年",
+        "precision": "month",
+        "start": "端平二年"
+      },
+      "uncertainties": []
+    }
+  ],
+  "fiscal_livelihood_candidates": [],
+  "limitations": [
+    "卷內年號僅作頁內時間，不據此切分卷界。",
+    "同日同主體同目標的連續因果鏈合併，跨地、跨主體或結果獨立者分卡。",
+    "純任免、禮儀、災異記錄及未落地議論不單獨建卡；史料未明者保持unknown。"
+  ],
+  "political_event_candidates": [],
+  "public_works_candidates": [],
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "曠野辟為樂土",
+    "input_fingerprint": "760a2742074224652feb8099171ec22b45343a8cf8efbe8a197fd80bb7660a2f",
+    "overlap_context": "承卷167端平元年末；本卷固定整頁自端平二年至蒙古濟南課績。",
+    "revision_ref": "2324258",
+    "start_locator": "理宗建道備德大功復興烈文仁武聖明安孝皇帝端平二年",
+    "volume_ref": "卷168",
+    "work": "續資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-168",
+  "threads": []
+}

@@ -1,0 +1,817 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V17-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V17-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷17",
+    "revision_ref": "2594632",
+    "start_locator": "正德十六年世宗入京即位",
+    "end_locator": "嘉靖二十一年俺答入寇与壬寅宫变",
+    "overlap_context": "卷首承接卷16武宗遗诏与世宗入立并显式duplicate-of；本卷登记嘉靖前二十一年大礼议、政治清洗、边战军变、灾赈减役、宫庙工程与安南处置。",
+    "input_fingerprint": "2899b5ba5aab44e77d9f2ea3ef5cfcce9548874559602b86a4af690d4c7e3625"
+  },
+  "limitations": [
+    "仅据固定《明史》卷17正文登记，未知保持未知。",
+    "每事实仅保留完成归责、行为与结果所需的最小逐字锚点；普通任免、祭祀、贡聘、巡幸节点与祥异不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V17-JIAJING-ACCESSION-1521",
+      "time": [
+        "正德十六年三月至四月",
+        "1521",
+        "range"
+      ],
+      "subject": "世宗朱厚熜、慈寿皇太后与杨廷和等顾命大臣",
+      "action": "武宗无嗣后，皇太后与杨廷和据遗诏迎兴王朱厚熜；朱厚熜拒绝以皇太子礼入继，在奉天殿即皇帝位。",
+      "result": "朱厚熜继承皇位；此为卷16武宗崩逝遗诏事件复述锚点，duplicate-of CHF-MING-V16-WUZONG-DEATH-REFORM-1521。",
+      "groups": [
+        "皇室成员",
+        "顾命大臣",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "武宗崩，無嗣，慈壽皇太后與大學士楊廷和定策",
+        "出御奉天殿，即皇帝位。"
+      ],
+      "unknown": [
+        "迎立谈判全部细节与遗诏执行过程未载。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-ACCESSION-REFORMS-1521",
+      "time": [
+        "正德十六年四月至七月",
+        "1521",
+        "range"
+      ],
+      "subject": "世宗朝廷与正德罪废官、纳税民户及冗员军校",
+      "action": "世宗即位后平反正德言事罪废诸臣、减次年田租一半并尽免旧逋赋，罢银矿与进献，清退锦衣卫军校及投充冗员逾十八万人。",
+      "result": "正德弊政获得大规模政治和财政清理。",
+      "groups": [
+        "罪废官员",
+        "农户",
+        "锦衣卫军校",
+        "监局匠役"
+      ],
+      "quote": [
+        "卹錄正德中言事罪廢諸臣，賜天下明年田租之半，自正德十五年以前逋賦盡免之。",
+        "罷大理銀礦。",
+        "革錦衣衞冒濫軍校三萬餘人。"
+      ],
+      "unknown": [
+        "免租免赋总额、复职人数与清退人员安置未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ACCESSION-REFORMS-1521",
+        "summary": "平反正德罪废官、减免田赋并清退冗员。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-GREAT-RITES-CONTROVERSY-1521-1524",
+      "time": [
+        "正德十六年七月",
+        "嘉靖三年九月",
+        "range"
+      ],
+      "subject": "世宗与张璁桂萼、杨廷和等大礼议两派",
+      "action": "世宗坚持继统不继嗣并尊生父母，拒绝称孝宗为父；廷臣伏阙抗争后，一百三十四人下狱廷杖，十六人死亡，最终定孝宗为皇伯考、献帝为皇考。",
+      "result": "世宗的大礼议方案以强制镇压确立，反对派遭去职、下狱、杖死与戍谪。",
+      "cost": "廷杖死十六人，张原另死，其他伤亡未载。",
+      "groups": [
+        "大礼议廷臣",
+        "言官",
+        "锦衣卫",
+        "皇室成员"
+      ],
+      "quote": [
+        "繼統不繼嗣，請尊崇所生",
+        "下員外郎馬理等一百三十四人錦衣衞獄。癸未，杖馬理等於廷，死者十有六人。",
+        "定稱孝宗為皇伯考，昭聖皇太后為皇伯母，獻皇帝為皇考，章聖皇太后為聖母。"
+      ],
+      "unknown": [
+        "全部受刑人员名单、家属处置与后续复官未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GREAT-RITES-CONTROVERSY-1521-1524",
+        "summary": "大礼议以廷杖镇压后确立世宗尊亲方案。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-EARLY-RELIEF-LEVY-CUTS-1521-1523",
+      "time": [
+        "正德十六年六月",
+        "嘉靖二年十一月",
+        "range"
+      ],
+      "subject": "世宗朝廷与江西辽东南畿湖广等灾民及额外征敛民户",
+      "action": "朝廷连续赈江西、辽东及多省灾民，罢各镇额外征敛，并因灾免嘉靖元年天下税粮一半。",
+      "result": "继位初多地灾民获赈免，地方额外征收被明令停止。",
+      "groups": [
+        "灾民",
+        "农户",
+        "边镇民户",
+        "地方官员"
+      ],
+      "quote": [
+        "諭各鎮巡守備官，凡額外之征悉罷之。",
+        "振南畿、湖廣、江西、廣西災，免稅糧有差。",
+        "以災傷免嘉靖元年天下稅糧之半。"
+      ],
+      "unknown": [
+        "赈济免税总额、额外征敛规模与执行成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "EARLY-RELIEF-LEVY-CUTS-1521-1523",
+        "summary": "灾赈减税并罢边镇额外征敛。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-NORTHERN-WAR-1521-1525",
+      "time": [
+        "正德十六年七月",
+        "嘉靖四年正月",
+        "range"
+      ],
+      "subject": "杭雄、姜奭等明军与小王子、俺答、土鲁番及西海部众",
+      "action": "蒙古与土鲁番诸部连续侵庄浪、沙河堡、大同、密云、肃州、甘凉等边地，明军多次迎战并击退部分来犯。",
+      "result": "沙河堡、甘肃等处守住，但殷隆、王纲等战死，边患持续。",
+      "cost": "殷隆、王纲等战死，其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古诸部",
+        "土鲁番部众",
+        "边地军民"
+      ],
+      "quote": [
+        "小王子犯沙河堡，總兵官杭雄戰卻之。",
+        "俺答寇大同。",
+        "土魯番入寇，圍肅州。",
+        "西海卜兒孩犯甘肅，總兵官姜奭擊敗之。"
+      ],
+      "unknown": [
+        "各役兵力、总伤亡与边民损失未详。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-WAR-1521-1525",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-MUTINIES-1522-1524",
+      "time": [
+        "嘉靖元年正月",
+        "嘉靖三年十二月",
+        "range"
+      ],
+      "subject": "明廷平乱军与甘州、大同兵变军士",
+      "action": "甘州军士杀巡抚许铭，大同军士又杀张文锦；朝廷调宣大军务官员讨大同叛卒，甘凉寇乱随后退去。",
+      "result": "连续边军兵变造成两名巡抚被杀，大同叛乱进入军事镇压。",
+      "cost": "许铭、张文锦被杀；其他伤亡未载。",
+      "groups": [
+        "边军叛卒",
+        "平乱明军",
+        "地方官员",
+        "边地民众"
+      ],
+      "quote": [
+        "甘州兵亂，殺巡撫都御史許銘。",
+        "大同兵變，殺巡撫都御史張文錦。",
+        "討大同叛卒。"
+      ],
+      "unknown": [
+        "兵变原因、参与人数、镇压伤亡和处置结果未详。"
+      ],
+      "battle": "CAMPAIGN-MING-MUTINIES-1522-1524",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-PALACE-TEMPLE-WORKS-1524-1525",
+      "time": [
+        "嘉靖三年十一月",
+        "嘉靖四年十月",
+        "range"
+      ],
+      "subject": "世宗朝廷与乾清宫、仁寿宫、世庙等工程役户",
+      "action": "乾清宫建成后，仁寿宫火灾又重建；朝廷另建世庙、玉德殿及景福安喜二宫。",
+      "result": "嘉靖初连续展开宫殿与生父祭祀建筑工程。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "内府官员"
+      ],
+      "quote": [
+        "，乾清宮成。罷",
+        "作世廟祀獻皇帝。",
+        "子，作仁壽宮。\n"
+      ],
+      "unknown": [
+        "各工程费用、用工、伤亡及完工质量未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "PALACE-TEMPLE-WORKS-1524-1525",
+        "summary": "连续营建乾清宫、仁寿宫及世庙宫殿。",
+        "continuity": "continued_within_reign",
+        "phase": "灾后重建与新建",
+        "purpose": "宫廷与祭祀",
+        "operation_result": "乾清宫成，其余结果未详"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-RELIEF-1525-1530",
+      "time": [
+        "嘉靖四年五月",
+        "嘉靖九年四月",
+        "range"
+      ],
+      "subject": "世宗朝廷与辽东京师湖广江南山西河南等灾民",
+      "action": "朝廷推广备荒赈济法，连续赈辽东京师湖广江南及多省饥灾，并蠲免灾粮物料。",
+      "result": "嘉靖中前期形成跨省持续赈济与税粮减免。",
+      "groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "地方官员"
+      ],
+      "quote": [
+        "詔天下倣誥備荒振濟法。",
+        "振南畿、浙江災，免稅糧物料。",
+        "是月，免兩畿、河南被災稅糧，振江西、湖廣饑。"
+      ],
+      "unknown": [
+        "赈济免税总额、死亡人数与备荒法执行效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RELIEF-1525-1530",
+        "summary": "推广备荒法并持续赈免多省灾民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-BORDER-SOUTHERN-WARS-1526-1528",
+      "time": [
+        "嘉靖六年二月",
+        "嘉靖七年十二月",
+        "range"
+      ],
+      "subject": "王宪、王守仁等明军与小王子、田州云南广西起事军",
+      "action": "小王子多次犯宣府大同，明军在石臼墩击败其军；王守仁及伍文定等分别征讨田州、云南和广西起事。",
+      "result": "云南与广西战事平定，但宣大边战中多名将领战死。",
+      "cost": "王经、关山、赵源等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "广西云南起事军",
+        "地方民众"
+      ],
+      "quote": [
+        "。總制尚書王憲擊敗小王子於石臼墩",
+        "卯，雲南蠻平。\n",
+        "王守仁討廣西蠻，悉平之。"
+      ],
+      "unknown": [
+        "各战线兵力、总伤亡、民间损失与战后处置未详。"
+      ],
+      "battle": "CAMPAIGN-MING-BORDER-SOUTHERN-1526-1528",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-LI-FUDA-PRISON-1526",
+      "time": [
+        "嘉靖六年八月至九月",
+        "1527",
+        "range"
+      ],
+      "subject": "世宗与颜颐寿、聂贤、汤沐等三法司官员",
+      "action": "世宗因李福达狱将刑部、都察院、大理寺长官下锦衣卫狱，改由桂萼张璁等杂治并颁大狱录。",
+      "result": "正常三法司审判被替换，案件成为政治清洗工具。",
+      "groups": [
+        "司法官员",
+        "锦衣卫",
+        "涉案人员"
+      ],
+      "quote": [
+        "下刑部尚書顏頤壽、左都御史聶賢、大理寺卿湯沐等於錦衣衞獄",
+        "頒欽明大獄錄於天下。"
+      ],
+      "unknown": [
+        "案件事实、被牵连人数、刑罚和后续平反未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LI-FUDA-PRISON-1526",
+        "summary": "李福达狱中三法司长官下狱并由议礼派改审。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V17-RITUAL-CODIFICATION-1528-1530",
+      "time": [
+        "嘉靖七年六月",
+        "嘉靖九年十一月",
+        "range"
+      ],
+      "subject": "世宗与礼官、议礼诸臣及全国祭祀体系",
+      "action": "朝廷颁明伦大典、追削反对大礼议诸臣，继而改建四郊、更正孔庙祀典并调整天地宗庙祭祀。",
+      "result": "大礼议结论与嘉靖祭祀秩序被制度化。",
+      "groups": [
+        "礼官",
+        "议礼诸臣",
+        "儒生",
+        "地方官员"
+      ],
+      "quote": [
+        "明倫大典成，頒示天下。",
+        "定議禮諸臣罪，追削楊廷和等籍。",
+        "更正孔廟祀典，定孔子諡號曰至聖先師孔子。"
+      ],
+      "unknown": [
+        "全国执行差异、被追削人员完整名单与财政成本未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "RITUAL-CODIFICATION-1528-1530",
+        "summary": "明伦大典及新祭祀秩序确立。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-EUNUCH-POSTS-ABOLITION-1529-1531",
+      "time": [
+        "嘉靖九年九月",
+        "嘉靖十年闰六月",
+        "range"
+      ],
+      "subject": "世宗朝廷与云南四川浙湖闽两广等镇守中官",
+      "action": "朝廷陆续罢云南、四川及东南多省镇守中官。",
+      "result": "宦官地方镇守体系进一步收缩。",
+      "groups": [
+        "镇守中官",
+        "地方官员",
+        "地方民众"
+      ],
+      "quote": [
+        "罷雲南鎮守中官。",
+        "罷四川分守中官。",
+        "罷浙江、湖廣、福建、兩廣及獨石、萬全、永寧鎮守中官。"
+      ],
+      "unknown": [
+        "裁撤人数、交接财产与地方治理影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EUNUCH-POSTS-ABOLITION-1529-1531",
+        "summary": "罢云南四川及东南多地镇守中官。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-WESTERN-PALACE-WORKS-1530-1531",
+      "time": [
+        "嘉靖九年正月",
+        "嘉靖十年九月",
+        "range"
+      ],
+      "subject": "世宗朝廷与先蚕坛、西苑宫殿工程役户",
+      "action": "朝廷在北郊建先蚕坛、改建四郊，并完成西苑宫殿。",
+      "result": "嘉靖礼制空间与西苑宫殿群扩建完成。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "礼官",
+        "内府人员"
+      ],
+      "quote": [
+        "作先蠶壇於北郊。",
+        "亥，更建四郊。\n",
+        "西苑宮殿成"
+      ],
+      "unknown": [
+        "费用、用工、伤亡与各工程规模未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "WESTERN-PALACE-WORKS-1530-1531",
+        "summary": "建先蚕坛四郊并完成西苑宫殿。",
+        "continuity": "continued_within_reign",
+        "phase": "新建改建",
+        "purpose": "祭祀与宫廷使用",
+        "operation_result": "西苑宫殿成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-RELIEF-1530-1533",
+      "time": [
+        "嘉靖九年正月",
+        "嘉靖十二年十一月",
+        "range"
+      ],
+      "subject": "世宗朝廷与山西京师延绥陕西云南辽东等灾民",
+      "action": "朝廷持续赈山西、京师、延绥、陕西、云南、辽东等地饥灾并蠲免多省灾粮。",
+      "result": "北方与边地多轮灾荒获得跨年赈免。",
+      "groups": [
+        "饥民",
+        "灾民",
+        "农户",
+        "边民"
+      ],
+      "quote": [
+        "乙亥，振京師饑。",
+        "侍郎葉相振陝西饑。",
+        "酉，振雲南饑。\n"
+      ],
+      "unknown": [
+        "赈济免税总额、死亡人数与恢复情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RELIEF-1530-1533",
+        "summary": "多省及边地灾荒获持续赈免。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-MUTINY-BORDER-WAR-1533-1535",
+      "time": [
+        "嘉靖十二年十月",
+        "嘉靖十四年七月",
+        "range"
+      ],
+      "subject": "明廷平乱边军与大同辽东广宁叛军、吉囊部",
+      "action": "大同、辽东、广宁连续发生兵乱，大同总兵李瑾被杀、代王出逃；朝廷抚定大同、平广宁乱卒，同时吉囊反复进犯。",
+      "result": "大同与广宁兵乱被平定，代王返国；蒙古边患仍延续。",
+      "cost": "李瑾等被杀，其他伤亡未载。",
+      "groups": [
+        "边军叛卒",
+        "平乱明军",
+        "蒙古部众",
+        "边地民众"
+      ],
+      "quote": [
+        "大同兵亂，殺總兵官李瑾，代王奔宣府。",
+        "總督宣大侍郎張瓚撫定大同亂卒。",
+        "廣寧亂卒平。"
+      ],
+      "unknown": [
+        "兵乱原因、参与人数、处置及边战总伤亡未详。"
+      ],
+      "battle": "CAMPAIGN-MING-MUTINY-BORDER-1533-1535",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-NINE-TEMPLES-1535-1536",
+      "time": [
+        "嘉靖十四年二月",
+        "嘉靖十五年十二月",
+        "range"
+      ],
+      "subject": "世宗朝廷与九庙、献皇帝庙工程役户",
+      "action": "朝廷营建九庙，并将世庙改为献皇帝庙；九庙次年建成。",
+      "result": "嘉靖宗庙建筑体系完成重构。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "礼官",
+        "皇室成员"
+      ],
+      "quote": [
+        "亥，作九廟。丁",
+        "更定世廟為獻皇帝廟。",
+        "卯，九廟成。\n閏"
+      ],
+      "unknown": [
+        "工程费用、用工、伤亡与建筑规模未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "NINE-TEMPLES-1535-1536",
+        "summary": "九庙与献皇帝庙体系建成。",
+        "continuity": "continued_within_reign",
+        "phase": "营建至完工",
+        "purpose": "宗庙祭祀",
+        "operation_result": "九庙成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-JINANG-WAR-1536-1540",
+      "time": [
+        "嘉靖十五年四月",
+        "嘉靖十九年九月",
+        "range"
+      ],
+      "subject": "姜奭、刘天和、白爵、周尚文等明军与吉囊部",
+      "action": "吉囊连续侵甘凉、延绥、宣府、河西、大同、固原等地，明军多次迎战并在宣平、桑乾河、黑水苑等地击败其军。",
+      "result": "明军取得多次局部胜利，但宣府将领赵镗、张国辅等战死，边患未止。",
+      "cost": "赵镗、张国辅、周冕、周岐等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "边地军民"
+      ],
+      "quote": [
+        "吉囊犯甘、涼，總兵官姜奭擊敗之。",
+        "吉囊入萬全右衞，總兵官白爵逆戰於宣平，敗之。",
+        "周尚文敗之於黑水苑。"
+      ],
+      "unknown": [
+        "各役兵力、总伤亡、边民损失和俘获未详。"
+      ],
+      "battle": "CAMPAIGN-MING-JINANG-WAR-1536-1540",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-ANNAM-CAMPAIGN-1538-1540",
+      "time": [
+        "嘉靖十七年三月",
+        "嘉靖二十年四月",
+        "range"
+      ],
+      "subject": "毛伯温、仇鸾等明军与安南莫登庸政权",
+      "action": "明廷发军征安南后短暂罢师，再次出兵；莫登庸最终纳款，明廷将安南改为都统使司并授其都统使。",
+      "result": "安南冲突以莫登庸臣服和行政降格收束，未发生本卷所载大会战。",
+      "groups": [
+        "明军",
+        "安南军民",
+        "莫氏政权",
+        "边地运输民户"
+      ],
+      "quote": [
+        "討安南莫登庸。",
+        "，罷安南師。甲",
+        "莫登庸納欵，改安南國為安南都統使司，以登庸為都統使。"
+      ],
+      "unknown": [
+        "出兵规模、军费、交战伤亡和实际控制效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ANNAM-CAMPAIGN-1538-1540",
+        "summary": "征安南后莫登庸纳款并改置都统使司。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-HEIR-AND-CHENGTIAN-RELIEF-1539",
+      "time": [
+        "嘉靖十八年二月至三月",
+        "1539",
+        "range"
+      ],
+      "subject": "世宗与皇子朱载壑、承天湖广河南民户",
+      "action": "世宗立朱载壑为皇太子并封朱载垕、朱载圳为王；巡幸承天后给复当地三年并减湖广、畿内、河南田赋。",
+      "result": "储位确立，同时巡幸地区获得多年免役与田赋减免。",
+      "groups": [
+        "皇室成员",
+        "承天民户",
+        "湖广河南农户"
+      ],
+      "quote": [
+        "立皇子載壑為皇太子，封載垕為裕王，載圳景王。",
+        "給復承天三年，免湖廣明年田賦五之二，畿內、河南三之一。"
+      ],
+      "unknown": [
+        "减免总额、受益户数与太子培养安排未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HEIR-CHENGTIAN-RELIEF-1539",
+        "summary": "册立太子并减免承天湖广河南赋役。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-PALACE-TOMB-WORKS-1538-1542",
+      "time": [
+        "嘉靖十七年七月",
+        "嘉靖二十一年四月",
+        "range"
+      ],
+      "subject": "世宗朝廷与慈宁宫、显陵、仁寿宫、大高玄殿工程役户",
+      "action": "朝廷完成慈宁宫、显陵、慈庆宫与大高玄殿，并修仁寿宫、从湖广四川采木。",
+      "result": "宫殿陵寝与道教建筑持续扩建，显陵完工后承天再免役三年。",
+      "groups": [
+        "工程役户",
+        "采木民户",
+        "工匠",
+        "承天民户"
+      ],
+      "quote": [
+        "巳，慈寧宮成。\n",
+        "顯陵成，給復承天三年。",
+        "大高玄殿成。"
+      ],
+      "unknown": [
+        "总费用、用工、采木损失、伤亡与工程质量未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "PALACE-TOMB-WORKS-1538-1542",
+        "summary": "慈宁宫显陵慈庆宫大高玄殿等相继完成。",
+        "continuity": "continued_within_reign",
+        "phase": "营建至完工",
+        "purpose": "宫廷陵寝与宗教祭祀",
+        "operation_result": "多项工程告成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-RELIEF-1538-1542",
+      "time": [
+        "嘉靖十七年九月",
+        "嘉靖二十一年八月",
+        "range"
+      ],
+      "subject": "世宗朝廷与畿内江西宁夏辽东河南山西等灾兵民",
+      "action": "朝廷连续蠲免多省灾粮、赈宁夏辽东河南及畿内山西饥荒，并对山西被寇者免役或免田租。",
+      "result": "灾荒与战争受害地区获得持续赈免。",
+      "groups": [
+        "灾民",
+        "饥民",
+        "被寇民户",
+        "农户"
+      ],
+      "quote": [
+        "午，振寧夏災。\n",
+        "振畿內、山西饑。",
+        "振山西被兵州縣，免田租。"
+      ],
+      "unknown": [
+        "赈免总额、死亡人数、受益户数与恢复成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RELIEF-1538-1542",
+        "summary": "多省灾兵民获持续赈免。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-ANDA-INVASION-1540-1542",
+      "time": [
+        "嘉靖二十年七月",
+        "嘉靖二十一年七月",
+        "range"
+      ],
+      "subject": "赵卿、翟鹏等明军与俺答、阿不孩、吉囊诸部",
+      "action": "明廷拒绝俺答等求贡后，蒙古诸部分道侵山西；次年大同塞使者被诱杀，俺答再破雁门、太原并掠潞安诸县。",
+      "result": "北方防线遭大规模深入，张世忠等战死，朝廷在直隶山东河南募兵。",
+      "cost": "郑东、张世忠等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古诸部",
+        "山西民众",
+        "募兵地区民户"
+      ],
+      "quote": [
+        "俺答、阿不孩、吉囊分道入寇",
+        "俺答寇朔州。壬寅，入雁門關。丁未，犯太原。",
+        "募兵於直隸、山東、河南。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、劫掠规模与募兵人数未载。"
+      ],
+      "battle": "CAMPAIGN-MING-ANDA-INVASION-1540-1542",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-COURT-REPRESSION-1540-1542",
+      "time": [
+        "嘉靖十九年八月",
+        "嘉靖二十一年九月",
+        "range"
+      ],
+      "subject": "世宗与杨最、杨爵、刘魁等进谏官员",
+      "action": "世宗因杨最谏服丹药将其杖死，又因杨爵言时政、刘魁谏营雷殿而下狱廷杖。",
+      "result": "涉及炼丹、时政与营建的进谏均遭重刑压制。",
+      "cost": "杨最被杖死；杨爵刘魁伤亡未载。",
+      "groups": [
+        "言官",
+        "锦衣卫",
+        "廷杖执行者",
+        "涉案家属"
+      ],
+      "quote": [
+        "太僕卿楊最諫服丹藥，予杖死。",
+        "御史楊爵言時政，下錦衣衞獄。",
+        "員外郎劉魁諫營雷殿，予杖下獄。"
+      ],
+      "unknown": [
+        "杨爵刘魁刑期、伤情、家属处置与后续平反未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "COURT-REPRESSION-1540-1542",
+        "summary": "炼丹时政营建进谏者遭杖死或下狱。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V17-PALACE-COUP-1542",
+      "time": [
+        "嘉靖二十一年十月",
+        "1542",
+        "month"
+      ],
+      "subject": "宫人、端妃曹氏、宁嫔王氏与世宗宫廷",
+      "action": "宫人发动谋逆失败，涉案宫人伏诛，端妃曹氏与宁嫔王氏被磔于市。",
+      "result": "壬寅宫变被镇压并牵连两名妃嫔处死。",
+      "cost": "涉案宫人与两名妃嫔死亡，确切人数未载。",
+      "groups": [
+        "宫人",
+        "后妃",
+        "宫廷侍卫",
+        "涉案家属"
+      ],
+      "quote": [
+        "宮人謀逆伏誅，磔端妃曹氏、寧嬪王氏於市。"
+      ],
+      "unknown": [
+        "谋逆经过、参与人数、伤亡和审判程序未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PALACE-COUP-1542",
+        "summary": "壬寅宫变失败，宫人与两妃被处死。",
+        "continuity": "single_event"
+      }
+    }
+  ]
+}

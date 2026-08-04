@@ -1,0 +1,593 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "JIN-JINSHI-V15-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V15-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "金史",
+    "volume_ref": "卷15",
+    "revision_ref": "2432740",
+    "start_locator": "兴定元年正月宣宗拒绝扩境与多线战事",
+    "end_locator": "兴定三年十二月高琪被诛",
+    "overlap_context": "承卷14贞祐四年蒙古、夏与红袄军战线及南京防城；卷16尚未读取。",
+    "input_fingerprint": "0046194176ff7e17bb6dc21b1d774afa2638564eb7a3191860883c77b97bf129"
+  },
+  "events": [
+    {
+      "id": "CHF-JIN-V15-ZHENYOU-CURRENCY-COLLAPSE-1217",
+      "time": [
+        "兴定元年二月",
+        "兴定元年二月",
+        "month"
+      ],
+      "subject": "金宣宗与尚书省、宝券持有人",
+      "action": "朝廷初用贞祐通宝，并规定一贯通宝折贞祐宝券千贯。",
+      "result": "宝券以一千比一折算，显示战时纸币大幅贬值。",
+      "quote": [
+        "初用「貞祐通寶」，凡一貫當「貞祐寶券」千貫。"
+      ],
+      "unknown": [
+        "发行量、兑换执行、物价和民间损失未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "PAPER-CURRENCY-THOUSAND-TO-ONE-CONVERSION",
+        "summary": "宣宗以通宝一贯折宝券千贯。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-SCHOOL-STIPENDS-PRESERVED-1217",
+      "time": [
+        "兴定元年二月",
+        "兴定元年二月",
+        "month"
+      ],
+      "subject": "金宣宗与州府学校生员",
+      "action": "尚书省以军储不足请求停发州府学生廪给，宣宗以文武并用为由拒绝。",
+      "result": "战争财政压力下地方学生口粮仍按旧制发给。",
+      "groups": [
+        "州府学生"
+      ],
+      "quote": [
+        "請罷州府學生廩給。",
+        "自古文武並用",
+        "其令仍舊給之。"
+      ],
+      "unknown": [
+        "生员人数、廪给总额和实际到位情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WARTIME-SCHOOL-STIPEND-PRESERVATION",
+        "summary": "宣宗拒绝以军储为由停发州府学生廪给。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-NORTHERN-INTERNAL-WARS-1217-1219",
+      "time": [
+        "兴定元年三月",
+        "兴定三年十二月",
+        "range"
+      ],
+      "subject": "石海、李全、红袄军等割据叛军与金地方军",
+      "action": "金军先后平定石海、宋子玉、五朵山与多州叛乱，后持续与李全、红袄军、黑旗军及地方割据势力争夺山东河北州县。",
+      "result": "若干叛军首领被杀、数万部众降复业，多城反复得失；李全势力仍未被彻底平定。",
+      "cost": "济南等地降壮士二万、老幼五万；石州降五千余人，其他死伤甚众。",
+      "groups": [
+        "山东河北军民",
+        "红袄军",
+        "李全军",
+        "金地方军"
+      ],
+      "quote": [
+        "斬石海及其党二百餘人",
+        "降其壯士二萬人、老幼五萬人。",
+        "紅襖賊犯徐、邳，行樞密院兵大破之。",
+        "李全破密州",
+        "復濱、棣二州。",
+        "大破紅襖賊于狄山。"
+      ],
+      "unknown": [
+        "各部起事原因、平民伤亡、降户安置及最终归属未完整载明。"
+      ],
+      "battle": "CAMPAIGN-JIN-NORTHERN-INTERNAL-WARS-1217-1219",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-HAIL-SEED-LOANS-1217",
+      "time": [
+        "兴定元年四月",
+        "兴定元年五月",
+        "range"
+      ],
+      "subject": "金宣宗与单州、延州雹灾农民",
+      "action": "单州和延州雹灾伤稼后，朝廷劝农改种秋田，并由官府给贷种子。",
+      "result": "受灾农户取得官种或种子贷款以补种。",
+      "groups": [
+        "单州延州雹灾农民"
+      ],
+      "quote": [
+        "雨雹傷稼，詔遣官勸諭農民改蒔秋田，官給其種。",
+        "詔官貸民種改蒔。"
+      ],
+      "unknown": [
+        "受灾面积、种子数量、偿还条件和秋收未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HAIL-DAMAGE-SEED-LOANS",
+        "summary": "宣宗给贷种子帮助雹灾农户改种秋田。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-SONG-WAR-1217-1219",
+      "time": [
+        "兴定元年四月",
+        "兴定三年三月",
+        "range"
+      ],
+      "subject": "金宣宗诸路军与宋军",
+      "action": "因宋岁币不至和边境交战，金军由信阳、淮北、海州及陕西多路攻宋，双方在泗州、光州、盱眙、兴元等处反复攻守；金朝议和未成后再全面南伐，至兴定三年春撤回主力。",
+      "result": "金军取得多处关寨州县和大量军粮，亦有皂郊堡等败绩；战争未获长期和约，南伐军最终班师。",
+      "cost": "双方军民伤亡不详；金军曾获粮九万斛、钱数千万及其他军实。",
+      "groups": [
+        "金宋边境军民",
+        "金南征军",
+        "宋军"
+      ],
+      "quote": [
+        "以宋歲幣不至",
+        "破宋兵於信陽",
+        "宋人圍泗州。",
+        "詔唐、鄧、蔡州行元帥府舉兵伐宋。",
+        "前後獲糧九萬斛，錢數千萬",
+        "還。詔伐宋。丙",
+        "攻宋麻城縣，拔之",
+        "以南伐師還"
+      ],
+      "unknown": [
+        "各路完整兵力、双方总伤亡、占领持续时间和议和条件未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-SONG-WAR-1217-1219",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-XIA-WAR-1217-1219",
+      "time": [
+        "兴定元年五月",
+        "兴定三年三月",
+        "range"
+      ],
+      "subject": "西夏军与金陕西守军",
+      "action": "金夏军在大北岔、黄鹤岔、羊狼寨、克戎寨、龛谷、通秦寨等地反复交战，金军多次击退来犯并攻至隆州，夏军也攻破通秦砦。",
+      "result": "陕西边战持续，双方均有城寨得失，未形成稳定和局。",
+      "cost": "通秦砦刺史战没；其他伤亡与俘获未完整载明。",
+      "groups": [
+        "陕西边境军民",
+        "金军",
+        "西夏军"
+      ],
+      "quote": [
+        "破夏人於大北岔",
+        "夏人犯黃鶴岔，官軍敗之。",
+        "夏人圍羊狼寨",
+        "夏人破葭州之通秦砦",
+        "夏人犯通秦砦",
+        "夏人犯龕谷"
+      ],
+      "unknown": [
+        "双方总兵力伤亡、寨堡最终归属和外交谈判未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-XIA-WAR-1217-1219",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-MONGOL-WAR-1217-1219",
+      "time": [
+        "兴定元年正月",
+        "兴定三年十二月",
+        "range"
+      ],
+      "subject": "蒙古军与金河东山东河北诸路军",
+      "action": "蒙古军继续攻取观州、忻代、太原、平阳、潞州、益都等州府，木华黎率军经太和岭深入河东；金军多次组织防秋、关隘和州城守备。",
+      "result": "太原、平阳、潞州和多个山东河北州县陷落，多名守臣战死，金朝北方防区进一步收缩。",
+      "cost": "多名将吏战死，州县陷落；双方总伤亡和流亡未载。",
+      "groups": [
+        "河东山东河北军民",
+        "金守军",
+        "蒙古军"
+      ],
+      "quote": [
+        "大元兵攻觀州。",
+        "大元兵徇忻、代。",
+        "大元兵平益都府。",
+        "木華里等帥步騎數萬自太和嶺徇河東。",
+        "亥，下太原府，",
+        "丑，下平陽，知",
+        "大元兵收潞州"
+      ],
+      "unknown": [
+        "各城守军兵力、民众伤亡和蒙古占领治理未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-MONGOL-WAR-1217-1219",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-PUBLIC-APPEALS-AND-REWARDS-1217",
+      "time": [
+        "兴定元年五月",
+        "兴定元年六月",
+        "range"
+      ],
+      "subject": "金宣宗与民苑汝济、上书者",
+      "action": "宣宗肯定卑微民人上书并要求可采者即行，同时规定已采用陈言应上报名者姓名并给论议可取者俸禄。",
+      "result": "非官僚上书取得采纳、署名和俸给激励。",
+      "quote": [
+        "卑賤小人，猶能盡言如此，有可采者即行之。",
+        "詔凡上書人其言已採用者，上其姓名。",
+        "論議可取，詔給八貫石俸。"
+      ],
+      "unknown": [
+        "实际采纳事项和获俸人数未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PUBLIC-PETITION-ADOPTION-AND-REWARD",
+        "summary": "宣宗鼓励民人上书并奖励被采纳陈言。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V15-PULING-PASS-REPAIR-1217",
+      "time": [
+        "兴定元年六月",
+        "兴定元年六月",
+        "month"
+      ],
+      "subject": "金宣宗与潼关夫匠",
+      "action": "朝廷修潼关，派中使持诏和药品慰劳夫匠，并增设潼关及三门集津管理官。",
+      "result": "潼关防御工程获得劳工医疗与专门关津管理配置。",
+      "cost": "工役、药品和造价未载。",
+      "groups": [
+        "潼关夫匠"
+      ],
+      "quote": [
+        "修潼關，遣中使持詔及署藥勞夫匠。",
+        "設潼關使、副，及三門、集津提舉官。"
+      ],
+      "unknown": [
+        "工程规模、完工时间和防御效果未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "TONG-PASS-DEFENSE-REPAIR",
+        "summary": "宣宗修潼关并配置夫匠医药及关津官。",
+        "continuity": "single_event",
+        "phase": "修筑",
+        "purpose": "关防",
+        "operation_result": "完工未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-REFUGEE-TAX-RELIEF-1217-1219",
+      "time": [
+        "兴定元年十一月",
+        "兴定二年二月",
+        "range"
+      ],
+      "subject": "金宣宗与流亡、复业民户",
+      "action": "宣宗发现逃户逋赋转配现户且军须附加过重，命核实蠲免并补偿代纳户，后免逃户复业者差赋及中京等州逋租。",
+      "result": "流亡欠税不再转嫁现户，复业逃户与代纳户取得减免补偿。",
+      "groups": [
+        "逃户",
+        "复业民户",
+        "代纳现户"
+      ],
+      "quote": [
+        "百姓流亡，逋賦皆配見戶，人何以堪？",
+        "其並讓除之。",
+        "已代納者以恩例",
+        "免逃戶復業者差賦。",
+        "免中京、嵩、汝等州逋租。"
+      ],
+      "unknown": [
+        "蠲免总额、复业户数和补偿落实未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REFUGEE-ARREARS-AND-RETURN-TAX-RELIEF",
+        "summary": "宣宗免流亡逋赋转嫁并优待逃户复业。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-WARTIME-MILITARY-LAND-1218-1219",
+      "time": [
+        "兴定二年二月",
+        "兴定二年七月",
+        "range"
+      ],
+      "subject": "金宣宗与屯田军、决胜军",
+      "action": "朝廷向愿耕屯田军说明受田不取消廪给，后把邳海义军和归国胁从编为决胜军，每人给地三十亩、有力者五十亩，免差税并日给粮二升。",
+      "result": "战时军户获得土地、税免和口粮的组合安置。",
+      "cost": "每人田三十至五十亩、日粮二升。",
+      "groups": [
+        "屯田军",
+        "邳海义军",
+        "归国胁从"
+      ],
+      "quote": [
+        "軍人願耕屯田",
+        "其以朕意曉之。",
+        "人給地三十畝，有力者五十畝，仍蠲差稅，日支糧二升，號「決勝軍」。"
+      ],
+      "unknown": [
+        "军户人数、授田总量、土地来源和持续年限未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MILITARY-LAND-TAX-AND-RATION-SETTLEMENT",
+        "summary": "宣宗以授田免税日粮编置决胜军。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-NANJING-INNER-WALL-1219",
+      "time": [
+        "兴定三年四月",
+        "兴定三年十月",
+        "range"
+      ],
+      "subject": "金宣宗与侯挚、高琪、南京筑城丁夫",
+      "action": "朝廷修筑南京里城，设置巡察保障丁夫饮食、休息和医疗，因恐妨农拒绝无限增夫，并以输砖五十万至百万奖励官职。",
+      "result": "南京里城于十月完工，负责官员受赏并议建碑。",
+      "cost": "输砖五十万迁一官、百万再升一等；总役夫造价未载。",
+      "groups": [
+        "筑城丁夫",
+        "输砖者",
+        "南京居民"
+      ],
+      "quote": [
+        "築京師裏城",
+        "時其飲食，聽其更休，督吏慘酷，悉禁止之。",
+        "，朕慮妨農。況",
+        "未，裏城畢工，",
+        "能致甓五十萬者遷一官，百萬仍升一等。"
+      ],
+      "unknown": [
+        "城墙尺度、总砖数、役夫伤亡和造价未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "NANJING-INNER-WALL",
+        "summary": "宣宗修成南京里城并设置劳工保障和输砖奖励。",
+        "continuity": "continued_within_reign",
+        "phase": "开工至完工",
+        "purpose": "京师防御",
+        "operation_result": "里城完工"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-NANJING-WINTER-RELIEF-1219",
+      "time": [
+        "兴定三年十月",
+        "兴定三年十二月",
+        "range"
+      ],
+      "subject": "金宣宗与南京乞食贫民",
+      "action": "朝廷修葺闲舍、给薪米安置贫民至次年二月，又因严寒乞食者死亡而给后苑竹木供取暖。",
+      "result": "京师贫民获得季节性住房、粮食和燃料救济，并计划时平后常态化。",
+      "cost": "薪米竹木数量未载。",
+      "groups": [
+        "南京贫民",
+        "严寒乞食者"
+      ],
+      "quote": [
+        "葺閑舍，給薪米，以濟貧民，期明年二月罷",
+        "京師丐食死于祁寒",
+        "給以後苑竹木，令居獲燠所。"
+      ],
+      "unknown": [
+        "受济人数、死亡数和常态化是否实施未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WINTER-SHELTER-FOOD-AND-FUEL-RELIEF",
+        "summary": "宣宗为南京贫民提供冬季住所薪米竹木。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-GRAIN-AND-TAX-RESTRAINT-1219",
+      "time": [
+        "兴定三年八月",
+        "兴定三年十一月",
+        "range"
+      ],
+      "subject": "金宣宗与三司、封丘催租官",
+      "action": "宣宗拒绝在征敛已重时继续筹积，命无麦种者官贷；又因催租迫民生刈禾，杖责户部令史及县令。",
+      "result": "额外征敛被抑制，缺种农户获贷，过急催租官受罚。",
+      "groups": [
+        "缺种农户",
+        "封丘纳租民户"
+      ],
+      "quote": [
+        "征斂已多，今更規畫，不過復取於民耳。",
+        "無種粒者貸之。",
+        "民有生刈禾輸租者。",
+        "問，杖唐五十，"
+      ],
+      "unknown": [
+        "贷种规模、催租受害户数和减征结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "GRAIN-SEED-SUPPORT-AND-TAX-COLLECTION-RESTRAINT",
+        "summary": "宣宗拒绝加征、贷麦种并惩治迫民催租。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-OIL-MONOPOLY-REJECTED-1219",
+      "time": [
+        "兴定三年四月",
+        "兴定三年四月",
+        "month"
+      ],
+      "subject": "同提举榷货司王三锡、高琪与金宣宗朝廷",
+      "action": "王三锡建议榷油以年入银数万两，高琪支持，因众议认为不便而停止。",
+      "result": "预期年入数万两的食油专卖未实施。",
+      "quote": [
+        "請榷油，歲可入銀數萬兩",
+        "眾以為不便，遂止。"
+      ],
+      "unknown": [
+        "反对理由、拟定税率和民间影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "OIL-MONOPOLY-PROPOSAL-REJECTED",
+        "summary": "宣宗朝因不便否决年入数万两的榷油方案。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-MILITARY-DECISION-DECENTRALIZATION-1218-1219",
+      "time": [
+        "兴定二年九月",
+        "兴定三年二月",
+        "range"
+      ],
+      "subject": "金宣宗、皇太子与各路主将",
+      "action": "宣宗先准紧急军务先行后闻，继而把四品以下军官惩处权下放主将，以减少枢密、东宫、朝廷层层覆奏延误。",
+      "result": "战时前线获得先行动和较宽军法裁决权。",
+      "quote": [
+        "有當亟行者，先行後聞。",
+        "至於奏可，然後誅賞",
+        "自今四品以下聽決。"
+      ],
+      "unknown": [
+        "下放后具体军令案件和误判纠正机制未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WARTIME-COMMAND-DECENTRALIZATION",
+        "summary": "宣宗允许急务先行后闻并下放四品以下军法权。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V15-GORYEO-BORDER-RESTRAINT-1218",
+      "time": [
+        "兴定二年四月",
+        "兴定二年四月",
+        "month"
+      ],
+      "subject": "金宣宗、阿里不孙与高丽",
+      "action": "阿里不孙因高丽不贷粮而擅兵掠境，宣宗遣使说明非朝廷本意并令恢复互市。",
+      "result": "金朝否认擅掠行为并以互市修复高丽关系。",
+      "quote": [
+        "貸糧高麗不應，輒以兵掠其境。",
+        "使知興兵非上國意。",
+        "請宣諭高麗復開互市，從之。"
+      ],
+      "unknown": [
+        "掠境损失、赔偿及互市恢复效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GORYEO-BORDER-RESTRAINT-AND-MARKET-RESTORATION",
+        "summary": "宣宗否认擅掠高丽并恢复互市。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V15-DEFENSE-FLEET-1219",
+      "time": [
+        "兴定三年九月",
+        "兴定三年九月",
+        "month"
+      ],
+      "subject": "金宣宗与沿河行院帅府",
+      "action": "朝廷在沿河建造战舰并交行院帅府使用。",
+      "result": "沿河防御获得专门水军舰艇，数量和战效未载。",
+      "cost": "舰数、造价、工役和材料未载。",
+      "quote": [
+        "沿河造戰艦，付行院帥府。"
+      ],
+      "unknown": [
+        "建造地点、舰型、数量和投入战斗结果未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "RIVER-DEFENSE-FLEET-CONSTRUCTION",
+        "summary": "宣宗沿河造战舰交帅府防御。",
+        "continuity": "single_event",
+        "phase": "建造交付",
+        "purpose": "沿河防御",
+        "operation_result": "交付帅府，战效未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    }
+  ],
+  "limitations": [
+    "本卷为11921字固定正文一次连续人工通读后的紧凑shadow登记。",
+    "蒙古、宋、夏三条外战与李全红袄军等内战分开合并，重复报捷和行军节点不逐条登记。",
+    "战时币制、逃户税负、军户授田、南京里城和赈贫均按独立结果闭合；普通任免贡聘祥异不单列。",
+    "卷16尚未读取，兴定三年以后战争、币制与宣宗朝结局不反填。"
+  ]
+}

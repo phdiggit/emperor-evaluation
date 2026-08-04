@@ -1,0 +1,238 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-216",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷216",
+    "revision_ref": "2341672",
+    "input_fingerprint": "4066964cce655c0e3eb2d4e8f79d9c16695b4376db05ea58f464fb3b3434e311",
+    "start_locator": "秋，七月，辛酉，博囉特穆爾敗賊王士誠於台州。",
+    "end_locator": "京師大饑，屯田成，收糧四十萬石。",
+    "overlap_context": "承卷215诸军事链；卷217未读"
+  },
+  "limitations": [
+    "仅据固定正文；不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-216-001",
+      "time": [
+        "1360-09",
+        "1361-01",
+        "range"
+      ],
+      "action": "博罗特穆尔与察罕特穆尔围绕冀宁、石岭关持续构兵",
+      "result": "朝廷多次命讲和罢兵而未止，两军仇杀加深",
+      "groups": [
+        "晋冀民众",
+        "两军士卒"
+      ],
+      "quote": [
+        "博囉特穆爾調兵自石嶺關直抵冀寧，圍其城三日，",
+        "由是構怨日深，兵終不解。"
+      ],
+      "battle": "CAMPAIGN-SONG216-BOLOR-CHAHAN",
+      "battle_reason": "两大军阀争晋冀与朝廷调解失败构成连续内战链。"
+    },
+    {
+      "id": "CHF-SONG-216-002",
+      "time": [
+        "1360-09",
+        "1360-10",
+        "range"
+      ],
+      "action": "欧普祥降吴后击败陈友谅军并俘陈友仁",
+      "result": "陈友谅派邹普胜议和，欧普祥释还友仁",
+      "groups": [
+        "袁州民众"
+      ],
+      "quote": "普祥與部將劉仁、黃彬擊敗其眾，獲友仁，鞭而囚之。",
+      "battle": "CAMPAIGN-SONG216-OU-PUXIANG",
+      "battle_reason": "袁州脱离陈友谅与击败其援军构成独立链。"
+    },
+    {
+      "id": "CHF-SONG-216-003",
+      "time": [
+        "1361-02",
+        "1361-02",
+        "month"
+      ],
+      "action": "吴设盐法与宝源局铸大中通宝",
+      "result": "盐课二十分取一、货值从民便以资军饷",
+      "groups": [
+        "盐商",
+        "民户"
+      ],
+      "quote": [
+        "令商人販鬻，二十分而取其一，以資軍餉。",
+        "鑄大中通寶錢，使與歷代錢兼行，",
+        "其物貨價值，一從民便。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "盐税与货币制度。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-216-004",
+      "time": [
+        "1361-07",
+        "1361-08",
+        "range"
+      ],
+      "action": "吴军多路进军并击败陈友谅军于安庆江州",
+      "result": "复安庆、入江州，陈友谅弃城逃武昌",
+      "groups": [
+        "江州安庆民众",
+        "吴军"
+      ],
+      "quote": [
+        "遂復安慶，長驅至小孤山，",
+        "友諒窮蹙，夜半，挈妻子棄城走武昌。"
+      ],
+      "battle": "CAMPAIGN-SONG215-CHEN-YOULIANG",
+      "battle_reason": "承龙湾后反攻，安庆江州收复为陈友谅战区连续阶段。"
+    },
+    {
+      "id": "CHF-SONG-216-005",
+      "time": [
+        "1361-07",
+        "1361-10",
+        "range"
+      ],
+      "action": "察罕特穆尔收复东平济宁、击破山东群贼并围益都",
+      "result": "鲁地悉定，益都被长围灌城",
+      "groups": [
+        "山东民众",
+        "官军"
+      ],
+      "quote": [
+        "遂復東平、濟甯，令豐為前鋒，從大軍東討。",
+        "降，魯地悉定。",
+        "築長圍，遏南洋河以灌城中，城中益困。"
+      ],
+      "battle": "CAMPAIGN-SONG212-CHAHAN-HENAN",
+      "battle_reason": "承察罕东进链，山东收复及益都围攻为连续阶段。"
+    },
+    {
+      "id": "CHF-SONG-216-006",
+      "time": [
+        "1361-11",
+        "1361-11",
+        "month"
+      ],
+      "action": "常遇春驰援被围长兴",
+      "result": "李伯升弃营遁走，吴军俘斩五千余",
+      "groups": [
+        "长兴民众",
+        "吴军"
+      ],
+      "quote": "常遇春兵至長興，李伯升棄營遁。遇春追擊，俘斬五千餘人。",
+      "battle": "CAMPAIGN-SONG211-ZHANG-SHICHENG",
+      "battle_reason": "张士诚长兴围攻与吴军解围构成江南战区链。"
+    },
+    {
+      "id": "CHF-SONG-216-007",
+      "time": [
+        "1361-12",
+        "1362-01",
+        "range"
+      ],
+      "action": "胡廷瑞祝宗以龙兴归吴",
+      "result": "军纪肃然，民安堵并获存恤与免除军需摊派",
+      "groups": [
+        "龙兴民众"
+      ],
+      "quote": [
+        "廷瑞、宗率行省僚屬迎謁于新城門，",
+        "軍令肅然，民皆安堵。",
+        "軍需供億，俱不以相累。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "归附区安置减负。"
+        ],
+        [
+          "political_event",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "和平接管龙兴。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-216-008",
+      "time": [
+        "1362-02",
+        "1362-04",
+        "range"
+      ],
+      "action": "蔣英刘震李福叛乱杀胡大海，处州苗军亦叛",
+      "result": "吴军收复处州，李佑之自杀、贺仁得伏诛",
+      "groups": [
+        "金华处州民众"
+      ],
+      "quote": [
+        "蔣英、劉震、李福叛，殺守臣參政胡大海及郎中王愷、總管高子玉。",
+        "吳平章邵榮及元帥王佑、胡深等兵攻處州，",
+        "李佑之自殺，賀仁得走縉雲，耕者縛之，檻送建康，伏誅。"
+      ],
+      "battle": "CAMPAIGN-SONG216-ZHEDONG-MUTINY",
+      "battle_reason": "金华处州苗军连锁叛乱与平定为独立链。"
+    },
+    {
+      "id": "CHF-SONG-216-009",
+      "time": [
+        "1362-03",
+        "1362-03",
+        "month"
+      ],
+      "action": "明玉珍在蜀称帝并定十取一赋税",
+      "result": "建立大夏、天统年号及文官制度",
+      "groups": [
+        "蜀地民众"
+      ],
+      "quote": "明玉珍僭稱帝於蜀，國號大夏，建元天統，",
+      "routes": [
+        [
+          "political_event",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "蜀地政权自立。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-216-010",
+      "time": [
+        "1362-06",
+        "1362-06",
+        "month"
+      ],
+      "action": "察罕特穆尔入田丰营遇刺",
+      "result": "库库特穆尔继统军马并继续围益都",
+      "groups": [
+        "山东军民"
+      ],
+      "quote": [
+        "行至豐營，遂為士誠所刺。",
+        "其子庫庫特穆爾授中書平章政事，兼知河南、山東行樞密院事，一應軍馬，並聽節制。"
+      ],
+      "battle": "CAMPAIGN-SONG212-CHAHAN-HENAN",
+      "battle_reason": "察罕战役链的统帅遇刺与继承交接。"
+    }
+  ]
+}

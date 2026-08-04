@@ -1,0 +1,406 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-197",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷197",
+    "revision_ref": "2334246",
+    "input_fingerprint": "888723c226142a68d99bc082f527f9786ee9890413c8ec54077bc182ada65856",
+    "start_locator": "武宗仁惠宣孝皇帝至大三年",
+    "end_locator": "然視河漕之費，則其所得蓋多矣。",
+    "overlap_context": "承卷196；具体跨卷关联未裁决"
+  },
+  "limitations": [
+    "仅据固定正文；不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-197-001",
+      "time": [
+        "1310-01",
+        "1310-01",
+        "month"
+      ],
+      "action": "营建五台寺",
+      "result": "调用工匠一千四百、军三千五百",
+      "cost": "工匠及军共四千九百人",
+      "groups": [
+        "工匠",
+        "军士"
+      ],
+      "quote": "營五臺寺，役工匠千四百人，軍三千五百人。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG197-WORK-WUTAI",
+        "candidate": "SONG197-WORK-WUTAI",
+        "observations": {
+          "work_identity": "五台寺",
+          "phase": "营建",
+          "purpose": "佛寺",
+          "resource_input": "工匠一千四百军三千五百",
+          "operation": "征役",
+          "benefit": "未载",
+          "harm": "役负担"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-002",
+      "time": [
+        "1310-02",
+        "1310-02",
+        "month"
+      ],
+      "action": "浚会通河",
+      "result": "以钞粮募民实施疏浚",
+      "cost": "钞四千八百锭、粮二万一千石",
+      "groups": [
+        "募役民",
+        "漕运使用者"
+      ],
+      "quote": "浚會通河，給鈔四千八百錠、糧二萬一千石以募民。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG197-WORK-HUITONG",
+        "candidate": "SONG197-WORK-HUITONG",
+        "observations": {
+          "work_identity": "会通河",
+          "phase": "疏浚",
+          "purpose": "漕运",
+          "resource_input": "钞粮募民",
+          "operation": "募民浚河",
+          "benefit": "工程实施",
+          "harm": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-003",
+      "time": [
+        "1310-02",
+        "1310-02",
+        "month"
+      ],
+      "action": "废至元钞板并确立银钞铜钱并行",
+      "result": "至元钞板销毁，改以至大钞与铜钱通行",
+      "groups": [
+        "货币使用者"
+      ],
+      "quote": "宜以至元鈔輸萬億庫，銷毀其板，止以至大鈔與銅錢相權通行為便。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG197-FIN-CURRENCY",
+        "candidate": "SONG197-FIN-CURRENCY",
+        "observations": {
+          "baseline": "新旧钞并存",
+          "fiscal_state": "销板改制",
+          "livelihood_state": "影响未载",
+          "production_circulation": "银钞铜钱并行"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-004",
+      "time": [
+        "1310-06",
+        "1310-08",
+        "range"
+      ],
+      "action": "建立亲民长吏岁终考核升黜制度",
+      "result": "形成监治官登记、台部考校链",
+      "groups": [
+        "地方官",
+        "会通河民运者"
+      ],
+      "quote": "給親民長吏考功印曆，令監治官歲終驗其行跡，書而上之，廉訪司、御史臺、尚書禮部考校以為升黜。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG197-REPAIR-004",
+        "candidate": "SONG197-REPAIR-004",
+        "observations": {
+          "direct_result": "形成监治官登记、台部考校链",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1310-06..1310-08"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-005",
+      "time": [
+        "1310-06",
+        "1310-08",
+        "range"
+      ],
+      "action": "禁止权要持旨阻碍会通河民运",
+      "result": "会通河运输秩序受到禁令保护",
+      "groups": [
+        "地方官",
+        "会通河民运者"
+      ],
+      "quote": "禁權要商販挾聖旨、懿旨、令旨阻礙會通河民般者。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG197-REPAIR-005",
+        "candidate": "SONG197-REPAIR-005",
+        "observations": {
+          "direct_result": "会通河运输秩序受到禁令保护",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1310-06..1310-08"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-006",
+      "time": [
+        "1310-11",
+        "1310-11",
+        "month"
+      ],
+      "action": "河南水灾赈济并免租",
+      "result": "死者给棺、失屋给钞、按口赈粮两月并免租赋",
+      "groups": [
+        "河南水灾民"
+      ],
+      "quote": "漂廬舍者給鈔，驗口賑糧兩月。免今年租賦。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG197-FIN-HENAN-FLOOD",
+        "candidate": "SONG197-FIN-HENAN-FLOOD",
+        "observations": {
+          "baseline": "河南水灾",
+          "fiscal_state": "给钞免租",
+          "livelihood_state": "赈粮两月",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-007",
+      "time": [
+        "1311-01",
+        "1311-01",
+        "month"
+      ],
+      "action": "罢尚书省并清算主政者",
+      "result": "主要责任者伏诛，百司政务复归中书",
+      "groups": [
+        "百官",
+        "中都民户"
+      ],
+      "quote": [
+        "皇太子令罷尚書省，托克托、三寶努、約蘇、寶巴、王羆等皆伏誅。",
+        "尋復以行尚書省為行中書省，百司庶務，復歸中書。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG197-REPAIR-007",
+        "candidate": "SONG197-REPAIR-007",
+        "observations": {
+          "direct_result": "主要责任者伏诛，百司政务复归中书",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1311-01..1311-01"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-008",
+      "time": [
+        "1311-01",
+        "1311-02",
+        "range"
+      ],
+      "action": "停止营建中都并归还所占民田",
+      "result": "中都工程停止、占地返还民户",
+      "groups": [
+        "百官",
+        "中都民户"
+      ],
+      "quote": [
+        "壬子，罷城中都。",
+        "甲寅，還中都所占民田。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG197-REPAIR-008",
+        "candidate": "SONG197-REPAIR-008",
+        "observations": {
+          "direct_result": "中都工程停止、占地返还民户",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1311-01..1311-02"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-009",
+      "time": [
+        "1311-02",
+        "1311-02",
+        "month"
+      ],
+      "action": "杭州疏浚便河",
+      "result": "不到一月河成，恢复通江舟楫条件",
+      "groups": [
+        "杭州民商"
+      ],
+      "quote": "民蒙其利，則災沴自弭，土功何尤焉！」不一月，河成。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG197-WORK-HANGZHOU",
+        "candidate": "SONG197-WORK-HANGZHOU",
+        "observations": {
+          "work_identity": "杭州便河",
+          "phase": "完工",
+          "purpose": "通舟平价",
+          "resource_input": "未载",
+          "operation": "便宜疏凿",
+          "benefit": "一月河成",
+          "harm": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-010",
+      "time": [
+        "1311-04",
+        "1311-04",
+        "month"
+      ],
+      "action": "废止至大银钞与铜钱改革",
+      "result": "罢资国院和泉货监，民间铜器交易恢复，旧钞钱封存兑换",
+      "groups": [
+        "货币使用者",
+        "铜器民户"
+      ],
+      "quote": [
+        "罷行至大銀鈔、銅錢。",
+        "其罷資國院及各處泉貨監提舉司，買賣銅器，聽民自便。應尚書省已發各處至大鈔本及至大銅錢，截日封貯，民間行使者，赴行用庫倒換。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG197-FIN-CURRENCY-REPEAL",
+        "candidate": "SONG197-FIN-CURRENCY-REPEAL",
+        "observations": {
+          "baseline": "新钞钱弊滋甚",
+          "fiscal_state": "废新制复旧",
+          "livelihood_state": "铜器听民自便",
+          "production_circulation": "银钞铜钱封存兑换"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-011",
+      "time": [
+        "1311-05",
+        "1311-05",
+        "month"
+      ],
+      "action": "再次出兵八百媳妇",
+      "result": "谏阻未从，命云南王等率众进讨",
+      "groups": [
+        "云南军民",
+        "八百媳妇诸部"
+      ],
+      "quote": "遣兵擊八百媳婦。",
+      "battle": "CAMPAIGN-SONG197-EIGHTHUNDRED-WIVES",
+      "battle_reason": "重新决策出兵及云南王率众进讨为独立军事链。"
+    },
+    {
+      "id": "CHF-SONG-197-012",
+      "time": [
+        "1311-11",
+        "1311-11",
+        "month"
+      ],
+      "action": "因财政枯竭停罢不急营缮",
+      "result": "皇帝采纳建议，所有营缮停罢",
+      "groups": [
+        "工役民夫",
+        "国库"
+      ],
+      "quote": "帝納其言，凡營繕悉罷之。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG197-WORK-STOP",
+        "candidate": "SONG197-WORK-STOP",
+        "observations": {
+          "work_identity": "各项营缮",
+          "phase": "全部停罢",
+          "purpose": "节省浮费",
+          "resource_input": "前岁数百万锭",
+          "operation": "采纳停工",
+          "benefit": "缓财政压力",
+          "harm": "帑藏仅十一万余锭"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-013",
+      "time": [
+        "1311-11",
+        "1311-11",
+        "month"
+      ],
+      "action": "增设米肆平粜赈京师贫民",
+      "result": "新增十所米肆，每日平粜八百石",
+      "groups": [
+        "京师贫民"
+      ],
+      "quote": "敕增置京城米肆十所，日平糶八百石以賑貧民。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG197-FIN-RICESTORES",
+        "candidate": "SONG197-FIN-RICESTORES",
+        "observations": {
+          "baseline": "贫民需赈",
+          "fiscal_state": "官设米肆",
+          "livelihood_state": "每日平粜八百石",
+          "production_circulation": "平价粮流通"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-197-014",
+      "time": [
+        "1311-12",
+        "1311-12",
+        "month"
+      ],
+      "action": "整治内降除官与选法混乱",
+      "result": "此后内降除官一律不执行",
+      "groups": [
+        "官员候选者",
+        "中书省"
+      ],
+      "quote": "帝曰：「自今凡內降者，一切勿行。」",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG197-POL-APPOINTMENTS",
+        "candidate": "SONG197-POL-APPOINTMENTS",
+        "observations": {
+          "event_type": "选法整顿",
+          "decision_question": "千余内降除官",
+          "alternatives": "继续执行",
+          "decision": "一切勿行",
+          "direct_result": "禁令颁行",
+          "power_change": "恢复常规选法",
+          "risk_or_damage": "躐等滥授",
+          "follow_up": "未载"
+        }
+      }
+    }
+  ]
+}

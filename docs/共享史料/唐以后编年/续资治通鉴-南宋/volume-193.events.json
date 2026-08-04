@@ -1,0 +1,457 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-193",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷193",
+    "revision_ref": "2333762",
+    "input_fingerprint": "1c2eab2c2e8a55477af13642b33924118a85f368026f7a4b92460fe86aead0b6",
+    "start_locator": "成宗欽明廣孝皇帝大德元年",
+    "end_locator": "賑建康、浙東、平江饑。",
+    "overlap_context": "与卷192右界连续性未作跨卷裁决"
+  },
+  "limitations": [
+    "仅据固定《續資治通鑑》卷193；不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-193-001",
+      "time": [
+        "1297-07",
+        "1298-07",
+        "range"
+      ],
+      "action": "围绕杞县蒲口河决反复形成处置方案",
+      "result": "初不塞、后复塞，次年再决，最终水北入而复河故道",
+      "cost": "障塞之役无岁无之",
+      "groups": [
+        "河北沿河民户"
+      ],
+      "quote": "明年，蒲口復決，障塞之役，無歲無之。是後水北入，復河故道，竟如文言。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG193-WORK-PUKOU",
+        "candidate": "SONG193-WORK-PUKOU",
+        "observations": {
+          "work_identity": "蒲口河防",
+          "phase": "处置反复",
+          "purpose": "御泛溢",
+          "resource_input": "障塞之役",
+          "operation": "未载",
+          "benefit": "最终复故道",
+          "harm": "河患持续"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-002",
+      "time": [
+        "1297-09",
+        "1297-09",
+        "month"
+      ],
+      "action": "赈恤诸郡水旱疾疫之家",
+      "result": "受灾患民户获得赈恤",
+      "groups": [
+        "水旱疾疫之家",
+        "两淮民户"
+      ],
+      "quote": "詔恤諸郡水旱疾疫之家。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-REPAIR-002",
+        "candidate": "SONG193-REPAIR-002",
+        "observations": {
+          "direct_result": "受灾患民户获得赈恤",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1297-09..1297-09"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-003",
+      "time": [
+        "1297-09",
+        "1297-09",
+        "month"
+      ],
+      "action": "停止括取两淮民田",
+      "result": "两淮民田搜括停止",
+      "groups": [
+        "水旱疾疫之家",
+        "两淮民户"
+      ],
+      "quote": "罷括兩淮民田。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-REPAIR-003",
+        "candidate": "SONG193-REPAIR-003",
+        "observations": {
+          "direct_result": "两淮民田搜括停止",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1297-09..1297-09"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-004",
+      "time": [
+        "1297-09",
+        "1297-10",
+        "range"
+      ],
+      "action": "增加海漕粮额",
+      "result": "海漕增至六十五万石",
+      "groups": [
+        "江浙农户",
+        "漕运使用者"
+      ],
+      "quote": "增海漕為六十五萬石。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-REPAIR-004",
+        "candidate": "SONG193-REPAIR-004",
+        "observations": {
+          "direct_result": "海漕增至六十五万石",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1297-09..1297-10"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-005",
+      "time": [
+        "1297-09",
+        "1297-10",
+        "range"
+      ],
+      "action": "疏导吴淞江淤塞河道",
+      "result": "发卒数万，四个月完工",
+      "groups": [
+        "江浙农户",
+        "漕运使用者"
+      ],
+      "quote": "朝廷命行省疏導之，發卒數萬人，徹爾董其役，凡四閱月畢工。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG193-REPAIR-005",
+        "candidate": "SONG193-REPAIR-005",
+        "observations": {
+          "direct_result": "发卒数万，四个月完工",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1297-09..1297-10"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-006",
+      "time": [
+        "1297-12",
+        "1297-12",
+        "month"
+      ],
+      "action": "禁止诸王、驸马及权豪夺取民田",
+      "result": "献田者纳入刑罚约束",
+      "groups": [
+        "民田业主",
+        "屯田军户"
+      ],
+      "quote": "禁諸王、駙馬並權豪毋奪民田，其獻田者有刑。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG193-REPAIR-006",
+        "candidate": "SONG193-REPAIR-006",
+        "observations": {
+          "direct_result": "献田者纳入刑罚约束",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1297-12..1297-12"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-007",
+      "time": [
+        "1297-12",
+        "1297-12",
+        "month"
+      ],
+      "action": "复立芍陂、洪泽屯田",
+      "result": "两处屯田恢复",
+      "groups": [
+        "民田业主",
+        "屯田军户"
+      ],
+      "quote": "復立芍陂、洪澤屯田。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-REPAIR-007",
+        "candidate": "SONG193-REPAIR-007",
+        "observations": {
+          "direct_result": "两处屯田恢复",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1297-12..1297-12"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-008",
+      "time": [
+        "1298-01",
+        "1298-01",
+        "month"
+      ],
+      "action": "因水旱减免田租与差税",
+      "result": "一般减田租三成，重灾尽免，弱者差税免三年",
+      "groups": [
+        "水旱灾民",
+        "老病单弱者"
+      ],
+      "quote": "以水旱減郡縣田租十分之三，傷甚者盡免之，老病單弱者，差稅並免三年。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-FIN-TAXRELIEF",
+        "candidate": "SONG193-FIN-TAXRELIEF",
+        "observations": {
+          "baseline": "水旱",
+          "fiscal_state": "减免田租差税",
+          "livelihood_state": "救济灾户弱者",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-009",
+      "time": [
+        "1298-02",
+        "1298-02",
+        "month"
+      ],
+      "action": "要求会计收支并罢中外土木役",
+      "result": "节用建议获纳，土木之役停止",
+      "groups": [
+        "役夫",
+        "财政供给对象"
+      ],
+      "quote": [
+        "帝嘉納焉，罷中外土木之役。",
+        "每歲天下金銀鈔幣，所入幾何？諸王、駙馬賜與及一切營建，所出幾何？其會計以聞。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG193-WORK-ECONOMY",
+        "candidate": "SONG193-WORK-ECONOMY",
+        "observations": {
+          "work_identity": "中外土木",
+          "phase": "罢役",
+          "purpose": "节用",
+          "resource_input": "未载",
+          "operation": "会计后裁停",
+          "benefit": "减土木负担",
+          "harm": "财政入不敷出"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-010",
+      "time": [
+        "1298-06",
+        "1298-07",
+        "range"
+      ],
+      "action": "罢止江南加征夏税并修汴梁决河",
+      "result": "门摊与夏税并征被令罢；蒲口筑九十六所并免灾田租一年",
+      "groups": [
+        "湖湘民",
+        "归德灾民",
+        "河工"
+      ],
+      "quote": [
+        "帝命中書趣罷之。",
+        "免其田租一年。遣尚書那瓖、御史劉賡等塞之，自蒲口首事，凡築九十六所。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-FIN-SUMMERTAX",
+        "candidate": "SONG193-FIN-SUMMERTAX",
+        "observations": {
+          "baseline": "加征与河决",
+          "fiscal_state": "罢并征、免租",
+          "livelihood_state": "减湖湘与归德负担",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-011",
+      "time": [
+        "1299-01",
+        "1299-01",
+        "month"
+      ],
+      "action": "设惠民局并减免江南夏税",
+      "result": "设各路惠民局，江南夏税减三成",
+      "groups": [
+        "江南纳税民",
+        "求医民众"
+      ],
+      "quote": "免江南夏稅十分之三，增給小吏俸米。置各路惠民局，擇良醫主之。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG193-FIN-HUIMIN",
+        "candidate": "SONG193-FIN-HUIMIN",
+        "observations": {
+          "baseline": "天变后问民疾苦",
+          "fiscal_state": "夏税减三成",
+          "livelihood_state": "设惠民局",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-012",
+      "time": [
+        "1299-06",
+        "1299-08",
+        "range"
+      ],
+      "action": "铁幡竿渠缩窄施工后遇暴雨失效",
+      "result": "渠不能容水，漂没人畜庐帐，帝承认未用郭守敬之言",
+      "cost": "工程缩广三分之一",
+      "groups": [
+        "渠旁居民"
+      ],
+      "quote": [
+        "是夏大雨，山水注下，渠不能容，漂沒人畜廬帳，幾犯行殿。",
+        "鐵幡竿渠之開也，執政吝于工費，以郭守敬所言為過，縮其廣三之一。",
+        "帝謂宰臣曰：「郭太史，神人也，惜其言不用耳！」"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG193-WORK-TIEFANG",
+        "candidate": "SONG193-WORK-TIEFANG",
+        "observations": {
+          "work_identity": "铁幡竿渠",
+          "phase": "失效",
+          "purpose": "泄山水",
+          "resource_input": "缩窄工程",
+          "operation": "未采专家全议",
+          "benefit": "未载",
+          "harm": "漂没人畜庐帐"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-013",
+      "time": [
+        "1299-11",
+        "1299-12",
+        "range"
+      ],
+      "action": "设置浙西、平江河渠闸堰",
+      "result": "设置闸堰七十八所",
+      "groups": [
+        "浙西水利区民户"
+      ],
+      "quote": "置浙西、平江河渠閘堰，凡七十八所。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG193-REPAIR-013",
+        "candidate": "SONG193-REPAIR-013",
+        "observations": {
+          "direct_result": "设置闸堰七十八所",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1299-11..1299-12"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-014",
+      "time": [
+        "1299-11",
+        "1299-12",
+        "range"
+      ],
+      "action": "疏浚太湖及淀山湖",
+      "result": "两湖获得疏浚",
+      "groups": [
+        "浙西水利区民户"
+      ],
+      "quote": "浚太湖及澱山湖。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG193-REPAIR-014",
+        "candidate": "SONG193-REPAIR-014",
+        "observations": {
+          "direct_result": "两湖获得疏浚",
+          "benefit": "unknown",
+          "cost": "unknown",
+          "implementation": "unknown",
+          "counterparty": "unknown",
+          "time_boundary": "1299-11..1299-12"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-193-015",
+      "time": [
+        "1300-06",
+        "1300-08",
+        "range"
+      ],
+      "action": "处理缅国政变并停止征兵",
+      "result": "缅国杀主者自陈罪，征缅兵被罢",
+      "groups": [
+        "缅国民众",
+        "拟出征军士"
+      ],
+      "quote": "緬國阿散吉牙等昆弟赴闕，自言殺主之罪，罷征緬兵。",
+      "battle": "CAMPAIGN-SONG193-MYANMAR-CRISIS",
+      "battle_reason": "政变后的出兵决策与撤兵构成单一对外军事链。"
+    },
+    {
+      "id": "CHF-SONG-193-016",
+      "time": [
+        "1300-12",
+        "1300-12",
+        "month"
+      ],
+      "action": "发二万征八百媳妇，董士选谏止未果",
+      "result": "战事已成，皇帝拒绝再议",
+      "cost": "二万出兵与粮兵负担",
+      "groups": [
+        "出征军民",
+        "西南民众"
+      ],
+      "quote": [
+        "癸巳，發兵二萬，命劉深及哈喇貸將之，征八百媳婦。",
+        "御史中丞董士選率同列言之。",
+        "帝曰：「事已成，卿勿復言。」"
+      ],
+      "battle": "CAMPAIGN-SONG193-EIGHTHUNDRED-WIVES",
+      "battle_reason": "远征决策、兵力投入和朝廷反对意见应由战役流程核定。"
+    }
+  ]
+}

@@ -1,0 +1,913 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V02-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V02-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷2",
+    "revision_ref": "2589313",
+    "start_locator": "太宗嗣位与天聪元年初政",
+    "end_locator": "天聪十年群臣再请尊号、设坛前",
+    "overlap_context": "承接卷1太祖崩；本卷止于尊号仪式前，卷3尚未读取。",
+    "input_fingerprint": "c379efffe087341ccd86bf3b8f5c29cbf61fba3f63623b9b2034e5e406b55cd3"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷2正文登记；原文未载者保持未知。",
+    "本卷末尊号仪式尚未完成，不从卷3反填结果。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V02-TAIZONG-ACCESSION-1626",
+      "time": [
+        "天命十一年九月",
+        "天命十一年",
+        "month"
+      ],
+      "subject": "皇太极与诸贝勒大臣",
+      "action": "太祖死后，诸贝勒大臣推皇太极嗣位，皇太极在沈阳即位并定次年改元天聪。",
+      "result": "后金完成最高权力交接，天聪朝开启。",
+      "quote": [
+        "與諸貝勒議請嗣位。",
+        "即位於瀋陽。詔以明年為天聰元年。"
+      ],
+      "unknown": [
+        "推戴过程中的具体协商与反对意见未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SUCCESSION",
+        "summary": "皇太极受推戴即位并预定改元。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-QING-V02-EARLY-GOVERNANCE-1626",
+      "time": [
+        "天命十一年十月",
+        "天命十一年十一月",
+        "range"
+      ],
+      "subject": "皇太极与后金官民",
+      "action": "皇太极停止非必要兴筑，要求满汉诉讼差徭均一，准民自由贸易并仅征市场税，又令宽刑慎罚。",
+      "result": "新君初政确立节役、均徭、通商和慎刑原则。",
+      "groups": [
+        "满洲民户",
+        "汉人民户",
+        "商民",
+        "服役者"
+      ],
+      "quote": [
+        "茲後止葺頹壞，不復興築，俾民專勤南畝。",
+        "滿洲、漢人，毋或異視，訟獄差徭，務使均一。",
+        "聽其通商貿易"
+      ],
+      "unknown": [
+        "市场税率、减役户数和实际执法成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "EARLY-REIGN-LABOR-TRADE-JUSTICE",
+        "summary": "皇太极以节役、均徭、通商和慎刑整顿初政。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-HAN-HOUSEHOLD-REFORM-1626",
+      "time": [
+        "天命十一年十月",
+        "天命十一年",
+        "month"
+      ],
+      "subject": "皇太极与满洲诸臣所属汉人",
+      "action": "皇太极令满洲大臣每备御仅留八名汉人，其余汉人另屯编为民户，分别居住。",
+      "result": "大量依附人口脱离私人占有，改入独立民户与屯居体系。",
+      "groups": [
+        "所属汉人",
+        "满洲大臣"
+      ],
+      "quote": [
+        "每備御止留八人",
+        "餘悉編為民戶，處以別屯"
+      ],
+      "unknown": [
+        "改编总户数、土地配给和后续赋役标准未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DEPENDENT-HOUSEHOLD-REFORM",
+        "summary": "皇太极将多数私人所属汉人改编为独立民户。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-BANNER-COUNCILS-1626",
+      "time": [
+        "天命十一年十一月",
+        "天命十一年",
+        "month"
+      ],
+      "subject": "皇太极与八旗贝勒大臣",
+      "action": "皇太极命八旗贝勒各主一旗，又每旗设总理旗务大臣二人与佐理大臣二人，办理政务、听讼并进谏。",
+      "result": "八旗行政司法和谏议职责形成常设分层组织。",
+      "quote": [
+        "又設十六大臣，贊理庶政，聽八旗訟獄。",
+        "又設十六大臣，參理訟獄"
+      ],
+      "unknown": [
+        "各官权限边界和首批完整人员名单未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BANNER-GOVERNANCE-COUNCILS",
+        "summary": "皇太极重组八旗旗务、司法和谏议机构。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V02-JALUT-CAMPAIGN-1626",
+      "time": [
+        "天命十一年十月",
+        "天命十一年十一月",
+        "range"
+      ],
+      "subject": "后金军与札鲁特部",
+      "action": "皇太极因札鲁特援助明朝，遣代善等出征，俘其二贝勒及部众后班师。",
+      "result": "札鲁特受到军事打击，部分首领和人口被俘。",
+      "cost": "俘获数量未完整载明。",
+      "groups": [
+        "札鲁特部众",
+        "后金军"
+      ],
+      "quote": [
+        "以蒙古喀爾喀札魯特部敗盟殺掠，私通於明，命大貝勒代善等率精兵萬人討之",
+        "大破札魯特"
+      ],
+      "unknown": [
+        "双方兵力、伤亡和俘虏安置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-JALUT-1626",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-FIRST-KOREA-WAR-1627",
+      "time": [
+        "天聪元年正月",
+        "天聪元年三月",
+        "range"
+      ],
+      "subject": "后金军与朝鲜王朝",
+      "action": "皇太极遣阿敏等攻朝鲜，攻克义州、安州、平壤等地；双方随后盟誓罢兵，约定朝贡并留兵义州。",
+      "result": "朝鲜与后金建立兄弟盟约和贡物关系，后金军主体撤回。",
+      "cost": "多城失守，人口与军民伤亡未详。",
+      "groups": [
+        "朝鲜军民",
+        "后金军",
+        "盟约贡赋承担者"
+      ],
+      "quote": [
+        "與朝鮮盟，定議罷兵。"
+      ],
+      "unknown": [
+        "双方总兵力、伤亡、贡物实际交纳和地方损失未完整载明。"
+      ],
+      "battle": "CAMPAIGN-QING-FIRST-KOREA-WAR-1627",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-NINGYUAN-JINZHOU-1627",
+      "time": [
+        "天聪元年五月",
+        "天聪元年六月",
+        "range"
+      ],
+      "subject": "皇太极率后金军与明宁远、锦州守军",
+      "action": "后金军围锦州并进攻宁远，遭明军火炮和守城抵抗，屡战后退兵。",
+      "result": "后金未能攻克锦州、宁远，战后发生疫病和大量军民死亡。",
+      "cost": "原文称大疫，人民死者甚众；战斗确切伤亡未载。",
+      "groups": [
+        "后金军民",
+        "明军民"
+      ],
+      "quote": [
+        "，遂圍錦州。明"
+      ],
+      "unknown": [
+        "双方确切伤亡、疫病范围和死亡人口未载。"
+      ],
+      "battle": "CAMPAIGN-QING-NINGYUAN-JINZHOU-1627",
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-FAMINE-RELIEF-1627",
+      "time": [
+        "天聪元年",
+        "天聪二年二月",
+        "range"
+      ],
+      "subject": "皇太极与后金饥民",
+      "action": "大饥导致米价暴涨和盗窃增多，皇太极对盗粮者先鞭责后释放，并发国帑赈济百姓。",
+      "result": "政府以宽刑和财政赈济应对饥荒，但灾情终止时间未载。",
+      "groups": [
+        "饥民",
+        "盗粮者"
+      ],
+      "quote": [
+        "是歲，大饑，斗米值銀八兩",
+        "原盜賊蜂起",
+        "仍發帑賑民。"
+      ],
+      "unknown": [
+        "赈款、受赈人数、饥荒死亡及恢复情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FAMINE-RELIEF",
+        "summary": "皇太极在大饥中宽释盗粮者并发帑赈民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-DOROIT-CHAHAR-1628",
+      "time": [
+        "天聪二年二月",
+        "天聪二年九月",
+        "range"
+      ],
+      "subject": "后金军与多罗特、察哈尔诸部",
+      "action": "后金先征多罗特，继而西征察哈尔并招纳蒙古部众。",
+      "result": "多罗特人口牲畜被大量掠取，察哈尔边缘部众继续向后金迁附。",
+      "cost": "征多罗特俘一万一千二百人；其他伤亡未载。",
+      "groups": [
+        "多罗特部众",
+        "察哈尔部众",
+        "后金军"
+      ],
+      "quote": [
+        "與征察哈爾"
+      ],
+      "unknown": [
+        "俘虏安置、牲畜数量和察哈尔作战损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-DOROIT-CHAHAR-1628",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-WENGUAN-EXAM-1629",
+      "time": [
+        "天聪三年四月",
+        "天聪三年八月",
+        "range"
+      ],
+      "subject": "皇太极与文馆、生员",
+      "action": "皇太极设置文馆，分掌翻译汉籍和记注本朝政事；随后初试生员，取二百人并免差徭。",
+      "result": "后金建立文书史政机构并通过考试选拔、优免读书人。",
+      "groups": [
+        "文馆人员",
+        "生员",
+        "免役家庭"
+      ],
+      "quote": [
+        "朔，設文館，命",
+        "繙譯漢字書籍",
+        "記注本朝政事",
+        "初試生員，拔二百人",
+        "，免其差徭。癸"
+      ],
+      "unknown": [
+        "文馆员额、考试科目和免役规模未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WENGUAN-AND-EXAMINATION",
+        "summary": "皇太极设文馆并考试生员、给予免役。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-BEIJING-YONGPING-CAMPAIGN-1629-1630",
+      "time": [
+        "天聪三年十月",
+        "天聪四年五月",
+        "range"
+      ],
+      "subject": "皇太极率后金军与明京畿、永平守军",
+      "action": "后金绕道入长城，击败明援军并进逼北京，继而攻取遵化、永平等城；留守将阿敏等在明军反攻时弃四城并屠戮降民。",
+      "result": "后金一度控制永平四城但最终撤失；阿敏被幽禁，相关将领受罚，幸存降民改编民户并获衣食。",
+      "cost": "撤出灤州时无马受创者死四百余人，永平城民遭屠，完整伤亡未载。",
+      "groups": [
+        "明京畿军民",
+        "后金军",
+        "永平降民"
+      ],
+      "quote": [
+        "，黎明克之。貝",
+        "盡屠城中士民",
+        "御殿宣阿敏十六罪",
+        "命編為民戶，以房舍衣食給之。"
+      ],
+      "unknown": [
+        "各城军民总伤亡、屠城死亡人数及安置户数未载。"
+      ],
+      "battle": "CAMPAIGN-QING-BEIJING-YONGPING-1629-1630",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-CANNON-SIX-MINISTRIES-1631",
+      "time": [
+        "天聪五年正月",
+        "天聪五年七月",
+        "range"
+      ],
+      "subject": "皇太极政权",
+      "action": "后金铸成红衣大炮并开始军中造炮，又设置六部，各部按满、汉、蒙古分设承政、参政和启心郎。",
+      "result": "后金获得常态火炮制造能力，并建立跨族群中央行政机构。",
+      "groups": [
+        "铸炮工匠",
+        "六部官员",
+        "军民"
+      ],
+      "quote": [
+        "鑄紅衣大砲成",
+        "軍中造砲自此始。",
+        "辰，始設六部，",
+        "每部滿、漢、蒙古分設承政官"
+      ],
+      "unknown": [
+        "火炮数量、制造成本、六部初期实际编制和财政支出未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ARTILLERY-AND-SIX-MINISTRIES",
+        "summary": "后金开始自造火炮并建立六部中央行政。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-DALINGHE-CAMPAIGN-1631",
+      "time": [
+        "天聪五年七月",
+        "天聪五年十一月",
+        "range"
+      ],
+      "subject": "皇太极率后金军与祖大寿、明援军",
+      "action": "后金围困大凌河，筑壕围城、以红衣炮攻台，击败张春等四万援军，最终迫使祖大寿举城投降。",
+      "result": "大凌河城降后被毁，祖大寿获释返回锦州；围城展示火炮和围困战能力。",
+      "cost": "城中粮尽并发生人相食，明援军大败；双方确切死亡未载。",
+      "groups": [
+        "大凌河军民",
+        "明援军",
+        "后金军"
+      ],
+      "quote": [
+        "當掘壕築壘困之。",
+        "以紅衣砲攻於子章台",
+        "生擒張春及副將三十三人。",
+        "大凌河舉城降",
+        "毀大凌河城。"
+      ],
+      "unknown": [
+        "围城军民死亡、投降人口处置和双方总损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-DALINGHE-1631",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-CHAHAR-MING-CAMPAIGN-1632",
+      "time": [
+        "天聪六年三月",
+        "天聪六年七月",
+        "range"
+      ],
+      "subject": "皇太极率后金、蒙古联军与察哈尔、明宣大边军",
+      "action": "后金西征迫使林丹汗西遁，掠取察哈尔部民，继而进至宣府大同边外，与明边臣议和并在张家口互市盟誓。",
+      "result": "察哈尔人口进一步流失，后金与明宣大边境暂时达成贸易与和议。",
+      "cost": "沿途察哈尔部民被俘，确切人口和战斗伤亡未完整载明。",
+      "groups": [
+        "察哈尔部民",
+        "明边民",
+        "后金与蒙古军"
+      ],
+      "quote": [
+        "林丹聞我師至，大懼",
+        "所在察哈爾部民悉俘之。",
+        "遂定和議，大市於張家口。",
+        "刑白馬烏牛，誓告天地。"
+      ],
+      "unknown": [
+        "互市规模、和议履行期限、俘民处置和损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-CHAHAR-MING-1632",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-GAIZHOU-RESETTLEMENT-1632",
+      "time": [
+        "天聪六年九月",
+        "天聪六年",
+        "month"
+      ],
+      "subject": "皇太极与盖州民户",
+      "action": "皇太极命修复盖州城并迁民充实城内，同时展定耀州至盖州以南边界。",
+      "result": "盖州防御与人口配置得到重整，南部行政边界扩展。",
+      "groups": [
+        "迁入民户",
+        "筑城役夫"
+      ],
+      "quote": [
+        "修覆蓋州城，移民實之。",
+        "展耀州舊界至蓋州迤南。"
+      ],
+      "unknown": [
+        "修城规模、迁入户数、役费和土地分配未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "CITY-REPAIR-AND-RESETTLEMENT",
+        "summary": "皇太极修复盖州并移民实城、展定边界。",
+        "continuity": "single_event",
+        "phase": "修城与实边",
+        "purpose": "边防与行政控制",
+        "operation_result": "城池修复并移民"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-FOUR-FORTS-1633",
+      "time": [
+        "天聪七年三月",
+        "天聪七年",
+        "month"
+      ],
+      "subject": "皇太极政权与辽东工役",
+      "action": "后金修筑鹻场、揽盘、通远堡、岫岩四城。",
+      "result": "辽东东南方向形成四处新筑防御据点。",
+      "groups": [
+        "筑城役夫",
+        "驻防军民"
+      ],
+      "quote": [
+        "築鹻場、攬盤、通遠堡、岫巖四城。"
+      ],
+      "unknown": [
+        "城池规模、工期、役夫数量、成本与伤亡未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "FOUR-BORDER-FORTS",
+        "summary": "后金新筑四座辽东边城。",
+        "continuity": "single_event",
+        "phase": "筑城",
+        "purpose": "边防",
+        "operation_result": "四城建成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-KONG-GENG-SHANG-INTEGRATION-1633-1634",
+      "time": [
+        "天聪七年三月",
+        "天聪八年四月",
+        "range"
+      ],
+      "subject": "皇太极与孔有德、耿仲明、尚可喜所部",
+      "action": "孔有德、耿仲明、尚可喜先后率部归降，皇太极授予都元帅、总兵等职，令其部使用区别八旗的旗帜并纳入军政体系。",
+      "result": "后金吸收三支具备火器与水师经验的明降军，形成独立编管力量。",
+      "groups": [
+        "三将所部军民",
+        "后金军政机构"
+      ],
+      "quote": [
+        "孔有德、耿仲明遣使來約降。",
+        "以孔有德為都元帥，耿仲明為總兵官",
+        "尚可喜率三島官民降",
+        "，以別八旗。壬"
+      ],
+      "unknown": [
+        "三部确切人数、装备、军饷和民户安置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MING-DEFECTOR-FORCES-INTEGRATION",
+        "summary": "皇太极吸收并独立编管孔有德、耿仲明、尚可喜所部。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-LUSHUN-CAMPAIGN-1633",
+      "time": [
+        "天聪七年六月",
+        "天聪七年八月",
+        "range"
+      ],
+      "subject": "岳托等后金军与明旅顺守军",
+      "action": "皇太极遣岳托、德格类等并石廷柱、孔有德、耿仲明攻取旅顺口。",
+      "result": "后金攻克旅顺口并扩大辽东沿海控制。",
+      "groups": [
+        "明旅顺军民",
+        "后金与降军"
+      ],
+      "quote": [
+        "將兵取明旅順口。",
+        "奏克旅順口。"
+      ],
+      "unknown": [
+        "攻城过程、双方兵力伤亡和城内人口处置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-LUSHUN-1633",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-REMONSTRANCE-ADMIN-AUDIT-1633",
+      "time": [
+        "天聪七年六月",
+        "天聪七年十月",
+        "range"
+      ],
+      "subject": "皇太极与六部、文馆诸臣",
+      "action": "皇太极要求群臣直言国政并纠劾六部奸邪不公，随后公开评议六部办事优劣，责启心郎履行规谏职责，并要求订正国书和详载太祖政兵。",
+      "result": "中央机构受到公开绩效检查，谏议、纠劾和史政记录责任被强化。",
+      "quote": [
+        "宜直言勿諱。",
+        "，宜行糾劾。諸",
+        "刑部訊獄稽延",
+        "宜悉心訂正。"
+      ],
+      "unknown": [
+        "纠劾案件、整改期限和实际惩处未完整载明。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "REMONSTRANCE-AND-MINISTRY-AUDIT",
+        "summary": "皇太极强化直谏、六部纠劾和文馆记载责任。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V02-HAN-CORVEE-COMPLAINT-1634",
+      "time": [
+        "天聪八年正月",
+        "天聪八年",
+        "month"
+      ],
+      "subject": "皇太极与投诉徭役不均的汉官",
+      "action": "汉备御投诉汉人徭役重于满洲，相关官员欲治其罪，皇太极以惩罚将使后来无人敢言为由将八人释放。",
+      "result": "徭役不均问题进入朝廷议程，投诉者免受处罚，但原文未载立即调整徭役。",
+      "groups": [
+        "汉人民户",
+        "汉备御",
+        "满洲民户"
+      ],
+      "quote": [
+        "訴漢人徭役重於滿洲",
+        "若加以罪，則後無復言者。",
+        "。」並釋之。戊申"
+      ],
+      "unknown": [
+        "徭役差额、受影响户数和后续制度调整未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CORVEE-COMPLAINT-PROTECTION",
+        "summary": "皇太极保护投诉徭役不均者免罪。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-MULTILINGUAL-EXAM-1634",
+      "time": [
+        "天聪八年三月",
+        "天聪八年四月",
+        "range"
+      ],
+      "subject": "皇太极与满汉多语生员",
+      "action": "礼部考试通晓满、汉、蒙古书义者，取刚林等十六人为举人，赐衣并免四丁。",
+      "result": "后金建立多语文官选拔实例，并以免役奖励中选者。",
+      "groups": [
+        "应试生员",
+        "免役丁口"
+      ],
+      "quote": [
+        "考試滿洲、漢人通滿、漢、蒙古書義者",
+        "取剛林等十六人為舉人",
+        "襲，免四丁。乙"
+      ],
+      "unknown": [
+        "应试总人数、考试内容和免役期限未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MULTILINGUAL-CIVIL-EXAM",
+        "summary": "后金考试满汉蒙书义并取十六举人、给予免役。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-XUANDA-CAMPAIGN-1634",
+      "time": [
+        "天聪八年五月",
+        "天聪八年九月",
+        "range"
+      ],
+      "subject": "皇太极率后金、蒙古联军与明宣府大同边军、察哈尔余部",
+      "action": "后金分四路攻入宣府、大同一带，攻克得胜堡、保安州、崞县、灵丘等地，并招降大批察哈尔余部后班师。",
+      "result": "明北边多处堡县受损，察哈尔数千户继续归附后金。",
+      "cost": "多处城堡被攻克，土鲁什等战死；军民总伤亡未载。",
+      "groups": [
+        "明北边军民",
+        "察哈尔部众",
+        "后金与蒙古军"
+      ],
+      "quote": [
+        "勿私出劫掠。",
+        "歸順者字之。",
+        "絡繹來附者前後數千戶。",
+        "攻保安州，克之。",
+        "攻萬全左衛，克之。"
+      ],
+      "unknown": [
+        "各路兵力、总伤亡、掠获及归附人口安置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-XUANDA-1634",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-TAIZU-MAUSOLEUM-1634",
+      "time": [
+        "天聪八年十月",
+        "天聪八年",
+        "month"
+      ],
+      "subject": "皇太极政权与太祖陵工役",
+      "action": "后金为太祖陵修建寝殿、种植松树并设置石兽。",
+      "result": "太祖陵寝礼制建筑和景观设施形成。",
+      "groups": [
+        "陵寝工匠",
+        "服役者"
+      ],
+      "quote": [
+        "建太祖陵寢殿，樹松，立石獸。"
+      ],
+      "unknown": [
+        "工程规模、工期、成本和役夫伤亡未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "TAIZU-MAUSOLEUM-CONSTRUCTION",
+        "summary": "后金营建太祖陵寝殿并配置松树石兽。",
+        "continuity": "single_event",
+        "phase": "营建",
+        "purpose": "陵寝礼制",
+        "operation_result": "寝殿及附属设施建成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-KHARACHIN-CHAHAR-INTEGRATION-1635",
+      "time": [
+        "天聪九年二月",
+        "天聪九年九月",
+        "range"
+      ],
+      "subject": "皇太极与喀喇沁、察哈尔部众",
+      "action": "后金将喀喇沁壮丁编成十一旗，又收降林丹汗之子额哲及察哈尔太妃、台吉和部众，取得传国玉玺。",
+      "result": "察哈尔汗权瓦解，蒙古人口军事编制进一步纳入后金，玉玺被用于政治合法性象征。",
+      "groups": [
+        "喀喇沁壮丁",
+        "察哈尔部众",
+        "蒙古降附首领"
+      ],
+      "quote": [
+        "編喀喇沁部蒙古壯丁為十一旗",
+        "其母率額哲迎降。",
+        "獻玉璽，告天受之。"
+      ],
+      "unknown": [
+        "十一旗总人数、降附人口完整数量和编户负担未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MONGOL-BANNER-INTEGRATION",
+        "summary": "后金编喀喇沁十一旗并收服额哲、整合察哈尔。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-GUANGNING-TUNTIAN-1635",
+      "time": [
+        "天聪九年二月",
+        "天聪九年三月",
+        "range"
+      ],
+      "subject": "皇太极与沈佩瑞、佐领",
+      "action": "皇太极采纳在广宁、闾阳屯田、造船运粮的建议，并因筑城劳役耽误耕作，命此后滥役妨农者治罪。",
+      "result": "进取明境的粮运方案获得批准，同时确立保护农时、限制滥役的责任。",
+      "groups": [
+        "屯田民户",
+        "造船运粮者",
+        "筑城役夫"
+      ],
+      "quote": [
+        "屯田廣寧、閭陽，造舟輓粟，為進取計。上嘉納之。",
+        "民苦煩役所致。",
+        "嗣有濫役妨農者治其罪。"
+      ],
+      "unknown": [
+        "屯田面积、船只数量、粮运规模及禁令执行成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TUNTIAN-LOGISTICS-AND-FARM-LABOR-PROTECTION",
+        "summary": "后金采纳屯田舟运方案并惩治妨农滥役。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "public_works",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-PEOPLE-PROTECTION-1635",
+      "time": [
+        "天聪九年六月",
+        "天聪九年",
+        "month"
+      ],
+      "subject": "皇太极与诸贝勒大臣",
+      "action": "皇太极谴责贝勒非时修缮劳民导致逃亡，要求约束骄纵、安抚新附人口，并重申禁止放鹰践踏田园、扰害牲畜。",
+      "result": "劳役、人口逃亡和农业财产保护被纳入对贝勒的明确治理约束。",
+      "groups": [
+        "服役百姓",
+        "逃亡民户",
+        "农户"
+      ],
+      "quote": [
+        "諸貝勒非時修繕，勞苦百姓",
+        "民不得所，浸以逃亡",
+        "河。』其嚴禁之。」\n"
+      ],
+      "unknown": [
+        "逃亡人数、受损田园牲畜和禁令执行结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LABOR-AND-FARM-PROTECTION",
+        "summary": "皇太极限制贝勒劳民修缮与放鹰扰农。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-MANGGULTAI-CONSPIRACY-1635",
+      "time": [
+        "天聪九年十二月",
+        "天聪九年",
+        "month"
+      ],
+      "subject": "皇太极政权与莽古尔泰、莽古济家族",
+      "action": "冷僧机告发莽古尔泰生前与莽古济、德格类等谋逆，审讯认定后处死莽古济、额必伦等人，并将相关子孙降为庶人。",
+      "result": "一支宗室政治集团遭清洗，告发者获授官职。",
+      "cost": "多人被处死并褫夺身份，牵连人口总数未载。",
+      "groups": [
+        "宗室家族",
+        "涉案家属"
+      ],
+      "quote": [
+        "首告貝勒莽古爾泰生時與女弟莽古濟、弟德格類謀逆",
+        "禮皆伏誅。莽",
+        "子俱為庶人。"
+      ],
+      "unknown": [
+        "证据详情、审讯程序和被牵连家属处置未完整载明。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ROYAL-CONSPIRACY-PURGE",
+        "summary": "后金处置莽古尔泰家族谋逆案并清洗相关宗室。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-QING-V02-THREE-ACADEMIES-GAHAI-1636",
+      "time": [
+        "天聪十年三月",
+        "天聪十年",
+        "month"
+      ],
+      "subject": "皇太极政权",
+      "action": "皇太极将文馆改为内国史、内秘书、内弘文三院，并遣阿济格、阿巴泰筑噶海城。",
+      "result": "文馆职能分化为三院，同时新建噶海城。",
+      "groups": [
+        "三院官员",
+        "筑城役夫"
+      ],
+      "quote": [
+        "改文館為內國史、內祕書、內弘文三院。",
+        "遣貝勒阿濟格、阿巴泰築噶海城。"
+      ],
+      "unknown": [
+        "三院编制、噶海城规模、工期和成本未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "THREE-ACADEMIES-AND-GAHAI-CITY",
+        "summary": "皇太极分设三院并筑噶海城。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "public_works",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V02-IMPERIAL-TITLE-PETITION-1636",
+      "time": [
+        "天聪十年三月",
+        "天聪十年四月",
+        "range"
+      ],
+      "subject": "皇太极与满汉蒙古诸贝勒大臣",
+      "action": "外藩蒙古十六国四十九贝勒及孔有德等齐集盛京，与满汉蒙古大臣三体上表请皇太极上尊号；皇太极允受，礼部进仪注并设坛斋戒。",
+      "result": "皇帝尊号与新国家礼仪进入正式实施前夜，本卷止于设坛。",
+      "quote": [
+        "外籓蒙古十六國四十九貝勒及孔有德、耿仲明、尚可喜俱以請上尊號至盛京。",
+        "今再三固請",
+        "禮部進儀注。",
+        "設壇德盛門外。"
+      ],
+      "unknown": [
+        "本卷未载次日正式受尊号、国号及制度结果，留待后卷原文。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "IMPERIAL-TITLE-PETITION",
+        "summary": "多族群政治军事首领联合请上尊号并完成仪式准备。",
+        "continuity": "continued_within_reign"
+      }
+    }
+  ]
+}

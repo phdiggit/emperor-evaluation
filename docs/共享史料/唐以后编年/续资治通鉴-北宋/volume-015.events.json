@@ -1,0 +1,1058 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-015",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷015",
+    "revision_ref": "1328859",
+    "start_locator": "宋太宗端拱二年四月",
+    "end_locator": "宋太宗淳化二年八月",
+    "overlap_context": "续接卷014河北营田、易州边贸与宋辽防务；本卷记录徐河护粮战、折中法与边储、开宝寺塔巨费，推进灾赈、司法复核和财政节用，并转出李继迁归顺及审刑院设立。",
+    "input_fingerprint": "f11d8a1cbae29b29df153fb1a2964a926bfee8e367b62c37feaa2bfed4ad9f8d"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-015-GRAIN-PAYMENT-PROPOSAL-989",
+      "time": "端拱二年四月",
+      "loc": [
+        "开封",
+        "江淮漕运"
+      ],
+      "action": "李觉指出京师年运五百万斛而粮价过贱、运输成本高，建议军士可选择领钱或领米，并随市价调整。",
+      "result": "提出兼顾军士、农民与国家储粮、逐步减少江湖漕运的方案，太宗嘉许。",
+      "quote": [
+        "歲運五百萬斛以資國費",
+        "給，鬥直十錢",
+        "運米一斛，費不啻三百錢",
+        "中，各從其便",
+        "米價必增，農民受賜矣",
+        "江湖之運亦漸可省也"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以军粮钱米选择调节粮价和漕运成本。"
+        ]
+      ],
+      "unknown": [
+        "方案是否实际执行未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-NATIONWIDE-JUDICIAL-REVIEW-989",
+      "time": "端拱二年五月",
+      "loc": [
+        "开封",
+        "宋诸道"
+      ],
+      "action": "久旱时太宗亲录京城囚犯并多所减免，派宋维乾等四十二人分赴诸道按决刑狱。",
+      "result": "全国刑狱复核启动，当夜降雨。",
+      "quote": [
+        "親錄京城諸司系獄囚",
+        "囚，多所原減",
+        "四十二人分詣諸道按決刑獄",
+        "獄。是夕，大雨。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "由四十二使分道复核刑狱。"
+        ]
+      ],
+      "unknown": [
+        "减免人数与降雨因果不作推断。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-LIAO-FARMLAND-LEASE-989",
+      "time": "端拱二年六月",
+      "loc": [
+        "燕乐县",
+        "密云县"
+      ],
+      "action": "辽将燕乐、密云二县土地交给民户耕种。",
+      "result": "承租民户免赋役十年。",
+      "quote": [
+        "燕樂、密雲二縣給民種租",
+        "免賦役十年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "给民种地并免赋役十年。"
+        ]
+      ],
+      "unknown": [
+        "土地面积与户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-KOU-ZHUN-PROMOTED-989",
+      "time": "端拱二年七月",
+      "loc": [
+        "开封",
+        "巴东",
+        "成安"
+      ],
+      "action": "寇准极言北边利害获太宗重视，擢枢密直学士；奏事不合时曾牵帝衣复坐议决。",
+      "result": "寇准进入枢密决策层，其县政以恩信催赋亦获记载。",
+      "quote": [
+        "極言北邊利害",
+        "朕欲擢用准",
+        "、樞密直學士",
+        "引帝衣令復坐",
+        "百姓爭赴之",
+        "之，無稽違者"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "寇准因直言边事获擢。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以恩信而非符移催办赋役。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-015-XUHE-CONVOY-BATTLE-989",
+      "time": "端拱二年七月",
+      "loc": [
+        "威虏军",
+        "徐河",
+        "曹河斜村"
+      ],
+      "action": "李继隆护送数千乘军粮，耶律休格率数万骑截击；尹继伦以千余人夜袭其后。",
+      "result": "辽军大溃、自相践踏，休格负伤逃走，宋军追击俘获甚众，威虏军粮道获保。",
+      "quote": [
+        "護送軍糧數千乘",
+        "率精銳數萬騎來邀",
+        "卷甲銜枚襲其後",
+        "出其不意急擊之",
+        "其臂，創甚，乘",
+        "大軍，遂潰，自",
+        "里，俘獲甚眾"
+      ],
+      "battle": "CAMPAIGN-XUHE-CONVOY-BATTLE-989",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保全威虏军数千乘粮饷。"
+        ]
+      ],
+      "unknown": [
+        "双方确切伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-BORDER-FORTS-DEBATE-989",
+      "time": "端拱二年七月",
+      "loc": [
+        "河北边境",
+        "威虏军"
+      ],
+      "action": "张洎认为平川小军寨分兵且难护粮，建议撤销不足三万兵的边垒，将兵力集中大镇。",
+      "result": "形成撤小堡、集中甲兵并节省供给的防边建议。",
+      "quote": [
+        "川，地非險阻",
+        "境，阻絕糧道",
+        "者，宜從廢罷",
+        "既省供給，又免吞侵",
+        "外隸緣邊大鎮",
+        "甲兵既聚，士馬自強"
+      ],
+      "battle": "CAMPAIGN-BORDER-FORTS-DEBATE-989",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建议撤小堡以节省粮饷。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "主张集中边兵于大镇。"
+        ]
+      ],
+      "unknown": [
+        "建议未见实施。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-KAIBAO-PAGODA-989",
+      "time": "端拱二年八月",
+      "loc": [
+        "开封开宝寺"
+      ],
+      "action": "宋廷为藏佛舍利营建十一层、三百六十尺浮图，历时八年。",
+      "result": "工程完成，耗费以亿万计；田锡批评其为民脂民血。",
+      "quote": [
+        "造浮圖十一級",
+        "上下三百六十尺",
+        "所費億萬計",
+        "前後踰八年",
+        "癸亥，工畢，備",
+        "臣以為塗膏釁血"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开宝寺巨型浮图建成。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "工程耗费亿万计并遭批评。"
+        ]
+      ],
+      "unknown": [
+        "亿万计为概数。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-BORDER-GRAIN-DISCOUNT-989",
+      "time": "端拱二年十月",
+      "loc": [
+        "河北边塞",
+        "开封",
+        "江淮"
+      ],
+      "action": "宋廷恢复商人输粮边塞、凭交券在京取钱或在江淮取茶盐的折中法，并设折中仓。",
+      "result": "边储重新借助商运；此前停法每年损国用近百万，权势户被禁止参与。",
+      "quote": [
+        "商人輸芻糧塞下",
+        "執交券至京師",
+        "師，償以緡錢",
+        "歲損國用殆百萬計",
+        "復令折中如舊",
+        "又置折中倉",
+        "形勢戶不得輒入粟"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复折中法和折中仓供应边储。"
+        ]
+      ],
+      "unknown": [
+        "复行后因旱暂罢的具体日期未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-DROUGHT-SPENDING-CUTS-989",
+      "time": "端拱二年十月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "久旱时王禹偁建议从乘舆到百官分级减费，停岁市和工巧以回应灾异。",
+      "result": "形成以削减非军政开支救灾的建议。",
+      "quote": [
+        "來，久愆雨雪",
+        "審刑政之闕失",
+        "帥，悉第減之",
+        "停歲市之物",
+        "罷工巧之技",
+        "氣，變災為福"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建议灾年削减宫廷百官开支与工巧岁市。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以审刑政回应灾异。"
+        ]
+      ],
+      "unknown": [
+        "建议执行范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-PRIVY-COUNCIL-DIARY-989",
+      "time": "端拱二年十月",
+      "loc": [
+        "开封"
+      ],
+      "action": "因宰相无法听到枢密先行奏对的圣语，宋廷令枢密副使抄录送中书合修。",
+      "result": "《枢密院时政记》由此建立。",
+      "quote": [
+        "知，慮成漏略",
+        "樞密副使二人逐旋鈔錄",
+        "送中書同修為一書",
+        "《樞密院時政記》蓋始此"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立枢密院时政记并与中书合修。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-015-ZHAO-PU-RETIRES-990",
+      "time": "淳化元年正月",
+      "loc": [
+        "开封",
+        "西京"
+      ],
+      "action": "赵普病重三次请致政。",
+      "result": "赵普改任西京留守兼中书令，退出中枢日常政务。",
+      "quote": [
+        "中趙普病篤",
+        "三上表致政",
+        "以普為西京留守兼中書令"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赵普因病退出中央政务。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-015-FISHING-BANS-LIFTED-990",
+      "time": "淳化元年二月",
+      "loc": [
+        "江南",
+        "两浙",
+        "淮西",
+        "岭南"
+      ],
+      "action": "宋廷解除多地区捕鱼禁令。",
+      "result": "江南、两浙、淮西、岭南民众恢复捕鱼。",
+      "quote": [
+        "除江南、兩浙、淮西、嶺南諸州漁禁"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "解除南方诸州渔禁。"
+        ]
+      ],
+      "unknown": [
+        "渔税安排未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-DEAN-CLAN-GRAIN-LOAN-990",
+      "time": "淳化元年三月",
+      "loc": [
+        "江州德安县"
+      ],
+      "action": "德安陈竞十四世同居、一千二百余口而常缺粮，宋廷给予常年官米贷款。",
+      "result": "陈氏家族每年可贷官米二千石。",
+      "quote": [
+        "十四世同居",
+        "老幼千二百餘口",
+        "常苦食不足",
+        "歲貸官米二千石"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "每年贷给大型同居家族官米二千石。"
+        ]
+      ],
+      "unknown": [
+        "偿还条件未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-JUDICIAL-REVIEW-OFFICES-990",
+      "time": "淳化元年五月",
+      "loc": [
+        "开封",
+        "宋诸州"
+      ],
+      "action": "宋廷设刑部详覆官六员专阅全国案牍，并设御史台推勘官二十人赴地方审理大狱。",
+      "result": "地方大狱由京朝官乘驿就审，要求不得滋蔓留滞，著为定令。",
+      "quote": [
+        "詳覆官六員",
+        "專閱天下所上案牘",
+        "推勘官二十人",
+        "則乘傳就鞫",
+        "無滋蔓，無留滯",
+        "狀。著為定令"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立中央详覆与地方推勘官制度。"
+        ]
+      ],
+      "unknown": [
+        "首年案件数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-RETIRED-OFFICIAL-HALF-PAY-990",
+      "time": "淳化元年五月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷规定历任中外职务的致仕官可领取半俸。",
+      "result": "退休官员获得以实物折给的半额俸禄。",
+      "quote": [
+        "致仕官有曾曆中外職任者",
+        "者，給半俸，以",
+        "俸，以它物充"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "向合格致仕官发半俸。"
+        ]
+      ],
+      "unknown": [
+        "受益人数和财政支出未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-CHUNHUA-COINAGE-990",
+      "time": "淳化元年五月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷改铸淳化元宝，太宗亲书真、行、草三体钱文。",
+      "result": "此后改元更铸年号钱成为常制。",
+      "quote": [
+        "改鑄「淳化元寶」錢",
+        "帝親書其文",
+        "真、行、草三體",
+        "每改元必更鑄"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改铸淳化元宝并确立改元铸钱惯例。"
+        ]
+      ],
+      "unknown": [
+        "铸量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-FLOOD-DROUGHT-RELIEF-990",
+      "time": "淳化元年七月",
+      "loc": [
+        "吉州",
+        "洪州",
+        "江州",
+        "蕲州",
+        "河阳",
+        "陇城",
+        "开封",
+        "陈留",
+        "封丘",
+        "酸枣",
+        "鄢陵"
+      ],
+      "action": "多州遭水旱灾，京师粮价上涨，宋廷减免田租并开仓平粜。",
+      "result": "灾区当年田租减半，开封给复一年，京师官粮减价出售。",
+      "quote": [
+        "、隴城大水，開",
+        "、鄢陵旱，賜今",
+        "賜今年田租之半",
+        "開封特給復一年",
+        "年。京師貴糴",
+        "開廩，減價分糶"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "水旱灾区减租并向京师平价售粮。"
+        ]
+      ],
+      "unknown": [
+        "赈粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-SECRET-PAVILION-COLLECTIONS-990",
+      "time": "淳化元年七月至八月",
+      "loc": [
+        "开封秘阁"
+      ],
+      "action": "宋廷征集古书、奇画和墨迹，将天文方术书五千零十卷及画墨一百一十四轴藏入秘阁。",
+      "result": "秘阁藏品大幅扩充并正式列次于三馆。",
+      "quote": [
+        "購募古書、奇畫及先賢墨蹟",
+        "五千一十卷",
+        "一百十四軸",
+        "軸，悉藏秘閣",
+        "列秘閣次於三館"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "扩充秘阁藏书书画并确立馆次。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "秘阁纳入正式馆阁制度。"
+        ]
+      ],
+      "unknown": [
+        "购募费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-LUXURY-WARE-DESTROYED-990",
+      "time": "淳化元年八月",
+      "loc": [
+        "开封左藏库"
+      ],
+      "action": "太宗命将左藏金银器皿登记后全部毁去，拒绝保留精巧器物供御。",
+      "result": "宫廷奢侈器物被销毁，以慈俭为原则。",
+      "quote": [
+        "屬，悉毀之。有",
+        "制作精巧者",
+        "欲留以備進禦",
+        "我以慈儉為寶",
+        "寶。」卒皆毀之。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "销毁宫廷金银奢侈器皿。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以慈俭约束供御。"
+        ]
+      ],
+      "unknown": [
+        "器物数量与回收金属去向未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-WRONGFUL-MURDER-CASE-990",
+      "time": "淳化元年十月",
+      "loc": [
+        "同州"
+      ],
+      "action": "同州录事因借贷纠纷刑讯富民父子，迫其承认杀害失踪女奴；钱若水秘密访得女奴本人。",
+      "result": "富民父子免于死刑，钱若水拒绝居功并获朝廷擢用。",
+      "quote": [
+        "劾富民父子數人共殺女奴",
+        "不勝拷掠，自誣服",
+        "密使人訪女奴，得之",
+        "富民父子賴以得免",
+        "，若水固辭。帝"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "纠正刑讯造成的杀人冤案。"
+        ]
+      ],
+      "unknown": [
+        "录事责任追究未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-OFFICIAL-FAMILY-SUPPORT-990",
+      "time": "淳化元年十一月",
+      "loc": [
+        "安州"
+      ],
+      "action": "高丽籍官员金行成病亡后遗孀织履养子，李范上言请求救助。",
+      "result": "其子获太庙斋郎，家庭每月得钱三千、米五石并由长吏存问。",
+      "quote": [
+        "織屨以自給",
+        "以宗敏為太廟齋郎",
+        "月以錢三千、米五石給其家",
+        "問，無令失所"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "长期供给贫困官员遗属钱米。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "授遗孤官职。"
+        ]
+      ],
+      "unknown": [
+        "供给期限未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-PETITION-REFERRAL-SYSTEM-990",
+      "time": "淳化元年十二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "谢泌针对升殿奏事可直接交有司执行造成巧妄，建议按政事、机事、财货分送中书、枢密、三司复奏。",
+      "result": "所有奏疏分类复奏后执行，著为定制。",
+      "quote": [
+        "司，頗容巧妄",
+        "政事送中書",
+        "機事送樞密院",
+        "財貨送三司",
+        "覆奏而後行",
+        "遂著為定制"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立奏事分类复核制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-015-MILITARY-ABUSES-PUNISHED-990",
+      "time": "淳化元年十二月",
+      "loc": [
+        "镇州"
+      ],
+      "action": "王济通判镇州，查得戍卒纵火为盗即斩，又杖责殴人折齿的都校孙进送京。",
+      "result": "镇州军府畏肃，太宗连续三诏褒奖。",
+      "quote": [
+        "夜或焚民舍為盜",
+        "得，立斬之，馳",
+        "賴，毆折人齒",
+        "杖脊送闕下",
+        "下，軍府畏肅",
+        "連三詔褒獎"
+      ],
+      "battle": "CAMPAIGN-MILITARY-ABUSES-PUNISHED-990",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方文官惩治戍卒和都校暴行。"
+        ]
+      ],
+      "unknown": [
+        "被盗损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-LIAO-TAX-AND-LAND-RELIEF-991",
+      "time": "淳化二年正月",
+      "loc": [
+        "辽三京诸道"
+      ],
+      "action": "辽免除三京诸道租赋并停止括田。",
+      "result": "民户获得租税减免，土地清查暂罢。",
+      "quote": [
+        "免三京諸道租",
+        "租，仍罷括田"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽免租并停止括田。"
+        ]
+      ],
+      "unknown": [
+        "免租期限未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-PALACE-DECORATION-REMOVED-991",
+      "time": "淳化二年二月",
+      "loc": [
+        "开封正殿"
+      ],
+      "action": "太宗修正殿施加彩绘，谢泌上疏劝止。",
+      "result": "彩绘全部去除，改涂赭白。",
+      "quote": [
+        "殿，頗施采繪",
+        "謝泌上疏諫；",
+        "命悉去采繪",
+        "繪，塗以赭堊"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "取消正殿彩绘并改简朴涂饰。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "削减宫殿装饰。"
+        ]
+      ],
+      "unknown": [
+        "已耗费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-JIANWAI-TAX-INCREASE-REJECTED-991",
+      "time": "淳化二年二月",
+      "loc": [
+        "剑外"
+      ],
+      "action": "三司建议剑外增税，张观奉命巡按后上疏反对扰动远民。",
+      "result": "太宗采纳，停止派员增税。",
+      "quote": [
+        "劍外賦稅輕",
+        "因令稍增之",
+        "遠民易動難安",
+        "況增賦以擾之乎",
+        "言，因留不遣"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "否决剑外加税。"
+        ]
+      ],
+      "unknown": [
+        "原税负水平未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-SHAANXI-FAMINE-RELIEF-991",
+      "time": "淳化二年闰二月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "陕西歉收，郑文宝劝豪民出粟救济。",
+      "result": "募集三万斛粮，救活八万六千余人。",
+      "quote": [
+        "事。會歲歉，文",
+        "誘豪民出粟三萬斛",
+        "活饑者八萬六千餘人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "动员豪民出粟三万斛赈活八万六千余人。"
+        ]
+      ],
+      "unknown": [
+        "豪民补偿方式未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-CAPITAL-CRIME-CONTROLS-991",
+      "time": "淳化二年闰二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "宋廷严禁赌博柜坊、屠宰牛马驴狗和销毁铜钱制器，并对窝藏经营者同罪。",
+      "result": "违法者面临死刑，开封府被要求严密巡捕。",
+      "quote": [
+        "蒱博，開櫃坊",
+        "屠牛馬驢狗以食",
+        "銷鑄銅錢為器用雜物",
+        "之。犯者斬，匿",
+        "僦與惡少為櫃坊者同罪"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以死刑管制赌博、私宰与毁钱。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护铜钱并禁止非法柜坊。"
+        ]
+      ],
+      "unknown": [
+        "实际处刑人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-DROUGHT-JUSTICE-CRITIQUE-991",
+      "time": "淳化二年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "大旱蝗灾时寇准指出祖吉与王淮同属巨额受贿却处罚悬殊，因王淮是王沔之弟而获轻纵。",
+      "result": "太宗醒悟并严责王沔，司法不平被纳入灾异反省。",
+      "quote": [
+        "賕，贓數萬計",
+        "計。吉既伏誅",
+        "淮以參知政事沔之母弟",
+        "止杖於私堂",
+        "用法輕重如是",
+        "見沔，切責之。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "揭露权贵亲属受贿获轻判。"
+        ]
+      ],
+      "unknown": [
+        "王淮是否改判未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-TWO-GOVERNMENTS-MEETING-BAN-REVERSED-991",
+      "time": "淳化二年四月",
+      "loc": [
+        "开封"
+      ],
+      "action": "王禹偁建议禁止官员私下拜见两府以防请托，谢泌反驳此举疑忌大臣且阻塞信息。",
+      "result": "太宗收回禁令，并将谢泌奏表送史馆。",
+      "quote": [
+        "不得於本廳延接賓客",
+        "客，以防請托",
+        "疑則勿用，用則勿疑",
+        "何以悉知外事",
+        "即命追還前詔"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "撤销禁止两府接见官员的命令。"
+        ]
+      ],
+      "unknown": [
+        "后续请托防控措施未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-JUDICIAL-CIRCUIT-OFFICERS-991",
+      "time": "淳化二年五月",
+      "loc": [
+        "宋诸路"
+      ],
+      "action": "宋廷设置诸路提点刑狱官。",
+      "result": "地方司法监察形成专职巡回官。",
+      "quote": [
+        "置諸路提點刑獄官"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "设置诸路提点刑狱。"
+        ]
+      ],
+      "unknown": [
+        "首批人数和路分未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-BIAN-RIVER-BREACH-991",
+      "time": "淳化二年六月",
+      "loc": [
+        "浚仪县",
+        "汴河",
+        "开封"
+      ],
+      "action": "汴水决口毁堤淹田，太宗亲入泥淖视察，命戴兴督数千步卒堵塞。",
+      "result": "当日堤岸筑成、水势稳定，知县宋炎获赦。",
+      "quote": [
+        "汴水決浚儀縣",
+        "壞連堤，泛民田",
+        "轉漕仰給在此一渠水",
+        "駕入泥淖中",
+        "督步卒數千塞之",
+        "立，水勢遂定"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "数千步卒当日堵塞汴水决口。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护京师漕运和受淹民田。"
+        ]
+      ],
+      "unknown": [
+        "受灾面积未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-LI-JIQIAN-SUBMITS-991",
+      "time": "淳化二年七月",
+      "loc": [
+        "夏州",
+        "银州"
+      ],
+      "action": "李继迁闻翟守素率军来讨而上表归顺。",
+      "result": "宋授其银州观察使、赐国姓赵、名保吉；赵保忠亲属亦获任官。",
+      "quote": [
+        "素將兵來討",
+        "恐懼，奉表歸順",
+        "授繼遷銀州觀察使",
+        "使，賜以國姓",
+        "姓，名曰保吉"
+      ],
+      "battle": "CAMPAIGN-LI-JIQIAN-SUBMITS-991",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军事压力下李继迁名义归宋。"
+        ]
+      ],
+      "unknown": [
+        "归顺稳定性待后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-015-JUDICIAL-REVIEW-COURT-991",
+      "time": "淳化二年八月",
+      "loc": [
+        "开封宫中"
+      ],
+      "action": "太宗设审刑院，令上奏案件先后经过审刑院、大理寺、刑部、中书多层复核。",
+      "result": "死刑等重大案件形成宫中审刑院复议与宰相再奏的流程。",
+      "quote": [
+        "置審刑院於禁中",
+        "先由審刑院印訖",
+        "付大理寺、刑部斷覆",
+        "下審刑院詳議",
+        "訖，以付中書",
+        "未允者，宰相復以聞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立审刑院多层复核流程。"
+        ]
+      ],
+      "unknown": [
+        "首批审理案件未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 1328859 的《續資治通鑑》卷015连续通读登记，不引入卷外常识。",
+    "普通任免、朝会、贡聘、祥异及无消费结果的重复行军节点未单列。",
+    "卷末李继迁归顺保持中性登记，审刑院与边储制度转出卷016。"
+  ]
+}

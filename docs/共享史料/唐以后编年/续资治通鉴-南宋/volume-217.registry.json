@@ -1,0 +1,602 @@
+{
+  "facts": [
+    {
+      "action": "常遇春攻克池州神山寨",
+      "actors": [],
+      "affected_groups": [
+        "池州民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-001",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "擒斩罗友贤，余党悉平",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "池州寨众被清剿的独立战事。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-CHIZHOU"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-001",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#吳常遇春兵攻池州神山寨，擒羅友賢，斬之，餘黨悉平。"
+      ],
+      "time_range": {
+        "end": "1363-01",
+        "precision": "month",
+        "start": "1363-01"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴国公向库库特穆尔通使并督诸将屯田",
+      "actors": [],
+      "affected_groups": [
+        "屯田军士",
+        "商贾"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-002",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "拟通商互使，要求以开垦充实军粮",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "屯田供军与通商安排。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "对北方势力的通使主张。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-002",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#自今以往，信使繼踵，商賈不絕，無有彼此，是所願也！",
+        "續資治通鑑/卷217@2342461#今宜督軍及時開墾，以盡地利，庶幾兵食充足，國有所賴。"
+      ],
+      "time_range": {
+        "end": "1363-02",
+        "precision": "range",
+        "start": "1363-01"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "张士诚军破围安丰，吴军驰援反击",
+      "actors": [],
+      "affected_groups": [
+        "安丰饥民",
+        "吴军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-003",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "吕珍、左君弼败遁，安丰围解并以粮救饥民",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "张军围城、吴军救援、解围赈饥为同一连续链。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-ANFENG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-003",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#城中人相食，或以井泥為丸，用人油煠而食之。",
+        "續資治通鑑/卷217@2342461#遇春以兵橫擊其陣，三戰三勝，俘獲其士馬無算。",
+        "續資治通鑑/卷217@2342461#公乃令軍士各齎米積於東門外，以救城中饑者；"
+      ],
+      "time_range": {
+        "end": "1363-03",
+        "precision": "range",
+        "start": "1363-02"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "库库特穆尔撤益都军并在山东州县设屯田万户府",
+      "actors": [],
+      "affected_groups": [
+        "山东民众",
+        "屯田户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-004",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "益都留兵守备，山东屯田转入制度化经营",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "山东屯田设置。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "益都守备与州县建置。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-004",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#留索珠以兵守益都，以山東州縣立屯田萬戶府。"
+      ],
+      "time_range": {
+        "end": "1363-03",
+        "precision": "month",
+        "start": "1363-03"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴调整关市、盐货及杂货税率",
+      "actors": [],
+      "affected_groups": [
+        "商人",
+        "江西浙东民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-005",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "复从二十取一以促流通、保障军用并减轻民食压力",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "减轻关市及盐货税负。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-005",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#商人不復販鬻，則鹽貨壅滯，軍儲缺乏，且使江西、浙東之民艱於食用。",
+        "續資治通鑑/卷217@2342461#請仍從二十取一之例，則流轉不窮，軍用給足。"
+      ],
+      "time_range": {
+        "end": "1363-04",
+        "precision": "month",
+        "start": "1363-04"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "陈友谅大举围洪都，朱文正等分守城门固守",
+      "actors": [],
+      "affected_groups": [
+        "洪都民众",
+        "守城军民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-006",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "洪都坚守八十五日，陈军在吴援军到达后解围",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "洪都围守为鄱阳湖会战的直接前段。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-POYANG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-006",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#陳友諒復大舉兵圍洪都。",
+        "續資治通鑑/卷217@2342461#朱文正督諸將死戰，且戰且築，通夕復完。",
+        "續資治通鑑/卷217@2342461#陳友諒圍洪都凡八十有五日，丙戌，聞吳國公至，即解圍，東出鄱陽湖以迎敵。"
+      ],
+      "time_range": {
+        "end": "1363-08",
+        "precision": "range",
+        "start": "1363-04"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "谢再兴叛吴并引张士诚军扰浙东，朱文忠部署五指山守备",
+      "actors": [],
+      "affected_groups": [
+        "诸全浙东民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-007",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "吴军收拢诸全防线，李伯升大军攻城未克而退",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "诸全叛乱、筑城与张军来攻为浙东同一防御链。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-ZHEDONG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-007",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#再興以夢庚處己上，憤憤不樂，由是遂叛。",
+        "續資治通鑑/卷217@2342461#請去諸全五十里，於五指山下築城，分兵戍守，文忠從之。",
+        "續資治通鑑/卷217@2342461#城堅不可拔，乃引去。"
+      ],
+      "time_range": {
+        "end": "1363-05",
+        "precision": "range",
+        "start": "1363-04"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "陈友谅军因内应攻陷吉安、临江与无为",
+      "actors": [],
+      "affected_groups": [
+        "吉安临江无为民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-008",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "刘齐、朱叔华、赵天麟、董曾等死难，地方既有复业者再受战乱",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "陈军围洪都同时扩张的江西战区阶段。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-POYANG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-008",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#兵至城下，明道舉火為應，開西門納之，殺參政劉齊、知府朱叔華。",
+        "續資治通鑑/卷217@2342461#必勝又攻破臨江府，執同知趙天麟，亦不屈死。",
+        "續資治通鑑/卷217@2342461#曾之守無為也，招集流亡，使各復業，州民安之。"
+      ],
+      "time_range": {
+        "end": "1363-05",
+        "precision": "month",
+        "start": "1363-05"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴设礼贤馆延纳儒士参议经史时事",
+      "actors": [],
+      "affected_groups": [
+        "士人"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-009",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "陶安、刘基、宋濂等获集中礼遇",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "延纳儒士并设馆安置。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-009",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#先是吳國公聘諸名儒集建康，與論經史及諮以時事，甚見尊寵，至是復命有司即所居之西創禮賢館處之。"
+      ],
+      "time_range": {
+        "end": "1363-05",
+        "precision": "month",
+        "start": "1363-05"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴国公救洪都后在鄱阳湖与陈友谅连续水战并火攻",
+      "actors": [],
+      "affected_groups": [
+        "鄱阳湖沿岸民众",
+        "两军士卒"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-010",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "陈军舟寨焚毁、兵力崩解，友谅突围中中矢死，五万余人降",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "救洪都后康郎山至湖口决战及陈友谅败亡为同一会战链。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-POYANG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-010",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#公率諸軍由松門入鄱陽湖，丁亥，與友諒師遇于康郎山。",
+        "續資治通鑑/卷217@2342461#將迫敵舟，乘風縱火，風急火烈，須臾而至，其水寨數百艘悉被焚，煙焰漲天，湖水盡赤，死者大半，",
+        "續資治通鑑/卷217@2342461#友諒在別舸中流矢，貫睛及顱而死。",
+        "續資治通鑑/卷217@2342461#得士卒五萬餘人。"
+      ],
+      "time_range": {
+        "end": "1363-08",
+        "precision": "range",
+        "start": "1363-07"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蓬州守将击败倭寇",
+      "actors": [],
+      "affected_groups": [
+        "滨海郡县民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-011",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "连年受扰的滨海郡县至此暂获安宁",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "沿海倭寇防御成果。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-WOKOU"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-011",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#自十八年以來，倭人連寇瀕海郡縣，至是海隅獲安。"
+      ],
+      "time_range": {
+        "end": "1363-08",
+        "precision": "month",
+        "start": "1363-08"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴军转攻武昌，水陆筑栅围城并招降湖北郡县",
+      "actors": [],
+      "affected_groups": [
+        "武昌及湖北民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-012",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "切断陈理出入，湖北多郡降吴",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "陈理武昌围城战的开始与湖北降附。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-WUCHANG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-012",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#命常遇春等分兵於四門，立柵圍之，又于江中聯舟為長寨，以絕其出入之路。",
+        "續資治通鑑/卷217@2342461#於是湖北諸郡皆降于吳。"
+      ],
+      "time_range": {
+        "end": "1363-10",
+        "precision": "range",
+        "start": "1363-09"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "张士诚自称吴王并拒绝海运粮征调",
+      "actors": [],
+      "affected_groups": [
+        "江浙民众",
+        "海运民夫"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-013",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "平江另置宫阙官属，江浙政权与元朝名义关系进一步破裂",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "张士诚自立。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "拒绝海运粮征调。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-013",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#士誠遂自稱吳王，尊其母曹氏為太妃，治宮闕，置官屬，改平江路復為隆平府。",
+        "續資治通鑑/卷217@2342461#朝廷遣戶部待郎博囉特穆爾等徵海運糧於士誠，士誠不與。"
+      ],
+      "time_range": {
+        "end": "1363-09",
+        "precision": "month",
+        "start": "1363-09"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "台谏弹劾保布哈、托欢遭皇太子阻抑，陈祖仁等再谏后被贬",
+      "actors": [],
+      "affected_groups": [
+        "朝廷官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-014",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "二人一度辞罢而台臣仍被左迁，朝廷监察机制受挫",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "谏诤与处分冲突。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-014",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#監察御史額森特穆爾、孟額森布哈、傅公讓等，劾奏保布哈、托歡奸邪，當屏黜。",
+        "續資治通鑑/卷217@2342461#保布哈、托歡乃皆辭罷。",
+        "續資治通鑑/卷217@2342461#由是帝益怒，臺臣自婁都爾蘇以下皆左遷。"
+      ],
+      "time_range": {
+        "end": "1363-12",
+        "precision": "month",
+        "start": "1363-12"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴国公即吴王位并持续围攻武昌，陈理最终出降",
+      "actors": [],
+      "affected_groups": [
+        "武昌民众",
+        "陈理部众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-015",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "围城六月未纵兵入城，赈济饥民，汉沔荆岳郡县相继归附",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "武昌围城、陈理降附和战后安置为同一连续链。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG217-WUCHANG"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-015",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#乃即吳王位，建百司官屬，置中書省左右相國。",
+        "續資治通鑑/卷217@2342461#癸丑，陳理肉袒銜璧，率定邊等詣軍門降。",
+        "續資治通鑑/卷217@2342461#城中民飢困，命給米賑之，召其父老撫慰，民大悅。",
+        "續資治通鑑/卷217@2342461#於是漢、沔、荊、岳郡縣相繼來降，立湖廣行省中書，"
+      ],
+      "time_range": {
+        "end": "1364-03",
+        "precision": "range",
+        "start": "1364-01"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴王减取官店钱",
+      "actors": [],
+      "affected_groups": [
+        "商人",
+        "民户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-016",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "以税重病民为由下调商税",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "减轻官店商税。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-016",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#先是設官店以徵商，吳王以稅重病民，故減之。"
+      ],
+      "time_range": {
+        "end": "1364-01",
+        "precision": "month",
+        "start": "1364-01"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷削夺博囉特穆尔兵权官爵",
+      "actors": [],
+      "affected_groups": [
+        "晋冀军民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-SONG-217-017",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "博囉杀使拒命，库库与博囉内战继续",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "承卷216两军争衡，朝廷处分失败后内战延续。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG216-BOLOR-CHAHAN"
+        }
+      ],
+      "semantic_fingerprint": "chf-song-217-017",
+      "source_refs": [
+        "續資治通鑑/卷217@2342461#下詔數博囉特穆爾悖逆之罪，解其兵權，削其官爵，",
+        "續資治通鑑/卷217@2342461#博囉殺使者，拒命不受。"
+      ],
+      "time_range": {
+        "end": "1364-03",
+        "precision": "month",
+        "start": "1364-03"
+      },
+      "uncertainties": []
+    }
+  ],
+  "fiscal_livelihood_candidates": [],
+  "limitations": [
+    "仅据固定正文；不写正式事实或评分。"
+  ],
+  "political_event_candidates": [],
+  "public_works_candidates": [],
+  "registry_version": "south-song-192-220-v1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "博囉殺使者，拒命不受。",
+    "input_fingerprint": "502f1ede54bfca8916665bd0a4bf5709af133c133bb08f2b87c1cc8cf5519087",
+    "overlap_context": "承卷216陈友谅、张士诚与察罕诸军事链；卷218未读",
+    "revision_ref": "2342461",
+    "start_locator": "春，正月，乙已，大寧陷。",
+    "volume_ref": "卷217",
+    "work": "續資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-217",
+  "threads": []
+}

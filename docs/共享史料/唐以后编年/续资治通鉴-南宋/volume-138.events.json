@@ -1,0 +1,389 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-138",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷138",
+    "revision_ref": "2312090",
+    "start_locator": "諱昚，太祖七世孫也",
+    "end_locator": "仍易國書以付魏杞",
+    "overlap_context": "承卷137孝宗初政；本卷固定页含隆兴元年及页内隆兴二年标题。",
+    "input_fingerprint": "58a1c8a9c6d9136435c3a2b453d5580c466c9509004ac076f7ee4a6c16c6123f"
+  },
+  "limitations": [],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-138-POL-MILITARY-RECOMMENDATION",
+      "time": "隆興元年正月",
+      "action": "孝宗设武臣十类荐举格，按军功与非军功资格分荐，并连带奖惩举主。",
+      "result": "武臣谋略、民事、财计、廉洁、使才等能力获得制度化荐举路径。",
+      "quote": ["立武臣薦舉格", "敗事亦加責罰"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-MILITARY-RECOMMENDATION",
+        "candidate": "POL-CAND-XZZTJ-138-MILITARY-RECOMMENDATION",
+        "summary": "建立武臣分类荐举与举主责任。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "武臣选任制度",
+          "decision_question": "如何按才类选拔武臣并约束举主",
+          "alternatives": "无分类；十类荐举并奖惩",
+          "decision": "设格施行",
+          "direct_result": "军政民财多类人才可被荐用",
+          "power_change": "观察使以上取得荐举权并担责",
+          "risk_or_damage": "败事者连及举主",
+          "follow_up": "武举中选者分差沿边"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-HISTORIAN-INDEPENDENCE",
+      "time": "隆興元年正月",
+      "action": "胡铨纠正史官不得闻言动、直前受閤门限制等四弊。",
+      "result": "孝宗准许史官前后殿侍立及不预牒直前言事。",
+      "quote": ["銓論史官失職者四", "請於前後殿皆分日侍立", "不必預牒閤門"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-HISTORIAN-INDEPENDENCE",
+        "candidate": "POL-CAND-XZZTJ-138-HISTORIAN-INDEPENDENCE",
+        "summary": "恢复史官近侍记录与直前进言权限。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "史官制度调整",
+          "decision_question": "如何使史官真实记录君臣言动",
+          "alternatives": "维持位置和预牒限制；放宽侍立直前",
+          "decision": "四项建议从之",
+          "direct_result": "史官可分日侍立且直前",
+          "power_change": "閤门对史官进言限制减弱",
+          "risk_or_damage": "旧制导致言动未尝得闻",
+          "follow_up": "左右史日更立殿前"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-BAT-WULIN-RETREAT",
+      "time": "隆興元年正月",
+      "action": "吴璘奉班师诏放弃德顺回河池，虽后获便宜诏但已失先机。",
+      "result": "军亡失三万三千，秦凤熙河永兴新复十三州三军尽为金取。",
+      "quote": ["璘已棄德順還河池", "璘軍亡失者三萬三千", "皆復為金取"],
+      "battle": "HANDOFF-XZZTJ-138-WULIN-RETREAT",
+      "battle_reason": "班师决策、追击损失与三路失地为连续战役链。"
+    },
+    {
+      "id": "CHF-XZZTJ-138-FIN-REFUGEE-RELIEF",
+      "time": "隆興元年二月",
+      "action": "宋赈济两淮流民与山东归正忠义军；金亦迁滦州饥民并沿途给食。",
+      "result": "宋金分别对战争与饥荒流民提供粮食安置。",
+      "quote": ["賑兩淮流民及山東歸正忠義軍", "灤州饑民流散", "仍于道路計口給食"],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-138-REFUGEE-RELIEF",
+        "candidate": "FIN-CAND-XZZTJ-138-REFUGEE-RELIEF",
+        "summary": "宋金分别赈济战争归正人与北方饥民。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "两淮流民、山东归正军与滦州饥民流散",
+          "fiscal_state": "发放赈济与道路口粮",
+          "livelihood_state": "迁往富民处并获得给食",
+          "production_circulation": "饥荒人口跨区迁徙"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-PALACE-FAVORITES-CHECK",
+      "time": "隆興元年三月",
+      "action": "台谏给舍合力弹劾龙大渊、曾觌擅权，拒绝将其升任知閤门。",
+      "result": "虽孝宗一度怀疑朋党并压制异议，最终两人新命亦寝。",
+      "quote": ["大淵、覿輕儇浮淺，憑恃恩寵", "必大格除目不下", "兩人之命亦寢"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-PALACE-FAVORITES-CHECK",
+        "candidate": "POL-CAND-XZZTJ-138-PALACE-FAVORITES-CHECK",
+        "summary": "台谏给舍封驳阻止潜邸旧臣升权。",
+        "operation": "reversed",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "近习权力制衡",
+          "decision_question": "是否升任龙大渊曾觌掌閤门",
+          "alternatives": "升任；黜远或停命",
+          "decision": "任命最终停止",
+          "direct_result": "二人未获新命",
+          "power_change": "给舍封驳暂时限制近习",
+          "risk_or_damage": "多名谏臣被调离或请祠",
+          "follow_up": "隆兴元年八月复用二人"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-FIN-JIN-TAX-RELIEF",
+      "time": "隆興元年三月至四月",
+      "action": "金免去年租税，并对山西贫民给六十日粮。",
+      "result": "受灾民众获得税收与口粮减免。",
+      "quote": ["金免去年租稅", "給六十日糧"],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-138-JIN-TAX-RELIEF",
+        "candidate": "FIN-CAND-XZZTJ-138-JIN-TAX-RELIEF",
+        "summary": "金实施租税与灾粮救济。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "山西贫民与灾后租税负担",
+          "fiscal_state": "免去年租税并给六十日粮",
+          "livelihood_state": "贫民获得短期口粮",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-BAT-LONGXING-CAMPAIGN",
+      "time": "隆興元年四月至五月",
+      "action": "张浚未经理省正式共议即令李显忠、邵宏渊出师，先复灵壁、虹县、宿州，后因二将不协于符离溃败。",
+      "result": "宋军赴水死者无数，损甲三万与军资，宿州再失。",
+      "quote": ["三省、樞密院不預聞", "琦敗走，遂復靈壁", "遂復宿州。捷聞", "由是二將不協", "宋師大潰，赴水死者", "獲甲三萬。於是宋之軍資殆盡"],
+      "battle": "HANDOFF-XZZTJ-138-LONGXING-CAMPAIGN",
+      "battle_reason": "灵壁虹县宿州进取至符离溃败为同一隆兴北伐链。"
+    },
+    {
+      "id": "CHF-XZZTJ-138-FIN-SUZHOU-REWARD-DISPUTE",
+      "time": "隆興元年五月",
+      "action": "宿州克复后邵宏渊欲发仓库犒军，李显忠仅以现钱给赏。",
+      "result": "军士不悦，加深两将不协。",
+      "quote": ["宏淵欲發倉庫犒卒", "止以見錢犒士，士皆不悅"],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-138-SUZHOU-REWARD-DISPUTE",
+        "candidate": "FIN-CAND-XZZTJ-138-SUZHOU-REWARD-DISPUTE",
+        "summary": "宿州战后犒赏分歧损伤军心。",
+        "operation": "failed",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "宿州新克需犒赏军士",
+          "fiscal_state": "未发仓库，仅用现钱",
+          "livelihood_state": "军士不悦",
+          "production_circulation": "城中仓库未用于犒军"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-WRK-HUAI-DEFENSES",
+      "time": "隆興元年六月至隆興二年三月",
+      "action": "符离败后张浚修筑高邮巢县、滁州关山和要害城堡，积水为险并增江淮战舰。",
+      "result": "两淮防御设施和战舰器械完备，淮北归附者不断。",
+      "quote": ["治高郵、巢縣兩城", "凡要害之地，皆築城堡", "增置江、淮戰艦", "諸軍弓矢器械悉備"],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-XZZTJ-138-HUAI-DEFENSES",
+        "candidate": "WORK-CAND-XZZTJ-138-HUAI-DEFENSES",
+        "summary": "构筑两淮城堡水障并增造战舰。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "两淮城堡、水障与战舰",
+          "phase": "修筑与装备",
+          "purpose": "符离败后重建守备",
+          "resource_input": "城堡、蓄水、战舰、弓矢器械",
+          "operation": "分守海泗濠六合并治要害",
+          "benefit": "形成江淮防御体系",
+          "harm": "军费支出被政敌攻击"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-POST-DEFEAT-PURGE",
+      "time": "隆興元年六月至八月",
+      "action": "符离败后主和派弹劾张浚，李显忠被贬，宣抚便宜权被罢；陈俊卿上疏后张浚部分军权又恢复。",
+      "result": "战败责任与和战路线导致前线统帅反复黜复。",
+      "quote": ["癸酉，下詔罪己", "貶李顯忠筠州安置", "罷江淮宣撫使便宜行事", "即復浚都督江淮軍馬"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-POST-DEFEAT-PURGE",
+        "candidate": "POL-CAND-XZZTJ-138-POST-DEFEAT-PURGE",
+        "summary": "符离败后张浚李显忠受责，张浚军权又部分恢复。",
+        "operation": "mixed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战败问责与路线斗争",
+          "decision_question": "符离败后是否继续任用主战统帅",
+          "alternatives": "罢黜转和；保留军权责后效",
+          "decision": "先降罢后部分复权",
+          "direct_result": "李显忠被贬、张浚都督复任",
+          "power_change": "主和派与主战派权势反复",
+          "risk_or_damage": "前线人情解体",
+          "follow_up": "隆兴二年张浚再罢"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-PEACE-NEGOTIATION",
+      "time": "隆興元年八月至十二月",
+      "action": "汤思退主导对金和议，卢仲贤擅许四州；廷臣争论后孝宗一度定可给四州岁币而不从称臣、归正人。",
+      "result": "卢仲贤因辱国被夺官，但王之望仍被遣续议，和战分歧加深。",
+      "quote": ["思退等命許之", "仲賢還，以書奏，帝大悔之", "擅許四州，下大理寺", "四州地及歲幣可與", "名分、歸正人不可從"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-PEACE-NEGOTIATION",
+        "candidate": "POL-CAND-XZZTJ-138-PEACE-NEGOTIATION",
+        "summary": "宋廷围绕割四州、岁币、称臣和归正人展开和议。",
+        "operation": "mixed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "宋金和议决策",
+          "decision_question": "是否以四州岁币换取和平",
+          "alternatives": "拒和备战；割州输币但拒称臣归人",
+          "decision": "一度许四州岁币，后又命四州不可割",
+          "direct_result": "使臣被追责，和议反复",
+          "power_change": "汤思退主和路线占优",
+          "risk_or_damage": "失中原将士与归正人之心",
+          "follow_up": "王之望魏杞继续出使"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-FIN-FLOOD-TAX-RELIEF",
+      "time": "隆興元年至二年",
+      "action": "两浙、江东遭水旱蝗灾，宋蠲赋并在隆兴二年罢借诸路职田、赈江东两淮贫民。",
+      "result": "灾区税赋和临时征借获减免，贫民得到赈济。",
+      "quote": ["兩浙大水、旱、蝗", "江東大水，悉蠲其賦", "罷借諸路職田之令", "賑江東、兩淮被水貧民"],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-138-FLOOD-TAX-RELIEF",
+        "candidate": "FIN-CAND-XZZTJ-138-FLOOD-TAX-RELIEF",
+        "summary": "对东南水旱蝗灾蠲赋、停借职田并赈贫。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "两浙江东水旱蝗灾",
+          "fiscal_state": "蠲赋并停止借职田",
+          "livelihood_state": "江东两淮贫民获赈",
+          "production_circulation": "农业受灾"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-ZHANGJUN-REMOVAL",
+      "time": "隆興二年三月至八月",
+      "action": "汤思退以和议压倒张浚守战路线，先召还、罢都督府，再罢张浚并黜其支持者。",
+      "result": "张浚离朝后病卒，宋廷决定推进和议。",
+      "quote": ["罷江淮都督府", "同平章事張浚罷", "浚既去，朝廷遂決和議", "魏國公張浚薨"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-ZHANGJUN-REMOVAL",
+        "candidate": "POL-CAND-XZZTJ-138-ZHANGJUN-REMOVAL",
+        "summary": "张浚被罢与去世标志主战路线失势。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "宰执路线更替",
+          "decision_question": "继续江淮守战还是撤府求和",
+          "alternatives": "维持张浚都督；罢府推进和议",
+          "decision": "罢都督府并罢张浚",
+          "direct_result": "主和派全面掌权",
+          "power_change": "汤思退路线占主导",
+          "risk_or_damage": "主战谏官一并遭罢",
+          "follow_up": "张浚病卒"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-YUE-PROPERTY",
+      "time": "隆興元年七月",
+      "action": "宋归还岳飞田宅。",
+      "result": "岳飞平反后的财产恢复落实。",
+      "quote": "給還岳飛田宅",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-YUE-PROPERTY",
+        "candidate": "POL-CAND-XZZTJ-138-YUE-PROPERTY",
+        "summary": "归还岳飞田宅。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "旧案财产恢复",
+          "decision_question": "是否归还岳飞田宅",
+          "alternatives": "不还；归还",
+          "decision": "给还",
+          "direct_result": "田宅恢复",
+          "power_change": "旧案财产处分被纠正",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-WRK-JIANGZHE-WATERWORKS",
+      "time": "隆興二年九月",
+      "action": "宋因势家园田堵塞水流，命江浙诸州查勘开园田、浚港渎。",
+      "result": "湖秀平江常州宣州等分派官员整治水利。",
+      "quote": ["江、浙水利，久不修講", "勢家園田，堙塞流水", "乞開園田，浚港瀆"],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-XZZTJ-138-JIANGZHE-WATERWORKS",
+        "candidate": "WORK-CAND-XZZTJ-138-JIANGZHE-WATERWORKS",
+        "summary": "清理势家园田阻水并疏浚港渎。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "江浙港渎与园田水利",
+          "phase": "查勘与疏浚部署",
+          "purpose": "恢复排水通流",
+          "resource_input": "诸州守臣与分派官员",
+          "operation": "开园田、浚港渎",
+          "benefit": "改善江浙水利",
+          "harm": "势家园田原先阻塞流水"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-FIN-RAIN-RELIEF",
+      "time": "隆興二年九月",
+      "action": "宋因久雨出内库白金四十万两和籴赈贫，又发江西义仓米二十万石。",
+      "result": "大规模银米被投入灾后粮食赈济。",
+      "quote": ["出內庫白金四十萬兩", "和糴以賑貧民", "發江西義倉米二十萬石"],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-138-RAIN-RELIEF",
+        "candidate": "FIN-CAND-XZZTJ-138-RAIN-RELIEF",
+        "summary": "以四十万两白金和籴并发二十万石义仓米赈贫。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "久雨导致贫民需赈",
+          "fiscal_state": "内库白金四十万两与义仓米二十万石",
+          "livelihood_state": "贫民获粮食救济",
+          "production_circulation": "政府和籴并调仓粮"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-138-POL-CORRUPTION-PENALTY",
+      "time": "隆興二年九月",
+      "action": "宋恢复自盗枉法赃罪抵死者除籍没家财并决配的祖制。",
+      "result": "贪赃官员的刑罚与财产处分被明确收紧。",
+      "quote": ["自盜枉法贓罪抵死", "除籍沒家財外", "依祖宗舊制決配"],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-138-CORRUPTION-PENALTY",
+        "candidate": "POL-CAND-XZZTJ-138-CORRUPTION-PENALTY",
+        "summary": "恢复贪赃抵死官员籍没与决配制度。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "惩贪刑制",
+          "decision_question": "如何处置自盗枉法抵死官员",
+          "alternatives": "宽处；籍没并决配",
+          "decision": "依祖制决配",
+          "direct_result": "赃官财产和人身刑罚收紧",
+          "power_change": "司法机关获明确执行标准",
+          "risk_or_damage": "贪赃枉法",
+          "follow_up": "未载。"
+        }
+      }
+    }
+  ]
+}

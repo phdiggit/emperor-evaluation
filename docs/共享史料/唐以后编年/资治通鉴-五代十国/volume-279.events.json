@@ -1,0 +1,1276 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "FIVE-DYNASTIES-ZZTJ-279-1",
+  "status": "shadow",
+  "task_code": "FIVE-DYNASTIES-ZZTJ-279-MULTIDOMAIN",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷279",
+    "revision_ref": "1769087",
+    "start_locator": "后唐闵帝应顺元年二月",
+    "end_locator": "后唐末帝清泰二年十二月",
+    "overlap_context": "续接卷278闵帝—潞王冲突、后蜀建国、契丹—河东及闽夏州线；本卷闭合凤翔政变与闵帝，推进后蜀继承、河东猜疑和闽宫变，转交卷280。",
+    "input_fingerprint": "46a7d839ca205756d542d5110e61c19c6de6610075fdfa997069cdb811067ab3"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-279-WU-CANCELS-CAPITAL-MOVE-934",
+      "time": "应顺元年二月",
+      "loc": [
+        "江都",
+        "金陵",
+        "吴"
+      ],
+      "action": "吴人多反对迁都，周宗以劳费大且违众心劝徐知诰，吴主遂命停止迁都。",
+      "result": "金陵宫城已建而迁都暂缓，徐知诰与宋齐丘又因传禅时机产生裂痕。",
+      "quote": [
+        "勞費甚大，且違眾心",
+        "諭知誥罷遷都",
+        "知誥由是疏齊丘"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "避免迁都巨额劳费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "吴禅代路线内部分歧。"
+        ]
+      ],
+      "unknown": [
+        "已投入宫城工程成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-CENTRAL-RESHUFFLE-PROVOKES-LUWANG-934",
+      "time": "应顺元年二月",
+      "loc": [
+        "凤翔",
+        "太原",
+        "成德"
+      ],
+      "action": "朱弘昭、冯赟以无正式制书的宣命调李从珂、石敬瑭与范延光换镇，并令李从璋接凤翔。",
+      "result": "李从珂判断离镇无全理，决定拒命。",
+      "quote": [
+        "皆不降制書",
+        "又命洋王從璋權知鳳翔",
+        "離鎮必無全理，不可受也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "承接卷278中央与潞王猜阻。"
+        ]
+      ],
+      "unknown": [
+        "闵帝本人对调镇的主导程度未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-JINLING-FIRES-934",
+      "time": "应顺元年二月",
+      "loc": [
+        "金陵"
+      ],
+      "action": "金陵连续两日发生大火，徐知诰怀疑有变而集兵自卫。",
+      "result": "吴国权力中心短期进入军事戒备。",
+      "cost": "火灾损失未载。",
+      "quote": [
+        "申，金陵大火",
+        "乙酉，又火。知",
+        "變，勒兵自衛"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "连续火灾造成潜在城市损失。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "徐知诰疑变戒备。"
+        ]
+      ],
+      "unknown": [
+        "起火原因、死伤和损失未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-LUWANG-RAISES-BANNER-934",
+      "time": "应顺元年二月",
+      "loc": [
+        "凤翔",
+        "长安"
+      ],
+      "action": "李从珂移檄邻道，以清君侧为名拒命，并派人联络王思同等。",
+      "result": "王思同拒绝并逮捕使者，朝廷决定讨凤翔。",
+      "quote": [
+        "將入朝以清君側之惡",
+        "願乞靈鄰籓以濟之",
+        "遂執詡等，以狀聞"
+      ],
+      "battle": "CAMPAIGN-LUWANG-FENGXIANG-934",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "潞王公开起兵。"
+        ]
+      ],
+      "unknown": [
+        "各邻镇暗中承诺未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-TANG-LAUNCHES-FENGXIANG-CAMPAIGN-934",
+      "time": "应顺元年二月至三月",
+      "loc": [
+        "凤翔"
+      ],
+      "action": "朝廷以王思同统帅、多镇合兵讨凤翔，诸道军攻克东西关城并强攻主城。",
+      "result": "凤翔城中死者甚众、守军危急，但外军强攻方式激起士卒反叛。",
+      "quote": [
+        "合兵討鳳翔",
+        "克東西關城",
+        "城中死者甚眾",
+        "以白刃驅士卒登城"
+      ],
+      "battle": "CAMPAIGN-LUWANG-FENGXIANG-934",
+      "unknown": [
+        "各镇兵数与城中确切死亡数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-FENGXIANG-ARMY-DEFECTS-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "凤翔"
+      ],
+      "action": "张虔钊驱兵登城激怒士卒，杨思权率先倒戈，尹晖等继而号召全军投降李从珂。",
+      "result": "围城外军尽溃，王思同等六节度使逃走。",
+      "quote": [
+        "詬，反攻之，虔",
+        "帥諸軍解甲投兵",
+        "眾爭棄甲投兵而降",
+        "入，外軍亦潰"
+      ],
+      "battle": "CAMPAIGN-LUWANG-FENGXIANG-934",
+      "unknown": [
+        "倒戈中伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-FENGXIANG-WEALTH-SEIZED-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "凤翔"
+      ],
+      "action": "李从珂收尽凤翔城内将吏士民财物，连鼎釜都估价用来犒军。",
+      "result": "倒戈军获得赏赐，凤翔居民与官吏财产被全面征取。",
+      "quote": [
+        "悉斂城中將吏士民之財",
+        "鼎釜皆估直以給之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "为军赏全面征收城内财产。"
+        ]
+      ],
+      "unknown": [
+        "征取总额与贫民损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-CHANGAN-TREASURY-REWARDS-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "长安",
+        "岐山"
+      ],
+      "action": "刘遂雍打开长安府库，逐批赏给李从珂前军并令其过城。",
+      "result": "李从珂顺利进入长安，前军不扰城内。",
+      "quote": [
+        "悉出府庫之財於外",
+        "軍士前至者即給賞令過",
+        "遍，皆不入城"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "府库支出换取军队过境秩序。"
+        ]
+      ],
+      "unknown": [
+        "赏赐总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MINDI-EMPTIES-TREASURY-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "闵帝在凤翔军溃后允康义诚再征，空府库犒宿卫，并许平凤翔每人再赏二百缗。",
+      "result": "府库不足将以宫中服玩补足，士卒更骄且沿途索取加赏。",
+      "quote": [
+        "空府庫以勞之",
+        "人更賞二百緡",
+        "當以宮中服玩繼之",
+        "之。軍士益驕"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以超额承诺换军心并耗空府库。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闵帝最后军事动员。"
+        ]
+      ],
+      "unknown": [
+        "实际发放额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-LI-CONGKE-FAMILY-KILLED-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "宋州",
+        "洛阳"
+      ],
+      "action": "闵帝遣楚匡祚杀李从珂长子李重吉，并杀其女惠明。",
+      "result": "潞王在京亲属被清除，双方再无和解余地。",
+      "quote": [
+        "殺李重吉於宋州",
+        "又殺尼惠明"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政变中的宗室报复。"
+        ]
+      ],
+      "unknown": [
+        "其他家属处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-ZHU-HONGSHI-EXECUTED-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "朱洪实主张禁军固守洛阳，与康义诚争论并互指谋反，闵帝不能辨而斩朱洪实。",
+      "result": "宿卫军士更加愤怒，洛阳防御意见被压制。",
+      "quote": [
+        "欲以禁軍固守洛陽",
+        "帝不能辨其是非",
+        "非，遂斬洪實",
+        "軍士益憤怒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央军事决策失序。"
+        ]
+      ],
+      "unknown": [
+        "朱洪实是否另有政治图谋未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-WANG-SITONG-KILLED-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "灵口"
+      ],
+      "action": "王思同被俘后坚持忠于闵帝，李从珂本欲宽宥，尹晖等却擅杀其全家。",
+      "result": "忠于朝廷的西征主帅及妻子被杀，李从珂醒后震怒惋惜。",
+      "quote": [
+        "也。請早就死",
+        "矣。」王欲宥之，",
+        "擅殺思同及其妻子"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "倒戈集团清除原统帅。"
+        ]
+      ],
+      "unknown": [
+        "王思同子女数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-EASTERN-ARMIES-SURRENDER-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "华州",
+        "灵宝",
+        "陕州",
+        "新安"
+      ],
+      "action": "李从珂东进时，朝廷各军和藩镇相继迎降，康义诚军在新安成群弃甲投陕。",
+      "result": "康义诚仅余数十人并请降，闵帝军事力量完全瓦解。",
+      "quote": [
+        "無一人戰者",
+        "安重霸皆降，",
+        "棄甲兵，爭先詣陝降",
+        "騎請降於潞王"
+      ],
+      "battle": "CAMPAIGN-LUWANG-FENGXIANG-934",
+      "unknown": [
+        "投降总兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-ZHU-FENG-DESTROYED-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "闵帝闻李从珂至陕、康义诚军溃，朱弘昭投井自杀；安从进杀冯赟并灭族。",
+      "result": "朱、冯执政集团覆灭，首级被送李从珂。",
+      "cost": "朱弘昭、冯赟及冯氏一族死亡。",
+      "quote": [
+        "也。」赴井死。安",
+        "殺馮贇於第，滅其族",
+        "傳弘昭、贇首於潞王"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闵帝执政集团闭合。"
+        ]
+      ],
+      "unknown": [
+        "冯氏死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MINDI-FLEES-LUOYANG-934",
+      "time": "应顺元年三月",
+      "loc": [
+        "洛阳",
+        "玄武门",
+        "魏州"
+      ],
+      "action": "闵帝拟奔魏州，仅率五十骑出玄武门，亲信慕容迁闭门不随。",
+      "result": "闵帝脱离宫廷、府库和宿卫，成为孤立流亡者。",
+      "quote": [
+        "帝欲奔魏州",
+        "以五十騎出玄武門",
+        "即闔門不行"
+      ],
+      "battle": "CAMPAIGN-LUWANG-FENGXIANG-934",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闵帝失去洛阳。"
+        ]
+      ],
+      "unknown": [
+        "五十骑后续完整名单未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MINDI-ESCORT-KILLED-934",
+      "time": "应顺元年四月",
+      "loc": [
+        "卫州"
+      ],
+      "action": "闵帝在卫州求石敬瑭兴复，沙守荣指责其卖主并欲刺之；刘知远率兵杀尽闵帝左右及从骑。",
+      "result": "石敬瑭赴洛阳，闵帝独留卫州。",
+      "cost": "沙守荣、奔洪及闵帝从骑死亡。",
+      "quote": [
+        "是直欲附賊賣天子耳",
+        "盡殺帝左右及從騎",
+        "獨置帝而去"
+      ],
+      "battle": "CAMPAIGN-LUWANG-FENGXIANG-934",
+      "unknown": [
+        "刘知远行动是否经石敬瑭明令未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MENG-HANQIONG-KILLED-934",
+      "time": "应顺元年四月",
+      "loc": [
+        "渑池"
+      ],
+      "action": "孟汉琼投奔李从珂并自称有旧恩，李从珂令人在路旁将其斩杀。",
+      "result": "明宗末年以来的内廷权臣被清除。",
+      "quote": [
+        "自謂於王有舊恩",
+        "即命斬於路隅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旧内廷集团清洗。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-279-XINGYUAN-SURRENDERS-SHU-934",
+      "time": "应顺元年四月",
+      "loc": [
+        "兴元",
+        "武定",
+        "利州",
+        "大漫天"
+      ],
+      "action": "张虔钊败归后与孙汉韶举两镇降后蜀，后蜀派一万五千兵接应。",
+      "result": "山南西道、武定及散关以南城镇大批归蜀。",
+      "quote": [
+        "舉兩鎮之地降於蜀",
+        "將兵五千還利州",
+        "將兵一萬屯大漫天"
+      ],
+      "battle": "CAMPAIGN-SHU-ANNEXES-XINGYUAN-934",
+      "unknown": [
+        "交接战斗和守军人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-LICONGKE-ACCESSION-934",
+      "time": "应顺元年四月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "太后废闵帝为鄂王，命李从珂知军国事，继而令其在明宗柩前即帝位。",
+      "result": "后唐进入清泰朝，凤翔起兵完成政权更替。",
+      "quote": [
+        "廢少帝為鄂王",
+        "以潞王知軍國事",
+        "即位於柩前"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "凤翔政变政治闭合。"
+        ]
+      ],
+      "unknown": [
+        "太后命令形成过程未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-REWARD-FUNDING-RENT-LOAN-934",
+      "time": "清泰元年四月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "李从珂发现府库金帛仅三万而军赏需五十万缗，先率取京城民财，又预借全城五月房租。",
+      "result": "仍只得少量资金，军赏压力转嫁士庶与租户。",
+      "quote": [
+        "金、帛不過三萬兩、匹",
+        "應用五十萬緡",
+        "率京城民財以足之",
+        "預借五月僦直"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政变军赏引发强制征财和预借房租。"
+        ]
+      ],
+      "unknown": [
+        "各户实际分摊未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MINDI-MURDERED-934",
+      "time": "清泰元年四月",
+      "loc": [
+        "卫州"
+      ],
+      "action": "王弘贽父子奉命先以毒酒逼闵帝，见其不饮后将其缢杀。",
+      "result": "闵帝身亡，孔妃及四子随后也被杀。",
+      "cost": "闵帝、孔妃与四子死亡，宋令询闻讯自缢。",
+      "quote": [
+        "飲，巒縊殺之",
+        "遂殺妃，並其四子",
+        "半日，自經死。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闵帝线最终闭合。"
+        ]
+      ],
+      "unknown": [
+        "毒酒命令的具体发出者只由上下文推知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SHU-TAKES-SOUTHERN-PASSES-934",
+      "time": "清泰元年四月至六月",
+      "loc": [
+        "散关",
+        "兴元",
+        "洋州",
+        "阶州",
+        "成州",
+        "文州"
+      ],
+      "action": "后唐戍军撤离散关以南，后蜀接收城镇并以张业入兴元、洋州，阶成文等州相继归蜀。",
+      "result": "后蜀疆域北推至秦岭诸州。",
+      "quote": [
+        "自散關以南城鎮悉棄之",
+        "皆為蜀人所有",
+        "將兵入興元、洋州",
+        "龜舉州附蜀"
+      ],
+      "battle": "CAMPAIGN-SHU-ANNEXES-XINGYUAN-934",
+      "unknown": [
+        "各州实际交接与居民影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-KANG-YICHENG-CLAN-EXECUTED-934",
+      "time": "清泰元年四月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "李从珂以康义诚反复倒戈为罪，将其斩杀并灭族；药彦稠也被诛。",
+      "result": "闵帝最后的宿卫统帅集团被清理。",
+      "quote": [
+        "斬河陽節度使",
+        "義誠，滅其族。\n",
+        "丑，誅藥彥稠"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新朝清洗旧军政统帅。"
+        ]
+      ],
+      "unknown": [
+        "康氏死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-FORCED-REWARD-LEVY-934",
+      "time": "清泰元年四月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "官府百般征敛民财，昼夜囚责，贫民有人自缢投井；又耗尽左藏、贡物与太后器服。",
+      "result": "总计仍仅凑二十万缗，李从珂最终缩减军赏，但士卒仍怨。",
+      "cost": "民众受鞭杖、监禁并有自杀者，宫廷与国库财物耗尽。",
+      "quote": [
+        "晝夜督責，囚系滿獄",
+        "貧者至自經、赴井",
+        "才及二十萬緡",
+        "軍士無厭，猶怨望"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军赏征敛造成直接死亡和财政枯竭。"
+        ]
+      ],
+      "unknown": [
+        "自杀人数与民财损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SHI-JINGTANG-RETURNS-HEDONG-934",
+      "time": "清泰元年五月",
+      "loc": [
+        "洛阳",
+        "河东"
+      ],
+      "action": "李从珂一度受旧将劝说欲留石敬瑭，最终因其病瘠且韩昭胤等进言，仍使其回镇河东。",
+      "result": "石敬瑭继续掌握河东，皇帝与其旧怨和猜疑未解。",
+      "quote": [
+        "多勸帝留之",
+        "立，不以為虞",
+        "乃復以為河東節度使"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "转交卷280的河东冲突。"
+        ]
+      ],
+      "unknown": [
+        "李从珂真实信任程度未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-WU-YANGMENG-CONFINED-934",
+      "time": "清泰元年六月",
+      "loc": [
+        "和州",
+        "吴"
+      ],
+      "action": "徐知诰为受禅而忌临川王杨濛，以藏亡命、造兵器为罪降封幽禁，并派二百兵监守。",
+      "result": "吴宗室中潜在复兴中心被隔离。",
+      "quote": [
+        "徐知誥將受禪",
+        "降封歷陽公",
+        "公，。幽於和州，",
+        "將兵二百衛之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "吴禅代前清除宗室障碍。"
+        ]
+      ],
+      "unknown": [
+        "指控真伪未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SHU-GAOZU-DIES-934",
+      "time": "清泰元年七月",
+      "loc": [
+        "成都"
+      ],
+      "action": "孟知祥病重，立孟仁赞为太子监国，指定赵季良等辅政后去世。",
+      "result": "后蜀高祖统治终结，秘不发丧以防强将窥变。",
+      "quote": [
+        "立子東川節度使",
+        "子，仍監國。召",
+        "受遣詔輔政",
+        "是夕殂，秘不發喪"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后蜀继承危机开启。"
+        ]
+      ],
+      "unknown": [
+        "李仁罕当时具体图谋未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MENGCHANG-ACCESSION-934",
+      "time": "清泰元年七月",
+      "loc": [
+        "成都"
+      ],
+      "action": "后蜀宣遗制，太子孟仁赞改名孟昶并即皇帝位。",
+      "result": "后蜀完成父子继承。",
+      "quote": "命太子仁贊更名昶",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后蜀新君即位。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-279-ARREARS-REMISSION-934",
+      "time": "清泰元年八月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "刘昫查明户部诸道积欠多为奸吏保留以索贿，朝廷免除长兴以前逋租三百三十八万。",
+      "result": "贫民大悦，三司吏因失去寻租来源而怨。",
+      "quote": [
+        "奸吏利其征責丐取",
+        "逋租三百三十八萬",
+        "鹹蠲免勿征",
+        "征。貧民大悅"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大额虚欠蠲免及反腐效果明确。"
+        ]
+      ],
+      "unknown": [
+        "数字计量单位原文未另说明。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-KHITAN-RAID-REPULSED-934",
+      "time": "清泰元年九月",
+      "loc": [
+        "云州",
+        "振武"
+      ],
+      "action": "契丹进犯云州，石敬瑭自将屯百井；杨檀在边境击退契丹。",
+      "result": "本次北边入寇被遏止。",
+      "quote": [
+        "奏契丹入寇",
+        "自將兵屯百井",
+        "擊契丹於境上，卻之"
+      ],
+      "battle": "CAMPAIGN-KHITAN-TANG-BORDER-926",
+      "unknown": [
+        "双方兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-LI-RENHAN-KILLED-934",
+      "time": "清泰元年九月至十月",
+      "loc": [
+        "成都"
+      ],
+      "action": "李仁罕以宿将功臣自恃、强求判六军，张公铎等谮其有异志，孟昶命武士入朝时捕杀。",
+      "result": "李仁罕及其子、宋从会等数人被诛，孟昶收回六军主导权。",
+      "quote": [
+        "托，求判六軍",
+        "共譖之雲仁罕有異志",
+        "士，執而殺之",
+        "數人皆伏誅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后蜀新君清除强将。"
+        ]
+      ],
+      "unknown": [
+        "谋反指控真实性未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SHU-QUZHOU-REBELLION-934",
+      "time": "清泰元年十月",
+      "loc": [
+        "渠州"
+      ],
+      "action": "文景琛据渠州反叛，果州刺史李延厚出兵平定。",
+      "result": "后蜀地方兵变被镇压。",
+      "quote": [
+        "景琛據城叛，",
+        "延厚討平之，"
+      ],
+      "battle": "CAMPAIGN-SHU-QUZHOU-REBELLION-934",
+      "unknown": [
+        "兵力、处置与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-WENZHOU-SIEGE-934",
+      "time": "清泰元年十月",
+      "loc": [
+        "文州",
+        "尖石寨",
+        "兴州"
+      ],
+      "action": "后唐张延朗围文州、郭知琼拔尖石寨；后蜀范延晖率援军抵达，迫使后唐解围。",
+      "result": "后蜀守住文州，后唐戍军又撤离兴州。",
+      "quote": [
+        "將兵圍文州",
+        "瓊拔尖石寨",
+        "將兵救文州",
+        "延朗解圍而歸"
+      ],
+      "battle": "CAMPAIGN-TANG-SHU-WENZHOU-934",
+      "unknown": [
+        "双方兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-DROUGHT-MIGRATION-934",
+      "time": "清泰元年秋冬",
+      "loc": [
+        "同州",
+        "华州",
+        "蒲州",
+        "绛州"
+      ],
+      "action": "后唐秋冬发生旱灾。",
+      "result": "民众大量流亡，同、华、蒲、绛尤其严重。",
+      "quote": [
+        "是歲秋、冬旱",
+        "旱，民多流亡",
+        "同、華、蒲、絳尤甚"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旱灾与人口流亡结果明确。"
+        ]
+      ],
+      "unknown": [
+        "受灾人口、死亡与赈济未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SOUTHERN-HAN-GUARD-ABUSES-934",
+      "time": "清泰元年末",
+      "loc": [
+        "南汉"
+      ],
+      "action": "南汉秦王刘弘度招募市井无赖千人为宿卫并亲昵纵容。",
+      "result": "宿卫公开抢掠商人金帛，商人不敢申诉，宰相杨洞潜因政乱辞职。",
+      "quote": [
+        "募宿衛兵千人",
+        "皆市井無賴子弟",
+        "衛士掠商人金帛",
+        "商人不敢訴"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宿卫抢掠直接损害商民。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉军纪与宰相退出。"
+        ]
+      ],
+      "unknown": [
+        "抢掠规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-KHITAN-RAIDS-935",
+      "time": "清泰二年五月至六月",
+      "loc": [
+        "新州",
+        "振武",
+        "应州"
+      ],
+      "action": "契丹连续进犯新州、振武和应州。",
+      "result": "后唐北边军需与河东兵权压力加剧。",
+      "quote": [
+        "契丹寇新州及振武",
+        "契丹寇應州"
+      ],
+      "battle": "CAMPAIGN-KHITAN-TANG-BORDER-926",
+      "unknown": [
+        "各次兵力、战果和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-HEDONG-MILITARY-LEVIES-935",
+      "time": "清泰二年六月",
+      "loc": [
+        "河东",
+        "镇州",
+        "魏博",
+        "代州"
+      ],
+      "action": "契丹压力下，朝廷借河东富户菽粟、征镇州绢五万匹买粮，又征一千五百车运往代州并令魏博籴粮。",
+      "result": "水旱饥荒中督运严急，山东民众流散，乱兆形成。",
+      "cost": "富户粮食、镇州绢帛、车辆与山东民力被大规模征用。",
+      "quote": [
+        "借河東人有蓄積者菽粟",
+        "輸絹五萬匹",
+        "車千五百乘",
+        "山東之民流散，亂始兆矣"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "北边军需征敛在灾年造成流民。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河东与中央猜疑背景。"
+        ]
+      ],
+      "unknown": [
+        "实际征收和运抵数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SHI-JINGTANG-KILLS-CHEERERS-935",
+      "time": "清泰二年六月",
+      "loc": [
+        "忻州"
+      ],
+      "action": "朝廷使者劳军时士卒数呼万岁，石敬瑭恐惧，令刘知远斩领呼者李晖等三十六人。",
+      "result": "军中越礼被血腥压制，李从珂反而更疑石敬瑭。",
+      "cost": "三十六人被斩。",
+      "quote": [
+        "軍士呼萬歲者數四",
+        "斬挾馬都將李暉等三十六人",
+        "帝聞之，益疑敬瑭"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河东猜疑升级。"
+        ]
+      ],
+      "unknown": [
+        "呼万岁是否预谋拥立未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-EXTREME-PENALTY-THEFT-935",
+      "time": "清泰二年六月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "后唐下诏盗窃不论赃物多少，与纵火、强盗一律处以极刑。",
+      "result": "财产犯罪刑罚全面重化。",
+      "quote": [
+        "竊盜不計贓多少",
+        "盜，並行極法"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刑罚政策重大收紧。"
+        ]
+      ],
+      "unknown": [
+        "执行人数和持续时间未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-ZHANG-JINGDA-SPLITS-HEDONG-POWER-935",
+      "time": "清泰二年七月",
+      "loc": [
+        "代州",
+        "河东"
+      ],
+      "action": "朝廷任张敬达为北面行营副总管，率兵屯代州以分石敬瑭军权。",
+      "result": "中央对河东的制衡公开化。",
+      "quote": [
+        "將兵屯代州",
+        "以分石敬瑭之權"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "转交卷280的晋阳冲突。"
+        ]
+      ],
+      "unknown": [
+        "张敬达所领兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-LIU-YANLANG-BRIBERY-935",
+      "time": "清泰二年九月",
+      "loc": [
+        "后唐中央"
+      ],
+      "action": "刘延朗掌除授，外来方镇刺史须先行贿，再议贡品；贿厚者先得内地，贿薄者得边地。",
+      "result": "将帅普遍怨愤，而皇帝未能察觉。",
+      "quote": [
+        "必先賂延朗",
+        "賂厚者先，得內地",
+        "由是諸將帥皆怨憤"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官职配置被贿赂交易化。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢腐败加剧藩镇离心。"
+        ]
+      ],
+      "unknown": [
+        "贿赂总额及具体案例未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-SHU-JINZHOU-ATTACK-935",
+      "time": "清泰二年九月",
+      "loc": [
+        "金州",
+        "水寨"
+      ],
+      "action": "后蜀全师郁攻金州并拔水寨，守城都监率三百逃走。",
+      "result": "马全节尽出私财供军、奇兵死战，迫使蜀军退却；逃将被诛。",
+      "quote": [
+        "寇金州，拔水寨",
+        "罄私財以給軍",
+        "出奇死戰，蜀兵乃退",
+        "寅，詔斬知隱"
+      ],
+      "battle": "CAMPAIGN-SHU-JINZHOU-935",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "守将私财直接支持城防。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MIN-HUIZONG-COUP-935",
+      "time": "清泰二年十月",
+      "loc": [
+        "福州",
+        "闽宫"
+      ],
+      "action": "李倣先杀李可殷，继而率兵入宫；乱兵刺杀闽主王璘，王继鹏集团又杀陈后等人。",
+      "result": "王璘死亡，王继鹏即帝位并更名王昶，随后向后唐奉表。",
+      "cost": "王璘、陈后、李可殷、归守明及王继韬等死亡。",
+      "quote": [
+        "引部兵鼓噪入宮",
+        "下，亂兵刺之",
+        "繼鵬殺陳后、"
+      ],
+      "battle": "CAMPAIGN-MIN-PALACE-COUP-935",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闽称帝后的宫廷政变。"
+        ]
+      ],
+      "unknown": [
+        "王继鹏事前参与弑父程度未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-JINGNAN-REFORMS-935",
+      "time": "清泰二年十月",
+      "loc": [
+        "荆南"
+      ],
+      "action": "高从诲受孙光宪劝诫后去除玩好、读经史，省刑薄赋。",
+      "result": "荆南境内因此安定，并将政事委托孙光宪。",
+      "quote": [
+        "乃捐去玩好",
+        "娛，省刑薄賦",
+        "賦，境內以安",
+        "悉以政事屬孫光憲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "薄赋与地方安定结果明确。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "荆南治理转向。"
+        ]
+      ],
+      "unknown": [
+        "减赋幅度与刑案变化未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-WU-QI-STATE-935",
+      "time": "清泰二年十月",
+      "loc": [
+        "吴",
+        "升州",
+        "润州",
+        "宣州",
+        "池州",
+        "歙州",
+        "常州",
+        "江州",
+        "饶州",
+        "信州",
+        "海州"
+      ],
+      "action": "吴进徐知诰为齐王并以十州建齐国，备殊礼。",
+      "result": "徐知诰受禅前形成独立封国架构。",
+      "quote": [
+        "帥，進封齊王",
+        "十州為齊國",
+        "王，備殊禮，以"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "吴禅代进程的重要制度节点。"
+        ]
+      ],
+      "unknown": [
+        "徐知诰辞让的实际效力未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MIN-LIFANG-KILLED-935",
+      "time": "清泰二年十一月",
+      "loc": [
+        "福州",
+        "应天门",
+        "启圣门"
+      ],
+      "action": "王昶与林延皓伏数百卫士捕斩专政的李倣；李倣部兵千余攻门不克，焚门后夺首奔吴越。",
+      "result": "闽宫变后的军头李倣被清除，但其部队脱离。",
+      "cost": "李倣及交战人员死亡，启圣门被焚。",
+      "quote": [
+        "伏衛士數百於內殿",
+        "殿，執斬之，梟",
+        "部兵千餘持白梃攻應天門",
+        "克，焚啟聖門"
+      ],
+      "battle": "CAMPAIGN-MIN-PALACE-COUP-935",
+      "unknown": [
+        "守门战伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-279-MIN-CHENSHOUYUAN-CORRUPTION-935",
+      "time": "清泰二年十二月",
+      "loc": [
+        "闽"
+      ],
+      "action": "王昶尊陈守元为天师，将更易将相、刑罚、选举都与其商议；陈守元受贿请托。",
+      "result": "其请托无不获准，门庭如市。",
+      "quote": [
+        "更易將相、刑罰、選舉，皆與之議",
+        "守元受賂請托",
+        "從，其門如市"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宗教宠臣介入核心政务。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "受贿请托明确。"
+        ]
+      ],
+      "unknown": [
+        "受贿金额与具体任命未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "凤翔政变、闵帝及明宗继承线已闭合；李从珂与石敬瑭互疑、中央分河东兵权及契丹边患转交卷280。",
+    "后蜀完成孟昶继承并清除李仁罕，但北境州镇攻守与将领整合仍开放。",
+    "闽两次宫变后王昶在位，军头与宗教宠臣政治尚未闭合；吴齐国禅代路线继续开放。"
+  ]
+}

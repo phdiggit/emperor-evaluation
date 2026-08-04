@@ -1,0 +1,1002 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "five-dynasties-chronicle-volume-285",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷285",
+    "revision_ref": "2554328",
+    "start_locator": "后晋出帝开运二年八月",
+    "end_locator": "后晋出帝开运三年十二月",
+    "overlap_context": "续接卷284建州围城、李仁达割据与晋辽战争；本卷闭合建州闽国与后晋政权，福州围城、辽入大梁及后晋君臣处置转出卷286。",
+    "input_fingerprint": "2c81174f7e587ac03cc755b2063b5544e21d3394aa1aa6aa080f352c33c491fc"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-285-SHI-CHONGGUI-EXTRAVAGANCE-945",
+      "time": "开运二年八月",
+      "loc": [
+        "后晋宫廷"
+      ],
+      "action": "石重贵自阳城战胜后广建宫室、造器玩，以数百工织地衣并滥赏优伶。",
+      "result": "战士赏薄而优伶赏厚，桑维翰劝谏不听；四方贿赂集中冯玉门下，朝政益坏。",
+      "quote": [
+        "多造器玩，廣宮室",
+        "用織工數百，期年乃成",
+        "賞賜優伶無度",
+        "則士卒解體",
+        "四方賂遺，輻輳其門",
+        "是朝政益壞"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫室与织锦楼营造。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "奢费与军赏失衡。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "冯玉弄权腐败。"
+        ]
+      ],
+      "unknown": [
+        "工程总费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SOUTHERN-TANG-CAPTURES-JIANZHOU-945",
+      "time": "开运二年八月",
+      "loc": [
+        "建州"
+      ],
+      "action": "王建封先登攻克建州，闽主王延政投降。",
+      "result": "南唐纵兵大掠并焚毁宫室民舍，寒雨中冻死者相枕；王忠顺战死，董思安退泉州。",
+      "quote": [
+        "先登，遂克建州",
+        "閩主延政降",
+        "州，縱兵大掠",
+        "焚宮室廬舍俱盡",
+        "凍死者相枕"
+      ],
+      "battle": "CAMPAIGN-SOUTHERN-TANG-CAPTURES-JIANZHOU-945",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "破城掠夺、焚毁和冻死。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闽国建州政权覆灭。"
+        ]
+      ],
+      "unknown": [
+        "死亡与财产损失总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-FUJIAN-PROVINCES-SURRENDER-945",
+      "time": "开运二年九月至十月",
+      "loc": [
+        "汀州",
+        "泉州",
+        "漳州",
+        "建州"
+      ],
+      "action": "汀、泉、漳三州相继降南唐，南唐在建州置永安军。",
+      "result": "王崇文以宽简治理，建州恢复安定；杨思恭被斩以谢建人。",
+      "quote": [
+        "州，皆降於唐",
+        "置永安軍於建州",
+        "斬楊思恭以謝建人",
+        "文治以寬簡",
+        "簡，建人遂安"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后行政接管与安民。"
+        ]
+      ],
+      "unknown": [
+        "恢复过程与减免措施未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-DU-WEI-GRAIN-PROTECTED-945",
+      "time": "开运二年九月",
+      "loc": [
+        "恒州"
+      ],
+      "action": "王钦祚因军储不足括籴民粟并上报杜威存粟十余万斛。",
+      "result": "朝廷因杜威发怒召回王钦祚，反厚赐杜威安抚。",
+      "quote": [
+        "。會乏軍儲，詔",
+        "祚括糴民粟",
+        "粟十餘萬斛",
+        "之召欽祚還",
+        "厚賜威以慰安之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军粮征购与权贵私粮保护。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央迁就杜威。"
+        ]
+      ],
+      "unknown": [
+        "括籴数量与价格未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-WUYUE-PURGE-945",
+      "time": "开运二年十一月",
+      "loc": [
+        "吴越"
+      ],
+      "action": "程昭悦诬阚璠、杜昭达拥钱仁俊作乱，锻炼成狱后诛二人并幽仁俊。",
+      "result": "程昭悦清洗与己权位相当者，诛放百余人，国人恐惧。",
+      "quote": [
+        "謀奉仁俊作亂",
+        "下獄鍛煉成之",
+        "誅放百餘人",
+        "國人畏之側目"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "吴越权臣构狱清洗。"
+        ]
+      ],
+      "unknown": [
+        "百余人中诛与放各数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SANG-WEIHAN-REMOVED-945",
+      "time": "开运二年十二月",
+      "loc": [
+        "后晋中央",
+        "开封"
+      ],
+      "action": "冯玉等诬桑维翰有废立意并合谋排挤，罢其政事与枢务，改任开封尹。",
+      "result": "桑维翰称足疾、断绝宾客，冯玉以其可能教人反叛为由拒给大藩。",
+      "quote": [
+        "譖維翰有廢立之志",
+        "貞合謀排之",
+        "罷維翰政事",
+        "謁，杜絕賓客",
+        "恐其教人耳"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋战前中央权力清洗。"
+        ]
+      ],
+      "unknown": [
+        "废立指控无实证。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SOUTHERN-TANG-FACTIONAL-GOVERNANCE-946",
+      "time": "开运三年正月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "李璟以宋齐丘为虚衔太傅，任冯延己为相；常梦锡、严续等忠直官员被排出中枢。",
+      "result": "冯延己树党，批评者高越被贬，宣政院忠直制衡消失。",
+      "quote": [
+        "請，不預政事",
+        "狡佞，喜大言，多樹朋黨",
+        "上書指延己兄弟過惡",
+        "貶越蘄州司士",
+        "夢錫罷宣政院"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐近臣党争与正直官员退场。"
+        ]
+      ],
+      "unknown": [
+        "各派具体政策影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-ROYAL-MARRIAGE-COST-946",
+      "time": "开运三年三月",
+      "loc": [
+        "后晋"
+      ],
+      "action": "石重贵为养子石延煦娶赵在礼女，利用其富有联姻。",
+      "result": "赵在礼自费十万缗，官府费用又数倍于此。",
+      "quote": [
+        "最。帝利其富",
+        "申，為皇子鎮",
+        "延煦娶其女。",
+        "自費緡錢十萬",
+        "縣官之費，數倍過之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "皇室婚姻造成巨额公私支出。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以联姻笼络富帅。"
+        ]
+      ],
+      "unknown": [
+        "县官确数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-QIANGHU-ATTACK-LINGZHOU-946",
+      "time": "开运三年四月",
+      "loc": [
+        "灵州"
+      ],
+      "action": "王令温以中国法约束羌胡而失其心，拓跋彦超等三族共同攻灵州。",
+      "result": "王令周被杀，朔方告急。",
+      "quote": [
+        "以中國法繩之",
+        "羌、胡怨怒，皆叛",
+        "族，共攻靈州",
+        "殺令溫弟令周"
+      ],
+      "battle": "CAMPAIGN-QIANGHU-ATTACK-LINGZHOU-946",
+      "unknown": [
+        "攻城兵数与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-QUANZHOU-DEFEATS-LI-HONGTONG-946",
+      "time": "开运三年四月",
+      "loc": [
+        "泉州"
+      ],
+      "action": "李弘通率万人攻泉州，留从效废王继勋、代领军府出战。",
+      "result": "泉州军大破来军，南唐任留从效为泉州刺史。",
+      "quote": [
+        "將兵萬人伐之",
+        "廢繼勳歸私第",
+        "勒兵擊李弘通，大破之",
+        "以從效為泉州刺史"
+      ],
+      "battle": "CAMPAIGN-QUANZHOU-DEFEATS-LI-HONGTONG-946",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "留从效掌握泉州。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-LANGSHAN-MILITIA-BANDITS-946",
+      "time": "开运三年春夏",
+      "loc": [
+        "狼山",
+        "定州",
+        "契丹边境"
+      ],
+      "action": "孙方简兄弟依狼山寨聚乡兵御辽，人口增至千余家后转为群盗并反复归晋降辽。",
+      "result": "边赋繁重与盗贼背景下，朝廷仍借其御寇；后孙方简引辽入寇。",
+      "quote": [
+        "北邊賦役煩重",
+        "據寺為寨以自保",
+        "至千餘家，遂為群盜",
+        "舉寨降於契丹",
+        "請為鄉道以入寇"
+      ],
+      "battle": "CAMPAIGN-LANGSHAN-MILITIA-946",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "繁重赋役和失业促成武装聚落。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边地武装反复归属。"
+        ]
+      ],
+      "unknown": [
+        "寨众兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-HEBEI-FAMINE-BANDITRY-946",
+      "time": "开运三年春夏",
+      "loc": [
+        "河北",
+        "兖州",
+        "郓州",
+        "沧州",
+        "贝州"
+      ],
+      "action": "河北大饥与边地失序并发。",
+      "result": "各地饿死者以万计，兖郓沧贝盗贼群起，官吏不能禁止。",
+      "quote": [
+        "時河北大饑",
+        "民餓死者所在以萬數",
+        "間，盜賊峰起",
+        "起，吏不能禁"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大范围饥荒与治安崩解。"
+        ]
+      ],
+      "unknown": [
+        "总死亡人口未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-WUYUE-REJECTS-IRON-COIN-946",
+      "time": "开运三年秋",
+      "loc": [
+        "吴越"
+      ],
+      "action": "钱弘佐欲铸铁钱增军禄，钱弘亿以旧钱外流、商贸不通、盗铸与法变等八害反对。",
+      "result": "钱弘佐停止铸铁钱计划。",
+      "quote": [
+        "議鑄鐵錢以益將士祿賜",
+        "商賈不行，百貨不通",
+        "鑄鐵錢有八害",
+        "也。」弘佐乃止。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "货币改革经风险论证后停止。"
+        ]
+      ],
+      "unknown": [
+        "计划发行量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-TUYUHUN-MASSACRE-946",
+      "time": "开运三年八月",
+      "loc": [
+        "太原",
+        "河阳"
+      ],
+      "action": "刘知远、郭威以吐谷浑反复和资财可供军为由，诱白承福五族入太原并诬叛围杀。",
+      "result": "四百口被杀、家财籍没，另迁部落一千九百人，吐谷浑由此衰微。",
+      "quote": [
+        "收其貨以贍軍",
+        "部落千九百人",
+        "誣承福等五族謀叛",
+        "之，合四百口",
+        "籍沒其家貲",
+        "吐谷渾由是遂微"
+      ],
+      "battle": "CAMPAIGN-TUYUHUN-MASSACRE-946",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "没收富户财产充军与强制迁徙。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刘知远清除河东隐患。"
+        ]
+      ],
+      "unknown": [
+        "没收财产确数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SOUTHERN-TANG-ATTACKS-FUZHOU-946",
+      "time": "开运三年八月至九月",
+      "loc": [
+        "候官",
+        "福州西关",
+        "善化门"
+      ],
+      "action": "陈觉矫诏调兵攻福州，冯延鲁先胜杨崇保后进攻西关，李弘达反击。",
+      "result": "南唐军先败后增兵，攻占福州两重外城，李弘达退守善化门。",
+      "quote": [
+        "無功，矯詔使",
+        "擅發汀、建、撫、信州兵",
+        "敗楊崇保於候官",
+        "擊，大破之，執",
+        "州，克其外郭",
+        "外城再重皆為唐兵所據"
+      ],
+      "battle": "CAMPAIGN-SOUTHERN-TANG-ATTACKS-FUZHOU-946",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "陈觉专命扩大对福州战争。"
+        ]
+      ],
+      "unknown": [
+        "双方总兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-HUIDE-BATTLE-946",
+      "time": "开运三年八月",
+      "loc": [
+        "旱海",
+        "辉德",
+        "灵州"
+      ],
+      "action": "冯晖军粮尽被拓跋彦超数万军扼水，药元福率精骑突击西山精兵。",
+      "result": "羌胡军大败，冯晖次日进入灵州。",
+      "quote": [
+        "德，糗糧已盡",
+        "彥超眾數萬，",
+        "據水泉以待之",
+        "用短兵力戰",
+        "之，彥超大敗",
+        "日，暉入靈州"
+      ],
+      "battle": "CAMPAIGN-HUIDE-BATTLE-946",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "断粮缺水直接构成战场危机。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-YANGWUGU-BATTLE-946",
+      "time": "开运三年九月",
+      "loc": [
+        "杨武谷",
+        "河东"
+      ],
+      "action": "契丹三万军攻河东，刘知远迎击。",
+      "result": "契丹军败，斩首七千。",
+      "quote": [
+        "契丹三萬寇河東",
+        "劉知遠敗之於楊武谷",
+        "斬首七千級"
+      ],
+      "battle": "CAMPAIGN-YANGWUGU-BATTLE-946",
+      "unknown": [
+        "河东军兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-JIN-TAKES-BAIT-946",
+      "time": "开运三年七月至十月",
+      "loc": [
+        "幽州",
+        "瀛州",
+        "莫州",
+        "后晋"
+      ],
+      "action": "赵延寿与刘延祚分别伪称愿为内应，后晋冯玉、李崧相信并许厚利。",
+      "result": "后晋决定大举北征，以杜威为主帅，宣称先取瀛莫再复幽燕。",
+      "quote": [
+        "域，思歸中國",
+        "旨，啖以厚利",
+        "乞朝廷發輕兵襲之",
+        "崧信以為然",
+        "虜。先取瀛、莫，",
+        "南；次復幽燕"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋误信辽方诱降并决定北征。"
+        ]
+      ],
+      "unknown": [
+        "后晋未识别两线均为诱饵。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-NORTHERN-EXPEDITION-BURDEN-946",
+      "time": "开运三年十月",
+      "loc": [
+        "广晋",
+        "河北"
+      ],
+      "action": "后晋集中禁军北征，杜威反复请求增兵，六月以来持续降雨使军行与转运艰苦。",
+      "result": "禁军尽归杜威，京城宿卫空虚。",
+      "quote": [
+        "自六月積雨",
+        "軍行及饋運者甚艱苦",
+        "禁軍皆在其麾下",
+        "而宿衛空虛"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "北征军需运输和宿卫抽空。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "兵权集中杜威。"
+        ]
+      ],
+      "unknown": [
+        "北征总兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-WUYUE-RELIEVES-FUZHOU-946",
+      "time": "开运三年十月至十一月",
+      "loc": [
+        "福州",
+        "钱塘"
+      ],
+      "action": "钱弘佐以唇亡齿寒为由，派张筠、赵承泰率三万水陆军救福州。",
+      "result": "吴越军潜入城中，与李达合守，福州内外断绝而战局持续。",
+      "quote": [
+        "曰：「脣亡齒寒，",
+        "將兵三萬，水陸救福州",
+        "南潛入州城",
+        "與吳越兵共禦之",
+        "是內外斷絕"
+      ],
+      "battle": "CAMPAIGN-WUYUE-RELIEVES-FUZHOU-946",
+      "unknown": [
+        "入城军实际人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-JIN-RETREATS-FROM-YINGZHOU-946",
+      "time": "开运三年十一月",
+      "loc": [
+        "瀛州",
+        "南阳务",
+        "束城"
+      ],
+      "action": "杜威至城门洞开的瀛州不敢入，遣梁汉璋二千骑追辽军而败。",
+      "result": "梁汉璋战死，晋军南撤并焚掠请降县民妇舍。",
+      "quote": [
+        "州，城門洞啟",
+        "威等不敢進。",
+        "將二千騎追之",
+        "陽務，敗死。威",
+        "焚其廬舍，掠其婦女而還"
+      ],
+      "battle": "CAMPAIGN-JIN-RETREATS-YINGZHOU-946",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "晋军撤退焚掠民舍妇女。"
+        ]
+      ],
+      "unknown": [
+        "败军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SOUTHERN-TANG-FUZHOU-COMMAND-DISORDER-946",
+      "time": "开运三年十一月",
+      "loc": [
+        "福州",
+        "南唐"
+      ],
+      "action": "陈觉、冯延鲁、魏岑及诸将争功不相应，南唐福州攻势陷入混乱。",
+      "result": "将士解体、攻城不克；南唐府库数年内耗去一半。",
+      "quote": [
+        "魏岑爭用事，",
+        "各爭功，進退不相應",
+        "將士皆解體",
+        "故攻城不克",
+        "府庫所耗者半"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "多头指挥导致攻城失败。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战争与政务使府库耗半。"
+        ]
+      ],
+      "unknown": [
+        "府库耗损中福州战事占比未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-JIN-KHITAN-MIDU-BRIDGE-STANDOFF-946",
+      "time": "开运三年十一月",
+      "loc": [
+        "恒州",
+        "中度桥",
+        "滹沱河"
+      ],
+      "action": "契丹大举南下，杜威军返回恒州方向争中度桥，与辽军隔滹沱筑垒对峙。",
+      "result": "契丹见晋军持久筑垒而不撤，战局转为围困。",
+      "quote": [
+        "契丹主大舉入寇",
+        "等至中度橋",
+        "契丹焚橋而退",
+        "夾滹沱而軍",
+        "築壘為持久之計",
+        "之計，遂不去。\n"
+      ],
+      "battle": "CAMPAIGN-MIDU-BRIDGE-STANDOFF-946",
+      "unknown": [
+        "双方兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-KHITAN-CUTS-JIN-SUPPLY-946",
+      "time": "开运三年十一月至十二月",
+      "loc": [
+        "栾城",
+        "中度"
+      ],
+      "action": "契丹以百骑和羸卒迂回晋军背后，切断粮道归路并夺栾城。",
+      "result": "运夫弃车溃散，晋军恐慌且军粮将尽。",
+      "quote": [
+        "斷晉糧道及歸路",
+        "之，盡為所掠",
+        "至，狼狽降之",
+        "運夫在道遇之，皆棄車驚潰",
+        "軍中食且盡"
+      ],
+      "battle": "CAMPAIGN-KHITAN-CUTS-JIN-SUPPLY-946",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "粮道中断和运输崩溃。"
+        ]
+      ],
+      "unknown": [
+        "丢失粮车数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-JIN-EMERGENCY-SUPPLY-LEVY-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "河北",
+        "滑州",
+        "孟州",
+        "泽州",
+        "潞州"
+      ],
+      "action": "杜威告急后，朝廷尽发宫禁仅数百兵，又严催五十万刍粮赴前线。",
+      "result": "各地因督迫鼎沸，朝廷与军前随后断绝通信。",
+      "quote": [
+        "者得數百人",
+        "芻糧五十萬",
+        "督迫嚴急，所在鼎沸",
+        "聲問兩不相通"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "危局中强征巨额军粮。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央军事通信断绝。"
+        ]
+      ],
+      "unknown": [
+        "五十万单位原文未明分粮刍。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-WANG-QING-DIES-AT-MIDU-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "中度桥",
+        "恒州"
+      ],
+      "action": "王清率步卒二千夺桥开道，杜威拒绝以大军继进且不发一骑救援。",
+      "result": "宋彦筠败退，王清及部众力战尽死，晋军士气崩溃。",
+      "quote": [
+        "步卒二千為前鋒",
+        "之，威不許。彥",
+        "竟不遣一騎助之",
+        "清及士眾盡死",
+        "諸軍皆奪氣"
+      ],
+      "battle": "CAMPAIGN-WANG-QING-MIDU-946",
+      "unknown": [
+        "辽军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-DU-WEI-SURRENDERS-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "中度",
+        "恒州"
+      ],
+      "action": "杜威、李守贞、宋彦筠在军粮将尽时密谋降辽，以伏甲迫诸将署降表并令全军释甲。",
+      "result": "晋军痛哭投降，王周、代州、易州等继降，契丹入恒州。",
+      "quote": [
+        "筠謀降契丹",
+        "帳，邀求重賞",
+        "之，使署名。諸",
+        "計。」因命釋甲。",
+        "軍士皆慟哭",
+        "狀，周亦出降",
+        "契丹主入恆州"
+      ],
+      "battle": "CAMPAIGN-DU-WEI-SURRENDERS-946",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋主力全军投降。"
+        ]
+      ],
+      "unknown": [
+        "投降军总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-KHITAN-ADVANCES-SOUTH-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "邢州",
+        "相州",
+        "大梁"
+      ],
+      "action": "契丹主率军南下，以杜威降军随行，遣张彦泽二千骑先取大梁。",
+      "result": "皇甫遇拒为先锋并自杀，辽军迅速逼近后晋都城。",
+      "quote": [
+        "引兵自邢、相而南",
+        "杜威將降兵以從",
+        "二千騎先取大梁",
+        "遂扼吭而死"
+      ],
+      "battle": "CAMPAIGN-KHITAN-ADVANCES-DALIANG-946",
+      "unknown": [
+        "南下主力规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-ZHANG-YANZE-CAPTURES-DALIANG-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "大梁",
+        "封丘门",
+        "后晋宫城"
+      ],
+      "action": "张彦泽夜渡白马津，破封丘门入大梁；石重贵自焚未成后开宫门投降。",
+      "result": "石重贵脱袍奉表、献国宝，后晋政权灭亡。",
+      "quote": [
+        "門斬關而入",
+        "之，不能遏。彥",
+        "餘人將赴火，",
+        "悉開宮城門",
+        "范質草降表，",
+        "服素衫，再拜受宣"
+      ],
+      "battle": "CAMPAIGN-ZHANG-YANZE-CAPTURES-DALIANG-946",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋正式降辽。"
+        ]
+      ],
+      "unknown": [
+        "入城战斗伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-DALIANG-LOOTED-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "张彦泽纵兵大掠，贫民亦入富户杀人取财，持续两日。",
+      "result": "都城财货被掠一空，张彦泽积聚宝货并滥杀士民。",
+      "quote": [
+        "彥澤縱兵大掠",
+        "殺之取其貨",
+        "貨，二日方止",
+        "都城為之一空",
+        "居寶貨山積",
+        "澤不問所犯"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "都城财产毁灭与杀掠。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "占领军恐怖统治。"
+        ]
+      ],
+      "unknown": [
+        "死者与财货总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SANG-WEIHAN-KILLED-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "桑维翰拒绝逃亡并责张彦泽负恩，随后被张彦泽缢杀。",
+      "result": "张彦泽伪报自缢，契丹主称无意杀桑维翰并抚其家。",
+      "quote": [
+        "吾大臣，逃將安之",
+        "何乃負恩至此",
+        "澤殺桑維翰",
+        "主，雲其自經",
+        "吾無意殺維翰"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋重臣在亡国时被杀。"
+        ]
+      ],
+      "unknown": [
+        "契丹主事前是否有明确保全命令未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-285-SHI-CHONGGUI-DISPOSSESSED-946",
+      "time": "开运三年十二月",
+      "loc": [
+        "开封府",
+        "后晋宫廷"
+      ],
+      "action": "张彦泽迫石重贵迁开封府，取走内库金珠与奇货并隔绝内外。",
+      "result": "后晋皇族失去财物与自由，乌氏公主诀别后自缢。",
+      "quote": [
+        "遷帝於開封府",
+        "」帝悉歸之，亦",
+        "擇取其奇貨",
+        "帝，內外不通",
+        "歸第自經死"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "亡国皇室财产被夺。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋皇族被拘禁。"
+        ]
+      ],
+      "unknown": [
+        "内库财物总量未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2554328 的卷285连续通读登记，不引入卷外常识。",
+    "普通任免、使聘、祥异及无消费结果的行军节点未单列。",
+    "卷末辽主尚未正式入汴，后晋皇族与降臣处置待卷286续接。"
+  ]
+}

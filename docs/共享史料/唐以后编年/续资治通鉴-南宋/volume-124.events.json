@@ -1,0 +1,620 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-124",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷124",
+    "revision_ref": "2309489",
+    "start_locator": "紹興十一年正月趙開卒與金軍再侵淮西",
+    "end_locator": "紹興十一年十二月岳飛賜死與和議分畫地界",
+    "overlap_context": "承卷123金军毁约、顺昌及北伐班师，续记淮西反攻、兵权收束、川陕胜捷与和议司法收口。",
+    "input_fingerprint": "9e85091ec2f42757fd3e143070a5ff54cb94d4d3775b9a57c07dd3b728fe8cd6"
+  },
+  "limitations": [
+    "固定页面跨紹興十一年正月至十二月；未讀卷125。",
+    "战役仅交接新版战役工作流；未写评分或正式事实。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-124-HUAI-WEST-INVASION-1141",
+      "time": "紹興十一年正月",
+      "loc": [
+        "壽春",
+        "廬州",
+        "東關"
+      ],
+      "action": "金军攻破寿春、占领庐州；刘锜撤至东关据险整军。",
+      "result": "淮南居民南渡避乱，东关防线使江南暂获安定。",
+      "quote": [
+        "金人破壽春，殺守兵千餘人",
+        "依水據山，以遏金人之沖",
+        "江南由是少安"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-HUAI-WEST-INVASION-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-HEZHOU-RECOVERY-1141",
+      "time": "紹興十一年二月",
+      "loc": [
+        "和州",
+        "昭關"
+      ],
+      "action": "王德率前锋渡江抵和州，迫使金军退屯昭关。",
+      "result": "宋军重建和州方向的江防前出据点。",
+      "quote": [
+        "德率眾徑至城下",
+        "敵退屯昭關"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-HEZHOU-RECOVERY-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-SHANGZHOU-RECOVERY-1141",
+      "time": "紹興十一年二月",
+      "loc": [
+        "商州",
+        "洛南"
+      ],
+      "action": "邵隆聚集避地民众、设伏反击，及其子继春在洛南破敌后复入商州。",
+      "result": "商州在粮食极度短缺下被宋军收复。",
+      "quote": [
+        "大破之，擒其將",
+        "士卒臠腐屍，齧草木食之",
+        "縣，金人乃去"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-SHANGZHOU-RECOVERY-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-CHAOGAO-VICTORY-1141",
+      "time": "紹興十一年二月",
+      "loc": [
+        "柘皋鎮"
+      ],
+      "action": "刘锜、杨沂中、王德等会师柘皋，以叠桥和长斧步兵破金军。",
+      "result": "金军大败退紫金山，宋军复廬州。",
+      "quote": [
+        "戰於柘皋鎮，敗之",
+        "金人大敗，退屯紫金山",
+        "我軍復廬州"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-CHAOGAO-VICTORY-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-HAOZHOU-FALL-1141",
+      "time": "紹興十一年三月",
+      "loc": [
+        "濠州"
+      ],
+      "action": "王进拒绝开城避敌，金军经叛将泄露城中虚实后攻破濠州。",
+      "result": "王进被执、邵青战死，濠州遭焚掠。",
+      "quote": [
+        "使勁弩射之",
+        "邵宏縋城投拜，告以城中虛實",
+        "金人縱兵焚掠，夷其城而去"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-HAOZHOU-FALL-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-HAOZHOU-RELIEF-ROUT-1141",
+      "time": "紹興十一年三月",
+      "loc": [
+        "黃連埠",
+        "濠州"
+      ],
+      "action": "张俊、杨沂中、刘锜闻濠州失守后出兵侦探，杨沂中部在城外遭伏而溃。",
+      "result": "宋军救援行动失败，步骑伤亡甚众。",
+      "quote": [
+        "曰：「惟有戰耳。",
+        "伏甲騎萬餘於城兩邊",
+        "散亂南奔，無復紀律"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-HAOZHOU-RELIEF-ROUT-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-HAN-HUAI-RIVER-WITHDRAWAL-1141",
+      "time": "紹興十一年三月",
+      "loc": [
+        "濠州",
+        "赤龍洲"
+      ],
+      "action": "韩世忠舟师欲袭濠州，因金军伐木将扼舟路而撤回。",
+      "result": "宋军舟师脱离围堵，金军北归。",
+      "quote": [
+        "欲劫金人於濠州",
+        "欲塞河扼舟船",
+        "金人自渦口渡淮北歸"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-HAN-HUAI-RIVER-WITHDRAWAL-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-LI-BAO-SHANDONG-RAID-1141",
+      "time": "紹興十一年六月",
+      "loc": [
+        "登州",
+        "文登"
+      ],
+      "action": "岳飞命李宝由海路牵制山东，李宝焚登州及文登县后返还。",
+      "result": "宋军对山东实施海上牵制行动。",
+      "quote": [
+        "使下海往山東牽制",
+        "寶焚登州及文登縣而還"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-LI-BAO-SHANDONG-RAID-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-LI-XING-WITHDRAWAL-1141",
+      "time": "紹興十一年六月",
+      "loc": [
+        "白馬山",
+        "大章谷",
+        "鄂州"
+      ],
+      "action": "李兴奉命率白马山军民南归，途中击退金军阻截。",
+      "result": "孤军与随行民众撤至鄂州，李兴获任左军同统制。",
+      "quote": [
+        "孤軍難守，乃命班師",
+        "路，興擊退之",
+        "率軍民僅萬人南歸"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-LI-XING-WITHDRAWAL-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-SHANYAWAN-VICTORY-1141",
+      "time": "紹興十一年九月",
+      "loc": [
+        "剡家灣",
+        "臘家城"
+      ],
+      "action": "吴璘以新阵法和夜间迂回突击呼珊、迪布禄军，继而围臘家城。",
+      "result": "金军大败，宋军斩获俘降甚众。",
+      "quote": [
+        "右護軍都統制吳璘，及金統軍呼珊戰於剡家灣，敗之",
+        "金人大敗，遁去",
+        "敵兵降者萬餘人"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-SHANYAWAN-VICTORY-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-BAOJI-VICTORY-1141",
+      "time": "紹興十一年十月",
+      "loc": [
+        "寶雞"
+      ],
+      "action": "杨政在宝鸡以疑兵诱使金军误判伏发，乘势掩杀并擒通检。",
+      "result": "宋军取得宝鸡胜利并俘获金将。",
+      "quote": [
+        "川陝宣撫司都統制楊政，及金萬戶通檢戰於寶雞，敗之",
+        "金人望見，大呼曰：「伏發矣！」",
+        "已絕，乃擒之。"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-BAOJI-VICTORY-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-SHAANXI-COUNTEROFFENSIVE-1141",
+      "time": "紹興十一年秋",
+      "loc": [
+        "秦州",
+        "隴州",
+        "華州",
+        "同州"
+      ],
+      "action": "吴璘、杨政、郭浩三路并出，分别收复和牵制秦陇、陕虢等地。",
+      "result": "陕西一度形成破竹推进态势，后因和议解严撤归。",
+      "quote": [
+        "三將之並出也",
+        "有破竹之勢",
+        "三將歸，解嚴"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-SHAANXI-COUNTEROFFENSIVE-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-MURONG-WEI-DEESCALATION-1141",
+      "time": "紹興十一年四月",
+      "loc": [
+        "新泉寨",
+        "會州"
+      ],
+      "action": "慕容洧再侵边，胡世将致书劝其保险待敌，朱勇拒其攻会州。",
+      "result": "慕容洧停止继续侵边。",
+      "quote": [
+        "慕容洧破新泉寨，又攻會州",
+        "洧自是不復侵邊"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-124-MURONG-WEI-DEESCALATION-1141"
+    },
+    {
+      "id": "CHF-XZZTJ-124-ZHAO-KAI-FISCAL-LEGACY-1141",
+      "time": "紹興十一年正月",
+      "loc": [
+        "西蜀"
+      ],
+      "action": "赵开去世后，史文总结其十年军饷成效及茶盐等征敛遗留。",
+      "result": "西蜀军费体系维持军用但留下长期常赋负担。",
+      "quote": [
+        "軍用得以毋乏",
+        "遂為西蜀常賦",
+        "而害終不去焉"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-124-ZHAO-KAI-FISCAL-LEGACY-1141",
+        "candidate": "FIN-CAND-124-ZHAO-KAI-FISCAL-LEGACY-1141",
+        "summary": "西蜀军费体系维持军用但留下长期常赋负担。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "金军侵陕蜀十年。",
+          "fiscal_state": "茶盐等征敛成为常赋。",
+          "livelihood_state": "累经减放而害未去。",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-JIANGDONG-WAR-SUPPLY-1141",
+      "time": "紹興十一年二月",
+      "loc": [
+        "建康",
+        "江東"
+      ],
+      "action": "叶梦得兼总四路漕计，为集结军队供给饷运。",
+      "result": "前线军用不乏，诸将得以全力作战。",
+      "quote": [
+        "兼總四路漕計以給饋餉",
+        "餉，軍用不乏",
+        "諸將得悉力以戰"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-124-JIANGDONG-WAR-SUPPLY-1141",
+        "candidate": "FIN-CAND-124-JIANGDONG-WAR-SUPPLY-1141",
+        "summary": "前线军用不乏，诸将得以全力作战。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "禁旅与诸道军集结。",
+          "fiscal_state": "兼总四路漕计。",
+          "livelihood_state": "未载。",
+          "production_circulation": "饷运支持军队。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-MILITARY-FORT-SUPPORT-1141",
+      "time": "紹興十一年二月",
+      "loc": [
+        "通州",
+        "泰州"
+      ],
+      "action": "王㬇兼通泰制置使，措置水寨与乡兵控制二州。",
+      "result": "通泰沿海水寨及乡兵防守进入组织实施。",
+      "quote": [
+        "措置水寨鄉兵，控守二州"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-124-MILITARY-FORT-SUPPORT-1141",
+        "candidate": "WORK-CAND-124-MILITARY-FORT-SUPPORT-1141",
+        "summary": "通泰沿海水寨及乡兵防守进入组织实施。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "水寨防守设施。",
+          "phase": "措置实施。",
+          "purpose": "控制通泰二州。",
+          "resource_input": "未载。",
+          "operation": "组织乡兵。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-JADE-GENEALOGY-RECONSTRUCTION-1141",
+      "time": "紹興十一年十月",
+      "loc": [],
+      "action": "朝廷命有司讨论重修宗室玉牒，以补南渡散失的宗室档册。",
+      "result": "中兴宗室谱牒修复工程获准推进。",
+      "quote": [
+        "獨《玉牒》未修",
+        "望詔有司討論一書",
+        "之盛典。」從之。"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-124-JADE-GENEALOGY-RECONSTRUCTION-1141",
+        "candidate": "WORK-CAND-124-JADE-GENEALOGY-RECONSTRUCTION-1141",
+        "summary": "中兴宗室谱牒修复工程获准推进。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "宗室档册修复。",
+          "phase": "讨论重修。",
+          "purpose": "补全南渡遗失档册。",
+          "resource_input": "有司讨论。",
+          "operation": "未载。",
+          "benefit": "完善中兴典制。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-THREE-GENERALS-PRIVY-APPOINTMENT-1141",
+      "time": "紹興十一年四月",
+      "loc": [],
+      "action": "韩世忠、张俊、岳飞由宣抚使改任枢密使与副使，奉命赴枢密院治事。",
+      "result": "三大将的地方宣抚权被纳入中央枢密系统。",
+      "quote": [
+        "並為樞密使",
+        "岳飛為樞密副使",
+        "並宣押赴本院治事"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-THREE-GENERALS-PRIVY-APPOINTMENT-1141",
+        "candidate": "POL-CAND-124-THREE-GENERALS-PRIVY-APPOINTMENT-1141",
+        "summary": "三大将的地方宣抚权被纳入中央枢密系统。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军政人事。",
+          "decision_question": "如何收束大将兵权。",
+          "alternatives": "保留宣抚权或改入枢密。",
+          "decision": "改任枢密使副。",
+          "direct_result": "三大将的地方宣抚权被纳入中央枢密系统。",
+          "power_change": "地方军政权改由中央调发。",
+          "risk_or_damage": "未载。",
+          "follow_up": "宣抚司罢。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-XUANFU-ABOLITION-1141",
+      "time": "紹興十一年四月",
+      "loc": [],
+      "action": "朝廷下诏罢宣抚司，统制官以下改带御前字衔，战时调发改由三省枢密取旨。",
+      "result": "常设宣抚体系撤销，军队调动制度中央化。",
+      "quote": [
+        "宣撫司並罷",
+        "並三省、樞密院取旨施行",
+        "各以職次高下輪替入見"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-XUANFU-ABOLITION-1141",
+        "candidate": "POL-CAND-124-XUANFU-ABOLITION-1141",
+        "summary": "常设宣抚体系撤销，军队调动制度中央化。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军政制度。",
+          "decision_question": "如何控制地方军队。",
+          "alternatives": "未载。",
+          "decision": "罢宣抚司并中央调发。",
+          "direct_result": "常设宣抚体系撤销，军队调动制度中央化。",
+          "power_change": "三省枢密取得调发权。",
+          "risk_or_damage": "未载。",
+          "follow_up": "统制轮替入见。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-LIU-GUANGSHI-RETIREMENT-1141",
+      "time": "紹興十一年六月",
+      "loc": [],
+      "action": "刘光世因求祠罢为万寿观使；此前其以五州为根本的主张遭批为近藩镇。",
+      "result": "刘光世退出军政核心，五州根本构想未获采纳。",
+      "quote": [
+        "劉光世罷，為萬壽觀使",
+        "以襲唐季籓鎮之跡，不可許也"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-LIU-GUANGSHI-RETIREMENT-1141",
+        "candidate": "POL-CAND-124-LIU-GUANGSHI-RETIREMENT-1141",
+        "summary": "刘光世退出军政核心，五州根本构想未获采纳。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军政人事。",
+          "decision_question": "是否允许五州根本。",
+          "alternatives": "允许或否决。",
+          "decision": "不许并罢光世。",
+          "direct_result": "刘光世退出军政核心。",
+          "power_change": "未载。",
+          "risk_or_damage": "防范藩镇化。",
+          "follow_up": "寓居永嘉。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-YUE-FEI-DISMISSAL-1141",
+      "time": "紹興十一年七月至八月",
+      "loc": [],
+      "action": "万俟禼等弹劾岳飞援军迟缓与主张弃山阳，岳飞被罢枢密副使、罢兵。",
+      "result": "岳飞失去枢密与统兵职位。",
+      "quote": [
+        "望免飛副樞職事",
+        "府，罷其兵，張",
+        "復為武勝、定國軍節度使"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-YUE-FEI-DISMISSAL-1141",
+        "candidate": "POL-CAND-124-YUE-FEI-DISMISSAL-1141",
+        "summary": "岳飞失去枢密与统兵职位。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "弹劾与罢职。",
+          "decision_question": "如何处置岳飞。",
+          "alternatives": "未载。",
+          "decision": "罢副枢与兵权。",
+          "direct_result": "岳飞失去枢密与统兵职位。",
+          "power_change": "岳飞被移出军政核心。",
+          "risk_or_damage": "未载。",
+          "follow_up": "后下大理寺。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-ZHANG-XIAN-CASE-1141",
+      "time": "紹興十一年九月",
+      "loc": [
+        "襄陽"
+      ],
+      "action": "王俊诬告张宪谋据襄阳，张俊随即收其属吏。",
+      "result": "张宪案启动，并被用于牵连岳飞。",
+      "quote": [
+        "誣告副都統制張憲謀據襄陽為變",
+        "遂收憲屬吏",
+        "秦檜欲害憲以及岳飛"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-ZHANG-XIAN-CASE-1141",
+        "candidate": "POL-CAND-124-ZHANG-XIAN-CASE-1141",
+        "summary": "张宪案启动，并被用于牵连岳飞。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法案件。",
+          "decision_question": "张宪是否谋变。",
+          "alternatives": "未载。",
+          "decision": "收捕属吏。",
+          "direct_result": "张宪案启动。",
+          "power_change": "未载。",
+          "risk_or_damage": "牵连岳飞。",
+          "follow_up": "岳飞下狱。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-PEACE-TERMS-1141",
+      "time": "紹興十一年十一月",
+      "loc": [
+        "淮水",
+        "唐州",
+        "鄧州"
+      ],
+      "action": "金方提出以淮水为界、岁币银帛各二十五万匹两，并索唐邓二州。",
+      "result": "宋金和议进入具体疆界、岁币与割地谈判。",
+      "quote": [
+        "許以淮水為果，歲幣銀、帛各二十五萬匹、兩",
+        "又欲割唐、鄧二州"
+      ],
+      "unknown": [
+        "固定正文作『為果』，按同句『淮水』及后文分画地界记录为原文异文，未擅改引文。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-PEACE-TERMS-1141",
+        "candidate": "POL-CAND-124-PEACE-TERMS-1141",
+        "summary": "宋金和议进入具体疆界、岁币与割地谈判。",
+        "operation": "proposed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "外交谈判。",
+          "decision_question": "和议边界与代价。",
+          "alternatives": "未载。",
+          "decision": "待审定。",
+          "direct_result": "提出淮界、岁币与割地条件。",
+          "power_change": "未载。",
+          "risk_or_damage": "割地与岁币。",
+          "follow_up": "遣使审定。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-BORDER-DELIMITATION-ORDER-1141",
+      "time": "紹興十一年十二月",
+      "loc": [
+        "唐州",
+        "鄧州",
+        "陝西"
+      ],
+      "action": "朝廷命莫将、周聿、郑刚中依誓书分画唐邓与陕西地界。",
+      "result": "和议边界分画进入行政执行。",
+      "quote": [
+        "陝西路分畫地界官，",
+        "子細分畫，不得差錯生事",
+        "以劉豫、吳玠元管地界為准"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-BORDER-DELIMITATION-ORDER-1141",
+        "candidate": "POL-CAND-124-BORDER-DELIMITATION-ORDER-1141",
+        "summary": "和议边界分画进入行政执行。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "边界行政。",
+          "decision_question": "如何执行和议疆界。",
+          "alternatives": "未载。",
+          "decision": "遣官分画。",
+          "direct_result": "和议边界分画进入行政执行。",
+          "power_change": "未载。",
+          "risk_or_damage": "不得差错生事。",
+          "follow_up": "莫将等赴任。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-124-YUE-FEI-EXECUTION-1141",
+      "time": "紹興十一年十二月",
+      "loc": [
+        "大理寺"
+      ],
+      "action": "岳飞在大理寺被赐死，张宪、岳云被诛，家属流岭南。",
+      "result": "岳飞案以处死和株连收束，引发天下冤屈之议。",
+      "quote": [
+        "岳飛賜死於大理寺",
+        "誅憲、雲於都市",
+        "南。天下冤之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-124-YUE-FEI-EXECUTION-1141",
+        "candidate": "POL-CAND-124-YUE-FEI-EXECUTION-1141",
+        "summary": "岳飞案以处死和株连收束，引发天下冤屈之议。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法处决。",
+          "decision_question": "岳飞案裁断。",
+          "alternatives": "未载。",
+          "decision": "赐死并诛连。",
+          "direct_result": "岳飞案以处死和株连收束。",
+          "power_change": "未载。",
+          "risk_or_damage": "流家属于岭南。",
+          "follow_up": "韩世忠抗议未果。"
+        }
+      }
+    }
+  ]
+}

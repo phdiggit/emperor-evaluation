@@ -1,0 +1,576 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-001",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷001",
+    "revision_ref": "2603334",
+    "start_locator": "宋太祖建隆元年正月",
+    "end_locator": "宋太祖建隆元年十二月",
+    "overlap_context": "承接后周恭帝幼主政局与北汉、契丹边患；本卷完成陈桥兵变、宋朝建立及李筠、李重进两次反叛的平定，转出宋初军政财政制度建设。",
+    "input_fingerprint": "03d2b0bdf7907b2b0a88a21c56fa02b519e2f606223468713a1de34d1c615452"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-001-CHENQIAO-MUTINY-960",
+      "time": "建隆元年正月",
+      "loc": [
+        "陈桥驿",
+        "开封"
+      ],
+      "action": "赵匡胤出师御敌期间，军士以幼主不能亲政为由发动兵变，将黄袍加于其身并拥立为帝。",
+      "result": "赵匡胤约束军队不得侵掠京城后回师开封，后周中央失去军权。",
+      "quote": [
+        "曰︰「主上幼弱，",
+        "不如先立點檢爲天子",
+        "卽被以黃袍",
+        "秋毫無所犯"
+      ],
+      "battle": "CAMPAIGN-CHENQIAO-MUTINY-960",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军事哗变直接导致改朝换代。"
+        ]
+      ],
+      "unknown": [
+        "兵变预谋范围据本卷未能确定。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-HANTONG-KILLED-960",
+      "time": "建隆元年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "军校王彦升追杀试图组织抵抗的韩通。",
+      "result": "韩通及其妻子被杀，京城未形成有效军事抵抗。",
+      "quote": [
+        "殺通及其妻子"
+      ],
+      "battle": "CAMPAIGN-HANTONG-KILLED-960",
+      "unknown": [
+        "王彦升行动是否奉命未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-SONG-FOUNDED-960",
+      "time": "建隆元年正月",
+      "loc": [
+        "崇元殿",
+        "开封"
+      ],
+      "action": "后周群臣请赵匡胤行禅代礼，赵匡胤即皇帝位。",
+      "result": "奉周帝为郑王，定国号宋，改元并大赦。",
+      "quote": [
+        "遂請匡𦙍詣崇元殿行禪代禮",
+        "冕，卽皇帝位",
+        "奉周帝爲鄭王",
+        "詔定有天下之號曰宋",
+        "也。改元，大赦。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋朝建立并安置后周幼主。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-001-CANAL-LABOR-GRAIN-960",
+      "time": "建隆元年正月",
+      "loc": [
+        "开封",
+        "漕运河渠"
+      ],
+      "action": "宋廷改革岁调丁夫开浚淤浅河渠的供给办法。",
+      "result": "役夫原来自备的粮食改由官府全部供给。",
+      "quote": [
+        "歲調丁夫開濬淤淺",
+        "糗糧皆民自僃",
+        "詔悉從官給"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "维持漕渠疏浚。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官给役夫口粮，减轻民户役费。"
+        ]
+      ],
+      "unknown": [
+        "役夫人数与官给粮额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-DISASTER-RELIEF-960",
+      "time": "建隆元年二月",
+      "loc": [
+        "宋诸州"
+      ],
+      "action": "宋廷因灾派遣使者分赴诸州赈济。",
+      "result": "中央赈济措施下达地方。",
+      "quote": [
+        "遣使分賑諸州"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾害赈济。"
+        ]
+      ],
+      "unknown": [
+        "灾种、州数、赈给数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-IMPERIAL-EXAM-ANNUAL-960",
+      "time": "建隆元年二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "宋廷录取杨砺等十九名进士。",
+      "result": "进士科自此形成每年举行的常制。",
+      "quote": [
+        "進士合格者京兆楊礪等十九人",
+        "自是歲以爲常"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "确立年度科举取士常制。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-001-SOUTHERN-HAN-PRINCE-KILLED-960",
+      "time": "建隆元年二月",
+      "loc": [
+        "南汉"
+      ],
+      "action": "南汉主杀其弟桂王刘璇兴。",
+      "result": "南汉宗室成员在内部权力冲突中被清除。",
+      "quote": [
+        "殺其弟桂王璇興"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉宗室政治清洗。"
+        ]
+      ],
+      "unknown": [
+        "具体罪名与程序未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-SUZHOU-FIRE-960",
+      "time": "建隆元年三月",
+      "loc": [
+        "宿州"
+      ],
+      "action": "宿州发生大火，烧毁大量民居。",
+      "result": "民庐万余区被毁，宋廷遣中使安抚。",
+      "quote": [
+        "。\n§㝛州火，燔民",
+        "燔民廬舍萬餘區",
+        "遣中使安撫之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "万余区民居焚毁并启动安抚。"
+        ]
+      ],
+      "unknown": [
+        "伤亡与赈济数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-LIAO-RAID-GUAN-960",
+      "time": "建隆元年三月",
+      "loc": [
+        "棣州",
+        "固安"
+      ],
+      "action": "辽军侵入棣州，宋军追击至固安。",
+      "result": "辽军被击破，宋军获马四百匹。",
+      "quote": [
+        "遼人侵棣州",
+        "追破其眾於固安",
+        "獲馬四百匹"
+      ],
+      "battle": "CAMPAIGN-LIAO-RAID-GUAN-960",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-LIYUN-REBELLION-960",
+      "time": "建隆元年四月",
+      "loc": [
+        "潞州",
+        "泽州"
+      ],
+      "action": "李筠发布檄文指斥宋帝，向北汉纳款求援，并派兵袭击泽州。",
+      "result": "泽州刺史张福被杀，潞州反宋战争公开化。",
+      "quote": [
+        "遂令幕府檄數帝罪",
+        "送北漢納款求援",
+        "遣兵襲澤州，",
+        "殺刺史張福"
+      ],
+      "battle": "CAMPAIGN-LIYUN-REBELLION-960",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方节度使反宋并联合北汉。"
+        ]
+      ],
+      "unknown": [
+        "檄文具体内容未全载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-NORTHERN-HAN-INTERVENTION-960",
+      "time": "建隆元年五月",
+      "loc": [
+        "团柏谷",
+        "长平",
+        "大会寨"
+      ],
+      "action": "北汉主倾国出兵援助李筠，宋军石守信等在长平迎战。",
+      "result": "北汉军在长平被破，其大会寨亦被宋军攻拔。",
+      "quote": [
+        "傾國自將出團柏谷",
+        "石守信等破之於長平",
+        "攻拔其大會寨"
+      ],
+      "battle": "CAMPAIGN-NORTHERN-HAN-INTERVENTION-960",
+      "unknown": [
+        "北汉具体损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-ZEZHOU-SOUTH-BATTLE-960",
+      "time": "建隆元年五月",
+      "loc": [
+        "泽州南"
+      ],
+      "action": "宋军在泽州南与李筠、北汉联军交战。",
+      "result": "三万余敌军被破，范守图被获、卢赞被杀。",
+      "quote": [
+        "破李筠軍三萬餘於澤州南",
+        "獲北漢河陽節度使范守圖",
+        "圖，殺盧贊。筠"
+      ],
+      "battle": "CAMPAIGN-ZEZHOU-SOUTH-BATTLE-960",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-ZEZHOU-CAPTURED-960",
+      "time": "建隆元年六月",
+      "loc": [
+        "泽州"
+      ],
+      "action": "宋帝亲临泽州督攻，围城逾旬后，宋军敢死士先登。",
+      "result": "泽州城破，李筠赴火而死。",
+      "quote": [
+        "朔，帝至澤州",
+        "城，逾旬不下",
+        "率敢死士先登",
+        "辛巳，克其城。〈",
+        "李筠赴火死"
+      ],
+      "battle": "CAMPAIGN-ZEZHOU-CAPTURED-960",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-ZE-LU-TAX-RELIEF-960",
+      "time": "建隆元年六月",
+      "loc": [
+        "泽州",
+        "潞州"
+      ],
+      "action": "宋廷在平叛后减免泽潞地区田租和丁夫徭役。",
+      "result": "泽州免当年田租，潞州周边三十里免当年田租，丁夫复三年。",
+      "quote": [
+        "免澤州今年田租",
+        "免附潞三十里今年田租",
+        "丁夫給復三年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后减租复役。"
+        ]
+      ],
+      "unknown": [
+        "受益户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-ARMY-SELECTION-ROTATION-960",
+      "time": "建隆元年七月",
+      "loc": [
+        "宋军"
+      ],
+      "action": "宋廷拣选骁勇升为上军，以强壮卒为兵样，并确立更戍法。",
+      "result": "军队按兵样补选并轮换驻防，使将领不能专兵，抑制士卒骄惰。",
+      "quote": [
+        "𥳑其驍勇者，升爲上軍",
+        "又𨕖彊壯卒定爲兵樣",
+        "弊，立㪅戍法",
+        "將不得專其兵",
+        "士卒不至于驕惰"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重组禁军与驻防统属。"
+        ]
+      ],
+      "unknown": [
+        "首批调整兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-WEIGHTS-MEASURES-960",
+      "time": "建隆元年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷制作新的权衡标准并颁行天下。",
+      "result": "统一度量衡，禁止民间私造。",
+      "quote": [
+        "戌，作新權衡",
+        "衡，頒於天下",
+        "下，禁私造者"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一交易计量标准。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央颁行权衡禁令。"
+        ]
+      ],
+      "unknown": [
+        "查禁执行情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-LICHONGJIN-REBELLION-960",
+      "time": "建隆元年九月",
+      "loc": [
+        "扬州",
+        "南唐"
+      ],
+      "action": "李重进在扬州举兵、修城备战，并派人向南唐求援。",
+      "result": "南唐拒绝接纳，李重进未获外援。",
+      "quote": [
+        "聞重進舉兵",
+        "誨，治城繕兵",
+        "遣人求援於南唐",
+        "南唐主不敢納"
+      ],
+      "battle": "CAMPAIGN-LICHONGJIN-REBELLION-960",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋初第二次地方军事反叛。"
+        ]
+      ],
+      "unknown": [
+        "李重进初始兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-FENZHOU-RAID-960",
+      "time": "建隆元年十月",
+      "loc": [
+        "汾州"
+      ],
+      "action": "宋将荆罕儒率千余骑抵北汉汾州城下，遭郝贵超万众袭击。",
+      "result": "荆罕儒战死，宋廷追责并斩退却将校二十九人。",
+      "quote": [
+        "千餘騎抵北漢汾州城下",
+        "北漢主遣大將郝貴超領萬眾來襲",
+        "人，乃遇害。北",
+        "斬二十九人"
+      ],
+      "battle": "CAMPAIGN-FENZHOU-RAID-960",
+      "unknown": [
+        "其余宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-YANGZHOU-CAPTURED-960",
+      "time": "建隆元年十一月",
+      "loc": [
+        "扬州"
+      ],
+      "action": "宋帝亲征李重进，军队抵扬州城下当日攻克。",
+      "result": "李重进纵火自焚，同谋数百人被杀。",
+      "quote": [
+        "次揚州城下，卽日拔之",
+        "戮同謀者數百人"
+      ],
+      "battle": "CAMPAIGN-YANGZHOU-CAPTURED-960",
+      "unknown": [
+        "攻城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-YANGZHOU-RELIEF-960",
+      "time": "建隆元年十一月",
+      "loc": [
+        "扬州"
+      ],
+      "action": "宋廷在克城后向扬州居民发粮，并遣返被胁迫从军者。",
+      "result": "成人每人给米一斛，十岁以下减半；被胁军人获衣履归还，李重进家属部曲获释。",
+      "quote": [
+        "賑揚州城中民，人米一斛",
+        "十歲以下半之",
+        "脅隸爲軍者，賜衣屨遣還",
+        "重進家屬、部曲竝釋罪"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "克城后发粮、给衣并释放胁从。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "区分首谋、同谋与家属胁从。"
+        ]
+      ],
+      "unknown": [
+        "受赈人口与粮食总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-YANGZHOU-PACIFICATION-960",
+      "time": "建隆元年十一月至十二月",
+      "loc": [
+        "扬州"
+      ],
+      "action": "扬州战后凋敝，石守信实行抚绥并轻徭薄赋。",
+      "result": "扬州社会秩序恢复安定。",
+      "quote": [
+        "餘，闔境凋敝",
+        "耘勤於撫綏",
+        "綏，輕徭薄賦",
+        "賦，揚州遂安"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后减轻徭赋。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方安抚恢复秩序。"
+        ]
+      ],
+      "unknown": [
+        "减免标准未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-001-SONG-CURRENCY-960",
+      "time": "建隆元年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷铸造宋通元宝钱。",
+      "result": "新朝货币开始发行。",
+      "quote": [
+        "鑄宋通元寶錢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "发行宋朝新钱。"
+        ]
+      ],
+      "unknown": [
+        "铸造数量与流通范围未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2603334 的《續資治通鑑》卷001连续通读登记，不引入卷外常识。",
+    "普通任免、朝会、贡聘、祥异及无消费结果的重复行军节点未单列。",
+    "卷末仍在建隆元年，卷002的跨年承接待下一卷连续通读确认。"
+  ]
+}

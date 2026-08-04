@@ -1,0 +1,299 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-204",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷204",
+    "revision_ref": "2334674",
+    "input_fingerprint": "9d11b0fdf5871764cd95758534191e1c4b74e5b14d47bb4f74442eecb44be439",
+    "start_locator": "泰定帝致和元年",
+    "end_locator": "後諡文肅。",
+    "overlap_context": "承卷203；具体跨卷关联未裁决"
+  },
+  "limitations": [
+    "仅据固定正文；不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-204-001",
+      "time": [
+        "1328-01",
+        "1328-02",
+        "range"
+      ],
+      "action": "颁农桑旧制并在灾年赈济大都河间等地",
+      "result": "农桑十四条颁行，饥区获赈且免灾税与流民差税",
+      "groups": [
+        "农户",
+        "饥民",
+        "流民"
+      ],
+      "quote": [
+        "頒《農桑舊制》十四條於天下，仍厲有司以察勤惰。",
+        "大都及河間、大名諸路饑，賑之。",
+        "流民復業者差稅三年，"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "农政与灾赈。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-204-002",
+      "time": [
+        "1328-02",
+        "1328-03",
+        "range"
+      ],
+      "action": "修解州盐池黑龙堤并处置陕西饥荒",
+      "result": "调盐丁修堤，陕西诸路获赈",
+      "groups": [
+        "盐丁",
+        "陕西饥民"
+      ],
+      "quote": [
+        "解州鹽池黑龍堤壞，調悉休鹽丁修之。",
+        "賑陝西諸路饑。"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "盐池堤工。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "陕西赈济。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-204-003",
+      "time": [
+        "1328-04",
+        "1328-05",
+        "range"
+      ],
+      "action": "护送流民还乡并给在京废疾流民粮食遣返",
+      "result": "流民返乡获得官府护送与给粮",
+      "groups": [
+        "流民"
+      ],
+      "quote": [
+        "遣官分護流民還鄉，仍禁聚至千人者杖一百。",
+        "籍在京流民廢疾者，給糧遣還。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "流民安置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-204-004",
+      "time": [
+        "1328-08",
+        "1328-09",
+        "range"
+      ],
+      "action": "泰定帝崩后雅克特穆尔控制京师并迎怀王",
+      "result": "拘系中书官员、调兵守关、迎怀王北上",
+      "groups": [
+        "京师官民",
+        "诸卫军"
+      ],
+      "quote": [
+        "雅克特穆爾率阿喇特穆爾、佛倫齊等一十七人，兵皆露刃",
+        "馳驛迎懷王圖卜特穆爾於江陵，",
+        "諸衛兵屯京師，"
+      ],
+      "battle": "CAMPAIGN-SONG204-TIANLI-ACCESSION",
+      "battle_reason": "帝崩后夺取京师、控制关要并迎立怀王构成天历建政主链。"
+    },
+    {
+      "id": "CHF-SONG-204-005",
+      "time": [
+        "1328-08",
+        "1328-09",
+        "range"
+      ],
+      "action": "河南为迎怀王筹粮募兵并修战守",
+      "result": "巴延募勇士五千、征发民丁并备城濠军需",
+      "groups": [
+        "河南民户",
+        "迎立军士"
+      ],
+      "quote": [
+        "巴延別募勇士五千人以迎懷王，而躬勒兵以俟。",
+        "徵發民丁，增置驛馬，補城櫓，浚濠池，修戰守之具，"
+      ],
+      "battle": "CAMPAIGN-SONG204-TIANLI-ACCESSION",
+      "battle_reason": "河南迎立的兵粮和防御准备是同一建政军事链。"
+    },
+    {
+      "id": "CHF-SONG-204-006",
+      "time": [
+        "1328-09",
+        "1328-09",
+        "month"
+      ],
+      "action": "怀王入京即位并大赦改元天历",
+      "result": "图卜特穆尔即皇帝位，致和改天历并赦天下",
+      "groups": [
+        "天下民众",
+        "百官"
+      ],
+      "quote": "懷王即皇帝位於大明殿，受諸王百官朝賀，大赦。",
+      "routes": [
+        [
+          "political_event",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "皇位转移完成。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-204-007",
+      "time": [
+        "1328-09",
+        "1328-10",
+        "range"
+      ],
+      "action": "雅克特穆尔在榆河、白浮及古北口连续击破上都军",
+      "result": "上都军死伤降散，旺沁军败走并失古北口",
+      "groups": [
+        "交战军士",
+        "京畿民众"
+      ],
+      "quote": [
+        "雅克特穆爾與旺沁前軍遇于榆河北，奮擊，敗之，追至紅橋北。",
+        "追及於昌平北，斬首數千級，降者萬餘人。",
+        "逐出古北口。"
+      ],
+      "battle": "CAMPAIGN-SONG204-UPPER-CAPITAL-WAR",
+      "battle_reason": "榆河至古北口连续会战构成上都—大都战争主链。"
+    },
+    {
+      "id": "CHF-SONG-204-008",
+      "time": [
+        "1328-10",
+        "1328-11",
+        "range"
+      ],
+      "action": "上都军进逼通州、紫荆关后被反击，上都最终降服",
+      "result": "齐王围上都，都尔苏奉宝出降，梁王逃亡",
+      "groups": [
+        "上都军民",
+        "京师守军"
+      ],
+      "quote": [
+        "都爾蘇奉皇帝寶出降，梁王旺沁遁，遼王托克托為齊王所殺，遂收上都諸王符印；",
+        "遂收上都諸王符印；天順帝喇實晉巴不知所終。"
+      ],
+      "battle": "CAMPAIGN-SONG204-UPPER-CAPITAL-WAR",
+      "battle_reason": "上都政权崩解是同一战争链的闭合节点。"
+    },
+    {
+      "id": "CHF-SONG-204-009",
+      "time": [
+        "1328-10",
+        "1328-12",
+        "range"
+      ],
+      "action": "战后限制擅杀与罪人连坐并整顿军政",
+      "result": "禁止没人妻子，审办额森特擅杀掳掠并遣军还镇",
+      "groups": [
+        "罪人家属",
+        "被掳民众",
+        "军士"
+      ],
+      "quote": [
+        "今後請勿沒人妻子。",
+        "詔刑部鞫之，籍其家，杖之，竄于南寧，命其妻歸父母家。",
+        "遣諸衛兵各還鎮。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "战后司法纠偏与复员。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-204-010",
+      "time": [
+        "1328-11",
+        "1328-12",
+        "range"
+      ],
+      "action": "战乱后整顿钞法并限制超额印钞",
+      "result": "收毁战时刻板印钞建议获准",
+      "groups": [
+        "民户",
+        "商人"
+      ],
+      "quote": "今事已定，宜急收毀。",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CLOSE_CANDIDATE",
+          null,
+          [],
+          "恢复钞法常制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-SONG-204-011",
+      "time": [
+        "1328-12",
+        "1328-12",
+        "month"
+      ],
+      "action": "陕西多年旱饥及战乱漕运受阻",
+      "result": "灾荒与漕运责任处置未形成完整救济结果",
+      "groups": [
+        "陕西饥民",
+        "漕户"
+      ],
+      "quote": [
+        "陝西自泰定二年至是歲不雨，大饑，民相食。",
+        "今蹈萬死完所漕而還，豈得已哉！",
+        "請令其計石數，附次年所漕舟達京師。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾情严重；仅载漕运延期处理，赈济未载。"
+        ]
+      ],
+      "unknown": [
+        "陕西饥荒赈济未载"
+      ]
+    }
+  ]
+}

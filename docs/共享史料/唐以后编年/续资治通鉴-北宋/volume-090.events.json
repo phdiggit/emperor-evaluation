@@ -1,0 +1,1033 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-090",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷090",
+    "revision_ref": "2299365",
+    "start_locator": "徽宗體神合道駿烈遜功聖文仁德憲慈顯孝皇帝大觀元年",
+    "end_locator": "夏人畏其威名，號折家父",
+    "overlap_context": "承接卷089崇宁制度、党禁与西北边事；本卷记大观元年至三年的官制、财赋救济、广西与河湟经营及蔡京去相。",
+    "input_fingerprint": "94891515e366993eb5078d8f2feb16959fa6ecfe73d782dd214a5971ce8c4e64"
+  },
+  "limitations": [
+    "仅据固定 revision 2299365 的《續資治通鑑》卷090连续通读登记，不引入卷外常识。",
+    "本页在大观三年末后连排大观四年标题；该标题及其后文字不属于本卷抽取范围。",
+    "同主体、同目标及连续因果链合并；纯任免不单收，未知保持未知。",
+    "复杂事件保留最小充分逐字锚，军事事项交由 battle 工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-090-RITUAL-BUREAU-RESTORATION-1107",
+      "time": "大观元年正月",
+      "loc": [
+        "尚书省"
+      ],
+      "action": "蔡京复相后，朝廷恢复议礼局并配置详议、检讨人员。",
+      "result": "议礼事务重新设局办理。",
+      "quote": [
+        "議禮局依舊於尚書省置局",
+        "應緣禮制，可具本末，議定取旨"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "议礼机构恢复。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-TRANSPORT-SURPLUS-PEARLS-AND-NVZHEN-RESENTMENT-1107",
+      "time": "大观元年正月",
+      "loc": [
+        "河北",
+        "辽",
+        "女直"
+      ],
+      "action": "梁子美倾漕计并以三百万缗市北珠进献，诸路漕臣竞进羡余；辽因珠利苛索女直。",
+      "result": "漕计被抽用于进献，女直对辽积怨。",
+      "quote": [
+        "傾漕計以奉上，至捐緡錢三百萬市北珠以進",
+        "由是諸路漕臣效尤，爭進羨餘矣",
+        "女直深怨之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "漕计进献与羡余竞争。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽女直关系背景。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-RELIGIOUS-RANK-COIN-MEDICINE-LAND-RULES-1107",
+      "time": "大观元年二月",
+      "loc": [
+        "宋境",
+        "淮南",
+        "两浙"
+      ],
+      "action": "朝廷调整道士僧尼序位，限期收纳私铸钱改铸当十钱，并恢复医学与方田。",
+      "result": "宗教序位、币制处置、医学和土地丈量制度同时调整。",
+      "quote": [
+        "詔令道士序位在僧上，女冠在尼上",
+        "其納到私錢，並許發赴京畿錢監改鑄御書當十錢",
+        "乙亥，復醫學",
+        "己卯，復行方田"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宗教序位与医学制度。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "私钱改铸与方田恢复。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-EIGHT-CONDUCT-ADMISSION-PUNISHMENT-SYSTEM-1107",
+      "time": "大观元年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷以八行取士、八刑登记失行者，并规定改过后入学条件。",
+      "result": "道德行为被制度化纳入学校准入和处罚。",
+      "quote": [
+        "詔以八行取士",
+        "又制為不忠、不孝、不悌、不和、不姻、不睦、不任、不恤之刑",
+        "能改過自新不犯罪而有二行之實"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校准入与行为惩戒制度。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-ZHANG-HUAISU-TREASON-CASE-1107",
+      "time": "大观元年五月",
+      "loc": [
+        "开封",
+        "宣州"
+      ],
+      "action": "吴储、吴侔因与张怀素谋反被诛；蔡京借案逼吕惠卿子招供未成，吕惠卿与邓洵武仍受贬罢。",
+      "result": "谋反案处死二人并牵连执政家属和官员。",
+      "quote": [
+        "坐與妖人張懷素謀反，伏誅",
+        "搒笞數千下，欲令招伏與懷素謀反",
+        "淵卒不服，得免",
+        "中書侍郎鄧洵武罷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "谋反案与政治牵连。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-NEW-MUSIC-OFFICIAL-SELECTION-AND-GUANGXI-TROOPS-1107",
+      "time": "大观元年五月",
+      "loc": [
+        "宋境",
+        "广西"
+      ],
+      "action": "朝廷颁新乐，禁止元祐学术及异议者担任一路和监司，并增兵广西讨安化蛮。",
+      "result": "礼乐与监司选任收紧，广西军事行动启动。",
+      "quote": [
+        "詔班新樂於天下",
+        "勿以元祐學術及異議人充選",
+        "益兵赴廣西討之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "礼乐与官员资格。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-ANHUA-EXPEDITION-1107",
+          [],
+          "广西安化用兵。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-TING-FU-PREFECTURES-AND-EIGHT-CONDUCT-STELAE-1107",
+      "time": "大观元年六月",
+      "loc": [
+        "广西",
+        "宋诸州学"
+      ],
+      "action": "朝廷以黎人地置庭、孚二州，并命诸州学刻八行八刑石。",
+      "result": "广西新设州级建制，八行八刑向地方学校传播。",
+      "quote": [
+        "以黎人地為庭、孚二州",
+        "令諸州學以御製八行、八刑刻石"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-TING-FU-ADMINISTRATION-1107",
+          [],
+          "边地建州。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校制度刻石。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-CAI-YI-RAPID-PROMOTION-1107",
+      "time": "大观元年六月",
+      "loc": [
+        "开封"
+      ],
+      "action": "蔡薿以试策迎合绍述、排斥异议，被擢第一并迅速升至侍从。",
+      "result": "其对策颁行天下，升迁速度前所未有。",
+      "quote": [
+        "於是擢為第一，以所對頒天下",
+        "不逾年至侍從，前此未有也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "策试与快速擢升。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-FLOOD-OMITTED-ADULT-REGISTRATION-AND-COIN-PUNISHMENT-1107",
+      "time": "大观元年七月",
+      "loc": [
+        "伊洛",
+        "宋境",
+        "苏州"
+      ],
+      "action": "伊洛水溢后朝廷括天下漏丁，并因苏州钱法罪责蹇序辰。",
+      "result": "户籍清查启动，钱法责任人被贬安置。",
+      "quote": [
+        "乙酉朔，伊、洛溢",
+        "詔括天下漏丁",
+        "蹇序辰責授單州團練副使，江州安置"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾害、户籍与钱法。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "钱法责任处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-ZHANG-LIAN-CURRENCY-PRISON-CASE-1107",
+      "time": "大观元年七月至九月",
+      "loc": [
+        "平江",
+        "信州",
+        "海岛"
+      ],
+      "action": "蔡京借私铸案追张綖，沈畸释放数百系者并平反；朝廷另派官锻炼，最终流放张綖、籍没其家并贬沈畸。",
+      "result": "平反被推翻，张綖与审案官同遭处分。",
+      "quote": [
+        "系者數百人，盡釋之",
+        "遂閱實，平反以聞",
+        "別遣官鍛煉，綖竟竄海島，籍沒其家",
+        "詔貶畸監信州酒稅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "钱法狱案与司法处分。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "私铸钱案。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-TWENTY-SIX-PREFECTURE-AMNESTY-1107",
+      "time": "大观元年八月",
+      "loc": [
+        "淮海吴楚二十六州"
+      ],
+      "action": "朝廷对二十六州降德音，减囚罪并释放流刑以下者。",
+      "result": "区域性刑罚减免实施。",
+      "quote": [
+        "降德音於淮、海、吳、楚二十六州",
+        "減囚罪一等，流以下釋之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "区域赦免。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-TEMPLES-PREFECTURAL-UPGRADES-AND-MILITARY-TALENT-1107",
+      "time": "大观元年九月至十月",
+      "loc": [
+        "陈桥",
+        "永兴军",
+        "宋境"
+      ],
+      "action": "朝廷建显烈观、升永兴军为大都督府，并令才武绝伦者每年贡举。",
+      "result": "祠观与地方等级调整，武才贡举制度建立。",
+      "quote": [
+        "建顯烈觀於陳橋",
+        "升永興軍為大都督府",
+        "士有才武絕倫者，歲貢"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "显烈观营建。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "行政等级调整。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-MILITARY-TALENT-TRIBUTE-1107",
+          [],
+          "武才选拔。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-HOUSEHOLD-PERFORMANCE-AND-GUANGXI-CONSTRUCTION-1107",
+      "time": "大观元年闰月",
+      "loc": [
+        "宋境",
+        "桂州",
+        "黎母山"
+      ],
+      "action": "朝廷以户口考核守令，升桂州并在黎母山建镇州、置靖海军。",
+      "result": "户口成为地方官殿最指标，广西增设军州建制。",
+      "quote": [
+        "守令以戶口為殿最",
+        "升桂州為大都督府，建鎮州于黎母山心",
+        "賜軍額曰靖海"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "守令考核与边地建制。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "镇州建设。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-JINGHAI-ADMINISTRATION-1107",
+          [],
+          "广西军州建设。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-IMPERIAL-SEALS-OFFICE-1107",
+      "time": "大观元年十一月",
+      "loc": [
+        "禁中"
+      ],
+      "action": "朝廷置内外符宝郎，制作镇国、受命二宝，并规定八宝用途。",
+      "result": "皇帝符宝形成专官管理和分用途制度。",
+      "quote": [
+        "置內外符寶郎",
+        "名為鎮國、受命二寶，合先帝六璽，是為八寶",
+        "命置官以掌之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "符宝官制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-NANDAN-CONQUEST-AND-QIANNAN-ROUTE-1107",
+      "time": "大观元年十一月",
+      "loc": [
+        "南丹州",
+        "观州",
+        "黔南路"
+      ],
+      "action": "王祖道诬莫公佞阻挠纳土而发兵，擒公佞、改南丹为观州；其弟报复侵掠后，朝廷置黔南路统九州。",
+      "result": "边地冲突扩大，广西西南另置一路管理。",
+      "quote": [
+        "乃誣其酋莫公佞阻東蘭州，不令納土，發兵討之",
+        "以南丹州為觀州",
+        "特置黔南路，領庭、孚、平、允、從、宜、柳、融、觀九州"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-NANDAN-CONQUEST-1107",
+          [],
+          "南丹征讨与报复。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "黔南路建置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-GUANGXI-EXPANSION-BURDEN-1107",
+      "time": "大观元年十二月",
+      "loc": [
+        "广西"
+      ],
+      "action": "王祖道以官爵金帛诱诸夷、建城戍兵并无限输送内地财货，继任者相效。",
+      "result": "戍卒因瘴疫死亡过半，史载并无土民实际增益，边壤反而多事。",
+      "quote": [
+        "厚以官爵金帛挑諸夷，建城邑，調兵鎮戍",
+        "輦輸內地錢布鹽粟，無復齊限",
+        "戍者十亡五六，實無尺土一民益於縣官",
+        "邊壤益多故矣"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-GUANGXI-EXPANSION-COST-1107",
+          [],
+          "广西扩张与驻军损耗。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "财货输送与民户收益。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边地城邑建设。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-QINFENG-DROUGHT-RIVER-FLOOD-RELIEF-1107",
+      "time": "大观元年",
+      "loc": [
+        "秦凤",
+        "京东",
+        "黄河沿岸"
+      ],
+      "action": "秦凤旱、京东水及黄河溢，朝廷遣官赈济并贷被水户租。",
+      "result": "水旱灾区获得赈济与租赋贷款。",
+      "quote": [
+        "秦鳳旱。京東水，河溢",
+        "遣官振濟，貸被水戶租"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾害赈济与租赋处置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-FANG-ZHEN-ACCUSES-CAI-JING-1107",
+      "time": "大观元年",
+      "loc": [
+        "开封",
+        "岭南"
+      ],
+      "action": "方轸上书指蔡京专权、以御笔行事并以花石禽鸟进献，蔡京请下狱，朝廷最终流放方轸。",
+      "result": "弹劾蔡京者被流放岭南。",
+      "quote": [
+        "蔡京睥睨社稷，內懷不道",
+        "京又使子攸日以花石禽鳥為獻",
+        "京請下軫獄，竟流嶺南"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "弹劾与政治处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-PARTY-LIST-REVIEW-AND-RESTORATION-1108",
+      "time": "大观二年三月至六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷依赦令分批审查党籍，使四十五人、六人及九十五人出籍，并恢复部分在世和身故执政官职。",
+      "result": "大批元祐党人解除党籍或获追复。",
+      "quote": [
+        "看詳到孫固等四十五人",
+        "又，看詳到葉祖洽等六人，詔並出籍",
+        "看詳到韓維等九十五人，詔並出籍",
+        "見存人與復一官"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党籍复核与恢复官职。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-FARM-HORSE-BREEDING-1108",
+      "time": "大观二年四月",
+      "loc": [
+        "宋县镇寨关堡"
+      ],
+      "action": "朝廷募民给地免租牧马，并将管勾给地牧马写入地方官衔职责。",
+      "result": "农地牧马制度推行，熙河一年后初见成效。",
+      "quote": [
+        "募人給地免租牧馬",
+        "行之期年，熙河頗見就緒",
+        "並帶管句給地牧馬事"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-FARM-HORSE-BREEDING-1108",
+          [],
+          "军马供给制度。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "给地免租。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-TAOZHOU-RECOVERY-1108",
+      "time": "大观二年四月至五月",
+      "loc": [
+        "洮州"
+      ],
+      "action": "童贯遣辛叔献、冯瓘等收复洮州，朝廷随后奖励蔡京、童贯等并恢复洮州建制。",
+      "result": "洮州被宋军收复并恢复州名。",
+      "quote": [
+        "童貫遣統制官辛淑獻、馮瓘等復洮州",
+        "詔臨洮城依舊為洮州",
+        "以收復功，命戶部侍郎洪中孚奏告天地"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-TAOZHOU-RECOVERY-1108",
+          [],
+          "洮州收复。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战功奖赏与建制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-NATIONAL-SCHOOL-COST-ACCOUNTING-1108",
+      "time": "大观二年五月",
+      "loc": [
+        "宋诸路",
+        "辟雍"
+      ],
+      "action": "路瑗据京西南路学校规模，请汇总全国学生、学舍和学费收支图册，朝廷采纳。",
+      "result": "全国学校投入被要求集中统计并存副本于辟雍。",
+      "quote": [
+        "乞詔有司總會諸路州、軍、縣文武大小學生",
+        "學費所入所用實數，具圖冊上之御府",
+        "副在辟雍，仍宣付史館"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校经费统计。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校管理。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-JIGE-SURRENDER-INFLATED-VICTORY-1108",
+      "time": "大观二年五月",
+      "loc": [
+        "谿哥城",
+        "积石军",
+        "西宁"
+      ],
+      "action": "边吏以臧征扑哥能动众为由进兵，其携二十八人迎降却被夸大战功；刘仲武渡河招降并收复积石军，功劳一度被童贯掩盖。",
+      "result": "积石军恢复，降者获官，战功叙述与归功存在夸饰争议。",
+      "quote": [
+        "迎降，並女弱才二十八人，初未嘗有兵也",
+        "邊吏張大其功，過為緣飾",
+        "仲武以兵渡河，挈與歸",
+        "貫掩其功，止錄河橋之勞"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-JIGE-JISHI-CAMPAIGN-1108",
+          [],
+          "积石军招降与战功争议。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战功归属。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-XINGZHOU-FLOOD-RELIEF-1108",
+      "time": "大观二年八月",
+      "loc": [
+        "邢州"
+      ],
+      "action": "邢州河水溢毁民舍，朝廷复免受灾户。",
+      "result": "被水民户获赋役减免，具体范围未载。",
+      "quote": [
+        "邢州河水溢，壞民廬舍",
+        "復被水者家"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "洪灾与民户减免。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-GUANGXI-LAND-CLAIMS-1108",
+      "time": "大观二年",
+      "loc": [
+        "安化",
+        "黔南",
+        "广西"
+      ],
+      "action": "张庄奏称多州峒纳土、户口和幅员巨大，蔡京率百官称贺并进张庄兼经略安抚使。",
+      "result": "广西拓地成果以奏报数字进入朝廷奖赏，真实性本卷未定。",
+      "quote": [
+        "諸蠻納土，共五萬餘戶，二十六萬餘人",
+        "一十六州、三十三縣、五十餘峒，幅員萬里",
+        "蔡京率百官表賀"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-GUANGXI-LAND-CLAIMS-1108",
+          [],
+          "西南纳土与拓地声称。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "奏功与奖任。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-GARDEN-TOMB-LABOR-TAX-RELIEF-1109",
+      "time": "大观三年正月",
+      "loc": [
+        "两京",
+        "河阳"
+      ],
+      "action": "朝廷减两京河阳囚罪，并蠲免因园陵服役者赋税。",
+      "result": "园陵役民获得税赋减免。",
+      "quote": [
+        "減兩京、河陽囚罪一等",
+        "民緣園陵役者蠲其賦"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "园陵役税减免。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刑罚减等。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-COIN-REFORM-RESPONSIBILITY-AND-MARITIME-BOUNDARY-1109",
+      "time": "大观三年二月至三月",
+      "loc": [
+        "宋境",
+        "海疆"
+      ],
+      "action": "朝廷因胡师文将当二钱改铸当十而罢其地方职，又立海商越界法。",
+      "result": "币制变更责任受追究，海商活动增设边界规范。",
+      "quote": [
+        "將已行當二錢毀而改鑄",
+        "詔師文提舉萬壽觀",
+        "立海商越界法"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "钱法调整与处分。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "海商越界法。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-SICHUAN-GOVERNOR-SELECTION-AND-ILLICIT-EXAM-LISTING-1109",
+      "time": "大观三年三月",
+      "loc": [
+        "四川",
+        "开封"
+      ],
+      "action": "朝廷规定四川郡守选内地人；梁师成又窜名进士籍。",
+      "result": "四川守臣来源受限，科举名籍发生非法插入。",
+      "quote": [
+        "四川郡守，並選內地人任之",
+        "小璫梁師成，亦竄名進士籍中"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方官选任与科举名籍。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-CHEN-HE-REMONSTRANCE-AND-PUNISHMENT-1109",
+      "time": "大观三年三月",
+      "loc": [
+        "开封",
+        "信州"
+      ],
+      "action": "陈禾劾童贯、黄经臣弄权并拉住皇帝衣裾进谏，卢航指其狂妄，朝廷贬陈禾监信州酒。",
+      "result": "弹劾宦官权力者被贬。",
+      "quote": [
+        "遂上疏劾貫、經臣怙寵弄權之罪",
+        "禾引帝衣，請畢其說",
+        "謫監信州酒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "进谏与政治处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-LIN-SHU-DISMISSAL-NORTHERN-WAR-IDEA-1109",
+      "time": "大观三年四月",
+      "loc": [
+        "开封",
+        "滁州",
+        "辽"
+      ],
+      "action": "林攄因殿试唱名失误、倨傲被黜知滁州，临去称辽可兼并。",
+      "result": "林攄被罢，史载皇帝由此开始有北伐之意。",
+      "quote": [
+        "中書侍郎林攄罷",
+        "失人臣禮，黜知滁州",
+        "帝由是始有北伐之意"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官员处分。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-NORTHERN-WAR-IDEA-1109",
+          [],
+          "北伐意向，尚未实施。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-MENG-XIANG-EXILE-AND-MUSIC-BOOK-1109",
+      "time": "大观三年五月至六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "孟翔以卦象称宋将中微、请改号改官而被远窜；朝廷另命修乐书。",
+      "result": "祥异政治言论受惩，礼乐典籍开始修纂。",
+      "quote": [
+        "謂宋將中微，宜更年號，改官名",
+        "詔竄之遠方",
+        "甲戌朔，詔修樂書"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政治言论处分与礼乐修书。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-CAI-JING-DISMISSAL-AND-OFFICE-CUTS-1109",
+      "time": "大观三年六月",
+      "loc": [
+        "开封",
+        "宋境"
+      ],
+      "action": "石公弼、张克公数十章弹劾蔡京使其罢相；朝廷随即裁撤冗员、官庙、河务岗位并调整茶务、市舶归属。",
+      "result": "蔡京去相，官庙千员、都水知埽六十员等被裁，行政职权重分。",
+      "quote": [
+        "尚書左僕射蔡京罷",
+        "章數十上，乃以京為中太一宮使",
+        "罷官廟者千員，都水知埽六十員",
+        "在京茶事歸之戶部，諸道市舶歸之轉運司"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宰相罢免与官制裁并。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "茶务与市舶归属调整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-LIAO-FAMINE-RELIEF-AND-TAX-RELEASE-1109",
+      "time": "大观三年七月至十月",
+      "loc": [
+        "辽中京",
+        "宁远"
+      ],
+      "action": "辽中京饥，命减价粜粟；宁远县令上书后释放因急征被系者并免县租赋。",
+      "result": "灾区获得平价粮，宁远囚者释放并免租。",
+      "quote": [
+        "遼主以中京饑",
+        "命昭德軍節度使耶律孟簡偕學士劉嗣昌減價糶粟",
+        "乃釋之，因免縣中租賦"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "饥荒平粜与租赋减免。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "急征系狱纠正。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-SUPPLY-CUTS-COIN-ABOLITION-AND-DROUGHT-RELIEF-1109",
+      "time": "大观三年十月至年末",
+      "loc": [
+        "宋境",
+        "江淮荆浙福建",
+        "秦凤阶成"
+      ],
+      "action": "朝廷减六尚局供奉物、罢东南铸夹锡钱；江淮等地长期大旱、秦凤阶成饥，发粟赈济并蠲赋。",
+      "result": "宫廷供应和夹锡钱铸造收缩，饥区获得粮食与税赋救济。",
+      "quote": [
+        "減六尚局供奉物",
+        "罷東南鑄夾錫錢",
+        "江、淮、荊、浙、福建大旱",
+        "發粟振之，蠲其賦"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "供应裁减、币制与赈济。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-090-ZHE-KEXING-FRONTIER-SERVICE-1108",
+      "time": "大观二年",
+      "loc": [
+        "府州",
+        "西夏边境"
+      ],
+      "action": "知府州折克行死后获赠官，其子承任；史载其在边三十年、战功最多。",
+      "result": "边将职位由其子接续，夏人称其折家父。",
+      "quote": [
+        "折克行卒，贈武安軍節度使",
+        "以其子可大為榮州團練使、知府州",
+        "在邊三十年，戰功最多",
+        "名，號「折家父」。"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-090-ZHE-KEXING-SERVICE-1108",
+          [],
+          "边将长期军功。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赠官与继任。"
+        ]
+      ]
+    }
+  ]
+}

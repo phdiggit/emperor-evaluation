@@ -1,0 +1,640 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V01-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V01-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷1",
+    "revision_ref": "2325070",
+    "start_locator": "太祖出身及早期征服室韋諸部",
+    "end_locator": "神冊三年十二月幸遼陽故城",
+    "overlap_context": "本卷自太祖即位前的部族征服起，连续记至神册三年；同一内乱、征服或营建按行动与结果合并，不按月令逐条拆分。",
+    "input_fingerprint": "77762c41d66077c07529026c478504a93ee1865016f15edf68ac51c835ceafcb"
+  },
+  "limitations": [
+    "仅据服务器固定《遼史》卷1正文登记，未知保持未知。",
+    "战役仅作新版战役工作流交接，不在本卷结算；普通任免、贡聘、巡幸、祭祀和重复行军节点不单列。",
+    "军民伤亡、俘获人口后续安置、工程役费及市场税制多未详载，不据推测补齐。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V01-PREACCESSION-EXPANSION-901-903",
+      "time": [
+        "唐天復元年至三年",
+        "901至903",
+        "range"
+      ],
+      "subject": "耶律阿保機及契丹军",
+      "action": "阿保机取得专征权后连续攻击室韦、于厥、奚及河东代北诸地，俘获大量人口牲畜，并在龙化州建立据点。",
+      "result": "其军事权威与人口、牲畜控制显著扩张，为随后总知军国事和即位奠定基础。",
+      "cost": "被攻地区人口被俘迁，双方伤亡和沿途民损未载。",
+      "groups": [
+        "契丹军",
+        "室韦于厥奚诸部",
+        "河东代北军民",
+        "被俘人口"
+      ],
+      "quote": [
+        "專征討，連破室韋、于厥及奚帥轄剌哥，俘獲甚眾。",
+        "攻下九郡，獲生口九萬五千，駝、馬、牛、羊不可勝紀。",
+        "復攻下河東懷遠等軍。"
+      ],
+      "unknown": [
+        "九郡名称、双方兵力伤亡、俘口安置与牲畜分配未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-PREACCESSION-EXPANSION-901-903",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-LONGHUA-CONSTRUCTION-902-904",
+      "time": [
+        "唐天復二年至四年",
+        "902至904",
+        "range"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "在潢河南营建龙化州、开教寺，并扩建龙化州东城。",
+      "result": "龙化州形成兼具城防与宗教设施的早期固定据点。",
+      "groups": [
+        "龙化州居民",
+        "营建役夫",
+        "僧众",
+        "契丹军政人员"
+      ],
+      "quote": [
+        "城龍化州於潢河之南，始建開教寺。",
+        "廣龍化州之東城。"
+      ],
+      "unknown": [
+        "城址规模、工期、役夫来源、物料与财政负担未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "LONGHUA-CONSTRUCTION-902-904",
+        "summary": "营建并扩展龙化州及开教寺。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-TAOSHAN-AMBUSH-904",
+      "time": [
+        "唐天復四年九月",
+        "904",
+        "month"
+      ],
+      "subject": "耶律阿保機军、赵霸所部与黑车子室韦",
+      "action": "阿保机获知赵霸来援后，在桃山设伏并派人诈约会师，待赵霸进入平原后合围。",
+      "result": "赵霸被擒，所部被歼，契丹军继而大破黑车子室韦。",
+      "cost": "赵霸所部遭歼，确切伤亡及室韦损失未载。",
+      "groups": [
+        "契丹军",
+        "卢龙军",
+        "黑车子室韦",
+        "武州附近居民"
+      ],
+      "quote": [
+        "伏勁兵桃山下。",
+        "既至，四面伏發，擒霸，殲其眾，乘勝大破室韋。"
+      ],
+      "unknown": [
+        "伏兵规模、双方伤亡、俘虏处置与地方民损未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-TAOSHAN-AMBUSH-904",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-LI-KEYONG-ALLIANCE-905",
+      "time": [
+        "唐天祐二年七月至十月",
+        "905",
+        "range"
+      ],
+      "subject": "耶律阿保機与李克用",
+      "action": "阿保机与李克用在云州会盟、约为兄弟，并答应借兵攻击刘仁恭。",
+      "result": "联军攻取数州，契丹将当地居民全部迁回。",
+      "cost": "数州居民遭强制迁徙，双方伤亡和迁徙途中损失未载。",
+      "groups": [
+        "契丹军",
+        "河东军",
+        "刘仁恭所辖军民",
+        "被迁民户"
+      ],
+      "quote": [
+        "太祖以騎兵七萬會克用於雲州",
+        "易袍馬，約為兄弟。",
+        "拔數州，盡徙其民以歸。"
+      ],
+      "unknown": [
+        "实际参战兵数、被迁人口、安置去向及州县损失未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-LI-KEYONG-ALLIANCE-905",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-XI-DIELABU-903-906",
+      "time": [
+        "唐天復三年至天祐三年",
+        "903至906",
+        "range"
+      ],
+      "subject": "耶律阿保機与奚、霫、女直诸部",
+      "action": "阿保机将此前迁来的奚户编成奚迭剌部、分十三县，并继续征服奚霫和未附女直。",
+      "result": "被征服与迁入人口被纳入新的部县组织，阿保机获总知军国事并扩大直接控制。",
+      "groups": [
+        "奚族民户",
+        "霫部",
+        "女直诸部",
+        "契丹官属"
+      ],
+      "quote": [
+        "創為奚迭剌部，分十三縣。",
+        "遂拜太祖于越、總知軍國事。",
+        "者，悉破降之。\n"
+      ],
+      "unknown": [
+        "十三县名称、户口分配、赋役制度和征服伤亡未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XI-DIELABU-903-906",
+        "summary": "奚户被编成奚迭剌部并分十三县。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-ACCESSION-907",
+      "time": [
+        "元年正月",
+        "907",
+        "month"
+      ],
+      "subject": "耶律阿保機、萧皇后及契丹群臣",
+      "action": "阿保机燔柴告天即皇帝位，尊母、立后，接受天皇帝尊号，并将遥辇氏九帐列为第十帐。",
+      "result": "契丹最高权力由可汗遗命推戴转为皇帝体制，皇族帐制随之重组。",
+      "groups": [
+        "契丹皇族",
+        "遥辇氏九帐",
+        "南北宰相与群臣",
+        "诸部民众"
+      ],
+      "quote": [
+        "燔柴告天，即皇帝位。",
+        "北宰相蕭轄剌、南宰相耶律歐里思率群臣上尊號曰天皇帝",
+        "詔皇族承遙輦氏九帳為第十帳。"
+      ],
+      "unknown": [
+        "各部推戴程序、权力移交条件及第十帐具体权利义务未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ACCESSION-907",
+        "summary": "阿保机即皇帝位并重组皇族帐制。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V01-CLAN-OFFICE-AND-COASTAL-DEFENSE-908",
+      "time": [
+        "二年正月至十月",
+        "908",
+        "range"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "设置惕隐专掌族属，以皇弟撒剌任职，同时建明王楼并在镇东海口筑长城。",
+      "result": "宗族管理出现专职机构，东部海口增设城防设施。",
+      "groups": [
+        "皇族成员",
+        "惕隐属官",
+        "筑城役夫",
+        "镇东海口军民"
+      ],
+      "quote": [
+        "始置惕隱，典族屬，以皇弟撒剌為之。",
+        "建明王樓。築長城於鎮東海口。"
+      ],
+      "unknown": [
+        "惕隐权限边界、长城长度、役夫物料和民众负担未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "COASTAL-DEFENSE-908",
+        "summary": "建明王楼并在镇东海口筑长城。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-HENGHAI-INTERVENTION-909",
+      "time": [
+        "三年二月至三月",
+        "909",
+        "range"
+      ],
+      "subject": "契丹援军、刘守文与刘守光军",
+      "action": "应刘守文求援，阿保机命舍利素、萧敌鲁率军会师，推进至横海军近淀交战。",
+      "result": "刘守光军一战溃退，北淖口因此改称会盟口。",
+      "groups": [
+        "契丹援军",
+        "刘守文军",
+        "刘守光军",
+        "横海军附近居民"
+      ],
+      "quote": [
+        "遣人來乞兵討之。",
+        "進至橫海軍近澱，一鼓破之，守光潰去。",
+        "因名北淖口為會盟口。"
+      ],
+      "unknown": [
+        "援军规模、双方伤亡、战利品和地方民损未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-HENGHAI-INTERVENTION-909",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-YANGCHENG-MARKET-909",
+      "time": [
+        "三年五月",
+        "909",
+        "month"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "在炭山之北设置羊城以开展市场贸易。",
+      "result": "形成一处由政权设置的固定交换节点。",
+      "groups": [
+        "牧民",
+        "商旅",
+        "羊城居民",
+        "市场管理者"
+      ],
+      "quote": "置羊城於炭山之北以通市易。",
+      "unknown": [
+        "交易品类、税制、市场规模、参与人口与持续时间未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "YANGCHENG-MARKET-909",
+        "summary": "设置羊城以通市易。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-EMPEROR-BROTHER-APPOINTMENT-910",
+      "time": [
+        "四年七月至十月",
+        "910",
+        "range"
+      ],
+      "subject": "耶律阿保機、萧敌鲁与乌马山奚叛部",
+      "action": "阿保机任命皇后兄萧敌鲁为北府宰相，形成后族为相惯例，并于当年平定乌马山奚诸部叛乱。",
+      "result": "后族进入北府宰相权力核心，反叛部众被镇压。",
+      "groups": [
+        "萧氏后族",
+        "北府官员",
+        "乌马山奚诸部",
+        "契丹军"
+      ],
+      "quote": [
+        "以后兄蕭敵魯為北府宰相。后族為相自此始。",
+        "烏馬山奚庫支及查剌底、鋤勃德等叛，討平之。"
+      ],
+      "unknown": [
+        "后族任相制度边界、叛乱原因、兵力伤亡和处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EMPEROR-BROTHER-APPOINTMENT-910",
+        "summary": "萧敌鲁任北府宰相，后族为相由此开始。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-XI-ANNEXATION-911",
+      "time": [
+        "五年正月至三月",
+        "911",
+        "range"
+      ],
+      "subject": "耶律阿保機军与东西部奚",
+      "action": "阿保机亲征西部奚并分兵平定东部奚，随后略地蓟州。",
+      "result": "奚霫五部及其地域被纳入版籍，契丹直接控制扩展至东海、白檀、松漠和潢水之间。",
+      "cost": "征服造成的伤亡、迁徙和赋役变化未载。",
+      "groups": [
+        "契丹军",
+        "东西部奚",
+        "霫部",
+        "新入版籍民户",
+        "蓟州军民"
+      ],
+      "quote": [
+        "遂分兵討東部奚，亦平之。",
+        "於是盡有奚、霫之地。",
+        "凡五部，咸入版籍。"
+      ],
+      "unknown": [
+        "五部名称、户口数量、征服伤亡及版籍后的赋役规则未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-XI-ANNEXATION-911",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-IRONWORKS-911",
+      "time": [
+        "五年十月",
+        "911",
+        "month"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "设置铁冶。",
+      "result": "政权建立或接管一处铁料冶炼生产设施。",
+      "groups": [
+        "冶铁工匠",
+        "矿冶役户",
+        "军需使用者",
+        "当地居民"
+      ],
+      "quote": "冬十月戊午，置鐵冶。",
+      "unknown": [
+        "铁冶地点、产量、工匠来源、燃料矿料、税役和产品用途未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "IRONWORKS-911",
+        "summary": "设置铁冶。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-BROTHERS-REVOLT-911-912",
+      "time": [
+        "五年五月至六年末",
+        "911至912",
+        "range"
+      ],
+      "subject": "耶律阿保機与剌葛、迭剌、寅底石、安端诸弟",
+      "action": "诸弟先后谋反，阿保机查实后多次赦免、令其自新；剌葛等仍在平州战后再次起兵阻道。",
+      "result": "宽赦未能终止叛乱，冲突转入公开内战。",
+      "groups": [
+        "契丹皇族",
+        "诸弟党众",
+        "契丹军",
+        "沿途居民"
+      ],
+      "quote": [
+        "皇弟剌葛、迭剌、寅底石、安端謀反。",
+        "上不忍加誅，乃與諸弟登山刑牲，告天地為誓而赦其罪。",
+        "聞諸弟以兵阻道，引軍南趨十七濼。"
+      ],
+      "unknown": [
+        "首次谋反兵力、赦免条件、党众构成和各方损失未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BROTHERS-REVOLT-OPENING-911-912",
+        "summary": "诸弟谋反获赦后再次起兵，内战公开化。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-BROTHERS-CIVIL-WAR-913",
+      "time": [
+        "七年正月至五月",
+        "913",
+        "range"
+      ],
+      "subject": "耶律阿保機军与剌葛叛军",
+      "action": "剌葛自立并焚掠行宫、西楼等处，阿保机追击，利用叛军离土心散后合围，最终擒获剌葛等首领。",
+      "result": "诸弟叛军主力溃败，剌葛被擒；长期出兵造成军粮匮乏、牲畜大量死亡、物价上涨和物资弃置。",
+      "cost": "军中煮马驹采野菜充食，牲畜道路死亡十之七八，物价涨至十倍，沿途居民亦遭杀掠。",
+      "groups": [
+        "契丹官军",
+        "剌葛叛军",
+        "行宫与西楼人员",
+        "沿途居民",
+        "军中牲畜所有者"
+      ],
+      "quote": [
+        "焚其輜重、廬帳，縱兵大殺。",
+        "前遇拔剌、迪里姑等伏發，合擊，遂大敗之。",
+        "士卒煮馬駒、采野菜以為食，孳畜道斃者十七八，物價十倍",
+        "奏擒剌葛、涅里袞阿缽於榆河"
+      ],
+      "unknown": [
+        "双方总兵力、军民死亡数、物价基准、弃置物资价值和被掠户数未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-BROTHERS-CIVIL-WAR-913",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-POSTREVOLT-JUSTICE-913-914",
+      "time": [
+        "七年六月至八年七月",
+        "913至914",
+        "range"
+      ],
+      "subject": "耶律阿保機政权与从逆人员",
+      "action": "阿保机处死残民狱官和部分逆党，释放并追回被掠人口，归还或责偿财产；次年复审三百余名逆党并区分首恶、胁从和忠告者。",
+      "result": "叛乱后秩序与财产得到部分恢复，但大量逆党仍遭处决，皇族首要人物则多获杖释。",
+      "cost": "逆党多人被磔、轘、绞杀、弃市，其妻女和财产亦被处置。",
+      "groups": [
+        "被掠民户",
+        "逆党及家属",
+        "受害居民",
+        "皇族成员",
+        "司法官员"
+      ],
+      "quote": [
+        "放所俘還，多為于骨里所掠。",
+        "所掠珍寶、孳畜還主；亡其本物者，命責償其家",
+        "辭多連宗室及有脅從者，乃杖殺首惡怖胡，餘並原釋。",
+        "有司上諸帳族與謀逆者三百餘人罪狀，皆棄市。"
+      ],
+      "unknown": [
+        "获释人口数、返还和赔偿总额、实际执行范围及三百余人具体名单未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "POSTREVOLT-JUSTICE-913-914",
+        "summary": "对从逆者复审处刑，并恢复部分被掠人口与财产。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-SHENCE-ACCESSION-916",
+      "time": [
+        "神冊元年二月至三月",
+        "916",
+        "range"
+      ],
+      "subject": "耶律阿保機、皇后与契丹百僚属国",
+      "action": "百僚三次上表后，阿保机与皇后接受大圣大明天皇帝、应天大明地皇后尊号，建元神册，并立耶律倍为皇太子。",
+      "result": "皇帝、皇后尊号与皇太子继承安排同时确立，百僚进秩并受赏。",
+      "groups": [
+        "皇帝皇后",
+        "皇太子耶律倍",
+        "契丹百僚",
+        "诸属国",
+        "受赐民众"
+      ],
+      "quote": [
+        "，三表乃允。丙",
+        "上尊號曰大聖大明天皇帝，后曰應天大明地皇后。",
+        "立子倍為皇太子。"
+      ],
+      "unknown": [
+        "尊号政治协商、赦免对象、进秩颁赉规模及继承安排反对意见未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SHENCE-ACCESSION-916",
+        "summary": "建元神册并确立皇后尊号和皇太子。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-WESTERN-CAMPAIGN-916",
+      "time": [
+        "神冊元年七月至十二月",
+        "916",
+        "range"
+      ],
+      "subject": "耶律阿保機军与突厥、吐浑、党项等部及山北诸州",
+      "action": "阿保机亲征西方诸部，继而攻取朔、蔚、新、武、妫、儒等州并收山北八军。",
+      "result": "大量人口财物被俘，武州、妫州改名并设置西南面招讨司，代北至河曲阴山地域被纳入控制。",
+      "cost": "记载斩首一万四千七百余、俘户一万五千六百，其他伤亡及被征服地区民生损失未载。",
+      "groups": [
+        "契丹军",
+        "突厥吐浑党项等部",
+        "山北诸州军民",
+        "被俘户口",
+        "新设招讨司官兵"
+      ],
+      "quote": [
+        "俘其酋長及其戶萬五千六百",
+        "攻蔚、新、武、媯、儒五州，斬首萬四千七百餘級。",
+        "置西南面招討司，選有功者領之。",
+        "收山北八軍。"
+      ],
+      "unknown": [
+        "俘户后续安置、九十余万器械财物分配、新辖地赋役和守备成本未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-WESTERN-EXPANSION-916",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-YOUZHOU-CAMPAIGN-917",
+      "time": [
+        "神冊二年二月至八月",
+        "917",
+        "range"
+      ],
+      "subject": "耶律阿保機军与晋幽州援军",
+      "action": "契丹军借卢文进来降攻新州，在新州东击败幽并镇定魏援军后围攻幽州。",
+      "result": "前期会战获胜并斩首三万余，但幽州未克；暑雨使主力撤军，留守部队亦因兵少退还。",
+      "cost": "新州东之战斩首三万余；围城与暑雨造成的其余军民损失未载。",
+      "groups": [
+        "契丹军",
+        "晋幽州军",
+        "新州幽州军民",
+        "卢文进所部"
+      ],
+      "quote": [
+        "合戰於新州東，大破之，斬首三萬餘級",
+        "圍幽州，不克。",
+        "以大暑霖潦，班師。",
+        "曷魯等以兵少而還。"
+      ],
+      "unknown": [
+        "契丹军兵力伤亡、围城民损、暑雨损失及撤军物资消耗未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-YOUZHOU-917",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V01-IMPERIAL-CAPITAL-AND-TEMPLES-918",
+      "time": [
+        "神冊三年二月至五月",
+        "918",
+        "range"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "营建皇都并任康默记为版筑使，随后下诏建设孔子庙、佛寺和道观。",
+      "result": "皇都及三类礼教宗教设施进入营建，形成新的政治与仪礼中心。",
+      "groups": [
+        "版筑役夫",
+        "皇都居民",
+        "儒释道人士",
+        "工程管理官员"
+      ],
+      "quote": [
+        "城皇都，以禮部尚書康默記充版築使。",
+        "詔建孔子廟、佛寺、道觀。"
+      ],
+      "unknown": [
+        "皇都位置规模、工期、役夫与物料来源、各寺观数量和财政负担未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "IMPERIAL-CAPITAL-AND-TEMPLES-918",
+        "summary": "营建皇都并建设孔庙、佛寺和道观。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

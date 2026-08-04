@@ -1,0 +1,1374 @@
+{
+  "facts": [
+    {
+      "action": "后周围晋阳并进兵忻代，史彦超轻进与契丹交战。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-TAIYUAN-SIEGE-COLLAPSES-954",
+      "implementation": "",
+      "locations": [
+        "晋阳",
+        "忻州",
+        "代州"
+      ],
+      "observable_result": "周军虽杀契丹二千，史彦超战死且周军死伤甚众，围城因久雨疲病转入撤军。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-TAIYUAN-SIEGE-COLLAPSES-954"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-taiyuan-siege-collapses-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#旗幟環城四十里",
+        "資治通鑑/卷292@1769707#殺契丹二千人",
+        "資治通鑑/卷292@1769707#為契丹所殺",
+        "資治通鑑/卷292@1769707#周兵死傷甚眾",
+        "資治通鑑/卷292@1769707#久雨，士卒疲病"
+      ],
+      "time_range": {
+        "end": "显德元年五月",
+        "precision": "month",
+        "start": "显德元年五月"
+      },
+      "uncertainties": [
+        "周军总伤亡未载。"
+      ]
+    },
+    {
+      "action": "世宗自晋阳撤军，药元福列阵殿后击退北汉追兵。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-ZHOU-RETREATS-FROM-TAIYUAN-954",
+      "implementation": "",
+      "locations": [
+        "晋阳",
+        "潞州"
+      ],
+      "observable_result": "城下数十万刍粮焚弃，军需损失无数，所得州县多复归北汉。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-ZHOU-RETREATS-FROM-TAIYUAN-954"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "撤围焚弃巨量粮草并损失军需。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-zhou-retreats-from-taiyuan-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#巳，帝發晉陽",
+        "資治通鑑/卷292@1769707#元福擊走之",
+        "資治通鑑/卷292@1769707#芻糧數十萬",
+        "資治通鑑/卷292@1769707#者，悉焚棄之",
+        "資治通鑑/卷292@1769707#軍須失亡不可勝計",
+        "資治通鑑/卷292@1769707#等皆棄城走"
+      ],
+      "time_range": {
+        "end": "显德元年五月",
+        "precision": "month",
+        "start": "显德元年五月"
+      },
+      "uncertainties": [
+        "损失总额未载。"
+      ]
+    },
+    {
+      "action": "世宗因违众议破北汉后，政事无大小皆亲自决断。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-SHIZONG-PERSONAL-RULE-954",
+      "implementation": "",
+      "locations": [
+        "大梁"
+      ],
+      "observable_result": "百官仅奉成命，高锡劝其择才分任未被采纳。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "世宗形成高度亲决的治理方式。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-shizong-personal-rule-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#政事無大小皆親決",
+        "資治通鑑/卷292@1769707#百官受成於上而已",
+        "資治通鑑/卷292@1769707#乎！」帝不從。錫"
+      ],
+      "time_range": {
+        "end": "显德元年六月以后",
+        "precision": "month",
+        "start": "显德元年六月以后"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "孟汉卿因纳蒿税、场官扰民多取耗余被赐死。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-MENG-HANQING-EXECUTED-954",
+      "implementation": "",
+      "locations": [
+        "后周"
+      ],
+      "observable_result": "有司认为罪不至死，世宗称处死为惩众。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "税场侵民案件。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "以超出法定刑度的重罚震慑官吏。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-meng-hanqing-executed-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#卿坐納蒿稅",
+        "資治通鑑/卷292@1769707#稅，場官擾民",
+        "資治通鑑/卷292@1769707#民，多取耗餘",
+        "資治通鑑/卷292@1769707#耗餘，賜死。有",
+        "資治通鑑/卷292@1769707#欲以懲眾耳"
+      ],
+      "time_range": {
+        "end": "显德元年十月",
+        "precision": "month",
+        "start": "显德元年十月"
+      },
+      "uncertainties": [
+        "多取数额未载。"
+      ]
+    },
+    {
+      "action": "世宗大规模简阅诸军，升精锐、斥羸弱，并募天下壮士编殿前诸班。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-ZHOU-ARMY-SELECTION-REFORM-954",
+      "implementation": "",
+      "locations": [
+        "后周"
+      ],
+      "observable_result": "后周军士卒精强近代无比，形成以后征伐基础。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "高平后重建中央军。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "裁减无用兵以减轻养兵负担。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-zhou-army-selection-reform-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#命大簡諸軍",
+        "資治通鑑/卷292@1769707#精銳者升之上軍",
+        "資治通鑑/卷292@1769707#羸者斥去之",
+        "資治通鑑/卷292@1769707#募天下壯士",
+        "資治通鑑/卷292@1769707#士卒精強，近代無比"
+      ],
+      "time_range": {
+        "end": "显德元年十月",
+        "precision": "month",
+        "start": "显德元年十月"
+      },
+      "uncertainties": [
+        "裁升人数未载。"
+      ]
+    },
+    {
+      "action": "世宗撤回中央巡检使臣，将捕盗责任专委节镇州县。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-LOCALIZES-BANDIT-SUPPRESSION-954",
+      "implementation": "",
+      "locations": [
+        "后周诸道"
+      ],
+      "observable_result": "地方藩侯守令承担治安清肃责任。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "调整地方治安责任体制。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-localizes-bandit-suppression-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#。宜悉召還，專",
+        "資治通鑑/卷292@1769707#專委節鎮、州縣",
+        "資治通鑑/卷292@1769707#縣，責其清肅"
+      ],
+      "time_range": {
+        "end": "显德元年十月",
+        "precision": "month",
+        "start": "显德元年十月"
+      },
+      "uncertainties": [
+        "实施效果未载。"
+      ]
+    },
+    {
+      "action": "黄河连年东溃淹没齐棣淄民田庐，世宗遣李谷督六万役徒修堤。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-YELLOW-RIVER-DIKE-REPAIR-954",
+      "implementation": "",
+      "locations": [
+        "杨刘",
+        "博州",
+        "澶州",
+        "郓州",
+        "齐州"
+      ],
+      "observable_result": "历时三十日完成堵塞。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "六万人、三十日完成大规模河工。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "治理多年淹没民田庐的河患。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-yellow-river-dike-repair-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#里，連年東潰",
+        "資治通鑑/卷292@1769707#漂沒民田廬不可勝計",
+        "資治通鑑/卷292@1769707#塞，役徒六萬",
+        "資治通鑑/卷292@1769707#三十日而畢"
+      ],
+      "time_range": {
+        "end": "显德元年十一月",
+        "precision": "month",
+        "start": "显德元年十一月"
+      },
+      "uncertainties": [
+        "工程费用未载。"
+      ]
+    },
+    {
+      "action": "刘旻病死，契丹册命刘承钧即北汉帝位。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-NORTHERN-HAN-SUCCESSION-954",
+      "implementation": "",
+      "locations": [
+        "晋阳",
+        "契丹"
+      ],
+      "observable_result": "刘钧勤政爱民礼士，境内粗安，并继续向契丹称臣。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "北汉帝位更替与辽汉关系延续。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-northern-han-succession-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#北漢主疾病",
+        "資治通鑑/卷292@1769707#監國，尋殂。遣",
+        "資治通鑑/卷292@1769707#冊命承鈞為帝",
+        "資治通鑑/卷292@1769707#位，勤於為政",
+        "資治通鑑/卷292@1769707#政，愛民禮士",
+        "資治通鑑/卷292@1769707#士，境內粗安"
+      ],
+      "time_range": {
+        "end": "显德元年十一月",
+        "precision": "month",
+        "start": "显德元年十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "湖南大饥，周行逢开仓赈济并以廉介吏员整顿治理。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-HUNAN-FAMINE-RELIEF-954",
+      "implementation": "",
+      "locations": [
+        "湖南",
+        "潭州"
+      ],
+      "observable_result": "救活民众甚多，吏民以其约束简要为便。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "饥荒赈粮救活大量民众。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "周行逢整顿湖南治理。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-hunan-famine-relief-954",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#歲，湖南大饑",
+        "資治通鑑/卷292@1769707#民食草木實",
+        "資治通鑑/卷292@1769707#開倉以賑之",
+        "資治通鑑/卷292@1769707#之，全活甚眾",
+        "資治通鑑/卷292@1769707#要，吏民便之"
+      ],
+      "time_range": {
+        "end": "显德元年",
+        "precision": "month",
+        "start": "显德元年"
+      },
+      "uncertainties": [
+        "赈粮与人口确数未载。"
+      ]
+    },
+    {
+      "action": "后周规定漕运每斛给耗一斗。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-TRANSPORT-ALLOWANCE-955",
+      "implementation": "",
+      "locations": [
+        "后周"
+      ],
+      "observable_result": "减少纲吏因运输亏欠被处死的风险。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "漕运损耗制度化。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-transport-allowance-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#漕運自晉、漢以來不給斗耗",
+        "資治通鑑/卷292@1769707#綱吏多以虧欠抵死",
+        "資治通鑑/卷292@1769707#每斛給耗一鬥"
+      ],
+      "time_range": {
+        "end": "显德二年正月",
+        "precision": "month",
+        "start": "显德二年正月"
+      },
+      "uncertainties": [
+        "年度漕运总量未载。"
+      ]
+    },
+    {
+      "action": "世宗令翰林、两省官荐举县令县录，任命文书署荐举者姓名。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-OFFICIAL-RECOMMENDATION-LIABILITY-955",
+      "implementation": "",
+      "locations": [
+        "后周"
+      ],
+      "observable_result": "被荐者贪污败官时荐举者连坐。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方官荐举责任制。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-official-recommendation-liability-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#省官舉令、錄",
+        "資治通鑑/卷292@1769707#署舉者姓名",
+        "資治通鑑/卷292@1769707#若貪穢敗官",
+        "資治通鑑/卷292@1769707#官，並當連坐"
+      ],
+      "time_range": {
+        "end": "显德二年正月",
+        "precision": "month",
+        "start": "显德二年正月"
+      },
+      "uncertainties": [
+        "连坐刑度未载。"
+      ]
+    },
+    {
+      "action": "后周浚葫芦河、筑李晏口城并募边地勇士千余设防。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-HULU-RIVER-BORDER-WORKS-955",
+      "implementation": "",
+      "locations": [
+        "深州",
+        "冀州",
+        "葫芦河",
+        "李晏口"
+      ],
+      "observable_result": "募兵击破围攻役夫的契丹军，此后契丹不敢渡河，河南民众得息。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-HULU-RIVER-BORDER-DEFENSE-955"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "浚河筑城形成边防屏障。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "终止郊野居民反复遭掠。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-hulu-river-border-works-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#夫浚胡盧河",
+        "資治通鑑/卷292@1769707#築城於李晏口",
+        "資治通鑑/卷292@1769707#募得千餘人",
+        "資治通鑑/卷292@1769707#藏英引所募兵馳擊，大破之",
+        "資治通鑑/卷292@1769707#契丹不敢涉胡盧河",
+        "資治通鑑/卷292@1769707#河南之民始得休息"
+      ],
+      "time_range": {
+        "end": "显德二年正月",
+        "precision": "month",
+        "start": "显德二年正月"
+      },
+      "uncertainties": [
+        "兵夫规模与工程成本未载。"
+      ]
+    },
+    {
+      "action": "世宗规划扩展大梁外城，安排农隙筑城、农时停工，并划定街衢仓场营廨与民居。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-DALIANG-EXPANSION-PLAN-955",
+      "implementation": "",
+      "locations": [
+        "大梁"
+      ],
+      "observable_result": "形成分年渐建、兼顾农时的都城扩建方案。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "大梁外城渐进扩建规划。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "按农时安排役作并预留民居。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-daliang-expansion-plan-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#卯，詔展外城",
+        "資治通鑑/卷292@1769707#俟今冬農隙興板築",
+        "資治通鑑/卷292@1769707#東作動則罷之",
+        "資治通鑑/卷292@1769707#年，以漸成之",
+        "資治通鑑/卷292@1769707#聽民隨便築室"
+      ],
+      "time_range": {
+        "end": "显德二年四月",
+        "precision": "month",
+        "start": "显德二年四月"
+      },
+      "uncertainties": [
+        "本卷尚未完成扩城。"
+      ]
+    },
+    {
+      "action": "后周废无敕额寺院、禁私度僧尼及舍身断肢等行为，建立年度僧籍。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-TEMPLE-SUPPRESSION-955",
+      "implementation": "",
+      "locations": [
+        "后周"
+      ],
+      "observable_result": "保留寺院二千六百九十四，废三万三百三十六，登记僧尼六万余。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "全国性佛寺与僧籍整顿。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "大量寺产与僧尼重新纳入国家管理。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-temple-suppression-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#非敕額者悉廢之",
+        "資治通鑑/卷292@1769707#禁私度僧尼",
+        "資治通鑑/卷292@1769707#每歲造僧帳",
+        "資治通鑑/卷292@1769707#存者二千六百九十四",
+        "資治通鑑/卷292@1769707#廢者三萬三百三十六",
+        "資治通鑑/卷292@1769707#見僧四萬二千四百四十四",
+        "資治通鑑/卷292@1769707#尼一萬八千七百五十六"
+      ],
+      "time_range": {
+        "end": "显德二年五月",
+        "precision": "month",
+        "start": "显德二年五月"
+      },
+      "uncertainties": [
+        "废寺财产去向未载。"
+      ]
+    },
+    {
+      "action": "王景自散关攻秦州，连拔黄牛等八寨；后蜀军在威武城东击败周军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-QIN-FENG-CAMPAIGN-STARTS-955",
+      "implementation": "",
+      "locations": [
+        "散关",
+        "秦州",
+        "凤州",
+        "威武城"
+      ],
+      "observable_result": "秦凤战役展开，周将胡立等被俘。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QIN-FENG-CAMPAIGN-STARTS-955"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-qin-feng-campaign-starts-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#自散關趣秦州",
+        "資治通鑑/卷292@1769707#拔黃牛等八寨",
+        "資治通鑑/卷292@1769707#戰於威武城東",
+        "資治通鑑/卷292@1769707#城東，不利，排",
+        "資治通鑑/卷292@1769707#胡立等為蜀所擒"
+      ],
+      "time_range": {
+        "end": "显德二年五月至六月",
+        "precision": "month",
+        "start": "显德二年五月至六月"
+      },
+      "uncertainties": [
+        "初期双方伤亡未载。"
+      ]
+    },
+    {
+      "action": "世宗亲录囚，查明汝州马遇父弟被官吏冤死。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-IMPERIAL-PRISON-REVIEW-955",
+      "implementation": "",
+      "locations": [
+        "大梁",
+        "汝州"
+      ],
+      "observable_result": "地方长吏从此无不亲察狱讼。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "御前复核推动地方亲察诉讼。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-imperial-prison-review-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#親錄囚於內苑",
+        "資治通鑑/卷292@1769707#父及弟為吏所冤死",
+        "資治通鑑/卷292@1769707#問，始得其實",
+        "資治通鑑/卷292@1769707#諸長吏無不親察獄訟"
+      ],
+      "time_range": {
+        "end": "显德二年六月",
+        "precision": "month",
+        "start": "显德二年六月"
+      },
+      "uncertainties": [
+        "涉案官吏处分未载。"
+      ]
+    },
+    {
+      "action": "王景军先后击败蜀军，在黄花、唐仓俘王峦及将士三千，迫秦成阶等州降周。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-QIN-FENG-TURNING-POINT-955",
+      "implementation": "",
+      "locations": [
+        "黄花",
+        "唐仓",
+        "马岭",
+        "白涧",
+        "秦州",
+        "成州",
+        "阶州"
+      ],
+      "observable_result": "蜀军退保青泥岭，秦、成、阶相继归周。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QIN-FENG-TURNING-POINT-955"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-qin-feng-turning-point-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#景等敗蜀兵，",
+        "資治通鑑/卷292@1769707#獲將卒三百",
+        "資治通鑑/卷292@1769707#虜巒及其將士三千人",
+        "資治通鑑/卷292@1769707#趙玭舉城降，",
+        "資治通鑑/卷292@1769707#成、階二州皆降"
+      ],
+      "time_range": {
+        "end": "显德二年八月至闰九月",
+        "precision": "month",
+        "start": "显德二年八月至闰九月"
+      },
+      "uncertainties": [
+        "各州军民伤亡未载。"
+      ]
+    },
+    {
+      "action": "后周设监采铜铸钱，令民间多数铜器佛像五十日内输官给价，逾期五斤以上处死。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-COPPER-COIN-REFORM-955",
+      "implementation": "",
+      "locations": [
+        "后周"
+      ],
+      "observable_result": "国家以强制回收铜料恢复铸钱。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "货币短缺下的铜料回收与铸钱。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "以严刑推进币制改革。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-copper-coin-reform-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#始立監採銅鑄錢",
+        "資治通鑑/卷292@1769707#五十日內悉令輸官",
+        "資治通鑑/卷292@1769707#官，給其直；過",
+        "資治通鑑/卷292@1769707#五斤以上其罪死"
+      ],
+      "time_range": {
+        "end": "显德二年九月",
+        "precision": "month",
+        "start": "显德二年九月"
+      },
+      "uncertainties": [
+        "收铜与铸钱数量未载。"
+      ]
+    },
+    {
+      "action": "王景围凤州，韩通断蜀援，后周攻克凤州并俘王环等将士五千。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-QIN-FENG-CAMPAIGN-CLOSES-955",
+      "implementation": "",
+      "locations": [
+        "凤州",
+        "秦州",
+        "阶州",
+        "成州"
+      ],
+      "observable_result": "秦凤阶成四州归周，后周免除蜀所设诸色科徭并优遣俘虏。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QIN-FENG-CAMPAIGN-CLOSES-955"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "新附四州免除蜀制额外科徭。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "后周完成秦凤四州接收。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-qin-feng-campaign-closes-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#申，克鳳州，擒",
+        "資治通鑑/卷292@1769707#將士五千人",
+        "資治通鑑/卷292@1769707#曲赦秦、鳳、階、成境內",
+        "資治通鑑/卷292@1769707#願去者給資裝而遣之",
+        "資治通鑑/卷292@1769707#諸色科徭，悉罷之"
+      ],
+      "time_range": {
+        "end": "显德二年十一月",
+        "precision": "month",
+        "start": "显德二年十一月"
+      },
+      "uncertainties": [
+        "攻凤州伤亡未载。"
+      ]
+    },
+    {
+      "action": "后蜀为扩军备边而铸铁钱、榷境内铁器。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-SHU-IRON-MONEY-MONOPOLY-955",
+      "implementation": "",
+      "locations": [
+        "后蜀"
+      ],
+      "observable_result": "军费不足部分转嫁民间，百姓深受其苦。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "备战财政导致铁钱与铁器专卖。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-shu-iron-money-monopoly-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#備，募兵既多",
+        "資治通鑑/卷292@1769707#多，用度不足",
+        "資治通鑑/卷292@1769707#足，始鑄鐵錢",
+        "資治通鑑/卷292@1769707#榷境內鐵器",
+        "資治通鑑/卷292@1769707#器，民甚苦之"
+      ],
+      "time_range": {
+        "end": "显德二年十月",
+        "precision": "month",
+        "start": "显德二年十月"
+      },
+      "uncertainties": [
+        "铸量与物价影响未载。"
+      ]
+    },
+    {
+      "action": "世宗为伐南唐，命武行德发民夫沿故堤疏导唐末以来决坏的汴水至泗上。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-BIAN-RIVER-RESTORATION-955",
+      "implementation": "",
+      "locations": [
+        "汴水",
+        "埇桥",
+        "泗州"
+      ],
+      "observable_result": "淮南战争水运工程启动。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "恢复汴水航运的跨区域水工。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "征发民夫并服务军粮运输。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-bian-river-restoration-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#汴水自唐末潰決",
+        "資治通鑑/卷292@1769707#行德發民夫，",
+        "資治通鑑/卷292@1769707#因故堤疏導之",
+        "資治通鑑/卷292@1769707#之，東至泗上",
+        "資治通鑑/卷292@1769707#後，必獲其利"
+      ],
+      "time_range": {
+        "end": "显德二年冬",
+        "precision": "month",
+        "start": "显德二年冬"
+      },
+      "uncertainties": [
+        "役夫数与本卷完工状况未载。"
+      ]
+    },
+    {
+      "action": "后周以李谷统十二将伐南唐，架浮桥渡淮并在寿州、山口镇连败唐军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-HUAINAN-CAMPAIGN-OPENS-955",
+      "implementation": "",
+      "locations": [
+        "正阳",
+        "淮河",
+        "寿州"
+      ],
+      "observable_result": "唐军先后损失二千余与一千余人，周军进入淮南。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-HUAINAN-CAMPAIGN-OPENS-955"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-huainan-campaign-opens-955",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#二將以伐唐。",
+        "資治通鑑/卷292@1769707#為浮梁，自正陽濟淮",
+        "資治通鑑/卷292@1769707#敗唐兵二千餘人",
+        "資治通鑑/卷292@1769707#遇敗唐兵千餘人"
+      ],
+      "time_range": {
+        "end": "显德二年十一月至十二月",
+        "precision": "month",
+        "start": "显德二年十一月至十二月"
+      },
+      "uncertainties": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "action": "后周征开封及曹滑郑民十余万筑大梁外城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-DALIANG-OUTER-WALL-LABOR-956",
+      "implementation": "",
+      "locations": [
+        "大梁",
+        "开封府",
+        "曹州",
+        "滑州",
+        "郑州"
+      ],
+      "observable_result": "卷内规划的都城扩建进入大规模施工。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "十余万人参与外城工程。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "大规模征发民力。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-daliang-outer-wall-labor-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#之民十餘萬",
+        "資治通鑑/卷292@1769707#築大梁外城"
+      ],
+      "time_range": {
+        "end": "显德三年正月",
+        "precision": "month",
+        "start": "显德三年正月"
+      },
+      "uncertainties": [
+        "本卷未载完工。"
+      ]
+    },
+    {
+      "action": "刘彦贞不听劝阻追击退守正阳的周军，被李重进渡淮迎战。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-ZHENGYANG-BATTLE-956",
+      "implementation": "",
+      "locations": [
+        "正阳",
+        "寿州"
+      ],
+      "observable_result": "唐军大败，刘彦贞被斩，首级万余、尸三十里，军资器械三十余万被收。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-ZHENGYANG-BATTLE-956"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-zhengyang-battle-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#逆戰於正陽東",
+        "資治通鑑/卷292@1769707#李重進度淮，逆戰於正陽東，大破之",
+        "資治通鑑/卷292@1769707#之，斬彥貞，生",
+        "資治通鑑/卷292@1769707#斬首萬餘級",
+        "資治通鑑/卷292@1769707#伏屍三十里",
+        "資治通鑑/卷292@1769707#軍資器械三十餘萬"
+      ],
+      "time_range": {
+        "end": "显德三年正月",
+        "precision": "month",
+        "start": "显德三年正月"
+      },
+      "uncertainties": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "action": "世宗亲临寿州，移浮桥至下蔡并征八州丁夫数十万昼夜攻城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-SHOUZHOU-SIEGE-LABOR-956",
+      "implementation": "",
+      "locations": [
+        "寿州",
+        "下蔡",
+        "淝水"
+      ],
+      "observable_result": "寿州进入长期重兵围攻。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SHOUZHOU-SIEGE-956"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "征八州数十万丁夫攻城。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "迁建下蔡浮桥与攻城工程。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-shouzhou-siege-labor-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#帝至壽州城下",
+        "資治通鑑/卷292@1769707#徙正陽浮梁於下蔡鎮",
+        "資治通鑑/卷292@1769707#丁夫數十萬",
+        "資治通鑑/卷292@1769707#城，晝夜不息"
+      ],
+      "time_range": {
+        "end": "显德三年正月",
+        "precision": "month",
+        "start": "显德三年正月"
+      },
+      "uncertainties": [
+        "役夫伤亡与围城结局转卷293。"
+      ]
+    },
+    {
+      "action": "赵匡胤以百余骑诱唐军出营，伏兵在涡口反击。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-GUOKOU-NAVAL-BATTLE-956",
+      "implementation": "",
+      "locations": [
+        "涡口",
+        "淮河"
+      ],
+      "observable_result": "唐军大败，都监何延锡等被斩，战舰五十余艘被夺。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-GUOKOU-NAVAL-BATTLE-956"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-guokou-naval-battle-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#遣百餘騎薄",
+        "資治通鑑/卷292@1769707#遁，伏兵邀之",
+        "資治通鑑/卷292@1769707#大敗唐兵於渦口",
+        "資治通鑑/卷292@1769707#奪戰艦五十餘艘"
+      ],
+      "time_range": {
+        "end": "显德三年正月",
+        "precision": "month",
+        "start": "显德三年正月"
+      },
+      "uncertainties": [
+        "伤亡总数未载。"
+      ]
+    },
+    {
+      "action": "赵匡胤倍道袭清流关，从山后夹击并追入滁州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-CHUZHOU-CAPTURED-956",
+      "implementation": "",
+      "locations": [
+        "清流关",
+        "滁州"
+      ],
+      "observable_result": "皇甫晖、姚凤被俘，滁州被后周攻克。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-CHUZHOU-CAPTURED-956"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-chuzhou-captured-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#倍道襲清流關",
+        "資治通鑑/卷292@1769707#引兵出山後",
+        "資治通鑑/卷292@1769707#腦，生擒之，並",
+        "資治通鑑/卷292@1769707#之，並擒姚鳳",
+        "資治通鑑/卷292@1769707#鳳，遂克滁州"
+      ],
+      "time_range": {
+        "end": "显德三年二月",
+        "precision": "month",
+        "start": "显德三年二月"
+      },
+      "uncertainties": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "action": "赵普请求先审讯滁州百余名应死盗犯再处决。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-CHUZHOU-PRISON-REVIEW-956",
+      "implementation": "",
+      "locations": [
+        "滁州"
+      ],
+      "observable_result": "十之七八获活。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "新占区死刑复核减少误杀。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-chuzhou-prison-review-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#獲盜百餘人",
+        "資治通鑑/卷292@1769707#人，皆應死，普",
+        "資治通鑑/卷292@1769707#先訊鞫然後決",
+        "資治通鑑/卷292@1769707#所活什七八"
+      ],
+      "time_range": {
+        "end": "显德三年二月",
+        "precision": "month",
+        "start": "显德三年二月"
+      },
+      "uncertainties": [
+        "实际获活人数未载。"
+      ]
+    },
+    {
+      "action": "韩令坤、白延遇乘扬州无备突袭入城，唐军焚官府民舍后逃。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-YANGZHOU-CAPTURED-956",
+      "implementation": "",
+      "locations": [
+        "扬州"
+      ],
+      "observable_result": "后周占领扬州并安抚居民。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YANGZHOU-CAPTURED-956"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "唐军撤退焚毁官民建筑，周军安民。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-yangzhou-captured-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#知揚州無備",
+        "資治通鑑/卷292@1769707#坤奄至揚州",
+        "資治通鑑/卷292@1769707#焚官府民舍",
+        "資治通鑑/卷292@1769707#民，使皆安堵"
+      ],
+      "time_range": {
+        "end": "显德三年二月",
+        "precision": "month",
+        "start": "显德三年二月"
+      },
+      "uncertainties": [
+        "伤亡未载。"
+      ]
+    },
+    {
+      "action": "南唐遣钟谟、李德明奉表称臣请和，并献金银器、绢锦、牛酒。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-SOUTHERN-TANG-PEACE-OFFER-956",
+      "implementation": "",
+      "locations": [
+        "寿州"
+      ],
+      "observable_result": "世宗拒绝罢兵，要求南唐主亲自来朝谢罪。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "南唐称臣求和遭拒。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "求和贡物数额明确。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-southern-tang-peace-offer-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#奉表稱臣，來請平",
+        "資治通鑑/卷292@1769707#及金器千兩",
+        "資治通鑑/卷292@1769707#銀器五千兩",
+        "資治通鑑/卷292@1769707#繒錦二千匹",
+        "資治通鑑/卷292@1769707#犒軍牛五百頭",
+        "資治通鑑/卷292@1769707#頭，酒二千斛",
+        "資治通鑑/卷292@1769707#聞；帝不答。戊"
+      ],
+      "time_range": {
+        "end": "显德三年二月",
+        "precision": "month",
+        "start": "显德三年二月"
+      },
+      "uncertainties": [
+        "贡物最终处置未载。"
+      ]
+    },
+    {
+      "action": "潘叔嗣因惧王逵报复袭朗州，王逵回军追击。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-HUNAN-WANG-KUI-KILLED-956",
+      "implementation": "",
+      "locations": [
+        "岳州",
+        "朗州",
+        "武陵"
+      ],
+      "observable_result": "王逵战败被杀，潘叔嗣将朗州交周行逢。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-HUNAN-WANG-KUI-KILLED-956"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "湖南王逵政权终结。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-hunan-wang-kui-killed-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#之西襲朗州",
+        "資治通鑑/卷292@1769707#外，與叔嗣戰",
+        "資治通鑑/卷292@1769707#戰，逵敗死，或",
+        "資治通鑑/卷292@1769707#帥朗州將吏迎武安節度使周行逢"
+      ],
+      "time_range": {
+        "end": "显德三年二月",
+        "precision": "month",
+        "start": "显德三年二月"
+      },
+      "uncertainties": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "action": "周行逢先以武安节钺诱潘叔嗣入朗州，继而拘捕问罪。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-292-ZHOU-XINGFENG-KILLS-PAN-SHUSI-956",
+      "implementation": "",
+      "locations": [
+        "朗州"
+      ],
+      "observable_result": "潘叔嗣被斩，周行逢兼掌武平、武安。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-ZHOU-XINGFENG-KILLS-PAN-SHUSI-956"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "湖南权力集中于周行逢。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-292-zhou-xingfeng-kills-pan-shusi-956",
+      "source_refs": [
+        "資治通鑑/卷292@1769707#自稱武平、武安留後",
+        "資治通鑑/卷292@1769707#授叔嗣武安節鉞以誘之",
+        "資治通鑑/卷292@1769707#事，遣人執之",
+        "資治通鑑/卷292@1769707#為請。遂斬之。\n"
+      ],
+      "time_range": {
+        "end": "显德三年二月",
+        "precision": "month",
+        "start": "显德三年二月"
+      },
+      "uncertainties": [
+        "周行逢正式任命转下卷。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [],
+  "limitations": [
+    "仅据固定 revision 1769707 的卷292连续通读登记，不引入卷外常识。",
+    "普通任免、使聘、祥异及无消费结果的行军节点未单列。",
+    "卷末寿州围攻、吴越参战和周行逢掌湖南尚未闭合，转卷293续接；本回合未打开卷293。"
+  ],
+  "political_event_candidates": [],
+  "public_works_candidates": [],
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "后周世宗显德三年二月",
+    "input_fingerprint": "4b80d4d8161791966a7beded70f975bb9bfa31621b7e8655ccd94cbaefa26a7a",
+    "overlap_context": "续接卷291太原围城、世宗高平胜后军政整顿及湖南权力重组；本卷闭合太原撤围并展开秦凤、淮南战争，寿州围攻、吴越参战与湖南周行逢掌权转出卷293。",
+    "revision_ref": "1769707",
+    "start_locator": "后周世宗显德元年五月",
+    "volume_ref": "卷292",
+    "work": "資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "five-dynasties-chronicle-volume-292",
+  "threads": []
+}

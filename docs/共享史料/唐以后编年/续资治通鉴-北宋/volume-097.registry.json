@@ -1,0 +1,1431 @@
+{
+  "facts": [
+    {
+      "action": "朝廷處死或放逐蔡京、童貫、趙良嗣等誤國權臣。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-001",
+      "implementation": "依臺諫追劾分別流放、賜死並追究燕雲外交責任。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "徽宗末年權臣與聯金謀燕主事者受到集中清算。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "集中追責前朝權臣與外交主事者。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-001",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#梟童貫首于都市"
+      ],
+      "time_range": {
+        "end": "靖康元年七月",
+        "precision": "month",
+        "start": "靖康元年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宋廷致耶律伊都蠟書被金取得，引發再次南伐決策。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-002",
+      "implementation": "蕭仲恭將宋方邀伊都內應的蠟書獻金，折可求轉遞西遼聯宋線索亦被截獲。",
+      "locations": [
+        "金"
+      ],
+      "observable_result": "金主震怒，命宗翰、宗望分東西兩路南侵。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "秘密外交失敗直接觸發金方戰爭決策。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-002",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#金主大怒，復議南伐矣",
+        "續資治通鑑/卷097@2309869#于是決計南伐"
+      ],
+      "time_range": {
+        "end": "靖康元年七月",
+        "precision": "month",
+        "start": "靖康元年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李綱所部多路援太原軍因節制不一相繼敗潰。",
+      "actors": [],
+      "affected_groups": [
+        "河東軍民"
+      ],
+      "cost_or_burden": "援軍大敗且河東人口大規模流離。",
+      "fact_id": "CHF-XZZTJ-097-003",
+      "implementation": "諸將各受御畫、進退自專；劉韐、解潛、張思正、折可求等分進，金軍集中兵力各個擊破。",
+      "locations": [
+        "文水",
+        "子夏山",
+        "河東"
+      ],
+      "observable_result": "宋軍死者數萬，威勝、隆德、汾晉澤絳百姓渡河南逃，州縣空虛。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "多路援太原軍在同一解圍行動中連續敗潰。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-HEDONG-RELIEF-1126"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "多頭節制造成各軍不能合力。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "敗戰造成數州居民渡河南逃與州縣空虛。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-003",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#死者數萬人",
+        "續資治通鑑/卷097@2309869#渡河南奔，州縣皆空"
+      ],
+      "time_range": {
+        "end": "靖康元年七月",
+        "precision": "month",
+        "start": "靖康元年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍以砲車、填濠車等圍攻太原，王稟等長期守城。",
+      "actors": [],
+      "affected_groups": [
+        "太原軍民"
+      ],
+      "cost_or_burden": "全城饑饉至人相食，守軍與官民大量死亡。",
+      "fact_id": "CHF-XZZTJ-097-004",
+      "implementation": "宋軍以虛柵、糠袋、火鞲、跳樓反制；糧盡後食牛馬、弓甲、草糠乃至人相食。",
+      "locations": [
+        "太原"
+      ],
+      "observable_result": "太原終被攻破，王稟負太宗御容投汾水，守臣多死難。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "太原长期攻守至城破的完整战役链。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-TAIYUAN-1126"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "攻守雙方使用填濠車、樓櫓、火具等工程手段。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "城中糧食耗盡並發生極端饑荒。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-004",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#既而人相食",
+        "續資治通鑑/卷097@2309869#城破，稟猶率羸卒巷戰"
+      ],
+      "time_range": {
+        "end": "靖康元年八月",
+        "precision": "month",
+        "start": "靖康元年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宗澤整飭磁州城防並組織五縣聯保。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-005",
+      "implementation": "增修城壁器械，聯結所屬五縣為寨，約定相互救援。",
+      "locations": [
+        "磁州"
+      ],
+      "observable_result": "磁州形成地方聯防體系，後能阻止康王入金營。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "明確修築城壁並整備守城器械。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "五縣聯保是地方戰時組織。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-005",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#繕城浚隍，治器械，募義勇"
+      ],
+      "time_range": {
+        "end": "靖康元年八月",
+        "precision": "month",
+        "start": "靖康元年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷處死蔡攸、朱勔並修正其所行政令。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-006",
+      "implementation": "追究其專權聚斂，罷改相關弊政。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "前朝另一批核心權臣被清算。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "權臣司法清算及其政策撤改。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-006",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#隨所至賜死，並誅其弟翛及朱勔"
+      ],
+      "time_range": {
+        "end": "靖康元年八月",
+        "precision": "month",
+        "start": "靖康元年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李綱因主戰與援太原失利被排斥出朝，繼而貶逐。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-007",
+      "implementation": "先召還出知揚州，胡安國等上疏論其忠直仍不能挽回。",
+      "locations": [
+        "揚州"
+      ],
+      "observable_result": "主戰中樞被削弱，李綱後續再遭遠貶。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "戰和分歧導致主戰大臣被排斥。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-007",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#命李綱出知揚州"
+      ],
+      "time_range": {
+        "end": "靖康元年九月",
+        "precision": "month",
+        "start": "靖康元年九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷設四道都總管統籌各路勤王防禦。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-008",
+      "implementation": "劃分河北、河東及東西南北道指揮區，企圖統合兵馬。",
+      "locations": [
+        "河北",
+        "河東",
+        "京畿"
+      ],
+      "observable_result": "形成名義上的區域統帥體系，但議和派旋即阻止多路兵入援。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "戰時軍區與統帥體系重組。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-008",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#建三京及鄧州爲都總管府，分總四道"
+      ],
+      "time_range": {
+        "end": "靖康元年九月",
+        "precision": "month",
+        "start": "靖康元年九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍攻破真定府，李邈、劉翊戰死。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-009",
+      "implementation": "金軍在和議掩護下持續攻略。",
+      "locations": [
+        "真定府"
+      ],
+      "observable_result": "真定失陷，河北要地喪失。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "金軍攻城及宋守臣战死。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-ZHENDING-1126"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-009",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#金人破真定府"
+      ],
+      "time_range": {
+        "end": "靖康元年九月",
+        "precision": "month",
+        "start": "靖康元年九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "呂好問要求集兵守京並彈劾議和誤國，反遭貶斥。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-010",
+      "implementation": "建議調滄滑邢相戍兵阻敵、列勤王軍於畿邑；真定失陷後率臺屬劾大臣。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "防禦建議未被採納，呂好問被貶，後僅稍改遷。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "戰備建議遭壓制且彈劾者受責。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-010",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#城，疏入，不省。",
+        "續資治通鑑/卷097@2309869#坐貶知袁州"
+      ],
+      "time_range": {
+        "end": "靖康元年九月",
+        "precision": "month",
+        "start": "靖康元年九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍攻入平陽府，河東州郡接連失守。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-011",
+      "implementation": "宋軍糧援斷絕、守備瓦解。",
+      "locations": [
+        "平陽府"
+      ],
+      "observable_result": "平陽及周邊防線崩潰，金西路軍得以趨汴。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "金西路軍攻取平陽的城市战。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-PINGYANG-1126"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-011",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#金人入平陽府"
+      ],
+      "time_range": {
+        "end": "靖康元年十月",
+        "precision": "month",
+        "start": "靖康元年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷集議是否割三鎮，最終壓制異議而定割地。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-012",
+      "implementation": "百餘官員書面表決，三十六人反對、七十人贊成；黃門宣布朝廷已有定議不得異論。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "割地成為正式方針，清野守備議同時啟動。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "有明確票數與壓制異議的領土決策。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-012",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#三十六人言不可與",
+        "續資治通鑑/卷097@2309869#七十人皆欲與之",
+        "續資治通鑑/卷097@2309869#朝廷有定議，不得異論"
+      ],
+      "time_range": {
+        "end": "靖康元年十月",
+        "precision": "month",
+        "start": "靖康元年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金西路軍以鼓聲虛張聲勢，使十二萬宋軍未戰潰散並渡河。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-013",
+      "implementation": "金軍數十騎偵察後整夜擊鼓；宋軍黎明自行崩潰。",
+      "locations": [
+        "黃河",
+        "河陽"
+      ],
+      "observable_result": "金軍全師渡河，河陽、永安、鄭州相繼棄守或投降。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "金軍战术威慑、宋军崩溃与渡河南进是连续战役链。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-HUANGHE-CROSSING-1126"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-013",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#領兵十二萬與之對壘",
+        "續資治通鑑/卷097@2309869#河上之師悉潰"
+      ],
+      "time_range": {
+        "end": "靖康元年十月",
+        "precision": "month",
+        "start": "靖康元年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "磁州軍民阻止康王赴金營，王雲被殺。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-014",
+      "implementation": "宗澤勸康王不可入敵營，磁州民眾包圍驛館強留康王。",
+      "locations": [
+        "磁州"
+      ],
+      "observable_result": "康王留在河北，避免被金控制，成為後續外藩政權核心。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方軍民行動改變親王使金行程與皇位存續。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-014",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#爲士民所留"
+      ],
+      "time_range": {
+        "end": "靖康元年十月",
+        "precision": "month",
+        "start": "靖康元年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍再圍東京，宋廷因先前遣散勤王軍僅餘七萬守軍。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-015",
+      "implementation": "唐恪、耿南仲以議和為由止西南兩道兵；城中分五軍與四壁守禦，蠟書召援多被截。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "外援不至，東京在兵力不足下獨自守城。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "議和政策直接中止勤王兵並造成孤城。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "四壁防禦與城上守具投入圍城使用。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-015",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#四方兵無一人至者",
+        "續資治通鑑/卷097@2309869#城中唯七萬人"
+      ],
+      "time_range": {
+        "end": "靖康元年閏十一月",
+        "precision": "month",
+        "start": "靖康元年閏十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "東京守軍在多門抵抗金軍攻城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-016",
+      "implementation": "守軍以炮石、床弩及出擊拒敵，金軍晝夜攻擊。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "城池一度守住，但守將霍安國等戰死，防線日益耗弱。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "第二次東京圍城的连续多门攻防。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-KAIFENG-SIEGE-1126"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-016",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#金人攻通津、宣化門"
+      ],
+      "time_range": {
+        "end": "靖康元年閏十一月",
+        "precision": "month",
+        "start": "靖康元年閏十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷迷信郭京六甲兵，開門出戰導致東京陷落。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "守城體系被主動撤空，大量六甲兵死亡。",
+      "fact_id": "CHF-XZZTJ-097-017",
+      "implementation": "以金帛募七千七百七十七名市井人，撤守城軍、開宣化門出戰；郭京敗後逃走。",
+      "locations": [
+        "宣化門",
+        "東京"
+      ],
+      "observable_result": "六甲軍墮河潰敗，金軍乘隙登城，東京失守。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "郭京出战失败直接引致金军破城。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-XUANHUAMEN-1126"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "中樞迷信方術並撤守軍是破城直接決策原因。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-017",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#其法用七千七百七十七人",
+        "續資治通鑑/卷097@2309869#京兵敗走，墮死于護龍河"
+      ],
+      "time_range": {
+        "end": "靖康元年閏十一月",
+        "precision": "month",
+        "start": "靖康元年閏十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "東京陷落後欽宗親赴青城金營求和。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-018",
+      "implementation": "何㮚等陪同，皇帝步入金營與宗翰、宗望會面。",
+      "locations": [
+        "青城"
+      ],
+      "observable_result": "欽宗受金方控制，朝廷動靜開始須先關白金使。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "君主入敵營後主權決策受制。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-018",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#車駕詣青城"
+      ],
+      "time_range": {
+        "end": "靖康元年閏十一月",
+        "precision": "month",
+        "start": "靖康元年閏十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "欽宗任康王為河北兵馬大元帥，命統兵入援。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-019",
+      "implementation": "死士送蠟詔至相州；康王開府，宗澤破三十餘寨並力請直援京城。",
+      "locations": [
+        "相州",
+        "大名"
+      ],
+      "observable_result": "帥府兵力漸增，但汪伯彥等信議和詔而移軍東平，未即救京。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "外藩建立元帥府並在救援方向上發生決策分歧。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-019",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#拜王爲大元帥",
+        "續資治通鑑/卷097@2309869#破其三十餘砦"
+      ],
+      "time_range": {
+        "end": "靖康元年閏十一月",
+        "precision": "month",
+        "start": "靖康元年閏十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍提出天量金銀絹帛與騾馬索取，宋廷大括城中財物。",
+      "actors": [],
+      "affected_groups": [
+        "東京居民"
+      ],
+      "cost_or_burden": "居民財產、布帛與役畜遭強制徵括。",
+      "fact_id": "CHF-XZZTJ-097-020",
+      "implementation": "索金一千萬錠、銀二千萬錠、帛一千萬匹；官府強徵並括騾馬七千餘匹。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "金銀價格暴漲，城中官民財貨被全面抽取。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "有明確索取數額、徵括方式與物價反應。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-020",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#索金一千萬錠，銀二千萬錠",
+        "續資治通鑑/卷097@2309869#于是大括金銀"
+      ],
+      "time_range": {
+        "end": "靖康元年十二月",
+        "precision": "month",
+        "start": "靖康元年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宋廷遣使持詔割讓兩河州縣，歐陽珣拒絕執行而遇害。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-021",
+      "implementation": "分遣二十人往各地交割；歐陽珣以祖宗疆土不可棄抗命。",
+      "locations": [
+        "兩河"
+      ],
+      "observable_result": "歐陽珣被金焚死，割地命令仍向地方傳遞。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "戰敗下交割疆土及使臣拒命殉難。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-021",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#割地以畀金"
+      ],
+      "time_range": {
+        "end": "靖康元年十二月",
+        "precision": "month",
+        "start": "靖康元年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朝廷調節城中糧價並砍宮木供薪。",
+      "actors": [],
+      "affected_groups": [
+        "東京居民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-022",
+      "implementation": "在圍城物資短缺下平糶糧食、取宮中花木供居民燃用。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "暫時增加糧食與燃料供給，持續程度不詳。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "圍城期間直接干預糧價與燃料供給。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-022",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#縱民伐紫筠館花木以爲薪"
+      ],
+      "time_range": {
+        "end": "靖康元年十二月",
+        "precision": "month",
+        "start": "靖康元年十二月"
+      },
+      "uncertainties": [
+        "平糶數量、覆蓋人口及持續時間不詳。"
+      ]
+    },
+    {
+      "action": "范致虛率西道援軍赴汴，在千秋鎮遭金騎沖擊潰敗。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-023",
+      "implementation": "號稱二十萬之軍由不知兵的僧人參議，友軍先遁，洛索以精騎突擊。",
+      "locations": [
+        "千秋鎮"
+      ],
+      "observable_result": "宋軍不戰而潰，死者過半，餘部退入潼關。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "西道勤王军在千秋镇遭击溃。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-QIANQIU-1126"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-023",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#不戰而潰，死者過半"
+      ],
+      "time_range": {
+        "end": "靖康元年十二月",
+        "precision": "month",
+        "start": "靖康元年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金朝改女真舊制，建立尚書省等漢官制度。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-024",
+      "implementation": "宗幹勸金主改制，將中書、樞密等制度整合並詔諭中外。",
+      "locations": [
+        "金"
+      ],
+      "observable_result": "金的中央行政進一步漢制化。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "金中央官制的制度性重構。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-024",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#是歲，始定官制，立尚書省"
+      ],
+      "time_range": {
+        "end": "靖康元年",
+        "precision": "month",
+        "start": "靖康元年"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "欽宗第二次赴青城後被金軍扣留。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-025",
+      "implementation": "金以金銀不足相迫，何㮚、李若水勸帝再往；太子監國。",
+      "locations": [
+        "青城"
+      ],
+      "observable_result": "皇帝未能返回，宋廷失去最高決策者。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "君主再次入敵營並被扣留，導致中樞失權。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-025",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#帝復詣青城"
+      ],
+      "time_range": {
+        "end": "靖康二年正月",
+        "precision": "month",
+        "start": "靖康二年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍因金銀不足再次逼迫東京徵括。",
+      "actors": [],
+      "affected_groups": [
+        "東京居民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-026",
+      "implementation": "官府按坊巷、官戶加派，貧民亦輸簪珥器皿。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "城中殘餘私財進一步耗竭，未足額者遭處罰。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "二次徵括將戰爭賠款轉嫁全城居民。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-026",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#金人索金銀益急"
+      ],
+      "time_range": {
+        "end": "靖康二年正月",
+        "precision": "month",
+        "start": "靖康二年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宗澤孤軍與金軍連戰並屢勝。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-027",
+      "implementation": "自大名至開德十三戰，衛南受圍時令士卒死中求生，並渡河奇襲。",
+      "locations": [
+        "衛南",
+        "大河"
+      ],
+      "observable_result": "斬首數千，金軍退數十里並一度不敢再出。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "宗泽在开德、卫南及大河沿线的连续作战链。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-ZONGZE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-027",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#與金人十三戰，皆捷",
+        "續資治通鑑/卷097@2309869#斬首數千，金人大敗"
+      ],
+      "time_range": {
+        "end": "靖康二年正月",
+        "precision": "month",
+        "start": "靖康二年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金主下詔廢欽宗與徽宗為庶人，李若水抗爭遇害。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-028",
+      "implementation": "金人強迫二帝易服，李若水抱持欽宗拒命並斥責金人。",
+      "locations": [
+        "青城"
+      ],
+      "observable_result": "二帝被廢，李若水遭殺，北宋皇權被正式解除。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "敵國以強力廢黜二帝並摧毀宋廷法統。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-028",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#詔廢帝及上皇爲庶人",
+        "續資治通鑑/卷097@2309869#陛下不可易服"
+      ],
+      "time_range": {
+        "end": "靖康二年二月",
+        "precision": "month",
+        "start": "靖康二年二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍迫使百官推立張邦昌，反對者拒署或逃入太學。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-029",
+      "implementation": "王時雍召百官議立，宋齊愈示意張邦昌；孫傅、張叔夜不署，馬伸等請復嗣君。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "張邦昌成為金指定人選，異議官員被拘或受壓。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "佔領軍強迫官僚選立替代政權。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-029",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#齊愈寫張邦昌三字示之"
+      ],
+      "time_range": {
+        "end": "靖康二年二月",
+        "precision": "month",
+        "start": "靖康二年二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "康王拒絕金方假詔召回，率八萬兵移駐濟州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-030",
+      "implementation": "張俊指出蠟詔為金人詐謀，康王未赴京交兵。",
+      "locations": [
+        "濟州"
+      ],
+      "observable_result": "在外宋軍與皇位繼承核心得以保存。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "拒絕敵方召還保存外部軍政中心。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-030",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#時王有衆八萬",
+        "續資治通鑑/卷097@2309869#此金人詐謀耳"
+      ],
+      "time_range": {
+        "end": "靖康二年二月",
+        "precision": "month",
+        "start": "靖康二年二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍冊立張邦昌為大楚皇帝。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-031",
+      "implementation": "以冊寶、御衣與儀仗強令即位，國號大楚、都金陵；邦昌稱為保全生靈而受。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "東京出現金扶植的大楚政權。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "金扶植替代政權並重構名義法統。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-031",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#國號大楚，都金陵",
+        "續資治通鑑/卷097@2309869#本爲生靈，非敢竊位"
+      ],
+      "time_range": {
+        "end": "靖康二年三月",
+        "precision": "month",
+        "start": "靖康二年三月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吳革起兵反對張邦昌政權，遭范瓊誘殺。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "起事者家屬與百餘官兵死亡。",
+      "fact_id": "CHF-XZZTJ-097-032",
+      "implementation": "率內親事官數百人殺家焚居後起兵；范瓊詐稱合謀令其棄械。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "吳革及百餘人被殺，城內武裝反抗失敗。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "城内反大楚武装行动及其被镇压。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-WUGE-1127"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "反對替代政權的武裝政治抵抗。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-032",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#舉義兵東門外",
+        "續資治通鑑/卷097@2309869#乃從後襲之，殺百餘人"
+      ],
+      "time_range": {
+        "end": "靖康二年三月",
+        "precision": "month",
+        "start": "靖康二年三月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍強索宋宗室三千餘人押赴軍前。",
+      "actors": [],
+      "affected_groups": [
+        "宋宗室"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-033",
+      "implementation": "徐秉哲令坊巷五家結保，不得藏匿宗室。",
+      "locations": [
+        "東京",
+        "金營"
+      ],
+      "observable_result": "三千餘宗室被交付金軍，竇鑒不忍執行而自縊。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "佔領政權以連保方式搜捕並移交宗室。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-033",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#凡三千餘人，悉令押赴軍前"
+      ],
+      "time_range": {
+        "end": "靖康二年三月",
+        "precision": "month",
+        "start": "靖康二年三月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "張邦昌向金帥提出七項條件換取班師與有限保全。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-034",
+      "implementation": "請保趙氏陵廟、免續取金帛、保留樓櫓、延後遷都及釋放部分官員。",
+      "locations": [
+        "青城"
+      ],
+      "observable_result": "金帥口頭允許七事並釋部分官員，但何㮚等仍全家北遷。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "替代政權與佔領軍協商撤軍及保全條件。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "其中包含免再取金帛與借金銀犒賞。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-034",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#且面議七事"
+      ],
+      "time_range": {
+        "end": "靖康二年三月",
+        "precision": "month",
+        "start": "靖康二年三月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍撤離東京並押二帝、皇族及府庫文物北遷。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "皇族人口、國家財貨、典籍器物與技術人員遭整體掠奪。",
+      "fact_id": "CHF-XZZTJ-097-035",
+      "implementation": "宗翰退師，皇后太子同行；法駕禮器、書籍圖籍、工匠與府庫蓄積盡被帶走。",
+      "locations": [
+        "東京",
+        "北方"
+      ],
+      "observable_result": "東京府庫與制度文物為之一空，二帝北遷。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "二帝北遷標誌北宋中央政權覆亡。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "府庫、器物、書籍與工匠被成套掠走。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-035",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#府庫蓄積，爲之一空",
+        "續資治通鑑/卷097@2309869#帝北遷，皇后、皇太子皆行"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "呂好問勸張邦昌迎孟太后並還政康王。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-036",
+      "implementation": "指出金軍既退、大元帥在外、人心仍向趙氏；邦昌迎元祐皇后入宮。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "孟太后恢復宋太后名位，還政與復辟程序啟動。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "替代政權在佔領軍撤退後轉向恢復宋統。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-036",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#盍亟還政，可轉禍爲福"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "張邦昌請孟太后垂簾聽政並終止大楚名號運作。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-037",
+      "implementation": "馬伸迫其歸政；邦昌下手書請垂簾，追回赦文並毀大楚手書。",
+      "locations": [
+        "東京"
+      ],
+      "observable_result": "孟太后垂簾，張邦昌僭位三十三日而止。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "大楚政權終止並恢復宋廷過渡權力。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-037",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#請元祐皇后垂簾聽政",
+        "續資治通鑑/卷097@2309869#自僭位號至是凡三十三日"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金軍攻破陝州，种廣、劉逵等戰死。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-038",
+      "implementation": "宋守軍拒守城池。",
+      "locations": [
+        "陝州"
+      ],
+      "observable_result": "陝州失陷，守將及部屬遇害。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "金军攻取陕州与守军战死。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-SHANZHOU-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-038",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#金人破陝州"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "韓世忠、楊進擊破侵應天金軍，使朱勝非恢復視事。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-039",
+      "implementation": "朱勝非先避匿民間，宋軍反擊後重建府治並赴帥府護衛康王。",
+      "locations": [
+        "應天府"
+      ],
+      "observable_result": "應天局部收復，成為康王南移支點。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "宋军反击侵应天金军并恢复地方控制。",
+          "related_thread_refs": [],
+          "target_ref": "BATTLE-LEAD-XZZTJ-097-YINGTIAN-1127"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "戰後恢復府治並支持康王政權。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-039",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#韓世忠、將軍楊進擊破之"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "康王在孟太后與百官迎奉下移駐南京，接收宋廷印服。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-040",
+      "implementation": "自濟州出發，各路兵會合；至南京朝謁祖宗御容，張邦昌奉服御請罪。",
+      "locations": [
+        "濟州",
+        "單州",
+        "虞城",
+        "南京"
+      ],
+      "observable_result": "康王建立承接宋統的實際中樞，準備即位。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "外藩軍政中心移至南京並承接法統。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-040",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#庚辰，王發濟州",
+        "續資治通鑑/卷097@2309869#至南京，駐軍府治"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "唐重在金軍破晉絳同州後保存殘兵並聯絡川秦迎康王。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-097-041",
+      "implementation": "開門放百姓出城，以數百殘兵留守迷惑敵軍；移檄十郡並召趙開入關計事。",
+      "locations": [
+        "晉州",
+        "絳州",
+        "同州",
+        "關中"
+      ],
+      "observable_result": "金軍疑有備未渡河，關中開始組織奉迎與後續防務。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方守臣保存力量並組織奉迎新中樞。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "開門疏散百姓減少城破傷害。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-097-041",
+      "source_refs": [
+        "續資治通鑑/卷097@2309869#開門縱百姓出",
+        "續資治通鑑/卷097@2309869#且招成都路轉運判官趙開入關計事"
+      ],
+      "time_range": {
+        "end": "靖康二年四月",
+        "precision": "month",
+        "start": "靖康二年四月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "fiscal_livelihood_candidates": [],
+  "limitations": [
+    "本卷只依固定修訂整頁正文；純任免、天象與無獨立結果鏈的條目不建卡。",
+    "北宋覆亡與康王承統均僅記正文可見行動，不以後見常識補target_ref。",
+    "圍城徵括、救濟及軍隊號稱數量依原文記錄，不推定實得數或覆蓋效果。"
+  ],
+  "political_event_candidates": [],
+  "public_works_candidates": [],
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "且招成都路轉運判官趙開入關計事",
+    "input_fingerprint": "fdea9ce5a6606d650f2c970334ad42b55d032af932de4965d2799470932f96b8",
+    "overlap_context": "承卷096頁尾靖康元年六月；本卷固定整頁讀至趙開入關計事。",
+    "revision_ref": "2309869",
+    "start_locator": "欽宗恭文順德仁孝皇帝靖康元年",
+    "volume_ref": "卷097",
+    "work": "續資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-097",
+  "threads": []
+}

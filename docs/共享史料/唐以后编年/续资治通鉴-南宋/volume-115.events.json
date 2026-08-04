@@ -1,0 +1,760 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-115",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷115",
+    "revision_ref": "2311118",
+    "start_locator": "紹興五年正月金人去濠州",
+    "end_locator": "紹興五年六月洞庭湖寇悉平與旱令",
+    "overlap_context": "承卷114金齊南侵退師、岳飛受命平湖賊与江防重整，续记淮南恢复、洞庭清剿和财政重构。",
+    "input_fingerprint": "3221d2f2273264fc938381c206d4bef679aae13bcb3e0eee6558ca4772dcc92f"
+  },
+  "limitations": [
+    "本卷止於紹興五年六月，未讀卷116。",
+    "纯任免、祭祀及无实施结果单次建言未单独登记者。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-115-HUAI-RECOVERY-1135",
+      "time": "紹興五年正月",
+      "loc": [
+        "淮南",
+        "濠州",
+        "盱眙"
+      ],
+      "action": "金军退淮北后，张浚招集淮南官吏和归业人户，王进追击并降程师回、张延寿，崔德明胜于盱眙。",
+      "result": "淮南开始恢复官治与人户安置。",
+      "quote": [
+        "金人去濠州",
+        "招集淮南官吏還任",
+        "撫存歸業人戶",
+        "官軍以襲番偽民社",
+        "肆行剽掠，妄有殺戮",
+        "特與放罪，令依舊還任",
+        "降其將程師回、張延壽",
+        "敗金人於盱眙"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-115-HUAI-RECOVERY-1135"
+    },
+    {
+      "id": "CHF-XZZTJ-115-HUAI-RELIEF-1135",
+      "time": "紹興五年正月戊午",
+      "loc": [
+        "兩淮"
+      ],
+      "action": "高宗要求淮南赦文不夸大，以实惠加于两淮百姓，并要求渐图恢复。",
+      "result": "两淮战后赈恤与恢复被定为政策方向。",
+      "quote": [
+        "南北之民，皆吾赤子",
+        "實惠加于兩淮百姓",
+        "敵已北退，須當漸圖恢復",
+        "須當漸圖恢復",
+        "大作規模措置"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-HUAI-RELIEF-1135",
+        "candidate": "POL-CAND-115-HUAI-RELIEF-1135",
+        "summary": "两淮战后赈恤与恢复被定为政策方向。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "两淮战后赈恤与恢复被定为政策方向。",
+          "decision_question": "本卷所载问题。",
+          "alternatives": "维持或处置。",
+          "decision": "采取所记处置。",
+          "direct_result": "本卷所载结果。",
+          "power_change": "本卷所载配置。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-JIANKANG-REBUILD-1135",
+      "time": "紹興五年正月",
+      "loc": [
+        "建康"
+      ],
+      "action": "朝廷命江东帅漕修治建康行宫与城壁，省库百司仓库从简规划，不得取给于民。",
+      "result": "建康作为行宫与防御节点启动恢复工程。",
+      "quote": [
+        "繕治建康行宮",
+        "修築城壁，須管日近了畢",
+        "務從簡省，無得取給於民",
+        "無得取給於民"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-115-JIANKANG-REBUILD-1135",
+        "candidate": "WORK-CAND-115-JIANKANG-REBUILD-1135",
+        "summary": "建康作为行宫与防御节点启动恢复工程。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "建康作为行宫与防御节点启动恢复工程。",
+          "phase": "实施。",
+          "purpose": "本卷所载目的。",
+          "resource_input": "本卷所载投入。",
+          "operation": "本卷所载实施。",
+          "benefit": "本卷所载结果。",
+          "harm": "未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-GUANGZHOU-RECOVERY-1135",
+      "time": "紹興五年正月甲子",
+      "loc": [
+        "光州",
+        "芍陂"
+      ],
+      "action": "郦琼由间道急攻光州，许约降，宋军复光州；高宗不杀归降者。",
+      "result": "光州恢复，降将获贷以守信。",
+      "quote": [
+        "由間道趨光州城下",
+        "即進兵急攻",
+        "乃降，遂復光州",
+        "朕不欲失信",
+        "今來歸，朕不欲失信"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-115-GUANGZHOU-RECOVERY-1135"
+    },
+    {
+      "id": "CHF-XZZTJ-115-COUNTY-CONSOLIDATION-1135",
+      "time": "紹興五年正月戊辰",
+      "loc": [
+        "承州",
+        "和州",
+        "廬州",
+        "濠州",
+        "黃州",
+        "滁州",
+        "楚州"
+      ],
+      "action": "朝廷权废承州两县及六州各一县，并置监镇官。",
+      "result": "战后以省县省役适应民事简少。",
+      "quote": [
+        "承州權廢兩縣",
+        "楚州各廢一縣",
+        "逐縣各置監鎮官",
+        "以民事簡少",
+        "以民事簡少，省其徭役"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-COUNTY-CONSOLIDATION-1135",
+        "candidate": "POL-CAND-115-COUNTY-CONSOLIDATION-1135",
+        "summary": "战后以省县省役适应民事简少。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战后以省县省役适应民事简少。",
+          "decision_question": "本卷所载问题。",
+          "alternatives": "维持或处置。",
+          "decision": "采取所记处置。",
+          "direct_result": "本卷所载结果。",
+          "power_change": "本卷所载配置。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-JIN-SUCCESSION-1135",
+      "time": "紹興五年正月己巳至癸酉",
+      "loc": [
+        "明德宮",
+        "金"
+      ],
+      "action": "金太宗去世，完颜亶即位；金随后要求伪齐由称子改为称臣。",
+      "result": "金朝完成皇位交接，并下调伪齐名义地位。",
+      "quote": [
+        "金主殂于明德宮",
+        "年六十一，諡曰文烈皇帝",
+        "亶承遺詔即位於柩前",
+        "金遣使告哀于齊",
+        "詔齊自今稱臣",
+        "仍詔齊自今稱臣，勿稱子"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-JIN-SUCCESSION-1135",
+        "candidate": "POL-CAND-115-JIN-SUCCESSION-1135",
+        "summary": "金朝完成皇位交接，并下调伪齐名义地位。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "金朝完成皇位交接，并下调伪齐名义地位。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "金朝完成皇位交接，并下调伪齐名义地位。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-COMMANDER-RECONCILIATION-1135",
+      "time": "紹興五年正月壬申",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗召刘光世、韩世忠、张俊升殿，直接训诫先国家后私仇，并赐酒器促成刘韩释憾。",
+      "result": "刘光世与韩世忠公开承诺不以私隙妨碍国事。",
+      "quote": [
+        "今日宜釋前憾",
+        "今日宜釋前憾，結歡如初",
+        "至於國事，不敢分彼此",
+        "臣等敢不奉詔",
+        "將帥和，社稷之福也",
+        "賜光世、世忠、俊"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-COMMANDER-RECONCILIATION-1135",
+        "candidate": "POL-CAND-115-COMMANDER-RECONCILIATION-1135",
+        "summary": "刘光世与韩世忠公开承诺不以私隙妨碍国事。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "刘光世与韩世忠公开承诺不以私隙妨碍国事。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "刘光世与韩世忠公开承诺不以私隙妨碍国事。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-RETURN-LINAN-1135",
+      "time": "紹興五年二月丁丑至壬午",
+      "loc": [
+        "平江",
+        "吳江",
+        "秀州",
+        "崇德",
+        "臨平",
+        "臨安"
+      ],
+      "action": "高宗自平江乘舟返临安，同时安排太庙神主海道送回同文馆安奉。",
+      "result": "亲征行在结束，临安恢复为驻跸与宗庙安置中心。",
+      "quote": [
+        "御舟發平江府",
+        "奉太廟神主自海道至臨安府",
+        "己卯，宿秀州北",
+        "庚辰，宿崇德縣",
+        "辛巳，宿臨平鎮",
+        "御舟至臨安府行宮",
+        "帝還行宮，賜百官休沐三日"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-RETURN-LINAN-1135",
+        "candidate": "POL-CAND-115-RETURN-LINAN-1135",
+        "summary": "亲征行在结束，临安恢复为驻跸与宗庙安置中心。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "亲征行在结束，临安恢复为驻跸与宗庙安置中心。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "亲征行在结束，临安恢复为驻跸与宗庙安置中心。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-CHANCELLOR-DIVISION-1135",
+      "time": "紹興五年二月丙戌",
+      "loc": [
+        "行在",
+        "都督府"
+      ],
+      "action": "赵鼎与张浚同居宰枢，皇帝将边事交张浚、政事及人才进退交赵鼎，岳飞另受命平杨太。",
+      "result": "宰枢形成边务与内政分工，湖区战争资源同步落实。",
+      "quote": [
+        "並同中書門下平章事兼知樞密院事",
+        "都督諸路軍馬",
+        "帝既以邊事付浚",
+        "政事及進退人才皆付於鼎",
+        "賜錢十萬緡、",
+        "帛五千匹為犒軍之費"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-CHANCELLOR-DIVISION-1135",
+        "candidate": "POL-CAND-115-CHANCELLOR-DIVISION-1135",
+        "summary": "宰枢形成边务与内政分工，湖区战争资源同步落实。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宰枢形成边务与内政分工，湖区战争资源同步落实。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "宰枢形成边务与内政分工，湖区战争资源同步落实。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-YUEFEI-YANGTAI-CAMPAIGN-1135",
+      "time": "紹興五年二月至六月",
+      "loc": [
+        "洞庭湖",
+        "鼎州",
+        "潭州",
+        "益陽",
+        "荊襄"
+      ],
+      "action": "岳飞受命平杨太，获犒军钱帛与转运供给；以招降、分兵、诱敌和水寨战法先降杨钦，后擒斩杨太、执夏诚。",
+      "result": "洞庭湖寇八日内悉平，获得大量丁壮并解除漕运上游威胁。",
+      "quote": [
+        "將所部平湖賊楊太",
+        "，賜錢十萬緡",
+        "飛以水寇攻水寇則易",
+        "楊欽將所部三千人詣岳飛降",
+        "三日，飛乃以大兵四合",
+        "一戰，破賊眾殆盡",
+        "牛皋擒斬之",
+        "飛長驅入寨，遂執誠",
+        "果八日而湖寇悉平"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-115-YUEFEI-YANGTAI-CAMPAIGN-1135"
+    },
+    {
+      "id": "CHF-XZZTJ-115-QINZHOU-RECOVERY-1135",
+      "time": "紹興五年二月丁亥",
+      "loc": [
+        "秦州",
+        "天水"
+      ],
+      "action": "吴璘、杨政趁金军侵淮，出奇兵攻秦州并击败来援金军。",
+      "result": "宋军复秦州。",
+      "quote": [
+        "聞金人侵淮南，遣璘、政乘機牽制",
+        "璘、政乘機牽制",
+        "自天水至秦",
+        "遂攻之，拔其城",
+        "政復擊敗之"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-115-QINZHOU-RECOVERY-1135"
+    },
+    {
+      "id": "CHF-XZZTJ-115-MILITARY-ORGANIZATION-1135",
+      "time": "紹興五年二月戊戌",
+      "loc": [
+        "神武中軍"
+      ],
+      "action": "朝廷将神武中军每五百人编为一指挥，选将校、置兵籍，整顿渡江以来杂入中军的兵员。",
+      "result": "中军出现正式编制与兵籍。",
+      "quote": [
+        "每五百人為一指揮",
+        "選將校，置兵籍",
+        "無排置之法",
+        "至是始舉行"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-MILITARY-ORGANIZATION-1135",
+        "candidate": "POL-CAND-115-MILITARY-ORGANIZATION-1135",
+        "summary": "中军出现正式编制与兵籍。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "中军出现正式编制与兵籍。",
+          "decision_question": "本卷所载问题。",
+          "alternatives": "维持或处置。",
+          "decision": "采取所记处置。",
+          "direct_result": "本卷所载结果。",
+          "power_change": "本卷所载配置。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-GENERAL-STAFF-COMMAND-1135",
+      "time": "紹興五年二月壬辰",
+      "loc": [
+        "江淮",
+        "隴蜀"
+      ],
+      "action": "张浚奉命赴江上督边，获对西连陇蜀、北及江淮诸军的专制事几权。",
+      "result": "都督行府的跨区指挥范围被明确。",
+      "quote": [
+        "張浚暫往江上",
+        "措置邊防，且賜諸路",
+        "壘，西連隴、蜀，",
+        "蜀，北洎江、淮，",
+        "宜專制於事幾",
+        "悉在指揮之域"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-GENERAL-STAFF-COMMAND-1135",
+        "candidate": "POL-CAND-115-GENERAL-STAFF-COMMAND-1135",
+        "summary": "都督行府的跨区指挥范围被明确。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "都督行府的跨区指挥范围被明确。",
+          "decision_question": "本卷所载问题。",
+          "alternatives": "维持或处置。",
+          "decision": "采取所记处置。",
+          "direct_result": "本卷所载结果。",
+          "power_change": "本卷所载配置。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-TOTAL-FINANCE-OFFICE-1135",
+      "time": "紹興五年二月己巳",
+      "loc": [
+        "東南諸路"
+      ],
+      "action": "孟庾将财用机构定名总制司，增收头子钱、役钱等并由通判、提刑拘催。",
+      "result": "东南总制钱岁收七百八十余万缗，经总二司合计一千四百四十余万缗。",
+      "quote": [
+        "以總制司為名",
+        "專察內外官司隱漏違欠",
+        "庾請增十錢",
+        "民戶增三分役錢",
+        "諸路提刑司拘催",
+        "歲收總制錢七百八十餘萬緡",
+        "歲收一千四百四十餘萬緡"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-115-TOTAL-FINANCE-OFFICE-1135",
+        "candidate": "FIN-CAND-115-TOTAL-FINANCE-OFFICE-1135",
+        "summary": "东南总制钱岁收七百八十余万缗，经总二司合计一千四百四十余万缗。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载既有背景。",
+          "fiscal_state": "本卷所载财政或役法安排。",
+          "livelihood_state": "本卷所载民生影响。",
+          "production_circulation": "本卷所载生产流通影响。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-XIANGHAN-AMNESTY-1135",
+      "time": "紹興五年閏二月丙辰",
+      "loc": [
+        "襄州",
+        "漢州"
+      ],
+      "action": "朝廷对襄汉在盗贼和伪齐占据期间的劫掠残杀一切不问，允许原主认领现存被劫人口；抚定后再犯则治罪。",
+      "result": "战乱旧罪获得时间切割，人口返还与复犯追责并行。",
+      "quote": [
+        "先因盜賊並偽齊佔據",
+        "劫掠殘殺等罪",
+        "劫掠殘殺等罪，一切不問",
+        "許其家經官識認",
+        "許其家經官識認，驗實給還",
+        "後來再有犯者",
+        "令所屬治罪"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-XIANGHAN-AMNESTY-1135",
+        "candidate": "POL-CAND-115-XIANGHAN-AMNESTY-1135",
+        "summary": "战乱旧罪获得时间切割，人口返还与复犯追责并行。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战乱旧罪获得时间切割，人口返还与复犯追责并行。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "战乱旧罪获得时间切割，人口返还与复犯追责并行。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-FOUR-LIBRARIES-RESTOCK-1135",
+      "time": "紹興五年閏二月丙辰",
+      "loc": [
+        "諸州縣",
+        "四庫"
+      ],
+      "action": "王居正请各州县将已有书板的经史子集等各印三帙送尚书省，民间书板由官府偿纸墨工价，朝廷采纳。",
+      "result": "南渡后四库缺书获得分散刊印补充机制。",
+      "quote": [
+        "四庫書籍多闕",
+        "乞下諸州縣",
+        "各印三帙赴本省",
+        "系民間者，官給紙墨工價償之",
+        "官給紙墨工價償之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-FOUR-LIBRARIES-RESTOCK-1135",
+        "candidate": "POL-CAND-115-FOUR-LIBRARIES-RESTOCK-1135",
+        "summary": "南渡后四库缺书获得分散刊印补充机制。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "南渡后四库缺书获得分散刊印补充机制。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "南渡后四库缺书获得分散刊印补充机制。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-LAKE-REHABILITATION-1135",
+      "time": "紹興五年二月至六月",
+      "loc": [
+        "洞庭湖",
+        "湘陰",
+        "公安",
+        "益陽"
+      ],
+      "action": "都督行府为湖寇设出首存恤、授田给种与首领授官，并布置湘江粮道和各寨驻军。",
+      "result": "招抚与清剿结合，湖区平后丁壮五六万、老弱十余万进入处置。",
+      "quote": [
+        "多方存恤，首領申行府授官",
+        "餘人給以閒田",
+        "貸之種子。又令湖南",
+        "保護湘江糧道",
+        "務令安業。候黃誠",
+        "得丁壯五六萬人",
+        "老弱不下十餘萬"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-115-LAKE-REHABILITATION-1135",
+        "candidate": "FIN-CAND-115-LAKE-REHABILITATION-1135",
+        "summary": "招抚与清剿结合，湖区平后丁壮五六万、老弱十余万进入处置。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载背景。",
+          "fiscal_state": "本卷所载财用。",
+          "livelihood_state": "本卷所载民生。",
+          "production_circulation": "本卷所载流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-HUAI-SETTLEMENT-1135",
+      "time": "紹興五年三月",
+      "loc": [
+        "山陽",
+        "淮甸"
+      ],
+      "action": "韩世忠渡淮后披荆棘立军府、与士同役，抚集流散、通商惠丁。",
+      "result": "山阳由残破地区转为重镇。",
+      "quote": [
+        "披荊棘，立軍府",
+        "與士同力役",
+        "乃撫集流散，通商惠丁",
+        "撫集流散，通商惠丁",
+        "通商惠丁，遂為重鎮"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-115-HUAI-SETTLEMENT-1135",
+        "candidate": "WORK-CAND-115-HUAI-SETTLEMENT-1135",
+        "summary": "山阳由残破地区转为重镇。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "山阳由残破地区转为重镇。",
+          "phase": "实施。",
+          "purpose": "本卷所载目的。",
+          "resource_input": "本卷所载投入。",
+          "operation": "本卷所载实施。",
+          "benefit": "本卷所载结果。",
+          "harm": "未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-COASTAL-MILITIA-1135",
+      "time": "紹興五年四月戊午",
+      "loc": [
+        "福建",
+        "廣東",
+        "瀕海"
+      ],
+      "action": "朝廷命福建、广东将滨海居民五百人结社，推社首副手并给帖捕海贼，以补市舶受阻。",
+      "result": "沿海居民获得制度化自卫与捕盗奖赏渠道。",
+      "quote": [
+        "團結瀕海居民為社",
+        "團結瀕海居民為社，擒捕海賊",
+        "市舶之入數百萬",
+        "五百人結為一社",
+        "推材勇物力人為社首",
+        "聖旨給帖差捕",
+        "許保奏，優與補官"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-COASTAL-MILITIA-1135",
+        "candidate": "POL-CAND-115-COASTAL-MILITIA-1135",
+        "summary": "沿海居民获得制度化自卫与捕盗奖赏渠道。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "沿海居民获得制度化自卫与捕盗奖赏渠道。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "沿海居民获得制度化自卫与捕盗奖赏渠道。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-BAOZHENG-REFORM-1135",
+      "time": "紹興五年四月己未",
+      "loc": [
+        "鄉村"
+      ],
+      "action": "朝廷将五保并为一大保、通选保正，按物力并轮乡差募，单丁可募人代役，以纠正保正长重役与贿免。",
+      "result": "乡役组织被重构，贫户破产和单丁负担获得缓解渠道。",
+      "quote": [
+        "鄉村五保為一大保",
+        "鄉村五保為一大保，通選保正",
+        "始改紹聖法也",
+        "被役一次，輒至破產",
+        "稍革舊法，專用物力",
+        "通輪一鄉差募保正長",
+        "單丁，許募人充役"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-115-BAOZHENG-REFORM-1135",
+        "candidate": "FIN-CAND-115-BAOZHENG-REFORM-1135",
+        "summary": "乡役组织被重构，贫户破产和单丁负担获得缓解渠道。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载既有背景。",
+          "fiscal_state": "本卷所载财政或役法安排。",
+          "livelihood_state": "本卷所载民生影响。",
+          "production_circulation": "本卷所载生产流通影响。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-ARMY-DISCIPLINE-1135",
+      "time": "紹興五年四月庚申",
+      "loc": [
+        "淮甸",
+        "潭州"
+      ],
+      "action": "朝廷因韩世忠移屯淮甸秋毫无犯、岳飞移军潭州即时偿还民间酒食，下诏奖谕。",
+      "result": "两大军的行军纪律被中央确认并公开树为规范。",
+      "quote": [
+        "韓世忠紀律嚴明",
+        "岳飛治軍有法",
+        "時世忠移屯淮甸，軍行整肅",
+        "軍行整肅，秋毫無犯",
+        "飛移軍潭州，所過不擾",
+        "鄉民私遺士卒酒食，即時償直",
+        "並令學士院降詔獎諭"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-115-ARMY-DISCIPLINE-1135",
+        "candidate": "POL-CAND-115-ARMY-DISCIPLINE-1135",
+        "summary": "两大军的行军纪律被中央确认并公开树为规范。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "两大军的行军纪律被中央确认并公开树为规范。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取正文所载处置。",
+          "decision": "采取正文所载处置。",
+          "direct_result": "两大军的行军纪律被中央确认并公开树为规范。",
+          "power_change": "本卷所载权力或制度变化。",
+          "risk_or_damage": "本卷所载风险。",
+          "follow_up": "后续未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-115-DROUGHT-RELIEF-1135",
+      "time": "紹興五年六月癸丑",
+      "loc": [
+        "諸路"
+      ],
+      "action": "久旱下诏停止除税粮和军需外的料敷催驱，以防州县再扰民。",
+      "result": "旱灾期间杂项征催被统一停止。",
+      "quote": [
+        "諸路久愆雨澤",
+        "致使亢旱。雖恐懼",
+        "重擾吾民，致傷和氣",
+        "應幹料敷催驅等事",
+        "日下並罷。仍仰州縣",
+        "具其所罷名件"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-115-DROUGHT-RELIEF-1135",
+        "candidate": "FIN-CAND-115-DROUGHT-RELIEF-1135",
+        "summary": "旱灾期间杂项征催被统一停止。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载背景。",
+          "fiscal_state": "本卷所载财用。",
+          "livelihood_state": "本卷所载民生。",
+          "production_circulation": "本卷所载流转。"
+        }
+      }
+    }
+  ]
+}

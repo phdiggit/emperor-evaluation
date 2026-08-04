@@ -1,0 +1,976 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V13-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V13-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷13",
+    "revision_ref": "1745951",
+    "start_locator": "统和八年正月决滞狱",
+    "end_locator": "统和十五年十二月录囚",
+    "overlap_context": "本卷记统和八年至十五年（990—997）。灾赈、赋役、人口与司法按连续制度行动合并；对夏、女直、兀惹及高丽按各自军事或外交链交接。普通朝贡、巡幸、祭祀和单次任免不单列。",
+    "input_fingerprint": "9fa45c8c2f95eb214bf08ee26047c01ce901c196a1685c8420017831c7216af0"
+  },
+  "limitations": [
+    "仅据固定《遼史》卷13正文登记，未知保持未知。",
+    "普通贡聘、巡幸、祭祀与单次任免不单列；战役仅交接新版战役工作流。",
+    "多数灾民、迁民、军户、赋额和战事伤亡规模未载。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V13-JUDICIAL-REVIEWS-990-997",
+      "time": [
+        "统和八年至十五年",
+        "990至997",
+        "range"
+      ],
+      "subject": "辽廷、诸道囚犯与司法官",
+      "action": "圣宗多次诏决滞狱，九年派官分决诸道滞狱，十二年、十五年又多次录囚、疾决狱讼。",
+      "result": "积压案件在中央和分道层面持续接受清理与审决。",
+      "groups": [
+        "滞狱囚犯",
+        "诸道司法官",
+        "审案使者"
+      ],
+      "quote": [
+        "，詔決滯獄。庚",
+        "遣翰林承旨邢抱樸、三司使李嗣、給事中劉京、政事舍人張幹、南京副留守吳浩分決諸道滯獄。",
+        "丁酉，錄囚，雜犯死罪以下釋之。",
+        "詔南京疾決獄訟。"
+      ],
+      "unknown": [
+        "案件数量、改判释放人数与审决标准未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JUDICIAL-REVIEWS-990-997",
+        "summary": "持续清理滞狱并释放部分杂犯死罪以下者。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-DROUGHT-FAMINE-RELIEF-990",
+      "time": [
+        "统和八年四月至十一月",
+        "990",
+        "range"
+      ],
+      "subject": "诸部、吐谷浑灾民与辽廷",
+      "action": "岁旱导致诸部艰食时朝廷赈济，吐谷浑民饥时再行赈济。",
+      "result": "两类受饥群体获得朝廷赈济。",
+      "groups": [
+        "诸部灾民",
+        "吐谷浑灾民",
+        "赈济机构"
+      ],
+      "quote": [
+        "以歲旱，諸部艱食，振之。",
+        "以吐谷渾民饑，振之。"
+      ],
+      "unknown": [
+        "灾区、受济人数、物资数量与效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DROUGHT-FAMINE-RELIEF-990",
+        "summary": "赈济岁旱诸部及饥饿的吐谷浑民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-LAND-SURVEY-TAX-REMISSION-990-991",
+      "time": [
+        "统和八年五月至九年正月",
+        "990至991",
+        "range"
+      ],
+      "subject": "民户、三京诸道与辽廷",
+      "action": "八年诏括民田，九年免三京诸道租赋并罢括田。",
+      "result": "土地清查被停止，三京诸道租赋获得免除。",
+      "groups": [
+        "民户",
+        "三京诸道",
+        "括田官员"
+      ],
+      "quote": [
+        "。詔括民田。六",
+        "詔免三京諸道租賦，仍罷括田。"
+      ],
+      "unknown": [
+        "括田覆盖、已核田亩、免赋额及取消原因未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LAND-SURVEY-TAX-REMISSION-990-991",
+        "summary": "停止括民田，并免三京诸道租赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-ADMINISTRATIVE-REORGANIZATION-990",
+      "time": [
+        "统和八年三月至七月",
+        "990",
+        "range"
+      ],
+      "subject": "宜州、东京路与被省州县民户",
+      "action": "朝廷置宜州及多县，同时省十州八县，将其民分隶他郡。",
+      "result": "地方建制扩置与撤并同步实施，撤销州县人口改隶他郡。",
+      "groups": [
+        "新置州县居民",
+        "被省州县居民",
+        "地方行政官"
+      ],
+      "quote": [
+        "辛丑，置宜州。",
+        "省遂、媯、松、饒、寧、海、瑞、玉、鐵裏、奉德等十州",
+        "以其民分隸他郡。"
+      ],
+      "unknown": [
+        "新旧辖区边界、改隶人口和行政成本未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ADMINISTRATIVE-REORGANIZATION-990",
+        "summary": "扩置若干州县并撤省十州八县、改隶其民。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-NORTHERN-JURCHEN-ATTACHMENT-990",
+      "time": [
+        "统和八年九月",
+        "990",
+        "month"
+      ],
+      "subject": "北女直四部与辽廷",
+      "action": "北女直四部请求内附。",
+      "result": "四部内附请求被记录，卷内未载具体安置结果。",
+      "groups": [
+        "北女直四部",
+        "辽廷安置机构"
+      ],
+      "quote": "北女直四部請內附。",
+      "unknown": [
+        "四部名称、人口、安置地与后续权利义务未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NORTHERN-JURCHEN-ATTACHMENT-990",
+        "summary": "北女直四部请求内附。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-LI-JIQIAN-RELATIONS-990-991",
+      "time": [
+        "统和八年九月至九年十二月",
+        "990至991",
+        "range"
+      ],
+      "subject": "李继迁、夏国与辽廷",
+      "action": "李继迁献宋俘、报告攻宋，辽廷封其夏国王；后其潜附宋，辽廷遣韩德威持诏谕告。",
+      "result": "辽廷先确认李继迁王号，后因其潜附宋而进行外交警告。",
+      "groups": [
+        "李继迁",
+        "夏国",
+        "宋俘",
+        "韩德威"
+      ],
+      "quote": [
+        "李繼遷獻宋俘。",
+        "遣使封李繼遷為夏國王。",
+        "夏國王李繼遷潛附於宋，遣招討使韓德威持詔諭之。"
+      ],
+      "unknown": [
+        "封册条件、潜附宋后的实际处置与关系变化未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LI-JIQIAN-RELATIONS-990-991",
+        "summary": "册封李继迁为夏国王，后因其潜附宋而遣使告谕。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-ORDINATION-AND-FUNERAL-RESTRICTIONS-991",
+      "time": [
+        "统和九年正月至十年正月",
+        "991至992",
+        "range"
+      ],
+      "subject": "僧尼、丧家与辽廷",
+      "action": "朝廷禁止私度僧尼，又禁止丧葬杀马及随葬甲胄、金银和器玩。",
+      "result": "宗教出家与丧葬耗费均受限制。",
+      "groups": [
+        "僧尼",
+        "丧家",
+        "马匹所有者",
+        "执法官"
+      ],
+      "quote": [
+        "詔禁私度僧尼。",
+        "禁喪葬禮殺馬，及藏甲胄、金銀、器玩。"
+      ],
+      "unknown": [
+        "处罚、执行范围及节省资源数量未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ORDINATION-AND-FUNERAL-RESTRICTIONS-991",
+        "summary": "限制私度僧尼与高耗丧葬。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-SURRENDERED-SOLDIERS-AND-FORTS-991",
+      "time": [
+        "统和九年正月至二月",
+        "991",
+        "range"
+      ],
+      "subject": "宋降卒、辽戍卒与边防机构",
+      "action": "辽廷选宋降卒五百编为宣力军，并建威寇、振化、来远三城，屯戍卒。",
+      "result": "五百降卒被军事编制，三座边城建立并驻军。",
+      "cost": "降卒被编入军役；筑城与戍守投入、人数和边防效果未载。",
+      "groups": [
+        "宋降卒五百",
+        "宣力军",
+        "戍卒",
+        "边城居民"
+      ],
+      "quote": [
+        "選宋降卒五百置為宣力軍。",
+        "建威寇、振化、來遠三城，屯戍卒。"
+      ],
+      "unknown": [
+        "三城地点、筑城规模、降卒待遇及戍卒数量未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-BORDER-FORTIFICATION-991",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-HOUSEHOLD-GOVERNANCE-AND-OFFICIAL-ACCOUNTABILITY-991",
+      "time": [
+        "统和九年七月",
+        "991",
+        "month"
+      ],
+      "subject": "民户、地方官与辽廷",
+      "action": "朝廷通括户口，并命诸道举才行、察贪酷、抚高年、禁奢僭，且规定王事殉者官其子孙。",
+      "result": "户口清查与地方官考察、养老、禁奢及阵亡家属奖恤同时被提出。",
+      "groups": [
+        "民户",
+        "地方官",
+        "高年者",
+        "王事殉者子孙"
+      ],
+      "quote": [
+        "，通括戶口。乙",
+        "詔諸道舉才行、察貪酷、撫高年、禁奢僭，有歿於王事者官其子孫。"
+      ],
+      "unknown": [
+        "户口数、贪酷案件、受抚高年与官其子孙人数未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HOUSEHOLD-GOVERNANCE-AND-OFFICIAL-ACCOUNTABILITY-991",
+        "summary": "通括户口并部署察官、养老、禁奢和殉者子孙奖恤。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-NANJING-RAIN-DAMAGE-991",
+      "time": [
+        "统和九年六月",
+        "991",
+        "month"
+      ],
+      "subject": "南京农户与辽廷",
+      "action": "南京霖雨伤稼。",
+      "result": "南京农作物遭连续降雨损害。",
+      "cost": "受灾面积、粮食减产、受灾户数和后续救济未载。",
+      "groups": [
+        "南京农户",
+        "受灾田地"
+      ],
+      "quote": "南京霖雨傷稼。",
+      "unknown": [
+        "降雨范围、损失与赈济情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NANJING-RAIN-DAMAGE-991",
+        "summary": "南京霖雨损害庄稼。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-YUNZHOU-SHUOZHOU-MIGRANT-RELIEF-992",
+      "time": [
+        "统和十年二月至五月",
+        "992",
+        "range"
+      ],
+      "subject": "云州、朔州流民与辽廷",
+      "action": "朝廷免云州租赋并给复云州流民，继而给复朔州流民三年。",
+      "result": "两地流民获得赋役恢复或减免安排。",
+      "groups": [
+        "云州流民",
+        "朔州流民",
+        "地方赋役机构"
+      ],
+      "quote": [
+        "免雲州租賦。",
+        "給復雲州流民。",
+        "朔州流民給復三年。"
+      ],
+      "unknown": [
+        "流民人数、给复内容、免租总额和迁返效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "YUNZHOU-SHUOZHOU-MIGRANT-RELIEF-992",
+        "summary": "免云州租赋并给复云、朔流民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-GORYEO-CAMPAIGN-AND-SETTLEMENT-992",
+      "time": [
+        "统和十年十二月至十二年三月",
+        "992至994",
+        "range"
+      ],
+      "subject": "辽军、高丽王治与女直地区",
+      "action": "辽廷命萧恒德等伐高丽；高丽王请罪后，辽廷取女直鸭绿江东数百里地赐之，后又准高丽赎还被俘人畜并遣使抚谕。",
+      "result": "辽高军事对抗转入请罪、领地安排、赎俘和安抚的处置链。",
+      "groups": [
+        "辽军",
+        "高丽王治",
+        "高丽被俘者",
+        "女直地区居民"
+      ],
+      "quote": [
+        "以東京留守蕭恒德等伐高麗。",
+        "詔取女直鴨淥江東數百里地賜之。",
+        "高麗遣使請所俘人畜，詔贖還。"
+      ],
+      "unknown": [
+        "战争过程、实际土地边界、被赎人畜数量和安抚结果未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-GORYEO-992-994",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-FLOOD-RELIEF-AND-CANAL-DREDGING-993-994",
+      "time": [
+        "统和十一年七月至十二年二月",
+        "993至994",
+        "range"
+      ],
+      "subject": "奉圣、南京与漷阴灾民及辽廷",
+      "action": "桑干、羊河泛溢，毁坏禾稼并淹溺居民庐舍；漷阴镇水漂溺三十余村，朝廷诏疏旧渠，并免南京被水户租赋。",
+      "result": "灾害被记录，旧渠获命疏浚，南京受水户获免租。",
+      "cost": "三十余村漂溺、禾稼几尽和庐舍墊溺；工程规模、灾民数和免租额未载。",
+      "groups": [
+        "奉圣南京居民",
+        "漷阴镇三十余村",
+        "受水农户",
+        "疏渠役人"
+      ],
+      "quote": [
+        "桑乾、羊河溢居庸關西，害禾稼殆盡，奉聖、南京居民廬舍多墊溺者。",
+        "漷陰鎮水，漂溺三十餘村，詔疏舊渠。",
+        "免南京被水戶租賦。"
+      ],
+      "unknown": [
+        "疏渠完成时间、灾民安置与免租范围未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "FLOOD-RELIEF-AND-CANAL-DREDGING-993-994",
+        "summary": "洪灾后命疏旧渠并免南京受水户租赋。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-TAX-AND-TRIBUTE-RELIEF-994-995",
+      "time": [
+        "统和十二年至十三年",
+        "994至995",
+        "range"
+      ],
+      "subject": "行在、宜州、诸部与辽廷",
+      "action": "朝廷复行在五十里内租、蠲宜州赋调，又免诸部岁输羊及关征；十三年再减前岁括田租赋。",
+      "result": "行在、宜州、诸部和受括田影响民户得到不同形式的租赋或关征减免。",
+      "groups": [
+        "行在附近民户",
+        "宜州民户",
+        "诸部",
+        "关税缴纳者"
+      ],
+      "quote": [
+        "詔復行在五十里內租。",
+        "蠲宜州賦調。",
+        "免諸部歲輸羊及關征。",
+        "詔減前歲括田租賦。"
+      ],
+      "unknown": [
+        "各项减免期限、受益户数与财政影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TAX-AND-TRIBUTE-RELIEF-994-995",
+        "summary": "连续减免行在、宜州、诸部及括田相关租赋关征。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-MILITARY-AGE-AND-DISABILITY-RELIEF-994",
+      "time": [
+        "统和十二年五月至六月",
+        "994",
+        "range"
+      ],
+      "subject": "北皮室、龙凤两军老疾军人",
+      "action": "朝廷免北皮室军老而不任事者役，又命以替代者接替龙凤两军老疾者。",
+      "result": "不任事老兵获免役，老疾军人被安排替代。",
+      "groups": [
+        "北皮室老兵",
+        "龙凤两军老疾者",
+        "替代军人"
+      ],
+      "quote": [
+        "北皮室軍老不任事者免役。",
+        "詔龍、鳳兩軍老疾者代之。"
+      ],
+      "unknown": [
+        "免役与替代人数、保障与军力影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MILITARY-AGE-AND-DISABILITY-RELIEF-994",
+        "summary": "免老兵役并替换两军老疾者。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-KHITAN-TEN-CRIMES-LAW-994",
+      "time": [
+        "统和十二年七月",
+        "994",
+        "month"
+      ],
+      "subject": "契丹罪犯与辽廷司法",
+      "action": "朝廷规定契丹人犯十恶者依汉律处理。",
+      "result": "十恶重罪的契丹人适用汉律标准。",
+      "groups": [
+        "契丹罪犯",
+        "司法官"
+      ],
+      "quote": "詔契丹人犯十惡者依漢律。",
+      "unknown": [
+        "十恶案件、具体适用程序与量刑结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "KHITAN-TEN-CRIMES-LAW-994",
+        "summary": "规定契丹人犯十恶依汉律处理。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-WESTERN-FRONTIER-MOBILIZATION-AND-PEACE-994",
+      "time": [
+        "统和十二年八月至九月",
+        "994",
+        "range"
+      ],
+      "subject": "西北路乌古诸部、萧挞凛、宋使与辽廷",
+      "action": "皇太妃受命统乌古等部兵及永兴宫分军安定西边，萧挞凛督军；宋两次求和，辽廷均拒绝。",
+      "result": "西边安定军令下达，辽宋和议请求未获接受。",
+      "groups": [
+        "乌古诸部兵",
+        "永兴宫分军",
+        "萧挞凛",
+        "宋使"
+      ],
+      "quote": [
+        "撫定西邊；以蕭撻凜督其軍事。",
+        "宋遣使求和，不許。",
+        "宋復遣使求和，不許。"
+      ],
+      "unknown": [
+        "兵力、实际军事行动和拒和条件未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WESTERN-FRONTIER-MOBILIZATION-AND-PEACE-994",
+        "summary": "部署西边兵力并两拒宋和。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-EQUAL-TAX-LAW-AND-NANJING-RATE-CUT-994-995",
+      "time": [
+        "统和十二年十月至十四年十二月",
+        "994至996",
+        "range"
+      ],
+      "subject": "纳税民户、南京道与辽廷",
+      "action": "朝廷制定均税法；十四年又因南京道新定税法过重而下调。",
+      "result": "均税制度出台后，南京道过重税负获减。",
+      "groups": [
+        "南京道民户",
+        "税务官",
+        "其他纳税民户"
+      ],
+      "quote": [
+        "詔定均稅法。",
+        "以南京道新定稅法太重，減之。"
+      ],
+      "unknown": [
+        "税率、计税依据、受益户数和调整成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "EQUAL-TAX-LAW-AND-NANJING-RATE-CUT-994-995",
+        "summary": "制定均税法，并削减南京道过重的新税。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-CAPTIVE-TALENT-REGISTRATION-994",
+      "time": [
+        "统和十二年十一月",
+        "994",
+        "month"
+      ],
+      "subject": "宋俘、诸道军勇健者与辽廷",
+      "action": "朝廷命诸部将所俘宋人中官吏、儒生和抱器能者，以及军中勇健者具名上报，后授卫德升等六名宋俘官职。",
+      "result": "俘虏与军中人员按才能被登记，并有六名宋俘获官。",
+      "groups": [
+        "宋俘官吏儒生",
+        "军中勇健者",
+        "卫德升等六人"
+      ],
+      "quote": [
+        "諸部所俘宋人有官吏儒生抱器能者，諸道軍有勇健者，具以名聞。",
+        "官宋俘衛德升等六人。"
+      ],
+      "unknown": [
+        "上报名单、选任标准与六人具体职务未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CAPTIVE-TALENT-REGISTRATION-994",
+        "summary": "登记俘虏及军中人才，并任用六名宋俘。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V13-AGRICULTURE-AND-CHARITY-GRANARY-995",
+      "time": [
+        "统和十三年正月至十月",
+        "995",
+        "range"
+      ],
+      "subject": "诸道农户、荒地申请者与辽廷",
+      "action": "朝廷诏诸道劝农，准昌平、怀柔等县民请业荒地，十月又置义仓。",
+      "result": "农业劝导、荒地开垦申请和义仓制度并行推进。",
+      "groups": [
+        "诸道农户",
+        "昌平怀柔垦荒者",
+        "义仓管理者"
+      ],
+      "quote": [
+        "詔諸道勸農。",
+        "詔許昌平、懷柔等縣諸人請業荒地。",
+        "冬十月乙亥，置義倉。"
+      ],
+      "unknown": [
+        "荒地面积、义仓储粮来源、受益户数和执行结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "AGRICULTURE-AND-CHARITY-GRANARY-995",
+        "summary": "劝农、准垦荒并置义仓。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-WUYE-AND-TIELI-CAMPAIGN-995",
+      "time": [
+        "统和十三年七月至十月",
+        "995",
+        "range"
+      ],
+      "subject": "兀惹、铁骊、辽军与奚王和朔奴",
+      "action": "兀惹乌昭度、渤海燕颇等侵铁骊，辽廷遣和朔奴等讨之；十月兀惹归款，朝廷遣诏谕告。",
+      "result": "辽廷对侵铁骊者发兵，后记录兀惹归款。",
+      "cost": "交战兵力、伤亡、被侵地区损失与归款条件未载。",
+      "groups": [
+        "兀惹部众",
+        "铁骊",
+        "辽军",
+        "渤海燕颇"
+      ],
+      "quote": [
+        "侵鐵驪，遣奚王和朔奴等討之。",
+        "兀惹歸款，詔諭之。"
+      ],
+      "unknown": [
+        "战斗结果、归款是否涵盖全部部众和后续安置未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-WUYE-TIELI-995",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-NANJING-STUDENTS-AND-GORYEO-RELATIONS-995",
+      "time": [
+        "统和十三年九月至十一月",
+        "995",
+        "range"
+      ],
+      "subject": "南京太学生、高丽王治与辽廷",
+      "action": "因南京太学生增多，朝廷特赐水硙庄；又册王治为高丽国王，并接纳十名高丽童子学习本国语。",
+      "result": "南京太学生获得庄园资源，高丽王册封与语言学习往来同步推进。",
+      "groups": [
+        "南京太学生",
+        "高丽王治",
+        "高丽童子十人",
+        "水硙庄管理者"
+      ],
+      "quote": [
+        "以南京太學生員浸多，特賜水硙莊一區。",
+        "遣使冊王治為高麗國王。",
+        "高麗遣童子十人來學本國語。"
+      ],
+      "unknown": [
+        "庄园收益、学生人数、童子学习期限和外交条件未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NANJING-STUDENTS-AND-GORYEO-RELATIONS-995",
+        "summary": "资助南京太学生，并推进高丽册封和语言学习交流。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-UNIVERSAL-TAX-REMISSION-AND-SHUOZHOU-RESETTLEMENT-996",
+      "time": [
+        "统和十四年正月至三月",
+        "996",
+        "range"
+      ],
+      "subject": "三京诸州民户、朔州流民与辽廷",
+      "action": "朝廷蠲三京及诸州税赋，并命安集朔州流民。",
+      "result": "广泛税赋减免与朔州流民安置同时下达。",
+      "groups": [
+        "三京诸州民户",
+        "朔州流民",
+        "地方安集官"
+      ],
+      "quote": [
+        "蠲三京及諸州稅賦。",
+        "詔安集朔州流民。"
+      ],
+      "unknown": [
+        "免税范围期限、安集人数和安置资源未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "UNIVERSAL-TAX-REMISSION-AND-SHUOZHOU-RESETTLEMENT-996",
+        "summary": "蠲三京诸州税赋并安集朔州流民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-GORYEO-MARRIAGE-AND-TANGUT-CAMPAIGNS-996",
+      "time": [
+        "统和十四年至十五年",
+        "996至997",
+        "range"
+      ],
+      "subject": "高丽、河西党项、韩德威与辽廷",
+      "action": "辽廷允许以萧恒德女嫁高丽王治；河西党项叛后命韩德威讨伐，韩德威随后奏破党项捷。",
+      "result": "高丽联姻获准，河西党项叛乱遭辽军所报击破。",
+      "cost": "联姻条款、战事伤亡与河西党项后续处置未载。",
+      "groups": [
+        "高丽王治",
+        "萧恒德之女",
+        "河西党项",
+        "韩德威所部"
+      ],
+      "quote": [
+        "高麗王治表乞為婚，許以東京留守、駙馬蕭恒德女嫁之。",
+        "以河西党項叛，詔韓德威討之。",
+        "韓德威奏破党項捷。"
+      ],
+      "unknown": [
+        "婚期、陪嫁、战斗地点兵力伤亡与降附条件未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-HEXITANGUT-996-997",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-RESOURCE-RECOVERY-AND-ANTI-HUNTING-996",
+      "time": [
+        "统和十四年四月至十一月",
+        "996",
+        "range"
+      ],
+      "subject": "大安山、南京神武军与诸军官",
+      "action": "朝廷凿大安山取刘守光所藏钱，并命刘遂教授南京神武军剑法；又禁军官非时畋猎妨农。",
+      "result": "隐藏钱财被开采取得，神武军受训，军官狩猎被限制以免妨农。",
+      "groups": [
+        "开凿役人",
+        "南京神武军",
+        "农户",
+        "诸军官"
+      ],
+      "quote": [
+        "鑿大安山，取劉守光所藏錢。",
+        "命劉遂教南京神武軍士劍法，賜袍帶錦幣。",
+        "詔諸軍官毋非時畋獵妨農。"
+      ],
+      "unknown": [
+        "所得钱数、开凿劳役、训练规模和禁猎执行情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RESOURCE-RECOVERY-AND-ANTI-HUNTING-996",
+        "summary": "开取大安山藏钱、训练神武军并禁非时猎以护农。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-RURAL-RELIEF-RECLAMATION-AND-MIGRATION-997",
+      "time": [
+        "统和十五年正月至四月",
+        "997",
+        "range"
+      ],
+      "subject": "流民、品部、滦州及内地迁民与辽廷",
+      "action": "朝廷免流民税，劝品部富民出钱赡贫、令其旷地供民耕种，募民耕滦州荒地免租赋十年，并徙梁门等地民入内地。",
+      "result": "流民获免税，贫民获筹资与耕地支持，滦州垦荒享十年免租赋，数地居民被迁入内地。",
+      "cost": "人口迁徙与财政减免发生，涉及人数、土地面积、捐资数额和迁后处境未载。",
+      "groups": [
+        "流民",
+        "品部贫民",
+        "品部富民",
+        "滦州垦荒者",
+        "梁门遂城泰州北平迁民"
+      ],
+      "quote": [
+        "，免流民稅。二",
+        "勸品部富民出錢以贍貧民。",
+        "募民耕灤州荒地，免其租賦十年。",
+        "徙梁門、遂城、泰州、北平民於內地。"
+      ],
+      "unknown": [
+        "免税期限、土地面积、捐资数额、迁民人数和安置资源未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RURAL-RELIEF-RECLAMATION-AND-MIGRATION-997",
+        "summary": "免流民税、资助贫民与垦荒，并迁徙多地居民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-PALACE-HOUSEHOLD-AND-TRIBUTE-RELIEF-997",
+      "time": [
+        "统和十五年三月至十月",
+        "997",
+        "range"
+      ],
+      "subject": "宫分人户、兀惹、奚部与辽廷",
+      "action": "朝廷通括宫分人户并免南京逋税及义仓粟；对远地兀惹减免非生辰正旦的鹰马貂皮贡，又先后罢奚五部岁贡与奚王诸部贡物。",
+      "result": "宫分人户被清查，南京欠税和义仓粟获免，兀惹及奚部贡负担被部分或全部取消。",
+      "groups": [
+        "宫分人户",
+        "南京欠税户",
+        "兀惹",
+        "奚五部",
+        "奚王诸部"
+      ],
+      "quote": [
+        "通括宮分人戶，免南京逋稅及義倉粟。",
+        "詔以生辰、正旦貢如舊，餘免。",
+        "罷奚五部歲貢摐。",
+        "罷奚王諸部貢物。"
+      ],
+      "unknown": [
+        "宫分户数、免税免粟额、贡物数量和政策持续时间未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "PALACE-HOUSEHOLD-AND-TRIBUTE-RELIEF-997",
+        "summary": "清查宫分户并减免南京、兀惹与奚部多项负担。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-GRANARY-RELIEF-AND-REBELLION-SUPPRESSION-997",
+      "time": [
+        "统和十五年四月至十月",
+        "997",
+        "range"
+      ],
+      "subject": "南京灾民、敌烈八部、阻卜与辽军",
+      "action": "朝廷发义仓粟赈济南京诸县民；敌烈八部杀详稳叛乱，萧挞凛追击获其部族之半，后又奏讨阻卜捷。",
+      "result": "南京诸县获义仓救济，敌烈叛乱遭追击并有部族被获，阻卜战事报捷。",
+      "cost": "义仓粮被发放，敌烈八部及阻卜战事伤亡、俘获数与灾民受济人数未载。",
+      "groups": [
+        "南京诸县民",
+        "敌烈八部",
+        "阻卜",
+        "萧挞凛所部"
+      ],
+      "quote": [
+        "發義倉粟振南京諸縣民。",
+        "敵烈八部殺詳穩以叛，蕭撻凜追擊，獲部族之半。",
+        "蕭撻凜奏討阻卜捷。"
+      ],
+      "unknown": [
+        "粮食数量、战事地点伤亡、被获部族的安置和救济效果未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-DILIE-ZUBU-997",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-ANTI-RAIDING-AND-FORCED-FOLLOWER-REGISTRATION-995",
+      "time": [
+        "统和十三年三月至四月",
+        "995",
+        "range"
+      ],
+      "subject": "武清劫掠者、被掠人畜财物与被胁从部曲",
+      "action": "武清百余人入宋境剽掠被命诛，并归还所得人畜财物；朝廷又命历来被胁从为部曲者登记州县。",
+      "result": "跨境劫掠者被处死并返还掠获物，被胁从部曲进入州县籍册。",
+      "cost": "劫掠者死亡；被胁从者的数量、身份变化和登记后待遇未载。",
+      "groups": [
+        "武清劫掠者",
+        "被掠人畜财物原主",
+        "被胁从部曲",
+        "州县官"
+      ],
+      "quote": [
+        "武清縣百餘人入宋境剽掠，命誅之，還其所獲人畜財物。",
+        "諸道民戶應歷以來脅從為部曲者，仍籍州縣。"
+      ],
+      "unknown": [
+        "被诛人数、返还规模、部曲登记数和后续赋役未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ANTI-RAIDING-AND-FORCED-FOLLOWER-REGISTRATION-995",
+        "summary": "处置跨境劫掠并登记被胁从部曲。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V13-MILITARY-HORSE-POLICY-AND-GARRISON-ROTATION-995",
+      "time": [
+        "统和十三年五月至七月",
+        "995",
+        "range"
+      ],
+      "subject": "三府、富民、官马与蔚朔戍军",
+      "action": "北南乙室三府请求括富民马备军需，朝廷拒绝而改给官马；又命蔚朔等州龙卫、威胜军轮换戍守。",
+      "result": "军需马匹改由官马供给，北方戍军实行更戍。",
+      "cost": "官马被投入军需；数量、轮戍周期、富民原有负担和军力效果未载。",
+      "groups": [
+        "三府军队",
+        "富民",
+        "官马管理者",
+        "龙卫威胜军"
+      ],
+      "quote": [
+        "請括富民馬以備軍需，不許，給以官馬。",
+        "詔蔚、朔等州龍衛、威勝軍更戍。"
+      ],
+      "unknown": [
+        "官马数、戍卒人数和轮换安排未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MILITARY-HORSE-POLICY-AND-GARRISON-ROTATION-995",
+        "summary": "拒括富民马，改给官马并令北方军更戍。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2234 @@
+{
+  "facts": [
+    {
+      "action": "建州军卒因守滑退回后御甲钱未及时发给而作乱，杀转运官、拘守臣；王淮率州军射士讨伐未克。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-JIANZHOU-MUTINY-1127",
+      "implementation": "",
+      "locations": [
+        "建州",
+        "滑州"
+      ],
+      "observable_result": "建州叛军控制局势，首轮官军平乱失败。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-JIANZHOU-MUTINY-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-jianzhou-mutiny-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#丑，建州軍亂",
+        "續資治通鑑/卷100@2300291#軍校張員等作亂，殺福建轉運副使毛奎、判官曾伃，執守臣直龍圖閣張勤",
+        "續資治通鑑/卷100@2300291#陳桷檄朝請郎王淮將士軍射士討之，不能克"
+      ],
+      "time_range": {
+        "end": "建炎元年九月己丑",
+        "precision": "month",
+        "start": "建炎元年九月己丑"
+      },
+      "uncertainties": [
+        "欠钱数额、叛军兵力、伤亡与城内损失未载。"
+      ]
+    },
+    {
+      "action": "范琼此前屡败于李孝忠，待诸郡兵至后会乔仲福在云泽交战，大败李孝忠。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-FANQIONG-YUNZE-VICTORY-1127",
+      "implementation": "",
+      "locations": [
+        "复州",
+        "云泽"
+      ],
+      "observable_result": "官军集中增援后扭转对李孝忠战局。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-FANQIONG-YUNZE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-fanqiong-yunze-victory-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#范瓊屢與李孝忠戰，敗績",
+        "續資治通鑑/卷100@2300291#瓊與都統制官喬仲福及孝忠戰於復州之雲澤，大敗之"
+      ],
+      "time_range": {
+        "end": "建炎元年九月",
+        "precision": "month",
+        "start": "建炎元年九月"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡、俘获及李孝忠退向未载。"
+      ]
+    },
+    {
+      "action": "马忠因畏敌逗留被贬；黄潜善、汪伯彦共同决策奉高宗东南迁移，不再经营两河。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127",
+      "implementation": "",
+      "locations": [
+        "河东",
+        "河北",
+        "东南"
+      ],
+      "observable_result": "中央两河经制政策实质终止，战略重心转向东南。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-two-rivers-strategy-abandoned-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#河北經制使馬忠，貶秩二等，坐逗遛不進也",
+        "續資治通鑑/卷100@2300291#方決策奉帝如東南，無復經制兩河之意"
+      ],
+      "time_range": {
+        "end": "建炎元年九月辛卯",
+        "precision": "month",
+        "start": "建炎元年九月辛卯"
+      },
+      "uncertainties": [
+        "正式废止文件及两河残余机构处置未载。"
+      ]
+    },
+    {
+      "action": "朝廷因将南迁，命吕颐浩修扬州城池，并设随军转运使。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127",
+      "implementation": "",
+      "locations": [
+        "扬州"
+      ],
+      "observable_result": "扬州开始承担行在城防和运输准备。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-yangzhou-migration-works-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#命知揚州呂頤浩修城池，發運副使李祐等為隨軍轉運使，以將南遷也"
+      ],
+      "time_range": {
+        "end": "建炎元年九月甲午",
+        "precision": "month",
+        "start": "建炎元年九月甲午"
+      },
+      "uncertainties": [
+        "工程量、成本、工期及完成情况未载。"
+      ]
+    },
+    {
+      "action": "高士曈意图招安杭州叛军，叛军诱其入城后以百余骑突袭，因北门枪杖手援助才脱险；其后与周格约期进兵，部众多被叛军诱走。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-HANGZHOU-PACIFICATION-AMBUSH-1127",
+      "implementation": "",
+      "locations": [
+        "杭州",
+        "秀州",
+        "北门"
+      ],
+      "observable_result": "招安与进兵均未奏效，官军继续流失。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-HANGZHOU-PACIFICATION-AMBUSH-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-hangzhou-pacification-ambush-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#也，欲招安之",
+        "續資治通鑑/卷100@2300291#賊百餘騎突出，賴鮑貽遜下槍杖手在北門，始獲免",
+        "續資治通鑑/卷100@2300291#然諸軍為賊誘去者甚眾"
+      ],
+      "time_range": {
+        "end": "建炎元年九月",
+        "precision": "month",
+        "start": "建炎元年九月"
+      },
+      "uncertainties": [
+        "伏击伤亡、逃兵人数及招安条件未载。"
+      ]
+    },
+    {
+      "action": "辛道宗克扣犒赐致六百军卒溃逃，众推高胜为首攻秀州，后转平江；高胜被诱杀后余众推赵万，最终进入常州大掠三日。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-GAOSHENG-MUTINY-CHANGZHOU-1127",
+      "implementation": "",
+      "locations": [
+        "镇江",
+        "嘉兴",
+        "秀州",
+        "平江",
+        "常州"
+      ],
+      "observable_result": "一支奉命讨杭州的官军因军饷问题转化为跨州叛军。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-GAOSHENG-ZHAOWAN-MUTINY-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-gaosheng-mutiny-changzhou-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#眾怒，潰去者六百人，道宗奔還鎮江",
+        "續資治通鑑/卷100@2300291#眾擁高勝為首",
+        "續資治通鑑/卷100@2300291#軍賊高勝等入常州",
+        "續資治通鑑/卷100@2300291#賊入城，大掠三日"
+      ],
+      "time_range": {
+        "end": "建炎元年九月",
+        "precision": "month",
+        "start": "建炎元年九月"
+      },
+      "uncertainties": [
+        "沿途伤亡、掠夺数量、赵万兵力与常州善后未载。"
+      ]
+    },
+    {
+      "action": "高宗令诸道为巡幸仅因陋就简，不治道路、不扰官民，唯军马刍粮与寨栅须充足整洁。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127",
+      "implementation": "",
+      "locations": [
+        "荆襄",
+        "关陕",
+        "江淮"
+      ],
+      "observable_result": "巡幸筹备被设定为限制民扰、优先军需的原则。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-royal-travel-anti-burden-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#皆備巡幸，並令因陋就簡",
+        "續資治通鑑/卷100@2300291#道路毋治，官吏毋出，有司百吏敢搔擾者，重置於法",
+        "續資治通鑑/卷100@2300291#惟軍馬芻糧，必務豐潔"
+      ],
+      "time_range": {
+        "end": "建炎元年九月丁酉",
+        "precision": "month",
+        "start": "建炎元年九月丁酉"
+      },
+      "uncertainties": [
+        "各地实际摊派、处罚与节省金额未载。"
+      ]
+    },
+    {
+      "action": "杭州叛军夜袭周格营寨并杀周格，所统苏秀兵投叛，淮南兵拒从而被杀；翟汝文因防内变退还越州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-HANGZHOU-ZHOUGE-CAMP-DESTROYED-1127",
+      "implementation": "",
+      "locations": [
+        "杭州",
+        "越州"
+      ],
+      "observable_result": "杭州叛军吸收官军并迫退浙东援军，势力更盛。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-HANGZHOU-ZHOUGE-DEFEAT-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-hangzhou-zhouge-camp-destroyed-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#杭賊夜劫提點刑獄周格寨，殺之",
+        "續資治通鑑/卷100@2300291#提刑司所統蘇、秀兵，遂入杭與賊合",
+        "續資治通鑑/卷100@2300291#遂引兵還越州，賊勢愈熾"
+      ],
+      "time_range": {
+        "end": "建炎元年九月辛丑",
+        "precision": "month",
+        "start": "建炎元年九月辛丑"
+      },
+      "uncertainties": [
+        "周格部兵力、淮南兵死者数与叛军扩充规模未载。"
+      ]
+    },
+    {
+      "action": "朝廷令沿河州县组织民兵斥候，以善水者潜凿金军渡船并上下合击，沿海州军同样执行，并以没船授官奖励。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-YELLOW-RIVER-ANTI-CROSSING-1127",
+      "implementation": "",
+      "locations": [
+        "沿河",
+        "沿海"
+      ],
+      "observable_result": "水下破船和沿岸合击成为河海阻渡战术。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-RIVER-ANTI-CROSSING-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-yellow-river-anti-crossing-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#沿河控扼州縣，團結民兵，明遠斥候",
+        "續資治通鑑/卷100@2300291#先使善沒水手鑽穴其舟，並力掩殺",
+        "續資治通鑑/卷100@2300291#有能沒兩舟者，白身與進義副尉"
+      ],
+      "time_range": {
+        "end": "建炎元年九月乙巳",
+        "precision": "month",
+        "start": "建炎元年九月乙巳"
+      },
+      "uncertainties": [
+        "潜水手人数、实际沉船数与战术效果未载。"
+      ]
+    },
+    {
+      "action": "宗泽造决胜战车一千二百乘、城外设二十四壁驻数万兵，沿河筑垒并分十六县守七十二里河岸，开濠植鹿角、联络山水寨与义士，仍不断请高宗还京。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127",
+      "implementation": "",
+      "locations": [
+        "东京",
+        "黄河",
+        "京畿"
+      ],
+      "observable_result": "东京形成以战车、壁垒、河防和民兵组成的纵深防御体系，但回銮请求未获回应。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-TOKYO-DEFENSE-SYSTEM-1127"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-songze-tokyo-defense-system-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#且造決勝戰車千二百乘",
+        "續資治通鑑/卷100@2300291#立二十四壁於城外，駐兵數萬",
+        "續資治通鑑/卷100@2300291#命十六縣分守之",
+        "續資治通鑑/卷100@2300291#皆開濠，深廣丈餘，于其南植鹿角",
+        "續資治通鑑/卷100@2300291#乃上表請車駕還京，不報"
+      ],
+      "time_range": {
+        "end": "建炎元年九月至十月",
+        "precision": "month",
+        "start": "建炎元年九月至十月"
+      },
+      "uncertainties": [
+        "总军费、工期、车辆实战性能和民夫负担未载。"
+      ]
+    },
+    {
+      "action": "李孝义、张世率步骑数万诈降袭德安，陈规识破并预备，夜围城时将其大败。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-DEAN-DEFENSE-VICTORY-1127",
+      "implementation": "",
+      "locations": [
+        "德安府"
+      ],
+      "observable_result": "德安守军挫败数万叛军的诈降攻城。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-DEAN-DEFENSE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-dean-defense-victory-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#李孝義、張世引步騎數萬襲德安府，詐稱來受招",
+        "續資治通鑑/卷100@2300291#中夜，孝義引兵圍城，規已為之備，大敗之"
+      ],
+      "time_range": {
+        "end": "建炎元年九月戊申",
+        "precision": "month",
+        "start": "建炎元年九月戊申"
+      },
+      "uncertainties": [
+        "双方伤亡、俘获与叛军退向未载。"
+      ]
+    },
+    {
+      "action": "王彦率岳飞等七千渡河，因金军强盛不敢进，岳飞独率部鏖战夺旗，激励诸军攻取新乡。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-XINXIANG-CAPTURE-1127",
+      "implementation": "",
+      "locations": [
+        "黄河",
+        "新乡"
+      ],
+      "observable_result": "河北招抚军渡河后取得新乡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-XINXIANG-CAPTURE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-xinxiang-capture-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#王彥，率裨將岳飛等所部七千人渡河",
+        "續資治通鑑/卷100@2300291#飛獨引所部鏖戰，奪其纛而舞",
+        "續資治通鑑/卷100@2300291#奮，遂拔新鄉"
+      ],
+      "time_range": {
+        "end": "建炎元年九月戊申",
+        "precision": "month",
+        "start": "建炎元年九月戊申"
+      },
+      "uncertainties": [
+        "岳飞所部人数、双方伤亡、守军和占领持续时间未载。"
+      ]
+    },
+    {
+      "action": "朝廷以入资方式募兵并授迪功郎以下六等官，随后命每路监司一员主管。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-MILITARY-OFFICES-SOLD-1127",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "军费与募兵通过卖官入资机制筹集。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-XZZTJ-100-MILITARY-OFFICES-SOLD-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-military-offices-sold-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#募兵入貲授官，自迪功郎以下凡六等",
+        "續資治通鑑/卷100@2300291#尋命每路以監司一員董其事"
+      ],
+      "time_range": {
+        "end": "建炎元年九月己酉",
+        "precision": "month",
+        "start": "建炎元年九月己酉"
+      },
+      "uncertainties": [
+        "入资标准、募兵人数、收入和授官质量未载。"
+      ]
+    },
+    {
+      "action": "朝廷采纳张悫建议，将当三大钱推广至淮浙荆湖，以补东南交易钱荒。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-THREE-CASH-CIRCULATION-1127",
+      "implementation": "",
+      "locations": [
+        "淮南",
+        "两浙",
+        "荆湖"
+      ],
+      "observable_result": "原限北方流通的当三钱进入东南市场。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-XZZTJ-100-THREE-CASH-CIRCULATION-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-three-cash-circulation-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#始通當三大錢於淮、浙、荊湖諸路",
+        "續資治通鑑/卷100@2300291#常慮錢寶不足於交易",
+        "續資治通鑑/卷100@2300291#望詔三省參論，以革因循之弊"
+      ],
+      "time_range": {
+        "end": "建炎元年九月庚戌",
+        "precision": "month",
+        "start": "建炎元年九月庚戌"
+      },
+      "uncertainties": [
+        "铸发数量、兑换比价、物价及私铸变化未载。"
+      ]
+    },
+    {
+      "action": "高宗以张邦昌僭号、穿赭衣、宿福宁殿等罪令其自裁；张邦昌在平楚楼自缢，王时雍亦被诛。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127",
+      "implementation": "",
+      "locations": [
+        "潭州",
+        "长沙",
+        "高州"
+      ],
+      "observable_result": "伪楚最高首领与重要参与者被处死。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-zhangbangchang-execution-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#詔賜張邦昌死",
+        "續資治通鑑/卷100@2300291#乃登平楚樓而縊",
+        "續資治通鑑/卷100@2300291#於是高州流人王時雍亦伏誅"
+      ],
+      "time_range": {
+        "end": "建炎元年九月壬子",
+        "precision": "month",
+        "start": "建炎元年九月壬子"
+      },
+      "uncertainties": [
+        "王时雍处决程序与张邦昌家属后续未载。"
+      ]
+    },
+    {
+      "action": "金军数万围王彦新乡营，王彦兵少突围转战后仅收散兵七百余入太行；岳飞单骑刺杀金帅使敌退，余部刺面赤心报国并获两河民兵响应。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-WANGYAN-XINXIANG-DEFEAT-1127",
+      "implementation": "",
+      "locations": [
+        "新乡",
+        "太行山",
+        "共城"
+      ],
+      "observable_result": "新乡宋军失利撤入太行，但形成持续抵抗的八字军网络。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-WANGYAN-XINXIANG-DEFEAT-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-wangyan-xinxiang-defeat-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#王彥及金人戰於新鄉縣，敗績",
+        "續資治通鑑/卷100@2300291#岳飛以單騎持丈八鐵槍刺殺金帥于陳，金人為退卻",
+        "續資治通鑑/卷100@2300291#得七百餘人，保共城縣西山",
+        "續資治通鑑/卷100@2300291#皆面刺「赤心報國」字"
+      ],
+      "time_range": {
+        "end": "建炎元年九月末",
+        "precision": "month",
+        "start": "建炎元年九月末"
+      },
+      "uncertainties": [
+        "宋金伤亡、被杀金帅身份及八字军总人数未载。"
+      ]
+    },
+    {
+      "action": "赵万叛军入镇江境，赵子崧遣军迎击丹徒失利，乡兵溃散，赵子崧退保焦山，叛军越城占据镇江。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ZHENJIANG-FALL-1127",
+      "implementation": "",
+      "locations": [
+        "镇江府",
+        "丹徒",
+        "焦山寺"
+      ],
+      "observable_result": "镇江府失守，地方官军与乡兵防线崩溃。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-REBELS-ZHENJIANG-CAPTURE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-zhenjiang-fall-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#遣將逆擊於丹徒",
+        "續資治通鑑/卷100@2300291#府兵敗歸，鄉兵驚潰",
+        "續資治通鑑/卷100@2300291#賊逾城人，遂據鎮江"
+      ],
+      "time_range": {
+        "end": "建炎元年九月末",
+        "precision": "month",
+        "start": "建炎元年九月末"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡、城内掠夺与赵子崧后续未载。"
+      ]
+    },
+    {
+      "action": "宋军渡河失利、张涣被乱军杀后，金方责问宋使，并在国书中索河北南逃人口、替西夏索地及要求河阳设榷场。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127",
+      "implementation": "",
+      "locations": [
+        "云中",
+        "河阳"
+      ],
+      "observable_result": "宋金通问以金方提出人口、领土和贸易要求告一段落。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-TWO-RIVERS-FAILED-CROSSING-1127"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-jin-diplomatic-terms-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#張渙、招撫使張所遣兵渡河，皆失利，渙為亂軍所殺",
+        "續資治通鑑/卷100@2300291#書中索河北人之在南者及為夏人請熙寧以來侵地",
+        "續資治通鑑/卷100@2300291#又欲於河陽置榷場以通南貨"
+      ],
+      "time_range": {
+        "end": "建炎元年九月末",
+        "precision": "month",
+        "start": "建炎元年九月末"
+      },
+      "uncertainties": [
+        "宋廷正式答复与国书完整内容未载。"
+      ]
+    },
+    {
+      "action": "高宗登舟南行，经泗州、宝应抵扬州驻跸，隆祐太后先至；到扬州后首次令三衙管军轮宿行宫。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127",
+      "implementation": "",
+      "locations": [
+        "淮甸",
+        "泗州",
+        "宝应",
+        "扬州"
+      ],
+      "observable_result": "南宋行在由南京转至扬州，宫禁军事警戒加强。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-emperor-moves-yangzhou-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#帝登舟如淮甸",
+        "續資治通鑑/卷100@2300291#帝至揚州，駐蹕州治",
+        "續資治通鑑/卷100@2300291#三衙管軍未嘗內宿，至是始日輪一員，直宿行宮"
+      ],
+      "time_range": {
+        "end": "建炎元年十月丁巳至癸未",
+        "precision": "month",
+        "start": "建炎元年十月丁巳至癸未"
+      },
+      "uncertainties": [
+        "随行人数、迁移费用与沿途民间负担未载。"
+      ]
+    },
+    {
+      "action": "杨进围德安十八日后向陈规求和，陈规出城面谈使其折箭退兵；宗泽再招杨进等河上群盗听命，授杨进留守司统制。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-YANGJIN-DEAN-NEGOTIATED-WITHDRAWAL-1127",
+      "implementation": "",
+      "locations": [
+        "德安府",
+        "光州",
+        "东京"
+      ],
+      "observable_result": "大股京西武装由围城者转为东京留守部属。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-YANGJIN-DEAN-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-yangjin-dean-negotiated-withdrawal-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#晝夜相持，十有八日",
+        "續資治通鑑/卷100@2300291#進感其誠，折箭為誓，明日，引眾去",
+        "續資治通鑑/卷100@2300291#皆聽命，以進為留守司統制"
+      ],
+      "time_range": {
+        "end": "建炎元年十月",
+        "precision": "month",
+        "start": "建炎元年十月"
+      },
+      "uncertainties": [
+        "杨进总兵力、招安条件、军饷和后续服从情况未载。"
+      ]
+    },
+    {
+      "action": "张浚继续弹劾李纲，高宗先落其职，后命其鄂州居住。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127",
+      "implementation": "",
+      "locations": [
+        "鄂州"
+      ],
+      "observable_result": "李纲由罢相退居进一步转为受限安置。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-ligang-further-discipline-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#李綱落職，依舊宮祠",
+        "續資治通鑑/卷100@2300291#李綱鄂州居住"
+      ],
+      "time_range": {
+        "end": "建炎元年十月至十一月",
+        "precision": "month",
+        "start": "建炎元年十月至十一月"
+      },
+      "uncertainties": [
+        "指控核验和安置期限未载。"
+      ]
+    },
+    {
+      "action": "高宗命刘光世讨镇江叛兵，王渊、张俊猝至招降赵万等；王渊骗其渡江勤王，步兵逐舟杀尽、骑兵百余人戮市。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ZHENJIANG-SURRENDER-MASSACRE-1127",
+      "implementation": "",
+      "locations": [
+        "镇江府",
+        "江岸"
+      ],
+      "observable_result": "镇江叛军被诱降后整体屠杀，城池恢复控制。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-ZHENJIANG-SUPPRESSION-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-zhenjiang-surrender-massacre-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#命劉光世討鎮江府叛兵",
+        "續資治通鑑/卷100@2300291#軍賊趙萬等不知其猝至，皆解甲就招",
+        "續資治通鑑/卷100@2300291#其步兵先行，每一舟至岸，盡殺這",
+        "續資治通鑑/卷100@2300291#餘騎兵百餘人戮於市，無得脫者"
+      ],
+      "time_range": {
+        "end": "建炎元年十月庚辰至丙戌",
+        "precision": "month",
+        "start": "建炎元年十月庚辰至丙戌"
+      },
+      "uncertainties": [
+        "被杀总数、普通胁从比例、官军伤亡与司法程序未载。"
+      ]
+    },
+    {
+      "action": "李孝义攻德安不下，行至蕲州后被同党张世斩杀，余党全部投降。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-LIXIAOYI-DEATH-1127",
+      "implementation": "",
+      "locations": [
+        "德安",
+        "蕲州"
+      ],
+      "observable_result": "李孝义武装瓦解。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-LIXIAOYI-END-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-lixiaoyi-death-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#李孝義攻德安不下",
+        "續資治通鑑/卷100@2300291#張世斬之，餘黨悉降"
+      ],
+      "time_range": {
+        "end": "建炎元年十月末",
+        "precision": "month",
+        "start": "建炎元年十月末"
+      },
+      "uncertainties": [
+        "李孝义余部人数、投降条件与张世动机未载。"
+      ]
+    },
+    {
+      "action": "张遇入池州纵掠并强征壮丁，刘光世在池州近郊战败；张遇继攻江州未克，撤退时后军被刘光世截破。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ZHANGYU-CHIZHOU-JIANGZHOU-RAIDS-1127",
+      "implementation": "",
+      "locations": [
+        "池州",
+        "江州",
+        "长堤"
+      ],
+      "observable_result": "张遇沿江扩张虽击败官军一部，但未取江州且后军受损。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-ZHANGYU-YANGTZE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-zhangyu-chizhou-jiangzhou-raids-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#張遇入池州",
+        "續資治通鑑/卷100@2300291#遇入城縱掠，驅強壯以益其軍",
+        "續資治通鑑/卷100@2300291#官軍敗績，遇率眾循江而上",
+        "續資治通鑑/卷100@2300291#張遇寇江州",
+        "續資治通鑑/卷100@2300291#劉光世截其後軍，破之"
+      ],
+      "time_range": {
+        "end": "建炎元年十一月至十二月",
+        "precision": "month",
+        "start": "建炎元年十一月至十二月"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡、池州损失和被驱壮丁人数未载。"
+      ]
+    },
+    {
+      "action": "王渊、张俊诈称赐告身诱陈通等出迎，入城控制各门后捕首领三十人与余党，腰斩共一百八十余人。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-HANGZHOU-FINAL-SUPPRESSION-1127",
+      "implementation": "",
+      "locations": [
+        "杭州"
+      ],
+      "observable_result": "杭州军乱首领被集中处决，城内百姓相贺。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-HANGZHOU-FINAL-SUPPRESSION-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-hangzhou-final-suppression-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#御營使司都統制王淵入杭州",
+        "續資治通鑑/卷100@2300291#淵召其首三十人至庭下，遽執之",
+        "續資治通鑑/卷100@2300291#悉腰斬之，凡百八十餘人。百姓相賀"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月辛酉",
+        "precision": "month",
+        "start": "建炎元年十二月辛酉"
+      },
+      "uncertainties": [
+        "官军伤亡、被处决者胁从情况与后续军政整顿未载。"
+      ]
+    },
+    {
+      "action": "临朐土兵赵晟聚众入城作乱，京东东路制置使曾孝序力不能制，与其子据厅痛骂叛军并被杀。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ZENGXIAOXU-QINGZHOU-MUTINY-1127",
+      "implementation": "",
+      "locations": [
+        "临朐",
+        "青州"
+      ],
+      "observable_result": "青州高级军政长官父子死于兵变。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-QINGZHOU-MUTINY-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-zengxiaoxu-qingzhou-mutiny-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#知青州曾孝序為亂兵所殺",
+        "續資治通鑑/卷100@2300291#臨朐土兵趙晟，聚眾為亂，奪門而入",
+        "續資治通鑑/卷100@2300291#與其子宣教郎訏皆遇害"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月壬戌",
+        "precision": "month",
+        "start": "建炎元年十二月壬戌"
+      },
+      "uncertainties": [
+        "叛军规模、城内伤亡与后续控制未载。"
+      ]
+    },
+    {
+      "action": "宗翰因高宗驻扬州而约金军三路南侵；尼楚赫渡河背攻河阳南城使宋军溃败，金军据汜水、西京并进京西，姚庆战死、孙昭远南撤。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-JIN-THREE-ROUTE-SOUTHERN-INVASION-1127",
+      "implementation": "",
+      "locations": [
+        "河南",
+        "山东",
+        "陕西",
+        "河阳",
+        "汜水关",
+        "洛阳",
+        "郑州"
+      ],
+      "observable_result": "金军突破河阳河南防线，占据西京并震动中原。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-THREE-ROUTE-INVASION-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-jin-three-route-southern-invasion-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#乃約諸軍分道南侵",
+        "續資治通鑑/卷100@2300291#陰遣萬戶尼楚赫自力鼎渡河，背攻南城，破之",
+        "續資治通鑑/卷100@2300291#宗翰據汜水，引軍而東",
+        "續資治通鑑/卷100@2300291#金人大入，昭遠引餘兵南去",
+        "續資治通鑑/卷100@2300291#西，中原大震"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月癸亥",
+        "precision": "month",
+        "start": "建炎元年十二月癸亥"
+      },
+      "uncertainties": [
+        "各路兵力、宋军伤亡、洛阳百姓损失与占领范围未载。"
+      ]
+    },
+    {
+      "action": "金军围棣州，守臣姜刚之率军民抵抗，金军未能攻克而退。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-DIZHOU-DEFENSE-1127",
+      "implementation": "",
+      "locations": [
+        "棣州"
+      ],
+      "observable_result": "棣州守住金军围攻。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-DIZHOU-DEFENSE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-dizhou-defense-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#金人圍棣州，守臣薑剛之率軍民拒守，不拔而去"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月",
+        "precision": "month",
+        "start": "建炎元年十二月"
+      },
+      "uncertainties": [
+        "围城时长、双方兵力伤亡及退军原因未载。"
+      ]
+    },
+    {
+      "action": "金将洛索由上游涉渡，曲方弃韩城；继攻同州，郑骧战退后独守投井死，周良以不杀戮为条件开城降金。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-HANCHENG-TONGZHOU-FALL-1127",
+      "implementation": "",
+      "locations": [
+        "河中",
+        "韩城",
+        "同州"
+      ],
+      "observable_result": "韩城与同州相继失守，同州以条件投降避免杀戮。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-HANCHENG-TONGZHOU-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-hancheng-tongzhou-fall-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#金洛索渡河，拔韓城縣",
+        "續資治通鑑/卷100@2300291#方始覺，引兵遁去",
+        "續資治通鑑/卷100@2300291#金洛索攻同州，守臣直秘閣鄭驤死之",
+        "續資治通鑑/卷100@2300291#苟無殺戮，當聽命"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月戊辰至甲戌",
+        "precision": "month",
+        "start": "建炎元年十二月戊辰至甲戌"
+      },
+      "uncertainties": [
+        "金宋兵力、伤亡、降约执行与州民后续未载。"
+      ]
+    },
+    {
+      "action": "王𤫉军自陕入蜀后击退史斌、收复兴州；因久屯军饷不继，两川筹民间助军钱并截用原输陕河东纲运。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127",
+      "implementation": "",
+      "locations": [
+        "兴州",
+        "兴元府",
+        "两川"
+      ],
+      "observable_result": "兴州收复，并形成川陕西兵长期屯驻与地方供饷机制。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-XINGZHOU-RECOVERY-1127"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-xingzhou-recovery-sichuan-garrison-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#遣統制官韋知幾、統領官申世景領兵拒之，復興州",
+        "續資治通鑑/卷100@2300291#久，軍餉不繼",
+        "續資治通鑑/卷100@2300291#率兩川民間助軍錢佐之",
+        "續資治通鑑/卷100@2300291#川、陝屯西兵自此始"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月",
+        "precision": "month",
+        "start": "建炎元年十二月"
+      },
+      "uncertainties": [
+        "驻军人数、助军钱总额、截纲规模与民间影响未载。"
+      ]
+    },
+    {
+      "action": "赵令峸以愿死换取张遇不杀城中军民，张遇退兵；其后丁进等群寇来犯，均被击退。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-HUANGZHOU-BANDIT-DEFENSE-1127",
+      "implementation": "",
+      "locations": [
+        "黄州"
+      ],
+      "observable_result": "黄州先以谈判免遭张遇攻掠，后又守住多次群盗进攻。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-HUANGZHOU-BANDIT-DEFENSE-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-huangzhou-bandit-defense-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#願諸君勿殺城中軍民",
+        "續資治通鑑/卷100@2300291#群盜皆重令峸器識，引軍東去",
+        "續資治通鑑/卷100@2300291#丁進及群寇來犯，皆擊卻之"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月",
+        "precision": "month",
+        "start": "建炎元年十二月"
+      },
+      "uncertainties": [
+        "守城兵力、后续战斗伤亡与张遇退兵条件未载。"
+      ]
+    },
+    {
+      "action": "朝廷命守令劝农赈乏，并停止征求献助钱物。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "在连续军费征集后转向农业与贫乏救济，叫停助国献纳。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-farming-relief-end-contributions-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#命守令勸農賑乏，罷獻助錢物"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月乙亥",
+        "precision": "month",
+        "start": "建炎元年十二月乙亥"
+      },
+      "uncertainties": [
+        "赈济资金、覆盖地区和停征执行未载。"
+      ]
+    },
+    {
+      "action": "尼楚赫攻破汝州；宗泽拒绝断河桥自守，遣刘衍、刘达以战车护桥待北渡，迫金军夜断桥退去；西京残民随后降金。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-RUZHOU-FALL-TOKYO-BRIDGE-DEFENSE-1127",
+      "implementation": "",
+      "locations": [
+        "汝州",
+        "滑州",
+        "郑州",
+        "东京",
+        "西京"
+      ],
+      "observable_result": "汝州与西京失陷，但东京方向主动护桥使金军暂退。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-JIN-RUZHOU-TOKYO-FRONT-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-ruzhou-fall-tokyo-bridge-defense-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#金尼楚赫破汝州",
+        "續資治通鑑/卷100@2300291#命統制官劉衍趨滑州，劉達走鄭州",
+        "續資治通鑑/卷100@2300291#各率車二百乘，戰士二百人保護河梁",
+        "續資治通鑑/卷100@2300291#金人聞之，夜，斷河梁而遁",
+        "續資治通鑑/卷100@2300291#西京殘民無主，乃開門出降"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月己卯",
+        "precision": "month",
+        "start": "建炎元年十二月己卯"
+      },
+      "uncertainties": [
+        "汝州伤亡、护桥接战情况与西京投降条件未载。"
+      ]
+    },
+    {
+      "action": "丁进围寿春二十五日未克后退去，宗泽遣使招降，授其京城西壁外巡并令所部屯东京四面。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-DINGJIN-SURRENDER-1127",
+      "implementation": "",
+      "locations": [
+        "寿春",
+        "东京西壁"
+      ],
+      "observable_result": "拥众数万的丁进由围城叛军转为东京外防部队。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-DINGJIN-SURRENDER-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-dingjin-surrender-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#聚眾至數萬，遂圍壽春府",
+        "續資治通鑑/卷100@2300291#圍城二十五日，不能拔，乃引去",
+        "續資治通鑑/卷100@2300291#丁進既去壽春，宗澤遣使招之，進納款",
+        "續資治通鑑/卷100@2300291#充京城西壁外巡"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月",
+        "precision": "month",
+        "start": "建炎元年十二月"
+      },
+      "uncertainties": [
+        "攻城伤亡、招安军数、军饷和后续服从情况未载。"
+      ]
+    },
+    {
+      "action": "张俊自杭州移兵讨伐兰溪僧居王并击破其众。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-ZHANGJUN-LANXI-VICTORY-1127",
+      "implementation": "",
+      "locations": [
+        "兰溪"
+      ],
+      "observable_result": "兰溪叛乱被官军击败。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-LANXI-SUPPRESSION-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-zhangjun-lanxi-victory-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#帶禦器械張俊自杭州移兵討蘭溪僧居王。破之"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月乙酉",
+        "precision": "month",
+        "start": "建炎元年十二月乙酉"
+      },
+      "uncertainties": [
+        "叛军兵力、伤亡、居王结局与地方损失未载。"
+      ]
+    },
+    {
+      "action": "朝廷招安建州叛军，张员等开门听命；王淮复任知州、魏胜受官协助抚定，但军情仍未稳定。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-100-JIANZHOU-CONDITIONAL-SURRENDER-1127",
+      "implementation": "",
+      "locations": [
+        "建州"
+      ],
+      "observable_result": "建州军乱由公开对抗转为不稳的招安状态。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-JIANZHOU-MUTINY-1127"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-100-jianzhou-conditional-surrender-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#至是有詔招安，員等聽命",
+        "續資治通鑑/卷100@2300291#以勝為承信郎、權本州兵馬監押",
+        "續資治通鑑/卷100@2300291#時員等雖開門，然軍情猶未定也"
+      ],
+      "time_range": {
+        "end": "建炎元年十二月乙酉",
+        "precision": "month",
+        "start": "建炎元年十二月乙酉"
+      },
+      "uncertainties": [
+        "招安条件、叛军人数、武器处置和最终稳定时间未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "巡幸筹备限制铺张扰民并保障军需。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "荆襄",
+        "关陕",
+        "江淮"
+      ],
+      "observable_result": "巡幸筹备被设定为限制民扰、优先军需的原则。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "多地同时备巡幸，易生摊派。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "禁止丰美饮食和道路整治。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "官吏不得出迎扰民。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "军马粮草仍须充足。"
+        }
+      ],
+      "operation_status": "ordered",
+      "semantic_fingerprint": "candidate-fin-cand-xzztj-100-royal-travel-anti-burden-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#皆備巡幸，並令因陋就簡",
+        "續資治通鑑/卷100@2300291#道路毋治，官吏毋出，有司百吏敢搔擾者，重置於法",
+        "續資治通鑑/卷100@2300291#惟軍馬芻糧，必務豐潔"
+      ],
+      "thread_ref": "FIN-THREAD-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127",
+      "time_range": {
+        "end": "建炎元年九月丁酉",
+        "precision": "month",
+        "start": "建炎元年九月丁酉"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "以六等授官吸引入资募兵。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-XZZTJ-100-MILITARY-OFFICES-SOLD-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-MILITARY-OFFICES-SOLD-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "军费与募兵通过卖官入资机制筹集。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "军兴需兵需财。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "入资与授官挂钩。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "对普通民户影响未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "各路由监司主持募集。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-xzztj-100-military-offices-sold-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#募兵入貲授官，自迪功郎以下凡六等",
+        "續資治通鑑/卷100@2300291#尋命每路以監司一員董其事"
+      ],
+      "thread_ref": "FIN-THREAD-XZZTJ-100-MILITARY-OFFICES-SOLD-1127",
+      "time_range": {
+        "end": "建炎元年九月己酉",
+        "precision": "month",
+        "start": "建炎元年九月己酉"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "当三大钱扩至淮浙荆湖。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-XZZTJ-100-THREE-CASH-CIRCULATION-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-THREE-CASH-CIRCULATION-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "淮南",
+        "两浙",
+        "荆湖"
+      ],
+      "observable_result": "原限北方流通的当三钱进入东南市场。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "东南钱重物轻、交易钱宝不足。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "扩大当三钱法定流通区。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "物价影响未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "东南市场货币供给增加。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-xzztj-100-three-cash-circulation-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#始通當三大錢於淮、浙、荊湖諸路",
+        "續資治通鑑/卷100@2300291#常慮錢寶不足於交易",
+        "續資治通鑑/卷100@2300291#望詔三省參論，以革因循之弊"
+      ],
+      "thread_ref": "FIN-THREAD-XZZTJ-100-THREE-CASH-CIRCULATION-1127",
+      "time_range": {
+        "end": "建炎元年九月庚戌",
+        "precision": "month",
+        "start": "建炎元年九月庚戌"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "两川助军钱与截纲支撑川陕屯兵。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "兴州",
+        "兴元府",
+        "两川"
+      ],
+      "observable_result": "兴州收复，并形成川陕西兵长期屯驻与地方供饷机制。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "收复兴州后西兵久屯、军饷不继。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "征民间助军钱并截用纲运。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "两川民户承担新增助军负担。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "原输陕河东物资转供驻军。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-xzztj-100-xingzhou-recovery-sichuan-garrison-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#遣統制官韋知幾、統領官申世景領兵拒之，復興州",
+        "續資治通鑑/卷100@2300291#久，軍餉不繼",
+        "續資治通鑑/卷100@2300291#率兩川民間助軍錢佐之",
+        "續資治通鑑/卷100@2300291#川、陝屯西兵自此始"
+      ],
+      "thread_ref": "FIN-THREAD-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127",
+      "time_range": {
+        "end": "建炎元年十二月",
+        "precision": "month",
+        "start": "建炎元年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "劝农赈乏并停止献助钱物。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "在连续军费征集后转向农业与贫乏救济，叫停助国献纳。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "军兴期间多次征集民间助国钱。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "献助钱物被罢。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "守令承担劝农赈乏。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "意在恢复农业。"
+        }
+      ],
+      "operation_status": "ordered",
+      "semantic_fingerprint": "candidate-fin-cand-xzztj-100-farming-relief-end-contributions-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#命守令勸農賑乏，罷獻助錢物"
+      ],
+      "thread_ref": "FIN-THREAD-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127",
+      "time_range": {
+        "end": "建炎元年十二月乙亥",
+        "precision": "month",
+        "start": "建炎元年十二月乙亥"
+      },
+      "uncertainties": []
+    }
+  ],
+  "limitations": [
+    "仅据固定revision 2300291的《續資治通鑑》卷100连续通读登记，未打开卷101。",
+    "按连续战线、权力链和同一结果合并行军、决策与善后；所有明确武装行动交battle。",
+    "普通任免、礼仪、祥异不单列；兵力、成本、伤亡、执行及长期结果未载者保持unknown。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "主和宰执决定南迁并放弃两河经制。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "河东",
+        "河北",
+        "东南"
+      ],
+      "observable_result": "中央两河经制政策实质终止，战略重心转向东南。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "国家防御重心转移。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "继续两河经制还是奉帝东南。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "推进马忠等北上。"
+        },
+        {
+          "dimension": "decision",
+          "value": "决策东南迁移。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "两河不再由中央积极经制。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "黄汪路线主导。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "两河守军和民兵失去中央统筹。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "宗泽继续独立经营东京防线。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xzztj-100-two-rivers-strategy-abandoned-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#河北經制使馬忠，貶秩二等，坐逗遛不進也",
+        "續資治通鑑/卷100@2300291#方決策奉帝如東南，無復經制兩河之意"
+      ],
+      "thread_ref": "POL-THREAD-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127",
+      "time_range": {
+        "end": "建炎元年九月辛卯",
+        "precision": "month",
+        "start": "建炎元年九月辛卯"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "张邦昌奉诏自缢，王时雍伏诛。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127",
+      "continuity_status": "ended",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "潭州",
+        "长沙",
+        "高州"
+      ],
+      "observable_result": "伪楚最高首领与重要参与者被处死。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "伪政权首领处决。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "是否处死张邦昌。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "维持安置拘管。"
+        },
+        {
+          "dimension": "decision",
+          "value": "令自裁并保全家属。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "张邦昌、王时雍死亡。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "伪楚首领彻底退出。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "金以废邦昌为再战借口。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "伪楚清算主线终结。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xzztj-100-zhangbangchang-execution-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#詔賜張邦昌死",
+        "續資治通鑑/卷100@2300291#乃登平楚樓而縊",
+        "續資治通鑑/卷100@2300291#於是高州流人王時雍亦伏誅"
+      ],
+      "thread_ref": "POL-THREAD-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127",
+      "time_range": {
+        "end": "建炎元年九月壬子",
+        "precision": "month",
+        "start": "建炎元年九月壬子"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "金方以宋军失利为势提出人口领土贸易条件。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "云中",
+        "河阳"
+      ],
+      "observable_result": "宋金通问以金方提出人口、领土和贸易要求告一段落。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "战后外交条件。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "宋金通问以何条件推进。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "拒绝或继续交涉。"
+        },
+        {
+          "dimension": "decision",
+          "value": "宋使收受国书归国。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "金方三项要求进入宋廷。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "金方保持谈判优势。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "涉及人口、领土和贸易主权。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "宋廷另遣王伦通问。"
+        }
+      ],
+      "operation_status": "proposed",
+      "semantic_fingerprint": "candidate-pol-cand-xzztj-100-jin-diplomatic-terms-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#張渙、招撫使張所遣兵渡河，皆失利，渙為亂軍所殺",
+        "續資治通鑑/卷100@2300291#書中索河北人之在南者及為夏人請熙寧以來侵地",
+        "續資治通鑑/卷100@2300291#又欲於河陽置榷場以通南貨"
+      ],
+      "thread_ref": "POL-THREAD-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127",
+      "time_range": {
+        "end": "建炎元年九月末",
+        "precision": "month",
+        "start": "建炎元年九月末"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "高宗南迁扬州并加强行宫宿卫。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "淮甸",
+        "泗州",
+        "宝应",
+        "扬州"
+      ],
+      "observable_result": "南宋行在由南京转至扬州，宫禁军事警戒加强。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "战时迁都驻跸。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "行朝向何处转移。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "还汴或驻南阳。"
+        },
+        {
+          "dimension": "decision",
+          "value": "沿水路赴扬州。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "扬州成为行在。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "东京与行在进一步分离。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "迁移削弱北方政治信号。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "金军随即三路南侵。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xzztj-100-emperor-moves-yangzhou-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#帝登舟如淮甸",
+        "續資治通鑑/卷100@2300291#帝至揚州，駐蹕州治",
+        "續資治通鑑/卷100@2300291#三衙管軍未嘗內宿，至是始日輪一員，直宿行宮"
+      ],
+      "thread_ref": "POL-THREAD-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127",
+      "time_range": {
+        "end": "建炎元年十月丁巳至癸未",
+        "precision": "month",
+        "start": "建炎元年十月丁巳至癸未"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李纲落职并被安置鄂州。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "鄂州"
+      ],
+      "observable_result": "李纲由罢相退居进一步转为受限安置。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "前宰相追加处分。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "罢相后是否继续追责李纲。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "保留宫祠自由居住。"
+        },
+        {
+          "dimension": "decision",
+          "value": "落职并限居鄂州。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "李纲远离行在。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "主战派影响进一步削弱。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "指控含政治性推断。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "后续处置不在本卷。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xzztj-100-ligang-further-discipline-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#李綱落職，依舊宮祠",
+        "續資治通鑑/卷100@2300291#李綱鄂州居住"
+      ],
+      "thread_ref": "POL-THREAD-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127",
+      "time_range": {
+        "end": "建炎元年十月至十一月",
+        "precision": "month",
+        "start": "建炎元年十月至十一月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "为南迁修扬州城并配运输官。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "扬州"
+      ],
+      "observable_result": "扬州开始承担行在城防和运输准备。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "扬州城池修治。"
+        },
+        {
+          "dimension": "phase",
+          "value": "下令筹备。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "承接行在南迁。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "经费、役夫未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "吕颐浩主修，李祐等随军转运。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "增强驻跸防守与补给。"
+        },
+        {
+          "dimension": "harm",
+          "value": "地方负担未载。"
+        }
+      ],
+      "operation_status": "ordered",
+      "semantic_fingerprint": "candidate-work-cand-xzztj-100-yangzhou-migration-works-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#命知揚州呂頤浩修城池，發運副使李祐等為隨軍轉運使，以將南遷也"
+      ],
+      "thread_ref": "WORK-THREAD-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127",
+      "time_range": {
+        "end": "建炎元年九月甲午",
+        "precision": "month",
+        "start": "建炎元年九月甲午"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宗泽构筑东京战车壁垒河防体系。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "东京",
+        "黄河",
+        "京畿"
+      ],
+      "observable_result": "东京形成以战车、壁垒、河防和民兵组成的纵深防御体系，但回銮请求未获回应。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "东京战车、二十四壁、河垒濠沟与鹿角。"
+        },
+        {
+          "dimension": "phase",
+          "value": "持续建造训练。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "守东京并准备北进。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "战车一千二百乘、驻兵数万、十六县分守。"
+        },
+        {
+          "dimension": "operation",
+          "value": "宗泽往来校阅。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "形成多层防线并稳定京城。"
+        },
+        {
+          "dimension": "harm",
+          "value": "人力物资成本未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-xzztj-100-songze-tokyo-defense-system-1127",
+      "source_refs": [
+        "續資治通鑑/卷100@2300291#且造決勝戰車千二百乘",
+        "續資治通鑑/卷100@2300291#立二十四壁於城外，駐兵數萬",
+        "續資治通鑑/卷100@2300291#命十六縣分守之",
+        "續資治通鑑/卷100@2300291#皆開濠，深廣丈餘，于其南植鹿角",
+        "續資治通鑑/卷100@2300291#乃上表請車駕還京，不報"
+      ],
+      "thread_ref": "WORK-THREAD-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127",
+      "time_range": {
+        "end": "建炎元年九月至十月",
+        "precision": "month",
+        "start": "建炎元年九月至十月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "建炎元年十二月兰溪平乱与建州招安未定",
+    "input_fingerprint": "4c01ec157a1cd80cd3046ea95434d304742c7c863330cecaf1288751bfab2aa6",
+    "overlap_context": "承卷099八月李纲罢相、两河招抚逆转、杭州军乱扩大与宋金通问受讯。",
+    "revision_ref": "2300291",
+    "start_locator": "建炎元年九月罢五人为伍军制与建州军乱",
+    "volume_ref": "卷100",
+    "work": "續資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "southern-song-chronicle-volume-100",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xzztj-100-two-rivers-strategy-abandoned-1127",
+      "status": "closed",
+      "summary": "主和宰执决定南迁并放弃两河经制。",
+      "thread_ref": "POL-THREAD-XZZTJ-100-TWO-RIVERS-STRATEGY-ABANDONED-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-xzztj-100-yangzhou-migration-works-1127",
+      "status": "closed",
+      "summary": "为南迁修扬州城并配运输官。",
+      "thread_ref": "WORK-THREAD-XZZTJ-100-YANGZHOU-MIGRATION-WORKS-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-xzztj-100-royal-travel-anti-burden-1127",
+      "status": "closed",
+      "summary": "巡幸筹备限制铺张扰民并保障军需。",
+      "thread_ref": "FIN-THREAD-XZZTJ-100-ROYAL-TRAVEL-ANTI-BURDEN-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-xzztj-100-songze-tokyo-defense-system-1127",
+      "status": "closed",
+      "summary": "宗泽构筑东京战车壁垒河防体系。",
+      "thread_ref": "WORK-THREAD-XZZTJ-100-SONGZE-TOKYO-DEFENSE-SYSTEM-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-MILITARY-OFFICES-SOLD-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-xzztj-100-military-offices-sold-1127",
+      "status": "closed",
+      "summary": "以六等授官吸引入资募兵。",
+      "thread_ref": "FIN-THREAD-XZZTJ-100-MILITARY-OFFICES-SOLD-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-THREE-CASH-CIRCULATION-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-xzztj-100-three-cash-circulation-1127",
+      "status": "closed",
+      "summary": "当三大钱扩至淮浙荆湖。",
+      "thread_ref": "FIN-THREAD-XZZTJ-100-THREE-CASH-CIRCULATION-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xzztj-100-zhangbangchang-execution-1127",
+      "status": "closed",
+      "summary": "张邦昌奉诏自缢，王时雍伏诛。",
+      "thread_ref": "POL-THREAD-XZZTJ-100-ZHANGBANGCHANG-EXECUTION-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xzztj-100-jin-diplomatic-terms-1127",
+      "status": "closed",
+      "summary": "金方以宋军失利为势提出人口领土贸易条件。",
+      "thread_ref": "POL-THREAD-XZZTJ-100-JIN-DIPLOMATIC-TERMS-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xzztj-100-emperor-moves-yangzhou-1127",
+      "status": "closed",
+      "summary": "高宗南迁扬州并加强行宫宿卫。",
+      "thread_ref": "POL-THREAD-XZZTJ-100-EMPEROR-MOVES-YANGZHOU-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xzztj-100-ligang-further-discipline-1127",
+      "status": "closed",
+      "summary": "李纲落职并被安置鄂州。",
+      "thread_ref": "POL-THREAD-XZZTJ-100-LIGANG-FURTHER-DISCIPLINE-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-xzztj-100-xingzhou-recovery-sichuan-garrison-1127",
+      "status": "closed",
+      "summary": "两川助军钱与截纲支撑川陕屯兵。",
+      "thread_ref": "FIN-THREAD-XZZTJ-100-XINGZHOU-RECOVERY-SICHUAN-GARRISON-1127",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-xzztj-100-farming-relief-end-contributions-1127",
+      "status": "closed",
+      "summary": "劝农赈乏并停止献助钱物。",
+      "thread_ref": "FIN-THREAD-XZZTJ-100-FARMING-RELIEF-END-CONTRIBUTIONS-1127",
+      "uncertainties": []
+    }
+  ]
+}

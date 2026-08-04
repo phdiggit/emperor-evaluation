@@ -1,0 +1,369 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-117",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷117",
+    "revision_ref": "2307900",
+    "start_locator": "紹興六年六月荊南重建與地震求言",
+    "end_locator": "紹興六年十二月南壽春築城與地方治理",
+    "overlap_context": "承卷116屯田北伐与护军改制，续记防秋巡幸、伪齐三路入寇及藕塘大捷。",
+    "input_fingerprint": "26df64750602b4e106d64f2b73bbf49388ee792e4e56b8d55d5229a6cc49ce56"
+  },
+  "limitations": [
+    "本卷止於紹興六年十二月，未讀卷118。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-117-JINGNAN-REBUILD-1136",
+      "time": "紹興六年六月",
+      "loc": [],
+      "action": "王庶率军民清理荆南、修城隍府库廨舍、造瓦屋辟市，并以免田赋和武吏出资生息充府库。",
+      "result": "荆南流民归集、府库充实并形成雄藩。",
+      "quote": [
+        "與士卒披荊棘",
+        "治城隍，繕府庫",
+        "府庫，廨舍畢修",
+        "陶瓦為民室廬",
+        "辟市區如承平時",
+        "流庸四集，喜曰",
+        "肆耕其中，吾不汝賦",
+        "還輸其息，府庫大充",
+        "得以養兵，遂成軍"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-117-JINGNAN-REBUILD-1136",
+        "candidate": "WORK-CAND-117-JINGNAN-REBUILD-1136",
+        "summary": "荆南流民归集、府库充实并形成雄藩。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "荆南流民归集、府库充实并形成雄藩。",
+          "phase": "实施。",
+          "purpose": "正文目的。",
+          "resource_input": "正文投入。",
+          "operation": "正文运行。",
+          "benefit": "正文结果。",
+          "harm": "正文损害。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-EARTHQUAKE-RELIEF-1136",
+      "time": "紹興六年六月己酉",
+      "loc": [],
+      "action": "地震后高宗求言，命州郡惠养凋瘵、安辑流亡、察冤禁扰。",
+      "result": "灾异响应转化为地方治理约束。",
+      "quote": [
+        "六月乙巳地震",
+        "其各悉意以言",
+        "宜為朕惠養凋瘵",
+        "惠養凋瘵，安輯流亡",
+        "察冤系，禁苛擾",
+        "毋縱吏為奸"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-117-EARTHQUAKE-RELIEF-1136",
+        "candidate": "POL-CAND-117-EARTHQUAKE-RELIEF-1136",
+        "summary": "灾异响应转化为地方治理约束。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "灾异响应转化为地方治理约束。",
+          "decision_question": "正文问题。",
+          "alternatives": "维持或调整。",
+          "decision": "正文处置。",
+          "direct_result": "灾异响应转化为地方治理约束。",
+          "power_change": "正文变化。",
+          "risk_or_damage": "正文风险。",
+          "follow_up": "未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-JIANGHUAI-DEFENSE-1136",
+      "time": "紹興六年六月至八月",
+      "loc": [],
+      "action": "张浚巡按淮屯，令刘光世、韩世忠、张俊鼎立，杨沂中屯泗州；岳飞另入伪齐境擒薛亨、焚蔡州积聚。",
+      "result": "防秋部署形成江淮与上游并进态势。",
+      "quote": [
+        "渡江撫淮上諸屯",
+        "先圖自守以致其師",
+        "自當塗進屯廬州",
+        "遣權主管殿前司公事楊沂中進屯泗州",
+        "進屯泗州。軍聲大振",
+        "擒亨以獻，引兵至蔡州",
+        "引兵至蔡州，焚其積聚"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-117-JIANGHUAI-DEFENSE-1136"
+    },
+    {
+      "id": "CHF-XZZTJ-117-ROYAL-JOURNEY-1136",
+      "time": "紹興六年八月至九月",
+      "loc": [],
+      "action": "高宗决定巡幸平江，保留临安常务并限制沿途供张调夫；九月舟行询问民瘼。",
+      "result": "巡幸行政与节用约束同步落实。",
+      "quote": [
+        "朝論不同，帝獨從其計",
+        "百司隨從人比四年三分減一",
+        "常程事務，留臨安府",
+        "聽行宮留守司予決",
+        "戒飭州縣，勿為侈費",
+        "有苦於百姓者",
+        "帝發臨安府",
+        "延見守令者",
+        "欲知民間疾苦"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-117-ROYAL-JOURNEY-1136",
+        "candidate": "POL-CAND-117-ROYAL-JOURNEY-1136",
+        "summary": "巡幸行政与节用约束同步落实。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "巡幸行政与节用约束同步落实。",
+          "decision_question": "正文问题。",
+          "alternatives": "维持或调整。",
+          "decision": "正文处置。",
+          "direct_result": "巡幸行政与节用约束同步落实。",
+          "power_change": "正文变化。",
+          "risk_or_damage": "正文风险。",
+          "follow_up": "未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-TAX-ADVANCE-1136",
+      "time": "紹興六年八月己未",
+      "loc": [],
+      "action": "户部预借江浙来年夏税绸绢之半并折米，形成二百余万储备。",
+      "result": "军储以预借未来税粮扩充。",
+      "quote": [
+        "預借江、浙民戶來年夏稅綢絹之半",
+        "盡令折納米斛",
+        "約可得二百餘萬",
+        "每匹折米二石"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-117-TAX-ADVANCE-1136",
+        "candidate": "FIN-CAND-117-TAX-ADVANCE-1136",
+        "summary": "军储以预借未来税粮扩充。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷背景。",
+          "fiscal_state": "本卷财用。",
+          "livelihood_state": "本卷民生。",
+          "production_circulation": "本卷流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-WESTERN-RAID-1136",
+      "time": "紹興六年八月至九月",
+      "loc": [],
+      "action": "杨再兴复长水县，王贵、郝晸、董先攻下卢氏并获粮十五万斛。",
+      "result": "岳飞军深入伊洛并取得据点与军粮。",
+      "quote": [
+        "復西京之長水縣",
+        "引兵攻虢州盧氏縣",
+        "攻虢州盧氏縣，下之",
+        "獲糧十五萬斛",
+        "今已至伊、洛"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-117-WESTERN-RAID-1136"
+    },
+    {
+      "id": "CHF-XZZTJ-117-QI-INVASION-OOUTANG-1136",
+      "time": "紹興六年九月至十月",
+      "loc": [],
+      "action": "刘豫签乡兵三十万分三路南侵；宋廷督刘光世复守庐州，杨沂中在越家坊和藕塘击溃刘猊，王德追刘麟。",
+      "result": "伪齐三路入寇失败，俘获大量舟车军需并迫使各路撤退。",
+      "quote": [
+        "簽鄉兵三十萬",
+        "分三路入寇",
+        "於是賊眾十萬",
+        "督光世復還廬州",
+        "與猊前鋒遇于越家坊，敗之",
+        "楊沂中至藕塘",
+        "率兵俱進，賊眾大敗",
+        "皆怖伏請命",
+        "聞猊敗，拔寨遁去",
+        "所得賊舟數百艘",
+        "軍需之物不可勝計"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-117-QI-INVASION-OOUTANG-1136"
+    },
+    {
+      "id": "CHF-XZZTJ-117-CAPTIVE-RELIEF-1136",
+      "time": "紹興六年十月辛亥至乙卯",
+      "loc": [],
+      "action": "高宗因伪齐签军皆为中原赤子，命先招降、埋瘗阵亡者，并给俘虏钱米遣归。",
+      "result": "战俘与阵亡者处置转为抚恤分化。",
+      "quote": [
+        "此皆朕之赤子",
+        "爾後務先招降",
+        "陳歿之人，亟為埋瘞",
+        "置道場三晝夜",
+        "貸遣所得之俘",
+        "今當給與錢米",
+        "然後遣之使歸"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-117-CAPTIVE-RELIEF-1136",
+        "candidate": "POL-CAND-117-CAPTIVE-RELIEF-1136",
+        "summary": "战俘与阵亡者处置转为抚恤分化。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战俘与阵亡者处置转为抚恤分化。",
+          "decision_question": "正文问题。",
+          "alternatives": "维持或调整。",
+          "decision": "正文处置。",
+          "direct_result": "战俘与阵亡者处置转为抚恤分化。",
+          "power_change": "正文变化。",
+          "risk_or_damage": "正文风险。",
+          "follow_up": "未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-NANSHOUCHUN-FORT-1136",
+      "time": "紹興六年十二月辛丑",
+      "loc": [],
+      "action": "朝廷下令筑南寿春城。",
+      "result": "淮西战后防御据点获准建设。",
+      "quote": [
+        "詔築南壽春城"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-117-NANSHOUCHUN-FORT-1136",
+        "candidate": "WORK-CAND-117-NANSHOUCHUN-FORT-1136",
+        "summary": "淮西战后防御据点获准建设。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "淮西战后防御据点获准建设。",
+          "phase": "实施。",
+          "purpose": "正文目的。",
+          "resource_input": "正文投入。",
+          "operation": "正文运行。",
+          "benefit": "正文结果。",
+          "harm": "正文损害。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-LOCAL-GOVERNANCE-1136",
+      "time": "紹興六年十二月",
+      "loc": [],
+      "action": "朝廷建立监司郡守任满善状考核、郎官外任、通判知州升转和赃罪审查制度。",
+      "result": "地方官履历、治绩与升黜形成连续审核链。",
+      "quote": [
+        "秩滿考其善狀",
+        "治效著聞，即除行在差遣",
+        "效職通及二年，復加銓擇",
+        "中書、御史臺籍記名姓",
+        "參考治狀善否",
+        "選擇非老病",
+        "非老病及不曾犯贓",
+        "許本台彈奏"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-117-LOCAL-GOVERNANCE-1136",
+        "candidate": "POL-CAND-117-LOCAL-GOVERNANCE-1136",
+        "summary": "地方官履历、治绩与升黜形成连续审核链。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "地方官履历、治绩与升黜形成连续审核链。",
+          "decision_question": "正文问题。",
+          "alternatives": "维持或调整。",
+          "decision": "正文处置。",
+          "direct_result": "地方官履历、治绩与升黜形成连续审核链。",
+          "power_change": "正文变化。",
+          "risk_or_damage": "正文风险。",
+          "follow_up": "未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-MILITARY-BURDEN-CONTROL-1136",
+      "time": "紹興六年十二月戊申",
+      "loc": [],
+      "action": "高宗指出养兵取民，命监司郡守查办借军需侵渔纳贿，军需须揭榜晓谕。",
+      "result": "战时军需征取获得公开与问责要求。",
+      "quote": [
+        "養兵之費，皆取於民",
+        "吾民甚苦而吏莫之恤",
+        "夤緣軍須，掊斂無益",
+        "察吏之侵漁納賄者",
+        "劾按以聞。已戒敕三省官",
+        "州縣揭榜曉諭"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-117-MILITARY-BURDEN-CONTROL-1136",
+        "candidate": "FIN-CAND-117-MILITARY-BURDEN-CONTROL-1136",
+        "summary": "战时军需征取获得公开与问责要求。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷背景。",
+          "fiscal_state": "本卷财用。",
+          "livelihood_state": "本卷民生。",
+          "production_circulation": "本卷流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-117-KNIFE-CROSSBOW-SETTLEMENT-1136",
+      "time": "紹興六年十二月",
+      "loc": [],
+      "action": "王庶获准以四州闲田招募刀弩手三千五百人承佃，补充靖康后旧额。",
+      "result": "边兵补充与闲田安置结合。",
+      "quote": [
+        "閒田共招刀弩手三千五百人",
+        "沅州千五百",
+        "辰州千人，澧、靖州",
+        "田召人承佃",
+        "至是命相度召填"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-117-KNIFE-CROSSBOW-SETTLEMENT-1136",
+        "candidate": "FIN-CAND-117-KNIFE-CROSSBOW-SETTLEMENT-1136",
+        "summary": "边兵补充与闲田安置结合。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷背景。",
+          "fiscal_state": "本卷财用。",
+          "livelihood_state": "本卷民生。",
+          "production_circulation": "本卷流转。"
+        }
+      }
+    }
+  ]
+}

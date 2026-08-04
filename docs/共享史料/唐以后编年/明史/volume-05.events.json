@@ -1,0 +1,373 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V05-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V05-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷5",
+    "revision_ref": "2594618",
+    "start_locator": "成祖早年与建文元年举兵",
+    "end_locator": "洪武三十五年十二月蠲被兵州县夏税",
+    "overlap_context": "卷5从成祖本纪复述卷4靖难全程；逐段保留史源锚点并显式duplicate-of卷4唯一可消费阶段，另登记成祖即位后的清洗、复制、赈免与迁民。",
+    "input_fingerprint": "3c3187aeca119461f9b7dc943d1ec30d509311bea0fad33859e9673873492302"
+  },
+  "limitations": [
+    "仅据固定《明史》卷5正文登记，未知保持未知。",
+    "靖难战争为卷4同一事件链的成祖本纪复述，全部仅作CONTEXT_ONLY交界锚点，不重复生成战役候选。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V05-JINGNAN-UPRISING-CONTEXT-1399",
+      "time": [
+        "建文元年六月至七月",
+        "1399",
+        "range"
+      ],
+      "subject": "燕王朱棣及燕军与建文朝北平官军",
+      "action": "燕王在逮捕王府官属压力下密纳勇士，诱杀谢贵、张昺并夺北平九门，以清君侧名义举兵靖难。",
+      "result": "燕军迅速取居庸、怀来、密云、遵化、永平；此为卷4靖难起兵事件的复述锚点，duplicate-of CHF-MING-V04-JINGNAN-UPRISING-1399。",
+      "cost": "宋忠等被俘杀，其他伤亡未详。",
+      "groups": [
+        "燕军",
+        "建文官军",
+        "北平军民"
+      ],
+      "quote": [
+        "令指揮張玉、朱能潛納勇士八百人入府守衞。",
+        "匿壯士端禮門，紿貴、昺入，殺之，遂奪九門。",
+        "書既發，遂舉兵。自署官屬，稱其師曰「靖難」。",
+        "二旬眾至數萬。"
+      ],
+      "unknown": [
+        "北平夺城军民伤亡和动员成本未载。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-JINGNAN-NORTH-CONTEXT-1399",
+      "time": [
+        "建文元年八月至十一月",
+        "1399",
+        "range"
+      ],
+      "subject": "燕王朱棣军与耿炳文、李景隆等建文军",
+      "action": "燕军攻雄县、鄚州并在真定击败耿炳文，又夺大宁与朵颜三卫后回援北平，在郑村坝击溃李景隆。",
+      "result": "燕军稳住北方并扩充兵力；此为卷4靖难北方战事的复述锚点，duplicate-of CHF-MING-V04-JINGNAN-NORTH-1399。",
+      "cost": "雄县遭屠，真定斩首三万级，陈晖部渡河溺死无算；其他伤亡未载。",
+      "groups": [
+        "燕军",
+        "建文官军",
+        "朵颜三卫",
+        "河北军民"
+      ],
+      "quote": [
+        "圍雄，拔其城，屠之。",
+        "與張玉、譚淵等夾擊炳文軍，大破之",
+        "斬首三萬級。",
+        "挾寧王權，拔大寧之眾及朵顏三衞卒俱南。",
+        "景隆大敗，奔還。"
+      ],
+      "unknown": [
+        "屠城死亡总数、双方兵力损失和民间灾害未详。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-JINGNAN-1400-CONTEXT",
+      "time": [
+        "建文二年正月至十二月",
+        "1400",
+        "range"
+      ],
+      "subject": "燕王朱棣军与李景隆、盛庸等建文军",
+      "action": "燕军以攻大同疲敌，继在白沟河大破李景隆，围济南不克；随后攻沧州坑降卒，年底在东昌遭盛庸重创。",
+      "result": "燕军取得白沟河大胜但未下济南，并在东昌损失数万人及大将张玉；此为卷4同年战事复述锚点，duplicate-of CHF-MING-V04-JINGNAN-JINAN-DONGCHANG-1400。",
+      "cost": "白沟河斩首数万、溺死十余万；沧州坑降卒三千；东昌燕军亡数万。",
+      "groups": [
+        "燕军",
+        "建文官军",
+        "河北山东军民",
+        "降卒"
+      ],
+      "quote": [
+        "景隆兵多凍餒死者，不見敵而還。",
+        "斬首數萬，溺死者十餘萬人。",
+        "鐵鉉、盛庸堅守，不克。",
+        "夜坑降卒三千人。",
+        "王大敗，潰圍以免，亡數萬人，張玉戰死。"
+      ],
+      "unknown": [
+        "史载数字的统计口径、其他军民伤亡和战区损失未载。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-JINGNAN-ATTRITION-CONTEXT-1401",
+      "time": [
+        "建文三年正月至十二月",
+        "1401",
+        "range"
+      ],
+      "subject": "燕王朱棣军与盛庸、吴杰、平安等建文军",
+      "action": "燕军在夹河、藁城等地反复作战，并焚毁沛县粮舟；因所克城邑旋复失守，遂决定直趋长江决战。",
+      "result": "三年消耗未能稳定占领多数城邑，战争转向直取京师；此为卷4消耗战复述锚点，duplicate-of CHF-MING-V04-JINGNAN-ATTRITION-1401。",
+      "cost": "谭渊等战死，焚粮舟万计；其他伤亡未载。",
+      "groups": [
+        "燕军",
+        "建文官军",
+        "漕运军民",
+        "河北山东民众"
+      ],
+      "quote": [
+        "與盛庸遇於夾河，譚淵戰死。",
+        "庸大敗。走德州。",
+        "焚糧舟萬計。",
+        "所克城邑，兵去旋復為朝廷守，僅據有北平、保定、永平三府而已。",
+        "要當臨江一決，不復返顧矣。"
+      ],
+      "unknown": [
+        "焚毁粮食总量、双方累计伤亡与地方损失未载。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-JINGNAN-SOUTHWARD-CONTEXT-1402",
+      "time": [
+        "建文四年正月至五月",
+        "1402",
+        "range"
+      ],
+      "subject": "燕王朱棣军与何福、平安、徐辉祖、盛庸等建文军",
+      "action": "燕军渡河南下，在淝河、小河、齐眉山与灵璧连续作战，断饷后攻破何福军垒，继越淮直趋扬州。",
+      "result": "建文主力被破，燕军逼近长江；此为卷4南下战事复述锚点，duplicate-of CHF-MING-V04-JINGNAN-SOUTHWARD-1402。",
+      "cost": "陈文等战死，平安、陈晖等三十七人被擒；其他伤亡未载。",
+      "groups": [
+        "燕军",
+        "建文官军",
+        "山东淮北军民"
+      ],
+      "quote": [
+        "王設伏淝河，大敗之。",
+        "大戰齊眉山下。",
+        "破之，生擒平安、陳暉等三十七人，何福走免。",
+        "盛庸扼淮南岸，朱能、丘福潛濟襲走之，遂克盱眙。",
+        "不若乘勝直趨揚州"
+      ],
+      "unknown": [
+        "各战总伤亡、沿途征发和民间损失未载。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-JINGNAN-CAPITAL-CONTEXT-1402",
+      "time": [
+        "建文四年六月",
+        "1402",
+        "month"
+      ],
+      "subject": "燕王朱棣军、建文朝廷与南京守军",
+      "action": "陈瑄舟师投燕后，燕军渡江攻至金川门，谷王朱橞、李景隆开门，南京失陷。",
+      "result": "建文政权覆亡；此为卷4南京陷落事件的复述锚点，duplicate-of CHF-MING-V04-JINGNAN-CAPITAL-FALL-1402。",
+      "cost": "渡江沿线伤亡未载。",
+      "groups": [
+        "燕军",
+        "建文官军",
+        "南京军民",
+        "皇室成员"
+      ],
+      "quote": [
+        "江防都督僉事陳瑄以舟師叛，附於王。",
+        "自瓜州渡，盛庸以海艘迎戰，敗績。",
+        "至金川門，谷王橞、李景隆等開門納王，都城遂陷。"
+      ],
+      "unknown": [
+        "都城陷落时建文帝真实结局和军民伤亡未载。"
+      ],
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-YONGLE-ACCESSION-1402",
+      "time": [
+        "建文四年六月",
+        "1402",
+        "month"
+      ],
+      "subject": "燕王朱棣与明朝中央官员",
+      "action": "南京陷落后诸王群臣劝进，朱棣谒孝陵并在奉天殿即皇帝位。",
+      "result": "朱棣建立新政权，恢复周齐二王爵位并葬建文帝。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "諸王羣臣上表勸進。",
+        "奉寶璽，迎呼萬歲。",
+        "詣奉天殿即皇帝位。",
+        "復周王橚、齊王榑爵。",
+        "葬建文皇帝。"
+      ],
+      "unknown": [
+        "建文帝遗体认定与即位程序争议未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YONGLE-ACCESSION-1402",
+        "summary": "朱棣在南京即位并重建朝廷。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V05-JIANWEN-LOYALIST-PURGE-1402",
+      "time": [
+        "建文四年六月至八月",
+        "1402",
+        "range"
+      ],
+      "subject": "成祖朱棣与齐泰、黄子澄、方孝孺、铁铉等建文臣属",
+      "action": "朱棣入京后搜捕齐泰等五十余人，以奸党名义诛杀齐泰、黄子澄、方孝孺并夷族，后杀不屈的铁铉。",
+      "result": "建文核心臣属及其家族遭大规模政治清洗。",
+      "groups": [
+        "建文朝臣",
+        "涉案家属",
+        "中央官员"
+      ],
+      "quote": [
+        "大索齊泰、黃子澄、方孝孺等五十餘人，榜其姓名曰奸臣。",
+        "殺齊泰、黃子澄、方孝孺，並夷其族。",
+        "坐奸黨死者甚眾。",
+        "執兵部尚書鐵鉉至，不屈，殺之。"
+      ],
+      "unknown": [
+        "死亡与流徙总人数、审判程序及财产处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIANWEN-LOYALIST-PURGE-1402",
+        "summary": "成祖清洗并夷族建文核心臣属。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V05-YONGLE-RESTORATION-1402",
+      "time": [
+        "洪武三十五年七月至八月",
+        "1402",
+        "range"
+      ],
+      "subject": "成祖朱棣与明朝中央机构",
+      "action": "朱棣废建文纪年、恢复建文中改动的成法与官制，复用建文朝被废官员，并命解缙等入直文渊阁参与机务。",
+      "result": "洪武旧制恢复，成祖中枢顾问班底形成。",
+      "groups": [
+        "中央地方官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "今年以洪武三十五年為紀，明年為永樂元年。",
+        "建文中更改成法，一復舊制。",
+        "盡復建文朝廢斥者官。",
+        "申，復官制。癸",
+        "同入直，並預機務。"
+      ],
+      "unknown": [
+        "制度回改的完整清单和行政成本未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YONGLE-RESTORATION-1402",
+        "summary": "废建文纪年并恢复旧制、重组中枢。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V05-POSTWAR-RELIEF-MIGRATION-1402",
+      "time": [
+        "洪武三十五年七月至十二月",
+        "1402",
+        "range"
+      ],
+      "subject": "成祖朱棣与被兵州县、无田民户及从征军士",
+      "action": "朝廷对山东北平河南战区复役三年，对其他多地蠲租，迁山西无田民实北平并给钞复五年，命从征将士归还所掠民间子女。",
+      "result": "靖难战区获得赋役减免，北平补充移民，部分被掠人口得以返家。",
+      "groups": [
+        "战区民户",
+        "山西移民",
+        "被掠子女",
+        "从征军士"
+      ],
+      "quote": [
+        "山東、北平、河南被兵州縣，復徭役三年",
+        "餘天下州縣悉蠲今年田租之半。",
+        "徙山西民無田者實北平，賜之鈔，復五年。",
+        "詔從征將士掠民間子女者還其家。",
+        "蠲被兵州縣明年夏稅。"
+      ],
+      "unknown": [
+        "蠲免总额、移民人数、返还人口与战争总损失未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POSTWAR-RELIEF-MIGRATION-1402",
+        "summary": "靖难后减免战区赋役、迁民北平并返还被掠子女。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V05-JINGNAN-MERIT-SETTLEMENT-1402",
+      "time": [
+        "洪武三十五年九月至十月",
+        "1402",
+        "range"
+      ],
+      "subject": "成祖朱棣与靖难功臣、附燕官员及避兵官员",
+      "action": "朝廷大封丘福、朱能等靖难和归附功臣，制定功臣死罪减禄例，并令弃官避兵者入粟免死、戍兴州。",
+      "result": "新政权以封爵、减禄与赎罪处置战争参与者和失职官员。",
+      "groups": [
+        "靖难功臣",
+        "归附官员",
+        "弃官者",
+        "军户"
+      ],
+      "quote": [
+        "論靖難功，封丘福淇國公，朱能成國公",
+        "人。論欵附功，",
+        "定功臣死罪減祿例。",
+        "北平州縣棄官避靖難兵者朱寧等二百一十九人入粟免死，戍興州。"
+      ],
+      "unknown": [
+        "封赏总支出、减禄标准和入粟数量未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JINGNAN-MERIT-SETTLEMENT-1402",
+        "summary": "封赏靖难功臣并制定功臣及弃官者处置规则。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

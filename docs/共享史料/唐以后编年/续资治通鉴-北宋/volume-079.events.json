@@ -1,0 +1,682 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-079",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷079",
+    "revision_ref": "2295970",
+    "start_locator": "宋哲宗元祐元年正月",
+    "end_locator": "宋哲宗元祐元年六月",
+    "overlap_context": "承接卷078哲宗即位、太皇太后同听政及保甲新法初步宽减；本卷推进元祐元年役法、财政、台谏和边防更张。",
+    "input_fingerprint": "38be338b337bf8459ef1b790dc1f5753b5e152075adeda4fd08e17043ac114ff"
+  },
+  "limitations": [
+    "仅据固定 revision 2295970 的《續資治通鑑》卷079连续通读登记。",
+    "连续链合并，纯任免不单收；未知保持未知。",
+    "军事事项交由 battle 工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-079-NEW-LAW-CRITIQUE-AND-MILITARY-OFFICES-1086",
+      "time": "元祐元年正月",
+      "loc": [
+        "陕西",
+        "河东",
+        "开封"
+      ],
+      "action": "王岩叟将旱灾归因于青苗、免役、茶盐及蔡确章惇问题；朝廷同时罢陕西、河东元丰四年后因军兴增置的官局。",
+      "result": "新法与执政批评进入御前，军兴增置机构被裁撤。",
+      "quote": [
+        "旱暵為災，變異甚大",
+        "大害莫如青苗、免役之法",
+        "茶鹽之法，流毒數路",
+        "罷陝西、河東元豐四年後凡緣軍興增置官局"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新法和执政的批评。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-MILITARY-OFFICES-1086",
+          [],
+          "军兴机构裁撤，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-RENT-EXEMPTION-AND-NEW-LAW-ROLLBACK-1086",
+      "time": "元祐元年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "司马光称免役钱为未除四患之首，要求一切罢免役钱、恢复旧差役；三省枢密同进呈获准。",
+      "result": "元祐朝启动以差役取代免役钱的制度更张。",
+      "quote": [
+        "莫如免役錢",
+        "應天下免役錢一切並罷",
+        "依熙寧以前舊法定差",
+        "三省、樞密院同進呈，得旨依奏"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "免役钱和差役制度的根本调整。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢决策程序。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-DAMING-FLOOD-RELIEF-AND-RIVER-WORKS-1086",
+      "time": "元祐元年二月",
+      "loc": [
+        "大名",
+        "诸路"
+      ],
+      "action": "大名河决坏田、民食艰难，朝廷命韩绛访求赈济，并权罢修河、放诸路兵夫。",
+      "result": "河灾地区进入赈济，修河劳役暂缓。",
+      "quote": [
+        "河決大名，壞民田，艱食者眾",
+        "絳詢訪賑濟",
+        "權罷修河，放諸路兵夫"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河决和修河劳役停缓。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾民粮食困难与赈济。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-BORDER-TRADE-PROHIBITION-1086",
+      "time": "元祐元年二月",
+      "loc": [
+        "宋夏边境"
+      ],
+      "action": "朝廷禁止边民与夏人贸易。",
+      "result": "宋夏民间边贸被禁止。",
+      "quote": [
+        "禁邊民與夏人為市"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-BORDER-TRADE-1086",
+          [],
+          "边境贸易管制，交由战役工作流。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边贸禁令，实际影响未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-ALI-GU-RULE-AND-SHARE-ROLES-1086",
+      "time": "元祐元年二月",
+      "loc": [
+        "河西",
+        "邈川"
+      ],
+      "action": "栋戬死后，阿里骨承袭河西军节度使；朝廷因其严峻刑杀，诏令推广恩信。",
+      "result": "邈川继承完成，但朝廷明示要求改善统治方式。",
+      "quote": [
+        "武威郡王棟戩卒",
+        "阿裡骨嚴峻刑殺",
+        "詔飭以推廣恩信"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-ALI-GU-RULE-1086",
+          [],
+          "河西边地统治和安全，交由战役工作流。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边地继承与治术约束。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-CHAIYI-IMPLEMENTATION-DISPUTE-1086",
+      "time": "元祐元年二月",
+      "loc": [
+        "开封",
+        "诸路"
+      ],
+      "action": "蔡京以五日限迅速差役，司马光赞许；章惇、吕公著和苏轼则指出骤改可能扰民，主张详议、缓行或试行。",
+      "result": "复差役虽获推进，但中枢对速度和民害出现明确分歧。",
+      "quote": [
+        "令兩縣差一千餘人充役",
+        "使人人如待制，何患法之不行乎",
+        "保甲、保馬一日不罷，則有一日之害",
+        "當詳議熟講",
+        "法相因則事易成，事有漸則民不驚",
+        "先行之一路以觀其究竟"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "役法调整的执行速度与民力争论。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新政内部程序和意见冲突。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-NEW-LAW-FISCAL-REPEAL-STRATEGY-1086",
+      "time": "元祐元年二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "毕仲游建议将诸路钱粟归地官、公开收支以证明财力，防止以财不足为由复行青苗、市易、役钱和盐法。",
+      "result": "司马光受其书警醒，形成以财政公开巩固废新法的策略。",
+      "quote": [
+        "一歸地官，使經費可支二十年之用",
+        "使天子曉然知天下之餘於財",
+        "青苗雖廢將復散",
+        "市易雖罷且復置",
+        "役錢、鹽法，亦莫不然",
+        "光得書聳然"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "财政统筹与废新法可持续性的建议。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-CAI-QUE-REMOVAL-1086",
+      "time": "元祐元年闰月",
+      "loc": [
+        "开封"
+      ],
+      "action": "蔡确因台谏连章而连表求解机务，孙觉、苏辙指其将裁减烦苛冒作己功，太皇太后最终罢其相位。",
+      "result": "蔡确离开执政，元祐更张进一步清除旧相阻力。",
+      "quote": [
+        "彈章交上十數",
+        "遂連表乞解機務",
+        "確不自引咎，反以為功",
+        "至是始罷為觀文殿學士"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旧相去职与新政合法性争论。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-CENTRAL-GRANARY-TRANSFER-1086",
+      "time": "元祐元年闰月",
+      "loc": [
+        "常平仓"
+      ],
+      "action": "朝廷将提举官多年积蓄全部桩作常平仓钱物，交提点刑狱主管并依旧法运行。",
+      "result": "相关积蓄转入常平仓体系。",
+      "quote": [
+        "提舉官累年積蓄，盡樁作常平倉錢物",
+        "依舊常平倉法"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "常平积蓄归并与管理恢复。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-BAOJIA-DECOMMISSION-SECURITY-RISK-1086",
+      "time": "元祐元年闰月",
+      "loc": [
+        "河北"
+      ],
+      "action": "保甲停团教后，刘挚、苏辙担忧已习弓刀酒肉的乡民无所归而为盗，建议择强勇者编禁军并拨三十万贯。",
+      "result": "保甲废止后转化兵源、预防治安风险的方案被提出，是否施行未载。",
+      "quote": [
+        "保甲罷團教",
+        "既無所歸，勢必為盜",
+        "於保甲中招其強勇精悍者為禁軍",
+        "乞錢三十萬貫"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-BAOJIA-SECURITY-1086",
+          [],
+          "保甲撤改后的兵源与治安问题，交由战役工作流。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "招军例物经费。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-ZHANG-DUN-REMOVAL-1086",
+      "time": "元祐元年闰月",
+      "loc": [
+        "开封"
+      ],
+      "action": "章惇与司马光争役法、簾前言辞不逊，台谏又举其边事欺罔、脅迫谏官和横议害政，遂被罢为知汝州。",
+      "result": "章惇去除枢密职务，元祐中枢争议一方退出。",
+      "quote": [
+        "辭氣不遜，陵上侮下",
+        "以邊事欺罔朝廷",
+        "雲議者可斬",
+        "惇遂罷，以正議大夫知汝州"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "执政冲突与罢免。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-ZHANG-DUN-BORDER-1086",
+          [],
+          "所涉边事责任，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-MARKET-DEBT-AND-ROLE-ARREARS-RELIEF-1086",
+      "time": "元祐元年二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷放免内外市易钱、坊场净利钱，并将积欠免役钱减放一半。",
+      "result": "市易及役钱旧欠获集中减免。",
+      "quote": [
+        "放免內外市易錢並坊場淨利錢",
+        "已前積欠免役錢，與減放一半"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旧欠钱与市场性征收的减免。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-EXAMINATION-REFORM-CONSULTATION-1086",
+      "time": "元祐元年三月",
+      "loc": [
+        "开封",
+        "天下学校"
+      ],
+      "action": "司马光建议以德行为先、九经取士，范纯仁认为孟子不宜轻、应等候众论。",
+      "result": "科举改革从单方方案转为纳入不同意见的审议。",
+      "quote": [
+        "當以德行為先，文學為後",
+        "立《周易》、《尚書》、《毛詩》",
+        "《孟子》恐不可輕",
+        "清心以俟眾論",
+        "光欣然納之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "学校与取士制度的方案协商。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-REOPENING-APPEALS-AND-FISCAL-ADMIN-1086",
+      "time": "元祐元年三月",
+      "loc": [
+        "开封",
+        "熙河",
+        "兰会"
+      ],
+      "action": "朝廷置诉理所，许熙宁以来得罪者自陈；罢熙河兰会路经制财用司，并复广济河辇运。",
+      "result": "旧案申诉通道开启，西北专设财用机构裁撤，漕运恢复。",
+      "quote": [
+        "置訴理所，許熙寧以來得罪者自言",
+        "罷熙河、蘭會路經制財用司",
+        "復廣濟河輦運"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旧案申诉机制。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "西北财用机构与漕运调整。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-XIHE-FINANCE-1086",
+          [],
+          "边地财用机构撤销，交由战役工作流。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-FAN-ZIYUAN-RIVER-WORKS-ACCOUNTABILITY-1086",
+      "time": "元祐元年三月",
+      "loc": [
+        "河工",
+        "峡州"
+      ],
+      "action": "吕陶指范子渊元丰河工糜费巨万、堤工溺死无算且终不成，朝廷将其黜为知峡州。",
+      "result": "河工失败与人员伤亡引发责任处置。",
+      "quote": [
+        "工，糜費巨萬",
+        "溺死無算，而功卒不成",
+        "以有限之財，興必不可成之役",
+        "驅無辜之民，置諸必死之地",
+        "是黜知峽州"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河工成本、伤亡和责任。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "巨额工程支出及民夫死伤。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-DROUGHT-GRAIN-RELIEF-1086",
+      "time": "元祐元年四月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "司马光请县令佐核实缺食户后可不候回报，直接以义仓、常平仓赈济，成熟后随税归还且不得收息；朝廷从之，并蠲诸路旱伤租。",
+      "result": "旱灾赈济被授权即时执行，租赋获免。",
+      "quote": [
+        "有闕食者，一面申知上司及本州",
+        "穀直行賑濟",
+        "夏秋成熟，令隨稅送納，毋得收息",
+        "諸路旱傷，蠲其租"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "义仓常平赈济、免息与蠲租。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-WANG-ANSHI-DEATH-AND-POSTHUMOUS-RESTORATION-1086",
+      "time": "元祐元年四月",
+      "loc": [
+        "金陵",
+        "开封"
+      ],
+      "action": "王安石去世，史载其变法与排斥异论；司马光要求朝廷优礼，防止借死毁谤。",
+      "result": "新旧党争中仍提出对王安石的礼遇原则。",
+      "quote": [
+        "王安石卒，年六十有六",
+        "甚者謂天變不足畏，祖宗不足法",
+        "罷黜中外老成人幾盡",
+        "朝廷特宜優加厚禮",
+        "其不修怨如此"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王安石身后评价与政治宽容。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-EUNUCH-AND-WAR-ACCOUNTABILITY-1086",
+      "time": "元祐元年四月",
+      "loc": [
+        "灵州",
+        "夏州",
+        "开封"
+      ],
+      "action": "刘挚列举李宪、王中正等贪功生事、灵夏战争违期与兵亡，朝廷降官并外放相关宦官。",
+      "result": "宦官及军政人员因战争、工程和权势问题被集中降黜。",
+      "quote": [
+        "貪功生事，漁斂生民膏血",
+        "興靈、夏之役，首違師期",
+        "精卒勁騎，死亡殆盡",
+        "言。詔並降官"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-079-EUNUCH-WAR-ACCOUNTABILITY-1086",
+          [],
+          "西夏战事和军事责任，交由战役工作流。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宦官权势及处分。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对民脂民膏与工程征求的批评。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-ECONOMIC-ADMINISTRATION-AND-CREDIT-RULES-1086",
+      "time": "元祐元年四月",
+      "loc": [
+        "尚书六曹",
+        "常平仓"
+      ],
+      "action": "朝廷合并尚书六曹闲剧不等职位，规定常平春秋敛散、岁饥赈贷依法办理，常平钱谷贷后丰收可随税归还并限息。",
+      "result": "中央职员精简与常平赈贷、还贷规则同步调整。",
+      "quote": [
+        "尚書六曹，職事閑劇不等",
+        "定為三十五員",
+        "歲饑賑貸，主司並依法推行",
+        "隨夏稅先納所輸之半",
+        "止出息一分"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "常平赈贷、还贷和利息规则。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "尚书职员编制精简。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-TAIXUE-RULES-REFORM-1086",
+      "time": "元祐元年五月",
+      "loc": [
+        "太学"
+      ],
+      "action": "刘挚批评太学法禁繁苛、博士诸生不得相见，朝廷命孙觉等修立太学条制。",
+      "result": "太学管理规则进入重修。",
+      "quote": [
+        "煩苛甚於治獄，條目多於防盜",
+        "博士、諸生禁不相見",
+        "哉！願罷其制",
+        "修立太學條制"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "教育机构管理规则重整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-QINGMIAO-MARKET-ABOLITION-1086",
+      "time": "元祐元年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "上官均请罢青苗、复常平平籴；韩川请结绝市易在库物且停止收买，朝廷均予采纳。",
+      "result": "青苗法与市易收买进一步退出，常平旧法被请求恢复。",
+      "quote": [
+        "罷去青苗法，復常平昔年平糶之法",
+        "請結絕見在物貨",
+        "日更不收買",
+        "不收買。」從之。\n"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "青苗、市易和常平政策撤改。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-LU-HUIQING-PUNISHMENT-AND-AMNESTY-1086",
+      "time": "元祐元年六月",
+      "loc": [
+        "苏州",
+        "开封"
+      ],
+      "action": "吕惠卿因苏辙等论罪先落职、后再贬安置；朝廷继而宣布此前涉事者一般不问、停止追劾。",
+      "result": "吕惠卿受重贬，同时更张期的广泛追究被设置止损边界。",
+      "quote": [
+        "呂惠卿落職，降為中散大夫",
+        "責授建寧軍節度副使，本州安置",
+        "罪顯者已正，惡钜者已斥",
+        "一切不問，言者勿復彈劾"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旧党责任追究与赦宥边界。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-079-SONG-XIA-FORTRESS-NEGOTIATION-1086",
+      "time": "元祐元年六月",
+      "loc": [
+        "兰州",
+        "米脂",
+        "熙河",
+        "西夏"
+      ],
+      "action": "西夏求还兰州、米脂等五砦，司马光认为新砦多为夏田、若不还可能再战；安焘及孙路以兰州捍蔽熙河反对尽弃。",
+      "result": "太皇太后一度将许还，司马光在兰州战略说明后停止并弃熙河的主张，最终处置未载。",
+      "quote": [
+        "夏主遣使來求蘭州、米脂等五砦",
+        "砦，皆是彼田",
+        "不若以武力取之",
+        "太皇太后將許之",
+        "若捐以予敵，一道危矣",
+        "矣。」光乃止。\n此"
+      ],
+      "battle": "BATTLE-LEAD-079-SONG-XIA-FORTRESS-NEGOTIATION-1086",
+      "battle_reason": "兰州米脂诸砦归属和复战风险，交由战役工作流。"
+    }
+  ]
+}

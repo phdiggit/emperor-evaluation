@@ -1,0 +1,1399 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "FIVE-DYNASTIES-ZZTJ-271-1",
+  "status": "shadow",
+  "task_code": "FIVE-DYNASTIES-ZZTJ-271-MULTIDOMAIN",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷271",
+    "revision_ref": "1751976",
+    "start_locator": "后梁末帝贞明五年十月",
+    "end_locator": "后梁末帝龙德二年岁末",
+    "overlap_context": "续接卷270德胜河防、梁晋战线、吴宗室矛盾和前蜀腐败；镇州平定后的梁晋、契丹及诸政权线索交卷272续读。",
+    "input_fingerprint": "7be16b6d493c452665a48bf937b5ff99ac0f3e3efbce5f9361f2c6ca09614046"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-271-YANG-MENG-EXILED-919",
+      "time": "贞明五年十月",
+      "loc": [
+        "楚州"
+      ],
+      "action": "吴将杨濛外放为楚州团练使。",
+      "result": "卷270中反对徐氏专权的吴宗室离开中枢。",
+      "quote": "出濛為楚州團練使",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接吴宗室与徐氏权力矛盾，外放原因本条未明载。"
+        ]
+      ],
+      "unknown": [
+        "正式外放理由未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-DESHENG-CONTINUOUS-BATTLES-919",
+      "time": "贞明五年十月",
+      "loc": [
+        "德胜北城",
+        "黄河岸"
+      ],
+      "action": "李存勖发数万徒役扩建德胜北城，并与梁军大小百余战。",
+      "result": "双方互有胜负，石敬瑭、刘知远在一次接战中脱险。",
+      "cost": "数万徒役和百余战损失未量化。",
+      "quote": [
+        "發徒數萬，廣德勝北城",
+        "大小百餘戰，互有勝負"
+      ],
+      "battle": "CAMPAIGN-LIANG-JIN-DESHENG-919",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军事扩城投入明确，独立运行收益未载。"
+        ]
+      ],
+      "unknown": [
+        "徒役来源、工期和累计伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-YANZHOU-FALLS-919",
+      "time": [
+        "贞明四年",
+        "贞明五年十月",
+        "range"
+      ],
+      "loc": [
+        "兖州"
+      ],
+      "action": "刘鄩围兖州经年，晋援未至，梁军攻陷并屠城、族灭张万进。",
+      "result": "兖州复归梁，张万进势力灭亡。",
+      "cost": "城中被屠，张万进全族被杀。",
+      "quote": [
+        "圍張萬進於兗州經年",
+        "鄩已屠兗州，族萬進"
+      ],
+      "battle": "CAMPAIGN-LIANG-JIN-YANZHOU-918-919",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存长期围城和屠城的直接社会损害。"
+        ]
+      ],
+      "unknown": [
+        "城中死者和军队伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-WU-ATTACKS-ANZHOU-919-920",
+      "time": [
+        "贞明五年十一月",
+        "贞明六年正月",
+        "range"
+      ],
+      "loc": [
+        "安州"
+      ],
+      "action": "吴张崇进攻安州。",
+      "result": "未能攻克而退。",
+      "quote": "張崇攻安州，不克而還",
+      "battle": "CAMPAIGN-WU-ANZHOU-919-920",
+      "unknown": [
+        "守方、兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-QICHENG-BATTLE-919",
+      "time": "贞明五年十一月",
+      "loc": [
+        "戚城"
+      ],
+      "action": "梁将王瓒与晋将李嗣源交战。",
+      "result": "王瓒不利。",
+      "quote": "王瓚引兵至戚城，與李嗣源戰，不利",
+      "battle": "CAMPAIGN-LIANG-JIN-DESHENG-919"
+    },
+    {
+      "id": "CHF-ZZTJ-271-PANZHANG-PUYANG-BATTLES-919",
+      "time": "贞明五年十二月",
+      "loc": [
+        "潘张",
+        "杨村",
+        "黄河南岸",
+        "濮阳"
+      ],
+      "action": "李存勖截梁粮运后中伏，继与王瓒再战，先败后胜。",
+      "result": "梁军失亡万计，晋攻取濮阳；石君立被俘而拒绝降梁。",
+      "cost": "梁失亡万计，晋初战损失未载。",
+      "quote": [
+        "路，晉兵大敗",
+        "等；既而大敗",
+        "城，失亡萬計",
+        "勝遂拔濮陽"
+      ],
+      "battle": "CAMPAIGN-LIANG-JIN-DESHENG-919",
+      "unknown": [
+        "两次接战各自准确损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-JINZHOU-919-920",
+      "time": [
+        "贞明五年十二月",
+        "贞明六年正月",
+        "range"
+      ],
+      "loc": [
+        "金州"
+      ],
+      "action": "前蜀削夺全师朗官爵，命桑弘志征讨并攻克金州。",
+      "result": "全师朗被擒送成都后获释，金州由前蜀控制。",
+      "quote": [
+        "命武定節度使兼中書令桑弘志討之",
+        "克金州，執全師朗"
+      ],
+      "battle": "CAMPAIGN-SHU-JINZHOU-919-920",
+      "unknown": [
+        "攻城伤亡和全师朗获释条件未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-WU-MILITIA-REFORM-919",
+      "time": "贞明五年十二月",
+      "loc": [
+        "吴"
+      ],
+      "action": "吴因禁民兵器后盗贼增多，采纳卢枢建议组织民兵习战自卫。",
+      "result": "政策由单纯禁兵器转为团结乡兵。",
+      "quote": [
+        "器，盜賊益繁",
+        "宜團結民兵，使之習戰，自衛鄉里"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-WU-MILITIA-REFORM-919",
+        "candidate": "POL-CAND-WU-MILITIA-REFORM-919",
+        "summary": "吴针对禁兵器后盗贼增多改行乡兵自卫。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "治安政策纠偏",
+          "decision_question": "如何应对禁兵器后盗贼反增。",
+          "alternatives": "维持禁令或组织民兵。",
+          "decision": "组织民兵习战自卫。",
+          "direct_result": "史载从其议，后续治安效果未载。",
+          "power_change": "乡里获得组织自卫的政策空间。",
+          "risk_or_damage": "民兵运行风险未载。",
+          "follow_up": "本卷未载后续成效。"
+        }
+      },
+      "unknown": [
+        "实施范围、训练方式和治安结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHANG-CHONG-CORRUPTION-INQUIRY-920",
+      "time": "贞明六年正月",
+      "loc": [
+        "庐州",
+        "升州"
+      ],
+      "action": "杨廷式指出张崇令县令取民财转献都统，应追究张崇而非只按县令。",
+      "result": "徐知诰认可其议并更加器重杨廷式，未载实际治罪张崇。",
+      "quote": "豈可捨大而詰小乎",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存追责方向与未实施边界。"
+        ]
+      ],
+      "unknown": [
+        "张崇及县令是否受处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-LI-JIANJI-REMOVED-920",
+      "time": "贞明六年三月",
+      "loc": [
+        "魏州",
+        "代州"
+      ],
+      "action": "韦令图以李建及散私财、得牙兵死力为由进谗，李存勖疑而罢其军职。",
+      "result": "李建及改任代州刺史。",
+      "quote": [
+        "軍，譖於晉王",
+        "王罷建及軍職"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存谗言导致军职调整的直接结果。"
+        ]
+      ],
+      "unknown": [
+        "李存勖是否核查指控未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SOUTHERN-HAN-SCHOOL-EXAMS-920",
+      "time": "贞明六年三月",
+      "loc": [
+        "南汉"
+      ],
+      "action": "杨洞潜请求设学校、开贡举、设铨选，刘岩采纳。",
+      "result": "南汉建立教育、科举和官员选授制度。",
+      "quote": "請立學校，開貢舉，設銓選；漢主巖從之",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-SOUTHERN-HAN-SELECTION-920",
+        "candidate": "POL-CAND-SOUTHERN-HAN-SELECTION-920",
+        "summary": "南汉采纳学校、贡举与铨选制度。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "制度改革",
+          "decision_question": "如何建立人才培养与选官渠道。",
+          "alternatives": "维持旧制或设学校贡举铨选。",
+          "decision": "采纳三项建议。",
+          "direct_result": "制度获准设立，运行结果未载。",
+          "power_change": "选官程序趋于制度化。",
+          "risk_or_damage": "未载。",
+          "follow_up": "本卷未载运行成效。"
+        }
+      },
+      "unknown": [
+        "实施日期、规模和录取结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-LI-QI-DISMISSED-920",
+      "time": "贞明六年四月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "李琪通贿赂并违规改摄官为守官，被萧顷奏发；赵岩、张汉杰说情。",
+      "result": "梁帝未流放李琪，只罢为太子少保。",
+      "quote": [
+        "勢，頗通賄賂",
+        "止罷為太子少保"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存宰相违规用官及权臣干预处分。"
+        ]
+      ],
+      "unknown": [
+        "受贿规模及涉官人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-TONGZHOU-SEIZURE-920",
+      "time": "贞明六年四月",
+      "loc": [
+        "同州"
+      ],
+      "action": "朱友谦以兵袭取同州、逐程全晖，并任其子朱令德为留后。",
+      "result": "梁先拒授节，后因畏怨而授；朱友谦已同时向晋求节。",
+      "quote": [
+        "以兵襲取同州",
+        "全暉奔大梁"
+      ],
+      "battle": "CAMPAIGN-TONGZHOU-REVOLT-920",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存武装夺州与梁晋竞授节钺的权力变化。"
+        ]
+      ],
+      "unknown": [
+        "夺州交战与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-WU-SUCCESSION-920",
+      "time": [
+        "贞明六年五月",
+        "贞明六年六月",
+        "range"
+      ],
+      "loc": [
+        "广陵",
+        "金陵"
+      ],
+      "action": "徐温拒绝篡吴建议，迎杨溥监国；杨隆演死后杨溥即吴王位。",
+      "result": "吴保持杨氏王统，徐氏继续专政。",
+      "quote": [
+        "有女亦當立之",
+        "溥即吳王位"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-WU-SUCCESSION-920",
+        "candidate": "POL-CAND-WU-SUCCESSION-920",
+        "summary": "杨隆演去世前后，徐温维持杨氏继承并迎立杨溥。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "继承与权力制衡",
+          "decision_question": "吴王病重后由谁继位。",
+          "alternatives": "徐氏自取、立杨氏女或迎杨溥。",
+          "decision": "迎杨溥监国并继位。",
+          "direct_result": "杨溥成为吴王。",
+          "power_change": "名义王统未变，徐氏专政延续。",
+          "risk_or_damage": "杨濛再次被外调。",
+          "follow_up": "徐温父子继续控制政务。"
+        }
+      }
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-TEMPLE-REMONSTRANCE-920",
+      "time": "贞明六年闰六月",
+      "loc": [
+        "万里桥",
+        "黎州"
+      ],
+      "action": "蜀主建原庙并以亵味鼓吹祭祀；张士乔谏止后被削官流放。",
+      "result": "太后阻止处死，张士乔因愤投水而死。",
+      "cost": "谏官死亡。",
+      "quote": [
+        "張士喬上疏諫",
+        "削官流黎州",
+        "感憤，赴水死。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存拒谏、减轻死刑后仍致谏官死亡。"
+        ]
+      ],
+      "unknown": [
+        "原庙投入和后续使用未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-TONGZHOU-RELIEF-CAMPAIGN-920",
+      "time": [
+        "贞明六年六月",
+        "贞明六年九月",
+        "range"
+      ],
+      "loc": [
+        "同州",
+        "河中",
+        "朝邑",
+        "华州",
+        "罗文寨",
+        "渭水",
+        "下邽"
+      ],
+      "action": "梁刘鄩等围同州；晋李存审等渡河救援，攻华州外城，击败梁军并开放退路后追击。",
+      "result": "梁军退保罗文寨后夜遁，又在渭水被破；晋略地至下邽后撤回。",
+      "cost": "梁军杀获甚众，双方准确伤亡未载；诸军集结使刍粟价格腾贵。",
+      "quote": [
+        "劉鄩等圍同州",
+        "晉人分兵攻華州，壞其外城",
+        "鄩等悉眾出戰，大敗",
+        "追擊至渭水，又破之"
+      ],
+      "battle": "CAMPAIGN-TONGZHOU-RELIEF-920",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存大军集结导致刍粟腾贵的直接负担。"
+        ]
+      ],
+      "unknown": [
+        "各阶段兵力和准确伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-NORTHERN-TOUR-920-921",
+      "time": [
+        "贞明六年七月",
+        "龙德元年正月",
+        "range"
+      ],
+      "loc": [
+        "成都",
+        "安远",
+        "武定",
+        "利州",
+        "阆州",
+        "梓州"
+      ],
+      "action": "蜀主拒绝留都建议，率长列仪仗北巡；返程泛江，沿途州县供办。",
+      "result": "州县承担供办，民众开始愁怨。",
+      "cost": "旌旗兵甲百余里，沿途供办规模未量化。",
+      "quote": [
+        "旌旗兵甲，亙百餘里",
+        "州縣供辦，民始愁怨"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-SHU-NORTHERN-TOUR-920",
+        "candidate": "FIN-CAND-SHU-NORTHERN-TOUR-920",
+        "summary": "前蜀大规模北巡与水路回程造成沿途供办和民怨。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "段融建议由大臣征讨、君主不远离都邑。",
+          "fiscal_state": "州县承担供办，具体财政额未载。",
+          "livelihood_state": "史载民始愁怨。",
+          "production_circulation": "巡行对生产与交通的具体影响未载。"
+        }
+      },
+      "unknown": [
+        "供办金额、征役人数和受影响人口未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-SELS-OFFICES-920",
+      "time": "贞明六年七月",
+      "loc": [
+        "通州",
+        "渠州",
+        "巴州",
+        "集州"
+      ],
+      "action": "韩昭为营建私第向蜀主请求出售数州刺史职位，蜀主准许。",
+      "result": "地方官职被用于筹措宠臣私宅资金。",
+      "quote": "乞通、渠、巴、集數州刺史賣之以營居第，蜀主許之",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存卖官决定与私人用途。"
+        ]
+      ],
+      "unknown": [
+        "售价、买官者与实际筹资数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-QI-CAMPAIGN-920",
+      "time": [
+        "贞明六年十一月",
+        "贞明六年十二月",
+        "range"
+      ],
+      "loc": [
+        "故关",
+        "咸宜",
+        "良原",
+        "陇州",
+        "汧阳",
+        "箭筈岭",
+        "秦州",
+        "上邽",
+        "威武城"
+      ],
+      "action": "前蜀多路出兵伐岐，攻陇州并在箭筈岭击败岐兵。",
+      "result": "蜀军因粮尽撤回部分兵力，另在秦州、上邽和威武城屯驻。",
+      "quote": [
+        "之，將兵伐岐",
+        "宗儔攻隴州，",
+        "敗岐兵於箭筈嶺",
+        "蜀兵食盡，引還"
+      ],
+      "battle": "CAMPAIGN-SHU-QI-920",
+      "unknown": [
+        "攻陇结果、双方伤亡和屯军规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-ABDUCTS-HE-KANG-DAUGHTER-920",
+      "time": "贞明六年十二月",
+      "loc": [
+        "阆州"
+      ],
+      "action": "蜀主夺取将嫁的何康之女，以帛百匹补偿夫家。",
+      "result": "女子原定夫婿恸哭而死。",
+      "cost": "一人死亡，女子处境未载。",
+      "quote": [
+        "嫁，蜀主取之，",
+        "夫一慟而卒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存君主强取民女及直接死亡结果。"
+        ]
+      ],
+      "unknown": [
+        "女子后续和夫家其他损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHAO-XISHAN-BURDENS-920",
+      "time": "贞明六年十二月",
+      "loc": [
+        "镇州",
+        "西山",
+        "鹘营庄"
+      ],
+      "action": "王镕长期率万余将士游西山、建馆宇并求仙，往来供顿。",
+      "result": "军民皆苦，长期离府引发亲军与近臣冲突。",
+      "cost": "供军资源用于游从，具体数额未载。",
+      "quote": [
+        "將佐士卒陪從者常不下萬人",
+        "往來供頓，軍民皆苦之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-ZHAO-XISHAN-BURDENS-920",
+        "candidate": "FIN-CAND-ZHAO-XISHAN-BURDENS-920",
+        "summary": "王镕长期游从和馆宇供顿消耗军政资源并使军民受苦。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "赵处梁晋战争期间，府第与军心需要稳定。",
+          "fiscal_state": "供军之资用于不急之费，具体数额未载。",
+          "livelihood_state": "史载军民皆苦。",
+          "production_circulation": "未载直接生产或市场指标。"
+        }
+      },
+      "unknown": [
+        "馆宇规模、总费用和持续月数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHAO-PURGES-920",
+      "time": "贞明六年十二月",
+      "loc": [
+        "镇州",
+        "鹘营庄"
+      ],
+      "action": "亲军杀石希蒙后，王镕命王昭祚、王德明围李弘规、李蔼宅第并族诛。",
+      "result": "李弘规、李蔼、苏汉衡及数十家连坐者被杀，亲军大恐。",
+      "cost": "数十家遭连坐族诛。",
+      "quote": [
+        "噪，斬希蒙首",
+        "族誅之，連坐者數十家",
+        "狀，親軍大恐"
+      ],
+      "battle": "CAMPAIGN-ZHAO-PALACE-CRISIS-920",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存近臣冲突升级为武装清洗。"
+        ]
+      ],
+      "unknown": [
+        "死者准确人数和反状证据未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-JINLING-WALL-COMPLETED-920",
+      "time": "贞明六年十二月",
+      "loc": [
+        "金陵"
+      ],
+      "action": "吴金陵城完工，隐彦谦呈费用册籍，徐温以既已授权为由焚毁。",
+      "result": "城郭建成，但工程费用记录被主动销毁。",
+      "quote": [
+        "吳金陵城成",
+        "會計！」悉焚之。\n\n"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-WU-JINLING-WALL-920",
+        "candidate": "WORK-CAND-WU-JINLING-WALL-920",
+        "summary": "吴完成金陵城建设，徐温焚毁费用册籍。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "金陵城郭。",
+          "phase": "完工与结算。",
+          "purpose": "本条未载。",
+          "resource_input": "费用曾有册籍，焚毁后数额不可知。",
+          "operation": "城成，实际运行范围未载。",
+          "benefit": "未载可观察受益。",
+          "harm": "费用问责资料被销毁。"
+        }
+      },
+      "unknown": [
+        "工期、用工、费用和运行效益未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-MIN-YANBIN-DEPOSED-920",
+      "time": "贞明六年十二月",
+      "loc": [
+        "泉州",
+        "福州"
+      ],
+      "action": "王延彬因祥瑞而骄纵，秘密入贡求独立节度；事泄后王审知清洗其党。",
+      "result": "僧浩源及其党被杀，王延彬被黜归私第。",
+      "quote": [
+        "密遣使浮海入貢",
+        "誅浩源及其黨，黜延彬歸私第"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存地方长官谋求升格及中央处置。"
+        ]
+      ],
+      "unknown": [
+        "延彬属党人数和泉州后续治理未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-PALACE-EXTRAVAGANCE-921",
+      "time": "龙德元年正月",
+      "loc": [
+        "成都宫禁"
+      ],
+      "action": "蜀主营造锦制山、宫殿楼观和宫渠，长期夜宴、燃香与千炬行舟。",
+      "result": "奢侈活动成为常态，设施损坏后即以新者更换。",
+      "cost": "财物、人工和宫女役使规模未载。",
+      "quote": [
+        "則更以新者易之",
+        "令宮女秉蠟炬千餘",
+        "旦。以是為常"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫廷持续消耗明确，财政总量与民生结果未载。"
+        ]
+      ],
+      "unknown": [
+        "费用来源、总额和民众负担未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-JIN-IMPERIAL-PREPARATION-921",
+      "time": "龙德元年正月",
+      "loc": [
+        "魏州",
+        "晋阳"
+      ],
+      "action": "李存勖在诸镇反复劝进后命造法物；张承业赴魏州反对未果。",
+      "result": "晋开始称帝准备，张承业返晋阳病倒。",
+      "quote": [
+        "乃令有司市玉造法物",
+        "殊非從來征伐之意",
+        "業知不可止"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-IMPERIAL-PREPARATION-921",
+        "candidate": "POL-CAND-JIN-IMPERIAL-PREPARATION-921",
+        "summary": "李存勖由拒绝劝进转为准备帝制法物，张承业谏阻失败。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "称帝准备与重大决策",
+          "decision_question": "是否在灭梁前即帝位。",
+          "alternatives": "先灭梁复唐仇后再受位，或立即准备称帝。",
+          "decision": "命有司造法物。",
+          "direct_result": "帝制准备启动。",
+          "power_change": "晋王朝向正式皇权转化。",
+          "risk_or_damage": "张承业警告可能使天下解体；实际结果本卷未闭合。",
+          "follow_up": "称帝结果交后卷。"
+        }
+      },
+      "unknown": [
+        "法物费用与正式即位时间本卷未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHAO-COUP-921",
+      "time": "龙德元年二月",
+      "loc": [
+        "镇州",
+        "潭城西门"
+      ],
+      "action": "张文礼煽动惧怕坑杀的亲军入府，斩王镕并焚府第。",
+      "result": "王氏全族被灭，张文礼恢复本姓名并控制成德。",
+      "cost": "王镕及王氏宗族死亡，府第被焚。",
+      "quote": [
+        "二人斷其首而出",
+        "出，因焚府第",
+        "盡滅王氏之族"
+      ],
+      "battle": "CAMPAIGN-ZHAO-COUP-921",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-ZHAO-COUP-921",
+        "candidate": "POL-CAND-ZHAO-COUP-921",
+        "summary": "张文礼利用亲军恐惧弑杀王镕并夺取成德。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "军事政变",
+          "decision_question": "亲军如何应对被坑杀传言。",
+          "alternatives": "等待命令或发动政变。",
+          "decision": "入府弑王并拥张文礼。",
+          "direct_result": "王镕死亡、王氏灭族。",
+          "power_change": "成德由王氏转入张文礼集团。",
+          "risk_or_damage": "府第焚毁并引发晋军征讨。",
+          "follow_up": "张文礼先求晋承认，后联梁契丹。"
+        }
+      },
+      "unknown": [
+        "政变直接参战人数和伤亡总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-HUIWANG-REBELLION-921",
+      "time": [
+        "龙德元年四月",
+        "龙德元年七月",
+        "range"
+      ],
+      "loc": [
+        "陈州",
+        "陈留",
+        "大梁"
+      ],
+      "action": "梁惠王朱友能举兵趋大梁，霍彦威、王彦章、张汉杰奉命讨伐。",
+      "result": "朱友能在陈留兵败，退守陈州被围后投降，获赦降封。",
+      "quote": [
+        "友能反，舉兵趣大梁",
+        "陳留，兵敗，走",
+        "惠王友能降"
+      ],
+      "battle": "CAMPAIGN-LIANG-HUIWANG-REBELLION-921",
+      "unknown": [
+        "叛军规模和双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-LIU-XUN-POISONED-921",
+      "time": "龙德元年五月",
+      "loc": [
+        "西都"
+      ],
+      "action": "尹皓、段凝诬刘鄩逗留养寇，梁帝密令张宗奭毒杀就医中的刘鄩。",
+      "result": "刘鄩被鸩杀。",
+      "cost": "刘鄩死亡。",
+      "quote": [
+        "因譖之於帝",
+        "密令留守張宗奭鴆之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存军将因谗被秘密处死。"
+        ]
+      ],
+      "unknown": [
+        "梁帝是否核查逗留原因未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHANG-WENLI-DOUBLE-DEALING-921",
+      "time": [
+        "龙德元年四月",
+        "龙德元年七月",
+        "range"
+      ],
+      "loc": [
+        "镇州",
+        "大梁",
+        "契丹"
+      ],
+      "action": "晋暂授张文礼成德留后；张文礼又秘密向契丹、梁求援。",
+      "result": "梁帝拒绝分兵一万救援，晋截获密书后遣还以示知情。",
+      "quote": [
+        "授文禮成德留後",
+        "復遣間使因盧文進求援於契丹",
+        "利焉！」帝乃止。\n\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存暂时承认、两面求援与梁拒援的决策链。"
+        ]
+      ],
+      "unknown": [
+        "契丹本阶段具体承诺未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-JIN-ATTACKS-ZHAO-921",
+      "time": [
+        "龙德元年八月",
+        "龙德元年九月",
+        "range"
+      ],
+      "loc": [
+        "赵州",
+        "镇州",
+        "滹沱河",
+        "深州"
+      ],
+      "action": "晋命符习、阎宝、史建瑭北攻，拔赵州后渡滹沱围镇州，并决漕渠灌城。",
+      "result": "赵州刺史王鋌降，镇州被围；史建瑭中箭死亡。",
+      "cost": "史建瑭死亡，攻守伤亡未载。",
+      "quote": [
+        "晉兵拔趙州",
+        "圍鎮州，決漕渠以灌之",
+        "史建瑭中流矢卒"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHENZHOU-921-922",
+      "unknown": [
+        "水攻造成的城内损害和双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-QICHENG-AMBUSH-921",
+      "time": "龙德元年十月",
+      "loc": [
+        "戚城",
+        "德胜",
+        "杨村",
+        "黄河"
+      ],
+      "action": "李存勖获知梁袭德胜计划，命李嗣源伏兵并以骑兵诱敌，继以铁骑三千突击。",
+      "result": "梁军大败退杨村，失亡二万余。",
+      "cost": "梁军被杀伤、践踏及坠河陷冰二万余。",
+      "quote": [
+        "先以騎兵誘之",
+        "以鐵騎三千奮擊",
+        "失亡二萬餘人"
+      ],
+      "battle": "CAMPAIGN-LIANG-JIN-DESHENG-921",
+      "unknown": [
+        "晋军损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-YIWU-COUP-921",
+      "time": "龙德元年十月",
+      "loc": [
+        "定州",
+        "中山"
+      ],
+      "action": "王处直谋引契丹解镇州围，王都以新军伏府劫持王处直并清洗其家族亲信。",
+      "result": "王处直被幽禁，王都自为留后并获晋承认。",
+      "cost": "王处直子孙和亲信多人被杀。",
+      "quote": [
+        "潛遣人語郁，使賂契丹",
+        "新軍數百伏於府第",
+        "盡殺處直子孫"
+      ],
+      "battle": "CAMPAIGN-YIWU-COUP-921",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存反召契丹引发的军府政变和继承替换。"
+        ]
+      ],
+      "unknown": [
+        "被杀人数和晋承认条件未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-WU-SOUTHERN-SUBURB-RITE-921",
+      "time": "龙德元年十月",
+      "loc": [
+        "吴"
+      ],
+      "action": "徐温拒绝仿唐巨费郊祀，主张从简事天；吴王举行南郊礼。",
+      "result": "南郊礼完成，未沿用唐末巨额耗费方式。",
+      "quote": [
+        "誠，多費何為",
+        "，吳王祀南郊"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存建国礼制选择；实际费用未载。"
+        ]
+      ],
+      "unknown": [
+        "本次郊祀实际费用和节省额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHENZHOU-ASSAULT-921",
+      "time": "龙德元年十一月",
+      "loc": [
+        "镇州",
+        "行唐"
+      ],
+      "action": "李存勖亲攻镇州十日未克；韩正时率千骑突围求援，在行唐被追斩。",
+      "result": "镇州仍守，突围求援失败。",
+      "quote": [
+        "盡銳攻之，旬日不克",
+        "追至行唐，斬之"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHENZHOU-921-922",
+      "unknown": [
+        "攻城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-KHITAN-SOUTHERN-INVASION-921",
+      "time": "龙德元年十二月",
+      "loc": [
+        "幽州",
+        "涿州",
+        "定州",
+        "狼山"
+      ],
+      "action": "契丹主受王郁、卢文进推动倾国南下，攻幽州、拔涿州并进攻定州。",
+      "result": "涿州刺史李嗣弼被擒，王都向晋告急，晋王率五千亲军救援。",
+      "quote": [
+        "悉發所有之眾而南",
+        "圍涿州，旬日拔之",
+        "弼。進攻定州"
+      ],
+      "battle": "CAMPAIGN-KHITAN-JIN-921-922",
+      "unknown": [
+        "契丹总兵力、涿州伤亡和幽州攻城损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-JINGNAN-OUTER-WALL-921",
+      "time": "龙德元年十二月",
+      "loc": [
+        "江陵"
+      ],
+      "action": "高季昌命倪可福率万人修江陵外郭，以杖责催工后私赠白金补偿。",
+      "result": "工程推进，完工与运行结果本卷未载。",
+      "cost": "动员卒万人，另赠白金数百两。",
+      "quote": [
+        "以卒萬人修江陵外郭",
+        "以白金數百兩遺之"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建设投入明确，未达到完工候选边界。"
+        ]
+      ],
+      "unknown": [
+        "工期、材料、完工状态和防御效益未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-CHENXU-REBELLION-921",
+      "time": "龙德元年岁末",
+      "loc": [
+        "辰州",
+        "溆州",
+        "楚"
+      ],
+      "action": "辰、溆蛮侵楚，姚彦章率军征讨。",
+      "result": "入侵被平定。",
+      "quote": "辰、漵蠻侵楚，楚寧遠節度副使姚彥章討平之",
+      "battle": "CAMPAIGN-CHU-CHENXU-921",
+      "unknown": [
+        "参战兵力、战斗过程和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-WANG-CHUZHI-DIES-922",
+      "time": "龙德二年正月",
+      "loc": [
+        "定州西第"
+      ],
+      "action": "被幽禁的王处直试图徒手攻击王都。",
+      "result": "未能伤及王都，王处直不久忧愤而死。",
+      "quote": [
+        "奮拳毆其胸",
+        "處直憂憤而卒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闭合卷内义武政变后被废主结局。"
+        ]
+      ],
+      "unknown": [
+        "死亡的直接医学原因未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-XINCHENG-WANGDU-CAMPAIGN-922",
+      "time": "龙德二年正月",
+      "loc": [
+        "新城",
+        "新乐",
+        "沙河",
+        "定州",
+        "望都",
+        "易州",
+        "幽州"
+      ],
+      "action": "李存勖拒绝退避，率铁骑先击契丹前锋，继在望都苦战后由李嗣昭横击解围并追至易州。",
+      "result": "契丹大败北归，晋解除定州威胁；晋二百追骑越境后几乎全被俘。",
+      "cost": "契丹多人陷冰溺死，后遇大雪人马饥亡；晋追骑仅二骑逃回。",
+      "quote": [
+        "自帥鐵騎五千先進",
+        "擊，契丹大敗",
+        "死者相屬於道",
+        "悉為所擒，惟兩騎"
+      ],
+      "battle": "CAMPAIGN-KHITAN-JIN-921-922",
+      "unknown": [
+        "双方准确伤亡与俘虏数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-JIN-TAKES-GUIRUWU-922",
+      "time": "龙德二年正月",
+      "loc": [
+        "妫州",
+        "儒州",
+        "武州"
+      ],
+      "action": "晋将李嗣肱率军平定妫、儒、武等州。",
+      "result": "晋恢复对相关州的控制，李嗣肱任山北都团练使。",
+      "quote": "將兵定媯、儒、武等州",
+      "battle": "CAMPAIGN-JIN-SHANBEI-922",
+      "unknown": [
+        "各州守方、战斗过程和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-LIANG-CHENGAN-DESHENG-922",
+      "time": [
+        "龙德二年正月",
+        "龙德二年二月",
+        "range"
+      ],
+      "loc": [
+        "魏店",
+        "成安",
+        "德胜北城",
+        "杨村"
+      ],
+      "action": "戴思远袭魏州因晋已有备而转拔成安、大掠，继以五万军急攻德胜北城。",
+      "result": "李存审守住德胜；李存勖赶回后戴思远焚营退杨村。",
+      "cost": "成安遭大掠，攻守伤亡未载。",
+      "quote": [
+        "拔成安，大掠而還",
+        "將兵五萬攻德勝北城",
+        "燒營遁還楊村"
+      ],
+      "battle": "CAMPAIGN-LIANG-JIN-DESHENG-922",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存成安被大掠的直接损害。"
+        ]
+      ],
+      "unknown": [
+        "被掠规模与双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHENZHOU-BREAKOUT-922",
+      "time": "龙德二年二月",
+      "loc": [
+        "镇州",
+        "滹沱河",
+        "赵州"
+      ],
+      "action": "镇州饥民出城求食后攻击晋长围，数千人继出纵火攻营。",
+      "result": "阎宝退保赵州，镇兵毁晋营垒并取走多日不尽的刍粟。",
+      "cost": "晋围城设施和粮草损失，人员伤亡未载。",
+      "quote": [
+        "壞長圍而出",
+        "縱火攻寶營",
+        "取其芻粟，數日不盡"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHENZHOU-921-922",
+      "unknown": [
+        "城内饥饿死亡和双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-SHU-TAKES-WANG-DAUGHTER-922",
+      "time": "龙德二年四月",
+      "loc": [
+        "前蜀"
+      ],
+      "action": "蜀主夺取将嫁的王承纲之女；王承纲请求归还后被流放。",
+      "result": "女子因父获罪自杀。",
+      "cost": "一人自杀，王承纲被流放。",
+      "quote": [
+        "蜀主取之入宮",
+        "怒，流於茂州",
+        "女聞父得罪，自殺"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存君主强取民女、报复父亲和直接死亡。"
+        ]
+      ],
+      "unknown": [
+        "王承纲后续及其女姓名未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-JIUMEN-AMBUSH-922",
+      "time": "龙德二年四月",
+      "loc": [
+        "九门",
+        "镇州"
+      ],
+      "action": "李嗣昭伏击张处瑾千人运粮军，继追射残兵。",
+      "result": "镇兵几乎尽数被杀获；李嗣昭中箭后当夜死亡。",
+      "cost": "镇兵千人近乎全灭，李嗣昭死亡。",
+      "quote": [
+        "邀擊之，殺獲殆盡",
+        "止。是夕卒。晉"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHENZHOU-921-922",
+      "unknown": [
+        "晋军其他伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ANYI-SUCCESSION-MUTINY-922",
+      "time": "龙德二年四月",
+      "loc": [
+        "镇州行营",
+        "潞州"
+      ],
+      "action": "李嗣昭诸子拒绝护丧命令，率牙兵数千归潞州并欲杀李存渥；李继韬又囚兄自立。",
+      "result": "李存勖因战事紧迫被迫以李继韬为安义留后。",
+      "quote": [
+        "帥父牙兵數千，自行營擁喪歸潞州",
+        "忿，欲殺存渥",
+        "以繼韜為留後"
+      ],
+      "battle": "CAMPAIGN-ANYI-SUCCESSION-MUTINY-922",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存牙兵胁迫、兄弟夺位及晋王被迫承认。"
+        ]
+      ],
+      "unknown": [
+        "行营脱离造成的军力影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-MIN-RAIDS-SOUTHERN-HAN-922",
+      "time": "龙德二年四月",
+      "loc": [
+        "梅口镇"
+      ],
+      "action": "闽将王延美率军突袭在梅口避灾的南汉主刘岩。",
+      "result": "侦察提前告警，刘岩逃脱。",
+      "quote": [
+        "閩將王延美將兵襲之",
+        "巖遁逃僅免"
+      ],
+      "battle": "CAMPAIGN-MIN-SOUTHERN-HAN-MEIKOU-922",
+      "unknown": [
+        "闽军规模和是否接战未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-LIANG-TAKES-WEIZHOU-AREA-922",
+      "time": "龙德二年八月",
+      "loc": [
+        "卫州",
+        "淇门",
+        "共城",
+        "新乡"
+      ],
+      "action": "梁段凝、张朗夜渡袭卫州并登城擒李存儒，戴思远续攻淇门、共城、新乡。",
+      "result": "澶州以西、相州以南归梁，晋失军储三分之一，梁军复振。",
+      "cost": "晋损失三分之一军储；战斗伤亡未载。",
+      "quote": [
+        "夜渡河襲之",
+        "儒，遂克衛州",
+        "晉人失軍儲三之一"
+      ],
+      "battle": "CAMPAIGN-LIANG-JIN-WEIZHOU-AREA-922",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存军储直接损失，不另结普通财政成果。"
+        ]
+      ],
+      "unknown": [
+        "军储实物数量和地方损害未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-DONGYUAN-BATTLE-922",
+      "time": "龙德二年九月",
+      "loc": [
+        "东垣渡",
+        "滹沱河"
+      ],
+      "action": "张处球率七千人突袭李存进营，晋骑回援夹击。",
+      "result": "镇兵几乎全灭，李存进亦战死。",
+      "cost": "镇兵七千殆尽，晋主将死亡。",
+      "quote": [
+        "將兵七千人奄至東垣渡",
+        "鎮兵殆盡，存進亦戰沒"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHENZHOU-921-922",
+      "unknown": [
+        "晋军其他伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-ZHENZHOU-FALLS-922",
+      "time": "龙德二年九月",
+      "loc": [
+        "镇州"
+      ],
+      "action": "镇州粮尽求降未报，李再丰内应纳晋军登城。",
+      "result": "张处瑾集团被擒，赵人食其人并磔张文礼尸；晋重置成德人事。",
+      "cost": "被擒集团遭群众报复，人数未载。",
+      "quote": [
+        "密投縋以納晉兵",
+        "趙人皆請而食之",
+        "磔張文禮屍於市"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHENZHOU-921-922",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存镇州政权终结、报复和接管。"
+        ]
+      ],
+      "unknown": [
+        "入城战斗伤亡和被食人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-WEIZHOU-TAX-ARREARS-922",
+      "time": "龙德二年十二月",
+      "loc": [
+        "魏州"
+      ],
+      "action": "李存勖责赵季良督税不力；赵季良以不爱百姓将失河北进谏。",
+      "result": "李存勖道歉并重用赵季良参与谋议，未载减免欠税。",
+      "quote": [
+        "魏州稅多逋負",
+        "！」王悅，謝之。自",
+        "之。自是重之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存税负逋欠与纳谏边界，不虚构减税。"
+        ]
+      ],
+      "unknown": [
+        "欠税总额、追征或减免结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-271-GORYEO-COUP-922",
+      "time": "龙德二年岁末",
+      "loc": [
+        "开州",
+        "平壤",
+        "高丽"
+      ],
+      "action": "海军统帅王建杀死残忍的大封王躬乂，自立为高丽王。",
+      "result": "开州为东京、平壤为西京；史载王建俭约宽厚、国人安之。",
+      "quote": [
+        "王建殺之，自立",
+        "儉約寬厚，國人安之"
+      ],
+      "battle": "CAMPAIGN-GORYEO-COUP-922",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "域外政权更替，保留为五代国际环境事实。"
+        ]
+      ],
+      "unknown": [
+        "政变兵力、伤亡和制度措施未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "卷末镇州已平，但梁晋德胜、契丹北撤、前蜀岐线及诸国内政后续须由卷272续接。",
+    "普通任免、贡聘、祥异及无独立消费结果的仪节未单列。",
+    "未知数量、归责和持续结果保持未知；本卷只作shadow四域路由，不写评分。"
+  ]
+}

@@ -1,0 +1,1169 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "five-dynasties-chronicle-volume-283",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷283",
+    "revision_ref": "cache-3ab2b1a7612e7e59",
+    "start_locator": "后晋高祖天福七年正月",
+    "end_locator": "后晋出帝开运元年正月",
+    "overlap_context": "续接卷282镇州、襄州围攻并在本卷闭合；继而登记石重贵继位、晋辽决裂及贝州陷落，杨光远与辽军南侵转出卷284。",
+    "input_fingerprint": "3ab2b1a7612e7e598b42f4869d034cbc044aaf885ff9502cb578332a94b5c5db"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-283-AN-CHONGRONG-DEFEATED-942",
+      "time": "天福七年正月",
+      "loc": [
+        "镇州",
+        "恒州",
+        "邺都"
+      ],
+      "action": "镇州牙将导官军入城，守城民二万人被杀，安重荣被俘斩。",
+      "result": "镇州改恒州、成德改顺国，安重荣首级送契丹。",
+      "quote": [
+        "导官军入城",
+        "杀守陴民二万人",
+        "执安重荣，斩之",
+        "之，函送契丹",
+        "改镇州为恒州"
+      ],
+      "battle": "CAMPAIGN-AN-CHONGRONG-REVOLT-941",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "卷282安重荣叛乱闭合。"
+        ]
+      ],
+      "unknown": [
+        "官军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-DU-CHONGWEI-EXPLOITS-HENGZHOU-942",
+      "time": "天福七年正月起",
+      "loc": [
+        "恒州"
+      ],
+      "action": "杜重威占有安重荣私财与恒州府库，并任王瑜重敛于民。",
+      "result": "石敬瑭知而不问，恒州百姓不胜其苦。",
+      "quote": [
+        "安重荣私财及恒州府库，重威尽有之",
+        "帝知而不问",
+        "之重敛于民",
+        "恒人不胜其苦"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后侵吞与加征。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央纵容藩帅。"
+        ]
+      ],
+      "unknown": [
+        "侵吞财货和税额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-YANZHOU-MUTINY-942",
+      "time": "天福七年正月至二月",
+      "loc": [
+        "延州"
+      ],
+      "action": "丁审琪纵部曲暴虐，贺行政联诸胡作乱攻延州。",
+      "result": "何重建及同鄜援军解围，丁审琪被召回。",
+      "quote": [
+        "纵之为暴于境内",
+        "相结为乱，攻延州",
+        "建将兵救之",
+        "至，乃得免。二"
+      ],
+      "battle": "CAMPAIGN-YANZHOU-MUTINY-942",
+      "unknown": [
+        "叛军与援军规模、伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-ZHANG-YANZE-ABUSES-AND-RELIEF-942",
+      "time": "天福七年三月至四月",
+      "loc": [
+        "泾州"
+      ],
+      "action": "张彦泽擅战败没后强调民马千余匹，残杀杨洪，任内贪残致五千余户逃亡。",
+      "result": "群臣力争后仅削阶降爵，泾州复业民获减徭赋。",
+      "quote": [
+        "调民马千馀匹以补之",
+        "乘醉断其手足而斩之",
+        "民散亡者五千馀户",
+        "泾州民复业者，减其徭赋"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "强征民马、人口逃亡与减役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "藩将违法与轻罚。"
+        ]
+      ],
+      "unknown": [
+        "复业户数和减役幅度未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-HAN-SUCCESSION-942",
+      "time": "天福七年四月",
+      "loc": [
+        "南汉"
+      ],
+      "action": "刘䶮临终曾谋改立贤子刘弘昌，因萧益坚持立嫡以长而停止。",
+      "result": "刘䶮死后刘玢继位，刘弘熙辅政。",
+      "quote": [
+        "立嫡以长，违之必乱",
+        "必乱。”乃止。丁",
+        "丑，高祖殂。高",
+        "秦王弘度即皇帝位，更名玢"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉继承与后续政变前置。"
+        ]
+      ],
+      "unknown": [
+        "临终制命是否已成文未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-HAN-EXTRAVAGANCE-AND-TORTURE-942",
+      "time": "天福七年四月以前",
+      "loc": [
+        "岭南",
+        "南汉"
+      ],
+      "action": "刘䶮以金玉珠翠装饰宫殿，设置多种酷刑并在末年专任宦官。",
+      "result": "劝谏不行，南汉宦官势力大盛。",
+      "quote": [
+        "每穷奢极丽",
+        "宫殿悉以金玉珠翠为饰",
+        "饰。用刑惨酷",
+        "故专任宦者",
+        "中宦者大盛"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫殿奢费与酷政负担。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫殿豪华营饰。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宦官专任。"
+        ]
+      ],
+      "unknown": [
+        "宫殿耗费与受刑人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SHI-JINGTANG-DIES-SUCCESSION-942",
+      "time": "天福七年六月",
+      "loc": [
+        "后晋"
+      ],
+      "action": "石敬瑭病逝，冯道、景延广以多难宜立长君为由拥立齐王石重贵。",
+      "result": "幼子石重睿未被立，景延广因定策开始专权。",
+      "quote": [
+        "，乙丑，帝殂。 道",
+        "国家多难，宜立长君",
+        "奉广晋尹齐王重贵为嗣",
+        "延广以为己功，始用事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋皇位更替。"
+        ]
+      ],
+      "unknown": [
+        "石敬瑭托孤意旨未正式明言。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-LIU-ZHIYUAN-RESENTS-SUCCESSION-942",
+      "time": "天福七年六月",
+      "loc": [
+        "河东",
+        "后晋"
+      ],
+      "action": "石敬瑭病危召刘知远入辅政的旨意被齐王压下。",
+      "result": "刘知远由此怨恨石重贵。",
+      "quote": [
+        "有旨召河东度使刘知远入辅政",
+        "政，齐王寝之",
+        "知远由是怨齐王"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刘知远与后晋中央裂痕。"
+        ]
+      ],
+      "unknown": [
+        "旨意传递过程未详。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-MIN-TINGZHOU-YOUKOU-CAMPAIGN-942",
+      "time": "天福七年六月至七月",
+      "loc": [
+        "汀州",
+        "尤口",
+        "建州"
+      ],
+      "action": "王延政围汀州四十二战未克，后在尤口水陆夹击福州援军。",
+      "result": "黄敬忠被杀，福州军俘斩二千，林守亮、黄绍颇逃归。",
+      "quote": [
+        "延政围汀州，",
+        "四十二战，不克而归",
+        "水陆夹攻之",
+        "杀敬忠，俘斩二千级"
+      ],
+      "battle": "CAMPAIGN-MIN-TINGZHOU-YOUKOU-942",
+      "unknown": [
+        "汀州守军及总伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-ZHANG-YUXIAN-REBELLION-BEGINS-942",
+      "time": "天福七年七月至十月",
+      "loc": [
+        "循州",
+        "博罗县",
+        "岭南东部"
+      ],
+      "action": "循州盗贼共奉张遇贤为中天八国王，置百官并攻掠州县。",
+      "result": "南汉讨军初战不利，东方多州县失陷，循州刺史被杀。",
+      "quote": [
+        "帅共奉遇贤",
+        "置百官，攻掠海隅",
+        "馆。汉兵不利",
+        "东方州县多为遇贤所陷",
+        "张遇贤陷循州"
+      ],
+      "battle": "CAMPAIGN-ZHANG-YUXIAN-REBELLION-942",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "岭南大规模民变建政。"
+        ]
+      ],
+      "unknown": [
+        "初期部众人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-AN-CONGJIN-DEFEATED-942",
+      "time": "天福七年八月",
+      "loc": [
+        "襄州"
+      ],
+      "action": "高行周围襄州逾年，王清、刘词率军先登破城。",
+      "result": "安从进举族自焚，卷282襄州反叛闭合。",
+      "quote": [
+        "围襄州逾年，不下",
+        "下。城中食尽",
+        "词帅众先登",
+        "八月，拔之。安",
+        "安从进举族自焚"
+      ],
+      "battle": "CAMPAIGN-AN-CONGJIN-REVOLT-941",
+      "unknown": [
+        "破城双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-MIN-PEACE-OFFER-REJECTED-942",
+      "time": "天福七年八月",
+      "loc": [
+        "福州",
+        "建州"
+      ],
+      "action": "王曦以金器九百、钱万缗及六百四十通敕告向王延政求和。",
+      "result": "王延政拒绝，闽内战延续。",
+      "quote": [
+        "金器九百、钱万缗",
+        "敕告六百四十通",
+        "求和于富沙王延政",
+        "政，延政不受"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明确求和财货支出。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闽内战和议失败。"
+        ]
+      ],
+      "unknown": [
+        "金器计量单位未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-MIN-IRON-COIN-942",
+      "time": "天福七年八月",
+      "loc": [
+        "闽"
+      ],
+      "action": "闽铸永隆通宝大铁钱，以一枚折铅钱百枚。",
+      "result": "形成高面值铁钱制度。",
+      "quote": "闽人铸永隆通宝大铁钱，一当铅钱百",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "货币制度变化。"
+        ]
+      ],
+      "unknown": [
+        "发行量和实际兑换效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SHENGYUAN-CODE-942",
+      "time": "天福七年八月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "南唐将李昪相吴以来变更的法令删定为《升元条》三十卷并施行。",
+      "result": "南唐形成新的成文法汇编。",
+      "quote": [
+        "删定为《升元条》三十卷",
+        "；庚寅，行之。 闽"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐法制整合。"
+        ]
+      ],
+      "unknown": [
+        "各条内容未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-YU-TINGYING-BRIBERY-942",
+      "time": "天福七年八月",
+      "loc": [
+        "泉州",
+        "福州"
+      ],
+      "action": "余廷英掠人女子、诈称为后宫采择，案发后以万缗买宴并向李后送钱免罪。",
+      "result": "余廷英复归泉州并再度为相，各州开始另贡皇后。",
+      "quote": [
+        "秽，掠人女子",
+        "诈称受诏采择",
+        "献买宴钱万缗",
+        "诸州皆别贡皇后物",
+        "复召廷英为相"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "贿赂与新增后贡。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "腐败官员以财免罪。"
+        ]
+      ],
+      "unknown": [
+        "后贡数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-CHU-TIANCE-PALACE-942",
+      "time": "天福七年十月",
+      "loc": [
+        "长沙",
+        "天策府"
+      ],
+      "action": "马希范大修天策府，以金玉装饰户牖栏槛，并耗丹砂数十万斤涂壁。",
+      "result": "府第极尽奢华，成为游宴场所。",
+      "quote": [
+        "极栋宇之盛",
+        "皆饰以金玉",
+        "涂壁用丹砂数十万斤",
+        "属游宴其间"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "豪华府第建设。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "金玉与丹砂巨额耗用。"
+        ]
+      ],
+      "unknown": [
+        "总工程费用与役工未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-JIN-SALT-TAX-REVERSAL-942",
+      "time": "天福七年十一月",
+      "loc": [
+        "后晋河南河北"
+      ],
+      "action": "后晋此前停官卖盐、改征食盐钱后盐价降至每斤十钱；董遇又重征盐商。",
+      "result": "盐商殆绝，官府恢复卖盐，但食盐钱仍继续征收。",
+      "quote": [
+        "若听民自贩",
+        "谓之食盐钱",
+        "盐价顿贱，每斤至十钱",
+        "乃重征盐商",
+        "盐商殆绝，而官复自卖",
+        "食盐钱，至今敛之如故"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "盐政反复导致双重征收。"
+        ]
+      ],
+      "unknown": [
+        "恢复官卖后的盐价未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-JIN-KHITAN-DIPLOMATIC-RUPTURE-942",
+      "time": "天福七年冬",
+      "loc": [
+        "后晋",
+        "契丹"
+      ],
+      "action": "石重贵告哀时依景延广之议仅称孙、不称臣，景延广又以不逊之语答责。",
+      "result": "契丹大怒，赵延寿反复劝攻后晋。",
+      "quote": [
+        "请致书称孙而不称臣",
+        "帝卒从延广议",
+        "议。契丹大怒",
+        "屡说契丹击晋"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "晋辽关系正式决裂。"
+        ]
+      ],
+      "unknown": [
+        "双方此时是否明确废约未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-LI-BIAN-DIES-943",
+      "time": "天福八年正月至三月",
+      "loc": [
+        "金陵",
+        "南唐"
+      ],
+      "action": "李昪长期服金石丹药致躁急与背疽，临终告诫李璟后去世。",
+      "result": "李璟监国后继位，改元保大。",
+      "quote": [
+        "曰：“吾饵金石，",
+        "寿，乃更伤生",
+        "之！”是夕，殂。秘",
+        "唐元宗即位",
+        "赦，改元保大"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐皇位更替。"
+        ]
+      ],
+      "unknown": [
+        "丹药与死亡的具体医学关系按原文自述登记。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-TANG-SLAVE-SALE-943",
+      "time": "天福八年正月至二月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "冯延己兄弟将允许百姓卖儿女写入遗诏，萧俨以先帝旧章揭其私欲反对。",
+      "result": "虽查得李昪曾否定此议，仍因遗诏已行而不改。",
+      "quote": [
+        "草遗诏听民卖男女",
+        "意欲自买姬妾",
+        "使贫人之子为富人厮役",
+        "行，竟不之改"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "贫民子女买卖政策逆转。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "近臣篡入私利条款。"
+        ]
+      ],
+      "unknown": [
+        "实际卖出人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-YIN-FOUNDED-HEAVY-TAXES-943",
+      "time": "天福八年二月",
+      "loc": [
+        "建州",
+        "殷"
+      ],
+      "action": "王延政在建州称帝建殷，增设州县；杨思恭倍征田亩山泽、鱼盐蔬果税。",
+      "result": "小国民贫而军旅不息，杨思恭被称为“杨剥皮”。",
+      "quote": [
+        "州，国号大殷",
+        "殷国小民贫，军旅不息",
+        "增田亩山泽之税",
+        "果，无不倍征",
+        "谓之“杨剥皮”。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闽内战形成殷国。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全面加倍征税。"
+        ]
+      ],
+      "unknown": [
+        "各税原额与实收未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-TANG-FIVE-GHOSTS-943",
+      "time": "天福八年三月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "李璟起用宋齐丘、周宗，但陈觉、冯延己、冯延鲁、魏岑、查文徽相互援引侵政。",
+      "result": "五人被唐人称为“五鬼”，正直近臣常梦锡被贬。",
+      "quote": [
+        "政事皆自决之",
+        "坐封驳制书，贬池州判官",
+        "更相汲引，侵蠹政事",
+        "谓觉等为“五鬼”"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李璟初政的近臣集团。"
+        ]
+      ],
+      "unknown": [
+        "各人具体侵政事项多未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-HAN-REGICIDE-943",
+      "time": "天福八年三月",
+      "loc": [
+        "南汉长春宫"
+      ],
+      "action": "刘弘熙利用手搏宴饮，令陈道庠等乘刘玢大醉将其拉杀。",
+      "result": "刘弘熙改名晟继位，厚赏弑君者。",
+      "quote": [
+        "主，因拉杀之",
+        "尽杀其左右",
+        "迎弘熙即皇帝位",
+        "皆受赏赐甚厚"
+      ],
+      "battle": "CAMPAIGN-SOUTHERN-HAN-PALACE-COUP-943",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉宫廷政变。"
+        ]
+      ],
+      "unknown": [
+        "宫中抵抗规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-YIN-ATTACKS-FUZHOU-943",
+      "time": "天福八年四月",
+      "loc": [
+        "福州"
+      ],
+      "action": "殷将陈望等攻入福州西郛。",
+      "result": "殷军随后败退。",
+      "quote": "殷将陈望等攻闽福州，入其西郛，既而败归",
+      "battle": "CAMPAIGN-YIN-ATTACKS-FUZHOU-943",
+      "unknown": [
+        "双方兵数与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-PAN-CHENGYOU-TEN-REMONSTRANCES-943",
+      "time": "天福八年五月",
+      "loc": [
+        "殷",
+        "建州"
+      ],
+      "action": "潘承祐上十事，指斥兄弟战争、重税无节、征兵、增设州县、括富户与宫室奢费。",
+      "result": "王延政大怒，削其官爵令归私第，所谏未被采纳。",
+      "quote": [
+        "赋敛烦重，力役无节",
+        "也。发民为兵",
+        "县，增吏困民",
+        "宫室台榭，崇饰无度",
+        "削承祐官爵"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "系统揭示殷国财政民生负担。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "反对宫室台榭过度装饰。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拒谏并罢官。"
+        ]
+      ],
+      "unknown": [
+        "十项措施实际规模仅部分有载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-HAN-PRINCE-PURGE-943",
+      "time": "天福八年五月",
+      "loc": [
+        "南汉"
+      ],
+      "action": "刘晟拒绝处死弑君者，反令刘思潮等杀循王刘弘杲，并图尽诛诸弟。",
+      "result": "南汉宗室清洗开始，贤而得众的刘弘昌尤其受忌。",
+      "quote": [
+        "请斩刘思潮等以谢中外，汉主不从",
+        "入，斩弘杲。于",
+        "谋尽诛诸弟",
+        "众，尤忌之。雄"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉新君清洗宗室。"
+        ]
+      ],
+      "unknown": [
+        "本卷内后续遇害诸王数未闭合。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-JIN-FAMINE-GRAIN-REQUISITION-943",
+      "time": "天福八年七月",
+      "loc": [
+        "后晋诸道"
+      ],
+      "action": "后晋以年饥、国用不足，派六十余使者赴诸道括取民谷。",
+      "result": "全国性强制征粮启动。",
+      "quote": [
+        "以年饥，国用不足",
+        "分遣使者六十馀人",
+        "于诸道括民谷"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾年强制征粮。"
+        ]
+      ],
+      "unknown": [
+        "此时计划征粮总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-ZHANG-YUXIAN-QIANZHOU-CAMPAIGN-943",
+      "time": "天福八年七月至十月",
+      "loc": [
+        "循州",
+        "虔州",
+        "白云洞",
+        "金陵"
+      ],
+      "action": "张遇贤率十余万人越岭攻虔州诸县并四出剽掠，南唐严恩、边镐出兵讨伐。",
+      "result": "边镐屡破其军并迂回袭营，李台执张遇贤投降，张遇贤在金陵被斩。",
+      "quote": [
+        "众十馀万攻陷诸县",
+        "将四出剽掠",
+        "贤；屡破之。遇",
+        "出其营后袭之",
+        "执遇贤以降",
+        "斩于金陵市"
+      ],
+      "battle": "CAMPAIGN-ZHANG-YUXIAN-REBELLION-942",
+      "unknown": [
+        "累计伤亡与俘虏数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-JING-YANGUANG-SEIZES-KHITAN-TRADE-943",
+      "time": "天福八年九月",
+      "loc": [
+        "大梁",
+        "后晋境内"
+      ],
+      "action": "景延广囚契丹商使乔荣，杀境内契丹商人并夺其货，释放后又以十万横磨剑之语辱辽。",
+      "result": "乔荣将书面言辞上报，契丹主决定入寇并扣押晋使。",
+      "quote": [
+        "悉取邸中之货",
+        "皆杀之，夺其货",
+        "孙有十万横磨剑",
+        "契丹主大怒，入寇之志始决",
+        "皆絷之幽州"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "晋辽决裂直接升级。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "杀商夺货破坏边贸。"
+        ]
+      ],
+      "unknown": [
+        "被杀商人数与货值未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-LIU-ZHIYUAN-MUSTERS-ARMIES-943",
+      "time": "天福八年九月",
+      "loc": [
+        "河东"
+      ],
+      "action": "刘知远预判景延广将招致契丹入寇，暗中增募军队。",
+      "result": "河东新置兴捷、武节等十余军备边。",
+      "quote": [
+        "知延广必致寇",
+        "言，但益募兵",
+        "奏置兴捷、武节等十馀军以备契丹"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后汉创业军力积累。"
+        ]
+      ],
+      "unknown": [
+        "新增各军兵额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-EMPRESS-FENG-POLITICAL-INFLUENCE-943",
+      "time": "天福八年十月",
+      "loc": [
+        "后晋宫廷"
+      ],
+      "action": "石重贵在石敬瑭梓宫未葬时纳弟妇冯氏为后，冯后开始预政并骤擢其兄冯玉。",
+      "result": "外戚冯玉进入议政核心。",
+      "quote": [
+        "梓宫在殡，帝遂纳之",
+        "宫，颇预政事",
+        "骤擢用至端明殿学士、户部侍郎",
+        "郎，与议政事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋外戚干政线。"
+        ]
+      ],
+      "unknown": [
+        "冯后具体决策事项未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-YANG-GUANGYUAN-COLLABORATES-KHITAN-943",
+      "time": "天福八年十一月至十二月",
+      "loc": [
+        "青州",
+        "淄州",
+        "契丹"
+      ],
+      "action": "杨光远因朝廷索马而生疑，召子归青州、劫淄州刺史并密告契丹后晋可取。",
+      "result": "契丹集五万兵交赵延寿经略中国，后晋筑南乐、德清并征兵备战。",
+      "quote": [
+        "曰：“是疑我也。",
+        "劫刺史翟进宗归于青州",
+        "骄，密告契丹",
+        "兵合五万人",
+        "遣使城南乐及德清军",
+        "征近道兵以备之"
+      ],
+      "battle": "CAMPAIGN-YANG-GUANGYUAN-KHITAN-COLLABORATION-943",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "青州叛乱与辽军入侵合流。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南乐、德清筑城备战。"
+        ]
+      ],
+      "unknown": [
+        "筑城费用与征兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-GREAT-FAMINE-AND-DU-WEI-PROFITEERING-943",
+      "time": "天福八年",
+      "loc": [
+        "后晋",
+        "恒州",
+        "定州"
+      ],
+      "action": "旱涝蝗灾下官府严括民谷，杜威又在恒州检谷、隐匿七十万斛并贷粮牟利。",
+      "result": "民饿死数十万、流亡无数；杜威获钱二百万缗，马全节拒绝在定州仿行。",
+      "quote": [
+        "水，蝗大起，东",
+        "硙，不留其食",
+        "民馁死者数十万口",
+        "尽，得百万斛",
+        "馀皆入其家",
+        "得缗钱二百万",
+        "使，职在养民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾荒、括粮与藩帅侵吞造成重大民生后果。"
+        ]
+      ],
+      "unknown": [
+        "各地死亡与流亡分布未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-CHU-EXTRAVAGANCE-TAXATION-943",
+      "time": "天福八年",
+      "loc": [
+        "楚",
+        "长沙"
+      ],
+      "action": "马希范营九龙殿、银枪都等奢侈项目，并以增田亩、卖官、贡献和额外贡米筹资。",
+      "result": "百姓不胜租赋而逃、迁耕失业；拓跋恒劝止厚敛与工程反遭疏斥。",
+      "quote": [
+        "槊，饰之以金",
+        "募富民年少肥泽者八千人，为银枪都",
+        "靡。作九龙殿",
+        "足，重为赋敛",
+        "民不胜租赋而逃",
+        "听人入财拜官",
+        "大县贡米二千斛",
+        "减兴作之役"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "土地增额、卖官与贡米加征。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "九龙殿等奢华建设。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拒绝治理谏言。"
+        ]
+      ],
+      "unknown": [
+        "各项总收入与工程总耗费未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-KHITAN-CAPTURES-BEIZHOU-944",
+      "time": "开运元年正月",
+      "loc": [
+        "贝州"
+      ],
+      "action": "赵延寿、赵延照率辽军五万入寇贝州，邵珂由南门导敌入城。",
+      "result": "吴峦投井死，贝州陷落，军民被杀近万人。",
+      "quote": [
+        "将兵五万入寇，逼贝州",
+        "烧其攻具殆尽",
+        "引契丹自南门入",
+        "契丹遂陷贝州",
+        "所杀且万人"
+      ],
+      "battle": "CAMPAIGN-KHITAN-CAPTURES-BEIZHOU-944",
+      "unknown": [
+        "辽军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-SOUTHERN-TANG-ACCESS-EDICT-REPEALED-944",
+      "time": "开运元年正月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "冯延己等促使李璟下令仅魏岑、查文徽可白事，其余百官非召不得见。",
+      "result": "贾崇叩阁力谏后李璟醒悟，立即收回诏令。",
+      "quote": [
+        "馀非召对不得见",
+        "见。”国人大骇。",
+        "顿与群臣谢绝",
+        "悟，遽收前敕"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "近臣隔绝内外的尝试被纠正。"
+        ]
+      ],
+      "unknown": [
+        "诏令实际施行天数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-JIN-MOBILIZES-AGAINST-KHITAN-944",
+      "time": "开运元年正月",
+      "loc": [
+        "邺都",
+        "澶州",
+        "黎阳",
+        "太原"
+      ],
+      "action": "契丹从贝、雁门、恒、邢、沧多路入侵，石重贵赴澶州并调高行周、刘知远等迎战。",
+      "result": "刘知远与白承福合兵二万，晋军形成北面部署，但军令尽出景延广。",
+      "quote": [
+        "皆奏契丹入寇",
+        "子，帝至澶州",
+        "合兵二万击之",
+        "用兵方略号令皆出延广",
+        "遣右武卫上将军张彦泽等将兵拒契丹于黎阳"
+      ],
+      "battle": "CAMPAIGN-JIN-KHITAN-WAR-944",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "晋辽全面战争展开。"
+        ]
+      ],
+      "unknown": [
+        "各路晋军总兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-XIURONG-VICTORY-944",
+      "time": "开运元年正月",
+      "loc": [
+        "秀容",
+        "鸦鸣谷"
+      ],
+      "action": "太原军在秀容击败契丹伟王。",
+      "result": "斩首三千，契丹军从鸦鸣谷退走。",
+      "quote": [
+        "破契丹伟王于秀容",
+        "斩首三千级",
+        "契丹自鸦鸣谷遁去"
+      ],
+      "battle": "CAMPAIGN-XIURONG-VICTORY-944",
+      "unknown": [
+        "后晋伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-283-ZHOU-RU-SURRENDERS-TO-KHITAN-944",
+      "time": "开运元年正月",
+      "loc": [
+        "博州",
+        "马家口",
+        "黄河"
+      ],
+      "action": "博州刺史周儒降契丹并联络杨光远，引辽军从马家口渡河。",
+      "result": "蔡行遇被擒，辽军与青州合流威胁河南。",
+      "quote": [
+        "以城降契丹",
+        "与杨光远通使往还",
+        "引契丹自马家口济河",
+        "擒左武卫将军蔡行遇",
+        "则河南危矣"
+      ],
+      "battle": "CAMPAIGN-KHITAN-CROSSES-YELLOW-RIVER-944",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "卷末辽军南渡转出线索。"
+        ]
+      ],
+      "unknown": [
+        "渡河兵数与即时战果转入卷284。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision cache-3ab2b1a7612e7e59 的卷283连续通读登记，不引入卷外常识。",
+    "普通任免、使聘、祥异及无消费结果的行军节点未单列。",
+    "卷末晋辽战争与杨光远线尚未闭合，结果保持待卷284续接。"
+  ]
+}

@@ -1,0 +1,906 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V02-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V02-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷2",
+    "revision_ref": "2594615",
+    "start_locator": "洪武元年正月明朝建立",
+    "end_locator": "洪武十四年征云南破白石江",
+    "overlap_context": "卷首承接卷1北伐与李善长劝进；本卷登记正式建明、统一战争及洪武前十四年制度与民生。",
+    "input_fingerprint": "bb428d3645beed75e8b4be65746e12c6323c2fd30fbb3399f2b50d98af2efdce"
+  },
+  "limitations": [
+    "仅据固定《明史》卷2正文登记，未知保持未知。",
+    "普通任免、朝贡与祥异不单列；长期战争、赈免和制度改革按阶段合并。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V02-MING-FOUNDING-1368",
+      "time": [
+        "洪武元年正月",
+        "1368",
+        "month"
+      ],
+      "subject": "朱元璋与明朝中央官员",
+      "action": "朱元璋祭天地即皇帝位，定国号明、建元洪武，立马氏为后、朱标为太子并设置丞相。",
+      "result": "明朝正式建立，皇帝、皇后、储君和中枢权力结构确立。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "祀天地於南郊，即皇帝位。",
+        "定有天下之號曰明，建元洪武。",
+        "立妃馬氏為皇后，世子標為皇太子。",
+        "以李善長、徐達為左、右丞相"
+      ],
+      "unknown": [
+        "建国典礼支出与地方接受过程未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MING-FOUNDING-1368",
+        "summary": "朱元璋称帝建明并确立储君中枢。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V02-SOUTHERN-UNIFICATION-1368",
+      "time": [
+        "洪武元年正月至七月",
+        "1368",
+        "range"
+      ],
+      "subject": "汤和、廖永忠、杨璟等明军与元地方势力",
+      "action": "明军由福建、广东向广西海南推进，先后平定福建、广东、广西及海南海北。",
+      "result": "华南沿海和岭南主要州府纳入明朝统治。",
+      "cost": "双方伤亡未载。",
+      "groups": [
+        "明军",
+        "元军",
+        "闽粤桂琼民众"
+      ],
+      "quote": [
+        "定，福建平。是",
+        "降，廣東平。丁",
+        "海南、海北諸道降。",
+        "州，廣西平。庚"
+      ],
+      "unknown": [
+        "伤亡、军费与地方善后未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SOUTHERN-UNIFICATION-1368",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-NORTHERN-EXPEDITION-CAPITAL-1368",
+      "time": [
+        "洪武元年二月至八月",
+        "1368",
+        "range"
+      ],
+      "subject": "徐达、常遇春等明军与元军",
+      "action": "承接卷1北伐，明军平山东、河南、潼关，继取通州并进入元大都。",
+      "result": "元帝北走，明军接管府库图籍、禁侵暴，大都改北平府。",
+      "cost": "双方伤亡未载。",
+      "groups": [
+        "明军",
+        "元军",
+        "中原北平民众"
+      ],
+      "quote": [
+        "常遇春克東昌，山東平。",
+        "，遂圍河南。梁",
+        "降，河南平。丁",
+        "馮勝克潼關",
+        "徐達入元都，封府庫圖籍，守宮門，禁士卒侵暴",
+        "改大都路曰北平府。"
+      ],
+      "unknown": [
+        "军民伤亡、府库数量和接管成本未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-NORTHERN-RELIEF-1368",
+      "time": [
+        "洪武元年七月至八月",
+        "1368",
+        "range"
+      ],
+      "subject": "明太祖与中原新附州县",
+      "action": "北伐推进时赈恤中原贫民，严令不得焚掠妄杀，并颁布复业垦荒、免逋负、恤鳏寡等便民措施。",
+      "result": "新占区获得军纪保护、赈济、免税和三年垦荒复役优惠。",
+      "groups": [
+        "贫民",
+        "流民",
+        "农户",
+        "鳏寡孤独废疾者"
+      ],
+      "quote": [
+        "振恤中原貧民。",
+        "諸將克城，毋肆焚掠妄殺人",
+        "避亂民復業者，聽墾荒地，復三年。",
+        "民間逋負免徵。",
+        "鰥寡孤獨廢疾者，存恤之。"
+      ],
+      "unknown": [
+        "赈济总额、受益户数和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NORTHERN-RELIEF-1368",
+        "summary": "北伐新附区实行禁掠、赈贫、免逋和复业垦荒。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-SHANXI-SHAANXI-CONQUEST-1368-1369",
+      "time": [
+        "洪武元年八月",
+        "洪武二年八月",
+        "range"
+      ],
+      "subject": "徐达、常遇春、冯胜等明军与扩廓帖木儿等元军",
+      "action": "明军自北平进取山西、大同、奉元、临洮、平凉、延安和庆阳，并继续逐元帝至开平。",
+      "result": "山西、陕西主要地区平定，元廷进一步北撤。",
+      "cost": "常遇春卒于军；双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "元军",
+        "晋陕民众"
+      ],
+      "quote": [
+        "徐達克太原",
+        "肅，山西平。己",
+        "常遇春取大同。",
+        "，李思齊降。乙",
+        "常遇春克開平，元帝北走。",
+        "徐達克慶陽，斬張良臣，陝西平。"
+      ],
+      "unknown": [
+        "伤亡、军费与地方损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-BROAD-TAX-REMISSION-1369-1370",
+      "time": [
+        "洪武二年正月",
+        "洪武三年三月",
+        "range"
+      ],
+      "subject": "明太祖与新附、供亿及灾区民户",
+      "action": "朝廷因战争馈饷、兵燹与旱灾，连续免山东、北平、晋冀、河南、应天及多省田租。",
+      "result": "统一战争后的广泛蠲租覆盖北方新附区与东南供亿地区。",
+      "groups": [
+        "农户",
+        "军需承担民户",
+        "灾民"
+      ],
+      "quote": [
+        "其更賜一年。",
+        "北平、燕南、河東、山西今年田租亦與蠲免。",
+        "今年稅糧悉除之。",
+        "其再免諸郡及無為州今年租稅。",
+        "免南畿，河南，山東，北平，浙東，江西廣信、饒州今年田租。"
+      ],
+      "unknown": [
+        "免税总额、户数与财政缺口未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BROAD-TAX-REMISSION-1369-1370",
+        "summary": "战争与灾后对南北多地实行广泛蠲租。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-NORTHERN-CAMPAIGN-1370",
+      "time": [
+        "洪武三年正月至五月",
+        "1370",
+        "range"
+      ],
+      "subject": "徐达、李文忠等明军与北元军",
+      "action": "明军分道北征，在沈儿峪大破扩廓并攻克应昌、河州等地。",
+      "result": "扩廓走和林，元嗣君北走，明军俘其子并降五万余人。",
+      "cost": "元军降五万余；双方死亡未载。",
+      "groups": [
+        "明军",
+        "北元军",
+        "西北草原民众"
+      ],
+      "quote": [
+        "之，分道北征。\n",
+        "徐達大破擴廓帖木兒於沈兒峪，盡降其眾",
+        "李文忠克應昌。",
+        "降五萬餘人",
+        "鄧愈克河州。"
+      ],
+      "unknown": [
+        "明军伤亡、俘虏安置和军费未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-1370",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-WAR-CAPTIVE-POLICY-1370",
+      "time": [
+        "洪武三年六月",
+        "1370",
+        "month"
+      ],
+      "subject": "明太祖与元宗室降人",
+      "action": "明太祖拒绝献俘羞辱元嗣君之子，禁止以浮薄捷辞贬辱元朝，并封买的里八剌为侯。",
+      "result": "北元宗室俘虏获得礼遇，战后政治宣示强调王朝更替而非族群报复。",
+      "groups": [
+        "元宗室",
+        "降人",
+        "中央官员"
+      ],
+      "quote": [
+        "。」遂不許。又以",
+        "言，亟改之。」乙",
+        "封買的里八剌為崇禮侯。"
+      ],
+      "unknown": [
+        "其他俘虏待遇和长期安置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WAR-CAPTIVE-POLICY-1370",
+        "summary": "明太祖拒献俘并礼遇元宗室。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V02-MIGRATION-TUNTIAN-1370-1371",
+      "time": [
+        "洪武三年六月",
+        "洪武四年六月",
+        "range"
+      ],
+      "subject": "明廷与江南、山后无业及遗民",
+      "action": "朝廷迁苏松嘉湖杭无业民到临濠，给资粮牛种并复役三年；又迁山后和沙漠遗民数万户屯田北平。",
+      "result": "以政府资助迁徙补充凤阳北平人口和农业军屯。",
+      "groups": [
+        "无业民",
+        "移民",
+        "屯田户",
+        "北平民众"
+      ],
+      "quote": [
+        "徙蘇州、松江、嘉興、湖州、杭州民無業者田臨濠，給資糧牛種，復三年。",
+        "徙山後民萬七千戶屯北平。",
+        "徙山後民三萬五千戶於內地",
+        "徙沙漠遺民三萬二千戶屯田北平。"
+      ],
+      "unknown": [
+        "迁徙死亡、土地数量、安置成效与地方冲突未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MIGRATION-TUNTIAN-1370-1371",
+        "summary": "资助江南无业民与北方遗民迁徙屯田。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-HOUSEHOLD-REGISTRATION-1370",
+      "time": [
+        "洪武三年十一月",
+        "1370",
+        "month"
+      ],
+      "subject": "户部与全国民户",
+      "action": "明廷命户部设置户籍、户帖，逐年统计人口增减。",
+      "result": "全国户籍与人口年度统计成为法定制度。",
+      "groups": [
+        "民户",
+        "户部官员"
+      ],
+      "quote": [
+        "詔戶部置戶籍、戶帖，歲計登耗以聞，著為令。"
+      ],
+      "unknown": [
+        "初次登记户口数量、漏籍与执行成本未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HOUSEHOLD-REGISTRATION-1370",
+        "summary": "建立户籍户帖和人口年度统计制度。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-SICHUAN-CONQUEST-1371",
+      "time": [
+        "洪武四年正月至七月",
+        "1371",
+        "range"
+      ],
+      "subject": "汤和、傅友德、廖永忠等明军与明昇夏政权",
+      "action": "明军分水陆两路伐蜀，攻取阶州、汉州、夔州、重庆与成都。",
+      "result": "明昇投降并封归义侯，四川平定。",
+      "cost": "朱显忠等战死；双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "夏军",
+        "四川民众"
+      ],
+      "quote": [
+        "率舟師由瞿塘",
+        "率步騎由秦、隴伐蜀。",
+        "傅友德克階州",
+        "廖永忠克夔州。",
+        "湯和至重慶，明昇降。",
+        "傅友德下成都，四川平。"
+      ],
+      "unknown": [
+        "军民总伤亡、战区损失和接管成本未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SICHUAN-1371",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-CIVIL-SERVICE-EDUCATION-1369-1373",
+      "time": [
+        "洪武二年十月",
+        "洪武六年二月",
+        "range"
+      ],
+      "subject": "明廷与天下郡县学校士人",
+      "action": "朝廷命郡县立学、设科取士和连续三年考试，后暂罢科举改察举贤才。",
+      "result": "学校与科举选官建立后又被阶段性调整。",
+      "groups": [
+        "士人",
+        "学生",
+        "地方官员"
+      ],
+      "quote": [
+        "詔天下郡縣立學。",
+        "，設科取士。甲",
+        "詔設科取士連舉三年，嗣後三年一舉。",
+        "始策試天下貢士",
+        "諭暫罷科舉，察舉賢才。"
+      ],
+      "unknown": [
+        "招生、录取规模和暂罢期限未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CIVIL-SERVICE-EDUCATION-1369-1373",
+        "summary": "洪武初建立郡县学校科举并阶段性改用察举。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-LAW-ADMINISTRATION-1372-1373",
+      "time": [
+        "洪武五年六月",
+        "洪武六年闰十一月",
+        "range"
+      ],
+      "subject": "明太祖、六部与地方监察机构",
+      "action": "明廷定六部职掌和岁终考绩，命御史按察考察有司，并颁定大明律。",
+      "result": "中央分工、官员考核、地方监察和成文法体系形成。",
+      "groups": [
+        "中央地方官员",
+        "民众"
+      ],
+      "quote": [
+        "定六部職掌及歲終考績法。",
+        "命御史及按察使考察有司。",
+        "頒定大明律。"
+      ],
+      "unknown": [
+        "律文执行、考核淘汰与司法效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LAW-ADMINISTRATION-1372-1373",
+        "summary": "建立六部考绩、监察和大明律制度。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-MING-V02-NORTHERN-WAR-1372-1375",
+      "time": [
+        "洪武五年正月",
+        "洪武八年十二月",
+        "range"
+      ],
+      "subject": "徐达、李文忠、冯胜等明军与北元军",
+      "action": "明军多路征和林甘肃，虽在岭北、断头山失利，仍取甘肃并持续击退元军对大同、辽东等地进犯。",
+      "result": "西北边防在胜败反复中维持，甘肃部分地区归明，北元威胁未消。",
+      "cost": "曹良臣等战死；双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "北元军",
+        "边地民众"
+      ],
+      "quote": [
+        "徐達及元兵戰於嶺北，敗績。",
+        "馮勝克甘肅",
+        "湯和及元兵戰於斷頭山，敗績。",
+        "擴廓帖木兒犯大同，徐達遣將擊敗之",
+        "納哈出犯遼東，指揮馬雲、葉旺大敗之。"
+      ],
+      "unknown": [
+        "各战总伤亡、军费和边民损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NORTHERN-WAR-1372-1375",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-SOCIAL-RELIEF-DECREE-1372",
+      "time": [
+        "洪武五年五月",
+        "1372",
+        "month"
+      ],
+      "subject": "明太祖与地方官富户",
+      "action": "诏令乱世奴隶复民、富户贷济冻馁、官养孤寡残疾、流民按丁力复业，并限制奢礼和豪家阉人。",
+      "result": "社会恢复政策覆盖身份恢复、贫困救济、复业和基层风俗。",
+      "groups": [
+        "奴隶",
+        "流民",
+        "冻馁者",
+        "孤寡残疾者",
+        "富户"
+      ],
+      "quote": [
+        "諸遭亂為人奴隸者復為民。",
+        "凍餒者里中富室假貸之，孤寡殘疾者官養之",
+        "流民復業者各就丁力耕種，毋以舊田為限。",
+        "閩、粵豪家毋閹人子為火者，犯者抵罪。"
+      ],
+      "unknown": [
+        "执行范围、救济数量与恢复身份人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SOCIAL-RELIEF-DECREE-1372",
+        "summary": "以复民、贷济、官养和复业恢复战后社会。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-DISASTER-RELIEF-1374-1379",
+      "time": [
+        "洪武七年二月",
+        "洪武十二年二月",
+        "range"
+      ],
+      "subject": "明廷与各省灾民",
+      "action": "朝廷反复蠲免水旱蝗灾田租、拨粮赈饥；苏州一次赈三十万户，并向贫民给钞。",
+      "result": "洪武前期形成跨省赈粮、给钞与蠲租救灾。",
+      "groups": [
+        "灾民",
+        "农户",
+        "贫民"
+      ],
+      "quote": [
+        "振蘇州饑民三十萬戶。",
+        "減蘇、松、嘉、湖極重田租之半。",
+        "蝗，並蠲田租。\n",
+        "給屋舍衣食。",
+        "遣使振蘇州、湖州、嘉興、松江、常州、太平、寧國、杭州水災。",
+        "天下貧民困於饑寒者多有，其令有司給以鈔。"
+      ],
+      "unknown": [
+        "累计赈济额、死亡人数、到位情况和侵冒未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DISASTER-RELIEF-1374-1379",
+        "summary": "以粮、钞和蠲租持续赈济多省灾民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-WAR-VETERAN-FAMILY-RELIEF-1370-1374",
+      "time": [
+        "洪武三年五月",
+        "洪武七年八月",
+        "range"
+      ],
+      "subject": "明廷与阵亡伤残军士家属",
+      "action": "朝廷赡养开国将帅无嗣者、祭战没将士，并规定阵亡军士父母妻子由官存养、离散老幼资遣回乡。",
+      "result": "军人伤亡抚恤与战乱人口遣返制度化。",
+      "groups": [
+        "阵亡军士家属",
+        "伤残军士",
+        "离散老幼"
+      ],
+      "quote": [
+        "詔開國時將帥無嗣者祿其家。",
+        "設壇親祭戰沒將士。",
+        "軍士陣歿，父母妻子不能自存者，官為存養。",
+        "百姓避兵離散或客死，遺老幼，並資遣還。"
+      ],
+      "unknown": [
+        "抚恤标准、人数和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WAR-VETERAN-FAMILY-RELIEF-1370-1374",
+        "summary": "建立战没军士家属存养和离散人口遣返制度。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-FLOOD-WORKS-1374-1375",
+      "time": [
+        "洪武八年正月",
+        "1375",
+        "month"
+      ],
+      "subject": "明廷与开封河工",
+      "action": "黄河在开封决口，朝廷征发民夫堵塞。",
+      "result": "河防抢修启动；合龙与长期效果本卷未载。",
+      "groups": [
+        "河工民夫",
+        "沿河灾民"
+      ],
+      "quote": [
+        "河決開封，發民夫塞之。"
+      ],
+      "unknown": [
+        "用工数量、伤亡、工费与合龙结果未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "FLOOD-WORKS-1375",
+        "summary": "开封河决后征民夫抢堵。",
+        "continuity": "single_event",
+        "phase": "应急抢堵",
+        "purpose": "防洪",
+        "operation_result": "结果未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-PAPER-MONEY-1375",
+      "time": [
+        "洪武八年三月",
+        "1375",
+        "month"
+      ],
+      "subject": "明廷财政机构",
+      "action": "朝廷推行钞法并停止宝源局铸钱。",
+      "result": "货币政策由铸钱转向纸钞。",
+      "groups": [
+        "商民",
+        "纳税民户",
+        "财政官员"
+      ],
+      "quote": [
+        "酉，立鈔法。辛",
+        "罷寶源局鑄錢。"
+      ],
+      "unknown": [
+        "钞额、兑换、物价与民间接受度未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "PAPER-MONEY-1375",
+        "summary": "明廷立钞法并停铸钱。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-ZHONDU-WORKS-END-1371-1375",
+      "time": [
+        "洪武二年九月",
+        "洪武八年四月",
+        "range"
+      ],
+      "subject": "明太祖与中都工程",
+      "action": "明廷以临濠为中都、营建郊庙宫役，至洪武八年下令停止营中都。",
+      "result": "凤阳中都建设中止，部分既有工程保留。",
+      "groups": [
+        "工程役夫",
+        "凤阳民众",
+        "军政官员"
+      ],
+      "quote": [
+        "以臨濠為中都。",
+        "建郊廟於中都。",
+        "。罷營中都。致"
+      ],
+      "unknown": [
+        "工程规模、总工费、役夫伤亡与停工原因未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "ZHONDU-WORKS-1371-1375",
+        "summary": "凤阳中都营建启动后被停止。",
+        "continuity": "single_event",
+        "phase": "营建后停工",
+        "purpose": "建设陪都",
+        "operation_result": "工程停止"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-BROAD-TAX-REMISSION-1376",
+      "time": [
+        "洪武九年三月",
+        "1376",
+        "month"
+      ],
+      "subject": "明太祖与十三省府民户",
+      "action": "因西北军需、藩府宫殿和都城土木重困民力，朝廷免淮扬等府及山陕河南闽赣浙北平湖广当年租赋。",
+      "result": "针对军役土木负担实施大范围一次性免租。",
+      "groups": [
+        "农户",
+        "转运民户",
+        "工程役户"
+      ],
+      "quote": [
+        "軍需甲仗，皆資山、陝",
+        "國都始建，土木屢興。",
+        "外郡疲於轉運。",
+        "今年租賦，悉免之。"
+      ],
+      "unknown": [
+        "免租总额、财政替代来源与地方执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BROAD-TAX-REMISSION-1376",
+        "summary": "因军需宫殿土木负担免多省当年租赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-PROVINCIAL-ADMIN-REFORM-1376",
+      "time": [
+        "洪武九年六月",
+        "1376",
+        "month"
+      ],
+      "subject": "明廷与行中书省",
+      "action": "朝廷将行中书省改为承宣布政使司。",
+      "result": "地方最高行政机构由行省改为布政使司。",
+      "groups": [
+        "地方官员",
+        "民众"
+      ],
+      "quote": [
+        "改行中書省為承宣布政使司。"
+      ],
+      "unknown": [
+        "各司编制、权责与财政影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PROVINCIAL-ADMIN-REFORM-1376",
+        "summary": "行省改为承宣布政使司。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V02-INSPECTION-PETITION-1377",
+      "time": [
+        "洪武十年六月至七月",
+        "1377",
+        "range"
+      ],
+      "subject": "明太祖、通政司与巡按御史",
+      "action": "朝廷允许臣民密封奏事直达御前，设置通政司并派御史巡按州县。",
+      "result": "中央收受奏章和地方监察渠道得到强化。",
+      "groups": [
+        "臣民",
+        "地方官员",
+        "监察官"
+      ],
+      "quote": [
+        "詔臣民言事者，實封達御前。",
+        "，置通政司。是",
+        "始遣御史巡按州縣。"
+      ],
+      "unknown": [
+        "奏章数量、监察纠错与冤案变化未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "INSPECTION-PETITION-1377",
+        "summary": "建立密封奏事、通政司与巡按监察。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V02-HU-WEIYONG-CENTRALIZATION-1380",
+      "time": [
+        "洪武十三年正月",
+        "1380",
+        "month"
+      ],
+      "subject": "明太祖、胡惟庸及中央机构",
+      "action": "胡惟庸以谋反被诛，朝廷罢中书省和丞相，重定六部官秩，将大都督府分为五军都督府。",
+      "result": "丞相制度废除，行政与军权直接归皇帝控制。",
+      "groups": [
+        "中央官员",
+        "军队",
+        "天下臣民"
+      ],
+      "quote": [
+        "左丞相胡惟庸謀反",
+        "罷中書省，廢丞相等官",
+        "更定六部官秩",
+        "改大都督府為中、左、右、前、後五軍都督府。"
+      ],
+      "unknown": [
+        "案件证据、牵连人数与机构过渡成本未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HU-WEIYONG-CENTRALIZATION-1380",
+        "summary": "胡惟庸案后废丞相、分五军府，皇权集中。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V02-TAX-SCHOOL-RELIEF-1380",
+      "time": [
+        "洪武十三年三月至八月",
+        "1380",
+        "range"
+      ],
+      "subject": "明太祖与苏松嘉湖民户、全国学校",
+      "action": "朝廷减江南重赋二成、免天下田租，罢王府工役并给学校师生日常廪膳。",
+      "result": "在中央改制之年同步减轻赋役并保障学校供给。",
+      "groups": [
+        "农户",
+        "王府役夫",
+        "学校师生"
+      ],
+      "quote": [
+        "減蘇、松、嘉、湖重賦十之二。",
+        "免天下田租。",
+        "罷王府工役。",
+        "命天下學校師生，日給廩膳。"
+      ],
+      "unknown": [
+        "减免总额、师生人数和廪膳标准未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TAX-SCHOOL-RELIEF-1380",
+        "summary": "减重赋、免天下租并停王府役、给学校廪膳。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-YUNNAN-CAMPAIGN-START-1381",
+      "time": [
+        "洪武十四年九月至十二月",
+        "1381",
+        "range"
+      ],
+      "subject": "傅友德、蓝玉、沐英等明军与元梁王势力",
+      "action": "明廷三路征云南，在白石江大破元军并攻下曲靖，梁王自杀。",
+      "result": "云南统一战争取得决定性开端，后续平定延至下一卷。",
+      "cost": "双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "元军",
+        "云南民众"
+      ],
+      "quote": [
+        "帥師征雲南。",
+        "傅友德大敗元兵於白石江",
+        "，遂下曲靖。壬",
+        "元梁王把匝剌瓦爾密走普寧自殺。"
+      ],
+      "unknown": [
+        "双方伤亡、军费、地方损失和云南最终平定在本卷未载。"
+      ],
+      "battle": "CAMPAIGN-MING-YUNNAN-1381-1382",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V02-COASTAL-DEFENSE-WOKOU-1369-1375",
+      "time": [
+        "洪武二年正月",
+        "洪武八年十二月",
+        "range"
+      ],
+      "subject": "吴祯、于显等明军与倭寇",
+      "action": "倭寇反复侵扰山东浙江福建沿海，明廷设总兵巡海捕倭并在辽东海防击退来犯。",
+      "result": "沿海建立常态巡防，但倭患持续。",
+      "cost": "沿海军民伤亡与财产损失未载。",
+      "groups": [
+        "沿海军民",
+        "水军",
+        "倭寇"
+      ],
+      "quote": [
+        "倭寇山東濱海郡縣。",
+        "倭寇山東、浙江、福建濱海州縣。",
+        "總兵官，備倭。\n　　",
+        "之，巡海捕倭。\n",
+        "申，倭寇登、萊。\n"
+      ],
+      "unknown": [
+        "袭扰规模、伤亡、舰船和海防经费未载。"
+      ],
+      "battle": "CAMPAIGN-MING-COASTAL-DEFENSE-1369-1375",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

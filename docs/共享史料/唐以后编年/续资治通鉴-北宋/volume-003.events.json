@@ -1,0 +1,1112 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-003",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷003",
+    "revision_ref": "1483702",
+    "start_locator": "宋太祖乾德元年正月",
+    "end_locator": "宋太祖乾德二年三月",
+    "overlap_context": "续接卷002张文表据潭州、周保权求援；本卷完成荆南与湖南并入宋境，继而推进州县控藩、刑赋赈济及北汉边战，转出南唐铁钱危机。",
+    "input_fingerprint": "86817d66a36c3f32cb4219c52ad895d4d015f764117e7b9c9dbec15c0fd208b9"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-003-CAPITAL-DIKES-963",
+      "time": "乾德元年正月",
+      "loc": [
+        "京畿"
+      ],
+      "action": "宋廷征发近畿丁夫数万修筑河堤。",
+      "result": "京畿河防工程启动。",
+      "quote": [
+        "發近甸丁夫數萬",
+        "修築畿內河堤"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "数万丁夫修筑京畿河堤。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模征发近畿劳役。"
+        ]
+      ],
+      "unknown": [
+        "工期与具体河段未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-SONG-EXPEDITION-HUNAN-963",
+      "time": "乾德元年正月",
+      "loc": [
+        "襄州",
+        "湖南",
+        "荆南"
+      ],
+      "action": "宋廷以讨张文表为名，任慕容延钊、李处耘统兵会襄阳，并预定假道夺取荆南。",
+      "result": "宋军南征同时包含平湖南与兼并荆南两项目标。",
+      "quote": [
+        "發兵會襄陽以討張文表",
+        "今假道出師",
+        "師，因而下之",
+        "遂以成算授處耘等"
+      ],
+      "battle": "CAMPAIGN-SONG-EXPEDITION-HUNAN-963",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋廷借湖南求援推进荆湖统一。"
+        ]
+      ],
+      "unknown": [
+        "出征总兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-YIJIN-FORT-CANCELLED-963",
+      "time": "乾德元年正月",
+      "loc": [
+        "益津关",
+        "辽南京道"
+      ],
+      "action": "宋廷计划筑益津关，辽将高勋、崔廷勋奉命以兵扰境。",
+      "result": "宋廷未能筑城。",
+      "quote": [
+        "時議城益津關",
+        "命勳及統軍使崔廷勳以兵擾之",
+        "之，乃不果城"
+      ],
+      "battle": "CAMPAIGN-YIJIN-FORT-CANCELLED-963",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边关筑城因军事干扰停止。"
+        ]
+      ],
+      "unknown": [
+        "是否发生直接战斗未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-ZHANGWENBIAO-DEFEATED-963",
+      "time": "乾德元年正月",
+      "loc": [
+        "潭州"
+      ],
+      "action": "杨师璠与张文表相持后大败其军，攻取潭州并擒获张文表。",
+      "result": "朗州将领担心张文表入朝反害，擅自在市中杀死张文表；潭州同时遭纵火大掠。",
+      "quote": [
+        "師璠大敗之",
+        "之，遂取潭州",
+        "州，執文表。初",
+        "城，縱火大掠",
+        "乃斬文表於市"
+      ],
+      "battle": "CAMPAIGN-ZHANGWENBIAO-DEFEATED-963",
+      "unknown": [
+        "双方伤亡与掠夺损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-CIVIL-OFFICIALS-GOVERN-PREFECTURES-963",
+      "time": "乾德元年正月",
+      "loc": [
+        "宋诸州"
+      ],
+      "action": "宋廷开始以文臣知州，并渐次削减异姓王和带相印藩镇的权力。",
+      "result": "藩镇因死亡、迁徙、致仕或遥领而被替换，地方治理向文官转移。",
+      "quote": [
+        "初命文臣知州事",
+        "謀，漸削其權",
+        "皆以文臣代之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以文臣知州削弱藩镇。"
+        ]
+      ],
+      "unknown": [
+        "首批替换州数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-JINGNAN-ANNEXED-963",
+      "time": "乾德元年二月",
+      "loc": [
+        "荆门",
+        "江陵",
+        "荆南"
+      ],
+      "action": "李处耘趁宴留荆南使者，密遣轻骑倍道突入江陵并控制要地。",
+      "result": "高继冲献三州十七县、十四万二千三百户归宋。",
+      "quote": [
+        "密遣輕騎數千倍道前進",
+        "率親兵先入",
+        "宋師已分據衝要",
+        "三州，十七縣，十四萬二千三百戶",
+        "戶，奉表來歸"
+      ],
+      "battle": "CAMPAIGN-JINGNAN-ANNEXED-963",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "荆南政权以疆土户籍归宋。"
+        ]
+      ],
+      "unknown": [
+        "未发生公开交战。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-SANJIANGKOU-YUEZHOU-963",
+      "time": "乾德元年二月",
+      "loc": [
+        "三江口",
+        "岳州"
+      ],
+      "action": "周保权将校拒绝宋军，慕容延钊在三江口进击湖南军。",
+      "result": "湖南军大败，宋军攻取岳州。",
+      "quote": [
+        "答，遂進討之",
+        "大破其軍於三江口",
+        "口，遂取岳州"
+      ],
+      "battle": "CAMPAIGN-SANJIANGKOU-YUEZHOU-963",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-HUNAN-CONQUERED-963",
+      "time": "乾德元年三月",
+      "loc": [
+        "澧州",
+        "敖山寨",
+        "朗州",
+        "武陵"
+      ],
+      "action": "张崇富军望风溃逃，李处耘追至敖山寨；宋军随后入朗州，擒张崇富并获周保权。",
+      "result": "湖南平定，宋得十四州、一监、六十六县及九万七千二百八十八户。",
+      "quote": [
+        "戰，望風先潰",
+        "逐北至敖山寨",
+        "慕容延釗等入朗州",
+        "守奇獲保權以歸",
+        "歸。湖南平，凡",
+        "縣六十六，戶九萬七千二百八十八"
+      ],
+      "battle": "CAMPAIGN-HUNAN-CONQUERED-963",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-HUNAN-TERROR-TACTICS-963",
+      "time": "乾德元年三月",
+      "loc": [
+        "敖山寨",
+        "武陵"
+      ],
+      "action": "李处耘选取肥壮俘虏数十人令左右食用，并黥刺少壮者放回武陵。",
+      "result": "武陵民众恐惧宋军食人，焚城逃入山谷。",
+      "quote": [
+        "擇所俘體肥者數十人",
+        "令左右啖之",
+        "黥其少壯者",
+        "縱火焚州城",
+        "城，奔竄山谷"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恐怖手段导致武陵居民焚城逃亡。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南征军以虐俘制造震慑。"
+        ]
+      ],
+      "unknown": [
+        "逃亡人口与城损未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-PENAL-CODE-AND-CHARITY-GRANARIES-963",
+      "time": "乾德元年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷详定流徒杖笞五刑等级，并令州县恢复义仓。",
+      "result": "每石二税另收一斗储备，用于凶年。",
+      "quote": [
+        "詳定五刑之制",
+        "令州縣復置義倉",
+        "每石別輸一斗貯之",
+        "之，以備兇儉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一五刑等级并恢复州县义仓。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "二税附加储粮备荒。"
+        ]
+      ],
+      "unknown": [
+        "各州义仓实际储量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-JINGHU-AMNESTY-TAX-RELIEF-963",
+      "time": "乾德元年四月",
+      "loc": [
+        "荆南",
+        "潭州",
+        "朗州"
+      ],
+      "action": "宋廷在新附荆湖地区减刑释役并清理旧欠。",
+      "result": "死罪减等、流刑以下释放、配役人归还，三年前逋税和场院课利蠲免。",
+      "quote": [
+        "減荊南、潭、朗州死罪囚",
+        "流以下釋之",
+        "配役人放還",
+        "蠲三年以前逋稅及場院課利"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新附地区免旧欠、释配役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以减刑赦免安抚荆湖。"
+        ]
+      ],
+      "unknown": [
+        "获释人数和免税额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-CIRCUIT-CONTROLLERS-963",
+      "time": "乾德元年四月",
+      "loc": [
+        "宋诸州"
+      ],
+      "action": "宋廷始置诸州通判，并让节镇支郡直接隶属京师。",
+      "result": "通判可专达中央并与长吏均礼，节度使对支郡的控制进一步削弱。",
+      "quote": [
+        "始置諸州通判",
+        "之，事得專達",
+        "與長吏均禮",
+        "支郡皆直隸京師",
+        "節度使之權益輕"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以通判和支郡直隶制衡州帅。"
+        ]
+      ],
+      "unknown": [
+        "首批通判人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-WATER-WARFARE-POND-963",
+      "time": "乾德元年四月",
+      "loc": [
+        "朱明门",
+        "蔡水"
+      ],
+      "action": "宋廷出内府钱，募军人子弟数千凿池引蔡水，造楼船百艘。",
+      "result": "设置水虎捷军，在新池训练水战。",
+      "quote": [
+        "寅，出內府錢",
+        "募諸軍子弟數千人鑿池",
+        "造樓船百艘",
+        "卒，號水虎捷",
+        "捷，習戰池中"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "凿池、引水并造百艘楼船。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "内府出资并招募数千人。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "组建水战训练力量。"
+        ]
+      ],
+      "unknown": [
+        "具体支出未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-CHENHONGJIN-SEIZES-QUANZHOU-963",
+      "time": "乾德元年四月",
+      "loc": [
+        "泉州",
+        "清源军"
+      ],
+      "action": "陈洪进以武力控制张汉思府署，迫其交印并接管留务。",
+      "result": "张汉思被软禁外舍，陈洪进获南唐节钺并向宋请求制命。",
+      "quote": [
+        "中，叱去直兵",
+        "進即鎖其門",
+        "當以印見授",
+        "遣漢思外舍，以兵守之",
+        "告，且請制命"
+      ],
+      "battle": "CAMPAIGN-CHENHONGJIN-SEIZES-QUANZHOU-963",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "泉州军权以宫府政变转移。"
+        ]
+      ],
+      "unknown": [
+        "未发生公开交战。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-SANMEN-CHANNEL-963",
+      "time": "乾德元年四月",
+      "loc": [
+        "砥柱三门"
+      ],
+      "action": "宋廷下令重新开凿砥柱三门。",
+      "result": "黄河险段航道整治启动。",
+      "quote": [
+        "詔重鑿砥柱三門"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重凿三门航道。"
+        ]
+      ],
+      "unknown": [
+        "工期、役夫与成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-SHU-BORDER-MOBILIZATION-963",
+      "time": "乾德元年五月",
+      "loc": [
+        "后蜀",
+        "峡路",
+        "涪州",
+        "泸州",
+        "戎州"
+      ],
+      "action": "后蜀王昭远阻止向宋通贡，并调兵屯峡路、阅棹手、增置水军。",
+      "result": "后蜀转入防宋军事准备。",
+      "quote": [
+        "王昭遠固止之",
+        "率兵屯峽路",
+        "等州閱棹手，",
+        "手，增置水軍"
+      ],
+      "battle": "CAMPAIGN-SHU-BORDER-MOBILIZATION-963",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后蜀拒绝通贡并强化峡路防御。"
+        ]
+      ],
+      "unknown": [
+        "屯军人数与水军规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-TANZHOU-LEVIES-CANCELLED-963",
+      "time": "乾德元年六月",
+      "loc": [
+        "潭州诸县"
+      ],
+      "action": "宋廷免除潭州诸县无名配敛。",
+      "result": "新附湖南的额外摊派被取消。",
+      "quote": [
+        "詔免潭州諸縣無名配斂"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "取消无名摊派。"
+        ]
+      ],
+      "unknown": [
+        "减免金额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-CAPITAL-WORKS-HEAT-PAUSE-963",
+      "time": "乾德元年六月",
+      "loc": [
+        "开封"
+      ],
+      "action": "宋廷因酷暑暂停京城营造。",
+      "result": "工匠获赐衫履并暂免炎热施工。",
+      "quote": [
+        "以大暑，罷京城營造",
+        "賜工匠衫履"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "暂停京城工程。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护工匠并发给衣履。"
+        ]
+      ],
+      "unknown": [
+        "停工时长未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-JINGNAN-SOLDIERS-FARMING-963",
+      "time": "乾德元年六月",
+      "loc": [
+        "荆南"
+      ],
+      "action": "宋廷准许愿归农的荆南兵退伍。",
+      "result": "官府为其修屋并给耕牛和种粮。",
+      "quote": [
+        "荊南兵願歸農者聽",
+        "聽，官爲葺舍",
+        "給賜耕牛、種食"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以住房、耕牛和种粮安置退伍兵。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁并新附军队。"
+        ]
+      ],
+      "unknown": [
+        "归农兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-NORTHERN-HAN-RAID-963",
+      "time": "乾德元年七月",
+      "loc": [
+        "北汉境"
+      ],
+      "action": "王全斌、郭进、曹彬等率兵攻入北汉。",
+      "result": "宋军以俘虏献朝，宋帝下诏释放。",
+      "quote": [
+        "率兵攻北漢",
+        "以俘獲來獻"
+      ],
+      "battle": "CAMPAIGN-NORTHERN-HAN-RAID-963",
+      "unknown": [
+        "战地、兵力、伤亡和俘虏人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-HUNAN-WEIGHTS-AND-TAX-RELIEF-963",
+      "time": "乾德元年七月",
+      "loc": [
+        "澧州",
+        "朗州",
+        "荆南"
+      ],
+      "action": "宋廷向澧朗诸州颁行量衡，并减免荆南、朗州夏租。",
+      "result": "割据时期厚敛尺度被统一，荆南夏租减半、朗州夏租全赐。",
+      "quote": [
+        "頒量衡於澧、朗諸州",
+        "懲割據厚斂之弊",
+        "賜荊南管內民今年夏租之半",
+        "賜管內民今年夏租"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一量衡并减免新附地区夏租。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以中央标准取代割据尺度。"
+        ]
+      ],
+      "unknown": [
+        "具体折税额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-WANGDUAN-LANGZHOU-963",
+      "time": "乾德元年七月至九月",
+      "loc": [
+        "朗州"
+      ],
+      "action": "汪端率数万人攻朗州，尹重睿击退；其后汪端聚众山泽继续为盗。",
+      "result": "慕容延钊擒获并处死汪端，受牵连的一千余僧经查无谋反而获释。",
+      "quote": [
+        "汪端以數萬人寇州城",
+        "尹重睿擊走之",
+        "與其黨聚山澤爲盜",
+        "慕容延釗獲汪端",
+        "僧無與謀者，皆得全活"
+      ],
+      "battle": "CAMPAIGN-WANGDUAN-LANGZHOU-963",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "平定湖南余乱并避免牵连僧众。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-LANGZHOU-FORTIFICATION-963",
+      "time": "乾德元年七月",
+      "loc": [
+        "朗州"
+      ],
+      "action": "宋廷命增筑朗州城并疏浚城壕。",
+      "result": "新附湖南治所防御得到加固。",
+      "quote": [
+        "命增築朗州城",
+        "城，浚其壕，賜"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "增筑城墙并浚壕。"
+        ]
+      ],
+      "unknown": [
+        "役夫、工期和费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-PRINTED-PENAL-CODE-963",
+      "time": "乾德元年七月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "窦仪等上《重定刑统》，宋廷下令刊板印刷。",
+      "result": "刑统颁行天下。",
+      "quote": [
+        "上《重定刑統》等書",
+        "詔刊板摹印頒天下"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以雕版统一颁布刑法。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刊板摹印法典。"
+        ]
+      ],
+      "unknown": [
+        "印数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-GUIYANG-JIANGHUA-PACIFICATION-963",
+      "time": "乾德元年八月",
+      "loc": [
+        "桂阳",
+        "江华",
+        "溪洞"
+      ],
+      "action": "南汉军多次侵桂阳、江华，潘美击退后深入溪洞，进攻长期侵掠居民的蛮獠。",
+      "result": "斩百余级，余众溃散；潘美随后招降赦罪并以牛酒金帛安抚，诸部遂定。",
+      "quote": [
+        "南漢人數寇桂陽及江華",
+        "華，美擊走之",
+        "斬首百餘級",
+        "級，餘黨散潰",
+        "賜金帛撫慰之",
+        "之，夷落遂定"
+      ],
+      "battle": "CAMPAIGN-GUIYANG-JIANGHUA-PACIFICATION-963",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以私人俸禄购牛酒并赐金帛安抚。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军事打击后招抚溪洞。"
+        ]
+      ],
+      "unknown": [
+        "南汉与宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-LEPING-CAPTURED-963",
+      "time": "乾德元年八月",
+      "loc": [
+        "乐平县",
+        "平晋军"
+      ],
+      "action": "王全斌等攻北汉乐平，击败蔚进、郝贵超率领的蕃汉援军。",
+      "result": "宋军三战皆胜，攻下乐平并设置平晋军，北汉十八寨继而来降。",
+      "quote": [
+        "帥師攻北漢樂平縣",
+        "三戰，皆敗之",
+        "之，遂下樂平",
+        "即建爲平晉軍",
+        "十八寨首領相帥來降"
+      ],
+      "battle": "CAMPAIGN-LEPING-CAPTURED-963",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "占领乐平后改设平晋军。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-PINGJIN-RELIEF-WITHDRAWS-963",
+      "time": "乾德元年九月",
+      "loc": [
+        "平晋军"
+      ],
+      "action": "北汉引辽军攻平晋军，宋将郭进、曹彬等率步骑救援。",
+      "result": "援军未到一舍，北汉军即撤退。",
+      "quote": [
+        "誘遼兵攻平晉軍",
+        "領步騎往救之",
+        "北漢引兵去"
+      ],
+      "battle": "CAMPAIGN-PINGJIN-RELIEF-WITHDRAWS-963",
+      "unknown": [
+        "辽军兵力与撤退原因未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-JINGHU-CAPTIVES-RETURNED-963",
+      "time": "乾德元年十月",
+      "loc": [
+        "襄州",
+        "潭州",
+        "邵州",
+        "江陵"
+      ],
+      "action": "宋廷追索湖南行营掠夺人口，遣送回家，并释放潭邵乡兵归农。",
+      "result": "江陵旧租减半，数千乡兵及被掠人口获得战后安置。",
+      "quote": [
+        "盡索湖南行營諸軍所掠生口",
+        "吏分送其家",
+        "放潭、邵州鄉兵數千人歸農",
+        "減江陵府民舊租之半"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "归还被掠人口、释放乡兵并减租。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "纠正南征军掠夺。"
+        ]
+      ],
+      "unknown": [
+        "被掠人口总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-DAZHOU-EXACTIONS-BANNED-963",
+      "time": "乾德元年十二月",
+      "loc": [
+        "道州",
+        "衡州",
+        "岳州"
+      ],
+      "action": "宋廷禁止道州征民采朱砂，免除衡岳二税外米赋，并禁止征民炼铜烧炭。",
+      "result": "荆湖矿冶和附加税役负担被削减。",
+      "quote": [
+        "禁道州調民取硃砂",
+        "二稅外所賦米",
+        "毋得發民烹銅礦及作炭"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "免除矿冶劳役和二税外加派。"
+        ]
+      ],
+      "unknown": [
+        "受益户数和矿产产量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-NORTHERN-HAN-BORDER-OFFENSIVE-963",
+      "time": "乾德元年十二月",
+      "loc": [
+        "北汉边境",
+        "辽州",
+        "石州"
+      ],
+      "action": "曹彬等与晋潞两镇会兵进入北汉境，进取边邑及辽、石州。",
+      "result": "宋军发动新一轮北汉边境攻势。",
+      "quote": [
+        "會兵入北漢境",
+        "收其邊邑及遼、石州"
+      ],
+      "battle": "CAMPAIGN-NORTHERN-HAN-BORDER-OFFENSIVE-963",
+      "unknown": [
+        "本条未载具体占领结果。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-NORTHERN-EXPEDITION-PANIC-963",
+      "time": "乾德元年闰十二月",
+      "loc": [
+        "河南"
+      ],
+      "action": "民间传言宋帝将北征并大发馈运，河南民众惊惧逃亡。",
+      "result": "四万户逃离，薛居正奉命招集，十余日恢复原状。",
+      "quote": [
+        "大發民饋運",
+        "河南民相驚逃亡者四萬家",
+        "逾旬乃復故"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军运传言导致四万户短期逃亡。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央迅速招抚恢复户籍。"
+        ]
+      ],
+      "unknown": [
+        "传言来源及实际北征计划未定。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-FUZHOU-BATTLE-963",
+      "time": "乾德元年闰十二月",
+      "loc": [
+        "府州"
+      ],
+      "action": "折德扆在府州城下迎击北汉军数千。",
+      "result": "北汉军败，卫州刺史杨璘被俘。",
+      "quote": [
+        "敗北漢軍數千人於府州城下",
+        "獲其衛州刺史楊璘"
+      ],
+      "battle": "CAMPAIGN-FUZHOU-BATTLE-963",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-NORTHERN-HAN-SILVER-TRIBUTE-963",
+      "time": "乾德元年闰十二月",
+      "loc": [
+        "五台山",
+        "柏谷",
+        "北汉",
+        "辽"
+      ],
+      "action": "北汉以五台僧人积蓄、马匹和柏谷银冶支持国用及对辽岁输。",
+      "result": "柏谷每年产银千斤输辽，并设置宝兴军。",
+      "quote": [
+        "多積蓄以佐國用",
+        "歲率數百匹",
+        "募民鑿山取礦烹銀",
+        "遼，歲千斤，因",
+        "冶建寶興軍"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以寺院资源、马匹和银矿承担对辽岁输。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开凿柏谷银矿。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "围绕银冶设置宝兴军。"
+        ]
+      ],
+      "unknown": [
+        "募工人数与银冶成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-QINGYUAN-HEAVY-LEVIES-964",
+      "time": "乾德二年正月",
+      "loc": [
+        "泉州",
+        "漳州",
+        "平海军"
+      ],
+      "action": "宋廷任陈洪进为平海节度使；陈洪进以贡奉为名厚敛，并令富资百万者纳钱买官免役。",
+      "result": "泉漳二州民众承受重税、买官与贿赂之苦。",
+      "quote": [
+        "命陳洪進爲節度使",
+        "多厚斂於民",
+        "籍民資百萬以上者令入錢",
+        "而蠲其丁役",
+        "二州之民甚苦之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以贡奉、买官和免役交易厚敛。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋正式承认陈洪进节镇地位。"
+        ]
+      ],
+      "unknown": [
+        "实际贡奉与入钱总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-LIAOZHOU-SHIZHOU-WAR-964",
+      "time": "乾德二年正月至二月",
+      "loc": [
+        "辽州",
+        "石州"
+      ],
+      "action": "李继勋等攻北汉辽州，杜延韬举城降宋；辽遣耶律达里率六万骑援北汉。",
+      "result": "辽军在石州击败宋军，阻止北汉迅速被吞并。",
+      "quote": [
+        "攻北漢遼州",
+        "杜延韜舉城降",
+        "率六萬騎援北漢",
+        "敗繼勳兵於石州"
+      ],
+      "battle": "CAMPAIGN-LIAOZHOU-SHIZHOU-WAR-964",
+      "unknown": [
+        "双方伤亡及辽州后续归属未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-WEI-MIN-CANAL-964",
+      "time": "乾德二年二月",
+      "loc": [
+        "长社",
+        "潩水",
+        "开封",
+        "闵河"
+      ],
+      "action": "陈承昭率丁夫数千开渠，自长社引潩水至京并汇入闵河。",
+      "result": "工程完成后民免水患，闵河漕运更加通畅。",
+      "quote": [
+        "帥丁夫數千鑿渠",
+        "自長社引潩水至京",
+        "閔河。渠成，民",
+        "成，民無水患",
+        "閔河之漕益通流"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "数千人开渠引潩水入闵河。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "兼顾防洪与漕运。"
+        ]
+      ],
+      "unknown": [
+        "工期和费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-003-SOUTHERN-TANG-IRON-MONEY-964",
+      "time": "乾德二年三月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "南唐采用韩熙载建议铸当二铁钱，铜钱被民间藏匿并外流。",
+      "result": "铁钱十兑铜钱一，官俸兼发铁钱，物价进一步上涨。",
+      "quote": [
+        "鑄當二鐵錢",
+        "民間多藏匿舊錢",
+        "鐵錢十易銅錢一",
+        "官吏皆增俸",
+        "由是物價益貴"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "铁钱贬值、铜钱外流并推高物价。"
+        ]
+      ],
+      "unknown": [
+        "铁钱铸量与物价涨幅未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 1483702 的《續資治通鑑》卷003连续通读登记，不引入卷外常识。",
+    "普通任免、朝会、贡聘、祥异及无消费结果的重复行军节点未单列。",
+    "卷末止于乾德二年三月，南唐铁钱与宋辽北汉线转入卷004承接；本卷落盘前未打开卷004。"
+  ]
+}

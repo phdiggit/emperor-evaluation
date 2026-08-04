@@ -1,0 +1,587 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V22-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V22-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷22",
+    "revision_ref": "1748404",
+    "start_locator": "八年春正月癸丑，如鴨子河",
+    "end_locator": "是歲，春州鬥粟六錢",
+    "overlap_context": "本卷承卷21清宁七年，记清宁八年至咸雍七年（1062—1071）。重元之乱按行宫冲突与事后惩赏安抚两阶段登记；阻卜、五国叛乱分别按出师、战果、降附或擒酋闭合。考试选才、金属管制、南京稻作、狱政、赈济与百官廷议按同一政策链合并，单次任免、常规巡幸贡聘祭祀及无实施结果的零散禁令不单列。卷末为咸雍七年，未读卷23。",
+    "input_fingerprint": "4efcece68e1762c90df0d014d434e53b95856c4e267c7c49310b8cbd6b617db4"
+  },
+  "limitations": [
+    "仅据固定《遼史》卷22正文登记，未知保持未知。",
+    "重元之乱的谋划过程、各方伤亡和多数参与者责任程度未详；不据后世叙事补写。",
+    "灾害损失、赈济钱粮、考试后续任用、金属交易规模与军役负担多未载。",
+    "普通任免、贡聘、巡幸、祭祀、天象及只有命令而无最小充分结果锚的零散禁令不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070",
+      "time": [
+        "清宁八年至咸雍六年",
+        "1062—1070",
+        "range"
+      ],
+      "subject": "进士、贤良科应试者与辽廷",
+      "action": "辽廷先后录取王鼎等九十三人、张臻等一百零一人和赵廷睦等一百三十八人，并设贤良科，要求应科者先呈所业十万言。",
+      "result": "卷内三次进士录取共三百三十二人，另增设贤良科及其预呈文字门槛。",
+      "cost": "考试组织、士人赴试成本和录取后的任用未载。",
+      "groups": [
+        "进士应试者",
+        "贤良科应试者",
+        "儒臣",
+        "辽廷选官机构"
+      ],
+      "quote": [
+        "禦清涼殿放進士王鼎等九十三人。",
+        "禦永安殿，放進士張臻等百一人。",
+        "設賢良科，詔應是科者，先以所業十萬言進。",
+        "禦永安殿放進士趙廷睦等百三十八人。"
+      ],
+      "unknown": [
+        "应试人数、录取标准、贤良科实际录取和后续任官未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EXAMINATION-AND-TALENT-SELECTION-1062-1070",
+        "summary": "连续录取进士并增设贤良科及十万言预呈门槛。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070",
+      "time": [
+        "清宁九年至咸雍六年",
+        "1063—1070",
+        "range"
+      ],
+      "subject": "铜铁交易者、南京居民与边界商人",
+      "action": "朝廷禁止民间售铜，后又禁止南京私造御用彩缎、私售铁及非时饮酒，并禁止向回鹘、阻卜等境出售生熟铁。",
+      "result": "铜、铁及南京特定物资活动受到内地和边界两层管制。",
+      "groups": [
+        "铜铁商人",
+        "南京居民",
+        "彩缎制造者",
+        "回鹘阻卜边界交易者"
+      ],
+      "quote": [
+        "，禁民鬻銅。三",
+        "詔南京不得私造御用彩緞，私貨鐵，及非時飲酒。",
+        "禁鬻生熟鐵於回鶻、阻卜等界。"
+      ],
+      "unknown": [
+        "禁令原因、交易规模、查禁方式、处罚和市场影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070",
+        "summary": "限制民间铜铁及南京特定物资活动，并禁止向回鹘阻卜境售铁。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-CHONGYUAN-PALACE-REBELLION-1063",
+      "time": [
+        "清宁九年七月",
+        "1063",
+        "month"
+      ],
+      "subject": "皇太叔重元党、宿卫军与辽道宗行宫",
+      "action": "皇太叔重元及涅鲁古等约四百人诱胁弩手军进犯行宫，许王仁先、耶律乙辛等率宿卫数千抵御；涅鲁古被射杀，重元逃入大漠自杀。",
+      "result": "进犯行宫的重元集团在宿卫抵抗后失败，两名核心首领死亡。",
+      "cost": "参与者约四百人，守方宿卫数千；双方其他伤亡、行宫损失及被胁者数量未载。",
+      "groups": [
+        "重元党",
+        "弩手军",
+        "宿卫士卒",
+        "行宫人员"
+      ],
+      "quote": [
+        "凡四百人，誘脅弩手軍犯行宮。",
+        "率宿衛士卒數千人禦之。",
+        "涅魯古躍馬突出，將戰，為近侍詳穩渤海阿廝、護衛蘇射殺之。",
+        "重元亡入大漠，自殺。"
+      ],
+      "unknown": [
+        "谋反酝酿、具体战斗时长、双方总伤亡和被胁者责任未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-CHONGYUAN-PALACE-REBELLION-1063",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063",
+      "time": [
+        "清宁九年七月至八月",
+        "1063",
+        "range"
+      ],
+      "subject": "逆党家属、平乱人员、被胁者贴不与南京吏民",
+      "action": "叛乱后朝廷族灭逆党之家，授官奖励三百余名护卫、士卒及杂役，奖用密告者；贴不称被胁仍被削爵流镇州，并遣使安抚南京吏民。",
+      "result": "重元之乱进入惩处、奖赏、流放与地方安抚阶段。",
+      "cost": "逆党家属遭族诛，贴不被削爵流放；受奖三百余人，其他惩赏数量未载。",
+      "groups": [
+        "逆党家属",
+        "平乱护卫士卒",
+        "庖夫弩手伞子",
+        "密告者",
+        "贴不",
+        "南京吏民"
+      ],
+      "quote": [
+        "，族逆黨家。庚",
+        "諸護衛及士卒、庖夫、弩手、傘子等三百餘人，各授官有差。",
+        "耶律良密告重元變，命籍橫帳夷離堇房，為漢人行宮都部署。",
+        "貼不訴為重元等所脅，詔削爵為民，流鎮州。",
+        "遣使安撫南京吏民。"
+      ],
+      "unknown": [
+        "族诛人数、授官等级、贴不被胁事实审查和南京安抚内容未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CHONGYUAN-REBELLION-AFTERMATH-1063",
+        "summary": "对重元逆党与平乱人员实施惩赏，并流放贴不、安抚南京。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068",
+      "time": [
+        "清宁十年至咸雍四年",
+        "1064—1068",
+        "range"
+      ],
+      "subject": "南京稻农、军行地与水利使用者",
+      "action": "朝廷先禁止南京居民决水种粳稻，四年后改令除军行地外其余土地皆可种稻。",
+      "result": "南京稻作限制由普遍禁决水调整为仅保留军行地禁种。",
+      "groups": [
+        "南京稻农",
+        "水利使用者",
+        "军行地管理者"
+      ],
+      "quote": [
+        "禁南京民決水種粳稻。",
+        "詔南京除軍行地，餘皆得種稻。"
+      ],
+      "unknown": [
+        "初禁原因、军行地范围、灌溉规则、种植面积和产量影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NANJING-RICE-WATER-POLICY-1064-1068",
+        "summary": "南京稻作由禁民决水调整为军行地外皆可种稻。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064",
+      "time": [
+        "清宁十年七月",
+        "1064",
+        "month"
+      ],
+      "subject": "僧尼、行在人员与财物被取者",
+      "action": "朝廷禁止僧尼私赴行在、妄述祸福取得财物。",
+      "result": "僧尼借祸福之说在行在取财的行为被明令禁止。",
+      "groups": [
+        "僧尼",
+        "行在人员",
+        "财物被取者"
+      ],
+      "quote": "禁僧尼私詣行在，妄述禍福取財物。",
+      "unknown": [
+        "既有案件、处罚、执法机关和禁令效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MONASTIC-COURT-FRAUD-PROHIBITION-1064",
+        "summary": "禁止僧尼私赴行在妄述祸福取财。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064",
+      "time": [
+        "清宁十年十月至十一月",
+        "1064",
+        "range"
+      ],
+      "subject": "民间刊印者、乾文阁与儒臣",
+      "action": "朝廷禁止民间私自刊印文字，同时征求乾文阁所缺经籍并命儒臣校雠。",
+      "result": "民间文字刊印受限，宫廷经籍搜补和校勘获得命令。",
+      "cost": "征书、校雠与典藏的人力物力未载。",
+      "groups": [
+        "民间刊印者",
+        "书籍持有者",
+        "儒臣",
+        "乾文阁"
+      ],
+      "quote": [
+        "禁民私刊印文字。",
+        "詔求乾文閣所闕經籍，命儒臣校讎。"
+      ],
+      "unknown": [
+        "禁印范围、书籍征集数量、校勘成果和传播影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064",
+        "summary": "禁民私印文字，并征求乾文阁缺书交儒臣校雠。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065",
+      "time": [
+        "咸雍元年正月",
+        "1065",
+        "month"
+      ],
+      "subject": "梁王浚、东宫与内外官",
+      "action": "辽廷册梁王浚为皇太子，并规定正旦、重午、冬至另表祝贺东宫。",
+      "result": "皇太子身份及东宫节日受贺礼制得到确立。",
+      "groups": [
+        "皇太子浚",
+        "东宫",
+        "内外官"
+      ],
+      "quote": [
+        "冊梁王浚為皇太子，內外官賜級有差。",
+        "詔諸遇正旦、重午、冬至，別表賀東宮。"
+      ],
+      "unknown": [
+        "东宫属官、权责、资源配置及皇太子参政情况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CROWN-PRINCE-INSTITUTIONALIZATION-1065",
+        "summary": "册浚为皇太子并确立节日另表贺东宫礼制。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071",
+      "time": [
+        "清宁十年至咸雍七年",
+        "1064—1071",
+        "range"
+      ],
+      "subject": "诸路及五京囚犯、审狱官与使者",
+      "action": "朝廷先诏决诸路囚，后命给诸路囚粮，并在咸雍七年遣使按问五京囚。",
+      "result": "卷内狱政涵盖审决、囚粮供给和五京案件按问。",
+      "cost": "囚粮数量、按问使者费用和案件处理成本未载。",
+      "groups": [
+        "诸路囚犯",
+        "五京囚犯",
+        "审狱官",
+        "按问使者"
+      ],
+      "quote": [
+        "詔決諸路囚。",
+        "詔給諸路囚糧。",
+        "遣使按問五京囚。"
+      ],
+      "unknown": [
+        "案件数量、审决结果、囚粮标准、按问结论和改判情况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071",
+        "summary": "诸路与五京狱政包括审决、供粮及遣使按问。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071",
+      "time": [
+        "咸雍二年至七年",
+        "1066—1071",
+        "range"
+      ],
+      "subject": "山后、西京、应州、朔州、南京流民与饶州饥民",
+      "action": "辽廷因旱遣使赈山后贫民，继而赈西京、应州、朔州饥民；咸雍七年又免南京流民租并赈饶州饥民。",
+      "result": "卷内多次区域性旱饥以遣使赈济、免租等方式获得响应。",
+      "cost": "赈济物资、免租额度、受助人数和恢复情况未载。",
+      "groups": [
+        "山后贫民",
+        "西京饥民",
+        "应州饥民",
+        "朔州饥民",
+        "南京流民",
+        "饶州饥民"
+      ],
+      "quote": [
+        "以歲旱，遣使振山後貧民。",
+        "遣使振西京饑民。",
+        "振應州饑民。",
+        "振朔州饑民。",
+        "免南京流民租。",
+        "振饒州饑民。"
+      ],
+      "unknown": [
+        "各地灾因关联、灾情规模、赈物数量、免租期限和人口恢复未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071",
+        "summary": "连续以遣使赈济和免租响应山后及多州旱饥与流民。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067",
+      "time": [
+        "咸雍三年闰月",
+        "1067",
+        "month"
+      ],
+      "subject": "扈驾军营受灾者与辽廷",
+      "action": "扈驾军营发生火灾后，朝廷分别赐给钱、粟及马。",
+      "result": "军营火灾受灾者获得钱、粮与马匹救助。",
+      "cost": "救助钱、粟、马的数量及火灾损失未载。",
+      "groups": [
+        "扈驾军营人员",
+        "火灾受灾者"
+      ],
+      "quote": "扈駕軍營火，賜錢、粟及馬有差。",
+      "unknown": [
+        "起火原因、伤亡、损失和各等救助标准未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "IMPERIAL-CAMP-FIRE-RELIEF-1067",
+        "summary": "扈驾军营火灾后赐钱粟及马。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067",
+      "time": [
+        "咸雍三年六月",
+        "1067",
+        "month"
+      ],
+      "subject": "新城县民杨从及同案人员",
+      "action": "有司奏杨从谋反并伪署官吏，道宗认为属于无知儿戏，仅流放首恶，其余释放。",
+      "result": "案件未按全体谋反重处，仅首恶被流放，其他人员获释。",
+      "groups": [
+        "杨从",
+        "同案人员",
+        "新城县民",
+        "审案有司"
+      ],
+      "quote": "有司奏新城縣民楊從謀反，偽署官吏。上曰：「小人無知，此兒戲爾。」獨流其首惡，餘釋之。",
+      "unknown": [
+        "首恶身份、涉案人数、伪署范围和释放后的处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YANG-CONG-REBELLION-LENIENCY-1067",
+        "summary": "杨从谋反案仅流首恶，其余因被视为无知儿戏而释放。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068",
+      "time": [
+        "咸雍四年七月至十月",
+        "1068",
+        "range"
+      ],
+      "subject": "南京及七县居民、罪囚与受灾纳租者",
+      "action": "南京先遭霖雨、地震，后永清等七县发生水灾；朝廷曲赦南京徒罪以下囚，并复免受灾七县一年租税。",
+      "result": "南京灾区获得刑罚赦免和七县一年租税减免。",
+      "cost": "复免一年租税造成的财政减收及赦免人数未载。",
+      "groups": [
+        "南京居民",
+        "南京徒罪以下囚",
+        "七县纳租者",
+        "水灾受灾者"
+      ],
+      "quote": [
+        "是月，南京霖雨，地震。",
+        "曲赦南京徒罪以下囚。",
+        "永清、武清、安次、固安、新城、歸義、容城諸縣水，復一歲租。"
+      ],
+      "unknown": [
+        "霖雨、地震与水灾损失、受灾户数、免租额和恢复情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NANJING-FLOOD-EARTHQUAKE-RELIEF-1068",
+        "summary": "南京霖雨地震及七县水灾后曲赦并复一年租。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-ZUBU-CAMPAIGN-1069-1070",
+      "time": [
+        "咸雍五年至六年",
+        "1069—1070",
+        "range"
+      ],
+      "subject": "晋王仁先所领禁军、阻卜叛军与西北路招讨司",
+      "action": "阻卜叛后，辽廷以晋王仁先为西北路招讨使领禁军讨伐；仁先报捷，次年降附阻卜酋长到行在，招讨司又擒一名阻卜酋长来献。",
+      "result": "讨阻卜获得捷报，并形成酋长降附与被擒献俘的结果。",
+      "cost": "双方兵力、伤亡、军费及阻卜部众处置未载。",
+      "groups": [
+        "辽禁军",
+        "阻卜叛军",
+        "阻卜酋长",
+        "西北路居民"
+      ],
+      "quote": [
+        "阻卜叛，以晉王仁先為西北路招討使，領禁軍討之。",
+        "仁先遣人奏阻卜捷。",
+        "西北路招討司以所降阻卜酋長至行在。",
+        "西北路招討司擒阻卜酋長來獻。"
+      ],
+      "unknown": [
+        "战场、战斗次数、伤亡、所降与被擒酋长是否同人及战后安排未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-ZUBU-1069-1070",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-FIVE-NATIONS-POALI-CAMPAIGN-1069-1071",
+      "time": [
+        "咸雍五年至七年",
+        "1069—1071",
+        "range"
+      ],
+      "subject": "五国剖阿里部、萧素飒军与辽廷",
+      "action": "五国剖阿里部叛，辽廷命萧素飒讨伐；当年五国来降并献方物，咸雍七年对讨五国有功人员加官。",
+      "result": "五国剖阿里部叛乱以五国来降告终，相关人员随后因战功获奖。",
+      "cost": "出兵规模、战斗伤亡、降附条件和战功授官总数未载。",
+      "groups": [
+        "五国剖阿里部",
+        "萧素飒军",
+        "五国部众",
+        "受赏将领"
+      ],
+      "quote": [
+        "五國剖阿裏部叛，命蕭素颯討之。",
+        "五國來降。仍獻方物。",
+        "以討五國功，加知黃龍府事蒲延、懷化軍節度使高元紀、易州觀察使高正並千牛衛上將軍"
+      ],
+      "unknown": [
+        "讨伐路线、战斗过程、是否全部五国同属剖阿里部事件及降附条款未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-FIVE-NATIONS-POALI-1069-1071",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069",
+      "time": [
+        "咸雍五年七月",
+        "1069",
+        "month"
+      ],
+      "subject": "皇族与细民",
+      "action": "朝廷禁止皇族倚仗权势侵夺、盘剥细民。",
+      "result": "皇族恃势侵渔细民被明令禁止。",
+      "groups": [
+        "皇族",
+        "细民",
+        "地方执法者"
+      ],
+      "quote": "詔禁皇族恃勢侵漁細民。",
+      "unknown": [
+        "既有侵渔案件、处罚、申诉渠道和执行效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069",
+        "summary": "禁止皇族恃势侵渔细民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071",
+      "time": [
+        "咸雍五年至七年",
+        "1069—1071",
+        "range"
+      ],
+      "subject": "百官与辽廷",
+      "action": "朝廷两次命百官在廷议论国政，后一次明确包括军国事务。",
+      "result": "百官廷议由一般国政延续到军国事项。",
+      "groups": [
+        "百官",
+        "军政决策参与者"
+      ],
+      "quote": [
+        "詔百官廷議國政。",
+        "詔百官廷議軍國事。"
+      ],
+      "unknown": [
+        "廷议议题、参与范围、意见内容与采纳结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071",
+        "summary": "两度命百官廷议国政及军国事务。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V22-CHUNZHOU-GRAIN-PRICE-1071",
+      "time": [
+        "咸雍七年",
+        "1071",
+        "year"
+      ],
+      "subject": "春州粮食市场与居民",
+      "action": "卷末记录春州一斗粟价格为六钱。",
+      "result": "留下咸雍七年春州粟价的单点基线。",
+      "groups": [
+        "春州居民",
+        "粮食买卖者"
+      ],
+      "quote": "是歲，春州鬥粟六錢。",
+      "unknown": [
+        "计价币种细节、此前价格、粮食供给、居民收入和价格成因未载。"
+      ],
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

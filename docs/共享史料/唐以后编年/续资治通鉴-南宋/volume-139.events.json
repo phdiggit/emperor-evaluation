@@ -1,0 +1,236 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-139",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷139",
+    "revision_ref": "2312137",
+    "start_locator": "孝宗紹統同道冠德昭功哲文神武明聖成孝皇帝隆興二年",
+    "end_locator": "時不能改",
+    "overlap_context": "承卷138和战争议；固定整页续隆兴二年并含页内乾道元年、二年标题。",
+    "input_fingerprint": "f7f18231618e36d21642f3e3e985b839178b4a74748dce760f07a430b7911f17"
+  },
+  "limitations": [],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-139-POL-AFTERNOON-AUDIENCE",
+      "time": "隆興二年十月",
+      "action": "孝宗增设申未间便殿奏对，使宰执在退朝后仍可从容议政。",
+      "result": "中书政事获得午后专门奏议时段。",
+      "quote": ["宜於申未間人對便殿", "庶可坐論，得盡所聞"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-AFTERNOON-AUDIENCE", "candidate": "POL-CAND-XZZTJ-139-AFTERNOON-AUDIENCE", "summary": "增设便殿午后奏对。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "议政制度", "decision_question": "如何增加宰执议政时间", "alternatives": "仅早朝奏事；增午后便殿奏对", "decision": "增设申未间人对", "direct_result": "可从容讲论政事", "power_change": "宰执奏议渠道扩展", "risk_or_damage": "未载。", "follow_up": "未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-TRANSPORT-ROUTE-RELIEF",
+      "time": "隆興二年十月",
+      "action": "宋减免京西、湖北运粮沿线州县一半秋税。",
+      "result": "承担军粮转运的地方获得税负补偿。",
+      "quote": "蠲京西、湖北運糧所經州縣秋稅之半",
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-TRANSPORT-ROUTE-RELIEF", "candidate": "FIN-CAND-XZZTJ-139-TRANSPORT-ROUTE-RELIEF", "summary": "减免运粮沿线一半秋税。", "operation": "implemented", "continuity": "ended", "observations": {"baseline": "京西湖北州县承担运粮", "fiscal_state": "秋税减半", "livelihood_state": "沿线民户负担降低", "production_circulation": "军粮运输持续"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-BAT-CHUZHOU-INVASION",
+      "time": "隆興二年十月至十一月",
+      "action": "汤思退求和弛备，金军乘隙进攻楚州；刘宝弃城，魏胜拒守战死，继而胡铨督李宝破冰援淮，金军退却。",
+      "result": "楚州一度失守并波及濠滁，魏胜死战；淮东援军到达后金军北退。",
+      "quote": ["湯思退僥倖和議速成，邊備盡弛", "至是寶遂棄城遁", "至淮東十八里，中矢，墜馬死", "銓先持鐵錘錘冰", "士皆用命，金人乃退"],
+      "battle": "HANDOFF-XZZTJ-139-CHUZHOU-INVASION",
+      "battle_reason": "弛备、金军入侵、楚州失守、魏胜战死与破冰驰援构成同一淮东战役链。"
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-DEFECTOR-PROTECTION",
+      "time": "隆興二年十一月",
+      "action": "孝宗在和议压力下仍拒绝把归正官民交还金朝。",
+      "result": "归正人不列入宋金交割条件。",
+      "quote": ["斷之於中，決不復遣", "慕中國之仁義，投戈來歸"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-DEFECTOR-PROTECTION", "candidate": "POL-CAND-XZZTJ-139-DEFECTOR-PROTECTION", "summary": "拒绝遣还归正官民。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "和议人口处置", "decision_question": "是否向金遣还归正人", "alternatives": "遣还；保护不遣", "decision": "决不可遣", "direct_result": "归正人获保护", "power_change": "宋保留归正人口处置权", "risk_or_damage": "可能妨碍和议", "follow_up": "和约最终不遣归正人"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-TANG-SITUI-ACCOUNTABILITY",
+      "time": "隆興二年十一月至十二月",
+      "action": "台谏与太学生追究汤思退撤防误国，列举停筑寿春、散万弩营、罢战船、坏蓄水和撤守诸州等事。",
+      "result": "汤思退被罢贬永州，途中忧惧而死。",
+      "quote": ["罷築壽春城", "散萬弩營兵", "輟修海船，毀拆水櫃", "詔責居永州"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-TANG-SITUI-ACCOUNTABILITY", "candidate": "POL-CAND-XZZTJ-139-TANG-SITUI-ACCOUNTABILITY", "summary": "追究汤思退撤防误国。", "operation": "implemented", "continuity": "ended", "observations": {"event_type": "宰相边防问责", "decision_question": "如何处置撤防致敌入侵责任", "alternatives": "留任；罢贬", "decision": "罢贬永州", "direct_result": "汤思退失势并死", "power_change": "主和宰相退出中枢", "risk_or_damage": "撤防导致淮东失守", "follow_up": "太学生等七十余人伏阙上书"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-LONGXING-TREATY",
+      "time": "隆興二年十二月至乾道元年正月",
+      "action": "宋金定和约，以叔侄名分、岁币各二十万并交还部分土地俘虏，宋坚持不遣归正人。",
+      "result": "和约颁行，战区赦免；宋金恢复和平但国内批评公开屈辱条件。",
+      "quote": ["世為叔侄之國", "減銀絹五萬", "惟叛亡者不與", "少慰凋殘之情"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-LONGXING-TREATY", "candidate": "POL-CAND-XZZTJ-139-LONGXING-TREATY", "summary": "缔结隆兴和约。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "宋金和约", "decision_question": "以何种名分和岁币结束战争", "alternatives": "继续战争；按叔侄与岁币议和", "decision": "和约颁行", "direct_result": "宋金停战", "power_change": "宋由称臣改称侄但仍输岁币", "risk_or_damage": "割地输币引发批评", "follow_up": "沿边残破州县大赦"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-OFFICIAL-FIELD-EXPERIENCE",
+      "time": "乾道元年二月",
+      "action": "宋规定馆职与台谏应更迭补外，先经地方历试后再回朝任用。",
+      "result": "中央清要官的地方治理经验被纳入培养路径。",
+      "quote": ["今後更迭補外，歷試而出", "苟不親吏事，知民情"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-OFFICIAL-FIELD-EXPERIENCE", "candidate": "POL-CAND-XZZTJ-139-OFFICIAL-FIELD-EXPERIENCE", "summary": "建立中央官外任历试制度。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "官员培养制度", "decision_question": "馆职台谏是否需地方历练", "alternatives": "久居中央；更迭补外", "decision": "令其历试", "direct_result": "中央官获得地方经验", "power_change": "任用标准增加外任经历", "risk_or_damage": "未载。", "follow_up": "可再召还任用"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-HUAI-RECOVERY",
+      "time": "乾道元年二月至六月",
+      "action": "宋以种桑赏格恢复两淮生产，并蠲沿边残破州军一年赋税、救济两浙流民。",
+      "result": "战灾与流徙地区获得生产激励、赈济和税赋减免。",
+      "quote": ["立兩淮守令勸民種桑賞格", "蠲沿邊殘破州軍賦一年", "詔兩浙振流民"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-HUAI-RECOVERY", "candidate": "FIN-CAND-XZZTJ-139-HUAI-RECOVERY", "summary": "恢复两淮生产并救济残破地区。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "沿边残破、两浙有流民", "fiscal_state": "蠲一年赋并施赏格", "livelihood_state": "流民获赈", "production_circulation": "劝民种桑恢复生产"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-TUNTIAN",
+      "time": "乾道元年三月",
+      "action": "宋令沿江诸军及各路帅臣、监司、郡守共同经理屯田。",
+      "result": "军政与地方官被纳入屯田经营体系。",
+      "quote": ["都統並兼提舉措置屯田", "守臣兼管內屯田事"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-TUNTIAN", "candidate": "FIN-CAND-XZZTJ-139-TUNTIAN", "summary": "部署沿江诸路屯田。", "operation": "ordered", "continuity": "continued_within_reign", "observations": {"baseline": "军粮与边地生产需恢复", "fiscal_state": "官军共同经理屯田", "livelihood_state": "未载。", "production_circulation": "扩大沿江屯田"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-JUDICIAL-CONSISTENCY",
+      "time": "乾道元年至二年",
+      "action": "孝宗整治有罪侥幸、无辜受酷与援引旧例破坏成法，封存旧例簿并在灾时疏理囚狱。",
+      "result": "司法裁量被要求回归成法，冤滥与滞狱得到清理。",
+      "quote": ["治獄之吏，大率巧持多端", "使奸不容情，罰必當罪", "傍緣出入，引例為弊", "立限結絕，委官分詣檢察"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-JUDICIAL-CONSISTENCY", "candidate": "POL-CAND-XZZTJ-139-JUDICIAL-CONSISTENCY", "summary": "整治冤滥并禁止以例破法。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "司法制度整顿", "decision_question": "如何减少司法冤滥和旧例破法", "alternatives": "沿用旧例；以成法审断", "decision": "封例簿并疏决囚狱", "direct_result": "司法标准趋于统一", "power_change": "法条优先于胥吏旧例", "risk_or_damage": "有罪幸免、无辜受酷", "follow_up": "久雨时继续减刑疏狱"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-FINANCE-OFFICIALS",
+      "time": "乾道元年至二年",
+      "action": "宋选精通财计者任户部并延长任期，又拒绝每月裁减军士钱二十万的建议。",
+      "result": "财政专业官获得稳定任用，军饷未因节支而骤减。",
+      "quote": ["博選中外之臣，其材之可用者", "不得遽有遷易", "月中可省二十萬緡", "事稍動眾，不可輕改"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-FINANCE-OFFICIALS", "candidate": "FIN-CAND-XZZTJ-139-FINANCE-OFFICIALS", "summary": "稳定财政官并拒绝骤减军饷。", "operation": "mixed", "continuity": "continued_within_reign", "observations": {"baseline": "财计官频迁且有人主张削军饷", "fiscal_state": "财计官久任，军饷维持", "livelihood_state": "避免激起军士众怨", "production_circulation": "未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-BAT-LIJIN-REBELLION",
+      "time": "乾道元年六月",
+      "action": "刘珙以招降、赦罪与悬赏结合，分化并镇压李金叛乱。",
+      "result": "叛军瓦解，李金被擒，地方恢复控制。",
+      "quote": ["募賊黨相捕斬詣吏者", "除罪受賞。欽與寶連戰破賊", "賊党執金以降"],
+      "battle": "HANDOFF-XZZTJ-139-LIJIN-REBELLION",
+      "battle_reason": "招抚分化、军事进剿与擒获首领构成一条平乱链。"
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-FALSE-AUSPICES",
+      "time": "乾道元年七月至九月",
+      "action": "孝宗查处姚岳以蝗虫假造瑞应及陆游等以竹实嘉禾称祥，连续黜责迎合官员。",
+      "result": "地方官以灾为祥、粉饰献谀受到惩戒。",
+      "quote": ["奏蝗自淮北飛度", "嶽取以為嘉祥", "為中外佞邪之戒"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-FALSE-AUSPICES", "candidate": "POL-CAND-XZZTJ-139-FALSE-AUSPICES", "summary": "惩处虚报祥瑞。", "operation": "implemented", "continuity": "ended", "observations": {"event_type": "信息真实性问责", "decision_question": "如何处置把灾异粉饰为祥瑞", "alternatives": "受献；调查惩处", "decision": "贬秩罢官", "direct_result": "多名献瑞官员受责", "power_change": "地方奏报受中央核验", "risk_or_damage": "灾情被粉饰", "follow_up": "以连续案例示警"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-EXAMINATION-REFORM",
+      "time": "乾道元年八月",
+      "action": "宋禁止科举冒贯，并要求从程文中摘录可施行的政事建议。",
+      "result": "应试资格核验趋严，考试文章被用于政策取材。",
+      "quote": ["請申嚴詐冒之禁", "有言及諸郡軍民利害實跡"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-EXAMINATION-REFORM", "candidate": "POL-CAND-XZZTJ-139-EXAMINATION-REFORM", "summary": "整顿冒贯并从程文取策。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "科举制度整顿", "decision_question": "如何核验应试资格并利用程文", "alternatives": "维持旧法；禁冒贯并摘可行策", "decision": "颁行新制", "direct_result": "冒贯受禁、政策建议上闻", "power_change": "礼部与主司审核责任加强", "risk_or_damage": "冒籍扰乱取士", "follow_up": "未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-LUXURY-BAN",
+      "time": "乾道元年九月",
+      "action": "孝宗禁止翠羽、销金服饰，并从宫中先行禁用以引导市场。",
+      "result": "奢侈品消费与制作受到限制。",
+      "quote": ["聞外間翠羽甚多", "今宮禁既不用，自然外間可革"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-LUXURY-BAN", "candidate": "FIN-CAND-XZZTJ-139-LUXURY-BAN", "summary": "宫禁带头限制奢侈服饰。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "翠羽销金服饰流行", "fiscal_state": "禁止奢侈品服用", "livelihood_state": "未载。", "production_circulation": "宫廷需求收缩以影响市场"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-JIANGXI-GRAIN-PURCHASE",
+      "time": "乾道元年十月",
+      "action": "宋查处江西籴米中抑价、强配、虚量与侵盗四弊。",
+      "result": "地方和籴程序被要求按价按量并防止吏胥侵渔。",
+      "quote": ["去歲江西湖口和糴，其弊非一", "例以稅銀均敷", "務盡和糴之意以革四弊"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-JIANGXI-GRAIN-PURCHASE", "candidate": "FIN-CAND-XZZTJ-139-JIANGXI-GRAIN-PURCHASE", "summary": "整治江西和籴四弊。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "和籴存在抑价强配与侵盗", "fiscal_state": "整顿官府购粮", "livelihood_state": "减轻粮户受抑与虚量", "production_circulation": "规范官粮采购"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-SALT-ABUSES",
+      "time": "乾道元年十一月",
+      "action": "宋禁止盐政中拖欠商价、官钱放债和胥吏私盐三项弊端。",
+      "result": "盐商兑付、官钱使用与私盐查禁获得明确约束。",
+      "quote": ["私鹽之不可禁者，其弊三", "官不以時給直", "類多積私鹽以規厚利", "請申嚴禁戢"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-SALT-ABUSES", "candidate": "FIN-CAND-XZZTJ-139-SALT-ABUSES", "summary": "整顿盐法三弊。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "盐法存在三项侵扰", "fiscal_state": "禁止拖欠、放债与私盐", "livelihood_state": "商旅滞留风险下降", "production_circulation": "盐业流通受规范"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-SANDBANK-TAX",
+      "time": "乾道元年十二月",
+      "action": "孝宗拒绝对新生沙洲芦场定额征税，理由是土地涨坍不常且两淮民力困敝。",
+      "result": "不稳定滩地未被固化为新增税源。",
+      "quote": ["請稅江、淮沙田、蘆場", "其田未可以為常也", "帝大悟，即罷之"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-SANDBANK-TAX", "candidate": "FIN-CAND-XZZTJ-139-SANDBANK-TAX", "summary": "拒绝向不稳定沙洲芦场增税。", "operation": "reversed", "continuity": "ended", "observations": {"baseline": "有人建议以沙洲芦场增税", "fiscal_state": "新增税议被拒", "livelihood_state": "避免加重两淮困民", "production_circulation": "滩地涨坍不定"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-LIZHOU-TRANSPORT",
+      "time": "乾道二年正月",
+      "action": "宋提高利州路运粮脚钱，每石给二千，并以度牒筹措资金。",
+      "result": "长途粮运民夫获得明确补偿来源。",
+      "quote": ["利路運糧，每石與二千", "可紐計度牒支降"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-LIZHOU-TRANSPORT", "candidate": "FIN-CAND-XZZTJ-139-LIZHOU-TRANSPORT", "summary": "补偿利州粮运劳费。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "利州路粮运劳费不足", "fiscal_state": "每石给脚钱二千并以度牒助费", "livelihood_state": "运粮者负担获补", "production_circulation": "保障军粮运输"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-ILLEGAL-LEVIES",
+      "time": "乾道二年三月至五月",
+      "action": "宋据李信甫所陈整治州县违法科敛、预借税赋，并罢和籴。",
+      "result": "中央重申既有禁令，限制地方提前和额外征收。",
+      "quote": ["丁丑，罷和糴", "戶、刑部檢見行條法", "如有違戾，監司按劾聞奏"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-ILLEGAL-LEVIES", "candidate": "FIN-CAND-XZZTJ-139-ILLEGAL-LEVIES", "summary": "罢和籴并禁止违法预征。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "州县科敛和预借税赋", "fiscal_state": "罢和籴、严禁超征", "livelihood_state": "民户免于额外预征", "production_circulation": "官府购粮方式调整"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-WRK-JIANGZHE-DRAINAGE",
+      "time": "乾道二年四月至十一月",
+      "action": "宋开放平江、湖州阻水圩田，并分期修治秀常平江等地闸堰港浦；温州水灾后又修堤防。",
+      "result": "江浙排水通道与堤闸工程进入清障和分段修筑阶段。",
+      "quote": ["開平江、湖、秀圍田", "以壅水害民田故也", "本州大水之後乞修築塘堤事"],
+      "closure": {"domain": "public_works", "thread": "WORK-THREAD-XZZTJ-139-JIANGZHE-DRAINAGE", "candidate": "WORK-CAND-XZZTJ-139-JIANGZHE-DRAINAGE", "summary": "整治江浙圩田、港浦与堤防。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"work_identity": "江浙圩田闸堰港浦与温州堤防", "phase": "开障与分期修筑", "purpose": "疏导水势、防御水灾", "resource_input": "地方官分段施工", "operation": "开围田、修闸堰港浦和堤防", "benefit": "恢复排水与防洪能力", "harm": "旧圩田壅遏水势"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-ARMY-ROLL-AUDIT",
+      "time": "乾道二年五月至十二月",
+      "action": "宋核实诸军名籍、汰去虚弱冗兵，并制定十三等战功赏格。",
+      "result": "军额虚冒受到清理，战功奖赏形成分级标准。",
+      "quote": ["請付密院審實，銷落虛數", "尪羸老弱，並行揀汰", "顯著戰功十三處，立定格目"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-ARMY-ROLL-AUDIT", "candidate": "POL-CAND-XZZTJ-139-ARMY-ROLL-AUDIT", "summary": "清理军籍并分级奖赏战功。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "军政整顿", "decision_question": "如何清理冗兵并规范战功", "alternatives": "维持虚额；核籍汰弱并分级", "decision": "核籍与十三等赏格并行", "direct_result": "冗弱被汰、军功有格", "power_change": "中央加强军籍奖惩控制", "risk_or_damage": "虚额耗费军资", "follow_up": "继续裁减冗兵"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-LOCAL-ACCOUNTABILITY",
+      "time": "乾道二年六月至九月",
+      "action": "宋罢黜贪污且不能戢盗的李道，又查明林安宅、王伯庠诬劾叶颙无实而罢二人。",
+      "result": "地方失职和监察诬告分别受到追责。",
+      "quote": ["劾容子受宣州富人錢百萬", "臨安府尹王炎親鞫，置對無跡", "並免官，仍貶安宅筠州安置"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-LOCAL-ACCOUNTABILITY", "candidate": "POL-CAND-XZZTJ-139-LOCAL-ACCOUNTABILITY", "summary": "追究地方失职与诬劾。", "operation": "implemented", "continuity": "ended", "observations": {"event_type": "官员问责", "decision_question": "如何处置贪污失职与无实弹劾", "alternatives": "不究；调查罢黜", "decision": "分别罢官", "direct_result": "李道及诬劾者去职", "power_change": "监察者亦受证据约束", "risk_or_damage": "盗贼失控与诬陷大臣", "follow_up": "未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-OFFICIAL-ASSESSMENT",
+      "time": "乾道二年七月至十二月",
+      "action": "宋推行官员治状考核、稳定称职者任期，并以实际才略选将且令荐主担责。",
+      "result": "文武官任用更强调实绩、久任与举主连带责任。",
+      "quote": ["列其所舉之人治狀之目", "舉失其實則置重憲", "各精擇三兩人", "敗事則罰亦如之"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-OFFICIAL-ASSESSMENT", "candidate": "POL-CAND-XZZTJ-139-OFFICIAL-ASSESSMENT", "summary": "以实绩久任和连责改革文武选任。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"event_type": "官员考核任用", "decision_question": "如何减少频繁调动和荐举失实", "alternatives": "循资频迁；考绩久任并连责", "decision": "按实绩执行", "direct_result": "称职者任期趋稳", "power_change": "举主承担选人责任", "risk_or_damage": "荐非其人则连坐", "follow_up": "继续登记治状"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-REMONSTRANCE",
+      "time": "乾道二年十月",
+      "action": "陈俊卿劝止孝宗游猎博戏，孝宗接纳并允许臣下继续直言。",
+      "result": "君主娱乐受到宰执公开规谏。",
+      "quote": ["時帝未能屏鞠戲", "俊卿旋上疏力諫", "備見忠讜，朕決意用卿矣"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-REMONSTRANCE", "candidate": "POL-CAND-XZZTJ-139-REMONSTRANCE", "summary": "接纳宰执对游猎博戏的规谏。", "operation": "implemented", "continuity": "ended", "observations": {"event_type": "君臣规谏", "decision_question": "是否接受对游猎博戏的劝止", "alternatives": "拒谏；纳谏", "decision": "表示受之", "direct_result": "规谏获接纳", "power_change": "宰执保有直言空间", "risk_or_damage": "娱乐妨政", "follow_up": "未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-FIN-NATIONAL-FINANCE-OFFICE",
+      "time": "乾道二年十二月",
+      "action": "宋设制国用使，由宰相兼领，统筹全国财赋出入。",
+      "result": "国家收支被纳入宰相主导的集中核算机构。",
+      "quote": ["宰相可帶兼制國用使", "參政可同知國用事", "量入為出，可不念哉"],
+      "closure": {"domain": "fiscal_livelihood", "thread": "FIN-THREAD-XZZTJ-139-NATIONAL-FINANCE-OFFICE", "candidate": "FIN-CAND-XZZTJ-139-NATIONAL-FINANCE-OFFICE", "summary": "设制国用使统筹国家收支。", "operation": "implemented", "continuity": "continued_within_reign", "observations": {"baseline": "国家财赋缺少集中统筹", "fiscal_state": "宰相兼领制国用使", "livelihood_state": "未载。", "production_circulation": "集中掌握天下财赋出入"}}
+    },
+    {
+      "id": "CHF-XZZTJ-139-POL-SECRETARIAT-REVIEW",
+      "time": "乾道二年十二月",
+      "action": "宋要求中书文书送门下依三省式画黄书读，但枢密院机速密白仍未改变。",
+      "result": "一般诏令恢复门下复核，军事机密程序保留例外。",
+      "quote": ["依三省式畫黃、書讀", "以示欽重出命之意", "樞院機速事，則不由中書"],
+      "closure": {"domain": "political_event", "thread": "POL-THREAD-XZZTJ-139-SECRETARIAT-REVIEW", "candidate": "POL-CAND-XZZTJ-139-SECRETARIAT-REVIEW", "summary": "恢复门下复核诏令并保留密白例外。", "operation": "mixed", "continuity": "continued_within_reign", "observations": {"event_type": "诏令复核程序", "decision_question": "是否恢复三省画黄书读", "alternatives": "中书直出；门下复核", "decision": "一般文书从三省式", "direct_result": "出命程序更审慎", "power_change": "门下复核权恢复", "risk_or_damage": "枢密机速事仍绕过中书", "follow_up": "密白时不能改"}}
+    }
+  ]
+}

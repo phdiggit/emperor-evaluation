@@ -1,0 +1,711 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-037-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-037-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷037",
+    "revision_ref": "2642604",
+    "start_locator": "宁宗世系与文宗遗命传位",
+    "end_locator": "宁宗崩葬、顺帝继位及追谥祔庙",
+    "overlap_context": "承卷36文宗崩葬；本卷重复的文宗死亡不另立事件，仅登记遗命执行与宁宗朝政治。",
+    "input_fingerprint": "9b4fe83b2d5fe2205f4f391f405bd5e9439df63266b5d901cfe3a27305faf444"
+  },
+  "limitations": [
+    "普通任免、礼仪、来贡、星象与赏赐不单列。",
+    "武装部署交战役工作流；简略处未知保持未知。",
+    "卷首重复文宗崩逝与卷36不重复结算。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-037-NINGZONG-LINEAGE",
+      "time": "至顺三年以前",
+      "loc": [
+        "元廷"
+      ],
+      "action": "史书明确懿璘质班为明宗第二子、妥懽帖木耳之弟，并记其先封鄜王。",
+      "result": "宁宗的皇位继承资格与宗室序次被确定。",
+      "quote": [
+        "寧宗冲聖嗣孝皇帝，諱懿璘質班",
+        "明宗有子二人，長妥懽帖木耳，次即帝也",
+        "封帝為鄜王"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NINGZONG-LINEAGE",
+        "candidate": "POL-CAND-YUAN-NINGZONG-LINEAGE",
+        "summary": "宁宗世系与封王。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "皇位继承资格。",
+          "decision_question": "宁宗在明宗诸子中的身份为何。",
+          "alternatives": "未载。",
+          "decision": "史定为明宗次子并先封鄜王。",
+          "direct_result": "具备继承宗统身份。",
+          "power_change": "尚未即位。",
+          "risk_or_damage": "出生与封王间经历未详。",
+          "follow_up": "至顺三年被拥立。"
+        }
+      },
+      "unknown": [
+        "幼年教育与封国治理未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-SUCCESSION-DECISION",
+      "time": "至顺三年八月己酉以后",
+      "loc": [
+        "大都",
+        "静江"
+      ],
+      "action": "文宗皇后申明传位明宗之子的遗命；长子妥懽帖木耳远居静江，燕铁木儿请求先立留京的次子懿璘质班，并召诸王入京。",
+      "result": "皇位继承转向年幼的宁宗，中宫暂掌百司政务裁决。",
+      "quote": [
+        "傳位於明宗之子",
+        "時妥懽帖木耳出居靜江",
+        "請立帝以繼大統"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NINGZONG-SUCCESSION",
+        "candidate": "POL-CAND-YUAN-NINGZONG-SUCCESSION",
+        "summary": "遗命下拥立宁宗。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "皇位继承决策。",
+          "decision_question": "明宗二子由谁继承。",
+          "alternatives": "召立长子妥懽帖木耳。",
+          "decision": "先立留京的懿璘质班。",
+          "direct_result": "诸王被召集准备大朝会。",
+          "power_change": "中宫与燕铁木儿主导继承。",
+          "risk_or_damage": "长子远居造成继承争议空间。",
+          "follow_up": "十月宁宗即位。"
+        }
+      },
+      "unknown": [
+        "未立长子的完整议论与诸王意见未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-AUGUST-SEPTEMBER-DISASTERS",
+      "time": "至顺三年八月至九月",
+      "loc": [
+        "浑源",
+        "云内",
+        "冀宁",
+        "荆门",
+        "江淮多路"
+      ],
+      "action": "多地先后遭霜杀禾、旱灾、江河泛滥和大水，灾区扩及两州、多县及江南多路。",
+      "result": "宁宗即位前出现跨区域农业与水灾。",
+      "quote": [
+        "渾源、雲內二州隕霜殺禾",
+        "冀寧路之陽曲、河曲二縣及荊門州皆旱",
+        "中興路之江陵縣，皆大水"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-AUGUST-SEPTEMBER-DISASTERS-1332",
+        "candidate": "FIN-CAND-YUAN-AUGUST-SEPTEMBER-DISASTERS-1332",
+        "summary": "多地霜旱水灾。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "多地农田与城邑受灾。",
+          "fiscal_state": "本条未载赈免。",
+          "livelihood_state": "霜杀禾、旱与大水并发。",
+          "production_circulation": "农业收成和交通可能受损。"
+        }
+      },
+      "unknown": [
+        "受灾户口、田亩与后续救济未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-ENTHRONEMENT-AMNESTY",
+      "time": "至顺三年十月庚子",
+      "loc": [
+        "大明殿",
+        "全国"
+      ],
+      "action": "懿璘质班即皇帝位并大赦天下，仅谋反大逆、杀尊亲、强盗、伪钞等重罪不赦。",
+      "result": "宁宗政权正式成立并实施有限制的大赦。",
+      "quote": [
+        "帝即位于大明殿，大赦天下",
+        "以至順三年十月初四日，即皇帝位于大明殿",
+        "其餘一切罪犯，咸赦除之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NINGZONG-ENTHRONEMENT",
+        "candidate": "POL-CAND-YUAN-NINGZONG-ENTHRONEMENT",
+        "summary": "宁宗即位大赦。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "皇帝即位与大赦。",
+          "decision_question": "新君如何建立政权并处置积案。",
+          "alternatives": "不赦或全面赦免。",
+          "decision": "即位并赦一般罪犯、排除重罪。",
+          "direct_result": "新朝廷成立。",
+          "power_change": "宁宗名义上承继皇权。",
+          "risk_or_damage": "幼主实际权力结构未明。",
+          "follow_up": "设两院并尊皇太后。"
+        }
+      },
+      "unknown": [
+        "实际获赦人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-ACCESSION-TAX-REMISSIONS",
+      "time": "至顺三年十月即位诏",
+      "loc": [
+        "大都",
+        "上都",
+        "兴和",
+        "腹里",
+        "江淮以南"
+      ],
+      "action": "即位诏免大都、上都、兴和三路差税三年，腹里及其余地区税粮减二成，江淮以南夏税亦减二成。",
+      "result": "即位恩典形成分区、多年度税收减免。",
+      "quote": [
+        "差稅免三年",
+        "稅糧十分為率，免二分",
+        "江淮以南，夏稅亦免二分"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-ACCESSION-TAX-REMISSIONS",
+        "candidate": "FIN-CAND-YUAN-ACCESSION-TAX-REMISSIONS",
+        "summary": "即位分区减免差税。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "新君即位需施恩减负。",
+          "fiscal_state": "三路免三年，其余指定区域减二成。",
+          "livelihood_state": "多地税户减负。",
+          "production_circulation": "为农业与地方经济留存资源。"
+        }
+      },
+      "unknown": [
+        "减免财政总额与执行期限衔接未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-CONSTRUCTION-BAN",
+      "time": "至顺三年十月即位诏",
+      "loc": [
+        "全国"
+      ],
+      "action": "即位诏规定除必须修理的仓库外，不再新创土木工程，以减轻民力。",
+      "result": "卷36裁停工役的政策在新君即位诏中继续并进一步限于仓库必修。",
+      "quote": [
+        "除倉庫必合修理外，毋復創造",
+        "造，以紓民力"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-NINGZONG-CONSTRUCTION-BAN",
+        "candidate": "WORK-CAND-YUAN-NINGZONG-CONSTRUCTION-BAN",
+        "summary": "即位诏禁新土木。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "全国土木工程。",
+          "phase": "禁创新建。",
+          "purpose": "纾解民间工役。",
+          "resource_input": "仅保留仓库必修。",
+          "operation": "诏令停止其他创造。",
+          "benefit": "减少民力征发。",
+          "harm": "其他设施急修规则未载。"
+        }
+      },
+      "unknown": [
+        "已开工程如何处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-ARREARS-CANCELLED",
+      "time": "至顺三年十月即位诏",
+      "loc": [
+        "全国"
+      ],
+      "action": "朝廷蠲免民间此前拖欠的差税和课程。",
+      "result": "旧欠税负被一次性清除。",
+      "quote": [
+        "民間在前應有逋欠差稅課程，盡行蠲免"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-ARREARS-CANCELLED-1332",
+        "candidate": "FIN-CAND-YUAN-ARREARS-CANCELLED-1332",
+        "summary": "蠲免民间旧欠。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "民间积欠差税课程。",
+          "fiscal_state": "旧欠尽免。",
+          "livelihood_state": "欠税者解除追征。",
+          "production_circulation": "减少历史债务拖累。"
+        }
+      },
+      "unknown": [
+        "蠲免总额与户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-MAGISTRATE-RECOMMENDATION-RULE",
+      "time": "至顺三年十月即位诏",
+      "loc": [
+        "全国"
+      ],
+      "action": "规定监察官及内外三品以上正官每年各举一名胜任守令者，称职则奖举主，任内贪赃则按轻重惩罚。",
+      "result": "地方守令选拔形成举荐与连带考核制度。",
+      "quote": [
+        "歲舉才堪守令者一人",
+        "如果稱職，舉官優加旌擢",
+        "或犯贓私者，量其輕重黜罰"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MAGISTRATE-RECOMMENDATION-RULE",
+        "candidate": "POL-CAND-YUAN-MAGISTRATE-RECOMMENDATION-RULE",
+        "summary": "建立守令举荐问责。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "官员选拔问责制度。",
+          "decision_question": "如何补选并约束地方守令。",
+          "alternatives": "仅由省部常规铨选。",
+          "decision": "高官岁举一人并按任职表现奖惩。",
+          "direct_result": "形成举主责任。",
+          "power_change": "监察及高官获得举荐权并承担后果。",
+          "risk_or_damage": "具体惩罚尺度未载。",
+          "follow_up": "先行录用。"
+        }
+      },
+      "unknown": [
+        "实际荐举与考核结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-LONG-DETAINED-PRISONERS-REVIEW",
+      "time": "至顺三年十月即位诏",
+      "loc": [
+        "全国"
+      ],
+      "action": "对不在赦免范围、羁押三年以上且疑案不决的重囚，要求上报省部复核后释放。",
+      "result": "长期未决重案获得中央复审与释囚渠道。",
+      "quote": [
+        "淹禁三年以上、疑不能決者",
+        "申達省部，詳讞釋放"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-LONG-DETAINED-PRISONERS-REVIEW",
+        "candidate": "POL-CAND-YUAN-LONG-DETAINED-PRISONERS-REVIEW",
+        "summary": "复审三年以上疑狱。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法复核制度。",
+          "decision_question": "不赦重囚中的长期疑案如何处理。",
+          "alternatives": "继续羁押。",
+          "decision": "报省部详谳后释放。",
+          "direct_result": "疑囚获得复审通道。",
+          "power_change": "省部集中复核地方疑狱。",
+          "risk_or_damage": "复审期限未载。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "获释人数与案件类型未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-SOUTHERN-REBELS-AMNESTY",
+      "time": "至顺三年十月即位诏",
+      "loc": [
+        "广海",
+        "云南"
+      ],
+      "action": "即位诏限广海、云南未服者六十日内出官自首，准免本罪并许自新。",
+      "result": "南方叛乱地区获得限期招抚条件。",
+      "quote": [
+        "廣海、雲南梗化之民",
+        "限六十日內出官",
+        "與免本罪，許以自新"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SOUTHERN-AMNESTY-1332",
+          [],
+          "即位诏对广海云南未服者限期招降。"
+        ]
+      ],
+      "unknown": [
+        "实际出降人数与逾期处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-TWO-PALACE-AGENCIES",
+      "time": "至顺三年十月戊申",
+      "loc": [
+        "大都"
+      ],
+      "action": "朝廷设置徽政院与中政院，随后由伯颜等掌徽政院、四名宦官掌中政院。",
+      "result": "幼帝时期两套宫廷机构建立并由重臣、宦官控制。",
+      "quote": [
+        "立徽政、中政二院",
+        "並為中政院使",
+        "並為徽政使"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-TWO-PALACE-AGENCIES",
+        "candidate": "POL-CAND-YUAN-TWO-PALACE-AGENCIES",
+        "summary": "立徽政中政二院。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宫廷机构设置。",
+          "decision_question": "幼帝宫政由何机构掌管。",
+          "alternatives": "沿用既有百司。",
+          "decision": "新立两院并任重臣宦官。",
+          "direct_result": "两院开始运作。",
+          "power_change": "伯颜与宦官集团取得宫廷职权。",
+          "risk_or_damage": "职掌边界未载。",
+          "follow_up": "伯颜等受任院使。"
+        }
+      },
+      "unknown": [
+        "两院具体职掌、编制与经费未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-JIANGZHE-GRAIN-SHORTFALL",
+      "time": "至顺三年十月辛亥",
+      "loc": [
+        "江浙",
+        "京师"
+      ],
+      "action": "因江浙连年歉收，海运粮未达到定额，朝廷决定不足部分次年补运。",
+      "result": "当年海漕缺口形成跨年度补运义务。",
+      "quote": [
+        "江浙歲比不登",
+        "海運糧不及數",
+        "俟來歲補運"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JIANGZHE-GRAIN-SHORTFALL",
+        "candidate": "FIN-CAND-YUAN-JIANGZHE-GRAIN-SHORTFALL",
+        "summary": "江浙海漕欠额缓补。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "江浙连年歉收导致海漕不足。",
+          "fiscal_state": "欠额顺延次年。",
+          "livelihood_state": "避免当年追加征运。",
+          "production_circulation": "海运粮供应出现缺口。"
+        }
+      },
+      "unknown": [
+        "欠运数量与次年是否补足未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-WOMEN-ILLICIT-SALT-LAW",
+      "time": "至顺三年十月壬子",
+      "loc": [
+        "全国"
+      ],
+      "action": "朝廷制定妇女触犯私盐罪的处罚规则并著为法令。",
+      "result": "女性私盐犯罪获得专门成文规范。",
+      "quote": [
+        "定婦人犯私鹽罪，著為令"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-WOMEN-ILLICIT-SALT-LAW",
+        "candidate": "POL-CAND-YUAN-WOMEN-ILLICIT-SALT-LAW",
+        "summary": "定妇女私盐罪令。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "盐法刑事规范。",
+          "decision_question": "妇女犯私盐罪如何处置。",
+          "alternatives": "沿用一般规定。",
+          "decision": "制定专门法令。",
+          "direct_result": "规则成文。",
+          "power_change": "司法裁量受法令约束。",
+          "risk_or_damage": "处罚内容未载。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "具体罪名、刑罚与执行案例未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-WINTER-CLOTHING-30000",
+      "time": "至顺三年十月丙辰",
+      "loc": [
+        "大都"
+      ],
+      "action": "朝廷向宿卫士、蒙古军和汉军三万人发放御寒衣。",
+      "result": "三万军士获得冬季衣物保障。",
+      "quote": [
+        "給宿衞士、蒙古、漢軍三萬人禦寒衣"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WINTER-CLOTHING-30000",
+        "candidate": "FIN-CAND-YUAN-WINTER-CLOTHING-30000",
+        "summary": "给三万军士寒衣。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "冬季军士需衣物。",
+          "fiscal_state": "发放三万套或三万人份寒衣。",
+          "livelihood_state": "宿卫与军队御寒获保障。",
+          "production_circulation": "官府调发衣物。"
+        }
+      },
+      "unknown": [
+        "衣物数量细目与成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-HENING-CONFUCIUS-VESSELS",
+      "time": "至顺三年十月丙辰",
+      "loc": [
+        "江浙",
+        "和宁"
+      ],
+      "action": "命江浙行省铸造和宁宣圣庙祭器一百三十五件。",
+      "result": "和宁孔庙祭祀器具进入官府铸造。",
+      "quote": [
+        "範銅造和寧宣聖廟祭器",
+        "凡百三十有五事"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-HENING-CONFUCIUS-VESSELS",
+        "candidate": "WORK-CAND-YUAN-HENING-CONFUCIUS-VESSELS",
+        "summary": "铸和宁孔庙祭器。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "和宁宣圣庙祭器。",
+          "phase": "铸造。",
+          "purpose": "孔庙祭祀。",
+          "resource_input": "铜及一百三十五件工料。",
+          "operation": "江浙行省承造。",
+          "benefit": "补足祭祀设施。",
+          "harm": "成本未载。"
+        }
+      },
+      "unknown": [
+        "器物种类、铜料重量与完工时间未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-CHUQIU-DIKE-REPAIR",
+      "time": "至顺三年十月丙寅",
+      "loc": [
+        "楚丘县"
+      ],
+      "action": "楚丘河堤决坏后，官府征发民丁二千三百五十人修复。",
+      "result": "受损河堤进入大规模抢修。",
+      "quote": [
+        "楚丘縣河堤壞",
+        "發民丁二千三百五十人修之"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-CHUQIU-DIKE-REPAIR",
+        "candidate": "WORK-CAND-YUAN-CHUQIU-DIKE-REPAIR",
+        "summary": "发民修楚丘河堤。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "楚丘县河堤。",
+          "phase": "灾后修复。",
+          "purpose": "恢复防洪。",
+          "resource_input": "民丁二千三百五十人。",
+          "operation": "征发民力施工。",
+          "benefit": "降低河水继续侵害。",
+          "harm": "民丁承担工役。"
+        }
+      },
+      "unknown": [
+        "工期、物料与是否修成未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-DYNASTIC-RITES-COUNCIL",
+      "time": "至顺三年十一月己巳",
+      "loc": [
+        "大都"
+      ],
+      "action": "朝廷命翰林国史、集贤院、奎章阁学士院共同议定先帝庙号神主、武宗皇后升祔与改元。",
+      "result": "新朝宗庙与年号安排进入多院集议。",
+      "quote": [
+        "集議先皇帝廟號、神主",
+        "升祔武宗皇后及改元事"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-DYNASTIC-RITES-COUNCIL",
+        "candidate": "POL-CAND-YUAN-DYNASTIC-RITES-COUNCIL",
+        "summary": "集议庙号升祔改元。",
+        "operation": "proposed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宗庙与改元决策。",
+          "decision_question": "先帝庙号、神主、后妃升祔及年号如何处理。",
+          "alternatives": "未载。",
+          "decision": "交三学术机构集议。",
+          "direct_result": "议程启动。",
+          "power_change": "未载。",
+          "risk_or_damage": "宁宗旋即崩逝。",
+          "follow_up": "结论本卷未载。"
+        }
+      },
+      "unknown": [
+        "集议结果与拟定年号未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-TAN-PRINCE-LIAOYANG",
+      "time": "至顺三年十一月壬申",
+      "loc": [
+        "辽阳"
+      ],
+      "action": "朝廷命郯王彻彻秃镇守辽阳。",
+      "result": "宗王被部署至东北重镇。",
+      "quote": [
+        "命郯王徹徹禿鎮遼陽"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-LIAOYANG-GARRISON-1332",
+          [],
+          "郯王彻彻秃奉命镇辽阳。"
+        ]
+      ],
+      "unknown": [
+        "所领兵力、任期与边情未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-KIPCHAK-GUARD-RELIEF",
+      "time": "至顺三年十一月庚寅",
+      "loc": [
+        "大都"
+      ],
+      "action": "左钦察卫士发生饥困，朝廷发粮赈济两个月。",
+      "result": "饥饿卫士获得短期口粮。",
+      "quote": [
+        "左欽察衞士饑，賑糧二月"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-KIPCHAK-GUARD-RELIEF",
+        "candidate": "FIN-CAND-YUAN-KIPCHAK-GUARD-RELIEF",
+        "summary": "赈钦察卫士两月粮。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "左钦察卫士饥饿。",
+          "fiscal_state": "发两月粮。",
+          "livelihood_state": "卫士口粮暂获保障。",
+          "production_circulation": "官粮转作军士救济。"
+        }
+      },
+      "unknown": [
+        "卫士人数与粮食总量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-NINGZONG-DEATH-BURIAL",
+      "time": "至顺三年十一月壬辰至甲午",
+      "loc": [
+        "大都",
+        "起辇谷"
+      ],
+      "action": "宁宗即位约两月后去世，年仅七岁，随后葬于起辇谷从诸帝陵。",
+      "result": "幼帝统治终结，皇位再次空缺。",
+      "quote": [
+        "帝崩，年七歲",
+        "葬起輦谷，從諸陵"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NINGZONG-DEATH-BURIAL",
+        "candidate": "POL-CAND-YUAN-NINGZONG-DEATH-BURIAL",
+        "summary": "宁宗七岁崩葬。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "皇帝死亡与安葬。",
+          "decision_question": "幼帝身后如何安葬。",
+          "alternatives": "未载。",
+          "decision": "葬起辇谷从诸陵。",
+          "direct_result": "皇位再度空缺。",
+          "power_change": "宁宗名义统治结束。",
+          "risk_or_damage": "无嗣且年幼。",
+          "follow_up": "次年妥懽帖木耳即位。"
+        }
+      },
+      "unknown": [
+        "死因与临终安排未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-037-SUCCESSOR-AND-POSTHUMOUS-RITES",
+      "time": "次年六月至至元四年四月",
+      "loc": [
+        "大都",
+        "太庙"
+      ],
+      "action": "明宗长子妥懽帖木耳于次年即位；宁宗后获谥冲圣嗣孝、庙号宁宗并祔太庙。",
+      "result": "皇统转归明宗长子，宁宗完成身后宗庙定位。",
+      "quote": [
+        "明宗長子妥懽帖木耳即位",
+        "諡曰冲聖嗣孝，廟號寧宗",
+        "酉，祔于太廟"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NINGZONG-SUCCESSOR-RITES",
+        "candidate": "POL-CAND-YUAN-NINGZONG-SUCCESSOR-RITES",
+        "summary": "顺帝继位并追谥宁宗。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "继位与身后礼制。",
+          "decision_question": "宁宗死后由谁继位并如何追祀。",
+          "alternatives": "未载其他候选。",
+          "decision": "立妥懽帖木耳，追谥宁宗并祔庙。",
+          "direct_result": "明宗长子继统。",
+          "power_change": "皇权由宁宗支系转至长兄。",
+          "risk_or_damage": "继位延至次年六月。",
+          "follow_up": "至元四年完成祔庙。"
+        }
+      },
+      "unknown": [
+        "延迟即位原因与宁宗谥议过程未载。"
+      ]
+    }
+  ]
+}

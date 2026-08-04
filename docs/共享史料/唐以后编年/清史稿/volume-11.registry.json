@@ -1,0 +1,1408 @@
+{
+  "facts": [
+    {
+      "action": "清廷增兵进剿瞻对，攻克丫鲁尼日寨，班滚自焚死。",
+      "actors": [],
+      "affected_groups": [
+        "瞻对番民",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-ZHANDAO-CAMPAIGN-1746",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "瞻对战事告结，但庆复后来因虚报班滚死情获罪。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-ZHANDAO-1746"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-zhandao-campaign-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#慶復、班第等會攻丫魯尼日寨，克之。",
+        "清史稿/卷11@2616671#班滾自焚死。",
+        "清史稿/卷11@2616671#追議征瞻對誑奏罪，下慶復於獄"
+      ],
+      "time_range": {
+        "end": "1746",
+        "precision": "range",
+        "start": "乾隆十一年正月至六月"
+      },
+      "uncertainties": [
+        "双方总伤亡和寨落损失未载。"
+      ]
+    },
+    {
+      "action": "因番民从征效力，清廷再免贡赋二年。",
+      "actors": [],
+      "affected_groups": [
+        "打箭炉番民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "战区参与者获得两年贡赋减免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-zhandao-postwar-relief-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#以打箭爐口內外番從徵效力，再免貢賦二年。"
+      ],
+      "time_range": {
+        "end": "1746",
+        "precision": "month",
+        "start": "乾隆十一年六月"
+      },
+      "uncertainties": [
+        "减免总额和受益户数未载。"
+      ]
+    },
+    {
+      "action": "清廷处死造作逆书的大乘教首，查捕天主教徒并限令邪教受诱者自首。",
+      "actors": [],
+      "affected_groups": [
+        "宗教信众",
+        "被捕民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-RELIGIOUS-SUPPRESSION-1746",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "数省秘密宗教活动遭查禁，但皇帝制止扩大株连天主教徒。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V11-RELIGIOUS-SUPPRESSION-1746"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-religious-suppression-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#四川大乘教首劉奇以造作逆書，磔於市。",
+        "清史稿/卷11@2616671#周學健奏捕天主教二千餘人。上以失綏遠之意，宥之。",
+        "清史稿/卷11@2616671#諭陳宏謀毋究捕天主教民。"
+      ],
+      "time_range": {
+        "end": "1746",
+        "precision": "month",
+        "start": "乾隆十一年七月"
+      },
+      "uncertainties": [
+        "实际释放、定罪和死亡人数未载。"
+      ]
+    },
+    {
+      "action": "江南水灾后加给修屋银，并拨淮扬徐海银粮二百二十万两石有余。",
+      "actors": [],
+      "affected_groups": [
+        "江苏灾民",
+        "安徽灾民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-JIANGNAN-RELIEF-1746",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "灾民获得大规模银粮和住房修缮援助。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V11-JIANGNAN-RELIEF-1746"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-jiangnan-relief-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#加賞江蘇、安徽被水災民修葺房屋銀。",
+        "清史稿/卷11@2616671#撥賑江蘇淮、揚、徐、海各屬災民銀糧二百二十萬兩石有奇。"
+      ],
+      "time_range": {
+        "end": "1746",
+        "precision": "range",
+        "start": "乾隆十一年七月至十月"
+      },
+      "uncertainties": [
+        "银粮分项和到户数量未载。"
+      ]
+    },
+    {
+      "action": "清廷进剿大金川，张广泗、讷亲久攻失利被逮治，傅恒接任经略后推进并受莎罗奔、郎卡投降。",
+      "actors": [],
+      "affected_groups": [
+        "大金川民众",
+        "小金川民众",
+        "清军",
+        "转输民户"
+      ],
+      "cost_or_burden": "军费劳费巨大，多名主帅获罪。",
+      "fact_id": "CHF-QING-V11-FIRST-JINCHUAN-WAR-1747-1749",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "第一次金川战争以受降撤兵结束，张广泗处斩、讷亲军前被斩。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-FIRST-JINCHUAN-1747-1749"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-first-jinchuan-war-1747-1749",
+      "source_refs": [
+        "清史稿/卷11@2616671#命張廣泗進剿大金川土司莎羅奔。",
+        "清史稿/卷11@2616671#訥親、張廣泗以貽誤軍機，褫職逮問。",
+        "清史稿/卷11@2616671#以大金川莎羅奔、郎卡乞降，命傅恆班師",
+        "清史稿/卷11@2616671#張廣泗處斬。",
+        "清史稿/卷11@2616671#以其祖遏必隆刀于軍前斬之。"
+      ],
+      "time_range": {
+        "end": "乾隆十四年二月",
+        "precision": "range",
+        "start": "乾隆十二年三月"
+      },
+      "uncertainties": [
+        "军费总额、双方伤亡和寨落损失未载。"
+      ]
+    },
+    {
+      "action": "因金川用兵劳费，乾隆密令傅恒息事宁人，并限定次年三月不能奏功即受降撤兵。",
+      "actors": [],
+      "affected_groups": [
+        "清军",
+        "四川转输民户",
+        "金川民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "战争目标由彻底征服调整为限期受降。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-jinchuan-war-stop-order-1748",
+      "source_refs": [
+        "清史稿/卷11@2616671#以用兵金川勞費，密諭傅恆息事寧人。",
+        "清史稿/卷11@2616671#明年三月不能奏功，應受降撤兵。"
+      ],
+      "time_range": {
+        "end": "1748",
+        "precision": "range",
+        "start": "乾隆十三年十月至十二月"
+      },
+      "uncertainties": [
+        "密令前累计军费和撤兵节省未载。"
+      ]
+    },
+    {
+      "action": "珠尔默特那木札勒谋乱被驻藏大臣诱杀，其党反攻并杀傅清、拉布敦；清廷遣兵入藏，捕获卓呢罗布藏札什等平乱。",
+      "actors": [],
+      "affected_groups": [
+        "西藏民众",
+        "驻藏清军",
+        "噶布伦各派"
+      ],
+      "cost_or_burden": "傅清、拉布敦遇害。",
+      "fact_id": "CHF-QING-V11-TIBET-COUP-1750",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "西藏政变被平定，清廷重组驻藏和噶布伦事务。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-TIBET-COUP-1750"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-tibet-coup-1750",
+      "source_refs": [
+        "清史稿/卷11@2616671#珠爾默特那木扎勒謀作亂",
+        "清史稿/卷11@2616671#傅清、拉布敦遇害。",
+        "清史稿/卷11@2616671#獲卓呢羅布藏扎什等，亂已定"
+      ],
+      "time_range": {
+        "end": "1750",
+        "precision": "range",
+        "start": "乾隆十五年十一月至十二月"
+      },
+      "uncertainties": [
+        "双方伤亡、拉萨民损与改制细节未完整载明。"
+      ]
+    },
+    {
+      "action": "乾隆首次南巡，免苏皖多年逋赋、浙江当年额赋及沿途部分钱粮，同时巡阅高家堰、蒋家坝等河工。",
+      "actors": [],
+      "affected_groups": [
+        "沿途民户",
+        "漕户",
+        "河工役夫"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南巡与大范围减赋、河工检查同步实施。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-first-southern-tour-tax-relief-1751",
+      "source_refs": [
+        "清史稿/卷11@2616671#免江蘇、安徽元年至十三年逋賦，浙江本年額賦",
+        "清史稿/卷11@2616671#免經過直隸、山東地方本年額賦十分之三。",
+        "清史稿/卷11@2616671#，閱高家堰。辛",
+        "清史稿/卷11@2616671#上閱蔣家壩。"
+      ],
+      "time_range": {
+        "end": "1751",
+        "precision": "range",
+        "start": "乾隆十六年正月至四月"
+      },
+      "uncertainties": [
+        "减免总额、巡幸供亿和河工后续成效未载。"
+      ]
+    },
+    {
+      "action": "崇明潮灾淹死一万二千余人，朝廷免次年额赋、赈济灾民并截漕备赈。",
+      "actors": [],
+      "affected_groups": [
+        "崇明灾民",
+        "江浙沿海民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-CHONGMING-TIDAL-DISASTER-1752",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "重大潮灾获得税免、粮赈和跨年救助。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V11-CHONGMING-TIDAL-DISASTER-1752"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-chongming-tidal-disaster-1752",
+      "source_refs": [
+        "清史稿/卷11@2616671#江蘇崇明潮災，淹斃人民一萬二千餘口",
+        "清史稿/卷11@2616671#免明年額賦，仍賑之。",
+        "清史稿/卷11@2616671#命江蘇復截明歲漕糧四十萬石備賑。"
+      ],
+      "time_range": {
+        "end": "1752",
+        "precision": "range",
+        "start": "乾隆十七年九月至十月"
+      },
+      "uncertainties": [
+        "失踪、房屋损毁和实际赈粮到户未载。"
+      ]
+    },
+    {
+      "action": "阳武十三堡河决，清廷命高斌办理河工，十一月决口合龙。",
+      "actors": [],
+      "affected_groups": [
+        "阳武灾民",
+        "河工役夫"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-YANGWU-RIVER-BREACH-1751",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "黄河决口在当年完成封堵。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-QING-V11-YANGWU-RIVER-BREACH-1751"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-yangwu-river-breach-1751",
+      "source_refs": [
+        "清史稿/卷11@2616671#，河南陽武十三堡河決。庚",
+        "清史稿/卷11@2616671#命高斌赴河南辦陽武河工。",
+        "清史稿/卷11@2616671#陽武決口合龍。"
+      ],
+      "time_range": {
+        "end": "1751",
+        "precision": "range",
+        "start": "乾隆十六年七月至十一月"
+      },
+      "uncertainties": [
+        "灾损、用工、工程费和后续稳定性未载。"
+      ]
+    },
+    {
+      "action": "苍旺作乱，岳钟琪率军攻克杂谷脑，降一百零六寨并处死苍旺。",
+      "actors": [],
+      "affected_groups": [
+        "杂谷番民",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-ZAGU-CAMPAIGN-1752",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "杂谷土司叛乱被平定。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-ZAGU-1752"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-zagu-campaign-1752",
+      "source_refs": [
+        "清史稿/卷11@2616671#四川雜谷土司蒼旺作亂",
+        "清史稿/卷11@2616671#四川官軍克雜谷腦，降番寨一百有六。",
+        "清史稿/卷11@2616671#督。蒼旺伏誅。\n"
+      ],
+      "time_range": {
+        "end": "1752",
+        "precision": "month",
+        "start": "乾隆十七年九月"
+      },
+      "uncertainties": [
+        "双方伤亡和归降寨治理未载。"
+      ]
+    },
+    {
+      "action": "邵伯湖减水闸、高邮车逻坝和铜山等处相继决口，清廷调米赈灾、查办侵亏并修堵，年底多处合龙。",
+      "actors": [],
+      "affected_groups": [
+        "高邮宝应灾民",
+        "河工役夫",
+        "漕运民户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-JIANGNAN-RIVER-DISASTER-1753",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "河灾获赈且工程失职遭追责，高斌等被革职效力。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-QING-V11-JIANGNAN-RIVER-DISASTER-1753"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-jiangnan-river-disaster-1753",
+      "source_refs": [
+        "清史稿/卷11@2616671#江南邵伯湖減水二閘及高郵車邏壩同時並決",
+        "清史稿/卷11@2616671#撥江西、湖北米各十萬石賑江南災。",
+        "清史稿/卷11@2616671#同劉統勛查辦河工侵虧諸弊。",
+        "清史稿/卷11@2616671#江南張家馬路及邵伯湖二閘決口同日合龍。"
+      ],
+      "time_range": {
+        "end": "1753",
+        "precision": "range",
+        "start": "乾隆十八年七月至十二月"
+      },
+      "uncertainties": [
+        "死亡人口、工程亏空总额与实际赈米发放未载。"
+      ]
+    },
+    {
+      "action": "准噶尔内乱中杜尔伯特、辉特等首领率部归清，清廷迁置、封爵并准备两路进军伊犁。",
+      "actors": [],
+      "affected_groups": [
+        "杜尔伯特部",
+        "辉特部",
+        "准噶尔民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-DZUNGAR-DEFECTIONS-1753-1754",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "准噶尔内部力量大批倒向清朝，为进取伊犁创造条件。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V11-DZUNGAR-DEFECTIONS-1753-1754"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-dzungar-defections-1753-1754",
+      "source_refs": [
+        "清史稿/卷11@2616671#杜爾伯特台吉車凌烏巴什等率所部來降。",
+        "清史稿/卷11@2616671#阿睦爾撒納率部眾來降",
+        "清史稿/卷11@2616671#以準噶爾內亂，諭兩路進兵取伊犁。"
+      ],
+      "time_range": {
+        "end": "乾隆十九年七月",
+        "precision": "range",
+        "start": "乾隆十八年十一月"
+      },
+      "uncertainties": [
+        "各部归附人口、牧地迁置和真实政治意图未载。"
+      ]
+    },
+    {
+      "action": "清军分北西两路进征，攻入伊犁并在格登山大败达瓦齐军，最终擒获达瓦齐。",
+      "actors": [],
+      "affected_groups": [
+        "准噶尔部众",
+        "清军",
+        "伊犁居民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V11-ILI-CONQUEST-1755",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "达瓦齐政权覆灭，清廷宣布准噶尔部平定并重设四卫拉特盟长。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-ILI-CONQUEST-1755"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-ili-conquest-1755",
+      "source_refs": [
+        "清史稿/卷11@2616671#由北路進征",
+        "清史稿/卷11@2616671#由西路進征。",
+        "清史稿/卷11@2616671#阿睦爾撒納奏克定伊犁",
+        "清史稿/卷11@2616671#兵至格登山，大敗達瓦齊之兵。",
+        "清史稿/卷11@2616671#獲達瓦齊，准部平。"
+      ],
+      "time_range": {
+        "end": "1755",
+        "precision": "range",
+        "start": "乾隆二十年正月至六月"
+      },
+      "uncertainties": [
+        "双方总伤亡、伊犁民损和新制落实情况未载。"
+      ]
+    },
+    {
+      "action": "阿睦尔撒纳图谋独据伊犁，入觐途中叛逃并攻伊犁；班第、鄂容安军败身死，清廷重组诸路军队继续征讨。",
+      "actors": [],
+      "affected_groups": [
+        "伊犁居民",
+        "准噶尔部众",
+        "清军"
+      ],
+      "cost_or_burden": "班第、鄂容安战死，萨喇勒被俘。",
+      "fact_id": "CHF-QING-V11-AMURSANA-REBELLION-1755",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "刚完成的准部平定迅速转为阿睦尔撒纳战争，伊犁控制再次动荡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-AMURSANA-REBELLION-1755"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v11-amursana-rebellion-1755",
+      "source_refs": [
+        "清史稿/卷11@2616671#，圖據伊犁。溫",
+        "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+        "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+        "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+      ],
+      "time_range": {
+        "end": "乾隆二十年十二月",
+        "precision": "range",
+        "start": "乾隆二十年六月"
+      },
+      "uncertainties": [
+        "叛军兵力、伊犁伤亡和清军损失总数未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "瞻对战后免打箭炉番民贡赋二年。",
+      "actors": [],
+      "affected_groups": [
+        "打箭炉番民"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "战区参与者获得两年贡赋减免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v11-zhandao-postwar-relief-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#以打箭爐口內外番從徵效力，再免貢賦二年。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746",
+      "time_range": {
+        "end": "1746",
+        "precision": "month",
+        "start": "乾隆十一年六月"
+      },
+      "uncertainties": [
+        "减免总额和受益户数未载。"
+      ]
+    },
+    {
+      "action": "清廷以二百二十万两石以上银粮赈苏皖水灾。",
+      "actors": [],
+      "affected_groups": [
+        "江苏灾民",
+        "安徽灾民"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V11-JIANGNAN-RELIEF-1746",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-JIANGNAN-RELIEF-1746"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "灾民获得大规模银粮和住房修缮援助。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v11-jiangnan-relief-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#加賞江蘇、安徽被水災民修葺房屋銀。",
+        "清史稿/卷11@2616671#撥賑江蘇淮、揚、徐、海各屬災民銀糧二百二十萬兩石有奇。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V11-JIANGNAN-RELIEF-1746",
+      "time_range": {
+        "end": "1746",
+        "precision": "range",
+        "start": "乾隆十一年七月至十月"
+      },
+      "uncertainties": [
+        "银粮分项和到户数量未载。"
+      ]
+    },
+    {
+      "action": "乾隆首次南巡减免沿途及江浙逋赋并阅河。",
+      "actors": [],
+      "affected_groups": [
+        "沿途民户",
+        "漕户",
+        "河工役夫"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "南巡与大范围减赋、河工检查同步实施。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v11-first-southern-tour-tax-relief-1751",
+      "source_refs": [
+        "清史稿/卷11@2616671#免江蘇、安徽元年至十三年逋賦，浙江本年額賦",
+        "清史稿/卷11@2616671#免經過直隸、山東地方本年額賦十分之三。",
+        "清史稿/卷11@2616671#，閱高家堰。辛",
+        "清史稿/卷11@2616671#上閱蔣家壩。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751",
+      "time_range": {
+        "end": "1751",
+        "precision": "range",
+        "start": "乾隆十六年正月至四月"
+      },
+      "uncertainties": [
+        "减免总额、巡幸供亿和河工后续成效未载。"
+      ]
+    },
+    {
+      "action": "崇明潮灾死亡逾万人后清廷免赋截漕赈济。",
+      "actors": [],
+      "affected_groups": [
+        "崇明灾民",
+        "江浙沿海民众"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V11-CHONGMING-TIDAL-DISASTER-1752",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-CHONGMING-TIDAL-DISASTER-1752"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "重大潮灾获得税免、粮赈和跨年救助。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v11-chongming-tidal-disaster-1752",
+      "source_refs": [
+        "清史稿/卷11@2616671#江蘇崇明潮災，淹斃人民一萬二千餘口",
+        "清史稿/卷11@2616671#免明年額賦，仍賑之。",
+        "清史稿/卷11@2616671#命江蘇復截明歲漕糧四十萬石備賑。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V11-CHONGMING-TIDAL-DISASTER-1752",
+      "time_range": {
+        "end": "1752",
+        "precision": "range",
+        "start": "乾隆十七年九月至十月"
+      },
+      "uncertainties": [
+        "失踪、房屋损毁和实际赈粮到户未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《清史稿》卷11正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "乾隆查禁秘密宗教但制止扩大捕治天主教徒。",
+      "actors": [],
+      "affected_groups": [
+        "宗教信众",
+        "被捕民众"
+      ],
+      "candidate_ref": "POL-CAND-QING-V11-RELIGIOUS-SUPPRESSION-1746",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V11-RELIGIOUS-SUPPRESSION-1746"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "数省秘密宗教活动遭查禁，但皇帝制止扩大株连天主教徒。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "数省秘密宗教活动遭查禁，但皇帝制止扩大株连天主教徒。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v11-religious-suppression-1746",
+      "source_refs": [
+        "清史稿/卷11@2616671#四川大乘教首劉奇以造作逆書，磔於市。",
+        "清史稿/卷11@2616671#周學健奏捕天主教二千餘人。上以失綏遠之意，宥之。",
+        "清史稿/卷11@2616671#諭陳宏謀毋究捕天主教民。"
+      ],
+      "thread_ref": "POL-THREAD-QING-V11-RELIGIOUS-SUPPRESSION-1746",
+      "time_range": {
+        "end": "1746",
+        "precision": "month",
+        "start": "乾隆十一年七月"
+      },
+      "uncertainties": [
+        "实际释放、定罪和死亡人数未载。"
+      ]
+    },
+    {
+      "action": "乾隆因劳费限制金川战期并改为受降撤兵。",
+      "actors": [],
+      "affected_groups": [
+        "清军",
+        "四川转输民户",
+        "金川民众"
+      ],
+      "candidate_ref": "POL-CAND-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748",
+      "continuity_status": "ended",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "战争目标由彻底征服调整为限期受降。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "战争目标由彻底征服调整为限期受降。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v11-jinchuan-war-stop-order-1748",
+      "source_refs": [
+        "清史稿/卷11@2616671#以用兵金川勞費，密諭傅恆息事寧人。",
+        "清史稿/卷11@2616671#明年三月不能奏功，應受降撤兵。"
+      ],
+      "thread_ref": "POL-THREAD-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748",
+      "time_range": {
+        "end": "1748",
+        "precision": "range",
+        "start": "乾隆十三年十月至十二月"
+      },
+      "uncertainties": [
+        "密令前累计军费和撤兵节省未载。"
+      ]
+    },
+    {
+      "action": "准噶尔诸部来降后清廷决定两路进取伊犁。",
+      "actors": [],
+      "affected_groups": [
+        "杜尔伯特部",
+        "辉特部",
+        "准噶尔民众"
+      ],
+      "candidate_ref": "POL-CAND-QING-V11-DZUNGAR-DEFECTIONS-1753-1754",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V11-DZUNGAR-DEFECTIONS-1753-1754"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "准噶尔内部力量大批倒向清朝，为进取伊犁创造条件。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "准噶尔内部力量大批倒向清朝，为进取伊犁创造条件。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v11-dzungar-defections-1753-1754",
+      "source_refs": [
+        "清史稿/卷11@2616671#杜爾伯特台吉車凌烏巴什等率所部來降。",
+        "清史稿/卷11@2616671#阿睦爾撒納率部眾來降",
+        "清史稿/卷11@2616671#以準噶爾內亂，諭兩路進兵取伊犁。"
+      ],
+      "thread_ref": "POL-THREAD-QING-V11-DZUNGAR-DEFECTIONS-1753-1754",
+      "time_range": {
+        "end": "乾隆十九年七月",
+        "precision": "range",
+        "start": "乾隆十八年十一月"
+      },
+      "uncertainties": [
+        "各部归附人口、牧地迁置和真实政治意图未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "阳武河决后清廷抢修并于当年合龙。",
+      "actors": [],
+      "affected_groups": [
+        "阳武灾民",
+        "河工役夫"
+      ],
+      "candidate_ref": "WORK-CAND-QING-V11-YANGWU-RIVER-BREACH-1751",
+      "continuity_status": "ended",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V11-YANGWU-RIVER-BREACH-1751"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "黄河决口在当年完成封堵。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-qing-v11-yangwu-river-breach-1751",
+      "source_refs": [
+        "清史稿/卷11@2616671#，河南陽武十三堡河決。庚",
+        "清史稿/卷11@2616671#命高斌赴河南辦陽武河工。",
+        "清史稿/卷11@2616671#陽武決口合龍。"
+      ],
+      "thread_ref": "WORK-THREAD-QING-V11-YANGWU-RIVER-BREACH-1751",
+      "time_range": {
+        "end": "1751",
+        "precision": "range",
+        "start": "乾隆十六年七月至十一月"
+      },
+      "uncertainties": [
+        "灾损、用工、工程费和后续稳定性未载。"
+      ]
+    },
+    {
+      "action": "江南多闸坝决口后清廷赈灾、查弊并完成合龙。",
+      "actors": [],
+      "affected_groups": [
+        "高邮宝应灾民",
+        "河工役夫",
+        "漕运民户"
+      ],
+      "candidate_ref": "WORK-CAND-QING-V11-JIANGNAN-RIVER-DISASTER-1753",
+      "continuity_status": "ended",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V11-JIANGNAN-RIVER-DISASTER-1753"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "河灾获赈且工程失职遭追责，高斌等被革职效力。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-qing-v11-jiangnan-river-disaster-1753",
+      "source_refs": [
+        "清史稿/卷11@2616671#江南邵伯湖減水二閘及高郵車邏壩同時並決",
+        "清史稿/卷11@2616671#撥江西、湖北米各十萬石賑江南災。",
+        "清史稿/卷11@2616671#同劉統勛查辦河工侵虧諸弊。",
+        "清史稿/卷11@2616671#江南張家馬路及邵伯湖二閘決口同日合龍。"
+      ],
+      "thread_ref": "WORK-THREAD-QING-V11-JIANGNAN-RIVER-DISASTER-1753",
+      "time_range": {
+        "end": "1753",
+        "precision": "range",
+        "start": "乾隆十八年七月至十二月"
+      },
+      "uncertainties": [
+        "死亡人口、工程亏空总额与实际赈米发放未载。"
+      ]
+    }
+  ],
+  "registry_version": "QING-QINGSHIGAO-V11-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "乾隆二十年阿睦尔撒纳叛与伊犁战局",
+    "input_fingerprint": "be1a8a4d163232ddb50f1d1be18aab67dc47cdf54c23722ca7d2439e0e016ac2",
+    "overlap_context": "承接卷10准噶尔策零卒；本卷登记瞻对、大小金川、西藏政变、准噶尔内乱与平定、阿睦尔撒纳反叛及河工灾赈，卷12尚未读取。",
+    "revision_ref": "2616671",
+    "start_locator": "乾隆十一年瞻对进剿",
+    "volume_ref": "卷11",
+    "work": "清史稿"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V11-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v11-zhandao-postwar-relief-1746",
+      "status": "closed",
+      "summary": "瞻对战后免打箭炉番民贡赋二年。",
+      "thread_ref": "FIN-THREAD-QING-V11-ZHANDAO-POSTWAR-RELIEF-1746",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V11-RELIGIOUS-SUPPRESSION-1746"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v11-religious-suppression-1746",
+      "status": "closed",
+      "summary": "乾隆查禁秘密宗教但制止扩大捕治天主教徒。",
+      "thread_ref": "POL-THREAD-QING-V11-RELIGIOUS-SUPPRESSION-1746",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-JIANGNAN-RELIEF-1746"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v11-jiangnan-relief-1746",
+      "status": "closed",
+      "summary": "清廷以二百二十万两石以上银粮赈苏皖水灾。",
+      "thread_ref": "FIN-THREAD-QING-V11-JIANGNAN-RELIEF-1746",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v11-jinchuan-war-stop-order-1748",
+      "status": "closed",
+      "summary": "乾隆因劳费限制金川战期并改为受降撤兵。",
+      "thread_ref": "POL-THREAD-QING-V11-JINCHUAN-WAR-STOP-ORDER-1748",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v11-first-southern-tour-tax-relief-1751",
+      "status": "closed",
+      "summary": "乾隆首次南巡减免沿途及江浙逋赋并阅河。",
+      "thread_ref": "FIN-THREAD-QING-V11-FIRST-SOUTHERN-TOUR-TAX-RELIEF-1751",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V11-CHONGMING-TIDAL-DISASTER-1752"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v11-chongming-tidal-disaster-1752",
+      "status": "closed",
+      "summary": "崇明潮灾死亡逾万人后清廷免赋截漕赈济。",
+      "thread_ref": "FIN-THREAD-QING-V11-CHONGMING-TIDAL-DISASTER-1752",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V11-YANGWU-RIVER-BREACH-1751"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-qing-v11-yangwu-river-breach-1751",
+      "status": "closed",
+      "summary": "阳武河决后清廷抢修并于当年合龙。",
+      "thread_ref": "WORK-THREAD-QING-V11-YANGWU-RIVER-BREACH-1751",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V11-JIANGNAN-RIVER-DISASTER-1753"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-qing-v11-jiangnan-river-disaster-1753",
+      "status": "closed",
+      "summary": "江南多闸坝决口后清廷赈灾、查弊并完成合龙。",
+      "thread_ref": "WORK-THREAD-QING-V11-JIANGNAN-RIVER-DISASTER-1753",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V11-DZUNGAR-DEFECTIONS-1753-1754"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v11-dzungar-defections-1753-1754",
+      "status": "closed",
+      "summary": "准噶尔诸部来降后清廷决定两路进取伊犁。",
+      "thread_ref": "POL-THREAD-QING-V11-DZUNGAR-DEFECTIONS-1753-1754",
+      "uncertainties": []
+    }
+  ]
+}

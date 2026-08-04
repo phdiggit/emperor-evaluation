@@ -1,0 +1,790 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V07-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V07-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "07",
+    "revision_ref": "2284755",
+    "start_locator": "宋真宗咸平四年回鹘请讨赵保吉",
+    "end_locator": "宋真宗咸平六年六谷击伤保吉",
+    "overlap_context": "承接卷6保吉夺灵州粮运与辽授德明朔方节度；本卷主载夺灵州建西平、河外五城陷落、河防工程、建都与取西凉，终于六谷伏击。",
+    "input_fingerprint": "20427d2bfc0e8beb3b0e58edf434f4fd4d98654d7a19a5c82d2a16c92391b952"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷07正文登记，未知保持未知。",
+    "作者按语、祥异和未经正文证实的告捷不作独立事实；外族行动仅在直接进入西夏战争与联盟链时登记。",
+    "大型河防与迁都营建据原文明示进入工程域，普通砦栅不强行路由。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V07-UIGHUR-SIXVALLEY-COALITION-1001",
+      "time": [
+        "宋真宗咸平四年四月",
+        "1001",
+        "month"
+      ],
+      "subject": "西州回鹘、吐蕃六谷潘罗支与宋真宗",
+      "action": "回鹘可汗禄胜察知保吉欲西掠吐蕃、北收回鹘，向宋请命统兵讨伐；六谷潘罗支亦遣李万年进讨并约宋师期。",
+      "result": "宋廷授权回鹘自行统军，授潘罗支盐州防御使兼灵州西面都巡检，形成对保吉的西部牵制联盟。",
+      "groups": [
+        "西州回鹘",
+        "六谷吐蕃",
+        "宋廷",
+        "李继迁部众"
+      ],
+      "quote": [
+        "保吉謀攻西州回鶻，回鶻請兵于朝。",
+        "吐蕃六谷都首領潘羅支以兵來討。",
+        "于是羅支遣部下李萬年率兵進討，貽書繼和請師期。"
+      ],
+      "unknown": [
+        "回鹘实际出兵规模、宋方军援、联军战果和赏赐数额未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "UIGHUR-SIXVALLEY-COALITION-1001",
+        "summary": "回鹘与六谷获宋支持牵制保吉。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-QIANG-ESCAPE-1001",
+      "time": [
+        "宋真宗咸平四年四月",
+        "1001",
+        "month"
+      ],
+      "subject": "被掳羌人嵬逋千余人与赵保吉军",
+      "action": "保吉此前掠得的嵬逋乘隙率属众千余逃向宋境，保吉从万户谷追击。",
+      "result": "保吉未能追回，千余人摆脱其控制。",
+      "groups": [
+        "嵬逋千余人",
+        "赵保吉军",
+        "边地居民"
+      ],
+      "quote": [
+        "擄𦍑嵬逋走回。",
+        "乘間率屬千餘內投，保吉自萬戶谷追之，不及。"
+      ],
+      "unknown": [
+        "逃亡人员构成、原被掠时间、财产和宋方安置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-QIANG-ESCAPE-1001",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-LINGZHOU-SIEGE-FARMS-1001",
+      "time": [
+        "宋真宗咸平四年八月",
+        "1001",
+        "month"
+      ],
+      "subject": "赵保吉五万骑与灵州军民",
+      "action": "保吉以五万骑攻灵州而未克，转据周边险要，令万山等部在榆林大定间屯田。",
+      "result": "灵州继续守住，但外围膏腴土地被占耕，宋廷又发王超六万军援救。",
+      "groups": [
+        "赵保吉军",
+        "屯田蕃卒",
+        "灵州军民",
+        "宋援军"
+      ],
+      "quote": [
+        "攻靈州不克，田其境地。",
+        "是時以五萬騎攻城，城中兵少不出戰。",
+        "率蕃卒駐榆林、大定間爲屯田計"
+      ],
+      "unknown": [
+        "屯田面积产量、攻城伤亡、灵州民田损失和援军费用未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LINGZHOU-FARMS-1001",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-FIVE-FORTS-QINGYUAN-1001",
+      "time": [
+        "宋真宗咸平四年九月至十月",
+        "1001",
+        "range"
+      ],
+      "subject": "赵保吉军与定州怀远清远等宋军",
+      "action": "保吉先后袭定州、围怀远并迫使守将李赞自焚，继取保静永州，再分攻清远南北门、填濠断堑。",
+      "result": "七日后清远守军力竭投降，保吉进薄青冈并将保静县升为静州。",
+      "cost": "怀远守将及残兵死，河外五城相继陷落；军民伤亡未载。",
+      "groups": [
+        "赵保吉军",
+        "河外五城军民",
+        "宋援军"
+      ],
+      "quote": [
+        "襲定州及懷遠鎭，鎭將李贊自焚死；連取保靜、永州；攻清遠軍，破之。",
+        "七日，城中力竭，兵馬都監段義啟門降。",
+        "升保靜縣爲靜州。"
+      ],
+      "unknown": [
+        "各城伤亡、俘虏、府库损失和改州后的官赋制度未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-FIVE-FORTS-1001",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-LIUBOCHUAN-DEFEAT-1001",
+      "time": [
+        "宋真宗咸平四年十月",
+        "1001",
+        "month"
+      ],
+      "subject": "赵保吉军与麟州曹璨蕃兵",
+      "action": "保吉得清远后徇唐隆镇，谋由萧关等路进攻麟府，在柳拨川遭曹璨蕃兵截击。",
+      "result": "保吉战败退走三十余里。",
+      "groups": [
+        "赵保吉军",
+        "宋蕃兵",
+        "唐隆镇居民"
+      ],
+      "quote": [
+        "徇唐隆鎭，與麟州兵戰于柳撥川，不勝。",
+        "保吉戰不利，退走三十餘里。"
+      ],
+      "unknown": [
+        "双方兵力伤亡和唐隆镇损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIUBOCHUAN-1001",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-HEWAI-FORT-SURRENDER-1001",
+      "time": [
+        "宋真宗咸平四年十二月",
+        "1001",
+        "month"
+      ],
+      "subject": "赵保吉军与河外砦李琼守军",
+      "action": "宋廷以节度使、银彩茶六万和田宅招诱蕃族反夏，保吉遂围河外砦；守将李琼抵抗十余日后举城投降。",
+      "result": "青冈峡诸砦被焚，环庆鄜延麟府以外近河地区多归保吉；部分蕃族转而内附宋。",
+      "groups": [
+        "赵保吉军",
+        "河外砦军民",
+        "内附蕃族",
+        "宋廷"
+      ],
+      "quote": [
+        "西蕃諸族有能破夏州者，當授節度使，賜銀、綵、茶六萬；舉族來附者，給田宅。",
+        "砦主李瓊拒守旬餘",
+        "之，瓊舉城降。\n"
+      ],
+      "unknown": [
+        "六万物资实际发放、内附户数、城中损失和李琼后续未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HEWAI-FORT-1001",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-CHISHA-MARKETS-1002",
+      "time": [
+        "宋真宗咸平五年正月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉政权与灵夏蕃族熟户",
+      "action": "保吉在赤沙川、橐驼口两路设置会市，以贸易招诱熟户。",
+      "result": "归附保吉者日增，宋廷虽禁仍无法阻止。",
+      "groups": [
+        "熟户",
+        "蕃族商旅",
+        "赵保吉官属",
+        "宋边吏"
+      ],
+      "quote": [
+        "保吉置市于赤沙、橐駞等路。",
+        "保吉各置會貿易，以誘熟戶。于是歸者日衆，中國禁之不止。"
+      ],
+      "unknown": [
+        "市税、交易品、贸易额和归附户数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CHISHA-MARKETS-1002",
+        "summary": "保吉设两路会市以贸易吸纳熟户。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-LINGZHOU-FALL-1002",
+      "time": [
+        "宋真宗咸平五年三月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉联军与灵州裴济军民",
+      "action": "河外五城陷落后，保吉集蕃部围灵州两月并截断瀚海援路；城中饷援俱绝。",
+      "result": "灵州陷落，知州裴济战死，保吉将州改为西平府。",
+      "cost": "关陕民众长期转输死伤数十万，城中米价每斗十贯；本次军民伤亡未载。",
+      "groups": [
+        "赵保吉联军",
+        "灵州军民",
+        "关陕运输民户",
+        "宋援军"
+      ],
+      "quote": [
+        "取靈州，殺知州事裴濟，改州爲西平府。",
+        "城中斗米價至十貫。",
+        "保吉遣兵斷瀚海要路，王超大軍不得進。"
+      ],
+      "unknown": [
+        "城陷过程、双方伤亡、俘虏与府库处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LINGZHOU-FALL-1002",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-BAIBAO-AMBUSH-1002",
+      "time": [
+        "宋真宗咸平五年四月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉军与宋张煦张凝军",
+      "action": "保吉令清远新附蕃酋以三千甲骑诈降诱宋军，又派兵在白豹镇截击张凝部。",
+      "result": "张煦识破诈降并驰援，以箭射杀夏将，宋军解围。",
+      "groups": [
+        "赵保吉军",
+        "清远蕃酋",
+        "宋军"
+      ],
+      "quote": [
+        "使清遠蕃酋僞降，邀環慶官軍于白豹鎭，不勝。",
+        "以甲騎三千約降",
+        "煦領銳卒赴援，一矢殪一大將，乃解。"
+      ],
+      "unknown": [
+        "双方伤亡、诈降部族处置和白豹镇损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-BAIBAO-1002",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-LINZHOU-SIEGE-1002",
+      "time": [
+        "宋真宗咸平五年六月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉二万骑与麟州卫居实军民",
+      "action": "保吉虚张攻仪州之势后，以二万骑突入河东围麟州，控制水寨并四面攻城五日。",
+      "result": "卫居实出奇兵并夜缒勇士夹击，夏军溃走自相践踏，死万余人。",
+      "cost": "保吉军死万余，宋军民伤亡和城损未载。",
+      "groups": [
+        "赵保吉军",
+        "麟州军民",
+        "宋援军"
+      ],
+      "quote": [
+        "以二萬騎入河東，圍麟州。",
+        "城上鼓噪，矢石如雨，夏衆披靡走，自相蹂踐，死者萬餘人。"
+      ],
+      "unknown": [
+        "宋方伤亡、保吉军俘虏和水源损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LINZHOU-1002",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-RIVERWORKS-FLOOD-1002",
+      "time": [
+        "宋真宗咸平五年七月至八月",
+        "1002",
+        "range"
+      ],
+      "subject": "赵保吉政权与夏州蕃汉民夫",
+      "action": "夏州久旱谷物绝收，保吉征民筑黄河堤防、引水灌田，并严酷处置役人。",
+      "result": "八月连雨九昼夜，河水暴涨，堤防四处决口，蕃汉溺死无数。",
+      "cost": "民夫承担筑堤劳役，四处决堤并造成无数溺亡；田地损失未载。",
+      "groups": [
+        "夏州民夫",
+        "蕃汉居民",
+        "灌区农户",
+        "赵保吉官属"
+      ],
+      "quote": [
+        "保吉令民築堤防，引河水以灌田。",
+        "大雨，河防決。",
+        "河水暴漲，防四決，蕃漢漂溺者無數。"
+      ],
+      "unknown": [
+        "工程长度费用、役夫人数、灌田面积、溺亡确数和修复未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "RIVERWORKS-FLOOD-1002",
+        "summary": "夏州筑河防灌田后暴雨四决并致无数溺亡。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-ZHUANGLANG-DEFEAT-1002",
+      "time": [
+        "宋真宗咸平五年七月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉军与党项庄浪族",
+      "action": "保吉因庄浪族拒绝归附，渡河袭击其数万帐。",
+      "result": "庄浪族击败保吉军。",
+      "groups": [
+        "赵保吉军",
+        "庄浪数万帐",
+        "宋廷"
+      ],
+      "quote": [
+        "渡河攻党項莊浪族，不克。",
+        "保吉惡其不附己，舉兵渡河襲之，大敗而回。"
+      ],
+      "unknown": [
+        "双方兵力伤亡、部族财产损失和追击未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-ZHUANGLANG-1002",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-ZHUOLUN-FUZHOU-1002",
+      "time": [
+        "宋真宗咸平五年九月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉军与濁轮砦府州宋军",
+      "action": "水灾淹没田稼后，保吉为夺粮再入麟州，攻破濁轮砦并进围府州。",
+      "result": "濁轮遭惨烈杀掠；府州守军射杀两名酋领后，夏军退回大寨。",
+      "cost": "濁轮军民遭杀掠，折勒厥麻三族一千五百帐因恐惧迁宋。",
+      "groups": [
+        "赵保吉军",
+        "濁轮府州军民",
+        "折勒厥麻三族"
+      ],
+      "quote": [
+        "田稼盡沒，謀取糧于緣邊諸砦。",
+        "攻濁輪，破之，殺掠甚慘。",
+        "率屬千五百帳越河請內屬。"
+      ],
+      "unknown": [
+        "杀掠人数、所得粮食、府州双方伤亡和迁户安置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-ZHUOLUN-FUZHOU-1002",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-SIXVALLEY-ENVOYS-1002",
+      "time": [
+        "宋真宗咸平五年十月",
+        "1002",
+        "month"
+      ],
+      "subject": "赵保吉与六谷潘罗支诸蕃",
+      "action": "保吉因用兵买马受六谷制约，遣人持铁箭诱诸蕃叛附。",
+      "result": "潘罗支杀一名来使、拘一名并奏宋廷，拒绝诱降。",
+      "groups": [
+        "赵保吉使者",
+        "六谷诸蕃",
+        "潘罗支部众"
+      ],
+      "quote": [
+        "遣使誘六谷諸蕃，首領潘羅支執之。",
+        "遣人以鐵箭誘六谷諸蕃叛附，羅支戮一人，縶一人"
+      ],
+      "unknown": [
+        "诱降条件、铁箭含义、被拘使者后续未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SIXVALLEY-ENVOYS-1002",
+        "summary": "潘罗支拒绝保吉以铁箭诱降六谷。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V07-KANGNU-RAID-1002",
+      "time": [
+        "宋真宗咸平五年十一月",
+        "1002",
+        "month"
+      ],
+      "subject": "宋陈兴曹玮军、康奴族与赵保吉",
+      "action": "宋军潜袭屡助保吉截灵州粮运的康奴族巢穴。",
+      "result": "康奴人畜和窖藏粮食全被夺；保吉赶来救援时宋军已撤。",
+      "groups": [
+        "康奴族",
+        "宋军",
+        "赵保吉军"
+      ],
+      "quote": [
+        "涇原官軍襲康奴族，援之不及。",
+        "康奴出不意，人畜、窖粟悉被擒獲。"
+      ],
+      "unknown": [
+        "被俘人数、粮食牲畜数量、伤亡和康奴后续未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-KANGNU-1002",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-XIPING-CAPITAL-1003",
+      "time": [
+        "宋真宗咸平六年正月",
+        "1003",
+        "month"
+      ],
+      "subject": "赵保吉、李继瑗与李氏宗族",
+      "action": "保吉决定由夏州迁都西平，命继瑗李知白督众建立宗庙和官衙，举族迁居。",
+      "result": "西平成为李氏都城与军政中心。",
+      "groups": [
+        "李氏宗族",
+        "营建民夫",
+        "西平军民",
+        "夏州居民"
+      ],
+      "quote": [
+        "保吉建都西平。",
+        "遂令繼瑗與牙將李知白等督衆立宗廟，置官衙，挈宗族建都焉。"
+      ],
+      "unknown": [
+        "营建规模、民夫人数、费用、迁都人口和工期未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "XIPING-CAPITAL-1003",
+        "summary": "保吉营建宗庙官衙并迁都西平。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-DINGNAN-TERRITORY-RESTORED-1003",
+      "time": [
+        "宋真宗咸平六年正月",
+        "1003",
+        "month"
+      ],
+      "subject": "宋真宗与赵保吉政权",
+      "action": "宋廷派张崇贵王涉议和，将定难军绥宥等州地尽割给保吉。",
+      "result": "保吉收取沿边七镇、东西二十五驿和南北十余驿，恢复完整五州版图。",
+      "groups": [
+        "五州军民",
+        "沿边驿站居民",
+        "赵保吉官属",
+        "宋边军"
+      ],
+      "quote": [
+        "盡復綏、宥諸州地。",
+        "盡割定難軍州地與之。",
+        "保吉盡收緣邊七鎭東西二十五驛、南北十餘驛地爲己有。"
+      ],
+      "unknown": [
+        "疆界划定、户籍赋税、宋军撤防和交接冲突未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DINGNAN-TERRITORY-RESTORED-1003",
+        "summary": "宋割还绥宥等地，保吉恢复五州。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-PAN-LUOZHI-PLAN-1003",
+      "time": [
+        "宋真宗咸平六年二月至三月",
+        "1003",
+        "range"
+      ],
+      "subject": "六谷潘罗支、宋真宗与赵保吉",
+      "action": "潘罗支集骑六万请宋会师收复灵州，宋授其朔方节度并赐铠甲器币；归途使者遭保吉夺走牌印告敕和器械。",
+      "result": "宋与六谷的攻西平计划泄露，但潘罗支仍保持反夏联盟。",
+      "groups": [
+        "六谷骑兵",
+        "宋廷",
+        "赵保吉军",
+        "使团"
+      ],
+      "quote": [
+        "潘羅支謀取西平府。",
+        "已集騎兵六萬，乞會王師收復靈州。",
+        "盡奪羅支牌印、官告及所賜衣服、器械"
+      ],
+      "unknown": [
+        "六万骑实际集结、宋军会师规模、被夺器物数量和使团损失未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PAN-LUOZHI-PLAN-1003",
+        "summary": "宋授潘罗支朔方节度并谋会师取西平。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-FAMINE-FORCED-RELOCATION-1003",
+      "time": [
+        "宋真宗咸平六年四月",
+        "1003",
+        "month"
+      ],
+      "subject": "赵保吉政权与银夏宥三州民户",
+      "action": "三州旱荒饥馑，保吉登记衣食较足者，强迁河外五城，拒绝者被杀。",
+      "result": "蕃汉民众因重迁普遍嗟怨，三州人口被强制重新分布。",
+      "cost": "饥殍相望且拒迁者被杀，死迁确数未载。",
+      "groups": [
+        "三州饥民",
+        "被迁富户",
+        "河外五城居民",
+        "赵保吉官属"
+      ],
+      "quote": [
+        "銀、夏、宥三州飢。夏四月，徙其民于河外五城。",
+        "保吉籍州民衣食豐者徙之河外五城，不從殺之。",
+        "于是蕃、漢重遷，嗟怨四起。"
+      ],
+      "unknown": [
+        "饥民、死者、迁户、赈粮和安置数量未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FAMINE-FORCED-RELOCATION-1003",
+        "summary": "三州饥荒中保吉强迁富户并杀拒迁者。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-HUANZHOU-BAIMAZU-1003",
+      "time": [
+        "宋真宗咸平六年四月",
+        "1003",
+        "month"
+      ],
+      "subject": "赵保吉军、洪德砦与白马族",
+      "action": "保吉追逃卒入环州攻洪德砦，遭蕃官与守军反击；继又攻破白马族。",
+      "result": "洪德砦战中保吉败退，四十九名首领被俘、多人坠崖；白马族则战败迁帐避走。",
+      "groups": [
+        "赵保吉军",
+        "洪德砦军民",
+        "环州蕃官",
+        "白马族"
+      ],
+      "quote": [
+        "攻環州，圍洪德砦。",
+        "首領被擒者四十九人，墜崖塹死者甚衆，悉棄旗鼓、鎧甲走還。",
+        "白馬亦環州蕃族，其首領與保吉鬬，不勝，徙帳避之。"
+      ],
+      "unknown": [
+        "洪德与白马双方总伤亡、白马迁帐人数和财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANZHOU-BAIMAZU-1003",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-PULUO-HEDONG-1003",
+      "time": [
+        "宋真宗咸平六年五月至六月",
+        "1003",
+        "range"
+      ],
+      "subject": "赵保吉父子军与宋环庆招抚军、河东诸族",
+      "action": "宋军招降二百余族共四千八百户后，保吉父子屯浦洛河护卫诸羌；因部下饥乱，又率族党三万人驻东关镇掠河东。",
+      "result": "保吉与丰州诸族屡战不胜，更多陇山西部族转附宋廷。",
+      "groups": [
+        "赵保吉三万人",
+        "被招降四千八百户",
+        "河东诸族",
+        "宋军"
+      ],
+      "quote": [
+        "一百餘族，合四千八百戶，銀、夏大震。",
+        "挈其族黨三萬人樹柵居之，分掠河東邊境",
+        "與豐州蕃瓦窑、沒劑、加羅、昧克等族兵頻戰不勝。"
+      ],
+      "unknown": [
+        "饥乱原因、双方伤亡、掠夺财物和三万人供给未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-PULUO-HEDONG-1003",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-QUYEHE-DEFEAT-1003",
+      "time": [
+        "宋真宗咸平六年八月",
+        "1003",
+        "month"
+      ],
+      "subject": "赵保吉军与麟州八族都校明义部",
+      "action": "保吉为夺府州浮桥所通粮道而进犯麟州，明义在屈野河侧伏击。",
+      "result": "保吉大败损失甚多，此后不敢再犯麟府。",
+      "groups": [
+        "赵保吉军",
+        "麟府军民",
+        "运输民户",
+        "八族部兵"
+      ],
+      "quote": [
+        "攻麟州，敗于屈野河。",
+        "保吉大敗，䘮失甚衆，自是不敢犯麟、府。"
+      ],
+      "unknown": [
+        "双方兵力伤亡、粮道损失和败军去向未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-QUYEHE-1003",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-XILIANG-CONQUEST-1003",
+      "time": [
+        "宋真宗咸平六年十月",
+        "1003",
+        "month"
+      ],
+      "subject": "赵保吉五州军与西凉府丁惟清军民",
+      "action": "保吉尽籍五州丁壮佯称攻环庆，暗中移兵袭破西凉，杀知府丁惟清、逐居民并占府库。",
+      "result": "西凉府改为州，保吉获得府库与畜牧资源，兵势复振。",
+      "cost": "五州丁壮被征发，西凉守将被杀、居民被逐、府库被夺。",
+      "groups": [
+        "五州丁壮",
+        "西凉军民",
+        "赵保吉军",
+        "六谷吐蕃"
+      ],
+      "quote": [
+        "盡籍五州丁壯，大會諸族于鹽州",
+        "潛移兵取西涼，襲破其城，執惟清殺之，悉逐居人城外，據其府庫",
+        "州，兵勢復振。\n"
+      ],
+      "unknown": [
+        "征发人数、双方伤亡、府库物资、被逐居民去向未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-XILIANG-1003",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-SHIMENCHUAN-DEFEAT-1003",
+      "time": [
+        "宋真宗咸平六年十月",
+        "1003",
+        "month"
+      ],
+      "subject": "赵保吉归军与宋曹玮军",
+      "action": "保吉携西凉俘获返西平，在石门川遭曹玮伏兵截击。",
+      "result": "保吉战败，尽弃所俘逃走。",
+      "groups": [
+        "赵保吉军",
+        "西凉俘虏",
+        "宋军"
+      ],
+      "quote": [
+        "還自西涼，戰于石門川，敗績。",
+        "保吉麾衆迎戰，不勝，盡棄所俘走。"
+      ],
+      "unknown": [
+        "双方伤亡、获释俘虏人数和物资损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SHIMENCHUAN-1003",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V07-SIXVALLEY-DEFEAT-1003",
+      "time": [
+        "宋真宗咸平六年十一月至十二月",
+        "1003",
+        "range"
+      ],
+      "subject": "赵保吉军与潘罗支六谷者龙联军",
+      "action": "保吉因潘罗支受宋朔方节度而率大军攻六谷，误信其诈降，在三十九井遭数万联军合击。",
+      "result": "保吉大败中流箭，奔回西平；因伤重未能实施随后声称的环州进攻。",
+      "groups": [
+        "赵保吉军",
+        "六谷诸族",
+        "者龙族",
+        "潘罗支部众"
+      ],
+      "quote": [
+        "出兵攻六谷，朔方節度使潘羅支以者龍諸族衆擊敗之，奔還西平。",
+        "羅支陰集六谷諸豪及者龍族兵數萬，合擊之于三十九井",
+        "保吉大敗，中流矢，奔還靈州。"
+      ],
+      "unknown": [
+        "双方伤亡、箭伤部位、保吉病势及联军追击未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SIXVALLEY-1003",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

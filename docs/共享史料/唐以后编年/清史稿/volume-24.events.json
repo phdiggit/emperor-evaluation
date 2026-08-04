@@ -1,0 +1,759 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V24-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V24-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷24",
+    "revision_ref": "2170948",
+    "start_locator": "光绪二十一年甲午战争收束",
+    "end_locator": "光绪三十四年德宗崩与溥仪继统安排",
+    "overlap_context": "卷首承接卷23甲午战争，卷末与卷25宣统继位复述相接；仅保留逐卷锚点并显式去重。",
+    "input_fingerprint": "80f4f88d41ae2db5877207dbe9f3f02cd5c1d8069473e6a83ab69815cd2ed2c6"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷24正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘、祥异和重复军情不单列；连续改革与战争按阶段合并。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V24-SINO-JAPANESE-WAR-END-1895",
+      "time": [
+        "光绪二十一年正月至四月",
+        "1895",
+        "range"
+      ],
+      "subject": "清军北洋海军、日本军队与清日全权大臣",
+      "action": "日军攻陷威海、刘公岛、牛庄和澎湖，李鸿章赴马关议和。",
+      "result": "清廷承认朝鲜独立，割辽南、台湾、澎湖并赔款二万万；日本后归还辽南，甲午战争收束。",
+      "cost": "丁汝昌、刘步蟾、戴宗骞等死，赔款二万万；军民总伤亡未载。",
+      "groups": [
+        "清军",
+        "北洋海军",
+        "日本军队",
+        "台湾与辽东民众"
+      ],
+      "quote": [
+        "威海陷，守將戴宗騫死之。",
+        "劉公島陷，水師熸，丁汝昌及總兵劉步蟾死之。",
+        "日兵陷澎湖。",
+        "李鴻章與日本全權伊籐博文、陸奧宗光馬關會議。",
+        "和約成，定朝鮮為獨立自主國，割遼南地、台灣、澎湖各島，償軍費二萬萬",
+        "日本歸我遼南地。"
+      ],
+      "unknown": [
+        "战场军民总伤亡、赔款筹措与条约执行细节未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SINO-JAPANESE-WAR-1894-1895",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-POSTWAR-REFORM-1895",
+      "time": [
+        "光绪二十一年闰五月",
+        "1895",
+        "month"
+      ],
+      "subject": "光绪帝与督抚将领",
+      "action": "甲午战后诏令修铁路、铸币、造机器、开矿、折南漕、创邮政、练陆海军和立学堂，并以筹饷练兵、恤商惠工为要。",
+      "result": "战后自强改革形成财政、军事、工商、交通和教育的综合政策纲领。",
+      "groups": [
+        "军民",
+        "商人",
+        "学生",
+        "纳税民户"
+      ],
+      "quote": [
+        "修鐵路，鑄鈔幣，造機器，開礦產，折南漕，減兵額，創郵政，練陸軍，整海軍，立學堂",
+        "以籌餉練兵為急務，以恤商惠工為本源"
+      ],
+      "unknown": [
+        "各项预算、实施次序和短期成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "POSTWAR-REFORM-1895",
+        "summary": "甲午战后颁布综合自强改革纲领。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-NEW-ARMY-1895-1906",
+      "time": [
+        "光绪二十一年十一月",
+        "光绪三十二年",
+        "range"
+      ],
+      "subject": "袁世凯、练兵处与清廷",
+      "action": "清廷设新建陆军交袁世凯督练，继而仿西制练兵、定新军官制并规划三十六镇。",
+      "result": "新军由一支试练部队扩为全国性常备军制度。",
+      "groups": [
+        "新军官兵",
+        "纳税民户"
+      ],
+      "quote": [
+        "初設新建陸軍，命溫處道袁世凱督練。",
+        "神機營練兵處仿西制練兵。",
+        "定新軍官制。"
+      ],
+      "unknown": [
+        "全国编成数量、军费与实际战力未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NEW-ARMY-1895-1906",
+        "summary": "清廷建立并制度化新军。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-FOREIGN-LEASES-1897-1899",
+      "time": [
+        "光绪二十三年十月",
+        "光绪二十五年",
+        "range"
+      ],
+      "subject": "清廷与德国、俄国、英国、法国",
+      "action": "列强以武力或交涉取得胶州湾、旅大、九龙、威海卫和广州湾等租借地，并取得铁路权益。",
+      "result": "沿海港湾与部分铁路权益被长期租借，列强在华势力范围扩大。",
+      "groups": [
+        "沿海民众",
+        "商民",
+        "外国军队"
+      ],
+      "quote": [
+        "德以兵輪入膠澳。",
+        "膠州灣租借於德意志，旅順口、大連灣、遼東半島租借於俄羅斯。",
+        "廣東九龍半島、山東威海衛俱租借於英吉利。",
+        "廣州灣租借於法郎西，並開滇越鐵路。"
+      ],
+      "unknown": [
+        "各约全文、租期、地租与地方损失未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FOREIGN-LEASES-1897-1899",
+        "summary": "列强取得多处港湾租借地与铁路权益。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-HUNDRED-DAYS-POLITICAL-REFORM-1898",
+      "time": [
+        "光绪二十四年四月至八月",
+        "1898",
+        "range"
+      ],
+      "subject": "光绪帝、康有为等与中央地方机构",
+      "action": "光绪帝诏定国是，召见康有为，裁并部分中央冗署并要求官员条陈变法。",
+      "result": "以皇帝为中心的政治变法迅速展开，但持续不足百日。",
+      "groups": [
+        "中央官员",
+        "地方官员",
+        "士人"
+      ],
+      "quote": [
+        "巳，詔定國是，",
+        "召見工部主事康有為",
+        "裁詹事府，通政司，大理、光祿、太僕、鴻臚諸寺"
+      ],
+      "unknown": [
+        "各项执行范围与地方落实程度未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HUNDRED-DAYS-POLITICAL-REFORM-1898",
+        "summary": "光绪诏定国是并裁署推行变法。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-QING-V24-HUNDRED-DAYS-EDUCATION-ECONOMY-1898",
+      "time": [
+        "光绪二十四年五月至八月",
+        "1898",
+        "range"
+      ],
+      "subject": "光绪帝与各省官署",
+      "action": "清廷设京师大学堂、改书院为中西学堂、改科举试策论，并设农工商、矿务铁路等机构和推广邮政、洋操。",
+      "result": "教育、工商、交通和军事制度同步启动变革。",
+      "groups": [
+        "学生",
+        "商人",
+        "工矿人员",
+        "军人"
+      ],
+      "quote": [
+        "詔立京師大學堂",
+        "改直省各屬書院為兼習中西學校",
+        "鄉、會、歲、科各試，向用四書文者，改試策論。",
+        "設礦務鐵路總局於京師",
+        "詔於京師設農工商總局",
+        "諭各省撤驛站，設郵政。",
+        "詔陸軍改練洋操"
+      ],
+      "unknown": [
+        "投资、招生、线路与短期执行成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HUNDRED-DAYS-SECTORAL-REFORM-1898",
+        "summary": "变法同步改革教育、工商、交通和军事。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-COUP-ROLLBACK-1898",
+      "time": [
+        "光绪二十四年八月至九月",
+        "1898",
+        "range"
+      ],
+      "subject": "慈禧太后、光绪帝与维新官员",
+      "action": "慈禧复垂帘训政，处死谭嗣同等六人，并恢复被裁机构、旧科举与部分旧制。",
+      "result": "百日变法的政治主导权终结，多项改革被撤销，光绪帝失去实际权力。",
+      "groups": [
+        "皇室成员",
+        "维新官员",
+        "中央官员",
+        "士人"
+      ],
+      "quote": [
+        "皇太后復垂簾於便殿訓政。",
+        "楊深秀、楊銳、林旭、劉光第、譚嗣同、康廣仁俱處斬。",
+        "詔復設詹事府，通政司，大理、光祿、太僕、鴻臚諸寺。",
+        "懿旨復鄉、會試及歲、科考舊制，罷經濟特科，罷農工商局。"
+      ],
+      "unknown": [
+        "帝后之间具体决策过程与各地改革停止程度未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "COUP-ROLLBACK-1898",
+        "summary": "慈禧复训政、杀维新官员并撤回多项变法。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-QING-V24-BOXER-EIGHT-NATION-WAR-1899-1900",
+      "time": [
+        "光绪二十五年",
+        "光绪二十六年八月",
+        "range"
+      ],
+      "subject": "义和团、清军与八国联军",
+      "action": "义和团由山东扩入京津并杀德国公使，八国联军攻大沽、天津和北京，清廷与列强交战。",
+      "result": "京师陷落，帝后西逃太原、西安，清廷下诏罪己并转向议和。",
+      "cost": "聂士成等阵亡，京津军民伤亡、财产损失与军费未载。",
+      "groups": [
+        "义和团众",
+        "清军",
+        "八国联军",
+        "京津民众"
+      ],
+      "quote": [
+        "拳匪起山東，號「義和拳會」",
+        "義和拳入京師",
+        "拳匪戕德使克林德",
+        "外兵襲天津，聶士成戰於八里台，死之。",
+        "德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+        "上奉皇太后如太原",
+        "申，至西安府，",
+        "驛，下詔罪己，"
+      ],
+      "unknown": [
+        "各方总伤亡、掠夺损失与军费未载。"
+      ],
+      "battle": "CAMPAIGN-QING-BOXER-EIGHT-NATION-WAR-1899-1900",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-BOXER-POLITICAL-REPRESSION-1900-1901",
+      "time": [
+        "光绪二十六年七月",
+        "光绪二十七年",
+        "range"
+      ],
+      "subject": "清廷与主战、反战官员",
+      "action": "危机中清廷杀许景澄、袁昶、立山、徐用仪、联元等，议和后恢复其职，并惩处载勋、毓贤等。",
+      "result": "战时政治清洗在议和后被部分平反，主战责任人遭处分。",
+      "groups": [
+        "中央官员",
+        "皇室成员"
+      ],
+      "quote": [
+        "殺吏部侍郎許景澄、太常寺卿袁昶。",
+        "殺戶部尚書立山、兵部尚書徐用儀、內閣學士聯元。",
+        "詔復冤陷諸臣立山、徐用儀、許景澄、聯元、袁昶職。",
+        "賜載勳自盡。",
+        "，毓賢處斬。癸"
+      ],
+      "unknown": [
+        "案件审理和各人责任认定过程未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BOXER-POLITICAL-REPRESSION-1900-1901",
+        "summary": "庚子危机中杀反战官员，议和后平反并惩办主战者。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-QING-V24-BOXER-PROTOCOL-1901",
+      "time": [
+        "光绪二十七年七月至十一月",
+        "1901",
+        "range"
+      ],
+      "subject": "奕劻、李鸿章与十一国代表",
+      "action": "清廷全权大臣与十一国订立和约十二款，联军随后撤离京师。",
+      "result": "庚子战争以条约收束，帝后从西安回京；赔款具体数额本卷未载。",
+      "groups": [
+        "清廷官员",
+        "列强军民",
+        "京津民众",
+        "纳税民户"
+      ],
+      "quote": [
+        "全權大臣奕劻、李鴻章與十一國公使議訂和約十二款成。",
+        "各國聯軍去京師。",
+        "上奉皇太后至自西安。"
+      ],
+      "unknown": [
+        "和约全文、赔款总额、支付期限和地方损失未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BOXER-PROTOCOL-1901",
+        "summary": "十一国和约签订，联军撤京，帝后回銮。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-NEW-POLICIES-ADMIN-1901-1906",
+      "time": [
+        "光绪二十七年",
+        "光绪三十二年",
+        "range"
+      ],
+      "subject": "清廷督办政务处与中央各部",
+      "action": "清廷设督办政务处、外务部，继而更定官制，整并中央机构为民政、度支、陆军、法、农工商、邮传等部。",
+      "result": "中央行政由旧六部衙门体系转向近代部制。",
+      "groups": [
+        "中央官员",
+        "地方官员",
+        "军民"
+      ],
+      "quote": [
+        "詔立督辦政務處",
+        "置外務部，以總理各國事務衙門改設之",
+        "詔更定官制。"
+      ],
+      "unknown": [
+        "各部完整编制、经费与运行效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NEW-POLICIES-ADMIN-1901-1906",
+        "summary": "新政建立外务部并整并中央为近代部制。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-EDUCATION-EXAM-ABOLITION-1901-1906",
+      "time": [
+        "光绪二十七年八月",
+        "光绪三十二年",
+        "range"
+      ],
+      "subject": "清廷学部与各省学堂",
+      "action": "清廷改科举内容、停武科、令各省立学堂，最终废科举并设学部、裁学政。",
+      "result": "科举取士制度终止，近代学堂与学部教育行政成为主制。",
+      "groups": [
+        "士人",
+        "学生",
+        "教师",
+        "教育官员"
+      ],
+      "quote": [
+        "詔改科舉自明年始，罷時文試帖，以經義、時務策問試士，停武科。",
+        "詔直省立學堂。",
+        "，詔廢科舉。丙",
+        "詔置學部，以國子監歸並之",
+        "裁各省學政，改置提學使。"
+      ],
+      "unknown": [
+        "停考人数、学堂覆盖和教育财政未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EDUCATION-EXAM-ABOLITION-1901-1906",
+        "summary": "清廷由改科举转为废科举并建立学部学堂体系。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-LEGAL-REFORM-1902-1908",
+      "time": [
+        "光绪二十八年",
+        "光绪三十四年",
+        "range"
+      ],
+      "subject": "沈家本、伍廷芳与清廷司法机构",
+      "action": "清廷参订现行法律，废凌迟、枭首、戮尸和刺字，禁止刑讯并改革监狱和审判机构。",
+      "result": "传统酷刑被废，近代刑律、监狱和审判制度开始建立。",
+      "groups": [
+        "在押人员",
+        "司法官员",
+        "民众"
+      ],
+      "quote": [
+        "命沈家本、伍廷芳參訂現行法律。",
+        "諭更定法律。死罪至斬決止，除凌遲、梟首、戮屍等刑。",
+        "刺字諸例並除之。",
+        "以禁止刑訊，變通笞、杖，清查監獄羈所",
+        "各省府州縣立罪犯習藝所。"
+      ],
+      "unknown": [
+        "各省实施、冤狱变化和监狱经费未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LEGAL-REFORM-1902-1908",
+        "summary": "修律、废酷刑并建设近代司法监狱体系。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-PRECONSTITUTIONAL-REFORM-1905-1908",
+      "time": [
+        "光绪三十一年七月",
+        "光绪三十四年八月",
+        "range"
+      ],
+      "subject": "载泽、端方等考察大臣与清廷",
+      "action": "清廷派五大臣出洋考察政治，宣布仿行宪政，设咨议局、统计机构，并颁宪法、议院和选举纲要。",
+      "result": "预备立宪形成中央筹备机构、地方议政机构与宪法纲要，但议院尚未开设。",
+      "groups": [
+        "中央地方官员",
+        "绅民",
+        "拟议员"
+      ],
+      "quote": [
+        "載澤、戴鴻慈、徐世昌、端方往東西洋各國考察政治。",
+        "惟有仿行憲政，大權統於朝廷，庶政公諸輿論。",
+        "命各省立諮議局，公舉議員",
+        "命各省立調查局，各部、院設統計處。",
+        "憲政編查館、資政院上憲法、議院、選舉各綱要"
+      ],
+      "unknown": [
+        "正式议院开放时间、选民规模和地方执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PRECONSTITUTIONAL-REFORM-1905-1908",
+        "summary": "出洋考政后启动预备立宪并颁宪法纲要。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-NORTHEAST-ADMIN-REFORM-1907",
+      "time": [
+        "光绪三十三年三月",
+        "1907",
+        "month"
+      ],
+      "subject": "清廷与东三省行政机构",
+      "action": "清廷改盛京将军为东三省总督，裁吉林、黑龙江将军并设奉天、吉林、黑龙江三巡抚。",
+      "result": "东北由将军军府体系转为总督巡抚省制。",
+      "groups": [
+        "东北民众",
+        "驻防军",
+        "地方官员"
+      ],
+      "quote": [
+        "改盛京將軍為東三省總督，裁吉林、黑龍江將軍，改置奉、吉、黑三巡撫"
+      ],
+      "unknown": [
+        "地方编制、财政和旗民关系变化未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NORTHEAST-ADMIN-REFORM-1907",
+        "summary": "东三省改行总督巡抚省制。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-RAILWAY-POST-INFRASTRUCTURE-1896-1908",
+      "time": [
+        "光绪二十二年",
+        "光绪三十四年",
+        "range"
+      ],
+      "subject": "邮传机构、铁路督办与地方工程",
+      "action": "清廷推广邮政与铁路，芦汉铁路建成，筹办津浦铁路，并建设兰州黄河铁桥。",
+      "result": "全国邮传和干线铁路继续扩展，黄河上出现近代铁桥工程。",
+      "groups": [
+        "铁路工人",
+        "邮政人员",
+        "商旅",
+        "沿线民众"
+      ],
+      "quote": [
+        "蘆漢鐵路成。",
+        "命呂海寰充督辦津浦鐵路大臣。",
+        "建蘭州黃河鐵橋。"
+      ],
+      "unknown": [
+        "线路总长、投资、征地和运营收益未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "RAILWAY-POST-INFRASTRUCTURE-1896-1908",
+        "summary": "光绪后期邮传、干线铁路和黄河铁桥持续建设。",
+        "continuity": "continued_within_reign",
+        "phase": "建设扩张",
+        "purpose": "交通通信",
+        "operation_result": "芦汉建成，津浦与铁桥启动"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-RIVER-DISASTER-WORKS-1895-1908",
+      "time": [
+        "光绪二十一年",
+        "光绪三十四年",
+        "range"
+      ],
+      "subject": "清廷与黄河、永定河河工",
+      "action": "黄河、沁河和永定河多次决溢，清廷持续堵修、合龙和赈济。",
+      "result": "若干决口合龙，但河患反复延续至朝末。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫",
+        "农户"
+      ],
+      "quote": [
+        "，河決利津。戊",
+        "，永定河溢。是",
+        "甲戌，永定河決口合龍。",
+        "河決山東上中游，濟陽等六縣同時並溢。",
+        "未，河決孟縣。\n",
+        "沁河決口合龍。"
+      ],
+      "unknown": [
+        "累计工费、伤亡、迁民与长期防洪成效未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "RIVER-DISASTER-WORKS-1895-1908",
+        "summary": "光绪后期黄河、沁河、永定河反复决修。",
+        "continuity": "continued_within_reign",
+        "phase": "反复抢修",
+        "purpose": "防洪",
+        "operation_result": "部分合龙但河患持续"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-DISASTER-RELIEF-1895-1908",
+      "time": [
+        "光绪二十一年",
+        "光绪三十四年",
+        "range"
+      ],
+      "subject": "清廷与各省灾民",
+      "action": "清廷以拨帑、免赋、截漕、设厂和平粜持续救济水旱风雹、地震和饥荒。",
+      "result": "跨省灾赈长期维持，但重大灾害与饥荒仍反复发生。",
+      "groups": [
+        "灾民",
+        "农户",
+        "流民"
+      ],
+      "quote": [
+        "發帑各十萬，賑湖南、雲南、陝西各屬災。",
+        "發帑十五萬賑陝西、安徽災",
+        "發帑十萬賑湖北、湖南災民。"
+      ],
+      "unknown": [
+        "累计赈款、死亡人数、受益人口和侵冒情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DISASTER-RELIEF-1895-1908",
+        "summary": "光绪后期持续以帑银、免赋、粥厂和平粜救灾。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-TIBET-BRITISH-EXPEDITION-1903-1906",
+      "time": [
+        "光绪二十九年",
+        "光绪三十二年",
+        "range"
+      ],
+      "subject": "西藏地方、清廷与英国军队",
+      "action": "英军入藏，达赖出逃；清廷派员议约并代付英国索赔，英军撤退。",
+      "result": "英国军事入侵以交涉和赔款收束，清廷继续调整西藏治理。",
+      "cost": "清廷代付索赔一百二十余万；军民伤亡未载。",
+      "groups": [
+        "藏民",
+        "清廷官员",
+        "英国军队"
+      ],
+      "quote": [
+        "英兵入藏境，達賴逃，褫其名號",
+        "。英兵旋退。敕",
+        "敕唐紹儀為議約全權大臣。",
+        "英兵入藏，索賠款一百二十餘萬。諭國家代給"
+      ],
+      "unknown": [
+        "战斗伤亡、条约全文和赔款支付进度未载。"
+      ],
+      "battle": "CAMPAIGN-QING-BRITISH-TIBET-1903-1906",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-RUSSO-JAPANESE-WAR-NEUTRALITY-1904-1905",
+      "time": [
+        "光绪三十年正月",
+        "光绪三十一年",
+        "range"
+      ],
+      "subject": "清廷、日本与俄国",
+      "action": "日俄在中国东北交战，清廷宣布局外中立并处理战区、难民和战后交涉。",
+      "result": "中国未作为正式交战方，但东北主权、民生和交通受到外国战争冲击。",
+      "groups": [
+        "东北民众",
+        "日俄军队",
+        "清廷官员"
+      ],
+      "quote": [
+        "以日、俄手冓兵，中國守局外中立例"
+      ],
+      "unknown": [
+        "战争对中国伤亡、财产和主权的具体损失未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "RUSSO-JAPANESE-WAR-NEUTRALITY-1904-1905",
+        "summary": "日俄战争期间清廷守局外中立并处理东北善后。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-GUANGXI-UNREST-1898-1905",
+      "time": [
+        "光绪二十四年",
+        "光绪三十一年",
+        "range"
+      ],
+      "subject": "广西官军与会党、民变武装",
+      "action": "广西多地会党与民变持续起事，官军反复剿抚。",
+      "result": "部分据点被收复，但动乱长期延续。",
+      "cost": "双方与民众伤亡、军费未载。",
+      "groups": [
+        "官军",
+        "会党武装",
+        "广西民众"
+      ],
+      "quote": [
+        "廣西匪踞南關砲台，責張鳴岐督剿，尋復之。",
+        "發帑五十萬濟廣西軍。"
+      ],
+      "unknown": [
+        "各支武装关系、总伤亡、军费和长期影响未载。"
+      ],
+      "battle": "CAMPAIGN-QING-GUANGXI-UNREST-1898-1905",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V24-GUANGXU-DEATH-PUYI-SUCCESSION-1908",
+      "time": [
+        "光绪三十四年十月",
+        "1908",
+        "month"
+      ],
+      "subject": "光绪帝、慈禧太后、载沣与溥仪",
+      "action": "光绪病危时慈禧命溥仪入宫教养、载沣监国，光绪随后崩逝，遗诏溥仪承统。",
+      "result": "光绪朝结束，三岁的溥仪继位并由载沣摄政；卷25重复锚点应标为本事件的duplicate-of。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "醇親王載灃之子溥儀在宮中教養，覆命載灃監國為攝政王。",
+        "上疾大漸，崩於瀛台涵元殿",
+        "遺詔攝政王載灃子溥儀入承大統"
+      ],
+      "unknown": [
+        "德宗死因与继承决策内部过程未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GUANGXU-DEATH-PUYI-SUCCESSION-1908",
+        "summary": "光绪崩，溥仪继位，载沣摄政。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

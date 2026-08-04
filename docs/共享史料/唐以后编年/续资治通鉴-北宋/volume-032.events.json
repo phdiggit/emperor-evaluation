@@ -1,0 +1,1048 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-032",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷032",
+    "revision_ref": "2611138",
+    "start_locator": "宋真宗大中祥符八年正月",
+    "end_locator": "宋真宗大中祥符八年六月",
+    "overlap_context": "承接卷031澶州河决、高丽再贡与辽高丽战争；本卷记录棣州迁城、辽高丽及准布战事、贡举誊录和寒俊取士，推进宫火善后、文库重建、禁金饰、边储与多项赈免，并转出寿春郡王教育、辽宗真出生、秦州边警与三司审核分设。",
+    "input_fingerprint": "7f61656a9ed434439cc858d3b0fceae15fc9ba9134fe80e714f9c6ef679b42ac"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-032-DIZHOU-RELOCATED-1015",
+      "time": "大中祥符八年正月至三月",
+      "loc": [
+        "棣州",
+        "阳信县八方寺"
+      ],
+      "action": "棣州河水高于城且屡决，宋廷将州治北迁七十里高阜，利用捍堤军士施工，三月完成。",
+      "result": "故城粮食贷给歉食民众、约次年输新城，大水后来淹故城丈余，验证迁城防洪作用。",
+      "quote": [
+        "河流高于州城",
+        "三月而役成",
+        "治，公私便之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以故城余粮贷民并缓期归还。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三月完成棣州迁城。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "选择迁城应对持续河决。"
+        ]
+      ],
+      "unknown": [
+        "迁城总费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-RELIGIOUS-REGISTER-FIRE-1015",
+      "time": "大中祥符八年二月",
+      "loc": [
+        "宗正寺"
+      ],
+      "action": "宗正寺失火，玉牒属籍及时移至别舍而保存。",
+      "result": "宋廷另择地点重建宗正寺。",
+      "quote": [
+        "寅，宗正寺火"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宗正寺火后择地重建。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "皇族档案免遭焚毁。"
+        ]
+      ],
+      "unknown": [
+        "火灾损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-CHEN-YAOZI-DISCIPLINED-1015",
+      "time": "大中祥符八年二月至九月",
+      "loc": [
+        "永兴军",
+        "河南府",
+        "邓州"
+      ],
+      "action": "乐黄目查出陈尧咨纵恣不法，真宗未穷治，仅落职徙邓州；后又列举擅置武库、筑甬道、列禁兵自卫等责令改过。",
+      "result": "陈尧咨在兄长近侍影响下免于彻查，但受到连续降责和警告。",
+      "quote": [
+        "如擅置武库，建视草堂，开三门",
+        "自今宜体国恩，改过迁善"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追究擅建武库甬道。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "惩戒地方长官越制严酷。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-HANJUN-EXAMINATION-1015",
+      "time": "大中祥符八年三月",
+      "loc": [
+        "崇政殿"
+      ],
+      "action": "真宗覆试后命宰相复核黜卷，录蔡齐等进士并大量特奏名；考定后宰相无人知其姓名。",
+      "result": "本届被视为真正搜求寒俊，但寇准以地域偏见阻萧贯为状元，蔡齐居首。",
+      "quote": [
+        "百九十七人及第",
+        "士七十八人",
+        "三百六十三人",
+        "谓搜求寒俊"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "誊录防弊后大规模取寒俊并暴露地域偏见。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-FAN-ZHONGYAN-EMERGES-1015",
+      "time": "大中祥符八年三月",
+      "loc": [
+        "宋贡院"
+      ],
+      "action": "范仲淹幼孤随继父姓朱，贫居僧舍以粥齑苦读三年，本年登第后恢复本姓并迎母奉养。",
+      "result": "贫寒士人通过科举进入仕途。",
+      "quote": [
+        "吴人范仲淹，",
+        "日作粥一器",
+        "焉。至是登第"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "记录贫寒读书生活与登第。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "寒俊通过科举入仕。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-KOU-ZHUN-REMOVED-1015",
+      "time": "大中祥符八年四月",
+      "loc": [
+        "枢密院",
+        "武胜军"
+      ],
+      "action": "寇准与林特争执又好以恩威自任，被真宗罢枢密使；王旦虽屡受寇准攻击仍荐其使相出镇。",
+      "result": "寇准任武胜军节度使同平章事，王钦若、陈尧叟复任枢密使。",
+      "quote": [
+        "，谓王旦等曰"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "寇准再罢枢密、王钦若复起。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-LIAO-WESTERN-MASSACRE-AND-SETTLEMENT-1015",
+      "time": "大中祥符八年四月",
+      "loc": [
+        "清泥埚",
+        "噶喇河",
+        "胪朐河"
+      ],
+      "action": "耶律世良破德埒勒后歼其丁壮，遭巴固伏击小却，后追获辎重及于厥部众，并迁德埒勒民筑城安置。",
+      "result": "辽以屠杀、迁民和筑城压制西北部族，但巴固逃脱。",
+      "quote": [
+        "世良惩于部族易叛，既破德埒勒，辄歼其丁壮，勒兵还噶喇河，进击餘党。而斥候不谨，其将巴固聚兵稠林中，乘辽师不备击之，辽师小却，退陈于河曲",
+        "获其辎重及所诱于厥之众，并迁德埒勒部民，城胪朐河上以居之"
+      ],
+      "battle": "CAMPAIGN-LIAO-WESTERN-MASSACRE-1015",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "筑胪朐河城安置迁民。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽以强制迁徙控制部族。"
+        ]
+      ],
+      "unknown": [
+        "死亡和迁民数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-OFFICIAL-FIELD-INCOME-DONATED-1015",
+      "time": "大中祥符八年六月",
+      "loc": [
+        "荆南府"
+      ],
+      "action": "马亮建议官员职田收入过厚，暂缓二三年支给，并先将自己本年米麦四百二十余石纳官。",
+      "result": "真宗下诏褒奖，但未载全面停支。",
+      "quote": [
+        "给事中、知荆南府马亮言：「庶官职田过为优厚，请二三年间权住支给，聊助经费",
+        "臣今岁所得米麦四百二十餘石，已牒本府纳官讫"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "马亮交还四百二十余石职田收入。"
+        ]
+      ],
+      "unknown": [
+        "全国暂停方案是否施行未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-GOVERNOR-SELECTION-STANDARD-1015",
+      "time": "大中祥符八年七月",
+      "loc": [
+        "宋大藩"
+      ],
+      "action": "真宗提出大藩长吏应通晓物情、守法令、爱民抑暴，反对廉而虐、苛察、急敛和旷职。",
+      "result": "地方长官用人标准明确以治理平衡为核心。",
+      "quote": [
+        "或廉而肆虐",
+        "则何由致治"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "反对地方急敛。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明确大藩长吏治理标准。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-GUSILUO-XIXIA-PROPOSAL-1015",
+      "time": "大中祥符八年九月",
+      "loc": [
+        "西北",
+        "夏州",
+        "秦州",
+        "泾原"
+      ],
+      "action": "嘉勒斯赉聚众数十万请伐夏州，宋廷怀疑其可能生变，改派周文质监泾原军、曹玮知秦州防备。",
+      "result": "宋朝没有接受以蕃攻夏，而加强西北守备。",
+      "quote": [
+        "嘉勒斯赉始立文法，聚众数十万，表请伐夏州以自效",
+        "帝以戎人多诈，或生它变，命周文质监泾原军、曹玮知秦州以备之"
+      ],
+      "battle": "CAMPAIGN-GUSILUO-XIXIA-PROPOSAL-1015",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拒绝蕃部伐夏并强化秦泾防备。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-GORYEO-BORDER-BATTLES-1015",
+      "time": "大中祥符八年九月",
+      "loc": [
+        "通州",
+        "宁州",
+        "定远镇",
+        "兴化镇"
+      ],
+      "action": "辽攻通州，高丽郑神勇绕后杀七百余人后战死；辽攻宁州不克，退军又击败追兵并夺定远、兴化二镇筑城。",
+      "result": "双方互有胜负，辽取得两镇。",
+      "quote": [
+        "化二镇，城之。\n"
+      ],
+      "battle": "CAMPAIGN-GORYEO-BORDER-BATTLES-1015",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽在两镇筑城。"
+        ]
+      ],
+      "unknown": [
+        "辽军伤亡除七百余外未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-LIAO-EASTERN-MOBILIZATION-1015",
+      "time": "大中祥符八年十一月",
+      "loc": [
+        "辽上京",
+        "中京",
+        "诸宫"
+      ],
+      "action": "辽廷汰选东京僧众，并从上京、中京及诸宫选精兵五万五千备东征。",
+      "result": "辽为继续高丽战争集中大规模兵力。",
+      "quote": [
+        "十一月，庚申，辽主命汰东京僧，又命上京、中京及诸宫选精兵五万五千人以备东征"
+      ],
+      "battle": "CAMPAIGN-LIAO-EASTERN-MOBILIZATION-1015",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-GUOZHOU-LIAO-VICTORY-1016",
+      "time": "大中祥符九年正月",
+      "loc": [
+        "郭州西",
+        "南海军"
+      ],
+      "action": "耶律世良、萧库哩在郭州西击败高丽军。",
+      "result": "辽军斩首万余、尽获辎重，世良随后死于军中。",
+      "quote": [
+        "州西，破之，斩"
+      ],
+      "battle": "CAMPAIGN-GUOZHOU-LIAO-VICTORY-1016",
+      "unknown": [
+        "辽军损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-CAVALRY-COMMANDER-TRANSFER-1016",
+      "time": "大中祥符九年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "张旻严令选兵引发士兵谋变，王旦反对治罪或大捕，建议升其枢密副使以解除兵权。",
+      "result": "张旻离开直接军职后，兵变风险消散。",
+      "quote": [
+        "兵，下令太峻",
+        "曰：「若罪旻，则",
+        "擢用，使解兵柄"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以升迁解兵权化解兵变。"
+        ]
+      ],
+      "unknown": [
+        "谋变者未追究。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-COURT-MARRIAGE-COST-CAPS-1016",
+      "time": "大中祥符九年四月",
+      "loc": [
+        "宋宫廷"
+      ],
+      "action": "宗室宫院婚嫁费用常逾千万甚至使人破产，宋廷制定财物上限并减少从人供给。",
+      "result": "婚嫁冗费受到制度约束，宫廷另给金帛补助。",
+      "quote": [
+        "不可不限其制度"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制宗室婚嫁冗费并给补助。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "制定宫院婚嫁财物标准。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-QIN-SHUL-BORDER-PREPAREDNESS-1016",
+      "time": "大中祥符九年五月",
+      "loc": [
+        "秦州",
+        "渭州",
+        "川陕"
+      ],
+      "action": "因嘉勒斯赉与秦渭熟户结怨，宋廷批准曹玮增屯兵，并更换失职川陕长吏、监押和巡检。",
+      "result": "西北边警推动局部增兵与官员整顿。",
+      "quote": [
+        "嘉勒斯赉与秦、渭熟户结为衅隙，曹玮请益屯兵，可如所请",
+        "川、陕长吏、监押、巡检有旷弛者，代之"
+      ],
+      "battle": "CAMPAIGN-QINSHU-BORDER-PREPAREDNESS-1016",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "秦渭边警后增兵并撤换失职官。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-THREE-ACCOUNTING-OFFICES-SEPARATED-1016",
+      "time": "大中祥符九年六月",
+      "loc": [
+        "三司"
+      ],
+      "action": "王旦指出盐铁、度支、户部句院合为一司过于繁重，宋廷重新分设三部并选才官主持。",
+      "result": "财计审核由统一句院改为分部处理，以减少簿领、提高核查精度。",
+      "quote": [
+        "领，稍得精意"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "分设三司句院提高财计审核。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整三司内部机构。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-WATER-DISASTER-TAX-RELIEF-1015",
+      "time": "大中祥符八年正月",
+      "loc": [
+        "沿河",
+        "淮南",
+        "两浙"
+      ],
+      "action": "礼成大赦，并蠲免沿河、淮南、两浙受水灾民田税。",
+      "result": "水灾地区获得税收减免。",
+      "quote": [
+        "缘河、淮南、两浙民田经水灾者",
+        "者，悉蠲其税"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蠲免水灾民田税。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "礼成大赦。"
+        ]
+      ],
+      "unknown": [
+        "蠲税总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-EXAM-TRANSCRIPTION-OFFICE-1015",
+      "time": "大中祥符八年正月",
+      "loc": [
+        "礼部贡院"
+      ],
+      "action": "宋廷要求精择寒俊，并首次设置誊录院，将封印试卷誊写、校对后再交考官。",
+      "result": "科举防弊形成誊录校对流程。",
+      "quote": [
+        "始置誊录院",
+        "集书吏录本",
+        "命京官校对",
+        "始送知举官考校"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立科举誊录校对制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-LIAO-EASTERN-CAMPAIGN-1015",
+      "time": "大中祥符八年正月至四月",
+      "loc": [
+        "辽东京",
+        "高丽"
+      ],
+      "action": "辽东京留守等率大军与女真兵分道东征高丽。",
+      "result": "萧迪里等出征无功而还。",
+      "quote": [
+        "已总大军及女真诸部兵分道进讨",
+        "征高丽，无功而还"
+      ],
+      "battle": "CAMPAIGN-LIAO-GORYEO-EASTERN-CAMPAIGN-1015",
+      "unknown": [
+        "具体战斗未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-WESTERN-HORSE-TRIBUTE-1015",
+      "time": "大中祥符八年二月",
+      "loc": [
+        "西蕃",
+        "宋朝廷"
+      ],
+      "action": "嘉勒斯赉等贡名马，估值七百六十万钱。",
+      "result": "宋廷回赐金七千两及锦袍金带等物。",
+      "quote": [
+        "西蕃首领嘉勒斯赉",
+        "估其直约钱七百六十万",
+        "凡中金七千两"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "高额贡马与回赐。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "维持西蕃贡赐关系。"
+        ]
+      ],
+      "unknown": [
+        "马匹数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-WAREHOUSE-SURPLUS-NOT-MERIT-1015",
+      "time": "大中祥符八年四月",
+      "loc": [
+        "宋仓庾"
+      ],
+      "action": "宋廷重申仓库羡余不得计为官员劳绩。",
+      "result": "抑制以加征克扣制造财政盈余。",
+      "quote": [
+        "凡仓庾所收羡剩",
+        "剩，不为劳绩"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止以仓储羡余邀功。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-LIAO-WESTERN-MASSACRE-1015",
+      "time": "大中祥符八年四月",
+      "loc": [
+        "清泥埚",
+        "胪朐河"
+      ],
+      "action": "耶律世良破德埒勒后歼其丁壮，遭巴固伏击，后迁部民筑城安置。",
+      "result": "辽以屠杀、迁民筑城控制西北部族，巴固逃脱。",
+      "quote": [
+        "辄歼其丁壮",
+        "乘辽师不备击之",
+        "巴固得以轻骑遁去",
+        "迁德埒勒部民",
+        "城胪朐河上以居之"
+      ],
+      "battle": "CAMPAIGN-LIAO-WESTERN-MASSACRE-1015",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "筑城安置强迁部民。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽强制迁徙西北部族。"
+        ]
+      ],
+      "unknown": [
+        "死亡与迁民数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-PALACE-FIRE-1015",
+      "time": "大中祥符八年四月",
+      "loc": [
+        "荣王宫",
+        "内藏库",
+        "崇文院",
+        "秘阁"
+      ],
+      "action": "荣王宫火延烧内外库、崇文院和秘阁。",
+      "result": "两朝积累几乎焚尽，真宗罪己并命修葺大内。",
+      "quote": [
+        "荣王元俨宫火",
+        "延烧内藏左藏库",
+        "两朝所积，一朝殆尽",
+        "遂下诏罪己"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫火毁坏两朝财物。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "启动大内灾后修葺。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "因宫火罪己。"
+        ]
+      ],
+      "unknown": [
+        "损失金额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-PALACE-FIRE-SENTENCES-REDUCED-1015",
+      "time": "大中祥符八年五月",
+      "loc": [
+        "宋朝廷"
+      ],
+      "action": "荣王侍婢纵火案原牵连大量死刑，王旦以罪己诏后不宜滥杀劝止。",
+      "result": "近百人减死，荣王仅降为端王。",
+      "quote": [
+        "侍婢韩盗卖金器",
+        "事发，遂纵火。」",
+        "减死者几百人",
+        "止降荣王元俨为端王"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫火案减免近百死刑。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-LIAO-RENEWS-GORYEO-WAR-1015",
+      "time": "大中祥符八年五月",
+      "loc": [
+        "辽高丽边境"
+      ],
+      "action": "辽任刘慎行为都统伐高丽，因其携家缓师期而撤换，由耶律世良等进讨。",
+      "result": "辽高丽战争再启。",
+      "quote": [
+        "监，以伐高丽",
+        "先携家置边郡",
+        "郡，致缓师期",
+        "哩总兵进讨"
+      ],
+      "battle": "CAMPAIGN-LIAO-RENEWS-GORYEO-WAR-1015",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-HEBEI-SURPLUS-RETAINED-1015",
+      "time": "大中祥符八年五月",
+      "loc": [
+        "河北"
+      ],
+      "action": "河北羡余钱四十万贯、绢五千匹、丝三千两、布二十万匹原拟上供。",
+      "result": "宋廷命留本路储积，不再运京。",
+      "quote": [
+        "羡餘钱四十万贯",
+        "布二十万匹",
+        "令本路贮积",
+        "积，勿更辇致"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河北羡余留作本路储备。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-CHONGWEN-OUTER-LIBRARY-1015",
+      "time": "大中祥符八年五月至十二月",
+      "loc": [
+        "开封崇文外院"
+      ],
+      "action": "宫火后宋廷建崇文外院和三馆书库，并组织重写馆阁书籍。",
+      "result": "被烧毁的国家藏书开始恢复。",
+      "quote": [
+        "创崇文外院",
+        "别置三馆书库",
+        "阁、所存无几",
+        "院，重写书籍"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新建外院书库并重抄藏书。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重建馆阁知识资产。"
+        ]
+      ],
+      "unknown": [
+        "重写卷数待后续。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-GOLD-ORNAMENT-BAN-1015",
+      "time": "大中祥符八年五月",
+      "loc": [
+        "宋境",
+        "宋辽国信"
+      ],
+      "action": "宋廷禁止宫禁至民间服玩用金装饰，并把辽国信金饰改用锦绣。",
+      "result": "禁金饰扩大至全国和外交礼物。",
+      "quote": [
+        "一切服玩皆不得以金为饰",
+        "禁，自是遂绝",
+        "旧用金饰者",
+        "并易以锦绣"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全国禁金饰并改外交礼物材料。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫民共同执行禁奢。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-PALACE-WOMEN-RELEASED-1015",
+      "time": "大中祥符八年五月",
+      "loc": [
+        "宋宫廷"
+      ],
+      "action": "宋廷释放宫人一百八十四人。",
+      "result": "宫廷人员缩减。",
+      "quote": [
+        "放宫人一百八十四人"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "释放一百八十四名宫人。"
+        ]
+      ],
+      "unknown": [
+        "资遣情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-SHOUCHUN-PRINCE-CROWNED-1015",
+      "time": "大中祥符八年十二月",
+      "loc": [
+        "宋宫廷"
+      ],
+      "action": "皇子受益行冠礼，进封寿春郡王。",
+      "result": "皇子继承身份进一步确立。",
+      "quote": [
+        "皇子行加冠礼",
+        "封寿春郡王"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "受益冠礼后封寿春郡王。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-PRINCE-SCHOOL-1016",
+      "time": "大中祥符九年二月",
+      "loc": [
+        "元符观南资善堂"
+      ],
+      "action": "宋廷在元符观南建资善堂供皇子学习，并禁止嬉戏玩物。",
+      "result": "寿春郡王获得专门校舍和师友。",
+      "quote": [
+        "筑堂于元符观南",
+        "为皇子就学之所",
+        "赐名曰资善",
+        "不得于堂中戏笑"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建资善堂作为皇子学舍。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "确立寿春郡王教育体系。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-LIAO-HEIR-BORN-1016",
+      "time": "大中祥符九年二月",
+      "loc": [
+        "辽宫廷"
+      ],
+      "action": "萧纳木锦生辽主长子宗真，由皇后收养。",
+      "result": "辽继承人出生并形成生母养母矛盾。",
+      "quote": [
+        "辽皇子宗真生",
+        "辽主之长子",
+        "也。皇后无子",
+        "子，取为己子"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽宗真出生并由皇后收养。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-SALT-PRODUCTION-LIMIT-1016",
+      "time": "大中祥符九年四月",
+      "loc": [
+        "安邑盐池",
+        "解县盐池"
+      ],
+      "action": "两池已有盐三亿八千八百八十二万余斤，官员仍求搜取遗利。",
+      "result": "真宗以过求增羡终会枯竭为由拒绝。",
+      "quote": [
+        "盐三亿八千八百八十二万餘斤",
+        "恐尚有遗利",
+        "若过求增羡",
+        "阙。不可许也"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拒绝盐池过度增产逐利。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-RITUAL-LEVIES-BANNED-1016",
+      "time": "大中祥符九年五月",
+      "loc": [
+        "宋诸路"
+      ],
+      "action": "筹备大礼时，宋廷命赏赐用内藏物，三司不得催诸路钱帛，地方不得借修贡助祭摊派。",
+      "result": "大礼财政与地方税敛隔离。",
+      "quote": [
+        "三司勿催促诸路钱帛",
+        "无得以修贡、助祭为名",
+        "名，辄有率敛"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止以大礼名义催钱摊派。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大礼费用限定由内藏承担。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-032-XIXIA-RAID-REPELLED-1016",
+      "time": "大中祥符九年五月",
+      "loc": [
+        "庆州"
+      ],
+      "action": "夏州蕃骑一千五百侵庆州，被内属蕃部击退。",
+      "result": "边袭被遏止。",
+      "quote": [
+        "蕃骑千五百来寇庆州",
+        "内属蕃部击走之"
+      ],
+      "battle": "CAMPAIGN-XIXIA-RAID-REPELLED-1016",
+      "unknown": [
+        "伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-032-QINSHU-BORDER-PREPAREDNESS-1016",
+      "time": "大中祥符九年五月",
+      "loc": [
+        "秦州",
+        "渭州",
+        "川陕"
+      ],
+      "action": "因嘉勒斯赉与秦渭熟户结怨，宋廷批准曹玮增屯兵并更换失职官员。",
+      "result": "西北边警推动局部增兵整顿。",
+      "quote": [
+        "嘉勒斯赉与秦、渭熟户结为衅隙",
+        "曹玮请益屯兵",
+        "兵，可如所请",
+        "有旷弛者，代之"
+      ],
+      "battle": "CAMPAIGN-QINSHU-BORDER-PREPAREDNESS-1016",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "秦渭边警后增兵并撤换失职官。"
+        ]
+      ],
+      "unknown": []
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2611138 的《續資治通鑑》卷032连续通读登记，不引入卷外常识。",
+    "普通任免、贡聘、祥异与不进入四域消费的礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末辽高丽战事、西北边警及寿春郡王继承教育线转后卷承接。"
+  ]
+}

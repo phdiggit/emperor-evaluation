@@ -1,0 +1,629 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V02-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V02-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷2",
+    "revision_ref": "2325084",
+    "start_locator": "神冊四年二月修遼陽故城",
+    "end_locator": "天顯二年八月葬太祖皇帝於祖陵",
+    "overlap_context": "本卷连续记神册四年至天显二年；大规模征服、迁徙与安置分别按军事过程和其后的制度结果合并，未知保持未知。",
+    "input_fingerprint": "631e2f1003dd629384cd6ff8de3656a9926c0ea08a546d86fe2129db9d8b0a54"
+  },
+  "limitations": [
+    "仅据服务器固定《遼史》卷2正文登记，未知保持未知。",
+    "战役只交接新版战役工作流；普通贡聘、巡幸、祭祀、单次任免和重复行军节点不单列。",
+    "俘户安置、迁民数量、工程役费、军民伤亡和具体法条多未详载，不据推测补齐。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V02-LIAOYANG-REPAIR-AND-RESETTLEMENT-919",
+      "time": [
+        "神冊四年二月至五月",
+        "919",
+        "range"
+      ],
+      "subject": "耶律阿保機政权与辽阳汉民、渤海户",
+      "action": "修复辽阳故城，以汉民和渤海户充实城内，改名东平郡并设置防御使。",
+      "result": "辽阳故城转为有迁入人口和防御使驻守的东平郡。",
+      "groups": [
+        "汉民",
+        "渤海户",
+        "东平郡居民",
+        "城防军吏",
+        "营建役夫"
+      ],
+      "quote": [
+        "修遼陽故城，以漢民、渤海戶實之，改為東平郡，置防禦使。",
+        "至自東平郡。"
+      ],
+      "unknown": [
+        "修城规模、迁入户数、原居民处置、役夫物料和防御使兵额未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "LIAOYANG-REPAIR-AND-RESETTLEMENT-919",
+        "summary": "修复辽阳故城、实入汉民渤海户并设东平郡防御使。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-WUGU-SUBMISSION-919",
+      "time": [
+        "神冊四年九月至十月",
+        "919",
+        "range"
+      ],
+      "subject": "耶律阿保機军、皇太子先锋军与乌古部",
+      "action": "阿保机征乌古部，因皇太后病暂返后复入军，命皇太子率先锋进击。",
+      "result": "乌古部被击破，俘获人口、牲畜和器物后全部来附。",
+      "cost": "记有俘生口一万四千二百和牛马车乘庐帐器物二十余万，双方伤亡和安置未载。",
+      "groups": [
+        "契丹军",
+        "乌古部",
+        "被俘人口",
+        "契丹皇太子先锋军"
+      ],
+      "quote": [
+        "命皇太子將先鋒軍進擊，破之，俘獲生口萬四千二百",
+        "俘獲生口萬四千二百，牛馬、車乘、廬帳、器物二十餘萬。",
+        "自是舉部來附。"
+      ],
+      "unknown": [
+        "参战兵力、伤亡、俘口去向和附部条件未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-WUGU-SUBMISSION-919",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-KHITAN-LARGE-SCRIPT-920",
+      "time": [
+        "神冊五年正月至九月",
+        "920",
+        "range"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "开始制作契丹大字，完成后以诏令颁行。",
+      "result": "契丹大字由制作转为官方颁行。",
+      "groups": [
+        "文字制作人员",
+        "官员",
+        "契丹部众",
+        "文书使用者"
+      ],
+      "quote": [
+        "始製契丹大字。",
+        "大字成，詔頒行之。"
+      ],
+      "unknown": [
+        "字形依据、制作人员、颁行范围、教育和文书实施情况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "KHITAN-LARGE-SCRIPT-920",
+        "summary": "契丹大字制作完成并以诏令颁行。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V02-TIANDE-CAMPAIGN-920",
+      "time": [
+        "神冊五年八月至十二月",
+        "920",
+        "range"
+      ],
+      "subject": "耶律阿保機军、皇太子军与天德军宋瑶",
+      "action": "党项诸部叛后阿保机亲征，皇太子另略云内天德；天德节度使宋瑶降而复叛，契丹军再拔其城。",
+      "result": "宋瑶被擒，家属被俘，天德民众被迁至阴山南。",
+      "cost": "记载天德民众迁徙，双方伤亡、迁民数量和安置损失未载。",
+      "groups": [
+        "契丹军",
+        "党项诸部",
+        "天德军民",
+        "宋瑶家属",
+        "阴山南迁入者"
+      ],
+      "quote": [
+        "党項諸部叛。辛未，上親征。",
+        "宋瑤復叛。丙子，拔其城，擒宋瑤，俘其家屬，徙其民於陰山南。",
+        "十二月己未，師還。"
+      ],
+      "unknown": [
+        "党项叛部、兵力伤亡、天德迁民规模和安置条件未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-TIANDE-920",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-SOUTHERN-CHANCELLOR-REINSTATEMENT-921",
+      "time": [
+        "神冊六年正月",
+        "921",
+        "month"
+      ],
+      "subject": "耶律阿保機、皇弟苏与南府宗室",
+      "action": "因诸弟构乱后南府名族多遭祸、宰相职位久虚，南府反复请求改以宗室任相；阿保机告宗庙后任皇弟苏为南府宰相。",
+      "result": "南府宰相改由宗室担任的先例自此确立。",
+      "groups": [
+        "南府宗室",
+        "南府名族",
+        "南府官属",
+        "皇弟苏"
+      ],
+      "quote": [
+        "府之名族多罹其禍，故其位久虛，以鋤得部轄得里、只里古攝之。",
+        "乃告於宗廟而後授之。宗室為南府宰相自此始。"
+      ],
+      "unknown": [
+        "南府名族受祸人数、旧制具体内容、请求过程和实际权责未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SOUTHERN-CHANCELLOR-REINSTATEMENT-921",
+        "summary": "南府宰相恢复并确立宗室担任的先例。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V02-LAW-AND-LOCAL-CONSULTATION-921",
+      "time": [
+        "神冊六年五月",
+        "921",
+        "month"
+      ],
+      "subject": "耶律阿保機政权与地方长吏",
+      "action": "下诏确定法律、整正班爵，并命地方长吏每逢四孟月询问民间利病。",
+      "result": "法律、官爵秩序和地方定期民情询问被同时明确为政令。",
+      "groups": [
+        "地方长吏",
+        "官员",
+        "民众",
+        "司法执行者"
+      ],
+      "quote": [
+        "詔定法律，正班爵。",
+        "詔長吏四孟月詢民利病。"
+      ],
+      "unknown": [
+        "所定法条、班爵调整名单、询问程序及民情如何处理未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LAW-AND-LOCAL-CONSULTATION-921",
+        "summary": "确定法律班爵，并命长吏按季询问民利病。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V02-SOUTHERN-RAIDS-AND-RESETTLEMENT-921-922",
+      "time": [
+        "神冊六年十月至十二月",
+        "921至922",
+        "range"
+      ],
+      "subject": "耶律阿保機军、王郁所部与幽燕诸州",
+      "action": "王郁以内附山北兵马为引，契丹军入居庸关、分兵掠取十余城并围涿州；与后唐李存勗军交战后撤回。",
+      "result": "檀、顺等地民众被迁往东平、沈州，王郁所部也被迁至潢水南。",
+      "cost": "多城民众被俘迁，军队战斗失利；伤亡与迁徙规模未载。",
+      "groups": [
+        "契丹军",
+        "王郁所部",
+        "幽燕诸州居民",
+        "后唐军",
+        "东平沈州迁入者"
+      ],
+      "quote": [
+        "分兵略檀、順、安遠、三河、良鄉、望都、潞、滿城、遂城等十餘城，俘其民徙內地。",
+        "大戰，我軍不利，引歸。",
+        "詔徙檀、順民於東平、瀋州。"
+      ],
+      "unknown": [
+        "十余城具体损失、参战兵力伤亡、迁民数量和东平沈州安置条件未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-SOUTHERN-RAIDS-921-922",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-JIZHOU-ZHENZHOU-CAMPAIGN-922",
+      "time": [
+        "天贊元年二月至五月",
+        "922",
+        "range"
+      ],
+      "subject": "契丹军、后唐军与镇州张文礼政权",
+      "action": "契丹军复徇幽蓟，攻拔蓟州和石城县；张文礼求援后，遣兵援镇州并与后唐军交战。",
+      "result": "蓟州、石城被攻克，李嗣昭被杀；张文礼不久死亡，其子向契丹奉表。",
+      "cost": "蓟州刺史被擒，双方伤亡、城市损失和后续守备成本未载。",
+      "groups": [
+        "契丹军",
+        "蓟州石城军民",
+        "后唐军",
+        "镇州军民",
+        "张文礼政权"
+      ],
+      "quote": [
+        "攻薊州。戊午，拔之，擒刺史胡瓊，以盧國用、涅魯古典軍民事。",
+        "命郎君迭烈、將軍康末怛往擊，敗之，殺其將李嗣昭。",
+        "攻石城縣，拔之。"
+      ],
+      "unknown": [
+        "契丹与后唐兵力伤亡、蓟州石城居民处置、张氏求援条件未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-JIZHOU-ZHENZHOU-922",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-POOR-RELIEF-BY-CAPTURED-GOODS-922",
+      "time": [
+        "天贊元年六月",
+        "922",
+        "month"
+      ],
+      "subject": "耶律阿保機政权与贫民",
+      "action": "遣鹰军攻击西南诸部，并把所获物资赐给贫民。",
+      "result": "一次军事所获被用于对贫民的直接赐予。",
+      "groups": [
+        "贫民",
+        "鹰军",
+        "西南诸部",
+        "受赐者"
+      ],
+      "quote": "遣鷹軍擊西南諸部，以所獲賜貧民。",
+      "unknown": [
+        "所获物资种类数量、受赐贫民范围、军事损失和救助持续时间未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POOR-RELIEF-BY-CAPTURED-GOODS-922",
+        "summary": "将鹰军攻击西南诸部的所获赐给贫民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-TRIBAL-ADMINISTRATIVE-DIVISION-922",
+      "time": [
+        "天贊元年十月至十一月",
+        "922",
+        "range"
+      ],
+      "subject": "耶律阿保機政权与迭剌部、北大浓兀",
+      "action": "分迭剌部为北院、南院，另分北大浓兀为二部并置两节度使，随后任命皇子尧骨为天下兵马大元帅。",
+      "result": "部族与军事统辖被分设双院、两部和相应节度使，尧骨获得全国军队统帅名号。",
+      "groups": [
+        "迭剌部",
+        "北大浓兀部众",
+        "北南院官员",
+        "两节度使",
+        "皇子尧骨"
+      ],
+      "quote": [
+        "分迭剌部為二院",
+        "詔分北大濃兀為二部，立兩節度使以統之。",
+        "命皇子堯骨為天下兵馬大元帥，略地薊北。"
+      ],
+      "unknown": [
+        "双院两部人口、地域、权限、节度使兵额和大元帅实际统军范围未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TRIBAL-ADMINISTRATIVE-DIVISION-922",
+        "summary": "迭剌部与北大浓兀分设双院两部及节度使。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V02-PINGZHOU-YOUZHOU-CAMPAIGN-923",
+      "time": [
+        "天贊二年正月至五月",
+        "923",
+        "range"
+      ],
+      "subject": "大元帅尧骨军与幽州后唐军",
+      "action": "尧骨先克平州并将其改为卢龙军，继攻幽州、镇州、曲阳和北平。",
+      "result": "平州被置为卢龙军，但幽州东之战失利，尧骨最终班师并赏军。",
+      "cost": "平州刺史及裨将被获，幽州东作战失利；伤亡、俘口和城镇民损未载。",
+      "groups": [
+        "大元帅军",
+        "平州军民",
+        "幽州军",
+        "后唐军",
+        "曲阳北平居民"
+      ],
+      "quote": [
+        "大元帥堯骨克平州，獲刺史趙思溫、裨將張崇",
+        "以平州為盧龍軍，置節度使。",
+        "節度使符存審遣人出戰，敗之，擒其將裴信父子。",
+        "，堯骨師還。癸"
+      ],
+      "unknown": [
+        "平州改置后的官军户口、各战兵力伤亡、幽州攻势中止原因未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-PINGZHOU-YOUZHOU-923",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-XI-REBELLION-AND-ORGANIZATION-923",
+      "time": [
+        "天贊二年三月",
+        "923",
+        "month"
+      ],
+      "subject": "耶律阿保機政权与叛奚胡损",
+      "action": "讨伐叛奚胡损，捕获并处死胡损及三百名党羽，随后设置奚堕瑰部并命勃鲁恩暂总其事。",
+      "result": "叛乱被镇压，相关奚部重编为奚堕瑰部。",
+      "cost": "胡损与三百名党羽被处死，其他受影响人口和财产处置未载。",
+      "groups": [
+        "奚堕瑰部",
+        "叛奚党羽",
+        "契丹官军",
+        "勃鲁恩"
+      ],
+      "quote": [
+        "討叛奚胡損，獲之，射以鬼箭。",
+        "誅其黨三百人，沉之狗河。",
+        "置奚墮瑰部，以勃魯恩權總其事。"
+      ],
+      "unknown": [
+        "叛乱原因、党羽身份、部众规模和新部组织规则未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XI-REBELLION-AND-ORGANIZATION-923",
+        "summary": "镇压叛奚胡损后设置奚堕瑰部。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-JIZHOU-RESETTLEMENT-924",
+      "time": [
+        "天贊三年五月",
+        "924",
+        "month"
+      ],
+      "subject": "耶律阿保機政权与蓟州民众",
+      "action": "将蓟州民众迁往辽州地区以充实当地。",
+      "result": "蓟州人口被转移至辽州地区。",
+      "groups": [
+        "蓟州民众",
+        "辽州居民",
+        "迁徙管理者"
+      ],
+      "quote": "徙薊州民實遼州地。",
+      "unknown": [
+        "迁徙人数、原住址处置、辽州土地分配、运输成本和后续生计未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "JIZHOU-RESETTLEMENT-924",
+        "summary": "迁蓟州民众以充实辽州地区。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-WESTERN-CAMPAIGN-924",
+      "time": [
+        "天贊三年六月至天贊四年九月",
+        "924至925",
+        "range"
+      ],
+      "subject": "耶律阿保機军、皇太子尧骨军与吐浑党项阻卜等部",
+      "action": "阿保机大举征吐浑、党项、阻卜等部，先后攻阻卜、胡母思山诸部、流沙外浮图城及西鄙诸部。",
+      "result": "诸部多被击破或献俘，甘州回鹘都督被获，西征至次年九月结束。",
+      "cost": "军中以猎获兽类充食，双方伤亡、俘口规模、补给消耗和被征地区损失未载。",
+      "groups": [
+        "契丹军",
+        "吐浑党项阻卜诸部",
+        "甘州回鹘",
+        "西鄙部众",
+        "军中给养人员"
+      ],
+      "quote": [
+        "大舉征吐渾、党項、阻卜等部。",
+        "破胡母思山諸蕃部",
+        "遣兵踰流沙，拔浮圖城，盡取西鄙諸部。",
+        "獲野獸數千，以充軍食。"
+      ],
+      "unknown": [
+        "参战兵力、死亡俘获总数、各部归附条件和西征财政消耗未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-WESTERN-EXPEDITION-924-925",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-GOLD-RIVER-STONE-TRANSPORT-924",
+      "time": [
+        "天贊三年九月",
+        "924",
+        "month"
+      ],
+      "subject": "耶律阿保機政权",
+      "action": "凿金河水、取乌山石，并经运输送至潢河和木叶山，以表达山川朝海宗岳之意。",
+      "result": "形成一项由水道开凿、取石和长距离运输组成的象征性工程。",
+      "groups": [
+        "工程役夫",
+        "运输人员",
+        "潢河木叶山地区居民",
+        "祭祀参与者"
+      ],
+      "quote": "鑿金河水，取烏山石",
+      "unknown": [
+        "开凿地点尺度、役夫来源、运输路线、工期、物料耗费和环境影响未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "GOLD-RIVER-STONE-TRANSPORT-924",
+        "summary": "凿金河、取乌山石并运至潢河木叶山。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-BALHAE-CONQUEST-925-926",
+      "time": [
+        "天贊四年十二月至天顯元年正月",
+        "925至926",
+        "range"
+      ],
+      "subject": "耶律阿保機军与渤海大諲譔政权",
+      "action": "阿保机亲征渤海，围扶余府、攻扶余城，继围忽汗城；大諲譔先降后复叛，契丹军再破其城。",
+      "result": "渤海君主及僚属降服，渤海郡县受诏安抚，契丹军取得忽汗城控制。",
+      "cost": "扶余守将被诛，城内索兵器使者被害；双方其余伤亡、城损和民众处置未载。",
+      "groups": [
+        "契丹军",
+        "渤海军民",
+        "大諲譔及僚属",
+        "扶余府居民",
+        "忽汗城居民"
+      ],
+      "quote": [
+        "乃舉兵親征渤海大諲譔。",
+        "拔扶餘城，誅其守將。",
+        "諲譔素服，稿索牽羊，率僚屬三百餘人出降。",
+        "諲譔復叛，攻其城，破之。"
+      ],
+      "unknown": [
+        "双方兵力、平民伤亡、降叛原因、俘虏与城池物资损失未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-EASTERN-DAN-ESTABLISHMENT-926",
+      "time": [
+        "天顯元年二月",
+        "926",
+        "month"
+      ],
+      "subject": "耶律阿保機、耶律倍与渤海官民",
+      "action": "平渤海后改国号为东丹、改忽汗城为天福，册皇太子倍为人皇王主之，并以渤海旧臣与契丹官员共同设置左右相。",
+      "result": "渤海故地被重组为东丹政权，皇太子与渤海、契丹官员共同进入新政权架构。",
+      "groups": [
+        "东丹官民",
+        "渤海旧臣",
+        "契丹官员",
+        "人皇王耶律倍"
+      ],
+      "quote": [
+        "改渤海國為東丹，忽汗城為天福。",
+        "冊皇太子倍為人皇王以主之。",
+        "渤海老相為右大相，渤海司徒大素賢為左次相，耶律羽之為右次相。"
+      ],
+      "unknown": [
+        "东丹税役军制、渤海官民权利、实际自治范围和改名后的行政边界未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EASTERN-DAN-ESTABLISHMENT-926",
+        "summary": "渤海改为东丹，皇太子倍为人皇王并组建新相府。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-BALHAE-STABILIZATION-AND-RELOCATION-926",
+      "time": [
+        "天顯元年三月至八月",
+        "926",
+        "range"
+      ],
+      "subject": "东丹与契丹军、渤海安边等府及大諲譔族属",
+      "action": "安边、鄚颉、定理等府叛后，契丹军平定三府及南海、定理二府复叛；同时将大諲譔举族迁出并筑城居之。",
+      "result": "东丹初期数府叛乱被平定，大諲譔及其族属被迁置在皇都西的新城。",
+      "cost": "安边叛帅二人被诛；其余战斗伤亡、被迁族属人数、筑城规模和安置条件未载。",
+      "groups": [
+        "东丹诸府居民",
+        "契丹军",
+        "大諲譔族属",
+        "安边叛军",
+        "新城役夫"
+      ],
+      "quote": [
+        "安邊、鄚頡、定理三府叛，遣安端討之。",
+        "安端獻俘，誅安邊府叛帥二人。",
+        "以大諲譔舉族行。",
+        "衛送大諲譔於皇都西，築城以居之。"
+      ],
+      "unknown": [
+        "各府叛乱原因、战斗规模、迁置人口、筑城役费与迁置后待遇未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-BALHAE-STABILIZATION-926",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V02-TAIZU-DEATH-AND-REGENT-926",
+      "time": [
+        "天顯元年七月至九月",
+        "926",
+        "range"
+      ],
+      "subject": "辽太祖、皇后与辽廷",
+      "action": "太祖西征后在扶余府病重并崩，皇后随即称制、暂决军国事；梓宫返皇都后上谥升天皇帝、庙号太祖。",
+      "result": "太祖去世后，皇后取得临时军国决策权，朝廷完成初步谥号与庙号安排。",
+      "groups": [
+        "皇后",
+        "皇太子与大元帅",
+        "辽廷官员",
+        "扶余府与皇都居民"
+      ],
+      "quote": [
+        "是日，上崩，年五十五。",
+        "皇后稱制，權決軍國事。",
+        "上諡昇天皇帝，廟號太祖。"
+      ],
+      "unknown": [
+        "病因、继承协调、皇后权决范围、丧葬费用和政治反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TAIZU-DEATH-AND-REGENT-926",
+        "summary": "太祖崩后皇后称制权决军国，朝廷上谥太祖。",
+        "continuity": "single_event"
+      }
+    }
+  ]
+}

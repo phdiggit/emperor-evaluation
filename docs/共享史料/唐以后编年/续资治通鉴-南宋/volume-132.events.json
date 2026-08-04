@@ -1,0 +1,631 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-132",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷132",
+    "revision_ref": "2615688",
+    "start_locator": "紹興二十八年正月殿前馬步軍三衙強刺平民為軍",
+    "end_locator": "是歲，夏始立通濟監，鑄錢。",
+    "overlap_context": "承卷131，固定缓存记录在offset 5158出现唯一显式绍兴二十九年标题；卷132正文止于标题前，未读卷133。",
+    "input_fingerprint": "2a5bf463a05be5d88f312b9fc4fcd2ea6ce59ae30a38780ee6420bce1fe002b9"
+  },
+  "limitations": [
+    "固定记录10,099字；卷132正文5,158字，前缀SHA-256为45b536382cd65c2a57a941c86b0d6dc63928a9832044fc4d30f111ee71c79929。",
+    "卷133标题后内容未读取或使用。",
+    "战役仅交接专门工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-132-FORCED-ENLISTMENT-BAN-1158",
+      "time": "紹興二十八年正月",
+      "loc": [
+        "行在",
+        "衢婺"
+      ],
+      "action": "朝廷禁止三衙强刺平民充军，并追究违令统制以下官。",
+      "result": "强募扰民被制止，外路招刺改受约束。",
+      "quote": [
+        "三衙強刺平民為軍，詔禁止",
+        "道路之間，商旅不行，遠近大擾",
+        "毋令擾人足矣",
+        "違者統制以下官皆抵罪"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-FORCED-ENLISTMENT-BAN-1158",
+        "candidate": "POL-CAND-132-FORCED-ENLISTMENT-BAN-1158",
+        "summary": "强刺平民充军被禁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军政扰民整顿。",
+          "direct_result": "禁强刺并追责。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-JIN-INVASION-PREPARATION-1158",
+      "time": "紹興二十八年正月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金主以逃人、买马为辞制造兵端，并与近臣议灭宋一统。",
+      "result": "金廷南伐意图被公开讨论，为后续行动蓄势。",
+      "quote": [
+        "日謀南伐，故設詞以為兵端",
+        "若能一之，乃為大耳",
+        "朕舉兵滅宋，不過二三年"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-132-JIN-INVASION-PREPARATION-1158"
+    },
+    {
+      "id": "CHF-XZZTJ-132-OFFICIAL-TENURE-REFORM-1158",
+      "time": "紹興二十八年三月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗规定侍从、卿监郎官优先取有地方政绩者，并要求未历地方者补外任、内官在职二年后迁除。",
+      "result": "内外任官与久任规则被系统重定。",
+      "quote": [
+        "設官分職，民事為先",
+        "通選帥臣及第二任提刑資序",
+        "令更迭補外任",
+        "並須在職二年，方許遷除"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-OFFICIAL-TENURE-REFORM-1158",
+        "candidate": "POL-CAND-132-OFFICIAL-TENURE-REFORM-1158",
+        "summary": "朝廷重定内外任官与久任规则。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "选官制度。",
+          "direct_result": "设置地方历练与久任门槛。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-HONG-HAO-RESTORATION-1158",
+      "time": "紹興二十八年三月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷再复洪皓徽猷阁直学士，并赐谥忠宣。",
+      "result": "洪皓追复未尽之处得到补足。",
+      "quote": [
+        "洪晧再復徽猷閣直學士",
+        "以其子起居舍人遵言復職未盡也",
+        "尋賜諡曰忠宣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-HONG-HAO-RESTORATION-1158",
+        "candidate": "POL-CAND-132-HONG-HAO-RESTORATION-1158",
+        "summary": "洪皓追复补足并获谥。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治平反。",
+          "direct_result": "再复职并赐谥。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-JIN-BIANYING-PLAN-1158",
+      "time": "紹興二十八年五月",
+      "loc": [
+        "汴京",
+        "燕京"
+      ],
+      "action": "金主谋再修汴京、迁居并以此筹南侵，压下反对者对民力与帑藏的警告。",
+      "result": "汴京重营被纳入金廷南侵筹划。",
+      "quote": [
+        "欲再修汴京而徙居之，為南侵之計",
+        "帑藏已乏，民力未蘇",
+        "亦恐出師無名",
+        "曰：「非汝所知！"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-JIN-BIANYING-PLAN-1158",
+        "candidate": "POL-CAND-132-JIN-BIANYING-PLAN-1158",
+        "summary": "金廷以重修汴京配合南侵筹划。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "对外战略决策。",
+          "direct_result": "压下反对意见。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-JUDICIAL-SENTENCING-RULE-1158",
+      "time": "紹興二十八年六月",
+      "loc": [
+        "諸路"
+      ],
+      "action": "高宗要求刑官处理死囚案件遵守成宪，不得因例一概降配。",
+      "result": "死刑复核被要求以罪当与成法为准。",
+      "quote": [
+        "諸路奏讞死囚，例多降配",
+        "刑罰非務刻深，欲當其罪",
+        "常令遵守成憲"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-JUDICIAL-SENTENCING-RULE-1158",
+        "candidate": "POL-CAND-132-JUDICIAL-SENTENCING-RULE-1158",
+        "summary": "死囚复核被令遵成宪。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法执行。",
+          "direct_result": "禁仅循例降配。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-OUTER-CITY-WALL-1158",
+      "time": "紹興二十八年七月",
+      "loc": [
+        "皇城東南"
+      ],
+      "action": "朝廷下诏修筑皇城东南外城。",
+      "result": "皇城防御工程正式立项。",
+      "quote": [
+        "詔築皇城東南之外城"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-132-OUTER-CITY-WALL-1158",
+        "candidate": "WORK-CAND-132-OUTER-CITY-WALL-1158",
+        "summary": "皇城东南外城获诏修筑。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "皇城东南外城。",
+          "phase": "立项。",
+          "purpose": "城防。",
+          "resource_input": "未载。",
+          "operation": "诏筑。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-COPPER-USE-BAN-1158",
+      "time": "紹興二十八年七月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗采纳洪遵意见，要求公卿贵戚率先不用铜器并申严铜禁。",
+      "result": "为恢复钱币供给而加强铜器禁令。",
+      "quote": [
+        "錢寶少，多為錯毀作器用",
+        "銅禁，行之不嚴，殆成虛文",
+        "自公卿貴戚之家，以身率之",
+        "後申嚴法禁"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-132-COPPER-USE-BAN-1158",
+        "candidate": "FIN-CAND-132-COPPER-USE-BAN-1158",
+        "summary": "以禁铜器维护铸钱原料。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "钱宝短缺与铜器毁钱。",
+          "fiscal_state": "申严铜禁。",
+          "livelihood_state": "未载。",
+          "production_circulation": "铜器转入铸钱。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-COPPER-CONFISCATION-1158",
+      "time": "紹興二十八年七月",
+      "loc": [
+        "民間"
+      ],
+      "action": "朝廷以御府铜器送铸为始，限民间交铜器并设重罚告赏。",
+      "result": "获铜二百万斤，但民用铜器被大规模征集。",
+      "quote": [
+        "出御府銅器千五百事送鑄錢司",
+        "大斂民間銅器",
+        "限滿不納，十斤已上徒二年",
+        "其後得銅二百萬斤"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-132-COPPER-CONFISCATION-1158",
+        "candidate": "FIN-CAND-132-COPPER-CONFISCATION-1158",
+        "summary": "大规模征铜供铸钱。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "铸钱缺铜。",
+          "fiscal_state": "征集民间铜器。",
+          "livelihood_state": "民用铜器受限。",
+          "production_circulation": "得铜二百万斤。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-NATIONAL-HISTORY-OFFICE-1158",
+      "time": "紹興二十八年八月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷设置国史院，修神宗、哲宗、徽宗三朝正史。",
+      "result": "三朝正史编修获得专门机构。",
+      "quote": [
+        "詔置國史院",
+        "修神宗、哲宗、徽宗三朝正史"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-NATIONAL-HISTORY-OFFICE-1158",
+        "candidate": "POL-CAND-132-NATIONAL-HISTORY-OFFICE-1158",
+        "summary": "国史院设立并修三朝正史。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "史政机构。",
+          "direct_result": "设国史院。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-MINJIE-TEMPLE-1158",
+      "time": "紹興二十八年八月",
+      "loc": [
+        "順昌縣"
+      ],
+      "action": "朝廷在顺昌县立湣节庙祭祀范旺。",
+      "result": "范旺获得地方祠庙纪念。",
+      "quote": [
+        "詔立湣節廟於順昌縣",
+        "縣，以祠範旺"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-132-MINJIE-TEMPLE-1158",
+        "candidate": "WORK-CAND-132-MINJIE-TEMPLE-1158",
+        "summary": "顺昌湣节庙获立。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "湣节庙。",
+          "phase": "立庙。",
+          "purpose": "祠范旺。",
+          "resource_input": "未载。",
+          "operation": "诏立。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-COPPER-PURCHASE-BURDEN-1158",
+      "time": "紹興二十八年九月",
+      "loc": [
+        "江西",
+        "贛吉"
+      ],
+      "action": "李耆揭示州县科买铜锡致民毁钱私铸，请改由坑冶收入鼓铸。",
+      "result": "朝廷命提领铸钱司重新措置约束。",
+      "quote": [
+        "後，稅重田輕",
+        "分州縣科買銅錫，民多毀錢為銅以應命",
+        "民既銷錢而盜鑄",
+        "徒弊百姓，費邦財",
+        "詔提領鑄錢司措置約束"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-132-COPPER-PURCHASE-BURDEN-1158",
+        "candidate": "FIN-CAND-132-COPPER-PURCHASE-BURDEN-1158",
+        "summary": "科买铜锡导致民困私铸，朝廷令重订约束。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "州县科买铜锡。",
+          "fiscal_state": "命铸钱司措置。",
+          "livelihood_state": "民力愈困。",
+          "production_circulation": "毁钱私铸。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-WANG-GANGZHONG-SICHUAN-DEFENSE-1158",
+      "time": "紹興二十八年九月",
+      "loc": [
+        "四川",
+        "成都"
+      ],
+      "action": "王刚中以金人窥江淮为由主张选将、练卒、储械，遂任四川安抚制置使兼知成都。",
+      "result": "四川防务任命与战备主张结合。",
+      "quote": [
+        "皆謂金人有窺江、淮意",
+        "禦敵最今日先務之急",
+        "蒐士卒，儲備軍械",
+        "四川安撫制置使兼知成都府"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-132-SICHUAN-DEFENSE-PREPARATION-1158"
+    },
+    {
+      "id": "CHF-XZZTJ-132-YU-YUNWEN-SURTAX-RELIEF-1158",
+      "time": "紹興二十八年十月",
+      "loc": [
+        "渠州"
+      ],
+      "action": "虞允文以渠州地瘠民贫、常赋外加敛流弊为由奏罢。",
+      "result": "额外征敛获废，计六万五千余缗。",
+      "quote": [
+        "地磽民貧，常賦之外，又行加斂",
+        "允文奏罷之",
+        "凡六萬五千餘緡"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-132-YU-YUNWEN-SURTAX-RELIEF-1158",
+        "candidate": "FIN-CAND-132-YU-YUNWEN-SURTAX-RELIEF-1158",
+        "summary": "渠州额外加敛被废。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "地瘠民贫且加敛。",
+          "fiscal_state": "罢额外征敛。",
+          "livelihood_state": "减轻渠州民负。",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-SUN-FAST-GOVERNANCE-1158",
+      "time": "紹興二十八年十月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗以损斋、清心省事和戒奢为旨，降诏中外。",
+      "result": "节欲省事与禁奢成为公开治理训令。",
+      "quote": [
+        "舁去玩好，置經史古書其中",
+        "治道貴清淨，故恬淡寡欲",
+        "期與一世之民同躋仁壽",
+        "比年侈靡成風"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-SUN-FAST-GOVERNANCE-1158",
+        "candidate": "POL-CAND-132-SUN-FAST-GOVERNANCE-1158",
+        "summary": "高宗以损斋宣示清静戒奢。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "君主自律训令。",
+          "direct_result": "诏谕中外。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-PETITION-REVIEW-1158",
+      "time": "紹興二十八年十月",
+      "loc": [
+        "尚書省",
+        "御史臺"
+      ],
+      "action": "朝廷准尚书省事理不当者投登闻检院，经皇帝览阅后交御史台理问。",
+      "result": "不当行政事务获得登闻与监察复核通道。",
+      "quote": [
+        "尚書省凡事理不當者",
+        "許詣登聞檢院投狀類奏",
+        "覽訖，付御史臺理問"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-PETITION-REVIEW-1158",
+        "candidate": "POL-CAND-132-PETITION-REVIEW-1158",
+        "summary": "尚书省不当事务可经登闻转御史复核。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "行政申诉复核。",
+          "direct_result": "登闻转御史台。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-HOUSING-SCHOOL-REPAIR-1158",
+      "time": "紹興二十八年十一月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷动用御前钱修葺睦亲宅，并重建学宫殿宇一百七十一区。",
+      "result": "宗室居所和教育建筑获得大规模修复。",
+      "quote": [
+        "出御前錢修葺睦親宅",
+        "重建學宮殿宇凡一百七十一區"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-132-HOUSING-SCHOOL-REPAIR-1158",
+        "candidate": "WORK-CAND-132-HOUSING-SCHOOL-REPAIR-1158",
+        "summary": "睦亲宅与学宫殿宇获修复。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "睦亲宅与学宫殿宇。",
+          "phase": "修葺重建。",
+          "purpose": "居住与教育。",
+          "resource_input": "御前钱。",
+          "operation": "修一百七十一区。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-LI-GUANG-RELEASE-1158",
+      "time": "紹興二十八年十二月",
+      "loc": [
+        "彬州"
+      ],
+      "action": "李光恢复左朝奉大夫并获任便居住。",
+      "result": "秦桧旧案中的李光解除安置限制。",
+      "quote": [
+        "彬州安置李光",
+        "復左朝奉大夫，任便居住"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-132-LI-GUANG-RELEASE-1158",
+        "candidate": "POL-CAND-132-LI-GUANG-RELEASE-1158",
+        "summary": "李光获复官并解除安置。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治平反。",
+          "direct_result": "任便居住。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-YAO-ZHONG-MILITIA-REVIVAL-1158",
+      "time": "紹興二十八年十二月",
+      "loc": [
+        "興元",
+        "洋州",
+        "大安",
+        "巴蓬"
+      ],
+      "action": "姚仲在金有败盟之意后复置义士、教习武艺并筹船运军粮。",
+      "result": "兴洋等地义士恢复为战守后备。",
+      "quote": [
+        "摘揀到三千人，團結隊伍，教習武藝",
+        "金有意敗盟，欲為戰守備，乃奏復之",
+        "以備緩急使喚",
+        "合五郡所籍，為二萬一千七百餘人"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-132-YAO-ZHONG-MILITIA-REVIVAL-1158"
+    },
+    {
+      "id": "CHF-XZZTJ-132-MILITIA-COST-SHARING-1158",
+      "time": "紹興二十八年十二月",
+      "loc": [
+        "興洋大安"
+      ],
+      "action": "复置义士时调整原有蠲免，官给衣甲弓箭，其余军需由义士自备。",
+      "result": "义士战备扩大同时重新分配财政与民户负担。",
+      "quote": [
+        "不費有司錢糧",
+        "科買軍糧草料苦於偏重",
+        "法，止蠲其半",
+        "衣甲、兜鍪、神臂弓箭官給",
+        "其它應軍中所用，皆自為之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-132-MILITIA-COST-SHARING-1158",
+        "candidate": "FIN-CAND-132-MILITIA-COST-SHARING-1158",
+        "summary": "义士复置重订蠲免与军需分担。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "义士原有蠲免。",
+          "fiscal_state": "蠲免减半、官给部分军械。",
+          "livelihood_state": "科买军粮草料偏重。",
+          "production_circulation": "其余军需自备。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-JIN-NANJING-PALACE-1158",
+      "time": "紹興二十八年十二月",
+      "loc": [
+        "汴京南京"
+      ],
+      "action": "金主命张浩、敬嗣晖营建南京宫室，工程耗用巨资巨力并反复拆改。",
+      "result": "民力未复下的汴京宫殿工程形成沉重劳役和财政耗费。",
+      "quote": [
+        "命左丞相張浩、參知政事敬嗣暉營建南京宮室",
+        "運一木之費至二千萬",
+        "牽一車之力至五百人",
+        "一殿之費以億萬計",
+        "輒撤之更造"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-132-JIN-NANJING-PALACE-1158",
+        "candidate": "WORK-CAND-132-JIN-NANJING-PALACE-1158",
+        "summary": "金廷大规模营建南京宫室。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "南京宫室。",
+          "phase": "营建反复拆改。",
+          "purpose": "迁都与南侵筹备。",
+          "resource_input": "巨额运材人力。",
+          "operation": "张浩等主持。",
+          "benefit": "未载。",
+          "harm": "民力未复而重劳。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-132-TONGJI-MINT-1158",
+      "time": "紹興二十八年是歲",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝设置通济监铸钱。",
+      "result": "金廷新增专门铸钱机构。",
+      "quote": [
+        "夏始立通濟監，鑄錢"
+      ],
+      "unknown": [
+        "固定正文未载铸额与实际成效。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-132-TONGJI-MINT-1158",
+        "candidate": "FIN-CAND-132-TONGJI-MINT-1158",
+        "summary": "金朝设通济监铸钱。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "未载。",
+          "fiscal_state": "设铸钱机构。",
+          "livelihood_state": "未载。",
+          "production_circulation": "铸钱。"
+        }
+      }
+    }
+  ]
+}

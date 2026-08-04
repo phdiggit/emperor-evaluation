@@ -1,0 +1,361 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-199",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷199",
+    "revision_ref": "2334510",
+    "input_fingerprint": "ee40250076b5250457bff53be11be73ed0cb4f3bfc92ba3847f84f94823d64e1",
+    "start_locator": "仁宗聖文欽孝皇帝延祐二年",
+    "end_locator": "許之，仍給半俸，終其身。",
+    "overlap_context": "承卷198；具体跨卷关联未裁决"
+  },
+  "limitations": [
+    "仅据固定正文；不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-199-001",
+      "time": [
+        "1315-04",
+        "1315-04",
+        "month"
+      ],
+      "action": "停止宣徽院归德猎取尚膳",
+      "result": "因扰民被罢",
+      "groups": [
+        "归德民"
+      ],
+      "quote": "宣徽院以供尚膳，遣人獵於歸德，敕以其擾民，罷之。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG199-POL-HUNT",
+        "candidate": "SONG199-POL-HUNT",
+        "observations": {
+          "event_type": "扰民活动禁止",
+          "decision_question": "尚膳狩猎",
+          "alternatives": "继续狩猎",
+          "decision": "罢之",
+          "direct_result": "停猎",
+          "power_change": "约束宣徽院",
+          "risk_or_damage": "扰民",
+          "follow_up": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-002",
+      "time": [
+        "1315-04",
+        "1315-09",
+        "range"
+      ],
+      "action": "罢经界田粮苛役后平定蔡五九乱",
+      "result": "罢役后民悦、叛军势衰，蔡五九伏诛，余党悉平",
+      "groups": [
+        "赣州民",
+        "蔡五九部众"
+      ],
+      "quote": "帝悟其弊，命罷其役。詔下，民大悅，由是五九之勢漸衰。",
+      "battle": "CAMPAIGN-SONG199-CAIWUJIU",
+      "battle_reason": "经界苛扰、民变、撤役与平乱构成连续因果军事链。"
+    },
+    {
+      "id": "CHF-SONG-199-003",
+      "time": [
+        "1315-07",
+        "1315-07",
+        "month"
+      ],
+      "action": "畿内多县大雨成灾",
+      "result": "民田房舍被淹，赈免措施未载",
+      "groups": [
+        "畿内水灾民"
+      ],
+      "quote": "畿內大雨，漷州、昌平、香河、寶坻等縣水，沒民田廬。",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仅载灾情，未载赈恤或免役，保留背景。"
+        ]
+      ],
+      "unknown": [
+        "灾后处置未载"
+      ]
+    },
+    {
+      "id": "CHF-SONG-199-004",
+      "time": [
+        "1315-11",
+        "1315-11",
+        "month"
+      ],
+      "action": "星变时赦天下并减免差税",
+      "result": "各路差税获分等减免",
+      "groups": [
+        "各路民户"
+      ],
+      "quote": "以星變，赦天下，減免各路差稅有差。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG199-FIN-REMISSION",
+        "candidate": "SONG199-FIN-REMISSION",
+        "observations": {
+          "baseline": "星变",
+          "fiscal_state": "减免差税",
+          "livelihood_state": "减负",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-005",
+      "time": [
+        "1316-04",
+        "1316-06",
+        "range"
+      ],
+      "action": "赈渡江流民、辽阳等饥民并救汴梁河决",
+      "result": "以贓钞赈渡江流民，多地赈饥，汴梁河决发粮",
+      "groups": [
+        "河南流民",
+        "辽阳饥民",
+        "汴梁灾民"
+      ],
+      "quote": [
+        "以河南流民群聚渡江，所過擾害，命行臺、廉訪使以見貯贓鈔賑之。",
+        "賑遼陽、蓋州及南豐州饑。",
+        "河決汴梁，沒民居，發糧賑之。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG199-FIN-RELIEF",
+        "candidate": "SONG199-FIN-RELIEF",
+        "observations": {
+          "baseline": "流民饥荒与河决",
+          "fiscal_state": "贓钞与发粮",
+          "livelihood_state": "多地赈恤",
+          "production_circulation": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-006",
+      "time": [
+        "1316-10",
+        "1316-12",
+        "range"
+      ],
+      "action": "周王和实拉出镇后西北诸王来附",
+      "result": "周王至金山定约束，十余年边境安宁",
+      "groups": [
+        "周王部属",
+        "西北诸王"
+      ],
+      "quote": "周王至其部，與定約束，十餘年間，邊境寧謐。",
+      "battle": "CAMPAIGN-SONG199-HESHILA",
+      "battle_reason": "出镇、部众会合与边境安定为单一边防政治军事链。"
+    },
+    {
+      "id": "CHF-SONG-199-007",
+      "time": [
+        "1316-12",
+        "1317-02",
+        "range"
+      ],
+      "action": "立太子诏中赈弱者、减租税并复置义仓",
+      "result": "鳏寡孤独获钞，各路租税分等减免，郡县社仓恢复",
+      "groups": [
+        "鳏寡孤独",
+        "各路民户"
+      ],
+      "quote": [
+        "以立皇太子詔天下，賜鰥寡孤獨鈔，減免各路租稅有差。",
+        "敕郡縣各社復置義倉。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG199-FIN-GRANARY",
+        "candidate": "SONG199-FIN-GRANARY",
+        "observations": {
+          "baseline": "弱者救济与储备需求",
+          "fiscal_state": "减免租税",
+          "livelihood_state": "赐弱者钞",
+          "production_circulation": "复置义仓"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-008",
+      "time": [
+        "1317-06",
+        "1317-06",
+        "month"
+      ],
+      "action": "清理特们德尔贪虐并罢相",
+      "result": "诛其大奴同恶数人，特们德尔被罢相",
+      "groups": [
+        "受害民众",
+        "官府"
+      ],
+      "quote": "帝不忍傷太后意，但罷其相位，而遷多爾濟為集賢學士。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG199-POL-TEMUDER",
+        "candidate": "SONG199-POL-TEMUDER",
+        "observations": {
+          "event_type": "权臣问责",
+          "decision_question": "贪虐与干政",
+          "alternatives": "未载",
+          "decision": "罢相",
+          "direct_result": "罢特们德尔",
+          "power_change": "削其相权",
+          "risk_or_damage": "流亡灾异",
+          "follow_up": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-009",
+      "time": [
+        "1317-12",
+        "1317-12",
+        "month"
+      ],
+      "action": "饶州饥荒时减价粜官仓米",
+      "result": "总管先行降价二成，民得食，后获免罪",
+      "groups": [
+        "饶州饥民"
+      ],
+      "quote": "輒於下等減價十之二，使民就糶。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG199-FIN-RAOZHOU",
+        "candidate": "SONG199-FIN-RAOZHOU",
+        "observations": {
+          "baseline": "饶州大饥米价高",
+          "fiscal_state": "官仓定价",
+          "livelihood_state": "民得食",
+          "production_circulation": "降价粜米"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-010",
+      "time": [
+        "1318-01",
+        "1318-03",
+        "range"
+      ],
+      "action": "修治小黄村河口",
+      "result": "二月兴工，三月完工",
+      "groups": [
+        "陈颍沿河民"
+      ],
+      "quote": "以二月興工，至三月而畢。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG199-WORK-XIAOHUANG",
+        "candidate": "SONG199-WORK-XIAOHUANG",
+        "observations": {
+          "work_identity": "小黄村河口",
+          "phase": "完工",
+          "purpose": "河患防治",
+          "resource_input": "未载",
+          "operation": "都水监修治",
+          "benefit": "三月毕工",
+          "harm": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-011",
+      "time": [
+        "1318-04",
+        "1318-04",
+        "month"
+      ],
+      "action": "免怀孟河南南阳所输陕西盐课",
+      "result": "废除远运盐课负担",
+      "groups": [
+        "怀孟河南南阳民"
+      ],
+      "quote": "民不堪命，故免之。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG199-FIN-SALTTAX",
+        "candidate": "SONG199-FIN-SALTTAX",
+        "observations": {
+          "baseline": "改食沧盐仍输陕西课",
+          "fiscal_state": "免盐课",
+          "livelihood_state": "减民负担",
+          "production_circulation": "盐运改制"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-012",
+      "time": [
+        "1318-12",
+        "1318-12",
+        "month"
+      ],
+      "action": "设置重庆江津巴县屯田",
+      "result": "成都每年漕运减少一万二千石",
+      "groups": [
+        "成都漕运民",
+        "屯田户"
+      ],
+      "quote": "置重慶路江津、巴縣屯田，省成都歲漕萬二千石。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG199-WORK-CHONGQING",
+        "candidate": "SONG199-WORK-CHONGQING",
+        "observations": {
+          "work_identity": "江津巴县屯田",
+          "phase": "设置",
+          "purpose": "省成都岁漕",
+          "resource_input": "未载",
+          "operation": "置屯田",
+          "benefit": "省漕一万二千石",
+          "harm": "未载"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-199-013",
+      "time": [
+        "1318-10",
+        "1318-12",
+        "range"
+      ],
+      "action": "江西茶课持续增额并形成民间摊派",
+      "result": "郡县茶产不能充额，余数长期向民间酷取；罢司建议未获处理",
+      "groups": [
+        "江西茶民",
+        "郡县民户"
+      ],
+      "quote": [
+        "郡縣所輸，竭山谷之產，不能充其半，餘皆酷取民間，歲以為常。",
+        "江南僉事鄧文原請罷其司，俾郡縣領之，不報。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "茶课加征及危害明确，但罢司建议不报，未形成纠偏结果。"
+        ]
+      ],
+      "unknown": [
+        "茶课后续是否调整未载"
+      ]
+    }
+  ]
+}

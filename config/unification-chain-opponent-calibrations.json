@@ -1,0 +1,1135 @@
+{
+  "schema_version": "unification-chain-opponent-calibrations-v1",
+  "status": "CURRENT_MANUAL_ADJUDICATION_NOT_GOLD",
+  "purpose": "以被实际击败的独立战争机器校准统一链含金量；区域价值只证明根据地支撑和战果落地，不直接相加决定总档。",
+  "rubric": {
+    "opponent_system_grades": {
+      "O5": "全国第一梯队国家机器：多支主力、稳定军政财政、跨区投送和重大失败后的再动员能力均已兑现。",
+      "O4": "成熟区域国家机器：有完整宏区根据地、稳定行政征补和持续独立战争能力。",
+      "O3": "成建制方面军或区域政权：统一指挥并能持续负责主要方向，但国家纵深或再生能力不完整。",
+      "O2": "大型流动军、松散联盟或短期割据：可形成大会战，但缺乏稳定国家机器。",
+      "O1": "地方部众、残余据点或低于主要方向的武装。"
+    },
+    "chain_grade_rules": {
+      "H1": "同一连续战役群复合终结至少两个O5，或全链终结至少三个O5，或终结两个O5并另有至少一个O4。",
+      "H2": "终结两个O5，或一个O5并另有至少两个O4，或终结至少三个O4。",
+      "H3": "终结一个O5，或终结至少两个O4。",
+      "H4": "终结一个O4并另有O3纵深。",
+      "H5": "至少终结一个O3；只有O1/O2者低于H5。"
+    },
+    "closure_policy": "FULL_TERMINAL与DECISIVE_SYSTEM_DEFEAT可消费对手体系；RECOVERY_SAME_SYSTEM只增强原体系韧性，不另算一个对手；NON_ATTRIBUTABLE_COLLAPSE与POLITICAL_HANDOFF不产生军事含金量。",
+    "origin_policy": "不按农民军、部族或旧国家出身定档，只按交战当时已经兑现的指挥、财政补给、兵员再生、根据地纵深和持续战争能力定档。",
+    "region_policy": "时期化区域M只作对手根据地能力的证据或上限线索；实际组织未兑现时必须降档，外部国家持续支援可另行明示。"
+  },
+  "adjudications": [
+    {
+      "portfolio_ref": "UCP-QIN-YINGZHENG-230-221",
+      "dynasty": "秦",
+      "chain_grade": "H1",
+      "rule_hit": "THREE_O5_TERMINALS",
+      "grade_basis": "连续终结赵、楚、齐三个全国第一梯队国家机器，并另行终结韩、魏、燕等成熟国家体系。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-QIN-HAN",
+          "opponent_label": "韩国国家机器",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HENAN"
+          ],
+          "source_campaign_refs": [
+            "OUTCOME-QIN-HAN"
+          ],
+          "basis": "国家体系完整但疆域、纵深和再动员能力已明显低于主要强国。"
+        },
+        {
+          "system_id": "OPP-QIN-ZHAO",
+          "opponent_label": "赵国国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEBEI",
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "OUTCOME-QIN-ZHAO"
+          ],
+          "basis": "具全国竞争分量、完整北方根据地和持续主力体系。"
+        },
+        {
+          "system_id": "OPP-QIN-WEI",
+          "opponent_label": "魏国国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HENAN",
+            "MR-HUAISI"
+          ],
+          "source_campaign_refs": [
+            "OUTCOME-QIN-WEI"
+          ],
+          "basis": "仍有完整中原国家中枢、坚城与区域动员体系。"
+        },
+        {
+          "system_id": "OPP-QIN-CHU",
+          "opponent_label": "楚国国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HUAISI",
+            "MR-JINGXIANG",
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "OUTCOME-QIN-CHU"
+          ],
+          "basis": "具有多宏区纵深、多支主力和全国竞争能力。"
+        },
+        {
+          "system_id": "OPP-QIN-YAN",
+          "opponent_label": "燕国国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG"
+          ],
+          "source_campaign_refs": [
+            "OUTCOME-QIN-YAN"
+          ],
+          "basis": "有完整北方区域国家纵深，但全国竞争能力低于赵楚齐。"
+        },
+        {
+          "system_id": "OPP-QIN-QI",
+          "opponent_label": "齐国国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-SHANDONG"
+          ],
+          "source_campaign_refs": [
+            "OUTCOME-QIN-QI"
+          ],
+          "basis": "完整强国根据地与全国竞争潜力仍在，虽终局抵抗不足也不反写组织体量。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-HAN-LIUBANG-BCE207-BCE202",
+      "dynasty": "西汉",
+      "chain_grade": "H2",
+      "rule_hit": "ONE_O5_PLUS_TWO_O4",
+      "grade_basis": "终结西楚全国第一梯队，并连续击败三秦和齐地两个成熟区域体系；魏赵燕等不因数量机械叠成O5。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-WHAN-WESTERN-CHU",
+          "opponent_label": "项羽西楚国家与主力体系",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HUAISI",
+            "MR-JINGXIANG"
+          ],
+          "source_campaign_refs": [
+            "HAN-CHUHAN-XINGYANG-CHENGGAO-BCE205-203",
+            "HAN-CHUHAN-PENGCHENG-BCE205",
+            "HAN-CHUHAN-GAIXIA-BCE203-202"
+          ],
+          "basis": "全国第一梯队、多支军团和跨区作战能力完整兑现。"
+        },
+        {
+          "system_id": "OPP-WHAN-THREE-QIN",
+          "opponent_label": "三秦区域国家体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-GUANZHONG",
+            "MR-LONGYOU"
+          ],
+          "source_campaign_refs": [
+            "HAN-CHUHAN-THREE-QIN-BCE206-205"
+          ],
+          "basis": "具关中区域政权、成建制军队与稳定据点，但不是新的全国第一梯队。"
+        },
+        {
+          "system_id": "OPP-WHAN-QI",
+          "opponent_label": "齐地国家与军团体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-SHANDONG"
+          ],
+          "source_campaign_refs": [
+            "HAN-CHUHAN-QI-BCE204-203"
+          ],
+          "basis": "完整齐地根据地并能组织大规模区域战争。"
+        },
+        {
+          "system_id": "OPP-WHAN-WEI-BAO",
+          "opponent_label": "魏豹河东区域政权",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "HAN-CHUHAN-WEI-BCE205"
+          ],
+          "basis": "具备区域政权与军队，但体量和持续再生能力不足O4；擒魏豹、定河东单独消费O3。"
+        },
+        {
+          "system_id": "OPP-WHAN-ZHAO-DAI",
+          "opponent_label": "赵国主力与代赵军政体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEBEI"
+          ],
+          "source_campaign_refs": [
+            "HAN-CHUHAN-DAI-ZHAO-YAN-BCE205-204"
+          ],
+          "basis": "赵歇、陈余拥有完整区域政权、成建制主力、河北根据地与持续动员能力；井陉击毁主力并终结代赵体系，达到O4。燕随后传檄归附，不另给战争终局信用。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-HAN-LIUXIU-23-36",
+      "dynasty": "东汉",
+      "chain_grade": "H2",
+      "rule_hit": "ONE_O5_PLUS_TWO_O4",
+      "grade_basis": "公孙述为O5；隗嚣与张步齐地体系分别达到O4。其余区域政权和大型流动军按实际组织度落O3或以下；因此总链命中一O5加两O4的H2。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-EHAN-WANGLANG",
+          "opponent_label": "王郎河北政权",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEBEI"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-HEBEI-23-24"
+          ],
+          "basis": "能组织河北方向战争，但没有完整兑现河北全国级军事能量。"
+        },
+        {
+          "system_id": "OPP-EHAN-CENTRAL-MOBILE",
+          "opponent_label": "中原流动军与地方武装",
+          "organization_grade": "O2",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-HEDONG",
+            "MR-HENAN"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-CENTRAL-25-26"
+          ],
+          "basis": "武勃、苏茂、尤来、大枪、五幡等可形成大会战，但缺乏统一稳定国家机器。"
+        },
+        {
+          "system_id": "OPP-EHAN-CHIMEI-GENGSHI",
+          "opponent_label": "更始残余与赤眉流动军",
+          "organization_grade": "O3",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-GUANZHONG"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-GUANZHONG-24-27"
+          ],
+          "basis": "赤眉交战时仍有二十余万流动军、六军组织与持续作战能力，达到O3；但关中饥荒下缺乏稳定财政行政和根据地再生，不到O4。"
+        },
+        {
+          "system_id": "OPP-EHAN-DENGFENG-NANYANG",
+          "opponent_label": "邓奉南阳区域军团",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JINGXIANG"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-DENGFENG-NANYANG-26-27"
+          ],
+          "basis": "邓奉形成南阳成建制区域危机，但缺少独立成熟财政行政、广域纵深和持续再生闭合，保持O3。"
+        },
+        {
+          "system_id": "OPP-EHAN-QINFENG-JINGZHOU",
+          "opponent_label": "秦丰荆州区域政权",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JINGXIANG"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-QINFENG-JINGZHOU-24-29"
+          ],
+          "basis": "秦丰据十余县、起兵约万人并长期守御，达到O3；现有锚点不足以证明完整大区财政、行政和多军团再生能力，不到O4。"
+        },
+        {
+          "system_id": "OPP-EHAN-LIXIAN-JIANGHUAI",
+          "opponent_label": "李宪江淮区域国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HUAISI"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-LIXIAN-JIANGHUAI-28-30"
+          ],
+          "basis": "李宪据九城、号称十余万并自立天子，具备独立区域政权、成建制主力、城邑纵深和持续守御能力，达到O4；马成督四郡兵围舒并终结其核心国家机器，定S-。不把相邻江淮势力重复并入。"
+        },
+        {
+          "system_id": "OPP-EHAN-LIUYONG-DONGXIAN",
+          "opponent_label": "刘永、董宪、庞萌等东方区域体系",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HUAISI"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-EAST-26-30"
+          ],
+          "basis": "刘永、董宪、庞萌等拥有区域政权和多支军团，但其互援未形成一套统一财政、补给与全国级指挥机器，合计按O3。"
+        },
+        {
+          "system_id": "OPP-EHAN-ZHANGBU-QI",
+          "opponent_label": "张步齐地军政体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-SHANDONG"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-EAST-26-30"
+          ],
+          "basis": "张步据齐地，能集结三万余援军、四十余营、十余万众与七千余辆辎重，具备完整区域根据地、成建制主力和持续再生能力；耿弇连续会战使其体系解体，达到O4完整终局。"
+        },
+        {
+          "system_id": "OPP-EHAN-WEIAO",
+          "opponent_label": "隗嚣陇右国家体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-LONGYOU"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-LONGYOU-30-34"
+          ],
+          "basis": "长期独立、稳定控制陇右并持续牵制关中。"
+        },
+        {
+          "system_id": "OPP-EHAN-GONGSUNSHU",
+          "opponent_label": "公孙述成家国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-BASHU"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-SHU-33-36"
+          ],
+          "basis": "完整国家核心、长期独立和全国竞争分量均已兑现。"
+        },
+        {
+          "system_id": "OPP-EHAN-PENGCHONG",
+          "opponent_label": "彭宠幽州体系",
+          "organization_grade": "O3",
+          "closure": "NON_ATTRIBUTABLE_COLLAPSE",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG"
+          ],
+          "source_campaign_refs": [
+            "HAN-STARTUP-PENGCHONG-26-29"
+          ],
+          "basis": "东汉有过程战果，但最高中枢由内部杀变终结，不产生完整军事击败信用。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-JIN-SIMAYAN-279-280",
+      "dynasty": "晋",
+      "chain_grade": "H3",
+      "rule_hit": "ONE_O5_TERMINAL",
+      "grade_basis": "完整终结孙吴这一成熟全国国家机器；对手集中但层级高。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-JIN-WU",
+          "opponent_label": "孙吴国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JIANGNAN",
+            "MR-JINGXIANG",
+            "MR-HUAISI"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-JIN-CONQUEST-WU-280"
+          ],
+          "basis": "长期独立帝国、完整长江防御体系和多路军政组织均已兑现。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-SUI-YANGJIAN-587-591",
+      "dynasty": "隋",
+      "chain_grade": "H3",
+      "rule_hit": "ONE_O5_TERMINAL",
+      "grade_basis": "灭陈终结成熟全国国家机器；后续江南反抗是同一体系余波，不再完整增加一个对手。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-SUI-CHEN",
+          "opponent_label": "陈朝国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JIANGNAN",
+            "MR-JINGXIANG",
+            "MR-HUAISI"
+          ],
+          "source_campaign_refs": [
+            "WAR-PARENT-SUI-UNIFICATION-589"
+          ],
+          "basis": "具完整国家行政、长江防御和多路军队，虽终局表现偏弱仍是成熟国家体系。"
+        },
+        {
+          "system_id": "OPP-SUI-JIANGNAN-REMNANTS",
+          "opponent_label": "江南旧陈残余与地方反抗",
+          "organization_grade": "O2",
+          "closure": "RECOVERY_SAME_SYSTEM",
+          "base_regions": [
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "SUI-SOUTH-CONSOLIDATION-JIANGNAN-590"
+          ],
+          "basis": "属于灭陈后恢复与巩固，不另算一个成熟国家机器。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-TANG-LIYUAN-617-628",
+      "dynasty": "唐",
+      "chain_grade": "H1",
+      "rule_hit": "COMPOUND_TWO_O5_TERMINAL",
+      "grade_basis": "洛阳—虎牢同一连续战役群复合终结王世充与窦建德两个O5，并另行终结萧铣O4及多个成建制区域体系。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-TANG-SUI-CENTRAL",
+          "opponent_label": "隋关中残存中央体系",
+          "organization_grade": "O3",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-GUANZHONG"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617"
+          ],
+          "basis": "仍有成建制抵抗与国家中枢，但隋国家机器已瓦解，不能按全盛O5消费。"
+        },
+        {
+          "system_id": "OPP-TANG-XUE",
+          "opponent_label": "薛举、薛仁杲陇右政权",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-LONGYOU"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-XUE-618"
+          ],
+          "basis": "具有稳定陇右根据地、成建制主力和独立国家竞争能力。"
+        },
+        {
+          "system_id": "OPP-TANG-LIUWUZHOU",
+          "opponent_label": "刘武周、宋金刚河东体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-HEDONG-RECOVERY"
+          ],
+          "basis": "成建制夺取河东并获突厥持续支援，已兑现成熟区域战争体系。"
+        },
+        {
+          "system_id": "OPP-TANG-WANGSHICHONG",
+          "opponent_label": "王世充郑国国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HENAN"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-LUOYANG-END"
+          ],
+          "compound_group": "COMPOUND-TANG-LUOYANG-HULAO",
+          "basis": "控制洛阳中枢、完整国家体系与主力军团，属全国第一梯队。"
+        },
+        {
+          "system_id": "OPP-TANG-DOUJIANDE",
+          "opponent_label": "窦建德夏国国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEBEI"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-LUOYANG-END"
+          ],
+          "compound_group": "COMPOUND-TANG-LUOYANG-HULAO",
+          "basis": "完整河北国家机器、多支主力和全国竞争能力均已兑现。"
+        },
+        {
+          "system_id": "OPP-TANG-LIUHEITA",
+          "opponent_label": "刘黑闼复起的河北体系",
+          "organization_grade": "O4",
+          "closure": "RECOVERY_SAME_SYSTEM",
+          "lineage_parent": "OPP-TANG-DOUJIANDE",
+          "base_regions": [
+            "MR-HEBEI"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-LIUHEITA-622"
+          ],
+          "basis": "证明窦建德河北体系具有强再生能力，但不重复算一个独立O4。"
+        },
+        {
+          "system_id": "OPP-TANG-LIZITONG-JIANGHUAI",
+          "opponent_label": "李子通江淮江东国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HUAISI",
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-WANGXIONGDAN-621"
+          ],
+          "basis": "李子通拥有帝号下的统一军政体系、精兵、城邑和淮南江东纵深；王雄诞连续击破并迫降其主体系，继而收束汪华、闻人遂安方向，属于O4完整终局。"
+        },
+        {
+          "system_id": "OPP-TANG-XIAOXIAN",
+          "opponent_label": "萧铣梁国国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JINGXIANG"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-XIAOXIAN-621"
+          ],
+          "basis": "完整国家和主力仍在，但裁兵内耗及区域军事再生低于王世充、窦建德。"
+        },
+        {
+          "system_id": "OPP-TANG-XUYUANLANG",
+          "opponent_label": "徐圆朗山东区域体系",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-SHANDONG"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-XUYUANLANG-621"
+          ],
+          "basis": "形成主要区域方向，但国家纵深和再生能力不足。"
+        },
+        {
+          "system_id": "OPP-TANG-FUGONGSHI",
+          "opponent_label": "辅公祏江南复叛体系",
+          "organization_grade": "O4",
+          "closure": "RECOVERY_SAME_SYSTEM",
+          "base_regions": [
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-FUGONGSHI"
+          ],
+          "basis": "辅公祏在丹阳称帝、设官，大修铠仗并运输粮储，以舟师三万、步骑二万和横江城垒持续作战，组织度达到O4；但该役是唐已取得江南后的恢复战争，单项仍按恢复阶段A，不重复取得完整新区终局信用。"
+        },
+        {
+          "system_id": "OPP-TANG-LIANGSHIDU",
+          "opponent_label": "梁师都朔方政权",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-SHUOFANG"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-LIANGSHIDU-628"
+          ],
+          "basis": "长期边疆割据并有突厥支援，达到成建制主要方向。"
+        },
+        {
+          "system_id": "OPP-TANG-LIGUI",
+          "opponent_label": "李轨河西政权",
+          "organization_grade": "O3",
+          "closure": "NON_ATTRIBUTABLE_COLLAPSE",
+          "base_regions": [
+            "MR-HEXI"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-HEXI-619"
+          ],
+          "basis": "由内部倒戈终结，不能形成唐方军事击败信用。"
+        },
+        {
+          "system_id": "OPP-TANG-GAOKAIDAO",
+          "opponent_label": "高开道幽燕政权",
+          "organization_grade": "O3",
+          "closure": "NON_ATTRIBUTABLE_COLLAPSE",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG"
+          ],
+          "source_campaign_refs": [
+            "WAR-LEAD-TANG-GAOKAIDAO-624"
+          ],
+          "basis": "由内部兵变终结，不形成唐方完整军事击败信用。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-GORYEO-936",
+      "dynasty": "五代十国",
+      "chain_grade": "NOT_COMPARABLE",
+      "rule_hit": "OUTSIDE_CURRENT_COMPARISON_SCOPE",
+      "grade_basis": "保留高丽统一战役事实，但当前秦至清中国统一链横向校准不消费域外体系。",
+      "opponent_systems": []
+    },
+    {
+      "portfolio_ref": "UCP-POST-LIAO-901-926",
+      "dynasty": "辽",
+      "chain_grade": "H4",
+      "rule_hit": "ONE_O4_PLUS_O3",
+      "grade_basis": "终结渤海成熟区域国家，并击败多个成建制部族和山北方向；未出现O5国家终局。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-LIAO-WESTERN-TRIBES",
+          "opponent_label": "西方诸部与山北成建制武装",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-SHUOFANG",
+            "MR-HEXI"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-LIAO-PREACCESSION-EXPANSION-901-903",
+            "CAMPAIGN-LIAO-WESTERN-EXPANSION-916",
+            "CAMPAIGN-LIAO-TIANDE-920"
+          ],
+          "basis": "具有持续主要方向和部族军事组织，但不是成熟全国国家机器。"
+        },
+        {
+          "system_id": "OPP-LIAO-BALHAE",
+          "opponent_label": "渤海国国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926",
+            "CAMPAIGN-LIAO-BALHAE-STABILIZATION-926"
+          ],
+          "basis": "有稳定国家行政、城邑和区域战争体系，属成熟区域国家。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-SONG-963-979",
+      "dynasty": "北宋",
+      "chain_grade": "H2",
+      "rule_hit": "THREE_O4_TERMINALS",
+      "grade_basis": "连续终结后蜀、南唐、北汉三个成熟区域国家，另有南汉和荆湖方向；没有单一O5全国第一梯队。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-SONG-JINGHU",
+          "opponent_label": "荆湖地方政权",
+          "organization_grade": "O2",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JINGXIANG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-HUNAN-CONQUERED-963"
+          ],
+          "basis": "存在地方政权和军队，但持续战争与再生能力有限。"
+        },
+        {
+          "system_id": "OPP-SONG-LATER-SHU",
+          "opponent_label": "后蜀国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-BASHU"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-SHU-CAPITULATES-965"
+          ],
+          "basis": "长期稳定区域国家、完整军政财政与巴蜀纵深。"
+        },
+        {
+          "system_id": "OPP-SONG-SOUTHERN-HAN",
+          "opponent_label": "南汉国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-LINGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-GUANGZHOU-BURNED-SURRENDERS-971"
+          ],
+          "basis": "南汉拥有持续数十年的独立朝廷、岭南州郡和成建制军队；宋军连续攻克富、贺、昭、桂、连等州并在广州终结其国家机器，按O4完整终局定S-。"
+        },
+        {
+          "system_id": "OPP-SONG-SOUTHERN-TANG",
+          "opponent_label": "南唐国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-SONG-INVADES-JIANGNAN-974",
+            "CAMPAIGN-CAISHI-BATTLE-974",
+            "CAMPAIGN-XIAKOU-BATTLE-974",
+            "CAMPAIGN-NORTH-CAMP-NIGHT-ATTACK-975",
+            "CAMPAIGN-RUNZHOU-SURRENDERS-975",
+            "CAMPAIGN-JINLING-CAPTURED-975"
+          ],
+          "basis": "完整东南国家、成建制水陆军与多阶段防御体系。"
+        },
+        {
+          "system_id": "OPP-SONG-NORTHERN-HAN",
+          "opponent_label": "北汉—辽支援战争体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-TAIYUAN-OUTER-CITIES-979",
+            "CAMPAIGN-NORTHERN-HAN-SURRENDERS-979"
+          ],
+          "basis": "稳定河东国家根据地并长期消费辽朝外援，实际抗战能力达到O4。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-PROTO-JIN-SHILU",
+      "dynasty": "金",
+      "chain_grade": "H5",
+      "rule_hit": "ONE_O3_TERMINAL",
+      "grade_basis": "石鲁整合阶段只击败成建制部族方向，尚未面对成熟国家机器。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-PROTO-JIN-TRIBES",
+          "opponent_label": "不服条教的部族武装",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [],
+          "source_campaign_refs": [
+            "CAMPAIGN-PROTO-JIN-SHILU-TRIBAL-CONSOLIDATION"
+          ],
+          "basis": "能形成持续部族战争方向，但缺少成熟国家行政和多军团纵深。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "dynasty": "金",
+      "chain_grade": "H2",
+      "rule_hit": "TWO_O5_SYSTEM_DEFEATS",
+      "grade_basis": "连续终结辽朝国家机器并决定性击破北宋中央军政体系，是两个O5国家竞争极的系统性败亡。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-JURCHEN-JIN-LIAO",
+          "opponent_label": "辽朝国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG",
+            "MR-SHUOFANG",
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-JIN-LIAO-NINGJIANG-1114",
+            "CAMPAIGN-JIN-GAO-YONGCHANG-1116",
+            "CAMPAIGN-JIN-LIAO-CENTRAL-WESTERN-CAPITALS-1122",
+            "CAMPAIGN-JIN-LIAO-YINSHAN-PURSUIT-1123",
+            "CAMPAIGN-JIN-LIAO-FINAL-CAPTURE-1125"
+          ],
+          "basis": "成熟帝国、多京体系、多支军团和战略纵深均已兑现。"
+        },
+        {
+          "system_id": "OPP-JURCHEN-JIN-NORTHERN-SONG",
+          "opponent_label": "北宋中央国家与北方防御体系",
+          "organization_grade": "O5",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-HEBEI",
+            "MR-HENAN",
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-JIN-SONG-FIRST-KAIFENG-1125-1126",
+            "CAMPAIGN-JIN-SONG-SECOND-KAIFENG-1126"
+          ],
+          "basis": "攻破国家中枢并摧毁北宋中央军政体系；南宋续存不改变被击败体系的O5组织层级。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-YUAN-ANCESTRAL-BODONCHAR",
+      "dynasty": "元",
+      "chain_grade": "BELOW_H5",
+      "rule_hit": "ONLY_O1_O2",
+      "grade_basis": "单一先世兼并只面对低于主要方向的部众。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-YUAN-BODONCHAR-LOCAL",
+          "opponent_label": "无所隶属民户与地方部众",
+          "organization_grade": "O1",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [],
+          "source_campaign_refs": [
+            "CAMPAIGN-YUAN-ANCESTRAL-SUBJUGATION"
+          ],
+          "basis": "缺乏主要方向级战争组织，不与后世国家统一链叠加。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-YUAN-ANCESTRAL-HAIDU",
+      "dynasty": "元",
+      "chain_grade": "BELOW_H5",
+      "rule_hit": "ONLY_O1_O2",
+      "grade_basis": "海都先世扩张仍是局部部族兼并。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-YUAN-HAIDU-TRIBAL",
+          "opponent_label": "押剌伊及周边部族",
+          "organization_grade": "O2",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [],
+          "source_campaign_refs": [
+            "CAMPAIGN-YUAN-ANCESTRAL-HAIDU-RISE"
+          ],
+          "basis": "有部族战斗组织但没有成熟国家机器。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-YUAN-1205-1279",
+      "dynasty": "元",
+      "chain_grade": "H1",
+      "rule_hit": "TWO_O5_PLUS_O4",
+      "grade_basis": "终结金、南宋两个O5帝国体系，并终结西夏、大理两个O4区域国家；跨代不改变对手体系唯一消费。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-YUAN-WESTERN-XIA",
+          "opponent_label": "西夏国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-LONGYOU",
+            "MR-HEXI",
+            "MR-SHUOFANG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-YUAN-XIXIA-1205",
+            "CAMPAIGN-YUAN-XIXIA-1209",
+            "CAMPAIGN-YUAN-XIXIA-1226-1227"
+          ],
+          "basis": "长期稳定区域国家、完整军政体系和西北纵深。"
+        },
+        {
+          "system_id": "OPP-YUAN-JIN",
+          "opponent_label": "金朝国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEBEI",
+            "MR-HENAN",
+            "MR-SHANDONG",
+            "MR-GUANZHONG",
+            "MR-HEDONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-YUAN-JIN-1211",
+            "CAMPAIGN-YUAN-JIN-1212",
+            "CAMPAIGN-YUAN-JIN-THREE-ARMIES-1213",
+            "CAMPAIGN-YUAN-JIN-ZHONGDU-1214-1215",
+            "CAMPAIGN-YUAN-MUKHALI-JIN-1217-1223",
+            "CAMPAIGN-YUAN-JIN-1230-1231",
+            "CAMPAIGN-YUAN-JIN-SANFENG-1232",
+            "CAMPAIGN-YUAN-JIN-NANJING-1232-1233",
+            "CAMPAIGN-YUAN-JIN-CAIZHOU-1233-1234"
+          ],
+          "basis": "多区域帝国、多支主力和长期再生抗战能力均已兑现。"
+        },
+        {
+          "system_id": "OPP-YUAN-DALI",
+          "opponent_label": "大理国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-BASHU"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-YUAN-DALI-1253",
+            "CAMPAIGN-YUAN-DALI-1253-1254"
+          ],
+          "basis": "稳定区域国家和独立军政体系；超出现有宏区目录不影响组织档。"
+        },
+        {
+          "system_id": "OPP-YUAN-SOUTHERN-SONG",
+          "opponent_label": "南宋国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HUAISI",
+            "MR-JINGXIANG",
+            "MR-JIANGNAN",
+            "MR-BASHU",
+            "MR-LINGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-YUAN-SONG-CONQUEST"
+          ],
+          "basis": "成熟帝国、多层纵深、水陆主力和长期再生能力完整兑现。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-MING-1353-1382",
+      "dynasty": "明",
+      "chain_grade": "H2",
+      "rule_hit": "TWO_O5_SYSTEM_DEFEATS",
+      "grade_basis": "终结陈汉O5并决定性逐出元朝中央O5体系，另终结张士诚和明夏两个O4；北元续存使元只记系统性击败而非完整终结。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-MING-CHEN-HAN",
+          "opponent_label": "陈友谅汉国国家机器",
+          "organization_grade": "O5",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JINGXIANG",
+            "MR-HUAISI"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-MING-JIANGZHOU-1361-1362",
+            "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"
+          ],
+          "basis": "全国第一梯队竞争极，大型水军、多区域纵深和持续国家战争能力均已兑现。"
+        },
+        {
+          "system_id": "OPP-MING-ZHANGSHICHENG",
+          "opponent_label": "张士诚吴国国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-MING-HUAIDONG-1365-1366",
+            "CAMPAIGN-MING-ZHANGSHICHENG-DEFEAT-1367"
+          ],
+          "basis": "成熟东南区域国家，具多州财赋、水陆军与持续战争能力，并发生完整政权终局；O4成立。"
+        },
+        {
+          "system_id": "OPP-MING-YUAN-CENTRAL",
+          "opponent_label": "元朝中央与北方国家体系",
+          "organization_grade": "O5",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-HEBEI",
+            "MR-HENAN",
+            "MR-SHANDONG",
+            "MR-HEDONG",
+            "MR-GUANZHONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368",
+            "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"
+          ],
+          "basis": "逐出大都并摧毁中原中央体系，但北元续存，故不写完整终结。"
+        },
+        {
+          "system_id": "OPP-MING-MING-XIA",
+          "opponent_label": "明夏国家机器",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-BASHU"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-MING-SICHUAN-1371"
+          ],
+          "basis": "稳定据有四川的区域国家，具首都、行政、军队与纵深，终局覆盖其军事和政权体系；O4成立。"
+        },
+        {
+          "system_id": "OPP-MING-YUNNAN-YUAN",
+          "opponent_label": "云南元梁王体系",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-LINGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-MING-YUNNAN-1381-1382"
+          ],
+          "basis": "成建制区域方向和外缘国家残余，但不另升为O4国家竞争极。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "dynasty": "清",
+      "chain_grade": "H2",
+      "rule_hit": "ONE_O5_PLUS_TWO_O4",
+      "grade_basis": "决定性摧毁明朝辽东—中央O5军事体系，并终结大顺、南明两个O4国家体系；不把明亡、入关和南明各自重复计算同一土地。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-QING-JURCHEN-RIVALS",
+          "opponent_label": "海西女真等建州竞争部族",
+          "organization_grade": "O3",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-EASTERN-TRIBES-HUIFA-1607-1611",
+            "CAMPAIGN-QING-ULA-YEHE-1612-1613",
+            "CAMPAIGN-QING-SARHU-AND-YEHE-1619"
+          ],
+          "basis": "成建制部族战争体系，但国家纵深和多军团能力不足。"
+        },
+        {
+          "system_id": "OPP-QING-MING",
+          "opponent_label": "明朝辽东与中央国家军事体系",
+          "organization_grade": "O5",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-YOUYAN-LIAODONG",
+            "MR-HEBEI"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-MING-FUSHUN-1618",
+            "CAMPAIGN-QING-SARHU-AND-YEHE-1619",
+            "CAMPAIGN-QING-SHENYANG-LIAOYANG-1621",
+            "CAMPAIGN-QING-GUANGNING-1622",
+            "CAMPAIGN-QING-DALINGHE-1631",
+            "CAMPAIGN-QING-SONGJIN-1639",
+            "CAMPAIGN-MING-SONGJIN-1641-1642"
+          ],
+          "basis": "成熟帝国国家机器和多层边防军团；萨尔浒直接击毁一次全国级援辽主力，松锦再闭合辽西主防御体系；北京终局并非清单独军事终结，故全链只记一次决定性系统击败。"
+        },
+        {
+          "system_id": "OPP-QING-DASHUN",
+          "opponent_label": "李自成大顺国家与主力体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-HEBEI",
+            "MR-HENAN",
+            "MR-GUANZHONG"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-SHANHAIGUAN-BEIJING-1644",
+            "CAMPAIGN-QING-LI-ZICHENG-1644-1645"
+          ],
+          "basis": "已从流动军发展为跨区政权、统一主力和国家竞争体系，但稳定制度与再生低于O5。"
+        },
+        {
+          "system_id": "OPP-QING-SOUTHERN-MING",
+          "opponent_label": "南明国家体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JIANGNAN",
+            "MR-JINGXIANG",
+            "MR-LINGNAN",
+            "MR-BASHU"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-SOUTHERN-MING-JIANGNAN-1645",
+            "CAMPAIGN-QING-SOUTHERN-CONSOLIDATION-1645-1647",
+            "CAMPAIGN-QING-YUNGUI-1657-1659",
+            "CAMPAIGN-QING-YONGLI-END-1661-1662"
+          ],
+          "basis": "继承国家名义、行政财赋和多区域军队，但指挥整合和全国再生能力低于明中央O5。"
+        },
+        {
+          "system_id": "OPP-QING-DAXI",
+          "opponent_label": "张献忠大西及其后继军团",
+          "organization_grade": "O4",
+          "closure": "DECISIVE_SYSTEM_DEFEAT",
+          "base_regions": [
+            "MR-BASHU"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-ZHANG-XIANZHONG-1646"
+          ],
+          "basis": "大西具备四川区域政权、成建制主力和一百三十余营；清军击破主寨、阵斩张献忠并摧毁主体系，按O4国家机器终局定S-。后继军团转入其他战争树，不在本项重复消费。"
+        }
+      ]
+    },
+    {
+      "portfolio_ref": "UCP-POST-QING-REUNIFICATION-1673-1683",
+      "dynasty": "清",
+      "chain_grade": "H3",
+      "rule_hit": "TWO_O4_SYSTEMS",
+      "grade_basis": "三藩主体系和台湾郑氏均达到O4；耿精忠、王辅臣等作为同一复合叛乱的分立方向，不机械再造多个O4。",
+      "opponent_systems": [
+        {
+          "system_id": "OPP-QING-WUSANGUI-ZHOU",
+          "opponent_label": "吴三桂—吴周三藩主体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JINGXIANG",
+            "MR-BASHU",
+            "MR-LONGYOU",
+            "MR-LINGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-THREE-FEUDATORIES-OUTBREAK-1673-1674",
+            "CAMPAIGN-QING-GUANGDONG-GUANGXI-1676-1680",
+            "CAMPAIGN-QING-COUNTEROFFENSIVE-1678-1680",
+            "CAMPAIGN-QING-YUNNAN-FINAL-1680-1681"
+          ],
+          "basis": "稳定藩镇财政军队、跨区同盟和长期国家化战争均已兑现。"
+        },
+        {
+          "system_id": "OPP-QING-OTHER-FEUDATORIES",
+          "opponent_label": "耿精忠、王辅臣等分立藩镇方向",
+          "organization_grade": "O3",
+          "closure": "RECOVERY_SAME_SYSTEM",
+          "lineage_parent": "OPP-QING-WUSANGUI-ZHOU",
+          "base_regions": [
+            "MR-JIANGNAN",
+            "MR-LONGYOU"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-GENG-FUJIAN-1674-1677",
+            "CAMPAIGN-QING-WANG-FUCHEN-1674-1676"
+          ],
+          "basis": "有独立指挥方向，但处于同一三藩复合战争，不与主体系重复完整消费。"
+        },
+        {
+          "system_id": "OPP-QING-ZHENG-TAIWAN",
+          "opponent_label": "台湾郑氏国家与海军体系",
+          "organization_grade": "O4",
+          "closure": "FULL_TERMINAL",
+          "base_regions": [
+            "MR-JIANGNAN"
+          ],
+          "source_campaign_refs": [
+            "CAMPAIGN-QING-TAIWAN-1683"
+          ],
+          "basis": "稳定行政、财政、海军和长期独立战争能力均已兑现。"
+        }
+      ]
+    }
+  ]
+}

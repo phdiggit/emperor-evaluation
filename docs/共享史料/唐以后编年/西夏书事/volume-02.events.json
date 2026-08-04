@@ -1,0 +1,628 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V02-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V02-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "02",
+    "revision_ref": "2284100",
+    "start_locator": "后唐庄宗同光二年李仁福晋朔方王",
+    "end_locator": "周恭帝显德六年李彝殷加太傅",
+    "overlap_context": "承接卷1李仁福守夏、贡马事梁；本卷主载仁福彝超彝殷承袭、后唐移镇战争、绥银内乱及定难军在后唐晋汉周间的自主扩张。",
+    "input_fingerprint": "d45ccd2db076e5a7e94d695ae1b2a56dd4cffefba43959cca1a0d118a962dc42"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷02正文登记，未知保持未知。",
+    "作者按语与风俗综述仅在解释命价、仇杀及五州治理时作背景，不替代具体事件；普通加官贡物不单列。",
+    "本卷无达到大型工程门槛的事件。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V02-RENFU-SHUOFANG-KING-924",
+      "time": [
+        "后唐庄宗同光二年四月",
+        "924",
+        "month"
+      ],
+      "subject": "后唐庄宗与定难军李仁福",
+      "action": "后唐灭梁后，仁福先遣李仁裕入贺，庄宗进封仁福为朔方王。",
+      "result": "定难军转而承认后唐，仁福维持统治并取得更高王爵。",
+      "groups": [
+        "李氏宗族",
+        "定难军官员",
+        "夏州军民"
+      ],
+      "quote": [
+        "定難軍節度使李仁福晉朔方王。",
+        "首遣宥州刺史李仁裕奉表入賀。",
+        "莊宗詔晉仁福爵。"
+      ],
+      "unknown": [
+        "入贺贡物、封爵食邑、臣属条件和军政义务未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "RENFU-SHUOFANG-KING-924",
+        "summary": "仁福归后唐并晋封朔方王。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-SUI-YIN-MUTINY-926",
+      "time": [
+        "后唐明宗天成元年",
+        "926",
+        "year"
+      ],
+      "subject": "绥银军士与李仁颜李彝敏定难军",
+      "action": "绥银两州军士因细故仇杀，主管追究后军士哄起并抢掠两州城市。",
+      "result": "李仁颜与李彝敏率军平定叛乱。",
+      "cost": "城市遭抢掠，军民伤亡与财产损失未载。",
+      "groups": [
+        "绥银军士",
+        "两州城市居民",
+        "定难军官员"
+      ],
+      "quote": [
+        "綏、銀軍亂，剽州城。",
+        "遂鬨而起，縱掠二州城市。",
+        "李仁顏與綏州刺史李𢑴敏討定之。"
+      ],
+      "unknown": [
+        "叛军人数、伤亡、被掠财物、惩处人数和军饷背景未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SUI-YIN-MUTINY-926",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-TANGUT-HOMICIDE-COMPENSATION",
+      "time": [
+        "后唐明宗天成元年前后",
+        "10世纪前期",
+        "range"
+      ],
+      "subject": "定难军辖内党项部族与和断官",
+      "action": "部族仇杀由和断官辨曲直，杀人者缴纳命价钱十二万；无力复仇者另以部族仪式施压仇家。",
+      "result": "定难辖境以命价与和断官制度调处部分血仇，但暴力复仇仍存在。",
+      "groups": [
+        "党项部族",
+        "被害者家属",
+        "和断官",
+        "缴纳命价者"
+      ],
+      "quote": [
+        "州刺史之下有和斷官",
+        "以理其曲直。殺人者，納命價錢百二十千。"
+      ],
+      "unknown": [
+        "命价实际征收率、案件数量、贫户负担和复仇减少效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TANGUT-HOMICIDE-COMPENSATION",
+        "summary": "以和断官和十二万命价调处部族仇杀。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-RENFU-DEATH-YICHAO-SUCCESSION-933",
+      "time": [
+        "后唐明宗长兴四年二月",
+        "933",
+        "month"
+      ],
+      "subject": "李仁福、李彝超与定难军三军",
+      "action": "仁福死后，定难军三军拥立其子彝超为留后，并伪造仁福奏章请求朝廷正式任命。",
+      "result": "彝超实际接掌夏银绥宥四州，但未立即获后唐承认。",
+      "groups": [
+        "李氏宗族",
+        "定难军将士",
+        "四州军民"
+      ],
+      "quote": [
+        "定難軍節度使李仁福卒。子𢑴超嗣。",
+        "三軍立左都押牙、四州防遏使𢑴超爲留後",
+        "矯爲仁福奏"
+      ],
+      "unknown": [
+        "仁福死因、军中拥立程序、伪奏参与者和反对力量未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "RENFU-DEATH-YICHAO-SUCCESSION-933",
+        "summary": "仁福死后军中拥立彝超并伪奏求命。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-TRANSFER-ORDER-REMISSIONS-933",
+      "time": [
+        "后唐明宗长兴四年三月",
+        "933",
+        "month"
+      ],
+      "subject": "后唐明宗、李彝超与夏银绥宥军民",
+      "action": "明宗命彝超移镇延州、安重进接管夏州，并宣布赦四州罪犯、公私债负和残欠税物、将校官资照旧转授。",
+      "result": "朝廷试图以全面赦免和保官条件促成和平移镇，彝超仍拒不受代。",
+      "groups": [
+        "四州欠税负债民户",
+        "囚犯",
+        "定难将校",
+        "夏州军民"
+      ],
+      "quote": [
+        "徙爲延州留後，𢑴超不受代。",
+        "并公私債負、殘欠稅物，一切並赦。",
+        "促之。𢑴超不納。\n〈"
+      ],
+      "unknown": [
+        "赦免是否实际执行、债税总额、受益人数和官资调整结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TRANSFER-ORDER-REMISSIONS-933",
+        "summary": "后唐以赦罪免债税促彝超移镇但被拒。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-XIAZHOU-WAR-933",
+      "time": [
+        "后唐明宗长兴四年四月至七月",
+        "933",
+        "range"
+      ],
+      "subject": "李彝超夏州军民、党项援骑与安重进药彦稠后唐军",
+      "action": "后唐五万军护送安重进赴夏州，彝超守青岭门、袭扰芦关粮运并拒守夏州，四面党项骑兵不断抄掠官军补给。",
+      "result": "后唐因城坚、粮运和牧草困难撤军，彝超追击使官军遗弃大量兵甲。",
+      "cost": "关中民输粮草费用高昂，官军失亡甚多，确数未载。",
+      "groups": [
+        "夏州军民",
+        "党项骑兵",
+        "后唐军",
+        "关中输粮民户"
+      ],
+      "quote": [
+        "官軍攻夏州，拒却之。",
+        "關中民輸斗粟束藁，費錢數緡，困敝不能供。",
+        "官軍遺戈棄甲，失亡甚夥。"
+      ],
+      "unknown": [
+        "双方伤亡、守军兵力、粮草总量、民户破产和城防损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-XIAZHOU-933",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-YICHAO-RECOGNITION-933",
+      "time": [
+        "后唐明宗长兴四年十月",
+        "933",
+        "month"
+      ],
+      "subject": "后唐明宗与李彝超定难军",
+      "action": "后唐撤军后，彝超遣使请罪并恢复朝贡。",
+      "result": "明宗正式授彝超定难军节度使等职，承认李氏继续据夏州。",
+      "groups": [
+        "李氏宗族",
+        "定难军官员",
+        "四州军民",
+        "后唐朝廷"
+      ],
+      "quote": [
+        "遣使請罪，仍授定難軍節度使。",
+        "𢑴超修貢如初。"
+      ],
+      "unknown": [
+        "请罪文本、贡物数量、册授条件和战后赔偿未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YICHAO-RECOGNITION-933",
+        "summary": "后唐战败后承认彝超定难节度地位。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-YICHAO-DEATH-YIYIN-935",
+      "time": [
+        "后唐废帝清泰二年二月",
+        "935",
+        "month"
+      ],
+      "subject": "李彝超、李彝殷与定难军",
+      "action": "彝超病重时奏请由弟彝殷权知留后，彝殷随后继任节度使。",
+      "result": "定难军权在李氏兄弟间平稳交接。",
+      "groups": [
+        "李氏宗族",
+        "定难军将士",
+        "四州军民"
+      ],
+      "quote": [
+        "定難軍節度使李𢑴超卒，弟𢑴殷代。",
+        "以弟行軍司馬𢑴殷權知留後。"
+      ],
+      "unknown": [
+        "彝超病因、遗命全文、朝廷确认程序和军中意见未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YICHAO-DEATH-YIYIN-935",
+        "summary": "彝超卒后弟彝殷继掌定难军。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-YIMIN-REBELLION-943",
+      "time": [
+        "后晋出帝天福八年七月至九月",
+        "943",
+        "range"
+      ],
+      "subject": "绥州刺史李彝敏、拓跋崇斌与李彝殷定难军",
+      "action": "彝敏联络衙内指挥拓跋崇斌袭击夏州，事泄后彝殷斩崇斌并出兵追击。",
+      "result": "彝敏战败携家属二百七十口逃延州，后被送回夏州处死；李仁裕接掌绥州。",
+      "cost": "拓跋崇斌、李彝敏被杀，其他伤亡与家属损失未载。",
+      "groups": [
+        "李氏宗族",
+        "定难军",
+        "绥州军民",
+        "彝敏家属"
+      ],
+      "quote": [
+        "綏州刺史李𢑴敏作亂，奔延州。",
+        "棄州挈骨肉二百七十口奔延州",
+        "月，李𢑴敏伏誅。\n"
+      ],
+      "unknown": [
+        "叛乱兵力、动机、交战伤亡、二百七十口后续和财产处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YIMIN-REBELLION-943",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-AID-JIN-AGAINST-KHITAN-944",
+      "time": [
+        "后晋出帝开运元年正月至四月",
+        "944",
+        "range"
+      ],
+      "subject": "李彝殷蕃汉军与契丹军",
+      "action": "契丹南侵后晋时，彝殷率蕃汉军四万由麟州渡河攻契丹西境以牵制。",
+      "result": "后晋以协助之功授彝殷契丹西南面招讨使，本卷未载直接战果。",
+      "groups": [
+        "定难蕃汉军",
+        "契丹边民军队",
+        "麟州渡河民户"
+      ],
+      "quote": [
+        "起兵助攻契丹。",
+        "合蕃、漢兵四萬自麟州渡河，侵契丹西境，以牽制之。",
+        "授𢑴殷契丹西南面招討使。"
+      ],
+      "unknown": [
+        "实际交战、双方伤亡、掳获、军费和西境民损未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-KHITAN-944",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-YEMU-REBELLION-944",
+      "time": [
+        "后晋出帝开运元年",
+        "944",
+        "year"
+      ],
+      "subject": "西羌㖡母族、绥州刺史李仁裕与定难军",
+      "action": "㖡母熟户因不满李仁裕威福举族叛走南山，仁裕追击。",
+      "result": "仁裕战败被杀，叛乱未在本年平定。",
+      "cost": "李仁裕战死，其他伤亡未载。",
+      "groups": [
+        "㖡母族",
+        "绥州军民",
+        "李仁裕部军"
+      ],
+      "quote": [
+        "西羌㖡母族亂",
+        "仁裕率所部追擊，戰敗，爲所殺。"
+      ],
+      "unknown": [
+        "叛乱人数、具体不满、双方伤亡、掠夺和族众去向未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YEMU-944",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-YEMU-REVENGE-BLOCKED-948",
+      "time": [
+        "后汉隐帝乾祐元年三月",
+        "948",
+        "month"
+      ],
+      "subject": "李彝殷定难军、㖡母族与后汉隐帝",
+      "action": "彝殷请兵讨㖡母族为李仁裕复仇并率军屯境，庆州请求增兵防备。",
+      "result": "隐帝以司天所言不利先举为由制止，讨伐未实施。",
+      "groups": [
+        "定难军",
+        "㖡母族",
+        "庆州军民"
+      ],
+      "quote": [
+        "月，請討西羌。\n",
+        "請討叛羌㖡母族，爲李仁裕報仇。",
+        "隱帝以司天言今歲不利先舉兵，諭止之。"
+      ],
+      "unknown": [
+        "动员兵力、屯军费用、㖡母族处置和停战后边境状况未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YEMU-948",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-AID-LI-SHOUZHEN-948",
+      "time": [
+        "后汉隐帝乾祐元年六月至十一月",
+        "948",
+        "range"
+      ],
+      "subject": "李彝殷定难军与河中反叛李守贞、延州高允权",
+      "action": "李守贞以蜡书重币求援，彝殷出兵逼近延州为其声援；郭威围河中后彝殷撤军。",
+      "result": "定难军未直接参战即退，事后与延州互相告讦并由后汉调解。",
+      "groups": [
+        "定难军",
+        "河中叛军",
+        "延州军民",
+        "后汉官军"
+      ],
+      "quote": [
+        "河中李守貞遣使夏州，乞援。",
+        "𢑴殷出兵次延州。",
+        "𢑴超遂抽師囘。"
+      ],
+      "unknown": [
+        "李守贞所送重币数额、定难军兵力、军费、伤亡与秘密协议未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LI-SHOUZHEN-948",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-JINGZHOU-ANNEXATION-949",
+      "time": [
+        "后汉隐帝乾祐二年二月",
+        "949",
+        "month"
+      ],
+      "subject": "后汉隐帝与李彝殷定难军、静州军民",
+      "action": "后汉将静州划归定难军，彝殷上表谢恩。",
+      "result": "定难军辖区增至夏银绥宥静五州。",
+      "groups": [
+        "静州军民",
+        "定难军官员",
+        "五州民户"
+      ],
+      "quote": [
+        "以靜州𨽻定難軍，李𢑴殷上表謝。",
+        "此定難軍屬有五州之始。"
+      ],
+      "unknown": [
+        "静州接管程序、人口、赋税、军额和原官属处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JINGZHOU-ANNEXATION-949",
+        "summary": "静州划归定难军，辖境增为五州。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-ATTACH-NORTHERN-HAN-951",
+      "time": [
+        "后周太祖广顺元年五月",
+        "951",
+        "month"
+      ],
+      "subject": "李彝殷定难军与北汉政权",
+      "action": "后周建立后，彝殷遣使奉表归附北汉。",
+      "result": "定难军在受后周封爵同时另与北汉建立臣属关系。",
+      "groups": [
+        "定难军官员",
+        "北汉朝廷",
+        "五州军民"
+      ],
+      "quote": [
+        "遣使附于北漢。",
+        "𢑴殷遣使奉表附之。"
+      ],
+      "unknown": [
+        "使团贡物、军事承诺、双重臣属条件和后周反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ATTACH-NORTHERN-HAN-951",
+        "summary": "彝殷遣使归附北汉。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-REFUSE-LINZHOU-AID-952",
+      "time": [
+        "后周太祖广顺二年十二月",
+        "952",
+        "month"
+      ],
+      "subject": "李彝殷定难军与北汉麟州杨崇训",
+      "action": "麟州被羌部围攻后向夏州求援，彝殷拒绝出兵。",
+      "result": "定难军未履行对北汉麟州的援助请求，本卷未载围城后果。",
+      "groups": [
+        "麟州军民",
+        "围攻羌部",
+        "定难军"
+      ],
+      "quote": [
+        "北漢麟州刺史楊崇訓求援於夏州，不應。",
+        "州。𢑴殷不赴。\n顯"
+      ],
+      "unknown": [
+        "围军人数、麟州伤亡、拒援原因和后续解围过程未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LINZHOU-952",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-XIPING-KING-954",
+      "time": [
+        "后周太祖显德元年正月",
+        "954",
+        "month"
+      ],
+      "subject": "后周太祖与李彝殷定难军",
+      "action": "后周改元施恩，进封彝殷为西平王。",
+      "result": "李氏历六世据河西后取得西平王号，与吴越荆南藩镇并列受封。",
+      "groups": [
+        "李氏宗族",
+        "定难军官员",
+        "五州军民"
+      ],
+      "quote": [
+        "李𢑴殷晉西平王。",
+        "𢑴殷亦封西平王。"
+      ],
+      "unknown": [
+        "封爵食邑、实封收益、贡赋军役条件与地方庆赏未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XIPING-KING-954",
+        "summary": "李彝殷晋封西平王。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-FUZHOU-ROAD-BLOCKADE-955",
+      "time": [
+        "后周世宗显德二年正月",
+        "955",
+        "month"
+      ],
+      "subject": "李彝殷定难军、府州折德扆与后周世宗",
+      "action": "因不满府州升永安军与定难平级，彝殷出兵封锁府州道路、阻断诏使。",
+      "result": "后周以断绝夏州依赖的中原百货相威胁，彝殷撤兵谢罪。",
+      "groups": [
+        "定难军",
+        "府州军民",
+        "往来商旅",
+        "五州消费者"
+      ],
+      "quote": [
+        "以兵塞府州路，旣而罷之。",
+        "百貨悉仰中國，我若絶之，何能爲！",
+        "𢑴殷惶恐，撤兵謝罪。"
+      ],
+      "unknown": [
+        "封锁时长、兵力、贸易损失、百货价格变化和府州损害未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-FUZHOU-BLOCKADE-955",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V02-BETRAY-NORTHERN-HAN-957",
+      "time": [
+        "后周世宗显德四年十一月",
+        "957",
+        "month"
+      ],
+      "subject": "李彝殷、北汉麟州杨崇训与后周世宗",
+      "action": "彝殷诱使此前同附北汉的杨崇训归降后周，并与折德扆联名上奏。",
+      "result": "杨崇训获后周授麟州防御使，彝殷转而协助后周削弱北汉。",
+      "groups": [
+        "定难军官员",
+        "麟州军民",
+        "北汉与后周朝廷"
+      ],
+      "quote": [
+        "李𢑴殷叛北漢，誘楊崇訓歸周。",
+        "𢑴殷計誘崇訓歸周",
+        "遂授崇訓本州防禦使"
+      ],
+      "unknown": [
+        "诱降条件、赏赐、军力变化、北汉反应和麟州民众影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BETRAY-NORTHERN-HAN-957",
+        "summary": "彝殷诱杨崇训弃北汉归后周。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V02-FIVE-PREFECTURES-AUTONOMY",
+      "time": [
+        "后周恭帝显德六年前",
+        "10世纪中叶",
+        "range"
+      ],
+      "subject": "李彝殷定难军与夏银绥宥静五州",
+      "action": "李氏长期自行任命巡属官员，不将辖区贡赋直接纳入中原朝廷，并依靠本地征赋养兵。",
+      "result": "西夏尚未称国时已形成有土、有爵、有世系的实质自治政权。",
+      "groups": [
+        "五州民户",
+        "定难军将士",
+        "地方官员",
+        "牧户商民"
+      ],
+      "quote": [
+        "供賦不入公朝，巡屬惟其除授。",
+        "夏雖未稱國，而自王其土久矣。"
+      ],
+      "unknown": [
+        "五州人口、田赋牧税总额、军费、官制细目和民户实际负担未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FIVE-PREFECTURES-AUTONOMY",
+        "summary": "李氏五州形成贡赋官属自主的实质政权。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

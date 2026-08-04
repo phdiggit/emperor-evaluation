@@ -1,0 +1,1542 @@
+{
+  "facts": [
+    {
+      "action": "辽北部发生叛乱，乌库德埒勒部详袞耶律巢率军讨伐并报捷；辽主因战事杀人多而在南京、中京饭僧。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-LIAO-NORTHERN-REBELLION-1072",
+      "implementation": "",
+      "locations": [
+        "辽北部",
+        "辽南京",
+        "辽中京"
+      ],
+      "observable_result": "辽北部叛乱被平定，朝廷同时以佛事回应战事伤亡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-NORTHERN-REBELLION-1072"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-liao-northern-rebellion-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#遼北部叛，烏庫德埒勒部詳袞耶律巢率師進討",
+        "續資治通鑑/卷069@2299555#癸未，遣使奏捷。遼主以戰多殺人",
+        "續資治通鑑/卷069@2299555#遼主以戰多殺人，飯僧于南京、中京"
+      ],
+      "time_range": {
+        "end": "熙宁五年正月",
+        "precision": "month",
+        "start": "熙宁五年正月"
+      },
+      "uncertainties": [
+        "叛军规模、战斗地点和伤亡未载。"
+      ]
+    },
+    {
+      "action": "朝廷设置京城逻卒，专门侦察诽谤时政者并收捕治罪。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-CAPITAL-SPEECH-SURVEILLANCE-1072",
+      "implementation": "",
+      "locations": [
+        "开封"
+      ],
+      "observable_result": "对新法及朝政的公共言论被纳入城市治安监控。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "设京城逻卒侦察并治罪诽谤时政者。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-capital-speech-surveillance-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#置京城邏卒，察謗議時政者，收罪之"
+      ],
+      "time_range": {
+        "end": "熙宁五年正月",
+        "precision": "month",
+        "start": "熙宁五年正月"
+      },
+      "uncertainties": [
+        "侦察范围、实际案件和处分未载。"
+      ]
+    },
+    {
+      "action": "亢瑛以天象异常建议罢免王安石，神宗将其奏状交中书，王安石暂时请假，亢瑛旋被刺配英州牢城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-KANG-YING-PUNISHED-1072",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "英州"
+      ],
+      "observable_result": "以天变要求罢相的谏言被惩处，王安石仅短暂离朝。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "以天象要求罢免王安石者被刺配。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-kang-ying-punished-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#天久陰，星失度，宜罷免王安石",
+        "續資治通鑑/卷069@2299555#帝以瑛狀付中書，安石遂謁告",
+        "續資治通鑑/卷069@2299555#詔刺配英州牢城"
+      ],
+      "time_range": {
+        "end": "熙宁五年正月",
+        "precision": "month",
+        "start": "熙宁五年正月"
+      },
+      "uncertainties": [
+        "王安石请假的具体时长未载。"
+      ]
+    },
+    {
+      "action": "两浙遭水灾，朝廷赐谷十万石赈济，并招募民力兴修水利。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-LIANGZHE-FLOOD-RELIEF-WATERWORKS-1072",
+      "implementation": "",
+      "locations": [
+        "两浙"
+      ],
+      "observable_result": "两浙救荒与水利兴办被同步启动。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "两浙水灾获十万石谷物赈济。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "灾后募民兴办水利。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-liangzhe-flood-relief-waterworks-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#以兩浙水，賜谷十萬石賑之，仍募民興水利"
+      ],
+      "time_range": {
+        "end": "熙宁五年二月",
+        "precision": "month",
+        "start": "熙宁五年二月"
+      },
+      "uncertainties": [
+        "受灾范围、役工与水利工程规模未载。"
+      ]
+    },
+    {
+      "action": "蔡挺在边州整顿禁兵和教阅，提出以四州义勇轮番防秋、防春代替补募兵，又括边地、筑熙宁砦并招弓箭手耕守。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-CAI-TING-FRONTIER-REFORM-1072",
+      "implementation": "",
+      "locations": [
+        "泾州",
+        "渭州",
+        "仪州",
+        "原州",
+        "秦州"
+      ],
+      "observable_result": "边防改以义勇轮戍和弓箭手屯守为主，年省粟帛钱十三万余，新增边储及据点。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "义勇轮戍替代部分募兵并节省经费。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "筑熙宁砦并以弓箭手耕守。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "蔡挺获任枢密副使，推动西北防务调整。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-cai-ting-frontier-reform-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#當以涇、渭、儀、原四州義勇分五番",
+        "續資治通鑑/卷069@2299555#比之募士兵，省費多矣",
+        "續資治通鑑/卷069@2299555#歲省粟帛錢緡十三萬有奇",
+        "續資治通鑑/卷069@2299555#募弓箭手三千耕守，賜名熙寧砦"
+      ],
+      "time_range": {
+        "end": "熙宁五年二月",
+        "precision": "month",
+        "start": "熙宁五年二月"
+      },
+      "uncertainties": [
+        "义勇轮番实际出勤率及熙宁砦工费未载。"
+      ]
+    },
+    {
+      "action": "蔡挺以奇兵击溃集结胡卢河的西夏军，遣将破其七族；又遣张玉万兵解诸砦围，并平定庆州军变。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-CAI-TING-XIA-AND-QINGZHOU-1072",
+      "implementation": "",
+      "locations": [
+        "胡卢河",
+        "环庆",
+        "庆州"
+      ],
+      "observable_result": "西夏攻势和庆州兵变先后被压制，神宗认为泾原兵力发挥关键作用。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-XIA-HULU-QINGZHOU-1072"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-cai-ting-xia-and-qingzhou-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#夏人數萬集胡盧河，挺出奇兵迎擊之，遂潰",
+        "續資治通鑑/卷069@2299555#遣四將分路追討，破其七族",
+        "續資治通鑑/卷069@2299555#挺遣張玉以萬人往解其圍",
+        "續資治通鑑/卷069@2299555#慶州軍變，關中大擾，挺討平之"
+      ],
+      "time_range": {
+        "end": "熙宁五年二月",
+        "precision": "month",
+        "start": "熙宁五年二月"
+      },
+      "uncertainties": [
+        "西夏与叛军伤亡、俘获及七族身份未载。"
+      ]
+    },
+    {
+      "action": "富弼以不懂新法、无法治理汝州为由请归洛养疾，神宗准其致仕。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-FUBI-RETIRES-1072",
+      "implementation": "",
+      "locations": [
+        "汝州",
+        "洛阳"
+      ],
+      "observable_result": "富弼正式退出地方官任，仍保留就大利害上言的地位。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "富弼以不能行新法为由致仕。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-fubi-retires-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#新法臣所不曉，不可以治郡，願歸洛養疾",
+        "續資治通鑑/卷069@2299555#判汝州富弼致仕",
+        "續資治通鑑/卷069@2299555#朝廷有大利害，知無不言"
+      ],
+      "time_range": {
+        "end": "熙宁五年三月",
+        "precision": "month",
+        "start": "熙宁五年三月"
+      },
+      "uncertainties": [
+        "富弼致仕后各项建言及采纳结果未逐项载明。"
+      ]
+    },
+    {
+      "action": "朝廷以内藏库钱帛在京师设市易务，平价收买滞销货并按抵当赊请取息，后改设都提举市易司统辖六地市易司。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-SHIYI-LAW-ESTABLISHED-1072",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "秦凤",
+        "两浙",
+        "滁州",
+        "成都",
+        "广州",
+        "郓州"
+      ],
+      "observable_result": "国家经营商品流通和信贷的市易体系建立并向诸路扩展。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "市易务以官钱帛购销商品并提供抵当信贷。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "市易机构由京师扩展为统辖六地的中央体系。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-shiyi-law-established-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#以內藏庫錢帛置市易務於京師",
+        "續資治通鑑/卷069@2299555#平其價市之，願以易官物者聽",
+        "續資治通鑑/卷069@2299555#歲出息二分納還",
+        "續資治通鑑/卷069@2299555#都提舉市易司，秦鳳、兩浙、滁州、成都、廣州、鄆州六市易司皆隸焉"
+      ],
+      "time_range": {
+        "end": "熙宁五年三月",
+        "precision": "month",
+        "start": "熙宁五年三月"
+      },
+      "uncertainties": [
+        "初始本金、库存及各市易司实际收益未载。"
+      ]
+    },
+    {
+      "action": "二股河浚成，深十丈、广四百尺；施工期间导水入河，原有决口随之闭塞。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-ERGU-RIVER-COMPLETED-1072",
+      "implementation": "",
+      "locations": [
+        "二股河"
+      ],
+      "observable_result": "卷68开修的二股河工程完成并实现引水、塞口。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "二股河浚成并使决口闭塞。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-ergu-river-completed-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#二股河成，深十丈，廣四百尺",
+        "續資治通鑑/卷069@2299555#水入於河而決口亦塞"
+      ],
+      "time_range": {
+        "end": "熙宁五年四月",
+        "precision": "month",
+        "start": "熙宁五年四月"
+      },
+      "uncertainties": [
+        "工程总役工、费用及长期行水效果未载。"
+      ]
+    },
+    {
+      "action": "古渭砦升为通远军，王韶知军并行教阅法；王韶上报拓地千二百里、招附三十余万口。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-TONGYUAN-WANGSHAO-1072",
+      "implementation": "",
+      "locations": [
+        "古渭砦",
+        "通远军",
+        "河湟"
+      ],
+      "observable_result": "通远军成为河湟经营前沿，王韶的军政权与开边规模主张得到神宗、王安石关注。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "通远军设立并由王韶主持河湟经营。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-tongyuan-wangshao-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#以古謂砦為通遠軍",
+        "續資治通鑑/卷069@2299555#以王韶知軍事，行教閱法",
+        "續資治通鑑/卷069@2299555#韶言已拓地千二百里，招附三十餘萬口"
+      ],
+      "time_range": {
+        "end": "熙宁五年五月",
+        "precision": "month",
+        "start": "熙宁五年五月"
+      },
+      "uncertainties": [
+        "拓地和招附数字的核验及安置细节未载。"
+      ]
+    },
+    {
+      "action": "朝廷行保马法，令义勇、保甲及有资力户领养官马或自购，并按保社分担死病赔偿，后推广诸路。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-BAOMA-LAW-ROLLOUT-1072",
+      "implementation": "",
+      "locations": [
+        "开封府界",
+        "陕西五路",
+        "宋诸路"
+      ],
+      "observable_result": "马政由官牧部分转移至民户保社，养马户取得草束、钱布或折变钱优惠，也承担赔偿责任。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "民户以优惠与共同赔偿承担保马成本。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保马法由府界、陕西五路推广至诸路。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-baoma-law-rollout-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#王安石始建此議，文彥博、吳充以為不便",
+        "續資治通鑑/卷069@2299555#陝西五路義勇、保甲、願養馬者戶一匹",
+        "續資治通鑑/卷069@2299555#歲一閱其肥瘠，死病者補償",
+        "續資治通鑑/卷069@2299555#保戶馬死，保戶獨償；社戶馬死，社戶半償之",
+        "續資治通鑑/卷069@2299555#其後遂遍行于諸路"
+      ],
+      "time_range": {
+        "end": "熙宁五年五月",
+        "precision": "month",
+        "start": "熙宁五年五月"
+      },
+      "uncertainties": [
+        "实际给马数量、死亡率及赔偿金额未载。"
+      ]
+    },
+    {
+      "action": "朝廷在武成王庙复置武学，限定百名生员并由文武官举荐；又改革武举，废止不能答策者仅答兵书墨义的办法，改行策试。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-MILITARY-EDUCATION-REFORM-1072",
+      "implementation": "",
+      "locations": [
+        "开封"
+      ],
+      "observable_result": "武学与武举被重新纳入以军事才略为主的选拔制度。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "恢复武学并以策试改革武举。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-military-education-reform-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#詔于武成王廟置武學，選文武官知兵者為教授",
+        "續資治通鑑/卷069@2299555#武學生員以百人為額",
+        "續資治通鑑/卷069@2299555#武舉而試墨義，何異學究",
+        "續資治通鑑/卷069@2299555#至是始策試焉"
+      ],
+      "time_range": {
+        "end": "熙宁五年六月至闰月",
+        "precision": "month",
+        "start": "熙宁五年六月至闰月"
+      },
+      "uncertainties": [
+        "首批生员人数、课程和录取结果未载。"
+      ]
+    },
+    {
+      "action": "朝廷将榷货务、商税院、杂卖场和杂买务划归市易系统；张商英和神宗相继指出市易苛细、官收货物、冰与梳朴等物价扰民，王安石请求核查。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-SHIYI-EXPANSION-AND-COMPLAINTS-1072",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "宋诸路"
+      ],
+      "observable_result": "市易权力进一步集中，但垄断经营与物价上升的投诉进入最高层讨论。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "市易扩张引发商品价格、垄断与商民负担争议。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "市易机构集中及对王安石的政策问责进入朝廷。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-shiyi-expansion-and-complaints-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#市易務為東務上界",
+        "續資治通鑑/卷069@2299555#在京商稅院、雜賣場、雜買務，並隸提舉市易務",
+        "續資治通鑑/卷069@2299555#市易買賣極苛細，市人籍籍怨謗",
+        "續資治通鑑/卷069@2299555#聞榷貨賣冰，致民賣雪都不售",
+        "續資治通鑑/卷069@2299555#果爾，則是臣欲以聚斂誤陛下也"
+      ],
+      "time_range": {
+        "end": "熙宁五年七月至闰月",
+        "precision": "month",
+        "start": "熙宁五年七月至闰月"
+      },
+      "uncertainties": [
+        "神宗所闻市易弊端的最终核查和整改结果未载。"
+      ]
+    },
+    {
+      "action": "章惇奉命察访经制蛮事，北江彭氏、南江舒氏、田氏、向氏等相继纳土，朝廷开始建城砦并按内地治理；张商英同时上疏要求缓行免役、保甲、市易。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-JINGHU-TRIBAL-INTEGRATION-1072",
+      "implementation": "",
+      "locations": [
+        "荆湖北路",
+        "辰州",
+        "夔州"
+      ],
+      "observable_result": "荆湖峒蛮由朝贡关系转向纳土编制，开边经制与新法节奏问题相互交织。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "荆湖峒蛮纳土并进入内地化管理。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "纳土后开始建城砦。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-jinghu-tribal-integration-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#遣中書檢正官章惇察訪荊湖北路",
+        "續資治通鑑/卷069@2299555#蠻相繼納土，願為王民",
+        "續資治通鑑/卷069@2299555#始創城砦，比之內地矣",
+        "續資治通鑑/卷069@2299555#一曰免役，二曰保甲，三曰市易",
+        "續資治通鑑/卷069@2299555#得其人，緩而講之，則為利：非其人，急而成之，則為害"
+      ],
+      "time_range": {
+        "end": "熙宁五年闰月",
+        "precision": "month",
+        "start": "熙宁五年闰月"
+      },
+      "uncertainties": [
+        "各峒纳土的具体边界、户数和役税安排未载。"
+      ]
+    },
+    {
+      "action": "赵抃受命知成都，以宽治安定兵民；剑州李孝忠聚众私造符牒、度民为僧，赵抃不按谋逆严办，仅以私度罪处置首领。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-ZHAOBIAN-CHENGDU-STABILITY-1072",
+      "implementation": "",
+      "locations": [
+        "成都府",
+        "剑州"
+      ],
+      "observable_result": "蜀地戍卒忧患下的地方秩序保持安定，李孝忠事件避免扩大为逆案。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "赵抃以宽治维持成都兵民秩序并从轻处置剑州案件。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-zhaobian-chengdu-stability-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#既至蜀，治益尚寬，密為經略，而燕勞閒暇如它日，兵民晏然",
+        "續資治通鑑/卷069@2299555#劍州民李孝忠聚眾二百餘人，私造符牒，度民為僧",
+        "續資治通鑑/卷069@2299555#但處孝忠以私度罪，餘皆不問"
+      ],
+      "time_range": {
+        "end": "熙宁五年闰月",
+        "precision": "month",
+        "start": "熙宁五年闰月"
+      },
+      "uncertainties": [
+        "李孝忠最终刑罚与相关人员后续身份未载。"
+      ]
+    },
+    {
+      "action": "王韶率军筑渭源堡，攻破蒙罗角、抹耳水巴族，又越武胜击败玛尔戩援军，筑武胜城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-XIHE-WANGSHAO-CAMPAIGN-1072",
+      "implementation": "",
+      "locations": [
+        "渭源堡",
+        "乞神平",
+        "武胜",
+        "洮河西"
+      ],
+      "observable_result": "宋军在洮西取得连续胜利并建立渭源、武胜等据点，王韶继续以市易息钱支应经营。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-XIHE-WANGSHAO-1072"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-xihe-wangshao-campaign-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#引兵城渭源堡，破蒙羅角，遂城乞神平，破抹耳水巴族",
+        "續資治通鑑/卷069@2299555#賊乘高下鬥，軍小卻。韶麾帳下兵擊之，羌潰走",
+        "續資治通鑑/卷069@2299555#與戰，破之，遂城武勝",
+        "續資治通鑑/卷069@2299555#措置洮河，只用回易息錢，未嘗輒費官本"
+      ],
+      "time_range": {
+        "end": "熙宁五年八月",
+        "precision": "month",
+        "start": "熙宁五年八月"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡与筑城费用未载。"
+      ]
+    },
+    {
+      "action": "唐坰在廷中当面宣读六十条，指控王安石专作威福、曾布擅权，并斥其党羽；因扰乱朝仪被贬潮州别驾。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-TANG-JIONG-ANSHI-IMPEACHMENT-1072",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "潮州"
+      ],
+      "observable_result": "对王安石的公开弹劾未改变权力格局，唐坰被外贬。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "唐坰公开弹劾王安石后被贬潮州。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-tang-jiong-anshi-impeachment-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#王安石近御座前聽劄子",
+        "續資治通鑑/卷069@2299555#凡六十條，大抵言「安石專作威福，曾布表裡擅權，天下但知憚安石，不復知有陛下。文彥博、馮京知而不敢言，王珪曲事安石，無異廝僕。」",
+        "續資治通鑑/卷069@2299555#至詆安石為李林甫、盧杞",
+        "續資治通鑑/卷069@2299555#閤門糾其瀆亂朝儀，貶潮州別駕"
+      ],
+      "time_range": {
+        "end": "熙宁五年八月",
+        "precision": "month",
+        "start": "熙宁五年八月"
+      },
+      "uncertainties": [
+        "六十条具体事实核查和各被指控者回应未载。"
+      ]
+    },
+    {
+      "action": "朝廷为处理田赋不均，重定方田均税法，按方量、土色和肥瘠分五等定税，禁止以零数增展超过旧额，并先在京东路施行。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-FANGTIAN-EQUAL-TAX-1072",
+      "implementation": "",
+      "locations": [
+        "京东路",
+        "宋诸路"
+      ],
+      "observable_result": "土地丈量、簿册、地符与均税成为诸路推行的财政制度。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "方田均税以丈量、分等和禁超额调整田赋。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-fangtian-equal-tax-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#詔司農重定方田及均稅法，頒之天下",
+        "續資治通鑑/卷069@2299555#以地及色參定肥瘠，而分五等以定其稅則",
+        "續資治通鑑/卷069@2299555#凡越額增數皆禁",
+        "續資治通鑑/卷069@2299555#先自京東路行之，諸路仿焉"
+      ],
+      "time_range": {
+        "end": "熙宁五年八月",
+        "precision": "month",
+        "start": "熙宁五年八月"
+      },
+      "uncertainties": [
+        "京东首轮丈量田亩、税额变化及讼案数量未载。"
+      ]
+    },
+    {
+      "action": "少华山前阜头谷山岭崩陷，掩没六社数百户，朝廷赐陷没之家钱财。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-HUAZHOU-LANDSLIDE-RELIEF-1072",
+      "implementation": "",
+      "locations": [
+        "华州",
+        "少华山"
+      ],
+      "observable_result": "山崩灾民获得定额救助。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "华州山崩掩没数百户后获赐钱救助。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-huazhou-landslide-relief-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#少華山前阜頭穀山嶺摧陷，陷居民六社，凡數百戶",
+        "續資治通鑑/卷069@2299555#詔賜陷沒之家錢有差"
+      ],
+      "time_range": {
+        "end": "熙宁五年十月",
+        "precision": "month",
+        "start": "熙宁五年十月"
+      },
+      "uncertainties": [
+        "伤亡、赐钱总额与安置措施未载。"
+      ]
+    },
+    {
+      "action": "朝廷升镇洮军为熙、河、洮、岷四州及通远军，设熙河路，任王韶为经略安抚使、知熙州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-XIHE-REGIONAL-ADMINISTRATION-1072",
+      "implementation": "",
+      "locations": [
+        "熙州",
+        "河州",
+        "洮州",
+        "岷州",
+        "通远军"
+      ],
+      "observable_result": "河湟经营形成熙河路行政军政架构，但河、洮、岷尚未完全恢复。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "设熙河路并由王韶统领新置州军。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-xihe-regional-administration-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#升鎮洮軍州以為熙、河、洮、岷四州及通遠軍，置熙河路",
+        "續資治通鑑/卷069@2299555#除王韶龍圖閣直學士，為經略安撫使、知熙州",
+        "續資治通鑑/卷069@2299555#然河、洮、岷猶未能復也"
+      ],
+      "time_range": {
+        "end": "熙宁五年十月",
+        "precision": "month",
+        "start": "熙宁五年十月"
+      },
+      "uncertainties": [
+        "各州军人口、驻军与赋役体系未载。"
+      ]
+    },
+    {
+      "action": "章惇招降梅山峒蛮，登记民户田亩、均定赋税，筑武阳和开陕二城，置新化县隶邵州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-MEISHAN-INTEGRATION-1072",
+      "implementation": "",
+      "locations": [
+        "梅山峒",
+        "武阳",
+        "开陕",
+        "新化县"
+      ],
+      "observable_result": "原不通中国的梅山地区被纳入户籍、税制和县级行政。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "梅山登记户田并均定赋税。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "筑两城、置新化县。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "梅山峒蛮纳入宋朝县制。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-meishan-integration-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#章惇招降梅山峒峒蠻",
+        "續資治通鑑/卷069@2299555#籍其民萬四千八百餘戶，田二十六萬四百餘畝，均定其稅",
+        "續資治通鑑/卷069@2299555#築武陽、開陝二城，置新化縣，隸邵州"
+      ],
+      "time_range": {
+        "end": "熙宁五年十一月",
+        "precision": "month",
+        "start": "熙宁五年十一月"
+      },
+      "uncertainties": [
+        "招降过程的冲突、户田核实与年税数额未载。"
+      ]
+    },
+    {
+      "action": "朝廷修筑熙州南北关及诸堡砦。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-XIZHOU-BORDER-FORTS-1072",
+      "implementation": "",
+      "locations": [
+        "熙州"
+      ],
+      "observable_result": "熙州边防据点继续扩展。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "修筑熙州南北关和诸堡砦。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-xizhou-border-forts-1072",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#築熙州南北關及諸堡砦"
+      ],
+      "time_range": {
+        "end": "熙宁五年十二月",
+        "precision": "month",
+        "start": "熙宁五年十二月"
+      },
+      "uncertainties": [
+        "各关堡位置、驻军、役工和费用未载。"
+      ]
+    },
+    {
+      "action": "神宗奉僖祖为太庙始祖，迁顺祖神主入夹室；王安石的礼制意见获采纳。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-ANCESTRAL-TEMPLE-REORDER-1073",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "太庙"
+      ],
+      "observable_result": "宋朝太庙始祖与祧迁秩序被重新确定。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "太庙始祖与神主祧迁秩序依王安石意见重定。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-ancestral-temple-reorder-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#詔奉僖祖為太廟始祖，遷順祖神主藏夾室",
+        "續資治通鑑/卷069@2299555#帝以安石論為然，詔依絳等議"
+      ],
+      "time_range": {
+        "end": "熙宁六年正月",
+        "precision": "month",
+        "start": "熙宁六年正月"
+      },
+      "uncertainties": [
+        "仪礼实施细节及后续争论未载。"
+      ]
+    },
+    {
+      "action": "西夏进攻秦州被刘维吉击败；王韶随后收复河州并俘获玛尔戩妻子。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-XIHE-HEZHOU-RECOVERY-1073",
+      "implementation": "",
+      "locations": [
+        "秦州",
+        "河州"
+      ],
+      "observable_result": "秦州攻防获胜，河州重新回到宋军控制。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-XIHE-HEZHOU-1073"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-xihe-hezhou-recovery-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#夏人寇秦州，都巡檢使劉維吉敗之",
+        "續資治通鑑/卷069@2299555#王韶復河州，獲瑪爾戩妻子"
+      ],
+      "time_range": {
+        "end": "熙宁六年二月",
+        "precision": "month",
+        "start": "熙宁六年二月"
+      },
+      "uncertainties": [
+        "两场战斗之间的兵力、伤亡和河州守备未载。"
+      ]
+    },
+    {
+      "action": "朝廷设经义局修订《诗》《书》《周礼》经义，并令诸路由中书选学官；又以朝集院为律学，开放官员举人习律令。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-CLASSICS-AND-LAW-SCHOOLS-1073",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "宋诸路"
+      ],
+      "observable_result": "经义、学校与律令教育被进一步制度化并受中枢控制。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "经义局、诸路学官及律学体系进一步制度化。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-classics-and-law-schools-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#置經義局，修《詩》、《書》、《周禮》三經義",
+        "續資治通鑑/卷069@2299555#諸路學官，並委中書選京朝官、選人或舉人充",
+        "續資治通鑑/卷069@2299555#以朝集院為律學，置教授四員",
+        "續資治通鑑/卷069@2299555#命官舉人皆得入學習律令"
+      ],
+      "time_range": {
+        "end": "熙宁六年三月至四月",
+        "precision": "month",
+        "start": "熙宁六年三月至四月"
+      },
+      "uncertainties": [
+        "经义修订成书时间与律学首批生员未载。"
+      ]
+    },
+    {
+      "action": "司天监预报日食，朝廷避殿减膳，并令天下囚罪减等、流刑以下释放。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-ECLIPSE-RELIEF-1073",
+      "implementation": "",
+      "locations": [
+        "宋境"
+      ],
+      "observable_result": "天象被转化为全国范围的减刑与赦释措施。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "日食预报后实施全国减刑和释放。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-eclipse-relief-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#司天監言四月朔，日當食九分",
+        "續資治通鑑/卷069@2299555#詔自丁巳避殿減膳，降天下囚罪一等，流以下釋之"
+      ],
+      "time_range": {
+        "end": "熙宁六年三月至四月",
+        "precision": "month",
+        "start": "熙宁六年三月至四月"
+      },
+      "uncertainties": [
+        "减刑、释放人数及地方执行情况未载。"
+      ]
+    },
+    {
+      "action": "萧注、沈起先后以交趾可取为由主持广西经略，沈起迎合王安石而专意攻取，交趾由此开始怀疑宋朝。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-JIAOZHI-EXPANSION-POLICY-1073",
+      "implementation": "",
+      "locations": [
+        "桂州",
+        "邕州",
+        "交趾"
+      ],
+      "observable_result": "宋廷对交趾从朝贡关系转向开边谋划，南方紧张关系上升。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "宋廷对交趾转为开边谋划，交趾开始疑惧。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-jiaozhi-expansion-policy-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#交趾雖奉朝貢，實包禍心久矣，今不取，必為後憂",
+        "續資治通鑑/卷069@2299555#南交小丑，無不可取之理",
+        "續資治通鑑/卷069@2299555#起迎合安石，遂一意事攻擊，交趾始貳"
+      ],
+      "time_range": {
+        "end": "熙宁六年四月",
+        "precision": "month",
+        "start": "熙宁六年四月"
+      },
+      "uncertainties": [
+        "具体军备、使节往来和攻取时程未载。"
+      ]
+    },
+    {
+      "action": "文彦博以市易官监卖果实损国体、敛民怨并上言华岳山崩，王安石反驳市易旨在抑兼并；文彦博终被罢枢密，出判河东。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-WEN-YANBO-MARKET-EXCHANGE-CONFLICT-1073",
+      "implementation": "",
+      "locations": [
+        "开封",
+        "河东"
+      ],
+      "observable_result": "市易政策争论导致文彦博退出中枢，王安石的经济路线继续。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "市易经营果实被指损国体、敛民怨。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "文彦博在市易争论后离开中枢。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-wen-yanbo-market-exchange-conflict-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#市易司既立，至果實亦官監賣",
+        "續資治通鑑/卷069@2299555#損國體，斂民怨，致華嶽山崩",
+        "續資治通鑑/卷069@2299555#市易之起，自為細民久困，以抑兼併爾",
+        "續資治通鑑/卷069@2299555#遂以守司徒兼侍中、河東節度使、判陽河"
+      ],
+      "time_range": {
+        "end": "熙宁六年四月",
+        "precision": "month",
+        "start": "熙宁六年四月"
+      },
+      "uncertainties": [
+        "果实官卖的价格、规模和实际财务效果未载。"
+      ]
+    },
+    {
+      "action": "朝廷设疏浚黄河司，试用铁龙爪、浚川杷等机具并计划由卫州浚至海口；范子渊等虽称机具不可用，王安石仍任其主办，后开直河并浚二股、清水镇河。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-YELLOW-RIVER-DREDGING-OFFICE-1073",
+      "implementation": "",
+      "locations": [
+        "卫州",
+        "大名府界",
+        "海口",
+        "二股河",
+        "直河"
+      ],
+      "observable_result": "大规模黄河疏浚和直河工程启动，工程可行性争议未阻止继续施工。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "设疏浚黄河司并持续实施直河、二股河疏浚。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-yellow-river-dredging-office-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#始置疏浚黃河司",
+        "續資治通鑑/卷069@2299555#人皆知不可用，惟安石善其法",
+        "續資治通鑑/卷069@2299555#將自衛州浚至海口",
+        "續資治通鑑/卷069@2299555#開直河，深八尺，又用杷疏浚二股及清水鎮河"
+      ],
+      "time_range": {
+        "end": "熙宁六年四月至十月",
+        "precision": "month",
+        "start": "熙宁六年四月至十月"
+      },
+      "uncertainties": [
+        "实际疏浚长度、费用、役工与行水效果未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止妨碍灌溉的水磨碾碓，颁行栽桑赏罚；又按王雱建议集中兵甲弓弩制造，设军器监由吕惠卿主管。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-WATER-MULBERRY-ORDNANCE-1073",
+      "implementation": "",
+      "locations": [
+        "宋诸路",
+        "开封"
+      ],
+      "observable_result": "农业灌溉、桑业考核和武器制造被分别纳入全国性规制与专门机构。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "限制妨灌设施并以赏罚推行栽桑。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "设军器监集中制造兵甲弓弩。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "吕惠卿主管新设军器监。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-water-mulberry-ordnance-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#創水磑碾碓有妨灌溉民田者，以違制論",
+        "續資治通鑑/卷069@2299555#栽及十分者有賞，不及七分者有罰",
+        "續資治通鑑/卷069@2299555#斂數州之所作而聚以為一",
+        "續資治通鑑/卷069@2299555#置軍器監，以呂惠卿判監事"
+      ],
+      "time_range": {
+        "end": "熙宁六年五月至六月",
+        "precision": "month",
+        "start": "熙宁六年五月至六月"
+      },
+      "uncertainties": [
+        "军器监初始工匠、产量和经费未载。"
+      ]
+    },
+    {
+      "action": "朝廷命六路各置铸钱监，并规定江南、荆湖南路年额十五万缗，其余各十万缗。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-COIN-MINTS-ESTABLISHED-1073",
+      "implementation": "",
+      "locations": [
+        "京西",
+        "淮南",
+        "两浙",
+        "江西",
+        "荆湖",
+        "江南"
+      ],
+      "observable_result": "铸钱能力按区域扩展并设定年度发行额度。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "六路新置铸钱监并规定年度额度。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-coin-mints-established-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#六路各置一鑄錢監",
+        "續資治通鑑/卷069@2299555#江南、荊湖南路以十五萬緡，餘以十萬緡為額"
+      ],
+      "time_range": {
+        "end": "熙宁六年七月",
+        "precision": "month",
+        "start": "熙宁六年七月"
+      },
+      "uncertainties": [
+        "各监开办时间、铜料来源和实际铸额未载。"
+      ]
+    },
+    {
+      "action": "沈括受命相度两浙水利，指出堤防川渎久废，建议司农贷款、募民兴利，神宗批准。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-SHEN-KUO-LIANGZHE-WATER-PLAN-1073",
+      "implementation": "",
+      "locations": [
+        "两浙西路"
+      ],
+      "observable_result": "两浙水利从勘察转入以官贷募民为方式的修复计划。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "以司农官贷募民解决两浙水利筹资。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "沈括勘察并提出修复堤防川渎。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-shen-kuo-liangzhe-water-plan-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#命檢正中書刑房公事沈括辟官相度兩浙水利",
+        "續資治通鑑/卷069@2299555#堤防川瀆，多皆堙廢",
+        "續資治通鑑/卷069@2299555#乞下司農貸官錢，募民興利。」從之"
+      ],
+      "time_range": {
+        "end": "熙宁六年八月",
+        "precision": "month",
+        "start": "熙宁六年八月"
+      },
+      "uncertainties": [
+        "具体工程清单、贷款规模与还款安排未载。"
+      ]
+    },
+    {
+      "action": "朝廷置两浙和籴仓并制定收籴、出粜规则。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-LIANGZHE-GRAIN-STORE-1073",
+      "implementation": "",
+      "locations": [
+        "两浙"
+      ],
+      "observable_result": "两浙建立以和籴和斂散为核心的粮食调节仓。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "两浙设和籴仓并规定斂散法。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-liangzhe-grain-store-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#置兩浙和糴倉，立斂散法"
+      ],
+      "time_range": {
+        "end": "熙宁六年九月",
+        "precision": "month",
+        "start": "熙宁六年九月"
+      },
+      "uncertainties": [
+        "仓数、储粮额、收籴价格和出粜条件未载。"
+      ]
+    },
+    {
+      "action": "王韶击退再据河州的玛尔戩，攻取宕州、通洮州路；岷州首领摩琳沁降，叠洮羌酋继降。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-XIHE-FIVE-PREFECTURES-CAMPAIGN-1073",
+      "implementation": "",
+      "locations": [
+        "河州",
+        "洮州",
+        "宕州",
+        "岷州",
+        "叠州"
+      ],
+      "observable_result": "宋军五十四日行军千八百里，得五州，熙河扩张取得阶段性成果，王韶获进职。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-XIHE-FIVE-PREFECTURES-1073"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-xihe-five-prefectures-campaign-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#韶力戰，破走之，河州復平",
+        "續資治通鑑/卷069@2299555#進攻宕州，拔之，通洮州路",
+        "續資治通鑑/卷069@2299555#摩琳沁聞先聲，遂以城降",
+        "續資治通鑑/卷069@2299555#軍行凡五十四日，涉千八百里，得州五，斬首數千級",
+        "續資治通鑑/卷069@2299555#進韶左諫議大夫、端明殿學士"
+      ],
+      "time_range": {
+        "end": "熙宁六年九月",
+        "precision": "month",
+        "start": "熙宁六年九月"
+      },
+      "uncertainties": [
+        "五州守军、宋军损失与后续驻守资源未载。"
+      ]
+    },
+    {
+      "action": "朝廷收取免行钱，以诸行缴钱供吏禄并免除行户供应官司货物，同时由市司估定内外官司占取物价。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-MIANHANG-FEE-1073",
+      "implementation": "",
+      "locations": [
+        "开封"
+      ],
+      "observable_result": "京师行户由实物应办转为纳钱，市易系统进一步介入官府采购和物价。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "以免行钱替代行户部分实物供应并支给吏禄。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-mianhang-fee-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#戊辰，收免行錢",
+        "續資治通鑑/卷069@2299555#令納錢以賦吏祿，與免行戶祗應",
+        "續資治通鑑/卷069@2299555#置市司估物低昂，凡內外官司欲占物價，則取辦焉"
+      ],
+      "time_range": {
+        "end": "熙宁六年九月",
+        "precision": "month",
+        "start": "熙宁六年九月"
+      },
+      "uncertainties": [
+        "免行钱总额、行户负担与官府采购价格未载。"
+      ]
+    },
+    {
+      "action": "章惇因李资招谕失当被懿州蛮杀害，随即进兵攻破懿州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-ZHANGDUN-NANJIANG-CAMPAIGN-1073",
+      "implementation": "",
+      "locations": [
+        "南江",
+        "懿州"
+      ],
+      "observable_result": "南江州峒被平定。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SONG-NANJIANG-ZHANGDUN-1073"
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-zhangdun-nanjiang-campaign-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#章惇擊南江蠻，平之",
+        "續資治通鑑/卷069@2299555#為懿州蠻所殺",
+        "續資治通鑑/卷069@2299555#惇遂進兵破懿州，南江州峒遂平"
+      ],
+      "time_range": {
+        "end": "熙宁六年十月",
+        "precision": "month",
+        "start": "熙宁六年十月"
+      },
+      "uncertainties": [
+        "参战兵力、蛮众伤亡和战后安置未载。"
+      ]
+    },
+    {
+      "action": "朝廷赈济两浙、江、淮饥民，并实行折二钱。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-REGIONAL-FAMINE-RELIEF-AND-COIN-1073",
+      "implementation": "",
+      "locations": [
+        "两浙",
+        "江",
+        "淮"
+      ],
+      "observable_result": "灾区获得赈济，货币面额制度同步调整。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "赈济两浙、江淮饥民并实行折二钱。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-regional-famine-relief-and-coin-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#賑兩浙、江、淮饑",
+        "續資治通鑑/卷069@2299555#壬辰，行折二錢"
+      ],
+      "time_range": {
+        "end": "熙宁六年十月",
+        "precision": "month",
+        "start": "熙宁六年十月"
+      },
+      "uncertainties": [
+        "赈济金额、受益人口与折二钱投放量未载。"
+      ]
+    },
+    {
+      "action": "中太一宫建成，神宗亲自祭祀。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-ZHONGTAIYI-COMPLETION-1073",
+      "implementation": "",
+      "locations": [
+        "开封"
+      ],
+      "observable_result": "卷68启动的中太一宫工程收工并投入礼仪使用。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "中太一宫建成并启用。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-zhongtaiyi-completion-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#中太一宮成。乙卯，親祀中太一宮"
+      ],
+      "time_range": {
+        "end": "熙宁六年十一月",
+        "precision": "month",
+        "start": "熙宁六年十一月"
+      },
+      "uncertainties": [
+        "工程总费用、工期与占地未载。"
+      ]
+    },
+    {
+      "action": "朝廷命京畿收养老弱冻馁者。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XZZTJ-069-WINTER-POOR-RELIEF-1073",
+      "implementation": "",
+      "locations": [
+        "京畿"
+      ],
+      "observable_result": "冬季老弱饥寒者纳入收养救助。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "京畿收养老弱冻馁者。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xzztj-069-winter-poor-relief-1073",
+      "source_refs": [
+        "續資治通鑑/卷069@2299555#詔京畿收養老弱凍餒者"
+      ],
+      "time_range": {
+        "end": "熙宁六年十一月",
+        "precision": "month",
+        "start": "熙宁六年十一月"
+      },
+      "uncertainties": [
+        "收养人数、地点和物资来源未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [],
+  "limitations": [
+    "仅据固定 revision 2299555 的《續資治通鑑》卷069连续通读登记，不引入卷外常识。",
+    "固定页跨熙宁五年正月至六年十二月；全文按页内年号标题连续读完，未打开卷070或卷098。",
+    "辽北部、宋夏、庆州兵变、熙河诸战及南江蛮战事均登记为 battle；未知保持未知。"
+  ],
+  "political_event_candidates": [],
+  "public_works_candidates": [],
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "宋神宗熙宁六年十二月",
+    "input_fingerprint": "55621134e04df45ac28fd1469036b3a4384c55c63419f525935d52417442d202",
+    "overlap_context": "承接卷068市易、保甲、免役、洮河经营和二股河工程；本卷将市易扩展到诸路并引发垄断争议，完成二股河、推进浚河与两浙水利，连贯记录王韶熙河扩张、蔡挺西北边防、章惇荆湖经制及河湟与南江战事，转出熙河六州、方田均税、军器与武学制度及对交趾的开边线。",
+    "revision_ref": "2299555",
+    "start_locator": "宋神宗熙宁五年正月",
+    "volume_ref": "卷069",
+    "work": "續資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-069",
+  "threads": []
+}

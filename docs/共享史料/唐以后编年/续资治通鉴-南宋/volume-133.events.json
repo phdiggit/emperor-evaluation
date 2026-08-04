@@ -1,0 +1,344 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-133",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷133",
+    "revision_ref": "2310817",
+    "start_locator": "高宗受命中興全功至德聖神武文昭仁憲孝皇帝紹興二十九年",
+    "end_locator": "西夏主仁孝之嗣位也",
+    "overlap_context": "续读起点；未读取卷132正文。",
+    "input_fingerprint": "36c2a3d66e5c1f2b32c409d35a3ce622b17f0258063691be9de807450e7b82f6"
+  },
+  "limitations": [],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-133-MIL-JINGNAN-RECRUIT",
+      "time": "紹興三十年正月",
+      "action": "刘锜扩编荆南效用军，并获御前激赏库钱和榷货务通钞七十万缗。",
+      "result": "荆南新设中、左军并得到扩军资金。",
+      "quote": "詔出御前激賞庫錢",
+      "battle": "HANDOFF-XZZTJ-133-JINGNAN-RECRUIT",
+      "battle_reason": "驻军扩充属于战备线索，交由战役工作流判断。"
+    },
+    {
+      "id": "CHF-XZZTJ-133-FIS-PALACE-CUTS",
+      "time": "紹興三十年正月",
+      "action": "高宗罢甲库诸局、将酒库归有司并减乐工数百人。",
+      "result": "停止甲库日费与侵夺户部赡军课额的做法。",
+      "quote": "罷甲庫諸局，以酒庫歸有司",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-133-PALACE-CUTS",
+        "candidate": "FIN-CAND-XZZTJ-133-PALACE-CUTS",
+        "summary": "裁撤甲库诸局并收回酒库课额。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "甲库日费数百千且酤酒侵户部赡军课额",
+          "fiscal_state": "酒库归有司、减乐工数百人",
+          "livelihood_state": "未载。",
+          "production_circulation": "百工技艺聚于甲库"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-ADOPT-HEIR",
+      "time": "紹興三十年二月",
+      "action": "高宗下手诏认普安郡王瑗为皇子，改名玮，继而封建王。",
+      "result": "皇位继承人获得正式名分，中外大悦。",
+      "quote": "其以為皇子，仍改賜名瑋",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-ADOPT-HEIR",
+        "candidate": "POL-CAND-XZZTJ-133-ADOPT-HEIR",
+        "summary": "将普安郡王正式定为皇子并进封建王。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "继承安排落实",
+          "decision_question": "是否为普安郡王正名并纳入皇子序列",
+          "alternatives": "维持郡王身份；立为皇子",
+          "decision": "立为皇子并改名玮",
+          "direct_result": "进封建王，中外大悦",
+          "power_change": "皇位继承名分明确",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-MIL-JIANGZHOU-ARMY",
+      "time": "紹興三十年五月",
+      "action": "朝廷初置江州驻扎御前诸军都统制，配置殿前、步军、马军及新招兵。",
+      "result": "江州创军，补足荆南与九江上游重地屯备。",
+      "quote": "荊南府、江州創軍自此始",
+      "battle": "HANDOFF-XZZTJ-133-JIANGZHOU-ARMY",
+      "battle_reason": "沿江驻军建制属于战备线索，交由战役工作流判断。"
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-COAST-DEFENSE",
+      "time": "紹興三十年五月",
+      "action": "叶义问密奏金方兵役、造船与内乱，主张江海要处分寨、土豪与官军分工防海。",
+      "result": "海防筹划被明确为应对金可能南侵的一项方案。",
+      "quote": "今宜於江海要處分寨",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-COAST-DEFENSE",
+        "candidate": "POL-CAND-XZZTJ-133-COAST-DEFENSE",
+        "summary": "提出以江海分寨和军民分工防海的预案。",
+        "operation": "proposed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "海防决策建议",
+          "decision_question": "如何应对金方造船与可能南侵",
+          "alternatives": "未载；分寨并区分土豪与官军",
+          "decision": "建议分寨与分工",
+          "direct_result": "形成海防方案",
+          "power_change": "未载。",
+          "risk_or_damage": "金方民劳多死、盗乱与南侵意",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-LIU-BAO-REMOVAL",
+      "time": "紹興三十年十月",
+      "action": "刘宝因克扣军食、私役及失火等被论罪，罢镇江都统制；朝廷同时命改正非理掊敛、议除军中回易债。",
+      "result": "刘宝被调离，军中私役与债务被纳入整顿。",
+      "quote": "諸軍所負回易錢，具數以聞，當議除放",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-LIU-BAO-REMOVAL",
+        "candidate": "POL-CAND-XZZTJ-133-LIU-BAO-REMOVAL",
+        "summary": "罢免被劾的镇江都统制并整顿其军中弊政。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "军政问责整顿",
+          "decision_question": "如何处置刘宝军中克扣、私役和回易问题",
+          "alternatives": "维持原状；罢免并整顿",
+          "decision": "罢刘宝都统制并改政",
+          "direct_result": "改派刘锜并议除军债",
+          "power_change": "刘宝失去镇江军权",
+          "risk_or_damage": "军食被削、私役与军债累积",
+          "follow_up": "总领与统制具数上报"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-FIS-MILITARY-FARMS",
+      "time": "紹興三十年十一月",
+      "action": "李显忠请诸军屯田，高宗要求先定括田、立庐、给粮种与农具等规制。",
+      "result": "军屯被作为数年后取得岁入的方案推进。",
+      "quote": "使之歲入有得，則不勸而耕矣",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-133-MILITARY-FARMS",
+        "candidate": "FIN-CAND-XZZTJ-133-MILITARY-FARMS",
+        "summary": "以规制化屯田增进军队岁入。",
+        "operation": "proposed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "未载。",
+          "fiscal_state": "拟以屯田取得岁入",
+          "livelihood_state": "未载。",
+          "production_circulation": "需括田、立庐、给粮种与农具"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-MERIT-PROMOTION",
+      "time": "紹興二十九年七月",
+      "action": "朝廷采纳洪遵意见，撤回功臣子孙可按序升至侍从并久任宫观的成法。",
+      "result": "以防十年内侍从班被将家子孙按序占据。",
+      "quote": "並令久任在京宮觀",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-MERIT-PROMOTION",
+        "candidate": "POL-CAND-XZZTJ-133-MERIT-PROMOTION",
+        "summary": "撤销功臣子孙序迁侍从的普遍性安排。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "官制与晋升规则调整",
+          "decision_question": "是否保留功臣子孙序迁侍从的成法",
+          "alternatives": "保留成法；收回前诏",
+          "decision": "收回前诏",
+          "direct_result": "序迁侍从安排被撤回",
+          "power_change": "限制将家子孙凭序迁入侍从",
+          "risk_or_damage": "原安排可能使侍从班长期被将种占据",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-OFFICE-HISTORY",
+      "time": "紹興二十九年七月",
+      "action": "李焘所著九十卷《續皇朝公卿百官表》奉诏录付史馆。",
+      "result": "官制史料被纳入史馆保存。",
+      "quote": "詔給劄錄付史館。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-OFFICE-HISTORY",
+        "candidate": "POL-CAND-XZZTJ-133-OFFICE-HISTORY",
+        "summary": "将官制考订著作录入史馆。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "史馆资料收录",
+          "decision_question": "是否将李焘官制著作录付史馆",
+          "alternatives": "不录付；录付史馆",
+          "decision": "诏给劄录付史馆",
+          "direct_result": "九十卷著作获史馆收录",
+          "power_change": "史馆获得官制沿革资料",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-FIS-HORSE-LEVY",
+      "time": "紹興二十九年八月",
+      "action": "金按户口向诸路调马五十六万余匹，并令各户自行养饲。",
+      "result": "富户有被摊至六十匹者，马匹征调与养饲负担落到民户。",
+      "quote": "富室有至六十匹者",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-133-HORSE-LEVY",
+        "candidate": "FIN-CAND-XZZTJ-133-HORSE-LEVY",
+        "summary": "金以户口摊派大规模调马并令民户养饲。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "未载。",
+          "fiscal_state": "按户口调马五十六万余匹",
+          "livelihood_state": "富室有至六十匹者并自养饲",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-PEACE-RESTRAINT",
+      "time": "紹興二十九年九月",
+      "action": "宋使还报金国和好后，高宗否决沿边增戍、移将、储粮而进取的倾向。",
+      "result": "定调以安边息民、图久长为后续方针。",
+      "quote": "今而後宜安邊息民",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-PEACE-RESTRAINT",
+        "candidate": "POL-CAND-XZZTJ-133-PEACE-RESTRAINT",
+        "summary": "在和好使归后拒绝以边屯和储粮推动轻举。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "对金战略方针",
+          "decision_question": "是否以沿边增戍、移将和储粮转向进取",
+          "alternatives": "推进取；安边息民以图久长",
+          "decision": "安边息民",
+          "direct_result": "明确反对轻举导致兵连祸结",
+          "power_change": "皇帝定下对边方针",
+          "risk_or_damage": "轻举可能兵连祸结",
+          "follow_up": "以图久长"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-FIS-RELIEF-PRAYER",
+      "time": "紹興二十九年九月",
+      "action": "因皇太后服药，朝廷减免临安僦钱、低等户旧税、水灾与虫害田租、僧道丁钱及盐案罚赏。",
+      "result": "多项既有征收、赈贷和罚赏获得蠲减或除放。",
+      "quote": "其租賦皆蠲之",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-133-RELIEF-PRAYER",
+        "candidate": "FIN-CAND-XZZTJ-133-RELIEF-PRAYER",
+        "summary": "以东朝祈福名义减免城内和诸路多类负担。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "临安僦钱、旧纳税赋、灾害赈贷和盐案罚赏原应征或待清",
+          "fiscal_state": "放僦钱半月并蠲租赋、减丁钱、除放罚赏",
+          "livelihood_state": "低等户及水灾、虫害田受益",
+          "production_circulation": "浙东、江西民田螟螣损稻"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-WRK-MAUSOLEUM",
+      "time": "紹興二十九年十一月",
+      "action": "显仁皇后攒宫改筑前、中殿，设置四隅二十里禁城并迁居民；墓穴只挑近攒宫者一百七十三穴。",
+      "result": "完成攒宫及神御殿布局，限制了阴阳家所请的全面迁墓范围。",
+      "quote": "乃挑其近攢宮者百七十有三穴而已",
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-XZZTJ-133-MAUSOLEUM",
+        "candidate": "WORK-CAND-XZZTJ-133-MAUSOLEUM",
+        "summary": "改筑攒宫并划禁城，按近宫范围迁墓。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "work_identity": "显仁皇后攒宫与神御殿改筑",
+          "phase": "营建与迁徙",
+          "purpose": "安置皇后攒宫及神御",
+          "resource_input": "改筑前中殿、禁城范围与居民迁徙",
+          "operation": "设置四隅二十里禁城并按近宫迁墓",
+          "benefit": "完成攒宫布局",
+          "harm": "居民迁徙及近宫墓穴被挑"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-SUCCESSION-PLAN",
+      "time": "紹興二十九年十二月",
+      "action": "显仁崩后，高宗与张焘讨论储贰，表示开春举行典礼。",
+      "result": "继承人名分由长期迟回转为确定的近期待办事项。",
+      "quote": "開春當舉典禮",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-SUCCESSION-PLAN",
+        "candidate": "POL-CAND-XZZTJ-133-SUCCESSION-PLAN",
+        "summary": "高宗决定于来春推进储贰典礼。",
+        "operation": "proposed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "继承安排",
+          "decision_question": "是否及早确定两郡名分并立储",
+          "alternatives": "继续迟回；开春举典",
+          "decision": "开春当举典礼",
+          "direct_result": "继承典礼列为近期事项",
+          "power_change": "普安郡王继承安排获皇帝推进",
+          "risk_or_damage": "储贰长期未定被称为天下大计风险",
+          "follow_up": "开春举行典礼"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-133-POL-ANTI-WAR-PURGE",
+      "time": "紹興二十九年十二月",
+      "action": "金太医使祁宰上疏反对南伐，指出徭役、军旅与赋役烦重等不利条件。",
+      "result": "金主怒而杀祁宰、籍其家。",
+      "quote": "金主怒，戮於市，籍其家",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-133-ANTI-WAR-PURGE",
+        "candidate": "POL-CAND-XZZTJ-133-ANTI-WAR-PURGE",
+        "summary": "金主以杀戮籍家处置反对南伐的谏言者。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "战前谏言处置",
+          "decision_question": "如何处置反对南伐的祁宰",
+          "alternatives": "采纳或容纳谏言；处死并籍家",
+          "decision": "戮于市并籍其家",
+          "direct_result": "祁宰被杀",
+          "power_change": "金主压制反战谏言",
+          "risk_or_damage": "祁宰所陈徭役与赋役烦重未获纠正",
+          "follow_up": "未载。"
+        }
+      }
+    }
+  ]
+}

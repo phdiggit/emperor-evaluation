@@ -1,0 +1,835 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V10-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V10-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "10",
+    "revision_ref": "2285835",
+    "start_locator": "宋真宗大中祥符八年德明请盐拒质",
+    "end_locator": "宋仁宗天圣五年德明归还中国逃户",
+    "overlap_context": "承接卷9德明受宋辽封爵、榷场与𨫼子山宫阙；本卷主载盐禁贸易、宋夏逃户交还、凉州得失、击退辽军、营建兴州及天圣年间边贸。",
+    "input_fingerprint": "46a3b5eff7e0e6001ada4436841a30b48129a76a672a8703549ba968dec7aaf0"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷10正文登记，未知保持未知。",
+    "普通贡贺、祥异和无四域后果的加官不单列；部族行动不能确认德明命令时保持主体边界。",
+    "兴州、省嵬城据原文明示进入工程域，普通榷场堡垒不按配额强造工程候选。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V10-SALT-HOSTAGE-1015",
+      "time": [
+        "宋真宗大中祥符八年三月",
+        "1015",
+        "month"
+      ],
+      "subject": "李德明与宋廷",
+      "action": "德明因盐禁使蕃部困敝，再遣白守贵请求开放青盐。",
+      "result": "宋廷坚持须先送子弟入质方可通盐，德明拒绝，盐禁维持。",
+      "groups": [
+        "西夏盐户",
+        "党项部众",
+        "宋榷禁官员",
+        "李氏宗族"
+      ],
+      "quote": [
+        "德明表請市鹽，復責入質，不遣。",
+        "德明以西鹽不通，蕃部困敝",
+        "于是禁鹽如初。"
+      ],
+      "unknown": [
+        "困敝户数、盐价、走私和入质候选未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SALT-HOSTAGE-1015",
+        "summary": "宋以子弟入质为通盐条件，德明拒绝。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-ESCAPED-COMMANDERS-1015",
+      "time": [
+        "宋真宗大中祥符八年四月",
+        "1015",
+        "month"
+      ],
+      "subject": "浪密囊麻孟桑部与宋环州、西夏边政",
+      "action": "西夏蕃部指挥浪密囊、麻孟桑投奔环州。",
+      "result": "宋廷依据双方交还逃亡者的旧约，要求西夏先归还宋熟户，再将二人交回。",
+      "groups": [
+        "两名蕃将及属众",
+        "宋环州官军",
+        "西夏官属"
+      ],
+      "quote": [
+        "蕃部浪密囊等叛投環州。",
+        "俟其遣還，乃以浪密囊等付之。"
+      ],
+      "unknown": [
+        "随行人数、逃亡原因、交还是否执行和二人后续未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ESCAPED-COMMANDERS-1015",
+        "summary": "宋以对等交还条件处理两名西夏逃将。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V10-MISSION-HORSE-SALES-1015",
+      "time": [
+        "宋真宗大中祥符八年五月",
+        "1015",
+        "month"
+      ],
+      "subject": "西夏进奉使与宋边民",
+      "action": "西夏使者因边民争购廉价坐骑而携马日多、沿途出售。",
+      "result": "宋真宗下令严禁使团沿边卖马。",
+      "groups": [
+        "西夏使者",
+        "宋边民",
+        "边地马商",
+        "宋疆吏"
+      ],
+      "quote": [
+        "邊人以價值賤，爭市之。",
+        "于是使者帶馬日多",
+        "眞宗詔嚴其禁。"
+      ],
+      "unknown": [
+        "售马数量价格、禁令执行和马源未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MISSION-HORSE-SALES-1015",
+        "summary": "宋禁止西夏进奉使沿边低价售马。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-GUSILUO-XIAZHOU-1015",
+      "time": [
+        "宋真宗大中祥符八年八月",
+        "1015",
+        "month"
+      ],
+      "subject": "吐蕃唃厮啰六七万军与李德明夏州军",
+      "action": "唃厮啰聚合潘罗支旧部与回鹘降众，率兵攻夏州。",
+      "result": "德明击退来军；宋廷因怀疑唃厮啰反复，仅加强泾原秦州戒备。",
+      "groups": [
+        "唃厮啰军",
+        "西夏军",
+        "夏州军民",
+        "宋边军"
+      ],
+      "quote": [
+        "西蕃唃厮囉攻夏州，拒卻之。",
+        "有勝兵六、七萬。",
+        "時以兵攻夏州，德明禦卻之。"
+      ],
+      "unknown": [
+        "实际参战兵数、双方伤亡、攻城损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-GUSILUO-1015",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-ZHUOLUN-MARKET-1015",
+      "time": [
+        "宋真宗大中祥符八年十一月",
+        "1015",
+        "month"
+      ],
+      "subject": "李德明政权与宋麟州边民",
+      "action": "德明在石州濁轮谷筑堡设置榷场，利用双方亲族联系吸引私贸。",
+      "result": "宋真宗命沿边安抚使禁止商旅前往。",
+      "groups": [
+        "蕃汉商旅",
+        "濁轮谷居民",
+        "宋边吏",
+        "西夏榷场官员"
+      ],
+      "quote": [
+        "築堡麟州，建榷場。",
+        "德明乃于石州之濁輪谷築堡建榷場，以誘致商旅。",
+        "眞宗詔緣邊安撫使禁止之。"
+      ],
+      "unknown": [
+        "堡场规模、税率、实际交易量和禁令效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ZHUOLUN-MARKET-1015",
+        "summary": "德明筑濁轮堡场诱商，宋禁边民交易。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-QINGZHOU-RAID-1016",
+      "time": [
+        "宋真宗大中祥符九年五月",
+        "1016",
+        "month"
+      ],
+      "subject": "德明所遣西夏蕃骑一千五百与庆州内属蕃部",
+      "action": "德明因盐贸请求受挫并谋侵兀泥族，遣一千五百蕃骑进犯庆州。",
+      "result": "内属蕃部截击，西夏骑兵战败撤回。",
+      "groups": [
+        "西夏蕃骑",
+        "庆州军民",
+        "内属蕃部",
+        "兀泥族"
+      ],
+      "quote": [
+        "德明使蕃騎寇慶州。",
+        "有夏州蕃騎千五百入寇慶州，爲內屬蕃部邀擊，敗還。"
+      ],
+      "unknown": [
+        "双方伤亡、是否掠夺、德明具体命令未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-QINGZHOU-1016",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-JIQIAN-POSTHUMOUS-1016",
+      "time": [
+        "宋真宗大中祥符九年五月",
+        "1016",
+        "month"
+      ],
+      "subject": "李德明与李继迁宗庙",
+      "action": "德明采用刘仁勗建议，追尊父继迁为皇帝，庙号武宗。",
+      "result": "西夏在国内建立皇帝尊号与宗庙祀典，公开提升王权等级。",
+      "groups": [
+        "李氏宗族",
+        "西夏官属",
+        "宗庙礼官"
+      ],
+      "quote": [
+        "追上保吉尊號。",
+        "上保吉尊號曰應運法天神智仁聖至道廣德光孝皇帝，廟號武宗"
+      ],
+      "unknown": [
+        "典礼规模、宋辽反应、祭祀制度细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIQIAN-POSTHUMOUS-1016",
+        "summary": "德明追尊继迁为皇帝、庙号武宗。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-BORDER-RETURN-COVENANT-1016",
+      "time": [
+        "宋真宗大中祥符九年十月",
+        "1016",
+        "month"
+      ],
+      "subject": "李德明、宋真宗与双方边臣",
+      "action": "德明指责宋边将邀功越境、双方窝藏逃户和互相劫掠，请朝廷重申盟约。",
+      "result": "宋廷命鄜延等四路约束蕃部、不得擅兵，并按查实结果互送逃亡者；德明亦须同样执行。",
+      "groups": [
+        "双方逃户",
+        "沿边蕃部",
+        "宋四路边军",
+        "西夏边吏"
+      ],
+      "quote": [
+        "請詔約邊臣。",
+        "掠過生口，彼此交還。",
+        "不得更有藏匿，各遵紀律，共守封疆"
+      ],
+      "unknown": [
+        "待交还人口数量、疆界争议和实际履约率未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BORDER-RETURN-COVENANT-1016",
+        "summary": "宋夏重申禁掠与逃户交还规则。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-LIANGZHOU-LOST-1016",
+      "time": [
+        "宋真宗大中祥符九年十一月",
+        "1016",
+        "month"
+      ],
+      "subject": "甘州回鹘与西夏凉州守军",
+      "action": "凉州守将苏守信死后，其子囉麻自领府事但部众不服，甘州回鹘乘机进攻。",
+      "result": "回鹘破城，掳百余族帐、斩三百、夺马甚众，囉麻弃城，凉州转归回鹘。",
+      "cost": "西夏军民被掳百余帐、被斩三百并失大量马匹。",
+      "groups": [
+        "凉州军民",
+        "甘州回鹘",
+        "囉麻部众"
+      ],
+      "quote": [
+        "涼州守將蘇守信死。十一月，甘州回鶻攻破之。",
+        "擄其族帳百餘，斬級三百，奪馬匹甚衆",
+        "于是涼州屬于回鶻。"
+      ],
+      "unknown": [
+        "回鹘伤亡、马匹确数、居民处置和囉麻去向未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIANGZHOU-1016",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-LIANGZHOU-RECOVERY-PLAN-1017",
+      "time": [
+        "宋真宗天禧元年八月",
+        "1017",
+        "month"
+      ],
+      "subject": "囉麻、李德明与回鹘六谷联军",
+      "action": "囉麻潜联凉州旧蕃卒为内应，请德明发兵夺回凉州。",
+      "result": "回鹘联合六谷诸部抵抗，西夏未能克城。",
+      "groups": [
+        "西夏军",
+        "凉州旧卒",
+        "回鹘军",
+        "六谷诸部"
+      ],
+      "quote": [
+        "囉麻請取涼州，不克。",
+        "回鶻結六谷諸部拒之，卒不能克。"
+      ],
+      "unknown": [
+        "参战兵力、双方伤亡、内应处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIANGZHOU-1017",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-GANZHOU-ENVOY-ROBBERY-1018",
+      "time": [
+        "宋真宗天禧二年三月",
+        "1018",
+        "month"
+      ],
+      "subject": "李德明所遣蕃部与甘州贡使",
+      "action": "德明因夺凉州失败与甘州交恶，侦知贡使入宋后遣兵从间道截掠。",
+      "result": "正使先行逃过，西夏只掠得余骑。",
+      "groups": [
+        "西夏蕃部",
+        "甘州贡使",
+        "沿途商旅"
+      ],
+      "quote": [
+        "德明掠甘州貢奉使。",
+        "遣蕃部從間道掠之。",
+        "會正使先發，僅得餘騎而還。"
+      ],
+      "unknown": [
+        "被掠人数财物、伤亡和余骑处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-GANZHOU-ENVOY-1018",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-QINGZHOU-ROUYUAN-1019",
+      "time": [
+        "宋真宗天禧三年三月",
+        "1019",
+        "month"
+      ],
+      "subject": "德明委乞骨哶大门诸族与庆州宋军",
+      "action": "德明部族由柔远砦进攻庆州，与巡检杨承吉交战。",
+      "result": "宋军失利；曹玮到任加强防御后，骨哶大门等族转而内附宋。",
+      "groups": [
+        "西夏部族军",
+        "庆州军民",
+        "宋军",
+        "转附部族"
+      ],
+      "quote": [
+        "攻慶州，敗官軍于柔遠砦。",
+        "巡檢楊承吉與戰，不利。",
+        "骨哶、大門等族爭內降。"
+      ],
+      "unknown": [
+        "双方兵力伤亡、掠夺和归附户数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-ROUYUAN-1019",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-LAER-YANZHOU-1020",
+      "time": [
+        "宋真宗天禧四年正月",
+        "1020",
+        "month"
+      ],
+      "subject": "宥州羌臘儿部与延州宋军",
+      "action": "德明未再约束部族，臘儿率众劫掠延州门嵬熟户。",
+      "result": "金明监押李士彬击杀臘儿并夺马三百匹，宋廷将事件通报德明。",
+      "groups": [
+        "臘儿部众",
+        "门嵬熟户",
+        "宋军"
+      ],
+      "quote": [
+        "德明屬羌寇延州。",
+        "斬臘兒，奪馬三百匹。",
+        "眞宗詔鄜延部署司以其事報德明。"
+      ],
+      "unknown": [
+        "德明是否下令、双方伤亡、熟户财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LAER-1020",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-LIAO-LIANGDIAN-1020",
+      "time": [
+        "宋真宗天禧四年五月",
+        "1020",
+        "month"
+      ],
+      "subject": "契丹圣宗五十万军与李德明军",
+      "action": "契丹因德明拒吐蕃假道使并里尊断贡，圣宗亲率号称五十万军直攻凉甸。",
+      "result": "德明率军迎战并击退契丹。",
+      "groups": [
+        "西夏军",
+        "契丹军",
+        "凉甸居民",
+        "吐蕃使团"
+      ],
+      "quote": [
+        "契丹兵攻涼甸，擊走之。",
+        "契丹主歸罪德明，親將兵五十萬",
+        "德明率衆逆拒，敗之。"
+      ],
+      "unknown": [
+        "实际兵数、双方伤亡、俘获和凉甸损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIAO-LIANGDIAN-1020",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-XINGZHOU-CAPITAL-1020",
+      "time": [
+        "宋真宗天禧四年十一月",
+        "1020",
+        "month"
+      ],
+      "subject": "李德明、贺承珍与怀远民夫",
+      "action": "德明决定迁都怀远，命贺承珍督役夫渡河北筑城，营建门阙、宫殿、宗社和籍田，改号兴州。",
+      "result": "兴州成为西夏新都，依托贺兰山、黄河与西平形成险固核心。",
+      "groups": [
+        "筑城役夫",
+        "怀远居民",
+        "李氏宗族",
+        "西夏官属"
+      ],
+      "quote": [
+        "城懷遠鎭爲興州，定都之。",
+        "遣賀承珍督役夫，北渡河城之",
+        "搆門闕、宫殿及宗社、籍田，號爲興州，遂定都焉。"
+      ],
+      "unknown": [
+        "役夫人数、营建费用工期、迁都人口和土地征用未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "XINGZHOU-CAPITAL-1020",
+        "summary": "德明筑兴州城与宫庙籍田并定都。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-LIAO-PEACE-TITLE-1021",
+      "time": [
+        "宋真宗天禧五年七月",
+        "1021",
+        "month"
+      ],
+      "subject": "契丹圣宗与李德明",
+      "action": "凉甸战后双方加强边备，契丹担心西夏断贡而提出讲和，德明也请恢复臣贡。",
+      "result": "契丹授德明尚书令并晋封大夏国王，辽夏恢复关系。",
+      "groups": [
+        "西夏官属",
+        "契丹朝廷",
+        "边地军民"
+      ],
+      "quote": [
+        "契丹曁夏平，封德明大夏國王。",
+        "德明亦請臣貢如初。",
+        "晉大夏國王。"
+      ],
+      "unknown": [
+        "和约条款、赔偿、边界和贡物定额未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-PEACE-TITLE-1021",
+        "summary": "辽夏战后复和，德明晋大夏国王。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V10-DASHI-ROUTE-1022",
+      "time": [
+        "宋真宗乾兴元年五月",
+        "1022",
+        "month"
+      ],
+      "subject": "李德明、宋仁宗与大食贡使",
+      "action": "德明请求宋命大食贡使改经夏州，实际意在掠夺贡物。",
+      "result": "宋仁宗识破并拒绝，命大食以后改由广州海路入京。",
+      "groups": [
+        "大食贡使",
+        "西夏边吏",
+        "海路商旅",
+        "宋廷"
+      ],
+      "quote": [
+        "表請大食國貢使取道夏州。",
+        "德明思掠其進奉物",
+        "自今入貢，取海路由廣州入京師。"
+      ],
+      "unknown": [
+        "贡物种类数量、改道成本和大食反应未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DASHI-ROUTE-1022",
+        "summary": "宋拒绝大食贡使经夏州并改走广州海路。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-HONGDE-BETRAYAL-1022",
+      "time": [
+        "宋真宗乾兴元年七月",
+        "1022",
+        "month"
+      ],
+      "subject": "洪德砦蕃官庆香与西夏李德明",
+      "action": "庆香诈称夏军入边，诱宋供奉官胡宁率军赴援并在归德川伏杀，随后带三百余帐投夏。",
+      "result": "宋招回近二百帐，其余百余户留在西夏，德明予以接纳。",
+      "groups": [
+        "庆香三百余帐",
+        "宋援军",
+        "德明政权"
+      ],
+      "quote": [
+        "納洪德砦蕃官慶香降。",
+        "至歸德川，伏發戰死。",
+        "還者幾二百，香等百餘戶不出。"
+      ],
+      "unknown": [
+        "宋军伤亡、庆香是否受德明指使、各户安置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HONGDE-1022",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-ZONGGE-XIAZHOU-1022",
+      "time": [
+        "宋真宗乾兴元年八月",
+        "1022",
+        "month"
+      ],
+      "subject": "西蕃宗哥族与李德明军",
+      "action": "宗哥族余众由沙漠进攻夏州，德明整军交战。",
+      "result": "双方持续攻杀，西州通往宋朝的贡路中断。",
+      "groups": [
+        "宗哥族",
+        "西夏军",
+        "西州贡使商旅"
+      ],
+      "quote": [
+        "西蕃宗哥族侵夏州。",
+        "德明治兵相攻殺，西州貢路不通。"
+      ],
+      "unknown": [
+        "双方兵力伤亡、贡路中断时长和贸易损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-ZONGGE-1022",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-PINGLIANG-RAID-1023",
+      "time": [
+        "宋仁宗天圣元年八月",
+        "1023",
+        "month"
+      ],
+      "subject": "德明部落万人军与宋渭州军",
+      "action": "西夏部落约万人侵入渭州，直犯平凉方渠等州。",
+      "result": "宋守将与周美追击击破，夏军从九井原乌仑河撤退。",
+      "groups": [
+        "西夏部落军",
+        "平凉方渠军民",
+        "宋军"
+      ],
+      "quote": [
+        "秋八月，掠平涼。",
+        "時有衆萬人入渭州，直犯平涼、方渠等州",
+        "守將與軍候周美追擊破之"
+      ],
+      "unknown": [
+        "德明具体命令、双方伤亡和掠夺财物未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-PINGLIANG-1023",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-SHENGWEI-CITY-1024",
+      "time": [
+        "宋仁宗天圣二年二月",
+        "1024",
+        "month"
+      ],
+      "subject": "李德明政权与定州省嵬山诸蕃",
+      "action": "德明在土地肥沃的省嵬山西南麓筑城，以控制周边蕃族。",
+      "result": "省嵬城成为怀远西北的农业和部族统御据点。",
+      "groups": [
+        "筑城民夫",
+        "周边蕃族",
+        "西夏驻军",
+        "农牧民"
+      ],
+      "quote": [
+        "德明作省嵬城于定州。",
+        "德明于山之西南麓築城，以馭諸蕃。"
+      ],
+      "unknown": [
+        "城郭规模、民夫费用、驻军人口和土地征用未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "SHENGWEI-CITY-1024",
+        "summary": "德明在省嵬山筑城控制诸蕃。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-TRADE-TAX-REFORM-1024",
+      "time": [
+        "宋仁宗天圣二年六月",
+        "1024",
+        "month"
+      ],
+      "subject": "西夏使团、宋延州薛奎与关中商税",
+      "action": "西夏使者在宋私购禁物并隐瞒关税，薛奎建议将应赐蜀地绢帛留在关中转给使团。",
+      "result": "使团不再借远途领取赏赐进行走私逃税，相关弊端终止。",
+      "groups": [
+        "西夏使团",
+        "关中商民",
+        "宋税官",
+        "蜀地织户"
+      ],
+      "quote": [
+        "私市禁物，隱關稅爲奸利。",
+        "請留蜀道縑帛于關中，轉致給之，𡚁遂絕。"
+      ],
+      "unknown": [
+        "逃税金额、禁物种类、转给绢帛数量未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TRADE-TAX-REFORM-1024",
+        "summary": "宋改赏赐交付方式以堵西夏使团走私逃税。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-QIANG-AID-REFUSED-1025",
+      "time": [
+        "宋仁宗天圣三年五月至六月",
+        "1025",
+        "range"
+      ],
+      "subject": "环原州叛羌与李德明",
+      "action": "撒逋渴等数万羌众围宋镇砦，战败后渡河向德明求援。",
+      "result": "德明守境拒绝出兵，叛羌失去外援后向宋请降。",
+      "groups": [
+        "叛羌数万人",
+        "西夏边军",
+        "宋军民"
+      ],
+      "quote": [
+        "西羌亂。六月，遣使來假兵，不許。",
+        "使人渡河求助，德明守境不應",
+        "羌衆不支，請降。"
+      ],
+      "unknown": [
+        "德明拒援条件、双方伤亡、降众安置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "QIANG-AID-REFUSED-1025",
+        "summary": "德明拒援宋境叛羌，促使其归降。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V10-BINGDAI-MARKET-1026",
+      "time": [
+        "宋仁宗天圣四年二月",
+        "1026",
+        "month"
+      ],
+      "subject": "李德明与宋并代二州",
+      "action": "陕西已有两处榷场后，德明再请求在并代设置和市场。",
+      "result": "宋仁宗批准，宋夏贸易网络扩展至河东。",
+      "groups": [
+        "宋夏商旅",
+        "并代居民",
+        "西夏牧户",
+        "榷场官员"
+      ],
+      "quote": [
+        "德明請與并、代二州和市。",
+        "時陝西已有榷場二",
+        "市，仁宗許之。\n"
+      ],
+      "unknown": [
+        "市场地点、税率、贸易额和开放时间未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BINGDAI-MARKET-1026",
+        "summary": "宋准德明在并代增设和市。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-AID-LIAO-GANZHOU-1026",
+      "time": [
+        "宋仁宗天圣四年六月",
+        "1026",
+        "month"
+      ],
+      "subject": "李德明军与契丹萧惠军、甘州回鹘",
+      "action": "契丹征诸路军讨甘州阿萨兰部，德明点集蕃众从西配合作战。",
+      "result": "契丹攻甘州三日未克且部下再叛，撤军，西夏军亦返回。",
+      "groups": [
+        "西夏军",
+        "契丹军",
+        "甘州回鹘",
+        "阻卜诸部"
+      ],
+      "quote": [
+        "遣兵助契丹，攻甘州。",
+        "德明㸃集蕃衆遣之西出。",
+        "蕭惠攻甘州三日不克"
+      ],
+      "unknown": [
+        "西夏兵力、实际交战伤亡、军费和撤军损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIAO-GANZHOU-1026",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V10-RETURN-SONG-FUGITIVES-1027",
+      "time": [
+        "宋仁宗天圣五年四月",
+        "1027",
+        "month"
+      ],
+      "subject": "李德明政权与宋沿边逃户",
+      "action": "宋沿边军民逃入西夏后常被用作牧役或换取羊马，宋仁宗要求西夏送还。",
+      "result": "德明遵诏将落蕃户口送至边境归宋。",
+      "groups": [
+        "宋逃户",
+        "西夏熟户",
+        "远羌牧户",
+        "双方边吏"
+      ],
+      "quote": [
+        "歸中國逃戶。",
+        "故常沒者數百人",
+        "命夏州𧅰送境上，德明遵詔還之。"
+      ],
+      "unknown": [
+        "本次归还人数、仍滞留者、财产家属和安置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "RETURN-SONG-FUGITIVES-1027",
+        "summary": "德明遵宋诏归还落蕃逃户。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

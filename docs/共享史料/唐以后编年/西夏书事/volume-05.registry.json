@@ -1,0 +1,1858 @@
+{
+  "facts": [
+    {
+      "action": "继迁因部属离心和宋援军到夏州，假借赵保忠上表请降，获授银州观察使并赐名赵保吉；弟继冲亦赐名赵保宁。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁兄弟",
+        "党项部众",
+        "宋廷",
+        "契丹朝廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-SONG-SUBMISSION-NAME-991",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "继迁首次正式受宋官号和国姓，同时将宋敕命转报契丹。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-SONG-SUBMISSION-NAME-991"
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-song-submission-name-991",
+      "source_refs": [
+        "西夏書事/05@2285242#由趙保忠請降，授銀州觀察使。",
+        "西夏書事/05@2285242#賜姓名趙保吉。",
+        "西夏書事/05@2285242#趙保吉上所授勅命于契丹。"
+      ],
+      "time_range": {
+        "end": "991",
+        "precision": "range",
+        "start": "宋太宗淳化二年七月至八月"
+      },
+      "uncertainties": [
+        "请降真实条件、宋授官后的贡赋军役和辽方反应未载。"
+      ]
+    },
+    {
+      "action": "保忠称率军夜袭王庭镇，熟户貌奴猥才二族截击保吉。",
+      "actors": [],
+      "affected_groups": [
+        "赵保吉部众",
+        "赵保忠军",
+        "貌奴猥才二族",
+        "银州牧户"
+      ],
+      "cost_or_burden": "保吉部丧失牛畜二万余，人员伤亡未载。",
+      "fact_id": "CHF-XIXIA-V05-WANGTING-DEFEAT-991",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "保吉战败，牛畜二万余被夺，再弃银州逃入铁斤泽。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-WANGTING-991"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-wangting-defeat-991",
+      "source_refs": [
+        "西夏書事/05@2285242#破保吉于王庭鎭，保吉走鐵斤澤。",
+        "西夏書事/05@2285242#奪牛畜二萬餘，保吉復棄銀州，奔入鐵斤澤。"
+      ],
+      "time_range": {
+        "end": "991",
+        "precision": "month",
+        "start": "宋太宗淳化二年九月"
+      },
+      "uncertainties": [
+        "战报真伪、双方伤亡和牲畜归属未载。"
+      ]
+    },
+    {
+      "action": "保吉以已受宋姓为由诱熟仓五千余帐服从，遭拒后由铁斤泽出兵进攻。",
+      "actors": [],
+      "affected_groups": [
+        "赵保吉军",
+        "熟仓五千余帐",
+        "来离诸族"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-SHUCANG-ATTACK-991",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "哶㗭联合来离诸族抵抗，保吉撤退。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-SHUCANG-991"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-shucang-attack-991",
+      "source_refs": [
+        "西夏書事/05@2285242#熟倉大族，東西蕃部五千餘帳",
+        "西夏書事/05@2285242#保吉由鐵斤澤引兵攻之，哶㗭復率來離諸族拒戰，保吉始退。"
+      ],
+      "time_range": {
+        "end": "991",
+        "precision": "month",
+        "start": "宋太宗淳化二年十月"
+      },
+      "uncertainties": [
+        "双方兵力伤亡、熟仓财产损失和宋廷态度未载。"
+      ]
+    },
+    {
+      "action": "保忠暗通保吉，受契丹重许王爵后以夏州叛宋归辽。",
+      "actors": [],
+      "affected_groups": [
+        "李继捧官属",
+        "夏州军民",
+        "契丹朝廷",
+        "宋廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-BAOZHONG-REBELLION-991",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "契丹封其西平王并恢复李继捧本姓名，夏州转为辽方藩属据点。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-BAOZHONG-REBELLION-991"
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-baozhong-rebellion-991",
+      "source_refs": [
+        "西夏書事/05@2285242#趙保忠叛，以夏州降契丹，封西平王，復姓名李繼捧。",
+        "西夏書事/05@2285242#遣使表附契丹"
+      ],
+      "time_range": {
+        "end": "991",
+        "precision": "month",
+        "start": "宋太宗淳化二年十一月"
+      },
+      "uncertainties": [
+        "投辽盟约、夏州军民态度、贡赋军役与辽援未载。"
+      ]
+    },
+    {
+      "action": "保吉再据银州却又借保忠向宋请命入贡，契丹遣韩德威持诏诘问；保吉托辞不见。",
+      "actors": [],
+      "affected_groups": [
+        "赵保吉部众",
+        "契丹军",
+        "银州军民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-YINZHOU-KHITAN-LOOTING-992",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "韩德威纵兵大掠银州而还，保吉遭盟主军事惩罚。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-YINZHOU-KHITAN-992"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-yinzhou-khitan-looting-992",
+      "source_refs": [
+        "西夏書事/05@2285242#保吉復入銀州，契丹兵至大掠。",
+        "西夏書事/05@2285242#德威怒，縱兵大掠而還。"
+      ],
+      "time_range": {
+        "end": "992",
+        "precision": "month",
+        "start": "宋太宗淳化三年正月"
+      },
+      "uncertainties": [
+        "被掠人口财物、伤亡和辽夏后续交涉未载。"
+      ]
+    },
+    {
+      "action": "保吉因对辽岁贡取资部族而财用渐乏，请求开放陕西互市。",
+      "actors": [],
+      "affected_groups": [
+        "党项牧户",
+        "陕西商旅",
+        "边民",
+        "赵保吉官属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宋太宗批准，恢复碛外商旅以补保吉资用。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-shaanxi-mutual-market-992",
+      "source_refs": [
+        "西夏書事/05@2285242#歲時貢獻悉取資于蕃族，財用漸乏。",
+        "西夏書事/05@2285242#乞通互市，以濟資用。",
+        "西夏書事/05@2285242#太宗詔從之。"
+      ],
+      "time_range": {
+        "end": "992",
+        "precision": "month",
+        "start": "宋太宗淳化三年四月"
+      },
+      "uncertainties": [
+        "互市地点、税率、贸易额、部族负担缓解程度未载。"
+      ]
+    },
+    {
+      "action": "宋廷拒还宥夏等州后，保吉再反，命李大信率军进犯庆州。",
+      "actors": [],
+      "affected_groups": [
+        "赵保吉军",
+        "庆州守军",
+        "庆州军民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-QINGZHOU-ATTACK-993",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "知州刘文质以私钱二百万犒赏守军，守军奋战击退李大信。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-QINGZHOU-993"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-qingzhou-attack-993",
+      "source_refs": [
+        "西夏書事/05@2285242#保吉反，寇慶州。",
+        "西夏書事/05@2285242#知州劉文質以私錢二百萬給賞，于是士皆奮鬬，大信不能勝。"
+      ],
+      "time_range": {
+        "end": "993",
+        "precision": "month",
+        "start": "宋太宗淳化四年四月"
+      },
+      "uncertainties": [
+        "双方兵力伤亡、私钱来源和战后补偿未载。"
+      ]
+    },
+    {
+      "action": "陕西连年歉收且输送军饷扰民，保吉乘虚入原州围牛栏砦。",
+      "actors": [],
+      "affected_groups": [
+        "赵保吉军",
+        "宋军",
+        "陕西民户",
+        "牛栏砦居民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-YUANZHOU-ATTACK-993",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "与石保普相持数日后撤退。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-YUANZHOU-993"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-yuanzhou-attack-993",
+      "source_refs": [
+        "西夏書事/05@2285242#陝西歲比不登，加以餽餉勞擾，民不堪命。",
+        "西夏書事/05@2285242#率兵入原州，圍牛欄砦，與團練使石保普相持數日，乃還。"
+      ],
+      "time_range": {
+        "end": "993",
+        "precision": "month",
+        "start": "宋太宗淳化四年八月"
+      },
+      "uncertainties": [
+        "双方伤亡、军饷数额、歉收程度和砦中损失未载。"
+      ]
+    },
+    {
+      "action": "宋廷禁党项青白盐贸易以困保吉，数月后沿边熟户失去生计而归附保吉；保吉会盟四十二族，以一万三千人攻环州并屠小康堡。",
+      "actors": [],
+      "affected_groups": [
+        "党项盐户",
+        "沿边熟户",
+        "商旅",
+        "保吉联军",
+        "环州军民"
+      ],
+      "cost_or_burden": "沿边熟户数月无以资生，小康堡遭屠；具体伤亡和盐利损失未载。",
+      "fact_id": "CHF-XIXIA-V05-SALT-BAN-HUANZHOU-993",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宋廷因边部动荡撤销盐禁并安抚诸羌，保吉联军停止行动。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-SALT-BAN-HUANZHOU-993"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-salt-ban-huanzhou-993",
+      "source_refs": [
+        "西夏書事/05@2285242#數月，西人大困，沿邊熟戶無以資生，皆叛歸保吉。",
+        "西夏書事/05@2285242#引兵萬三千人寇環州石昌鎭，屠小康堡",
+        "西夏書事/05@2285242#弛其禁，撫慰諸𦍑，乃已。"
+      ],
+      "time_range": {
+        "end": "993",
+        "precision": "month",
+        "start": "宋太宗淳化四年十月"
+      },
+      "uncertainties": [
+        "盐价、贸易损失、归附户数和小康堡死者数未载。"
+      ]
+    },
+    {
+      "action": "保吉令保宁强迁绥州居民到平夏，高文岯因民众不愿，联合羌酋反攻。",
+      "actors": [],
+      "affected_groups": [
+        "绥州居民",
+        "赵保吉军",
+        "高文岯与羌酋",
+        "宋廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-SUIZHOU-RELOCATION-REVOLT-994",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "保吉军败弃绥州，高文岯以州降宋并获授团练使。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-SUIZHOU-994"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-suizhou-relocation-revolt-994",
+      "source_refs": [
+        "西夏書事/05@2285242#保吉徙綏州民于平夏，牙將高文岯反攻之，遂棄綏州。",
+        "西夏書事/05@2285242#因衆不樂，率𦍑酋蘇移、山海夜、母䭾香等反攻之"
+      ],
+      "time_range": {
+        "end": "994",
+        "precision": "month",
+        "start": "宋太宗淳化五年正月"
+      },
+      "uncertainties": [
+        "计划迁徙人数、实际迁出户数、双方伤亡和财产损失未载。"
+      ]
+    },
+    {
+      "action": "宋河西行营将至时，保忠出营野外并联络保吉；保吉为吞并其众，夜袭保忠营。",
+      "actors": [],
+      "affected_groups": [
+        "赵保吉军",
+        "赵保忠家属吏卒",
+        "宋前锋"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-BAOZHONG-CAMP-RAID-994",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "保忠单骑逃回，资财器用全被保吉夺取；保吉随后阻击宋军未克。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-BAOZHONG-CAMP-994"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-baozhong-camp-raid-994",
+      "source_refs": [
+        "西夏書事/05@2285242#保吉襲敗之，併其衆。",
+        "西夏書事/05@2285242#資財器用悉爲保吉所奪。",
+        "西夏書事/05@2285242#保吉令蕃部數千邀之石堡砦，不克而退。"
+      ],
+      "time_range": {
+        "end": "994",
+        "precision": "month",
+        "start": "宋太宗淳化五年三月"
+      },
+      "uncertainties": [
+        "被并兵数、双方伤亡、资财确数和保忠是否预谋投靠未载。"
+      ]
+    },
+    {
+      "action": "赵光嗣散尽家财联结士卒，在宋军压境时拘捕暗通保吉的赵保忠，开城迎宋军。",
+      "actors": [],
+      "affected_groups": [
+        "夏州将士",
+        "赵保忠家属官属",
+        "宋军",
+        "李继迁部众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-BAOZHONG-CAPTURE-994",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "保忠被押送宋京，获赦并封宥罪侯；保吉因失去内援弃银州入漠。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-BAOZHONG-CAPTURE-994"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-baozhong-capture-994",
+      "source_refs": [
+        "西夏書事/05@2285242#夏州將趙光嗣執趙保忠幽之。保吉復棄銀州走漠中。",
+        "西夏書事/05@2285242#光嗣執之，幽于別室，開門迎繼隆。",
+        "西夏書事/05@2285242#賜爵宥罪侯。"
+      ],
+      "time_range": {
+        "end": "994",
+        "precision": "range",
+        "start": "宋太宗淳化五年三月至五月"
+      },
+      "uncertainties": [
+        "赵光嗣散财数额、捕获过程伤亡、保忠官属处置和赦免条件未载。"
+      ]
+    },
+    {
+      "action": "宋廷削去保吉所赐姓名，并因夏州屡为割据据点而计划废城，将当地居民全部迁往绥宥等州，以官地安置。",
+      "actors": [],
+      "affected_groups": [
+        "夏州居民",
+        "银夏八千帐族",
+        "绥宥州居民",
+        "宋廷安置官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-XIAZHOU-RELOCATION-994",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "银夏管勾生户八千帐族离开继迁内附，夏州人口和生产基础被抽离。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-XIAZHOU-RELOCATION-994"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-xiazhou-relocation-994",
+      "source_refs": [
+        "西夏書事/05@2285242#，欲墮其城。宰",
+        "西夏書事/05@2285242#因盡遷其民于綏、宥等州，以官地給之。",
+        "西夏書事/05@2285242#銀、夏州管勾生戶八千帳族俱棄繼遷內投。"
+      ],
+      "time_range": {
+        "end": "994",
+        "precision": "month",
+        "start": "宋太宗淳化五年四月"
+      },
+      "uncertainties": [
+        "城墙实际拆毁范围、迁民人数、官地面积和安置成效未载。"
+      ]
+    },
+    {
+      "action": "继迁为阻宋在银夏南界增堡，扼橐驼路并胁迫内属部族和牲畜归平夏，癿遇率部反攻。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁军",
+        "熟藏族",
+        "内属部族",
+        "橐驼路运输者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-TUOTUOLU-CLASH-994",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "癿遇一方战败且其弟战死，癿遇转而内附宋朝；继迁退回平夏。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-TUOTUOLU-994"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-tuotuolu-clash-994",
+      "source_refs": [
+        "西夏書事/05@2285242#繼遷屯橐駞路，熟藏族首領癿遇擊之，走還平夏。",
+        "西夏書事/05@2285242#脇兩州內屬戎人及橐駞等物歸平夏。",
+        "西夏書事/05@2285242#其弟力戰而死，遇內歸"
+      ],
+      "time_range": {
+        "end": "994",
+        "precision": "month",
+        "start": "宋太宗淳化五年六月"
+      },
+      "uncertainties": [
+        "双方伤亡、被胁人口牲畜和战后道路控制未载。"
+      ]
+    },
+    {
+      "action": "继迁多次攻夏未克后，先遣牙校贡良马谢罪，又遣廷信入朝贡骆驼名马，将反叛归罪赵保忠。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁部众",
+        "宋廷",
+        "贡使",
+        "党项牧户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-SONG-APOLOGY-MISSIONS-994",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宋太宗厚赐廷信遣还，双方暂维持招抚与归顺交涉。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-SONG-APOLOGY-MISSIONS-994"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-song-apology-missions-994",
+      "source_refs": [
+        "西夏書事/05@2285242#遣牙校以良馬入貢，且謝過。",
+        "西夏書事/05@2285242#遣從弟廷信貢橐駞、名馬，入朝謝罪",
+        "西夏書事/05@2285242#慰，厚賚遣還。\n"
+      ],
+      "time_range": {
+        "end": "994",
+        "precision": "range",
+        "start": "宋太宗淳化五年七月至八月"
+      },
+      "uncertainties": [
+        "贡马驼数量、宋廷赏赐和停战条件未载。"
+      ]
+    },
+    {
+      "action": "继迁遣张浦李光祚贡马驼，宋廷展示强弓军士并授张浦官职，将其留在京师。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁部众",
+        "宋廷",
+        "张浦使团"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-ZHANGPU-DETAINED-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "继迁失去主要谋士，宋廷以威慑和授官削弱其决策中枢。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-ZHANGPU-DETAINED-995"
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-zhangpu-detained-995",
+      "source_refs": [
+        "西夏書事/05@2285242#繼遷遣左都押牙張浦入貢，被畱不遣。",
+        "西夏書事/05@2285242#充本州團練使，畱之京師。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年正月"
+      },
+      "uncertainties": [
+        "贡物数量、张浦是否自愿受官及其随员处置未载。"
+      ]
+    },
+    {
+      "action": "继迁上表请求以夏州为世守，宋廷改授其鄜州节度使。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁部众",
+        "夏州军民",
+        "宋廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-XIAZHOU-PETITION-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "继迁认为鄜州易受宋控制而拒绝受命，夏州归属争议未解。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-XIXIA-V05-XIAZHOU-PETITION-995"
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-xiazhou-petition-995",
+      "source_refs": [
+        "西夏書事/05@2285242#表乞夏州。授鄜州節度使，不受。",
+        "西夏書事/05@2285242#繼遷以易受中國控制，不奉詔。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年六月"
+      },
+      "uncertainties": [
+        "宋廷是否提出其他交换条件、拒命后具体处分未载。"
+      ]
+    },
+    {
+      "action": "继迁势力扩大后，出兵掠取拒不归服的睡泥族七百余帐。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁军",
+        "睡泥族七百余帐",
+        "宋灵州官军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-SHUINI-EXPULSION-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "睡泥首领兵败奔萧关，其副首领遣子向灵州宋军求援并获资粮。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-SHUINI-995"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-shuini-expulsion-995",
+      "source_refs": [
+        "西夏書事/05@2285242#逐党項睡泥族于蕭關。",
+        "西夏書事/05@2285242#繼遷以兵掠七百餘帳，𠵚逋兵潰奔蕭關",
+        "西夏書事/05@2285242#太宗詔以資糧助之。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年七月"
+      },
+      "uncertainties": [
+        "被掠人口牲畜、伤亡、宋援资粮数量和部族安置未载。"
+      ]
+    },
+    {
+      "action": "继迁袭击扼盐夏要路的刘用军，遭伏击。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁军",
+        "宋军",
+        "盐夏道路运输者"
+      ],
+      "cost_or_burden": "继迁部被斩数千，失马五百余匹。",
+      "fact_id": "CHF-XIXIA-V05-WUBAICHI-DEFEAT-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "继迁大败，部众被斩数千级，战马五百余匹被夺。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-WUBAICHI-995"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-wubaichi-defeat-995",
+      "source_refs": [
+        "西夏書事/05@2285242#還襲都鈐轄劉用兵于烏白池，不克。",
+        "西夏書事/05@2285242#斬首數千級，奪馬五百餘匹，繼遷大敗還。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年七月"
+      },
+      "uncertainties": [
+        "宋军伤亡、被斩确数和道路贸易损失未载。"
+      ]
+    },
+    {
+      "action": "宋廷采纳先建清远城的建议，郑文宝屯兵数千、督率民夫修筑，并以金帛策反继迁酋长；事泄后继迁率千余骑攻城。",
+      "actors": [],
+      "affected_groups": [
+        "筑城民夫",
+        "宋屯军",
+        "李继迁军",
+        "清远居民"
+      ],
+      "cost_or_burden": "民夫承担曳碑筑城劳役，金帛策反耗费与战斗伤亡未载。",
+      "fact_id": "CHF-XIXIA-V05-QINGYUAN-FORT-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "郑文宝与守将张延击退继迁，清远城作为宋军据点继续存在。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-QINGYUAN-995"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-XIXIA-V05-QINGYUAN-FORT-995"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-qingyuan-fort-995",
+      "source_refs": [
+        "西夏書事/05@2285242#請先建清遠城，爲頓師歸重之地",
+        "西夏書事/05@2285242#畱屯數千人，親督其役。",
+        "西夏書事/05@2285242#尋以千餘騎攻清遠，文寶與守將張延拒卻之。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年九月"
+      },
+      "uncertainties": [
+        "城役规模、民夫人数、工期、费用和双方伤亡未载。"
+      ]
+    },
+    {
+      "action": "癿遇多次进攻继迁并夺牛马三千余，拒绝继迁招降。",
+      "actors": [],
+      "affected_groups": [
+        "熟藏族",
+        "李继迁部众",
+        "宋廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-BIYU-RESISTANCE-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宋廷授癿遇检校司空并赐帛茶，继续支持其牵制继迁。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-BIYU-995"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-biyu-resistance-995",
+      "source_refs": [
+        "西夏書事/05@2285242#癿遇數攻繼遷，奪牛馬三千餘。",
+        "西夏書事/05@2285242#賜帛五十匹、茶五十觔。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年九月"
+      },
+      "uncertainties": [
+        "双方伤亡、牛马原属和宋官号实际权力未载。"
+      ]
+    },
+    {
+      "action": "黄罗拒绝与继迁联合并已内附宋朝，继迁举兵攻打。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁军",
+        "兀泥族帐",
+        "宋廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-WUNI-EXPULSION-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "黄罗不敌，率全部族帐北逃，数年不能入贡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-WUNI-995"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-wuni-expulsion-995",
+      "source_refs": [
+        "西夏書事/05@2285242#攻兀泥族，首領黃羅悉其族帳北走。",
+        "西夏書事/05@2285242#黃羅不敵，悉其族帳北遁，數年不敢入貢。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年十月"
+      },
+      "uncertainties": [
+        "族帐数量、伤亡、牲畜财产损失和迁徙终点未载。"
+      ]
+    },
+    {
+      "action": "继迁趁折御卿患病，向契丹通报并诱其再犯府州，承诺出兵协助。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁军",
+        "契丹军",
+        "府州军民",
+        "宋边军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-XIXIA-V05-LURE-KHITAN-FUZHOU-995",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "折御卿带病出防，韩德威军止步，继迁也未出兵，联合入侵未成。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-XIXIA-KHITAN-FUZHOU-995"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-xixia-v05-lure-khitan-fuzhou-995",
+      "source_refs": [
+        "西夏書事/05@2285242#誘契丹兵犯府州。",
+        "西夏書事/05@2285242#德威聞之不進，繼遷兵亦不出。"
+      ],
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年十二月"
+      },
+      "uncertainties": [
+        "约定兵力、辽军损耗、继迁未出兵原因和府州防御成本未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "宋开放陕西互市以济保吉财用。",
+      "actors": [],
+      "affected_groups": [
+        "党项牧户",
+        "陕西商旅",
+        "边民",
+        "赵保吉官属"
+      ],
+      "candidate_ref": "FIN-CAND-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "宋太宗批准，恢复碛外商旅以补保吉资用。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-xixia-v05-shaanxi-mutual-market-992",
+      "source_refs": [
+        "西夏書事/05@2285242#歲時貢獻悉取資于蕃族，財用漸乏。",
+        "西夏書事/05@2285242#乞通互市，以濟資用。",
+        "西夏書事/05@2285242#太宗詔從之。"
+      ],
+      "thread_ref": "FIN-THREAD-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992",
+      "time_range": {
+        "end": "992",
+        "precision": "month",
+        "start": "宋太宗淳化三年四月"
+      },
+      "uncertainties": [
+        "互市地点、税率、贸易额、部族负担缓解程度未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《西夏書事》卷05正文登记，未知保持未知。",
+    "作者按语、异说和普通贡物不单列；宋辽边事仅在直接改变继迁战争、财政或政治关系时登记。",
+    "清远城役据原文明载数千屯兵与民夫工程进入大型工程域，其他城砦叙述不强造工程事件。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "继迁假降受宋官号国姓并向辽通报。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁兄弟",
+        "党项部众",
+        "宋廷",
+        "契丹朝廷"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-SONG-SUBMISSION-NAME-991",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-SONG-SUBMISSION-NAME-991"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "继迁首次正式受宋官号和国姓，同时将宋敕命转报契丹。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "继迁首次正式受宋官号和国姓，同时将宋敕命转报契丹。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-song-submission-name-991",
+      "source_refs": [
+        "西夏書事/05@2285242#由趙保忠請降，授銀州觀察使。",
+        "西夏書事/05@2285242#賜姓名趙保吉。",
+        "西夏書事/05@2285242#趙保吉上所授勅命于契丹。"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-SONG-SUBMISSION-NAME-991",
+      "time_range": {
+        "end": "991",
+        "precision": "range",
+        "start": "宋太宗淳化二年七月至八月"
+      },
+      "uncertainties": [
+        "请降真实条件、宋授官后的贡赋军役和辽方反应未载。"
+      ]
+    },
+    {
+      "action": "赵保忠据夏州叛宋归辽并复名李继捧。",
+      "actors": [],
+      "affected_groups": [
+        "李继捧官属",
+        "夏州军民",
+        "契丹朝廷",
+        "宋廷"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-BAOZHONG-REBELLION-991",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-BAOZHONG-REBELLION-991"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "契丹封其西平王并恢复李继捧本姓名，夏州转为辽方藩属据点。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "契丹封其西平王并恢复李继捧本姓名，夏州转为辽方藩属据点。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-baozhong-rebellion-991",
+      "source_refs": [
+        "西夏書事/05@2285242#趙保忠叛，以夏州降契丹，封西平王，復姓名李繼捧。",
+        "西夏書事/05@2285242#遣使表附契丹"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-BAOZHONG-REBELLION-991",
+      "time_range": {
+        "end": "991",
+        "precision": "month",
+        "start": "宋太宗淳化二年十一月"
+      },
+      "uncertainties": [
+        "投辽盟约、夏州军民态度、贡赋军役与辽援未载。"
+      ]
+    },
+    {
+      "action": "赵光嗣擒赵保忠迎宋，保吉失援弃银州。",
+      "actors": [],
+      "affected_groups": [
+        "夏州将士",
+        "赵保忠家属官属",
+        "宋军",
+        "李继迁部众"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-BAOZHONG-CAPTURE-994",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-BAOZHONG-CAPTURE-994"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "保忠被押送宋京，获赦并封宥罪侯；保吉因失去内援弃银州入漠。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "保忠被押送宋京，获赦并封宥罪侯；保吉因失去内援弃银州入漠。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-baozhong-capture-994",
+      "source_refs": [
+        "西夏書事/05@2285242#夏州將趙光嗣執趙保忠幽之。保吉復棄銀州走漠中。",
+        "西夏書事/05@2285242#光嗣執之，幽于別室，開門迎繼隆。",
+        "西夏書事/05@2285242#賜爵宥罪侯。"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-BAOZHONG-CAPTURE-994",
+      "time_range": {
+        "end": "994",
+        "precision": "range",
+        "start": "宋太宗淳化五年三月至五月"
+      },
+      "uncertainties": [
+        "赵光嗣散财数额、捕获过程伤亡、保忠官属处置和赦免条件未载。"
+      ]
+    },
+    {
+      "action": "宋迁空夏州居民并以官地安置，八千帐族内附。",
+      "actors": [],
+      "affected_groups": [
+        "夏州居民",
+        "银夏八千帐族",
+        "绥宥州居民",
+        "宋廷安置官员"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-XIAZHOU-RELOCATION-994",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-XIAZHOU-RELOCATION-994"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "银夏管勾生户八千帐族离开继迁内附，夏州人口和生产基础被抽离。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "银夏管勾生户八千帐族离开继迁内附，夏州人口和生产基础被抽离。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-xiazhou-relocation-994",
+      "source_refs": [
+        "西夏書事/05@2285242#，欲墮其城。宰",
+        "西夏書事/05@2285242#因盡遷其民于綏、宥等州，以官地給之。",
+        "西夏書事/05@2285242#銀、夏州管勾生戶八千帳族俱棄繼遷內投。"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-XIAZHOU-RELOCATION-994",
+      "time_range": {
+        "end": "994",
+        "precision": "month",
+        "start": "宋太宗淳化五年四月"
+      },
+      "uncertainties": [
+        "城墙实际拆毁范围、迁民人数、官地面积和安置成效未载。"
+      ]
+    },
+    {
+      "action": "继迁遣使贡马驼谢罪并恢复对宋交涉。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁部众",
+        "宋廷",
+        "贡使",
+        "党项牧户"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-SONG-APOLOGY-MISSIONS-994",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-SONG-APOLOGY-MISSIONS-994"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "宋太宗厚赐廷信遣还，双方暂维持招抚与归顺交涉。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "宋太宗厚赐廷信遣还，双方暂维持招抚与归顺交涉。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-song-apology-missions-994",
+      "source_refs": [
+        "西夏書事/05@2285242#遣牙校以良馬入貢，且謝過。",
+        "西夏書事/05@2285242#遣從弟廷信貢橐駞、名馬，入朝謝罪",
+        "西夏書事/05@2285242#慰，厚賚遣還。\n"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-SONG-APOLOGY-MISSIONS-994",
+      "time_range": {
+        "end": "994",
+        "precision": "range",
+        "start": "宋太宗淳化五年七月至八月"
+      },
+      "uncertainties": [
+        "贡马驼数量、宋廷赏赐和停战条件未载。"
+      ]
+    },
+    {
+      "action": "宋廷授官扣留继迁谋主张浦。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁部众",
+        "宋廷",
+        "张浦使团"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-ZHANGPU-DETAINED-995",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-ZHANGPU-DETAINED-995"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "继迁失去主要谋士，宋廷以威慑和授官削弱其决策中枢。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "继迁失去主要谋士，宋廷以威慑和授官削弱其决策中枢。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-zhangpu-detained-995",
+      "source_refs": [
+        "西夏書事/05@2285242#繼遷遣左都押牙張浦入貢，被畱不遣。",
+        "西夏書事/05@2285242#充本州團練使，畱之京師。"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-ZHANGPU-DETAINED-995",
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年正月"
+      },
+      "uncertainties": [
+        "贡物数量、张浦是否自愿受官及其随员处置未载。"
+      ]
+    },
+    {
+      "action": "继迁求夏州被拒并拒受鄜州节度。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁部众",
+        "夏州军民",
+        "宋廷"
+      ],
+      "candidate_ref": "POL-CAND-XIXIA-V05-XIAZHOU-PETITION-995",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-XIAZHOU-PETITION-995"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "继迁认为鄜州易受宋控制而拒绝受命，夏州归属争议未解。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "继迁认为鄜州易受宋控制而拒绝受命，夏州归属争议未解。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-xixia-v05-xiazhou-petition-995",
+      "source_refs": [
+        "西夏書事/05@2285242#表乞夏州。授鄜州節度使，不受。",
+        "西夏書事/05@2285242#繼遷以易受中國控制，不奉詔。"
+      ],
+      "thread_ref": "POL-THREAD-XIXIA-V05-XIAZHOU-PETITION-995",
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年六月"
+      },
+      "uncertainties": [
+        "宋廷是否提出其他交换条件、拒命后具体处分未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "宋筑清远城并击退继迁千骑进攻。",
+      "actors": [],
+      "affected_groups": [
+        "筑城民夫",
+        "宋屯军",
+        "李继迁军",
+        "清远居民"
+      ],
+      "candidate_ref": "WORK-CAND-XIXIA-V05-QINGYUAN-FORT-995",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "民夫承担曳碑筑城劳役，金帛策反耗费与战斗伤亡未载。",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-XIXIA-V05-QINGYUAN-FORT-995"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "郑文宝与守将张延击退继迁，清远城作为宋军据点继续存在。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-xixia-v05-qingyuan-fort-995",
+      "source_refs": [
+        "西夏書事/05@2285242#請先建清遠城，爲頓師歸重之地",
+        "西夏書事/05@2285242#畱屯數千人，親督其役。",
+        "西夏書事/05@2285242#尋以千餘騎攻清遠，文寶與守將張延拒卻之。"
+      ],
+      "thread_ref": "WORK-THREAD-XIXIA-V05-QINGYUAN-FORT-995",
+      "time_range": {
+        "end": "995",
+        "precision": "month",
+        "start": "宋太宗至道元年九月"
+      },
+      "uncertainties": [
+        "城役规模、民夫人数、工期、费用和双方伤亡未载。"
+      ]
+    }
+  ],
+  "registry_version": "XIXIA-XIXIASHUSHI-V05-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "宋太宗至道元年继迁诱契丹犯府州",
+    "input_fingerprint": "e5afaf0d87b0df9f116c7d945a06ad5378d8b8ba55e338dcb4958809f88676c6",
+    "overlap_context": "承接卷4继迁受辽封夏国王并攻夏州；本卷主载受宋姓名后再反、盐禁与互市、赵保忠败亡、夏州迁民及清远府州攻守。",
+    "revision_ref": "2285242",
+    "start_locator": "宋太宗淳化二年翟守素援夏州",
+    "volume_ref": "05",
+    "work": "西夏書事"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V05-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-SONG-SUBMISSION-NAME-991"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-song-submission-name-991",
+      "status": "closed",
+      "summary": "继迁假降受宋官号国姓并向辽通报。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-SONG-SUBMISSION-NAME-991",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-BAOZHONG-REBELLION-991"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-baozhong-rebellion-991",
+      "status": "closed",
+      "summary": "赵保忠据夏州叛宋归辽并复名李继捧。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-BAOZHONG-REBELLION-991",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-xixia-v05-shaanxi-mutual-market-992",
+      "status": "closed",
+      "summary": "宋开放陕西互市以济保吉财用。",
+      "thread_ref": "FIN-THREAD-XIXIA-V05-SHAANXI-MUTUAL-MARKET-992",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-BAOZHONG-CAPTURE-994"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-baozhong-capture-994",
+      "status": "closed",
+      "summary": "赵光嗣擒赵保忠迎宋，保吉失援弃银州。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-BAOZHONG-CAPTURE-994",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-XIAZHOU-RELOCATION-994"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-xiazhou-relocation-994",
+      "status": "closed",
+      "summary": "宋迁空夏州居民并以官地安置，八千帐族内附。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-XIAZHOU-RELOCATION-994",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-SONG-APOLOGY-MISSIONS-994"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-song-apology-missions-994",
+      "status": "closed",
+      "summary": "继迁遣使贡马驼谢罪并恢复对宋交涉。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-SONG-APOLOGY-MISSIONS-994",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-ZHANGPU-DETAINED-995"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-zhangpu-detained-995",
+      "status": "closed",
+      "summary": "宋廷授官扣留继迁谋主张浦。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-ZHANGPU-DETAINED-995",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-XIXIA-V05-XIAZHOU-PETITION-995"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-xixia-v05-xiazhou-petition-995",
+      "status": "closed",
+      "summary": "继迁求夏州被拒并拒受鄜州节度。",
+      "thread_ref": "POL-THREAD-XIXIA-V05-XIAZHOU-PETITION-995",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-XIXIA-V05-QINGYUAN-FORT-995"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-xixia-v05-qingyuan-fort-995",
+      "status": "closed",
+      "summary": "宋筑清远城并击退继迁千骑进攻。",
+      "thread_ref": "WORK-THREAD-XIXIA-V05-QINGYUAN-FORT-995",
+      "uncertainties": []
+    }
+  ]
+}

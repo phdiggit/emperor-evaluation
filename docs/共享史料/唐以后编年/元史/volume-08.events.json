@@ -1,0 +1,1651 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-008-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-008-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷008",
+    "revision_ref": "2307786",
+    "start_locator": "至元十年国字宣命与征耽罗",
+    "end_locator": "至元十二年户口与死罪数",
+    "overlap_context": "续卷7至元九年末；卷8载至元十年至十二年，卷9续至元十三年。",
+    "input_fingerprint": "e420e5e88ee1ba46c9e094ef2ecf22902f9c593ccd3630e475155b57287134a2"
+  },
+  "limitations": [
+    "本卷南征连续性强，按战役节点、投降接收、军纪与新附治理分别登记。",
+    "武装行动仅交战役工作流，不在此结算成败分值。",
+    "人口、户数与物资数字照录，未载执行效果与损害处保持未知。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-008-FANCHENG-XIANGYANG-SURRENDER",
+      "time": "至元十年正月至二月",
+      "loc": [
+        "樊城",
+        "襄陽"
+      ],
+      "action": "阿里海牙等攻克樊城，襄阳守将吕文焕惧而请降，二月正式以城降。",
+      "result": "长期襄樊围城结束，元军获得南征基地。",
+      "quote": [
+        "大攻樊城，拔之",
+        "呂文煥懼而請降",
+        "呂文煥以城降"
+      ],
+      "battle": "CAMPAIGN-YUAN-XIANGYANG-SIEGE",
+      "unknown": [
+        "樊城伤亡、襄阳降军民损失和投降条款未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-XIANGYANG-RESETTLEMENT",
+      "time": "至元十年三月至七月",
+      "loc": [
+        "襄陽",
+        "大都"
+      ],
+      "action": "熟券军和城民留居襄阳并给田牛，生券军分隶各翼；无妻子者发往京师，老病者还家。",
+      "result": "襄阳降军民按身份、健康与家庭重编安置。",
+      "quote": [
+        "仍居襄陽，給其田牛",
+        "生券軍分隸各萬戶翼",
+        "無妻子者，發至京師",
+        "老疾者遣還家"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-XIANGYANG-RESETTLEMENT",
+        "candidate": "POL-CAND-YUAN-XIANGYANG-RESETTLEMENT",
+        "summary": "分编安置襄阳降军民。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "降军民编管。",
+          "decision_question": "襄阳人口如何处置。",
+          "alternatives": "普遍俘徙或屠杀。",
+          "decision": "留居给田牛、分翼或遣京。",
+          "direct_result": "多类人口重编。",
+          "power_change": "元朝控制襄阳军民。",
+          "risk_or_damage": "强制迁徙和军役。",
+          "follow_up": "生券军后用于征日。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "给田牛并按家庭安置。"
+        ]
+      ],
+      "unknown": [
+        "人数、田亩、迁徙自愿性和生计结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-EMPRESS-CROWN-PRINCE-INVESTITURE",
+      "time": "至元十年二月至三月",
+      "loc": [
+        "大都"
+      ],
+      "action": "册立弘吉剌氏为皇后、真金为皇太子，授玉册宝并诏告天下。",
+      "result": "皇后与皇太子名位正式确立。",
+      "quote": [
+        "授皇后弘吉剌氏玉冊玉寶",
+        "授皇太子真金玉冊金寶",
+        "寶，詔告天下"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-INVESTITURE-1273",
+        "candidate": "POL-CAND-YUAN-INVESTITURE-1273",
+        "summary": "册皇后与皇太子真金。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "后位储位确立。",
+          "decision_question": "皇后与储君名位如何确定。",
+          "alternatives": "继续无正式册宝。",
+          "decision": "授册宝。",
+          "direct_result": "真金正式成为皇太子。",
+          "power_change": "储位制度化。",
+          "risk_or_damage": "继承政治风险未载。",
+          "follow_up": "东宫官属扩充。"
+        }
+      },
+      "unknown": [
+        "册立争议和权力分配未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-WARSHIPS-AFTER-XIANGYANG",
+      "time": "至元十年三月至六月",
+      "loc": [
+        "興元",
+        "金州",
+        "洋州",
+        "汴梁",
+        "襄陽"
+      ],
+      "action": "刘整请训练水军五六万、造船二千艘，获准；另命襄阳再造战船千艘。",
+      "result": "南征水军和舰队继续扩张。",
+      "quote": [
+        "教練水軍五六萬",
+        "造船二千艘",
+        "敕襄陽造戰船千艘"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-SOUTHERN-FLEET-1273",
+        "candidate": "WORK-CAND-YUAN-SOUTHERN-FLEET-1273",
+        "summary": "训练水军并造三千战船。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "南征水军与战船。",
+          "phase": "训练和建造。",
+          "purpose": "灭宋南征。",
+          "resource_input": "水军五六万、船三千。",
+          "operation": "投入后续渡江。",
+          "benefit": "水战与运输能力增强。",
+          "harm": "军费匠役未载。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "舰队服务南征。"
+        ]
+      ],
+      "unknown": [
+        "船型、完工率、成本和训练损耗未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-SOUTHERN-CONQUEST-DECISION",
+      "time": "至元十年四月",
+      "loc": [
+        "襄陽",
+        "正陽",
+        "荊湖",
+        "淮西"
+      ],
+      "action": "吕文焕入朝后群臣请南伐，忽必烈采纳席卷三吴之议，设荆湖、淮西两路行枢密院镇襄阳、守正阳。",
+      "result": "灭宋由围城转为多路全面南征。",
+      "quote": [
+        "皆以聲罪南伐為請",
+        "席卷三吳，此其時矣",
+        "矣。」帝然之。詔",
+        "行荊湖等路樞密院事",
+        "行淮西等路樞密院事"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SONG-CONQUEST-DECISION",
+        "candidate": "POL-CAND-YUAN-SONG-CONQUEST-DECISION",
+        "summary": "决定全面南伐并设两行院。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战争战略与战区建制。",
+          "decision_question": "襄阳降后是否全面灭宋。",
+          "alternatives": "停战议和。",
+          "decision": "南伐并分荆湖淮西。",
+          "direct_result": "两战区指挥体系形成。",
+          "power_change": "军政资源转向灭宋。",
+          "risk_or_damage": "大规模战争伤亡。",
+          "follow_up": "至元十一年签军十万。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "全面灭宋战略启动。"
+        ]
+      ],
+      "unknown": [
+        "反对意见、总兵力和预算未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-REDEEM-SOUTHERN-SCHOLARS",
+      "time": "至元十年四月",
+      "loc": [
+        "南方新附地区"
+      ],
+      "action": "被掠卖的南方儒士由官府赎回为民。",
+      "result": "一批儒士脱离奴役并恢复民籍。",
+      "quote": "南儒為人掠賣者，官贖為民",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-REDEEM-SCHOLARS",
+        "candidate": "FIN-CAND-YUAN-REDEEM-SCHOLARS",
+        "summary": "官赎被掠南儒为民。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "南儒被掠卖。",
+          "fiscal_state": "官府支付赎价。",
+          "livelihood_state": "获释恢复民籍。",
+          "production_circulation": "无载。"
+        }
+      },
+      "unknown": [
+        "人数、赎价、安置和掠卖者处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-PRISON-DEBT-RELIEF-1273",
+      "time": "至元十年五月",
+      "loc": [
+        "天下"
+      ],
+      "action": "除杀人犯待报外疏放狱囚，限期赴大都者赦；免代签军户丝银、伐木夫税赋和无力偿还旧官钱，并救济阵亡军与贫工匠之家。",
+      "result": "大批刑事与财政负担获得临时宽免和救助。",
+      "quote": [
+        "其餘一切疏放",
+        "如期而至者皆赦之",
+        "免民代輸簽軍戶絲銀",
+        "負前朝官錢不能償者，毋徵",
+        "者，量加廪給"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-PRISON-DEBT-RELIEF",
+        "candidate": "FIN-CAND-YUAN-PRISON-DEBT-RELIEF",
+        "summary": "释囚、免代输旧债并恤阵亡贫户。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "狱囚、军役代输、旧债和阵亡贫户。",
+          "fiscal_state": "多项税债免征并给廪。",
+          "livelihood_state": "罪囚获赦，贫户获救济。",
+          "production_circulation": "劳力恢复效果未载。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限定赴都赦囚。"
+        ]
+      ],
+      "unknown": [
+        "受益人数、免额和实际赴都人数除22人外未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-TAMRA-PACIFICATION",
+      "time": "至元十年六月",
+      "loc": [
+        "躭羅"
+      ],
+      "action": "忻都等军抵耽罗并抚定其地，设招讨使和副使。",
+      "result": "珍岛余党据点被平定，耽罗纳入元朝军政管辖。",
+      "quote": [
+        "等兵至躭羅",
+        "羅，撫定其地",
+        "為躭羅國招討使"
+      ],
+      "battle": "CAMPAIGN-YUAN-TAMRA-1273",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后设置招讨使治理。"
+        ]
+      ],
+      "unknown": [
+        "战斗、伤亡、当地居民和高丽军作用未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-HENAN-FLOOD-RELIEF",
+      "time": "至元十年七月",
+      "loc": [
+        "河南"
+      ],
+      "action": "河南水灾，发粟赈饥并免当年田租。",
+      "result": "灾民同时获得粮食和税免。",
+      "quote": "河南水，發粟賑民饑，仍免今年田租",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-HENAN-FLOOD-1273",
+        "candidate": "FIN-CAND-YUAN-HENAN-FLOOD-1273",
+        "summary": "河南水灾赈粟免租。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "洪水致饥。",
+          "fiscal_state": "免田租并拨粟。",
+          "livelihood_state": "灾民获粮。",
+          "production_circulation": "灾损未载。"
+        }
+      },
+      "unknown": [
+        "粮额、户数、灾区和死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-XIANGYANG-CAPTIVES-FOR-JAPAN",
+      "time": "至元十年九月",
+      "loc": [
+        "大都",
+        "日本方向"
+      ],
+      "action": "襄阳生券军抵大都后释械免死，准自组部伍并用于征日本，每人给钞娶妻、配铠甲。",
+      "result": "降军从囚徒转为征日部队并获得成家物资。",
+      "quote": [
+        "釋其械繫，免死罪",
+        "聽自立部伍",
+        "伍，俾征日本",
+        "人各賜鈔娶妻"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CAPTIVES-JAPAN",
+        "candidate": "POL-CAND-YUAN-CAPTIVES-JAPAN",
+        "summary": "襄阳降军免死编为征日军。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "降军重编与对外军役。",
+          "decision_question": "生券军如何处置。",
+          "alternatives": "处死、奴役或遣返。",
+          "decision": "免死、成家、征日。",
+          "direct_result": "形成新部伍。",
+          "power_change": "元获得额外跨海兵力。",
+          "risk_or_damage": "强制军役和迁徙。",
+          "follow_up": "至元十一年征日。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-JAPAN-1274",
+          [],
+          "降军被用于征日。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "给钞娶妻和装备。"
+        ]
+      ],
+      "unknown": [
+        "人数、婚配自愿性、战后结局未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-XIANGYANG-SUPPLY-1273",
+      "time": "至元十年九月",
+      "loc": [
+        "河南",
+        "淮西",
+        "荊湖"
+      ],
+      "action": "河南宣慰司运米三十万石供淮西军，并向淮西荆湖各给军需。",
+      "result": "南征两战区获得大宗粮饷。",
+      "quote": [
+        "運米三十萬石",
+        "給淮西合答軍",
+        "給淮西、（京）〔荊〕湖軍需"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-SOUTHERN-SUPPLY-1273",
+        "candidate": "FIN-CAND-YUAN-SOUTHERN-SUPPLY-1273",
+        "summary": "运米三十万石供淮西荆湖军。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "南征军需扩大。",
+          "fiscal_state": "调米30万石及其他军需。",
+          "livelihood_state": "产地负担未载。",
+          "production_circulation": "河南向战区转运。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "粮饷支持南征。"
+        ]
+      ],
+      "unknown": [
+        "运输损耗、费用、荆湖分额和民间负担未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-DEATH-REVIEW-FINES-RELIEF",
+      "time": "至元十年十月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "御史台没入赃罚钞一千三百锭用于赈济贫乏者；五十名死刑犯被复审，斗殴杀人的十三人免死充军，其余再审。",
+      "result": "赃罚转用于救贫，死刑判决获得实质减免。",
+      "quote": [
+        "沒入贓罰，為鈔一千三百錠",
+        "者，以此賑之",
+        "死罪五十人，詔加審覆",
+        "十三人因鬭毆殺人，免死充軍",
+        "令再三審覆"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-DEATH-REVIEW-1273",
+        "candidate": "POL-CAND-YUAN-DEATH-REVIEW-1273",
+        "summary": "赃罚救贫并复审五十死罪。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法复核与罚没用途。",
+          "decision_question": "死刑与赃罚如何处理。",
+          "alternatives": "立即处决、罚没入库。",
+          "decision": "复审减死、罚没救贫。",
+          "direct_result": "13人免死，余案重审。",
+          "power_change": "皇帝强化终审。",
+          "risk_or_damage": "充军风险和其余结果未载。",
+          "follow_up": "无载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "罚没钞用于贫民。"
+        ]
+      ],
+      "unknown": [
+        "赈济人数、其余37案结果和军役期限未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-JIANDU-PACIFICATION",
+      "time": "至元十年十月",
+      "loc": [
+        "建都"
+      ],
+      "action": "也速答儿与西平王合兵攻建都蛮，擒四名酋长、俘民六百，建都投降。",
+      "result": "建都地区武装反抗被平定。",
+      "cost": "六百民众被俘。",
+      "quote": [
+        "合兵攻建都蠻",
+        "擒酋長下濟等四人",
+        "獲其民六百",
+        "百，建都乃降"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIANDU-1273",
+      "unknown": [
+        "双方兵力、伤亡、俘民处置和降后治理未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-DO-NOT-BAN-SECOND-CROP",
+      "time": "至元十年十一月",
+      "loc": [
+        "畿内"
+      ],
+      "action": "中书省拟为牧草禁止秋禾收后复耕，忽必烈以农事有益为由下令不得禁止。",
+      "result": "畿内农民保留复种权，牧业让位于农业收益。",
+      "quote": [
+        "請禁農民覆耕",
+        "耕，恐妨芻牧",
+        "帝以農事有益，詔勿禁"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-SECOND-CROP",
+        "candidate": "FIN-CAND-YUAN-SECOND-CROP",
+        "summary": "拒绝为牧草禁止农民复耕。",
+        "operation": "reversed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "中书拟保护刍牧限制复耕。",
+          "fiscal_state": "无直接税变。",
+          "livelihood_state": "农民复耕权保留。",
+          "production_circulation": "农业复种优先。"
+        }
+      },
+      "unknown": [
+        "复耕面积、牧业损失和产量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-PALACE-COMPLETION-1274",
+      "time": "至元十一年正月",
+      "loc": [
+        "大都宫城"
+      ],
+      "action": "宫阙建成，忽必烈首次御正殿接受皇太子、诸王百官朝贺。",
+      "result": "大都宫城核心建筑正式启用。",
+      "quote": [
+        "朔，宮闕告成",
+        "帝始御正殿",
+        "受皇太子諸王百官朝賀"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-DADU-PALACE-COMPLETE",
+        "candidate": "WORK-CAND-YUAN-DADU-PALACE-COMPLETE",
+        "summary": "大都宫阙告成启用。",
+        "operation": "completed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "work_identity": "大都宫阙正殿。",
+          "phase": "竣工启用。",
+          "purpose": "皇朝政礼。",
+          "resource_input": "前卷征民役与官费，累计成本未载。",
+          "operation": "开始朝贺。",
+          "benefit": "中央宫廷有固定设施。",
+          "harm": "历年徭役与征地损害未载。"
+        }
+      },
+      "unknown": [
+        "总成本、面积、工匠伤亡和后续维护未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-SOUTHERN-WAR-MOBILIZATION-1274",
+      "time": "至元十一年正月至二月",
+      "loc": [
+        "荊湖",
+        "淮西",
+        "汴梁"
+      ],
+      "action": "阿术等主张趁宋弱全面进攻，史天泽推荐伯颜统军；朝廷签军十万并在汴梁造战船八百。",
+      "result": "伯颜成为南征主帅，大规模兵船动员开始。",
+      "quote": [
+        "伯顏可以任吾此事矣",
+        "非益兵十萬不可",
+        "簽軍十萬人",
+        "造戰船八百艘於汴梁"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SOUTHERN-MOBILIZATION-1274",
+        "candidate": "POL-CAND-YUAN-SOUTHERN-MOBILIZATION-1274",
+        "summary": "任伯颜并签十万军造八百船。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "灭宋统帅与总动员。",
+          "decision_question": "由谁统军、增兵多少。",
+          "alternatives": "多战区分立或不增军。",
+          "decision": "伯颜统军、签十万。",
+          "direct_result": "兵船动员启动。",
+          "power_change": "伯颜获最高战区权。",
+          "risk_or_damage": "大规模征兵劳役。",
+          "follow_up": "秋季大军南下。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "灭宋总动员。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "汴梁造战船八百。"
+        ]
+      ],
+      "unknown": [
+        "十万来源、重叠、成本和逃亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-JAPAN-EXPEDITION-1274",
+      "time": "至元十一年三月",
+      "loc": [
+        "高麗",
+        "日本"
+      ],
+      "action": "忻都、洪茶丘等率屯田、女直和水军合一万五千人、战船九百艘征日本。",
+      "result": "第一次大规模征日行动正式出发。",
+      "quote": [
+        "合萬五千人",
+        "戰船大小合九百艘",
+        "艘，征日本。移"
+      ],
+      "battle": "CAMPAIGN-YUAN-JAPAN-1274",
+      "unknown": [
+        "各军构成、航线、登陆战和本卷未载的伤亡结果。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-TWO-SOUTHERN-PROVINCES",
+      "time": "至元十一年三月至八月",
+      "loc": [
+        "荊湖",
+        "淮西"
+      ],
+      "action": "将荆湖、淮西两行枢密院改为行中书省，后因两省地位并列恐号令不一，又将淮西改回行枢密院。",
+      "result": "战区指挥体制在统一指挥需求下再次调整。",
+      "quote": [
+        "改荊湖、淮西二行樞密院為二行中書省",
+        "勢位既不相下",
+        "號令必不能一",
+        "復改淮西行中書省為行樞密院"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SOUTHERN-COMMAND-1274",
+        "candidate": "POL-CAND-YUAN-SOUTHERN-COMMAND-1274",
+        "summary": "两行省因号令问题再改单一主从。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战区指挥重组。",
+          "decision_question": "两战区是否平级。",
+          "alternatives": "维持两省并立。",
+          "decision": "淮西改回行院。",
+          "direct_result": "荆湖行省地位突出。",
+          "power_change": "伯颜指挥统一增强。",
+          "risk_or_damage": "频繁改制影响协调。",
+          "follow_up": "南征由伯颜节度。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "战区指挥调整。"
+        ]
+      ],
+      "unknown": [
+        "具体隶属和命令冲突实例未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-RETURN-PASTURE-TO-PEOPLE",
+      "time": "至元十一年三月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "亦乞里带强夺民租产、桑园、房舍和坟墓为军牧地，朝廷下令归还民众。",
+      "result": "被侵占的多类民产获得返还命令。",
+      "quote": [
+        "強取民租產、桑園、廬舍、墳墓",
+        "分為探馬赤軍牧地",
+        "地，詔還其民"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-RETURN-PASTURE",
+        "candidate": "FIN-CAND-YUAN-RETURN-PASTURE",
+        "summary": "返还被军牧强占民产。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "军官强占民产作牧地。",
+          "fiscal_state": "无载。",
+          "livelihood_state": "租产桑园房舍坟墓归民。",
+          "production_circulation": "桑园土地恢复民用。"
+        }
+      },
+      "unknown": [
+        "田亩、户数、实际返还和责任人处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-WAR-DEAD-COMPENSATION",
+      "time": "至元十一年四月",
+      "loc": [
+        "襄樊"
+      ],
+      "action": "对襄樊战死二百四十九名军士之家，每家给银一百两。",
+      "result": "阵亡军属获得明确按户抚恤。",
+      "quote": [
+        "戰死之士二百四十九人之家",
+        "每家銀百兩"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WAR-DEAD-COMPENSATION",
+        "candidate": "FIN-CAND-YUAN-WAR-DEAD-COMPENSATION",
+        "summary": "襄樊阵亡249家各给银百两。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "襄樊军士阵亡。",
+          "fiscal_state": "每家银100两。",
+          "livelihood_state": "249户军属获抚恤。",
+          "production_circulation": "无载。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-XIANGYANG-SIEGE",
+          [],
+          "抚恤来自襄樊战事。"
+        ]
+      ],
+      "unknown": [
+        "发放完成率、家属构成和后续保障未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-GHOST-SOLDIER-FRAUD",
+      "time": "至元十一年五月",
+      "loc": [
+        "宿卫军"
+      ],
+      "action": "核查发现多报军粮名额二千六百七十人，负责核数的合丹被杖、逐出宿卫并谪往西川效死。",
+      "result": "虚报军额受到严厉追责。",
+      "quote": [
+        "多籍二千六百七十人",
+        "人。」敕杖合丹，",
+        "斥無入宿衞",
+        "謫往西川效死軍中"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-GHOST-SOLDIERS",
+        "candidate": "POL-CAND-YUAN-GHOST-SOLDIERS",
+        "summary": "查出虚报2670军额并惩核数官。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军粮名册审计。",
+          "decision_question": "虚报军额如何处理。",
+          "alternatives": "补正不罚。",
+          "decision": "杖逐并谪军。",
+          "direct_result": "虚额揭出。",
+          "power_change": "中央加强军籍审计。",
+          "risk_or_damage": "处罚严厉且其他责任未详。",
+          "follow_up": "余人分别定罪。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "避免虚领军粮。"
+        ]
+      ],
+      "unknown": [
+        "虚领总额、追回数和同案人员处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-WAR-EDICT-DISCIPLINE",
+      "time": "至元十一年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "发布问罪宋朝的南征诏，命水陆并进，同时明确无辜百姓不应受害、将士不得妄杀掠，归附立功者奖赏。",
+      "result": "南征目标与军纪、招降政策同时公布。",
+      "quote": [
+        "等，水陸並進",
+        "無辜之民，初無預焉",
+        "將士毋得妄加殺掠",
+        "有去逆效順",
+        "驗等第遷賞"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-WAR-DISCIPLINE-1274",
+        "candidate": "POL-CAND-YUAN-WAR-DISCIPLINE-1274",
+        "summary": "南征诏禁妄杀并奖归附。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战争正当化与军纪。",
+          "decision_question": "南征如何约束军队和招降。",
+          "alternatives": "不设平民保护。",
+          "decision": "禁杀掠、奖归附。",
+          "direct_result": "诏令下达全军。",
+          "power_change": "皇帝公开约束将帅。",
+          "risk_or_damage": "执行是否一致未载。",
+          "follow_up": "伯颜受不杀训诫。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "南征总诏。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护无辜民众财产。"
+        ]
+      ],
+      "unknown": [
+        "违令案件、惩处和实际平民伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-BAYAN-NO-KILLING",
+      "time": "至元十一年七月",
+      "loc": [
+        "南征军"
+      ],
+      "action": "伯颜出征前，忽必烈以曹彬为例，要求其取江南而不杀。",
+      "result": "最高统帅获得明确克制杀戮的个人训令。",
+      "quote": "汝能不殺，是吾曹彬也",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-BAYAN-NO-KILLING",
+        "candidate": "POL-CAND-YUAN-BAYAN-NO-KILLING",
+        "summary": "要求伯颜效曹彬不杀。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "统帅军纪训令。",
+          "decision_question": "征服江南如何处置军民。",
+          "alternatives": "纵兵杀掠。",
+          "decision": "要求不杀。",
+          "direct_result": "伯颜领命南行。",
+          "power_change": "统帅承担克制责任。",
+          "risk_or_damage": "执行边界未载。",
+          "follow_up": "鄂州降后禁侵暴纵逃民。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "灭宋统帅训令。"
+        ]
+      ],
+      "unknown": [
+        "违令标准和处罚机制未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-YINGZHOU-MANEUVER",
+      "time": "至元十一年九月",
+      "loc": [
+        "郢州",
+        "黃家灣",
+        "唐港"
+      ],
+      "action": "宋军十余万、千舰以铁绳封汉水，伯颜攻拔黄家湾堡，掘坝挽舟经溪出唐港绕过封锁。",
+      "result": "元军舰队避开郢州正面封锁继续南下。",
+      "quote": [
+        "宋兵十餘萬",
+        "岸戰艦千艘",
+        "艘，鐵絚橫江",
+        "諸軍攻拔之，",
+        "鑿壩挽舟入溪",
+        "溪，出唐港，整"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-CONQUEST",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "破坝开水道完成舰队迂回。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡、工程规模和宋舰损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-SHAYANG-XINCHENG",
+      "time": "至元十一年十月",
+      "loc": [
+        "沙洋堡",
+        "新城"
+      ],
+      "action": "伯颜军破沙洋堡，继攻新城，黄顺降而边居谊拒守自焚，元军攻克外堡和城。",
+      "result": "汉水沿线两座要塞被攻克。",
+      "quote": [
+        "將破沙洋堡",
+        "生擒守將串樓王",
+        "總制黃順縋城降",
+        "諸軍蟻附而登，拔之",
+        "誼〕自焚死。辛"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-CONQUEST",
+      "unknown": [
+        "守军平民伤亡、城损和俘虏处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-HANKOU-YANGTZE-MANEUVER",
+      "time": "至元十一年十二月",
+      "loc": [
+        "漢口",
+        "淪河口",
+        "沙蕪",
+        "大江"
+      ],
+      "action": "宋万艘战船据险阻止元军，伯颜采纳开坝引船方案，经沦河口沙芜进入长江。",
+      "result": "元军突破汉口水上封锁进入大江。",
+      "quote": [
+        "戰船萬艘，分據諸隘",
+        "[6]師不得進。用",
+        "自漢口開壩",
+        "蕪，遂入大江"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-CONQUEST",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开坝引船突破封锁。"
+        ]
+      ],
+      "unknown": [
+        "开坝工程、伤亡和宋军反应未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-WUJI-EZHOU-CAMPAIGN",
+      "time": "至元十一年十二月",
+      "loc": [
+        "武磯堡",
+        "青山磯",
+        "鄂州",
+        "漢陽",
+        "德安"
+      ],
+      "action": "元军在武矶堡与宋援军交战后突破，斩王达，抵鄂州；鄂州、汉阳、德安相继以城降，程鹏飞率军降。",
+      "result": "元军渡江成功并取得鄂汉德安。",
+      "quote": [
+        "遂破武磯堡",
+        "斬宋都統王達",
+        "達，始達南岸",
+        "國並以城降",
+        "程鵬飛以本軍降"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-CONQUEST",
+      "unknown": [
+        "双方总伤亡、城内损害和降兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-EZHOU-HUMANE-GOVERNANCE",
+      "time": "至元十一年十二月",
+      "loc": [
+        "鄂州",
+        "漢陽",
+        "德安"
+      ],
+      "action": "伯颜留用部分宋官，撤降城戍兵分隶诸军，下令禁止侵暴并让逃民全部返回。",
+      "result": "新附鄂汉地区采取留官、撤戍与安民政策。",
+      "quote": [
+        "興國仍舊任，",
+        "任，撤其戍兵",
+        "下令禁侵暴",
+        "凡逃民悉縱還之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-EZHOU-GOVERNANCE",
+        "candidate": "POL-CAND-YUAN-EZHOU-GOVERNANCE",
+        "summary": "鄂州降后留官、禁暴、纵逃民。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "新附地接收治理。",
+          "decision_question": "降城如何快速稳定。",
+          "alternatives": "撤换宋官或纵兵。",
+          "decision": "留官禁暴并遣民。",
+          "direct_result": "地方行政延续。",
+          "power_change": "元接管但借用原官。",
+          "risk_or_damage": "降兵被分隶军队。",
+          "follow_up": "阿里海牙留四万镇守。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "逃民返乡并保护生业。"
+        ]
+      ],
+      "unknown": [
+        "返民人数、军纪执行和税制未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-ANNUAL-DISASTER-RELIEF-1273",
+      "time": "至元十年",
+      "loc": [
+        "诸路"
+      ],
+      "action": "虫蝻与霖雨大面积害稼，全年发米五十四万五千五百九十石赈济。",
+      "result": "灾区获得大规模中央粮赈。",
+      "quote": [
+        "蟲蝻災五分",
+        "霖雨害稼九分",
+        "賑米凡五十四萬五千五百九十石"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DISASTER-RELIEF-1273",
+        "candidate": "FIN-CAND-YUAN-DISASTER-RELIEF-1273",
+        "summary": "至元十年灾赈米545590石。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "虫灾雨灾害稼。",
+          "fiscal_state": "拨米545590石。",
+          "livelihood_state": "灾民获粮。",
+          "production_circulation": "农业损失未载。"
+        }
+      },
+      "unknown": [
+        "地区、人数、死亡和发放期未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-HUANGZHOU-JIANGZHOU-SURRENDERS",
+      "time": "至元十二年正月",
+      "loc": [
+        "黃州",
+        "漣州",
+        "蘄州",
+        "江州",
+        "南康"
+      ],
+      "action": "伯颜军沿江推进，黄州、涟州、蕲州、江州、六安、南康等相继以城降。",
+      "result": "长江中下游多座州军迅速归附。",
+      "quote": [
+        "知黃州陳奕以城降",
+        "至，巖即出降",
+        "管景模以城降",
+        "知江州錢真孫",
+        "宋知南康軍葉閶以城降"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-CONQUEST",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "降官留任与州郡接收。"
+        ]
+      ],
+      "unknown": [
+        "各城军民数、投降条件和驻军安排未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-NEW-SUBJECT-PEACE-EDICT",
+      "time": "至元十二年二月",
+      "loc": [
+        "江州",
+        "黃州",
+        "鄂州",
+        "岳州",
+        "漢陽",
+        "安慶"
+      ],
+      "action": "诏新附官民军匠僧道各安本业，农者耕作、商者通行，若镇守官扰民可赴行省控告。",
+      "result": "新附地区获得恢复生业和申诉扰民的明文保障。",
+      "quote": [
+        "令農者就耒，商者就塗",
+        "黃，各安己業",
+        "吏妄有搔擾",
+        "詣行中書省陳告"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NEW-SUBJECT-PEACE",
+        "candidate": "POL-CAND-YUAN-NEW-SUBJECT-PEACE",
+        "summary": "新附民各安业并可告镇守官。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "征服区安民与申诉。",
+          "decision_question": "如何恢复新附区秩序。",
+          "alternatives": "军事占领优先。",
+          "decision": "安业并设告官渠道。",
+          "direct_result": "诏令颁布。",
+          "power_change": "行省监督驻军。",
+          "risk_or_damage": "申诉实际可达性未载。",
+          "follow_up": "后续强调保民安农。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复农业商业。"
+        ]
+      ],
+      "unknown": [
+        "执行范围、案件数和税役安排未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-DINGJIAZHOU-BATTLE",
+      "time": "至元十二年二月",
+      "loc": [
+        "丁家洲"
+      ],
+      "action": "贾似道集战船二千五百余与元军决战，元军用巨炮扰阵，宋军溃败，追杀一百五十里并获船二千余。",
+      "result": "宋主力水军遭决定性失败，贾似道退往扬州。",
+      "quote": [
+        "戰船二千五百餘艘",
+        "舉巨砲擊之",
+        "宋兵遂大潰",
+        "追殺百五十里",
+        "得船二千餘艘"
+      ],
+      "battle": "CAMPAIGN-YUAN-DINGJIAZHOU-1275",
+      "unknown": [
+        "双方伤亡、俘虏和宋船总损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-JIANGDONG-SURRENDER-WAVE",
+      "time": "至元十二年二月至三月",
+      "loc": [
+        "蕪湖",
+        "太平州",
+        "和州",
+        "漣州",
+        "建康",
+        "鎮江",
+        "江陰",
+        "寧國",
+        "常州"
+      ],
+      "action": "丁家洲战后沿江多城接连投降，元军取得江东府二、州五、军二、县四十三，户八十三万余。",
+      "result": "江东大部快速转入元朝控制。",
+      "quote": [
+        "知太平州孟之縉以城降",
+        "知州孫嗣武以城降",
+        "軍次建康府",
+        "江東路得府二、州五、軍二、縣四十三",
+        "戶八十三萬一千八百五十二"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-CONQUEST",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模州郡行政接收。"
+        ]
+      ],
+      "unknown": [
+        "重复统计边界、驻军、税制和民众反应未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-HUAIYUAN-NEW-SETTLERS",
+      "time": "至元十二年三月",
+      "loc": [
+        "懷遠",
+        "靈武"
+      ],
+      "action": "在中兴路设怀远、灵武二县，分别安置新民四千八百余户。",
+      "result": "新附或迁入人口获得县级编管。",
+      "quote": [
+        "置懷遠、靈武二縣",
+        "分處新民四千八百餘戶"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HUAIYUAN-SETTLERS",
+        "candidate": "POL-CAND-YUAN-HUAIYUAN-SETTLERS",
+        "summary": "设二县安置新民4800余户。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "移民安置与设县。",
+          "decision_question": "新民如何编管。",
+          "alternatives": "分散隶旧县。",
+          "decision": "设怀远灵武。",
+          "direct_result": "4800余户分处。",
+          "power_change": "地方行政扩展。",
+          "risk_or_damage": "迁徙与土地冲突未载。",
+          "follow_up": "无载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新民生产安置。"
+        ]
+      ],
+      "unknown": [
+        "户口来源、土地牛具与税役未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-YUEZHOU-LAKE-BATTLE",
+      "time": "至元十二年三月",
+      "loc": [
+        "岳州",
+        "洞庭湖口",
+        "夾灘"
+      ],
+      "action": "高世杰复据岳州，率数万与数千战船扼荆江，阿里海牙追至湖口夹滩；高世杰力屈投降后被诛，岳州降。",
+      "result": "宋在荆江的反攻失败，岳州重新归附。",
+      "quote": [
+        "兵數萬人，扼荊江口",
+        "逐世傑于湖口之夾灘",
+        "傑，世傑降。阿",
+        "孟之紹亦以城降"
+      ],
+      "battle": "CAMPAIGN-YUAN-YUEZHOU-1275",
+      "unknown": [
+        "双方伤亡、战船损失和处决程序未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-HANLIN-DIVISION",
+      "time": "至元十二年三月",
+      "loc": [
+        "翰林院"
+      ],
+      "action": "分置翰林院专掌蒙古文字，原翰林兼国史院继续修国史、制诰、顾问与起居注。",
+      "result": "蒙古文字事务与国史文翰职能分设。",
+      "quote": [
+        "分置翰林院，專掌蒙古文字",
+        "仍舊纂修國史",
+        "典制誥、備顧問",
+        "兼修起居注"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-HANLIN-DIVISION",
+        "candidate": "POL-CAND-YUAN-HANLIN-DIVISION",
+        "summary": "分设蒙古文字翰林与国史院。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "文书修史机构分工。",
+          "decision_question": "蒙古文字与汉文国史是否同署。",
+          "alternatives": "继续合署。",
+          "decision": "分置专掌。",
+          "direct_result": "两套职责明确。",
+          "power_change": "蒙古文字制度独立。",
+          "risk_or_damage": "协调成本未载。",
+          "follow_up": "国史继续纂修。"
+        }
+      },
+      "unknown": [
+        "员额、经费、文书比例未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-JIANGLING-SURRENDER",
+      "time": "至元十二年四月",
+      "loc": [
+        "江陵",
+        "荊門",
+        "峽州",
+        "歸州",
+        "澧州",
+        "常德"
+      ],
+      "action": "阿里海牙破江陵城南沙市栅，朱禩孙、高达等出降，继而多州郡相继以城降。",
+      "result": "荆南湖北大部归附。",
+      "quote": [
+        "攻其柵，破之",
+        "李湜始出降。",
+        "阿里海牙入江陵",
+        "等，悉以城降"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIANGLING-1275",
+      "unknown": [
+        "攻栅伤亡、降城数量边界和驻军未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-GRIEVANCE-DRUM",
+      "time": "至元十二年四月",
+      "loc": [
+        "中央"
+      ],
+      "action": "议设登闻鼓，父母兄弟夫妇被杀而无处申冤者可击鼓，细事扰乱则依法处置。",
+      "result": "重大命案申诉获得直达中央的制度渠道。",
+      "quote": [
+        "議立登聞鼓",
+        "寃無所訴，聽其來擊",
+        "以細事唐突者，論如法"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-GRIEVANCE-DRUM",
+        "candidate": "POL-CAND-YUAN-GRIEVANCE-DRUM",
+        "summary": "议设登闻鼓受理重大命案冤诉。",
+        "operation": "proposed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "越级申诉制度。",
+          "decision_question": "重大冤案如何直诉。",
+          "alternatives": "只经地方逐级。",
+          "decision": "设鼓但限制细事。",
+          "direct_result": "进入中书议立。",
+          "power_change": "民众获得有限直诉权。",
+          "risk_or_damage": "细事边界和惩罚可能阻吓。",
+          "follow_up": "本卷未载正式设成。"
+        }
+      },
+      "unknown": [
+        "设置地点、实际案件和处罚标准未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-JINGNAN-NEW-TERRITORY",
+      "time": "至元十二年五月",
+      "loc": [
+        "荊南",
+        "湖北"
+      ],
+      "action": "多地投降后统计获得府三、州十一、军四、县五十七，户八十万三千余、口一百九十四万余。",
+      "result": "荆南湖北新附行政人口规模被登记。",
+      "quote": [
+        "荊南湖北路凡得府三、州十一、軍四、縣五十七",
+        "戶八十萬三千四百一十五",
+        "口一百九十四萬三千八百六十"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-JINGNAN-TERRITORY",
+        "candidate": "POL-CAND-YUAN-JINGNAN-TERRITORY",
+        "summary": "登记荆南湖北新附州县户口。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "征服区行政统计。",
+          "decision_question": "新附区域规模如何确认。",
+          "alternatives": "无统一统计。",
+          "decision": "汇总府州县户口。",
+          "direct_result": "形成接收基数。",
+          "power_change": "元朝控制扩大。",
+          "risk_or_damage": "战争迁徙可能使统计失真。",
+          "follow_up": "设置江陵行省。"
+        }
+      },
+      "unknown": [
+        "统计时点、漏户和军民区分未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-YANGZI-BRIDGE-BATTLE",
+      "time": "至元十二年六月",
+      "loc": [
+        "揚子橋",
+        "瓜洲"
+      ],
+      "action": "姜才率步骑二万夜攻扬子桥木栅，阿术增援激战后击败宋军，俘张林并斩首一万八千。",
+      "result": "淮东粮道封锁工事守住，宋军遭重大损失。",
+      "quote": [
+        "步騎二萬人，乘夜攻揚子橋木柵",
+        "阿朮自瓜洲以兵赴之",
+        "進，大敗之，才",
+        "生擒張林，斬首萬八千級"
+      ],
+      "battle": "CAMPAIGN-YUAN-YANGZI-BRIDGE-1275",
+      "unknown": [
+        "元军伤亡、斩首口径和其他俘虏未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-JIAOSHAN-NAVAL-BATTLE",
+      "time": "至元十二年七月",
+      "loc": [
+        "瓜洲",
+        "西津渡",
+        "焦山",
+        "圌山"
+      ],
+      "action": "元军多路夹击宋水军，以火箭焚船篷；宋军大败，张世杰、孙虎臣逃，元军追获数百艘战船。",
+      "result": "宋江防主力丧失继续大规模作战能力。",
+      "quote": [
+        "大戰自辰至午",
+        "以火箭射其篛篷",
+        "篷。宋師大敗",
+        "走。追至圌山",
+        "獲黃鵠白鷂船數百艘",
+        "自是不復能軍"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIAOSHAN-1275",
+      "unknown": [
+        "双方伤亡、烧毁船数和俘虏未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-THREE-FRONT-CONQUEST",
+      "time": "至元十二年七月至十一月",
+      "loc": [
+        "臨安",
+        "湖南",
+        "江西"
+      ],
+      "action": "命伯颜直趋临安、阿里海牙取湖南、宋都带等取江西；后伯颜再分陆海中三路会攻临安。",
+      "result": "灭宋进入临安、湖南、江西三大战略方向。",
+      "quote": [
+        "伯顏率諸將直趨臨安",
+        "阿里海牙取湖南",
+        "府，取江西。罷",
+        "伯顏分軍為三，趨臨安"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-THREE-FRONT-CONQUEST",
+        "candidate": "POL-CAND-YUAN-THREE-FRONT-CONQUEST",
+        "summary": "分临安湖南江西三路灭宋。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "全国征服战略分工。",
+          "decision_question": "如何推进宋腹地。",
+          "alternatives": "单一路线。",
+          "decision": "三大战区并进。",
+          "direct_result": "各路统帅与目标确定。",
+          "power_change": "行省统帅分区控制。",
+          "risk_or_damage": "战争范围扩大。",
+          "follow_up": "常州、江西等相继陷降。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "三路灭宋战略。"
+        ]
+      ],
+      "unknown": [
+        "各路兵力、补给和协同机制未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-TRANSIT-TAX-IRON-MONOPOLY",
+      "time": "至元十二年九月至十一月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "阿合马以军费不足为由恢复并扩至十一所转运司，增加课程，官营铁器销售并禁私造铜器。",
+      "result": "战争财政推动税课和金属器生产销售集中。",
+      "quote": [
+        "軍興國用不足",
+        "復立都轉運司九",
+        "量增課程元額",
+        "器，官為局賣",
+        "立諸路轉運司凡十一所"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-TAX-IRON-MONOPOLY",
+        "candidate": "FIN-CAND-YUAN-TAX-IRON-MONOPOLY",
+        "summary": "为军费复转运司、增课并官卖铁器。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "军兴国用不足。",
+          "fiscal_state": "增课并扩转运司至11所。",
+          "livelihood_state": "民间税负与金属器价格影响未载。",
+          "production_circulation": "铁器官卖、铜器私造受禁。"
+        }
+      },
+      "unknown": [
+        "增课比例、收入、铁器价格和民营受损未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-CHANGZHOU-CAPTURE-DEATH-LAW",
+      "time": "至元十二年十一月",
+      "loc": [
+        "常州",
+        "新附郡县"
+      ],
+      "action": "伯颜军四面攻克常州；同时准新附地对降而复叛、聚盗至死者权宜处决，并规定杀人者案情已明可立即执行。",
+      "result": "常州陷落，征服区死刑权限与处决速度扩大。",
+      "quote": [
+        "四面並進，拔其城",
+        "有既降復叛",
+        "乞聽權宜處決",
+        "後殺人者死",
+        "不必待時，宜即行刑"
+      ],
+      "battle": "CAMPAIGN-YUAN-CHANGZHOU-1275",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新附区扩大临机死刑权限。"
+        ]
+      ],
+      "unknown": [
+        "常州伤亡、处决人数和司法复核范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-SONG-PEACE-AND-SURRENDER-DEMAND",
+      "time": "至元十二年十一月至十二月",
+      "loc": [
+        "臨安",
+        "平江",
+        "安吉"
+      ],
+      "action": "元军向宋君臣发书，允赵氏宗族宗庙保全但要求归附；宋多次请和，元廷最终答书令宋主来降。",
+      "result": "外交条件由议和转为无条件政治投降。",
+      "quote": [
+        "趙氏族屬可保無虞",
+        "宗廟悉許如故",
+        "書，稱姪乞和",
+        "書，令其來降"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-SONG-SURRENDER-DEMAND",
+        "candidate": "POL-CAND-YUAN-SONG-SURRENDER-DEMAND",
+        "summary": "允保赵氏但要求宋主来降。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战争外交与投降条件。",
+          "decision_question": "是否接受宋议和。",
+          "alternatives": "岁币停战。",
+          "decision": "只接受来降，允保宗族宗庙。",
+          "direct_result": "条件书往返。",
+          "power_change": "宋已无平等议和地位。",
+          "risk_or_damage": "拒降将继续战争。",
+          "follow_up": "卷9临安投降。"
+        }
+      },
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-SONG-CONQUEST",
+          [],
+          "外交紧随临安进军。"
+        ]
+      ],
+      "unknown": [
+        "宋廷内部决策和承诺兑现范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-008-YEAR12-DISASTER-RELIEF",
+      "time": "至元十二年",
+      "loc": [
+        "衞輝",
+        "太原",
+        "河間等"
+      ],
+      "action": "卫辉太原等旱、河间霖雨伤稼，全年赈米三千七百四十八石、粟二万四千二百零六石。",
+      "result": "灾区获得米粟救济。",
+      "quote": [
+        "衞輝、太原等路旱",
+        "河間霖雨傷稼",
+        "賑米三千七百四十八石",
+        "粟二萬四千二百六石"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DISASTER-RELIEF-1275",
+        "candidate": "FIN-CAND-YUAN-DISASTER-RELIEF-1275",
+        "summary": "至元十二年旱涝赈米粟。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "旱灾和霖雨害稼。",
+          "fiscal_state": "拨米3748石、粟24206石。",
+          "livelihood_state": "灾民获粮。",
+          "production_circulation": "灾损未载。"
+        }
+      },
+      "unknown": [
+        "受益户数、分配地区和死亡未载。"
+      ]
+    }
+  ]
+}

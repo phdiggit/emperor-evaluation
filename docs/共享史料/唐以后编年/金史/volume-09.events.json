@@ -1,0 +1,589 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "JIN-JINSHI-V09-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V09-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "金史",
+    "volume_ref": "卷9",
+    "revision_ref": "2432723",
+    "start_locator": "章宗璟由皇太孙摄政至大定二十九年即位",
+    "end_locator": "明昌三年常平仓、灾荒赈济与地方仓设置",
+    "overlap_context": "承卷8世宗崩与皇太孙即位；卷10续章宗明昌四年以后。",
+    "input_fingerprint": "44937e8eb930e41c9ce4406bdb68aef9a762a848ac2dc78e4ef50a03ff01dd84"
+  },
+  "events": [
+    {
+      "id": "CHF-JIN-V09-ZHANGZONG-ACCESSION-1189",
+      "time": [
+        "大定二十九年正月",
+        "大定二十九年二月",
+        "range"
+      ],
+      "subject": "皇太孙璟与金世宗朝臣",
+      "action": "世宗崩后璟在柩前即皇帝位并诏告中外。",
+      "result": "本卷保留章宗即位的逐卷史源锚点；唯一可消费继承闭环为 CHF-JIN-V08-IMPERIAL-SUCCESSION-1186-1189，本条 duplicate-of CHF-JIN-V08-IMPERIAL-SUCCESSION-1186-1189 并仅作 CONTEXT_ONLY。",
+      "quote": [
+        "即皇帝位於柩前。"
+      ],
+      "unknown": [
+        "即位过程的宗室议论未载。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-FIRST-GOVERNANCE-1189",
+      "time": [
+        "大定二十九年二月",
+        "大定二十九年二月",
+        "month"
+      ],
+      "subject": "金章宗与学士院",
+      "action": "章宗开始听政，命学士院进呈汉唐便民事及当今急务。",
+      "result": "新朝以历代便民经验和现实急务作为首批政策输入。",
+      "quote": [
+        "癸亥，始聽政。",
+        "命學士院進呈漢、唐便民事，及當今急務。"
+      ],
+      "unknown": [
+        "进呈事项与采纳结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FIRST-GOVERNANCE-AGENDA",
+        "summary": "章宗初听政即征集汉唐便民事与当今急务。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-ACCESSION-RELIEF-1189",
+      "time": [
+        "大定二十九年正月",
+        "大定二十九年正月",
+        "month"
+      ],
+      "subject": "金章宗与全国官民、孤弱人口",
+      "action": "即位恩诏晋官、免当年租税与历年官欠，并给鳏寡孤独每人绢一匹、米二石。",
+      "result": "新朝以免税免欠和定额救济覆盖官民孤弱。",
+      "cost": "免当年租税及旧欠；每名孤弱给绢一匹、米二石。",
+      "groups": [
+        "鳏寡孤独",
+        "纳税民户",
+        "欠官钱者"
+      ],
+      "quote": [
+        "免今歲租稅，並自來懸欠系官等錢，鰥寡孤獨人絹一匹、米兩石。"
+      ],
+      "unknown": [
+        "受益人数和财政总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ACCESSION-TAX-AND-POVERTY-RELIEF",
+        "summary": "章宗即位免税免欠并定额赈孤弱。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-PALACE-SLAVE-EMANCIPATION-1189",
+      "time": [
+        "大定二十九年二月",
+        "大定二十九年闰五月",
+        "range"
+      ],
+      "subject": "金章宗与宫籍奴婢、赎良者子女",
+      "action": "章宗释放原属睿宗、世宗、显宗的宫籍奴婢为良，并准饥民卖身后已赎良者与奴所生子女为良。",
+      "result": "两类宫籍与赎良家庭人口恢复或取得良民身份。",
+      "groups": [
+        "宫籍奴婢",
+        "赎良者",
+        "所生子女"
+      ],
+      "quote": [
+        "，悉放為良。己",
+        "諸饑民賣身已贖放為良，複與奴生男女，並聽為良。"
+      ],
+      "unknown": [
+        "释良人数、财产与户籍安置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "PALACE-AND-FAMILY-EMANCIPATION",
+        "summary": "章宗释放宫籍奴婢并确认赎良者子女自由身份。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-GRIEVANCE-ACCESS-1189",
+      "time": [
+        "大定二十九年二月",
+        "大定二十九年二月",
+        "month"
+      ],
+      "subject": "金章宗与登闻鼓院、申诉者",
+      "action": "章宗发现登闻鼓院门户常锁，命令开放以便冤枉上达。",
+      "result": "中央申诉入口恢复开放。",
+      "quote": [
+        "敕登聞鼓院所以達冤枉，舊嘗鎖戶，其令開之。"
+      ],
+      "unknown": [
+        "开放后的申诉数量和处理成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GRIEVANCE-ACCESS-RESTORATION",
+        "summary": "章宗开放登闻鼓院使冤诉可达。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-JUDICIAL-INSPECTION-1189",
+      "time": [
+        "大定二十九年六月",
+        "大定二十九年八月",
+        "range"
+      ],
+      "subject": "金章宗与九路提刑司",
+      "action": "章宗初置提刑司分按九路，兼管劝农、采访、屯田镇防，并定其三十二条职掌和多族知法官。",
+      "result": "地方司法监察、农业采访和军屯监督形成九路专门机构。",
+      "quote": [
+        "初置提刑司，分按九路，並兼勸農採訪事，屯田、鎮防諸軍皆屬焉。",
+        "提刑部司所掌三十二條。",
+        "提刑司設女直、契丹、漢兒知法各一人。"
+      ],
+      "unknown": [
+        "九路区划、员额经费和案件成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "REGIONAL-JUDICIAL-INSPECTION-SYSTEM",
+        "summary": "章宗建立九路提刑司及跨族知法编制。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-LUGOU-BRIDGE-1189-1192",
+      "time": [
+        "大定二十九年六月",
+        "明昌三年三月",
+        "range"
+      ],
+      "subject": "金章宗与卢沟桥营造官役",
+      "action": "大定二十九年开始修建卢沟石桥，明昌三年完工。",
+      "result": "卢沟河固定石桥建成。",
+      "cost": "工程经费、役夫和伤亡未载。",
+      "quote": [
+        "作瀘溝石橋。",
+        "瀘溝石橋成。"
+      ],
+      "unknown": [
+        "桥制、工期细目和造价未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "LUGOU-STONE-BRIDGE",
+        "summary": "章宗朝营建卢沟石桥并完工。",
+        "continuity": "continued_within_reign",
+        "phase": "开工至完工",
+        "purpose": "跨河交通",
+        "operation_result": "石桥建成"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-LAND-TAX-CUT-1189",
+      "time": [
+        "大定二十九年七月",
+        "大定二十九年七月",
+        "month"
+      ],
+      "subject": "金章宗与全国及河东农户",
+      "action": "章宗普减民地税十分之一，河东南北路减十分之二，下田减十分之三。",
+      "result": "土地税按地区与田等差别减征。",
+      "cost": "减税比例一成至三成。",
+      "quote": [
+        "減民地稅十之一，河東南、北路十之二，下田十之三。"
+      ],
+      "unknown": [
+        "税基、减收总额和各田等面积未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LAND-TAX-RATE-CUT",
+        "summary": "章宗按地区田等减地税一至三成。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-PREFECTURAL-SCHOOLS-1189-1190",
+      "time": [
+        "大定二十九年七月",
+        "明昌元年三月",
+        "range"
+      ],
+      "subject": "金章宗与京府州镇学校",
+      "action": "章宗命京府节镇防御州设学养士并由进士官提控，设经童、应制、宏词等科，修曲阜孔庙学。",
+      "result": "地方学校、童科高等科目与孔庙教育同时扩展。",
+      "quote": [
+        "詔京、府、節鎮、防禦州設學養士。初設經童科。",
+        "初設應制及宏詞科。",
+        "詔修曲阜孔子廟學。"
+      ],
+      "unknown": [
+        "学校数量、经费和招生规模未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EDUCATION-AND-EXAMINATION-EXPANSION",
+        "summary": "章宗扩设地方学校、经童及应制宏词科。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-OFFICIAL-RECOMMENDATION-1189-1190",
+      "time": [
+        "大定二十九年十一月",
+        "明昌元年五月",
+        "range"
+      ],
+      "subject": "金章宗与五品以上官、提刑司",
+      "action": "章宗令五品以上官按年举廉能和自代，不举者以蔽贤论，并由提刑司采访覆察。",
+      "result": "官员推荐人才成为有数量、有责任和复核的常制。",
+      "quote": [
+        "五品以上官各舉所知，歲限所舉之數，如不舉者坐以蔽賢之罪。",
+        "內外五品以上，歲舉廉能官一員，不舉者坐蔽賢罪。",
+        "任內舉所知才能官一員以自代。"
+      ],
+      "unknown": [
+        "每官限额、实际荐举和升用人数未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MANDATORY-OFFICIAL-RECOMMENDATION",
+        "summary": "章宗建立五品以上荐贤、自代和蔽贤问责制。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-LOCAL-RELIEF-AUTHORITY-1189",
+      "time": [
+        "大定二十九年十一月",
+        "大定二十九年十二月",
+        "range"
+      ],
+      "subject": "金章宗与总管、节度使、提刑司",
+      "action": "章宗授权地方遇饥先行赈贷赈济后奏；宁化保德岚州饥民与复业流民随即获赈并给复一年。",
+      "result": "地方救灾取得先处置后报告权限并用于三州饥荒。",
+      "groups": [
+        "三州饥民",
+        "复业流民"
+      ],
+      "quote": [
+        "先行賑貸或賑濟，然後言上。",
+        "賑寧化、保德、嵐州饑，其流移複業，給複一年。"
+      ],
+      "unknown": [
+        "赈粮数量和受益人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DECENTRALIZED-EMERGENCY-RELIEF",
+        "summary": "章宗授权地方先赈后奏并救济三州流民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-CURRENCY-SALT-REORGANIZATION-1189",
+      "time": [
+        "大定二十九年十二月",
+        "大定二十九年十二月",
+        "month"
+      ],
+      "subject": "金章宗与货币盐务机构",
+      "action": "朝廷停止铸钱，恢复北京、辽东盐使司并撤西京、解盐巡捕使。",
+      "result": "货币铸造暂停，北方盐务监管机构重组。",
+      "quote": [
+        "。詔罷鑄錢。丁",
+        "複置北京、遼東鹽使司，仍罷西京、解鹽巡捕使。"
+      ],
+      "unknown": [
+        "停铸原因、货币供应和盐税变化未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CURRENCY-AND-SALT-ADMINISTRATION-REFORM",
+        "summary": "章宗停铸钱并重组盐使司。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-SLAVE-INFANT-REDEMPTION-1190",
+      "time": [
+        "明昌元年三月",
+        "明昌元年三月",
+        "month"
+      ],
+      "subject": "金章宗与驱婢所生多胞胎家庭",
+      "action": "驱婢一胎三男时，官府在原乳哺钱百贯外加四十贯，并赎为良民。",
+      "result": "特定奴婢多胞胎子女获得官赎和一百四十贯乳哺资金。",
+      "cost": "每案官给钱一百四十贯并承担赎身。",
+      "groups": [
+        "驱婢",
+        "一胎三男子女"
+      ],
+      "quote": [
+        "尚書省請更給錢四十貫，贖以為良。"
+      ],
+      "unknown": [
+        "适用案例数和赎价未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "INFANT-SUPPORT-AND-REDEMPTION",
+        "summary": "官府增给多胞胎乳哺钱并赎奴婢子女为良。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-CONSTANT-GRANARIES-1190-1192",
+      "time": [
+        "明昌元年八月",
+        "明昌三年十二月",
+        "range"
+      ],
+      "subject": "金章宗与州府县粮政",
+      "action": "章宗下诏设置常平仓，后定州府县官兼管、按收籴多寡升降，并在武定、粟邑、北舞渡另设镇仓。",
+      "result": "常平仓形成地方长官负责的常制，关键地点增设储粮仓。",
+      "cost": "仓储建设和收籴资金未载。",
+      "quote": [
+        "詔設常平倉。",
+        "敕置常平倉處，並令州、府官以本職提舉，縣官兼管勾其事",
+        "置武定鎮倉",
+        "置粟邑鎮倉",
+        "置北舞渡倉"
+      ],
+      "unknown": [
+        "仓数、仓容、初始本钱和粮价未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "EVER-NORMAL-AND-REGIONAL-GRANARIES",
+        "summary": "章宗建立常平仓常制并增设三处镇仓。",
+        "continuity": "continued_across_reigns",
+        "phase": "设制与扩点",
+        "purpose": "平粜备荒",
+        "operation_result": "州县兼管并增设地方仓"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-LUXURY-BRIDEPRICE-REGULATION-1190",
+      "time": [
+        "明昌元年八月",
+        "明昌元年十月",
+        "range"
+      ],
+      "subject": "金章宗与民间婚丧消费",
+      "action": "章宗采纳抑制奢靡、昏丧过度的建议，并将民庶聘财定为百贯、五十贯、二十贯三等。",
+      "result": "婚聘支出形成三档上限，奢靡消费纳入制度约束。",
+      "groups": [
+        "婚姻家庭"
+      ],
+      "quote": [
+        "抑昏喪過度之禮，禁追逐無名之費。",
+        "制民庶聘財為三等，上百貫，次五十貫，次二十貫。"
+      ],
+      "unknown": [
+        "适用阶层、处罚和实际执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BRIDEPRICE-AND-LUXURY-REGULATION",
+        "summary": "章宗按三档限制聘财并抑婚丧奢费。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-XIA-BORDER-KILLING-1191",
+      "time": [
+        "明昌二年十一月",
+        "明昌二年十一月",
+        "month"
+      ],
+      "subject": "西夏边人（原文仅称夏人）与金边将阿鲁带",
+      "action": "夏人杀金朝边将阿鲁带。",
+      "result": "宋夏边境以外的金夏边防发生致死事件，本卷未载金方报复或谈判。",
+      "cost": "边将阿鲁带被杀。",
+      "quote": [
+        "夏人殺我邊將阿魯帶。"
+      ],
+      "unknown": [
+        "地点、起因、参与人数和后续处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BORDER-COMMANDER-KILLING",
+        "summary": "夏人杀金边将阿鲁带，后续未载。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V09-DISASTER-REPORTING-LAW-1191",
+      "time": [
+        "明昌二年四月",
+        "明昌二年四月",
+        "month"
+      ],
+      "subject": "金章宗与灾伤主司、检视官",
+      "action": "朝廷规定灾伤应报不报、妄报和检视不实的分级刑责，枉征免者按赃论。",
+      "result": "灾情申报与核验形成责任追究制度。",
+      "quote": [
+        "制諸部內災傷，主司應言而不言及妄言者杖七十",
+        "檢視不以實者罪如之"
+      ],
+      "unknown": [
+        "实施案件和纠偏效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DISASTER-REPORTING-ACCOUNTABILITY",
+        "summary": "章宗建立灾伤申报核验责任制。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-NORTH-CHINA-FAMINE-RELIEF-1192-1193",
+      "time": [
+        "明昌二年十月",
+        "明昌三年九月",
+        "range"
+      ],
+      "subject": "金章宗与山东河北河州饥民",
+      "action": "章宗因山东河北旱灾减刑并组织安抚赈济，免河州未输租，按饥民意愿分散安置、令富户供粮两月抵秋税，并缓征旧欠。",
+      "result": "饥民获得减刑、免租、安置供粮与延期追征的组合救济。",
+      "cost": "富户供粮两月抵税，河州免未输租；其他粮款未载。",
+      "groups": [
+        "山东河北饥民",
+        "河州灾民",
+        "迁徙饥民",
+        "供粮富户"
+      ],
+      "quote": [
+        "以河北、山東旱，應雜犯及強盜已未發覺減死一等，釋徒以下。",
+        "河州災傷，民乏食，而租稅有未輸。",
+        "令富者出粟養之，限以兩月，其粟充秋稅之數。",
+        "俟豐收日以分數帶征可也。"
+      ],
+      "unknown": [
+        "赈粮人数、死亡数与缓征期限未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FAMINE-RELIEF-RESETTLEMENT-AND-DEFERMENT",
+        "summary": "章宗以免租、分散安置、富户供粮抵税和缓征救荒。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-NORTHERN-FORTS-1192",
+      "time": [
+        "明昌三年四月",
+        "明昌三年七月",
+        "range"
+      ],
+      "subject": "金章宗与北边军堡",
+      "action": "朝廷议北边开壕后因旱罢役，改增北边军一千二百人分驻诸堡。",
+      "result": "大型开壕工程取消，边防改以增兵驻堡实施。",
+      "cost": "新增军一千二百人；开壕已发役损耗未载。",
+      "quote": [
+        "詔集百官議北邊開壕事。",
+        "罷北邊開壕之役。",
+        "詔增北邊軍千二百人，分置諸堡。"
+      ],
+      "unknown": [
+        "堡数、驻军分配和年度军费未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NORTHERN-DEFENSE-PLAN-REVISION",
+        "summary": "章宗罢北边开壕，改增一千二百兵驻堡。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V09-PRIVATE-FAMINE-RELIEF-1192",
+      "time": [
+        "明昌三年十一月",
+        "明昌三年十一月",
+        "month"
+      ],
+      "subject": "张显、荣楫与河州棣州灾民",
+      "action": "张显焚债券并献粟千石，荣楫散米七百石、钱三百贯、柴三千束赈饥，朝廷各补两官。",
+      "result": "两名民间赈济者获官职奖励。",
+      "cost": "粟千石；米七百石、钱三百贯、柴三千束。",
+      "groups": [
+        "河州棣州饥民",
+        "债户"
+      ],
+      "quote": [
+        "獻粟千石以賑饑。",
+        "賑米七百石、錢三百貫，冬月散柴薪三千束。",
+        "特各補兩官"
+      ],
+      "unknown": [
+        "受益人数和官奖后续影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "PRIVATE-RELIEF-REWARDED",
+        "summary": "章宗以官职奖励大额民间赈济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    }
+  ],
+  "limitations": [
+    "本卷为9727字固定正文一次连续人工通读后的紧凑shadow登记。",
+    "同一救荒、荐举、教育与仓储链合并；普通任免、贡聘、巡猎和祥异不单列。",
+    "本卷无明确成规模武装交战；夏人杀边将按政治边境事件登记，不推定为战役。",
+    "卷10尚未读取，明昌四年以后的结果不反填。"
+  ]
+}

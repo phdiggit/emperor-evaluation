@@ -1,0 +1,662 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V16-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V16-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "16",
+    "revision_ref": "2288387",
+    "start_locator": "宋仁宗庆历二年七月西夏大旱饥荒",
+    "end_locator": "宋仁宗庆历三年六月曩霄上书要请十一事",
+    "overlap_context": "承接卷15李文贵被宋扣留与议和试探；本卷主载定川大战及关陇劫掠、旱饥军费压力、太子更替和宋夏正式议和条件交涉。",
+    "input_fingerprint": "01626c75422d1303492b478403e87437c8453e78198808dfc738988ac5ef1171"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷16正文登记，未知保持未知。",
+    "异文对定川兵力战损、王嵩释放经过和契丹使节时序有冲突，不裁成唯一结论。",
+    "议和长文只登记名分、岁赐、互市及直接民生条件，不逐项扩写。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V16-DROUGHT-FAMINE-1042",
+      "time": [
+        "宋仁宗庆历二年七月",
+        "1042",
+        "month"
+      ],
+      "subject": "西夏官民与元昊征发体系",
+      "action": "元昊连年点集军民导致耕种失时，又遇秋旱及数万黄鼠食尽庄稼。",
+      "result": "西夏国内发生大饥荒。",
+      "cost": "粮食作物大面积损失，确数未载。",
+      "groups": [
+        "西夏农户",
+        "被征军民",
+        "各州饥民"
+      ],
+      "quote": [
+        "大旱，黃鼠食稼。",
+        "元昊頻年㸃集，種植不時。",
+        "有黃鼠數萬食稼且盡，國中大飢。"
+      ],
+      "unknown": [
+        "饥民人数、粮价、死亡迁徙和赈济措施未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DROUGHT-FAMINE-1042",
+        "summary": "连年征发叠加旱鼠灾造成西夏大饥。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-YELIRENRONG-DEATH-1042",
+      "time": [
+        "宋仁宗庆历二年七月",
+        "1042",
+        "month"
+      ],
+      "subject": "野利仁荣与元昊",
+      "action": "参与西夏建号创制的谟宁令野利仁荣去世。",
+      "result": "元昊三次亲临吊丧，厚葬并追赠富平侯，失去重要制度谋臣。",
+      "groups": [
+        "野利氏族",
+        "西夏文武官员",
+        "元昊"
+      ],
+      "quote": [
+        "謨𡩋令野利仁榮卒。",
+        "元昊三臨其喪",
+        "命厚葬之，贈富平侯。"
+      ],
+      "unknown": [
+        "死因、年龄、继任者和厚葬规模未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YELIRENRONG-DEATH-1042",
+        "summary": "野利仁荣卒，元昊厚葬赠侯。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V16-TIANDU-PALACE-1042",
+      "time": [
+        "宋仁宗庆历二年八月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊、没𠼪妃与野利遇乞",
+      "action": "元昊纳没𠼪氏为妃，在接近泾原且便于集兵的天都山特建宫室居住。",
+      "result": "天都兼具宫居与军事集结功能，野利遇乞因不满新妃待遇而被元昊厌恶。",
+      "groups": [
+        "没𠼪氏族",
+        "野利氏族",
+        "西夏筑宫劳役",
+        "天都守军"
+      ],
+      "quote": [
+        "納妃没𠼪氏，營天都山居之。",
+        "凡欲舉兵，必先至彼㸃集",
+        "特營宫室居之"
+      ],
+      "unknown": [
+        "宫室规模成本、劳役人数和妃封号未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TIANDU-PALACE-1042",
+        "summary": "元昊在天都营宫纳妃并引发野利遇乞不满。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "public_works",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-QINGSAIBAO-1042",
+      "time": [
+        "宋仁宗庆历二年八月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊西夏军与宋麟州军",
+      "action": "一名被元昊杖责后投宋的蕃将携情报脱逃，元昊追捕不及，遂以二万军入麟州围青塞堡。",
+      "result": "西夏军与王凯部转战四十里后战败撤回。",
+      "groups": [
+        "西夏军",
+        "逃亡蕃将",
+        "宋王凯军",
+        "麟州军民"
+      ],
+      "quote": [
+        "逐環州諜，入麟州，攻青塞堡。",
+        "遂以二萬衆入麟州，圍青塞堡",
+        "與并代鈐轄王凱戰，由鞋邪谷轉鬬四十里至杜𦙶川，不勝而還。"
+      ],
+      "unknown": [
+        "蕃将姓名、所得机密、双方伤亡及围堡日数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-QINGSAI-1042",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-ZHANGWU-FAMILIES-1042",
+      "time": [
+        "宋仁宗庆历二年九月",
+        "1042",
+        "month"
+      ],
+      "subject": "张元、吴昊与宋随州官吏",
+      "action": "张元、吴昊派间谍伪造宋诏释放被扣家属，并以车马仪仗迎其归夏。",
+      "result": "两人家属脱离宋方控制回到西夏。",
+      "groups": [
+        "张元吴昊家属",
+        "西夏间谍",
+        "宋随州官吏"
+      ],
+      "quote": [
+        "張元、吳昊矯取家屬于隨州。",
+        "潛使諜者矯中國詔釋之",
+        "以駿馬輕車迎之歸。"
+      ],
+      "unknown": [
+        "获释人数、伪诏文本、负责官吏处分和返回路线未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ZHANGWU-FAMILIES-1042",
+        "summary": "张元吴昊以伪诏取回被宋扣押家属。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-DINGCHUAN-1042",
+      "time": [
+        "宋仁宗庆历二年闰九月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊西夏军与宋葛怀敏军",
+      "action": "元昊采纳张元深入关中的谋划，在天都集结左右厢大军分路攻镇戎，以断桥绝水和二十四道合围困住葛怀敏军。",
+      "result": "宋军溃败，葛怀敏及将校四十人被杀；西夏取得定川大捷并打开南掠渭州道路。",
+      "cost": "宋军多部覆没，西夏伤亡未载；参战兵额诸说不一。",
+      "groups": [
+        "西夏左右厢军",
+        "宋葛怀敏军",
+        "镇戎定川军民",
+        "张元"
+      ],
+      "quote": [
+        "攻鎭戎軍，殺涇原路副總管葛懷敏等。",
+        "夏兵毀板橋，斷其歸路",
+        "遂殺懷敏并將校四十人。"
+      ],
+      "unknown": [
+        "双方确切兵力总伤亡、赵珣等结局及战斗日程记载互异。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-DINGCHUAN-1042",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-WEIZHOU-RAID-1042",
+      "time": [
+        "宋仁宗庆历二年闰九月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊西夏军与宋渭州军民",
+      "action": "定川获胜后元昊南掠渭州，攻破栏马、平泉二城并焚毁庐舍砦栅。",
+      "result": "关辅居民震恐，多逃入山谷；张元作露布宣称将据长安。",
+      "cost": "两城及民居砦栅毁坏，人口财物损失未载。",
+      "groups": [
+        "西夏军",
+        "渭州军民",
+        "关辅居民",
+        "张元"
+      ],
+      "quote": [
+        "至渭州大掠。",
+        "破欄馬、平泉二城，焚蕩廬舍，毀夷砦柵。",
+        "關輔居民震恐，多竄山谷間。"
+      ],
+      "unknown": [
+        "被掠人口财物、城中伤亡和露布传播范围未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-WEIZHOU-1042",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-PENGYANG-1042",
+      "time": [
+        "宋仁宗庆历二年十月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊西夏军与宋景泰军",
+      "action": "元昊自渭州向东越平凉至潘原，在彭阳与宋景泰五千军交战并设伏诱追。",
+      "result": "宋军未中诱敌计，搜山发现伏兵并击败西夏军，获人畜甚多。",
+      "cost": "西夏人畜损失无算；双方伤亡确数未载。",
+      "groups": [
+        "西夏军",
+        "宋景泰军",
+        "潘原彭阳居民"
+      ],
+      "quote": [
+        "東趨潘原，戰于彭陽，敗績。",
+        "夏兵僞遁，泰勿追",
+        "得伏兵，擊敗之，獲人畜無算。"
+      ],
+      "unknown": [
+        "俘获人数牲畜数量和宋军伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-PENGYANG-1042",
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-LIAO-HORSE-BAN-1042",
+      "time": [
+        "宋仁宗庆历二年十月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊与契丹朝廷",
+      "action": "彭阳败后，元昊多次派人到吐谷浑、党项诸部买马。",
+      "result": "契丹担心西夏势力扩大，禁止诸部卖马并在沿边筑障砦遏制。",
+      "groups": [
+        "西夏买马使者",
+        "吐谷浑党项牧户",
+        "契丹边军",
+        "马商"
+      ],
+      "quote": [
+        "遣人入吐谷諸蕃市馬，契丹禁之。",
+        "數遣人于吐谷渾、党項諸處市馬。",
+        "令沿邊築障砦防遏之。"
+      ],
+      "unknown": [
+        "交易数量价格、禁令执行和障砦规模未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LIAO-HORSE-BAN-1042",
+        "summary": "元昊向诸蕃买马，契丹禁市并筑障砦。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-MATICHUAN-1042",
+      "time": [
+        "宋仁宗庆历二年十一月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊西夏军与宋马蹄川筑城军",
+      "action": "宋军进筑马蹄川招徕部族，元昊遣数万骑争夺。",
+      "result": "宋周美以二千兵并遣楚建中迎战，西夏军战败撤还。",
+      "groups": [
+        "西夏军",
+        "宋周美军",
+        "马蹄川部族"
+      ],
+      "quote": [
+        "出兵爭馬蹄川，不勝。",
+        "元昊令數萬騎攻之",
+        "夏兵與戰，不勝而還。"
+      ],
+      "unknown": [
+        "双方伤亡、筑城规模和部族归附人数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-MATICHUAN-1042",
+      "domains": [
+        "public_works",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-JIENAN-DEFECTION-1042",
+      "time": [
+        "宋仁宗庆历二年十一月",
+        "1042",
+        "month"
+      ],
+      "subject": "西夏观察使嗟南禹浪与宋廷",
+      "action": "嗟南禹浪归附宋朝。",
+      "result": "宋授其内殿崇班，其子嵬麻授三班借职。",
+      "groups": [
+        "嗟南禹浪父子",
+        "西夏官属",
+        "宋廷"
+      ],
+      "quote": [
+        "觀察使嗟南禹浪內投。",
+        "中國授內殿崇班，子嵬麻授三班借職。"
+      ],
+      "unknown": [
+        "投宋原因、随行人数、原辖部族和西夏反应未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIENAN-DEFECTION-1042",
+        "summary": "西夏观察使嗟南禹浪父子投宋受官。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V16-NINGMING-DEATH-1042",
+      "time": [
+        "宋仁宗庆历二年十二月",
+        "1042",
+        "month"
+      ],
+      "subject": "西夏太子宁明与元昊",
+      "action": "宁明因奉道辟谷、主张少杀寡欲而被元昊疏远，忧惧不食而死，并遗奏陈荒旱与民不堪征发。",
+      "result": "元昊哀悼并按太子礼安葬。",
+      "groups": [
+        "宁明",
+        "元昊",
+        "西夏饥民",
+        "宫廷宗族"
+      ],
+      "quote": [
+        "地。\n太子𡩋明卒。\n𡩋",
+        "遺奏以荒旱荐臻，民不堪奔命爲言",
+        "令仍以太子禮葬。"
+      ],
+      "unknown": [
+        "具体死因、年龄、遗奏全文及政策是否因此改变未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NINGMING-DEATH-1042",
+        "summary": "太子宁明死前谏荒旱征发，元昊以太子礼葬。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-NINGLINGGE-CROWN-PRINCE-1042",
+      "time": [
+        "宋仁宗庆历二年十二月",
+        "1042",
+        "month"
+      ],
+      "subject": "元昊、野利氏与宁令哥",
+      "action": "宁明死后，元昊依野利氏请求立所爱宁令哥为太子。",
+      "result": "西夏储位转归宁令哥；群臣借天象进谏未被采纳。",
+      "groups": [
+        "宁令哥",
+        "野利氏族",
+        "西夏群臣",
+        "元昊"
+      ],
+      "quote": [
+        "立𡩋令哥爲太子。",
+        "因野利氏請立之。",
+        "羣臣以爲言，不聽。"
+      ],
+      "unknown": [
+        "册立仪式、宁令哥年龄及反对群臣名单未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NINGLINGGE-CROWN-PRINCE-1042",
+        "summary": "元昊立宁令哥为太子并拒群臣天象之谏。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V16-LIAO-MEDIATION-1043",
+      "time": [
+        "宋仁宗庆历三年正月",
+        "1043",
+        "month"
+      ],
+      "subject": "元昊、契丹使者与宋廷",
+      "action": "多年战争使西夏军民死伤过半、财用不足、物价暴涨，契丹遣使要求罢兵；元昊请契丹使向宋转达纳款与优礼册封条件。",
+      "result": "宋夏议和由边地试探转为经契丹斡旋的正式交涉。",
+      "cost": "西夏财用不继、牛羊外售，绢价每匹八九千钱，茶缺。",
+      "groups": [
+        "西夏军民",
+        "宋夏商民",
+        "契丹使团",
+        "元昊官属"
+      ],
+      "quote": [
+        "契丹來諭罷兵，令契丹使詣京師請和。",
+        "軍民死亡創痍過半，國中困于㸃集，財用不給",
+        "一絹之值八、九千錢"
+      ],
+      "unknown": [
+        "死伤统计可靠性、物价范围、契丹具体使节时序与宋方初答未载明。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-MEDIATION-1043",
+        "summary": "西夏因战争财政民生困敝接受辽斡旋请和。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-LIWENGUI-RETURN-1043",
+      "time": [
+        "宋仁宗庆历三年正月",
+        "1043",
+        "month"
+      ],
+      "subject": "宋庞籍与西夏使者李文贵",
+      "action": "宋仁宗命庞籍招纳元昊，庞籍向李文贵陈明称臣可获优礼，并允许其返回传话。",
+      "result": "李文贵表示休兵为西夏人日夜所愿，并携宋方口信回国。",
+      "groups": [
+        "李文贵",
+        "庞籍",
+        "元昊",
+        "宋夏军民"
+      ],
+      "quote": [
+        "誠能悔過稱臣，朝廷所以待汝主者，禮數必優于前。",
+        "文貴又致旺榮意，請用小國事大之禮。",
+        "籍曰︰「此非邊帥所知也。而主若遣使奉表以來，乃敢導致朝廷耳。」文貴遂還。"
+      ],
+      "unknown": [
+        "返程日期、口信书面文本和元昊首次答复未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIWENGUI-RETURN-1043",
+        "summary": "庞籍释李文贵回夏传达称臣优礼条件。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V16-WANGSONG-SECOND-PEACE-1043",
+      "time": [
+        "宋仁宗庆历三年二月",
+        "1043",
+        "month"
+      ],
+      "subject": "元昊与宋延州官员",
+      "action": "元昊得知宋方态度后释放王嵩，厚礼遣归，并再令李文贵持野利旺荣等书赴延州议和。",
+      "result": "元昊仍拒绝削去僭号，庞籍因措辞不逊未敢复书，向宋廷请示。",
+      "groups": [
+        "王嵩",
+        "李文贵",
+        "野利旺荣",
+        "庞籍",
+        "元昊"
+      ],
+      "quote": [
+        "縱王嵩歸延州，復遣李文貴以野利旺榮等書議和。",
+        "大喜，出嵩于窖，厚禮之。",
+        "而不肯削僭號"
+      ],
+      "unknown": [
+        "王嵩获释经过异说、书信全文和宋廷即时答复未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WANGSONG-SECOND-PEACE-1043",
+        "summary": "元昊释王嵩并再遣使议和但拒削僭号。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V16-LIAO-CAPTIVE-CONGRATULATION-1043",
+      "time": [
+        "宋仁宗庆历三年三月",
+        "1043",
+        "month"
+      ],
+      "subject": "元昊与契丹兴宗",
+      "action": "元昊把定川所俘宋巡检李良臣献给契丹，并遣贡祝贺辽帝后尊号。",
+      "result": "西夏在对宋议和同时维持对辽贡贺关系。",
+      "groups": [
+        "李良臣",
+        "西夏使团",
+        "契丹朝廷",
+        "宋廷"
+      ],
+      "quote": [
+        "獻俘契丹，且賀尊號。",
+        "定川之役，獲鎭戎軍巡檢李良臣，至是獻于契丹。"
+      ],
+      "unknown": [
+        "李良臣结局、贡物数量和契丹回赐未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-CAPTIVE-CONGRATULATION-1043",
+        "summary": "元昊献定川宋俘并贺辽尊号。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V16-NANGXIAO-SUBMISSION-1043",
+      "time": [
+        "宋仁宗庆历三年四月",
+        "1043",
+        "month"
+      ],
+      "subject": "更名曩霄的元昊与宋仁宗",
+      "action": "元昊更名曩霄，遣贺从勗、李文贵至延州，以儿子身份向宋帝纳款但不称臣。",
+      "result": "宋廷拒绝不正名体，提出称臣、册为夏国主并岁赐银绢各二万、茶三万斤及恢复使贡等条件，遣邵良佐返夏再议。",
+      "groups": [
+        "元昊曩霄",
+        "贺从勗",
+        "李文贵",
+        "宋廷",
+        "宋夏商民"
+      ],
+      "quote": [
+        "更名曩霄，遣使稱男納欵。",
+        "而不稱臣，籍言「名體未正，不敢以聞」。",
+        "歲賜銀二萬兩、絹二萬匹、茶三萬觔"
+      ],
+      "unknown": [
+        "称男国书完整文本、岁赐实际履行和沿边砦栅具体范围未在本卷确定。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NANGXIAO-SUBMISSION-1043",
+        "summary": "曩霄称男纳款，宋提出称臣册封与岁赐条件。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-LIAO-THANKS-1043",
+      "time": [
+        "宋仁宗庆历三年四月",
+        "1043",
+        "month"
+      ],
+      "subject": "曩霄与契丹朝廷",
+      "action": "得知宋方同意议和后，曩霄向契丹进献骆驼和马匹致谢。",
+      "result": "契丹向宋使展示西夏表状，以显示其对西夏的影响。",
+      "groups": [
+        "西夏使团",
+        "契丹朝廷",
+        "骆驼马匹牧户",
+        "宋使余靖"
+      ],
+      "quote": [
+        "獻駞、馬以謝契丹。",
+        "曩霄以中國許和，遣使奉駞、馬詣契丹謝。"
+      ],
+      "unknown": [
+        "驼马数量、表状全文及契丹回赐未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-THANKS-1043",
+        "summary": "曩霄以驼马谢辽斡旋宋夏议和。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V16-ELEVEN-DEMANDS-1043",
+      "time": [
+        "宋仁宗庆历三年六月",
+        "1043",
+        "month"
+      ],
+      "subject": "曩霄使团与宋廷",
+      "action": "曩霄遣如定聿舍、张延寿上书，提出岁赐、割地、不称臣、弛盐禁、京师贸易、自立年号及特殊称号等十一项要求。",
+      "result": "宋廷围绕名分和利益争执，朝议未决，使团继续倚辽援索求。",
+      "groups": [
+        "西夏使团",
+        "宋两府台谏",
+        "宋夏盐商与边民",
+        "契丹朝廷"
+      ],
+      "quote": [
+        "上書要請十一事。",
+        "如歲賜、割地、不稱臣、弛鹽禁、至京師市易、自立年號",
+        "巨細凡十一事，朝議不決。"
+      ],
+      "unknown": [
+        "十一项完整清单、各项谈判结果和使团离京时间未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ELEVEN-DEMANDS-1043",
+        "summary": "曩霄提出十一项议和要求，宋廷未决。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

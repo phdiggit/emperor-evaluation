@@ -1,0 +1,506 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V14-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V14-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷14",
+    "revision_ref": "1809472",
+    "start_locator": "乾隆四十一年平定两金川",
+    "end_locator": "乾隆五十年宣谕归政",
+    "overlap_context": "承接卷13第二次金川战争，卷14只登记噶喇依受降、战后安置和后续新事件，不重复消费卷13战事阶段。",
+    "input_fingerprint": "1a38e4ac556b2b0c82789686c21253bd7ca2b0a8bdbf6a02d38afa5ec29e73c6"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷14正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V14-SECOND-JINCHUAN-VICTORY-1776",
+      "time": [
+        "乾隆四十一年正月至四月",
+        "1776",
+        "range"
+      ],
+      "subject": "阿桂等清军与大小金川索诺木部",
+      "action": "阿桂围噶喇依，索诺木等出降；清廷安插降众、献俘受俘并处死索诺木等，结束第二次金川战争。",
+      "result": "两金川平定，降众被分置土司地方，雅州设将军、金川设提督和总兵驻防。",
+      "cost": "战争前期伤亡与军费见卷13，本卷未载新增总数。",
+      "groups": [
+        "大小金川降众",
+        "四川军民",
+        "清军"
+      ],
+      "quote": [
+        "阿桂率諸軍進圍噶喇依，索諾木之母及其姑姊妹出降。",
+        "阿桂請安插降眾於綽斯甲布十二土司地方，從之。",
+        "阿桂等奏索諾木等出降，檻送京師，兩金川平。",
+        "索諾木等皆磔於市。"
+      ],
+      "unknown": [
+        "降众人数、安置条件和战后长期影响未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SECOND-JINCHUAN-1771-1776",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-JINCHUAN-POSTWAR-RELIEF-1776",
+      "time": [
+        "乾隆四十一年二月至三月",
+        "1776",
+        "range"
+      ],
+      "subject": "乾隆帝与四川军运、受灾民户",
+      "action": "两金川平定后，清廷蠲免四川通省上年额赋及本年夷赋，并减免沿途和灾区钱粮。",
+      "result": "战争核心地区和沿线民户获得战后税赋减免。",
+      "groups": [
+        "四川民户",
+        "番民",
+        "军运民户"
+      ],
+      "quote": [
+        "免四川通省上年額賦及本年夷賦有差。",
+        "免經過州縣本年額賦十分之三。"
+      ],
+      "unknown": [
+        "免赋总额和兑现范围未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "JINCHUAN-POSTWAR-RELIEF",
+        "summary": "两金川平定后减免四川和沿途赋税。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-GANSU-DROUGHT-DEBT-RELIEF-1776-1777",
+      "time": [
+        "乾隆四十一年六月",
+        "乾隆四十二年十二月",
+        "range"
+      ],
+      "subject": "乾隆帝与甘肃旱灾民户",
+      "action": "甘肃皋兰等地连年旱灾，清廷留米供食、豁免仓粮四百余万，并蠲赋放赈。",
+      "result": "灾区获得粮食供应、巨额欠粮豁免和赈济。",
+      "groups": [
+        "甘肃旱灾民众",
+        "欠粮民户"
+      ],
+      "quote": [
+        "命多留市米以供民食。",
+        "豁歷年積欠倉糧四百萬有奇。",
+        "賑甘肅皋蘭等三十二廳州縣被旱災民。"
+      ],
+      "unknown": [
+        "赈粮总量、覆盖人口和灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "GANSU-DROUGHT-DEBT-RELIEF",
+        "summary": "甘肃旱灾期间留米、豁欠并放赈。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-LITERARY-CENSORSHIP-1776-1779",
+      "time": [
+        "乾隆四十一年十一月",
+        "乾隆四十四年二月",
+        "range"
+      ],
+      "subject": "乾隆帝与四库全书馆、各省书籍作者",
+      "action": "清廷命四库馆详核违禁书籍，依作者与内容改字、抽毁或保留，又选录明季奏疏以供鉴戒。",
+      "result": "书籍审查、改毁与官定选录形成制度化政治控制。",
+      "groups": [
+        "著书人及家属",
+        "藏书者",
+        "士人"
+      ],
+      "quote": [
+        "命四庫全書館詳覈違禁各書，分別改毀。",
+        "應量為改易選錄，餘仍分別撤毀。"
+      ],
+      "unknown": [
+        "实际毁书总数、牵连人数和地方执行差异未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LITERARY-CENSORSHIP",
+        "summary": "清廷通过四库馆系统审查、改写和销毁违禁书籍。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V14-EMPRESS-DOWAGER-DEATH-REMISSION-1777",
+      "time": [
+        "乾隆四十二年正月至五月",
+        "1777",
+        "range"
+      ],
+      "subject": "乾隆帝与孝圣宪皇后丧礼、全国纳税民户",
+      "action": "皇太后去世后，乾隆制定国丧礼制并以遗恩普免全国钱粮一次。",
+      "result": "国丧礼制实施，全国钱粮获得一次普遍减免。",
+      "groups": [
+        "全国纳税民户",
+        "皇室与官员"
+      ],
+      "quote": [
+        "寅，皇太后崩，",
+        "推恩普免錢糧一次。",
+        "以普蠲全國錢糧，免福建台灣府屬官莊租息十分之三。"
+      ],
+      "unknown": [
+        "普免总额和地方执行差异未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EMPRESS-DOWAGER-DEATH-AND-REMISSION",
+        "summary": "孝圣宪皇后去世后清廷施行国丧并普免全国钱粮。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-HENAN-YELLOW-RIVER-WORKS-1778-1781",
+      "time": [
+        "乾隆四十三年闰六月",
+        "乾隆四十六年八月",
+        "range"
+      ],
+      "subject": "高晋、阿桂等河臣与河南、江苏黄河工程",
+      "action": "祥符、仪封、武陟、睢宁等河段连续决口，清廷派员查办督修，仪封、郭家渡、魏家庄等决口先后合龙。",
+      "result": "多处决口完成封堵，但河患反复并持续投入河工。",
+      "cost": "工程费、用工和灾损总数未载。",
+      "groups": [
+        "黄河沿岸灾民",
+        "河工役夫"
+      ],
+      "quote": [
+        "河南祥符河決。",
+        "命高晉督辦堤工。",
+        "儀封決口合龍。",
+        "魏家莊決口合龍。"
+      ],
+      "unknown": [
+        "各段工程规模、银费与民夫伤亡未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "HENAN-YELLOW-RIVER-BREACH-REPAIR",
+        "summary": "河南、江苏黄河多次决口后持续督修并合龙。",
+        "continuity": "continued_within_reign",
+        "phase": "抢修合龙",
+        "purpose": "防洪保运",
+        "operation_result": "多处合龙但河患持续"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-SUCCESSION-ABDICATION-POLICY-1778-1785",
+      "time": [
+        "乾隆四十三年九月",
+        "乾隆五十年十一月",
+        "range"
+      ],
+      "subject": "乾隆帝与皇位继承制度",
+      "action": "乾隆因金从善奏请建储立后将其处斩，反复申明秘密建储与六十年归政安排，至五十年正式宣谕次年确定归政。",
+      "result": "公开建储遭压制，皇帝设定并再次确认归政时间。",
+      "groups": [
+        "皇室成员",
+        "官员",
+        "言官"
+      ],
+      "quote": [
+        "以上言建儲立後，納諫施德，忤旨，論斬。",
+        "申諭立儲流弊，及宣明歸政之期。",
+        "宣諭定次年歸政。"
+      ],
+      "unknown": [
+        "继承人身份和具体传位程序在本卷未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SUCCESSION-AND-ABDICATION-POLICY",
+        "summary": "乾隆压制公开建储倡议并确定六十年归政。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V14-UNIVERSAL-TAX-REMISSION-1780",
+      "time": [
+        "乾隆四十三年十月",
+        "乾隆四十五年",
+        "range"
+      ],
+      "subject": "乾隆帝与全国纳税民户",
+      "action": "为七旬万寿及江浙巡幸，乾隆预告普蠲钱粮，并在各省经过地区及多地加免额赋逋欠。",
+      "result": "全国性蠲免与巡幸沿线减赋在四十五年实施。",
+      "groups": [
+        "全国纳税民户",
+        "巡幸沿线民户"
+      ],
+      "quote": [
+        "命舉恩科鄉會試，並普蠲錢糧。",
+        "免江南、浙江經過地方本年額賦十分之三。",
+        "免兩江所屬四十三年以前逋賦。"
+      ],
+      "unknown": [
+        "全国蠲免总额与各省执行差异未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "UNIVERSAL-TAX-REMISSION-1780",
+        "summary": "乾隆七旬时普蠲钱粮并加免巡幸沿线赋欠。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-NINGSHOU-PALACE-COMPLETION-1779",
+      "time": [
+        "乾隆四十四年八月",
+        "1779",
+        "month"
+      ],
+      "subject": "清廷与宁寿宫工程",
+      "action": "清廷完成宁寿宫营建。",
+      "result": "大型宫殿工程竣工。",
+      "groups": [
+        "工程匠役"
+      ],
+      "quote": [
+        "亥，寧壽宮成。\n"
+      ],
+      "unknown": [
+        "开工时间、规模、工费和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "NINGSHOU-PALACE-CONSTRUCTION",
+        "summary": "乾隆四十四年宁寿宫建成。",
+        "continuity": "ended",
+        "phase": "竣工",
+        "purpose": "宫廷营建",
+        "operation_result": "建成"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-GANSU-SALAR-REBELLION-CORRUPTION-1781",
+      "time": [
+        "乾隆四十六年三月至七月",
+        "1781",
+        "range"
+      ],
+      "subject": "阿桂等清军、苏四十三起事者与甘肃官员",
+      "action": "撒拉尔苏四十三等攻陷河州并进犯兰州，清廷调兵镇压；追查军政失误时又揭出勒尔谨、王亶望等累年冒赈浮销。",
+      "result": "起事被平定，苏四十三伏诛；王亶望处斩、勒尔谨自尽，多名官员获罪。",
+      "cost": "双方伤亡、军费和冒赈总额未载。",
+      "groups": [
+        "撒拉尔回民",
+        "甘肃民众",
+        "清军",
+        "纳税民户"
+      ],
+      "quote": [
+        "甘肅循化廳撒拉爾回匪蘇四十三等作亂，陷河州",
+        "甘肅官軍收復河州",
+        "以甘肅累年冒賑，命刑部嚴鞫勒爾謹，逮王亶望至都。",
+        "王亶望處斬，賜勒爾謹自盡"
+      ],
+      "unknown": [
+        "起事社会背景、伤亡人数及冒赈银粮总额未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SALAR-REBELLION-1781",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-SIKU-QUANSHU-PROJECT-1782",
+      "time": [
+        "乾隆四十七年正月至九月",
+        "1782",
+        "range"
+      ],
+      "subject": "乾隆帝与四库全书馆",
+      "action": "四库全书编纂完成，清廷在盛京、浙江等地建设文溯阁、文澜阁收藏，并在文渊阁赐宴总裁。",
+      "result": "大型文献编纂工程完成并形成多阁收藏体系。",
+      "groups": [
+        "编纂官员",
+        "抄书人员",
+        "工程匠役"
+      ],
+      "quote": [
+        "建盛京文溯閣。",
+        "四庫全書成。",
+        "建浙江文瀾閣。"
+      ],
+      "unknown": [
+        "本卷未载全书册数、工费、抄写人数及各阁完成时间。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "SIKU-QUANSHU-AND-LIBRARY-PAVILIONS",
+        "summary": "四库全书完成并建设文溯、文澜等收藏阁。",
+        "continuity": "ended",
+        "phase": "编成与建阁",
+        "purpose": "官修典籍与收藏",
+        "operation_result": "全书编成并扩充馆阁"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-SHANDONG-DEFICIT-CORRUPTION-1782",
+      "time": [
+        "乾隆四十七年四月至七月",
+        "1782",
+        "range"
+      ],
+      "subject": "乾隆帝、和珅、刘墉等与山东巡抚国泰",
+      "action": "清廷查办山东财政亏空，褫逮巡抚国泰及于易简，随后论斩并赐自尽。",
+      "result": "山东重大亏空案被查处，两名主要官员被处死。",
+      "groups": [
+        "山东纳税民户",
+        "地方官员"
+      ],
+      "quote": [
+        "命和珅、劉墉同御史錢灃查辦山東虧空。",
+        "山東巡撫國泰褫職逮問",
+        "國泰、於易簡賜自盡。"
+      ],
+      "unknown": [
+        "亏空总额、追缴结果和地方受损范围未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SHANDONG-DEFICIT-CORRUPTION-CASE",
+        "summary": "清廷查办山东亏空并处死国泰、于易简。",
+        "continuity": "ended"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-GANSU-NEW-SECT-REBELLION-1784",
+      "time": [
+        "乾隆四十九年四月至七月",
+        "1784",
+        "range"
+      ],
+      "subject": "阿桂、福康安等清军与田五、张文庆等起事者",
+      "action": "甘肃新教回民田五等起事，清廷多次换将增兵，通渭失陷后收复，最终攻平石峰堡并处死张文庆等。",
+      "result": "甘肃起事被镇压，失机官员被褫职，清廷免甘肃当年额赋及积欠。",
+      "cost": "双方伤亡与军费未载。",
+      "groups": [
+        "甘肃回民",
+        "甘肃民众",
+        "清军"
+      ],
+      "quote": [
+        "甘肅新教回人田五等作亂",
+        "甘肅回匪陷通渭縣，尋復之。",
+        "甘肅石峰堡回匪平，俘賊首張文慶等。",
+        "免甘肅本年額賦。"
+      ],
+      "unknown": [
+        "起事背景、伤亡和受牵连人数未载。"
+      ],
+      "battle": "CAMPAIGN-QING-GANSU-NEW-SECT-1784",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-HENAN-DROUGHT-RELIEF-1785",
+      "time": [
+        "乾隆五十年三月至七月",
+        "1785",
+        "range"
+      ],
+      "subject": "乾隆帝与河南旱灾民众",
+      "action": "河南旱灾时，清廷截漕粮三十万石赈济，又拨两淮运库银和户部银各一百万两，免除新旧额赋积欠。",
+      "result": "河南灾区获得粮食、二百万两备赈银及大范围税欠减免。",
+      "groups": [
+        "河南旱灾民众",
+        "受灾农户"
+      ],
+      "quote": [
+        "截河南、山東漕糧三十萬石，賑河南衛輝旱災。",
+        "免河南祥符等十六州縣、鄭州等三十二州縣新舊額賦積欠。",
+        "撥兩淮運庫銀一百萬兩交河南備賑。",
+        "撥戶部銀一百萬兩交河南備賑。"
+      ],
+      "unknown": [
+        "实际受益人口、粮银发放比例和灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HENAN-DROUGHT-RELIEF-1785",
+        "summary": "河南旱灾获截漕粮、二百万两备赈银及赋欠减免。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V14-GANSU-ARREARS-REMISSION-1779-1784",
+      "time": [
+        "乾隆四十四年六月",
+        "乾隆四十九年八月",
+        "range"
+      ],
+      "subject": "乾隆帝与甘肃欠赋民户",
+      "action": "清廷多次豁免甘肃多年逋赋，涵盖银、粮和受灾额赋。",
+      "result": "甘肃民户累计获免银数十万两、粮数百万石。",
+      "groups": [
+        "甘肃欠赋民户",
+        "受灾民众"
+      ],
+      "quote": [
+        "免甘肅乾隆二十七年至三十七年逋賦銀二十三萬五千兩、糧一百零五萬石各有奇。",
+        "免甘肅積年逋賦糧二百四十五萬石、銀三十萬兩各有奇。",
+        "免甘肅積年逋賦銀三十五萬兩、糧四十七萬石各有差。"
+      ],
+      "unknown": [
+        "各次免欠是否存在重叠、受益户数和执行情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "GANSU-ARREARS-REMISSION-CHAIN",
+        "summary": "乾隆四十四至四十九年多次大额豁免甘肃逋赋。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    }
+  ]
+}

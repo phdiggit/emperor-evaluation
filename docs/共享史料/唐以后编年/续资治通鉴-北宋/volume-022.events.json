@@ -1,0 +1,1150 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-022",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷022",
+    "revision_ref": "2261369",
+    "start_locator": "宋真宗咸平三年四月",
+    "end_locator": "宋真宗咸平四年闰十二月",
+    "overlap_context": "续接卷021王均据成都、辽军退后河北边备与灵州危局；本卷完成成都收复、王均覆亡和蜀地战后赦免减负，推进河北强壮与陕西保毅军、营建塘泊和官政精简，又记录辽再度南侵及清远失守，转出绥州筑城、六万援灵与灵州弃守争论。",
+    "input_fingerprint": "d62495750d76fa05f61f43a448b8a983900c47f59ef7965663d521d856a4030b"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-022-QINGBAI-SALT-MONOPOLY-1000",
+      "time": "咸平三年四月",
+      "loc": [
+        "解州",
+        "鄜州",
+        "延州",
+        "环州",
+        "庆州"
+      ],
+      "action": "梁鼎将解池盐由通商改为官卖，禁止商贩并由官府运往西北诸州。",
+      "result": "青白盐官营造成公私严重扰动。",
+      "quote": [
+        "池鹽通商販易",
+        "鼎請官自鬻",
+        "池，禁止商販",
+        "官運赴鄜、延、環、慶等州",
+        "州，公私大擾"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "盐池由通商改官运官卖并扰民。"
+        ]
+      ],
+      "unknown": [
+        "财政增益未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-HEBEI-POND-DEFENSE-1000",
+      "time": "咸平三年四月",
+      "loc": [
+        "高阳关",
+        "沧海",
+        "顺安",
+        "西山"
+      ],
+      "action": "何承矩建议利用川渎泉源扩建塘埭，从顺安至西山构成百里水障，并结合屯田、堡戍和募边民万人。",
+      "result": "形成以水田、营兵和粮储结合的河北地阵防御方案。",
+      "quote": [
+        "固，建設陂塘",
+        "塘，亙連滄海",
+        "之，制為塘埭",
+        "卒，開田疇，勸",
+        "耕，蓄芻粟，以",
+        "燧，繕堡戍，以",
+        "郡置營召募，",
+        "止求少壯武力",
+        "力，令及萬人"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出百里塘泊边防工程。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以屯田粮储支撑边备。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出募边民万人守备。"
+        ]
+      ],
+      "unknown": [
+        "本卷未载完整实施规模。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SHENGXIAN-BRIDGE-BATTLE-1000",
+      "time": "咸平三年四月",
+      "loc": [
+        "升仙桥",
+        "成都"
+      ],
+      "action": "王均分路袭击宋军，雷有终率军迎击。",
+      "result": "王均军大败、死千余，王均单骑逃回成都。",
+      "quote": [
+        "分路來襲官軍",
+        "終率軍逆擊",
+        "之，殺千餘人",
+        "均單騎還城"
+      ],
+      "battle": "CAMPAIGN-SHENGXIAN-BRIDGE-BATTLE-1000",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-HUNAN-TAX-RELIEF-1000",
+      "time": "咸平三年四月以前",
+      "loc": [
+        "潭州",
+        "湖南"
+      ],
+      "action": "李允则废除地税、屋税和牛死仍输的枯骨税，将茶斤由三十五斤降定十三斤半，又以马草本色推动山田垦殖。",
+      "result": "湖南多项暴敛被取消，山田普遍开垦。",
+      "quote": [
+        "，謂之地稅；及",
+        "，謂之屋稅；營",
+        "謂之枯骨稅；",
+        "允則請除之",
+        "十三斤半為定制",
+        "是山田悉墾"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "取消湖南苛税并下调茶斤。"
+        ]
+      ],
+      "unknown": [
+        "减税总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-HUNAN-FIRE-FAMINE-RELIEF-1000",
+      "time": "咸平三年四月以前",
+      "loc": [
+        "潭州",
+        "邵州"
+      ],
+      "action": "潭州大火后李允则借官竹给民建屋；两次饥荒均争取先开仓，第二次以家产担保并募饥民万人入军。",
+      "result": "灾民未流徙、低价得粮，且阻止将新募饥兵无故派戍邵州。",
+      "quote": [
+        "取官竹假民為屋",
+        "償，民無流徙",
+        "先賑而後奏",
+        "以家資為質",
+        "得發廩賤糶",
+        "籍，得萬人。轉",
+        "擾，無名益戍",
+        "戍。」遂奏罷之。"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "借官竹帮助火灾民重建。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "先赈饥并避免新募民远戍。"
+        ]
+      ],
+      "unknown": [
+        "借竹数量与军籍后续未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-YIZHOU-AMNESTY-1000",
+      "time": "咸平三年五月",
+      "loc": [
+        "益州",
+        "宋境"
+      ],
+      "action": "宋廷将天下死罪减一等、流刑以下释放，并招谕被王均胁从的益州军民归顺。",
+      "result": "胁从者归顺即可免罪。",
+      "quote": [
+        "天下死罪減一等",
+        "為王均脅從者",
+        "者，如能歸順"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "普遍减刑并赦王均胁从。"
+        ]
+      ],
+      "unknown": [
+        "获释人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SOUTHEAST-MINT-EXPANSION-1000",
+      "time": "咸平三年五月",
+      "loc": [
+        "饶州",
+        "池州",
+        "江州",
+        "建州",
+        "江南",
+        "福建"
+      ],
+      "action": "宋廷派员勘察铜铅、增价招淘采和设监铸钱，确认四州年铸一百三十五万贯且原料有余。",
+      "result": "设置专官统辖江南福建铸钱，目标扩充货币供给。",
+      "quote": [
+        "戶淘采鉛錫",
+        "處，置監鑄錢",
+        "歲鑄錢百三十五萬貫",
+        "銅鉛皆有餘羨",
+        "提點江南、福建路鑄錢事"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "勘设铸钱监与矿料采集。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "扩充东南铸钱供给。"
+        ]
+      ],
+      "unknown": [
+        "两年一百五十万贯目标是否达成未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-LOCAL-GOVERNANCE-REFORM-PROPOSAL-1000",
+      "time": "咸平三年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "孙何建议限制资荫、流外出身者任地方长官，削减三司文移，并由明法或熟法者任司法官。",
+      "result": "地方官、财计和法官选任改革方案提交朝廷，本卷未载实施。",
+      "quote": [
+        "非灼然績狀",
+        "勿與知州、州縣官",
+        "三部文移之類，可以減半",
+        "今司理、司法",
+        "擇明法出身者授之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出地方官和法官专业化选任。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出三司文移减半。"
+        ]
+      ],
+      "unknown": [
+        "朝廷答复未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-TEA-WAREHOUSES-RESTORED-1000",
+      "time": "咸平三年七月",
+      "loc": [
+        "饶州",
+        "歙州",
+        "浮梁",
+        "婺源",
+        "祁门"
+      ],
+      "action": "任中正实地查明集中饶州纳茶使溪滩运输艰险，奏准恢复各地旧仓，就近输纳，民众自愿备材建仓。",
+      "result": "茶税仓储恢复便民旧制，不再追求额外羡余。",
+      "quote": [
+        "言溪灘險惡",
+        "惡，轉輸艱阻",
+        "復往日倉廒",
+        "廒，就便輸納",
+        "願自備材木",
+        "民，豈圖羨贏",
+        "苦，用循舊制"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "民备材料恢复地方茶仓。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改回就近纳茶减轻运输。"
+        ]
+      ],
+      "unknown": [
+        "仓数和成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-CHENGDU-SIEGE-WORKS-1000",
+      "time": "咸平三年八月至九月",
+      "loc": [
+        "成都",
+        "鱼桥",
+        "羊马城"
+      ],
+      "action": "宋军制造梯、冲、洞车攻成都，雷有终购药治疗暑湿病军；秦翰到后在鱼桥筑土山，以敌棚掩护洞车推进。",
+      "result": "宋军攻克城北羊马城并焚毁王均敌楼，逐步逼近主城。",
+      "quote": [
+        "造梯衝洞車攻具",
+        "攻城者多被疾",
+        "自合以療之",
+        "橋別築土山",
+        "敵棚覆洞車",
+        "克城北羊馬城",
+        "軍焚其敵樓"
+      ],
+      "battle": "CAMPAIGN-CHENGDU-SIEGE-WORKS-1000",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修土山、洞车和敌棚攻城。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "购药救治攻城病军。"
+        ]
+      ],
+      "unknown": [
+        "工程和军医支出未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-GROUP-HERDS-OFFICE-1000",
+      "time": "咸平三年九月",
+      "loc": [
+        "宋内外厩牧"
+      ],
+      "action": "宋廷首次设置群牧司，以陈尧叟为制置使，统一管理骑骥院以下内外马政。",
+      "result": "分散马政归群牧司统一节制。",
+      "quote": [
+        "始置群牧司",
+        "叟為制置使。",
+        "內外廄牧之事",
+        "悉聽命于群牧司"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一管理国家厩牧资源。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新设群牧司机构。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-022-CHENGDU-RECAPTURED-1000",
+      "time": "咸平三年九月",
+      "loc": [
+        "成都",
+        "天长观",
+        "文翁坊",
+        "大安门"
+      ],
+      "action": "宋敢死士穴城焚守具，以洞屋、暗门突入；高继勋、杨怀忠焚毁叛军寨栅并追击。",
+      "result": "成都被攻克，前后杀叛军三千余，王均突围逃走。",
+      "quote": [
+        "募敢死士穴城",
+        "悉焚其守具",
+        "穴城為暗門",
+        "卻，遂克其城",
+        "進，悉焚之。楊",
+        "門，覆敗之，前",
+        "殺賊三千餘人",
+        "均突圍而遁"
+      ],
+      "battle": "CAMPAIGN-CHENGDU-RECAPTURED-1000",
+      "unknown": [
+        "宋军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-CHENGDU-POSTCAPTURE-MASSACRE-1000",
+      "time": "咸平三年九月",
+      "loc": [
+        "成都"
+      ],
+      "action": "雷有终入城后搜捕受王均伪职者，将数百人投入火中烧死；李继昌则严禁扰民并保护妇孺。",
+      "result": "收复后的处置兼有大规模冤酷杀戮与局部保护遣返。",
+      "quote": [
+        "于街郭縱火。",
+        "有受官職者",
+        "右捽投火中",
+        "晡，焚數百人",
+        "人，頗為冤酷",
+        "嚴戒部下，無擾民者",
+        "平，遣還其家"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "成都收复后焚杀伪署者数百。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护并遣返妇女童幼。"
+        ]
+      ],
+      "unknown": [
+        "冤死者身份和确数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-WANG-JUN-DEFEATED-1000",
+      "time": "咸平三年十月",
+      "loc": [
+        "成都",
+        "富顺监",
+        "杨家市"
+      ],
+      "action": "王均逃向富顺拟渡江入蛮境，杨怀忠抢先临江列阵，强弩击溺其渡舟并攻入城。",
+      "result": "王均自缢后被斩首，六千余党被擒杀，益州平定。",
+      "quote": [
+        "都趨富順監",
+        "將結筏渡江",
+        "臨江列陣擊之",
+        "合強弩射之",
+        "均窮蹙，縊死",
+        "斌斬其首以",
+        "擒其黨六千餘人",
+        "馳奏益州平，"
+      ],
+      "battle": "CAMPAIGN-WANG-JUN-DEFEATED-1000",
+      "unknown": [
+        "六千余党中胁从比例未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SICHUAN-POSTWAR-AMNESTY-1000",
+      "time": "咸平三年十月",
+      "loc": [
+        "川峡"
+      ],
+      "action": "宋廷赦川峡死罪并奖迁平叛诸将，查明杨怀忠之功被石普掩盖后予以擢升。",
+      "result": "川峡战后实行赦免和军功复核，但雷有终趁乱贪财亦受皇帝批评。",
+      "quote": [
+        "赦川峽路死罪",
+        "九人並遷秩",
+        "懷忠之功居最",
+        "為石普所掩",
+        "帝廉得其狀",
+        "攘，貪黜財貨",
+        "變！言行相戾"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后赦罪、复核军功并批评主帅贪财。"
+        ]
+      ],
+      "unknown": [
+        "雷有终是否因此受处分未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-YANZHOU-TRIBES-DEFEATED-1000",
+      "time": "咸平三年十月",
+      "loc": [
+        "延州"
+      ],
+      "action": "延州宋军攻击大卢、小卢等十族。",
+      "result": "十族被破，宋军获人畜二十万。",
+      "quote": [
+        "破大盧、小盧等十族",
+        "獲人畜二十萬"
+      ],
+      "battle": "CAMPAIGN-YANZHOU-TRIBES-DEFEATED-1000",
+      "unknown": [
+        "人畜各自数量和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-CAPITAL-UNIFORM-LAND-TAX-ABOLISHED-1000",
+      "time": "咸平三年十二月",
+      "loc": [
+        "京畿"
+      ],
+      "action": "宋廷停止京畿均田税。",
+      "result": "京畿农户不再缴纳该项税收。",
+      "quote": [
+        "罷京畿均田稅"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "罢除京畿均田税。"
+        ]
+      ],
+      "unknown": [
+        "减税额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-HEBEI-MILITIA-1000",
+      "time": "咸平三年",
+      "loc": [
+        "河北",
+        "河东"
+      ],
+      "action": "宋廷按民户丁数抽籍强壮，每五百人为指挥、百人为都，择善射者任校长并准自备马。",
+      "result": "河北乡兵制度化，能自备马甲者免其户役，勇敢者后编入大军。",
+      "quote": [
+        "民家二丁、三丁籍一",
+        "四，為強壯。五",
+        "五百人為指揮",
+        "使。百人為都",
+        "籍，擇善射者",
+        "勝甲者蠲其戶",
+        "團結附大軍"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按丁抽籍乡兵并以免役激励装备。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立河北强壮编制。"
+        ]
+      ],
+      "unknown": [
+        "本年总人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SICHUAN-CLEMENCY-PRICE-RELIEF-1001",
+      "time": "咸平四年正月至二月",
+      "loc": [
+        "西川",
+        "成都"
+      ],
+      "action": "马亮制止雷有终继续诛杀，开仓压低斗米千钱的粮价，并说服中枢赦免八十九名受牵连者。",
+      "result": "饥民获粮、八十九人全免，避免潜伏胁从因恐惧再叛。",
+      "quote": [
+        "賊，誅殺不已",
+        "亮多所全活",
+        "中米斗千錢",
+        "出廩米，裁其價",
+        "者八十九人",
+        "悟，悉宥之。二",
+        "均，生一均也"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开仓平抑成都高粮价。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赦免受乱牵连者防止再叛。"
+        ]
+      ],
+      "unknown": [
+        "出粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SALT-WELLS-ARREARS-RELIEF-1001",
+      "time": "咸平四年正月至二月",
+      "loc": [
+        "西川诸州"
+      ],
+      "action": "盐井枯竭后官府仍追课系捕数百人，马亮释放被捕者、废除枯井，并免属郡旧欠官物。",
+      "result": "数百盐户获释，二百余万旧逋被免。",
+      "quote": [
+        "鹽井歲久泉涸",
+        "官督所負課",
+        "者，州數百人",
+        "亮盡釋之而",
+        "之而廢其井，",
+        "舊逋官物二百餘萬"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "废枯井、释盐户并免二百余万旧欠。"
+        ]
+      ],
+      "unknown": [
+        "二百余万计量单位未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-CENTRAL-ARREARS-RELIEF-1001",
+      "time": "咸平四年二月",
+      "loc": [
+        "开封三司"
+      ],
+      "action": "真宗连续七日亲自辨问欠官物者。",
+      "result": "释放二千六百余人，免欠二百六十余万；已被不当追缴者由内库退款，死者给家属。",
+      "quote": [
+        "，帝親辨問，凡",
+        "問，凡七日。釋",
+        "釋二千六百餘人",
+        "蠲所逋負物二百六十餘萬",
+        "以內庫錢還之",
+        "身歿者給其家"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "亲审逋负并免欠退款。"
+        ]
+      ],
+      "unknown": [
+        "金额计量单位未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-FOUR-SICHUAN-CIRCUITS-1001",
+      "time": "咸平四年三月",
+      "loc": [
+        "川峡",
+        "益州路",
+        "利州路",
+        "梓州路",
+        "夔州路"
+      ],
+      "action": "宋廷将川峡重新划分为益、利、梓、夔四路。",
+      "result": "蜀地行政监察改为四路管理。",
+      "quote": [
+        "分川、峽為益、利、梓、夔州四路"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "平乱后川峡分为四路。"
+        ]
+      ],
+      "unknown": [
+        "具体辖区未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-YITIAN-CALENDAR-1001",
+      "time": "咸平四年三月",
+      "loc": [
+        "司天监",
+        "宋境"
+      ],
+      "action": "因《乾元历》气朔渐差，史序等编成新历。",
+      "result": "新历获名《仪天》并颁行。",
+      "quote": [
+        "《乾元曆》氣朔漸差",
+        "序等編新曆。",
+        "上，賜名《儀天》，",
+        "天》，頒行之。\n辛"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "编成并颁行仪天历。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-022-REDUNDANT-CLERKS-CUT-1001",
+      "time": "咸平四年六月",
+      "loc": [
+        "宋诸路"
+      ],
+      "action": "宋廷大规模淘汰冗吏。",
+      "result": "各路合计裁省十九万五千八百二人。",
+      "quote": [
+        "月，汰冗吏，諸",
+        "諸路計省十九萬五千八百二人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁省近十九万六千冗吏。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模精简地方胥吏。"
+        ]
+      ],
+      "unknown": [
+        "裁后安置与节支额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SCHOOLS-NINE-CLASSICS-1001",
+      "time": "咸平四年六月",
+      "loc": [
+        "宋州县学校"
+      ],
+      "action": "宋廷向州县学校和聚徒讲学之所颁赐《九经》。",
+      "result": "地方学校获得统一经籍。",
+      "quote": [
+        "：「州縣學校及",
+        "聚徒講誦之所",
+        "所，並賜《九經》。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "向地方学校颁赐九经。"
+        ]
+      ],
+      "unknown": [
+        "颁发套数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-HEBEI-TRANSPORT-LABOR-RELIEF-1001",
+      "time": "咸平四年七月",
+      "loc": [
+        "河朔"
+      ],
+      "action": "真宗认为河朔军粮运输劳民，命转运使减轻徭役并抚恤民众。",
+      "result": "河北边运进入减役恤民调整。",
+      "quote": [
+        "河朔餽運勞民",
+        "減徭役存恤"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减轻河朔军运徭役。"
+        ]
+      ],
+      "unknown": [
+        "减役幅度未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-TEN-YEAR-CIRCUIT-MAPS-1001",
+      "time": "咸平四年八月",
+      "loc": [
+        "宋诸路",
+        "职方"
+      ],
+      "action": "吴淑指出单州地图无法拼合，建议各路转运使每十年绘制全路地图上交职方。",
+      "result": "朝廷采纳，山川险要地图改由职方集中保存并定期更新。",
+      "quote": [
+        "知天下山川險要",
+        "圖並上職方",
+        "使每十年各",
+        "各畫本路圖",
+        "使知天下山川險要"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立十年一绘的路级地图制度。"
+        ]
+      ],
+      "unknown": [
+        "首次完整收图时间未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-CONTINUED-TONGDIAN-1001",
+      "time": "咸平四年九月",
+      "loc": [
+        "秘阁",
+        "国子监"
+      ],
+      "action": "宋白等完成《续通典》二百卷；邢昺等校定三礼、公羊、谷梁正义一百六十五卷并模印。",
+      "result": "续通典入秘阁，《九经疏义》全部完备并颁行。",
+      "quote": [
+        "《續通典》二百卷",
+        "卷，詔付祕閣",
+        "一百六十五卷",
+        "命模印頒行",
+        "《九經疏義》悉具"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "模印并颁行经疏。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "完成续通典与九经疏义。"
+        ]
+      ],
+      "unknown": [
+        "印本数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SHAANXI-BAOYI-MILITIA-1001",
+      "time": "咸平四年九月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "宋廷令陕西民户出一丁编为保毅军，将此前选中的缘边军士升禁军称保捷军。",
+      "result": "保毅军共得六万七千八百九十五人。",
+      "quote": [
+        "陝西民家出一丁",
+        "丁，號保毅軍",
+        "六萬七千八百九十五人",
+        "並升為禁軍",
+        "軍，號保捷軍"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按户抽丁形成近六万八千乡兵。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立保毅、保捷军编制。"
+        ]
+      ],
+      "unknown": [
+        "训练装备成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-QINGYUAN-FALLS-1001",
+      "time": "咸平四年九月",
+      "loc": [
+        "清远军"
+      ],
+      "action": "李继迁军进攻清远军。",
+      "result": "清远军陷落。",
+      "quote": [
+        "李繼遷陷清遠軍"
+      ],
+      "battle": "CAMPAIGN-QINGYUAN-FALLS-1001",
+      "unknown": [
+        "守军与居民情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-LIAO-INVASION-1001",
+      "time": "咸平四年十月",
+      "loc": [
+        "辽南京",
+        "盐沟",
+        "宋河北"
+      ],
+      "action": "辽主再次南伐，以梁王隆庆统先锋军推进。",
+      "result": "宋廷增配三路骑兵前锋、奇兵和断西山部队应战。",
+      "quote": [
+        "亥朔，南伐；壬",
+        "寅，次鹽溝。徙",
+        "統先鋒軍以進",
+        "增騎二萬為前鋒",
+        "軍，為奇兵，以",
+        "以斷西山之路"
+      ],
+      "battle": "CAMPAIGN-LIAO-INVASION-1001",
+      "unknown": [
+        "辽军总兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-CHANGCHENGKOU-BATTLE-1001",
+      "time": "咸平四年十月",
+      "loc": [
+        "长城口",
+        "威虏军"
+      ],
+      "action": "张斌在长城口趁雨使辽军皮弓弦松湿而击败其前军，追近界首后遭伏骑反击。",
+      "result": "因三路统帅未进、宋前阵兵少，张斌退保威虏军。",
+      "quote": [
+        "遇于長城口",
+        "弓用皮弦皆緩濕",
+        "遼伏騎大起",
+        "三路統帥未及進",
+        "退保威虜軍"
+      ],
+      "battle": "CAMPAIGN-CHANGCHENGKOU-BATTLE-1001",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-LIAO-RETREATS-IN-MUD-1001",
+      "time": "咸平四年十月至十一月",
+      "loc": [
+        "宋河北"
+      ],
+      "action": "辽军因道路泥泞奉命班师，宋王显随后奏报前军交战。",
+      "result": "宋奏称斩辽军二万余并俘统军铁林。",
+      "quote": [
+        "遼主以泥淖，",
+        "泥淖，命班師。\n",
+        "前軍與契丹戰",
+        "戮二萬餘人",
+        "獲其統軍鐵林"
+      ],
+      "battle": "CAMPAIGN-LIAO-RETREATS-IN-MUD-1001",
+      "unknown": [
+        "二万余战果据王显奏报。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-LINGZHOU-ABANDONMENT-DEBATE-1001",
+      "time": "咸平四年十二月",
+      "loc": [
+        "灵州",
+        "环州",
+        "庆州"
+      ],
+      "action": "灵州孤危时真宗命群议弃守，杨亿、李沆主张撤军民退环庆，其他近臣坚持灵武为必争之地。",
+      "result": "弃守争论未决，李沆预言李继迁不死则灵州终不可保。",
+      "quote": [
+        "時靈州孤危",
+        "群議棄守之宜",
+        "疏，請棄靈州",
+        "州，退保環、慶。",
+        "乃必爭之地",
+        "必非朝廷所有",
+        "關右之民息肩"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以关右民力为由主张弃灵州。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢争论灵州弃守。"
+        ]
+      ],
+      "unknown": [
+        "本卷未作最终决策。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-SUIZHOU-CITY-BUILT-1001",
+      "time": "咸平四年十二月闰月",
+      "loc": [
+        "绥州"
+      ],
+      "action": "边臣建议修绥州、屯兵积谷以遏党项，朝廷派员实地勘察后报告利七害二。",
+      "result": "真宗下诏筑绥州城。",
+      "quote": [
+        "，言城綏州，其",
+        "大屯兵積穀",
+        "等同往按視",
+        "利七而害有二",
+        "詔築綏州城"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "勘察后下诏筑绥州城。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "计划屯兵积谷遏党项。"
+        ]
+      ],
+      "unknown": [
+        "工期费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-LINGZHOU-RELIEF-ARMY-1001",
+      "time": "咸平四年闰十二月",
+      "loc": [
+        "灵州",
+        "环州",
+        "庆州"
+      ],
+      "action": "宋廷任王超为西面行营都部署，张凝副之、秦翰为钤辖，率步骑援灵州。",
+      "result": "六万援军编成出动，弃守讨论转为军事增援。",
+      "quote": [
+        "西面行營都部署",
+        "環慶路部署",
+        "秦翰為鈐轄",
+        "步騎六萬援靈州"
+      ],
+      "battle": "CAMPAIGN-LINGZHOU-RELIEF-ARMY-1001",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "部署六万军援灵州。"
+        ]
+      ],
+      "unknown": [
+        "援军到达与战果待后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-022-LIAO-NANJING-PINGZHOU-RELIEF-1001",
+      "time": "咸平四年",
+      "loc": [
+        "辽南京",
+        "平州"
+      ],
+      "action": "韩德昌因南京、平州歉收，奏免农器钱、平抑商价、减关市税并免两地租税。",
+      "result": "辽廷采纳多项灾年税费减免和价格措施。",
+      "quote": [
+        "平州歲不登，",
+        "免百姓農器錢",
+        "請平州郡商賈價",
+        "詔減關市稅",
+        "免南京、平州租稅"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽对南京平州减税平价赈歉。"
+        ]
+      ],
+      "unknown": [
+        "减免总额未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2261369 的《續資治通鑑》卷022连续通读登记，不引入卷外常识。",
+    "普通任免、朝会、贡聘、祥异及无消费结果的重复行军节点未单列。",
+    "卷末灵州弃守尚未决，六万援军与绥州筑城转卷023承接。"
+  ]
+}

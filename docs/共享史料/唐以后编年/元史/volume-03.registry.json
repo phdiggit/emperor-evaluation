@@ -1,0 +1,2985 @@
+{
+  "facts": [
+    {
+      "action": "蒙哥从征钦察，趁风退海浅率军渡海屠其众并擒八赤蛮；后随拔都征斡罗斯，亲战攻破也烈赞城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "钦察部众遭屠，蒙古后军退潮时有人浮渡。",
+      "fact_id": "CHF-YUANSHI-003-MONGKE-KIPCHAK-RUS",
+      "implementation": "",
+      "locations": [
+        "欽察海島",
+        "也烈贊城"
+      ],
+      "observable_result": "钦察首领被俘，其海岛部众遭屠；也烈赞城被攻破。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-MONGKE-WESTERN-PREREIGN"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-mongke-kipchak-rus",
+      "source_refs": [
+        "元史/卷003@2189694#遂進屠其眾",
+        "元史/卷003@2189694#眾。擒八赤蠻",
+        "元史/卷003@2189694#即班師，而水已至，後軍有浮渡者",
+        "元史/卷003@2189694#躬自搏戰，破之"
+      ],
+      "time_range": {
+        "end": "order_only",
+        "precision": "range",
+        "start": "宪宗即位前"
+      },
+      "uncertainties": [
+        "年份、兵力、屠杀人数与也烈赞城损失未载。"
+      ]
+    },
+    {
+      "action": "皇位久缺，拔都召集诸王大将首倡推戴蒙哥；海迷失后使者援引太宗立失烈门遗命反对，木哥反驳定宗之立已先违遗命，众议遂定。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-SUCCESSION-DECISION-1250",
+      "implementation": "",
+      "locations": [
+        "阿剌脫忽剌兀"
+      ],
+      "observable_result": "蒙哥成为诸王大将会议选定的继承人，失烈门主张被否决。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-SUCCESSION-DECISION-1250"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-succession-decision-1250",
+      "source_refs": [
+        "元史/卷003@2189694#朝廷久未立君，中外恟恟",
+        "元史/卷003@2189694#拔都首建議推戴",
+        "元史/卷003@2189694#昔太宗命以皇孫失烈門為嗣",
+        "元史/卷003@2189694#眾悉應之，議遂定"
+      ],
+      "time_range": {
+        "end": "宪宗元年前",
+        "precision": "range",
+        "start": "定宗崩后"
+      },
+      "uncertainties": [
+        "会议日期、未到诸王意见及政治交换未载。"
+      ]
+    },
+    {
+      "action": "东西诸王与大将再次大会，共推蒙哥在斡难河即皇帝位；失烈门诸弟不平，蒙哥遣旭烈、忙可撒儿率兵侦防。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-MONGKE-ACCESSION-1251",
+      "implementation": "",
+      "locations": [
+        "闊帖兀阿闌",
+        "斡難河"
+      ],
+      "observable_result": "蒙哥正式即位，但窝阔台系宗王出现反对与军事戒备。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-MONGKE-ACCESSION-1251"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-mongke-accession-1251",
+      "source_refs": [
+        "元史/卷003@2189694#復大會于闊帖兀阿闌之地",
+        "元史/卷003@2189694#共推帝即皇帝位於斡難河",
+        "元史/卷003@2189694#失烈門及諸弟腦忽等心不能平",
+        "元史/卷003@2189694#兒帥兵覘之"
+      ],
+      "time_range": {
+        "end": "宪宗元年辛亥六月",
+        "precision": "month",
+        "start": "宪宗元年辛亥六月"
+      },
+      "uncertainties": [
+        "反对者军事计划与双方兵力未载。"
+      ]
+    },
+    {
+      "action": "蒙哥更改庶政：忽必烈领治蒙古汉地民户，分设燕京、别失八里、阿母河行尚书省，任忙哥撒儿断事、孛鲁合掌号令奏闻，并安排和林留守、宗教主管及多战区统军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251",
+      "implementation": "",
+      "locations": [
+        "蒙古",
+        "汉地",
+        "燕京",
+        "别失八里",
+        "阿母河",
+        "和林"
+      ],
+      "observable_result": "帝国中央、行省、宗教和多战区职责被重新分配。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-government-reorganization-1251",
+      "source_refs": [
+        "元史/卷003@2189694#遂改更庶政",
+        "元史/卷003@2189694#命皇弟忽必烈領治蒙古、漢地民戶",
+        "元史/卷003@2189694#充燕京等處行尚書省事",
+        "元史/卷003@2189694#充別失八里等處行尚書省事",
+        "元史/卷003@2189694#充阿母河等處行尚書省事"
+      ],
+      "time_range": {
+        "end": "宪宗元年辛亥",
+        "precision": "month",
+        "start": "宪宗元年辛亥"
+      },
+      "uncertainties": [
+        "各职位精确权限、财政来源和任期未载。"
+      ]
+    },
+    {
+      "action": "蒙哥收回朝廷和诸王滥发牌印诏旨，限制诸王驿马与擅招民户，禁止官属借朝觐敛财，准远输民粮改纳近仓，并罢和林筑城役夫一千五百人。",
+      "actors": [],
+      "affected_groups": [
+        "民户",
+        "远输粮民",
+        "和林役夫"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-ANTI-ABUSE-REFORMS-1251",
+      "implementation": "",
+      "locations": [
+        "蒙古帝国"
+      ],
+      "observable_result": "诸王与官属的驿递、招户、征敛受限，部分运输和城役负担减轻。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-003-ANTI-ABUSE-REFORMS-1251"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "收回诸王滥发命令并限制招户权。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "罢和林筑城役一千五百人。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-anti-abuse-reforms-1251",
+      "source_refs": [
+        "元史/卷003@2189694#濫發牌印、詔旨、宣命，盡收之",
+        "元史/卷003@2189694#諸王不得擅招民戶",
+        "元史/卷003@2189694#不得以朝覲為名賦歛民財",
+        "元史/卷003@2189694#民糧遠輸者，許於近倉輸之",
+        "元史/卷003@2189694#罷築和林城役千五百人"
+      ],
+      "time_range": {
+        "end": "宪宗元年辛亥",
+        "precision": "month",
+        "start": "宪宗元年辛亥"
+      },
+      "uncertainties": [
+        "回收文书数量、政策执行与被罢工程状态未载。"
+      ]
+    },
+    {
+      "action": "蒙哥诛杀被指诱诸王作乱者并籍宴只吉带之家；次年分迁诸王、分太宗后妃家资，因厌禳案赐死定宗后与失烈门母，流谪失烈门等并禁锢多人。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "多名宗王、后妃和官员被处死或流谪，家产被籍。",
+      "fact_id": "CHF-YUANSHI-003-SUCCESSION-PURGE-1251-1252",
+      "implementation": "",
+      "locations": [
+        "蒙古诸王封地",
+        "沒脫赤"
+      ],
+      "observable_result": "窝阔台、贵由系反对集团被处死、迁徙、流放和禁锢，拖雷系统治巩固。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-SUCCESSION-PURGE-1251-1252"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-succession-purge-1251-1252",
+      "source_refs": [
+        "元史/卷003@2189694#坐誘諸王為亂，並伏誅",
+        "元史/卷003@2189694#之，仍籍其家",
+        "元史/卷003@2189694#分遷諸王於各所",
+        "元史/卷003@2189694#定宗后及失烈門母以厭禳事覺，並賜死",
+        "元史/卷003@2189694#謫失烈門、也速、孛里等"
+      ],
+      "time_range": {
+        "end": "二年壬子",
+        "precision": "range",
+        "start": "宪宗元年辛亥"
+      },
+      "uncertainties": [
+        "厌禳证据、审理程序、完整名单和财产数额未载。"
+      ]
+    },
+    {
+      "action": "蒙哥命忽必烈征大理，禿儿花征身毒，怯的不花征没里奚，旭烈征西域，另命也古征高丽并招谕宋荆襄守将。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-MULTIFRONT-COMMANDS-1252",
+      "implementation": "",
+      "locations": [
+        "大理",
+        "身毒",
+        "没里奚",
+        "西域",
+        "高丽",
+        "宋荆襄"
+      ],
+      "observable_result": "帝国再次形成多战区宗王远征部署。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-MULTIFRONT-1252"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "最高统帅向宗王分配大理、西域、高丽等战区。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-multifront-commands-1252",
+      "source_refs": [
+        "元史/卷003@2189694#命忽必烈征大理",
+        "元史/卷003@2189694#丘）〔立〕征身毒，[6]",
+        "元史/卷003@2189694#旭烈征西域素丹諸國",
+        "元史/卷003@2189694#命諸王也古征高麗",
+        "元史/卷003@2189694#詔諭宋荊南、襄陽、樊城、均州諸守將，使來附"
+      ],
+      "time_range": {
+        "end": "宪宗二年壬子七月至十月",
+        "precision": "month",
+        "start": "宪宗二年壬子七月至十月"
+      },
+      "uncertainties": [
+        "各军兵力、补给与行动协调未载。"
+      ]
+    },
+    {
+      "action": "蒙哥重新任命帑藏、斡脱、祭祀医巫、传驿与宣诏官，迁五百匠户修行宫，并籍汉地民户。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-TREASURY-POST-CENSUS-1252",
+      "implementation": "分设管理人员并动员匠户、开展户籍。",
+      "locations": [
+        "蒙古帝国",
+        "汉地"
+      ],
+      "observable_result": "宫廷财货、商业、驿递和文书职责得到调整，五百匠户被迁作宫役，汉地完成一次户籍登记。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-TREASURY-POST-CENSUS-1252"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "籍户及帑藏、斡脱管理直接关联财政。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "五百匠户被迁修行宫。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-treasury-post-census-1252",
+      "source_refs": [
+        "元史/卷003@2189694#朮等掌帑藏；",
+        "元史/卷003@2189694#剌孫掌斡脫；",
+        "元史/卷003@2189694#掌傳驛所需",
+        "元史/卷003@2189694#徙諸匠五百戶修行宮",
+        "元史/卷003@2189694#籍漢地民戶"
+      ],
+      "time_range": {
+        "end": "宪宗二年壬子十二月",
+        "precision": "month",
+        "start": "宪宗二年壬子十二月"
+      },
+      "uncertainties": [
+        "汉地户数、匠户来源、宫殿规模和负担未载。"
+      ]
+    },
+    {
+      "action": "忽必烈率军分三道进攻大理，十二月大理被平定。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-DALI-CONQUEST-1253",
+      "implementation": "",
+      "locations": [
+        "忒剌",
+        "大理"
+      ],
+      "observable_result": "大理政权被蒙古征服，兀良合台随后留下攻未附诸部。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-DALI-1253-1254"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "大理被纳入蒙古统治并继续平未附者。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-dali-conquest-1253",
+      "source_refs": [
+        "元史/卷003@2189694#忽必烈次忒剌地，分兵三道以進",
+        "元史/卷003@2189694#冬十二月，大理平",
+        "元史/卷003@2189694#留兀良合台攻諸夷之未附者"
+      ],
+      "time_range": {
+        "end": "宪宗三年癸丑九月至十二月",
+        "precision": "month",
+        "start": "宪宗三年癸丑九月至十二月"
+      },
+      "uncertainties": [
+        "各路路线、伤亡、投降条件与统治安排未载。"
+      ]
+    },
+    {
+      "action": "蒙古攻海州击败守军，后耶虎与洪福源率军攻拔高丽多城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-KOREA-CAMPAIGN-1253",
+      "implementation": "",
+      "locations": [
+        "海州",
+        "禾山",
+        "東州",
+        "春州",
+        "三角山",
+        "楊根",
+        "天龍"
+      ],
+      "observable_result": "海州守军败，高丽禾山等六城失陷。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-KOREA-1253-1257"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-korea-campaign-1253",
+      "source_refs": [
+        "元史/卷003@2189694#大兵攻海州",
+        "元史/卷003@2189694#敗之，獲都統一人",
+        "元史/卷003@2189694#攻拔禾山、東州、春州、三角山、楊根、天龍等城"
+      ],
+      "time_range": {
+        "end": "宪宗三年癸丑",
+        "precision": "month",
+        "start": "宪宗三年癸丑"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡、城民处置与占领持续性未载。"
+      ]
+    },
+    {
+      "action": "拔都请求以一万锭银买珠，蒙哥仅给一千锭并计入以后岁赐，理由是祖宗财产需供诸王赏赐。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-BATU-SILVER-REQUEST-1253",
+      "implementation": "",
+      "locations": [
+        "拔都封地",
+        "蒙古行在"
+      ],
+      "observable_result": "大额奢侈采购被削减九成并从未来岁赐扣抵。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-003-BATU-SILVER-REQUEST-1253"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-batu-silver-request-1253",
+      "source_refs": [
+        "元史/卷003@2189694#乞買珠銀萬錠",
+        "元史/卷003@2189694#以千錠授之",
+        "元史/卷003@2189694#此銀就充今後歲賜之數"
+      ],
+      "time_range": {
+        "end": "宪宗三年癸丑六月",
+        "precision": "month",
+        "start": "宪宗三年癸丑六月"
+      },
+      "uncertainties": [
+        "岁赐总额、珠宝交易对象与一千锭是否实际支付未载。"
+      ]
+    },
+    {
+      "action": "汪田哥修治利州城防并屯田，使蜀军不敢侵扰。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253",
+      "implementation": "修城与屯田并行。",
+      "locations": [
+        "利州"
+      ],
+      "observable_result": "利州防守稳定，史载蜀人莫敢侵轶。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "屯田涉及军粮生产。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "城防屯田支撑宋蒙边境军事。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-LIZHOU-DEFENSE"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-lizhou-fort-tuntian-1253",
+      "source_refs": [
+        "元史/卷003@2189694#汪田哥修治利州，且屯田，蜀人莫敢侵軼"
+      ],
+      "time_range": {
+        "end": "宪宗三年癸丑正月",
+        "precision": "month",
+        "start": "宪宗三年癸丑正月"
+      },
+      "uncertainties": [
+        "工程规模、屯田产量与驻军数未载。"
+      ]
+    },
+    {
+      "action": "蒙哥准许赴朝理算钱粮的官吏主动交代不公，同时禁止以后浮费。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254",
+      "implementation": "",
+      "locations": [
+        "朝廷",
+        "各地官署"
+      ],
+      "observable_result": "旧有钱粮问题获自首纠正渠道，新增浮费被禁。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "以自首与禁令整顿官吏。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-financial-audit-amnesty-1254",
+      "source_refs": [
+        "元史/卷003@2189694#詔官吏之赴朝理算錢糧者，許自首不公，仍禁以後浮費"
+      ],
+      "time_range": {
+        "end": "宪宗四年甲寅七月",
+        "precision": "month",
+        "start": "宪宗四年甲寅七月"
+      },
+      "uncertainties": [
+        "自首人数、追缴数额与处罚规则未载。"
+      ]
+    },
+    {
+      "action": "蒙哥选史枢等分镇唐邓亳颍，张柔以连年用兵和两淮粮运困难请求据亳，获准率八军筑城戍守。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-HENAN-DEFENSE-APPOINTMENTS-1254",
+      "implementation": "",
+      "locations": [
+        "唐州",
+        "鄧州",
+        "亳州",
+        "潁州",
+        "汉南"
+      ],
+      "observable_result": "宋蒙边界形成多点驻军和亳州防御中心。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-HENAN-DEFENSE-1254"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "亳州筑城戍守。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-henan-defense-appointments-1254",
+      "source_refs": [
+        "元史/卷003@2189694#擢史樞征行萬戶",
+        "元史/卷003@2189694#諸軍，駐唐、鄧。",
+        "元史/卷003@2189694#張柔以連歲勤兵，兩淮艱於糧運，奏據亳之利",
+        "元史/卷003@2189694#詔柔率山前八軍，城而戍之"
+      ],
+      "time_range": {
+        "end": "宪宗四年甲寅",
+        "precision": "month",
+        "start": "宪宗四年甲寅"
+      },
+      "uncertainties": [
+        "八军兵力、筑城工程与当地负担未载。"
+      ]
+    },
+    {
+      "action": "因涡水浅阻军粮运输，张柔筑亳至汴甬路一百二十里，深水处另建十五桥，并置两堡守卫。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254",
+      "implementation": "陆路、桥梁和堡寨组合建设。",
+      "locations": [
+        "亳州",
+        "汴州",
+        "渦水"
+      ],
+      "observable_result": "曹濮魏博粮道得到替代通道，具体运量未载。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "改善粮食运输。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "工程直接服务宋蒙前线。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-HENAN-LOGISTICS"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-bozhou-bian-road-bridges-1254",
+      "source_refs": [
+        "元史/卷003@2189694#乃築甬路自亳抵汴，堤百二十里",
+        "元史/卷003@2189694#復為橋十五",
+        "元史/卷003@2189694#橫以二堡戍之"
+      ],
+      "time_range": {
+        "end": "宪宗四年甲寅",
+        "precision": "month",
+        "start": "宪宗四年甲寅"
+      },
+      "uncertainties": [
+        "工期、成本、桥型与运粮增长未载。"
+      ]
+    },
+    {
+      "action": "张柔为控制可容万艘的百丈口，筑亳南甬路六十余里并建横江堡，又在水路设栅与侦逻。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-HENGJIANG-ROAD-1255",
+      "implementation": "",
+      "locations": [
+        "符離",
+        "百丈口",
+        "亳州",
+        "横江堡"
+      ],
+      "observable_result": "鹿邑等地免宋军侵扰，陈蔡颍息交通恢复。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-003-HENGJIANG-ROAD-1255"
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "防御工程直接限制宋军水路。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-HENAN-LOGISTICS"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "恢复多地交通。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-hengjiang-road-1255",
+      "source_refs": [
+        "元史/卷003@2189694#道，可容萬艘",
+        "元史/卷003@2189694#遂築甬路，自亳而南六十餘里",
+        "元史/卷003@2189694#中為橫江堡",
+        "元史/卷003@2189694#由是鹿邑、寧陵、考、柘、楚丘、南頓無宋患，陳、蔡、潁、息皆通矣"
+      ],
+      "time_range": {
+        "end": "宪宗五年乙卯九月",
+        "precision": "month",
+        "start": "宪宗五年乙卯九月"
+      },
+      "uncertainties": [
+        "工程成本、通行贸易量与生态影响未载。"
+      ]
+    },
+    {
+      "action": "蒙哥改命札剌䚟与洪福源同征高丽，连续三年攻拔光州等多城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-KOREA-1255-1257",
+      "implementation": "",
+      "locations": [
+        "光州",
+        "安城",
+        "忠州",
+        "玄風",
+        "珍原",
+        "甲向",
+        "玉果"
+      ],
+      "observable_result": "高丽内陆多城先后失陷。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-KOREA-1253-1257"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-korea-1255-1257",
+      "source_refs": [
+        "元史/卷003@2189694#後此又連三歲，攻拔其光州、安城",
+        "元史/卷003@2189694#珍原、甲向、玉果等城"
+      ],
+      "time_range": {
+        "end": "七年丁巳前",
+        "precision": "range",
+        "start": "宪宗五年乙卯"
+      },
+      "uncertainties": [
+        "各城年份、伤亡、占领时长与居民处置未载。"
+      ]
+    },
+    {
+      "action": "蒙哥初籍新军，后大会诸王百官并确定诸王岁赐钱谷，又准忽必烈续签内郡汉军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256",
+      "implementation": "",
+      "locations": [
+        "蒙古帝国",
+        "内郡"
+      ],
+      "observable_result": "诸王岁赐定额化，新增军籍与内郡汉军征发继续。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "以岁赐和军籍管理诸王与军队。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-annual-stipends-new-troops-1254-1256",
+      "source_refs": [
+        "元史/卷003@2189694#山。初籍新軍",
+        "元史/卷003@2189694#仍定擬諸王歲賜錢穀",
+        "元史/卷003@2189694#奏請續簽內郡漢軍，從之"
+      ],
+      "time_range": {
+        "end": "六年丙辰",
+        "precision": "range",
+        "start": "宪宗四年甲寅"
+      },
+      "uncertainties": [
+        "岁赐数额、新军人数与签军豁免未载。"
+      ]
+    },
+    {
+      "action": "亦孙哥等诸王请伐宋，蒙哥又以宋违命拘使为由召集会议决定战争。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-SONG-WAR-DECISION-1256",
+      "implementation": "",
+      "locations": [
+        "蒙古朝廷",
+        "宋境"
+      ],
+      "observable_result": "全面伐宋决策进入动员阶段。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-SONG-WAR-DECISION-1256"
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "决策开启宪宗亲征宋。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-1257-1259"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-song-war-decision-1256",
+      "source_refs": [
+        "元史/卷003@2189694#諸王亦孫哥、駙馬也速兒等請伐宋",
+        "元史/卷003@2189694#帝亦以宋人違命囚使，會議伐之"
+      ],
+      "time_range": {
+        "end": "宪宗六年丙辰六月",
+        "precision": "month",
+        "start": "宪宗六年丙辰六月"
+      },
+      "uncertainties": [
+        "会议异议、兵力与目标边界未载。"
+      ]
+    },
+    {
+      "action": "塔察儿、帖里垓军过东平掠民羊猪，蒙哥遣使问罪；史称此后诸军不再侵犯。",
+      "actors": [],
+      "affected_groups": [
+        "東平民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-ARMY-DISCIPLINE-1256",
+      "implementation": "",
+      "locations": [
+        "東平诸处"
+      ],
+      "observable_result": "掠夺民畜受到追责并产生军纪震慑。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-ARMY-DISCIPLINE-1256"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "保护民众牲畜财产。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-army-discipline-1256",
+      "source_refs": [
+        "元史/卷003@2189694#處，掠民羊豕",
+        "元史/卷003@2189694#帝聞，遣使問罪",
+        "元史/卷003@2189694#由是諸軍無犯者"
+      ],
+      "time_range": {
+        "end": "宪宗六年丙辰七月",
+        "precision": "month",
+        "start": "宪宗六年丙辰七月"
+      },
+      "uncertainties": [
+        "问罪处分、被掠数量与赔偿未载。"
+      ]
+    },
+    {
+      "action": "兀良合台讨平白蛮等部，自昔八儿返至重庆击败宋将，并获大量金帛赏军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-BAI-MAN-CHONGQING-1256",
+      "implementation": "",
+      "locations": [
+        "白蠻",
+        "昔八兒",
+        "重慶府"
+      ],
+      "observable_result": "白蛮被克，宋军在重庆方向战败，军士获赏。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-YUNNAN-SONG-1256"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "以银与彩帛大额赏军。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-bai-man-chongqing-1256",
+      "source_refs": [
+        "元史/卷003@2189694#兀良合台討白蠻等，克之",
+        "元史/卷003@2189694#敗宋將張都統",
+        "元史/卷003@2189694#銀五十兩、綵帛萬二百匹，以賚軍士"
+      ],
+      "time_range": {
+        "end": "宪宗六年丙辰",
+        "precision": "month",
+        "start": "宪宗六年丙辰"
+      },
+      "uncertainties": [
+        "白蛮具体地点、双方伤亡和赏赐来源未载。"
+      ]
+    },
+    {
+      "action": "蒙哥命诸王出师伐宋，塔察儿围樊因连雨撤军，卜隣吉䚟渡汉江；兀良合台另伐交趾，败其军入国，安南主逃海岛后蒙古班师。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-SONG-VIETNAM-1257",
+      "implementation": "",
+      "locations": [
+        "樊城",
+        "鄧州",
+        "漢江",
+        "交趾",
+        "安南"
+      ],
+      "observable_result": "樊城未克，汉江方向继续进军；交趾国都地区被入侵但蒙古撤回。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-VIETNAM-1257"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-song-vietnam-1257",
+      "source_refs": [
+        "元史/卷003@2189694#詔諸王出師征宋",
+        "元史/卷003@2189694#圍樊城，霖雨連月，乃班師",
+        "元史/卷003@2189694#地，遂渡漢江",
+        "元史/卷003@2189694#伐交趾，敗之，入其國",
+        "元史/卷003@2189694#安南主陳日煚竄海島，遂班師"
+      ],
+      "time_range": {
+        "end": "宪宗七年丁巳",
+        "precision": "month",
+        "start": "宪宗七年丁巳"
+      },
+      "uncertainties": [
+        "各军兵力、交趾城民损失与撤军原因未载。"
+      ]
+    },
+    {
+      "action": "回鹘献价值三万余锭的水晶盆珍珠伞，蒙哥以百姓疲弊、急需钱财为由拒绝；经赛典赤进言后稍偿其价并禁止再献。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257",
+      "implementation": "",
+      "locations": [
+        "蒙古行在",
+        "回鶻"
+      ],
+      "observable_result": "奢侈贡品未被无偿接受，贡方获部分补偿且被禁止复献。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-reject-luxury-tribute-1257",
+      "source_refs": [
+        "元史/卷003@2189694#可直銀三萬餘錠",
+        "元史/卷003@2189694#方今百姓疲弊，所急者錢爾",
+        "元史/卷003@2189694#却之。賽典赤以為言",
+        "元史/卷003@2189694#帝稍償其直，且禁其勿復有所獻"
+      ],
+      "time_range": {
+        "end": "宪宗七年丁巳九月",
+        "precision": "month",
+        "start": "宪宗七年丁巳九月"
+      },
+      "uncertainties": [
+        "补偿数额、贡品是否最终留宫与百姓疲弊范围未载。"
+      ]
+    },
+    {
+      "action": "旭烈兀攻平哈里发政权，擒其王并遣使报捷。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-BAGHDAD-FALL-1258",
+      "implementation": "",
+      "locations": [
+        "回回哈里發国"
+      ],
+      "observable_result": "哈里发政权被蒙古征服，其君主被俘。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-BAGHDAD-1258"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-baghdad-fall-1258",
+      "source_refs": [
+        "元史/卷003@2189694#諸王旭烈兀討回回哈里發，平之，禽其王，遣使來獻捷"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午二月",
+        "precision": "month",
+        "start": "宪宗八年戊午二月"
+      },
+      "uncertainties": [
+        "攻城过程、屠杀人数、城市治理与王的结局未载。"
+      ]
+    },
+    {
+      "action": "蒙哥亲征宋，自西蜀入境，命张柔随忽必烈攻鄂趋杭、塔察攻荆山牵制；四万军号称十万，分三道由散关、米仓关、渔关进军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-SONG-THREE-ROUTES-1258",
+      "implementation": "",
+      "locations": [
+        "西蜀",
+        "鄂州",
+        "杭州",
+        "荊山",
+        "散關",
+        "米倉關",
+        "沔州"
+      ],
+      "observable_result": "伐宋形成四川、鄂州和荆山多路协同攻势。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-1258-1259"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "皇帝分配多路战略任务。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-song-three-routes-1258",
+      "source_refs": [
+        "元史/卷003@2189694#帝自將伐宋，由西蜀以入",
+        "元史/卷003@2189694#命張柔從忽必烈征鄂，趨杭州",
+        "元史/卷003@2189694#命塔察攻荊山，分宋兵力",
+        "元史/卷003@2189694#軍四萬，號十萬，分三道而進"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午二月至四月",
+        "precision": "month",
+        "start": "宪宗八年戊午二月至四月"
+      },
+      "uncertainties": [
+        "号称十万用途、各路实兵与后勤未载。"
+      ]
+    },
+    {
+      "action": "皇子阿速带独骑伤民庄稼，蒙哥斥责并杖其近侍；士卒拔民葱者被斩示众，因此军队不敢侵犯。",
+      "actors": [],
+      "affected_groups": [
+        "沿途农户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258",
+      "implementation": "",
+      "locations": [
+        "亲征所经郡县"
+      ],
+      "observable_result": "亲征军对农田作物的侵害被以严刑制止。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "保护沿途庄稼与农户财产。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-campaign-crop-discipline-1258",
+      "source_refs": [
+        "元史/卷003@2189694#因獵獨騎傷民稼，帝見讓之",
+        "元史/卷003@2189694#遂撻近侍數人",
+        "元史/卷003@2189694#士卒有拔民葱者，即斬以徇",
+        "元史/卷003@2189694#由是秋毫莫敢犯"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午五月",
+        "precision": "month",
+        "start": "宪宗八年戊午五月"
+      },
+      "uncertainties": [
+        "受损农田、赔偿和被斩者身份未载。"
+      ]
+    },
+    {
+      "action": "蒙哥率军由宝鸡攻重贵山；纽隣留军守成都后渡马湖，俘宋制置张实并试图招降苦竹隘，张实逃走。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-SICHUAN-CAMPAIGN-AUTUMN-1258",
+      "implementation": "",
+      "locations": [
+        "六盤山",
+        "寶鷄",
+        "重貴山",
+        "成都",
+        "馬湖",
+        "苦竹隘"
+      ],
+      "observable_result": "蒙古深入四川并控制若干据点，但招降苦竹隘未成。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SICHUAN-1258"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-sichuan-campaign-autumn-1258",
+      "source_refs": [
+        "元史/卷003@2189694#率兵由寶鷄攻重貴山，所至輒平",
+        "元史/卷003@2189694#悉率餘兵渡馬湖",
+        "元史/卷003@2189694#禽宋制置使張實",
+        "元史/卷003@2189694#遣實招諭苦竹隘，實遁"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午七月至九月",
+        "precision": "month",
+        "start": "宪宗八年戊午七月至九月"
+      },
+      "uncertainties": [
+        "所平地区、伤亡与张实逃亡细节未载。"
+      ]
+    },
+    {
+      "action": "蒙哥命汪田哥建浮桥渡白水江，桥成后赐金帛。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258",
+      "implementation": "建成军用浮桥并投入渡江。",
+      "locations": [
+        "白水江"
+      ],
+      "observable_result": "蒙古主力得以渡白水江。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258"
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "浮桥直接服务亲征。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SICHUAN-1258"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-baishui-floating-bridge-1258",
+      "source_refs": [
+        "元史/卷003@2189694#命田哥造浮梁以濟",
+        "元史/卷003@2189694#梁成，賜田哥等金帛有差"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午十月",
+        "precision": "month",
+        "start": "宪宗八年戊午十月"
+      },
+      "uncertainties": [
+        "桥长、承载量、成本与拆除时间未载。"
+      ]
+    },
+    {
+      "action": "赵仲献苦竹隘东南门，蒙古入城杀守将杨立并肢解张实；随后围长宁山，击败出战守军，攻鹅顶堡、望喜门并破城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "杨立、王佐及四十余人被杀，宋兵另有大量损失。",
+      "fact_id": "CHF-YUANSHI-003-KUZHU-CHANGNING-1258",
+      "implementation": "",
+      "locations": [
+        "苦竹隘",
+        "長寧山",
+        "鵝頂堡",
+        "望喜門"
+      ],
+      "observable_result": "苦竹隘和长宁山防线失陷，王佐及其子、徐昕等多人被杀。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SICHUAN-1258"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-kuzhu-changning-1258",
+      "source_refs": [
+        "元史/卷003@2189694#裨將趙仲竊獻東南門",
+        "元史/卷003@2189694#殺立，眾皆奔潰",
+        "元史/卷003@2189694#獲張實，支解之",
+        "元史/卷003@2189694#破其城，王佐死焉",
+        "元史/卷003@2189694#誅佐之子及徐昕等四十餘人"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午十月至十一月",
+        "precision": "month",
+        "start": "宪宗八年戊午十月至十一月"
+      },
+      "uncertainties": [
+        "城民伤亡、俘虏及蒙古损失未载。"
+      ]
+    },
+    {
+      "action": "杨大渊、张大悦、刘渊、蒲元圭、赵顺等守将或杀主将后相继降蒙，蒙哥授予四川侍郎、元帅、达鲁花赤等职，并令降军继续作战。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-SICHUAN-SURRENDERS-1258",
+      "implementation": "",
+      "locations": [
+        "大獲山",
+        "青居山",
+        "隆州",
+        "大良山",
+        "雅州",
+        "石泉",
+        "龍州"
+      ],
+      "observable_result": "四川多山城和县州通过降将被接收，降军被整编为蒙古方面兵力。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-SICHUAN-SURRENDERS-1258"
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "投降与整编直接改变战区力量。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SICHUAN-1258"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-sichuan-surrenders-1258",
+      "source_refs": [
+        "元史/卷003@2189694#將〔楊〕大淵降，[1",
+        "元史/卷003@2189694#命大淵為四川侍郎，仍以其兵從",
+        "元史/卷003@2189694#仍以大悅為元帥",
+        "元史/卷003@2189694#殺都統段元鑒降",
+        "元史/卷003@2189694#大良山守將蒲元圭降",
+        "元史/卷003@2189694#石泉守將趙順降"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午十一月至十二月",
+        "precision": "month",
+        "start": "宪宗八年戊午十一月至十二月"
+      },
+      "uncertainties": [
+        "各降军人数、当地居民态度与官职实权未载。"
+      ]
+    },
+    {
+      "action": "蒙哥下令诸军不得俘掠。",
+      "actors": [],
+      "affected_groups": [
+        "四川战区居民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-NO-PLUNDER-ORDER-1258",
+      "implementation": "",
+      "locations": [
+        "四川战区"
+      ],
+      "observable_result": "禁俘掠军令被颁布，执行效果未载。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-NO-PLUNDER-ORDER-1258"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "保护居民人身与财产。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-no-plunder-order-1258",
+      "source_refs": [
+        "元史/卷003@2189694#詔諸軍毋俘掠"
+      ],
+      "time_range": {
+        "end": "宪宗八年戊午十二月",
+        "precision": "month",
+        "start": "宪宗八年戊午十二月"
+      },
+      "uncertainties": [
+        "适用期限、违令案件与居民实际受益未载。"
+      ]
+    },
+    {
+      "action": "蒙哥拒绝北还建议，持续攻合州；杨大渊先俘男女八万余，蒙古多次攻城不克，雷雨久、夜登外城后仍受阻，蒙哥病重后留三千兵守城并令余军攻重庆。",
+      "actors": [],
+      "affected_groups": [
+        "合州被俘男女八万余"
+      ],
+      "cost_or_burden": "俘男女八万余，宋兵和蒙古攻城伤亡未详。",
+      "fact_id": "CHF-YUANSHI-003-DIAOYU-SIEGE-1259",
+      "implementation": "",
+      "locations": [
+        "合州",
+        "釣魚山",
+        "一字城",
+        "鎮西門",
+        "護國門",
+        "重慶"
+      ],
+      "observable_result": "合州未克，蒙古攻势受天气、城防和疾病阻滞。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-DIAOYU-1259"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "八万余男女被俘，造成重大人口损失。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-diaoyu-siege-1259",
+      "source_refs": [
+        "元史/卷003@2189694#大淵請攻合州，俘男女八萬餘",
+        "元史/卷003@2189694#月，屢攻不克",
+        "元史/卷003@2189694#大雷雨凡二十日",
+        "元史/卷003@2189694#梯折，後軍不克進而止",
+        "元史/卷003@2189694#留精兵三千守之，餘悉攻重慶"
+      ],
+      "time_range": {
+        "end": "宪宗九年己未正月至七月",
+        "precision": "month",
+        "start": "宪宗九年己未正月至七月"
+      },
+      "uncertainties": [
+        "八万口径、双方伤亡、俘虏去向与疾病种类未载。"
+      ]
+    },
+    {
+      "action": "蒙哥在合州攻势期间病重，七月死于钓鱼山。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-003-MONGKE-DEATH-1259",
+      "implementation": "",
+      "locations": [
+        "釣魚山"
+      ],
+      "observable_result": "宪宗九年统治结束，亲征宋的最高指挥中断。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-003-MONGKE-DEATH-1259"
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "死亡发生于钓鱼山围攻。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-DIAOYU-1259"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-003-mongke-death-1259",
+      "source_refs": [
+        "元史/卷003@2189694#是月，帝不豫",
+        "元史/卷003@2189694#帝崩于釣魚山"
+      ],
+      "time_range": {
+        "end": "宪宗九年己未七月",
+        "precision": "month",
+        "start": "宪宗九年己未七月"
+      },
+      "uncertainties": [
+        "病因、临终安排与即时撤军命令未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "限制诸王滥权并减远输与筑城役。",
+      "actors": [],
+      "affected_groups": [
+        "民户",
+        "远输粮民",
+        "和林役夫"
+      ],
+      "candidate_ref": "FIN-CAND-YUANSHI-003-ANTI-ABUSE-REFORMS-1251",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-ANTI-ABUSE-REFORMS-1251"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古帝国"
+      ],
+      "observable_result": "诸王与官属的驿递、招户、征敛受限，部分运输和城役负担减轻。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "牌印诏旨滥发、诸王擅招户、官属借朝觐敛财，民粮远输且和林有筑城役。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "限制多头征敛并允许近仓缴粮。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "民户、运输者和一千五百役夫负担减轻。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "粮食运输距离缩短，具体节省未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-003-anti-abuse-reforms-1251",
+      "source_refs": [
+        "元史/卷003@2189694#濫發牌印、詔旨、宣命，盡收之",
+        "元史/卷003@2189694#諸王不得擅招民戶",
+        "元史/卷003@2189694#不得以朝覲為名賦歛民財",
+        "元史/卷003@2189694#民糧遠輸者，許於近倉輸之",
+        "元史/卷003@2189694#罷築和林城役千五百人"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-003-ANTI-ABUSE-REFORMS-1251",
+      "time_range": {
+        "end": "宪宗元年辛亥",
+        "precision": "month",
+        "start": "宪宗元年辛亥"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "削减拔都买珠银并抵未来岁赐。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-003-BATU-SILVER-REQUEST-1253",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-BATU-SILVER-REQUEST-1253"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "拔都封地",
+        "蒙古行在"
+      ],
+      "observable_result": "大额奢侈采购被削减九成并从未来岁赐扣抵。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "拔都请求银一万锭购买珠宝。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "实给一千锭且计入未来岁赐。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "与民生直接关系未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "减少贵族珠宝采购的财政支出。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-003-batu-silver-request-1253",
+      "source_refs": [
+        "元史/卷003@2189694#乞買珠銀萬錠",
+        "元史/卷003@2189694#以千錠授之",
+        "元史/卷003@2189694#此銀就充今後歲賜之數"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-003-BATU-SILVER-REQUEST-1253",
+      "time_range": {
+        "end": "宪宗三年癸丑六月",
+        "precision": "month",
+        "start": "宪宗三年癸丑六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "理算钱粮准自首并禁浮费。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "朝廷",
+        "各地官署"
+      ],
+      "observable_result": "旧有钱粮问题获自首纠正渠道，新增浮费被禁。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "钱粮理算存在不公和浮费。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "允许自首纠错，禁止未来浮费。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "可能减少额外征费，实际效果未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "与市场生产直接影响未载。"
+        }
+      ],
+      "operation_status": "ordered",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-003-financial-audit-amnesty-1254",
+      "source_refs": [
+        "元史/卷003@2189694#詔官吏之赴朝理算錢糧者，許自首不公，仍禁以後浮費"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254",
+      "time_range": {
+        "end": "宪宗四年甲寅七月",
+        "precision": "month",
+        "start": "宪宗四年甲寅七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "定诸王岁赐并续签内郡汉军。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古帝国",
+        "内郡"
+      ],
+      "observable_result": "诸王岁赐定额化，新增军籍与内郡汉军征发继续。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "诸王岁赐与新军征发标准未定。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "岁赐钱谷被拟定，军费需求增加。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "内郡民户承担续签军役。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "兵役离户对生产影响未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-003-annual-stipends-new-troops-1254-1256",
+      "source_refs": [
+        "元史/卷003@2189694#山。初籍新軍",
+        "元史/卷003@2189694#仍定擬諸王歲賜錢穀",
+        "元史/卷003@2189694#奏請續簽內郡漢軍，從之"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256",
+      "time_range": {
+        "end": "六年丙辰",
+        "precision": "range",
+        "start": "宪宗四年甲寅"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "拒收高价奢侈贡品并稍偿其值。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古行在",
+        "回鶻"
+      ],
+      "observable_result": "奢侈贡品未被无偿接受，贡方获部分补偿且被禁止复献。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "百姓疲弊，回鹘献值三万余锭奢侈品。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "拒绝无偿收取，后仅稍偿其值。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "皇帝明确称百姓急需钱，实际救济未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "贡品交易被限制，部分补偿金额未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-003-reject-luxury-tribute-1257",
+      "source_refs": [
+        "元史/卷003@2189694#可直銀三萬餘錠",
+        "元史/卷003@2189694#方今百姓疲弊，所急者錢爾",
+        "元史/卷003@2189694#却之。賽典赤以為言",
+        "元史/卷003@2189694#帝稍償其直，且禁其勿復有所獻"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257",
+      "time_range": {
+        "end": "宪宗七年丁巳九月",
+        "precision": "month",
+        "start": "宪宗七年丁巳九月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "limitations": [
+    "宪宗即位前战功为追叙，准确年份未载。",
+    "跨西域、高丽、宋境多线战争细节不均，兵力伤亡和治理效果未知保持未知。",
+    "只写共享事件与四域路由，不作评分或数据库写入。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "拔都会议推戴蒙哥。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-SUCCESSION-DECISION-1250",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SUCCESSION-DECISION-1250"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "阿剌脫忽剌兀"
+      ],
+      "observable_result": "蒙哥成为诸王大将会议选定的继承人，失烈门主张被否决。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "皇位继承会议。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "定宗后由蒙哥还是失烈门继位。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "依太宗遗命立失烈门。"
+        },
+        {
+          "dimension": "decision",
+          "value": "诸王大将接受拔都推戴蒙哥。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "继承议定。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "拖雷系取得皇位，窝阔台系失势。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "失烈门等后续不服并遭清洗。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "元年再大会正式即位。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-succession-decision-1250",
+      "source_refs": [
+        "元史/卷003@2189694#朝廷久未立君，中外恟恟",
+        "元史/卷003@2189694#拔都首建議推戴",
+        "元史/卷003@2189694#昔太宗命以皇孫失烈門為嗣",
+        "元史/卷003@2189694#眾悉應之，議遂定"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-SUCCESSION-DECISION-1250",
+      "time_range": {
+        "end": "宪宗元年前",
+        "precision": "range",
+        "start": "定宗崩后"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蒙哥即位并戒备失烈门集团。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-MONGKE-ACCESSION-1251",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-MONGKE-ACCESSION-1251"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "闊帖兀阿闌",
+        "斡難河"
+      ],
+      "observable_result": "蒙哥正式即位，但窝阔台系宗王出现反对与军事戒备。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "即位与继承冲突。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何落实推戴并防止反对宗王行动。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "与失烈门妥协；史料未载。"
+        },
+        {
+          "dimension": "decision",
+          "value": "正式即位并遣兵侦防。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "蒙哥取得帝号。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "拖雷系控制最高权力。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "宗王不服引发随后清洗。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "惩处诱乱者并迁谪窝阔台系宗王。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-mongke-accession-1251",
+      "source_refs": [
+        "元史/卷003@2189694#復大會于闊帖兀阿闌之地",
+        "元史/卷003@2189694#共推帝即皇帝位於斡難河",
+        "元史/卷003@2189694#失烈門及諸弟腦忽等心不能平",
+        "元史/卷003@2189694#兒帥兵覘之"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-MONGKE-ACCESSION-1251",
+      "time_range": {
+        "end": "宪宗元年辛亥六月",
+        "precision": "month",
+        "start": "宪宗元年辛亥六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宪宗即位后重组中央与区域治理。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古",
+        "汉地",
+        "燕京",
+        "别失八里",
+        "阿母河",
+        "和林"
+      ],
+      "observable_result": "帝国中央、行省、宗教和多战区职责被重新分配。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "中央与区域权力重组。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "新朝如何分配民政、行省、宫禁与战区职权。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "沿用定宗朝人事。"
+        },
+        {
+          "dimension": "decision",
+          "value": "分设主管并授忽必烈领治汉地。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "多层治理架构形成。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "忽必烈及新任行省官取得广泛权力。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "权限重叠与后续政治矛盾未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "各区域持续征战与理财。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-government-reorganization-1251",
+      "source_refs": [
+        "元史/卷003@2189694#遂改更庶政",
+        "元史/卷003@2189694#命皇弟忽必烈領治蒙古、漢地民戶",
+        "元史/卷003@2189694#充燕京等處行尚書省事",
+        "元史/卷003@2189694#充別失八里等處行尚書省事",
+        "元史/卷003@2189694#充阿母河等處行尚書省事"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251",
+      "time_range": {
+        "end": "宪宗元年辛亥",
+        "precision": "month",
+        "start": "宪宗元年辛亥"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宪宗清洗并迁谪继承反对集团。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-SUCCESSION-PURGE-1251-1252",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "多名宗王、后妃和官员被处死或流谪，家产被籍。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SUCCESSION-PURGE-1251-1252"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古诸王封地",
+        "沒脫赤"
+      ],
+      "observable_result": "窝阔台、贵由系反对集团被处死、迁徙、流放和禁锢，拖雷系统治巩固。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "宗室政治清洗。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处置反对继位的失烈门及其支持者。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "妥协、解除权力或审判；程序未载。"
+        },
+        {
+          "dimension": "decision",
+          "value": "诛杀、赐死、流谪、禁锢并分迁。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "反对集团失去人身与政治自由。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "拖雷系皇权巩固，窝阔台系被削弱。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "宗室裂痕与冤实边界未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "海都被迁往海押立，后续反叛待后卷。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-succession-purge-1251-1252",
+      "source_refs": [
+        "元史/卷003@2189694#坐誘諸王為亂，並伏誅",
+        "元史/卷003@2189694#之，仍籍其家",
+        "元史/卷003@2189694#分遷諸王於各所",
+        "元史/卷003@2189694#定宗后及失烈門母以厭禳事覺，並賜死",
+        "元史/卷003@2189694#謫失烈門、也速、孛里等"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-SUCCESSION-PURGE-1251-1252",
+      "time_range": {
+        "end": "二年壬子",
+        "precision": "range",
+        "start": "宪宗元年辛亥"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "重整宫廷财货、驿递文书并籍汉地户。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-TREASURY-POST-CENSUS-1252",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-TREASURY-POST-CENSUS-1252"
+      ],
+      "implementation": "分设管理人员并动员匠户、开展户籍。",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古帝国",
+        "汉地"
+      ],
+      "observable_result": "宫廷财货、商业、驿递和文书职责得到调整，五百匠户被迁作宫役，汉地完成一次户籍登记。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "宫廷行政与户籍调整。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何管理帑藏、斡脱、驿递和诏令。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "沿用原任；史料未载。"
+        },
+        {
+          "dimension": "decision",
+          "value": "分任专官并籍汉地户。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "职责和户籍被重整。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "孛鲁合等近臣掌关键事务。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "五百匠户被迁徙服役。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "三年继续括斡罗斯户口。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-treasury-post-census-1252",
+      "source_refs": [
+        "元史/卷003@2189694#朮等掌帑藏；",
+        "元史/卷003@2189694#剌孫掌斡脫；",
+        "元史/卷003@2189694#掌傳驛所需",
+        "元史/卷003@2189694#徙諸匠五百戶修行宮",
+        "元史/卷003@2189694#籍漢地民戶"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-TREASURY-POST-CENSUS-1252",
+      "time_range": {
+        "end": "宪宗二年壬子十二月",
+        "precision": "month",
+        "start": "宪宗二年壬子十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "以拘使与宗王请求议定伐宋。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-SONG-WAR-DECISION-1256",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SONG-WAR-DECISION-1256"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "蒙古朝廷",
+        "宋境"
+      ],
+      "observable_result": "全面伐宋决策进入动员阶段。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "战争决策。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "是否发动新一轮全面伐宋。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "继续外交或有限边战；史料未载。"
+        },
+        {
+          "dimension": "decision",
+          "value": "会议伐宋。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "次年诸王出师，八年亲征。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "诸王多战区军队纳入伐宋动员。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "长期战争与民力负担。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "七年出师南征。"
+        }
+      ],
+      "operation_status": "proposed",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-song-war-decision-1256",
+      "source_refs": [
+        "元史/卷003@2189694#諸王亦孫哥、駙馬也速兒等請伐宋",
+        "元史/卷003@2189694#帝亦以宋人違命囚使，會議伐之"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-SONG-WAR-DECISION-1256",
+      "time_range": {
+        "end": "宪宗六年丙辰六月",
+        "precision": "month",
+        "start": "宪宗六年丙辰六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "追责宗王军掠民羊猪。",
+      "actors": [],
+      "affected_groups": [
+        "東平民众"
+      ],
+      "candidate_ref": "POL-CAND-YUANSHI-003-ARMY-DISCIPLINE-1256",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-ARMY-DISCIPLINE-1256"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "東平诸处"
+      ],
+      "observable_result": "掠夺民畜受到追责并产生军纪震慑。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "军纪纠偏。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处置宗王军掠民。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "纵容或事后补偿；史料未载。"
+        },
+        {
+          "dimension": "decision",
+          "value": "遣使问罪。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "诸军此后无犯。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "皇帝约束宗王军行为。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "已掠财产是否返还未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "八年亲征再严惩伤稼拔葱者。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-army-discipline-1256",
+      "source_refs": [
+        "元史/卷003@2189694#處，掠民羊豕",
+        "元史/卷003@2189694#帝聞，遣使問罪",
+        "元史/卷003@2189694#由是諸軍無犯者"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-ARMY-DISCIPLINE-1256",
+      "time_range": {
+        "end": "宪宗六年丙辰七月",
+        "precision": "month",
+        "start": "宪宗六年丙辰七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "严惩亲军伤稼拔葱。",
+      "actors": [],
+      "affected_groups": [
+        "沿途农户"
+      ],
+      "candidate_ref": "POL-CAND-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "亲征所经郡县"
+      ],
+      "observable_result": "亲征军对农田作物的侵害被以严刑制止。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "军纪与农产保护。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处理皇子和士卒侵害民田。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "赔偿、轻罚或纵容。"
+        },
+        {
+          "dimension": "decision",
+          "value": "斥皇子、杖近侍、斩士卒。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "军队不敢侵犯。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "皇帝直接约束皇子与士卒。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "刑罚极重且责任分配可能不当。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "同卷十二月再诏诸军毋俘掠。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-campaign-crop-discipline-1258",
+      "source_refs": [
+        "元史/卷003@2189694#因獵獨騎傷民稼，帝見讓之",
+        "元史/卷003@2189694#遂撻近侍數人",
+        "元史/卷003@2189694#士卒有拔民葱者，即斬以徇",
+        "元史/卷003@2189694#由是秋毫莫敢犯"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258",
+      "time_range": {
+        "end": "宪宗八年戊午五月",
+        "precision": "month",
+        "start": "宪宗八年戊午五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "任用四川降将并整编降军。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-SICHUAN-SURRENDERS-1258",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SICHUAN-SURRENDERS-1258"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "大獲山",
+        "青居山",
+        "隆州",
+        "大良山",
+        "雅州",
+        "石泉",
+        "龍州"
+      ],
+      "observable_result": "四川多山城和县州通过降将被接收，降军被整编为蒙古方面兵力。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "占领区降将任用。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何接管新降山城并利用守军。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "处死、解散或另任官员。"
+        },
+        {
+          "dimension": "decision",
+          "value": "授官并令其兵从征。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "多城快速转入蒙古控制。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "宋地方将领转任蒙古官员。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "忠诚不稳与内部杀将降敌。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "降将参与后续攻城。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-sichuan-surrenders-1258",
+      "source_refs": [
+        "元史/卷003@2189694#將〔楊〕大淵降，[1",
+        "元史/卷003@2189694#命大淵為四川侍郎，仍以其兵從",
+        "元史/卷003@2189694#仍以大悅為元帥",
+        "元史/卷003@2189694#殺都統段元鑒降",
+        "元史/卷003@2189694#大良山守將蒲元圭降",
+        "元史/卷003@2189694#石泉守將趙順降"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-SICHUAN-SURRENDERS-1258",
+      "time_range": {
+        "end": "宪宗八年戊午十一月至十二月",
+        "precision": "month",
+        "start": "宪宗八年戊午十一月至十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "亲征四川下令禁止俘掠。",
+      "actors": [],
+      "affected_groups": [
+        "四川战区居民"
+      ],
+      "candidate_ref": "POL-CAND-YUANSHI-003-NO-PLUNDER-ORDER-1258",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-NO-PLUNDER-ORDER-1258"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "四川战区"
+      ],
+      "observable_result": "禁俘掠军令被颁布，执行效果未载。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "军纪命令。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何约束占领区军队。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "允许俘掠。"
+        },
+        {
+          "dimension": "decision",
+          "value": "禁止诸军俘掠。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "军令发布。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "最高统帅约束各军。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "执行与处罚未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "同月继续拔雅州、招合州。"
+        }
+      ],
+      "operation_status": "ordered",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-no-plunder-order-1258",
+      "source_refs": [
+        "元史/卷003@2189694#詔諸軍毋俘掠"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-NO-PLUNDER-ORDER-1258",
+      "time_range": {
+        "end": "宪宗八年戊午十二月",
+        "precision": "month",
+        "start": "宪宗八年戊午十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "宪宗在钓鱼山亲征中去世。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-003-MONGKE-DEATH-1259",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-MONGKE-DEATH-1259"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "釣魚山"
+      ],
+      "observable_result": "宪宗九年统治结束，亲征宋的最高指挥中断。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "君主死亡与战时继承危机。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "亲征未克时的继承与撤军。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "未载。"
+        },
+        {
+          "dimension": "decision",
+          "value": "本条仅载病死。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "最高统帅死亡。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "帝位空缺，忽必烈与阿里不哥继承冲突待卷4。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "多路伐宋行动失去统一指挥。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "卷4续中统元年。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-003-mongke-death-1259",
+      "source_refs": [
+        "元史/卷003@2189694#是月，帝不豫",
+        "元史/卷003@2189694#帝崩于釣魚山"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-003-MONGKE-DEATH-1259",
+      "time_range": {
+        "end": "宪宗九年己未七月",
+        "precision": "month",
+        "start": "宪宗九年己未七月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "利州修城屯田。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253"
+      ],
+      "implementation": "修城与屯田并行。",
+      "lineage_refs": [],
+      "locations": [
+        "利州"
+      ],
+      "observable_result": "利州防守稳定，史载蜀人莫敢侵轶。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "利州城防与屯田体系。"
+        },
+        {
+          "dimension": "phase",
+          "value": "修治并运行。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "守卫蜀地边界并供军。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "兵民、土地和粮种未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "城防与屯田实际运行。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "蜀军不敢侵扰。"
+        },
+        {
+          "dimension": "harm",
+          "value": "征地与军民负担未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-003-lizhou-fort-tuntian-1253",
+      "source_refs": [
+        "元史/卷003@2189694#汪田哥修治利州，且屯田，蜀人莫敢侵軼"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253",
+      "time_range": {
+        "end": "宪宗三年癸丑正月",
+        "precision": "month",
+        "start": "宪宗三年癸丑正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "筑亳汴甬路、十五桥和两堡。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254"
+      ],
+      "implementation": "陆路、桥梁和堡寨组合建设。",
+      "lineage_refs": [],
+      "locations": [
+        "亳州",
+        "汴州",
+        "渦水"
+      ],
+      "observable_result": "曹濮魏博粮道得到替代通道，具体运量未载。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "亳州至汴州军粮甬路、桥梁与堡寨。"
+        },
+        {
+          "dimension": "phase",
+          "value": "建设完成并设戍。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "解决涡水浅、军粮不至和军队涉水困难。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "堤长一百二十里、桥十五，役力材料未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "设堡守卫，实际通行量未载。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "改善曹濮魏博至前线粮运条件。"
+        },
+        {
+          "dimension": "harm",
+          "value": "征地、徭役与水利影响未载。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-003-bozhou-bian-road-bridges-1254",
+      "source_refs": [
+        "元史/卷003@2189694#乃築甬路自亳抵汴，堤百二十里",
+        "元史/卷003@2189694#復為橋十五",
+        "元史/卷003@2189694#橫以二堡戍之"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254",
+      "time_range": {
+        "end": "宪宗四年甲寅",
+        "precision": "month",
+        "start": "宪宗四年甲寅"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "百丈口甬路、横江堡与水栅。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-003-HENGJIANG-ROAD-1255",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-HENGJIANG-ROAD-1255"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "符離",
+        "百丈口",
+        "亳州",
+        "横江堡"
+      ],
+      "observable_result": "鹿邑等地免宋军侵扰，陈蔡颍息交通恢复。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "亳南甬路、横江堡和水中栅防。"
+        },
+        {
+          "dimension": "phase",
+          "value": "建成并运行。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "封锁宋舟并保障边区交通。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "甬路六十余里，其他投入未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "设侦逻与水栅。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "多县无宋患，陈蔡等地交通恢复。"
+        },
+        {
+          "dimension": "harm",
+          "value": "水道与沿线居民影响未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-003-hengjiang-road-1255",
+      "source_refs": [
+        "元史/卷003@2189694#道，可容萬艘",
+        "元史/卷003@2189694#遂築甬路，自亳而南六十餘里",
+        "元史/卷003@2189694#中為橫江堡",
+        "元史/卷003@2189694#由是鹿邑、寧陵、考、柘、楚丘、南頓無宋患，陳、蔡、潁、息皆通矣"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-003-HENGJIANG-ROAD-1255",
+      "time_range": {
+        "end": "宪宗五年乙卯九月",
+        "precision": "month",
+        "start": "宪宗五年乙卯九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "建白水江军用浮桥。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258"
+      ],
+      "implementation": "建成军用浮桥并投入渡江。",
+      "lineage_refs": [],
+      "locations": [
+        "白水江"
+      ],
+      "observable_result": "蒙古主力得以渡白水江。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "白水江浮梁。"
+        },
+        {
+          "dimension": "phase",
+          "value": "建成并渡军。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "支持亲征军过江。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "材料、工匠、工期未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "建成后实际用于渡江。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "军队继续向剑门推进。"
+        },
+        {
+          "dimension": "harm",
+          "value": "水道与民役影响未载。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-003-baishui-floating-bridge-1258",
+      "source_refs": [
+        "元史/卷003@2189694#命田哥造浮梁以濟",
+        "元史/卷003@2189694#梁成，賜田哥等金帛有差"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258",
+      "time_range": {
+        "end": "宪宗八年戊午十月",
+        "precision": "month",
+        "start": "宪宗八年戊午十月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "registry_version": "YUAN-YUANSHI-003-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "宪宗九年崩于钓鱼山",
+    "input_fingerprint": "58185d1c867feab5dcc2b6a17b3393cbe087d41a40044b324b6dce38cfdcd92e",
+    "overlap_context": "续卷2定宗崩后三年无君；本卷载宪宗推戴、整顿诸政及亲征宋，卷4续世祖中统元年。",
+    "revision_ref": "2189694",
+    "start_locator": "宪宗即位前征钦察斡罗斯",
+    "volume_ref": "卷003",
+    "work": "元史"
+  },
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-003-MULTIDOMAIN",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SUCCESSION-DECISION-1250"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-succession-decision-1250",
+      "status": "closed",
+      "summary": "拔都会议推戴蒙哥。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-SUCCESSION-DECISION-1250",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-MONGKE-ACCESSION-1251"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-mongke-accession-1251",
+      "status": "closed",
+      "summary": "蒙哥即位并戒备失烈门集团。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-MONGKE-ACCESSION-1251",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-government-reorganization-1251",
+      "status": "closed",
+      "summary": "宪宗即位后重组中央与区域治理。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-GOVERNMENT-REORGANIZATION-1251",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-ANTI-ABUSE-REFORMS-1251"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-003-anti-abuse-reforms-1251",
+      "status": "closed",
+      "summary": "限制诸王滥权并减远输与筑城役。",
+      "thread_ref": "FIN-THREAD-YUANSHI-003-ANTI-ABUSE-REFORMS-1251",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SUCCESSION-PURGE-1251-1252"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-succession-purge-1251-1252",
+      "status": "closed",
+      "summary": "宪宗清洗并迁谪继承反对集团。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-SUCCESSION-PURGE-1251-1252",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-TREASURY-POST-CENSUS-1252"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-treasury-post-census-1252",
+      "status": "closed",
+      "summary": "重整宫廷财货、驿递文书并籍汉地户。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-TREASURY-POST-CENSUS-1252",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-BATU-SILVER-REQUEST-1253"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-003-batu-silver-request-1253",
+      "status": "closed",
+      "summary": "削减拔都买珠银并抵未来岁赐。",
+      "thread_ref": "FIN-THREAD-YUANSHI-003-BATU-SILVER-REQUEST-1253",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-003-lizhou-fort-tuntian-1253",
+      "status": "closed",
+      "summary": "利州修城屯田。",
+      "thread_ref": "WORK-THREAD-YUANSHI-003-LIZHOU-FORT-TUNTIAN-1253",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-003-financial-audit-amnesty-1254",
+      "status": "closed",
+      "summary": "理算钱粮准自首并禁浮费。",
+      "thread_ref": "FIN-THREAD-YUANSHI-003-FINANCIAL-AUDIT-AMNESTY-1254",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-003-bozhou-bian-road-bridges-1254",
+      "status": "closed",
+      "summary": "筑亳汴甬路、十五桥和两堡。",
+      "thread_ref": "WORK-THREAD-YUANSHI-003-BOZHOU-BIAN-ROAD-BRIDGES-1254",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-HENGJIANG-ROAD-1255"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-003-hengjiang-road-1255",
+      "status": "closed",
+      "summary": "百丈口甬路、横江堡与水栅。",
+      "thread_ref": "WORK-THREAD-YUANSHI-003-HENGJIANG-ROAD-1255",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-003-annual-stipends-new-troops-1254-1256",
+      "status": "closed",
+      "summary": "定诸王岁赐并续签内郡汉军。",
+      "thread_ref": "FIN-THREAD-YUANSHI-003-ANNUAL-STIPENDS-NEW-TROOPS-1254-1256",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SONG-WAR-DECISION-1256"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-song-war-decision-1256",
+      "status": "closed",
+      "summary": "以拘使与宗王请求议定伐宋。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-SONG-WAR-DECISION-1256",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-ARMY-DISCIPLINE-1256"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-army-discipline-1256",
+      "status": "closed",
+      "summary": "追责宗王军掠民羊猪。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-ARMY-DISCIPLINE-1256",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-003-reject-luxury-tribute-1257",
+      "status": "closed",
+      "summary": "拒收高价奢侈贡品并稍偿其值。",
+      "thread_ref": "FIN-THREAD-YUANSHI-003-REJECT-LUXURY-TRIBUTE-1257",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-campaign-crop-discipline-1258",
+      "status": "closed",
+      "summary": "严惩亲军伤稼拔葱。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-CAMPAIGN-CROP-DISCIPLINE-1258",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-003-baishui-floating-bridge-1258",
+      "status": "closed",
+      "summary": "建白水江军用浮桥。",
+      "thread_ref": "WORK-THREAD-YUANSHI-003-BAISHUI-FLOATING-BRIDGE-1258",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-SICHUAN-SURRENDERS-1258"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-sichuan-surrenders-1258",
+      "status": "closed",
+      "summary": "任用四川降将并整编降军。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-SICHUAN-SURRENDERS-1258",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-NO-PLUNDER-ORDER-1258"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-no-plunder-order-1258",
+      "status": "closed",
+      "summary": "亲征四川下令禁止俘掠。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-NO-PLUNDER-ORDER-1258",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-003-MONGKE-DEATH-1259"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-003-mongke-death-1259",
+      "status": "closed",
+      "summary": "宪宗在钓鱼山亲征中去世。",
+      "thread_ref": "POL-THREAD-YUANSHI-003-MONGKE-DEATH-1259",
+      "uncertainties": []
+    }
+  ]
+}

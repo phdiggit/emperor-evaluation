@@ -1,0 +1,514 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V03-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V03-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷3",
+    "revision_ref": "2325080",
+    "start_locator": "太宗出身及天顯元年太祖崩",
+    "end_locator": "天顯十二年十二月医至",
+    "overlap_context": "本卷自太宗即位前军功起，连续至天显十二年；南征与石敬瑭援军按战役交接，人口迁徙、城建和制度结果按独立连续行动登记。",
+    "input_fingerprint": "ad101c8d423fb310e60b6359a77fedb3a591e43038bab09d3d5967c5ce62ad0e"
+  },
+  "limitations": [
+    "仅据服务器固定《遼史》卷3正文登记，未知保持未知。",
+    "战役仅交接新版战役工作流；普通贡聘、祭祀、巡幸、单次任免和重复行军节点不单列。",
+    "迁民户数、工程役费、军民伤亡、军需消耗和土地赋役多未详载，不据推测补齐。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V03-TAIZONG-ACCESSION-927",
+      "time": [
+        "天顯二年十一月至十二月",
+        "927",
+        "range"
+      ],
+      "subject": "耶律德光、应天太后、人皇王倍与辽廷群臣",
+      "action": "太祖崩后应天太后摄军国事，人皇王倍率群臣请耶律德光继统；德光即位，接受嗣圣皇帝尊号并重组太后、皇后位号。",
+      "result": "耶律德光成为皇帝，辽廷完成太祖身后最高权力的交接与后妃尊号安排。",
+      "groups": [
+        "辽廷群臣",
+        "应天太后",
+        "人皇王倍",
+        "皇后萧氏",
+        "契丹诸部"
+      ],
+      "quote": [
+        "皇后攝軍國事。",
+        "皇子大元帥勳望，中外攸屬，宜承大統。",
+        "是日即皇帝位。",
+        "羣臣上尊號曰嗣聖皇帝。"
+      ],
+      "unknown": [
+        "群臣推戴范围、太后摄政终止程序、继统异议和权力交接细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TAIZONG-ACCESSION-927",
+        "summary": "耶律德光在群臣请立后即位为嗣圣皇帝。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V03-ELIGIBLE-NINE-ACCOUNTS-927",
+      "time": [
+        "天顯二年十二月",
+        "927",
+        "month"
+      ],
+      "subject": "耶律德光政权与遥辇氏九帐子弟",
+      "action": "下诏选拔遥辇氏九帐中可以任官的子弟。",
+      "result": "九帐子弟被纳入正式官员选任范围。",
+      "groups": [
+        "遥辇氏九帐",
+        "可任官子弟",
+        "选官机构"
+      ],
+      "quote": "詔選遙輦氏九帳子弟可任官者。",
+      "unknown": [
+        "选拔标准、入选人数、授官职类和九帐内部影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ELIGIBLE-NINE-ACCOUNTS-927",
+        "summary": "诏选遥辇氏九帐可任官子弟。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V03-DINGZHOU-INTERVENTION-928",
+      "time": [
+        "天顯三年三月至七月",
+        "928",
+        "range"
+      ],
+      "subject": "辽援军、定州王都与后唐军",
+      "action": "王都以定州归辽并求援，辽先遣奚禿里铁剌、后增遣涅里袞和查剌援助。",
+      "result": "铁剌曾击败后唐将王晏球，后唐兵集后辽援军败亡，多名将领被执。",
+      "cost": "铁剌战死，涅里袞、查剌等数十人被俘；皇帝赐战殁将校家属，其他军民损失未载。",
+      "groups": [
+        "辽援军",
+        "定州军民",
+        "后唐军",
+        "战殁将校家属"
+      ],
+      "quote": [
+        "命奚禿里鐵剌往救之。",
+        "鐵剌敗唐將王晏球于定州。",
+        "鐵剌死之，涅里袞、查剌等數十人被執。",
+        "厚賜戰歿將校之家。"
+      ],
+      "unknown": [
+        "辽军兵力、定州城防损失、被俘者结局和赐给规模未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-DINGZHOU-INTERVENTION-928",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-EASTERN-DAN-RESETTLEMENT-AND-NANJING-928-931",
+      "time": [
+        "天顯三年十二月至天顯六年九月",
+        "928至931",
+        "range"
+      ],
+      "subject": "辽廷、东丹民与东平南京",
+      "action": "辽廷迁东丹民以实东平，对不能迁者允许上国富民给赡并隶属，升东平郡为南京；后续设置南京中台省并诏修南京、京城。",
+      "result": "东平被提升为南京，迁民、给赡隶属、官署设置和城市修缮共同推进。",
+      "groups": [
+        "东丹民",
+        "东平南京居民",
+        "富民给赡者",
+        "中台省官员",
+        "营建役夫"
+      ],
+      "quote": [
+        "遷東丹民以實東平。",
+        "困乏不能遷者，許上國富民給贍而隸屬之。",
+        "升東平郡為南京。",
+        "置中臺省于南京。",
+        "，詔修南京。癸"
+      ],
+      "unknown": [
+        "迁民人数、给赡隶属实际期限、南京城建规模、中台省权限和工程役费未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "EASTERN-DAN-RESETTLEMENT-AND-NANJING-928-931",
+        "summary": "迁东丹民充实东平，升南京并设置官署和修城。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-YUNZHONG-CAMPAIGN-928-929",
+      "time": [
+        "天顯四年十月至天顯五年二月",
+        "928至929",
+        "range"
+      ],
+      "subject": "皇弟李胡军与云中未附郡县",
+      "action": "因云中郡县未下，辽廷大阅六军，命李胡率师讨未附者。",
+      "result": "李胡攻取寰州后返回，云中作战结束。",
+      "cost": "战斗兵力、伤亡、俘获和寰州接管民生影响未载。",
+      "groups": [
+        "李胡军",
+        "云中郡县军民",
+        "辽军将士",
+        "寰州居民"
+      ],
+      "quote": [
+        "以雲中郡縣未下，大閱六軍。",
+        "詔皇弟李胡帥師趣雲中討郡縣之未附者。",
+        "皇弟李胡拔寰州捷至。"
+      ],
+      "unknown": [
+        "云中未附郡县范围、李胡兵力、伤亡、寰州俘口和后续治理未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-YUNZHONG-928-929",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-LIHU-HEIR-AND-COMMAND-929",
+      "time": [
+        "天顯五年三月",
+        "929",
+        "month"
+      ],
+      "subject": "耶律德光与皇弟李胡",
+      "action": "李胡请求赦免被系宗室，获准后被册为寿昌皇太弟兼天下兵马大元帅。",
+      "result": "李胡同时取得皇太弟身份和全国兵马统帅名号。",
+      "groups": [
+        "李胡",
+        "被系宗室舍利郎君",
+        "辽廷将领",
+        "皇族"
+      ],
+      "quote": [
+        "請赦宗室舍利郎君以罪繫獄者，詔從之。",
+        "，冊皇弟李胡為壽昌皇太弟[",
+        "兼天下兵馬大元帥。"
+      ],
+      "unknown": [
+        "获赦宗室人数、皇太弟继承顺位、兵马大元帅实际权责未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIHU-HEIR-AND-COMMAND-929",
+        "summary": "李胡获册寿昌皇太弟并兼天下兵马大元帅。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V03-EASTERN-DAN-RULER-FLIGHT-930-931",
+      "time": [
+        "天顯五年十一月至天顯六年三月",
+        "930至931",
+        "range"
+      ],
+      "subject": "人皇王倍、东丹僚属与辽廷",
+      "action": "东丹上奏人皇王倍浮海前往唐；次年其妃萧氏率东丹僚属来见，辽廷在南京继续议军国事。",
+      "result": "人皇王倍离开东丹赴唐，东丹僚属及其妃转而进入辽廷处置范围。",
+      "groups": [
+        "人皇王倍",
+        "东丹僚属",
+        "倍妃萧氏",
+        "南京官员"
+      ],
+      "quote": [
+        "東丹奏人皇王浮海適唐。",
+        "人皇王倍妃蕭氏率其國僚屬來見。",
+        "召大臣議軍國事。"
+      ],
+      "unknown": [
+        "倍出走原因、东丹僚属人数、南京议决内容与东丹权力后续安排未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EASTERN-DAN-RULER-FLIGHT-930-931",
+        "summary": "人皇王倍赴唐，其妃及东丹僚属来见辽廷。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V03-BOAT-DISASTER-RELIEF-932",
+      "time": [
+        "天顯七年八月",
+        "932",
+        "month"
+      ],
+      "subject": "辽廷与沿柳湖捕鹅人员家属",
+      "action": "沿柳湖捕鹅时风雨骤至、舟覆，溺死者六十余人，皇帝命存恤其家并以为戒。",
+      "result": "遇难者家属被命令抚恤，事件被作为警戒。",
+      "cost": "六十余人溺亡；抚恤内容、船只财物损失和受恤范围未载。",
+      "groups": [
+        "捕鹅人员",
+        "遇难者家属",
+        "沿柳湖居民",
+        "抚恤执行者"
+      ],
+      "quote": [
+        "舟覆，溺死者六十餘人，命存恤其家",
+        "命存恤其家，識以為戒。"
+      ],
+      "unknown": [
+        "事故原因、遇难者身份、抚恤物资和实际执行情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BOAT-DISASTER-RELIEF-932",
+        "summary": "沿柳湖舟覆致六十余人溺亡，命抚恤其家。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-TANGUT-CAMPAIGN-933",
+      "time": [
+        "天顯八年正月至三月",
+        "933",
+        "range"
+      ],
+      "subject": "皇太弟李胡军与党项",
+      "action": "李胡与撒割率兵伐党项，太宗亲自饯行。",
+      "result": "皇太弟凯旋，唐朝请求罢兵时，辽廷以战捷和党项已听命答复。",
+      "cost": "参战兵力、伤亡、党项听命条件和军需消耗未载。",
+      "groups": [
+        "皇太弟军",
+        "党项诸部",
+        "辽廷",
+        "唐朝使者"
+      ],
+      "quote": [
+        "命皇太弟李胡、左威衞上將軍撒割率兵伐党項。",
+        "皇太弟討党項勝還，宴勞之。",
+        "以戰捷及党項巳聽命報之。"
+      ],
+      "unknown": [
+        "战场地点、双方伤亡、党项归附范围与战后赏赐未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-TANGUT-933",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-SOUTHERN-CAMPAIGN-934",
+      "time": [
+        "天顯九年八月至十一月",
+        "934",
+        "range"
+      ],
+      "subject": "耶律德光军与云州、武州诸城",
+      "action": "太宗自将南伐，入云州后攻拔河阴、略灵丘并围武州阳城，阳城和洼只城相继降。",
+      "result": "两城降服，被俘壮丁被编入军籍。",
+      "cost": "被俘壮丁纳入军籍，双方伤亡、俘丁数量和战区民损未载。",
+      "groups": [
+        "辽军",
+        "云州武州军民",
+        "阳城洼只城居民",
+        "被俘壮丁"
+      ],
+      "quote": [
+        "，自將南伐。乙",
+        "丁巳，拔河陰。",
+        "圍武州之陽城。壬寅，陽城降。",
+        "洼只城降，括所俘丁壯籍于軍。"
+      ],
+      "unknown": [
+        "南伐兵力、各城伤亡、军籍服役条件和当地财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-SOUTHERN-CAMPAIGN-934",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-EMPRESS-DEATH-AND-MOURNING-935",
+      "time": [
+        "天顯十年正月至五月",
+        "935",
+        "range"
+      ],
+      "subject": "耶律德光、彰德皇后与萧氏相关二帐",
+      "action": "皇后在行在去世，太宗命制丧服并葬于奉陵；同时将皇太后父族及母前夫之族二帐并为国舅。",
+      "result": "皇后丧葬制度被启动并形成彰德皇后谥号，二帐获得国舅身份。",
+      "groups": [
+        "皇后家族",
+        "二帐部众",
+        "丧葬执行者",
+        "辽廷官员"
+      ],
+      "quote": [
+        "皇后崩于行在。",
+        "始製服行后喪。",
+        "葬于奉陵。上自製文，諡曰彰德皇后。",
+        "二帳並為國舅，以蕭緬思為尚父領之。"
+      ],
+      "unknown": [
+        "皇后死因、丧葬规模、二帐人数及国舅权利义务未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EMPRESS-DEATH-AND-MOURNING-935",
+        "summary": "皇后崩后制定丧服、葬奉陵，并将相关二帐并为国舅。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-SHIJINGTANG-RESCUE-BATTLE-936",
+      "time": [
+        "天顯十一年七月至九月",
+        "936",
+        "range"
+      ],
+      "subject": "耶律德光军、石敬瑭与后唐军",
+      "action": "石敬瑭受后唐讨伐而求救，辽廷同意兴师，太宗自将入雁门、至太原，与高行周、符彦卿等军交战。",
+      "result": "辽军以伏兵截断后唐军并大败之，斩首数万级，石敬瑭率官属来见，晋安寨随即被围。",
+      "cost": "记有斩首数万级，辽将的鲁在晋安作战中死亡；双方其余伤亡和战区民损未载。",
+      "groups": [
+        "辽军",
+        "河东军",
+        "后唐军",
+        "太原与晋安寨军民",
+        "石敬瑭官属"
+      ],
+      "quote": [
+        "急，遂許興師。\n",
+        "自將以援敬瑭。",
+        "行周、彥卿為伏兵所斷，首尾不相救。",
+        "敬達、光遠大敗，棄仗如山，斬首數萬級。",
+        "癸卯，圍晉安。"
+      ],
+      "unknown": [
+        "辽河东联军兵力、后唐战死与俘虏构成、太原民损和围寨补给未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-SHIJINGTANG-RESCUE-936",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-LATER-JIN-INVESTITURE-AND-SIEGE-936",
+      "time": [
+        "天顯十一年十月至十二月",
+        "936",
+        "range"
+      ],
+      "subject": "耶律德光、石敬瑭、晋安寨后唐军与赵德钧援军",
+      "action": "太宗封石敬瑭为晋王后，在晋阳设坛册命其为大晋皇帝；同时围晋安寨、截断援军，待杨光远等杀张敬达降后追击赵德钧诸援军。",
+      "result": "石敬瑭即大晋皇帝，晋安寨降军和马匹被赐给晋帝，赵德钧父子率众降，辽军随后班师。",
+      "cost": "晋安寨军储耗尽，军士以非常食物饲马并食死马；援军溃逃时相互蹂践、坠谷者众，具体人数未载。",
+      "groups": [
+        "辽军",
+        "大晋军",
+        "晋安寨守军",
+        "赵德钧援军",
+        "后唐军士与军马"
+      ],
+      "quote": [
+        "冊敬瑭為大晉皇帝。",
+        "軍儲殆盡，至濯馬糞、屑木以飼馬",
+        "楊光遠、安審琦殺敬達以降。",
+        "所降軍士及馬五千匹以賜晉帝。",
+        "德鈞等軍皆投戈棄甲，自相蹂踐，擠于川谷者不可勝紀。"
+      ],
+      "unknown": [
+        "围寨总伤亡、降军人数、马匹以外物资、石敬瑭受册条件和赵军损失未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-LATER-JIN-INVESTITURE-936",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-POSTWAR-RETURN-AND-SOLDIER-RECOVERY-937",
+      "time": [
+        "天顯十二年正月至二月",
+        "937",
+        "range"
+      ],
+      "subject": "辽廷、奚西部民与南征军",
+      "action": "班师后命安端使奚西部民各还本土，斩处军前所获而叛入幽州者，并诏诸部休养士卒。",
+      "result": "南征结束后开始恢复部众原居、处置叛入者和军队休养。",
+      "cost": "被俘叛入幽州者被斩，战后复员与休养规模、返乡人口和补给投入未载。",
+      "groups": [
+        "奚西部民",
+        "南征军士",
+        "叛入幽州者",
+        "安端所部"
+      ],
+      "quote": [
+        "發奚西部民各還本土。",
+        "以軍前所獲俘叛入幽州者皆斬之。",
+        "詔諸部休養士卒。"
+      ],
+      "unknown": [
+        "返乡人口、被斩人数、休养期限、军需补给与地方恢复效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POSTWAR-RETURN-AND-SOLDIER-RECOVERY-937",
+        "summary": "南征后遣奚西部民返乡，并命诸部休养士卒。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V03-LATER-JIN-TRIBUTE-AND-FAN-REBELLION-938",
+      "time": [
+        "天顯十二年六月至八月",
+        "938",
+        "range"
+      ],
+      "subject": "大晋、辽廷与范延广",
+      "action": "大晋请求上尊号、归还雁门以北及幽蓟之地并岁贡帛三十万匹，辽廷不许；范延广叛晋后，辽廷遣使与晋议军，后获其降讯。",
+      "result": "大晋所请领土和岁贡安排未获辽廷批准，范延广叛乱则告降。",
+      "groups": [
+        "大晋朝廷",
+        "雁门幽蓟军民",
+        "范延广所部",
+        "辽廷使者"
+      ],
+      "quote": [
+        "歸雁門以北與幽、薊之地，仍歲貢帛三十萬疋，詔不許。",
+        "范延廣叛晉，引兵南向。",
+        "遣耶律褭古里使晉議軍事。",
+        "晉遣使以都汴及范延廣降來告。"
+      ],
+      "unknown": [
+        "大晋提出条件的谈判背景、实际贡赋、范军兵力伤亡和辽廷介入程度未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LATER-JIN-TRIBUTE-AND-FAN-REBELLION-938",
+        "summary": "辽拒绝大晋的领土和岁贡请求，后获范延广降讯。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

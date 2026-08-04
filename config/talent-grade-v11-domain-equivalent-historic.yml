@@ -78,6 +78,35 @@ historic_paths:
       participant_does_not_raise_grade: true
     combat_difficulty_order: [D0, D1, D2, D3, D4]
     strategic_weights: {A: 1, S-: 2, S: 3, S+: 4}
+    seven_grade_thresholds:
+      ordinary:
+        definition: 尚无可消费的本人正向实际指挥结果
+      usable:
+        definition: 至少一个已兑现的本人指挥结果
+      capable:
+        requires_one_of:
+          - one_a_or_higher_result
+          - two_independent_b_or_higher_results
+      important:
+        requires_one_of:
+          - one_a_or_higher_at_d2_or_higher
+          - two_independent_a_or_higher_results
+      elite:
+        requires_one_of:
+          - one_s_minus_or_higher_at_d2_or_higher
+          - two_independent_a_or_higher_at_d3_or_higher
+          - three_independent_a_or_higher_at_d2_or_higher
+        single_peak_preserves_proven_ceiling: true
+      top:
+        inherited_from: top_fallback.military_paths
+      historic:
+        inherited_from: historic_paths.military
+    stability_semantics:
+      defeat_does_not_erase_established_peak: true
+      comparable_major_command_failure_must_be_machine_visible: true
+      repeated_major_command_failures_block_historic: true
+      war_conduct_cost_is_preserved_but_does_not_rewrite_professional_peak: true
+      evidence_lower_bound_is_upgradeable_not_frozen: true
     peak_pair:
       minimum_independent_campaigns: 2
       either:

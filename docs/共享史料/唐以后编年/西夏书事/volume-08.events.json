@@ -1,0 +1,652 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V08-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V08-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "08",
+    "revision_ref": "2285389",
+    "start_locator": "宋真宗景德元年赵保吉卒李德明嗣",
+    "end_locator": "宋真宗景德三年德明执苏尚娘",
+    "overlap_context": "承接卷7三十九井之战保吉中箭；本卷主载其卒与德明继位、潘罗支死后再取凉州、宋辽双重册封及景德誓约。",
+    "input_fingerprint": "7199d900209b440e8f350711fcc6dc915c8cdd7f44c428b1f290c78e984a8048"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷08正文登记，未知保持未知。",
+    "保吉临终遗言真伪依正文保留不确定；出生异征、作者论赞和普通贡使不作独立事实。",
+    "本卷无达到大型工程门槛的事件。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V08-JIQIAN-DEATH-DEMING-SUCCESSION-1004",
+      "time": [
+        "宋真宗景德元年正月二日",
+        "1004",
+        "day"
+      ],
+      "subject": "赵保吉李继迁、李德明与西夏官属",
+      "action": "保吉在三十九井中箭后去世，临终嘱张浦等辅佐德明；德明在灵柩前以二十三岁继位并设置左右司马、押牙和州防御使。",
+      "result": "西夏军政权力由继迁转入德明，核心官属继续任职并获得升赏。",
+      "groups": [
+        "李氏宗族",
+        "西夏官属",
+        "五州军民",
+        "党项诸族"
+      ],
+      "quote": [
+        "景德元年〈契丹統和二十二年。〉春正月，保吉卒。",
+        "。\n子德明嗣。\n德",
+        "嗣位于保吉柩前，稱定難軍留後。"
+      ],
+      "unknown": [
+        "箭伤与死亡的医学因果、临终内属遗言真伪、军中反对力量未定。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIQIAN-DEATH-DEMING-SUCCESSION-1004",
+        "summary": "继迁伤后卒，德明继掌西夏。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V08-SHENDUI-DEFEAT-1004",
+      "time": [
+        "宋真宗景德元年三月",
+        "1004",
+        "month"
+      ],
+      "subject": "宋麟府军与德明夏军",
+      "action": "宋廷乘保吉死命边将图取夏地，麟府军进攻神堆。",
+      "result": "夏军战败，营栅全部被破。",
+      "groups": [
+        "夏军",
+        "宋麟府军",
+        "神堆居民"
+      ],
+      "quote": [
+        "麟府兵襲神堆，禦之，失利。",
+        "夏兵戰不勝，營柵盡破。"
+      ],
+      "unknown": [
+        "双方兵力伤亡、营栽物资和神堆后续控制未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SHENDUI-1004",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-DUWEI-SURRENDER-1004",
+      "time": [
+        "宋真宗景德元年四月",
+        "1004",
+        "month"
+      ],
+      "subject": "夏州蕃部指挥使都尾与宋廷",
+      "action": "宋廷以官爵和银万两、绢万匹、钱五万缗、茶五千斤招抚夏州诸部，都尾率属投降洪德砦。",
+      "result": "德明初立时出现高级蕃将离心，宋廷招抚政策取得实际归附。",
+      "groups": [
+        "都尾所部",
+        "夏州蕃族",
+        "宋边军",
+        "德明政权"
+      ],
+      "quote": [
+        "能率部下歸順者，授團練使，銀萬兩、絹萬匹、錢五萬緡、茶五千斤",
+        "夏州蕃部指揮使都尾率屬入降。"
+      ],
+      "unknown": [
+        "都尾属众人数、赏赐是否全额发放、其他响应部族未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DUWEI-SURRENDER-1004",
+        "summary": "宋以重赏招抚，夏将都尾率部投降。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-YUANHAO-BIRTH-1004",
+      "time": [
+        "宋真宗景德元年五月五日",
+        "1004",
+        "day"
+      ],
+      "subject": "李德明、卫慕氏与李元昊",
+      "action": "德明之妻卫慕氏生子元昊，德明为其取党项小字嵬埋。",
+      "result": "李氏出现后续称帝并建立大夏国号的继承人。",
+      "groups": [
+        "李氏宗族",
+        "卫慕氏族"
+      ],
+      "quote": [
+        "五月，子元昊生。",
+        "至是月五日生",
+        "德明愛之，字爲嵬埋。"
+      ],
+      "unknown": [
+        "出生异征真伪、幼年教育和继承安排此时未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YUANHAO-BIRTH-1004",
+        "summary": "元昊出生并获小字嵬埋。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V08-LIANGZHOU-PANLUOZHI-1004",
+      "time": [
+        "宋真宗景德元年五月至六月",
+        "1004",
+        "range"
+      ],
+      "subject": "李德明军、六谷潘罗支与者龙诸族",
+      "action": "西凉诸族在保吉死后拒绝夏州，德明进攻未克；随后利用保吉旧党联络者龙六族，袭杀赴援的潘罗支。",
+      "result": "潘罗支死，六谷推其弟厮铎督为首；德明乘乱再次攻取西凉。",
+      "cost": "潘罗支及随从遇害，西凉战斗伤亡未载。",
+      "groups": [
+        "德明军",
+        "六谷诸族",
+        "者龙十三族",
+        "西凉军民"
+      ],
+      "quote": [
+        "涼州亂，遣兵攻之，不克。",
+        "發兵攻者龍族，殺朔方節度使潘羅支。",
+        "德明乘人心未定，率兵復攻西涼，取之。"
+      ],
+      "unknown": [
+        "袭杀参与者人数、双方伤亡、西凉居民和府库损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LIANGZHOU-1004",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-WANZI-YONGNING-1004",
+      "time": [
+        "宋真宗景德元年八月",
+        "1004",
+        "month"
+      ],
+      "subject": "万子军主部与宋曹玮药令族联军",
+      "action": "万子军主拒绝宋方招抚，率属进犯永宁砦。",
+      "result": "宋军与药令族合击获胜，斩二百余级；多个蕃官献马赎罪并请求内附。",
+      "cost": "万子部被斩二百余，其他伤亡未载。",
+      "groups": [
+        "万子部众",
+        "宋军",
+        "药令族",
+        "转附蕃官"
+      ],
+      "quote": [
+        "萬子軍主以兵寇永寕砦。",
+        "合擊，敗之，斬首二百餘級。",
+        "蕃官茄羅、兀贓、成王等皆獻馬贖罪，請內附。"
+      ],
+      "unknown": [
+        "宋方伤亡、献马数量和归附部众人数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-WANZI-1004",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-YINZHOU-LINZHOU-1004",
+      "time": [
+        "宋真宗景德元年十月",
+        "1004",
+        "month"
+      ],
+      "subject": "银州属蕃与麟州宋军",
+      "action": "银州蕃族乘潘罗支死后聚众进攻麟州。",
+      "result": "李继周会同永宁军主李继福击退来军。",
+      "groups": [
+        "银州蕃族",
+        "麟州军民",
+        "宋军"
+      ],
+      "quote": [
+        "銀州屬蕃侵麟州。",
+        "西京作坊使李繼周率兵會永寕軍主李繼福擊退之。"
+      ],
+      "unknown": [
+        "德明是否直接下令、双方兵力伤亡和掠夺未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YINZHOU-LINZHOU-1004",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-HEXIAN-DEFECTION-1004",
+      "time": [
+        "宋真宗景德元年十二月",
+        "1004",
+        "month"
+      ],
+      "subject": "西夏孔目官何宪与李德明",
+      "action": "何宪因劝德明勿杀潘罗支未被采纳，携家逃往邠州投宋。",
+      "result": "宋廷令其赴京，德明失去熟悉兵政的灵州文官。",
+      "groups": [
+        "何宪家属",
+        "德明官属",
+        "宋廷"
+      ],
+      "quote": [
+        "孔目官何憲走降于邠州。",
+        "乃挈家乘間走邠州請降",
+        "眞宗詔令乘傳赴闕。"
+      ],
+      "unknown": [
+        "何宪携家人数、所带军政信息和宋方授职未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HEXIAN-DEFECTION-1004",
+        "summary": "何宪因反对杀潘罗支携家投宋。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V08-LIAO-SEAL-REQUEST-1005",
+      "time": [
+        "宋真宗景德二年正月至七月",
+        "1005",
+        "range"
+      ],
+      "subject": "李德明、赵保宁与契丹圣宗",
+      "action": "德明继位一年尚未获辽册封，遣赵保宁献方物请封，并以虚报攻下青城维持军事声望。",
+      "result": "契丹以宗室姻亲相待，于七月册德明为西平王、复姓李氏并赐车旗衣币。",
+      "groups": [
+        "德明政权",
+        "契丹朝廷",
+        "党项诸族",
+        "使团"
+      ],
+      "quote": [
+        "德明遣趙保寕如契丹請封。",
+        "以下青城告契丹。",
+        "契丹冊爲西平王。"
+      ],
+      "unknown": [
+        "方物和册赐数量、青城虚报细节、辽方军役条件未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-SEAL-REQUEST-1005",
+        "summary": "德明向辽请封并获册西平王。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-WANGJIA-TRIBE-1005",
+      "time": [
+        "宋真宗景德二年二月",
+        "1005",
+        "month"
+      ],
+      "subject": "李德明军与环州熟户旺家族",
+      "action": "德明无视宋方劝止，进环州攻旺家族并俘首领都子。",
+      "result": "旺家族亦俘获德明军主庆吉交给宋廷，双方各有所获。",
+      "groups": [
+        "德明军",
+        "旺家族",
+        "环州军民",
+        "宋廷"
+      ],
+      "quote": [
+        "出兵寇環州，破旺家族，執首領都子。",
+        "都子所部亦獲德明軍主慶吉以獻。"
+      ],
+      "unknown": [
+        "双方伤亡、俘虏交换和部族财产损失未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-WANGJIA-1005",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-SONG-SURRENDER-NEGOTIATION-1005",
+      "time": [
+        "宋真宗景德二年六月至九月",
+        "1005",
+        "range"
+      ],
+      "subject": "李德明张浦与宋真宗边臣",
+      "action": "德明遣王旻奉表请降；宋提出归还灵州、退平夏、送子弟入宿卫、散兵还质口等七项条件，并以定难节度、岁赐内俸、互市青盐等五项回报。",
+      "result": "德明多有要求且拒绝自行誓约，后又遣白文寿入贡，谈判延续。",
+      "groups": [
+        "德明官属",
+        "五州军民",
+        "宋廷",
+        "被掠官吏质口",
+        "商旅盐户"
+      ],
+      "quote": [
+        "遣牙將王旻入貢請降。",
+        "遣子弟入宿衛，盡散蕃漢兵，送還掠去官吏及質口",
+        "但多邀求，不肯自爲誓約也。"
+      ],
+      "unknown": [
+        "双方书面条件全文、被掠人口数量、岁赐与互市额度未定。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SONG-SURRENDER-NEGOTIATION-1005",
+        "summary": "德明请降，宋提出七项义务五项回报而暂未成约。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-MIAOE-SURRENDER-1006",
+      "time": [
+        "宋真宗景德三年四月",
+        "1006",
+        "month"
+      ],
+      "subject": "夏州妙娥熟嵬诸族与宋曹玮军",
+      "action": "妙娥熟嵬等大族因德明势孤请拔帐归宋，曹玮出石门至天都山接纳。",
+      "result": "降族被内迁，其他小族纷纷送质，德明未敢阻拦。",
+      "groups": [
+        "妙娥熟嵬诸族",
+        "宋军",
+        "德明政权",
+        "被送质者"
+      ],
+      "quote": [
+        "德明妙娥等族走降于鎭戎軍。",
+        "受降者內徙，諸小族皆望風納質，德明不敢拒。"
+      ],
+      "unknown": [
+        "归降户数、质子人数、内迁地点和安置物资未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MIAOE-SURRENDER-1006",
+        "summary": "妙娥熟嵬等族归宋并引发诸族纳质。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-FOUR-TRIBES-RETURN-1006",
+      "time": [
+        "宋真宗景德三年七月",
+        "1006",
+        "month"
+      ],
+      "subject": "潘保薛等四族、李德明与宋廷",
+      "action": "保吉此前强迁到绥州的延州四族携众返回宋境，德明请求按叛逃处死。",
+      "result": "宋廷认定其只是还归旧居，禁止德明干涉宋境外部族。",
+      "groups": [
+        "四族民户",
+        "德明官属",
+        "宋边军"
+      ],
+      "quote": [
+        "熟戶潘、保、薛等內投，表請誅之，不得。",
+        "四族本延州熟戶，兹還舊居，非新有招納也。",
+        "自今勿復侵預境外。"
+      ],
+      "unknown": [
+        "四族户数、迁返财产、德明后续报复未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FOUR-TRIBES-RETURN-1006",
+        "summary": "宋保护四族返乡并禁止德明越境追索。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-LINZHOU-PLAN-1006",
+      "time": [
+        "宋真宗景德三年八月",
+        "1006",
+        "month"
+      ],
+      "subject": "李德明诸族军与河东宋军",
+      "action": "德明误以为河东蕃将备战是要攻夏，点集部族谋掠麟府内附蕃户。",
+      "result": "计划因情报泄露且宋方有备而未出兵。",
+      "groups": [
+        "德明军",
+        "麟府内附蕃户",
+        "宋河东军"
+      ],
+      "quote": [
+        "月，謀侵麟州。\n",
+        "㸃集諸族戎人，謀入河東掠麟、府諸州內屬蕃戶。",
+        "已而德明兵不出。"
+      ],
+      "unknown": [
+        "集结兵力、停止命令和军费未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LINZHOU-PLAN-1006",
+        "summary": "德明点集部族谋侵麟府但未出兵。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-WEIZHOU-DESERTERS-1006",
+      "time": [
+        "宋真宗景德三年八月",
+        "1006",
+        "month"
+      ],
+      "subject": "李德明与渭州叛卒",
+      "action": "渭州十余戍卒叛入夏州，德明一度接纳；曹玮施计使其相信叛卒为宋方间谍。",
+      "result": "德明斩杀叛卒并将首级弃于边境。",
+      "groups": [
+        "渭州叛卒",
+        "德明官属",
+        "宋边军"
+      ],
+      "quote": [
+        "斬渭州叛卒于境上。",
+        "德明聞，卽斬叛者，投其首于境上。"
+      ],
+      "unknown": [
+        "叛卒确数、叛逃原因、审讯和家属处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WEIZHOU-DESERTERS-1006",
+        "summary": "德明受曹玮误导斩杀十余渭州叛卒。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V08-OATH-SUBMISSION-1006",
+      "time": [
+        "宋真宗景德三年九月",
+        "1006",
+        "month"
+      ],
+      "subject": "李德明、刘仁勗与宋真宗",
+      "action": "宋廷放宽议和条件，不再要求交还灵州，只保留送子弟宿卫和不得劫掠西路贡部等约束；德明遣刘仁勗奉誓表。",
+      "result": "西夏首次向宋正式进誓表并请求藏盟府，但互市和青盐仍待后日赏典。",
+      "groups": [
+        "德明政权",
+        "宋廷",
+        "西路进贡部族",
+        "边地商旅盐户"
+      ],
+      "quote": [
+        "遣使進誓表。",
+        "德明感恩，遣右都押牙劉仁勗奉誓表請藏盟府",
+        "所乞回圖及放青鹽禁，雖宣命未許"
+      ],
+      "unknown": [
+        "誓表全文、子弟宿卫实际履行和禁盐执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "OATH-SUBMISSION-1006",
+        "summary": "德明向宋进誓表，形成宽减后的臣属约束。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-SONG-XIPING-TITLE-1006",
+      "time": [
+        "宋真宗景德三年十月",
+        "1006",
+        "month"
+      ],
+      "subject": "宋真宗与李德明",
+      "action": "宋廷正式授德明定难军节度、五州观察处置等使并爵西平王，赐银万两、绢万匹、钱三万贯和茶二万斤等。",
+      "result": "德明重新取得宋朝承认的五州军政与王爵，食邑六千户、实封三千户。",
+      "groups": [
+        "德明官属",
+        "五州军民",
+        "宋廷",
+        "贡赋民户"
+      ],
+      "quote": [
+        "復受定難軍節度使，爵西平王。",
+        "食邑六千戶，實封三千戶",
+        "賜襲衣、錦帶、銀鞍勒馬、銀萬兩、絹萬匹、錢三萬貫、茶二萬斤。"
+      ],
+      "unknown": [
+        "赏赐实际交付、食实封收入、地方赋役和册封执行范围未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SONG-XIPING-TITLE-1006",
+        "summary": "宋册德明西平王并授定难五州军政。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-HOSTAGE-TRIBUTE-1006",
+      "time": [
+        "宋真宗景德三年十月",
+        "1006",
+        "month"
+      ],
+      "subject": "李德明与宋册封使",
+      "action": "宋使要求德明送子弟入质，德明以非先世故事拒绝，只献御马二十五、散马七百、骆驼三百谢恩。",
+      "result": "德明保住宗族人质自主权，以大宗牲畜替代履行。",
+      "groups": [
+        "李氏宗族",
+        "党项牧户",
+        "宋使",
+        "贡物运输者"
+      ],
+      "quote": [
+        "責子弟入質，不遣。",
+        "惟獻御馬二十五匹、散馬七百匹、橐駞三百頭謝恩。"
+      ],
+      "unknown": [
+        "牲畜征集来源、运输损耗、宋廷是否接受替代未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HOSTAGE-TRIBUTE-1006",
+        "summary": "德明拒送子弟入质，以大宗马驼谢恩。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-ANNUAL-STIPEND-TRADE-1006",
+      "time": [
+        "宋真宗景德三年十一月",
+        "1006",
+        "month"
+      ],
+      "subject": "李德明使团与宋廷",
+      "action": "德明使团请求俸赐，并购买禁物、隐瞒关税谋利。",
+      "result": "宋廷允许，此后形成每年固定俸赐和特许贸易惯例。",
+      "groups": [
+        "德明使团",
+        "宋廷",
+        "边地商旅",
+        "关税官员"
+      ],
+      "quote": [
+        "月，使請俸賜。\n",
+        "因市禁物，隱關算爲奸利，朝議聽之，自是歲以爲常。"
+      ],
+      "unknown": [
+        "年俸数额、禁物种类、逃税规模和贸易利润未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ANNUAL-STIPEND-TRADE-1006",
+        "summary": "宋允许德明岁请俸赐并特许使团贸易。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V08-SUSHANGNIANG-1006",
+      "time": [
+        "宋真宗景德三年十二月",
+        "1006",
+        "month"
+      ],
+      "subject": "环州酋苏尚娘、李德明与宋廷",
+      "action": "曾助宋抵抗保吉的苏尚娘叛投德明，后欲再归宋；宋廷因其反复拒绝接纳。",
+      "result": "德明派兵将苏尚娘拘回。",
+      "groups": [
+        "苏尚娘部族",
+        "德明军",
+        "宋边吏"
+      ],
+      "quote": [
+        "環州降酋蘇尚娘叛，執之。",
+        "德明聞，遣兵執尚娘歸。"
+      ],
+      "unknown": [
+        "拘捕过程、部众人数、伤亡和苏尚娘后续处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SUSHANGNIANG-1006",
+        "summary": "宋拒纳反复归降的苏尚娘，德明将其拘回。",
+        "continuity": "single_event"
+      }
+    }
+  ]
+}

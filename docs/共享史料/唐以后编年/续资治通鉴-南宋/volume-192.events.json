@@ -1,0 +1,542 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "south-song-192-220-v1",
+  "status": "shadow",
+  "task_code": "SOUTH-SONG-CHRONICLE-192",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷192",
+    "revision_ref": "2333755",
+    "input_fingerprint": "a20af8fc29202ecdee04c23c386c0b44974e63eaa03f5099f55c02e384301160",
+    "start_locator": "成宗欽明廣孝皇帝元貞元年",
+    "end_locator": "和州曆陽縣江溢，漂沒廬舍萬八千五百餘家。",
+    "overlap_context": "unknown"
+  },
+  "limitations": [
+    "卷192左边界不读取卷191，故与前卷连续性保持unknown。",
+    "仅据固定《續資治通鑑》卷192逐字引文，不写正式事实或评分。"
+  ],
+  "events": [
+    {
+      "id": "CHF-SONG-192-001",
+      "time": [
+        "1295-01",
+        "1295-01",
+        "month"
+      ],
+      "action": "因霜害赈济安西王山后民",
+      "result": "发米救济受灾民众",
+      "groups": [
+        "山后受灾民"
+      ],
+      "quote": "以隕霜殺禾，賑安西王山後民米。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-RELIEF-FROST",
+        "candidate": "SONG192-RELIEF-FROST",
+        "observations": {
+          "direct_result": "赈米",
+          "benefit": "救济霜害",
+          "cost": "米额未载",
+          "implementation": "朝廷赈给",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-002",
+      "time": [
+        "1295-01",
+        "1295-01",
+        "month"
+      ],
+      "action": "恢复冶河工程",
+      "implementation": "命续成先朝已发丁夫而停罢的工程",
+      "result": "工程获准复工",
+      "cost": "丁夫人役",
+      "groups": [
+        "真定役夫"
+      ],
+      "quote": "今宜遵舊制，俾卒其役。」從之。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG192-WORK-YEHE",
+        "candidate": "SONG192-WORK-YEHE",
+        "observations": {
+          "direct_result": "准复工",
+          "benefit": "工程续成",
+          "cost": "丁夫人役",
+          "implementation": "遵旧制",
+          "counterparty": "无",
+          "time_boundary": "本年"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-003",
+      "time": [
+        "1295-02",
+        "1295-02",
+        "month"
+      ],
+      "action": "调整江南茶税征收",
+      "result": "罢江南茶税，税额改入江西榷茶岁额",
+      "groups": [
+        "江南茶业民户",
+        "江西榷茶系统"
+      ],
+      "quote": "罷江南茶稅，以其數添入江西榷茶都轉運使歲額。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-TEA",
+        "candidate": "SONG192-FIN-TEA",
+        "observations": {
+          "direct_result": "税额转入江西",
+          "benefit": "江南茶税罢除",
+          "cost": "江西岁额增加",
+          "implementation": "税源调整",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-004",
+      "time": [
+        "1295-02",
+        "1295-03",
+        "range"
+      ],
+      "action": "整顿卖官影响下的选官与举官权",
+      "implementation": "令廉访司体覆、省台核实，并限中书拟奏",
+      "result": "选官核实和奏请权限被收束",
+      "groups": [
+        "候选官员",
+        "中书省",
+        "廉访司"
+      ],
+      "quote": [
+        "宜令廉訪司體覆以聞，省臺核實，定其殿最，以明黜陟。",
+        "自今已後，專令中書擬奏。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG192-POL-SELECTION",
+        "candidate": "SONG192-POL-SELECTION",
+        "observations": {
+          "direct_result": "选官核实与拟奏权收束",
+          "benefit": "纠正卖官后选法败坏",
+          "cost": "未载",
+          "implementation": "廉访、省台、中书分工",
+          "counterparty": "无",
+          "time_boundary": "二月至三月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-005",
+      "time": [
+        "1295-02",
+        "1295-02",
+        "month"
+      ],
+      "action": "减轻河东供养与转输负担",
+      "result": "诸王驼马供养和北输租税获减改",
+      "groups": [
+        "太原民",
+        "平阳诸郡民"
+      ],
+      "quote": "請止飼千匹。平陽諸郡歲輸租稅於北方，民甚苦之，請改輸河東近倉。」從之。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-HEDONG",
+        "candidate": "SONG192-FIN-HEDONG",
+        "observations": {
+          "direct_result": "供养削减、转输改近仓",
+          "benefit": "减民负担",
+          "cost": "未载",
+          "implementation": "采纳廉访建议",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-006",
+      "time": [
+        "1295-03",
+        "1295-03",
+        "month"
+      ],
+      "action": "农忙时停罢非急营造",
+      "result": "非急工程停罢，但帝师塔和张法师宫除外",
+      "groups": [
+        "役夫",
+        "农民"
+      ],
+      "quote": "以東作方殷，罷諸不急營造，惟帝師塔及張法師宮不罷。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG192-WORK-FARMTIME",
+        "candidate": "SONG192-WORK-FARMTIME",
+        "observations": {
+          "direct_result": "停罢非急营造",
+          "benefit": "避免农忙扰役",
+          "cost": "例外工程继续",
+          "implementation": "诏令",
+          "counterparty": "无",
+          "time_boundary": "农忙期间"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-007",
+      "time": [
+        "1295-04",
+        "1295-04",
+        "month"
+      ],
+      "action": "罢多项机构、盐银场并免大都田租",
+      "result": "机构和场务裁撤，大都当年田租获免",
+      "groups": [
+        "大都田户",
+        "相关役户"
+      ],
+      "quote": [
+        "仍免大都今歲田租。",
+        "罷打捕鷹房總管府及司籍、周用、薄斂等庫、徽州路銀場、各處鹽場"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-DADU",
+        "candidate": "SONG192-FIN-DADU",
+        "observations": {
+          "direct_result": "免田租",
+          "benefit": "大都田户减负",
+          "cost": "税收减免",
+          "implementation": "裁撤并免租",
+          "counterparty": "无",
+          "time_boundary": "当年"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-008",
+      "time": [
+        "1295-04",
+        "1295-04",
+        "month"
+      ],
+      "action": "对京师米贵设肆减价粜米",
+      "implementation": "籍贫民户数、验口给米，减价三分之一",
+      "result": "形成每年不少于二十余万石的持续赈粜",
+      "cost": "发米七万余石，后年用二十余万石以上",
+      "groups": [
+        "京师贫民"
+      ],
+      "quote": "乃令有司籍貧民戶數，驗口給之，減賑糶之直三分之一，每歲亦不下二十餘萬石。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-GRAIN",
+        "candidate": "SONG192-FIN-GRAIN",
+        "observations": {
+          "direct_result": "按户口减价给米",
+          "benefit": "抑米价救贫民",
+          "cost": "常年发米",
+          "implementation": "籍户验口",
+          "counterparty": "无",
+          "time_boundary": "后续常年"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-009",
+      "time": [
+        "1295-05",
+        "1295-05",
+        "month"
+      ],
+      "action": "免征元贞元年前钱粮逋欠",
+      "result": "既往逋欠全面停征",
+      "groups": [
+        "欠税钱粮民户"
+      ],
+      "quote": "自元貞元年五月以前逋欠錢糧者，皆罷征。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-ARREARS",
+        "candidate": "SONG192-FIN-ARREARS",
+        "observations": {
+          "direct_result": "停征旧欠",
+          "benefit": "减轻欠户负担",
+          "cost": "放弃旧欠收入",
+          "implementation": "诏令",
+          "counterparty": "无",
+          "time_boundary": "五月前旧欠"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-010",
+      "time": [
+        "1295-06",
+        "1295-06",
+        "month"
+      ],
+      "action": "陕西旱饥时先发廪赈贷",
+      "result": "未待奏请即发粟救济",
+      "groups": [
+        "陕西饥民"
+      ],
+      "quote": "遂發粟賑貸。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-RELIEF-SHAANXI",
+        "candidate": "SONG192-RELIEF-SHAANXI",
+        "observations": {
+          "direct_result": "发粟赈贷",
+          "benefit": "救陕西饥民",
+          "cost": "粮额未载",
+          "implementation": "行省右丞擅发承担责任",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-011",
+      "time": [
+        "1295-06",
+        "1295-06",
+        "month"
+      ],
+      "action": "恢复湖广屯戍体系并设置三十八戍",
+      "result": "蛮寇与盗贼停止",
+      "groups": [
+        "湖广边民",
+        "屯戍将士"
+      ],
+      "quote": "置戍三十有八，分屯將士以守之。由是東盡交、廣，西亙黔中，地周湖廣，四境皆有屯戍，制度周密，諸蠻不能復寇，盜賊遂息。",
+      "battle": "CAMPAIGN-SONG192-HUGUANG-GARRISON",
+      "battle_reason": "边防屯戍与平乱结果构成军事行动链，交由战役工作流。"
+    },
+    {
+      "id": "CHF-SONG-192-012",
+      "time": [
+        "1295-07",
+        "1295-07",
+        "month"
+      ],
+      "action": "设置通惠河闸坝巡护提领",
+      "result": "闸坝获专责巡护修治",
+      "groups": [
+        "通惠河漕运使用者"
+      ],
+      "quote": "通惠河造閘壩，所費不貲，全藉主守之人上下修治，請設提領三員，專一巡護。」從之。",
+      "closure": {
+        "domain": "public_works",
+        "thread": "SONG192-WORK-TONGHUI",
+        "candidate": "SONG192-WORK-TONGHUI",
+        "observations": {
+          "direct_result": "设三提领巡护",
+          "benefit": "维护闸坝",
+          "cost": "所费不赀",
+          "implementation": "专责巡护修治",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-013",
+      "time": [
+        "1295-08",
+        "1295-08",
+        "month"
+      ],
+      "action": "赈济辽阳水灾",
+      "result": "辽阳水灾获赈",
+      "groups": [
+        "辽阳水灾民"
+      ],
+      "quote": "以遼陽水，賑之。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-RELIEF-LIAOYANG",
+        "candidate": "SONG192-RELIEF-LIAOYANG",
+        "observations": {
+          "direct_result": "赈济",
+          "benefit": "水灾救助",
+          "cost": "未载",
+          "implementation": "朝廷赈给",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-014",
+      "time": [
+        "1295-12",
+        "1295-12",
+        "month"
+      ],
+      "action": "为伊苏岱尔旧驻军另给荒田",
+      "result": "停止与既成业者争讼，按正军和余丁定额授田",
+      "groups": [
+        "伊苏岱尔军户",
+        "既垦荒田民户"
+      ],
+      "quote": "命別以境內荒田給之，正軍五頃，餘丁二頃，已滿數者不給。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-MILITARYLAND",
+        "candidate": "SONG192-FIN-MILITARYLAND",
+        "observations": {
+          "direct_result": "另给荒田",
+          "benefit": "止争讼并安置军户",
+          "cost": "荒田授给",
+          "implementation": "按军户定额",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-015",
+      "time": [
+        "1296-10",
+        "1296-10",
+        "month"
+      ],
+      "action": "董士选整饬赣州叛乱的吏治与镇抚",
+      "implementation": "惩害民官吏、处置煽乱及通贼者，分兵守地",
+      "result": "刘六十被擒，余众解散",
+      "groups": [
+        "赣州民",
+        "叛乱参与者"
+      ],
+      "quote": "於是民爭出自效，不數日，六十就擒，餘眾悉散。",
+      "battle": "CAMPAIGN-SONG192-GANZHOU-LIU60",
+      "battle_reason": "官民处置、捕乱与叛众解散为完整平乱行动链。"
+    },
+    {
+      "id": "CHF-SONG-192-016",
+      "time": [
+        "1296-11",
+        "1296-11",
+        "month"
+      ],
+      "action": "增海运明年粮额",
+      "result": "次年海运粮增至六十万石",
+      "cost": "海运六十万石",
+      "groups": [
+        "海运役户",
+        "大都供粮受众"
+      ],
+      "quote": "增海運明年糧六十萬石。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "SONG192-FIN-SEA-GRAIN",
+        "candidate": "SONG192-FIN-SEA-GRAIN",
+        "observations": {
+          "direct_result": "增海运粮",
+          "benefit": "供粮增加",
+          "cost": "六十万石运输",
+          "implementation": "朝廷增额",
+          "counterparty": "无",
+          "time_boundary": "次年"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-017",
+      "time": [
+        "1297-03",
+        "1297-03",
+        "month"
+      ],
+      "action": "整顿监察体系的苛察与告讦风气",
+      "result": "对以苛为明、迫亲属互证等做法提出禁戒",
+      "groups": [
+        "被监察官民",
+        "御史"
+      ],
+      "quote": "乃者御史不存大體，按巡以苛為明，征贓以多為功，至有迫子證父、弟證兄、奸訐主者，傷風敗教，莫茲為甚！",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG192-POL-CENSORSHIP",
+        "candidate": "SONG192-POL-CENSORSHIP",
+        "observations": {
+          "direct_result": "戒止苛察告讦",
+          "benefit": "整肃监察风气",
+          "cost": "未载",
+          "implementation": "御史大夫训谕",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    },
+    {
+      "id": "CHF-SONG-192-018",
+      "time": [
+        "1297-03",
+        "1297-05",
+        "range"
+      ],
+      "action": "五台佛寺劳役争议经御史谏止与河决修塞并存",
+      "result": "帝认可御史批评并复其职；汴梁河决另发三万人堵塞",
+      "cost": "寺役数万人；河工三万人",
+      "groups": [
+        "附近州县民",
+        "汴梁河工役夫"
+      ],
+      "quote": [
+        "御史之言是也。」乃罷萬僧，復元禮職。",
+        "河決汴梁，發民三萬人塞之。"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "寺役批评得到认可，但没有记载寺工停罢；河决修塞是独立救灾工程，结果未载，保留背景。"
+        ]
+      ],
+      "unknown": [
+        "佛寺工程后续处置未载",
+        "河决修塞成效未载"
+      ]
+    },
+    {
+      "id": "CHF-SONG-192-019",
+      "time": [
+        "1297-06",
+        "1297-06",
+        "month"
+      ],
+      "action": "臧梦解按治临江总管贪赃",
+      "result": "吏治获得澄清",
+      "groups": [
+        "临江路民",
+        "地方官吏"
+      ],
+      "quote": "夢解按其贓罪，吏治以澄。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "SONG192-POL-LINJIANG",
+        "candidate": "SONG192-POL-LINJIANG",
+        "observations": {
+          "direct_result": "按治贪赃",
+          "benefit": "吏治澄清",
+          "cost": "未载",
+          "implementation": "廉访按治",
+          "counterparty": "无",
+          "time_boundary": "当月"
+        }
+      }
+    }
+  ]
+}

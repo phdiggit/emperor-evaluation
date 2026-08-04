@@ -1,0 +1,1282 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "FIVE-DYNASTIES-ZZTJ-272-1",
+  "status": "shadow",
+  "task_code": "FIVE-DYNASTIES-ZZTJ-272-MULTIDOMAIN",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷272",
+    "revision_ref": "1554183",
+    "start_locator": "后唐庄宗同光元年二月",
+    "end_locator": "后唐庄宗同光元年十二月",
+    "overlap_context": "续接卷271安义军继承叛乱、梁晋德胜对峙、契丹幽州线与前蜀失政；后梁灭亡后的中原接收、安义余乱和荆南备战交卷273续读。",
+    "input_fingerprint": "e8927f5d76e8e55e11a305dfb0402db7d7dc9b4802ec0b756e8702c52aaa7107"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-272-WUYUE-KINGDOM-923",
+      "time": "同光元年二月",
+      "loc": [
+        "吴越"
+      ],
+      "action": "钱镠受梁册命后正式建吴越国，设置近天子制的仪卫、政令名称和百官。",
+      "result": "吴越由军镇名义转为王国体制，但不改元。",
+      "quote": [
+        "卯，鏐始建國",
+        "事。置百官，有"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存政权体制升格，不将普通官员名单拆分。"
+        ]
+      ],
+      "unknown": [
+        "制度实际运行变化未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LI-JITAO-DEFECTS-LIANG-923",
+      "time": "同光元年三月",
+      "loc": [
+        "泽州",
+        "潞州",
+        "大梁"
+      ],
+      "action": "李继韬受魏琢、申蒙及其弟劝说，以泽潞降梁并送二子为质。",
+      "result": "梁改安义为匡义并授李继韬节度使，卷271安义继承危机转为公开叛晋。",
+      "quote": [
+        "請以澤潞為梁臣",
+        "繼韜以二子為質"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接卷271李继韬被迫获任后的不安与叛离。"
+        ]
+      ],
+      "unknown": [
+        "泽潞属军支持程度未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-ZEZHOU-RESISTANCE-923",
+      "time": [
+        "同光元年三月",
+        "同光元年八月",
+        "range"
+      ],
+      "loc": [
+        "泽州"
+      ],
+      "action": "裴约拒随李继韬降梁，据泽州自守；梁董璋围攻，唐援未至城陷。",
+      "result": "泽州被梁攻陷，裴约战死。",
+      "quote": [
+        "遂據州自守",
+        "史，將兵攻之",
+        "城已陷，約死"
+      ],
+      "battle": "CAMPAIGN-ZEZHOU-RESISTANCE-923",
+      "unknown": [
+        "围城兵力、伤亡和城内损害未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-KHITAN-RAIDS-YOUYI-923",
+      "time": [
+        "同光元年三月",
+        "同光元年闰四月",
+        "range"
+      ],
+      "loc": [
+        "幽州",
+        "易州",
+        "定州"
+      ],
+      "action": "契丹两度入寇幽州并深入易定，唐以病中的李存审赴镇防守。",
+      "result": "契丹第二次至易定后撤回；幽州馈运持续遭钞掠。",
+      "cost": "幽州存粮不足半年，军民与运输损失未量化。",
+      "quote": [
+        "\n契丹寇幽州",
+        "至易定而還",
+        "鈔掠饋運，幽州食不支半年"
+      ],
+      "battle": "CAMPAIGN-KHITAN-YOUZHOU-923",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存入寇造成的粮运和存粮压力。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力、伤亡和被掠数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LATER-TANG-FOUNDATION-923",
+      "time": "同光元年四月",
+      "loc": [
+        "魏州"
+      ],
+      "action": "李存勖筑坛即皇帝位，国号大唐、改元并建立中央官署。",
+      "result": "晋政权转为后唐王朝，当时控制十三节度、五十州。",
+      "quote": [
+        "遂即皇帝位，國號大唐",
+        "唐國所有凡十三節度、五十州"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-LATER-TANG-FOUNDATION-923",
+        "candidate": "POL-CAND-LATER-TANG-FOUNDATION-923",
+        "summary": "李存勖在魏州称帝建立后唐中央体制。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "建国与称帝",
+          "decision_question": "是否完成卷271已启动的称帝准备。",
+          "alternatives": "继续晋王体制或即帝位。",
+          "decision": "即位、改元并置中央官署。",
+          "direct_result": "后唐建立。",
+          "power_change": "李存勖由晋王转为皇帝。",
+          "risk_or_damage": "初期地域有限且梁、契丹、潞州威胁并存。",
+          "follow_up": "本卷随后灭梁并接收中原。"
+        }
+      }
+    },
+    {
+      "id": "CHF-ZZTJ-272-LATER-TANG-CENTRAL-RIVALRIES-923",
+      "time": "同光元年四月",
+      "loc": [
+        "魏州"
+      ],
+      "action": "郭崇韬压低李绍宏旧位并拒孔谦任租庸使，军国机政集中于郭崇韬。",
+      "result": "李绍宏、孔谦均不满，中央权力竞争形成。",
+      "quote": [
+        "軍國機政皆崇韜掌之",
+        "之，謙亦不悅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存新朝中枢权力配置及不满线索。"
+        ]
+      ],
+      "unknown": [
+        "不满当期是否转化为行动未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-YUNZHOU-NIGHT-ASSAULT-923",
+      "time": "同光元年闰四月",
+      "loc": [
+        "杨刘",
+        "郓州"
+      ],
+      "action": "李嗣源率五千精兵雨夜渡河，李从珂先登杀守卒、开门纳军，攻取郓州牙城。",
+      "result": "梁守将逃大梁，唐占郓州；李嗣源禁焚掠并安抚吏民。",
+      "cost": "梁守卒伤亡未载，郓州未遭焚掠。",
+      "quote": [
+        "部精兵五千",
+        "李從珂先登，殺守卒",
+        "入，遂拔牙城",
+        "禁焚掠，撫吏民"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-YUNZHOU-923",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存奇袭后接管与安抚。"
+        ]
+      ],
+      "unknown": [
+        "守卒和唐军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LIANG-COMMAND-CRISIS-923",
+      "time": "同光元年闰四月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "梁失郓州后处死失守将领；敬翔以自缢相逼，促梁主任王彦章为招讨使。",
+      "result": "王彦章取代戴思远，段凝为副。",
+      "quote": [
+        "斬劉遂嚴、燕顒於市",
+        "非用王彥章為大將，不可救也",
+        "也。」梁主從之，"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存危机问责与临阵换帅。"
+        ]
+      ],
+      "unknown": [
+        "处死是否经审讯未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-WU-REFUSES-FLEET-923",
+      "time": "同光元年五月",
+      "loc": [
+        "吴"
+      ],
+      "action": "后唐邀吴共同攻梁；徐温拟以舟师北上援助胜方，经严可求指出风险后停止。",
+      "result": "吴未出兵介入唐梁决战。",
+      "quote": [
+        "北，助其勝者",
+        "拒之？」溫乃止。\n<"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存吴对唐梁决战的外交军事选择。"
+        ]
+      ],
+      "unknown": [
+        "吴是否另有边境部署未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-DESHENG-SOUTH-FALLS-923",
+      "time": "同光元年五月",
+      "loc": [
+        "杨村",
+        "德胜南城"
+      ],
+      "action": "王彦章以六百斧手和精兵夜断浮桥，突击德胜南城。",
+      "result": "德胜南城被梁攻破，潘张、麻家口、景店诸寨继失。",
+      "cost": "唐军被斩数千级。",
+      "quote": [
+        "命甲士六百",
+        "南城遂破，斬首數千級",
+        "寨，皆拔之，聲"
+      ],
+      "battle": "CAMPAIGN-LIANG-YANGLIU-923",
+      "unknown": [
+        "梁军损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-DESHENG-EVACUATION-923",
+      "time": "同光元年五月",
+      "loc": [
+        "德胜北城",
+        "澶州",
+        "黄河"
+      ],
+      "action": "李存勖命放弃德胜北城，以屋材作筏转运军械与物资；梁军亦撤材顺流追战。",
+      "result": "双方沿河一日百战互有胜负，唐转运物资耗失近半，士卒近半死亡。",
+      "cost": "唐芻粮薪炭损失近半，双方舟战损失未完全分列。",
+      "quote": [
+        "所耗失殆半",
+        "沒，一日百戰",
+        "殆亡士卒之半"
+      ],
+      "battle": "CAMPAIGN-LIANG-YANGLIU-923",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存军事撤运的直接物资损失。"
+        ]
+      ],
+      "unknown": [
+        "双方各自死亡数和物资绝对量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-YANGLIU-SIEGE-923",
+      "time": [
+        "同光元年五月",
+        "同光元年七月",
+        "range"
+      ],
+      "loc": [
+        "杨刘",
+        "黄河"
+      ],
+      "action": "王彦章、段凝以十万军昼夜围攻杨刘并以巨舰断援，李周固守；唐军随后救援反击。",
+      "result": "梁未克杨刘，七月解围退杨村；唐军复屯德胜。",
+      "cost": "梁前后死于矢石、溺水和饥渴者近万人，弃资粮军械以千计；城中断粮三日。",
+      "quote": [
+        "以十萬之眾攻楊劉",
+        "彥章不能克",
+        "未，解楊劉圍",
+        "死者且萬人",
+        "城中無食已三日"
+      ],
+      "battle": "CAMPAIGN-LIANG-YANGLIU-923",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存围城断粮与军资损失。"
+        ]
+      ],
+      "unknown": [
+        "唐军准确伤亡和城内民众情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-MAJIAKOU-FORT-923",
+      "time": "同光元年六月",
+      "loc": [
+        "马家口",
+        "博州东岸"
+      ],
+      "action": "郭崇韬率万人夜赴马家口，昼夜筑城六日；王彦章数万军急攻新城。",
+      "result": "未完备的新城守住，唐援抵达后梁解围，郓州交通恢复。",
+      "cost": "动员万人，攻守伤亡未载。",
+      "quote": [
+        "將萬人夜發",
+        "築城晝夜不息",
+        "築新城凡六日",
+        "渡，彥章解圍"
+      ],
+      "battle": "CAMPAIGN-LIANG-YANGLIU-923",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "军事筑城建成并立即运行，独立长期效益未载。"
+        ]
+      ],
+      "unknown": [
+        "材料数量、伤亡和后续存续未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-QINGQIU-BATTLE-923",
+      "time": "同光元年七月",
+      "loc": [
+        "清丘驿南"
+      ],
+      "action": "唐游弈将李绍兴攻击梁游兵。",
+      "result": "梁游兵败，段凝误判唐军已从上流渡河。",
+      "quote": "李紹興敗梁遊兵於清丘驛南",
+      "battle": "CAMPAIGN-LIANG-YANGLIU-923",
+      "unknown": [
+        "双方兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-WANG-YANZHANG-REMOVED-923",
+      "time": "同光元年七月",
+      "loc": [
+        "杨村",
+        "大梁"
+      ],
+      "action": "赵岩、张汉杰与段凝因畏惧、嫉妒而阻挠并夺取王彦章战功，梁主信谗召回王彦章。",
+      "result": "梁最有战绩的前线主将被调去会攻泽州。",
+      "quote": [
+        "百方沮撓之",
+        "村，梁主信讒",
+        "制，征還大梁"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存权臣干预前线指挥的直接后果。"
+        ]
+      ],
+      "unknown": [
+        "梁主是否核查战报未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LU-CHENG-DISMISSED-923",
+      "time": "同光元年七月",
+      "loc": [
+        "兴唐府"
+      ],
+      "action": "宰相卢程因私事鞭府吏并辱任团，李存勖欲令自尽，经卢质救免。",
+      "result": "卢程被贬右庶子。",
+      "quote": [
+        "應，鞭吏背。光",
+        "卿！」欲賜自盡；",
+        "乃貶右庶子"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存宰相滥权后受处分及减刑。"
+        ]
+      ],
+      "unknown": [
+        "受鞭府吏伤情未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LIANG-DIVERTS-YELLOW-RIVER-923",
+      "time": "同光元年八月",
+      "loc": [
+        "滑州",
+        "曹州",
+        "濮州",
+        "郓州"
+      ],
+      "action": "梁主命在滑州决黄河，使河水东注曹、濮、郓以阻唐军。",
+      "result": "形成军事水障，后文显示段凝援军也受决河阻隔。",
+      "cost": "沿线水害范围、人口和田亩损失未载。",
+      "quote": "於滑州決河，東注曹、濮及鄆以限唐兵",
+      "battle": "CAMPAIGN-LIANG-RIVER-DEFENSE-923",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "人为决河属于军事工程，民生损害未量化。"
+        ]
+      ],
+      "unknown": [
+        "决口位置、淹没面积和民众损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-DUAN-NING-COMMAND-923",
+      "time": "同光元年八月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "段凝厚赂赵岩、张汉杰求招讨使，梁主无视敬翔、李振、张宗奭反对而任用。",
+      "result": "段凝取代王彦章统率北面大军，宿将与士卒不服。",
+      "quote": [
+        "厚賂趙、張求為招討使",
+        "竟代王彥章",
+        "士卒亦不服"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存受贿用将与军心后果。"
+        ]
+      ],
+      "unknown": [
+        "贿赂数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-DUAN-NING-RAIDS-923",
+      "time": [
+        "同光元年八月",
+        "同光元年九月",
+        "range"
+      ],
+      "loc": [
+        "王村",
+        "高陵津",
+        "澶州",
+        "顿丘",
+        "临河南"
+      ],
+      "action": "段凝率五万军渡河，剽掠澶州诸县并推进至顿丘、临河南。",
+      "result": "澶西、相南持续遭寇掠，但未与唐主力决战。",
+      "cost": "地方被掠，人员与财产损失未载。",
+      "quote": [
+        "將全軍五萬",
+        "剽掠澶州諸縣",
+        "南，日有寇掠"
+      ],
+      "battle": "CAMPAIGN-LIANG-DUAN-NING-923",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存县域遭持续剽掠的直接损害。"
+        ]
+      ],
+      "unknown": [
+        "被掠村县、人口和财物数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-KANG-YANXIAO-DEFECTS-923",
+      "time": "同光元年八月",
+      "loc": [
+        "朝城"
+      ],
+      "action": "梁先锋康延孝率百余骑降唐，详陈梁政权、将帅和十月分兵计划。",
+      "result": "李存勖获得梁内部兵力与大梁空虚情报，并任康延孝为南面招讨都指挥使。",
+      "quote": [
+        "帥百餘騎來奔",
+        "願陛下養勇蓄力以待其分兵"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存关键投诚与决战情报输入。"
+        ]
+      ],
+      "unknown": [
+        "所报梁兵数字的独立核验未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-SHU-COURT-CAPTURE-923",
+      "time": "同光元年九月",
+      "loc": [
+        "成都",
+        "宣华苑"
+      ],
+      "action": "前蜀狎客、枢密使专权迎合，宰相不敢规正；多次切谏均未被采用。",
+      "result": "嘉王王宗寿公开哭谏社稷将危，仍被谐笑敷衍。",
+      "quote": [
+        "專斷國家，恣為威虐",
+        "祿，無敢規正",
+        "亦不能用也",
+        "因諧笑而罷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接卷271前蜀拒谏、卖官和奢纵线。"
+        ]
+      ],
+      "unknown": [
+        "各项谏言是否产生局部调整未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LATER-TANG-FISCAL-CRISIS-923",
+      "time": "同光元年九月",
+      "loc": [
+        "河北",
+        "朝城"
+      ],
+      "action": "唐因战败损失数百万刍粮，孔谦暴征供军。",
+      "result": "民众大量流亡、税源减少，仓储不足半年。",
+      "cost": "刍粮损失数百万，具体征收与流亡人数未载。",
+      "quote": [
+        "喪芻糧數百萬",
+        "暴斂以供軍",
+        "民多流亡，租稅益少",
+        "積不支半歲"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-LATER-TANG-WAR-FINANCE-923",
+        "candidate": "FIN-CAND-LATER-TANG-WAR-FINANCE-923",
+        "summary": "后唐战时粮储损失与暴征形成流民、税减和仓储危机。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "德胜失利且泽潞未下，军粮持续消耗。",
+          "fiscal_state": "损失刍粮数百万，仓廪不足半年。",
+          "livelihood_state": "暴征导致民多流亡。",
+          "production_circulation": "税源减少，秋谷不登；其他指标未载。"
+        }
+      },
+      "unknown": [
+        "数百万单位、各地流亡人数和仓粮绝对量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-DECISION-STRIKE-DALIANG-923",
+      "time": "同光元年九月",
+      "loc": [
+        "朝城"
+      ],
+      "action": "诸将主张弃郓州议和，郭崇韬主张趁大梁空虚直取；李存勖拒绝天象警告，决定孤注一掷。",
+      "result": "唐确定留守魏、杨刘，主力与郓州合势突袭大梁。",
+      "quote": [
+        "請以易衛州及黎陽於梁",
+        "勢，長驅入汴",
+        "虜，吾行決矣"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-LATER-TANG-DALIANG-DECISION-923",
+        "candidate": "POL-CAND-LATER-TANG-DALIANG-DECISION-923",
+        "summary": "李存勖在粮尽与多线受敌压力下选择直取大梁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "战争战略决策",
+          "decision_question": "弃郓议和还是冒险突击大梁。",
+          "alternatives": "以河为界休兵积财，或直取大梁。",
+          "decision": "采用郭崇韬、康延孝的突击方案。",
+          "direct_result": "唐军十月渡河进军。",
+          "power_change": "决策权由大会转为李存勖与郭崇韬核心。",
+          "risk_or_damage": "失败可能导致粮尽众散与家属自焚。",
+          "follow_up": "本卷后续灭梁。"
+        }
+      }
+    },
+    {
+      "id": "CHF-ZZTJ-272-DIFANG-BATTLE-923",
+      "time": "同光元年九月",
+      "loc": [
+        "递坊镇",
+        "汶水",
+        "郓州"
+      ],
+      "action": "王彦章越汶水攻郓州，李从珂率骑兵迎击其前锋。",
+      "result": "梁前锋败，唐获三百人、斩二百级，王彦章退中都。",
+      "quote": [
+        "敗其前鋒於遞坊鎮",
+        "獲將士三百人，斬首二百級"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-DALIANG-923",
+      "unknown": [
+        "唐军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-ZHONGDU-BATTLE-923",
+      "time": "同光元年十月",
+      "loc": [
+        "郓州",
+        "汶水",
+        "中都"
+      ],
+      "action": "唐军渡河经郓州夜进，击败梁军并追围中都。",
+      "result": "梁军溃败，王彦章等二百余人被擒，梁军被斩数千级。",
+      "cost": "梁被斩数千、俘二百余；唐军损失未载。",
+      "quote": [
+        "兵，一戰敗之",
+        "之，追至中都",
+        "躓，遂擒之，並"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-DALIANG-923",
+      "unknown": [
+        "双方总兵力和唐军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-RUSH-DALIANG-923",
+      "time": "同光元年十月",
+      "loc": [
+        "中都",
+        "大梁"
+      ],
+      "action": "多数将领主张先广地，康延孝、李嗣源主张趁段凝未回援昼夜直趋大梁，李存勖采纳。",
+      "result": "李嗣源率前军倍道，大军直接越过梁空镇进攻都城。",
+      "quote": [
+        "曰：「兵貴神速。",
+        "請陛下以大軍徐進，臣願以千騎前驅",
+        "驅。」帝從之。令"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "同一决战内的临机进军选择，结果由后续攻汴事实承载。"
+        ]
+      ],
+      "unknown": [
+        "实际行军日里程未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LIANG-PURGES-PRINCES-923",
+      "time": "同光元年十月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "唐军将至，梁主疑宗室乘危作乱，杀幽禁诸兄弟及皇弟。",
+      "result": "梁宗室多名成员在亡国前被内部处死。",
+      "cost": "朱友诲、友谅、友能、友雍、友徽等死亡。",
+      "quote": "並皇弟賀王友雍、建王友徽盡殺之",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存亡国危机中的宗室清洗。"
+        ]
+      ],
+      "unknown": [
+        "其他被杀人员及执行方式未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LIANG-RULER-DIES-923",
+      "time": "同光元年十月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "梁主拒降又不能自裁，迫皇甫麟弑己，皇甫麟随后自杀。",
+      "result": "后梁最高统治者死亡，中央失去抵抗核心。",
+      "cost": "梁主朱友贞、皇甫麟死亡。",
+      "quote": [
+        "麟遂弒梁主",
+        "主，因自殺。梁"
+      ],
+      "battle": "CAMPAIGN-LIANG-CAPITAL-COLLAPSE-923",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "武装弑君直接终结梁中央。"
+        ]
+      ],
+      "unknown": [
+        "宫城内其他冲突未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LATER-TANG-TAKES-DALIANG-923",
+      "time": "同光元年十月",
+      "loc": [
+        "封丘门",
+        "大梁"
+      ],
+      "action": "李嗣源军攻封丘门，王瓒开门投降；唐军入城安抚军民，李存勖随后入城。",
+      "result": "后唐占领大梁，后梁灭亡，梁百官获准复位待用。",
+      "quote": [
+        "攻封丘門，王瓚開門出降",
+        "城，撫安軍民",
+        "帝入自梁門"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-DALIANG-923",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-LIANG-FALL-923",
+        "candidate": "POL-CAND-LIANG-FALL-923",
+        "summary": "后唐攻入大梁并接管后梁中央。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政权灭亡与接收",
+          "decision_question": "如何接管梁都及官僚。",
+          "alternatives": "强攻、屠掠或受降安抚。",
+          "decision": "受王瓒开门投降并安抚军民。",
+          "direct_result": "大梁归唐、后梁灭亡。",
+          "power_change": "中原中央权力转入后唐。",
+          "risk_or_damage": "后续清洗特定梁臣，范围另载。",
+          "follow_up": "梁藩镇陆续入朝或上表。"
+        }
+      },
+      "unknown": [
+        "入城过程伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LIANG-ELITE-CLEANUP-923",
+      "time": "同光元年十月",
+      "loc": [
+        "大梁",
+        "许州"
+      ],
+      "action": "敬翔自缢；赵岩逃许州后被斩，财货没收。",
+      "result": "梁核心权臣退出，李振选择入朝。",
+      "cost": "敬翔、赵岩死亡。",
+      "quote": [
+        "乎！」乃縊而死。",
+        "第，斬首來獻",
+        "盡沒巖所繼之貨"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存梁亡后核心人物不同结局。"
+        ]
+      ],
+      "unknown": [
+        "没收财货数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-DUAN-NING-SURRENDERS-923",
+      "time": "同光元年十月",
+      "loc": [
+        "滑州",
+        "封丘"
+      ],
+      "action": "段凝率五万援军渡河，前锋杜晏球先降，段凝亦解甲请降。",
+      "result": "梁河上主力整体归唐，士卒获准复所。",
+      "quote": [
+        "珂，晏球先降",
+        "五萬至封丘，亦解甲請降"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-DALIANG-923",
+      "unknown": [
+        "投降过程中是否有零星交战未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LATER-TANG-PURGE-AMNESTY-923",
+      "time": "同光元年十月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "后唐下诏族诛赵岩等特定梁要人、废梁帝庙号，同时对其余文武将吏一切不问。",
+      "result": "接收政策形成有限清洗与大范围留任并行。",
+      "cost": "被族诛人数未载。",
+      "quote": [
+        "並族誅於市",
+        "自餘文武將吏一切不問"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存选择性清洗和普遍赦免的边界。"
+        ]
+      ],
+      "unknown": [
+        "族诛家属人数与执行范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LU-SIDUO-PARDONED-923",
+      "time": "同光元年十月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "李存勖向曾射中自己马鞍的降将陆思铎出示旧箭，随后赦免并授军职。",
+      "result": "陆思铎免罪并任龙武右厢都指挥使。",
+      "quote": [
+        "帝慰而釋之",
+        "授龍武右廂都指揮使"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存对旧敌将的个案宽免和吸纳。"
+        ]
+      ],
+      "unknown": [
+        "任用后的实际表现未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LIANG-WARLORDS-BRIBE-923",
+      "time": [
+        "同光元年十月",
+        "同光元年十一月",
+        "range"
+      ],
+      "loc": [
+        "大梁"
+      ],
+      "action": "袁象先、温韬等梁藩镇携巨额财货贿赂刘夫人、权贵、伶宦。",
+      "result": "袁象先迅速获誉宠，温韬虽盗掘唐陵仍被赦回镇。",
+      "cost": "袁象先珍货数十万，温韬贿赂数额未载。",
+      "quote": [
+        "輦珍貨數十萬，遍賂",
+        "多繼金帛賂劉夫人及權貴伶宦",
+        "其罪。」竟遣之。\n<"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存新朝接收中贿赂影响任用与追责。"
+        ]
+      ],
+      "unknown": [
+        "财货单位及受贿者各自所得未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-SPARE-ZHU-WEN-TOMB-923",
+      "time": "同光元年十月",
+      "loc": [
+        "梁太祖墓"
+      ],
+      "action": "李存勖欲发墓焚朱温尸，张全义劝以死者不可加刑，主张止于毁家。",
+      "result": "李存勖停止焚尸，只铲墓阙室、削封树。",
+      "quote": "乞免焚斫以存聖恩",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存报复行动经劝谏被限缩。"
+        ]
+      ],
+      "unknown": [
+        "墓葬其他部分损毁程度未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-TANG-WU-DIPLOMACY-923",
+      "time": "同光元年十月",
+      "loc": [
+        "后唐",
+        "吴"
+      ],
+      "action": "后唐灭梁后向吴、蜀宣谕；吴拒受诏书，双方改用敌国书礼。",
+      "result": "吴维持独立王国礼仪，以卑辞厚礼保境待变。",
+      "quote": [
+        "詔，吳人不受",
+        "帝易其書，用敵國之禮"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存灭梁后唐吴名分交涉。"
+        ]
+      ],
+      "unknown": [
+        "双方后续军事部署未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-ZHONG-TAIZHANG-CASE-923",
+      "time": "同光元年十月",
+      "loc": [
+        "寿州",
+        "金陵"
+      ],
+      "action": "钟泰章被告侵市官马后调饶州，拒绝自辩；徐知诰欲治罪，徐温以旧恩阻止。",
+      "result": "钟泰章未被治罪，并以婚姻与徐氏和解。",
+      "quote": [
+        "三，皆不對。或",
+        "貴，安可負之",
+        "娶其女以解之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存军将问责因旧恩而停止。"
+        ]
+      ],
+      "unknown": [
+        "侵市官马指控是否属实未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-SHU-ZHANG-YUN-EXILED-923",
+      "time": "同光元年十月",
+      "loc": [
+        "前蜀",
+        "黎州"
+      ],
+      "action": "张云以彗星源于百姓怨气、祈禳无用进谏，蜀主发怒流放。",
+      "result": "张云死于流放途中，前蜀继续拒绝亡国预警。",
+      "cost": "谏官死亡。",
+      "quote": [
+        "百姓怨氣上徹於天",
+        "流雲黎州，卒於道"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接前蜀拒谏线，不采信祥异本身为因果。"
+        ]
+      ],
+      "unknown": [
+        "张云具体死因未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-PLAYERS-CAPTURE-COURT-923",
+      "time": "同光元年十一月",
+      "loc": [
+        "后唐宫廷"
+      ],
+      "action": "李存勖宠信伶人，景进以耳目身份进谗干政，藩镇竞相行贿。",
+      "result": "将相惧怕景进，孔谦等权臣依附伶人。",
+      "quote": [
+        "慝，干預政事",
+        "將相大臣皆憚之",
+        "爭以貨賂結之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存新朝伶人干政与贿赂网络。"
+        ]
+      ],
+      "unknown": [
+        "具体干预案件和收贿数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-HUNT-DAMAGES-CROPS-923",
+      "time": "同光元年十一月",
+      "loc": [
+        "中牟"
+      ],
+      "action": "李存勖打猎践踏民田，中牟令当面谏止；皇帝一度欲杀，伶人反讽后释放。",
+      "result": "县令免死，但未载赔偿或停止践田。",
+      "cost": "民田受损，面积和粮损未载。",
+      "quote": [
+        "畋於中牟，踐民稼",
+        "帝笑而釋之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存农田直接损害，不能虚构纠偏结果。"
+        ]
+      ],
+      "unknown": [
+        "受损田亩、农户数和补偿未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-CIVIL-SERVICE-CUTS-923",
+      "time": "同光元年十一月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "因国用不足，后唐裁停三省、寺监及武官冗员，待现任满二十五个月轮补。",
+      "result": "裁官方案获准，社会舆论多有咨怨。",
+      "quote": [
+        "以：「國用未充，",
+        "官，餘並停，俟",
+        "之。人頗咨怨"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "财政紧缩与人事影响明确，节支数额未载。"
+        ]
+      ],
+      "unknown": [
+        "裁撤人数和节省财政数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-MOVE-CAPITAL-LOYANG-923",
+      "time": [
+        "同光元年十一月",
+        "同光元年十二月",
+        "range"
+      ],
+      "loc": [
+        "大梁",
+        "洛阳"
+      ],
+      "action": "张全义请求迁都洛阳，李存勖采纳并在十二月抵达。",
+      "result": "后唐政治中心由兴唐、大梁转向洛阳。",
+      "quote": [
+        "請帝遷都洛陽，從之",
+        "庚午，至洛陽。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存迁都决策与实际到达。"
+        ]
+      ],
+      "unknown": [
+        "迁都成本和官民迁移规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-RESTORE-TANG-LAW-923",
+      "time": "同光元年十二月",
+      "loc": [
+        "定州",
+        "后唐中央"
+      ],
+      "action": "御史台指出现用梁法源于朱温删改，奏请从定州调取唐旧《律令格式》，李存勖采纳。",
+      "result": "后唐启动恢复唐旧法律文本。",
+      "quote": [
+        "所用皆偽廷之法",
+        "乞下本道錄進",
+        "道錄進。」從之。\n"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-LATER-TANG-LAW-RESTORATION-923",
+        "candidate": "POL-CAND-LATER-TANG-LAW-RESTORATION-923",
+        "summary": "后唐决定从定州调取并恢复唐旧律令格式。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "法律制度恢复",
+          "decision_question": "新朝继续用梁法还是恢复唐法。",
+          "alternatives": "沿用梁法或调取唐旧本。",
+          "decision": "命定州录进唐旧律令格式。",
+          "direct_result": "恢复程序启动，实际颁行未载。",
+          "power_change": "法律依据由梁制向唐制回归。",
+          "risk_or_damage": "旧本唯一性和版本完整度未载。",
+          "follow_up": "具体颁行交后卷。"
+        }
+      },
+      "unknown": [
+        "录进、校勘与正式施行日期未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-LI-JITAO-EXECUTED-923",
+      "time": "同光元年十二月",
+      "loc": [
+        "洛阳",
+        "天津桥",
+        "登州"
+      ],
+      "action": "李继韬携巨资入朝获释后，因不获归镇而密令军士纵火求复任。",
+      "result": "阴谋泄露，李继韬及二子被斩，李继远亦在上党被杀。",
+      "cost": "李继韬兄弟及二子死亡，所携财货去向未全载。",
+      "quote": [
+        "繼銀四十萬兩",
+        "教軍士縱火",
+        "尋斬於天津橋南，並其二子"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闭合卷271起的安义叛离与复镇阴谋。"
+        ]
+      ],
+      "unknown": [
+        "纵火是否实际实施未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-SHANGDANG-FAMILY-MUTINY-923",
+      "time": "同光元年十二月",
+      "loc": [
+        "上党",
+        "潞州"
+      ],
+      "action": "李继达率百骑攻牙宅斩李继俦；副使李继珂募千余市民反攻子城。",
+      "result": "李继达杀妻子后出逃，自刭；李嗣昭家族继承线以暴力崩解。",
+      "cost": "李继俦、李继达及李继达妻子死亡，其他伤亡未载。",
+      "quote": [
+        "帥麾下百騎",
+        "宅，斬繼儔。節",
+        "募市人，得千餘",
+        "皆散，乃自剄。\n"
+      ],
+      "battle": "CAMPAIGN-SHANGDANG-MUTINY-923",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "安义余乱的军府武装冲突与家族终局。"
+        ]
+      ],
+      "unknown": [
+        "市民军与百骑交战伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-272-GAO-JIXING-RELEASED-923",
+      "time": "同光元年十二月",
+      "loc": [
+        "洛阳",
+        "许州",
+        "襄州",
+        "江陵"
+      ],
+      "action": "李存勖欲留高季兴，郭崇韬以失信劝止；高季兴获释后急返江陵。",
+      "result": "高季兴回镇并判断后唐难久，开始缮城、积粟、招纳梁旧兵备战。",
+      "cost": "备战投入和招兵数量未载。",
+      "quote": [
+        "也。」乃遣之。季",
+        "繕城積粟，招納梁舊兵",
+        "為戰守之備"
+      ],
+      "battle": "CAMPAIGN-JINGNAN-DEFENSE-PREP-923",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "城防修缮启动，完工和运行效果交后卷。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存放归诸侯与荆南转入自主备战。"
+        ]
+      ],
+      "unknown": [
+        "城防工程、粮储和招兵规模未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "后梁已灭，但后唐接收藩镇、洛阳新政、安义余波和荆南战守准备须由卷273续接。",
+    "契丹本卷入寇后撤，下一阶段边患与幽州防务保持开放。",
+    "普通任免、封号、贡聘和祥异未单列；未知数量、因果与持续结果保持未知。"
+  ]
+}

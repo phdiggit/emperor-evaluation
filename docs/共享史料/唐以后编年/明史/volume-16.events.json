@@ -1,0 +1,849 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V16-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V16-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷16",
+    "revision_ref": "2594631",
+    "start_locator": "弘治十八年武宗即位",
+    "end_locator": "正德十六年武宗崩与世宗入立",
+    "overlap_context": "卷首复述卷15孝宗崩逝与朱厚照继位并显式duplicate-of；本卷登记正德朝刘瑾专权、民变战争、边战巡幸、豹房宫役、宁王叛乱与遗诏清理。",
+    "input_fingerprint": "41f89661e6e5a29bee5a090c221fa47ef4d50f93a44508577dc12714d1231a1b"
+  },
+  "limitations": [
+    "仅据固定《明史》卷16正文登记，未知保持未知。",
+    "普通任免、祭祀、贡聘和巡幸节点不单列；连续战争、灾赈、政治清洗、财政工程与继承按最小充分事件链合并。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V16-ZHENGDE-ACCESSION-1505",
+      "time": [
+        "弘治十八年五月",
+        "1505",
+        "month"
+      ],
+      "subject": "武宗朱厚照与孝宗朱祐樘",
+      "action": "孝宗崩后朱厚照即皇帝位，改明年为正德元年并大赦。",
+      "result": "朱厚照继承皇位；此为卷15孝宗崩逝传位事件复述锚点，duplicate-of CHF-MING-V15-XIAOZONG-DEATH-SUCCESSION-1505。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "十八年五月，孝宗崩。壬寅，即皇帝位。",
+        "以明年為正德元年，大赦天下"
+      ],
+      "unknown": [
+        "即位交接全部程序与孝宗遗诏全文未载。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-ACCESSION-ARREARS-RELIEF-1505",
+      "time": [
+        "弘治十八年五月至九月",
+        "1505",
+        "range"
+      ],
+      "subject": "武宗朝廷与全国欠赋民户、陕西饥民",
+      "action": "武宗即位时免除弘治十六年以前逋赋，并赈陕西饥荒。",
+      "result": "积欠赋税得到豁免，陕西饥民获得赈济。",
+      "groups": [
+        "欠赋民户",
+        "陕西饥民",
+        "农户"
+      ],
+      "quote": [
+        "除弘治十六年以前逋賦。",
+        "九月甲午，南京地震。丁酉，振陝西饑。"
+      ],
+      "unknown": [
+        "免赋与赈济总额、受益人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ACCESSION-ARREARS-RELIEF-1505",
+        "summary": "免旧逋赋并赈陕西饥民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-MONGOL-BORDER-WAR-1505",
+      "time": [
+        "弘治十八年五月至十月",
+        "1505",
+        "range"
+      ],
+      "subject": "朱晖、史琳等明军与小王子部",
+      "action": "小王子先后侵宣府、甘肃，张俊战败后朝廷遣朱晖、史琳等统军防御。",
+      "result": "明军完成边防调动后召还，战役终局未载。",
+      "cost": "张俊败绩；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "宣府甘肃边民"
+      ],
+      "quote": [
+        "小王子犯宣府，總兵官張俊敗績。",
+        "朱暉為征虜將軍，充總兵官，右都御史史琳提督軍務，禦之。",
+        "小王子犯甘肅。"
+      ],
+      "unknown": [
+        "兵力、伤亡、边民损失与防御结果未载。"
+      ],
+      "battle": "CAMPAIGN-MING-MONGOL-BORDER-1505",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-EIGHT-EUNUCHS-TAKEOVER-1506",
+      "time": [
+        "正德元年十月至十二月",
+        "1506",
+        "range"
+      ],
+      "subject": "刘瑾、马永成等宦官与刘健韩文等廷臣",
+      "action": "廷臣请诛八名乱政内臣不果，刘瑾掌司礼监，丘聚谷大用掌东西厂，张永魏彬控制京营；刘健谢迁去职、韩文被罢。",
+      "result": "宦官集团控制中枢侦缉与军权，反对廷臣退出。",
+      "groups": [
+        "宦官",
+        "内阁大学士",
+        "六部官员",
+        "京营军士"
+      ],
+      "quote": [
+        "請誅亂政內臣馬永成等八人",
+        "以劉瑾掌司禮監，丘聚、谷大用提督東、西廠",
+        "張永督十二團營兼神機營，魏彬督三千營，各據要地。",
+        "劉健、李東陽、謝遷乞去",
+        "辰，罷韓文。\n十"
+      ],
+      "unknown": [
+        "各宦官实际权限、财产与决策分工未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EIGHT-EUNUCHS-TAKEOVER-1506",
+        "summary": "刘瑾等宦官掌司礼厂卫京营并逐反对廷臣。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-LIU-JIN-PERSECUTION-1507-1509",
+      "time": [
+        "正德二年闰正月",
+        "正德四年十二月",
+        "range"
+      ],
+      "subject": "刘瑾集团与言官、廷臣、边镇官员",
+      "action": "刘瑾集团杖责言官，宣布刘健谢迁韩文等五十三人为党，令镇守太监预刑政，设内厂并逮捕削籍大批官员。",
+      "result": "厂卫与廷杖清洗扩大，六百七十五人最终被夺诰敕。",
+      "groups": [
+        "言官",
+        "中央地方官员",
+        "镇守太监",
+        "涉案家属"
+      ],
+      "quote": [
+        "杖給事中艾洪、呂翀、劉𦶜及南京給事中戴銑、御史薄彥徽等二十一人於闕下。",
+        "敕各鎮守太監預刑名政事。",
+        "立內廠，劉瑾領之。",
+        "下三百餘人於錦衣衞獄，尋釋之。",
+        "削劉健、謝遷籍。",
+        "奪劉健、謝遷等六百七十五人誥敕。"
+      ],
+      "unknown": [
+        "被清洗人员完整名单、死亡、籍没财产与冤案平反未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIU-JIN-PERSECUTION-1507-1509",
+        "summary": "刘瑾以内厂廷杖削籍扩大政治清洗。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-BORDER-WALL-TO-PALACE-1507",
+      "time": [
+        "正德二年六月至八月",
+        "1507",
+        "range"
+      ],
+      "subject": "武宗朝廷与边墙军民、豹房工程役户",
+      "action": "朝廷停止修边垣并将费用输送京师，随后营建豹房。",
+      "result": "边防工程资源转向宫廷建设。",
+      "groups": [
+        "边军",
+        "边墙役户",
+        "豹房工匠",
+        "京师民户"
+      ],
+      "quote": [
+        "罷修邊垣，輸其費於京師。",
+        "戌，作豹房。\n冬"
+      ],
+      "unknown": [
+        "转用金额、边墙停工范围、豹房用工费用与伤亡未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "BORDER-WALL-TO-PALACE-1507",
+        "summary": "停边墙并转费京师营建豹房。",
+        "continuity": "single_event",
+        "phase": "停边工并营建",
+        "purpose": "宫廷建设",
+        "operation_result": "豹房建成情况未载"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-MINING-OFFICE-SALES-1507-1508",
+      "time": [
+        "正德二年十二月",
+        "正德三年四月",
+        "range"
+      ],
+      "subject": "武宗朝廷与浙闽川滇矿户、纳银军民",
+      "action": "朝廷重开浙江福建四川银矿，并允许军民纳银取得都指挥佥事以下官职。",
+      "result": "矿课与卖官成为筹资渠道。",
+      "groups": [
+        "矿工",
+        "矿区民户",
+        "纳银军民",
+        "吏部兵部官员"
+      ],
+      "quote": [
+        "開浙江、福建、四川銀礦。",
+        "軍民納銀，得授都指揮僉事以下官。"
+      ],
+      "unknown": [
+        "矿税、纳银标准、授官人数与行政军事影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MINING-OFFICE-SALES-1507-1508",
+        "summary": "重开银矿并允许军民纳银授官。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-FAMINE-RELIEF-1508-1510",
+      "time": [
+        "正德三年九月",
+        "正德五年三月",
+        "range"
+      ],
+      "subject": "武宗朝廷与南京湖广河南凤阳浙江灾民",
+      "action": "朝廷连续赈南京、湖广、河南、凤阳、浙江等地饥荒，并在正德五年免正德三年逋赋。",
+      "result": "多地灾民获得赈济与旧欠减免。",
+      "groups": [
+        "饥民",
+        "欠赋民户",
+        "农户"
+      ],
+      "quote": [
+        "亥，振南京饑。\n",
+        "振湖廣、河南饑。",
+        "振鳳陽諸府饑。",
+        "三月甲辰，振浙江饑。",
+        "免正德三年逋賦。"
+      ],
+      "unknown": [
+        "赈粮免赋总额、死亡人数与受益户数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FAMINE-RELIEF-1508-1510",
+        "summary": "连续赈济多地并免正德三年逋赋。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-ANHUA-REBELLION-1510",
+      "time": [
+        "正德五年四月至正德六年二月",
+        "1510-1511",
+        "range"
+      ],
+      "subject": "仇钺、杨一清、张永等明军与安化王朱寘鐇",
+      "action": "安化王寘鐇杀巡抚和总兵起兵，朝廷发军征讨；仇钺突袭擒获寘鐇，宁夏旋即平定。",
+      "result": "安化王叛乱迅速被平，寘鐇次年伏诛。",
+      "cost": "安惟学、姜汉被杀；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "宁夏叛军",
+        "地方军民",
+        "宗室"
+      ],
+      "quote": [
+        "安化王寘鐇反，殺巡撫都御史安惟學、總兵官姜漢。",
+        "官，討寘鐇。辛",
+        "游擊將軍仇鉞襲執寘鐇，寧夏平。",
+        "，寘鐇伏誅。己"
+      ],
+      "unknown": [
+        "叛军规模、双方伤亡、地方损失与涉案处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-ANHUA-REBELLION-1510",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-LIU-JIN-DOWNFALL-1510",
+      "time": [
+        "正德五年八月至十月",
+        "1510",
+        "range"
+      ],
+      "subject": "武宗与刘瑾、张彩及刘瑾党羽",
+      "action": "刘瑾以谋反下狱伏诛，朝廷恢复正德二年以来变更政令，惩治刘瑾党并释放谪戍诸臣。",
+      "result": "刘瑾专权结束，其政治法令被撤销，部分受害官员获释。",
+      "groups": [
+        "宦官",
+        "中央地方官员",
+        "谪戍官员",
+        "涉案家属"
+      ],
+      "quote": [
+        "劉瑾以謀反下獄。",
+        "詔自正德二年後所更政令悉如舊。",
+        "治劉瑾黨，吏部尚書張綵下獄。",
+        "，劉瑾伏誅。己",
+        "釋謫戍諸臣。"
+      ],
+      "unknown": [
+        "刘瑾资产、党羽人数、恢复官员名单与法令复旧执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIU-JIN-DOWNFALL-1510",
+        "summary": "刘瑾伏诛、党羽被治并撤销其变政。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-DOMESTIC-REBELLIONS-1510-1513",
+      "time": [
+        "正德五年三月",
+        "正德八年十月",
+        "range"
+      ],
+      "subject": "陆完、陈金、彭泽等明军与山东河南江西四川等地起事军",
+      "action": "自山东至畿辅江淮楚蜀爆发大规模民变，起事军攻破九十余城、焚粮艘并杀官；明军分路追剿，至正德八年陆续平定。",
+      "result": "山东、河南、四川、江西主要起事军被击破，但战争波及广阔且损失严重。",
+      "cost": "多名官员将领战死；双方及民间总伤亡未载。",
+      "groups": [
+        "明军",
+        "各地起事军",
+        "城镇居民",
+        "漕运军民"
+      ],
+      "quote": [
+        "酉，江西賊熾，",
+        "賊犯文安，京師戒嚴。",
+        "賊焚糧艘於濟寧州。",
+        "至破九十餘城，道路梗絕。",
+        "陸完敗賊於萊州，山東賊平。",
+        "仇鉞敗賊於光山，河南賊平。",
+        "陸完追殲劉七等賊於狼山。",
+        "彭澤、時源討平四川賊。",
+        "俞諫連破賊於東鄉，江西賊平。"
+      ],
+      "unknown": [
+        "各地起事原因、兵力、伤亡、饥荒关联与战后安置未详。"
+      ],
+      "battle": "CAMPAIGN-MING-DOMESTIC-REBELLIONS-1510-1513",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-WAR-TAX-RELIEF-1511-1512",
+      "time": [
+        "正德六年三月",
+        "正德七年十二月",
+        "range"
+      ],
+      "subject": "武宗朝廷与两畿山东河南江西等被寇灾民",
+      "action": "朝廷免被寇州县一年税粮、赈两畿河南山东，并继续免河南江西浙江及多省灾寇税粮。",
+      "result": "大规模内乱期间受灾地区获得跨年赈免。",
+      "groups": [
+        "被寇民户",
+        "灾民",
+        "农户",
+        "流民"
+      ],
+      "quote": [
+        "免被寇州縣稅糧一年。",
+        "振兩畿、河南、山東。",
+        "免河南、江西、浙江被災寇者稅糧。",
+        "免兩畿、山東、山西、陝西被災寇者稅糧。"
+      ],
+      "unknown": [
+        "赈济免税总额、受益人数与战后复业效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WAR-TAX-RELIEF-1511-1512",
+        "summary": "内乱受灾州县获赈济与跨年免税。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-JIANG-BIN-MILITARY-POWER-1513",
+      "time": [
+        "正德八年正月至三月",
+        "1513",
+        "range"
+      ],
+      "subject": "武宗与江彬、许泰及京营宣府军",
+      "action": "武宗命江彬、许泰分领京营并设两官厅军，又设置镇国府处宣府官军。",
+      "result": "江彬等边将取得京营新军与宣府军控制权。",
+      "groups": [
+        "京营军士",
+        "宣府官军",
+        "边将",
+        "京师民众"
+      ],
+      "quote": [
+        "以邊將江彬、許泰分領京營，賜國姓。",
+        "尋設兩官廳軍，命彬、泰分領之。",
+        "置鎮國府處宣府官軍。"
+      ],
+      "unknown": [
+        "兵额、军费、指挥关系与对原京营影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIANG-BIN-MILITARY-POWER-1513",
+        "summary": "江彬许泰分领京营并新设两官厅军。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-HUANGLINGGANG-BREACH-1513",
+      "time": [
+        "正德八年六月",
+        "1513",
+        "month"
+      ],
+      "subject": "武宗朝廷与黄陵冈沿河军民",
+      "action": "黄河在黄陵冈决口。",
+      "result": "河防失守，但本卷未载治理行动与结果。",
+      "groups": [
+        "沿河灾民",
+        "漕运军民",
+        "河工役夫"
+      ],
+      "quote": [
+        "河決黃陵岡。"
+      ],
+      "unknown": [
+        "淹没范围、伤亡、损失、治河工程与费用均未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "HUANGLINGGANG-BREACH-1513",
+        "summary": "黄陵冈河决且治理未知。",
+        "continuity": "single_event",
+        "phase": "灾害",
+        "purpose": "河防",
+        "operation_result": "未知"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-HAMI-MONGOL-WAR-1513-1517",
+      "time": [
+        "正德八年八月",
+        "正德十二年四月",
+        "range"
+      ],
+      "subject": "彭泽、张永、郑廉等明军与土鲁番、小王子诸部",
+      "action": "土鲁番反复据哈密并侵肃州，小王子持续攻宣大宁武蓟州；明廷经略哈密、调京营防边，郑廉在瓜州击败土鲁番。",
+      "result": "土鲁番一度归还哈密后再据，明军取得瓜州胜利但西北边争未决。",
+      "cost": "芮宁被杀；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "哈密军民",
+        "土鲁番部众",
+        "蒙古诸部",
+        "边地民众"
+      ],
+      "quote": [
+        "土魯番襲據哈密。",
+        "小王子犯宣府、大同。",
+        "小王子入寧武關，掠忻州、定襄、寧化。",
+        "土魯番以哈密來歸。",
+        "，土魯番復據哈密",
+        "侵肅州，殺遊擊芮寧。",
+        "副總兵鄭廉敗土魯番於瓜州。"
+      ],
+      "unknown": [
+        "兵力、总伤亡、哈密控制变化与边民损失未详。"
+      ],
+      "battle": "CAMPAIGN-MING-HAMI-MONGOL-1513-1517",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-QIANQING-PALACE-TAX-1514",
+      "time": [
+        "正德九年正月至十二月",
+        "1514",
+        "range"
+      ],
+      "subject": "武宗朝廷与乾清宫工程、天下纳税民户",
+      "action": "乾清宫火灾后朝廷重建，并向天下加赋一百万。",
+      "result": "宫殿重建成本由新增全国赋税承担。",
+      "groups": [
+        "纳税民户",
+        "工程役户",
+        "工匠",
+        "内府官员"
+      ],
+      "quote": [
+        "辰，乾清宮災。\n",
+        "建乾清宮，加天下賦一百萬。"
+      ],
+      "unknown": [
+        "加赋单位、分摊方式、工程费用用工与完工时间未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "QIANQING-PALACE-TAX-1514",
+        "summary": "乾清宫灾后重建并加天下赋百万。",
+        "continuity": "single_event",
+        "phase": "灾后重建",
+        "purpose": "恢复宫殿",
+        "operation_result": "加赋筹资"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-RELIEF-1515-1518",
+      "time": [
+        "正德十年十二月",
+        "正德十三年正月",
+        "range"
+      ],
+      "subject": "武宗朝廷与南畿河南陕西湖广两畿山东灾民",
+      "action": "朝廷免南畿旱灾粮、赈河南陕西湖广饥荒，并赈两畿山东水灾、给京师流民粮及掩埋死者。",
+      "result": "多地旱水饥荒与京师流民获得连续赈恤。",
+      "groups": [
+        "灾民",
+        "流民",
+        "农户",
+        "死者家属"
+      ],
+      "quote": [
+        "免南畿旱災秋糧。",
+        "夏四月，振河南饑。",
+        "是月，振陝西饑。",
+        "副都御史吳廷舉振湖廣饑。",
+        "振兩畿、山東水災。",
+        "給京師流民米，人三斗。瘞死者。"
+      ],
+      "unknown": [
+        "赈济免税总额、死亡人数与流民安置结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RELIEF-1515-1518",
+        "summary": "多地灾荒与京师流民获赈免安葬。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-YINGZHOU-CAMPAIGN-1517",
+      "time": [
+        "正德十二年九月至十月",
+        "1517",
+        "range"
+      ],
+      "subject": "武宗亲军与小王子部",
+      "action": "武宗出居庸关、自称威武大将军，亲督诸军在阳和应州方向与小王子交战五日。",
+      "result": "小王子部撤退，武宗驻大同后返宣府。",
+      "cost": "双方伤亡未载。",
+      "groups": [
+        "明军",
+        "蒙古部众",
+        "宣大边民"
+      ],
+      "quote": [
+        "自稱總督軍務威武大將軍總兵官。",
+        "小王子犯陽和，掠應州。",
+        "親督諸軍禦之，戰五日。",
+        "寇引去，駐蹕大同。"
+      ],
+      "unknown": [
+        "双方兵力、伤亡、战果与边民损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-YINGZHOU-1517",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-YINGZHOU-REWARDS-1518",
+      "time": [
+        "正德十三年七月至九月",
+        "1518",
+        "range"
+      ],
+      "subject": "武宗与应州参战军官、近臣集团",
+      "action": "朝廷录应州功，叙荫升赏五万余人；武宗又以朱寿名义自封镇国公、岁支禄米五千石，并封朱彬朱泰。",
+      "result": "应州战功引发大规模升赏和新增爵禄。",
+      "groups": [
+        "参战军士",
+        "武官",
+        "近臣",
+        "财政承办民户"
+      ],
+      "quote": [
+        "錄應州功，敍廕陞賞者五萬餘人。",
+        "特加封鎮國公，歲支祿米五千石。",
+        "封朱彬為平虜伯，朱泰為安邊伯。"
+      ],
+      "unknown": [
+        "升赏总支出、受益人员结构与财政负担未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "YINGZHOU-REWARDS-1518",
+        "summary": "应州功升赏五万余人并新增爵禄。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-REMONSTRANCE-REPRESSION-1519",
+      "time": [
+        "正德十四年三月至四月",
+        "1519",
+        "range"
+      ],
+      "subject": "武宗与反对巡幸的黄巩、舒芬等官员",
+      "action": "武宗因官员谏阻巡幸，将多人下锦衣卫狱，罚跪并廷杖；张英自刃进谏后被杖杀，先后死亡十一人。",
+      "result": "反巡幸谏官遭大规模镇压。",
+      "cost": "张英被杖杀，另有十一人先后死亡。",
+      "groups": [
+        "谏官",
+        "锦衣卫",
+        "廷杖执行者",
+        "涉案家属"
+      ],
+      "quote": [
+        "以諫巡幸，下兵部郎中黃鞏六人於錦衣衞獄",
+        "跪修撰舒芬百有七人於午門五日。",
+        "張英自刃以諫",
+        "鞫治，杖殺之。",
+        "杖黃鞏等三十九人於闕下，先後死者十一人。"
+      ],
+      "unknown": [
+        "伤残人数、家属处置与后续平反未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "REMONSTRANCE-REPRESSION-1519",
+        "summary": "反巡幸谏官遭下狱廷杖并多人死亡。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-REFUGEE-RESETTLEMENT-1519",
+      "time": [
+        "正德十四年五月",
+        "1519",
+        "month"
+      ],
+      "subject": "武宗朝廷与山东山西陕西河南湖广返乡流民",
+      "action": "朝廷规定五省流民返业者由官府给粮食、房舍、牛种，并免役五年。",
+      "result": "返乡流民获得生产生活资料和长期免役。",
+      "groups": [
+        "流民",
+        "农户",
+        "地方官员"
+      ],
+      "quote": [
+        "山東、山西、陝西、河南、湖廣流民歸業者，官給廩食、廬舍、牛種，復五年。"
+      ],
+      "unknown": [
+        "返业人数、土地安排、物资总量与执行成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REFUGEE-RESETTLEMENT-1519",
+        "summary": "五省返业流民获粮舍牛种并免役五年。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-NING-REBELLION-1519-1520",
+      "time": [
+        "正德十四年六月",
+        "正德十五年十二月",
+        "range"
+      ],
+      "subject": "王守仁、孙燧等明军与宁王朱宸濠叛军",
+      "action": "宁王宸濠杀江西官员、攻陷南康九江并进犯安庆；王守仁收复南昌，在樵舍击败并擒宸濠。",
+      "result": "宁王叛乱被迅速击溃，宸濠次年伏诛。",
+      "cost": "孙燧、许逵等被杀；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "宁王叛军",
+        "江西地方民众",
+        "宗室"
+      ],
+      "quote": [
+        "寧王宸濠反，巡撫江西右副都御史孫燧、南昌兵備副使許逵死之。",
+        "寅，陷南康。己",
+        "卯，陷九江。\n秋",
+        "宸濠犯安慶",
+        "王守仁帥兵復南昌。",
+        "守仁敗宸濠於樵舍，擒之。",
+        "，宸濠伏誅。甲"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、地方损失与涉案官员处置全貌未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NING-REBELLION-1519-1520",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-HUAIYANG-FAMINE-1519-1520",
+      "time": [
+        "正德十四年",
+        "正德十五年四月",
+        "range"
+      ],
+      "subject": "武宗朝廷与淮扬人相食饥民",
+      "action": "淮扬发生人相食大饥，次年朝廷赈济淮扬诸府。",
+      "result": "严重饥荒在次年获得官方赈济。",
+      "groups": [
+        "饥民",
+        "农户",
+        "流民"
+      ],
+      "quote": [
+        "淮、揚饑，人相食。",
+        "振淮、揚諸府饑。"
+      ],
+      "unknown": [
+        "死亡人数、赈粮总额、响应延迟原因与恢复情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "HUAIYANG-FAMINE-1519-1520",
+        "summary": "淮扬人相食大饥后获赈济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V16-WUZONG-DEATH-REFORM-1521",
+      "time": [
+        "正德十六年三月至五月",
+        "1521",
+        "range"
+      ],
+      "subject": "武宗朱厚照、皇太后、内阁与世宗继承者",
+      "action": "武宗病危后承认前事皆误，遗诏召兴献王长子继位，并罢威武团营、遣边军、革皇店、放豹房人员、停不急工役及归还妇女；江彬等被捕。",
+      "result": "武宗崩于豹房，正德朝结束；遗诏清理巡幸宫市军役遗产，世宗入立。",
+      "groups": [
+        "皇室成员",
+        "内阁官员",
+        "边军",
+        "皇店商民",
+        "妇女",
+        "豹房人员"
+      ],
+      "quote": [
+        "前事皆由朕誤，非汝曹所能預也。",
+        "崩於豹房，年三十有一。",
+        "遺詔召興獻王長子嗣位。",
+        "罷威武團營，遣還各邊軍，革京城內外皇店",
+        "還四方所獻婦女，停不急工役",
+        "執江彬等下獄。",
+        "。世宗入立。五",
+        "廟號武宗，葬康陵。"
+      ],
+      "unknown": [
+        "病因、遗诏各项执行规模、妇女安置及江彬案后续未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WUZONG-DEATH-REFORM-1521",
+        "summary": "武宗崩逝，遗诏清理正德弊政并由世宗入立。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    }
+  ]
+}

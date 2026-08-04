@@ -1,0 +1,1432 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-002-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-002-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷002",
+    "revision_ref": "2259384",
+    "start_locator": "太宗元年即位前后",
+    "end_locator": "定宗崩后三岁无君",
+    "overlap_context": "续卷1拖雷监国；本卷合载太宗、乃马真后称制与定宗，卷3续宪宗。",
+    "input_fingerprint": "ea55a1adb128570673ca1e6e78d64326e8e1dbabbbc550cf441d4ed2ce69a540"
+  },
+  "limitations": [
+    "本卷合载太宗、乃马真后称制与定宗，纪年主体须按段区分。",
+    "战争兵力、屠掠、赋役执行与灾民数字多不完整，未知保持未知。",
+    "只登记共享事实与四域路由，不写正式事实、评分或数据库。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-002-OGEDEI-ACCESSION-1229",
+      "time": "太宗元年己丑八月",
+      "loc": [
+        "怯綠連河",
+        "庫鐵烏阿剌里"
+      ],
+      "action": "诸王百官依太祖遗诏大会，拥立窝阔台即皇帝位；始立朝仪，皇族尊属皆拜，并颁大札撒。",
+      "result": "拖雷监国过渡结束，窝阔台皇权与朝仪、法令正式确立。",
+      "quote": [
+        "諸王百官大會于怯綠連河",
+        "以太祖遺詔即皇帝位",
+        "里。始立朝儀",
+        "拜。頒大札撤"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-OGEDEI-ACCESSION",
+        "candidate": "POL-CAND-YUAN-OGEDEI-ACCESSION",
+        "summary": "窝阔台依遗诏即位并立朝仪。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "继承与制度确立。",
+          "decision_question": "太祖死后由谁终结监国过渡。",
+          "alternatives": "其他诸王；史料未载正式争议。",
+          "decision": "诸王百官拥立窝阔台。",
+          "direct_result": "窝阔台即位并颁大法令。",
+          "power_change": "最高权力由拖雷监国转为太宗亲政。",
+          "risk_or_damage": "异议与权力交换未载。",
+          "follow_up": "随即建立财政驿传并再议伐金。"
+        }
+      },
+      "unknown": [
+        "大会讨论、推戴程序与大札撒具体条文未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-LIVESTOCK-LEVY-1229",
+      "time": "太宗元年己丑",
+      "loc": [
+        "蒙古所属地区"
+      ],
+      "action": "太宗规定蒙古民每有马、牛、羊百头分别输牝马、牸牛、羒羊一头，定为永久制度。",
+      "result": "形成按牲畜存量百分之一征收的常制。",
+      "groups": [
+        "蒙古牧民"
+      ],
+      "quote": "蒙古民有馬百者輸牝馬一，牛百者輸牸牛一，羊百者輸羒羊一，為永制",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-LIVESTOCK-LEVY",
+        "candidate": "FIN-CAND-YUAN-LIVESTOCK-LEVY",
+        "summary": "蒙古牲畜百取一常制。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "即位前蒙古牲畜常税本卷未载。",
+          "fiscal_state": "国家取得按牲畜存量征收的稳定来源。",
+          "livelihood_state": "牧民承担百取一负担。",
+          "production_circulation": "征收种畜可能影响畜群繁殖，实际影响未载。"
+        }
+      },
+      "unknown": [
+        "征收用途、豁免、地区覆盖与执行损耗未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-GRANARY-POST-TAX-SYSTEM-1229",
+      "time": "太宗元年己丑",
+      "loc": [
+        "河北",
+        "西域",
+        "蒙古帝国"
+      ],
+      "action": "太宗始置仓廪、立驿传；河北汉民按户、西域人按丁出赋调，分别由耶律楚材与麻合没的滑剌西迷主管。",
+      "implementation": "同时建设储粮、驿递和分区赋调体系。",
+      "result": "中央形成跨区域仓储交通与常规征税框架。",
+      "quote": [
+        "始置倉廪，立驛傳",
+        "命河北漢民以戶計，出賦調",
+        "西域人以丁計，出賦調"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-EARLY-FISCAL-SYSTEM",
+        "candidate": "FIN-CAND-YUAN-EARLY-FISCAL-SYSTEM",
+        "summary": "建立仓廪驿传和分区赋调。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "太宗即位前固定仓驿与分区赋调未载。",
+          "fiscal_state": "河北户税、西域丁税由专人主持。",
+          "livelihood_state": "汉民按户、西域人按丁承担赋调。",
+          "production_circulation": "仓储与驿传支持粮食、信息和人员流通，实际效率未载。"
+        }
+      },
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仓廪与驿传包含基础设施建设，但工程规模未载。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "任命不同主管形成分区治理。"
+        ]
+      ],
+      "unknown": [
+        "仓驿数量、赋额、徭役和实际运行效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-TAX-RATES-1230",
+      "time": "太宗二年庚寅正月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "太宗定诸路税率，酒课按实息十分取一，杂税三十分取一。",
+      "result": "酒课和杂税形成明确比例。",
+      "quote": "酒課驗實息十取一，雜稅三十取一",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-TAX-RATES-1230",
+        "candidate": "FIN-CAND-YUAN-TAX-RATES-1230",
+        "summary": "定酒课与杂税比例。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "诸路旧税率未载。",
+          "fiscal_state": "酒课十分之一、杂税三十分之一。",
+          "livelihood_state": "经营者与纳税人负担有定率，实际承受未载。",
+          "production_circulation": "酒业和杂项交易被纳入常税。"
+        }
+      },
+      "unknown": [
+        "征税基数核验、地区差异与实际收入未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-JIN-JINGZHAO-FENGXIANG-1230-1231",
+      "time": [
+        "太宗二年庚寅",
+        "三年辛卯二月",
+        "range"
+      ],
+      "loc": [
+        "京兆",
+        "鳳翔",
+        "潼關",
+        "藍關",
+        "天勝寨",
+        "韓城",
+        "蒲城",
+        "洛陽",
+        "河中"
+      ],
+      "action": "太宗与拖雷等攻金，败援京兆金军并拔城；继而南伐、攻凤翔，潼关蓝关不克后取天胜寨等地，次年克凤翔及洛阳河中诸城。",
+      "result": "关中、河南多城失守，但潼关、蓝关一度守住。",
+      "quote": [
+        "遣兵圍京兆。金主率師來援，敗之",
+        "拔天成等堡，遂渡河攻鳳翔",
+        "攻潼關、藍關，不克",
+        "克鳳翔，攻洛陽、河中諸城，下之"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIN-1230-1231",
+      "unknown": [
+        "双方兵力、伤亡、各城屠掠与稳定控制未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-TEN-TAX-CIRCUITS-1230",
+      "time": "太宗二年庚寅十一月",
+      "loc": [
+        "燕京",
+        "宣德",
+        "西京",
+        "太原",
+        "平陽",
+        "真定",
+        "東平",
+        "北京",
+        "平州",
+        "濟南"
+      ],
+      "action": "太宗始置十路征收课税使，每路任命两名征收官。",
+      "result": "中原十路形成专门课税机构。",
+      "quote": "始置十路徵收課稅使",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-TEN-TAX-CIRCUITS",
+        "candidate": "FIN-CAND-YUAN-TEN-TAX-CIRCUITS",
+        "summary": "设置十路课税使。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "中原征收机构未形成统一十路体系。",
+          "fiscal_state": "十路均设专官征收课税。",
+          "livelihood_state": "纳税人面对专门征收机构，具体负担未载。",
+          "production_circulation": "课税覆盖各路经济活动，税目与成效未载。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "十路官员任命形成区域财政行政。"
+        ]
+      ],
+      "unknown": [
+        "机构权限、任期、收入及舞弊情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-CENTRAL-SECRETARIAT-1231",
+      "time": "太宗三年辛卯八月",
+      "loc": [
+        "雲中",
+        "蒙古朝廷"
+      ],
+      "action": "太宗始立中书省，改侍从官名，任耶律楚材为中书令、粘合重山和镇海为左右丞相。",
+      "result": "中央政务形成中书省及首长体系。",
+      "quote": [
+        "始立中書省，改侍從官名",
+        "以耶律楚材為中書令",
+        "粘合重山為左丞相，鎮海為右丞相"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ZHONGSHU-1231",
+        "candidate": "POL-CAND-YUAN-ZHONGSHU-1231",
+        "summary": "始立中书省。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "中央机构改革。",
+          "decision_question": "如何组织帝国中央政务。",
+          "alternatives": "沿用侍从官体系。",
+          "decision": "设中书省并任命令、左右丞相。",
+          "direct_result": "中央行政机构形成。",
+          "power_change": "耶律楚材等进入中央最高政务层。",
+          "risk_or_damage": "部门权限与制衡未载。",
+          "follow_up": "后续中书省参与户口、封户等政策。"
+        }
+      },
+      "unknown": [
+        "中书省具体职掌、属官与决策程序未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-KOREA-FIRST-WAR-1231",
+      "time": "太宗三年辛卯八月",
+      "loc": [
+        "高麗"
+      ],
+      "action": "因高丽杀蒙古使者，太宗命撒礼塔讨伐，攻取四十余城；高丽王派淮安公请降，撒礼塔承制设官分镇后撤。",
+      "result": "高丽请降并出现蒙古分镇官员。",
+      "quote": [
+        "以高麗殺使者，命撒禮塔率師討之",
+        "取四十餘城",
+        "遣其弟懷安公請降",
+        "承制設官分鎮其地"
+      ],
+      "battle": "CAMPAIGN-YUAN-KOREA-1231-1232",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征服后设置官员分镇高丽。"
+        ]
+      ],
+      "unknown": [
+        "四十余城名、伤亡、降约与分镇官员权限未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-JIN-SANFENG-1232",
+      "time": "太宗四年壬辰正月",
+      "loc": [
+        "白坡",
+        "漢江",
+        "鄭州",
+        "新鄭",
+        "鈞州三峯"
+      ],
+      "action": "太宗渡河推进，拖雷渡汉江后在钧州三峰大败金军，俘蒲阿；太宗到场后攻克钧州并俘合达，继取河南多州。",
+      "result": "金军主力将领被俘，河南多州失守。",
+      "quote": [
+        "拖雷及金師戰于鈞州之三峯，大敗之",
+        "獲金將蒲阿",
+        "攻鈞州，克之，獲金將合達",
+        "遂下商、虢、嵩、汝、陝、洛、許、鄭、陳、亳、潁、壽、睢、永等州"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIN-SANFENG-1232",
+      "unknown": [
+        "双方兵力、伤亡及各州降战细节未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-NANJING-SIEGE-1232",
+      "time": "太宗四年壬辰三月至八月",
+      "loc": [
+        "金南京",
+        "河南"
+      ],
+      "action": "太宗命速不台围金南京，金主以曹王入质；太宗撤回并留速不台守河南，后蒙古击败完颜思烈、武仙援军。",
+      "result": "南京持续受围，金援军失败；金主暂以宗室入质。",
+      "quote": [
+        "命速不台等圍南京",
+        "，金主遣其弟曹王訛可入質",
+        "留速不台守河南",
+        "諸軍與戰，敗之"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIN-NANJING-1232-1233",
+      "unknown": [
+        "质子身份史文有误，围城损失和援军兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-KOREA-REBELLION-1232",
+      "time": "太宗四年壬辰四月至八月",
+      "loc": [
+        "高麗",
+        "江華島"
+      ],
+      "action": "高丽杀蒙古所置官吏并迁都江华岛，撒礼塔再征时中箭死亡。",
+      "result": "前次分镇体系崩溃，战争重启，蒙古主帅阵亡。",
+      "cost": "蒙古所置官吏被杀，撒礼塔阵亡。",
+      "quote": [
+        "高麗叛，殺所置官吏，徙居江華島",
+        "撒禮塔復征高麗，中矢卒"
+      ],
+      "battle": "CAMPAIGN-YUAN-KOREA-1231-1232",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "高丽迁都海岛并推翻蒙古分镇。"
+        ]
+      ],
+      "unknown": [
+        "被杀官员人数、战斗地点和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-TRAGIC-TOLUI-DEATH",
+      "time": "太宗四年壬辰九月",
+      "loc": [
+        "蒙古"
+      ],
+      "action": "皇弟拖雷去世，太宗返回龙庭。",
+      "result": "太祖幼子及重要统帅退出权力结构。",
+      "quote": "九月，拖雷薨，帝還龍庭",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-TOLUI-DEATH",
+        "candidate": "POL-CAND-YUAN-TOLUI-DEATH",
+        "summary": "拖雷去世。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宗王与统帅死亡。",
+          "decision_question": "后续宗王权力安排未载。",
+          "alternatives": "未载。",
+          "decision": "太宗返回龙庭。",
+          "direct_result": "拖雷结束军事政治活动。",
+          "power_change": "拖雷系权力进入继承阶段。",
+          "risk_or_damage": "继承与军队归属未载。",
+          "follow_up": "其子蒙哥后参与西征并即位。"
+        }
+      },
+      "unknown": [
+        "拖雷死因、葬礼与属众安排未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-JIN-CAPITAL-FALL-1233",
+      "time": "太宗五年癸巳正月至四月",
+      "loc": [
+        "南京",
+        "歸德",
+        "青城"
+      ],
+      "action": "金主逃归德，崔立杀南京留守后降蒙；速不台入南京，金太后、后妃宗王被送往蒙古行在。",
+      "result": "金南京失陷，金朝廷人员被控制，金主退往蔡州。",
+      "quote": [
+        "金主奔歸德",
+        "不，以南京降",
+        "崔立以金太后王氏、后徒單氏",
+        "速不台遣送行在，遂入南京"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIN-NANJING-1232-1233",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "崔立政变降城并移交金皇室人员。"
+        ]
+      ],
+      "unknown": [
+        "南京城民伤亡、皇室人员后续与崔立条件未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-PUXIAN-WANNU-1233",
+      "time": "太宗五年癸巳二月至九月",
+      "loc": [
+        "遼東",
+        "東夏"
+      ],
+      "action": "太宗令贵由及诸王按赤带率左翼军讨蒲鲜万奴，九月擒获万奴。",
+      "result": "蒲鲜万奴本人被擒，东夏割据受到决定性打击。",
+      "quote": [
+        "詔諸王議伐萬奴",
+        "命皇子貴由及諸王按赤帶將左翼軍討之",
+        "九月，擒萬奴"
+      ],
+      "battle": "CAMPAIGN-YUAN-EAST-XIA-1233",
+      "unknown": [
+        "战役经过、伤亡、东夏余部和万奴结局未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-CENSUS-1233",
+      "time": "太宗五年癸巳八月",
+      "loc": [
+        "中州"
+      ],
+      "action": "太宗派宣差勘事官括中州户口，得七十三万余户。",
+      "result": "中州形成一次七十三万余户的官方户籍统计。",
+      "groups": [
+        "中州民户"
+      ],
+      "quote": "括中州戶，得戶七十三萬餘",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CENSUS-1233",
+        "candidate": "FIN-CAND-YUAN-CENSUS-1233",
+        "summary": "首次括中州七十三万余户。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "中州此前完整户籍数未载。",
+          "fiscal_state": "户籍为赋税征收提供基数。",
+          "livelihood_state": "民户被纳入国家登记，实际负担变化未载。",
+          "production_circulation": "户口统计与土地产业对应关系未载。"
+        }
+      },
+      "unknown": [
+        "漏户、逃户、地区范围与括户手段未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-CAIZHOU-JIN-END-1233-1234",
+      "time": [
+        "太宗五年癸巳六月",
+        "六年甲午正月",
+        "range"
+      ],
+      "loc": [
+        "蔡州",
+        "息州"
+      ],
+      "action": "塔察儿围蔡，宋以兵粮助蒙，蒙宋合攻并在息州败武仙；次年破城，金主自杀，承麟被擒杀。",
+      "result": "金朝灭亡，宋军取走金主遗骨。",
+      "quote": [
+        "塔察兒率師圍之",
+        "宋遣荊鄂都統孟珙以兵糧來助",
+        "諸軍與宋兵合攻蔡",
+        "城拔，獲承麟，殺之"
+      ],
+      "battle": "CAMPAIGN-YUAN-JIN-CAIZHOU-1233-1234",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "金主传位、两帝死亡与金政权终结。"
+        ]
+      ],
+      "unknown": [
+        "破城伤亡、城民处置与蒙宋分配协议未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-MILITARY-COURT-RULES-1234",
+      "time": "太宗六年甲午五月",
+      "loc": [
+        "斡兒寒河大会"
+      ],
+      "action": "太宗大会诸王百僚，颁布会期、宫禁、十人甲长、军中纪律、马匹管理和妇女服制等一系列条令，多项违令处死。",
+      "result": "军政大会秩序与日常控制被细化为严厉规则。",
+      "quote": [
+        "僚，諭條令曰",
+        "軍中凡十人置甲長",
+        "但盜馬一二者，即論死",
+        "不遵此法者，斥罷"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MILITARY-RULES-1234",
+        "candidate": "POL-CAND-YUAN-MILITARY-RULES-1234",
+        "summary": "颁行大会与军政纪律条令。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "军政法令。",
+          "decision_question": "如何规范大会、宫禁与军队秩序。",
+          "alternatives": "沿用习惯法；史料未载。",
+          "decision": "颁布分层处分和死刑条款。",
+          "direct_result": "规则被公开。",
+          "power_change": "甲长、万户等层级责任被强化。",
+          "risk_or_damage": "刑罚严厉，实际执行与冤错未载。",
+          "follow_up": "后续执行案件未载。"
+        }
+      },
+      "unknown": [
+        "条令适用地域、执行频率与案件数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-SONG-WAR-1234-1235",
+      "time": [
+        "太宗六年甲午秋",
+        "七年乙未十月",
+        "range"
+      ],
+      "loc": [
+        "蜀",
+        "棗陽",
+        "襄陽",
+        "鄧州",
+        "郢州"
+      ],
+      "action": "太宗议亲征宋后改遣查老温；次年分遣阔端攻秦巩、曲出等伐宋，曲出拔枣阳并掠襄邓郢人口牛马。",
+      "result": "蒙宋战争扩大，枣阳失陷，沿线人口牲畜被大规模掠走。",
+      "cost": "宋境人民、牛马数万被掳。",
+      "quote": [
+        "議自將伐宋，國王查老溫請行，遂遣之",
+        "皇子闊端征秦、鞏，皇子曲出及胡土虎伐宋",
+        "虜人民牛馬數萬而還"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-1234-1235",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "掠走数万人民牛马造成严重民生与资产损失。"
+        ]
+      ],
+      "unknown": [
+        "数万分别指人口与牛马何种合计、伤亡与安置未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-KARAKORUM-WANAN-PALACE-1235-1236",
+      "time": [
+        "太宗七年乙未",
+        "八年丙申正月",
+        "range"
+      ],
+      "loc": [
+        "和林"
+      ],
+      "action": "太宗筑和林城并营建万安宫，次年宫殿落成。",
+      "implementation": "先城和林、作宫，次年落成。",
+      "result": "和林城及万安宫形成帝国政治驻地。",
+      "quote": [
+        "城和林，作萬安宮",
+        "萬安宮落成"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-KARAKORUM-PALACE",
+        "candidate": "WORK-CAND-YUAN-KARAKORUM-PALACE",
+        "summary": "筑和林城、建万安宫。",
+        "operation": "completed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "work_identity": "和林城与万安宫。",
+          "phase": "建设并落成。",
+          "purpose": "帝国都城与宫廷驻地；原文未明言。",
+          "resource_input": "工匠、役夫、财政和材料未载。",
+          "operation": "宫成后用于诸王会宴，其他运行未载。",
+          "benefit": "形成固定政治中心。",
+          "harm": "徭役、迁徙与财政负担未载。"
+        }
+      },
+      "unknown": [
+        "城宫规模、工期起点、参与人数与受益损害未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-MULTIFRONT-EXPEDITIONS-1235",
+      "time": "太宗七年乙未",
+      "loc": [
+        "西域",
+        "秦鞏",
+        "宋境",
+        "高麗"
+      ],
+      "action": "太宗同时遣拔都、贵由、蒙哥西征，阔端攻秦巩，曲出与胡土虎伐宋，唐古征高丽。",
+      "result": "帝国形成多战区同步远征。",
+      "quote": "遣諸王拔都及皇子貴由、皇姪蒙哥征西域，皇子闊端征秦、鞏，皇子曲出及胡土虎伐宋，唐古征高麗",
+      "battle": "CAMPAIGN-YUAN-MULTIFRONT-1235",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央向多名宗王分授战区任务。"
+        ]
+      ],
+      "unknown": [
+        "各军兵力、后勤协调与总体战略次序未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-PAPER-MONEY-1236",
+      "time": "太宗八年丙申正月",
+      "loc": [
+        "蒙古帝国"
+      ],
+      "action": "太宗下诏印造交钞并推行。",
+      "result": "纸币进入官方发行流通。",
+      "quote": "詔印造交鈔行之",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-PAPER-MONEY-1236",
+        "candidate": "FIN-CAND-YUAN-PAPER-MONEY-1236",
+        "summary": "印造发行交钞。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "本卷此前未载官方交钞。",
+          "fiscal_state": "国家建立纸币发行。",
+          "livelihood_state": "民间接受范围和购买力未载。",
+          "production_circulation": "交钞用于流通，发行额、准备金与兑换制度未载。"
+        }
+      },
+      "unknown": [
+        "钞名、面额、发行量、兑换与通胀未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-CENSUS-1236",
+      "time": "太宗八年丙申六月",
+      "loc": [
+        "中州"
+      ],
+      "action": "太宗再次括中州户口，登记续户一百一十余万。",
+      "result": "在前次七十三万余户基础上新增登记一百一十余万续户。",
+      "quote": "復括中州戶口，得續戶一百一十餘萬",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-CENSUS-1236",
+        "candidate": "FIN-CAND-YUAN-CENSUS-1236",
+        "summary": "复括中州得续户一百一十余万。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "五年曾括得七十三万余户。",
+          "fiscal_state": "税籍基数大幅扩充。",
+          "livelihood_state": "新增民户纳入国家登记。",
+          "production_circulation": "户籍与土地产业情况未载。"
+        }
+      },
+      "unknown": [
+        "续户与前次户籍是否重叠、地区范围和括户手段未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-CULTURAL-INSTITUTES-1236",
+      "time": "太宗八年丙申六月",
+      "loc": [
+        "燕京",
+        "平陽"
+      ],
+      "action": "依耶律楚材建议，燕京设编修所、平阳设经籍所，召梁陟等儒士编辑经史。",
+      "result": "形成官方经史编修与典籍机构。",
+      "quote": [
+        "請立編修所於燕京，經籍所於平陽",
+        "陽，編集經史",
+        "召儒士梁陟充長官"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CULTURAL-INSTITUTES",
+        "candidate": "POL-CAND-YUAN-CULTURAL-INSTITUTES",
+        "summary": "设置编修所和经籍所。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "文化行政机构。",
+          "decision_question": "如何收集编修经史。",
+          "alternatives": "不设专所；史料未载。",
+          "decision": "两地设所并任儒士。",
+          "direct_result": "专门机构与长官形成。",
+          "power_change": "儒士进入国家文化编修。",
+          "risk_or_damage": "成果、经费与持续性未载。",
+          "follow_up": "后续典籍成果待查。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "设所与召员需资源，数额未载。"
+        ]
+      ],
+      "unknown": [
+        "编修成果、人员规模与经费未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-APPANAGE-HOUSEHOLDS-1236",
+      "time": "太宗八年丙申七月",
+      "loc": [
+        "中原诸州"
+      ],
+      "action": "太宗把真定等中原民户分赐太后、诸王贵戚与斡鲁朵；耶律楚材认为不便，遂规定各位仅设达鲁花赤，朝廷官吏征租后颁给，非奉诏不得征兵赋。",
+      "result": "封户分赐保留，但征租与兵赋权受到中央限制。",
+      "groups": [
+        "中原被赐民户"
+      ],
+      "quote": [
+        "中原諸州民戶分賜諸王、貴戚、斡魯朵",
+        "耶律楚材言非便",
+        "朝廷置官吏收其租頒之",
+        "非奉詔不得徵兵賦"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-APPANAGE-HOUSEHOLDS",
+        "candidate": "FIN-CAND-YUAN-APPANAGE-HOUSEHOLDS",
+        "summary": "分赐中原民户并限制封主自行征收。",
+        "operation": "mixed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "中原民户由朝廷直接控制。",
+          "fiscal_state": "租由朝廷官吏征收后分颁封主。",
+          "livelihood_state": "民户被分属各位，但避免无诏重复征兵赋。",
+          "production_circulation": "各地民户生产收益成为封主收入来源。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "耶律楚材异议促成中央限制诸王征收权。"
+        ]
+      ],
+      "unknown": [
+        "分赐户数、实际重复征敛、达鲁花赤权限与执行效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-SONG-SICHUAN-HUBEI-1236",
+      "time": "太宗八年丙申",
+      "loc": [
+        "蜀",
+        "成都",
+        "秦州",
+        "鞏州",
+        "郢州",
+        "襄陽",
+        "樊城"
+      ],
+      "action": "阔端率军入蜀，取关外数州并杀曹友闻，进入成都，招降秦巩二十余州；张柔等拔郢州，襄阳府来附。",
+      "result": "蒙古在四川、荆襄多地扩张，秦巩诸州降附。",
+      "quote": [
+        "入蜀，取宋關外數州，斬蜀將曹友聞",
+        "闊端入成都",
+        "二十餘州，皆降",
+        "張柔等攻郢州，拔之",
+        "襄陽府來附"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-1236",
+      "unknown": [
+        "各城伤亡、成都占领时长与降州治理未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-GIRL-LEVY-1237",
+      "time": "太宗九年丁酉六月",
+      "loc": [
+        "左翼诸部"
+      ],
+      "action": "左翼诸部讹传朝廷将括取民女，太宗因怒将传言变为实际括女并赐给麾下。",
+      "result": "民间女子因谣言触怒皇帝而被强制征取分赐。",
+      "groups": [
+        "左翼诸部民女"
+      ],
+      "quote": "左翼諸部訛言括民女。帝怒，因括以賜麾下",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-GIRL-LEVY-1237",
+        "candidate": "POL-CAND-YUAN-GIRL-LEVY-1237",
+        "summary": "因谣言而实施括取民女。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "惩罚性人口征取。",
+          "decision_question": "如何回应括女谣言。",
+          "alternatives": "澄清、调查或不予理会。",
+          "decision": "实际括女赐麾下。",
+          "direct_result": "民女被强制征取。",
+          "power_change": "皇帝以人口分赐奖惩部众。",
+          "risk_or_damage": "妇女及家庭遭受直接伤害。",
+          "follow_up": "人数与后续未载。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "人口被强制征取，家庭生计与社会结构受损。"
+        ]
+      ],
+      "unknown": [
+        "被括人数、年龄、地区、反抗与后续命运未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-RU-SCHOLARS-1237",
+      "time": "太宗九年丁酉八月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "太宗命官员考试诸路儒士，中选者授本贯议事官，共四千零三十人。",
+      "result": "四千余儒士进入地方议事职位。",
+      "quote": [
+        "試諸路儒士",
+        "中選者除本貫議事官",
+        "得四千三十人"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-RU-OFFICIALS-1237",
+        "candidate": "POL-CAND-YUAN-RU-OFFICIALS-1237",
+        "summary": "考试选任四千余儒士。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "人才选拔与地方任官。",
+          "decision_question": "如何补充地方议事官。",
+          "alternatives": "仅凭荐举或军功；史料未载。",
+          "decision": "考试诸路儒士。",
+          "direct_result": "四千零三十人中选任官。",
+          "power_change": "地方治理吸纳大批儒士。",
+          "risk_or_damage": "考试标准与任官实效未载。",
+          "follow_up": "后续任职表现未载。"
+        }
+      },
+      "unknown": [
+        "报名人数、考试内容与职权待遇未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-SONG-GUANGZHOU-PEACE-1237",
+      "time": "太宗九年丁酉冬",
+      "loc": [
+        "光州",
+        "蘄州",
+        "隨州",
+        "黃州"
+      ],
+      "action": "蒙古诸军攻下光州，另攻蕲州、降随州并进掠至黄州；宋因惧请和，蒙古撤军。",
+      "result": "本轮进攻以宋请和和蒙古退兵结束。",
+      "quote": [
+        "圍光州，命張柔、鞏彥暉、史天澤攻下之",
+        "降隨州，略地至黃州",
+        "宋懼請和，乃還"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-HUAINAN-1237",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋请和结束该轮攻势。"
+        ]
+      ],
+      "unknown": [
+        "蕲州结果、和议条款与双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-XIANGYANG-REVERSAL-1238",
+      "time": "太宗十年戊戌",
+      "loc": [
+        "襄陽",
+        "樊城"
+      ],
+      "action": "襄阳别将刘义反叛蒙古，拘执游显等转降宋，宋军因此收复襄阳、樊城。",
+      "result": "蒙古在荆襄的重要据点丧失。",
+      "quote": [
+        "襄陽別將劉義叛",
+        "執游顯等降宋",
+        "宋兵復取襄、樊"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-XIANGYANG-1238",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方守将倒戈导致城池易手。"
+        ]
+      ],
+      "unknown": [
+        "刘义身份、守军规模、交城伤亡与游显结局未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-DROUGHT-RELIEF-1238",
+      "time": "太宗十年戊戌八月",
+      "loc": [
+        "诸路"
+      ],
+      "action": "因诸路旱蝗，太宗免当年田租，并暂停追征旧欠，待丰年再议。",
+      "result": "灾年当期租税和旧欠催征被暂停。",
+      "groups": [
+        "旱蝗地区农户"
+      ],
+      "quote": [
+        "言諸路旱蝗",
+        "詔免今年田租",
+        "仍停舊未輸納者，俟豐歲議之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DROUGHT-RELIEF-1238",
+        "candidate": "FIN-CAND-YUAN-DROUGHT-RELIEF-1238",
+        "summary": "旱蝗免租并停征旧欠。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "诸路发生旱灾和蝗灾并有旧欠。",
+          "fiscal_state": "免当年田租，延后旧欠。",
+          "livelihood_state": "农户短期税负降低。",
+          "production_circulation": "农业受旱蝗损害，恢复情况未载。"
+        }
+      },
+      "unknown": [
+        "受灾范围、人口、减免额、旧欠后续与赈粮未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-SHANDONG-RELIEF-1239",
+      "time": "太宗十一年己亥七月",
+      "loc": [
+        "山東诸路"
+      ],
+      "action": "因山东诸路灾害，太宗免其税粮。",
+      "result": "山东灾区获得税粮减免。",
+      "quote": "以山東諸路災，免其稅糧",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-SHANDONG-RELIEF-1239",
+        "candidate": "FIN-CAND-YUAN-SHANDONG-RELIEF-1239",
+        "summary": "山东灾害免税粮。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "山东诸路受灾。",
+          "fiscal_state": "税粮被免。",
+          "livelihood_state": "灾民税负降低。",
+          "production_circulation": "灾种、农业损失和恢复未载。"
+        }
+      },
+      "unknown": [
+        "灾种、范围、减免数额与赈济未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-SILVER-TAX-FARM-1239-1240",
+      "time": [
+        "太宗十一年己亥十二月",
+        "十二年庚子正月",
+        "range"
+      ],
+      "loc": [
+        "中原"
+      ],
+      "action": "商人奥都剌合蛮以四万四千锭为额承包原二万二千锭中原银课，次年被任为提领诸路课税所官。",
+      "result": "银课额翻倍并由承包商转任正式课税主管。",
+      "quote": [
+        "買撲中原銀課二萬二千錠，以四萬四千錠為額",
+        "以奧都剌合蠻充提領諸路課稅所官"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-SILVER-TAX-FARM",
+        "candidate": "FIN-CAND-YUAN-SILVER-TAX-FARM",
+        "summary": "奥都剌合蛮加倍包银课并任课税官。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "中原银课原额二万二千锭。",
+          "fiscal_state": "承包额提高至四万四千锭。",
+          "livelihood_state": "纳税人实际增负与征收手段未载。",
+          "production_circulation": "银课加倍可能影响货币与商业，实际影响未载。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "税商被任为诸路课税主管。"
+        ]
+      ],
+      "unknown": [
+        "承包期限、利润、强征案件和实际入库未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-LOCAL-THEFT-COMPENSATION-1240",
+      "time": "太宗十二年庚子十二月",
+      "loc": [
+        "州郡"
+      ],
+      "action": "太宗规定州郡失盗而不能破案，由官物赔偿，废止此前由民代偿而致民众逃亡的办法。",
+      "result": "失盗赔偿责任由民众转为官府资产。",
+      "groups": [
+        "承担失盗代偿的民众"
+      ],
+      "quote": [
+        "州郡失盜不獲者，以官物償之",
+        "國初，令民代償，民多亡命，至是罷之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-THEFT-COMPENSATION",
+        "candidate": "FIN-CAND-YUAN-THEFT-COMPENSATION",
+        "summary": "废民代偿失盗，改官物赔偿。",
+        "operation": "reversed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "失盗未获由民代偿，导致多人逃亡。",
+          "fiscal_state": "赔偿改由官物承担。",
+          "livelihood_state": "民众免除代偿压力。",
+          "production_circulation": "逃亡可能减少，实际恢复未载。"
+        }
+      },
+      "unknown": [
+        "官物赔偿范围、旧案处理与逃亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-USURY-RELIEF-1240",
+      "time": "太宗十二年庚子",
+      "loc": [
+        "蒙古帝国"
+      ],
+      "action": "针对官民欠回鹘贷金年年加倍的羊羔息，太宗用官物代偿七万六千锭，并规定久贷利息最多与本金相等。",
+      "result": "一批高息债务由官府偿还，复利上限被制度化。",
+      "groups": [
+        "欠回鶻贷金的官民"
+      ],
+      "quote": [
+        "名羊羔息，其害為甚",
+        "詔以官物代還，凡七萬六千錠",
+        "惟子本相侔而止，著為令"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-USURY-RELIEF",
+        "candidate": "FIN-CAND-YUAN-USURY-RELIEF",
+        "summary": "官偿羊羔息并限制利息不逾本金。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "baseline": "官民贷款利息逐年加倍，危害严重。",
+          "fiscal_state": "官府支出七万六千锭代偿。",
+          "livelihood_state": "债务人免除部分高息压力。",
+          "production_circulation": "贷款利息被封顶，可能改善信贷负担；实际市场影响未载。"
+        }
+      },
+      "unknown": [
+        "受益人数、官物来源、债权人补偿与后续执行未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-CAPTIVES-FREED-1240",
+      "time": "太宗十二年庚子",
+      "loc": [
+        "蒙古帝国"
+      ],
+      "action": "太宗命将诸王大臣所俘男女登记为民。",
+      "result": "一批私人俘虏脱离俘虏身份并进入民籍。",
+      "groups": [
+        "诸王大臣所俘男女"
+      ],
+      "quote": "籍諸王大臣所俘男女為民",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CAPTIVES-FREED",
+        "candidate": "POL-CAND-YUAN-CAPTIVES-FREED",
+        "summary": "将诸王大臣俘虏籍为民。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "身份与人身控制调整。",
+          "decision_question": "诸王大臣私人俘虏如何处置。",
+          "alternatives": "继续私属。",
+          "decision": "统一籍为民。",
+          "direct_result": "俘虏取得民籍。",
+          "power_change": "中央介入诸王大臣对俘虏的人身控制。",
+          "risk_or_damage": "实际自由程度、赋役和安置未载。",
+          "follow_up": "后续户籍身份待查。"
+        }
+      },
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "身份转为民关系到家庭生计与赋役。"
+        ]
+      ],
+      "unknown": [
+        "人数、籍贯、土地与是否仍受原主人控制未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-OGEDEI-DEATH-1241",
+      "time": "太宗十三年辛丑十一月",
+      "loc": [
+        "鈋鐵𨬟胡蘭山行殿"
+      ],
+      "action": "太宗狩猎归途中接受奥都剌合蛮进酒，通宵欢饮，次日清晨去世。",
+      "result": "太宗十三年统治结束，继承进入皇后称制阶段。",
+      "quote": [
+        "奧都剌合蠻進酒",
+        "帝歡飲，極夜乃罷",
+        "辛卯遲明，帝崩于行殿"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-OGEDEI-DEATH",
+        "candidate": "POL-CAND-YUAN-OGEDEI-DEATH",
+        "summary": "太宗饮酒后去世。",
+        "operation": "completed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "君主死亡与继承过渡。",
+          "decision_question": "继承安排；太宗曾属意失烈门。",
+          "alternatives": "皇孙失烈门或其他宗王。",
+          "decision": "本条仅载太宗死亡，后由乃马真氏称制。",
+          "direct_result": "皇位空缺。",
+          "power_change": "六皇后取得临朝权。",
+          "risk_or_damage": "既定嗣君未立即即位。",
+          "follow_up": "壬寅年乃马真氏称制。"
+        }
+      },
+      "unknown": [
+        "饮酒与死亡的因果、临终遗诏与权力交接程序未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-TOREGENE-REGENCY-1242",
+      "time": "壬寅年",
+      "loc": [
+        "蒙古朝廷"
+      ],
+      "action": "六皇后乃马真氏在太宗死后开始称制。",
+      "result": "太宗遗命的失烈门未即位，皇后掌握最高政务。",
+      "quote": "六皇后乃馬真氏始稱制",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-TOREGENE-REGENCY",
+        "candidate": "POL-CAND-YUAN-TOREGENE-REGENCY",
+        "summary": "乃马真后称制。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "皇后临朝与继承延迟。",
+          "decision_question": "太宗死后由谁掌权。",
+          "alternatives": "依旨立失烈门。",
+          "decision": "乃马真氏称制。",
+          "direct_result": "皇后控制朝政。",
+          "power_change": "最高权力转至六皇后。",
+          "risk_or_damage": "法度不一、内外离心在卷末被指出。",
+          "follow_up": "称制至贵由即位，朝政仍出皇后。"
+        }
+      },
+      "unknown": [
+        "称制合法程序、支持者与反对者未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-REGENCY-SONG-WARS-1242-1245",
+      "time": [
+        "壬寅年",
+        "乙巳年",
+        "range"
+      ],
+      "loc": [
+        "淮河",
+        "揚州",
+        "滁州",
+        "和州",
+        "壽州",
+        "泗州",
+        "盱眙",
+        "淮西"
+      ],
+      "action": "乃马真后称制期间，张柔攻扬滁和等州；后察罕等率骑三万与张柔掠淮西，拔寿州并攻泗州、盱眙、扬州。",
+      "result": "寿州被拔，宋制置请和后蒙古撤军。",
+      "quote": [
+        "攻宋揚、滁、和等州",
+        "率騎三萬與張柔掠淮西",
+        "攻壽州，拔之",
+        "宋制置趙蔡請和"
+      ],
+      "battle": "CAMPAIGN-YUAN-SONG-REGENCY-1242-1245",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "淮西遭掠，居民财产损失未详。"
+        ]
+      ],
+      "unknown": [
+        "各州伤亡、掠获规模、和议条件与赵蔡姓名校勘争议未解。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-GUYUK-ACCESSION-1246",
+      "time": "定宗元年丙午七月",
+      "loc": [
+        "汪吉宿滅禿里"
+      ],
+      "action": "乃马真后召诸王百官议立贵由，贵由即皇帝位；但即位后朝政仍由六皇后决定。",
+      "result": "贵由取得帝号，皇后继续控制实际朝政。",
+      "quote": [
+        "會諸王百官於答蘭答八思之地，遂議立帝",
+        "即皇帝位于汪吉宿滅禿里之地",
+        "朝政猶出於六皇后"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-GUYUK-ACCESSION",
+        "candidate": "POL-CAND-YUAN-GUYUK-ACCESSION",
+        "summary": "贵由即位而皇后继续掌政。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "皇位继承与双重权力。",
+          "decision_question": "太宗后嗣由谁继位。",
+          "alternatives": "太宗原旨失烈门。",
+          "decision": "议立贵由。",
+          "direct_result": "贵由即位。",
+          "power_change": "帝号归贵由，朝政仍出六皇后。",
+          "risk_or_damage": "名义与实际权力分离。",
+          "follow_up": "定宗三年去世后再度长期无君。"
+        }
+      },
+      "unknown": [
+        "诸王会议异议、贵由与皇后分权细节未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-GUYUK-MILITARY-LEVIES-1247",
+      "time": "定宗二年丁未八月至十月",
+      "loc": [
+        "蒙古诸户"
+      ],
+      "action": "定宗命野里知吉带率搠思蛮部兵西征，规定蒙古每百户出一名拔都鲁，另括人户。",
+      "result": "西征兵力与勇士配额被征集，户籍再次清查。",
+      "quote": [
+        "率搠思蠻部兵征西",
+        "詔蒙古人戶每百以一名充拔都魯",
+        "冬十月，括人戶"
+      ],
+      "battle": "CAMPAIGN-YUAN-WEST-1247",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "百户出一兵与括户增加民户军役负担。"
+        ]
+      ],
+      "unknown": [
+        "兵员总数、括户结果与远征战果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-GUYUK-DEATH-INTERREGNUM-1248-1250",
+      "time": [
+        "定宗三年戊申三月",
+        "庚戌年",
+        "range"
+      ],
+      "loc": [
+        "橫相乙兒",
+        "蒙古帝国"
+      ],
+      "action": "贵由在位三年后去世；此后继承议而未决，连续三年无君，具体行事又因史册缺失不可考。",
+      "result": "最高皇位长期空缺。",
+      "quote": [
+        "帝崩于橫相乙兒之地",
+        "議所立未決",
+        "已三歲無君",
+        "簡策失書，無從考也"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-GUYUK-DEATH-INTERREGNUM",
+        "candidate": "POL-CAND-YUAN-GUYUK-DEATH-INTERREGNUM",
+        "summary": "定宗去世后长期无君。",
+        "operation": "completed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "君主死亡与继承僵局。",
+          "decision_question": "定宗后由谁继位。",
+          "alternatives": "未载。",
+          "decision": "三年未能议定。",
+          "direct_result": "帝国无君。",
+          "power_change": "最高权力处于未决状态。",
+          "risk_or_damage": "法度与内外协调进一步受损的具体情况未载。",
+          "follow_up": "卷3续宪宗即位。"
+        }
+      },
+      "unknown": [
+        "定宗死因、三年间实际摄政者与继承争论未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-002-DROUGHT-EXACTIONS-1248",
+      "time": "定宗三年戊申",
+      "loc": [
+        "燕京以南",
+        "西域",
+        "海東",
+        "蒙古帝国"
+      ],
+      "action": "大旱使河涸草焚、牛马大量死亡；诸王各部使者又向燕京以南征求财货军需，并向西域索珠、海东索鹰，驿骑昼夜不绝。",
+      "result": "牛马十死八九，民不聊生，额外征求与驿役使民力更加困乏。",
+      "groups": [
+        "灾区民众",
+        "牧民",
+        "燕京以南诸郡民户"
+      ],
+      "quote": [
+        "大旱，河水盡涸，野草自焚",
+        "牛馬十死八九，人不聊生",
+        "徵求貨財、弓矢、鞍轡之物",
+        "馹騎絡繹，晝夜不絕，民力益困"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-DROUGHT-EXACTIONS-1248",
+        "candidate": "FIN-CAND-YUAN-DROUGHT-EXACTIONS-1248",
+        "summary": "大旱畜灾叠加诸王征求和驿役。",
+        "operation": "mixed",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "河涸草焚的大旱。",
+          "fiscal_state": "诸王各部多头征求财货军需。",
+          "livelihood_state": "牛马死亡近九成，民不聊生、民力益困。",
+          "production_circulation": "畜牧生产崩损，驿骑频繁占用交通供给。"
+        }
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "法度不一导致诸王各部多头征求。"
+        ]
+      ],
+      "unknown": [
+        "灾区范围、死亡人口、征求数量与救济措施未载。"
+      ]
+    }
+  ]
+}

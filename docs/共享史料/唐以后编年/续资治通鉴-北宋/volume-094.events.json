@@ -1,0 +1,1205 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-094",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷094",
+    "revision_ref": "2299574",
+    "start_locator": "徽宗體神合道駿烈遜功聖文仁德憲慈顯孝皇帝宣和三年",
+    "end_locator": "至雄州，宣撫司猶疑金人所納非實",
+    "overlap_context": "承接卷093方臘起事及宋金接触；本卷整页续记宣和三年至五年，含方腊平定、辽亡、宋金燕云交涉和艮岳工程。",
+    "input_fingerprint": "877cae2acfb18f001e2fd97ee59df61d8f01f16a0009ded4be46759dbf56cb8b"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-094-EASTERN-REQUISTION-SUSPENDED-1121",
+      "time": "宣和三年正月",
+      "loc": [
+        "淮南",
+        "江南",
+        "福建"
+      ],
+      "action": "童贯到吴地后以御笔停罢苏杭造作局、御前纲运及木石采色，并黜朱勔亲属在职者。",
+      "implementation": "命董耘作手诏罪己，撤销相关采办与转运。",
+      "result": "吴民大悦；停罢措施能否持续，页内未载。",
+      "quote": [
+        "罷蘇、杭造作局及御前綱運並木石采色等物",
+        "而帝亦黜朱勔父子弟侄之在職者，吳民大悅"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停罢花石采办和纲运。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宦官与地方处置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-FANG-LA-EXPANSION-1121",
+      "time": "宣和三年正月至二月",
+      "loc": [
+        "婺州",
+        "衢州",
+        "旌德县",
+        "处州",
+        "杭州"
+      ],
+      "action": "方腊继续攻陷婺州、衢州、旌德县和处州，宋廷降诏招抚并由王禀守复杭州。",
+      "result": "彭汝方死，东南战事持续。",
+      "quote": [
+        "方臘陷婺州，又陷衢州",
+        "方臘陷旌德縣及處州"
+      ],
+      "battle": "BATTLE-LEAD-094-FANG-LA-EXPANSION-1121",
+      "battle_reason": "方腊扩张与宋军防御。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-COURT-PURGE-YIDU-DEFECTS-1121",
+      "time": "宣和三年正月",
+      "loc": [
+        "辽",
+        "诸闾山县",
+        "金"
+      ],
+      "action": "辽主受萧奉先构陷，杀萧昱、达哈拉并赐萧文妃死；耶律伊都率千余骑降金。",
+      "result": "辽追军纵放伊都，萧奉先继而以加爵赏安结将校。",
+      "quote": [
+        "遂誅蕭昱、達哈拉而賜文妃死",
+        "即率千餘騎叛入金"
+      ],
+      "battle": "BATTLE-LEAD-094-LIAO-YIDU-DEFECTS-1121",
+      "battle_reason": "辽军将领叛降金国。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "继承危机与宫廷清洗。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-JIANG-SURRENDER-1121",
+      "time": "宣和三年二月",
+      "loc": [
+        "河朔",
+        "海州"
+      ],
+      "action": "张叔夜以伏兵焚宋江所劫巨舟，擒其副贼，宋江遂降。",
+      "result": "宋江部众失去斗志而归降，后续处置未载。",
+      "quote": [
+        "舉火焚其舟",
+        "擒其副賊，江乃降"
+      ],
+      "battle": "BATTLE-LEAD-094-SONG-JIANG-SURRENDER-1121",
+      "battle_reason": "海州对宋江部的围捕与受降。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-JIN-CAMPAIGN-DELAY-1121",
+      "time": "宣和三年二月",
+      "loc": [
+        "登州",
+        "京师",
+        "环庆",
+        "鄜延"
+      ],
+      "action": "方腊起事后，宋廷停罢环庆、鄜延与河北禁军更戍，暂留金使，待童贯回还再议。",
+      "result": "宋金先前相约的军事协调延后。",
+      "quote": [
+        "朝廷罷更戍",
+        "留金使不遣"
+      ],
+      "battle": "BATTLE-LEAD-094-SONG-JIN-CAMPAIGN-DELAY-1121",
+      "battle_reason": "宋金夹攻准备因方腊战事中断。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "使节与军事决策调整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-FANG-LA-SUPPRESSION-1121",
+      "time": "宣和三年四月",
+      "loc": [
+        "清河堰",
+        "青溪",
+        "帮源洞"
+      ],
+      "action": "童贯、谭稹水陆进军，韩世忠入帮源洞擒方腊，诸将继获其妻子和方肥等人。",
+      "result": "方腊部溃散；史载官军杀贼七万余、方腊乱中平民死伤与妇女遭难，具体统计未独立核验。",
+      "quote": [
+        "庚寅，擒臘以出",
+        "殺賊七萬餘人，其黨皆潰",
+        "戕平民二百萬"
+      ],
+      "battle": "BATTLE-LEAD-094-FANG-LA-SUPPRESSION-1121",
+      "battle_reason": "帮源洞战役与方腊被擒。",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战乱造成平民伤亡和逃亡。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-REBEL-AREA-TAX-RELIEF-1121",
+      "time": "宣和三年四月",
+      "loc": [
+        "两浙",
+        "江东"
+      ],
+      "action": "朝廷对两浙、江东被贼州县给复三年。",
+      "result": "受战乱州县获三年赋役宽免；实际覆盖未载。",
+      "quote": [
+        "兩浙、江東被賊州縣，給復三年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后税役宽免。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-YIDU-SUBMISSION-INTELLIGENCE-1121",
+      "time": "宣和三年五月",
+      "loc": [
+        "咸州",
+        "辽",
+        "金"
+      ],
+      "action": "耶律伊都到咸州献辽国器甲旗帜及降书，金主保留其旧官统其部。",
+      "result": "金由伊都降书更知辽国虚实。",
+      "quote": [
+        "送上遼國宣誥及器甲、旗幟",
+        "自伊都降，金益知遼之虛實矣"
+      ],
+      "battle": "BATTLE-LEAD-094-YIDU-SUBMISSION-INTELLIGENCE-1121",
+      "battle_reason": "伊都降金带来的辽军情报。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-IMPERIAL-PROVISIONING-RESTORED-1121",
+      "time": "宣和三年闰月",
+      "loc": [
+        "东南",
+        "宋境"
+      ],
+      "action": "王黼称方腊起事缘于茶盐法且童贯归过于帝，帝遂复应奉局，命王黼、梁师成领之，朱勔复得志。",
+      "result": "先前为安人情停罢的应奉采办恢复，董耘被治罪。",
+      "quote": [
+        "詔復應奉局",
+        "朱勔亦復得志矣"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复应奉与采办负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王黼、梁师成领局和董耘获罪。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-RIVER-BREACH-RELIEF-1121",
+      "time": "宣和三年六月至七月",
+      "loc": [
+        "恩州清河埽",
+        "温州",
+        "处州"
+      ],
+      "action": "恩州清河埽决口，朝廷后赈温、处等八州。",
+      "result": "决口与赈济均有记载，灾损规模和发放数额未载。",
+      "quote": [
+        "河決恩州清河埽",
+        "振溫、處等八州"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河工失守，修复未载。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾区赈济。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-EXPENSIVE-BORDER-POLITIES-ABOLISHED-1121",
+      "time": "宣和三年七月",
+      "loc": [
+        "夔峡",
+        "广南"
+      ],
+      "action": "因边臣开纳士、建立军州被指上蠹国用下殚民财，宋廷废十二州和二军，改置县或堡塞。",
+      "result": "相关军州被裁并，后续财政效果未载。",
+      "quote": [
+        "上蠹國用，下殫民財",
+        "詔廢純、茲、祥、亨、淇、溱、承、播、恩、隆、充、孚十二州"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁撤被指耗费的军州。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "行政区划调整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-DAOIST-REGISTRY-EXPANSION-1121",
+      "time": "宣和三年七月至十一月",
+      "loc": [
+        "三京",
+        "节镇",
+        "宋境"
+      ],
+      "action": "朝廷设置道录、副道录、道正等职，并规定《道史》《道典》编纂框架。",
+      "result": "道教官职与官方史书编纂制度扩展。",
+      "quote": [
+        "令三京置女道錄、副道錄各一員",
+        "自漢至五代為《道史》，本朝為《道典》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宗教行政与官方知识秩序。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-ATTACKS-LIAO-1121",
+      "time": "宣和三年十二月",
+      "loc": [
+        "辽中京"
+      ],
+      "action": "金命杲统内外诸军、以伊都为前锋渡辽西进，要求克中京后将礼乐仪仗与图书文籍运回。",
+      "result": "金对辽全面进攻启动。",
+      "quote": [
+        "悉師渡遼而西，用伊都為前鋒",
+        "若克中京，所得禮樂儀仗、圖書文籍"
+      ],
+      "battle": "BATTLE-LEAD-094-JIN-ATTACKS-LIAO-1121",
+      "battle_reason": "金军西进攻辽中京。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-YANG-JIAN-LI-YAN-LAND-EXACTIONS-1121",
+      "time": "宣和三年",
+      "loc": [
+        "汝州",
+        "京东",
+        "京西",
+        "淮西北"
+      ],
+      "action": "杨戬、李彦以索田契、括荒地和供奉等方式加立租赋，并将民田指为天荒、公田。",
+      "result": "常赋外增租，水旱蠲税不免；史载农民失田、耗财与死亡。",
+      "quote": [
+        "至無可證，則度地所出，增立賦租",
+        "水旱蠲稅，此不得免",
+        "民不勝忿痛"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "田赋加派、侵占与供奉负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "内侍与地方官吏权力运行。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-TAKES-LIAO-CENTRAL-CAPITAL-1122",
+      "time": "宣和四年正月",
+      "loc": [
+        "高恩",
+        "回纥",
+        "辽中京"
+      ],
+      "action": "金都统杲攻克高恩、回纥二城并陷辽中京，辽主出居庸关西走。",
+      "result": "辽中京失守，辽主离开中枢。",
+      "quote": [
+        "乙亥，陷遼中京，遂下澤州",
+        "遼主出居庸關"
+      ],
+      "battle": "BATTLE-LEAD-094-JIN-TAKES-LIAO-CENTRAL-CAPITAL-1122",
+      "battle_reason": "金军攻陷辽中京。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-PRINCE-EXECUTED-1122",
+      "time": "宣和四年正月",
+      "loc": [
+        "辽"
+      ],
+      "action": "辽主以谋立晋王为由缢杀额噜温，并诛耶律萨巴等。",
+      "result": "晋王本有人望，其死使诸军解体。",
+      "quote": [
+        "遼主乃遣人縊之",
+        "由是人人解體"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "继承处置削弱军心。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-YAN-REGIME-1122",
+      "time": "宣和四年三月",
+      "loc": [
+        "燕京"
+      ],
+      "action": "李处温等拥立耶律淳为天锡皇帝、改元建福，改怨军为常胜军并委耶律大石军旅。",
+      "result": "燕云形成以耶律淳为中心的辽国残余政权。",
+      "quote": [
+        "群臣上尊號曰天錫皇帝，改元建福",
+        "改怨軍為常勝軍"
+      ],
+      "battle": "BATTLE-LEAD-094-LIAO-YAN-REGIME-1122",
+      "battle_reason": "燕京的辽残余政权和常胜军。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战时政权重组。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-NORTHERN-CAMPAIGN-FUNDING-1122",
+      "time": "宣和四年三月",
+      "loc": [
+        "宋境",
+        "河北"
+      ],
+      "action": "王黼在三省置经抚房，括天下丁夫计口出算，筹钱供北伐。",
+      "result": "计得钱六千二百万缗以充军用。",
+      "quote": [
+        "於三省置經撫房，專治邊事",
+        "得錢六千二百萬緡以充用"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按人口筹集北伐经费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "经抚房绕开枢密处置边事。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-ATTACKS-YAN-1122",
+      "time": "宣和四年五月至六月",
+      "loc": [
+        "白沟",
+        "范村",
+        "雄州"
+      ],
+      "action": "童贯分种师道、辛兴宗两路北进，分别在白沟、范村败于辽军；帝闻败后诏班师。",
+      "result": "宋军退保雄州，北伐首轮失败。",
+      "quote": [
+        "退師雄州；遼人追擊，至於城下",
+        "辛興宗與蕭幹戰，亦敗於范村",
+        "己丑，帝聞種師道等兵敗，懼甚，詔班師"
+      ],
+      "battle": "BATTLE-LEAD-094-SONG-ATTACKS-YAN-1122",
+      "battle_reason": "宋军白沟、范村北伐失利。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-EASTERN-WAR-TAX-1122",
+      "time": "宣和四年七月",
+      "loc": [
+        "江淮七路",
+        "杭州"
+      ],
+      "action": "陈遘以财用不足，倡议比较酒务和公家出纳钱粮取赢余，设经制钱。",
+      "result": "经制钱成为东南七路之害。",
+      "quote": [
+        "遘以財用不給",
+        "遂為東南七路之害"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战时财政加派。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-PURSUES-TIANZUO-1122",
+      "time": "宣和四年八月",
+      "loc": [
+        "右辇驿",
+        "鄂勒哲图"
+      ],
+      "action": "金主亲率精兵袭辽主，宗望等在右辇驿交战并追至鄂勒哲图。",
+      "result": "辽主弃辎重逃遁，萧德默被执。",
+      "quote": [
+        "自將精兵萬人襲之",
+        "遼主棄輜重而遁"
+      ],
+      "battle": "BATTLE-LEAD-094-JIN-PURSUES-TIANZUO-1122",
+      "battle_reason": "金军右辇驿追击辽天祚帝。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-JIN-DIPLOMATIC-COMMITMENT-1122",
+      "time": "宣和四年九月",
+      "loc": [
+        "汴京",
+        "登州"
+      ],
+      "action": "宋廷向金使解释出兵以应夹攻之约，并以厚礼接待金使，命赵良嗣、马扩出使。",
+      "result": "宋金燕云协商延续，条约边界与执行仍未定。",
+      "quote": [
+        "統兵以應貴朝夾攻之意",
+        "帝待慶裔等甚厚"
+      ],
+      "battle": "BATTLE-LEAD-094-SONG-JIN-DIPLOMATIC-COMMITMENT-1122",
+      "battle_reason": "宋金夹攻约与燕云交涉。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "使节礼遇与外交决策。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-GUO-YAOSHI-SURRENDER-1122",
+      "time": "宣和四年九月",
+      "loc": [
+        "涿州"
+      ],
+      "action": "辽将郭药师率八千人降宋，宋廷授恩州观察使并令其部隶刘延庆。",
+      "result": "常胜军将领及部众转入宋军体系。",
+      "quote": [
+        "擁所部八千人來降",
+        "以兵隸劉延慶"
+      ],
+      "battle": "BATTLE-LEAD-094-GUO-YAOSHI-SURRENDER-1122",
+      "battle_reason": "郭药师与常胜军降宋。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-YAN-DEFEAT-1122",
+      "time": "宣和四年十月",
+      "loc": [
+        "白沟",
+        "卢沟",
+        "燕京",
+        "涿水"
+      ],
+      "action": "刘延庆率十万渡白沟，郭药师所部一度入燕，后因援军失约遭萧干反击；刘延庆又焚营逃遁。",
+      "result": "宋军杀伤过半，军实殆尽，退保雄州。",
+      "quote": [
+        "藥師失援而敗",
+        "即燒營而遁",
+        "所儲軍實殆盡"
+      ],
+      "battle": "BATTLE-LEAD-094-SONG-YAN-DEFEAT-1122",
+      "battle_reason": "宋军攻燕失败与溃退。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-TAKES-YANJING-1122",
+      "time": "宣和四年十二月",
+      "loc": [
+        "居庸关",
+        "燕京"
+      ],
+      "action": "金主自将攻燕，金军过居庸关南下，辽相左企弓等降，金主进入燕京。",
+      "result": "辽五京皆为金有，萧妃与萧干北走。",
+      "quote": [
+        "金主至燕京，遂自南門入",
+        "於是遼五京皆為金有"
+      ],
+      "battle": "BATTLE-LEAD-094-JIN-TAKES-YANJING-1122",
+      "battle_reason": "金军攻占燕京，辽五京尽失。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-GENYUE-COMPLETED-1122",
+      "time": "宣和四年",
+      "loc": [
+        "汴京",
+        "太湖"
+      ],
+      "action": "万岁山改名艮岳并告成，朱勔从太湖取巨石，以千夫挽运且凿河断桥、毁堰拆闸。",
+      "implementation": "集中征运奇花异石，修筑山体、池江与宫苑。",
+      "result": "艮岳工程完成；单石运输历数月，朱勔由此授节度使。",
+      "quote": [
+        "是歲，萬歲山成",
+        "挽以千夫，鑿河斷橋，毀堰拆閘",
+        "數月方至京師"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "园林工程及大规模运输。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "役夫和水利设施受工程扰动。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-POPULATION-REPORT-1122",
+      "time": "宣和四年",
+      "loc": [
+        "宋境"
+      ],
+      "action": "户部上报主客户二千零八十八万余、人口四千六百七十三万余。",
+      "result": "为当年户口统计陈报，统计口径与完整性未载。",
+      "quote": [
+        "戶部上今歲民數，凡主客戶二千八十八萬二千三百五十八"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "户口财政基础统计。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-YAN-ANNUAL-PAYMENT-1123",
+      "time": "宣和五年二月",
+      "loc": [
+        "燕山",
+        "雄州"
+      ],
+      "action": "宋廷再遣赵良嗣，许在契丹旧岁币四十万外，每年增加燕京代税一百万缗，并议画疆、榷场等事。",
+      "result": "宋以年币和贸易安排推进燕云交涉；西京等边界仍未定。",
+      "quote": [
+        "每歲更加燕京代稅一百萬緡",
+        "及議畫疆與遣使賀正旦、生辰、置榷場交易"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对金年度代税和贸易安排。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边界与邦交议程。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-YANSHAN-DEFENSE-APPOINTMENT-1123",
+      "time": "宣和五年正月",
+      "loc": [
+        "燕山府",
+        "河北",
+        "河东"
+      ],
+      "action": "宋廷任王安中为河北、河东、燕山府路宣抚使、知燕山府，詹度与郭药师同知府事。",
+      "result": "燕山守备的主官配置确定。",
+      "quote": [
+        "授安中慶遠軍節度使，河北、河東、燕山府路宣撫使，知燕山府"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新边区军政任命。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-094-YANSHAN-DEFENSE-1123",
+          [],
+          "燕山边防部署。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-LU-YIHAO-WARNING-IGNORED-1123",
+      "time": "宣和五年正月",
+      "loc": [
+        "燕山",
+        "河北"
+      ],
+      "action": "新任燕山转运使吕颐浩称开边极远、穷力竭财亦难善后，并上燕山河北危急五事。",
+      "result": "帝怒而贬官，但仍令其任职。",
+      "quote": [
+        "開邊極遠，其勢難守",
+        "帝怒，命貶官，而職任如故"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边防开支风险判断。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "谏议受处置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-RETURNS-YAN-DEFECTORS-1123",
+      "time": "宣和五年三月至四月",
+      "loc": [
+        "涿州",
+        "燕京",
+        "雄州"
+      ],
+      "action": "金索赵温讯等燕京职官，赵良嗣最终从宣抚司缚送其人于金。",
+      "result": "金释缚并任用这些职官；交燕与边界问题仍反复谈判。",
+      "quote": [
+        "縛送溫訊等於金",
+        "宗翰釋其縛而用之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对金外交让步与人员处置。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-094-SONG-JIN-YAN-NEGOTIATIONS-1123",
+          [],
+          "燕云交接关联的战时外交。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-FANG-LA-HANGZHOU-MUZHOU-RECOVERY-1121",
+      "time": "宣和三年三月",
+      "loc": [
+        "杭州",
+        "桐庐",
+        "睦州"
+      ],
+      "action": "方腊再犯杭州，王禀在城外击退；官军又在桐庐取胜并收复睦州。",
+      "result": "杭州守住、睦州收复，方腊退回帮源。",
+      "quote": [
+        "斬首五百級",
+        "之，遂復睦州"
+      ],
+      "battle": "BATTLE-LEAD-094-FANG-LA-HANGZHOU-MUZHOU-1121",
+      "battle_reason": "杭州、桐庐战斗与睦州收复。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-CHEN-GUOTING-REMONSTRANCE-PUNISHED-1121",
+      "time": "宣和三年五月",
+      "loc": [
+        "开封",
+        "黄州"
+      ],
+      "action": "陈过庭指蔡京、王黼致养睦寇并请正朱勔父子之罪，王黼陷其获罪。",
+      "result": "陈过庭先罢知蕲州，后责黄州安置。",
+      "quote": [
+        "致寇者蔡京，養寇者王黼",
+        "責黃州安置"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "谏官弹劾与报复性处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-CO-GOVERNMENT-APPOINTMENT-1121",
+      "time": "宣和三年六月",
+      "loc": [
+        "金"
+      ],
+      "action": "金主命其弟晟参预国政，授权核实军法并依旧制处理其他政务。",
+      "result": "晟取得副理国政与军法裁量权。",
+      "quote": [
+        "是用汝貳我國政",
+        "凡軍事違者，閱實其罪"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "金国中枢权力配置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-LIAO-CAMPAIGN-PLANNING-1121",
+      "time": "宣和三年四月至七月",
+      "loc": [
+        "金",
+        "咸州"
+      ],
+      "action": "宗翰以辽中外离心请乘机进攻，金主令诸路备军，后决定亲征又因连雨停止。",
+      "result": "攻辽战略确立，亲征时间被天气推迟。",
+      "quote": [
+        "今乘其釁，可襲取之",
+        "尋以連雨，罷親征"
+      ],
+      "battle": "BATTLE-LEAD-094-JIN-LIAO-CAMPAIGN-PLANNING-1121",
+      "battle_reason": "金国攻辽战略与动员。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-RULER-FLEES-WEST-1122",
+      "time": "宣和四年正月至三月",
+      "loc": [
+        "鸳鸯泺",
+        "西京",
+        "白水泺",
+        "夹山"
+      ],
+      "action": "伊都引金兵逼近后，辽主由鸳鸯泺走西京，继而在金军追击下弃辎重入夹山。",
+      "result": "辽主失传国玺，辽军接连失败，中枢持续崩解。",
+      "quote": [
+        "遺傳國璽于桑乾河",
+        "乘輕騎入夾山"
+      ],
+      "battle": "BATTLE-LEAD-094-LIAO-RULER-FLEES-WEST-1122",
+      "battle_reason": "金军追击辽主及辽中枢西逃。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-JIN-NORTHERN-WESTERN-CONQUESTS-1122",
+      "time": "宣和四年二月至四月",
+      "loc": [
+        "北安州",
+        "西京"
+      ],
+      "action": "宗翰等攻取北安州并推进西京，击败耿守忠援军。",
+      "result": "西京失陷，西路州县部族降金。",
+      "quote": [
+        "遂取北安州",
+        "西京遂陷，西路州縣部族皆降金"
+      ],
+      "battle": "BATTLE-LEAD-094-JIN-NORTHERN-WESTERN-CONQUESTS-1122",
+      "battle_reason": "金军攻取北安州和西京。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-YAN-PEACE-REJECTED-1122",
+      "time": "宣和四年三月",
+      "loc": [
+        "燕京",
+        "金"
+      ],
+      "action": "耶律淳向金请和并求保存宗祀，金要求其归附、否则攻灭。",
+      "result": "燕京辽政权与金未能达成妥协。",
+      "quote": [
+        "耶律淳請和于金",
+        "若不降附，將有後悔"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战时政权承认与议和失败。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-094-LIAO-YAN-PEACE-REJECTED-1122",
+          [],
+          "金对燕京政权的战争威胁。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-NORTHERN-WAR-DECISION-AND-DISSENT-1122",
+      "time": "宣和四年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "王黼推动取燕云，赵隆、郑居中、安尧臣等反对破坏宋辽旧盟并警告新强敌风险。",
+      "result": "议论一度稍止，但徽宗最终同意童贯再举兵。",
+      "quote": [
+        "帝遂決意治兵",
+        "杜塞邊隙，務守舊好",
+        "居中又言不宜幸災而動"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "北伐决策与异议被压过。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-094-NORTHERN-WAR-DECISION-1122",
+          [],
+          "宋军北伐决策。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-SLIM-ARMY-LEVY-1122",
+      "time": "宣和四年三月",
+      "loc": [
+        "涿州",
+        "易州"
+      ],
+      "action": "萧干按户从奚及诸部征一人为瘦军，得万余户兵，散处涿易抢掠。",
+      "result": "当地居民深受其害。",
+      "quote": [
+        "戶選一人為軍，謂之瘦軍",
+        "肆為侵掠，民甚苦之"
+      ],
+      "battle": "BATTLE-LEAD-094-LIAO-SLIM-ARMY-LEVY-1122",
+      "battle_reason": "辽燕政权征兵及地方军事活动。",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按户征兵和掠夺民众。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-YAN-SUCCESSION-1122",
+      "time": "宣和四年六月",
+      "loc": [
+        "燕京"
+      ],
+      "action": "耶律淳病死后，萧德妃称皇太后主军国，奉遗命迎秦王定并改元德兴。",
+      "result": "燕京辽政权转为萧妃称制。",
+      "quote": [
+        "立德妃蕭氏為皇太后，主軍國事",
+        "蕭妃遂稱制，改元德興"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战时政权继承。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-LI-CHUWEN-EXECUTED-1122",
+      "time": "宣和四年六月",
+      "loc": [
+        "燕京"
+      ],
+      "action": "李处温父子同时向宋、金谋求出路，被萧妃查获处死并籍没。",
+      "result": "李处温被赐死、其子被杀，籍得钱七万缗及相当金玉。",
+      "quote": [
+        "乃賜死，臠其子奭",
+        "籍其家，得錢七萬緡"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "通敌案、处决和籍没。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "籍没财产。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-XIA-RELIEF-ARMY-DEFEATED-1122",
+      "time": "宣和四年六月",
+      "loc": [
+        "宜水",
+        "野谷"
+      ],
+      "action": "夏遣李良辅率三万兵救辽，被金斡鲁、洛索击败，后又遭山洪。",
+      "result": "夏军败退，漂没者众。",
+      "quote": [
+        "將兵三萬救遼",
+        "夏人漂沒者不可勝計"
+      ],
+      "battle": "BATTLE-LEAD-094-XIA-RELIEF-ARMY-DEFEATED-1122",
+      "battle_reason": "夏援辽军与金军交战。"
+    },
+    {
+      "id": "CHF-XZZTJ-094-SONG-ZHAO-BORDER-WARNING-PUNISHED-1122",
+      "time": "宣和四年九月",
+      "loc": [
+        "广南",
+        "宋境"
+      ],
+      "action": "宋昭上书称辽不可攻、金不可邻，请诛王黼、童贯、赵良嗣。",
+      "result": "王黼将其除名并编管广南。",
+      "quote": [
+        "遼不可攻，金不可鄰",
+        "除名，編管廣南"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边策异议与贬谪。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-GORYEO-WARNING-IGNORED-1122",
+      "time": "宣和四年九月",
+      "loc": [
+        "高丽",
+        "宋"
+      ],
+      "action": "高丽王楷托返宋医官转告，辽可作边捍、女直不可交，建议宋早为防备。",
+      "result": "医官奏报后，徽宗不悦，未载采纳防备。",
+      "quote": [
+        "女直之人，不可交也",
+        "子，宜早為備",
+        "醫還，奏之，帝不悅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "盟邻风险警告未被采纳。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-YANSHAN-YUNZHONG-ADMINISTRATION-1122",
+      "time": "宣和四年十月",
+      "loc": [
+        "燕山府路",
+        "云中府路"
+      ],
+      "action": "宋廷规划山前燕山府路九州、山后云中府路九州，并命蔡攸判燕山府。",
+      "result": "收复区行政框架先行设定，实际控制范围并不完整。",
+      "quote": [
+        "以燕山府路為名。山後別名雲中府",
+        "並燕山府為山前九州"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新占区行政区划和主官。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-LIAO-WARNING-REJECTED-1122",
+      "time": "宣和四年十月",
+      "loc": [
+        "宋军营",
+        "燕京"
+      ],
+      "action": "辽使韩昉等以唇亡齿寒警告宋廷勿助金灭辽，童贯、蔡攸斥退且不奏朝廷。",
+      "result": "辽方求和与共同防金建议未进入宋廷决策。",
+      "quote": [
+        "脣亡齒寒，不可不慮",
+        "貫亦不以聞於朝"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "外交警告被前线主帅压下。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-XI-KINGDOM-FOUNDED-1123",
+      "time": "宣和五年正月",
+      "loc": [
+        "箭笴山"
+      ],
+      "action": "奚王和勒博自立为奚国皇帝、改元天复，设置奚汉渤海三枢密院。",
+      "result": "辽主命耶律玛格征讨，新政权与辽分裂。",
+      "quote": [
+        "自立為奚國皇帝，改元天復",
+        "設奚、漢、渤海三樞密院"
+      ],
+      "battle": "BATTLE-LEAD-094-XI-KINGDOM-FOUNDED-1123",
+      "battle_reason": "奚国建立及辽军征讨。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新政权建立与官制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-PINGZHOU-ZHANG-JUE-MILITARY-REGIME-1123",
+      "time": "宣和五年正月至三月",
+      "loc": [
+        "平州"
+      ],
+      "action": "张觉平定平州军乱后籍五万壮丁、千匹马备战，先拒辽官、后受金任命而继续掌平州。",
+      "result": "平州形成张觉控制的武装政权，归属仍不稳定。",
+      "quote": [
+        "籍壯丁五萬人、馬千匹，練兵為備",
+        "使，仍知平州"
+      ],
+      "battle": "BATTLE-LEAD-094-PINGZHOU-ZHANG-JUE-MILITARY-REGIME-1123",
+      "battle_reason": "平州武装及归属变化。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方军政权力重组。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-094-GUO-YAOSHI-COURT-FAVOR-1123",
+      "time": "宣和五年正月",
+      "loc": [
+        "开封",
+        "燕山"
+      ],
+      "action": "郭药师入朝获甲第、姬妾、珠袍金盆和厚礼，徽宗委其守燕并要求捕取辽主。",
+      "result": "郭药师升检校少傅回镇燕山，宋廷以厚恩维系常胜军。",
+      "quote": [
+        "禮遇甚厚，賜以甲第、姬妾",
+        "加檢校少傅，歸鎮燕山"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "降将安置与边帅授权。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-094-GUO-YAOSHI-COURT-FAVOR-1123",
+          [],
+          "燕山守军与降将控制。"
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2299574 的《續資治通鑑》卷094连续通读登记。",
+    "页内宣和四年、宣和五年正文仍属卷094；未知保持未知。",
+    "军事事项只交 battle 工作流；不作评分或正式事实写入。"
+  ]
+}

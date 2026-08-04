@@ -1,0 +1,504 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-137",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷137",
+    "revision_ref": "2311192",
+    "start_locator": "高宗受命中興全功至德聖神武文昭仁憲孝皇帝紹興三十二年",
+    "end_locator": "帝大異之",
+    "overlap_context": "承卷136川陕与宋金和议；本卷固定页覆盖绍兴三十二年四月至十二月。",
+    "input_fingerprint": "04b059cf7aedf87330964ef888f124f6df064d7e21d10b98073a6bcab9cc71a8"
+  },
+  "limitations": [],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-137-BAT-KHITAN-SUPPRESSION",
+      "time": "紹興三十二年四月至九月",
+      "action": "金军由长泺、霿淞河至陷泉连续追击耶律斡罕，后迫其部众执首领投降。",
+      "result": "俘斩万计、俘五万余人，斡罕九月被磔，契丹起事平定。",
+      "quote": [
+        "金兵馳擊，大破之",
+        "俘五萬餘人",
+        "賊黨執斡罕以降",
+        "斡罕磔於市"
+      ],
+      "battle": "HANDOFF-XZZTJ-137-KHITAN-SUPPRESSION",
+      "battle_reason": "金讨斡罕多阶段追击至最终平定为连续战役链。"
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-JIN-AMNESTY",
+      "time": "紹興三十二年六月",
+      "action": "金世宗对被俘、来降或曾受伪命者普遍释罪，并令官府安置养济无资者。",
+      "result": "除斡罕本人外，归附者可获赦与官赏。",
+      "quote": [
+        "皆釋其罪。其逃亡者",
+        "能誅捕斡罕或率眾來降者",
+        "仍官為養濟"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-JIN-AMNESTY",
+        "candidate": "POL-CAND-XZZTJ-137-JIN-AMNESTY",
+        "summary": "金对契丹归附者实行广泛赦免与养济。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "叛乱善后招抚",
+          "decision_question": "如何处置契丹被俘与来降者",
+          "alternatives": "普遍治罪；除首领外释罪招抚",
+          "decision": "释罪并给官赏养济",
+          "direct_result": "归附渠道扩大",
+          "power_change": "金廷以赦令瓦解叛军",
+          "risk_or_damage": "官吏不得侵损来降者",
+          "follow_up": "最终擒斡罕"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-BAT-YUANZHOU-DEFEAT",
+      "time": "紹興三十二年五月",
+      "action": "姚仲率军援原州，阵列和辎重被金军冲断，五阵溃败。",
+      "result": "多名统领将官与队将战死，姚仲却隐瞒败绩并推姚志为奇功。",
+      "quote": [
+        "與金人合戰，南兵大敗",
+        "陳心沖潰、輜重中隔",
+        "諱言五陳之敗",
+        "惟推姚志為奇功"
+      ],
+      "battle": "HANDOFF-XZZTJ-137-YUANZHOU-DEFEAT",
+      "battle_reason": "原州援军阵败与隐瞒败绩为同一战役链。"
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-BATTLE-REPORT-CONCEALMENT",
+      "time": "紹興三十二年五月",
+      "action": "姚仲在原州五阵大败后讳败报捷，吴璘讯问张傅才查得实情。",
+      "result": "姚仲被追赴军前，部将被重定节制且禁止擅离。",
+      "quote": [
+        "始得其實，遂追仲赴軍前議事",
+        "不得自為摘發",
+        "若擅離所守地，稍失支吾，並斬"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-BATTLE-REPORT-CONCEALMENT",
+        "candidate": "POL-CAND-XZZTJ-137-BATTLE-REPORT-CONCEALMENT",
+        "summary": "吴璘查实姚仲隐瞒败绩并收束其指挥权。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "军报核查与问责",
+          "decision_question": "如何处置原州败绩被报为奇功",
+          "alternatives": "维持捷报；查实并追责",
+          "decision": "鞫问查实、召回姚仲",
+          "direct_result": "前线改由吴挺节制",
+          "power_change": "姚仲失去自主摘发权",
+          "risk_or_damage": "战损与指挥失败被隐瞒",
+          "follow_up": "姚仲六月系狱拘管"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-BAT-SHIQIUYAN",
+      "time": "紹興三十二年五月",
+      "action": "张子盖援海州，在石湫堰以少击众，率精骑先入金阵。",
+      "result": "金军大败，溺死近半，海州围解。",
+      "quote": [
+        "與金人遇于石湫堰，敗之",
+        "率精銳數千騎，馳馬先入",
+        "金兵遂大敗，擁於河，溺死幾半"
+      ],
+      "battle": "HANDOFF-XZZTJ-137-SHIQIUYAN",
+      "battle_reason": "石湫堰战斗直接解除海州围困。"
+    },
+    {
+      "id": "CHF-XZZTJ-137-FIN-RECRUIT-RICE",
+      "time": "紹興三十二年五月",
+      "action": "张浚因中原蝗灾米贵，请拨米粮钱物招徕西北战士。",
+      "result": "朝廷拨米一万石用于招募。",
+      "quote": [
+        "東北今歲蝗蟲大作",
+        "乞朝廷多撥米斛或錢物",
+        "詔以米萬石予之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-137-RECRUIT-RICE",
+        "candidate": "FIN-CAND-XZZTJ-137-RECRUIT-RICE",
+        "summary": "以一万石米利用北方灾荒招徕西北兵员。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "东北蝗灾、米价涌贵、军籍凋寡",
+          "fiscal_state": "拨米一万石",
+          "livelihood_state": "为来归兵员提供粮食",
+          "production_circulation": "灾荒粮价推动人口流动"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-WRK-WANNU-CAMP",
+      "time": "紹興三十二年五月",
+      "action": "张浚建立御前万弩营，按保甲组织淮民，设置营寨并制弩治车、募海船。",
+      "result": "数月间应募不断，万弩营成军并形成江淮海陆防御设想。",
+      "quote": [
+        "宜置御前萬弩營",
+        "于建康府置營寨安泊",
+        "報。未幾，成軍。",
+        "乃令專制弩治車"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-XZZTJ-137-WANNU-CAMP",
+        "candidate": "WORK-CAND-XZZTJ-137-WANNU-CAMP",
+        "summary": "建设万弩营营寨并配套弩车海船。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "建康御前万弩营及弩车海船",
+          "phase": "招募、营寨建设与装备制造",
+          "purpose": "组织两淮强勇防守江淮",
+          "resource_input": "营寨、弩车、海船与米粮",
+          "operation": "保甲编组并专制弩车",
+          "benefit": "数月成军",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-SUCCESSION-ABDICATION",
+      "time": "紹興三十二年五月至六月",
+      "action": "高宗先立皇子玮为太子、改名昚，继而主动内禅并迁德寿宫。",
+      "result": "孝宗即位，高宗称太上皇，军国事转由嗣君处分。",
+      "quote": [
+        "可立為皇太子，仍改名昚",
+        "皇太子可即皇帝位，朕稱太上皇帝",
+        "一應軍國事，並聽嗣君處分",
+        "吾付託得人，斯無憾矣"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-SUCCESSION-ABDICATION",
+        "candidate": "POL-CAND-XZZTJ-137-SUCCESSION-ABDICATION",
+        "summary": "高宗完成立储并主动禅位孝宗。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "皇位和平交接",
+          "decision_question": "是否在边事粗宁后传位皇子",
+          "alternatives": "继续在位；立储并内禅",
+          "decision": "传位孝宗",
+          "direct_result": "军国事归嗣君",
+          "power_change": "最高权力由高宗转孝宗",
+          "risk_or_damage": "太子曾固辞大位",
+          "follow_up": "高宗迁德寿宫"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-OPEN-REMONSTRANCE",
+      "time": "紹興三十二年六月",
+      "action": "孝宗即位后允许中外士庶直言时政阙失，并承诺言不合理由亦不加罪。",
+      "result": "直言可经登闻检鼓院或州军递进，后又催促后省选报。",
+      "quote": [
+        "並許中外士庶直言極諫",
+        "弗協於理，罪不汝加",
+        "今已逾月，未聞推擇來上，可令催促"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-OPEN-REMONSTRANCE",
+        "candidate": "POL-CAND-XZZTJ-137-OPEN-REMONSTRANCE",
+        "summary": "孝宗开放士庶直言并催促处理建议。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "求言制度",
+          "decision_question": "如何广泛获得初政得失信息",
+          "alternatives": "限官员进言；允许士庶直谏",
+          "decision": "中外士庶均可投进",
+          "direct_result": "多渠道进言开放",
+          "power_change": "下情获得上达通道",
+          "risk_or_damage": "后省一度未推择上报",
+          "follow_up": "诏令催促"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-MAGISTRATE-RULE",
+      "time": "紹興三十二年七月",
+      "action": "孝宗诏守令不得滋讼、纵吏、夺民时兴土木或掊民财馈遗。",
+      "result": "触犯者必罚，能安民者增秩赐金。",
+      "quote": [
+        "民之休戚，實系守令",
+        "毋奪民時以重土木",
+        "有一於此，必罰毋赦"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-MAGISTRATE-RULE",
+        "candidate": "POL-CAND-XZZTJ-137-MAGISTRATE-RULE",
+        "summary": "以罚劣奖优约束守令扰民行为。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "地方治理问责",
+          "decision_question": "如何约束守令并奖励安民",
+          "alternatives": "无明确奖惩；列禁令并奖罚",
+          "decision": "扰民必罚、安民增秩",
+          "direct_result": "守令获得明确行为边界",
+          "power_change": "中央加强地方官绩效约束",
+          "risk_or_damage": "讼狱、吏奸、土木与馈遗扰民",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-FIN-LINAN-SUPPLY-CUT",
+      "time": "紹興三十二年七月",
+      "action": "孝宗罢临安京尹供食营办，并把节省二万余贯用于减除民间科扰。",
+      "result": "京尹供馈被停，财政节省直接转为民户减负。",
+      "quote": [
+        "罷京尹供食善營辦",
+        "所省錢二萬餘貫",
+        "盡與民間除去科擾"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-137-LINAN-SUPPLY-CUT",
+        "candidate": "FIN-CAND-XZZTJ-137-LINAN-SUPPLY-CUT",
+        "summary": "停京尹供食并以节省款减民间科扰。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "临安承担京尹供食营办与相关科扰",
+          "fiscal_state": "节省二万余贯",
+          "livelihood_state": "民间科扰获得减除",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-YUE-RESTORATION",
+      "time": "紹興三十二年七月",
+      "action": "孝宗追复岳飞原官，以礼改葬并访求后人录用。",
+      "result": "岳飞政治名誉和身后礼遇获得恢复。",
+      "quote": [
+        "追復岳飛元官，以禮改葬",
+        "訪求其後，特與錄用"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-YUE-RESTORATION",
+        "candidate": "POL-CAND-XZZTJ-137-YUE-RESTORATION",
+        "summary": "追复岳飞并改葬录后。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "event_type": "政治平反",
+          "decision_question": "如何处理岳飞旧案身后名誉",
+          "alternatives": "维持旧案；追复改葬",
+          "decision": "追复原官并录后",
+          "direct_result": "岳飞获礼葬与后人录用",
+          "power_change": "秦桧时期定案被新朝纠正",
+          "risk_or_damage": "未载。",
+          "follow_up": "访求其后"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-FIN-BIRTHDAY-TRIBUTE",
+      "time": "紹興三十二年七月",
+      "action": "孝宗免除诸路本应进奉的圣节金银钱绢。",
+      "result": "重复于天申节之后的进奉数额获蠲免。",
+      "quote": [
+        "諸路監司、州軍應合進金銀錢絹等",
+        "合進之數，權與蠲免"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-137-BIRTHDAY-TRIBUTE",
+        "candidate": "FIN-CAND-XZZTJ-137-BIRTHDAY-TRIBUTE",
+        "summary": "免除诸路圣节进奉。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "诸路需进奉金银钱绢",
+          "fiscal_state": "合进数额权免",
+          "livelihood_state": "地方进奉负担减少",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-PEACE-DEBATE",
+      "time": "紹興三十二年七月",
+      "action": "金方要求旧礼与封疆，孝宗要求宰执侍从台谏就屈礼、收纳归正人与战守提出定论。",
+      "result": "和战与疆界成为公开廷议，史浩主守、张浚反对示弱，遣金使亦因旧礼争议折返。",
+      "quote": [
+        "各宜指陳定論以聞",
+        "第當且堅壁以禦攻沖",
+        "與張浚議多不合",
+        "金責舊禮，不納而還"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-PEACE-DEBATE",
+        "candidate": "POL-CAND-XZZTJ-137-PEACE-DEBATE",
+        "summary": "孝宗将宋金礼疆和战问题交廷臣公开定论。",
+        "operation": "proposed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "和战政策廷议",
+          "decision_question": "是否接受旧礼并如何处置疆土与归正人",
+          "alternatives": "屈礼求和；坚壁图复；拒旧礼",
+          "decision": "征集定论，暂未统一",
+          "direct_result": "史浩张浚意见分歧",
+          "power_change": "和战决策进入多方廷议",
+          "risk_or_damage": "东南供给压力与金方持续求索",
+          "follow_up": "刘珙使金不纳而还"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-FIN-CUSTOMS-ABOLITION",
+      "time": "紹興三十二年八月",
+      "action": "金罢除各关征税。",
+      "result": "关卡税收被取消。",
+      "quote": "金罷諸關徵稅",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-XZZTJ-137-CUSTOMS-ABOLITION",
+        "candidate": "FIN-CAND-XZZTJ-137-CUSTOMS-ABOLITION",
+        "summary": "金废除诸关征税。",
+        "operation": "implemented",
+        "continuity": "ended",
+        "observations": {
+          "baseline": "诸关原有征税",
+          "fiscal_state": "关税收入取消",
+          "livelihood_state": "行旅贸易负担减轻",
+          "production_circulation": "关卡流通成本降低"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-OFFICIAL-TENURE",
+      "time": "紹興三十二年十月",
+      "action": "孝宗命分类举荐监司郡守并同奖同罚，又采纳久任建议以抑制速迁。",
+      "result": "地方官推荐责任与任期稳定性一并确立。",
+      "quote": [
+        "分為二等，一見今可用，一將來可用",
+        "不如所舉，罰亦同之",
+        "監司一易則擾一路",
+        "確意精選，務在久任"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-OFFICIAL-TENURE",
+        "candidate": "POL-CAND-XZZTJ-137-OFFICIAL-TENURE",
+        "summary": "分类荐举地方官并要求久任责成。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "地方官选任改革",
+          "decision_question": "如何兼顾荐举质量与任期稳定",
+          "alternatives": "频繁迁易；分类荐举并久任",
+          "decision": "同奖同罚且务在久任",
+          "direct_result": "三省奉命遵守",
+          "power_change": "举主责任和任期纪律加强",
+          "risk_or_damage": "监司郡守频易扰民",
+          "follow_up": "限月上报"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-EUNUCH-CAP",
+      "time": "紹興三十二年十一月",
+      "action": "台谏援引祖制要求限制内侍人数、养子与补额。",
+      "result": "孝宗命内侍省开具实有人数，并暂停当年会庆节进子。",
+      "quote": [
+        "內侍以一百八十人為額",
+        "宜立為定制",
+        "今年會慶節權免進子"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-EUNUCH-CAP",
+        "candidate": "POL-CAND-XZZTJ-137-EUNUCH-CAP",
+        "summary": "恢复内侍员额与养子限制。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "内侍员额治理",
+          "decision_question": "是否限制内侍员额和养子",
+          "alternatives": "继续扩张；依祖制限制",
+          "decision": "核人数并暂免进子",
+          "direct_result": "当年会庆节停止进子",
+          "power_change": "内侍扩张受到约束",
+          "risk_or_damage": "宦者员多",
+          "follow_up": "开具现有人数"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-CORRUPT-OFFICIAL-BAN",
+      "time": "紹興三十二年十一月",
+      "action": "宋重申犯入己赃的官吏不得因赦收叙，已恢复者也须改正。",
+      "result": "登极赦对贪赃官员的过宽恢复被收回。",
+      "quote": [
+        "甚失祖宗痛繩贓吏之意",
+        "並不許收敘",
+        "如有已放行收敘者，即為改正"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-CORRUPT-OFFICIAL-BAN",
+        "candidate": "POL-CAND-XZZTJ-137-CORRUPT-OFFICIAL-BAN",
+        "summary": "禁止贪赃官员因赦恢复官籍。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "贪腐官员赦后资格",
+          "decision_question": "赦令是否恢复贪赃官员",
+          "alternatives": "随赦复官；赃罪永不收叙",
+          "decision": "不许收叙并改正已复者",
+          "direct_result": "贪赃官员排除于复官",
+          "power_change": "赦令适用边界收紧",
+          "risk_or_damage": "宽赦破坏惩贪祖制",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-137-POL-MILITARY-RANK-REFORM",
+      "time": "紹興三十二年十二月",
+      "action": "宋按六项旧制纠正武官检校、移镇、承宣观察、横行迁转与总管差遣泛滥。",
+      "result": "六项审议均获准，自指挥下达日起施行。",
+      "quote": [
+        "看詳臣僚所陳六事",
+        "委皆允當，乞與施行",
+        "自降指揮日為始。」詔並從之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-XZZTJ-137-MILITARY-RANK-REFORM",
+        "candidate": "POL-CAND-XZZTJ-137-MILITARY-RANK-REFORM",
+        "summary": "按旧制整顿武官品秩与差遣。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "武官制度整顿",
+          "decision_question": "是否纠正武官迁转和差遣失序",
+          "alternatives": "维持泛滥；恢复六项旧制",
+          "decision": "六项并从",
+          "direct_result": "新指挥日起施行",
+          "power_change": "武官晋升与差遣受规范",
+          "risk_or_damage": "品秩快速泛授",
+          "follow_up": "未载。"
+        }
+      }
+    }
+  ]
+}

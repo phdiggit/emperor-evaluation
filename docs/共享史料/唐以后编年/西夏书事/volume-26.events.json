@@ -1,0 +1,979 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "XIXIA-XIXIASHUSHI-V26-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-WESTERN-XIA-V26-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "西夏書事",
+    "volume_ref": "26",
+    "revision_ref": "2289050",
+    "start_locator": "元丰五年辽人为西夏请和",
+    "end_locator": "元丰六年阿里骨追击入境抄掠砦堡",
+    "overlap_context": "承接卷25宋五路攻夏与灵州解围；本卷主载永乐城之战、秉常复位及宋夏恢复议和。",
+    "input_fingerprint": "2f297e984e036eb59abefd5faf54ef898ad5464f00492e9bff51d53bfb2c9296"
+  },
+  "limitations": [
+    "仅据固定《西夏書事》卷26正文登记，未知保持未知。",
+    "同一主体、时间窗、目标和结果链内的行军、攻守、奏报及善后节点合并登记。",
+    "双方兵数、伤亡、物价与粮械数字沿用原文，不据后文或常识校正。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XIXIA-V26-LIAO-PEACE-MEDIATION-1082",
+      "time": [
+        "宋神宗元丰五年正月",
+        "1082",
+        "month"
+      ],
+      "subject": "辽朝、西夏与宋朝",
+      "action": "辽为西夏向宋请和，并转达西夏愿谢罪纳款。",
+      "result": "宋以西夏未先谢罪为由拒绝，辽取得宋答书后不再提议。",
+      "groups": [
+        "辽使",
+        "西夏朝廷",
+        "宋廷"
+      ],
+      "quote": [
+        "遼人爲國請和。",
+        "遼得此移，遂不復言。"
+      ],
+      "unknown": [
+        "西夏请和条件及辽方后续交涉未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-PEACE-MEDIATION-1082",
+        "summary": "辽为西夏请和遭宋拒绝。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-DONGZHAN-LAND-OFFER-1082",
+      "time": [
+        "宋神宗元丰五年正月",
+        "1082",
+        "month"
+      ],
+      "subject": "梁氏西夏政权与董氊",
+      "action": "西夏许割斫龙城以西土地，试图换取董氊结盟。",
+      "result": "董氊拒绝，西夏未能以土地换取西蕃援助。",
+      "groups": [
+        "梁氏",
+        "董氊",
+        "斫龙城所属部众"
+      ],
+      "quote": [
+        "許割斫龍城以西地",
+        "董氊拒不許。"
+      ],
+      "unknown": [
+        "拟割土地四至及当地户口未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DONGZHAN-LAND-OFFER-1082",
+        "summary": "西夏割地结董氊之议被拒。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-NANMOU-FORTIFICATIONS-1082",
+      "time": [
+        "宋神宗元丰五年正月",
+        "1082",
+        "month"
+      ],
+      "subject": "梁氏西夏政权",
+      "action": "西夏修复南牟城并在天都附近创筑七堡、配置守兵。",
+      "result": "宋张守约出塞后，西夏撤回役夫，工程停止。",
+      "groups": [
+        "乙埋",
+        "筑堡役夫",
+        "西夏守兵",
+        "宋秦凤军"
+      ],
+      "quote": [
+        "梁氏使乙埋修復之，近天都創立七堡，量兵爲守。",
+        "已，聞秦鳳副總管張守約引兵出塞，乃撤役還。"
+      ],
+      "unknown": [
+        "七堡完工程度、役夫数量及费用未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "NANMOU-FORTIFICATIONS-1082",
+        "summary": "西夏修南牟及七堡，因宋军出塞撤役。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "public_works",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-LIAO-GIFTS-YOUZHOU-1082",
+      "time": [
+        "宋神宗元丰五年二月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "梁氏西夏政权",
+      "action": "西夏向辽献上所获张天翼及军需，又在宥州屯兵数万，谋接应山界降户。",
+      "result": "宋分兵控制山界要处，降户不敢行动，接应计划未成。",
+      "groups": [
+        "西夏使团",
+        "宥州屯军",
+        "辽廷",
+        "山界降户",
+        "宋鄜延军"
+      ],
+      "quote": [
+        "遣使并軍需獻之。",
+        "又于宥州屯兵數萬，謀入塞門及保安軍界潛行應接。",
+        "于是降人不敢動。"
+      ],
+      "unknown": [
+        "军需数量、张天翼身份与宥州实兵数未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAO-GIFTS-YOUZHOU-1082",
+        "summary": "西夏结辽并屯宥州接应降户，遭宋阻断。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-DINGXI-RAID-1082",
+      "time": [
+        "宋神宗元丰五年二月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "梁氏所遣西夏军",
+      "action": "西夏军进入定西界，袭掠商人与戍卒。",
+      "result": "商旅和守军遭掠，具体追击与损失未载。",
+      "groups": [
+        "西夏军",
+        "定西商人",
+        "宋戍卒"
+      ],
+      "quote": [
+        "梁氏令衙頭首領縱人馬入界，掠商人及戍卒。"
+      ],
+      "unknown": [
+        "被掠人数、财物及西夏军规模未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-DINGXI-1082",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-HUAMA-DEFECTION-FAILS-1082",
+      "time": [
+        "宋神宗元丰五年三月",
+        "1082",
+        "month"
+      ],
+      "subject": "禹藏花麻与宋熙河经制司",
+      "action": "花麻联络宋方准备率部内投，并约定由孙晞渡河接应。",
+      "result": "孙晞渡河被西夏捕获，花麻内投未能实行。",
+      "groups": [
+        "禹藏花麻部",
+        "孙晞",
+        "西夏边军",
+        "宋熙河司"
+      ],
+      "quote": [
+        "禹藏花麻請內投，不果。",
+        "會以三月四日孫晞渡河被獲，遂不果。"
+      ],
+      "unknown": [
+        "花麻拟率部众数及捕获孙晞者未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "HUAMA-DEFECTION-FAILS-1082",
+        "summary": "花麻内投因接应者孙晞被获而失败。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-DONGZHAN-ATTACK-CANCELLED-1082",
+      "time": [
+        "宋神宗元丰五年三月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "梁氏西夏政权",
+      "action": "梁氏因董氊拒绝议和而准备出兵袭击。",
+      "result": "宋预先告知将出兵救援，梁氏畏惧而停止进攻。",
+      "groups": [
+        "梁氏",
+        "董氊",
+        "宋苗授李宪军"
+      ],
+      "quote": [
+        "梁氏見董氊不肯與和，起兵將襲之。",
+        "神宗詔苗授、李憲等，師行有期，卽預以告。梁氏懼而止。"
+      ],
+      "unknown": [
+        "西夏集兵数与原定进攻日期未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DONGZHAN-ATTACK-CANCELLED-1082",
+        "summary": "西夏拟袭董氊，因宋示警取消。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-SUNXI-INTERCEPTION-1082",
+      "time": [
+        "宋神宗元丰五年三月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "西夏边军与孙晞所随西蕃户",
+      "action": "西夏设诱截击渡河回归的一行十五人，杀孙晞并捕获十余人。",
+      "result": "该批西蕃户未能回归宋境，孙晞被杀。",
+      "groups": [
+        "孙晞",
+        "西蕃户十五人",
+        "西夏边军"
+      ],
+      "quote": [
+        "夏人設計誘晞過河，殺之水中，并執嘛㖫兵士十餘人。"
+      ],
+      "unknown": [
+        "被捕者后续处置与西夏参战人数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SUNXI-INTERCEPTION-1082",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-FUZHOU-GEZHONG-1082",
+      "time": [
+        "宋神宗元丰五年三月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "宥州观察使格众所部西夏军",
+      "action": "格众率兵进犯鄜州，遭宋军突击迎战。",
+      "result": "西夏大败，格众被俘，士卒死亡二千余。",
+      "cost": "西夏损失士卒二千余，主将被俘。",
+      "groups": [
+        "格众所部",
+        "宋鄜州军"
+      ],
+      "quote": [
+        "宥州觀察使格衆將兵犯鄜州，戰敗被執。",
+        "格衆不虞兵至，倉猝迎戰，大敗被執，䘮士卒二千餘人。"
+      ],
+      "unknown": [
+        "西夏出兵总数与宋军伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-FUZHOU-GEZHONG-1082",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-MINGTANG-JIALU-1082",
+      "time": [
+        "宋神宗元丰五年春",
+        "1082",
+        "season"
+      ],
+      "subject": "西夏明堂川守军与宋鄜延军",
+      "action": "西夏以万人扼守明堂川阻宋军，宋军分兵迂回攻击葭芦，迫使守军回救。",
+      "result": "西夏回救军大败，宋军取得葭芦。",
+      "groups": [
+        "西夏守军万人",
+        "明堂川葭芦军民",
+        "宋鄜延军"
+      ],
+      "quote": [
+        "梁氏發兵萬人，扼明堂川險要以拒，珍不得進。",
+        "夏兵回救，與儀等戰，大敗，珍遂取葭蘆。"
+      ],
+      "unknown": [
+        "双方伤亡、葭芦守军处置与万人实数未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-MINGTANG-JIALU-1082",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-DONGZHAN-MEDIATION-1082",
+      "time": [
+        "宋神宗元丰五年春",
+        "1082",
+        "season"
+      ],
+      "subject": "梁氏西夏政权、辽使与董氊",
+      "action": "西夏再次借辽使赴青唐劝董氊议和。",
+      "result": "董氊以受宋厚恩为由拒绝，和议仍未成立。",
+      "groups": [
+        "西夏使者",
+        "辽使",
+        "董氊"
+      ],
+      "quote": [
+        "邀遼國使者同至青唐說之。",
+        "董氊以「荷宋厚恩，義不敢負」辭。"
+      ],
+      "unknown": [
+        "西夏提出的具体和议条件未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DONGZHAN-MEDIATION-1082",
+        "summary": "西夏借辽劝董氊议和，再遭拒绝。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-HUAIAN-DEFEAT-1082",
+      "time": [
+        "宋神宗元丰五年四月",
+        "1082",
+        "month"
+      ],
+      "subject": "妹精嵬、讹勃遇所部西夏军",
+      "action": "西夏发数万军进入环庆，袭掠淮安镇。",
+      "result": "西夏军战败，两将皆死，三十八名酋首及印符、军书、器械损失。",
+      "cost": "两将与三十八酋首死亡或失陷，军械文书无算。",
+      "groups": [
+        "西夏数万军",
+        "妹精嵬",
+        "讹勃遇",
+        "淮安镇军民"
+      ],
+      "quote": [
+        "令妹精嵬、訛勃遇將兵數萬入環慶，掠淮安鎭。",
+        "兩人戰敗，皆死，酋首沒者三十八人，失銅印及兵符、軍書、器械無算。"
+      ],
+      "unknown": [
+        "西夏普通士卒和宋军伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUAIAN-1082",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-YIDU-SPY-CAPTURED-1082",
+      "time": [
+        "宋神宗元丰五年四月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "西夏谍者移都与宋鄜延军",
+      "action": "西夏派移都进入鄜延刺探军情。",
+      "result": "移都被宋方捕获，刺探行动失败。",
+      "groups": [
+        "移都",
+        "西夏情报人员",
+        "宋鄜延军"
+      ],
+      "quote": [
+        "諜者移都入鄜延，被獲。"
+      ],
+      "unknown": [
+        "移都供词、处置及所获情报未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YIDU-SPY-CAPTURED-1082",
+        "summary": "西夏谍者移都入鄜延被获。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-ZHENRONG-YUNDOU-1082",
+      "time": [
+        "宋神宗元丰五年七月",
+        "1082",
+        "month"
+      ],
+      "subject": "梁氏所集西夏军与宋泾原军",
+      "action": "梁氏为报淮安之败，征集十二监军司及诸州僧道、备五月粮攻镇戎，继而出熨斗平新堡杀掠人口、驱夺牲畜。",
+      "result": "西夏击败宋将王贵，并从熨斗平带回羊马数千。",
+      "groups": [
+        "西夏十二监军司军",
+        "僧道人丁",
+        "宋泾原军",
+        "熨斗平居民"
+      ],
+      "quote": [
+        "梁氏憤淮安之敗，集十二監軍司兵及諸州僧道",
+        "夏兵張兩翼擊之，貴大敗走。",
+        "至熨斗平新堡外，殺掠漢蕃人口，驅羊馬數千而回。"
+      ],
+      "unknown": [
+        "西夏总兵数、被掠人口和双方伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-ZHENRONG-YUNDOU-1082",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-BENYA-RETURN-1082",
+      "time": [
+        "宋神宗元丰五年七月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "奔雅及其属众与西夏政权",
+      "action": "西夏招回先前投宋的奔雅及其属二十九人、马二十余匹。",
+      "result": "奔雅一行脱离宋境返回西夏。",
+      "groups": [
+        "奔雅",
+        "属众二十九人",
+        "宋边吏",
+        "西夏接应者"
+      ],
+      "quote": [
+        "奔雅與其屬二十九人、馬二十餘匹走回夏國。"
+      ],
+      "unknown": [
+        "西夏招诱条件与返回后的安置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BENYA-RETURN-1082",
+        "summary": "奔雅率属众和马匹返回西夏。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-SHENMU-ATTACK-1082",
+      "time": [
+        "宋神宗元丰五年七月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "西夏军与宋神木堡守军",
+      "action": "西夏进攻神木堡，宋巡检高素、监押贾默出战。",
+      "result": "贾默所部先溃，高素被杀。",
+      "groups": [
+        "西夏军",
+        "神木堡守军",
+        "高素",
+        "贾默"
+      ],
+      "quote": [
+        "寇神木堡，殺巡檢使高素。",
+        "高素與監押賈黙出戰，黙衆先潰，素被殺。"
+      ],
+      "unknown": [
+        "堡垒是否失守及双方其余伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SHENMU-1082",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-YONGLE-CAMPAIGN-1082",
+      "time": [
+        "宋神宗元丰五年九月",
+        "1082",
+        "month"
+      ],
+      "subject": "叶悖麻、咩讹埋所统西夏军与宋永乐城军",
+      "action": "西夏先侦察宋筑永乐，继而分兵牵制绥德、以主力围城，截断水源和援粮并昼夜急攻。",
+      "result": "永乐城陷，徐禧等宋将死亡，城中军民大量渴死；西夏随后在米脂城下耀兵三日而还。",
+      "cost": "永乐城军民因乏水渴死十六七，宋将徐禧等死，具体西夏损失未载。",
+      "groups": [
+        "西夏六监军司军",
+        "叶悖麻",
+        "咩讹埋",
+        "永乐城军民",
+        "宋援军"
+      ],
+      "quote": [
+        "分兵寇綏德，急攻永樂，破之，殺給事中徐禧等，耀兵于米脂城下。",
+        "城中乏水，渴死者十六七。",
+        "夜半，環城急攻，城遂陷。"
+      ],
+      "unknown": [
+        "西夏三十万与宋死者数字是否实数、被俘者处置未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-YONGLE-1082",
+      "domains": [
+        "public_works",
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-DONGZHAN-COUNTERATTACK-1082",
+      "time": [
+        "宋神宗元丰五年九月",
+        "1082",
+        "month"
+      ],
+      "subject": "董氊西蕃军与西夏斫龙、赤多城守军",
+      "action": "西夏主力东出永乐期间，董氊乘隙进攻斫龙城并继破赤多城。",
+      "result": "两城被破，赤多城众被全部俘获。",
+      "groups": [
+        "董氊军",
+        "斫龙城守军民",
+        "赤多城守军民"
+      ],
+      "quote": [
+        "西蕃首領董氊來攻，破斫龍城。",
+        "破之，盡俘其衆"
+      ],
+      "unknown": [
+        "两城伤亡、俘虏人数及西夏反击未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-DONGZHAN-COUNTERATTACK-1082",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-WEIMINGJI-PEACE-LETTER-1082",
+      "time": [
+        "宋神宗元丰五年十月前后",
+        "1082",
+        "range"
+      ],
+      "subject": "西南都统嵬名济与宋泾原经略司",
+      "action": "永乐战后嵬名济致书泾原请求议和。",
+      "result": "宋令边臣告知西夏依旧例从鄜延正式通款。",
+      "groups": [
+        "嵬名济",
+        "西夏使者",
+        "宋泾原鄜延官府"
+      ],
+      "quote": [
+        "西南都統嵬名濟遺書涇原請和。",
+        "神宗詔秉諭夏人，依故事于鄜延自通。"
+      ],
+      "unknown": [
+        "嵬名济权限及书中具体条件未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WEIMINGJI-PEACE-LETTER-1082",
+        "summary": "嵬名济请和，宋要求按旧例正式通款。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-YIMADANGZHENG-DEFECTS-1082",
+      "time": [
+        "宋神宗元丰五年冬",
+        "1082",
+        "season"
+      ],
+      "subject": "西蕃益麻党征与梁氏西夏政权",
+      "action": "益麻党征率部投降西夏。",
+      "result": "梁氏把其部安置于怀德军。",
+      "groups": [
+        "益麻党征部",
+        "梁氏",
+        "怀德军居民"
+      ],
+      "quote": [
+        "西蕃益麻黨征來降。",
+        "梁氏使居于懷德軍。"
+      ],
+      "unknown": [
+        "来降人数、授职和安置土地未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YIMADANGZHENG-DEFECTS-1082",
+        "summary": "益麻党征降夏并安置怀德军。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-TRIBUTE-REQUEST-1083",
+      "time": [
+        "宋神宗元丰六年正月",
+        "1083",
+        "month"
+      ],
+      "subject": "梁氏西夏政权与宋鄜延经略司",
+      "action": "西夏按泾原告谕遣人赴鄜延请求恢复入贡。",
+      "result": "宋知延州赵卨拒绝接纳使者，贡议未成。",
+      "groups": [
+        "西夏使者",
+        "赵卨",
+        "宋鄜延官府"
+      ],
+      "quote": [
+        "梁氏佯遵涇原經畧司諭，遣人賫文字至鄜延，請入貢。",
+        "知延州趙卨不敢受。"
+      ],
+      "unknown": [
+        "西夏所递文字内容及宋中央事前授权未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "TRIBUTE-REQUEST-1083",
+        "summary": "西夏请复贡，鄜延不受。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-LANZHOU-ANDING-1083",
+      "time": [
+        "宋神宗元丰六年二月",
+        "1083",
+        "month"
+      ],
+      "subject": "西夏大军与宋兰州、安定堡守军",
+      "action": "西夏大举攻兰州，攻陷东西两关堡，又袭安定堡；宋军夜袭西夏营，西夏同时调诸军屯熙河防宋筑定西。",
+      "result": "西夏众惊溃渡河，多有溺死；安定一带人畜遭掠，宋追兵未及。",
+      "groups": [
+        "西夏军",
+        "兰州两关守军",
+        "安定堡军民",
+        "宋熙河军"
+      ],
+      "quote": [
+        "寇蘭州，陷東、西兩關堡。",
+        "夏衆驚潰，爭渡河，溺死者甚衆。",
+        "擄人畜無數，延州出兵追之，不及。"
+      ],
+      "unknown": [
+        "西夏总兵数、溺死确数及两关堡后续归属未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-LANZHOU-ANDING-1083",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-MIZHI-JIALU-1083",
+      "time": [
+        "宋神宗元丰六年三月",
+        "1083",
+        "month"
+      ],
+      "subject": "西夏攻米脂军与宋葭芦守军",
+      "action": "西夏谋取米脂砦，沿葭芦西岭进军。",
+      "result": "西夏在葭芦西岭战败，米脂未取。",
+      "groups": [
+        "西夏军",
+        "米脂葭芦守军"
+      ],
+      "quote": [
+        "謀取米脂砦，敗于葭蘆西嶺。"
+      ],
+      "unknown": [
+        "出兵数与双方伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-MIZHI-JIALU-1083",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-BAYIXI-LINZHOU-1083",
+      "time": [
+        "宋神宗元丰六年四月至五月",
+        "1083",
+        "range"
+      ],
+      "subject": "西夏援巴义溪军及攻麟州军",
+      "action": "西夏自吃啰、瓦拱发兵救援巴义溪，随后另军进攻麟州。",
+      "result": "援军与宋薛义所部交战大败；麟州也因知州訾虎抵抗未能攻克。",
+      "groups": [
+        "西夏援军",
+        "巴义溪军民",
+        "麟州军民",
+        "宋薛义訾虎军"
+      ],
+      "quote": [
+        "遣兵援巴義谿，敗績。",
+        "夏衆自吃囉、瓦拱赴援，與浩兵戰，大敗。",
+        "知州訾虎拒之，不能克。"
+      ],
+      "unknown": [
+        "两次出兵规模、双方伤亡及巴义溪归属未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-BAYIXI-LINZHOU-1083",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-YIKAI-XIANGBU-1083",
+      "time": [
+        "宋神宗元丰六年春",
+        "1083",
+        "season"
+      ],
+      "subject": "西夏边政权、宋谍者移凯与钤辖香逋",
+      "action": "西夏捕杀入境刺探的移凯，又令香逋向府州诈降。",
+      "result": "移凯被杀；香逋完成诈降后逃回西夏。",
+      "groups": [
+        "移凯",
+        "香逋",
+        "西夏边吏",
+        "宋府州官府"
+      ],
+      "quote": [
+        "獲鄜延刺事人移凱，殺之。",
+        "使鈐轄香逋詐降于府州。",
+        "備。香逋逸還。\n"
+      ],
+      "unknown": [
+        "移凯所得情报、香逋诈降目的和成果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YIKAI-XIANGBU-1083",
+        "summary": "西夏捕杀宋谍并派香逋诈降后归。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-XIXIA-V26-SHUIDONG-LANZHOU-1083",
+      "time": [
+        "宋神宗元丰六年五月",
+        "1083",
+        "month"
+      ],
+      "subject": "西夏军与宋泾原、兰州守军",
+      "action": "西夏在水东口击败入境宋军，继围兰州、夺西关，并截获于阗运送者及骆驼。",
+      "result": "双方相持九日、城下死伤众多，西夏未克兰州而撤。",
+      "groups": [
+        "西夏军",
+        "宋泾原军",
+        "兰州守军民",
+        "于阗运送者"
+      ],
+      "quote": [
+        "涇原官軍入水東口，敗之，復圍蘭州。",
+        "相持九日，城下死傷如積。"
+      ],
+      "unknown": [
+        "双方死伤确数、俘获人数和骆驼数量未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-SHUIDONG-LANZHOU-1083",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-QIANXING-RAID-1083",
+      "time": [
+        "宋神宗元丰六年六月",
+        "1083",
+        "month"
+      ],
+      "subject": "西夏军与宋乾兴砦军民",
+      "action": "西夏越过界濠进犯乾兴砦，杀掠人畜。",
+      "result": "西夏携所掠撤回，宋方拦截结果未载。",
+      "groups": [
+        "西夏军",
+        "乾兴砦军民"
+      ],
+      "quote": [
+        "六月，犯乾興砦。",
+        "直過界濠，殺掠人畜"
+      ],
+      "unknown": [
+        "被杀掠人数、牲畜数量及双方伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-QIANXING-1083",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-BINGCHANG-RESTORED-1083",
+      "time": [
+        "宋神宗元丰六年闰六月",
+        "1083",
+        "month"
+      ],
+      "subject": "国主秉常、梁氏与梁乙埋",
+      "action": "因岁赐和市断绝、物价暴涨及横山连年战乱饥困，梁氏与乙埋让秉常复位并遣使请修贡。",
+      "result": "宋戒边吏停止擅自出兵，要求西夏守盟，宋夏进入停战议和。",
+      "groups": [
+        "秉常",
+        "梁氏",
+        "梁乙埋",
+        "西夏军民商户",
+        "宋边吏"
+      ],
+      "quote": [
+        "閏六月，國主復位，遣使表請修貢。",
+        "自歲賜、和市兩絕，財用困乏，疋帛至十千文。",
+        "又以累歲交兵，橫山一帶民不敢耕，飢羸殆甚。"
+      ],
+      "unknown": [
+        "秉常实际掌权程度、物价适用地域及停战执行细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "BINGCHANG-RESTORED-1083",
+        "summary": "财政民生困局促使秉常复位并向宋请贡和。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-APOLOGY-BOUNDARY-TALKS-1083",
+      "time": [
+        "宋神宗元丰六年七月至十月",
+        "1083",
+        "range"
+      ],
+      "subject": "秉常西夏政权与宋朝",
+      "action": "西夏遣使谢罪并继续请和，继而上表请求归还故疆。",
+      "result": "宋拒绝先还土地，只允疆界议定后恢复岁赐。",
+      "groups": [
+        "秉常",
+        "西夏使团",
+        "宋廷",
+        "边界居民"
+      ],
+      "quote": [
+        "冬十月，表請故疆。",
+        "歲賜俟疆界了日依舊。"
+      ],
+      "unknown": [
+        "谢罪表全文、所请故疆范围及勘界期限未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "APOLOGY-BOUNDARY-TALKS-1083",
+        "summary": "西夏请和并索故疆，宋以勘界后复岁赐回应。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-HUANQING-DONGZHAN-1083",
+      "time": [
+        "宋神宗元丰六年秋",
+        "1083",
+        "season"
+      ],
+      "subject": "宋环庆军、西夏政权与辽朝",
+      "action": "宋环庆军入境袭击，杀掠并夺取牛畜；西夏再次请辽居间与董氊通好。",
+      "result": "西夏遭受边境损失，辽再遣使青唐劝说，但董氊仍拒绝。",
+      "groups": [
+        "宋环庆军",
+        "西夏边民",
+        "辽使",
+        "董氊"
+      ],
+      "quote": [
+        "復奉表遼主，請與董氊通好，以爲聲援。",
+        "遼再使至青唐言之，董氊終不聽。"
+      ],
+      "unknown": [
+        "宋军袭击地点、人员牲畜损失及辽表全文未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-HUANQING-1083",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-FALSE-DEFECTORS-1083",
+      "time": [
+        "宋神宗元丰六年冬",
+        "1083",
+        "season"
+      ],
+      "subject": "西夏宥州心腹首领与宋鄜延边政",
+      "action": "西夏派心腹首领各率族帐佯投宋，请求安置新垒以充当内应。",
+      "result": "宋识别风险，把来者分置鄜、坊之间；西夏随后召回岁首使者。",
+      "groups": [
+        "宥州首领族帐",
+        "西夏政权",
+        "宋鄜延鄜坊官府"
+      ],
+      "quote": [
+        "遣宥州心腹首領各率族帳內投，請居新壘，以爲內應。",
+        "神宗令置之鄜、坊兩州間"
+      ],
+      "unknown": [
+        "族帐人数、内应计划具体目标及召使原因未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FALSE-DEFECTORS-1083",
+        "summary": "西夏遣族帐诈降谋内应，被宋异地安置。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-XIXIA-V26-MIAOCHUAN-DEFEAT-1083",
+      "time": [
+        "宋神宗元丰六年十二月",
+        "1083",
+        "month"
+      ],
+      "subject": "西夏攻邈川军与阿里骨西蕃军",
+      "action": "秉常屡次请和未果后遣兵攻邈川，西蕃阿里骨追击进入西夏境内，抄掠砦堡。",
+      "result": "西夏攻邈川战败，境内多处砦堡被掠，阿里骨获得大量首级。",
+      "groups": [
+        "西夏军",
+        "邈川军民",
+        "阿里骨西蕃军",
+        "西夏砦堡居民"
+      ],
+      "quote": [
+        "十二月，攻西蕃，敗績。西蕃兵入境大掠。",
+        "秉常屢次請和不得，遣兵攻邈川城，敗還。",
+        "阿里骨追逐入境，抄掠砦堡，獲級甚夥。"
+      ],
+      "unknown": [
+        "双方兵数、首级确数及被掠砦堡名称未载。"
+      ],
+      "battle": "CAMPAIGN-XIXIA-MIAOCHUAN-1083",
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    }
+  ]
+}

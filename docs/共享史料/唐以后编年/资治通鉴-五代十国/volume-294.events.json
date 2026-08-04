@@ -1,0 +1,965 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "five-dynasties-chronicle-volume-294",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷294",
+    "revision_ref": "2594143",
+    "start_locator": "后周世宗显德五年正月",
+    "end_locator": "后周恭帝显德六年十二月",
+    "overlap_context": "续接卷293南唐江北州郡崩解、后周水陆推进与南唐求和；本卷闭合江北十四州、关南北伐及世宗一朝，恭帝即位与南唐南汉政局作为五代段末转出。",
+    "input_fingerprint": "1175e45b97c2206c75a4f15234ffe41549e2b310c5d25e6df2fc2c63431bcea1"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-294-GUANSHUI-CANAL-958",
+      "time": "显德五年正月",
+      "loc": [
+        "楚州",
+        "鹳水",
+        "长江"
+      ],
+      "action": "世宗亲自规划并征楚州民夫开浚鹳水，使淮河战舰可入长江。",
+      "result": "工程十日完成、用功很省，百艘巨舰通江。",
+      "quote": [
+        "發楚州民夫浚之",
+        "之，旬日而成",
+        "成，用功甚省",
+        "巨艦百艘皆達於江"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "十日开通百艘巨舰水道。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征用楚州民夫。"
+        ]
+      ],
+      "unknown": [
+        "民夫人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-CHUZHOU-CAPTURED-958",
+      "time": "显德五年正月",
+      "loc": [
+        "楚州"
+      ],
+      "action": "后周围攻楚州四十余日，世宗亲督诸军攻城。",
+      "result": "楚州被克，张彦卿与部下千余人战死，无一投降。",
+      "quote": [
+        "州，逾四旬，唐",
+        "自督諸將攻之",
+        "丁未，克之。彥",
+        "所部千餘人",
+        "至死無一人降者"
+      ],
+      "battle": "CAMPAIGN-CHUZHOU-CAPTURED-958",
+      "unknown": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-YANGZHOU-SMALL-CITY-958",
+      "time": "显德五年二月",
+      "loc": [
+        "扬州"
+      ],
+      "action": "韩令坤征丁夫万余，在扬州故城东南筑小城治理。",
+      "result": "后周在扬州建立收缩后的军政据点。",
+      "quote": [
+        "發丁夫萬餘",
+        "築故城之東南隅為小城"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "万余丁夫筑扬州小城。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模征发地方劳力。"
+        ]
+      ],
+      "unknown": [
+        "工期未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-XIZHOU-NIGHT-RAID-958",
+      "time": "显德五年二月",
+      "loc": [
+        "隰州"
+      ],
+      "action": "北汉趁后周南征围隰州，杨廷璋与李谦溥各募死士百余夜袭。",
+      "result": "北汉军惊溃，被斩千余并解围。",
+      "quote": [
+        "北漢攻城久不下",
+        "各募死士百餘",
+        "餘夜襲其營",
+        "斬首千餘級",
+        "漢兵遂解去。"
+      ],
+      "battle": "CAMPAIGN-XIZHOU-NIGHT-RAID-958",
+      "unknown": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-EAST-YANGTZE-NAVAL-BATTLE-958",
+      "time": "显德五年三月",
+      "loc": [
+        "迎銮镇",
+        "东水布州",
+        "长江"
+      ],
+      "action": "后周水军沿江攻击南唐战舰，慕容延钊在东水布州大破唐军。",
+      "result": "南唐畏后周继续渡江，转而献地求和。",
+      "quote": [
+        "遣水軍擊唐兵",
+        "唐兵，破之。上",
+        "大破唐兵於東水布州",
+        "上，恐遂南渡"
+      ],
+      "battle": "CAMPAIGN-EAST-YANGTZE-NAVAL-BATTLE-958",
+      "unknown": [
+        "伤亡和舰损未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-TANG-CEDES-JIANGBEI-958",
+      "time": "显德五年三月",
+      "loc": [
+        "庐州",
+        "舒州",
+        "蕲州",
+        "黄州",
+        "江北"
+      ],
+      "action": "南唐请求以长江为界，献江北四州并岁贡数十万。",
+      "result": "江北全部归周，后周共得十四州六十县并停止进攻。",
+      "quote": [
+        "獻四州之地",
+        "地，畫江為境",
+        "歲輸貢物數十萬",
+        "是江北悉平",
+        "得州十四，縣六十"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后周—南唐边界与臣属关系确立。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐承担岁贡。"
+        ]
+      ],
+      "unknown": [
+        "岁贡具体构成未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-TANG-MILLION-REWARD-958",
+      "time": "显德五年三月",
+      "loc": [
+        "后周军",
+        "南唐"
+      ],
+      "action": "南唐献银绢钱茶谷合计百万犒劳后周军。",
+      "result": "求和后的军费馈赠落实。",
+      "quote": [
+        "銀、絹、錢、茶、穀共百萬",
+        "百萬以犒軍。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "百万规模犒军物资。"
+        ]
+      ],
+      "unknown": [
+        "各物分项未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-BIAN-HUAI-WATERWAY-958",
+      "time": "显德五年三月",
+      "loc": [
+        "汴口",
+        "黄河",
+        "淮河"
+      ],
+      "action": "后周浚汴口，导黄河水通淮河。",
+      "result": "江淮舟船首次经水道相通。",
+      "quote": [
+        "月，浚汴口，導",
+        "導河流達於淮",
+        "江、淮舟楫始通"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "打通江淮与中原漕运水道。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改善区域舟运。"
+        ]
+      ],
+      "unknown": [
+        "工程成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-QIANTANG-FIRE-958",
+      "time": "显德五年四月",
+      "loc": [
+        "钱塘",
+        "镇国仓"
+      ],
+      "action": "钱塘城南大火延烧内城，官府民舍几乎尽毁并逼近镇国仓。",
+      "result": "吴越王钱弘俶带病出救，火势最终止息。",
+      "quote": [
+        "錢唐城南火",
+        "官府廬舍幾盡",
+        "火將及鎮國倉",
+        "自強出救火",
+        "救火。火止，謂"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "都城大火毁坏大量官民建筑。"
+        ]
+      ],
+      "unknown": [
+        "伤亡与财产损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-TANG-DROPS-IMPERIAL-STATUS-958",
+      "time": "显德五年五月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "李璟改名、去帝号称国主，降天子仪制、去年号并用后周正朔。",
+      "result": "南唐正式以属国身份臣服后周。",
+      "quote": [
+        "下令去帝號，",
+        "號，稱國主，凡",
+        "天子儀制皆有降損",
+        "損，去年號，用",
+        "號，用周正朔"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐政治地位降格。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-294-ZHOU-SALT-GRANT-TO-TANG-958",
+      "time": "显德五年五月",
+      "loc": [
+        "海陵",
+        "江南"
+      ],
+      "action": "后周因不愿割海陵盐监，改为每年支盐三十万斛给江南。",
+      "result": "以定量盐供解决南唐军需，并陆续归还江南俘虏。",
+      "quote": [
+        "歲支鹽三十萬斛",
+        "斛以給江南",
+        "卒，稍稍歸之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后周向南唐提供年度盐额。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "维持新臣属关系。"
+        ]
+      ],
+      "unknown": [
+        "实际交付量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-ZHOU-CRIMINAL-CODE-ENACTED-958",
+      "time": "显德五年七月",
+      "loc": [
+        "后周"
+      ],
+      "action": "后周开始施行《大周刑统》。",
+      "result": "卷293启动的刑法编纂进入正式执行。",
+      "quote": [
+        "初行《大周刑統》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一刑法正式生效。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-294-LAND-RENT-EQUALIZATION-958",
+      "time": "显德五年七月至十月",
+      "loc": [
+        "后周诸道"
+      ],
+      "action": "世宗以均田图发诸道，并遣三十四使分行诸州均定田租。",
+      "result": "全国田租核定启动。",
+      "quote": [
+        "帝欲均田租",
+        "《均田圖》遍賜諸道",
+        "三十四人分行諸州",
+        "州，均定田租"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "跨州均定土地税负。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央派使统一税租尺度。"
+        ]
+      ],
+      "unknown": [
+        "各道调整结果后见显德六年。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-LI-JINGSUI-POISONED-958",
+      "time": "显德五年八月",
+      "loc": [
+        "洪州"
+      ],
+      "action": "南唐太子弘冀密令袁从范毒杀晋王李景遂。",
+      "result": "景遂饮浆而死，尸体未殡已腐。",
+      "quote": [
+        "密遣從范毒之",
+        "甚，從范進漿",
+        "遂飲之而卒",
+        "未殯，體已潰"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐继承竞争中的暗杀。"
+        ]
+      ],
+      "unknown": [
+        "李璟不知内情。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-HAN-SUCCESSION-958",
+      "time": "显德五年八月",
+      "loc": [
+        "南汉"
+      ],
+      "action": "南汉中宗死，十六岁的刘继兴即位并改名刘鋹。",
+      "result": "国政由龚澄枢、卢琼仙等宦官宫人决定，台省官徒具其位。",
+      "quote": [
+        "南漢中宗殂",
+        "衛王繼興即帝位",
+        "。鋹年十六，國",
+        "國事皆決於宦官",
+        "台省官備位而已"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉帝位更替与宦官掌权。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-294-SHU-REJECTS-ZHOU-SUZERAINTY-958",
+      "time": "显德五年十月至十二月",
+      "loc": [
+        "后蜀",
+        "三峡",
+        "归安镇"
+      ],
+      "action": "后蜀拒绝荆南劝其称臣于周，调六万兵分守要害。",
+      "result": "后周李玉贸然袭归安全军覆没，后蜀进入全面备战。",
+      "quote": [
+        "極言拒絕之",
+        "使，將兵六萬",
+        "分屯要害以備周",
+        "邀之，斬玉，其",
+        "玉，其眾皆沒"
+      ],
+      "battle": "CAMPAIGN-SHU-REJECTS-ZHOU-SUZERAINTY-958",
+      "unknown": [
+        "蜀军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-TAX-HOUSEHOLDS-RETURNED-TO-COUNTIES-958",
+      "time": "显德五年十二月",
+      "loc": [
+        "后周"
+      ],
+      "action": "后周将各色课户、俸户归州县，并改由国家给幕职州县官俸钱米麦。",
+      "result": "特殊依附户重新纳入地方户籍税役体系。",
+      "quote": [
+        "諸色課戶及俸戶",
+        "並勒歸州縣",
+        "支俸錢及米麥"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重整户籍与官俸财政。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "削弱官署私属户。"
+        ]
+      ],
+      "unknown": [
+        "涉及户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-TANG-PURGES-SONG-QIQIU-958",
+      "time": "显德五年十二月至显德六年正月",
+      "loc": [
+        "金陵",
+        "九华山"
+      ],
+      "action": "南唐公布宋齐丘、陈觉、李征古罪状，令宋齐丘退九华、李征古自尽。",
+      "result": "宋齐丘被锁居断绝后自缢，长期权臣集团覆灭。",
+      "quote": [
+        "暴齊丘、覺、征古罪惡",
+        "征古削奪官爵，賜自盡",
+        "主命鎖其第，",
+        "此！」乃縊而死。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐战败后的权臣清洗。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-294-ZHOU-MUSIC-REFORM-959",
+      "time": "显德六年正月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "王朴考定十二律、八十一调并制作律准，百官校验后施行。",
+      "result": "后周重建唐末以来残缺的雅乐体系。",
+      "quote": [
+        "之，得十二律",
+        "便，乃作律准",
+        "凡八十一調",
+        "百官皆以為然",
+        "為然，乃行之。\n"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "制作律准并重建雅乐器制。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后周礼乐制度改革。"
+        ]
+      ],
+      "unknown": [
+        "乐器制作成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-CANAL-NETWORK-WORKS-959",
+      "time": "显德六年二月",
+      "loc": [
+        "河阴",
+        "汴口",
+        "蔡水",
+        "五丈渠",
+        "曹州",
+        "济州",
+        "梁山泊"
+      ],
+      "action": "后周设汴口斗门，征多州数万丁夫浚汴水，并分导入蔡水、五丈渠。",
+      "result": "陈颍、青郓漕运水网接入大梁。",
+      "quote": [
+        "立斗門於汴口",
+        "丁夫數萬浚汴水",
+        "導汴水入於蔡水",
+        "以通陳、穎之漕",
+        "以通青、鄆之漕",
+        "亳丁夫數千"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "多条漕运河道与斗门工程。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征发数万与数千丁夫。"
+        ]
+      ],
+      "unknown": [
+        "工期及伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-EXCESS-LAND-TAX-REDUCED-959",
+      "time": "显德六年二月",
+      "loc": [
+        "开封府",
+        "后周诸州"
+      ],
+      "action": "开封核得羡田四万二千余顷，后周下敕减除三万八千顷，并令诸州仿行。",
+      "result": "大部分新核增田亩免于加税。",
+      "quote": [
+        "羨田四萬二千餘頃",
+        "敕減三萬八千頃",
+        "諸州行田使還",
+        "田，減之仿此"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模削减丈量新增税田。"
+        ]
+      ],
+      "unknown": [
+        "诸州总减额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-HUAINAN-FAMINE-LOANS-959",
+      "time": "显德六年二月",
+      "loc": [
+        "淮南"
+      ],
+      "action": "淮南饥荒，世宗命贷米给民，并表示不必强求偿还。",
+      "result": "新附地区获得赈粮性贷款。",
+      "quote": [
+        "\n淮南饑，上命",
+        "命以米貸之",
+        "安在責其必償也"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "饥荒救济且弱化偿还责任。"
+        ]
+      ],
+      "unknown": [
+        "米量与受济人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-NORTHERN-CANAL-ADVANCE-959",
+      "time": "显德六年二月至四月",
+      "loc": [
+        "沧州",
+        "乾宁军",
+        "瀛州",
+        "莫州"
+      ],
+      "action": "后周为北伐整治沧州至契丹境水道，补防开游口三十六并水陆并进。",
+      "result": "水道通瀛莫，乾宁军、益津关、瓦桥关等相继降周。",
+      "quote": [
+        "治水道入契丹境",
+        "開游口三十六",
+        "六，遂通瀛、莫。",
+        "將水陸俱下",
+        "契丹寧州刺史王洪舉城降"
+      ],
+      "battle": "CAMPAIGN-NORTHERN-CANAL-ADVANCE-959",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开三十六口并修复边防水道。"
+        ]
+      ],
+      "unknown": [
+        "工程役夫与成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-GUANNAN-RECOVERED-959",
+      "time": "显德六年四月",
+      "loc": [
+        "瓦桥关",
+        "益津关",
+        "莫州",
+        "瀛州",
+        "易州"
+      ],
+      "action": "世宗亲征契丹，瓦桥、莫、瀛等守将举城降，孙行友攻取易州。",
+      "result": "关南悉平，后周设雄州、霸州并部署守军。",
+      "quote": [
+        "以瓦橋關為",
+        "契丹莫州刺史劉楚信舉城降",
+        "是關南悉平",
+        "友奏拔易州，",
+        "以瓦橋關為雄州",
+        "以益津關為霸州"
+      ],
+      "battle": "CAMPAIGN-GUANNAN-RECOVERED-959",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后周恢复关南并建州设防。"
+        ]
+      ],
+      "unknown": [
+        "未继续攻幽州因世宗发病。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-BAZHOU-CITY-LABOR-959",
+      "time": "显德六年四月",
+      "loc": [
+        "霸州",
+        "滨州",
+        "棣州"
+      ],
+      "action": "后周征滨棣数千丁夫筑霸州城。",
+      "result": "新取关南地区建立固定城防。",
+      "quote": [
+        "丁夫數千城霸州",
+        "命韓通董其役"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新设霸州筑城。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征滨棣数千丁夫。"
+        ]
+      ],
+      "unknown": [
+        "工期未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-BEIJING-LIAOZHOU-BATTLES-959",
+      "time": "显德六年四月至六月",
+      "loc": [
+        "北井",
+        "辽州"
+      ],
+      "action": "李重进在北井败北汉军，李筠继而攻克辽州。",
+      "result": "北井斩首二千余，辽州刺史张丕被俘。",
+      "quote": [
+        "敗北漢兵於北井",
+        "斬首二千餘級",
+        "漢，拔遼州，獲",
+        "獲其刺史張丕"
+      ],
+      "battle": "CAMPAIGN-BEIJING-LIAOZHOU-BATTLES-959",
+      "unknown": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-YUANWU-RIVER-BREACH-959",
+      "time": "显德六年六月",
+      "loc": [
+        "原武"
+      ],
+      "action": "黄河在原武决口，后周征近县二万余夫修塞。",
+      "result": "大规模决河抢修启动。",
+      "quote": [
+        "奏河決原武",
+        "發近縣二萬餘夫塞之"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "二万余人修塞黄河决口。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "决河与征役影响地方民生。"
+        ]
+      ],
+      "unknown": [
+        "完工时间与灾损未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SHIZONG-DIES-GONGDI-SUCCEEDS-959",
+      "time": "显德六年六月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "世宗病重召范质等受顾命，随后病逝。",
+      "result": "七岁的梁王郭宗训奉遗诏即皇帝位。",
+      "quote": [
+        "癸巳，大漸，召",
+        "召范質等入受顧命",
+        "。」是日，上殂。\n\n上",
+        "命梁王宗訓即皇帝位",
+        "位，生七年矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后周世宗—恭帝权力交接。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-TANG-CURRENCY-CRISIS-959",
+      "time": "显德六年七月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "南唐因战争割地、岁贡导致府藏空竭和物价腾贵，铸当十、当二大钱。",
+      "result": "永通泉货、唐国通宝与开元钱并行。",
+      "quote": [
+        "獻，府藏空竭",
+        "竭，錢益少，物",
+        "少，物價騰貴",
+        "始鑄當十大錢",
+        "又鑄當二錢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战败财政危机推动大钱发行。"
+        ]
+      ],
+      "unknown": [
+        "通胀后续影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-TANG-ABOLISHES-YONGTONG-959",
+      "time": "显德六年十月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "南唐因永通大钱盗铸与犯法者众而废止。",
+      "result": "钟谟同时因侵官与继承建议获罪并被杀。",
+      "quote": [
+        "永通大錢民多盜鑄",
+        "鑄，犯法者眾",
+        "之。廢永通錢",
+        "幾，皆殺之。廢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大钱政策因盗铸失败。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "币制争议卷入南唐权力清洗。"
+        ]
+      ],
+      "unknown": [
+        "废币兑换办法未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-SOUTHERN-HAN-EUNUCH-TERROR-959",
+      "time": "显德六年十一月",
+      "loc": [
+        "南汉"
+      ],
+      "action": "南汉宦官诬钟允章与二子谋反并杀害，随后把持军国和仕进。",
+      "result": "宦官近二万人，才能之士须受宫刑方可进用，士人被排除政事。",
+      "quote": [
+        "禱。」俱斬之。自",
+        "是宦官益橫",
+        "軍國之事皆取決焉",
+        "宦者近二萬人",
+        "皆先下蠶室",
+        "人，不得預事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南汉宦官集团垄断权力。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模宫刑造成社会伤害。"
+        ]
+      ],
+      "unknown": [
+        "二万人统计口径未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-294-KHITAN-TANG-RELATIONS-SEVERED-959",
+      "time": "显德六年十二月",
+      "loc": [
+        "清风驿",
+        "南唐"
+      ],
+      "action": "南唐方面募刺客在宴饮时杀契丹使者并割首。",
+      "result": "契丹与南唐断绝关系。",
+      "quote": [
+        "募刺客使殺之",
+        "之，失其首矣",
+        "契丹與唐絕"
+      ],
+      "battle": "CAMPAIGN-KHITAN-ENVOY-ASSASSINATED-959",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "使臣遇刺导致外交断绝。"
+        ]
+      ],
+      "unknown": [
+        "刺客身份与处置未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2594143 的卷294连续通读登记，不引入卷外常识。",
+    "普通任免、使聘、祥异及无消费结果的行军节点未单列。",
+    "本卷为《资治通鉴》末卷；卷后进书表不属于五代事件主干，未另立事件。"
+  ]
+}

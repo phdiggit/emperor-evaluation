@@ -1,0 +1,1253 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-046",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷046",
+    "revision_ref": "2268485",
+    "start_locator": "宋仁宗慶曆三年九月",
+    "end_locator": "宋仁宗慶曆四年七月",
+    "overlap_context": "承接卷045范仲淹、富弼入两府，韩琦七策与陕西宣抚，以及宋夏名号未决；本卷展开庆历十事、守宰选任、均田兴学等改革，登记京西盗乱、陕西饥荒与南方蛮乱，推进水洛城争议、宋夏称臣和辽夏战争，并转出庆历改革阻力及西北边备。",
+    "input_fingerprint": "7c31a0afb26d4d0057f8146a783ba5f15075aa18b7a1c62dd8325e8e0be94dc9"
+  },
+  "limitations": [
+    "仅据固定 revision 2268485 的《續資治通鑑》卷046连续通读登记，不引入卷外常识。",
+    "普通任免、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末庆历改革阻力、水洛城善后、辽夏战争与宋夏和议继续转后卷。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-046-QINGLI-TEN-REFORMS-1043",
+      "time": "庆历三年九月",
+      "loc": [
+        "宋境",
+        "开封"
+      ],
+      "action": "仁宗督促范仲淹、富弼条奏当世事务，二人提出明黜陟、抑侥幸、精贡举、择官长、均公田、厚农桑、修武备、减徭役、覃恩信、重命令十事。",
+      "result": "除府兵建议被辅臣否决外，其余依次制定颁行，庆历改革正式展开。",
+      "quote": [
+        "退而列奏，言十事",
+        "當著為令者，皆以諸事畫一次第頒下",
+        "獨請設府兵，輔臣共以為不可而止"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "十事包含农桑、公田与减徭役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "庆历十事进入制度化颁行。"
+        ]
+      ],
+      "unknown": [
+        "各项在本卷内的完成程度不一。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-MINISTERS-GUEST-BAN-1043",
+      "time": "庆历三年九月",
+      "loc": [
+        "开封"
+      ],
+      "action": "依蔡襄建议，宋廷禁止执政大臣在非休假日于私宅接见宾客。",
+      "result": "改革试图切断私门请托，但时论认为这也阻碍延纳贤俊和广谋。",
+      "quote": [
+        "執政大臣非假休，不許私第接見賓客",
+        "今一切禁絕賓客，非諫官所宜言也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制执政私宅交游与请托。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-JINZHOU-BANDIT-RAID-1043",
+      "time": "庆历三年九月",
+      "loc": [
+        "金州"
+      ],
+      "action": "群盗清晨攻入金州，劫取府库兵械，散发财帛；知州王茂先率二十四名直兵抵御不胜而逃。",
+      "result": "群盗在城内掠夺至日暮后离去，地方兵力与守臣能力失效。",
+      "quote": [
+        "群盜晨入金州，劫府庫兵仗",
+        "知州王茂先將直兵二十四人禦之，不敵",
+        "群盜恣行掠奪，日暮乃出城去"
+      ],
+      "battle": "CAMPAIGN-JINZHOU-BANDIT-RAID-1043",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "府库财物和居民遭受盗掠。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡和被劫数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-FUBI-JINGXI-LOCAL-GOVERNANCE-1043",
+      "time": "庆历三年九月",
+      "loc": [
+        "京西",
+        "金州",
+        "商州",
+        "襄州",
+        "邓州"
+      ],
+      "action": "富弼指出西北用兵耗竭民力催生张海等盗乱，请先派转运官清退不才贪病长吏，再由州县层层保举合适守宰。",
+      "result": "平盗议程由京师遣兵转向更换守宰和恢复地方治理。",
+      "quote": [
+        "物力窮困，朝廷不能存撫，遂使為盜",
+        "諸郡無兵，各不自保",
+        "知州得人，則就令選部內知縣、縣令"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将盗乱归因于战时物力穷困。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以选任守宰作为平盗根本措施。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-ANCESTRAL-INSTITUTIONS-COMPILATION-1043",
+      "time": "庆历三年九月",
+      "loc": [
+        "开封"
+      ],
+      "action": "富弼请汇编三朝典故和诸司可用文字，仁宗命王洙、余靖、孙甫、欧阳修编修《祖宗故实》，由富弼总领。",
+      "result": "次年成书二十卷、九十六门，供两府作为制度范本。",
+      "quote": [
+        "將三朝典故及諸司所行可用文字，類聚編成一書",
+        "置在兩府，俾為模範",
+        "凡九十六門，二十卷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "编纂祖宗制度作为两府施政参照。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-TENGZONGLIANG-PUBLIC-FUND-INQUIRY-1043",
+      "time": "庆历三年九月至庆历四年正月",
+      "loc": [
+        "涇州",
+        "邠州",
+        "凤翔府"
+      ],
+      "action": "郑戬、梁坚追究滕宗谅涇州公用钱，范仲淹辩称其在定川危局中以牛酒薪柴犒军、并无入己，请免重劾。",
+      "result": "滕宗谅被外调降职，但因查明无侵欺入己而免于重罪。",
+      "quote": [
+        "枉費公用錢",
+        "倉卒收買牛驢犒軍，縱有虧價，情亦可恕",
+        "並無侵欺入己"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "审查边帅战时公用钱支出。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "在财政问责与边将便宜权间折衷。"
+        ]
+      ],
+      "unknown": [
+        "最终核定款项数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-GUIYANG-CAVE-PACIFICATION-1043",
+      "time": "庆历三年九月",
+      "loc": [
+        "桂阳"
+      ],
+      "action": "桂阳洞蛮侵边，湖南提刑募集军队进讨。",
+      "result": "此次侵扰被平定。",
+      "quote": [
+        "桂陽洞蠻寇邊",
+        "湖南提刑募兵討平之"
+      ],
+      "battle": "CAMPAIGN-GUIYANG-CAVE-PACIFICATION-1043",
+      "unknown": [
+        "兵力、战斗过程和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-GUANGHUA-SHAOXING-REBELLION-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "光化军",
+        "蜀道"
+      ],
+      "action": "光化军士卒怨恨苛急的韩纲，邵兴率众盗取库兵欲杀韩纲，随后焚掠居民并胁迫三百余军士趋蜀道。",
+      "result": "韩纲弃城逃走，指挥使李美被劫后自缢，叛军转入山路。",
+      "quote": [
+        "士卒皆怨憤，員僚邵興率眾盜庫兵，欲殺綱",
+        "興等遂焚掠居民",
+        "劫其指揮使李美及軍士三百餘人趨蜀道"
+      ],
+      "battle": "CAMPAIGN-GUANGHUA-SHAOXING-REBELLION-1043",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "叛军焚掠居民并劫夺军库。"
+        ]
+      ],
+      "unknown": [
+        "居民损失和初期死伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-LOCAL-OFFICIAL-SELECTION-CHAIN-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "河北",
+        "淮南",
+        "京东",
+        "宋境"
+      ],
+      "action": "范仲淹、富弼提出由二府选转运、转运选知州、知州选知县，并久任、奖异政、罢不任者。",
+      "result": "仁宗采纳，张日之、王素、沈邈成为首批转运按察使，守宰选任改革启动。",
+      "quote": [
+        "莫若守宰得人",
+        "請詔二府通選轉運使",
+        "仍令久其官守，勿復數易"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立二府至转运、州县的分层选官责任。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-FEIXIANG-EQUAL-FIELD-TAX-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "洺州肥乡县",
+        "蔡州上蔡县"
+      ],
+      "action": "郭谘、孙琳以千步方田法清丈肥乡，纠正无地纳税和有地无税；继而在上蔡均田赋。",
+      "result": "肥乡除无地租四百家、补有地无租百家，流民复归；推广因逃田难尽括而停止。",
+      "quote": [
+        "用千步方田法括地",
+        "除無地之租者四百家，正無租之地者百家",
+        "萬，流民乃復"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "通过方田清丈均平田赋并召回流民。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "试行后因逃田问题停止扩大。"
+        ]
+      ],
+      "unknown": [
+        "收通赋八十万的币种单位未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-TRANSPORT-JUDGES-MILITARY-BOOKS-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "宋境",
+        "开封"
+      ],
+      "action": "宋廷恢复诸路转运判官并由两府共选，同时命丁度、曾公亮等修兵书。",
+      "result": "地方财计副职与中央军事知识整理同步恢复。",
+      "quote": [
+        "復置諸路轉運判官",
+        "仍詔中書、樞密院同選用",
+        "詔修兵書，翰林學士承旨丁度提舉"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复转运判官并组织修订兵书。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-PETITION-PROCESSING-REFORM-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "开封"
+      ],
+      "action": "范仲淹针对官员申状被各司以批送为由搁置，要求主判明确勘会、定夺上呈，不能施行也须告知本人。",
+      "result": "仁宗采纳，试图消除反复投状和行政积压。",
+      "quote": [
+        "行，號為送殺",
+        "不能結絕，轉成住滯",
+        "如不可施行，亦仰逐司告諭本人始委"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改革官员申状的流转与结案责任。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-MOGEN-REVIEW-TIGHTENED-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "两府重新制定官员磨勘规则。",
+      "result": "官员考课晋升之法较旧制更为严密。",
+      "quote": [
+        "詔二府新定磨勘式",
+        "自是法密於舊"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "收紧官员磨勘晋升规则。"
+        ]
+      ],
+      "unknown": [
+        "具体条款未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHUILUO-CITY-PROPOSAL-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "水洛城",
+        "德顺军",
+        "秦州"
+      ],
+      "action": "郑戬报告水洛地区诸族愿纳质补官，请筑城以控制陇坻、秦州道路和肥沃田地，朝廷批准。",
+      "result": "刘沪等开始招集蕃部并修筑水洛城，随后引发军令与边地归属争议。",
+      "quote": [
+        "皆願納質子，求補漢官",
+        "今若就其地築城",
+        "實為封疆之利"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "水洛地区田地肥沃且可聚弓箭手。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "批准修筑水洛城。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以筑城整合新附蕃部。"
+        ]
+      ],
+      "unknown": [
+        "初议工程费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-BORDER-COMMANDER-FUND-DISCRETION-1043",
+      "time": "庆历三年十月",
+      "loc": [
+        "陕西",
+        "涇原路"
+      ],
+      "action": "欧阳修、尹洙针对滕宗谅、张亢、狄青等公用钱案件，请仅查入己和重大违法，不以细微失误牵连勇将。",
+      "result": "边帅战时便宜支出与常规财政问责的冲突被提交朝廷裁量。",
+      "quote": [
+        "但不入己處，任從便宜，不須畏避",
+        "所得邊將，惟狄青、種世衡二人",
+        "不可以細微詿誤，令其畏懼"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "主张区分公用钱失检与侵吞入己。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护有战功边将的便宜行事空间。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHANGQING-PALACE-BARRACKS-1043",
+      "time": "庆历三年十一月",
+      "loc": [
+        "开封",
+        "上清宫"
+      ],
+      "action": "上清宫火灾后，宋廷将其旧址改建为禁军营地。",
+      "result": "宗教宫观用地转为军事营房。",
+      "quote": [
+        "寅，上清宮火",
+        "以宮地為禁軍營"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将上清宫旧址改建禁军营。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整宫观土地用途支应军营。"
+        ]
+      ],
+      "unknown": [
+        "营房规模和费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHAOXING-RAOFENGLING-BATTLE-1043",
+      "time": "庆历三年十一月以前",
+      "loc": [
+        "饶风岭",
+        "兴元府"
+      ],
+      "action": "邵兴叛军杀提举捉贼上官珙，又在饶风岭击败兴元府兵，军校赵明率众投降。",
+      "result": "叛军突破官军阻击，转由州北沿山东行。",
+      "quote": [
+        "遇提舉捉賊上官珙，殺之",
+        "又敗興元府兵于饒風嶺",
+        "本府軍校趙明以眾降"
+      ],
+      "battle": "CAMPAIGN-RAOFENGLING-SHAOXING-1043",
+      "unknown": [
+        "官军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHAOXING-XUSHUI-CAPTURE-1043",
+      "time": "庆历三年十一月",
+      "loc": [
+        "壻水"
+      ],
+      "action": "陈曙等率兵追击邵兴叛军至壻水。",
+      "result": "邵兴及其党羽全数被捕，朝廷下诏凌迟处死。",
+      "quote": [
+        "陳曙等領兵追擊興于壻水",
+        "及其黨皆就禽",
+        "詔並淩遲處死"
+      ],
+      "battle": "CAMPAIGN-XUSHUI-SHAOXING-CAPTURE-1043",
+      "unknown": [
+        "追击战伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-GAOYOU-BANDIT-LENIENCY-DEBATE-1043",
+      "time": "庆历三年十一月",
+      "loc": [
+        "高邮",
+        "淮南"
+      ],
+      "action": "晁仲约因高邮无兵械，令富民出钱和牛酒送走王伦盗众；富弼主张依法诛杀，范仲淹主张酌情宽宥。",
+      "result": "仁宗采纳范仲淹意见，承认无防御资源州县与有力不战者责任有别。",
+      "quote": [
+        "知軍晁仲約度不能禦，諭富民出金帛，具牛酒",
+        "郡縣兵械足以戰守，遇賊不禦，法所當誅",
+        "今高郵無兵與械"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "高邮由富民出财物避免盗掠。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "区分地方无兵械与有力不战的法律责任。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-PATRONAGE-PRIVILEGES-CUT-1043",
+      "time": "庆历三年十一月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷禁止两府、两省高官为亲属求馆职读书名额，并提高次子孙、弟侄取得荫补的年龄。",
+      "result": "权贵亲属进入馆职和任子授官的便利受到削减。",
+      "quote": [
+        "不得陳乞子弟親戚館職並讀書之類",
+        "詔更廕補法",
+        "自是任子之恩稍殺矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "收紧馆职请托和任子荫补。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-GUIYANG-YAO-RENEWED-RAID-1043",
+      "time": "庆历三年十二月",
+      "loc": [
+        "桂阳监"
+      ],
+      "action": "桂阳猺再次侵边，宋廷命转运使郭辅之等出兵攻讨，同时因地招抚。",
+      "result": "南方处置采取军事打击与招抚并行。",
+      "quote": [
+        "桂陽監猺賊復寇邊",
+        "等攻討蠻、猺",
+        "並就便招撫之"
+      ],
+      "battle": "CAMPAIGN-GUIYANG-YAO-RAID-1043",
+      "unknown": [
+        "本卷未载此轮作战结果。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-AUSPICIOUS-TRIBUTE-BAN-1043",
+      "time": "庆历三年十二月",
+      "loc": [
+        "宋境",
+        "澧州"
+      ],
+      "action": "澧州献所谓太平瑞木，欧阳修指出内外多事，请禁止各地进献奇兽异禽草木。",
+      "result": "仁宗采纳，压制地方以祥瑞迎合朝廷的风气。",
+      "quote": [
+        "實未見太平之象",
+        "竊慮四方相效，爭造妖妄",
+        "奇獸、異禽、草木之類，並不得進獻"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止地方制造祥瑞进献。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-HANQI-SHAANXI-BANDIT-SUPPRESSION-1043",
+      "time": "庆历三年冬",
+      "loc": [
+        "商州",
+        "虢州",
+        "陕西"
+      ],
+      "action": "陕西饥荒中张海、郭邈山聚众，韩琦发榜招回散军，并召谢云行等率边兵入山捕击。",
+      "result": "盗众相继被击破，余党大部捕获。",
+      "quote": [
+        "群盜嘯聚商、虢之郊",
+        "召謝雲行等將沿邊士兵入山捕張海等",
+        "禽捕餘黨殆盡"
+      ],
+      "battle": "CAMPAIGN-SHAANXI-ZHANGHAI-SUPPRESSION-1043",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-HANQI-SHAANXI-FAMINE-RELIEF-1043",
+      "time": "庆历三年冬",
+      "loc": [
+        "河中",
+        "同州",
+        "华州",
+        "陕西"
+      ],
+      "action": "大旱饥民东徙，韩琦派官开常平仓赈济，设许宗寿专督蒲、华、同三州，并减免赋役。",
+      "result": "三州所活二百五十四万余人，其他州也依此赈济。",
+      "quote": [
+        "河中、同、華等州饑民相率東徙",
+        "發省倉以賑之",
+        "所活凡二百五十四萬餘人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开仓、蠲役并跨州督办大饥赈济。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "韩琦以宣抚权组织陕西救荒。"
+        ]
+      ],
+      "unknown": [
+        "其他州具体获救人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHAANXI-OLD-SOLDIERS-DISCHARGED-1043",
+      "time": "庆历三年冬",
+      "loc": [
+        "陕西"
+      ],
+      "action": "韩琦检查陕西军队，将不堪征战、徒耗用度的疲老禁军裁停。",
+      "result": "一万二千余名不适战士兵被放停，以压缩军费并整顿兵员。",
+      "quote": [
+        "雜以疲老，耗用度",
+        "選禁軍不堪征戰者",
+        "停放一萬二千餘人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁减疲老兵员以降低军费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿陕西禁军战斗人员。"
+        ]
+      ],
+      "unknown": [
+        "放停后的安置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHAANXI-GRAIN-PURCHASE-1044",
+      "time": "庆历四年二月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "宋廷从奉宸库拨银三万两，在陕西购买谷麦救济饥民。",
+      "result": "中央库银直接投入陕西救荒粮源。",
+      "quote": [
+        "奉宸庫銀三萬兩下陝西",
+        "博糴穀麥以濟饑民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨银三万两籴粮赈饥。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央专项支援陕西饥荒。"
+        ]
+      ],
+      "unknown": [
+        "实际购粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-QUXIFAN-HUANZHOU-REBELLION-1044",
+      "time": "庆历四年正月至二月",
+      "loc": [
+        "宜州",
+        "环州",
+        "白崖山"
+      ],
+      "action": "区希范、区正辞联结蒙赶等设伪帝、伪官四十余人，率五百人攻破环州，夺印并焚毁积聚。",
+      "result": "环州被改称武成军，宋廷急令转运钤辖司发兵捕击并另募勇敢入洞。",
+      "quote": [
+        "偽立名號，補署四十餘人",
+        "率眾五百破環州，劫州印，焚其積聚",
+        "亟發兵捕擊之"
+      ],
+      "battle": "CAMPAIGN-QUXIFAN-HUANZHOU-REBELLION-1044",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "叛军焚毁环州积聚。"
+        ]
+      ],
+      "unknown": [
+        "攻城死伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHAANXI-FOUR-COMMANDS-ABOLISHED-1044",
+      "time": "庆历四年二月",
+      "loc": [
+        "陕西四路",
+        "永兴军"
+      ],
+      "action": "依韩琦及欧阳修意见，宋廷撤销陕西四路总都部署，恢复各路部署、经略安抚招讨使，郑戬只坐镇永兴。",
+      "result": "此前统一四路的层级被撤回，以减少边情往返延误并落实各路主将责任。",
+      "quote": [
+        "罷陝西四路都部署、經略安撫招討使",
+        "復置逐路都部署、經略安撫招討使",
+        "只令坐鎮長安，撫民臨政"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "撤销四路总指挥并恢复分路负责。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHUILUO-COMMAND-CONFLICT-1044",
+      "time": "庆历四年三月",
+      "loc": [
+        "水洛城",
+        "涇原路",
+        "德顺军"
+      ],
+      "action": "尹洙命停筑并召刘沪、董士廉，二人因蕃部坚持自备财力筑城而未从；狄青奉命拘械二人，蕃部随即惊扰杀人。",
+      "result": "中央调查后释放刘沪、董士廉并令完成水洛城，军令冲突暂以续建收束。",
+      "quote": [
+        "蕃部皆遮止滬、士廉等，請自備財力修城",
+        "青械二人送德順軍獄",
+        "詔釋滬、士廉，令卒城之"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "水洛城在停役争议后获准续建。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "处理筑城将佐抗命和蕃部骚动。"
+        ]
+      ],
+      "unknown": [
+        "蕃部骚动的具体伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-UNIVERSAL-PREFECTURAL-SCHOOLS-1044",
+      "time": "庆历四年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋祁等依范仲淹兴学主张，请以学校和乡里履行核实士人；仁宗令州县皆立学、置教授，并规定入学日数。",
+      "result": "地方学校制度扩展，士人须经在学训练方可参加秋赋。",
+      "quote": [
+        "莫若使士皆土著而教之於學校",
+        "下詔令州縣皆立學",
+        "士須在學習業三百日，乃聽預秋賦"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "要求州县普遍设学。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以学校教育和乡里行实改革取士基础。"
+        ]
+      ],
+      "unknown": [
+        "各地校舍与经费未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-EXAMINATION-REFORM-1044",
+      "time": "庆历四年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "贡举改为先策、次论、次诗赋并通考取舍，废贴经墨义，放宽词赋声病限制，另调整经术、三史和明法科考试。",
+      "result": "考试从记诵和形式约束转向策论、义理与法案能力。",
+      "quote": [
+        "三場，先策，次論，次詩賦",
+        "而罷貼經墨義",
+        "試十道，以曉析意義為通"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改革科举场次、内容与评价标准。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-YAO-RAID-TAX-RELIEF-1044",
+      "time": "庆历四年三月",
+      "loc": [
+        "衡州",
+        "道州",
+        "桂阳监"
+      ],
+      "action": "宋廷对遭猺贼劫掠的衡州、道州、桂阳监居民免除一年赋役。",
+      "result": "南方战乱受害民户获得灾后减负。",
+      "quote": [
+        "免衡、道州、桂陽監民經猺賊劫掠者賦役一年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "免除猺乱受害地区一年赋役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对南方边乱受害民户实施救济。"
+        ]
+      ],
+      "unknown": [
+        "受益户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-LIAO-NORTHWEST-CITIES-INQUIRY-1044",
+      "time": "庆历四年四月",
+      "loc": [
+        "辽西北",
+        "代州",
+        "河东"
+      ],
+      "action": "李京报告辽在西北新筑两城、迁置沿边人口，认为违背誓书并可声援西夏，请宋廷向辽交涉。",
+      "result": "仁宗批准，宋方在复盟后重新审查辽的边城扩张。",
+      "quote": [
+        "契丹築二城于西北",
+        "違先朝誓書，為賊聲援",
+        "責以信誓，使罷二城"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽在西北新筑两座边城。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋要求依誓书停止辽边城扩张。"
+        ]
+      ],
+      "unknown": [
+        "交涉结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-PARTY-DISCOURSE-1044",
+      "time": "庆历四年四月",
+      "loc": [
+        "开封"
+      ],
+      "action": "夏竦党羽指范仲淹、杜衍、欧阳修等为朋党，欧阳修上《朋党论》，主张君子因道义忠信结朋可共济国家。",
+      "result": "庆历改革者遭朋党攻击，仁宗当时不采蓝元震等指控。",
+      "quote": [
+        "竦因與其黨造為黨論",
+        "惟君子則有之",
+        "言？」帝不信。\n己"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "朋党论成为反对庆历改革的政治工具。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-TAIXUE-CAMPUS-1044",
+      "time": "庆历四年四月",
+      "loc": [
+        "开封",
+        "锡庆院"
+      ],
+      "action": "王拱辰等以国子监狭小为由，请将锡庆院改为太学并修讲殿。",
+      "result": "仁宗批准，中央学校获得扩大校址。",
+      "quote": [
+        "國子監制度狹小，不足以容學者",
+        "請以錫慶院為太學",
+        "學，葺講殿，備"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改锡庆院为太学并修讲殿。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "扩充中央学校承载能力。"
+        ]
+      ],
+      "unknown": [
+        "工程费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-LIAO-XIXIA-BORDER-BATTLE-1044",
+      "time": "庆历四年五月",
+      "loc": [
+        "辽西南边",
+        "西夏"
+      ],
+      "action": "辽军征调部兵讨伐叛入西夏的党项，元昊派兵援助叛部。",
+      "result": "辽军战败，萧普达、张佛怒阵亡，辽随后征诸道兵继续讨夏。",
+      "quote": [
+        "所發部兵與党項戰不利",
+        "元昊遣兵助叛黨",
+        "蕭普達、四捷軍祥袞張佛怒歿於陣"
+      ],
+      "battle": "CAMPAIGN-LIAO-XIXIA-SOUTHWEST-1044",
+      "unknown": [
+        "双方兵力和其他伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-SHUILUO-CITY-COMPLETION-ORDER-1044",
+      "time": "庆历四年五月",
+      "loc": [
+        "水洛城",
+        "涇原路"
+      ],
+      "action": "韩琦陈水洛利害十三条，鱼周询、郑戬仍主张工程只余女墙、不可废弃。",
+      "result": "朝廷命郑戬等完成水洛城，并遣陈惟信催修。",
+      "quote": [
+        "遂陳所見利害凡十三條",
+        "水洛城惟女牆未完，棄之誠可惜",
+        "遣內殿崇班陳惟信往涇原路催修水洛城"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "在争议后决定完成水洛城。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央派员催修以结束边帅分歧。"
+        ]
+      ],
+      "unknown": [
+        "最终竣工日期未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-HUAINAN-FAMINE-GRAIN-SUBSCRIPTION-1044",
+      "time": "庆历四年五月",
+      "loc": [
+        "淮南"
+      ],
+      "action": "宋廷招募民间纳粟以赈济淮南饥荒。",
+      "result": "救荒粮源部分转由社会捐纳筹集。",
+      "quote": [
+        "詔募人納粟振淮南饑"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "募纳民粮赈济淮南饥荒。"
+        ]
+      ],
+      "unknown": [
+        "募集数量与激励条件未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-XIXIA-DECLARES-VASSAL-1044",
+      "time": "庆历四年五月",
+      "loc": [
+        "西夏",
+        "宋境"
+      ],
+      "action": "元昊开始对宋称臣，自称夏国主，并再遣尹与则、杨守素来议和。",
+      "result": "卷45长期僵持的称臣名分取得突破，但具体和议仍待议定。",
+      "quote": [
+        "元昊始稱臣，自號夏國主",
+        "復遣尹與則、楊守素來議事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "元昊接受称臣并进入后续议约。"
+        ]
+      ],
+      "unknown": [
+        "本卷未载正式和约完成。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-QINGJIAN-CITY-BATTLE-1044",
+      "time": "庆历四年五月",
+      "loc": [
+        "青涧城",
+        "鄜延路"
+      ],
+      "action": "西夏军进攻青涧城，宣武副都头刘岳等出战。",
+      "result": "宋军击败来犯夏军，朝廷按功迁资。",
+      "quote": [
+        "西賊寇青澗城",
+        "宣武副都頭劉岳等與戰",
+        "西賊寇青澗城，宣武副都頭劉岳等與戰，敗之"
+      ],
+      "battle": "CAMPAIGN-QINGJIAN-CITY-1044",
+      "unknown": [
+        "双方兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-LIAO-CAMPAIGN-AGAINST-XIXIA-1044",
+      "time": "庆历四年五月至六月",
+      "loc": [
+        "辽西南边",
+        "永安山",
+        "西夏"
+      ],
+      "action": "辽在边战失利后征发诸道兵会西南边讨元昊，并告知宋方即将伐夏；准布也获准出兵助辽。",
+      "result": "辽夏冲突升级为大规模征讨，宋廷因此重新评估河东、河北防务。",
+      "quote": [
+        "遼征諸道兵會西南邊以討元昊",
+        "准布執其使以聞於遼，且乞以兵助戰",
+        "遼主駐永安山，以將伐元昊來告"
+      ],
+      "battle": "CAMPAIGN-LIAO-XIXIA-EXPEDITION-1044",
+      "unknown": [
+        "本卷未载主力会战结果。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-FUBI-HEBEI-TWELVE-DEFENSE-PLANS-1044",
+      "time": "庆历四年六月",
+      "loc": [
+        "河北",
+        "河东",
+        "宋辽边境"
+      ],
+      "action": "富弼据多次出使及边地调查，条上河北守御十二策，请两府会审并速行可用者。",
+      "result": "宋廷在辽伐夏背景下形成系统河北防务方案，同时未因疑辽毁盟而立即大举发兵。",
+      "quote": [
+        "弼條上河北守禦十二策",
+        "博采參較，得之甚詳",
+        "可者速行之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "富弼提出河北十二项守御方案。"
+        ]
+      ],
+      "unknown": [
+        "十二策明细与实施范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-QINGLI-REFORM-RESISTANCE-1044",
+      "time": "庆历四年六月",
+      "loc": [
+        "开封",
+        "陕西",
+        "河东"
+      ],
+      "action": "按察、荫补、磨勘等改革引起官僚不安，朋党谤议加剧；范仲淹、富弼仍守原议，但因流言和边奏请求出按西北。",
+      "result": "范仲淹获任陕西、河东宣抚使，庆历改革核心开始从中枢外出。",
+      "quote": [
+        "人心不自安",
+        "謗毀浸盛，而朋黨之論滋不可解",
+        "乃使宣撫陝西、河東"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "庆历改革遭既得利益和朋党指控反弹。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-046-SANJIANG-FORT-RAID-1044",
+      "time": "庆历四年七月",
+      "loc": [
+        "三江砦"
+      ],
+      "action": "夷人进攻三江砦，淯井监官兵迎击。",
+      "result": "来犯者被击退。",
+      "quote": [
+        "夷人寇三江砦",
+        "淯井監官兵擊走之"
+      ],
+      "battle": "CAMPAIGN-SANJIANG-FORT-1044",
+      "unknown": [
+        "兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-046-LOCAL-OFFICIAL-PERFORMANCE-AUDIT-1044",
+      "time": "庆历四年七月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "依范仲淹建议，转运、提刑须上报有治绩的州县官，若举荐不实则由御史台连坐追责。",
+      "result": "地方官绩效举荐同时建立举主责任。",
+      "quote": [
+        "察所部知州、軍、知縣、縣令有治狀者",
+        "以名聞，議旌擢之",
+        "並坐上收書不實之罪"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立地方治绩举荐与不实连坐机制。"
+        ]
+      ],
+      "unknown": []
+    }
+  ]
+}

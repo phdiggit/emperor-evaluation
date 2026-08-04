@@ -1,0 +1,740 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-087",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷087",
+    "revision_ref": "2297908",
+    "start_locator": "諱佶，神宗第十一子",
+    "end_locator": "有智謀勇略可備將帥者，各舉一人",
+    "overlap_context": "承接卷086哲宗崩后新君即位与元符末宋夏通好；本卷记徽宗建中靖国、崇宁初的党争转向、财政裁冗、宫苑营建及辽道宗死后的政局。",
+    "input_fingerprint": "34e0fc8f660ae0aa4d2758ade4ba3b15d0c04b30d6b0bff5799f11b1044c0b25"
+  },
+  "limitations": [
+    "仅据固定 revision 2297908 的《續資治通鑑》卷087连续通读登记，不引入卷外常识。",
+    "同主体、同目标及连续因果链合并；纯任免不单收，未知保持未知。",
+    "复杂事件保留最小充分逐字锚，军事事项交由 battle 工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-087-XIANG-AND-DAOZONG-DEATHS-1101",
+      "time": "建中靖国元年正月",
+      "loc": [
+        "开封",
+        "辽"
+      ],
+      "action": "宋皇太后向氏崩，遗诏尊陈氏为皇太后；同日辽道宗崩，遗诏燕国王延禧嗣位。",
+      "result": "宋、辽均发生最高统治层继承转换。",
+      "quote": [
+        "皇太后向氏崩於慈寧殿",
+        "遺詔尊皇太妃陳氏為皇太后",
+        "遺詔燕國王延禧嗣位"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋辽最高统治层继承。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-GRAIN-CONTRIBUTION-OFFICE-EXEMPTION-1101",
+      "time": "建中靖国元年正月",
+      "loc": [
+        "河",
+        "陕"
+      ],
+      "action": "朝廷允许河、陕幕职人员入粟后免试注官。",
+      "result": "粮食输纳可换取免试任官资格，具体数量未载。",
+      "quote": [
+        "令河、陝幕人入粟，免試注官"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以纳粟换取任官资格。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官员选任资格调整。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-LIAO-QIANTONG-AMNESTY-1101",
+      "time": "辽乾统元年二月",
+      "loc": [
+        "辽"
+      ],
+      "action": "辽主改元乾统并大赦，恢复被耶律伊逊诬陷者官爵、财产和流放者身份。",
+      "result": "伊逊案受害者获得平反与还原。",
+      "quote": [
+        "為耶律伊遜所誣陷者，復其官爵",
+        "籍沒者出之，流放者還之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷改元赦令与冤案平反。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-QINFENG-TROOP-CUT-AND-HEBEI-STOCKPILE-1101",
+      "time": "建中靖国元年二月",
+      "loc": [
+        "秦凤",
+        "河北"
+      ],
+      "action": "朝廷汰减秦凤二路兵员，并分别动用内库、常平钱各百万准备河北边储。",
+      "result": "秦凤军额被裁，河北边储获二百万钱准备。",
+      "quote": [
+        "汰秦、鳳二路兵",
+        "出內庫及諸路常平錢各百萬，備河北邊儲"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-087-QINFENG-TROOP-CUT-HEBEI-STOCKPILE-1101",
+          [],
+          "军额与边储，交由战役工作流。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "常平钱和内库钱用于边储。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-LIN-XI-ZHANG-SHANGYING-DEMOTIONS-1101",
+      "time": "建中靖国元年二月",
+      "loc": [
+        "和州",
+        "随州"
+      ],
+      "action": "朝廷因言官认为林希、张商英处分过轻，再贬二人。",
+      "result": "林希改知和州，张商英降为朝奉大夫。",
+      "quote": [
+        "詔貶知揚州林希和舒州",
+        "降知隨州張商英為朝奉大夫"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对绍圣官员的追加处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-ZHANG-DUN-FURTHER-EXILE-1101",
+      "time": "建中靖国元年二月",
+      "loc": [
+        "潭州",
+        "雷州"
+      ],
+      "action": "朝廷将潭州安置的章惇再责授雷州司户参军，员外置。",
+      "result": "章惇被进一步贬至雷州。",
+      "quote": [
+        "潭州安置章惇，責授雷州司戶參軍，員外置"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "章惇追加贬谪。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-SOLAR-ECLIPSE-PENAL-RELIEF-1101",
+      "time": "建中靖国元年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷因日食避殿、减膳，并减天下囚罪一等、释流以下。",
+      "result": "流刑以下囚犯获释，其他刑罚减等。",
+      "quote": [
+        "以日當食，避殿，減膳",
+        "減天下囚罪一等，流以下釋之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾异下的减刑与礼制响应。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-LIAO-XIAO-WUNA-DISGRACE-1101",
+      "time": "建中靖国元年三月",
+      "loc": [
+        "辽"
+      ],
+      "action": "辽殿直诬告萧乌纳私借内府犀角，辽主夺其太傅官并降州刺史。",
+      "result": "萧乌纳被降职，史称此后辽廷臣僚更趋柔佞。",
+      "quote": [
+        "誣告烏納私借內府犀角",
+        "奪其太傅官，降甯邊州刺史",
+        "遼廷諸臣益務為柔佞矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷对直言者的诬陷与政治风气。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-DOUBTFUL-CASE-APPEAL-RULE-1101",
+      "time": "建中靖国元年四月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷规定各路疑狱应奏未奏者科罪，不当奏而误奏者不坐，著为令。",
+      "result": "疑狱上奏的责任边界被明定。",
+      "quote": [
+        "諸路疑獄當奏而不奏者科罪",
+        "不當奏而輒奏者勿坐。著為令"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "司法上奏程序。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-REN-BOYU-PARTY-WARNING-AND-TRANSFER-1101",
+      "time": "建中靖国元年四月",
+      "loc": [
+        "开封"
+      ],
+      "action": "任伯雨反对混用君子小人，并以建中为戒；因将劾曾布而被徙为度支员外郎。",
+      "result": "任伯雨离开言官职位。",
+      "quote": [
+        "君子小人雜然並進，可以致治者",
+        "徙為度支員外郎"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "党争论辩与言官调离。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-HAIL-COST-CUTS-1101",
+      "time": "建中靖国元年五月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "大雨雹后，朝廷命三省减少吏额并节省冗费。",
+      "result": "中枢启动裁减吏员和节约支出的措施。",
+      "quote": [
+        "大雨雹，詔三省減吏號，節冗費"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁冗节费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾异后的行政处置。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-CHEN-YOU-DEMOTION-AND-CENSORIAL-DISSENT-1101",
+      "time": "建中靖国元年六月",
+      "loc": [
+        "滁州"
+      ],
+      "action": "陈祐连续弹劾曾布未获回应，后被责通判滁州；陈次升、江公望为其申辩。",
+      "result": "陈祐被调离言职，救论未获采纳。",
+      "quote": [
+        "責右司諫陳祐通判滁州",
+        "有劄子救祐，帝不省",
+        "易三言官，逐七諫臣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "言官弹劾与处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-HOMICIDE-SENTENCING-GRID-1101",
+      "time": "建中靖国元年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷颁行《斗杀情理轻重格》。",
+      "result": "斗杀案件的情理轻重裁量规则获颁。",
+      "quote": [
+        "班《鬥殺情理輕重格》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刑事裁量规则。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-JIANG-GONGWANG-ADMONITION-AND-REMOVAL-1101",
+      "time": "建中靖国元年六月",
+      "loc": [
+        "淮阳军"
+      ],
+      "action": "江公望批评绍述造成朋党，并劝罢内苑珍禽；又为蔡王似案请求勿以无根言语加诸至亲。",
+      "result": "珍禽被放遣，但江公望随后罢知淮阳军。",
+      "quote": [
+        "元祐人才，皆出於熙、豐培養之餘",
+        "已縱遣之矣",
+        "遂罷知淮陽軍"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对党争、宫苑奢好和宗室案件的谏论。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-AN-TAO-EXIT-AND-EUNUCH-CONTROL-1101",
+      "time": "建中靖国元年七月",
+      "loc": [
+        "河南府",
+        "开封"
+      ],
+      "action": "安燾要求核治内侍擅离旧制及阎守勤事，又反对郝随借赦复起；因年老求去。",
+      "result": "安燾出知河南府，临行警告党祸已萌。",
+      "quote": [
+        "審實，乃得行",
+        "郝隨得罪，或揣帝意且起用",
+        "東京黨禍已萌"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "内侍出使控制与执政去职。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-CHEN-GUAN-FISCAL-MEMORIAL-AND-HISTORICAL-RECORD-DISPUTE-1101",
+      "time": "建中靖国元年八月",
+      "loc": [
+        "开封"
+      ],
+      "action": "陈瓘上《国用须知》主张裁减冗费、防止加赋，又上《日录辨》反对以王安石私录追议刑赏。",
+      "result": "陈瓘与曾布争辩后被出知泰州，所陈两事未见施行。",
+      "quote": [
+        "裁減吏員冗費，以防加賦之漸",
+        "此乃人臣私錄之書，非朝廷之典也",
+        "乃出知泰州"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "财政裁冗与加赋风险。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "史料使用与言官处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-REVENUE-AND-STAFF-REVIEW-1101",
+      "time": "建中靖国元年九月",
+      "loc": [
+        "宋诸路"
+      ],
+      "action": "朝廷命转运、提举司及州军详议可开发遗利与应裁冗员浮费。",
+      "result": "各地进入遗利和冗费审议阶段，具体实施未载。",
+      "quote": [
+        "有遺利可以講求及冗員浮費當裁損著",
+        "冗員浮費當裁損著，詳議以聞"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "增收与裁冗的地方审议。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-CHONGNING-REIGN-CHANGE-AND-POLITICAL-TURN-1101",
+      "time": "建中靖国元年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "圜丘赦天下后，朝廷改明年元为崇宁；曾布进呈《爱莫助之图》，温益请求籍记异论者，史称哲宗由此决意用蔡京。",
+      "result": "改元与绍述政治动员相连，蔡京受用的方向明确。",
+      "quote": [
+        "改明年元曰崇甯",
+        "乞籍記異論之人",
+        "於是帝決意用京矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改元、绍述动员及人事方向。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-CAI-JING-RETURN-AND-TONG-GUAN-NETWORK-1101",
+      "time": "建中靖国元年十二月",
+      "loc": [
+        "定州",
+        "杭州",
+        "开封"
+      ],
+      "action": "蔡京复龙图阁直学士、知定州；童贯奉命访书画而与蔡京往来，并经宫妾宦官等荐其可相。",
+      "result": "蔡京被重新起用，其与宫廷近侍的联结得到加强。",
+      "quote": [
+        "蔡京，復龍圖閣直學士，知定州",
+        "京與之遊，不舍晝夜",
+        "遂起京知定州"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蔡京复起及宫廷近侍联结。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-TAIHU-STONE-PROCUREMENT-AND-DISASTERS-1101",
+      "time": "建中靖国元年",
+      "loc": [
+        "苏州",
+        "湖州",
+        "河东",
+        "京畿",
+        "两浙",
+        "湖南",
+        "福建"
+      ],
+      "action": "因修奉景灵西宫，朝廷命苏、湖采太湖石四千六百枚；同年河东地震、京畿蝗灾及多路旱灾。",
+      "result": "宫苑工程发生大规模石料征采，灾害损失与赈济未载。",
+      "quote": [
+        "下蘇、湖二州采太湖石四千六百枚",
+        "河東地震，京畿蝗，兩浙、湖南、福建旱"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "景灵西宫石料征采。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地震、蝗灾和旱灾，救助未载。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-LIAO-IXUN-PARTY-PURGE-1102",
+      "time": "崇宁元年四月",
+      "loc": [
+        "辽"
+      ],
+      "action": "辽廷处死耶律伊逊党并徙其子孙、发墓戮尸、分赐家属；御史耶律实埒要求继续清理逆党并寻找顺宗葬所。",
+      "result": "辽廷扩大伊逊党清算，但实埒奏请未获答复。",
+      "quote": [
+        "命誅伊遜黨，徙其子孫於邊",
+        "剖棺戮屍，以其家屬分賜被殺之家",
+        "聞。」書奉，不報。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷政治清算。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-HAN-ZHONGYAN-REMOVAL-AND-YUANYOU-PUNISHMENTS-1102",
+      "time": "崇宁元年五月",
+      "loc": [
+        "大名",
+        "宋境"
+      ],
+      "action": "韩忠彦被罢出知大名；朝廷继而夺安燾、王覿、丰稷、陈次升等职，并对司马光等与四十余人重新裁减、行遣。",
+      "result": "建中靖国初的部分宽复被逆转，元祐相关官员再次被分级处分和籍记。",
+      "quote": [
+        "遂以觀文殿大學士出知大名府",
+        "知潤州王覿、知越州豐稷、知潁昌府陳次升，並奪職",
+        "行遣輕重有差",
+        "不得與在京差遣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政治路线反转与元祐官员再处分。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-ANTI-GOLD-LEAF-PALACE-DECISION-1102",
+      "time": "崇宁元年五月",
+      "loc": [
+        "后苑"
+      ],
+      "action": "后苑拟增葺殿宇并用金箔装饰，徽宗认为土木金饰毁后不可回收而罢其请。",
+      "result": "五十六万七千计的金箔装饰请求被否决。",
+      "quote": [
+        "計用五十六萬七千",
+        "以飾土木，一壞不可復收，甚無謂也",
+        "甚無謂也。」詔黜之"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫苑修建材料支出被否决。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "避免不可回收的金箔支出。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-POLITICAL-CASE-FREEZE-1102",
+      "time": "崇宁元年五月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷规定元祐以来及元符末未因朋比附会得罪者，除已处分外一概释而不问，并禁止言官再行追论。",
+      "result": "既往政治案件的继续追究被明令停止。",
+      "quote": [
+        "自今以往，一切釋而不問，在言責者亦勿復輒言"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "政治案件的追究终止命令。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-CAI-JING-PROMOTION-AND-ZENG-BU-DEMOTION-1102",
+      "time": "崇宁元年五月至闰月",
+      "loc": [
+        "开封",
+        "润州",
+        "太平州"
+      ],
+      "action": "朝廷任蔡京为尚书左丞；曾布随后因御史弹劾罢知润州，又落职居太平州。",
+      "result": "蔡京进入政府，曾布失去相位并被追加处分。",
+      "quote": [
+        "蔡京為尚書左丞",
+        "詔布為觀文殿大學士、知潤州",
+        "更詔布落職，提舉明道宮，太平州居住"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢权力更替。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-SIX-MINISTRIES-AUDIENCE-AND-OFFICIAL-CODE-1102",
+      "time": "崇宁元年六月",
+      "loc": [
+        "开封"
+      ],
+      "action": "朝廷允许六曹尚书有事独员上殿奏陈，并命仿《唐六典》修神宗所定官制。",
+      "result": "六曹奏事程序调整，官制修订重新启动。",
+      "quote": [
+        "六曹尚書有事奏陳，許獨員上殿",
+        "仿《唐六典》修神宗所定官制"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中枢奏事程序与官制修订。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-WANG-ANSHI-SHRINE-RITUAL-STATUS-1102",
+      "time": "崇宁元年",
+      "loc": [
+        "江宁府学"
+      ],
+      "action": "邓洵武请求将江宁府学所建王安石祠堂列入祀典，朝廷采纳。",
+      "result": "王安石祠堂获得官方祀典地位。",
+      "quote": [
+        "府學所建王安石祠堂著祀典，從之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官方祀典调整。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "既有祠堂的制度性使用。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-LIAO-WRONGFUL-IMPLICATION-RELIEF-1102",
+      "time": "崇宁元年",
+      "loc": [
+        "辽"
+      ],
+      "action": "辽廷清理伊逊党时蔓引无辜，左企弓辨析冤情，马人望奉命平心推究。",
+      "result": "多名被牵连者获救，具体人数未载。",
+      "quote": [
+        "蔓引轉及無辜",
+        "處以平心，所活甚眾"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽廷政治清算中的冤案辨析。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-087-OFFICIAL-PERFORMANCE-AND-MILITARY-TALENT-RECOMMENDATION-1102",
+      "time": "崇宁元年闰月",
+      "loc": [
+        "宋诸路"
+      ],
+      "action": "朝廷命两司、帅臣各举治绩最著的州县官一人；又令监司、帅臣各举可备将帅的小使臣以上及亲民官。",
+      "result": "地方政绩与将帅人才荐举渠道被重申。",
+      "quote": [
+        "州縣官有治績最著者",
+        "有智謀勇略可備將帥者，各舉一人"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方政绩与人才荐举。"
+        ],
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "BATTLE-LEAD-087-MILITARY-TALENT-RECOMMENDATION-1102",
+          [],
+          "将帅人才荐举，交由战役工作流。"
+        ]
+      ]
+    }
+  ]
+}

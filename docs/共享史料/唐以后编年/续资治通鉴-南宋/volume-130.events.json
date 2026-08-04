@@ -1,0 +1,1569 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-130",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷130",
+    "revision_ref": "2626556",
+    "start_locator": "紹興二十三年正月李顯忠復官",
+    "end_locator": "紹興二十五年秦檜死後政局調整",
+    "overlap_context": "承卷129虔州兵乱，整页通读绍兴二十三年至二十五年，止于卷130页末；未读卷131。",
+    "input_fingerprint": "3ba0a9e9e1145b384433e4f15be84f7d8cd086d1e37f21f892645579f089c9fc"
+  },
+  "limitations": [
+    "固定页面跨紹興二十三年至二十五年；未讀卷131。",
+    "战役仅交接专门工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-130-QIANZHOU-PACIFICATION-1153",
+      "time": "紹興二十三年二月",
+      "loc": [
+        "贛州"
+      ],
+      "action": "朝廷处决虔州军乱首犯并奖叙参战将士。",
+      "result": "延续百余日的虔州军乱收束，军功获大规模赏叙。",
+      "quote": [
+        "臠虔州軍賊黃明等八人於市",
+        "明等據州城凡百有十二日",
+        "將士受賞者萬三千百二十有四人"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-130-QIANZHOU-PACIFICATION-1153"
+    },
+    {
+      "id": "CHF-XZZTJ-130-GANZHOU-RENAMING-1153",
+      "time": "紹興二十三年二月",
+      "loc": [
+        "虔州",
+        "虔化縣"
+      ],
+      "action": "朝廷将虔州改为赣州、虔化县改为宁都。",
+      "result": "兵乱后的州县名称与行政标识被重置。",
+      "quote": [
+        "改虔州為贛州，改虔化縣為寧都"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-GANZHOU-RENAMING-1153",
+        "candidate": "POL-CAND-130-GANZHOU-RENAMING-1153",
+        "summary": "虔州兵乱后州县改名。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "行政区划。",
+          "decision_question": "兵乱后州县名号。",
+          "alternatives": "沿用旧名。",
+          "decision": "改赣州、宁都。",
+          "direct_result": "州县更名。",
+          "power_change": "行政标识重置。",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-CAPITAL-REORGANIZATION-1153",
+      "time": "紹興二十三年三月",
+      "loc": [
+        "中都",
+        "北京",
+        "南京",
+        "東京",
+        "西京"
+      ],
+      "action": "金主迁都后重定五京、十四路、城门与宗庙体系。",
+      "result": "金朝都城、路级行政与宗庙布局系统重组。",
+      "quote": [
+        "改燕京為大興府，號中都",
+        "分蕃、漢地為十四路，置總管府",
+        "名太廟曰衍慶宮"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-JIN-CAPITAL-REORGANIZATION-1153",
+        "candidate": "POL-CAND-130-JIN-CAPITAL-REORGANIZATION-1153",
+        "summary": "金朝迁都并重组京路宗庙体系。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "都城与行政重组。",
+          "decision_question": "迁都后的国家空间体系。",
+          "alternatives": "维持旧制。",
+          "decision": "重定五京十四路。",
+          "direct_result": "新都与路制确立。",
+          "power_change": "中央空间重心转至中都。",
+          "risk_or_damage": "未载。",
+          "follow_up": "营建宫室。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-EXAM-REFORM-1153",
+      "time": "紹興二十三年三月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金主恢复殿试，分六路府试并调整取士科目和比例。",
+      "result": "金朝科举形成乡试、府试、殿试递进制度。",
+      "quote": [
+        "舊取士無殿試，金主始復之",
+        "府試分六路",
+        "惟以詞賦、法律而已"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-JIN-EXAM-REFORM-1153",
+        "candidate": "POL-CAND-130-JIN-EXAM-REFORM-1153",
+        "summary": "金朝恢复殿试并重整取士。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "科举改革。",
+          "decision_question": "取士层级与科目。",
+          "alternatives": "旧无殿试。",
+          "decision": "恢复殿试、分路取士。",
+          "direct_result": "三级考试成形。",
+          "power_change": "中央掌握终试。",
+          "risk_or_damage": "未载。",
+          "follow_up": "罢经义神童等科。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-PENAL-REFORM-1153",
+      "time": "紹興二十三年三月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝废除杖脊，明确五等徒刑以杂役抵满释放。",
+      "result": "肉刑强度降低，徒刑期限与执行方式制度化。",
+      "quote": [
+        "金主立，又去杖脊",
+        "凡徒刑，止以荊決臀",
+        "皆使之雜作，滿則釋之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-JIN-PENAL-REFORM-1153",
+        "candidate": "POL-CAND-130-JIN-PENAL-REFORM-1153",
+        "summary": "金朝减轻杖刑并制度化徒刑。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "刑制改革。",
+          "decision_question": "杖刑与徒刑执行。",
+          "alternatives": "沙袋、杖脊旧法。",
+          "decision": "去杖脊、杂役期满释放。",
+          "direct_result": "刑罚执行重定。",
+          "power_change": "未载。",
+          "risk_or_damage": "旧刑近于酷烈。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-RESTRICTED-PERSONS-RULE-1153",
+      "time": "紹興二十三年四月",
+      "loc": [
+        "諸州"
+      ],
+      "action": "朝廷重申编管羁管者仅按月呈验，不得擅自囚禁锁闭。",
+      "result": "地方对编管人员的拘禁受到成文制度约束。",
+      "quote": [
+        "在法止許月赴長吏呈驗",
+        "聞比來囚禁鎖閉，甚於配隸",
+        "可令遵守成憲"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-RESTRICTED-PERSONS-RULE-1153",
+        "candidate": "POL-CAND-130-RESTRICTED-PERSONS-RULE-1153",
+        "summary": "编管羁管人员拘禁受限。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "司法执行。",
+          "decision_question": "编管者管理方式。",
+          "alternatives": "囚禁锁闭。",
+          "decision": "仅月赴呈验。",
+          "direct_result": "重申成宪。",
+          "power_change": "限制地方拘禁权。",
+          "risk_or_damage": "待遇甚于配隶。",
+          "follow_up": "走失另行申省。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-BAOXIE-WEIRS-1153",
+      "time": "紹興二十三年五月",
+      "loc": [
+        "興元府褒斜谷"
+      ],
+      "action": "朝廷采纳以屯兵中不入队兵卒在夏季修葺褒斜谷六堰。",
+      "result": "灌溉工程获得常态修护安排，并避免全压食水户。",
+      "quote": [
+        "褒斜谷有古六堰，溉民田甚廣",
+        "恐民力重困",
+        "差不入隊兵卒並手修葺"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-130-BAOXIE-WEIRS-1153",
+        "candidate": "WORK-CAND-130-BAOXIE-WEIRS-1153",
+        "summary": "褒斜六堰改由部分驻军协修。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "褒斜谷六堰。",
+          "phase": "修葺。",
+          "purpose": "灌溉民田。",
+          "resource_input": "不入队兵卒。",
+          "operation": "夏季水泛时协修。",
+          "benefit": "减轻食水户负担。",
+          "harm": "失修则水至辄坏。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-XINGYUAN-RECONSTRUCTION-1153",
+      "time": "紹興二十三年五月",
+      "loc": [
+        "興元府"
+      ],
+      "action": "杨政分次整治兵乱后荒废的兴元城、官舍与府库。",
+      "result": "兴元城面貌更新，户口恢复至近承平水平。",
+      "quote": [
+        "興元自兵亂以來，城內生荊棘",
+        "以次繕治，至是一新",
+        "戶口浸盛，如承平時矣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-130-XINGYUAN-RECONSTRUCTION-1153",
+        "candidate": "WORK-CAND-130-XINGYUAN-RECONSTRUCTION-1153",
+        "summary": "兴元完成战后城建修复。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "work_identity": "兴元城与官署。",
+          "phase": "分次缮治。",
+          "purpose": "战后恢复。",
+          "resource_input": "未载。",
+          "operation": "整修城建。",
+          "benefit": "户口浸盛。",
+          "harm": "兵乱后荆棘茅屋。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-XINGYUAN-SCHOOL-LAND-1153",
+      "time": "紹興二十三年五月",
+      "loc": [
+        "興元府"
+      ],
+      "action": "杨政整修府学并采纳唐迪增置学田、拒绝挪作军费的主张。",
+      "result": "府学供养资源扩大，学田免于被军费侵占。",
+      "quote": [
+        "政嘗葺學舍",
+        "請增學田以廣養士",
+        "欲以學田饋軍",
+        "又豈愛禮存羊之意邪？」論者乃止"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-XINGYUAN-SCHOOL-LAND-1153",
+        "candidate": "FIN-CAND-130-XINGYUAN-SCHOOL-LAND-1153",
+        "summary": "兴元增学田并阻止军费挪用。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "府学需扩充养士资源。",
+          "fiscal_state": "增置学田并专款专用。",
+          "livelihood_state": "保障士人供养。",
+          "production_circulation": "学田收益不转军费。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-GUN-PURGE-1153",
+      "time": "紹興二十三年五月",
+      "loc": [
+        "中都"
+      ],
+      "action": "金主因猜忌弟兖，在审问无实据后仍将其处死并株连。",
+      "result": "宗室兖及牵连者遭政治清洗。",
+      "quote": [
+        "金主以其弟袞名聲彰著，忌之",
+        "就鞫之，無狀",
+        "不復究問，斬於市",
+        "牽連者皆磔之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-JIN-GUN-PURGE-1153",
+        "candidate": "POL-CAND-130-JIN-GUN-PURGE-1153",
+        "summary": "金主无实据处死宗室兖。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宗室清洗。",
+          "decision_question": "兖是否谋逆。",
+          "alternatives": "继续审究。",
+          "decision": "不复究问即斩。",
+          "direct_result": "兖及牵连者死。",
+          "power_change": "宗室受压。",
+          "risk_or_damage": "无状而诛。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-HUMAN-SACRIFICE-BAN-1153",
+      "time": "紹興二十三年七月",
+      "loc": [
+        "湖廣",
+        "夔峽",
+        "浙路",
+        "川路"
+      ],
+      "action": "朝廷禁止杀人祭鬼、祭海神和祭盐井，并令乡保连坐、毁淫祠。",
+      "result": "多地人祭与淫祠被纳入严禁范围。",
+      "quote": [
+        "多殺人以祭鬼",
+        "浙路有殺人而祭海神",
+        "犯者鄉保連坐",
+        "毀巫鬼淫祠以絕永害"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-HUMAN-SACRIFICE-BAN-1153",
+        "candidate": "POL-CAND-130-HUMAN-SACRIFICE-BAN-1153",
+        "summary": "多地人祭与淫祠被严禁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "禁令。",
+          "decision_question": "人祭与淫祠。",
+          "alternatives": "地方沿习。",
+          "decision": "禁止并连坐。",
+          "direct_result": "严禁范围扩展。",
+          "power_change": "监司州县执行。",
+          "risk_or_damage": "杀人祭祀。",
+          "follow_up": "毁淫祠。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-CHENGDU-PLOT-SUPPRESSION-1153",
+      "time": "紹興二十三年八月",
+      "loc": [
+        "成都",
+        "郫縣"
+      ],
+      "action": "王孝廉兄弟招集亡命谋袭成都，官军交战追剿。",
+      "result": "主谋自刎，余党二十八人伏诛，官军获赏。",
+      "quote": [
+        "謀據成都以叛，伏誅",
+        "破產招集亡命，多市弓劍",
+        "餘黨二十八人走郫縣",
+        "官軍以次受賞"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-130-CHENGDU-PLOT-SUPPRESSION-1153"
+    },
+    {
+      "id": "CHF-XZZTJ-130-TONGCHUAN-FLOOD-RELIEF-1153",
+      "time": "紹興二十三年九月",
+      "loc": [
+        "潼川路"
+      ],
+      "action": "潼川水灾后，朝廷命转运、常平司检放并赈济灾区。",
+      "result": "灾区获得税役检放与赈济命令。",
+      "quote": [
+        "潼川大水，涪江漲",
+        "聞潼川路水災",
+        "將被災州縣檢放賑濟"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-TONGCHUAN-FLOOD-RELIEF-1153",
+        "candidate": "FIN-CAND-130-TONGCHUAN-FLOOD-RELIEF-1153",
+        "summary": "潼川水灾获检放赈济。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "潼川水灾。",
+          "fiscal_state": "灾县检放。",
+          "livelihood_state": "下令赈济。",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-SONG-PU-DISMISSAL-1153",
+      "time": "紹興二十三年十月",
+      "loc": [
+        "行在"
+      ],
+      "action": "史才弹劾宋朴，宋朴由执政罢职并最终落职。",
+      "result": "签书枢密院事出现更替，史才继任。",
+      "quote": [
+        "簽書樞密院事兼權參知政事宋樸罷",
+        "章四上，詔以本職提舉江州太平興國宮",
+        "請重行竄逐。」詔樸落職",
+        "史才充端明殿學士兼簽書樞密院事"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-SONG-PU-DISMISSAL-1153",
+        "candidate": "POL-CAND-130-SONG-PU-DISMISSAL-1153",
+        "summary": "宋朴遭弹劾落职，史才继任。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "执政升黜。",
+          "decision_question": "宋朴去留。",
+          "alternatives": "提举宫观保职。",
+          "decision": "落职。",
+          "direct_result": "史才入枢。",
+          "power_change": "执政席位更替。",
+          "risk_or_damage": "指为欺诞罔俗。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-ZHANG-SHUYE-TEMPLE-1153",
+      "time": "紹興二十三年十一月",
+      "loc": [
+        "信州永豐"
+      ],
+      "action": "朝廷在张叔夜墓侧立庙并赐名旌忠。",
+      "result": "张叔夜获得地方祠庙纪念。",
+      "quote": [
+        "為張叔夜立廟於信州永豐縣墓側",
+        "墓側，賜名旌忠",
+        "至是乃請建詞焉"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-130-ZHANG-SHUYE-TEMPLE-1153",
+        "candidate": "WORK-CAND-130-ZHANG-SHUYE-TEMPLE-1153",
+        "summary": "张叔夜墓侧旌忠庙获立。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "旌忠庙。",
+          "phase": "立庙赐名。",
+          "purpose": "纪念张叔夜。",
+          "resource_input": "未载。",
+          "operation": "墓侧建祠。",
+          "benefit": "形成纪念场所。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-LOCAL-PROBLEM-REVIEW-1153",
+      "time": "紹興二十三年閏十二月",
+      "loc": [
+        "諸郡"
+      ],
+      "action": "朝廷命检正都司官详定郡守所报地方利病。",
+      "result": "地方问题报告被纳入中央复核呈闻程序。",
+      "quote": [
+        "命檢正都司官詳定郡守所上利病以聞"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-LOCAL-PROBLEM-REVIEW-1153",
+        "candidate": "POL-CAND-130-LOCAL-PROBLEM-REVIEW-1153",
+        "summary": "中央复核郡守所报利病。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "行政信息复核。",
+          "decision_question": "地方利病如何上达。",
+          "alternatives": "未载。",
+          "decision": "检正都司详定。",
+          "direct_result": "建立复核程序。",
+          "power_change": "中央加强审定。",
+          "risk_or_damage": "未载。",
+          "follow_up": "以闻。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-XIAO-YU-PURGE-1154",
+      "time": "紹興二十四年正月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金尚书右丞相萧裕因谋立辽宗室被诛，约索等同遭处死。",
+      "result": "金廷谋立案件以高层清洗收束。",
+      "quote": [
+        "金尚書右丞相蕭裕，以謀反誅",
+        "乃與前真定尹蕭馮嘉努、博州同知約索謀立亡遼豫王延禧之孫",
+        "殺之，並誅約索等"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-XIAO-YU-PURGE-1154",
+        "candidate": "POL-CAND-130-XIAO-YU-PURGE-1154",
+        "summary": "金廷诛杀萧裕谋立集团。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政变案件。",
+          "decision_question": "萧裕谋立。",
+          "alternatives": "守祖墓。",
+          "decision": "处死并株连。",
+          "direct_result": "谋立集团覆灭。",
+          "power_change": "金主巩固权位。",
+          "risk_or_damage": "高层谋反。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-EXAM-SYSTEM-1154",
+      "time": [
+        "紹興二十四年正月",
+        "紹興二十四年三月"
+      ],
+      "loc": [
+        "郡國",
+        "行在"
+      ],
+      "action": "朝廷统一郡国中秋试举人日期并举行殿试取士。",
+      "result": "地方考试时程、跨州资格和中央录取形成连续整顿。",
+      "quote": [
+        "郡國同以中秋日試舉人",
+        "士子或有就數州取解者，至是禁之",
+        "進張孝祥為第一",
+        "以下三百五十六人及第至同出身"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-EXAM-SYSTEM-1154",
+        "candidate": "POL-CAND-130-EXAM-SYSTEM-1154",
+        "summary": "宋廷统一地方试期并完成殿试录取。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "科举运行。",
+          "decision_question": "地方试期与重复取解。",
+          "alternatives": "诸州自选日。",
+          "decision": "统一试期并禁跨州取解。",
+          "direct_result": "张孝祥等录取。",
+          "power_change": "中央统一考试秩序。",
+          "risk_or_damage": "重复取解。",
+          "follow_up": "完成殿试。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-YAO-SUPPRESSION-1154",
+      "time": [
+        "紹興二十四年三月",
+        "紹興二十五年正月"
+      ],
+      "loc": [
+        "武岡軍"
+      ],
+      "action": "田师中遣李道讨捕长期抄掠的猺首杨再兴父子。",
+      "result": "杨再兴兄弟相继就擒，李道及五千七百余将士获赏。",
+      "quote": [
+        "武岡軍猺人楊再興已就擒",
+        "至是八年，猶抄掠不已",
+        "再興與正拱兄弟皆得",
+        "將士遷官者五千七百七十有二人"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-130-YAO-SUPPRESSION-1154"
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-JIAOCHAO-TREASURY-1154",
+      "time": "紹興二十四年五月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝开始设置交钞库。",
+      "result": "纸钞管理获得专门机构。",
+      "quote": [
+        "金始置交鈔庫"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-JIN-JIAOCHAO-TREASURY-1154",
+        "candidate": "FIN-CAND-130-JIN-JIAOCHAO-TREASURY-1154",
+        "summary": "金朝设置交钞库。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "交钞缺专门库司。",
+          "fiscal_state": "设置交钞库。",
+          "livelihood_state": "未载。",
+          "production_circulation": "纸钞管理制度化。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-SHI-CAI-PURGE-1154",
+      "time": "紹興二十四年六月",
+      "loc": [
+        "行在"
+      ],
+      "action": "史才因受李光荐举及通信等指控遭台谏连续弹劾并落职。",
+      "result": "史才退出枢密执政职位，魏师逊继任。",
+      "quote": [
+        "端明殿學士、簽書樞密院事史才罷",
+        "屢遺書問，不憚數千里之遠",
+        "師遜等再論，遂落職",
+        "魏師遜充端明殿學士、簽書樞密院事"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-SHI-CAI-PURGE-1154",
+        "candidate": "POL-CAND-130-SHI-CAI-PURGE-1154",
+        "summary": "史才以李光关系遭弹劾落职。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "执政清洗。",
+          "decision_question": "史才与李光关系。",
+          "alternatives": "以旧职提举宫观。",
+          "decision": "再论后落职。",
+          "direct_result": "魏师逊继任。",
+          "power_change": "执政席位更替。",
+          "risk_or_damage": "指控包藏祸心。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-NANDAN-SUBMISSION-1154",
+      "time": "紹興二十四年七月",
+      "loc": [
+        "南丹州",
+        "廣西"
+      ],
+      "action": "莫公晟部落归顺，宋廷确认二十七州、一百三十五县为羁縻并授首领官爵印信。",
+      "result": "南丹边区以羁縻方式纳入秩序，减少常年边防负担。",
+      "quote": [
+        "且遣其部落七百餘人至靖江府",
+        "諸蠻願以二十七州、一百三十五縣為本路羈縻",
+        "但徭人不作過，百姓安業可喜",
+        "鑄羈縻州縣印一百六十二"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-NANDAN-SUBMISSION-1154",
+        "candidate": "POL-CAND-130-NANDAN-SUBMISSION-1154",
+        "summary": "南丹诸部归顺并确立羁縻州县。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "边疆羁縻与外交。",
+          "decision_question": "南丹归顺如何安置。",
+          "alternatives": "继续岁调官军防守。",
+          "decision": "授官并给羁縻印。",
+          "direct_result": "一方宁静、百姓安业。",
+          "power_change": "羁縻关系确立。",
+          "risk_or_damage": "此前屡为边患。",
+          "follow_up": "颁印一百六十二。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-WHITE-REED-WATERWAY-1154",
+      "time": "紹興二十四年九月",
+      "loc": [
+        "太湖",
+        "白茅浦"
+      ],
+      "action": "朝廷命转运司在农隙开决淤塞的白茅浦水道。",
+      "result": "太湖东北水路排泄工程进入实施准备。",
+      "quote": [
+        "白茅一浦最大，今為泥沙淤塞",
+        "于農隙開決白茅浦水道",
+        "實四州無窮之利",
+        "詔轉運司措置"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-130-WHITE-REED-WATERWAY-1154",
+        "candidate": "WORK-CAND-130-WHITE-REED-WATERWAY-1154",
+        "summary": "白茅浦排水工程交转运司实施。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "白茅浦水道。",
+          "phase": "相视开决。",
+          "purpose": "疏泄太湖水。",
+          "resource_input": "农隙施工。",
+          "operation": "转运司措置。",
+          "benefit": "保护四州农田。",
+          "harm": "积水浸灌。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-TIANZHANG-PAVILIONS-1154",
+      "time": "紹興二十四年九月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷下诏营建天章等六阁。",
+      "result": "六阁工程获正式立项。",
+      "quote": [
+        "詔建天章等六閣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-130-TIANZHANG-PAVILIONS-1154",
+        "candidate": "WORK-CAND-130-TIANZHANG-PAVILIONS-1154",
+        "summary": "天章等六阁获诏营建。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "天章等六阁。",
+          "phase": "立项。",
+          "purpose": "未载。",
+          "resource_input": "未载。",
+          "operation": "诏建。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-HAN-WANG-HENG-1154",
+      "time": "紹興二十四年十月",
+      "loc": [
+        "廣寧"
+      ],
+      "action": "金主命人构陷韩王亨谋刺，在其不服罪后暗中杀害。",
+      "result": "宗室韩王亨因猜忌被清除。",
+      "quote": [
+        "金廣甯尹韓王亨見殺",
+        "使伺動靜，且構成其罪",
+        "主，鞫之，不服。",
+        "積為金主所忌，故不免"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-JIN-HAN-WANG-HENG-1154",
+        "candidate": "POL-CAND-130-JIN-HAN-WANG-HENG-1154",
+        "summary": "金主构陷并杀害韩王亨。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宗室清洗。",
+          "decision_question": "韩王亨是否谋刺。",
+          "alternatives": "依法审结。",
+          "decision": "暗中杀害。",
+          "direct_result": "韩王亨死。",
+          "power_change": "宗室进一步受压。",
+          "risk_or_damage": "构罪与酷杀。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-HUIMIN-BUREAU-1154",
+      "time": "紹興二十四年十一月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝开始设置惠民局。",
+      "result": "惠民事务获得专门机构。",
+      "quote": [
+        "金初置惠民局"
+      ],
+      "unknown": [
+        "固定正文未载该局具体财源与运行成效。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-JIN-HUIMIN-BUREAU-1154",
+        "candidate": "FIN-CAND-130-JIN-HUIMIN-BUREAU-1154",
+        "summary": "金朝设置惠民局。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "未载。",
+          "fiscal_state": "设置专门机构。",
+          "livelihood_state": "名义指向惠民。",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-WANG-QU-CASE-1154",
+      "time": "紹興二十四年十二月",
+      "loc": [
+        "雷州",
+        "辰州"
+      ],
+      "action": "王趯因知雷州时与李光通信并调兵供使而再遭追官编管，审查虽称事皆虚仍不获免。",
+      "result": "李光关系网清洗扩展至地方官。",
+      "quote": [
+        "降授右朝奉郎勒停人王趯，追三官",
+        "送辰州編管",
+        "以趯前知雷州與李光通書及差兵級應副使喚也",
+        "既而究治，事皆虛"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-WANG-QU-CASE-1154",
+        "candidate": "POL-CAND-130-WANG-QU-CASE-1154",
+        "summary": "王趯案查称事皆虚仍遭追官编管。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政治司法案件。",
+          "decision_question": "王趯通信指控是否成立。",
+          "alternatives": "依查验结果免罪。",
+          "decision": "追官编管。",
+          "direct_result": "王趯送辰州。",
+          "power_change": "秦桧扩大李光案。",
+          "risk_or_damage": "虚案仍获罪。",
+          "follow_up": "后秦桧死放逐便。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-MILITARY-TENURE-PROMOTIONS-1155",
+      "time": "紹興二十五年二月",
+      "loc": [
+        "鎮江府",
+        "建康府"
+      ],
+      "action": "刘宝、王权因总戎十年获节度使升迁。",
+      "result": "长期统兵将领得到特迁。",
+      "quote": [
+        "劉寶為安慶軍節度使",
+        "王權為清遠軍節度使",
+        "皆以總戎十年故也"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-MILITARY-TENURE-PROMOTIONS-1155",
+        "candidate": "POL-CAND-130-MILITARY-TENURE-PROMOTIONS-1155",
+        "summary": "两名总戎十年将领获节度使升迁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军事任命。",
+          "decision_question": "长期总戎者奖迁。",
+          "alternatives": "维持原职。",
+          "decision": "特迁节度使。",
+          "direct_result": "刘宝、王权升迁。",
+          "power_change": "将领名位提高。",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-WEI-SHIXUN-PURGE-1154",
+      "time": "紹興二十四年十一月",
+      "loc": [
+        "行在"
+      ],
+      "action": "魏师逊被董德元指为嗜利怀奸、不恤国事，抗章求去后罢职。",
+      "result": "执政魏师逊退出中枢，施钜、郑仲熊继任。",
+      "quote": [
+        "魏師遜仍舊職，提舉江州太平興國宮",
+        "董德元劾師遜嗜利懷奸，不恤國事",
+        "師遜乃抗章求去，遂罷之",
+        "施钜參知政事"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-WEI-SHIXUN-PURGE-1154",
+        "candidate": "POL-CAND-130-WEI-SHIXUN-PURGE-1154",
+        "summary": "魏师逊受弹劾退出中枢。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "执政罢黜。",
+          "decision_question": "魏师逊去留。",
+          "alternatives": "保留原职。",
+          "decision": "抗章后罢职。",
+          "direct_result": "退出中枢。",
+          "power_change": "施钜、郑仲熊入执政。",
+          "risk_or_damage": "指控嗜利怀奸。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-XINNING-COUNTY-1155",
+      "time": "紹興二十五年四月",
+      "loc": [
+        "武岡軍"
+      ],
+      "action": "朝廷在武冈徭人归还的省地设置新宁县。",
+      "result": "平乱后的土地被纳入县级行政管理。",
+      "quote": [
+        "武岡軍徭人已平",
+        "請於其所侵省地置一縣",
+        "以新甯為名，從之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-XINNING-COUNTY-1155",
+        "candidate": "POL-CAND-130-XINNING-COUNTY-1155",
+        "summary": "武冈平乱归地后设置新宁县。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "行政建置。",
+          "decision_question": "归还省地如何治理。",
+          "alternatives": "沿用军管。",
+          "decision": "设置新宁县。",
+          "direct_result": "县级建置形成。",
+          "power_change": "行政控制常态化。",
+          "risk_or_damage": "此前为徭人侵地。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-LI-GUANG-FAMILY-PURGE-1155",
+      "time": "紹興二十五年四月",
+      "loc": [
+        "紹興府",
+        "峽州"
+      ],
+      "action": "关镐案牵连李光诸子，孟津被羁管，李氏田园居第遭籍没。",
+      "result": "李光家族在连续罗织中人员获罪、财产尽失。",
+      "quote": [
+        "詔鎬放罷，孟津紹興府羈管",
+        "日，除名，編管。",
+        "田園居第悉籍沒，一家殘破矣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-LI-GUANG-FAMILY-PURGE-1155",
+        "candidate": "POL-CAND-130-LI-GUANG-FAMILY-PURGE-1155",
+        "summary": "李光家族遭连续政治司法打击。",
+        "operation": "completed",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "家族性政治清洗。",
+          "decision_question": "关镐与李光诸子案件。",
+          "alternatives": "未载。",
+          "decision": "羁管、编管、籍没。",
+          "direct_result": "一家残破。",
+          "power_change": "反对者家族资源被剥夺。",
+          "risk_or_damage": "罗织与财产没收。",
+          "follow_up": "秦桧死后部分放逐便。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-ZHENG-ZHONGXIONG-DISMISSAL-1155",
+      "time": "紹興二十五年六月",
+      "loc": [
+        "行在"
+      ],
+      "action": "郑仲熊因李光关系、营救案犯及对金使宴饮失礼等弹劾被罢。",
+      "result": "郑仲熊退出枢密执政，汤思退继任。",
+      "quote": [
+        "端明殿學士、簽書樞密院兼權參知政事鄭仲熊罷",
+        "舊在李光門下",
+        "館遇使客，務加周旋",
+        "請即行罷黜，屏之遠方"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-ZHENG-ZHONGXIONG-DISMISSAL-1155",
+        "candidate": "POL-CAND-130-ZHENG-ZHONGXIONG-DISMISSAL-1155",
+        "summary": "郑仲熊经连续弹劾退出枢密。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "执政罢黜。",
+          "decision_question": "郑仲熊去留。",
+          "alternatives": "保职。",
+          "decision": "提举宫观。",
+          "direct_result": "汤思退继任。",
+          "power_change": "枢密席位更替。",
+          "risk_or_damage": "指控贪污与外交失礼。",
+          "follow_up": "秦桧死后落职。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-YUEZHOU-RENAMING-1155",
+      "time": "紹興二十五年六月",
+      "loc": [
+        "岳州",
+        "岳陽軍"
+      ],
+      "action": "姚岳以岳飞为叛臣为由请求改名，朝廷将岳州改纯州、岳阳军改华容军。",
+      "result": "地方名称被用于政治污名化，时论鄙薄倡议者。",
+      "quote": [
+        "詔改岳州為純州，岳陽軍為華容軍",
+        "以叛臣故地，又與姓同",
+        "足以洗叛臣之汙",
+        "且乞改州名，士論鄙之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-YUEZHOU-RENAMING-1155",
+        "candidate": "POL-CAND-130-YUEZHOU-RENAMING-1155",
+        "summary": "岳州因岳飞政治定性而被改名。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政治性行政改名。",
+          "decision_question": "岳州名号是否因岳飞更改。",
+          "alternatives": "保留旧名。",
+          "decision": "改纯州、华容军。",
+          "direct_result": "地方更名。",
+          "power_change": "官方定性进入地名。",
+          "risk_or_damage": "政治污名化。",
+          "follow_up": "士论鄙姚岳。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-CIRCUIT-JUDICIAL-REVIEW-1155",
+      "time": "紹興二十五年七月",
+      "loc": [
+        "外路州縣"
+      ],
+      "action": "高宗要求外路宪臣亲赴州县疏决刑狱。",
+      "result": "地方积案审查被交由监司现场复核，以减少冤滥。",
+      "quote": [
+        "行在刑獄，皆已蕃充",
+        "外路須令憲臣躬詣州縣",
+        "外路須令憲臣躬詣州縣，庶無冤濫"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-CIRCUIT-JUDICIAL-REVIEW-1155",
+        "candidate": "POL-CAND-130-CIRCUIT-JUDICIAL-REVIEW-1155",
+        "summary": "外路宪臣奉命亲赴州县疏决。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "司法巡察。",
+          "decision_question": "外路积案如何复核。",
+          "alternatives": "仅文书审理。",
+          "decision": "宪臣躬诣州县。",
+          "direct_result": "启动地方疏决。",
+          "power_change": "监司承担现场复核。",
+          "risk_or_damage": "冤滥。",
+          "follow_up": "未载成效。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-ZHAO-FEN-FALSE-TREASON-1155",
+      "time": "紹興二十五年十月",
+      "loc": [
+        "大理寺"
+      ],
+      "action": "秦桧令党羽拷掠赵汾，逼其诬引张浚、李光、胡寅及五十三名贤士谋逆。",
+      "result": "大规模诬狱将上报时因秦桧病重未成。",
+      "quote": [
+        "先捕汾下大理寺，拷掠無全膚",
+        "拷掠無全膚，令汾自誣",
+        "凡一時賢士五十三人",
+        "獄方欲上，而檜已病不能書矣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-ZHAO-FEN-FALSE-TREASON-1155",
+        "candidate": "POL-CAND-130-ZHAO-FEN-FALSE-TREASON-1155",
+        "summary": "秦桧死前策动赵汾诬狱未遂。",
+        "operation": "failed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政治诬狱。",
+          "decision_question": "以赵汾口供清洗异己。",
+          "alternatives": "依法审讯。",
+          "decision": "酷刑逼供并扩案。",
+          "direct_result": "拟牵连五十三人。",
+          "power_change": "未及上报即中止。",
+          "risk_or_damage": "酷刑与大规模罗织。",
+          "follow_up": "赵汾后仅降二官。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-QIN-HUI-DEATH-1155",
+      "time": "紹興二十五年十月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "秦桧病笃时秦熺谋求承相位，高宗拒其参与，旋令父子致仕，秦桧当夜去世。",
+      "result": "秦桧十九年相权终结，秦氏父子接班安排失败。",
+      "quote": [
+        "此事卿不當與",
+        "謀奏請除熺為宰相",
+        "秦熺為少師，並致仕",
+        "是夜，檜死，年"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-QIN-HUI-DEATH-1155",
+        "candidate": "POL-CAND-130-QIN-HUI-DEATH-1155",
+        "summary": "秦桧病卒，秦熺接班失败。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "权臣退出与继承失败。",
+          "decision_question": "秦熺是否接任宰相。",
+          "alternatives": "秦氏接班。",
+          "decision": "父子致仕。",
+          "direct_result": "秦桧死、接班失败。",
+          "power_change": "相权回归皇帝调整。",
+          "risk_or_damage": "党羽夜谋奏请。",
+          "follow_up": "清理秦党与旧案。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-QIN-HUI-TAX-BURDEN-1155",
+      "time": "紹興二十五年十月追叙",
+      "loc": [
+        "江浙"
+      ],
+      "action": "秦桧因财用不足密令江浙监司暗增民税七八成，并以贿赂控制地方差遣。",
+      "result": "民力重困、饥死者众，贪吏受庇护而百姓益困。",
+      "quote": [
+        "密諭江、浙監司暗增民稅七八",
+        "故民力重困，饑死者眾",
+        "例要珍寶，必數萬頃乃得差遣",
+        "故贓吏恣橫，百姓愈困"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-QIN-HUI-TAX-BURDEN-1155",
+        "candidate": "FIN-CAND-130-QIN-HUI-TAX-BURDEN-1155",
+        "summary": "秦桧暗增江浙民税并纵容贪吏。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "朝廷财用不足。",
+          "fiscal_state": "暗增民税七八成。",
+          "livelihood_state": "民困、饥死者众。",
+          "production_circulation": "差遣与贿赂相联。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-PANNING-PALACE-1155",
+      "time": "紹興二十五年十月",
+      "loc": [
+        "大房山"
+      ],
+      "action": "金朝大房山行宫建成并命名磐宁。",
+      "result": "山陵区域行宫工程完成。",
+      "quote": [
+        "金大房山行宮成，名曰磐寧"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-130-JIN-PANNING-PALACE-1155",
+        "candidate": "WORK-CAND-130-JIN-PANNING-PALACE-1155",
+        "summary": "金大房山磐宁行宫建成。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "磐宁行宫。",
+          "phase": "建成命名。",
+          "purpose": "山陵行宫。",
+          "resource_input": "未载。",
+          "operation": "营建。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JIN-TAX-REMISSION-1155",
+      "time": "紹興二十五年十一月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝山陵礼成后宣布免放贞元四年租税，并赏久戍军士绢银。",
+      "result": "次年租税获免，久戍军士获实物与银赏。",
+      "quote": [
+        "貞元四年租稅並與放免",
+        "軍士久于屯戍不經替換者",
+        "人賜絹三匹，銀三兩"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-JIN-TAX-REMISSION-1155",
+        "candidate": "FIN-CAND-130-JIN-TAX-REMISSION-1155",
+        "summary": "金朝免次年租税并赏久戍军士。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "山陵礼成。",
+          "fiscal_state": "贞元四年租税全免。",
+          "livelihood_state": "久戍军士获绢银。",
+          "production_circulation": "财政让利与军赏。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-CHAMPA-TRIBUTE-PROTOCOL-1155",
+      "time": "紹興二十五年十一月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "宋廷接待占城使臣及大宗贡物，并将接待方式推广为交趾、三佛齐来使惯例。",
+      "result": "南海诸国朝贡接待形成制度化先例。",
+      "quote": [
+        "占城進奉使薩達麻等入見",
+        "貢沈箋等香萬餘斤",
+        "其後交趾，三佛齊使人，率如此例"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-CHAMPA-TRIBUTE-PROTOCOL-1155",
+        "candidate": "POL-CAND-130-CHAMPA-TRIBUTE-PROTOCOL-1155",
+        "summary": "占城朝贡接待成为南海来使惯例。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "外交礼仪。",
+          "decision_question": "南海贡使如何接待。",
+          "alternatives": "未载。",
+          "decision": "入见、赐宴并形成惯例。",
+          "direct_result": "交趾三佛齐率例。",
+          "power_change": "朝贡秩序制度化。",
+          "risk_or_damage": "未载。",
+          "follow_up": "后续来使沿例。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-HONG-HAO-REHABILITATION-1155",
+      "time": "紹興二十五年十一月",
+      "loc": [
+        "南雄州"
+      ],
+      "action": "洪皓死后，高宗以其在金忠于国且旧罪暧昧，恢复敷文阁直学士。",
+      "result": "秦桧时期被贬忠臣获得追复。",
+      "quote": [
+        "洪晧，復敷文閣直學士",
+        "晧頃在敵中，屢有文字到朝廷",
+        "屢有文字到朝廷，甚忠於國",
+        "事理暖昧，可依所奏"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-HONG-HAO-REHABILITATION-1155",
+        "candidate": "POL-CAND-130-HONG-HAO-REHABILITATION-1155",
+        "summary": "洪皓死后因忠节获追复。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政治平反。",
+          "decision_question": "洪皓旧罪与官职。",
+          "alternatives": "维持贬黜。",
+          "decision": "恢复旧职。",
+          "direct_result": "敷文阁直学士追复。",
+          "power_change": "纠正秦桧时期处分。",
+          "risk_or_damage": "人已卒于贬所。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-JUDICIAL-LEGALITY-REFORM-1155",
+      "time": "紹興二十五年十一月",
+      "loc": [
+        "法寺"
+      ],
+      "action": "朝廷斥责法寺揣摩大臣旨意轻重罪名，要求依法详核审复。",
+      "result": "秦桧死后司法审复重新以成法和避免冤滥为原则。",
+      "quote": [
+        "法寺惟探大臣旨意，輕重其罪",
+        "舞文弄法，莫此為甚",
+        "一切以法而不以心",
+        "一切以法而不以心，俾無冤濫"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-JUDICIAL-LEGALITY-REFORM-1155",
+        "candidate": "POL-CAND-130-JUDICIAL-LEGALITY-REFORM-1155",
+        "summary": "法寺被令停止揣摩权臣、依法审复。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "司法制度整顿。",
+          "decision_question": "法寺审判依据。",
+          "alternatives": "依大臣旨意。",
+          "decision": "一切依法。",
+          "direct_result": "下诏详核审复。",
+          "power_change": "削弱权臣干预司法。",
+          "risk_or_damage": "舞文弄法与冤滥。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-DENUNCIATION-PUNISHMENT-1155",
+      "time": [
+        "紹興二十五年十一月",
+        "紹興二十五年十二月"
+      ],
+      "loc": [
+        "御史臺",
+        "刑部"
+      ],
+      "action": "朝廷禁止以告讦进取，命刑部列名并将十名告讦者除名编管。",
+      "result": "秦桧时期借私书、戏语构狱的告讦链受到集中惩处。",
+      "quote": [
+        "恃告訐為進取之計",
+        "令御史臺彈奏，當置於法",
+        "詔刑部開具，申省取旨",
+        "此等須重與懲艾",
+        "於是並除名勒停"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-DENUNCIATION-PUNISHMENT-1155",
+        "candidate": "POL-CAND-130-DENUNCIATION-PUNISHMENT-1155",
+        "summary": "告讦进取被禁并追惩既往告讦者。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治风气与司法整顿。",
+          "decision_question": "告讦者如何处置。",
+          "alternatives": "沿用告讦进取。",
+          "decision": "列名黜罚。",
+          "direct_result": "十人除名编管。",
+          "power_change": "台谏刑部负责纠治。",
+          "risk_or_damage": "亲旧相倾、傅致罪名。",
+          "follow_up": "集中执行编管。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-ROYAL-SUCCESSION-RESTORED-1155",
+      "time": "紹興二十五年十一月",
+      "loc": [
+        "宗室"
+      ],
+      "action": "秦桧死后，朝廷恢复中断十余年的二王后裔袭封。",
+      "result": "士俴成为安懿王曾孙中首位恢复绍封者。",
+      "quote": [
+        "自秦檜當國，二王不襲封者十餘年",
+        "至是始命之",
+        "得紹封者自士俴始"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-ROYAL-SUCCESSION-RESTORED-1155",
+        "candidate": "POL-CAND-130-ROYAL-SUCCESSION-RESTORED-1155",
+        "summary": "秦桧死后宗室袭封恢复。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "宗室封袭。",
+          "decision_question": "二王后裔袭封。",
+          "alternatives": "继续停封。",
+          "decision": "恢复绍封。",
+          "direct_result": "士俴获封。",
+          "power_change": "宗室制度部分恢复。",
+          "risk_or_damage": "此前中断十余年。",
+          "follow_up": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-EXILES-RELEASED-1155",
+      "time": "紹興二十五年十二月",
+      "loc": [
+        "處州",
+        "武岡軍",
+        "萬安軍",
+        "橫州",
+        "肇慶府"
+      ],
+      "action": "朝廷分批释放秦桧时期编管人员，部分恢复原官。",
+      "result": "范彦挥、李孟坚、李孟津等获逐便，郎大受等复官。",
+      "quote": [
+        "王之旬，特勒停前右朝散大夫、鼎州編管人閻大鈞，並放令逐便",
+        "並放令逐便，仍與復原官",
+        "右朝散郎周葵復直秘閣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-EXILES-RELEASED-1155",
+        "candidate": "POL-CAND-130-EXILES-RELEASED-1155",
+        "summary": "秦桧死后政治编管者分批获释复官。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治解禁与复官。",
+          "decision_question": "旧案编管者处置。",
+          "alternatives": "维持编管。",
+          "decision": "放逐便、部分复官。",
+          "direct_result": "多人解除管制。",
+          "power_change": "秦桧旧案松动。",
+          "risk_or_damage": "部分人已死贬所。",
+          "follow_up": "张浚胡铨等续获调整。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-TRIBUTE-FOOD-ABOLITION-1155",
+      "time": "紹興二十五年十二月",
+      "loc": [
+        "安豐軍",
+        "溫州",
+        "福建"
+      ],
+      "action": "高宗免除咸鲊、白鱼及此前柑橘、荔枝等岁进。",
+      "result": "多类地方贡食停止征进，百姓转输负担降低。",
+      "quote": [
+        "朕不欲以口腹勞人",
+        "可下本軍，自今免進",
+        "溫州柑橘，福建荔枝",
+        "所以再降指揮住罷"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-130-TRIBUTE-FOOD-ABOLITION-1155",
+        "candidate": "FIN-CAND-130-TRIBUTE-FOOD-ABOLITION-1155",
+        "summary": "多类地方贡食被停止征进。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "地方岁进贡食。",
+          "fiscal_state": "免进并再次住罢。",
+          "livelihood_state": "避免劳民。",
+          "production_circulation": "停止贡食输送。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-DONG-DEYUAN-DISMISSAL-1155",
+      "time": "紹興二十五年十二月",
+      "loc": [
+        "行在"
+      ],
+      "action": "董德元因依附秦桧、操弄台谏与科举被连续弹劾，罢政并落职。",
+      "result": "秦桧快速提拔的执政被清退出中枢。",
+      "quote": [
+        "參知政事董德元罷",
+        "徒以巧言令色取媚權貴",
+        "吾曹可以富貴矣",
+        "詔德元落職"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-DONG-DEYUAN-DISMISSAL-1155",
+        "candidate": "POL-CAND-130-DONG-DEYUAN-DISMISSAL-1155",
+        "summary": "董德元因附秦与科举操弄遭罢黜。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "执政清理。",
+          "decision_question": "董德元是否留任。",
+          "alternatives": "继续权宰执。",
+          "decision": "罢政落职。",
+          "direct_result": "退出中枢。",
+          "power_change": "秦党席位被清理。",
+          "risk_or_damage": "台谏附会、科举舞弊。",
+          "follow_up": "沈该继任。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-130-IMPERIAL-GOVERNANCE-RESUMED-1155",
+      "time": "紹興二十五年十二月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗起用沈该参知政事，要求三省执政共同决事，并恢复亲揽庶政。",
+      "result": "秦桧专权后中枢参与机制和皇帝亲政名义恢复。",
+      "quote": [
+        "以敷文閣待制沈該參知政事",
+        "參、樞皆取充位，政事例不關決",
+        "務各盡誠以贊國事",
+        "時上復親庶政，躬攬權綱"
+      ],
+      "unknown": [
+        "固定正文称沈该等后来无所建明，实际治理成效有限。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-130-IMPERIAL-GOVERNANCE-RESUMED-1155",
+        "candidate": "POL-CAND-130-IMPERIAL-GOVERNANCE-RESUMED-1155",
+        "summary": "高宗恢复亲政并要求执政共同议政。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "中枢权力调整。",
+          "decision_question": "秦桧死后政务如何运作。",
+          "alternatives": "参枢继续充位。",
+          "decision": "皇帝亲政、执政协济。",
+          "direct_result": "沈该入政。",
+          "power_change": "权纲回到皇帝与多名执政。",
+          "risk_or_damage": "后续无所建明。",
+          "follow_up": "张浚胡铨等获调整。"
+        }
+      }
+    }
+  ]
+}

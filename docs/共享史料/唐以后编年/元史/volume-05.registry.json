@@ -1,0 +1,3719 @@
+{
+  "facts": [
+    {
+      "action": "因军兴人民劳苦，朝廷停止追征公私逋负，并罢忽剌忽儿部上供羊。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-DEBT-SUSPENSION-1262",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "战时债务追征暂停，饥困部民的上供负担减少。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-DEBT-SUSPENSION-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-debt-suspension-1262",
+      "source_refs": [
+        "元史/卷005@2201384#以軍興人民勞苦",
+        "元史/卷005@2201384#敕停公私逋負毋徵",
+        "元史/卷005@2201384#忽剌忽兒所部民饑，罷上供羊"
+      ],
+      "time_range": {
+        "end": "中统三年正月",
+        "precision": "month",
+        "start": "中统三年正月"
+      },
+      "uncertainties": [
+        "停征期限、债额、部民人数和是否最终豁免未载。"
+      ]
+    },
+    {
+      "action": "增价籴米三万石饷诸王军，命军官考察匠户军贫富并存恤无力者，另禁戍兵势家牲畜践踏农作物。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS",
+      "implementation": "",
+      "locations": [
+        "北京",
+        "河南"
+      ],
+      "observable_result": "北方军粮增加，贫困军户获原则性救助，农田受到禁牧保护。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-military-grain-and-poor-soldiers",
+      "source_refs": [
+        "元史/卷005@2201384#增價糴米三萬石益之",
+        "元史/卷005@2201384#存恤無力者",
+        "元史/卷005@2201384#禁諸道戍兵及勢家縱畜牧犯桑棗禾稼者"
+      ],
+      "time_range": {
+        "end": "中统三年正月",
+        "precision": "month",
+        "start": "中统三年正月"
+      },
+      "uncertainties": [
+        "增价幅度、存恤额和损害赔偿未载。"
+      ]
+    },
+    {
+      "action": "李璮杀蒙古戍军，以涟海三城降宋，进入益都发府库犒军并占据济南；王文统因同谋被诛。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "蒙古戍军被杀，数量未载。",
+      "fact_id": "CHF-YUANSHI-005-LITAN-REBELLION-OUTBREAK",
+      "implementation": "",
+      "locations": [
+        "漣州",
+        "海州",
+        "益都",
+        "濟南"
+      ],
+      "observable_result": "山东发生大规模叛乱，朝廷中央同谋遭清洗。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-LITAN-REBELLION-1262"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "地方军阀叛乱并牵连中书宰执。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-litan-rebellion-outbreak",
+      "source_refs": [
+        "元史/卷005@2201384#李璮反，以漣、海三城獻于宋",
+        "元史/卷005@2201384#盡殺蒙古戍軍",
+        "元史/卷005@2201384#發府庫犒其將校",
+        "元史/卷005@2201384#李璮據濟南",
+        "元史/卷005@2201384#王文統坐與李璮同謀伏誅"
+      ],
+      "time_range": {
+        "end": "中统三年二月",
+        "precision": "month",
+        "start": "中统三年二月"
+      },
+      "uncertainties": [
+        "叛军总数、府库支出、同谋范围和处决程序未载。"
+      ]
+    },
+    {
+      "action": "朝廷发蒙古汉军讨李璮，诸路会师济南，强征民兵、逃军、宗教与匠户等户丁，并设置山东行省和多处宣慰机构。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-LITAN-MOBILIZATION",
+      "implementation": "",
+      "locations": [
+        "山東",
+        "燕京",
+        "河南",
+        "平陽",
+        "太原"
+      ],
+      "observable_result": "形成围剿李璮的跨路军政动员体系。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-LITAN-REBELLION-1262"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "大规模签军和征发改变民户劳役。",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "临时行省宣慰机构统一军政。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-litan-mobilization",
+      "source_refs": [
+        "元史/卷005@2201384#發諸蒙古、漢軍討李璮",
+        "元史/卷005@2201384#盡發管內民為兵以備",
+        "元史/卷005@2201384#括諸道逃亡軍",
+        "元史/卷005@2201384#括木速蠻、畏吾兒、也里可溫、答失蠻等戶丁為兵",
+        "元史/卷005@2201384#行中書省事於山東"
+      ],
+      "time_range": {
+        "end": "中统三年二月至三月",
+        "precision": "month",
+        "start": "中统三年二月至三月"
+      },
+      "uncertainties": [
+        "各类签军人数重叠、逃亡原因和民户负担未载。"
+      ]
+    },
+    {
+      "action": "首次制定中外官员俸禄，命大司农姚枢议定条格。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-OFFICIAL-SALARIES",
+      "implementation": "",
+      "locations": [
+        "中央与诸路"
+      ],
+      "observable_result": "官俸由临时给付转为成文标准。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-OFFICIAL-SALARIES"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-official-salaries",
+      "source_refs": [
+        "元史/卷005@2201384#始定中外官俸",
+        "元史/卷005@2201384#命大司農姚樞講定條格"
+      ],
+      "time_range": {
+        "end": "中统三年二月",
+        "precision": "month",
+        "start": "中统三年二月"
+      },
+      "uncertainties": [
+        "俸额、支付媒介、覆盖官员与执行时间未载。"
+      ]
+    },
+    {
+      "action": "郭守敬制造宝山漏刻完成，并迁至燕京。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-BAOSHAN-WATER-CLOCK",
+      "implementation": "",
+      "locations": [
+        "寶山",
+        "燕京"
+      ],
+      "observable_result": "新制计时仪器进入燕京使用。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-005-BAOSHAN-WATER-CLOCK"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-baoshan-water-clock",
+      "source_refs": [
+        "元史/卷005@2201384#郭守敬造寶山漏成，徙至燕京"
+      ],
+      "time_range": {
+        "end": "中统三年二月",
+        "precision": "month",
+        "start": "中统三年二月"
+      },
+      "uncertainties": [
+        "精度、设置地点、维护和用途未载。"
+      ]
+    },
+    {
+      "action": "史枢、阿术赴济南途中邀击李璮军，斩首四千；韩世安等又在高苑击败叛军并俘傅珪。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "叛军至少四千人被斩。",
+      "fact_id": "CHF-YUANSHI-005-LITAN-FIELD-DEFEATS",
+      "implementation": "",
+      "locations": [
+        "濟南",
+        "高苑"
+      ],
+      "observable_result": "李璮退守济南，外围军队连续失利。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-LITAN-REBELLION-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-litan-field-defeats",
+      "source_refs": [
+        "元史/卷005@2201384#邀擊大破之，斬首四千",
+        "元史/卷005@2201384#璮退保濟南",
+        "元史/卷005@2201384#大破李璮兵於高苑",
+        "元史/卷005@2201384#獲其權府傅珪"
+      ],
+      "time_range": {
+        "end": "中统三年三月",
+        "precision": "month",
+        "start": "中统三年三月"
+      },
+      "uncertainties": [
+        "官军伤亡、俘虏总数和傅珪处置未载。"
+      ]
+    },
+    {
+      "action": "官军树栅掘壕包围济南，五月筑环城使李璮不得出；七月李璮投大明湖被俘，与囊家一同伏诛并分尸示众。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "围城双方伤亡与城内饥困未载。",
+      "fact_id": "CHF-YUANSHI-005-JINAN-SIEGE",
+      "implementation": "",
+      "locations": [
+        "濟南",
+        "大明湖"
+      ],
+      "observable_result": "济南围城结束，李璮叛乱主力覆灭。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-LITAN-REBELLION-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-jinan-siege",
+      "source_refs": [
+        "元史/卷005@2201384#樹柵鑿塹，圍璮于濟南",
+        "元史/卷005@2201384#築環城圍濟南",
+        "元史/卷005@2201384#璮不復得出",
+        "元史/卷005@2201384#投水中不即死，獲之",
+        "元史/卷005@2201384#誅，體解以徇"
+      ],
+      "time_range": {
+        "end": "中统三年四月至七月",
+        "precision": "month",
+        "start": "中统三年四月至七月"
+      },
+      "uncertainties": [
+        "围城兵力、伤亡、平民损失和审讯程序未载。"
+      ]
+    },
+    {
+      "action": "朝廷数次赦免被李璮胁从的军民，禁官军掠夺，并令被掠民马归还原主。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-LITAN-AMNESTIES",
+      "implementation": "",
+      "locations": [
+        "博興",
+        "高苑",
+        "益都",
+        "濟南"
+      ],
+      "observable_result": "多数胁从者免罪，部分被掠财产获得返还原则。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-LITAN-AMNESTIES"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "返还民马并禁止剽掠。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-litan-amnesties",
+      "source_refs": [
+        "元史/卷005@2201384#嘗為李璮脅從者，並釋其罪",
+        "元史/卷005@2201384#仍禁蒙古、漢軍剽掠",
+        "元史/卷005@2201384#為李璮脅從者，並赦其罪",
+        "元史/卷005@2201384#以李璮所掠民馬還其主"
+      ],
+      "time_range": {
+        "end": "中统三年四月至十月",
+        "precision": "month",
+        "start": "中统三年四月至十月"
+      },
+      "uncertainties": [
+        "赦免人数、返还马数和申诉成效未载。"
+      ]
+    },
+    {
+      "action": "命安辑徐邳民，禁止军士势官纵畜伤禾；劝百姓垦田植桑枣，不得兴不急之役妨农时，并在益都禁军剽掠。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-AGRICULTURE-PROTECTION-1262",
+      "implementation": "",
+      "locations": [
+        "徐州",
+        "邳州",
+        "益都",
+        "诸路"
+      ],
+      "observable_result": "战区恢复以护农、开垦和限制额外徭役为原则。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-AGRICULTURE-PROTECTION-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-agriculture-protection-1262",
+      "source_refs": [
+        "元史/卷005@2201384#禁征戍軍士及勢官，毋縱畜牧傷其禾稼桑棗",
+        "元史/卷005@2201384#開墾田土，種植桑棗",
+        "元史/卷005@2201384#不得擅興不急之役，妨奪農時",
+        "元史/卷005@2201384#姓，各務農功"
+      ],
+      "time_range": {
+        "end": "中统三年四月至五月",
+        "precision": "month",
+        "start": "中统三年四月至五月"
+      },
+      "uncertainties": [
+        "垦田面积、受益户、军畜赔偿和执行成效未载。"
+      ]
+    },
+    {
+      "action": "免西京丝银税，免北京广宁等军兴地区当年税赋，滨棣减田租一半、东平减三成。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-WARTIME-TAX-RELIEF-1262",
+      "implementation": "",
+      "locations": [
+        "西京",
+        "北京",
+        "廣寧",
+        "懿州",
+        "濱棣",
+        "東平"
+      ],
+      "observable_result": "多处战乱地区获得不同幅度税免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-WARTIME-TAX-RELIEF-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-wartime-tax-relief-1262",
+      "source_refs": [
+        "元史/卷005@2201384#免西京今年絲銀稅",
+        "元史/卷005@2201384#軍興勞弊，免今歲稅賦",
+        "元史/卷005@2201384#蠲濱棣今歲田租之半",
+        "元史/卷005@2201384#東平蠲十之三"
+      ],
+      "time_range": {
+        "end": "中统三年三月至五月",
+        "precision": "month",
+        "start": "中统三年三月至五月"
+      },
+      "uncertainties": [
+        "各地税基、减收总额和受益户数未载。"
+      ]
+    },
+    {
+      "action": "规定部曲重罪须审实奏闻后才能处刑，命详谳冤狱；对擅杀伪钞犯者追究违制，年底又令五十三名死刑犯重加详审。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-STRICT-DEATH-REVIEW",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "死刑处置被反复要求上奏复核。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-STRICT-DEATH-REVIEW"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-strict-death-review",
+      "source_refs": [
+        "元史/卷005@2201384#必先奏聞，然後置諸法",
+        "元史/卷005@2201384#命諸路詳讞寃獄",
+        "元史/卷005@2201384#詔詰其違制之罪",
+        "元史/卷005@2201384#犯罪應死者五十三人，詔重加詳讞"
+      ],
+      "time_range": {
+        "end": "中统三年四月至十二月",
+        "precision": "month",
+        "start": "中统三年四月至十二月"
+      },
+      "uncertainties": [
+        "复核改判数、违制官处分和冤案数量未载。"
+      ]
+    },
+    {
+      "action": "燕京至济南设八处海青驿，燕京至开平设牛驿并官给钞购车牛，随后又设多处驿站。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-POST-AND-TRANSPORT-1262",
+      "implementation": "",
+      "locations": [
+        "燕京",
+        "濟南",
+        "開平",
+        "古北口"
+      ],
+      "observable_result": "平叛和北方交通形成连续驿运节点。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-005-POST-AND-TRANSPORT-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-post-and-transport-1262",
+      "source_refs": [
+        "元史/卷005@2201384#燕京至濟南置海青驛凡八所",
+        "元史/卷005@2201384#自燕至開平立牛驛",
+        "元史/卷005@2201384#給鈔市車牛",
+        "元史/卷005@2201384#立古北口驛",
+        "元史/卷005@2201384#順州至開平置六驛"
+      ],
+      "time_range": {
+        "end": "中统三年三月至闰九月",
+        "precision": "month",
+        "start": "中统三年三月至闰九月"
+      },
+      "uncertainties": [
+        "具体站址、驿马车牛数和通行量未载。"
+      ]
+    },
+    {
+      "action": "免当年丝银、仅征田租，西京同免丝银；后恢复蒙古军站户差赋，但农民包银减半、俘户仅输丝。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-SILK-SILVER-RELIEF",
+      "implementation": "",
+      "locations": [
+        "诸路",
+        "西京"
+      ],
+      "observable_result": "春季普遍减征，七月按户类重定赋役。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-SILK-SILVER-RELIEF"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-silk-silver-relief",
+      "source_refs": [
+        "元史/卷005@2201384#免今歲絲銀，止輸田租",
+        "元史/卷005@2201384#復蒙古軍站戶差賦",
+        "元史/卷005@2201384#農民包銀徵其半",
+        "元史/卷005@2201384#俘戶止令輸絲"
+      ],
+      "time_range": {
+        "end": "中统三年三月至七月",
+        "precision": "month",
+        "start": "中统三年三月至七月"
+      },
+      "uncertainties": [
+        "总减收额、户类人数和七月政策是否追溯未载。"
+      ]
+    },
+    {
+      "action": "严忠济此前为民借钱输赋四十三万七千四百锭，并借用课程、钞本和盐课银一万五千余两，朝廷下令不再追征。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-EASTPING-DEBT-FORGIVENESS",
+      "implementation": "",
+      "locations": [
+        "東平"
+      ],
+      "observable_result": "东平巨额代民输赋债务与公款借用获豁免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-EASTPING-DEBT-FORGIVENESS"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-eastping-debt-forgiveness",
+      "source_refs": [
+        "元史/卷005@2201384#為民貸錢輸賦四十三萬七千四百錠",
+        "元史/卷005@2201384#借用課程、鈔本、鹽課銀萬五千餘兩",
+        "元史/卷005@2201384#餘兩，詔勿徵。\n"
+      ],
+      "time_range": {
+        "end": "中统三年六月",
+        "precision": "month",
+        "start": "中统三年六月"
+      },
+      "uncertainties": [
+        "债务归属、受益户数、数额币值和审计过程未载。"
+      ]
+    },
+    {
+      "action": "新设小峪、芦子、宁武军、赤泥泉四处铁冶，并令宁武军岁输所产铁。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-IRONWORKS-1262",
+      "implementation": "",
+      "locations": [
+        "小峪",
+        "蘆子",
+        "寧武軍",
+        "赤泥泉"
+      ],
+      "observable_result": "北方官营铁冶体系扩张。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-005-IRONWORKS-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-ironworks-1262",
+      "source_refs": [
+        "元史/卷005@2201384#歲輸所產鐵",
+        "元史/卷005@2201384#，立小峪、蘆子、寧武軍、赤泥泉鐵冶四所"
+      ],
+      "time_range": {
+        "end": "中统三年六月",
+        "precision": "month",
+        "start": "中统三年六月"
+      },
+      "uncertainties": [
+        "产量、役户、用途和安全损害未载。"
+      ]
+    },
+    {
+      "action": "郭守敬请引玉泉水通漕，王允中请开邢洺漳滏河及达泉灌田，朝廷均批准。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-GUANGJI-YUQUAN-CANALS",
+      "implementation": "",
+      "locations": [
+        "玉泉",
+        "邢州",
+        "洺州",
+        "漳河",
+        "滏河"
+      ],
+      "observable_result": "漕运与灌溉工程获得立项。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-005-GUANGJI-YUQUAN-CANALS"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-guangji-yuquan-canals",
+      "source_refs": [
+        "元史/卷005@2201384#請開玉泉水以通漕運",
+        "元史/卷005@2201384#請開邢、洺等處漳、滏（澧）〔灃〕河、達泉以溉民田",
+        "元史/卷005@2201384#15]並從之。甲午"
+      ],
+      "time_range": {
+        "end": "中统三年八月",
+        "precision": "month",
+        "start": "中统三年八月"
+      },
+      "uncertainties": [
+        "开工、工期、规模和灌溉面积未载。"
+      ]
+    },
+    {
+      "action": "济南民饥，朝廷免赋并发粟三十万石赈济。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-JINAN-FAMINE-RELIEF",
+      "implementation": "",
+      "locations": [
+        "濟南"
+      ],
+      "observable_result": "刚经历围城的济南获得大额粮赈与税免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-JINAN-FAMINE-RELIEF"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-jinan-famine-relief",
+      "source_refs": [
+        "元史/卷005@2201384#濟南民饑，免其賦稅",
+        "元史/卷005@2201384#發粟三十萬〔石〕賑濟南饑民"
+      ],
+      "time_range": {
+        "end": "中统三年闰九月",
+        "precision": "month",
+        "start": "中统三年闰九月"
+      },
+      "uncertainties": [
+        "校勘称或为三万石，受益人数和发放期未载。"
+      ]
+    },
+    {
+      "action": "益都军民分治，董文炳统军、撒吉思治民；武卫军按十户取二，后明确军民籍。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION",
+      "implementation": "",
+      "locations": [
+        "益都",
+        "山東"
+      ],
+      "observable_result": "李璮乱后山东地方军政分权，军户抽取制度化。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-shandong-military-civil-separation",
+      "source_refs": [
+        "元史/卷005@2201384#每十戶惟取其二充武衞軍",
+        "元史/卷005@2201384#分益都軍民為二",
+        "元史/卷005@2201384#董文炳領軍，撒吉思治民"
+      ],
+      "time_range": {
+        "end": "中统三年九月至十月",
+        "precision": "month",
+        "start": "中统三年九月至十月"
+      },
+      "uncertainties": [
+        "分籍户数、军户服役期限和监督机制未载。"
+      ]
+    },
+    {
+      "action": "释放金州屯军二千、大名河南新签防城军及平阳军九百一十五人为民，并免军户其他徭役。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-DEMOBILIZATION-1262",
+      "implementation": "",
+      "locations": [
+        "金州",
+        "大名",
+        "河南",
+        "平陽"
+      ],
+      "observable_result": "至少二千九百余名军人及未载数量的新签军复归民籍。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-DEMOBILIZATION-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-demobilization-1262",
+      "source_refs": [
+        "元史/卷005@2201384#放金州所屯軍士二千人",
+        "元史/卷005@2201384#新簽防城軍為民",
+        "元史/卷005@2201384#免諸路軍戶他徭",
+        "元史/卷005@2201384#放刁國器所簽平陽軍九百一十五人為民"
+      ],
+      "time_range": {
+        "end": "中统三年十月",
+        "precision": "month",
+        "start": "中统三年十月"
+      },
+      "uncertainties": [
+        "大名河南放军人数、安置和生计未载。"
+      ]
+    },
+    {
+      "action": "禁止诸王、使臣和军队倚势扰民，地方发现者须拘执上报。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "对宗室、使臣和军队扰民建立现场拘捕机制。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-restrain-powerful-harassment",
+      "source_refs": [
+        "元史/卷005@2201384#禁諸王、使臣、師旅敢有恃勢擾民者，所在執以聞"
+      ],
+      "time_range": {
+        "end": "中统三年十月",
+        "precision": "month",
+        "start": "中统三年十月"
+      },
+      "uncertainties": [
+        "查处数量、处罚和受害补偿未载。"
+      ]
+    },
+    {
+      "action": "命万户修复宿州、蕲县、邳州城郭，并复立息州城安民。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-REBUILD-BORDER-CITIES",
+      "implementation": "",
+      "locations": [
+        "宿州",
+        "蘄縣",
+        "邳州",
+        "息州"
+      ],
+      "observable_result": "宋元边区数座城防获得恢复。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-YUANSHI-005-REBUILD-BORDER-CITIES"
+        },
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "边城修复承接宋元交战。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SONG-BORDER-1262"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-rebuild-border-cities",
+      "source_refs": [
+        "元史/卷005@2201384#修復宿州、蘄縣",
+        "元史/卷005@2201384#修完邳州城郭",
+        "元史/卷005@2201384#復立息州城以安其民"
+      ],
+      "time_range": {
+        "end": "中统三年十月至十二月",
+        "precision": "month",
+        "start": "中统三年十月至十二月"
+      },
+      "uncertainties": [
+        "城工规模、成本、居民数和完成时间未载。"
+      ]
+    },
+    {
+      "action": "忽必烈告诫史天泽，自己若因愤怒欲诛人，臣下应延迟一两日后再覆奏执行。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-ANGER-DEATH-DELAY",
+      "implementation": "",
+      "locations": [
+        "朝廷"
+      ],
+      "observable_result": "皇帝自设情绪性诛杀的延迟复奏约束。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-ANGER-DEATH-DELAY"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-anger-death-delay",
+      "source_refs": [
+        "元史/卷005@2201384#朕或乘怒欲有所誅殺，卿等宜遲留一二日，覆奏行之"
+      ],
+      "time_range": {
+        "end": "中统三年十一月",
+        "precision": "month",
+        "start": "中统三年十一月"
+      },
+      "uncertainties": [
+        "适用罪名、实际启动次数和覆奏结果未载。"
+      ]
+    },
+    {
+      "action": "规定总管兼万户者只理民事不预军政，罢管民官子弟分管州县等事务，并重申管民官、管军官互不统摄。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "李璮乱后军政分职成为全国性制度。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-civil-military-office-separation",
+      "source_refs": [
+        "元史/卷005@2201384#止理民事，軍政勿預",
+        "元史/卷005@2201384#總管子弟，有分管州、府、司、縣",
+        "元史/卷005@2201384#管民官理民事，管軍官掌兵戎",
+        "元史/卷005@2201384#司，不相統攝"
+      ],
+      "time_range": {
+        "end": "中统三年十二月",
+        "precision": "month",
+        "start": "中统三年十二月"
+      },
+      "uncertainties": [
+        "执行名单、例外和机构冲突未载。"
+      ]
+    },
+    {
+      "action": "河西移民中不能自给的160户获牛具、种子和布；怀州新民获耕牛二百头种水田。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-HUAI-NEW-FARMERS",
+      "implementation": "",
+      "locations": [
+        "應州",
+        "懷州"
+      ],
+      "observable_result": "移民和新民获得恢复农业生产的实物资本。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-HUAI-NEW-FARMERS"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-huai-new-farmers",
+      "source_refs": [
+        "元史/卷005@2201384#不能自贍者百六十戶，給牛具及粟麥種",
+        "元史/卷005@2201384#仍賜布，人二匹",
+        "元史/卷005@2201384#給懷州新民耕牛二百",
+        "元史/卷005@2201384#百，俾種水田"
+      ],
+      "time_range": {
+        "end": "中统三年十一月至十二月",
+        "precision": "month",
+        "start": "中统三年十一月至十二月"
+      },
+      "uncertainties": [
+        "怀州户数、成活耕作和收成未载。"
+      ]
+    },
+    {
+      "action": "诸路包银改以钞缴，丝料本色或以钞折纳；清查漏附籍户起冶，后设铁冶年输铁并铸农器二十万件换粟四万石。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-YEAR4-TAX-AND-IRON",
+      "implementation": "",
+      "locations": [
+        "诸路",
+        "河南",
+        "东平"
+      ],
+      "observable_result": "户税货币化规则明确，官营铁业与农器粮食交换扩大。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-YEAR4-TAX-AND-IRON"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "铁冶生产设施规模扩大。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-year4-tax-and-iron",
+      "source_refs": [
+        "元史/卷005@2201384#諸路包銀以鈔輸納",
+        "元史/卷005@2201384#每十戶輸絲十四斤",
+        "元史/卷005@2201384#漏籍戶一萬一千八百、附籍戶四千三百於各處起冶",
+        "元史/卷005@2201384#歲輸鐵一百三萬七千斤",
+        "元史/卷005@2201384#就鑄農器二十萬事，易粟四萬石輸官"
+      ],
+      "time_range": {
+        "end": "中统四年正月至五月",
+        "precision": "month",
+        "start": "中统四年正月至五月"
+      },
+      "uncertainties": [
+        "钞价、铁冶劳动条件、农器分配对象和交易价格未载。"
+      ]
+    },
+    {
+      "action": "在燕京设平准库以平物价、通钞法，至元元年扩设诸路平准库。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-PINGZHUN-WAREHOUSES",
+      "implementation": "",
+      "locations": [
+        "燕京",
+        "诸路"
+      ],
+      "observable_result": "价格调节与纸币流通机构由首都推广全国。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-PINGZHUN-WAREHOUSES"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-pingzhun-warehouses",
+      "source_refs": [
+        "元史/卷005@2201384#立燕京平準庫",
+        "元史/卷005@2201384#以均平物價，通利鈔法",
+        "元史/卷005@2201384#立諸路平準庫"
+      ],
+      "time_range": {
+        "end": "中统四年五月至至元元年正月",
+        "precision": "month",
+        "start": "中统四年五月至至元元年正月"
+      },
+      "uncertainties": [
+        "资本金、商品种类、买卖规则和物价效果未载。"
+      ]
+    },
+    {
+      "action": "初立枢密院，由燕王真金兼判；同时升开平府为上都，设置路级长官。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL",
+      "implementation": "",
+      "locations": [
+        "開平",
+        "上都"
+      ],
+      "observable_result": "中央军事机关与上都行政地位确立，真金兼领中书枢密。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-shangdu-and-privy-council",
+      "source_refs": [
+        "元史/卷005@2201384#初立樞密院",
+        "元史/卷005@2201384#燕王守中書令，兼判樞密院事",
+        "元史/卷005@2201384#陞開平府為上都"
+      ],
+      "time_range": {
+        "end": "中统四年五月",
+        "precision": "month",
+        "start": "中统四年五月"
+      },
+      "uncertainties": [
+        "枢密院员额、权限和上都财政投入未载。"
+      ]
+    },
+    {
+      "action": "彰德旱免田租一半，洺磁免六成；后因岁歉与旱灾减军粮和田租。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-DROUGHT-TAX-RELIEF-1263",
+      "implementation": "",
+      "locations": [
+        "彰德",
+        "洺州",
+        "磁州",
+        "東平",
+        "大名"
+      ],
+      "observable_result": "受旱地区获得按比例税粮减免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-DROUGHT-TAX-RELIEF-1263"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-drought-tax-relief-1263",
+      "source_refs": [
+        "元史/卷005@2201384#免彰德今歲田租之半",
+        "元史/卷005@2201384#洺、磁十之六",
+        "元史/卷005@2201384#以歲不登，量減",
+        "元史/卷005@2201384#東平、大名等路旱，量減今歲田租"
+      ],
+      "time_range": {
+        "end": "中统四年八月至十一月",
+        "precision": "month",
+        "start": "中统四年八月至十一月"
+      },
+      "uncertainties": [
+        "受灾面积、减收总额和灾民人数未载。"
+      ]
+    },
+    {
+      "action": "西凉经兵后居民困弊，朝廷发钞赈济、免租赋三年，并规定流民复业者复其家三年。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-XILIANG-RELIEF",
+      "implementation": "",
+      "locations": [
+        "西涼"
+      ],
+      "observable_result": "西凉战后居民与返乡流民获得三年税役恢复期。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-XILIANG-RELIEF"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-xiliang-relief",
+      "source_refs": [
+        "元史/卷005@2201384#西涼經兵，居民困弊",
+        "元史/卷005@2201384#弊，給鈔賑之，",
+        "元史/卷005@2201384#仍免租賦三年",
+        "元史/卷005@2201384#西涼流民復業者，復其家三年"
+      ],
+      "time_range": {
+        "end": "中统四年八月",
+        "precision": "month",
+        "start": "中统四年八月"
+      },
+      "uncertainties": [
+        "赈钞额、返户数和三年后恢复状况未载。"
+      ]
+    },
+    {
+      "action": "阿里不哥战败后与诸王来归；忽必烈释放太祖后裔诸王，不追究其罪，但处死不鲁花等谋臣。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-ARIQ-SURRENDER",
+      "implementation": "",
+      "locations": [
+        "上都"
+      ],
+      "observable_result": "皇位内战结束，宗室获宽赦，核心谋臣被诛。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-SUCCESSION-WAR-1260"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "宗室宽赦与谋臣处决构成内战政治收束。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-ariq-surrender",
+      "source_refs": [
+        "元史/卷005@2201384#阿里不哥自昔木土之敗，不復能軍",
+        "元史/卷005@2201384#與諸王玉龍答失、阿速帶、昔里給",
+        "元史/卷005@2201384#諸王皆太祖之裔，並釋不問",
+        "元史/卷005@2201384#其謀臣不魯花皆伏誅"
+      ],
+      "time_range": {
+        "end": "至元元年七月",
+        "precision": "month",
+        "start": "至元元年七月"
+      },
+      "uncertainties": [
+        "阿里不哥后续待遇、谋臣审理和降众安置未载。"
+      ]
+    },
+    {
+      "action": "阿里不哥归降后改元至元并大赦，颁行省并县、定员品秩俸禄公田、考课、均役、招流民、禁擅科与官物私用、恤孤劝农平价等综合条格。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-ZHIYUAN-REFORM-EDICT",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "内战后全国行政、财政、民政与监察规则集中重建。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-ZHIYUAN-REFORM-EDICT"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "均赋役、招流民、平物价与恤孤。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-zhiyuan-reform-edict",
+      "source_refs": [
+        "元史/卷005@2201384#改中統五年為至元元年",
+        "元史/卷005@2201384#可大赦天下",
+        "元史/卷005@2201384#省併州縣，定官吏員數",
+        "元史/卷005@2201384#給俸祿，頒公田",
+        "元史/卷005@2201384#均賦役，招流移",
+        "元史/卷005@2201384#恤鰥寡，勸農桑",
+        "元史/卷005@2201384#澤，平物價；具"
+      ],
+      "time_range": {
+        "end": "至元元年八月",
+        "precision": "month",
+        "start": "至元元年八月"
+      },
+      "uncertainties": [
+        "裁并清单、执行期限和地方反应未载。"
+      ]
+    },
+    {
+      "action": "统一诸王使臣的驿传、税赋、差发规则，禁止擅招民户、向非投下人放斡脱银、口传敕旨和追呼省臣属官；站户限田四顷免税。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "宗王使臣特权受到制度约束，站户免税田额明确。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "站户免税田额和斡脱限制影响生计。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-princely-envoy-limits-1264",
+      "source_refs": [
+        "元史/卷005@2201384#不許擅招民戶",
+        "元史/卷005@2201384#不得以銀與非投下人為斡脫",
+        "元史/卷005@2201384#禁口傳敕旨",
+        "元史/卷005@2201384#諸站戶限田四頃免稅"
+      ],
+      "time_range": {
+        "end": "至元元年八月",
+        "precision": "month",
+        "start": "至元元年八月"
+      },
+      "uncertainties": [
+        "站户数量、违规处罚和斡脱债务规模未载。"
+      ]
+    },
+    {
+      "action": "命燕王真金署敕，并在省中另置幕位，每月一两次到省判署朝政；刘秉忠拜太保参领中书。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-ZHENJIN-STATE-ROLE",
+      "implementation": "",
+      "locations": [
+        "中书省"
+      ],
+      "observable_result": "真金正式参与最高行政签署，刘秉忠进入中枢。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-ZHENJIN-STATE-ROLE"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-zhenjin-state-role",
+      "source_refs": [
+        "元史/卷005@2201384#命燕王署敕",
+        "元史/卷005@2201384#宜於省中別置幕位",
+        "元史/卷005@2201384#至，判署朝政",
+        "元史/卷005@2201384#拜太保，參領中書省事"
+      ],
+      "time_range": {
+        "end": "至元元年八月",
+        "precision": "month",
+        "start": "至元元年八月"
+      },
+      "uncertainties": [
+        "实际出席次数、署敕范围和决策分歧未载。"
+      ]
+    },
+    {
+      "action": "因吉里迷称骨嵬、亦里于岁侵其境，元廷发兵征骨嵬。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-GUWEI-EXPEDITION",
+      "implementation": "",
+      "locations": [
+        "骨嵬",
+        "吉里迷"
+      ],
+      "observable_result": "东北海外方向军事行动启动，战果未载。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-YUAN-GUWEI-1264"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-guwei-expedition",
+      "source_refs": [
+        "元史/卷005@2201384#吉里迷內附",
+        "元史/卷005@2201384#骨嵬、亦里于兩部，歲來侵疆",
+        "元史/卷005@2201384#疆，故往征之"
+      ],
+      "time_range": {
+        "end": "至元元年十一月",
+        "precision": "month",
+        "start": "至元元年十一月"
+      },
+      "uncertainties": [
+        "兵力、航路、交战、伤亡与实际控制未载。"
+      ]
+    },
+    {
+      "action": "罢各投下达鲁花赤，罢部分枢密院断事与奥鲁官，由总管府兼押；最终罢诸侯世守，建立官员迁转法。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-ABOLISH-HEREDITARY-LORDS",
+      "implementation": "",
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "地方世袭与投下官权进一步转入流官和总管体系。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-YUANSHI-005-ABOLISH-HEREDITARY-LORDS"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-abolish-hereditary-lords",
+      "source_refs": [
+        "元史/卷005@2201384#罷各投下達魯花赤",
+        "元史/卷005@2201384#令總管府兼總押所",
+        "元史/卷005@2201384#始罷諸侯世守，立遷轉法"
+      ],
+      "time_range": {
+        "end": "至元元年十二月",
+        "precision": "month",
+        "start": "至元元年十二月"
+      },
+      "uncertainties": [
+        "裁撤人数、迁转周期、例外和补偿未载。"
+      ]
+    },
+    {
+      "action": "真定、顺天、大名、东平、济南、河间等二十余州路发生大水。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-YUANSHI-005-FLOOD-1264",
+      "implementation": "",
+      "locations": [
+        "真定",
+        "順天",
+        "大名",
+        "東平",
+        "濟南",
+        "河間等"
+      ],
+      "observable_result": "广泛水灾被记录，但本卷未载专项赈免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-YUANSHI-005-FLOOD-1264"
+        }
+      ],
+      "semantic_fingerprint": "chf-yuanshi-005-flood-1264",
+      "source_refs": [
+        "元史/卷005@2201384#真定、順天、洺、磁、順德、大名、東平、曹、濮州、泰安、高唐、濟州、博州、德州、濟南、濱、棣、淄、萊、河間大水"
+      ],
+      "time_range": {
+        "end": "至元元年",
+        "precision": "month",
+        "start": "至元元年"
+      },
+      "uncertainties": [
+        "受灾面积、死亡、流民、赈济和税免未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "军兴下停征逋负并罢饥民上供羊。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-DEBT-SUSPENSION-1262",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-DEBT-SUSPENSION-1262"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "战时债务追征暂停，饥困部民的上供负担减少。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "军兴与饥荒使人民劳苦。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "公私旧欠暂停追征，上供羊被罢。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "债务和实物上供压力暂缓。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "恢复效果未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-debt-suspension-1262",
+      "source_refs": [
+        "元史/卷005@2201384#以軍興人民勞苦",
+        "元史/卷005@2201384#敕停公私逋負毋徵",
+        "元史/卷005@2201384#忽剌忽兒所部民饑，罷上供羊"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-DEBT-SUSPENSION-1262",
+      "time_range": {
+        "end": "中统三年正月",
+        "precision": "month",
+        "start": "中统三年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "增价籴军粮并存恤贫军、禁牧伤农。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "北京",
+        "河南"
+      ],
+      "observable_result": "北方军粮增加，贫困军户获原则性救助，农田受到禁牧保护。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "北方军需与贫困军户并存。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "增价采购米三万石。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "无力军户获存恤，农户免受军畜践踏。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "米源、价格和执行未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-military-grain-and-poor-soldiers",
+      "source_refs": [
+        "元史/卷005@2201384#增價糴米三萬石益之",
+        "元史/卷005@2201384#存恤無力者",
+        "元史/卷005@2201384#禁諸道戍兵及勢家縱畜牧犯桑棗禾稼者"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS",
+      "time_range": {
+        "end": "中统三年正月",
+        "precision": "month",
+        "start": "中统三年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "战区护农、垦田并禁不急役。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-AGRICULTURE-PROTECTION-1262",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-AGRICULTURE-PROTECTION-1262"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "徐州",
+        "邳州",
+        "益都",
+        "诸路"
+      ],
+      "observable_result": "战区恢复以护农、开垦和限制额外徭役为原则。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "战乱、军畜和徭役妨害农业。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "不急之役被禁，税免另见。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "农户获护田和安辑命令。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "鼓励垦田与种桑枣。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-agriculture-protection-1262",
+      "source_refs": [
+        "元史/卷005@2201384#禁征戍軍士及勢官，毋縱畜牧傷其禾稼桑棗",
+        "元史/卷005@2201384#開墾田土，種植桑棗",
+        "元史/卷005@2201384#不得擅興不急之役，妨奪農時",
+        "元史/卷005@2201384#姓，各務農功"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-AGRICULTURE-PROTECTION-1262",
+      "time_range": {
+        "end": "中统三年四月至五月",
+        "precision": "month",
+        "start": "中统三年四月至五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "中统三年战区分级免税。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-WARTIME-TAX-RELIEF-1262",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-WARTIME-TAX-RELIEF-1262"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "西京",
+        "北京",
+        "廣寧",
+        "懿州",
+        "濱棣",
+        "東平"
+      ],
+      "observable_result": "多处战乱地区获得不同幅度税免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "军兴劳弊与灾害。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "全免、半免或减三成。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "相关纳税户当年负担下降。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "恢复效果未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-wartime-tax-relief-1262",
+      "source_refs": [
+        "元史/卷005@2201384#免西京今年絲銀稅",
+        "元史/卷005@2201384#軍興勞弊，免今歲稅賦",
+        "元史/卷005@2201384#蠲濱棣今歲田租之半",
+        "元史/卷005@2201384#東平蠲十之三"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-WARTIME-TAX-RELIEF-1262",
+      "time_range": {
+        "end": "中统三年三月至五月",
+        "precision": "month",
+        "start": "中统三年三月至五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "丝银减免并按户类重定赋役。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-SILK-SILVER-RELIEF",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-SILK-SILVER-RELIEF"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路",
+        "西京"
+      ],
+      "observable_result": "春季普遍减征，七月按户类重定赋役。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "平叛战争造成财政与民力压力。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "丝银免征或减半，站户差赋恢复。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "不同户类负担重新分配。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "田租仍征，俘户输丝。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-silk-silver-relief",
+      "source_refs": [
+        "元史/卷005@2201384#免今歲絲銀，止輸田租",
+        "元史/卷005@2201384#復蒙古軍站戶差賦",
+        "元史/卷005@2201384#農民包銀徵其半",
+        "元史/卷005@2201384#俘戶止令輸絲"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-SILK-SILVER-RELIEF",
+      "time_range": {
+        "end": "中统三年三月至七月",
+        "precision": "month",
+        "start": "中统三年三月至七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "豁免东平代民输赋巨债。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-EASTPING-DEBT-FORGIVENESS",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-EASTPING-DEBT-FORGIVENESS"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "東平"
+      ],
+      "observable_result": "东平巨额代民输赋债务与公款借用获豁免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "严忠济为民垫借巨额赋税。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "官府放弃追征相关债款。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "民户间接受益。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "对地方经济影响未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-eastping-debt-forgiveness",
+      "source_refs": [
+        "元史/卷005@2201384#為民貸錢輸賦四十三萬七千四百錠",
+        "元史/卷005@2201384#借用課程、鈔本、鹽課銀萬五千餘兩",
+        "元史/卷005@2201384#餘兩，詔勿徵。\n"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-EASTPING-DEBT-FORGIVENESS",
+      "time_range": {
+        "end": "中统三年六月",
+        "precision": "month",
+        "start": "中统三年六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "济南围城后免税并发粟赈饥。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-JINAN-FAMINE-RELIEF",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-JINAN-FAMINE-RELIEF"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "濟南"
+      ],
+      "observable_result": "刚经历围城的济南获得大额粮赈与税免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "济南围城后饥荒。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "免赋并拨粟三十万石。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "饥民获粮。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "农业恢复未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-jinan-famine-relief",
+      "source_refs": [
+        "元史/卷005@2201384#濟南民饑，免其賦稅",
+        "元史/卷005@2201384#發粟三十萬〔石〕賑濟南饑民"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-JINAN-FAMINE-RELIEF",
+      "time_range": {
+        "end": "中统三年闰九月",
+        "precision": "month",
+        "start": "中统三年闰九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "平叛后放军为民并免军户杂徭。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-DEMOBILIZATION-1262",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-DEMOBILIZATION-1262"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "金州",
+        "大名",
+        "河南",
+        "平陽"
+      ],
+      "observable_result": "至少二千九百余名军人及未载数量的新签军复归民籍。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "平叛大规模签军。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "军户免其他徭役。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "至少2915人及另批新军复民。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "劳力返农效果未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-demobilization-1262",
+      "source_refs": [
+        "元史/卷005@2201384#放金州所屯軍士二千人",
+        "元史/卷005@2201384#新簽防城軍為民",
+        "元史/卷005@2201384#免諸路軍戶他徭",
+        "元史/卷005@2201384#放刁國器所簽平陽軍九百一十五人為民"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-DEMOBILIZATION-1262",
+      "time_range": {
+        "end": "中统三年十月",
+        "precision": "month",
+        "start": "中统三年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "给移民新民牛具种子布匹。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-HUAI-NEW-FARMERS",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-HUAI-NEW-FARMERS"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "應州",
+        "懷州"
+      ],
+      "observable_result": "移民和新民获得恢复农业生产的实物资本。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "河西移民和怀州新民缺乏生产资料。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "官给牛具、种子、布和二百牛。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "至少160户及怀州新民获助。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "用于粟麦和水田生产。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-huai-new-farmers",
+      "source_refs": [
+        "元史/卷005@2201384#不能自贍者百六十戶，給牛具及粟麥種",
+        "元史/卷005@2201384#仍賜布，人二匹",
+        "元史/卷005@2201384#給懷州新民耕牛二百",
+        "元史/卷005@2201384#百，俾種水田"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-HUAI-NEW-FARMERS",
+      "time_range": {
+        "end": "中统三年十一月至十二月",
+        "precision": "month",
+        "start": "中统三年十一月至十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "包银货币化并扩张铁冶农器换粮。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-YEAR4-TAX-AND-IRON",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-YEAR4-TAX-AND-IRON"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路",
+        "河南",
+        "东平"
+      ],
+      "observable_result": "户税货币化规则明确，官营铁业与农器粮食交换扩大。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "赋税户类与铁冶劳力需统一。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "包银用钞、丝本色或折钞，铁冶岁课。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "漏附籍户被投入冶炼，负担不详。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "铸农器二十万件换粟四万石。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-year4-tax-and-iron",
+      "source_refs": [
+        "元史/卷005@2201384#諸路包銀以鈔輸納",
+        "元史/卷005@2201384#每十戶輸絲十四斤",
+        "元史/卷005@2201384#漏籍戶一萬一千八百、附籍戶四千三百於各處起冶",
+        "元史/卷005@2201384#歲輸鐵一百三萬七千斤",
+        "元史/卷005@2201384#就鑄農器二十萬事，易粟四萬石輸官"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-YEAR4-TAX-AND-IRON",
+      "time_range": {
+        "end": "中统四年正月至五月",
+        "precision": "month",
+        "start": "中统四年正月至五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "平准库由燕京推广诸路。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-PINGZHUN-WAREHOUSES",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-PINGZHUN-WAREHOUSES"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "燕京",
+        "诸路"
+      ],
+      "observable_result": "价格调节与纸币流通机构由首都推广全国。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "纸钞流通与物价需调节。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "设官方平准库存。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "物价影响未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "由燕京扩至诸路。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-pingzhun-warehouses",
+      "source_refs": [
+        "元史/卷005@2201384#立燕京平準庫",
+        "元史/卷005@2201384#以均平物價，通利鈔法",
+        "元史/卷005@2201384#立諸路平準庫"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-PINGZHUN-WAREHOUSES",
+      "time_range": {
+        "end": "中统四年五月至至元元年正月",
+        "precision": "month",
+        "start": "中统四年五月至至元元年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "中统四年旱区分级减租。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-DROUGHT-TAX-RELIEF-1263",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-DROUGHT-TAX-RELIEF-1263"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "彰德",
+        "洺州",
+        "磁州",
+        "東平",
+        "大名"
+      ],
+      "observable_result": "受旱地区获得按比例税粮减免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "多路旱灾与岁歉。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "减租五至六成或酌减。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "灾民税粮负担下降。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "歉收规模未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-drought-tax-relief-1263",
+      "source_refs": [
+        "元史/卷005@2201384#免彰德今歲田租之半",
+        "元史/卷005@2201384#洺、磁十之六",
+        "元史/卷005@2201384#以歲不登，量減",
+        "元史/卷005@2201384#東平、大名等路旱，量減今歲田租"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-DROUGHT-TAX-RELIEF-1263",
+      "time_range": {
+        "end": "中统四年八月至十一月",
+        "precision": "month",
+        "start": "中统四年八月至十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "西凉战后赈钞并免租三年。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-XILIANG-RELIEF",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-XILIANG-RELIEF"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "西涼"
+      ],
+      "observable_result": "西凉战后居民与返乡流民获得三年税役恢复期。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "战争造成居民困弊和流亡。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "赈钞并免租赋三年。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "返业民户获三年复免。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "鼓励恢复生产。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-xiliang-relief",
+      "source_refs": [
+        "元史/卷005@2201384#西涼經兵，居民困弊",
+        "元史/卷005@2201384#弊，給鈔賑之，",
+        "元史/卷005@2201384#仍免租賦三年",
+        "元史/卷005@2201384#西涼流民復業者，復其家三年"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-XILIANG-RELIEF",
+      "time_range": {
+        "end": "中统四年八月",
+        "precision": "month",
+        "start": "中统四年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "至元元年华北多路大水。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-YUANSHI-005-FLOOD-1264",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-FLOOD-1264"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "真定",
+        "順天",
+        "大名",
+        "東平",
+        "濟南",
+        "河間等"
+      ],
+      "observable_result": "广泛水灾被记录，但本卷未载专项赈免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "多路发生洪水。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "本卷未载专项税免。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "灾民规模与损失未载。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "农田与交通损害未载。"
+        }
+      ],
+      "operation_status": "unclear",
+      "semantic_fingerprint": "candidate-fin-cand-yuanshi-005-flood-1264",
+      "source_refs": [
+        "元史/卷005@2201384#真定、順天、洺、磁、順德、大名、東平、曹、濮州、泰安、高唐、濟州、博州、德州、濟南、濱、棣、淄、萊、河間大水"
+      ],
+      "thread_ref": "FIN-THREAD-YUANSHI-005-FLOOD-1264",
+      "time_range": {
+        "end": "至元元年",
+        "precision": "month",
+        "start": "至元元年"
+      },
+      "uncertainties": []
+    }
+  ],
+  "limitations": [
+    "本卷政令与战事密集，按同一时间窗、主体和共同结果合并，互不相关事项分开。",
+    "所有战斗仅转交战役工作流，不在本卷结算胜负分值。",
+    "未载伤亡、受益人数、工程成本和制度执行效果处保持未知。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "制定中外官俸条格。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-OFFICIAL-SALARIES",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-OFFICIAL-SALARIES"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "中央与诸路"
+      ],
+      "observable_result": "官俸由临时给付转为成文标准。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "官僚薪酬制度。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "中外官员如何领取俸禄。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "维持未定标准。"
+        },
+        {
+          "dimension": "decision",
+          "value": "制定俸禄并议条格。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "官俸制度初定。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "中央规范官员财政供给。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "财政成本和防贪效果未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "后续条格仍有调整。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-official-salaries",
+      "source_refs": [
+        "元史/卷005@2201384#始定中外官俸",
+        "元史/卷005@2201384#命大司農姚樞講定條格"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-OFFICIAL-SALARIES",
+      "time_range": {
+        "end": "中统三年二月",
+        "precision": "month",
+        "start": "中统三年二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "赦李璮胁从军民并禁掠还马。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-LITAN-AMNESTIES",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-LITAN-AMNESTIES"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "博興",
+        "高苑",
+        "益都",
+        "濟南"
+      ],
+      "observable_result": "多数胁从者免罪，部分被掠财产获得返还原则。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "叛乱善后与财产返还。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处置大批胁从者。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "普遍追罪。"
+        },
+        {
+          "dimension": "decision",
+          "value": "多次赦免并禁军掠。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "胁从者原则免罪，民马归主。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "朝廷通过宽赦恢复山东秩序。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "主从认定和其他财产补偿未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "济南民可控告裨校掠财。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-litan-amnesties",
+      "source_refs": [
+        "元史/卷005@2201384#嘗為李璮脅從者，並釋其罪",
+        "元史/卷005@2201384#仍禁蒙古、漢軍剽掠",
+        "元史/卷005@2201384#為李璮脅從者，並赦其罪",
+        "元史/卷005@2201384#以李璮所掠民馬還其主"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-LITAN-AMNESTIES",
+      "time_range": {
+        "end": "中统三年四月至十月",
+        "precision": "month",
+        "start": "中统三年四月至十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "确立重刑奏闻和复审要求。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-STRICT-DEATH-REVIEW",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-STRICT-DEATH-REVIEW"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "死刑处置被反复要求上奏复核。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "死刑复核。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "地方能否自行处决重罪。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "允许先斩后报。"
+        },
+        {
+          "dimension": "decision",
+          "value": "审实奏闻并重审。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "擅杀者被问责，死刑案复核。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "死刑权向中央集中。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "复审期限和救济程序未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "世祖另命怒时缓一二日覆奏。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-strict-death-review",
+      "source_refs": [
+        "元史/卷005@2201384#必先奏聞，然後置諸法",
+        "元史/卷005@2201384#命諸路詳讞寃獄",
+        "元史/卷005@2201384#詔詰其違制之罪",
+        "元史/卷005@2201384#犯罪應死者五十三人，詔重加詳讞"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-STRICT-DEATH-REVIEW",
+      "time_range": {
+        "end": "中统三年四月至十二月",
+        "precision": "month",
+        "start": "中统三年四月至十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "山东军民分治并重编武卫军。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "益都",
+        "山東"
+      ],
+      "observable_result": "李璮乱后山东地方军政分权，军户抽取制度化。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "军民分治。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何防止地方军政合一再叛。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "继续由万户兼治军民。"
+        },
+        {
+          "dimension": "decision",
+          "value": "董文炳领军、撒吉思治民。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "军籍民籍分开。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "地方军帅民政权被拆分。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "十户取二造成军役压力。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "年底明令总管只理民事。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-shandong-military-civil-separation",
+      "source_refs": [
+        "元史/卷005@2201384#每十戶惟取其二充武衞軍",
+        "元史/卷005@2201384#分益都軍民為二",
+        "元史/卷005@2201384#董文炳領軍，撒吉思治民"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION",
+      "time_range": {
+        "end": "中统三年九月至十月",
+        "precision": "month",
+        "start": "中统三年九月至十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "地方可拘执倚势扰民者。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "对宗室、使臣和军队扰民建立现场拘捕机制。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "权贵军队行为约束。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "地方如何处置恃势扰民者。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "仅事后奏报。"
+        },
+        {
+          "dimension": "decision",
+          "value": "现场拘执并上报。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "形成明文执法授权。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "地方官对权贵军队取得有限制止权。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "能否实际拘执诸王使臣未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "后续继续申禁军扰民。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-restrain-powerful-harassment",
+      "source_refs": [
+        "元史/卷005@2201384#禁諸王、使臣、師旅敢有恃勢擾民者，所在執以聞"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT",
+      "time_range": {
+        "end": "中统三年十月",
+        "precision": "month",
+        "start": "中统三年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "怒时诛杀须延迟覆奏。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-ANGER-DEATH-DELAY",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ANGER-DEATH-DELAY"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "朝廷"
+      ],
+      "observable_result": "皇帝自设情绪性诛杀的延迟复奏约束。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "皇权自我约束。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何防止盛怒误杀。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "立即执行口谕。"
+        },
+        {
+          "dimension": "decision",
+          "value": "延迟一二日覆奏。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "臣下获明确缓奏责任。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "执行官对即时杀令可暂缓。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "是否制度化和违从责任未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "后卷需观察实际案例。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-anger-death-delay",
+      "source_refs": [
+        "元史/卷005@2201384#朕或乘怒欲有所誅殺，卿等宜遲留一二日，覆奏行之"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-ANGER-DEATH-DELAY",
+      "time_range": {
+        "end": "中统三年十一月",
+        "precision": "month",
+        "start": "中统三年十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "全国确立军民官分职互不统摄。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "李璮乱后军政分职成为全国性制度。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "地方军政权拆分。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何防止管民官兼控军权和家族化。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "维持军民兼领。"
+        },
+        {
+          "dimension": "decision",
+          "value": "军政分司并罢官员子弟分管。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "职责边界形成。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "地方世袭复合权力被削弱。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "协调成本和基层例外未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "至元元年罢诸侯世守立迁转法。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-civil-military-office-separation",
+      "source_refs": [
+        "元史/卷005@2201384#止理民事，軍政勿預",
+        "元史/卷005@2201384#總管子弟，有分管州、府、司、縣",
+        "元史/卷005@2201384#管民官理民事，管軍官掌兵戎",
+        "元史/卷005@2201384#司，不相統攝"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION",
+      "time_range": {
+        "end": "中统三年十二月",
+        "precision": "month",
+        "start": "中统三年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "设枢密院并升开平为上都。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "開平",
+        "上都"
+      ],
+      "observable_result": "中央军事机关与上都行政地位确立，真金兼领中书枢密。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "中央军政与都城建制。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何设置军事中枢和北方都城。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "由中书兼管军事、维持开平府。"
+        },
+        {
+          "dimension": "decision",
+          "value": "设枢密院并升上都。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "真金兼判枢密，上都置路官。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "皇子掌军政，上都地位提升。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "权力集中和建都成本未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "至元元年罢部分枢密断事官。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-shangdu-and-privy-council",
+      "source_refs": [
+        "元史/卷005@2201384#初立樞密院",
+        "元史/卷005@2201384#燕王守中書令，兼判樞密院事",
+        "元史/卷005@2201384#陞開平府為上都"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL",
+      "time_range": {
+        "end": "中统四年五月",
+        "precision": "month",
+        "start": "中统四年五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "至元改元并颁综合行政条格。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-ZHIYUAN-REFORM-EDICT",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ZHIYUAN-REFORM-EDICT"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "内战后全国行政、财政、民政与监察规则集中重建。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "改元大赦与行政法制重建。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "内战结束后如何统一治理。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "延续中统战时体制。"
+        },
+        {
+          "dimension": "decision",
+          "value": "改元并颁多领域条格。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "州县、官员、赋役与监察标准确立。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "行省与都省控制加强。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "裁并州县和赋役调整的地方成本未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "各行省分别颁行条格。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-zhiyuan-reform-edict",
+      "source_refs": [
+        "元史/卷005@2201384#改中統五年為至元元年",
+        "元史/卷005@2201384#可大赦天下",
+        "元史/卷005@2201384#省併州縣，定官吏員數",
+        "元史/卷005@2201384#給俸祿，頒公田",
+        "元史/卷005@2201384#均賦役，招流移",
+        "元史/卷005@2201384#恤鰥寡，勸農桑",
+        "元史/卷005@2201384#澤，平物價；具"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-ZHIYUAN-REFORM-EDICT",
+      "time_range": {
+        "end": "至元元年八月",
+        "precision": "month",
+        "start": "至元元年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "规范诸王使臣与站户负担。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "宗王使臣特权受到制度约束，站户免税田额明确。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "宗王使臣特权约束。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何限制宗王侵扰中枢与民户。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "维持口传旨与私招户。"
+        },
+        {
+          "dimension": "decision",
+          "value": "明定禁令和驿税规则。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "诸王使臣权限收窄。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "中书省及地方总管权上升。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "站户四顷以外税负和执行未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "后续仍多次整顿驿传。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-princely-envoy-limits-1264",
+      "source_refs": [
+        "元史/卷005@2201384#不許擅招民戶",
+        "元史/卷005@2201384#不得以銀與非投下人為斡脫",
+        "元史/卷005@2201384#禁口傳敕旨",
+        "元史/卷005@2201384#諸站戶限田四頃免稅"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264",
+      "time_range": {
+        "end": "至元元年八月",
+        "precision": "month",
+        "start": "至元元年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "真金定期判署朝政，刘秉忠参领中书。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-ZHENJIN-STATE-ROLE",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ZHENJIN-STATE-ROLE"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "中书省"
+      ],
+      "observable_result": "真金正式参与最高行政签署，刘秉忠进入中枢。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "皇子参政与宰辅任用。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "燕王如何实际参与中书。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "仅保留名义头衔。"
+        },
+        {
+          "dimension": "decision",
+          "value": "置幕位并定期判署。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇子参政程序化。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "真金与刘秉忠中枢权力上升。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "与宰相权责重叠未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "储位政治后续延续。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-zhenjin-state-role",
+      "source_refs": [
+        "元史/卷005@2201384#命燕王署敕",
+        "元史/卷005@2201384#宜於省中別置幕位",
+        "元史/卷005@2201384#至，判署朝政",
+        "元史/卷005@2201384#拜太保，參領中書省事"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-ZHENJIN-STATE-ROLE",
+      "time_range": {
+        "end": "至元元年八月",
+        "precision": "month",
+        "start": "至元元年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "罢诸侯世守并立迁转法。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-YUANSHI-005-ABOLISH-HEREDITARY-LORDS",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ABOLISH-HEREDITARY-LORDS"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "诸路"
+      ],
+      "observable_result": "地方世袭与投下官权进一步转入流官和总管体系。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "地方官制去世袭化。"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "地方军民官是否继续世守。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "保留投下和诸侯世袭。"
+        },
+        {
+          "dimension": "decision",
+          "value": "裁撤并实行迁转。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "流官迁转原则建立。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "中央任免权增强。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "旧权力抵抗和地方连续性风险未载。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "后续迁转执行待查。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-yuanshi-005-abolish-hereditary-lords",
+      "source_refs": [
+        "元史/卷005@2201384#罷各投下達魯花赤",
+        "元史/卷005@2201384#令總管府兼總押所",
+        "元史/卷005@2201384#始罷諸侯世守，立遷轉法"
+      ],
+      "thread_ref": "POL-THREAD-YUANSHI-005-ABOLISH-HEREDITARY-LORDS",
+      "time_range": {
+        "end": "至元元年十二月",
+        "precision": "month",
+        "start": "至元元年十二月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "郭守敬造漏刻并迁燕京。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-005-BAOSHAN-WATER-CLOCK",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-BAOSHAN-WATER-CLOCK"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "寶山",
+        "燕京"
+      ],
+      "observable_result": "新制计时仪器进入燕京使用。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "宝山漏刻。"
+        },
+        {
+          "dimension": "phase",
+          "value": "制造完成并迁移。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "官方计时。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "材料与工时未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "迁燕京后使用情况未详。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "提供计时设施。"
+        },
+        {
+          "dimension": "harm",
+          "value": "无载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-005-baoshan-water-clock",
+      "source_refs": [
+        "元史/卷005@2201384#郭守敬造寶山漏成，徙至燕京"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-005-BAOSHAN-WATER-CLOCK",
+      "time_range": {
+        "end": "中统三年二月",
+        "precision": "month",
+        "start": "中统三年二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "中统三年扩设燕济和燕开驿路。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-005-POST-AND-TRANSPORT-1262",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-POST-AND-TRANSPORT-1262"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "燕京",
+        "濟南",
+        "開平",
+        "古北口"
+      ],
+      "observable_result": "平叛和北方交通形成连续驿运节点。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "海青驿、牛驿及古北口等驿。"
+        },
+        {
+          "dimension": "phase",
+          "value": "新设并配置车牛。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "军政文书与转输。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "官钞购车牛，金额未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "多线驿站投入使用。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "连接燕京、济南、开平。"
+        },
+        {
+          "dimension": "harm",
+          "value": "站户负担未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-005-post-and-transport-1262",
+      "source_refs": [
+        "元史/卷005@2201384#燕京至濟南置海青驛凡八所",
+        "元史/卷005@2201384#自燕至開平立牛驛",
+        "元史/卷005@2201384#給鈔市車牛",
+        "元史/卷005@2201384#立古北口驛",
+        "元史/卷005@2201384#順州至開平置六驛"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-005-POST-AND-TRANSPORT-1262",
+      "time_range": {
+        "end": "中统三年三月至闰九月",
+        "precision": "month",
+        "start": "中统三年三月至闰九月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "设四处铁冶并岁输铁。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-005-IRONWORKS-1262",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-IRONWORKS-1262"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "小峪",
+        "蘆子",
+        "寧武軍",
+        "赤泥泉"
+      ],
+      "observable_result": "北方官营铁冶体系扩张。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "四处官营铁冶。"
+        },
+        {
+          "dimension": "phase",
+          "value": "设置并规定岁输。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "供应官用铁。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "矿户、炉数和成本未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "宁武军按岁输铁。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "增加铁料供给。"
+        },
+        {
+          "dimension": "harm",
+          "value": "矿役和环境影响未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-005-ironworks-1262",
+      "source_refs": [
+        "元史/卷005@2201384#歲輸所產鐵",
+        "元史/卷005@2201384#，立小峪、蘆子、寧武軍、赤泥泉鐵冶四所"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-005-IRONWORKS-1262",
+      "time_range": {
+        "end": "中统三年六月",
+        "precision": "month",
+        "start": "中统三年六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "批准玉泉漕运和邢洺灌溉工程。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-005-GUANGJI-YUQUAN-CANALS",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-GUANGJI-YUQUAN-CANALS"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "玉泉",
+        "邢州",
+        "洺州",
+        "漳河",
+        "滏河"
+      ],
+      "observable_result": "漕运与灌溉工程获得立项。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "玉泉漕渠及邢洺灌溉河渠。"
+        },
+        {
+          "dimension": "phase",
+          "value": "奏请获准。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "漕运与灌田。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "预算、役夫未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "本卷未载竣工。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "预期改善运输灌溉。"
+        },
+        {
+          "dimension": "harm",
+          "value": "分水影响未载。"
+        }
+      ],
+      "operation_status": "proposed",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-005-guangji-yuquan-canals",
+      "source_refs": [
+        "元史/卷005@2201384#請開玉泉水以通漕運",
+        "元史/卷005@2201384#請開邢、洺等處漳、滏（澧）〔灃〕河、達泉以溉民田",
+        "元史/卷005@2201384#15]並從之。甲午"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-005-GUANGJI-YUQUAN-CANALS",
+      "time_range": {
+        "end": "中统三年八月",
+        "precision": "month",
+        "start": "中统三年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "修复宿蕲邳息诸城。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-YUANSHI-005-REBUILD-BORDER-CITIES",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-REBUILD-BORDER-CITIES"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "宿州",
+        "蘄縣",
+        "邳州",
+        "息州"
+      ],
+      "observable_result": "宋元边区数座城防获得恢复。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "宿蕲邳息边城。"
+        },
+        {
+          "dimension": "phase",
+          "value": "修复或复立。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "边防与安民。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "兵役材料未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "后续驻军未详。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "恢复城防和居民依托。"
+        },
+        {
+          "dimension": "harm",
+          "value": "徭役与拆迁未载。"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-yuanshi-005-rebuild-border-cities",
+      "source_refs": [
+        "元史/卷005@2201384#修復宿州、蘄縣",
+        "元史/卷005@2201384#修完邳州城郭",
+        "元史/卷005@2201384#復立息州城以安其民"
+      ],
+      "thread_ref": "WORK-THREAD-YUANSHI-005-REBUILD-BORDER-CITIES",
+      "time_range": {
+        "end": "中统三年十月至十二月",
+        "precision": "month",
+        "start": "中统三年十月至十二月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "registry_version": "YUAN-YUANSHI-005-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "至元元年大水户口与死刑数",
+    "input_fingerprint": "f982f1db8aafb4a840fb64751e1b884e6dfbdfea088b448e6f0409a9cc470285",
+    "overlap_context": "续卷4中统二年末；卷5载中统三年至至元元年，卷6续至元二年。",
+    "revision_ref": "2201384",
+    "start_locator": "中统三年修宣圣庙成",
+    "volume_ref": "卷005",
+    "work": "元史"
+  },
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-005-MULTIDOMAIN",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-DEBT-SUSPENSION-1262"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-debt-suspension-1262",
+      "status": "closed",
+      "summary": "军兴下停征逋负并罢饥民上供羊。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-DEBT-SUSPENSION-1262",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-military-grain-and-poor-soldiers",
+      "status": "closed",
+      "summary": "增价籴军粮并存恤贫军、禁牧伤农。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-MILITARY-GRAIN-AND-POOR-SOLDIERS",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-OFFICIAL-SALARIES"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-official-salaries",
+      "status": "closed",
+      "summary": "制定中外官俸条格。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-OFFICIAL-SALARIES",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-BAOSHAN-WATER-CLOCK"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-005-baoshan-water-clock",
+      "status": "closed",
+      "summary": "郭守敬造漏刻并迁燕京。",
+      "thread_ref": "WORK-THREAD-YUANSHI-005-BAOSHAN-WATER-CLOCK",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-LITAN-AMNESTIES"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-litan-amnesties",
+      "status": "closed",
+      "summary": "赦李璮胁从军民并禁掠还马。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-LITAN-AMNESTIES",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-AGRICULTURE-PROTECTION-1262"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-agriculture-protection-1262",
+      "status": "closed",
+      "summary": "战区护农、垦田并禁不急役。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-AGRICULTURE-PROTECTION-1262",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-WARTIME-TAX-RELIEF-1262"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-wartime-tax-relief-1262",
+      "status": "closed",
+      "summary": "中统三年战区分级免税。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-WARTIME-TAX-RELIEF-1262",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-STRICT-DEATH-REVIEW"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-strict-death-review",
+      "status": "closed",
+      "summary": "确立重刑奏闻和复审要求。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-STRICT-DEATH-REVIEW",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-POST-AND-TRANSPORT-1262"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-005-post-and-transport-1262",
+      "status": "closed",
+      "summary": "中统三年扩设燕济和燕开驿路。",
+      "thread_ref": "WORK-THREAD-YUANSHI-005-POST-AND-TRANSPORT-1262",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-SILK-SILVER-RELIEF"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-silk-silver-relief",
+      "status": "closed",
+      "summary": "丝银减免并按户类重定赋役。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-SILK-SILVER-RELIEF",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-EASTPING-DEBT-FORGIVENESS"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-eastping-debt-forgiveness",
+      "status": "closed",
+      "summary": "豁免东平代民输赋巨债。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-EASTPING-DEBT-FORGIVENESS",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-IRONWORKS-1262"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-005-ironworks-1262",
+      "status": "closed",
+      "summary": "设四处铁冶并岁输铁。",
+      "thread_ref": "WORK-THREAD-YUANSHI-005-IRONWORKS-1262",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-GUANGJI-YUQUAN-CANALS"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-005-guangji-yuquan-canals",
+      "status": "closed",
+      "summary": "批准玉泉漕运和邢洺灌溉工程。",
+      "thread_ref": "WORK-THREAD-YUANSHI-005-GUANGJI-YUQUAN-CANALS",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-JINAN-FAMINE-RELIEF"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-jinan-famine-relief",
+      "status": "closed",
+      "summary": "济南围城后免税并发粟赈饥。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-JINAN-FAMINE-RELIEF",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-shandong-military-civil-separation",
+      "status": "closed",
+      "summary": "山东军民分治并重编武卫军。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-SHANDONG-MILITARY-CIVIL-SEPARATION",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-DEMOBILIZATION-1262"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-demobilization-1262",
+      "status": "closed",
+      "summary": "平叛后放军为民并免军户杂徭。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-DEMOBILIZATION-1262",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-restrain-powerful-harassment",
+      "status": "closed",
+      "summary": "地方可拘执倚势扰民者。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-RESTRAIN-POWERFUL-HARASSMENT",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-YUANSHI-005-REBUILD-BORDER-CITIES"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-yuanshi-005-rebuild-border-cities",
+      "status": "closed",
+      "summary": "修复宿蕲邳息诸城。",
+      "thread_ref": "WORK-THREAD-YUANSHI-005-REBUILD-BORDER-CITIES",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ANGER-DEATH-DELAY"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-anger-death-delay",
+      "status": "closed",
+      "summary": "怒时诛杀须延迟覆奏。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-ANGER-DEATH-DELAY",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-civil-military-office-separation",
+      "status": "closed",
+      "summary": "全国确立军民官分职互不统摄。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-CIVIL-MILITARY-OFFICE-SEPARATION",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-HUAI-NEW-FARMERS"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-huai-new-farmers",
+      "status": "closed",
+      "summary": "给移民新民牛具种子布匹。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-HUAI-NEW-FARMERS",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-YEAR4-TAX-AND-IRON"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-year4-tax-and-iron",
+      "status": "closed",
+      "summary": "包银货币化并扩张铁冶农器换粮。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-YEAR4-TAX-AND-IRON",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-PINGZHUN-WAREHOUSES"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-pingzhun-warehouses",
+      "status": "closed",
+      "summary": "平准库由燕京推广诸路。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-PINGZHUN-WAREHOUSES",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-shangdu-and-privy-council",
+      "status": "closed",
+      "summary": "设枢密院并升开平为上都。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-SHANGDU-AND-PRIVY-COUNCIL",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-DROUGHT-TAX-RELIEF-1263"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-drought-tax-relief-1263",
+      "status": "closed",
+      "summary": "中统四年旱区分级减租。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-DROUGHT-TAX-RELIEF-1263",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-XILIANG-RELIEF"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-xiliang-relief",
+      "status": "closed",
+      "summary": "西凉战后赈钞并免租三年。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-XILIANG-RELIEF",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ZHIYUAN-REFORM-EDICT"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-zhiyuan-reform-edict",
+      "status": "closed",
+      "summary": "至元改元并颁综合行政条格。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-ZHIYUAN-REFORM-EDICT",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-princely-envoy-limits-1264",
+      "status": "closed",
+      "summary": "规范诸王使臣与站户负担。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-PRINCELY-ENVOY-LIMITS-1264",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ZHENJIN-STATE-ROLE"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-zhenjin-state-role",
+      "status": "closed",
+      "summary": "真金定期判署朝政，刘秉忠参领中书。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-ZHENJIN-STATE-ROLE",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-YUANSHI-005-ABOLISH-HEREDITARY-LORDS"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-yuanshi-005-abolish-hereditary-lords",
+      "status": "closed",
+      "summary": "罢诸侯世守并立迁转法。",
+      "thread_ref": "POL-THREAD-YUANSHI-005-ABOLISH-HEREDITARY-LORDS",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-YUANSHI-005-FLOOD-1264"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-yuanshi-005-flood-1264",
+      "status": "closed",
+      "summary": "至元元年华北多路大水。",
+      "thread_ref": "FIN-THREAD-YUANSHI-005-FLOOD-1264",
+      "uncertainties": []
+    }
+  ]
+}

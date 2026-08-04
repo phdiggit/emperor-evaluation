@@ -1,0 +1,852 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-131",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷131",
+    "revision_ref": "2310795",
+    "start_locator": "紹興二十六年正月金群臣上其主尊號",
+    "end_locator": "帝嘗制宣聖及七十子像贊，親書之。是月，始命刻石。",
+    "overlap_context": "承卷130秦檜死後政局调整；固定缓存记录在offset 5818出现唯一的显式卷132标题，卷131正文止于该标题前；未读卷132。",
+    "input_fingerprint": "e4aa8af8a2476058f6291ff9ce44b14c2ce4560be68942bd1157b8b509d39f72"
+  },
+  "limitations": [
+    "固定缓存整条记录11,446字，revision/fingerprint校验其全文；卷131正文边界为标题前5,818字，前缀SHA-256为4fd5fbaeaf7b356922cc7bcd598226d46642522a162a91613b652300acaf248a。",
+    "offset 5818后的唯一标记是显式卷132标题，未读取或使用其正文。",
+    "战役仅交接专门工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-131-WANG-XU-DISMISSAL-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "行在"
+      ],
+      "action": "王瑉、徐仿因谄事秦桧且无政绩被罢。",
+      "result": "两名台谏官退出职位。",
+      "quote": [
+        "王瑉、權吏部侍郎徐仿罷",
+        "皆以諂事秦檜故驟為台諫",
+        "無一事裨補時政"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-WANG-XU-DISMISSAL-1156",
+        "candidate": "POL-CAND-131-WANG-XU-DISMISSAL-1156",
+        "summary": "王瑉、徐仿因附秦桧被罢。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "台谏清理。",
+          "direct_result": "二人罢职。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-EARLY-REHABILITATIONS-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷追复赵鼎、孙近、郑刚中、汪藻等旧臣职名。",
+      "result": "秦桧时期贬抑的多名旧臣首先获得平反。",
+      "quote": [
+        "趙鼎，追復觀文殿大學士",
+        "並追復資政殿學士。",
+        "汪藻，追復顯謨閣學士"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-EARLY-REHABILITATIONS-1156",
+        "candidate": "POL-CAND-131-EARLY-REHABILITATIONS-1156",
+        "summary": "赵鼎等旧臣获追复。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治平反。",
+          "direct_result": "恢复旧职名。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-JIN-CENTRAL-RESTRUCTURE-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝罢中书、门下两省，重置尚书令与三公。",
+      "result": "金廷中央官制改组。",
+      "quote": [
+        "罷中書、門下省",
+        "以太師溫都思忠為尚書令",
+        "右丞相布薩師恭為太尉"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-JIN-CENTRAL-RESTRUCTURE-1156",
+        "candidate": "POL-CAND-131-JIN-CENTRAL-RESTRUCTURE-1156",
+        "summary": "金廷罢两省并重组中枢。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "中央官制。",
+          "direct_result": "尚书令与三公重置。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-REMONSTRANCE-OFFICES-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗鉴于秦桧擅权，增置察官与台谏言事官。",
+      "result": "监察与进言岗位扩充。",
+      "quote": [
+        "帝監秦檜擅權之弊",
+        "遂增置言事官",
+        "並為察官，而湯鵬舉、周方崇、淩哲為台諫"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-REMONSTRANCE-OFFICES-1156",
+        "candidate": "POL-CAND-131-REMONSTRANCE-OFFICES-1156",
+        "summary": "高宗扩充察官与台谏。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "监察制度。",
+          "direct_result": "增置言事官。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-APPOINTEE-ENTRY-RESTRICTION-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "國門"
+      ],
+      "action": "朝廷限已授差遣者五日出门，并禁止在贬谪者擅入国门。",
+      "result": "官员赴任与贬谪人员入京受到时间和空间限制。",
+      "quote": [
+        "已得差遣人，限五日出門",
+        "在貶謫者，不得輒入國門"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-APPOINTEE-ENTRY-RESTRICTION-1156",
+        "candidate": "POL-CAND-131-APPOINTEE-ENTRY-RESTRICTION-1156",
+        "summary": "赴任与贬谪者入京受限。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "官员管理。",
+          "direct_result": "设五日出门与入京禁令。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-GUANGDONG-VACANCY-REFORM-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "廣東西路"
+      ],
+      "action": "高宗采纳黄公度意见，将偏远小郡守臣缺额拨归吏部。",
+      "result": "长期空缺、权官频换造成的迎送与民困被纳入部选。",
+      "quote": [
+        "有至十年不除守臣者",
+        "公私疲於迎送，民受其弊",
+        "若撥歸部，當無此弊"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-GUANGDONG-VACANCY-REFORM-1156",
+        "candidate": "POL-CAND-131-GUANGDONG-VACANCY-REFORM-1156",
+        "summary": "岭外小郡守臣缺额改归部选。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "地方任官改革。",
+          "direct_result": "缺额拨归部选。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-SICHUAN-RELIEF-REQUEST-1156",
+      "time": "紹興二十六年正月",
+      "loc": [
+        "川蜀",
+        "黎州"
+      ],
+      "action": "唐秬陈述钟世明已蠲减川蜀虚额，并请求续降招抚谕。",
+      "result": "川蜀减虚额成效与安民请求上达朝廷。",
+      "quote": [
+        "鐘世明裕民川蜀，蠲減虛額",
+        "額，人受其賜",
+        "更請降招撫諭"
+      ],
+      "unknown": [
+        "固定正文仅载陈请，未载续诏。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-131-SICHUAN-RELIEF-REQUEST-1156",
+        "candidate": "FIN-CAND-131-SICHUAN-RELIEF-REQUEST-1156",
+        "summary": "川蜀蠲减虚额成效被陈述。",
+        "operation": "unclear",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "川蜀虚额。",
+          "fiscal_state": "已蠲减。",
+          "livelihood_state": "人受其赐。",
+          "production_circulation": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-WEI-LIANGCHEN-DISMISSAL-1156",
+      "time": "紹興二十六年二月",
+      "loc": [
+        "行在"
+      ],
+      "action": "魏良臣被劾留堂除以市私恩、庇私党并干预狱案，抗章求去。",
+      "result": "魏良臣罢参知政事，出知绍兴府。",
+      "quote": [
+        "參知政事魏良臣罷",
+        "必留堂除以市私恩",
+        "是使獄官與之容私",
+        "去，乃有是命"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-WEI-LIANGCHEN-DISMISSAL-1156",
+        "candidate": "POL-CAND-131-WEI-LIANGCHEN-DISMISSAL-1156",
+        "summary": "魏良臣因徇私与干狱受罢。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "执政罢黜。",
+          "direct_result": "出知绍兴府。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-PRIME-MINISTER-PRIVY-SEPARATION-1156",
+      "time": "紹興二十六年三月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷以边事已定为由，恢复宰相不兼领枢密院使的祖宗制度。",
+      "result": "宰相与枢密职掌重新分离。",
+      "quote": [
+        "令宰相兼樞密院使",
+        "今邊事已定",
+        "宰相更不兼領"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-PRIME-MINISTER-PRIVY-SEPARATION-1156",
+        "candidate": "POL-CAND-131-PRIME-MINISTER-PRIVY-SEPARATION-1156",
+        "summary": "宰相与枢密职权恢复分离。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "中枢分权。",
+          "direct_result": "宰相不再兼枢密使。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-PEACE-POLICY-PROCLAMATION-1156",
+      "time": "紹興二十六年三月",
+      "loc": [
+        "宋金邊境"
+      ],
+      "action": "高宗诏示和议出于己志，禁止妄议边事并重申守信修睦。",
+      "result": "朝廷以严刑威慑改变和议政策的舆论与行动。",
+      "quote": [
+        "斷自朕志，決講和之策",
+        "故相秦檜，但能贊朕而已",
+        "如敢妄議，當置重典",
+        "遠人聞之，當自安矣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-PEACE-POLICY-PROCLAMATION-1156",
+        "candidate": "POL-CAND-131-PEACE-POLICY-PROCLAMATION-1156",
+        "summary": "高宗公开重申和议政策。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "对外政策诏令。",
+          "direct_result": "禁妄议边事。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-HONORARY-TITLES-STRIPPED-1156",
+      "time": "紹興二十六年四月",
+      "loc": [
+        "諸路"
+      ],
+      "action": "朝廷夺去十名曾被台劾监司、郡守的贴职。",
+      "result": "被论列的地方高官失去荣衔，贴职授予被重新收紧。",
+      "quote": [
+        "共十人。詔並奪職",
+        "並鐫落職名",
+        "非徒奸惡有所警懼"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-HONORARY-TITLES-STRIPPED-1156",
+        "candidate": "POL-CAND-131-HONORARY-TITLES-STRIPPED-1156",
+        "summary": "十名被台劾地方官失贴职。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "官员惩戒。",
+          "direct_result": "十人并夺职。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-MILITARY-SCHOOL-EXPANSION-1156",
+      "time": "紹興二十六年四月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷规定武学生额、三舍名额及博士学谕，旋又扩至百员。",
+      "result": "武学编制扩大并制度化。",
+      "quote": [
+        "武學生以八十人為額",
+        "置博士、學諭各一員",
+        "學生百員為額"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-MILITARY-SCHOOL-EXPANSION-1156",
+        "candidate": "POL-CAND-131-MILITARY-SCHOOL-EXPANSION-1156",
+        "summary": "武学定额后扩至百员。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军事教育。",
+          "direct_result": "武学生额扩大。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-AUSPICIOUS-OMEN-BAN-1156",
+      "time": "紹興二十六年四月",
+      "loc": [
+        "諸路州軍"
+      ],
+      "action": "高宗禁止诸路州军奏报祥瑞，批评以空文取悦的风气。",
+      "result": "祥瑞奏报被停止，年丰谷登被提出为可取标准。",
+      "quote": [
+        "不得奏祥瑞",
+        "皆飾空文，取悅一時",
+        "年豐穀登，可以為瑞"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-AUSPICIOUS-OMEN-BAN-1156",
+        "candidate": "POL-CAND-131-AUSPICIOUS-OMEN-BAN-1156",
+        "summary": "州军祥瑞奏报被禁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政治风气整顿。",
+          "direct_result": "禁报祥瑞。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-SIX-RECOMMENDATION-CATEGORIES-1156",
+      "time": "紹興二十六年四月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷设六科，由侍从每岁举荐文、谏、法、财、地方和将帅人才。",
+      "result": "人才举荐按职能分科并改为年度运行。",
+      "quote": [
+        "置六科以舉士",
+        "節用愛民，可備理財",
+        "勞績著聞，可備監司、郡守",
+        "令侍從歲舉之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-SIX-RECOMMENDATION-CATEGORIES-1156",
+        "candidate": "POL-CAND-131-SIX-RECOMMENDATION-CATEGORIES-1156",
+        "summary": "朝廷设六科年度举荐人才。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "选官制度。",
+          "direct_result": "侍从岁举六类人才。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-MASS-REHABILITATION-BENEFITS-1156",
+      "time": "紹興二十六年五月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷对赵鼎、孙近、汪藻等已追复旧臣再授致仕恩泽，并扩及多名故臣。",
+      "result": "平反从恢复职名进一步落实为家属恩泽。",
+      "quote": [
+        "特與致仕恩澤四名",
+        "與致仕恩澤三名",
+        "並特與恩澤一名"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-MASS-REHABILITATION-BENEFITS-1156",
+        "candidate": "POL-CAND-131-MASS-REHABILITATION-BENEFITS-1156",
+        "summary": "旧臣平反扩展为恩泽安排。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "政治平反与恩泽。",
+          "direct_result": "多家获恩泽。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-LI-XIANZHONG-COMPENSATION-1156",
+      "time": "紹興二十六年五月",
+      "loc": [
+        "行在"
+      ],
+      "action": "朝廷因李显忠归朝后全家被害，再给其五资优恤。",
+      "result": "归朝将领家属损失获得追加补偿。",
+      "quote": [
+        "李顯忠昨緣歸朝，全家被害",
+        "害，理宜優恤",
+        "更特與五資"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-LI-XIANZHONG-COMPENSATION-1156",
+        "candidate": "POL-CAND-131-LI-XIANZHONG-COMPENSATION-1156",
+        "summary": "李显忠因归朝家难获追加优恤。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "军人优恤。",
+          "direct_result": "追加五资。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-ZHANG-JUN-WARNING-IGNORED-1156",
+      "time": "紹興二十六年五月",
+      "loc": [
+        "行在"
+      ],
+      "action": "张浚警告民力财用与军队将衰、金可能渝盟，请求密谋长策。",
+      "result": "其奏疏未获执政处理。",
+      "quote": [
+        "民力益竭，財用益乏，士卒益老",
+        "內憂外患相仍而起",
+        "書奏，執政不省"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-ZHANG-JUN-WARNING-IGNORED-1156",
+        "candidate": "POL-CAND-131-ZHANG-JUN-WARNING-IGNORED-1156",
+        "summary": "张浚边备警告未获处理。",
+        "operation": "failed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "边备政策争论。",
+          "direct_result": "执政不省。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-JIN-ZHENGLONG-CODE-1156",
+      "time": "紹興二十六年五月",
+      "loc": [
+        "金境"
+      ],
+      "action": "金朝颁行正隆官制。",
+      "result": "金廷新官制进入施行。",
+      "quote": [
+        "金頒行正隆官制"
+      ],
+      "unknown": [
+        "固定正文未载具体条文。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-JIN-ZHENGLONG-CODE-1156",
+        "candidate": "POL-CAND-131-JIN-ZHENGLONG-CODE-1156",
+        "summary": "金朝颁行正隆官制。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "官制颁行。",
+          "direct_result": "正隆官制施行。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-IMPERIAL-NATAL-TEMPLE-1156",
+      "time": "紹興二十六年六月",
+      "loc": [
+        "萬壽觀"
+      ],
+      "action": "朝廷在万寿观营建皇帝本命殿，名纯福。",
+      "result": "皇帝本命殿工程立项。",
+      "quote": [
+        "作皇帝本命殿于萬壽觀",
+        "以純福為名"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-131-IMPERIAL-NATAL-TEMPLE-1156",
+        "candidate": "WORK-CAND-131-IMPERIAL-NATAL-TEMPLE-1156",
+        "summary": "万寿观纯福本命殿营建。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "纯福本命殿。",
+          "phase": "营建命名。",
+          "purpose": "皇帝本命殿。",
+          "resource_input": "未载。",
+          "operation": "作于万寿观。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-COMET-RESPONSIVE-GOVERNANCE-1156",
+      "time": "紹興二十六年七月",
+      "loc": [
+        "諸路州縣"
+      ],
+      "action": "彗星出现后，高宗下令受理士庶陈言、监司郡守报告便民宽恤事项，并令提刑亲赴疏决。",
+      "result": "民生、官吏和司法问题被纳入跨层级整顿命令。",
+      "quote": [
+        "民間有疾苦，刑獄有冤濫",
+        "士庶實封陳言",
+        "條具便民、寬恤合行事件聞奏",
+        "提點刑獄官躬詣屬州縣",
+        "人，日下疏放"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-COMET-RESPONSIVE-GOVERNANCE-1156",
+        "candidate": "POL-CAND-131-COMET-RESPONSIVE-GOVERNANCE-1156",
+        "summary": "彗星后启动陈言、宽恤与疏决。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "危机响应治理。",
+          "direct_result": "下令便民宽恤与疏放。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-ANNAM-TRIBUTE-1156",
+      "time": "紹興二十六年八月",
+      "loc": [
+        "行在"
+      ],
+      "action": "南平王李天祚遣使献金、香、绫绢、马象，宋廷宴使并加封其属。",
+      "result": "安南朝贡与册赏关系得到延续和加固。",
+      "quote": [
+        "遣太平州刺史李國",
+        "獻黃金器千一百三十六兩",
+        "燕國於玉津園",
+        "加賜襲衣、金帶、器、幣有差"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-ANNAM-TRIBUTE-1156",
+        "candidate": "POL-CAND-131-ANNAM-TRIBUTE-1156",
+        "summary": "安南朝贡获宴赏与加封。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "朝贡外交。",
+          "direct_result": "来使与首领获赏。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-WU-LIN-COMMAND-1156",
+      "time": "紹興二十六年九月",
+      "loc": [
+        "興州"
+      ],
+      "action": "吴璘继续领御前诸军都统制并判兴州，其兵书提出以分队、番休和强弩应对金军长项。",
+      "result": "宋廷维持兴州统军安排并留下针对金军的战术主张。",
+      "quote": [
+        "吳璘領御前諸軍都統制職事，判興州",
+        "未嘗有使相為都統制者",
+        "以分隊制其騎兵",
+        "以番休迭戰制其堅忍"
+      ],
+      "unknown": [
+        "未载本卷具体战役实施结果。"
+      ],
+      "battle": "CAMPAIGN-131-WU-LIN-DEFENSE-DOCTRINE-1156"
+    },
+    {
+      "id": "CHF-XZZTJ-131-GOLD-LUXURY-BAN-1156",
+      "time": "紹興二十六年九月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗禁止销金等华侈服饰，指出销金成泥使稀少金产不足耗费。",
+      "result": "以节用和保存金材为理由强化禁奢。",
+      "quote": [
+        "華侈之服，如銷金之類，不可不禁",
+        "金絕少，由小人貪利，銷而為泥",
+        "天下產金處極難得",
+        "須申嚴行之"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-131-GOLD-LUXURY-BAN-1156",
+        "candidate": "FIN-CAND-131-GOLD-LUXURY-BAN-1156",
+        "summary": "销金奢侈被禁以保存稀少金材。",
+        "operation": "ordered",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "销金奢侈耗用金材。",
+          "fiscal_state": "申严禁令。",
+          "livelihood_state": "未载。",
+          "production_circulation": "金材被销为泥。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-QIN-FAMILY-TITLES-PRESERVED-1156",
+      "time": "紹興二十六年九月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗拒绝夺去秦桧孙婿西清职名，称曾许保全秦氏家族。",
+      "result": "秦桧家属职名在此轮弹劾中被保留，后续不得再论。",
+      "quote": [
+        "請鐫褫職名",
+        "許保全其家",
+        "今後不得更有論列"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-QIN-FAMILY-TITLES-PRESERVED-1156",
+        "candidate": "POL-CAND-131-QIN-FAMILY-TITLES-PRESERVED-1156",
+        "summary": "秦桧孙婿职名被保留。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政治处置边界。",
+          "direct_result": "禁止后续论列。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-ZHANG-JUN-RESIDENCE-ORDER-1156",
+      "time": "紹興二十六年十月",
+      "loc": [
+        "永州"
+      ],
+      "action": "张浚复陈边备与政事主张后，被维持永州居住处分。",
+      "result": "和战异议被以违诏、沮信誓为由压制。",
+      "quote": [
+        "依舊永州居住",
+        "金數年間決求釁用兵",
+        "沮今日已行之信誓",
+        "戒。」故有是命。"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-ZHANG-JUN-RESIDENCE-ORDER-1156",
+        "candidate": "POL-CAND-131-ZHANG-JUN-RESIDENCE-ORDER-1156",
+        "summary": "张浚再论边备后仍被留永州。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "边备异议处分。",
+          "direct_result": "维持永州居住。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-PEARL-TRIBUTE-ABOLITION-1156",
+      "time": "紹興二十六年閏十月",
+      "loc": [
+        "廉州"
+      ],
+      "action": "高宗废除廉州岁贡珠，因采珠艰难且常伤人命。",
+      "result": "采珠幸丁获得自由，地方贡珠负担停止。",
+      "quote": [
+        "廉州歲貢珠",
+        "艱，或傷人命",
+        "自今可罷貢，幸丁縱其自便",
+        "以為一方無窮之利"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-131-PEARL-TRIBUTE-ABOLITION-1156",
+        "candidate": "FIN-CAND-131-PEARL-TRIBUTE-ABOLITION-1156",
+        "summary": "廉州珠贡被废以减伤命劳役。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "岁贡珠采集艰难。",
+          "fiscal_state": "罢贡。",
+          "livelihood_state": "幸丁自便、减伤命。",
+          "production_circulation": "停止珠贡采办。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-SALT-GATHERING-MODERATION-1156",
+      "time": "紹興二十六年十一月",
+      "loc": [
+        "盱眙軍"
+      ],
+      "action": "高宗没有全面禁止采鹹，仅禁止官司购买，以免贫民失业。",
+      "result": "保护自然资源与贫民生计之间采取有限禁令。",
+      "quote": [
+        "請禁止采鹹",
+        "貧民以此為生，一旦禁止，恐致失業",
+        "先仁民而後愛物",
+        "但令官司不得買鹹"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-131-SALT-GATHERING-MODERATION-1156",
+        "candidate": "FIN-CAND-131-SALT-GATHERING-MODERATION-1156",
+        "summary": "采鹹禁令改为仅限官购。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "采鹹涉及物产与生计。",
+          "fiscal_state": "禁官司购买。",
+          "livelihood_state": "避免贫民失业。",
+          "production_circulation": "民间采鹹从便。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-NEW-MOON-RITE-ABOLITION-1156",
+      "time": "紹興二十六年十二月",
+      "loc": [
+        "太廟"
+      ],
+      "action": "朝廷在腊飨时罢朔祭，采纳礼官援引淳化故事的建议。",
+      "result": "太庙祭祀程序调整。",
+      "quote": [
+        "也，罷朔祭，以",
+        "以禮官援淳化故事有請也"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-NEW-MOON-RITE-ABOLITION-1156",
+        "candidate": "POL-CAND-131-NEW-MOON-RITE-ABOLITION-1156",
+        "summary": "太庙朔祭被废。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "礼制调整。",
+          "direct_result": "罢朔祭。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-SRIVIJAYA-ENFEOFFMENT-1156",
+      "time": "紹興二十六年十二月",
+      "loc": [
+        "行在"
+      ],
+      "action": "三佛齐进奉使入见，朝廷封其国首领为王并赐秩使者。",
+      "result": "三佛齐朝贡关系获得册封确认。",
+      "quote": [
+        "三佛齊國進奉使蒲晉等入見",
+        "封其國首領為王",
+        "蒲晉等賜秩有差"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-131-SRIVIJAYA-ENFEOFFMENT-1156",
+        "candidate": "POL-CAND-131-SRIVIJAYA-ENFEOFFMENT-1156",
+        "summary": "三佛齐朝贡获封王与赐秩。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "朝贡外交。",
+          "direct_result": "首领封王。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-131-CLASSIC-PORTRAIT-STONE-1156",
+      "time": "紹興二十六年十二月",
+      "loc": [
+        "行在"
+      ],
+      "action": "高宗所制宣圣及七十子像赞开始刻石。",
+      "result": "儒学纪念文本转为石刻工程。",
+      "quote": [
+        "制宣聖及七十子像贊",
+        "贊，親書之。是",
+        "月，始命刻石"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-131-CLASSIC-PORTRAIT-STONE-1156",
+        "candidate": "WORK-CAND-131-CLASSIC-PORTRAIT-STONE-1156",
+        "summary": "宣圣及七十子像赞开始刻石。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "宣圣及七十子像赞石刻。",
+          "phase": "命刻。",
+          "purpose": "儒学纪念。",
+          "resource_input": "未载。",
+          "operation": "亲书后刻石。",
+          "benefit": "未载。",
+          "harm": "未载。"
+        }
+      }
+    }
+  ]
+}

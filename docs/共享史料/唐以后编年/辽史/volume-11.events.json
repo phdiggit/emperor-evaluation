@@ -1,0 +1,507 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "LIAO-LIAOSHI-V11-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V11-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "遼史",
+    "volume_ref": "卷11",
+    "revision_ref": "1745919",
+    "start_locator": "统和四年东征女直献获",
+    "end_locator": "统和四年攻深州及李继迁请婚",
+    "overlap_context": "本卷接卷10东征女直与对宋整军，记统和四年（986）对宋北伐反攻、山西收复及战后恢复。连续同一南北战事合并；普通朝贡、祭祀、巡幸、任免不单列。",
+    "input_fingerprint": "51c81ca16120a75beb7b014ac0d9f0bad453cbe3fcd4eee4a6fa08dfcc7e9c81"
+  },
+  "limitations": [
+    "仅据固定《遼史》卷11正文登记，未知保持未知。",
+    "战役仅交接新版战役工作流；普通贡聘、祭祀、巡幸、单次任免与重复行军不单列。",
+    "本卷多数战事的兵力、双方完整伤亡、俘获总数及边民损失未载。"
+  ],
+  "events": [
+    {
+      "id": "CHF-LIAO-V11-JURCHEN-EASTERN-EXPEDITION-BOOTY-986",
+      "time": [
+        "统和四年正月",
+        "986",
+        "month"
+      ],
+      "subject": "辽军、女直诸部与辽廷",
+      "action": "斜轸、勤德等上报东征女直所获生口十余万、马二十余万及诸物，东征将领克女直后还军受奖。",
+      "result": "东征军向朝廷献报大批生口、马匹及物品，获褒奖。",
+      "cost": "女直方面有人口与马匹被掳获；双方兵力、伤亡、具体地点及被掳者后续安置未载。",
+      "groups": [
+        "辽军",
+        "女直诸部",
+        "被掳生口",
+        "东征将领"
+      ],
+      "quote": "上討女直所獲生口十餘萬、馬二十餘萬及諸物。",
+      "unknown": [
+        "十余万生口的统计口径、去向和马匹处置未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-JURCHEN-EASTERN-EXPEDITION-986",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-LI-JIQIAN-SURRENDER-AND-INVESTITURE-986",
+      "time": [
+        "统和四年二月至十二月",
+        "986",
+        "range"
+      ],
+      "subject": "李继迁、西夏部众与辽廷",
+      "action": "李继迁叛宋来降，辽廷授定难军节度使等职；年末李继迁以五百骑请婚，辽廷以义成公主下嫁并赐马三千匹。",
+      "result": "李继迁获得辽廷官爵、婚姻与马匹支持，形成藩辅关系。",
+      "cost": "赐马三千匹；公主婚姻安排、五百骑以外部众和支持的实际兑现未载。",
+      "groups": [
+        "李继迁所部",
+        "义成公主",
+        "辽廷",
+        "赐马接收者"
+      ],
+      "quote": [
+        "西夏李繼遷叛宋來降，以為定難軍節度使、銀夏綏宥等州觀察處置等使",
+        "詔以王子帳節度使耶律襄之女汀封義成公主下嫁，賜馬三千匹。"
+      ],
+      "unknown": [
+        "授职辖区的实际控制、婚后盟约执行及三千匹马来源未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LI-JIQIAN-SURRENDER-AND-INVESTITURE-986",
+        "summary": "接纳李继迁来降，授职、联姻并赐马。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-SONG-NORTHERN-INVASION-AND-SOUTHERN-COUNTEROFFENSIVE-986",
+      "time": [
+        "统和四年三月至五月",
+        "986",
+        "range"
+      ],
+      "subject": "辽军、宋军与燕南山西边地",
+      "action": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。",
+      "result": "辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+      "cost": "飞狐战不利，辽将大鹏翼、马赟、何万通陷；宋军溺死不可胜纪、死者数万的记载存在，辽军完整伤亡、边民损失和各城恢复未载。",
+      "groups": [
+        "辽军",
+        "宋军",
+        "燕南与山西居民",
+        "固安涿州守军"
+      ],
+      "quote": [
+        "岐溝、涿州、固安、新城皆陷。",
+        "休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+        "遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+        "餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+      ],
+      "unknown": [
+        "双方总兵力、具体战场分布与军事占领持续时间未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-SONG-NORTHERN-INVASION-COUNTEROFFENSIVE-986",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-DEFECTOR-HOUSEHOLD-CONFISCATION-986",
+      "time": [
+        "统和四年四月",
+        "986",
+        "month"
+      ],
+      "subject": "叛附宋的辽官军及其家属与辽廷",
+      "action": "艾正、赵希赞及应朔州等叛入宋者的家属被籍没，分赐有功将校。",
+      "result": "叛附者家属财产与身份受到籍没处分，并被用于军功赏赐。",
+      "cost": "被籍家属失去原有家产与归属；人数、分赐数量和后续处境未载。",
+      "groups": [
+        "叛附者家属",
+        "有功将校",
+        "辽廷籍没执行者"
+      ],
+      "quote": "籍其家屬，分賜有功將校。",
+      "unknown": [
+        "籍没是否涵盖全部家产、家属去向与军功分配标准未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DEFECTOR-HOUSEHOLD-CONFISCATION-986",
+        "summary": "籍没叛附宋者家属并分赐有功将校。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V11-ARMY-SUMMER-CLOTH-AND-MOBILIZATION-986",
+      "time": [
+        "统和四年三月至九月",
+        "986",
+        "range"
+      ],
+      "subject": "辽廷、南征军与军需承担者",
+      "action": "前线马匹不足时括取民马、甲胄不足时取自显州甲坊；朝廷又命三司给军前夏衣布，令休哥备器甲、储粟，并先遣军官缮甲兵。侄里古部为行宫送辎重，暑天日行五十里致人马疲乏，受到责让。",
+      "result": "民马、甲坊、三司和运输部众共同承担军需，南征器甲、衣布与粮储持续整备。",
+      "cost": "民马被括取，甲坊提供甲胄；辎重队暑行日五十里致人马疲乏，具体征取、交付和损耗数量未载。",
+      "groups": [
+        "南征军",
+        "三司",
+        "民马所有者",
+        "显州甲坊",
+        "军需生产者",
+        "侄里古部辎重队"
+      ],
+      "quote": [
+        "馬乏則括民馬；鎧甲闕，則取於顯州之甲坊。",
+        "詔三司給軍前夏衣布。",
+        "送輜重行宮，暑行日五十里，人馬疲乏，遣使讓之。",
+        "詔休哥備器甲，儲粟，侍秋大舉南征。",
+        "先赴本軍繕甲兵。"
+      ],
+      "unknown": [
+        "民马括取补偿、甲坊库存、军需实际交付量和辎重人马损失未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ARMY-SUMMER-CLOTH-AND-MOBILIZATION-986",
+        "summary": "供给军前夏衣布并持续整备器甲粮储。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-MOUNTAIN-WEST-RECOVERY-AND-YANG-YE-CAPTURE-986",
+      "time": [
+        "统和四年五月至七月",
+        "986",
+        "range"
+      ],
+      "subject": "辽军、宋军与山西州县",
+      "action": "斜轸所部收复蔚州、灵丘、飞狐、寰州和朔州，并设伏击败宋军；宋将杨继业中箭坠马被擒，三日后死亡，宋守云应诸州者闻讯弃城遁走。",
+      "result": "辽军恢复山西多州控制，擒获杨继业并促使宋军自云应诸州撤离。",
+      "cost": "寰州守城吏卒千余人被杀；杨继业伤重绝食而死，双方伤亡和州县居民损失未载。",
+      "groups": [
+        "辽军",
+        "宋军",
+        "杨继业",
+        "山西州县居民"
+      ],
+      "quote": [
+        "奏復蔚州，斬首二萬餘級，乘勝攻下靈丘、飛狐，賜蒲姑酒及銀器。",
+        "入寰州，殺守城吏卒千餘人。",
+        "中流矢，墮馬被擒。瘡發不食，三日死。"
+      ],
+      "unknown": [
+        "各州交接方式、战后行政恢复和被杀人员身份构成未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-SHANXI-RECOVERY-AND-YANG-YE-CAPTURE-986",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-POSTWAR-HARVEST-AND-TAX-REMISSION-986",
+      "time": [
+        "统和四年八月至十月",
+        "986",
+        "range"
+      ],
+      "subject": "山西逃民、南院部民、收获者与辽廷",
+      "action": "韩德让建议招募人收取宋军所掠州郡逃民留下的禾稼，以一半给收者；辽廷免山西当年租赋，十月又免南院部民当年租赋。",
+      "result": "遗留庄稼获得收获激励，山西和南院部民当年租赋被免除。",
+      "cost": "国家放弃两地当年租赋收入，并以半数收成激励收获；受惠户数、田亩、税额和粮食实际归属未载。",
+      "groups": [
+        "山西逃民",
+        "收获者",
+        "山西民户",
+        "南院部民",
+        "辽廷财政机构"
+      ],
+      "quote": [
+        "宜募人收獲，以其半給收者，從之。",
+        "復山西今年租賦。",
+        "復南院部民今年租賦。"
+      ],
+      "unknown": [
+        "逃民是否返回、遗田规模、两项免租的户数税额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POSTWAR-HARVEST-AND-TAX-REMISSION-986",
+        "summary": "招募收获战乱遗留禾稼，并免山西当年租赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-TAX-EXTORTION-INVESTIGATION-AND-TRADE-986",
+      "time": [
+        "统和四年十一月",
+        "986",
+        "month"
+      ],
+      "subject": "古北松亭榆关征税者、商旅与辽廷",
+      "action": "因古北、松亭、榆关征税违法阻碍商旅，辽廷遣使审查。",
+      "result": "三处关税违法问题进入官方调查。",
+      "cost": "商旅通行受到既有违法征税阻碍；违法规模、涉案人员、追赃与纠正结果未载。",
+      "groups": [
+        "商旅",
+        "关税征收者",
+        "调查使者"
+      ],
+      "quote": "以古北、松亭、榆關征稅不法，致阻商旅，遣使鞫之。",
+      "unknown": [
+        "税率、受阻商旅数量和调查判决未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TAX-EXTORTION-INVESTIGATION-AND-TRADE-986",
+        "summary": "调查三关违法征税与阻商问题。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-SOUTHERN-EXPEDITION-DISCIPLINE-AND-RAIDING-986",
+      "time": [
+        "统和四年十一月至十二月",
+        "986",
+        "range"
+      ],
+      "subject": "辽南征军、宋军与南境居民",
+      "action": "南伐时命各部监约束营伍，禁止军中无故驰马和残害南境桑果；辽军攻望都、莫州、杨团城、冯母镇、深州，卷内同时记有禁侵掠和多次纵俘掠，莫州战后筑京观。",
+      "result": "辽军推进并攻取多处城镇，但军纪禁令与实际大规模俘掠同时存在；京观作为战果处置纳入同一战事链。",
+      "cost": "莫州战中撻烈哥、萧打里死亡；冯母镇与深州遭大纵俘掠，深州守将以下被诛，居民损失规模未载。",
+      "groups": [
+        "辽军",
+        "宋军",
+        "南境居民",
+        "被俘掠者"
+      ],
+      "quote": [
+        "勒所部各守營伍，毋相鎮雜。",
+        "軍中無故不得馳馬，及縱諸軍殘南境桑果。",
+        "丁未，築京觀。",
+        "。詔禁侵掠。己",
+        "拔馮母鎮，大縱俘掠。",
+        "拔深州，以不即降，誅守將以下，縱兵大掠。"
+      ],
+      "unknown": [
+        "禁令执行范围、被俘掠人数、京观营造投入、各城后续统治和双方总兵力未载。"
+      ],
+      "battle": "CAMPAIGN-LIAO-SOUTHERN-EXPEDITION-AND-RAIDS-986",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-SALT-IRON-CASH-CONVERSION-ADJUSTMENT-986",
+      "time": [
+        "统和四年六月",
+        "986",
+        "month"
+      ],
+      "subject": "南京百姓、三司与辽廷",
+      "action": "南京留守上言百姓岁输三司盐铁钱时，以绢折纳不合实际价值，朝廷下诏增加折算。",
+      "result": "盐铁钱折绢的折算标准被提高调整。",
+      "cost": "原折绢标准使民户负担与价值不相称；新旧折价、受影响户数和财政收支变化未载。",
+      "groups": [
+        "南京民户",
+        "三司",
+        "南京留守"
+      ],
+      "quote": "百姓歲輸三司鹽鐵錢，折絹不如直，詔增之。",
+      "unknown": [
+        "调整方向的具体数额、实施期限与是否减轻民户负担未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SALT-IRON-CASH-CONVERSION-ADJUSTMENT-986",
+        "summary": "调整南京民户缴纳盐铁钱时的折绢标准。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-JUDICIAL-REVIEW-AND-ACCOUNTABILITY-986",
+      "time": [
+        "统和四年正月至十月",
+        "986",
+        "range"
+      ],
+      "subject": "辽廷、滞讼当事人、蒲奴宁与被纠官员",
+      "action": "圣宗年初审决积滞诉讼；十月朝廷又审理蒲奴宁被告十七罪案，核得十一罪而笞释，并追究诬告事项及知事勤德的连坐责任。",
+      "result": "积讼获得审决，蒲奴宁案完成核罪、处罚及相关责任追究。",
+      "cost": "蒲奴宁被笞二十，勤德被杖一百并免官；积讼数量、判决内容及诬告者最终刑罚未载。",
+      "groups": [
+        "滞讼当事人",
+        "蒲奴宁",
+        "曷葛只里",
+        "勤德",
+        "审案官员"
+      ],
+      "quote": [
+        "己卯，朝皇太后。決滯訟。",
+        "蒲奴寧伏其罪十一，笞二十釋之。",
+        "知事勤德連坐，杖一百，免官。"
+      ],
+      "unknown": [
+        "积讼案件数、蒲奴宁十一罪内容、诬告六事的最终量刑未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JUDICIAL-REVIEW-AND-ACCOUNTABILITY-986",
+        "summary": "审决积讼并完成蒲奴宁案核罪及连坐追责。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V11-CAPTURED-RESIDENTS-REDEMPTION-AND-RELEASE-986",
+      "time": [
+        "统和四年四月至五月",
+        "986",
+        "range"
+      ],
+      "subject": "辽廷、固安被俘居民与歧沟漕运人员",
+      "action": "固安攻破后，辽廷命以官物赎回先前被俘居民；歧沟空城内藏匿的数万漕运人员被围后，又因皇太后生辰而释放。",
+      "result": "部分被俘居民由官物赎回，数万被围漕运人员获释。",
+      "cost": "国家动用官物赎人；居民原被俘经过、官物数量、获释人员身份与去向未载。",
+      "groups": [
+        "固安被俘居民",
+        "歧沟漕运人员",
+        "辽军",
+        "官物管理者"
+      ],
+      "quote": [
+        "居民先被俘者，命以官物贖之。",
+        "免漕數萬人匿歧溝空城中，圍之。壬申，以皇太后生辰，縱還。"
+      ],
+      "unknown": [
+        "赎回人数、官物规模、数万漕运人员是否全数释放及其去向未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CAPTURED-RESIDENTS-REDEMPTION-AND-RELEASE-986",
+        "summary": "以官物赎回被俘居民，并释放歧沟被围的数万漕运人员。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-CAPTIVES-AND-SURRENDERED-PERSONS-DISTRIBUTION-986",
+      "time": [
+        "统和四年五月至七月",
+        "986",
+        "range"
+      ],
+      "subject": "辽廷、军前降卒与宋归命者",
+      "action": "辽廷将军前降卒分赐扈从，又把所俘人员分赐皇族、乳母，并将宋归命者二百四十人分赐从臣。",
+      "result": "战争俘获及归命人员被朝廷分配给扈从、皇族、乳母和从臣。",
+      "cost": "被分配人员失去自主处置；除二百四十人外的总数、身份、家庭分离与后续待遇未载。",
+      "groups": [
+        "军前降卒",
+        "宋归命者二百四十人",
+        "被俘人员",
+        "扈从",
+        "皇族乳母与从臣"
+      ],
+      "quote": [
+        "以軍前降卒分賜扈從。",
+        "以所俘分賜皇族及乳母。",
+        "以宋歸命者二百四十人分賜從臣。"
+      ],
+      "unknown": [
+        "分配的法律身份、劳动负担、家庭状况及后续待遇未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CAPTIVES-AND-SURRENDERED-PERSONS-DISTRIBUTION-986",
+        "summary": "将军前降卒、俘获者和宋归命者分配给扈从及贵族从臣。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-LIAO-V11-REGISTERED-TRIBAL-OFFICES-986",
+      "time": [
+        "统和四年八月",
+        "986",
+        "month"
+      ],
+      "subject": "辽廷与骨里、女直、迪烈于等官籍部人",
+      "action": "朝廷设置先离闼览官六员，管理骨里、女直、迪烈于等诸部隶属官籍者。",
+      "result": "六名专官及其对官籍诸部人的管理关系建立。",
+      "groups": [
+        "先离闼览官六员",
+        "骨里部人",
+        "女直部人",
+        "迪烈于部人",
+        "官籍管理机构"
+      ],
+      "quote": "置先離闥覽官六員，領於骨裏、女直、迪烈於等諸部人之隸官籍者。",
+      "unknown": [
+        "官员职掌细目、所领人数、赋役内容及实施效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "REGISTERED-TRIBAL-OFFICES-986",
+        "summary": "置六员专官管理隶官籍的诸部人员。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-LIAO-V11-SHANXI-DISPLACEMENT-AND-PATROLS-986",
+      "time": [
+        "统和四年十月",
+        "986",
+        "month"
+      ],
+      "subject": "山西四州转徙居民、盗贼与辽廷",
+      "action": "宋兵之后山西四州人民转徙、盗贼滋生，室昉请求有司禁止，朝廷命蒲打里选人分道巡检。",
+      "result": "山西四州战后人口流动与治安问题交由分道巡检处理。",
+      "cost": "居民因战事转徙并受盗贼侵扰；受影响人数、损失、巡检规模及成效未载。",
+      "groups": [
+        "山西四州居民",
+        "盗贼",
+        "分道巡检人员",
+        "地方有司"
+      ],
+      "quote": [
+        "山西四州自宋兵後，人民轉徙，盜賊棄斥，乞下有司禁止。",
+        "命新州節度使蒲打裏選人分道巡檢。"
+      ],
+      "unknown": [
+        "转徙人口、盗贼案件、巡检路线和治安恢复结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SHANXI-DISPLACEMENT-AND-PATROLS-986",
+        "summary": "针对山西四州战后流民与盗贼问题设置分道巡检。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}

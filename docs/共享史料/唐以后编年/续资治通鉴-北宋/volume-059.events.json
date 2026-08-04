@@ -1,0 +1,851 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-059",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷059",
+    "revision_ref": "2270782",
+    "start_locator": "宋仁宗嘉祐五年六月",
+    "end_locator": "宋仁宗嘉祐六年闰月",
+    "overlap_context": "承接卷058均税、宽恤民力、二股河与军器整备；本卷推进全国减负访察、京西分路、唐州水利招垦、陕西盐马和均税制度，登记交趾甲洞联军及苏茂州入寇，处理公主门禁、中枢更替、包拯财计与辽杀萧阿喇，实施水灾蠲税、考课久任并转出司马光促建储和江淮盐法线。",
+    "input_fingerprint": "ac4c3010446e027b3bbdd9199087d61e00d17bfd66d92e257f1df59a8cce1de3"
+  },
+  "limitations": [
+    "仅据固定 revision 2270782 的《續資治通鑑》卷059连续通读登记，不引入卷外常识。",
+    "固定页正文跨嘉祐五年六月至嘉祐六年闰月，按缓存页边界完整登记，未打开卷060。",
+    "普通任免、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-059-ACCUSATION-LIMITS-1060",
+      "time": "嘉祐五年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "吕诲指出官员借风闻揭发私事、旧赦前事和非关政体小过已成刻薄风气。",
+      "result": "仁宗下诏限制非职分告讦及台谏弹劾无关政体的小过。",
+      "quote": [
+        "多告訐人罪，既非職分，實亦侵官",
+        "刻薄之態，浸以成風",
+        "詔戒上封告訐人罪或言赦前事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制以私怨和琐事占用言路。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-LABOR-RELIEF-SURVEY-1060",
+      "time": "嘉祐五年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷派官分赴天下调查宽恤民力事项。",
+      "result": "卷058设置的宽恤民力司进入全国访察阶段。",
+      "quote": [
+        "遣官分行天下，訪寬恤民力事"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全国调查民间财政劳役负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "把宽恤民力工作下推诸路。"
+        ]
+      ],
+      "unknown": [
+        "访察结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-PALACE-WOMEN-QUOTA-1060",
+      "time": "嘉祐五年六月",
+      "loc": [
+        "开封皇宫"
+      ],
+      "action": "三司减省冗费所指出内人请俸倍增，请按天圣初年嫔御以下人数制定定额。",
+      "result": "仁宗采纳，后宫人员和俸给纳入人数上限。",
+      "quote": [
+        "比歲內人請俸倍多",
+        "酌天聖初嬪御以下人數，著為定額"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以人数定额约束后宫俸给增长。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立后宫人员编制定额。"
+        ]
+      ],
+      "unknown": [
+        "最终定额人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-JINGXI-SPLIT-1060",
+      "time": "嘉祐五年七月",
+      "loc": [
+        "京西北路",
+        "京西南路"
+      ],
+      "action": "宋廷把京西十八州军分为南北两路，以许州、邓州守臣分别兼安抚使，河南府不隶两路。",
+      "result": "京西形成南北两套安抚管理体系。",
+      "quote": [
+        "詔分京西為二路",
+        "各置安撫使",
+        "其河南府即不隸所部"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重划京西路级行政与安抚体系。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-JIAOZHI-JIADONG-RAID-1060",
+      "time": "嘉祐五年七月",
+      "loc": [
+        "邕州边境"
+      ],
+      "action": "交趾与甲洞蛮合兵入寇，宋都巡检宋士尧出战拒敌。",
+      "result": "宋士尧战死，朝廷征发诸州军队讨捕。",
+      "quote": [
+        "交趾與甲洞蠻合兵寇邊",
+        "都巡檢宋士堯拒戰，死之",
+        "詔發諸州兵討捕"
+      ],
+      "battle": "CAMPAIGN-JIAOZHI-JIADONG-YONGZHOU-1060",
+      "unknown": [
+        "双方兵力与其余伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-TANGZHOU-IRRIGATION-SETTLEMENT-1060",
+      "time": "嘉祐五年七月",
+      "loc": [
+        "唐州"
+      ],
+      "action": "赵尚宽恢复三座大陂和一条大渠，发动士卒并教民开数十支渠，又按人口授荒田、贷款买牛。",
+      "result": "灌田万余顷，三年内废田尽成膏腴并增加一万余户，赵尚宽获留任。",
+      "quote": [
+        "復三大陂、一大渠，皆溉田萬餘頃",
+        "教民自為支渠數十",
+        "及貸民官錢買牛",
+        "腴，增戶萬餘"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复陂渠并新开数十支渠。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "授荒田、贷牛并招来一万余户。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以三年治理成效决定地方官留任。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-JIE-SALT-PRICE-REFORM-1060",
+      "time": "嘉祐五年八月",
+      "loc": [
+        "陕西",
+        "解盐池"
+      ],
+      "action": "薛向面对西夏青盐廉价走私、官解盐高价滞销，降低官盐价格并减少盐池畦夫征调。",
+      "result": "压低盗盐竞争，削减数千畦夫和长期积压产盐带来的负担。",
+      "quote": [
+        "西夏青鹽盜販甚賤，而官賣解鹽價高",
+        "始減價以抑之",
+        "向奏損其數，當時便之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "降官盐价并减少盐池劳役和积压。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整陕西解盐经营策略。"
+        ]
+      ],
+      "unknown": [
+        "降价幅度未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-BOOK-COLLECTION-REWARD-1060",
+      "time": "嘉祐五年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷以三馆藏书仍不及开元为由，允许士庶献馆阁缺书。",
+      "result": "每卷奖励绢一匹，献五百卷者授文资官。",
+      "quote": [
+        "宜加購賞，以廣獻書",
+        "每卷支絹一匹",
+        "五百卷與文資官"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以绢和官职奖励补充国家藏书。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立面向士庶的缺书征集制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-SHAANXI-HORSE-POLICY-1060",
+      "time": "嘉祐五年八月",
+      "loc": [
+        "陕西",
+        "原州",
+        "渭州",
+        "德顺军",
+        "秦州"
+      ],
+      "action": "吴奎、王安石等把解盐财源、空地监牧和买马统一交薛向办理，并在原渭德顺设置交易场。",
+      "result": "以解盐交引招蕃商购良马八千匹，三千供边骑、五千交群牧司。",
+      "quote": [
+        "命向專領本路監牧及買馬事",
+        "以解鹽交引募蕃商廣售良馬八千",
+        "三千給緣邊軍騎，五千人群牧司"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以解盐财源购买并分配八千良马。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "在原渭德顺设置买马和监牧场。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一陕西盐财、监牧和买马权责。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-CIRCUIT-JUDICIAL-REORGANIZATION-1060",
+      "time": "嘉祐五年八月",
+      "loc": [
+        "江南",
+        "荆湖",
+        "广南",
+        "福建",
+        "四川诸路"
+      ],
+      "action": "因武臣同提点刑狱多不习法令民事且有侵盗，宋廷撤销该职并为十一路增设转运判官。",
+      "result": "地方监司由使臣副提刑转向文职转运判官，任期三年。",
+      "quote": [
+        "罷諸路同提點刑獄使臣",
+        "使臣多不習法令、民事，不可為監司",
+        "各增置判官，以三年為一任"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重组十一路监察和转运副职。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-PRINCESS-NIGHT-GATE-1060",
+      "time": "嘉祐五年九月至十月",
+      "loc": [
+        "开封皇城",
+        "兖国公主宅"
+      ],
+      "action": "兖国公主与李玮不协后夜开皇城门直诉禁中，台谏要求追究沿途监门失守和公主宅内臣失谨。",
+      "result": "李玮未被重贬，公主宅内臣被外调或配役，并取消宅都监、裁为四名内臣管理。",
+      "quote": [
+        "主夜開皇城門入訴禁中",
+        "請並送劾開封府",
+        "自今勿置都監，別選內臣四人在宅句當"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "缩减公主宅内臣编制。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "处理公主夜开皇城门及宅内臣管理失序。"
+        ]
+      ],
+      "unknown": [
+        "门禁官员最终未见追责。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-FANXIANG-SALT-SAVINGS-1060",
+      "time": "嘉祐五年十一月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "包拯追录范祥推行陕西盐法十年的财政功绩。",
+      "result": "盐法每年减少榷货务支出四百万缗，范祥子孙获录用。",
+      "quote": [
+        "通陝西鹽法，行之十年",
+        "歲減榷貨務緡錢四百萬",
+        "萬，其勞可錄"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "确认陕西盐法每年节省四百万缗。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追奖已故改革官员后代。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-CENTRAL-REORGANIZATION-1060",
+      "time": "嘉祐五年十一月",
+      "loc": [
+        "开封",
+        "郑州"
+      ],
+      "action": "吕诲、赵抃等连续弹劾宋庠徇私、结交内臣及处置李玮家事失当。",
+      "result": "宋庠罢枢密使，曾公亮接任；张昪、孙抃任参知政事，欧阳修、陈旭、赵概任枢密副使。",
+      "quote": [
+        "其徇私罔公率如此",
+        "此。」章凡四上，",
+        "宋癢，罷為河陽三城節度使",
+        "曾公亮依前官充樞密使"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "台谏推动枢密首长罢免并重组两府。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-EQUAL-TAX-PROTESTS-1060",
+      "time": "嘉祐五年十二月",
+      "loc": [
+        "河中府",
+        "万泉县",
+        "卫州",
+        "通利军"
+      ],
+      "action": "刘敞、欧阳修指出方田均税引发砍伐桑柘、数万户诉讼，并出现把冒佃地另立税额而非在现额内均减的问题。",
+      "result": "请求召还孙琳、丰年再议并停办未均地区，卷内未载最终全面停罢。",
+      "quote": [
+        "百姓驚駭，各恐增起租稅",
+        "河中民果訴增減田稅不平，凡數萬戶",
+        "卻生立稅數配之",
+        "未均地分，並且罷均"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "均税执行引发数万户争讼和额外税数。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "要求纠正均税偏离原议并暂停扩面。"
+        ]
+      ],
+      "unknown": [
+        "最终停罢范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-SUMAOZHOU-RAID-1060",
+      "time": "嘉祐五年十二月",
+      "loc": [
+        "邕州"
+      ],
+      "action": "苏茂州蛮再次入寇邕州。",
+      "result": "形成卷055以来的续发岭南武装事件，卷内未载战果。",
+      "quote": [
+        "蘇茂州蠻寇邕州"
+      ],
+      "battle": "CAMPAIGN-SUMAOZHOU-YONGZHOU-1060",
+      "unknown": [
+        "兵力、伤亡和处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-RECRUIT-RETURN-RULE-1061",
+      "time": "嘉祐六年二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗针对良民子弟被诱入军籍、父母泣诉不能索回的问题，规定入籍百日内可申请返家。",
+      "result": "有司核实来源后须把被诱新兵交还父母。",
+      "quote": [
+        "良民子弟或為人誘隸軍籍",
+        "隸籍百日內，父母訴官者，還之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护被诱募民户及其家庭。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立新兵百日内亲属申诉退籍制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-BAOZHENG-PROCUREMENT-RELIEF-1061",
+      "time": "嘉祐六年四月",
+      "loc": [
+        "宋境",
+        "三司"
+      ],
+      "action": "包拯任三司使后把供上物从向外郡科率改为设置场所和市，并释放因官吏亏欠而被连坐拘械的妻子。",
+      "result": "外郡免受强制科派，债务连坐家属获得释放。",
+      "quote": [
+        "舊皆科率外郡，積以困民",
+        "特置場和市，民得無擾",
+        "械其妻子者，類皆釋之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以官府和市替代供上物外郡科率并解除家属连坐。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿三司采购和欠负羁押规则。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-CHENXU-CENSOR-CONFLICT-1061",
+      "time": "嘉祐六年四月",
+      "loc": [
+        "开封",
+        "定州",
+        "洪州",
+        "虔州",
+        "福州",
+        "江州"
+      ],
+      "action": "唐介、赵抃、范师道、吕诲连续指控陈旭结宦官、贱买富民马和纵外亲请托，陈旭请求辨劾并家居求罢。",
+      "result": "仁宗认为内臣未参与二府任命，但因双方相持，陈旭与四名台谏官同时外放，包拯转任枢密副使。",
+      "quote": [
+        "介等交章論列",
+        "遂家居求罷",
+        "凡除拜二府，朕豈容內臣預議邪",
+        "已，故兩罷之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "枢密任命争议导致被劾者和台谏双方外放。"
+        ]
+      ],
+      "unknown": [
+        "对陈旭具体指控未作司法结论。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-ZHANGMAOSHI-MILITARY-REMOVAL-1061",
+      "time": "嘉祐六年五月",
+      "loc": [
+        "开封",
+        "曹州"
+      ],
+      "action": "赵概、刘敞等认为张茂实因身份传言和军中声望易受小人利用，又被劾公使贸易及部卒杀人。",
+      "result": "张茂实解除马军副都指挥使兵权，出知曹州。",
+      "quote": [
+        "遠則為小人所指目，近則為群臣所疑懼",
+        "莫若解茂實兵權，處以外郡",
+        "之，茂實乃罷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "为消除宿卫疑虑解除将领兵权。"
+        ]
+      ],
+      "unknown": [
+        "张茂实无明确谋逆事实。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-LIAO-XIAOALA-EXECUTION-1061",
+      "time": "嘉祐六年五月",
+      "loc": [
+        "辽宫廷"
+      ],
+      "action": "萧阿喇入朝直陈时务，萧革乘辽主不悦诬其慢上。",
+      "result": "辽主命在殿下缢杀萧阿喇，太后营救不及，事后又加赙赠。",
+      "quote": [
+        "阿喇陳利病，言甚激切",
+        "因譖曰：「阿喇恃寵，有慢上之心，無人臣之禮。」",
+        "命縊殺于殿下",
+        "阿喇何罪而遽見殺"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽主听信构陷处死直言重臣。"
+        ]
+      ],
+      "unknown": [
+        "卷内评价认为萧阿喇无罪。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-ECLIPSE-NO-CONGRATULATION-1061",
+      "time": "嘉祐六年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "日食时京师云雨遮蔽，王畴、司马光反对有司以观测不满分为由称贺。",
+      "result": "仁宗禁止百官就日食不见称贺，并将历算不精视为应追责。",
+      "quote": [
+        "雖京師不見，四方必有見者",
+        "食不滿分者，乃歷官術數之不精",
+        "詔百官毋得稱賀"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止把云遮日食误作祥瑞称贺。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-SIMA-GUANG-THREE-MEMORIALS-1061",
+      "time": "嘉祐六年七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "司马光以三札分别论君德应兼仁明武、任官须重实效与赏罚、募拣军士须考虑财用和离乡痛苦。",
+      "result": "形成对皇帝决断、官员绩效和军队扩张的系统政策建议。",
+      "quote": [
+        "人君大德有三：曰仁，曰明，曰武",
+        "士，量能施職",
+        "養兵之術，務精不務多",
+        "度財用豐耗及事之緩急"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "要求募兵决策评估财政和军户负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出君德、任官、赏罚与军政综合改革。"
+        ]
+      ],
+      "unknown": [
+        "具体采纳范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-HUAI-FLOOD-TAX-RELIEF-1061",
+      "time": "嘉祐六年七月",
+      "loc": [
+        "泗州",
+        "淮南",
+        "江浙"
+      ],
+      "action": "泗州淮水泛滥，淮南和江浙发生水灾，朝廷派官核验。",
+      "result": "灾区税赋按查验结果蠲免。",
+      "quote": [
+        "泗州淮水溢",
+        "淮南、江、浙水災，差官體量蠲稅"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "登记淮水泛滥。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "核灾并减免淮南江浙税赋。"
+        ]
+      ],
+      "unknown": [
+        "蠲税总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-HEBEI-GRAIN-SILK-1061",
+      "time": "嘉祐六年七月",
+      "loc": [
+        "河北"
+      ],
+      "action": "朝廷从内藏库拨绢二十万匹给河北采购军粮。",
+      "result": "以嘉祐六年七月独立实物拨款补充河北军储。",
+      "quote": [
+        "出內藏庫絹二十萬匹，下河北助糴軍儲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按日期和资产构成独立登记河北军储拨款。"
+        ]
+      ],
+      "unknown": [
+        "实际购粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-SUZHE-DIRECT-EXAM-1061",
+      "time": "嘉祐六年八月",
+      "loc": [
+        "开封"
+      ],
+      "action": "苏辙制科对策直指皇帝失于无事深忧、后宫过盛和赏赐耗库，考官一度拟黜。",
+      "result": "仁宗以求直言不能因直而弃，录入第四等次，并将容纳直言之事付史馆。",
+      "quote": [
+        "宮中賜予無藝，所欲則給",
+        "求直言而以直棄之，天下其謂我何",
+        "乃收入第四等次",
+        "乞宣付史館"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对策批评后宫赏赐侵蚀国用。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "皇帝拒绝因言辞切直黜落制科考生。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-REVENUE-BASELINE-RESET-1061",
+      "time": "嘉祐六年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "因各课利场务收入多亏而三司仍不减旧额，仁宗命按五年增亏重新立额。",
+      "result": "杨畋限一月制定新的课利场务基准。",
+      "quote": [
+        "取天下凡課利場務五年並增虧者",
+        "限一月別立新額",
+        "場務歲課多虧"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按五年实际盈亏重定场务收入额。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "纠正三司长期不调减旧额。"
+        ]
+      ],
+      "unknown": [
+        "新额明细未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-059-OFFICIAL-PERFORMANCE-TENURE-1061",
+      "time": "嘉祐六年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "宋廷推行转运使、提点刑狱考课条目，并允许清白不扰、实惠及民的州县官由监司保荐再任。",
+      "result": "地方官考绩与延长任期挂钩，政绩特别优异者另加奖擢。",
+      "quote": [
+        "課績院以所定條目施行",
+        "有清白不擾而實惠及民者",
+        "令本路監司保薦再任",
+        "政跡尤異，當加獎擢"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立监司考课和惠民官再任奖擢制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-059-HEIR-SUCCESSION-CONVERSATION-1061",
+      "time": "嘉祐六年闰月",
+      "loc": [
+        "开封"
+      ],
+      "action": "司马光再次面请早定继嗣，仁宗主动确认是否选宗室，并称这是忠臣之言、古今皆有。",
+      "result": "仁宗命司马光把意见交中书，司马光又向韩琦透露所言为宗庙社稷大计；仍未正式立嗣。",
+      "quote": [
+        "莫先於此，若舍而不言，是臣懷奸以事陛下",
+        "得非欲選宗室為繼嗣者乎",
+        "此忠臣之言，但人不敢及爾",
+        "所言宗廟社稷大計也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "皇帝首次明确认可选宗室为继嗣的讨论并转中书。"
+        ]
+      ],
+      "unknown": [
+        "本卷末仍未正式确定继嗣。"
+      ]
+    }
+  ]
+}

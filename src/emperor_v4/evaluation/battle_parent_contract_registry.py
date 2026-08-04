@@ -16,6 +16,9 @@ from emperor_v4.evaluation.battle_outcome_worklist import (
     derive_person_command_index,
     load_military_settlements,
 )
+from emperor_v4.evaluation.post_tang_battle_registry import (
+    merge_post_tang_battle_registry,
+)
 
 
 SCHEMA_VERSION = "battle-parent-contract-registry-v1"
@@ -1510,10 +1513,17 @@ def build_battle_parent_contract_registry(
         str(row["war_event_id"]): row
         for row in ordinary_adjudications.get("adjudications") or ()
     }
+    ordinary_route_overrides = {
+        str(value)
+        for value in contract_adjudications.get("ordinary_route_overrides") or ()
+    }
     ordinary_candidates = [
         candidate
         for candidate in worklist.get("candidates") or ()
-        if "UNIFICATION_ONLY" not in set(candidate.get("account_routing") or ())
+        if (
+            "UNIFICATION_ONLY" not in set(candidate.get("account_routing") or ())
+            or str(candidate["war_event_id"]) in ordinary_route_overrides
+        )
     ]
     candidate_ids = {str(row["war_event_id"]) for row in ordinary_candidates}
     extra_adjudications = set(adjudications) - candidate_ids
@@ -1531,6 +1541,22 @@ def build_battle_parent_contract_registry(
         contract_adjudications.get("adjudications") or ()
     ):
         raise ValueError("父战役合同裁决存在重复war_event_id")
+    supplemental_rows = {
+        str(row["war_event_id"]): row
+        for row in contract_adjudications.get(
+            "supplemental_contract_adjudications"
+        )
+        or ()
+    }
+    if len(supplemental_rows) != len(
+        contract_adjudications.get("supplemental_contract_adjudications") or ()
+    ):
+        raise ValueError("定点补录战役存在重复war_event_id")
+    supplemental_collisions = set(supplemental_rows) & candidate_ids
+    if supplemental_collisions:
+        raise ValueError(
+            f"定点补录战役与当前候选重复: {sorted(supplemental_collisions)}"
+        )
     contract_extra = set(contract_rows) - candidate_ids
     if contract_extra:
         raise ValueError(
@@ -1684,6 +1710,30 @@ def build_battle_parent_contract_registry(
 
         raise ValueError(f"{event_id} 缺少合同裁决: previous_status={status}")
 
+    for event_id, supplemental in sorted(supplemental_rows.items()):
+        source_refs = list(supplemental.get("source_refs") or ())
+        if not source_refs:
+            raise ValueError(f"{event_id} 定点补录战役缺少source_ref")
+        synthetic_candidate = {
+            "war_event_id": event_id,
+            "dynasty": supplemental.get("dynasty") or "未知",
+            "titles": [supplemental.get("canonical_label") or event_id],
+            "source_card_ids": [event_id],
+            "source_files": [
+                value for value in source_refs if str(value).startswith("docs/")
+            ],
+            "source_revision_refs": [
+                value for value in source_refs if not str(value).startswith("docs/")
+            ],
+        }
+        records.append(
+            _contract_row(
+                synthetic_candidate,
+                {},
+                supplemental,
+            )
+        )
+
     for record in records:
         for member in record.get("members") or ():
             _normalize_person_command_index(member)
@@ -1745,7 +1795,7 @@ def build_battle_parent_contract_registry(
         "ordinary_record_count": len(records),
         "prior_adjudication_count": len(adjudications),
         "new_direct_compile_count": len(candidate_ids - set(adjudications)),
-        "contract_adjudication_count": len(contract_rows),
+        "contract_adjudication_count": len(contract_rows) + len(supplemental_rows),
         "pending_count": 0,
         "public_outcome_count": sum(
             bool(row["public_outcome_registered"]) for row in records
@@ -1761,15 +1811,70 @@ def build_battle_parent_contract_registry(
 def render_battle_parent_contract_registry_markdown(
     payload: Mapping[str, Any],
 ) -> str:
+    tier_order = ("S+", "S", "S-", "A", "B", "C")
+    dynasty_order = (
+        "秦",
+        "汉",
+        "东汉",
+        "三国",
+        "两晋",
+        "南北朝",
+        "隋",
+        "唐",
+        "五代十国",
+        "辽",
+        "北宋",
+        "南宋",
+        "西夏",
+        "金",
+        "元",
+        "明",
+        "清",
+        "未知",
+    )
+    tiered_records = [
+        row
+        for row in payload.get("records") or ()
+        if row.get("public_outcome_registered")
+        and row.get("campaign_tier") in tier_order
+    ]
+    tier_counts_by_dynasty: dict[str, Counter[str]] = {}
+    for row in tiered_records:
+        dynasty = str(row.get("dynasty") or "未知")
+        tier_counts_by_dynasty.setdefault(dynasty, Counter())[str(row["campaign_tier"])] += 1
+    ordered_dynasties = [
+        dynasty for dynasty in dynasty_order if dynasty in tier_counts_by_dynasty
+    ]
+    ordered_dynasties.extend(
+        sorted(set(tier_counts_by_dynasty) - set(ordered_dynasties))
+    )
+    high_difficulty_records = [
+        row
+        for row in tiered_records
+        if row.get("combat_difficulty") in {"D3", "D4"}
+    ]
+    difficulty_counts_by_dynasty: dict[str, Counter[str]] = {}
+    for row in high_difficulty_records:
+        dynasty = str(row.get("dynasty") or "未知")
+        difficulty_counts_by_dynasty.setdefault(dynasty, Counter())[
+            str(row["combat_difficulty"])
+        ] += 1
+    difficulty_dynasties = [
+        dynasty for dynasty in dynasty_order if dynasty in difficulty_counts_by_dynasty
+    ]
+    difficulty_dynasties.extend(
+        sorted(set(difficulty_counts_by_dynasty) - set(difficulty_dynasties))
+    )
     lines = [
-        "# 秦至唐父战役合同总登记",
+        "# 秦至清父战役合同总登记",
         "",
-        "本表合并普通父战役与六条开国统一链；普通候选未能闭合三轴者进入"
+        "本表合并普通父战役与开国统一链；普通候选未能闭合三轴者进入"
         "证据终态、合并或转域，统一链同时保留正式战役群和中性上下文节点。",
         "",
         f"- 普通候选：{payload['ordinary_candidate_count']}",
         f"- 普通登记父结果：{payload.get('ordinary_public_outcome_count', payload['public_outcome_count'])}",
         f"- 统一链正式结果：{payload.get('unification_public_outcome_count', 0)}",
+        f"- 唐以后候选：{payload.get('post_tang_candidate_count', 0)}",
         f"- 正式结果合计：{payload['public_outcome_count']}",
         f"- 待审：{payload['pending_count']}",
         "",
@@ -1785,22 +1890,64 @@ def render_battle_parent_contract_registry_markdown(
             "",
             "## 战役等级统计",
             "",
-            "| 等级 | 数量 |",
-            "| --- | ---: |",
+            "| 朝代 | S+ | S | S- | A | B | C | 合计 |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
-    for tier, count in payload["tier_counts"].items():
-        lines.append(f"| {tier} | {count} |")
+    for dynasty in ordered_dynasties:
+        counts = tier_counts_by_dynasty[dynasty]
+        lines.append(
+            f"| {dynasty} | "
+            + " | ".join(str(counts[tier]) for tier in tier_order)
+            + f" | {sum(counts.values())} |"
+        )
+    lines.append(
+        "| **合计** | "
+        + " | ".join(
+            f"**{sum(counts[tier] for counts in tier_counts_by_dynasty.values())}**"
+            for tier in tier_order
+        )
+        + f" | **{len(tiered_records)}** |"
+    )
+    difficulty_review = payload.get("high_difficulty_contract_review_summary") or {}
     lines.extend(
         [
             "",
-            "## 全量登记",
+            "## D3/D4合同复核",
+            "",
+            "D3要求至少两项重大约束相互强化；D4要求极端劣势或战线濒临崩溃，并有可追溯的判断、组织与完成逆转。战役终局、名将身份和伤亡规模均不自动升档。",
+            "",
+            f"- 当前D3/D4：{difficulty_review.get('current_d3_d4_count', len(high_difficulty_records))}",
+            f"- 唐以后本轮来源复核：{difficulty_review.get('post_tang_source_reviewed_record_count', 0)}",
+            f"- 未决：{difficulty_review.get('pending_count', 0)}",
+            "",
+            "| 朝代 | D3 | D4 | 合计 |",
+            "| --- | ---: | ---: | ---: |",
+        ]
+    )
+    for dynasty in difficulty_dynasties:
+        counts = difficulty_counts_by_dynasty[dynasty]
+        lines.append(
+            f"| {dynasty} | {counts['D3']} | {counts['D4']} | {sum(counts.values())} |"
+        )
+    lines.append(
+        "| **合计** | "
+        f"**{sum(counts['D3'] for counts in difficulty_counts_by_dynasty.values())}** | "
+        f"**{sum(counts['D4'] for counts in difficulty_counts_by_dynasty.values())}** | "
+        f"**{len(high_difficulty_records)}** |"
+    )
+    lines.extend(
+        [
+            "",
+            "## 定档战役登记",
+            "",
+            "本节只展示达到最低公共定档门槛（C档及以上）的战役；门槛下、转域、合并和中性上下文裁决仅保留在JSON审计底账。",
             "",
             "| 战役ID | 朝代 | 处置 | 等级 | D | 结果 |",
             "| --- | --- | --- | --- | --- | --- |",
         ]
     )
-    for row in payload["records"]:
+    for row in tiered_records:
         result = str(row.get("observable_result") or "—").replace("|", "｜")
         lines.append(
             f"| `{row['war_event_id']}` | {row['dynasty']} | "
@@ -1820,6 +1967,8 @@ def render_battle_parent_contract_registry_markdown(
             )
             for group in portfolio.get("campaign_groups") or []:
                 group_payload = group.get("payload") or {}
+                if group_payload.get("campaign_tier") not in tier_order:
+                    continue
                 result = str(
                     group_payload.get("strategic_objective")
                     or group.get("basis")
@@ -1830,6 +1979,129 @@ def render_battle_parent_contract_registry_markdown(
                     f"`{group['registration_role']}` | "
                     f"{group_payload.get('campaign_tier') or '—'} | "
                     f"{group_payload.get('combat_difficulty') or '—'} | {result} |"
+                )
+    calibration = payload.get("unification_horizontal_calibration") or {}
+    if calibration:
+        lines.extend(
+            [
+                "",
+                "## 统一链横向总档位校准",
+                "",
+                str(calibration.get("comparison_basis") or "—"),
+                "",
+                "| 统一链 | 王朝 | 总档 | O5 | O4 | O3 | 最高层对手 | 净控制量（辅助） |",
+                "| --- | --- | --- | ---: | ---: | ---: | --- | ---: |",
+            ]
+        )
+        for row in calibration.get("benchmark_records") or []:
+            lines.append(
+                f"| `{row['portfolio_ref']}` | {row['dynasty']} | "
+                f"`{row['horizontal_total_band']}` | "
+                f"{row['credited_opponent_counts']['O5']} | "
+                f"{row['credited_opponent_counts']['O4']} | "
+                f"{row['credited_opponent_counts']['O3']} | "
+                f"{'、'.join(row.get('top_opponents') or []) or '—'} | "
+                f"{row.get('created_net_control_value_auxiliary') if row.get('created_net_control_value_auxiliary') is not None else 'unknown'} |"
+            )
+        lines.extend(["", f"分档结果：{calibration.get('assertion') or '—'}"])
+    if payload.get("unification_campaign_portfolios"):
+        lines.extend(
+            [
+                "",
+                "## 秦至清统一链组合与控制辅助审计",
+                "",
+                "全部统一链使用同一 JSON 合同。主档只消费被实际击败的独立战争机器；净控制明细只验证战争取得范围和链尾兑现，不决定H档，证据不足保持 unknown。",
+                "",
+                "| 总链 | 朝代 | 时段 | 公共战役群 | 上下文/门槛下 | 创建净控制量 | 恢复控制量 | 统一链档 |",
+                "| --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
+            ]
+        )
+        for portfolio in payload["unification_campaign_portfolios"]:
+            lines.append(
+                f"| `{portfolio['portfolio_ref']}` | {portfolio['dynasty']} | "
+                f"`{portfolio['chronology_scope']}` | "
+                f"{portfolio['public_campaign_group_count']} | "
+                f"{portfolio['context_or_below_threshold_count']} | "
+                f"{portfolio['created_net_control_value'] if portfolio['created_net_control_value'] is not None else 'unknown'} | "
+                f"{portfolio['recovered_net_control_value'] if portfolio.get('recovered_net_control_value') is not None else '—'} | "
+                f"`{portfolio['horizontal_total_band']}` |"
+            )
+        for portfolio in payload["unification_campaign_portfolios"]:
+            audit = portfolio["control_audit"]
+            deltas = audit.get("control_deltas") or []
+            recovered_deltas = audit.get("recovered_control_deltas") or []
+            if not deltas and not recovered_deltas and not portfolio.get("opponent_systems"):
+                continue
+            lines.extend(
+                [
+                    "",
+                    f"### {portfolio['dynasty']} · `{portfolio['portfolio_ref']}`",
+                    "",
+                    f"区域时期：`{portfolio.get('region_value_period_id') or 'unknown'}`；"
+                    f"创建净控制量：`{portfolio['created_net_control_value']}`；"
+                    f"恢复控制量：`{portfolio.get('recovered_net_control_value') if portfolio.get('recovered_net_control_value') is not None else '—'}`；"
+                    f"统一链档：`{portfolio['horizontal_total_band']}`；"
+                    f"命中规则：`{portfolio['chain_grade_rule_hit']}`。",
+                    "",
+                    portfolio["chain_grade_basis"],
+                    "",
+                    "| 对手体系 | 组织档 | 闭合 | 根据地 | 裁决 |",
+                    "| --- | --- | --- | --- | --- |",
+                ]
+            )
+            for system in portfolio.get("opponent_systems") or []:
+                regions = "、".join(
+                    f"`{region}`" for region in system.get("base_regions") or []
+                ) or "—"
+                lines.append(
+                    f"| {system['opponent_label']} | `{system['organization_grade']}` | "
+                    f"`{system['closure']}` | {regions} | "
+                    f"{str(system['basis']).replace('|', '｜')} |"
+                )
+            if not deltas and not recovered_deltas:
+                continue
+            if portfolio["chronology_scope"] == "PRE_TANG":
+                lines.extend(["", "| 区域 | 起点 | 链尾 | 战争取得且保有 | 排除非战争 | unknown | R | 权重 | 加权值 |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |"])
+                for delta in deltas:
+                    lines.append(
+                        f"| {delta['region_name']} (`{delta['region_id']}`) | {delta['baseline_control_fraction']:.4f} | "
+                        f"{delta['terminal_control_fraction']:.4f} | {delta['war_acquired_retained_fraction']:.4f} | "
+                        f"{delta['excluded_non_war_fraction']:.4f} | {delta['unknown_acquisition_fraction']:.4f} | "
+                        f"`{delta['war_region_grade']}` | {delta['region_value_weight']:.2f} | {delta['weighted_war_acquired_value']:.4f} |"
+                    )
+                tiered_group_refs = {
+                    str(group["campaign_group_id"])
+                    for group in portfolio.get("campaign_groups") or []
+                    if (group.get("payload") or {}).get("campaign_tier") in tier_order
+                }
+                visible_group_results = [
+                    group
+                    for group in audit.get("group_control_results") or []
+                    if str(group["campaign_group_id"]) in tiered_group_refs
+                ]
+                if visible_group_results:
+                    lines.extend(["", "战役群控制效果（用于复核拆合、重复攻取与链尾保有）：", "", "| 战役群 | 区域 | 战前 | 战后 | 链尾 | 首次净控制信用 |", "| --- | --- | ---: | ---: | ---: | --- |"])
+                    for group in visible_group_results:
+                        group_ref = str(group["campaign_group_id"])
+                        for effect in group.get("control_effects") or []:
+                            lines.append(f"| `{group_ref}` | `{effect['region_id']}` | {float(effect['pre_control_fraction']):.4f} | {float(effect['post_control_fraction']):.4f} | {float(effect['window_end_control_fraction']):.4f} | {'是' if effect.get('first_net_control_credit') else '否'} |")
+            else:
+                lines.extend(["", "| 类型 | 区域 | 比例 | S | M | R | 权重 | 加权值 | 取得裁决 | 区域档理由 |", "| --- | --- | ---: | --- | --- | --- | ---: | ---: | --- | --- |"])
+                for delta in deltas:
+                    lines.append(
+                        f"| 创建 | `{delta['region_id']}` | {float(delta['net_control_fraction']):.4f} | "
+                        f"`{delta['strategic_value_grade']}` | `{delta['military_energy_grade']}` | `{delta['war_region_grade']}` | "
+                        f"{float(delta['region_value_weight']):.2f} | {float(delta['weighted_war_acquired_value']):.4f} | "
+                        f"{str(delta.get('basis') or '—').replace('|', '｜')} | {str(delta.get('war_region_grade_basis') or '—').replace('|', '｜')} |"
+                    )
+            for delta in recovered_deltas:
+                lines.append(
+                    f"| 恢复 | `{delta['region_id']}` | {float(delta['net_control_fraction']):.4f} | "
+                    f"`{delta['strategic_value_grade']}` | `{delta['military_energy_grade']}` | "
+                    f"`{delta['war_region_grade']}` | {float(delta['region_value_weight']):.2f} | "
+                    f"{float(delta['weighted_recovered_value']):.4f} | "
+                    f"{str(delta.get('basis') or '—').replace('|', '｜')} | "
+                    f"{str(delta.get('war_region_grade_basis') or '—').replace('|', '｜')} |"
                 )
     lines.extend(
         ["", "## 指纹", "", f"`{payload['semantic_fingerprint']}`", ""]
@@ -1961,13 +2233,17 @@ def _merge_unification_registry(
         for ref in portfolio.get("war_event_refs") or ()
     }
     unresolved_scope_records: list[dict[str, Any]] = []
+    ordinary_record_ids = {
+        str(record["war_event_id"])
+        for record in ordinary_payload.get("records") or ()
+    }
     for scope in (scope_payload or {}).get("adjudications") or ():
         scope_kind = str(scope.get("scope_kind") or "")
         if scope_kind == "FULL_REALM_UNIFICATION":
             continue
         for raw_ref in scope.get("war_event_refs") or ():
             war_ref = str(raw_ref)
-            if war_ref in covered_war_refs:
+            if war_ref in covered_war_refs or war_ref in ordinary_record_ids:
                 continue
             unresolved_scope_records.append(
                 {
@@ -2018,6 +2294,12 @@ def _merge_unification_registry(
     unification_count = sum(
         bool(record["public_outcome_registered"]) for record in unification_records
     )
+    records = (
+        list(ordinary_payload["records"])
+        + unification_records
+        + unresolved_scope_records
+    )
+    _normalize_han_dynasty_partition(records)
     combined.update(
         {
             "schema_version": CURRENT_SCHEMA_VERSION,
@@ -2030,16 +2312,33 @@ def _merge_unification_registry(
             "unification_tier_counts": dict(sorted(unification_tiers.items())),
             "tier_counts": dict(sorted(combined_tiers.items())),
             "unification_portfolios": portfolios,
-            "records": (
-                list(ordinary_payload["records"])
-                + unification_records
-                + unresolved_scope_records
-            ),
+            "records": records,
         }
     )
     _validate_materialized_person_results(combined["records"])
     combined["semantic_fingerprint"] = _digest(combined)
     return combined
+
+
+def _normalize_han_dynasty_partition(records: Sequence[dict[str, Any]]) -> None:
+    """将《通鉴》卷39至68的东汉记录从旧的“汉”目录标签中分出。
+
+    目录迁移前，西汉和东汉共用 ``汉`` token；业务朝代不能继续继承这个
+    物理目录标签。跨卷38/39的新莽崩解链仍保留为“汉”，避免把过渡父链
+    机械切断。
+    """
+
+    for record in records:
+        if record.get("dynasty") != "汉":
+            continue
+        source_files = (record.get("source_lineage") or {}).get("source_files") or ()
+        volumes = {
+            int(match.group(1))
+            for source_file in source_files
+            if (match := re.search(r"卷(\d{3})-通读总结\.md$", str(source_file)))
+        }
+        if volumes and all(39 <= volume <= 68 for volume in volumes):
+            record["dynasty"] = "东汉"
 
 
 def _validate_materialized_person_results(
@@ -2196,6 +2495,7 @@ def write_battle_parent_contract_registry(
         scope_payload=scope_payload,
         dynasty_by_war_event=dynasty_by_war_event,
     )
+    payload = merge_post_tang_battle_registry(payload, workspace_root)
     target = workspace_root / "docs/公共成果/军事"
     target.mkdir(parents=True, exist_ok=True)
     json_path = target / "01-秦至唐战役登记.json"

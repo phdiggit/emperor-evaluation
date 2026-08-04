@@ -1,0 +1,1064 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "five-dynasties-chronicle-volume-286",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷286",
+    "revision_ref": "2458278",
+    "start_locator": "后汉高祖天福十二年正月",
+    "end_locator": "后汉高祖天福十二年四月",
+    "overlap_context": "续接卷285后晋降辽、皇族被拘与福州围城；本卷记录辽占中原后的掠夺撤离、刘知远建汉和各地反辽，辽主病死与恒州继承冲突转出卷287。",
+    "input_fingerprint": "e2485b1f42d3c07ca345b1f2f77697a45874ac8ab7596d2e1d89c824b68c643b"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-286-KHITAN-ENTERS-DALIANG-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "大梁",
+        "明德门"
+      ],
+      "action": "契丹主入大梁，向惊走民众宣称将使其休息，并以契丹军控制城门宫禁。",
+      "result": "开封被降为汴州，契丹主改用中国衣冠和旧朝仪制。",
+      "quote": [
+        "民皆驚呼而走",
+        "會當使汝曹蘇息",
+        "皆以契丹守衛",
+        "矣。」廢東京，降",
+        "改服中國衣冠"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽正式接管后晋都城与制度。"
+        ]
+      ],
+      "unknown": [
+        "初期城内驻军数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-ZHANG-YANZE-EXECUTED-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "大梁北市"
+      ],
+      "action": "契丹主因张彦泽剽掠京城并受高勋控诉，将其与傅住儿公开处斩。",
+      "result": "死者家属与市民争相扑骂、分食其尸。",
+      "quote": [
+        "怒彥澤剽掠京城",
+        "斬彥澤、住兒於北市",
+        "詈，以杖撲之",
+        "臠其肉而食之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "卷285占领暴政的惩办。"
+        ]
+      ],
+      "unknown": [
+        "张彦泽财产处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-JIN-ROYAL-FAMILY-EXILED-947",
+      "time": "天福十二年正月至二月",
+      "loc": [
+        "封禅寺",
+        "黄龙府",
+        "锦州"
+      ],
+      "action": "契丹将石重贵封负义侯，连同太后、后妃子弟和百余随从北迁。",
+      "result": "供给断绝，石氏上下冻饿并沿途绝食，至锦州受拜墓屈辱。",
+      "quote": [
+        "主為負義侯",
+        "置於黃龍府",
+        "外無供億，上下凍餒",
+        "後宮左右從者百餘人",
+        "塗，供饋不繼",
+        "自采木實、草葉而食之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后晋皇族流徙。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "流徙途中断供饥饿。"
+        ]
+      ],
+      "unknown": [
+        "沿途死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-FANZHEN-SUBMISSIONS-AND-RESISTANCE-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "泾州",
+        "秦州",
+        "成州",
+        "阶州"
+      ],
+      "action": "契丹向后晋藩镇颁诏，多数争相称臣；史匡威据泾州拒命，何重建杀辽使并以三州降蜀。",
+      "result": "辽对西部的控制受阻，蜀势力进入秦成阶。",
+      "quote": [
+        "爭上表稱臣",
+        "據涇州不受命",
+        "建斬契丹使者",
+        "以秦、成、階三州降蜀",
+        "契丹勢稍沮"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽接管中原时藩镇分化。"
+        ]
+      ],
+      "unknown": [
+        "各镇表态时间未逐项载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-CHENQIAO-SURRENDERED-TROOPS-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "陈桥",
+        "恒州"
+      ],
+      "action": "契丹收后晋降军铠仗数百万、马数万，曾谋尽杀降卒，后改拟迁家属、番戍南边。",
+      "result": "陈桥降军免死并分遣还营，但久雪无给、士卒冻饿怨杜威。",
+      "quote": [
+        "鎧仗數百萬",
+        "州，驅馬數萬",
+        "給，士卒凍餒",
+        "欲悉以胡騎擁而納之河流",
+        "陳橋兵始得免"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "武器战马没收与降军断供。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽对后晋降军处置。"
+        ]
+      ],
+      "unknown": [
+        "降卒确数仅后文约称十万。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-KHITAN-DACAO-GU-947",
+      "time": "天福十二年正月至二月",
+      "loc": [
+        "郑州",
+        "滑州",
+        "曹州",
+        "濮州",
+        "东西南畿"
+      ],
+      "action": "契丹不给本国兵粮，纵胡骑以牧马为名分番剽掠，称打草谷。",
+      "result": "数百里丁壮死于锋刃、老弱弃沟壑，财畜几乎耗尽。",
+      "quote": [
+        "縱胡騎四出",
+        "謂之「打草穀」",
+        "丁壯斃於鋒刃",
+        "老弱委以溝壑",
+        "間，財畜殆盡"
+      ],
+      "battle": "CAMPAIGN-KHITAN-DACAO-GU-947",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以武装抢掠代替军粮供给。"
+        ]
+      ],
+      "unknown": [
+        "死亡和掠夺总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-KHITAN-FORCED-LOAN-947",
+      "time": "天福十二年正月至二月",
+      "loc": [
+        "大梁",
+        "中原诸州"
+      ],
+      "action": "契丹要求筹赏三十万军，刘昫在府库空竭下括借都城与诸州士民钱帛。",
+      "result": "使者严刑督迫、人不聊生，所括财物未赏军而蓄内库准备北运，内外怨愤。",
+      "quote": [
+        "契丹兵三十萬",
+        "時府庫空竭",
+        "括借都城士民錢帛",
+        "皆迫以嚴誅",
+        "誅，人不聊生",
+        "皆蓄之內庫"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全国性强制借贷与财物外运。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽统治迅速失去人心。"
+        ]
+      ],
+      "unknown": [
+        "实际括取总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-LIU-ZHIYUAN-POWER-BASE-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "河东",
+        "太原"
+      ],
+      "action": "刘知远利用后晋猜忌而广募士卒，收阳城散兵数千及吐谷浑财畜。",
+      "result": "河东富强居诸镇之首，步骑达五万人。",
+      "quote": [
+        "之廣募士卒",
+        "散卒歸之者數千人",
+        "又得吐谷渾財畜",
+        "河東富強冠諸鎮",
+        "步騎至五萬人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河东以没收财畜壮大军资。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后汉建国军政基础。"
+        ]
+      ],
+      "unknown": [
+        "财畜确数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-LIU-ZHIYUAN-WAITS-KHITAN-WITHDRAWAL-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "太原",
+        "大梁"
+      ],
+      "action": "刘知远暂向契丹奉表献物，同时判断辽军贪财失民心、冰雪消融后难久留。",
+      "result": "他拒绝立即进兵，决定待契丹北去后取中原。",
+      "quote": [
+        "必不能久有中國",
+        "豈可輕動哉",
+        "所利止於貨財",
+        "足，必將北去",
+        "宜待其去，然後取之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刘知远对辽采取观望策略。"
+        ]
+      ],
+      "unknown": [
+        "此时尚未公开称帝。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-SOUTHERN-TANG-MISSES-NORTHERN-CHANCE-947",
+      "time": "天福十二年正月",
+      "loc": [
+        "南唐",
+        "福州"
+      ],
+      "action": "韩熙载建议趁契丹占中原、北归前恢复唐疆。",
+      "result": "南唐因持续福州战争无暇北顾，朝野后来皆感遗憾。",
+      "quote": [
+        "恢復祖業，今也其時",
+        "若虜主北歸，中原有主，則未易圖也",
+        "方連兵福州",
+        "州，未暇北顧",
+        "唐主亦悔之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "福州战事牵制南唐北进。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "持续战争造成战略资源占用。"
+        ]
+      ],
+      "unknown": [
+        "若北进的可行结果未知。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-LIAO-CLAIMS-CHINESE-EMPIRE-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "契丹主依晋百官推戴，以中国帝王仪制服冠受朝，称大辽会同十年并大赦。",
+      "result": "下令节度使、刺史不得置牙兵、买马。",
+      "quote": [
+        "皆願推戴皇帝",
+        "服通天冠、絳紗袍",
+        "稱大遼會同十年",
+        "十年，大赦。仍",
+        "毋得置牙兵，市戰馬"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽在中原称帝并削弱藩镇军力。"
+        ]
+      ],
+      "unknown": [
+        "禁令执行程度未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-SHU-GUZHEN-CAMPAIGN-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "固镇",
+        "散关",
+        "凤州"
+      ],
+      "action": "后蜀李继勋、刘景攻拔固镇，何重建请扼散关取凤州。",
+      "result": "后蜀增山南兵三千七百，但崔延琛攻凤州未克。",
+      "quote": [
+        "攻固鎮，拔之",
+        "共扼散關以取鳳州",
+        "山南兵三千七百",
+        "攻鳳州，不克"
+      ],
+      "battle": "CAMPAIGN-SHU-GUZHEN-FENGZHOU-947",
+      "unknown": [
+        "伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-LIU-ZHIYUAN-ENTHRONED-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "太原"
+      ],
+      "action": "将佐与军士反复劝进，郭威、杨邠以人心将移促刘知远即帝位。",
+      "result": "刘知远仍沿天福年号建立后汉。",
+      "quote": [
+        "主天下者，非我王而誰",
+        "三上箋勸進",
+        "恐人心且移",
+        "劉知遠即皇帝位",
+        "更稱天福十二年"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后汉建国。"
+        ]
+      ],
+      "unknown": [
+        "此时尚未改国号年号。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-HAN-CANCELS-KHITAN-LEVIES-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "后汉势力范围"
+      ],
+      "action": "刘知远称帝后下诏停止各道为契丹括钱率帛，并赦免被迫任使的晋臣。",
+      "result": "反辽财税与政治动员同步展开。",
+      "quote": [
+        "為契丹括錢率帛者，皆罷之",
+        "被迫脅為使者勿問",
+        "問，令詣行在",
+        "自餘契丹，所在誅之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停止辽强制征敛。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "招纳晋臣并清除辽人。"
+        ]
+      ],
+      "unknown": [
+        "停征覆盖地区随归附扩展。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-SHAANZHOU-UPRISING-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "陕州"
+      ],
+      "action": "王晏、赵晖等夜入牙城取库兵，杀辽副使刘愿与监军，拥赵晖。",
+      "result": "陕州成为首批公开归后汉的要地，并击退高谟翰来攻。",
+      "quote": [
+        "夜逾牙城入府",
+        "出庫兵以給眾",
+        "旦，斬願首，懸",
+        "又殺契丹監軍",
+        "舉陝城歸之",
+        "翰攻暉，不克"
+      ],
+      "battle": "CAMPAIGN-SHAANZHOU-UPRISING-947",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方反辽归汉。"
+        ]
+      ],
+      "unknown": [
+        "起事人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-TIANWEI-MILITIA-AFTERMATH-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "后晋旧境"
+      ],
+      "action": "后晋天威乡兵因村民不习军旅被罢，改令七户输钱一万并缴甲仗。",
+      "result": "无赖子弟不归农业、山林盗贼增多；辽官掊敛又促成各地数千至数万武装攻州县。",
+      "quote": [
+        "旅，竟不可用",
+        "七戶輸錢十千",
+        "不復肯復農業",
+        "山林之盜，自是而繁",
+        "財，民不堪命",
+        "多者數萬人"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "民兵改税、失业和官府掊敛。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "基层治安崩解。"
+        ]
+      ],
+      "unknown": [
+        "各地盗军总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-XIANGZHOU-UPRISING-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "相州"
+      ],
+      "action": "梁晖数百人受李谷指使夜袭相州，杀契丹数百并据州。",
+      "result": "梁晖自称留后向刘知远上表。",
+      "quote": [
+        "夜，遣壯士逾城入",
+        "啟關納其眾",
+        "殺契丹數百",
+        "暉據州自稱留後"
+      ],
+      "battle": "CAMPAIGN-XIANGZHOU-UPRISING-947",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "相州反辽归汉。"
+        ]
+      ],
+      "unknown": [
+        "起事方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-HAN-USES-PALACE-FUNDS-FOR-ARMY-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "晋阳"
+      ],
+      "action": "刘知远原拟率民财赏军，李氏劝其改用宫中蓄积。",
+      "result": "刘知远停止向民征敛，倾内府赏军，中外大悦。",
+      "quote": [
+        "議率民財以賞將士",
+        "先奪其生生之資",
+        "善！」即罷率民，",
+        "傾內府蓄積以賜將士",
+        "中外聞之，大悅"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "由民间摊派改为宫库支军。"
+        ]
+      ],
+      "unknown": [
+        "内府支出数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-DAIZHOU-RECOVERED-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "代州"
+      ],
+      "action": "史弘肇率军攻代州。",
+      "result": "后汉拔城并斩王晖。",
+      "quote": "武節都指揮使史弘肇攻代州，拔之，斬王暉",
+      "battle": "CAMPAIGN-HAN-RECOVERS-DAIZHOU-947",
+      "unknown": [
+        "伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-JINZHOU-UPRISING-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "晋州"
+      ],
+      "action": "药可俦杀拒汉使者的骆从朗，晋州民又杀急括钱帛的辽使赵熙。",
+      "result": "张晏洪被推为留后，晋州归后汉。",
+      "quote": [
+        "可儔殺從朗，",
+        "括率錢帛，征督甚急",
+        "民相帥共殺熙",
+        "推晏洪權留後"
+      ],
+      "battle": "CAMPAIGN-JINZHOU-UPRISING-947",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "急征钱帛直接激发民变。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "晋州归汉。"
+        ]
+      ],
+      "unknown": [
+        "起事伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-SHANGDANG-UPRISING-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "上党",
+        "昭义"
+      ],
+      "action": "高防、王守恩令李万超率众杀赵行迁，并杀契丹使者。",
+      "result": "王守恩掌昭义，举镇降后汉。",
+      "quote": [
+        "白晝帥眾大噪入府",
+        "府，斬趙行遷",
+        "殺契丹使者",
+        "者，舉鎮來降"
+      ],
+      "battle": "CAMPAIGN-SHANGDANG-UPRISING-947",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "上党反辽归汉。"
+        ]
+      ],
+      "unknown": [
+        "契丹驻军数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-CHANCHOU-UPRISING-947",
+      "time": "天福十二年二月",
+      "loc": [
+        "澶州"
+      ],
+      "action": "王琼率千余人袭据澶州南城、渡浮桥掠夺并围辽帅郎五。",
+      "result": "契丹援军击败并杀王琼，但辽主因此遣杜重威等归镇并生北归意。",
+      "quote": [
+        "帥其徒千餘人",
+        "夜襲據南城",
+        "航，縱兵大掠",
+        "圍郎五於牙城",
+        "瓊兵敗，為契丹所殺",
+        "無久留河南之意"
+      ],
+      "battle": "CAMPAIGN-CHANCHOU-UPRISING-947",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "地方起事促辽调整占领。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-EASTERN-BANDIT-UPRISINGS-947",
+      "time": "天福十二年二月至三月",
+      "loc": [
+        "宋州",
+        "亳州",
+        "密州",
+        "徐州"
+      ],
+      "action": "东方群盗攻陷宋亳密三州，李仁恕数万众围徐州。",
+      "result": "符彦卿亲至城下与群盗盟誓，徐州围解。",
+      "quote": [
+        "東方群盜大起",
+        "陷宋、亳、密三州",
+        "帥眾數萬急攻徐州",
+        "前，乞赦其罪",
+        "之誓，乃解去。\n"
+      ],
+      "battle": "CAMPAIGN-EASTERN-BANDIT-UPRISINGS-947",
+      "unknown": [
+        "三州陷落伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-WUYUE-LANDS-AT-FUZHOU-947",
+      "time": "天福十二年三月",
+      "loc": [
+        "白虾浦",
+        "福州"
+      ],
+      "action": "吴越水军从海道抵白虾浦，冯延鲁故意放其登岸欲全歼。",
+      "result": "吴越军登岸猛攻，与城军夹击，大破南唐城南诸军。",
+      "quote": [
+        "自海道救福州",
+        "亥，至白蝦浦",
+        "縱其登岸盡殺之",
+        "岸，大呼奮擊",
+        "夾擊唐兵，大破之"
+      ],
+      "battle": "CAMPAIGN-WUYUE-LANDS-FUZHOU-947",
+      "unknown": [
+        "吴越参战兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-SOUTHERN-TANG-RETREATS-FUZHOU-947",
+      "time": "天福十二年三月",
+      "loc": [
+        "福州"
+      ],
+      "action": "南唐诸将相继烧营溃退，吴越军追击。",
+      "result": "南唐死二万余、弃军资器械数十万，府库耗竭；吴越接收福州军队。",
+      "quote": [
+        "夕，燒營而遁",
+        "亦相顧而潰",
+        "唐兵死者二萬餘人",
+        "軍資器械數十萬",
+        "府庫為之耗竭",
+        "引兵入福州"
+      ],
+      "battle": "CAMPAIGN-SOUTHERN-TANG-RETREATS-FUZHOU-947",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "巨额伤亡、军资损失和府库耗竭。"
+        ]
+      ],
+      "unknown": [
+        "吴越与福州军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-QUANZHOU-EXPELS-TANG-GARRISON-947",
+      "time": "天福十二年三月",
+      "loc": [
+        "泉州"
+      ],
+      "action": "留从效以泉州土地贫瘠、连年征战和冬征夏敛为由，迫南唐戍军撤回。",
+      "result": "泉州摆脱南唐驻军，南唐不能制止而加留从效官。",
+      "quote": [
+        "比年軍旅屢興",
+        "興，農桑廢業",
+        "業，冬征夏斂",
+        "戍將不得已引兵歸",
+        "唐主不能制"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以战争破坏农桑和征敛为撤军理由。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "泉州自主化。"
+        ]
+      ],
+      "unknown": [
+        "戍军人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-KHITAN-WITHDRAWS-DALIANG-947",
+      "time": "天福十二年三月",
+      "loc": [
+        "大梁",
+        "白马",
+        "黄河"
+      ],
+      "action": "契丹主北撤，带走数千晋官吏军卒、数百宫人与府库全部实物。",
+      "result": "沿途村落皆空，虽张榜招抚仍不禁胡骑剽掠。",
+      "quote": [
+        "諸司從者數千人",
+        "宮女、宦官數百人",
+        "盡載府庫之實以行",
+        "見村落皆空",
+        "竟不禁胡騎剽掠"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "人口与府库物资大规模北运。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽撤离大梁。"
+        ]
+      ],
+      "unknown": [
+        "北迁人员与财货精确总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-XIANGZHOU-MASSACRE-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "相州"
+      ],
+      "action": "梁晖降而复守，契丹蕃汉军急攻相州并破城。",
+      "result": "城中男子尽杀、妇女北驱，后收遗民仅七百余，埋骸十余万。",
+      "quote": [
+        "軍急攻相州",
+        "州，食時克之",
+        "悉殺城中男子",
+        "驅其婦女而北",
+        "得七百餘人",
+        "凡得十餘萬"
+      ],
+      "battle": "CAMPAIGN-XIANGZHOU-MASSACRE-947",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "破城造成城市人口毁灭。"
+        ]
+      ],
+      "unknown": [
+        "十余万骸骨是否全为本次死亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-HEYANG-UPRISING-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "河阴",
+        "河阳"
+      ],
+      "action": "武行德率千余押运晋甲仗士卒杀契丹监军，以所运铠仗武装后乘虚占河阳。",
+      "result": "武行德被推为河阳都部署并秘密归汉，后获任节度使。",
+      "quote": [
+        "士卒千餘人",
+        "即以鎧仗授之",
+        "殺契丹監軍使",
+        "乘虛入據河陽",
+        "以武行德為河陽節度使"
+      ],
+      "battle": "CAMPAIGN-HEYANG-UPRISING-947",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河阳反辽归汉。"
+        ]
+      ],
+      "unknown": [
+        "守城契丹兵数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-ZEZHOU-BATTLES-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "泽州",
+        "潞州",
+        "怀州"
+      ],
+      "action": "史弘肇遣马诲击败耿崇美、崔廷勋等辽军并追击。",
+      "result": "首战斩千余，辽军退保怀州。",
+      "quote": [
+        "將步騎萬人救之",
+        "擊契丹，斬首千餘級",
+        "遣誨追擊，破之",
+        "剌退保懷州"
+      ],
+      "battle": "CAMPAIGN-ZEZHOU-BATTLES-947",
+      "unknown": [
+        "后汉军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-KHITAN-EMPEROR-ADMITS-THREE-FAILURES-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "契丹北归途中"
+      ],
+      "action": "辽主总结占领失败为括钱、打草谷和未早遣节度使归镇三项。",
+      "result": "他承认三策导致天下反叛。",
+      "quote": [
+        "曰：「我有三失，",
+        "諸道括錢，一失也",
+        "打草穀，二失也",
+        "不早遣諸節度使還鎮，三失也",
+        "宜天下之叛我也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽主对占领政策失败的自评。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "括钱与打草谷被确认伤民致乱。"
+        ]
+      ],
+      "unknown": [
+        "并未见即时纠正措施。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-SOUTHERN-TANG-FUZHOU-PUNISHMENTS-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "南唐"
+      ],
+      "action": "南唐因矫诏败军议罪陈觉、冯延鲁，江文蔚并弹劾冯延己、魏岑壅蔽弄权。",
+      "result": "陈觉、冯延鲁仅流放，江文蔚因言过被贬，冯延己罢相、魏岑降职。",
+      "quote": [
+        "以矯詔敗軍",
+        "皆陰狡弄權",
+        "帑藏取與，系岑一言",
+        "流覺於蘄州",
+        "重軍威。」不從。\n<",
+        "事馮延己罷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "福州败军后的有限问责。"
+        ]
+      ],
+      "unknown": [
+        "后续是否再追责转下卷。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-KHITAN-EMPEROR-DIES-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "临城",
+        "栾城",
+        "杀胡林"
+      ],
+      "action": "辽主北归途中病重，至杀胡林死亡。",
+      "result": "辽军以盐实腹运尸北归，诸将密谋奉永康王兀欲。",
+      "quote": [
+        "臨城，得疾，及",
+        "欒城，病甚，苦",
+        "至殺胡林而卒",
+        "腹，實鹽數鬥",
+        "密議奉兀欲為主"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽帝死亡引发继承转换。"
+        ]
+      ],
+      "unknown": [
+        "病因未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-HENGZHOU-SUCCESSION-CONFLICT-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "恒州"
+      ],
+      "action": "赵延寿先入恒州自称受遗诏权知南朝军国，永康王兀欲受诸王拜并控制城门仓库。",
+      "result": "赵延寿被排除于实权之外，拟受百官贺礼也因疑惧停止。",
+      "quote": [
+        "先引兵入恆州",
+        "權知南朝軍國事",
+        "兀欲皆自主之",
+        "人請之，不與。\n",
+        "固請趙延壽未行此禮，乃止"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽主死后恒州权力冲突。"
+        ]
+      ],
+      "unknown": [
+        "赵延寿最终处置转卷287。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-286-CHENGTIAN-RECOVERED-947",
+      "time": "天福十二年四月",
+      "loc": [
+        "承天军"
+      ],
+      "action": "契丹袭破承天军并焚市，叶仁鲁率三千步骑趁敌出掠反击。",
+      "result": "后汉大破契丹并收复承天军。",
+      "quote": [
+        "契丹襲擊之",
+        "丹焚其市邑",
+        "將步騎三千",
+        "乘虛大破之",
+        "復取承天軍"
+      ],
+      "battle": "CAMPAIGN-HAN-RECOVERS-CHENGTIAN-947",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2458278 的卷286连续通读登记，不引入卷外常识。",
+    "普通任免、使聘、祥异及无消费结果的行军节点未单列。",
+    "卷末辽帝死亡后的恒州继承冲突及辽军北归余波未闭合，待卷287续接。"
+  ]
+}

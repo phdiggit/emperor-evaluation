@@ -1,0 +1,640 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-114",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷114",
+    "revision_ref": "2307874",
+    "start_locator": "紹興四年七月建昌軍亂與岳飛復鄧州",
+    "end_locator": "紹興四年十二月廬州援戰與金人退師",
+    "overlap_context": "承卷113岳飛收復襄郢隨、仙人關勝守、湖湘剿亂與金齊南侵醞釀，續记淮上南侵、親征江防及金軍退師。",
+    "input_fingerprint": "a781d21380b40801f604b451fd2c0519a032acaaef6f44220bdd41e9a87ab456"
+  },
+  "limitations": [
+    "本卷止於紹興四年十二月，未讀卷115。",
+    "纯任免、祭祀、天象及无实施结果的单次建言未单独登记者。",
+    "各候选均为shadow路由，不写正式事实、评分或数据库。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-114-JIANCHANG-MUTINY-1134",
+      "time": "紹興四年七月己酉至丙寅",
+      "loc": [
+        "建昌軍"
+      ],
+      "action": "建昌军士因刘滂裁禁市肆聚博而叛乱，杀害刘滂等；赵详、侯愨入城镇压。",
+      "result": "叛乱平定，但正文记载镇压中的劫掠。",
+      "quote": [
+        "滂以法裁之",
+        "遂毀撤其肆",
+        "殺滂及其家",
+        "盡刺強壯為兵",
+        "軍中脅從者六百餘人解甲出城",
+        "追殺五百餘人",
+        "叛兵所掠金帛子女"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-JIANCHANG-MUTINY-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-YANGQIN-DUMUZHAI-1134",
+      "time": "紹興四年七月癸丑",
+      "loc": [
+        "鼎州",
+        "杜木寨"
+      ],
+      "action": "杨钦趁大水攻破杜木寨，王𤫉此前派兵践禾未能阻敌。",
+      "result": "许签战死、官军死伤不计，湖寇气势上升。",
+      "quote": [
+        "水賊楊欽攻鼎州杜木寨",
+        "以為賊三不可招",
+        "遣兵踐其禾稼",
+        "賊乘大水攻寨",
+        "許簽為所殺",
+        "官軍死者不可勝數",
+        "官軍死者不可勝數，賊愈增氣"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-YANGQIN-DUMUZHAI-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-YUEFEI-DENGZHOU-1134",
+      "time": "紹興四年七月甲子",
+      "loc": [
+        "鄧州",
+        "光化",
+        "橫林"
+      ],
+      "action": "岳飞遣王贵、张宪分出光化与横林，董先奇击李成军后攻克邓州。",
+      "result": "宋军复邓州，岳飞移屯德安府。",
+      "quote": [
+        "岳飛復鄧州",
+        "遣統制官王貴出光化",
+        "張憲出橫林",
+        "董先出奇要擊",
+        "將士蟻附而上",
+        "將士蟻附而上，遂克之",
+        "飛移屯德安府"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-YUEFEI-DENGZHOU-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-QI-NAVAL-PREPARATION-1134",
+      "time": "紹興四年七月",
+      "loc": [
+        "登州",
+        "萊州",
+        "密州",
+        "膠西",
+        "定海"
+      ],
+      "action": "伪齐集五郡军民二万人、民舟五百艘为战舰，声言袭定海。",
+      "result": "沿海袭扰准备形成。",
+      "quote": [
+        "調登、萊、沂、密、海五郡軍民之兵二萬人",
+        "集民間之舟大小五百",
+        "集民間之舟大小五百，裝為戰艦",
+        "知密州劉某充都統領",
+        "叛將徐文為前軍",
+        "欲襲定海縣"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-QI-NAVAL-PREPARATION-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-HORSE-BREEDING-1134",
+      "time": "紹興四年八月乙未",
+      "loc": [
+        "余杭縣",
+        "臨安府",
+        "上下湖"
+      ],
+      "action": "朝廷在余杭上下湖设置孳生牧马监，每监五百匹，牡一牝四，并以繁殖死亡奖惩。",
+      "result": "临安军马繁殖取得场地、规模与考核。",
+      "quote": [
+        "余杭縣南上下湖地置孳生牧馬監",
+        "每馬五百匹為一監",
+        "牡一而牝四之",
+        "歲產駒三分斃二上下",
+        "歲產駒三分斃二上下，皆有賞罰"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-114-HORSE-BREEDING-1134",
+        "candidate": "FIN-CAND-114-HORSE-BREEDING-1134",
+        "summary": "临安军马繁殖取得场地、规模与考核。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载战时背景。",
+          "fiscal_state": "本卷所载财用安排。",
+          "livelihood_state": "直接民生影响按正文保留。",
+          "production_circulation": "本卷所载资源流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-LAKE-COMMAND-1134",
+      "time": "紹興四年八月壬寅",
+      "loc": [
+        "湖北",
+        "荊襄",
+        "潭州",
+        "鼎州",
+        "江州"
+      ],
+      "action": "朝廷以王𤫉久无功且诸帅争执为由，专委岳飞讨捕杨太，令多军协同并令王𤫉还江州。",
+      "result": "洞庭剿捕统帅和协同关系重组。",
+      "quote": [
+        "專委飛措畫討捕",
+        "出師逾歲，不能成功",
+        "每事忿爭，不務協心",
+        "程昌㝢自上流進兵",
+        "聽昌㝢節制",
+        "遣兵船約期進討",
+        "命𤫉將所部還江州"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-LAKE-COMMAND-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-MINGTANG-COSTS-1134",
+      "time": "紹興四年九月辛酉",
+      "loc": [
+        "行在"
+      ],
+      "action": "明堂合祀扩充神位、祭器和乐舞，内外军队获支钱，百官给赐则因军兴暂停。",
+      "result": "大礼军费较元年增加九十四万余缗。",
+      "quote": [
+        "始設從祀神位四百四十三",
+        "用祭器七千五百七十一",
+        "神武右軍、中軍七萬二千八百餘人",
+        "共支錢二百三十一萬餘緡",
+        "共支錢二十八萬餘緡",
+        "視元年明堂增支九十四萬餘緡",
+        "以軍興權住"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-114-MINGTANG-COSTS-1134",
+        "candidate": "FIN-CAND-114-MINGTANG-COSTS-1134",
+        "summary": "大礼军费较元年增加九十四万余缗。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载战时背景。",
+          "fiscal_state": "本卷所载财用安排。",
+          "livelihood_state": "直接民生影响按正文保留。",
+          "production_circulation": "本卷所载资源流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-MINGTANG-HALL-1134",
+      "time": "紹興四年八月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "明堂行礼殿完工后，梁汝嘉请求依次推赏提领官，高宗拒绝以转官酬报土木工程，只许分等给赏。",
+      "result": "礼殿工程已成，酬劳限定为支赏而不扩张官爵。",
+      "quote": [
+        "明堂行禮殿成",
+        "乞提領官以次推賞",
+        "朕愛惜名器以待戰士",
+        "士木之功，豈當轉官",
+        "但可等第支賞耳"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-114-MINGTANG-HALL-1134",
+        "candidate": "WORK-CAND-114-MINGTANG-HALL-1134",
+        "summary": "礼殿工程已成，酬劳限定为支赏而不扩张官爵。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "礼殿工程已成，酬劳限定为支赏而不扩张官爵。",
+          "phase": "本卷所载阶段。",
+          "purpose": "本卷所载目的。",
+          "resource_input": "本卷所载投入。",
+          "operation": "本卷所载实施。",
+          "benefit": "本卷所载结果。",
+          "harm": "本卷所载不利影响。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-DOCUMENT-PROCEDURE-1134",
+      "time": "紹興四年九月乙丑",
+      "loc": [
+        "三省",
+        "樞密院"
+      ],
+      "action": "朝廷命三省、枢密院录黄画黄依祖宗条例施行，并允许御史检点违戾。",
+      "result": "政令封驳与监察程序得到重申。",
+      "quote": [
+        "院錄黃、畫黃",
+        "依祖宗條例施行",
+        "給、捨得以封駁",
+        "台諫得以論列",
+        "不用錄黃而直降指揮",
+        "紀綱弛廢，莫此為甚",
+        "悉令取索點檢",
+        "如有違戾，即具彈奏"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-114-DOCUMENT-PROCEDURE-1134",
+        "candidate": "POL-CAND-114-DOCUMENT-PROCEDURE-1134",
+        "summary": "政令封驳与监察程序得到重申。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "政令封驳与监察程序得到重申。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取所记处置。",
+          "decision": "采取本卷所载处置。",
+          "direct_result": "本卷所载直接结果。",
+          "power_change": "本卷所载权力配置。",
+          "risk_or_damage": "本卷所载风险或损害。",
+          "follow_up": "后续进展未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-QI-JIN-INVASION-1134",
+      "time": "紹興四年九月",
+      "loc": [
+        "泗州",
+        "盱眙",
+        "滁州",
+        "和州",
+        "揚州",
+        "採石",
+        "瓜洲",
+        "承州"
+      ],
+      "action": "刘豫采纳南征议，金调五万人配合；刘麟统兵南侵，李成主张沿汴渡淮、分兵及造舟攻江南。",
+      "result": "金齐南侵作战计划形成，骑兵攻滁、步兵攻承。",
+      "quote": [
+        "羅誘上南征議於豫",
+        "調兵五萬人以應豫",
+        "梁國公麟領東西道行台尚書令，合兵南侵",
+        "沿汴直犯泗州",
+        "渡淮，以大軍扼盱眙",
+        "分兵下滁、和、揚州，大治舟楫",
+        "西自採石以攻金陵",
+        "騎兵自泗攻滁",
+        "步兵自楚攻承"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-QI-JIN-INVASION-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-ZHAODING-ASCENT-1134",
+      "time": "紹興四年九月癸酉",
+      "loc": [
+        "行在",
+        "川陝",
+        "荊襄"
+      ],
+      "action": "赵鼎反对散百司退避，主张战败后再撤；高宗留其不入蜀，授左仆射兼知枢密。",
+      "result": "赵鼎取得南侵应对的中枢军政主导权。",
+      "quote": [
+        "戰而不捷，去未晚也",
+        "至是決意親征",
+        "留鼎不遣入蜀",
+        "當相卿，付以今日大計",
+        "朝士動色相慶"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-114-ZHAODING-ASCENT-1134",
+        "candidate": "POL-CAND-114-ZHAODING-ASCENT-1134",
+        "summary": "赵鼎取得南侵应对的中枢军政主导权。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "赵鼎取得南侵应对的中枢军政主导权。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取所记处置。",
+          "decision": "采取本卷所载处置。",
+          "direct_result": "本卷所载直接结果。",
+          "power_change": "本卷所载权力配置。",
+          "risk_or_damage": "本卷所载风险或损害。",
+          "follow_up": "后续进展未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-HUAI-CROSSING-1134",
+      "time": "紹興四年九月辛未至十月",
+      "loc": [
+        "淮河",
+        "楚州",
+        "承州",
+        "鎮江",
+        "建康"
+      ],
+      "action": "金与伪齐分道渡淮，樊序弃楚州，韩世忠退保镇江；宋廷调张俊、刘光世准备亲征。",
+      "result": "宋军集中于江防与援韩。",
+      "quote": [
+        "金人及劉豫之兵分道渡淮",
+        "樊序棄城去",
+        "退保鎮江府",
+        "攻承州、楚州",
+        "朕當親總六軍，臨江決戰",
+        "張俊以所部往授世忠",
+        "淮西宣撫使劉光世移軍建康"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-HUAI-CROSSING-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-CAPITAL-RETENTION-1134",
+      "time": "紹興四年十月丁丑",
+      "loc": [
+        "行在",
+        "臨安",
+        "深僻處"
+      ],
+      "action": "孟庾任行宫留守，从权处置百司，收寄档案、保留库务和分配留守兵力。",
+      "result": "亲征期间行在行政、档案和部分兵力得到保全安排。",
+      "quote": [
+        "參知政事孟庾為行宮留守",
+        "從權措置百司事務",
+        "於深僻處收寄",
+        "各差本司官一員",
+        "並量行存留",
+        "留神武中軍五百人",
+        "皆聽庾節制",
+        "皆從便避兵矣"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-114-CAPITAL-RETENTION-1134",
+        "candidate": "POL-CAND-114-CAPITAL-RETENTION-1134",
+        "summary": "亲征期间行在行政、档案和部分兵力得到保全安排。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "亲征期间行在行政、档案和部分兵力得到保全安排。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取所记处置。",
+          "decision": "采取本卷所载处置。",
+          "direct_result": "本卷所载直接结果。",
+          "power_change": "本卷所载权力配置。",
+          "risk_or_damage": "本卷所载风险或损害。",
+          "follow_up": "后续进展未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-EMERGENCY-TAX-1134",
+      "time": "紹興四年十月",
+      "loc": [
+        "江",
+        "浙",
+        "行都"
+      ],
+      "action": "行都月费逾百万缗且调军无财源，朝廷令江浙民悉纳折帛钱，丝绵亦拟折钱起发。",
+      "result": "折帛钱负担加重，民间现金丝帛成为战时财源。",
+      "quote": [
+        "行都月費錢百餘萬緡",
+        "且撥發軍馬，財無所出",
+        "江、浙民悉納折帛錢",
+        "輸帛者半折見錢",
+        "每匹五千二百省",
+        "折帛錢自此益重",
+        "江、浙絲並折見錢",
+        "計綱起發赴行在"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-114-EMERGENCY-TAX-1134",
+        "candidate": "FIN-CAND-114-EMERGENCY-TAX-1134",
+        "summary": "折帛钱负担加重，民间现金丝帛成为战时财源。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载战时背景。",
+          "fiscal_state": "本卷所载财用安排。",
+          "livelihood_state": "直接民生影响按正文保留。",
+          "production_circulation": "本卷所载资源流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-LIU-ZHANG-COORDINATION-1134",
+      "time": "紹興四年十月",
+      "loc": [
+        "馬家渡",
+        "採石磯",
+        "太平州"
+      ],
+      "action": "魏矼劝刘光世与张俊消除私隙、形成掎角，二帅互致书信后刘光世移军太平州。",
+      "result": "援韩协调得到推进。",
+      "quote": [
+        "軍權相敵，且持私隙",
+        "且持私隙，莫肯協心",
+        "當減怨隙，不獨可以報國",
+        "使為掎角。已而二帥",
+        "皆復書交致其情",
+        "移軍太平州"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-114-LIU-ZHANG-COORDINATION-1134",
+        "candidate": "POL-CAND-114-LIU-ZHANG-COORDINATION-1134",
+        "summary": "援韩协调得到推进。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "援韩协调得到推进。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取所记处置。",
+          "decision": "采取本卷所载处置。",
+          "direct_result": "本卷所载直接结果。",
+          "power_change": "本卷所载权力配置。",
+          "risk_or_damage": "本卷所载风险或损害。",
+          "follow_up": "后续进展未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-HAOZHOU-FALL-1134",
+      "time": "紹興四年十月丙申",
+      "loc": [
+        "濠州",
+        "十八里洲"
+      ],
+      "action": "金军以冲车云梯连攻八昼夜，寇宏开北门弃城，国奉卿被杀，守军多人战死。",
+      "result": "濠州失守，伪齐接管州事。",
+      "quote": [
+        "金人破濠州",
+        "凡八晝夜不休",
+        "宏知不可為，乃開北門",
+        "攜老母與寡嫂棄城而去",
+        "通判州事國奉卿為所殺",
+        "一舟二百人皆被害",
+        "以其將趙榮知州事"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-HAOZHOU-FALL-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-IMPERIAL-MARCH-1134",
+      "time": "紹興四年十月戊戌至壬寅",
+      "loc": [
+        "臨安",
+        "臨平",
+        "崇德",
+        "秀州",
+        "吳江",
+        "姑蘇",
+        "平江"
+      ],
+      "action": "高宗亲率军自临安乘舟赴平江，只载书籍、不带玩好，令六宫海道赴泉州，并限制沿途调夫扰民。",
+      "result": "车驾抵平江行宫，行在完成江防转移和宫眷疏散。",
+      "quote": [
+        "帝登舟，發臨安府",
+        "所載書籍而已",
+        "六宮自溫州泛海往泉州",
+        "本以安民，豈可過為煩擾",
+        "調夫修治道路為名",
+        "御舟次姑蘇",
+        "入居平江府行宮"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-114-IMPERIAL-MARCH-1134",
+        "candidate": "POL-CAND-114-IMPERIAL-MARCH-1134",
+        "summary": "车驾抵平江行宫，行在完成江防转移和宫眷疏散。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "车驾抵平江行宫，行在完成江防转移和宫眷疏散。",
+          "decision_question": "本卷所载处置问题。",
+          "alternatives": "维持原状或采取所记处置。",
+          "decision": "采取本卷所载处置。",
+          "direct_result": "本卷所载直接结果。",
+          "power_change": "本卷所载权力配置。",
+          "risk_or_damage": "本卷所载风险或损害。",
+          "follow_up": "后续进展未完整记载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-SHOUCHUN-ANFENG-1134",
+      "time": "紹興四年十月乙巳",
+      "loc": [
+        "壽春府",
+        "安豐縣",
+        "廬州"
+      ],
+      "action": "仇悆遣兵奇袭寿春，与孙晖合兵击退金军，次日复安丰。",
+      "result": "淮西暂复寿春安丰方向据点。",
+      "quote": [
+        "急錄以示人，人皆思奮",
+        "敵進據壽春、安豐",
+        "遣兵出奇直抵城下",
+        "與守將孫暉合兵擊之",
+        "敵戰敗卻去",
+        "南軍入城。翼日",
+        "遂復安豐縣"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-SHOUCHUN-ANFENG-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-WATER-MILITIA-RELIEF-1134",
+      "time": "紹興四年十一月庚戌",
+      "loc": [
+        "承州",
+        "楚州",
+        "泰州"
+      ],
+      "action": "朝廷免三州水寨民兵十年租税科役并发钱米，徐康、潘通等邀击金兵后又获米万石。",
+      "result": "水寨民兵获得长期税役减免与物资供给。",
+      "quote": [
+        "水寨民兵並與放十年租稅",
+        "科役久，仍發錢米贍之",
+        "遣兵邀擊金兵",
+        "俘女直數十",
+        "尋又賜米萬石"
+      ],
+      "unknown": [],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-114-WATER-MILITIA-RELIEF-1134",
+        "candidate": "FIN-CAND-114-WATER-MILITIA-RELIEF-1134",
+        "summary": "水寨民兵获得长期税役减免与物资供给。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本卷所载战时背景。",
+          "fiscal_state": "本卷所载财用安排。",
+          "livelihood_state": "直接民生影响按正文保留。",
+          "production_circulation": "本卷所载资源流转。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-114-LUZHOU-DEFENSE-1134",
+      "time": "紹興四年十二月壬辰",
+      "loc": [
+        "廬州",
+        "淮右"
+      ],
+      "action": "仇悆千名戍军败没后向岳飞求援，牛皋、徐庆率二千人赴援，以少量骑兵出城击退金军。",
+      "result": "庐州危机暂解，岳飞军形成跨区援助。",
+      "quote": [
+        "金增兵復侵淮右",
+        "既而敗北，無一還者",
+        "遂求救於湖北制置使岳飛",
+        "率二千人往援",
+        "金人五千騎將逼城",
+        "金兵失色。皋舞槊",
+        "金兵疑有伏，即奔潰",
+        "餘皆遁去。時"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-LUZHOU-DEFENSE-1134"
+    },
+    {
+      "id": "CHF-XZZTJ-114-JIN-RETREAT-1134",
+      "time": "紹興四年十二月庚子",
+      "loc": [
+        "泗州",
+        "竹塾鎮",
+        "滁州",
+        "宿州"
+      ],
+      "action": "韩世忠扼制金军，雨雪和粮道不通迫使其杀马为食；金主有疾后宗弼夜引还，刘麟弃辎重遁。",
+      "result": "金齐结束本轮南侵，金军据滁州四十七日后撤离。",
+      "quote": [
+        "庚子，金人退師",
+        "會天雨雪，糧道不通",
+        "至殺馬而食",
+        "至殺馬而食，軍皆怨憤",
+        "宗弼然之，夜引還",
+        "棄輜重遁去",
+        "金據滁州凡四十有七日",
+        "金人去滁州"
+      ],
+      "unknown": [],
+      "battle": "CAMPAIGN-114-JIN-RETREAT-1134"
+    }
+  ]
+}

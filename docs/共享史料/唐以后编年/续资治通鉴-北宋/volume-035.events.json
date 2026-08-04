@@ -1,0 +1,1263 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-035",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷035",
+    "revision_ref": "2299546",
+    "start_locator": "宋真宗天禧四年八月",
+    "end_locator": "宋仁宗乾興元年十二月",
+    "overlap_context": "承接卷034真宗病重、周怀政谋变和寇准外贬后的中枢斗争；本卷完成太子参政、真宗崩逝与仁宗即位，记录刘太后临朝、丁谓—雷允恭专权及相继败亡，并推进灾赈、河工、学田和经筵制度，转出两宫共决政务与仁宗初政。",
+    "input_fingerprint": "c952328cd9feb5a76ebeb30b87b1df9899c37c6def85f072d293c06a5e2060b2"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-035-LIDI-DINGWEI-CONFLICT-1020",
+      "time": "天禧四年八月",
+      "loc": [
+        "开封",
+        "安州"
+      ],
+      "action": "丁谓欲将寇准远徙而擅在诏旨中增写“远”字，李迪指出与面奉圣旨不符，二人由此激烈冲突。",
+      "result": "李迪—丁谓的中枢对立公开化，寇准被徙知安州。",
+      "quote": [
+        "向者聖旨無遠字",
+        "欲擅改聖旨以庇准邪",
+        "二人忿爭自此始"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓篡改诏旨措辞并与李迪冲突。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-ZHUNENG-REBELLION-1020",
+      "time": "天禧四年八月",
+      "loc": [
+        "永兴军",
+        "桑林"
+      ],
+      "action": "朱能披甲杀使者卢守明，率部兵和家属叛逃。",
+      "result": "叛众溃散，朱能在桑林自缢。",
+      "quote": [
+        "衷甲以出，殺盧守明",
+        "帥部兵、挈家屬叛逸",
+        "入桑林自縊死"
+      ],
+      "battle": "CAMPAIGN-ZHUNENG-REBELLION-1020",
+      "unknown": [
+        "交战与伤亡细节未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-KOUZHUN-DAOZHOU-DEMOTION-1020",
+      "time": "天禧四年八月",
+      "loc": [
+        "安州",
+        "道州"
+      ],
+      "action": "寇准因朱能叛乱再贬为道州司马，形成罢相后的第三次黜降。",
+      "result": "寇准被逐至远州，真宗起初并不知连续贬黜详情。",
+      "quote": [
+        "寇准坐朱能叛",
+        "再貶道州司馬",
+        "繼以三黜，帝初不之知"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "寇准因朱能案连续远贬。"
+        ]
+      ],
+      "unknown": [
+        "真宗不知情的具体环节未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-KOUZHUN-ESCORT-RAID-1020",
+      "time": "天禧四年八月",
+      "loc": [
+        "零陵",
+        "大坡"
+      ],
+      "action": "寇准赴道州途中护兵脱节，溪洞蛮夷乘隙抄掠行李，酋长闻讯后责令归还。",
+      "result": "所掠物资被追回。",
+      "quote": [
+        "護兵先後不屬",
+        "溪洞蠻夷乘間抄掠",
+        "趣遣人還所掠"
+      ],
+      "battle": "INCIDENT-KOUZHUN-ESCORT-RAID-1020",
+      "unknown": [
+        "是否有人受伤未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-SLIDING-RIVER-LABOR-DEATHS-1020",
+      "time": "天禧四年八月追记",
+      "loc": [
+        "滑州"
+      ],
+      "action": "滑州决河后大规模征役，沿途饿死者相望，刘煜请求罢免宰相以回应天灾。",
+      "result": "河工的严重民力代价进入谏议，但未见宰相因此罢免。",
+      "quote": [
+        "河決滑州，大興力役",
+        "役，道殍相望",
+        "請策免宰相以答天變"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "滑州河工造成沿途大量饿殍。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模河役重创民生。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "谏官请求以罢相回应灾变。"
+        ]
+      ],
+      "unknown": [
+        "死亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-ZHOU-ZHU-AMNESTY-1020",
+      "time": "天禧四年九月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷大赦系囚，并对周怀政、朱能党类除已审结者外一律允许自新。",
+      "result": "谋变与伪天书案件不再继续扩大株连。",
+      "quote": [
+        "餘咸許自新",
+        "周懷政、朱能黨類"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赦免未审结的周怀政、朱能党类。"
+        ]
+      ],
+      "unknown": [
+        "获免人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-LIAO-TRIBUTE-RESTRAINT-1020",
+      "time": "天禧四年十月",
+      "loc": [
+        "辽西南边境"
+      ],
+      "action": "辽主认为党项小族贡期不时源于边臣无度征敛，命遣清慎官员示信并禁止侵渔。",
+      "result": "辽廷以约束边吏替代加重督贡。",
+      "quote": [
+        "邊臣驕縱，征斂無度",
+        "第遣清慎官將",
+        "信，無或浸漁"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "约束辽边臣对党项小族的额外征敛。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以清慎官员重建边族贡纳信任。"
+        ]
+      ],
+      "unknown": [
+        "后续贡纳情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-CHENYAOZUO-DIKE-1020",
+      "time": "天禧四年十月",
+      "loc": [
+        "滑州"
+      ],
+      "action": "陈尧佐主持滑州河防，创制木龙削减水势后筑堤，并续筑长堤。",
+      "result": "滑州堤防得以建成，长堤被称为陈公堤。",
+      "quote": [
+        "創木龍以殺水怒",
+        "怒，堤乃可築",
+        "人號為陳公堤"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以木龙减水势并筑陈公堤。"
+        ]
+      ],
+      "unknown": [
+        "堤长与费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-TIANZHANG-PAVILION-1020",
+      "time": "天禧四年十一月至天禧五年三月",
+      "loc": [
+        "龙图阁后",
+        "天章阁"
+      ],
+      "action": "真宗命刻印七百二十二卷御制并另建殿阁收藏，天章阁次年建成。",
+      "result": "御集、御书获得专门刊刻与收藏建筑。",
+      "quote": [
+        "聖制七百二十二卷",
+        "是為天章閣",
+        "奉安御集、御書于天章閣"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新建天章阁收藏御制御书。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "刊刻御制并编纂圣政录。"
+        ]
+      ],
+      "unknown": [
+        "工程费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-PRINCE-REGENCY-PROPOSAL-1020",
+      "time": "天禧四年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "真宗因久病提出太子在外理政、皇后居中裁处，并让中书枢密大臣兼东宫职。",
+      "result": "太子参政与皇后居中托付进入正式议程。",
+      "quote": [
+        "欲令太子蒞政于外",
+        "皇后居中詳處",
+        "各兼東宮職任"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "真宗安排太子参政和皇后居中裁处。"
+        ]
+      ],
+      "unknown": [
+        "最初总军国事方案后被收缩。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-LIDI-DINGWEI-CLASH-1020",
+      "time": "天禧四年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "李迪反对丁谓私擢林特并揭发丁谓弄权、嫉寇准、结姻干政，甚至欲以手版击丁谓。",
+      "result": "真宗一度命丁谓、李迪同时降秩罢相。",
+      "quote": [
+        "引手版欲擊之",
+        "謂奸邪弄權",
+        "各降秩一級，罷相"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李迪与丁谓在中枢公开决裂并同遭罢相处分。"
+        ]
+      ],
+      "unknown": [
+        "原拟制书未正式施行。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-DINGWEI-RESTORED-1020",
+      "time": "天禧四年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "钱惟演与宫中力量促使丁谓留任，丁谓自称已有旨复平章事并被送回中书视事，李迪则出知郓州。",
+      "result": "丁谓重新控制中枢，李迪退出。",
+      "quote": [
+        "有旨復平章事",
+        "送謂赴中書",
+        "仍詔迪出知鄆州"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓借宫中传诏复相并逐李迪。"
+        ]
+      ],
+      "unknown": [
+        "真宗病中诏令受何人影响无法完全确定。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-PRINCE-DELEGATED-GOVERNMENT-1020",
+      "time": "天禧四年十一月",
+      "loc": [
+        "资善堂"
+      ],
+      "action": "真宗诏军国大事仍亲决，其余事务由皇太子与宰相、枢密共同参议执行。",
+      "result": "皇太子获得日常政务处置权。",
+      "quote": [
+        "軍國大事仍舊親決",
+        "餘皆委皇太子",
+        "就資善堂參議行之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "太子在资善堂参议处理常务。"
+        ]
+      ],
+      "unknown": [
+        "亲决与委决边界未逐项载明。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-PRINCE-PERSONAL-GOVERNMENT-1020",
+      "time": "天禧四年十二月",
+      "loc": [
+        "资善堂"
+      ],
+      "action": "皇太子开始亲政，中书、枢密依次进事承旨，并引见京朝、幕职、州县官及禁军人员。",
+      "result": "太子参政由诏令转入常态化执行。",
+      "quote": [
+        "皇太子親政",
+        "皇太子秉笏南面而立",
+        "遞進承令旨"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "皇太子建立资善堂亲政程序。"
+        ]
+      ],
+      "unknown": [
+        "重大事项仍受皇后与丁谓影响。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-TWO-PALACES-ALLIANCE-1020",
+      "time": "天禧四年闰十二月",
+      "loc": [
+        "开封宫中"
+      ],
+      "action": "王曾劝钱惟演使皇后与太子相互依靠，指出安太子即所以安刘氏。",
+      "result": "皇后与太子关系趋于亲密，外界难以离间。",
+      "quote": [
+        "加恩太子則太子安",
+        "太子安乃所以安劉氏也",
+        "兩宮由是益親"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王曾促成皇后与太子的政治互信。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-HUAIYUAN-XINGZHOU-1020",
+      "time": "天禧四年",
+      "loc": [
+        "怀远镇",
+        "兴州"
+      ],
+      "action": "赵德明开始筑城居于怀远镇，并将其号为兴州。",
+      "result": "西夏政权形成新的城治中心。",
+      "quote": [
+        "始城懷遠鎮而居之",
+        "居之，號興州。\n"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赵德明筑怀远城并设兴州。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "西夏建立兴州统治中心。"
+        ]
+      ],
+      "unknown": [
+        "城建规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-JINGDONG-FLOOD-RELIEF-1021",
+      "time": "天禧五年正月",
+      "loc": [
+        "京东"
+      ],
+      "action": "朝廷派使者安抚京东水灾。",
+      "result": "京东灾情进入中央安抚程序。",
+      "quote": [
+        "遣使撫京東水災"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "派使安抚京东水灾。"
+        ]
+      ],
+      "unknown": [
+        "具体救济措施与损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-SIX-MILLION-GRAIN-TRANSPORT-1021",
+      "time": "天禧五年十月",
+      "loc": [
+        "淮南",
+        "江浙",
+        "荆湖"
+      ],
+      "action": "发运副使周寔自春至冬运输上供米六百余万石，获朝廷奖励。",
+      "result": "东南至中央的巨量粮运完成。",
+      "quote": [
+        "自春至冬運上供米",
+        "凡六百餘萬石"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全年转运上供米六百余万石。"
+        ]
+      ],
+      "unknown": [
+        "运输损耗与民役未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-LIAO-CROWN-PRINCE-1021",
+      "time": "天禧五年十一月",
+      "loc": [
+        "辽中京"
+      ],
+      "action": "辽主册梁王宗真为皇太子。",
+      "result": "辽朝储位正式确定。",
+      "quote": [
+        "子梁王宗真",
+        "冊為皇太子"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽册耶律宗真为皇太子。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-WANGQINRUO-TRAPPED-1021",
+      "time": "天禧五年十一月",
+      "loc": [
+        "河南府",
+        "开封"
+      ],
+      "action": "丁谓诱使王钦若未经许可离任赴京，再以擅去官守弹劾。",
+      "result": "王钦若降司农卿、分司南京，其子及相关官员亦受责。",
+      "quote": [
+        "君第上表徑來",
+        "欽若擅去官守",
+        "卿，分司南京"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓设局贬黜王钦若。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-EUNUCH-IN-LIBRARY-1021",
+      "time": "天禧五年十二月",
+      "loc": [
+        "三馆",
+        "秘阁"
+      ],
+      "action": "丁谓另任内臣皇甫继明勾当三馆秘阁事务，使内臣与大学士共同掌职。",
+      "result": "宦官正式进入馆阁管理，引发舆论批评。",
+      "quote": [
+        "別用繼明以分其權",
+        "內臣遂與大學士同職",
+        "時論愈非之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "内臣进入三馆秘阁管理。"
+        ]
+      ],
+      "unknown": [
+        "具体权限边界未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-SONG-COINAGE-1021",
+      "time": "天禧五年十二月",
+      "loc": [
+        "辽境"
+      ],
+      "action": "辽廷继统和元宝后铸造太平元宝，新旧钱并行。",
+      "result": "辽太平年号货币投入流通。",
+      "quote": [
+        "至是復鑄「太平元寶」錢",
+        "錢，新舊互用"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽铸太平元宝并与旧钱并用。"
+        ]
+      ],
+      "unknown": [
+        "铸造量与比价未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-ZHENZONG-DEATH-SUCCESSION-1022",
+      "time": "乾兴元年二月",
+      "loc": [
+        "延庆殿",
+        "开封"
+      ],
+      "action": "真宗病崩，遗诏皇太子即位、尊刘皇后为皇太后并立杨氏为太妃。",
+      "result": "仁宗即位，京城增兵卫并停止工役。",
+      "quote": [
+        "崩于延慶殿",
+        "皇太子即皇帝位",
+        "兵衛，罷工役。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "真宗崩逝、仁宗即位并建立太后体制。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "国丧期间停止工役。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-REGENCY-WORDING-DISPUTE-1022",
+      "time": "乾兴元年二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "丁谓欲从太后处分制书中删除“权”字，王曾坚持幼主政出房闼已属危运，必须保留临时性表述。",
+      "result": "丁谓未能删除“权”字，王曾成为临朝初期制衡力量。",
+      "quote": [
+        "丁謂欲去「權」字",
+        "稱權尚足示後",
+        "乎？」謂不敢言。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王曾阻止丁谓强化太后永久处分权。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-FUNERAL-COST-NO-TAX-1022",
+      "time": "乾兴元年二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗即位赦免并赏军，同时规定山陵各项费用不得向百姓征赋。",
+      "result": "国丧工程费用被明确排除出新增民赋。",
+      "quote": [
+        "軍。山陵諸費",
+        "費，無以賦民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "山陵费用不得向民间加征。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制陵寝工程筹资方式。"
+        ]
+      ],
+      "unknown": [
+        "实际资金来源未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-EUNUCH-REGENCY-CHANNEL-1022",
+      "time": "乾兴元年二月",
+      "loc": [
+        "崇政殿"
+      ],
+      "action": "丁谓否定王曾提出的两宫共同垂帘方案，使小事由雷允恭传奏、禁中画可，大事才召辅臣。",
+      "result": "太后与外朝之间形成由宦官控制的传奏渠道。",
+      "quote": [
+        "非大事悉令雷允恭傳奏",
+        "兩宮異處而柄歸宦者",
+        "后，卒行其意"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓建立雷允恭居中传奏的临朝机制。"
+        ]
+      ],
+      "unknown": [
+        "此机制维持至雷允恭案发。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-KOUZHUN-LIDI-EXILE-1022",
+      "time": "乾兴元年二月",
+      "loc": [
+        "雷州",
+        "衡州"
+      ],
+      "action": "丁谓推动寇准贬雷州司户、李迪贬衡州团练副使，并向中使暗示可能赐死。",
+      "result": "二人遭极端贬逐，李迪一度自裁未死。",
+      "quote": [
+        "寇准為雷州司戶參軍",
+        "李迪為衡州團練副使",
+        "以錦囊貯劍揭于馬前"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓远贬寇准、李迪并以赐死威胁。"
+        ]
+      ],
+      "unknown": [
+        "中使是否获得明确杀人诏令不明。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-FANFENG-SEED-LOAN-1022",
+      "time": "乾兴元年二月追记",
+      "loc": [
+        "邹平",
+        "淄州"
+      ],
+      "action": "旱蝗后范讽见百姓可种豆却无种子，未经层层等待即发官仓三万斛贷款。",
+      "result": "秋收后百姓提前归还粮种。",
+      "quote": [
+        "民以蝗不食菽",
+        "發官廩貸民，即出三萬斛",
+        "民皆先期而輸"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "发官粮三万斛支持灾后播种。"
+        ]
+      ],
+      "unknown": [
+        "受益户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-FANFENG-RIVER-LEVY-1022",
+      "time": "乾兴元年二月追记",
+      "loc": [
+        "郓州"
+      ],
+      "action": "范讽认为堵河物料若城乡农户等额负担不合度民力之意，改令富户承担三分之二并推广诸州。",
+      "result": "河工负担按贫富重新分配。",
+      "quote": [
+        "貧富不同而輕重相若",
+        "使富人輸三之二",
+        "州，以鄆為率"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整堵河芻楗征集规则。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "富户承担河工物料三分之二。"
+        ]
+      ],
+      "unknown": [
+        "实际减轻农户数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-CAOWEI-DISARMED-1022",
+      "time": "乾兴元年二月",
+      "loc": [
+        "镇州",
+        "定州",
+        "莱州"
+      ],
+      "action": "丁谓疑曹玮不受贬命，派转运使收兵；曹玮立即离任，仅带十余弱卒且不携弓矢。",
+      "result": "丁谓未能借拒命案进一步加害曹玮及韩亿。",
+      "quote": [
+        "馳往收其兵",
+        "詔，即日上道",
+        "不以弓韋長矢箙自隨"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "曹玮主动交兵避免丁谓构陷。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-LUZONGDAO-CIVIL-SERVICE-1022",
+      "time": "乾兴元年三月",
+      "loc": [
+        "流内铨"
+      ],
+      "action": "鲁宗道针对铨格繁密和吏员作弊厘正制度，并把科条公开张贴。",
+      "result": "选调规则透明化，办事者认为便利。",
+      "quote": [
+        "患銓格煩密",
+        "是多所厘正",
+        "悉書科條揭於廡下"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿流内铨并公开选调规则。"
+        ]
+      ],
+      "unknown": [
+        "调整条款总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-LEIYUNGONG-TOMB-RELOCATION-1022",
+      "time": "乾兴元年三月至六月",
+      "loc": [
+        "永定陵",
+        "巩县"
+      ],
+      "action": "雷允恭擅将真宗皇堂移至上穴，未复核即施工，结果遇石出水被迫停工。",
+      "result": "陵寝工程返工，重新采用旧穴。",
+      "quote": [
+        "即改穿上穴",
+        "上穴果有石，石盡水出",
+        "請復用舊穴"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "擅迁皇堂导致出水停工和返工。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "雷允恭越权变更山陵位置。"
+        ]
+      ],
+      "unknown": [
+        "返工费用和误期程度未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-LEIYUNGONG-EXECUTION-1022",
+      "time": "乾兴元年六月",
+      "loc": [
+        "巩县"
+      ],
+      "action": "雷允恭因擅迁皇堂并盗取金珠银帛等被杖死、籍没家产，相关人员流配。",
+      "result": "丁谓依赖的宦官权力节点被清除。",
+      "quote": [
+        "坐擅移皇堂",
+        "並盜金珠、銀帛、犀玉帶等",
+        "杖死於鞏縣，籍其家"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "雷允恭因山陵与盗窃案伏诛。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追究盗取山陵财物并籍产。"
+        ]
+      ],
+      "unknown": [
+        "籍没财物总值未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-DINGWEI-DISMISSED-1022",
+      "time": "乾兴元年六月",
+      "loc": [
+        "开封",
+        "西京"
+      ],
+      "action": "王曾利用山陵案揭发丁谓与雷允恭交通、矫称禁中得旨，太后查明后欲诛丁谓。",
+      "result": "经冯拯劝止死刑，丁谓被责太子少保、分司西京并公开罪状。",
+      "quote": [
+        "謂身為宰相，乃與允恭交通",
+        "近方識其矯誣",
+        "責謂為太子少保、分司西京"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓因与雷允恭专权矫旨被罢逐。"
+        ]
+      ],
+      "unknown": [
+        "此时尚未最终贬崖州。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-WANGZENG-CHANCELLOR-1022",
+      "time": "乾兴元年七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "丁谓败后王曾升中书侍郎、平章事，吕夷简、鲁宗道同入政府。",
+      "result": "仁宗初年中枢由制衡丁谓者接替。",
+      "quote": [
+        "王曾加中書侍郎、平章事",
+        "呂夷簡為給事中",
+        "魯宗道為右諫議大夫，並參知政事"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王曾、吕夷简、鲁宗道进入新政府。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-DINGWEI-YAZHOU-1022",
+      "time": "乾兴元年七月",
+      "loc": [
+        "崖州"
+      ],
+      "action": "女道士供出丁谓教唆假托老君、制造龟蛇神异及与雷允恭祈禳，官府又查得四方贿赂。",
+      "result": "丁谓再贬崖州司户，诸子停官并籍没家产。",
+      "quote": [
+        "托老君言禍福",
+        "再貶謂崖州司戶參軍",
+        "得四方賂遺，不可勝紀"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "丁谓妖妄与贿赂案导致再贬籍产。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "查没丁谓大量四方贿赂。"
+        ]
+      ],
+      "unknown": [
+        "籍没资产总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-TWO-PALACES-JOINT-RULE-1022",
+      "time": "乾兴元年八月",
+      "loc": [
+        "承明殿"
+      ],
+      "action": "刘太后与仁宗共同御承明殿，垂帘决事，正式采用王曾所议两宫共裁制度。",
+      "result": "政务由两宫共同裁决，首相不能再独占禁中传奏。",
+      "quote": [
+        "帝與皇太后御承明殿",
+        "殿，垂簾決事",
+        "始用王曾議也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "两宫共同垂帘决政制度正式运行。"
+        ]
+      ],
+      "unknown": [
+        "实际决策权分配仍随事项而异。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-FUNERAL-DEMOLITION-LIMIT-1022",
+      "time": "乾兴元年九月",
+      "loc": [
+        "永定陵沿途"
+      ],
+      "action": "有司欲拆灵驾沿途城门民居，谢涛反对违背遗诏节俭，仁宗裁定低矮城门可拆而民居不得拆。",
+      "result": "山陵仪仗对沿途私人住房的破坏受到限制。",
+      "quote": [
+        "悉壞靈駕所經道路城門、廬舍",
+        "民居不當毀也",
+        "太后以為然"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制灵驾道路拆迁范围。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保护沿途民居免遭拆毁。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仁宗在太后前独立裁定工程边界。"
+        ]
+      ],
+      "unknown": [
+        "实际拆城门数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-QIANWEIYAN-DISMISSED-1022",
+      "time": "乾兴元年十一月",
+      "loc": [
+        "开封",
+        "河阳"
+      ],
+      "action": "冯拯以钱惟演为太后姻家不宜执政为由请其外出，钱惟演罢枢密使知河阳。",
+      "result": "后族姻亲退出最高军政职位。",
+      "quote": [
+        "實太后姻家，不可與政",
+        "惟演罷為保大軍節度使",
+        "使，知河陽。初"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "钱惟演因后族关系被排出枢密院。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-CENSOR-INDEPENDENCE-1022",
+      "time": "乾兴元年十一月",
+      "loc": [
+        "御史台"
+      ],
+      "action": "刘筠恢复旧制，命三院御史各自纠弹，无须事先向中丞、知杂报告。",
+      "result": "监察官言事独立性得到增强。",
+      "quote": [
+        "皆先白中丞",
+        "各舉糾彈之職",
+        "毋白中丞、雜知"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复御史独立纠弹制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-STATE-SCHOOL-LAND-1022",
+      "time": "乾兴元年十一月",
+      "loc": [
+        "兖州"
+      ],
+      "action": "孙奭请求为兖州学舍拨田十顷作学粮，朝廷批准。",
+      "result": "州学获得稳定田产，成为诸州给学田之始。",
+      "quote": [
+        "乞給田十頃為學糧",
+        "諸州給學田始此"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨十顷田作为州学粮源。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立诸州学田先例。"
+        ]
+      ],
+      "unknown": [
+        "田租产量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-IMPERIAL-LECTURE-1022",
+      "time": "乾兴元年十一月",
+      "loc": [
+        "崇政殿西阁"
+      ],
+      "action": "仁宗开始召孙奭、冯元等讲《论语》，由双日经筵扩展到只日亦可召讲。",
+      "result": "新君经筵成为持续制度，讲官借亡国乱君事例反复规谏。",
+      "quote": [
+        "馮元講《論語》，",
+        "雖只日亦召侍臣講讀",
+        "必反覆規諷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立仁宗常态经筵与规谏机制。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-NATIONAL-UNIVERSITY-GOVERNANCE-1022",
+      "time": "乾兴元年十一月",
+      "loc": [
+        "国子监"
+      ],
+      "action": "朝廷命冯元同判国子监，并禁止再以初仕荫补京朝官掌领国子监。",
+      "result": "国子监重新强调由近臣宿儒管理。",
+      "quote": [
+        "始命馮元同判國子監",
+        "毋得差補廕京朝官"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿国子监主管任用资格。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-035-CAPITAL-GRAIN-RELIEF-1022",
+      "time": "乾兴元年十二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "京城粮价飞涨，朝廷开常平仓低价出米救济。",
+      "result": "常平粮投入京师市场平抑粮价。",
+      "quote": [
+        "京城穀價翔貴",
+        "出常平倉米賤糶以濟民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开常平仓平粜救济京城。"
+        ]
+      ],
+      "unknown": [
+        "出米数量和价格未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-035-LAND-TAX-EVASION-1022",
+      "time": "乾兴元年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷允许告发以典卖田产隐匿徭役者，并将隐田三分之一奖励告发人。",
+      "result": "以高额分成打击田产交易中的徭役逃避。",
+      "quote": [
+        "典賣田產影占徭役者",
+        "以所隱田三之一予之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以隐田三分之一奖励告发逃役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立田产逃役告发制度。"
+        ]
+      ],
+      "unknown": [
+        "实施案件数量未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2299546 的《續資治通鑑》卷035连续通读登记，不引入卷外常识。",
+    "普通任免、巡幸、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末两宫共同听政、经筵和学田制度继续，仁宗亲政权责仍待后卷观察。"
+  ]
+}

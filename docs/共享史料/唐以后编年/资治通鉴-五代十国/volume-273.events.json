@@ -1,0 +1,1213 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "FIVE-DYNASTIES-ZZTJ-273-1",
+  "status": "shadow",
+  "task_code": "FIVE-DYNASTIES-ZZTJ-273-MULTIDOMAIN",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷273",
+    "revision_ref": "1502848",
+    "start_locator": "后唐庄宗同光二年正月",
+    "end_locator": "后唐庄宗同光三年十月",
+    "overlap_context": "续接卷272后唐中原接收、安义余乱、契丹边患、前蜀失政与荆南备战；伐蜀推进、前蜀军政崩解及荆南三峡线交卷274续读。",
+    "input_fingerprint": "e7daac6c51ecaab2b32709b0cc3589fa538b8ed3196a07794f4c55af91f9f00d"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-273-KHITAN-RAIDS-924-925",
+      "time": [
+        "同光二年正月",
+        "同光三年正月",
+        "range"
+      ],
+      "loc": [
+        "幽州",
+        "瓦桥",
+        "新州",
+        "新城",
+        "易州",
+        "定州",
+        "蔚州",
+        "岚州"
+      ],
+      "action": "契丹反复入寇幽燕、易定等地，唐多次调李嗣源、李绍斌、李从珂等分道防御。",
+      "result": "契丹多次出塞后复入，唐一度收复新州；边患未闭合。",
+      "cost": "契丹钞掠馈运，幽州东南虏骑充斥；具体损失未载。",
+      "quote": [
+        "契丹入寇，至瓦橋",
+        "去，復得新州",
+        "契丹寇新城",
+        "饋運多為所掠",
+        "契丹寇嵐州"
+      ],
+      "battle": "CAMPAIGN-KHITAN-YOUZHOU-924-925",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存反复入寇对馈运的直接损害。"
+        ]
+      ],
+      "unknown": [
+        "各次入寇兵力、伤亡和掠夺数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-EUNUCH-MILITARY-SUPERVISORS-924",
+      "time": "同光二年正月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "李存勖召集前朝及私家宦官近千人，恢复内诸司与诸道监军。",
+      "result": "宦官干政、陵忽主帅并掌军府决策，藩镇普遍愤怒。",
+      "quote": [
+        "是殆及千人",
+        "者，浸干政事",
+        "軍府之政皆監軍決之",
+        "籓鎮皆憤怒"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-LATER-TANG-EUNUCH-RESTORATION-924",
+        "candidate": "POL-CAND-LATER-TANG-EUNUCH-RESTORATION-924",
+        "summary": "后唐恢复宦官内诸司与军镇监军，造成军府争权。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "中枢与军镇制度变更",
+          "decision_question": "新朝是否恢复宦官监军。",
+          "alternatives": "沿用士人或复用宦官。",
+          "decision": "复用宦官并置诸道监军。",
+          "direct_result": "宦官侵入军府决策。",
+          "power_change": "主帅权力受监军侵夺。",
+          "risk_or_damage": "藩镇普遍愤怒。",
+          "follow_up": "伶宦继续干政并压制勋臣。"
+        }
+      },
+      "unknown": [
+        "各军镇具体冲突案未逐一载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-KONG-QIAN-RECOLLECTS-AMNESTY-924",
+      "time": "同光二年二月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "孔谦为聚敛求宠，重新征收赦文已免的财赋。",
+      "result": "诏令信用受损，百姓愁怨。",
+      "quote": [
+        "凡赦文所蠲者，謙復徵之",
+        "人皆不信，百姓愁怨"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存免税被追征和信用损害。"
+        ]
+      ],
+      "unknown": [
+        "追征项目与总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-INTERNAL-EXTERNAL-TREASURY-924",
+      "time": "同光二年二月",
+      "loc": [
+        "洛阳",
+        "晋阳"
+      ],
+      "action": "后唐将州县上供入外府、藩镇贡物入内府；郊祀缺军赏时仍不愿动用内府，转取晋阳储积和私财。",
+      "result": "外府常空而内府积货，军士赏赐不满，开始怨恨离心。",
+      "cost": "取私第金帛数十万，军赏缺口未载。",
+      "quote": [
+        "外府常虛竭無餘而內府山積",
+        "金帛數十萬",
+        "軍士皆不滿望，始怨恨"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-LATER-TANG-TREASURY-924",
+        "candidate": "FIN-CAND-LATER-TANG-TREASURY-924",
+        "summary": "后唐内外府分割造成公帑不足和军赏失信。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "新朝南郊需劳军钱。",
+          "fiscal_state": "外府空虚、内府山积，另取晋阳和私财。",
+          "livelihood_state": "军士赏赐不满并离心。",
+          "production_circulation": "未载直接生产流通指标。"
+        }
+      },
+      "unknown": [
+        "内外府余额和军赏应发数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-LIU-EMPRESS-WEALTH-924",
+      "time": "同光二年二月",
+      "loc": [
+        "洛阳",
+        "魏州"
+      ],
+      "action": "郭崇韬转而倡立刘夫人为皇后；皇后将四方贡献一半归中宫并经营贩鬻。",
+      "result": "刘后正位中宫、宝货山积，太后诰、皇后教与制敕并行藩镇。",
+      "quote": [
+        "立魏國夫人劉氏為皇后",
+        "四方貢獻皆分為二",
+        "是寶貨山積"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存立后交换与中宫权财扩张。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存贡物分流中宫，公共财政影响未量化。"
+        ]
+      ],
+      "unknown": [
+        "中宫积货总量和对外府影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SUOSHUI-CANAL-924",
+      "time": "同光二年二月",
+      "loc": [
+        "蔡州",
+        "索水"
+      ],
+      "action": "后唐命朱勍疏浚索水以通漕运。",
+      "result": "工程下诏实施，完工与运输效果未载。",
+      "quote": "詔蔡州刺史朱勍浚索水，通漕運",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "漕运工程启动，尚无完工运行证据。"
+        ]
+      ],
+      "unknown": [
+        "用工、工期和通航结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-OFFICIAL-CREDENTIAL-PURGE-924",
+      "time": "同光二年三月",
+      "loc": [
+        "后唐铨司"
+      ],
+      "action": "郭崇韬为清理伪滥告身，令铨司严格核验选人身份。",
+      "result": "南郊官一千二百人仅数十获官，十之九告身被涂毁，有人号哭或饿死旅舍。",
+      "cost": "大批选人失去资格并出现饿死。",
+      "quote": [
+        "司精加考核",
+        "塗毀告身者十之九",
+        "或餒死逆旅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存资格整顿及过严执行后果。"
+        ]
+      ],
+      "unknown": [
+        "伪造与误伤比例未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-BORDER-PREP-924",
+      "time": "同光二年四月",
+      "loc": [
+        "梓州",
+        "前蜀边境"
+      ],
+      "action": "唐使宣示混一天下后，宋光葆建议前蜀选将练兵、屯边积粮、治战舰，蜀主任其主持梓州防备。",
+      "result": "前蜀开始针对后唐的边境备战。",
+      "quote": [
+        "選將練兵，屯戍邊鄙，積糗糧，治戰艦",
+        "充武德節度留後"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接卷272前蜀对后唐威胁判断。"
+        ]
+      ],
+      "unknown": [
+        "实际练兵、储粮和造舰规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-YANG-LI-REBELLION-924",
+      "time": [
+        "同光二年四月",
+        "同光二年六月",
+        "range"
+      ],
+      "loc": [
+        "潞州"
+      ],
+      "action": "杨立煽动三千安义兵反叛，攻子城、焚掠市肆并自称留后；唐军百余壮士先登夺城。",
+      "result": "潞州迅速被平定，杨立及党羽被磔，城防被夷毁。",
+      "cost": "市肆遭焚掠，叛党被处死；交战伤亡未载。",
+      "quote": [
+        "安義兵三千",
+        "門，焚掠市肆",
+        "百餘輩逾塹坎城而上",
+        "源奏潞州平。",
+        "磔楊立及其黨"
+      ],
+      "battle": "CAMPAIGN-ANYI-YANG-LI-REBELLION-924",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "闭合卷272安义家族余乱后的军镇叛乱。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "潞州防城被夷，后续安全效果未载。"
+        ]
+      ],
+      "unknown": [
+        "双方伤亡、被处死人数和城防毁坏程度未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-FORCED-SILK-LOAN-924",
+      "time": "同光二年四月",
+      "loc": [
+        "后唐州县"
+      ],
+      "action": "孔谦贷民钱并强令以低价折丝偿还，州县反复催督；卢质以霜害桑、民将流移上谏。",
+      "result": "李存勖未回应，催征继续。",
+      "cost": "民众在正税外承担折丝债务。",
+      "quote": [
+        "貸民錢，使以賤估償絲",
+        "桑，繭絲甚薄",
+        "明命！」帝不報。\n<"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存灾年强贷折丝与拒绝纠偏。"
+        ]
+      ],
+      "unknown": [
+        "贷款、折价和流移人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SOUTHERN-HAN-INVADES-MIN-924",
+      "time": "同光二年四月",
+      "loc": [
+        "汀州",
+        "漳州"
+      ],
+      "action": "南汉主刘岩率兵侵闽，屯汀漳边境。",
+      "result": "闽军反击，南汉主败走。",
+      "quote": "漢主引兵侵閩，屯於汀、漳境上；閩人擊之，漢主敗走",
+      "battle": "CAMPAIGN-SOUTHERN-HAN-MIN-924",
+      "unknown": [
+        "双方兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-PLAYERS-GIVEN-PREFECTURES-924",
+      "time": "同光二年五月",
+      "loc": [
+        "景州",
+        "宪州"
+      ],
+      "action": "李存勖违背郭崇韬反对，以刺史职位报答救过伶人的陈俊、储德源。",
+      "result": "亲军百战未获刺史者普遍愤叹。",
+      "quote": [
+        "先以伶人為刺史",
+        "以俊為景州刺史，德源為憲州刺史",
+        "者，莫不憤歎"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存以州职赏伶人及军心后果。"
+        ]
+      ],
+      "unknown": [
+        "两人治理表现未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-REFORM-PETITION-REJECTED-924",
+      "time": "同光二年五月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "薛昭文建议增军赏、安抚梁军、宽徭薄赋、裁不急土木并保护民田。",
+      "result": "所有建议均未采纳。",
+      "quote": [
+        "寬徭薄賦以安集之",
+        "土木不急之役，宜加裁省",
+        "民田。」皆不從。\n<"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "未实施建议只作治理背景，不虚构成效。"
+        ]
+      ],
+      "unknown": [
+        "拒绝理由未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-CITY-DEFENSE-BAN-924",
+      "time": "同光二年五月",
+      "loc": [
+        "后唐州镇"
+      ],
+      "action": "李存勖因潞州叛乱，下令全国州镇不得修城浚壕并毁坏防城器具。",
+      "result": "地方城防建设被普遍禁止，实际执行范围未载。",
+      "quote": "詔天下州鎮無得修城浚隍，悉毀防城之具",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全国性城防拆毁命令，安全后果待后卷。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以单镇叛乱扩大为全国控制政策。"
+        ]
+      ],
+      "unknown": [
+        "被毁城防数量和边防影响未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-KHITAN-BOHAI-WAR-924",
+      "time": [
+        "同光二年七月",
+        "同光二年九月",
+        "range"
+      ],
+      "loc": [
+        "辽东",
+        "渤海",
+        "营州",
+        "平州"
+      ],
+      "action": "契丹为防渤海牵制，先攻渤海辽东，并遣秃馁、卢文进据营平扰燕。",
+      "result": "契丹攻渤海无功撤回，但对燕地压力延续。",
+      "quote": [
+        "先舉兵擊渤海之遼東",
+        "據營、平等州以擾燕地",
+        "海，無功而還"
+      ],
+      "battle": "CAMPAIGN-KHITAN-BOHAI-924",
+      "unknown": [
+        "双方兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-YELLOW-RIVER-CLOSURE-924",
+      "time": "同光二年七月",
+      "loc": [
+        "曹州",
+        "濮州",
+        "汴州",
+        "滑州"
+      ],
+      "action": "后唐命娄继英督军堵塞梁所决黄河。",
+      "result": "决口短暂堵塞后再次溃坏，曹濮水患延续。",
+      "quote": [
+        "連年為曹、濮患",
+        "督汴、滑兵塞之",
+        "之。未幾，復壞。"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "堵口工程失败，水患延续。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "连年水患直接影响曹濮，损失未量化。"
+        ]
+      ],
+      "unknown": [
+        "用工、费用、淹没面积和损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-KONG-QIAN-TAKES-FINANCE-924",
+      "time": "同光二年八月",
+      "loc": [
+        "后唐"
+      ],
+      "action": "孔谦在王正言病后取得租庸使，重敛急征以满足皇帝欲望。",
+      "result": "民不聊生，孔谦反获丰财赡国功臣号。",
+      "quote": [
+        "孔謙為租庸使",
+        "重斂急征以充帝欲",
+        "欲，民不聊生"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-KONG-QIAN-EXACTIONS-924",
+        "candidate": "FIN-CAND-KONG-QIAN-EXACTIONS-924",
+        "summary": "孔谦掌租庸后以重敛急征供皇帝私欲。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "此前已有赦免追征、折丝贷款和民众流移。",
+          "fiscal_state": "重敛急征增加收入，具体数额未载。",
+          "livelihood_state": "史载民不聊生。",
+          "production_circulation": "未载独立生产流通指标。"
+        }
+      },
+      "unknown": [
+        "征收项目、总额和受害人口未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-HUNT-DAMAGES-CROPS-924",
+      "time": "同光二年九月",
+      "loc": [
+        "洛阳近郊"
+      ],
+      "action": "李存勖屡次游猎践踏将熟庄稼，洛阳令何泽拦马进谏。",
+      "result": "皇帝安慰并遣回何泽，未载停止游猎或赔偿。",
+      "cost": "民间禾稼受损。",
+      "quote": [
+        "從騎傷民禾稼",
+        "成，復蹂踐之",
+        "帝慰而遣之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接卷272中牟践田，仍无实际补偿证据。"
+        ]
+      ],
+      "unknown": [
+        "损害田亩和农户数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-DEPOSITION-PLOT-924",
+      "time": "同光二年九月",
+      "loc": [
+        "成都"
+      ],
+      "action": "王宗俦因蜀主失德与王宗弼谋废立，王宗弼犹豫未决。",
+      "result": "王宗俦忧愤而死，王宗弼向宋光嗣等泄露并放弃计划。",
+      "quote": [
+        "宗弼謀廢立，",
+        "弼猶豫未決",
+        "宗儔憂憤而卒"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "未遂废立仅保留实际谋议和终止结果。"
+        ]
+      ],
+      "unknown": [
+        "计划参与范围和拟立对象未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-FINANCE-CHAIN-ORDER-UNENFORCED-924",
+      "time": "同光二年十月",
+      "loc": [
+        "平卢",
+        "天平",
+        "后唐州县"
+      ],
+      "action": "藩镇抗议租庸使越过本道直令属州，朝廷下敕恢复唐旧层级。",
+      "result": "敕令最终未执行，租庸越级征催延续。",
+      "quote": [
+        "知，有紊規程",
+        "事。自今支郡",
+        "此敕，竟不行。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存财政行政纠偏下诏但未落实。"
+        ]
+      ],
+      "unknown": [
+        "不执行责任主体未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-ELITE-GUARD-924",
+      "time": "同光二年十月",
+      "loc": [
+        "成都"
+      ],
+      "action": "王承休择一万二千精兵组四十军，待遇高于其他军，并以贿赂亲信安重霸为副。",
+      "result": "新龙武军形成，旧将普遍愤耻。",
+      "cost": "优厚军械给赐增加财政和军内差别，数额未载。",
+      "quote": [
+        "給賜皆優異於它軍",
+        "舊將無不憤恥"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存精锐军重组、任人及军心后果。"
+        ]
+      ],
+      "unknown": [
+        "军费增量和战力成效未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-DRAWS-DOWN-FRONTIER-924",
+      "time": [
+        "同光二年十一月",
+        "同光二年十二月",
+        "range"
+      ],
+      "loc": [
+        "威武城",
+        "武定",
+        "武兴",
+        "天雄",
+        "金州",
+        "成都"
+      ],
+      "action": "前蜀因与后唐修好，分批撤回威武城等地九十余军。",
+      "result": "边区驻军显著收缩，卷后唐军伐蜀时相关防线兵力不足。",
+      "quote": [
+        "罷威武城戍",
+        "二十四軍還成都",
+        "等三十七軍",
+        "等二十九軍",
+        "七軍還成都"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存外交判断导致的实际撤军，不预判因果档位。"
+        ]
+      ],
+      "unknown": [
+        "各军实际人数和撤回后部署未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-IMPERIAL-HUNT-CASUALTIES-924",
+      "time": "同光二年十一月",
+      "loc": [
+        "伊阙",
+        "梁太祖墓周边"
+      ],
+      "action": "李存勖率亲军连续翻山夜围狩猎。",
+      "result": "士卒多人坠崖死亡或折伤。",
+      "cost": "死亡与伤残人数未载。",
+      "quote": "士卒墜崖谷死及折傷者甚眾",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "非战斗游猎造成军士直接伤亡。"
+        ]
+      ],
+      "unknown": [
+        "死伤准确人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-AN-CHONGBAS-PROMOTION-924",
+      "time": "同光二年十二月",
+      "loc": [
+        "秦州"
+      ],
+      "action": "王承休以采选美女为条件求秦州节度，蜀主准许并以龙武军为其牙兵。",
+      "result": "宦官王承休建节，军权与采女动机结合。",
+      "quote": [
+        "秦州多美婦人",
+        "以承休為天雄節度使",
+        "以龍武軍為承休牙兵"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存以采女换取军镇任命与军权转移。"
+        ]
+      ],
+      "unknown": [
+        "当期是否已实际采选未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-KHITAN-ZHUOZHOU-BATTLE-925",
+      "time": "同光三年二月",
+      "loc": [
+        "涿州"
+      ],
+      "action": "李嗣源率军与契丹交战。",
+      "result": "唐军在涿州击败契丹。",
+      "quote": "李嗣源奏敗契丹於涿州",
+      "battle": "CAMPAIGN-KHITAN-YOUZHOU-924-925",
+      "unknown": [
+        "兵力、伤亡和追击结果未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-LI-SIYUAN-SUSPECTED-925",
+      "time": [
+        "同光三年二月",
+        "同光三年三月",
+        "range"
+      ],
+      "loc": [
+        "成德",
+        "石门镇",
+        "洛阳"
+      ],
+      "action": "李存勖因李嗣源为子求军职而怒贬李从珂；郭崇韬又密劝召夺李嗣源兵权甚至除掉。",
+      "result": "李嗣源忧惧，请入朝亦不获准。",
+      "quote": [
+        "乃黜從珂為",
+        "密勸帝召之宿衛，罷其兵權",
+        "又勸帝除之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存灭梁后对宿将的猜忌与未实施清除建议。"
+        ]
+      ],
+      "unknown": [
+        "李存勖拒绝清除的具体理由未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-COLLECTS-WOMEN-925",
+      "time": "同光三年三月",
+      "loc": [
+        "洛阳",
+        "太原",
+        "幽州",
+        "镇州"
+      ],
+      "action": "宦官以宫中空虚致鬼为说，李存勖命采选民女充后庭。",
+      "result": "三千余女子被牛车运入宫中，另被报作营妇亡逸。",
+      "cost": "三千余女子离开原家庭。",
+      "quote": [
+        "采擇民間女子",
+        "不啻三千人",
+        "實皆入宮矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存大规模强制采女和隐瞒。"
+        ]
+      ],
+      "unknown": [
+        "自愿程度、家庭损害和后续处境未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SUMMER-PAVILION-925",
+      "time": "同光三年六月",
+      "loc": [
+        "洛阳宫中"
+      ],
+      "action": "李存勖无视郭崇韬关于水旱和军粮不足的劝谏，以内府钱建避暑楼。",
+      "result": "工程每日役万人，耗费巨万。",
+      "cost": "日役万人、所费巨万，工期未载。",
+      "quote": [
+        "日役萬人，所費巨萬",
+        "充，願且息役",
+        "豐年。」帝不聽。\n<"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-LATER-TANG-SUMMER-PAVILION-925",
+        "candidate": "WORK-CAND-LATER-TANG-SUMMER-PAVILION-925",
+        "summary": "后唐在水旱和军食不足时大兴避暑楼。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "洛阳宫中清暑楼。",
+          "phase": "建设。",
+          "purpose": "皇帝避暑。",
+          "resource_input": "日役万人、内府出钱、所费巨万。",
+          "operation": "是否完工运行未载。",
+          "benefit": "未载实际降暑效果。",
+          "harm": "水旱军食不足时仍大规模征役耗财。"
+        }
+      },
+      "unknown": [
+        "工期、死亡伤病和完工日期未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-EMPEROR-MOTHER-DIES-925",
+      "time": "同光三年七月",
+      "loc": [
+        "洛阳"
+      ],
+      "action": "曹太后病重，李嗣源请求入朝探视被拒；太后去世。",
+      "result": "李存勖哀毁五日不食。",
+      "quote": [
+        "表求入朝省太后，帝不許",
+        "寅，太后殂。帝"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存拒宿将入朝与太后死亡的政治背景。"
+        ]
+      ],
+      "unknown": [
+        "拒绝李嗣源的明确理由未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-LUO-GUAN-KILLED-925",
+      "time": "同光三年八月",
+      "loc": [
+        "河南府",
+        "坤陵道路"
+      ],
+      "action": "罗贯拒伶宦请托后遭诬；因桥道泥坏被酷刑下狱，郭崇韬谏法不至死未果。",
+      "result": "罗贯被杖杀暴尸，远近认为冤屈。",
+      "cost": "一名县令遭酷刑死亡。",
+      "quote": [
+        "案，一不報，皆",
+        "修，法不至死",
+        "入。貫竟死，暴",
+        "門，遠近冤之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存伶宦报复、司法失衡与拒绝纠偏。"
+        ]
+      ],
+      "unknown": [
+        "桥梁失修责任和伶宦具体诬告内容未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-INVASION-SHU-DECISION-925",
+      "time": "同光三年九月",
+      "loc": [
+        "洛阳",
+        "凤翔",
+        "荆南"
+      ],
+      "action": "李存勖决定伐蜀，以魏王李继岌为都统、郭崇韬主军，调六万军并令高季兴取夔忠万。",
+      "result": "后唐形成北路主军与荆南水军协同的伐蜀部署。",
+      "quote": [
+        "軍事悉以委之",
+        "將兵六萬伐蜀",
+        "自取夔、忠、萬三州"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-LATER-TANG-INVADE-SHU-925",
+        "candidate": "POL-CAND-LATER-TANG-INVADE-SHU-925",
+        "summary": "后唐在契丹边患未息时决定以六万军伐蜀。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "战争决策与统帅任命",
+          "decision_question": "如何利用前蜀失政窗口展开统一战争。",
+          "alternatives": "由李嗣源、段凝或魏王郭崇韬主军。",
+          "decision": "魏王挂帅、郭崇韬实掌军事，高季兴协攻三峡。",
+          "direct_result": "六万军西进。",
+          "power_change": "魏王获得军功平台，郭崇韬掌远征军。",
+          "risk_or_damage": "契丹方炽、补给将竭。",
+          "follow_up": "十月连续攻降蜀州县。"
+        }
+      }
+    },
+    {
+      "id": "CHF-ZZTJ-273-SEVENTY-FIVE-DAY-FLOOD-925",
+      "time": [
+        "同光三年六月",
+        "同光三年九月",
+        "range"
+      ],
+      "loc": [
+        "后唐境内"
+      ],
+      "action": "连续降雨导致江河百川泛溢。",
+      "result": "七十五日后才放晴。",
+      "cost": "灾害面积、人口与财产损失未载。",
+      "quote": [
+        "江河百川皆溢",
+        "凡七十五日乃霽"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存长期洪涝事实，不推定未载损失。"
+        ]
+      ],
+      "unknown": [
+        "受灾地区、伤亡和赈济未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-QINZHOU-PALACE-LABOR-925",
+      "time": "同光三年九月",
+      "loc": [
+        "秦州"
+      ],
+      "action": "王承休到秦州毁府署建行宫，大兴力役并强取民女训练歌舞，引诱蜀主巡幸。",
+      "result": "蜀主无视群臣、太后和蒲禹卿反对，仍率数万军东行。",
+      "cost": "秦州民力、妇女和沿途郡县供亿受损，规模未载。",
+      "quote": [
+        "毀府署，作行宮，大興力役",
+        "強取民間女子",
+        "眾，皆不聽；王"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "行宫工程投入与强征明确，完工运行未载。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存民力与供亿负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存多方劝阻无效和巡幸决定。"
+        ]
+      ],
+      "unknown": [
+        "用工、费用、被取女子与供亿数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-WEIWU-FALLS-925",
+      "time": "同光三年十月",
+      "loc": [
+        "威武城"
+      ],
+      "action": "唐前锋李绍琛攻威武城，守将唐景思出降，城使继降。",
+      "result": "唐取得威武城、粮二十万斛，万余蜀败兵被放走。",
+      "quote": [
+        "攻蜀威武城",
+        "能守，亦降。景",
+        "糧二十萬斛",
+        "敗兵萬餘人逸去"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925",
+      "unknown": [
+        "攻城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-FENGXING-SURRENDER-925",
+      "time": "同光三年十月",
+      "loc": [
+        "凤州",
+        "兴州",
+        "文州",
+        "扶州"
+      ],
+      "action": "王承捷以凤、兴、文、扶四州迎降，程奉琏又降并预修桥栈。",
+      "result": "唐得四州、兵八千、粮四十万斛，道路险阻被提前疏通。",
+      "quote": [
+        "四州印節迎降",
+        "得兵八千，糧四十萬斛",
+        "請先治橋棧"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "桥栈修治直接保障军行。"
+        ]
+      ],
+      "unknown": [
+        "各州守军抵抗与桥栈用工未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-XINGCHENG-ABANDONED-925",
+      "time": "同光三年十月",
+      "loc": [
+        "兴州",
+        "成州"
+      ],
+      "action": "兴州刺史王承鉴、成州刺史王承朴先后弃城逃走。",
+      "result": "唐军无大战取得兴州、成州。",
+      "quote": [
+        "承鑒棄城走，",
+        "琛等克興州，",
+        "成州刺史王承樸棄城走"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925",
+      "unknown": [
+        "城内军民接管情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SANQUAN-BATTLE-925",
+      "time": "同光三年十月",
+      "loc": [
+        "三泉"
+      ],
+      "action": "李绍琛等与前蜀三招讨军交战。",
+      "result": "蜀军大败溃散，唐斩五千级并获粮十五万斛。",
+      "cost": "蜀军被斩五千，唐军损失未载。",
+      "quote": [
+        "討戰於三泉",
+        "蜀兵大敗，斬首五千級",
+        "糧十五萬斛"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925",
+      "unknown": [
+        "双方总兵力和唐军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-EASTERN-COLLAPSE-925",
+      "time": "同光三年十月",
+      "loc": [
+        "梓州",
+        "绵州",
+        "剑州",
+        "龙州",
+        "普州",
+        "洋州",
+        "蓬州",
+        "壁州",
+        "梁州",
+        "开州",
+        "通州",
+        "渠州",
+        "麟州",
+        "阶州"
+      ],
+      "action": "宋光葆、王承肇、王宗威、王承岳等以十四州相继降唐。",
+      "result": "前蜀东川、山南防区成片崩解，其余城镇亦望风归附。",
+      "quote": [
+        "以梓、綿、劍、龍、普五州",
+        "以洋、蓬、壁三州",
+        "以梁、開、通、渠、麟五州",
+        "以階州，皆降",
+        "皆望風款附"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925",
+      "unknown": [
+        "各州兵力、移交物资和是否发生局部抵抗未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-WANG-CHENGXIU-RETREAT-925",
+      "time": "同光三年十月",
+      "loc": [
+        "秦州",
+        "文州",
+        "扶州",
+        "茂州"
+      ],
+      "action": "王承休、王宗汭率一万二千龙武军由文扶南撤，沿不毛之地遭羌人抄击。",
+      "result": "抵茂州仅余二千人；安重霸留秦陇降唐。",
+      "cost": "一万二千军减至二千，主要因冻馁、抄击和逃散。",
+      "quote": [
+        "兵萬二千人",
+        "羌人抄之，且戰且行",
+        "餘眾二千而已",
+        "以秦、隴來降"
+      ],
+      "battle": "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保存军队冻馁与补给崩溃。"
+        ]
+      ],
+      "unknown": [
+        "战死、冻死、逃散各自人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-JINGNAN-SHIZHOU-925",
+      "time": "同光三年十月",
+      "loc": [
+        "施州",
+        "三峡"
+      ],
+      "action": "高季兴承卷272备战，自率水军上峡攻施州，派勇士斫断张武铁锁。",
+      "result": "风起使战舟挂锁，遭矢石击毁，高季兴乘轻舟逃走。",
+      "cost": "战舰受毁，人员伤亡未载。",
+      "quote": [
+        "自將水軍上峽取施州",
+        "士乘舟斫之。",
+        "下，壞其戰艦",
+        "興輕舟遁去"
+      ],
+      "battle": "CAMPAIGN-JINGNAN-THREE-GORGES-925",
+      "unknown": [
+        "水军规模、战舰数量和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-JINGNAN-THREE-PREFECTURES-SUBMIT-925",
+      "time": "同光三年十月",
+      "loc": [
+        "夔州",
+        "忠州",
+        "万州",
+        "荆南"
+      ],
+      "action": "高季兴得知北路蜀军崩败后，以夔、忠、万三州名义遣使降唐。",
+      "result": "荆南由自行攻峡转为向后唐承认三州归附，实际控制待后卷核对。",
+      "quote": "以夔、忠、萬三州遣使詣魏王降",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "续接荆南关系转折，三州实控保持未知。"
+        ]
+      ],
+      "unknown": [
+        "三州当时实际占领与交接情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-273-SHU-GENERALS-PLOT-SURRENDER-925",
+      "time": "同光三年十月",
+      "loc": [
+        "利州",
+        "白芀"
+      ],
+      "action": "王宗弼弃利州西归，与奉诏追杀他的三招讨相遇后出示诏书。",
+      "result": "双方停止内斗，合谋向后唐送款。",
+      "quote": [
+        "棄城引兵西歸",
+        "因相持而泣",
+        "遂合謀送款於唐"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "前蜀高级将领由内斗转向共同投降。"
+        ]
+      ],
+      "unknown": [
+        "送款条件与部队规模未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "伐蜀已突破凤兴、三泉并引发多州归降，但成都政权终局与各降州实控须由卷274续接。",
+    "荆南攻施州失败后以夔忠万三州送降，三州实际控制与唐荆关系保持开放。",
+    "契丹边患仍未闭合；普通任免、贡聘、祥异和未实施建议未机械拆分。"
+  ]
+}

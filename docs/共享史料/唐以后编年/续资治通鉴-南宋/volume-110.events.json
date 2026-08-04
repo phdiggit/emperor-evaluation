@@ -1,0 +1,513 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "southern-song-chronicle-volume-110",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷110",
+    "revision_ref": "2307160",
+    "start_locator": "绍兴元年十月邵青崇明受抚与和尚原会战",
+    "end_locator": "绍兴二年四月岳飞平曹成、太平州收复",
+    "overlap_context": "承卷109江淮平盗、和尚原初捷与刘豫扩张，续记南宋定驻临安、军事整编及两湖反乱平定。",
+    "input_fingerprint": "0f2fd0b4fa4088c430dc601cdabda4182871a0e78826bcf53f02d5c08f98b700"
+  },
+  "limitations": [
+    "仅据固定revision 2307160的《續資治通鑑》卷110连续通读登记，未打开卷111。",
+    "连续战线、政令与财政措施按同一结果链合并；未载信息保持unknown。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-110-SHAOQING-SURRENDER-1131",
+      "time": "绍兴元年十月己巳",
+      "loc": [
+        "崇明",
+        "青龙镇"
+      ],
+      "action": "王德招邵青，官军渡泥港中伏；邵青要求黄榜赦前罪，部将单德忠杀反对受抚者迫众归宋。",
+      "result": "邵青纳兵受抚。",
+      "quote": [
+        "官軍不知，爭渡而過，多死於泥中",
+        "應以前犯罪一切不問",
+        "犯，特與赦免",
+        "即擊殺在於坐",
+        "青從之，遂受撫"
+      ],
+      "battle": "CAMPAIGN-110-SHAOQING-SURRENDER-1131",
+      "unknown": [
+        "邵青部众具体编制未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-WUJIE-HESHANGYUAN-VICTORY-1131",
+      "time": "十月乙亥",
+      "loc": [
+        "和尚原",
+        "宝鸡",
+        "渭河"
+      ],
+      "action": "吴玠、吴璘以强弓劲弩轮番射击，并以奇兵断金军粮道。",
+      "result": "三日后大破宗弼军，俘获甲兵以万计，宗弼中箭逃走。",
+      "quote": [
+        "選勁弓強弩與戰",
+        "分番迭射，號駐隊",
+        "斷其糧道，凡三日",
+        "大破之，俘馘首領及甲兵以萬計",
+        "宗弼中流矢二，僅以身免"
+      ],
+      "battle": "CAMPAIGN-110-WUJIE-HESHANGYUAN-VICTORY-1131",
+      "unknown": [
+        "双方死伤数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-WANGSHU-MILITIA-1131",
+      "time": "十月",
+      "loc": [
+        "兴元",
+        "兴州",
+        "洋州",
+        "三泉"
+      ],
+      "action": "王庶按户籍征强壮，免其户下物力钱，编队日月阅武并以战功奖赏。",
+      "result": "四郡义士增至七万余人。",
+      "quote": [
+        "每兩丁取一，三丁取二",
+        "與免戶下物力錢二百千",
+        "每五十人為一隊",
+        "不半年，有兵數萬",
+        "義士至七萬餘人"
+      ],
+      "battle": "CAMPAIGN-110-WANGSHU-MILITIA-1131",
+      "unknown": [
+        "义士实际作战与财政成本未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-110-WANGSHU-MILITIA-1131",
+        "candidate": "FIN-CAND-110-WANGSHU-MILITIA-1131",
+        "summary": "王庶以免钱与按户征兵组建兴洋义士。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "本路军籍单寡。",
+          "fiscal_state": "免户下物力钱二百千。",
+          "livelihood_state": "强壮按户抽取并受训练。",
+          "production_circulation": "地方人力转为义士军。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-110-FANRUWEI-JIANZHOU-REBELLION-1131",
+      "time": "十月壬午",
+      "loc": [
+        "建州",
+        "建安"
+      ],
+      "action": "范汝为拥十余万人入建州，守臣逃散。",
+      "result": "建州被叛军占据。",
+      "quote": [
+        "範汝為入建州",
+        "安，眾十餘萬",
+        "直秘閣王浚明以下皆遁",
+        "賊遂據其城"
+      ],
+      "battle": "CAMPAIGN-110-FANRUWEI-JIANZHOU-REBELLION-1131",
+      "unknown": [
+        "建州居民损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-LINAN-RELOCATION-1131",
+      "time": "十一月戊戌",
+      "loc": [
+        "会稽",
+        "临安",
+        "江淮",
+        "川陕"
+      ],
+      "action": "以会稽漕运不继，朝廷决定移跸临安并预营宫室；吕颐浩同时提出以上流、江淮与关陕联动恢复的方案。",
+      "result": "临安成为新的行在方向。",
+      "quote": [
+        "會稽漕運不繼，移蹕臨安",
+        "弼先營宮室",
+        "地，最為急務",
+        "遂定移蹕之議",
+        "中興之業可覬也"
+      ],
+      "unknown": [
+        "恢复方案实际执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-110-LINAN-RELOCATION-1131",
+        "candidate": "POL-CAND-110-LINAN-RELOCATION-1131",
+        "summary": "朝廷因会稽漕运困难决定移跸临安，并提出联动恢复设想。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "行在与战略部署。",
+          "decision_question": "行在何处驻跸并如何恢复。",
+          "alternatives": "留会稽或移上流临安。",
+          "decision": "移跸临安。",
+          "direct_result": "预营宫室。",
+          "power_change": "行在重心转向临安。",
+          "risk_or_damage": "江淮与中原仍有盗乱和强敌。",
+          "follow_up": "次年正月抵临安。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-110-WANGYAN-RECOVERS-QINZHOU-1131",
+      "time": "十一月辛酉",
+      "loc": [
+        "白石镇",
+        "秦州"
+      ],
+      "action": "王彦、关师古合兵迎击伪齐郭振数千骑。",
+      "result": "伪军大败，郭振被俘，秦州收复。",
+      "quote": [
+        "以數千騎掠白石鎮",
+        "古並兵禦之",
+        "賊大敗，振為官軍所獲",
+        "獲，遂復秦州"
+      ],
+      "battle": "CAMPAIGN-110-WANGYAN-RECOVERS-QINZHOU-1131",
+      "unknown": [
+        "收复后的守备未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-CAOCHENG-CAPTURES-XIANGZIYIN-1131",
+      "time": "十一月壬戌至十二月",
+      "loc": [
+        "安仁",
+        "道州",
+        "衡山"
+      ],
+      "action": "曹成先受向子諲招安而后因援军不至转向南进，击溃官军并俘向子諲；继占道州。",
+      "result": "安仁、道州相继受曹成控制，湖南局势恶化。",
+      "quote": [
+        "賊徒逡巡不敢南向者百有餘日",
+        "援兵不至，成忿子諲扼己",
+        "申，官軍悉潰",
+        "執子諲而去",
+        "成遂據道州"
+      ],
+      "battle": "CAMPAIGN-110-CAOCHENG-CAPTURES-XIANGZIYIN-1131",
+      "unknown": [
+        "被俘后向子諲处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-TAX-ARREARS-RELIEF-1131",
+      "time": "十二月丁丑",
+      "loc": [
+        "诸路"
+      ],
+      "action": "朝廷认定盗起与贪吏、军需转嫁有关，蠲除建炎三年前积欠，并规定违诏催科者除名、贪吏籍没。",
+      "result": "旧欠蠲免与反催科、反贪墨制度同时下达。",
+      "quote": [
+        "盜起未息者，蓋奸贓之吏無恤民之意",
+        "外，一切蠲除",
+        "巧作催科者，並除名",
+        "直決贓吏舊制鏤板行下",
+        "仍籍沒家財"
+      ],
+      "unknown": [
+        "蠲免规模与实际执行未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-110-TAX-ARREARS-RELIEF-1131",
+        "candidate": "FIN-CAND-110-TAX-ARREARS-RELIEF-1131",
+        "summary": "朝廷蠲除旧欠并严禁巧立催科、惩治贪吏。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "军需转嫁与贪吏加剧民变。",
+          "fiscal_state": "蠲除建炎三年前积欠。",
+          "livelihood_state": "限制催科以缓解民困。",
+          "production_circulation": "对催科与贪墨设除名、籍没惩罚。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-110-HAIZHOU-RETURNS-1131",
+      "time": "十二月",
+      "loc": [
+        "海州",
+        "沂南",
+        "淮北"
+      ],
+      "action": "薛安靖、李汇诱率签军杀伪齐戍守者，率海州军民归宋。",
+      "result": "海州反正，朝廷令刘光世遣将戍守。",
+      "quote": [
+        "誘率簽軍蓋諫等",
+        "殺金人所命沂南、淮北都巡檢使",
+        "率軍民以城來歸",
+        "遣將統兵戍守"
+      ],
+      "battle": "CAMPAIGN-110-HAIZHOU-RETURNS-1131",
+      "unknown": [
+        "归宋军民与戍军人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-WANGYAN-DEFEATS-SANGZHONG-1131",
+      "time": "十二月己丑",
+      "loc": [
+        "金州",
+        "马郎岭",
+        "均州"
+      ],
+      "action": "桑仲三路进攻金州，王彦集中亲兵在马郎岭对垒，以焦文通守住口关。",
+      "result": "激战六日后桑军溃败，均州平定。",
+      "quote": [
+        "分三道，一攻住口關",
+        "自以親兵營馬郎嶺",
+        "大戰凡六日",
+        "日，賊奔潰。彥",
+        "彥縱兵追擊，均州平"
+      ],
+      "battle": "CAMPAIGN-110-WANGYAN-DEFEATS-SANGZHONG-1131",
+      "unknown": [
+        "桑仲主力损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-HANSHIZHONG-PACIFIES-JIANZHOU-1132",
+      "time": "绍兴二年正月丙申至辛丑",
+      "loc": [
+        "建州",
+        "凤凰山",
+        "邵武"
+      ],
+      "action": "韩世忠绕间道围建州，以天桥、云梯、火砲攻城，攻破后限制军人入城并区分胁从。",
+      "result": "范汝为自焚，余部平定；农民获牛种，商人解除征禁。",
+      "quote": [
+        "自間道急趨鳳凰山",
+        "以天橋、對樓、雲梯、火砲等急擊之",
+        "城遂破，賊眾死者萬餘",
+        "汝為竄回源洞中自焚死",
+        "農者給牛、種使耕",
+        "商賈者弛征禁",
+        "是多所全活"
+      ],
+      "battle": "CAMPAIGN-110-HANSHIZHONG-PACIFIES-JIANZHOU-1132",
+      "unknown": [
+        "分配牛种及受惠人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-110-HANSHIZHONG-PACIFIES-JIANZHOU-1132",
+        "candidate": "FIN-CAND-110-HANSHIZHONG-PACIFIES-JIANZHOU-1132",
+        "summary": "韩世忠平建州后分辨胁从、给牛种并解商禁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "建州为范汝为十余万众所据。",
+          "fiscal_state": "农者获牛种、商贾弛征禁。",
+          "livelihood_state": "胁从者被汰遣，平民获保全。",
+          "production_circulation": "恢复耕作与商业流通。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-110-LINAN-ARRIVAL-SECURITY-1132",
+      "time": "绍兴二年正月壬寅至戊午",
+      "loc": [
+        "绍兴",
+        "临安"
+      ],
+      "action": "高宗自绍兴渡江移临安，后设置左右厢巡铺与守卒。",
+      "result": "行在转至临安并配置城市巡防。",
+      "quote": [
+        "帝御舟發紹興",
+        "午，帝至臨安",
+        "左右廂巡為百有十五鋪",
+        "用卒六百七十三人"
+      ],
+      "unknown": [
+        "临安长期城防效果未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-110-LINAN-ARRIVAL-SECURITY-1132",
+        "candidate": "WORK-CAND-110-LINAN-ARRIVAL-SECURITY-1132",
+        "summary": "行在迁临安后设置巡铺与守卒。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "临安行在巡防。",
+          "phase": "迁都后部署。",
+          "purpose": "城内治安与行在安全。",
+          "resource_input": "一百一十五铺、六百七十三卒。",
+          "operation": "设置左右厢巡。",
+          "benefit": "形成常设巡防。",
+          "harm": "长期成本未载。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-110-LIGUANG-SEIZES-HANSHIQING-1132",
+      "time": "绍兴二年三月",
+      "loc": [
+        "宣州",
+        "淮西"
+      ],
+      "action": "李光、王侄诱韩世清出迎，夺其马并令其部队整队出城，择壮兵五千余并收舟九百艘。",
+      "result": "韩世清被执，部兵被改编或遣散。",
+      "quote": [
+        "也，必有謀耳",
+        "世清不得已批報諸軍",
+        "擇其壯者五千餘人隸神武前軍",
+        "又得世清所用舟九百艘",
+        "遂執世清以歸"
+      ],
+      "battle": "CAMPAIGN-110-LIGUANG-SEIZES-HANSHIQING-1132",
+      "unknown": [
+        "韩世清后续处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-SANGZHONG-KILLED-1132",
+      "time": "绍兴二年三月戊戌",
+      "loc": [
+        "郢州"
+      ],
+      "action": "桑仲谋杀霍明，霍明预先利用其解髻习惯设伏。",
+      "result": "桑仲被擒杀，其从者被囚并以反状上报。",
+      "quote": [
+        "仲怒，陰有殺明意",
+        "預備有力者為之束髮",
+        "即得其髻，即擒而殺之",
+        "囚其從者，而以反聞"
+      ],
+      "battle": "CAMPAIGN-110-SANGZHONG-KILLED-1132",
+      "unknown": [
+        "其部众后续归属未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-YANGZHENG-FANGSHANYUAN-1132",
+      "time": "绍兴二年三月庚子",
+      "loc": [
+        "方山原",
+        "陇州"
+      ],
+      "action": "杨政、吴璘、雷仲援方山原，与金军及叛将张中彦等交战。",
+      "result": "激战三日并焚敌寨，金军退去。",
+      "quote": [
+        "洧合兵來侵",
+        "之。大戰三日",
+        "日，焚其寨，翼",
+        "翼日，敵引去"
+      ],
+      "battle": "CAMPAIGN-110-YANGZHENG-FANGSHANYUAN-1132",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-ZHAIXING-ASSASSINATED-1132",
+      "time": "绍兴二年三月癸丑",
+      "loc": [
+        "伊阳",
+        "河南"
+      ],
+      "action": "刘豫诱翟兴受王爵失败后，以厚利诱其将杨伟杀兴。",
+      "result": "翟兴被杀，余部由其子收合但不复能军。",
+      "quote": [
+        "興，誘以王爵",
+        "興戳頤而焚其書",
+        "啖偉以厚利",
+        "利，偉遂殺興",
+        "自是不復能軍"
+      ],
+      "battle": "CAMPAIGN-110-ZHAIXING-ASSASSINATED-1132",
+      "unknown": [
+        "余部具体规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-LIUYU-BIANJING-EXTRACTION-1132",
+      "time": "绍兴二年四月庚寅",
+      "loc": [
+        "汴京",
+        "沿河",
+        "沿淮"
+      ],
+      "action": "刘豫迁都汴京，军国事依金元帅府；北军驻各路，重赋峻刑，并大规模发掘民间窖藏和坟墓。",
+      "result": "伪齐治下民不聊生，民间财物与坟墓遭破伐。",
+      "quote": [
+        "偽齊劉豫移都汴京",
+        "路，皆駐北軍",
+        "賦斂甚重，刑法太峻，民不聊生",
+        "兩京民間窖藏及塚墓，破伐殆遍"
+      ],
+      "unknown": [
+        "加赋、破伐规模未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-110-LIUYU-BIANJING-EXTRACTION-1132",
+        "candidate": "FIN-CAND-110-LIUYU-BIANJING-EXTRACTION-1132",
+        "summary": "刘豫迁汴京后依金驻军重赋严刑并搜掘民财。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "伪齐迁都并受金元帅府控制。",
+          "fiscal_state": "沿路驻北军，赋敛甚重。",
+          "livelihood_state": "民不聊生、坟墓破伐。",
+          "production_circulation": "民间窖藏被搜掘。"
+        }
+      }
+    },
+    {
+      "id": "CHF-XZZTJ-110-YUEFEI-DEFEATS-CAOCHENG-1132",
+      "time": "绍兴二年闰四月丙申至丙午",
+      "loc": [
+        "贺州",
+        "莫邪关",
+        "桂岭",
+        "连州"
+      ],
+      "action": "岳飞攻破莫邪关，连续击败曹成；桂岭再胜后招降杨再兴，并由韩世忠部招曹成。",
+      "result": "曹成部受招，岳飞收杨再兴为将。",
+      "quote": [
+        "進，遂入關。飛",
+        "成屢敗，眾死者萬數",
+        "成拔寨遁去",
+        "再興曰：「勿殺，當與我見嶽公",
+        "飛留以為將",
+        "成以其眾就招"
+      ],
+      "battle": "CAMPAIGN-110-YUEFEI-DEFEATS-CAOCHENG-1132",
+      "unknown": [
+        "曹成受招后的实际编制未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-110-TAIPING-RECOVERY-1132",
+      "time": "绍兴二年闰四月庚戌",
+      "loc": [
+        "太平州"
+      ],
+      "action": "王进、张俊等攻太平州，叛兵受招后内应杀周青开门；入城诸军一度杀掠失序。",
+      "result": "太平州收复，陆德被执伏诛；内应马俊及妻子遇害。",
+      "quote": [
+        "已復太平州",
+        "叛兵陸德等受招",
+        "執青，斬其首",
+        "遂殺人縱掠，城中亂",
+        "俊執德以獻，伏誅",
+        "俊與妻子皆遇害"
+      ],
+      "battle": "CAMPAIGN-110-TAIPING-RECOVERY-1132",
+      "unknown": [
+        "城中杀掠受害规模未载。"
+      ]
+    }
+  ]
+}

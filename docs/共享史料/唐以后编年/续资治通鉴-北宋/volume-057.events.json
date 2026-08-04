@@ -1,0 +1,947 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-057",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷057",
+    "revision_ref": "2299550",
+    "start_locator": "宋仁宗嘉祐二年八月",
+    "end_locator": "宋仁宗嘉祐四年三月",
+    "overlap_context": "承接卷056储嗣争议、断道坞后西北军政、河北军储与地方考课；本卷推进编敕、贡举、广惠仓、茶法和漕运制度，持续记录建储争论与中枢更替，完成彭仕羲归降并实施岭南土丁、灵渠改造，登记邵州蛮乱和交趾寇钦州，转出河北义勇、财计整顿和包拯主三司线。",
+    "input_fingerprint": "be103799c1eded8ce21ce830b7d3f208a27be14c6213f076f81b9304e7f74065"
+  },
+  "limitations": [
+    "仅据固定 revision 2299550 的《續資治通鑑》卷057连续通读登记，不引入卷外常识。",
+    "固定页正文跨嘉祐二年八月至嘉祐四年三月，按缓存页边界完整登记，未打开卷058。",
+    "普通任免、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-057-CODE-CONSOLIDATION-1057",
+      "time": "嘉祐二年八月",
+      "loc": [
+        "开封"
+      ],
+      "action": "韩琦指出庆历四年以来续降编敕四千三百余件且前后抵牾，请求统一删定。",
+      "result": "富弼、曾公亮等受命提点详定现行编敕。",
+      "quote": [
+        "續降四千三百餘件，前後多抵牾",
+        "牾，請加刪定",
+        "同提點詳定《編敕》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "集中整理十五年来相互冲突的现行敕令。"
+        ]
+      ],
+      "unknown": [
+        "删定完成时间未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-GUANGHUI-GRANARY-1057",
+      "time": "嘉祐二年八月",
+      "loc": [
+        "宋境诸路州城"
+      ],
+      "action": "宋廷停止出售户绝田，改募承佃并以夏秋租课供给城内贫老幼弱，建立广惠仓。",
+      "result": "各路提点刑狱专领仓务，岁终向三司申报收支。",
+      "quote": [
+        "卯，建廣惠倉",
+        "募人承佃，以夏秋所輸之課給在城老幼貧乏不能自存者",
+        "歲終，具所支納上三司"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以户绝田租课建立常年贫弱救济。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立提点刑狱管理、三司汇总的广惠仓制度。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-INNER-DECREE-ACCOUNTABILITY-1057",
+      "time": "嘉祐二年八月至十二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "陈旭请求中书、枢密院追究借内降求恩者，随后确立内降须关白二府的程序。",
+      "result": "干请恩赏者面临推劾，内降进入二府审核机制。",
+      "quote": [
+        "內降營求恩賞者甚多",
+        "請令中書、樞密院推劾",
+        "立內降關白二府法"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以追责和程序审核限制内降请托。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-HEIR-DEBATE-CONTINUES-1057",
+      "time": "嘉祐二年八月至嘉祐三年六月",
+      "loc": [
+        "开封"
+      ],
+      "action": "欧阳修、吴及、范镇、包拯等继续要求选择贤宗室为皇子或储副，并以宗庙、皇帝前诺和继嗣安全反复进言。",
+      "result": "仁宗仍未正式建储，仅向包拯答称日后再议。",
+      "quote": [
+        "於宗室中選材賢可喜者錄以為皇子",
+        "復上疏請擇宗室子以備儲副",
+        "陛下許臣復三年矣，願早定大計",
+        "曰：「徐當議之。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "卷056建储压力持续但仍无正式决定。"
+        ]
+      ],
+      "unknown": [
+        "储嗣人选未定。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-SALT-TRANSPORT-OFFICE-1057",
+      "time": "嘉祐二年十月至十一月",
+      "loc": [
+        "江淮",
+        "荆湖",
+        "东南"
+      ],
+      "action": "三司因东南盐钱年课四百万缗而运输不足、收入下降，请设专官统筹。",
+      "result": "设江淮南、荆湖制置司勾当运盐公事一员。",
+      "quote": [
+        "歲課四百萬緡",
+        "諸路般運不足而課益虧",
+        "置江、淮南、荊湖制置司句當運鹽公事一員"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "设置跨路机构统筹东南盐运和盐课。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以专官重组盐运管理。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-HEBEI-FLOOD-GRAIN-SUBSTITUTION-1057",
+      "time": "嘉祐二年十一月",
+      "loc": [
+        "河北"
+      ],
+      "action": "河北大水后朝廷拟运太仓粳米六十万斛赈民，薛向以北人不便食粳且漕运迟远为由请求改用本司米。",
+      "result": "以河北本司米四十万石替代远运太仓米。",
+      "quote": [
+        "詔輟太倉米六十萬斛以賑之",
+        "北人不便食粳，且漕路回遠不時至",
+        "請出本司米四十萬石以代之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按地方食用习惯和运输条件替换灾粮来源。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-SIMA-GUANG-FORT-RESPONSIBILITY-1057",
+      "time": "嘉祐二年十一月",
+      "loc": [
+        "麟州",
+        "并州"
+      ],
+      "action": "断道坞败后，庞籍隐去司马光最初建议筑堡的文书而独受御史弹劾，司马光三次请求独自担责。",
+      "result": "庞籍被罢节度使，司马光因文书未呈而免于处分。",
+      "quote": [
+        "籍匿光初所陳事",
+        "籍為御史劾奏，罷節度使",
+        "光不自安，三上書乞獨坐其罪"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "追究断道坞前筑堡决策责任并出现代人隐责。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-BIENNIAL-EXAM-REFORM-1057",
+      "time": "嘉祐二年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗采纳裁减名额而增加贡举频次的建议，改行间岁贡举并设明经科、撤说书举，强化县州保任和考官责任。",
+      "result": "进士诸科每次解额减半，地方与省试考核形成连带问责。",
+      "quote": [
+        "自今間歲貢舉",
+        "進士、諸科，悉解舊額之半",
+        "已保任而後有缺行，則州、縣皆坐罪",
+        "繆，坐元考官"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重定贡举周期、科目、名额与举考责任。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-LIAO-DOWAGER-DEATH-1057",
+      "time": "嘉祐二年十二月",
+      "loc": [
+        "辽境"
+      ],
+      "action": "辽钦哀太皇太后去世。",
+      "result": "其长期干预政刑并造成废弛的政治影响终结，弟萧孝友进封丰国王。",
+      "quote": [
+        "太皇太后殂，諡欽哀",
+        "興宗末年，政刑廢弛，亦多由欽哀使然"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽太皇太后去世并结束其宫廷干政线。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-CENTRAL-CABINET-REORGANIZATION-1058",
+      "time": "嘉祐三年六月",
+      "loc": [
+        "开封",
+        "河南府"
+      ],
+      "action": "文彦博因受攻讦不安而求退，贾昌朝又因交通女谒、宦官和放过矫制者遭谏官弹劾。",
+      "result": "文彦博、贾昌朝同日退出中枢，韩琦拜相，宋庠、田况任枢密使，张昪任枢密副使。",
+      "quote": [
+        "文彥博，罷為河陽三城節度使",
+        "昌朝由此罷",
+        "韓琦依前官平章事",
+        "宋庠、樞密副使、禮部侍郎田況，並為樞密使"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "因台谏压力和主动求退重组宰执枢密班底。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-BAOZHENG-INSTITUTIONAL-PROPOSALS-1058",
+      "time": "嘉祐三年六月至七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "包拯任御史中丞后请求压低内臣禄权、减少制敕反复、先经两制集议，并重整宗室教育与监司自举属官。",
+      "result": "多项建议获施行，包拯又兼领转运使和提点刑狱考课院。",
+      "quote": [
+        "民知命令之不足信，則賞罰何以沮勸",
+        "並請先下兩制集議",
+        "又陳教養宗室之法，請條責諸路監司及御史府自舉屬官，諫官、御史不避二府薦舉者，聽兩制得至執政私第，事多施行",
+        "包拯領轉運使、提點刑獄考課院"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以减少朝令夕改和强化考课改进中枢地方治理。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-SHAOZHOU-MAN-REVOLT-1058",
+      "time": "嘉祐三年六月",
+      "loc": [
+        "邵州",
+        "赀木寨"
+      ],
+      "action": "邵州蛮反并杀队将及部兵，潘夙驻兵赀木寨、督军援将进行反击。",
+      "result": "宋军攻破团峒九十余处。",
+      "quote": [
+        "蠻反邵州，殺隊將及其部兵",
+        "夙駐兵貲木寨",
+        "破團峒九十餘"
+      ],
+      "battle": "CAMPAIGN-SHAOZHOU-TUANDONG-1058",
+      "unknown": [
+        "双方伤亡和后续安置未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-CAIXIANG-FUJIAN-SOCIAL-REFORM-1058",
+      "time": "嘉祐三年七月",
+      "loc": [
+        "福州",
+        "福建"
+      ],
+      "action": "蔡襄延请周希孟等以经术兴学，并禁止丧葬崇佛导致的破产及巫觋、蛊毒害人。",
+      "result": "福建教育与丧葬、医疗巫术习俗发生改变。",
+      "quote": [
+        "專以經術傳授",
+        "閩俗治喪尚浮屠，務豐侈，往往破家",
+        "皆痛斷絕之",
+        "之。閩俗以變"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "制止奢侈丧葬造成民户破产。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以兴学和禁俗改变地方社会治理。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-GUANGJI-YUANWU-FLOOD-1058",
+      "time": "嘉祐三年七月",
+      "loc": [
+        "广济河",
+        "原武县"
+      ],
+      "action": "广济河涨溢、原武县河决，朝廷遣官查验受灾田地。",
+      "result": "受水害民户进入赈恤程序。",
+      "quote": [
+        "廣濟河溢，原武縣河決",
+        "遣官行視民田，賑恤被水害者"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "查灾并赈恤河决受害民田。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "登记广济河和原武决口。"
+        ]
+      ],
+      "unknown": [
+        "灾田面积和赈额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-JINGSHI-GRAIN-GRANT-1058",
+      "time": "嘉祐三年八月",
+      "loc": [
+        "京师路"
+      ],
+      "action": "因京师连年旱灾、屡次免租，朝廷拨钱十万贯帮助本路采购军粮。",
+      "result": "以专项现金补足京师军储。",
+      "quote": [
+        "京師比歲旱，屢蠲民租",
+        "以緡錢十萬下本路助糴軍儲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按嘉祐三年八月独立拨款十万贯补助京师军粮。"
+        ]
+      ],
+      "unknown": [
+        "实际购粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-PENGSHIXI-SURRENDER-1058",
+      "time": "嘉祐三年八月",
+      "loc": [
+        "卞溪",
+        "辰州"
+      ],
+      "action": "彭仕羲率众归降并归还连年劫掠的甲仗和士卒。",
+      "result": "宋廷归还其家属与铜柱，下溪州重新通宋，但彭仕羲仍桀骜。",
+      "quote": [
+        "彭仕羲率眾降",
+        "歸連歲所掠甲仗士卒",
+        "自是復通中國，然桀驁益甚"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "完成卷055以来下溪州招抚并恢复往来。"
+        ]
+      ],
+      "unknown": [
+        "后续服从程度有限。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-TEA-MONOPOLY-REFORM-PREPARATION-1058",
+      "time": "嘉祐三年八月至九月",
+      "loc": [
+        "东南茶区",
+        "开封"
+      ],
+      "action": "何鬲、王嘉麟、沈立等指出严禁私茶导致园户破产逃匿、官茶积压，富弼、韩琦、曾公亮推动设局讨论通商。",
+      "result": "韩绛、陈旭、吕景初在三司置局，形成以园户自由贸易、官收租钱与商税替代大部分禁榷的方案。",
+      "quote": [
+        "以至破產、逃匿者，歲比有之",
+        "請罷給茶本錢，縱園戶貿易，而官收其租錢",
+        "即三司置局議之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "筹备以租税和通商取代严厉茶禁。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三司置局汇总茶法改革。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-LINGNAN-MILITIA-MARKETS-1058",
+      "time": "嘉祐三年九月",
+      "loc": [
+        "广南西路",
+        "邕州"
+      ],
+      "action": "李师中按户丁比例组织岭南土丁轮番教阅，免除杂役，并请求开放盐商和恢复邕州和市场。",
+      "result": "广南西路获得四万余名土丁，盐商和边市措施多获施行。",
+      "quote": [
+        "乞置土丁，募敢勇",
+        "於是一路得四萬餘人",
+        "請通鹽商以便民，復邕州和市場以實邊，事多施行"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以免役免税、通盐和边市支撑岭南地方防务。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立四万余人的地方土丁轮训体系。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-LINGQU-IMPROVEMENT-1058",
+      "time": "嘉祐三年九月",
+      "loc": [
+        "桂州兴安县灵渠"
+      ],
+      "action": "李师中以火焚石再募工开凿灵渠浅狭石底，并拆除三十六斗门中的二十六座。",
+      "result": "三十日完工，南北舟运得以通行。",
+      "quote": [
+        "師中積薪焚其石，募工鑿之",
+        "廢斗門二十六",
+        "役三旬而成，舟楫以通"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "三十日改造灵渠并拆除二十六斗门。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提升江湖至南海的舟运能力。"
+        ]
+      ],
+      "unknown": [
+        "改造后单舟运量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-HEDONG-GRAIN-SILK-1058",
+      "time": "嘉祐三年十月",
+      "loc": [
+        "河东"
+      ],
+      "action": "朝廷从内藏库拨绸绢十万匹给河东转运司采购军粮。",
+      "result": "以本年十月独立实物资产补充河东军储。",
+      "quote": [
+        "出內藏庫絹十萬",
+        "下河東轉運司助糴軍儲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按嘉祐三年十月拨绸绢十万补助河东军粮。"
+        ]
+      ],
+      "unknown": [
+        "实际购粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-WANGANSHI-TEN-THOUSAND-WORDS-1058",
+      "time": "嘉祐三年十月",
+      "loc": [
+        "开封"
+      ],
+      "action": "王安石上万言书，把财力困穷和风俗衰坏归因于法度、人才教育任用和理财方法不足，主张渐次改易。",
+      "result": "其系统改革建议呈交仁宗，卷内未载立即采纳。",
+      "quote": [
+        "今天下之財力日以困窮，而風俗日以衰壞，患在不知法度故也",
+        "因天下之力以生天下之財",
+        "思所以陶成天下人才",
+        "期合於當世之變"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出以制度和人才改革解决财政困局。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "形成面向法度、人才和理财的综合改革建议。"
+        ]
+      ],
+      "unknown": [
+        "本卷未载仁宗具体批复。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-EXPENSE-REDUCTION-OFFICE-1058",
+      "time": "嘉祐三年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "张昪请求取消民间科率和不急营造，由官钱采购场库所缺物资；三司设省减司详定冗费。",
+      "result": "韩绛、陈旭、吕景初参与裁减，后续多项费用被削减。",
+      "quote": [
+        "請罷民間科率及營造不急之務",
+        "令所在以官錢收市之",
+        "置省減司于三司",
+        "自是多所裁損"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "取消部分科率和非急工程并系统裁减冗费。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停止不急营造。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "在三司设置省减机构。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-WATER-ADMINISTRATION-REORGANIZED-1058",
+      "time": "嘉祐三年十一月",
+      "loc": [
+        "开封"
+      ],
+      "action": "宋廷在京设置都水监并撤销三司河渠司，将原河渠事务和官员并入新机构。",
+      "result": "水利河渠管理从三司下属司改为独立都水监。",
+      "quote": [
+        "詔置在京都水監",
+        "罷三司河渠司",
+        "領河渠司事楊佐同判"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重组中央河渠工程管理机构。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以都水监取代三司河渠司。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-GRAIN-TRANSPORT-RESTORATION-1058",
+      "time": "嘉祐三年十一月",
+      "loc": [
+        "江淮",
+        "两浙",
+        "真州",
+        "楚州",
+        "泗州",
+        "汴河"
+      ],
+      "action": "朝廷针对江汴船只混转、舟卒终身不归和漕运败坏，责令各路增造船、补卒并恢复本路粮纲输转般仓。",
+      "result": "限期一年完成重组，并规定嘉祐五年起汴纲不得再出江。",
+      "quote": [
+        "挽舟卒有終身不還其家、老死河路者",
+        "名，漕事大敝",
+        "各造船補卒團本路綱",
+        "自嘉祐五年，汴綱不得復出江"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "增造漕船并恢复江汴分段运输。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "纠正粮纲混转和舟卒长期不得休息。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重建分路漕运责任。"
+        ]
+      ],
+      "unknown": [
+        "执行结果转出后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-THREE-YEAR-REVENUE-AUDIT-1058",
+      "time": "嘉祐三年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷要求三司每年呈报天下岁赋，并每三年汇总一次盈亏。",
+      "result": "建立全国岁赋年度上报、三年结算的财计周期。",
+      "quote": [
+        "每歲上天下歲賦之數",
+        "自今三歲一會其虧贏以聞"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立年度岁赋与三年盈亏汇总制度。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "强化三司财计报告责任。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-KAIFENG-FAMINE-RELIEF-1059",
+      "time": "嘉祐四年正月",
+      "loc": [
+        "开封"
+      ],
+      "action": "连续雨雪造成大量民众饥寒死于道路，朝廷分派官员在京城赈恤并停止上元放灯。",
+      "result": "灾民获得救济，同时另给京城军班特支钱。",
+      "quote": [
+        "民飢寒死道路甚眾",
+        "遣官分行京城賑恤",
+        "請罷上元放燈",
+        "賜在京諸軍班特支錢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "京城饥寒灾害中实施民众和军班救济。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停办灯会以应对灾情。"
+        ]
+      ],
+      "unknown": [
+        "死亡人数和赈济总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-TEA-BAN-RELAXED-1059",
+      "time": "嘉祐四年二月",
+      "loc": [
+        "六路茶区",
+        "宋境"
+      ],
+      "action": "六路调查均确认弛禁有利，朝廷把原拟六十八万余缗茶课减半为三十三万八千余缗租钱，允许园户贸易。",
+      "result": "除腊茶外其余茶叶通行天下，租钱及本钱储作边粮采购。",
+      "quote": [
+        "二月，己巳，下詔弛茶禁",
+        "歲輸緡錢三十三萬八千有奇，謂之租錢",
+        "惟臘茶禁如舊，餘茶肆行天下矣"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以减半租钱取代大部分茶禁并开放贸易。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "完成卷内茶法改革决策。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-GUANGHUI-GRANARY-RULES-1059",
+      "time": "嘉祐四年二月",
+      "loc": [
+        "宋境各州"
+      ],
+      "action": "宋廷把广惠仓划归司农寺，规定各州专官管理、每年十月核定救济名单和冬春给米标准。",
+      "result": "不能自给的老弱病者每日一升、幼者半升，每三日发放一次至次年二月。",
+      "quote": [
+        "以天下廣惠倉隸司農寺",
+        "籍定姓名，自次月一日給米一升，幼者半升",
+        "每三日一給，至明年二月止"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "细化广惠仓冬春定量救济规则。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将广惠仓改隶司农寺并设州级监督。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-QINZHOU-JIAOZHI-RAID-1059",
+      "time": "嘉祐四年二月",
+      "loc": [
+        "钦州"
+      ],
+      "action": "交趾军队入寇钦州。",
+      "result": "形成新的宋交边境武装事件，卷内未载处置结果。",
+      "quote": [
+        "交趾寇欽州"
+      ],
+      "battle": "CAMPAIGN-JIAOZHI-QINZHOU-1059",
+      "unknown": [
+        "兵力、伤亡和战果未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-MARKET-LEVY-REDUCTION-1059",
+      "time": "嘉祐四年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷命韩绛、陈旭、唐介与三司核定并削减民间科率。",
+      "result": "省减司后续工作进入针对民间摊派的具体核减阶段。",
+      "quote": [
+        "與三司減定民間科率以聞"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "核减民间科率负担。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "由多部门共同审核科率。"
+        ]
+      ],
+      "unknown": [
+        "具体削减额度未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-057-BAOZHENG-THREE-REVENUE-COMMISSION-1059",
+      "time": "嘉祐四年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "包拯先后弹劾张方平趁势购买监临富民宅第、宋祁在地方不治和家人借公使钱。",
+      "result": "张方平、宋祁相继外任，包拯接任三司使；欧阳修批评其逐人代位有避嫌问题，包拯暂避命后仍就职。",
+      "quote": [
+        "乘勢賤買所監臨富民邸舍",
+        "祁亦因此罷，而拯遂代其任",
+        "拯即家避命，不許",
+        "久之，乃就職"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "台谏弹劾造成连续财计主官更换并引发避嫌争论。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-057-HEBEI-MILITIA-TRAINING-1059",
+      "time": "嘉祐四年三月",
+      "loc": [
+        "河北",
+        "邢州",
+        "冀州"
+      ],
+      "action": "朝议讨论把河北义勇分两路机动作战，边帅认为不宜预先分路震动民心，应先在各州按年点集训练。",
+      "result": "朝廷采纳边帅意见，规定义勇按年教阅并上报新旧名籍与缺额。",
+      "quote": [
+        "民兵只可城守，難備戰陣，誠非通論",
+        "姑令在所點集訓練",
+        "詔如所議，歲閱，以新舊籍並闕數聞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "确定河北义勇先分州训练、遇警再统兵的方案。"
+        ]
+      ],
+      "unknown": [
+        "实战编组留待边警时决定。"
+      ]
+    }
+  ]
+}

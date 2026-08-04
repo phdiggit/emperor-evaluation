@@ -1,0 +1,2553 @@
+{
+  "facts": [
+    {
+      "action": "俺答等连续侵延绥、大同、宣府、宁夏等地，明军在黑山等处取胜但多处守将战死。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "蒙古诸部",
+        "边地军民"
+      ],
+      "cost_or_burden": "陈舜、张文瀚、张凤、汪洪、高极等战死；其他伤亡未载。",
+      "fact_id": "CHF-MING-V18-ANDA-WAR-1543-1546",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北边防线反复受攻，局部击退未能终止入寇。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-ANDA-WAR-1543-1546"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-anda-war-1543-1546",
+      "source_refs": [
+        "明史/卷18@2594633#俺答犯大同，總兵官周尚文戰於黑山，敗之。",
+        "明史/卷18@2594633#俺答犯松子嶺，殺守備張文瀚。",
+        "明史/卷18@2594633#犯清平堡，遊擊高極戰死。"
+      ],
+      "time_range": {
+        "end": "嘉靖二十五年十月",
+        "precision": "range",
+        "start": "嘉靖二十二年春"
+      },
+      "uncertainties": [
+        "各役兵力、总伤亡、掳掠规模与边民损失未详。"
+      ]
+    },
+    {
+      "action": "朝廷命流民复业者获得牛种，开垦闲田者免役十年。",
+      "actors": [],
+      "affected_groups": [
+        "流民",
+        "垦荒农户",
+        "地方官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-REFUGEE-RESETTLEMENT-1545",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "返乡和垦荒民户获得生产资料与长期免役。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V18-REFUGEE-RESETTLEMENT-1545"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-refugee-resettlement-1545",
+      "source_refs": [
+        "明史/卷18@2594633#詔流民復業，予牛種，開墾閒田者給復十年。"
+      ],
+      "time_range": {
+        "end": "1545",
+        "precision": "month",
+        "start": "嘉靖二十四年二月"
+      },
+      "uncertainties": [
+        "受益人数、土地面积、牛种数量与执行成效未载。"
+      ]
+    },
+    {
+      "action": "太庙工程完工。",
+      "actors": [],
+      "affected_groups": [
+        "工程役户",
+        "工匠",
+        "礼官"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-TAIMIAO-WORKS-1545",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "此前火灾后的宗庙重建完成。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V18-TAIMIAO-WORKS-1545"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-taimiao-works-1545",
+      "source_refs": [
+        "明史/卷18@2594633#六月壬辰，太廟成。"
+      ],
+      "time_range": {
+        "end": "1545",
+        "precision": "month",
+        "start": "嘉靖二十四年六月"
+      },
+      "uncertainties": [
+        "工程起始、费用、用工、伤亡及建筑规模未载。"
+      ]
+    },
+    {
+      "action": "四川白草番起事后，朝廷派军征讨并于次年平定。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "白草番起事军",
+        "四川地方民众"
+      ],
+      "cost_or_burden": "双方伤亡与地方损失未载。",
+      "fact_id": "CHF-MING-V18-BAICAO-REBELLION-1546-1547",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "白草番叛乱被镇压。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-BAICAO-1546-1547"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-baicao-rebellion-1546-1547",
+      "source_refs": [
+        "明史/卷18@2594633#四川白草番亂。",
+        "明史/卷18@2594633#巡撫四川都御史張時徹、副總兵何卿討平白草叛番。"
+      ],
+      "time_range": {
+        "end": "嘉靖二十六年四月",
+        "precision": "range",
+        "start": "嘉靖二十五年三月"
+      },
+      "uncertainties": [
+        "起事原因、兵力、伤亡与战后处置未载。"
+      ]
+    },
+    {
+      "action": "黄河在曹县决口。",
+      "actors": [],
+      "affected_groups": [
+        "沿河灾民",
+        "河工役户",
+        "漕运军民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-CAOXIAN-RIVER-BREACH-1547",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "本卷未载治河行动与修复结果。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V18-CAOXIAN-RIVER-BREACH-1547"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-caoxian-river-breach-1547",
+      "source_refs": [
+        "明史/卷18@2594633#秋七月丙辰，河決曹縣。"
+      ],
+      "time_range": {
+        "end": "1547",
+        "precision": "month",
+        "start": "嘉靖二十六年七月"
+      },
+      "uncertainties": [
+        "淹没范围、伤亡、损失、治理工程与费用均未载。"
+      ]
+    },
+    {
+      "action": "曾铣因议复河套被捕并处死，夏言被罢相、逮捕后亦遭处死。",
+      "actors": [],
+      "affected_groups": [
+        "边务官员",
+        "内阁官员",
+        "言官",
+        "涉案家属"
+      ],
+      "cost_or_burden": "曾铣、夏言被杀，受廷杖言官伤亡未载。",
+      "fact_id": "CHF-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "复套军事方案终止，夏言集团被严厉清洗。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-zeng-xian-xia-yan-purge-1548",
+      "source_refs": [
+        "明史/卷18@2594633#以議復河套，逮總督陝西三邊侍郎曾銑",
+        "明史/卷18@2594633#三月癸巳，殺曾銑，逮夏言。",
+        "明史/卷18@2594633#冬十月癸卯，殺夏言。"
+      ],
+      "time_range": {
+        "end": "1548",
+        "precision": "range",
+        "start": "嘉靖二十七年正月至十月"
+      },
+      "uncertainties": [
+        "案件证据、籍没财产、牵连人数与家属处置未载。"
+      ]
+    },
+    {
+      "action": "俺答连续侵大同宣府永宁怀来，明军先有守将战死，后在次野口、曹家庄、大滹沱多次击败其军。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "蒙古部众",
+        "宣大边民"
+      ],
+      "cost_or_burden": "顾相、鲁承恩、董暘等战死；其他伤亡未载。",
+      "fact_id": "CHF-MING-V18-ANDA-WAR-1548-1549",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宣大来犯被阶段性击退，但北边压力持续。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-ANDA-WAR-1548-1549"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-anda-war-1548-1549",
+      "source_refs": [
+        "明史/卷18@2594633#周尚文追敗之於次野口。",
+        "明史/卷18@2594633#周尚文敗俺答於曹家莊。",
+        "明史/卷18@2594633#宣府總兵官趙國忠又敗之於大滹沱。"
+      ],
+      "time_range": {
+        "end": "嘉靖二十八年二月",
+        "precision": "range",
+        "start": "嘉靖二十七年八月"
+      },
+      "uncertainties": [
+        "双方兵力、总伤亡、俘获与边民损失未详。"
+      ]
+    },
+    {
+      "action": "海寇侵宁波台州，浙江海贼兴起，朵颜三卫又犯辽东，东南与辽东海边防务同时恶化。",
+      "actors": [],
+      "affected_groups": [
+        "海防官军",
+        "海寇倭寇",
+        "沿海居民",
+        "商民"
+      ],
+      "cost_or_burden": "军民伤亡、船只与财货损失未载。",
+      "fact_id": "CHF-MING-V18-EARLY-COASTAL-RAIDS-1547-1549",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "沿海侵扰从零散海寇发展为持续倭患。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-EARLY-COASTAL-1547-1549"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-early-coastal-raids-1547-1549",
+      "source_refs": [
+        "明史/卷18@2594633#海寇犯寧波、台州。",
+        "明史/卷18@2594633#秋七月，浙江海賊起。",
+        "明史/卷18@2594633#九月，朵顏三衞犯遼東。"
+      ],
+      "time_range": {
+        "end": "嘉靖二十八年九月",
+        "precision": "range",
+        "start": "嘉靖二十六年十二月"
+      },
+      "uncertainties": [
+        "袭击规模、伤亡、掳掠与海防应对未载。"
+      ]
+    },
+    {
+      "action": "俺答由古北口突破，薊镇兵溃后掠通州畿甸并逼北京；各地援军集结但仇鸾在白羊口败绩，俺答随后撤退。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "蒙古部众",
+        "京畿民众",
+        "援军地区民户"
+      ],
+      "cost_or_burden": "张达、林椿等战死；畿甸军民伤亡与财产损失未载。",
+      "fact_id": "CHF-MING-V18-GENGXU-INVASION-1550",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "京师遭直接威胁并戒严，丁汝夔、杨守谦被处死，军事指挥体系暴露严重失效。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-GENGXU-1550"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-gengxu-invasion-1550",
+      "source_refs": [
+        "明史/卷18@2594633#俺答大舉入寇，攻古北口，薊鎮兵潰。",
+        "明史/卷18@2594633#壬午，薄都城。",
+        "明史/卷18@2594633#丁亥，仇鸞敗績於白羊口。"
+      ],
+      "time_range": {
+        "end": "1550",
+        "precision": "range",
+        "start": "嘉靖二十九年六月至八月"
+      },
+      "uncertainties": [
+        "双方兵力、总伤亡、京畿掳掠和撤军条件未详。"
+      ]
+    },
+    {
+      "action": "朝廷赗京畿被寇者，罢团营、恢复三大营旧制并设戎政府，撤领营中官，另选边军入卫。",
+      "actors": [],
+      "affected_groups": [
+        "被寇民户",
+        "京营军士",
+        "边军",
+        "中官"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-GENGXU-RELIEF-REFORM-1550",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "庚戌之变后展开受灾救济与京师军制重组。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-GENGXU-RELIEF-REFORM-1550"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-gengxu-relief-reform-1550",
+      "source_refs": [
+        "明史/卷18@2594633#振畿內被寇者。",
+        "明史/卷18@2594633#罷團營，復三大營舊制，設戎政府，以仇鸞總督之。",
+        "明史/卷18@2594633#罷領營中官。"
+      ],
+      "time_range": {
+        "end": "1550",
+        "precision": "range",
+        "start": "嘉靖二十九年九月至十一月"
+      },
+      "uncertainties": [
+        "赈济数额、兵额军费、军制调整实际效果未载。"
+      ]
+    },
+    {
+      "action": "朝廷在宣府大同开马市，仇鸾统军赴大同；其后仇鸾被收印、死后戮尸，边市亦全部罢除。",
+      "actors": [],
+      "affected_groups": [
+        "边贸商民",
+        "边军",
+        "蒙古互市部众",
+        "仇鸾党羽"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "庚戌后马市与仇鸾军权均告终止。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-horse-market-qiu-luan-1551-1552",
+      "source_refs": [
+        "明史/卷18@2594633#開馬市於宣府、大同，兵部侍郎史道經理之。",
+        "明史/卷18@2594633#收仇鸞大將軍印，尋病死。",
+        "明史/卷18@2594633#罷各邊馬市。"
+      ],
+      "time_range": {
+        "end": "嘉靖三十一年十月",
+        "precision": "range",
+        "start": "嘉靖三十年三月"
+      },
+      "uncertainties": [
+        "马市交易规模、军费收益、仇鸾案财产与党羽人数未载。"
+      ]
+    },
+    {
+      "action": "朝廷建立内府营，训练内侍。",
+      "actors": [],
+      "affected_groups": [
+        "内侍",
+        "京营军士",
+        "宫廷人员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-INNER-PALACE-ARMY-1552",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宫廷宦官拥有专门武装训练组织。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-INNER-PALACE-ARMY-1552"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-inner-palace-army-1552",
+      "source_refs": [
+        "明史/卷18@2594633#建內府營，操練內侍。"
+      ],
+      "time_range": {
+        "end": "1552",
+        "precision": "month",
+        "start": "嘉靖三十一年二月"
+      },
+      "uncertainties": [
+        "兵额、武器、军费、指挥体系与后续用途未载。"
+      ]
+    },
+    {
+      "action": "黄河在徐州决口；次年京师外城建成，但本卷未载徐州堵口结果。",
+      "actors": [],
+      "affected_groups": [
+        "沿河灾民",
+        "河工役户",
+        "京城工匠",
+        "京师民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-RIVER-WORKS-1552-1553",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "首都外城完成，而徐州河灾治理仍未知。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V18-RIVER-WORKS-1552-1553"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-river-works-1552-1553",
+      "source_refs": [
+        "明史/卷18@2594633#丁酉，河決徐州。",
+        "明史/卷18@2594633#京師外城成。"
+      ],
+      "time_range": {
+        "end": "嘉靖三十二年十月",
+        "precision": "range",
+        "start": "嘉靖三十一年九月"
+      },
+      "uncertainties": [
+        "河灾损失与治理、外城费用用工及伤亡未载。"
+      ]
+    },
+    {
+      "action": "倭寇自浙江扩至苏松江北福建，明军多有败绩；张经俞大猷在王江泾大破倭军，胡宗宪等后又在乍浦、梁庄击破徐海集团。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "倭寇海盗",
+        "沿海居民",
+        "商民"
+      ],
+      "cost_or_burden": "周应桢、唐一岑、齐恩、宗礼等战死；其他伤亡未载。",
+      "fact_id": "CHF-MING-V18-WOKOU-WAR-1552-1556",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "浙江主力倭寇受到重创，但沿海战争仍延续。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-WOKOU-1552-1556"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-wokou-war-1552-1556",
+      "source_refs": [
+        "明史/卷18@2594633#海賊汪直糾倭寇瀕海諸郡，至六月始去。",
+        "明史/卷18@2594633#張經、副總兵俞大猷擊倭於王江涇，大破之。",
+        "明史/卷18@2594633#胡宗憲襲破海賊徐海於梁莊。"
+      ],
+      "time_range": {
+        "end": "嘉靖三十五年九月",
+        "precision": "range",
+        "start": "嘉靖三十一年四月"
+      },
+      "uncertainties": [
+        "双方兵力、总伤亡、城镇损失与俘虏处置未详。"
+      ]
+    },
+    {
+      "action": "俺答及诸部持续侵大同宣府宁夏延绥古北口等地，明军多次迎战，马芳等在保安击退来犯。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "蒙古诸部",
+        "边地军民"
+      ],
+      "cost_or_burden": "王恭、史略、郭都、李涞、冯恩、岳懋、张纮等战死。",
+      "fact_id": "CHF-MING-V18-NORTHERN-WAR-1552-1556",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北方边战持续多年，明军有多名总兵参将战死，未形成持久停战。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-NORTHERN-WAR-1552-1556"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-northern-war-1552-1556",
+      "source_refs": [
+        "明史/卷18@2594633#俺答大舉入寇，犯靈丘、廣昌。",
+        "明史/卷18@2594633#俺答犯古北口，總督楊博禦卻之。",
+        "明史/卷18@2594633#參將馬芳敗寇於保安。"
+      ],
+      "time_range": {
+        "end": "嘉靖三十五年十二月",
+        "precision": "range",
+        "start": "嘉靖三十一年正月"
+      },
+      "uncertainties": [
+        "各役兵力、总伤亡、掳掠及边民损失未详。"
+      ]
+    },
+    {
+      "action": "张经在王江泾大胜后仍被逮捕，最终与李天宠、杨继盛一同被杀。",
+      "actors": [],
+      "affected_groups": [
+        "抗倭将领",
+        "言官",
+        "廷臣",
+        "涉案家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-ZHANG-JING-EXECUTION-1555",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "抗倭统帅在取得大捷后遭政治处决。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-ZHANG-JING-EXECUTION-1555"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-zhang-jing-execution-1555",
+      "source_refs": [
+        "明史/卷18@2594633#逮張經下獄。",
+        "明史/卷18@2594633#殺張經及巡撫浙江副都御史李天寵、兵部員外郎楊繼盛。"
+      ],
+      "time_range": {
+        "end": "1555",
+        "precision": "range",
+        "start": "嘉靖三十四年五月至十月"
+      },
+      "uncertainties": [
+        "定罪证据、审判程序、籍没财产与军务影响未载。"
+      ]
+    },
+    {
+      "action": "朝廷开山东四川银矿；同月晋陕豫发生大地震与河渭泛滥，死亡八十三万余。",
+      "actors": [],
+      "affected_groups": [
+        "地震灾民",
+        "矿工",
+        "矿区民户",
+        "沿河居民"
+      ],
+      "cost_or_burden": "史载死亡八十三万有余。",
+      "fact_id": "CHF-MING-V18-EARTHQUAKE-MINING-1555",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "大规模矿业扩张与中国北方特大灾难同月发生。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V18-EARTHQUAKE-MINING-1555"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-earthquake-mining-1555",
+      "source_refs": [
+        "明史/卷18@2594633#開山東、四川銀礦。",
+        "明史/卷18@2594633#山西、陝西、河南地大震，河、渭溢，死者八十三萬有奇。"
+      ],
+      "time_range": {
+        "end": "1555",
+        "precision": "month",
+        "start": "嘉靖三十四年十二月"
+      },
+      "uncertainties": [
+        "伤者、房屋田地损失、赈济规模与矿业是否受灾未载。"
+      ]
+    },
+    {
+      "action": "朝廷在玉旺峪采矿，后罢陕西河南矿，又命广东采珠；同时免三大营听征军承担营造工役。",
+      "actors": [],
+      "affected_groups": [
+        "矿工",
+        "采珠户",
+        "三大营军士",
+        "工程役户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-MINING-PEARL-POLICY-1556-1558",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "矿业采办反复启停，部分军士工程役得到免除。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V18-MINING-PEARL-POLICY-1556-1558"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-mining-pearl-policy-1556-1558",
+      "source_refs": [
+        "明史/卷18@2594633#左通政王槐採礦銀於玉旺峪。",
+        "明史/卷18@2594633#亥，罷河南礦。\n",
+        "明史/卷18@2594633#始免三大營聽征官軍營造工役。"
+      ],
+      "time_range": {
+        "end": "嘉靖三十七年正月",
+        "precision": "range",
+        "start": "嘉靖三十五年五月"
+      },
+      "uncertainties": [
+        "矿产税收、采珠规模、停矿工人安置与减役人数未载。"
+      ]
+    },
+    {
+      "action": "奉天、华盖、谨身三殿火灾后重建，五年后完工并分别改名皇极、中极、建极。",
+      "actors": [],
+      "affected_groups": [
+        "工程役户",
+        "工匠",
+        "内府官员",
+        "京师民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-THREE-HALLS-REBUILD-1557-1562",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "三大殿灾后重建完成。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V18-THREE-HALLS-REBUILD-1557-1562"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-three-halls-rebuild-1557-1562",
+      "source_refs": [
+        "明史/卷18@2594633#奉天、華蓋、謹身三殿災。",
+        "明史/卷18@2594633#三殿成，改奉天曰皇極，華蓋曰中極，謹身曰建極。"
+      ],
+      "time_range": {
+        "end": "嘉靖四十一年九月",
+        "precision": "range",
+        "start": "嘉靖三十六年四月"
+      },
+      "uncertainties": [
+        "重建费用、用工、采木量、伤亡与防火改进未载。"
+      ]
+    },
+    {
+      "action": "朝廷连续赈平阳延安、陕西、辽东、顺天永平、山西及京师等地饥灾，并蠲免多省灾粮。",
+      "actors": [],
+      "affected_groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "边民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-RELIEF-1556-1562",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "嘉靖后期大范围灾荒获得持续赈免与辽东牛种支持。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V18-RELIEF-1556-1562"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-relief-1556-1562",
+      "source_refs": [
+        "明史/卷18@2594633#振平陽、延安災。",
+        "明史/卷18@2594633#振遼東饑，給牛種。",
+        "明史/卷18@2594633#振順天、永平饑。"
+      ],
+      "time_range": {
+        "end": "嘉靖四十一年十一月",
+        "precision": "range",
+        "start": "嘉靖三十五年二月"
+      },
+      "uncertainties": [
+        "赈济免税总额、死亡人数、牛种数量与恢复成效未载。"
+      ]
+    },
+    {
+      "action": "倭寇继续攻扬徐浙闽淮安，明军在安东、印庄、庙湾、平海卫、仙游等地连续反击。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "倭寇海盗",
+        "沿海居民",
+        "商民"
+      ],
+      "cost_or_burden": "沿海军民伤亡与财货损失未详。",
+      "fact_id": "CHF-MING-V18-LATE-COASTAL-WAR-1557-1564",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "江北倭寇先平，戚继光等又平福建倭患并击破海丰来犯。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LATE-COASTAL-1557-1564"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-late-coastal-war-1557-1564",
+      "source_refs": [
+        "明史/卷18@2594633#劉景韶破倭於廟灣，江北倭平。",
+        "明史/卷18@2594633#戚繼光破倭於平海衞。",
+        "明史/卷18@2594633#總兵官戚繼光大敗之，福建倭平。"
+      ],
+      "time_range": {
+        "end": "嘉靖四十三年六月",
+        "precision": "range",
+        "start": "嘉靖三十六年五月"
+      },
+      "uncertainties": [
+        "双方兵力、总伤亡、俘虏处置与沿海恢复未详。"
+      ]
+    },
+    {
+      "action": "蒙古诸部持续攻大同宣府蓟镇宁夏辽东，毁堡并数次深入京畿；明军在保安、密云、丰州等地反击。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "蒙古诸部",
+        "边地军民",
+        "京畿居民"
+      ],
+      "cost_or_burden": "蒋承勋、陈凤、董国忠、黑春、王勋、杨照、孙膑等战死。",
+      "fact_id": "CHF-MING-V18-LATE-NORTHERN-WAR-1557-1565",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "多次入寇被局部击退，但大量将领战死，北边战争持续至嘉靖末。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LATE-NORTHERN-1557-1565"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-late-northern-war-1557-1565",
+      "source_refs": [
+        "明史/卷18@2594633#辛愛寇應、朔，毀七十餘堡。",
+        "明史/卷18@2594633#辛愛、把都兒破牆子嶺入寇，京師戒嚴",
+        "明史/卷18@2594633#大同總兵官姜應熊禦寇密雲，敗之。"
+      ],
+      "time_range": {
+        "end": "嘉靖四十四年四月",
+        "precision": "range",
+        "start": "嘉靖三十六年二月"
+      },
+      "uncertainties": [
+        "各役兵力、总伤亡、被掳人口与财产损失未详。"
+      ]
+    },
+    {
+      "action": "南京振武营发生兵变，杀死黄懋官。",
+      "actors": [],
+      "affected_groups": [
+        "振武营军士",
+        "南京官员",
+        "城内居民"
+      ],
+      "cost_or_burden": "黄懋官被杀，其他伤亡未载。",
+      "fact_id": "CHF-MING-V18-NANJING-MUTINY-1560",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南京军营秩序失控并造成中央粮储官死亡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-NANJING-MUTINY-1560"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-nanjing-mutiny-1560",
+      "source_refs": [
+        "明史/卷18@2594633#南京振武營兵變，殺總督糧儲侍郎黃懋官。"
+      ],
+      "time_range": {
+        "end": "1560",
+        "precision": "month",
+        "start": "嘉靖三十九年二月"
+      },
+      "uncertainties": [
+        "兵变原因、参与人数、后续镇压与处置未载。"
+      ]
+    },
+    {
+      "action": "严嵩被罢相，三年后严世蕃伏诛。",
+      "actors": [],
+      "affected_groups": [
+        "内阁官员",
+        "严氏党羽",
+        "涉案家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-YAN-SONG-DOWNFALL-1562-1565",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "长期掌权的严氏政治集团败亡。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-YAN-SONG-DOWNFALL-1562-1565"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-yan-song-downfall-1562-1565",
+      "source_refs": [
+        "明史/卷18@2594633#夏五月壬寅，嚴嵩罷。",
+        "明史/卷18@2594633#辛酉，嚴世蕃伏誅。"
+      ],
+      "time_range": {
+        "end": "嘉靖四十四年三月",
+        "precision": "range",
+        "start": "嘉靖四十一年五月"
+      },
+      "uncertainties": [
+        "定罪过程、籍没财产、党羽人数与家属处置未载。"
+      ]
+    },
+    {
+      "action": "海瑞上疏后被下锦衣卫狱。",
+      "actors": [],
+      "affected_groups": [
+        "言官",
+        "锦衣卫",
+        "涉案家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-HAI-RUI-IMPRISONMENT-1566",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "嘉靖末直言进谏者遭监禁。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-HAI-RUI-IMPRISONMENT-1566"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-hai-rui-imprisonment-1566",
+      "source_refs": [
+        "明史/卷18@2594633#戶部主事海瑞上疏，下錦衣衞獄。"
+      ],
+      "time_range": {
+        "end": "1566",
+        "precision": "month",
+        "start": "嘉靖四十五年二月"
+      },
+      "uncertainties": [
+        "疏文内容、审讯刑罚与本卷内获释情况未载。"
+      ]
+    },
+    {
+      "action": "俺答连续侵辽东、万全右卫、固原、偏头关和大同，明军守将郭江、崔世荣等战死。",
+      "actors": [],
+      "affected_groups": [
+        "明军",
+        "蒙古部众",
+        "边地军民"
+      ],
+      "cost_or_burden": "郭江、崔世荣等战死；其他伤亡未载。",
+      "fact_id": "CHF-MING-V18-SHIZONG-LATE-BORDER-1566",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "世宗临终前北边战事仍在恶化。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LATE-BORDER-1566"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-shizong-late-border-1566",
+      "source_refs": [
+        "明史/卷18@2594633#丙戌，俺答犯遼東。",
+        "明史/卷18@2594633#丁卯，犯固原，總兵官郭江敗死。",
+        "明史/卷18@2594633#甲辰，犯大同，參將崔世榮力戰死。"
+      ],
+      "time_range": {
+        "end": "1566",
+        "precision": "range",
+        "start": "嘉靖四十五年四月至闰十月"
+      },
+      "uncertainties": [
+        "双方兵力、总伤亡、城堡损失与边民掳掠未载。"
+      ]
+    },
+    {
+      "action": "世宗病重后自西苑返回乾清宫去世，遗诏裕王继位。",
+      "actors": [],
+      "affected_groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V18-SHIZONG-DEATH-SUCCESSION-1566",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "嘉靖朝结束，朱载垕成为继承者，世宗葬永陵。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V18-SHIZONG-DEATH-SUCCESSION-1566"
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v18-shizong-death-succession-1566",
+      "source_refs": [
+        "明史/卷18@2594633#十一月己未，帝不豫。",
+        "明史/卷18@2594633#是日崩，年六十，遺詔裕王嗣位。",
+        "明史/卷18@2594633#廟號世宗，葬永陵。"
+      ],
+      "time_range": {
+        "end": "1566-1567",
+        "precision": "range",
+        "start": "嘉靖四十五年十一月至隆庆元年正月"
+      },
+      "uncertainties": [
+        "病因、遗诏全文、交接程序与裕王即位细节未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "复业流民获牛种，垦荒者免役十年。",
+      "actors": [],
+      "affected_groups": [
+        "流民",
+        "垦荒农户",
+        "地方官员"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V18-REFUGEE-RESETTLEMENT-1545",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-REFUGEE-RESETTLEMENT-1545"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "返乡和垦荒民户获得生产资料与长期免役。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v18-refugee-resettlement-1545",
+      "source_refs": [
+        "明史/卷18@2594633#詔流民復業，予牛種，開墾閒田者給復十年。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V18-REFUGEE-RESETTLEMENT-1545",
+      "time_range": {
+        "end": "1545",
+        "precision": "month",
+        "start": "嘉靖二十四年二月"
+      },
+      "uncertainties": [
+        "受益人数、土地面积、牛种数量与执行成效未载。"
+      ]
+    },
+    {
+      "action": "开银矿同月晋陕豫大震死八十三万余。",
+      "actors": [],
+      "affected_groups": [
+        "地震灾民",
+        "矿工",
+        "矿区民户",
+        "沿河居民"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V18-EARTHQUAKE-MINING-1555",
+      "continuity_status": "single_event",
+      "cost_or_burden": "史载死亡八十三万有余。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-EARTHQUAKE-MINING-1555"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "大规模矿业扩张与中国北方特大灾难同月发生。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v18-earthquake-mining-1555",
+      "source_refs": [
+        "明史/卷18@2594633#開山東、四川銀礦。",
+        "明史/卷18@2594633#山西、陝西、河南地大震，河、渭溢，死者八十三萬有奇。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V18-EARTHQUAKE-MINING-1555",
+      "time_range": {
+        "end": "1555",
+        "precision": "month",
+        "start": "嘉靖三十四年十二月"
+      },
+      "uncertainties": [
+        "伤者、房屋田地损失、赈济规模与矿业是否受灾未载。"
+      ]
+    },
+    {
+      "action": "矿采反复启停并免三大营营造役。",
+      "actors": [],
+      "affected_groups": [
+        "矿工",
+        "采珠户",
+        "三大营军士",
+        "工程役户"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V18-MINING-PEARL-POLICY-1556-1558",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-MINING-PEARL-POLICY-1556-1558"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "矿业采办反复启停，部分军士工程役得到免除。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v18-mining-pearl-policy-1556-1558",
+      "source_refs": [
+        "明史/卷18@2594633#左通政王槐採礦銀於玉旺峪。",
+        "明史/卷18@2594633#亥，罷河南礦。\n",
+        "明史/卷18@2594633#始免三大營聽征官軍營造工役。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V18-MINING-PEARL-POLICY-1556-1558",
+      "time_range": {
+        "end": "嘉靖三十七年正月",
+        "precision": "range",
+        "start": "嘉靖三十五年五月"
+      },
+      "uncertainties": [
+        "矿产税收、采珠规模、停矿工人安置与减役人数未载。"
+      ]
+    },
+    {
+      "action": "多省及边地灾民获持续赈免与牛种。",
+      "actors": [],
+      "affected_groups": [
+        "灾民",
+        "饥民",
+        "农户",
+        "边民"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V18-RELIEF-1556-1562",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-RELIEF-1556-1562"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "嘉靖后期大范围灾荒获得持续赈免与辽东牛种支持。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v18-relief-1556-1562",
+      "source_refs": [
+        "明史/卷18@2594633#振平陽、延安災。",
+        "明史/卷18@2594633#振遼東饑，給牛種。",
+        "明史/卷18@2594633#振順天、永平饑。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V18-RELIEF-1556-1562",
+      "time_range": {
+        "end": "嘉靖四十一年十一月",
+        "precision": "range",
+        "start": "嘉靖三十五年二月"
+      },
+      "uncertainties": [
+        "赈济免税总额、死亡人数、牛种数量与恢复成效未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《明史》卷18正文登记，未知保持未知。",
+    "每事实仅保留完成归责、行为与结果所需的最小逐字锚点；普通任免、祭祀、贡聘、祥异与巡幸不单列。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "曾铣复套案引发曾铣夏言被杀。",
+      "actors": [],
+      "affected_groups": [
+        "边务官员",
+        "内阁官员",
+        "言官",
+        "涉案家属"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548",
+      "continuity_status": "single_event",
+      "cost_or_burden": "曾铣、夏言被杀，受廷杖言官伤亡未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "复套军事方案终止，夏言集团被严厉清洗。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "复套军事方案终止，夏言集团被严厉清洗。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-zeng-xian-xia-yan-purge-1548",
+      "source_refs": [
+        "明史/卷18@2594633#以議復河套，逮總督陝西三邊侍郎曾銑",
+        "明史/卷18@2594633#三月癸巳，殺曾銑，逮夏言。",
+        "明史/卷18@2594633#冬十月癸卯，殺夏言。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548",
+      "time_range": {
+        "end": "1548",
+        "precision": "range",
+        "start": "嘉靖二十七年正月至十月"
+      },
+      "uncertainties": [
+        "案件证据、籍没财产、牵连人数与家属处置未载。"
+      ]
+    },
+    {
+      "action": "庚戌后赈京畿并重组三大营。",
+      "actors": [],
+      "affected_groups": [
+        "被寇民户",
+        "京营军士",
+        "边军",
+        "中官"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-GENGXU-RELIEF-REFORM-1550",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-GENGXU-RELIEF-REFORM-1550"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "庚戌之变后展开受灾救济与京师军制重组。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "庚戌之变后展开受灾救济与京师军制重组。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-gengxu-relief-reform-1550",
+      "source_refs": [
+        "明史/卷18@2594633#振畿內被寇者。",
+        "明史/卷18@2594633#罷團營，復三大營舊制，設戎政府，以仇鸞總督之。",
+        "明史/卷18@2594633#罷領營中官。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-GENGXU-RELIEF-REFORM-1550",
+      "time_range": {
+        "end": "1550",
+        "precision": "range",
+        "start": "嘉靖二十九年九月至十一月"
+      },
+      "uncertainties": [
+        "赈济数额、兵额军费、军制调整实际效果未载。"
+      ]
+    },
+    {
+      "action": "宣大马市与仇鸾军权先立后废。",
+      "actors": [],
+      "affected_groups": [
+        "边贸商民",
+        "边军",
+        "蒙古互市部众",
+        "仇鸾党羽"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "庚戌后马市与仇鸾军权均告终止。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "庚戌后马市与仇鸾军权均告终止。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-horse-market-qiu-luan-1551-1552",
+      "source_refs": [
+        "明史/卷18@2594633#開馬市於宣府、大同，兵部侍郎史道經理之。",
+        "明史/卷18@2594633#收仇鸞大將軍印，尋病死。",
+        "明史/卷18@2594633#罷各邊馬市。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552",
+      "time_range": {
+        "end": "嘉靖三十一年十月",
+        "precision": "range",
+        "start": "嘉靖三十年三月"
+      },
+      "uncertainties": [
+        "马市交易规模、军费收益、仇鸾案财产与党羽人数未载。"
+      ]
+    },
+    {
+      "action": "设内府营训练内侍。",
+      "actors": [],
+      "affected_groups": [
+        "内侍",
+        "京营军士",
+        "宫廷人员"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-INNER-PALACE-ARMY-1552",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-INNER-PALACE-ARMY-1552"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "宫廷宦官拥有专门武装训练组织。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "宫廷宦官拥有专门武装训练组织。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-inner-palace-army-1552",
+      "source_refs": [
+        "明史/卷18@2594633#建內府營，操練內侍。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-INNER-PALACE-ARMY-1552",
+      "time_range": {
+        "end": "1552",
+        "precision": "month",
+        "start": "嘉靖三十一年二月"
+      },
+      "uncertainties": [
+        "兵额、武器、军费、指挥体系与后续用途未载。"
+      ]
+    },
+    {
+      "action": "王江泾大捷后张经仍被逮捕处死。",
+      "actors": [],
+      "affected_groups": [
+        "抗倭将领",
+        "言官",
+        "廷臣",
+        "涉案家属"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-ZHANG-JING-EXECUTION-1555",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-ZHANG-JING-EXECUTION-1555"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "抗倭统帅在取得大捷后遭政治处决。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "抗倭统帅在取得大捷后遭政治处决。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-zhang-jing-execution-1555",
+      "source_refs": [
+        "明史/卷18@2594633#逮張經下獄。",
+        "明史/卷18@2594633#殺張經及巡撫浙江副都御史李天寵、兵部員外郎楊繼盛。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-ZHANG-JING-EXECUTION-1555",
+      "time_range": {
+        "end": "1555",
+        "precision": "range",
+        "start": "嘉靖三十四年五月至十月"
+      },
+      "uncertainties": [
+        "定罪证据、审判程序、籍没财产与军务影响未载。"
+      ]
+    },
+    {
+      "action": "严嵩罢相后严世蕃伏诛。",
+      "actors": [],
+      "affected_groups": [
+        "内阁官员",
+        "严氏党羽",
+        "涉案家属"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-YAN-SONG-DOWNFALL-1562-1565",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-YAN-SONG-DOWNFALL-1562-1565"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "长期掌权的严氏政治集团败亡。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "长期掌权的严氏政治集团败亡。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-yan-song-downfall-1562-1565",
+      "source_refs": [
+        "明史/卷18@2594633#夏五月壬寅，嚴嵩罷。",
+        "明史/卷18@2594633#辛酉，嚴世蕃伏誅。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-YAN-SONG-DOWNFALL-1562-1565",
+      "time_range": {
+        "end": "嘉靖四十四年三月",
+        "precision": "range",
+        "start": "嘉靖四十一年五月"
+      },
+      "uncertainties": [
+        "定罪过程、籍没财产、党羽人数与家属处置未载。"
+      ]
+    },
+    {
+      "action": "海瑞上疏后下锦衣卫狱。",
+      "actors": [],
+      "affected_groups": [
+        "言官",
+        "锦衣卫",
+        "涉案家属"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-HAI-RUI-IMPRISONMENT-1566",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-HAI-RUI-IMPRISONMENT-1566"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "嘉靖末直言进谏者遭监禁。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "嘉靖末直言进谏者遭监禁。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-hai-rui-imprisonment-1566",
+      "source_refs": [
+        "明史/卷18@2594633#戶部主事海瑞上疏，下錦衣衞獄。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-HAI-RUI-IMPRISONMENT-1566",
+      "time_range": {
+        "end": "1566",
+        "precision": "month",
+        "start": "嘉靖四十五年二月"
+      },
+      "uncertainties": [
+        "疏文内容、审讯刑罚与本卷内获释情况未载。"
+      ]
+    },
+    {
+      "action": "世宗崩逝并遗诏裕王继位。",
+      "actors": [],
+      "affected_groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "candidate_ref": "POL-CAND-MING-V18-SHIZONG-DEATH-SUCCESSION-1566",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-SHIZONG-DEATH-SUCCESSION-1566"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "嘉靖朝结束，朱载垕成为继承者，世宗葬永陵。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "嘉靖朝结束，朱载垕成为继承者，世宗葬永陵。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v18-shizong-death-succession-1566",
+      "source_refs": [
+        "明史/卷18@2594633#十一月己未，帝不豫。",
+        "明史/卷18@2594633#是日崩，年六十，遺詔裕王嗣位。",
+        "明史/卷18@2594633#廟號世宗，葬永陵。"
+      ],
+      "thread_ref": "POL-THREAD-MING-V18-SHIZONG-DEATH-SUCCESSION-1566",
+      "time_range": {
+        "end": "1566-1567",
+        "precision": "range",
+        "start": "嘉靖四十五年十一月至隆庆元年正月"
+      },
+      "uncertainties": [
+        "病因、遗诏全文、交接程序与裕王即位细节未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "太庙工程建成。",
+      "actors": [],
+      "affected_groups": [
+        "工程役户",
+        "工匠",
+        "礼官"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V18-TAIMIAO-WORKS-1545",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-TAIMIAO-WORKS-1545"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "此前火灾后的宗庙重建完成。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v18-taimiao-works-1545",
+      "source_refs": [
+        "明史/卷18@2594633#六月壬辰，太廟成。"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V18-TAIMIAO-WORKS-1545",
+      "time_range": {
+        "end": "1545",
+        "precision": "month",
+        "start": "嘉靖二十四年六月"
+      },
+      "uncertainties": [
+        "工程起始、费用、用工、伤亡及建筑规模未载。"
+      ]
+    },
+    {
+      "action": "曹县河决且治理未知。",
+      "actors": [],
+      "affected_groups": [
+        "沿河灾民",
+        "河工役户",
+        "漕运军民"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V18-CAOXIAN-RIVER-BREACH-1547",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-CAOXIAN-RIVER-BREACH-1547"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "本卷未载治河行动与修复结果。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v18-caoxian-river-breach-1547",
+      "source_refs": [
+        "明史/卷18@2594633#秋七月丙辰，河決曹縣。"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V18-CAOXIAN-RIVER-BREACH-1547",
+      "time_range": {
+        "end": "1547",
+        "precision": "month",
+        "start": "嘉靖二十六年七月"
+      },
+      "uncertainties": [
+        "淹没范围、伤亡、损失、治理工程与费用均未载。"
+      ]
+    },
+    {
+      "action": "徐州河决，次年京师外城建成。",
+      "actors": [],
+      "affected_groups": [
+        "沿河灾民",
+        "河工役户",
+        "京城工匠",
+        "京师民众"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V18-RIVER-WORKS-1552-1553",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-RIVER-WORKS-1552-1553"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "首都外城完成，而徐州河灾治理仍未知。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v18-river-works-1552-1553",
+      "source_refs": [
+        "明史/卷18@2594633#丁酉，河決徐州。",
+        "明史/卷18@2594633#京師外城成。"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V18-RIVER-WORKS-1552-1553",
+      "time_range": {
+        "end": "嘉靖三十二年十月",
+        "precision": "range",
+        "start": "嘉靖三十一年九月"
+      },
+      "uncertainties": [
+        "河灾损失与治理、外城费用用工及伤亡未载。"
+      ]
+    },
+    {
+      "action": "三殿火灾后重建并改名。",
+      "actors": [],
+      "affected_groups": [
+        "工程役户",
+        "工匠",
+        "内府官员",
+        "京师民众"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V18-THREE-HALLS-REBUILD-1557-1562",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-THREE-HALLS-REBUILD-1557-1562"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "三大殿灾后重建完成。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v18-three-halls-rebuild-1557-1562",
+      "source_refs": [
+        "明史/卷18@2594633#奉天、華蓋、謹身三殿災。",
+        "明史/卷18@2594633#三殿成，改奉天曰皇極，華蓋曰中極，謹身曰建極。"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V18-THREE-HALLS-REBUILD-1557-1562",
+      "time_range": {
+        "end": "嘉靖四十一年九月",
+        "precision": "range",
+        "start": "嘉靖三十六年四月"
+      },
+      "uncertainties": [
+        "重建费用、用工、采木量、伤亡与防火改进未载。"
+      ]
+    }
+  ],
+  "registry_version": "MING-MINGSHI-V18-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "嘉靖四十五年世宗崩与裕王嗣位",
+    "input_fingerprint": "2232b16840e3031d7e89e5e6e69998d700c7d877f54bb9a015125147ee4b48e2",
+    "overlap_context": "承接卷17嘉靖二十一年俺答深入与宫变；本卷登记嘉靖后期庚戌之变、倭寇战争、边军重组、灾赈工程、严嵩集团败亡与世宗传位。",
+    "revision_ref": "2594633",
+    "start_locator": "嘉靖二十二年采木与俺答入塞",
+    "volume_ref": "卷18",
+    "work": "明史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V18-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-REFUGEE-RESETTLEMENT-1545"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v18-refugee-resettlement-1545",
+      "status": "closed",
+      "summary": "复业流民获牛种，垦荒者免役十年。",
+      "thread_ref": "FIN-THREAD-MING-V18-REFUGEE-RESETTLEMENT-1545",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-TAIMIAO-WORKS-1545"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v18-taimiao-works-1545",
+      "status": "closed",
+      "summary": "太庙工程建成。",
+      "thread_ref": "WORK-THREAD-MING-V18-TAIMIAO-WORKS-1545",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-CAOXIAN-RIVER-BREACH-1547"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v18-caoxian-river-breach-1547",
+      "status": "closed",
+      "summary": "曹县河决且治理未知。",
+      "thread_ref": "WORK-THREAD-MING-V18-CAOXIAN-RIVER-BREACH-1547",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-zeng-xian-xia-yan-purge-1548",
+      "status": "closed",
+      "summary": "曾铣复套案引发曾铣夏言被杀。",
+      "thread_ref": "POL-THREAD-MING-V18-ZENG-XIAN-XIA-YAN-PURGE-1548",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-GENGXU-RELIEF-REFORM-1550"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-gengxu-relief-reform-1550",
+      "status": "closed",
+      "summary": "庚戌后赈京畿并重组三大营。",
+      "thread_ref": "POL-THREAD-MING-V18-GENGXU-RELIEF-REFORM-1550",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-horse-market-qiu-luan-1551-1552",
+      "status": "closed",
+      "summary": "宣大马市与仇鸾军权先立后废。",
+      "thread_ref": "POL-THREAD-MING-V18-HORSE-MARKET-QIU-LUAN-1551-1552",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-INNER-PALACE-ARMY-1552"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-inner-palace-army-1552",
+      "status": "closed",
+      "summary": "设内府营训练内侍。",
+      "thread_ref": "POL-THREAD-MING-V18-INNER-PALACE-ARMY-1552",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-RIVER-WORKS-1552-1553"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v18-river-works-1552-1553",
+      "status": "closed",
+      "summary": "徐州河决，次年京师外城建成。",
+      "thread_ref": "WORK-THREAD-MING-V18-RIVER-WORKS-1552-1553",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-ZHANG-JING-EXECUTION-1555"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-zhang-jing-execution-1555",
+      "status": "closed",
+      "summary": "王江泾大捷后张经仍被逮捕处死。",
+      "thread_ref": "POL-THREAD-MING-V18-ZHANG-JING-EXECUTION-1555",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-EARTHQUAKE-MINING-1555"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v18-earthquake-mining-1555",
+      "status": "closed",
+      "summary": "开银矿同月晋陕豫大震死八十三万余。",
+      "thread_ref": "FIN-THREAD-MING-V18-EARTHQUAKE-MINING-1555",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-MINING-PEARL-POLICY-1556-1558"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v18-mining-pearl-policy-1556-1558",
+      "status": "closed",
+      "summary": "矿采反复启停并免三大营营造役。",
+      "thread_ref": "FIN-THREAD-MING-V18-MINING-PEARL-POLICY-1556-1558",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V18-THREE-HALLS-REBUILD-1557-1562"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v18-three-halls-rebuild-1557-1562",
+      "status": "closed",
+      "summary": "三殿火灾后重建并改名。",
+      "thread_ref": "WORK-THREAD-MING-V18-THREE-HALLS-REBUILD-1557-1562",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V18-RELIEF-1556-1562"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v18-relief-1556-1562",
+      "status": "closed",
+      "summary": "多省及边地灾民获持续赈免与牛种。",
+      "thread_ref": "FIN-THREAD-MING-V18-RELIEF-1556-1562",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-YAN-SONG-DOWNFALL-1562-1565"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-yan-song-downfall-1562-1565",
+      "status": "closed",
+      "summary": "严嵩罢相后严世蕃伏诛。",
+      "thread_ref": "POL-THREAD-MING-V18-YAN-SONG-DOWNFALL-1562-1565",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-HAI-RUI-IMPRISONMENT-1566"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-hai-rui-imprisonment-1566",
+      "status": "closed",
+      "summary": "海瑞上疏后下锦衣卫狱。",
+      "thread_ref": "POL-THREAD-MING-V18-HAI-RUI-IMPRISONMENT-1566",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V18-SHIZONG-DEATH-SUCCESSION-1566"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v18-shizong-death-succession-1566",
+      "status": "closed",
+      "summary": "世宗崩逝并遗诏裕王继位。",
+      "thread_ref": "POL-THREAD-MING-V18-SHIZONG-DEATH-SUCCESSION-1566",
+      "uncertainties": []
+    }
+  ]
+}

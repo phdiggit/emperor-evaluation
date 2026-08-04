@@ -1,0 +1,1114 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-041",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷041",
+    "revision_ref": "2267613",
+    "start_locator": "宋仁宗景祐四年八月",
+    "end_locator": "宋仁宗寶元二年八月",
+    "overlap_context": "承接卷040元昊河西扩张、宋朝北边军储与仁宗中枢重组；本卷推进常平禁借、河东地震与西川灾赈，记录元昊完备军政、僭号建夏及宋廷绝互市备边，完成安化蛮战事并展开言路、茶法与宫廷节费，转出宋夏战争前的陕西防御部署。",
+    "input_fingerprint": "d82068957c6dedc343d1347ad84b4a6f73891d2f68f9ef401d6e8b0297cd2a99"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-041-HEBEI-GRAIN-RESERVE-1037",
+      "time": "景祐四年八月",
+      "loc": [
+        "河北"
+      ],
+      "action": "朝廷拨内藏绢三十万交河北购买军储。",
+      "result": "河北边储获得专项物资。",
+      "quote": [
+        "出內藏庫絹三十萬，下河北路市糴軍儲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨绢三十万采购河北军储。"
+        ]
+      ],
+      "unknown": [
+        "实际购粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-CHANGPING-BORROWING-BAN-1037",
+      "time": "景祐四年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷禁止三司和转运司借支天下常平仓钱谷。",
+      "result": "常平赈济储备与日常财政支用隔离。",
+      "quote": [
+        "天下常平倉錢穀，自今三司及轉運司無得借支"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "禁止财政机构挪借常平钱谷。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "确立常平储备专款约束。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-HEBEI-SHAANXI-RESERVES-1037",
+      "time": "景祐四年十一月",
+      "loc": [
+        "河北",
+        "陕西"
+      ],
+      "action": "朝廷拨内藏䌷绵五十万交河北、陕西购买军储。",
+      "result": "北方两路边储得到补充。",
+      "quote": [
+        "出內藏庫䌷綿五十萬，下河北、陝西路市糴軍儲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨䌷绵五十万采购河北陕西军储。"
+        ]
+      ],
+      "unknown": [
+        "两路分配比例未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-HEDONG-EARTHQUAKE-RELIEF-1037",
+      "time": "景祐四年十二月",
+      "loc": [
+        "忻州",
+        "代州",
+        "并州"
+      ],
+      "action": "河东连续地震，房舍倒塌、地裂泉涌，忻州等死亡一万九千七百余人；朝廷遣程戡体量安抚。",
+      "result": "重大灾情进入中央安抚与后续免税处置。",
+      "quote": [
+        "忻州尤甚，吏民死者萬九千七百餘人",
+        "自是河東地震連年不止",
+        "命侍御史程戡往並、忻州體量安撫"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河东地震造成近两万人死亡并启动安抚。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "派御史赴灾区体量。"
+        ]
+      ],
+      "unknown": [
+        "全部州县伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-ZHANGYI-IRRIGATION-RELIEF-1037",
+      "time": "景祐四年十二月追记",
+      "loc": [
+        "益州"
+      ],
+      "action": "益州旱灾时，张逸筑堰引江灌田，并减价出售公租粮赈济；又请放还因饥杀耕牛者复业。",
+      "result": "灌溉、减价粮和赦免并用以恢复灾后农业。",
+      "quote": [
+        "逸使作堰，壅江水溉民田",
+        "自出公租減價以賑",
+        "請一切放還，復其業"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减价公租粮并赦免饥民复业。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "筑堰壅江灌溉益州民田。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "区别饥民杀牛与盗杀进行处置。"
+        ]
+      ],
+      "unknown": [
+        "工程规模和赈粮数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-FANZHONGYAN-NEAR-TRANSFER-1037",
+      "time": "景祐四年十二月",
+      "loc": [
+        "润州",
+        "泰州",
+        "光化军"
+      ],
+      "action": "叶清臣以地震请召还敢言者，仁宗将范仲淹、余靖、欧阳修移近；其后又抵制把范仲淹贬岭南的诬告。",
+      "result": "朋党案受贬诸人处境部分缓和，新的扩大迫害被制止。",
+      "quote": [
+        "仲淹等皆得近徙",
+        "參知政事程琳辨其不然，仲淹訖得免"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾异求言促成范仲淹等近徙并阻止再贬。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-XIXIA-MILITARY-ADMINISTRATION-1037",
+      "time": "景祐四年末",
+      "loc": [
+        "兴州",
+        "河西",
+        "贺兰山"
+      ],
+      "action": "元昊在河西诸州建立十八监军司、十六司及多路屯兵体系，以银牌调兵并设置六班直、铁骑。",
+      "result": "夏州政权形成覆盖军政文教的集中制度，自称总兵五十余万。",
+      "quote": [
+        "置十八監軍司，委酋豪分統其眾",
+        "總五十餘萬",
+        "創十六司於興州，以總眾務"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "元昊建立监军司、中央司署和分区兵制。"
+        ]
+      ],
+      "unknown": [
+        "五十余万为原文总数，实际可战兵力未知。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-YUANHAO-WUTAISHAN-SPY-1038",
+      "time": "宝元元年正月",
+      "loc": [
+        "五台山",
+        "河东"
+      ],
+      "action": "元昊借口遣人赴五台山供佛，请宋使护送并给馆券，实际意在侦察河东道路。",
+      "result": "宗教使行成为边境情报活动掩护。",
+      "quote": [
+        "乞令使臣引護，並給館券",
+        "元昊實欲窺河東道故也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "元昊借供佛使行侦察河东。"
+        ]
+      ],
+      "unknown": [
+        "所得情报未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-DISASTER-REMONSTRANCE-1038",
+      "time": "宝元元年正月",
+      "loc": [
+        "开封",
+        "宋境"
+      ],
+      "action": "因地震、雷雹等灾异，仁宗限期求直言；苏舜钦指财政经费为祖宗时二十倍，并要求亲择辅臣台谏。",
+      "result": "灾异触发对用度、亲政和中枢用人的集中批评。",
+      "quote": [
+        "以災異屢見，下詔求直言",
+        "三司計度經費，二十倍于祖宗時",
+        "御史、諫官之任，臣欲陛下親擇之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "揭示国家经费较祖宗时增长二十倍。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾异求言引出亲政与台谏选任批评。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-DISASTER-OFFICIAL-AUDIT-1038",
+      "time": "宝元元年正月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗因灾异命转运使、提点刑狱考察所属官吏上报。",
+      "result": "灾异响应转化为地方官员绩效审查。",
+      "quote": [
+        "以災異，詔轉運使、提點刑獄案所部吏以聞"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以灾异为由审查地方官吏。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-EARTHQUAKE-TAX-REMISSION-1038",
+      "time": "宝元元年正月",
+      "loc": [
+        "并州",
+        "代州",
+        "忻州"
+      ],
+      "action": "朝廷免除并、代、忻州地震压死者家庭上年秋粮。",
+      "result": "灾死家庭获得专项税粮减免。",
+      "quote": [
+        "除並、代、忻州壓死民家去年秋糧"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "免河东地震死者家庭秋粮。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-DAILY-COURT-RESTORED-1038",
+      "time": "宝元元年二月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗采纳苏舜钦意见，恢复每日御前殿视事。",
+      "result": "皇帝处理政务的朝会频率提高。",
+      "quote": [
+        "詔自今日御前殿視事，用蘇舜欽之言也"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾异后恢复每日前殿视事。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-ANHUA-RAID-CAMPAIGN-1038",
+      "time": "宝元元年二月至十一月",
+      "loc": [
+        "宜州",
+        "融州",
+        "安化"
+      ],
+      "action": "安化蛮侵扰宜、融州，宋廷调邵、澧、潭三州驻泊兵进讨；官军初战失利，张怀志等六人战死。",
+      "result": "冯伸己整军转饷、三路进兵后，蛮渠献兵械万计率众投降，广西遂安。",
+      "quote": [
+        "安化蠻寇宜、融州",
+        "發邵、澧、潭三州駐泊兵討安化蠻",
+        "蠻渠頂投兵械萬計，率眾降軍門，廣西遂安"
+      ],
+      "battle": "CAMPAIGN-ANHUA-YIRONG-1038",
+      "unknown": [
+        "蛮众死伤与投降人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-WANGSUI-CABINET-DISMISSAL-1038",
+      "time": "宝元元年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "韩琦十次上疏批评王随等执政无能、病废争忿，仁宗罢王随、陈尧佐、韩亿、石中立并重组中枢。",
+      "result": "灾异问责导致四名执政同时离任。",
+      "quote": [
+        "琦論隨等疏凡十上",
+        "於是四人者俱罷"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "韩琦持续弹劾促成四执政罢免。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-IMPERIAL-EXAM-1038",
+      "time": "宝元元年三月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗殿试进士、诸科及特奏名，正奏名赐第出身七百二十四人，特奏名九百八十四人。",
+      "result": "取士规模达到一千七百余人，并在琼林宴初赐《大学篇》。",
+      "quote": [
+        "賜進士、諸科及第、出身七百二十四人",
+        "特奏名被恩賜者又九百八十四人",
+        "瓊林宴，初賜《大學篇》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大规模殿试取士并赐《大学篇》。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-EXAM-TEXT-RULE-1038",
+      "time": "宝元元年四月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷规定考试出题只能采用国子监现行经书。",
+      "result": "科举命题文本范围得到统一。",
+      "quote": [
+        "自今試舉人，非國子監見行經書，毋得出題"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一科举命题经书范围。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-RAINFALL-REPORTING-1038",
+      "time": "宝元元年六月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗规定天下诸州每十日上报雨雪情况。",
+      "result": "农业气象形成定期上报制度。",
+      "quote": [
+        "詔天下諸州每旬上雨雪狀，著為令"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立服务农政的旬报雨雪制度。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将地方气象上报制度化。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-TRANSPORT-COMMISSIONER-RESTORED-1038",
+      "time": "宝元元年八月",
+      "loc": [
+        "淮南",
+        "江浙",
+        "荆湖"
+      ],
+      "action": "朝廷恢复淮南、江浙、荆湖制置发运使。",
+      "result": "东南漕运重新设置跨区专职统筹。",
+      "quote": [
+        "復置淮南、江、浙、荊湖制置發運使"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复东南发运统筹。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重设制置发运使。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-SHAANXI-MILITARY-RESERVE-1038",
+      "time": "宝元元年九月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "朝廷拨左藏锦绮绫罗一百万交陕西购买军储。",
+      "result": "陕西边防获得大额军储采购物资。",
+      "quote": [
+        "出左藏庫錦綺綾羅一百萬，下陝西路市糴軍儲"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拨锦绮绫罗百万采购陕西军储。"
+        ]
+      ],
+      "unknown": [
+        "购粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-SHANYU-SURRENDER-RETURNED-1038",
+      "time": "宝元元年九月",
+      "loc": [
+        "延州",
+        "夏境"
+      ],
+      "action": "元昊从父山遇劝止进攻未果后携家来降，宋边官因已有拒降诏将其押回元昊处。",
+      "result": "山遇等被元昊集中骑射杀死，元昊随后谋划僭号。",
+      "quote": [
+        "山遇數止元昊，不聽，畏誅，遂挈妻子來降",
+        "執山遇等送元昊，集騎射而殺之",
+        "元昊既殺山遇，遂謀僭號"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋边拒纳山遇导致其被元昊处死并加速僭号。"
+        ]
+      ],
+      "unknown": [
+        "宋廷拒降诏的决策依据未详载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-PARTY-BAN-REITERATED-1038",
+      "time": "宝元元年十月",
+      "loc": [
+        "开封"
+      ],
+      "action": "朝廷因中外屡荐范仲淹而再次诏戒朋党；李若谷指出以朋党污蔑善良会使正臣不能自立。",
+      "result": "仁宗认可对泛化朋党罪名的反驳，但禁诏仍形成政治压力。",
+      "quote": [
+        "詔戒百官朋黨",
+        "專以朋黨汙善良",
+        "恐正臣無以自立"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "再申朋党禁令并出现保护正臣的反驳。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-XIXIA-EMPIRE-PROCLAIMED-1038",
+      "time": "宝元元年十月",
+      "loc": [
+        "兴州"
+      ],
+      "action": "赵元昊筑坛受册，僭称大夏皇帝并改元，追尊继迁、德明。",
+      "result": "夏州政权公开脱离宋朝藩属名分并遣表来告。",
+      "quote": [
+        "趙元昊築壇受冊，僭號大夏始文英武興法建禮仁孝皇帝",
+        "遣使奉表以僭號來告"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "元昊称帝建夏并通告宋廷。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-ANHUA-WAR-TAX-RELIEF-1038",
+      "time": "宝元元年十一月",
+      "loc": [
+        "宜州",
+        "融州"
+      ],
+      "action": "安化战事平定后，朝廷免参军民户当年夏税，运粮者免其半。",
+      "result": "地方参战与转运家庭获得战后税役补偿。",
+      "quote": [
+        "宜、融州民嘗從軍役者，免今夏稅，運糧者免其半"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减免安化战事参军和运粮家庭夏税。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-SONG-CUTS-XIXIA-RELATIONS-1038",
+      "time": "宝元元年十二月",
+      "loc": [
+        "陕西",
+        "河东",
+        "宋夏边境"
+      ],
+      "action": "宋廷确认元昊反叛，调换沿边主帅，禁止陕西、河东与夏界互市并悬赏捕获刺探者。",
+      "result": "宋夏关系由藩属争议转入经济封锁和军事戒备。",
+      "quote": [
+        "鄜延路都鈐轄司言趙元昊反",
+        "陝西、河東沿邊舊與元昊界互市處，皆禁絕之",
+        "有能捕元昊所遣刺探事者，賞錢十萬"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "全面禁止宋夏沿边互市。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋廷确认元昊反叛并转入战备。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-GUSILUO-SUBSIDY-1038",
+      "time": "宝元元年十二月",
+      "loc": [
+        "青唐"
+      ],
+      "action": "宋廷每年给嘉勒斯赉绫绢千匹、片茶千斤、散茶千五百斤，并加授节钺。",
+      "result": "以岁赐和名位争取嘉勒斯赉牵制元昊。",
+      "quote": [
+        "三司歲給嘉勒斯賚綾絹千匹、片茶千斤、散茶千五百斤",
+        "朝廷欲使背擊元昊以披其勢，因授節鉞焉"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以固定茶绢岁赐支持嘉勒斯赉。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "借嘉勒斯赉牵制元昊。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-XIXIA-ENVOY-DEBATE-1039",
+      "time": "宝元二年正月",
+      "loc": [
+        "延州",
+        "开封"
+      ],
+      "action": "元昊使者持称帝表入宋，枢密院争论拘押与否，最终退还献物并遣使出境。",
+      "result": "宋廷拒绝承认元昊帝号，但仍放还使者。",
+      "quote": [
+        "元昊使者將行，不肯受詔及賜物",
+        "樞密院議數日不決",
+        "卒遣之，但卻其獻物"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋廷拒受元昊称帝表礼并放还使者。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-HOUSEHOLD-CENSUS-COMPILATION-1039",
+      "time": "宝元二年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "仁宗读《正说·养民篇》后命编修院与三司检讨历代户数并上报。",
+      "result": "历代人口增减被汇编用于评估赋敛与休养政策。",
+      "quote": [
+        "編修院與三司上歷代天下戶數",
+        "恭儉有節，則戶口充羨；賦斂無度，則版圖衰減"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以历代户数审视赋敛与人口关系。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "编修户口统计供御前决策。"
+        ]
+      ],
+      "unknown": [
+        "本卷未列实际户数。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-WUYU-FORTIFY-CLEAR-FIELDS-1039",
+      "time": "宝元二年三月",
+      "loc": [
+        "陕西边境"
+      ],
+      "action": "吴育反对轻率出兵，建议对元昊坚壁清野、挫其剽急后徐图。",
+      "result": "审慎防御方案未获朝廷采纳。",
+      "quote": [
+        "宜堅壁清野，挫剽急之鋒，徐觀其勢而為之策",
+        "之策；俱不報。\n"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "提出清野以限制敌军补给。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "主张坚壁固守。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "吴育提出宋夏防御战略但未获采用。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-JINMING-LOYALTY-BATTLE-1039",
+      "time": "宝元二年三月",
+      "loc": [
+        "金明",
+        "鄜延边境"
+      ],
+      "action": "元昊投书锦袍诬陷金明李士彬约叛，夏元亨识破反间并厚抚李士彬。",
+      "result": "李士彬数日后出击夏军，缴获首级和羊马自证。",
+      "quote": [
+        "彬，且約以叛",
+        "曰：「此間耳。士",
+        "果擊賊，取首馘、羊馬自效"
+      ],
+      "battle": "CAMPAIGN-JINMING-XIXIA-1039",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋将识破元昊反间并维持羌将忠诚。"
+        ]
+      ],
+      "unknown": [
+        "战斗规模和首级数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-PALACE-WOMEN-RELEASED-1039",
+      "time": "宝元二年四月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗放出宫人二百七十人，并拒收拦驾进献的双生女。",
+      "result": "宫禁人口和浮费减少。",
+      "quote": [
+        "放宮人二百七十人",
+        "亦省掖禁浮費",
+        "朕卻而不受"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "遣放宫人以节省宫禁浮费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拒收民间拦驾献女。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-ZHAOZHOU-TRANSPORT-RELIEF-1039",
+      "time": "宝元二年四月",
+      "loc": [
+        "昭州"
+      ],
+      "action": "朝廷对运粮而死于蛮寇者之家免徭两年、租赋一年。",
+      "result": "边地军粮运输死难家庭获得补偿。",
+      "quote": [
+        "免昭州運糧死蠻寇者家徭二年，賦租一年"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "免除运粮死难者家庭徭役和租赋。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-BORDER-GRAIN-RECRUITMENT-1039",
+      "time": "宝元二年四月",
+      "loc": [
+        "河东",
+        "陕西"
+      ],
+      "action": "朝廷招募河东、陕西民户纳粮充实边储。",
+      "result": "宋夏战前以民间入粟补充边粮。",
+      "quote": [
+        "募河東、陝西民入粟實邊"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "募民入粟充实河东陕西边储。"
+        ]
+      ],
+      "unknown": [
+        "募集总量和补偿办法未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-INNER-PETITION-BAN-1039",
+      "time": "宝元二年四月至五月",
+      "loc": [
+        "开封"
+      ],
+      "action": "韩琦请求禁止皇亲女谒以内中传请干预赏罚；朝廷继而禁止皇族命妇、女冠和尼非时入内。",
+      "result": "内廷请托和非时入宫渠道受到限制。",
+      "quote": [
+        "今之內降，蠹壞綱紀，為害至深",
+        "禁皇族及諸命婦、女冠、尼等非時入內"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制内降请托和非时入宫。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-FLOATING-EXPENSE-CUTS-1039",
+      "time": "宝元二年五月至六月",
+      "loc": [
+        "开封"
+      ],
+      "action": "仁宗命详定裁减浮费，韩琦要求从宫掖赐予、无名支出及权贵占用六军入手。",
+      "result": "朝廷决定宫掖服御从简，但明确不得削减吏兵定额俸赐。",
+      "quote": [
+        "比附酌中，皆從減省，無名者一切罷之",
+        "在京者不啻數千人",
+        "若吏兵祿賜，毋得輒行裁減"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁宫掖无名支出和权贵占军，同时保护吏兵定俸。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "确立节费不削基层俸赐的边界。"
+        ]
+      ],
+      "unknown": [
+        "实际裁减金额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-GUSILUO-XILIANG-EXPEDITION-1039",
+      "time": "宝元二年六月",
+      "loc": [
+        "西凉"
+      ],
+      "action": "嘉勒斯赉受宋帛二万匹，出兵四万五千攻西凉以牵制元昊。",
+      "result": "因西凉有备未能攻城，仅杀游逻数十人即还，后来也未再举。",
+      "quote": [
+        "賜帛二萬匹",
+        "出兵四萬五千向西諒",
+        "捕殺遊邏數十人亟還"
+      ],
+      "battle": "CAMPAIGN-GUSILUO-XILIANG-1039",
+      "unknown": [
+        "嘉勒斯赉军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-XIALA-TEN-BORDER-MEASURES-1039",
+      "time": "宝元二年六月",
+      "loc": [
+        "陕西",
+        "宋夏边境"
+      ],
+      "action": "夏竦反对深入夏境速战，提出强弩、羁縻属羌、合并小寨、募土兵、入粟赎罪和裁冗等十策。",
+      "result": "宋廷当时颇采纳其边防与转运方案。",
+      "quote": [
+        "議追討者，是為無策",
+        "憂。計上十策",
+        "當時頗採用之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以入粟赎罪、裁冗和合寨减轻边粮运输。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "合并小寨并强化大寨守御。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "采纳夏竦十项宋夏边防方案。"
+        ]
+      ],
+      "unknown": [
+        "各策实际执行程度未分载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-YUANHAO-TITLES-REVOKED-1039",
+      "time": "宝元二年六月",
+      "loc": [
+        "宋夏边境",
+        "辽境"
+      ],
+      "action": "宋廷削夺元昊官爵、悬赏擒斩与招纳部属，并告知辽朝元昊反叛及宋方增兵。",
+      "result": "对夏政策转为正式除名、悬赏招降和对辽通报。",
+      "quote": [
+        "詔削趙元昊官爵",
+        "募人禽元昊",
+        "移文告於遼，以元昊反已奪官除籍及沿邊益兵之意"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "正式削夺元昊名爵并启动悬赏招降。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-RENZONG-REFUSES-REDUCED-COURT-1039",
+      "time": "宝元二年七月",
+      "loc": [
+        "开封"
+      ],
+      "action": "韩琦因仁宗小疾建议双日只御后殿，仁宗以历代君主由勤转逸为戒而不从。",
+      "result": "仁宗维持较高频率的亲政视事。",
+      "quote": [
+        "前代帝王，靡不初勤政事而後失於逸豫，不可不戒也",
+        "請，帝訖不從"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "仁宗拒绝因小疾降低视事频率。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-041-LIAO-DOWAGER-RESTORED-1039",
+      "time": "宝元二年七月",
+      "loc": [
+        "庆州",
+        "显州",
+        "辽上京"
+      ],
+      "action": "辽兴宗听《报恩经》后亲迎被幽禁的太后回京。",
+      "result": "辽廷母子长期隔绝结束。",
+      "quote": [
+        "遂躬迎太后至顯州",
+        "園陵，還京。太"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽兴宗迎还被幽禁的太后。"
+        ]
+      ],
+      "unknown": [
+        "太后恢复的具体权力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-041-SICHUAN-FAMINE-INSPECTION-1039",
+      "time": "宝元二年八月",
+      "loc": [
+        "西川",
+        "益州路",
+        "利州路",
+        "梓州路",
+        "夔州路"
+      ],
+      "action": "西川夏秋无雨、民众大饥，仁宗分别派韩琦、蒋堂等体量安抚益利与梓夔诸路。",
+      "result": "西川旱荒启动分路中央赈察。",
+      "quote": [
+        "西川自夏至秋不雨，民大饑",
+        "命韓琦為益利路體量安撫使",
+        "蔣堂為梓夔路體量安撫使"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "西川大饥后分路派员体量安抚。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中央设置两组灾区安抚使。"
+        ]
+      ],
+      "unknown": [
+        "饥民人数与后续赈粮转下卷。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2267613 的《續資治通鑑》卷041连续通读登记，不引入卷外常识。",
+    "普通任免、巡幸、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末西川大饥、陕西备边和元昊称帝后的宋夏战争继续转后卷。"
+  ]
+}

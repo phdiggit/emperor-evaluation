@@ -1,0 +1,2225 @@
+{
+  "facts": [
+    {
+      "action": "世祖崩后，八岁的玄烨即位并改元康熙，由遗诏指定的四大臣辅政；新朝同时诛吴良辅并罢内官。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-KANGXI-ACCESSION-1661",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "康熙朝和四辅臣政治体制开始，顺治朝内十三衙门权力被撤。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V06-KANGXI-ACCESSION-1661"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-kangxi-accession-1661",
+      "source_refs": [
+        "清史稿/卷6@1789307#世祖崩，帝即位，年八歲，改元康熙。",
+        "清史稿/卷6@1789307#索尼、蘇克薩哈、遏必隆、鰲拜四大臣輔政。",
+        "清史稿/卷6@1789307#誅有罪內監吳良輔，罷內官。"
+      ],
+      "time_range": {
+        "end": "顺治十八年三月",
+        "precision": "range",
+        "start": "顺治十八年正月"
+      },
+      "uncertainties": [
+        "即位决策细节、四辅臣具体分权和罢内官执行范围未载。"
+      ]
+    },
+    {
+      "action": "清军进入缅甸，缅方交出南明永历帝朱由榔，白文选降清；清廷随后以滇南平定告庙赦天下并安辑新附官民。",
+      "actors": [],
+      "affected_groups": [
+        "滇缅边地军民",
+        "南明残部",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-YONGLI-END-1661-1662",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南明永历政权失去君主和云南残余基地，清廷宣告滇南平定。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-YONGLI-END-1661-1662"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-yongli-end-1661-1662",
+      "source_refs": [
+        "清史稿/卷6@1789307#報大軍入緬",
+        "清史稿/卷6@1789307#緬人執明永曆帝朱由榔以獻。",
+        "清史稿/卷6@1789307#將白文選降。",
+        "清史稿/卷6@1789307#以滇南平，告廟祭陵，赦天下。"
+      ],
+      "time_range": {
+        "end": "康熙元年三月",
+        "precision": "range",
+        "start": "顺治十八年十二月"
+      },
+      "uncertainties": [
+        "缅方交付条件、永历帝后续处置和军民伤亡未载。"
+      ]
+    },
+    {
+      "action": "朝廷公布户丁、钱粮盐课并令全国钱粮统归户部，禁止部门自行支用；又禁止州县私派并蠲免顺治十五年前逋赋。",
+      "actors": [],
+      "affected_groups": [
+        "全国纳税丁户",
+        "盐商",
+        "地方官"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "财政收支向户部集中，地方私派和旧欠获得制度约束与清理。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-early-fiscal-centralization-1662-1664",
+      "source_refs": [
+        "清史稿/卷6@1789307#天下戶丁一千九百一十三萬七千六百五十二",
+        "清史稿/卷6@1789307#天下錢糧統歸戶部",
+        "清史稿/卷6@1789307#詔州縣私派累民，上官容隱者並罪之。",
+        "清史稿/卷6@1789307#詔免順治十五年以前逋賦。"
+      ],
+      "time_range": {
+        "end": "康熙三年六月",
+        "precision": "range",
+        "start": "康熙元年"
+      },
+      "uncertainties": [
+        "户丁统计误差、归户部后实际执行和蠲欠总额未载。"
+      ]
+    },
+    {
+      "action": "清廷诛郑芝龙后，耿继茂、施琅会同荷兰船队攻取厦门、浯屿、金门、铜山等岛，郑锦退往台湾；张煌言被捕。",
+      "actors": [],
+      "affected_groups": [
+        "福建沿海军民",
+        "郑氏军队",
+        "清军",
+        "荷兰船队"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-TAIWAN-COASTAL-CAMPAIGN-1661-1664",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "郑氏退出若干闽南近岸据点，但台湾仍由郑氏控制。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-TAIWAN-COAST-1661-1664"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-taiwan-coastal-campaign-1661-1664",
+      "source_refs": [
+        "清史稿/卷6@1789307#誅降將鄭芝龍",
+        "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+        "清史稿/卷6@1789307#鄭錦遁於台灣。",
+        "清史稿/卷6@1789307#擒獲明臣張煌言。"
+      ],
+      "time_range": {
+        "end": "康熙三年八月",
+        "precision": "range",
+        "start": "顺治十八年十月"
+      },
+      "uncertainties": [
+        "海战伤亡、荷兰参战规模和岛民处置未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止预征隔年钱粮，规定灾区先缓征额赋三成，免赋同时免丁徭，并持续大规模蠲免数百州县灾赋逋赋。",
+      "actors": [],
+      "affected_groups": [
+        "各省灾民",
+        "丁役承担者",
+        "地方官"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-DISASTER-TAX-RULES-1664-1672",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "灾害蠲赋从临时诏令发展为预缓征和免丁徭规则。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-DISASTER-TAX-RULES-1664-1672"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-disaster-tax-rules-1664-1672",
+      "source_refs": [
+        "清史稿/卷6@1789307#詔禁州縣預徵隔年稅糧。",
+        "清史稿/卷6@1789307#預緩徵額賦十之三。",
+        "清史稿/卷6@1789307#凡災傷免賦者並免丁徭。",
+        "清史稿/卷6@1789307#免直隸、江南、江西、浙江、山東、河南、陝西、湖廣等省三百二州縣衛災賦逋賦有差。"
+      ],
+      "time_range": {
+        "end": "康熙十一年十二月",
+        "precision": "range",
+        "start": "康熙四年三月"
+      },
+      "uncertainties": [
+        "累计蠲免总额、缓征落实率和灾后恢复未载。"
+      ]
+    },
+    {
+      "action": "广东旱灾后，朝廷发仓谷七万石赈济。",
+      "actors": [],
+      "affected_groups": [
+        "广东旱灾民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-GUANGDONG-FAMINE-RELIEF-1666",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "广东灾民获得七万石官粮救济。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-GUANGDONG-FAMINE-RELIEF-1666"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-guangdong-famine-relief-1666",
+      "source_refs": [
+        "清史稿/卷6@1789307#以廣東旱，發倉穀七萬石賑之。"
+      ],
+      "time_range": {
+        "end": "康熙五年",
+        "precision": "month",
+        "start": "康熙五年正月"
+      },
+      "uncertainties": [
+        "受赈人数、发放地点和旱灾死亡未载。"
+      ]
+    },
+    {
+      "action": "鳌拜以圈地改拨等事构陷苏纳海、朱昌祚、王登联并矫旨处死，继而擅杀辅臣苏克萨哈及其子姓。",
+      "actors": [],
+      "affected_groups": [
+        "涉案官员与家属",
+        "圈地影响民户"
+      ],
+      "cost_or_burden": "苏纳海、朱昌祚、王登联、苏克萨哈及其子姓被杀。",
+      "fact_id": "CHF-QING-V06-AOBAI-AUTOCRACY-1666-1667",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "四辅政体系被鳌拜专横破坏，多名反对者遭诛杀，康熙虽开始亲政仍未立即控制鳌拜。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V06-AOBAI-AUTOCRACY-1666-1667"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-aobai-autocracy-1666-1667",
+      "source_refs": [
+        "清史稿/卷6@1789307#鰲拜以改撥圈地，誣奏",
+        "清史稿/卷6@1789307#鰲拜矯旨殺蘇納海、朱昌祚、王登聯。",
+        "清史稿/卷6@1789307#酉，上親政，御",
+        "清史稿/卷6@1789307#鰲拜擅殺輔臣蘇克薩哈及其子姓。"
+      ],
+      "time_range": {
+        "end": "康熙六年七月",
+        "precision": "range",
+        "start": "康熙五年十一月"
+      },
+      "uncertainties": [
+        "圈地争议范围、康熙亲政初期实际权力边界和案件审理过程未载。"
+      ]
+    },
+    {
+      "action": "康熙帝训练年轻侍卫扑击，趁鳌拜入见将其拘捕；王大臣列三十大罪，皇帝免鳌拜死而籍没拘禁，处死其主要党羽，并恢复苏克萨哈、苏纳海等官爵。",
+      "actors": [],
+      "affected_groups": [
+        "鳌拜集团",
+        "被平反官员家属"
+      ],
+      "cost_or_burden": "班布尔善、阿思哈等多名党羽被诛，余党降黜。",
+      "fact_id": "CHF-QING-V06-AOBAI-ARREST-1669",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "鳌拜集团被清除，康熙帝取得实质最高权力并平反前案。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V06-AOBAI-ARREST-1669"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-aobai-arrest-1669",
+      "source_refs": [
+        "清史稿/卷6@1789307#詔逮輔臣鰲拜交廷鞫。",
+        "清史稿/卷6@1789307#列陳大罪三十",
+        "清史稿/卷6@1789307#貸其死，籍沒拘禁。",
+        "清史稿/卷6@1789307#詔復輔臣蘇克薩哈官及世職",
+        "清史稿/卷6@1789307#詔復大學士蘇納海、總督朱昌祚、巡撫王登聯原官"
+      ],
+      "time_range": {
+        "end": "康熙八年七月",
+        "precision": "range",
+        "start": "康熙八年五月"
+      },
+      "uncertainties": [
+        "捕鳌拜具体冲突、籍没财产规模和全部党羽人数未载。"
+      ]
+    },
+    {
+      "action": "康熙帝将直隶废藩田给民，禁止满兵侵占民间房地并令归还，后又清还四川被弁兵占据的民田。",
+      "actors": [],
+      "affected_groups": [
+        "直隶和四川民户",
+        "满洲军士",
+        "地方弁兵"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "部分入关以来被军旗占用的土地房屋恢复民有。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-land-and-housing-restitution-1669-1681",
+      "source_refs": [
+        "清史稿/卷6@1789307#以直隸廢籓田地予民。",
+        "清史稿/卷6@1789307#滿兵有規占民間房地者，永行禁止，仍還諸民。",
+        "清史稿/卷6@1789307#四川民田為弁兵所佔者察還之。"
+      ],
+      "time_range": {
+        "end": "康熙二十年七月",
+        "precision": "range",
+        "start": "康熙八年三月"
+      },
+      "uncertainties": [
+        "归还田亩房屋数量、产权争议和落实比例未载。"
+      ]
+    },
+    {
+      "action": "康熙帝命改造观象台仪器，完成卢沟桥工程并勒石，又完成太和殿、乾清宫修缮。",
+      "actors": [],
+      "affected_groups": [
+        "仪器工匠",
+        "桥梁宫殿役夫",
+        "道路使用者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "天文设施、重要桥梁和核心宫殿在同年完成或更新。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-observatory-lugou-palace-works-1669",
+      "source_refs": [
+        "清史稿/卷6@1789307#敕改造觀象台儀器。",
+        "清史稿/卷6@1789307#盧溝橋成，上為文勒之石。",
+        "清史稿/卷6@1789307#太和殿、乾清宮成"
+      ],
+      "time_range": {
+        "end": "康熙八年十一月",
+        "precision": "range",
+        "start": "康熙八年五月"
+      },
+      "uncertainties": [
+        "各工程费用、役夫人数、改造细节和伤亡未载。"
+      ]
+    },
+    {
+      "action": "康熙帝恢复内阁和翰林院，改内三院复设殿阁大学士，并颁圣谕十六条。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-ADMINISTRATIVE-RESTORATION-1670",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "顺治末内三院体制被调整回内阁翰林架构，全国教化纲领形成。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V06-ADMINISTRATIVE-RESTORATION-1670"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-administrative-restoration-1670",
+      "source_refs": [
+        "清史稿/卷6@1789307#復內閣，復翰林院。",
+        "清史稿/卷6@1789307#改內三院，復中和殿、保和殿、文華殿大學士。",
+        "清史稿/卷6@1789307#頒聖諭十六條。"
+      ],
+      "time_range": {
+        "end": "康熙九年十月",
+        "precision": "range",
+        "start": "康熙九年八月"
+      },
+      "uncertainties": [
+        "官制调整后的实际权力配置和圣谕基层执行未载。"
+      ]
+    },
+    {
+      "action": "康熙帝规定民间垦荒田亩十年后才起科征税。",
+      "actors": [],
+      "affected_groups": [
+        "垦荒农户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-WASTELAND-TEN-YEAR-TAX-1673",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "垦荒者获得十年免税期以鼓励复垦。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-WASTELAND-TEN-YEAR-TAX-1673"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-wasteland-ten-year-tax-1673",
+      "source_refs": [
+        "清史稿/卷6@1789307#詔民間墾荒田畝，以十年起科。"
+      ],
+      "time_range": {
+        "end": "康熙十二年",
+        "precision": "month",
+        "start": "康熙十二年十一月"
+      },
+      "uncertainties": [
+        "适用地区、垦荒面积和十年后税额未载。"
+      ]
+    },
+    {
+      "action": "清廷准尚可喜、吴三桂、耿精忠撤藩；吴三桂首先反叛并攻入湖南四川，耿精忠、孙延龄、王辅臣等相继叛清，战争扩展至西南、华南和西北。",
+      "actors": [],
+      "affected_groups": [
+        "云南贵州湖南四川福建广西军民",
+        "叛军",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-THREE-FEUDATORIES-OUTBREAK-1673-1674",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "撤藩转化为全国性三藩战争，清廷调禁旅及各地军队多线应战。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-THREE-FEUDATORIES-OUTBREAK-1673-1674"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-three-feudatories-outbreak-1673-1674",
+      "source_refs": [
+        "清史稿/卷6@1789307#令其撤籓還駐遼東。",
+        "清史稿/卷6@1789307#吳三桂疏請撤籓。許之。",
+        "清史稿/卷6@1789307#史。吳三桂反，",
+        "清史稿/卷6@1789307#耿精忠反，執福建總督范承謨幽之，巡撫劉秉政降賊。",
+        "清史稿/卷6@1789307#孫延齡以廣西叛",
+        "清史稿/卷6@1789307#王輔臣叛，經略莫洛死之。上議親征。"
+      ],
+      "time_range": {
+        "end": "康熙十三年十二月",
+        "precision": "range",
+        "start": "康熙十二年三月"
+      },
+      "uncertainties": [
+        "各藩预谋程度、初期兵力、军民死亡与财政动员总量未载。"
+      ]
+    },
+    {
+      "action": "察哈尔布尔尼反叛，康熙命信郡王鄂扎、图海率军征讨并平定。",
+      "actors": [],
+      "affected_groups": [
+        "察哈尔部众",
+        "清军与助顺蒙古"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-CHAHAR-REBELLION-1675",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "察哈尔叛乱被迅速压制，助顺与助逆蒙古首领分别奖惩。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-CHAHAR-REBELLION-1675"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-chahar-rebellion-1675",
+      "source_refs": [
+        "清史稿/卷6@1789307#蒙古布爾尼反",
+        "清史稿/卷6@1789307#軍，討平之。戊",
+        "清史稿/卷6@1789307#論平布爾尼功，封賞有差"
+      ],
+      "time_range": {
+        "end": "康熙十四年十月",
+        "precision": "range",
+        "start": "康熙十四年三月"
+      },
+      "uncertainties": [
+        "双方兵力伤亡、叛乱原因和部众处置未载。"
+      ]
+    },
+    {
+      "action": "皇后赫舍里氏生胤礽后去世，康熙帝于年末立胤礽为皇太子并颁诏赦免。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-CROWN-PRINCE-YINRENG-1675",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "清朝正式建立皇太子储位。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V06-CROWN-PRINCE-YINRENG-1675"
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-crown-prince-yinreng-1675",
+      "source_refs": [
+        "清史稿/卷6@1789307#皇子胤礽生，皇后赫舍里氏崩。",
+        "清史稿/卷6@1789307#立皇子胤礽為皇太子"
+      ],
+      "time_range": {
+        "end": "康熙十四年十二月",
+        "precision": "range",
+        "start": "康熙十四年五月"
+      },
+      "uncertainties": [
+        "建储内部讨论和权力安排未载。"
+      ]
+    },
+    {
+      "action": "王辅臣据平凉反叛并席卷陕甘多地，清军分路收复临洮、兰州、延安等地，图海围败王辅臣迫其投降。",
+      "actors": [],
+      "affected_groups": [
+        "陕甘军民",
+        "王辅臣军",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-WANG-FUCHEN-FRONT-1674-1676",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "西北叛乱主力瓦解，王辅臣复官并被令立功自效，陕甘交通恢复。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-WANG-FUCHEN-1674-1676"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-wang-fuchen-front-1674-1676",
+      "source_refs": [
+        "清史稿/卷6@1789307#州。王輔臣叛，",
+        "清史稿/卷6@1789307#申，克蘭州。畢",
+        "清史稿/卷6@1789307#圖復延安。以",
+        "清史稿/卷6@1789307#圖海敗王輔臣於平涼。",
+        "清史稿/卷6@1789307#朔，王輔臣降，"
+      ],
+      "time_range": {
+        "end": "康熙十五年六月",
+        "precision": "range",
+        "start": "康熙十三年十二月"
+      },
+      "uncertainties": [
+        "围城伤亡、招降条件和地方损失未载。"
+      ]
+    },
+    {
+      "action": "耿精忠据福建反叛并进攻浙江江西，清军逐步复常山、浦城、建宁、福州；耿精忠降清后从征郑锦，清军复海澄。",
+      "actors": [],
+      "affected_groups": [
+        "福建浙江江西军民",
+        "耿精忠军",
+        "郑氏军",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-GENG-FUJIAN-FRONT-1674-1677",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "耿精忠藩军投降，闽浙陆地控制大体恢复，但郑氏海上战争继续。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-GENG-FUJIAN-1674-1677"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-geng-fujian-front-1674-1677",
+      "source_refs": [
+        "清史稿/卷6@1789307#辰，耿精忠反，",
+        "清史稿/卷6@1789307#之，復常山。進",
+        "清史稿/卷6@1789307#耿精忠遣子顯祚獻偽印乞降",
+        "清史稿/卷6@1789307#敗鄭錦於興、泉",
+        "清史稿/卷6@1789307#遁，復海澄。遣"
+      ],
+      "time_range": {
+        "end": "康熙十六年二月",
+        "precision": "range",
+        "start": "康熙十三年三月"
+      },
+      "uncertainties": [
+        "各战伤亡、耿军降后编制和沿海民损未载。"
+      ]
+    },
+    {
+      "action": "尚之信劫父降吴使广东局势逆转，后又乞降清廷；清军反复争夺梧州、柳州、南宁等地并处死再叛将领。",
+      "actors": [],
+      "affected_groups": [
+        "两广军民",
+        "吴军与藩军",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-GUANGDONG-GUANGXI-FRONT-1676-1680",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "广东、广西逐步重归清廷，尚之信因擅杀属人等罪被赐死。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-GUANGDONG-GUANGXI-1676-1680"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-guangdong-guangxi-front-1676-1680",
+      "source_refs": [
+        "清史稿/卷6@1789307#尚之信劫其父以降賊。",
+        "清史稿/卷6@1789307#尚之信使人詣簡親王軍前乞降",
+        "清史稿/卷6@1789307#烈等復梧州。\n",
+        "清史稿/卷6@1789307#額楚敗吳世琮於南寧，世琮遁。",
+        "清史稿/卷6@1789307#詔賜之信死。"
+      ],
+      "time_range": {
+        "end": "康熙十九年五月",
+        "precision": "range",
+        "start": "康熙十五年四月"
+      },
+      "uncertainties": [
+        "城战伤亡、降军安置和两广财政损失未载。"
+      ]
+    },
+    {
+      "action": "康熙帝命地方资送阵亡官兵灵柩、赡养妻子，又令官方偿还军中将士债务并抚恤战死受伤者家庭。",
+      "actors": [],
+      "affected_groups": [
+        "出征将士",
+        "阵亡伤兵家属"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-MILITARY-FAMILY-RELIEF-1677",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "三藩战争中的军人丧葬、债务和家属抚恤形成中央指令。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-MILITARY-FAMILY-RELIEF-1677"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-military-family-relief-1677",
+      "source_refs": [
+        "清史稿/卷6@1789307#旅親不能歸，妻子不得養者",
+        "清史稿/卷6@1789307#明，妥為資送，",
+        "清史稿/卷6@1789307#軍中有負債責者，官為償之",
+        "清史稿/卷6@1789307#戰歿及被創者恤其家。"
+      ],
+      "time_range": {
+        "end": "康熙十七年六月",
+        "precision": "range",
+        "start": "康熙十六年三月"
+      },
+      "uncertainties": [
+        "偿债和抚恤总额、覆盖人数及执行情况未载。"
+      ]
+    },
+    {
+      "action": "吴三桂在衡州称帝后病死，清军乘势收复岳州、长沙、衡州、四川、贵州多地，逐步向云南推进。",
+      "actors": [],
+      "affected_groups": [
+        "湖广四川贵州军民",
+        "吴军",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-WU-SANGUI-DEATH-COUNTEROFFENSIVE-1678-1680",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "吴军由进攻转为溃退，四川贵州和湖南主要城市被清军收复，吴世璠退守云南。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-COUNTEROFFENSIVE-1678-1680"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-wu-sangui-death-counteroffensive-1678-1680",
+      "source_refs": [
+        "清史稿/卷6@1789307#吳三桂僭號于衡州。",
+        "清史稿/卷6@1789307#吳三桂死，永興圍解。",
+        "清史稿/卷6@1789307#遁，復岳州。上",
+        "清史稿/卷6@1789307#岳樂復長沙。",
+        "清史稿/卷6@1789307#，遂入成都。詔",
+        "清史稿/卷6@1789307#，遂入貴陽。逆"
+      ],
+      "time_range": {
+        "end": "康熙十九年十二月",
+        "precision": "range",
+        "start": "康熙十七年八月"
+      },
+      "uncertainties": [
+        "各战伤亡、吴三桂死因和收复区人口财政损失未载。"
+      ]
+    },
+    {
+      "action": "靳辅报告淮扬坝工完成，排水后涸出田地并招民耕种。",
+      "actors": [],
+      "affected_groups": [
+        "淮扬河工役夫",
+        "新招垦民",
+        "沿河居民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "坝工改善部分淮扬水患并形成可耕新田。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-jingfu-yellow-river-works-1679",
+      "source_refs": [
+        "清史稿/卷6@1789307#淮揚壩工成，涸出田地，招民種之。"
+      ],
+      "time_range": {
+        "end": "康熙十八年",
+        "precision": "month",
+        "start": "康熙十八年七月"
+      },
+      "uncertainties": [
+        "坝工规模、费用、涸田面积和防洪长期效果未载。"
+      ]
+    },
+    {
+      "action": "京师地震后，康熙帝发内帑十万两赈恤，并令官府修复被震民房。",
+      "actors": [],
+      "affected_groups": [
+        "京师地震灾民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "地震灾民获得十万两救济和官修住房。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-beijing-earthquake-relief-1679",
+      "source_refs": [
+        "清史稿/卷6@1789307#京師地震，詔發內帑十萬賑恤，被震廬舍官修之。"
+      ],
+      "time_range": {
+        "end": "康熙十八年",
+        "precision": "month",
+        "start": "康熙十八年七月"
+      },
+      "uncertainties": [
+        "受灾人数、房屋损毁和修复完成情况未载。"
+      ]
+    },
+    {
+      "action": "清军从贵州、四川、广西多路进入云南，攻克曲靖、昆明周边并招降大理、临安等地，最终进入云南城；吴世璠自杀，吴三桂被剖棺示众。",
+      "actors": [],
+      "affected_groups": [
+        "云南贵州四川军民",
+        "吴军",
+        "清军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-YUNNAN-FINAL-CAMPAIGN-1680-1681",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "云南平定，持续八年的三藩之乱结束，清廷撤还部分藩兵并宣捷赦免。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QING-YUNNAN-FINAL-1680-1681"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-yunnan-final-campaign-1680-1681",
+      "source_refs": [
+        "清史稿/卷6@1789307#榮先後入滇。",
+        "清史稿/卷6@1789307#武定、大理、臨安、永順、姚安皆降。",
+        "清史稿/卷6@1789307#王師於十月二十八日入雲南城",
+        "清史稿/卷6@1789307#吳世璠自殺",
+        "清史稿/卷6@1789307#降，雲南平。是"
+      ],
+      "time_range": {
+        "end": "康熙二十年十一月",
+        "precision": "range",
+        "start": "康熙十九年十一月"
+      },
+      "uncertainties": [
+        "昆明终战伤亡、平民损失、降军处置和战费总额未载。"
+      ]
+    },
+    {
+      "action": "康熙帝宣布废除三藩往事中害民措施，归还军占四川民田，宽处多数从逆者；平定后拒绝上尊号，强调与民休息并颁恩赦。",
+      "actors": [],
+      "affected_groups": [
+        "三藩旧地民众",
+        "从逆官民",
+        "四川农户"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-QING-V06-POSTWAR-RELIEF-1681",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "三藩战后治理转向清理藩害、土地返还、宽释和减轻庆典负担。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-QING-V06-POSTWAR-RELIEF-1681"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-qing-v06-postwar-relief-1681",
+      "source_refs": [
+        "清史稿/卷6@1789307#凡三籓往事為民害者悉除之。",
+        "清史稿/卷6@1789307#詔四川民田為弁兵所佔者察還之。",
+        "清史稿/卷6@1789307#餘俱削官放還。",
+        "清史稿/卷6@1789307#良，與民休息，",
+        "清史稿/卷6@1789307#乎！其勿行。」補"
+      ],
+      "time_range": {
+        "end": "康熙二十年十二月",
+        "precision": "range",
+        "start": "康熙二十年二月"
+      },
+      "uncertainties": [
+        "被废具体藩政条目、返田面积和宽释人数未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "辅政府集中钱粮于户部、禁私派并清理旧欠。",
+      "actors": [],
+      "affected_groups": [
+        "全国纳税丁户",
+        "盐商",
+        "地方官"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "财政收支向户部集中，地方私派和旧欠获得制度约束与清理。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-early-fiscal-centralization-1662-1664",
+      "source_refs": [
+        "清史稿/卷6@1789307#天下戶丁一千九百一十三萬七千六百五十二",
+        "清史稿/卷6@1789307#天下錢糧統歸戶部",
+        "清史稿/卷6@1789307#詔州縣私派累民，上官容隱者並罪之。",
+        "清史稿/卷6@1789307#詔免順治十五年以前逋賦。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664",
+      "time_range": {
+        "end": "康熙三年六月",
+        "precision": "range",
+        "start": "康熙元年"
+      },
+      "uncertainties": [
+        "户丁统计误差、归户部后实际执行和蠲欠总额未载。"
+      ]
+    },
+    {
+      "action": "康熙初年建立灾区缓征、免赋免丁徭规则并持续蠲灾。",
+      "actors": [],
+      "affected_groups": [
+        "各省灾民",
+        "丁役承担者",
+        "地方官"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-DISASTER-TAX-RULES-1664-1672",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-DISASTER-TAX-RULES-1664-1672"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "灾害蠲赋从临时诏令发展为预缓征和免丁徭规则。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-disaster-tax-rules-1664-1672",
+      "source_refs": [
+        "清史稿/卷6@1789307#詔禁州縣預徵隔年稅糧。",
+        "清史稿/卷6@1789307#預緩徵額賦十之三。",
+        "清史稿/卷6@1789307#凡災傷免賦者並免丁徭。",
+        "清史稿/卷6@1789307#免直隸、江南、江西、浙江、山東、河南、陝西、湖廣等省三百二州縣衛災賦逋賦有差。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-DISASTER-TAX-RULES-1664-1672",
+      "time_range": {
+        "end": "康熙十一年十二月",
+        "precision": "range",
+        "start": "康熙四年三月"
+      },
+      "uncertainties": [
+        "累计蠲免总额、缓征落实率和灾后恢复未载。"
+      ]
+    },
+    {
+      "action": "朝廷发七万石仓谷赈广东旱灾。",
+      "actors": [],
+      "affected_groups": [
+        "广东旱灾民众"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-GUANGDONG-FAMINE-RELIEF-1666",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-GUANGDONG-FAMINE-RELIEF-1666"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "广东灾民获得七万石官粮救济。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-guangdong-famine-relief-1666",
+      "source_refs": [
+        "清史稿/卷6@1789307#以廣東旱，發倉穀七萬石賑之。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-GUANGDONG-FAMINE-RELIEF-1666",
+      "time_range": {
+        "end": "康熙五年",
+        "precision": "month",
+        "start": "康熙五年正月"
+      },
+      "uncertainties": [
+        "受赈人数、发放地点和旱灾死亡未载。"
+      ]
+    },
+    {
+      "action": "康熙帝将废藩田和军兵占地房屋归还民户。",
+      "actors": [],
+      "affected_groups": [
+        "直隶和四川民户",
+        "满洲军士",
+        "地方弁兵"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "部分入关以来被军旗占用的土地房屋恢复民有。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-land-and-housing-restitution-1669-1681",
+      "source_refs": [
+        "清史稿/卷6@1789307#以直隸廢籓田地予民。",
+        "清史稿/卷6@1789307#滿兵有規占民間房地者，永行禁止，仍還諸民。",
+        "清史稿/卷6@1789307#四川民田為弁兵所佔者察還之。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681",
+      "time_range": {
+        "end": "康熙二十年七月",
+        "precision": "range",
+        "start": "康熙八年三月"
+      },
+      "uncertainties": [
+        "归还田亩房屋数量、产权争议和落实比例未载。"
+      ]
+    },
+    {
+      "action": "康熙帝规定新垦荒田十年后起科。",
+      "actors": [],
+      "affected_groups": [
+        "垦荒农户"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-WASTELAND-TEN-YEAR-TAX-1673",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-WASTELAND-TEN-YEAR-TAX-1673"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "垦荒者获得十年免税期以鼓励复垦。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-wasteland-ten-year-tax-1673",
+      "source_refs": [
+        "清史稿/卷6@1789307#詔民間墾荒田畝，以十年起科。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-WASTELAND-TEN-YEAR-TAX-1673",
+      "time_range": {
+        "end": "康熙十二年",
+        "precision": "month",
+        "start": "康熙十二年十一月"
+      },
+      "uncertainties": [
+        "适用地区、垦荒面积和十年后税额未载。"
+      ]
+    },
+    {
+      "action": "康熙帝为三藩战争将士偿债、归榇并抚恤家属。",
+      "actors": [],
+      "affected_groups": [
+        "出征将士",
+        "阵亡伤兵家属"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-MILITARY-FAMILY-RELIEF-1677",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-MILITARY-FAMILY-RELIEF-1677"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "三藩战争中的军人丧葬、债务和家属抚恤形成中央指令。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-military-family-relief-1677",
+      "source_refs": [
+        "清史稿/卷6@1789307#旅親不能歸，妻子不得養者",
+        "清史稿/卷6@1789307#明，妥為資送，",
+        "清史稿/卷6@1789307#軍中有負債責者，官為償之",
+        "清史稿/卷6@1789307#戰歿及被創者恤其家。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-MILITARY-FAMILY-RELIEF-1677",
+      "time_range": {
+        "end": "康熙十七年六月",
+        "precision": "range",
+        "start": "康熙十六年三月"
+      },
+      "uncertainties": [
+        "偿债和抚恤总额、覆盖人数及执行情况未载。"
+      ]
+    },
+    {
+      "action": "康熙帝发十万两并官修京师震毁民房。",
+      "actors": [],
+      "affected_groups": [
+        "京师地震灾民"
+      ],
+      "candidate_ref": "FIN-CAND-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "地震灾民获得十万两救济和官修住房。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-qing-v06-beijing-earthquake-relief-1679",
+      "source_refs": [
+        "清史稿/卷6@1789307#京師地震，詔發內帑十萬賑恤，被震廬舍官修之。"
+      ],
+      "thread_ref": "FIN-THREAD-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679",
+      "time_range": {
+        "end": "康熙十八年",
+        "precision": "month",
+        "start": "康熙十八年七月"
+      },
+      "uncertainties": [
+        "受灾人数、房屋损毁和修复完成情况未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《清史稿》卷6正文登记；原文未载者保持未知。",
+    "三藩战争按主要战区与阶段合并，保留连续结果，不逐次行军拆分。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "玄烨即位并由四大臣辅政，撤罢顺治内官体系。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-QING-V06-KANGXI-ACCESSION-1661",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-KANGXI-ACCESSION-1661"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "康熙朝和四辅臣政治体制开始，顺治朝内十三衙门权力被撤。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "康熙朝和四辅臣政治体制开始，顺治朝内十三衙门权力被撤。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v06-kangxi-accession-1661",
+      "source_refs": [
+        "清史稿/卷6@1789307#世祖崩，帝即位，年八歲，改元康熙。",
+        "清史稿/卷6@1789307#索尼、蘇克薩哈、遏必隆、鰲拜四大臣輔政。",
+        "清史稿/卷6@1789307#誅有罪內監吳良輔，罷內官。"
+      ],
+      "thread_ref": "POL-THREAD-QING-V06-KANGXI-ACCESSION-1661",
+      "time_range": {
+        "end": "顺治十八年三月",
+        "precision": "range",
+        "start": "顺治十八年正月"
+      },
+      "uncertainties": [
+        "即位决策细节、四辅臣具体分权和罢内官执行范围未载。"
+      ]
+    },
+    {
+      "action": "鳌拜在辅政末期以圈地案和矫旨清除苏纳海、苏克萨哈等。",
+      "actors": [],
+      "affected_groups": [
+        "涉案官员与家属",
+        "圈地影响民户"
+      ],
+      "candidate_ref": "POL-CAND-QING-V06-AOBAI-AUTOCRACY-1666-1667",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "苏纳海、朱昌祚、王登联、苏克萨哈及其子姓被杀。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-AOBAI-AUTOCRACY-1666-1667"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "四辅政体系被鳌拜专横破坏，多名反对者遭诛杀，康熙虽开始亲政仍未立即控制鳌拜。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "四辅政体系被鳌拜专横破坏，多名反对者遭诛杀，康熙虽开始亲政仍未立即控制鳌拜。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v06-aobai-autocracy-1666-1667",
+      "source_refs": [
+        "清史稿/卷6@1789307#鰲拜以改撥圈地，誣奏",
+        "清史稿/卷6@1789307#鰲拜矯旨殺蘇納海、朱昌祚、王登聯。",
+        "清史稿/卷6@1789307#酉，上親政，御",
+        "清史稿/卷6@1789307#鰲拜擅殺輔臣蘇克薩哈及其子姓。"
+      ],
+      "thread_ref": "POL-THREAD-QING-V06-AOBAI-AUTOCRACY-1666-1667",
+      "time_range": {
+        "end": "康熙六年七月",
+        "precision": "range",
+        "start": "康熙五年十一月"
+      },
+      "uncertainties": [
+        "圈地争议范围、康熙亲政初期实际权力边界和案件审理过程未载。"
+      ]
+    },
+    {
+      "action": "康熙帝拘捕鳌拜、清党平反并取得实权。",
+      "actors": [],
+      "affected_groups": [
+        "鳌拜集团",
+        "被平反官员家属"
+      ],
+      "candidate_ref": "POL-CAND-QING-V06-AOBAI-ARREST-1669",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "班布尔善、阿思哈等多名党羽被诛，余党降黜。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-AOBAI-ARREST-1669"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "鳌拜集团被清除，康熙帝取得实质最高权力并平反前案。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "鳌拜集团被清除，康熙帝取得实质最高权力并平反前案。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v06-aobai-arrest-1669",
+      "source_refs": [
+        "清史稿/卷6@1789307#詔逮輔臣鰲拜交廷鞫。",
+        "清史稿/卷6@1789307#列陳大罪三十",
+        "清史稿/卷6@1789307#貸其死，籍沒拘禁。",
+        "清史稿/卷6@1789307#詔復輔臣蘇克薩哈官及世職",
+        "清史稿/卷6@1789307#詔復大學士蘇納海、總督朱昌祚、巡撫王登聯原官"
+      ],
+      "thread_ref": "POL-THREAD-QING-V06-AOBAI-ARREST-1669",
+      "time_range": {
+        "end": "康熙八年七月",
+        "precision": "range",
+        "start": "康熙八年五月"
+      },
+      "uncertainties": [
+        "捕鳌拜具体冲突、籍没财产规模和全部党羽人数未载。"
+      ]
+    },
+    {
+      "action": "康熙帝复内阁翰林并颁圣谕十六条。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-QING-V06-ADMINISTRATIVE-RESTORATION-1670",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-ADMINISTRATIVE-RESTORATION-1670"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "顺治末内三院体制被调整回内阁翰林架构，全国教化纲领形成。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "顺治末内三院体制被调整回内阁翰林架构，全国教化纲领形成。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v06-administrative-restoration-1670",
+      "source_refs": [
+        "清史稿/卷6@1789307#復內閣，復翰林院。",
+        "清史稿/卷6@1789307#改內三院，復中和殿、保和殿、文華殿大學士。",
+        "清史稿/卷6@1789307#頒聖諭十六條。"
+      ],
+      "thread_ref": "POL-THREAD-QING-V06-ADMINISTRATIVE-RESTORATION-1670",
+      "time_range": {
+        "end": "康熙九年十月",
+        "precision": "range",
+        "start": "康熙九年八月"
+      },
+      "uncertainties": [
+        "官制调整后的实际权力配置和圣谕基层执行未载。"
+      ]
+    },
+    {
+      "action": "康熙帝立胤礽为皇太子。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-QING-V06-CROWN-PRINCE-YINRENG-1675",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-CROWN-PRINCE-YINRENG-1675"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "清朝正式建立皇太子储位。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "清朝正式建立皇太子储位。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v06-crown-prince-yinreng-1675",
+      "source_refs": [
+        "清史稿/卷6@1789307#皇子胤礽生，皇后赫舍里氏崩。",
+        "清史稿/卷6@1789307#立皇子胤礽為皇太子"
+      ],
+      "thread_ref": "POL-THREAD-QING-V06-CROWN-PRINCE-YINRENG-1675",
+      "time_range": {
+        "end": "康熙十四年十二月",
+        "precision": "range",
+        "start": "康熙十四年五月"
+      },
+      "uncertainties": [
+        "建储内部讨论和权力安排未载。"
+      ]
+    },
+    {
+      "action": "康熙帝清除三藩害政、返还民田并宽处多数从逆者。",
+      "actors": [],
+      "affected_groups": [
+        "三藩旧地民众",
+        "从逆官民",
+        "四川农户"
+      ],
+      "candidate_ref": "POL-CAND-QING-V06-POSTWAR-RELIEF-1681",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-POSTWAR-RELIEF-1681"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "三藩战后治理转向清理藩害、土地返还、宽释和减轻庆典负担。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "三藩战后治理转向清理藩害、土地返还、宽释和减轻庆典负担。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-qing-v06-postwar-relief-1681",
+      "source_refs": [
+        "清史稿/卷6@1789307#凡三籓往事為民害者悉除之。",
+        "清史稿/卷6@1789307#詔四川民田為弁兵所佔者察還之。",
+        "清史稿/卷6@1789307#餘俱削官放還。",
+        "清史稿/卷6@1789307#良，與民休息，",
+        "清史稿/卷6@1789307#乎！其勿行。」補"
+      ],
+      "thread_ref": "POL-THREAD-QING-V06-POSTWAR-RELIEF-1681",
+      "time_range": {
+        "end": "康熙二十年十二月",
+        "precision": "range",
+        "start": "康熙二十年二月"
+      },
+      "uncertainties": [
+        "被废具体藩政条目、返田面积和宽释人数未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "康熙八年更新观象台并完成卢沟桥和宫殿工程。",
+      "actors": [],
+      "affected_groups": [
+        "仪器工匠",
+        "桥梁宫殿役夫",
+        "道路使用者"
+      ],
+      "candidate_ref": "WORK-CAND-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "天文设施、重要桥梁和核心宫殿在同年完成或更新。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-qing-v06-observatory-lugou-palace-works-1669",
+      "source_refs": [
+        "清史稿/卷6@1789307#敕改造觀象台儀器。",
+        "清史稿/卷6@1789307#盧溝橋成，上為文勒之石。",
+        "清史稿/卷6@1789307#太和殿、乾清宮成"
+      ],
+      "thread_ref": "WORK-THREAD-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669",
+      "time_range": {
+        "end": "康熙八年十一月",
+        "precision": "range",
+        "start": "康熙八年五月"
+      },
+      "uncertainties": [
+        "各工程费用、役夫人数、改造细节和伤亡未载。"
+      ]
+    },
+    {
+      "action": "靳辅完成淮扬坝工并招民耕种涸田。",
+      "actors": [],
+      "affected_groups": [
+        "淮扬河工役夫",
+        "新招垦民",
+        "沿河居民"
+      ],
+      "candidate_ref": "WORK-CAND-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "坝工改善部分淮扬水患并形成可耕新田。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-qing-v06-jingfu-yellow-river-works-1679",
+      "source_refs": [
+        "清史稿/卷6@1789307#淮揚壩工成，涸出田地，招民種之。"
+      ],
+      "thread_ref": "WORK-THREAD-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679",
+      "time_range": {
+        "end": "康熙十八年",
+        "precision": "month",
+        "start": "康熙十八年七月"
+      },
+      "uncertainties": [
+        "坝工规模、费用、涸田面积和防洪长期效果未载。"
+      ]
+    }
+  ],
+  "registry_version": "QING-QINGSHIGAO-V06-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "康熙二十年云南平定、三藩之乱终结及全国收支",
+    "input_fingerprint": "815fcbe3400fe2fef3dddcbe1ad994428e12048beb1722326e7162776516e37c",
+    "overlap_context": "承接卷5顺治遗诏立玄烨和四辅臣；本卷登记康熙即位至三藩平定，卷7尚未读取。",
+    "revision_ref": "1789307",
+    "start_locator": "顺治十八年玄烨即位、四大臣辅政",
+    "volume_ref": "卷6",
+    "work": "清史稿"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V06-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-KANGXI-ACCESSION-1661"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v06-kangxi-accession-1661",
+      "status": "closed",
+      "summary": "玄烨即位并由四大臣辅政，撤罢顺治内官体系。",
+      "thread_ref": "POL-THREAD-QING-V06-KANGXI-ACCESSION-1661",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-early-fiscal-centralization-1662-1664",
+      "status": "closed",
+      "summary": "辅政府集中钱粮于户部、禁私派并清理旧欠。",
+      "thread_ref": "FIN-THREAD-QING-V06-EARLY-FISCAL-CENTRALIZATION-1662-1664",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-DISASTER-TAX-RULES-1664-1672"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-disaster-tax-rules-1664-1672",
+      "status": "closed",
+      "summary": "康熙初年建立灾区缓征、免赋免丁徭规则并持续蠲灾。",
+      "thread_ref": "FIN-THREAD-QING-V06-DISASTER-TAX-RULES-1664-1672",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-GUANGDONG-FAMINE-RELIEF-1666"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-guangdong-famine-relief-1666",
+      "status": "closed",
+      "summary": "朝廷发七万石仓谷赈广东旱灾。",
+      "thread_ref": "FIN-THREAD-QING-V06-GUANGDONG-FAMINE-RELIEF-1666",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-AOBAI-AUTOCRACY-1666-1667"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v06-aobai-autocracy-1666-1667",
+      "status": "closed",
+      "summary": "鳌拜在辅政末期以圈地案和矫旨清除苏纳海、苏克萨哈等。",
+      "thread_ref": "POL-THREAD-QING-V06-AOBAI-AUTOCRACY-1666-1667",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-AOBAI-ARREST-1669"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v06-aobai-arrest-1669",
+      "status": "closed",
+      "summary": "康熙帝拘捕鳌拜、清党平反并取得实权。",
+      "thread_ref": "POL-THREAD-QING-V06-AOBAI-ARREST-1669",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-land-and-housing-restitution-1669-1681",
+      "status": "closed",
+      "summary": "康熙帝将废藩田和军兵占地房屋归还民户。",
+      "thread_ref": "FIN-THREAD-QING-V06-LAND-AND-HOUSING-RESTITUTION-1669-1681",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-qing-v06-observatory-lugou-palace-works-1669",
+      "status": "closed",
+      "summary": "康熙八年更新观象台并完成卢沟桥和宫殿工程。",
+      "thread_ref": "WORK-THREAD-QING-V06-OBSERVATORY-LUGOU-PALACE-WORKS-1669",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-ADMINISTRATIVE-RESTORATION-1670"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v06-administrative-restoration-1670",
+      "status": "closed",
+      "summary": "康熙帝复内阁翰林并颁圣谕十六条。",
+      "thread_ref": "POL-THREAD-QING-V06-ADMINISTRATIVE-RESTORATION-1670",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-WASTELAND-TEN-YEAR-TAX-1673"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-wasteland-ten-year-tax-1673",
+      "status": "closed",
+      "summary": "康熙帝规定新垦荒田十年后起科。",
+      "thread_ref": "FIN-THREAD-QING-V06-WASTELAND-TEN-YEAR-TAX-1673",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-CROWN-PRINCE-YINRENG-1675"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v06-crown-prince-yinreng-1675",
+      "status": "closed",
+      "summary": "康熙帝立胤礽为皇太子。",
+      "thread_ref": "POL-THREAD-QING-V06-CROWN-PRINCE-YINRENG-1675",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-MILITARY-FAMILY-RELIEF-1677"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-military-family-relief-1677",
+      "status": "closed",
+      "summary": "康熙帝为三藩战争将士偿债、归榇并抚恤家属。",
+      "thread_ref": "FIN-THREAD-QING-V06-MILITARY-FAMILY-RELIEF-1677",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-qing-v06-jingfu-yellow-river-works-1679",
+      "status": "closed",
+      "summary": "靳辅完成淮扬坝工并招民耕种涸田。",
+      "thread_ref": "WORK-THREAD-QING-V06-JINGFU-YELLOW-RIVER-WORKS-1679",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-qing-v06-beijing-earthquake-relief-1679",
+      "status": "closed",
+      "summary": "康熙帝发十万两并官修京师震毁民房。",
+      "thread_ref": "FIN-THREAD-QING-V06-BEIJING-EARTHQUAKE-RELIEF-1679",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-QING-V06-POSTWAR-RELIEF-1681"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-qing-v06-postwar-relief-1681",
+      "status": "closed",
+      "summary": "康熙帝清除三藩害政、返还民田并宽处多数从逆者。",
+      "thread_ref": "POL-THREAD-QING-V06-POSTWAR-RELIEF-1681",
+      "uncertainties": []
+    }
+  ]
+}

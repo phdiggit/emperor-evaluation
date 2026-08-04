@@ -190,6 +190,36 @@ def _achievement(
         if isinstance(member_person_result, Mapping)
         else {}
     )
+    capability_mode = (
+        (resolved_person_result.get("military_capability_contribution") or {}).get(
+            "capability_mode"
+        )
+        if isinstance(
+            resolved_person_result.get("military_capability_contribution"), Mapping
+        )
+        else None
+    ) or index.get("capability_mode") or _capability_mode(index)
+    result_direction = resolved_person_result.get("result_direction") or index.get(
+        "result_direction"
+    )
+    outcome_responsibility = resolved_person_result.get(
+        "outcome_responsibility"
+    ) or index.get("outcome_responsibility")
+    if not outcome_responsibility and result_direction in {"negative", "mixed_review"}:
+        outcome_responsibility = {
+            "integrated_command": "actual_command_scope",
+            "independent_direction": "independent_direction_scope",
+            "operational_design": "operational_design_scope",
+            "tactical_execution": "scoped_stage_scope",
+            "authorization_only": "not_personally_responsible",
+            "nominal_only": "not_personally_responsible",
+            "unresolved": "responsibility_unknown",
+        }.get(str(capability_mode), "responsibility_unknown")
+    causal_fault = resolved_person_result.get("causal_fault") or index.get(
+        "causal_fault"
+    )
+    if not causal_fault and result_direction in {"negative", "mixed_review"}:
+        causal_fault = "UNKNOWN"
     return {
         "campaign_ref": str(
             resolved_person_result.get("result_ref") or record["war_event_id"]
@@ -205,17 +235,7 @@ def _achievement(
         or record.get("canonical_label"),
         "role_code": member.get("role_code"),
         "consumption_mode": index.get("consumption_mode"),
-        "capability_mode": (
-            (resolved_person_result.get("military_capability_contribution") or {}).get(
-                "capability_mode"
-            )
-            if isinstance(
-                resolved_person_result.get("military_capability_contribution"), Mapping
-            )
-            else None
-        )
-        or index.get("capability_mode")
-        or _capability_mode(index),
+        "capability_mode": capability_mode,
         "decisive_relation": (
             (resolved_person_result.get("military_capability_contribution") or {}).get(
                 "decisive_relation"
@@ -227,8 +247,9 @@ def _achievement(
         )
         or index.get("decisive_relation")
         or _decisive_relation(index),
-        "result_direction": resolved_person_result.get("result_direction")
-        or index.get("result_direction"),
+        "result_direction": result_direction,
+        "outcome_responsibility": outcome_responsibility,
+        "causal_fault": causal_fault,
         "campaign_tier": resolved_person_result.get("result_tier")
         or index.get("projected_result_tier"),
         "combat_difficulty": resolved_person_result.get("combat_difficulty")
@@ -249,6 +270,7 @@ def _achievement(
         ),
         "parent_campaign_tier": record.get("campaign_tier"),
         "parent_combat_difficulty": record.get("combat_difficulty"),
+        "evidence_lower_bound": bool(record.get("post_tang_evidence_lower_bound")),
     }
 
 
@@ -458,83 +480,61 @@ def _historic_path(rows: Sequence[Mapping[str, Any]]) -> str | None:
         for row in primary
         if _tier_at_least(row, "A") and _difficulty_at_least(row, "D3")
     ]
-    for peak in primary:
-        if not (
-            _tier_at_least(peak, "S+") and _difficulty_at_least(peak, "D2")
-        ):
-            continue
-        if any(
-            _episode_ref(anchor) != _episode_ref(peak)
-            and _tier_at_least(anchor, "S-")
-            and _difficulty_at_least(anchor, "D3")
-            for anchor in primary
-        ):
-            return "historic_era_defining_peak"
-    if sum(
-        _tier_at_least(row, "S") and _difficulty_at_least(row, "D3")
+    def pair_has_v11_difficulty(left: Mapping[str, Any], right: Mapping[str, Any]) -> bool:
+        return (
+            _difficulty_at_least(left, "D3")
+            and _difficulty_at_least(right, "D3")
+        ) or (
+            (_difficulty_at_least(left, "D4") and _difficulty_at_least(right, "D2"))
+            or (_difficulty_at_least(right, "D4") and _difficulty_at_least(left, "D2"))
+        )
+
+    for index, left in enumerate(primary):
+        for right in primary[index + 1 :]:
+            if not pair_has_v11_difficulty(left, right):
+                continue
+            if (
+                (_tier_at_least(left, "S+") and _tier_at_least(right, "A"))
+                or (_tier_at_least(right, "S+") and _tier_at_least(left, "A"))
+            ):
+                return "historic_era_defining_peak"
+            if _tier_at_least(left, "S") and _tier_at_least(right, "S"):
+                return "historic_extreme_problem_solver"
+    major_context_count = sum(
+        _tier_at_least(row, "A") and _difficulty_at_least(row, "D2")
         for row in primary
-    ) >= 2:
-        return "historic_extreme_problem_solver"
+    )
     for peak in primary:
         if not (
             _tier_at_least(peak, "S") and _difficulty_at_least(peak, "D4")
         ):
             continue
         if (
-            any(
+            major_context_count >= 3
+            and any(
                 _episode_ref(anchor) != _episode_ref(peak)
-                and bool(anchor.get("outcome_durability"))
                 and _tier_at_least(anchor, "S-")
-                and _difficulty_at_least(anchor, "D2")
+                and _difficulty_at_least(anchor, "D3")
                 for anchor in primary
             )
-            and sum(
-                _tier_at_least(anchor, "A")
-                and _difficulty_at_least(anchor, "D2")
-                for anchor in primary
-            )
-            >= 3
         ):
             return "historic_extreme_problem_solver"
     strategic_weight = sum(
         STRATEGIC_WEIGHT.get(str(row.get("campaign_tier")), 0)
         for row in strategic
     )
-    if (
-        any(_tier_at_least(row, "S") for row in strategic)
-        and strategic_weight >= 8
-        and len(strategic) >= 4
-        and len(hard_major) >= 2
-    ):
-        return "historic_sustained_grand_command"
-    if (
-        any(_tier_at_least(row, "S") for row in hard_s_minus)
-        and len(hard_s_minus) >= 2
-        and len(hard_major) >= 3
-        and any(_difficulty_at_least(row, "D4") for row in hard_major)
-    ):
-        return "historic_extreme_problem_solver"
-    operational = [
-        row
-        for row in positive
-        if row.get("consumption_mode") in OPERATIONAL_MODES
-        and _tier_at_least(row, "A")
-    ]
-    operational_weight = sum(
-        STRATEGIC_WEIGHT.get(str(row.get("campaign_tier")), 0)
-        for row in operational
+    sustained_difficulty = (
+        len(hard_major) >= 2
+        or (
+            any(_difficulty_at_least(row, "D4") for row in strategic)
+            and sum(_difficulty_at_least(row, "D2") for row in strategic) >= 3
+        )
     )
     if (
-        len(hard_s_minus) >= 2
-        and len(operational) >= 2
-        and operational_weight >= 4
-    ):
-        return "historic_sustained_grand_command"
-    if (
-        hard_s_minus
-        and len(operational) >= 3
-        and any(_tier_at_least(row, "S") for row in operational)
-        and operational_weight >= 7
+        any(_tier_at_least(row, "S") for row in strategic)
+        and strategic_weight >= 7
+        and len(strategic) >= 3
+        and sustained_difficulty
     ):
         return "historic_sustained_grand_command"
     return None
@@ -561,21 +561,9 @@ def _top_path(rows: Sequence[Mapping[str, Any]]) -> str | None:
             or row.get("consumption_mode") in OPERATIONAL_MODES
         )
     ]
-    repeated_adverse_command_records = [
-        row
-        for row in rows
-        if row.get("result_direction") in {"negative", "mixed_review"}
-        and row.get("role_code")
-        in {"commander_in_chief", "principal_commander"}
-        and _adverse_responsibility_coefficient(row) >= 0.85
-        and TIER_RANK.get(str(row.get("campaign_tier")), 0)
-        >= TIER_RANK["A"]
-        and DIFFICULTY_RANK.get(str(row.get("combat_difficulty")), -1)
-        >= DIFFICULTY_RANK["D2"]
-    ]
-    major_adverse_count = len(repeated_adverse_command_records)
-    has_repeated_major_adverse = major_adverse_count >= 2
-    reliable_major_count = max(0, major_count - major_adverse_count)
+    # 重大败责独立进入稳定性画像，不得反写已经由正向实绩成立的能力峰值。
+    # historic 的时代位置复核另有边界；top 及以下只在这里判断正向上限。
+    reliable_major_count = major_count
     if any(
         _tier_at_least(row, "S+") and _difficulty_at_least(row, "D3")
         for row in primary
@@ -589,18 +577,40 @@ def _top_path(rows: Sequence[Mapping[str, Any]]) -> str | None:
         _tier_at_least(row, "S-") and _difficulty_at_least(row, "D2")
         for row in primary
     ) >= 2
+    stable_high_anchor = any(
+        _tier_at_least(row, "S-")
+        and _difficulty_at_least(row, "D2")
+        and bool(row.get("outcome_durability"))
+        for row in primary
+    )
     s_peak_pair = (
         any(
             _tier_at_least(row, "S") and _difficulty_at_least(row, "D2")
             for row in primary
         )
         and second_high_anchor
+        and stable_high_anchor
     )
     hard_s_peak = any(
         _tier_at_least(row, "S") and _difficulty_at_least(row, "D3")
         for row in primary
     )
-    if s_peak_pair or (hard_s_peak and major_count >= 2):
+    frontline_s_peak = any(
+        _tier_at_least(row, "S") and _difficulty_at_least(row, "D2")
+        for row in primary
+    )
+    operational_s_peak = any(
+        _tier_at_least(row, "S")
+        and row.get("consumption_mode") in OPERATIONAL_MODES
+        for row in strategic_contexts
+    )
+    if (
+        s_peak_pair
+        or (hard_peak and second_high_anchor)
+        or (hard_s_peak and major_count >= 2)
+        or (frontline_s_peak and operational_s_peak and major_count >= 2)
+        or (hard_peak and major_count >= 3)
+    ):
         return "top_national_strategic_peak"
     hard_major_pair = (
         hard_peak
@@ -608,13 +618,9 @@ def _top_path(rows: Sequence[Mapping[str, Any]]) -> str | None:
             _tier_at_least(row, "A") and _difficulty_at_least(row, "D3")
             for row in primary
         )
-        - major_adverse_count
         >= 2
     )
-    if (
-        hard_major_pair
-        and not has_repeated_major_adverse
-    ):
+    if hard_major_pair:
         return "top_hard_problem_solver"
     creator_hard_major = [
         row
@@ -625,8 +631,7 @@ def _top_path(rows: Sequence[Mapping[str, Any]]) -> str | None:
     ]
     if (
         any(_difficulty_at_least(row, "D4") for row in creator_hard_major)
-        and len(creator_hard_major) - major_adverse_count >= 2
-        and not has_repeated_major_adverse
+        and len(creator_hard_major) >= 2
     ):
         return "top_hard_problem_solver"
     hard_breadth = [
@@ -638,16 +643,23 @@ def _top_path(rows: Sequence[Mapping[str, Any]]) -> str | None:
         hard_peak
         and major_count >= 2
         and len(hard_breadth) >= 2
-        and not repeated_adverse_command_records
         and len(primary) >= 3
     ):
         return "top_hard_problem_solver"
-    if hard_peak and (
-        reliable_major_count >= 3
-        or (second_high_anchor and len(strategic_contexts) >= 4)
-    ):
+    if hard_peak and reliable_major_count >= 3:
         return "top_national_strategic_peak"
-    if reliable_major_count >= 4:
+    sustained_top_validation = any(
+        (
+            _tier_at_least(row, "S-")
+            and _difficulty_at_least(row, "D2")
+        )
+        or (
+            _tier_at_least(row, "A")
+            and _difficulty_at_least(row, "D3")
+        )
+        for row in primary
+    )
+    if reliable_major_count >= 4 and sustained_top_validation:
         return "top_sustained_first_line_command"
     return None
 
@@ -731,6 +743,123 @@ def _grade(rows: Sequence[Mapping[str, Any]]) -> tuple[str, str]:
     return "ordinary", "no_consumable_positive_command_result"
 
 
+def _stability_grade_cap(
+    grade: str, rows: Sequence[Mapping[str, Any]]
+) -> tuple[str, str | None, dict[str, Any]]:
+    """Apply one reliability cap when major defeats crowd a thin positive record."""
+
+    positive = _episode_anchor_rows([
+        row
+        for row in rows
+        if row.get("result_direction") == "positive"
+        and _is_anchor_result(row)
+        and _tier_at_least(row, "A")
+        and _difficulty_at_least(row, "D2")
+    ])
+    adverse = _episode_anchor_rows([
+        row
+        for row in rows
+        if row.get("result_direction") in {"negative", "mixed_review"}
+        and row.get("role_code") in {"commander_in_chief", "principal_commander"}
+        and _adverse_responsibility_coefficient(row) >= 0.85
+        and _tier_at_least(row, "A")
+        and _difficulty_at_least(row, "D2")
+        and not str(row.get("causal_fault") or "UNKNOWN").upper().startswith(
+            "NO_FAULT"
+        )
+        and str(row.get("causal_fault") or "UNKNOWN").upper()
+        != "NOT_RESPONSIBLE"
+        and not str(row.get("causal_fault") or "UNKNOWN").upper().startswith(
+            "NO_FAULT"
+        )
+        and str(row.get("causal_fault") or "UNKNOWN").upper()
+        != "NOT_RESPONSIBLE"
+    ])
+    # A mixed result preserves a real adverse signal, but it is not equivalent
+    # to a full defeat: one mixed campaign cannot by itself erase an otherwise
+    # established high-tier portfolio. Two mixed contexts can still trigger
+    # the adverse-density branch below.
+    hard_faults = [
+        row for row in adverse if row.get("result_direction") == "negative"
+    ]
+    positive_count = len(positive)
+    adverse_count = len(adverse)
+    hard_fault_count = len(hard_faults)
+    high_peak_count = sum(
+        _tier_at_least(row, "S") and _difficulty_at_least(row, "D3")
+        for row in positive
+    )
+    abundant_exception = (
+        positive_count >= 5 and high_peak_count >= 2 and hard_fault_count <= 1
+    )
+    sparse_block = (
+        positive_count <= 2 and hard_fault_count >= 1
+    ) or (
+        positive_count <= 3 and adverse_count >= 2
+    )
+    crowded_block = positive_count >= 4 and (
+        (hard_fault_count >= 2 and hard_fault_count * 2 >= positive_count)
+        or (adverse_count >= 2 and adverse_count >= positive_count - 1)
+    )
+    blocked = (
+        grade in {"elite", "top", "historic"}
+        and not abundant_exception
+        and (
+            sparse_block
+            or crowded_block
+            or (grade == "historic" and hard_fault_count >= 2)
+        )
+    )
+    detail = {
+        "major_positive_context_count": positive_count,
+        "major_adverse_context_count": adverse_count,
+        "commander_responsibility_major_failure_count": hard_fault_count,
+        "high_peak_count": high_peak_count,
+        "abundant_peak_exception": abundant_exception,
+        "stability_cap_applied": blocked,
+    }
+    if not blocked:
+        return grade, None, detail
+    current_index = GRADE_ORDER.index(grade)
+    capped = GRADE_ORDER[max(GRADE_ORDER.index("important"), current_index - 1)]
+    return capped, f"{grade}_blocked_by_failure_pressure", detail
+
+
+def _close_elite_failure_responsibility(
+    rows: Sequence[Mapping[str, Any]], initial_grade: str
+) -> list[dict[str, Any]]:
+    """Close unresolved actual-command defeat fault after elite review search."""
+
+    if GRADE_ORDER.index(initial_grade) < GRADE_ORDER.index("elite"):
+        return [dict(row) for row in rows]
+    closed = []
+    for row in rows:
+        current = dict(row)
+        if (
+            current.get("result_direction") in {"negative", "mixed_review"}
+            and (
+                current.get("role_code")
+                in {"commander_in_chief", "principal_commander"}
+                or (
+                    _capability_mode(current) == "operational_design"
+                    and current.get("outcome_responsibility")
+                    == "operational_design_scope"
+                )
+            )
+            and "UNKNOWN"
+            in str(current.get("causal_fault") or "UNKNOWN").upper()
+        ):
+            current["causal_fault"] = (
+                "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+            )
+            current["responsibility_basis"] = (
+                "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；"
+                "按主帅结果责任闭合，不保留过错未知。"
+            )
+        closed.append(current)
+    return closed
+
+
 def _ability_profile(
     positive_rows: Sequence[Mapping[str, Any]],
     adverse_rows: Sequence[Mapping[str, Any]],
@@ -771,6 +900,9 @@ def _ability_profile(
 def _failure_stability_rows(
     rows: Sequence[Mapping[str, Any]],
     failures: Sequence[Mapping[str, Any]],
+    *,
+    person: str = "",
+    episode_index: Mapping[tuple[str, str], str] | None = None,
 ) -> list[dict[str, Any]]:
     """Project only adjudicated major personal failures into grade stability checks."""
 
@@ -798,6 +930,10 @@ def _failure_stability_rows(
             continue
         projected = {
             "campaign_ref": campaign_ref,
+            "canonical_label": failure.get("canonical_label"),
+            "capability_episode_ref": (episode_index or {}).get(
+                (person, campaign_ref), campaign_ref
+            ),
             "consumption_mode": "none",
             "result_direction": "negative",
             "campaign_tier": failure.get("campaign_tier"),
@@ -806,7 +942,10 @@ def _failure_stability_rows(
             "capability_mode": "integrated_command",
             "decisive_relation": "decisive_creator",
             "stable_delivery": False,
+            "outcome_responsibility": "actual_command_scope",
+            "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
             "basis": failure.get("basis"),
+            "source_refs": list(failure.get("source_refs") or []),
         }
         current = by_campaign.get(campaign_ref)
         if current is None or (
@@ -836,11 +975,7 @@ def _major_adverse_episode_refs(
         and _difficulty_at_least(row, "D2")
     ])
     refs = {_episode_ref(row) for row in explicit}
-    refs.update(
-        str(row["campaign_ref"])
-        for row in failure_stability_rows
-        if row.get("campaign_ref")
-    )
+    refs.update(_episode_ref(row) for row in failure_stability_rows)
     return refs
 
 
@@ -940,12 +1075,14 @@ def build_military_talent_grade_registry(
     by_battle_identity_suffix: dict[str, int] = {}
     by_ruler_name: dict[str, int] = {}
     identity_by_surface: dict[tuple[str, str], tuple[str, str]] = {}
+    identity_aliases_by_ref: dict[str, set[str]] = defaultdict(set)
     for entity in (identity_registry or {}).get("entities") or ():
         dynasty = str(entity.get("dynasty") or "")
         canonical_name = str(entity.get("canonical_name") or "")
         person_ref = str(entity.get("person_ref") or "")
         if not dynasty or not canonical_name or not person_ref:
             continue
+        identity_aliases_by_ref[person_ref].add(canonical_name)
         identity_dynasties = {
             dynasty,
             *(str(value) for value in entity.get("dynasty_aliases") or () if value),
@@ -958,12 +1095,14 @@ def build_military_talent_grade_registry(
             for alias in entity.get("aliases") or ():
                 surface = str(alias.get("surface") or "")
                 if surface:
+                    identity_aliases_by_ref[person_ref].add(surface)
                     identity_by_surface[(identity_dynasty, surface)] = (
                         person_ref,
                         canonical_name,
                     )
     by_identity_ref: dict[str, int] = {}
     canonical_name_by_root_candidate: dict[int, str] = {}
+    identity_ref_by_index: dict[int, str] = {}
     for index, occurrence in enumerate(occurrences):
         dynasty_name = (str(occurrence["dynasty"]), str(occurrence["name"]))
         previous = by_dynasty_name.setdefault(dynasty_name, index)
@@ -987,6 +1126,7 @@ def build_military_talent_grade_registry(
             previous = by_identity_ref.setdefault(identity_ref, index)
             union(index, previous)
             canonical_name_by_root_candidate[index] = canonical_name
+            identity_ref_by_index[index] = identity_ref
 
     people: dict[int, dict[str, Any]] = {}
     for index, occurrence in enumerate(occurrences):
@@ -1000,6 +1140,7 @@ def build_military_talent_grade_registry(
                 "actor_kinds": set(),
                 "rows": [],
                 "failures": [],
+                "identity_refs": set(),
             },
         )
         person["names"][str(occurrence["name"])] += 1
@@ -1011,6 +1152,9 @@ def build_military_talent_grade_registry(
         canonical_name = canonical_name_by_root_candidate.get(index)
         if canonical_name:
             person.setdefault("canonical_names", Counter())[canonical_name] += 1
+        identity_ref = identity_ref_by_index.get(index)
+        if identity_ref:
+            person["identity_refs"].add(identity_ref)
 
     profiles: list[dict[str, Any]] = []
     for person in people.values():
@@ -1037,8 +1181,22 @@ def build_military_talent_grade_registry(
             person=name,
             episode_index=episode_index,
         )
-        failure_stability_rows = _failure_stability_rows(rows, person["failures"])
-        grade, rule_path = _grade([*rows, *failure_stability_rows])
+        failure_stability_rows = _failure_stability_rows(
+            rows,
+            person["failures"],
+            person=name,
+            episode_index=episode_index,
+        )
+        initial_grade, initial_rule_path = _grade([*rows, *failure_stability_rows])
+        closed_rows = _close_elite_failure_responsibility(
+            [*rows, *failure_stability_rows], initial_grade
+        )
+        rows = closed_rows[: len(rows)]
+        failure_stability_rows = closed_rows[len(rows) :]
+        grade, stability_rule_path, stability_gate = _stability_grade_cap(
+            initial_grade, closed_rows
+        )
+        rule_path = stability_rule_path or initial_rule_path
         pending = [
             row
             for row in raw_rows
@@ -1047,15 +1205,27 @@ def build_military_talent_grade_registry(
             and _is_pending_person_result(row)
         ]
         high_failures = _major_adverse_episode_refs(rows, failure_stability_rows)
+        failure_accountability = _episode_anchor_rows([
+            row
+            for row in [*rows, *failure_stability_rows]
+            if row.get("result_direction") in {"negative", "mixed_review"}
+        ])
         status = "current_battle_registry_grade"
-        blocked_historic_path = None
-        if grade == "historic" and len(high_failures) >= 2:
-            blocked_historic_path = rule_path
-            grade = "top"
-            rule_path = "historic_blocked_by_repeated_major_failures"
-            status = "current_battle_registry_grade"
-        elif pending:
+        blocked_historic_path = (
+            initial_rule_path
+            if initial_grade == "historic" and grade != "historic"
+            else None
+        )
+        if pending:
             status = "lower_bound_pending_person_result"
+        elif any(row.get("evidence_lower_bound") for row in rows):
+            status = "evidence_lower_bound"
+        if len(high_failures) >= 2:
+            stability_status = "stability_limited_repeated_major_failures"
+        elif high_failures:
+            stability_status = "stability_limited_major_failure"
+        else:
+            stability_status = "no_comparable_major_failure_established"
         positive = [
             row
             for row in rows
@@ -1076,7 +1246,14 @@ def build_military_talent_grade_registry(
                 "profile_ref": f"MIL-PROFILE-{person_ref.removeprefix('MIL-PER-')}",
                 "person_ref": person_ref,
                 "person": name,
-                "name_aliases": sorted(person["names"]),
+                "name_aliases": sorted({
+                    *person["names"],
+                    *(
+                        alias
+                        for identity_ref in person["identity_refs"]
+                        for alias in identity_aliases_by_ref.get(identity_ref, ())
+                    ),
+                }),
                 "dynasty": dynasty,
                 "dynasty_aliases": dynasties,
                 "actor_ref_aliases": sorted(value for value in person["actor_ref_aliases"] if value),
@@ -1084,6 +1261,9 @@ def build_military_talent_grade_registry(
                 "military_grade": grade,
                 "ability_profile": _ability_profile(positive, adverse),
                 "grade_status": status,
+                "stability_status": stability_status,
+                "major_adverse_episode_refs": sorted(high_failures),
+                "stability_gate": stability_gate,
                 "rule_path": rule_path,
                 "blocked_historic_path": blocked_historic_path,
                 "consumed_achievements": positive,
@@ -1091,13 +1271,24 @@ def build_military_talent_grade_registry(
                 "capability_episode_anchors": capability_episode_anchors,
                 "pending_person_command_results": pending,
                 "negative_or_mixed_command_records": adverse,
+                "failure_accountability": failure_accountability,
                 "attributable_failures": sorted(
                     person["failures"], key=lambda row: str(row["campaign_ref"])
                 ),
                 "net_strategic_value": net_value["net"],
                 "net_strategic_value_breakdown": net_value,
                 "grade_basis": (
-                    f"仅消费最新战役登记中的本人主帅或主将成果；当前按 {rule_path} 定为 {grade}。"
+                    f"仅消费最新战役登记中的本人主帅或主将成果；按 {rule_path} "
+                    + (
+                        f"当前可证下限为 {grade}，覆盖增加后可复核升级，非冻结终值。"
+                        if status in {"evidence_lower_bound", "lower_bound_pending_person_result"}
+                        else f"当前定为 {grade}。"
+                    )
+                    + (
+                        f" 稳定性状态={stability_status}。"
+                        if high_failures
+                        else ""
+                    )
                 ),
             }
         )
@@ -1111,6 +1302,7 @@ def build_military_talent_grade_registry(
     )
     grade_counts = Counter(profile["military_grade"] for profile in profiles)
     status_counts = Counter(profile["grade_status"] for profile in profiles)
+    stability_status_counts = Counter(profile["stability_status"] for profile in profiles)
     payload: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "status": "current_battle_registry_authoritative",
@@ -1128,6 +1320,11 @@ def build_military_talent_grade_registry(
         ),
         "grade_counts": dict(sorted(grade_counts.items())),
         "grade_status_counts": dict(sorted(status_counts.items())),
+        "stability_status_counts": dict(sorted(stability_status_counts.items())),
+        "evidence_lower_bound_profile_count": sum(
+            profile["grade_status"] == "evidence_lower_bound"
+            for profile in profiles
+        ),
         "profiles": profiles,
     }
     payload["registry_fingerprint"] = _digest(payload)
@@ -1160,7 +1357,6 @@ def _profile_display_entries(
     profile: Mapping[str, Any],
 ) -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = []
-    adverse_refs: set[str] = set()
     for row in profile.get("consumed_achievements") or ():
         kind = (
             "统筹+"
@@ -1180,9 +1376,11 @@ def _profile_display_entries(
                 f"{_markdown_cell(row.get('canonical_label') or row.get('campaign_ref'))}／{role}",
             )
         )
-    for row in profile.get("negative_or_mixed_command_records") or ():
+    accountability_rows = profile.get("failure_accountability")
+    if accountability_rows is None:
+        accountability_rows = profile.get("negative_or_mixed_command_records") or ()
+    for row in accountability_rows:
         campaign_ref = str(row.get("campaign_ref") or "")
-        adverse_refs.add(campaign_ref)
         kind = "前线−" if row.get("result_direction") == "negative" else "前线±"
         tier = row.get("campaign_tier") or "—"
         difficulty = row.get("combat_difficulty") or "—"
@@ -1192,22 +1390,9 @@ def _profile_display_entries(
         entries.append(
             (
                 f"{kind} `{tier}/{difficulty}`",
-                f"{_markdown_cell(row.get('canonical_label') or campaign_ref)}／{role}",
-            )
-        )
-    for failure in profile.get("attributable_failures") or ():
-        campaign_ref = str(failure.get("campaign_ref") or "")
-        if campaign_ref in adverse_refs:
-            continue
-        tier = failure.get("campaign_tier") or "—"
-        difficulty = failure.get("combat_difficulty") or "—"
-        role = ROLE_LABELS.get(
-            str(failure.get("role_code")), str(failure.get("role_code") or "—")
-        )
-        entries.append(
-            (
-                f"归责− `{tier}/{difficulty}`",
-                f"{_markdown_cell(failure.get('canonical_label') or campaign_ref)}／{role}",
+                f"{_markdown_cell(row.get('canonical_label') or campaign_ref)}／{role}／"
+                f"结果责任={_markdown_cell(row.get('outcome_responsibility'))}／"
+                f"致败责任={_markdown_cell(row.get('causal_fault'))}",
             )
         )
     return entries
@@ -1215,7 +1400,7 @@ def _profile_display_entries(
 
 def render_military_talent_grade_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
-        "# 秦至唐武将人才等级",
+        "# 秦至清武将人才等级",
         "",
         "本表只消费最新父战役总登记；既有军事人才等级与旧人物画像不参与计算。",
         "人才厚度按能力情境去重：同一情境只取一个最高人物结果；历史角色不决定信用，决定性关系决定主锚资格。净值只作同档校准，统筹按 `0.4` 分轨消费，负向按 `-0.8`、混合按 `-0.4`，不再叠加单项稳定、高难储备或方法奖励。",

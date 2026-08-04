@@ -1,0 +1,791 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V16-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V16-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷16",
+    "revision_ref": "1811978",
+    "start_locator": "嘉庆元年内禅训政",
+    "end_locator": "嘉庆二十五年仁宗崩",
+    "overlap_context": "卷首内禅训政为卷15传位事件的重复锚点，明确作背景；其后登记嘉庆朝战争、亲政、灾赈、河工、财政制度与继承。",
+    "input_fingerprint": "6142f9ce85b9375aca3372981d5ff1210c4c14a7fac6f9ffec8b45dba7f54e16"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷16正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V16-ACCESSION-CONTEXT-1796",
+      "time": [
+        "嘉庆元年正月",
+        "1796",
+        "month"
+      ],
+      "subject": "嘉庆帝与太上皇乾隆帝",
+      "action": "嘉庆受玺即位，尊乾隆为太上皇并由其训政；此为卷15传位事件的卷首重复锚点，duplicate-of CHF-QING-V15-QIANLONG-ABDICATION-1795-1796。",
+      "result": "仅保留逐卷史源锚点，不另作可消费政治闭环。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "高宗御太和殿，授璽。上即位，尊高宗為太上皇帝，訓政。"
+      ],
+      "unknown": [
+        "具体权力分工未载；duplicate-of CHF-QING-V15-QIANLONG-ABDICATION-1795-1796。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-MIAO-REBELLION-END-1796",
+      "time": [
+        "嘉庆元年正月至十二月",
+        "1796",
+        "range"
+      ],
+      "subject": "明亮、额勒登保、和琳等清军与湘黔苗民起事者",
+      "action": "清军继续进攻平陇等苗寨，擒石三保，福康安、孙士毅、和琳相继卒于军，年底宣布湖南苗乱平定。",
+      "result": "卷15延续的苗疆战争主要战事结束，并调整湘西军政设置。",
+      "cost": "多名高级将领卒于军，双方总伤亡和军费未载。",
+      "groups": [
+        "苗民",
+        "湘黔边民",
+        "清军"
+      ],
+      "quote": [
+        "辦理苗疆大學士福康安等奏攻克朗坡，進攻平隴。",
+        "和琳奏獲苗匪石三保，解京誅之。",
+        "湖南苗匪平"
+      ],
+      "unknown": [
+        "起事余波、总伤亡与安置情况未载。"
+      ],
+      "battle": "CAMPAIGN-QING-MIAO-REBELLION-1795-1796",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-WHITE-LOTUS-REBELLION-1796-1802",
+      "time": [
+        "嘉庆元年正月",
+        "嘉庆七年十二月",
+        "range"
+      ],
+      "subject": "额勒登保、德楞泰、勒保等清军与川楚陕白莲教起事者",
+      "action": "湖北、四川教民起事后跨川楚陕流动作战，清廷屡易统帅、调兵筑堡并追捕各号首领，至嘉庆七年会奏荡平。",
+      "result": "持续七年的大规模战争基本结束，残余股匪继续清剿至次年。",
+      "cost": "大量官兵、乡勇和平民死伤，军费巨大而本卷未载总额。",
+      "groups": [
+        "川楚陕民众",
+        "被裹胁平民",
+        "清军",
+        "乡勇"
+      ],
+      "quote": [
+        "湖北枝江、宜都教匪起。",
+        "四川教匪徐添德侵擾達州、東鄉",
+        "教匪起事諸犯，只餘此賊。今既授首，不難肅清。",
+        "會報川、陝、楚教匪蕩平。"
+      ],
+      "unknown": [
+        "双方总伤亡、军费和人口流离规模未载。"
+      ],
+      "battle": "CAMPAIGN-QING-WHITE-LOTUS-1796-1802",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-WHITE-LOTUS-PACIFICATION-RELIEF-1796-1801",
+      "time": [
+        "嘉庆元年三月",
+        "嘉庆六年四月",
+        "range"
+      ],
+      "subject": "嘉庆帝与川楚陕战区民户、被裹胁者",
+      "action": "清廷停止续征军需，反复免除被兵州县新旧额赋，允许投出被裹胁者免死，并讨论安插流民、乡勇和修筑民堡。",
+      "result": "战区得到赋税减免和招抚安置措施，但实际恢复程度未载。",
+      "groups": [
+        "战区民户",
+        "被裹胁平民",
+        "乡勇",
+        "难民"
+      ],
+      "quote": [
+        "停四川續徵軍需銀兩。",
+        "官軍報捷，所稱殺賊，多系平民，非真賊也。",
+        "亟宜招撫解散",
+        "免遂寧等八十六廳州縣明年額賦。"
+      ],
+      "unknown": [
+        "免赋总额、安置人数和复耕效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WHITE-LOTUS-WAR-RELIEF-AND-PACIFICATION",
+        "summary": "白莲教战争期间停征军需、免赋并招抚安置。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-FENGXUN-RIVER-WORKS-1796-1797",
+      "time": [
+        "嘉庆元年六月",
+        "嘉庆二年二月",
+        "range"
+      ],
+      "subject": "清廷与江南丰汛河工",
+      "action": "江南丰汛河决，修堵后合龙复决，至次年二月再次合龙。",
+      "result": "反复失守的决口最终在本纪记为复报合龙。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫"
+      ],
+      "quote": [
+        "江南豐汛河決。",
+        "豐汛河工合龍復決。",
+        "江南豐汛復報合龍。"
+      ],
+      "unknown": [
+        "灾损、工费、用工及合龙耐久性未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "FENGXUN-RIVER-BREACH-REPAIR",
+        "summary": "丰汛河决口经反复堵修后合龙。",
+        "continuity": "ended",
+        "phase": "反复抢修合龙",
+        "purpose": "防洪保运",
+        "operation_result": "复报合龙"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-WANGNANGXIAN-REBELLION-1797",
+      "time": [
+        "嘉庆二年正月至九月",
+        "1797",
+        "range"
+      ],
+      "subject": "勒保等清军与南笼王囊仙起事者",
+      "action": "贵州南笼王囊仙起事，清军攻克多处苗寨、解南笼和黄草坝之围，最终擒获王囊仙。",
+      "result": "南笼起事被平定，南笼府改名兴义府。",
+      "cost": "双方总伤亡与军费未载。",
+      "groups": [
+        "贵州仲苗",
+        "南笼居民",
+        "清军"
+      ],
+      "quote": [
+        "貴州南籠仲苗夷婦王囊仙作亂",
+        "，解南籠圍。詔",
+        "改南籠府為興義府。",
+        "獲賊首王囊仙等，解京誅之。"
+      ],
+      "unknown": [
+        "起事背景、伤亡和战后安置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-WANGNANGXIAN-1797",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-QIANLONG-DEATH-HESHEN-PURGE-1799",
+      "time": [
+        "嘉庆四年正月",
+        "1799",
+        "month"
+      ],
+      "subject": "嘉庆帝、太上皇乾隆帝与和珅集团",
+      "action": "乾隆去世后嘉庆开始亲政，立即逮问和珅、福长安，令和珅狱中自尽，并开放臣工奏折直达皇帝。",
+      "result": "训政结束，和珅政治集团被清除，嘉庆重整奏事和军机权力。",
+      "groups": [
+        "中央官员",
+        "皇室成员"
+      ],
+      "quote": [
+        "太上皇帝崩，上始親政。",
+        "大學士和珅有罪，及尚書福長安俱下獄鞫訊。",
+        "和珅賜死於獄",
+        "中外陳奏直達朕前，不許副封關會軍機處。"
+      ],
+      "unknown": [
+        "查没财产总额和政治网络范围未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "QIANLONG-DEATH-HESHEN-PURGE",
+        "summary": "乾隆去世后嘉庆亲政并清除和珅集团。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-QIANLONG-PALACE-RECONSTRUCTION-1797-1798",
+      "time": [
+        "嘉庆二年十月",
+        "嘉庆三年十月",
+        "range"
+      ],
+      "subject": "清廷与乾清宫、交泰殿重建工程",
+      "action": "乾清宫、交泰殿火灾后组织重建，次年记载新建完成。",
+      "result": "两座核心宫殿完成重建。",
+      "groups": [
+        "宫廷匠役"
+      ],
+      "quote": [
+        "乾清宮交泰殿災。",
+        "新建乾清宮交泰殿成。"
+      ],
+      "unknown": [
+        "火灾原因、工程规模、费用和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "QIANQING-JIAOTAI-RECONSTRUCTION",
+        "summary": "乾清宫、交泰殿火灾后次年重建完成。",
+        "continuity": "ended",
+        "phase": "灾后重建",
+        "purpose": "宫廷复建",
+        "operation_result": "建成"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-NATIONAL-ARREARS-REMISSION-1799",
+      "time": [
+        "嘉庆四年十一月至十二月",
+        "1799",
+        "range"
+      ],
+      "subject": "嘉庆帝与全国欠赋民户",
+      "action": "亲政后清廷先免直隶积年逋赋，年终又普免天下积年逋赋，并减免战区与兵差沿途赋税。",
+      "result": "全国多年欠赋获得一次普遍豁免。",
+      "groups": [
+        "全国欠赋民户",
+        "战区民户"
+      ],
+      "quote": [
+        "免直隸積年逋賦。",
+        "普免天下積年逋賦。"
+      ],
+      "unknown": [
+        "免欠总额、各省执行和战区恢复效果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NATIONAL-ARREARS-REMISSION-1799",
+        "summary": "嘉庆亲政后普免天下积年逋赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-YONGDING-RIVER-WORKS-1801-1805",
+      "time": [
+        "嘉庆六年六月",
+        "嘉庆十年闰六月",
+        "range"
+      ],
+      "subject": "清廷与永定河工程",
+      "action": "永定河在嘉庆六年洪决后修至十月合龙，十年再决并于闰六月合龙。",
+      "result": "两次重大决口均完成封堵，但河患反复。",
+      "groups": [
+        "直隶水灾民众",
+        "河工役夫"
+      ],
+      "quote": [
+        "永定河決，分遣卿員撫恤被水災民。",
+        "命那彥寶、巴寧阿修築永定河工。",
+        "冬十月丙午，永定河合龍。",
+        "丁丑，永定河決。",
+        "戊戌，永定河合龍。"
+      ],
+      "unknown": [
+        "灾损、工程费和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "YONGDING-RIVER-REPEATED-REPAIRS",
+        "summary": "嘉庆六年至十年永定河两次决口并合龙。",
+        "continuity": "continued_within_reign",
+        "phase": "反复抢修合龙",
+        "purpose": "防洪",
+        "operation_result": "两次合龙"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-WHITE-LOTUS-MILITARY-REORGANIZATION-1801",
+      "time": [
+        "嘉庆六年二月至十一月",
+        "1801",
+        "range"
+      ],
+      "subject": "嘉庆帝与川楚军政体系",
+      "action": "战争后期清廷增设湖北提督、调整襄阳镇，并在军务将结束时筹议乡勇安插。",
+      "result": "川楚军事驻防体系重组，遣散乡勇被列为善后重点。",
+      "groups": [
+        "乡勇",
+        "驻防兵",
+        "战区民众"
+      ],
+      "quote": [
+        "置湖北提督，駐襄陽。",
+        "軍務即日告蕆，安插鄉勇為善後要事。"
+      ],
+      "unknown": [
+        "乡勇安置人数、经费和实际成效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WHITE-LOTUS-POSTWAR-MILITARY-REORGANIZATION",
+        "summary": "白莲教战争后期调整湖北驻军并筹议乡勇安置。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-CHENDE-ASSASSINATION-ATTEMPT-1803",
+      "time": [
+        "嘉庆八年闰二月",
+        "1803",
+        "month"
+      ],
+      "subject": "嘉庆帝与陈德",
+      "action": "陈德在皇帝还宫时持械犯驾，被擒后与二子伏诛，宫门禁卫随即收紧。",
+      "result": "袭击失败，清廷严申宫门禁制。",
+      "groups": [
+        "宫廷侍卫",
+        "陈德家属"
+      ],
+      "quote": [
+        "奸人陳德突出犯駕。",
+        "陳德及其二子伏誅。",
+        "寅，嚴申門禁。\n"
+      ],
+      "unknown": [
+        "陈德动机与关联者在本纪中未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CHENDE-ASSASSINATION-ATTEMPT",
+        "summary": "陈德犯驾失败后被处死并加强宫禁。",
+        "continuity": "ended"
+      }
+    },
+    {
+      "id": "CHF-QING-V16-CAIQIAN-PIRATE-WAR-1804-1809",
+      "time": [
+        "嘉庆九年六月",
+        "嘉庆十四年九月",
+        "range"
+      ],
+      "subject": "李长庚、王得禄、邱良功等水师与蔡牵海盗",
+      "action": "蔡牵海盗长期侵扰东南沿海并一度陷凤山，清廷持续海上追剿；李长庚战死后，王得禄、邱良功最终击毁蔡牵船队，蔡牵溺死。",
+      "result": "蔡牵集团主力被消灭，东南沿海长期海盗战争告一段落。",
+      "cost": "水师将领官兵伤亡与军费未载。",
+      "groups": [
+        "东南沿海民众",
+        "台湾民众",
+        "水师官兵",
+        "海商"
+      ],
+      "quote": [
+        "海盜蔡牽擾及鹿耳門",
+        "海盜蔡牽陷鳳山縣",
+        "浙江提督李長庚追擊海盜，卒於軍",
+        "蔡牽落海淹斃。"
+      ],
+      "unknown": [
+        "双方总伤亡、海商损失和残余海盗规模未载。"
+      ],
+      "battle": "CAMPAIGN-QING-CAIQIAN-PIRATES-1804-1809",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-CHRISTIANITY-SUPPRESSION-1805-1816",
+      "time": [
+        "嘉庆十年四月",
+        "嘉庆十六年七月",
+        "range"
+      ],
+      "subject": "嘉庆帝与在华西洋传教人员、信众",
+      "action": "清廷查禁西洋刻书传教，销毁经卷、惩处信众和失察官员，后又禁止西洋人潜居内地。",
+      "result": "对基督教传播和外国人员内地居留的管制收紧。",
+      "groups": [
+        "传教人员",
+        "本地信众"
+      ],
+      "quote": [
+        "查禁西洋人刻書傳教。",
+        "其經卷檢查銷毀，習教之佟瀾等罪之。",
+        "禁西洋人潛居內地。"
+      ],
+      "unknown": [
+        "被捕人数、教产损失和地方执行差异未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CHRISTIANITY-SUPPRESSION",
+        "summary": "嘉庆朝查禁传教、销毁经卷并限制西洋人居留。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V16-NINGSHAN-MUTINY-1806-1807",
+      "time": [
+        "嘉庆十一年七月",
+        "嘉庆十二年正月",
+        "range"
+      ],
+      "subject": "德楞泰等清军与宁陕、瓦石坪新兵",
+      "action": "宁陕镇新兵陈逢顺等戕官陷洋县，清廷调兵平定；次年又有瓦石坪新兵滋事，朝廷认为战后乡勇编兵造成隐患。",
+      "result": "两次新兵叛乱被平定，暴露战后遣散与编伍问题。",
+      "groups": [
+        "新兵与家属",
+        "陕南民众",
+        "清军"
+      ],
+      "quote": [
+        "寧陝鎮新兵陳逢順糾黨戕官，陷洋縣",
+        "德楞泰奏剿平洋縣叛兵。",
+        "陝西瓦石坪新兵滋事，討平之。"
+      ],
+      "unknown": [
+        "死伤、叛兵人数和后续安置未载。"
+      ],
+      "battle": "CAMPAIGN-QING-NINGSHAN-MUTINIES-1806-1807",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-SOUTH-RIVER-COST-AND-WORKS-1807-1816",
+      "time": [
+        "嘉庆十二年五月",
+        "嘉庆十六年二月",
+        "range"
+      ],
+      "subject": "清廷与南河、云梯关工程",
+      "action": "清廷提高河工料价，修堵陈家浦、恢复旧闸和云梯关海口，至十六年查出南河多年耗银四千余万而工程不固，处分河臣并停发余银。",
+      "result": "多项河道工程建成或合龙，但巨额支出和质量问题引发中央整顿。",
+      "cost": "本卷明确南河连年糜费四千余万，另有常年工费由六十万增至一百六十万。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫",
+        "纳税民户"
+      ],
+      "quote": [
+        "常年工費率六十萬，自此馴增百六十萬。",
+        "塞陳家浦壩口，導黃河由故道入海。",
+        "雲梯關大工合龍，河歸正道入海。",
+        "連年南河河工糜費至四千餘萬",
+        "其未發銀六十萬，並著停發。"
+      ],
+      "unknown": [
+        "各单项工程银费、用工和长期效果未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "SOUTH-RIVER-WORKS-AND-COST-CRISIS",
+        "summary": "南河工程持续扩张并因耗银四千余万、质量不固而整顿。",
+        "continuity": "continued_within_reign",
+        "phase": "扩建合龙与审计整顿",
+        "purpose": "导河保运防洪",
+        "operation_result": "部分合龙但质量问题严重"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-DISASTER-REMISSION-1808",
+      "time": [
+        "嘉庆八年全年",
+        "1803",
+        "year"
+      ],
+      "subject": "嘉庆帝与多省灾民欠赋户",
+      "action": "本年汇总免除直隶、山东、河南、江苏、安徽、陕鄂川滇甘等四百十八厅州县卫灾赋逋赋。",
+      "result": "大范围受灾地区获得赋税和欠款减免。",
+      "groups": [
+        "多省灾民",
+        "欠赋民户"
+      ],
+      "quote": [
+        "免直隸、山東、河南、江蘇、安徽、陝西、湖北、四川、雲南、甘肅等省四百十八廳州縣衛災賦逋賦有差。"
+      ],
+      "unknown": [
+        "各地免赋金额、灾种和受益人口未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MULTIPROVINCE-DISASTER-REMISSION-1803",
+        "summary": "嘉庆八年四百十八厅州县卫获灾赋逋赋减免。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-LIYUCHANG-RELIEF-CORRUPTION-1809",
+      "time": [
+        "嘉庆十四年七月",
+        "1809",
+        "month"
+      ],
+      "subject": "嘉庆帝与江苏山阳赈务官员",
+      "action": "查赈知县李毓昌因坚持核查被山阳知县王伸汉毒死，清廷严惩知府、知县和家丁，并撤总督巡抚，通谕督抚防止冒赈与讳灾。",
+      "result": "重大赈务腐败案得到追责，中央重申报灾查赈责任。",
+      "groups": [
+        "灾民",
+        "查赈官员",
+        "地方官吏"
+      ],
+      "quote": [
+        "江蘇查賑知縣李毓昌為山陽知縣王伸漢毒斃",
+        "王伸漢立斬，知府王轂立絞",
+        "致有冒賑之事。",
+        "其要惟在督撫得人耳。"
+      ],
+      "unknown": [
+        "冒领赈款总额、受损灾民人数和追回情况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIYUCHANG-RELIEF-CORRUPTION-CASE",
+        "summary": "李毓昌查赈遇害案引发对冒赈和地方督抚的整顿。",
+        "continuity": "ended"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-OPIUM-PROHIBITION-1810-1815",
+      "time": [
+        "嘉庆十五年二月",
+        "嘉庆二十年三月",
+        "range"
+      ],
+      "subject": "嘉庆帝与沿海督抚、鸦片商贩吸食者",
+      "action": "清廷以鸦片戕生通饬督抚断源，后申严贩运吸食之罪，并命澳门洋船按船查验、惩治官吏放私。",
+      "result": "鸦片禁令从一般断源升级为口岸查船和官民分罪。",
+      "groups": [
+        "鸦片吸食者",
+        "商贩",
+        "沿海官民"
+      ],
+      "quote": [
+        "詔以鴉片煙戕生，通飭督撫斷其來源。",
+        "申嚴販運鴉片煙律，食者並罪之。",
+        "洋船到澳門時，按船查驗，杜絕來源。"
+      ],
+      "unknown": [
+        "查获数量、执法效果和走私规模未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "OPIUM-PROHIBITION-1810-1815",
+        "summary": "嘉庆朝加强鸦片禁运、禁食和澳门船只查验。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-BANNER-RESETTLEMENT-JILIN-1812",
+      "time": [
+        "嘉庆十七年四月至六月",
+        "1812",
+        "range"
+      ],
+      "subject": "嘉庆帝与闲散旗丁、宗室",
+      "action": "因八旗人口增长，清廷计划将闲散旗丁迁往吉林给地耕佃，又将闲散宗室迁盛京，筑室给田给银。",
+      "result": "以移民垦殖和财政补助缓解旗人生计压力。",
+      "groups": [
+        "闲散旗丁",
+        "宗室家属",
+        "吉林原有居民"
+      ],
+      "quote": [
+        "將閒散旗丁送往吉林，撥給地畝，或耕或佃，以資養贍。",
+        "移閒散宗室於盛京居住，築室給田給銀。"
+      ],
+      "unknown": [
+        "迁移人数、土地面积、银额和地方影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BANNER-RESETTLEMENT-JILIN",
+        "summary": "清廷迁闲散旗丁宗室至吉林盛京并给地给银。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-EIGHT-TRIGRAMS-UPRISING-1813",
+      "time": [
+        "嘉庆十八年九月至十二月",
+        "1813",
+        "range"
+      ],
+      "subject": "那彦成、杨遇春等清军与林清、李文成八卦教起事者",
+      "action": "李文成部攻陷滑县、长垣并联动直鲁，林清党徒突入紫禁城；清军在宫内捕杀并分路收复曹县、滑县，擒杀主要首领。",
+      "result": "宫廷袭击和豫鲁直起事均被镇压，嘉庆公开反省官僚因循失察。",
+      "cost": "地方官兵民众死伤与军费未载。",
+      "groups": [
+        "豫鲁直民众",
+        "宫廷侍卫",
+        "清军",
+        "教民"
+      ],
+      "quote": [
+        "河南滑縣八卦教匪李文成糾眾謀逆",
+        "奸人陳爽數十人突入紫禁城",
+        "首逆林清就擒。",
+        "殲斃首犯李文成。",
+        "奏攻克滑城"
+      ],
+      "unknown": [
+        "起事组织规模、双方总伤亡和株连人数未载。"
+      ],
+      "battle": "CAMPAIGN-QING-EIGHT-TRIGRAMS-1813",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-ILI-JILIN-LAND-RECLAMATION-1814",
+      "time": [
+        "嘉庆十九年十一月",
+        "1814",
+        "month"
+      ],
+      "subject": "嘉庆帝与伊犁、吉林地方官民",
+      "action": "清廷命开垦伊犁、吉林荒地。",
+      "result": "两处边疆垦殖获得中央政策推动。",
+      "groups": [
+        "垦民",
+        "驻防旗人",
+        "当地居民"
+      ],
+      "quote": [
+        "命開墾伊犁、吉林荒地。"
+      ],
+      "unknown": [
+        "垦地面积、移民人数、投入和产权安排未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ILI-JILIN-LAND-RECLAMATION",
+        "summary": "嘉庆十九年命开垦伊犁、吉林荒地。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-ANTI-WRONGFUL-PROSECUTION-1818",
+      "time": [
+        "嘉庆二十三年四月",
+        "1818",
+        "month"
+      ],
+      "subject": "嘉庆帝与林清案承缉官役、被诬民众",
+      "action": "嘉庆承认缉捕林清余犯中存在以他犯塞责、刑求抄产甚至致死，命停缉次要嫌犯并规定严惩诬捕官役、以其家产赔偿受害者。",
+      "result": "大规模追缉范围收缩，并建立针对诬捕者的惩罚与赔偿安排。",
+      "groups": [
+        "被诬民众",
+        "捕役兵丁",
+        "林清案嫌犯"
+      ],
+      "quote": [
+        "承緝員弁輒以他犯塞責。",
+        "業已皮骨僅存，貲產盪盡，甚有因而殞命者。",
+        "，概令停緝。即",
+        "以其家產付諸被誣之家"
+      ],
+      "unknown": [
+        "实际停缉人数、获赔户数和官役处分未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ANTI-WRONGFUL-PROSECUTION-REFORM",
+        "summary": "嘉庆停止林清案部分追缉并惩罚诬捕、赔偿受害者。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V16-JIAQING-DEATH-SUCCESSION-1820",
+      "time": [
+        "嘉庆二十五年七月",
+        "1820",
+        "month"
+      ],
+      "subject": "嘉庆帝与皇次子旻宁",
+      "action": "嘉庆在避暑山庄病重，宣布皇次子智亲王为皇太子，当日去世。",
+      "result": "皇位继承安排在嘉庆去世前公布，道光朝继承由此启动。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "宣詔立皇次子智親王為皇太子。",
+        "上崩於行宮，年六十有一。"
+      ],
+      "unknown": [
+        "遗诏形成过程和临终决策细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIAQING-DEATH-AND-SUCCESSION",
+        "summary": "嘉庆临终立旻宁为皇太子并于行宫去世。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

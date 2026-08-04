@@ -1,0 +1,1886 @@
+{
+  "facts": [
+    {
+      "action": "辽廷先后录取王鼎等九十三人、张臻等一百零一人和赵廷睦等一百三十八人，并设贤良科，要求应科者先呈所业十万言。",
+      "actors": [],
+      "affected_groups": [
+        "进士应试者",
+        "贤良科应试者",
+        "儒臣",
+        "辽廷选官机构"
+      ],
+      "cost_or_burden": "考试组织、士人赴试成本和录取后的任用未载。",
+      "fact_id": "CHF-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "卷内三次进士录取共三百三十二人，另增设贤良科及其预呈文字门槛。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-examination-and-talent-selection-1062-1070",
+      "source_refs": [
+        "遼史/卷22@1748404#禦清涼殿放進士王鼎等九十三人。",
+        "遼史/卷22@1748404#禦永安殿，放進士張臻等百一人。",
+        "遼史/卷22@1748404#設賢良科，詔應是科者，先以所業十萬言進。",
+        "遼史/卷22@1748404#禦永安殿放進士趙廷睦等百三十八人。"
+      ],
+      "time_range": {
+        "end": "1062—1070",
+        "precision": "range",
+        "start": "清宁八年至咸雍六年"
+      },
+      "uncertainties": [
+        "应试人数、录取标准、贤良科实际录取和后续任官未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止民间售铜，后又禁止南京私造御用彩缎、私售铁及非时饮酒，并禁止向回鹘、阻卜等境出售生熟铁。",
+      "actors": [],
+      "affected_groups": [
+        "铜铁商人",
+        "南京居民",
+        "彩缎制造者",
+        "回鹘阻卜边界交易者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "铜、铁及南京特定物资活动受到内地和边界两层管制。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-metal-and-regulated-goods-trade-controls-1063-1070",
+      "source_refs": [
+        "遼史/卷22@1748404#，禁民鬻銅。三",
+        "遼史/卷22@1748404#詔南京不得私造御用彩緞，私貨鐵，及非時飲酒。",
+        "遼史/卷22@1748404#禁鬻生熟鐵於回鶻、阻卜等界。"
+      ],
+      "time_range": {
+        "end": "1063—1070",
+        "precision": "range",
+        "start": "清宁九年至咸雍六年"
+      },
+      "uncertainties": [
+        "禁令原因、交易规模、查禁方式、处罚和市场影响未载。"
+      ]
+    },
+    {
+      "action": "皇太叔重元及涅鲁古等约四百人诱胁弩手军进犯行宫，许王仁先、耶律乙辛等率宿卫数千抵御；涅鲁古被射杀，重元逃入大漠自杀。",
+      "actors": [],
+      "affected_groups": [
+        "重元党",
+        "弩手军",
+        "宿卫士卒",
+        "行宫人员"
+      ],
+      "cost_or_burden": "参与者约四百人，守方宿卫数千；双方其他伤亡、行宫损失及被胁者数量未载。",
+      "fact_id": "CHF-LIAO-V22-CHONGYUAN-PALACE-REBELLION-1063",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "进犯行宫的重元集团在宿卫抵抗后失败，两名核心首领死亡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-CHONGYUAN-PALACE-REBELLION-1063"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-chongyuan-palace-rebellion-1063",
+      "source_refs": [
+        "遼史/卷22@1748404#凡四百人，誘脅弩手軍犯行宮。",
+        "遼史/卷22@1748404#率宿衛士卒數千人禦之。",
+        "遼史/卷22@1748404#涅魯古躍馬突出，將戰，為近侍詳穩渤海阿廝、護衛蘇射殺之。",
+        "遼史/卷22@1748404#重元亡入大漠，自殺。"
+      ],
+      "time_range": {
+        "end": "1063",
+        "precision": "month",
+        "start": "清宁九年七月"
+      },
+      "uncertainties": [
+        "谋反酝酿、具体战斗时长、双方总伤亡和被胁者责任未载。"
+      ]
+    },
+    {
+      "action": "叛乱后朝廷族灭逆党之家，授官奖励三百余名护卫、士卒及杂役，奖用密告者；贴不称被胁仍被削爵流镇州，并遣使安抚南京吏民。",
+      "actors": [],
+      "affected_groups": [
+        "逆党家属",
+        "平乱护卫士卒",
+        "庖夫弩手伞子",
+        "密告者",
+        "贴不",
+        "南京吏民"
+      ],
+      "cost_or_burden": "逆党家属遭族诛，贴不被削爵流放；受奖三百余人，其他惩赏数量未载。",
+      "fact_id": "CHF-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "重元之乱进入惩处、奖赏、流放与地方安抚阶段。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-chongyuan-rebellion-aftermath-1063",
+      "source_refs": [
+        "遼史/卷22@1748404#，族逆黨家。庚",
+        "遼史/卷22@1748404#諸護衛及士卒、庖夫、弩手、傘子等三百餘人，各授官有差。",
+        "遼史/卷22@1748404#耶律良密告重元變，命籍橫帳夷離堇房，為漢人行宮都部署。",
+        "遼史/卷22@1748404#貼不訴為重元等所脅，詔削爵為民，流鎮州。",
+        "遼史/卷22@1748404#遣使安撫南京吏民。"
+      ],
+      "time_range": {
+        "end": "1063",
+        "precision": "range",
+        "start": "清宁九年七月至八月"
+      },
+      "uncertainties": [
+        "族诛人数、授官等级、贴不被胁事实审查和南京安抚内容未载。"
+      ]
+    },
+    {
+      "action": "朝廷先禁止南京居民决水种粳稻，四年后改令除军行地外其余土地皆可种稻。",
+      "actors": [],
+      "affected_groups": [
+        "南京稻农",
+        "水利使用者",
+        "军行地管理者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南京稻作限制由普遍禁决水调整为仅保留军行地禁种。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-nanjing-rice-water-policy-1064-1068",
+      "source_refs": [
+        "遼史/卷22@1748404#禁南京民決水種粳稻。",
+        "遼史/卷22@1748404#詔南京除軍行地，餘皆得種稻。"
+      ],
+      "time_range": {
+        "end": "1064—1068",
+        "precision": "range",
+        "start": "清宁十年至咸雍四年"
+      },
+      "uncertainties": [
+        "初禁原因、军行地范围、灌溉规则、种植面积和产量影响未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止僧尼私赴行在、妄述祸福取得财物。",
+      "actors": [],
+      "affected_groups": [
+        "僧尼",
+        "行在人员",
+        "财物被取者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "僧尼借祸福之说在行在取财的行为被明令禁止。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-monastic-court-fraud-prohibition-1064",
+      "source_refs": [
+        "遼史/卷22@1748404#禁僧尼私詣行在，妄述禍福取財物。"
+      ],
+      "time_range": {
+        "end": "1064",
+        "precision": "month",
+        "start": "清宁十年七月"
+      },
+      "uncertainties": [
+        "既有案件、处罚、执法机关和禁令效果未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止民间私自刊印文字，同时征求乾文阁所缺经籍并命儒臣校雠。",
+      "actors": [],
+      "affected_groups": [
+        "民间刊印者",
+        "书籍持有者",
+        "儒臣",
+        "乾文阁"
+      ],
+      "cost_or_burden": "征书、校雠与典藏的人力物力未载。",
+      "fact_id": "CHF-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "民间文字刊印受限，宫廷经籍搜补和校勘获得命令。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-private-printing-ban-and-canon-collection-1064",
+      "source_refs": [
+        "遼史/卷22@1748404#禁民私刊印文字。",
+        "遼史/卷22@1748404#詔求乾文閣所闕經籍，命儒臣校讎。"
+      ],
+      "time_range": {
+        "end": "1064",
+        "precision": "range",
+        "start": "清宁十年十月至十一月"
+      },
+      "uncertainties": [
+        "禁印范围、书籍征集数量、校勘成果和传播影响未载。"
+      ]
+    },
+    {
+      "action": "辽廷册梁王浚为皇太子，并规定正旦、重午、冬至另表祝贺东宫。",
+      "actors": [],
+      "affected_groups": [
+        "皇太子浚",
+        "东宫",
+        "内外官"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "皇太子身份及东宫节日受贺礼制得到确立。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-crown-prince-institutionalization-1065",
+      "source_refs": [
+        "遼史/卷22@1748404#冊梁王浚為皇太子，內外官賜級有差。",
+        "遼史/卷22@1748404#詔諸遇正旦、重午、冬至，別表賀東宮。"
+      ],
+      "time_range": {
+        "end": "1065",
+        "precision": "month",
+        "start": "咸雍元年正月"
+      },
+      "uncertainties": [
+        "东宫属官、权责、资源配置及皇太子参政情况未载。"
+      ]
+    },
+    {
+      "action": "朝廷先诏决诸路囚，后命给诸路囚粮，并在咸雍七年遣使按问五京囚。",
+      "actors": [],
+      "affected_groups": [
+        "诸路囚犯",
+        "五京囚犯",
+        "审狱官",
+        "按问使者"
+      ],
+      "cost_or_burden": "囚粮数量、按问使者费用和案件处理成本未载。",
+      "fact_id": "CHF-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "卷内狱政涵盖审决、囚粮供给和五京案件按问。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-prison-adjudication-provisioning-and-review-1064-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#詔決諸路囚。",
+        "遼史/卷22@1748404#詔給諸路囚糧。",
+        "遼史/卷22@1748404#遣使按問五京囚。"
+      ],
+      "time_range": {
+        "end": "1064—1071",
+        "precision": "range",
+        "start": "清宁十年至咸雍七年"
+      },
+      "uncertainties": [
+        "案件数量、审决结果、囚粮标准、按问结论和改判情况未载。"
+      ]
+    },
+    {
+      "action": "辽廷因旱遣使赈山后贫民，继而赈西京、应州、朔州饥民；咸雍七年又免南京流民租并赈饶州饥民。",
+      "actors": [],
+      "affected_groups": [
+        "山后贫民",
+        "西京饥民",
+        "应州饥民",
+        "朔州饥民",
+        "南京流民",
+        "饶州饥民"
+      ],
+      "cost_or_burden": "赈济物资、免租额度、受助人数和恢复情况未载。",
+      "fact_id": "CHF-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "卷内多次区域性旱饥以遣使赈济、免租等方式获得响应。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-regional-drought-and-famine-relief-1066-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#以歲旱，遣使振山後貧民。",
+        "遼史/卷22@1748404#遣使振西京饑民。",
+        "遼史/卷22@1748404#振應州饑民。",
+        "遼史/卷22@1748404#振朔州饑民。",
+        "遼史/卷22@1748404#免南京流民租。",
+        "遼史/卷22@1748404#振饒州饑民。"
+      ],
+      "time_range": {
+        "end": "1066—1071",
+        "precision": "range",
+        "start": "咸雍二年至七年"
+      },
+      "uncertainties": [
+        "各地灾因关联、灾情规模、赈物数量、免租期限和人口恢复未载。"
+      ]
+    },
+    {
+      "action": "扈驾军营发生火灾后，朝廷分别赐给钱、粟及马。",
+      "actors": [],
+      "affected_groups": [
+        "扈驾军营人员",
+        "火灾受灾者"
+      ],
+      "cost_or_burden": "救助钱、粟、马的数量及火灾损失未载。",
+      "fact_id": "CHF-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "军营火灾受灾者获得钱、粮与马匹救助。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-imperial-camp-fire-relief-1067",
+      "source_refs": [
+        "遼史/卷22@1748404#扈駕軍營火，賜錢、粟及馬有差。"
+      ],
+      "time_range": {
+        "end": "1067",
+        "precision": "month",
+        "start": "咸雍三年闰月"
+      },
+      "uncertainties": [
+        "起火原因、伤亡、损失和各等救助标准未载。"
+      ]
+    },
+    {
+      "action": "有司奏杨从谋反并伪署官吏，道宗认为属于无知儿戏，仅流放首恶，其余释放。",
+      "actors": [],
+      "affected_groups": [
+        "杨从",
+        "同案人员",
+        "新城县民",
+        "审案有司"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "案件未按全体谋反重处，仅首恶被流放，其他人员获释。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-yang-cong-rebellion-leniency-1067",
+      "source_refs": [
+        "遼史/卷22@1748404#有司奏新城縣民楊從謀反，偽署官吏。上曰：「小人無知，此兒戲爾。」獨流其首惡，餘釋之。"
+      ],
+      "time_range": {
+        "end": "1067",
+        "precision": "month",
+        "start": "咸雍三年六月"
+      },
+      "uncertainties": [
+        "首恶身份、涉案人数、伪署范围和释放后的处置未载。"
+      ]
+    },
+    {
+      "action": "南京先遭霖雨、地震，后永清等七县发生水灾；朝廷曲赦南京徒罪以下囚，并复免受灾七县一年租税。",
+      "actors": [],
+      "affected_groups": [
+        "南京居民",
+        "南京徒罪以下囚",
+        "七县纳租者",
+        "水灾受灾者"
+      ],
+      "cost_or_burden": "复免一年租税造成的财政减收及赦免人数未载。",
+      "fact_id": "CHF-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南京灾区获得刑罚赦免和七县一年租税减免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-nanjing-flood-earthquake-relief-1068",
+      "source_refs": [
+        "遼史/卷22@1748404#是月，南京霖雨，地震。",
+        "遼史/卷22@1748404#曲赦南京徒罪以下囚。",
+        "遼史/卷22@1748404#永清、武清、安次、固安、新城、歸義、容城諸縣水，復一歲租。"
+      ],
+      "time_range": {
+        "end": "1068",
+        "precision": "range",
+        "start": "咸雍四年七月至十月"
+      },
+      "uncertainties": [
+        "霖雨、地震与水灾损失、受灾户数、免租额和恢复情况未载。"
+      ]
+    },
+    {
+      "action": "阻卜叛后，辽廷以晋王仁先为西北路招讨使领禁军讨伐；仁先报捷，次年降附阻卜酋长到行在，招讨司又擒一名阻卜酋长来献。",
+      "actors": [],
+      "affected_groups": [
+        "辽禁军",
+        "阻卜叛军",
+        "阻卜酋长",
+        "西北路居民"
+      ],
+      "cost_or_burden": "双方兵力、伤亡、军费及阻卜部众处置未载。",
+      "fact_id": "CHF-LIAO-V22-ZUBU-CAMPAIGN-1069-1070",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "讨阻卜获得捷报，并形成酋长降附与被擒献俘的结果。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-ZUBU-1069-1070"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-zubu-campaign-1069-1070",
+      "source_refs": [
+        "遼史/卷22@1748404#阻卜叛，以晉王仁先為西北路招討使，領禁軍討之。",
+        "遼史/卷22@1748404#仁先遣人奏阻卜捷。",
+        "遼史/卷22@1748404#西北路招討司以所降阻卜酋長至行在。",
+        "遼史/卷22@1748404#西北路招討司擒阻卜酋長來獻。"
+      ],
+      "time_range": {
+        "end": "1069—1070",
+        "precision": "range",
+        "start": "咸雍五年至六年"
+      },
+      "uncertainties": [
+        "战场、战斗次数、伤亡、所降与被擒酋长是否同人及战后安排未载。"
+      ]
+    },
+    {
+      "action": "五国剖阿里部叛，辽廷命萧素飒讨伐；当年五国来降并献方物，咸雍七年对讨五国有功人员加官。",
+      "actors": [],
+      "affected_groups": [
+        "五国剖阿里部",
+        "萧素飒军",
+        "五国部众",
+        "受赏将领"
+      ],
+      "cost_or_burden": "出兵规模、战斗伤亡、降附条件和战功授官总数未载。",
+      "fact_id": "CHF-LIAO-V22-FIVE-NATIONS-POALI-CAMPAIGN-1069-1071",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "五国剖阿里部叛乱以五国来降告终，相关人员随后因战功获奖。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-FIVE-NATIONS-POALI-1069-1071"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-five-nations-poali-campaign-1069-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#五國剖阿裏部叛，命蕭素颯討之。",
+        "遼史/卷22@1748404#五國來降。仍獻方物。",
+        "遼史/卷22@1748404#以討五國功，加知黃龍府事蒲延、懷化軍節度使高元紀、易州觀察使高正並千牛衛上將軍"
+      ],
+      "time_range": {
+        "end": "1069—1071",
+        "precision": "range",
+        "start": "咸雍五年至七年"
+      },
+      "uncertainties": [
+        "讨伐路线、战斗过程、是否全部五国同属剖阿里部事件及降附条款未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止皇族倚仗权势侵夺、盘剥细民。",
+      "actors": [],
+      "affected_groups": [
+        "皇族",
+        "细民",
+        "地方执法者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "皇族恃势侵渔细民被明令禁止。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-royal-clan-exploitation-prohibition-1069",
+      "source_refs": [
+        "遼史/卷22@1748404#詔禁皇族恃勢侵漁細民。"
+      ],
+      "time_range": {
+        "end": "1069",
+        "precision": "month",
+        "start": "咸雍五年七月"
+      },
+      "uncertainties": [
+        "既有侵渔案件、处罚、申诉渠道和执行效果未载。"
+      ]
+    },
+    {
+      "action": "朝廷两次命百官在廷议论国政，后一次明确包括军国事务。",
+      "actors": [],
+      "affected_groups": [
+        "百官",
+        "军政决策参与者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "百官廷议由一般国政延续到军国事项。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-court-deliberation-on-state-affairs-1069-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#詔百官廷議國政。",
+        "遼史/卷22@1748404#詔百官廷議軍國事。"
+      ],
+      "time_range": {
+        "end": "1069—1071",
+        "precision": "range",
+        "start": "咸雍五年至七年"
+      },
+      "uncertainties": [
+        "廷议议题、参与范围、意见内容与采纳结果未载。"
+      ]
+    },
+    {
+      "action": "卷末记录春州一斗粟价格为六钱。",
+      "actors": [],
+      "affected_groups": [
+        "春州居民",
+        "粮食买卖者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V22-CHUNZHOU-GRAIN-PRICE-1071",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "留下咸雍七年春州粟价的单点基线。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v22-chunzhou-grain-price-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#是歲，春州鬥粟六錢。"
+      ],
+      "time_range": {
+        "end": "1071",
+        "precision": "year",
+        "start": "咸雍七年"
+      },
+      "uncertainties": [
+        "计价币种细节、此前价格、粮食供给、居民收入和价格成因未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "限制民间铜铁及南京特定物资活动，并禁止向回鹘阻卜境售铁。",
+      "actors": [],
+      "affected_groups": [
+        "铜铁商人",
+        "南京居民",
+        "彩缎制造者",
+        "回鹘阻卜边界交易者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "铜、铁及南京特定物资活动受到内地和边界两层管制。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v22-metal-and-regulated-goods-trade-controls-1063-1070",
+      "source_refs": [
+        "遼史/卷22@1748404#，禁民鬻銅。三",
+        "遼史/卷22@1748404#詔南京不得私造御用彩緞，私貨鐵，及非時飲酒。",
+        "遼史/卷22@1748404#禁鬻生熟鐵於回鶻、阻卜等界。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070",
+      "time_range": {
+        "end": "1063—1070",
+        "precision": "range",
+        "start": "清宁九年至咸雍六年"
+      },
+      "uncertainties": [
+        "禁令原因、交易规模、查禁方式、处罚和市场影响未载。"
+      ]
+    },
+    {
+      "action": "南京稻作由禁民决水调整为军行地外皆可种稻。",
+      "actors": [],
+      "affected_groups": [
+        "南京稻农",
+        "水利使用者",
+        "军行地管理者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "南京稻作限制由普遍禁决水调整为仅保留军行地禁种。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v22-nanjing-rice-water-policy-1064-1068",
+      "source_refs": [
+        "遼史/卷22@1748404#禁南京民決水種粳稻。",
+        "遼史/卷22@1748404#詔南京除軍行地，餘皆得種稻。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068",
+      "time_range": {
+        "end": "1064—1068",
+        "precision": "range",
+        "start": "清宁十年至咸雍四年"
+      },
+      "uncertainties": [
+        "初禁原因、军行地范围、灌溉规则、种植面积和产量影响未载。"
+      ]
+    },
+    {
+      "action": "连续以遣使赈济和免租响应山后及多州旱饥与流民。",
+      "actors": [],
+      "affected_groups": [
+        "山后贫民",
+        "西京饥民",
+        "应州饥民",
+        "朔州饥民",
+        "南京流民",
+        "饶州饥民"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "赈济物资、免租额度、受助人数和恢复情况未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "卷内多次区域性旱饥以遣使赈济、免租等方式获得响应。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v22-regional-drought-and-famine-relief-1066-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#以歲旱，遣使振山後貧民。",
+        "遼史/卷22@1748404#遣使振西京饑民。",
+        "遼史/卷22@1748404#振應州饑民。",
+        "遼史/卷22@1748404#振朔州饑民。",
+        "遼史/卷22@1748404#免南京流民租。",
+        "遼史/卷22@1748404#振饒州饑民。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071",
+      "time_range": {
+        "end": "1066—1071",
+        "precision": "range",
+        "start": "咸雍二年至七年"
+      },
+      "uncertainties": [
+        "各地灾因关联、灾情规模、赈物数量、免租期限和人口恢复未载。"
+      ]
+    },
+    {
+      "action": "扈驾军营火灾后赐钱粟及马。",
+      "actors": [],
+      "affected_groups": [
+        "扈驾军营人员",
+        "火灾受灾者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067",
+      "continuity_status": "single_event",
+      "cost_or_burden": "救助钱、粟、马的数量及火灾损失未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "军营火灾受灾者获得钱、粮与马匹救助。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v22-imperial-camp-fire-relief-1067",
+      "source_refs": [
+        "遼史/卷22@1748404#扈駕軍營火，賜錢、粟及馬有差。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067",
+      "time_range": {
+        "end": "1067",
+        "precision": "month",
+        "start": "咸雍三年闰月"
+      },
+      "uncertainties": [
+        "起火原因、伤亡、损失和各等救助标准未载。"
+      ]
+    },
+    {
+      "action": "南京霖雨地震及七县水灾后曲赦并复一年租。",
+      "actors": [],
+      "affected_groups": [
+        "南京居民",
+        "南京徒罪以下囚",
+        "七县纳租者",
+        "水灾受灾者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068",
+      "continuity_status": "single_event",
+      "cost_or_burden": "复免一年租税造成的财政减收及赦免人数未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "南京灾区获得刑罚赦免和七县一年租税减免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v22-nanjing-flood-earthquake-relief-1068",
+      "source_refs": [
+        "遼史/卷22@1748404#是月，南京霖雨，地震。",
+        "遼史/卷22@1748404#曲赦南京徒罪以下囚。",
+        "遼史/卷22@1748404#永清、武清、安次、固安、新城、歸義、容城諸縣水，復一歲租。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068",
+      "time_range": {
+        "end": "1068",
+        "precision": "range",
+        "start": "咸雍四年七月至十月"
+      },
+      "uncertainties": [
+        "霖雨、地震与水灾损失、受灾户数、免租额和恢复情况未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《遼史》卷22正文登记，未知保持未知。",
+    "重元之乱的谋划过程、各方伤亡和多数参与者责任程度未详；不据后世叙事补写。",
+    "灾害损失、赈济钱粮、考试后续任用、金属交易规模与军役负担多未载。",
+    "普通任免、贡聘、巡幸、祭祀、天象及只有命令而无最小充分结果锚的零散禁令不单列。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "连续录取进士并增设贤良科及十万言预呈门槛。",
+      "actors": [],
+      "affected_groups": [
+        "进士应试者",
+        "贤良科应试者",
+        "儒臣",
+        "辽廷选官机构"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "考试组织、士人赴试成本和录取后的任用未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "卷内三次进士录取共三百三十二人，另增设贤良科及其预呈文字门槛。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "卷内三次进士录取共三百三十二人，另增设贤良科及其预呈文字门槛。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-examination-and-talent-selection-1062-1070",
+      "source_refs": [
+        "遼史/卷22@1748404#禦清涼殿放進士王鼎等九十三人。",
+        "遼史/卷22@1748404#禦永安殿，放進士張臻等百一人。",
+        "遼史/卷22@1748404#設賢良科，詔應是科者，先以所業十萬言進。",
+        "遼史/卷22@1748404#禦永安殿放進士趙廷睦等百三十八人。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070",
+      "time_range": {
+        "end": "1062—1070",
+        "precision": "range",
+        "start": "清宁八年至咸雍六年"
+      },
+      "uncertainties": [
+        "应试人数、录取标准、贤良科实际录取和后续任官未载。"
+      ]
+    },
+    {
+      "action": "对重元逆党与平乱人员实施惩赏，并流放贴不、安抚南京。",
+      "actors": [],
+      "affected_groups": [
+        "逆党家属",
+        "平乱护卫士卒",
+        "庖夫弩手伞子",
+        "密告者",
+        "贴不",
+        "南京吏民"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063",
+      "continuity_status": "single_event",
+      "cost_or_burden": "逆党家属遭族诛，贴不被削爵流放；受奖三百余人，其他惩赏数量未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "重元之乱进入惩处、奖赏、流放与地方安抚阶段。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "重元之乱进入惩处、奖赏、流放与地方安抚阶段。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-chongyuan-rebellion-aftermath-1063",
+      "source_refs": [
+        "遼史/卷22@1748404#，族逆黨家。庚",
+        "遼史/卷22@1748404#諸護衛及士卒、庖夫、弩手、傘子等三百餘人，各授官有差。",
+        "遼史/卷22@1748404#耶律良密告重元變，命籍橫帳夷離堇房，為漢人行宮都部署。",
+        "遼史/卷22@1748404#貼不訴為重元等所脅，詔削爵為民，流鎮州。",
+        "遼史/卷22@1748404#遣使安撫南京吏民。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063",
+      "time_range": {
+        "end": "1063",
+        "precision": "range",
+        "start": "清宁九年七月至八月"
+      },
+      "uncertainties": [
+        "族诛人数、授官等级、贴不被胁事实审查和南京安抚内容未载。"
+      ]
+    },
+    {
+      "action": "禁止僧尼私赴行在妄述祸福取财。",
+      "actors": [],
+      "affected_groups": [
+        "僧尼",
+        "行在人员",
+        "财物被取者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "僧尼借祸福之说在行在取财的行为被明令禁止。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "僧尼借祸福之说在行在取财的行为被明令禁止。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-monastic-court-fraud-prohibition-1064",
+      "source_refs": [
+        "遼史/卷22@1748404#禁僧尼私詣行在，妄述禍福取財物。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064",
+      "time_range": {
+        "end": "1064",
+        "precision": "month",
+        "start": "清宁十年七月"
+      },
+      "uncertainties": [
+        "既有案件、处罚、执法机关和禁令效果未载。"
+      ]
+    },
+    {
+      "action": "禁民私印文字，并征求乾文阁缺书交儒臣校雠。",
+      "actors": [],
+      "affected_groups": [
+        "民间刊印者",
+        "书籍持有者",
+        "儒臣",
+        "乾文阁"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064",
+      "continuity_status": "single_event",
+      "cost_or_burden": "征书、校雠与典藏的人力物力未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "民间文字刊印受限，宫廷经籍搜补和校勘获得命令。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "民间文字刊印受限，宫廷经籍搜补和校勘获得命令。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-private-printing-ban-and-canon-collection-1064",
+      "source_refs": [
+        "遼史/卷22@1748404#禁民私刊印文字。",
+        "遼史/卷22@1748404#詔求乾文閣所闕經籍，命儒臣校讎。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064",
+      "time_range": {
+        "end": "1064",
+        "precision": "range",
+        "start": "清宁十年十月至十一月"
+      },
+      "uncertainties": [
+        "禁印范围、书籍征集数量、校勘成果和传播影响未载。"
+      ]
+    },
+    {
+      "action": "册浚为皇太子并确立节日另表贺东宫礼制。",
+      "actors": [],
+      "affected_groups": [
+        "皇太子浚",
+        "东宫",
+        "内外官"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "皇太子身份及东宫节日受贺礼制得到确立。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇太子身份及东宫节日受贺礼制得到确立。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-crown-prince-institutionalization-1065",
+      "source_refs": [
+        "遼史/卷22@1748404#冊梁王浚為皇太子，內外官賜級有差。",
+        "遼史/卷22@1748404#詔諸遇正旦、重午、冬至，別表賀東宮。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065",
+      "time_range": {
+        "end": "1065",
+        "precision": "month",
+        "start": "咸雍元年正月"
+      },
+      "uncertainties": [
+        "东宫属官、权责、资源配置及皇太子参政情况未载。"
+      ]
+    },
+    {
+      "action": "诸路与五京狱政包括审决、供粮及遣使按问。",
+      "actors": [],
+      "affected_groups": [
+        "诸路囚犯",
+        "五京囚犯",
+        "审狱官",
+        "按问使者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "囚粮数量、按问使者费用和案件处理成本未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "卷内狱政涵盖审决、囚粮供给和五京案件按问。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "卷内狱政涵盖审决、囚粮供给和五京案件按问。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-prison-adjudication-provisioning-and-review-1064-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#詔決諸路囚。",
+        "遼史/卷22@1748404#詔給諸路囚糧。",
+        "遼史/卷22@1748404#遣使按問五京囚。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071",
+      "time_range": {
+        "end": "1064—1071",
+        "precision": "range",
+        "start": "清宁十年至咸雍七年"
+      },
+      "uncertainties": [
+        "案件数量、审决结果、囚粮标准、按问结论和改判情况未载。"
+      ]
+    },
+    {
+      "action": "杨从谋反案仅流首恶，其余因被视为无知儿戏而释放。",
+      "actors": [],
+      "affected_groups": [
+        "杨从",
+        "同案人员",
+        "新城县民",
+        "审案有司"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "案件未按全体谋反重处，仅首恶被流放，其他人员获释。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "案件未按全体谋反重处，仅首恶被流放，其他人员获释。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-yang-cong-rebellion-leniency-1067",
+      "source_refs": [
+        "遼史/卷22@1748404#有司奏新城縣民楊從謀反，偽署官吏。上曰：「小人無知，此兒戲爾。」獨流其首惡，餘釋之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067",
+      "time_range": {
+        "end": "1067",
+        "precision": "month",
+        "start": "咸雍三年六月"
+      },
+      "uncertainties": [
+        "首恶身份、涉案人数、伪署范围和释放后的处置未载。"
+      ]
+    },
+    {
+      "action": "禁止皇族恃势侵渔细民。",
+      "actors": [],
+      "affected_groups": [
+        "皇族",
+        "细民",
+        "地方执法者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "皇族恃势侵渔细民被明令禁止。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇族恃势侵渔细民被明令禁止。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-royal-clan-exploitation-prohibition-1069",
+      "source_refs": [
+        "遼史/卷22@1748404#詔禁皇族恃勢侵漁細民。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069",
+      "time_range": {
+        "end": "1069",
+        "precision": "month",
+        "start": "咸雍五年七月"
+      },
+      "uncertainties": [
+        "既有侵渔案件、处罚、申诉渠道和执行效果未载。"
+      ]
+    },
+    {
+      "action": "两度命百官廷议国政及军国事务。",
+      "actors": [],
+      "affected_groups": [
+        "百官",
+        "军政决策参与者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "百官廷议由一般国政延续到军国事项。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "百官廷议由一般国政延续到军国事项。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v22-court-deliberation-on-state-affairs-1069-1071",
+      "source_refs": [
+        "遼史/卷22@1748404#詔百官廷議國政。",
+        "遼史/卷22@1748404#詔百官廷議軍國事。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071",
+      "time_range": {
+        "end": "1069—1071",
+        "precision": "range",
+        "start": "咸雍五年至七年"
+      },
+      "uncertainties": [
+        "廷议议题、参与范围、意见内容与采纳结果未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [],
+  "registry_version": "LIAO-LIAOSHI-V22-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "是歲，春州鬥粟六錢",
+    "input_fingerprint": "4efcece68e1762c90df0d014d434e53b95856c4e267c7c49310b8cbd6b617db4",
+    "overlap_context": "本卷承卷21清宁七年，记清宁八年至咸雍七年（1062—1071）。重元之乱按行宫冲突与事后惩赏安抚两阶段登记；阻卜、五国叛乱分别按出师、战果、降附或擒酋闭合。考试选才、金属管制、南京稻作、狱政、赈济与百官廷议按同一政策链合并，单次任免、常规巡幸贡聘祭祀及无实施结果的零散禁令不单列。卷末为咸雍七年，未读卷23。",
+    "revision_ref": "1748404",
+    "start_locator": "八年春正月癸丑，如鴨子河",
+    "volume_ref": "卷22",
+    "work": "遼史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V22-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-examination-and-talent-selection-1062-1070",
+      "status": "closed",
+      "summary": "连续录取进士并增设贤良科及十万言预呈门槛。",
+      "thread_ref": "POL-THREAD-LIAO-V22-EXAMINATION-AND-TALENT-SELECTION-1062-1070",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v22-metal-and-regulated-goods-trade-controls-1063-1070",
+      "status": "closed",
+      "summary": "限制民间铜铁及南京特定物资活动，并禁止向回鹘阻卜境售铁。",
+      "thread_ref": "FIN-THREAD-LIAO-V22-METAL-AND-REGULATED-GOODS-TRADE-CONTROLS-1063-1070",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-chongyuan-rebellion-aftermath-1063",
+      "status": "closed",
+      "summary": "对重元逆党与平乱人员实施惩赏，并流放贴不、安抚南京。",
+      "thread_ref": "POL-THREAD-LIAO-V22-CHONGYUAN-REBELLION-AFTERMATH-1063",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v22-nanjing-rice-water-policy-1064-1068",
+      "status": "closed",
+      "summary": "南京稻作由禁民决水调整为军行地外皆可种稻。",
+      "thread_ref": "FIN-THREAD-LIAO-V22-NANJING-RICE-WATER-POLICY-1064-1068",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-monastic-court-fraud-prohibition-1064",
+      "status": "closed",
+      "summary": "禁止僧尼私赴行在妄述祸福取财。",
+      "thread_ref": "POL-THREAD-LIAO-V22-MONASTIC-COURT-FRAUD-PROHIBITION-1064",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-private-printing-ban-and-canon-collection-1064",
+      "status": "closed",
+      "summary": "禁民私印文字，并征求乾文阁缺书交儒臣校雠。",
+      "thread_ref": "POL-THREAD-LIAO-V22-PRIVATE-PRINTING-BAN-AND-CANON-COLLECTION-1064",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-crown-prince-institutionalization-1065",
+      "status": "closed",
+      "summary": "册浚为皇太子并确立节日另表贺东宫礼制。",
+      "thread_ref": "POL-THREAD-LIAO-V22-CROWN-PRINCE-INSTITUTIONALIZATION-1065",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-prison-adjudication-provisioning-and-review-1064-1071",
+      "status": "closed",
+      "summary": "诸路与五京狱政包括审决、供粮及遣使按问。",
+      "thread_ref": "POL-THREAD-LIAO-V22-PRISON-ADJUDICATION-PROVISIONING-AND-REVIEW-1064-1071",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v22-regional-drought-and-famine-relief-1066-1071",
+      "status": "closed",
+      "summary": "连续以遣使赈济和免租响应山后及多州旱饥与流民。",
+      "thread_ref": "FIN-THREAD-LIAO-V22-REGIONAL-DROUGHT-AND-FAMINE-RELIEF-1066-1071",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v22-imperial-camp-fire-relief-1067",
+      "status": "closed",
+      "summary": "扈驾军营火灾后赐钱粟及马。",
+      "thread_ref": "FIN-THREAD-LIAO-V22-IMPERIAL-CAMP-FIRE-RELIEF-1067",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-yang-cong-rebellion-leniency-1067",
+      "status": "closed",
+      "summary": "杨从谋反案仅流首恶，其余因被视为无知儿戏而释放。",
+      "thread_ref": "POL-THREAD-LIAO-V22-YANG-CONG-REBELLION-LENIENCY-1067",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v22-nanjing-flood-earthquake-relief-1068",
+      "status": "closed",
+      "summary": "南京霖雨地震及七县水灾后曲赦并复一年租。",
+      "thread_ref": "FIN-THREAD-LIAO-V22-NANJING-FLOOD-EARTHQUAKE-RELIEF-1068",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-royal-clan-exploitation-prohibition-1069",
+      "status": "closed",
+      "summary": "禁止皇族恃势侵渔细民。",
+      "thread_ref": "POL-THREAD-LIAO-V22-ROYAL-CLAN-EXPLOITATION-PROHIBITION-1069",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v22-court-deliberation-on-state-affairs-1069-1071",
+      "status": "closed",
+      "summary": "两度命百官廷议国政及军国事务。",
+      "thread_ref": "POL-THREAD-LIAO-V22-COURT-DELIBERATION-ON-STATE-AFFAIRS-1069-1071",
+      "uncertainties": []
+    }
+  ]
+}

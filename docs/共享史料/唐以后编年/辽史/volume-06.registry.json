@@ -1,0 +1,1075 @@
+{
+  "facts": [
+    {
+      "action": "世宗遇害后，穆宗即位；察割等逆臣被伏诛。",
+      "actors": [],
+      "affected_groups": [
+        "辽穆宗",
+        "察割等逆臣",
+        "皇族",
+        "辽廷官员"
+      ],
+      "cost_or_burden": "世宗此前遇害，察割等被处死；遇害经过、党众范围与处置人数未载。",
+      "fact_id": "CHF-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "穆宗继位并清除弑君集团。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-muzong-accession-and-chagge-purge-951",
+      "source_refs": [
+        "遼史/卷6@2673692#，世宗遇害。逆",
+        "遼史/卷6@2673692#逆臣察割等伏誅。",
+        "遼史/卷6@2673692#即皇帝位，群臣上尊號曰天順皇帝，改元應歷。"
+      ],
+      "time_range": {
+        "end": "951",
+        "precision": "month",
+        "start": "应历元年九月"
+      },
+      "uncertainties": [
+        "察割等的具体人数、审讯程序、世宗遇害细节及政权交接中的军民影响未载。"
+      ]
+    },
+    {
+      "action": "忽古质谋逆被诛；萧眉古得、李澣等谋南奔及婁國等谋乱相继被揭发，眉古得、婁國等被诛；其后又查出宛、嵇幹、敌烈、华割等谋反并分次处置。",
+      "actors": [],
+      "affected_groups": [
+        "辽穆宗",
+        "谋反及谋南奔人员",
+        "宗室",
+        "辽廷官员"
+      ],
+      "cost_or_burden": "涉案者被诛、杖或拘执，实际参与人数、审讯依据与受牵连范围未载。",
+      "fact_id": "CHF-LIAO-V06-COURT-CONSPIRACIES-952-954",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "多起宫廷及宗室相关谋反被镇压，部分涉案者被诛，宛与罨撒葛获释。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V06-COURT-CONSPIRACIES-952-954"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-court-conspiracies-952-954",
+      "source_refs": [
+        "遼史/卷6@2673692#太尉忽古質謀逆，伏誅。",
+        "遼史/卷6@2673692#蕭眉古得、宣政殿學士李澣等謀南奔，事覺，詔暴其罪。",
+        "遼史/卷6@2673692#政事令婁國、林牙敵烈、侍中神都、郎君海裏等謀亂，就執。",
+        "遼史/卷6@2673692#李胡子宛、郎君嵇幹、敵烈謀反，事覺",
+        "遼史/卷6@2673692#華割、嵇幹等伏誅，宛及罨撒葛皆釋之。"
+      ],
+      "time_range": {
+        "end": "952至954",
+        "precision": "range",
+        "start": "应历二年正月至应历四年正月"
+      },
+      "uncertainties": [
+        "各案是否相互关联、具体罪证、被捕人数及家属财产处置未载。"
+      ]
+    },
+    {
+      "action": "北汉受后周侵攻求援，辽廷命高模翰赴援；高模翰与北汉军围晋州。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "北汉军",
+        "后周军",
+        "晋州军民"
+      ],
+      "cost_or_burden": "围城双方兵力、伤亡、城内民生和后续战果未载。",
+      "fact_id": "CHF-LIAO-V06-JINZHOU-RELIEF-FOR-NORTHERN-HAN-952",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军按北汉请求参战并围攻晋州，攻城结局未载。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-JINZHOU-RELIEF-FOR-NORTHERN-HAN-952"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-jinzhou-relief-for-northern-han-952",
+      "source_refs": [
+        "遼史/卷6@2673692#漢為周所侵，遣使求援，命中臺省右相高模翰赴之。",
+        "遼史/卷6@2673692#高模翰及漢兵圍晉州。"
+      ],
+      "time_range": {
+        "end": "952",
+        "precision": "range",
+        "start": "应历二年六月至十二月"
+      },
+      "uncertainties": [
+        "高模翰所率兵力、晋州守军、围城持续时间及撤军情形未载。"
+      ]
+    },
+    {
+      "action": "太保敌烈修易州城，镇州军来挑战时予以击退。",
+      "actors": [],
+      "affected_groups": [
+        "易州军民",
+        "筑城役夫",
+        "辽军",
+        "镇州军"
+      ],
+      "cost_or_burden": "城工规模、役夫来源、经费、伤亡及后续防务配置未载。",
+      "fact_id": "CHF-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "易州城得到修筑，来攻之镇州军被击退。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-yizhou-wall-repair-and-defense-953",
+      "source_refs": [
+        "遼史/卷6@2673692#太保敵烈修易州城，鎮州以兵來挑戰，卻之。"
+      ],
+      "time_range": {
+        "end": "953",
+        "precision": "month",
+        "start": "应历三年二月"
+      },
+      "uncertainties": [
+        "易州城修筑的具体部位、工期、投入资源和镇州军损失未载。"
+      ]
+    },
+    {
+      "action": "因南京水灾，下诏免除当年租赋。",
+      "actors": [],
+      "affected_groups": [
+        "南京民户",
+        "地方征收机构",
+        "辽廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南京民户当年租赋获得减免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-nanjing-flood-tax-remission-953",
+      "source_refs": [
+        "遼史/卷6@2673692#以南京水，詔免今歲租。"
+      ],
+      "time_range": {
+        "end": "953",
+        "precision": "range",
+        "start": "应历三年冬"
+      },
+      "uncertainties": [
+        "水灾范围、受灾户数、免租总额、赈济措施及灾后恢复情况未载。"
+      ]
+    },
+    {
+      "action": "后周攻北汉，辽廷命耶律敌祿援助；忻、代二州叛北汉后，又命撻烈助敌祿讨伐，撻烈在忻口击败后周将符彥卿。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "北汉军",
+        "后周军",
+        "忻州代州军民"
+      ],
+      "cost_or_burden": "作战兵力、双方伤亡、二州民众损失和战后控制方式未载。",
+      "fact_id": "CHF-LIAO-V06-XIN-DAI-RELIEF-CAMPAIGN-954",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军在忻口获胜，后由蕭敌烈、许从赟奏报忻代二州捷。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-XIN-DAI-RELIEF-CAMPAIGN-954"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-xin-dai-relief-campaign-954",
+      "source_refs": [
+        "遼史/卷6@2673692#周攻漢，命政事令耶律敵祿援之。",
+        "遼史/卷6@2673692#遣南院大王撻烈助敵祿討之。",
+        "遼史/卷6@2673692#撻烈敗周將符彥卿於忻口。",
+        "遼史/卷6@2673692#奏忻、代二州捷。"
+      ],
+      "time_range": {
+        "end": "954",
+        "precision": "range",
+        "start": "应历四年二月至十一月"
+      },
+      "uncertainties": [
+        "忻口战斗经过、伤亡、二州叛乱原因和辽军驻留情况未载。"
+      ]
+    },
+    {
+      "action": "北汉方面指出有民众被辽军误掠，辽廷下诏全部归还。",
+      "actors": [],
+      "affected_groups": [
+        "被误掠民众",
+        "辽军",
+        "北汉地方",
+        "辽廷使者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "被认定为误掠的北汉民众获准遣返。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-return-of-miscaptured-han-people-954",
+      "source_refs": [
+        "遼史/卷6@2673692#漢民有為遼軍誤掠者，遣使來請，詔悉歸之。"
+      ],
+      "time_range": {
+        "end": "954",
+        "precision": "month",
+        "start": "应历四年七月"
+      },
+      "uncertainties": [
+        "被归还人数、身份、原籍、遣返执行过程及未被认定者情况未载。"
+      ]
+    },
+    {
+      "action": "女巫肖古进献需以男子胆调和的延年药方，数年间因此杀人甚多；药方被识破为妄后，肖古被射杀。",
+      "actors": [],
+      "affected_groups": [
+        "被害男子",
+        "受害者家属",
+        "女巫肖古",
+        "辽廷执行者"
+      ],
+      "cost_or_burden": "数年间被害男子甚多，确切人数、身份、执行者及家属影响未载。",
+      "fact_id": "CHF-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "以延年药为名的杀人行为被终止，肖古被处死。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-xiaogu-human-bile-fraud-and-execution-957",
+      "source_refs": [
+        "遼史/卷6@2673692#女巫肖古上延年藥方，當用男子膽和之。",
+        "遼史/卷6@2673692#不數年，殺人甚多，至是，覺其妄，辛巳，射殺之。"
+      ],
+      "time_range": {
+        "end": "957",
+        "precision": "month",
+        "start": "应历七年四月"
+      },
+      "uncertainties": [
+        "被害人数、杀害是否合法受命、赔偿抚恤及相关责任人的处置未载。"
+      ]
+    },
+    {
+      "action": "蕭思溫先攻取沿边州县；后周复侵时，辽廷命其为兵马都总管出击，但后周攻拔益津、瓦桥、淤口三关并陷瀛莫二州。周军退后，辽军复容城并发南京军戍范阳。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "后周军",
+        "南京边地军民",
+        "瀛州莫州容城范阳居民"
+      ],
+      "cost_or_burden": "边地城关、州县多次攻守，军民伤亡、俘掠、破坏程度及戍军规模未载。",
+      "fact_id": "CHF-LIAO-V06-ZHOU-NORTHERN-BORDER-WAR-958-959",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军收复容城并加强范阳戍守，但三关及瀛莫二州失陷后的最终归属未载。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-ZHOU-NORTHERN-BORDER-WAR-958-959"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-zhou-northern-border-war-958-959",
+      "source_refs": [
+        "遼史/卷6@2673692#南京留守蕭思溫攻下沿邊州縣，遣人勞之。",
+        "遼史/卷6@2673692#以南京留守蕭思溫為兵馬都總管，擊之。",
+        "遼史/卷6@2673692#周拔益津、瓦橋、淤口三關。",
+        "遼史/卷6@2673692#陷瀛、莫二州。",
+        "遼史/卷6@2673692#，復容城縣。庚",
+        "遼史/卷6@2673692#發南京軍戍范陽。"
+      ],
+      "time_range": {
+        "end": "958至959",
+        "precision": "range",
+        "start": "应历八年四月至应历九年七月"
+      },
+      "uncertainties": [
+        "各城关占复日期、双方兵力伤亡、地方人口财产损失及三关瀛莫最终控制权未载。"
+      ]
+    },
+    {
+      "action": "王子敌烈、海思、萧达干等谋反被查鞫，穆宗祭告逆党事败并召群臣议时政；次年耶律寿远、楚阿不等谋反被诛，喜隐谋反后下狱死。",
+      "actors": [],
+      "affected_groups": [
+        "辽穆宗",
+        "宗室",
+        "谋反人员",
+        "辽廷官员"
+      ],
+      "cost_or_burden": "涉案人员被鞫、处死或死狱中，罪证、连坐范围和审讯结论未载。",
+      "fact_id": "CHF-LIAO-V06-PALACE-REBELLIONS-959-960",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "连续宫廷谋反被压制，多名涉案者伏诛或死狱中。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V06-PALACE-REBELLIONS-959-960"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-palace-rebellions-959-960",
+      "source_refs": [
+        "遼史/卷6@2673692#王子敵烈、前宣徽使海思及蕭達干等謀反，事覺，鞫之。",
+        "遼史/卷6@2673692#召群臣議時政。",
+        "遼史/卷6@2673692#政事令耶律壽遠、太保楚阿不等謀反，伏誅。",
+        "遼史/卷6@2673692#李胡子喜隱謀反，辭連李胡，下獄死。"
+      ],
+      "time_range": {
+        "end": "959至960",
+        "precision": "range",
+        "start": "应历九年十二月至应历十年十月"
+      },
+      "uncertainties": [
+        "各案关联性、参与人数、审讯过程、李胡是否涉案及相关家属处置未载。"
+      ]
+    },
+    {
+      "action": "宋方欲修筑益津关，辽廷命南京留守高勛、统军使崔廷勛率兵扰击。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "宋军",
+        "益津关边地军民",
+        "筑城役夫"
+      ],
+      "cost_or_burden": "双方兵力、伤亡、益津关工程进度和边地民众影响未载。",
+      "fact_id": "CHF-LIAO-V06-YIJING-PASS-COUNTERMEASURE-963",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽廷对宋方益津关筑城计划采取军事干扰，筑城及交战结果未载。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-YIJING-PASS-COUNTERMEASURE-963"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v06-yijing-pass-countermeasure-963",
+      "source_refs": [
+        "遼史/卷6@2673692#宋欲城益津關，命南京留守高勛、統軍使崔廷勛以兵擾之。"
+      ],
+      "time_range": {
+        "end": "963",
+        "precision": "month",
+        "start": "应历十三年正月"
+      },
+      "uncertainties": [
+        "扰击发生地点、宋方工程规模、战斗经过及益津关后续状态未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "因南京水灾免除当年租赋。",
+      "actors": [],
+      "affected_groups": [
+        "南京民户",
+        "地方征收机构",
+        "辽廷"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "南京民户当年租赋获得减免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v06-nanjing-flood-tax-remission-953",
+      "source_refs": [
+        "遼史/卷6@2673692#以南京水，詔免今歲租。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953",
+      "time_range": {
+        "end": "953",
+        "precision": "range",
+        "start": "应历三年冬"
+      },
+      "uncertainties": [
+        "水灾范围、受灾户数、免租总额、赈济措施及灾后恢复情况未载。"
+      ]
+    },
+    {
+      "action": "应北汉请求，将被辽军误掠的民众全部归还。",
+      "actors": [],
+      "affected_groups": [
+        "被误掠民众",
+        "辽军",
+        "北汉地方",
+        "辽廷使者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "被认定为误掠的北汉民众获准遣返。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v06-return-of-miscaptured-han-people-954",
+      "source_refs": [
+        "遼史/卷6@2673692#漢民有為遼軍誤掠者，遣使來請，詔悉歸之。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954",
+      "time_range": {
+        "end": "954",
+        "precision": "month",
+        "start": "应历四年七月"
+      },
+      "uncertainties": [
+        "被归还人数、身份、原籍、遣返执行过程及未被认定者情况未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据服务器固定《遼史》卷6正文登记，未知保持未知。",
+    "普通贡聘、祭祀、巡幸、单次任免和重复行军不单列；战役仅交接新版战役工作流。",
+    "本卷所载边城修筑的规模、工役、财力与伤亡多未载；战争兵力及战果细目亦多未载。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "世宗遇害后穆宗即位，察割等逆臣被伏诛。",
+      "actors": [],
+      "affected_groups": [
+        "辽穆宗",
+        "察割等逆臣",
+        "皇族",
+        "辽廷官员"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951",
+      "continuity_status": "single_event",
+      "cost_or_burden": "世宗此前遇害，察割等被处死；遇害经过、党众范围与处置人数未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "穆宗继位并清除弑君集团。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "穆宗继位并清除弑君集团。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v06-muzong-accession-and-chagge-purge-951",
+      "source_refs": [
+        "遼史/卷6@2673692#，世宗遇害。逆",
+        "遼史/卷6@2673692#逆臣察割等伏誅。",
+        "遼史/卷6@2673692#即皇帝位，群臣上尊號曰天順皇帝，改元應歷。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951",
+      "time_range": {
+        "end": "951",
+        "precision": "month",
+        "start": "应历元年九月"
+      },
+      "uncertainties": [
+        "察割等的具体人数、审讯程序、世宗遇害细节及政权交接中的军民影响未载。"
+      ]
+    },
+    {
+      "action": "应历二至四年连续查处宫廷及宗室相关谋反、谋南奔案件。",
+      "actors": [],
+      "affected_groups": [
+        "辽穆宗",
+        "谋反及谋南奔人员",
+        "宗室",
+        "辽廷官员"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V06-COURT-CONSPIRACIES-952-954",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "涉案者被诛、杖或拘执，实际参与人数、审讯依据与受牵连范围未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-COURT-CONSPIRACIES-952-954"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "多起宫廷及宗室相关谋反被镇压，部分涉案者被诛，宛与罨撒葛获释。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "多起宫廷及宗室相关谋反被镇压，部分涉案者被诛，宛与罨撒葛获释。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v06-court-conspiracies-952-954",
+      "source_refs": [
+        "遼史/卷6@2673692#太尉忽古質謀逆，伏誅。",
+        "遼史/卷6@2673692#蕭眉古得、宣政殿學士李澣等謀南奔，事覺，詔暴其罪。",
+        "遼史/卷6@2673692#政事令婁國、林牙敵烈、侍中神都、郎君海裏等謀亂，就執。",
+        "遼史/卷6@2673692#李胡子宛、郎君嵇幹、敵烈謀反，事覺",
+        "遼史/卷6@2673692#華割、嵇幹等伏誅，宛及罨撒葛皆釋之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V06-COURT-CONSPIRACIES-952-954",
+      "time_range": {
+        "end": "952至954",
+        "precision": "range",
+        "start": "应历二年正月至应历四年正月"
+      },
+      "uncertainties": [
+        "各案是否相互关联、具体罪证、被捕人数及家属财产处置未载。"
+      ]
+    },
+    {
+      "action": "肖古以延年药方致数年杀人甚多，事妄被觉后遭射杀。",
+      "actors": [],
+      "affected_groups": [
+        "被害男子",
+        "受害者家属",
+        "女巫肖古",
+        "辽廷执行者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "数年间被害男子甚多，确切人数、身份、执行者及家属影响未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "以延年药为名的杀人行为被终止，肖古被处死。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "以延年药为名的杀人行为被终止，肖古被处死。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v06-xiaogu-human-bile-fraud-and-execution-957",
+      "source_refs": [
+        "遼史/卷6@2673692#女巫肖古上延年藥方，當用男子膽和之。",
+        "遼史/卷6@2673692#不數年，殺人甚多，至是，覺其妄，辛巳，射殺之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957",
+      "time_range": {
+        "end": "957",
+        "precision": "month",
+        "start": "应历七年四月"
+      },
+      "uncertainties": [
+        "被害人数、杀害是否合法受命、赔偿抚恤及相关责任人的处置未载。"
+      ]
+    },
+    {
+      "action": "应历九至十年连续查处敌烈、寿远、喜隐等谋反案件。",
+      "actors": [],
+      "affected_groups": [
+        "辽穆宗",
+        "宗室",
+        "谋反人员",
+        "辽廷官员"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V06-PALACE-REBELLIONS-959-960",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "涉案人员被鞫、处死或死狱中，罪证、连坐范围和审讯结论未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-PALACE-REBELLIONS-959-960"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "连续宫廷谋反被压制，多名涉案者伏诛或死狱中。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "连续宫廷谋反被压制，多名涉案者伏诛或死狱中。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v06-palace-rebellions-959-960",
+      "source_refs": [
+        "遼史/卷6@2673692#王子敵烈、前宣徽使海思及蕭達干等謀反，事覺，鞫之。",
+        "遼史/卷6@2673692#召群臣議時政。",
+        "遼史/卷6@2673692#政事令耶律壽遠、太保楚阿不等謀反，伏誅。",
+        "遼史/卷6@2673692#李胡子喜隱謀反，辭連李胡，下獄死。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V06-PALACE-REBELLIONS-959-960",
+      "time_range": {
+        "end": "959至960",
+        "precision": "range",
+        "start": "应历九年十二月至应历十年十月"
+      },
+      "uncertainties": [
+        "各案关联性、参与人数、审讯过程、李胡是否涉案及相关家属处置未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "修易州城并击退镇州来挑战之军。",
+      "actors": [],
+      "affected_groups": [
+        "易州军民",
+        "筑城役夫",
+        "辽军",
+        "镇州军"
+      ],
+      "candidate_ref": "WORK-CAND-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953",
+      "continuity_status": "single_event",
+      "cost_or_burden": "城工规模、役夫来源、经费、伤亡及后续防务配置未载。",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "易州城得到修筑，来攻之镇州军被击退。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-liao-v06-yizhou-wall-repair-and-defense-953",
+      "source_refs": [
+        "遼史/卷6@2673692#太保敵烈修易州城，鎮州以兵來挑戰，卻之。"
+      ],
+      "thread_ref": "WORK-THREAD-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953",
+      "time_range": {
+        "end": "953",
+        "precision": "month",
+        "start": "应历三年二月"
+      },
+      "uncertainties": [
+        "易州城修筑的具体部位、工期、投入资源和镇州军损失未载。"
+      ]
+    }
+  ],
+  "registry_version": "LIAO-LIAOSHI-V06-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "应历十三年宋欲城益津关与汉告宋侵",
+    "input_fingerprint": "1549946f9e701877d93d994f988de872e76f625bf3a30c2e818a06c8d8e93b67",
+    "overlap_context": "本卷记穆宗应历元年至十三年。宫廷谋乱、对北汉援军及周宋边境攻防按持续行动和结果合并；普通贡聘、祭祀、巡幸、任免和重复行军不单列。",
+    "revision_ref": "2673692",
+    "start_locator": "穆宗即位与应历元年察割伏诛",
+    "volume_ref": "卷6",
+    "work": "遼史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V06-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v06-muzong-accession-and-chagge-purge-951",
+      "status": "closed",
+      "summary": "世宗遇害后穆宗即位，察割等逆臣被伏诛。",
+      "thread_ref": "POL-THREAD-LIAO-V06-MUZONG-ACCESSION-AND-CHAGGE-PURGE-951",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-COURT-CONSPIRACIES-952-954"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v06-court-conspiracies-952-954",
+      "status": "closed",
+      "summary": "应历二至四年连续查处宫廷及宗室相关谋反、谋南奔案件。",
+      "thread_ref": "POL-THREAD-LIAO-V06-COURT-CONSPIRACIES-952-954",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-liao-v06-yizhou-wall-repair-and-defense-953",
+      "status": "closed",
+      "summary": "修易州城并击退镇州来挑战之军。",
+      "thread_ref": "WORK-THREAD-LIAO-V06-YIZHOU-WALL-REPAIR-AND-DEFENSE-953",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v06-nanjing-flood-tax-remission-953",
+      "status": "closed",
+      "summary": "因南京水灾免除当年租赋。",
+      "thread_ref": "FIN-THREAD-LIAO-V06-NANJING-FLOOD-TAX-REMISSION-953",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v06-return-of-miscaptured-han-people-954",
+      "status": "closed",
+      "summary": "应北汉请求，将被辽军误掠的民众全部归还。",
+      "thread_ref": "FIN-THREAD-LIAO-V06-RETURN-OF-MISCAPTURED-HAN-PEOPLE-954",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v06-xiaogu-human-bile-fraud-and-execution-957",
+      "status": "closed",
+      "summary": "肖古以延年药方致数年杀人甚多，事妄被觉后遭射杀。",
+      "thread_ref": "POL-THREAD-LIAO-V06-XIAOGU-HUMAN-BILE-FRAUD-AND-EXECUTION-957",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V06-PALACE-REBELLIONS-959-960"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v06-palace-rebellions-959-960",
+      "status": "closed",
+      "summary": "应历九至十年连续查处敌烈、寿远、喜隐等谋反案件。",
+      "thread_ref": "POL-THREAD-LIAO-V06-PALACE-REBELLIONS-959-960",
+      "uncertainties": []
+    }
+  ]
+}

@@ -1,0 +1,894 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-164",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷164",
+    "revision_ref": "2319130",
+    "start_locator": "理宗建道備德大功復興烈文仁武聖明安孝皇帝寶慶三年",
+    "end_locator": "卻之。遂議伐金",
+    "overlap_context": "承卷163寶慶二年十二月完顏彝領紫微軍；本卷固定整頁至蒙古議伐金。",
+    "input_fingerprint": "94b5bbf32f3e7d57fa5fc325a609d3ba1e18a8b3d534f5a7fb3b52aa30f285fc"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-164-001",
+      "time": "寶慶三年正月",
+      "loc": [
+        "中京",
+        "汴京"
+      ],
+      "action": "金增築中京城並疏浚汴城外壕。",
+      "result": "兩都防禦工程得到加固。",
+      "quote": "金增築中京城，浚汴城外壕",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明確城牆增築與城壕疏浚。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-002",
+      "time": "寶慶三年正月",
+      "loc": [
+        "楚州"
+      ],
+      "action": "南宋再以姚翀安撫李全部眾。",
+      "implementation": "姚翀仿徐晞稷舊例、加禮楊妙真，寄治僧寺。",
+      "result": "暫獲楊妙真允入城，但制置權仍受李全部控制。",
+      "quote": "朝廷復欲安撫李全",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "淮東軍變後以羈縻代替實際控制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-003",
+      "time": "寶慶三年正月",
+      "loc": [
+        "西夏",
+        "積石州"
+      ],
+      "action": "蒙古留軍攻西夏王城，主力渡河攻金積石州。",
+      "result": "蒙古同時向西夏與金境推進。",
+      "quote": "留兵攻夏王城，自率兵渡河，攻金積石州",
+      "battle": "BATTLE-LEAD-XZZTJ-164-MONGOL-WEST-1227",
+      "battle_reason": "蒙古对夏王城与金积石州的同阶段西征行动。"
+    },
+    {
+      "id": "CHF-XZZTJ-164-004",
+      "time": "寶慶三年二月",
+      "loc": [
+        "平陽"
+      ],
+      "action": "金軍收復平陽，旋又被蒙古攻取。",
+      "implementation": "赫舍哩約赫德收復城池並獲馬三千。",
+      "result": "平陽控制權短期內再次轉歸蒙古。",
+      "quote": "未幾，蒙古復攻取之",
+      "battle": "BATTLE-LEAD-XZZTJ-164-PINGYANG-1227",
+      "battle_reason": "金蒙围绕平阳的连续夺城。"
+    },
+    {
+      "id": "CHF-XZZTJ-164-005",
+      "time": "寶慶三年二月",
+      "loc": [
+        "商州",
+        "朱陽",
+        "盧氏"
+      ],
+      "action": "蒙古突入商州殘破朱陽、盧氏，金將卻虛報小捷。",
+      "implementation": "伊喇布哈僅俘遊騎一人即奏捷受賞，楊居仁微諫。",
+      "result": "軍情被誇大；金主一度怒斥，經宰相勸解不再追究進言者。",
+      "quote": "乃以捷聞，賞世襲穆昆",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "邊將虛報戰功並影響中樞判斷。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-006",
+      "time": "寶慶三年三月",
+      "loc": [
+        "金"
+      ],
+      "action": "金對西夏徵收雙倍稅。",
+      "result": "西夏在蒙古進攻下仍承受金方加倍稅負。",
+      "quote": "金征夏稅二倍",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明確跨政權加倍徵稅。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-007",
+      "time": "寶慶三年三月",
+      "loc": [
+        "德順"
+      ],
+      "action": "海伸、馬肩龍率軍民守德順二十晝夜後城破死難。",
+      "implementation": "僅以義兵鄉兵八九千抵抗蒙古大軍。",
+      "result": "德順陷落，海伸戰死、馬肩龍自剄。",
+      "quote": [
+        "凡攻守二十晝夜城破",
+        "城破，海伸死之，肩龍自剄"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-DESHUN-1227",
+      "battle_reason": "德顺完整攻守至城破。"
+    },
+    {
+      "id": "CHF-XZZTJ-164-008",
+      "time": "寶慶三年五月",
+      "loc": [
+        "青州"
+      ],
+      "action": "李全突圍大敗後向蒙古投降。",
+      "implementation": "蒙古斬首七千餘，城中糧盡；富珠哩以其能招降山東而免殺。",
+      "result": "李全受任山東、淮南、楚州行省，山東郡縣多聞風歸附蒙古。",
+      "quote": [
+        "大敗之，斬首七千餘級",
+        "由是郡縣聞風款附"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-QINGZHOU-1227",
+      "battle_reason": "青州围困、突围失败与招降为连续战役结局。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "蒙古利用投降者继续经营山东与淮南。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-009",
+      "time": "寶慶三年閏五月",
+      "loc": [
+        "金",
+        "蒙古"
+      ],
+      "action": "金遣完顏哈昭向蒙古議和。",
+      "implementation": "群臣多認為和議有利，金廷授使斟酌發遣。",
+      "result": "和使成行，但成約與否本卷未定。",
+      "quote": "乃遣前御史大夫完顏哈昭為議和使",
+      "unknown": [
+        "本次議和未見正式成約。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "金在軍力疑慮下正式派出和使。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-010",
+      "time": "寶慶三年六月",
+      "loc": [
+        "楚州"
+      ],
+      "action": "李福殺劉慶福後又設局殺姚翀幕客並逐走姚翀。",
+      "implementation": "以酒召姚翀，腰斬杜耒；姚翀被救後剃鬚縋城逃走。",
+      "result": "南宋撤銷楚州制置閫，改為淮安軍、以羈縻方式維持名義統治。",
+      "quote": [
+        "福殺之，納其首于姚翀",
+        "楚州不復建閫"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-CHUZHOU-1227",
+      "battle_reason": "李全部内讧及驱逐宋制置使。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "中樞因連續軍變撤除實質制置架構。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-011",
+      "time": "寶慶三年六月",
+      "loc": [
+        "西夏"
+      ],
+      "action": "蒙古攻盡西夏城邑，夏主李睍力屈投降。",
+      "implementation": "居民鑿土石躲避，蒙古軍大規模殺掠。",
+      "result": "立國二百餘年的西夏滅亡，倖存者百無一二、白骨蔽野。",
+      "cost": "西夏人口遭極端殺戮與流離。",
+      "quote": [
+        "免者百無一二，白骨蔽野",
+        "視三國之強弱以為異同，至是乃亡"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-XIXIA-FALL-1227",
+      "battle_reason": "蒙古灭夏的最终攻城与投降链。",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "正文明确记载平民大规模死亡与聚落毁灭。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-012",
+      "time": "寶慶三年六月",
+      "loc": [
+        "西夏"
+      ],
+      "action": "耶律楚材以隨軍所取大黃救治蒙古軍疫病。",
+      "implementation": "諸將多掠人口財帛，楚材僅取書與大黃；疫起後用藥。",
+      "result": "救活一萬人。",
+      "quote": "楚材用之，所活萬人",
+      "groups": [
+        "蒙古軍士"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "戰地疫病救治有明確救活人數。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-013",
+      "time": "寶慶三年七月",
+      "loc": [
+        "薩里川"
+      ],
+      "action": "成吉思汗臨終制定假道南宋、迂回攻金戰略。",
+      "implementation": "判斷潼關難破，擬由唐鄧直搗大梁並擊疲援軍。",
+      "result": "蒙古主去世，拖雷監國；該戰略留待繼承者執行。",
+      "quote": "若假道于宋，宋、金世仇，必能許我",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "最高統帥留下對金戰略與繼承過渡。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-014",
+      "time": "寶慶三年七月",
+      "loc": [
+        "河南"
+      ],
+      "action": "金設四行省並集二十萬精兵構築河南防線。",
+      "implementation": "放棄河北山東關隘，沿潼關、洛陽、三門、孟津至邳州布防。",
+      "result": "形成東西二千餘里的集中防禦帶。",
+      "quote": "立四行省，帥精兵二十萬以守禦之",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "區域行省與大規模兵力重組。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "依關隘與河山構築長距離防線。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-015",
+      "time": "寶慶三年七月",
+      "loc": [
+        "南宋畿甸"
+      ],
+      "action": "南宋針對風雨水災下令賑濟、免稅與富戶貸助。",
+      "implementation": "被水州郡速賑，竹木等稅放免，富室貸款暫緩追還。",
+      "result": "災民獲多種短期救助，實施規模不詳。",
+      "quote": "被水州郡，速議賑濟",
+      "groups": [
+        "水災災民"
+      ],
+      "unknown": [
+        "各州實際發放數量不詳。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "救濟、稅免與貸款緩徵形成一套災後措施。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-016",
+      "time": "寶慶三年八月",
+      "loc": [
+        "楚州",
+        "盱眙"
+      ],
+      "action": "李全部將內鬥殺李福等，朝廷錯判後又致盱眙諸將降金。",
+      "implementation": "國安用等謀殺楊妙真未獲，殺李福及數百人；朝廷令盡戮餘黨，將領因指揮失序縛彭㤞降金。",
+      "result": "盱眙轉歸金，金封張惠、范成進為王。",
+      "cost": "李全部內訌相殺數百。",
+      "quote": [
+        "相屠者數百人",
+        "以盱眙降于金"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-XUYI-1227",
+      "battle_reason": "楚州内斗与盱眙将领叛降是同一处置失序链。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "朝廷多頭指揮與錯誤情報促成邊城倒戈。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-017",
+      "time": "寶慶三年八月",
+      "loc": [
+        "金"
+      ],
+      "action": "金廷誤判蒙古主死後可息兵，撤停城防與軍需。",
+      "implementation": "哈昭回報止殺之言，金主遂罷防城丁壯並停不急租調。",
+      "result": "金減輕當期軍役財賦，但邊備亦被削弱。",
+      "quote": "命有司罷防城及修城丁壯",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "停止部分軍需租調與丁役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "基於錯誤戰略判斷收縮防務。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-018",
+      "time": "寶慶三年九月至十月",
+      "loc": [
+        "楚州"
+      ],
+      "action": "李全獲蒙古授山東行省後返回楚州清除反對者。",
+      "implementation": "身穿蒙古衣冠，文移不用年號；國安用先殺張林、邢德，李全再殺郭統制、誘殺時青。",
+      "result": "李全重新控制楚州及部眾，公開顯示蒙古隸屬。",
+      "quote": [
+        "服蒙古衣冠，文移紀甲子而無年號",
+        "尋復誘殺時青"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-LIQUAN-RETURN-1227",
+      "battle_reason": "李全返楚后连续清洗争夺控制权。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李全以蒙古行省身份重建淮东控制。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-019",
+      "time": "寶慶三年十一月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋因雪寒糴貴發倉米紓民。",
+      "implementation": "出豐儲倉米七萬石。",
+      "result": "京城居民獲平糴或救濟糧。",
+      "quote": "甲辰，以雪寒糴責，出豐儲倉米七萬石以紓民",
+      "groups": [
+        "臨安居民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "雪寒糧價壓力下有明確出倉數量。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-020",
+      "time": "寶慶三年十二月",
+      "loc": [
+        "京兆",
+        "沔州",
+        "西和州"
+      ],
+      "action": "蒙古攻入京兆、武階與西和州，南宋川北防線崩解。",
+      "implementation": "四川制置使鄭損棄沔州，三關不守；西和知州陳寅率民兵苦戰無援。",
+      "result": "西和城破，陳寅及家屬死難，川蜀屏障受損。",
+      "quote": [
+        "四川制置使鄭損棄沔州遁，三關不守",
+        "援兵不至，城遂破"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-SICHUAN-FRONTIER-1227",
+      "battle_reason": "蒙古向京兆武阶西和推进及宋边防连续失守。"
+    },
+    {
+      "id": "CHF-XZZTJ-164-021",
+      "time": "紹定元年正月",
+      "loc": [
+        "江淮"
+      ],
+      "action": "南宋禁止江淮州郡妄徵米舟與增設官租。",
+      "implementation": "並禁官府阻商販、擅設廂房拘押和越界流放小民。",
+      "result": "相關禁約獲批准，執行效果不詳。",
+      "quote": "罪不過杖，輒押出界，流離失業",
+      "unknown": [
+        "地方落實與查處數不詳。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "針對運米、蘆蕩魚池等額外徵租與商禁。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制地方非法拘押與逐出境。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-022",
+      "time": "紹定元年正月",
+      "loc": [
+        "臨安"
+      ],
+      "action": "南宋再次發豐儲倉米七萬石紓民。",
+      "result": "民間糧食供給獲補充。",
+      "quote": "丙申，出豐儲倉米七萬石以紓民",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "與前一批日期不同的獨立出倉。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-023",
+      "time": "紹定元年七月",
+      "loc": [
+        "海州",
+        "青崖崮"
+      ],
+      "action": "李全擴兵造艦準備水戰，赴青州受挫後據青崖崮。",
+      "implementation": "收米商船、留舵工、募南匠造船，迫浮居與失業民眾入伍；與楊妙真閱艦。",
+      "result": "海州形成水軍與戰艦，李全陸戰敗回後加速造舟。",
+      "quote": [
+        "大閱戰艦于海洋",
+        "全旋歸海州，治舟益急"
+      ],
+      "battle": "BATTLE-LEAD-XZZTJ-164-LIQUAN-NAVY-1228",
+      "battle_reason": "李全扩军造舰与青州受阻后的连续军事准备。",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大規模建造戰艦並訓練水戰。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "失業寨民、浮居戶與米商船舶被捲入軍事動員。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-024",
+      "time": "紹定元年八月",
+      "loc": [
+        "潭州",
+        "湘州"
+      ],
+      "action": "曾從龍建立惠民倉，以貸糶替代不可持續的常賑。",
+      "implementation": "撥錢十萬有奇分至潭湘十縣，令佐糶米，比附常平法。",
+      "result": "十縣建立可循環的惠民糧倉機制。",
+      "quote": "置惠民倉比附常平法",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "有資本金、覆蓋縣數與糴糶制度。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-025",
+      "time": "紹定元年八月",
+      "loc": [
+        "歸德"
+      ],
+      "action": "金增築歸德城並因民勞削減工程量。",
+      "implementation": "原擬工數百萬，白華勘役後減三分之一。",
+      "result": "城防續建但徭役規模下降。",
+      "quote": "減工三之一",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "城防工程量因民力考量被明確削減。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "減少徭役與工程負擔。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-026",
+      "time": "紹定元年十月",
+      "loc": [
+        "餘姚"
+      ],
+      "action": "南宋廢止餘姚斷塘鹽灶。",
+      "implementation": "因鹽灶擾亂聚落並淹漂良田，採納李知孝奏請。",
+      "result": "涉事鹽灶被罷，良田水患源獲移除。",
+      "quote": "擾生聚，漂良田，請行廢罷",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "撤除造成水害的塘灶設施。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "保護聚落與農田免受鹽務工程侵害。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-027",
+      "time": "紹定元年十月",
+      "loc": [
+        "南宋"
+      ],
+      "action": "南宋嚴飭和糴官吏不得多取增量。",
+      "result": "農民與官府糴糧交易獲制度性保護，實效不詳。",
+      "quote": "毋得多取增量，庶農民不憚與官為市",
+      "unknown": [
+        "後續違規查處數不詳。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制官糴加耗以保護售糧農民。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-028",
+      "time": "紹定元年十一月",
+      "loc": [
+        "楚州",
+        "平江",
+        "嘉興"
+      ],
+      "action": "李全以運糧為名派海舟窺探畿甸，宋廷仍持續供餉。",
+      "implementation": "兼以宋餉貿貨輸蒙古，又聯絡金並求復建山陽帥閫。",
+      "result": "各項政治企圖未成，但宋廷因北顧需要未中斷供給。",
+      "quote": "實欲習海道以覘畿甸",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "李全同時利用宋蒙金三方並試探畿甸。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南宋餉糧被轉化為對蒙古歲貢貿貨。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-029",
+      "time": "紹定元年十二月",
+      "loc": [
+        "南宋"
+      ],
+      "action": "南宋建立將帥協調與人才跨區調用規則。",
+      "implementation": "制司須即時裁決將帥不協，智勇偏裨不得被占留；有警各面不得觀望。",
+      "result": "形成反對分疆與大將嫉才的命令，執行結果未知。",
+      "quote": "毋得輒分疆界觀望",
+      "unknown": [
+        "實際軍令落實不詳。"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "針對多頭軍令與將領內耗的制度約束。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-030",
+      "time": "紹定元年十二月",
+      "loc": [
+        "燕京"
+      ],
+      "action": "蒙古清剿燕京殺掠盜黨。",
+      "implementation": "塔齊爾、耶律楚材窮治其黨，僅誅首惡十六人。",
+      "result": "群盜斂跡。",
+      "quote": "誅首惡十六人，群盜屏跡",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限定首惡的城市治安整肅。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-031",
+      "time": "紹定二年正月至二月",
+      "loc": [
+        "南宋"
+      ],
+      "action": "南宋加強賦籍過割、廉吏保任及反請託規則。",
+      "implementation": "漕臣查實二稅版籍；歲舉廉吏若犯奸贓舉主同罪；禁書尺請託與苞苴。",
+      "result": "地方財政與官員保舉形成連帶監督。",
+      "quote": "如犯奸贓，與之同罪",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以連坐強化廉吏保任。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "要求二稅從實過割銷籍。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-032",
+      "time": "紹定二年二月",
+      "loc": [
+        "南宋州縣"
+      ],
+      "action": "南宋限制獄囚瘐死與違制催科。",
+      "implementation": "憲司每年報瘐死最多獄官並重貶；催科須按常制、不得差州官或寄居人權攝。",
+      "result": "建立按死亡數追責與催科主體限制。",
+      "quote": "州縣系囚瘐死最多者，具獄官姓名以聞",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "監督刑獄死亡並追究獄官。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制違制催科對民戶的侵擾。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-033",
+      "time": "紹定二年四月至五月",
+      "loc": [
+        "成都",
+        "潼川",
+        "吳江"
+      ],
+      "action": "南宋因旱賑成都潼川並恢復吳江石塘維修。",
+      "implementation": "考核郡縣賑恤勤惰；抽回被他役占用的修塘兵，委平江通判補葺。",
+      "result": "兩路旱賑啟動，浙西漕運關鍵堤塘恢復專兵維護。",
+      "quote": [
+        "疾速措置賑恤，務要實惠及民",
+        "不得輒有抽差"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "旱災救濟並考核地方執行。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "石塘防水與漕運工程恢復維修。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-034",
+      "time": "紹定二年七月至八月",
+      "loc": [
+        "陝西",
+        "鞏昌"
+      ],
+      "action": "金裁減陝西軍中浮費，完顏仲德以屯田招集散亡。",
+      "implementation": "整軍數萬、依山立柵、嚴號令並積穀。",
+      "result": "人口歸附，當地獲得局部小康。",
+      "quote": "屯田積穀，人多歸之，一方獨得小康",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "裁浮費、屯田與招流亡共同恢復地方生計。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "依山設柵形成防禦聚落。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-035",
+      "time": "紹定二年八月",
+      "loc": [
+        "福建",
+        "二廣"
+      ],
+      "action": "南宋禁止州縣按戶口額外敷鹽。",
+      "implementation": "命漕司嚴察，憲司巡部並允許民眾陳訴。",
+      "result": "鹽務克剝被納入跨司監察，實際成效不詳。",
+      "quote": "籍戶口以敷鹽，民被其擾",
+      "unknown": [
+        "禁令後實際減免戶數不詳。"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "針對常賦之外的戶口鹽攤。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-036",
+      "time": "紹定二年八月",
+      "loc": [
+        "和林"
+      ],
+      "action": "拖雷與諸王奉窩闊臺即蒙古大汗位。",
+      "implementation": "耶律楚材促早定大計、制定冊立禮，並建議禁止中原長吏自專生殺。",
+      "result": "蒙古完成權力交接，首次建立較正式即位禮與生命司法限制。",
+      "quote": [
+        "奉諤格德依即位",
+        "長吏皆得自專生殺；楚材以為言，命禁絕之"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "帝位繼承與中原行政規則同步確立。"
+        ]
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-164-037",
+      "time": "紹定二年九月",
+      "loc": [
+        "蒙古",
+        "金"
+      ],
+      "action": "窩闊臺拒絕金遣奠賻並決定再伐金。",
+      "implementation": "以金久不降、令太祖老於兵間為由退回賻禮。",
+      "result": "金蒙和解可能性終止，蒙古轉入新一輪攻金準備。",
+      "quote": "卻之。遂議伐金",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新大汗以拒絕弔慰明示對金戰爭方針。"
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "純任免、天象、泛泛經筵與未落實奏議不建卡。",
+    "同一地點的反覆軍變按連續因果鏈合併，不以人名任職拆卡。",
+    "各政體人物與目標均只依本卷正文路由，未知效果保持unknown。"
+  ]
+}

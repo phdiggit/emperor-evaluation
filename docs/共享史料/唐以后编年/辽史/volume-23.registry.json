@@ -1,0 +1,1981 @@
+{
+  "facts": [
+    {
+      "action": "乌古敌烈部详稳耶律巢等报告北边获胜；因战中杀人众多，辽廷在南京、中京饭僧，并授耶律巢等讨北部功者官职。",
+      "actors": [],
+      "affected_groups": [
+        "乌古敌烈部军",
+        "北边敌对者",
+        "南京中京僧人",
+        "受奖将领"
+      ],
+      "cost_or_burden": "原文明示战中杀人多；双方兵力、伤亡、战场与饭僧规模未载。",
+      "fact_id": "CHF-LIAO-V23-NORTH-BORDER-CAMPAIGN-1072",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北边作战获捷，胜方将领因讨北部功受奖，战后另有饭僧安排。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-NORTH-BORDER-1072"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-north-border-campaign-1072",
+      "source_refs": [
+        "遼史/卷23@1748547#烏古敵烈部詳穩耶律巢等奏克北邊捷。",
+        "遼史/卷23@1748547#以戰多殺人，飯僧南京、中京。",
+        "遼史/卷23@1748547#以討北部功，烏古敵烈部詳穩耶律巢知北院大王事"
+      ],
+      "time_range": {
+        "end": "1072",
+        "precision": "range",
+        "start": "咸雍八年正月至二月"
+      },
+      "uncertainties": [
+        "敌对主体、战斗经过、伤亡数、饭僧人数和授官范围未载。"
+      ]
+    },
+    {
+      "action": "岁饥后朝廷免武安州租税并赈数州民众，续赈义饶、易州、中京、兴中府及饶州饥民；又免祖州税、许民因大雪樵采禁地，并赐延昌宫贫户钱。",
+      "actors": [],
+      "affected_groups": [
+        "各州饥民",
+        "祖州纳税者",
+        "禁地附近民众",
+        "延昌宫贫户"
+      ],
+      "cost_or_burden": "赈济钱粮、免税额、樵采范围、受助人数和恢复情况未载。",
+      "fact_id": "CHF-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "卷内记录多州赈济、免税、开放樵采及贫户给钱等连续救助。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-regional-relief-tax-remission-and-poor-household-aid-1072",
+      "source_refs": [
+        "遼史/卷23@1748547#歲饑，免武安州租稅，振恩、蔚、順、惠等州民。",
+        "遼史/卷23@1748547#振義、饒二州民。",
+        "遼史/卷23@1748547#振易州貧民。",
+        "遼史/卷23@1748547#己未，振中京。",
+        "遼史/卷23@1748547#，振興中府。甲",
+        "遼史/卷23@1748547#丙申，振饒州饑民。",
+        "遼史/卷23@1748547#，免祖州稅。丙",
+        "遼史/卷23@1748547#大雪，許民樵采禁地。",
+        "遼史/卷23@1748547#賜延昌宮貧戶錢。"
+      ],
+      "time_range": {
+        "end": "1072",
+        "precision": "range",
+        "start": "咸雍八年二月至十二月"
+      },
+      "uncertainties": [
+        "各项救助的灾因是否相同、钱粮数额、免税期限和民众恢复未载。"
+      ]
+    },
+    {
+      "action": "八石烈敌烈人杀其节度使而叛，辽廷命隗乌古部军分道攻击。",
+      "actors": [],
+      "affected_groups": [
+        "八石烈敌烈叛众",
+        "被杀节度使",
+        "隗乌古部军"
+      ],
+      "cost_or_burden": "被杀节度使及出击双方的兵力、伤亡、行军和结果未载。",
+      "fact_id": "CHF-LIAO-V23-BASHILIE-DILIE-REBELLION-1073",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "针对八石烈敌烈叛乱的分道出击被下令，卷内未载战果。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-BASHILIE-DILIE-REBELLION-1073"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-bashilie-dilie-rebellion-1073",
+      "source_refs": [
+        "遼史/卷23@1748547#八石烈敵烈人殺其節度使以叛。",
+        "遼史/卷23@1748547#詔隗烏古部軍分道擊之。"
+      ],
+      "time_range": {
+        "end": "1073",
+        "precision": "month",
+        "start": "咸雍九年七月"
+      },
+      "uncertainties": [
+        "叛乱原因、战场、战果、伤亡与后续安置未载。"
+      ]
+    },
+    {
+      "action": "朝廷规定行幸之地免租一年，随后蠲免平州复业民的租赋。",
+      "actors": [],
+      "affected_groups": [
+        "行幸地居民",
+        "平州复业民",
+        "地方纳税者"
+      ],
+      "cost_or_burden": "免租区域、复业民户数、租赋额度及财政减收未载。",
+      "fact_id": "CHF-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "行幸地居民与平州复业民分别获得一年免租和租赋蠲免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-travel-area-and-recovering-household-tax-remissions-1073-1074",
+      "source_refs": [
+        "遼史/卷23@1748547#詔行幸之地免租一年。",
+        "遼史/卷23@1748547#蠲平州復業民租賦。"
+      ],
+      "time_range": {
+        "end": "1073—1074",
+        "precision": "range",
+        "start": "咸雍九年至十年"
+      },
+      "uncertainties": [
+        "行幸地范围、平州复业条件、免除期限及实施结果未载。"
+      ]
+    },
+    {
+      "action": "道宗亲出题试进士，令臣庶言得失，在永安殿策贤良，并命有司颁行《史记》《汉书》。",
+      "actors": [],
+      "affected_groups": [
+        "进士",
+        "贤良应试者",
+        "臣庶",
+        "有司",
+        "读书者"
+      ],
+      "cost_or_burden": "应试人数、录取结果、言事采纳和书籍印制传播成本未载。",
+      "fact_id": "CHF-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "卷内记载皇帝直接参与进士与贤良考试、开放言得失，并下令颁行两部史书。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-imperial-testing-xianliang-and-histories-1074",
+      "source_refs": [
+        "遼史/卷23@1748547#親出題試進士。",
+        "遼史/卷23@1748547#詔臣庶言得失。",
+        "遼史/卷23@1748547#禦永安殿，策賢良。",
+        "遼史/卷23@1748547#詔有司頒行《史記》、《漢書》。"
+      ],
+      "time_range": {
+        "end": "1074",
+        "precision": "range",
+        "start": "咸雍十年六月至十月"
+      },
+      "uncertainties": [
+        "试题、录取人数、进言内容、书籍数量与颁行范围未载。"
+      ]
+    },
+    {
+      "action": "朝廷赈云州饥民，祥州火后遣使恤灾，继赈平州、平灤二州与南京贫民；南京饥时免租税一年并出钱粟赈济。",
+      "actors": [],
+      "affected_groups": [
+        "云州饥民",
+        "祥州火灾受灾者",
+        "平灤二州饥民",
+        "南京贫民与饥民"
+      ],
+      "cost_or_burden": "赈济钱粟、火灾损失、南京免税额度及受助人数未载。",
+      "fact_id": "CHF-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "多地饥荒和火灾获得赈济，南京另有一年租税减免及钱粟救助。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-regional-disaster-relief-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#，振雲州饑。二",
+        "遼史/卷23@1748547#祥州火，遣使恤災。",
+        "遼史/卷23@1748547#，振平州饑。己",
+        "遼史/卷23@1748547#振平、灤二州饑。",
+        "遼史/卷23@1748547#振南京貧民。",
+        "遼史/卷23@1748547#以南京饑，免租稅一年，仍出錢粟振之。"
+      ],
+      "time_range": {
+        "end": "1075",
+        "precision": "range",
+        "start": "大康元年正月至九月"
+      },
+      "uncertainties": [
+        "各灾害规模、赈济标准、钱粟数额、免税户数和恢复情况未载。"
+      ]
+    },
+    {
+      "action": "知三司使事韩操因钱谷增羡被授三司使。",
+      "actors": [],
+      "affected_groups": [
+        "三司",
+        "钱谷管理者",
+        "韩操"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "本卷明载钱谷出现增羡，并以此作为授任三司使的依据。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-three-departments-surplus-record-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#知三司使事韓操以錢穀增羨，授三司使。"
+      ],
+      "time_range": {
+        "end": "1075",
+        "precision": "month",
+        "start": "大康元年六月"
+      },
+      "uncertainties": [
+        "钱谷增羡数额、核算口径、增羡来源和后续用途未载。"
+      ]
+    },
+    {
+      "action": "朝廷命皇太子总领朝政，并予以戒谕。",
+      "actors": [],
+      "affected_groups": [
+        "皇太子",
+        "朝政参与者",
+        "辽廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "皇太子获得总领朝政的明示委任。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-crown-prince-governance-delegation-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#詔皇太子總領朝政，仍戒諭之。"
+      ],
+      "time_range": {
+        "end": "1075",
+        "precision": "month",
+        "start": "大康元年六月"
+      },
+      "uncertainties": [
+        "皇太子实际权限、参与政务范围、戒谕内容和执行时长未载。"
+      ]
+    },
+    {
+      "action": "皇后被诬后被赐死，赵惟一、高长命被杀，家属一并籍没。",
+      "actors": [],
+      "affected_groups": [
+        "皇后",
+        "赵惟一",
+        "高长命",
+        "被籍没家属"
+      ],
+      "cost_or_burden": "皇后被诬事由、伶人罪名、家属人数、财产处置和审理程序未载。",
+      "fact_id": "CHF-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "本卷记载皇后死亡及两名伶人与家属遭处置。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-empress-execution-and-household-confiscation-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#皇后被誣，賜死；殺伶人趙惟一、高長命，並籍其家屬。"
+      ],
+      "time_range": {
+        "end": "1075",
+        "precision": "month",
+        "start": "大康元年十一月"
+      },
+      "uncertainties": [
+        "指控来源、案件关系、证据、审理与后续影响未载。"
+      ]
+    },
+    {
+      "action": "皇太后崩后，辽廷向宋、高丽、夏报哀并大赦，追号仁懿皇后，后葬于庆陵。",
+      "actors": [],
+      "affected_groups": [
+        "皇太后",
+        "宋高丽夏国使节",
+        "在押罪人",
+        "丧仪参与者"
+      ],
+      "cost_or_burden": "丧礼支出、赦免范围、对外使节与葬仪规模未载。",
+      "fact_id": "CHF-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "太后死亡引发对外报哀、大赦、追号及葬礼等国家丧仪处置。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-emperor-dowager-death-and-state-mourning-1076",
+      "source_refs": [
+        "遼史/卷23@1748547#，皇太后崩。壬",
+        "遼史/卷23@1748547#。丁卯，大赦。戊",
+        "遼史/卷23@1748547#葬仁懿皇后於慶陵。"
+      ],
+      "time_range": {
+        "end": "1076",
+        "precision": "range",
+        "start": "大康二年三月至六月"
+      },
+      "uncertainties": [
+        "报哀往来细节、赦免人数、丧礼费用和政权交接影响未载。"
+      ]
+    },
+    {
+      "action": "南京发生蝗灾后，朝廷免除次年租税；同年南京地震，多数民舍损坏。",
+      "actors": [],
+      "affected_groups": [
+        "南京纳税者",
+        "南京蝗灾受灾者",
+        "地震受灾户"
+      ],
+      "cost_or_burden": "蝗灾和地震损失、免税额度、受灾户数与震后救助未载。",
+      "fact_id": "CHF-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "南京蝗灾获得次年免税，卷内另记录地震导致民舍多坏。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-nanjing-locust-tax-remission-and-earthquake-1076",
+      "source_refs": [
+        "遼史/卷23@1748547#以南京蝗，免明年租稅。",
+        "遼史/卷23@1748547#南京地震，民舍多壞。"
+      ],
+      "time_range": {
+        "end": "1076",
+        "precision": "range",
+        "start": "大康二年九月至十一月"
+      },
+      "uncertainties": [
+        "蝗灾与地震之间无明示因果，免税执行和震后救助未载。"
+      ]
+    },
+    {
+      "action": "朝廷省除诸道春贡金帛、停止一年输纳尚方银；中京饥荒时又罢巡幸。",
+      "actors": [],
+      "affected_groups": [
+        "诸道贡输者",
+        "尚方银输纳者",
+        "中京饥民",
+        "巡幸随从"
+      ],
+      "cost_or_burden": "减免金帛和银额、中京饥荒规模及停巡幸的财政影响未载。",
+      "fact_id": "CHF-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "诸道贡输与尚方银负担被减停，中京饥荒导致巡幸取消。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-tribute-silver-relief-and-stopped-tour-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#省諸道春貢金帛，及停周歲所輸尚方銀。",
+        "遼史/卷23@1748547#中京饑，罷巡幸。"
+      ],
+      "time_range": {
+        "end": "1077",
+        "precision": "range",
+        "start": "大康三年正月至三月"
+      },
+      "uncertainties": [
+        "减免对象、数额、是否有替代收入及中京救助措施未载。"
+      ]
+    },
+    {
+      "action": "耶律乙辛奏称有人告萧速撒等八人谋立皇太子，皇帝认为无状而未治；随后仍将速撒等三人外补、告发护卫等受鞭徙边，并下诏重赏告谋逆者。",
+      "actors": [],
+      "affected_groups": [
+        "耶律乙辛",
+        "萧速撒等",
+        "告发护卫",
+        "皇太子"
+      ],
+      "cost_or_burden": "被外补、鞭徙者的具体身份、处分依据、告发奖励内容及案件真伪未载。",
+      "fact_id": "CHF-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "首次指控虽未正式治罪，相关官员和护卫仍被处置，告谋逆的奖赏被加重。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-alleged-crown-prince-plot-and-accuser-rewards-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#上以無狀，不治，出速撒等三人補外，護衛撒撥等六人各鞭百餘，徙於邊。",
+        "遼史/卷23@1748547#詔告謀逆事者，重加官賞。"
+      ],
+      "time_range": {
+        "end": "1077",
+        "precision": "month",
+        "start": "大康三年五月"
+      },
+      "uncertainties": [
+        "最初告发内容、无状判断理由、外补与鞭徙过程、告发奖励是否实际发放未载。"
+      ]
+    },
+    {
+      "action": "萧讹都斡诬称曾参与速撒等谋，朝廷命乙辛等鞫治，杖皇太子并囚宫中；随后连续杀宿直、宣徽、节度使等被指涉案者，杀速撒诸子并籍其家。",
+      "actors": [],
+      "affected_groups": [
+        "皇太子",
+        "萧讹都斡",
+        "耶律乙辛等审讯者",
+        "被指涉案者",
+        "被籍没家属"
+      ],
+      "cost_or_burden": "原文至少载三人、二人、十人等被杀，另有速撒及其诸子；完整人数、审讯证据和家产处置未载。",
+      "fact_id": "CHF-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "储君被杖囚，相关被指谋立者及家属遭连续处决和籍没。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-crown-prince-detention-and-alleged-plotter-purge-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#耶律乙辛令牌印郎君蕭訛都斡誣首嘗預速撒等謀，籍其姓名以告。",
+        "遼史/卷23@1748547#杖皇太子，囚之宮中。",
+        "遼史/卷23@1748547#殺宿直官敵裏剌等三人。",
+        "遼史/卷23@1748547#殺始平軍節度使撒剌等十人，又遣使殺上京留守速撒",
+        "遼史/卷23@1748547#殺速撒等諸子，籍其家。"
+      ],
+      "time_range": {
+        "end": "1077",
+        "precision": "range",
+        "start": "大康三年六月至七月"
+      },
+      "uncertainties": [
+        "诬首内容、证据、审讯程序、被杀总人数、皇太子伤情和家属后续未载。"
+      ]
+    },
+    {
+      "action": "朝廷废皇太子为庶人并囚于上京；同年十一月，乙辛遣私人在上京盗杀庶人浚。",
+      "actors": [],
+      "affected_groups": [
+        "废太子浚",
+        "耶律乙辛",
+        "上京看守与居民"
+      ],
+      "cost_or_burden": "废立程序、囚禁条件、私人杀害执行者、皇帝知情与后续追责未载。",
+      "fact_id": "CHF-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "皇太子被废囚，后在上京被乙辛私人杀害。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-crown-prince-deposition-and-murder-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#廢皇太子為庶人，囚之上京。",
+        "遼史/卷23@1748547#北院樞密使耶律乙辛遣其私人盜殺庶人浚於上京。"
+      ],
+      "time_range": {
+        "end": "1077",
+        "precision": "range",
+        "start": "大康三年六月至十一月"
+      },
+      "uncertainties": [
+        "废太子事实认定、杀害命令链、实施者及政治后果未载。"
+      ]
+    },
+    {
+      "action": "朝廷赈济东京饥民。",
+      "actors": [],
+      "affected_groups": [
+        "东京饥民",
+        "地方赈济执行者"
+      ],
+      "cost_or_burden": "灾情规模、赈济物资、受助人数和恢复情况未载。",
+      "fact_id": "CHF-LIAO-V23-TOKYO-FAMINE-RELIEF-1078",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "东京饥民获得赈济。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-TOKYO-FAMINE-RELIEF-1078"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-tokyo-famine-relief-1078",
+      "source_refs": [
+        "遼史/卷23@1748547#，振東京饑。二"
+      ],
+      "time_range": {
+        "end": "1078",
+        "precision": "month",
+        "start": "大康四年正月"
+      },
+      "uncertainties": [
+        "灾因、赈济标准、钱粮数额与后续恢复未载。"
+      ]
+    },
+    {
+      "action": "高丽遣使请求赐予鸭绿江以东土地，辽廷不许。",
+      "actors": [],
+      "affected_groups": [
+        "高丽",
+        "鸭绿江以东居民",
+        "辽廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "高丽的鸭绿江以东领土请求被拒绝。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-koryo-yalu-territorial-request-rejection-1078",
+      "source_refs": [
+        "遼史/卷23@1748547#高麗遣使乞賜鴨淥江以東地，不許。"
+      ],
+      "time_range": {
+        "end": "1078",
+        "precision": "month",
+        "start": "大康四年四月"
+      },
+      "uncertainties": [
+        "请求范围、辽廷拒绝理由、边界现状及后续交涉未载。"
+      ]
+    },
+    {
+      "action": "诸路奏报饭僧尼三十六万。",
+      "actors": [],
+      "affected_groups": [
+        "僧尼",
+        "诸路供给者",
+        "地方居民"
+      ],
+      "cost_or_burden": "饭僧尼的时间范围、粮食和钱物来源、单位口径及是否为累计人数未载。",
+      "fact_id": "CHF-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "卷内记录诸路饭僧尼数量为三十六万。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v23-monastic-feeding-reported-1078",
+      "source_refs": [
+        "遼史/卷23@1748547#諸路奏飯僧尼三十六萬。"
+      ],
+      "time_range": {
+        "end": "1078",
+        "precision": "month",
+        "start": "大康四年七月"
+      },
+      "uncertainties": [
+        "三十六万统计口径、所耗资源、受供僧尼分布和财政影响未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "岁饥后连续实施多州赈济、免税、开放樵采和贫户给钱。",
+      "actors": [],
+      "affected_groups": [
+        "各州饥民",
+        "祖州纳税者",
+        "禁地附近民众",
+        "延昌宫贫户"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072",
+      "continuity_status": "single_event",
+      "cost_or_burden": "赈济钱粮、免税额、樵采范围、受助人数和恢复情况未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "卷内记录多州赈济、免税、开放樵采及贫户给钱等连续救助。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-regional-relief-tax-remission-and-poor-household-aid-1072",
+      "source_refs": [
+        "遼史/卷23@1748547#歲饑，免武安州租稅，振恩、蔚、順、惠等州民。",
+        "遼史/卷23@1748547#振義、饒二州民。",
+        "遼史/卷23@1748547#振易州貧民。",
+        "遼史/卷23@1748547#己未，振中京。",
+        "遼史/卷23@1748547#，振興中府。甲",
+        "遼史/卷23@1748547#丙申，振饒州饑民。",
+        "遼史/卷23@1748547#，免祖州稅。丙",
+        "遼史/卷23@1748547#大雪，許民樵采禁地。",
+        "遼史/卷23@1748547#賜延昌宮貧戶錢。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072",
+      "time_range": {
+        "end": "1072",
+        "precision": "range",
+        "start": "咸雍八年二月至十二月"
+      },
+      "uncertainties": [
+        "各项救助的灾因是否相同、钱粮数额、免税期限和民众恢复未载。"
+      ]
+    },
+    {
+      "action": "免行幸地一年租并蠲平州复业民租赋。",
+      "actors": [],
+      "affected_groups": [
+        "行幸地居民",
+        "平州复业民",
+        "地方纳税者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "免租区域、复业民户数、租赋额度及财政减收未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "行幸地居民与平州复业民分别获得一年免租和租赋蠲免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-travel-area-and-recovering-household-tax-remissions-1073-1074",
+      "source_refs": [
+        "遼史/卷23@1748547#詔行幸之地免租一年。",
+        "遼史/卷23@1748547#蠲平州復業民租賦。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074",
+      "time_range": {
+        "end": "1073—1074",
+        "precision": "range",
+        "start": "咸雍九年至十年"
+      },
+      "uncertainties": [
+        "行幸地范围、平州复业条件、免除期限及实施结果未载。"
+      ]
+    },
+    {
+      "action": "多地饥火获赈，南京另免一年租税并出钱粟。",
+      "actors": [],
+      "affected_groups": [
+        "云州饥民",
+        "祥州火灾受灾者",
+        "平灤二州饥民",
+        "南京贫民与饥民"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075",
+      "continuity_status": "single_event",
+      "cost_or_burden": "赈济钱粟、火灾损失、南京免税额度及受助人数未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "多地饥荒和火灾获得赈济，南京另有一年租税减免及钱粟救助。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-regional-disaster-relief-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#，振雲州饑。二",
+        "遼史/卷23@1748547#祥州火，遣使恤災。",
+        "遼史/卷23@1748547#，振平州饑。己",
+        "遼史/卷23@1748547#振平、灤二州饑。",
+        "遼史/卷23@1748547#振南京貧民。",
+        "遼史/卷23@1748547#以南京饑，免租稅一年，仍出錢粟振之。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075",
+      "time_range": {
+        "end": "1075",
+        "precision": "range",
+        "start": "大康元年正月至九月"
+      },
+      "uncertainties": [
+        "各灾害规模、赈济标准、钱粟数额、免税户数和恢复情况未载。"
+      ]
+    },
+    {
+      "action": "钱谷增羡被明载，并成为韩操授三司使的依据。",
+      "actors": [],
+      "affected_groups": [
+        "三司",
+        "钱谷管理者",
+        "韩操"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "本卷明载钱谷出现增羡，并以此作为授任三司使的依据。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-three-departments-surplus-record-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#知三司使事韓操以錢穀增羨，授三司使。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075",
+      "time_range": {
+        "end": "1075",
+        "precision": "month",
+        "start": "大康元年六月"
+      },
+      "uncertainties": [
+        "钱谷增羡数额、核算口径、增羡来源和后续用途未载。"
+      ]
+    },
+    {
+      "action": "南京蝗灾免次年租税，同年地震民舍多坏。",
+      "actors": [],
+      "affected_groups": [
+        "南京纳税者",
+        "南京蝗灾受灾者",
+        "地震受灾户"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076",
+      "continuity_status": "single_event",
+      "cost_or_burden": "蝗灾和地震损失、免税额度、受灾户数与震后救助未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "南京蝗灾获得次年免税，卷内另记录地震导致民舍多坏。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-nanjing-locust-tax-remission-and-earthquake-1076",
+      "source_refs": [
+        "遼史/卷23@1748547#以南京蝗，免明年租稅。",
+        "遼史/卷23@1748547#南京地震，民舍多壞。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076",
+      "time_range": {
+        "end": "1076",
+        "precision": "range",
+        "start": "大康二年九月至十一月"
+      },
+      "uncertainties": [
+        "蝗灾与地震之间无明示因果，免税执行和震后救助未载。"
+      ]
+    },
+    {
+      "action": "省春贡金帛、停一年尚方银输纳，并因中京饥荒罢巡幸。",
+      "actors": [],
+      "affected_groups": [
+        "诸道贡输者",
+        "尚方银输纳者",
+        "中京饥民",
+        "巡幸随从"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077",
+      "continuity_status": "single_event",
+      "cost_or_burden": "减免金帛和银额、中京饥荒规模及停巡幸的财政影响未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "诸道贡输与尚方银负担被减停，中京饥荒导致巡幸取消。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-tribute-silver-relief-and-stopped-tour-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#省諸道春貢金帛，及停周歲所輸尚方銀。",
+        "遼史/卷23@1748547#中京饑，罷巡幸。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077",
+      "time_range": {
+        "end": "1077",
+        "precision": "range",
+        "start": "大康三年正月至三月"
+      },
+      "uncertainties": [
+        "减免对象、数额、是否有替代收入及中京救助措施未载。"
+      ]
+    },
+    {
+      "action": "赈济东京饥民。",
+      "actors": [],
+      "affected_groups": [
+        "东京饥民",
+        "地方赈济执行者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-TOKYO-FAMINE-RELIEF-1078",
+      "continuity_status": "single_event",
+      "cost_or_burden": "灾情规模、赈济物资、受助人数和恢复情况未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-TOKYO-FAMINE-RELIEF-1078"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "东京饥民获得赈济。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-tokyo-famine-relief-1078",
+      "source_refs": [
+        "遼史/卷23@1748547#，振東京饑。二"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-TOKYO-FAMINE-RELIEF-1078",
+      "time_range": {
+        "end": "1078",
+        "precision": "month",
+        "start": "大康四年正月"
+      },
+      "uncertainties": [
+        "灾因、赈济标准、钱粮数额与后续恢复未载。"
+      ]
+    },
+    {
+      "action": "诸路奏报饭僧尼三十六万，资源规模未载。",
+      "actors": [],
+      "affected_groups": [
+        "僧尼",
+        "诸路供给者",
+        "地方居民"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078",
+      "continuity_status": "single_event",
+      "cost_or_burden": "饭僧尼的时间范围、粮食和钱物来源、单位口径及是否为累计人数未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "卷内记录诸路饭僧尼数量为三十六万。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v23-monastic-feeding-reported-1078",
+      "source_refs": [
+        "遼史/卷23@1748547#諸路奏飯僧尼三十六萬。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078",
+      "time_range": {
+        "end": "1078",
+        "precision": "month",
+        "start": "大康四年七月"
+      },
+      "uncertainties": [
+        "三十六万统计口径、所耗资源、受供僧尼分布和财政影响未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《遼史》卷23正文登记，未知保持未知。",
+    "北边和八石烈敌烈战事的地点、兵力、伤亡及后续处置多未载。",
+    "赈济钱粮、租税减免额度、考试任用和财政增羡数额未载。",
+    "储君案件只登记本卷明示的指控、处置与死亡，不以未载材料推断真伪、动机或责任。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "亲试进士、策贤良、令臣庶言得失并颁行史记汉书。",
+      "actors": [],
+      "affected_groups": [
+        "进士",
+        "贤良应试者",
+        "臣庶",
+        "有司",
+        "读书者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074",
+      "continuity_status": "single_event",
+      "cost_or_burden": "应试人数、录取结果、言事采纳和书籍印制传播成本未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "卷内记载皇帝直接参与进士与贤良考试、开放言得失，并下令颁行两部史书。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "卷内记载皇帝直接参与进士与贤良考试、开放言得失，并下令颁行两部史书。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-imperial-testing-xianliang-and-histories-1074",
+      "source_refs": [
+        "遼史/卷23@1748547#親出題試進士。",
+        "遼史/卷23@1748547#詔臣庶言得失。",
+        "遼史/卷23@1748547#禦永安殿，策賢良。",
+        "遼史/卷23@1748547#詔有司頒行《史記》、《漢書》。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074",
+      "time_range": {
+        "end": "1074",
+        "precision": "range",
+        "start": "咸雍十年六月至十月"
+      },
+      "uncertainties": [
+        "试题、录取人数、进言内容、书籍数量与颁行范围未载。"
+      ]
+    },
+    {
+      "action": "命皇太子总领朝政并加戒谕。",
+      "actors": [],
+      "affected_groups": [
+        "皇太子",
+        "朝政参与者",
+        "辽廷"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "皇太子获得总领朝政的明示委任。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇太子获得总领朝政的明示委任。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-crown-prince-governance-delegation-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#詔皇太子總領朝政，仍戒諭之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075",
+      "time_range": {
+        "end": "1075",
+        "precision": "month",
+        "start": "大康元年六月"
+      },
+      "uncertainties": [
+        "皇太子实际权限、参与政务范围、戒谕内容和执行时长未载。"
+      ]
+    },
+    {
+      "action": "皇后被赐死，两名伶人与家属被杀及籍没。",
+      "actors": [],
+      "affected_groups": [
+        "皇后",
+        "赵惟一",
+        "高长命",
+        "被籍没家属"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075",
+      "continuity_status": "single_event",
+      "cost_or_burden": "皇后被诬事由、伶人罪名、家属人数、财产处置和审理程序未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "本卷记载皇后死亡及两名伶人与家属遭处置。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "本卷记载皇后死亡及两名伶人与家属遭处置。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-empress-execution-and-household-confiscation-1075",
+      "source_refs": [
+        "遼史/卷23@1748547#皇后被誣，賜死；殺伶人趙惟一、高長命，並籍其家屬。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075",
+      "time_range": {
+        "end": "1075",
+        "precision": "month",
+        "start": "大康元年十一月"
+      },
+      "uncertainties": [
+        "指控来源、案件关系、证据、审理与后续影响未载。"
+      ]
+    },
+    {
+      "action": "太后崩后报哀、大赦、追号并葬庆陵。",
+      "actors": [],
+      "affected_groups": [
+        "皇太后",
+        "宋高丽夏国使节",
+        "在押罪人",
+        "丧仪参与者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076",
+      "continuity_status": "single_event",
+      "cost_or_burden": "丧礼支出、赦免范围、对外使节与葬仪规模未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "太后死亡引发对外报哀、大赦、追号及葬礼等国家丧仪处置。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "太后死亡引发对外报哀、大赦、追号及葬礼等国家丧仪处置。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-emperor-dowager-death-and-state-mourning-1076",
+      "source_refs": [
+        "遼史/卷23@1748547#，皇太后崩。壬",
+        "遼史/卷23@1748547#。丁卯，大赦。戊",
+        "遼史/卷23@1748547#葬仁懿皇后於慶陵。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076",
+      "time_range": {
+        "end": "1076",
+        "precision": "range",
+        "start": "大康二年三月至六月"
+      },
+      "uncertainties": [
+        "报哀往来细节、赦免人数、丧礼费用和政权交接影响未载。"
+      ]
+    },
+    {
+      "action": "首轮谋立指控未治罪但相关人仍受处置，朝廷加重告谋逆者奖赏。",
+      "actors": [],
+      "affected_groups": [
+        "耶律乙辛",
+        "萧速撒等",
+        "告发护卫",
+        "皇太子"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077",
+      "continuity_status": "single_event",
+      "cost_or_burden": "被外补、鞭徙者的具体身份、处分依据、告发奖励内容及案件真伪未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "首次指控虽未正式治罪，相关官员和护卫仍被处置，告谋逆的奖赏被加重。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "首次指控虽未正式治罪，相关官员和护卫仍被处置，告谋逆的奖赏被加重。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-alleged-crown-prince-plot-and-accuser-rewards-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#上以無狀，不治，出速撒等三人補外，護衛撒撥等六人各鞭百餘，徙於邊。",
+        "遼史/卷23@1748547#詔告謀逆事者，重加官賞。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077",
+      "time_range": {
+        "end": "1077",
+        "precision": "month",
+        "start": "大康三年五月"
+      },
+      "uncertainties": [
+        "最初告发内容、无状判断理由、外补与鞭徙过程、告发奖励是否实际发放未载。"
+      ]
+    },
+    {
+      "action": "诬首后杖囚皇太子，并连续处决被指谋立者及籍其家。",
+      "actors": [],
+      "affected_groups": [
+        "皇太子",
+        "萧讹都斡",
+        "耶律乙辛等审讯者",
+        "被指涉案者",
+        "被籍没家属"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077",
+      "continuity_status": "single_event",
+      "cost_or_burden": "原文至少载三人、二人、十人等被杀，另有速撒及其诸子；完整人数、审讯证据和家产处置未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "储君被杖囚，相关被指谋立者及家属遭连续处决和籍没。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "储君被杖囚，相关被指谋立者及家属遭连续处决和籍没。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-crown-prince-detention-and-alleged-plotter-purge-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#耶律乙辛令牌印郎君蕭訛都斡誣首嘗預速撒等謀，籍其姓名以告。",
+        "遼史/卷23@1748547#杖皇太子，囚之宮中。",
+        "遼史/卷23@1748547#殺宿直官敵裏剌等三人。",
+        "遼史/卷23@1748547#殺始平軍節度使撒剌等十人，又遣使殺上京留守速撒",
+        "遼史/卷23@1748547#殺速撒等諸子，籍其家。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077",
+      "time_range": {
+        "end": "1077",
+        "precision": "range",
+        "start": "大康三年六月至七月"
+      },
+      "uncertainties": [
+        "诬首内容、证据、审讯程序、被杀总人数、皇太子伤情和家属后续未载。"
+      ]
+    },
+    {
+      "action": "皇太子浚被废囚上京，后被乙辛私人杀害。",
+      "actors": [],
+      "affected_groups": [
+        "废太子浚",
+        "耶律乙辛",
+        "上京看守与居民"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077",
+      "continuity_status": "single_event",
+      "cost_or_burden": "废立程序、囚禁条件、私人杀害执行者、皇帝知情与后续追责未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "皇太子被废囚，后在上京被乙辛私人杀害。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "皇太子被废囚，后在上京被乙辛私人杀害。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-crown-prince-deposition-and-murder-1077",
+      "source_refs": [
+        "遼史/卷23@1748547#廢皇太子為庶人，囚之上京。",
+        "遼史/卷23@1748547#北院樞密使耶律乙辛遣其私人盜殺庶人浚於上京。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077",
+      "time_range": {
+        "end": "1077",
+        "precision": "range",
+        "start": "大康三年六月至十一月"
+      },
+      "uncertainties": [
+        "废太子事实认定、杀害命令链、实施者及政治后果未载。"
+      ]
+    },
+    {
+      "action": "拒绝高丽请求赐予鸭绿江以东土地。",
+      "actors": [],
+      "affected_groups": [
+        "高丽",
+        "鸭绿江以东居民",
+        "辽廷"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "高丽的鸭绿江以东领土请求被拒绝。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "高丽的鸭绿江以东领土请求被拒绝。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v23-koryo-yalu-territorial-request-rejection-1078",
+      "source_refs": [
+        "遼史/卷23@1748547#高麗遣使乞賜鴨淥江以東地，不許。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078",
+      "time_range": {
+        "end": "1078",
+        "precision": "month",
+        "start": "大康四年四月"
+      },
+      "uncertainties": [
+        "请求范围、辽廷拒绝理由、边界现状及后续交涉未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [],
+  "registry_version": "LIAO-LIAOSHI-V23-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "十二月丁卯，以北院樞密副使耶律霂知北院樞密使事",
+    "input_fingerprint": "d03f95a6e2d392cb2af86227b8c2a6354361f072f2929da0247d9c130668ea3d",
+    "overlap_context": "本卷承卷22咸雍七年，记咸雍八年至大康四年（1072—1078）。北边、八石烈敌烈、储君冤狱分别按独立冲突或权力处置链登记；跨州赈济、考试选才、税负减免和狱政按同一行政主题收束。单次任免、巡幸贡聘祭祀、天象及无实施锚的零散禁令不单列。卷末为大康四年，未读卷24。",
+    "revision_ref": "1748547",
+    "start_locator": "八年春正月癸未，烏古敵烈部詳穩耶律巢等奏克北邊捷",
+    "volume_ref": "卷23",
+    "work": "遼史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V23-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-regional-relief-tax-remission-and-poor-household-aid-1072",
+      "status": "closed",
+      "summary": "岁饥后连续实施多州赈济、免税、开放樵采和贫户给钱。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-REGIONAL-RELIEF-TAX-REMISSION-AND-POOR-HOUSEHOLD-AID-1072",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-travel-area-and-recovering-household-tax-remissions-1073-1074",
+      "status": "closed",
+      "summary": "免行幸地一年租并蠲平州复业民租赋。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-TRAVEL-AREA-AND-RECOVERING-HOUSEHOLD-TAX-REMISSIONS-1073-1074",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-imperial-testing-xianliang-and-histories-1074",
+      "status": "closed",
+      "summary": "亲试进士、策贤良、令臣庶言得失并颁行史记汉书。",
+      "thread_ref": "POL-THREAD-LIAO-V23-IMPERIAL-TESTING-XIANLIANG-AND-HISTORIES-1074",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-regional-disaster-relief-1075",
+      "status": "closed",
+      "summary": "多地饥火获赈，南京另免一年租税并出钱粟。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-REGIONAL-DISASTER-RELIEF-1075",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-three-departments-surplus-record-1075",
+      "status": "closed",
+      "summary": "钱谷增羡被明载，并成为韩操授三司使的依据。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-THREE-DEPARTMENTS-SURPLUS-RECORD-1075",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-crown-prince-governance-delegation-1075",
+      "status": "closed",
+      "summary": "命皇太子总领朝政并加戒谕。",
+      "thread_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-GOVERNANCE-DELEGATION-1075",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-empress-execution-and-household-confiscation-1075",
+      "status": "closed",
+      "summary": "皇后被赐死，两名伶人与家属被杀及籍没。",
+      "thread_ref": "POL-THREAD-LIAO-V23-EMPRESS-EXECUTION-AND-HOUSEHOLD-CONFISCATION-1075",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-emperor-dowager-death-and-state-mourning-1076",
+      "status": "closed",
+      "summary": "太后崩后报哀、大赦、追号并葬庆陵。",
+      "thread_ref": "POL-THREAD-LIAO-V23-EMPEROR-DOWAGER-DEATH-AND-STATE-MOURNING-1076",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-nanjing-locust-tax-remission-and-earthquake-1076",
+      "status": "closed",
+      "summary": "南京蝗灾免次年租税，同年地震民舍多坏。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-NANJING-LOCUST-TAX-REMISSION-AND-EARTHQUAKE-1076",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-tribute-silver-relief-and-stopped-tour-1077",
+      "status": "closed",
+      "summary": "省春贡金帛、停一年尚方银输纳，并因中京饥荒罢巡幸。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-TRIBUTE-SILVER-RELIEF-AND-STOPPED-TOUR-1077",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-alleged-crown-prince-plot-and-accuser-rewards-1077",
+      "status": "closed",
+      "summary": "首轮谋立指控未治罪但相关人仍受处置，朝廷加重告谋逆者奖赏。",
+      "thread_ref": "POL-THREAD-LIAO-V23-ALLEGED-CROWN-PRINCE-PLOT-AND-ACCUSER-REWARDS-1077",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-crown-prince-detention-and-alleged-plotter-purge-1077",
+      "status": "closed",
+      "summary": "诬首后杖囚皇太子，并连续处决被指谋立者及籍其家。",
+      "thread_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-DETENTION-AND-ALLEGED-PLOTTER-PURGE-1077",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-crown-prince-deposition-and-murder-1077",
+      "status": "closed",
+      "summary": "皇太子浚被废囚上京，后被乙辛私人杀害。",
+      "thread_ref": "POL-THREAD-LIAO-V23-CROWN-PRINCE-DEPOSITION-AND-MURDER-1077",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-TOKYO-FAMINE-RELIEF-1078"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-tokyo-famine-relief-1078",
+      "status": "closed",
+      "summary": "赈济东京饥民。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-TOKYO-FAMINE-RELIEF-1078",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v23-koryo-yalu-territorial-request-rejection-1078",
+      "status": "closed",
+      "summary": "拒绝高丽请求赐予鸭绿江以东土地。",
+      "thread_ref": "POL-THREAD-LIAO-V23-KORYO-YALU-TERRITORIAL-REQUEST-REJECTION-1078",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v23-monastic-feeding-reported-1078",
+      "status": "closed",
+      "summary": "诸路奏报饭僧尼三十六万，资源规模未载。",
+      "thread_ref": "FIN-THREAD-LIAO-V23-MONASTIC-FEEDING-REPORTED-1078",
+      "uncertainties": []
+    }
+  ]
+}

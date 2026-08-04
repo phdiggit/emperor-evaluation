@@ -1,0 +1,1506 @@
+{
+  "facts": [
+    {
+      "action": "旱蝗饥疫使朱元璋父母兄相继去世，他入皇觉寺、游食，天下大乱后投奔郭子兴。",
+      "actors": [],
+      "affected_groups": [
+        "饥民",
+        "寺僧",
+        "濠州军民"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-FAMINE-ENTRY-1344-1352",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "朱元璋由灾民僧侣转入濠州武装，并因战胜获郭子兴信任。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V01-FAMINE-ENTRY-1344-1352"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-famine-entry-1344-1352",
+      "source_refs": [
+        "明史/卷1@2594614#至正四年，旱蝗，大饑疫。",
+        "明史/卷1@2594614#父母兄相繼歿，貧不克葬。",
+        "明史/卷1@2594614#乃入皇覺寺為僧。",
+        "明史/卷1@2594614#遂以閏三月甲戌朔入濠見子興。",
+        "明史/卷1@2594614#兵。戰輒勝。遂"
+      ],
+      "time_range": {
+        "end": "至正十二年闰三月",
+        "precision": "range",
+        "start": "至正四年"
+      },
+      "uncertainties": [
+        "灾亡总数、游食期间生计和入军人数未载。"
+      ]
+    },
+    {
+      "action": "朱元璋脱离暴横诸军，率徐达等南略定远，降民兵三千、袭收元军二万并攻下滁州。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "元军",
+        "定远滁州民众"
+      ],
+      "cost_or_burden": "战斗伤亡未载。",
+      "fact_id": "CHF-MING-V01-CHUZHOU-EXPANSION-1353",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "朱元璋建立独立主力与滁州根据地，李善长加入。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-CHUZHOU-1353"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-chuzhou-expansion-1353",
+      "source_refs": [
+        "明史/卷1@2594614#獨與徐達、湯和、費聚等南略定遠。",
+        "明史/卷1@2594614#計降驢牌寨民兵三千",
+        "明史/卷1@2594614#夜襲元將張知院於橫澗山，收其卒二萬。",
+        "明史/卷1@2594614#遂與俱攻滁州，下之。"
+      ],
+      "time_range": {
+        "end": "1353",
+        "precision": "year",
+        "start": "至正十三年"
+      },
+      "uncertainties": [
+        "双方伤亡、粮饷和降兵整编未载。"
+      ]
+    },
+    {
+      "action": "朱元璋受命总和州军，整肃将领、按期筑城并释放军中所掠妇女，又破元军封锁。",
+      "actors": [],
+      "affected_groups": [
+        "和州民众",
+        "军中妇女",
+        "朱元璋军",
+        "元军"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-HEZHOU-DISCIPLINE-1355",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "诸将服从、民心归附，和州防御稳定，为渡江奠基。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-HEZHOU-1355"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-hezhou-discipline-1355",
+      "source_refs": [
+        "明史/卷1@2594614#奉命總諸公兵",
+        "明史/卷1@2594614#乃搜軍中所掠婦女縱還家，民大悅。",
+        "明史/卷1@2594614#元兵十萬攻和，拒守三月",
+        "明史/卷1@2594614#太祖率眾破之，元兵皆走渡江。"
+      ],
+      "time_range": {
+        "end": "1355",
+        "precision": "range",
+        "start": "至正十五年正月至三月"
+      },
+      "uncertainties": [
+        "筑城用工、军民伤亡和粮食消耗未载。"
+      ]
+    },
+    {
+      "action": "巢湖水军千艘来附后，朱元璋破蛮子海牙、渡江取牛渚采石和太平，严禁剽掠并击败元军反攻。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "巢湖水军",
+        "元军",
+        "太平民众"
+      ],
+      "cost_or_burden": "双方伤亡未载。",
+      "fact_id": "CHF-MING-V01-YANGTZE-CROSSING-TAIPING-1355",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "朱元璋取得长江南岸据点和水军，郭子兴旧部随后尽归其统辖。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-YANGTZE-CROSSING-1355"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-yangtze-crossing-taiping-1355",
+      "source_refs": [
+        "明史/卷1@2594614#巢湖帥廖永安、俞通海以水軍千艘來附",
+        "明史/卷1@2594614#常遇春先登，拔之。",
+        "明史/卷1@2594614#遂乘勝拔太平",
+        "明史/卷1@2594614#揭榜禁剽掠。有卒違令，斬以徇",
+        "明史/卷1@2594614#於是子興部將盡歸太祖矣。"
+      ],
+      "time_range": {
+        "end": "1355",
+        "precision": "range",
+        "start": "至正十五年五月至九月"
+      },
+      "uncertainties": [
+        "渡江兵力、伤亡和军需未载。"
+      ]
+    },
+    {
+      "action": "朱元璋军破采石、攻克集庆并降三万六千人，继取镇江；入城后安民、除弊政并改集庆为应天府。",
+      "actors": [],
+      "affected_groups": [
+        "降军",
+        "元军",
+        "应天镇江民众",
+        "地方官吏"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-JIQING-CAPTURE-GOVERNANCE-1356",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "应天成为政权中心，军队与官府开始制度化，朱元璋被奉为吴国公。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-JIQING-ZHENJIANG-1356"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-jiqing-capture-governance-1356",
+      "source_refs": [
+        "明史/卷1@2594614#進攻集慶，擒兆先，降其眾三萬六千人",
+        "明史/卷1@2594614#我來為民除亂耳，其各安堵如故。",
+        "明史/卷1@2594614#舊政不便者除之，吏毋貪暴殃吾民。",
+        "明史/卷1@2594614#改集慶路為應天府",
+        "明史/卷1@2594614#諸將奉太祖為吳國公。"
+      ],
+      "time_range": {
+        "end": "1356",
+        "precision": "range",
+        "start": "至正十六年二月至七月"
+      },
+      "uncertainties": [
+        "攻城伤亡、降军长期安置和行政经费未载。"
+      ]
+    },
+    {
+      "action": "朱元璋军连续攻取常州、宁国、江阴、徽州、池州、扬州、婺州、衢州、处州等江左浙东城地。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "元军",
+        "地方军民"
+      ],
+      "cost_or_burden": "各战伤亡未载。",
+      "fact_id": "CHF-MING-V01-JIANGNAN-CONSOLIDATION-1357-1359",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "江左与浙东大部归附，朱元璋政权西邻陈友谅、东压张士诚。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-JIANGNAN-CONSOLIDATION-1357-1359"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-jiangnan-consolidation-1357-1359",
+      "source_refs": [
+        "明史/卷1@2594614#徐達克常州。",
+        "明史/卷1@2594614#自將攻寧國，取之",
+        "明史/卷1@2594614#常遇春克池州，繆大亨克揚州",
+        "明史/卷1@2594614#之，婺州降，執",
+        "明史/卷1@2594614#江左、浙右諸郡，兵至皆下"
+      ],
+      "time_range": {
+        "end": "至正十九年",
+        "precision": "range",
+        "start": "至正十七年"
+      },
+      "uncertainties": [
+        "战斗伤亡、城地损失和整编规模未载。"
+      ]
+    },
+    {
+      "action": "攻下婺州后发粟赈贫、设讲席延揽人才，次年设郡学并强调克城后不得妄杀。",
+      "actors": [],
+      "affected_groups": [
+        "贫民",
+        "学生士人",
+        "地方民众",
+        "军队"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "新占区以赈济、教育和军纪争取民心。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-wuzhou-relief-education-1358-1359",
+      "source_refs": [
+        "明史/卷1@2594614#入城，發粟振貧民",
+        "明史/卷1@2594614#辟范祖幹、葉儀、許元等十三人，分直講經史。",
+        "明史/卷1@2594614#為將能以不殺為武",
+        "明史/卷1@2594614#命寧越知府王宗顯立郡學。"
+      ],
+      "time_range": {
+        "end": "至正十九年正月",
+        "precision": "range",
+        "start": "至正十八年十二月"
+      },
+      "uncertainties": [
+        "赈粮数量、学校规模与受益人数未载。"
+      ]
+    },
+    {
+      "action": "陈友谅陷太平并约张士诚夹攻应天，朱元璋诱其东进，在龙湾以水陆伏兵乘雨击败。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "陈友谅军",
+        "应天太平民众"
+      ],
+      "cost_or_burden": "花云、王鼎、许瑗等死；双方总伤亡未载。",
+      "fact_id": "CHF-MING-V01-LONGWAN-BATTLE-1360",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "应天危机解除，朱元璋军收复太平并下安庆，张士诚未敢出兵。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-LONGWAN-1360"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-longwan-battle-1360",
+      "source_refs": [
+        "明史/卷1@2594614#友諒陷太平",
+        "明史/卷1@2594614#約士誠合攻應天，應天大震。",
+        "明史/卷1@2594614#水陸夾擊，大破之。",
+        "明史/卷1@2594614#遂復太平，下安慶",
+        "明史/卷1@2594614#已而士誠兵竟不出。"
+      ],
+      "time_range": {
+        "end": "1360",
+        "precision": "month",
+        "start": "至正二十年闰五月"
+      },
+      "uncertainties": [
+        "双方总伤亡、财产损失与军费未载。"
+      ]
+    },
+    {
+      "action": "政权设盐茶课、宝源局并将枢密院改为大都督府。",
+      "actors": [],
+      "affected_groups": [
+        "商民",
+        "盐茶业者",
+        "军政官员"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-FISCAL-ADMIN-1361",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "税课、货币和军事中枢机构开始成形。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V01-FISCAL-ADMIN-1361"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-fiscal-admin-1361",
+      "source_refs": [
+        "明史/卷1@2594614#，立鹽茶課。己",
+        "明史/卷1@2594614#亥，置寶源局。\n",
+        "明史/卷1@2594614#改樞密院為大都督府。"
+      ],
+      "time_range": {
+        "end": "1361",
+        "precision": "range",
+        "start": "至正二十一年二月至三月"
+      },
+      "uncertainties": [
+        "税率、铸币规模与机构编制未载。"
+      ]
+    },
+    {
+      "action": "朱元璋自率舟师克安庆、江州及江西湖北多地，次年接受龙兴等地归降并废陈氏苛政军需。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "陈友谅军",
+        "江西湖北民众"
+      ],
+      "cost_or_burden": "双方伤亡未载。",
+      "fact_id": "CHF-MING-V01-JIANGZHOU-OFFENSIVE-1361-1362",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "陈友谅势力退守武昌，江西多府归附并获得减役安抚。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-JIANGZHOU-1361-1362"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-jiangzhou-offensive-1361-1362",
+      "source_refs": [
+        "明史/卷1@2594614#戌，克安慶，友",
+        "明史/卷1@2594614#追敗友諒於江州，克其城",
+        "明史/卷1@2594614#分徇南康、建昌、饒、蘄、黃、廣濟皆下。",
+        "明史/卷1@2594614#除陳氏苛政，罷諸軍需",
+        "明史/卷1@2594614#袁、瑞、臨江、吉安相繼下。"
+      ],
+      "time_range": {
+        "end": "至正二十二年二月",
+        "precision": "range",
+        "start": "至正二十一年八月"
+      },
+      "uncertainties": [
+        "军民伤亡、减役规模和地方财政变化未载。"
+      ]
+    },
+    {
+      "action": "金华、处州、洪都降人相继反叛，杀守臣并夺城；邵荣、徐达随后收复处州和洪都。",
+      "actors": [],
+      "affected_groups": [
+        "叛军",
+        "朱元璋军",
+        "地方官民"
+      ],
+      "cost_or_burden": "胡大海、王恺、耿再成、叶琛等死；总伤亡未载。",
+      "fact_id": "CHF-MING-V01-REBELLION-RECOVERY-1362",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "新占区叛乱被平，但多名地方官战死。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-REBEL-RECOVERY-1362"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-rebellion-recovery-1362",
+      "source_refs": [
+        "明史/卷1@2594614#降人蔣英殺金華守將胡大海",
+        "明史/卷1@2594614#處州降人李祐之聞變，亦殺行樞密院判耿再成反",
+        "明史/卷1@2594614#降人祝宗、康泰反，陷洪都",
+        "明史/卷1@2594614#邵榮復處州。",
+        "明史/卷1@2594614#徐達復洪都。"
+      ],
+      "time_range": {
+        "end": "1362",
+        "precision": "range",
+        "start": "至正二十二年二月至四月"
+      },
+      "uncertainties": [
+        "叛军人数、民间损失和清剿伤亡未载。"
+      ]
+    },
+    {
+      "action": "陈友谅号称六十万围洪都，朱元璋率军在鄱阳湖持续水战，以火攻破巨舰并封锁湖口。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "陈友谅军",
+        "洪都湖区民众"
+      ],
+      "cost_or_burden": "斩首二千余、焚溺无算；朱军伤亡未载。",
+      "fact_id": "CHF-MING-V01-POYANG-LAKE-1363",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "陈友谅中流矢死，其子退武昌，汉军主力崩溃。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-POYANG-LAKE-1363"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-poyang-lake-1363",
+      "source_refs": [
+        "明史/卷1@2594614#友諒大舉兵圍洪都。",
+        "明史/卷1@2594614#友諒兵號六十萬",
+        "明史/卷1@2594614#縱火焚友諒舟",
+        "明史/卷1@2594614#斬首二千餘級，焚溺死者無算",
+        "明史/卷1@2594614#友諒中流矢死。"
+      ],
+      "time_range": {
+        "end": "1363",
+        "precision": "range",
+        "start": "至正二十三年四月至八月"
+      },
+      "uncertainties": [
+        "朱军伤亡、平民损失与双方实际兵力未载。"
+      ]
+    },
+    {
+      "action": "鄱阳湖战后朱元璋围武昌、分徇湖北，次年再征并接受陈理投降。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "汉军",
+        "湖北民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-CHEN-HAN-END-1363-1364",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "汉、沔、荆、岳等地归附，陈友谅政权灭亡。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-chen-han-end-1363-1364",
+      "source_refs": [
+        "明史/卷1@2594614#自將征陳理。",
+        "明史/卷1@2594614#圍武昌，分徇湖北諸路，皆下。",
+        "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
+      ],
+      "time_range": {
+        "end": "至正二十四年二月",
+        "precision": "range",
+        "start": "至正二十三年九月"
+      },
+      "uncertainties": [
+        "投降条件、伤亡和地方善后未载。"
+      ]
+    },
+    {
+      "action": "朱元璋即吴王位、建百官和亲军十七卫，立世子，并建国子学。",
+      "actors": [],
+      "affected_groups": [
+        "军政官员",
+        "军人",
+        "学生士人"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "割据政权形成君主、中书、军卫与中央教育体系。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-wu-kingdom-institutions-1364-1365",
+      "source_refs": [
+        "明史/卷1@2594614#乃即吳王位。建百官。",
+        "明史/卷1@2594614#立子標為世子。",
+        "明史/卷1@2594614#置十七衞親軍指揮使司",
+        "明史/卷1@2594614#辰，建國子學。\n"
+      ],
+      "time_range": {
+        "end": "至正二十五年九月",
+        "precision": "range",
+        "start": "至正二十四年正月"
+      },
+      "uncertainties": [
+        "机构完整编制、经费与招生规模未载。"
+      ]
+    },
+    {
+      "action": "朱元璋下令讨张士诚，先取泰州、高邮、淮安及濠徐宿诸州。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "张士诚军",
+        "淮东民众"
+      ],
+      "cost_or_burden": "双方伤亡未载。",
+      "fact_id": "CHF-MING-V01-HUAIDONG-CONQUEST-1365-1366",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "张士诚淮东领地被平定，攻势转向湖州杭州和平江。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-HUAIDONG-1365-1366"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-huaidong-conquest-1365-1366",
+      "source_refs": [
+        "明史/卷1@2594614#下令討張士誠。",
+        "明史/卷1@2594614#圍泰州，克之。",
+        "明史/卷1@2594614#徐達克高郵。",
+        "明史/卷1@2594614#襲破士誠將徐義水軍於淮安",
+        "明史/卷1@2594614#下，淮東平。甲"
+      ],
+      "time_range": {
+        "end": "至正二十六年四月",
+        "precision": "range",
+        "start": "至正二十五年十月"
+      },
+      "uncertainties": [
+        "战斗伤亡、军费和地方损失未载。"
+      ]
+    },
+    {
+      "action": "朱元璋命二十万大军先取湖州杭州、再围平江，并严禁杀掠毁墓。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "张士诚军",
+        "吴地民众"
+      ],
+      "cost_or_burden": "双方伤亡和围城民损未载。",
+      "fact_id": "CHF-MING-V01-PINGJIANG-CONQUEST-1366-1367",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "平江被攻克、张士诚被俘，吴地平定。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-PINGJIANG-1366-1367"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-pingjiang-conquest-1366-1367",
+      "source_refs": [
+        "明史/卷1@2594614#帥師二十萬討張士誠。",
+        "明史/卷1@2594614#城下之日，毋殺掠，毋毀廬舍，毋發丘壟。",
+        "明史/卷1@2594614#，張天騏降。辛",
+        "明史/卷1@2594614#潘原明降，旁郡悉下。",
+        "明史/卷1@2594614#徐達克平江，執士誠，吳地平。"
+      ],
+      "time_range": {
+        "end": "至正二十七年九月",
+        "precision": "range",
+        "start": "至正二十六年八月"
+      },
+      "uncertainties": [
+        "围城伤亡、粮耗和张士诚部众安置未载。"
+      ]
+    },
+    {
+      "action": "政权赡养渡江伤残军士及死者家属，回乡省墓时除租赋，并多次减免东南和新附地田租。",
+      "actors": [],
+      "affected_groups": [
+        "伤残军士",
+        "阵亡者家属",
+        "农户",
+        "战区民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-WAR-RELIEF-TAX-1365-1367",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "伤残抚恤与战后蠲租成为稳定军民和恢复生产的手段。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-MING-V01-WAR-RELIEF-TAX-1365-1367"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-war-relief-tax-1365-1367",
+      "source_refs": [
+        "明史/卷1@2594614#令從渡江士卒被創廢疾者養之，死者贍其妻子。",
+        "明史/卷1@2594614#令有司除租賦",
+        "明史/卷1@2594614#其賜太平田租二年，應天、鎮江、寧國、廣德各一年。",
+        "明史/卷1@2594614#復徐、宿、濠、泗、壽、邳、東海、安東、襄陽、安陸及新附地田租三年。",
+        "明史/卷1@2594614#其賜民今年田租。"
+      ],
+      "time_range": {
+        "end": "至正二十七年六月",
+        "precision": "range",
+        "start": "至正二十五年七月"
+      },
+      "uncertainties": [
+        "减免总额、受益户数与抚恤标准未载。"
+      ]
+    },
+    {
+      "action": "政权改筑应天城、建新宫、坛庙太庙，设科取士、翰林院、御史台并定律令礼乐。",
+      "actors": [],
+      "affected_groups": [
+        "城建役夫",
+        "军政官员",
+        "士人",
+        "应天民众"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-MING-V01-STATE-CONSTRUCTION-1366-1367",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "称帝前的都城、监察、选官、法制与礼制框架基本建成。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-MING-V01-STATE-CONSTRUCTION-1366-1367"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-state-construction-1366-1367",
+      "source_refs": [
+        "明史/卷1@2594614#改築應天城，作新宮鍾山之陽。",
+        "明史/卷1@2594614#始設文武科取士。",
+        "明史/卷1@2594614#初置翰林院。",
+        "明史/卷1@2594614#圜丘、方丘、社稷壇成。",
+        "明史/卷1@2594614#戌，太廟成。朱",
+        "明史/卷1@2594614#，置御史臺。癸",
+        "明史/卷1@2594614#寅，定律令。戊",
+        "明史/卷1@2594614#癸卯，新宮成。\n　"
+      ],
+      "time_range": {
+        "end": "至正二十七年十二月",
+        "precision": "range",
+        "start": "至正二十六年八月"
+      },
+      "uncertainties": [
+        "工程规模、工费、用工与制度执行未载。"
+      ]
+    },
+    {
+      "action": "朱元璋军攻取台州、温州、庆元和福州，方国珍投降。",
+      "actors": [],
+      "affected_groups": [
+        "朱元璋军",
+        "方国珍部众",
+        "浙闽民众"
+      ],
+      "cost_or_burden": "双方伤亡未载。",
+      "fact_id": "CHF-MING-V01-SOUTHEAST-CONQUEST-1367",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "浙东平定，福建沿海亦被纳入控制。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-SOUTHEAST-1367"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-southeast-conquest-1367",
+      "source_refs": [
+        "明史/卷1@2594614#朱亮祖克台州。",
+        "明史/卷1@2594614#朱亮祖克溫州。",
+        "明史/卷1@2594614#湯和克慶元，方國珍遁入海。",
+        "明史/卷1@2594614#由海道克福州。",
+        "明史/卷1@2594614#方國珍降，浙東平。"
+      ],
+      "time_range": {
+        "end": "1367",
+        "precision": "range",
+        "start": "至正二十七年九月至十二月"
+      },
+      "uncertainties": [
+        "伤亡、海战损失和降众安置未载。"
+      ]
+    },
+    {
+      "action": "朱元璋定先取山东、两河再扼潼关的北伐方略，命徐达、常遇春率二十五万军北进。",
+      "actors": [],
+      "affected_groups": [
+        "北伐军",
+        "元军",
+        "山东民众"
+      ],
+      "cost_or_burden": "元将王宣被斩；双方总伤亡未载。",
+      "fact_id": "CHF-MING-V01-NORTHERN-EXPEDITION-1367",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "北伐军克沂州、益都、济南及东平等地，中原攻势展开并延续至卷2。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-ming-v01-northern-expedition-1367",
+      "source_refs": [
+        "明史/卷1@2594614#帥師二十五萬，由淮入河，北取中原。",
+        "明史/卷1@2594614#徐達克沂州，斬王宣。",
+        "明史/卷1@2594614#徐達克益都。",
+        "明史/卷1@2594614#張興祖下東平",
+        "明史/卷1@2594614#徐達下濟南。"
+      ],
+      "time_range": {
+        "end": "1367",
+        "precision": "range",
+        "start": "至正二十七年十月至十二月"
+      },
+      "uncertainties": [
+        "总伤亡、军需和山东民众损失未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "饥疫与乱局促使朱元璋投军。",
+      "actors": [],
+      "affected_groups": [
+        "饥民",
+        "寺僧",
+        "濠州军民"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V01-FAMINE-ENTRY-1344-1352",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-FAMINE-ENTRY-1344-1352"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "朱元璋由灾民僧侣转入濠州武装，并因战胜获郭子兴信任。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v01-famine-entry-1344-1352",
+      "source_refs": [
+        "明史/卷1@2594614#至正四年，旱蝗，大饑疫。",
+        "明史/卷1@2594614#父母兄相繼歿，貧不克葬。",
+        "明史/卷1@2594614#乃入皇覺寺為僧。",
+        "明史/卷1@2594614#遂以閏三月甲戌朔入濠見子興。",
+        "明史/卷1@2594614#兵。戰輒勝。遂"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V01-FAMINE-ENTRY-1344-1352",
+      "time_range": {
+        "end": "至正十二年闰三月",
+        "precision": "range",
+        "start": "至正四年"
+      },
+      "uncertainties": [
+        "灾亡总数、游食期间生计和入军人数未载。"
+      ]
+    },
+    {
+      "action": "婺州平定后以赈贫、讲学和军纪安民。",
+      "actors": [],
+      "affected_groups": [
+        "贫民",
+        "学生士人",
+        "地方民众",
+        "军队"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "新占区以赈济、教育和军纪争取民心。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v01-wuzhou-relief-education-1358-1359",
+      "source_refs": [
+        "明史/卷1@2594614#入城，發粟振貧民",
+        "明史/卷1@2594614#辟范祖幹、葉儀、許元等十三人，分直講經史。",
+        "明史/卷1@2594614#為將能以不殺為武",
+        "明史/卷1@2594614#命寧越知府王宗顯立郡學。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359",
+      "time_range": {
+        "end": "至正十九年正月",
+        "precision": "range",
+        "start": "至正十八年十二月"
+      },
+      "uncertainties": [
+        "赈粮数量、学校规模与受益人数未载。"
+      ]
+    },
+    {
+      "action": "设盐茶课、宝源局并调整军政机构。",
+      "actors": [],
+      "affected_groups": [
+        "商民",
+        "盐茶业者",
+        "军政官员"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V01-FISCAL-ADMIN-1361",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-FISCAL-ADMIN-1361"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "税课、货币和军事中枢机构开始成形。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v01-fiscal-admin-1361",
+      "source_refs": [
+        "明史/卷1@2594614#，立鹽茶課。己",
+        "明史/卷1@2594614#亥，置寶源局。\n",
+        "明史/卷1@2594614#改樞密院為大都督府。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V01-FISCAL-ADMIN-1361",
+      "time_range": {
+        "end": "1361",
+        "precision": "range",
+        "start": "至正二十一年二月至三月"
+      },
+      "uncertainties": [
+        "税率、铸币规模与机构编制未载。"
+      ]
+    },
+    {
+      "action": "以伤残抚恤和多地蠲租恢复战区。",
+      "actors": [],
+      "affected_groups": [
+        "伤残军士",
+        "阵亡者家属",
+        "农户",
+        "战区民众"
+      ],
+      "candidate_ref": "FIN-CAND-MING-V01-WAR-RELIEF-TAX-1365-1367",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-WAR-RELIEF-TAX-1365-1367"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "伤残抚恤与战后蠲租成为稳定军民和恢复生产的手段。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-ming-v01-war-relief-tax-1365-1367",
+      "source_refs": [
+        "明史/卷1@2594614#令從渡江士卒被創廢疾者養之，死者贍其妻子。",
+        "明史/卷1@2594614#令有司除租賦",
+        "明史/卷1@2594614#其賜太平田租二年，應天、鎮江、寧國、廣德各一年。",
+        "明史/卷1@2594614#復徐、宿、濠、泗、壽、邳、東海、安東、襄陽、安陸及新附地田租三年。",
+        "明史/卷1@2594614#其賜民今年田租。"
+      ],
+      "thread_ref": "FIN-THREAD-MING-V01-WAR-RELIEF-TAX-1365-1367",
+      "time_range": {
+        "end": "至正二十七年六月",
+        "precision": "range",
+        "start": "至正二十五年七月"
+      },
+      "uncertainties": [
+        "减免总额、受益户数与抚恤标准未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《明史》卷1正文登记，未知保持未知。",
+    "神异谱系、普通任免和重复行军不单列；战争与制度按连续事件链合并。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "吴国建立百官、军卫、储位和国子学。",
+      "actors": [],
+      "affected_groups": [
+        "军政官员",
+        "军人",
+        "学生士人"
+      ],
+      "candidate_ref": "POL-CAND-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "割据政权形成君主、中书、军卫与中央教育体系。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "割据政权形成君主、中书、军卫与中央教育体系。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-ming-v01-wu-kingdom-institutions-1364-1365",
+      "source_refs": [
+        "明史/卷1@2594614#乃即吳王位。建百官。",
+        "明史/卷1@2594614#立子標為世子。",
+        "明史/卷1@2594614#置十七衞親軍指揮使司",
+        "明史/卷1@2594614#辰，建國子學。\n"
+      ],
+      "thread_ref": "POL-THREAD-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365",
+      "time_range": {
+        "end": "至正二十五年九月",
+        "precision": "range",
+        "start": "至正二十四年正月"
+      },
+      "uncertainties": [
+        "机构完整编制、经费与招生规模未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "应天都城宫庙与明初国家制度同步建成。",
+      "actors": [],
+      "affected_groups": [
+        "城建役夫",
+        "军政官员",
+        "士人",
+        "应天民众"
+      ],
+      "candidate_ref": "WORK-CAND-MING-V01-STATE-CONSTRUCTION-1366-1367",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V01-STATE-CONSTRUCTION-1366-1367"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "称帝前的都城、监察、选官、法制与礼制框架基本建成。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-ming-v01-state-construction-1366-1367",
+      "source_refs": [
+        "明史/卷1@2594614#改築應天城，作新宮鍾山之陽。",
+        "明史/卷1@2594614#始設文武科取士。",
+        "明史/卷1@2594614#初置翰林院。",
+        "明史/卷1@2594614#圜丘、方丘、社稷壇成。",
+        "明史/卷1@2594614#戌，太廟成。朱",
+        "明史/卷1@2594614#，置御史臺。癸",
+        "明史/卷1@2594614#寅，定律令。戊",
+        "明史/卷1@2594614#癸卯，新宮成。\n　"
+      ],
+      "thread_ref": "WORK-THREAD-MING-V01-STATE-CONSTRUCTION-1366-1367",
+      "time_range": {
+        "end": "至正二十七年十二月",
+        "precision": "range",
+        "start": "至正二十六年八月"
+      },
+      "uncertainties": [
+        "工程规模、工费、用工与制度执行未载。"
+      ]
+    }
+  ],
+  "registry_version": "MING-MINGSHI-V01-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "至正二十七年北伐与平定浙东",
+    "input_fingerprint": "5753adef5baa7d551ac67460d070bdeaa8b1335cb8020932d024a00e5204a3ce",
+    "overlap_context": "本卷覆盖朱元璋起兵、渡江、消灭陈友谅张士诚方国珍及北伐前夕；明朝正式建国在卷2。",
+    "revision_ref": "2594614",
+    "start_locator": "至正四年朱元璋遭饥疫入寺",
+    "volume_ref": "卷1",
+    "work": "明史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V01-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-FAMINE-ENTRY-1344-1352"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v01-famine-entry-1344-1352",
+      "status": "closed",
+      "summary": "饥疫与乱局促使朱元璋投军。",
+      "thread_ref": "FIN-THREAD-MING-V01-FAMINE-ENTRY-1344-1352",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v01-wuzhou-relief-education-1358-1359",
+      "status": "closed",
+      "summary": "婺州平定后以赈贫、讲学和军纪安民。",
+      "thread_ref": "FIN-THREAD-MING-V01-WUZHOU-RELIEF-EDUCATION-1358-1359",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-FISCAL-ADMIN-1361"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v01-fiscal-admin-1361",
+      "status": "closed",
+      "summary": "设盐茶课、宝源局并调整军政机构。",
+      "thread_ref": "FIN-THREAD-MING-V01-FISCAL-ADMIN-1361",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-ming-v01-wu-kingdom-institutions-1364-1365",
+      "status": "closed",
+      "summary": "吴国建立百官、军卫、储位和国子学。",
+      "thread_ref": "POL-THREAD-MING-V01-WU-KINGDOM-INSTITUTIONS-1364-1365",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-MING-V01-WAR-RELIEF-TAX-1365-1367"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-ming-v01-war-relief-tax-1365-1367",
+      "status": "closed",
+      "summary": "以伤残抚恤和多地蠲租恢复战区。",
+      "thread_ref": "FIN-THREAD-MING-V01-WAR-RELIEF-TAX-1365-1367",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-MING-V01-STATE-CONSTRUCTION-1366-1367"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-ming-v01-state-construction-1366-1367",
+      "status": "closed",
+      "summary": "应天都城宫庙与明初国家制度同步建成。",
+      "thread_ref": "WORK-THREAD-MING-V01-STATE-CONSTRUCTION-1366-1367",
+      "uncertainties": []
+    }
+  ]
+}

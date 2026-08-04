@@ -1,0 +1,877 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V22-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V22-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷22",
+    "revision_ref": "2594638",
+    "start_locator": "万历四十八年光宗崩与熹宗即位",
+    "end_locator": "天启七年熹宗崩与信王继位",
+    "overlap_context": "卷首复述卷21光宗崩逝与朱由校继位并显式duplicate-of；本卷登记天启朝辽东战败、西南内乱、魏忠贤专权、党狱、财政工程与熹宗传位。",
+    "input_fingerprint": "67703d99afb678b0bdcb2a1b48c072b1f35fd29cbf666810fa759cb199709711"
+  },
+  "limitations": [
+    "仅据固定《明史》卷22正文登记，未知保持未知。",
+    "每事实仅保留完成归责、行为与结果所需的最小逐字锚点；普通任免、祭祀、贡聘、祥异与科举不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V22-TIANQI-ACCESSION-1620",
+      "time": [
+        "泰昌元年九月",
+        "1620",
+        "month"
+      ],
+      "subject": "熹宗朱由校与光宗朱常洛",
+      "action": "光宗崩后朱由校被群臣奉至文华殿，继而即皇帝位、改明年为天启元年。",
+      "result": "朱由校继承皇位；此为卷21光宗崩逝传位事件复述锚点，duplicate-of CHF-MING-V21-GUANGZONG-DEATH-SUCCESSION-1620。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "光宗崩，遺詔皇長子嗣皇帝位。",
+        "庚辰，即皇帝位。詔赦天下，以明年為天啟元年。"
+      ],
+      "unknown": [
+        "即位交接全部程序、光宗遗诏全文与群臣议政细节未载。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-RED-PILL-MOVE-PALACE-1620",
+      "time": [
+        "泰昌元年九月",
+        "1620",
+        "month"
+      ],
+      "subject": "熹宗朝廷、选侍李氏、周嘉谟左光斗等官员与李可灼",
+      "action": "光宗死后群臣要求李选侍移出乾清宫，并追究李可灼进药错误。",
+      "result": "李选侍移居仁寿殿，红丸案与移宫案由此形成。",
+      "groups": [
+        "皇室成员",
+        "宫廷内侍",
+        "中央官员",
+        "医药涉案者"
+      ],
+      "quote": [
+        "疏論李可灼進藥之誤，「紅丸」、「移宮」二案自是起。",
+        "己卯，選侍移仁壽殿。"
+      ],
+      "unknown": [
+        "案件全部证词、责任裁决、宫廷冲突与相关死亡因果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "RED-PILL-MOVE-PALACE-1620",
+        "summary": "光宗死后形成红丸、移宫二案。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V22-WEI-KE-PATRONAGE-1620-1624",
+      "time": [
+        "泰昌元年九月",
+        "天启四年六月",
+        "range"
+      ],
+      "subject": "熹宗、魏忠贤与客氏集团",
+      "action": "熹宗即位即荫魏进忠之兄并封乳母客氏，后拒绝群臣罢客氏、出外及弹劾魏忠贤的请求。",
+      "result": "魏忠贤客氏集团获得持续宫廷庇护，反对官员被贬杖。",
+      "cost": "万燝被杖杀，林汝翥被逮杖。",
+      "groups": [
+        "宫廷内侍",
+        "客氏家族",
+        "言官",
+        "受杖官员"
+      ],
+      "quote": [
+        "廕太監魏進忠兄錦衣衞千戶。封乳保客氏為奉聖夫人，官其子。",
+        "御史周宗建請出客氏於外，不聽。",
+        "楊漣劾魏忠賢二十四大罪，南北諸臣論忠賢者相繼，皆不納。"
+      ],
+      "unknown": [
+        "荫官财产、宫廷资源、全部被贬者和魏客权力运作细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WEI-KE-PATRONAGE-1620-1624",
+        "summary": "熹宗持续庇护魏忠贤客氏并压制弹劾。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-LIAOSHEN-COLLAPSE-1621",
+      "time": [
+        "天启元年三月",
+        "1621",
+        "month"
+      ],
+      "subject": "袁应泰、尤世功、贺世贤等明军与后金军",
+      "action": "后金军先后攻取沈阳、辽阳，明援军在浑河战败。",
+      "result": "辽沈重镇失守，京师戒严，袁应泰等多名将领战死。",
+      "cost": "尤世功、贺世贤、陈策、童仲揆、戚金、张名世、袁应泰、张铨等死。",
+      "groups": [
+        "明军",
+        "后金军",
+        "辽沈军民",
+        "流徙辽民"
+      ],
+      "quote": [
+        "大清兵取瀋陽，總兵官尤世功、賀世賢戰死。",
+        "戰於渾河，皆敗沒。",
+        "大清兵取遼陽，經略袁應泰等死之。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、城民损失、俘获与失地规模未载。"
+      ],
+      "battle": "CAMPAIGN-MING-LIAOSHEN-1621",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-LIAODONG-MOBILIZATION-1621",
+      "time": [
+        "天启元年三月至六月",
+        "1621",
+        "range"
+      ],
+      "subject": "熹宗朝廷与辽东军政体系",
+      "action": "辽沈失守后朝廷选拔将材，在通州天津宣大及陕豫晋浙募兵，并任熊廷弼、王象乾经略总督辽蓟。",
+      "result": "全国性募兵和辽东军政重组启动。",
+      "groups": [
+        "募兵军士",
+        "地方民户",
+        "边军",
+        "军政官员"
+      ],
+      "quote": [
+        "其令有司於山林草澤間慎選將材。",
+        "募兵於通州、天津、宣府、大同。",
+        "熊廷弼為兵部尚書兼右副都御史，經略遼東。"
+      ],
+      "unknown": [
+        "募兵人数、军饷来源、训练成效与指挥协调结果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "LIAODONG-MOBILIZATION-1621",
+        "summary": "辽沈失守后跨省募兵并重组辽东指挥。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-YONGNING-REBELLION-1621-1623",
+      "time": [
+        "天启元年九月",
+        "天启三年七月",
+        "range"
+      ],
+      "subject": "朱燮元、秦良玉等官军与永宁奢崇明军",
+      "action": "奢崇明杀巡抚、占重庆并攻成都，川湖官军和秦良玉反击复重庆，后继续追击。",
+      "result": "成都解围、重庆收复，奢崇明退走并与安邦彦合流。",
+      "cost": "徐可求、张振德、李忠臣、杨愈懋、龚万禄等死，其他伤亡未载。",
+      "groups": [
+        "官军",
+        "石砫军",
+        "永宁叛军",
+        "四川民众"
+      ],
+      "quote": [
+        "奢崇明反，殺巡撫徐可求，據重慶",
+        "秦良玉、杜文煥破賊於佛圖關，官軍合圍重慶，復之。",
+        "奢崇明走龍場，與安邦彥合。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、城镇民损与后续完全平定时间未载。"
+      ],
+      "battle": "CAMPAIGN-MING-YONGNING-1621-1623",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-SHUIXI-REBELLION-1622-1626",
+      "time": [
+        "天启二年二月",
+        "天启六年三月",
+        "range"
+      ],
+      "subject": "王三善、朱燮元等官军与水西安邦彦军",
+      "action": "安邦彦攻陷毕节安顺等地并围贵阳，川贵等官军多路解围进讨，胜败反复。",
+      "result": "贵阳围解，但王三善被执死，至天启六年官军仍有败绩，战事未在本卷完结。",
+      "cost": "王三善、鲁钦及多名官将战死，其他伤亡未载。",
+      "groups": [
+        "官军",
+        "水西叛军",
+        "贵州云南民众"
+      ],
+      "quote": [
+        "安邦彥反，陷畢節、安順、平壩、霑益、龍里，遂圍貴陽",
+        "里，貴陽圍解。\n",
+        "王三善自大方旋師遇伏，被執死之，諸官將皆死。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、饷费、地方灾损和最终平定结果未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SHUIXI-1622-1626",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-SHANDONG-WHITE-LOTUS-1622",
+      "time": [
+        "天启二年五月至十月",
+        "1622",
+        "range"
+      ],
+      "subject": "杨肇基等官军与山东徐鸿儒军",
+      "action": "徐鸿儒起事并攻陷郓城、邹县、滕县，官军出兵征讨。",
+      "result": "官军收复邹县并擒徐鸿儒，山东战事平定。",
+      "cost": "滕县知县姬文胤等死，其他伤亡未载。",
+      "groups": [
+        "官军",
+        "白莲起事军",
+        "山东地方民众"
+      ],
+      "quote": [
+        "山東白蓮賊徐鴻儒反，陷鄆城。",
+        "官軍復鄒縣，擒徐鴻儒等，山東賊平。"
+      ],
+      "unknown": [
+        "起事原因、参与人数、总伤亡、城镇损失与俘虏处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SHANDONG-WHITE-LOTUS-1622",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-TAX-REMISSION-LIAO-REFUGEES-1622-1623",
+      "time": [
+        "天启二年正月",
+        "天启三年春",
+        "range"
+      ],
+      "subject": "熹宗朝廷与辽东流民、天下欠赋民户及山东兵灾民户",
+      "action": "朝廷赈济流徙山东的辽民，免天下带征钱粮两年和北畿加派，次年再赈山东兵灾州县。",
+      "result": "辽东失地与内战灾民获得赈济，全国部分旧欠和北畿加派被免。",
+      "groups": [
+        "辽东流民",
+        "山东兵灾民户",
+        "纳税民户",
+        "农户"
+      ],
+      "quote": [
+        "振山東流徙遼民。",
+        "免天下帶徵錢糧二年及北畿加派。",
+        "振山東被兵州縣。"
+      ],
+      "unknown": [
+        "免税赈济总额、流民人数、受益户数与安置成效未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TAX-REMISSION-LIAO-REFUGEES-1622-1623",
+        "summary": "赈辽民山东兵灾并免旧欠与北畿加派。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-COUNTY-MILITIA-TAX-1622",
+      "time": [
+        "天启二年九月",
+        "1622",
+        "month"
+      ],
+      "subject": "熹宗朝廷与州县民兵、按亩纳饷民户",
+      "action": "朝廷同意各州县设置地方兵，并按田亩征收军饷。",
+      "result": "地方武备制度与田亩军费负担同时扩张。",
+      "groups": [
+        "州县民兵",
+        "纳税农户",
+        "地方官员"
+      ],
+      "quote": [
+        "請設州縣兵，按畝供餉，從之。"
+      ],
+      "unknown": [
+        "设兵规模、亩征标准、饷银总额和民户负担未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "COUNTY-MILITIA-TAX-1622",
+        "summary": "州县设兵并按亩供饷。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-PENGHU-OCCUPATION-1623",
+      "time": [
+        "天启三年正月",
+        "1623",
+        "month"
+      ],
+      "subject": "荷兰势力与明朝澎湖防务",
+      "action": "荷兰人占据澎湖。",
+      "result": "明朝东南海疆要地被外来武装控制，本卷未载收复结果。",
+      "cost": "兵民伤亡与财产损失未载。",
+      "groups": [
+        "荷兰武装",
+        "明朝海防军民",
+        "澎湖居民"
+      ],
+      "quote": [
+        "紅夷據澎湖。"
+      ],
+      "unknown": [
+        "占领兵力、交战过程、伤亡、地方损失和后续处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-PENGHU-1623",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-EAST-DEPOT-CONTROL-1623",
+      "time": [
+        "天启三年十二月",
+        "1623",
+        "month"
+      ],
+      "subject": "魏忠贤与东厂体系",
+      "action": "魏忠贤出任东厂总督。",
+      "result": "魏忠贤获得直接控制侦缉机构的制度职位。",
+      "groups": [
+        "东厂人员",
+        "中央官员",
+        "京师居民"
+      ],
+      "quote": [
+        "魏忠賢總督東廠。"
+      ],
+      "unknown": [
+        "东厂人员规模、侦缉案件数、经费和即时政治影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EAST-DEPOT-CONTROL-1623",
+        "summary": "魏忠贤取得东厂控制权。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V22-LOCAL-MUTINIES-1624-1627",
+      "time": [
+        "天启四年三月",
+        "天启七年三月",
+        "range"
+      ],
+      "subject": "地方官府与杭州福宁两当澄城等地兵民",
+      "action": "杭州、福宁发生兵变，两当和澄城民众杀地方官，地方官府分别抚定或处死起事者。",
+      "result": "多地兵民冲突被局部压制，但基层秩序持续恶化。",
+      "cost": "石有恒、徐可行、牛得用、张斗耀等被杀。",
+      "groups": [
+        "兵变军士",
+        "地方民众",
+        "地方官员",
+        "平乱官军"
+      ],
+      "quote": [
+        "，杭州兵變。是",
+        "福寧兵變，有司撫定之。",
+        "澄城民變，殺知縣張斗耀。"
+      ],
+      "unknown": [
+        "各次起因、参与人数、军饷背景、镇压伤亡与民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-LOCAL-MUTINIES-1624-1627",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-DONGLIN-PURGE-1624-1626",
+      "time": [
+        "天启四年十月",
+        "天启六年二月",
+        "range"
+      ],
+      "subject": "魏忠贤集团与杨涟、左光斗、汪文言、周起元等反对官员",
+      "action": "魏忠贤集团削籍、逮捕并以镇抚司狱逼害大批东林及反对官员。",
+      "result": "杨涟、左光斗、袁化中、魏大中、周朝瑞、顾大章及周起元等相继死于狱中，高攀龙自尽。",
+      "cost": "多名官员遭杖、狱死或自尽，家属损失未载。",
+      "groups": [
+        "东林及反对官员",
+        "镇抚司人员",
+        "涉案家属",
+        "中央官员"
+      ],
+      "quote": [
+        "逮楊漣、左光斗、袁化中、魏大中、周朝瑞、顧大章",
+        "漣等逮至，下鎮撫司獄，相繼死獄中。",
+        "攀龍赴水死，起元等下鎮撫司獄，相繼死獄中。"
+      ],
+      "unknown": [
+        "完整涉案名单、刑讯过程、籍没财产和家属处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DONGLIN-PURGE-1624-1626",
+        "summary": "魏忠贤集团以削籍和镇抚司狱清洗东林反对者。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-ACADEMY-DESTRUCTION-BLACKLIST-1625",
+      "time": [
+        "天启五年七月至十二月",
+        "1625",
+        "range"
+      ],
+      "subject": "魏忠贤政权与东林书院、讲学士人及党人",
+      "action": "朝廷毁首善书院及天下东林讲学书院，追论多次京察，削籍诸臣并将东林党人名单颁示天下。",
+      "result": "东林讲学组织被全国性摧毁，政治黑名单正式公布。",
+      "groups": [
+        "书院师生",
+        "东林官员",
+        "地方士绅",
+        "执行官员"
+      ],
+      "quote": [
+        "毀天下東林講學書院。",
+        "追論萬曆辛亥、丁巳、癸亥三京察",
+        "榜東林黨人姓名，頒示天下。"
+      ],
+      "unknown": [
+        "被毁书院数量、财产处置、削籍人数和地方执行差异未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ACADEMY-DESTRUCTION-BLACKLIST-1625",
+        "summary": "毁东林书院并公布全国党人名单。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-LUSHUN-LIUHE-LOSSES-1625",
+      "time": [
+        "天启五年正月至九月",
+        "1625",
+        "range"
+      ],
+      "subject": "明朝辽东军与后金军",
+      "action": "后金军攻取旅顺，明军又在柳河战败。",
+      "result": "辽东沿海及内陆防线继续收缩。",
+      "cost": "鲁之甲等败没，其他伤亡未载。",
+      "groups": [
+        "明军",
+        "后金军",
+        "旅顺柳河军民"
+      ],
+      "quote": [
+        "大清兵取旅順。",
+        "遼東副總兵魯之甲敗沒於柳河。"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、城民损失和失地范围未载。"
+      ],
+      "battle": "CAMPAIGN-MING-LUSHUN-LIUHE-1625",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-NINGYUAN-DEFENSE-1626",
+      "time": [
+        "天启六年正月",
+        "1626",
+        "month"
+      ],
+      "subject": "袁崇焕、满桂等明军与后金围城军",
+      "action": "后金军围攻宁远，袁崇焕、满桂等固守。",
+      "result": "宁远围解，袁崇焕随后专理辽东军务。",
+      "cost": "双方伤亡与城防损失未载。",
+      "groups": [
+        "明军",
+        "后金军",
+        "宁远军民"
+      ],
+      "quote": [
+        "大清兵圍寧遠，總兵官滿桂、寧前道參政袁崇煥固守。",
+        "守。己巳，圍解。\n"
+      ],
+      "unknown": [
+        "双方兵力、伤亡、火器使用、城民损失和战后俘获未载。"
+      ],
+      "battle": "CAMPAIGN-MING-NINGYUAN-1626",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-THREE-COURT-COMPENDIUM-1625-1626",
+      "time": [
+        "天启五年五月",
+        "天启六年六月",
+        "range"
+      ],
+      "subject": "魏忠贤政权与梃击红丸移宫三案编修者",
+      "action": "朝廷同意把梃击、红丸、移宫三案编书，次年修成《三朝要典》并刊布中外。",
+      "result": "三案获得由魏忠贤政权主导的官方定本并用于政治裁判。",
+      "groups": [
+        "编修官员",
+        "三案涉案者",
+        "中央地方官员",
+        "士人"
+      ],
+      "quote": [
+        "請以「梃擊」、「紅丸」、「移宮」三案編次成書，從之。",
+        "三朝要典成，刊布中外。"
+      ],
+      "unknown": [
+        "编纂过程、版本内容、印行数量与具体裁判影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "THREE-COURT-COMPENDIUM-1625-1626",
+        "summary": "三案编成《三朝要典》并颁行全国。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-EUNUCH-FRONTIER-SUPERVISORS-1626",
+      "time": [
+        "天启六年三月",
+        "1626",
+        "month"
+      ],
+      "subject": "熹宗、边镇监军内臣与反对廷臣",
+      "action": "熹宗在各边镇设置监军内臣，又令太监刘应坤镇守山海关，拒绝阁部反对。",
+      "result": "宦官权力延伸至边镇军事指挥。",
+      "groups": [
+        "边军",
+        "监军内臣",
+        "阁部官员",
+        "边地居民"
+      ],
+      "quote": [
+        "設各邊鎮監軍內臣。",
+        "太監劉應坤鎮守山海關，大學士丁紹軾、兵部尚書王永光等屢諫不聽。"
+      ],
+      "unknown": [
+        "监军人数、权限、军费和对作战指挥的具体影响未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "EUNUCH-FRONTIER-SUPERVISORS-1626",
+        "summary": "设置边镇监军内臣并令太监镇守山海关。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-NANJING-TREASURY-EXTRACTION-1626",
+      "time": [
+        "天启六年四月",
+        "1626",
+        "month"
+      ],
+      "subject": "南京守备内臣、应天各府库与殿工兵饷承办体系",
+      "action": "朝廷命南京守备内臣搜括应天各府库存银，用于宫殿工程和军饷。",
+      "result": "地方库银被集中抽调至中央工程与军事支出。",
+      "groups": [
+        "应天府库官员",
+        "地方纳税民户",
+        "工程役户",
+        "边军"
+      ],
+      "quote": [
+        "命南京守備內臣搜括應天各府貯庫銀，充殿工、兵餉。"
+      ],
+      "unknown": [
+        "搜括银额、各府库存损失、殿工军饷分配和地方财政影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NANJING-TREASURY-EXTRACTION-1626",
+        "summary": "搜括应天府库银充殿工与兵饷。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-WANGGONG-FACTORY-DISASTERS-1626",
+      "time": [
+        "天启六年五月至秋",
+        "1626",
+        "range"
+      ],
+      "subject": "熹宗朝廷与京师江北山东河南灾民",
+      "action": "王恭厂发生重大爆炸，继而地震、河决、大水、旱蝗并发。",
+      "result": "京师及多地遭连续灾害，王恭厂死亡甚众。",
+      "cost": "王恭厂死者甚众，其他灾害伤亡未载。",
+      "groups": [
+        "军工厂人员",
+        "京师居民",
+        "沿河灾民",
+        "农户"
+      ],
+      "quote": [
+        "王恭廠災，死者甚眾。",
+        "京師地震，靈丘地震經月。壬午，河決廣武。",
+        "京師大水，江北、山東旱蝗。"
+      ],
+      "unknown": [
+        "爆炸原因、死亡人数、财产损失、河决范围与赈济措施未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WANGGONG-FACTORY-DISASTERS-1626",
+        "summary": "王恭厂爆炸及地震河决旱蝗形成复合灾害。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-WEI-SHRINES-TITLES-ESTATES-1626-1627",
+      "time": [
+        "天启六年闰六月",
+        "天启七年五月",
+        "range"
+      ],
+      "subject": "熹宗、魏忠贤及其宗族党羽",
+      "action": "熹宗准许各地建魏忠贤生祠，进封魏忠贤上公、其侄孙公侯并赐庄田，后又准太学旁建祠岁祀如孔子。",
+      "result": "对魏氏的政治崇拜遍布全国，宗族获爵位、铁券和千顷庄田。",
+      "groups": [
+        "魏氏宗族",
+        "地方建祠官民",
+        "庄田原有民户",
+        "中央官员"
+      ],
+      "quote": [
+        "嗣是建祠幾遍天下。",
+        "進魏忠賢爵上公，魏良卿寧國公，予誥券，加賜莊田一千頃。",
+        "請建魏忠賢生祠於太學旁，歲祀如孔子，許之。"
+      ],
+      "unknown": [
+        "生祠总数、建造费用、庄田来源、被占民户和爵赏财政成本未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WEI-SHRINES-TITLES-ESTATES-1626-1627",
+        "summary": "魏忠贤生祠遍天下并获上公爵赏、宗族公侯庄田。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-IMPERIAL-HALL-WORKS-1625-1627",
+      "time": [
+        "天启五年正月",
+        "天启七年八月",
+        "range"
+      ],
+      "subject": "熹宗朝廷、魏忠贤集团与庆陵皇极中极建极殿工程役户",
+      "action": "庆陵、皇极殿、中极殿和建极殿相继完工，工程完成伴随大规模荫赏与近千官匠升授。",
+      "result": "陵殿工程完工，同时魏氏党羽和工程人员获得爵赏升官。",
+      "groups": [
+        "工程役户",
+        "工匠",
+        "魏氏党羽",
+        "财政承办者"
+      ],
+      "quote": [
+        "以慶陵工成，予魏忠賢等廕賚。",
+        "以皇極殿成",
+        "官匠雜流陞授者九百六十五人。"
+      ],
+      "unknown": [
+        "各工程费用、用工、伤亡、材料来源和荫赏总成本未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "IMPERIAL-HALL-WORKS-1625-1627",
+        "summary": "陵殿工程相继完成并伴随荫赏升授。",
+        "continuity": "continued_within_reign",
+        "phase": "竣工与封赏",
+        "purpose": "陵寝宫殿营建",
+        "operation_result": "陵殿成"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-SHAANXI-REBELS-BEGIN-1626",
+      "time": [
+        "天启六年八月",
+        "1626",
+        "month"
+      ],
+      "subject": "陕西流动起事军与地方官军民",
+      "action": "陕西流贼兴起并由保宁进犯广元。",
+      "result": "明末陕西流动武装开始跨区扩展，本卷未载平定。",
+      "cost": "双方伤亡与地方损失未载。",
+      "groups": [
+        "流动起事军",
+        "地方官军",
+        "陕川民众"
+      ],
+      "quote": [
+        "陝西流賊起，由保寧犯廣元。"
+      ],
+      "unknown": [
+        "起事原因、人数、领袖、伤亡和后续战局未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SHAANXI-REBELS-1626",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-FINANCE-CONTROL-TAX-RELIEF-1627",
+      "time": [
+        "天启七年正月至三月",
+        "1627",
+        "range"
+      ],
+      "subject": "内廷太监、漕仓体系与凤阳饥民、关中商民",
+      "action": "朝廷命太监总督太仓节慎库及漕运河道、核京通诸仓，同时赈凤阳饥荒并免潼关咸阳商税。",
+      "result": "内廷加强对银库漕仓控制，部分灾民商民获得赈免。",
+      "groups": [
+        "库仓官吏",
+        "漕运军民",
+        "凤阳饥民",
+        "关中商民"
+      ],
+      "quote": [
+        "太監涂文輔總督太倉銀庫、節慎庫。",
+        "覈京師、通州諸倉。",
+        "免榷潼關、咸陽商稅。"
+      ],
+      "unknown": [
+        "库仓核查结果、内廷控制收益、赈粮和免税总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FINANCE-CONTROL-TAX-RELIEF-1627",
+        "summary": "内廷控制银库漕仓并赈饥免商税。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-JINZHOU-NINGYUAN-1627",
+      "time": [
+        "天启七年五月至六月",
+        "1627",
+        "range"
+      ],
+      "subject": "明军与后金围攻锦州宁远军",
+      "action": "后金军先后围攻锦州和宁远。",
+      "result": "锦州之围于六月解除，宁远战事结果本卷未明载。",
+      "cost": "双方伤亡与城防损失未载。",
+      "groups": [
+        "明军",
+        "后金军",
+        "锦州宁远军民"
+      ],
+      "quote": [
+        "大清兵圍錦州。",
+        "巳，攻寧遠。\n六",
+        "子，錦州圍解。\n"
+      ],
+      "unknown": [
+        "双方兵力、总伤亡、宁远解围过程和城民损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-JINZHOU-NINGYUAN-1627",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V22-XIZONG-DEATH-SUCCESSION-1627",
+      "time": [
+        "天启七年七月至十月",
+        "1627",
+        "range"
+      ],
+      "subject": "熹宗朱由校与信王朱由检",
+      "action": "熹宗病重时仍称魏忠贤王体乾可计大事，随后崩于乾清宫，遗诏由信王继位。",
+      "result": "天启朝结束，朱由检成为皇位继承者，熹宗葬德陵。",
+      "groups": [
+        "皇室成员",
+        "魏忠贤集团",
+        "阁部科道官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "諭以魏忠賢、王體乾忠貞可計大事。",
+        "乙卯，崩於乾清宮，年二十三。",
+        "遺詔以皇第五弟信王由檢嗣皇帝位。"
+      ],
+      "unknown": [
+        "病因、遗诏全文、魏忠贤后续安排和继位全部程序未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "XIZONG-DEATH-SUCCESSION-1627",
+        "summary": "熹宗崩逝并遗诏信王朱由检继位。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

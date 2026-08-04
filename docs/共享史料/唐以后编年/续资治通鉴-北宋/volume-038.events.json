@@ -1,0 +1,1087 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-038",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷038",
+    "revision_ref": "2611598",
+    "start_locator": "宋仁宗天聖七年八月",
+    "end_locator": "宋仁宗明道元年十二月",
+    "overlap_context": "承接卷037吕夷简执政、灾政节费与辽准布边局；本卷记录辽渤海兴辽之变及平定、解盐通商和职田反复，推进制举、州学、诏令与言路制度，继而完成辽圣宗—兴宗交接、宫廷清洗及宋大内火灾减规模重建，转出元昊继立、西夏僭叛萌芽与刘太后晚期权力结构。",
+    "input_fingerprint": "1a0d7e4741277ca52affab792177d1aa2dc1cd2f76c1cfe56d2ca27faea01261"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-038-OFFICIAL-LAND-ABOLITION-1029",
+      "time": "天圣七年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷废除天下职田，由官府收其收入并按价值均给官员。",
+      "result": "试图消除职田有无不均和官吏加收侵害小民。",
+      "quote": [
+        "罷天下職田",
+        "官收其入以所直均給之",
+        "多收以殘細民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "废职田并折价均给官员。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "整顿官员职田收入制度。"
+        ]
+      ],
+      "unknown": [
+        "政策后于天圣九年恢复。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-BOHAI-FISCAL-ABUSE-1029",
+      "time": "天圣七年八月追记",
+      "loc": [
+        "辽东京",
+        "渤海",
+        "燕地"
+      ],
+      "action": "辽官将平州酒盐关市重税强加渤海，又强民走险水路运粮赈燕，鞭扑催迫。",
+      "result": "渤海民不堪命并怨乱，成为大延琳叛变背景。",
+      "quote": [
+        "以燕地平州之法繩之，民不堪命",
+        "水路艱險，多至覆沒",
+        "鞭撲搒掠，民怨思亂"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重税与强制危险漕运激化渤海民怨。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽东京地方治理失当酿成叛乱。"
+        ]
+      ],
+      "unknown": [
+        "覆船伤亡和税额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-DAYANLIN-REBELLION-1029",
+      "time": "天圣七年八月",
+      "loc": [
+        "辽东京"
+      ],
+      "action": "大延琳囚东京留守与南阳公主，杀韩绍勋、王嘉，僭号兴辽、改元天庆。",
+      "result": "辽东京爆发渤海政权叛乱，辽主征诸道兵进讨。",
+      "quote": [
+        "大延琳因之為變",
+        "眾，僭號興遼",
+        "即征諸道兵以時進討"
+      ],
+      "battle": "CAMPAIGN-LIAO-DAYANLIN-REBELLION-1029",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大延琳建立兴辽叛政权。"
+        ]
+      ],
+      "unknown": [
+        "初起兵力未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-BOHAI-MASSACRE-SHENZHOU-1029",
+      "time": "天圣七年八月至九月",
+      "loc": [
+        "保州",
+        "沈州"
+      ],
+      "action": "夏行美拒绝响应大延琳，辽军杀保州渤海兵八百；大延琳分兵攻沈州，又中张杰诈降而败退。",
+      "result": "叛军东路受阻，未能夺取沈州。",
+      "quote": [
+        "殺渤海兵八百人",
+        "分兵西取沈州",
+        "備，不克而還"
+      ],
+      "battle": "CAMPAIGN-DAYANLIN-BOHAI-SHENZHOU-1029",
+      "unknown": [
+        "沈州攻战伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-PINGSHAN-BATTLE-1029",
+      "time": "天圣七年十月",
+      "loc": [
+        "蒲水",
+        "平山北",
+        "辽东京"
+      ],
+      "action": "萧孝穆等率辽军夹击兴辽军，先断高丽女真援路，再于平山北追败叛军。",
+      "result": "叛军退守东京，辽军完成合围。",
+      "quote": [
+        "翼，夾攻之，先",
+        "使不得求援",
+        "追敗之于平山北"
+      ],
+      "battle": "CAMPAIGN-LIAO-PINGSHAN-VICTORY-1029",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-FANZHONGYAN-RETURN-POWER-1029",
+      "time": "天圣七年十一月",
+      "loc": [
+        "开封",
+        "河中府"
+      ],
+      "action": "范仲淹反对仁宗率百官向太后行臣礼，并请太后还政。",
+      "result": "两疏均未获回应，范仲淹请求外任并出判河中。",
+      "quote": [
+        "虧君體，損主威",
+        "又疏請太后還政",
+        "報，遂乞補外"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "范仲淹公开要求刘太后还政。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-038-CAOWEI-BORDER-FORTIFICATION-1030",
+      "time": "天圣八年正月追记",
+      "loc": [
+        "宋边境"
+      ],
+      "action": "曹玮长期治边，以深广丈五尺的边壕和因山修险形成后世边防规范。",
+      "result": "边壕尺度与山险利用成为成法。",
+      "quote": [
+        "奪。開邊壕，率",
+        "深廣丈五尺",
+        "後皆以為法"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "曹玮制定边壕和山险防御标准。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "边防工程形成可复用规范。"
+        ]
+      ],
+      "unknown": [
+        "累计里程未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-PUZHOU-SCHOOL-1030",
+      "time": "天圣八年正月",
+      "loc": [
+        "普州"
+      ],
+      "action": "彭乘任普州后兴办学校，召当地子弟入学。",
+      "result": "原本少知学的普州风俗发生变化。",
+      "quote": [
+        "者，乘為興學",
+        "召其子弟為生員",
+        "之，俗遂以變"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "彭乘在普州兴学化俗。"
+        ]
+      ],
+      "unknown": [
+        "生员数与经费未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-HUISHENG-PALACE-1030",
+      "time": "天圣八年正月",
+      "loc": [
+        "西京永安县"
+      ],
+      "action": "朝廷在永安县兴建会圣宫。",
+      "result": "西京新增皇室宫观工程。",
+      "quote": [
+        "作會聖宮於西京永安縣"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新建西京会圣宫。"
+        ]
+      ],
+      "unknown": [
+        "规模、工期和费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-GRAIN-PURCHASE-REFUSAL-1030",
+      "time": "天圣八年三月追记",
+      "loc": [
+        "开封"
+      ],
+      "action": "唐肃拒绝权幸请求让豪户向官仓多售数十万石小麦，理由是库存超过两年会腐坏且不可挠法。",
+      "result": "非必要官籴和权贵利益输送被阻止。",
+      "quote": [
+        "豪姓欲入官數十萬石",
+        "多則腐朽不可食",
+        "邪！」卒不受。嘗"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "拒收可能腐败的权贵巨量售粮。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "唐肃拒绝掖庭干预官籴。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-038-STOP-PALACE-TIMBER-PURCHASE-1030",
+      "time": "天圣八年三月",
+      "loc": [
+        "陕西",
+        "太一宫",
+        "洪福院"
+      ],
+      "action": "范仲淹反对三司为太一宫等从陕西大购木材，指出前次宫观火灾警示与破民产问题。",
+      "result": "谏议虽未直接记载停工，但形成对新一轮土木的公开约束。",
+      "quote": [
+        "市材木於陝西",
+        "今復侈土木，破民產",
+        "非所以順人心"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "反对陕西采木兴建宫院。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "指出工程破坏民产。"
+        ]
+      ],
+      "unknown": [
+        "奏后工程调整未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-TOKYO-SIEGE-1030",
+      "time": "天圣八年三月至八月",
+      "loc": [
+        "辽东京"
+      ],
+      "action": "萧孝穆在东京四面筑城堡楼橹，切断内外，长期围困大延琳。",
+      "result": "城内最终拆屋为炊，叛将杨详世开门纳辽军。",
+      "quote": [
+        "四面築城堡，起樓櫓",
+        "內外不相通",
+        "城中撤屋以爨"
+      ],
+      "battle": "CAMPAIGN-LIAO-TOKYO-SIEGE-1030",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽军筑围城堡垒封锁东京。"
+        ]
+      ],
+      "unknown": [
+        "围城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-BOHAI-REBELLION-SUPPRESSED-1030",
+      "time": "天圣八年八月",
+      "loc": [
+        "辽东京"
+      ],
+      "action": "杨详世夜开南门引辽军入城，辽军擒获大延琳。",
+      "result": "兴辽政权覆亡，渤海叛乱平定。",
+      "quote": [
+        "夜，開南門納遼軍",
+        "軍，禽大延琳",
+        "琳，渤海平。駙"
+      ],
+      "battle": "CAMPAIGN-LIAO-TOKYO-SIEGE-1030",
+      "unknown": [
+        "入城战斗伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-EXILE-FAMILY-RETURN-1030",
+      "time": "天圣八年八月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷规定流配人在途中死亡，其妻子由官府供食送归乡里。",
+      "result": "流配者遗属获得返乡保障。",
+      "quote": [
+        "流配人道死者",
+        "妻子給食送還鄉里"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官给流配死者妻子口粮并送还乡。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立流配遗属返乡制度。"
+        ]
+      ],
+      "unknown": [
+        "适用人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-TRANSFER-AUDIENCE-ABOLISHED-1030",
+      "time": "天圣八年九月",
+      "loc": [
+        "开封"
+      ],
+      "action": "因百官转对言事增多、大臣不悦，朝廷再次罢除转对。",
+      "result": "官员定期面陈政务缺失的渠道收窄。",
+      "quote": [
+        "，罷百官轉對",
+        "言事者頗眾",
+        "眾，大臣不悅"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "因言事过多而撤销百官转对。"
+        ]
+      ],
+      "unknown": [
+        "主张罢除者姓名未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-RELIEF-SALT-COMMERCE-1030",
+      "time": "天圣八年九月至十月",
+      "loc": [
+        "解池",
+        "三京",
+        "二十八州军"
+      ],
+      "action": "盛度、王随提出解盐通商五利，朝廷废三京二十八州军官榷，商人纳钱领钞赴池取盐。",
+      "result": "兵民转运劳役、盐质与货币壅滞改善，但官课收入随后下降。",
+      "quote": [
+        "畫通商五利",
+        "罷三京二十八州軍榷法",
+        "聽商賈入錢若金銀"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "废解盐官榷并恢复商人运销。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "盐法由官卖改为通商领钞。"
+        ]
+      ],
+      "unknown": [
+        "初年商人入钱六十余万，后续官课衰减。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-BOHAI-POSTWAR-RESETTLEMENT-1030",
+      "time": "天圣八年十一月",
+      "loc": [
+        "辽东京",
+        "来州",
+        "隰州",
+        "迁州",
+        "闰州"
+      ],
+      "action": "萧孝穆任东京留守后宽简安抚流民，辽廷录用有功有才渤海旧族，其余分徙诸州。",
+      "result": "战后东京秩序和人口重新安置。",
+      "quote": [
+        "穆撫納流民",
+        "為政務寬簡",
+        "餘分居來、隰、遷、閏等州"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "安抚东京流民并分迁渤海人口。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战后甄别任用渤海旧族。"
+        ]
+      ],
+      "unknown": [
+        "分迁人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-FANZHONGYAN-SECOND-RETURN-POWER-1030",
+      "time": "天圣八年",
+      "loc": [
+        "河中府"
+      ],
+      "action": "范仲淹再次上疏，指出仁宗年长而大权仍归太后不合君主权责，请太后还政。",
+      "result": "奏疏仍未获答复。",
+      "quote": [
+        "范仲淹上疏，請太后復辟",
+        "今皇帝春秋已盛",
+        "卷收大權，還上真主"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "范仲淹再次要求刘太后还政仁宗。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-038-OFFICIAL-LAND-RESTORED-1031",
+      "time": "天圣九年二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷恢复此前废除的职田制度。",
+      "result": "天圣七年的职田折价均给改革终止。",
+      "quote": [
+        "巳，詔復職田"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复官员职田。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "职田改革出现政策反复。"
+        ]
+      ],
+      "unknown": [
+        "恢复时是否附加防侵扰条款未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-STATE-SCHOOL-BOOKS-1031",
+      "time": "天圣九年三月",
+      "loc": [
+        "青州",
+        "诸州郡"
+      ],
+      "action": "仁宗赐青州州学《九经》，并形成已立州学均可获赐书的做法。",
+      "result": "地方学校获得官定经典资源。",
+      "quote": [
+        "賜青州州學《九經》",
+        "州郡當立學者皆得賜書"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立州学赐经支持制度。"
+        ]
+      ],
+      "unknown": [
+        "获书州数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-LIAO-SHENGZONG-SUCCESSION-1031",
+      "time": "天圣九年六月",
+      "loc": [
+        "大斧河行宫"
+      ],
+      "action": "辽圣宗病危召重臣辅立太子并要求守宋辽盟誓，随后去世，太子即位改元景福。",
+      "result": "辽完成圣宗向兴宗的皇位交接。",
+      "quote": [
+        "使輔立太子",
+        "誠無失南朝信誓",
+        "太子即位，改元景福"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽圣宗去世、兴宗即位并承诺守盟。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-038-LIAO-EMPRESS-DOWAGER-USURPS-1031",
+      "time": "天圣九年六月",
+      "loc": [
+        "辽宫廷"
+      ],
+      "action": "元妃隐匿圣宗遗诏，自尊皇太后并摄国政，拒绝尊齐天皇后为太后。",
+      "result": "辽兴宗即位后政权由生母萧氏掌握。",
+      "quote": [
+        "妃；元妃匿之",
+        "自尊為皇太后",
+        "太后，攝國政。\n"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽元妃隐诏并以太后身份摄政。"
+        ]
+      ],
+      "unknown": [
+        "遗诏完整文本未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-LIAO-PALACE-PURGE-1031",
+      "time": "天圣九年六月",
+      "loc": [
+        "辽上京"
+      ],
+      "action": "辽太后指使诬告萧绰布、萧实迪谋逆，诛本人及党七人，并囚齐天皇后。",
+      "result": "异己遭政治清洗，辽兴宗反对无效。",
+      "quote": [
+        "誣北府宰相蕭綽布及實迪謀逆",
+        "誅綽布、實迪及其黨七人",
+        "車，囚之上京"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽太后以谋逆案清洗齐天皇后一系。"
+        ]
+      ],
+      "unknown": [
+        "案件证词被萧朴明确指为冤。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-DUYAN-HEBEI-FINANCE-1032",
+      "time": "明道元年正月",
+      "loc": [
+        "河北"
+      ],
+      "action": "河北军费不足，杜衍奉命经度，在不增加民赋情况下使军费充足。",
+      "result": "河北财政缺口未以加税填补。",
+      "quote": [
+        "河北乏軍費",
+        "不增賦於民而用足"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "杜衍不加民赋解决河北军费。"
+        ]
+      ],
+      "unknown": [
+        "具体节支筹资措施未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-LICHENFEI-FUNERAL-1032",
+      "time": "明道元年二月",
+      "loc": [
+        "开封",
+        "洪福寺"
+      ],
+      "action": "仁宗生母李宸妃去世，吕夷简坚持以一品礼治丧、后服入殓、水银实棺并由西华门出丧。",
+      "result": "刘太后接受厚葬安排，为日后确认仁宗身世保全证据。",
+      "quote": [
+        "宸妃誕育聖躬",
+        "用一品禮殯洪福寺",
+        "喪宜自西華門出"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "吕夷简力争以高规格安葬仁宗生母。"
+        ]
+      ],
+      "unknown": [
+        "仁宗当时仍不知生母身份。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-TIANSHENG-CODE-1032",
+      "time": "明道元年三月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷正式施行《天圣编敕》。",
+      "result": "卷037启动的敕令修订成为现行法典。",
+      "quote": [
+        "始行《天聖編敕》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "天圣编敕正式施行。"
+        ]
+      ],
+      "unknown": [
+        "具体条文不在本卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-JIANGHUAI-DROUGHT-RELIEF-1032",
+      "time": "明道元年三月",
+      "loc": [
+        "江淮",
+        "婺州",
+        "秀州"
+      ],
+      "action": "江淮旱灾后朝廷减降刑罚，并免除婺州、秀州丁身钱。",
+      "result": "灾年刑政与人身税负同时宽减。",
+      "quote": [
+        "。\n江、淮旱。戊戌",
+        "流以下降一等",
+        "除婺、秀州丁身錢"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "江淮旱灾后免两州丁身钱。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "灾年减刑释杖笞。"
+        ]
+      ],
+      "unknown": [
+        "旱灾损失和免税额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-QITIAN-EMPRESS-MURDER-1032",
+      "time": "明道元年春",
+      "loc": [
+        "辽上京"
+      ],
+      "action": "辽太后趁兴宗出猎派人杀害无罪的齐天皇后，并杀其左右百余人。",
+      "result": "辽宫廷清洗进一步扩大。",
+      "quote": [
+        "遣人馳至上京弑后",
+        "我實無辜，天下共知",
+        "殺其左右百餘人"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽太后杀齐天皇后及其侍从百余人。"
+        ]
+      ],
+      "unknown": [
+        "兴宗是否预先知情未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-REMONSTRANCE-INSTITUTE-1032",
+      "time": "明道元年七月",
+      "loc": [
+        "门下省",
+        "谏院"
+      ],
+      "action": "朝廷以门下省设置专门谏院，结束先前只有谏官而无固定院署的状态。",
+      "result": "谏官获得常设机构。",
+      "quote": [
+        "以門下省為諫院",
+        "而未嘗置院",
+        "置諫院自此始"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋廷正式建立谏院。"
+        ]
+      ],
+      "unknown": [
+        "员额与内部流程未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-PALACE-FIRE-1032",
+      "time": "明道元年八月",
+      "loc": [
+        "开封大内"
+      ],
+      "action": "大内火灾延烧崇德、长春、承明等八殿，仁宗与太后避火苑中。",
+      "result": "朝廷移御延福宫并启动大内修复。",
+      "quote": [
+        "是夜，大內火，",
+        "延及崇德、長春、滋福、會慶、崇徽、天和、承明、延慶八殿",
+        "移御延福宮"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "大内八殿焚毁并启动重建。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "两宫因火灾临时移御。"
+        ]
+      ],
+      "unknown": [
+        "伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-PALACE-REBUILD-REDUCTION-1032",
+      "time": "明道元年八月至十一月",
+      "loc": [
+        "开封大内"
+      ],
+      "action": "仁宗命重建殿宇依祖宗旧制并进一步减省，吕夷简主持修葺。",
+      "result": "大内于十一月修成，重建规模受节制。",
+      "quote": [
+        "修葺大內使",
+        "宜約祖宗舊制",
+        "制，更從減省"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "按旧制减省重建大内。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "控制火灾后宫殿重建支出。"
+        ]
+      ],
+      "unknown": [
+        "总费用和工役未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-PALACE-FIRE-INVESTIGATION-1032",
+      "time": "明道元年八月",
+      "loc": [
+        "开封府"
+      ],
+      "action": "宦官刑讯缝人迫其认罪，程琳和蒋堂指出火灾可能源于后宫拥挤灶火，不应诬人。",
+      "result": "仁宗宽减案件，最终无人因火灾被处死。",
+      "quote": [
+        "鬥，已誣服，下",
+        "此殆天災，不宜以罪人",
+        "卒無坐死者"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "纠正大内火灾刑讯冤案。"
+        ]
+      ],
+      "unknown": [
+        "实际起火点未最终确认。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-BOOK-SEAL-SILVER-1032",
+      "time": "明道元年九月",
+      "loc": [
+        "开封"
+      ],
+      "action": "大内火灾后重制册宝，原需黄金二千七百两，仁宗改用银胎涂金。",
+      "result": "重制礼器大幅减少黄金使用。",
+      "quote": [
+        "黃金二千七百兩",
+        "易以銀而金塗之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "册宝改银胎涂金节省黄金。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "重制火毁册宝。"
+        ]
+      ],
+      "unknown": [
+        "实际节省金额未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-YUANHAO-GANZHOU-XILIANG-1032",
+      "time": "明道元年十一月追记",
+      "loc": [
+        "甘州",
+        "西凉府"
+      ],
+      "action": "元昊先袭夜洛隔可汗王夺甘州，继而攻取西凉府。",
+      "result": "西夏势力扩张并为其继位后叛宋奠定基础。",
+      "quote": [
+        "引兵襲夜洛隔可汗王",
+        "之，奪甘州。數",
+        "攻拔西涼府"
+      ],
+      "battle": "CAMPAIGN-YUANHAO-GANZHOU-XILIANG-1032",
+      "unknown": [
+        "战役年代、兵力和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-YUANHAO-SUCCESSION-1032",
+      "time": "明道元年十一月",
+      "loc": [
+        "西夏",
+        "兴州"
+      ],
+      "action": "赵德明死后元昊继立，宋廷授定难节度使、西平王，元昊在国内改称显道并暗作叛计。",
+      "result": "宋夏表面册封延续，但元昊僭叛迹象形成。",
+      "quote": [
+        "死，元昊繼立",
+        "即陰為叛計",
+        "然僭已萌矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "元昊继立并开始谋划脱离宋朝。"
+        ]
+      ],
+      "unknown": [
+        "正式称帝仍在后卷。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-OLD-PARENTS-NEAR-OFFICE-1032",
+      "time": "明道元年十二月",
+      "loc": [
+        "宋境"
+      ],
+      "action": "朝廷规定选人父母年八十以上者可暂时注授近地官职。",
+      "result": "官员侍养老亲被纳入铨选安排。",
+      "quote": [
+        "父母年八十以上者",
+        "者，權注近官"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "铨选为八旬父母提供近官照顾。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "减少官员家庭远地分离负担。"
+        ]
+      ],
+      "unknown": [
+        "近官距离标准未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-POOR-HIRING-POLICY-1032",
+      "time": "明道元年十二月",
+      "loc": [
+        "淮南"
+      ],
+      "action": "此前官府赎回饥民雇卖男女导致民间不敢雇佣，仁宗接受建议恢复自愿雇佣。",
+      "result": "在防止人口买卖与贫户谋生之间调整政策。",
+      "quote": [
+        "官為贖還之",
+        "貧者或無自存",
+        "存，望聽其便"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "恢复贫民自愿受雇谋生。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "修正赎回雇人政策的副作用。"
+        ]
+      ],
+      "unknown": [
+        "雇佣与典卖边界未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-038-INNER-DECREE-REMONSTRANCE-1032",
+      "time": "明道元年",
+      "loc": [
+        "开封"
+      ],
+      "action": "范仲淹以唐代斜封官为戒，连续批评不经有司的内降授官赏赐。",
+      "result": "宫中直接干预任官受到持续谏议。",
+      "quote": [
+        "不關有司而署官賞者",
+        "墨敕斜封官為戒",
+        "屢論內降之弊"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "范仲淹反对内降绕过正式任官程序。"
+        ]
+      ],
+      "unknown": [
+        "奏疏实际采纳程度未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2611598 的《續資治通鑑》卷038连续通读登记，不引入卷外常识。",
+    "普通任免、巡幸、贡聘、祥异和礼仪节点未单列；明确武装行动均保留 battle 交接。",
+    "卷末元昊继立、西夏僭叛、刘太后还政争论和宋辽新君初政继续转后卷。"
+  ]
+}

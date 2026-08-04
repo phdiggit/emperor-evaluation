@@ -1,0 +1,581 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "MING-MINGSHI-V12-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-MING-V12-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "明史",
+    "volume_ref": "卷12",
+    "revision_ref": "2594665",
+    "start_locator": "天顺元年夺门复辟",
+    "end_locator": "天顺八年英宗崩与罢宫妃殉葬",
+    "overlap_context": "卷首复述卷11夺门政变并显式duplicate-of；本卷登记英宗复辟清洗封赏、石亨曹吉祥集团、边疆与苗瑶战争、矿课织造、灾赈河工及罢殉葬。",
+    "input_fingerprint": "c3b6197eed5ed730930aec12efa5e642107de124a3169bc41908126962b3438a"
+  },
+  "limitations": [
+    "仅据固定《明史》卷12正文登记，未知保持未知。",
+    "普通任免、巡幸、祭祀、贡聘和祥异不单列；夺门复述仅作CONTEXT_ONLY锚点。"
+  ],
+  "events": [
+    {
+      "id": "CHF-MING-V12-DUOMEN-RESTORATION-CONTEXT-1457",
+      "time": [
+        "天顺元年正月至二月",
+        "1457",
+        "range"
+      ],
+      "subject": "英宗、石亨、徐有贞等与景帝",
+      "action": "石亨、徐有贞、曹吉祥等以兵迎英宗出南宫，英宗在奉天殿复位，改景泰八年为天顺元年；景帝被废为郕王后去世。",
+      "result": "英宗复辟、景泰政权终结；此为卷11夺门政变复述锚点，duplicate-of CHF-MING-V11-DUOMEN-COUP-1457。",
+      "groups": [
+        "皇室成员",
+        "政变军士",
+        "中央官员"
+      ],
+      "quote": [
+        "以兵迎帝於南宮，御奉天門，朝百官。",
+        "御奉天殿即位。",
+        "改景泰八年為天順元年。",
+        "廢景泰帝為郕王。",
+        "丑，郕王薨。戊"
+      ],
+      "unknown": [
+        "宫禁抵抗、兵力、景帝死因及完整参与者未载。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-YU-QIAN-PURGE-1457",
+      "time": [
+        "天顺元年正月至七月",
+        "1457",
+        "range"
+      ],
+      "subject": "英宗复辟朝廷与于谦、王文等景泰臣属",
+      "action": "复辟后于谦、王文被下锦衣卫狱并处死籍家，陈循等谪戍除名，朝廷公布于谦党人并处死多名相关官员。",
+      "result": "北京保卫与景泰核心官员遭系统清洗。",
+      "groups": [
+        "景泰朝臣",
+        "涉案家属",
+        "锦衣卫",
+        "中央官员"
+      ],
+      "quote": [
+        "下兵部尚書于謙、大學士王文錦衣衞獄。",
+        "殺于謙、王文，籍其家。",
+        "陳循、江淵、俞士悅謫戍，蕭鎡、商輅除名。",
+        "榜于謙黨人示天下。",
+        "巡撫貴州副都御史蔣琳坐于謙黨棄市。"
+      ],
+      "unknown": [
+        "案件证据、牵连人数、籍没财产和家属处置未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YU-QIAN-PURGE-1457",
+        "summary": "英宗复辟后杀于谦王文并清洗景泰臣属。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-DUOMEN-REWARD-1457",
+      "time": [
+        "天顺元年正月至三月",
+        "1457",
+        "range"
+      ],
+      "subject": "英宗与石亨、徐有贞、曹吉祥等夺门参与者",
+      "action": "朝廷两次论夺门功，大封石亨、徐有贞等，令三千余官舍旗军晋级并大赉军民。",
+      "result": "政变参与集团获得爵位官职和广泛奖赏。",
+      "groups": [
+        "政变官员",
+        "禁军",
+        "官舍旗军",
+        "军民"
+      ],
+      "quote": [
+        "論奪門迎復功，封石亨忠國公",
+        "復論奪門功",
+        "官舍旂軍晉級者凡三千餘人。",
+        "封徐有貞武功伯。",
+        "大賚文武軍民。"
+      ],
+      "unknown": [
+        "封赏总支出、冒功人数与财政负担未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "DUOMEN-REWARD-1457",
+        "summary": "大封夺门功臣并使三千余人晋级。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-CROWN-PRINCE-RESTORATION-1457",
+      "time": [
+        "天顺元年三月",
+        "1457",
+        "month"
+      ],
+      "subject": "英宗与长子朱见深及诸皇子",
+      "action": "英宗恢复朱见深皇太子地位，并封其他皇子为德、秀、崇、吉诸王。",
+      "result": "景泰废储被纠正，朱见深重新成为继承人。",
+      "groups": [
+        "皇室成员",
+        "中央官员"
+      ],
+      "quote": [
+        "復立長子見深為皇太子",
+        "封皇子見潾為德王，見澍秀王，見澤崇王，見浚吉王。"
+      ],
+      "unknown": [
+        "复储朝议过程与诸王权责未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CROWN-PRINCE-RESTORATION-1457",
+        "summary": "复立朱见深为皇太子。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V12-SOUTHWEST-WARS-1457-1463",
+      "time": [
+        "天顺元年二月",
+        "天顺七年十一月",
+        "range"
+      ],
+      "subject": "柳溥、方瑛、颜彪等明军与广西湖广贵州苗瑶僮部众",
+      "action": "明军持续征讨广西、湖广、贵州苗瑶僮起事，屡次攻破部众，但梧州两度陷落并有官员被杀。",
+      "result": "多处起事被平定，西南战事仍反复至天顺末。",
+      "cost": "宋钦等被杀；双方总伤亡未载。",
+      "groups": [
+        "明军",
+        "苗瑶僮部众",
+        "西南地方民众"
+      ],
+      "quote": [
+        "柳溥破廣西蠻。",
+        "方瑛、石璞大破湖廣苗。",
+        "方瑛攻銅鼓藕洞苗，悉平之。",
+        "，僮陷梧州。丁",
+        "李震會廣西軍剿瑤、僮，悉破之。",
+        "顏彪討平兩廣諸瑤。",
+        "賊陷梧州，致仕布政使宋欽死之"
+      ],
+      "unknown": [
+        "起事原因、兵力、总伤亡和民间损失未载。"
+      ],
+      "battle": "CAMPAIGN-MING-SOUTHWEST-WARS-1457-1463",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-BOLAI-BORDER-WAR-1457-1462",
+      "time": [
+        "天顺元年四月",
+        "天顺六年三月",
+        "range"
+      ],
+      "subject": "石彪、柳溥、马昂等明军与孛来部",
+      "action": "孛来反复侵宁夏甘凉雁门大同河西，明军在安边营取胜但亦有败绩，曹钦乱后重新部署京营，最终孛来请和入贡。",
+      "result": "西北战事历时数年后以孛来请和结束。",
+      "cost": "种兴、周贤、李鉴等战死；其他伤亡未载。",
+      "groups": [
+        "明军",
+        "孛来部",
+        "西北边民"
+      ],
+      "quote": [
+        "孛來寇寧夏，參將种興戰死。",
+        "石彪、彰武伯楊信敗孛來於安邊營",
+        "孛來三道入寇",
+        "孛來寇河西，官軍敗績。",
+        "孛來上書乞和。",
+        "孛來遣使入貢。"
+      ],
+      "unknown": [
+        "兵力、总伤亡、边地损失与和议条件未载。"
+      ],
+      "battle": "CAMPAIGN-MING-BOLAI-BORDER-WAR-1457-1462",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-WANG-ZHEN-REHABILITATION-1457",
+      "time": [
+        "天顺元年十月",
+        "1457",
+        "month"
+      ],
+      "subject": "英宗与王振身后名誉",
+      "action": "英宗赐王振祭葬并建立旌忠祠。",
+      "result": "土木之变责任者王振获得官方身后平反与祭祀。",
+      "groups": [
+        "王振家族",
+        "宦官",
+        "中央官员"
+      ],
+      "quote": [
+        "賜王振祭葬，立祠曰「旌忠」。"
+      ],
+      "unknown": [
+        "建祠费用、祭典规模与反对意见未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "WANG-ZHEN-REHABILITATION-1457",
+        "summary": "英宗赐王振祭葬并立旌忠祠。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-JIANWEN-PRINCE-RELEASE-1457",
+      "time": [
+        "天顺元年十月",
+        "1457",
+        "month"
+      ],
+      "subject": "英宗与建文帝幼子朱文圭家属",
+      "action": "英宗释放长期被拘的朱文圭及其家属并安置凤阳。",
+      "result": "建文帝直系后裔结束长期囚禁。",
+      "groups": [
+        "建文皇室后裔",
+        "凤阳安置民户",
+        "中央官员"
+      ],
+      "quote": [
+        "釋建文帝幼子文圭及其家屬，安置鳳陽。"
+      ],
+      "unknown": [
+        "释放条件、生活给付和后续境况未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIANWEN-PRINCE-RELEASE-1457",
+        "summary": "释放朱文圭家属并安置凤阳。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-MINING-PEARL-POLICY-1458-1463",
+      "time": [
+        "天顺二年二月",
+        "天顺七年三月",
+        "range"
+      ],
+      "subject": "英宗朝廷与云南闽浙川粤矿珠役户",
+      "action": "朝廷重开云南福建浙江银场、派内臣督多省银课并遣御史中官采珠，至天顺七年旱灾又停止各处银场。",
+      "result": "矿珠开采在复辟后扩张，末期因灾停止银场。",
+      "groups": [
+        "矿工",
+        "采珠役户",
+        "矿区民众",
+        "银课官员"
+      ],
+      "quote": [
+        "開雲南、福建、浙江銀場。",
+        "遣御史及中官採珠廣東。",
+        "分遣內臣督浙江、雲南、福建、四川銀課。",
+        "停各處銀場。"
+      ],
+      "unknown": [
+        "银珠产量、课额、役工伤亡和停采范围未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MINING-PEARL-POLICY-1458-1463",
+        "summary": "复开银场并采珠督课，天顺末停银场。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-SHI-HENG-DOWNFALL-1459-1460",
+      "time": [
+        "天顺三年八月",
+        "天顺四年二月",
+        "range"
+      ],
+      "subject": "英宗与石亨、石彪夺门功臣集团",
+      "action": "石彪先下狱，石亨被罢后以罪下狱死，石彪被处死；朝廷准许夺门冒功者自首改正。",
+      "result": "夺门核心武臣集团遭清洗，冒功封赏开始纠正。",
+      "groups": [
+        "夺门功臣",
+        "军官",
+        "中央官员"
+      ],
+      "quote": [
+        "石彪有罪，下錦衣衞獄。",
+        "石亨以罪罷。",
+        "諸奪門冒功者許自首改正。",
+        "石亨有罪下獄，尋死。",
+        "卯，石彪棄市。\n"
+      ],
+      "unknown": [
+        "罪名证据、牵连人数、爵产处置和自首规模未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SHI-HENG-DOWNFALL-1459-1460",
+        "summary": "石亨石彪集团覆灭并纠正夺门冒功。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-AUTUMN-JOINT-PRISON-REVIEW-1459",
+      "time": [
+        "天顺三年十月",
+        "1459",
+        "month"
+      ],
+      "subject": "英宗与法司廷臣",
+      "action": "朝廷规定法司会同廷臣每年霜降审录囚犯。",
+      "result": "年度秋审成为常制。",
+      "groups": [
+        "囚犯",
+        "法司官员",
+        "中央官员"
+      ],
+      "quote": [
+        "命法司會廷臣，每歲霜降錄囚，後以為常。"
+      ],
+      "unknown": [
+        "适用范围、审录数量和减刑效果未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "AUTUMN-JOINT-PRISON-REVIEW-1459",
+        "summary": "确立每岁霜降法司会廷臣录囚。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-MING-V12-DISASTER-TAX-RELIEF-1457-1463",
+      "time": [
+        "天顺元年二月",
+        "天顺七年十月",
+        "range"
+      ],
+      "subject": "英宗朝廷与南畿山东江南湖广河南陕西等地灾民",
+      "action": "朝廷连续免多省灾粮、赈山东湖广西安饥民，并在淮水决口、淮安海溢时遣使抚恤。",
+      "result": "天顺朝长期实施跨省灾赈与蠲税。",
+      "groups": [
+        "灾民",
+        "农户",
+        "饥民",
+        "沿河沿海民众"
+      ],
+      "quote": [
+        "壬戌，免南畿被災秋糧。",
+        "亥，振山東饑。\n",
+        "巳，振湖廣饑。\n",
+        "淮水決，沒軍民田廬，遣使振卹。",
+        "免畿內、浙江被災秋糧。",
+        "免湖廣被災稅糧。",
+        "月，淮安海溢。\n",
+        "振西安諸府饑。"
+      ],
+      "unknown": [
+        "累计赈济与免税额、受益人数、灾害伤亡和工程处置未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "DISASTER-TAX-RELIEF-1457-1463",
+        "summary": "天顺朝多省灾荒中持续赈济蠲税。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-TEXTILE-PROCUREMENT-1460-1463",
+      "time": [
+        "天顺四年五月",
+        "天顺七年四月",
+        "range"
+      ],
+      "subject": "英宗朝廷与苏杭织造役户",
+      "action": "朝廷先罢中官督苏杭织造，三年后又恢复派中官督办。",
+      "result": "苏杭织造采办政策短期停罢后复行。",
+      "groups": [
+        "织户",
+        "工匠",
+        "中官",
+        "江南民户"
+      ],
+      "quote": [
+        "罷中官督蘇、杭織造。",
+        "復遣中官督蘇、杭織造。"
+      ],
+      "unknown": [
+        "织造数量、役户负担、停复原因和财政影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TEXTILE-PROCUREMENT-1460-1463",
+        "summary": "苏杭中官织造先罢后复。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-CAO-QIN-REBELLION-1461",
+      "time": [
+        "天顺五年七月",
+        "1461",
+        "month"
+      ],
+      "subject": "曹吉祥、曹钦叛军与孙镗等明军",
+      "action": "曹吉祥、曹钦在京发动叛乱，杀寇深、吴瑾，孙镗率军镇压。",
+      "result": "叛乱被平定，曹吉祥磔于市并夷族，党羽全部伏诛。",
+      "cost": "寇深、吴瑾等战死；其他伤亡未载。",
+      "groups": [
+        "叛军",
+        "京营明军",
+        "京师军民",
+        "涉案家属"
+      ],
+      "quote": [
+        "總督京營太監曹吉祥及昭武伯曹欽反",
+        "左都御史寇深、恭順侯吳瑾被殺",
+        "懷寧伯孫鏜帥兵討平之。",
+        "磔吉祥於市，夷其族，其黨湯序等悉伏誅。"
+      ],
+      "unknown": [
+        "叛军兵力、京城损失、总伤亡和家属处置未载。"
+      ],
+      "battle": "CAMPAIGN-MING-CAO-QIN-REBELLION-1461",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-KAIFENG-RIVER-WORKS-1461",
+      "time": [
+        "天顺五年七月",
+        "1461",
+        "month"
+      ],
+      "subject": "薛远与开封黄河河工军民",
+      "action": "黄河在开封决口，朝廷派侍郎薛远前往治理。",
+      "result": "开封河工应急治理启动；本卷未载合龙。",
+      "groups": [
+        "河工役夫",
+        "沿河灾民",
+        "农户"
+      ],
+      "quote": [
+        "河決開封，侍郎薛遠往治之。"
+      ],
+      "unknown": [
+        "灾损、用工、费用、伤亡和治理结果未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "KAIFENG-RIVER-WORKS-1461",
+        "summary": "开封河决后派薛远治理。",
+        "continuity": "single_event",
+        "phase": "应急治理",
+        "purpose": "防洪",
+        "operation_result": "本卷未载"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-WESTERN-WAR-HORSE-MOBILIZATION-1461",
+      "time": [
+        "天顺五年十月",
+        "1461",
+        "month"
+      ],
+      "subject": "英宗朝廷与河南山西陕西士民",
+      "action": "因西边用兵，朝廷允许三省士民缴纳马匹换取冠带身份。",
+      "result": "通过授予身份筹集边战争马。",
+      "groups": [
+        "纳马士民",
+        "边军",
+        "地方官员"
+      ],
+      "quote": [
+        "以西邊用兵，令河南、山西、陝西士民納馬者予冠帶。"
+      ],
+      "unknown": [
+        "征集马匹数量、冠带名额、成本和社会影响未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WESTERN-WAR-HORSE-MOBILIZATION-1461",
+        "summary": "以冠带换纳马筹措西边战争资源。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-MING-V12-YINGZONG-DEATH-BURIAL-REFORM-1464",
+      "time": [
+        "天顺八年正月至二月",
+        "1464",
+        "range"
+      ],
+      "subject": "英宗朱祁镇与皇太子朱见深",
+      "action": "英宗病重后命太子摄事，遗诏废除宫妃殉葬，随后去世。",
+      "result": "英宗朝结束，朱见深成为继位者，宫妃殉葬制度被正式停止。",
+      "groups": [
+        "皇室成员",
+        "宫妃",
+        "中央官员",
+        "天下臣民"
+      ],
+      "quote": [
+        "皇太子攝事於文華殿。",
+        "大漸，遺詔罷宮妃殉葬。",
+        "崩，年三十有八。",
+        "廟號英宗，葬裕陵。"
+      ],
+      "unknown": [
+        "病因、遗诏形成过程和殉葬制度具体执行变化未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "YINGZONG-DEATH-BURIAL-REFORM-1464",
+        "summary": "英宗崩逝并遗诏废除宫妃殉葬。",
+        "continuity": "continued_across_reigns"
+      }
+    }
+  ]
+}

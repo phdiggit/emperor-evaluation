@@ -1,0 +1,678 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "YUAN-YUANSHI-031-1",
+  "status": "shadow",
+  "task_code": "YUAN-YUANSHI-031-MULTIDOMAIN",
+  "source_scope": {
+    "work": "元史",
+    "volume_ref": "卷031",
+    "revision_ref": "1814185",
+    "start_locator": "明宗身世及周王出镇云南",
+    "end_locator": "天历二年八月明宗暴崩",
+    "overlap_context": "承卷30泰定帝崩与天顺继位；本卷载明宗北返、即位及暴崩。",
+    "input_fingerprint": "0d52656d97c6ea1d8a2ee3eb4c6909f370133b29c06691d0a8422d1c1b8fae52"
+  },
+  "limitations": [
+    "普通任免、行程和礼仪不单列。",
+    "一切武装行动交战役工作流。",
+    "简略处未知保持未知。"
+  ],
+  "events": [
+    {
+      "id": "CHF-YUANSHI-031-ZHOU-KING-EXILE",
+      "time": "延祐三年",
+      "loc": [
+        "云南"
+      ],
+      "action": "铁木迭儿等构陷和世㻋，封周王出镇云南并置常侍府。",
+      "result": "武宗长子被排离朝廷。",
+      "quote": [
+        "封帝為周王，出鎮雲南",
+        "置常侍府官屬"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ZHOU-KING-EXILE",
+        "candidate": "POL-CAND-YUAN-ZHOU-KING-EXILE",
+        "summary": "周王被出镇云南。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "宗室排挤。",
+          "decision_question": "如何处置武宗长子。",
+          "alternatives": "留京继统。",
+          "decision": "封王出镇。",
+          "direct_result": "离开中央。",
+          "power_change": "英宗储位稳固。",
+          "risk_or_damage": "引发西行。",
+          "follow_up": "关中兵变后赴金山。"
+        }
+      },
+      "unknown": [
+        "仁宗本人意图未明。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-GUANZHONG-MUTINY",
+      "time": "延祐三年十一月",
+      "loc": [
+        "潼关",
+        "河中府"
+      ],
+      "action": "阿思罕等发关中兵入关，旋遭塔察儿、脱欢袭杀。",
+      "result": "阿思罕与教化被杀，周王被迫西行。",
+      "quote": [
+        "悉發關中兵",
+        "分道自潼關、河中府入",
+        "襲殺阿思罕、教化于河中"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-GUANZHONG-MUTINY-1316",
+          [],
+          "关中发兵后首领遭袭杀。"
+        ]
+      ],
+      "unknown": [
+        "双方兵力与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-JINSHAN-SETTLEMENT",
+      "time": "延祐三年后",
+      "loc": [
+        "金山",
+        "野泥"
+      ],
+      "action": "和世㻋至西北诸王部，定冬夏牧地并令从者春耕。",
+      "result": "十余年边境宁谧，形成游牧农耕秩序。",
+      "quote": [
+        "咸率眾來附",
+        "春則命從者耕于野泥",
+        "十餘年間，邊境寧謐"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-JINSHAN-SETTLEMENT",
+        "candidate": "FIN-CAND-YUAN-JINSHAN-SETTLEMENT",
+        "summary": "金山诸部定牧耕秩序。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "周王流亡西北。",
+          "fiscal_state": "未载。",
+          "livelihood_state": "定季节驻牧。",
+          "production_circulation": "春耕野泥。"
+        }
+      },
+      "unknown": [
+        "部众规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-NORTHERN-RETURN",
+      "time": "天历元年末",
+      "loc": [
+        "金山",
+        "岭北"
+      ],
+      "action": "文宗遣使迎明宗，朔漠诸王扈从其南返。",
+      "result": "明宗获得诸王旧臣拥戴并向两京推进。",
+      "quote": [
+        "朔漠諸王皆勸帝南還京師",
+        "咸帥師扈行",
+        "吾天子實自北來矣"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-NORTHERN-RETURN",
+        "candidate": "POL-CAND-YUAN-NORTHERN-RETURN",
+        "summary": "诸王扈明宗南返。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "皇位归属。",
+          "decision_question": "明宗是否南返。",
+          "alternatives": "留北边。",
+          "decision": "发北边赴京。",
+          "direct_result": "诸王旧臣迎附。",
+          "power_change": "明宗声望上升。",
+          "risk_or_damage": "与文宗权力交接未定。",
+          "follow_up": "和宁即位。"
+        }
+      },
+      "unknown": [
+        "随行军人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-ADVISE-WENZONG-STUDY",
+      "time": "天历二年正月",
+      "loc": [
+        "大都"
+      ],
+      "action": "明宗嘱文宗亲近士大夫、讲论史籍以知治乱。",
+      "result": "兄长对文宗提出经史治国要求。",
+      "quote": [
+        "宜親賢士大夫",
+        "夫，講論史籍",
+        "以知古今治亂得失"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-ADVISE-WENZONG-STUDY",
+        "candidate": "POL-CAND-YUAN-ADVISE-WENZONG-STUDY",
+        "summary": "明宗劝文宗讲史亲贤。",
+        "operation": "proposed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "治国训示。",
+          "decision_question": "文宗闲暇如何自修。",
+          "alternatives": "荒废书史。",
+          "decision": "亲贤讲史。",
+          "direct_result": "使者传谕。",
+          "power_change": "未载。",
+          "risk_or_damage": "执行未载。",
+          "follow_up": "奎章阁成立。"
+        }
+      },
+      "unknown": [
+        "文宗执行情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-RETAIN-WENZONG-OFFICIALS",
+      "time": "天历二年四月",
+      "loc": [
+        "大都",
+        "行在"
+      ],
+      "action": "明宗命文宗所用京官全部留任，同时择武宗旧臣掌中书、枢密、御史。",
+      "result": "文宗班底保留并加入明宗旧臣。",
+      "quote": [
+        "朕弟所用者，並仍其舊",
+        "宜擇人居之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-RETAIN-WENZONG-OFFICIALS",
+        "candidate": "POL-CAND-YUAN-RETAIN-WENZONG-OFFICIALS",
+        "summary": "留文宗京官并任旧臣。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "权力整合。",
+          "decision_question": "如何处理两套官僚。",
+          "alternatives": "全面更换。",
+          "decision": "旧官留任、要职补旧臣。",
+          "direct_result": "形成折衷班底。",
+          "power_change": "明宗旧臣掌三府。",
+          "risk_or_damage": "权力并存。",
+          "follow_up": "重申成宪权限。"
+        }
+      },
+      "unknown": [
+        "官员实际服从情况未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-REINFORCE-CENSORATE",
+      "time": "天历二年四月",
+      "loc": [
+        "全国"
+      ],
+      "action": "明宗命御史举劾诸王百司违法及皇帝自身阙失。",
+      "result": "御史台获明确监督皇帝与权贵的授权。",
+      "quote": [
+        "凡諸王、百司，違法越禮，一聽舉劾",
+        "朕有闕失，卿亦以聞"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-REINFORCE-CENSORATE",
+        "candidate": "POL-CAND-YUAN-REINFORCE-CENSORATE",
+        "summary": "授权御史纠劾内外。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "监察制度。",
+          "decision_question": "御史监督范围。",
+          "alternatives": "仅纠百官。",
+          "decision": "含诸王与皇帝。",
+          "direct_result": "扩大监察授权。",
+          "power_change": "御史台权威增强。",
+          "risk_or_damage": "未载。",
+          "follow_up": "黜岭北不称职官。"
+        }
+      },
+      "unknown": [
+        "后续弹劾效果未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-CENTRAL-CHANNEL-RULE",
+      "time": "天历二年四月",
+      "loc": [
+        "全国"
+      ],
+      "action": "重申中书、枢密、御史及百司定制，禁止下级及近侍越级陈请。",
+      "result": "政务奏报被限制在法定渠道。",
+      "quote": [
+        "大小職掌，已有定制",
+        "必先中書、院、臺",
+        "毋得隔越陳請"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CENTRAL-CHANNEL-RULE",
+        "candidate": "POL-CAND-YUAN-CENTRAL-CHANNEL-RULE",
+        "summary": "重申法定奏报渠道。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "行政程序。",
+          "decision_question": "政务如何上达。",
+          "alternatives": "越级奏请。",
+          "decision": "先经省院台。",
+          "direct_result": "禁隔越陈请。",
+          "power_change": "三府程序权增强。",
+          "risk_or_damage": "未载。",
+          "follow_up": "后禁中政院擅奏。"
+        }
+      },
+      "unknown": [
+        "违规案例未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-LINGBEI-OFFICIAL-PURGE",
+      "time": "天历二年四月",
+      "loc": [
+        "岭北"
+      ],
+      "action": "采纳御史弹劾，将塔即吉、马谋等不称职省臣一并罢黜。",
+      "result": "岭北行省高层遭整顿。",
+      "quote": [
+        "務。並宜黜退",
+        "善，其並黜之",
+        "者，毋有所憚"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-LINGBEI-OFFICIAL-PURGE",
+        "candidate": "POL-CAND-YUAN-LINGBEI-OFFICIAL-PURGE",
+        "summary": "黜岭北不称职官。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "官僚整顿。",
+          "decision_question": "如何处置倒剌沙党羽。",
+          "alternatives": "留任。",
+          "decision": "一并黜退。",
+          "direct_result": "省臣被罢。",
+          "power_change": "御史弹劾生效。",
+          "risk_or_damage": "防止诬劾亦被强调。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "继任者未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-IMPERIAL-EQUIPMENT-RENEWAL",
+      "time": "天历二年五月",
+      "loc": [
+        "行在"
+      ],
+      "action": "命有司更新武宗幄殿与车舆。",
+      "result": "南返仪仗和居所获得整备。",
+      "quote": [
+        "命有司新武宗幄殿、車輿"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "thread": "WORK-THREAD-YUAN-IMPERIAL-EQUIPMENT-RENEWAL",
+        "candidate": "WORK-CAND-YUAN-IMPERIAL-EQUIPMENT-RENEWAL",
+        "summary": "更新幄殿车舆。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "work_identity": "武宗幄殿车舆。",
+          "phase": "更新。",
+          "purpose": "南返御用。",
+          "resource_input": "未载。",
+          "operation": "有司整备。",
+          "benefit": "保障行在。",
+          "harm": "费用未载。"
+        }
+      },
+      "unknown": [
+        "工役数未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-POST-STATION-RELIEF",
+      "time": "天历二年五月",
+      "loc": [
+        "西木邻四十三驿"
+      ],
+      "action": "四十三驿旱灾，发粮八千二百石。",
+      "result": "受灾驿站获得粮食赈济。",
+      "quote": [
+        "四十三驛旱災",
+        "計八千二百石"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-POST-STATION-RELIEF",
+        "candidate": "FIN-CAND-YUAN-POST-STATION-RELIEF",
+        "summary": "赈四十三驿。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "驿站旱灾。",
+          "fiscal_state": "发粮八千二百石。",
+          "livelihood_state": "赈驿户。",
+          "production_circulation": "维持驿传。"
+        }
+      },
+      "unknown": [
+        "各驿分配未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-ZHAOWANG-RELIEF",
+      "time": "天历二年五月",
+      "loc": [
+        "赵王部"
+      ],
+      "action": "赵王部落旱灾，五万五千四百口获两月粮。",
+      "result": "大规模部民获得定期救济。",
+      "quote": [
+        "民五萬五千四百口不能自存",
+        "司賑糧兩月"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-ZHAOWANG-RELIEF",
+        "candidate": "FIN-CAND-YUAN-ZHAOWANG-RELIEF",
+        "summary": "赵王部赈粮两月。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "部落旱灾不能自存。",
+          "fiscal_state": "发两月粮。",
+          "livelihood_state": "救济五万余口。",
+          "production_circulation": "未载。"
+        }
+      },
+      "unknown": [
+        "粮食总量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-CENTRALIZE-APPOINTMENTS",
+      "time": "天历二年六月",
+      "loc": [
+        "全国"
+      ],
+      "action": "禁止中政院越中书擅奏除授，使政权归一。",
+      "result": "人事任命权回归中书程序。",
+      "quote": [
+        "中政院越中書擅奏除授",
+        "乞申命禁止",
+        "使政權歸一"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CENTRALIZE-APPOINTMENTS",
+        "candidate": "POL-CAND-YUAN-CENTRALIZE-APPOINTMENTS",
+        "summary": "禁中政院擅奏除授。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "任官权限。",
+          "decision_question": "中政院能否越中书。",
+          "alternatives": "继续自奏。",
+          "decision": "禁止。",
+          "direct_result": "任官归中书。",
+          "power_change": "中书权力集中。",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "先前授官是否撤销未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-YUNNAN-GARRISON",
+      "time": "天历二年六月",
+      "loc": [
+        "云南"
+      ],
+      "action": "四川等省兵遣还，云南因逆谋未定继续屯戍。",
+      "result": "云南军事戒备延续至平定。",
+      "quote": [
+        "四川諸省兵悉遣還營",
+        "雲南逆謀叵測",
+        "可仍屯戍，俟平定而後罷"
+      ],
+      "routes": [
+        [
+          "battle",
+          "HANDOFF_BATTLE_WORKFLOW",
+          "CAMPAIGN-YUAN-YUNNAN-GARRISON-1329",
+          [],
+          "云南因逆谋继续屯戍。"
+        ]
+      ],
+      "unknown": [
+        "逆谋主体与平定时间未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-CROWN-PRINCE-COGOVERNMENT",
+      "time": "天历二年六月",
+      "loc": [
+        "大都"
+      ],
+      "action": "规定钱谷、铨选等大政先启皇太子后奏皇帝。",
+      "result": "文宗以太子身份参与核心政务。",
+      "quote": [
+        "凡國家錢穀、銓選諸大政事",
+        "先啟皇太子，然後以聞"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-CROWN-PRINCE-COGOVERNMENT",
+        "candidate": "POL-CAND-YUAN-CROWN-PRINCE-COGOVERNMENT",
+        "summary": "大政先启太子。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "共同治理。",
+          "decision_question": "太子如何参与政务。",
+          "alternatives": "皇帝独断。",
+          "decision": "大政先启太子。",
+          "direct_result": "太子获前置审议权。",
+          "power_change": "文宗权力增强。",
+          "risk_or_damage": "双重权力中心。",
+          "follow_up": "八月复位。"
+        }
+      },
+      "unknown": [
+        "实际奏议数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-SHAANXI-RELIEF",
+      "time": "天历二年六月",
+      "loc": [
+        "临潼",
+        "华阴",
+        "晋宁"
+      ],
+      "action": "赈陕西二十三驿和晋宁十五驿钞。",
+      "result": "旱饥驿站获定额救济。",
+      "quote": [
+        "二十三驛鈔一千八百錠",
+        "十五驛鈔八百錠"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-SHAANXI-RELIEF-1329",
+        "candidate": "FIN-CAND-YUAN-SHAANXI-RELIEF-1329",
+        "summary": "赈陕西晋宁驿。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "陕西告饥。",
+          "fiscal_state": "给钞二千六百锭。",
+          "livelihood_state": "赈三十八驿。",
+          "production_circulation": "维持驿传。"
+        }
+      },
+      "unknown": [
+        "受灾人口未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-WARTIME-AUSTERITY",
+      "time": "天历二年七月",
+      "loc": [
+        "全国"
+      ],
+      "action": "御史指出军费已数倍于岁入，建议按功官秩赏赐并停近侍请赐，明宗采纳。",
+      "result": "战后财政紧缩公开施行。",
+      "quote": [
+        "其所出已過數倍",
+        "宜悉停罷，以紓民力",
+        "聞，帝嘉納之"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-YUAN-WARTIME-AUSTERITY",
+        "candidate": "FIN-CAND-YUAN-WARTIME-AUSTERITY",
+        "summary": "军费过度后停近侍恩赐。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "军需赏赐超过岁入数倍。",
+          "fiscal_state": "按功秩赏、停近侍请赐。",
+          "livelihood_state": "意在纾民力。",
+          "production_circulation": "未载。"
+        }
+      },
+      "unknown": [
+        "实际节省数额未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-MINGZONG-ACCESSION",
+      "time": "天历二年正月",
+      "loc": [
+        "和宁北"
+      ],
+      "action": "撒迪等奉文宗命劝进，和世㻋即帝位。",
+      "result": "明宗正式继位并遣使报京师。",
+      "quote": [
+        "以文宗命勸進",
+        "帝即位于和寧之北",
+        "遣人還報京師"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-MINGZONG-ACCESSION",
+        "candidate": "POL-CAND-YUAN-MINGZONG-ACCESSION",
+        "summary": "明宗和宁即位。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "皇位继承。",
+          "decision_question": "兄弟如何交接。",
+          "alternatives": "文宗继续在位。",
+          "decision": "明宗即位。",
+          "direct_result": "遣使报京。",
+          "power_change": "皇权名义转归明宗。",
+          "risk_or_damage": "两套官僚并存。",
+          "follow_up": "文宗立为太子。"
+        }
+      },
+      "unknown": [
+        "即位诏未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-KUIZHANG-APPROVAL",
+      "time": "天历二年二月",
+      "loc": [
+        "大都"
+      ],
+      "action": "文宗设奎章阁学士院并上报除目，明宗批准。",
+      "result": "文宗文化机构获得明宗认可。",
+      "quote": [
+        "立奎章閣學士院于京師",
+        "奏，帝並從之"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-KUIZHANG-APPROVAL",
+        "candidate": "POL-CAND-YUAN-KUIZHANG-APPROVAL",
+        "summary": "批准奎章阁。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "文化机构。",
+          "decision_question": "是否确认文宗新设机构。",
+          "alternatives": "撤销。",
+          "decision": "批准。",
+          "direct_result": "奎章阁延续。",
+          "power_change": "文宗班底保留。",
+          "risk_or_damage": "未载。",
+          "follow_up": "未载。"
+        }
+      },
+      "unknown": [
+        "学士职掌未载。"
+      ]
+    },
+    {
+      "id": "CHF-YUANSHI-031-IMPERIAL-SEAL-TRANSFER",
+      "time": "天历二年三月至四月",
+      "loc": [
+        "行在"
+      ],
+      "action": "燕铁木儿奉皇帝宝北上，率百官向明宗进宝。",
+      "result": "大都皇权象征移交明宗。",
+      "quote": [
+        "奉皇帝寶來上",
+        "率百官上皇帝寶"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-YUAN-IMPERIAL-SEAL-TRANSFER",
+        "candidate": "POL-CAND-YUAN-IMPERIAL-SEAL-TRANSFER",
+        "summary": "皇帝宝移交明宗。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "权力移交。",
+          "decision_question": "如何确认明宗帝位。",
+          "alternatives": "文宗留宝。",
+          "decision": "奉宝北上。",
+          "direct_result": "明宗受宝。",
+          "power_change": "明宗取得皇权象征。",
+          "risk_or_damage": "未载。",
+          "follow_up": "任燕铁木儿太师右相。"
+        }
+      },
+      "unknown": [
+        "宝物具体形制未载。"
+      ]
+    }
+  ]
+}

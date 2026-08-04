@@ -1,0 +1,833 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "song-chronicle-volume-029",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷029",
+    "revision_ref": "2626339",
+    "start_locator": "宋真宗大中祥符三年五月",
+    "end_locator": "宋真宗大中祥符四年十二月",
+    "overlap_context": "承接卷028辽太后死后边局、交趾李公蕴政权与仁宗出生；本卷记录辽伐高丽及撤军、宋廷筹办和完成汾阴后土祭祀，同时登记赈灾赎民、宗室教育、税役减免、军马财政与河决，转出祥符礼仪后的节用民生与中枢委任。",
+    "input_fingerprint": "14dc95f0b073fe213926f339ad288c6ab1669cb22de042f4d5e4764f86727088"
+  },
+  "events": [
+    {
+      "id": "CHF-XZZTJ-029-KAIFENG-RAIN-RELIEF-1010",
+      "time": "大中祥符三年五月",
+      "loc": [
+        "开封"
+      ],
+      "action": "京师暴雨积水数尺，毁坏房屋并压死人。",
+      "result": "宋廷向受灾者赐布帛。",
+      "quote": [
+        "丑，京師大雨",
+        "雨，平地數尺",
+        "尺，壞廬舍，民",
+        "民有壓死者",
+        "死者，賜布帛。\n"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "暴雨灾后赐布帛。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "京师房屋被水毁坏。"
+        ]
+      ],
+      "unknown": [
+        "死者和赐物总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-GORYEO-COUP-1010",
+      "time": "大中祥符三年五月",
+      "loc": [
+        "高丽王京",
+        "积城县"
+      ],
+      "action": "康肇率甲骑五千入京，废王诵、杀金致阳、迁皇甫妃，迎立王询，旋又弑王诵。",
+      "result": "高丽政权由王询继立，康肇掌握军政。",
+      "quote": [
+        "率甲騎五千",
+        "廢王誦為讓國公",
+        "公，殺致陽，遷",
+        "遣兵迎詢，立為王",
+        "肇旋弑王誦"
+      ],
+      "battle": "CAMPAIGN-GORYEO-COUP-1010",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "康肇政变并弑王立王询。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-LIAO-GORYEO-WAR-DECISION-1010",
+      "time": "大中祥符三年五月",
+      "loc": [
+        "辽朝",
+        "高丽"
+      ],
+      "action": "辽主以康肇弑君为由决定东征，不听萧迪里关于士卒疲弊、年谷不登和高丽城固的劝阻。",
+      "result": "辽诸道奉诏修甲兵，辽高丽战争启动。",
+      "quote": [
+        "康肇弑其君誦而立詢",
+        "宜發兵問其罪",
+        "國家連年征討，士卒抏敝",
+        "固，勝不為武",
+        "之勝，不聽，丙",
+        "諸道繕甲兵以備東征"
+      ],
+      "battle": "CAMPAIGN-LIAO-GORYEO-WAR-1010",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "辽以问罪为名启动伐高丽。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-LIAO-GRAIN-RELIEF-1010",
+      "time": "大中祥符三年六月",
+      "loc": [
+        "雄州",
+        "辽境"
+      ],
+      "action": "辽遣使请求买粮，宋廷命雄州籴粟二万石低价赈给。",
+      "result": "宋方在盟好框架下向辽提供粮食救济。",
+      "quote": [
+        "遼遣使告糴",
+        "雄州糴粟二萬石",
+        "石，賤價賑之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以二万石低价粮赈辽。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "履行宋辽互助交往。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-SHAANXI-CHILDREN-REDEEMED-1010",
+      "time": "大中祥符三年六月",
+      "loc": [
+        "陕西"
+      ],
+      "action": "宋廷为前岁饥荒中卖掉子女的陕西家庭出资赎回。",
+      "result": "饥民家庭得以恢复。",
+      "quote": [
+        "陝西饑民有鬻子者",
+        "官為贖還其家"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官赎饥民所卖子女。"
+        ]
+      ],
+      "unknown": [
+        "赎回人数和费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-IMPERIAL-CLAN-EDUCATION-1010",
+      "time": "大中祥符三年七月",
+      "loc": [
+        "南宫",
+        "北宅"
+      ],
+      "action": "宋廷命宗室大将军以下赴书院讲经史，十岁以上子弟每日入学至午后。",
+      "result": "宗室教育建立强制日课和教授督促。",
+      "quote": [
+        "各赴書院講經史",
+        "諸子十歲以上並須入學",
+        "每日授經書",
+        "至午後乃罷",
+        "勸，無令廢惰"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立宗室子弟强制经史教育。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-FENYIN-RITE-MOBILIZATION-1010",
+      "time": "大中祥符三年七月至八月",
+      "loc": [
+        "汾阴",
+        "陕西",
+        "河东"
+      ],
+      "action": "三万余人请祀汾阴后土后，宋廷决定次年举行，征陕西河东兵五千服役并将驿卒增至八千余。",
+      "result": "汾阴祭祀成为大规模国家动员，河北又献钱帛三十万支持。",
+      "quote": [
+        "三萬餘人詣闕請祀汾陰后土",
+        "來年春有事于汾陰",
+        "兵五千人赴汾陰給役",
+        "遞鋪卒至八千餘人",
+        "錢帛三十萬以佐用度"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "动员兵役驿卒和钱帛筹办汾阴祭祀。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "设置急脚递铺和行程设施。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "决定举行汾阴后土祭祀。"
+        ]
+      ],
+      "unknown": [
+        "总费用待后文。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-CANAL-GRAIN-COMPARISON-1010",
+      "time": "大中祥符三年八月",
+      "loc": [
+        "江淮",
+        "开封"
+      ],
+      "action": "丁谓比较唐代江淮年运米四十万与宋代五百余万，称府库仓廪充实。",
+      "result": "漕运规模被用作国家财储充盈的证明。",
+      "quote": [
+        "唐江淮歲運米四十萬",
+        "今乃五百餘萬",
+        "萬，府庫充仞",
+        "仞，倉廩盈衍"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "登记江淮漕米五百余万规模。"
+        ]
+      ],
+      "unknown": [
+        "五百余万计量单位按上下文为石。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-FAIRNESS-IN-RELATIVE-APPOINTMENTS-1010",
+      "time": "大中祥符三年八月",
+      "loc": [
+        "宋朝廷"
+      ],
+      "action": "王旦拒绝在殿试现场替女婿苏耆说项，也拒以亲属关系让韩亿免任远州。",
+      "result": "宰相亲属任用避免公开徇私，维护临轩取士公正。",
+      "quote": [
+        "士，示至公也",
+        "自薦親屬于冕旒之前",
+        "庭，得無失禮",
+        "吾若有求於上",
+        "其為損不細矣"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "王旦回避为女婿说项。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-OFFICIAL-PUNISHED-FOR-SEIZURE-1010",
+      "time": "大中祥符三年九月",
+      "loc": [
+        "郑州"
+      ],
+      "action": "内官江守恩因擅取民田麦穗并私役军士被杖杀。",
+      "result": "朝廷以重罚显示不因内官身份徇私。",
+      "quote": [
+        "杖殺入內高品江守恩",
+        "擅取民田麥穗",
+        "及私役軍士",
+        "廷行罰不私"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "惩罚侵夺民田收成和私役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "内官违法同样重罚。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-SONG-NEUTRALITY-IN-GORYEO-WAR-1010",
+      "time": "大中祥符三年十一月",
+      "loc": [
+        "登州",
+        "高丽",
+        "辽朝"
+      ],
+      "action": "面对辽伐高丽，王旦建议顾全宋辽盟好；宋廷指示高丽求援不得上达，投奔者仅存恤。",
+      "result": "宋朝不军事介入辽高丽战争。",
+      "quote": [
+        "當顧其大者",
+        "契丹方固盟好",
+        "如高麗有使來乞師",
+        "不敢達於朝廷",
+        "如有歸投者，第存恤之"
+      ],
+      "battle": "CAMPAIGN-SONG-NEUTRALITY-LIAO-GORYEO-1010",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宋在辽高丽战争中保持中立。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-LIAO-CROSSES-YALU-1010",
+      "time": "大中祥符三年十一月",
+      "loc": [
+        "鸭绿江",
+        "铜州",
+        "三水寨",
+        "努古达岭"
+      ],
+      "action": "辽主率步骑四十万渡鸭绿江，击败康肇三营，擒斩康肇及副将李立，并连续攻降铜霍贵宁诸州。",
+      "result": "高丽军大败，辽军斩首三万余并缴获大量粮饷军械。",
+      "quote": [
+        "步騎四十萬",
+        "酉，渡鴨綠江",
+        "擊破三水砦",
+        "擒斬肇及副將李立",
+        "斬首三萬餘級",
+        "銅、霍、貴、寧等州皆降"
+      ],
+      "battle": "CAMPAIGN-LIAO-GORYEO-YALU-1010",
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-GORYEO-WESTERN-CAPITAL-DEFENSE-1010",
+      "time": "大中祥符三年十一月",
+      "loc": [
+        "高丽西京"
+      ],
+      "action": "智蔡文焚毁降表，与卓思正合兵守城，突击杀辽使韩杞并击退辽留守军；辽军再攻后高丽军连败撤出。",
+      "result": "西京一度拒降成功，但防御最终崩解。",
+      "quote": [
+        "至，焚其表，殺",
+        "合兵入城守",
+        "騎突殺杞等",
+        "伊蘭等敗走。",
+        "蔡文累戰皆敗",
+        "戰，夜開門循"
+      ],
+      "battle": "CAMPAIGN-GORYEO-WESTERN-CAPITAL-1010",
+      "unknown": [
+        "双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-KAEGYEONG-FALL-1010",
+      "time": "大中祥符三年十一月",
+      "loc": [
+        "高丽开京",
+        "清江"
+      ],
+      "action": "王询在群臣建议下携后宫官员夜逃，辽军攻破开京并追击至清江。",
+      "result": "辽军焚毁开京宫庙和民居后撤回。",
+      "quote": [
+        "王詢乃夜攜後宮",
+        "忠順等遁去。",
+        "諾等破開京，",
+        "焚宮廟民居皆盡",
+        "追至清江而還"
+      ],
+      "battle": "CAMPAIGN-KAEGYEONG-FALL-1010",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开京宫庙民居被焚毁。"
+        ]
+      ],
+      "unknown": [
+        "居民伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-NEW-ROUTE-GAZETTEER-1010",
+      "time": "大中祥符三年十二月",
+      "loc": [
+        "宋诸道"
+      ],
+      "action": "李宗谔等完成《新修诸道图经》一千五百六十六卷。",
+      "result": "全国地理资料形成大规模官方图经。",
+      "quote": [
+        "新修諸道圖經",
+        "千五百六十六卷"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "编成一千五百六十六卷诸道图经。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "官方地理信息系统化。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-SUN-SHI-OPPOSES-FENYIN-1010",
+      "time": "大中祥符三年十二月",
+      "loc": [
+        "宋朝廷",
+        "汾阴"
+      ],
+      "action": "孙奭以旱灾、民疲、土木未息、边患及典礼不经等十项理由反对汾阴祭祀，又指斥制造祥瑞欺天愚民。",
+      "result": "真宗令其再陈，但最终未采纳停止西幸的建议。",
+      "quote": [
+        "納諫、恕直、輕徭、薄賦四事",
+        "回，遠勞民庶",
+        "土木之功，累年未息",
+        "撰造祥瑞，假託鬼神",
+        "上天不可欺",
+        "下民不可愚"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "以民疲灾荒反对汾阴劳费。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "孙奭公开反对西幸和祥瑞政治。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-LIAO-RETREATS-FROM-GORYEO-1011",
+      "time": "大中祥符四年正月",
+      "loc": [
+        "高丽",
+        "鸭绿江"
+      ],
+      "action": "辽主自高丽班师，已降诸城复叛，归途中大雨使马驼疲惫并遗弃大量甲仗。",
+      "result": "辽军在恶劣天气中渡过鸭绿江，征高丽未能巩固占领。",
+      "quote": [
+        "自高麗班師",
+        "所降諸城復叛",
+        "谷，大雨連日",
+        "日，馬駝皆疲",
+        "甲仗多遺棄"
+      ],
+      "battle": "CAMPAIGN-LIAO-GORYEO-RETREAT-1011",
+      "unknown": [
+        "撤军损失未量化。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-FENYIN-SACRIFICE-1011",
+      "time": "大中祥符四年二月",
+      "loc": [
+        "汾阴脽坛",
+        "宝鼎县"
+      ],
+      "action": "真宗奉天书至汾阴，在脽坛祭后土地祇，以太祖太宗配享，并省视石匮。",
+      "result": "汾阴后土大礼完成，奉祇宫改太宁宫并增葺殿室。",
+      "quote": [
+        "祀后土地祇",
+        "奉天書於神坐之左",
+        "太祖、太宗並配",
+        "悉如封禪禮",
+        "奉祇宮為太甯宮",
+        "宮，增葺殿室"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "增葺太宁宫。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "完成汾阴后土祭祀。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-FENYIN-AMNESTY-1011",
+      "time": "大中祥符四年二月",
+      "loc": [
+        "宋境",
+        "庆成军"
+      ],
+      "action": "汾阴礼后宋廷大赦、加恩，升宝鼎为庆成军并给复二年，赐天下酺三日。",
+      "result": "礼仪成果转化为地方免役和全国庆典。",
+      "quote": [
+        "建寶鼎縣為慶成軍",
+        "賜父老酒食衣帛"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "庆成军给复并赐父老酒食衣帛。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "汾阴礼后大赦加恩。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-FENYIN-COST-1011",
+      "time": "大中祥符四年三月",
+      "loc": [
+        "汾阴祭祀沿线"
+      ],
+      "action": "陈尧叟、李宗谔报告汾阴祭祀土木工三百九十万余，声称只役军士运粮而未差扰编民。",
+      "result": "朝廷确认祭祀工程规模巨大，但以未直接征发百姓为政绩。",
+      "quote": [
+        "土木工三百九十萬餘",
+        "止役軍士輦送糧草",
+        "未嘗差擾編民",
+        "編民，帝稱善。\n"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "汾阴土木工三百九十万余。"
+        ],
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "完成祭祀沿线土木工程。"
+        ]
+      ],
+      "unknown": [
+        "三百九十万余的计量单位未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-BODY-TAX-ABOLISHED-1011",
+      "time": "大中祥符四年七月",
+      "loc": [
+        "两浙",
+        "福建",
+        "荆湖",
+        "广南"
+      ],
+      "action": "南方诸州沿旧制每年征丁身钱四十五万四百贯，导致生子者弃养、卖子或出家。",
+      "result": "宋廷将丁身钱全部免除。",
+      "quote": [
+        "制輸丁身錢",
+        "歲凡四十五萬四百貫",
+        "者。或棄不養",
+        "或賣為僮僕",
+        "或度為釋、老"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "废除南方四十五万余贯丁身钱。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "终止旧政权遗留人身税。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-HISTORY-DRAFT-ACCOUNTABILITY-1011",
+      "time": "大中祥符四年七月",
+      "loc": [
+        "国史院"
+      ],
+      "action": "真宗纠正《太祖纪》二十余条用语，命以后每卷先上草本，并记录初修、复核和改正增益者姓名字数。",
+      "result": "国史编修形成按卷署名和工作量考核。",
+      "quote": [
+        "義例未當者二十餘條",
+        "也？悉宜改正",
+        "每卷自今先奏草本",
+        "皆具載其名",
+        "出，以考勤惰"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建立国史编修署名考核。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-FISCAL-PRIORITY-AFTER-RITES-1011",
+      "time": "大中祥符四年八月",
+      "loc": [
+        "宋朝廷"
+      ],
+      "action": "丁谓担心东封、汾阴巨额赏赐及蠲租免口算使经费不足，真宗要求以泽民为先，并靠敦本抑末、节用谨度维持财政。",
+      "result": "中央明确民生减免优先于维持既有岁入。",
+      "quote": [
+        "陰賞賜億萬",
+        "恐有司經費不給",
+        "正在澤及下民",
+        "但敦本抑末",
+        "末，節用謹度",
+        "度，自當富足"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "礼仪巨费后仍以惠民和节用为财政原则。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "真宗否定因经费不足收回减免。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-XZZTJ-029-TONGLI-YELLOW-RIVER-BREACH-1011",
+      "time": "大中祥符四年八月",
+      "loc": [
+        "通利军"
+      ],
+      "action": "黄河在通利军决口。",
+      "result": "河患发生，后续治理待下卷。",
+      "quote": [
+        "河決通利軍"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "通利军黄河决口。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "河决形成民生风险。"
+        ]
+      ],
+      "unknown": [
+        "决口规模和损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-SALT-AND-WINE-PRICE-HARMONIZATION-1011",
+      "time": "大中祥符四年十月",
+      "loc": [
+        "江南",
+        "淮南"
+      ],
+      "action": "宋廷因江南淮南盐酒价不等命三司拟定统一办法，有司担心损失岁课。",
+      "result": "真宗明确便民优先，不以岁入为阻。",
+      "quote": [
+        "鹽酒之價不等",
+        "溥規定以聞",
+        "言慮失歲課",
+        "苟便於民，何顧歲入邪"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "协调盐酒价格并以便民优先。"
+        ]
+      ],
+      "unknown": [
+        "最终价格标准未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-IMPERIAL-HORSE-COST-REDUCTION-1011",
+      "time": "大中祥符四年十一月",
+      "loc": [
+        "开封",
+        "淳泽监",
+        "外监"
+      ],
+      "action": "宋廷把京师马匹从二万减至七千，并拟再移四千至淳泽监，认为每年可省刍粟三百余万；同时反对多养驽弱。",
+      "result": "官马管理转向减少京城集中饲养、利用民间和外监储备。",
+      "quote": [
+        "京師馬舊留二萬",
+        "萬，今留七千",
+        "四千付淳澤監",
+        "歲可省芻粟三百餘萬",
+        "多蓄駑弱，其費愈甚"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整官马分布每年省刍粟三百余万。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "限制无效扩张官马数量。"
+        ]
+      ],
+      "unknown": [
+        "三百余万计量单位未载。"
+      ]
+    },
+    {
+      "id": "CHF-XZZTJ-029-DELEGATION-OF-MINOR-AFFAIRS-1011",
+      "time": "大中祥符四年十二月",
+      "loc": [
+        "宋朝廷"
+      ],
+      "action": "江嗣宗建议礼乐征伐大事由皇帝裁决，其余细务委任大臣百司。",
+      "result": "真宗认可并下诏按此分工。",
+      "quote": [
+        "禮樂征伐大事出於一人",
+        "自餘細務委任大臣百司",
+        "此頗識大體",
+        "宗，從其所請"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "将朝廷细务委任大臣百司。"
+        ]
+      ],
+      "unknown": []
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 2626339 的《續資治通鑑》卷029连续通读登记，不引入卷外常识。",
+    "普通任免、贡聘、祥异和重复巡幸礼仪未单列；所有明确武装行动均保留 battle 交接。",
+    "卷末通利军河决尚未见处置，转卷030承接。"
+  ]
+}

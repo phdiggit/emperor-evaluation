@@ -1,0 +1,2835 @@
+{
+  "facts": [
+    {
+      "action": "唐文扆借毛文锡在枢密院用乐之事进谗，蜀主贬流毛氏父子、籍没其家并罢庾传素。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "毛氏家产被籍没，多名亲属受贬流。",
+      "fact_id": "CHF-ZZTJ-270-SHU-MAO-WENXI-PURGE-917",
+      "implementation": "",
+      "locations": [
+        "成都",
+        "茂州",
+        "维州"
+      ],
+      "observable_result": "唐文扆在中枢争权中压倒毛文锡，庾凝绩权判内枢密院。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-SHU-MAO-WENXI-PURGE-917"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-mao-wenxi-purge-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#文扆從而譖之",
+        "資治通鑑/卷270@803281#州，籍沒其家"
+      ],
+      "time_range": {
+        "end": "贞明三年八月",
+        "precision": "month",
+        "start": "贞明三年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "刘岩在番禺即皇帝位，国号大越、改元乾亨，建三庙并以广州为兴王府。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917",
+      "implementation": "",
+      "locations": [
+        "番禺",
+        "广州"
+      ],
+      "observable_result": "岭南由梁封藩转为独立帝国。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-southern-han-foundation-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#即皇帝位於番禺",
+        "資治通鑑/卷270@803281#禺，國號大越",
+        "資治通鑑/卷270@803281#以廣州為興王府"
+      ],
+      "time_range": {
+        "end": "贞明三年八月",
+        "precision": "month",
+        "start": "贞明三年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李嗣源、李存审等率七万军由山路救幽州，以骑兵冲阵、鹿角万弩和烟尘疑兵连续击退契丹。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "契丹人马死伤塞路、遗弃大量物资；晋军伤亡未载。",
+      "fact_id": "CHF-ZZTJ-270-RELIEF-OF-YOUZHOU-917",
+      "implementation": "",
+      "locations": [
+        "易州",
+        "大房岭",
+        "幽州"
+      ],
+      "observable_result": "契丹大败北撤，晋俘斩万计并解除持续近二百日的幽州之围。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-KHITAN-JIN-XINYOU-917"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-relief-of-youzhou-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#契丹圍幽州且二百日",
+        "資治通鑑/卷270@803281#契丹人馬死傷塞路",
+        "資治通鑑/卷270@803281#之，俘斬萬計"
+      ],
+      "time_range": {
+        "end": "贞明三年八月",
+        "precision": "month",
+        "start": "贞明三年八月"
+      },
+      "uncertainties": [
+        "契丹总损失和晋军伤亡未载。"
+      ]
+    },
+    {
+      "action": "契丹任卢文进统汉奚军，常年侵入晋北边并为契丹乡导。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "吏民遭杀掠，粮运和州县受长期破坏。",
+      "fact_id": "CHF-ZZTJ-270-LU-WENJIN-BORDER-RAIDS-917",
+      "implementation": "",
+      "locations": [
+        "平州",
+        "卢龙诸州",
+        "瓦桥",
+        "蓟城"
+      ],
+      "observable_result": "晋粮运持续遭抄掠，卢龙巡属诸州残弊。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-KHITAN-JIN-BORDER-RAIDS-917"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "保存持续杀掠与粮运受损。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-lu-wenjin-border-raids-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#歲入北邊，殺掠吏民",
+        "資治通鑑/卷270@803281#盧龍巡屬諸州為之殘弊"
+      ],
+      "time_range": {
+        "end": "贞明三年八月",
+        "precision": "month",
+        "start": "贞明三年八月"
+      },
+      "uncertainties": [
+        "每年袭击次数、人口和粮食损失未载。"
+      ]
+    },
+    {
+      "action": "张承业掌晋军府，劝课农桑、积金谷、买马、征租执法且不宽贵戚，并拒绝李存勖私取军钱。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "征租强度和民间负担未载。",
+      "fact_id": "CHF-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917",
+      "implementation": "",
+      "locations": [
+        "晋阳",
+        "河东"
+      ],
+      "observable_result": "军城肃清、军饷不乏，公帑保持军用。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-zhang-chengye-governance-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#勸課農桑，畜積金谷",
+        "資治通鑑/卷270@803281#由是軍城肅清，饋餉不乏",
+        "資治通鑑/卷270@803281#承業不敢以公物為私禮"
+      ],
+      "time_range": {
+        "end": "贞明三年十月",
+        "precision": "month",
+        "start": "贞明三年十月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蜀诸将不受刘知俊节制，唐文扆屡毁，蜀主忌其才而诬以谋反处斩。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "刘知俊死亡。",
+      "fact_id": "CHF-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917",
+      "implementation": "",
+      "locations": [
+        "成都炭市"
+      ],
+      "observable_result": "刘知俊被杀，蜀失去新降名将。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-liu-zhijun-executed-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#諸將皆舊功臣，多不用其命",
+        "資治通鑑/卷270@803281#稱其謀叛，斬於炭市"
+      ],
+      "time_range": {
+        "end": "贞明三年十二月",
+        "precision": "month",
+        "start": "贞明三年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李存勖趁河冰坚固渡军，连续攻陷沿河梁寨并当日攻克杨刘城。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-JIN-TAKES-YANGLIU-917",
+      "implementation": "",
+      "locations": [
+        "杨刘",
+        "黄河"
+      ],
+      "observable_result": "晋突破黄河防线，俘守将安彦之。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIANG-JIN-YANGLIU-917-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-jin-takes-yangliu-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#緣河數十里，列柵相望",
+        "資治通鑑/卷270@803281#攻，即日拔之"
+      ],
+      "time_range": {
+        "end": "贞明三年十二月",
+        "precision": "month",
+        "start": "贞明三年十二月"
+      },
+      "uncertainties": [
+        "梁三千守军伤亡和晋军损失未载。"
+      ]
+    },
+    {
+      "action": "梁帝不听敬翔关于公私困竭和强敌在河的劝阻赴洛阳郊祀，闻杨刘失守与谣言后仓皇罢礼奔回。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "礼仪准备和行幸耗费未载。",
+      "fact_id": "CHF-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917",
+      "implementation": "",
+      "locations": [
+        "洛阳",
+        "大梁",
+        "汜水"
+      ],
+      "observable_result": "郊祀未成，车服宫阙准备形成无效支出并暴露朝廷恐慌。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-liang-aborts-suburban-rite-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#公私困竭，人心惴恐",
+        "資治通鑑/卷270@803281#是慕虛名而受實弊也",
+        "資治通鑑/卷270@803281#遂罷郊祀，奔歸大梁"
+      ],
+      "time_range": {
+        "end": "贞明三年十二月",
+        "precision": "month",
+        "start": "贞明三年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "敬翔指出梁连年失师、近习误政并请赴边效力，赵岩、张氏诬其怨望，梁帝不用。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-JING-XIANG-ADVICE-IGNORED-918",
+      "implementation": "",
+      "locations": [
+        "大梁"
+      ],
+      "observable_result": "梁失去一次调整用人和战略的机会，近习继续主导。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存战略谏言被近臣阻断的决策过程。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-jing-xiang-advice-ignored-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#國家連年喪師，疆土日蹙",
+        "資治通鑑/卷270@803281#趙、張之徒言翔怨望，帝遂不用"
+      ],
+      "time_range": {
+        "end": "贞明四年正月",
+        "precision": "month",
+        "start": "贞明四年正月"
+      },
+      "uncertainties": [
+        "梁帝未采用的具体理由未另载。"
+      ]
+    },
+    {
+      "action": "吴以厚利募熟悉赣石水道者，引军突至虔州城下并长期围攻谭全播。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "吴军疫病，虔州军民受长期围困。",
+      "fact_id": "CHF-ZZTJ-270-WU-SIEGES-QIANZHOU-918",
+      "implementation": "",
+      "locations": [
+        "赣石水道",
+        "虔州"
+      ],
+      "observable_result": "虔州被围但久攻不下，吴军发生大疫。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-QIANZHOU-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-wu-sieges-qianzhou-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#故吳兵奄至虔州城下",
+        "資治通鑑/卷270@803281#久不下，軍中大疫"
+      ],
+      "time_range": {
+        "end": "贞明四年正月",
+        "precision": "month",
+        "start": "贞明四年正月"
+      },
+      "uncertainties": [
+        "吴军兵力、疫亡人数和城内粮情未载。"
+      ]
+    },
+    {
+      "action": "蜀太子王衍耽于游乐，蜀主欲改立有才略的信王王宗杰，宗杰突然死亡。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "王宗杰死亡，死因不明。",
+      "fact_id": "CHF-ZZTJ-270-SHU-SUCCESSION-CRISIS-918",
+      "implementation": "",
+      "locations": [
+        "成都"
+      ],
+      "observable_result": "废立未成，王衍储位保留。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存储位质量担忧、拟废立与候选人暴卒。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-succession-crisis-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#此輩其能守之乎",
+        "資治通鑑/卷270@803281#之，有廢立意",
+        "資治通鑑/卷270@803281#亥，宗傑暴卒"
+      ],
+      "time_range": {
+        "end": "贞明四年二月",
+        "precision": "range",
+        "start": "贞明四年正月"
+      },
+      "uncertainties": [
+        "王宗杰死因未载，蜀主仅深疑。"
+      ]
+    },
+    {
+      "action": "谢彦章以数万军攻杨刘，并筑垒决河水淹数里阻晋援军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "河水泛滥数里，农田居民损害未载。",
+      "fact_id": "CHF-ZZTJ-270-LIANG-FLOODS-YANGLIU-918",
+      "implementation": "",
+      "locations": [
+        "杨刘",
+        "黄河"
+      ],
+      "observable_result": "晋军暂时不得推进，杨刘仍受围。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIANG-JIN-YANGLIU-917-918"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "public_works",
+          "reason": "保存军事决河造成的工程性水患，不据此判断长期收益。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-liang-floods-yangliu-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#決河水，瀰浸數里，以限晉兵"
+      ],
+      "time_range": {
+        "end": "贞明四年二月",
+        "precision": "month",
+        "start": "贞明四年二月"
+      },
+      "uncertainties": [
+        "淹地范围内人口、农田和财产损失未载。"
+      ]
+    },
+    {
+      "action": "唐文扆图封锁宫门待蜀主死后作难，潘在迎告发，王宗弼等闯宫夺权并贬逐唐文扆。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918",
+      "implementation": "",
+      "locations": [
+        "成都宫城"
+      ],
+      "observable_result": "唐文扆失去禁军和中枢控制，太子得以入宫侍疾。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-SHU-PALACE-POWER-STRUGGLE-918"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-palace-power-struggle-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#伺蜀主殂，即作難",
+        "資治通鑑/卷270@803281#宗弼等排闥入",
+        "資治通鑑/卷270@803281#貶唐文扆為眉州刺史"
+      ],
+      "time_range": {
+        "end": "贞明四年五月",
+        "precision": "month",
+        "start": "贞明四年五月"
+      },
+      "uncertainties": [
+        "唐文扆实际参与兵力未载。"
+      ]
+    },
+    {
+      "action": "王建死，王衍即位；新政权随即杀唐文扆、王保晦并命杀唐文裔。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "唐文扆、王保晦、唐文裔被杀。",
+      "fact_id": "CHF-ZZTJ-270-FORMER-SHU-SUCCESSION-918",
+      "implementation": "",
+      "locations": [
+        "成都",
+        "秦州"
+      ],
+      "observable_result": "前蜀完成皇位交接并清除唐氏集团，宋光嗣掌六军。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-FORMER-SHU-SUCCESSION-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-former-shu-succession-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#朔，蜀主殂。癸",
+        "資治通鑑/卷270@803281#太子即皇帝位",
+        "資治通鑑/卷270@803281#殺唐文扆、王保晦"
+      ],
+      "time_range": {
+        "end": "贞明四年六月",
+        "precision": "month",
+        "start": "贞明四年六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朱瑾因徐知训淫暴侮主且图害己，设宴伏壮士击杀徐知训，后被围自杀。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "徐知训、朱瑾死亡。",
+      "fact_id": "CHF-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918",
+      "implementation": "",
+      "locations": [
+        "广陵"
+      ],
+      "observable_result": "徐知训死亡，朱瑾亦死，徐知诰随即渡江稳定吴军府。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-ZHUJIN-XUZHIXUN-918"
+        },
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-zhu-jin-kills-xu-zhixun-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#壯士出斬之。",
+        "資治通鑑/卷270@803281#任患。」遂自剄。\n\n",
+        "資治通鑑/卷270@803281#即日引兵濟江"
+      ],
+      "time_range": {
+        "end": "贞明四年六月",
+        "precision": "month",
+        "start": "贞明四年六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "徐温灭朱瑾族，并以疑通谋杀李俨、米志诚及其诸子。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "朱瑾家族、李俨、米志诚父子被杀。",
+      "fact_id": "CHF-ZZTJ-270-XU-WEN-POSTCOUP-PURGE-918",
+      "implementation": "",
+      "locations": [
+        "广陵",
+        "海陵",
+        "雷塘"
+      ],
+      "observable_result": "徐氏清除潜在反对将领，但后经徐知诰劝说停止扩大杀戮。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存政变后扩大清洗及劝止。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-xu-wen-postcoup-purge-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#塘而滅其族。",
+        "資治通鑑/卷270@803281#謀，皆殺之。嚴",
+        "資治通鑑/卷270@803281#由，溫怒稍解"
+      ],
+      "time_range": {
+        "end": "贞明四年六月",
+        "precision": "month",
+        "start": "贞明四年六月"
+      },
+      "uncertainties": [
+        "各家被杀人数和通谋证据未载。"
+      ]
+    },
+    {
+      "action": "李存勖亲率晋军涉河，佯退诱谢彦章至中流后反击。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "梁军大量死伤，河水染赤；晋军损失未载。",
+      "fact_id": "CHF-ZZTJ-270-YANGLIU-RIVER-BATTLE-918",
+      "implementation": "",
+      "locations": [
+        "杨刘",
+        "黄河"
+      ],
+      "observable_result": "梁军大败，死伤不可胜计，晋攻陷沿河四寨。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIANG-JIN-YANGLIU-917-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-yangliu-river-battle-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#河水為之赤",
+        "資治通鑑/卷270@803281#晉人遂陷濱河四寨"
+      ],
+      "time_range": {
+        "end": "贞明四年六月",
+        "precision": "month",
+        "start": "贞明四年六月"
+      },
+      "uncertainties": [
+        "双方准确伤亡和四寨守军处置未载。"
+      ]
+    },
+    {
+      "action": "王衍不亲政，任免归王宗弼；宗弼纳贿徇私，宋光嗣迎合受宠。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "卖官与徇私的具体金额未载。",
+      "fact_id": "CHF-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918",
+      "implementation": "",
+      "locations": [
+        "成都"
+      ],
+      "observable_result": "上下咨怨，史载前蜀由此衰落。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-zongbi-corruption-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#內外遷除皆出於王宗弼",
+        "資治通鑑/卷270@803281#宗弼納賄多私",
+        "資治通鑑/卷270@803281#蜀由是遂衰"
+      ],
+      "time_range": {
+        "end": "贞明四年七月",
+        "precision": "month",
+        "start": "贞明四年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "徐知诰接管吴政后反徐知训旧政，敬王宽众，并蠲旧逋税、取消丁口钱、改以谷帛纳税。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "官府名义少收钱亿万计，实际财政转为实物税。",
+      "fact_id": "CHF-ZZTJ-270-XU-ZHIGAO-REFORMS-918",
+      "implementation": "",
+      "locations": [
+        "广陵",
+        "江淮"
+      ],
+      "observable_result": "江淮荒地尽辟、桑柘满野，国家富强，士民归心。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-ZZTJ-270-XU-ZHIGAO-REFORMS-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-xu-zhigao-reforms-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#悉蠲天祐十三年以前逋稅",
+        "資治通鑑/卷270@803281#請蠲丁口錢",
+        "資治通鑑/卷270@803281#曠土盡辟，桑柘滿野，國以富強"
+      ],
+      "time_range": {
+        "end": "贞明四年七月",
+        "precision": "month",
+        "start": "贞明四年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴越、楚、闽分别出兵救虔州；周本以虚幕宴饮疑兵退吴越，吴军夜破古亭楚军并迫闽、吴越撤退。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-QIANZHOU-RELIEF-918",
+      "implementation": "",
+      "locations": [
+        "虔州",
+        "信州",
+        "古亭",
+        "雩都"
+      ],
+      "observable_result": "三国援军均退，虔州孤立。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-QIANZHOU-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-qianzhou-relief-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#吳越疑有伏兵，中夜，解圍去",
+        "資治通鑑/卷270@803281#古亭，破之；又",
+        "資治通鑑/卷270@803281#二國聞楚兵敗，俱引歸"
+      ],
+      "time_range": {
+        "end": "贞明四年八月",
+        "precision": "range",
+        "start": "贞明四年七月"
+      },
+      "uncertainties": [
+        "各援军伤亡和闽军接触情况未载。"
+      ]
+    },
+    {
+      "action": "刘信先久攻不克而受贿退军，被徐温严责后返攻；虔州守军溃散，谭全播被追擒。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "首轮斩首数千，长期围困与疫病损失未详。",
+      "fact_id": "CHF-ZZTJ-270-QIANZHOU-FALLS-918",
+      "implementation": "",
+      "locations": [
+        "虔州",
+        "雩都"
+      ],
+      "observable_result": "吴取得虔州，谭全播获授吴官。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-QIANZHOU-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-qianzhou-falls-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#斬首數千級，不能克",
+        "資治通鑑/卷270@803281#至，虔兵皆潰",
+        "資治通鑑/卷270@803281#都，追執之。吳"
+      ],
+      "time_range": {
+        "end": "贞明四年十一月",
+        "precision": "range",
+        "start": "贞明四年九月"
+      },
+      "uncertainties": [
+        "受贿数额、终局伤亡和居民损失未载。"
+      ]
+    },
+    {
+      "action": "欧阳晃等内给事干政贪暴；欧阳晃为扩宅乘风纵火，焚毁邻军营数百间，王衍不问。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "数百间军营焚毁。",
+      "fact_id": "CHF-ZZTJ-270-OUYANG-HUANG-ARSON-918",
+      "implementation": "",
+      "locations": [
+        "成都"
+      ],
+      "observable_result": "军营大量被毁，肇事者反得扩建住宅且未受惩处。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-ZZTJ-270-OUYANG-HUANG-ARSON-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-ouyang-huang-arson-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#焚西鄰軍營數百間",
+        "資治通鑑/卷270@803281#蜀主亦不之問"
+      ],
+      "time_range": {
+        "end": "贞明四年八月",
+        "precision": "month",
+        "start": "贞明四年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李存勖屡以轻骑逼梁营挑战，违李存审泣谏后陷五千伏兵，赖援军脱险。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "护卫交战损失未载。",
+      "fact_id": "CHF-ZZTJ-270-LI-CUNXU-RISKY-SCOUTING-918",
+      "implementation": "",
+      "locations": [
+        "麻家渡",
+        "行台村",
+        "濮州"
+      ],
+      "observable_result": "晋王开始承认李存审劝谏有忠。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIANG-JIN-HANGTAICUN-918"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存统帅反复冒险并最终接受劝谏。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-li-cunxu-risky-scouting-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#危窘者數四",
+        "資治通鑑/卷270@803281#伏精甲五千於堤下",
+        "資治通鑑/卷270@803281#王始以存審之言為忠"
+      ],
+      "time_range": {
+        "end": "贞明四年八月",
+        "precision": "month",
+        "start": "贞明四年八月"
+      },
+      "uncertainties": [
+        "伏击双方伤亡未载。"
+      ]
+    },
+    {
+      "action": "梅山蛮进攻邵州，被楚将樊须击退。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-MEISHAN-RAID-918",
+      "implementation": "",
+      "locations": [
+        "邵州"
+      ],
+      "observable_result": "邵州未失。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-CHU-MEISHAN-SHAOZHOU-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-meishan-raid-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#梅山蠻寇邵州，楚將樊須擊走之"
+      ],
+      "time_range": {
+        "end": "贞明四年八月",
+        "precision": "month",
+        "start": "贞明四年八月"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡和来攻原因未载。"
+      ]
+    },
+    {
+      "action": "刘岩南郊祭祀后将国号由越改为汉。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-SOUTHERN-HAN-RENAMED-918",
+      "implementation": "",
+      "locations": [
+        "番禺"
+      ],
+      "observable_result": "大越改称南汉。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存新政权国号调整。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-southern-han-renamed-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#改國號曰漢"
+      ],
+      "time_range": {
+        "end": "贞明四年十一月",
+        "precision": "month",
+        "start": "贞明四年十一月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "徐温、严可求推动建立吴国以应对李氏可能取天下，并开始准备礼仪。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-WU-STATE-PLAN-918",
+      "implementation": "",
+      "locations": [
+        "广陵",
+        "金陵"
+      ],
+      "observable_result": "吴从唐正朔下藩镇向独立王国制度转型。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存吴建国的决策准备。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-wu-state-plan-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#不若先建吳國以系民望",
+        "資治通鑑/卷270@803281#使草具禮儀"
+      ],
+      "time_range": {
+        "end": "贞明四年十一月",
+        "precision": "month",
+        "start": "贞明四年十一月"
+      },
+      "uncertainties": [
+        "吴王此时尚未同意称帝。"
+      ]
+    },
+    {
+      "action": "贺瑰因嫉妒并猜疑谢彦章通晋，设宴伏兵杀谢彦章、孟审澄、侯温裕，诬报谋叛。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "谢彦章等三将被杀。",
+      "fact_id": "CHF-ZZTJ-270-XIE-YANZHANG-EXECUTED-918",
+      "implementation": "",
+      "locations": [
+        "梁军营"
+      ],
+      "observable_result": "梁骑兵良将被内部清除，朱珪因参与获升。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-XIE-YANZHANG-EXECUTED-918"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-xie-yanzhang-executed-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#伏甲，殺彥章",
+        "資治通鑑/卷270@803281#裕，以謀叛聞"
+      ],
+      "time_range": {
+        "end": "贞明四年十二月",
+        "precision": "month",
+        "start": "贞明四年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李存勖拒绝周德威避战建议急攻梁军，晋军先乱且周德威战死，午后重整夺山反败梁军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "双方各丧约三分之二，梁死近三万，周德威父子及王缄战死。",
+      "fact_id": "CHF-ZZTJ-270-HULIUPO-BATTLE-918",
+      "implementation": "",
+      "locations": [
+        "胡柳陂",
+        "濮阳"
+      ],
+      "observable_result": "梁军最终大败、死亡近三万；两军各损约三分之二，晋继取濮阳。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIANG-JIN-HULIUPO-918"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存统帅拒谏造成先败与后续自认责任。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-huliupo-battle-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#周德威不能制，父子皆戰死",
+        "資治通鑑/卷270@803281#之，梁兵大敗。",
+        "資治通鑑/卷270@803281#兩軍所喪士卒各三之二"
+      ],
+      "time_range": {
+        "end": "贞明四年十二月",
+        "precision": "month",
+        "start": "贞明四年十二月"
+      },
+      "uncertainties": [
+        "总兵力号称数和双方实际幸存者未精确记载。"
+      ]
+    },
+    {
+      "action": "李存审在德胜渡黄河南北各筑一城守御。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "工程投入和民力未载。",
+      "fact_id": "CHF-ZZTJ-270-DESHENG-FORTS-919",
+      "implementation": "",
+      "locations": [
+        "德胜渡",
+        "黄河南北"
+      ],
+      "observable_result": "晋建立跨河据点并由李存审统军。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-ZZTJ-270-DESHENG-FORTS-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-desheng-forts-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#於德勝南北夾河築兩城而守之"
+      ],
+      "time_range": {
+        "end": "贞明五年正月",
+        "precision": "month",
+        "start": "贞明五年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蜀王宗播等出散关渡渭破岐军，因大雨撤回；王宗昱另攻陇州不克。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-SHU-QI-CAMPAIGN-919",
+      "implementation": "",
+      "locations": [
+        "散关",
+        "渭水",
+        "陇州"
+      ],
+      "observable_result": "蜀获一战胜利但未扩大控制，陇州未下。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-QI-SHU-NORTHWEST-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-qi-campaign-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#渡渭水，破岐將孟鐵山",
+        "資治通鑑/卷270@803281#會大雨而還",
+        "資治通鑑/卷270@803281#攻隴州，不克"
+      ],
+      "time_range": {
+        "end": "贞明五年三月",
+        "precision": "month",
+        "start": "贞明五年三月"
+      },
+      "uncertainties": [
+        "双方兵力、伤亡和戍军规模未载。"
+      ]
+    },
+    {
+      "action": "王衍与太后太妃游宴耗费无度，严旭掠民女索贿，后妃卖刺史县官等职位。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "士民女子被掠，民众和求官者承受贿赂及财政消耗。",
+      "fact_id": "CHF-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919",
+      "implementation": "",
+      "locations": [
+        "成都",
+        "前蜀"
+      ],
+      "observable_result": "官缺由纳贿高者取得，宫廷支出不可胜计。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-extravagance-office-sales-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#所費不可勝紀",
+        "資治通鑑/卷270@803281#強取士民女子",
+        "資治通鑑/卷270@803281#賂多者得之"
+      ],
+      "time_range": {
+        "end": "贞明五年三月",
+        "precision": "month",
+        "start": "贞明五年三月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "钱传瓘率五百战舰攻吴，以灰、沙、豆和火攻在狼山江大败吴水军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "吴水军损失四百舰、千余首级及多名将领；吴越损失未载。",
+      "fact_id": "CHF-ZZTJ-270-WU-WUYUE-LANGSHAN-919",
+      "implementation": "",
+      "locations": [
+        "东洲",
+        "狼山江"
+      ],
+      "observable_result": "吴将彭彦章自杀，吴越俘七十将、斩千余并焚四百舰。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-WUYUE-LANGSHAN-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-wu-wuyue-langshan-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#戰於狼山江",
+        "資治通鑑/卷270@803281#焚戰艦四百艘"
+      ],
+      "time_range": {
+        "end": "贞明五年四月",
+        "precision": "month",
+        "start": "贞明五年四月"
+      },
+      "uncertainties": [
+        "吴军总兵力和吴越伤亡未载。"
+      ]
+    },
+    {
+      "action": "贺瑰以联舰封河猛攻德胜南城，李建及率三百敢死士斧断竹索并火攻联舰。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "梁水军焚溺近半，晋敢死士损失未载。",
+      "fact_id": "CHF-ZZTJ-270-DESHENG-SOUTH-RELIEF-919",
+      "implementation": "",
+      "locations": [
+        "德胜南城",
+        "黄河",
+        "濮州"
+      ],
+      "observable_result": "梁联舰焚溺近半，晋军渡河解围并追至濮州。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIANG-JIN-DESHENG-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-desheng-south-relief-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#選效節敢死士得三百人",
+        "資治通鑑/卷270@803281#梁兵焚溺者殆半",
+        "資治通鑑/卷270@803281#渡。瑰解圍走"
+      ],
+      "time_range": {
+        "end": "贞明五年四月",
+        "precision": "month",
+        "start": "贞明五年四月"
+      },
+      "uncertainties": [
+        "梁联舰兵员和晋军伤亡未载。"
+      ]
+    },
+    {
+      "action": "王衍下令诸将不得擅离屯戍，三名军使违命后却全部获原谅。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-SHU-DISCIPLINE-COLLAPSE-919",
+      "implementation": "",
+      "locations": [
+        "前蜀军"
+      ],
+      "observable_result": "史载前蜀禁令自此不行。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存军令发布后因不执行惩罚而失效。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shu-discipline-collapse-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#自是禁令不行"
+      ],
+      "time_range": {
+        "end": "贞明五年五月",
+        "precision": "month",
+        "start": "贞明五年五月"
+      },
+      "uncertainties": [
+        "违命原因和具体离营行动未载。"
+      ]
+    },
+    {
+      "action": "楚攻荆南，吴以陆军趋潭州、水军攻复州策应，迫楚军释围，并攻取复州。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-WU-RELIEVES-JINGNAN-919",
+      "implementation": "",
+      "locations": [
+        "荆南",
+        "潭州",
+        "复州"
+      ],
+      "observable_result": "荆南解围，吴俘复州知州鲍唐。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-CHU-JINGNAN-WU-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-wu-relieves-jingnan-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#楚兵釋荊南引歸",
+        "資治通鑑/卷270@803281#簡等入復州"
+      ],
+      "time_range": {
+        "end": "贞明五年五月",
+        "precision": "month",
+        "start": "贞明五年五月"
+      },
+      "uncertainties": [
+        "各军兵力、伤亡及复州后续控制未载。"
+      ]
+    },
+    {
+      "action": "吴军在沙山击败吴越军。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-SHASHAN-BATTLE-919",
+      "implementation": "",
+      "locations": [
+        "沙山"
+      ],
+      "observable_result": "吴取得当次战斗胜利。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-WUYUE-SHASHAN-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-shashan-battle-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#吳人敗吳越兵於沙山"
+      ],
+      "time_range": {
+        "end": "贞明五年六月",
+        "precision": "month",
+        "start": "贞明五年六月"
+      },
+      "uncertainties": [
+        "双方兵力、指挥者和伤亡未载。"
+      ]
+    },
+    {
+      "action": "钱传瓘率三万攻常州，吴军在徐温病中稳住指挥并乘旱草纵火，水陆夹击吴越。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "吴越斩首万级并失何逢、吴建；吴军损失未载。",
+      "fact_id": "CHF-ZZTJ-270-WUXI-BATTLE-919",
+      "implementation": "",
+      "locations": [
+        "常州",
+        "无锡",
+        "香弯"
+      ],
+      "observable_result": "吴越大败，斩首万级，退军又在山南、香弯受挫。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-WU-WUYUE-WUXI-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-wuxi-battle-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#將兵三萬攻吳常州",
+        "資治通鑑/卷270@803281#吳越兵亂，遂大敗",
+        "資治通鑑/卷270@803281#建，斬首萬級"
+      ],
+      "time_range": {
+        "end": "贞明五年七月",
+        "precision": "month",
+        "start": "贞明五年七月"
+      },
+      "uncertainties": [
+        "纵火对居民、田地的损害和吴军伤亡未载。"
+      ]
+    },
+    {
+      "action": "吴将请乘吴越败势灭国，徐温以民困已甚为由停止追攻并引军返回。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-XU-WEN-STOPS-WAR-919",
+      "implementation": "",
+      "locations": [
+        "江淮",
+        "吴越"
+      ],
+      "observable_result": "吴未扩大入侵，为后续吴越休兵保留条件。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-ZZTJ-270-XU-WEN-STOPS-WAR-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-xu-wen-stops-war-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#矣，民困已甚",
+        "資治通鑑/卷270@803281#哉！多殺何為",
+        "資治通鑑/卷270@803281#何為！」遂引還。\n\n"
+      ],
+      "time_range": {
+        "end": "贞明五年七月",
+        "precision": "month",
+        "start": "贞明五年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "李存勖因郭崇韬建议减少陪食人数欲辞河北帅位，冯道拒草文并劝止。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-FENG-DAO-REMONSTRANCE-919",
+      "implementation": "",
+      "locations": [
+        "晋阳"
+      ],
+      "observable_result": "李存勖停止以小事惊动军政，郭崇韬入谢。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存冯道阻止统帅情绪化辞位。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-feng-dao-remonstrance-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#道執筆逡巡不為",
+        "資治通鑑/卷270@803281#入謝，王乃止。\n"
+      ],
+      "time_range": {
+        "end": "贞明五年七月",
+        "precision": "month",
+        "start": "贞明五年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "梁王瓒夹河筑垒、造浮桥并保持滑州粮运；晋李存进以苇索系巨舰，逾月建成德胜浮桥。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "竹木、船舰、劳力和粮运投入未载。",
+      "fact_id": "CHF-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919",
+      "implementation": "",
+      "locations": [
+        "杨村",
+        "德胜",
+        "黄河"
+      ],
+      "observable_result": "梁晋均建立跨河交通和补给设施，继续对峙。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-yangcun-desheng-bridges-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#夾河築壘，運洛陽竹木造浮梁",
+        "資治通鑑/卷270@803281#逾月而成，人服其智"
+      ],
+      "time_range": {
+        "end": "贞明五年八月",
+        "precision": "month",
+        "start": "贞明五年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "吴归还无锡俘虏，吴越遣使请和，双方停止战争。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-WU-WUYUE-PEACE-919",
+      "implementation": "",
+      "locations": [
+        "吴",
+        "吴越"
+      ],
+      "observable_result": "吴三十余州中二十余年民乐业，长期休兵形成。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-ZZTJ-270-WU-WUYUE-PEACE-919"
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-wu-wuyue-peace-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#吳越王鏐亦遣使請和於吳",
+        "資治通鑑/卷270@803281#國休兵息民",
+        "資治通鑑/卷270@803281#民樂業者二十餘年"
+      ],
+      "time_range": {
+        "end": "贞明五年八月",
+        "precision": "month",
+        "start": "贞明五年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "梁削刘岩官爵并命钱镠讨伐，钱镠受命但未出兵。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-LIANG-ORDERS-WUYUE-ATTACK-HAN-919",
+      "implementation": "",
+      "locations": [
+        "梁",
+        "吴越",
+        "南汉"
+      ],
+      "observable_result": "梁的讨伐命令没有实际军事行动。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存梁对南汉的名义制裁及吴越不执行。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-liang-orders-wuyue-attack-han-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#鏐雖受命，竟不行"
+      ],
+      "time_range": {
+        "end": "贞明五年九月",
+        "precision": "month",
+        "start": "贞明五年九月"
+      },
+      "uncertainties": [
+        "钱镠不执行的具体理由未载。"
+      ]
+    },
+    {
+      "action": "吴庐江公杨濛公开感叹国家为他人所有，徐温由此厌恶戒备。",
+      "actors": [],
+      "affected_groups": [],
+      "cost_or_burden": "",
+      "fact_id": "CHF-ZZTJ-270-YANG-MENG-DISSENT-919",
+      "implementation": "",
+      "locations": [
+        "吴"
+      ],
+      "observable_result": "吴宗室与徐氏权臣矛盾公开化。",
+      "routes": [
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "保存宗室对徐氏专权的明确反对。",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-zztj-270-yang-meng-dissent-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#我國家而為它人所有，可乎"
+      ],
+      "time_range": {
+        "end": "贞明五年九月",
+        "precision": "month",
+        "start": "贞明五年九月"
+      },
+      "uncertainties": [
+        "当时是否已有具体反抗计划未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "张承业以农桑、积储和严格公帑纪律支撑晋军。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "征租强度和民间负担未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "晋阳",
+        "河东"
+      ],
+      "observable_result": "军城肃清、军饷不乏，公帑保持军用。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "李存勖连年出征，军府需持续供饷。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "积累金谷，拒绝公款私用，饷给不乏。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "军城肃清，民间承租状况未详。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "劝课农桑并收买马匹。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-fin-cand-zztj-270-zhang-chengye-governance-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#勸課農桑，畜積金谷",
+        "資治通鑑/卷270@803281#由是軍城肅清，饋餉不乏",
+        "資治通鑑/卷270@803281#承業不敢以公物為私禮"
+      ],
+      "thread_ref": "FIN-THREAD-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917",
+      "time_range": {
+        "end": "贞明三年十月",
+        "precision": "month",
+        "start": "贞明三年十月"
+      },
+      "uncertainties": [
+        "租额、积谷数量及农桑增产未载。"
+      ]
+    },
+    {
+      "action": "徐知诰、宋齐丘减免旧欠和丁口钱，改行谷帛税。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-ZZTJ-270-XU-ZHIGAO-REFORMS-918",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "官府名义少收钱亿万计，实际财政转为实物税。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-XU-ZHIGAO-REFORMS-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "广陵",
+        "江淮"
+      ],
+      "observable_result": "江淮荒地尽辟、桑柘满野，国家富强，士民归心。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "钱重物轻，丁口和亩钱使民困苦。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "取消丁口钱并以谷帛替代多数钱税。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "士民归心，民富。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "荒地开垦、桑柘扩大，税制回归农桑产物。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-fin-cand-zztj-270-xu-zhigao-reforms-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#悉蠲天祐十三年以前逋稅",
+        "資治通鑑/卷270@803281#請蠲丁口錢",
+        "資治通鑑/卷270@803281#曠土盡辟，桑柘滿野，國以富強"
+      ],
+      "thread_ref": "FIN-THREAD-ZZTJ-270-XU-ZHIGAO-REFORMS-918",
+      "time_range": {
+        "end": "贞明四年七月",
+        "precision": "month",
+        "start": "贞明四年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "前蜀宫廷奢游、掠女索贿并公开卖官。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "士民女子被掠，民众和求官者承受贿赂及财政消耗。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都",
+        "前蜀"
+      ],
+      "observable_result": "官缺由纳贿高者取得，宫廷支出不可胜计。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "王衍即位后不亲政。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "游宴耗费不可胜纪，官职成为后妃收入。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "士民女子遭强取，厚赂可免。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-fin-cand-zztj-270-shu-extravagance-office-sales-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#所費不可勝紀",
+        "資治通鑑/卷270@803281#強取士民女子",
+        "資治通鑑/卷270@803281#賂多者得之"
+      ],
+      "thread_ref": "FIN-THREAD-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919",
+      "time_range": {
+        "end": "贞明五年三月",
+        "precision": "month",
+        "start": "贞明五年三月"
+      },
+      "uncertainties": [
+        "支出、卖官收入和受害人数未载。"
+      ]
+    },
+    {
+      "action": "吴与吴越议和后长期休兵，吴地民众安业。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "FIN-CAND-ZZTJ-270-WU-WUYUE-PEACE-919",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-WU-WUYUE-PEACE-919"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "吴",
+        "吴越"
+      ],
+      "observable_result": "吴三十余州中二十余年民乐业，长期休兵形成。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "此前两国连年水陆战争。"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "停战后的财政节省未量化。"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "三十余州民乐业二十余年。"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "长期和平有利生产流通，具体指标未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-fin-cand-zztj-270-wu-wuyue-peace-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#吳越王鏐亦遣使請和於吳",
+        "資治通鑑/卷270@803281#國休兵息民",
+        "資治通鑑/卷270@803281#民樂業者二十餘年"
+      ],
+      "thread_ref": "FIN-THREAD-ZZTJ-270-WU-WUYUE-PEACE-919",
+      "time_range": {
+        "end": "贞明五年八月",
+        "precision": "month",
+        "start": "贞明五年八月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "limitations": [
+    "卷270按固定修订连续通读，只维护事件行JSON；Registry和Markdown由通用流水线派生。",
+    "所有明确武装行动均交接战役工作流；共享层不判战役档位、人物贡献或最终闭合。",
+    "卷271须续接德胜河防、梁晋对峙、吴越和议、前蜀腐败与吴宗室矛盾。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "唐文扆借礼仪过失清除中枢政敌毛文锡集团。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-SHU-MAO-WENXI-PURGE-917",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "毛氏家产被籍没，多名亲属受贬流。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-MAO-WENXI-PURGE-917"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都",
+        "茂州",
+        "维州"
+      ],
+      "observable_result": "唐文扆在中枢争权中压倒毛文锡，庾凝绩权判内枢密院。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "权力斗争与政治清洗"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处置枢密院未奏用乐。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "礼仪处分或扩大清洗。"
+        },
+        {
+          "dimension": "decision",
+          "value": "贬流、籍没并牵连亲属。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "毛文锡集团退出中枢。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "唐文扆与庾凝绩权力上升。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "处分扩大至家族和姻亲。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "唐文扆次年谋控宫门。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-shu-mao-wenxi-purge-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#文扆從而譖之",
+        "資治通鑑/卷270@803281#州，籍沒其家"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-SHU-MAO-WENXI-PURGE-917",
+      "time_range": {
+        "end": "贞明三年八月",
+        "precision": "month",
+        "start": "贞明三年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "刘岩称帝建立大越政权。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917",
+      "continuity_status": "continued_across_reigns",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "番禺",
+        "广州"
+      ],
+      "observable_result": "岭南由梁封藩转为独立帝国。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "建国"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "断绝梁贡后是否公开称帝。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "维持南平王或称帝。"
+        },
+        {
+          "dimension": "decision",
+          "value": "称帝建国。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "大越建立。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "岭南脱离梁名义体系。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "与梁关系进一步敌对。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "次年改国号汉。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-southern-han-foundation-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#即皇帝位於番禺",
+        "資治通鑑/卷270@803281#禺，國號大越",
+        "資治通鑑/卷270@803281#以廣州為興王府"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917",
+      "time_range": {
+        "end": "贞明三年八月",
+        "precision": "month",
+        "start": "贞明三年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "蜀主因内斗和继承顾虑诛杀刘知俊。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917",
+      "continuity_status": "single_event",
+      "cost_or_burden": "刘知俊死亡。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都炭市"
+      ],
+      "observable_result": "刘知俊被杀，蜀失去新降名将。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "政治清洗"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处置难以驾驭且遭同僚排挤的刘知俊。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "继续任用、解除兵权或处死。"
+        },
+        {
+          "dimension": "decision",
+          "value": "以谋反罪处斩。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "刘知俊死亡。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "旧功臣和唐文扆排除外来主将。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "蜀军事人才受损。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "岐蜀战线继续。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-liu-zhijun-executed-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#諸將皆舊功臣，多不用其命",
+        "資治通鑑/卷270@803281#稱其謀叛，斬於炭市"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917",
+      "time_range": {
+        "end": "贞明三年十二月",
+        "precision": "month",
+        "start": "贞明三年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "梁帝违背劝谏筹备郊祀，前线失利后仓皇中止。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917",
+      "continuity_status": "single_event",
+      "cost_or_burden": "礼仪准备和行幸耗费未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "洛阳",
+        "大梁",
+        "汜水"
+      ],
+      "observable_result": "郊祀未成，车服宫阙准备形成无效支出并暴露朝廷恐慌。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "决策与纠错止损"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "是否在财政军情紧迫时赴洛阳郊祀。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "待北方平定后再礼。"
+        },
+        {
+          "dimension": "decision",
+          "value": "先强行启程，后因杨刘失守罢礼。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "郊祀未举行。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "近臣赵岩意见压过敬翔。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "虚耗准备并造成朝廷恐慌。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "梁军继续防御晋攻。"
+        }
+      ],
+      "operation_status": "failed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-liang-aborts-suburban-rite-917",
+      "source_refs": [
+        "資治通鑑/卷270@803281#公私困竭，人心惴恐",
+        "資治通鑑/卷270@803281#是慕虛名而受實弊也",
+        "資治通鑑/卷270@803281#遂罷郊祀，奔歸大梁"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917",
+      "time_range": {
+        "end": "贞明三年十二月",
+        "precision": "month",
+        "start": "贞明三年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "王宗弼集团挫败唐文扆控制宫门的夺权准备。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都宫城"
+      ],
+      "observable_result": "唐文扆失去禁军和中枢控制，太子得以入宫侍疾。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "政变危机处置"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "蜀主病危时谁控制宫门和储君。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "唐文扆封锁或大臣强入。"
+        },
+        {
+          "dimension": "decision",
+          "value": "王宗弼等排闼入宫并召太子。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "唐文扆被逐，太子入侍。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "禁军中枢转入王宗弼、宋光嗣集团。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "宫廷近乎发生政变。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "宋光嗣与诸将受遗诏辅政。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-shu-palace-power-struggle-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#伺蜀主殂，即作難",
+        "資治通鑑/卷270@803281#宗弼等排闥入",
+        "資治通鑑/卷270@803281#貶唐文扆為眉州刺史"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918",
+      "time_range": {
+        "end": "贞明四年五月",
+        "precision": "month",
+        "start": "贞明四年五月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "王衍即位并以清洗唐氏集团巩固新朝。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-FORMER-SHU-SUCCESSION-918",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "唐文扆、王保晦、唐文裔被杀。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-FORMER-SHU-SUCCESSION-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都",
+        "秦州"
+      ],
+      "observable_result": "前蜀完成皇位交接并清除唐氏集团，宋光嗣掌六军。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "继承与政治清洗"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "王建死后如何交接并处置唐文扆集团。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "遵遗命辅政或扩大清洗。"
+        },
+        {
+          "dimension": "decision",
+          "value": "王衍即位并处死三人。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "新帝与辅政集团掌权。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "徐氏后妃、宋光嗣和王宗弼集团上升。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "即位初即发生政治处决。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "王宗弼纳贿专权。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-former-shu-succession-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#朔，蜀主殂。癸",
+        "資治通鑑/卷270@803281#太子即皇帝位",
+        "資治通鑑/卷270@803281#殺唐文扆、王保晦"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-FORMER-SHU-SUCCESSION-918",
+      "time_range": {
+        "end": "贞明四年六月",
+        "precision": "month",
+        "start": "贞明四年六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "朱瑾刺杀暴虐执政徐知训，徐知诰趁机接管吴政。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "徐知训、朱瑾死亡。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "广陵"
+      ],
+      "observable_result": "徐知训死亡，朱瑾亦死，徐知诰随即渡江稳定吴军府。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "政变与权力更替"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何终止徐知训对吴王、将领的暴虐威胁。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "继续忍让或刺杀。"
+        },
+        {
+          "dimension": "decision",
+          "value": "朱瑾设伏杀徐知训。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "徐知训与朱瑾皆死。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "徐知诰接替执政。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "随后发生灭族和多名将领处决。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "徐知诰改弦更张。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-zhu-jin-kills-xu-zhixun-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#壯士出斬之。",
+        "資治通鑑/卷270@803281#任患。」遂自剄。\n\n",
+        "資治通鑑/卷270@803281#即日引兵濟江"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918",
+      "time_range": {
+        "end": "贞明四年六月",
+        "precision": "month",
+        "start": "贞明四年六月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "王衍放弃亲政，王宗弼与宋光嗣控制任免并形成腐败。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "卖官与徇私的具体金额未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都"
+      ],
+      "observable_result": "上下咨怨，史载前蜀由此衰落。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "权力变化与腐败"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "新帝如何分配中枢政务。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "亲政或委辅臣。"
+        },
+        {
+          "dimension": "decision",
+          "value": "任免交王宗弼，宠任宋光嗣。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "纳贿徇私、上下怨恨。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "辅臣和宦官掌实权。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "政权治理衰败。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "内给事进一步干政。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-shu-zongbi-corruption-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#內外遷除皆出於王宗弼",
+        "資治通鑑/卷270@803281#宗弼納賄多私",
+        "資治通鑑/卷270@803281#蜀由是遂衰"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918",
+      "time_range": {
+        "end": "贞明四年七月",
+        "precision": "month",
+        "start": "贞明四年七月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "贺瑰以通敌猜疑清除谢彦章等良将。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-XIE-YANZHANG-EXECUTED-918",
+      "continuity_status": "single_event",
+      "cost_or_burden": "谢彦章等三将被杀。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-XIE-YANZHANG-EXECUTED-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "梁军营"
+      ],
+      "observable_result": "梁骑兵良将被内部清除，朱珪因参与获升。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "政治清洗"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "如何处理主张坚守、与主帅意见不同的骑将。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "继续分工或诬杀。"
+        },
+        {
+          "dimension": "decision",
+          "value": "设伏处死并报谋叛。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "三名良将死亡。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "贺瑰独掌前线，朱珪升任。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "梁军失去骑兵指挥人才。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "李存勖因梁将自相残杀决定急进。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-xie-yanzhang-executed-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#伏甲，殺彥章",
+        "資治通鑑/卷270@803281#裕，以謀叛聞"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-XIE-YANZHANG-EXECUTED-918",
+      "time_range": {
+        "end": "贞明四年十二月",
+        "precision": "month",
+        "start": "贞明四年十二月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "徐温拒绝乘胜灭吴越，选择止战安民。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "POL-CAND-ZZTJ-270-XU-WEN-STOPS-WAR-919",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-XU-WEN-STOPS-WAR-919"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "江淮",
+        "吴越"
+      ],
+      "observable_result": "吴未扩大入侵，为后续吴越休兵保留条件。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "纠错止损与外交选择"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "是否乘水道枯竭和大胜继续灭吴越。"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "追攻灭国或休兵。"
+        },
+        {
+          "dimension": "decision",
+          "value": "以民困为由停止。"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "吴军撤回。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "主帅压住诸将扩战意见。"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "避免长期连兵。"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "八月双方交换俘虏并议和。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-pol-cand-zztj-270-xu-wen-stops-war-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#矣，民困已甚",
+        "資治通鑑/卷270@803281#哉！多殺何為",
+        "資治通鑑/卷270@803281#何為！」遂引還。\n\n"
+      ],
+      "thread_ref": "POL-THREAD-ZZTJ-270-XU-WEN-STOPS-WAR-919",
+      "time_range": {
+        "end": "贞明五年七月",
+        "precision": "month",
+        "start": "贞明五年七月"
+      },
+      "uncertainties": []
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "欧阳晃纵火毁军营以扩建私宅。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-ZZTJ-270-OUYANG-HUANG-ARSON-918",
+      "continuity_status": "single_event",
+      "cost_or_burden": "数百间军营焚毁。",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-ZZTJ-270-OUYANG-HUANG-ARSON-918"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "成都"
+      ],
+      "observable_result": "军营大量被毁，肇事者反得扩建住宅且未受惩处。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "欧阳晃私宅扩建及邻军营毁坏。"
+        },
+        {
+          "dimension": "phase",
+          "value": "纵火拆除后召匠扩建。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "扩大私人住宅。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "工匠和材料未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "军营数百间被烧，私宅扩建。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "仅欧阳晃私人受益。"
+        },
+        {
+          "dimension": "harm",
+          "value": "公共军营数百间毁损。"
+        }
+      ],
+      "operation_status": "completed",
+      "semantic_fingerprint": "candidate-work-cand-zztj-270-ouyang-huang-arson-918",
+      "source_refs": [
+        "資治通鑑/卷270@803281#焚西鄰軍營數百間",
+        "資治通鑑/卷270@803281#蜀主亦不之問"
+      ],
+      "thread_ref": "WORK-THREAD-ZZTJ-270-OUYANG-HUANG-ARSON-918",
+      "time_range": {
+        "end": "贞明四年八月",
+        "precision": "month",
+        "start": "贞明四年八月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "晋在德胜渡两岸修筑双城控制河渡。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-ZZTJ-270-DESHENG-FORTS-919",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "工程投入和民力未载。",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-ZZTJ-270-DESHENG-FORTS-919"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "德胜渡",
+        "黄河南北"
+      ],
+      "observable_result": "晋建立跨河据点并由李存审统军。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "德胜南北双城。"
+        },
+        {
+          "dimension": "phase",
+          "value": "建成并驻守。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "控制黄河渡口并支撑南北互援。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "未载。"
+        },
+        {
+          "dimension": "operation",
+          "value": "两城投入河防。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "晋获得跨河防御支点。"
+        },
+        {
+          "dimension": "harm",
+          "value": "劳役和占地未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-work-cand-zztj-270-desheng-forts-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#於德勝南北夾河築兩城而守之"
+      ],
+      "thread_ref": "WORK-THREAD-ZZTJ-270-DESHENG-FORTS-919",
+      "time_range": {
+        "end": "贞明五年正月",
+        "precision": "month",
+        "start": "贞明五年正月"
+      },
+      "uncertainties": []
+    },
+    {
+      "action": "梁晋分别在杨村、德胜建设河防浮桥与营垒。",
+      "actors": [],
+      "affected_groups": [],
+      "candidate_ref": "WORK-CAND-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "竹木、船舰、劳力和粮运投入未载。",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [
+        "杨村",
+        "德胜",
+        "黄河"
+      ],
+      "observable_result": "梁晋均建立跨河交通和补给设施，继续对峙。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "杨村梁浮桥与德胜晋浮桥。"
+        },
+        {
+          "dimension": "phase",
+          "value": "建成运行。"
+        },
+        {
+          "dimension": "purpose",
+          "value": "跨河军运、守垒和补给。"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "梁用洛阳竹木，晋用苇索、巨舰、土山巨木。"
+        },
+        {
+          "dimension": "operation",
+          "value": "两方均形成跨河设施。"
+        },
+        {
+          "dimension": "benefit",
+          "value": "支撑河上军队互援与粮运。"
+        },
+        {
+          "dimension": "harm",
+          "value": "民力、船只和材料征用未载。"
+        }
+      ],
+      "operation_status": "operated",
+      "semantic_fingerprint": "candidate-work-cand-zztj-270-yangcun-desheng-bridges-919",
+      "source_refs": [
+        "資治通鑑/卷270@803281#夾河築壘，運洛陽竹木造浮梁",
+        "資治通鑑/卷270@803281#逾月而成，人服其智"
+      ],
+      "thread_ref": "WORK-THREAD-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919",
+      "time_range": {
+        "end": "贞明五年八月",
+        "precision": "month",
+        "start": "贞明五年八月"
+      },
+      "uncertainties": [
+        "两桥规模、使用年限和征发负担未载。"
+      ]
+    }
+  ],
+  "registry_version": "FIVE-DYNASTIES-ZZTJ-270-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "后梁末帝贞明五年九月",
+    "input_fingerprint": "3564030bfac4eee5724eab84de32f30958556202f3280abf547353a929e91a7e",
+    "overlap_context": "续接卷269契丹围幽州、梁晋河上对峙、虔州攻守及岐蜀战线；德胜河防、吴越休兵与梁晋后续交卷271续读。",
+    "revision_ref": "803281",
+    "start_locator": "后梁末帝贞明三年七月",
+    "volume_ref": "卷270",
+    "work": "資治通鑑"
+  },
+  "status": "shadow",
+  "task_code": "FIVE-DYNASTIES-ZZTJ-270-MULTIDOMAIN",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-MAO-WENXI-PURGE-917"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-shu-mao-wenxi-purge-917",
+      "status": "closed",
+      "summary": "唐文扆借礼仪过失清除中枢政敌毛文锡集团。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-SHU-MAO-WENXI-PURGE-917",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-southern-han-foundation-917",
+      "status": "closed",
+      "summary": "刘岩称帝建立大越政权。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-zztj-270-zhang-chengye-governance-917",
+      "status": "closed",
+      "summary": "张承业以农桑、积储和严格公帑纪律支撑晋军。",
+      "thread_ref": "FIN-THREAD-ZZTJ-270-ZHANG-CHENGYE-GOVERNANCE-917",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-liu-zhijun-executed-917",
+      "status": "closed",
+      "summary": "蜀主因内斗和继承顾虑诛杀刘知俊。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-LIU-ZHIJUN-EXECUTED-917",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-liang-aborts-suburban-rite-917",
+      "status": "closed",
+      "summary": "梁帝违背劝谏筹备郊祀，前线失利后仓皇中止。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-LIANG-ABORTS-SUBURBAN-RITE-917",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-shu-palace-power-struggle-918",
+      "status": "closed",
+      "summary": "王宗弼集团挫败唐文扆控制宫门的夺权准备。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-SHU-PALACE-POWER-STRUGGLE-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-FORMER-SHU-SUCCESSION-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-former-shu-succession-918",
+      "status": "closed",
+      "summary": "王衍即位并以清洗唐氏集团巩固新朝。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-FORMER-SHU-SUCCESSION-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-zhu-jin-kills-xu-zhixun-918",
+      "status": "closed",
+      "summary": "朱瑾刺杀暴虐执政徐知训，徐知诰趁机接管吴政。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-shu-zongbi-corruption-918",
+      "status": "closed",
+      "summary": "王衍放弃亲政，王宗弼与宋光嗣控制任免并形成腐败。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-SHU-ZONGBI-CORRUPTION-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-XU-ZHIGAO-REFORMS-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-zztj-270-xu-zhigao-reforms-918",
+      "status": "closed",
+      "summary": "徐知诰、宋齐丘减免旧欠和丁口钱，改行谷帛税。",
+      "thread_ref": "FIN-THREAD-ZZTJ-270-XU-ZHIGAO-REFORMS-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-ZZTJ-270-OUYANG-HUANG-ARSON-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-zztj-270-ouyang-huang-arson-918",
+      "status": "closed",
+      "summary": "欧阳晃纵火毁军营以扩建私宅。",
+      "thread_ref": "WORK-THREAD-ZZTJ-270-OUYANG-HUANG-ARSON-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-XIE-YANZHANG-EXECUTED-918"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-xie-yanzhang-executed-918",
+      "status": "closed",
+      "summary": "贺瑰以通敌猜疑清除谢彦章等良将。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-XIE-YANZHANG-EXECUTED-918",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-ZZTJ-270-DESHENG-FORTS-919"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-zztj-270-desheng-forts-919",
+      "status": "closed",
+      "summary": "晋在德胜渡两岸修筑双城控制河渡。",
+      "thread_ref": "WORK-THREAD-ZZTJ-270-DESHENG-FORTS-919",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-zztj-270-shu-extravagance-office-sales-919",
+      "status": "closed",
+      "summary": "前蜀宫廷奢游、掠女索贿并公开卖官。",
+      "thread_ref": "FIN-THREAD-ZZTJ-270-SHU-EXTRAVAGANCE-OFFICE-SALES-919",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-ZZTJ-270-XU-WEN-STOPS-WAR-919"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-zztj-270-xu-wen-stops-war-919",
+      "status": "closed",
+      "summary": "徐温拒绝乘胜灭吴越，选择止战安民。",
+      "thread_ref": "POL-THREAD-ZZTJ-270-XU-WEN-STOPS-WAR-919",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-zztj-270-yangcun-desheng-bridges-919",
+      "status": "closed",
+      "summary": "梁晋分别在杨村、德胜建设河防浮桥与营垒。",
+      "thread_ref": "WORK-THREAD-ZZTJ-270-YANGCUN-DESHENG-BRIDGES-919",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-ZZTJ-270-WU-WUYUE-PEACE-919"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-zztj-270-wu-wuyue-peace-919",
+      "status": "closed",
+      "summary": "吴与吴越议和后长期休兵，吴地民众安业。",
+      "thread_ref": "FIN-THREAD-ZZTJ-270-WU-WUYUE-PEACE-919",
+      "uncertainties": []
+    }
+  ]
+}

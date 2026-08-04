@@ -1,0 +1,1312 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "JIN-JINSHI-V02-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V02-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "金史",
+    "volume_ref": "卷2",
+    "revision_ref": "7906448",
+    "start_locator": "太祖阿骨打早年与父兄时期活动",
+    "end_locator": "天辅七年太祖崩、吴乞买即位及史臣总论",
+    "overlap_context": "卷1已登记麻产、留可、萧海里等先世战事，本卷不重复结算；卷3从太宗天会元年续接。",
+    "input_fingerprint": "6831a55db0be12850048c4f99e77a44d08229e40066f35632244525cf1188474"
+  },
+  "events": [
+    {
+      "id": "CHF-JIN-V02-AGUDA-EARLY-LEADERSHIP",
+      "time": [
+        "世祖至穆宗时期",
+        "穆宗末年",
+        "range"
+      ],
+      "segment_locator": "太祖早年段1—4",
+      "subject": "阿骨打与完颜部诸将",
+      "action": "阿骨打在父兄时期参与围城、对辽交涉与多路征讨，逐渐成为处理契丹事务和军中疑难的核心人选。",
+      "result": "世祖明确评价阿骨打足以处理契丹事务，穆宗重用其军事判断；具体旧战役已在卷1登记，本条不重复交接。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "承担军事与对辽事务",
+          "resolved"
+        ]
+      ],
+      "quote": "世祖見太祖來，所請事皆如志，喜甚，執太祖手，抱其頸而撫之，謂穆宗曰：「烏雅束柔善，惟此子足了契丹事。」",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "说明袭位前能力与权力基础；卷1旧战役不重复登记。"
+        ]
+      ],
+      "unknown": [
+        "本段汇叙多年活动，未逐项给出完整年代。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-RELIEF-DEBT-MORATORIUM-1109",
+      "time": [
+        "康宗七年",
+        "康宗七年",
+        "year"
+      ],
+      "segment_locator": "康宗七年歉收段",
+      "subject": "阿骨打、康宗与歉收下的贫民债户",
+      "action": "歉收导致流莩、盗窃和卖妻子偿债时，阿骨打反对因财杀人，将盗窃赔偿减为三倍，并宣布债务三年暂缓征收。",
+      "implementation": "在官属会议外以帛系杖召集众人，公开宣布三年缓征，期满后再议。",
+      "result": "众人听令，闻者感泣，原文称远近由此归心。",
+      "cost": "债权征收被推迟三年；财政数量未载。",
+      "groups": [
+        "歉收贫民",
+        "债务人",
+        "遭盗窃者"
+      ],
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "减轻盗窃赔偿并暂缓债务征收",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "遂減盜賊征償法爲征三倍。",
+        "自今三年勿征，過三年徐圖之。",
+        "衆皆聽令，聞者感泣，自是遠近歸心焉。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-JIN-V02-RELIEF-DEBT-1109",
+        "candidate": "FIN-CAND-JIN-V02-RELIEF-DEBT-1109",
+        "summary": "阿骨打在歉收与债务危机中减偿并实行三年缓征。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "岁不登、民多流莩，贫者卖妻子仍不能偿债。",
+          "fiscal_state": "盗窃赔偿降为三倍，私人债务三年缓征；总额未载。",
+          "livelihood_state": "缓解因债卖亲与因盗被杀风险，原文称远近归心。",
+          "production_circulation": "通过减偿和延后债务执行保留贫民家庭生存能力。"
+        },
+        "open_questions": [
+          "三年后如何处理旧债未载。"
+        ],
+        "candidate_unknown": [
+          "适用户数、债额与实际执行范围未载。"
+        ]
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "公开缓债形成袭位前的政治支持，但主候选归财政民生。"
+        ]
+      ],
+      "unknown": [
+        "适用户数、债额与三年后处理均未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-AGUDA-SUCCEEDS-1113",
+      "time": [
+        "癸巳十月",
+        "癸巳十月",
+        "month"
+      ],
+      "segment_locator": "康宗卒与袭位段",
+      "subject": "阿骨打、康宗与辽使阿息保",
+      "action": "康宗去世后阿骨打袭位为都勃极烈；辽使以未告丧责问并企图取赗马，阿骨打拒绝其要求。",
+      "result": "阿骨打取得最高部落权位，对辽使侵侮采取强硬立场，但经宗雄劝阻未杀使者。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "袭位并拒绝辽使取赗马",
+          "resolved"
+        ],
+        [
+          "阿息保",
+          "PERSON-LIAO-AXIBAO",
+          "POLITY-LIAO",
+          "责问告丧并欲取赗马",
+          "resolved"
+        ]
+      ],
+      "quote": "是月，康宗即世，太祖襲位爲都勃極烈。遼使阿息保來，曰：「何以不告喪？」",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-AGUDA-SUCCESSION-1113",
+        "candidate": "POL-CAND-JIN-V02-AGUDA-SUCCESSION-1113",
+        "summary": "康宗卒后阿骨打袭位，并在首次对辽使冲突中维护部落权威。",
+        "operation": "implemented",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "SUCCESSION-AND-ENVOY-CONFLICT",
+          "decision_question": "康宗卒后由谁承继最高权位并如何应对辽使侵侮。",
+          "alternatives": "对辽使让步、处死或经劝谏克制；原文明载最终未杀。",
+          "decision": "阿骨打袭都勃极烈，拒绝辽使取赗马并采纳宗雄劝阻。",
+          "direct_result": "权位完成承接，辽使未被杀。",
+          "power_change": "阿骨打成为完颜部最高领导者。",
+          "risk_or_damage": "与辽关系进一步紧张。",
+          "follow_up": "次年辽方才授袭节度使之命，随后进入伐辽准备。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "辽命延迟是否专因本次冲突，原文未明。"
+        ]
+      },
+      "unknown": [
+        "辽命延迟的具体决策过程未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-WAR-PREPARATION-1114",
+      "time": [
+        "二年甲午六月后",
+        "二年甲午九月前",
+        "range"
+      ],
+      "segment_locator": "索阿疏与伐辽准备段",
+      "subject": "阿骨打与完颜部官僚耆旧",
+      "action": "阿骨打以辽使征索无度、庇护阿疏及辽政废弛为由，召集官僚耆旧宣布伐辽，命各路控制要地、修备城堡和兵器。",
+      "implementation": "多次遣人侦察宁江州兵力，判断辽军尚未集结后决定先发制人，并征集各路兵员。",
+      "result": "完颜部完成公开动员，诸路奉号令会师来流水。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "决定伐辽并部署动员侦察",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "于是召官僚耆舊，以伐遼告之，使備沖要，建城堡，修戎器，以聽後命。",
+        "我必先發制之，無爲人制。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-WAR-DECISION-1114",
+        "candidate": "POL-CAND-JIN-V02-WAR-DECISION-1114",
+        "summary": "阿骨打在侦察辽军状态后决定先发伐辽并完成部落动员。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "WAR-DECISION",
+          "decision_question": "继续索要阿疏并事辽，还是先发制人。",
+          "alternatives": "继续交涉、守备待敌或主动进攻。",
+          "decision": "宣布伐辽、侦察宁江兵力并先发进军。",
+          "direct_result": "诸路动员并会师，战争正式启动。",
+          "power_change": "完颜部由辽属节度体系转向公开挑战辽朝。",
+          "risk_or_damage": "以约二千五百人对辽开战，兵力风险高。",
+          "follow_up": "九月进军宁江州。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "城堡修备的具体地点、数量和完成度未载。"
+        ]
+      },
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "建城堡属于战争准备，但缺少单体工程身份、规模和运作结果，不形成大型工程候选。"
+        ]
+      ],
+      "unknown": [
+        "各路城堡和兵器数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-NINGJIANG-1114",
+      "time": [
+        "二年甲午九月",
+        "二年甲午十月朔",
+        "range"
+      ],
+      "segment_locator": "宁江州战役段",
+      "subject": "阿骨打率二千五百人与宁江州辽军",
+      "action": "完颜诸路二千五百人会师后进入辽境，击溃来攻中军的渤海军并围攻宁江州。",
+      "result": "辽军奔溃并大量相互践踏，十月朔宁江州被攻克，防御使大药师奴被俘后秘密释放用于招谕。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "统军击溃辽军并攻克宁江州",
+          "resolved"
+        ],
+        [
+          "宁江州辽军",
+          "",
+          "POLITY-LIAO",
+          "出战并守城",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "諸路兵皆會于來流水，得二千五百人。",
+        "敵大奔，相蹂踐死者十七八。",
+        "十月朔，克其城，獲防禦使大藥師奴"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-NINGJIANG-1114",
+      "unknown": [
+        "死者十七八为比例表述，绝对伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-NINGJIANG-POSTWAR-ORDER",
+      "time": [
+        "二年甲午十月",
+        "二年甲午十月",
+        "month"
+      ],
+      "segment_locator": "宁江战后治理段",
+      "subject": "阿骨打与新附女直、渤海及完颜军",
+      "action": "宁江州战后，阿骨打宣示女直与渤海同源、不滥杀无辜，招抚辽籍女直，并首次规定三百户为谋克、十谋克为猛安。",
+      "result": "铁骊及多部来降，俘获与财物分给将士，猛安谋克成为新的军事行政编组。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "招抚新附并设猛安谋克",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "女直、渤海本同一家，我興師伐罪，不濫及無辜也。",
+        "初命諸路以三百戶爲謀克，十謀克爲猛安。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-MENGAN-MOUKE-1114",
+        "candidate": "POL-CAND-JIN-V02-MENGAN-MOUKE-1114",
+        "summary": "宁江战后以招抚和猛安谋克编组吸纳新附人口。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "MILITARY-ADMINISTRATIVE-ORGANIZATION",
+          "decision_question": "如何编组诸路户口并吸纳新附。",
+          "alternatives": "沿旧部落自管或建立统一户籍军政编组。",
+          "decision": "三百户为谋克、十谋克为猛安，并同步招谕新附。",
+          "direct_result": "形成猛安谋克编组，更多部族来降。",
+          "power_change": "完颜政权获得跨部落、跨户口的统一军政组织。",
+          "risk_or_damage": "编组实施细节和新附负担未载。",
+          "follow_up": "后续征服地区继续使用本朝猛安谋克制。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "首批各猛安谋克的完整名单未载。"
+        ]
+      },
+      "unknown": [
+        "首批编组数量和具体辖户未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-CHUHEDIAN-1114",
+      "time": [
+        "二年甲午十一月",
+        "二年甲午十一月",
+        "month"
+      ],
+      "segment_locator": "鸭子河出河店战役段",
+      "subject": "阿骨打与萧糺里、撻不野所率辽军",
+      "action": "辽军步骑十万集结鸭子河北，阿骨打率军渡河，在到达者仅甲士约三分之一时乘大风攻击。",
+      "result": "辽军在出河店溃败，完颜军追至斡论泺，缴获大量人口、车马、甲兵和财物，兵力扩至万人。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-PROTO-JIN",
+          "强渡鸭子河并击溃辽军",
+          "resolved"
+        ],
+        [
+          "萧糺里",
+          "PERSON-LIAO-XIAOJIULI",
+          "POLITY-LIAO",
+          "统率辽军",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "甲士三千七百，至者才三之一。俄與敵遇于出河店，會大風起，塵埃蔽天，乘風勢擊之，遼兵潰。",
+        "遼人嘗言女直兵若滿萬則不可敵，至是始滿萬雲。"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-CHUHEDIAN-1114",
+      "unknown": [
+        "辽军伤亡和俘获数量未给精确值。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-JIN-FOUNDING-1115",
+      "time": [
+        "收国元年正月壬申朔",
+        "收国元年正月壬申朔",
+        "day"
+      ],
+      "segment_locator": "称帝建国段",
+      "subject": "阿骨打与完颜部群臣",
+      "action": "在宁江、出河店胜利及诸州归降后，群臣上尊号，阿骨打即皇帝位，定国号大金、改元收国。",
+      "result": "完颜部政权由都勃极烈领导的部落联盟转为以皇帝、国号和年号标识的金朝国家。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "即皇帝位并建立大金",
+          "resolved"
+        ]
+      ],
+      "quote": "收國元年正月壬申朔，群臣奉上尊號。是日，即皇帝位。上曰：「遼以賓鐵爲號，取其堅也。賓鐵雖堅，終亦變壞，惟金不變不壞。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-FOUNDING-1115",
+        "candidate": "POL-CAND-JIN-V02-FOUNDING-1115",
+        "summary": "阿骨打即皇帝位，建立大金并启用收国年号。",
+        "operation": "completed",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "STATE-FOUNDING",
+          "decision_question": "是否在连胜和归附扩大后建立正式帝国名号。",
+          "alternatives": "继续以都勃极烈领导或接受群臣尊号称帝。",
+          "decision": "即皇帝位，国号大金，改元收国。",
+          "direct_result": "金朝正式建立。",
+          "power_change": "完颜部领导权转化为皇帝国家权力。",
+          "risk_or_damage": "与辽朝由叛属战争升级为两国战争。",
+          "follow_up": "随即继续攻黄龙府并与辽主力交战。"
+        },
+        "open_questions": [],
+        "candidate_unknown": []
+      },
+      "unknown": []
+    },
+    {
+      "id": "CHF-JIN-V02-DALUGU-1115",
+      "time": [
+        "收国元年正月",
+        "收国元年正月",
+        "month"
+      ],
+      "segment_locator": "达鲁古城战役段",
+      "subject": "阿骨打与辽边军二十七万",
+      "action": "辽以骑二十万、步卒七万戍边，阿骨打进逼达鲁古城，集中攻击辽军中坚。",
+      "result": "辽军败溃，完颜军追至阿娄冈，辽步卒几乎全灭，并取得数千耕具供军使用。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "统军攻击辽军中坚",
+          "resolved"
+        ],
+        [
+          "耶律讹里朵等",
+          "",
+          "POLITY-LIAO",
+          "率辽边军迎战",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+        "遼步卒盡殪，得其耕具數千以給諸軍。"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-DALUGU-1115",
+      "unknown": [
+        "辽军数字为本纪记载，金军总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-HUANGLONGFU-1115",
+      "time": [
+        "收国元年八月",
+        "收国元年九月",
+        "range"
+      ],
+      "segment_locator": "黄龙府战役段",
+      "subject": "阿骨打与黄龙府守军",
+      "action": "阿骨打亲征黄龙府，率军涉混同江后进攻。",
+      "result": "九月黄龙府被攻克，阿骨打班师并调整勃极烈职次。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "亲征并攻克黄龙府",
+          "resolved"
+        ]
+      ],
+      "quote": "九月，克黃龍府，遣辭剌還，遂班師。",
+      "battle": "CAMPAIGN-JIN-LIAO-HUANGLONGFU-1115",
+      "unknown": [
+        "攻城过程、伤亡和降附处置未详载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-HUBUDAGANG-1115",
+      "time": [
+        "收国元年十二月",
+        "收国元年十二月",
+        "month"
+      ],
+      "segment_locator": "护步答冈战役段",
+      "subject": "阿骨打二万军与辽主七十万号称之军",
+      "action": "辽主因张奴叛乱西还后，阿骨打以轻装追击，在护步答冈集中兵力攻击辽军中军。",
+      "result": "辽军大溃，死者绵延百余里，大量仪仗、军资、宝物和牲畜被缴获，辽主力遭决定性失败。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "追击并集中破辽中军",
+          "resolved"
+        ],
+        [
+          "辽主",
+          "PERSON-LIAO-TIANZUO",
+          "POLITY-LIAO",
+          "自将大军后西还",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "是役也，兵止二萬。",
+        "遼師敗績，死者相屬百餘里。獲輿輦帟幄兵械軍資，他寶物馬牛不可勝計。"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-HUBUDAGANG-1115",
+      "unknown": [
+        "辽军七十万为号称，实际参战兵力不明。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-SURRENDER-AMNESTY-1116",
+      "time": [
+        "收国二年正月戊子",
+        "收国二年正月戊子",
+        "day"
+      ],
+      "segment_locator": "收国二年降附优恤诏",
+      "subject": "阿骨打与新降契丹、奚、汉、渤海等官民",
+      "action": "阿骨打规定已降、被俘后逃还者不治罪，保留酋长官职并允许各自选择居处。",
+      "result": "多族群降附者获得人身、官职与居住保障，形成统一的战后接纳政策。",
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "颁布降附优恤政策",
+          "resolved"
+        ]
+      ],
+      "quote": "自今契丹、奚、漢、渤海、系遼籍女直、室韋、達魯古、兀惹、鐵驪諸部官民，己降或爲軍所俘獲，逃遁而還者，勿以爲罪。其酋長仍官之，且使從宜居處。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-SURRENDER-AMNESTY-1116",
+        "candidate": "POL-CAND-JIN-V02-SURRENDER-AMNESTY-1116",
+        "summary": "金朝以免罪、留官和自由居处吸纳多族降附者。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "SURRENDER-INTEGRATION-POLICY",
+          "decision_question": "如何处置新降、被俘逃还和原部酋长。",
+          "alternatives": "治罪、强制迁置或免罪留官。",
+          "decision": "免罪、酋长仍官并从便居处。",
+          "direct_result": "形成跨族群统一接纳政策。",
+          "power_change": "金朝由女真政权扩展为吸纳辽属多族官民的统治体。",
+          "risk_or_damage": "地方忠诚和后续叛复风险仍存在。",
+          "follow_up": "后续多次诏令继续赦免、安置和赈给新附。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "实际受益人数和留官执行比例未载。"
+        ]
+      },
+      "unknown": [
+        "执行人数与地区分布未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-SLAVE-REDEMPTION-1116",
+      "time": [
+        "收国二年二月己巳",
+        "收国二年二月己巳",
+        "day"
+      ],
+      "segment_locator": "岁凶奴隶赎良诏",
+      "subject": "阿骨打与因饥荒、犯罪或债务沦为奴隶者",
+      "action": "阿骨打允许因岁凶依附豪族、无力赔偿或过期未赎而沦为奴隶者按两人赎一人的规则恢复良民身份，原约一人赎者从原约。",
+      "result": "为多类债役奴隶建立明确赎良通道。",
+      "groups": [
+        "灾民",
+        "债务奴隶",
+        "犯法无力赔偿者"
+      ],
+      "actors": [
+        [
+          "阿骨打",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "颁布奴隶赎良规则",
+          "resolved"
+        ]
+      ],
+      "quote": "並聽以兩人贖一爲良。若元約以一人贖者，即從元約。",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-JIN-V02-SLAVE-REDEMPTION-1116",
+        "candidate": "FIN-CAND-JIN-V02-SLAVE-REDEMPTION-1116",
+        "summary": "金朝为因灾、债与赔偿沦奴者建立赎良规则。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "岁凶、债务与赔偿失败导致庶民依附豪族或折身为奴。",
+          "fiscal_state": "以两人赎一或按原约赎回，具体赎价未载。",
+          "livelihood_state": "受影响者获得恢复良民身份的制度通道。",
+          "production_circulation": "改变以人身抵偿债务和赔偿的交易结果。"
+        },
+        "open_questions": [
+          "诏令实际执行人数未载。"
+        ],
+        "candidate_unknown": [
+          "赎价、地域覆盖与执行率未载。"
+        ]
+      },
+      "unknown": [
+        "赎价和实际恢复良民人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-GAO-YONGCHANG-1116",
+      "time": [
+        "收国二年四月",
+        "收国二年五月",
+        "range"
+      ],
+      "segment_locator": "高永昌之乱与东京改制段",
+      "subject": "斡鲁等金军与高永昌",
+      "action": "高永昌据东京求援后，金朝命斡鲁统军征讨。",
+      "result": "高永昌兵败被擒杀，东京州县及南路辽籍女直归降；当地废除辽法、减少税赋并设置猛安谋克。",
+      "actors": [
+        [
+          "斡鲁",
+          "PERSON-JIN-WOLU",
+          "POLITY-JIN",
+          "统军讨平高永昌",
+          "resolved"
+        ],
+        [
+          "高永昌",
+          "PERSON-GAO-YONGCHANG",
+          "POLITY-LIAO-REBEL",
+          "据东京后被擒杀",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+        "詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+      ],
+      "battle": "CAMPAIGN-JIN-GAO-YONGCHANG-1116",
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-JIN-V02-TOKYO-TAX-REFORM-1116",
+        "candidate": "FIN-CAND-JIN-V02-TOKYO-TAX-REFORM-1116",
+        "summary": "东京归降后废辽法、减税赋并改行猛安谋克。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "东京原行辽法和辽赋税体系。",
+          "fiscal_state": "诏令减少税赋，具体税种和幅度未载。",
+          "livelihood_state": "新附官民的税负方向下降，实际效果未载。",
+          "production_circulation": "税制和户口组织转入金朝制度。"
+        },
+        "open_questions": [
+          "省税赋具体幅度未载。"
+        ],
+        "candidate_unknown": [
+          "改制执行范围和短期民生结果未载。"
+        ]
+      },
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "东京由辽制转为金制并纳入猛安谋克，主候选归财政减赋。"
+        ]
+      ],
+      "unknown": [
+        "减税幅度、改制户数和战役伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-SONG-ALLIANCE-1117-1118",
+      "time": [
+        "天辅元年十二月",
+        "天辅二年正月",
+        "range"
+      ],
+      "segment_locator": "宋使马政与夹攻议定段",
+      "subject": "金太祖与宋使马政、金使散睹",
+      "action": "宋朝提出金灭辽后返还五代以来陷入契丹的汉地，金朝答复应由宋金夹攻、各取所得。",
+      "result": "宋金围绕夹攻辽朝及燕云土地形成初步书面交涉，但疆界、税币和交付尚未在此闭合。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "回应宋朝夹攻与土地请求",
+          "resolved"
+        ],
+        [
+          "宋朝",
+          "",
+          "POLITY-SONG",
+          "提出夹攻后土地请求",
+          "resolved"
+        ]
+      ],
+      "quote": "使散睹如宋報聘，書曰：「所請之地，今當與宋夾攻，得者有之。」",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "只是联盟与土地谈判的起点，交付条件尚未闭合。"
+        ]
+      ],
+      "unknown": [
+        "双方此时尚未形成完整执行条款。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-NEWCOMER-SUPPORT-1118",
+      "time": [
+        "天辅二年六月",
+        "天辅二年十月",
+        "range"
+      ],
+      "segment_locator": "归户安置与官粮段",
+      "subject": "金太祖与新归辽户、贫乏谋克民",
+      "action": "金朝将来归户口分置诸部和肥沃地区，调查曾给官粮的贫乏谋克人口，并要求新附者从便安居、继续给官粮、禁止扰动。",
+      "result": "多批辽户获得土地安置和粮食支持，降将与首领按所部授千户、谋克。",
+      "groups": [
+        "新附辽户",
+        "贫乏谋克民"
+      ],
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "部署新附人口安置与官粮支持",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "命分置諸部，擇膏腴之地處之。",
+        "來者各令從便安居，給以官糧，毋輒動擾。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-JIN-V02-NEWCOMER-SUPPORT-1118",
+        "candidate": "FIN-CAND-JIN-V02-NEWCOMER-SUPPORT-1118",
+        "summary": "金朝以肥沃土地、官粮和禁止扰动安置新附人口。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "baseline": "辽户和新附人口迁入，部分谋克民贫乏且曾依赖官粮。",
+          "fiscal_state": "由官府提供粮食并配置土地，数量仅部分调查未载。",
+          "livelihood_state": "新附者获得从便安居、土地和粮食保障。",
+          "production_circulation": "将户口配置到膏腴地并恢复定居生产。"
+        },
+        "open_questions": [
+          "官粮发放总量和持续时间未载。"
+        ],
+        "candidate_unknown": [
+          "安置户数仅分批出现，缺完整总数。"
+        ]
+      },
+      "unknown": [
+        "总安置户数、土地面积和官粮数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-JURCHEN-SCRIPT-1119",
+      "time": [
+        "天辅二年九月至三年八月",
+        "天辅三年八月",
+        "range"
+      ],
+      "segment_locator": "访求文士与颁女直字段",
+      "subject": "金太祖与文书官员、女直字使用者",
+      "action": "为规范国书诏令，金太祖下令访求博学文士赴阙；次年八月颁行女直字。",
+      "result": "金朝开始以专门人才和本族文字支撑国家文书。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "访求文士并颁女直字",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "國書詔令，宜選善屬文者爲之。其令所在訪求博學雄才之士。",
+        "八月己丑，頒女直字。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-JURCHEN-SCRIPT-1119",
+        "candidate": "POL-CAND-JIN-V02-JURCHEN-SCRIPT-1119",
+        "summary": "金朝访求文士并颁行女直字以支持国家文书。",
+        "operation": "implemented",
+        "continuity": "continued_across_reigns",
+        "observations": {
+          "event_type": "STATE-WRITING-INSTITUTION",
+          "decision_question": "如何提高国书诏令制作能力并建立本族文字。",
+          "alternatives": "继续依赖既有文字人才或访求文士并颁本族文字。",
+          "decision": "访求博学雄才并颁女直字。",
+          "direct_result": "国家文书获得人才与文字制度基础。",
+          "power_change": "中央政权的信息发布和制度表达能力增强。",
+          "risk_or_damage": "普及范围和行政成本未载。",
+          "follow_up": "后续卷需观察实际使用。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "女直字的推广范围和识字人数未载。"
+        ]
+      },
+      "unknown": [
+        "具体创制过程和推广规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-SHANGJING-1120",
+      "time": [
+        "天辅四年四月",
+        "天辅四年五月甲寅",
+        "range"
+      ],
+      "segment_locator": "亲征上京段",
+      "subject": "金太祖与辽上京守军",
+      "action": "辽方和议反复后，金太祖亲征上京，先招谕官民，遭拒后亲临督攻。",
+      "result": "闍母先登克外城，留守撻不野以城降，上京官民获赦；因暑热和补给风险，金军随后停止深入。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "亲征并督攻上京",
+          "resolved"
+        ],
+        [
+          "撻不野",
+          "PERSON-LIAO-TABUYE",
+          "POLITY-LIAO",
+          "守上京后投降",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "自旦及巳，闍母以麾下先登，克其外城，留守撻不野以城降。",
+        "地遠時暑，軍馬罷乏，若深入敵境，糧饋乏絕，恐有後艱。"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-SHANGJING-1120",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "攻克首都后赦官民并因后勤停止深入，主闭合归战役。"
+        ]
+      ],
+      "unknown": [
+        "攻城伤亡和赦后行政接管细节未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-TAIZHOU-GARRISON-1121",
+      "time": [
+        "天辅五年二月",
+        "天辅五年二月",
+        "month"
+      ],
+      "segment_locator": "泰州屯户段",
+      "subject": "昱、宗雄、婆卢火与诸路猛安谋克民",
+      "action": "金朝从诸路猛安谋克中分出一万户屯驻泰州，由婆卢火统领，并赐耕牛五十。",
+      "result": "泰州获得军户屯驻和基本耕作牲畜，形成守备兼生产安排。",
+      "groups": [
+        "一万屯户"
+      ],
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "命一万户屯泰州并赐牛",
+          "resolved"
+        ],
+        [
+          "婆卢火",
+          "PERSON-JIN-POLUHUO",
+          "POLITY-JIN",
+          "统领屯户",
+          "resolved"
+        ]
+      ],
+      "quote": "遣昱及宗雄分諸路猛安謀克之民萬戶屯泰州，以婆盧火統之，賜耕牛五十。",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "明确有屯户与耕牛投入，但产出、存续和民户负担未载，暂作背景。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "屯户兼具边地守备和人口配置。"
+        ]
+      ],
+      "unknown": [
+        "屯田面积、产量、户口自愿性和后续存续未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-LIAO-CAMPAIGN-DIRECTIVE-1121",
+      "time": [
+        "天辅五年十二月",
+        "天辅五年十二月",
+        "month"
+      ],
+      "segment_locator": "内外诸军都统任命与诏令段",
+      "subject": "金太祖与都统杲、宗翰等",
+      "action": "金太祖任杲为内外诸军都统，配置多名副帅，授权讨辽时因地制宜，并要求赏罚、粮饷、安抚降服和禁止俘掠。",
+      "result": "形成灭辽大举的统一指挥和军纪后勤规则，次月即攻取中京。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "建立灭辽统一指挥与军纪",
+          "resolved"
+        ],
+        [
+          "杲",
+          "PERSON-JIN-GAO",
+          "POLITY-JIN",
+          "任内外诸军都统",
+          "resolved"
+        ]
+      ],
+      "quote": "賞罰必行，糧餉必繼，勿擾降服，勿縱俘掠，見可而進，無淹師期。事有從權，毋須申稟。",
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-LIAO-COMMAND-1121",
+        "candidate": "POL-CAND-JIN-V02-LIAO-COMMAND-1121",
+        "summary": "金太祖建立灭辽统一指挥、军纪、后勤与临机授权规则。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "WAR-COMMAND-DELEGATION",
+          "decision_question": "如何组织大规模灭辽行动并控制军纪。",
+          "alternatives": "逐事请示或授都统临机处置。",
+          "decision": "任杲为都统并授从权，同时约束赏罚、粮饷、降附和俘掠。",
+          "direct_result": "次月开始连续攻取中京及山前山后地区。",
+          "power_change": "前线都统获得明确临机权，中央保留战略与纪律约束。",
+          "risk_or_damage": "授权过宽可能带来军纪风险，诏令以禁扰掠加以约束。",
+          "follow_up": "天辅六年中京、西京等战役按此指挥展开。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "禁扰降服与禁俘掠的实际执行程度未载。"
+        ]
+      },
+      "unknown": [
+        "军纪执行数据未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-LIAO-CAPITALS-1122",
+      "time": [
+        "天辅六年正月",
+        "天辅六年四月",
+        "range"
+      ],
+      "segment_locator": "中京西京追辽主段",
+      "subject": "都统杲、宗翰等金军与辽主",
+      "action": "金军攻取中京、泽州，追辽主至鸳鸯泺、西京和白水泺，并在西京复叛后再次攻取。",
+      "result": "辽中京、西京先后被控制，多个奚部和山前诸部归降；辽主逃往阴山，尚未被俘。",
+      "actors": [
+        [
+          "杲",
+          "PERSON-JIN-GAO",
+          "POLITY-JIN",
+          "统军攻取中京并追辽主",
+          "resolved"
+        ],
+        [
+          "宗翰",
+          "PERSON-JIN-ZONGHAN",
+          "POLITY-JIN",
+          "分路追击辽主",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "乙亥，取中京，遂下澤州。",
+        "壬申，西京降。",
+        "四月辛卯，復取西京。"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-CENTRAL-WESTERN-CAPITALS-1122",
+      "unknown": [
+        "各城攻守伤亡及复叛具体组织者未完整载明。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-LIAO-SURRENDER-POLICY-1122",
+      "time": [
+        "天辅六年六月",
+        "天辅六年十一月",
+        "range"
+      ],
+      "segment_locator": "亲征安抚新民与多次赦诏段",
+      "subject": "金太祖与辽地新附、复叛和逃散官民",
+      "action": "亲征途中，金太祖反复规定先降后叛者自首免罪、降后复叛者速降仍留官、逃散山林者免罪，率众归附者授世官。",
+      "result": "归化、奉圣、蔚州等相继归降，部分官员获迁授；叛复仍发生，显示安抚并未完全稳固。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "连续颁赦并留官招降",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "若能速降，當釋其罪，官皆仍舊。",
+        "今其逃散人民，罪無輕重，鹹與矜免。有能率衆歸附者，授之世官。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-LIAO-SURRENDER-1122",
+        "candidate": "POL-CAND-JIN-V02-LIAO-SURRENDER-1122",
+        "summary": "金太祖以反复免罪、留官和授世官推动辽地归附。",
+        "operation": "implemented",
+        "continuity": "continued_within_reign",
+        "observations": {
+          "event_type": "CONQUEST-AMNESTY",
+          "decision_question": "如何处理新附未稳、复叛和逃散人口。",
+          "alternatives": "全面惩罚或再次招谕免罪留官。",
+          "decision": "持续赦免、留官并以世官奖励率众归附。",
+          "direct_result": "多州归降并进入安抚，但部分地区仍复叛。",
+          "power_change": "金朝以原辽官员和地方首领扩展统治。",
+          "risk_or_damage": "重复叛降说明忠诚未固，世官激励存在长期约束成本。",
+          "follow_up": "燕京于十二月归降，次年继续处理辽地叛复。"
+        },
+        "open_questions": [],
+        "candidate_unknown": [
+          "获赦和授世官总人数未载。"
+        ]
+      },
+      "unknown": [
+        "各次赦令实际覆盖人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-YANJING-1122",
+      "time": [
+        "天辅六年十二月",
+        "天辅六年十二月",
+        "month"
+      ],
+      "segment_locator": "燕京归降段",
+      "subject": "金太祖、宗望诸军与燕京辽官",
+      "action": "金太祖分多路进取居庸关和燕京，宗望率七千先行，辽枢密及参政官员奉表投降。",
+      "result": "燕京被金军接收，辽百官请罪后获赦，左企弓等被命抚定诸州县。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "统筹进取并接收燕京",
+          "resolved"
+        ],
+        [
+          "宗望",
+          "PERSON-JIN-ZONGWANG",
+          "POLITY-JIN",
+          "率先锋七千",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+        "遼百官詣軍門叩頭請罪，詔一切釋之。"
+      ],
+      "battle": "CAMPAIGN-JIN-LIAO-YANJING-1122",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "燕京以官员奉表和整体赦免完成接收，主闭合归战役。"
+        ]
+      ],
+      "unknown": [
+        "城内军民伤亡和接管初期税制未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-AGRICULTURE-MOBILITY-1123",
+      "time": [
+        "天辅七年正月",
+        "天辅七年二月",
+        "range"
+      ],
+      "segment_locator": "新附农事、赈贷与通关诏段",
+      "subject": "金太祖与新附州部官民",
+      "action": "农事将兴时，金太祖禁止军士扰民废农；又令迁户受存恤、衣食不足者由官府赈贷，并恢复显、咸、东京等路自由往来和被掠卖身者自赎。",
+      "result": "新附地区获得农时保护、赈贷、交通恢复和自赎通道。",
+      "groups": [
+        "新附农民",
+        "迁户",
+        "被掠及卖身者"
+      ],
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "保护农事、赈贷并恢复道路往来",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "今農事將興，可遣分諭典兵之官，無縱軍士動擾人民，以廢農業。",
+        "衣食不足者，官賑貸之。",
+        "自今顯、咸、東京等路往來，聽從其便。其間被虜及鬻身者，並許自贖爲良。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "thread": "FIN-THREAD-JIN-V02-AGRICULTURE-MOBILITY-1123",
+        "candidate": "FIN-CAND-JIN-V02-AGRICULTURE-MOBILITY-1123",
+        "summary": "金朝在新附地区保护农时、赈贷缺食者并恢复交通和自赎。",
+        "operation": "ordered",
+        "continuity": "single_event",
+        "observations": {
+          "baseline": "新附未稳、迁户离乡，军士扰动可能妨害春耕，关津因战争断绝。",
+          "fiscal_state": "官府承担赈贷并允许自赎，规模未载。",
+          "livelihood_state": "农时、迁户衣食、道路往来和人身恢复获得制度保障。",
+          "production_circulation": "禁止扰农并恢复多路交通，有利于生产和流通恢复。"
+        },
+        "open_questions": [
+          "实际发放赈贷和恢复交通效果未载。"
+        ],
+        "candidate_unknown": [
+          "赈贷数量、偿还条件和受益户数未载。"
+        ]
+      },
+      "unknown": [
+        "政策执行数据未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-SONG-YAN-TERRITORY-1123",
+      "time": [
+        "天辅七年正月至二月",
+        "天辅七年二月",
+        "range"
+      ],
+      "segment_locator": "宋金燕地税币榷场交涉段",
+      "subject": "金太祖与宋使",
+      "action": "宋朝请求以岁币代燕税，并讨论疆界、燕京六州交付、贺正旦生辰使节和榷场贸易；金朝命官员与宋使分割所与土地。",
+      "result": "燕京六州交付进入实地划分，平州改南京并由张觉留守；西京等问题尚未完全闭合。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "与宋议定燕地、岁币和榷场",
+          "resolved"
+        ],
+        [
+          "宋朝",
+          "",
+          "POLITY-SONG",
+          "提出岁币代税及疆界贸易方案",
+          "resolved"
+        ]
+      ],
+      "quote": "宋使趙良嗣來，請加歲幣以代燕稅，及議畫疆與遣使賀正旦生辰、置榷場交易，並計議西京等事。",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "燕地交付与榷场进入执行但张觉随即叛变，需与后续卷衔接。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "涉及岁币、燕税和榷场，但金额与实际贸易结果未载。"
+        ]
+      ],
+      "unknown": [
+        "岁币金额、榷场执行和西京处置未在本卷闭合。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-ZHANG-JUE-1123",
+      "time": [
+        "天辅七年五月",
+        "天辅七年六月",
+        "range"
+      ],
+      "segment_locator": "张觉叛南京段",
+      "subject": "张觉与闍母所率金军",
+      "action": "南京留守张觉据城反叛，金军出兵征讨。",
+      "result": "闍母在营州击败张觉，但张觉事件在本卷未完全结束；金太祖因病改派宗翰驻云中备边。",
+      "actors": [
+        [
+          "张觉",
+          "PERSON-ZHANG-JUE",
+          "POLITY-JIN-REBEL",
+          "据南京反叛",
+          "resolved"
+        ],
+        [
+          "闍母",
+          "PERSON-JIN-SHEMU",
+          "POLITY-JIN",
+          "在营州击败张觉",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "五月甲寅，南京留守張覺據城叛。",
+        "是日，闍母敗張覺于營州。"
+      ],
+      "battle": "CAMPAIGN-JIN-ZHANG-JUE-1123",
+      "unknown": [
+        "张觉本人本卷未被擒，后续不得在此反填。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-LIAO-RULER-PURSUIT-1123",
+      "time": [
+        "天辅七年四月",
+        "天辅七年五月",
+        "range"
+      ],
+      "segment_locator": "阴山追辽主与获传国玺段",
+      "subject": "斡鲁、宗望、娄室等与辽主",
+      "action": "金军袭击辽主阴山方向，在白水泺击败喝离质，继而追及辽主并决战。",
+      "result": "辽军大败，辽主之子赵王习泥烈、林牙大石及传国玺被俘获；辽主本人仍逃脱。",
+      "actors": [
+        [
+          "宗望",
+          "PERSON-JIN-ZONGWANG",
+          "POLITY-JIN",
+          "追及辽主并决战",
+          "resolved"
+        ],
+        [
+          "辽主",
+          "PERSON-LIAO-TIANZUO",
+          "POLITY-LIAO",
+          "败后逃脱",
+          "resolved"
+        ]
+      ],
+      "quote": "宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。",
+      "battle": "CAMPAIGN-JIN-LIAO-YINSHAN-PURSUIT-1123",
+      "unknown": [
+        "辽主逃脱路线和双方伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V02-TAIZU-DEATH-SUCCESSION-1123",
+      "time": [
+        "天辅七年八月戊申",
+        "天辅七年九月丙辰",
+        "range"
+      ],
+      "segment_locator": "太祖崩与太宗即位段",
+      "subject": "金太祖、吴乞买与宗室百官",
+      "action": "金太祖病中返回上京途中崩于部堵泺西行宫，梓宫回上京后，谙班勃极烈吴乞买即皇帝位。",
+      "result": "太祖十四年领导期结束，皇位按既定谙班勃极烈次序转交吴乞买。",
+      "actors": [
+        [
+          "金太祖",
+          "PERSON-JIN-AGUDA",
+          "POLITY-JIN",
+          "崩逝",
+          "resolved"
+        ],
+        [
+          "吴乞买",
+          "PERSON-JIN-WUQIMAI",
+          "POLITY-JIN",
+          "以谙班勃极烈身份即位",
+          "resolved"
+        ]
+      ],
+      "quote": [
+        "戊申，上崩于部堵濼西行宮，年五十六。",
+        "丙辰，諳班勃極烈即皇帝位。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "thread": "POL-THREAD-JIN-V02-TAIZU-SUCCESSION-1123",
+        "candidate": "POL-CAND-JIN-V02-TAIZU-SUCCESSION-1123",
+        "summary": "太祖崩后吴乞买按谙班勃极烈次序即位。",
+        "operation": "completed",
+        "continuity": "single_event",
+        "observations": {
+          "event_type": "IMPERIAL-SUCCESSION",
+          "decision_question": "太祖崩后由谁承继皇位。",
+          "alternatives": "原文未载公开争位，既定谙班勃极烈为吴乞买。",
+          "decision": "吴乞买即皇帝位。",
+          "direct_result": "太宗继位，政权延续。",
+          "power_change": "最高权力由阿骨打转移至吴乞买。",
+          "risk_or_damage": "太祖病逝时张觉事件和辽宋边界问题尚未完全解决。",
+          "follow_up": "卷3续接天会元年太宗政务。"
+        },
+        "open_questions": [],
+        "candidate_unknown": []
+      },
+      "unknown": []
+    }
+  ],
+  "limitations": [
+    "本卷为11660字固定正文人工连续通读后的shadow共享事实。",
+    "卷1已登记的麻产、留可、萧海里旧战役不在本卷重复结算。",
+    "祥异、射柳、追号改葬和史臣赞语不作为四域事件。",
+    "城堡战备只有背景路由，缺少工程单体、规模与运行结果，不形成public_works候选。",
+    "卷3尚未开始；太宗灭辽、伐宋结果不反填本卷。"
+  ]
+}

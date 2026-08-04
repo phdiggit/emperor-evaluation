@@ -1,0 +1,965 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "five-dynasties-chronicle-volume-293",
+  "source_scope": {
+    "work": "資治通鑑",
+    "volume_ref": "卷293",
+    "revision_ref": "1502955",
+    "start_locator": "后周世宗显德三年三月",
+    "end_locator": "后周世宗显德四年十二月",
+    "overlap_context": "续接卷292寿州围攻、吴越参战及湖南周行逢掌权；本卷闭合寿州与湖南权力重组，推进濠泗楚泰等淮南战线，南唐割地称臣与后周北归转出卷294。",
+    "input_fingerprint": "484a57e8fea632330aa5ad9144ee4c0e691098656e6fb18264dea4a72243d121"
+  },
+  "events": [
+    {
+      "id": "CHF-ZZTJ-293-SOUTHERN-TANG-PEACE-TRIBUTE-956",
+      "time": "显德三年三月",
+      "loc": [
+        "寿州",
+        "大梁",
+        "金陵"
+      ],
+      "action": "南唐遣孙晟、王崇质请奉后周正朔、称外臣，并献金银罗绮。",
+      "result": "后周拒绝仅割六州和岁输百万的方案，坚持取得全部江北。",
+      "quote": [
+        "南，仰奉正朔",
+        "國，俾作外臣",
+        "又獻金千兩，",
+        "兩，銀十萬兩",
+        "羅綺二千匹",
+        "歲輸金帛百萬",
+        "之地，不許。德"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐称臣求和与后周战争目标。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "贡物和岁输条件明确。"
+        ]
+      ],
+      "unknown": [
+        "贡物最终处置未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-GUANG-SHU-QI-SURRENDER-956",
+      "time": "显德三年三月",
+      "loc": [
+        "光州",
+        "舒州",
+        "蕲州",
+        "黄州"
+      ],
+      "action": "后周数路进攻江北，光州、舒州、蕲州相继被取或举州来降。",
+      "result": "南唐江北防线继续收缩。",
+      "quote": [
+        "承翰以城降。",
+        "令圖拔舒州。",
+        "巂，舉州來降",
+        "藏珍攻黃州。"
+      ],
+      "battle": "CAMPAIGN-GUANG-SHU-QI-SURRENDER-956",
+      "unknown": [
+        "各州伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-QINFENG-SURRENDERED-SOLDIERS-EXECUTED-956",
+      "time": "显德三年三月",
+      "loc": [
+        "淮南"
+      ],
+      "action": "秦凤降卒编军后从征淮南，覆亡再降南唐。",
+      "result": "南唐送还一百五十人，世宗全部斩杀。",
+      "quote": [
+        "覆亡降於唐",
+        "表獻百五十人",
+        "上悉命斬之"
+      ],
+      "battle": "CAMPAIGN-QINFENG-SURRENDERED-SOLDIERS-EXECUTED-956",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "对再次投降者实行集体处决。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-293-CHANGZHOU-BATTLE-956",
+      "time": "显德三年三月",
+      "loc": [
+        "常州"
+      ],
+      "action": "柴克宏以幕船藏甲士突袭吴越营，罗晟消极作战放其直逼吴程。",
+      "result": "南唐大破吴越军，斩首一万，吴程被夺官。",
+      "quote": [
+        "匿甲士於其中",
+        "逕薄吳越營",
+        "羅晟不力戰，",
+        "大破吳越兵",
+        "兵，斬首萬級",
+        "俶悉奪其官"
+      ],
+      "battle": "CAMPAIGN-CHANGZHOU-BATTLE-956",
+      "unknown": [
+        "南唐伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-SHOUZHOU-FIRST-SIEGE-WITHDRAWAL-956",
+      "time": "显德三年四月",
+      "loc": [
+        "寿州",
+        "濠州"
+      ],
+      "action": "后周昼夜攻寿州久不克，因大雨积水、器械士卒损失和粮运不继而撤离。",
+      "result": "世宗暂离寿州东幸濠州，寿州继续由后周将领围困。",
+      "quote": [
+        "軍晝夜攻城",
+        "城，久不克。會",
+        "營中水深數尺",
+        "攻具及士卒失亡頗多",
+        "多，糧運不繼",
+        "至，乃議旋師"
+      ],
+      "battle": "CAMPAIGN-SHOUZHOU-FIRST-SIEGE-WITHDRAWAL-956",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "雨灾和粮运失败迫使撤围。"
+        ]
+      ],
+      "unknown": [
+        "损失数量未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-LIUHE-BATTLE-956",
+      "time": "显德三年四月",
+      "loc": [
+        "六合",
+        "长江"
+      ],
+      "action": "南唐齐王景达二万兵进逼六合，赵匡胤以不足二千兵待其出寨反击。",
+      "result": "唐军被杀获近五千，余众渡江溺死甚众，江北精卒尽失。",
+      "quote": [
+        "達將兵二萬",
+        "眾不滿二千",
+        "太祖皇帝奮擊，大破之",
+        "殺獲近五千人",
+        "爭舟溺死者甚眾",
+        "唐之精卒盡矣"
+      ],
+      "battle": "CAMPAIGN-LIUHE-BATTLE-956",
+      "unknown": [
+        "溺亡确数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-WANTOU-QUXI-BATTLES-956",
+      "time": "显德三年四月",
+      "loc": [
+        "湾头堰",
+        "曲溪堰",
+        "扬州",
+        "泗州"
+      ],
+      "action": "韩令坤与张永德分别迎击楚州、泗州援军。",
+      "result": "两路各败南唐兵万余，涟州刺史秦进崇被俘。",
+      "quote": [
+        "敗楚州兵萬餘人於灣頭堰",
+        "獲漣州刺史秦進崇",
+        "敗泗州兵萬餘人於曲溪堰"
+      ],
+      "battle": "CAMPAIGN-WANTOU-QUXI-BATTLES-956",
+      "unknown": [
+        "斩获与逃散构成未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZHOU-REMOVES-HUAINAN-BURDENS-956",
+      "time": "显德三年六月",
+      "loc": [
+        "淮南"
+      ],
+      "action": "后周赦淮南诸州系囚，废除南唐不合理赋役，并令地方上报不便民事项。",
+      "result": "新占区进入减负与制度接收。",
+      "quote": [
+        "赦淮南諸州系囚",
+        "除李氏非理賦役",
+        "事有不便於民者，",
+        "委長吏以聞"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "废除南唐不合理赋役。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "新占区赦囚与政令调整。"
+        ]
+      ],
+      "unknown": [
+        "具体废除项目未逐条载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZHOU-XINGFENG-GOVERNANCE-956",
+      "time": "显德三年七月",
+      "loc": [
+        "湖南",
+        "朗州",
+        "潭州"
+      ],
+      "action": "周行逢正式兼总湖湘，废马氏横赋、黜贪吏猾民并选廉平刺史县令。",
+      "result": "湖南地方治理和税制被整顿。",
+      "quote": [
+        "既兼總湖、湘",
+        "悉除馬氏橫賦",
+        "貪吏猾民為民害者皆去之",
+        "擇廉平吏為刺史、縣令"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "周行逢重建湖南吏治。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "废除马氏横征。"
+        ]
+      ],
+      "unknown": [
+        "减税总额未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZHOU-XINGFENG-HARSH-CONTROL-956",
+      "time": "显德三年七月",
+      "loc": [
+        "湖南"
+      ],
+      "action": "周行逢严法镇压谋乱与叛亡，密探诸州并因猜疑杀刘光委。",
+      "result": "所部凛然，但其妻直谏诛杀过度、人无亲附。",
+      "quote": [
+        "壹以法治之",
+        "也！」立撾殺之，",
+        "之，所部凜然",
+        "即召還，殺之",
+        "公誅殺太過"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "湖南严酷军政控制。"
+        ]
+      ],
+      "unknown": [
+        "被杀总数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-WHITE-ARMOR-RESISTANCE-956",
+      "time": "显德三年秋",
+      "loc": [
+        "淮南"
+      ],
+      "action": "后周将帅在淮南专事俘掠，失望民众聚山泽筑堡，以农器和纸甲抵抗。",
+      "result": "白甲军屡败周军，先前所得南唐诸州多被夺回。",
+      "quote": [
+        "恤，專事俘掠",
+        "芥。民皆失望",
+        "操農器為兵",
+        "兵，積紙為甲",
+        "謂之「白甲軍」。",
+        "之，屢為所敗",
+        "多復為唐有"
+      ],
+      "battle": "CAMPAIGN-WHITE-ARMOR-RESISTANCE-956",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "周军掠民激起乡村自卫。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "占领治理失败导致失地。"
+        ]
+      ],
+      "unknown": [
+        "白甲军规模和伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-XIACAI-FLOATING-BRIDGE-DEFENSE-956",
+      "time": "显德三年八月至十月",
+      "loc": [
+        "下蔡",
+        "淮河"
+      ],
+      "action": "张永德以千余尺铁索和巨木横断淮流护浮桥，并潜游锁敌船反击。",
+      "result": "南唐火船因风返而败，水军再攻时溺死甚众，无法接近浮桥。",
+      "quote": [
+        "鐵綆千餘尺",
+        "步，橫絕淮流",
+        "唐兵不能近",
+        "風回，唐兵敗退",
+        "船不得進退，溺死者甚眾"
+      ],
+      "battle": "CAMPAIGN-XIACAI-FLOATING-BRIDGE-DEFENSE-956",
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "铁索巨木构成浮桥防御工程。"
+        ]
+      ],
+      "unknown": [
+        "唐军溺亡数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-TAX-COLLECTION-DATES-956",
+      "time": "显德三年十月",
+      "loc": [
+        "后周"
+      ],
+      "action": "世宗规定夏税六月、秋税十月起征，停止未收获纺绩即催征。",
+      "result": "纳税时间与生产周期衔接，民间称便。",
+      "quote": [
+        "多不俟收穫、紡績之畢",
+        "夏稅以六月",
+        "秋稅以十月起徵",
+        "徵，民間便之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "调整两税征收时点以减轻民困。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-293-SUN-SHENG-EXECUTED-956",
+      "time": "显德三年十一月",
+      "loc": [
+        "大梁"
+      ],
+      "action": "世宗因南唐蜡书责孙晟所言不实，逼问唐国虚实。",
+      "result": "孙晟拒不泄露，被处死且从者百余人皆杀；世宗后悔杀忠臣。",
+      "quote": [
+        "問以唐虛實，默不對",
+        "臣謹以死報國",
+        "國！」乃就刑。並",
+        "從者百餘人皆殺之",
+        "節，悔殺之，召"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "南唐使臣守密被杀及后周追悔。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-293-XIACAI-CITY-LABOR-956",
+      "time": "显德三年十二月",
+      "loc": [
+        "下蔡",
+        "陈州",
+        "蔡州",
+        "宋州",
+        "亳州",
+        "颍州",
+        "兖州",
+        "曹州",
+        "单州"
+      ],
+      "action": "后周征八州丁夫数万筑下蔡城。",
+      "result": "寿州围攻的淮河据点进一步加固。",
+      "quote": [
+        "州丁夫數萬",
+        "數萬城下蔡。"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "数万人参与军事城防工程。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "跨州征发民夫。"
+        ]
+      ],
+      "unknown": [
+        "役期与伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZIJIN-MOUNTAIN-FIRST-BATTLE-957",
+      "time": "显德四年正月",
+      "loc": [
+        "紫金山",
+        "寿州"
+      ],
+      "action": "南唐数万援军列十余寨、筑数十里甬道向寿州输粮，李重进迎击。",
+      "result": "唐军死五千，二寨被夺，刘仁赡病势加重。",
+      "quote": [
+        "元將兵數萬",
+        "列十餘寨如連珠",
+        "綿亙數十里",
+        "李重進邀擊，大破之",
+        "死者五千人",
+        "人，奪其二寨"
+      ],
+      "battle": "CAMPAIGN-ZIJIN-MOUNTAIN-FIRST-BATTLE-957",
+      "unknown": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZHOU-NAVY-BUILT-957",
+      "time": "显德四年二月",
+      "loc": [
+        "大梁",
+        "汴水",
+        "淮河"
+      ],
+      "action": "世宗在汴水旁造战舰数百艘，以唐降卒训练北方水军。",
+      "result": "数月后后周水军机动近胜唐军，并沿颍入淮参战。",
+      "quote": [
+        "造戰艦數百艘",
+        "唐降卒教北人水戰",
+        "戰，數月之後",
+        "沒，殆勝唐兵",
+        "水軍數千自閔河沿穎入淮"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "数百艘战舰建造工程。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "后周建立可对抗南唐的水军。"
+        ]
+      ],
+      "unknown": [
+        "造舰费用未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZIJIN-MOUNTAIN-DECISIVE-BATTLES-957",
+      "time": "显德四年三月",
+      "loc": [
+        "紫金山",
+        "赵步",
+        "荆山洪"
+      ],
+      "action": "世宗渡淮亲征，赵匡胤破唐前锋寨、断甬道，诸军再破紫金山援军。",
+      "result": "朱元万余人降周，唐军战溺死及降者近四万，许文稹、边镐、杨守忠被擒，船粮器仗获十万计。",
+      "quote": [
+        "斬獲三千餘級",
+        "級，斷其甬道",
+        "寨萬餘人降",
+        "殺獲萬餘人",
+        "戰溺死及降者殆四萬人",
+        "仗以十萬數"
+      ],
+      "battle": "CAMPAIGN-ZIJIN-MOUNTAIN-DECISIVE-BATTLES-957",
+      "unknown": [
+        "各类损失具体拆分未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-ZHENHUAI-TWIN-CITIES-957",
+      "time": "显德四年三月",
+      "loc": [
+        "镇淮军",
+        "淮河",
+        "下蔡"
+      ],
+      "action": "后周征近县数千丁夫，在镇淮军筑夹淮二城并移下蔡浮桥。",
+      "result": "濠州与寿州之间的援路被切断。",
+      "quote": [
+        "縣丁夫數千",
+        "軍，為二城，夾",
+        "城，夾淮水，徙",
+        "徙下蔡浮梁於其間",
+        "扼濠、壽應援之路"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "夹淮双城与浮桥迁建。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "征发近县数千丁夫。"
+        ]
+      ],
+      "unknown": [
+        "工程耗时未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-SHOUZHOU-SURRENDERS-957",
+      "time": "显德四年三月",
+      "loc": [
+        "寿州",
+        "下蔡"
+      ],
+      "action": "刘仁赡病重不知人后，周廷构等代作降表，后周在寿州城北受降。",
+      "result": "寿州陷落，州治移下蔡；刘仁赡受后周褒奖后病死。",
+      "quote": [
+        "等作仁贍表",
+        "使奉之來降",
+        "受降於壽春城北",
+        "徙壽州治下蔡",
+        "多。」是日，卒，追"
+      ],
+      "battle": "CAMPAIGN-SHOUZHOU-SURRENDERS-957",
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "寿州长期围攻闭合与地方接收。"
+        ]
+      ],
+      "unknown": [
+        "城中饥亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-SHOUZHOU-RELIEF-RESETTLEMENT-957",
+      "time": "显德四年三月至四月",
+      "loc": [
+        "寿州"
+      ],
+      "action": "后周赦寿州死罪以下，召山林居民复业、禁止仇诉，并开仓赈饥。",
+      "result": "长期围城后的社会恢复与救济启动。",
+      "quote": [
+        "赦州境死罪以下",
+        "並召令復業",
+        "者，毋得仇訟",
+        "開壽州倉振饑民"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "开仓赈饥并恢复居民生业。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "赦罪和禁止报复。"
+        ]
+      ],
+      "unknown": [
+        "赈粮与受济人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-YONGFU-PALACE-LABOR-ABUSE-957",
+      "time": "显德四年四月",
+      "loc": [
+        "大梁永福殿"
+      ],
+      "action": "世宗视察永福殿修缮，见役徒用瓦盛饭、削木片作匙。",
+      "result": "负责宦官孙延希因虐待役徒被斩。",
+      "quote": [
+        "詔修永福殿",
+        "有削柿為匕",
+        "匕，瓦中啖飯",
+        "飯者，大怒，斬",
+        "斬延希於市"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "宫殿修缮工程。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "役徒供食恶劣触发问责。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "工程主管被处死。"
+        ]
+      ],
+      "unknown": [
+        "役徒人数与修缮规模未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-BIAN-WUZHANG-WATERWAY-957",
+      "time": "显德四年四月",
+      "loc": [
+        "汴水",
+        "五丈河",
+        "齐州",
+        "鲁州",
+        "大梁"
+      ],
+      "action": "后周疏汴水北入五丈河。",
+      "result": "齐鲁舟楫由此可以直达大梁。",
+      "quote": [
+        "疏汴水北入五丈河",
+        "齊、魯舟楫皆達於大梁"
+      ],
+      "routes": [
+        [
+          "public_works",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "打通齐鲁至大梁水运。"
+        ],
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "改善区域航运贸易。"
+        ]
+      ],
+      "unknown": [
+        "工程成本未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-CRIMINAL-CODE-COMPILATION-957",
+      "time": "显德四年五月",
+      "loc": [
+        "后周"
+      ],
+      "action": "世宗因律令文古、格敕繁杂，命张湜等训释详定刑法。",
+      "result": "《刑统》编纂启动。",
+      "quote": [
+        "律令文古難知",
+        "格敕煩雜不壹",
+        "命侍御史知雜事張湜等訓釋",
+        "詳定為《刑統》"
+      ],
+      "routes": [
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "统一解释与编纂刑法。"
+        ]
+      ],
+      "unknown": [
+        "本卷未载完成日期。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-HUAINAN-CAMPAIGN-FISCAL-BURDEN-957",
+      "time": "显德四年九月",
+      "loc": [
+        "江淮",
+        "后周"
+      ],
+      "action": "窦俨总结南征得八州、再平寿春，并主张迅速推进以减少俘杀和转输。",
+      "result": "世宗认可治理、用人与战争财政建议。",
+      "quote": [
+        "一舉而得八州",
+        "再駕而平壽春",
+        "彼民免俘馘之災",
+        "此民息轉輸之困",
+        "帝覽而善之"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "战争速度与民众转输负担直接关联。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "世宗采纳扩张与治理建议。"
+        ]
+      ],
+      "unknown": [
+        "具体采行范围未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-HAOZHOU-CAMPAIGN-957",
+      "time": "显德四年十一月",
+      "loc": [
+        "濠州",
+        "淮河"
+      ],
+      "action": "世宗亲征濠州，渡水拔唐寨、破南关与水寨，焚战船七十余艘。",
+      "result": "唐军被斩二千余，羊马城失守，濠州震恐。",
+      "quote": [
+        "乘橐駝涉水",
+        "之，遂拔之。李",
+        "破濠州南關城",
+        "焚戰船七十餘艘",
+        "斬首二千餘級",
+        "城，城中震恐"
+      ],
+      "battle": "CAMPAIGN-HAOZHOU-CAMPAIGN-957",
+      "unknown": [
+        "周军伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-DONGKOU-BATTLE-957",
+      "time": "显德四年十一月",
+      "loc": [
+        "洞口",
+        "泗州"
+      ],
+      "action": "世宗水陆夜袭企图救濠州的南唐数百战船。",
+      "result": "唐军大败，斩五千余、降二千余，后周乘胜进至泗州。",
+      "quote": [
+        "有戰船數百艘",
+        "發水陸擊之",
+        "大破唐兵於洞口",
+        "斬首五千餘級",
+        "降卒二千餘人",
+        "東，所至皆下"
+      ],
+      "battle": "CAMPAIGN-DONGKOU-BATTLE-957",
+      "unknown": [
+        "溺亡人数未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-SIZHOU-CAPTURED-957",
+      "time": "显德四年十一月至十二月",
+      "loc": [
+        "泗州"
+      ],
+      "action": "赵匡胤先破泗州南门、水寨和月城，世宗督军攻城。",
+      "result": "守将范再遇举城投降，后周军禁犯民田且无一卒擅入城。",
+      "quote": [
+        "破水寨及月城",
+        "再遇舉城降，",
+        "毋得犯民田",
+        "田，民皆感悅",
+        "無一卒敢擅入城者"
+      ],
+      "battle": "CAMPAIGN-SIZHOU-CAPTURED-957",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "严禁军队损害民田。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "泗州接收纪律严明。"
+        ]
+      ],
+      "unknown": [
+        "攻城伤亡未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-CHUZHOU-NAVAL-BATTLE-957",
+      "time": "显德四年十二月",
+      "loc": [
+        "清口",
+        "楚州",
+        "淮河"
+      ],
+      "action": "后周水陆三路追击南唐淮上战船至楚州西北。",
+      "result": "唐军大败，余获战船三百余、士卒七千余，淮上唐战船尽失。",
+      "quote": [
+        "兵，且戰且行",
+        "至楚州西北，大破之",
+        "戰船燒沉之餘得三百餘艘",
+        "士卒殺溺之餘得七千餘人",
+        "唐之戰船在淮上者，於是盡矣"
+      ],
+      "battle": "CAMPAIGN-CHUZHOU-NAVAL-BATTLE-957",
+      "unknown": [
+        "杀溺与投降构成未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-HAOZHOU-SURRENDERS-957",
+      "time": "显德四年十二月",
+      "loc": [
+        "濠州"
+      ],
+      "action": "郭廷谓得知南唐无力救援后杀拒写降表的李延邹，举濠州降周。",
+      "result": "后周取得濠州兵一万、粮数万斛。",
+      "quote": [
+        "知唐不能救",
+        "」廷謂斬之，舉",
+        "之，舉濠州降",
+        "降，得兵萬人",
+        "人，糧數萬斛"
+      ],
+      "battle": "CAMPAIGN-HAOZHOU-SURRENDERS-957",
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "接收兵粮数量明确。"
+        ],
+        [
+          "political_event",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "濠州降周。"
+        ]
+      ],
+      "unknown": []
+    },
+    {
+      "id": "CHF-ZZTJ-293-YANGZHOU-SCORCHED-EVACUATION-957",
+      "time": "显德四年十二月",
+      "loc": [
+        "扬州",
+        "高邮"
+      ],
+      "action": "南唐焚扬州官府民居并强迁居民渡江，后周骑兵随后抵达。",
+      "result": "城内仅余病弱十余人。",
+      "quote": [
+        "悉焚揚州官府民居",
+        "驅其人南渡江",
+        "餘癃病十餘人而已"
+      ],
+      "routes": [
+        [
+          "fiscal_livelihood",
+          "CONTEXT_ONLY",
+          null,
+          [],
+          "焦土撤退摧毁城市并强迁居民。"
+        ]
+      ],
+      "unknown": [
+        "被迁人口和财产损失未载。"
+      ]
+    },
+    {
+      "id": "CHF-ZZTJ-293-TAIZHOU-CAPTURED-957",
+      "time": "显德四年十二月",
+      "loc": [
+        "泰州"
+      ],
+      "action": "后周乘泰州无备出兵突袭。",
+      "result": "泰州被攻克。",
+      "quote": [
+        "聞泰州無備",
+        "備，遣兵襲之",
+        "丁丑，拔泰州。\n"
+      ],
+      "battle": "CAMPAIGN-TAIZHOU-CAPTURED-957",
+      "unknown": [
+        "守军与伤亡未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定 revision 1502955 的卷293连续通读登记，不引入卷外常识。",
+    "普通任免、使聘、祥异及无消费结果的行军节点未单列。",
+    "卷末南唐江北州郡继续崩解、割地称臣与后周北归尚未闭合，转卷294续接；本回合未打开卷294。"
+  ]
+}

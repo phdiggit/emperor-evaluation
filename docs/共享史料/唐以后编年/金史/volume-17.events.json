@@ -1,0 +1,527 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "JIN-JINSHI-V17-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V17-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "金史",
+    "volume_ref": "卷17",
+    "revision_ref": "2432675",
+    "start_locator": "哀宗世系及宣宗崩、柩前即位复述",
+    "end_locator": "天兴元年八月汴京围城征粮卖官",
+    "overlap_context": "承卷16宣宗崩、哀宗柩前即位及三线战争；卷18尚未读取。",
+    "input_fingerprint": "e7ed50bbd1d1f8d5a2c93a0c3a22343eaeb44b1d13e075414cad1a8d796af108"
+  },
+  "events": [
+    {
+      "id": "CHF-JIN-V17-XUANZONG-DEATH-CONTEXT-1224",
+      "time": [
+        "元光二年十二月",
+        "正大元年三月",
+        "range"
+      ],
+      "subject": "金宣宗与哀宗",
+      "action": "本卷复述宣宗崩并葬德陵。",
+      "result": "宣宗死亡唯一可消费闭环为 CHF-JIN-V16-XUANZONG-DEATH-1224；本条 duplicate-of CHF-JIN-V16-XUANZONG-DEATH-1224 并仅作 CONTEXT_ONLY。",
+      "quote": [
+        "元光二年十二月庚寅，宣宗崩。",
+        "葬宣宗於德陵。"
+      ],
+      "unknown": [
+        "本条不重复登记卷16已载临终细节。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-AIZONG-ACCESSION-CONTEXT-1224",
+      "time": [
+        "元光二年十二月",
+        "正大元年正月",
+        "range"
+      ],
+      "subject": "金哀宗完颜守绪",
+      "action": "本卷复述守绪奉遗诏在柩前即位并改元正大。",
+      "result": "哀宗即位唯一可消费闭环为 CHF-JIN-V16-AIZONG-ACCESSION-1224；本条 duplicate-of CHF-JIN-V16-AIZONG-ACCESSION-1224 并仅作 CONTEXT_ONLY。",
+      "quote": [
+        "奉遺詔即皇帝位於柩前。",
+        "詔改元正大。"
+      ],
+      "unknown": [
+        "本条不重复登记卷16宫门部署与守纯竞争。"
+      ],
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-AIZONG-FIRST-GOVERNANCE-1224",
+      "time": [
+        "元光二年十二月",
+        "正大元年五月",
+        "range"
+      ],
+      "subject": "金哀宗与有司、草泽士庶",
+      "action": "哀宗即位后命执行宣宗未及之政，禁止有司以情破法，准士庶直言军国且讥讽不坐，并开放登闻检鼓院申冤。",
+      "result": "新朝以守法、开放言路和申诉入口作为初政原则。",
+      "quote": [
+        "有本條而不遵者，以故入人罪罪之。",
+        "草澤士庶，許令直言軍國利害",
+        "雖涉譏訕不坐。",
+        "毋銷閉防護，聽有冤者陳訴。"
+      ],
+      "unknown": [
+        "被采纳陈言与纠正案件数量未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "AIZONG-OPEN-GOVERNANCE-AND-RULE-OF-LAW",
+        "summary": "哀宗初政开放言路申冤并禁止以情破法。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V17-XIA-PEACE-1225",
+      "time": [
+        "正大二年九月",
+        "正大二年十月",
+        "range"
+      ],
+      "subject": "金哀宗与西夏国",
+      "action": "金夏议和，改以兄弟相称、各用本国年号，双方互遣报成使。",
+      "result": "多年金夏边战暂告结束，金为兄、夏称弟。",
+      "quote": [
+        "夏國和議定，以兄事金，各用本國年號",
+        "奉國書稱弟。",
+        "，國書稱兄。乙"
+      ],
+      "unknown": [
+        "完整边界、贸易和军事条款未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JIN-XIA-PEACE-SETTLEMENT",
+        "summary": "哀宗与西夏以兄弟关系达成和议。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V17-MONGOL-WAR-1224-1232",
+      "time": [
+        "正大元年九月",
+        "天兴元年三月",
+        "range"
+      ],
+      "subject": "蒙古军与金哀宗诸路军",
+      "action": "金军曾复泽潞平阳等地，蒙古军随后灭西夏并集中攻金，连取德顺、临洮、凤翔、河中等地；正大八年突破嶢峰关，金军在三峰山大溃，主力将帅多死，蒙古军围攻汴京。",
+      "result": "三峰山后金军主力不复振，潼关等降，汴京被围并转入极端守城。",
+      "cost": "合达、陈和尚、杨沃衍、蒲阿等主将死亡，数十万军民受围；伤亡总数未完整载明。",
+      "groups": [
+        "陕西河东河南军民",
+        "金军",
+        "蒙古军",
+        "汴京居民"
+      ],
+      "quote": [
+        "大元兵征西夏，平中興府。",
+        "大元兵平鳳翔府。",
+        "大元進兵嶢峰關",
+        "大元兵渡漢江而北",
+        "兩省軍大潰",
+        "城破皆死之。",
+        "自是，兵不復振",
+        "大元兵攻汴城"
+      ],
+      "unknown": [
+        "完整兵力、总伤亡、各城围攻细节与和议条件未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-MONGOL-WAR-1224-1232",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-SONG-WAR-AND-TRUCE-1224-1232",
+      "time": [
+        "正大元年六月",
+        "正大八年五月",
+        "range"
+      ],
+      "subject": "金哀宗诸路军与宋军、忠义军",
+      "action": "哀宗初令边军不再南伐并尝试修好，但宋军仍侵寿州等地，金军反击；楚州夏全等一度来降，李全后又据楚州，双方持续交战至金末。",
+      "result": "停止南伐和修好均未形成稳定和平，淮楚州县反复易手。",
+      "cost": "桃园军失利死四百人，其他军民伤亡未完整载明。",
+      "groups": [
+        "淮南军民",
+        "金宋军",
+        "忠义军",
+        "李全军"
+      ],
+      "quote": [
+        "榜諭宋界軍民更不南伐。",
+        "議與宋修好。",
+        "宋忠義軍夏全自楚州來歸",
+        "宋兵掠壽州境。",
+        "死者四百人。",
+        "李全自都複入楚州據之"
+      ],
+      "unknown": [
+        "各次和议条件、州县控制时长和双方总伤亡未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-SONG-WAR-AND-TRUCE-1224-1232",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-DOMESTIC-MUTINIES-1225-1232",
+      "time": [
+        "正大二年八月",
+        "天兴元年八月",
+        "range"
+      ],
+      "subject": "田瑞、恒州军、许州军、飞虎军等叛乱者与金朝廷",
+      "action": "哀宗朝连续发生田瑞、恒州军、许州军、扶沟民、飞虎军及京东州军叛乱，朝廷或镇压、招降、赦免或授官羁縻。",
+      "result": "部分叛乱被平，但汴京围城期间军变与地方割据加剧，和议亦因飞虎军杀蒙古使者而破裂。",
+      "cost": "多名地方官军被杀，城镇遭焚掠；总伤亡未载。",
+      "groups": [
+        "地方军民",
+        "叛军",
+        "汴京飞虎军"
+      ],
+      "quote": [
+        "鞏州元帥田瑞反",
+        "戌，許州軍變，",
+        "扶溝民錢大亨、李鈞叛",
+        "飛虎軍二百人奪封丘門出奔。",
+        "擅殺北使唐慶等三十余人於館",
+        "，和議遂絕。乙"
+      ],
+      "unknown": [
+        "各乱具体原因、从众人数与平民伤亡未完整载明。"
+      ],
+      "battle": "CAMPAIGN-JIN-DOMESTIC-MUTINIES-1225-1232",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-DROUGHT-RELIEF-1225-1231",
+      "time": [
+        "正大二年四月",
+        "正大八年四月",
+        "range"
+      ],
+      "subject": "金哀宗与京畿陕西等旱灾州县",
+      "action": "多次旱灾中哀宗责己减膳、虑囚赦罪、捕蝗祈雨，并按实减免灾县差税。",
+      "result": "旱灾地区获得刑罚宽免和税役减贷，部分年度后降雨。",
+      "groups": [
+        "旱灾农户",
+        "系囚"
+      ],
+      "quote": [
+        "以京畿旱，遣使慮囚。",
+        "以旱甚責己，避正殿，減常膳，赦罪。",
+        "囚，遣使捕蝗。\n",
+        "旱災州縣，差稅從實減貸。"
+      ],
+      "unknown": [
+        "受灾面积、减免总额、蝗损与赦免人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MULTIYEAR-DROUGHT-TAX-AND-JUDICIAL-RELIEF",
+        "summary": "哀宗以减膳赦罪捕蝗和减税应对多年旱灾。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-WARTIME-AUSTERITY-1226-1232",
+      "time": [
+        "正大三年三月",
+        "天兴元年四月",
+        "range"
+      ],
+      "subject": "金哀宗与尚书省、宫廷机构",
+      "action": "哀宗要求省减用度、裁军中浮费，围城后又减御膳、罢冗员、放宫女并把金珠用于犒军。",
+      "result": "军政宫廷开支在战局恶化中持续压缩，宫廷财物转供守军。",
+      "cost": "裁费与金珠数量未载。",
+      "groups": [
+        "被裁人员",
+        "宫女",
+        "守城军士"
+      ],
+      "quote": [
+        "詔尚書省議省減用度。",
+        "罷陝西行省軍中浮費。",
+        "減禦膳，罷冗員，放宮女。",
+        "金珠留犒士卒。"
+      ],
+      "unknown": [
+        "节省总额、裁员数和宫女安置未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LATE-WAR-COURT-AUSTERITY",
+        "summary": "哀宗裁军政宫廷浮费并转财物犒军。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-CITY-WORKS-1227-1232",
+      "time": [
+        "正大四年正月",
+        "天兴元年六月",
+        "range"
+      ],
+      "subject": "金哀宗与中京、汴京、归德工役",
+      "action": "朝廷增筑中京和汴城、浚汴外濠；归德行院拟役数百万，经哀宗要求减工三分之二；汴京被围后反复修楼橹城墙并一度决河护城。",
+      "result": "多座城防得到增修，归德重役显著削减；汴京防御仍未解除围困。",
+      "cost": "归德拟工数百万减三分之二；其余工役造价未载。",
+      "groups": [
+        "筑城民夫",
+        "汴京居民"
+      ],
+      "quote": [
+        "增築中京城，浚汴城外濠。",
+        "擬工役數百萬",
+        "減其工三之二。",
+        "決河水衛京城。",
+        "修京城樓櫓及守禦備。",
+        "，複修汴城。以"
+      ],
+      "unknown": [
+        "城墙规模、决河影响、工役死亡和防御成效未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "LATE-JIN-URBAN-DEFENSE-WORKS",
+        "summary": "哀宗增修多城防御并削减归德重役。",
+        "continuity": "continued_within_reign",
+        "phase": "增筑修复",
+        "purpose": "城防",
+        "operation_result": "汴京继续被围"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-SHAANXI-CIVILIAN-RELIEF-1227-1231",
+      "time": [
+        "正大四年七月",
+        "正大八年四月",
+        "range"
+      ],
+      "subject": "金哀宗与陕西战区贫民军户",
+      "action": "朝廷赦陕西两路并赐当年租，罢不急丁壮城夫和军需差发，给贫民牛千头，后免京西军钱一年并按旱情减税。",
+      "result": "陕西京西战区获得租税、劳役和军费减免及耕牛救助。",
+      "cost": "牛一千头；多项税役减免，金额未载。",
+      "groups": [
+        "陕西京西民户",
+        "贫民",
+        "防备丁壮民夫"
+      ],
+      "quote": [
+        "賜民今年租。",
+        "罷遣防備丁壯、修城民夫",
+        "軍須差發應不急者權停。",
+        "以牛千頭賜貧民。",
+        "全免京西路軍錢一年。"
+      ],
+      "unknown": [
+        "受益户数、牛只分配和减免总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SHAANXI-WAR-ZONE-TAX-LABOR-AND-CATTLE-RELIEF",
+        "summary": "哀宗减陕西京西税役军钱并赐贫民耕牛。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-ZHONGXIAO-ARMY-1229-1231",
+      "time": [
+        "正大六年二月",
+        "正大七年正月",
+        "range"
+      ],
+      "subject": "金哀宗与移剌蒲阿、完颜陈和尚忠孝军",
+      "action": "朝廷从陕西归顺军中择优编忠孝军，补给马匹并部署邠州钧许；该军参与庆阳解围和后续关中战事。",
+      "result": "约二千归顺军经选试分编，精锐成为忠孝军并取得世袭军职激励。",
+      "cost": "选得军二千并配马，军费未载。",
+      "groups": [
+        "陕西归顺军",
+        "忠孝军"
+      ],
+      "quote": [
+        "忠孝軍一千騎駐邠州。",
+        "得軍二千，以藝優者充忠孝軍",
+        "解慶陽之圍。"
+      ],
+      "unknown": [
+        "完整编制、马数、伤亡和长期战效未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ZHONGXIAO-ELITE-ARMY-FORMATION",
+        "summary": "哀宗选编陕西归顺精锐为忠孝军并投入关中。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-WAR-DEAD-FAMILY-SUPPORT-1229-1230",
+      "time": [
+        "正大五年二月",
+        "正大七年八月",
+        "range"
+      ],
+      "subject": "金哀宗与死节将士子孙",
+      "action": "朝廷将死节者子孙记于御屏量材任使，并给陕西死事孤儿盐引与绢。",
+      "result": "死节军人家庭获得仕用、盐引和实物赡养。",
+      "groups": [
+        "死节者子孙",
+        "陕西军人孤儿"
+      ],
+      "quote": [
+        "書死節子孫于禦屏，量材官使之。",
+        "賜陝西死事孤鹽引及絹"
+      ],
+      "unknown": [
+        "受益人数、盐引价值和任用结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "WAR-DEAD-CHILDREN-SUPPORT",
+        "summary": "哀宗以仕用盐引和绢赡养死节者子孙。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-BIANJING-EPIDEMIC-1232",
+      "time": [
+        "天兴元年五月",
+        "天兴元年六月",
+        "range"
+      ],
+      "subject": "金哀宗与汴京军民",
+      "action": "汴京围城中爆发五十日大疫，官方统计各门运出死者九十余万；疫后对园户、僧道、医师和棺商厚利加倍征收。",
+      "result": "城内人口遭巨量死亡，朝廷以加倍征税补助围城用度。",
+      "cost": "官方出城死者九十余万，未包括贫不能葬者。",
+      "groups": [
+        "汴京居民",
+        "贫民",
+        "医师棺商僧道园户"
+      ],
+      "quote": [
+        "汴京大疫，凡五十日",
+        "諸門出死者九十余萬人",
+        "貧不能葬者不在是數。",
+        "命有司倍征之，以助其用。"
+      ],
+      "unknown": [
+        "统计口径、真实死亡、病种和加征收入未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BESIEGED-CAPITAL-EPIDEMIC",
+        "summary": "汴京大疫五十日，官方载出死九十余万并加征厚利行业。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-BIANJING-EMERGENCY-FINANCE-1232",
+      "time": [
+        "天兴元年二月",
+        "天兴元年八月",
+        "range"
+      ],
+      "subject": "金哀宗与汴京民户、守军",
+      "action": "围城中朝廷括二十万民军并月给粟，征丁运粮、括民粟家资、卖官和进士第，同时出内府金帛犒军。",
+      "result": "汴京以全民军事化、强制粮资征集和出售资格维持守城。",
+      "cost": "民军二十万每人月粟一石五斗，另征丁五千及内府金帛。",
+      "groups": [
+        "汴京民军",
+        "运粮丁壮",
+        "被括粟民户",
+        "守城军士"
+      ],
+      "quote": [
+        "括京師民軍二十萬",
+        "人月給粟一石有五鬥。",
+        "出內府金帛器皿以賞戰士。",
+        "發丁壯五千人運糧",
+        "午，括民間粟，",
+        "賣官，及許買進士第。"
+      ],
+      "unknown": [
+        "实际征军人数、粮帛总额、卖官收入和民户死亡未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BESIEGED-CAPITAL-EMERGENCY-FINANCE",
+        "summary": "哀宗以二十万民军、括粮卖官和内库物资守汴。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V17-ABORTED-WEICHUAN-CANAL-1232",
+      "time": [
+        "天兴元年五月",
+        "天兴元年五月",
+        "month"
+      ],
+      "subject": "金哀宗与汴京漕运工役",
+      "action": "朝廷开凿洧川漕渠，旋即停止。",
+      "result": "围城漕运工程未完成。",
+      "cost": "已投入工役物料未载。",
+      "quote": [
+        "鑿洧川漕渠，尋罷之。"
+      ],
+      "unknown": [
+        "停工原因、开凿长度、役夫和损失未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "ABORTED-WEICHUAN-CANAL",
+        "summary": "哀宗开凿洧川漕渠后迅速停工。",
+        "continuity": "single_event",
+        "phase": "开工后停工",
+        "purpose": "漕运",
+        "operation_result": "未完成"
+      }
+    }
+  ],
+  "limitations": [
+    "本卷为7646字固定正文一次连续人工通读后的紧凑shadow登记。",
+    "宣宗崩与哀宗即位均作 CONTEXT_ONLY duplicate-of 卷16；哀宗初政另作新闭环。",
+    "蒙古、宋、夏与国内兵乱分别合并；三峰山溃败保留在蒙古主战链内。",
+    "卷18尚未读取，天兴元年八月以后的围城、迁徙和哀宗结局不反填。"
+  ]
+}

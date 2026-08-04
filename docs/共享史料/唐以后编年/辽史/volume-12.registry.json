@@ -1,0 +1,2529 @@
+{
+  "facts": [
+    {
+      "action": "辽军攻破束城县后纵兵大掠；文安拒绝谕降后被攻破，丁壮被尽杀，老幼被俘。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "束城居民",
+        "文安丁壮",
+        "文安老幼"
+      ],
+      "cost_or_burden": "束城遭大掠，文安丁壮被尽杀、老幼被俘；确数、辽军伤亡与城内财产损失未载。",
+      "fact_id": "CHF-LIAO-V12-SHUCHENG-WENAN-CAMPAIGN-987",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "束城与文安被辽军攻破，文安守御人口遭杀俘。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-SHUCHENG-WENAN-987"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-shucheng-wenan-campaign-987",
+      "source_refs": [
+        "遼史/卷12@1745950#破束城縣，縱兵大掠。",
+        "遼史/卷12@1745950#遣人諭降，不聽，遂擊破之，盡殺其丁壯，俘其老幼。"
+      ],
+      "time_range": {
+        "end": "987",
+        "precision": "month",
+        "start": "统和五年正月"
+      },
+      "uncertainties": [
+        "两城人口、杀俘确数、俘虏去向与战后治理未载。"
+      ]
+    },
+    {
+      "action": "百官为皇太后和皇帝册上尊号，朝廷随后命有司列报勋旧，按等级加恩。",
+      "actors": [],
+      "affected_groups": [
+        "辽圣宗",
+        "承天皇太后",
+        "辽廷百官",
+        "勋旧"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "摄政皇太后与圣宗的尊号完成册立，勋旧进入分等加恩程序。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-imperial-titles-and-merit-grace-987",
+      "source_refs": [
+        "遼史/卷12@1745950#冊上皇太后尊號曰睿德神略應運啟化承天皇太后",
+        "遼史/卷12@1745950#群臣上皇帝尊號曰至德廣孝昭聖天輔皇帝。",
+        "遼史/卷12@1745950#詔有司條上勛舊，等第加恩。"
+      ],
+      "time_range": {
+        "end": "987",
+        "precision": "month",
+        "start": "统和五年四月"
+      },
+      "uncertainties": [
+        "勋旧名单、恩赏等级及实际授予内容未载。"
+      ]
+    },
+    {
+      "action": "撒葛里因施行惠政获涅剌部民请求留任，朝廷准许。",
+      "actors": [],
+      "affected_groups": [
+        "涅剌部民",
+        "撒葛里",
+        "辽廷任官机构"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V12-SAGALI-POPULAR-RETENTION-987",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "撒葛里应民众请求继续留任。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-SAGALI-POPULAR-RETENTION-987"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-sagali-popular-retention-987",
+      "source_refs": [
+        "遼史/卷12@1745950#涅剌部節度使撒葛裏有惠政，民請留，從之。"
+      ],
+      "time_range": {
+        "end": "987",
+        "precision": "month",
+        "start": "统和五年七月"
+      },
+      "uncertainties": [
+        "惠政内容、请求人数和留任期限未载。"
+      ]
+    },
+    {
+      "action": "筹宁杀无罪人李浩，司法机关因其贵族身份请贷罪，改令出钱赡养李浩家，朝廷批准。",
+      "actors": [],
+      "affected_groups": [
+        "李浩",
+        "李浩家属",
+        "奚王筹宁",
+        "司法官员"
+      ],
+      "cost_or_burden": "李浩被无罪杀害；赔偿金额、家属人数与筹宁原应受刑罚未载。",
+      "fact_id": "CHF-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "筹宁免于原拟刑责，以金钱赡养被害人家庭代偿。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-lihao-homicide-compensation-988",
+      "source_refs": [
+        "遼史/卷12@1745950#奚王籌寧殺無罪人李浩，所司議貴，請貸其罪，令出錢贍浩家，從之。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年二月"
+      },
+      "uncertainties": [
+        "杀人原因、赔偿数额、执行情况和是否另有处分未载。"
+      ]
+    },
+    {
+      "action": "胡里室横突使韩德让坠马，皇太后震怒并将其处死。",
+      "actors": [],
+      "affected_groups": [
+        "胡里室横突",
+        "韩德让",
+        "承天皇太后"
+      ],
+      "cost_or_burden": "胡里室横突死亡；韩德让伤势、审讯程序与定罪依据未载。",
+      "fact_id": "CHF-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "肇事者被皇太后下令处死。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-han-derang-rider-execution-988",
+      "source_refs": [
+        "遼史/卷12@1745950#胡裏室橫突韓德讓墮馬，皇太后怒，殺之。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年四月"
+      },
+      "uncertainties": [
+        "坠马经过、伤情及处死程序未载。"
+      ]
+    },
+    {
+      "action": "奉圣州请求修缮太祖所建而毁坏的金铃阁，朝廷因南征期间恐重劳百姓，决定待军还后再修。",
+      "actors": [],
+      "affected_groups": [
+        "奉圣州居民",
+        "工程役户",
+        "金铃阁管理者",
+        "辽廷"
+      ],
+      "cost_or_burden": "阁已毁坏；延期后的工料、役夫和实际开工时间未载。",
+      "fact_id": "CHF-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "金铃阁修缮获确认但延期，南征期间未立即征役。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-jinling-pavilion-repair-deferred-988",
+      "source_refs": [
+        "遼史/卷12@1745950#太祖所建金鈴閣壞，乞加修繕。",
+        "遼史/卷12@1745950#詔以南征，恐重勞百姓，待軍還治之。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年闰五月"
+      },
+      "uncertainties": [
+        "损坏程度、修缮规模、后续是否施工未载。"
+      ]
+    },
+    {
+      "action": "乌隈于厥部因岁贡貂鼠、青鼠皮并非本地出产、须向外购买，请求改贡；朝廷准其此后只进牛马。",
+      "actors": [],
+      "affected_groups": [
+        "乌隈于厥部民",
+        "皮货商人",
+        "贡赋管理者"
+      ],
+      "cost_or_burden": "既往外购皮货的交易负担被取消；牛马贡额及新负担未载。",
+      "fact_id": "CHF-LIAO-V12-FUR-TRIBUTE-REFORM-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "该部岁贡由外购皮货改为牛马。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V12-FUR-TRIBUTE-REFORM-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-fur-tribute-reform-988",
+      "source_refs": [
+        "遼史/卷12@1745950#歲貢貂鼠、青鼠皮非土產，皆於他處貿易以獻，乞改貢。",
+        "遼史/卷12@1745950#詔自今止進牛馬。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年闰五月"
+      },
+      "uncertainties": [
+        "旧贡数量、购皮成本、新贡牛马数量和实际减负程度未载。"
+      ]
+    },
+    {
+      "action": "辽廷遣韩德威讨伐河、湟诸蕃中违命者。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "河湟诸蕃",
+        "当地居民"
+      ],
+      "cost_or_burden": "参战兵力、双方伤亡、地方损失和征讨结果未载。",
+      "fact_id": "CHF-LIAO-V12-HE-HUANG-TRIBAL-CAMPAIGN-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "征讨行动被下令实施，卷内未载战果。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-HE-HUANG-TRIBAL-EXPEDITION-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-he-huang-tribal-campaign-988",
+      "source_refs": [
+        "遼史/卷12@1745950#遣南面招討使韓德威討河、湟諸蕃違命者。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年七月"
+      },
+      "uncertainties": [
+        "违命事项、行军范围、战斗及最终处置未载。"
+      ]
+    },
+    {
+      "action": "大同当年霜旱乏食，耶律抹只请求提高折粟价格以利贫民，朝廷批准。",
+      "actors": [],
+      "affected_groups": [
+        "大同贫民",
+        "受灾农户",
+        "粮食交易者",
+        "财政机构"
+      ],
+      "cost_or_burden": "霜旱造成缺粮；调价幅度、受益人数、粮食来源和价格效果未载。",
+      "fact_id": "CHF-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "灾年粮食折算价格获准提高，以面向贫民。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-datong-frost-drought-grain-relief-988",
+      "source_refs": [
+        "遼史/卷12@1745950#今歲霜旱乏食，乞增價折粟，以利貧民。詔從之。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年八月"
+      },
+      "uncertainties": [
+        "灾区范围、粮价和折粟标准、执行期限未载。"
+      ]
+    },
+    {
+      "action": "辽廷备攻城器具南伐，攻破涿州、沙堆驿、长城口、满城、祁州、新乐等地，并在宋军撤退时追击；对投降者有抚谕，对祁州则纵兵大掠。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "宋军",
+        "涿州满城祁州等地居民",
+        "投降军士"
+      ],
+      "cost_or_burden": "萧勤德、闼览中箭；长城口突围者被杀获殆尽，祁州遭大掠，双方总伤亡与居民损失未载。",
+      "fact_id": "CHF-LIAO-V12-SONG-SOUTHERN-CAMPAIGN-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军连续攻取多处城寨并击退宋军，部分享降者被纳入辽方控制。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-SONG-SOUTHERN-CAMPAIGN-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-song-southern-campaign-988",
+      "source_refs": [
+        "遼史/卷12@1745950#諭諸道兵馬備南征攻城器具。",
+        "遼史/卷12@1745950#城破乃降，因撫諭其眾。",
+        "遼史/卷12@1745950#督大軍四面進攻。",
+        "遼史/卷12@1745950#上與韓德讓邀擊之，殺獲殆盡",
+        "遼史/卷12@1745950#攻下祁州，縱兵大掠。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "range",
+        "start": "统和六年八月至十二月"
+      },
+      "uncertainties": [
+        "双方总兵力、各城伤亡、占领持续时间和居民后续处境未载。"
+      ]
+    },
+    {
+      "action": "辽廷将宋降军分置七个指挥、号归圣军；马得臣建议全部放还，朝廷拒绝。长城口所获者分隶燕军，另给降者衣带、寒者裘衣。",
+      "actors": [],
+      "affected_groups": [
+        "归圣军",
+        "宋降卒",
+        "燕军",
+        "马得臣",
+        "军需机构"
+      ],
+      "cost_or_burden": "降者失去自由归返；编制人数、家庭状况、军役负担和衣物数量未载。",
+      "fact_id": "CHF-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "宋降军被编制或分隶辽军体系，并获得部分衣物供给，放还建议未被采纳。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-surrendered-soldiers-administration-988",
+      "source_refs": [
+        "遼史/卷12@1745950#以宋降軍分置七指揮，號歸聖軍。",
+        "遼史/卷12@1745950#請並放還。詔不允。",
+        "遼史/卷12@1745950#獲者分隸燕軍。",
+        "遼史/卷12@1745950#給寒者裘衣。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "range",
+        "start": "统和六年十月至十一月"
+      },
+      "uncertainties": [
+        "七指挥人数、服役期限、放还建议被拒原因及分隶后的待遇未载。"
+      ]
+    },
+    {
+      "action": "朝廷诏开贡举，先放高举一人及第；次年宋进士十七人携家来归，命有司考试，中第者补国学官，其余授县主簿、尉。",
+      "actors": [],
+      "affected_groups": [
+        "高举",
+        "宋进士十七人及家属",
+        "贡举考官",
+        "国学与县级官署"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "贡举恢复并录取士人，来归宋进士经考试后获得国学或县级官职。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-examination-and-song-scholars-987-989",
+      "source_refs": [
+        "遼史/卷12@1745950#詔開貢舉，放高舉一人及第。",
+        "遼史/卷12@1745950#宋進士十七人挈家來歸，命有司考其中第者，補國學官，餘授縣主簿、尉。"
+      ],
+      "time_range": {
+        "end": "988至989",
+        "precision": "range",
+        "start": "统和六年十二月至统和七年三月"
+      },
+      "uncertainties": [
+        "贡举科目、考试标准、十七人分别授官及任职结果未载。"
+      ]
+    },
+    {
+      "action": "辽军攻破易州，擒宋指挥使、降刺史并迁易州军民至燕京；随后护送易州降人八百还隶本贯，另将鸡壁砦民二百户迁居檀、顺、蓟三州。三月又命收集战亡士卒骸骨并筑京观。",
+      "actors": [],
+      "affected_groups": [
+        "辽军",
+        "易州军民",
+        "易州降人八百",
+        "鸡壁砦民二百户",
+        "战亡士卒",
+        "檀顺蓟三州居民"
+      ],
+      "cost_or_burden": "人口被强制迁移，战亡士卒遗骸被用于京观；迁徙总数、途中损失、八百人以外人员去向和京观投入未载。",
+      "fact_id": "CHF-LIAO-V12-YIZHOU-CAMPAIGN-AND-RESETTLEMENT-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "易州被攻取，其军民经历迁往燕京、部分八百人返籍及鸡壁砦二百户另行安置；战亡骸骨被收集处置。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-YIZHOU-AND-RESETTLEMENT-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-yizhou-campaign-and-resettlement-989",
+      "source_refs": [
+        "遼史/卷12@1745950#大軍齊進，破易州，降刺史劉墀",
+        "遼史/卷12@1745950#遷易州軍民於燕京。",
+        "遼史/卷12@1745950#護送易州降人八百，還隸本貫。",
+        "遼史/卷12@1745950#詔雞壁砦民二百戶徙居檀、順、薊三州。",
+        "遼史/卷12@1745950#詔知易州趙質收戰亡士卒骸骨，築京觀。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年正月至三月"
+      },
+      "uncertainties": [
+        "易州战斗伤亡、迁徙是否自愿、返籍标准、安置资源和京观规模未载。"
+      ]
+    },
+    {
+      "action": "朝廷命对南征所俘、亲属分隶诸帐者给官钱赎回，使家属相从。",
+      "actors": [],
+      "affected_groups": [
+        "南征被俘者",
+        "分隶诸帐亲属",
+        "诸帐",
+        "官钱管理者"
+      ],
+      "cost_or_burden": "国家支付赎金；涉及家庭数量、官钱总额和未符合条件者处境未载。",
+      "fact_id": "CHF-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "部分被分散的俘虏亲属由官钱赎回并团聚。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-captive-family-reunification-989",
+      "source_refs": [
+        "遼史/卷12@1745950#詔南征所俘有親屬分隸諸帳者，給官錢贖之，使相從。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年二月"
+      },
+      "uncertainties": [
+        "获赎人数、赎金标准、团聚地点和身份变化未载。"
+      ]
+    },
+    {
+      "action": "班师时禁止随军部从砍伐民间桑梓；三月又禁止放牧损伤禾稼。",
+      "actors": [],
+      "affected_groups": [
+        "农户",
+        "随军部从",
+        "牧畜者",
+        "军纪执法者"
+      ],
+      "cost_or_burden": "此前桑梓禾稼可能受军队与牧畜侵害；处罚标准、受损面积和执行效果未载。",
+      "fact_id": "CHF-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "军队和牧畜活动受到保护民桑与庄稼的禁令约束。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-crop-and-mulberry-protection-989",
+      "source_refs": [
+        "遼史/卷12@1745950#禁部從伐民桑梓。",
+        "遼史/卷12@1745950#禁芻牧傷禾稼。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年正月至三月"
+      },
+      "uncertainties": [
+        "禁令地域、期限、处罚和农业损失未载。"
+      ]
+    },
+    {
+      "action": "朝廷准云州租赋只输本道，随后又免除云州拖欠赋税。",
+      "actors": [],
+      "affected_groups": [
+        "云州民户",
+        "云州地方财政机构",
+        "租赋运输者"
+      ],
+      "cost_or_burden": "国家减免逋赋并调整输送；税额、受益户数和对本道财政影响未载。",
+      "fact_id": "CHF-LIAO-V12-YUNZHOU-TAX-RELIEF-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "云州税粮输送范围被收缩，积欠赋税获免。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V12-YUNZHOU-TAX-RELIEF-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-yunzhou-tax-relief-989",
+      "source_refs": [
+        "遼史/卷12@1745950#雲州租賦請止輸本道，從之。",
+        "遼史/卷12@1745950#詔免雲州逋賦。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年二月至三月"
+      },
+      "uncertainties": [
+        "逋赋总额、租赋此前输往地点及调整后的税负未载。"
+      ]
+    },
+    {
+      "action": "朝廷禁止举人以匿名飞书方式诽谤讥议朝廷。",
+      "actors": [],
+      "affected_groups": [
+        "举人",
+        "朝廷官员",
+        "执法机构"
+      ],
+      "cost_or_burden": "举人表达与检举渠道受到限制；刑罚、案件数量和执行范围未载。",
+      "fact_id": "CHF-LIAO-V12-ANONYMOUS-SLANDER-BAN-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "士人匿名书面批评朝廷受到明令禁止。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-ANONYMOUS-SLANDER-BAN-989"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-anonymous-slander-ban-989",
+      "source_refs": [
+        "遼史/卷12@1745950#禁舉人匿名飛書，謗訕朝廷。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年二月"
+      },
+      "uncertainties": [
+        "禁令缘起、处罚标准与实际案件未载。"
+      ]
+    },
+    {
+      "action": "朝廷下诏开通奇峰路，使其连通易州市场。",
+      "actors": [],
+      "affected_groups": [
+        "道路役人",
+        "沿线居民",
+        "易州商民",
+        "交通管理者"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "奇峰路被命令开放并服务易州市交通交易。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "public_works",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "WORK-THREAD-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-qifeng-road-and-yizhou-market-989",
+      "source_refs": [
+        "遼史/卷12@1745950#詔開奇峰路通易州市。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年三月"
+      },
+      "uncertainties": [
+        "道路长度、修整工程、役夫投入、开放时间和贸易效果未载。"
+      ]
+    },
+    {
+      "action": "马得臣以君臣争胜失礼、击球有损君体并可能惊惧太后等三点切谏圣宗停止击球，圣宗嘉许并采纳。",
+      "actors": [],
+      "affected_groups": [
+        "辽圣宗",
+        "马得臣",
+        "陪同击球臣僚",
+        "承天皇太后"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "针对皇帝击球活动的正式谏议得到接受。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-polo-remonstrance-accepted-989",
+      "source_refs": [
+        "遼史/卷12@1745950#臣望陛下念繼承之重，止危險之戲。",
+        "遼史/卷12@1745950#疏奏，大嘉納之。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年四月"
+      },
+      "uncertainties": [
+        "圣宗此后是否永久停止击球及对马得臣的后续奖惩未载。"
+      ]
+    },
+    {
+      "action": "西北路管押详稳速撒哥讨伐折立、助里二部，并向朝廷进献所获。",
+      "actors": [],
+      "affected_groups": [
+        "辽西北路军",
+        "折立部",
+        "助里部",
+        "被俘者"
+      ],
+      "cost_or_burden": "被征讨部众遭俘获；兵力、伤亡、俘获数和战后处置未载。",
+      "fact_id": "CHF-LIAO-V12-NORTHWEST-TRIBAL-CAMPAIGNS-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军完成所报征讨并取得俘获。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-NORTHWEST-ZHELI-ZHULI-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-northwest-tribal-campaigns-988",
+      "source_refs": [
+        "遼史/卷12@1745950#西北路管押詳穩速撒哥以伐折立、助裏二部，上所俘獲。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年八月"
+      },
+      "uncertainties": [
+        "两部违抗事项、战斗地点、伤亡与俘获去向未载。"
+      ]
+    },
+    {
+      "action": "东路林牙萧勤德、统军石老击败女直军并献俘。",
+      "actors": [],
+      "affected_groups": [
+        "辽东路军",
+        "女直部众",
+        "被俘者"
+      ],
+      "cost_or_burden": "女直人员被俘；双方兵力、伤亡、俘获人数和地点未载。",
+      "fact_id": "CHF-LIAO-V12-JURCHEN-CAMPAIGN-988",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军取得所报胜利并向朝廷献俘。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-JURCHEN-CAMPAIGN-988"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-jurchen-campaign-988",
+      "source_refs": [
+        "遼史/卷12@1745950#東路林牙蕭勤德及統軍石老以擊敗女直兵，獻俘。"
+      ],
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年八月"
+      },
+      "uncertainties": [
+        "战斗起因、地点、规模及战后处置未载。"
+      ]
+    },
+    {
+      "action": "横帐郎君达打里因劫掠被杖；班师时三名士卒出营劫掠，也被笞并示众，所获物品被没收分赐。",
+      "actors": [],
+      "affected_groups": [
+        "达打里",
+        "三名士卒",
+        "劫掠受害者",
+        "军纪执行者"
+      ],
+      "cost_or_burden": "受害者及物品原主未载，没收物没有明确返还原主；受损规模和处罚杖数仅达打里案未载。",
+      "fact_id": "CHF-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "军中两起劫掠受到杖笞和示众处分。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-military-looting-discipline-988-989",
+      "source_refs": [
+        "遼史/卷12@1745950#橫帳郎君達打裏劫掠，命杖之。",
+        "遼史/卷12@1745950#三卒出營劫掠，笞以徇眾，以所獲物分賜左右。"
+      ],
+      "time_range": {
+        "end": "988至989",
+        "precision": "range",
+        "start": "统和六年十二月至统和七年正月"
+      },
+      "uncertainties": [
+        "劫掠地点、物品原主、损失规模和达打里杖数未载。"
+      ]
+    },
+    {
+      "action": "李继迁因与兄继捧有怨请求通好，圣宗判断其不诚而拒绝；三月辽廷仍完成义成公主下嫁李继迁的既定婚姻安排。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁",
+        "李继捧",
+        "义成公主",
+        "辽廷"
+      ],
+      "cost_or_burden": "",
+      "fact_id": "CHF-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "特定通好请求被拒，但辽与李继迁的政治联姻正式落实。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "political_event",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "POL-THREAD-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989"
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-li-jiqian-relations-and-marriage-989",
+      "source_refs": [
+        "遼史/卷12@1745950#上知其非誠，不許。",
+        "遼史/卷12@1745950#以王子帳耶律襄之女封義成公主，下嫁李繼遷。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年正月至三月"
+      },
+      "uncertainties": [
+        "通好请求具体条件、判断依据、婚后政治义务和公主处境未载。"
+      ]
+    },
+    {
+      "action": "蒲领等率兵分道备宋，休哥在满城招降七百余卒并送隶东京；燕京因暑热采取观望进退方略，六月休哥、排亚又在泰州击破宋军。",
+      "actors": [],
+      "affected_groups": [
+        "辽边军",
+        "宋军",
+        "降卒七百余人",
+        "东京军政机构"
+      ],
+      "cost_or_burden": "七百余降卒被迁隶东京；双方兵力伤亡、降卒后续待遇和泰州损失未载。",
+      "fact_id": "CHF-LIAO-V12-SONG-BORDER-OPERATIONS-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "辽军在边境防备中取得招降和泰州战捷。",
+      "routes": [
+        {
+          "decision": "HANDOFF_BATTLE_WORKFLOW",
+          "domain": "battle",
+          "reason": "交由新版战役工作流维护双边事实、阶段和闭合边界。",
+          "related_thread_refs": [],
+          "target_ref": "CAMPAIGN-LIAO-SONG-BORDER-OPERATIONS-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "fiscal_livelihood",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-song-border-operations-989",
+      "source_refs": [
+        "遼史/卷12@1745950#遣宣徽使蒲領等率兵分道備宋。",
+        "遼史/卷12@1745950#休哥引軍至滿城，招降卒七百餘人，遣使來獻，詔隸東京。",
+        "遼史/卷12@1745950#休哥、排亞破宋兵於泰州。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年五月至六月"
+      },
+      "uncertainties": [
+        "边军数量、泰州战斗过程伤亡和降卒服役状况未载。"
+      ]
+    },
+    {
+      "action": "辽廷允许民众耕种燕乐、密云两县荒地并免赋役十年，又发放官有牲畜赐给边部贫民。",
+      "actors": [],
+      "affected_groups": [
+        "燕乐密云垦荒者",
+        "边部贫民",
+        "牲畜管理者",
+        "地方赋役机构"
+      ],
+      "cost_or_burden": "国家十年内不征相关赋役并支出牲畜；土地面积、受益户数和牲畜数量未载。",
+      "fact_id": "CHF-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989",
+      "implementation": "",
+      "locations": [],
+      "observable_result": "荒地获得长期免赋役的垦殖激励，边部贫民获得牲畜救助。",
+      "routes": [
+        {
+          "decision": "CLOSE_CANDIDATE",
+          "domain": "fiscal_livelihood",
+          "reason": "行动、结果与当前边界足以形成候选。",
+          "related_thread_refs": [],
+          "target_ref": "FIN-THREAD-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989"
+        },
+        {
+          "decision": "CONTEXT_ONLY",
+          "domain": "political_event",
+          "reason": "Legacy event preserved as contextual routing.",
+          "related_thread_refs": [],
+          "target_ref": null
+        }
+      ],
+      "semantic_fingerprint": "chf-liao-v12-fallow-land-and-border-poor-relief-989",
+      "source_refs": [
+        "遼史/卷12@1745950#燕樂、密雲二縣荒地許民耕種，免賦役十年。",
+        "遼史/卷12@1745950#詔出諸畜賜邊部貧民。"
+      ],
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年六月"
+      },
+      "uncertainties": [
+        "荒地面积、分配规则、免役范围、牲畜种类数量及成效未载。"
+      ]
+    }
+  ],
+  "fiscal_livelihood_candidates": [
+    {
+      "action": "将非土产皮货岁贡改为牛马。",
+      "actors": [],
+      "affected_groups": [
+        "乌隈于厥部民",
+        "皮货商人",
+        "贡赋管理者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V12-FUR-TRIBUTE-REFORM-988",
+      "continuity_status": "single_event",
+      "cost_or_burden": "既往外购皮货的交易负担被取消；牛马贡额及新负担未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-FUR-TRIBUTE-REFORM-988"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "该部岁贡由外购皮货改为牛马。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v12-fur-tribute-reform-988",
+      "source_refs": [
+        "遼史/卷12@1745950#歲貢貂鼠、青鼠皮非土產，皆於他處貿易以獻，乞改貢。",
+        "遼史/卷12@1745950#詔自今止進牛馬。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V12-FUR-TRIBUTE-REFORM-988",
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年闰五月"
+      },
+      "uncertainties": [
+        "旧贡数量、购皮成本、新贡牛马数量和实际减负程度未载。"
+      ]
+    },
+    {
+      "action": "因大同霜旱乏食，提高折粟价格以利贫民。",
+      "actors": [],
+      "affected_groups": [
+        "大同贫民",
+        "受灾农户",
+        "粮食交易者",
+        "财政机构"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988",
+      "continuity_status": "single_event",
+      "cost_or_burden": "霜旱造成缺粮；调价幅度、受益人数、粮食来源和价格效果未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "灾年粮食折算价格获准提高，以面向贫民。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v12-datong-frost-drought-grain-relief-988",
+      "source_refs": [
+        "遼史/卷12@1745950#今歲霜旱乏食，乞增價折粟，以利貧民。詔從之。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988",
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年八月"
+      },
+      "uncertainties": [
+        "灾区范围、粮价和折粟标准、执行期限未载。"
+      ]
+    },
+    {
+      "action": "以官钱赎回分隶诸帐的俘虏亲属，使其团聚。",
+      "actors": [],
+      "affected_groups": [
+        "南征被俘者",
+        "分隶诸帐亲属",
+        "诸帐",
+        "官钱管理者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "国家支付赎金；涉及家庭数量、官钱总额和未符合条件者处境未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "部分被分散的俘虏亲属由官钱赎回并团聚。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v12-captive-family-reunification-989",
+      "source_refs": [
+        "遼史/卷12@1745950#詔南征所俘有親屬分隸諸帳者，給官錢贖之，使相從。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989",
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年二月"
+      },
+      "uncertainties": [
+        "获赎人数、赎金标准、团聚地点和身份变化未载。"
+      ]
+    },
+    {
+      "action": "禁止随军人员伐民桑梓和放牧伤害禾稼。",
+      "actors": [],
+      "affected_groups": [
+        "农户",
+        "随军部从",
+        "牧畜者",
+        "军纪执法者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "此前桑梓禾稼可能受军队与牧畜侵害；处罚标准、受损面积和执行效果未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "军队和牧畜活动受到保护民桑与庄稼的禁令约束。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v12-crop-and-mulberry-protection-989",
+      "source_refs": [
+        "遼史/卷12@1745950#禁部從伐民桑梓。",
+        "遼史/卷12@1745950#禁芻牧傷禾稼。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989",
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年正月至三月"
+      },
+      "uncertainties": [
+        "禁令地域、期限、处罚和农业损失未载。"
+      ]
+    },
+    {
+      "action": "准云州租赋只输本道，并免其逋赋。",
+      "actors": [],
+      "affected_groups": [
+        "云州民户",
+        "云州地方财政机构",
+        "租赋运输者"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V12-YUNZHOU-TAX-RELIEF-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "国家减免逋赋并调整输送；税额、受益户数和对本道财政影响未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-YUNZHOU-TAX-RELIEF-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "云州税粮输送范围被收缩，积欠赋税获免。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v12-yunzhou-tax-relief-989",
+      "source_refs": [
+        "遼史/卷12@1745950#雲州租賦請止輸本道，從之。",
+        "遼史/卷12@1745950#詔免雲州逋賦。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V12-YUNZHOU-TAX-RELIEF-989",
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年二月至三月"
+      },
+      "uncertainties": [
+        "逋赋总额、租赋此前输往地点及调整后的税负未载。"
+      ]
+    },
+    {
+      "action": "开放两县荒地并免赋役十年，同时赐牲畜救助边部贫民。",
+      "actors": [],
+      "affected_groups": [
+        "燕乐密云垦荒者",
+        "边部贫民",
+        "牲畜管理者",
+        "地方赋役机构"
+      ],
+      "candidate_ref": "FIN-CAND-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "国家十年内不征相关赋役并支出牲畜；土地面积、受益户数和牲畜数量未载。",
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "荒地获得长期免赋役的垦殖激励，边部贫民获得牲畜救助。",
+      "observations": [
+        {
+          "dimension": "baseline",
+          "value": "unknown"
+        },
+        {
+          "dimension": "fiscal_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "livelihood_state",
+          "value": "unknown"
+        },
+        {
+          "dimension": "production_circulation",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-fin-cand-liao-v12-fallow-land-and-border-poor-relief-989",
+      "source_refs": [
+        "遼史/卷12@1745950#燕樂、密雲二縣荒地許民耕種，免賦役十年。",
+        "遼史/卷12@1745950#詔出諸畜賜邊部貧民。"
+      ],
+      "thread_ref": "FIN-THREAD-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989",
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年六月"
+      },
+      "uncertainties": [
+        "荒地面积、分配规则、免役范围、牲畜种类数量及成效未载。"
+      ]
+    }
+  ],
+  "limitations": [
+    "仅据固定《遼史》卷12正文登记，未知保持未知。",
+    "普通贡聘、祭祀、巡幸、单次任免和娱乐活动不单列；战役仅交接新版战役工作流。",
+    "本卷战事的双方完整兵力伤亡、迁徙过程损失、赈济规模与工程投入多未载。"
+  ],
+  "political_event_candidates": [
+    {
+      "action": "册上皇太后与皇帝尊号，并分等加恩勋旧。",
+      "actors": [],
+      "affected_groups": [
+        "辽圣宗",
+        "承天皇太后",
+        "辽廷百官",
+        "勋旧"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "摄政皇太后与圣宗的尊号完成册立，勋旧进入分等加恩程序。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "摄政皇太后与圣宗的尊号完成册立，勋旧进入分等加恩程序。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-imperial-titles-and-merit-grace-987",
+      "source_refs": [
+        "遼史/卷12@1745950#冊上皇太后尊號曰睿德神略應運啟化承天皇太后",
+        "遼史/卷12@1745950#群臣上皇帝尊號曰至德廣孝昭聖天輔皇帝。",
+        "遼史/卷12@1745950#詔有司條上勛舊，等第加恩。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987",
+      "time_range": {
+        "end": "987",
+        "precision": "month",
+        "start": "统和五年四月"
+      },
+      "uncertainties": [
+        "勋旧名单、恩赏等级及实际授予内容未载。"
+      ]
+    },
+    {
+      "action": "因民众称其惠政而准撒葛里留任。",
+      "actors": [],
+      "affected_groups": [
+        "涅剌部民",
+        "撒葛里",
+        "辽廷任官机构"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-SAGALI-POPULAR-RETENTION-987",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-SAGALI-POPULAR-RETENTION-987"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "撒葛里应民众请求继续留任。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "撒葛里应民众请求继续留任。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-sagali-popular-retention-987",
+      "source_refs": [
+        "遼史/卷12@1745950#涅剌部節度使撒葛裏有惠政，民請留，從之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-SAGALI-POPULAR-RETENTION-987",
+      "time_range": {
+        "end": "987",
+        "precision": "month",
+        "start": "统和五年七月"
+      },
+      "uncertainties": [
+        "惠政内容、请求人数和留任期限未载。"
+      ]
+    },
+    {
+      "action": "贵族杀无罪人后获贷罪，改以出钱赡养被害者家庭。",
+      "actors": [],
+      "affected_groups": [
+        "李浩",
+        "李浩家属",
+        "奚王筹宁",
+        "司法官员"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988",
+      "continuity_status": "single_event",
+      "cost_or_burden": "李浩被无罪杀害；赔偿金额、家属人数与筹宁原应受刑罚未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "筹宁免于原拟刑责，以金钱赡养被害人家庭代偿。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "筹宁免于原拟刑责，以金钱赡养被害人家庭代偿。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-lihao-homicide-compensation-988",
+      "source_refs": [
+        "遼史/卷12@1745950#奚王籌寧殺無罪人李浩，所司議貴，請貸其罪，令出錢贍浩家，從之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988",
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年二月"
+      },
+      "uncertainties": [
+        "杀人原因、赔偿数额、执行情况和是否另有处分未载。"
+      ]
+    },
+    {
+      "action": "皇太后处死致韩德让坠马者。",
+      "actors": [],
+      "affected_groups": [
+        "胡里室横突",
+        "韩德让",
+        "承天皇太后"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988",
+      "continuity_status": "single_event",
+      "cost_or_burden": "胡里室横突死亡；韩德让伤势、审讯程序与定罪依据未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "肇事者被皇太后下令处死。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "肇事者被皇太后下令处死。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-han-derang-rider-execution-988",
+      "source_refs": [
+        "遼史/卷12@1745950#胡裏室橫突韓德讓墮馬，皇太后怒，殺之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988",
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年四月"
+      },
+      "uncertainties": [
+        "坠马经过、伤情及处死程序未载。"
+      ]
+    },
+    {
+      "action": "将宋降军编为归圣军或分隶燕军，并拒绝全部放还。",
+      "actors": [],
+      "affected_groups": [
+        "归圣军",
+        "宋降卒",
+        "燕军",
+        "马得臣",
+        "军需机构"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "降者失去自由归返；编制人数、家庭状况、军役负担和衣物数量未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "宋降军被编制或分隶辽军体系，并获得部分衣物供给，放还建议未被采纳。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "宋降军被编制或分隶辽军体系，并获得部分衣物供给，放还建议未被采纳。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-surrendered-soldiers-administration-988",
+      "source_refs": [
+        "遼史/卷12@1745950#以宋降軍分置七指揮，號歸聖軍。",
+        "遼史/卷12@1745950#請並放還。詔不允。",
+        "遼史/卷12@1745950#獲者分隸燕軍。",
+        "遼史/卷12@1745950#給寒者裘衣。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988",
+      "time_range": {
+        "end": "988",
+        "precision": "range",
+        "start": "统和六年十月至十一月"
+      },
+      "uncertainties": [
+        "七指挥人数、服役期限、放还建议被拒原因及分隶后的待遇未载。"
+      ]
+    },
+    {
+      "action": "开贡举，并考试授官携家来归的宋进士。",
+      "actors": [],
+      "affected_groups": [
+        "高举",
+        "宋进士十七人及家属",
+        "贡举考官",
+        "国学与县级官署"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "贡举恢复并录取士人，来归宋进士经考试后获得国学或县级官职。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "贡举恢复并录取士人，来归宋进士经考试后获得国学或县级官职。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-examination-and-song-scholars-987-989",
+      "source_refs": [
+        "遼史/卷12@1745950#詔開貢舉，放高舉一人及第。",
+        "遼史/卷12@1745950#宋進士十七人挈家來歸，命有司考其中第者，補國學官，餘授縣主簿、尉。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989",
+      "time_range": {
+        "end": "988至989",
+        "precision": "range",
+        "start": "统和六年十二月至统和七年三月"
+      },
+      "uncertainties": [
+        "贡举科目、考试标准、十七人分别授官及任职结果未载。"
+      ]
+    },
+    {
+      "action": "禁止举人匿名飞书讥谤朝廷。",
+      "actors": [],
+      "affected_groups": [
+        "举人",
+        "朝廷官员",
+        "执法机构"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-ANONYMOUS-SLANDER-BAN-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "举人表达与检举渠道受到限制；刑罚、案件数量和执行范围未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-ANONYMOUS-SLANDER-BAN-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "士人匿名书面批评朝廷受到明令禁止。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "士人匿名书面批评朝廷受到明令禁止。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-anonymous-slander-ban-989",
+      "source_refs": [
+        "遼史/卷12@1745950#禁舉人匿名飛書，謗訕朝廷。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-ANONYMOUS-SLANDER-BAN-989",
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年二月"
+      },
+      "uncertainties": [
+        "禁令缘起、处罚标准与实际案件未载。"
+      ]
+    },
+    {
+      "action": "马得臣切谏停止危险击球，圣宗嘉纳。",
+      "actors": [],
+      "affected_groups": [
+        "辽圣宗",
+        "马得臣",
+        "陪同击球臣僚",
+        "承天皇太后"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "针对皇帝击球活动的正式谏议得到接受。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "针对皇帝击球活动的正式谏议得到接受。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-polo-remonstrance-accepted-989",
+      "source_refs": [
+        "遼史/卷12@1745950#臣望陛下念繼承之重，止危險之戲。",
+        "遼史/卷12@1745950#疏奏，大嘉納之。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989",
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年四月"
+      },
+      "uncertainties": [
+        "圣宗此后是否永久停止击球及对马得臣的后续奖惩未载。"
+      ]
+    },
+    {
+      "action": "连续处罚军中劫掠者并示众。",
+      "actors": [],
+      "affected_groups": [
+        "达打里",
+        "三名士卒",
+        "劫掠受害者",
+        "军纪执行者"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "受害者及物品原主未载，没收物没有明确返还原主；受损规模和处罚杖数仅达打里案未载。",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "军中两起劫掠受到杖笞和示众处分。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "军中两起劫掠受到杖笞和示众处分。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-military-looting-discipline-988-989",
+      "source_refs": [
+        "遼史/卷12@1745950#橫帳郎君達打裏劫掠，命杖之。",
+        "遼史/卷12@1745950#三卒出營劫掠，笞以徇眾，以所獲物分賜左右。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989",
+      "time_range": {
+        "end": "988至989",
+        "precision": "range",
+        "start": "统和六年十二月至统和七年正月"
+      },
+      "uncertainties": [
+        "劫掠地点、物品原主、损失规模和达打里杖数未载。"
+      ]
+    },
+    {
+      "action": "拒绝李继迁不诚的通好请求，随后完成义成公主下嫁。",
+      "actors": [],
+      "affected_groups": [
+        "李继迁",
+        "李继捧",
+        "义成公主",
+        "辽廷"
+      ],
+      "candidate_ref": "POL-CAND-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "",
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "特定通好请求被拒，但辽与李继迁的政治联姻正式落实。",
+      "observations": [
+        {
+          "dimension": "event_type",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision_question",
+          "value": "unknown"
+        },
+        {
+          "dimension": "alternatives",
+          "value": "unknown"
+        },
+        {
+          "dimension": "decision",
+          "value": "unknown"
+        },
+        {
+          "dimension": "direct_result",
+          "value": "特定通好请求被拒，但辽与李继迁的政治联姻正式落实。"
+        },
+        {
+          "dimension": "power_change",
+          "value": "unknown"
+        },
+        {
+          "dimension": "risk_or_damage",
+          "value": "unknown"
+        },
+        {
+          "dimension": "follow_up",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-pol-cand-liao-v12-li-jiqian-relations-and-marriage-989",
+      "source_refs": [
+        "遼史/卷12@1745950#上知其非誠，不許。",
+        "遼史/卷12@1745950#以王子帳耶律襄之女封義成公主，下嫁李繼遷。"
+      ],
+      "thread_ref": "POL-THREAD-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989",
+      "time_range": {
+        "end": "989",
+        "precision": "range",
+        "start": "统和七年正月至三月"
+      },
+      "uncertainties": [
+        "通好请求具体条件、判断依据、婚后政治义务和公主处境未载。"
+      ]
+    }
+  ],
+  "public_works_candidates": [
+    {
+      "action": "因南征恐劳民，延期修缮金铃阁。",
+      "actors": [],
+      "affected_groups": [
+        "奉圣州居民",
+        "工程役户",
+        "金铃阁管理者",
+        "辽廷"
+      ],
+      "candidate_ref": "WORK-CAND-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988",
+      "continuity_status": "continued_within_reign",
+      "cost_or_burden": "阁已毁坏；延期后的工料、役夫和实际开工时间未载。",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "金铃阁修缮获确认但延期，南征期间未立即征役。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-liao-v12-jinling-pavilion-repair-deferred-988",
+      "source_refs": [
+        "遼史/卷12@1745950#太祖所建金鈴閣壞，乞加修繕。",
+        "遼史/卷12@1745950#詔以南征，恐重勞百姓，待軍還治之。"
+      ],
+      "thread_ref": "WORK-THREAD-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988",
+      "time_range": {
+        "end": "988",
+        "precision": "month",
+        "start": "统和六年闰五月"
+      },
+      "uncertainties": [
+        "损坏程度、修缮规模、后续是否施工未载。"
+      ]
+    },
+    {
+      "action": "开通奇峰路以连接易州市。",
+      "actors": [],
+      "affected_groups": [
+        "道路役人",
+        "沿线居民",
+        "易州商民",
+        "交通管理者"
+      ],
+      "candidate_ref": "WORK-CAND-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989",
+      "continuity_status": "single_event",
+      "cost_or_burden": "",
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989"
+      ],
+      "implementation": "",
+      "lineage_refs": [],
+      "locations": [],
+      "observable_result": "奇峰路被命令开放并服务易州市交通交易。",
+      "observations": [
+        {
+          "dimension": "work_identity",
+          "value": "unknown"
+        },
+        {
+          "dimension": "phase",
+          "value": "unknown"
+        },
+        {
+          "dimension": "purpose",
+          "value": "unknown"
+        },
+        {
+          "dimension": "resource_input",
+          "value": "unknown"
+        },
+        {
+          "dimension": "operation",
+          "value": "unknown"
+        },
+        {
+          "dimension": "benefit",
+          "value": "unknown"
+        },
+        {
+          "dimension": "harm",
+          "value": "unknown"
+        }
+      ],
+      "operation_status": "implemented",
+      "semantic_fingerprint": "candidate-work-cand-liao-v12-qifeng-road-and-yizhou-market-989",
+      "source_refs": [
+        "遼史/卷12@1745950#詔開奇峰路通易州市。"
+      ],
+      "thread_ref": "WORK-THREAD-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989",
+      "time_range": {
+        "end": "989",
+        "precision": "month",
+        "start": "统和七年三月"
+      },
+      "uncertainties": [
+        "道路长度、修整工程、役夫投入、开放时间和贸易效果未载。"
+      ]
+    }
+  ],
+  "registry_version": "LIAO-LIAOSHI-V12-REREAD-1",
+  "schema_version": "chronicle-multidomain-registry-v1",
+  "source_scope": {
+    "end_locator": "统和七年冬猎好草岭",
+    "input_fingerprint": "f91debf6bc1ff73ae3233376314a7f81be111e3a9aa57d807e1111b9a22e2f70",
+    "overlap_context": "本卷记统和五年至七年（987—989）。卷首承接卷11南征，随后记尊号与司法、贡赋和工程劳役调整；统和六年至七年的对宋战事、降俘安置和易州人口迁返按连续行动分别合并。普通贡聘、祭祀、巡幸、单次任免不单列。",
+    "revision_ref": "1745950",
+    "start_locator": "统和五年破束城文安",
+    "volume_ref": "卷12",
+    "work": "遼史"
+  },
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-LIAO-V12-MULTIDOMAIN-REREAD",
+  "threads": [
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-imperial-titles-and-merit-grace-987",
+      "status": "closed",
+      "summary": "册上皇太后与皇帝尊号，并分等加恩勋旧。",
+      "thread_ref": "POL-THREAD-LIAO-V12-IMPERIAL-TITLES-AND-MERIT-GRACE-987",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-SAGALI-POPULAR-RETENTION-987"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-sagali-popular-retention-987",
+      "status": "closed",
+      "summary": "因民众称其惠政而准撒葛里留任。",
+      "thread_ref": "POL-THREAD-LIAO-V12-SAGALI-POPULAR-RETENTION-987",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-lihao-homicide-compensation-988",
+      "status": "closed",
+      "summary": "贵族杀无罪人后获贷罪，改以出钱赡养被害者家庭。",
+      "thread_ref": "POL-THREAD-LIAO-V12-LIHAO-HOMICIDE-COMPENSATION-988",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-han-derang-rider-execution-988",
+      "status": "closed",
+      "summary": "皇太后处死致韩德让坠马者。",
+      "thread_ref": "POL-THREAD-LIAO-V12-HAN-DERANG-RIDER-EXECUTION-988",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-liao-v12-jinling-pavilion-repair-deferred-988",
+      "status": "closed",
+      "summary": "因南征恐劳民，延期修缮金铃阁。",
+      "thread_ref": "WORK-THREAD-LIAO-V12-JINLING-PAVILION-REPAIR-DEFERRED-988",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-FUR-TRIBUTE-REFORM-988"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v12-fur-tribute-reform-988",
+      "status": "closed",
+      "summary": "将非土产皮货岁贡改为牛马。",
+      "thread_ref": "FIN-THREAD-LIAO-V12-FUR-TRIBUTE-REFORM-988",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v12-datong-frost-drought-grain-relief-988",
+      "status": "closed",
+      "summary": "因大同霜旱乏食，提高折粟价格以利贫民。",
+      "thread_ref": "FIN-THREAD-LIAO-V12-DATONG-FROST-DROUGHT-GRAIN-RELIEF-988",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-surrendered-soldiers-administration-988",
+      "status": "closed",
+      "summary": "将宋降军编为归圣军或分隶燕军，并拒绝全部放还。",
+      "thread_ref": "POL-THREAD-LIAO-V12-SURRENDERED-SOLDIERS-ADMINISTRATION-988",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-examination-and-song-scholars-987-989",
+      "status": "closed",
+      "summary": "开贡举，并考试授官携家来归的宋进士。",
+      "thread_ref": "POL-THREAD-LIAO-V12-EXAMINATION-AND-SONG-SCHOLARS-987-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v12-captive-family-reunification-989",
+      "status": "closed",
+      "summary": "以官钱赎回分隶诸帐的俘虏亲属，使其团聚。",
+      "thread_ref": "FIN-THREAD-LIAO-V12-CAPTIVE-FAMILY-REUNIFICATION-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v12-crop-and-mulberry-protection-989",
+      "status": "closed",
+      "summary": "禁止随军人员伐民桑梓和放牧伤害禾稼。",
+      "thread_ref": "FIN-THREAD-LIAO-V12-CROP-AND-MULBERRY-PROTECTION-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-YUNZHOU-TAX-RELIEF-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v12-yunzhou-tax-relief-989",
+      "status": "closed",
+      "summary": "准云州租赋只输本道，并免其逋赋。",
+      "thread_ref": "FIN-THREAD-LIAO-V12-YUNZHOU-TAX-RELIEF-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-ANONYMOUS-SLANDER-BAN-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-anonymous-slander-ban-989",
+      "status": "closed",
+      "summary": "禁止举人匿名飞书讥谤朝廷。",
+      "thread_ref": "POL-THREAD-LIAO-V12-ANONYMOUS-SLANDER-BAN-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "public_works",
+      "fact_refs": [
+        "CHF-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-work-thread-liao-v12-qifeng-road-and-yizhou-market-989",
+      "status": "closed",
+      "summary": "开通奇峰路以连接易州市。",
+      "thread_ref": "WORK-THREAD-LIAO-V12-QIFENG-ROAD-AND-YIZHOU-MARKET-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-polo-remonstrance-accepted-989",
+      "status": "closed",
+      "summary": "马得臣切谏停止危险击球，圣宗嘉纳。",
+      "thread_ref": "POL-THREAD-LIAO-V12-POLO-REMONSTRANCE-ACCEPTED-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-military-looting-discipline-988-989",
+      "status": "closed",
+      "summary": "连续处罚军中劫掠者并示众。",
+      "thread_ref": "POL-THREAD-LIAO-V12-MILITARY-LOOTING-DISCIPLINE-988-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "political_event",
+      "fact_refs": [
+        "CHF-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-pol-thread-liao-v12-li-jiqian-relations-and-marriage-989",
+      "status": "closed",
+      "summary": "拒绝李继迁不诚的通好请求，随后完成义成公主下嫁。",
+      "thread_ref": "POL-THREAD-LIAO-V12-LI-JIQIAN-RELATIONS-AND-MARRIAGE-989",
+      "uncertainties": []
+    },
+    {
+      "domain": "fiscal_livelihood",
+      "fact_refs": [
+        "CHF-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989"
+      ],
+      "lineage_refs": [],
+      "open_questions": [],
+      "semantic_fingerprint": "thread-fin-thread-liao-v12-fallow-land-and-border-poor-relief-989",
+      "status": "closed",
+      "summary": "开放两县荒地并免赋役十年，同时赐牲畜救助边部贫民。",
+      "thread_ref": "FIN-THREAD-LIAO-V12-FALLOW-LAND-AND-BORDER-POOR-RELIEF-989",
+      "uncertainties": []
+    }
+  ]
+}

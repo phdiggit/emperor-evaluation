@@ -1,0 +1,888 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "JIN-JINSHI-V06-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-JIN-V06-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "金史",
+    "volume_ref": "卷6",
+    "revision_ref": "2432736",
+    "start_locator": "世宗乌禄任东京留守、应对契丹叛乱并即位",
+    "end_locator": "大定十一年整饬官政、赎放被掠人口及册立诸王",
+    "overlap_context": "承卷5海陵南征、契丹反叛与军中崩解；卷7续世宗大定十二年以后。",
+    "input_fingerprint": "1499612b15bf1be292ca890d3645872c0068e5f171471a84d66bf809ccdc043f"
+  },
+  "events": [
+    {
+      "id": "CHF-JIN-V06-SHIZONG-ACCESSION-1161",
+      "time": [
+        "正隆六年八月",
+        "大定元年十月",
+        "range"
+      ],
+      "subject": "东京留守乌禄、完颜谋衍等归附军与高存福",
+      "action": "乌禄奉命讨契丹叛军时发现高存福谋害自己，拘捕并诛存福；南征军二万与谋衍军五千来附后，官属诸军拥立乌禄即帝位。",
+      "result": "乌禄在东京建立新政权，改元大定并公开海陵罪状。",
+      "cost": "归附兵力明载二万与五千；夺权过程伤亡仅载存福等被杀。",
+      "quote": [
+        "自山東率所領兵二萬，完顏謀衍自常安率兵五千皆來附。",
+        "諸軍入城，共擊殺存福等。",
+        "還禦宣政殿，即皇帝位。",
+        "大赦，改元大定。"
+      ],
+      "unknown": [
+        "东京城内其他反对力量及即位时实际控制范围未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "IMPERIAL-ACCESSION-IN-CIVIL-WAR",
+        "summary": "乌禄依归附军在东京即位，建立大定政权。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-ACCESSION-MILITARY-FINANCE-1161",
+      "time": [
+        "大定元年十月",
+        "大定元年十二月",
+        "range"
+      ],
+      "subject": "金世宗与归附、扈从军民",
+      "action": "世宗宴赏归附将士并给复三年，出内府金银器赡军，按军兴期间进献钱粟量授官；入中都后又给东京扈从军士复三年。",
+      "result": "新政权以减免、内库财物和官赏稳固军队及支持者。",
+      "cost": "给复三年并支出内府金银器物；具体价值未载。",
+      "groups": [
+        "归附将士",
+        "东京扈从军士",
+        "军兴期间进献钱粟者"
+      ],
+      "quote": [
+        "饗將士，賜官賞各有差，仍給複三年。",
+        "出內府金銀器物贍軍",
+        "進錢粟者宜量授以官。",
+        "詔軍士自東京扈從至京師者複三年。"
+      ],
+      "unknown": [
+        "受益军士人数、内库支出总额与授官标准未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ACCESSION-MILITARY-REWARD",
+        "summary": "世宗以给复、内库物资与官赏稳定拥立军民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-KHITAN-REVOLT-1161-1162",
+      "time": [
+        "正隆六年",
+        "大定二年九月",
+        "range"
+      ],
+      "subject": "移剌窝斡等契丹奚部众与世宗诸路金军",
+      "action": "海陵强籍契丹丁壮南征引发诸部反叛；世宗即位前后持续招抚和征讨，金军在胜州曾败，后于长濼、霿箣松河、花道、嫋岭等地交战，最终擒窝斡并平余众。",
+      "result": "契丹大叛乱于大定二年九月被平定，降众由金朝招抚处置。",
+      "cost": "出内府金银供军并多路征战；伤亡未完整载明，栲栳山一役不降奚男子被尽杀。",
+      "groups": [
+        "契丹诸部",
+        "奚部",
+        "北征军",
+        "被掠家属"
+      ],
+      "quote": [
+        "籍契丹部人丁壯為兵，部人不願行",
+        "尚書兵部侍郎溫敦朮突剌等與窩斡戰，敗於勝州。",
+        "右副元帥完顏謀衍等敗窩斡於長濼。",
+        "右副元帥僕散忠義大敗窩斡於嫋嶺西陷泉。",
+        "元帥右都監完顏思敬獲契丹窩斡，余眾悉平。"
+      ],
+      "unknown": [
+        "叛军总数、各战伤亡及平乱后人口损失未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-KHITAN-WOGUA-REVOLT-1161-1162",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-SONG-BORDER-WAR-1161-1164",
+      "time": [
+        "大定元年十一月",
+        "大定四年十二月",
+        "range"
+      ],
+      "subject": "金宋边军与世宗元帅府",
+      "action": "海陵死后宋军进取陕州等地，金军在寿安、德顺、华州、张义堡等处反击，收复陕州、原州、汝州及商虢环等十六州；其间宋军一度破灵璧、虹县、宿州，金军复取宿州并继续南征至取楚州。",
+      "result": "金朝逐步收复宋军所侵十六州并推进至楚州，双方进入议和前的边境对峙。",
+      "cost": "河南副统孛朮鲁定方死于阵；其余双方伤亡与州县损失未详载。",
+      "groups": [
+        "宋金边境军民",
+        "征南军士"
+      ],
+      "quote": [
+        "宋人破陝州",
+        "嵩州刺史石抹朮突刺等敗宋兵于壽安縣。",
+        "左副元帥紇石烈志寧複取宿州，河南副統孛朮魯定方死於陣。",
+        "宋所侵一十六州至是皆複。",
+        "征南都統徒單克甯敗宋兵，取楚州。"
+      ],
+      "unknown": [
+        "十六州逐州攻守时序和军民伤亡未完整载明。"
+      ],
+      "battle": "CAMPAIGN-JIN-SONG-BORDER-RECOVERY-1161-1164",
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-DEMOBILIZATION-AND-HORSES-1161-1163",
+      "time": [
+        "大定元年十一月",
+        "大定三年五月",
+        "range"
+      ],
+      "subject": "金世宗与征南军民",
+      "action": "世宗调民马供军，规定战后还主、死亡给价；随后放河北山东陕西征南步军回家，并拒绝把被诛大臣奴隶和窝斡乱众重新签军。",
+      "result": "战时征马建立赔偿规则，大批步军遣散归农，四方初定后避免新增强制签军。",
+      "cost": "死马由官府给价；具体马数、遣返军数和赔偿额未载。",
+      "groups": [
+        "被调马民户",
+        "征南步军",
+        "拟签奴隶及乱众"
+      ],
+      "quote": [
+        "詔調民間馬充軍用，事畢還主，死者給價。",
+        "命河北、山東、陝西等路征南步軍並放還家。",
+        "民意稍蘇，而複簽軍，非長策，不聽。"
+      ],
+      "unknown": [
+        "归还和赔付落实率、遣军规模未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POSTWAR-DEMOBILIZATION-AND-COMPENSATION",
+        "summary": "世宗为征马设赔偿并遣散征南军、拒绝再签军。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-RETURN-TO-FARMING-1162",
+      "time": [
+        "大定二年正月",
+        "大定二年二月",
+        "range"
+      ],
+      "subject": "金世宗与山东军民、逃户",
+      "action": "世宗赐山东百姓粟帛，招回因盗贼或避徭役流散者，不问轻重一律原免，令及时归业农种。",
+      "result": "山东战乱流民获得粮帛、赦免与返乡复耕政策。",
+      "groups": [
+        "山东百姓",
+        "避贼流民",
+        "避役逃户"
+      ],
+      "quote": [
+        "振賜山東百姓粟帛",
+        "招諭盜賊或避賊及避徭役在他所者，並令歸業，及時農種，無問罪名輕重，並與原免。"
+      ],
+      "unknown": [
+        "粮帛数量、返乡人数和复耕面积未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "REFUGEE-RETURN-AND-AGRICULTURAL-RECOVERY",
+        "summary": "世宗赈山东并赦逃户归业复耕。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-EARLY-OPEN-GOVERNANCE-1162",
+      "time": [
+        "大定二年正月",
+        "大定二年八月",
+        "range"
+      ],
+      "subject": "金世宗与宰执、御史、上书臣民",
+      "action": "世宗要求宰相进贤、御史检举六部失当，反复催促宰执陈民间利害，并允许受压制的上书者直接进表亲览。",
+      "result": "新朝建立鼓励进谏、追查行政迟滞和直达上书的政治原则。",
+      "quote": [
+        "進賢退不肖，宰相之職也。",
+        "敕御史台檢察六部文移",
+        "卿等當參民間利害",
+        "凡上書言事或為有司所抑，許進表以聞，朕將親覽"
+      ],
+      "unknown": [
+        "上书采纳数量及由此改政事项未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "OPEN-REMONSTRANCE-AND-OVERSIGHT",
+        "summary": "世宗初政要求宰执御史主动纠政并开放上书直达。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-CAPTIVE-REDEMPTION-1162-1164",
+      "time": [
+        "大定二年三月",
+        "大定四年九月",
+        "range"
+      ],
+      "subject": "金世宗与战乱被掠、卖身人口",
+      "action": "朝廷厘正捕贼中被虏为贼的良民，规定契丹降者亲属归家并由官赎回；其后又以内库物赎回契丹劫掠区因饥冒卖为奴者。",
+      "result": "误虏良民、降众家属和饥荒卖身者获得身份纠正或官赎。",
+      "cost": "官府动用内库物赎人；人数和总额未载。",
+      "groups": [
+        "被误虏良民",
+        "契丹降者亲属",
+        "因饥卖身者"
+      ],
+      "quote": [
+        "昨因捕賊，良民被虜為賊者，厘正之。",
+        "其親屬使各還其家，仍官為贖之。",
+        "多冒鬻為奴，朕甚閔之。可速遣使閱實其數，出內庫物贖之。"
+      ],
+      "unknown": [
+        "核实标准、获释人数与赎价未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "CAPTIVE-STATUS-REPAIR-AND-REDEMPTION",
+        "summary": "世宗纠正战乱误虏并官赎降众家属和卖身者。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-CROWN-PRINCE-1162",
+      "time": [
+        "大定二年五月",
+        "大定二年五月",
+        "month"
+      ],
+      "subject": "金世宗与楚王允迪",
+      "action": "世宗立楚王允迪为皇太子并诏告中外。",
+      "result": "大定朝储位正式确立。",
+      "quote": [
+        "立楚王允迪為皇太子，詔中外。"
+      ],
+      "unknown": [
+        "册立前宗室议论未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CROWN-PRINCE-APPOINTMENT",
+        "summary": "世宗册立允迪为皇太子。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-BORDER-TRADE-TAX-RELIEF-1162",
+      "time": [
+        "大定二年四月",
+        "大定二年八月",
+        "range"
+      ],
+      "subject": "金世宗、夏国商民与关津往来者",
+      "action": "世宗准西夏互市，并在八月撤销各关征税。",
+      "result": "西夏边贸获准，关津税负被取消。",
+      "quote": [
+        "夏使朝辭，乞互市，從之。",
+        "辛卯，罷諸關徵稅。"
+      ],
+      "unknown": [
+        "互市地点、税率变化和财政减收未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "BORDER-MARKET-AND-CUSTOMS-RELIEF",
+        "summary": "世宗开放夏国互市并罢关税。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-FAMINE-LOCUST-RELIEF-1163",
+      "time": [
+        "大定三年二月",
+        "大定三年四月",
+        "range"
+      ],
+      "subject": "金世宗与湾州、临潢、山西等灾民",
+      "action": "世宗将湾州流散饥民迁山西由富民赡济并沿途给食，组织八路捕蝗、安置临潢汉民就食，免去年租税，并给山西猛安谋克贫民六十日粮。",
+      "result": "饥民获得迁徙就食、赈粮、捕蝗和租税减免。",
+      "cost": "山西贫民给六十日粮，另免去年租税；总人数和支出未载。",
+      "groups": [
+        "湾州饥民",
+        "临潢汉民",
+        "山西猛安谋克贫民",
+        "蝗灾八路民户"
+      ],
+      "quote": [
+        "灣州饑民，流散逐食",
+        "仍于道路計口給食。",
+        "中都以南八路蝗，詔尚書省遣官捕之。",
+        "詔免去年租稅。",
+        "給六十日糧。"
+      ],
+      "unknown": [
+        "迁移人数、捕蝗成效和免税总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FAMINE-LOCUST-RELIEF",
+        "summary": "大定三年以迁食、赈粮、捕蝗与免税救灾。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-KHITAN-MILITARY-REORGANIZATION-1163",
+      "time": [
+        "大定三年五月",
+        "大定三年八月",
+        "range"
+      ],
+      "subject": "金世宗与契丹猛安谋克",
+      "action": "平乱后世宗赦招契丹余党，撤销契丹猛安谋克并把其户分隶女直猛安谋克。",
+      "result": "契丹独立军户编制被取消，人口转入女直猛安谋克控制体系。",
+      "groups": [
+        "契丹余党",
+        "契丹猛安谋克户"
+      ],
+      "quote": [
+        "詔諭契丹餘黨蒲速越等，如能自新，並釋其罪。",
+        "詔罷契丹猛安謀克，其戶分隸女直猛安謀克。"
+      ],
+      "unknown": [
+        "涉及户数、迁居情况和地方冲突未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "POSTREBELLION-MILITARY-HOUSEHOLD-REORGANIZATION",
+        "summary": "世宗赦招契丹余党并撤销其独立猛安谋克。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-OFFICIAL-APPRAISAL-1162-1167",
+      "time": [
+        "大定二年八月",
+        "大定七年十一月",
+        "range"
+      ],
+      "subject": "金世宗与御史、廉察使、州县官",
+      "action": "世宗多次派员廉察诸路，要求御史审察三公以下善恶，将职官分廉能、污滥、不职三等黜陟，并令吏部核县令优劣。",
+      "result": "中央形成跨路廉察、分等考课和县令黜陟的连续监督机制。",
+      "quote": [
+        "自三公以下，官僚善惡邪正，當審察之。",
+        "第職官，廉能、汙濫、不職各為三等而黜陟之。",
+        "其令吏部察其善惡，明加黜陟。"
+      ],
+      "unknown": [
+        "各轮考察覆盖人数、具体黜陟清单未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "OFFICIAL-APPRAISAL-AND-INSPECTION",
+        "summary": "世宗以分路廉察和三等考课整顿官僚。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-TRIBUTE-TAX-REDUCTION-1163-1164",
+      "time": [
+        "大定三年十一月",
+        "大定四年三月",
+        "range"
+      ],
+      "subject": "金世宗与中都、北京等路民户",
+      "action": "世宗罢贡金线段匹及路府州节庆贡献，并因北京粮价高免课甲、岁课段匹一年，又免安州及扈从驻宿村赋役一年。",
+      "result": "地方贡纳、物料和巡幸相关赋役得到连续减免。",
+      "cost": "多项岁课和赋役减免一年；财政减收未载。",
+      "groups": [
+        "中都和平州民户",
+        "北京民户",
+        "安州及驻宿村民"
+      ],
+      "quote": [
+        "罷貢金線段匹。",
+        "罷路府州元日及萬春節貢獻。",
+        "詔免今年課甲。",
+        "詔免北京歲課段匹一年。",
+        "免安州今年賦役"
+      ],
+      "unknown": [
+        "各项原定贡额和减收总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TRIBUTE-AND-TAX-RELIEF",
+        "summary": "世宗罢节贡金线并减免北京、安州等地岁课赋役。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-SONG-PEACE-1165",
+      "time": [
+        "大定五年正月",
+        "大定五年二月",
+        "range"
+      ],
+      "subject": "金世宗、宋孝宗政权与金军",
+      "action": "宋以国书称侄、金帝称叔，约岁币二十万；世宗留新旧军六万人守边，余军放还，并把宋岁币全部赏军。",
+      "result": "宋金重新确立叔侄名分和岁币，战争转为六万守军维持的边防状态。",
+      "cost": "宋岁币二十万，金留戍六万人并将岁币悉赏诸军。",
+      "quote": [
+        "稱名「再拜奉書于叔大金皇帝」。歲幣二十萬。",
+        "諸新舊軍以六萬人留戍，餘並放還。",
+        "以宋國歲幣悉賞諸軍。"
+      ],
+      "unknown": [
+        "岁币币种明细、边界勘定及六万守军年度军费未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "SONG-JIN-PEACE-SETTLEMENT",
+        "summary": "宋金以叔侄名分、岁币二十万和六万守军恢复和议。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-NORTHERN-BORDER-FORTS-1165",
+      "time": [
+        "大定五年正月",
+        "大定五年正月",
+        "month"
+      ],
+      "subject": "金世宗与泰州、临潢边军",
+      "action": "世宗命泰州、临潢接境设置边堡七十座，驻兵一万三千人。",
+      "result": "北部边界形成七十堡、一万三千驻军的防御体系。",
+      "cost": "常驻兵一万三千；营建、粮饷与民役未载。",
+      "quote": [
+        "詔泰州、臨潢接境設邊堡七十，駐兵萬三千。"
+      ],
+      "unknown": [
+        "各堡位置、营建工期和经费来源未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "NORTHERN-BORDER-FORTIFICATION",
+        "summary": "泰州临潢边界营设七十堡并驻兵一万三千。",
+        "continuity": "continued_across_reigns",
+        "phase": "设置与驻防",
+        "purpose": "北部边界防御",
+        "operation_result": "七十边堡配驻一万三千兵"
+      },
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-LAND-TAX-SURVEY-1165",
+      "time": [
+        "大定五年十一月",
+        "大定五年十一月",
+        "month"
+      ],
+      "subject": "金世宗与诸路财税官署",
+      "action": "朝廷建立诸路通检土地、物力并据以等定税负的制度。",
+      "result": "土地与物力通检成为诸路赋税核定基础。",
+      "quote": [
+        "立諸路通檢地土等稅法。"
+      ],
+      "unknown": [
+        "税级、税率、丈量方法和各地执行结果未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "LAND-AND-WEALTH-TAX-ASSESSMENT",
+        "summary": "大定五年建立诸路土地物力通检税法。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-COURT-AUSTERITY-1161-1168",
+      "time": [
+        "大定元年十一月",
+        "大定八年五月",
+        "range"
+      ],
+      "subject": "金世宗与宫廷官署",
+      "action": "世宗入中都时禁增宫殿陈设和役民，后减御膳及宫食一半，禁止宫中涂金、金饰并罢龙文地衣和金线服用。",
+      "result": "宫廷营设、膳食和贵金属装饰受到持续压缩。",
+      "cost": "减膳一半；节省金额未载。",
+      "quote": [
+        "凡宮殿張設毋得增置，無役一夫以擾百姓",
+        "詔減禦膳及宮中食物之半。",
+        "宮中張設毋以塗金為飾。",
+        "命地衣用龍文者罷之。",
+        "自今宮中之飾，並勿用黃金。"
+      ],
+      "unknown": [
+        "各项禁令执行期限和节用总额未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "SUSTAINED-COURT-AUSTERITY",
+        "summary": "世宗持续压缩宫殿营设、膳食和黄金装饰。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-TOUR-COMPENSATION-1163-1170",
+      "time": [
+        "大定三年八月",
+        "大定十年七月",
+        "range"
+      ],
+      "subject": "金世宗、扈从军士与巡幸沿途民户",
+      "action": "世宗多次以官钱补贴扈从、驻宿民家和军士，规定践踏庄稼必须赔偿，并免巡幸驻宿地区赋役。",
+      "result": "巡猎驻宿形成官给费用、损苗赔偿和地方赋役减免规则。",
+      "cost": "曾给扈从钱一万贯、五万贯，驻民家每日给主人钱一百；另有一年赋役减免。",
+      "groups": [
+        "巡幸沿途农户",
+        "驻宿民家",
+        "扈从军士"
+      ],
+      "quote": [
+        "仍以錢萬貫分賜之。",
+        "人日支錢一百與其主。",
+        "諸扈從軍士賜錢五萬貫，有敢損苗稼者，並償之。",
+        "扈從糧食並從官給。",
+        "蹂踐禾稼者，杖之，仍償其直。"
+      ],
+      "unknown": [
+        "实际赔偿案件数、受益户数和总支出未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "IMPERIAL-TOUR-COMPENSATION",
+        "summary": "世宗以官给、赔苗和免役减轻巡猎对民户负担。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-JUDICIAL-RESTRAINT-1162-1169",
+      "time": [
+        "大定二年七月",
+        "大定九年三月",
+        "range"
+      ],
+      "subject": "金世宗与司法、举报官署",
+      "action": "世宗识破谋衍父子伪书只惩诬告者，遣还因宋失信被拘使者；又将网捕禽兽的徒刑改为杖释。",
+      "result": "数起案件中避免扩大株连、迁怒使者和以重刑保护禽兽。",
+      "quote": [
+        "此誣也，止訊告者。",
+        "宋之失信，行人何罪？當即遣還。",
+        "以禽獸之故而抵民以徒，是重禽獸而輕民命也",
+        "自今有犯，可杖而釋之。"
+      ],
+      "unknown": [
+        "这些原则是否推广至其他刑案未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "JUDICIAL-RESTRAINT",
+        "summary": "世宗在诬告、外交使者和捕猎案件中限制株连与重刑。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-CONSTRUCTION-RESTRAINT-1167-1169",
+      "time": [
+        "大定七年十月",
+        "大定九年五月",
+        "range"
+      ],
+      "subject": "金世宗、皇太子与诸王府",
+      "action": "世宗因孟浩进谏停止东宫增殿；诸王府兴造请发役夫时，又禁额外役民，要求沿用项目由官给佣直、重者奏闻。",
+      "result": "东宫新增工程被取消，王府工程民役改受审批和有偿用工约束。",
+      "cost": "官给佣直，具体工程量和金额未载。",
+      "groups": [
+        "京城役夫",
+        "王府自有人力"
+      ],
+      "quote": [
+        "俟。」乃罷之。\n十",
+        "何得更役百姓。",
+        "於並官給傭直，重者奏聞。"
+      ],
+      "unknown": [
+        "既有浮役范围、佣直标准与后续执行未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "CONSTRUCTION-AND-CORVEE-RESTRAINT",
+        "summary": "世宗停东宫增殿并限制王府无偿役民。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "public_works"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-IMPERIAL-LABOR-REGISTER-1168",
+      "time": [
+        "大定八年九月",
+        "大定八年九月",
+        "month"
+      ],
+      "subject": "金世宗与御前差役官署",
+      "action": "世宗发现采蕈仅供御用却役数百千人，规定以后凡称御前的差役均须奏报并附册登记。",
+      "result": "御用差役被纳入事前批准和名册监督。",
+      "cost": "此前采蕈曾役数百千人；具体口径与天数未载。",
+      "groups": [
+        "蔚州采蕈役夫",
+        "其他御前差役者"
+      ],
+      "quote": [
+        "役夫數百千人，朕所用幾何？",
+        "自今差役凡稱御前者，皆須稟奏，仍令附冊。"
+      ],
+      "unknown": [
+        "数百千人的准确计量口径和新制执行情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "IMPERIAL-CORVEE-AUTHORIZATION",
+        "summary": "世宗因采蕈滥役建立御前差役奏批登记制。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-GRAIN-MARKET-RELIEF-1169",
+      "time": [
+        "大定九年正月",
+        "大定九年三月",
+        "range"
+      ],
+      "subject": "金世宗与州县粮政、受灾民户",
+      "action": "世宗禁止州县和籴强行摊派，因中都等路水灾免税、曹单二州给复一年，并向大名猛安饥民开仓减价售粮。",
+      "result": "灾区获免税和低价官粮，民户免受强制和籴。",
+      "cost": "曹单给复一年并减价出仓粮；数量和财政差额未载。",
+      "groups": [
+        "中都等路水灾民户",
+        "曹单二州民户",
+        "大名猛安饥民"
+      ],
+      "quote": [
+        "詔諸州縣和糴，毋得抑配百姓。",
+        "以中都等路水，免稅",
+        "曹、單二州被水尤甚，給複一年。",
+        "發倉廩減價出之。"
+      ],
+      "unknown": [
+        "受灾户数、出仓粮量和减价幅度未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "FLOOD-RELIEF-AND-GRAIN-MARKET-PROTECTION",
+        "summary": "世宗禁强制和籴并以免税、给复和减价粮救水旱饥民。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-PEARL-TRIBUTE-ABOLITION-1168-1171",
+      "time": [
+        "大定八年十月",
+        "大定十一年六月",
+        "range"
+      ],
+      "subject": "金世宗与东北采贡、同州民户",
+      "action": "世宗先罢复州岁贡鹿筋，继而撤东北路采珠，后又罢同州沙苑羊常贡。",
+      "result": "鹿筋、珍珠和沙苑羊等非急需贡采被陆续取消。",
+      "groups": [
+        "复州贡户",
+        "东北采珠民",
+        "同州沙苑羊贡户"
+      ],
+      "quote": [
+        "詔罷複州歲貢鹿筋。",
+        "罷東北路采珠。",
+        "同州沙苑羊非急用，徒勞民爾，自今罷之。"
+      ],
+      "unknown": [
+        "原贡额、役民人数和减轻负担总值未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NONESSENTIAL-TRIBUTE-ABOLITION",
+        "summary": "世宗陆续罢鹿筋、采珠与沙苑羊等非急贡役。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-MULTIREGION-RELIEF-1169-1171",
+      "time": [
+        "大定九年十二月",
+        "大定十一年正月",
+        "range"
+      ],
+      "subject": "金世宗与临潢、泰州、山东、河北及南京屯田军户",
+      "action": "朝廷赈临潢、泰州、山东东路和河北东路猛安民，次年免雄莫等州租，又赈南京屯田猛安水灾户。",
+      "result": "北方多路军民在灾荒中获得赈济和租税减免。",
+      "groups": [
+        "多路猛安民",
+        "雄莫等州民户",
+        "南京屯田猛安灾户"
+      ],
+      "quote": [
+        "詔賑臨潢、泰州、山東東路，河北東路諸猛安民。",
+        "詔免雄、莫等州今年租。",
+        "命賑南京屯田猛安被水災者。"
+      ],
+      "unknown": [
+        "赈粮物数量、受益人数和灾情损失未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MULTIREGION-DISASTER-RELIEF",
+        "summary": "世宗赈济北方多路猛安与南京屯田水灾户。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-RETIREMENT-HALF-PAY-1171",
+      "time": [
+        "大定十一年正月",
+        "大定十一年正月",
+        "month"
+      ],
+      "subject": "金世宗与七十岁以上致仕官员",
+      "action": "世宗规定职官年满七十致仕者不论品级，一律给俸禄一半。",
+      "result": "七十岁致仕官形成跨品级半俸保障。",
+      "cost": "持续支付半俸；适用人数与总额未载。",
+      "quote": [
+        "職官年七十以上致仕者，不拘官品，並給俸祿之半。"
+      ],
+      "unknown": [
+        "支付期限、资金来源和实际领取人数未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "RETIREMENT-HALF-PAY",
+        "summary": "世宗为七十岁以上致仕官统一给半俸。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-WOGUA-CAPTIVE-REDEMPTION-1171",
+      "time": [
+        "大定十一年八月",
+        "大定十一年八月",
+        "month"
+      ],
+      "subject": "金世宗与窝斡乱中被掠人口",
+      "action": "世宗命官府赎放尚未刷放的女直及诸色被掠者，禁止隐匿；年幼不能说明籍贯者可从便居住。",
+      "result": "窝斡乱后遗留被掠人口获得官赎、释放和安置规则。",
+      "cost": "赎放由官府承担，人数和赎价未载。",
+      "groups": [
+        "被掠女直人",
+        "被掠诸色人",
+        "不能说明籍贯的幼者"
+      ],
+      "quote": [
+        "應因窩斡被掠女直及諸色人未經刷放者，官為贖放。",
+        "其年幼不能稱說住貫者，從便住坐。"
+      ],
+      "unknown": [
+        "获赎人数、隐匿查处数量和安置地点未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POSTWAR-CAPTIVE-REDEMPTION",
+        "summary": "世宗官赎窝斡乱中遗留被掠人口并安排幼者居住。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-JIN-V06-GORYEO-USURPATION-INQUIRY-1171",
+      "time": [
+        "大定十一年四月",
+        "大定十一年五月",
+        "range"
+      ],
+      "subject": "金世宗、高丽王弟皓与高丽国",
+      "action": "高丽王弟皓废王自立并诈称让国上表，世宗未直接接受，遣吏部侍郎靖赴高丽问明缘故。",
+      "result": "金朝对高丽王位更替启动事实核查，未在本卷直接确认其合法性。",
+      "quote": [
+        "高麗國王晛弟皓，廢其主自立，詐稱讓國，遣使以表來上。",
+        "詔遣吏部侍郎靖使高麗問故。"
+      ],
+      "unknown": [
+        "使者调查结果及金朝最终册封决定未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "FOREIGN-SUCCESSION-INQUIRY",
+        "summary": "世宗对高丽废立事件遣使核实而不直接承认。",
+        "continuity": "continued_across_reigns"
+      }
+    },
+    {
+      "id": "CHF-JIN-V06-FATONG-UPRISING-1163",
+      "time": [
+        "大定三年二月",
+        "大定三年二月",
+        "month"
+      ],
+      "subject": "东京僧法通乱众与金都统府",
+      "action": "东京僧法通以妖术聚众作乱，都统府出兵讨平。",
+      "result": "法通乱众被平定。",
+      "cost": "参战人数与伤亡未载。",
+      "groups": [
+        "东京居民",
+        "都统府军"
+      ],
+      "quote": [
+        "東京僧法通以妖術亂眾，都統府討平之。"
+      ],
+      "unknown": [
+        "乱众规模、战斗过程与处置人数未载。"
+      ],
+      "battle": "CAMPAIGN-JIN-FATONG-UPRISING-1163",
+      "domains": [
+        "political_event"
+      ]
+    }
+  ],
+  "limitations": [
+    "本卷为14752字固定正文一次连续人工通读后的紧凑shadow登记。",
+    "同一战争、救济、节用和监督政策按目标结果链合并，普通任免、贡聘、巡猎与祥异不单列。",
+    "战役仅纳入明载武装行动；谋反伏诛但无战斗过程者不交battle。",
+    "卷7尚未读取，世宗大定十二年以后的政策结果不反填。"
+  ]
+}

@@ -1,0 +1,381 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "chronicle-multidomain-registry-v1",
+  "status": "shadow",
+  "task_code": "SOUTHERN-SONG-CHRONICLE-127",
+  "source_scope": {
+    "work": "續資治通鑑",
+    "volume_ref": "卷127",
+    "revision_ref": "2310267",
+    "start_locator": "紹興十五年正月初行大朝會與兩浙經界",
+    "end_locator": "紹興十七年十二月鄭剛中再貶與金廷人事",
+    "overlap_context": "承卷126教育礼制、灾赈与川陕路制，续记经界税役、福建平盗、礼制营建与中枢处分。",
+    "input_fingerprint": "6fa99ed1319cf0a22ce57fc761438979045d3ea79289b41ee2f014fe6850346f"
+  },
+  "limitations": [
+    "固定页面跨紹興十五年正月至紹興十七年十二月；未讀卷128。",
+    "战役仅交接专门工作流。"
+  ],
+  "events": [
+    {
+      "id": "CHF-XZZTJ-127-GRAND-COURT-AUDIENCE-1145",
+      "time": "紹興十五年正月",
+      "loc": ["大慶殿"],
+      "action": "朝廷恢复建炎以来久废的正旦大朝会，并因殿狭裁减仪仗。",
+      "result": "太后还宫后，行在大朝会礼重新举行。",
+      "quote": ["初行大朝會禮於大慶殿", "視東都舊儀損三之一", "言者以為請，乃講行焉"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-GRAND-COURT-AUDIENCE-1145","candidate":"POL-CAND-127-GRAND-COURT-AUDIENCE-1145","summary":"行在大朝会礼重新举行。","operation":"implemented","continuity":"single_event","observations":{"event_type":"朝会礼制。","decision_question":"是否恢复大朝会。","alternatives":"未载。","decision":"恢复并裁减仪仗。","direct_result":"大朝会重新举行。","power_change":"未载。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-EXAM-TRACKS-1145",
+      "time": "紹興十五年正月",
+      "loc": [],
+      "action": "朝廷将经义与诗赋分为两科取士。",
+      "result": "科举取士形成经义、诗赋两条考试路径。",
+      "quote": ["分經義、詩賦為二科以取士"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-EXAM-TRACKS-1145","candidate":"POL-CAND-127-EXAM-TRACKS-1145","summary":"科举取士分为经义、诗赋两科。","operation":"implemented","continuity":"single_event","observations":{"event_type":"科举制度。","decision_question":"经义与诗赋如何取士。","alternatives":"合科取士。","decision":"分为两科。","direct_result":"形成两条考试路径。","power_change":"未载。","risk_or_damage":"未载。","follow_up":"绍兴十六年再议两科比例。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ACADEMY-ENROLLMENT-1145",
+      "time": "紹興十五年二月至八月",
+      "loc": ["國學", "太學"],
+      "action": "朝廷两次扩充国学、太学员额，并设置上舍三十人、内舍百人。",
+      "result": "国学弟子额先增至七百，太学随后再增二百人。",
+      "quote": ["通舊以七百人為額", "尋命置上舍三十人，內舍百人", "增太學弟子員二百人"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-ACADEMY-ENROLLMENT-1145","candidate":"POL-CAND-127-ACADEMY-ENROLLMENT-1145","summary":"国学、太学员额及舍级扩充。","operation":"implemented","continuity":"continued_within_reign","observations":{"event_type":"学校员额制度。","decision_question":"生员规模与舍级。","alternatives":"维持旧额。","decision":"增额并置上内舍。","direct_result":"国学与太学规模扩大。","power_change":"未载。","risk_or_damage":"未载。","follow_up":"绍兴十六年外舍生增至千人。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-LIANGZHE-LAND-REGISTER-1145",
+      "time": "紹興十五年正月",
+      "loc": ["兩浙"],
+      "action": "王鈇主持两浙经界，以十户为甲互相纠合，清理诡名侵佃并建立定税簿籍。",
+      "result": "隐田既往不问，差役与田税改按新籍核定。",
+      "quote": ["命權戶部侍郎王鈇措置兩浙經界", "使差有常籍，田有定稅", "十戶為一甲，令遞相糾合", "積年所隱，一切不問"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-LIANGZHE-LAND-REGISTER-1145","candidate":"FIN-CAND-127-LIANGZHE-LAND-REGISTER-1145","summary":"两浙差役与田税改按经界新籍核定。","operation":"implemented","continuity":"continued_within_reign","observations":{"baseline":"诡名挟户、侵耕冒佃。","fiscal_state":"建立定税与差役常籍。","livelihood_state":"既往隐田不追问。","production_circulation":"土地占佃清查。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-MONASTIC-POLL-TAX-1145",
+      "time": "紹興十五年正月",
+      "loc": ["諸路"],
+      "action": "朝廷命僧道按身份九等缴纳免丁钱。",
+      "result": "僧道免役负担形成分级定额。",
+      "quote": ["初命諸路僧道士納免丁錢", "至十五千，凡九等"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-MONASTIC-POLL-TAX-1145","candidate":"FIN-CAND-127-MONASTIC-POLL-TAX-1145","summary":"僧道免役负担形成分级定额。","operation":"implemented","continuity":"single_event","observations":{"baseline":"僧道不纳役钱。","fiscal_state":"按九等纳免丁钱。","livelihood_state":"未载。","production_circulation":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-COMET-RELIEF-JUSTICE-1145",
+      "time": "紹興十五年四月",
+      "loc": ["諸路"],
+      "action": "彗星出现后，高宗避殿减膳、宽民力、清滞狱，并命监司郡守落实裕民事项。",
+      "result": "星变应对从宫廷自抑延伸到地方司法与民生措施。",
+      "quote": ["避殿，減膳，寬民力，出滯獄", "憲臣巡行，親決獄事", "務要必行，以施實德"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-COMET-RELIEF-JUSTICE-1145","candidate":"POL-CAND-127-COMET-RELIEF-JUSTICE-1145","summary":"星变应对延伸到地方司法与民生措施。","operation":"ordered","continuity":"single_event","observations":{"event_type":"灾异应对。","decision_question":"如何消弭星变。","alternatives":"未载。","decision":"自抑并宽民清狱。","direct_result":"地方奉命落实裕民和决狱。","power_change":"监司郡守承担执行。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-BAI-CHANG-REFUSAL-1145",
+      "time": "紹興十五年五月",
+      "loc": ["潭州", "德順"],
+      "action": "金人索取在南将士时，白常拒绝北返与受金官，遭系押仍不屈。",
+      "result": "白常保留宋官身份，未为金效力。",
+      "quote": ["丈夫死則死耳，不能為反覆士", "後欲強官之，竟托疾以免", "械系久之，常不屈而止"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-BAI-CHANG-REFUSAL-1145","candidate":"POL-CAND-127-BAI-CHANG-REFUSAL-1145","summary":"白常拒绝北返与受金官。","operation":"completed","continuity":"single_event","observations":{"event_type":"边境人员交还。","decision_question":"白常是否北返受官。","alternatives":"北返效金。","decision":"拒绝。","direct_result":"未为金效力。","power_change":"未载。","risk_or_damage":"遭系押。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-CHEN-KANGBO-RITUAL-DISPUTE-1145",
+      "time": "紹興十五年五月",
+      "loc": ["洪澤", "泉州"],
+      "action": "陈康伯拒绝金使要求接伴使共同北面拜受端午赐物，金使指其怠慢，朝廷遂将陈康伯外放。",
+      "result": "宋方守住当次礼仪旧制，但接伴官因睦邻压力受处分。",
+      "quote": ["康伯以舊制卻之", "後為例，不復可改", "乃出康伯知泉州"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-CHEN-KANGBO-RITUAL-DISPUTE-1145","candidate":"POL-CAND-127-CHEN-KANGBO-RITUAL-DISPUTE-1145","summary":"拒绝金使礼仪要求的接伴官被外放。","operation":"implemented","continuity":"single_event","observations":{"event_type":"外交礼仪争议。","decision_question":"是否随金使北面拜受。","alternatives":"曲从金使。","decision":"依旧制拒绝。","direct_result":"当次未改礼，但陈康伯被外放。","power_change":"未载。","risk_or_damage":"形成外交压力。","follow_up":"钱愷亦降官。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-TAX-RELIEF-1145",
+      "time": "紹興十五年七月至九月",
+      "loc": ["廬州", "光州", "和州"],
+      "action": "朝廷展免庐、光上供钱米及和州夏税，并主张免除牛、米、柴、面等不当税目。",
+      "result": "部分州县税负延期，商贩流通与民力获得减负。",
+      "quote": ["詔廬、光州上供錢米展一年", "不當稅者其眾，如牛、米、柴、面之類", "知和州劉將乞展免夏稅一年"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-TAX-RELIEF-1145","candidate":"FIN-CAND-127-TAX-RELIEF-1145","summary":"部分州县税负延期并提出免除不当税目。","operation":"implemented","continuity":"continued_within_reign","observations":{"baseline":"上供、夏税及货物税。","fiscal_state":"延期或免征。","livelihood_state":"宽民力并促商贩流通。","production_circulation":"米粮等跨区贩运。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-CHANGPING-RESTORATION-1145",
+      "time": "紹興十五年九月",
+      "loc": ["諸路"],
+      "action": "朝廷恢复诸路常平提举职能，并与茶盐事务合署。",
+      "result": "常平钱谷敛散重新由专司负责。",
+      "quote": ["請復置諸路提舉官", "提舉茶鹽常平公事", "川、廣以憲臣兼領"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-CHANGPING-RESTORATION-1145","candidate":"FIN-CAND-127-CHANGPING-RESTORATION-1145","summary":"常平钱谷敛散重新由专司负责。","operation":"implemented","continuity":"continued_within_reign","observations":{"baseline":"常平职能分隶多司。","fiscal_state":"恢复专司。","livelihood_state":"未载。","production_circulation":"钱谷敛散。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-FUJIAN-BANDIT-SUPPRESSION-1145",
+      "time": "紹興十五年九月至十二月",
+      "loc": ["福建", "汀州", "漳州"],
+      "action": "福建以本地家丁组成奇兵，按日给钱米，取代不习山险的官军追捕管天下等土寇。",
+      "result": "奇兵每年耗钱三万六千缗、米九千石，福建土寇遂平。",
+      "quote": ["官軍不習山險，多染癉癘", "與漕司合奏，號奇兵", "歲費三萬六千緡，米九千石", "而土寇遂平"],
+      "unknown": [],
+      "battle": "CAMPAIGN-127-FUJIAN-BANDIT-SUPPRESSION-1145"
+    },
+    {
+      "id": "CHF-XZZTJ-127-WANG-DE-REMOVAL-1145",
+      "time": "紹興十五年十二月",
+      "loc": ["建康府", "浙東"],
+      "action": "张俊与秦桧共同施压后，朝廷罢王德建康都统职，以王权代之。",
+      "result": "建康御前军主帅易人，王德改任浙东总管。",
+      "quote": ["左僕射秦檜亦忌其勇", "罷德為浙東總管", "以統制官王權代之"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-WANG-DE-REMOVAL-1145","candidate":"POL-CAND-127-WANG-DE-REMOVAL-1145","summary":"建康御前军主帅易人。","operation":"implemented","continuity":"single_event","observations":{"event_type":"军政人事。","decision_question":"王德去留。","alternatives":"未载。","decision":"罢都统改总管。","direct_result":"王权接掌建康军。","power_change":"御前军主帅更替。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-WANG-SHIXIN-SURPLUS-1145",
+      "time": "紹興十五年十二月",
+      "loc": ["袁州"],
+      "action": "王师心拒绝把州库羡余献朝，改为替各县百姓缴纳逋租。",
+      "result": "地方羡余直接用于清偿民欠。",
+      "quote": ["盍獻諸朝。師心不聽", "悉為代輸之"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-WANG-SHIXIN-SURPLUS-1145","candidate":"FIN-CAND-127-WANG-SHIXIN-SURPLUS-1145","summary":"袁州羡余用于替民清偿逋租。","operation":"implemented","continuity":"single_event","observations":{"baseline":"监司郡守献羡余求进。","fiscal_state":"羡余不献朝。","livelihood_state":"代缴百姓逋租。","production_circulation":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ZHONG-DING-DETENTION-1145",
+      "time": "紹興十五年十二月",
+      "loc": ["福州", "永福"],
+      "action": "钟鼎为邵宏渊申诉后触怒秦桧，秦桧创设听读名目将其羁留郡学。",
+      "result": "上书申诉者被行政羁留，薛弼因准其移居又遭降秩。",
+      "quote": ["始創聽讀之名", "羈鼎於福之郡學", "弼自劾，降一秩"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-ZHONG-DING-DETENTION-1145","candidate":"POL-CAND-127-ZHONG-DING-DETENTION-1145","summary":"钟鼎因申诉被以听读名目羁留。","operation":"implemented","continuity":"single_event","observations":{"event_type":"申诉处分。","decision_question":"如何处置钟鼎上书。","alternatives":"未载。","decision":"以听读羁留。","direct_result":"钟鼎失去自由。","power_change":"创设行政羁留名目。","risk_or_damage":"薛弼亦降秩。","follow_up":"钟鼎再诣阙。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-MILITARY-ACADEMY-1146",
+      "time": "紹興十六年三月至四月",
+      "loc": ["武學"],
+      "action": "朝廷兴建武学并制定武士弓马、程文考试和去留等级。",
+      "result": "武学获得校舍筹建与射艺准入标准。",
+      "quote": ["詔有司建武學", "兵部上武士弓馬及選試去留格", "即不許試程文"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-MILITARY-ACADEMY-1146","candidate":"WORK-CAND-127-MILITARY-ACADEMY-1146","summary":"武学获得校舍筹建与射艺准入标准。","operation":"implemented","continuity":"continued_within_reign","observations":{"work_identity":"武学校舍与制度。","phase":"考卜筹建。","purpose":"培养武士。","resource_input":"未载。","operation":"弓马与程文考试。","benefit":"维持武选人才。","harm":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ANCESTRAL-TEMPLE-EXPANSION-1146",
+      "time": "紹興十六年三月",
+      "loc": ["太廟"],
+      "action": "因新祭器无处陈列，朝廷增建太庙正殿、夹室、神门、册宝殿和祭器库。",
+      "result": "太庙获得容纳十一室与礼器的扩建格局。",
+      "quote": ["時新祭器將成，而太廟殿室狹", "正殿從西增六間", "又作西神門，冊寶殿，祭器庫"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-ANCESTRAL-TEMPLE-EXPANSION-1146","candidate":"WORK-CAND-127-ANCESTRAL-TEMPLE-EXPANSION-1146","summary":"太庙扩建以容纳神室与新祭器。","operation":"implemented","continuity":"single_event","observations":{"work_identity":"太庙扩建。","phase":"增建。","purpose":"陈列祭器与设置神室。","resource_input":"未载。","operation":"增殿建库。","benefit":"容纳礼器。","harm":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-MILITARY-FARM-ASSESSMENT-1146",
+      "time": "紹興十六年三月",
+      "loc": ["淮東", "江東", "兩浙", "湖北"],
+      "action": "工部按历史课利为额，为诸县营田建立年度增收奖励与最亏县惩罚标准。",
+      "result": "县级营田收益被纳入量化赏罚。",
+      "quote": ["歲較營田賞罰格", "取二分賞之", "仍以最虧一縣為罰"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-MILITARY-FARM-ASSESSMENT-1146","candidate":"FIN-CAND-127-MILITARY-FARM-ASSESSMENT-1146","summary":"县级营田收益纳入年度量化赏罚。","operation":"implemented","continuity":"continued_within_reign","observations":{"baseline":"各县营田课利。","fiscal_state":"按增亏赏罚。","livelihood_state":"未载。","production_circulation":"营田生产。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-JING-BELL-RITUAL-VESSELS-1146",
+      "time": "紹興十六年五月至十月",
+      "loc": ["射殿"],
+      "action": "朝廷铸造景钟并完成新礼器、新乐，按皇祐故事在射殿展示演奏。",
+      "result": "郊祀礼器与宫廷乐制获得实体配置。",
+      "quote": ["詔作景鐘。鐘高九尺", "天子親祠上帝則用之", "丁酉朔，新禮器成", "撞景鐘，奏新樂"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-JING-BELL-RITUAL-VESSELS-1146","candidate":"WORK-CAND-127-JING-BELL-RITUAL-VESSELS-1146","summary":"景钟、新礼器与新乐完成。","operation":"completed","continuity":"continued_within_reign","observations":{"work_identity":"景钟与礼器。","phase":"铸造完成。","purpose":"亲祀上帝与礼乐展示。","resource_input":"未载。","operation":"射殿展示演奏。","benefit":"完备郊祀礼乐。","harm":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-YUWEN-GAO-JUDICIAL-KILLING-1146",
+      "time": "紹興十六年五月至六月",
+      "loc": ["金"],
+      "action": "金廷在谋反指控无实据后，以家藏图籍罗织宇文虚中、高士谈入罪并杀害。",
+      "result": "二人因伪造的反具证据被处死，金人以为冤。",
+      "quote": ["詔有司鞫治，無狀", "乃羅織虛中家圖籍為反具", "殺虛中及士談，金人冤之"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-YUWEN-GAO-JUDICIAL-KILLING-1146","candidate":"POL-CAND-127-YUWEN-GAO-JUDICIAL-KILLING-1146","summary":"宇文虚中、高士谈被罗织入罪并杀害。","operation":"completed","continuity":"single_event","observations":{"event_type":"司法杀戮。","decision_question":"谋反指控如何处理。","alternatives":"无状释放。","decision":"罗织图籍为反具。","direct_result":"二人被杀。","power_change":"未载。","risk_or_damage":"造成冤案。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ILLEGAL-TORTURE-BAN-1146",
+      "time": "紹興十六年六月",
+      "loc": ["仁和", "錢塘", "諸路"],
+      "action": "朝廷禁止刑狱使用浮匣、命绳等非法刑具，并规定违者抵罪。",
+      "result": "地方刑狱非法刑具被明令禁用。",
+      "quote": ["不得為非法之具", "違者抵罪，詔刑部禁止"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-ILLEGAL-TORTURE-BAN-1146","candidate":"POL-CAND-127-ILLEGAL-TORTURE-BAN-1146","summary":"地方刑狱非法刑具被明令禁用。","operation":"implemented","continuity":"single_event","observations":{"event_type":"刑狱法制。","decision_question":"非法刑具如何处置。","alternatives":"沿用地方刑具。","decision":"禁止并追究违者。","direct_result":"浮匣、命绳等被禁。","power_change":"刑部负责禁止。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-LINAN-MEDICAL-PATROL-1146",
+      "time": "紹興十六年六月至秋",
+      "loc": ["臨安"],
+      "action": "朝廷分派医官巡行临安为患者诊疗，持续至秋。",
+      "result": "城市巡回医疗随后成为惯例。",
+      "quote": ["分遣醫官循行臨安", "療病者，至秋乃止。後以為例"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-LINAN-MEDICAL-PATROL-1146","candidate":"FIN-CAND-127-LINAN-MEDICAL-PATROL-1146","summary":"临安巡回医疗实施并成为惯例。","operation":"implemented","continuity":"continued_within_reign","observations":{"baseline":"城市病患诊疗需求。","fiscal_state":"未载。","livelihood_state":"医官巡诊病者。","production_circulation":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-DELAYED-LITIGATION-AUDIT-1146",
+      "time": "紹興十六年六月",
+      "loc": ["諸路"],
+      "action": "朝廷命诸部每季检举监司州县淹留词讼之弊，并弹劾情节严重者。",
+      "result": "地方积案被纳入季度监督。",
+      "quote": ["監司州縣淹留詞斥之弊", "請令諸部每季檢舉", "劾其尤者，從之"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-DELAYED-LITIGATION-AUDIT-1146","candidate":"POL-CAND-127-DELAYED-LITIGATION-AUDIT-1146","summary":"地方积案纳入季度监督与弹劾。","operation":"implemented","continuity":"continued_within_reign","observations":{"event_type":"司法监督。","decision_question":"如何治理淹滞诉讼。","alternatives":"未载。","decision":"每季检举并劾尤者。","direct_result":"形成季度监督。","power_change":"诸部承担检举。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ZHANG-JUN-EXILE-1146",
+      "time": "紹興十六年七月",
+      "loc": ["連州"],
+      "action": "张浚上疏警告国政危机后，秦桧推动言官以占田喜乱等罪名将其削职安置连州。",
+      "result": "张浚因反对和议与批评时政再遭远贬。",
+      "quote": ["秦檜見之，大怒", "望賜降黜，以為臣子喜亂徇私之戒", "提舉江州太平觀，連州居住"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-ZHANG-JUN-EXILE-1146","candidate":"POL-CAND-127-ZHANG-JUN-EXILE-1146","summary":"张浚因批评时政再遭远贬。","operation":"implemented","continuity":"single_event","observations":{"event_type":"言论与官员处分。","decision_question":"如何处置张浚上疏。","alternatives":"采纳警告。","decision":"削职安置连州。","direct_result":"张浚远贬。","power_change":"未载。","risk_or_damage":"异议受压制。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-BOOK-COLLECTION-PROGRAM-1146",
+      "time": "紹興十六年七月至八月",
+      "loc": ["秘閣", "西蜀"],
+      "action": "朝廷制定献书转官、免解或给直的赏格，并命西蜀各路访求遗书。",
+      "result": "国家藏书征集建立奖励办法并扩展到西蜀。",
+      "quote": ["立定獻書賞格", "願給直者聽", "詔訪遺書於西蜀"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-BOOK-COLLECTION-PROGRAM-1146","candidate":"WORK-CAND-127-BOOK-COLLECTION-PROGRAM-1146","summary":"国家藏书征集建立奖励并扩展到西蜀。","operation":"implemented","continuity":"continued_within_reign","observations":{"work_identity":"国家藏书征集。","phase":"制度化。","purpose":"补充秘阁阙书。","resource_input":"转官、免解或给直。","operation":"监司守臣访求。","benefit":"扩大典籍收藏。","harm":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-JIN-MONGOL-PEACE-1146",
+      "time": "紹興十六年八月至紹興十七年三月",
+      "loc": ["西平河", "蒙古"],
+      "action": "金军连年不能克蒙古后议和，割让西平河以北二十七团寨并岁给物资。",
+      "result": "绍兴十七年金蒙始和，金军退守要害。",
+      "quote": ["割西平河以北二十七團寨與之", "且冊其長為蒙古國，蒙古不受", "金人與蒙古始和", "但遣精兵分據要害而還"],
+      "unknown": ["蒙古在绍兴十六年拒绝册封后，次年和议具体修订条款未载。"],
+      "battle": "CAMPAIGN-127-JIN-MONGOL-PEACE-1146"
+    },
+    {
+      "id": "CHF-XZZTJ-127-EXACTION-SURPLUS-RESTRAINT-1147",
+      "time": "紹興十七年正月至九月",
+      "loc": ["諸路", "臨安"],
+      "action": "高宗禁止监司郡守刻削进献羡余，并主张以各州羡余抵减月桩钱和减少行在征取频次。",
+      "result": "羡余与月桩等额外科敛被纳入监察和减免安排。",
+      "quote": ["致或刻削苛細，進獻羨餘", "部內犯而失按，必與並坐", "計諸州羨餘以減月樁錢", "今則月一取之"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-EXACTION-SURPLUS-RESTRAINT-1147","candidate":"FIN-CAND-127-EXACTION-SURPLUS-RESTRAINT-1147","summary":"羡余与月桩等额外科敛被监察并谋求减免。","operation":"ordered","continuity":"continued_within_reign","observations":{"baseline":"地方刻削、进献羡余与月桩科敛。","fiscal_state":"以羡余减月桩并降低征取频次。","livelihood_state":"宽减下户负担。","production_circulation":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-TRANSIT-TAX-RELIEF-1147",
+      "time": "紹興十七年正月",
+      "loc": [],
+      "action": "朝廷免除免税米沿途力胜钱，并裁减其他税目、主张免薪面税。",
+      "result": "米粮薪面流通税负下降，以求平抑物价。",
+      "quote": ["所過尚收力勝錢，其除之", "薪面亦宜免稅", "更平物價，則小民不致失所"],
+      "unknown": [],
+      "closure": {"domain":"fiscal_livelihood","thread":"FIN-THREAD-127-TRANSIT-TAX-RELIEF-1147","candidate":"FIN-CAND-127-TRANSIT-TAX-RELIEF-1147","summary":"米粮薪面流通税负下降。","operation":"implemented","continuity":"single_event","observations":{"baseline":"免税米仍收力胜钱。","fiscal_state":"免除并裁减相关税。","livelihood_state":"平价保民。","production_circulation":"商旅和粮薪流通。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-PALACE-BARRACKS-REBUILD-1147",
+      "time": "紹興十七年二月",
+      "loc": ["殿前司寨"],
+      "action": "因南渡初军营茅顶屡发火灾，朝廷将殿前司寨改建为瓦屋。",
+      "result": "殿前军营以瓦屋降低火患。",
+      "quote": ["改造殿前司寨為瓦屋", "諸營皆覆茅", "南渡初，諸營皆覆茅，焮火屢驚"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-PALACE-BARRACKS-REBUILD-1147","candidate":"WORK-CAND-127-PALACE-BARRACKS-REBUILD-1147","summary":"殿前军营改建瓦屋以降低火患。","operation":"implemented","continuity":"single_event","observations":{"work_identity":"殿前司营房。","phase":"改建。","purpose":"防火。","resource_input":"未载。","operation":"茅顶改瓦屋。","benefit":"降低火灾风险。","harm":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-NIU-GAO-DEATH-1147",
+      "time": "紹興十七年三月",
+      "loc": ["鄂州"],
+      "action": "牛皋在田师中大会诸将后中毒身亡，时人怀疑秦桧密令下毒。",
+      "result": "御前左军统制牛皋死亡。",
+      "quote": ["皋遇毒而歸", "或謂秦檜密令師中毒之", "聞者莫不歎恨"],
+      "unknown": ["下毒指使者仅为时人传闻，未能确认。"],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-NIU-GAO-DEATH-1147","candidate":"POL-CAND-127-NIU-GAO-DEATH-1147","summary":"牛皋中毒身亡，指使者未能确认。","operation":"completed","continuity":"single_event","observations":{"event_type":"军将非正常死亡。","decision_question":"未载。","alternatives":"未载。","decision":"未载。","direct_result":"牛皋死亡。","power_change":"御前左军失去统制。","risk_or_damage":"将领死亡。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ZHAO-DING-DEATH-1147",
+      "time": "紹興十七年四月至八月",
+      "loc": ["吉陽軍"],
+      "action": "朝廷规定赵鼎遇赦永不检举，秦桧又令地方逐月申报其存亡，赵鼎遂绝食而死。",
+      "result": "赵鼎在长期隔绝和监控中死亡。",
+      "quote": ["遇赦永不檢舉", "月具鼎存亡申尚書省", "乃不食而卒"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-ZHAO-DING-DEATH-1147","candidate":"POL-CAND-127-ZHAO-DING-DEATH-1147","summary":"赵鼎在长期隔绝和监控中绝食死亡。","operation":"completed","continuity":"continued_within_reign","observations":{"event_type":"贬谪迫害。","decision_question":"赵鼎赦免与监控。","alternatives":"遇赦检举。","decision":"永不检举并月报存亡。","direct_result":"赵鼎绝食死亡。","power_change":"未载。","risk_or_damage":"人身死亡。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-HONG-HAO-EXILE-1147",
+      "time": "紹興十七年五月",
+      "loc": ["英州"],
+      "action": "洪皓被余尧弼以造飞语、动摇国是弹劾，削为团练副使并安置英州。",
+      "result": "洪皓在服丧后再次遭远谪。",
+      "quote": ["幾以動搖國是，請竄遐裔", "責授濠州團練副使，英州安置"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-HONG-HAO-EXILE-1147","candidate":"POL-CAND-127-HONG-HAO-EXILE-1147","summary":"洪皓服丧后再次遭远谪。","operation":"implemented","continuity":"continued_within_reign","observations":{"event_type":"官员处分。","decision_question":"如何处置洪皓。","alternatives":"未载。","decision":"削官安置英州。","direct_result":"洪皓远谪。","power_change":"未载。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-WEST-LAKE-RIVERBANK-1147",
+      "time": "紹興十七年六月",
+      "loc": ["臨安", "西湖", "沿江"],
+      "action": "高宗禁止将西湖扑买种菱藕并以粪秽灌沃，同时催修沿江石岸。",
+      "result": "行在饮水源与江岸防冲损工程获得保护和修缮命令。",
+      "quote": ["臨安居民皆汲西湖", "尤非所宜，可禁止之", "沿江石岸，令速修之", "遲則沖損害民"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-WEST-LAKE-RIVERBANK-1147","candidate":"WORK-CAND-127-WEST-LAKE-RIVERBANK-1147","summary":"西湖水源受保护，沿江石岸奉命速修。","operation":"ordered","continuity":"single_event","observations":{"work_identity":"西湖水源与沿江石岸。","phase":"保护与修缮。","purpose":"保障饮水祭祀并防冲损。","resource_input":"未载。","operation":"禁种污水并速修石岸。","benefit":"避免污染和害民。","harm":"迟修将倍费。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-MOURNING-EVASION-LAW-1147",
+      "time": "紹興十七年七月",
+      "loc": [],
+      "action": "朝廷规定应解官守丧者若窜名军籍规避服丧，处徒三年，知情申报起复者连坐。",
+      "result": "借军籍逃避守丧被纳入明确刑罚。",
+      "quote": ["諸遭喪應解官，而臨時竄名軍中，規免執喪者，徒三年", "所屬知情而為申請起復者，減二等"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-MOURNING-EVASION-LAW-1147","candidate":"POL-CAND-127-MOURNING-EVASION-LAW-1147","summary":"借军籍逃避守丧被纳入刑罚。","operation":"implemented","continuity":"single_event","observations":{"event_type":"服丧法制。","decision_question":"如何惩治规避守丧。","alternatives":"未载。","decision":"本人徒三年，知情者减二等。","direct_result":"形成明确刑罚。","power_change":"所属机关承担连带责任。","risk_or_damage":"未载。","follow_up":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-ZHENG-GANGZHONG-REMOVAL-1147",
+      "time": "紹興十七年九月至十二月",
+      "loc": ["四川", "鄂州", "桂陽監"],
+      "action": "余尧弼等弹劾郑刚中合并军政财权、妄用官钱和败坏军政，朝廷先罢宣抚副使、收缴军实，后削职安置桂阳。",
+      "result": "四川军政与财赋控制从郑刚中手中分离，其随行军实被接收。",
+      "quote": ["制軍、制食通而為一", "資政殿學士、四川宣撫副使鄭剛中罷", "其隨行軍實，令湖廣總領所交割", "桂陽臨居住"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-ZHENG-GANGZHONG-REMOVAL-1147","candidate":"POL-CAND-127-ZHENG-GANGZHONG-REMOVAL-1147","summary":"郑刚中被罢，四川军政财赋权力重新分离。","operation":"implemented","continuity":"continued_within_reign","observations":{"event_type":"川蜀军政整肃。","decision_question":"郑刚中权力与军实如何处置。","alternatives":"维持宣抚权力。","decision":"罢职、收军实并远置。","direct_result":"军政财赋控制分离。","power_change":"郑刚中失去川蜀权力。","risk_or_damage":"未载。","follow_up":"十二月再削职。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-TAIYI-PALACE-1147",
+      "time": "紹興十七年十月",
+      "loc": ["行在"],
+      "action": "朝廷结束在惠照僧舍祭祀十神太一的临时安排，兴建太一宫。",
+      "result": "太一祭祀获得专门宫观。",
+      "quote": ["詔建太一宮於行在", "歲祀十神太一于惠照僧舍", "言者以為未稱欽崇之意，乃作宮焉"],
+      "unknown": [],
+      "closure": {"domain":"public_works","thread":"WORK-THREAD-127-TAIYI-PALACE-1147","candidate":"WORK-CAND-127-TAIYI-PALACE-1147","summary":"太一祭祀获得专门宫观。","operation":"implemented","continuity":"single_event","observations":{"work_identity":"太一宫。","phase":"兴建。","purpose":"祭祀十神太一。","resource_input":"未载。","operation":"取代僧舍临时祭所。","benefit":"礼制场所专门化。","harm":"未载。"}}
+    },
+    {
+      "id": "CHF-XZZTJ-127-PALACE-GUARD-REWARDS-1147",
+      "time": "紹興十七年十月",
+      "loc": ["殿前司", "侍衛馬軍司", "侍衛步軍司"],
+      "action": "休兵日久后，高宗为三衙扈卫十年将士制定推恩升进，以维系军心。",
+      "result": "杨存中等因扈卫年限获升迁，和平期军功激励获得替代安排。",
+      "quote": ["管軍扈衛十年，取旨推恩", "當有以系其心", "楊存中為少傅"],
+      "unknown": [],
+      "closure": {"domain":"political_event","thread":"POL-THREAD-127-PALACE-GUARD-REWARDS-1147","candidate":"POL-CAND-127-PALACE-GUARD-REWARDS-1147","summary":"和平期三衙将士按扈卫年限获推恩。","operation":"implemented","continuity":"single_event","observations":{"event_type":"军队激励。","decision_question":"休兵后如何维系升进预期。","alternatives":"仅按战功迁转。","decision":"按扈卫十年推恩。","direct_result":"杨存中等升迁。","power_change":"未载。","risk_or_damage":"未载。","follow_up":"使后来者知劝。"}}
+    }
+  ]
+}

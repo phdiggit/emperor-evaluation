@@ -1,0 +1,603 @@
+{
+  "schema_version": "chronicle-multidomain-events-v1",
+  "registry_version": "QING-QINGSHIGAO-V15-REREAD-1",
+  "status": "shadow",
+  "task_code": "POSTTANG-CHRONICLE-QING-V15-MULTIDOMAIN-REREAD",
+  "source_scope": {
+    "work": "清史稿",
+    "volume_ref": "卷15",
+    "revision_ref": "1967792",
+    "start_locator": "乾隆五十一年安徽备赈",
+    "end_locator": "嘉庆元年授受大典",
+    "overlap_context": "承接卷14乾隆五十年归政宣示；本卷登记乾隆末期战争、灾赈、财政、藏制与传位，卷16尚未读取。",
+    "input_fingerprint": "56c9b29d21fa79f6dc14cde66d65e9b93dfd0a6513b2d0777ef60121496fdf23"
+  },
+  "limitations": [
+    "仅据固定《清史稿》卷15正文登记，未知保持未知。",
+    "普通任免、巡幸、贡聘和祥异不单列。"
+  ],
+  "events": [
+    {
+      "id": "CHF-QING-V15-ANHUI-RELIEF-1786",
+      "time": [
+        "乾隆五十一年正月至十一月",
+        "1786",
+        "range"
+      ],
+      "subject": "乾隆帝与安徽灾民",
+      "action": "清廷先拨户部银一百万两赴安徽备赈，随后对五河、合肥等多州县水灾持续放赈。",
+      "result": "安徽灾区获得百万两备赈银和多轮救济。",
+      "groups": [
+        "安徽水灾民众"
+      ],
+      "quote": [
+        "命戶部撥銀一百萬兩解往安徽備賑。",
+        "賑安徽五河等十七州縣並鳳陽等五衛水災。",
+        "賑安徽合肥等十七州縣水災。"
+      ],
+      "unknown": [
+        "银款实际发放、受益人口及灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "ANHUI-FLOOD-RELIEF-1786",
+        "summary": "安徽水灾获百万两备赈银及持续救济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-ZHEJIANG-DEFICIT-INVESTIGATION-1786",
+      "time": [
+        "乾隆五十一年四月至闰七月",
+        "1786",
+        "range"
+      ],
+      "subject": "阿桂、曹文埴等与浙江地方官",
+      "action": "浙江多县仓库亏空各逾十万，清廷派员盘查并将亏空、海塘一并查办，褫治富勒浑、窦光鼐。",
+      "result": "浙江仓储财政亏空被揭发，相关高级官员获罪。",
+      "groups": [
+        "浙江纳粮民户",
+        "地方官员"
+      ],
+      "quote": [
+        "嘉興、海鹽、平陽三縣虧空各逾十萬",
+        "命阿桂赴浙，會同曹文埴等查辦虧空，並勘海塘。",
+        "浙江學政、吏部右侍郎竇光鼐褫職。"
+      ],
+      "unknown": [
+        "亏空总额、追缴结果和民户损失未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "ZHEJIANG-WAREHOUSE-DEFICIT-CASE",
+        "summary": "清廷查办浙江仓库亏空并惩处官员。",
+        "continuity": "ended"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-LINSHUANGWEN-REBELLION-1786-1788",
+      "time": [
+        "乾隆五十一年十二月",
+        "乾隆五十三年三月",
+        "range"
+      ],
+      "subject": "福康安、柴大纪等官军义民与林爽文起事者",
+      "action": "林爽文起事后攻陷彰化、诸罗、凤山并进犯台湾府；清廷增兵换将，福康安解嘉义围，继而擒获林爽文、庄大田。",
+      "result": "台湾起事被平定，林爽文伏诛；战后出现柴大纪功罪争议并被处斩。",
+      "cost": "官民死伤与军费总数未载。",
+      "groups": [
+        "台湾民众",
+        "义民",
+        "清军",
+        "起事民众"
+      ],
+      "quote": [
+        "福建彰化縣賊匪林爽文作亂，陷縣城",
+        "林爽文復陷鳳山，犯台灣府",
+        "福康安等敗賊於侖仔頂庄等處，解嘉義圍",
+        "朔，獲林爽文，",
+        "林爽文伏誅。"
+      ],
+      "unknown": [
+        "起事社会背景、双方伤亡和株连人数未载。"
+      ],
+      "battle": "CAMPAIGN-QING-LINSHUANGWEN-1786-1788",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-TAIWAN-WAR-RELIEF-1787-1788",
+      "time": [
+        "乾隆五十二年二月",
+        "乾隆五十三年五月",
+        "range"
+      ],
+      "subject": "乾隆帝与台湾战区民户难民",
+      "action": "战争期间清廷免台湾府本年额赋、免嘉义后续额赋及福建兵差沿线钱粮，战后赈济台湾难民。",
+      "result": "战区和军运沿线获得税赋减免与难民救助。",
+      "groups": [
+        "台湾民户",
+        "战争难民",
+        "福建军运民户"
+      ],
+      "quote": [
+        "免台灣府屬本年額賦。",
+        "免台灣嘉義縣五十四年額賦。",
+        "免兵差經過之福建晉江等二十縣本年額賦有差。",
+        "賑台灣難民。"
+      ],
+      "unknown": [
+        "减免总额、难民人数及救济规模未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "TAIWAN-WAR-RELIEF",
+        "summary": "林爽文战争期间及战后减免赋税并赈济难民。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-HUBEI-FLOOD-DIKE-REPAIR-1788-1789",
+      "time": [
+        "乾隆五十三年七月",
+        "乾隆五十四年四月",
+        "range"
+      ],
+      "subject": "清廷与湖北荆江灾区",
+      "action": "荆州、武昌、汉阳等地江溢浸城，朝廷查勘赈免并修江陵、公安各堤，随后命阿桂复勘。",
+      "result": "大范围水灾获得赈免，受损堤防进入修复复勘。",
+      "groups": [
+        "湖北水灾民众",
+        "满城居民",
+        "河工役夫"
+      ],
+      "quote": [
+        "湖北荊州江溢，府城及滿城均浸沒",
+        "修湖北江陵、公安各堤。",
+        "免湖北江陵等三十六州縣本年水災額賦有差。",
+        "命阿桂覆勘荊州堤工。"
+      ],
+      "unknown": [
+        "灾损、死亡、工程规模及银费未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "HUBEI-FLOOD-DIKE-REPAIR",
+        "summary": "湖北江溢后赈免并修复江陵、公安堤防。",
+        "continuity": "continued_within_reign",
+        "phase": "查勘修复",
+        "purpose": "防洪",
+        "operation_result": "堤工修复并复勘"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-ANNAM-WAR-1788-1789",
+      "time": [
+        "乾隆五十三年六月",
+        "乾隆五十四年六月",
+        "range"
+      ],
+      "subject": "孙士毅等清军、黎维祁与阮惠军",
+      "action": "清廷应黎维祁求援出兵安南，一度攻复黎城；阮惠反攻致清军败退、许世亨等战死，乾隆随后决定不再用兵并册封阮光平为安南国王。",
+      "result": "恢复黎氏的军事目标失败，清廷转为承认阮光平统治并结束战争。",
+      "cost": "许世亨等战死，清军总伤亡和军费未载。",
+      "groups": [
+        "安南民众",
+        "清军",
+        "广西军运民户"
+      ],
+      "quote": [
+        "安南人阮惠等叛逐其國王黎維祁，維祁來求援。",
+        "收復黎城，復封黎維祁安南國王",
+        "阮惠復陷黎城，廣西提督許世亨等死之。",
+        "安南水土惡劣，決計不復用兵。",
+        "冊封為安南國王"
+      ],
+      "unknown": [
+        "双方总伤亡、军费及安南民众损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-ANNAM-1788-1789",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-FIRST-GURKHA-CONFLICT-1788-1789",
+      "time": [
+        "乾隆五十三年七月",
+        "乾隆五十四年九月",
+        "range"
+      ],
+      "subject": "鄂辉、成德等清军藏兵与廓尔喀军",
+      "action": "廓尔喀侵占济咙、聂拉木、宗喀等地，清军反攻收复；本卷随后记廓尔喀贡使入觐受封。",
+      "result": "首轮入侵区域被收复，暂以廓尔喀入贡受封收束。",
+      "cost": "藏军多人战死，双方总伤亡未载。",
+      "groups": [
+        "后藏民众",
+        "藏兵",
+        "清军"
+      ],
+      "quote": [
+        "廓爾喀據後藏濟嚨、聶拉木",
+        "廓爾喀復陷宗喀",
+        "成德以收復宗喀、濟嚨，克聶拉木奏聞。",
+        "，廓爾喀貢使入覲，"
+      ],
+      "unknown": [
+        "议和条件、损失和边界执行未详。"
+      ],
+      "battle": "CAMPAIGN-QING-FIRST-GURKHA-1788-1789",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-UNIVERSAL-TAX-REMISSION-1790",
+      "time": [
+        "乾隆五十五年正月",
+        "1790",
+        "month"
+      ],
+      "subject": "乾隆帝与全国纳税民户",
+      "action": "为八旬万寿，乾隆颁诏普免各直省钱粮。",
+      "result": "全国各省钱粮获得一次普遍蠲免。",
+      "groups": [
+        "全国纳税民户"
+      ],
+      "quote": [
+        "以八旬萬壽，頒詔覃恩有差。普免各直省錢糧。"
+      ],
+      "unknown": [
+        "免赋总额及地方兑现程度未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "UNIVERSAL-TAX-REMISSION-1790",
+        "summary": "乾隆五十五年普免各直省钱粮。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-SECOND-GURKHA-WAR-1791-1792",
+      "time": [
+        "乾隆五十六年八月",
+        "乾隆五十七年九月",
+        "range"
+      ],
+      "subject": "福康安等清军藏兵与廓尔喀军",
+      "action": "廓尔喀再侵西藏并攻入扎什伦布，福康安率军由藏境反攻，连克济咙、热索桥等寨卡，迫使廓尔喀请降。",
+      "result": "廓尔喀恢复封爵并定五年一贡，清廷部署西藏善后。",
+      "cost": "阿满泰、墨尔根保等阵亡，军费与总伤亡未载。",
+      "groups": [
+        "西藏民众",
+        "藏兵",
+        "清军",
+        "廓尔喀民众"
+      ],
+      "quote": [
+        "廓爾喀陷西藏定日各寨，據濟嚨。",
+        "廓爾喀入紥什倫布，尋遁去。",
+        "福康安等奏克濟嚨。",
+        "廓爾喀酋拉特納巴都爾等乞降。",
+        "復廓爾喀王公封爵，定五年一貢。"
+      ],
+      "unknown": [
+        "双方总伤亡、军费和西藏损失未载。"
+      ],
+      "battle": "CAMPAIGN-QING-SECOND-GURKHA-1791-1792",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-GOLDEN-URN-TIBET-REFORM-1792-1793",
+      "time": [
+        "乾隆五十七年九月",
+        "乾隆五十八年四月",
+        "range"
+      ],
+      "subject": "乾隆帝、理藩院与西藏蒙古宗教体系",
+      "action": "战后清廷将金奔巴瓶送藏，并在前藏大昭与雍和宫设瓶，以公开掣定呼毕勒罕。",
+      "result": "转世认定被纳入清廷监督的抽签制度。",
+      "groups": [
+        "西藏僧俗",
+        "蒙古僧俗",
+        "宗教领袖家族"
+      ],
+      "quote": [
+        "齎金奔巴瓶往藏，貯呼畢勒罕名姓，由達賴喇嘛等對眾拈定。",
+        "通諭設金奔巴瓶於前藏大昭及雍和宮"
+      ],
+      "unknown": [
+        "初期执行次数和地方接受程度未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "GOLDEN-URN-REFORM",
+        "summary": "清廷在西藏与蒙古推行金瓶掣签制度。",
+        "continuity": "continued_within_reign"
+      }
+    },
+    {
+      "id": "CHF-QING-V15-MACARTNEY-EMBASSY-1793",
+      "time": [
+        "乾隆五十八年六月",
+        "乾隆五十八年十月",
+        "range"
+      ],
+      "subject": "乾隆帝与英国马戛尔尼使团",
+      "action": "英国使团由天津入境，在热河觐见后经内河赴广东离境；后续表贡仍按朝贡惯例处理。",
+      "result": "中英官方接触完成，清廷未在本纪中记载新的通商制度。",
+      "groups": [
+        "英国使团",
+        "沿途接待人员"
+      ],
+      "quote": [
+        "英吉利貢船至天津。",
+        "英吉利國正使馬戛爾尼、副使斯當東等入覲。",
+        "諭英吉利貢使由內河水路赴廣東澳門附船回國。"
+      ],
+      "unknown": [
+        "会谈请求、礼仪争议和贸易条件在本卷未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "MACARTNEY-EMBASSY",
+        "summary": "英国马戛尔尼使团入觐后由广东离境。",
+        "continuity": "single_event"
+      }
+    },
+    {
+      "id": "CHF-QING-V15-POPULATION-PRESSURE-1793",
+      "time": [
+        "乾隆五十八年十一月",
+        "1793",
+        "month"
+      ],
+      "subject": "乾隆帝与各省督抚、全国民户",
+      "action": "清廷据报全国人口逾三亿，认为较康熙时增十五倍、食者增多，命地方劝农节用。",
+      "result": "人口与生计压力被中央明确识别，但仅提出教化、勤农和节用措施。",
+      "groups": [
+        "全国民户",
+        "农民"
+      ],
+      "quote": [
+        "各省奏報民數三萬七百四十六萬有奇",
+        "生之者寡，食之者眾，勢必益形拮据。"
+      ],
+      "unknown": [
+        "人口统计误差、土地分配和具体增产措施未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "POPULATION-LIVELIHOOD-PRESSURE",
+        "summary": "乾隆晚期清廷确认人口增长造成生计压力并命劝农节用。",
+        "continuity": "continued_within_reign"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-NORTH-CHINA-DISASTER-RELIEF-1794",
+      "time": [
+        "乾隆五十九年五月",
+        "乾隆五十九年八月",
+        "range"
+      ],
+      "subject": "乾隆帝与直隶、山东、河南等灾民",
+      "action": "华北大旱和洪水期间，清廷向直隶八十三州县、山东五十一州县发口粮，赈免多省灾区并减关津税。",
+      "result": "大范围灾民获得口粮、税赋减免和粮运税负降低。",
+      "groups": [
+        "华北旱灾民众",
+        "水灾民众",
+        "粮商与购粮民户"
+      ],
+      "quote": [
+        "以直隸保定等八十三州縣旱，命賞給一月口糧。",
+        "以山東歷城山莊等五十一州縣旱，給貧民一月口糧",
+        "免直隸保定等府屬、河南衛輝等府屬、山東臨清等五州縣、山西代州等三州縣被水額賦。"
+      ],
+      "unknown": [
+        "赈粮总量、受益人口及灾损未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NORTH-CHINA-DISASTER-RELIEF-1794",
+        "summary": "乾隆五十九年华北大范围旱涝获口粮和税赋救济。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-YONGDING-RIVER-REPAIR-1794",
+      "time": [
+        "乾隆五十九年七月至八月",
+        "1794",
+        "range"
+      ],
+      "subject": "清廷与永定河工程",
+      "action": "永定河决口后组织抢修，次月南工决口合龙。",
+      "result": "永定河南工决口完成封堵。",
+      "groups": [
+        "沿河灾民",
+        "河工役夫"
+      ],
+      "quote": [
+        "，永定河決。庚",
+        "永定河南工決口合龍。"
+      ],
+      "unknown": [
+        "灾损、工费和用工未载。"
+      ],
+      "closure": {
+        "domain": "public_works",
+        "kind": "YONGDING-RIVER-BREACH-REPAIR",
+        "summary": "永定河决口后次月完成合龙。",
+        "continuity": "ended",
+        "phase": "抢修合龙",
+        "purpose": "防洪",
+        "operation_result": "决口合龙"
+      },
+      "domains": [
+        "fiscal_livelihood",
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-NATIONAL-ARREARS-GRAIN-REMISSION-1794-1795",
+      "time": [
+        "乾隆五十九年八月",
+        "乾隆六十年二月",
+        "range"
+      ],
+      "subject": "乾隆帝与全国纳税、纳漕民户",
+      "action": "乾隆以御宇六十年普免各省漕粮一次，随后普免各省积年逋赋，并分省落实。",
+      "result": "全国漕粮和多年欠赋获得大范围豁免。",
+      "groups": [
+        "全国纳税民户",
+        "漕粮民户"
+      ],
+      "quote": [
+        "普免各省漕糧一次。",
+        "普免各省積年逋賦。",
+        "免山東積年逋賦。",
+        "免廣東積年逋賦。"
+      ],
+      "unknown": [
+        "全国减免总额及各省兑现程度未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "NATIONAL-ARREARS-AND-GRAIN-REMISSION",
+        "summary": "乾隆末年普免全国漕粮一次并豁免积年逋赋。",
+        "continuity": "single_event"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-MIAO-REBELLION-1795",
+      "time": [
+        "乾隆六十年二月",
+        "乾隆六十年十二月",
+        "range"
+      ],
+      "subject": "福康安、和琳等清军与石柳邓、石三保等苗民起事者",
+      "action": "贵州松桃、湖南永绥等地苗民起事并攻陷乾州等处，清廷调福康安、和琳等多路进剿，连续攻寨，至本卷末仍未完全结束。",
+      "result": "清军解多处围困并攻占部分苗寨，战争跨入嘉庆朝继续。",
+      "cost": "地方官兵多人战死，双方总伤亡和军费未载。",
+      "groups": [
+        "苗民",
+        "湘黔川边民",
+        "清军",
+        "军运民户"
+      ],
+      "quote": [
+        "貴州松桃廳苗匪石柳鄧等、湖南永綏苗匪石三保等作亂。",
+        "湖南苗匪陷乾州廳",
+        "福康安往剿，畢沅駐常德籌辦糧餉。",
+        "福康安等奏克天星等苗寨。"
+      ],
+      "unknown": [
+        "起事原因、总伤亡与全部战局结果未载。"
+      ],
+      "battle": "CAMPAIGN-QING-MIAO-REBELLION-1795",
+      "domains": [
+        "political_event",
+        "fiscal_livelihood"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-MIAO-WAR-TAX-RELIEF-1795",
+      "time": [
+        "乾隆六十年闰二月至十二月",
+        "1795",
+        "range"
+      ],
+      "subject": "乾隆帝与湘黔苗疆战争受扰民众",
+      "action": "清廷因苗乱免铜仁、松桃、正大等战区额赋，减免官兵经过地方钱粮并赈济铜仁难民。",
+      "result": "战区和军运沿线获得税赋减免与难民救济。",
+      "groups": [
+        "湘黔战区民众",
+        "苗民",
+        "战争难民"
+      ],
+      "quote": [
+        "以苗匪亂，免貴州銅仁府屬松桃、正大等處額賦。",
+        "免貴州官兵經過地方本年額賦有差。",
+        "賑貴州銅仁被擾難民。"
+      ],
+      "unknown": [
+        "减免总额、难民人数和实际救济情况未载。"
+      ],
+      "closure": {
+        "domain": "fiscal_livelihood",
+        "kind": "MIAO-WAR-TAX-RELIEF",
+        "summary": "苗疆战争期间减免战区赋税并赈济难民。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "political_event"
+      ]
+    },
+    {
+      "id": "CHF-QING-V15-QIANLONG-ABDICATION-1795-1796",
+      "time": [
+        "乾隆六十年九月",
+        "嘉庆元年正月",
+        "range"
+      ],
+      "subject": "乾隆帝、嘉亲王颙琰与清廷",
+      "action": "乾隆公开立皇十五子为皇太子，定嘉庆元年传位；授受大典后自称太上皇，但军国重务仍由其裁决。",
+      "result": "名义皇位转交嘉庆帝，最高军政决策权仍由太上皇保留。",
+      "groups": [
+        "皇室成员",
+        "中央官员",
+        "全国臣民"
+      ],
+      "quote": [
+        "宣示立皇十五子嘉親王為皇太子，明年為嗣皇帝嘉慶元年。",
+        "普免天下嘉慶元年地丁錢糧。",
+        "舉行授受大典，立皇太子為皇帝。",
+        "軍國重務仍奏聞，秉訓裁決"
+      ],
+      "unknown": [
+        "日常事项分工与权力运行细节未载。"
+      ],
+      "closure": {
+        "domain": "political_event",
+        "kind": "QIANLONG-ABDICATION-AND-RETAINED-AUTHORITY",
+        "summary": "乾隆传位嘉庆后仍保留军国重务裁决权。",
+        "continuity": "continued_across_reigns"
+      },
+      "domains": [
+        "fiscal_livelihood"
+      ]
+    }
+  ]
+}
