@@ -1,92 +1,4292 @@
 {
-  "schema_version": "first-item-b-team-contribution-adjudications-v3",
+  "schema_version": "first-item-b-team-contribution-adjudications-v6",
   "status": "CURRENT",
-  "outcome_level_points": {"SUPPORTING": 2, "IMPORTANT": 4, "MAJOR": 6, "DECISIVE": 8, "FOUNDATION_PILLAR": 10},
-  "contribution_credit": {"SUPPORT": 0.75, "JOINT": 0.9, "PRIMARY": 1.0},
-  "completion_factor": {"PARTIAL": 0.5, "SUBSTANTIAL": 0.8, "COMPLETE": 1.0},
-  "B1_scale": 0.75,
-  "B1_cap": 30,
+  "B1_max": 30,
   "B2_max": 30,
-  "profile_level_points": {"SUPPORTING": 3, "IMPORTANT_SPECIALIST": 6, "MAJOR_INDEPENDENT": 9, "TOP_DECISIVE": 12, "PILLAR_MULTIDOMAIN": 15},
-  "profile_position_weights": [1.0, 0.7, 0.5, 0.3],
-  "contributor_profiles": {
-    "李世民":[["房玄龄","TOP_DECISIVE"],["杜如晦","TOP_DECISIVE"],["屈突通","MAJOR_INDEPENDENT"],["尉迟敬德","MAJOR_INDEPENDENT"]],
-    "刘秀":[["冯异","TOP_DECISIVE"],["耿弇","MAJOR_INDEPENDENT"],["吴汉","MAJOR_INDEPENDENT"],["邓禹","IMPORTANT_SPECIALIST"]],
-    "刘裕":[["刘穆之","PILLAR_MULTIDOMAIN"],["王镇恶","TOP_DECISIVE"],["檀道济","MAJOR_INDEPENDENT"],["朱龄石","MAJOR_INDEPENDENT"]],
-    "刘邦":[["萧何","PILLAR_MULTIDOMAIN"],["韩信","PILLAR_MULTIDOMAIN"],["张良","TOP_DECISIVE"],["陈平","MAJOR_INDEPENDENT"]],
-    "高欢":[["孙腾","MAJOR_INDEPENDENT"],["司马子如","MAJOR_INDEPENDENT"],["高敖曹","MAJOR_INDEPENDENT"],["侯景","MAJOR_INDEPENDENT"]],
-    "萧衍":[["范云","TOP_DECISIVE"],["沈约","MAJOR_INDEPENDENT"],["韦睿","MAJOR_INDEPENDENT"],["曹景宗","MAJOR_INDEPENDENT"]],
-    "慕容垂":[["慕容农","TOP_DECISIVE"],["慕容德","MAJOR_INDEPENDENT"],["慕容钟","IMPORTANT_SPECIALIST"]],
-    "石勒":[["张宾","PILLAR_MULTIDOMAIN"],["石虎","TOP_DECISIVE"],["夔安","IMPORTANT_SPECIALIST"],["孔苌","IMPORTANT_SPECIALIST"]],
-    "曹操":[["荀彧","PILLAR_MULTIDOMAIN"],["郭嘉","MAJOR_INDEPENDENT"],["荀攸","MAJOR_INDEPENDENT"],["曹仁","MAJOR_INDEPENDENT"]],
-    "陈霸先":[["侯安都","TOP_DECISIVE"],["周文育","MAJOR_INDEPENDENT"],["徐度","MAJOR_INDEPENDENT"],["杜僧明","IMPORTANT_SPECIALIST"]],
-    "刘备":[["诸葛亮","PILLAR_MULTIDOMAIN"],["法正","MAJOR_INDEPENDENT"],["关羽","MAJOR_INDEPENDENT"],["张飞","IMPORTANT_SPECIALIST"]],
-    "宇文泰":[["苏绰","PILLAR_MULTIDOMAIN"],["李弼","TOP_DECISIVE"],["独孤信","MAJOR_INDEPENDENT"],["赵贵","IMPORTANT_SPECIALIST"]],
-    "吕光":[["杜进","MAJOR_INDEPENDENT"],["吕纂","IMPORTANT_SPECIALIST"],["远征军幕僚","SUPPORTING"]],
-    "慕容德":[["韩范","MAJOR_INDEPENDENT"],["慕容钟","MAJOR_INDEPENDENT"],["慕容氏骨干","IMPORTANT_SPECIALIST"]],
-    "苻健":[["苻雄","TOP_DECISIVE"],["苻菁","IMPORTANT_SPECIALIST"],["关中旧官僚","IMPORTANT_SPECIALIST"]],
-    "赫连勃勃":[["叱干阿利","MAJOR_INDEPENDENT"],["赫连氏诸将","IMPORTANT_SPECIALIST"],["营建集团","IMPORTANT_SPECIALIST"]],
-    "司马炎":[["羊祜","TOP_DECISIVE"],["杜预","TOP_DECISIVE"],["王濬","MAJOR_INDEPENDENT"],["张华","MAJOR_INDEPENDENT"]],
-    "沮渠蒙逊":[["沮渠男成","MAJOR_INDEPENDENT"],["沮渠氏诸将","IMPORTANT_SPECIALIST"],["河西豪族","IMPORTANT_SPECIALIST"]],
-    "拓跋珪":[["拓跋仪","MAJOR_INDEPENDENT"],["长孙嵩","MAJOR_INDEPENDENT"],["张衮","IMPORTANT_SPECIALIST"],["贺兰部","IMPORTANT_SPECIALIST"]],
-    "萧道成":[["褚渊","TOP_DECISIVE"],["王俭","MAJOR_INDEPENDENT"],["萧赜","MAJOR_INDEPENDENT"],["垣崇祖","IMPORTANT_SPECIALIST"]],
-    "刘渊":[["石勒","TOP_DECISIVE"],["刘曜","MAJOR_INDEPENDENT"],["刘宣","IMPORTANT_SPECIALIST"],["五部骨干","IMPORTANT_SPECIALIST"]],
-    "李暠":[["宋繇","TOP_DECISIVE"],["敦煌士族","MAJOR_INDEPENDENT"],["李歆","IMPORTANT_SPECIALIST"]],
-    "李渊":[["李世民","PILLAR_MULTIDOMAIN"],["李靖","TOP_DECISIVE"],["李孝恭","MAJOR_INDEPENDENT"],["刘文静","MAJOR_INDEPENDENT"]],
-    "司马昭":[["邓艾","TOP_DECISIVE"],["钟会","TOP_DECISIVE"],["贾充","MAJOR_INDEPENDENT"],["卫瓘","IMPORTANT_SPECIALIST"]],
-    "冉闵":[["蒋干","IMPORTANT_SPECIALIST"],["冉魏幕僚","SUPPORTING"]],
-    "孙权":[["周瑜","TOP_DECISIVE"],["鲁肃","MAJOR_INDEPENDENT"],["吕蒙","MAJOR_INDEPENDENT"],["张昭","MAJOR_INDEPENDENT"]],
-    "姚苌":[["尹纬","TOP_DECISIVE"],["姚硕德","MAJOR_INDEPENDENT"],["姚绪","IMPORTANT_SPECIALIST"]],
-    "冯跋":[["冯素弗","TOP_DECISIVE"],["孙护","IMPORTANT_SPECIALIST"],["北燕旧官僚","IMPORTANT_SPECIALIST"]],
-    "刘玄":[["王匡","MAJOR_INDEPENDENT"],["王凤","MAJOR_INDEPENDENT"],["绿林诸将","IMPORTANT_SPECIALIST"]],
-    "司马懿":[["司马师","TOP_DECISIVE"],["司马昭","IMPORTANT_SPECIALIST"],["蒋济","IMPORTANT_SPECIALIST"]],
-    "司马睿":[["王导","PILLAR_MULTIDOMAIN"],["王敦","TOP_DECISIVE"],["刁协","IMPORTANT_SPECIALIST"]],
-    "嬴政":[["王翦","PILLAR_MULTIDOMAIN"],["李斯","PILLAR_MULTIDOMAIN"],["王贲","TOP_DECISIVE"],["尉缭","MAJOR_INDEPENDENT"]],
-    "曹丕":[["陈群","TOP_DECISIVE"],["司马懿","MAJOR_INDEPENDENT"],["曹真","IMPORTANT_SPECIALIST"]],
-    "李雄":[["范长生","TOP_DECISIVE"],["李骧","MAJOR_INDEPENDENT"],["李离","IMPORTANT_SPECIALIST"]],
-    "杨坚":[["高颎","PILLAR_MULTIDOMAIN"],["杨素","TOP_DECISIVE"],["苏威","MAJOR_INDEPENDENT"],["韩擒虎","MAJOR_INDEPENDENT"]],
-    "王莽":[["刘歆","MAJOR_INDEPENDENT"],["儒生集团","IMPORTANT_SPECIALIST"],["新朝官僚","IMPORTANT_SPECIALIST"]],
-    "高洋":[["杨愔","TOP_DECISIVE"],["段韶","MAJOR_INDEPENDENT"],["斛律金","IMPORTANT_SPECIALIST"]],
-    "司马师":[["司马昭","MAJOR_INDEPENDENT"],["王基","MAJOR_INDEPENDENT"],["傅嘏","IMPORTANT_SPECIALIST"]]
+  "outcome_level_points": {
+    "SUPPORTING": 4.0,
+    "IMPORTANT": 8.0,
+    "MAJOR": 13.0,
+    "DECISIVE": 17.0,
+    "FOUNDATION_PILLAR": 20.0
+  },
+  "contribution_credit": {
+    "SUPPORT": 0.65,
+    "JOINT": 0.85,
+    "PRIMARY": 1.0
+  },
+  "completion_factor": {
+    "PARTIAL": 0.5,
+    "SUBSTANTIAL": 0.8,
+    "COMPLETE": 1.0
+  },
+  "outcome_position_weights": [
+    1.0,
+    0.5
+  ],
+  "organization_axis_level_points": {
+    "0": 0,
+    "1": 2,
+    "2": 4,
+    "3": 6,
+    "4": 8,
+    "5": 10
+  },
+  "organization_axis_contract": {
+    "parallel_execution": "团队能否在不依赖奠基人逐项现场控制的情况下，同时闭合多个独立方向或国家功能；三个稳定责任中心后不再按人数加分。",
+    "continuity_resilience": "关键成员退出、阵亡、失势或任务轮换后，组织能否由既有梯队接续而不使创业主链中断。",
+    "heterogeneous_integration": "能否把不同地域、族群、旧政权、降附与继承机器整合为共同执行体系；只列入集团名称不成立。"
   },
   "records": [
-    {"ruler_name":"李世民","contribution_chains":[["秦王府持续谋划与军议",["房玄龄","杜如晦"],"MAJOR","JOINT","COMPLETE"],["关键战斗突击、护卫与局部指挥",["尉迟敬德","秦琼","秦王府诸将"],"MAJOR","PRIMARY","COMPLETE"],["陕东道大行台日常行政后勤",["屈突通","温大雅","薛收","行台属官"],"MAJOR","PRIMARY","COMPLETE"],["归附人员与新区域接收辅助",["长孙无忌","秦王府幕僚"],"IMPORTANT","JOINT","COMPLETE"],["本人主战场以外的分支军务",["秦王府诸将"],"MAJOR","JOINT","SUBSTANTIAL"]],"basis":"李世民本人承担总体战略、主战场统帅和行台最高军政责任；团队有高质量谋划、战斗与行政交付，但非本人承载份额明显低于刘邦、刘秀等授权型样本。","limitations":["玄武门之变不进入第一项","李渊中央直接授权的李靖、李世勣独立方向不自动计入李世民团队"]},
-    {"ruler_name":"刘秀","contribution_chains":[["河北创业初期经营",["邓禹"],"MAJOR","JOINT","SUBSTANTIAL"],["关中方面平定与秩序恢复",["冯异"],"DECISIVE","PRIMARY","COMPLETE"],["山东方面连续平定",["耿弇"],"DECISIVE","PRIMARY","COMPLETE"],["河内与东方主力作战",["吴汉","寇恂"],"DECISIVE","PRIMARY","COMPLETE"],["河西集团归附与侧翼稳定",["窦融"],"MAJOR","PRIMARY","COMPLETE"],["政权行政秩序承接",["侯霸","伏湛"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"多名方面负责人能够长期独立完成区域战争、后勤与接收任务，团队承担面很广；总体战略与若干关键危局仍由刘秀本人主导。","limitations":[]},
-    {"ruler_name":"刘裕","contribution_chains":[["建康中枢与全局后勤",["刘穆之"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["关中远征主攻",["王镇恶"],"DECISIVE","PRIMARY","COMPLETE"],["益州方向平定",["朱龄石"],"MAJOR","PRIMARY","COMPLETE"],["多方向军事执行",["檀道济","王仲德"],"DECISIVE","PRIMARY","COMPLETE"],["新区域接收与秩序维持",["刘穆之","宋军属官"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"刘穆之独立维持中枢和后勤，多名方面将领完成高难远征；关中留守失败限制相应成果，不否定其他独立责任链。","limitations":["关中最终丢失的结果归A，B1不把失守后的状态重复扣分"]},
-    {"ruler_name":"刘邦","contribution_chains":[["关中后方、财政、兵员与民政体系",["萧何"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["北方诸国与齐楚方向战略征服",["韩信"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["创业总体谋划与关键外交",["张良"],"DECISIVE","PRIMARY","COMPLETE"],["离间、联盟重组与危局解题",["陈平"],"MAJOR","PRIMARY","COMPLETE"],["楚军后方牵制与持续消耗",["彭越","英布"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"萧何、韩信、张良、陈平分别完成不可替代的国家后方、战略征服、谋划外交与联盟破局，且可以并行运转；一人多职按实际成果累计，不按人数折扣。","limitations":["战后功臣处置不进入创业窗口"]},
-    {"ruler_name":"高欢","contribution_chains":[["河北政治经营与中枢谋划",["孙腾","司马子如"],"MAJOR","PRIMARY","COMPLETE"],["东部与南部军事方向",["高敖曹","侯景"],"MAJOR","PRIMARY","COMPLETE"],["晋阳与核心军务",["窦泰","斛律金"],"MAJOR","PRIMARY","COMPLETE"],["东魏国家机器承接",["孙腾","高氏幕府"],"MAJOR","PRIMARY","COMPLETE"],["六镇军人与河北豪强整合",["高氏集团"],"DECISIVE","PRIMARY","COMPLETE"]],"basis":"文武集团能够承接东魏中枢和多个军事方向，但顶端责任链的成果强度与稳定性不及刘邦、刘秀。","limitations":[]},
-    {"ruler_name":"萧衍","contribution_chains":[["建国谋划与禅代文书",["范云","沈约"],"DECISIVE","PRIMARY","COMPLETE"],["钟离等关键军事执行",["曹景宗","韦睿"],"DECISIVE","PRIMARY","COMPLETE"],["后方与宫城接收",["吕僧珍"],"MAJOR","PRIMARY","COMPLETE"],["南齐官僚承接",["范云","沈约"],"MAJOR","PRIMARY","COMPLETE"],["地方归附联络",["雍州与建康支持集团"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"核心文臣、将领与接收团队完成改朝关键任务，团队输出完整但创业规模和多方向独立承担低于最高组。","limitations":[]},
-    {"ruler_name":"慕容垂","contribution_chains":[["河北复国军事扩张",["慕容农"],"DECISIVE","PRIMARY","COMPLETE"],["南部与宗室方面军",["慕容德"],"MAJOR","PRIMARY","COMPLETE"],["前燕旧部重聚",["慕容氏旧部"],"MAJOR","PRIMARY","COMPLETE"],["区域行政承接",["后燕属官"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"宗室方面军完成复国主干，但行政和联盟成果较集中，参合陂后连续性不足。","limitations":[]},
-    {"ruler_name":"石勒","contribution_chains":[["总体战略与政权转型",["张宾"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["河北制度与汉人士人整合",["张宾","程遐"],"DECISIVE","PRIMARY","COMPLETE"],["多方向军事扩张",["石虎","夔安","孔苌"],"MAJOR","PRIMARY","COMPLETE"],["坞堡与地方集团吸收",["张宾","地方归附者"],"MAJOR","PRIMARY","COMPLETE"],["流动军团国家化",["胡汉军政集团"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"张宾一人跨战略、制度和整合多条真实成果链，另有方面军独立作战；集中于张宾不单独扣分。","limitations":[]},
-    {"ruler_name":"曹操","contribution_chains":[["许都中枢、后方与人才体系",["荀彧"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["重大军事谋划",["荀攸","郭嘉"],"DECISIVE","PRIMARY","COMPLETE"],["多方向守备与征战",["曹仁","夏侯惇","张辽"],"DECISIVE","PRIMARY","COMPLETE"],["关中等区域承接",["钟繇","陈群"],"MAJOR","PRIMARY","COMPLETE"],["屯田与军粮体系",["枣祗","任峻"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"谋划、国家后方、屯田和方面军事均有高水平独立成果，综合团队仅次于最高样本。","limitations":["赤壁路线误判只在A结算"]},
-    {"ruler_name":"陈霸先","contribution_chains":[["建康与关键军事夺取",["侯安都"],"DECISIVE","PRIMARY","COMPLETE"],["江北及地方军事执行",["周文育"],"MAJOR","PRIMARY","COMPLETE"],["中枢护卫与连续作战",["徐度"],"MAJOR","PRIMARY","COMPLETE"],["岭南旧部组织",["杜僧明"],"IMPORTANT","PRIMARY","COMPLETE"],["江南秩序接收",["陈氏军政集团"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"多名岭南将领完成创业军事主干，政治与行政责任链相对有限。","limitations":[]},
-    {"ruler_name":"刘备","contribution_chains":[["荆益战略、行政与后方",["诸葛亮"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["取蜀谋划",["法正"],"MAJOR","PRIMARY","COMPLETE"],["荆州独立方向",["关羽"],"DECISIVE","PRIMARY","PARTIAL"],["益州与汉中军事执行",["张飞","黄忠"],"MAJOR","PRIMARY","COMPLETE"],["早期资财与政治支持",["糜竺"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"诸葛亮跨行政、战略和后方形成支柱贡献，多名将领完成区域任务；荆州方向只按窗口内实际完成度结算。","limitations":["荆州最终损失归A，B只降低该责任链完成度"]},
-    {"ruler_name":"宇文泰","contribution_chains":[["制度、财政与国家组织",["苏绰"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["关陇多方向军事支撑",["李弼","独孤信","赵贵"],"DECISIVE","PRIMARY","COMPLETE"],["府兵与核心集团整合",["八柱国集团"],"DECISIVE","PRIMARY","COMPLETE"],["关中地方治理",["苏绰","关陇官僚"],"MAJOR","PRIMARY","COMPLETE"],["东西对峙外交与联盟",["关陇集团"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"苏绰与关陇文武集团分别完成制度、财政、军事和政治整合，非本人团队承载率处于最高组。","limitations":[]},
-    {"ruler_name":"吕光","contribution_chains":[["西征军军事骨干",["杜进","吕纂"],"DECISIVE","PRIMARY","COMPLETE"],["河西地方归附",["凉州归附力量"],"IMPORTANT","PRIMARY","COMPLETE"],["凉州初建行政",["凉州旧官僚"],"IMPORTANT","PRIMARY","COMPLETE"],["远征军内部谋划",["远征军幕僚"],"SUPPORTING","PRIMARY","COMPLETE"]],"basis":"团队主要完成军事集团向凉州政权的转换，行政与政治成果规模有限。","limitations":[]},
-    {"ruler_name":"慕容德","contribution_chains":[["青齐立足与军事扩张",["慕容钟"],"DECISIVE","PRIMARY","COMPLETE"],["建国谋划与行政",["韩范"],"MAJOR","PRIMARY","COMPLETE"],["后燕残部重组",["慕容氏残余集团"],"MAJOR","PRIMARY","COMPLETE"],["青齐地方接收",["青齐归附力量"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"残余文武骨干成功转入青齐建基，成果完整但体量和责任链数量有限。","limitations":[]},
-    {"ruler_name":"苻健","contribution_chains":[["关中军事夺取",["苻雄"],"DECISIVE","PRIMARY","COMPLETE"],["宗族方面军",["苻菁"],"IMPORTANT","PRIMARY","COMPLETE"],["氐族与关中力量整合",["苻氏集团"],"MAJOR","PRIMARY","COMPLETE"],["关中行政承接",["关中旧官僚"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"苻雄和宗族集团完成关中建基主干，跨领域成果规模中等。","limitations":[]},
-    {"ruler_name":"赫连勃勃","contribution_chains":[["河套军事作战",["叱干阿利","赫连氏诸将"],"MAJOR","PRIMARY","COMPLETE"],["统万城营建",["叱干阿利","营建集团"],"MAJOR","PRIMARY","COMPLETE"],["宗族军团维持",["赫连氏宗族军团"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"团队能够承担军事和核心据点建设，但行政、吸纳与秩序成果有限。","limitations":[]},
-    {"ruler_name":"司马炎","contribution_chains":[["灭吴长期准备",["羊祜"],"DECISIVE","PRIMARY","COMPLETE"],["灭吴主攻与总体执行",["杜预"],"DECISIVE","PRIMARY","COMPLETE"],["长江水军突破",["王濬"],"MAJOR","PRIMARY","COMPLETE"],["中枢规划与行政",["张华"],"MAJOR","PRIMARY","COMPLETE"],["孙吴区域接收",["晋吴接收官僚"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"继承体系中的文武负责人独立完成灭吴和接收，团队承担率高；B评价实际成果，不因人才为继承所得折扣。","limitations":[]},
-    {"ruler_name":"沮渠蒙逊","contribution_chains":[["河西军事建基",["沮渠男成"],"MAJOR","PRIMARY","COMPLETE"],["宗族方面军",["沮渠氏诸将"],"MAJOR","PRIMARY","COMPLETE"],["多政权联盟周旋",["河西豪族"],"MAJOR","PRIMARY","COMPLETE"],["地方行政承接",["河西旧官僚"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"宗族与地方豪族共同完成长期河西建基，但成果上限受政权规模和宗族结构限制。","limitations":[]},
-    {"ruler_name":"拓跋珪","contribution_chains":[["复代与对外军事",["拓跋仪","长孙嵩"],"MAJOR","PRIMARY","COMPLETE"],["代北部落联盟",["贺兰部与代北诸部"],"DECISIVE","PRIMARY","COMPLETE"],["汉人幕僚谋划",["张衮"],"IMPORTANT","PRIMARY","COMPLETE"],["区域政治整合",["宗室与汉人幕僚"],"MAJOR","PRIMARY","COMPLETE"],["后方行政支持",["代北属官"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"部落联盟、宗室方面军和汉人幕僚共同完成复国，团队责任链较完整。","limitations":[]},
-    {"ruler_name":"萧道成","contribution_chains":[["中枢权力转换",["褚渊"],"DECISIVE","PRIMARY","COMPLETE"],["禅代制度与文书",["王俭"],"MAJOR","PRIMARY","COMPLETE"],["军事控制与地方平定",["萧赜","垣崇祖"],"MAJOR","PRIMARY","COMPLETE"],["刘宋官僚承接",["褚渊","王俭"],"MAJOR","PRIMARY","COMPLETE"],["禁军与建康秩序",["齐高帝集团"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"中枢文臣和军事负责人完成禅代与国家机器接收，团队承担率较高。","limitations":[]},
-    {"ruler_name":"刘渊","contribution_chains":[["五部匈奴动员",["刘宣"],"MAJOR","PRIMARY","COMPLETE"],["宗族方面军",["刘曜"],"MAJOR","PRIMARY","COMPLETE"],["东部独立军事扩张",["石勒"],"DECISIVE","JOINT","COMPLETE"],["反晋力量联盟",["胡汉归附集团"],"DECISIVE","PRIMARY","COMPLETE"],["汉赵初建行政",["汉赵官僚"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"五部动员、刘曜与石勒方面军形成显著团队成果，但石勒的高独立性未完全转化为稳定共同政权。","limitations":[]},
-    {"ruler_name":"李暠","contribution_chains":[["敦煌行政与谋划",["宋繇"],"DECISIVE","PRIMARY","COMPLETE"],["敦煌士族联合",["敦煌士族"],"MAJOR","PRIMARY","COMPLETE"],["地方军事维持",["李歆","敦煌军将"],"IMPORTANT","PRIMARY","COMPLETE"],["河西民政承接",["敦煌属官"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"宋繇与敦煌士族支撑小而完整的区域建基，成果规模有限但完成度较高。","limitations":[]},
-    {"ruler_name":"李渊","contribution_chains":[["唐初统一主干战争",["李世民"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["江汉与岭南方向统一",["李靖","李孝恭"],"DECISIVE","PRIMARY","COMPLETE"],["起兵谋划与突厥联络",["刘文静"],"MAJOR","PRIMARY","COMPLETE"],["关中行政与后方",["裴寂","关中旧官僚"],"IMPORTANT","PRIMARY","SUBSTANTIAL"],["新区域接收与秩序收束",["李世民","李靖","归附集团"],"MAJOR","JOINT","COMPLETE"]],"basis":"李世民承担统一战争主干，李靖、李孝恭独立完成南方方向，刘文静完成起兵期关键任务；李渊团队总贡献很高，但错误用人对应链条只按实际完成度结算。","limitations":["李元吉、裴寂守晋阳的路线误判已在A扣分，不在B重复扣分","李世民纠正迁都判断不转化为李渊本人组织信用，但其完成的团队成果仍进入B1"]},
-    {"ruler_name":"司马昭","contribution_chains":[["灭蜀正面推进",["钟会"],"DECISIVE","PRIMARY","COMPLETE"],["阴平突破与成都降服",["邓艾"],"DECISIVE","PRIMARY","COMPLETE"],["中枢政治控制",["贾充"],"MAJOR","PRIMARY","COMPLETE"],["蜀地事后处置",["卫瓘"],"IMPORTANT","PRIMARY","COMPLETE"],["蜀汉官僚与区域接收",["魏国接收官僚"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"团队完成灭蜀与接收，但钟会失控限制相应链条的终局质量。","limitations":[]},
-    {"ruler_name":"冉闵","contribution_chains":[["有限军事辅助",["蒋干等军将"],"IMPORTANT","JOINT","SUBSTANTIAL"],["冉魏短期幕僚支持",["冉魏幕僚"],"SUPPORTING","JOINT","PARTIAL"]],"basis":"创业主要依靠冉闵本人，团队只完成有限军事与幕僚支持，未形成可持续的独立成果链。","limitations":[]},
-    {"ruler_name":"孙权","contribution_chains":[["赤壁战略与联军作战",["周瑜"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["孙刘联盟与战略规划",["鲁肃"],"DECISIVE","PRIMARY","COMPLETE"],["荆州方向军事夺取",["吕蒙"],"DECISIVE","PRIMARY","COMPLETE"],["东线防御与政权稳固",["陆逊"],"MAJOR","PRIMARY","COMPLETE"],["江东行政与士族整合",["张昭","顾雍"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"周瑜、鲁肃、吕蒙和江东文臣分别形成高强度军事、联盟与行政成果，团队承担率处于最高组。","limitations":["只取政权奠基窗口，不评价后期继承斗争"]},
-    {"ruler_name":"姚苌","contribution_chains":[["关中建基谋划",["尹纬"],"MAJOR","PRIMARY","COMPLETE"],["宗族方面军",["姚硕德","姚绪"],"MAJOR","PRIMARY","COMPLETE"],["羌族与归附力量联合",["后秦归附集团"],"MAJOR","PRIMARY","COMPLETE"],["关中军事扩张",["后秦诸将"],"MAJOR","PRIMARY","COMPLETE"],["初建行政",["尹纬","关中属官"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"尹纬与宗族方面军完成谋划、战争和关中接收，团队成果完整但顶端强度有限。","limitations":[]},
-    {"ruler_name":"冯跋","contribution_chains":[["政变与政权稳定",["冯素弗"],"MAJOR","PRIMARY","COMPLETE"],["军事支持",["孙护兄弟"],"IMPORTANT","PRIMARY","COMPLETE"],["北燕官僚承接",["北燕旧官僚"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"少数核心成员完成有限政权的建立与维持，成果规模和独立方向均较少。","limitations":[]},
-    {"ruler_name":"刘玄","contribution_chains":[["反莽主力作战",["王匡","王凤"],"MAJOR","PRIMARY","COMPLETE"],["绿林与舂陵联合",["绿林诸将"],"IMPORTANT","PRIMARY","COMPLETE"],["更始行政草建",["更始官僚"],"SUPPORTING","PRIMARY","PARTIAL"],["多集团政治整合",["反莽集团"],"SUPPORTING","PRIMARY","PARTIAL"]],"basis":"反莽军事联盟取得重要成果，但行政和政治整合未完成，团队不能维持统一运转。","limitations":[]},
-    {"ruler_name":"司马懿","contribution_chains":[["高平陵政变组织与中枢控制",["司马师"],"DECISIVE","PRIMARY","COMPLETE"],["家族后续控制准备",["司马昭"],"IMPORTANT","PRIMARY","COMPLETE"],["中枢官员响应",["蒋济等中枢官员"],"MAJOR","JOINT","COMPLETE"],["曹魏国家机器接管",["司马氏支持集团"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"项目范围较窄，但司马师及中枢支持者完成高强度夺权和国家机器接管。","limitations":["曹魏既有官僚质量不作为司马懿新增人才成果，只计创业窗口实际响应"]},
-    {"ruler_name":"司马睿","contribution_chains":[["江东与南渡士族政治整合",["王导"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["军事屏障与建康政权支撑",["王敦"],"DECISIVE","PRIMARY","SUBSTANTIAL"],["侨旧集团联合",["王导","江东士族"],"DECISIVE","PRIMARY","COMPLETE"],["中枢行政运转",["刁协","东晋官僚"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"王导形成不可替代的政治整合支柱，王敦承担军事方向；后续失控使其责任链不取完整完成。","limitations":[]},
-    {"ruler_name":"嬴政","contribution_chains":[["灭楚等高难主战场",["王翦"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["多国连续征服",["王贲","内史腾"],"DECISIVE","PRIMARY","COMPLETE"],["统一战略与制度接收",["李斯"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["兼并谋划与军事建议",["尉缭"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"王翦、王贲、李斯分别完成征服与国家接收的顶级成果，团队承担率高；秦既有机器不直接给分，只计统一窗口实际成果。","limitations":["李信伐楚误判已在A扣分，B只读取改派后团队实际完成的结果"]},
-    {"ruler_name":"曹丕","contribution_chains":[["汉魏制度转换",["陈群"],"MAJOR","PRIMARY","COMPLETE"],["中枢稳定与谋划",["司马懿"],"IMPORTANT","PRIMARY","COMPLETE"],["外部军事支撑",["曹真","夏侯尚"],"IMPORTANT","PRIMARY","COMPLETE"],["曹魏官僚承接",["汉魏官僚集团"],"DECISIVE","PRIMARY","COMPLETE"]],"basis":"继承团队完成禅代和中枢承接，实际成果明确但新增创业责任链较少。","limitations":[]},
-    {"ruler_name":"李雄","contribution_chains":[["蜀地政治与资源支持",["范长生"],"DECISIVE","PRIMARY","COMPLETE"],["军事建基",["李骧","李离"],"MAJOR","PRIMARY","COMPLETE"],["流民集团整合",["流民军骨干"],"MAJOR","PRIMARY","COMPLETE"],["蜀地归附与行政",["蜀地支持集团"],"IMPORTANT","PRIMARY","COMPLETE"]],"basis":"范长生与宗族军将分别完成政治资源、战争和流民整合，形成中等规模完整团队。","limitations":[]},
-    {"ruler_name":"杨坚","contribution_chains":[["统一规划与国家行政",["高颎"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["灭陈多路战争",["杨素","韩擒虎","贺若弼"],"FOUNDATION_PILLAR","PRIMARY","COMPLETE"],["制度与财政整顿",["苏威"],"MAJOR","PRIMARY","COMPLETE"],["南陈区域接收",["隋朝接收官僚"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"高颎、苏威与多路主将完成规划、行政、统一战争和接收，团队承担率高；继承北周机器不折扣实际完成的创业任务。","limitations":[]},
-    {"ruler_name":"王莽","contribution_chains":[["禅代舆论与制度支持",["刘歆","儒生集团"],"IMPORTANT","PRIMARY","COMPLETE"],["汉新官僚转换",["西汉既有官僚"],"MAJOR","PRIMARY","COMPLETE"],["外戚与中枢联盟",["王氏与支持集团"],"IMPORTANT","PRIMARY","COMPLETE"],["危机军事应对",["新朝将领"],"SUPPORTING","PRIMARY","PARTIAL"]],"basis":"团队能够完成形式改朝和官僚转换，但在创业结果稳固所需的军事、地方与危机责任链上明显失败。","limitations":[]},
-    {"ruler_name":"高洋","contribution_chains":[["北齐中枢行政",["杨愔"],"MAJOR","PRIMARY","COMPLETE"],["军事支撑",["段韶"],"MAJOR","PRIMARY","COMPLETE"],["旧军集团稳定",["斛律金"],"IMPORTANT","PRIMARY","COMPLETE"],["东魏向北齐权力转换",["高氏与东魏官僚"],"DECISIVE","PRIMARY","COMPLETE"]],"basis":"继承高欢、高澄集团完成建国与中枢稳定，团队成果可靠但新增任务规模有限。","limitations":[]},
-    {"ruler_name":"司马师","contribution_chains":[["司马氏中枢连续控制",["司马昭"],"MAJOR","PRIMARY","COMPLETE"],["淮南等军事应对",["王基"],"MAJOR","PRIMARY","COMPLETE"],["中枢谋划",["傅嘏"],"IMPORTANT","PRIMARY","COMPLETE"],["魏国官僚维持",["司马氏支持集团"],"MAJOR","PRIMARY","COMPLETE"]],"basis":"家族与中枢支持者维持夺权成果并完成军事反扑处置，但项目范围较窄。","limitations":[]}
+    {
+      "ruler_name": "李世民",
+      "scoring_outcome_refs": [
+        "BOUT-30AABE353EF7",
+        "BOUT-6C0FBC370BA1"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-30AABE353EF7",
+          "outcome": "关键战斗突击、护卫与局部指挥",
+          "actors": [
+            "尉迟敬德",
+            "秦琼",
+            "秦王府诸将"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "舊唐書/卷2@2588511#世充懼，率其官屬二千餘人詣軍門請降，山東悉平。",
+            "資治通鑑/卷188@1567784#單雄信引槊直趨世民，敬德躍馬大呼，橫刺雄信墜馬，世充兵稍卻，敬德",
+            "資治通鑑/卷189@1503114#宜據武牢之險以拒之，伺間而動，破之必矣。",
+            "舊唐書/卷68@1757055#引爲右一府統軍"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-6C0FBC370BA1",
+          "outcome": "陕东道大行台日常行政后勤",
+          "actors": [
+            "屈突通",
+            "温大雅",
+            "薛收",
+            "行台属官"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/唐/卷189-通读总结.md#L33",
+            "docs/共享史料/唐以前编年/唐/卷188-通读总结.md#L59"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-EAF568A29154",
+          "outcome": "归附人员与新区域接收辅助",
+          "actors": [
+            "长孙无忌",
+            "秦王府幕僚"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷197@1502835",
+            "資治通鑑/卷198@1502841"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "李世民本人承担总体战略、主战场统帅和行台最高军政责任；团队有高质量谋划、战斗与行政交付，但非本人承载份额明显低于刘邦、刘秀等授权型样本。",
+      "limitations": [
+        "玄武门之变不进入第一项",
+        "李渊中央直接授权的李靖、李世勣独立方向不自动计入李世民团队"
+      ]
+    },
+    {
+      "ruler_name": "刘秀",
+      "scoring_outcome_refs": [
+        "BOUT-772FA7B08740",
+        "BOUT-863C5F32CBB1"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-DBF258BFCAF6",
+          "outcome": "河北创业初期经营",
+          "actors": [
+            "邓禹"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "資治通鑑/卷040@河内河南诸军与洛阳受降",
+            "資治通鑑/卷040@乘勝輕進反為所敗，王自投高岸",
+            "資治通鑑/卷040-041@赤眉关中与宜阳受降",
+            "資治通鑑/卷041@邓禹拒谏强战败亡三千余人"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-863C5F32CBB1",
+          "outcome": "关中方面平定与秩序恢复",
+          "actors": [
+            "冯异"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷040-041@赤眉关中与宜阳受降",
+            "資治通鑑/卷041@邓禹拒谏强战败亡三千余人",
+            "資治通鑑/卷040@河内河南诸军与洛阳受降",
+            "資治通鑑/卷040@乘勝輕進反為所敗，王自投高岸"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-AA91387E9D67",
+          "outcome": "山东方面连续平定",
+          "actors": [
+            "耿弇"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷041@刘永张步董宪庞萌战争树"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-772FA7B08740",
+          "outcome": "河内与东方主力作战",
+          "actors": [
+            "吴汉",
+            "寇恂"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷040@河内河南诸军与洛阳受降",
+            "資治通鑑/卷040@乘勝輕進反為所敗，王自投高岸",
+            "資治通鑑/卷041@刘永张步董宪庞萌战争树",
+            "後漢書/卷17@岑彭传#邓奉段"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-10CA5AA1FC59",
+          "outcome": "河西集团归附与侧翼稳定",
+          "actors": [
+            "窦融"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/汉/卷042-通读总结.md"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-ABEFCC207676",
+          "outcome": "政权行政秩序承接",
+          "actors": [
+            "侯霸",
+            "伏湛"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷005@2271037#以刃揕其胸，殺之",
+            "續資治通鑑/卷005@2271037#殺霸榮並其黨",
+            "續資治通鑑/卷005@2271037#迎立繼恩弟太原尹繼元",
+            "續資治通鑑/卷005@2271037#立才六十餘日"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "多名方面负责人能够长期独立完成区域战争、后勤与接收任务，团队承担面很广；总体战略与若干关键危局仍由刘秀本人主导。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "刘裕",
+      "scoring_outcome_refs": [
+        "BOUT-C61691DE6458",
+        "BOUT-00A2049DDC65"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-C61691DE6458",
+          "outcome": "建康中枢与全局后勤",
+          "actors": [
+            "刘穆之"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷115-通读总结.md#L455",
+            "docs/共享史料/唐以前编年/两晋/卷117-通读总结.md#L52"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-392036747F36",
+          "outcome": "关中远征主攻",
+          "actors": [
+            "王镇恶"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷117@803166",
+            "資治通鑑/卷118@803167",
+            "WAR-LEAD-117-LIUYU-QIN-416",
+            "WAR-LEAD-118-LIUYU-QIN-417"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-062A88C7F899",
+          "outcome": "益州方向平定",
+          "actors": [
+            "朱龄石"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷116@2381874",
+            "docs/共享史料/唐以前编年/两晋/卷116-通读总结.md"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-00A2049DDC65",
+          "outcome": "多方向军事执行",
+          "actors": [
+            "檀道济",
+            "王仲德"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷117@803166",
+            "資治通鑑/卷118@803167",
+            "WAR-LEAD-117-LIUYU-QIN-416",
+            "WAR-LEAD-118-LIUYU-QIN-417"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "刘穆之独立维持中枢和后勤，多名方面将领完成高难远征；关中留守失败限制相应成果，不否定其他独立责任链。",
+      "limitations": [
+        "关中最终丢失的结果归A，B1不把失守后的状态重复扣分"
+      ]
+    },
+    {
+      "ruler_name": "刘邦",
+      "scoring_outcome_refs": [
+        "BOUT-9E242E411BB6",
+        "BOUT-C3932BF04706"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-C3932BF04706",
+          "outcome": "关中后方、财政、兵员与民政体系",
+          "actors": [
+            "萧何"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷074@2292219#御史中丞蔡確參知政事",
+            "續資治通鑑/卷074@2292219#吳充數為帝言新法不便",
+            "續資治通鑑/卷074@2292219#欲稍去其甚者",
+            "續資治通鑑/卷074@2292219#豈容一人挾怨而壞之"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-9E242E411BB6",
+          "outcome": "北方诸国与齐楚方向战略征服",
+          "actors": [
+            "韩信"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "史記/淮陰侯列傳@2256147#于是汉兵夹击，大破虏赵军，斩成安君泜水上，禽赵王歇。",
+            "史記/淮陰侯列傳@2256147#发使使燕，燕从风而靡。",
+            "史記/淮陰侯列傳@2256147#后九月，破代兵，禽夏说阏与。",
+            "資治通鑑/卷009@2174852#韓信既定魏，使人請兵三萬人，願以北舉燕、趙，東擊齊，南絕楚糧道。漢王許之"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-4761B0FDDD43",
+          "outcome": "创业总体谋划与关键外交",
+          "actors": [
+            "张良"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "明史/卷21@2594637#楊應龍陷綦江，參將房嘉寵、遊擊張良賢戰死。",
+            "明史/卷21@2594637#李化龍帥師分八路進討播州。",
+            "明史/卷21@2594637#克海龍囤，楊應龍自縊死，播州平。",
+            "續資治通鑑/卷219@2342751#張良弼、圖魯卜、孔興俱不受調。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-5410E6C07F89",
+          "outcome": "离间、联盟重组与危局解题",
+          "actors": [
+            "陈平"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷011@cache-8e0e32cf1c9e04f4",
+            "資治通鑑/卷169@1502684"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-8E969C6B379E",
+          "outcome": "楚军后方牵制与持续消耗",
+          "actors": [
+            "彭越",
+            "英布"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "史記/卷007@漢王數困滎陽、成皋，楚數絕漢甬道。",
+            "史記/卷056@陳平夜出女子二千人，漢王從城西門夜出。",
+            "docs/共享史料/唐以前编年/汉/卷010-通读总结.md#L54",
+            "docs/共享史料/唐以前编年/汉/卷010-通读总结.md#L59"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "萧何、韩信、张良、陈平分别完成不可替代的国家后方、战略征服、谋划外交与联盟破局，且可以并行运转；一人多职按实际成果累计，不按人数折扣。",
+      "limitations": [
+        "战后功臣处置不进入创业窗口"
+      ]
+    },
+    {
+      "ruler_name": "高欢",
+      "scoring_outcome_refs": [
+        "BOUT-3BB65E283E52",
+        "BOUT-1D10DCF322B9"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-BDC43AB4E533",
+          "outcome": "河北政治经营与中枢谋划",
+          "actors": [
+            "孙腾",
+            "司马子如"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷154-通读总结.md#L46"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-EA3CD70AFBE7",
+          "outcome": "东部与南部军事方向",
+          "actors": [
+            "高敖曹",
+            "侯景"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷156-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷158-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷160-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷160-通读总结.md#WAR-LEAD-160-05"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-80AB3C1A76DC",
+          "outcome": "晋阳与核心军务",
+          "actors": [
+            "窦泰",
+            "斛律金"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷157@1151206",
+            "docs/共享史料/唐以前编年/南北朝/卷156-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷157-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷158-通读总结.md"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-1D10DCF322B9",
+          "outcome": "东魏国家机器承接",
+          "actors": [
+            "孙腾",
+            "高氏幕府"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷154-通读总结.md#L46"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-3BB65E283E52",
+          "outcome": "六镇军人与河北豪强整合",
+          "actors": [
+            "高氏集团"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷088-通读总结.md#L298",
+            "docs/共享史料/唐以前编年/隋/卷183-通读总结.md#L38"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "文武集团能够承接东魏中枢和多个军事方向，但顶端责任链的成果强度与稳定性不及刘邦、刘秀。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "萧衍",
+      "scoring_outcome_refs": [
+        "BOUT-18C8B96AC9C6",
+        "BOUT-DDF58ADF0F1E"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-18C8B96AC9C6",
+          "outcome": "建国谋划与禅代文书",
+          "actors": [
+            "范云",
+            "沈约"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷145-通读总结.md#L135",
+            "docs/共享史料/唐以前编年/南北朝/卷137-通读总结.md#L217"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-DDF58ADF0F1E",
+          "outcome": "钟离等关键军事执行",
+          "actors": [
+            "曹景宗",
+            "韦睿"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷146-通读总结.md"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "核心文臣、将领与接收团队完成改朝关键任务，团队输出完整但创业规模和多方向独立承担低于最高组。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "慕容垂",
+      "scoring_outcome_refs": [
+        "BOUT-6419A9C26FC9",
+        "BOUT-1192A92E88B4"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-6419A9C26FC9",
+          "outcome": "河北复国军事扩张",
+          "actors": [
+            "慕容农"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md",
+            "資治通鑑/卷108@1497680",
+            "WAR-LEAD-108-LATERYAN-REVENGE-396",
+            "WAR-LEAD-108-LATERYAN-SHANDONG-394"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-6943A66DE7E6",
+          "outcome": "南部与宗室方面军",
+          "actors": [
+            "慕容德"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷102@1554184",
+            "資治通鑑/卷107@1472329",
+            "WAR-LEAD-107-YAN-HELAN-389-391",
+            "資治通鑑/卷108@1497680"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-1192A92E88B4",
+          "outcome": "翟斌部归并并支撑复燕",
+          "actors": [
+            "翟斌集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷105-通读总结.md#L99"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 4
+      },
+      "basis": "宗室方面军完成复国主干，但行政和联盟成果较集中，参合陂后连续性不足。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "石勒",
+      "scoring_outcome_refs": [
+        "BOUT-300256EC0426",
+        "BOUT-1AAAD30DF24E"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-300256EC0426",
+          "outcome": "总体战略与政权转型",
+          "actors": [
+            "张宾"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷088@2692392"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-1AAAD30DF24E",
+          "outcome": "河北制度与汉人士人整合",
+          "actors": [
+            "张宾",
+            "程遐"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷088@2692392"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-997488B23AD1",
+          "outcome": "多方向军事扩张",
+          "actors": [
+            "石虎",
+            "夔安",
+            "孔苌"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷091@2042381",
+            "資治通鑒/卷091@2042381",
+            "config/unification-campaign-tier-adjudications.json#JIN-LATER-ZHAO-YANCI-319-321",
+            "資治通鑑/卷093@2311925"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D988F79D6BD9",
+          "outcome": "坞堡与地方集团吸收",
+          "actors": [
+            "张宾",
+            "地方归附者"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷088@2692392"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "张宾一人跨战略、制度和整合多条真实成果链，另有方面军独立作战；集中于张宾不单独扣分。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "曹操",
+      "scoring_outcome_refs": [
+        "BOUT-E7A535F3633E",
+        "BOUT-20802C15A0DA"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-E7A535F3633E",
+          "outcome": "许都中枢、后方与人才体系",
+          "actors": [
+            "荀彧"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷061@cache-c14597ef8c91983a"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-67C568334915",
+          "outcome": "重大军事谋划",
+          "actors": [
+            "荀攸",
+            "郭嘉"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷065@2306420"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-20802C15A0DA",
+          "outcome": "多方向守备与征战",
+          "actors": [
+            "曹仁",
+            "夏侯惇",
+            "张辽"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/汉/卷062-通读总结.md#WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+            "資治通鑑/卷062@7904753",
+            "資治通鑑/卷067@2567256",
+            "資治通鑑/卷068@cache-0b61bde123c23c0a"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "谋划、国家后方、屯田和方面军事均有高水平独立成果，综合团队仅次于最高样本。",
+      "limitations": [
+        "赤壁路线误判只在A结算"
+      ]
+    },
+    {
+      "ruler_name": "陈霸先",
+      "scoring_outcome_refs": [
+        "BOUT-0BBA71A5E229",
+        "BOUT-A7D7A354DF86"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-0BBA71A5E229",
+          "outcome": "建康与关键军事夺取",
+          "actors": [
+            "侯安都"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷166@803206",
+            "docs/共享史料/唐以前编年/南北朝/卷166-通读总结.md#WAR-LEAD-166-XUSIHUI-555",
+            "config/ordinary-battle-person-identities.json",
+            "資治通鑑/卷167@1502665"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-AD3A4EDA1288",
+          "outcome": "江北及地方军事执行",
+          "actors": [
+            "周文育"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷167@1502665",
+            "docs/共享史料/唐以前编年/南北朝/卷167-通读总结.md#WAR-LEAD-167-LINGNAN-557",
+            "資治通鑑/卷166@803206",
+            "docs/共享史料/唐以前编年/南北朝/卷166-通读总结.md#WAR-LEAD-166-SANWU-555-556"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-A7D7A354DF86",
+          "outcome": "中枢护卫与连续作战",
+          "actors": [
+            "徐度"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "WAR-LEAD-167-HEFEI-557",
+            "資治通鑑/卷164@2310031",
+            "資治通鑑/卷168@1502678",
+            "資治通鑑/卷170@1502691"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-DB96E683D8B9",
+          "outcome": "岭南旧部组织",
+          "actors": [
+            "杜僧明"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷162@803202"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "多名岭南将领完成创业军事主干，政治与行政责任链相对有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "刘备",
+      "scoring_outcome_refs": [
+        "BOUT-AF0794C424FA",
+        "BOUT-240CC05A1BF2"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-AF0794C424FA",
+          "outcome": "荆益战略、行政与后方",
+          "actors": [
+            "诸葛亮"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷072@2431689",
+            "資治通鑑/卷071@803126",
+            "資治通鑑/卷067@2567256",
+            "資治通鑑/卷070@2375247"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-240CC05A1BF2",
+          "outcome": "取蜀谋划",
+          "actors": [
+            "法正"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷067@2271699#立常平給斂法",
+            "續資治通鑑/卷067@2271699#出內庫緡錢百萬，糴河北常平粟",
+            "續資治通鑑/卷067@2271699#仍以見錢依陝西青苗錢例，願預借者給之",
+            "續資治通鑑/卷067@2271699#半為夏料，半為秋料"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-550601768BF1",
+          "outcome": "荆州独立方向",
+          "actors": [
+            "关羽"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "PARTIAL",
+          "source_refs": [
+            "資治通鑑/卷068@cache-0b61bde123c23c0a",
+            "資治通鑑/卷067@2567256"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-29814F5582AD",
+          "outcome": "益州与汉中军事执行",
+          "actors": [
+            "张飞",
+            "黄忠"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷068@cache-0b61bde123c23c0a",
+            "資治通鑑/卷067@2567256"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "诸葛亮跨行政、战略和后方形成支柱贡献，多名将领完成区域任务；荆州方向只按窗口内实际完成度结算。",
+      "limitations": [
+        "荆州最终损失归A，B只降低该责任链完成度"
+      ]
+    },
+    {
+      "ruler_name": "宇文泰",
+      "scoring_outcome_refs": [
+        "BOUT-C6379720E4FC",
+        "BOUT-302381D5968C"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-C6379720E4FC",
+          "outcome": "制度、财政与国家组织",
+          "actors": [
+            "苏绰"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷157-通读总结.md#L179",
+            "docs/共享史料/唐以前编年/南北朝/卷158-通读总结.md#L173"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-302381D5968C",
+          "outcome": "关陇多方向军事支撑",
+          "actors": [
+            "李弼",
+            "独孤信",
+            "赵贵"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷160-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷156-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷158-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷159-通读总结.md"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 5,
+        "heterogeneous_integration": 5
+      },
+      "basis": "苏绰与关陇文武集团分别完成制度、财政、军事和政治整合，非本人团队承载率处于最高组。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "吕光",
+      "scoring_outcome_refs": [
+        "BOUT-960132874DC7",
+        "BOUT-554955A2475C"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-960132874DC7",
+          "outcome": "西征军军事骨干",
+          "actors": [
+            "杜进",
+            "吕纂"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷107@1472329",
+            "WAR-LEAD-107-LIANG-387",
+            "資治通鑑/卷284@803293#賞募兵二萬",
+            "資治通鑑/卷284@803293#將之攻泉州，"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-554955A2475C",
+          "outcome": "河西地方归附",
+          "actors": [
+            "凉州归附力量"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/唐/卷249-通读总结.md#L50",
+            "docs/共享史料/唐以前编年/两晋/卷080-通读总结.md#L44"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "团队主要完成军事集团向凉州政权的转换，行政与政治成果规模有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "慕容德",
+      "scoring_outcome_refs": [
+        "BOUT-1019EF224800",
+        "BOUT-50409C340B1E"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-1019EF224800",
+          "outcome": "青齐立足与军事扩张",
+          "actors": [
+            "慕容钟"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md#L98",
+            "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md#L102"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-50409C340B1E",
+          "outcome": "建国谋划与行政",
+          "actors": [
+            "韩范"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷043@2267904#任福軍敗，琦即上章自劾",
+            "續資治通鑑/卷043@2267904#乃奪琦使權",
+            "續資治通鑑/卷043@2267904#帝悟，乃薄其責",
+            "續資治通鑑/卷045@2612682#以韓琦、范仲淹並為樞密副使"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "残余文武骨干成功转入青齐建基，成果完整但体量和责任链数量有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "苻健",
+      "scoring_outcome_refs": [
+        "BOUT-4EA3D0592403",
+        "BOUT-CCB9415E2F62"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-4EA3D0592403",
+          "outcome": "关中军事夺取",
+          "actors": [
+            "苻雄"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷099@1502618",
+            "WAR-LEAD-099-LIANGQIN-353-354",
+            "WAR-LEAD-099-QIUCHI-353"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-581F4E158ABB",
+          "outcome": "宗族方面军",
+          "actors": [
+            "苻菁"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷099@1502618",
+            "WAR-LEAD-099-QIUCHI-353",
+            "資治通鑑/卷100@1151319",
+            "WAR-LEAD-100-FUJING-355"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-CCB9415E2F62",
+          "outcome": "氐族与关中力量整合",
+          "actors": [
+            "苻氏集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/唐/卷232-通读总结.md#L40",
+            "docs/共享史料/唐以前编年/三国/卷072-通读总结.md#L187"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "苻雄和宗族集团完成关中建基主干，跨领域成果规模中等。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "赫连勃勃",
+      "scoring_outcome_refs": [
+        "BOUT-5D2E49279C17",
+        "BOUT-C93569A556F7"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-C93569A556F7",
+          "outcome": "河套军事作战",
+          "actors": [
+            "叱干阿利",
+            "赫连氏诸将"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷116-通读总结.md#L255",
+            "docs/共享史料/唐以前编年/三国/卷077-通读总结.md#L165"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-5D2E49279C17",
+          "outcome": "统万城营建",
+          "actors": [
+            "叱干阿利",
+            "营建集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷116-通读总结.md#L255",
+            "docs/共享史料/唐以前编年/两晋/卷116-通读总结.md#L506"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 1,
+        "heterogeneous_integration": 2
+      },
+      "basis": "团队能够承担军事和核心据点建设，但行政、吸纳与秩序成果有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "司马炎",
+      "scoring_outcome_refs": [
+        "BOUT-E7B4569D56C8",
+        "BOUT-F51005C473D5"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-F51005C473D5",
+          "outcome": "灭吴长期准备",
+          "actors": [
+            "羊祜"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷079@2025610",
+            "WAR-LEAD-JINWU-XILING-272"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-E7B4569D56C8",
+          "outcome": "灭吴主攻与总体执行",
+          "actors": [
+            "杜预"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷080@2074599#六路二十余万出师",
+            "資治通鑑/卷081@2080689#上游突破至建业受降",
+            "資治通鑑/卷080@2074599"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-4FAF7500C0EB",
+          "outcome": "长江水军突破",
+          "actors": [
+            "王濬"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷080@2074599#六路二十余万出师",
+            "資治通鑑/卷081@2080689#上游突破至建业受降",
+            "明史/卷14@2594628#置西廠，太監汪直提督官校刺事。",
+            "明史/卷14@2594628#賢下西廠獄。"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "继承体系中的文武负责人独立完成灭吴和接收，团队承担率高；B评价实际成果，不因人才为继承所得折扣。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "沮渠蒙逊",
+      "scoring_outcome_refs": [
+        "BOUT-01DC2B641D11",
+        "BOUT-12E6EEF9FF00"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-12E6EEF9FF00",
+          "outcome": "河西军事建基",
+          "actors": [
+            "沮渠男成"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷109-通读总结.md#L172",
+            "docs/共享史料/唐以前编年/两晋/卷110-通读总结.md#L99"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-01DC2B641D11",
+          "outcome": "宗族方面军",
+          "actors": [
+            "沮渠氏诸将"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷114-通读总结.md#L275",
+            "docs/共享史料/唐以前编年/南北朝/卷159-通读总结.md#L103"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "宗族与地方豪族共同完成长期河西建基，但成果上限受政权规模和宗族结构限制。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "拓跋珪",
+      "scoring_outcome_refs": [
+        "BOUT-CC33AC976F2F",
+        "BOUT-6742429C80D5"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-6742429C80D5",
+          "outcome": "复代与对外军事",
+          "actors": [
+            "拓跋仪",
+            "长孙嵩"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷107@1472329",
+            "WAR-LEAD-107-WEI-ROURAN-391",
+            "資治通鑑/卷111@1753376",
+            "WAR-LEAD-115-WEI-ROURAN-410"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-CC33AC976F2F",
+          "outcome": "代北部落联盟",
+          "actors": [
+            "贺兰部与代北诸部"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/唐/卷192-通读总结.md#L45",
+            "docs/共享史料/唐以前编年/唐/卷193-通读总结.md#L38"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "部落联盟、宗室方面军和汉人幕僚共同完成复国，团队责任链较完整。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "萧道成",
+      "scoring_outcome_refs": [
+        "BOUT-F41C34CFED1A",
+        "BOUT-5FF99666AEB1"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-F41C34CFED1A",
+          "outcome": "中枢权力转换",
+          "actors": [
+            "褚渊"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷133-通读总结.md#L65",
+            "docs/共享史料/唐以前编年/南北朝/卷133-通读总结.md#L98"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-F0E26EDB97B3",
+          "outcome": "军事控制与地方平定",
+          "actors": [
+            "萧赜",
+            "垣崇祖"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷138-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷136-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷136-通读总结.md#WAR-PARENT-NC-HUAN-TIANSHENG-487-488",
+            "docs/共享史料/唐以前编年/南北朝/卷135-通读总结.md"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-5FF99666AEB1",
+          "outcome": "刘宋官僚承接",
+          "actors": [
+            "褚渊",
+            "王俭"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷133-通读总结.md#L65",
+            "docs/共享史料/唐以前编年/南北朝/卷133-通读总结.md#L98"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 4
+      },
+      "basis": "中枢文臣和军事负责人完成禅代与国家机器接收，团队承担率较高。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "刘渊",
+      "scoring_outcome_refs": [
+        "BOUT-FDEFEAB02603",
+        "BOUT-A72068A0420F"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-8A2B5840CCD9",
+          "outcome": "五部匈奴动员",
+          "actors": [
+            "刘宣"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷187@2331933#括傭江、淮民船",
+            "續資治通鑑/卷187@2331933#帝嘉納其言",
+            "續資治通鑑/卷187@2331933#帝即日下詔罷征",
+            "續資治通鑑/卷188@2331945#遂自剄於舟中"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-3431675D3F26",
+          "outcome": "宗族方面军",
+          "actors": [
+            "刘曜"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷094@2312212",
+            "資治通鑑/卷093@2311925",
+            "資治通鑑/卷092@1552069",
+            "WAR-LEAD-CHENAN-322"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-A72068A0420F",
+          "outcome": "东部独立军事扩张",
+          "actors": [
+            "石勒"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷091@2042381",
+            "資治通鑒/卷091@2042381",
+            "config/unification-campaign-tier-adjudications.json#JIN-LATER-ZHAO-YANCI-319-321",
+            "資治通鑑/卷087@2057994"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-FDEFEAB02603",
+          "outcome": "反晋力量联盟",
+          "actors": [
+            "胡汉归附集团"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷087-通读总结.md#L270",
+            "docs/共享史料/唐以前编年/汉/卷062-通读总结.md#L92"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 4
+      },
+      "basis": "五部动员、刘曜与石勒方面军形成显著团队成果，但石勒的高独立性未完全转化为稳定共同政权。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "李暠",
+      "scoring_outcome_refs": [
+        "BOUT-48D020822685",
+        "BOUT-68752B2E72C3"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-48D020822685",
+          "outcome": "敦煌行政与谋划",
+          "actors": [
+            "宋繇"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷119@2634820"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D888C12F1AA4",
+          "outcome": "地方军事维持",
+          "actors": [
+            "李歆",
+            "敦煌军将"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷118@803167",
+            "WAR-LEAD-118-NORTHWESTLIANG-417",
+            "資治通鑑/卷119@2634820"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-68752B2E72C3",
+          "outcome": "河西民政承接",
+          "actors": [
+            "敦煌属官"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷080-通读总结.md#L112",
+            "docs/共享史料/唐以前编年/汉/卷041-通读总结.md#L85"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "宋繇与敦煌士族支撑小而完整的区域建基，成果规模有限但完成度较高。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "李渊",
+      "scoring_outcome_refs": [
+        "BOUT-C06496A99F4E",
+        "BOUT-B88FE38B4549"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-C06496A99F4E",
+          "outcome": "唐初统一主干战争",
+          "actors": [
+            "李世民"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷197@1502835",
+            "資治通鑑/卷198@1502841",
+            "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
+            "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-B88FE38B4549",
+          "outcome": "江汉与岭南方向统一",
+          "actors": [
+            "李靖",
+            "李孝恭"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "舊唐書/卷67@2296327#三軍之任，一以委靖",
+            "舊唐書/卷67@2296327#孝恭不从，率师与贼合战。孝恭果败，奔于南岸；靖见其军乱，纵兵击破之",
+            "舊唐書/卷67@2296327#銑遣使請降",
+            "舊唐書/卷67@2296327#靖又陳十策以圖蕭銑"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-A4BDE20F5006",
+          "outcome": "起兵谋划与突厥联络",
+          "actors": [
+            "刘文静"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "新唐書/卷086@1490066#舉兵掩其後，遂大敗，死者十六，大將慕容羅睺、李安遠、劉弘基皆沒",
+            "舊唐書/卷1@2646080#秦王大破薛仁杲於淺水原，降之，隴右平。",
+            "新唐書/卷086@1490066#行軍長史劉文靜、殷開山觀兵於高墌，恃眾不設備，舉兵掩其後，遂大敗"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-06CBEA30D67D",
+          "outcome": "新区域接收与秩序收束",
+          "actors": [
+            "李世民",
+            "李靖",
+            "归附集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷192@2510432",
+            "資治通鑑/卷193@2293559",
+            "資治通鑑/卷194@2031610",
+            "資治通鑑/卷190@1502800#孝恭、靖乘胜逐北，转战百余里"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "李世民承担统一战争主干，李靖、李孝恭独立完成南方方向，刘文静完成起兵期关键任务；李渊团队总贡献很高，但错误用人对应链条只按实际完成度结算。",
+      "limitations": [
+        "李元吉、裴寂守晋阳的路线误判已在A扣分，不在B重复扣分",
+        "李世民纠正迁都判断不转化为李渊本人组织信用，但其完成的团队成果仍进入B1"
+      ]
+    },
+    {
+      "ruler_name": "司马昭",
+      "scoring_outcome_refs": [
+        "BOUT-10410F7CA3B4",
+        "BOUT-1F125723383A"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-1F125723383A",
+          "outcome": "灭蜀正面推进",
+          "actors": [
+            "钟会"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷078@2074603",
+            "WAR-LEAD-SG-ZHONGHUI-264",
+            "資治通鑑/卷077@803131"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-10410F7CA3B4",
+          "outcome": "阴平突破与成都降服",
+          "actors": [
+            "邓艾"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷078@2074603",
+            "WAR-LEAD-SG-ZHONGHUI-264",
+            "資治通鑑/卷077@803131",
+            "資治通鑑/卷076@1554069"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-1441180DC459",
+          "outcome": "中枢政治控制",
+          "actors": [
+            "贾充"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷080@2074599#六路二十余万出师",
+            "資治通鑑/卷081@2080689#上游突破至建业受降"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "团队完成灭蜀与接收，但钟会失控限制相应链条的终局质量。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "冉闵",
+      "scoring_outcome_refs": [
+        "BOUT-61C441288091",
+        "BOUT-F3EC5E348487"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-61C441288091",
+          "outcome": "有限军事辅助",
+          "actors": [
+            "蒋干等军将"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷116-通读总结.md#L341",
+            "docs/共享史料/唐以前编年/唐/卷237-通读总结.md#L101"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-F3EC5E348487",
+          "outcome": "冉魏短期幕僚支持",
+          "actors": [
+            "冉魏幕僚"
+          ],
+          "outcome_level": "SUPPORTING",
+          "non_founder_responsibility": "JOINT",
+          "completion": "PARTIAL",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/三国/卷070-通读总结.md#L51",
+            "docs/共享史料/唐以前编年/两晋/卷098-通读总结.md#L236"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 1,
+        "continuity_resilience": 0,
+        "heterogeneous_integration": 1
+      },
+      "basis": "创业主要依靠冉闵本人，团队只完成有限军事与幕僚支持，未形成可持续的独立成果链。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "孙权",
+      "scoring_outcome_refs": [
+        "BOUT-040DDB330568",
+        "BOUT-555B268B679D"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-040DDB330568",
+          "outcome": "赤壁战略与联军作战",
+          "actors": [
+            "周瑜"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷065@2306420",
+            "資治通鑑/卷066@2563650"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-555B268B679D",
+          "outcome": "孙刘联盟与战略规划",
+          "actors": [
+            "鲁肃"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷067@2567256"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-C307C0ABA7E2",
+          "outcome": "荆州方向军事夺取",
+          "actors": [
+            "吕蒙"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷068@cache-0b61bde123c23c0a",
+            "資治通鑑/卷067@2567256",
+            "資治通鑑/卷065@2306420",
+            "續資治通鑑/卷009@2606561#諸道所發貢士凡五千三百餘人"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-B3F078526341",
+          "outcome": "东线防御与政权稳固",
+          "actors": [
+            "陆逊"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷072@2431689",
+            "資治通鑑/卷069@2457431",
+            "資治通鑑/卷071@803126",
+            "資治通鑑/卷068@cache-0b61bde123c23c0a"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-47D88FFD5ECF",
+          "outcome": "江东行政与士族整合",
+          "actors": [
+            "张昭",
+            "顾雍"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷021@2261201#並削奪官爵",
+            "續資治通鑑/卷021@2261201#爵，潛流房州",
+            "續資治通鑑/卷021@2261201#州，昭允通州",
+            "續資治通鑑/卷021@2261201#所，仍籍其家"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "周瑜、鲁肃、吕蒙和江东文臣分别形成高强度军事、联盟与行政成果，团队承担率处于最高组。",
+      "limitations": [
+        "只取政权奠基窗口，不评价后期继承斗争"
+      ]
+    },
+    {
+      "ruler_name": "姚苌",
+      "scoring_outcome_refs": [
+        "BOUT-413FE643B618",
+        "BOUT-4A53A7BDEE50"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-413FE643B618",
+          "outcome": "关中建基谋划",
+          "actors": [
+            "尹纬"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-CB2285A67101",
+          "outcome": "宗族方面军",
+          "actors": [
+            "姚硕德",
+            "姚绪"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷108@1497680",
+            "WAR-LEAD-108-LATERCIN-WEST-396",
+            "資治通鑑/卷111@1753376",
+            "WAR-LEAD-111-LATERCIN-WESTQIN-400"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-4A53A7BDEE50",
+          "outcome": "羌族与归附力量联合",
+          "actors": [
+            "后秦归附集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷086-通读总结.md#L206",
+            "docs/共享史料/唐以前编年/两晋/卷091-通读总结.md#L115"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-95ABF89B99DE",
+          "outcome": "初建行政",
+          "actors": [
+            "尹纬",
+            "关中属官"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "尹纬与宗族方面军完成谋划、战争和关中接收，团队成果完整但顶端强度有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "冯跋",
+      "scoring_outcome_refs": [
+        "BOUT-CE88DECED596",
+        "BOUT-09098084F521"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-CE88DECED596",
+          "outcome": "政变与政权稳定",
+          "actors": [
+            "冯素弗"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/唐/卷207-通读总结.md#L32",
+            "docs/共享史料/唐以前编年/南北朝/卷120-通读总结.md#L17"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-09098084F521",
+          "outcome": "高云名义承接、冯跋掌握北燕军政",
+          "actors": [
+            "高云与北燕中枢"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷114-通读总结.md#L345"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 3
+      },
+      "basis": "少数核心成员完成有限政权的建立与维持，成果规模和独立方向均较少。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "刘玄",
+      "scoring_outcome_refs": [
+        "BOUT-0537BF03C424",
+        "BOUT-D5A10B871F4F"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-0537BF03C424",
+          "outcome": "反莽主力作战",
+          "actors": [
+            "王匡",
+            "王凤"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/汉/卷038-通读总结.md#L84",
+            "docs/共享史料/唐以前编年/汉/卷038-通读总结.md#L25"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D5A10B871F4F",
+          "outcome": "绿林与舂陵联合",
+          "actors": [
+            "绿林诸将"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/汉/卷038-通读总结.md#L76",
+            "docs/共享史料/唐以前编年/汉/卷038-通读总结.md#L81"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 1,
+        "heterogeneous_integration": 2
+      },
+      "basis": "反莽军事联盟取得重要成果，但行政和政治整合未完成，团队不能维持统一运转。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "司马懿",
+      "scoring_outcome_refs": [
+        "BOUT-F03518113498",
+        "BOUT-013957248E06"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-F03518113498",
+          "outcome": "高平陵政变组织与中枢控制",
+          "actors": [
+            "司马师"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷076@1554069",
+            "資治通鑑/卷075@617541"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-EB1522898236",
+          "outcome": "家族后续控制准备",
+          "actors": [
+            "司马昭"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷077@803131",
+            "資治通鑑/卷078@2074603"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-013957248E06",
+          "outcome": "曹魏国家机器接管",
+          "actors": [
+            "司马氏支持集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/三国/卷071-通读总结.md#L50",
+            "docs/共享史料/唐以前编年/三国/卷076-通读总结.md#L133"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "项目范围较窄，但司马师及中枢支持者完成高强度夺权和国家机器接管。",
+      "limitations": [
+        "曹魏既有官僚质量不作为司马懿新增人才成果，只计创业窗口实际响应"
+      ]
+    },
+    {
+      "ruler_name": "司马睿",
+      "scoring_outcome_refs": [
+        "BOUT-6F7A535503EE",
+        "BOUT-4EFA7313DC9D"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-6F7A535503EE",
+          "outcome": "江东与南渡士族政治整合",
+          "actors": [
+            "王导"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷093@2311925",
+            "WAR-LEAD-HUAINAN-326",
+            "WAR-LEAD-WANGDUN-324"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-54AF6455E501",
+          "outcome": "军事屏障与建康政权支撑",
+          "actors": [
+            "王敦"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "WAR-LEAD-DUZENG-315",
+            "WAR-LEAD-DUZENG-END-319",
+            "docs/共享史料/唐以前编年/两晋/卷089-通读总结.md#WAR-LEAD-DUZENG-315",
+            "資治通鑑/卷089@7904751"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-4EFA7313DC9D",
+          "outcome": "侨旧集团联合",
+          "actors": [
+            "王导",
+            "江东士族"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷093@2311925",
+            "WAR-LEAD-WANGDUN-324",
+            "WAR-LEAD-HUAINAN-326"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "王导形成不可替代的政治整合支柱，王敦承担军事方向；后续失控使其责任链不取完整完成。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "嬴政",
+      "scoring_outcome_refs": [
+        "BOUT-5A1B83E4C46D",
+        "BOUT-6C0D91C8B64B"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-5A1B83E4C46D",
+          "outcome": "灭楚等高难主战场",
+          "actors": [
+            "王翦"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "史記/卷006@7907969#秦王復召王翦，彊起之，使將擊荊。取陳以南至平輿，虜荊王。",
+            "史記/卷006@7907969#王翦、蒙武攻荊，破荊軍，昌平君死，項燕遂自殺。",
+            "史記/卷006@7907969#而使王翦、辛勝攻燕。燕、代發兵擊秦軍，秦軍破燕易水之西。",
+            "史記/卷006@7907969#遂破燕太子軍，取燕薊城，得太子丹之首。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-97CF1CBE937C",
+          "outcome": "多国连续征服",
+          "actors": [
+            "王贲",
+            "内史腾"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "史記/卷006@7907969#十七年，內史騰攻韓，得韓王安，盡納其地，以其地為郡，命曰潁川。",
+            "史記/卷006@7907969#二十六年，齊王建與其相后勝發兵守其西界，不通秦。秦使將軍王賁從燕南攻齊，得齊王建。",
+            "史記/卷006@7907969#二十二年，王賁攻魏，引河溝灌大梁，大梁城壞，其王請降，盡取其地。",
+            "史記/卷006@7907969#而使王翦、辛勝攻燕。燕、代發兵擊秦軍，秦軍破燕易水之西。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-6C0D91C8B64B",
+          "outcome": "统一战略与制度接收",
+          "actors": [
+            "李斯"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/秦/卷006-通读总结.md#L22",
+            "docs/共享史料/唐以前编年/秦/卷007-通读总结.md#L47"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "王翦、王贲、李斯分别完成征服与国家接收的顶级成果，团队承担率高；秦既有机器不直接给分，只计统一窗口实际成果。",
+      "limitations": [
+        "李信伐楚误判已在A扣分，B只读取改派后团队实际完成的结果"
+      ]
+    },
+    {
+      "ruler_name": "曹丕",
+      "scoring_outcome_refs": [
+        "BOUT-EDD8A13F75C7",
+        "BOUT-7F949E482F2C"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-7F949E482F2C",
+          "outcome": "九品官人法与魏制转换",
+          "actors": [
+            "陈群"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/三国/卷069-通读总结.md#L119",
+            "docs/共享史料/唐以前编年/三国/卷071-通读总结.md#L227"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-51A78C11EC43",
+          "outcome": "中枢稳定与谋划",
+          "actors": [
+            "司马懿"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷072@2431689",
+            "資治通鑑/卷073@2073386",
+            "資治通鑑/卷074@1553972",
+            "docs/共享史料/唐以前编年/三国/卷074-通读总结.md"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-DFFE86031ACF",
+          "outcome": "外部军事支撑",
+          "actors": [
+            "曹真",
+            "夏侯尚"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷070@2375247",
+            "資治通鑑/卷071@803126",
+            "docs/共享史料/唐以前编年/三国/卷071-通读总结.md#L59",
+            "docs/共享史料/唐以前编年/三国/卷071-通读总结.md#L60"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-EDD8A13F75C7",
+          "outcome": "曹操身后快速完成魏王继位与中枢承接",
+          "actors": [
+            "曹魏既有中枢"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/三国/卷069-通读总结.md#L16"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 3
+      },
+      "basis": "继位与制度转换有团队执行成果，但主要承接曹操已成型的中枢，不把继承机器重复计作两项创业支柱。",
+      "limitations": [
+        "九品官人法与快速继位可证；曹丕本人另行创建完整官僚机器的增量不可证。"
+      ]
+    },
+    {
+      "ruler_name": "李雄",
+      "scoring_outcome_refs": [
+        "BOUT-4CE0A0D0B24B",
+        "BOUT-28220D055C3B"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-4CE0A0D0B24B",
+          "outcome": "蜀地政治与资源支持",
+          "actors": [
+            "范长生"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷085-通读总结.md#L65",
+            "docs/共享史料/唐以前编年/两晋/卷085-通读总结.md#L72"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-B0B3CAF7EE26",
+          "outcome": "军事建基",
+          "actors": [
+            "李骧",
+            "李离"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷087@2057994"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-28220D055C3B",
+          "outcome": "流民集团整合",
+          "actors": [
+            "流民军骨干"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷088-通读总结.md#L388",
+            "docs/共享史料/唐以前编年/两晋/卷089-通读总结.md#L284"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "范长生与宗族军将分别完成政治资源、战争和流民整合，形成中等规模完整团队。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "杨坚",
+      "scoring_outcome_refs": [
+        "BOUT-181372EE62BE",
+        "BOUT-400F04D5BCEC"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-181372EE62BE",
+          "outcome": "统一规划与国家行政",
+          "actors": [
+            "高颎"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷176@982720#高颎消耗策略、造舰与五十一万八千人八路出师",
+            "資治通鑑/卷177@1960991#广陵采石渡江、白土冈与建康终局",
+            "資治通鑑/卷176@982720",
+            "資治通鑑/卷174@617791"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-400F04D5BCEC",
+          "outcome": "灭陈多路战争",
+          "actors": [
+            "杨素",
+            "韩擒虎",
+            "贺若弼"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷176@982720#高颎消耗策略、造舰与五十一万八千人八路出师",
+            "資治通鑑/卷177@1960991#广陵采石渡江、白土冈与建康终局",
+            "資治通鑑/卷180@1502733",
+            "資治通鑑/卷178@2031186"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-CBEFBF598DD5",
+          "outcome": "制度与财政整顿",
+          "actors": [
+            "苏威"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷181@1502738",
+            "資治通鑑/卷182@1502778"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "高颎、苏威与多路主将完成规划、行政、统一战争和接收，团队承担率高；继承北周机器不折扣实际完成的创业任务。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "王莽",
+      "scoring_outcome_refs": [
+        "BOUT-B4DCE7E22163",
+        "BOUT-76522607B8A1"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-76522607B8A1",
+          "outcome": "禅代舆论与制度支持",
+          "actors": [
+            "刘歆",
+            "儒生集团"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/汉/卷033-通读总结.md#L21",
+            "docs/共享史料/唐以前编年/汉/卷033-通读总结.md#L68"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-B4DCE7E22163",
+          "outcome": "受禅并完成汉新政权转换",
+          "actors": [
+            "西汉既有官僚与支持集团"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/汉/卷036-通读总结.md#L27",
+            "docs/共享史料/唐以前编年/汉/卷036-通读总结.md#L112"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "团队能够完成形式改朝和官僚转换，但在创业结果稳固所需的军事、地方与危机责任链上明显失败。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "高洋",
+      "scoring_outcome_refs": [
+        "BOUT-52C3B354F3B4",
+        "BOUT-2CCE675A4459"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-2CCE675A4459",
+          "outcome": "北齐中枢行政",
+          "actors": [
+            "杨愔"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷166-通读总结.md#L199",
+            "docs/共享史料/唐以前编年/南北朝/卷168-通读总结.md#L13"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-B62B3D2DBF88",
+          "outcome": "军事支撑",
+          "actors": [
+            "段韶"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷160-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷161-通读总结.md",
+            "docs/共享史料/唐以前编年/南北朝/卷160-通读总结.md#WAR-LEAD-160-06",
+            "docs/共享史料/唐以前编年/南北朝/卷161-通读总结.md#WAR-LEAD-161-01"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-67644978AC80",
+          "outcome": "旧军集团稳定",
+          "actors": [
+            "斛律金"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷158-通读总结.md",
+            "資治通鑑/卷165@1554065"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-52C3B354F3B4",
+          "outcome": "东魏向北齐权力转换",
+          "actors": [
+            "高氏与东魏官僚"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/南北朝/卷169-通读总结.md#L8",
+            "docs/共享史料/唐以前编年/两晋/卷084-通读总结.md#L18"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "继承高欢、高澄集团完成建国与中枢稳定，团队成果可靠但新增任务规模有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "司马师",
+      "scoring_outcome_refs": [
+        "BOUT-01BB24421AD2",
+        "BOUT-494755537D70"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-01BB24421AD2",
+          "outcome": "司马氏中枢连续控制",
+          "actors": [
+            "司马昭"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷077@803131",
+            "資治通鑑/卷078@2074603"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-494755537D70",
+          "outcome": "淮南等军事应对",
+          "actors": [
+            "王基"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷077@803131",
+            "資治通鑑/卷076@1554069",
+            "資治通鑑/卷075@617541"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-21E81DBB8EBF",
+          "outcome": "中枢谋划",
+          "actors": [
+            "傅嘏"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷075@617541"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "家族与中枢支持者维持夺权成果并完成军事反扑处置，但项目范围较窄。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "宇文邕",
+      "scoring_outcome_refs": [
+        "BOUT-4A6EAA02147A",
+        "BOUT-9C3CF46EEF04"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-4A6EAA02147A",
+          "outcome": "王轨与宇文宪分别闭合灭齐关键方向",
+          "actors": [
+            "王轨",
+            "宇文宪"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT-WAR-PARENT-169-ZHOU-QI-LUOYANG-564-宇文宪",
+            "WAR-LEAD-NC-ZHOU-JIHU-577"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-9C3CF46EEF04",
+          "outcome": "韦孝宽承担北方防御与侧翼牵制",
+          "actors": [
+            "韦孝宽"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT-WAR-LEAD-159-04-韦孝宽",
+            "WAR-LEAD-NC-YUCHIJIONG-580"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "本人亲征承担灭齐最高统帅责任；王轨、宇文宪与韦孝宽仍形成可分离的主战、追击和防御成果。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "石虎",
+      "scoring_outcome_refs": [
+        "BOUT-BDDD4340B661",
+        "BOUT-8D12164E82B7"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-BDDD4340B661",
+          "outcome": "石堪等将领承担前赵终局的独立军务",
+          "actors": [
+            "石堪"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷094-通读总结.md#L140",
+            "docs/共享史料/唐以前编年/两晋/卷094-通读总结.md#L141"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-8D12164E82B7",
+          "outcome": "桃豹等持续承担关中河南方向作战",
+          "actors": [
+            "桃豹"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "資治通鑑/卷091@2042381",
+            "WAR-LEAD-CHENCHUAN-319",
+            "WAR-LEAD-ZUTI-CHENCHENG-320"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 4
+      },
+      "basis": "后赵已有多方向将领体系，但关键权力与军事高度集中，继承韧性有限。",
+      "limitations": [
+        "部分人物责任仅有公共战役下限"
+      ]
+    },
+    {
+      "ruler_name": "苻坚",
+      "scoring_outcome_refs": [
+        "BOUT-CD4D7B9C47CB",
+        "BOUT-B9709E1F062E"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-CD4D7B9C47CB",
+          "outcome": "王猛统合灭前燕与河北接收",
+          "actors": [
+            "王猛"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT-WAR-LEAD-102-YAN-FALL-370-王猛",
+            "WAR-LEAD-101-LIYAN-367",
+            "PCR-AUDIT-WAR-LEAD-101-FOUR-DUKES-367-368-王猛-POSITIVE-1",
+            "PCR-LOW-C7EBA738C4A267EC"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-B9709E1F062E",
+          "outcome": "邓羌等闭合北方多支割据方向",
+          "actors": [
+            "邓羌",
+            "张蚝"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT---A88862CD2F",
+            "PCR-AUDIT-WAR-LEAD-100-ZHANGPING-358-邓羌-POSITIVE-1",
+            "PCR-AUDIT---1F9DB89FB1",
+            "PCR-AUDIT-WAR-LEAD-101-FOUR-DUKES-367-368-张蚝-POSITIVE-1"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "王猛形成可脱离苻坚现场控制的军政支柱，邓羌等承担独立方向；王猛死后仍能运转但战略质量明显下降。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "拓跋焘",
+      "scoring_outcome_refs": [
+        "BOUT-AD3B173C61D9",
+        "BOUT-C787E4C20AF8"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-AD3B173C61D9",
+          "outcome": "崔浩等提供北方统一的战略与行政组织",
+          "actors": [
+            "崔浩"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷124@803171"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-C787E4C20AF8",
+          "outcome": "古弼等将领闭合河西与北方独立方向",
+          "actors": [
+            "古弼",
+            "奚斤"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT---972A39EF08"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "北魏能够同时运用汉人士族行政中枢、鲜卑军将和降附集团，形成跨方向统一团队。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "姚兴",
+      "scoring_outcome_refs": [
+        "BOUT-3F16FB7F8960",
+        "BOUT-AC3F56FF39C3"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-3F16FB7F8960",
+          "outcome": "姚硕德承担西秦方向主要扩张",
+          "actors": [
+            "姚硕德"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT---3BB14D3218",
+            "PCR-AUDIT-WAR-LEAD-111-LATERCIN-WESTQIN-400-姚硕德"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-AC3F56FF39C3",
+          "outcome": "尹纬等维持关中中枢与创业集团接续",
+          "actors": [
+            "尹纬"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "后秦存在独立方向与中枢接续，但扩张闭合有限，未形成全国性多中心团队。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "刘聪",
+      "scoring_outcome_refs": [
+        "BOUT-A4405E5085CA",
+        "BOUT-D5CD0ED91F28"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-A4405E5085CA",
+          "outcome": "刘曜独立闭合长安与关中方向",
+          "actors": [
+            "刘曜"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "WAR-LEAD-CHENAN-END-323",
+            "WAR-LEAD-ZHAO-LUOYANG-328",
+            "PCR-AUDIT---52B9A8B16A"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D5CD0ED91F28",
+          "outcome": "石勒独立闭合洛阳河北等主要方向",
+          "actors": [
+            "石勒"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "SUPPORT",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329",
+            "JIN-SHILE-CROSS-STATE-309-310",
+            "JIN-SHILE-XIANGGUO-BASE-312",
+            "JIN-SHILE-XIANGGUO-DEFENSE-312"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "刘曜可作为汉赵中枢可归责的独立方面支柱；石勒虽完成东部扩张，但保持独立军政基础并最终分裂，不能按刘聪直接团队吃满。",
+      "limitations": [
+        "石勒成果只按刘聪政权窗口内的有限统属关系计入，不把后赵建国成果倒灌。"
+      ]
+    },
+    {
+      "ruler_name": "朱温",
+      "scoring_outcome_refs": [
+        "BOUT-F9FB12B88F70",
+        "BOUT-0FF671F37BD5"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-F9FB12B88F70",
+          "outcome": "葛从周持续闭合山东河北方向",
+          "actors": [
+            "葛从周"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT-WAR-LEAD-261-BIANYUN-END-葛从周",
+            "WAR-LEAD-261-YANWEI-END",
+            "WAR-LEAD-262-HEBEI-END"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-0FF671F37BD5",
+          "outcome": "张存敬等承担河中河北独立方向",
+          "actors": [
+            "张存敬"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "WAR-LEAD-262-HEBEI-END",
+            "WAR-LEAD-262-HEZHONG-END"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "汴州集团形成多方向将领和幕府体系，但核心高度依附朱温且继承后迅速失序。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "王建",
+      "scoring_outcome_refs": [
+        "BOUT-A654BAA807A9",
+        "BOUT-0E2C23A455B2"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-A654BAA807A9",
+          "outcome": "王宗侃等完成西川核心接收与守成",
+          "actors": [
+            "王宗侃"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷268@2307909#帥步騎十二萬伐岐"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-0E2C23A455B2",
+          "outcome": "王宗涤等承担东川及外围扩张",
+          "actors": [
+            "王宗涤"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AUDIT-WAR-LEAD-263-HANZHONG-END-王宗涤"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 3
+      },
+      "basis": "前蜀团队能闭合成都与外围方向，但独立成果规模、异质整合和梯队证据均低于全国性创业团队。",
+      "limitations": [
+        "唐末蜀地人物结果按现有公共登记下限"
+      ]
+    },
+    {
+      "ruler_name": "李存勖",
+      "scoring_outcome_refs": [
+        "BOUT-CE6B275BB185",
+        "BOUT-FBB96F637B0B"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-FBB96F637B0B",
+          "outcome": "周德威长期承担幽州与河北独立战区",
+          "actors": [
+            "周德威"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-6F1832F9B368949DC2A8",
+            "PCR-3F6EB953F1EBDDE8DBD5"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-CE6B275BB185",
+          "outcome": "李存审持续支撑河北防线并完成替补",
+          "actors": [
+            "李存审"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-3A25FC4B67D9CBCD7C8A",
+            "PCR-9B87983B043350F407AD",
+            "PCR-AUDIT-WAR-LEAD-259-YOUZHOU-END-李存审",
+            "PCR-1AEC8F35441B7F8354CB"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 4
+      },
+      "basis": "河东集团具备多战区独立统帅和成员退出后的接续，但灭梁后政治整合不足限制异质整合。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "李嗣源",
+      "scoring_outcome_refs": [
+        "BOUT-16ACD2C480E9",
+        "BOUT-95C61158F0A4"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-16ACD2C480E9",
+          "outcome": "石敬瑭等承担后唐建国链中的独立方向",
+          "actors": [
+            "石敬瑭"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-9C4782122AD8BA92D614",
+            "PCR-98F820F435F8FC4EB2E4",
+            "PCR-E724EB7E608679533943"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-95C61158F0A4",
+          "outcome": "李从珂等完成局部攻城与追击",
+          "actors": [
+            "李从珂"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-0A53815E6DC8E60E4417",
+            "PCR-AE382B0E3BC4449E4B01"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "本人本就是李存勖团队的重要外线统帅；归于本人名下的非本人团队成果较少，不能复制整个河东集团。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "石敬瑭",
+      "scoring_outcome_refs": [
+        "BOUT-DADD05FF583F",
+        "BOUT-FC67F8437B24"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-DADD05FF583F",
+          "outcome": "刘知远承担太原防守与后晋军务",
+          "actors": [
+            "刘知远"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-A9A4EA270F854C3702D3"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-FC67F8437B24",
+          "outcome": "桑维翰完成借援与建国政治交涉",
+          "actors": [
+            "桑维翰"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷280@1769088#檄，帝業可成",
+            "資治通鑑/卷280@1769088#推心屈節事之",
+            "資治通鑑/卷280@1769088#敬瑭意遂決",
+            "資治通鑑/卷280@1769088#跪於帳前，自旦至暮"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 1,
+        "heterogeneous_integration": 2
+      },
+      "basis": "夺权高度依赖契丹外部军力，内部团队只有有限军政支撑；外援不能冒充稳定的本国组织能力。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "郭威",
+      "scoring_outcome_refs": [
+        "BOUT-BD7BF7BBB854",
+        "BOUT-1CF6205C6C85"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-BD7BF7BBB854",
+          "outcome": "柴荣留守邺都维持创业后方",
+          "actors": [
+            "柴荣"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷289@1769444#心，擁兵而南",
+            "資治通鑑/卷289@1769444#留其養子榮鎮鄴都",
+            "資治通鑑/卷289@1769444#自將大軍繼之",
+            "資治通鑑/卷289@1769444#以所部兵從郭威"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-1CF6205C6C85",
+          "outcome": "王峻等完成中枢接管与政治联络",
+          "actors": [
+            "王峻",
+            "魏仁浦"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷290@1554171#善譬諭以開主意",
+            "資治通鑑/卷290@1554171#北漢主攻晉州，久不克。會大雪，民相聚保山寨，野無所掠，軍乏食。契丹思歸，聞王峻至蒙坑，燒營夜遁",
+            "資治通鑑/卷290@1554171#明日，乃遣行營馬軍都指揮使仇弘超、都排陳使藥元福、左廂排除使陳思讓、康延沼將騎兵追之，及於霍邑，縱兵奮擊，北漢兵墜崖谷死者甚眾",
+            "資治通鑑/卷288@1769130#釋甲出城受詔"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "短期夺权中形成前后方分工，但窗口短、成果主要集中于一次中枢转换。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "柴荣",
+      "scoring_outcome_refs": [
+        "BOUT-45BDC069A909",
+        "BOUT-AB53A86A677A"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-45BDC069A909",
+          "outcome": "赵匡胤等承担淮南北方独立军务",
+          "actors": [
+            "赵匡胤",
+            "向训"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-AE37E3776118B42730E3",
+            "PCR-59ADB9DF6E49185F4FCA",
+            "PCR-5F7F3974510CEA09A979",
+            "PCR-A83E058886EFB452E413"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-AB53A86A677A",
+          "outcome": "王朴完成统一规划与国家资源组织",
+          "actors": [
+            "王朴"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "明史/卷24@2594640#大清兵攻錦州，祖大壽拒守。",
+            "明史/卷24@2594640#總兵官吳三桂、王樸自松山遁，諸軍夜潰。",
+            "明史/卷24@2594640#大清兵克松山，洪承疇降",
+            "清史稿/卷3@2589314#深溝高壘，絕明兵出入"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 3
+      },
+      "basis": "后周形成军事执行与战略行政分工，但柴荣早逝后统一主链中断，连续替补不能给满。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "耶律阿保机",
+      "scoring_outcome_refs": [
+        "BOUT-6CC3F06AA367",
+        "BOUT-26710118FD1D"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-6CC3F06AA367",
+          "outcome": "述律平维持联盟、后方与继承结构",
+          "actors": [
+            "述律平"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷269@cache-3aef2736d81bac75#机自称皇帝",
+            "資治通鑑/卷269@cache-3aef2736d81bac75#后，置百官。至",
+            "資治通鑑/卷269@cache-3aef2736d81bac75#奋击，大破之"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-26710118FD1D",
+          "outcome": "耶律曷鲁等承担幽州方向外线军务",
+          "actors": [
+            "耶律曷鲁"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "遼史/卷1@2325070#合戰於新州東，大破之，斬首三萬餘級",
+            "遼史/卷1@2325070#圍幽州，不克。",
+            "遼史/卷1@2325070#曷魯等以兵少而還。"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "契丹创业把后族、宗室、部落将领及汉地人才纳入共同体系，并在阿保机死后保持接续。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "述律平",
+      "scoring_outcome_refs": [
+        "BOUT-0114563F54DA",
+        "BOUT-19443707CB85"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-0114563F54DA",
+          "outcome": "耶律德光完成继承与军政中枢承接",
+          "actors": [
+            "耶律德光"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-9912589556035244B626"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-19443707CB85",
+          "outcome": "韩延徽等维持汉地行政与外交支撑",
+          "actors": [
+            "韩延徽"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷269@cache-3aef2736d81bac75#筑城郭，立市里，以处汉人",
+            "資治通鑑/卷269@cache-3aef2736d81bac75#偶，垦艺荒田",
+            "資治通鑑/卷269@cache-3aef2736d81bac75#逃亡者益少"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "述律平主导继承重组，德光和汉臣体系承担执行；清洗旧臣使连续性不能上调。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "耶律德光",
+      "scoring_outcome_refs": [
+        "BOUT-8281201E3811",
+        "BOUT-01041D2F2BEA"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-8281201E3811",
+          "outcome": "赵延寿等承担燕云及中原方向军政执行",
+          "actors": [
+            "赵延寿"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "遼史/卷4@2325083#趙延壽、延昭率前鋒五萬騎次任丘。",
+            "遼史/卷4@2325083#趙延壽圍貝州，其軍校邵珂開南門納遼兵",
+            "遼史/卷4@2325083#攻博州，剌史周儒以城降。",
+            "遼史/卷4@2325083#之，遼軍不利。\n"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-01041D2F2BEA",
+          "outcome": "高模翰等承担多路远征与地方接收",
+          "actors": [
+            "高模翰"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "遼史/卷6@2673692#漢為周所侵，遣使求援，命中臺省右相高模翰赴之。",
+            "遼史/卷6@2673692#高模翰及漢兵圍晉州。"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "能够运用契丹、渤海和汉人军政集团并行推进，但中原占领迅速反弹限制完成度与组织稳定。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "耶律大石",
+      "scoring_outcome_refs": [
+        "BOUT-5FE2C5D7DEB0",
+        "BOUT-590EDF28FCB7"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-5FE2C5D7DEB0",
+          "outcome": "萧斡里剌等组织西迁军队与根据地",
+          "actors": [
+            "萧斡里剌"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "遼史/卷30@2259598#率七萬騎東征。",
+            "遼史/卷30@2259598#行萬餘里無所得，牛馬多死，勒兵而還。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-590EDF28FCB7",
+          "outcome": "原辽官将共同完成可敦城军政重组",
+          "actors": [
+            "耶律松山"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "遼史/卷30@2259598#遂得精兵萬餘，置官吏，立排甲，具器仗。",
+            "遼史/卷30@2259598#文武百官冊立大石為帝"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 4
+      },
+      "basis": "西迁集团能重建军政体系并整合中亚力量，但现有中性材料对个人分工只支持证据下限。",
+      "limitations": [
+        "外域控制和成员责任证据为保守下限"
+      ]
+    },
+    {
+      "ruler_name": "赵匡胤",
+      "scoring_outcome_refs": [
+        "BOUT-EA3C5BF6D9B2",
+        "BOUT-D26D1F908863"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-EA3C5BF6D9B2",
+          "outcome": "曹彬独立闭合南唐方向",
+          "actors": [
+            "曹彬"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-DC31B29F73FE7C5A3174",
+            "PCR-076F339905C751DF2233",
+            "PCR-55A1F85176E0C46D5FFD",
+            "PCR-D1CEA16DD88C6A534F2F"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D26D1F908863",
+          "outcome": "潘美与慕容延钊闭合湖南南汉等方向",
+          "actors": [
+            "潘美",
+            "慕容延钊"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-D864A0DE50D0F6466944",
+            "PCR-DEB94E5EED00DBD6F725",
+            "PCR-69738AEA5DF0B328E456",
+            "PCR-BEA594BB8399A96CD097"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "北宋统一主体由多个非本人战区统帅完成，具有明确并行执行；短窗口内关键成员退出后的接续证据不够五级。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "赵光义",
+      "scoring_outcome_refs": [
+        "BOUT-CD1FC4A57875",
+        "BOUT-9A67804C89C9"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-CD1FC4A57875",
+          "outcome": "潘美等承担灭北汉前线执行",
+          "actors": [
+            "潘美"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-DEB94E5EED00DBD6F725",
+            "PCR-69738AEA5DF0B328E456",
+            "PCR-D7FE9395F68822952ABC",
+            "PCR-F3B56AA8D5BC36E5D48C"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-9A67804C89C9",
+          "outcome": "郭进等维持北方阻援与边境支撑",
+          "actors": [
+            "郭进"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "續資治通鑑/卷008@2311074#率兵分五道伐北漢",
+            "續資治通鑑/卷008@2311074#辰，師入太原",
+            "續資治通鑑/卷008@2311074#分攻忻、代、汾、沁、遼、石等州",
+            "續資治通鑑/卷008@2311074#敗北漢兵於太原城下"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "本人亲征承担北汉终局最高责任，团队只消费前线分工与阻援，不复制赵匡胤时期南方统一团队。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "赵构",
+      "scoring_outcome_refs": [
+        "BOUT-28EBE74F185E",
+        "BOUT-9DB327E39209"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-28EBE74F185E",
+          "outcome": "岳飞、韩世忠等分别建立并维持长江防线",
+          "actors": [
+            "岳飞",
+            "韩世忠"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-2B2E6BC1FF0074250015",
+            "PCR-6190CE7FC52E5A52DFC0",
+            "PCR-834300FB72DEFB771E06",
+            "PCR-CA857F625C485A1E4BAC"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-9DB327E39209",
+          "outcome": "吴玠等独立守住川陕方向",
+          "actors": [
+            "吴玠",
+            "吴璘"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-001F11D69E1685E515B0",
+            "PCR-7204A9CAF05550BFDB24",
+            "PCR-EDBAD210FDE84A28F44A",
+            "PCR-F4C2E5DA9B0F8DED5A76"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 3
+      },
+      "basis": "岳飞、韩世忠等独立方向成果成立；但军头并行、中枢反复收权和路线冲突限制团队连续韧性与异质整合。",
+      "limitations": [
+        "只计南宋建立窗口内已闭合的防线与政权稳定，不把后续长期存续整体归于本窗口团队。"
+      ]
+    },
+    {
+      "ruler_name": "李元昊",
+      "scoring_outcome_refs": [
+        "BOUT-FD48D27FD642",
+        "BOUT-913A6B1EDF4B"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-FD48D27FD642",
+          "outcome": "野利氏将领承担对宋主要战区执行",
+          "actors": [
+            "野利遇乞",
+            "野利旺荣"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "西夏書事/16@2288387#納妃没𠼪氏，營天都山居之。",
+            "西夏書事/16@2288387#凡欲舉兵，必先至彼㸃集",
+            "西夏書事/16@2288387#特營宫室居之",
+            "西夏書事/18@2288414#出遇乞妻没藏氏爲尼。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-913A6B1EDF4B",
+          "outcome": "张元等完成战略参谋与对外文书支撑",
+          "actors": [
+            "张元"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "西夏書事/16@2288387#至渭州大掠。",
+            "西夏書事/16@2288387#破欄馬、平泉二城，焚蕩廬舍，毀夷砦柵。",
+            "西夏書事/16@2288387#關輔居民震恐，多竄山谷間。",
+            "資治通鑑/卷291@1554151#軍於高平之南"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 4
+      },
+      "basis": "党项、部族将领与汉人幕僚形成基本分工，但高层清洗和短期国家建构限制接续。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "完颜阿骨打",
+      "scoring_outcome_refs": [
+        "BOUT-C662DBAC47CB",
+        "BOUT-1F8C89086666"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-C662DBAC47CB",
+          "outcome": "完颜杲等闭合辽东与东京方向",
+          "actors": [
+            "完颜杲"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-688C411CE086CC094297",
+            "PCR-0AE0B047569F99595BBD",
+            "PCR-3F10CDC021421BEA9A67"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-1F8C89086666",
+          "outcome": "完颜娄室、宗翰等承担西线独立军务",
+          "actors": [
+            "完颜娄室",
+            "完颜宗翰"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-9871A7D3D4BB2C2B4FE5",
+            "PCR-9298EB45BD5AB384576B",
+            "PCR-3EA1574D75446FAAE4CA",
+            "PCR-E2CA0860B7091F0EDEC7"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "女真宗室将领形成多方向执行并吸收辽地人员，但本人仍承担核心会战，继承韧性只按已发生下限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "完颜吴乞买",
+      "scoring_outcome_refs": [
+        "BOUT-051F8C19F19A",
+        "BOUT-57D63C260BD2"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-051F8C19F19A",
+          "outcome": "完颜宗翰独立闭合西京太原方向",
+          "actors": [
+            "完颜宗翰"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-9871A7D3D4BB2C2B4FE5",
+            "PCR-9298EB45BD5AB384576B"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-57D63C260BD2",
+          "outcome": "完颜宗望独立闭合燕京河北与汴京东路",
+          "actors": [
+            "完颜宗望"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-3C2E423FD72E86BBF4CC",
+            "PCR-0BF8412D329C3E127171",
+            "PCR-D56977CD58069674CB58",
+            "PCR-62E73091C51097A937EB"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "两路统帅以独立责任中心推进灭辽攻宋，并能使用契丹、汉军和降附体系；宗望早逝后的接续仍有限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "铁木真",
+      "scoring_outcome_refs": [
+        "BOUT-B049F98B2F39",
+        "BOUT-F8EC9A9D464C"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-B049F98B2F39",
+          "outcome": "木华黎独立经营金朝方向并建立持续战区",
+          "actors": [
+            "木华黎"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-6C369210DDB264D14F1F",
+            "PCR-B58459B18FABB997512E",
+            "PCR-E8568F5B0B435C83833F"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-F8EC9A9D464C",
+          "outcome": "哲别、速不台闭合乃蛮残部及西方远征方向",
+          "actors": [
+            "哲别",
+            "速不台"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-32A33E14752D7D89184C",
+            "PCR-3B89BC77BA86C029F085",
+            "PCR-89737C4C4D54D8174B90",
+            "PCR-D5BE39F6B87D94E6A0E5"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "蒙古创业团队形成多个远距离独立责任中心，并整合不同部族与降附人才；关键统帅退出后仍可接续，但国家继承争议使连续性不取五级。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "窝阔台",
+      "scoring_outcome_refs": [
+        "BOUT-0DC0ECAEF120",
+        "BOUT-D25D3B6E4818"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-0DC0ECAEF120",
+          "outcome": "拖雷完成灭金关键阶段并打开河南",
+          "actors": [
+            "拖雷"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-E934C99D0593FF2DF89C",
+            "PCR-997A2E4B0F9128112BD1"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D25D3B6E4818",
+          "outcome": "速不台等延续西方与华北多路远征",
+          "actors": [
+            "速不台"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-3B89BC77BA86C029F085",
+            "PCR-89737C4C4D54D8174B90",
+            "PCR-D706800853708CBA52FC",
+            "PCR-35F36A0852A7A99544C9"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "继承并继续运用多战区统帅体系，拖雷死后仍能闭合灭金；继承机器不折扣，但不重复铁木真时期已经完成的成果。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "蒙哥",
+      "scoring_outcome_refs": [
+        "BOUT-770E74C43C0E",
+        "BOUT-3745276377EA"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-770E74C43C0E",
+          "outcome": "忽必烈与兀良合台闭合大理方向",
+          "actors": [
+            "忽必烈",
+            "兀良合台"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-034C510177FEE943F9E3",
+            "PCR-9C4F7E78908675A6BE5A",
+            "PCR-35711757AD0AC6D39247",
+            "PCR-7135099ADD549AA54723"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-3745276377EA",
+          "outcome": "兀良合台由云南北上形成南宋侧翼",
+          "actors": [
+            "兀良合台"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "PCR-7135099ADD549AA54723",
+            "PCR-78C90F64353040A3FCE1",
+            "PCR-A74B614B5FC2E0BB6964",
+            "PCR-DCA3889DD696FD8DA196"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "蒙哥时期存在独立西南责任中心与多族军队，但本人死后继承战争使连续性不能上调。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "忽必烈",
+      "scoring_outcome_refs": [
+        "BOUT-44FD29883E50",
+        "BOUT-24DFCE1D5F85"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-44FD29883E50",
+          "outcome": "伯颜统合灭宋主战链并闭合临安崖山",
+          "actors": [
+            "伯颜"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-23A1844075746A7EEA3D",
+            "PCR-DE2F3A358D52F9F05311"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-24DFCE1D5F85",
+          "outcome": "兀良合台、史天泽等完成西南与北方军政支撑",
+          "actors": [
+            "兀良合台",
+            "史天泽"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-7135099ADD549AA54723",
+            "PCR-59F78F9D7A7FC3067E9A",
+            "PCR-78C90F64353040A3FCE1",
+            "PCR-A74B614B5FC2E0BB6964"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "灭宋由伯颜等形成独立主战中枢，并能整合蒙古、汉军、降附宋军和地方行政机器。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "朱元璋",
+      "scoring_outcome_refs": [
+        "BOUT-FBD4A0513581",
+        "BOUT-98BF6896B923"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-FBD4A0513581",
+          "outcome": "徐达统合北伐灭元与中原接收",
+          "actors": [
+            "徐达"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-DED6918EEFD1A761B136",
+            "PCR-4C74ACD68ADF15C41853",
+            "PCR-59C7C458E012E647FA8A",
+            "PCR-80F636AFE54F1F722FF3"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-98BF6896B923",
+          "outcome": "常遇春、傅友德、沐英等闭合多支区域方向",
+          "actors": [
+            "常遇春",
+            "傅友德",
+            "沐英"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-528C1C8348C74C13F150",
+            "PCR-0688D3C05A49E576DD96",
+            "PCR-22C0DD8C499124CE47F7",
+            "PCR-46232F06D78CF278376A"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "明创业团队具备北伐、西南、东南等多个稳定责任中心，并完成降附军队与地方体系接收；胡惟庸案等后续不倒灌统一窗口。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "朱聿键",
+      "scoring_outcome_refs": [
+        "BOUT-79D652B96566"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-79D652B96566",
+          "outcome": "郑芝龙集团提供福建初期军政支撑",
+          "actors": [
+            "郑芝龙"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "SUPPORT",
+          "completion": "PARTIAL",
+          "source_refs": [
+            "PCR-598C9E7EE7DB302F2DF5"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 0,
+        "heterogeneous_integration": 2
+      },
+      "basis": "隆武政权依赖郑氏单一集团且迅速瓦解，既无替补闭合，也未将异质力量转为稳定共同执行体系。",
+      "limitations": [
+        "黄道周等维持有限政治动员缺少可裁决人物责任锚，撤出计分"
+      ]
+    },
+    {
+      "ruler_name": "朱由榔",
+      "scoring_outcome_refs": [
+        "BOUT-30D4F1CCA838"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-30D4F1CCA838",
+          "outcome": "李定国独立完成桂林衡州反攻",
+          "actors": [
+            "李定国"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "PCR-D5E0D14D85BB687BEF85"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 1,
+        "heterogeneous_integration": 3
+      },
+      "basis": "西南团队形成多个强外线成果，但孙可望与李定国集团分裂、中央控制薄弱，连续性和整合必须显著限档。",
+      "limitations": [
+        "刘文秀等维持四川云南方向缺少可裁决人物责任锚，撤出计分"
+      ]
+    },
+    {
+      "ruler_name": "努尔哈赤",
+      "scoring_outcome_refs": [
+        "BOUT-6A7620FE371C",
+        "BOUT-E4252BB8E0E0"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-6A7620FE371C",
+          "outcome": "皇太极等承担辽东进攻与降附接收",
+          "actors": [
+            "皇太极"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-D9C37059E15A57FB128E",
+            "PCR-85D42DE18E6E74C2F369"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-E4252BB8E0E0",
+          "outcome": "代善等承担辽东多路军务与继承支撑",
+          "actors": [
+            "代善"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-F29688B6BE7A84794118"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "八旗创业体系能并用宗室、勋臣和降附集团，并在努尔哈赤死后完成接续；最高战略仍高度集中。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "皇太极",
+      "scoring_outcome_refs": [
+        "BOUT-A7B20E8A904F",
+        "BOUT-C1F3A69CE660"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-A7B20E8A904F",
+          "outcome": "多尔衮、岳托等闭合蒙古与辽西独立方向",
+          "actors": [
+            "多尔衮",
+            "岳托"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-0512C0A023BE5115E40B",
+            "PCR-2037DEF89395F44E7C82",
+            "PCR-5DD281B363522472AF2A"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-C1F3A69CE660",
+          "outcome": "豪格等承担蒙古与明边独立军务",
+          "actors": [
+            "豪格"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-FE6313D100D07CF07FD3"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "皇太极时期形成满蒙汉多责任中心与六部结构，并在本人死后维持入关能力。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "多尔衮",
+      "scoring_outcome_refs": [
+        "BOUT-69E1B5195E11",
+        "BOUT-7570D5BD7DEC"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-69E1B5195E11",
+          "outcome": "多铎独立闭合河南江南方向",
+          "actors": [
+            "多铎"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "清史稿/卷4@2267892#各率所部叛奔喀爾喀部碩雷。",
+            "清史稿/卷4@2267892#多鐸破騰機思等於毆特克山",
+            "清史稿/卷4@2267892#盡獲其家口輜重。",
+            "清史稿/卷3@2589314#凡行兵出獵，踐田禾者罪之。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-7570D5BD7DEC",
+          "outcome": "阿济格、豪格、吴三桂等闭合西北西南多线",
+          "actors": [
+            "阿济格",
+            "豪格",
+            "吴三桂"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-FE6313D100D07CF07FD3",
+            "PCR-0DD9129D621E421AFAD7",
+            "PCR-E4EAC64D3CCA4732DD19"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "入关后多个亲王与降附军集团独立推进，能接收明朝官僚和地方武装；多尔衮死后的政治清算使连续性不取五级。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "福临",
+      "scoring_outcome_refs": [
+        "BOUT-18019DCE87C4",
+        "BOUT-11B9CFC22F52"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-18019DCE87C4",
+          "outcome": "洪承畴统合西南进取与地方接收",
+          "actors": [
+            "洪承畴"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "明史/卷23@2594639#李自成自秦州犯四川。",
+            "明史/卷23@2594639#陷昭化、劍州、梓潼",
+            "明史/卷23@2594639#庚戌，逼成都。",
+            "明史/卷24@2594640#大清兵攻錦州，祖大壽拒守。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-11B9CFC22F52",
+          "outcome": "多尼、吴三桂等闭合云贵南明方向",
+          "actors": [
+            "多尼",
+            "吴三桂"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-0DD9129D621E421AFAD7"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 4,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 5
+      },
+      "basis": "亲政期继续运用满洲亲王、汉军降将与明朝行政人才推进统一；成果规模较大但主要继承多尔衮搭建的机器。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "玄烨",
+      "scoring_outcome_refs": [
+        "BOUT-BEB0307A226A",
+        "BOUT-E7D008B7D948"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-BEB0307A226A",
+          "outcome": "图海、赖塔等多路闭合三藩主要方向",
+          "actors": [
+            "图海",
+            "赖塔"
+          ],
+          "outcome_level": "FOUNDATION_PILLAR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "清史稿/卷6@1789307#蒙古布爾尼反",
+            "清史稿/卷6@1789307#軍，討平之。戊",
+            "清史稿/卷6@1789307#論平布爾尼功，封賞有差",
+            "清史稿/卷6@1789307#州。王輔臣叛，"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-E7D008B7D948",
+          "outcome": "施琅独立闭合台湾郑氏方向",
+          "actors": [
+            "施琅"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "PCR-C57A7F2806065DDE2DC7",
+            "PCR-45CD393DD1A27E09FFA4"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5
+      },
+      "basis": "三藩与台湾由不同责任中心连续闭合，并有效使用满汉将领和降附力量；姚启圣、施琅等形成海上终局接续。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "洪秀全",
+      "scoring_outcome_refs": [
+        "BOUT-363C4A588088",
+        "BOUT-D03E17FABB14"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-363C4A588088",
+          "outcome": "杨秀清统合金田至定都天京的主要军政推进",
+          "actors": [
+            "杨秀清"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "清史稿/卷20@2433519#洪秀全攻陷郴州。",
+            "清史稿/卷20@2433519#賊陷武昌，巡撫常大淳死之。",
+            "清史稿/卷20@2433519#賊陷安慶，蔣文慶死之",
+            "清史稿/卷20@2433519#賊陷江寧，將軍祥厚、提督福珠洪阿等死之。"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-D03E17FABB14",
+          "outcome": "萧朝贵、石达开等承担前锋与侧翼方向",
+          "actors": [
+            "萧朝贵",
+            "石达开"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "清史稿/卷20@2433519#新墟眾首洪秀全陷永安州，踞之，僭號太平天國。",
+            "清史稿/卷20@2433519#永安踞匪全數東竄",
+            "清史稿/卷20@2433519#洪秀全攻陷郴州。",
+            "清史稿/卷20@2433519#賊陷武昌，巡撫常大淳死之。"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 5,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "太平军多中心推进和定都成果成立；现有公共锚点主要证明集体战果，故两项均按共同责任，不把集体终局全额归于洪秀全。",
+      "limitations": [
+        "杨秀清、石达开等人的逐阶段指挥份额仍为证据下限；本轮不以名望补齐本人控制。"
+      ]
+    },
+    {
+      "ruler_name": "黄巢",
+      "scoring_outcome_refs": [
+        "BOUT-DC6C3F912545",
+        "BOUT-0A9455790A15"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-DC6C3F912545",
+          "outcome": "尚让等承担长距离转战与攻取长安",
+          "actors": [
+            "尚让"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "PRIMARY",
+          "completion": "SUBSTANTIAL",
+          "source_refs": [
+            "WAR-LEAD-256-HUANGCHAO-END"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-0A9455790A15",
+          "outcome": "朱温等维持关中河南局部方向",
+          "actors": [
+            "朱温"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "JOINT",
+          "completion": "PARTIAL",
+          "source_refs": [
+            "WAR-LEAD-262-HEBEI-END",
+            "WAR-LEAD-264-PINGLU-END",
+            "WAR-LEAD-257-QINZONGQUAN-END",
+            "WAR-LEAD-258-BIANWEI-END"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 1,
+        "heterogeneous_integration": 2
+      },
+      "basis": "团队能完成长距离进军但无法稳定接收地方，核心将领叛离后无有效替补，组织成果按失败创业下限。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "李昪",
+      "scoring_outcome_refs": [
+        "BOUT-879486BB3DF9",
+        "BOUT-55009BEEA4BC"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-879486BB3DF9",
+          "outcome": "宋齐丘等完成杨吴中枢改造与禅代筹划",
+          "actors": [
+            "宋齐丘"
+          ],
+          "outcome_level": "DECISIVE",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷279@1769087#勞費甚大，且違眾心",
+            "資治通鑑/卷279@1769087#諭知誥罷遷都",
+            "資治通鑑/卷279@1769087#知誥由是疏齊丘",
+            "資治通鑑/卷285@2554328#請，不預政事"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-55009BEEA4BC",
+          "outcome": "周宗等维持财政与权力转换执行",
+          "actors": [
+            "周宗"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "明史/卷22@2594638#廕太監魏進忠兄錦衣衞千戶。封乳保客氏為奉聖夫人，官其子。",
+            "明史/卷22@2594638#御史周宗建請出客氏於外，不聽。",
+            "明史/卷22@2594638#楊漣劾魏忠賢二十四大罪，南北諸臣論忠賢者相繼，皆不納。",
+            "續資治通鑑/卷058@2299551#取柴氏譜系，推最長一人奉周祀"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 3,
+        "continuity_resilience": 3,
+        "heterogeneous_integration": 4
+      },
+      "basis": "南唐建国主要依靠中枢幕府和既有杨吴机器的渐进转换，军事并行有限但政治行政接续较稳。",
+      "limitations": []
+    },
+    {
+      "ruler_name": "刘龑",
+      "scoring_outcome_refs": [
+        "BOUT-2D95B45C4F44",
+        "BOUT-21D2CA47FEE4"
+      ],
+      "outcome_evidence": [
+        {
+          "outcome_ref": "BOUT-2D95B45C4F44",
+          "outcome": "杨洞潜等维持岭南中枢与建国行政",
+          "actors": [
+            "杨洞潜"
+          ],
+          "outcome_level": "MAJOR",
+          "non_founder_responsibility": "JOINT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷271@1751976#請立學校，開貢舉，設銓選；漢主巖從之",
+            "資治通鑑/卷279@1769087#募宿衛兵千人",
+            "資治通鑑/卷279@1769087#皆市井無賴子弟",
+            "資治通鑑/卷279@1769087#衛士掠商人金帛"
+          ]
+        },
+        {
+          "outcome_ref": "BOUT-21D2CA47FEE4",
+          "outcome": "地方将领完成有限区域防守与接收",
+          "actors": [
+            "苏章"
+          ],
+          "outcome_level": "IMPORTANT",
+          "non_founder_responsibility": "SUPPORT",
+          "completion": "COMPLETE",
+          "source_refs": [
+            "資治通鑑/卷276@1767667#楚大舉水軍擊漢",
+            "資治通鑑/卷276@1767667#漢，圍封州。漢",
+            "資治通鑑/卷276@1767667#將神弩三千、戰艦百艘救封州",
+            "資治通鑑/卷276@1767667#沉鐵絲亙於水"
+          ]
+        }
+      ],
+      "organization_axes": {
+        "parallel_execution": 2,
+        "continuity_resilience": 2,
+        "heterogeneous_integration": 3
+      },
+      "basis": "南汉主要承接既有岭南集团，团队能完成建国行政但新增独立方向与替补证据有限。",
+      "limitations": []
+    }
   ]
 }

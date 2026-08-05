@@ -1,130 +1,4650 @@
 {
-  "schema_version": "first-item-a-strategic-efficiency-inputs-v7",
+  "schema_version": "first-item-a-strategic-efficiency-inputs-v16",
   "status": "CURRENT",
   "rate_scale": "all rates are decimals from 0 to 1",
   "formula_contract": {
     "A1_weight": 60,
     "A2_weight": 40,
-    "difficulty": "45%×(1-starting_resource_share)+35%×opponent pressure+20%×start-field normalized Shannon entropy; opponent pressure is 50% public-battle battlefield pressure plus 50% relative-resource pressure, while battlefield pressure itself is 50% tier-weighted campaign mean plus 50% peak threat",
-    "effective_control": "created_net_control_value; personal military and theater attribution belongs only to C1",
-    "control_scale": "min(1,(created_net_control_value/700)^0.35)",
-    "attributed_completion": "terminal_completion_rate at the founder project window",
-    "A1": "(75%×control_scale+25%×terminal_completion_rate)×(75%+25%×difficulty)",
-    "acquisition_pace": "min(1,((created_net_control_value/value_weighted_acquisition_years)/100)^0.35)",
-    "closure_pace": "min(1,(8×sqrt(created_net_control_value/550.25))/effective_years)",
-    "resilience": "60%×control_retention_rate+40%×loss_recovery_rate",
-    "strategic_decision_quality": "positive_anchor_rate×(1-strategic_error_burden); positive anchor is a named non-battle strategic decision and is not personal battle-route attribution",
-    "A2": "60%×strategic_decision_quality+15%×(60%×acquisition_pace+40%×closure_pace)+15%×resilience+10%×early_stability_rate; no founder-coverage cap"
+    "effective_control": "created_net_control_value + 0.50*recovered_net_control_value; A2 consumes the already allocated person-window value without reapplying A1 responsibility",
+    "net_control_routing": "net control is consumed only by A2; A1 does not read it",
+    "start_difficulty": "30% personal start disadvantage + 70% attributable-project start disadvantage",
+    "pure_difficulty": "70% opponent pressure + 30% start difficulty; entropy remains audit-only",
+    "calibrated_difficulty": "min(1,pure_difficulty/0.85)",
+    "A1": "60*terminal_completion_rate*a1_strategic_responsibility_factor*calibrated_difficulty",
+    "raw_control_scale": "min(1,effective_control/1000)",
+    "control_scale_score": "sqrt(raw_control_scale)",
+    "acquisition_pace": "min(1,(effective_control/value_weighted_acquisition_years/100)^0.35)",
+    "closure_pace": "min(1,(8*sqrt(effective_control/550.25))/effective_years)",
+    "time_rate": "60% acquisition pace + 40% closure pace",
+    "durability": "60% control retention + 40% early stability",
+    "A2": "clamp(36*control_scale_score*(50%+25%*time_rate+25%*durability)+positive decision points-error points,0,40)"
   },
   "class_values": {
-    "error_severity_penalty": {"MINOR":0.05,"MATERIAL":0.15,"MAJOR":0.30,"CRITICAL":0.50},
-    "positive_anchor_rate": {"MATERIAL":0.70,"MAJOR":0.85,"DECISIVE":1.00}
+    "strategic_error_points": {
+      "MINOR": 1.0,
+      "MATERIAL": 2.0,
+      "MAJOR": 5.0,
+      "CRITICAL": 10.0
+    },
+    "positive_decision_points": {
+      "MATERIAL": 1.0,
+      "MAJOR": 3.0,
+      "DECISIVE": 5.0,
+      "EXCEPTIONAL": 8.0
+    },
+    "positive_decision_position_weights": [
+      1.0,
+      0.5
+    ]
   },
   "strategic_error_events": {
-    "李渊":[
-      {"event":"授权李元吉、裴寂镇守晋阳导致河东失控","severity":"MAJOR","basis":"错误部署直接造成创业基地和河东控制倒退。"},
-      {"event":"突厥压境时提出迁都","severity":"MATERIAL","basis":"对形势作出错误判断，后撤回方案并由李世民主导疑兵退敌。"},
-      {"event":"处死窦建德并召其旧将入朝，激成河北集团复叛","severity":"MAJOR","basis":"窦建德被处死后，范愿等旧将又因被召入朝而恐惧，自称须为夏王报仇并拥刘黑闼复起；河北尽复旧境，唐被迫进行两轮高强度再平定。现有正史检索未确认李世民曾明确劝阻，故只记李渊误判，不给李世民追加正向锚点。"}
+    "冉闵": [
+      {
+        "event": "以屠胡和灭石氏扩大敌对面，继而在襄国、廉台连续拒绝固垒避锋建议而押上主力",
+        "severity": "CRITICAL",
+        "basis": "屠杀胡羯二十余万并灭石氏使各镇、各族群转为敌对；围襄国时拒王泰固垒建议、尽众出营导致十余万人死亡，廉台又拒董闰等避燕锐锋建议并被擒，连续最高决策直接闭合冉魏全部崩塌。相关阶段属于同一战略孤立—孤注决战链，只记一项CRITICAL。",
+        "c_nonduplication_basis": "A结算扩大敌对面、拒谏和押上主力的战略决定；C分别保存襄国、廉台的前线指挥结果和对手难度，不重复叠加三次失败。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/两晋/卷098-通读总结.md#L160",
+          "docs/共享史料/唐以前编年/两晋/卷099-通读总结.md#L43",
+          "docs/共享史料/唐以前编年/两晋/卷099-通读总结.md#L112",
+          "資治通鑑/卷099@1502618"
+        ]
+      }
     ],
-    "刘邦":[{"event":"彭城快速推进并轻敌失序","severity":"MAJOR","basis":"战略冒进造成主力惨败、联盟动摇和统一进程重大倒退。"}],
-    "刘秀":[{"event":"顺水轻进陷入险境","severity":"MATERIAL","basis":"本人对敌情和推进节奏判断失误；战术表现另由C2结算。"}],
-    "嬴政":[{"event":"伐楚先用李信方案而否定王翦重兵判断","severity":"MAJOR","basis":"错误兵力与主帅判断造成灭楚进程重大挫折，后改用王翦纠正。"}],
-    "刘裕":[{"event":"北伐后关中留守安排失当","severity":"MAJOR","basis":"本人返回后关中迅速丧失，统一成果未能稳定。"}],
-    "曹操":[{"event":"赤壁南征的形势与准备判断失误","severity":"MAJOR","basis":"在水军、疫病和联盟条件不足时推进决战，造成统一路线重大倒退。"}],
-    "慕容垂":[{"event":"对北魏方向的关系与进攻节奏处理失当","severity":"MATERIAL","basis":"参合陂方向形成继承期无法收束的重大风险。"}],
-    "刘备":[{"event":"荆益两线协同与荆州保持失败","severity":"MAJOR","basis":"两端路线未能形成稳定协同，荆州全部丧失且未恢复。"}],
-    "冉闵":[{"event":"在控制基础薄弱时同时扩大敌对面","severity":"CRITICAL","basis":"战略孤立直接加速全部控制崩解。"}]
-  },
-  "strategic_positive_anchors": {
-    "李渊":{"event":"联结突厥并抢先进入关中建立全国性政治中心","impact":"DECISIVE","basis":"在群雄并起时以北方暂时缓和换取南下窗口，先取长安并迅速建立唐的政治号召，是唐初创业得以展开的非战役总体路线。"},
-    "刘邦":{"event":"接受先入关中并以关中为稳定基地的总体路线","impact":"DECISIVE","basis":"从县级集团取得关中政治与资源基础，并在失去关中后坚持重建基地和联盟，是楚汉最终翻盘的总体战略支点。"},
-    "刘秀":{"event":"脱离更始约束独立经营河北并依次闭合割据方向","impact":"DECISIVE","basis":"在缺少稳定地盘时把河北转化为独立基地，并避免同时强攻关中、陇右与蜀地，形成可持续复国路线。"},
-    "王莽":{"event":"利用辅政与制度程序完成中枢权力转换","impact":"MATERIAL","basis":"能够在既有西汉国家机器内完成形式改朝，但战略增量有限且未形成可持续的新政权基础。"},
-    "高欢":{"event":"控制河北军政资源并重建北魏东部政治中心","impact":"DECISIVE","basis":"在北魏崩解中选择河北作为实力基础，以拥立和迁都形成东魏主体，完成事实建基。"},
-    "司马懿":{"event":"选择高平陵时机夺取曹魏中枢控制","impact":"MAJOR","basis":"在对方离开洛阳的短暂窗口内完成中枢夺权，为司马氏长期奠基，但本人阶段尚未完成改朝与统一。"},
-    "嬴政":{"event":"持续推进六国兼并并完成统一国家的政治闭合","impact":"DECISIVE","basis":"在继承强秦的高起点上仍保持统一目标和国家资源集中，最终完成从诸侯国到统一帝国的战略闭合；具体灭国战役归C。"},
-    "李世民":{"event":"推动太原起兵、先取关中并反对突厥压境时迁都","impact":"DECISIVE","basis":"在唐初创业方向和危机处置中持续主张保持关中核心与进取路线；薛举、虎牢、刘黑闼等战役贡献不在此重复结算。"},
-    "杨坚":{"event":"先稳定北周中枢完成政权转换再闭合南北统一","impact":"DECISIVE","basis":"以既有北周国家机器为起点，先消除内部权力风险并建立隋，再选择成熟窗口完成全国政治闭合；具体灭陈战役归C。"},
-    "刘裕":{"event":"以京口集团重建东晋中枢并持续扩大政权基础","impact":"DECISIVE","basis":"从地方军事集团起步，先清除篡晋政权并重建中央权威，再形成刘宋建国条件。"},
-    "司马炎":{"event":"在继承司马氏优势后完成禅代并维持统一目标","impact":"MAJOR","basis":"本人承接的起点极高，但能够完成政权转换和灭吴政治决断；前代已取得的曹魏与灭蜀成果不回流。"},
-    "萧衍":{"event":"以雍州基地迅速形成取代南齐的政治联盟","impact":"DECISIVE","basis":"抓住南齐中枢崩解窗口，将军镇资源转化为广泛政治支持并迅速完成改朝。"},
-    "石勒":{"event":"从流动作战集团转向河北稳定建基","impact":"DECISIVE","basis":"摆脱纯流动作战与依附关系，逐步形成襄国核心、制度化政权和北方竞争主体。"},
-    "宇文泰":{"event":"接收贺拔岳集团并把关陇资源组织为西魏基础","impact":"DECISIVE","basis":"在主帅遇害和北魏分裂中迅速稳定集团、控制关陇并形成长期独立政治中心。"},
-    "曹操":{"event":"奉天子以建立中原政治中心并持续经营北方","impact":"DECISIVE","basis":"从低基数地方集团转为掌握中央号召与中原资源的政权主体，为统一北方提供长期政治战略支点。"},
-    "拓跋珪":{"event":"利用旧部网络复代并重建草原政治核心","impact":"DECISIVE","basis":"在无稳定国家的条件下恢复代国号召并重组部众，形成北魏后续扩张的独立基础。"},
-    "慕容垂":{"event":"脱离前秦崩解局势并以河北旧部完成复国","impact":"DECISIVE","basis":"抓住淝水后秩序解体窗口，恢复前燕政治网络并建立后燕主体。"},
-    "高洋":{"event":"承接高氏既有控制并完成北齐形式建国","impact":"MATERIAL","basis":"本人主要完成继承稳定和禅代闭合，东魏主体资源与路线已由高欢、高澄建立。"},
-    "陈霸先":{"event":"在侯景乱后选择建康中枢重建并建立陈朝","impact":"DECISIVE","basis":"从岭南方面力量北进，在南北多方干预中逐步控制建康和江南核心，完成区域政权建基。"},
-    "司马昭":{"event":"承接中枢优势并将司马氏权力推进到可禅代状态","impact":"MAJOR","basis":"收束内部反抗、进一步削弱曹魏皇权并完成灭蜀政治决断，但不重复领取前两代中枢成果。"},
-    "李雄":{"event":"重组受挫流民集团并选择成都平原稳定建基","impact":"DECISIVE","basis":"把流动、受挫的集团转化为能够控制巴蜀核心的政权，完成区域创业闭合。"},
-    "赫连勃勃":{"event":"在强邻夹缝中保持独立机动并建立胡夏核心","impact":"MAJOR","basis":"从小规模部众出发形成独立政权并一度进入关中，但路线割裂和终局不稳限制锚点。"},
-    "司马睿":{"event":"选择建邺承接南渡资源并保存晋室政权","impact":"DECISIVE","basis":"在北方崩解时以江东为政治中心吸纳南渡力量，完成东晋复国建基。"},
-    "刘备":{"event":"在长期流动后取得荆南并转向益州建立稳定基地","impact":"DECISIVE","basis":"从无稳定地盘转为控制益州、汉中并建立蜀汉，尽管两线协同失败导致终点缺口。"},
-    "沮渠蒙逊":{"event":"长期经营河西并逐步取得北凉主导","impact":"MAJOR","basis":"通过反复联盟与竞争保存并扩大河西政权，最终消灭西凉，但工期很长。"},
-    "孙权":{"event":"在继承江东危局后稳定集团并形成独立吴政权","impact":"DECISIVE","basis":"迅速处理继承风险、维持江东核心并扩展荆州交州，最终完成正式建国。"},
-    "苻健":{"event":"率部西入关中并迅速完成区域政权建基","impact":"DECISIVE","basis":"将迁徙集团与既有部众转化为稳定控制关中的前秦政权。"},
-    "吕光":{"event":"在帝国崩解后回师河西并建立独立政权","impact":"MAJOR","basis":"把远征军转化为凉州政权基础，但地方整合与长期稳定明显不足。"},
-    "慕容德":{"event":"在后燕河北崩解后南下止损并建立青齐核心","impact":"MAJOR","basis":"能够保存残余集团并选择新的区域中心，但成果只是崩解后的有限闭合。"},
-    "萧道成":{"event":"利用中枢军政职位逐步完成南齐权力转换","impact":"MAJOR","basis":"在刘宋国家机器内部掌握禁军和中枢后完成改朝，新增战略成果受到高起点限制。"},
-    "刘渊":{"event":"利用五部基础在西晋崩解期建立独立汉赵政权","impact":"MAJOR","basis":"形成独立政治号召和初步政权，但主要都会与后续扩张尚未在本人阶段完成。"},
-    "姚苌":{"event":"脱离前秦崩解局势并在关中建立后秦","impact":"MAJOR","basis":"在强敌环绕下形成独立政权和关中立足点，但最终闭合留给后继。"},
-    "李暠":{"event":"以敦煌地方支持建立西凉有限核心","impact":"MATERIAL","basis":"能够将地方官与士族支持转为独立政权，但范围很小且东进目标未完成。"},
-    "冯跋":{"event":"在北燕政变与继承危机中稳定有限政权核心","impact":"MATERIAL","basis":"完成中枢更替和短期稳定，但新增控制和独立战略扩展有限。"},
-    "曹丕":{"event":"承接曹氏既有主体并完成魏的形式禅代","impact":"MATERIAL","basis":"本人主要完成权力继承与国家名号转换，曹操已建立的北方政权主体不重复计入。"},
-    "司马师":{"event":"承接司马氏中枢优势并压住曹魏内部反扑","impact":"MAJOR","basis":"维持并扩大司马氏控制，使奠基链没有在继承后逆转，但未完成改朝与统一。"},
-    "冉闵":{"event":"在后赵崩解中短暂取得中枢并建立冉魏","impact":"MATERIAL","basis":"抓住政权崩解窗口建立独立名号，但未形成可维持的联盟与区域控制结构。"},
-    "刘玄":{"event":"利用反莽联盟建立更始政权名义中心","impact":"MATERIAL","basis":"短期聚合反莽力量并取得帝号，但本人无法把联盟转化为稳定控制和独立战略路线。"}
+    "冯跋": [
+      {
+        "event": "未将掌两州且自认有大功的万泥、乳陈纳入公辅，创业联盟安置失衡并引发两州宗室叛乱",
+        "severity": "MATERIAL",
+        "basis": "冯跋在高云被杀后成为北燕最高任命与整合责任人；万泥、乳陈以宗室有大功而未入公辅为由怨望并联合反叛，迫使中央调步骑二万平乱。叛乱迅速收束、未造成长期控制丧失，故只定MATERIAL。",
+        "c_nonduplication_basis": "A只结算新政权对创业宗室功臣的任命与联盟整合安排；夜袭识破、千余人俘斩及冯弘、张兴的前线执行留在战争事实层。该战役未达公共C门槛，不生成额外人物指挥消费。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/两晋/卷115-通读总结.md#L407",
+          "docs/共享史料/唐以前编年/两晋/卷115-通读总结.md#L413",
+          "資治通鑑/卷115@803164",
+          "WAR-LEAD-115-NORTHYAN-REBELLION-410"
+        ]
+      }
+    ],
+    "刘备": [
+      {
+        "event": "215年荆州归属处置未修复联盟，随后维持荆益分置且未建立可在关羽北攻时保住后方的协同机制",
+        "severity": "MAJOR",
+        "basis": "刘备本人先拖延孙权索郡并亲至公安处理三郡争夺，最终仅以湘水分界暂时复盟；219年关羽北攻时，荆州后方由糜芳、傅士仁分守且无可见跨益州救援或联盟约束，最终整个荆州方向与关羽集团同时丧失。A只归责最高层的联盟和两线控制安排，不把关羽、糜芳、傅士仁的具体行为转嫁给刘备。",
+        "c_nonduplication_basis": "A结算联盟处置及荆益两线控制安排；C分别结算关羽的北攻与退败、糜芳傅士仁降城等人物结果，不让刘备消费或承担其前线难度。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/汉/卷067-通读总结.md#L87",
+          "docs/共享史料/唐以前编年/汉/卷068-通读总结.md#L128",
+          "資治通鑑/卷068@cache-0b61bde123c23c0a"
+        ]
+      }
+    ],
+    "刘渊": [],
+    "刘玄": [
+      {
+        "event": "杀刘縯、未安置赤眉降众，继而拒绝东归并诱杀将领，导致联盟与长安控制链自毁",
+        "severity": "CRITICAL",
+        "basis": "刘玄对联盟核心将领实施政治清洗；赤眉归降后无国邑安置而重新成军西进，长安危急时又拒张卬东归建议并先杀申屠建等，引发宫中实战，政权随即覆亡。多项最高决策连续破坏统一联盟、降附整合与留守控制。",
+        "c_nonduplication_basis": "A结算联盟清洗、降附安置和撤退方向决策；蓩乡、长安宫战等具体战损属于战争/C事实，不在A重复计算兵力难度。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/汉/卷039-通读总结.md#L79",
+          "docs/共享史料/唐以前编年/汉/卷039-通读总结.md#L118",
+          "docs/共享史料/唐以前编年/汉/卷040-通读总结.md#L33"
+        ]
+      }
+    ],
+    "刘秀": [
+      {
+        "event": "清除中原流动军时乘胜顺水轻进，脱离稳健推进节奏并陷入险境",
+        "severity": "MATERIAL",
+        "basis": "卡内明确为本人乘胜轻进的推进决定，结果是被尤来等击败、仅身脱险且军中一度以为其死；属于可归责的阶段推进误判，但未造成统一方向长期丧失。",
+        "c_nonduplication_basis": "A只取是否继续轻进的推进节奏决定；C保留具体交战、脱险和主帅败绩，不以同一败战再次扩大A严重度。",
+        "source_refs": [
+          "資治通鑑/卷040@乘勝輕進反為所敗，王自投高岸",
+          "HAN-STARTUP-CENTRAL-25-26"
+        ]
+      }
+    ],
+    "刘聪": [],
+    "刘裕": [
+      {
+        "event": "灭后秦后东归并采用脆弱的关中留守与相互制衡安排，统帅内斗后关中迅速丧失",
+        "severity": "MAJOR",
+        "basis": "关中是本人北伐取得的重大统一成果；本人离开并留下相互猜疑的统帅结构，王镇恶、沈田子相继被杀，胡夏随后取得长安及关中，结果保持失败可直接归入留守设计。",
+        "c_nonduplication_basis": "C分别消费王镇恶等人的前线成果与具体指挥责任；A只扣刘裕对北伐后控制、统帅协作和留守结构的最高设计责任。",
+        "source_refs": [
+          "資治通鑑/卷118@803167",
+          "WAR-LEAD-118-GUANZHONG-INFIGHT-418",
+          "WAR-LEAD-118-XIA-TAKE-CHANGAN-418"
+        ]
+      }
+    ],
+    "刘邦": [
+      {
+        "event": "彭城快速推进、未消灭项羽主力即占楚都并放松联盟军警戒",
+        "severity": "MAJOR",
+        "basis": "刘邦亲自统率诸侯联军并决定东进节奏；楚都与五十六万联盟军在项羽回击下同时崩溃，诸侯复叛，统一进程发生重大倒退。",
+        "c_nonduplication_basis": "A结算进军节奏、联盟军统筹与占领后警戒决定；C/人才负项结算本人作为现场主帅的S-/D3败绩，同一事件仅分离能力维度。",
+        "source_refs": [
+          "史記/卷007@項羽三萬精兵晨擊漢軍，漢軍大敗，睢水為之不流。",
+          "HAN-CHUHAN-PENGCHENG-BCE205"
+        ]
+      }
+    ],
+    "刘龑": [],
+    "努尔哈赤": [],
+    "司马师": [
+      {
+        "event": "不采傅嘏反对意见，在敌情不明时发动三道攻吴并以七万主攻东兴险地",
+        "severity": "MAJOR",
+        "basis": "傅嘏明确反对大军临险，司马师仍下令三道攻吴；东兴主攻军大溃、三路均未夺地，是最高统筹者可归责的战争发动和方向选择错误。",
+        "c_nonduplication_basis": "A结算发动三道战争并选择东兴主攻方向；C/人才负项结算各路现场执行和司马师的统筹败绩，不重复兵力损失。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/三国/卷075-通读总结.md#L176",
+          "資治通鑑/卷075@617541",
+          "WAR-LEAD-SG-WEI-WU-DONGXING-252"
+        ]
+      }
+    ],
+    "司马懿": [],
+    "司马昭": [],
+    "司马炎": [],
+    "司马睿": [],
+    "吕光": [],
+    "多尔衮": [
+      {
+        "event": "关内征服尚未稳定时，将薙发作为全国限期执行的强制归附标志，并以军法处置不从者",
+        "severity": "MATERIAL",
+        "basis": "多尔衮在摄政期承担最高军政责任；政策直接改变新占区的归附与控制条件，客观上抬高征服后的政治控制成本。现有固定事实未充分量化其引发反复的全国规模，故只判MATERIAL。",
+        "c_nonduplication_basis": "这是占领区身份政策与降附处置，不是任何具体战役的指挥或胜负，因而不与C重叠。",
+        "source_refs": [
+          "清史稿/卷4@2267892#諭南中文武軍民薙髮，不從者治以軍法。",
+          "清史稿/卷4@2267892#始諭直省限旬日薙髮如律令。",
+          "清史稿/卷4@2267892#申薙髮之令。",
+          "https://zh.wikisource.org/zh-hans/清史稿/卷218",
+          "https://zh.wikisource.org/zh-hans/江阴城守纪"
+        ]
+      }
+    ],
+    "姚兴": [],
+    "姚苌": [],
+    "嬴政": [
+      {
+        "event": "伐楚首轮否定王翦六十万判断并采用李信二十万方案",
+        "severity": "MAJOR",
+        "basis": "兵力规模和主帅方案由秦王本人裁定；首轮破两壁、死七都尉并败退，迫使重新起用王翦，造成统一主链显著返工。",
+        "c_nonduplication_basis": "A只结算最高决策者对兵力与主帅方案的选择；李信前线指挥失败及战斗难度继续留在C/人才负项，不重复累计。",
+        "source_refs": [
+          "資治通鑑/卷007@秦王不用王翦六十万估计至杀七都尉秦军走",
+          "OUTCOME-QIN-CHU"
+        ]
+      }
+    ],
+    "孙权": [],
+    "宇文泰": [],
+    "宇文邕": [
+      {
+        "event": "575年否定多路建议，坚持河阴—金墉路线，阶段取城后围攻不克撤军",
+        "severity": "MATERIAL",
+        "basis": "本人否定汾曲、河北及汾潞等替代路线并亲定河阴方向；阶段成果不能保持且统一战争被迫中止，属于最高路线选择失误。",
+        "c_nonduplication_basis": "C保留本人mixed A/D2的战场结果；A只消费选择作战方向并造成统一链延迟的决策责任，不重复扣围城战术表现。",
+        "source_refs": [
+          "資治通鑑/卷172@1502703",
+          "PCR-AUDIT-WAR-PARENT-172-ZHOU-QI-HEYIN-575-宇文邕"
+        ]
+      }
+    ],
+    "完颜吴乞买": [],
+    "完颜阿骨打": [],
+    "忽必烈": [
+      {
+        "event": "获知蒙哥死讯并被诸王劝北归后，以尚未立功为由继续强渡围鄂；直至阿里不哥集团已在漠北发兵、漠南括兵逼近开平才撤军",
+        "severity": "MAJOR",
+        "basis": "汗位空缺时优先继续未闭合的鄂州攻势，是本人明确作出的战略优先级选择；该延迟使继承竞争者获得公开动员窗口，随后必须中止南征并进入长期内战。",
+        "c_nonduplication_basis": "C只保存强渡、围鄂未克和撤围的作战结果；A扣的是在最高权力真空中继续南征而延误继承处置的战略优先级，不重复扣战场表现。",
+        "source_refs": [
+          "元史/卷004@2201383#豈可無功遽還",
+          "元史/卷004@2201383#諸將皆以為未可渡，帝不從",
+          "元史/卷004@2201383#謀立阿里不哥",
+          "元史/卷004@2201383#發兵於漠北諸部",
+          "元史/卷004@2201383#括兵於漠南諸州",
+          "元史/卷004@2201383#報，請速還。丁"
+        ]
+      }
+    ],
+    "慕容垂": [
+      {
+        "event": "不采高湖对攻魏理由与太子轻敌的反对，仍以慕容宝统八万主力攻魏，参合陂主力覆没",
+        "severity": "MATERIAL",
+        "basis": "395年距394年后燕主要竞争方向闭合仅一年；出兵与主帅安排由慕容垂决定，主力覆没随后迅速转化为北魏攻燕和继承期控制崩解，属于稳定审计期。",
+        "c_nonduplication_basis": "A结算是否发动攻魏及太子领主力的最高决定；C保留慕容宝等人的现场警戒、撤退和战斗败责。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md#L178",
+          "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md#L188",
+          "WAR-LEAD-108-CANHE-395"
+        ]
+      }
+    ],
+    "慕容德": [],
+    "拓跋焘": [],
+    "拓跋珪": [],
+    "曹丕": [],
+    "曹操": [
+      {
+        "event": "宛城受降后处置张济遗孀、胡车儿并放松警戒，触发张绣反袭",
+        "severity": "MATERIAL",
+        "basis": "降附后的政治与人事处置由曹操本人作出，直接引发张绣疑惧反袭，曹军崩溃且曹昂、典韦死亡，南阳方向持续两年返工。",
+        "c_nonduplication_basis": "A仅结算受降后的处置和警戒制度决定；C/人才负项结算宛城A/D2前线失败与人员损失。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/汉/卷062-通读总结.md#L159",
+          "docs/共享史料/唐以前编年/汉/卷062-通读总结.md#L161",
+          "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199"
+        ]
+      },
+      {
+        "event": "荆州新降后立即推进赤壁决战，未先稳定水军与拆解孙刘联盟",
+        "severity": "MAJOR",
+        "basis": "曹操本人统合荆州南征并决定继续向江东压迫；新附水军、疫病和孙刘结盟条件下主力船营焚毁、死者太半并北撤，使全国统一路线发生重大倒退。",
+        "c_nonduplication_basis": "A取是否立即扩大战争和联盟判断；C取赤壁现场统帅的mixed S-/D3结果及环境难度，不把疫病本身写成个人过错。",
+        "source_refs": [
+          "資治通鑑/卷065@2306420",
+          "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208"
+        ]
+      }
+    ],
+    "朱元璋": [],
+    "朱温": [
+      {
+        "event": "扶持乐从训介入魏博内乱，军事介入未实现扶立目标",
+        "severity": "MATERIAL",
+        "basis": "本人因乐从训求援主动跨河介入魏博继承冲突；虽取得若干城镇和战果，乐氏仍被斩、扶立目标失败，只能事后与罗弘信修好。",
+        "c_nonduplication_basis": "C消费朱珍等人的具体作战结果；A只扣选择支持乐从训并介入魏博的政治军事路线未达目标。",
+        "source_refs": [
+          "資治通鑑/卷257@803268",
+          "WAR-LEAD-257-WEIBO-END"
+        ]
+      },
+      {
+        "event": "897年发动两路大举攻淮南，清口—淠水覆败并终止争夺江淮的能力",
+        "severity": "MAJOR",
+        "basis": "朱全忠作为汴方最高责任者发动七万主路及葛从周第二路南征并亲驻宿州；两路近乎同时覆灭、回者不足千，此后不能再争江淮，统一扩张方向发生重大终止。",
+        "c_nonduplication_basis": "C分别追究庞师古拒绝营地警告、葛从周半渡受击等前线责任；A仅扣发动并组织国家级两路南征的路线与资源投入责任。",
+        "source_refs": [
+          "資治通鑑/卷261@cache-ec8509975efe4376",
+          "WAR-LEAD-261-QINGKOU-END"
+        ]
+      }
+    ],
+    "朱由榔": [],
+    "朱聿键": [],
+    "李世民": [],
+    "李元昊": [],
+    "李嗣源": [],
+    "李存勖": [
+      {
+        "event": "胡柳陂拒绝周德威避战建议并强行决战，主力重创且周德威父子战死",
+        "severity": "MATERIAL",
+        "basis": "本人作为最高实际统帅否定保存军力、避免仓促决战的建议并决定急攻；两军均丧三分之二且核心统帅阵亡，虽未造成永久控制丧失，但显著消耗并延迟灭梁主链。",
+        "c_nonduplication_basis": "C保留本人B/D2指挥败责与现场表现；A只消费是否强行发动该场战略会战的最高决策责任。",
+        "source_refs": [
+          "資治通鑑/卷270@803281#周德威不能制，父子皆戰死",
+          "資治通鑑/卷270@803281#兩軍所喪士卒各三之二",
+          "PCR-8ED6DEAA3AD49FA58659"
+        ]
+      },
+      {
+        "event": "统一后纵容并追认冤杀郭崇韬，继而族诛朱友谦集团，直接激化军心并引发后唐中央迅速崩解",
+        "severity": "CRITICAL",
+        "basis": "灭梁后三年内，皇后未经查证杀郭崇韬，李存勖随后追认并扩大清洗，又亲令族诛朱友谦；魏博兵变、李嗣源军势扩大和中央军倒戈紧随发生，属于同一创业路线的稳定审计。",
+        "c_nonduplication_basis": "A结算功臣清洗和军政联盟处置；魏博兵变、洛阳崩解等具体军事过程仍由战役账保存。",
+        "source_refs": [
+          "資治通鑑/卷274@803285#自為教與繼岌，令殺崇韜",
+          "資治通鑑/卷274@803285#罪，並殺其子廷",
+          "資治通鑑/卷274@803285#其族百口就刑"
+        ]
+      }
+    ],
+    "李昪": [],
+    "李暠": [],
+    "李渊": [
+      {
+        "event": "把晋阳—河东留守先后交给李元吉、裴寂，防守与增援安排失效并导致创业基地失控",
+        "severity": "MAJOR",
+        "basis": "李渊明确把晋阳后事委李元吉，后又以裴寂承担河东方面；裴寂军失亡略尽、元吉弃太原，宋金刚取得太原及河东多地，属于最高留守与用人安排造成的重大控制倒退。",
+        "c_nonduplication_basis": "C归李元吉、裴寂实际守战和退败；A仅消费李渊对创业基地留守主帅、资源配置及后方控制安排的最高责任。",
+        "source_refs": [
+          "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥",
+          "資治通鑑/卷187@1502771",
+          "WAR-LEAD-TANG-TAIYUAN-619"
+        ]
+      },
+      {
+        "event": "处死窦建德并召其旧将入朝，激成刘黑闼领导的河北复叛",
+        "severity": "MAJOR",
+        "basis": "处死与召集旧将属于战后降附和地方网络处置；范愿等因恐惧再起，刘黑闼半年尽复河北旧境，迫使唐进行两轮高强度再平定，重大反复已经兑现。",
+        "c_nonduplication_basis": "C消费刘黑闼战争中各人的实际战果与败绩；A只扣唐廷最高层对降附集团的处置造成复叛网络再生。",
+        "source_refs": [
+          "資治通鑑/卷189@1503114",
+          "WAR-LEAD-TANG-LIUHEITA-621",
+          "資治通鑑/卷190@1502800"
+        ]
+      }
+    ],
+    "李雄": [],
+    "杨坚": [],
+    "柴荣": [],
+    "沮渠蒙逊": [],
+    "洪秀全": [
+      {
+        "event": "召韦昌辉图杀杨秀清并采用诱集东党扩大清洗，继而猜忌石达开，创业核心集团在天京事变中瓦解",
+        "severity": "CRITICAL",
+        "basis": "1856年距1853年定都仅三年，仍在统一项目闭合后稳定审计期；最高领袖参与召回、密图和扩大清洗，近三万人死亡、石达开出走，起事核心集团基本解体。",
+        "c_nonduplication_basis": "A结算最高层联盟与权力处置；具体宫城冲突、部队战斗和人员死亡不再作为C战役结果重复扣分。",
+        "source_refs": [
+          "https://zh.wikisource.org/zh-hans/清史稿/卷475"
+        ]
+      }
+    ],
+    "玄烨": [
+      {
+        "event": "在未先行拆解三藩军政能力和联动条件的情况下连续准许撤藩，吴三桂、耿精忠、孙延龄、王辅臣相继反叛，形成全国性多线战争",
+        "severity": "MAJOR",
+        "basis": "撤藩是玄烨承担最高责任的统一控制决策；执行顺序与风险隔离不足，直接把既有地方控制结构转化为跨西南、华南和西北的重大反复。因1681年已重新平定，不判CRITICAL。",
+        "c_nonduplication_basis": "A扣的是撤藩政策及控制架构；C只处理三藩战争中玄烨或前线将领的实际战役指挥，不重复任何战役败责。",
+        "source_refs": [
+          "清史稿/卷6@1789307#令其撤籓還駐遼東。",
+          "清史稿/卷6@1789307#吳三桂疏請撤籓。許之。",
+          "清史稿/卷6@1789307#史。吳三桂反，",
+          "清史稿/卷6@1789307#耿精忠反，執福建總督范承謨幽之，巡撫劉秉政降賊。",
+          "清史稿/卷6@1789307#孫延齡以廣西叛",
+          "清史稿/卷6@1789307#王輔臣叛，經略莫洛死之。上議親征。"
+        ]
+      }
+    ],
+    "王建": [],
+    "王莽": [
+      {
+        "event": "为补足四海名号诱取西羌土地、置西海郡并以增法强迁充实新郡",
+        "severity": "MAJOR",
+        "basis": "该扩张并非应对既有入侵，而由王莽的名号目标直接发动；强迁与失地促成约十二万羌众背景下的反抗、太守弃郡，制造A级边疆危机。",
+        "c_nonduplication_basis": "A结算发动扩张、置郡和强迁的战略决定；C/战争账只保存羌战的交战结果与区域难度。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/汉/卷036-通读总结.md#L31",
+          "WAR-LEAD-XIN-XIHAI-4-7"
+        ]
+      }
+    ],
+    "皇太极": [],
+    "石勒": [],
+    "石敬瑭": [
+      {
+        "event": "为取得契丹援助称臣称子并许割、继而交割幽云十六州及岁输帛三十万匹",
+        "severity": "MAJOR",
+        "basis": "这是本人建国路线的明确交换条件，刘知远反对割地未被采纳；结果使契丹取得长城以南战略州郡并形成长期财政与外部依附成本，属于创业成果伴生的重大结构性损失。",
+        "c_nonduplication_basis": "C只消费晋安寨等本人实际战役成果；割地、称臣及岁输是联盟和建国条件，不是战场指挥败绩。",
+        "source_refs": [
+          "資治通鑑/卷280@1769088#稱臣於契丹主",
+          "資治通鑑/卷280@1769088#割盧龍一道及雁門關以北諸州",
+          "資治通鑑/卷280@1769088#十六州以與契丹",
+          "資治通鑑/卷280@1769088#歲輸帛三十萬匹"
+        ]
+      }
+    ],
+    "石虎": [],
+    "福临": [],
+    "窝阔台": [],
+    "耶律大石": [],
+    "耶律德光": [
+      {
+        "event": "灭后晋入汴后纵兵掠粮、括民私财且不及时遣节度使还镇，北返时本人承认三项失策；新取得的中原控制随即崩解",
+        "severity": "CRITICAL",
+        "basis": "这是征服后的占领、地方控制与降附集团处置，由最高统治者直接制定并由本人明确承认失策；其后果不是一场败仗，而是刚取得的中原统一成果无法留存。",
+        "c_nonduplication_basis": "C只处理实际战役指挥与军事结果；此处扣的是入汴后的占领政策和控制架构，不重复消费任何战役败责。",
+        "source_refs": [
+          "遼史/卷4@2325083#縱兵掠芻粟，一也；括民私財，二也；不遽遣諸節度還鎮，三也。",
+          "遼史/卷4@2325083#諸司僚吏、嬪御、宦寺、方技、百工、圖籍、歷象、石經、銅人",
+          "遼史/卷4@2325083#，悉送上京。磁",
+          "遼史/卷4@2325083#崩于欒城，年四十六。"
+        ]
+      }
+    ],
+    "耶律阿保机": [],
+    "苻健": [],
+    "苻坚": [
+      {
+        "event": "力排群臣反对发动淝水南征，失败后前秦主要控制在两年内迅速崩解",
+        "severity": "CRITICAL",
+        "basis": "376年北方统一峰值由A1保存；383年南征是本人统一路线的直接延伸，且苻融、权翼等多人明确反对，失败后两年内本人被杀、主要控制瓦解，属于闭合后稳定审计期内的路线性崩塌。",
+        "c_nonduplication_basis": "A结算发动战争和压倒反对意见的最高战略决定；C仅结算淝水现场统帅、战斗过程和失败难度。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/两晋/卷104-通读总结.md#L227",
+          "docs/共享史料/唐以前编年/两晋/卷105-通读总结.md#L43",
+          "WAR-LEAD-105-FEISHUI-383"
+        ]
+      }
+    ],
+    "萧衍": [],
+    "萧道成": [],
+    "蒙哥": [
+      {
+        "event": "亲统四川主攻并在钓鱼城屡攻不克后仍维持攻势，最高统帅在前线病亡，使伐宋多路攻势的最高指挥中断",
+        "severity": "MATERIAL",
+        "basis": "本人决定亲统四川并配置三路伐宋；钓鱼城久攻不克时未见及时转换主攻或建立可持续的最高指挥接替，死亡风险最终使统一链该轮攻势中断。病亡本身不作过错，扣分只落在缺乏韧性的战略指挥架构。",
+        "c_nonduplication_basis": "C可保存钓鱼城围攻未克的前线败责；A仅处理最高统帅亲临单一攻坚方向并使全局缺乏连续性的战略架构，不重复扣具体攻城结果。",
+        "source_refs": [
+          "元史/卷003@2189694#帝自將伐宋，由西蜀以入",
+          "元史/卷003@2189694#命張柔從忽必烈征鄂，趨杭州",
+          "元史/卷003@2189694#月，屢攻不克",
+          "元史/卷003@2189694#是月，帝不豫",
+          "元史/卷003@2189694#帝崩于釣魚山"
+        ]
+      }
+    ],
+    "赫连勃勃": [],
+    "赵光义": [
+      {
+        "event": "灭北汉后在军粮将尽、士卒疲乏且诸将不愿再战时，决定不经休整继续进攻幽州",
+        "severity": "MATERIAL",
+        "basis": "本人采纳乘势北征方案并在明确疲军、缺粮背景下发动幽州方向；围城未克、高梁河大败并损失大量军资，灭北汉后的统一推进被迫中止。",
+        "c_nonduplication_basis": "C消费高梁河本人及诸将的实际战场结果；A只扣在明确资源告警下继续发动下一战略方向的决策。",
+        "source_refs": [
+          "續資治通鑑/卷010@2311081#饋餉且盡，軍士罷乏",
+          "續資治通鑑/卷010@2311081#諸將皆不願行",
+          "續資治通鑑/卷010@2311081#車駕北征，發鎮州",
+          "續資治通鑑/卷010@2311081#戰於高梁河"
+        ]
+      }
+    ],
+    "赵匡胤": [],
+    "赵构": [
+      {
+        "event": "1140—1141年召回北伐诸军、收束大将兵权并以和议终止恢复北方路线",
+        "severity": "MAJOR",
+        "basis": "岳飞等推进期间十二道金字牌召回使攻势停止、颍昌淮宁复失；随后解除主要将领兵权、处死岳飞并执行和议，属于本人政权最高层主动收缩恢复统一目标的连续战略决定。",
+        "c_nonduplication_basis": "C只归各将领前线胜负与实际指挥；A消费是否召回、解除统帅体系和选择和议路线的最高战略责任，不把岳飞战果转给赵构。",
+        "source_refs": [
+          "續資治通鑑/卷123@2309484#一日奉十二金字牌",
+          "續資治通鑑/卷123@2309484#十年之功，廢於一旦",
+          "續資治通鑑/卷124@2309489#岳飛為樞密副使",
+          "續資治通鑑/卷124@2309489#岳飛賜死於大理寺"
+        ]
+      }
+    ],
+    "述律平": [],
+    "郭威": [],
+    "铁木真": [],
+    "陈霸先": [],
+    "高欢": [],
+    "高洋": [],
+    "黄巢": [
+      {
+        "event": "占据长安后未建立稳定地方控制、补给与响应体系，转为掠食维持并最终导致首都政权和主力全部覆亡",
+        "severity": "CRITICAL",
+        "basis": "本人政权以长安为全国竞争中心，却未能把占领转化为可持续粮运和地方控制；城中粮价暴涨、军队跨州掠人为粮，最终弃长安、陈州围攻失败、主力降至不足千并全链覆亡。",
+        "c_nonduplication_basis": "C消费各次交战、突围与败亡；A只扣占领首都后的国家战略、供给和控制结构未建立并导致整个创业链崩塌。",
+        "source_refs": [
+          "docs/共享史料/唐以前编年/唐/卷254-通读总结.md",
+          "資治通鑑/卷255@1760490",
+          "資治通鑑/卷256@803267",
+          "WAR-LEAD-256-HUANGCHAO-END"
+        ]
+      }
+    ]
   },
   "created_net_control_values": {
-    "李渊":934.25,"刘邦":550.25,"刘秀":702.75,"王莽":30.00,"高欢":170.00,"司马懿":30.00,"嬴政":433.12,"李世民":934.25,"杨坚":281.75,"刘裕":385.12,
-    "司马炎":311.75,"萧衍":181.12,"石勒":317.45,"宇文泰":83.12,"曹操":350.00,"拓跋珪":32.75,"慕容垂":219.00,"高洋":20.00,"陈霸先":151.00,"司马昭":150.00,
-    "李雄":70.50,"赫连勃勃":100.00,"司马睿":200.00,"刘备":120.75,"沮渠蒙逊":70.50,"孙权":90.56,"苻健":52.88,"吕光":52.88,"慕容德":52.88,"萧道成":45.00,
-    "刘渊":35.25,"姚苌":52.88,"李暠":17.62,"冯跋":15.00,"曹丕":20.00,"司马师":40.00,"冉闵":0.00,"刘玄":0.00
+    "李渊": 934.25,
+    "刘邦": 550.25,
+    "刘秀": 702.75,
+    "王莽": 30.0,
+    "高欢": 170.0,
+    "司马懿": 30.0,
+    "嬴政": 433.12,
+    "李世民": 934.25,
+    "杨坚": 281.75,
+    "刘裕": 385.12,
+    "司马炎": 311.75,
+    "萧衍": 181.12,
+    "石勒": 317.45,
+    "宇文泰": 83.12,
+    "曹操": 350.0,
+    "拓跋珪": 32.75,
+    "慕容垂": 219.0,
+    "高洋": 20.0,
+    "陈霸先": 151.0,
+    "司马昭": 150.0,
+    "李雄": 70.5,
+    "赫连勃勃": 100.0,
+    "司马睿": 200.0,
+    "刘备": 120.75,
+    "沮渠蒙逊": 70.5,
+    "孙权": 90.56,
+    "苻健": 52.88,
+    "吕光": 52.88,
+    "慕容德": 52.88,
+    "萧道成": 45.0,
+    "刘渊": 35.25,
+    "姚苌": 52.88,
+    "李暠": 17.62,
+    "冯跋": 15.0,
+    "曹丕": 20.0,
+    "司马师": 40.0,
+    "冉闵": 0.0,
+    "刘玄": 0.0,
+    "刘聪": 17.62,
+    "姚兴": 17.63,
+    "宇文邕": 301.88,
+    "拓跋焘": 70.5,
+    "石虎": 214.01,
+    "苻坚": 468.38,
+    "朱温": 225,
+    "李存勖": 180,
+    "李嗣源": 180,
+    "石敬瑭": 255,
+    "王建": 80,
+    "耶律阿保机": 85,
+    "耶律德光": 40,
+    "完颜阿骨打": 100,
+    "完颜吴乞买": 225,
+    "赵匡胤": 265,
+    "赵光义": 60,
+    "李元昊": 30,
+    "铁木真": 540,
+    "窝阔台": 180,
+    "蒙哥": 80,
+    "忽必烈": 420,
+    "朱元璋": 957,
+    "努尔哈赤": 80,
+    "皇太极": 20,
+    "多尔衮": 770,
+    "黄巢": 0,
+    "李昪": 20,
+    "刘龑": 10,
+    "郭威": 100,
+    "柴荣": 120,
+    "述律平": 85,
+    "耶律大石": 0,
+    "赵构": 0,
+    "朱聿键": 10,
+    "朱由榔": 20,
+    "福临": 40,
+    "玄烨": 0,
+    "洪秀全": 50
   },
   "value_weighted_acquisition_years": {
-    "李渊":4.0,"刘邦":5.5,"刘秀":7.5,"王莽":7.0,"高欢":2.0,"司马懿":1.0,"嬴政":5.5,"李世民":4.0,"杨坚":9.0,"刘裕":8.0,
-    "司马炎":14.0,"萧衍":1.5,"石勒":11.0,"宇文泰":2.0,"曹操":13.0,"拓跋珪":3.0,"慕容垂":5.0,"高洋":1.0,"陈霸先":5.0,"司马昭":6.0,
-    "李雄":1.5,"赫连勃勃":7.0,"司马睿":7.0,"刘备":7.0,"沮渠蒙逊":13.0,"孙权":12.0,"苻健":1.5,"吕光":1.5,"慕容德":2.0,"萧道成":3.0,
-    "刘渊":3.0,"姚苌":5.0,"李暠":1.0,"冯跋":1.0,"曹丕":2.0,"司马师":3.0,"冉闵":1.0,"刘玄":1.0
+    "李渊": 4.0,
+    "刘邦": 5.5,
+    "刘秀": 7.5,
+    "王莽": 7.0,
+    "高欢": 2.0,
+    "司马懿": 1.0,
+    "嬴政": 5.5,
+    "李世民": 4.0,
+    "杨坚": 9.0,
+    "刘裕": 8.0,
+    "司马炎": 14.0,
+    "萧衍": 1.5,
+    "石勒": 11.0,
+    "宇文泰": 2.0,
+    "曹操": 13.0,
+    "拓跋珪": 3.0,
+    "慕容垂": 5.0,
+    "高洋": 1.0,
+    "陈霸先": 5.0,
+    "司马昭": 6.0,
+    "李雄": 1.5,
+    "赫连勃勃": 7.0,
+    "司马睿": 7.0,
+    "刘备": 7.0,
+    "沮渠蒙逊": 13.0,
+    "孙权": 12.0,
+    "苻健": 1.5,
+    "吕光": 1.5,
+    "慕容德": 2.0,
+    "萧道成": 3.0,
+    "刘渊": 3.0,
+    "姚苌": 5.0,
+    "李暠": 1.0,
+    "冯跋": 1.0,
+    "曹丕": 2.0,
+    "司马师": 3.0,
+    "冉闵": 1.0,
+    "刘玄": 1.0,
+    "刘聪": 1.0,
+    "姚兴": 4.0,
+    "宇文邕": 1.8,
+    "拓跋焘": 8.0,
+    "石虎": 6.0,
+    "苻坚": 9.0,
+    "朱温": 12.0,
+    "李存勖": 8.0,
+    "李嗣源": 8.0,
+    "石敬瑭": 1.0,
+    "王建": 6.0,
+    "耶律阿保机": 12.0,
+    "耶律德光": 8.0,
+    "完颜阿骨打": 5.0,
+    "完颜吴乞买": 2.0,
+    "赵匡胤": 7.0,
+    "赵光义": 2.0,
+    "李元昊": 5.0,
+    "铁木真": 9.0,
+    "窝阔台": 3.0,
+    "蒙哥": 2.0,
+    "忽必烈": 10.0,
+    "朱元璋": 12.0,
+    "努尔哈赤": 8.0,
+    "皇太极": 7.0,
+    "多尔衮": 3.5,
+    "黄巢": 5.0,
+    "李昪": 5.0,
+    "刘龑": 3.0,
+    "郭威": 1.0,
+    "柴荣": 3.0,
+    "述律平": 12.0,
+    "耶律大石": 5.0,
+    "赵构": 8.0,
+    "朱聿键": 1.0,
+    "朱由榔": 3.0,
+    "福临": 5.0,
+    "玄烨": 5.0,
+    "洪秀全": 2.0
   },
   "records": [
-    {"ruler_name":"李渊","founder_role":"PRIMARY_FOUNDER","start_boundary":"617年太原起兵","end_boundary":"628年梁师都灭亡","starting_position":"太原留守、关陇身份网络与成建制兵力","terminal_completion_rate":1.00,"effective_years":10.0,"control_retention_rate":0.95,"loss_recovery_rate":1.00,"early_stability_rate":0.95,"responsibility_basis":"A读取唐初创业项目的王朝级净控制、统一时间与环境；本人负责联突厥、先取关中和全国阶段授权，个人军事路线不在A重复结算。晋阳失守与迁都动议计本人误判责任。"},
-    {"ruler_name":"刘邦","founder_role":"PRIMARY_FOUNDER","start_boundary":"前209年沛县起兵","end_boundary":"前202年称帝并完成主要统一","starting_position":"县级起兵集团","terminal_completion_rate":1.00,"effective_years":8.0,"control_retention_rate":0.87,"loss_recovery_rate":1.00,"early_stability_rate":0.90,"responsibility_basis":"从极低起点完成关中基地、楚汉决胜和全国政权闭合，重大失地均在创业终点前恢复。"},
-    {"ruler_name":"刘秀","founder_role":"RESTORATION_FOUNDER","start_boundary":"22年起兵","end_boundary":"36年统一主要地区","starting_position":"宗室身份但无稳定地盘","terminal_completion_rate":1.00,"effective_years":14.0,"control_retention_rate":0.93,"loss_recovery_rate":1.00,"early_stability_rate":0.98,"responsibility_basis":"脱离更始体系后独立经营河北，逐次消灭主要割据并形成高度稳定的复国结果。"},
-    {"ruler_name":"王莽","founder_role":"PRIMARY_FOUNDER","start_boundary":"前1年取得稳定辅政主导","end_boundary":"9年建立新朝","starting_position":"已控制西汉中枢与全国官僚机器","terminal_completion_rate":0.30,"effective_years":9.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.10,"responsibility_basis":"只计算由辅政到改朝的权力转换，不把西汉既有全国控制冒充本人新增创业成果；建国后迅速发生战略性崩解。"},
-    {"ruler_name":"高欢","founder_role":"DE_FACTO_FOUNDER","start_boundary":"531年控制河北军政集团","end_boundary":"534年建立东魏格局","starting_position":"继承并控制北魏东部主力与军政网络","terminal_completion_rate":0.55,"effective_years":4.0,"control_retention_rate":0.92,"loss_recovery_rate":1.00,"early_stability_rate":0.60,"responsibility_basis":"形成东魏控制区但未完成南北或东西统一，也未把傀儡结构闭合为本人王朝；既有北魏资源作为起点扣除。"},
-    {"ruler_name":"司马懿","founder_role":"FOUNDATION_INITIATOR","start_boundary":"249年高平陵政变","end_boundary":"251年去世","starting_position":"曹魏最高军政重臣并掌握中枢兵力","terminal_completion_rate":0.30,"effective_years":2.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.75,"responsibility_basis":"只结算推翻曹爽和建立司马氏中枢优势，不消费曹魏疆域，也不提前消费司马昭灭蜀或司马炎建晋统一。"},
-    {"ruler_name":"嬴政","founder_role":"FULL_REALM_UNIFIER","start_boundary":"前238年亲政","end_boundary":"前221年统一六国","starting_position":"继承战国最强国家及成熟军政体系","terminal_completion_rate":1.00,"effective_years":17.0,"control_retention_rate":0.91,"loss_recovery_rate":1.00,"early_stability_rate":0.90,"responsibility_basis":"高起点必须扣除，但本人完成六国次序选择、统一闭合和帝国创建，战略增量仍属最高层级。"},
-    {"ruler_name":"李世民","founder_role":"CO_FOUNDER","start_boundary":"617年参与太原起兵","end_boundary":"628年唐初统一项目闭合","starting_position":"共同创业核心并承接李渊全国路线","terminal_completion_rate":1.00,"effective_years":10.0,"control_retention_rate":0.95,"loss_recovery_rate":1.00,"early_stability_rate":0.95,"responsibility_basis":"A只读取唐初创业项目的王朝级净控制、统一时间与环境，不再消费薛举、河东、洛阳虎牢、刘黑闼等本人军事路线；这些个人作用只归C1/C2。李世民与李渊的个人差异仅由A内非战役战略判断和误判裁决产生。"},
-    {"ruler_name":"杨坚","founder_role":"PRIMARY_FOUNDER_AND_UNIFIER","start_boundary":"580年取得北周辅政权","end_boundary":"589年灭陈统一","starting_position":"掌握北周中枢和北方统一国家","terminal_completion_rate":1.00,"effective_years":9.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.90,"responsibility_basis":"北方国家机器属于高起点，但禅代闭合、内部稳定和灭陈统一仍是本人新增战略成果。"},
-    {"ruler_name":"刘裕","founder_role":"PRIMARY_FOUNDER","start_boundary":"404年京口起兵","end_boundary":"420年建立刘宋","starting_position":"北府军中层将领形成的起兵集团","terminal_completion_rate":0.88,"effective_years":16.0,"control_retention_rate":0.85,"loss_recovery_rate":0.80,"early_stability_rate":0.72,"responsibility_basis":"完成东晋中枢重建、主要内敌清除和两次北伐，但关中失守与南北未闭合降低结果。"},
-    {"ruler_name":"司马炎","founder_role":"FORMAL_FOUNDER_AND_UNIFIER","start_boundary":"265年继承司马氏权力","end_boundary":"280年灭吴","starting_position":"继承已控制曹魏并灭蜀的司马氏集团","terminal_completion_rate":1.00,"effective_years":15.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.78,"responsibility_basis":"只结算正式建晋和灭吴统一，司马懿、司马师、司马昭已形成的控制全部视为继承起点。"},
-    {"ruler_name":"萧衍","founder_role":"PRIMARY_FOUNDER","start_boundary":"500年襄阳起兵","end_boundary":"502年建立梁朝","starting_position":"掌握雍州军镇和宗室政治资源","terminal_completion_rate":0.78,"effective_years":2.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.90,"responsibility_basis":"快速击败建康政权并完成南朝改朝，起点军镇资源和仅限南方的目标边界同时计入。"},
-    {"ruler_name":"石勒","founder_role":"PRIMARY_FOUNDER","start_boundary":"309年转向独立建基","end_boundary":"330年形成后赵主体","starting_position":"流动作战集团且缺乏稳定核心","terminal_completion_rate":0.78,"effective_years":21.0,"control_retention_rate":0.90,"loss_recovery_rate":0.65,"early_stability_rate":0.78,"responsibility_basis":"从流动集团建立河北核心并解决前赵，但长期反复和全国未闭合限制效率。"},
-    {"ruler_name":"宇文泰","founder_role":"DE_FACTO_FOUNDER","start_boundary":"532年接收贺拔岳集团","end_boundary":"535年建立西魏","starting_position":"接收关陇既有军政集团","terminal_completion_rate":0.55,"effective_years":3.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.85,"responsibility_basis":"成功把关陇集团转为西魏，但东魏仍强且本人阶段只完成分裂格局中的西部建基。"},
-    {"ruler_name":"曹操","founder_role":"DE_FACTO_FOUNDER","start_boundary":"190年形成独立集团","end_boundary":"215年取得汉中阶段","starting_position":"低基数地方军政集团","terminal_completion_rate":0.75,"effective_years":25.0,"control_retention_rate":0.81,"loss_recovery_rate":0.63,"early_stability_rate":0.85,"responsibility_basis":"从低起点统一北方并建立魏政权基础；赤壁、关中汉中反复及未统一全国构成明确缺口。"},
-    {"ruler_name":"拓跋珪","founder_role":"RESTORATION_FOUNDER","start_boundary":"386年复代","end_boundary":"391年稳定草原核心","starting_position":"旧部与部族身份资源但无稳定国家","terminal_completion_rate":0.68,"effective_years":5.0,"control_retention_rate":0.82,"loss_recovery_rate":1.00,"early_stability_rate":0.65,"responsibility_basis":"完成复国与草原核心建基，但北方统一属于后续数代，晚期内部失序降低稳固度。"},
-    {"ruler_name":"慕容垂","founder_role":"RESTORATION_FOUNDER","start_boundary":"384年建立后燕","end_boundary":"394年消灭西燕","starting_position":"名将声望与前燕旧部网络","terminal_completion_rate":0.75,"effective_years":10.0,"control_retention_rate":0.84,"loss_recovery_rate":0.61,"early_stability_rate":0.45,"responsibility_basis":"复国并取得河北主体，但参合陂后继承与对魏方向迅速恶化，创业路线未形成稳定闭合。"},
-    {"ruler_name":"高洋","founder_role":"FORMAL_FOUNDER","start_boundary":"549年继承高氏集团","end_boundary":"550年建立北齐","starting_position":"继承高欢高澄已完成的东魏控制","terminal_completion_rate":0.15,"effective_years":1.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.45,"responsibility_basis":"只结算突发继承稳定和形式禅代，不消费高欢、高澄已经取得的东魏控制。"},
-    {"ruler_name":"陈霸先","founder_role":"PRIMARY_FOUNDER","start_boundary":"548年岭南北进","end_boundary":"557年建立陈朝","starting_position":"岭南方面军政力量","terminal_completion_rate":0.72,"effective_years":9.0,"control_retention_rate":0.89,"loss_recovery_rate":1.00,"early_stability_rate":0.70,"responsibility_basis":"在侯景乱后多方干预中建立陈朝，但疆域收缩和北方压力使结果不满闭合。"},
-    {"ruler_name":"司马昭","founder_role":"DE_FACTO_FOUNDER","start_boundary":"255年承接司马氏控制","end_boundary":"265年去世前禅代条件成熟","starting_position":"继承司马氏对曹魏中枢的控制","terminal_completion_rate":0.45,"effective_years":10.0,"control_retention_rate":0.83,"loss_recovery_rate":1.00,"early_stability_rate":0.80,"responsibility_basis":"结算淮南反抗收束、皇权进一步失权和灭蜀，不重复领取前两代司马氏控制。"},
-    {"ruler_name":"李雄","founder_role":"PRIMARY_FOUNDER","start_boundary":"302年接掌流民集团","end_boundary":"304年建立成汉","starting_position":"承接受挫后的流民武装","terminal_completion_rate":0.65,"effective_years":2.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.85,"responsibility_basis":"重组流民集团并稳定取得巴蜀，区域目标完成较好但规模有限。"},
-    {"ruler_name":"赫连勃勃","founder_role":"PRIMARY_FOUNDER","start_boundary":"407年建立胡夏","end_boundary":"418年取得长安","starting_position":"小规模部众与外援","terminal_completion_rate":0.52,"effective_years":11.0,"control_retention_rate":0.83,"loss_recovery_rate":0.00,"early_stability_rate":0.35,"responsibility_basis":"弱势机动建基并取得关中，但控制割裂、长安难守和早期稳定性很差。"},
-    {"ruler_name":"司马睿","founder_role":"RESTORATION_FOUNDER","start_boundary":"307年移镇建邺","end_boundary":"317年建立东晋","starting_position":"晋室宗王、江东军政名义与北人南渡资源","terminal_completion_rate":0.60,"effective_years":10.0,"control_retention_rate":0.91,"loss_recovery_rate":0.00,"early_stability_rate":0.45,"responsibility_basis":"保存晋室南方政权，但依赖王氏、北方失守和中枢独立性不足限制闭合与稳定。"},
-    {"ruler_name":"刘备","founder_role":"PRIMARY_FOUNDER","start_boundary":"208年赤壁后取得荆南","end_boundary":"221年建立蜀汉","starting_position":"长期流动后取得有限荆南基地","terminal_completion_rate":0.55,"effective_years":13.0,"control_retention_rate":0.75,"loss_recovery_rate":0.00,"early_stability_rate":0.55,"responsibility_basis":"从极弱起点取得益州汉中，但荆州尽失、两端路线失败且统一目标远未完成。"},
-    {"ruler_name":"沮渠蒙逊","founder_role":"DE_FACTO_FOUNDER","start_boundary":"397年起兵","end_boundary":"421年灭西凉","starting_position":"河西地方部族集团","terminal_completion_rate":0.65,"effective_years":24.0,"control_retention_rate":0.78,"loss_recovery_rate":0.51,"early_stability_rate":0.75,"responsibility_basis":"长期拉锯后取得北凉主导并灭西凉，完成度尚可但工期与反复成本较高。"},
-    {"ruler_name":"孙权","founder_role":"FORMAL_FOUNDER","start_boundary":"200年继承江东","end_boundary":"229年正式建吴","starting_position":"继承孙策已取得的江东基业","terminal_completion_rate":0.60,"effective_years":29.0,"control_retention_rate":0.82,"loss_recovery_rate":0.26,"early_stability_rate":0.90,"responsibility_basis":"只结算本人保存江东、荆州交州扩张和正式建吴，不重复消费孙策创业成果；北伐和统一未闭合。"},
-    {"ruler_name":"苻健","founder_role":"PRIMARY_FOUNDER","start_boundary":"350年西入关中","end_boundary":"352年建立前秦","starting_position":"迁徙集团与既有部众","terminal_completion_rate":0.60,"effective_years":2.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.75,"responsibility_basis":"快速把迁徙集团转为关中政权，北方统一不在本人完成度内。"},
-    {"ruler_name":"吕光","founder_role":"PRIMARY_FOUNDER","start_boundary":"385年回师河西","end_boundary":"387年建立后凉","starting_position":"自西域返回的成建制远征军","terminal_completion_rate":0.45,"effective_years":2.0,"control_retention_rate":0.88,"loss_recovery_rate":0.00,"early_stability_rate":0.35,"responsibility_basis":"夺取凉州建政很快，但起点军力不低、地方整合和早期稳定均不足。"},
-    {"ruler_name":"慕容德","founder_role":"PRIMARY_FOUNDER","start_boundary":"397年后燕河北崩解","end_boundary":"400年建立南燕核心","starting_position":"后燕残余集团与宗室号召力","terminal_completion_rate":0.45,"effective_years":3.0,"control_retention_rate":0.88,"loss_recovery_rate":1.00,"early_stability_rate":0.60,"responsibility_basis":"连续止损后建立青齐核心，但只是后燕崩解后的区域性闭合。"},
-    {"ruler_name":"萧道成","founder_role":"PRIMARY_FOUNDER","start_boundary":"474年平桂阳王","end_boundary":"479年建立南齐","starting_position":"刘宋中枢高级将领并逐步掌握禁军","terminal_completion_rate":0.40,"effective_years":5.0,"control_retention_rate":0.86,"loss_recovery_rate":1.00,"early_stability_rate":0.65,"responsibility_basis":"完成中枢夺权和改朝，但高起点与既有刘宋国家机器必须从成果中扣除。"},
-    {"ruler_name":"刘渊","founder_role":"PRIMARY_FOUNDER","start_boundary":"304年起兵建汉","end_boundary":"308年称帝","starting_position":"匈奴五部与既有政治身份资源","terminal_completion_rate":0.35,"effective_years":4.0,"control_retention_rate":0.78,"loss_recovery_rate":0.51,"early_stability_rate":0.55,"responsibility_basis":"建立汉赵政权但主要都会和扩张由后继完成，本人终点闭合有限。"},
-    {"ruler_name":"姚苌","founder_role":"PRIMARY_FOUNDER","start_boundary":"384年建立后秦","end_boundary":"393年去世","starting_position":"前秦崩解中的独立军事集团","terminal_completion_rate":0.45,"effective_years":9.0,"control_retention_rate":0.76,"loss_recovery_rate":0.58,"early_stability_rate":0.65,"responsibility_basis":"在高压乱局中建立后秦，但苻登方向和关中最终闭合留给姚兴。"},
-    {"ruler_name":"李暠","founder_role":"PRIMARY_FOUNDER","start_boundary":"400年敦煌建基","end_boundary":"401年形成西凉核心","starting_position":"敦煌地方官与士族支持","terminal_completion_rate":0.25,"effective_years":1.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.60,"responsibility_basis":"形成敦煌有限核心，但东进与河西主导目标均未完成。"},
-    {"ruler_name":"冯跋","founder_role":"DE_FACTO_FOUNDER","start_boundary":"409年高云被杀","end_boundary":"410年稳定北燕","starting_position":"北燕既有中枢与军政集团","terminal_completion_rate":0.25,"effective_years":1.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.80,"responsibility_basis":"主要是宫廷突变后的既有政权接管与稳定，新增战略成果有限。"},
-    {"ruler_name":"曹丕","founder_role":"FORMAL_FOUNDER","start_boundary":"217年取得魏太子地位","end_boundary":"220年建立曹魏","starting_position":"继承曹操已建立的北方政权与军政体系","terminal_completion_rate":0.15,"effective_years":3.0,"control_retention_rate":1.00,"loss_recovery_rate":1.00,"early_stability_rate":0.80,"responsibility_basis":"只结算储位竞争和形式建国，不消费曹操统一北方的战略成果。"},
-    {"ruler_name":"司马师","founder_role":"CO_FOUNDER","start_boundary":"251年承接司马氏控制","end_boundary":"255年去世","starting_position":"继承司马懿已取得的中枢优势","terminal_completion_rate":0.25,"effective_years":4.0,"control_retention_rate":0.73,"loss_recovery_rate":1.00,"early_stability_rate":0.75,"responsibility_basis":"只结算废立和镇压反司马外镇形成的加固，不领取曹魏疆域或后续灭蜀建晋成果。"},
-    {"ruler_name":"冉闵","founder_role":"FAILED_FOUNDER","start_boundary":"350年建立冉魏","end_boundary":"352年覆亡","starting_position":"取得后赵邺城中枢和部分军队","terminal_completion_rate":0.05,"effective_years":2.0,"control_retention_rate":0.00,"loss_recovery_rate":0.00,"early_stability_rate":0.00,"responsibility_basis":"短期建政后全面失控覆亡，高难度不能脱离完成度单独换取高分。"},
-    {"ruler_name":"刘玄","founder_role":"FAILED_RESTORATION_FOUNDER","start_boundary":"23年被绿林拥立","end_boundary":"25年长安失守","starting_position":"被成熟绿林集团拥立并承接反新成果","terminal_completion_rate":0.05,"effective_years":2.0,"control_retention_rate":0.00,"loss_recovery_rate":0.00,"early_stability_rate":0.00,"responsibility_basis":"一度承接大范围反新成果但本人整合薄弱，终点全部丧失。"}
-  ]
+    {
+      "ruler_name": "嬴政",
+      "founder_role": "FULL_REALM_UNIFIER",
+      "start_boundary": "前238年亲政",
+      "end_boundary": "前221年统一六国",
+      "starting_position": "继承战国最强国家及成熟军政体系",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 17.0,
+      "control_retention_rate": 0.91,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "高起点必须扣除，但本人完成六国次序选择、统一闭合和帝国创建，战略增量仍属最高层级。",
+      "difficulty_start_boundary": "前247年继承秦王位",
+      "initial_resource_position": "前247年继承秦王位；亲政只是解除摄政约束，不能把此前继承的秦国从起点删除",
+      "initial_resource_share_pct": 35,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:FULL_REALM_UNIFIER"
+    },
+    {
+      "ruler_name": "刘邦",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "前209年沛县起兵",
+      "end_boundary": "前202年称帝并完成主要统一",
+      "starting_position": "县级起兵集团",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 8.0,
+      "control_retention_rate": 0.87,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "从极低起点完成关中基地、楚汉决胜和全国政权闭合，重大失地均在创业终点前恢复。",
+      "difficulty_start_boundary": "亭长身份与县里人脉是微量个人资源，沛县起兵集团是后来成果",
+      "initial_resource_position": "亭长身份与县里人脉是微量个人资源，沛县起兵集团是后来成果",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "刘秀",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "22年起兵",
+      "end_boundary": "36年统一主要地区",
+      "starting_position": "宗室身份但无稳定地盘",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 14.0,
+      "control_retention_rate": 0.93,
+      "early_stability_rate": 0.98,
+      "responsibility_basis": "脱离更始体系后独立经营河北，逐次消灭主要割据并形成高度稳定的复国结果。",
+      "difficulty_start_boundary": "宗室血缘与地方人脉可计微量，起兵后形成的集团不得倒灌",
+      "initial_resource_position": "宗室血缘与地方人脉可计微量，起兵后形成的集团不得倒灌",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "曹操",
+      "founder_role": "DE_FACTO_FOUNDER",
+      "start_boundary": "190年形成独立集团",
+      "end_boundary": "215年取得汉中阶段",
+      "starting_position": "低基数地方军政集团",
+      "terminal_completion_rate": 0.9,
+      "effective_years": 25.0,
+      "control_retention_rate": 0.81,
+      "early_stability_rate": 0.85,
+      "responsibility_basis": "从低起点完成北方主要统一并建立稳定的魏政权基础，按事实奠基项目完成90%；赤壁、关中汉中反复及未统一全国仍形成明确缺口。",
+      "difficulty_start_boundary": "宦官养孙家资、士族交游和既往官历可计，但190年军政集团是本人随后形成",
+      "initial_resource_position": "宦官养孙家资、士族交游和既往官历可计，但190年军政集团是本人随后形成",
+      "initial_resource_share_pct": 3,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:DE_FACTO_FOUNDER"
+    },
+    {
+      "ruler_name": "曹丕",
+      "founder_role": "FORMAL_FOUNDER",
+      "start_boundary": "217年取得魏太子地位",
+      "end_boundary": "220年建立曹魏",
+      "starting_position": "继承曹操已建立的北方政权与军政体系",
+      "terminal_completion_rate": 0.15,
+      "effective_years": 3.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.8,
+      "responsibility_basis": "只结算储位竞争和形式建国，不消费曹操统一北方的战略成果。",
+      "difficulty_start_boundary": "以魏太子身份承接曹操北方政权，当前高起点方向正确",
+      "initial_resource_position": "以魏太子身份承接曹操北方政权，当前高起点方向正确",
+      "initial_resource_share_pct": 90,
+      "a1_strategic_responsibility_factor": 0.6,
+      "a1_strategic_responsibility_basis": "role_default:FORMAL_FOUNDER"
+    },
+    {
+      "ruler_name": "司马懿",
+      "founder_role": "FOUNDATION_INITIATOR",
+      "start_boundary": "249年高平陵政变",
+      "end_boundary": "251年去世",
+      "starting_position": "曹魏最高军政重臣并掌握中枢兵力",
+      "terminal_completion_rate": 0.3,
+      "effective_years": 2.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.75,
+      "responsibility_basis": "只结算推翻曹爽和建立司马氏中枢优势，不消费曹魏疆域，也不提前消费司马昭灭蜀或司马炎建晋统一。",
+      "difficulty_start_boundary": "河内士族家世和官历可计",
+      "initial_resource_position": "河内士族家世和官历可计；249年政变取得的中枢兵权是成果而非起点",
+      "initial_resource_share_pct": 5,
+      "a1_strategic_responsibility_factor": 0.8,
+      "a1_strategic_responsibility_basis": "role_default:FOUNDATION_INITIATOR"
+    },
+    {
+      "ruler_name": "司马师",
+      "founder_role": "CO_FOUNDER",
+      "start_boundary": "251年承接司马氏控制",
+      "end_boundary": "255年去世",
+      "starting_position": "继承司马懿已取得的中枢优势",
+      "terminal_completion_rate": 0.25,
+      "effective_years": 4.0,
+      "control_retention_rate": 0.73,
+      "early_stability_rate": 0.75,
+      "responsibility_basis": "只结算废立和镇压反司马外镇形成的加固，不领取曹魏疆域或后续灭蜀建晋成果。",
+      "difficulty_start_boundary": "直接承接司马懿已取得的中枢控制",
+      "initial_resource_position": "直接承接司马懿已取得的中枢控制",
+      "initial_resource_share_pct": 72,
+      "a1_strategic_responsibility_factor": 0.55,
+      "a1_strategic_responsibility_basis": "只结算中枢加固阶段，不消费司马氏完整奠基链"
+    },
+    {
+      "ruler_name": "司马昭",
+      "founder_role": "DE_FACTO_FOUNDER",
+      "start_boundary": "255年承接司马氏控制",
+      "end_boundary": "265年去世前禅代条件成熟",
+      "starting_position": "继承司马氏对曹魏中枢的控制",
+      "terminal_completion_rate": 0.45,
+      "effective_years": 10.0,
+      "control_retention_rate": 0.83,
+      "early_stability_rate": 0.8,
+      "responsibility_basis": "结算淮南反抗收束、皇权进一步失权和灭蜀，不重复领取前两代司马氏控制。",
+      "difficulty_start_boundary": "直接承接司马师控制的曹魏中枢",
+      "initial_resource_position": "直接承接司马师控制的曹魏中枢",
+      "initial_resource_share_pct": 70,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:DE_FACTO_FOUNDER"
+    },
+    {
+      "ruler_name": "司马炎",
+      "founder_role": "FORMAL_FOUNDER_AND_UNIFIER",
+      "start_boundary": "265年继承司马氏权力",
+      "end_boundary": "280年灭吴",
+      "starting_position": "继承已控制曹魏并灭蜀的司马氏集团",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 15.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.78,
+      "responsibility_basis": "只结算正式建晋和灭吴统一，司马懿、司马师、司马昭已形成的控制全部视为继承起点。",
+      "difficulty_start_boundary": "承接已控曹魏并完成灭蜀的司马氏机器",
+      "initial_resource_position": "承接已控曹魏并完成灭蜀的司马氏机器",
+      "initial_resource_share_pct": 82,
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "role_default:FORMAL_FOUNDER_AND_UNIFIER"
+    },
+    {
+      "ruler_name": "苻坚",
+      "founder_role": "SUCCESSOR_FULL_UNIFIER",
+      "start_boundary": "357年即位并开始统一贡献",
+      "end_boundary": "376年前秦主要统一闭合",
+      "starting_position": "继承苻健关中政权",
+      "terminal_completion_rate": 1,
+      "effective_years": 19.0,
+      "control_retention_rate": 0.15,
+      "early_stability_rate": 0.1,
+      "responsibility_basis": "A1只读取357—376北方统一峰值；A2按闭合后稳定审计纳入383年淝水战略误判及其后两年内主要控制崩解，不抹去峰值，也不允许以窗口截断逃避稳定责任。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "即位时承接关中政权，当前口径基本正确",
+      "initial_resource_position": "即位时承接关中政权，当前口径基本正确",
+      "initial_resource_share_pct": 30,
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_FULL_UNIFIER"
+    },
+    {
+      "ruler_name": "拓跋珪",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "386年复代",
+      "end_boundary": "391年稳定草原核心",
+      "starting_position": "旧部与部族身份资源但无稳定国家",
+      "terminal_completion_rate": 0.68,
+      "effective_years": 5.0,
+      "control_retention_rate": 0.82,
+      "early_stability_rate": 0.65,
+      "responsibility_basis": "完成复国与草原核心建基，但北方统一属于后续数代，晚期内部失序降低稳固度。",
+      "difficulty_start_boundary": "代王宗室身份和少量旧部可计，但复代后的国家能力是成果",
+      "initial_resource_position": "代王宗室身份和少量旧部可计，但复代后的国家能力是成果",
+      "initial_resource_share_pct": 2,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "拓跋焘",
+      "founder_role": "SUCCESSOR_FULL_UNIFIER",
+      "start_boundary": "423年继承北魏最高权力",
+      "end_boundary": "439年灭北凉完成北方统一",
+      "starting_position": "继承北魏河北主体",
+      "terminal_completion_rate": 1,
+      "effective_years": 16.0,
+      "control_retention_rate": 0.96,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "只读本人阶段取得并保持的河西北凉方向，不复制拓跋珪建基。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接北魏河北主体",
+      "initial_resource_position": "承接北魏河北主体",
+      "initial_resource_share_pct": 55,
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_FULL_UNIFIER"
+    },
+    {
+      "ruler_name": "宇文泰",
+      "founder_role": "DE_FACTO_FOUNDER",
+      "start_boundary": "532年接收贺拔岳集团",
+      "end_boundary": "535年建立西魏",
+      "starting_position": "接收关陇既有军政集团",
+      "terminal_completion_rate": 0.55,
+      "effective_years": 3.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.85,
+      "responsibility_basis": "成功把关陇集团转为西魏，但东魏仍强且本人阶段只完成分裂格局中的西部建基。",
+      "difficulty_start_boundary": "早期军官身份与乡里关系可计",
+      "initial_resource_position": "早期军官身份与乡里关系可计；接收贺拔岳集团是进入主导地位后的成果",
+      "initial_resource_share_pct": 2,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:DE_FACTO_FOUNDER"
+    },
+    {
+      "ruler_name": "杨坚",
+      "founder_role": "PRIMARY_FOUNDER_AND_UNIFIER",
+      "start_boundary": "580年取得北周辅政权",
+      "end_boundary": "589年灭陈统一",
+      "starting_position": "掌握北周中枢和北方统一国家",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 9.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "北方国家机器及关陇基盘属于宇文氏形成的高项目起点；本人只领取有限禅代信用，以及稳定中枢、平定反对力量和灭陈统一的新增成果。",
+      "difficulty_start_boundary": "关陇门第、袭爵和官场网络可计",
+      "initial_resource_position": "关陇门第、袭爵和官场网络可计；580年取得北周辅政权不能作为创业起点",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER_AND_UNIFIER"
+    },
+    {
+      "ruler_name": "李渊",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "617年太原起兵",
+      "end_boundary": "628年梁师都灭亡",
+      "starting_position": "太原留守、关陇身份网络与成建制兵力",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 10.0,
+      "control_retention_rate": 0.95,
+      "early_stability_rate": 0.95,
+      "responsibility_basis": "A读取唐初创业项目的王朝级净控制、统一时间与环境；本人负责联突厥、先取关中和全国阶段授权，个人军事路线不在A重复结算。晋阳—河东留守失效及窦建德旧部处置计本人误判责任；未执行且未产生实际损害的迁都意见不扣分。",
+      "difficulty_start_boundary": "太原留守、关陇门第和可调用兵力均属起兵前已拥有资源，当前低份额可保留",
+      "initial_resource_position": "太原留守、关陇门第和可调用兵力均属起兵前已拥有资源，当前低份额可保留",
+      "initial_resource_share_pct": 4,
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "唐统一项目由李渊、李世民及多名实际决策者共同闭合；李渊不消费完整项目"
+    },
+    {
+      "ruler_name": "李世民",
+      "founder_role": "CO_FOUNDER",
+      "start_boundary": "617年参与太原起兵",
+      "end_boundary": "628年唐初统一项目闭合",
+      "starting_position": "共同创业核心并承接李渊全国路线",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 10.0,
+      "control_retention_rate": 0.95,
+      "early_stability_rate": 0.95,
+      "responsibility_basis": "A只读取唐初创业项目的王朝级净控制、统一时间与环境，不再消费薛举、河东、洛阳虎牢、刘黑闼等本人军事路线；这些个人作用只归C1/C2。李世民与李渊的个人差异仅由A内非战役战略判断和误判裁决产生。",
+      "difficulty_start_boundary": "起兵时作为李渊核心共创者共享同一初始集团，当前未把后续战果倒灌",
+      "initial_resource_position": "起兵时作为李渊核心共创者共享同一初始集团，当前未把后续战果倒灌",
+      "initial_resource_share_pct": 4,
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "共同奠基但长期参与总体路线，暂高于一般CO_FOUNDER"
+    },
+    {
+      "ruler_name": "朱温",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "883/884年取得汴州",
+      "end_boundary": "907年建梁",
+      "starting_position": "汴州一镇与归附军队",
+      "terminal_completion_rate": 0.85,
+      "effective_years": 23.0,
+      "control_retention_rate": 0.82,
+      "early_stability_rate": 0.62,
+      "responsibility_basis": "225为汴、兖郓、河北淄青等战争取得并保持份额的保守下限；不消费部将独立难度。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "早年贫困并从黄巢军起步",
+      "initial_resource_position": "早年贫困并从黄巢军起步；取得汴州是后来成果",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "李存勖",
+      "founder_role": "SUCCESSOR_PRIMARY_UNIFIER",
+      "start_boundary": "908年承接河东晋国",
+      "end_boundary": "923年灭后梁建后唐",
+      "starting_position": "继承河东稳定军政集团",
+      "terminal_completion_rate": 1,
+      "effective_years": 15.0,
+      "control_retention_rate": 0.94,
+      "early_stability_rate": 0.88,
+      "responsibility_basis": "只读取继承河东后战争取得的河北、河南及山东份额，不重复河东起点。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接河东晋国和成熟军政集团",
+      "initial_resource_position": "承接河东晋国和成熟军政集团",
+      "initial_resource_share_pct": 28,
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_PRIMARY_UNIFIER"
+    },
+    {
+      "ruler_name": "郭威",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "950年邺都起兵",
+      "end_boundary": "951年建立后周",
+      "starting_position": "后汉枢密使并控制北方主力一部",
+      "terminal_completion_rate": 1,
+      "effective_years": 1.0,
+      "control_retention_rate": 0.98,
+      "early_stability_rate": 0.88,
+      "responsibility_basis": "只读取起兵后实际夺取并保持的河南中枢100；既有军职资源属于起点。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "贫寒从军起步",
+      "initial_resource_position": "贫寒从军起步；后汉枢密使和邺都兵权是长期形成的能力，不可作为初始禀赋",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "接管后汉既有邺都军政资源并完成区域改朝，不把后周项目终局全部视为个人从零兑现"
+    },
+    {
+      "ruler_name": "柴荣",
+      "founder_role": "SUCCESSOR_UNIFICATION_CONTRIBUTOR",
+      "start_boundary": "954年即位并开始统一贡献",
+      "end_boundary": "959年去世",
+      "starting_position": "继承后周中原国家机器",
+      "terminal_completion_rate": 0.55,
+      "effective_years": 5.0,
+      "control_retention_rate": 0.95,
+      "early_stability_rate": 0.8,
+      "responsibility_basis": "只计本人阶段战争取得并保持的淮南及北方州份120下限；后周原有河南为起点。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "作为后周统一主链的继承型贡献者，954年承接国家机器就是本段统一贡献的最初继承资源",
+      "initial_resource_position": "作为后周统一主链的继承型贡献者，954年承接国家机器就是本段统一贡献的最初继承资源；早年经商不另开一条个人建国链",
+      "initial_resource_share_pct": 62,
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_UNIFICATION_CONTRIBUTOR"
+    },
+    {
+      "ruler_name": "耶律阿保机",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "901年取得专征权",
+      "end_boundary": "926年灭渤海并去世",
+      "starting_position": "契丹联盟中的优势部落与最高军政责任",
+      "terminal_completion_rate": 1,
+      "effective_years": 25.0,
+      "control_retention_rate": 0.97,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "85为现有宏区可比下限；草原核心低于14宏区分辨率保持unknown。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "迭剌部贵族与部落领导资源为真实继承禀赋",
+      "initial_resource_position": "迭剌部贵族与部落领导资源为真实继承禀赋；后续契丹国家是成果",
+      "initial_resource_share_pct": 12,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "耶律德光",
+      "founder_role": "CO_FOUNDER_STAGE_EXECUTOR",
+      "start_boundary": "926年参与渤海终局",
+      "end_boundary": "947年本人贡献终止",
+      "starting_position": "继承已建辽国与渤海战果",
+      "terminal_completion_rate": 0.55,
+      "effective_years": 21.0,
+      "control_retention_rate": 0.65,
+      "early_stability_rate": 0.45,
+      "responsibility_basis": "只读取其本人参与闭合的渤海阶段40下限；后晋短期占领未形成保持控制，不写入净控制。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接阿保机建立的辽国机器",
+      "initial_resource_position": "承接阿保机建立的辽国机器",
+      "initial_resource_share_pct": 65,
+      "a1_strategic_responsibility_factor": 0.45,
+      "a1_strategic_responsibility_basis": "只参与渤海阶段且后续扩张结果不稳定"
+    },
+    {
+      "ruler_name": "述律平",
+      "founder_role": "CO_FOUNDER_AND_SUCCESSION_CLOSER",
+      "start_boundary": "阿保机建国期首次实际贡献",
+      "end_boundary": "927年摄政主链终止",
+      "starting_position": "契丹联盟核心共同领导者",
+      "terminal_completion_rate": 0.85,
+      "effective_years": 26.0,
+      "control_retention_rate": 0.96,
+      "early_stability_rate": 0.82,
+      "responsibility_basis": "作为同期共同奠基者共享辽项目85客观基线；不得因摄政身份复制前线C成果。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "部族贵族婚姻与氏族网络可计，但共同建国后形成的最高权力不可倒灌",
+      "initial_resource_position": "部族贵族婚姻与氏族网络可计，但共同建国后形成的最高权力不可倒灌",
+      "initial_resource_share_pct": 8,
+      "initial_resource_source_refs": [
+        "辽史/卷71#太祖淳钦皇后述律氏"
+      ],
+      "a1_strategic_responsibility_factor": 0.6,
+      "a1_strategic_responsibility_basis": "只结算继承与中枢稳定，不共享辽全部建国完成度"
+    },
+    {
+      "ruler_name": "完颜阿骨打",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "1114年起兵反辽",
+      "end_boundary": "1123年去世",
+      "starting_position": "女真联盟与局部根据地",
+      "terminal_completion_rate": 0.7,
+      "effective_years": 9.0,
+      "control_retention_rate": 0.95,
+      "early_stability_rate": 0.88,
+      "responsibility_basis": "1123快照只给幽燕辽东100；完颜晟阶段225不回流。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接完颜部酋长和女真联盟基础，当前量级可保留",
+      "initial_resource_position": "承接完颜部酋长和女真联盟基础，当前量级可保留",
+      "initial_resource_share_pct": 12,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "赵匡胤",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "后周时期首次承担统一主链实际方向",
+      "end_boundary": "976年去世",
+      "starting_position": "接管后周中原国家机器",
+      "terminal_completion_rate": 0.82,
+      "effective_years": 16.0,
+      "control_retention_rate": 0.98,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "只读取976年前战争取得的荆襄45、江南80、巴蜀80、岭南60；北汉60归赵光义。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "军人家庭与早期从军关系可计",
+      "initial_resource_position": "军人家庭与早期从军关系可计；后周殿前军和国家机器是本人职业过程取得",
+      "initial_resource_share_pct": 3,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "赵光义",
+      "founder_role": "SUCCESSOR_UNIFICATION_CLOSER",
+      "start_boundary": "976年继承北宋",
+      "end_boundary": "979年灭北汉",
+      "starting_position": "继承赵匡胤已取得的265控制及北宋国家机器",
+      "terminal_completion_rate": 1,
+      "effective_years": 3.0,
+      "control_retention_rate": 0.98,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "只消费继承起点后灭北汉取得的河东60；燕云失败不增加控制。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "继承赵匡胤已建立的北宋国家机器",
+      "initial_resource_position": "继承赵匡胤已建立的北宋国家机器",
+      "initial_resource_share_pct": 82,
+      "a1_strategic_responsibility_factor": 0.7,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_UNIFICATION_CLOSER"
+    },
+    {
+      "ruler_name": "赵构",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "1127年即位并承担重建",
+      "end_boundary": "1141年和议形成阶段闭合",
+      "starting_position": "北宋覆亡后的流动中央与江南残余资源",
+      "terminal_completion_rate": 0.6,
+      "effective_years": 14.0,
+      "control_retention_rate": 0.92,
+      "early_stability_rate": 0.7,
+      "responsibility_basis": "南宋核心多为北宋旧有控制与战争恢复，新增创建不硬填；恢复180为江南、荆襄保持的可比下限。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "亲王名位、流动中央与江南残余资源均为靖康后实际起点",
+      "initial_resource_position": "亲王名位、流动中央与江南残余资源均为靖康后实际起点",
+      "initial_resource_share_pct": 18,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "铁木真",
+      "founder_role": "MONGOL_EMPIRE_PRIMARY_FOUNDER",
+      "start_boundary": "1189年前后形成独立汗权并进入蒙古高原统一竞争",
+      "end_boundary": "1227年去世与西夏终结",
+      "starting_position": "蒙古高原既有国家基础",
+      "terminal_completion_rate": 0.8,
+      "effective_years": 38.0,
+      "control_retention_rate": 0.94,
+      "early_stability_rate": 0.84,
+      "responsibility_basis": "1227快照唯一新增540；不领取窝阔台、蒙哥、忽必烈阶段。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源",
+      "initial_resource_position": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源；1189年前后集团是本人形成",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:MONGOL_EMPIRE_PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "窝阔台",
+      "founder_role": "SUCCESSOR_JIN_UNIFICATION_CLOSER",
+      "start_boundary": "1229年即汗位",
+      "end_boundary": "1234年灭金",
+      "starting_position": "继承铁木真540控制",
+      "terminal_completion_rate": 1,
+      "effective_years": 5.0,
+      "control_retention_rate": 0.96,
+      "early_stability_rate": 0.88,
+      "responsibility_basis": "只消费灭金终局新增河东80和河南100；拖雷等前线成果只归各自C。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接铁木真帝国与主力",
+      "initial_resource_position": "承接铁木真帝国与主力",
+      "initial_resource_share_pct": 68,
+      "a1_strategic_responsibility_factor": 0.7,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_JIN_UNIFICATION_CLOSER"
+    },
+    {
+      "ruler_name": "蒙哥",
+      "founder_role": "SOVEREIGN_CO_CREATOR",
+      "start_boundary": "1251年即汗位",
+      "end_boundary": "1259年四川贡献终止",
+      "starting_position": "继承蒙古帝国与灭金成果",
+      "terminal_completion_rate": 0.4,
+      "effective_years": 8.0,
+      "control_retention_rate": 0.85,
+      "early_stability_rate": 0.62,
+      "responsibility_basis": "与忽必烈共享大理80项目基线，王朝unique只记一次；四川灭宋目标未闭合。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接蒙古帝国及灭金成果",
+      "initial_resource_position": "承接蒙古帝国及灭金成果",
+      "initial_resource_share_pct": 74,
+      "a1_strategic_responsibility_factor": 0.6,
+      "a1_strategic_responsibility_basis": "role_default:SOVEREIGN_CO_CREATOR"
+    },
+    {
+      "ruler_name": "忽必烈",
+      "founder_role": "YUAN_FORMAL_FOUNDER_AND_UNIFIER",
+      "start_boundary": "1253年承担大理独立方向",
+      "end_boundary": "1279年灭南宋",
+      "starting_position": "大理阶段方面统帅；1260年继承蒙古帝国800控制",
+      "terminal_completion_rate": 1,
+      "effective_years": 26.0,
+      "control_retention_rate": 0.93,
+      "early_stability_rate": 0.88,
+      "responsibility_basis": "个人共享大理80并唯一取得灭宋340；王朝unique只另记340。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "宗王身份、封地与方面军是本人首次独立方向前已获资源",
+      "initial_resource_position": "宗王身份、封地与方面军是本人首次独立方向前已获资源；不能按1260年全帝国倒算",
+      "initial_resource_share_pct": 20,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:YUAN_FORMAL_FOUNDER_AND_UNIFIER"
+    },
+    {
+      "ruler_name": "朱元璋",
+      "founder_role": "PRIMARY_FOUNDER_AND_UNIFIER",
+      "start_boundary": "1353年形成独立军事集团",
+      "end_boundary": "1382年云南平定",
+      "starting_position": "小规模江淮起兵集团",
+      "terminal_completion_rate": 1,
+      "effective_years": 29.0,
+      "control_retention_rate": 0.96,
+      "early_stability_rate": 0.92,
+      "responsibility_basis": "13阶段均与本人窗口重合；徐达等将领不复制A控制。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "贫农、乞食僧出身，投军前无可持续军政资源",
+      "initial_resource_position": "贫农、乞食僧出身，投军前无可持续军政资源；1353年集团是本人取得的成果",
+      "initial_resource_share_pct": 0,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER_AND_UNIFIER"
+    },
+    {
+      "ruler_name": "努尔哈赤",
+      "founder_role": "FOUNDATION_INITIATOR",
+      "start_boundary": "1607年现有女真兼并组合起点",
+      "end_boundary": "1626年去世",
+      "starting_position": "建州女真集团",
+      "terminal_completion_rate": 0.55,
+      "effective_years": 19.0,
+      "control_retention_rate": 0.9,
+      "early_stability_rate": 0.72,
+      "responsibility_basis": "1626快照唯一分配幽燕辽东80；皇太极后续20不回流。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "父祖死后仅承接极小的建州宗族与甲胄等资源",
+      "initial_resource_position": "父祖死后仅承接极小的建州宗族与甲胄等资源；1607年的建州集团是多年兼并成果",
+      "initial_resource_share_pct": 1,
+      "a1_strategic_responsibility_factor": 0.8,
+      "a1_strategic_responsibility_basis": "role_default:FOUNDATION_INITIATOR"
+    },
+    {
+      "ruler_name": "皇太极",
+      "founder_role": "CO_FOUNDER_AND_STATE_FORMALIZER",
+      "start_boundary": "1626年继承后金",
+      "end_boundary": "1643年去世",
+      "starting_position": "继承辽东主体80与后金国家机器",
+      "terminal_completion_rate": 0.65,
+      "effective_years": 17.0,
+      "control_retention_rate": 0.92,
+      "early_stability_rate": 0.82,
+      "responsibility_basis": "1643快照只计辽西走廊剩余20；努尔哈赤80作为继承起点。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "继承努尔哈赤建立的后金国家机器",
+      "initial_resource_position": "继承努尔哈赤建立的后金国家机器",
+      "initial_resource_share_pct": 58,
+      "a1_strategic_responsibility_factor": 0.75,
+      "a1_strategic_responsibility_basis": "role_default:CO_FOUNDER_AND_STATE_FORMALIZER"
+    },
+    {
+      "ruler_name": "玄烨",
+      "founder_role": "CORE_REUNIFICATION_CLOSER",
+      "start_boundary": "1673年撤藩决策",
+      "end_boundary": "1683年台湾郑氏终结",
+      "starting_position": "继承清全国主体和成建制国家机器",
+      "terminal_completion_rate": 1,
+      "effective_years": 10.0,
+      "control_retention_rate": 1,
+      "early_stability_rate": 0.95,
+      "responsibility_basis": "只结算1673—1683三藩至台湾的核心再统一链：created保持0，恢复控制300单列；本人最高战略责任归A，台湾前线归施琅，现有登记未形成玄烨本人可进入C1/C2的实际指挥成果。噶尔丹战争属于既成帝国边疆安全，排除第一项。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "1661年即位即继承清帝国",
+      "initial_resource_position": "1661年即位即继承清帝国；1673年撤藩只是贡献窗口，不是难度起点",
+      "initial_resource_share_pct": 82,
+      "a1_strategic_responsibility_factor": 0.75,
+      "a1_strategic_responsibility_basis": "role_default:CORE_REUNIFICATION_CLOSER"
+    },
+    {
+      "ruler_name": "洪秀全",
+      "founder_role": "PRIMARY_INSURGENT_FOUNDER",
+      "start_boundary": "1851年金田起义建号",
+      "end_boundary": "1853年定都天京",
+      "starting_position": "地方宗教组织与小规模起义军",
+      "terminal_completion_rate": 0.45,
+      "effective_years": 2.0,
+      "control_retention_rate": 0.7,
+      "early_stability_rate": 0.55,
+      "responsibility_basis": "50为沿江攻取并形成天京独立政权核心的宏区下限；后续失败不反写1853建基，但进入稳定率。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "乡村塾师和早期宗教关系可计微量",
+      "initial_resource_position": "乡村塾师和早期宗教关系可计微量；金田成军建号是后来成果",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_INSURGENT_FOUNDER"
+    },
+    {
+      "ruler_name": "王莽",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "前1年取得稳定辅政主导",
+      "end_boundary": "9年建立新朝",
+      "starting_position": "已控制西汉中枢与全国官僚机器",
+      "terminal_completion_rate": 0.3,
+      "effective_years": 9.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.1,
+      "responsibility_basis": "只计算由辅政到改朝的权力转换，不把西汉既有全国控制冒充本人新增创业成果；建国后迅速发生战略性崩解。",
+      "difficulty_start_boundary": "外戚王氏宗族网络与官途是初始优势",
+      "initial_resource_position": "外戚王氏宗族网络与官途是初始优势；前1年控制中枢是本人政治过程成果",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "刘玄",
+      "founder_role": "FAILED_RESTORATION_FOUNDER",
+      "start_boundary": "23年被绿林拥立",
+      "end_boundary": "25年长安失守",
+      "starting_position": "被成熟绿林集团拥立并承接反新成果",
+      "terminal_completion_rate": 0.05,
+      "effective_years": 2.0,
+      "control_retention_rate": 0.0,
+      "early_stability_rate": 0.0,
+      "responsibility_basis": "一度承接大范围反新成果但本人整合薄弱，终点全部丧失。",
+      "difficulty_start_boundary": "宗室身份和加入绿林的人脉可计",
+      "initial_resource_position": "宗室身份和加入绿林的人脉可计；被拥立时的成熟绿林集团不能全算其起点",
+      "initial_resource_share_pct": 1,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:FAILED_RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "刘备",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "208年赤壁后取得荆南",
+      "end_boundary": "221年建立蜀汉",
+      "starting_position": "长期流动后取得有限荆南基地",
+      "terminal_completion_rate": 0.55,
+      "effective_years": 13.0,
+      "control_retention_rate": 0.75,
+      "early_stability_rate": 0.55,
+      "responsibility_basis": "从极弱起点取得益州汉中，但荆州尽失、两端路线失败且统一目标远未完成。",
+      "difficulty_start_boundary": "宗室声称仅是微弱名望，织席贩履且无稳定地盘军队",
+      "initial_resource_position": "宗室声称仅是微弱名望，织席贩履且无稳定地盘军队；荆南基地是后来成果",
+      "initial_resource_share_pct": 0,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "孙权",
+      "founder_role": "FORMAL_FOUNDER",
+      "start_boundary": "200年继承江东",
+      "end_boundary": "229年正式建吴",
+      "starting_position": "继承孙策已取得的江东基业",
+      "terminal_completion_rate": 0.6,
+      "effective_years": 29.0,
+      "control_retention_rate": 0.82,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "只结算本人保存江东、荆州交州扩张和正式建吴，不重复消费孙策创业成果；北伐和统一未闭合。",
+      "difficulty_start_boundary": "承接孙策江东基业",
+      "initial_resource_position": "承接孙策江东基业",
+      "initial_resource_share_pct": 62,
+      "a1_strategic_responsibility_factor": 0.6,
+      "a1_strategic_responsibility_basis": "role_default:FORMAL_FOUNDER"
+    },
+    {
+      "ruler_name": "司马睿",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "307年移镇建邺",
+      "end_boundary": "317年建立东晋",
+      "starting_position": "晋室宗王、江东军政名义与北人南渡资源",
+      "terminal_completion_rate": 0.6,
+      "effective_years": 10.0,
+      "control_retention_rate": 0.91,
+      "early_stability_rate": 0.45,
+      "responsibility_basis": "保存晋室南方政权，但依赖王氏、北方失守和中枢独立性不足限制闭合与稳定。",
+      "difficulty_start_boundary": "晋室宗王、琅邪王名位和江东任职资源是南渡前已有起点",
+      "initial_resource_position": "晋室宗王、琅邪王名位和江东任职资源是南渡前已有起点",
+      "initial_resource_share_pct": 22,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "刘渊",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "304年起兵建汉",
+      "end_boundary": "308年称帝",
+      "starting_position": "匈奴五部与既有政治身份资源",
+      "terminal_completion_rate": 0.35,
+      "effective_years": 4.0,
+      "control_retention_rate": 0.78,
+      "early_stability_rate": 0.55,
+      "responsibility_basis": "建立汉赵政权但主要都会和扩张由后继完成，本人终点闭合有限。",
+      "difficulty_start_boundary": "匈奴贵族身份、五部关系和政治名望均为起兵前资源",
+      "initial_resource_position": "匈奴贵族身份、五部关系和政治名望均为起兵前资源",
+      "initial_resource_share_pct": 12,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "刘聪",
+      "founder_role": "CO_FOUNDER",
+      "start_boundary": "刘渊创业期独立承担上党方向",
+      "end_boundary": "310年继承汉赵最高权力",
+      "starting_position": "汉赵创业集团内的独立方面统帅",
+      "terminal_completion_rate": 0.35,
+      "effective_years": 3.0,
+      "control_retention_rate": 0.9,
+      "early_stability_rate": 0.7,
+      "responsibility_basis": "只结算本人取得上党方向的实际增量，不复制刘渊项目。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "在刘渊创业集团中以宗室与方面统帅身份开始贡献",
+      "initial_resource_position": "在刘渊创业集团中以宗室与方面统帅身份开始贡献",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 0.45,
+      "a1_strategic_responsibility_basis": "只形成上党方向局部增量，不消费汉赵完整项目"
+    },
+    {
+      "ruler_name": "石勒",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "309年转向独立建基",
+      "end_boundary": "330年形成后赵主体",
+      "starting_position": "流动作战集团且缺乏稳定核心",
+      "terminal_completion_rate": 0.78,
+      "effective_years": 21.0,
+      "control_retention_rate": 0.9,
+      "early_stability_rate": 0.78,
+      "responsibility_basis": "从流动集团建立河北核心并解决前赵，但长期反复和全国未闭合限制效率。",
+      "difficulty_start_boundary": "被掠卖为奴后从流动作战起步，无稳定资源",
+      "initial_resource_position": "被掠卖为奴后从流动作战起步，无稳定资源；309年集团是本人形成",
+      "initial_resource_share_pct": 0,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "石虎",
+      "founder_role": "CO_FOUNDER_AND_SUCCESSOR",
+      "start_boundary": "318年首次承担后赵独立方向",
+      "end_boundary": "329年前赵终局闭合",
+      "starting_position": "石勒集团内的主要方面统帅",
+      "terminal_completion_rate": 1,
+      "effective_years": 11.0,
+      "control_retention_rate": 0.92,
+      "early_stability_rate": 0.78,
+      "responsibility_basis": "个人基线含河北20.13、河南17.63、山东35.25及与石勒共享前赵终局141；王朝unique额外增量仅73.01。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "宗族关系和早期武勇可计低量",
+      "initial_resource_position": "宗族关系和早期武勇可计低量；后赵主要方面军是其后取得",
+      "initial_resource_share_pct": 2,
+      "initial_resource_source_refs": [
+        "晋书/卷106#石季龙〈虎〉上"
+      ],
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "共同终结前赵但主要身份仍是石勒集团方面统帅与继承者"
+    },
+    {
+      "ruler_name": "冉闵",
+      "founder_role": "FAILED_FOUNDER",
+      "start_boundary": "350年建立冉魏",
+      "end_boundary": "352年覆亡",
+      "starting_position": "取得后赵邺城中枢和部分军队",
+      "terminal_completion_rate": 0.05,
+      "effective_years": 2.0,
+      "control_retention_rate": 0.0,
+      "early_stability_rate": 0.0,
+      "responsibility_basis": "短期建政后全面失控覆亡，高难度不能脱离完成度单独换取高分。",
+      "difficulty_start_boundary": "石氏养孙身份和军职网络是既有资源",
+      "initial_resource_position": "石氏养孙身份和军职网络是既有资源；取得邺城中枢是后续政变成果",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:FAILED_FOUNDER"
+    },
+    {
+      "ruler_name": "李雄",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "302年接掌流民集团",
+      "end_boundary": "304年建立成汉",
+      "starting_position": "承接受挫后的流民武装",
+      "terminal_completion_rate": 0.65,
+      "effective_years": 2.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.85,
+      "responsibility_basis": "重组流民集团并稳定取得巴蜀，区域目标完成较好但规模有限。",
+      "difficulty_start_boundary": "承接父辈与流民集团，当前起点方向正确",
+      "initial_resource_position": "承接父辈与流民集团，当前起点方向正确",
+      "initial_resource_share_pct": 12,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "苻健",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "350年西入关中",
+      "end_boundary": "352年建立前秦",
+      "starting_position": "迁徙集团与既有部众",
+      "terminal_completion_rate": 0.6,
+      "effective_years": 2.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.75,
+      "responsibility_basis": "快速把迁徙集团转为关中政权，北方统一不在本人完成度内。",
+      "difficulty_start_boundary": "承接氐族部众与迁徙集团",
+      "initial_resource_position": "承接氐族部众与迁徙集团",
+      "initial_resource_share_pct": 12,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "姚苌",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "384年建立后秦",
+      "end_boundary": "393年去世",
+      "starting_position": "前秦崩解中的独立军事集团",
+      "terminal_completion_rate": 0.45,
+      "effective_years": 9.0,
+      "control_retention_rate": 0.76,
+      "early_stability_rate": 0.65,
+      "responsibility_basis": "在高压乱局中建立后秦，但苻登方向和关中最终闭合留给姚兴。",
+      "difficulty_start_boundary": "羌族贵族和前秦将领身份可计",
+      "initial_resource_position": "羌族贵族和前秦将领身份可计；后秦集团是前秦崩解中另行建立",
+      "initial_resource_share_pct": 5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "姚兴",
+      "founder_role": "SUCCESSOR_UNIFICATION_CONTRIBUTOR",
+      "start_boundary": "393年继承后秦",
+      "end_boundary": "400年西秦方向主要扩张闭合",
+      "starting_position": "继承姚苌关中主体",
+      "terminal_completion_rate": 0.75,
+      "effective_years": 7.0,
+      "control_retention_rate": 0.9,
+      "early_stability_rate": 0.75,
+      "responsibility_basis": "只读取继承后确认保持的关中余量；潜在秦陇河东河南83.13因416终点保持未证继续unknown。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "继承姚苌关中政权",
+      "initial_resource_position": "继承姚苌关中政权",
+      "initial_resource_share_pct": 55,
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_UNIFICATION_CONTRIBUTOR"
+    },
+    {
+      "ruler_name": "慕容垂",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "384年建立后燕",
+      "end_boundary": "394年消灭西燕",
+      "starting_position": "名将声望与前燕旧部网络",
+      "terminal_completion_rate": 0.75,
+      "effective_years": 10.0,
+      "control_retention_rate": 0.84,
+      "early_stability_rate": 0.45,
+      "responsibility_basis": "复国并取得河北主体，但参合陂后继承与对魏方向迅速恶化，创业路线未形成稳定闭合。",
+      "difficulty_start_boundary": "前燕宗室名将声望和旧部网络可计，无稳定国家机器",
+      "initial_resource_position": "前燕宗室名将声望和旧部网络可计，无稳定国家机器",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "慕容德",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "397年后燕河北崩解",
+      "end_boundary": "400年建立南燕核心",
+      "starting_position": "后燕残余集团与宗室号召力",
+      "terminal_completion_rate": 0.45,
+      "effective_years": 3.0,
+      "control_retention_rate": 0.88,
+      "early_stability_rate": 0.6,
+      "responsibility_basis": "连续止损后建立青齐核心，但只是后燕崩解后的区域性闭合。",
+      "difficulty_start_boundary": "承接后燕残余军政集团和宗室号召力",
+      "initial_resource_position": "承接后燕残余军政集团和宗室号召力",
+      "initial_resource_share_pct": 18,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "吕光",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "385年回师河西",
+      "end_boundary": "387年建立后凉",
+      "starting_position": "自西域返回的成建制远征军",
+      "terminal_completion_rate": 0.45,
+      "effective_years": 2.0,
+      "control_retention_rate": 0.88,
+      "early_stability_rate": 0.35,
+      "responsibility_basis": "夺取凉州建政很快，但起点军力不低、地方整合和早期稳定均不足。",
+      "difficulty_start_boundary": "受命西征形成的成建制远征军是其转入独立创业前实际拥有资源",
+      "initial_resource_position": "受命西征形成的成建制远征军是其转入独立创业前实际拥有资源",
+      "initial_resource_share_pct": 22,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "李暠",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "400年敦煌建基",
+      "end_boundary": "401年形成西凉核心",
+      "starting_position": "敦煌地方官与士族支持",
+      "terminal_completion_rate": 0.25,
+      "effective_years": 1.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.6,
+      "responsibility_basis": "形成敦煌有限核心，但东进与河西主导目标均未完成。",
+      "difficulty_start_boundary": "陇西士族与敦煌官职网络可计",
+      "initial_resource_position": "陇西士族与敦煌官职网络可计；400年建基后的地方控制不应全倒算",
+      "initial_resource_share_pct": 10,
+      "initial_resource_source_refs": [
+        "晋书/卷87#凉武昭王李暠"
+      ],
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "沮渠蒙逊",
+      "founder_role": "DE_FACTO_FOUNDER",
+      "start_boundary": "397年起兵",
+      "end_boundary": "421年灭西凉",
+      "starting_position": "河西地方部族集团",
+      "terminal_completion_rate": 0.65,
+      "effective_years": 24.0,
+      "control_retention_rate": 0.78,
+      "early_stability_rate": 0.75,
+      "responsibility_basis": "长期拉锯后取得北凉主导并灭西凉，完成度尚可但工期与反复成本较高。",
+      "difficulty_start_boundary": "河西部族领袖网络为起兵前资源",
+      "initial_resource_position": "河西部族领袖网络为起兵前资源",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:DE_FACTO_FOUNDER"
+    },
+    {
+      "ruler_name": "赫连勃勃",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "407年建立胡夏",
+      "end_boundary": "418年取得长安",
+      "starting_position": "小规模部众与外援",
+      "terminal_completion_rate": 0.52,
+      "effective_years": 11.0,
+      "control_retention_rate": 0.83,
+      "early_stability_rate": 0.35,
+      "responsibility_basis": "弱势机动建基并取得关中，但控制割裂、长安难守和早期稳定性很差。",
+      "difficulty_start_boundary": "匈奴宗族号召和外援可计，尚无成熟国家",
+      "initial_resource_position": "匈奴宗族号召和外援可计，尚无成熟国家",
+      "initial_resource_share_pct": 5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "冯跋",
+      "founder_role": "DE_FACTO_FOUNDER",
+      "start_boundary": "409年高云被杀",
+      "end_boundary": "410年稳定北燕",
+      "starting_position": "北燕既有中枢与军政集团",
+      "terminal_completion_rate": 0.25,
+      "effective_years": 1.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.8,
+      "responsibility_basis": "主要是宫廷突变后的既有政权接管与稳定，新增战略成果有限。",
+      "difficulty_start_boundary": "北燕建立前的军职、结交与政变小集团可计",
+      "initial_resource_position": "北燕建立前的军职、结交与政变小集团可计；高云死后接管中枢不能作为起点",
+      "initial_resource_share_pct": 2,
+      "initial_resource_source_refs": [
+        "晋书/卷125#冯跋"
+      ],
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:DE_FACTO_FOUNDER"
+    },
+    {
+      "ruler_name": "刘裕",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "404年京口起兵",
+      "end_boundary": "420年建立刘宋",
+      "starting_position": "北府军中层将领形成的起兵集团",
+      "terminal_completion_rate": 0.88,
+      "effective_years": 16.0,
+      "control_retention_rate": 0.85,
+      "early_stability_rate": 0.72,
+      "responsibility_basis": "完成东晋中枢重建、主要内敌清除和两次北伐，但关中失守与南北未闭合降低结果。",
+      "difficulty_start_boundary": "寒门贫困、从北府军基层起步",
+      "initial_resource_position": "寒门贫困、从北府军基层起步；404年京口集团是职业与行动成果",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "萧道成",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "474年平桂阳王",
+      "end_boundary": "479年建立南齐",
+      "starting_position": "刘宋中枢高级将领并逐步掌握禁军",
+      "terminal_completion_rate": 0.4,
+      "effective_years": 5.0,
+      "control_retention_rate": 0.86,
+      "early_stability_rate": 0.65,
+      "responsibility_basis": "完成中枢夺权和改朝，但高起点与既有刘宋国家机器必须从成果中扣除。",
+      "difficulty_start_boundary": "军户家世和既往军职可计",
+      "initial_resource_position": "军户家世和既往军职可计；474年后逐步掌握禁军是其战略成果",
+      "initial_resource_share_pct": 5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "萧衍",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "500年襄阳起兵",
+      "end_boundary": "502年建立梁朝",
+      "starting_position": "掌握雍州军镇和宗室政治资源",
+      "terminal_completion_rate": 0.78,
+      "effective_years": 2.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "快速击败建康政权并完成南朝改朝，起点军镇资源和仅限南方的目标边界同时计入。",
+      "difficulty_start_boundary": "宗室旁支、门第和雍州任职资源可计，襄阳集团不应整体视为先天起点",
+      "initial_resource_position": "宗室旁支、门第和雍州任职资源可计，襄阳集团不应整体视为先天起点",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "陈霸先",
+      "founder_role": "PRIMARY_FOUNDER",
+      "start_boundary": "548年岭南北进",
+      "end_boundary": "557年建立陈朝",
+      "starting_position": "岭南方面军政力量",
+      "terminal_completion_rate": 0.72,
+      "effective_years": 9.0,
+      "control_retention_rate": 0.89,
+      "early_stability_rate": 0.7,
+      "responsibility_basis": "在侯景乱后多方干预中建立陈朝，但疆域收缩和北方压力使结果不满闭合。",
+      "difficulty_start_boundary": "寒微出身与基层吏职人脉可计",
+      "initial_resource_position": "寒微出身与基层吏职人脉可计；岭南军政力量是从军后形成",
+      "initial_resource_share_pct": 1,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER"
+    },
+    {
+      "ruler_name": "高欢",
+      "founder_role": "DE_FACTO_FOUNDER",
+      "start_boundary": "531年控制河北军政集团",
+      "end_boundary": "534年建立东魏格局",
+      "starting_position": "继承并控制北魏东部主力与军政网络",
+      "terminal_completion_rate": 0.55,
+      "effective_years": 4.0,
+      "control_retention_rate": 0.92,
+      "early_stability_rate": 0.6,
+      "responsibility_basis": "形成东魏控制区但未完成南北或东西统一，也未把傀儡结构闭合为本人王朝；既有北魏资源作为起点扣除。",
+      "difficulty_start_boundary": "家贫并从边镇底层起步",
+      "initial_resource_position": "家贫并从边镇底层起步；531年河北集团是本人形成",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 0.9,
+      "a1_strategic_responsibility_basis": "role_default:DE_FACTO_FOUNDER"
+    },
+    {
+      "ruler_name": "高洋",
+      "founder_role": "FORMAL_FOUNDER",
+      "start_boundary": "549年继承高氏集团",
+      "end_boundary": "550年建立北齐",
+      "starting_position": "继承高欢高澄已完成的东魏控制",
+      "terminal_completion_rate": 0.15,
+      "effective_years": 1.0,
+      "control_retention_rate": 1.0,
+      "early_stability_rate": 0.45,
+      "responsibility_basis": "只结算突发继承稳定和形式禅代，不消费高欢、高澄已经取得的东魏控制。",
+      "difficulty_start_boundary": "继承高欢、高澄已完成的东魏控制",
+      "initial_resource_position": "继承高欢、高澄已完成的东魏控制",
+      "initial_resource_share_pct": 94,
+      "a1_strategic_responsibility_factor": 0.6,
+      "a1_strategic_responsibility_basis": "role_default:FORMAL_FOUNDER"
+    },
+    {
+      "ruler_name": "宇文邕",
+      "founder_role": "SUCCESSOR_FULL_UNIFIER",
+      "start_boundary": "575年首次亲自发动北齐统一战争",
+      "end_boundary": "577年灭北齐",
+      "starting_position": "继承北周关陇国家机器",
+      "terminal_completion_rate": 1,
+      "effective_years": 2.0,
+      "control_retention_rate": 0.98,
+      "early_stability_rate": 0.95,
+      "responsibility_basis": "只结算575—577本人亲决、亲统的灭齐统一窗口；不回收宇文泰既有控制。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "继承北周皇位与关陇国家机器，575年开战只是贡献节点",
+      "initial_resource_position": "继承北周皇位与关陇国家机器，575年开战只是贡献节点",
+      "initial_resource_share_pct": 42,
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_FULL_UNIFIER"
+    },
+    {
+      "ruler_name": "黄巢",
+      "founder_role": "PRIMARY_INSURGENT_FOUNDER",
+      "start_boundary": "875年起兵",
+      "end_boundary": "884年本人及大齐政权终止",
+      "starting_position": "流动作战集团，无稳定起点",
+      "terminal_completion_rate": 0.15,
+      "effective_years": 9.0,
+      "control_retention_rate": 0,
+      "early_stability_rate": 0,
+      "responsibility_basis": "本人实际建立大齐，但终点控制全部丧失；净控制为0不是无贡献，而是创建结果未保持。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "盐商家资与地方关系可计低量，无成建制国家机器",
+      "initial_resource_position": "盐商家资与地方关系可计低量，无成建制国家机器",
+      "initial_resource_share_pct": 1,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_INSURGENT_FOUNDER"
+    },
+    {
+      "ruler_name": "李嗣源",
+      "founder_role": "CO_FOUNDER",
+      "start_boundary": "河东集团时期首次承担独立方向",
+      "end_boundary": "923年后唐建国主链闭合",
+      "starting_position": "河东集团高级方面统帅",
+      "terminal_completion_rate": 1,
+      "effective_years": 15.0,
+      "control_retention_rate": 0.94,
+      "early_stability_rate": 0.88,
+      "responsibility_basis": "作为同期共同奠基者共享后唐项目客观基线，但C只消费本人郓州、元城等实际结果。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "早期以沙陀部从军，后来方面统帅地位是职业成果",
+      "initial_resource_position": "早期以沙陀部从军，后来方面统帅地位是职业成果",
+      "initial_resource_share_pct": 1,
+      "a1_strategic_responsibility_factor": 0.6,
+      "a1_strategic_responsibility_basis": "现有责任依据主要是独立战区与共享后唐终局，A个人战略归责保守处理"
+    },
+    {
+      "ruler_name": "石敬瑭",
+      "founder_role": "PRIMARY_FOUNDER_WITH_EXTERNAL_ALLY",
+      "start_boundary": "936年太原起兵",
+      "end_boundary": "937年后晋政权闭合",
+      "starting_position": "河东军镇并引入契丹援军",
+      "terminal_completion_rate": 0.8,
+      "effective_years": 1.5,
+      "control_retention_rate": 0.88,
+      "early_stability_rate": 0.65,
+      "responsibility_basis": "只结算936起兵至建国的战争控制；契丹援助作为高起点资源，燕云割让降低终点完成与稳定。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "沙陀军事家庭和婚姻关系可计",
+      "initial_resource_position": "沙陀军事家庭和婚姻关系可计；河东军镇是长期仕途取得",
+      "initial_resource_share_pct": 5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER_WITH_EXTERNAL_ALLY"
+    },
+    {
+      "ruler_name": "李昪",
+      "founder_role": "SUCCESSOR_STATE_FOUNDER",
+      "start_boundary": "首次实际掌握杨吴军政中枢",
+      "end_boundary": "937年建立南唐",
+      "starting_position": "继承杨吴成熟国家机器",
+      "terminal_completion_rate": 0.4,
+      "effective_years": 10.0,
+      "control_retention_rate": 1,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "既有杨吴疆域全部算起点；20只表示本人完成中枢整合和正式建国的可比下限。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "幼年孤贫、后被徐温收养",
+      "initial_resource_position": "幼年孤贫、后被徐温收养；杨吴中枢控制是本人长期经营成果",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_STATE_FOUNDER"
+    },
+    {
+      "ruler_name": "王建",
+      "founder_role": "PRIMARY_REGIONAL_FOUNDER",
+      "start_boundary": "888年争夺西川",
+      "end_boundary": "907年建立前蜀",
+      "starting_position": "入蜀军镇集团",
+      "terminal_completion_rate": 1,
+      "effective_years": 19.0,
+      "control_retention_rate": 0.98,
+      "early_stability_rate": 0.92,
+      "responsibility_basis": "只读取本人战争取得并保持的巴蜀宏区，不与高丽王建或其他同名人物合并。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "屠牛盗驴、从军起步",
+      "initial_resource_position": "屠牛盗驴、从军起步；入蜀军镇集团是后来形成",
+      "initial_resource_share_pct": 0.5,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:PRIMARY_REGIONAL_FOUNDER"
+    },
+    {
+      "ruler_name": "刘龑",
+      "founder_role": "SUCCESSOR_STATE_FOUNDER",
+      "start_boundary": "911年继承岭南集团",
+      "end_boundary": "917年建立南汉",
+      "starting_position": "继承刘隐岭南主体",
+      "terminal_completion_rate": 0.35,
+      "effective_years": 6.0,
+      "control_retention_rate": 1,
+      "early_stability_rate": 0.82,
+      "responsibility_basis": "继承岭南控制不重复；10为本人建国转换和有限新增的证据下限。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接刘隐已控制的岭南军政集团",
+      "initial_resource_position": "承接刘隐已控制的岭南军政集团",
+      "initial_resource_share_pct": 85,
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_STATE_FOUNDER"
+    },
+    {
+      "ruler_name": "耶律大石",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "1124年离开天祚帝自立",
+      "end_boundary": "1132年西辽核心闭合",
+      "starting_position": "辽亡残余部众，无14宏区内稳定地盘",
+      "terminal_completion_rate": 0.75,
+      "effective_years": 8.0,
+      "control_retention_rate": 0.95,
+      "early_stability_rate": 0.85,
+      "responsibility_basis": "西辽控制位于现有14宏区目录外，净控制保持unknown，0仅为可比目录证据下限，不代表无成果。",
+      "evidence_status": "EXTERNAL_REGION_CONTROL_UNKNOWN_NUMERIC_FLOOR",
+      "unknown_control_scope": "统一成果位于现有14宏区目录外；公式中的0仅是已覆盖目录下限，不表示史实控制量为零。",
+      "difficulty_start_boundary": "辽宗室、官职和少量残部可计，无稳定宏区国家",
+      "initial_resource_position": "辽宗室、官职和少量残部可计，无稳定宏区国家",
+      "initial_resource_share_pct": 8,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "李元昊",
+      "founder_role": "SUCCESSOR_STATE_FOUNDER",
+      "start_boundary": "1032年继承党项政权",
+      "end_boundary": "1044年和议闭合独立地位",
+      "starting_position": "继承河西党项国家主体",
+      "terminal_completion_rate": 0.75,
+      "effective_years": 12.0,
+      "control_retention_rate": 0.96,
+      "early_stability_rate": 0.78,
+      "responsibility_basis": "继承既有党项地盘不算新增；30只表示战争形成并保持的边缘控制下限，独立地位主要由完成率和C战果体现。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "继承党项政权主体",
+      "initial_resource_position": "继承党项政权主体",
+      "initial_resource_share_pct": 58,
+      "a1_strategic_responsibility_factor": 0.65,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_STATE_FOUNDER"
+    },
+    {
+      "ruler_name": "完颜吴乞买",
+      "founder_role": "SUCCESSOR_UNIFICATION_CLOSER",
+      "start_boundary": "1123年继承金国",
+      "end_boundary": "1126年第二次攻宋并围汴",
+      "starting_position": "继承阿骨打辽东100控制",
+      "terminal_completion_rate": 0.9,
+      "effective_years": 3.0,
+      "control_retention_rate": 0.93,
+      "early_stability_rate": 0.8,
+      "responsibility_basis": "继承100后新增朔方40、河东60、河北75、河南50；不复制阿骨打100。C只消费已绑定本人结果。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "承接阿骨打建立的金国及辽东控制",
+      "initial_resource_position": "承接阿骨打建立的金国及辽东控制",
+      "initial_resource_share_pct": 45,
+      "a1_strategic_responsibility_factor": 0.7,
+      "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_UNIFICATION_CLOSER"
+    },
+    {
+      "ruler_name": "朱聿键",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "1645年福州即位并提出恢复路线",
+      "end_boundary": "1646年政权覆亡",
+      "starting_position": "南明残余名义与福建有限资源",
+      "terminal_completion_rate": 0.2,
+      "effective_years": 1.0,
+      "control_retention_rate": 0,
+      "early_stability_rate": 0,
+      "responsibility_basis": "只给本人恢复路线和有限政权控制10下限；郑氏及部将战果不转写。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "南明宗室名位与福建有限资源是恢复路线起点",
+      "initial_resource_position": "南明宗室名位与福建有限资源是恢复路线起点",
+      "initial_resource_share_pct": 12,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "朱由榔",
+      "founder_role": "RESTORATION_FOUNDER",
+      "start_boundary": "1646年肇庆即位并承担恢复",
+      "end_boundary": "1652年形成西南阶段核心",
+      "starting_position": "南明残余名义与两广有限资源",
+      "terminal_completion_rate": 0.35,
+      "effective_years": 6.0,
+      "control_retention_rate": 0.45,
+      "early_stability_rate": 0.3,
+      "responsibility_basis": "20只表示本人建政、任命和维持恢复名义的控制下限；李定国孙可望战果不转写。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "南明宗室名位与两广残余资源是实际起点",
+      "initial_resource_position": "南明宗室名位与两广残余资源是实际起点",
+      "initial_resource_share_pct": 10,
+      "a1_strategic_responsibility_factor": 1.0,
+      "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER"
+    },
+    {
+      "ruler_name": "福临",
+      "founder_role": "PERSONAL_RULE_UNIFICATION_CONTINUER",
+      "start_boundary": "1651年亲政",
+      "end_boundary": "1661年去世",
+      "starting_position": "继承清入关后主体；多尔衮770作为起点",
+      "terminal_completion_rate": 0.65,
+      "effective_years": 10.0,
+      "control_retention_rate": 0.9,
+      "early_stability_rate": 0.72,
+      "responsibility_basis": "只计亲政期三路入滇与云南控制安排40代理下限；摄政期770绝不转写。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "幼年即继承清国，亲政时再承接多尔衮入关成果",
+      "initial_resource_position": "幼年即继承清国，亲政时再承接多尔衮入关成果；当前高起点方向正确",
+      "initial_resource_share_pct": 82,
+      "a1_strategic_responsibility_factor": 0.45,
+      "a1_strategic_responsibility_basis": "本人窗口主要是继承后继续统一，实际路线归责有限"
+    },
+    {
+      "ruler_name": "多尔衮",
+      "founder_role": "REGENCY_UNIFICATION_EXECUTIVE",
+      "start_boundary": "1643年摄政并承担最高军政责任",
+      "end_boundary": "1650年去世",
+      "starting_position": "继承清国辽东100及成建制国家机器",
+      "terminal_completion_rate": 0.85,
+      "effective_years": 7.0,
+      "control_retention_rate": 0.9,
+      "early_stability_rate": 0.65,
+      "responsibility_basis": "摄政期实际统筹新增770，绝不按顺治年号转写；诸将前线难度只归各自C。",
+      "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+      "difficulty_start_boundary": "宗王、旗主与军政资历是1643年前已有资源",
+      "initial_resource_position": "宗王、旗主与军政资历是1643年前已有资源；摄政后掌握整个清国机器是政治结果，不应全作起点",
+      "initial_resource_share_pct": 20,
+      "initial_resource_source_refs": [
+        "清史稿/卷218#睿忠亲王多尔衮"
+      ],
+      "a1_strategic_responsibility_factor": 0.85,
+      "a1_strategic_responsibility_basis": "role_default:REGENCY_UNIFICATION_EXECUTIVE"
+    }
+  ],
+  "recovered_net_control_values": {
+    "刘聪": 0.0,
+    "姚兴": 0.0,
+    "宇文邕": 0.0,
+    "拓跋焘": 0.0,
+    "石虎": 0.0,
+    "苻坚": 0.0,
+    "朱温": 0.0,
+    "李存勖": 0.0,
+    "李嗣源": 0.0,
+    "石敬瑭": 0.0,
+    "王建": 0.0,
+    "耶律阿保机": 0.0,
+    "耶律德光": 0.0,
+    "完颜阿骨打": 0.0,
+    "完颜吴乞买": 0.0,
+    "赵匡胤": 0.0,
+    "赵光义": 0.0,
+    "李元昊": 0.0,
+    "铁木真": 0.0,
+    "窝阔台": 0.0,
+    "蒙哥": 0.0,
+    "忽必烈": 0.0,
+    "朱元璋": 0.0,
+    "努尔哈赤": 0.0,
+    "皇太极": 0.0,
+    "多尔衮": 0.0,
+    "黄巢": 0.0,
+    "李昪": 0.0,
+    "刘龑": 0.0,
+    "郭威": 0.0,
+    "柴荣": 0.0,
+    "述律平": 0.0,
+    "耶律大石": 0.0,
+    "赵构": 180,
+    "朱聿键": 0.0,
+    "朱由榔": 0.0,
+    "福临": 0.0,
+    "玄烨": 300,
+    "洪秀全": 0.0
+  },
+  "founder_roster": [
+    {
+      "ruler_name": "嬴政",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘邦",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘恒",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘彻",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘询",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘秀",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘庄",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "曹操",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "曹丕",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "曹叡",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "司马懿",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "司马师",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "司马昭",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "司马炎",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "苻坚",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "秦至唐统一链实际贡献已验收。"
+    },
+    {
+      "ruler_name": "拓跋珪",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "拓跋焘",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "秦至唐统一链实际贡献已验收。"
+    },
+    {
+      "ruler_name": "拓跋宏",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "宇文泰",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "杨坚",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "杨广",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李渊",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "李世民",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "李治",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "武则天",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李隆基",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李纯",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱温",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "持续统筹汴兖郓、河北与淄青方向，形成后梁建国所需的中原支配。",
+      "polity": "后梁",
+      "contribution_window": "883/884年取得汴州至907年建梁",
+      "person_ref": "MIL-PER-08D8CC6DCE06E273",
+      "name_aliases": [
+        "朱全忠",
+        "朱晃",
+        "梁太祖"
+      ],
+      "evidence_refs": [
+        "WAR-LEAD-261-BIANYUN-END",
+        "WAR-LEAD-262-HEBEI-END",
+        "WAR-LEAD-264-PINGLU-END"
+      ],
+      "talent_profile_ref": "MIL-PROFILE-08D8CC6DCE06E273"
+    },
+    {
+      "ruler_name": "李存勖",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人采纳直取大梁方案、亲率主力完成灭梁，属于继承者对建国主链的决定性实际贡献。",
+      "polity": "后唐",
+      "contribution_window": "908年承接晋国至923年灭后梁建后唐",
+      "person_ref": "MIL-PER-6FE2D80439F84FB0",
+      "name_aliases": [
+        "李亚子",
+        "唐庄宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-6FE2D80439F84FB0"
+    },
+    {
+      "ruler_name": "郭威",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人以长围闭合河中叛乱，950年率军南下并在刘子陂使后汉军崩溃，随后实际建立后周。",
+      "polity": "后周",
+      "contribution_window": "948年起实际统军平河中并形成独立军政威望，至951年击溃后汉主力、建立后周",
+      "person_ref": null,
+      "name_aliases": [
+        "周太祖"
+      ],
+      "evidence_refs": [
+        "WAR-POST-9880769008ECF965EF6A",
+        "WAR-POST-B2677B7A88498194EECF",
+        "WAR-POST-3E1DBF6C463923021EFC",
+        "WAR-POST-5007EA85DC7E70C5570A"
+      ]
+    },
+    {
+      "ruler_name": "柴荣",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人先承担建国集团后方，继位后又亲督楚州、濠州等攻城并亲征契丹，实际推进后周未闭合的中原统一主链。",
+      "polity": "后周",
+      "contribution_window": "950年受郭威命守邺都、首次对后周建国集团承担独立责任，至959年本人统一贡献终止",
+      "person_ref": null,
+      "name_aliases": [
+        "周世宗"
+      ],
+      "evidence_refs": [
+        "WAR-POST-B2677B7A88498194EECF",
+        "WAR-POST-5A5D665F238AA67FC926",
+        "WAR-POST-ADAC273C23AB160D2C24"
+      ]
+    },
+    {
+      "ruler_name": "耶律阿保机",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人建国后继续亲征渤海并闭合东北统一主链，故窗口不能机械截于916年年号。",
+      "polity": "辽（契丹）",
+      "contribution_window": "901年开始承担联盟最高军政责任至926年本人贡献终止",
+      "person_ref": "MIL-PER-7BA712AA6CCB1A1B",
+      "name_aliases": [
+        "阿保机",
+        "耶律亿",
+        "辽太祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-7BA712AA6CCB1A1B"
+    },
+    {
+      "ruler_name": "耶律德光",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "在忽汗城方向有称帝前后的实际军事贡献；继承身份不排除。其灭后晋部分须另从公共登记补齐，不能只消费现有B档人物证据。",
+      "polity": "辽",
+      "contribution_window": "926年渤海终局已有实际贡献至947年本人贡献终止",
+      "person_ref": "MIL-PER-C2197793CFE5832E",
+      "name_aliases": [
+        "辽太宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-C2197793CFE5832E"
+    },
+    {
+      "ruler_name": "耶律隆绪",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "述律平",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "916年建国时参与军谋并亲自组织击破乘虚来袭的室韦，之后又实际主导德光继承；存在独立、可观察的建国与继承闭合贡献。",
+      "polity": "辽（契丹）",
+      "contribution_window": "阿保机建国准备期首次参与最高军谋，至927年完成德光继承闭合",
+      "person_ref": null,
+      "name_aliases": [
+        "述律月理朵",
+        "淳钦皇后"
+      ],
+      "evidence_refs": [
+        "CHF-ZZTJ-269-KHITAN-STATE-BUILDING-916",
+        "CHF-ZZTJ-275-DEGUANG-KHITAN-SUCCESSION-926"
+      ]
+    },
+    {
+      "ruler_name": "萧绰",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "完颜阿骨打",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人从女真联盟建立国家并连续击破辽军、取得燕京方向，属于金建国统一主链的首段。",
+      "polity": "金",
+      "contribution_window": "1113年继任并反辽至1123年去世",
+      "person_ref": "MIL-PER-845AE6DF256FB5D2",
+      "name_aliases": [
+        "阿骨打",
+        "金太祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-845AE6DF256FB5D2"
+    },
+    {
+      "ruler_name": "完颜雍",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵匡胤",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "称帝前已在南唐战争承担独立方向，建宋后继续主导统一；窗口从首次实际贡献开始而非只取960年。",
+      "polity": "北宋",
+      "contribution_window": "后周时期首次承担统一主链实际方向至976年去世",
+      "person_ref": "MIL-PER-7BA8BC2D2C3FE948",
+      "name_aliases": [
+        "宋太祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-7BA8BC2D2C3FE948"
+    },
+    {
+      "ruler_name": "赵光义",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人亲临太原总攻、控制军队后退尺度并接受北汉投降；这正是继承者实际完成统一主链的明确样本。",
+      "polity": "北宋",
+      "contribution_window": "976年继承并承担统一主链至979年北汉灭亡",
+      "person_ref": "MIL-PER-1015B47F23D9279C",
+      "name_aliases": [
+        "宋太宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-1015B47F23D9279C"
+    },
+    {
+      "ruler_name": "赵恒",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵祯",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵构",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人实际即位、改元、大赦并同步减免驻军区税负、招抚溃兵群盗和组建中枢、御营，直接建立南宋战时中央，不是只承接年号。",
+      "polity": "南宋",
+      "contribution_window": "1127年以兵马大元帅身份在南京建立新朝廷，至1141年南宋存续边界阶段性闭合",
+      "person_ref": null,
+      "name_aliases": [
+        "宋高宗"
+      ],
+      "evidence_refs": [
+        "CHF-XZZTJ-098-GAOZONG-ACCESSION-AMNESTY-1127",
+        "續資治通鑑/卷098@2309868#兵馬大元帥康王即皇帝位於南京",
+        "續資治通鑑/卷098@2309868#潰兵、群盜，咸許自新；系欠官負，不以名色皆免"
+      ]
+    },
+    {
+      "ruler_name": "铁木真",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人统一克烈、乃蛮等主要竞争极并持续开拓帝国主链；新定义下窗口不机械截于1206年。",
+      "polity": "蒙古帝国（元前身）",
+      "contribution_window": "1189年前后形成独立集团至1227年本人贡献终止",
+      "person_ref": "MIL-PER-BA28C6F26A53F67D",
+      "name_aliases": [
+        "成吉思汗",
+        "蒙古太祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-BA28C6F26A53F67D"
+    },
+    {
+      "ruler_name": "窝阔台",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人参与玉龙杰赤方向，并在灭金终局接续攻克钧州、俘金将及取得河南诸州；继承身份不影响共同奠基资格。",
+      "polity": "蒙古帝国（元前身）",
+      "contribution_window": "铁木真时期首次承担独立方向至1241年本人贡献终止",
+      "person_ref": "MIL-PER-11187AE2223E18A5",
+      "name_aliases": [
+        "元太宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-11187AE2223E18A5"
+    },
+    {
+      "ruler_name": "蒙哥",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "称帝前亲战钦察、斡罗斯，称帝后亲统四川方向并形成阶段战果；不能因继承而排除，但四川目标未闭合须保留。",
+      "polity": "蒙古帝国（元前身）",
+      "contribution_window": "称帝前西征实际贡献至1259年四川主链贡献终止",
+      "person_ref": "MIL-PER-F213FAEE120B1915",
+      "name_aliases": [
+        "元宪宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-F213FAEE120B1915"
+    },
+    {
+      "ruler_name": "忽必烈",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "称帝前亲领云南中道，后亲统阿里不哥内战并建立灭宋两路指挥架构，覆盖元朝建国统一主链。",
+      "polity": "元",
+      "contribution_window": "蒙哥时期云南独立方向至1279年统一闭合",
+      "person_ref": "MIL-PER-4B6050B3FE0EEEA7",
+      "name_aliases": [
+        "薛禅汗",
+        "元世祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-4B6050B3FE0EEEA7"
+    },
+    {
+      "ruler_name": "朱元璋",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人亲征陈汉、控制和州基地，并设计北伐总路线，实际覆盖明朝建国统一主链。",
+      "polity": "明",
+      "contribution_window": "1355/1356年形成独立集团至1382年云南平定",
+      "person_ref": "MIL-PER-0DCA4F4DA6DEF9BF",
+      "name_aliases": [
+        "朱重八",
+        "朱国瑞",
+        "明太祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-0DCA4F4DA6DEF9BF"
+    },
+    {
+      "ruler_name": "朱棣",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱瞻基",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱祐樘",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱由检",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "努尔哈赤",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人消灭哈达、乌拉、叶赫并在萨尔浒闭合建国统一主干；窗口不能只截于1616年改号。",
+      "polity": "后金（清前身）",
+      "contribution_window": "1583年起兵至1626年本人贡献终止",
+      "person_ref": "MIL-PER-44F70D5754CFAD29",
+      "name_aliases": [
+        "清太祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-44F70D5754CFAD29"
+    },
+    {
+      "ruler_name": "皇太极",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人亲统朝鲜终局和松锦大战，实际推进清建国统一主链，不能只按1636年改号形式结算。",
+      "polity": "清",
+      "contribution_window": "1626年继承并开始实际贡献至1643年本人贡献终止",
+      "person_ref": "MIL-PER-43C47AF8E1E1C688",
+      "name_aliases": [
+        "清太宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-43C47AF8E1E1C688"
+    },
+    {
+      "ruler_name": "玄烨",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人承担撤藩引发危机后的国家路线，持续组织三藩战争并命施琅征台，于1683年闭合清朝核心再统一；噶尔丹及以后边疆扩张不进入第一项。",
+      "polity": "清",
+      "contribution_window": "1673年直接承担三藩统一危机至1683年台湾郑氏终结",
+      "person_ref": null,
+      "name_aliases": [
+        "康熙帝",
+        "清圣祖"
+      ],
+      "evidence_refs": [
+        "WAR-POST-05B5C415414C3F87ECA3",
+        "清史稿/卷7@1794686#命施琅征台灣"
+      ]
+    },
+    {
+      "ruler_name": "胤禛",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "1723年青海战争发生在1683年清朝核心统一闭合之后，属于既成帝国的边疆安全、扩张与治理，不属于创业或政权取得。"
+    },
+    {
+      "ruler_name": "弘历",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "1755—1759年准噶尔、新疆战争发生在成熟清帝国阶段，属于边疆扩张与国防净收益，不属于清朝创业或核心政权取得。"
+    },
+    {
+      "ruler_name": "慈禧",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "洪秀全",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "现有固定卡明确把金田起事主体、转战广西、攻占永安和建立太平天国归于洪秀全；不是只被拥立的名义君主。",
+      "polity": "太平天国",
+      "contribution_window": "1851年金田起事并建号，至1853年攻占南京、独立政权核心闭合",
+      "person_ref": null,
+      "name_aliases": [
+        "天王"
+      ],
+      "evidence_refs": [
+        "WAR-POST-E2819DBE16E4EC3E9995",
+        "清史稿/卷20@2433519#廣東花縣人洪秀全在廣西桂平縣金田起事",
+        "清史稿/卷20@2433519#洪秀全陷永安州，踞之，僭號太平天國"
+      ]
+    },
+    {
+      "ruler_name": "胡亥",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "吕雉",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘盈",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘启",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘奭",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘骜",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘欣",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "王莽",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘玄",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘炟",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘肇",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "邓绥",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘祜",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "梁妠",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘保",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘志",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘宏",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘备",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘禅",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "孙权",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "孙休",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "孙皓",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "司马睿",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "司马绍",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "司马曜",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘渊",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘聪",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "秦至唐统一链实际贡献已验收。"
+    },
+    {
+      "ruler_name": "石勒",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "石虎",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "秦至唐统一链实际贡献已验收。"
+    },
+    {
+      "ruler_name": "冉闵",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "李雄",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "苻健",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "姚苌",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "姚兴",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "秦至唐统一链实际贡献已验收。"
+    },
+    {
+      "ruler_name": "慕容垂",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "慕容德",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "吕光",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "李暠",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "沮渠蒙逊",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "赫连勃勃",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "冯跋",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘裕",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "刘义隆",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘骏",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘彧",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "萧道成",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "萧鸾",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "萧衍",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "萧绎",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "陈霸先",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "陈蒨",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "陈顼",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "陈叔宝",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "拓跋嗣",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "元恪",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "冯太后",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "高欢",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "高洋",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "既有秦至唐第一项已验收统一贡献窗口。"
+    },
+    {
+      "ruler_name": "高湛",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "高纬",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "宇文邕",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "秦至唐统一链实际贡献已验收。"
+    },
+    {
+      "ruler_name": "李显",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李旦",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李亨",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李豫",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李适",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李忱",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李儇",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "黄巢",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人发起并领导起事，攻入长安后实际建立首都政权；虽然最终失败，仍是大齐建国主链的直接创建者。",
+      "polity": "大齐",
+      "contribution_window": "875年起兵至884年本人及大齐政权终止",
+      "person_ref": null,
+      "name_aliases": [
+        "齐帝黄巢"
+      ],
+      "evidence_refs": [
+        "WAR-LEAD-256-HUANGCHAO-END"
+      ]
+    },
+    {
+      "ruler_name": "朱友贞",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李嗣源",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "称帝前率军夜渡奇袭郓州、参与元城合围并完成多个独立方向，不能因后来继承后唐皇位而排除其共同奠基贡献。",
+      "polity": "后唐",
+      "contribution_window": "首次承担河东集团独立方向至923年后唐建国主链闭合",
+      "person_ref": "MIL-PER-A8CB1D6AEA7F6704",
+      "name_aliases": [
+        "唐明宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-A8CB1D6AEA7F6704"
+    },
+    {
+      "ruler_name": "石敬瑭",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人为起兵主体，并与契丹完成对晋安寨的持续封锁；外援贡献必须在A起点和B团队中另行拆分。",
+      "polity": "后晋",
+      "contribution_window": "936年起兵至937年后晋政权闭合",
+      "person_ref": "MIL-PER-1FE1D64C2F994922",
+      "name_aliases": [
+        "晋高祖"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-1FE1D64C2F994922"
+    },
+    {
+      "ruler_name": "李昪",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人先接管吴政，继而解除徐知询上游兵权、专掌吴政，建立齐国架构并完成受禅建国；不是只改年号。",
+      "polity": "南唐",
+      "contribution_window": "918年徐知训死后渡江稳定吴军府并开始进入中枢，至937年受禅建南唐",
+      "person_ref": null,
+      "name_aliases": [
+        "徐知诰",
+        "李知诰",
+        "南唐烈祖"
+      ],
+      "evidence_refs": [
+        "CHF-ZZTJ-270-ZHU-JIN-KILLS-XU-ZHIXUN-918",
+        "CHF-ZZTJ-276-XU-ZHIGAO-TAKES-WU-POWER-929",
+        "CHF-ZZTJ-281-WU-ABDICATES-TO-QI-937"
+      ]
+    },
+    {
+      "ruler_name": "李煜",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "王建",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人先后完成西川、东川主链，形成前蜀的实际统一与建国基础。",
+      "polity": "前蜀",
+      "contribution_window": "888年争夺西川至907年称帝建蜀",
+      "person_ref": "MIL-PER-584108CA00B1732F",
+      "name_aliases": [
+        "蜀高祖"
+      ],
+      "evidence_refs": [
+        "WAR-LEAD-258-XICHUAN-END",
+        "WAR-LEAD-261-TWOSICHUAN-END"
+      ],
+      "talent_profile_ref": "MIL-PROFILE-584108CA00B1732F"
+    },
+    {
+      "ruler_name": "孟昶",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘龑",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人继承后实际攻取容管、高州并强化独立性，随后在番禺称帝、建立大越并改为汉；存在建国前新增结果，不是纯形式称帝。",
+      "polity": "南汉",
+      "contribution_window": "911年继承清海、静海军政集团并开始本人扩张，至917年建立南汉",
+      "person_ref": null,
+      "name_aliases": [
+        "刘岩",
+        "刘陟",
+        "南汉高祖"
+      ],
+      "evidence_refs": [
+        "CHF-ZZTJ-268-LIU-YAN-RONGGAO-911",
+        "CHF-ZZTJ-269-LIU-YAN-BREAKS-WITH-LIANG-915",
+        "CHF-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917"
+      ]
+    },
+    {
+      "ruler_name": "耶律阮",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "耶律璟",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "耶律贤",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "耶律宗真",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "耶律洪基",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "耶律延禧",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "耶律大石",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人从极小残部重建军事集团，汇集五万余兵西进，击败西域联军并完成西辽建国。",
+      "polity": "西辽",
+      "contribution_window": "1124年杀萧乙薛等、率三百骑脱离天祚帝并自立，至1132年击败西域联军、建立西辽",
+      "person_ref": null,
+      "name_aliases": [
+        "菊儿汗",
+        "辽德宗"
+      ],
+      "evidence_refs": [
+        "WAR-POST-BAA4407CF5F77AC44673",
+        "WAR-POST-C039F42EECEAEC4B3E91",
+        "續資治通鑑/卷095@2299598#遂得精兵五萬餘",
+        "續資治通鑑/卷095@2299598#呼拉沙大敗",
+        "續資治通鑑/卷095@2299598#世謂之西遼"
+      ]
+    },
+    {
+      "ruler_name": "塔不烟",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "萧普速完",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李元昊",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人不只改国号，还实际统率三川口、好水川、定川等主链战争并兑现独立地位。",
+      "polity": "西夏",
+      "contribution_window": "1032年继承并开始实际建国贡献至1044年和议闭合",
+      "person_ref": "MIL-PER-C39B242CA6264753",
+      "name_aliases": [
+        "嵬名元昊",
+        "夏景宗"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-C39B242CA6264753"
+    },
+    {
+      "ruler_name": "李谅祚",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李乾顺",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "李仁孝",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "完颜吴乞买",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "即位后本人调整对宋割地路线，并在辽主被俘后下诏设置东西两路元帅体系伐宋；该战略决策直接启动灭北宋主链。",
+      "polity": "金",
+      "contribution_window": "阿骨打时期首次参与建国集团军政责任，至1135年本人贡献终止",
+      "person_ref": "MIL-PER-FF67F36E789A6684",
+      "name_aliases": [
+        "完颜晟",
+        "金太宗"
+      ],
+      "evidence_refs": [
+        "CHF-JIN-V03-TERRITORY-COMMITMENTS-1124",
+        "CHF-JIN-V03-SONG-WAR-DECISION-1125",
+        "金史/卷3@2432693#十月甲辰，詔諸將伐宋。以諳班勃極烈杲兼領都元帥，移賚勃極烈宗翰兼左副元帥先鋒"
+      ],
+      "talent_profile_ref": "MIL-PROFILE-FF67F36E789A6684"
+    },
+    {
+      "ruler_name": "完颜亶",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "完颜亮",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "完颜璟",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "完颜珣",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "完颜守绪",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "刘娥",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "高滔滔",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵曙",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵顼",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵煦",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵昚",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵惇",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵扩",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "赵昀",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "铁穆耳",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "海山",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "爱育黎拔力八达",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "妥懽帖睦尔",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱允炆",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱祁镇",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱祁钰",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱见深",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱厚照",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱厚熜",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱载坖",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱翊钧",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱由校",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "朱由崧",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "现有材料只闭合马士英、江北四镇及南京官员拥立福王，以及弘光年号和短期朝廷存在；未闭合朱由崧本人对复国建国主链的独立实际贡献。",
+      "polity": "南明弘光政权",
+      "contribution_window": "不建立第一项窗口",
+      "person_ref": null,
+      "name_aliases": [
+        "弘光帝",
+        "明安宗"
+      ],
+      "evidence_refs": [
+        "WAR-POST-9F4C6AF1C05EC81EB0EF",
+        "https://dfz.nanjing.gov.cn/ztzl/gcjy/202602/t20260206_5788698.html"
+      ]
+    },
+    {
+      "ruler_name": "朱聿键",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人不是仅被拥立：即位初即制定恢复计划、下诏亲征并推动江浙皖赣义军响应，构成可归责的复国战略与动员贡献。",
+      "polity": "南明隆武政权",
+      "contribution_window": "1645年在衢州检阅军队并发布恢复誓词、继而福州建政，至1646年本人贡献终止",
+      "person_ref": null,
+      "name_aliases": [
+        "隆武帝",
+        "明绍宗"
+      ],
+      "evidence_refs": [
+        "https://www.dpm.org.cn/court/event/159831.html",
+        "https://www.dpm.org.cn/Uploads/File/2020/02/26/u5e5609522e15d.pdf"
+      ]
+    },
+    {
+      "ruler_name": "朱由榔",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人在受孙可望胁制时以血诏召李定国迎驾，封定国晋王并令其主持征讨，又以诏命联络郑氏和其他抗清力量；这些是可归责的政治战略贡献。",
+      "polity": "南明永历政权",
+      "contribution_window": "1646年建立永历朝廷，至1657年通过血诏、迎驾和讨孙可望恢复朝廷实际号令后本人战略贡献阶段闭合",
+      "person_ref": null,
+      "name_aliases": [
+        "永历帝",
+        "明昭宗"
+      ],
+      "evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/永曆實錄"
+      ]
+    },
+    {
+      "ruler_name": "福临",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "亲政期清廷命多尼等分三路进取贵州、云南，攻入昆明、永昌和腾越，并由本人决定吴三桂镇云南；这实际推进南明残余终局和西南控制，不属于多尔衮摄政期成果。",
+      "polity": "清",
+      "contribution_window": "1651年亲政并开始承担本人战略责任，至1661年去世",
+      "person_ref": null,
+      "name_aliases": [
+        "顺治帝",
+        "清世祖"
+      ],
+      "evidence_refs": [
+        "WAR-POST-74CF89D609776ADAB1C7",
+        "清史稿/卷237固定文本#十六年正月三路师会克云南省城",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷237"
+      ]
+    },
+    {
+      "ruler_name": "颙琰",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "旻宁",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "奕詝",
+      "eligibility_decision": "EXCLUDE",
+      "eligibility_basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+    },
+    {
+      "ruler_name": "多尔衮",
+      "eligibility_decision": "ADMIT",
+      "eligibility_basis": "本人统率清军入关并与吴军击溃李自成主力、推进北京，属于继承清国后对统一主链的可归责决定性贡献。",
+      "polity": "清",
+      "contribution_window": "1643年摄政并承担最高军政责任至1650年去世",
+      "person_ref": "MIL-PER-CD467707B8ACAE73",
+      "name_aliases": [
+        "睿亲王"
+      ],
+      "evidence_refs": [],
+      "talent_profile_ref": "MIL-PROFILE-CD467707B8ACAE73"
+    }
+  ],
+  "start_origin_review": {
+    "status": "ACCEPTED_CURRENT",
+    "reviewed_record_count": 79,
+    "review_contract": {
+      "difficulty_start": "本人进入创业或统一贡献链前最初实际拥有或继承的可调用资源；本人随后通过任官、结盟、战争、政变或建团取得的资源不得倒灌。",
+      "contribution_window_start": "本人首次产生可归责统一贡献的时间；仅用于贡献归属和时间窗口，不再决定创业难度起点。",
+      "zero_rule": "无稳定地盘、军队、财赋或可调用政权机器者可为0；仅有微弱血缘、基层人脉或个人社会资源者用0.5至1表示。",
+      "inheritance_rule": "直接继承成熟国家或区域政权者，以实际继承的机器为高起点；不因本人贡献发生更晚而下移到后来战役节点。"
+    },
+    "targeted_source_check_names": [
+      "述律平",
+      "石虎",
+      "李暠",
+      "冯跋",
+      "多尔衮"
+    ],
+    "targeted_source_check_status": "TARGETED_SOURCE_REVIEWED_WITH_EXPLICIT_LIMITS"
+  },
+  "strategic_error_review_contract": {
+    "scope": "all_eligible_unification_contributors",
+    "window": "contribution_window_plus_5_to_10_year_path_stability_audit",
+    "threshold": "attributable_top_level_decision_causing_material_unification_reversal",
+    "c_nonduplication": "ordinary_battle_defeat_and_frontline_execution_remain_in_C",
+    "empty_array_meaning": "reviewed_no_threshold_error_only"
+  },
+  "strategic_error_reviews": {
+    "冉闵": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/两晋/卷098-通读总结.md#L160",
+        "docs/共享史料/唐以前编年/两晋/卷099-通读总结.md#L43",
+        "docs/共享史料/唐以前编年/两晋/卷099-通读总结.md#L112",
+        "資治通鑑/卷099@1502618"
+      ]
+    },
+    "冯跋": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "晋书/卷125#冯跋",
+        "docs/共享史料/唐以前编年/两晋/卷115-通读总结.md#L407",
+        "docs/共享史料/唐以前编年/两晋/卷115-通读总结.md#L413",
+        "資治通鑑/卷115@803164",
+        "WAR-LEAD-115-NORTHYAN-REBELLION-410"
+      ]
+    },
+    "刘备": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/汉/卷067-通读总结.md#L87",
+        "docs/共享史料/唐以前编年/汉/卷068-通读总结.md#L128",
+        "資治通鑑/卷068@cache-0b61bde123c23c0a"
+      ]
+    },
+    "刘渊": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-HANZHAO-308",
+        "WAR-LEAD-HANZHAO-HUGUAN-309"
+      ],
+      "no_error_basis": "304—308年窗口主要闭合汉赵建国；309壶关及310继承事件已在其窗口外，未见窗口内阈值战略误判。"
+    },
+    "刘玄": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/汉/卷039-通读总结.md#L79",
+        "docs/共享史料/唐以前编年/汉/卷039-通读总结.md#L118",
+        "docs/共享史料/唐以前编年/汉/卷040-通读总结.md#L33"
+      ]
+    },
+    "刘秀": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷040@乘勝輕進反為所敗，王自投高岸",
+        "HAN-STARTUP-CENTRAL-25-26"
+      ]
+    },
+    "刘聪": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-HANZHAO-HUGUAN-309",
+        "WAR-LEAD-HANZHAO-SUCCESSION-310"
+      ],
+      "no_error_basis": "其窗口止于310年继承，309壶关方向取得成果；未把继位后的洛阳等战争倒灌进创业贡献窗口。"
+    },
+    "刘裕": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷118@803167",
+        "WAR-LEAD-118-GUANZHONG-INFIGHT-418",
+        "WAR-LEAD-118-XIA-TAKE-CHANGAN-418"
+      ]
+    },
+    "刘邦": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "史記/卷007@項羽三萬精兵晨擊漢軍，漢軍大敗，睢水為之不流。",
+        "HAN-CHUHAN-PENGCHENG-BCE205"
+      ]
+    },
+    "刘龑": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以后编年/资治通鉴-五代十国/volume-268.registry.json",
+        "docs/共享史料/唐以后编年/资治通鉴-五代十国/volume-269.registry.json",
+        "docs/共享史料/唐以后编年/资治通鉴-五代十国/volume-270.registry.json"
+      ],
+      "no_error_basis": "911—917年继承岭南、取韶容方向并建立大越的窗口内未见本人决策导致重大失地或建国反复；后期对闽等败战在窗口外。"
+    },
+    "努尔哈赤": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "清史稿/卷1@2589312#太祖伐哈達，攻城克之",
+        "清史稿/卷1@2589312#收其部衆，哈達亡。",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷1"
+      ],
+      "no_error_basis": "宁远攻坚失败属于实际战役结果；仅凭攻坚未克和本人随后去世，不能证明发动该战或总体方向达到A战略误判门槛，故不与C重复。"
+    },
+    "司马师": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/三国/卷075-通读总结.md#L176",
+        "資治通鑑/卷075@617541",
+        "WAR-LEAD-SG-WEI-WU-DONGXING-252"
+      ]
+    },
+    "司马懿": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-SG-WEI-HANZHONG-244",
+        "WAR-LEAD-SG-WEI-LIAODONG-238",
+        "config/first-item-a-strategic-efficiency-inputs.json"
+      ],
+      "no_error_basis": "窗口仅249—251年中枢夺权阶段；既有军事负项均发生在此前曹魏任职期，未见窗口内达到门槛的统一链战略误判。"
+    },
+    "司马昭": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-SG-SHOUCHUN-257",
+        "WAR-LEAD-SG-JUSHUI-CANCEL-261",
+        "WAR-LEAD-SG-WEISHU-263"
+      ],
+      "no_error_basis": "255—265年窗口内寿春反乱被收束、灭蜀完成；沮水迎降取消未形成实际战役或重大控制倒退，不抬为A误判。"
+    },
+    "司马炎": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-JIN-CONQUEST-WU-280",
+        "WAR-LEAD-JIN-MALONG-279"
+      ],
+      "no_error_basis": "265—280年完成禅代与灭吴；现有窗口战役未见本人发动后造成重大反复的战略失败。"
+    },
+    "司马睿": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-HANMIAN-317",
+        "WAR-LEAD-ZUTI-QIAO-317",
+        "WAR-LEAD-XINGYANG-317"
+      ],
+      "no_error_basis": "窗口止于317年建国；317年祖逖等河南方向仅形成有限进展，未见本人可归责且达到门槛的失败决定，319年以后陈川等事件在窗口外。"
+    },
+    "吕光": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-106-LVGUANG-385",
+        "WAR-LEAD-107-LIANG-387"
+      ],
+      "no_error_basis": "窗口止于387年后凉建基；392—397年的河西连续失利和撤军均在窗口外，不能越窗计入A。"
+    },
+    "多尔衮": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "清史稿/卷4@2267892#三桂開關出迎，大軍入關。",
+        "清史稿/卷4@2267892#自成棄燕京西走",
+        "https://zh.wikisource.org/zh-hans/江阴城守纪",
+        "清史稿/卷4@2267892#諭南中文武軍民薙髮，不從者治以軍法。",
+        "清史稿/卷4@2267892#始諭直省限旬日薙髮如律令。",
+        "清史稿/卷4@2267892#申薙髮之令。",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷218"
+      ]
+    },
+    "姚兴": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-108-FORMERQIN-END-394",
+        "WAR-LEAD-111-LATERCIN-WESTQIN-400"
+      ],
+      "no_error_basis": "393—400年完成前秦残余终结并推进西秦方向；397河南未下为局部混合结果，未见拒谏或重大控制反复，不升A误判。"
+    },
+    "姚苌": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-107-LATERCIN-REBELS-390",
+        "WAR-LEAD-104-XIANGYANG-378-379"
+      ],
+      "no_error_basis": "384—393年后秦建基窗口内未见达到门槛的战争发动、联盟或控制安排失误；既有早年参战不能倒算为本人创业战略错误。"
+    },
+    "嬴政": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷007@秦王不用王翦六十万估计至杀七都尉秦军走",
+        "OUTCOME-QIN-CHU"
+      ]
+    },
+    "孙权": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+        "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
+        "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215"
+      ],
+      "no_error_basis": "203江夏未克和215合肥失利均保存为战役结果，但现有锚未闭合拒谏、错误联盟或导致统一链重大反复的最高战略因果；219荆州方向反为重大成功。"
+    },
+    "宇文泰": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-155-05",
+        "WAR-LEAD-156-02",
+        "docs/共享史料/唐以前编年/南北朝/卷155-通读总结.md",
+        "docs/共享史料/唐以前编年/南北朝/卷156-通读总结.md"
+      ],
+      "no_error_basis": "532—535年窗口内接收贺拔岳集团、平侯莫陈悦、拒绝高欢接管并建立西魏的主链闭合；现有人物负项均发生在537年以后，窗口内未见达到门槛的战略反复。"
+    },
+    "宇文邕": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷172@1502703",
+        "PCR-AUDIT-WAR-PARENT-172-ZHOU-QI-HEYIN-575-宇文邕"
+      ]
+    },
+    "完颜吴乞买": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/金史/卷3"
+      ],
+      "no_error_basis": "窗口聚焦灭辽后至第二次攻宋围汴，现有材料显示战略目标持续推进；第一次撤围等具体阶段不足以证明最高层方向选择达到A误判门槛。"
+    },
+    "完颜阿骨打": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+        "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+      ],
+      "no_error_basis": "反辽建国和辽核心控制持续推进；现有事实没有闭合出达到门槛的战略方向或降附处置错误。"
+    },
+    "忽必烈": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "元史/卷004@2201383#文德乘夜入鄂城，守愈堅",
+        "元史/卷004@2201383#是日，大軍北還",
+        "元史/卷004@2201383#阿里不哥僭號于和林城西按坦河",
+        "元史/卷004@2201383#豈可無功遽還",
+        "元史/卷004@2201383#諸將皆以為未可渡，帝不從",
+        "元史/卷004@2201383#謀立阿里不哥",
+        "元史/卷004@2201383#發兵於漠北諸部",
+        "元史/卷004@2201383#括兵於漠南諸州",
+        "元史/卷004@2201383#報，請速還。丁"
+      ]
+    },
+    "慕容垂": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md#L178",
+        "docs/共享史料/唐以前编年/两晋/卷108-通读总结.md#L188",
+        "WAR-LEAD-108-CANHE-395"
+      ]
+    },
+    "慕容德": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-111-SOUTHYAN-QINGZHOU-399"
+      ],
+      "no_error_basis": "397—400年从后燕残余南下并建立青齐核心，现有锚呈止损成功，未见阈值战略误判。"
+    },
+    "拓跋焘": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-NC-WEI-RURAN-429",
+        "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
+        "WAR-LEAD-NC-WEI-RURAN-443"
+      ],
+      "no_error_basis": "423—439年完成北方统一；429柔然远征虽高风险但形成阶段效果，439灭北凉闭合。443鹿浑谷失败在窗口外。"
+    },
+    "拓跋珪": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-106-WEI-385-386",
+        "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+      ],
+      "no_error_basis": "386—391年复代、保盛乐并终结刘卫辰方向均成功；终局屠杀是战争行为负项，但未形成可证的统一链战略反复，不与A混用。"
+    },
+    "曹丕": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-SG-WEI-WU-224-225"
+      ],
+      "no_error_basis": "当前贡献窗口止于220年禅代；战役登记中的224—225年伐吴失败已在窗口外，窗口内未见达到MATERIAL门槛的战争发动或控制安排误判。"
+    },
+    "曹操": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/汉/卷062-通读总结.md#L159",
+        "docs/共享史料/唐以前编年/汉/卷062-通读总结.md#L161",
+        "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
+        "資治通鑑/卷065@2306420",
+        "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208"
+      ]
+    },
+    "朱元璋": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "明史/卷1@2594614#自將征陳理。",
+        "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
+      ],
+      "no_error_basis": "已复核统一窗口内的战役负项；岭北远征等失败能闭合到具体战役结果，但现有锚不足以证明三路战略设计本身错误，不能因败果反推A误判。"
+    },
+    "朱温": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷257@803268",
+        "WAR-LEAD-257-WEIBO-END",
+        "資治通鑑/卷261@cache-ec8509975efe4376",
+        "WAR-LEAD-261-QINGKOU-END"
+      ]
+    },
+    "朱由榔": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/明史/卷120"
+      ],
+      "no_error_basis": "窗口内存在西南集团争权和控制不稳，但材料未闭合到朱由榔本人作出的、导致重大反复的具体错误战争或联盟处置；不把‘未能控制诸将’本身当作决策事件。"
+    },
+    "朱聿键": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/明史/卷118"
+      ],
+      "no_error_basis": "政权迅速覆亡是结果，但现有锚不能把郑氏不出兵和各地力量未整合归结为朱聿键某一项可识别的错误决定；能力不足或未能实现目标不能替代战略误判事件。"
+    },
+    "李世民": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-TANG-LUOYANG-END",
+        "WAR-LEAD-TANG-HEDONG-RECOVERY",
+        "WAR-LEAD-TANG-LIUHEITA-622",
+        "資治通鑑/卷189@1503114",
+        "資治通鑑/卷190@1502800"
+      ],
+      "no_error_basis": "617—628年本人可归责的关中、河东、洛阳—虎牢、刘黑闼第一阶段及徐圆朗方向均未出现由其非战术战略决定造成的统一链重大反复；接手前败绩和他人后续阶段不倒灌。"
+    },
+    "李元昊": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "西夏書事/13@2288047#㓂保安軍，不克。",
+        "西夏書事/13@2288047#元昊知不敵，解圍退。",
+        "西夏書事/12@2287934#糧匱，士卒飢死者衆",
+        "西夏書事/12@2287934#師還，潰于宗哥河。"
+      ],
+      "no_error_basis": "保安不克和宗哥河溃退属于具体战役及补给结果，应由C保存；现有锚不能证明其俘虏处置造成可归责的统一链重大反复，故不沿用该模糊A负项。"
+    },
+    "李嗣源": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "PCR-59C40DE21A6D8A0846CD",
+        "PCR-810BD45AE70EC85D52F8",
+        "資治通鑑/卷269@cache-3aef2736d81bac75",
+        "資治通鑑/卷272@1554183"
+      ],
+      "no_error_basis": "河东集团至923年建国贡献窗口内，本人独立方向和突入大梁均形成正向闭合；未见本人路线、联盟或留守决定导致重大反复。"
+    },
+    "李存勖": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷274@803285#自為教與繼岌，令殺崇韜",
+        "資治通鑑/卷274@803285#罪，並殺其子廷",
+        "資治通鑑/卷274@803285#其族百口就刑",
+        "資治通鑑/卷270@803281#周德威不能制，父子皆戰死",
+        "資治通鑑/卷270@803281#兩軍所喪士卒各三之二",
+        "PCR-8ED6DEAA3AD49FA58659"
+      ],
+      "rejected_candidates": [
+        {
+          "event": "截梁粮运中伏、黎阳和镇州短期攻坚未克",
+          "decision": "C_ONLY",
+          "basis": "均为局部战术或短期攻坚失败，未单独改变统一路线或造成重大控制反复。",
+          "source_refs": [
+            "資治通鑑/卷269@cache-3aef2736d81bac75",
+            "資治通鑑/卷271@1751976"
+          ]
+        }
+      ]
+    },
+    "李昪": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以后编年/资治通鉴-五代十国/volume-282.registry.json",
+        "docs/共享史料/唐以后编年/资治通鉴-五代十国/volume-283.registry.json"
+      ],
+      "no_error_basis": "掌握杨吴中枢至937年建南唐的窗口内未见造成建国链重大反复的战争或联盟错误；建国后拒绝多项北伐建议不倒灌既闭合窗口。"
+    },
+    "李暠": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-111-LIHAO-400",
+        "WAR-LEAD-114-WESTLIANG-406"
+      ],
+      "no_error_basis": "400—401年窗口仅形成西凉核心；406年退守等混合战事在窗口外，且现有因果锚不足以形成A战略误判。"
+    },
+    "李渊": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷184@1502758#壬子，李淵以子元吉為太原太守，留守晉陽宮，後事悉委之。癸丑，淵帥",
+        "資治通鑑/卷187@1502771",
+        "WAR-LEAD-TANG-TAIYUAN-619",
+        "資治通鑑/卷189@1503114",
+        "WAR-LEAD-TANG-LIUHEITA-621",
+        "資治通鑑/卷190@1502800"
+      ],
+      "rejected_candidates": [
+        {
+          "event": "突厥压境时一度同意焚长安、迁都樊邓",
+          "decision": "BELOW_A_ERROR_THRESHOLD",
+          "basis": "方案经李世民谏止后撤回，踏勘之外没有执行，未产生迁民、焚城或控制损害；按同标准不能因材料详尽而给未执行意见独立扣分。",
+          "source_refs": [
+            "資治通鑑/卷191@1517706",
+            "docs/共享史料/唐以前编年/唐/卷191-通读总结.md"
+          ]
+        }
+      ]
+    },
+    "李雄": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-QIUCHI-323",
+        "config/first-item-a-strategic-efficiency-inputs.json"
+      ],
+      "no_error_basis": "贡献窗口止于304年建国；323年不听群臣反对、两路深入仇池的明确战略错误在窗口外，不纳入第一项A。"
+    },
+    "杨坚": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "CAMPAIGN-SUI-TURK-WAR-581-583",
+        "CAMPAIGN-SUI-TURK-SUBMISSION-584-587",
+        "WAR-PARENT-SUI-UNIFICATION-589"
+      ],
+      "no_error_basis": "580—589年北方稳固、突厥分化和灭陈统一链未发现由本人战略选择造成的重大控制反复；局部作战成本不机械转为A误判。"
+    },
+    "柴荣": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-POST-5A5D665F238AA67FC926",
+        "WAR-POST-ADAC273C23AB160D2C24",
+        "資治通鑑/卷293@1502955",
+        "資治通鑑/卷294@2594143"
+      ],
+      "no_error_basis": "954—959年高平、后蜀四州、南唐淮南及北方阶段均有实际推进；个别久攻或因病终止未闭合为错误路线造成的重大反复。"
+    },
+    "沮渠蒙逊": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-110-NORTHLIANG-398",
+        "WAR-LEAD-NC-NORTHERN-LIANG-WESTERN-LIANG"
+      ],
+      "no_error_basis": "398年追击受挫责任在段业；本人反而劝止并救援。其后灭西凉成功，未见本人阈值战略误判。"
+    },
+    "洪秀全": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/清史稿/卷475"
+      ]
+    },
+    "玄烨": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "清史稿/卷6@1789307#王師於十月二十八日入雲南城",
+        "清史稿/卷6@1789307#降，雲南平。是",
+        "清史稿/卷7@1794686#命施琅征台灣",
+        "清史稿/卷6@1789307#令其撤籓還駐遼東。",
+        "清史稿/卷6@1789307#吳三桂疏請撤籓。許之。",
+        "清史稿/卷6@1789307#史。吳三桂反，",
+        "清史稿/卷6@1789307#耿精忠反，執福建總督范承謨幽之，巡撫劉秉政降賊。",
+        "清史稿/卷6@1789307#孫延齡以廣西叛",
+        "清史稿/卷6@1789307#王輔臣叛，經略莫洛死之。上議親征。"
+      ]
+    },
+    "王建": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-258-XICHUAN-END",
+        "WAR-LEAD-261-TWOSICHUAN-END",
+        "資治通鑑/卷258@1554177",
+        "資治通鑑/卷261@cache-ec8509975efe4376"
+      ],
+      "no_error_basis": "888—907年西川立足及东川统一虽战争长期、成本高，但路线最终取得并保持两川，未发现可与李渊河东、刘裕关中相当的本人战略反复。"
+    },
+    "王莽": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/汉/卷036-通读总结.md#L31",
+        "WAR-LEAD-XIN-XIHAI-4-7"
+      ]
+    },
+    "皇太极": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+        "清史稿/卷3@2589314#穿地道攻松山城。",
+        "清史稿/卷3@2589314#深溝高壘，絕明兵出入"
+      ],
+      "no_error_basis": "1639年围攻不克撤军是阶段性作战负项，随后松锦方向被重新组织并闭合；没有证据证明其总体战争方向或联盟控制安排造成统一链重大反复。"
+    },
+    "石勒": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "JIN-SHILE-JIANGXIA-COLLAPSE-311",
+        "JIN-SHILE-GEPI-WITHDRAWAL-312",
+        "JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329"
+      ],
+      "no_error_basis": "311江夏与312葛陂两次南进失败在窗口内，但现有登记明确由饥疫、霖雨和补给崩溃主导，缺少拒谏或本人可单列的错误方向锚；依规则不把一般败战机械转成A误判。"
+    },
+    "石敬瑭": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "資治通鑑/卷280@1769088#稱臣於契丹主",
+        "資治通鑑/卷280@1769088#割盧龍一道及雁門關以北諸州",
+        "資治通鑑/卷280@1769088#十六州以與契丹",
+        "資治通鑑/卷280@1769088#歲輸帛三十萬匹"
+      ]
+    },
+    "石虎": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-PINGYANG-318",
+        "JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329",
+        "WAR-LEAD-ZHAO-LUOYANG-328"
+      ],
+      "no_error_basis": "318—329年前赵终局贡献窗口内虽有局部败相，现有锚只闭合前线结果，未闭合本人发动战争或总体控制安排的阈值误判。"
+    },
+    "福临": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/清史稿/卷5",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷237"
+      ],
+      "no_error_basis": "亲政窗口内南方统一继续推进；现有证据不能把后来三藩之乱倒推为福临设置或延续藩镇时已经成立的A误判，也没有另一项达到门槛的具体战略错误。"
+    },
+    "窝阔台": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "元史/卷002@2259384#拖雷及金師戰于鈞州之三峯，大敗之",
+        "元史/卷002@2259384#遂下商、虢、嵩、汝、陝、洛、許、鄭、陳、亳、潁、壽、睢、永等州"
+      ],
+      "no_error_basis": "窗口内灭金总方向和多路协同实现终局；没有发现导致统一链重大反复的独立战略误判。"
+    },
+    "耶律大石": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "續資治通鑑/卷095@2299598#遂得精兵五萬餘",
+        "續資治通鑑/卷095@2299598#呼拉沙大敗",
+        "續資治通鑑/卷095@2299598#世謂之西遼"
+      ],
+      "no_error_basis": "窗口内西迁、集兵和西辽建基结果连续闭合；未见达到MATERIAL门槛的错误战争方向、联盟或控制安排。"
+    },
+    "耶律德光": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "遼史/卷4@2325083#備法駕入汴，御崇元殿受百官賀。",
+        "遼史/卷4@2325083#建國號大遼，大赦，改元大同。",
+        "遼史/卷4@2325083#縱兵掠芻粟，一也；括民私財，二也；不遽遣諸節度還鎮，三也。",
+        "遼史/卷4@2325083#諸司僚吏、嬪御、宦寺、方技、百工、圖籍、歷象、石經、銅人",
+        "遼史/卷4@2325083#，悉送上京。磁",
+        "遼史/卷4@2325083#崩于欒城，年四十六。"
+      ]
+    },
+    "耶律阿保机": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "遼史/卷2@2325084#乃舉兵親征渤海大諲譔。",
+        "遼史/卷2@2325084#諲譔素服，稿索牽羊，率僚屬三百餘人出降。"
+      ],
+      "no_error_basis": "窗口内所见建国、扩张及渤海终局均形成实际控制；未发现由其发动或放弃战争、方向选择、联盟处置或留守安排导致统一链重大反复的闭合事件。"
+    },
+    "苻健": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-098-FUJIAN-350",
+        "WAR-LEAD-099-QIUCHI-353"
+      ],
+      "no_error_basis": "350—352年西入关中建国窗口内完成主要目标；353年仇池失利在窗口外，且未见窗口内阈值战略误判。"
+    },
+    "苻坚": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/两晋/卷104-通读总结.md#L227",
+        "docs/共享史料/唐以前编年/两晋/卷105-通读总结.md#L43",
+        "WAR-LEAD-105-FEISHUI-383"
+      ]
+    },
+    "萧衍": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-144-07",
+        "docs/共享史料/唐以前编年/南北朝/卷142-通读总结.md",
+        "docs/共享史料/唐以前编年/南北朝/卷143-通读总结.md",
+        "docs/共享史料/唐以前编年/南北朝/卷144-通读总结.md"
+      ],
+      "no_error_basis": "500—502年襄阳起兵至建梁窗口内主线闭合；侯景之乱与台城覆亡发生于数十年后，不属于第一项贡献窗口，不能倒灌A。"
+    },
+    "萧道成": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-133-03",
+        "docs/共享史料/唐以前编年/南北朝/卷133-通读总结.md"
+      ],
+      "no_error_basis": "474—479年平桂阳王、控制中枢至建齐窗口内未见造成统一链区域失控或重大回撤的战略决定；一般政争不转写为A军事战略误判。"
+    },
+    "蒙哥": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "元史/卷003@2189694#命塔察攻荊山，分宋兵力",
+        "元史/卷003@2189694#軍四萬，號十萬，分三道而進",
+        "元史/卷003@2189694#帝自將伐宋，由西蜀以入",
+        "元史/卷003@2189694#命張柔從忽必烈征鄂，趨杭州",
+        "元史/卷003@2189694#月，屢攻不克",
+        "元史/卷003@2189694#是月，帝不豫",
+        "元史/卷003@2189694#帝崩于釣魚山"
+      ]
+    },
+    "赫连勃勃": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-114-XIA-407",
+        "WAR-LEAD-117-XIA-QIN-416"
+      ],
+      "no_error_basis": "407—418年方向总体扩张并取得长安；战争暴行已由战争行为负项保存，但未证明它造成统一链重大反复，不机械改写为A战略误判。"
+    },
+    "赵光义": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "續資治通鑑/卷010@2311081#饋餉且盡，軍士罷乏",
+        "續資治通鑑/卷010@2311081#諸將皆不願行",
+        "續資治通鑑/卷010@2311081#車駕北征，發鎮州",
+        "續資治通鑑/卷010@2311081#戰於高梁河"
+      ]
+    },
+    "赵匡胤": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "PCR-AE37E3776118B42730E3",
+        "PCR-59ADB9DF6E49185F4FCA",
+        "資治通鑑/卷292@1769707",
+        "資治通鑑/卷293@1502955"
+      ],
+      "no_error_basis": "后周方向至976年统一贡献窗口内，先南后北的总体路线持续兑现；北汉短期未克等局部失败未造成已得主要控制反复，保留在C而不升级A。"
+    },
+    "赵构": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "續資治通鑑/卷123@2309484#一日奉十二金字牌",
+        "續資治通鑑/卷123@2309484#十年之功，廢於一旦",
+        "續資治通鑑/卷124@2309489#岳飛為樞密副使",
+        "續資治通鑑/卷124@2309489#岳飛賜死於大理寺"
+      ]
+    },
+    "述律平": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "https://zh.wikisource.org/zh-hans/遼史/卷71"
+      ],
+      "no_error_basis": "已核其建国期军政参与和阿保机死后摄政处置；窗口内没有证据闭合到足以单列A误判的统一链控制反复。继承处置的争议不以结果倒推为战略过错。"
+    },
+    "郭威": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-POST-3E1DBF6C463923021EFC",
+        "資治通鑑/卷289@1769444#南、北軍遇於劉子陂",
+        "資治通鑑/卷289@1769444#南軍多歸於北"
+      ],
+      "no_error_basis": "950—951年邺都起兵至建周主链闭合；入大梁后一夜军纪失控次日即恢复，未造成统一链方向或控制重大反复，且不宜把一般军纪问题升级为A战略误判。"
+    },
+    "铁木真": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "元朝秘史/卷07@853108#將俺家業破壞了",
+        "元朝秘史/卷07@853108#點視軍馬，有二千六百。",
+        "元史/卷001@2259382#薄中興府，引河水灌之",
+        "元史/卷001@2259382#堤決，水外潰，遂撤圍還"
+      ],
+      "no_error_basis": "班朱尼前损失与中兴府决堤撤围均为战役/工程结果，且其后战略主链恢复并闭合；现有证据不能把它们提升为错误的战争发动、方向或控制安排，故仅留C负项。"
+    },
+    "陈霸先": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "CAMPAIGN-NC-HOUJING-JIANKANG-END-552",
+        "WAR-LEAD-166-QI-JIANKANG-556",
+        "資治通鑑/卷164@2310031",
+        "資治通鑑/卷166@803206"
+      ],
+      "no_error_basis": "548—557年北进、平侯景残余、处理王僧辩—北齐方向并建陈的主链虽有高风险转换，但现有结果未闭合本人战略误判造成的重大反复。"
+    },
+    "高欢": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "WAR-LEAD-155-05",
+        "WAR-LEAD-156-04",
+        "WAR-LEAD-156-05",
+        "WAR-LEAD-156-06",
+        "docs/共享史料/唐以前编年/南北朝/卷156-通读总结.md"
+      ],
+      "no_error_basis": "531—534年窗口内虽因孝武帝西奔形成东西分裂，但现有事实不能把皇帝自主扩军、内应开河防和西奔唯一归因为高欢可避免的误判；沙苑、邙山等明确重大败责均在窗口外。"
+    },
+    "高洋": {
+      "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/南北朝/卷163-通读总结.md",
+        "WAR-LEAD-163-09"
+      ],
+      "no_error_basis": "549—550年继承高氏集团并完成北齐受禅的短窗口内，未发现引发统一链重大反复的战争、联盟或留守错误；其后军事行为不倒灌创业窗口。"
+    },
+    "黄巢": {
+      "review_status": "REVIEWED_ERRORS",
+      "searched_evidence_refs": [
+        "docs/共享史料/唐以前编年/唐/卷254-通读总结.md",
+        "資治通鑑/卷255@1760490",
+        "資治通鑑/卷256@803267",
+        "WAR-LEAD-256-HUANGCHAO-END"
+      ]
+    }
+  },
+  "strategic_positive_decisions": {
+    "李渊": [
+      {
+        "event": "联结突厥并抢先进入关中建立全国性政治中心",
+        "impact": "DECISIVE",
+        "basis": "卷184载李渊以恢复和亲换取突厥马匹与少量骑兵，并在入关路线形成后渡河展开、取得长安政治中心；可分别锚定外援窗口和关中总体路线。",
+        "source_refs": [
+          "WAR-LEAD-SUI-LIYUAN-XIHE-617",
+          "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617"
+        ]
+      }
+    ],
+    "刘邦": [
+      {
+        "event": "接受先入关中并以关中为稳定基地的总体路线",
+        "impact": "DECISIVE",
+        "basis": "卷008—009明确保存先入关、受降秦、接管关中图籍户口仓粟以及关中后来持续补兵转漕的事实，足以支持关中作为总体政治资源基地。",
+        "source_refs": [
+          "WAR-LEAD-QIN-GUANZHONG",
+          "資治通鑑/卷009#先入关并取得关中"
+        ]
+      }
+    ],
+    "刘秀": [
+      {
+        "event": "脱离更始约束独立经营河北并依次闭合割据方向",
+        "impact": "DECISIVE",
+        "basis": "卷039载刘秀奉节河北后转为建立独立军政基础；卷043总父卡明确保存河北河内立足、称帝后分授各战区并逐向闭合的连续路线。",
+        "source_refs": [
+          "WAR-LEAD-HAN-STARTUP-HEBEI-23-24",
+          "docs/共享史料/唐以前编年/汉/卷043-通读总结.md#东汉统一战争总父卡"
+        ]
+      }
+    ],
+    "王莽": [
+      {
+        "event": "利用辅政与制度程序完成中枢权力转换",
+        "impact": "MATERIAL",
+        "basis": "卷035保存迎立幼主、太皇太后临朝与王莽秉政，卷036明确把摄政至受禅保留为非战争政治链，可定位制度内中枢转换。",
+        "source_refs": [
+          "資治通鑑/卷035#元寿二年七月至九月",
+          "資治通鑑/卷036#初始元年受禅"
+        ]
+      }
+    ],
+    "高欢": [
+      {
+        "event": "控制河北军政资源并重建北魏东部政治中心",
+        "impact": "DECISIVE",
+        "basis": "卷155保存高欢进入信都、整编六镇部众并形成河北新军政中心；卷156保存另立孝静帝和迁洛阳四十万户至邺，足以锚定根据地、合法性与政治中心。",
+        "source_refs": [
+          "WAR-LEAD-155-02",
+          "WAR-156-06"
+        ]
+      }
+    ],
+    "司马懿": [
+      {
+        "event": "选择高平陵时机夺取曹魏中枢控制",
+        "impact": "MAJOR",
+        "basis": "卷075逐阶段保存曹爽兄弟随帝离城、司马懿据武库和浮桥、接管两营并迫使曹爽交权，完整支持政治时机和中枢控制转换。",
+        "source_refs": [
+          "SEC-LEAD-SG-GAOPING-249",
+          "資治通鑑/卷075#嘉平元年春正月"
+        ]
+      }
+    ],
+    "嬴政": [],
+    "李世民": [
+      {
+        "event": "推动太原起兵、先取关中并反对突厥压境时迁都",
+        "impact": "DECISIVE",
+        "basis": "卷184保存太原集团入关路线形成与关中展开；卷191明确保存朝廷一度同意焚长安迁樊邓而李世民谏止，后者是可独立于战役消费的重大非战役纠偏。",
+        "source_refs": [
+          "WAR-LEAD-SUI-LIYUAN-XIHE-617",
+          "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+          "資治通鑑/卷191#七月一度议焚长安迁都避突厥"
+        ]
+      }
+    ],
+    "杨坚": [
+      {
+        "event": "利用北周辅政窗口稳定中枢并完成隋的权力转换",
+        "impact": "MAJOR",
+        "basis": "卷174明确保存秘丧矫诏、杨坚总知中外兵马、控制诸卫及权位推进；卷175保存受周禅建隋。只锚定辅政窗口、中枢接管和权力转换，不消费平叛或灭陈战果。",
+        "source_refs": [
+          "資治通鑑/卷174#帝殂秘不發喪—並受堅節度",
+          "資治通鑑/卷175@1153431#隋王始受相國—以分司統職"
+        ]
+      }
+    ],
+    "刘裕": [
+      {
+        "event": "以京口集团为根据重建东晋中枢权威并形成刘氏政权基础",
+        "impact": "DECISIVE",
+        "basis": "卷113保存刘裕选择等待京口时机、组织京口广陵等地同步举兵、封存府库并恢复中枢的连续事实；只消费根据地和中枢重建，不把各场战斗结果列入奖励。",
+        "source_refs": [
+          "WAR-LEAD-113-LIUYU-UPRISING-404",
+          "資治通鑑/卷113#劉裕與何無忌同舟還京口"
+        ]
+      }
+    ],
+    "司马炎": [
+      {
+        "event": "承接司马氏中枢优势并通过禅代完成晋的权力转换",
+        "impact": "MATERIAL",
+        "basis": "卷079明确保存司马炎继相国、晋王，曹奂禅位和司马炎即帝；仅支持高起点上的形式权力转换，不能用后续灭吴结果抬高。",
+        "source_refs": [
+          "SEC-LEAD-JIN-FOUNDING-265",
+          "資治通鑑/卷079@2025610#泰始元年十二月"
+        ]
+      }
+    ],
+    "萧衍": [
+      {
+        "event": "以雍州基地迅速形成取代南齐的政治联盟",
+        "impact": "DECISIVE",
+        "basis": "卷143保存萧衍在襄阳预储军需、招募勇士，并促成雍州与荆州共举的联盟；可定位根据地、政治时机和联盟路径。",
+        "source_refs": [
+          "WAR-LEAD-143-06",
+          "資治通鑑/卷143#萧衍—荆州联盟起兵与初期部署"
+        ]
+      }
+    ],
+    "石勒": [
+      {
+        "event": "从流动作战集团转向河北稳定建基",
+        "impact": "DECISIVE",
+        "basis": "卷088完整保存葛陂集团遭饥疫后北撤、放弃强攻三台、选择襄国、收野谷和壁垒并建立长期军政后勤核心。",
+        "source_refs": [
+          "WAR-LEAD-SHILE-XIANGGUO-312",
+          "資治通鑑/卷088#遂進據襄國"
+        ]
+      }
+    ],
+    "宇文泰": [
+      {
+        "event": "接收贺拔岳集团并把关陇资源组织为西魏基础",
+        "impact": "DECISIVE",
+        "basis": "卷156保存贺拔岳遇害后部众推迎宇文泰、其拒绝高欢接管、赴平凉接军，以及随后迎孝武帝入长安建立中枢，足以锚定集团继承与关陇政治中心。",
+        "source_refs": [
+          "WAR-LEAD-156-02",
+          "WAR-156-05"
+        ]
+      }
+    ],
+    "曹操": [
+      {
+        "event": "奉天子以建立中原政治中心并持续经营北方",
+        "impact": "DECISIVE",
+        "basis": "卷062保存曹操迎帝、采董昭计迁许、建立宗庙社稷并恢复行政，同时形成袁绍拒迎帝的决策对照，可直接锚定合法性与政治中心选择。",
+        "source_refs": [
+          "WAR-LEAD-HAN-IMPERIAL-FLIGHT-194-196",
+          "資治通鑑/卷062@7904753#是時宮室燒盡—遂遷都許"
+        ]
+      }
+    ],
+    "拓跋珪": [
+      {
+        "event": "利用旧部网络复代并重建草原政治核心",
+        "impact": "DECISIVE",
+        "basis": "卷106保存拓跋珪在牛川即代王位、设置南北部大人与治民官、迁盛乐后务农息民并改称魏王，足以支持复国组织与政治核心重建。",
+        "source_refs": [
+          "WAR-LEAD-106-WEI-385-386",
+          "資治通鑑/卷106#386年正月牛川即代王位"
+        ]
+      }
+    ],
+    "慕容垂": [
+      {
+        "event": "脱离前秦崩解局势并以河北旧部完成复国",
+        "impact": "DECISIVE",
+        "basis": "卷105保存慕容垂在前秦崩解中起兵并恢复燕号召，卷106保存后燕对河北旧部和坞民的接收、置守宰与政治控制，能够闭合复国路线。",
+        "source_refs": [
+          "WAR-LEAD-105-LATEYAN-383",
+          "WAR-LEAD-106-LATERYAN-NORTH-385"
+        ]
+      }
+    ],
+    "高洋": [
+      {
+        "event": "承接高氏既有控制并完成北齐形式建国",
+        "impact": "MATERIAL",
+        "basis": "卷163保存高洋受禅、建立北齐、受禅礼仪和东魏皇帝迁出宫城；只支持继承高氏机器后的形式权力转换，MATERIAL 不重复前代成果。",
+        "source_refs": [
+          "資治通鑑/卷163#東魏孝靜帝—自魏敬宗以來百官絕祿"
+        ]
+      }
+    ],
+    "陈霸先": [
+      {
+        "event": "在侯景乱后选择建康中枢重建并建立陈朝",
+        "impact": "DECISIVE",
+        "basis": "卷166保存梁中央崩解后的建康权力竞争及陈霸先取得中枢，卷167保存陈代梁由禅位和宫禁护送完成，足以支持中枢重建与总体夺权路径。",
+        "source_refs": [
+          "WAR-LEAD-166-CHEN-COUP-555",
+          "資治通鑑/卷167#557年十月至十二月陈代梁"
+        ]
+      }
+    ],
+    "司马昭": [
+      {
+        "event": "进一步削弱曹魏皇权并把司马氏中枢控制推进到可禅代状态",
+        "impact": "MAJOR",
+        "basis": "卷077保存曹髦出讨司马昭被杀、曹奂继位及司马昭再受相国晋公九锡，支持皇权进一步失权和中枢控制推进；不消费灭蜀战果。",
+        "source_refs": [
+          "SEC-LEAD-SG-CAOMAO-260",
+          "資治通鑑/卷077#曹奂即位后司马昭再受相国晋公九锡"
+        ]
+      }
+    ],
+    "李雄": [
+      {
+        "event": "重组受挫流民集团并选择成都平原稳定建基",
+        "impact": "DECISIVE",
+        "basis": "卷085保存李流死后军众推李雄、集团取得成都后由范长生供给，并在范长生拒受推后由诸将请李雄即位，足以锚定流民集团重组和成都建基。",
+        "source_refs": [
+          "WAR-LEAD-JIN-CHENGDU-303",
+          "SEC-LEAD-CHENG-HAN-304"
+        ]
+      }
+    ],
+    "赫连勃勃": [
+      {
+        "event": "在强邻夹缝中维持独立路线并建立胡夏政治核心",
+        "impact": "MAJOR",
+        "basis": "卷114胡夏建国卡保存赫连勃勃脱离依附、建立夏号与独立政治核心的连续事实；不把阳武战果和后来进入关中作为本项奖励。",
+        "source_refs": [
+          "WAR-LEAD-114-XIA-407"
+        ]
+      }
+    ],
+    "司马睿": [
+      {
+        "event": "选择建邺承接南渡资源并保存晋室政权",
+        "impact": "DECISIVE",
+        "basis": "卷090保存司马睿在建康由晋王到皇帝、建立百官宗庙社稷并接受北方残余势力劝进，足以锚定江东根据地和晋室合法性承接。",
+        "source_refs": [
+          "DEF-LEAD-EASTERNJIN-317-318",
+          "資治通鑑/卷090#辛巳宋哲至建康"
+        ]
+      }
+    ],
+    "刘备": [
+      {
+        "event": "在长期流动后取得荆南并转向益州建立稳定基地",
+        "impact": "DECISIVE",
+        "basis": "卷066明确写明刘备需要新根据地并进入益州，卷067保存兼并完成后任益州牧、吸纳旧臣和设官，足以支持从流动集团转向益州基地。",
+        "source_refs": [
+          "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214",
+          "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END"
+        ]
+      }
+    ],
+    "沮渠蒙逊": [
+      {
+        "event": "以河西为长期根据地并通过联盟调整保存北凉独立路线",
+        "impact": "MAJOR",
+        "basis": "卷109保存沮渠集团在河西起兵并与段业形成北凉政治组织，卷112保存蒙逊取得北凉主导；只消费根据地和组织路线，不消费灭西凉结果。",
+        "source_refs": [
+          "WAR-LEAD-109-NORTHLIANG-397",
+          "WAR-LEAD-112-MENGXUN-401"
+        ]
+      }
+    ],
+    "孙权": [
+      {
+        "event": "在继承危局中优先稳定江东权力结构并维持独立政治核心",
+        "impact": "MAJOR",
+        "basis": "卷063保存孙策遇刺后张昭、周瑜扶持孙权巡军、稳定属城并接管六郡；只消费继承期权力结构处置，不用后续扩地或正式建吴抬档。",
+        "source_refs": [
+          "資治通鑑/卷063@2594138#廣陵太守陳登治射陽—委心而服事焉",
+          "WAR-LEAD-HAN-SUNCE-JIANGDONG-194-200"
+        ]
+      }
+    ],
+    "苻健": [
+      {
+        "event": "率部西入关中并迅速完成区域政权建基",
+        "impact": "DECISIVE",
+        "basis": "卷098保存苻健由盟津浮梁三路入关、占长安并收秦雍夷夏，卷099保存其初政；可锚定迁徙集团向关中根据地和区域政权的转换。",
+        "source_refs": [
+          "WAR-LEAD-098-FUJIAN-350",
+          "FIN-LEAD-099-QIN-REFORM"
+        ]
+      }
+    ],
+    "吕光": [
+      {
+        "event": "在帝国崩解后回师河西并建立独立政权",
+        "impact": "MAJOR",
+        "basis": "卷106保存吕光在前秦崩解后东归据凉，把远征军转为河西基础；卷107保存该政治核心的后续稳定，足以支持时机和根据地路线。",
+        "source_refs": [
+          "WAR-LEAD-106-LVGUANG-385",
+          "WAR-LEAD-107-LIANG-387"
+        ]
+      }
+    ],
+    "慕容德": [
+      {
+        "event": "在后燕河北崩解后南下止损并建立青齐核心",
+        "impact": "MAJOR",
+        "basis": "卷110保存慕容德在河北崩解后南迁滑台并建立南燕政权，卷111保存迁都广固形成青齐核心，足以支持崩解后的根据地纠偏。",
+        "source_refs": [
+          "FIN-LEAD-110-SOUTHYAN-398",
+          "WAR-LEAD-111-SOUTHYAN-QINGZHOU-399"
+        ]
+      }
+    ],
+    "萧道成": [
+      {
+        "event": "利用中枢军政职位逐步完成南齐权力转换",
+        "impact": "MAJOR",
+        "basis": "卷134保存萧道成预置石头城内应、由王敬则和卜伯兴共领禁兵，并在反对集团失败后继续掌握中枢；该锚支持中枢禁军与权力结构路径，不以战争胜利本身计奖。",
+        "source_refs": [
+          "WAR-LEAD-NC-YUANCAN-477",
+          "資治通鑑/卷134#袁粲刘秉石头兵变"
+        ]
+      }
+    ],
+    "刘渊": [
+      {
+        "event": "利用五部基础在西晋崩解期建立独立汉赵政权",
+        "impact": "MAJOR",
+        "basis": "卷085汉赵建国卡保存刘渊利用并州五部组织基础起兵、建立汉号及政权结构，能够锚定西晋崩解窗口下的独立政治号召。",
+        "source_refs": [
+          "SEC-LEAD-HANZHAO-304"
+        ]
+      }
+    ],
+    "姚苌": [
+      {
+        "event": "脱离前秦崩解局势并在关中建立后秦",
+        "impact": "MAJOR",
+        "basis": "卷105保存姚苌因苻睿败亡和请罪使被杀而脱离，逃至渭北马牧后由羌户五万余家推为盟主并称万年秦王，足以支持政治时机和关中建基。",
+        "source_refs": [
+          "WAR-LEAD-105-GUANZHONG-384"
+        ]
+      }
+    ],
+    "李暠": [
+      {
+        "event": "以敦煌地方支持建立西凉有限核心",
+        "impact": "MATERIAL",
+        "basis": "卷111保存李暠依托敦煌地方官民和士族支持取得区域控制并建立西凉政治核心；范围有限，维持 MATERIAL。",
+        "source_refs": [
+          "WAR-LEAD-111-LIHAO-400",
+          "WAR-LEAD-111-WESTLIANG-400"
+        ]
+      }
+    ],
+    "冯跋": [
+      {
+        "event": "在北燕政变与继承危机中稳定有限政权核心",
+        "impact": "MATERIAL",
+        "basis": "卷114保存冯跋利用慕容熙送葬时机进入龙城、拥高云建立北燕并实际掌军政，足以支持政变时机和中枢组织；只取有限闭合。",
+        "source_refs": [
+          "WAR-LEAD-114-NORTHYAN-407"
+        ]
+      }
+    ],
+    "曹丕": [],
+    "司马师": [
+      {
+        "event": "通过皇帝废立与中枢控制加固司马氏权力结构",
+        "impact": "MAJOR",
+        "basis": "卷076保存司马师在魏帝未遂清除司马昭后决定废帝、另立曹髦并完成无战中枢废立；只消费权力结构处置，不消费淮南平叛。",
+        "source_refs": [
+          "SEC-LEAD-SG-WEI-DEPOSITION-254",
+          "資治通鑑/卷076#正元元年春二月至冬十月"
+        ]
+      }
+    ],
+    "冉闵": [
+      {
+        "event": "在后赵崩解中短暂取得中枢并建立冉魏",
+        "impact": "MATERIAL",
+        "basis": "卷098保存冉闵在后赵中枢崩解中夺取邺、改号并建立魏号，同时也明确各地分裂和招抚失败；可支持短暂夺权路径且只取 MATERIAL。",
+        "source_refs": [
+          "WAR-LEAD-098-RANMIN-349",
+          "WAR-LEAD-098-WEIZHAO-350"
+        ]
+      }
+    ],
+    "刘玄": [
+      {
+        "event": "利用反莽联盟建立更始政权名义中心",
+        "impact": "MATERIAL",
+        "basis": "卷039明确保存刘玄被立为帝、汉兵十余万形成更始政权；足以支持反莽联盟的名义政治中心，但不支持稳定实际控制，故维持 MATERIAL。",
+        "source_refs": [
+          "資治通鑑/卷039#更始元年二月"
+        ]
+      }
+    ],
+    "刘聪": [],
+    "姚兴": [],
+    "宇文邕": [],
+    "拓跋焘": [],
+    "石虎": [],
+    "苻坚": [],
+    "朱温": [],
+    "李存勖": [
+      {
+        "event": "把握后梁中枢空虚的政治时机，拒绝议和并转入夺取中枢的终局",
+        "impact": "DECISIVE",
+        "basis": "降将明确提供大梁空虚与分兵情报，诸将议和时郭崇韬提出长驱入汴，李存勖本人明确决定继续；只消费政治时机与总体终局选择，不消费具体进军解题。",
+        "source_refs": [
+          "資治通鑑/卷272@1554183#願陛下養勇蓄力以待其分兵",
+          "資治通鑑/卷272@1554183#勢，長驅入汴",
+          "資治通鑑/卷272@1554183#虜，吾行決矣"
+        ]
+      }
+    ],
+    "李嗣源": [],
+    "石敬瑭": [
+      {
+        "event": "以晋阳为夺权根据地，并选择借契丹介入推翻后唐中枢的总体夺权路径",
+        "impact": "MAJOR",
+        "basis": "锚点覆盖将财货归集晋阳和采纳屈节求契丹援助的夺权方案；这里只承认该路径对即时夺权的实质作用，割地、称臣和岁输的重大结构代价仍应独立负向扣除。",
+        "source_refs": [
+          "資治通鑑/卷280@1769088#盡收其貨之在洛陽及諸道者歸晉陽",
+          "資治通鑑/卷280@1769088#推心屈節事之",
+          "資治通鑑/卷280@1769088#敬瑭意遂決"
+        ]
+      }
+    ],
+    "王建": [],
+    "耶律阿保机": [],
+    "耶律德光": [],
+    "完颜阿骨打": [
+      {
+        "event": "把女真部落联盟转化为具有皇帝、国号和年号的独立国家",
+        "impact": "DECISIVE",
+        "basis": "固定事实明确锚定阿骨打即皇帝位、定国号大金并改元，足以支持国家结构与独立合法性转换；不消费随后灭辽战果。",
+        "source_refs": [
+          "金史/卷2@7906448#收國元年正月壬申朔，群臣奉上尊號。是日，即皇帝位。上曰：「遼以賓鐵爲號，取其堅也。賓鐵雖堅，終亦變壞，惟金不變不壞。"
+        ]
+      }
+    ],
+    "完颜吴乞买": [],
+    "赵匡胤": [
+      {
+        "event": "杯酒释兵权并取消殿前副都点检常设任命",
+        "impact": "EXCEPTIONAL",
+        "basis": "锚点覆盖提出解除宿将兵权、宿将实际罢军职以及殿前副都点检不再授任，完整支持创业期军权结构处置。",
+        "source_refs": [
+          "續資治通鑑/卷002@2358394#稍奪其權，制其錢糧，收其精兵",
+          "續資治通鑑/卷002@2358394#卿等何不釋去兵權",
+          "續資治通鑑/卷002@2358394#使，皆罷軍職",
+          "續資治通鑑/卷002@2358394#殿前副點檢自是亦不復除"
+        ]
+      }
+    ],
+    "赵光义": [],
+    "李元昊": [
+      {
+        "event": "通过本族名号、独立正朔与称帝建制，再以宋夏和议确立对外名分",
+        "impact": "DECISIVE",
+        "basis": "锚点覆盖脱离宋赐姓与正朔、以及和议后的夏国主名分；只消费合法性和对外政治安排，不消费对宋战争本身。",
+        "source_refs": [
+          "西夏書事/11@2287885#改姓嵬名氏，稱吾祖。",
+          "西夏書事/11@2287885#改中國明道元爲顯道，稱于國中。",
+          "續資治通鑑/卷046@2268485#元昊始稱臣，自號夏國主",
+          "續資治通鑑/卷047@2271052#冊元昊為夏國主，更名曩霄，約稱臣，奉正朔"
+        ]
+      }
+    ],
+    "铁木真": [
+      {
+        "event": "完成草原主要竞争集团整合后，以诸王群臣大会、皇帝尊号和统一最高权力完成国家建构",
+        "impact": "DECISIVE",
+        "basis": "锚点覆盖克烈、乃蛮余众归附和1206年大会即位；正向消费仅落在整合后的国家权力建构，不把具体消灭对手的战役方法当作A2奖励。",
+        "source_refs": [
+          "元史/卷001@2259382#盡降克烈部眾",
+          "元史/卷001@2259382#明日，餘眾悉降",
+          "元史/卷001@2259382#建九游白旗，即皇帝位於斡難河之源",
+          "元史/卷001@2259382#共上尊號曰成吉思皇帝"
+        ]
+      }
+    ],
+    "窝阔台": [],
+    "蒙哥": [],
+    "忽必烈": [],
+    "朱元璋": [],
+    "努尔哈赤": [
+      {
+        "event": "先完成女真诸部整合与后金国家建构，再公开转向明朝辽东体系",
+        "impact": "DECISIVE",
+        "basis": "编年锚定1616年建国及共同议政结构，继以七大恨公开转入对明战争；消费总体阶段转换，不消费萨尔浒等具体战果。",
+        "source_refs": [
+          "清史稿/卷1@2589312#上卽位，建元天命，定國號曰金。",
+          "清史稿/卷1@2589312#爲五大臣，同聽國政。",
+          "清史稿/卷1@2589312#上伐明，以七大恨告天"
+        ]
+      }
+    ],
+    "皇太极": [
+      {
+        "event": "重构跨满汉蒙古的中央机构、蒙古编制与国家名号，扩大入关前政权的合法性和整合基础",
+        "impact": "DECISIVE",
+        "basis": "锚点覆盖六部跨族配置、蒙古编旗和大清国号礼制，足以支持权力结构和合法性重构；不消费松锦战役。",
+        "source_refs": [
+          "清史稿/卷2@2589313#辰，始設六部，",
+          "清史稿/卷2@2589313#每部滿、漢、蒙古分設承政官",
+          "清史稿/卷2@2589313#編喀喇沁部蒙古壯丁為十一旗",
+          "清史稿/卷3@2589314#行受尊號禮，定有天下之號曰大清，改元崇德"
+        ]
+      }
+    ],
+    "多尔衮": [
+      {
+        "event": "把握明朝中枢覆亡的政治窗口，决定入关争夺全国政权并迁都北京建立统治基盘",
+        "impact": "DECISIVE",
+        "basis": "锚点覆盖明亡窗口、入关、迁都北京及接管明代官僚体系，足以支持政治时机与全国夺权路径；击败大顺的具体战果不进入本奖励。",
+        "source_refs": [
+          "清史稿/卷4@2267892#流賊李自成陷燕京，明帝自經。",
+          "清史稿/卷4@2267892#三桂開關出迎，大軍入關。",
+          "清史稿/卷4@2267892#定議建都燕京",
+          "清史稿/卷4@2267892#以原官同滿洲官一體辦理。"
+        ]
+      }
+    ],
+    "黄巢": [],
+    "李昪": [
+      {
+        "event": "以齐国和大元帅府逐步替代杨吴中枢，再通过禅代完成南唐权力结构转换",
+        "impact": "MAJOR",
+        "basis": "连续锚点显示先建立封国和替代性六部财政架构，再接受禅位，支持渐进式权力结构转换，不是只用受禅结果领取奖励。",
+        "source_refs": [
+          "資治通鑑/卷279@1769087#十州為齊國",
+          "資治通鑑/卷280@1769088#始建大元帥府",
+          "資治通鑑/卷280@1769088#分判吏、戶、禮、兵、刑、工部及鹽鐵",
+          "資治通鑑/卷281@1769092#詔，禪位於齊",
+          "資治通鑑/卷281@1769092#齊王誥即皇帝位於金陵"
+        ]
+      }
+    ],
+    "刘龑": [],
+    "郭威": [
+      {
+        "event": "在后汉中枢诛杀顾命集团并清洗本人家属后，把握政权崩解窗口转入取代后汉的总体夺权路径",
+        "impact": "DECISIVE",
+        "basis": "固定编年锚定中枢清洗、郭威家属被诛及其留柴荣守邺都后南下；奖励的是政治窗口和总体夺权转向，不消费沿途军事行动。",
+        "source_refs": [
+          "資治通鑑/卷289@1769444#誅郭威、王峻之家",
+          "資治通鑑/卷289@1769444#嬰孺無免者",
+          "資治通鑑/卷289@1769444#心，擁兵而南",
+          "資治通鑑/卷289@1769444#留其養子榮鎮鄴都"
+        ]
+      }
+    ],
+    "柴荣": [],
+    "述律平": [
+      {
+        "event": "在阿保机死后主导继承与中枢权力重组，拥立耶律德光并掌决国事",
+        "impact": "MAJOR",
+        "basis": "编年可定位述律平操纵拥立德光并掌决国事；只奖励继承和权力结构闭合，清洗诸将的负面内容不得被正向表述遮蔽。",
+        "source_refs": [
+          "資治通鑑/卷275@803286#爭執德光轡歡躍",
+          "資治通鑑/卷275@803286#遂立之為天皇王",
+          "資治通鑑/卷275@803286#國事皆決焉"
+        ]
+      }
+    ],
+    "耶律大石": [
+      {
+        "event": "脱离已崩解的辽朝中枢后选择西迁，在可敦城重新建立军政根据地并完成独立国家合法性",
+        "impact": "DECISIVE",
+        "basis": "锚点覆盖脱离辽主、西迁后设置官吏军制及最终册立为帝，支持重新选择根据地和复国合法性路径。",
+        "source_refs": [
+          "續資治通鑑/卷095@2299598#自立為王，率鐵騎三百宵遁",
+          "遼史/卷30@2259598#遂得精兵萬餘，置官吏，立排甲，具器仗。",
+          "遼史/卷30@2259598#文武百官冊立大石為帝，以甲辰歲二月五日即位，年三十八，號葛兒罕。"
+        ]
+      }
+    ],
+    "赵构": [
+      {
+        "event": "决定将行在南迁扬州，并先行修城、配置随军转运与宫禁宿卫",
+        "impact": "MAJOR",
+        "basis": "固定编年明确记载为南迁修城和设置运输官，继而驻跸扬州；只消费中央落脚点及配套组织选择，不把后续守城或战役成果纳入。",
+        "source_refs": [
+          "續資治通鑑/卷100@2300291#命知揚州呂頤浩修城池，發運副使李祐等為隨軍轉運使，以將南遷也",
+          "續資治通鑑/卷100@2300291#帝至揚州，駐蹕州治"
+        ]
+      }
+    ],
+    "朱聿键": [],
+    "朱由榔": [],
+    "福临": [],
+    "玄烨": [],
+    "洪秀全": []
+  }
 }

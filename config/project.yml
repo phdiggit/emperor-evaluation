@@ -85,9 +85,9 @@ historical_person_profile_registry:
   formal_writes_allowed: false
 
 military_talent_grade_registry:
-  source_registry: docs/公共成果/军事/01-秦至唐战役登记.json
-  current_json: docs/公共成果/军事/02-秦至唐武将人才等级.json
-  current_markdown: docs/公共成果/军事/02-秦至唐武将人才等级.md
+  source_registry: docs/公共成果/军事/01-战役登记.json
+  current_json: docs/公共成果/军事/02-武将人才等级.json
+  current_markdown: docs/公共成果/军事/02-武将人才等级.md
   supersedes_prior_military_talent_grades: true
   formal_score_write: false
 
@@ -96,11 +96,16 @@ first_item_a_registry:
   competitive_landscapes: config/first-item-a-competitive-landscapes.json
   region_values: config/first-item-c-territorial-control-adjudications.json
   roster: docs/评分结算/第三项军事与边疆净收益/02-秦至唐第三项正式结算.json
-  output_json: docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-秦至唐第一项A战略决策能力结算.json
-  output_markdown: docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-秦至唐第一项A战略决策能力结算.md
+  output_json: docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json
+  output_markdown: docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.md
   eligibility: dynasty_founders_only
   max_points: 100
   absorbs_former_first_item_d: true
+  difficulty_start_basis: 10pct_personal_origin_plus_35pct_attributable_project_start
+  contribution_start_field_use: project_start_share_and_fragmentation_calibration
+  control_value_interpretation: territorial_control_realization_not_total_founder_contribution
+  recovered_control_scoring_rate: 0.5
+  core_unification_cutoff: qing_1683_three_feudatories_and_taiwan_closure
   excluded_output_status: NOT_APPLICABLE_NON_FOUNDER
   formal_score_write: false
   database_write: false
@@ -108,9 +113,11 @@ first_item_a_registry:
 
 first_item_b_registry:
   adjudications: config/first-item-b-team-contribution-adjudications.json
-  roster: docs/评分结算/第三项军事与边疆净收益/02-秦至唐第三项正式结算.json
-  output_json: docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力结算.json
-  output_markdown: docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力结算.md
+  roster: config/所有君主.yml + config/first-item-a-strategic-efficiency-inputs.json
+  battle_registry: docs/公共成果/军事/01-战役登记.json
+  talent_registry: docs/公共成果/军事/02-武将人才等级.json
+  output_json: docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json
+  output_markdown: docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.md
   eligibility: dynasty_founders_only
   max_points: 60
   formal_score_write: false
@@ -118,22 +125,27 @@ first_item_b_registry:
   ranking_write: false
 
 first_item_c_registry:
-  battle_registry: docs/公共成果/军事/01-秦至唐战役登记.json
-  talent_registry: docs/公共成果/军事/02-秦至唐武将人才等级.json
+  battle_registry: docs/公共成果/军事/01-战役登记.json
+  talent_registry: docs/公共成果/军事/02-武将人才等级.json
   acquisition_windows: config/first-item-c-acquisition-windows.json
   territorial_control: config/first-item-c-territorial-control-adjudications.json
   territorial_control_schema: config/first-item-c-territorial-control.schema.json
-  output_json: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-秦至唐第一项C军事夺取能力结算.json
-  output_markdown: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-秦至唐第一项C军事夺取能力结算.md
+  eligibility: dynasty_founders_only
+  c1_max_points: 50
+  c2_max_points: 50
+  output_json: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json
+  output_markdown: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.md
   formal_score_write: false
   database_write: false
   ranking_write: false
 
 first_item_summary:
-  strategic_result: docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-秦至唐第一项A战略决策能力结算.json
-  team_result: docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力结算.json
-  military_result: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-秦至唐第一项C军事夺取能力结算.json
-  summary_markdown: docs/评分结算/第一项创业与政权取得能力/01-第一大项结算总结分析.md
+  strategic_result: docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json
+  team_result: docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json
+  military_result: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json
+  formal_json: docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json
+  formal_markdown: docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.md
+  summary_markdown: docs/评分结算/第一项创业与政权取得能力/02-第一项结算总结分析.md
   eligibility: dynasty_founders_only
   max_points: 260
   database_write: false

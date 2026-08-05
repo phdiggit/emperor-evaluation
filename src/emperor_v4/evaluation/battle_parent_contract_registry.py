@@ -1989,14 +1989,15 @@ def render_battle_parent_contract_registry_markdown(
                 "",
                 str(calibration.get("comparison_basis") or "—"),
                 "",
-                "| 统一链 | 王朝 | 总档 | O5 | O4 | O3 | 最高层对手 | 净控制量（辅助） |",
-                "| --- | --- | --- | ---: | ---: | ---: | --- | ---: |",
+                "| 统一链 | 王朝 | 总档 | O6 | O5 | O4 | O3 | 最高层对手 | 净控制量（辅助） |",
+                "| --- | --- | --- | ---: | ---: | ---: | ---: | --- | ---: |",
             ]
         )
         for row in calibration.get("benchmark_records") or []:
             lines.append(
                 f"| `{row['portfolio_ref']}` | {row['dynasty']} | "
                 f"`{row['horizontal_total_band']}` | "
+                f"{row['credited_opponent_counts']['O6']} | "
                 f"{row['credited_opponent_counts']['O5']} | "
                 f"{row['credited_opponent_counts']['O4']} | "
                 f"{row['credited_opponent_counts']['O3']} | "
@@ -2498,8 +2499,8 @@ def write_battle_parent_contract_registry(
     payload = merge_post_tang_battle_registry(payload, workspace_root)
     target = workspace_root / "docs/公共成果/军事"
     target.mkdir(parents=True, exist_ok=True)
-    json_path = target / "01-秦至唐战役登记.json"
-    markdown_path = target / "01-秦至唐战役登记.md"
+    json_path = target / "01-战役登记.json"
+    markdown_path = target / "01-战役登记.md"
     json_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

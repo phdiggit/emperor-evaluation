@@ -352,7 +352,7 @@ def _load_unification_opponent_calibrations(
             / "config/unification-chain-opponent-calibrations.json"
         ).read_text(encoding="utf-8")
     )
-    if payload.get("schema_version") != "unification-chain-opponent-calibrations-v1":
+    if payload.get("schema_version") != "unification-chain-opponent-calibrations-v2":
         raise ValueError("统一链对手战争机器校准配置无效")
     rows = list(payload.get("adjudications") or ())
     by_ref = {str(row.get("portfolio_ref") or ""): row for row in rows}
@@ -368,7 +368,7 @@ def _load_unification_opponent_calibrations(
         )
     all_system_ids: set[str] = set()
     credited_closures = {"FULL_TERMINAL", "DECISIVE_SYSTEM_DEFEAT"}
-    allowed_grades = {"O1", "O2", "O3", "O4", "O5"}
+    allowed_grades = {"O1", "O2", "O3", "O4", "O5", "O6"}
     allowed_chain_grades = {
         "H1", "H2", "H3", "H4", "H5", "BELOW_H5", "NOT_COMPARABLE"
     }
@@ -416,7 +416,8 @@ def _load_unification_opponent_calibrations(
             "NOT_COMPARABLE"
             if chain_grade == "NOT_COMPARABLE"
             else "H1"
-            if max(compound_o5_counts.values(), default=0) >= 2
+            if credited_counts["O6"] >= 1
+            or max(compound_o5_counts.values(), default=0) >= 2
             or full_counts["O5"] >= 3
             or (full_counts["O5"] >= 2 and full_counts["O4"] >= 1)
             else "H2"
@@ -428,7 +429,7 @@ def _load_unification_opponent_calibrations(
             else "H4"
             if full_counts["O4"] >= 1 and full_counts["O3"] >= 1
             else "H5"
-            if full_counts["O3"] >= 1
+            if full_counts["O4"] >= 1 or full_counts["O3"] >= 1
             else "BELOW_H5"
         )
         if chain_grade != expected_grade:
@@ -1768,14 +1769,18 @@ def build_post_tang_battle_partitions(
                 "chain_grade_rule_hit": row["chain_grade_rule_hit"],
                 "credited_opponent_counts": {
                     grade: credited_counts.get(grade, 0)
-                    for grade in ("O5", "O4", "O3", "O2", "O1")
+                    for grade in ("O6", "O5", "O4", "O3", "O2", "O1")
                 },
                 "top_opponents": [
                     system["opponent_label"]
                     for system in systems
                     if system["closure"] in credited_closures
                     and system["organization_grade"]
-                    in ({"O5"} if credited_counts["O5"] else {"O4"})
+                    in (
+                        {"O6"}
+                        if credited_counts["O6"]
+                        else ({"O5"} if credited_counts["O5"] else {"O4"})
+                    )
                 ],
                 "created_net_control_value_auxiliary": row.get(
                     "created_net_control_value"
@@ -1803,7 +1808,7 @@ def build_post_tang_battle_partitions(
     }
     calibration = {
         "source_config": "config/unification-chain-opponent-calibrations.json",
-        "comparison_basis": "统一链主档只消费被实际击败的独立战争机器：按交战时已经兑现的统一指挥、财政补给、兵员再生、根据地纵深和持续作战能力裁O1至O5；先去重同一体系的复起和残余，再以最高对手层级、同级数量及复合终局落H1至H5。区域价值和净控制量只校验根据地支撑与战果落地，不再通过数值公式决定总档。",
+        "comparison_basis": "统一链主档只消费被实际击败的独立战争机器：按交战时已经兑现的统一指挥、财政补给、兵员再生、根据地纵深、持续作战能力及相对奠基政权的实际军事能量裁O1至O6；O6为持续压制奠基政权的超越型强敌，O5为同级时代竞争极。先去重同一体系的复起和残余，再以最高对手层级、同级数量及复合终局落H1至H5。区域价值和净控制量只校验根据地支撑与战果落地，不再通过数值公式决定总档。",
         "band_rules": {
             "H1": "复合终结至少两个O5，或终结至少三个O5，或完整终结两个O5并另有O4。",
             "H2": "击败两个O5，或一个O5并完整终结至少两个O4，或完整终结至少三个O4。",
@@ -1955,7 +1960,14 @@ def merge_post_tang_battle_registry(payload: Mapping[str, Any], workspace_root: 
     ):
         raise ValueError("普通战役高档对手信用审计缺失或重复")
     tier_rank = {None: -1, "C": 0, "B": 1, "A": 2, "S-": 3, "S": 4, "S+": 5}
-    grade_cap = {"O1": "B", "O2": "B", "O3": "A", "O4": "S-", "O5": "S"}
+    grade_cap = {
+        "O1": "B",
+        "O2": "B",
+        "O3": "A",
+        "O4": "S-",
+        "O5": "S",
+        "O6": "S+",
+    }
     for battle_ref, audit in ordinary_audit_by_ref.items():
         record = records_by_ref.get(battle_ref)
         final_tier = audit.get("final_tier")

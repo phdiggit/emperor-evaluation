@@ -1,24 +1,25 @@
 {
-  "schema_version": "unification-chain-opponent-calibrations-v1",
+  "schema_version": "unification-chain-opponent-calibrations-v2",
   "status": "CURRENT_MANUAL_ADJUDICATION_NOT_GOLD",
-  "purpose": "以被实际击败的独立战争机器校准统一链含金量；区域价值只证明根据地支撑和战果落地，不直接相加决定总档。",
+  "purpose": "以被实际击败的独立战争机器校准统一链含金量；O6表示明确压制奠基政权的超越型强敌，O5表示可争夺时代主导权的同级竞争极；区域价值只证明根据地支撑和战果落地。",
   "rubric": {
     "opponent_system_grades": {
-      "O5": "全国第一梯队国家机器：多支主力、稳定军政财政、跨区投送和重大失败后的再动员能力均已兑现。",
-      "O4": "成熟区域国家机器：有完整宏区根据地、稳定行政征补和持续独立战争能力。",
+      "O6": "超越型强敌：军事能量明确高于奠基人政权，能持续支配或调控统一局面，具跨区多军团投送、稳定补给和失败后再动员能力。",
+      "O5": "同级全国竞争极：具成熟中央或等效统一汗权、跨区域主力和持续再动员能力，足以同奠基人政权争夺全国或时代主导权，但未形成持续压制。",
+      "O4": "成熟区域国家或战争机器：有完整宏区根据地、稳定行政征补和持续独立战争能力，但不足以争夺整个时代的主导权。",
       "O3": "成建制方面军或区域政权：统一指挥并能持续负责主要方向，但国家纵深或再生能力不完整。",
       "O2": "大型流动军、松散联盟或短期割据：可形成大会战，但缺乏稳定国家机器。",
       "O1": "地方部众、残余据点或低于主要方向的武装。"
     },
     "chain_grade_rules": {
-      "H1": "同一连续战役群复合终结至少两个O5，或全链终结至少三个O5，或终结两个O5并另有至少一个O4。",
-      "H2": "终结两个O5，或一个O5并另有至少两个O4，或终结至少三个O4。",
-      "H3": "终结一个O5，或终结至少两个O4。",
+      "H1": "终结一个O6；或同一连续战役群复合终结至少两个O5；或全链终结至少三个O5；或终结两个O5并另有至少一个O4。",
+      "H2": "终结两个O5；或一个O5并另有至少两个O4；或终结至少三个O4。",
+      "H3": "终结一个O5；或终结至少两个O4。",
       "H4": "终结一个O4并另有O3纵深。",
-      "H5": "至少终结一个O3；只有O1/O2者低于H5。"
+      "H5": "至少终结一个O3或O4；只有O1/O2者低于H5。"
     },
     "closure_policy": "FULL_TERMINAL与DECISIVE_SYSTEM_DEFEAT可消费对手体系；RECOVERY_SAME_SYSTEM只增强原体系韧性，不另算一个对手；NON_ATTRIBUTABLE_COLLAPSE与POLITICAL_HANDOFF不产生军事含金量。",
-    "origin_policy": "不按农民军、部族或旧国家出身定档，只按交战当时已经兑现的指挥、财政补给、兵员再生、根据地纵深和持续战争能力定档。",
+    "origin_policy": "不按国号、农民军、部族或旧国家出身定档，只按交战时已经兑现的实际军事能量定档；完整国家名义、一次大军或潜在资源不能单独支持O5/O6。",
     "region_policy": "时期化区域M只作对手根据地能力的证据或上限线索；实际组织未兑现时必须降档，外部国家持续支援可另行明示。"
   },
   "adjudications": [
@@ -26,8 +27,8 @@
       "portfolio_ref": "UCP-QIN-YINGZHENG-230-221",
       "dynasty": "秦",
       "chain_grade": "H1",
-      "rule_hit": "THREE_O5_TERMINALS",
-      "grade_basis": "连续终结赵、楚、齐三个全国第一梯队国家机器，并另行终结韩、魏、燕等成熟国家体系。",
+      "rule_hit": "TWO_O5_PLUS_O4",
+      "grade_basis": "实际终结赵、楚两个同级全国竞争极，并另行终结齐、燕、魏等成熟区域国家机器；齐国终局未兑现O5级多军团抵抗，降为O4。",
       "opponent_systems": [
         {
           "system_id": "OPP-QIN-HAN",
@@ -101,7 +102,7 @@
         {
           "system_id": "OPP-QIN-QI",
           "opponent_label": "齐国国家机器",
-          "organization_grade": "O5",
+          "organization_grade": "O4",
           "closure": "FULL_TERMINAL",
           "base_regions": [
             "MR-SHANDONG"
@@ -116,14 +117,14 @@
     {
       "portfolio_ref": "UCP-HAN-LIUBANG-BCE207-BCE202",
       "dynasty": "西汉",
-      "chain_grade": "H2",
-      "rule_hit": "ONE_O5_PLUS_TWO_O4",
-      "grade_basis": "终结西楚全国第一梯队，并连续击败三秦和齐地两个成熟区域体系；魏赵燕等不因数量机械叠成O5。",
+      "chain_grade": "H1",
+      "rule_hit": "ONE_O6_TERMINAL",
+      "grade_basis": "项羽西楚在楚汉前中期军事能量明确压过汉集团，并多次跨区兑现压制，属于O6；终结该超越型强敌直接命中H1。",
       "opponent_systems": [
         {
           "system_id": "OPP-WHAN-WESTERN-CHU",
           "opponent_label": "项羽西楚国家与主力体系",
-          "organization_grade": "O5",
+          "organization_grade": "O6",
           "closure": "FULL_TERMINAL",
           "base_regions": [
             "MR-HUAISI",
@@ -195,8 +196,8 @@
       "portfolio_ref": "UCP-HAN-LIUXIU-23-36",
       "dynasty": "东汉",
       "chain_grade": "H2",
-      "rule_hit": "ONE_O5_PLUS_TWO_O4",
-      "grade_basis": "公孙述为O5；隗嚣与张步齐地体系分别达到O4。其余区域政权和大型流动军按实际组织度落O3或以下；因此总链命中一O5加两O4的H2。",
+      "rule_hit": "THREE_PLUS_O4",
+      "grade_basis": "公孙述、隗嚣、张步和李宪均达到成熟区域战争机器O4，但没有一套在全局上达到与东汉集团争夺时代主导权的O5；四个O4命中H2。",
       "opponent_systems": [
         {
           "system_id": "OPP-EHAN-WANGLANG",
@@ -319,7 +320,7 @@
         {
           "system_id": "OPP-EHAN-GONGSUNSHU",
           "opponent_label": "公孙述成家国家机器",
-          "organization_grade": "O5",
+          "organization_grade": "O4",
           "closure": "FULL_TERMINAL",
           "base_regions": [
             "MR-BASHU"
@@ -371,14 +372,14 @@
     {
       "portfolio_ref": "UCP-SUI-YANGJIAN-587-591",
       "dynasty": "隋",
-      "chain_grade": "H3",
-      "rule_hit": "ONE_O5_TERMINAL",
-      "grade_basis": "灭陈终结成熟全国国家机器；后续江南反抗是同一体系余波，不再完整增加一个对手。",
+      "chain_grade": "H5",
+      "rule_hit": "ONE_O4_TERMINAL",
+      "grade_basis": "陈朝具成熟江南国家机器但未兑现与隋争夺时代主导权的军事能量，按O4；统一后江南残余为同体系恢复方向，不另计。",
       "opponent_systems": [
         {
           "system_id": "OPP-SUI-CHEN",
           "opponent_label": "陈朝国家机器",
-          "organization_grade": "O5",
+          "organization_grade": "O4",
           "closure": "FULL_TERMINAL",
           "base_regions": [
             "MR-JIANGNAN",
@@ -395,6 +396,7 @@
           "opponent_label": "江南旧陈残余与地方反抗",
           "organization_grade": "O2",
           "closure": "RECOVERY_SAME_SYSTEM",
+          "lineage_parent": "OPP-SUI-CHEN",
           "base_regions": [
             "MR-JIANGNAN"
           ],
@@ -537,14 +539,14 @@
           "system_id": "OPP-TANG-FUGONGSHI",
           "opponent_label": "辅公祏江南复叛体系",
           "organization_grade": "O4",
-          "closure": "RECOVERY_SAME_SYSTEM",
+          "closure": "FULL_TERMINAL",
           "base_regions": [
             "MR-JIANGNAN"
           ],
           "source_campaign_refs": [
             "WAR-LEAD-TANG-FUGONGSHI"
           ],
-          "basis": "辅公祏在丹阳称帝、设官，大修铠仗并运输粮储，以舟师三万、步骑二万和横江城垒持续作战，组织度达到O4；但该役是唐已取得江南后的恢复战争，单项仍按恢复阶段A，不重复取得完整新区终局信用。"
+          "basis": "辅公祏在丹阳称帝、设官，大修铠仗并运输粮储，以舟师三万、步骑二万和横江城垒持续作战，形成区别于李子通的独立O4战争机器；其对手体系可独立消费，但土地仍按已取得江南后的恢复控制去重。"
         },
         {
           "system_id": "OPP-TANG-LIANGSHIDU",
@@ -904,8 +906,8 @@
       "portfolio_ref": "UCP-POST-MING-1353-1382",
       "dynasty": "明",
       "chain_grade": "H2",
-      "rule_hit": "TWO_O5_SYSTEM_DEFEATS",
-      "grade_basis": "终结陈汉O5并决定性逐出元朝中央O5体系，另终结张士诚和明夏两个O4；北元续存使元只记系统性击败而非完整终结。",
+      "rule_hit": "ONE_O5_PLUS_TWO_O4",
+      "grade_basis": "陈友谅汉国是能够与朱元璋集团争夺时代主导权的O5；1367年元中央已失统一指挥与再动员，降为O4，连同张士诚、明夏仍满足一O5加至少两O4的H2。",
       "opponent_systems": [
         {
           "system_id": "OPP-MING-CHEN-HAN",
@@ -939,7 +941,7 @@
         {
           "system_id": "OPP-MING-YUAN-CENTRAL",
           "opponent_label": "元朝中央与北方国家体系",
-          "organization_grade": "O5",
+          "organization_grade": "O4",
           "closure": "DECISIVE_SYSTEM_DEFEAT",
           "base_regions": [
             "MR-HEBEI",

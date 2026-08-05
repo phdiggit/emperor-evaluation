@@ -1,73 +1,3789 @@
 {
-  "schema_version": "first-item-a-competitive-landscapes-v4",
+  "schema_version": "first-item-a-competitive-landscapes-v8",
   "status": "CURRENT",
-  "unit_contract": "资源单位是同一人物窗口内的相对有效战略资源，只用于求份额；包括稳定控制区域、可持续兵源、财赋与可调用军政机器，不跨人物比较绝对单位。",
+  "unit_contract": "start_field是本人首次形成可归责贡献时的相对有效战略资源，只用于贡献窗口竞争格局分散度；本人更早的拥有或继承资源由strategic inputs的initial_resource_share_pct独立登记。单位不跨人物比较绝对大小。",
   "calculation_contract": {
-    "starting_resource_share": "subject_units/sum(start_field actor units)",
+    "starting_resource_share": "config/first-item-a-strategic-efficiency-inputs.json#records[].initial_resource_share_pct/100",
     "starting_resource_disadvantage": "1-starting_resource_share",
     "single_opponent_pressure": "opponent_units/(subject_units+opponent_units)",
-    "opponent_pressure": "公共战役战场压力与同期相对资源压力各占50%。战场压力取combat_difficulty、opponent_condition、opponent_strategic_weight等权平均，发生控制恢复时再加入regeneration维度；全部主要战役群按结果档位加权平均，并与单群最高危险度各占50%。相对资源压力按major_opponent_encounters的成果权重聚合opponent_units/(subject_units+opponent_units)。没有公共战役窗口时只使用相对资源压力",
-    "environment_complexity": "起点竞争格局各主体资源份额的归一化Shannon entropy；单一主体时为0"
-  },
-  "campaign_threat_sources": {
-    "李渊":{"portfolio_refs":["UCP-TANG-LIYUAN-617-628"],"campaign_refs":["WAR-LEAD-TANG-TURK-624/625"]},
-    "李世民":{"portfolio_refs":["UCP-TANG-LIYUAN-617-628"],"campaign_refs":["WAR-LEAD-TANG-TURK-624/625"]},
-    "刘邦":{"portfolio_refs":["UCP-HAN-LIUBANG-BCE207-BCE202"]},
-    "刘秀":{"portfolio_refs":["UCP-HAN-LIUXIU-23-36"]},
-    "嬴政":{"portfolio_refs":["UCP-QIN-YINGZHENG-230-221"]},
-    "杨坚":{"portfolio_refs":["UCP-SUI-YANGJIAN-587-591"],"include_campaign_refs":["WAR-PARENT-SUI-UNIFICATION-589"],"campaign_refs":["WAR-LEAD-NC-YUCHIJIONG-580"]},
-    "司马炎":{"portfolio_refs":["UCP-JIN-SIMAYAN-279-280"]},
-    "曹操":{"portfolio_refs":["UCP-ANNEXATION-CAO-XUZHOU-LUBU","UCP-ANNEXATION-CAO-NORTH","UCP-ANNEXATION-CAO-HANZHONG"]},
-    "司马昭":{"portfolio_refs":["UCP-ANNEXATION-WEI-SHU-263"]},
-    "石勒":{"portfolio_refs":["UCP-REGIONAL-SHILE-FORMATION","UCP-ANNEXATION-LATER-ZHAO-EXPANSION"]},
-    "拓跋珪":{"portfolio_refs":["UCP-REGIONAL-NORTHERN-WEI-FORMATION"]},
-    "刘备":{"portfolio_refs":["UCP-REGIONAL-LIUBEI-SOUTHWEST"]},
-    "孙权":{"portfolio_refs":["UCP-ANNEXATION-SUNQUAN-WEST-SOUTH"]},
-    "苻健":{"portfolio_refs":["UCP-REGIONAL-FUJIAN-FORMATION"]},
-    "吕光":{"portfolio_refs":["UCP-REGIONAL-LVGUANG-LIANGZHOU"]},
-    "慕容德":{"portfolio_refs":["UCP-REGIONAL-SOUTHERN-YAN-FORMATION"]},
-    "赫连勃勃":{"portfolio_refs":["UCP-REGIONAL-XIA-FORMATION"]},
-    "刘渊":{"portfolio_refs":["UCP-REGIONAL-HANZHAO-FORMATION"]},
-    "李暠":{"portfolio_refs":["UCP-REGIONAL-WESTERN-LIANG-FORMATION"]}
+    "opponent_pressure": "有O体系窗口时，战争机器压力占70%、同期相对资源压力占30%；无可裁决O体系时只使用相对资源压力并标为证据下限。战役等级与D难度均不进入本项。",
+    "environment_complexity": "贡献窗口start_field各主体资源份额的归一化Shannon entropy；单一主体时为0",
+    "opponent_system_pressure": "O1—O6映射15/30/50/70/85/100，独立战争机器按强度排序采用55%/20%/10%/7%/4%席位权重，第六项以后共享最后4%；同体系多阶段只计一次。"
   },
   "records": [
-    {"ruler_name":"李渊","start_field":{"subject_units":4,"other_actors":{"隋中央及地方留守":55,"薛举与西秦":6,"梁师都与北边割据":5,"关东河北江汉岭南诸势力":30}},"major_opponent_encounters":[["隋中央及地方留守",4,30,18],["薛举",6,8,10],["刘武周",8,10,10],["王世充",15,18,15],["窦建德",15,22,20],["萧铣",28,13,10],["刘黑闼",30,10,8],["梁师都及东突厥支持",38,8,5],["其余割据",20,16,4]]},
-    {"ruler_name":"刘邦","start_field":{"subject_units":1,"other_actors":{"秦朝有效控制":55,"楚系起义军":14,"其他反秦武装与地方势力":30}},"major_opponent_encounters":[["秦朝关中与地方军",2,30,15],["项羽西楚",12,35,45],["三秦",9,12,12],["齐赵等异姓诸王",24,22,18],["其他割据与反复诸侯",30,15,10]]},
-    {"ruler_name":"刘秀","start_field":{"subject_units":1,"other_actors":{"新朝有效控制":40,"更始政权":18,"赤眉":12,"河北群雄":16,"陇蜀及其他割据":13}},"major_opponent_encounters":[["王郎",2,8,8],["河北铜马等军",5,13,12],["更始政权",7,20,14],["赤眉",16,22,16],["隗嚣",28,14,12],["公孙述",34,20,18],["其他地方割据",20,14,20]]},
-    {"ruler_name":"王莽","start_field":{"subject_units":92,"other_actors":{"西汉宗室与反对派":8}},"major_opponent_encounters":[["西汉宗室与反对派",92,8,100]]},
-    {"ruler_name":"高欢","start_field":{"subject_units":28,"other_actors":{"尔朱氏诸军":37,"北魏中枢及其他军镇":35}},"major_opponent_encounters":[["尔朱兆",28,32,45],["尔朱天光等关中军",35,22,20],["贺拔岳与关陇集团",42,16,15],["北魏中枢及地方反对力量",40,20,20]]},
-    {"ruler_name":"司马懿","start_field":{"subject_units":42,"other_actors":{"曹爽中枢集团":48,"曹魏皇权及中立军政力量":10}},"major_opponent_encounters":[["曹爽集团",42,48,100]]},
-    {"ruler_name":"嬴政","start_field":{"subject_units":35,"other_actors":{"楚":22,"赵":12,"齐":10,"燕":7,"魏":6,"韩":4,"其他边缘力量":4}},"major_opponent_encounters":[["韩",35,4,6],["赵",39,12,20],["魏",48,6,10],["楚",52,24,34],["燕与代",58,9,14],["齐",64,10,16]]},
-    {"ruler_name":"李世民","start_field":{"subject_units":4,"other_actors":{"隋中央及地方留守":55,"薛举与西秦":6,"梁师都与北边割据":5,"关东河北江汉岭南诸势力":30}},"major_opponent_encounters":[["薛举薛仁杲",6,8,16],["刘武周宋金刚",8,10,16],["王世充",15,18,20],["窦建德",15,22,25],["刘黑闼",30,10,11],["东突厥南下主力",34,40,12]]},
-    {"ruler_name":"杨坚","start_field":{"subject_units":65,"other_actors":{"北周反对军镇":10,"南陈":22,"其他边缘政权":3}},"major_opponent_encounters":[["尉迟迥等北周反对军镇",65,18,35],["南陈",82,24,60],["其他边缘政权",90,5,5]]},
-    {"ruler_name":"刘裕","start_field":{"subject_units":8,"other_actors":{"桓玄楚政权":32,"东晋残余中枢":15,"南燕":10,"后秦":18,"卢循与其他势力":17}},"major_opponent_encounters":[["桓玄",8,32,24],["卢循",20,18,14],["南燕",28,12,16],["谯蜀",35,8,8],["后秦",40,22,25],["北魏干预及其他力量",42,18,13]]},
-    {"ruler_name":"司马炎","start_field":{"subject_units":82,"other_actors":{"孙吴":18}},"major_opponent_encounters":[["孙吴",82,18,100]]},
-    {"ruler_name":"萧衍","start_field":{"subject_units":22,"other_actors":{"南齐建康政权":58,"其他州镇与中立力量":20}},"major_opponent_encounters":[["南齐建康政权",22,58,85],["其他州镇抵抗",35,15,15]]},
-    {"ruler_name":"石勒","start_field":{"subject_units":5,"other_actors":{"西晋及地方军镇":35,"汉赵":25,"王浚与河北势力":15,"王弥等流动作战集团":10,"其他北方势力":10}},"major_opponent_encounters":[["西晋地方军镇",5,24,16],["王浚",10,18,14],["幽并鲜卑力量",14,16,10],["前赵刘曜",25,30,35],["祖逖与东晋北伐力量",20,12,10],["其他坞堡割据",16,15,15]]},
-    {"ruler_name":"宇文泰","start_field":{"subject_units":18,"other_actors":{"高欢东部集团":52,"北魏中枢及关陇其他力量":30}},"major_opponent_encounters":[["侯莫陈悦",18,16,20],["高欢东魏集团",25,55,70],["关陇其他反对力量",22,12,10]]},
-    {"ruler_name":"曹操","start_field":{"subject_units":2,"other_actors":{"董卓及东汉中枢":25,"袁绍":22,"袁术":10,"陶谦吕布刘表等诸侯":28,"其他州郡军阀":13}},"major_opponent_encounters":[["董卓及其余部",2,25,8],["吕布",8,12,10],["陶谦与徐州力量",7,12,8],["袁术",14,13,10],["袁绍",20,42,30],["刘表刘备与荆州集团",38,24,14],["孙权刘备联盟",48,38,15],["马超韩遂与关西势力",45,17,5]]},
-    {"ruler_name":"拓跋珪","start_field":{"subject_units":5,"other_actors":{"刘显等代北部族":24,"贺兰等中间部族":18,"后燕":35,"其他草原力量":18}},"major_opponent_encounters":[["刘显等代北对手",5,24,30],["贺兰等部族",9,18,20],["独孤部与其他草原力量",12,18,20],["后燕",20,38,30]]},
-    {"ruler_name":"慕容垂","start_field":{"subject_units":8,"other_actors":{"前秦残余":38,"西燕":18,"丁零翟魏":12,"北魏":14,"其他河北势力":10}},"major_opponent_encounters":[["前秦及苻丕",8,32,22],["丁零翟魏",14,15,16],["西燕",22,20,30],["北魏",30,22,22],["其他河北势力",18,12,10]]},
-    {"ruler_name":"高洋","start_field":{"subject_units":94,"other_actors":{"东魏皇权与反对力量":6}},"major_opponent_encounters":[["东魏皇权与反对力量",94,6,100]]},
-    {"ruler_name":"陈霸先","start_field":{"subject_units":10,"other_actors":{"侯景集团":30,"王僧辩集团":25,"西魏北齐干预力量":20,"岭南及江南其他军镇":15}},"major_opponent_encounters":[["侯景集团",10,30,25],["王僧辩集团",22,25,30],["北齐扶植力量",28,20,20],["西魏及江陵方向",25,24,15],["岭南江南其他军镇",18,13,10]]},
-    {"ruler_name":"司马昭","start_field":{"subject_units":70,"other_actors":{"曹魏皇权与反司马外镇":14,"蜀汉":10,"孙吴":6}},"major_opponent_encounters":[["毌丘俭文钦诸葛诞等反司马力量",70,18,35],["曹魏皇权抵抗",75,8,15],["蜀汉",82,13,50]]},
-    {"ruler_name":"李雄","start_field":{"subject_units":12,"other_actors":{"西晋益州军政力量":48,"其他流民武装":22,"巴蜀地方势力":18}},"major_opponent_encounters":[["西晋益州力量",12,48,65],["其他流民首领与地方武装",16,22,35]]},
-    {"ruler_name":"赫连勃勃","start_field":{"subject_units":5,"other_actors":{"后秦":48,"南凉西秦等河陇势力":22,"北魏":18,"其他草原力量":7}},"major_opponent_encounters":[["后秦",5,48,60],["西秦南凉等河陇势力",10,22,20],["北魏及其附属力量",14,25,20]]},
-    {"ruler_name":"司马睿","start_field":{"subject_units":22,"other_actors":{"西晋北方中枢与诸王":25,"江东士族军政力量":28,"北方汉赵及其他势力":25}},"major_opponent_encounters":[["江东本地军政阻力",22,28,30],["王敦集团",35,30,25],["汉赵与北方进攻力量",30,45,35],["其他南方割据与叛乱",28,15,10]]},
-    {"ruler_name":"刘备","start_field":{"subject_units":6,"other_actors":{"曹操":46,"孙权":20,"刘璋":16,"刘表继承集团":8,"其他地方力量":4}},"major_opponent_encounters":[["曹操",6,46,30],["孙权及江东集团",16,24,20],["刘璋",15,20,25],["汉中曹军",24,22,15],["其他地方与内部抵抗",18,10,10]]},
-    {"ruler_name":"沮渠蒙逊","start_field":{"subject_units":8,"other_actors":{"后凉":30,"南凉":20,"西凉":15,"西秦":15,"其他河西力量":12}},"major_opponent_encounters":[["后凉",8,30,25],["南凉",14,22,20],["西凉",18,18,30],["西秦",20,20,15],["其他河西力量",14,12,10]]},
-    {"ruler_name":"孙权","start_field":{"subject_units":62,"other_actors":{"江东内部反对力量":8,"曹操北方集团":25,"刘表刘备等西部力量":5}},"major_opponent_encounters":[["江东内部反对力量",62,8,15],["曹操",35,55,45],["刘备荆州集团",38,26,25],["山越及地方反复力量",30,15,15]]},
-    {"ruler_name":"苻健","start_field":{"subject_units":12,"other_actors":{"东晋关中力量":35,"后赵残余":22,"关陇地方势力":21,"前凉等周边力量":10}},"major_opponent_encounters":[["东晋关中力量",12,35,45],["后赵残余",16,22,25],["关陇地方武装",18,20,20],["前凉等周边势力",20,12,10]]},
-    {"ruler_name":"吕光","start_field":{"subject_units":22,"other_actors":{"前秦凉州残余":25,"张大豫等地方力量":18,"西秦南凉前身力量":20,"西域与河西其他力量":15}},"major_opponent_encounters":[["前秦凉州残余",22,25,30],["张大豫等地方力量",24,18,25],["乞伏鲜卑等河陇力量",25,22,25],["西域及河西其他力量",20,15,20]]},
-    {"ruler_name":"慕容德","start_field":{"subject_units":18,"other_actors":{"北魏":42,"东晋青兖力量":20,"后燕残余与河北势力":12,"其他山东地方力量":8}},"major_opponent_encounters":[["北魏",18,42,45],["东晋青兖力量",20,24,30],["后燕残余及山东地方力量",18,15,25]]},
-    {"ruler_name":"萧道成","start_field":{"subject_units":58,"other_actors":{"刘宋皇权与宗室":27,"其他军镇及反对力量":15}},"major_opponent_encounters":[["刘宋皇权与宗室",58,27,70],["沈攸之等外镇",50,22,30]]},
-    {"ruler_name":"刘渊","start_field":{"subject_units":12,"other_actors":{"西晋中枢及并州军":55,"匈奴其他部众":18,"北方其他反晋力量":15}},"major_opponent_encounters":[["西晋并州与洛阳力量",12,55,60],["匈奴内部与地方阻力",15,18,15],["其他北方军镇",18,25,25]]},
-    {"ruler_name":"姚苌","start_field":{"subject_units":7,"other_actors":{"前秦苻坚与苻丕":43,"西燕":20,"西秦及陇右力量":15,"其他关中力量":15}},"major_opponent_encounters":[["前秦苻坚苻丕集团",7,43,50],["西燕",12,24,20],["苻登前秦续存力量",20,24,25],["其他关陇势力",15,12,5]]},
-    {"ruler_name":"李暠","start_field":{"subject_units":28,"other_actors":{"北凉":42,"敦煌及河西地方势力":18,"南凉西秦等周边力量":12}},"major_opponent_encounters":[["北凉",28,42,60],["敦煌地方竞争力量",28,18,25],["其他河西周边势力",25,15,15]]},
-    {"ruler_name":"冯跋","start_field":{"subject_units":52,"other_actors":{"后燕慕容氏残余":28,"高云中枢与其他军政集团":12,"北魏及外部力量":8}},"major_opponent_encounters":[["后燕慕容氏残余",52,28,55],["高云中枢及内部竞争者",48,15,30],["北魏及外部压力",45,18,15]]},
-    {"ruler_name":"曹丕","start_field":{"subject_units":90,"other_actors":{"曹魏内部储位反对集团":5,"汉献帝皇权与反禅代力量":5}},"major_opponent_encounters":[["储位竞争与内部反对集团",75,12,55],["汉献帝皇权及反禅代力量",90,5,45]]},
-    {"ruler_name":"司马师","start_field":{"subject_units":72,"other_actors":{"曹魏皇权与曹氏支持者":13,"淮南及其他外镇":15}},"major_opponent_encounters":[["曹魏皇权与曹氏支持者",72,13,35],["毌丘俭文钦等淮南外镇",68,22,65]]},
-    {"ruler_name":"冉闵","start_field":{"subject_units":26,"other_actors":{"后赵残余诸王":28,"前燕":24,"东晋北伐力量":10,"其他北方军镇":12}},"major_opponent_encounters":[["后赵残余诸王",26,28,35],["前燕",24,34,40],["东晋及其他北方军镇",20,22,25]]},
-    {"ruler_name":"刘玄","start_field":{"subject_units":32,"other_actors":{"新朝有效控制":38,"赤眉":14,"刘秀与河北力量":6,"其他反新及地方势力":10}},"major_opponent_encounters":[["新朝",32,38,40],["赤眉",35,28,30],["刘秀与河北力量",30,18,20],["其他地方割据",25,15,10]]}
-  ]
+    {
+      "ruler_name": "嬴政",
+      "start_field": {
+        "subject_units": 35,
+        "other_actors": {
+          "楚": 22,
+          "赵": 12,
+          "齐": 10,
+          "燕": 7,
+          "魏": 6,
+          "韩": 4,
+          "其他边缘力量": 4
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "韩",
+          35,
+          4,
+          6
+        ],
+        [
+          "赵",
+          39,
+          12,
+          20
+        ],
+        [
+          "魏",
+          48,
+          6,
+          10
+        ],
+        [
+          "楚",
+          52,
+          24,
+          34
+        ],
+        [
+          "燕与代",
+          58,
+          9,
+          14
+        ],
+        [
+          "齐",
+          64,
+          10,
+          16
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘邦",
+      "start_field": {
+        "subject_units": 1,
+        "other_actors": {
+          "秦朝有效控制": 55,
+          "楚系起义军": 14,
+          "其他反秦武装与地方势力": 30
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "秦朝关中与地方军",
+          2,
+          30,
+          15
+        ],
+        [
+          "项羽西楚",
+          12,
+          35,
+          45
+        ],
+        [
+          "三秦",
+          9,
+          12,
+          12
+        ],
+        [
+          "齐赵等异姓诸王",
+          24,
+          22,
+          18
+        ],
+        [
+          "其他割据与反复诸侯",
+          30,
+          15,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘秀",
+      "start_field": {
+        "subject_units": 1,
+        "other_actors": {
+          "新朝有效控制": 40,
+          "更始政权": 18,
+          "赤眉": 12,
+          "河北群雄": 16,
+          "陇蜀及其他割据": 13
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "王郎",
+          2,
+          8,
+          8
+        ],
+        [
+          "河北铜马等军",
+          5,
+          13,
+          12
+        ],
+        [
+          "更始政权",
+          7,
+          20,
+          14
+        ],
+        [
+          "赤眉",
+          16,
+          22,
+          16
+        ],
+        [
+          "隗嚣",
+          28,
+          14,
+          12
+        ],
+        [
+          "公孙述",
+          34,
+          20,
+          18
+        ],
+        [
+          "其他地方割据",
+          20,
+          14,
+          20
+        ]
+      ]
+    },
+    {
+      "ruler_name": "曹操",
+      "start_field": {
+        "subject_units": 2,
+        "other_actors": {
+          "董卓及东汉中枢": 25,
+          "袁绍": 22,
+          "袁术": 10,
+          "陶谦吕布刘表等诸侯": 28,
+          "其他州郡军阀": 13
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "董卓及其余部",
+          2,
+          25,
+          8
+        ],
+        [
+          "吕布",
+          8,
+          12,
+          10
+        ],
+        [
+          "陶谦与徐州力量",
+          7,
+          12,
+          8
+        ],
+        [
+          "袁术",
+          14,
+          13,
+          10
+        ],
+        [
+          "袁绍",
+          20,
+          42,
+          30
+        ],
+        [
+          "刘表刘备与荆州集团",
+          38,
+          24,
+          14
+        ],
+        [
+          "孙权刘备联盟",
+          48,
+          38,
+          15
+        ],
+        [
+          "马超韩遂与关西势力",
+          45,
+          17,
+          5
+        ]
+      ]
+    },
+    {
+      "ruler_name": "曹丕",
+      "start_field": {
+        "subject_units": 90,
+        "other_actors": {
+          "曹魏内部储位反对集团": 5,
+          "汉献帝皇权与反禅代力量": 5
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "储位竞争与内部反对集团",
+          75,
+          12,
+          55
+        ],
+        [
+          "汉献帝皇权及反禅代力量",
+          90,
+          5,
+          45
+        ]
+      ]
+    },
+    {
+      "ruler_name": "司马懿",
+      "start_field": {
+        "subject_units": 42,
+        "other_actors": {
+          "曹爽中枢集团": 48,
+          "曹魏皇权及中立军政力量": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "曹爽集团",
+          42,
+          48,
+          100
+        ]
+      ]
+    },
+    {
+      "ruler_name": "司马师",
+      "start_field": {
+        "subject_units": 72,
+        "other_actors": {
+          "曹魏皇权与曹氏支持者": 13,
+          "淮南及其他外镇": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "曹魏皇权与曹氏支持者",
+          72,
+          13,
+          35
+        ],
+        [
+          "毌丘俭文钦等淮南外镇",
+          68,
+          22,
+          65
+        ]
+      ]
+    },
+    {
+      "ruler_name": "司马昭",
+      "start_field": {
+        "subject_units": 70,
+        "other_actors": {
+          "曹魏皇权与反司马外镇": 14,
+          "蜀汉": 10,
+          "孙吴": 6
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "毌丘俭文钦诸葛诞等反司马力量",
+          70,
+          18,
+          35
+        ],
+        [
+          "曹魏皇权抵抗",
+          75,
+          8,
+          15
+        ],
+        [
+          "蜀汉",
+          82,
+          13,
+          50
+        ]
+      ]
+    },
+    {
+      "ruler_name": "司马炎",
+      "start_field": {
+        "subject_units": 82,
+        "other_actors": {
+          "孙吴": 18
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "孙吴",
+          82,
+          18,
+          100
+        ]
+      ]
+    },
+    {
+      "ruler_name": "苻坚",
+      "start_field": {
+        "subject_units": 30,
+        "other_actors": {
+          "前燕": 30,
+          "前凉": 15,
+          "代国": 10,
+          "东晋及其他": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "前燕",
+          35,
+          32,
+          45
+        ],
+        [
+          "前凉",
+          60,
+          16,
+          25
+        ],
+        [
+          "代国",
+          70,
+          10,
+          15
+        ],
+        [
+          "其他方向",
+          55,
+          15,
+          15
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "拓跋珪",
+      "start_field": {
+        "subject_units": 5,
+        "other_actors": {
+          "刘显等代北部族": 24,
+          "贺兰等中间部族": 18,
+          "后燕": 35,
+          "其他草原力量": 18
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "刘显等代北对手",
+          5,
+          24,
+          30
+        ],
+        [
+          "贺兰等部族",
+          9,
+          18,
+          20
+        ],
+        [
+          "独孤部与其他草原力量",
+          12,
+          18,
+          20
+        ],
+        [
+          "后燕",
+          20,
+          38,
+          30
+        ]
+      ]
+    },
+    {
+      "ruler_name": "拓跋焘",
+      "start_field": {
+        "subject_units": 55,
+        "other_actors": {
+          "北凉": 12,
+          "柔然": 23,
+          "北方其他力量": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北凉",
+          60,
+          15,
+          55
+        ],
+        [
+          "柔然",
+          55,
+          25,
+          45
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "宇文泰",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "高欢东部集团": 52,
+          "北魏中枢及关陇其他力量": 30
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "侯莫陈悦",
+          18,
+          16,
+          20
+        ],
+        [
+          "高欢东魏集团",
+          25,
+          55,
+          70
+        ],
+        [
+          "关陇其他反对力量",
+          22,
+          12,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "杨坚",
+      "start_field": {
+        "subject_units": 65,
+        "other_actors": {
+          "北周反对军镇": 10,
+          "南陈": 22,
+          "其他边缘政权": 3
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "尉迟迥等北周反对军镇",
+          65,
+          18,
+          35
+        ],
+        [
+          "南陈",
+          82,
+          24,
+          60
+        ],
+        [
+          "其他边缘政权",
+          90,
+          5,
+          5
+        ]
+      ]
+    },
+    {
+      "ruler_name": "李渊",
+      "start_field": {
+        "subject_units": 4,
+        "other_actors": {
+          "隋中央及地方留守": 55,
+          "薛举与西秦": 6,
+          "梁师都与北边割据": 5,
+          "关东河北江汉岭南诸势力": 30
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "隋中央及地方留守",
+          4,
+          30,
+          18
+        ],
+        [
+          "薛举",
+          6,
+          8,
+          10
+        ],
+        [
+          "刘武周",
+          8,
+          10,
+          10
+        ],
+        [
+          "王世充",
+          15,
+          18,
+          15
+        ],
+        [
+          "窦建德",
+          15,
+          22,
+          20
+        ],
+        [
+          "萧铣",
+          28,
+          13,
+          10
+        ],
+        [
+          "刘黑闼",
+          30,
+          10,
+          8
+        ],
+        [
+          "梁师都及东突厥支持",
+          38,
+          8,
+          5
+        ],
+        [
+          "其余割据",
+          20,
+          16,
+          4
+        ]
+      ]
+    },
+    {
+      "ruler_name": "李世民",
+      "start_field": {
+        "subject_units": 4,
+        "other_actors": {
+          "隋中央及地方留守": 55,
+          "薛举与西秦": 6,
+          "梁师都与北边割据": 5,
+          "关东河北江汉岭南诸势力": 30
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "薛举薛仁杲",
+          6,
+          8,
+          16
+        ],
+        [
+          "刘武周宋金刚",
+          8,
+          10,
+          16
+        ],
+        [
+          "王世充",
+          15,
+          18,
+          20
+        ],
+        [
+          "窦建德",
+          15,
+          22,
+          25
+        ],
+        [
+          "刘黑闼",
+          30,
+          10,
+          11
+        ],
+        [
+          "东突厥南下主力",
+          34,
+          40,
+          12
+        ]
+      ]
+    },
+    {
+      "ruler_name": "朱温",
+      "start_field": {
+        "subject_units": 8,
+        "other_actors": {
+          "唐中央及宣武周边": 22,
+          "河东晋军": 25,
+          "河北诸镇": 20,
+          "淄青徐州等": 25
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "秦宗权集团",
+          8,
+          25,
+          15
+        ],
+        [
+          "魏博徐州",
+          15,
+          20,
+          20
+        ],
+        [
+          "河东晋军",
+          28,
+          32,
+          25
+        ],
+        [
+          "河北淄青诸镇",
+          30,
+          25,
+          40
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "李存勖",
+      "start_field": {
+        "subject_units": 28,
+        "other_actors": {
+          "后梁": 48,
+          "契丹及河北其他": 14,
+          "其他": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后梁国家机器",
+          28,
+          48,
+          80
+        ],
+        [
+          "契丹及河北其他力量",
+          35,
+          18,
+          20
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "郭威",
+      "start_field": {
+        "subject_units": 38,
+        "other_actors": {
+          "后汉中央": 52,
+          "河东及其他军镇": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后汉中央国家机器",
+          38,
+          52,
+          85
+        ],
+        [
+          "河东及其他军镇",
+          48,
+          14,
+          15
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "柴荣",
+      "start_field": {
+        "subject_units": 62,
+        "other_actors": {
+          "北汉辽援": 14,
+          "南唐": 16,
+          "后蜀": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北汉—辽援",
+          62,
+          16,
+          30
+        ],
+        [
+          "南唐国家",
+          68,
+          18,
+          45
+        ],
+        [
+          "后蜀国家",
+          70,
+          10,
+          25
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "耶律阿保机",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "契丹其他部族": 35,
+          "渤海": 25,
+          "中原及草原其他": 22
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "契丹反对部族",
+          18,
+          35,
+          45
+        ],
+        [
+          "渤海国家",
+          45,
+          28,
+          55
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "耶律德光",
+      "start_field": {
+        "subject_units": 65,
+        "other_actors": {
+          "后晋及中原力量": 25,
+          "草原其他力量": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "渤海残余",
+          65,
+          12,
+          25
+        ],
+        [
+          "后晋国家机器",
+          70,
+          30,
+          75
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "述律平",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "契丹反对部族": 35,
+          "渤海": 25,
+          "中原及其他": 22
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "契丹反对部族",
+          18,
+          35,
+          45
+        ],
+        [
+          "渤海国家",
+          45,
+          28,
+          55
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "完颜阿骨打",
+      "start_field": {
+        "subject_units": 12,
+        "other_actors": {
+          "辽国家机器": 70,
+          "女真其他部族": 10,
+          "高丽及其他": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "辽国家机器",
+          12,
+          70,
+          90
+        ],
+        [
+          "其他女真力量",
+          15,
+          12,
+          10
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "赵匡胤",
+      "start_field": {
+        "subject_units": 55,
+        "other_actors": {
+          "后蜀": 12,
+          "南汉": 8,
+          "南唐": 15,
+          "北汉辽援": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "荆湖割据",
+          55,
+          8,
+          10
+        ],
+        [
+          "后蜀",
+          60,
+          14,
+          25
+        ],
+        [
+          "南汉",
+          68,
+          10,
+          20
+        ],
+        [
+          "南唐",
+          72,
+          18,
+          35
+        ],
+        [
+          "北汉辽援",
+          78,
+          14,
+          10
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "赵光义",
+      "start_field": {
+        "subject_units": 82,
+        "other_actors": {
+          "北汉及辽援": 18
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北汉—辽援体系",
+          82,
+          18,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "赵构",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "金国家机器": 62,
+          "地方军镇与流寇": 20
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "金国家机器",
+          18,
+          62,
+          80
+        ],
+        [
+          "地方军镇与流寇",
+          25,
+          22,
+          20
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "铁木真",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "克烈乃蛮等草原强权": 34,
+          "金": 28,
+          "西夏": 12,
+          "西域诸国": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "克烈部",
+          18,
+          20,
+          15
+        ],
+        [
+          "乃蛮部",
+          26,
+          18,
+          15
+        ],
+        [
+          "金国家机器",
+          32,
+          35,
+          30
+        ],
+        [
+          "西夏国家机器",
+          40,
+          18,
+          15
+        ],
+        [
+          "花剌子模等西域国家",
+          45,
+          30,
+          25
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "窝阔台",
+      "start_field": {
+        "subject_units": 68,
+        "other_actors": {
+          "金国家机器": 25,
+          "南宋盟友及其他": 7
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "金国家机器",
+          68,
+          25,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "蒙哥",
+      "start_field": {
+        "subject_units": 74,
+        "other_actors": {
+          "大理": 8,
+          "南宋": 16,
+          "汗位及其他": 2
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "大理国家",
+          74,
+          8,
+          35
+        ],
+        [
+          "南宋国家机器",
+          78,
+          20,
+          65
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "忽必烈",
+      "start_field": {
+        "subject_units": 20,
+        "other_actors": {
+          "大理": 10,
+          "阿里不哥及蒙古竞争者": 20,
+          "南宋": 50
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "大理国家",
+          20,
+          10,
+          15
+        ],
+        [
+          "阿里不哥集团",
+          32,
+          28,
+          20
+        ],
+        [
+          "南宋国家机器",
+          55,
+          50,
+          65
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "朱元璋",
+      "start_field": {
+        "subject_units": 5,
+        "other_actors": {
+          "元朝中央及地方军": 42,
+          "陈友谅": 22,
+          "张士诚": 15,
+          "其他割据": 16
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "陈友谅政权",
+          12,
+          28,
+          25
+        ],
+        [
+          "张士诚政权",
+          28,
+          22,
+          20
+        ],
+        [
+          "元朝国家机器",
+          40,
+          45,
+          35
+        ],
+        [
+          "明玉珍云南及其他",
+          55,
+          22,
+          20
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "努尔哈赤",
+      "start_field": {
+        "subject_units": 15,
+        "other_actors": {
+          "海西女真": 25,
+          "明辽东体系": 50,
+          "蒙古及其他": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "海西女真诸部",
+          15,
+          25,
+          35
+        ],
+        [
+          "明辽东国家体系",
+          28,
+          55,
+          65
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "皇太极",
+      "start_field": {
+        "subject_units": 58,
+        "other_actors": {
+          "明辽西体系": 32,
+          "朝鲜": 6,
+          "蒙古及内部": 4
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "明辽西国家体系",
+          58,
+          35,
+          70
+        ],
+        [
+          "朝鲜国家",
+          65,
+          8,
+          20
+        ],
+        [
+          "蒙古内部力量",
+          62,
+          6,
+          10
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "玄烨",
+      "start_field": {
+        "subject_units": 78,
+        "other_actors": {
+          "三藩吴周体系": 18,
+          "台湾郑氏": 4
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "吴周三藩国家武装",
+          78,
+          20,
+          75
+        ],
+        [
+          "台湾郑氏",
+          88,
+          7,
+          25
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "洪秀全",
+      "start_field": {
+        "subject_units": 2,
+        "other_actors": {
+          "清国家机器": 75,
+          "地方团练及其他起义": 23
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "清国家机器及地方军队",
+          2,
+          75,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "王莽",
+      "start_field": {
+        "subject_units": 92,
+        "other_actors": {
+          "西汉宗室与反对派": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西汉宗室与反对派",
+          92,
+          8,
+          100
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘玄",
+      "start_field": {
+        "subject_units": 32,
+        "other_actors": {
+          "新朝有效控制": 38,
+          "赤眉": 14,
+          "刘秀与河北力量": 6,
+          "其他反新及地方势力": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "新朝",
+          32,
+          38,
+          40
+        ],
+        [
+          "赤眉",
+          35,
+          28,
+          30
+        ],
+        [
+          "刘秀与河北力量",
+          30,
+          18,
+          20
+        ],
+        [
+          "其他地方割据",
+          25,
+          15,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘备",
+      "start_field": {
+        "subject_units": 6,
+        "other_actors": {
+          "曹操": 46,
+          "孙权": 20,
+          "刘璋": 16,
+          "刘表继承集团": 8,
+          "其他地方力量": 4
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "曹操",
+          6,
+          46,
+          30
+        ],
+        [
+          "孙权及江东集团",
+          16,
+          24,
+          20
+        ],
+        [
+          "刘璋",
+          15,
+          20,
+          25
+        ],
+        [
+          "汉中曹军",
+          24,
+          22,
+          15
+        ],
+        [
+          "其他地方与内部抵抗",
+          18,
+          10,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "孙权",
+      "start_field": {
+        "subject_units": 62,
+        "other_actors": {
+          "江东内部反对力量": 8,
+          "曹操北方集团": 25,
+          "刘表刘备等西部力量": 5
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "江东内部反对力量",
+          62,
+          8,
+          15
+        ],
+        [
+          "曹操",
+          35,
+          55,
+          45
+        ],
+        [
+          "刘备荆州集团",
+          38,
+          26,
+          25
+        ],
+        [
+          "山越及地方反复力量",
+          30,
+          15,
+          15
+        ]
+      ]
+    },
+    {
+      "ruler_name": "司马睿",
+      "start_field": {
+        "subject_units": 22,
+        "other_actors": {
+          "西晋北方中枢与诸王": 25,
+          "江东士族军政力量": 28,
+          "北方汉赵及其他势力": 25
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "江东本地军政阻力",
+          22,
+          28,
+          30
+        ],
+        [
+          "王敦集团",
+          35,
+          30,
+          25
+        ],
+        [
+          "汉赵与北方进攻力量",
+          30,
+          45,
+          35
+        ],
+        [
+          "其他南方割据与叛乱",
+          28,
+          15,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘渊",
+      "start_field": {
+        "subject_units": 12,
+        "other_actors": {
+          "西晋中枢及并州军": 55,
+          "匈奴其他部众": 18,
+          "北方其他反晋力量": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西晋并州与洛阳力量",
+          12,
+          55,
+          60
+        ],
+        [
+          "匈奴内部与地方阻力",
+          15,
+          18,
+          15
+        ],
+        [
+          "其他北方军镇",
+          18,
+          25,
+          25
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘聪",
+      "start_field": {
+        "subject_units": 8,
+        "other_actors": {
+          "西晋并州军": 55,
+          "刘渊汉赵主集团": 25,
+          "其他北方力量": 12
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西晋上党并州军",
+          8,
+          28,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "石勒",
+      "start_field": {
+        "subject_units": 5,
+        "other_actors": {
+          "西晋及地方军镇": 35,
+          "汉赵": 25,
+          "王浚与河北势力": 15,
+          "王弥等流动作战集团": 10,
+          "其他北方势力": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西晋地方军镇",
+          5,
+          24,
+          16
+        ],
+        [
+          "王浚",
+          10,
+          18,
+          14
+        ],
+        [
+          "幽并鲜卑力量",
+          14,
+          16,
+          10
+        ],
+        [
+          "前赵刘曜",
+          25,
+          30,
+          35
+        ],
+        [
+          "祖逖与东晋北伐力量",
+          20,
+          12,
+          10
+        ],
+        [
+          "其他坞堡割据",
+          16,
+          15,
+          15
+        ]
+      ]
+    },
+    {
+      "ruler_name": "石虎",
+      "start_field": {
+        "subject_units": 15,
+        "other_actors": {
+          "西晋及地方军镇": 30,
+          "前赵": 35,
+          "其他北方力量": 20
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西晋地方军镇",
+          15,
+          30,
+          35
+        ],
+        [
+          "前赵",
+          25,
+          35,
+          50
+        ],
+        [
+          "其他河北山东力量",
+          20,
+          18,
+          15
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "冉闵",
+      "start_field": {
+        "subject_units": 26,
+        "other_actors": {
+          "后赵残余诸王": 28,
+          "前燕": 24,
+          "东晋北伐力量": 10,
+          "其他北方军镇": 12
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后赵残余诸王",
+          26,
+          28,
+          35
+        ],
+        [
+          "前燕",
+          24,
+          34,
+          40
+        ],
+        [
+          "东晋及其他北方军镇",
+          20,
+          22,
+          25
+        ]
+      ]
+    },
+    {
+      "ruler_name": "李雄",
+      "start_field": {
+        "subject_units": 12,
+        "other_actors": {
+          "西晋益州军政力量": 48,
+          "其他流民武装": 22,
+          "巴蜀地方势力": 18
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西晋益州力量",
+          12,
+          48,
+          65
+        ],
+        [
+          "其他流民首领与地方武装",
+          16,
+          22,
+          35
+        ]
+      ]
+    },
+    {
+      "ruler_name": "苻健",
+      "start_field": {
+        "subject_units": 12,
+        "other_actors": {
+          "东晋关中力量": 35,
+          "后赵残余": 22,
+          "关陇地方势力": 21,
+          "前凉等周边力量": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "东晋关中力量",
+          12,
+          35,
+          45
+        ],
+        [
+          "后赵残余",
+          16,
+          22,
+          25
+        ],
+        [
+          "关陇地方武装",
+          18,
+          20,
+          20
+        ],
+        [
+          "前凉等周边势力",
+          20,
+          12,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "姚苌",
+      "start_field": {
+        "subject_units": 7,
+        "other_actors": {
+          "前秦苻坚与苻丕": 43,
+          "西燕": 20,
+          "西秦及陇右力量": 15,
+          "其他关中力量": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "前秦苻坚苻丕集团",
+          7,
+          43,
+          50
+        ],
+        [
+          "西燕",
+          12,
+          24,
+          20
+        ],
+        [
+          "苻登前秦续存力量",
+          20,
+          24,
+          25
+        ],
+        [
+          "其他关陇势力",
+          15,
+          12,
+          5
+        ]
+      ]
+    },
+    {
+      "ruler_name": "姚兴",
+      "start_field": {
+        "subject_units": 55,
+        "other_actors": {
+          "前秦残余": 20,
+          "西秦": 15,
+          "其他关陇力量": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "前秦苻登残余",
+          55,
+          20,
+          45
+        ],
+        [
+          "西秦",
+          60,
+          18,
+          55
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "慕容垂",
+      "start_field": {
+        "subject_units": 8,
+        "other_actors": {
+          "前秦残余": 38,
+          "西燕": 18,
+          "丁零翟魏": 12,
+          "北魏": 14,
+          "其他河北势力": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "前秦及苻丕",
+          8,
+          32,
+          22
+        ],
+        [
+          "丁零翟魏",
+          14,
+          15,
+          16
+        ],
+        [
+          "西燕",
+          22,
+          20,
+          30
+        ],
+        [
+          "北魏",
+          30,
+          22,
+          22
+        ],
+        [
+          "其他河北势力",
+          18,
+          12,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "慕容德",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "北魏": 42,
+          "东晋青兖力量": 20,
+          "后燕残余与河北势力": 12,
+          "其他山东地方力量": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北魏",
+          18,
+          42,
+          45
+        ],
+        [
+          "东晋青兖力量",
+          20,
+          24,
+          30
+        ],
+        [
+          "后燕残余及山东地方力量",
+          18,
+          15,
+          25
+        ]
+      ]
+    },
+    {
+      "ruler_name": "吕光",
+      "start_field": {
+        "subject_units": 22,
+        "other_actors": {
+          "前秦凉州残余": 25,
+          "张大豫等地方力量": 18,
+          "西秦南凉前身力量": 20,
+          "西域与河西其他力量": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "前秦凉州残余",
+          22,
+          25,
+          30
+        ],
+        [
+          "张大豫等地方力量",
+          24,
+          18,
+          25
+        ],
+        [
+          "乞伏鲜卑等河陇力量",
+          25,
+          22,
+          25
+        ],
+        [
+          "西域及河西其他力量",
+          20,
+          15,
+          20
+        ]
+      ]
+    },
+    {
+      "ruler_name": "李暠",
+      "start_field": {
+        "subject_units": 28,
+        "other_actors": {
+          "北凉": 42,
+          "敦煌及河西地方势力": 18,
+          "南凉西秦等周边力量": 12
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北凉",
+          28,
+          42,
+          60
+        ],
+        [
+          "敦煌地方竞争力量",
+          28,
+          18,
+          25
+        ],
+        [
+          "其他河西周边势力",
+          25,
+          15,
+          15
+        ]
+      ]
+    },
+    {
+      "ruler_name": "沮渠蒙逊",
+      "start_field": {
+        "subject_units": 8,
+        "other_actors": {
+          "后凉": 30,
+          "南凉": 20,
+          "西凉": 15,
+          "西秦": 15,
+          "其他河西力量": 12
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后凉",
+          8,
+          30,
+          25
+        ],
+        [
+          "南凉",
+          14,
+          22,
+          20
+        ],
+        [
+          "西凉",
+          18,
+          18,
+          30
+        ],
+        [
+          "西秦",
+          20,
+          20,
+          15
+        ],
+        [
+          "其他河西力量",
+          14,
+          12,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "赫连勃勃",
+      "start_field": {
+        "subject_units": 5,
+        "other_actors": {
+          "后秦": 48,
+          "南凉西秦等河陇势力": 22,
+          "北魏": 18,
+          "其他草原力量": 7
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后秦",
+          5,
+          48,
+          60
+        ],
+        [
+          "西秦南凉等河陇势力",
+          10,
+          22,
+          20
+        ],
+        [
+          "北魏及其附属力量",
+          14,
+          25,
+          20
+        ]
+      ]
+    },
+    {
+      "ruler_name": "冯跋",
+      "start_field": {
+        "subject_units": 52,
+        "other_actors": {
+          "后燕慕容氏残余": 28,
+          "高云中枢与其他军政集团": 12,
+          "北魏及外部力量": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后燕慕容氏残余",
+          52,
+          28,
+          55
+        ],
+        [
+          "高云中枢及内部竞争者",
+          48,
+          15,
+          30
+        ],
+        [
+          "北魏及外部压力",
+          45,
+          18,
+          15
+        ]
+      ]
+    },
+    {
+      "ruler_name": "刘裕",
+      "start_field": {
+        "subject_units": 8,
+        "other_actors": {
+          "桓玄楚政权": 32,
+          "东晋残余中枢": 15,
+          "南燕": 10,
+          "后秦": 18,
+          "卢循与其他势力": 17
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "桓玄",
+          8,
+          32,
+          24
+        ],
+        [
+          "卢循",
+          20,
+          18,
+          14
+        ],
+        [
+          "南燕",
+          28,
+          12,
+          16
+        ],
+        [
+          "谯蜀",
+          35,
+          8,
+          8
+        ],
+        [
+          "后秦",
+          40,
+          22,
+          25
+        ],
+        [
+          "北魏干预及其他力量",
+          42,
+          18,
+          13
+        ]
+      ]
+    },
+    {
+      "ruler_name": "萧道成",
+      "start_field": {
+        "subject_units": 58,
+        "other_actors": {
+          "刘宋皇权与宗室": 27,
+          "其他军镇及反对力量": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "刘宋皇权与宗室",
+          58,
+          27,
+          70
+        ],
+        [
+          "沈攸之等外镇",
+          50,
+          22,
+          30
+        ]
+      ]
+    },
+    {
+      "ruler_name": "萧衍",
+      "start_field": {
+        "subject_units": 22,
+        "other_actors": {
+          "南齐建康政权": 58,
+          "其他州镇与中立力量": 20
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "南齐建康政权",
+          22,
+          58,
+          85
+        ],
+        [
+          "其他州镇抵抗",
+          35,
+          15,
+          15
+        ]
+      ]
+    },
+    {
+      "ruler_name": "陈霸先",
+      "start_field": {
+        "subject_units": 10,
+        "other_actors": {
+          "侯景集团": 30,
+          "王僧辩集团": 25,
+          "西魏北齐干预力量": 20,
+          "岭南及江南其他军镇": 15
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "侯景集团",
+          10,
+          30,
+          25
+        ],
+        [
+          "王僧辩集团",
+          22,
+          25,
+          30
+        ],
+        [
+          "北齐扶植力量",
+          28,
+          20,
+          20
+        ],
+        [
+          "西魏及江陵方向",
+          25,
+          24,
+          15
+        ],
+        [
+          "岭南江南其他军镇",
+          18,
+          13,
+          10
+        ]
+      ]
+    },
+    {
+      "ruler_name": "高欢",
+      "start_field": {
+        "subject_units": 28,
+        "other_actors": {
+          "尔朱氏诸军": 37,
+          "北魏中枢及其他军镇": 35
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "尔朱兆",
+          28,
+          32,
+          45
+        ],
+        [
+          "尔朱天光等关中军",
+          35,
+          22,
+          20
+        ],
+        [
+          "贺拔岳与关陇集团",
+          42,
+          16,
+          15
+        ],
+        [
+          "北魏中枢及地方反对力量",
+          40,
+          20,
+          20
+        ]
+      ]
+    },
+    {
+      "ruler_name": "高洋",
+      "start_field": {
+        "subject_units": 94,
+        "other_actors": {
+          "东魏皇权与反对力量": 6
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "东魏皇权与反对力量",
+          94,
+          6,
+          100
+        ]
+      ]
+    },
+    {
+      "ruler_name": "宇文邕",
+      "start_field": {
+        "subject_units": 42,
+        "other_actors": {
+          "北齐": 48,
+          "南陈及其他": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北齐国家机器",
+          42,
+          48,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "黄巢",
+      "start_field": {
+        "subject_units": 2,
+        "other_actors": {
+          "唐中央及藩镇": 58,
+          "其他起义与地方力量": 40
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "唐中央及藩镇国家机器",
+          2,
+          58,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "李嗣源",
+      "start_field": {
+        "subject_units": 18,
+        "other_actors": {
+          "后梁": 55,
+          "契丹及河北其他": 17,
+          "河东集团其他力量": 10
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后梁国家机器",
+          18,
+          55,
+          85
+        ],
+        [
+          "其他河北力量",
+          25,
+          20,
+          15
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "石敬瑭",
+      "start_field": {
+        "subject_units": 22,
+        "other_actors": {
+          "契丹盟军": 38,
+          "后唐中央": 32,
+          "其他军镇": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "后唐中央军",
+          60,
+          32,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "李昪",
+      "start_field": {
+        "subject_units": 88,
+        "other_actors": {
+          "杨吴宗室与反对力量": 8,
+          "周边政权": 4
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "杨吴宗室及中枢反对力量",
+          88,
+          8,
+          75
+        ],
+        [
+          "周边政权",
+          90,
+          6,
+          25
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "王建",
+      "start_field": {
+        "subject_units": 10,
+        "other_actors": {
+          "西川陈敬瑄集团": 35,
+          "东川顾彦晖集团": 25,
+          "其他川中力量": 30
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "西川集团",
+          10,
+          35,
+          50
+        ],
+        [
+          "东川集团",
+          35,
+          25,
+          50
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "刘龑",
+      "start_field": {
+        "subject_units": 85,
+        "other_actors": {
+          "岭南内部反对力量": 10,
+          "周边政权": 5
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "岭南内部及周边力量",
+          85,
+          15,
+          100
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "耶律大石",
+      "start_field": {
+        "subject_units": 8,
+        "other_actors": {
+          "金及东部压力": 42,
+          "西域既有政权与部族": 50
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "金及辽东追击力量",
+          8,
+          42,
+          35
+        ],
+        [
+          "西域国家与部族",
+          12,
+          50,
+          65
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "李元昊",
+      "start_field": {
+        "subject_units": 58,
+        "other_actors": {
+          "北宋国家机器": 35,
+          "辽及内部力量": 7
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "北宋西北军政体系",
+          58,
+          35,
+          90
+        ],
+        [
+          "辽及内部力量",
+          60,
+          10,
+          10
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "完颜吴乞买",
+      "start_field": {
+        "subject_units": 45,
+        "other_actors": {
+          "辽残余": 22,
+          "北宋国家机器": 30,
+          "其他": 3
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "辽残余国家机器",
+          45,
+          22,
+          40
+        ],
+        [
+          "北宋国家机器",
+          62,
+          35,
+          60
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "朱聿键",
+      "start_field": {
+        "subject_units": 12,
+        "other_actors": {
+          "清国家机器": 65,
+          "南明其他集团": 15,
+          "地方力量": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "清国家机器",
+          12,
+          65,
+          85
+        ],
+        [
+          "南明内部与地方力量",
+          15,
+          15,
+          15
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "朱由榔",
+      "start_field": {
+        "subject_units": 10,
+        "other_actors": {
+          "清国家机器": 60,
+          "孙可望等地方军事集团": 22,
+          "其他": 8
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "清国家机器",
+          10,
+          60,
+          65
+        ],
+        [
+          "西南地方军事集团",
+          12,
+          25,
+          35
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "福临",
+      "start_field": {
+        "subject_units": 82,
+        "other_actors": {
+          "南明永历及西南力量": 14,
+          "沿海郑氏": 4
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "南明西南体系",
+          82,
+          16,
+          75
+        ],
+        [
+          "沿海郑氏",
+          85,
+          6,
+          25
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    },
+    {
+      "ruler_name": "多尔衮",
+      "start_field": {
+        "subject_units": 55,
+        "other_actors": {
+          "大顺": 18,
+          "南明诸政权": 18,
+          "张献忠及地方力量": 9
+        }
+      },
+      "major_opponent_encounters": [
+        [
+          "大顺国家武装",
+          55,
+          25,
+          30
+        ],
+        [
+          "南明诸政权",
+          65,
+          22,
+          45
+        ],
+        [
+          "张献忠及地方力量",
+          72,
+          12,
+          25
+        ]
+      ],
+      "calibration_basis": "同一人物统一贡献窗口内的相对有效战略资源；只用于份额和对手压力，不跨人物解释为绝对国力。"
+    }
+  ],
+  "relative_only_threat_justifications": {
+    "郭威": "C已有950年刘子陂结果，但公共战役对手状态仍为unclear，unknown保持unknown。",
+    "石敬瑭": "C已有契丹援军结果，但公共战役对手状态仍为unclear，unknown保持unknown。",
+    "李雄": "可匹配的323年仇池战役晚于本人302—304年第一项窗口。",
+    "述律平": "本人贡献窗口内尚无四项威胁字段闭合且可独立归入项目的公共战役。",
+    "柴荣": "C已有淮南战役结果，但当前公共战役对手状态仍为unclear，unknown保持unknown。",
+    "赵构": "南宋建基窗口尚无四项威胁字段闭合且不与后续国防重复的公共战役组合。",
+    "司马懿": "可匹配的辽东、蜀汉等战役早于249—251年本人第一项窗口。",
+    "福临": "1651—1661亲政窗口内现有清统一卡未形成四项威胁字段闭合的本人项目组合。",
+    "洪秀全": "太平天国建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "李昪": "南唐建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "耶律大石": "西辽建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "朱由榔": "南明永历建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "刘龑": "南汉建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "冯跋": "北燕建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "曹丕": "可匹配的对吴、鲜卑战役晚于217—220年本人第一项窗口。",
+    "高洋": "可匹配的梁、契丹、柔然战役晚于549—550年本人第一项窗口。",
+    "朱聿键": "南明隆武建基窗口当前没有四项威胁字段闭合的公共战役组合。",
+    "刘玄": "更始建基窗口当前没有四项威胁字段闭合的公共战役组合。"
+  },
+  "supplemental_opponent_systems": {
+    "OPP-BUFAN-SIXTOWNS": {
+      "opponent_label": "步蕃及六镇动乱武装",
+      "organization_grade": "O2",
+      "basis": "属大股流动武装与降户危机，缺乏稳定国家中枢、财政和纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-154-05"
+      ]
+    },
+    "OPP-CAO-LUBU": {
+      "opponent_label": "吕布徐州军政集团",
+      "organization_grade": "O3",
+      "basis": "具有徐州据点、成建制主力和外援，但未形成成熟区域国家财政与持续再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-XUZHOU-LUBU-196-198"
+      ]
+    },
+    "OPP-CAO-YUANSHAO": {
+      "opponent_label": "袁绍河北国家与主力体系",
+      "organization_grade": "O5",
+      "basis": "据四州、人户百万并能动员十万步兵万骑，是曹操创业期同级全国竞争极；官渡和河北收束属于同一体系不同阶段。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-GUANDU-199-200",
+        "WAR-LEAD-HAN-HEBEI-201-205"
+      ]
+    },
+    "OPP-CAO-ZHANGLU": {
+      "opponent_label": "张鲁汉中国家体系",
+      "organization_grade": "O4",
+      "basis": "长期控制汉中、具独立政教中枢、山险纵深和数万守军，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-HANZHONG-215"
+      ]
+    },
+    "OPP-CAO-ZHANGXIU": {
+      "opponent_label": "张绣南阳军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有独立主力、南阳据点和刘表支援，但缺乏成熟国家中枢与财政纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199"
+      ]
+    },
+    "OPP-CAOWEI-EASTERN-WU": {
+      "opponent_label": "孙吴东兴方向国家主力",
+      "organization_grade": "O3",
+      "basis": "孙吴实体可达O5，但司马师窗口只实际承受东兴单一方向投入，未承受全国机器的持续投送与再动员；按成建制方面军O3，不传播母体国家档。",
+      "source_campaign_refs": [
+        "WAR-LEAD-SG-WEI-WU-DONGXING-252"
+      ]
+    },
+    "OPP-CAOWEI-HUAINAN-REBELS": {
+      "opponent_label": "毌丘俭文钦淮南叛军",
+      "organization_grade": "O3",
+      "basis": "五六万成建制州镇军构成独立区域内战方向，但没有成熟国家中枢和纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-SG-WEI-HUAINAN-255"
+      ]
+    },
+    "OPP-CHEN-SANWU-CLANS": {
+      "opponent_label": "三吴王氏旧部军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有多郡据点和成建制抵抗力量，但未形成成熟区域国家中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-166-SANWU-555-556"
+      ]
+    },
+    "OPP-CHEN-XUSIHUI-RENYUE": {
+      "opponent_label": "徐嗣徽任约叛军",
+      "organization_grade": "O3",
+      "basis": "拥有五千精兵、石头城据点并可配合外援，属于成建制区域内战方向。",
+      "source_campaign_refs": [
+        "WAR-LEAD-166-XUSIHUI-555",
+        "WAR-LEAD-166-QI-JIANKANG-556"
+      ]
+    },
+    "OPP-DAI-STATE": {
+      "opponent_label": "代国军政体系",
+      "organization_grade": "O4",
+      "basis": "具独立区域中枢、北方据地和成建制骑兵力量，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-104-DAI-376"
+      ]
+    },
+    "OPP-DIWEI-STATE": {
+      "opponent_label": "翟魏军政体系",
+      "organization_grade": "O3",
+      "basis": "拥有七郡、据点和成建制军队，但稳定财政、疆域纵深与多线能力不足。",
+      "source_campaign_refs": [
+        "WAR-LEAD-108-DIWEI-392"
+      ]
+    },
+    "OPP-EARLY-QIN-ZHANGPING": {
+      "opponent_label": "张平并州军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有区域据点、部民和可独立作战主力，达到成建制区域军政体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-100-ZHANGPING-358"
+      ]
+    },
+    "OPP-EASTERN-JIN-DUZENG": {
+      "opponent_label": "杜曾汉沔军政集团",
+      "organization_grade": "O3",
+      "basis": "具有区域根据地、成建制主力和持续抵抗能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HANMIAN-317"
+      ]
+    },
+    "OPP-EASTERN-JIN-QINGYAN": {
+      "opponent_label": "东晋青兖地方防务体系",
+      "organization_grade": "O3",
+      "basis": "实际面对的是青兖地方成建制守军，未证明东晋全国机器在该窗口完整投入。",
+      "source_campaign_refs": [
+        "WAR-LEAD-108-LATERYAN-SHANDONG-394"
+      ]
+    },
+    "OPP-ERZHU-STATE": {
+      "opponent_label": "尔朱氏军政体系",
+      "organization_grade": "O4",
+      "basis": "尔朱氏一度控制北魏中央并拥有跨区域主力，但军政联盟迅速分裂，缺乏稳定财政中枢与败后制度化再动员，不足以作为同级时代竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-155-05",
+        "WAR-LEAD-156-01"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-DONGCHUAN": {
+      "opponent_label": "东川军政体系",
+      "organization_grade": "O4",
+      "basis": "拥有五千里区域、七万守军、外援和三年五十余战的持续再生能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-261-TWOSICHUAN-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-FENGXIANG": {
+      "opponent_label": "李茂贞凤翔战争机器",
+      "organization_grade": "O4",
+      "basis": "长期控制凤翔与关中节点，拥有独立军镇财政、主力和挟持中央的持续能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-263-FENGXIANG-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-HEBEI-TOWNS": {
+      "opponent_label": "成德义武等河北军镇体系",
+      "organization_grade": "O3",
+      "basis": "多个成建制军镇能独立出兵，但未形成单一成熟区域国家机器，作为复合区域方向合并到一项O3。",
+      "source_campaign_refs": [
+        "WAR-LEAD-262-HEBEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-HEDONG": {
+      "opponent_label": "河东李克用战争机器",
+      "organization_grade": "O4",
+      "basis": "具有成熟军镇财政、稳定根据地、跨区骑兵主力和持续战争能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-262-HEBEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-JINGNAN": {
+      "opponent_label": "荆南军政体系",
+      "organization_grade": "O3",
+      "basis": "具有江陵核心、独立军镇和区域守军，但未证明成熟国家级再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-265-XIANGJING-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-PINGLU": {
+      "opponent_label": "王师范淄青战争机器",
+      "organization_grade": "O4",
+      "basis": "控制青齐兖登莱密等连续州域并维持独立主力，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-264-PINGLU-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-SHANNAN-EAST": {
+      "opponent_label": "赵匡凝山南东道体系",
+      "organization_grade": "O3",
+      "basis": "具有独立军镇、区域据点和成建制兵力，但未证明成熟国家级再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-265-XIANGJING-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-WEIBO": {
+      "opponent_label": "魏博军镇战争机器",
+      "organization_grade": "O4",
+      "basis": "拥有成熟军镇财政、三万级核心牙军、区域纵深和持续再动员能力；兵变与对外战争均属同一体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-257-WEIBO-END",
+        "WAR-LEAD-258-BIANWEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-XICHUAN": {
+      "opponent_label": "西川军政体系",
+      "organization_grade": "O4",
+      "basis": "依托成都平原和成熟军镇财政维持多年战争，是独立成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-258-XICHUAN-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-XUZHOU": {
+      "opponent_label": "徐州时溥军政体系",
+      "organization_grade": "O3",
+      "basis": "具有独立军镇和区域兵力，但选定记录仅证明徐州方向的阶段闭合，未闭合成熟国家级再生能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-259-XUBIAN-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-YANGFUGONG": {
+      "opponent_label": "杨复恭山南宿卫方镇集团",
+      "organization_grade": "O3",
+      "basis": "宿卫与方镇结合形成独立区域军事集团，但没有成熟国家财政与长期区域统治闭合。",
+      "source_campaign_refs": [
+        "WAR-LEAD-259-YANGFUGONG-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-YOUZHOU": {
+      "opponent_label": "幽州刘仁恭战争机器",
+      "organization_grade": "O4",
+      "basis": "具有成熟军镇财政、幽燕纵深和数万级持续动员能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-262-HEBEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-YUNZHOU": {
+      "opponent_label": "朱瑄朱瑾兖郓联合作战体系",
+      "organization_grade": "O3",
+      "basis": "兖州、郓州两镇长期协作并各有主力与军镇财政，但未闭合单一军政中枢和共同征补；按持续联合作战方向O3，不合并传播为一个O4。",
+      "source_campaign_refs": [
+        "WAR-LEAD-261-BIANYUN-END"
+      ]
+    },
+    "OPP-FORMER-QIN-GUANZHONG-RIVALS": {
+      "opponent_label": "关中杜洪等割据体系",
+      "organization_grade": "O3",
+      "basis": "依托关中州郡和区域兵力阻碍苻健入关，但未形成成熟统一国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-098-FUJIAN-350"
+      ]
+    },
+    "OPP-FORMER-YAN-STATE": {
+      "opponent_label": "前燕国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、河北辽西纵深和成建制主力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-JIN-YAN-RANWEI-END-352"
+      ]
+    },
+    "OPP-FORMER-ZHAO-JINZHUN": {
+      "opponent_label": "靳准平阳政变集团",
+      "organization_grade": "O3",
+      "basis": "控制平阳中央节点和禁军残部，能形成区域危机，但缺乏独立成熟国家纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-PINGYANG-318"
+      ]
+    },
+    "OPP-HANZHAO-PINGYANG-GARRISONS": {
+      "opponent_label": "西晋平阳区域守军",
+      "organization_grade": "O2",
+      "basis": "创业节点只证明地方守军和分散抵抗，未闭合成建制独立方面军或国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HANZHAO-308"
+      ]
+    },
+    "OPP-HANZHAO-STATE": {
+      "opponent_label": "汉赵国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有独立中央、核心疆域、全国级动员和摧毁西晋中央的国家主力，是当时第一梯队竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HEDONG-317"
+      ]
+    },
+    "OPP-HELAN-TRIBE": {
+      "opponent_label": "贺兰部武装",
+      "organization_grade": "O2",
+      "basis": "属于可独立机动作战的部族联盟，但缺乏稳定国家财政和跨区再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-107-YAN-HELAN-389-391"
+      ]
+    },
+    "OPP-HELIAN-MOYIGAN": {
+      "opponent_label": "没弈干部众",
+      "organization_grade": "O2",
+      "basis": "具有可被吞并的部众和机动兵力，但缺乏成熟区域军政中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-114-XIA-407"
+      ]
+    },
+    "OPP-HELIAN-SOUTHERN-LIANG": {
+      "opponent_label": "南凉国家机器",
+      "organization_grade": "O4",
+      "basis": "具有独立政权、河陇根据地和二三万级持续主力，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-114-XIA-407"
+      ]
+    },
+    "OPP-HOUJING-STATE": {
+      "opponent_label": "侯景政权战争机器",
+      "organization_grade": "O4",
+      "basis": "控制建康及江东核心并维持独立军政体系，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-NC-HOUJING-JIANKANG-END-552"
+      ]
+    },
+    "OPP-HOUMOCHEN-YUE": {
+      "opponent_label": "侯莫陈悦关陇军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有成建制部曲和区域据点，但没有成熟独立国家中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-156-02"
+      ]
+    },
+    "OPP-JIN-HUANCHU": {
+      "opponent_label": "桓楚及其残余体系",
+      "organization_grade": "O4",
+      "basis": "曾建立区域政权并保有荆江主力与再起能力，按同一成熟区域体系去重。",
+      "source_campaign_refs": [
+        "WAR-LEAD-115-HUAN-REMNANTS-410"
+      ]
+    },
+    "OPP-JIN-LIUYI": {
+      "opponent_label": "刘毅荆州军政集团",
+      "organization_grade": "O4",
+      "basis": "控制荆州上游、拥有独立军政中枢和成建制主力，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-116-LIUYI-412"
+      ]
+    },
+    "OPP-JIN-SIMAXIUZHI": {
+      "opponent_label": "司马休之荆州军政集团",
+      "organization_grade": "O4",
+      "basis": "据荆州并能组织独立主力持续抵抗，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-117-JINGZHOU-415"
+      ]
+    },
+    "OPP-LATER-QIN-STATE": {
+      "opponent_label": "后秦国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立国家中枢、关中纵深和成建制军队；战役窗口面对的是其末期但仍可持续抵抗的区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-118-LIUYU-QIN-417"
+      ]
+    },
+    "OPP-LATER-QIN-WESTERN-QIN": {
+      "opponent_label": "西秦国家机器",
+      "organization_grade": "O4",
+      "basis": "西秦具有独立政权、区域根据地、数万级主力和复国能力，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-111-LATERCIN-WESTQIN-400"
+      ]
+    },
+    "OPP-LATER-TANG-KHITAN": {
+      "opponent_label": "契丹国家战争机器",
+      "organization_grade": "O5",
+      "basis": "能投入七万级远征军、持续跨境用兵并争夺幽燕，是当时第一梯队草原国家机器。",
+      "source_campaign_refs": [
+        "WAR-POST-9998E9516534C06A40FD"
+      ]
+    },
+    "OPP-LATER-TANG-LATER-LIANG": {
+      "opponent_label": "后梁国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有独立中央、中原财政纵深和十万级持续主力，是后唐创业期同级国家竞争极。",
+      "source_campaign_refs": [
+        "WAR-POST-34D672B441AE8F7F3B36",
+        "WAR-POST-3EFB2F527C054754DE83",
+        "WAR-POST-DFA12355430CB93EFDDB"
+      ]
+    },
+    "OPP-LATER-TANG-YAN": {
+      "opponent_label": "刘守光燕国战争机器",
+      "organization_grade": "O4",
+      "basis": "具有幽燕区域政权、军镇财政和持续主力，但未达到全国第一梯队。",
+      "source_campaign_refs": [
+        "WAR-POST-8CF29FEF82461C4CCF78"
+      ]
+    },
+    "OPP-LATER-ZHAO-CAOYI": {
+      "opponent_label": "曹嶷青州军政集团",
+      "organization_grade": "O3",
+      "basis": "具有青州据点、成建制军队和区域守御能力，但材料不足以证明成熟国家财政与跨区再生体系。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-GUANGGU-323"
+      ]
+    },
+    "OPP-LATER-ZHAO-DUAN-SHAOXU": {
+      "opponent_label": "段匹磾邵续幽冀体系",
+      "organization_grade": "O3",
+      "basis": "具有区域据点和成建制主力，但属于残余区域军事联合体。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-YANCI-319-321"
+      ]
+    },
+    "OPP-LATER-ZHAO-FORMER-ZHAO": {
+      "opponent_label": "前赵国家机器",
+      "organization_grade": "O5",
+      "basis": "前赵仍拥有独立中央、关陇纵深、十余万级持续动员和多路主力，是后赵形成期的同级国家竞争极。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329",
+        "JIN-LATER-ZHAO-HENAN-325"
+      ]
+    },
+    "OPP-LATER-ZHAO-INTERNAL-REBELS": {
+      "opponent_label": "石生石朗关中洛阳叛军",
+      "organization_grade": "O3",
+      "basis": "控制两都节点并形成区域内战主力，但属于短期政权内部分裂体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-GUANZHONG-333"
+      ]
+    },
+    "OPP-LATER-ZHAO-XIANGYANG": {
+      "opponent_label": "襄阳晋军区域体系",
+      "organization_grade": "O3",
+      "basis": "依托门户城防和区域守军作战，未证明独立成熟国家机器。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-XIANGYANG-330"
+      ]
+    },
+    "OPP-LATER-ZHAO-XUGONG": {
+      "opponent_label": "徐龛徐兖坞垒集团",
+      "organization_grade": "O3",
+      "basis": "控制徐兖坞垒并能独立抵抗，属于成建制区域军政体系，不是成熟区域国家。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-XUGONG-322"
+      ]
+    },
+    "OPP-LIGAO-SUOSI": {
+      "opponent_label": "索嗣接管军",
+      "organization_grade": "O1",
+      "basis": "仅五百骑执行地方接管，属于地方部众规模，缺乏独立再生和纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-111-LIHAO-400"
+      ]
+    },
+    "OPP-LIUBEI-LIUZHANG": {
+      "opponent_label": "刘璋益州国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有益州行政、财政、山川纵深和持续州军，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END"
+      ]
+    },
+    "OPP-LIUXIUFAN-REBELS": {
+      "opponent_label": "刘休范叛军",
+      "organization_grade": "O3",
+      "basis": "两万成建制叛军能突入首都外层，但没有成熟国家中枢与持续纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-133-03"
+      ]
+    },
+    "OPP-LUXUN-REBELS": {
+      "opponent_label": "卢循起义军政体系",
+      "organization_grade": "O4",
+      "basis": "拥有大规模水陆军、岭南后方和跨区域持续作战能力，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-116-LUXUN-END-411"
+      ]
+    },
+    "OPP-LVGUANG-LIANGZHOU-RIVALS": {
+      "opponent_label": "凉州区域割据武装",
+      "organization_grade": "O3",
+      "basis": "具有多处城镇、区域主力和持续抵抗，但材料未闭合单一成熟国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-106-LVGUANG-385"
+      ]
+    },
+    "OPP-LY-VAN-STATE": {
+      "opponent_label": "李贲交趾政权",
+      "organization_grade": "O3",
+      "basis": "具区域据点和成建制武装，但现有卡未证明成熟区域国家财政与持续跨区投射。",
+      "source_campaign_refs": [
+        "WAR-LEAD-161-04"
+      ]
+    },
+    "OPP-MING-YUAN-HEZHOU-GARRISON": {
+      "opponent_label": "元朝和州区域守军体系",
+      "organization_grade": "O3",
+      "basis": "本役材料仅闭合和州方向的地方守军与封锁，不能把元朝全国O5直接传播给区域切片。",
+      "source_campaign_refs": [
+        "WAR-POST-B77F4593C82B83B63EFA"
+      ]
+    },
+    "OPP-MING-YUAN-JIANGNAN-GARRISONS": {
+      "opponent_label": "元朝江南区域守军体系",
+      "organization_grade": "O3",
+      "basis": "选定阶段面对的是分散州城与区域守军，未证明元中央第一梯队主力在本阶段完整投入。",
+      "source_campaign_refs": [
+        "WAR-POST-8E237CF09CE7CA2EBB78"
+      ]
+    },
+    "OPP-MONGOL-ARIQ-BOKE": {
+      "opponent_label": "阿里不哥草原继承战争体系",
+      "organization_grade": "O4",
+      "basis": "阿里不哥拥有蒙古本土与部分诸王支持，但属于强大继承联盟，稳定财政、跨区补给和失败后再动员均未达到O5同级国家机器门槛。",
+      "source_campaign_refs": [
+        "WAR-POST-BA3FB02E30A244166851"
+      ]
+    },
+    "OPP-MONGOL-KERAIT": {
+      "opponent_label": "克烈部草原霸权体系",
+      "organization_grade": "O4",
+      "basis": "具有统一汗权、广域部众、稳定草原根据地和多部联盟动员能力，但未证明具备O5要求的国家财政、多战区常备体系与重大失败后的制度化再动员，按成熟区域草原战争机器O4。",
+      "source_campaign_refs": [
+        "WAR-POST-10D1A36A5BEB714C46C7"
+      ]
+    },
+    "OPP-MONGOL-KHWARAZM": {
+      "opponent_label": "花剌子模国家机器",
+      "organization_grade": "O5",
+      "basis": "花剌子模拥有跨区域帝国财政、城防群和多支大军，规模足以成为蒙古同级征服对象；但指挥分散且未形成持续战略压制，因此保留O5下沿、不升O6。",
+      "source_campaign_refs": [
+        "WAR-POST-D93BB824455764B93E15"
+      ]
+    },
+    "OPP-MONGOL-NAIMAN": {
+      "opponent_label": "乃蛮草原霸权体系",
+      "organization_grade": "O4",
+      "basis": "具统一汗权、广域部众、联盟动员和争夺草原主导权的能力，但未证明具备O5要求的稳定国家财政、多战区常备体系与制度化再动员，按成熟区域草原战争机器O4。",
+      "source_campaign_refs": [
+        "WAR-POST-23B4249A3D4961258484"
+      ]
+    },
+    "OPP-MURONGDE-QINGZHOU": {
+      "opponent_label": "青州晋军与地方守御体系",
+      "organization_grade": "O3",
+      "basis": "具有区域城防和州郡兵力，但南燕创业材料未证明消灭成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-111-SOUTHYAN-QINGZHOU-399"
+      ]
+    },
+    "OPP-NORTHERN-QI-STATE": {
+      "opponent_label": "北齐国家机器",
+      "organization_grade": "O5",
+      "basis": "具独立中央、北方纵深、国家财政和十万级跨区投射能力，是第一梯队国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-164-08",
+        "WAR-LEAD-166-QI-JIANKANG-556",
+        "WAR-LEAD-166-XUSIHUI-555"
+      ]
+    },
+    "OPP-NORTHERN-WEI-GAIWU": {
+      "opponent_label": "盖吴关中起事体系",
+      "organization_grade": "O3",
+      "basis": "聚众十余万、设置百官并能击杀魏将，达到成建制区域战争体系，但未形成长期成熟国家。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-GAIWU-445-446"
+      ]
+    },
+    "OPP-NORTHERN-WEI-NORTHERN-LIANG": {
+      "opponent_label": "北凉河西国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有独立中央、河西纵深、二十余万户和万余级持续动员，属于成熟区域国家。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439"
+      ]
+    },
+    "OPP-NORTHERN-WEI-STATE": {
+      "opponent_label": "北魏黄河阻击军团",
+      "organization_grade": "O3",
+      "basis": "北魏实体可达O5，但刘裕窗口只实际面对沿河阻击方向，未承受全国机器的完整投送与再动员；按成建制方面军O3，不传播母体国家档。",
+      "source_campaign_refs": [
+        "WAR-LEAD-118-WEI-JIN-RIVER-417"
+      ]
+    },
+    "OPP-NORTHERN-ZHOU-NORTHERN-QI": {
+      "opponent_label": "北齐国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有独立中央、北方核心疆域和国家级主力，是北周同时代第一梯队竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+      ]
+    },
+    "OPP-QIAOSHU-STATE": {
+      "opponent_label": "谯蜀区域政权",
+      "organization_grade": "O4",
+      "basis": "具独立政权中枢、巴蜀据地和成建制守军，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-116-LIUYU-SHU-413"
+      ]
+    },
+    "OPP-QING-JOSEON": {
+      "opponent_label": "朝鲜国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有独立朝廷、全国动员、山城与江华岛纵深及多道援军，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-POST-2268AF15657B1B393C93"
+      ]
+    },
+    "OPP-RANWEI-FORMERZHAO": {
+      "opponent_label": "后赵残存国家体系",
+      "organization_grade": "O4",
+      "basis": "仍具区域中枢、成建制主力和持续动员能力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-JIN-RANMIN-XIANGGUO-351-352"
+      ]
+    },
+    "OPP-SHILE-DUAN": {
+      "opponent_label": "段氏鲜卑区域军团",
+      "organization_grade": "O3",
+      "basis": "能投入五万级围攻军并持续影响幽冀，但未闭合独立成熟国家财政中枢。",
+      "source_campaign_refs": [
+        "JIN-SHILE-XIANGGUO-DEFENSE-312"
+      ]
+    },
+    "OPP-SHILE-JIN-LOCAL": {
+      "opponent_label": "西晋北方区域军政体系",
+      "organization_grade": "O3",
+      "basis": "多州守军和地方军政力量能够形成成建制区域抵抗，但未在这些创业节点以单一国家主力出现。",
+      "source_campaign_refs": [
+        "JIN-SHILE-CROSS-STATE-309-310",
+        "JIN-SHILE-JIANGXIA-COLLAPSE-311",
+        "JIN-SHILE-XIANGGUO-BASE-312"
+      ]
+    },
+    "OPP-SHILE-WANGJUN": {
+      "opponent_label": "王浚幽州军政体系",
+      "organization_grade": "O4",
+      "basis": "长期控制幽州、可借段氏兵力并拥有直属精兵和区域行政，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "JIN-SHILE-YOUZHOU-313-314"
+      ]
+    },
+    "OPP-SOUTHERN-LIANG-STATE": {
+      "opponent_label": "南凉国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、河西据地和持续作战能力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-110-NORTHLIANG-398"
+      ]
+    },
+    "OPP-SOUTHERN-YAN-STATE": {
+      "opponent_label": "南燕国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、山东根据地和成建制主力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-115-LIUYU-SOUTHYAN-409"
+      ]
+    },
+    "OPP-SUI-YUCHIJIONG": {
+      "opponent_label": "尉迟迥关东叛乱体系",
+      "organization_grade": "O4",
+      "basis": "依托北周关东州郡、旧军政网络和跨州主力形成国家规模内战压力，虽存续短仍达到成熟区域体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-YUCHIJIONG-580"
+      ]
+    },
+    "OPP-SUNQUAN-HUANGZU": {
+      "opponent_label": "黄祖江夏舟军体系",
+      "organization_grade": "O3",
+      "basis": "依托江夏据点、成建制舟军和刘表州级支持形成区域方面军体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+        "WAR-LEAD-HAN-WU-HUANGZU-208"
+      ]
+    },
+    "OPP-TANG-EASTERN-TURKS": {
+      "opponent_label": "东突厥汗国战争机器",
+      "organization_grade": "O6",
+      "basis": "东突厥在隋末唐初拥有超越各中原集团的草原军事能量，长期扶植、调控并反复攻击统一竞争各方，且曾大军直抵关中，符合持续压制奠基政权的O6。",
+      "source_campaign_refs": [
+        "WAR-LEAD-TANG-TURK-624/625"
+      ]
+    },
+    "OPP-TANG-HUANGCHAO": {
+      "opponent_label": "黄巢齐政权及主力体系",
+      "organization_grade": "O4",
+      "basis": "曾长期占据首都与核心区，具政权中枢、跨区主力和持续再战能力，但未与唐形成长期对等全国竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-256-HUANGCHAO-END"
+      ]
+    },
+    "OPP-TANG-QINZONGQUAN": {
+      "opponent_label": "秦宗权蔡州政权及主力体系",
+      "organization_grade": "O4",
+      "basis": "控制跨州区域、建立政权并能长期多向用兵，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-257-QINZONGQUAN-END"
+      ]
+    },
+    "OPP-TUOBA-KUHUN": {
+      "opponent_label": "窟咄代北竞争部众",
+      "organization_grade": "O3",
+      "basis": "能争夺代北核心并组织成建制部众，但尚未形成成熟区域国家。",
+      "source_campaign_refs": [
+        "WAR-LEAD-106-WEI-385-386"
+      ]
+    },
+    "OPP-TUOBA-LIUWEICHEN": {
+      "opponent_label": "刘卫辰朔方政权",
+      "organization_grade": "O4",
+      "basis": "具有稳定朔方根据地、独立政权和数万级持续主力，是成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+      ]
+    },
+    "OPP-WEI-SHUHAN": {
+      "opponent_label": "蜀汉国家机器",
+      "organization_grade": "O4",
+      "basis": "具有独立中央、巴蜀财政纵深和国家军队，但263年动员和战略状态已弱于全国第一梯队。",
+      "source_campaign_refs": [
+        "WAR-LEAD-SG-WEISHU-263"
+      ]
+    },
+    "OPP-WEIJIEFEI-REBELS": {
+      "opponent_label": "魏揭飞等叛军",
+      "organization_grade": "O2",
+      "basis": "万余叛军具机动作战能力，但缺乏稳定中枢、财政与持久纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-107-LATERCIN-REBELS-390"
+      ]
+    },
+    "OPP-WESTERN-JIN-HUGUAN": {
+      "opponent_label": "西晋壶关防务体系",
+      "organization_grade": "O3",
+      "basis": "实际交战对象是区域城防与援军体系，未证明西晋全国战争机器完整投入。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HANZHAO-HUGUAN-309"
+      ]
+    },
+    "OPP-WESTERN-LIANG-STATE": {
+      "opponent_label": "西凉国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、河西据地和成建制守军，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-NORTHERN-LIANG-WESTERN-LIANG"
+      ]
+    },
+    "OPP-WESTERN-YAN-STATE": {
+      "opponent_label": "西燕国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、并州据地和成建制主力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-108-LATERYAN-WESTYAN-393-394"
+      ]
+    },
+    "OPP-XIN-XIHAI-QIANG": {
+      "opponent_label": "西海羌众战争体系",
+      "organization_grade": "O3",
+      "basis": "十余万羌众背景下形成可迫使太守弃郡的区域武装，但未闭合成熟国家财政与统一中央。",
+      "source_campaign_refs": [
+        "WAR-LEAD-XIN-XIHAI-4-7"
+      ]
+    },
+    "OPP-XIN-ZHAIYI-REBELS": {
+      "opponent_label": "翟义赵明霍鸿起事体系",
+      "organization_grade": "O3",
+      "basis": "两线十余万级起事能逼近长安并威胁核心区，属于成建制区域内战体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-XIN-ZHAIYI-7-8"
+      ]
+    },
+    "OPP-XIXIA-SONG-NORTHWEST": {
+      "opponent_label": "北宋西北方面军体系",
+      "organization_grade": "O4",
+      "basis": "依托全国国家机器形成成建制方面军、堡寨补给和持续增援能力；本役只接触西北战区而非完整全国主力。",
+      "source_campaign_refs": [
+        "WAR-POST-E47E9BD06319D9B035DC"
+      ]
+    },
+    "OPP-SOUTHERN-QI-STATE": {
+      "opponent_label": "南齐末期国家机器",
+      "organization_grade": "O4",
+      "basis": "南齐仍有建康中枢、州郡征补和成建制守军，但内乱后无法与萧衍集团形成持续同级竞争，按成熟区域国家机器O4。",
+      "source_campaign_refs": [
+        "WAR-LEAD-144-07"
+      ]
+    }
+  },
+  "opponent_system_windows": {
+    "冉闵": {
+      "system_refs": [
+        "OPP-RANWEI-FORMERZHAO",
+        "OPP-FORMER-YAN-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "刘备": {
+      "system_refs": [
+        "OPP-LIUBEI-LIUZHANG"
+      ],
+      "unknown_campaign_refs": [
+        "WAR-LEAD-HAN-LIUBEI-JINGNAN-208"
+      ],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "刘渊": {
+      "system_refs": [
+        "OPP-HANZHAO-PINGYANG-GARRISONS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "刘秀": {
+      "system_refs": [
+        "OPP-EHAN-WANGLANG",
+        "OPP-EHAN-CENTRAL-MOBILE",
+        "OPP-EHAN-CHIMEI-GENGSHI",
+        "OPP-EHAN-DENGFENG-NANYANG",
+        "OPP-EHAN-QINFENG-JINGZHOU",
+        "OPP-EHAN-LIXIAN-JIANGHUAI",
+        "OPP-EHAN-LIUYONG-DONGXIAN",
+        "OPP-EHAN-ZHANGBU-QI",
+        "OPP-EHAN-WEIAO",
+        "OPP-EHAN-GONGSUNSHU",
+        "OPP-EHAN-PENGCHONG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "刘聪": {
+      "system_refs": [
+        "OPP-WESTERN-JIN-HUGUAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "刘裕": {
+      "system_refs": [
+        "OPP-JIN-HUANCHU",
+        "OPP-SOUTHERN-YAN-STATE",
+        "OPP-JIN-LIUYI",
+        "OPP-QIAOSHU-STATE",
+        "OPP-LUXUN-REBELS",
+        "OPP-JIN-SIMAXIUZHI",
+        "OPP-LATER-QIN-STATE",
+        "OPP-NORTHERN-WEI-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "刘邦": {
+      "system_refs": [
+        "OPP-WHAN-WESTERN-CHU",
+        "OPP-WHAN-THREE-QIN",
+        "OPP-WHAN-QI",
+        "OPP-WHAN-WEI-BAO",
+        "OPP-WHAN-ZHAO-DAI"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "努尔哈赤": {
+      "system_refs": [
+        "OPP-QING-JURCHEN-RIVALS",
+        "OPP-QING-MING"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "司马师": {
+      "system_refs": [
+        "OPP-CAOWEI-EASTERN-WU",
+        "OPP-CAOWEI-HUAINAN-REBELS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "司马昭": {
+      "system_refs": [
+        "OPP-WEI-SHUHAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "司马炎": {
+      "system_refs": [
+        "OPP-JIN-WU"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "司马睿": {
+      "system_refs": [
+        "OPP-EASTERN-JIN-DUZENG",
+        "OPP-HANZHAO-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "吕光": {
+      "system_refs": [
+        "OPP-LVGUANG-LIANGZHOU-RIVALS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "多尔衮": {
+      "system_refs": [
+        "OPP-QING-DASHUN",
+        "OPP-QING-DAXI"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "姚兴": {
+      "system_refs": [
+        "OPP-LATER-QIN-WESTERN-QIN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "姚苌": {
+      "system_refs": [
+        "OPP-WEIJIEFEI-REBELS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "嬴政": {
+      "system_refs": [
+        "OPP-QIN-HAN",
+        "OPP-QIN-ZHAO",
+        "OPP-QIN-WEI",
+        "OPP-QIN-CHU",
+        "OPP-QIN-YAN",
+        "OPP-QIN-QI"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "孙权": {
+      "system_refs": [
+        "OPP-SUNQUAN-HUANGZU"
+      ],
+      "unknown_campaign_refs": [
+        "WAR-LEAD-HAN-WU-JIAOZHOU-210"
+      ],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "宇文泰": {
+      "system_refs": [
+        "OPP-ERZHU-STATE",
+        "OPP-HOUMOCHEN-YUE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "宇文邕": {
+      "system_refs": [
+        "OPP-NORTHERN-ZHOU-NORTHERN-QI"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "完颜吴乞买": {
+      "system_refs": [
+        "OPP-JURCHEN-JIN-LIAO",
+        "OPP-JURCHEN-JIN-NORTHERN-SONG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "完颜阿骨打": {
+      "system_refs": [
+        "OPP-JURCHEN-JIN-LIAO"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "忽必烈": {
+      "system_refs": [
+        "OPP-MONGOL-ARIQ-BOKE",
+        "OPP-YUAN-DALI",
+        "OPP-YUAN-SOUTHERN-SONG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "慕容垂": {
+      "system_refs": [
+        "OPP-HELAN-TRIBE",
+        "OPP-DIWEI-STATE",
+        "OPP-EASTERN-JIN-QINGYAN",
+        "OPP-WESTERN-YAN-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "慕容德": {
+      "system_refs": [
+        "OPP-MURONGDE-QINGZHOU"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "拓跋焘": {
+      "system_refs": [
+        "OPP-NORTHERN-WEI-GAIWU",
+        "OPP-NORTHERN-WEI-NORTHERN-LIANG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "拓跋珪": {
+      "system_refs": [
+        "OPP-TUOBA-KUHUN",
+        "OPP-TUOBA-LIUWEICHEN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "曹操": {
+      "system_refs": [
+        "OPP-CAO-LUBU",
+        "OPP-CAO-YUANSHAO",
+        "OPP-CAO-ZHANGLU",
+        "OPP-CAO-ZHANGXIU"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "朱元璋": {
+      "system_refs": [
+        "OPP-MING-CHEN-HAN",
+        "OPP-MING-YUAN-CENTRAL",
+        "OPP-MING-YUAN-HEZHOU-GARRISON",
+        "OPP-MING-YUAN-JIANGNAN-GARRISONS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "朱温": {
+      "system_refs": [
+        "OPP-FIVEDYNASTIES-FENGXIANG",
+        "OPP-FIVEDYNASTIES-HEBEI-TOWNS",
+        "OPP-FIVEDYNASTIES-HEDONG",
+        "OPP-FIVEDYNASTIES-JINGNAN",
+        "OPP-FIVEDYNASTIES-PINGLU",
+        "OPP-FIVEDYNASTIES-SHANNAN-EAST",
+        "OPP-FIVEDYNASTIES-WEIBO",
+        "OPP-FIVEDYNASTIES-XUZHOU",
+        "OPP-FIVEDYNASTIES-YOUZHOU",
+        "OPP-FIVEDYNASTIES-YUNZHOU",
+        "OPP-TANG-QINZONGQUAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "李世民": {
+      "system_refs": [
+        "OPP-TANG-EASTERN-TURKS",
+        "OPP-TANG-SUI-CENTRAL",
+        "OPP-TANG-XUE",
+        "OPP-TANG-LIUWUZHOU",
+        "OPP-TANG-WANGSHICHONG",
+        "OPP-TANG-DOUJIANDE",
+        "OPP-TANG-LIUHEITA",
+        "OPP-TANG-LIZITONG-JIANGHUAI",
+        "OPP-TANG-XIAOXIAN",
+        "OPP-TANG-XUYUANLANG",
+        "OPP-TANG-FUGONGSHI",
+        "OPP-TANG-LIANGSHIDU",
+        "OPP-TANG-LIGUI",
+        "OPP-TANG-GAOKAIDAO"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "李元昊": {
+      "system_refs": [
+        "OPP-XIXIA-SONG-NORTHWEST"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "李嗣源": {
+      "system_refs": [
+        "OPP-LATER-TANG-KHITAN",
+        "OPP-LATER-TANG-LATER-LIANG",
+        "OPP-LATER-TANG-YAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "李存勖": {
+      "system_refs": [
+        "OPP-LATER-TANG-KHITAN",
+        "OPP-LATER-TANG-LATER-LIANG",
+        "OPP-LATER-TANG-YAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "李暠": {
+      "system_refs": [
+        "OPP-LIGAO-SUOSI"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "李渊": {
+      "system_refs": [
+        "OPP-TANG-EASTERN-TURKS",
+        "OPP-TANG-SUI-CENTRAL",
+        "OPP-TANG-XUE",
+        "OPP-TANG-LIUWUZHOU",
+        "OPP-TANG-WANGSHICHONG",
+        "OPP-TANG-DOUJIANDE",
+        "OPP-TANG-LIUHEITA",
+        "OPP-TANG-LIZITONG-JIANGHUAI",
+        "OPP-TANG-XIAOXIAN",
+        "OPP-TANG-XUYUANLANG",
+        "OPP-TANG-FUGONGSHI",
+        "OPP-TANG-LIANGSHIDU",
+        "OPP-TANG-LIGUI",
+        "OPP-TANG-GAOKAIDAO"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "杨坚": {
+      "system_refs": [
+        "OPP-SUI-YUCHIJIONG",
+        "OPP-SUI-CHEN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "沮渠蒙逊": {
+      "system_refs": [
+        "OPP-SOUTHERN-LIANG-STATE",
+        "OPP-WESTERN-LIANG-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "玄烨": {
+      "system_refs": [
+        "OPP-QING-WUSANGUI-ZHOU",
+        "OPP-QING-ZHENG-TAIWAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "王建": {
+      "system_refs": [
+        "OPP-FIVEDYNASTIES-DONGCHUAN",
+        "OPP-FIVEDYNASTIES-XICHUAN",
+        "OPP-FIVEDYNASTIES-YANGFUGONG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "王莽": {
+      "system_refs": [
+        "OPP-XIN-XIHAI-QIANG",
+        "OPP-XIN-ZHAIYI-REBELS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "皇太极": {
+      "system_refs": [
+        "OPP-QING-JOSEON",
+        "OPP-QING-MING"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "石勒": {
+      "system_refs": [
+        "OPP-LATER-ZHAO-CAOYI",
+        "OPP-LATER-ZHAO-DUAN-SHAOXU",
+        "OPP-LATER-ZHAO-FORMER-ZHAO",
+        "OPP-LATER-ZHAO-XIANGYANG",
+        "OPP-LATER-ZHAO-XUGONG",
+        "OPP-SHILE-DUAN",
+        "OPP-SHILE-JIN-LOCAL",
+        "OPP-SHILE-WANGJUN"
+      ],
+      "unknown_campaign_refs": [
+        "JIN-SHILE-GEPI-WITHDRAWAL-312",
+        "NONBATTLE-SHILE-WANGMI-311"
+      ],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "石虎": {
+      "system_refs": [
+        "OPP-FORMER-ZHAO-JINZHUN",
+        "OPP-LATER-ZHAO-CAOYI",
+        "OPP-LATER-ZHAO-FORMER-ZHAO",
+        "OPP-LATER-ZHAO-INTERNAL-REBELS",
+        "OPP-LATER-ZHAO-XUGONG"
+      ],
+      "unknown_campaign_refs": [
+        "JIN-SHILE-GEPI-WITHDRAWAL-312"
+      ],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "窝阔台": {
+      "system_refs": [
+        "OPP-YUAN-JIN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "耶律德光": {
+      "system_refs": [
+        "OPP-LIAO-BALHAE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "耶律阿保机": {
+      "system_refs": [
+        "OPP-LIAO-BALHAE",
+        "OPP-LIAO-WESTERN-TRIBES"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "苻健": {
+      "system_refs": [
+        "OPP-FORMER-QIN-GUANZHONG-RIVALS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "苻坚": {
+      "system_refs": [
+        "OPP-EARLY-QIN-ZHANGPING",
+        "OPP-FORMER-YAN-STATE",
+        "OPP-DAI-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "萧衍": {
+      "system_refs": [
+        "OPP-SOUTHERN-QI-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "萧道成": {
+      "system_refs": [
+        "OPP-LIUXIUFAN-REBELS"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "蒙哥": {
+      "system_refs": [
+        "OPP-YUAN-SOUTHERN-SONG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "赫连勃勃": {
+      "system_refs": [
+        "OPP-HELIAN-MOYIGAN",
+        "OPP-HELIAN-SOUTHERN-LIANG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "赵光义": {
+      "system_refs": [
+        "OPP-SONG-NORTHERN-HAN"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "赵匡胤": {
+      "system_refs": [
+        "OPP-SONG-JINGHU",
+        "OPP-SONG-LATER-SHU",
+        "OPP-SONG-SOUTHERN-HAN",
+        "OPP-SONG-SOUTHERN-TANG"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "铁木真": {
+      "system_refs": [
+        "OPP-MONGOL-KERAIT",
+        "OPP-MONGOL-KHWARAZM",
+        "OPP-MONGOL-NAIMAN",
+        "OPP-YUAN-JIN",
+        "OPP-YUAN-WESTERN-XIA"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "陈霸先": {
+      "system_refs": [
+        "OPP-LY-VAN-STATE",
+        "OPP-HOUJING-STATE",
+        "OPP-NORTHERN-QI-STATE",
+        "OPP-CHEN-SANWU-CLANS",
+        "OPP-CHEN-XUSIHUI-RENYUE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "高欢": {
+      "system_refs": [
+        "OPP-BUFAN-SIXTOWNS",
+        "OPP-ERZHU-STATE"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    },
+    "黄巢": {
+      "system_refs": [
+        "OPP-TANG-HUANGCHAO"
+      ],
+      "unknown_campaign_refs": [],
+      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+    }
+  }
 }

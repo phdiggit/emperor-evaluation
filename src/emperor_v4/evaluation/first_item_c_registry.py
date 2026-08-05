@@ -5,6 +5,15 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping
 
+from emperor_v4.evaluation.first_item_a_registry import (
+    load_qin_qing_first_item_roster,
+)
+from emperor_v4.evaluation.first_item_settlement import (
+    build_first_item_formal_settlement,
+    render_first_item_formal_settlement_markdown,
+    render_first_item_summary as render_first_item_summary_analysis,
+)
+
 
 def validate_first_item_c_territorial_control(
     *,
@@ -309,6 +318,7 @@ FRONTLINE_MODES = {
     "tactical_execution",
 }
 TIER_SCORE = {"C": 1, "B": 2, "A": 3, "S-": 4, "S": 5, "S+": 6}
+C1_RESULT_VALUE = {"C": 1, "B": 2, "A": 4, "S-": 6, "S": 9, "S+": 18}
 DIFFICULTY_SCORE = {f"D{index}": index for index in range(6)}
 RATE_TABLE = {
     0: {"LOW": 0, "MID": 15, "HIGH": 29},
@@ -317,6 +327,14 @@ RATE_TABLE = {
     3: {"LOW": 60, "MID": 67, "HIGH": 74},
     4: {"LOW": 75, "MID": 82, "HIGH": 89},
     5: {"LOW": 90, "MID": 95, "HIGH": 100},
+}
+C2_RATE_TABLE = {
+    0: {"LOW": 0, "MID": 8, "HIGH": 16},
+    1: {"LOW": 20, "MID": 25, "HIGH": 30},
+    2: {"LOW": 34, "MID": 40, "HIGH": 46},
+    3: {"LOW": 50, "MID": 57, "HIGH": 64},
+    4: {"LOW": 68, "MID": 74, "HIGH": 80},
+    5: {"LOW": 84, "MID": 92, "HIGH": 100},
 }
 
 
@@ -534,10 +552,8 @@ def _c2_axis(
                 peak
                 and tier_rank(peak) >= TIER_SCORE["S"]
                 and difficulty_rank(peak) >= 4
-                and len(high_difficulty) >= 3
+                and len(high_difficulty) >= 2
             )
-            or path_sustained
-            or len(high_difficulty) >= 4
             else "LOW"
         )
     elif grade == 4:
@@ -575,11 +591,19 @@ def _c2_axis(
 
     position_order = ["LOW", "MID", "HIGH"]
     negative_steps = 0
-    if major_negative:
+    abundant_grade_5_validation = bool(
+        grade == 5
+        and len(positive_s_minus) >= 2
+        and len(high_difficulty) >= 2
+        and len(positive_a) >= 3
+        and not severe_negative
+        and not severe_failures
+    )
+    if major_negative and not abundant_grade_5_validation:
         negative_steps += 1
     if severe_negative or len(major_negative) >= 2:
         negative_steps += 1
-    if major_failures:
+    if major_failures and not abundant_grade_5_validation:
         negative_steps += 1
     if severe_failures or len(major_failures) >= 2:
         negative_steps += 1
@@ -588,7 +612,7 @@ def _c2_axis(
             max(0, position_order.index(position) - min(2, negative_steps))
         ]
 
-    rate = RATE_TABLE[grade][position]
+    rate = C2_RATE_TABLE[grade][position]
     return {
         "axis": "C2",
         "raw_index": round(peak_quality, 2),
@@ -596,8 +620,8 @@ def _c2_axis(
         "grade": grade,
         "position": position,
         "rate": rate,
-        "weight": 30,
-        "points": round(30 * rate / 100, 1),
+        "weight": 50,
+        "points": round(50 * rate / 100, 1),
         "grade_path": grade_path,
         "grade_cap": grade_cap,
         "cap_reasons": cap_reasons,
@@ -606,6 +630,7 @@ def _c2_axis(
         "negative_context_count": len(negative),
         "command_failure_count": len(failures),
         "negative_position_steps": min(2, negative_steps),
+        "abundant_grade_5_validation": abundant_grade_5_validation,
     }
 
 
@@ -614,6 +639,7 @@ def build_first_item_c_registry(
     battle_registry: Mapping[str, Any],
     talent_registry: Mapping[str, Any],
     roster: Mapping[str, Any],
+    scope_inputs: Mapping[str, Any],
     window_config: Mapping[str, Any],
     control_registry: Mapping[str, Any],
 ) -> dict[str, Any]:
@@ -633,12 +659,40 @@ def build_first_item_c_registry(
     roster_names = {str(row["ruler_name"]) for row in roster_rows}
     if len(roster_names) != len(roster_rows):
         raise ValueError("第一项C名册存在重复ruler_name")
-    aliases = {name: name for name in roster_names}
-    talent_by_name = {
-        str(row["person"]): row for row in talent_registry.get("profiles") or ()
+    applicable_names = {
+        str(row["ruler_name"]) for row in scope_inputs.get("records") or ()
     }
+    if not applicable_names or not applicable_names <= roster_names:
+        raise ValueError("第一项C奠基者范围与评价名册不一致")
+    aliases = {name: name for name in roster_names}
+    talent_profiles_by_name: dict[str, list[Mapping[str, Any]]] = {}
+    talent_profiles_by_ref: dict[str, Mapping[str, Any]] = {}
+    for row in talent_registry.get("profiles") or ():
+        talent_profiles_by_ref[str(row.get("profile_ref") or "")] = row
+        for surface in [str(row["person"]), *(str(x) for x in row.get("name_aliases") or ())]:
+            bucket = talent_profiles_by_name.setdefault(surface, [])
+            if all(existing.get("profile_ref") != row.get("profile_ref") for existing in bucket):
+                bucket.append(row)
+    founder_metadata = {
+        str(row["ruler_name"]): row
+        for row in scope_inputs.get("founder_roster") or ()
+    }
+
+    def talent_profile_for(ruler_name: str) -> Mapping[str, Any]:
+        candidates = talent_profiles_by_name.get(ruler_name) or []
+        expected_ref = str(
+            (founder_metadata.get(ruler_name) or {}).get("talent_profile_ref") or ""
+        )
+        if expected_ref:
+            matched = talent_profiles_by_ref.get(expected_ref)
+            if matched is None:
+                raise ValueError(
+                    f"第一项C指定人才画像不存在或不唯一: {ruler_name}/{expected_ref}"
+                )
+            return matched
+        return candidates[0] if len(candidates) == 1 else {}
     for ruler_name in roster_names:
-        profile = talent_by_name.get(ruler_name) or {}
+        profile = talent_profile_for(ruler_name)
         for alias in profile.get("name_aliases") or ():
             aliases[str(alias)] = ruler_name
 
@@ -688,10 +742,7 @@ def build_first_item_c_registry(
             )
     metrics: dict[str, dict[str, Any]] = {
         name: {
-            "c1_raw": 0.0,
-            "c1_positive": 0.0,
-            "c1_negative": 0.0,
-            "c1_contributions": [],
+            "c1_results": {},
             "c2_results": {},
             "c2_failures": {},
             "window_refs": set(),
@@ -766,6 +817,16 @@ def build_first_item_c_registry(
                 for row in window.get("group_control_results") or ()
             }
             if manual:
+                c1_ref_set = {
+                    str(value)
+                    for value in (
+                        manual_window_inputs[str(window["ruler_name"])].get(
+                            "campaign_refs"
+                        )
+                        or window.get("campaign_refs")
+                        or ()
+                    )
+                }
                 c2_refs = (
                     manual_window_inputs[str(window["ruler_name"])].get(
                         "c2_campaign_refs"
@@ -785,6 +846,7 @@ def build_first_item_c_registry(
                     )
                     or ()
                 ]
+                c1_ref_set = {group_id for group_id, _ in c2_groups}
             attributed_regions: set[str] = set()
 
             for region_id, total_delta in deltas.items():
@@ -814,59 +876,6 @@ def build_first_item_c_registry(
                 if not amount_sum:
                     continue
                 attributed_regions.add(region_id)
-                for group_id, amount in candidates:
-                    group_value = (
-                        value_indexes[region_id]
-                        * total_delta
-                        * amount
-                        / amount_sum
-                        * scope_multiplier
-                    )
-                    group = public_group(window, group_id, manual=manual)
-                    for member in group.get("members") or ():
-                        actor_name = str(
-                            member.get("actor_name") or member.get("person_name") or ""
-                        )
-                        ruler_name = aliases.get(actor_name)
-                        if ruler_name not in metrics:
-                            continue
-                        if manual and ruler_name != str(window["ruler_name"]):
-                            continue
-                        contribution_weight = _member_weight(member)
-                        if not contribution_weight:
-                            continue
-                        index = member.get("person_command_index") or {}
-                        direction = str(index.get("result_direction") or "")
-                        if group_value > 0 and direction not in {
-                            "positive",
-                            "mixed_review",
-                        }:
-                            continue
-                        if group_value < 0 and direction not in {
-                            "negative",
-                            "mixed_review",
-                        }:
-                            continue
-                        credit = group_value * contribution_weight
-                        metrics[ruler_name]["c1_raw"] += credit
-                        metrics[ruler_name][
-                            "c1_positive" if credit > 0 else "c1_negative"
-                        ] += credit
-                        metrics[ruler_name]["window_refs"].add(window_ref)
-                        metrics[ruler_name]["c1_contributions"].append(
-                            {
-                                "window_ref": window_ref,
-                                "campaign_group_id": group_id,
-                                "region_id": region_id,
-                                "region_value_index": value_indexes[region_id],
-                                "window_control_delta_share": round(
-                                    total_delta * amount / amount_sum, 4
-                                ),
-                                "scope_multiplier": scope_multiplier,
-                                "personal_contribution_weight": contribution_weight,
-                                "personal_weighted_value": round(credit, 2),
-                            }
-                        )
 
             for group_id, group in c2_groups:
                 negative_rulers_in_group: set[str] = set()
@@ -900,11 +909,6 @@ def build_first_item_c_registry(
                         or ""
                     )
                     relation = str(member.get("ruler_campaign_relation") or "")
-                    if (
-                        capability_mode not in FRONTLINE_MODES
-                        and relation != "frontline_command"
-                    ):
-                        continue
                     tier = str(index.get("projected_result_tier") or "")
                     difficulty = str(
                         index.get("projected_combat_difficulty") or "D0"
@@ -916,12 +920,39 @@ def build_first_item_c_registry(
                         "mixed_review",
                     }:
                         continue
-                    quality = TIER_SCORE[tier] + 0.3 * DIFFICULTY_SCORE.get(
-                        difficulty, 0
-                    )
                     episode_ref = str(
                         index.get("capability_episode_ref")
-                        or f"{window_ref}:{group_id}"
+                        or f"{window_ref}:{group_id}:{ruler_name}"
+                    )
+                    if group_id in c1_ref_set:
+                        result_value = float(C1_RESULT_VALUE[tier])
+                        if direction == "negative":
+                            result_value = -result_value
+                        c1_result = {
+                            "result_ref": episode_ref,
+                            "window_ref": window_ref,
+                            "campaign_group_id": group_id,
+                            "result_direction": direction,
+                            "personal_result_tier": tier,
+                            "result_value": result_value,
+                            "basis": str(index.get("basis") or ""),
+                            "source_refs": list(index.get("source_refs") or ()),
+                        }
+                        current_c1 = metrics[ruler_name]["c1_results"].get(
+                            episode_ref
+                        )
+                        if current_c1 is None or abs(result_value) > abs(
+                            float(current_c1["result_value"])
+                        ):
+                            metrics[ruler_name]["c1_results"][episode_ref] = c1_result
+                            metrics[ruler_name]["window_refs"].add(window_ref)
+                    if (
+                        capability_mode not in FRONTLINE_MODES
+                        and relation != "frontline_command"
+                    ):
+                        continue
+                    quality = TIER_SCORE[tier] + 0.3 * DIFFICULTY_SCORE.get(
+                        difficulty, 0
                     )
                     result = {
                         "capability_episode_ref": episode_ref,
@@ -997,29 +1028,206 @@ def build_first_item_c_registry(
                 }
             )
 
+    for supplement in window_config.get("talent_episode_supplements") or ():
+        ruler_name = str(supplement.get("ruler_name") or "")
+        if ruler_name not in applicable_names:
+            raise ValueError(f"第一项C人才窗口补充对象不适用: {ruler_name}")
+        profile = talent_profile_for(ruler_name)
+        if not profile:
+            raise ValueError(f"第一项C人才窗口补充缺少人才画像: {ruler_name}")
+        positive_by_ref = {
+            str(row.get("campaign_ref") or ""): row
+            for row in profile.get("consumed_achievements") or ()
+        }
+        adverse_by_ref = {
+            str(row.get("campaign_ref") or ""): row
+            for row in profile.get("negative_or_mixed_command_records") or ()
+        }
+        for row in profile.get("failure_accountability") or ():
+            adverse_by_ref.setdefault(str(row.get("campaign_ref") or ""), row)
+
+        requested_positive = [
+            str(value) for value in supplement.get("positive_campaign_refs") or ()
+        ]
+        requested_adverse = [
+            str(value) for value in supplement.get("adverse_campaign_refs") or ()
+        ]
+        if len(requested_positive) != len(set(requested_positive)) or len(
+            requested_adverse
+        ) != len(set(requested_adverse)):
+            raise ValueError(f"第一项C人才窗口补充存在重复引用: {ruler_name}")
+        missing = (set(requested_positive) - set(positive_by_ref)) | (
+            set(requested_adverse) - set(adverse_by_ref)
+        )
+        if missing:
+            raise ValueError(
+                f"第一项C人才窗口补充引用不存在: {ruler_name}: {sorted(missing)}"
+            )
+
+        for direction, requested, lookup in (
+            ("positive", requested_positive, positive_by_ref),
+            ("negative", requested_adverse, adverse_by_ref),
+        ):
+            for campaign_ref in requested:
+                source = lookup[campaign_ref]
+                tier = str(source.get("campaign_tier") or "")
+                if tier not in TIER_SCORE:
+                    raise ValueError(
+                        f"第一项C人才窗口补充缺少有效人物结果档: {ruler_name}/{campaign_ref}"
+                    )
+                result_value = float(C1_RESULT_VALUE[tier])
+                if direction == "negative":
+                    result_value = -result_value
+                result_ref = f"TALENT-SUPPLEMENT:{campaign_ref}:{direction}"
+                metrics[ruler_name]["c1_results"][result_ref] = {
+                    "result_ref": result_ref,
+                    "window_ref": f"TALENT-SUPPLEMENT:{ruler_name}",
+                    "campaign_group_id": campaign_ref,
+                    "result_direction": direction,
+                    "personal_result_tier": tier,
+                    "result_value": result_value,
+                    "basis": str(source.get("basis") or supplement.get("basis") or ""),
+                    "source_refs": list(source.get("source_refs") or ()),
+                }
+                metrics[ruler_name]["window_refs"].add(
+                    f"TALENT-SUPPLEMENT:{ruler_name}"
+                )
+                capability_mode = str(source.get("capability_mode") or "")
+                difficulty = str(source.get("combat_difficulty") or "")
+                if capability_mode not in FRONTLINE_MODES or difficulty not in DIFFICULTY_SCORE:
+                    continue
+                quality = TIER_SCORE[tier] + 0.3 * DIFFICULTY_SCORE[difficulty]
+                metrics[ruler_name]["c2_results"][result_ref] = {
+                    "capability_episode_ref": result_ref,
+                    "window_ref": f"TALENT-SUPPLEMENT:{ruler_name}",
+                    "campaign_group_id": campaign_ref,
+                    "result_direction": direction,
+                    "personal_result_tier": tier,
+                    "combat_difficulty": difficulty,
+                    "quality_index": round(quality, 2),
+                    "basis": str(source.get("basis") or supplement.get("basis") or ""),
+                    "source_refs": list(source.get("source_refs") or ()),
+                }
+    for supplement in window_config.get("public_person_result_supplements") or ():
+        ruler_name = str(supplement.get("ruler_name") or "")
+        if ruler_name not in applicable_names:
+            raise ValueError(f"第一项C公共人物结果补充对象不适用: {ruler_name}")
+        result_ref = str(supplement.get("result_ref") or "")
+        parent_ref = str(supplement.get("parent_war_ref") or "")
+        parent = ordinary_lookup.get(parent_ref)
+        if not result_ref or parent is None or not parent.get("public_outcome_registered"):
+            raise ValueError(f"第一项C公共人物结果补充缺少有效父战役: {ruler_name}/{parent_ref}")
+        tier = str(supplement.get("campaign_tier") or "")
+        difficulty = str(supplement.get("combat_difficulty") or "")
+        direction = str(supplement.get("result_direction") or "")
+        capability_mode = str(supplement.get("capability_mode") or "")
+        source_refs = list(supplement.get("source_refs") or ())
+        basis = str(supplement.get("basis") or "")
+        if (
+            tier not in TIER_SCORE
+            or difficulty not in DIFFICULTY_SCORE
+            or direction not in {"positive", "negative"}
+            or not source_refs
+            or not basis
+        ):
+            raise ValueError(f"第一项C公共人物结果补充字段无效: {ruler_name}/{result_ref}")
+        result_value = float(C1_RESULT_VALUE[tier]) * (1 if direction == "positive" else -1)
+        window_ref = f"PUBLIC-PERSON-SUPPLEMENT:{ruler_name}"
+        metrics[ruler_name]["c1_results"][result_ref] = {
+            "result_ref": result_ref,
+            "window_ref": window_ref,
+            "campaign_group_id": parent_ref,
+            "result_direction": direction,
+            "personal_result_tier": tier,
+            "result_value": result_value,
+            "basis": basis,
+            "source_refs": source_refs,
+        }
+        metrics[ruler_name]["window_refs"].add(window_ref)
+        if capability_mode in FRONTLINE_MODES:
+            quality = TIER_SCORE[tier] + 0.3 * DIFFICULTY_SCORE[difficulty]
+            metrics[ruler_name]["c2_results"][result_ref] = {
+                "capability_episode_ref": result_ref,
+                "window_ref": window_ref,
+                "campaign_group_id": parent_ref,
+                "result_direction": direction,
+                "personal_result_tier": tier,
+                "combat_difficulty": difficulty,
+                "quality_index": round(quality, 2),
+                "basis": basis,
+                "source_refs": source_refs,
+            }
     c1_bands = {
-        1: (0.0, 25.0),
-        2: (25.0, 75.0),
-        3: (75.0, 180.0),
-        4: (180.0, 360.0),
-        5: (360.0, 480.0),
+        1: (0.0, 4.0),
+        2: (4.0, 9.0),
+        3: (9.0, 16.0),
+        4: (16.0, 28.0),
+        5: (28.0, 50.0),
     }
-    c1_position_cutoffs = {
-        1: (15.0, 20.0),
-        2: (45.0, 58.0),
-        3: (100.0, 150.0),
-        4: (220.0, 275.0),
-        5: (420.0, 460.0),
-    }
+    c1_position_cutoffs = {5: (36.0, 42.0)}
     records: list[dict[str, Any]] = []
     for ruler in roster_rows:
         ruler_name = str(ruler["ruler_name"])
+        if ruler_name not in applicable_names:
+            metadata = founder_metadata.get(ruler_name) or {}
+            pending = str(metadata.get("eligibility_decision") or "") in {
+                "PENDING",
+                "UNKNOWN",
+            }
+            records.append(
+                {
+                    "ruler_id": ruler["ruler_id"],
+                    "ruler_name": ruler_name,
+                    "polity": ruler.get("polity"),
+                    "scope_status": (
+                        "PENDING_FOUNDER_EVIDENCE"
+                        if pending
+                        else "NOT_APPLICABLE_NON_FOUNDER"
+                    ),
+                    "score_applicable": False,
+                    "C1": None,
+                    "C2": None,
+                    "C_score_points": None,
+                    "window_refs": [],
+                    "military_talent_grade": (
+                        talent_profile_for(ruler_name)
+                    ).get("military_grade"),
+                    "coverage_status": (
+                        "PENDING_FOUNDER_EVIDENCE"
+                        if pending
+                        else "NOT_APPLICABLE_NON_FOUNDER"
+                    ),
+                    "default_applied": False,
+                    "default_basis": str(
+                        metadata.get("eligibility_basis")
+                        or (
+                            "存在统一链贡献可能，但人物归责或窗口证据尚未闭合。"
+                            if pending
+                            else "本对象未对所属王朝或独立政权统一链形成可归责贡献，第一项不适用。"
+                        )
+                    ),
+                    "unresolved_gaps": [],
+                    "score_ready": not pending,
+                }
+            )
+            continue
         metric = metrics[ruler_name]
-        c1_raw = round(float(metric["c1_raw"]), 2)
+        c1_results = list(metric["c1_results"].values())
+        c1_positive = sum(
+            float(row["result_value"])
+            for row in c1_results
+            if float(row["result_value"]) > 0
+        )
+        c1_negative = sum(
+            float(row["result_value"])
+            for row in c1_results
+            if float(row["result_value"]) < 0
+        )
+        c1_raw = round(c1_positive + c1_negative, 2)
         c2 = _c2_axis(metric["c2_results"], metric["c2_failures"])
         c2_raw = float(c2["raw_index"])
         has_evidence = bool(
-            metric["c1_contributions"]
+            metric["c1_results"]
             or metric["c2_results"]
             or metric["c2_failures"]
         )
@@ -1034,7 +1242,7 @@ def build_first_item_c_registry(
             axis="C1",
             raw_value=c1_raw,
             bands=c1_bands,
-            weight=70,
+            weight=50,
             zero_position=c1_zero_position,
             position_cutoffs=c1_position_cutoffs,
         )
@@ -1054,17 +1262,18 @@ def build_first_item_c_registry(
             "ruler_id": ruler["ruler_id"],
             "ruler_name": ruler_name,
             "polity": ruler.get("polity"),
+            "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
+            "score_applicable": True,
             "C1": {
                 **c1,
-                "positive_weighted_value": round(float(metric["c1_positive"]), 2),
-                "negative_weighted_value": round(float(metric["c1_negative"]), 2),
-                "contributions": sorted(
-                    metric["c1_contributions"],
+                "positive_result_value": round(c1_positive, 2),
+                "negative_result_value": round(c1_negative, 2),
+                "campaign_results": sorted(
+                    c1_results,
                     key=lambda row: (
-                        -abs(float(row["personal_weighted_value"])),
+                        -abs(float(row["result_value"])),
                         str(row["window_ref"]),
                         str(row["campaign_group_id"]),
-                        str(row["region_id"]),
                     ),
                 ),
             },
@@ -1088,7 +1297,7 @@ def build_first_item_c_registry(
             "C_score_points": round(c1["points"] + c2["points"], 1),
             "window_refs": sorted(metric["window_refs"]),
             "military_talent_grade": (
-                talent_by_name.get(ruler_name) or {}
+                talent_profile_for(ruler_name)
             ).get("military_grade"),
             "coverage_status": coverage_status,
             "default_applied": bool(default_gap),
@@ -1100,28 +1309,36 @@ def build_first_item_c_registry(
 
     records.sort(
         key=lambda row: (
-            -float(row["C_score_points"]),
-            -float(row["C1"]["raw_index"]),
+            row["C_score_points"] is None,
+            -float(row["C_score_points"] or 0),
+            -float((row["C1"] or {}).get("raw_index") or 0),
             str(row["ruler_name"]),
         )
     )
-    for rank, record in enumerate(records, start=1):
-        record["canonical_rank"] = rank
+    rank = 0
+    for record in records:
+        if record["score_applicable"]:
+            rank += 1
+            record["canonical_rank"] = rank
+        else:
+            record["canonical_rank"] = None
     payload: dict[str, Any] = {
-        "schema_version": "first-item-c-registry-v1",
+        "schema_version": "first-item-c-registry-v2",
         "canonical_status": "CURRENT",
         "status": "CURRENT_NOT_FORMAL_DATABASE_WRITE",
         "formal_score_write": False,
         "database_write": False,
         "ranking_write": False,
         "method": {
-            "regional_value_formula": "100*(0.50*strategic/5+0.30*population/5+0.20*fiscal/4); unknown uses neutral midpoint",
-            "control_formula": "sum((terminal_control-baseline_control)*regional_value_index)",
-            "portfolio_scope_multiplier": PORTFOLIO_SCOPE_MULTIPLIER,
-            "personal_share_formula": "mean(consumption_mode_weight, command_scope_weight); only the ruler's accepted person result is consumed",
+            "net_control_policy": "project-level net control is consumed by A only; C window metrics are non-scoring audit context",
+            "C1_result_values": C1_RESULT_VALUE,
+            "C1_formula": "sum(non-overlapping accepted personal campaign result values); negative results subtract at the same tier value",
             "C1_bands": {str(key): list(value) for key, value in c1_bands.items()},
             "C1_position_cutoffs": {
                 str(key): list(value) for key, value in c1_position_cutoffs.items()
+            },
+            "C2_rate_table": {
+                str(key): value for key, value in C2_RATE_TABLE.items()
             },
             "C2_peak_formula": "tier_score + 0.3*difficulty; the peak is bounded by the S+/D5 natural maximum of 7.5 and is not summed across battles",
             "C2_grade_policy": "hard-gate adjudication from peak, independent high-difficulty revalidation, sustained contexts, and defeat/failure caps; support results determine sufficiency but cannot overflow into a higher grade",
@@ -1129,9 +1346,10 @@ def build_first_item_c_registry(
             "default_policy": "evidence gap uses grade 0 LOW; documented no contribution uses grade 0 LOW",
         },
         "source_refs": {
-            "roster": "docs/评分结算/第三项军事与边疆净收益/02-秦至唐第三项正式结算.json",
-            "battle_registry": "docs/公共成果/军事/01-秦至唐战役登记.json",
-            "talent_registry": "docs/公共成果/军事/02-秦至唐武将人才等级.json",
+            "roster": "config/所有君主.yml + config/first-item-a-strategic-efficiency-inputs.json#founder_roster",
+            "scope_inputs": "config/first-item-a-strategic-efficiency-inputs.json",
+            "battle_registry": "docs/公共成果/军事/01-战役登记.json",
+            "talent_registry": "docs/公共成果/军事/02-武将人才等级.json",
             "window_config": "config/first-item-c-acquisition-windows.json",
             "territorial_control": "config/first-item-c-territorial-control-adjudications.json",
         },
@@ -1148,7 +1366,18 @@ def build_first_item_c_registry(
             ),
         ),
         "record_count": len(records),
-        "score_ready_count": sum(bool(row["score_ready"]) for row in records),
+        "eligible_count": sum(bool(row["score_applicable"]) for row in records),
+        "pending_count": sum(
+            row["scope_status"] == "PENDING_FOUNDER_EVIDENCE" for row in records
+        ),
+        "excluded_count": sum(
+            row["scope_status"] == "NOT_APPLICABLE_NON_FOUNDER" for row in records
+        ),
+        "score_ready_count": sum(
+            bool(row["score_ready"])
+            and row["scope_status"] != "PENDING_FOUNDER_EVIDENCE"
+            for row in records
+        ),
         "default_count": sum(bool(row["default_applied"]) for row in records),
         "coverage_status_counts": dict(
             sorted(Counter(str(row["coverage_status"]) for row in records).items())
@@ -1160,19 +1389,22 @@ def build_first_item_c_registry(
 
 def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
-        "# 秦至唐第一项C军事夺取能力结算",
+        "# 第一项C军事夺取能力结算",
         "",
-        "> 当前值只用于规则校准；不写正式评分数据库，不形成正式排名。C1以时代区域价值校准创业净控制，再只分配本人实际军事贡献；C2只消费本人前线指挥结果。",
+        "> 当前值只用于规则校准；不写正式评分数据库，不形成正式排名。C1与C2各50分：C1累计本人不重复的创业战役成果，C2评价本人前线指挥能力。净控制量只进入A，以下窗口表仅供边界审计。",
         "",
         f"- 对象：{payload['record_count']} 人",
+        f"- 适用统一贡献者：{payload['eligible_count']} 人；待补：{payload['pending_count']} 人；不适用：{payload['excluded_count']} 人",
         f"- 完整结算：{payload['score_ready_count']} 人",
         "- canonical状态：CURRENT；本文件是C项当前唯一有效结果",
         f"- 证据缺口保守默认：{payload['default_count']} 人",
         "",
-        "| C项序 | 对象 | 政权 | C1加权贡献 | C1 | C2能力峰值 | 败绩/过失 | C2 | C结算 | 覆盖状态 |",
+        "| C项序 | 对象 | 政权 | C1战役成果指数（非得分率） | C1实际得分 | C2能力峰值指数（非得分率） | 败绩/过失 | C2实际得分 | C结算 | 覆盖状态 |",
         "|---:|---|---|---:|---:|---:|---:|---:|---:|---|",
     ]
     for row in payload.get("records") or ():
+        if not row["score_applicable"]:
+            continue
         c1, c2 = row["C1"], row["C2"]
         lines.append(
             f"| {row['canonical_rank']} | {row['ruler_name']} | {row.get('polity') or '—'} | "
@@ -1189,7 +1421,7 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
         if defaults
         else ["- 无。"]
     )
-    lines.extend(["", "## 创业窗口加权净控制", ""])
+    lines.extend(["", "## 创业窗口净控制（仅审计，不进入C分）", ""])
     lines.append("| 窗口 | 原始净控制 | 加权净控制 | 范围系数 | 未绑定本人贡献区域 |")
     lines.append("|---|---:|---:|---:|---|")
     for row in payload.get("window_metrics") or ():
@@ -1212,8 +1444,11 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
     negative_rows = [
         row
         for row in payload.get("records") or ()
-        if row["C2"]["negative_context_count"]
-        or row["C2"]["command_failure_count"]
+        if row["score_applicable"]
+        and (
+            row["C2"]["negative_context_count"]
+            or row["C2"]["command_failure_count"]
+        )
     ]
     lines.extend(
         (
@@ -1237,21 +1472,139 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def render_first_item_summary(
+    *,
+    a_payload: Mapping[str, Any],
+    b_payload: Mapping[str, Any],
+    c_payload: Mapping[str, Any],
+) -> str:
+    by_b = {str(row["ruler_name"]): row for row in b_payload.get("records") or ()}
+    by_c = {str(row["ruler_name"]): row for row in c_payload.get("records") or ()}
+    ac_rows = []
+    totals = []
+    for a_row in a_payload.get("records") or ():
+        if not a_row.get("score_applicable"):
+            continue
+        name = str(a_row["ruler_name"])
+        c_row = by_c[name]
+        ac_rows.append(
+            {
+                "ruler_name": name,
+                "polity": a_row.get("polity") or "—",
+                "A": float(a_row["A_score_points"]),
+                "C": float(c_row["C_score_points"]),
+                "AC": round(
+                    float(a_row["A_score_points"])
+                    + float(c_row["C_score_points"]),
+                    1,
+                ),
+            }
+        )
+        b_row = by_b.get(name)
+        if not b_row or not b_row.get("score_applicable"):
+            continue
+        total = round(
+            float(a_row["A_score_points"])
+            + float(b_row["B_score_points"])
+            + float(c_row["C_score_points"]),
+            1,
+        )
+        totals.append(
+            {
+                "ruler_name": name,
+                "polity": a_row.get("polity") or "—",
+                "A": float(a_row["A_score_points"]),
+                "B": float(b_row["B_score_points"]),
+                "C": float(c_row["C_score_points"]),
+                "total": total,
+            }
+        )
+    totals.sort(key=lambda row: (-row["total"], row["ruler_name"]))
+    ac_rows.sort(key=lambda row: (-row["AC"], row["ruler_name"]))
+    lines = [
+        "# 第一大项创业与政权取得能力结算总结分析",
+        "",
+        "## 一、当前结构与去重",
+        "",
+        f"秦至清名册共{a_payload['record_count']}人；{len(ac_rows)}名统一或建国主链实际贡献者进入A/B/C结算。",
+        "",
+        "- A1以个人起点30%和项目起点70%合成起点难度，再按对手压力70%、起点难度30%形成纯难度，以85%为历史极高难度锚；60分上限依次乘项目终点完成率、本人战略责任强度和校准难度，不设基础分。A2将战争新增控制按100%、既有控制恢复按50%形成计分控制量，以1000为固定前沿并开平方计算规模得分，客观结果最多36分，再直接加减具名正向决策和误判；",
+        "- B结算非本人团队实际完成的开国成果与创业窗口贡献者质量；",
+        "- C1、C2各50分，分别结算本人不重复的创业战役成果与前线指挥能力；",
+        "- 王朝级净控制量只在A2作为土地控制兑现量换分，A1不读取；它不能单独解释为国家机器创建或综合创业贡献。C中的窗口净控制表仅用于边界审计；全生涯军事人才档只作B/C越界复核，不直接换分。",
+        "",
+        "## 二、秦至清A/C结算表",
+        "",
+        "| A/C序 | 对象 | 政权 | A/100 | C/100 | A+C/200 |",
+        "|---:|---|---|---:|---:|---:|",
+    ]
+    for rank, row in enumerate(ac_rows, start=1):
+        lines.append(
+            f"| {rank} | {row['ruler_name']} | {row['polity']} | "
+            f"{row['A']:.1f} | {row['C']:.1f} | {row['AC']:.1f} |"
+        )
+    qing_a = {
+        str(row["ruler_name"]): row
+        for row in a_payload.get("records") or ()
+        if row.get("score_applicable")
+        and str(row["ruler_name"]) in {"努尔哈赤", "皇太极", "多尔衮"}
+    }
+    if set(qing_a) == {"努尔哈赤", "皇太极", "多尔衮"}:
+        lines.extend(
+            [
+                "",
+                "### 清朝跨代结果解释",
+                "",
+                "多尔衮的"
+                f"{qing_a['多尔衮']['A2']['created_net_control_value']:.0f}是入关后内地土地控制兑现，"
+                f"努尔哈赤的{qing_a['努尔哈赤']['A2']['created_net_control_value']:.0f}和"
+                f"皇太极的{qing_a['皇太极']['A2']['created_net_control_value']:.0f}主要受14宏区目录边界约束。"
+                "三项控制不得跨代回拨，但也不得据此断言多尔衮是清朝综合创业贡献最大者："
+                "努尔哈赤主要创建女真—后金军政机器，皇太极主要完成复合国家机器转型，"
+                "多尔衮主要把既成机器转换为全国性土地控制。当前表稳定支持的是三种不同贡献，而不是单轴总贡献排序。",
+            ]
+        )
+    leaders = "、".join(
+        f"{row['ruler_name']}（{row['total']:.1f}）" for row in totals[:5]
+    )
+    lines.extend(
+        [
+            "",
+            "## 三、秦至清完整第一项（含B）",
+            "",
+            f"当前A/B/C共同范围前五为{leaders}。",
+            "",
+            "B1取非本人团队最强的两个不重叠成果群并按绝对成果质量结算，不以团队份额反向扣减本人C；B2按并行执行、连续替补与异质整合三个组织轴结算。贡献者名单长度、全生涯名将档和成果证据条数均没有直接计分入口。",
+            "",
+            "## 四、当前状态",
+            "",
+            f"- A/B/C均覆盖秦至清{a_payload['record_count']}名册对象，适用统一主链贡献者{len(totals)}人；",
+            f"- C创业主链证据缺口保守默认{c_payload['default_count']}人；",
+            "- 当前结果不写正式数据库、不形成跨七大项总排名。",
+            "",
+            "机器明细分别见[A结算JSON](战略决策能力/01-第一项A战略决策能力结算.json)、[B结算JSON](政治整合能力/01-第一项B政治整合能力结算.json)和[C结算JSON](军事夺取能力/01-第一项C军事夺取能力结算.json)。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
     def load(path: Path) -> dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
 
+    efficiency_inputs = load(
+        workspace_root / "config/first-item-a-strategic-efficiency-inputs.json"
+    )
     payload = build_first_item_c_registry(
         battle_registry=load(
-            workspace_root / "docs/公共成果/军事/01-秦至唐战役登记.json"
+            workspace_root / "docs/公共成果/军事/01-战役登记.json"
         ),
         talent_registry=load(
-            workspace_root / "docs/公共成果/军事/02-秦至唐武将人才等级.json"
+            workspace_root / "docs/公共成果/军事/02-武将人才等级.json"
         ),
-        roster=load(
-            workspace_root
-            / "docs/评分结算/第三项军事与边疆净收益/02-秦至唐第三项正式结算.json"
-        ),
+        roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),
+        scope_inputs=efficiency_inputs,
         window_config=load(
             workspace_root / "config/first-item-c-acquisition-windows.json"
         ),
@@ -1265,12 +1618,53 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         / "docs/评分结算/第一项创业与政权取得能力/军事夺取能力"
     )
     output_dir.mkdir(parents=True, exist_ok=True)
-    json_path = output_dir / "01-秦至唐第一项C军事夺取能力结算.json"
-    markdown_path = output_dir / "01-秦至唐第一项C军事夺取能力结算.md"
+    json_path = output_dir / "01-第一项C军事夺取能力结算.json"
+    markdown_path = output_dir / "01-第一项C军事夺取能力结算.md"
     json_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     markdown_path.write_text(
         render_first_item_c_registry_markdown(payload), encoding="utf-8"
     )
-    return {"json": json_path, "markdown": markdown_path}
+    a_payload = load(
+        workspace_root
+        / "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json"
+    )
+    b_payload = load(
+        workspace_root
+        / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json"
+    )
+    formal_payload = build_first_item_formal_settlement(
+        a_payload=a_payload, b_payload=b_payload, c_payload=payload
+    )
+    settlement_dir = (
+        workspace_root
+        / "docs/评分结算/第一项创业与政权取得能力"
+    )
+    formal_json_path = settlement_dir / "01-第一项创业与政权取得能力正式结算.json"
+    formal_markdown_path = settlement_dir / "01-第一项创业与政权取得能力正式结算.md"
+    formal_json_path.write_text(
+        json.dumps(formal_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    formal_markdown_path.write_text(
+        render_first_item_formal_settlement_markdown(formal_payload),
+        encoding="utf-8",
+    )
+    summary_path = settlement_dir / "02-第一项结算总结分析.md"
+    summary_path.write_text(
+        render_first_item_summary_analysis(
+            formal_payload=formal_payload,
+            a_payload=a_payload,
+            b_payload=b_payload,
+            c_payload=payload,
+        ),
+        encoding="utf-8",
+    )
+    return {
+        "json": json_path,
+        "markdown": markdown_path,
+        "formal_json": formal_json_path,
+        "formal_markdown": formal_markdown_path,
+        "summary": summary_path,
+    }

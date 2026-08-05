@@ -1306,7 +1306,7 @@ def build_military_talent_grade_registry(
     payload: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "status": "current_battle_registry_authoritative",
-        "source_registry_ref": "docs/公共成果/军事/01-秦至唐战役登记.json",
+        "source_registry_ref": "docs/公共成果/军事/01-战役登记.json",
         "source_registry_fingerprint": battle_registry.get("semantic_fingerprint"),
         "capability_episode_registry_ref": "config/military-capability-episodes.json",
         "capability_episode_count": len(
@@ -1455,7 +1455,7 @@ def render_military_talent_grade_markdown(payload: Mapping[str, Any]) -> str:
 
 
 def write_military_talent_grade_registry(workspace_root: Path) -> dict[str, Path]:
-    battle_path = workspace_root / "docs/公共成果/军事/01-秦至唐战役登记.json"
+    battle_path = workspace_root / "docs/公共成果/军事/01-战役登记.json"
     battle_registry = json.loads(battle_path.read_text(encoding="utf-8"))
     identity_registry = yaml.safe_load(
         (workspace_root / "config/historical-entity-identities.yml").read_text(
@@ -1474,8 +1474,8 @@ def write_military_talent_grade_registry(workspace_root: Path) -> dict[str, Path
     )
     target = workspace_root / "docs/公共成果/军事"
     target.mkdir(parents=True, exist_ok=True)
-    json_path = target / "02-秦至唐武将人才等级.json"
-    markdown_path = target / "02-秦至唐武将人才等级.md"
+    json_path = target / "02-武将人才等级.json"
+    markdown_path = target / "02-武将人才等级.md"
     json_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
