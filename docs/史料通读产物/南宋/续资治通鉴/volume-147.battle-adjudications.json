@@ -1,0 +1,1464 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷147",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-147-2313631",
+    "revision_ref": "2313631",
+    "raw_sha256": "dbafc755fdd4e27a58e5ea7d152d8490f2637154601830159e4b4b5c9b9d36b0"
+  },
+  "cards": [
+    {
+      "battle_label": "广西李接之乱：破郁林围化州—经略司讨平",
+      "campaign_group": "XZTJ-SONG-GUANGXI-LIJIE-1179",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+      ],
+      "source_quotes": [
+        "廣西妖賊李接破郁林州，守臣李端卿棄城遁，遂圍化州",
+        "廣西妖賊平",
+        "劉焞以平李接功，擢集英殿修撰"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李接部 × 攻破郁林州、围化州阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "李接部攻破郁林州，守臣李端卿弃城逃走，随后继续围攻化州，迫使宋廷命经略司专门讨捕。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "李接部自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "攻破州城并围另一州意味着实际武装接触；无其自身重大死伤或溃败后效。",
+            "upper_bound_reason": "无百人级死伤、成建制覆没或大批伤俘证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段未见李接自身后方生产或组织体系受损，记S0。",
+            "M": "地方叛军连续攻州围城，未见跨区长期大动员，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "一度攻破州城并把战线推进到化州，扩大了叛军局部活动空间；后续很快被宋军讨平。",
+          "material_return": "WR0",
+          "material_return_detail": "原文没有记载郁林府库、粮草或其他缴获，不从失城反推物资收益。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郁林州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "郁林州被实际攻破；化州仅见围攻，不计入已取得控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "取得一个州级节点并继续围攻另一州，战果明确但持续短、无可证资源回报，故不判HIGH_RETURN。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "carry_in": "无可确认前卷同一李接武装阶段。",
+          "carry_out": "本卷P0044明确“广西妖贼平”，控制随后被逆转。"
+        },
+        {
+          "evaluation_subject_phase": "南宋郁林—化州地方守方 × 郁林失守、化州被围阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "郁林州被李接部攻破，守臣弃城；化州继而被围，宋廷需由广西经略司组织讨捕。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方及受治民众死伤失载。",
+            "range": "10—300死亡当量",
+            "center": 55,
+            "P_scoring": "P1估",
+            "basis": "一个州城被攻破并有另一州遭围，推定存在非零军民损害；但无“死者甚众”、屠掠、千人级流亡或大批伤俘。",
+            "upper_bound_reason": "现有材料不能支持百人级中心当量。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "一州失守、另一州被围，形成两个州级节点的局部行政与安全扰动，记S2。",
+            "M": "地方防守及随后经略司讨捕另分阶段，本阶段记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "郁林实际失守并使化州受到直接围攻，广西一隅安全明显恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "守方无资源回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郁林州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "守臣弃城且原文明言郁林“破”，支持守方实际失去郁林；化州围而未失。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "州级节点失守并出现连续围攻，控制和安全均明确负向。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "P0044“广西妖贼平”，P0067确认刘焞因平李接受赏。"
+        },
+        {
+          "evaluation_subject_phase": "南宋广西经略司—刘焞 × 讨平李接阶段",
+          "subject_role": "COUNTERINSURGENCY_ATTACKER",
+          "actual_process": "宋廷命广西经略司讨捕李接；本卷后文明确“广西妖贼平”，下一年初又以刘焞“平李接功”升官，确认讨平完成。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "宋方讨平阶段死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "从“讨捕”到“平”说明存在实际镇压过程，不能定P0；但没有大败、长围、补兵或抚恤等高损失后效。",
+            "upper_bound_reason": "无百人级宋方伤亡证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "既有郁林失守等损害已计前阶段，本阶段无新增可证生产破坏，记S0。",
+            "M": "经略司地方讨捕，规模不详且无跨区大动员，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "已攻破一州并围攻另一州的李接武装被“平”，其作为本轮广西区域威胁的高强度活动能力被终结。",
+          "material_return": "WR0",
+          "material_return_detail": "恢复旧地，不把内部州县和人口作为战利资源；无缴获记载。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郁林州",
+              "化州外围"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "郁林州控制恢复，化州围困解除；均属本国旧地恢复。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以未见扩大的地方讨捕成本结束叛乱并恢复州级控制，安全和控制成果明确。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "carry_in": "承P0013郁林失守、化州被围。",
+          "carry_out": "P0067仅为战后功赏；若后卷出现李接残部复叛，应另立新阶段。"
+        },
+        {
+          "evaluation_subject_phase": "李接部 × 被广西经略司讨平阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "经略司奉命讨捕后，本卷确认“广西妖贼平”；后文以刘焞平李接受赏，说明李接部本轮武装活动被终止。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "李接部败损人数失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "叛乱被讨平，推定存在非零人员损害；但无斩获、俘虏或成建制覆没数字。",
+            "upper_bound_reason": "不能把“平”直接换算成百人级死亡。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "叛乱组织的单一区域活动体系被拆除，记S1。",
+            "M": "地方叛军应战，规模不详，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "本轮组织被平，继续攻州围城的能力终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郁林州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "此前攻取的郁林州丧失，围化州失败。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "叛乱被终结且此前州级控制全部失去；P1与S1同为基础最高档，按PS抬档规则由WC1升至WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0067"
+            ]
+          },
+          "carry_in": "承P0013攻破郁林、围化州。",
+          "carry_out": "无；本卷已平。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "黎州五部落连续入犯：盘陀砦—官军再败—王去恶拒却—重赂纳降",
+      "campaign_group": "XZTJ-SONG-LIZHOU-FIVE-TRIBES-1180",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+      ],
+      "source_quotes": [
+        "黎州五部蠻犯盤陀砦，兵馬都監高晃以綿、潼大軍與戰，敗走。蠻人深入，大掠而去",
+        "五部落再犯黎州，制置司鈐轄成光延戰敗，官軍死者甚眾，提點刑獄、權州事折知常棄城遁",
+        "五部落犯黎州，左軍統領王去惡拒卻之",
+        "折知常重賂蠻帥，使之納款",
+        "黎州五部落蠻納降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋高晃所部 × 盘陀砦初次拒战败走阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "黎州五部蛮犯盘陀砦，兵马都监高晃率绵、潼大军迎战而败走；五部落随后深入宋境并大掠后撤。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋军败走，具体死伤失载。",
+            "range": "10—300死亡当量",
+            "center": 55,
+            "P_scoring": "P1估",
+            "basis": "有大军实际交战并败走，推定存在非零损害；但本段未用“死者甚众”等强语，也无补兵、抚恤数字。",
+            "upper_bound_reason": "不能仅由“大军”与“败走”推百人级中心当量。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "盘陀砦被犯且敌军深入大掠，黎州边区实际受掠扰，记S2。",
+            "M": "明确动用绵、潼方向大军赴黎州作战，存在跨地方军力调发，记M2。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "边砦拒战失败后敌军能够深入并大掠，黎州局部防线安全显著退化。",
+          "material_return": "WR0",
+          "material_return_detail": "守方无战争资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "盘陀砦及黎州边区"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "五部落大掠后撤，未见其稳定占领盘陀砦或其他宋方节点。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "出动区域军力仍战败，敌军得以深入大掠，虽未见稳定失地但安全与民生结果明显负向。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "无可确认的前卷同一五部落战役阶段。",
+          "carry_out": "P0105五部落再犯并造成更严重官军死伤与地方官弃城。"
+        },
+        {
+          "evaluation_subject_phase": "黎州五部落 × 初犯盘陀砦并深入大掠阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "五部落攻入盘陀砦方向，击退高晃所率绵潼大军，随后深入宋境“大掠而去”，没有建立长期占领。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "五部落自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际交战取胜，推定非零伤亡；无重大败损后效。",
+            "upper_bound_reason": "无百人级五部落死伤、斩俘或溃退证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见其本部生产与组织体系受损，记S0。",
+            "M": "一次边境袭掠，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "击退宋军后短期获得深入黎州的行动自由，但宋方主权和防线并未因此永久崩解。",
+          "material_return": "WR2",
+          "material_return_detail": "原文明确“大掠而去”，说明取得可携带的实质战利；数量不详，不上WR3。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "盘陀砦及黎州边区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "以袭掠撤出结束，没有形成稳定占地。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "击败守军并取得实质掠获，但没有稳定控制，安全改善也仅为短期行动自由。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "P0105再犯，说明初次袭掠后同一威胁结构继续存在。"
+        },
+        {
+          "evaluation_subject_phase": "南宋成光延—黎州守方 × 五部落再犯、官军重败与弃城阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "五部落再次进犯黎州，制置司钤辖成光延战败，原文称“官军死者甚众”；权州事折知常弃城逃走，制置司随后增兵并遣吴总任平之。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文明确“官军死者甚众”，无具体人数。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "“死者甚众”结合一支官军战败，足以把中心当量放在百人级；但没有千人、万人编制覆没或大规模遗属补兵证据。",
+            "upper_bound_reason": "缺具体兵力、斩获和千人级死亡后效，故不上P3。",
+            "confidence": "medium"
+          },
+          "cost_axis_basis": {
+            "S": "战败后权州事弃城，州级行政与防务发生实际中断，独立支持S2。",
+            "M": "制置司钤辖作战并随后益兵、另遣官平定，形成区域级追加动员，记M2。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "同一威胁再次突破防御，造成官军大量死亡并迫使州事弃城，说明黎州方向持续处于高风险。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "黎州城"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "折知常弃城已证实，但原文没有明确五部落是否入城、驻守或形成实际接管，故不强判BCN。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "百人级估计死亡、州级行政中断和安全恶化同时成立。P2与S2同为基础最高档，按PS抬档规则从WC2升至WC3。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "承P0097盘陀砦初战败走、五部落深入大掠。",
+          "carry_out": "P0123第三次来犯时由王去恶拒却；黎州城在P0105后是否一度被五部落实际占领，本卷没有确认。"
+        },
+        {
+          "evaluation_subject_phase": "黎州五部落 × 再犯黎州、击败成光延阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "五部落再犯黎州，击败制置司钤辖成光延所部，造成官军死者甚众并使权州事弃城。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "五部落自身伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战取胜但无其自身重大败损证据。",
+            "upper_bound_reason": "无百人级五部落伤亡材料。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见五部落本部受破坏，记S0。",
+            "M": "再次边境进攻，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "连续击败宋方守军并迫使地方官弃城，短期显著扩大其黎州方向行动自由；但控制终局不明。",
+          "material_return": "WR0",
+          "material_return_detail": "本阶段没有另载掠获。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "黎州城"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "宋官弃城不等于已经证实五部落实际入城接管。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "取得明显战场优势并迫使地方官逃离，但没有可确认稳定占地或新增物资回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "承初犯盘陀砦成功袭掠。",
+          "carry_out": "P0123再次入犯时被王去恶拒却。"
+        },
+        {
+          "evaluation_subject_phase": "南宋王去恶部 × 第三次黎州拒却阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "五部落再次犯黎州，左军统领王去恶率部拒却，使来犯部众未能继续深入。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际拒战不能记P0；此次原文明言“拒却”且无重大败损后效。",
+            "upper_bound_reason": "无百人级死伤、弃城或大掠后效。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "同一边区再次受袭但本次被拒却，行政生产连续，记S1。",
+            "M": "左军局地拒战，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "只确认击退一次来犯；同一五部落威胁结构尚未因此自然消失。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本次守住黎州方向，没有新增或丧失稳定控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "成功拒却一次来犯，成果有限但明确。P1与S1同为基础最高档，按PS抬档规则由WC1升至WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "承P0105官军重败、州事弃城的防务危机。",
+          "carry_out": "同段转入折知常重赂蛮帅求纳款，P0135确认五部落纳降。"
+        },
+        {
+          "evaluation_subject_phase": "黎州五部落 × 第三次入犯被王去恶拒却阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "五部落第三次犯黎州，被王去恶拒却，未见本次取得掠获或控制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "五部落死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际交战后被击退，推定非零；无大规模追击、斩俘或覆没。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见本部体系受损，记S0。",
+            "M": "一次边境进攻，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "本次行动被拒却，短期进攻机会受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无掠获记载。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有取得稳定控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "付出实际接战成本而未取得掠获或控制成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "承前两次入犯均有明显战果。",
+          "carry_out": "随后接受宋方重赂并纳款，进入非战斗和解阶段。"
+        },
+        {
+          "evaluation_subject_phase": "南宋黎州方面 × 重赂蛮帅并接受五部落纳降阶段",
+          "subject_role": "POSTWAR_SETTLEMENT",
+          "actual_process": "王去恶拒却第三次入犯后，折知常以“重赂”促使蛮帅纳款；十月胡元质正式奏五部落纳降。五部落另献马三百匹及珊瑚求盟，宋廷拒收，只许互市。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "和解阶段没有新增战区破坏，记S0。",
+            "M": "未见新增军事动员，记M0。",
+            "A": "原文明确“重赂蛮帅”，虽无数额，但已是显著财政/物资支出，记A2；五部落所献马匹珊瑚被拒收，不形成抵销。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "同一连续三次来犯的五部落接受纳降并转为只许互市，黎州局部威胁阶段性下降；由于主要依赖重赂和纳款，耐久性需后卷核验。",
+          "material_return": "WR0",
+          "material_return_detail": "宋廷明确拒收三百匹马与珊瑚等献物，只许互市，不能把未接受的贡物计为WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "和解没有明确领地交割；名义纳降不等于新增实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以较重物资支出换得同一来犯结构阶段性纳降和互市秩序，安全收益明确但非无成本、持续性未证。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "承王去恶已拒却第三次入犯。",
+          "carry_out": "卷148须核同一五部落或继承结构是否复犯；若复犯，不能把本阶段抬为SB3以上。"
+        },
+        {
+          "evaluation_subject_phase": "黎州五部落 × 接受重赂并纳降求盟阶段",
+          "subject_role": "POSTWAR_SETTLEMENT",
+          "actual_process": "五部落在第三次入犯被拒后接受宋方重赂而纳款，后正式纳降；其提出马三百匹和珊瑚等求盟，宋廷拒绝受献，仅准互市。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "和解阶段本部无可证生产破坏，记S0。",
+            "M": "无新增军事动员，记M0。",
+            "A": "本阶段没有可证其自身资产损失；所献马与珊瑚未被宋廷接受。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "停止继续入犯并取得互市渠道，短期降低了遭宋方持续军事压力的风险。",
+          "material_return": "WR2",
+          "material_return_detail": "原文明确宋方“重赂蛮帅”，对五部落而言属于已实现、但数额不详的实质物资所得，记WR2。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "纳降与互市不等于其领地取得或丧失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "本和解阶段自身无新增战争成本，获得重赂并保留互市，同时结束当前军事压力；但不据此虚构领土收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0149"
+            ]
+          },
+          "carry_in": "承第三次入犯被拒却。",
+          "carry_out": "后卷核是否守约不复犯。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "黎州戍军伍进等兵变—王去恶诱诛",
+      "campaign_group": "XZTJ-SONG-LIZHOU-GARRISON-MUTINY-1180",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+      ],
+      "source_quotes": [
+        "黎州戍軍伍進等作亂，折知常遁去。王去惡誘進等，誅之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋黎州军政体系 × 伍进等戍军兵变阶段",
+          "subject_role": "MUTINY_DEFENDER",
+          "actual_process": "黎州戍军伍进等发动兵变，权州事折知常逃走；原文没有记载交战、杀官、焚掠或战斗伤亡。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "武装戍军作乱并迫使州事逃走，单一州级军政节点秩序实际受扰，记S1。",
+            "M": "本阶段未见政府另行调军，记M0。",
+            "A": "无军资、府库或设施损失记载，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "刚经历五部落连续入犯的黎州又出现本地戍军兵变并迫使州事逃离，局部军政安全明显恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "黎州军政节点"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "州事逃走已证实，但原文未说明伍进等是否实际接管州城或其他节点。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "虽无可证战斗人员损害，但军政节点被兵变实际扰乱并导致地方负责人逃离。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "carry_in": "承同卷黎州五部落连续入犯后军政体系已经承压。",
+          "carry_out": "同段王去恶以诱捕处置伍进等，兵变迅速收束。"
+        },
+        {
+          "evaluation_subject_phase": "伍进等黎州戍军 × 兵变迫使折知常逃走阶段",
+          "subject_role": "MUTINEER",
+          "actual_process": "伍进等以戍军身份作乱，使权州事折知常逃走；未见进一步据城、杀掠或扩张。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "未见其自身后方或组织体系在发动阶段受损，记S0。",
+            "M": "现成戍军转入兵变，不属新增全民征发，但存在实际武装组织行动，记M1。",
+            "A": "无资产损失记载。"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "短期迫使州事逃离，取得一次局部行动优势；是否实际控制州城不明。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "黎州军政节点"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "地方官逃离不足以证明兵变者已形成稳定接管。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "短期迫使地方负责人逃离，但没有已证控制或资源所得，且随即被诱捕处置。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "同段即被王去恶诱捕处置。"
+        },
+        {
+          "evaluation_subject_phase": "南宋王去恶 × 诱捕处置伍进等、恢复军纪阶段",
+          "subject_role": "COUNTERMUTINY",
+          "actual_process": "王去恶没有展开可见会战，而是诱致伍进等后处死，兵变因此收束。按合同，事后处刑人数不伪装成战争P损失。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "处置阶段未见新增生产、行政破坏。",
+            "M": "未见另调大军或民夫。",
+            "A": "无资产投入损失。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "以低可见军事成本结束一次边州戍军兵变，恢复局部军纪和行政安全。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州军政节点"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原文没有证明控制权曾完成转移；处置后州级秩序恢复。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "兵变被迅速终结而本处置阶段无新增可证战争成本；处刑不计入P，避免把司法结果伪装成战斗损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "carry_in": "承同段伍进等戍军作乱、折知常逃走。",
+          "carry_out": "卷148核黎州军纪与边防是否恢复稳定。"
+        },
+        {
+          "evaluation_subject_phase": "伍进等兵变集团 × 被诱捕处置阶段",
+          "subject_role": "MUTINEER_SUPPRESSED",
+          "actual_process": "伍进等被王去恶诱致后处死，兵变集团终止。处刑是镇压后的司法/处置结果，不折算为战争P。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "不以集团政治终结自动换算S档。",
+            "M": "处置阶段无新增动员。",
+            "A": "无资产损失记载。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "兵变组织失去继续行动能力。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州军政节点"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未证兵变者此前形成稳定控制，故不虚构BCN。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "虽不把处刑人数计为P，但兵变集团在本阶段被终结，安全结果对其明确为负。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-147-2313631-P0141"
+            ]
+          },
+          "carry_in": "承同段兵变。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-147-2313631-P0001—P0155",
+      "paragraph_count": 155,
+      "body_end": "P0153",
+      "metadata_tail": [
+        "P0154",
+        "P0155"
+      ],
+      "edit_markers": [
+        "P0002",
+        "P0064"
+      ],
+      "status": "COMPLETED"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "只续卷146陈峒之乱的战后功赏与用兵复盘，无新武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+        "disposition": "ADJUDICATED",
+        "card": "广西李接之乱"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0015",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "把郴州降寇编入荆鄂军，属于战后军籍整合。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅载谋反伏诛，未见起兵、据城、调军或武装死伤；按事件准入边界不进战争账。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辛弃疾奏盗贼与武备问题是治安政策评议，未记具体武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅见翟畋“过淮生事”及处分，缺带兵、接战、掠夺、伤亡、节点争夺等事实；另列候选待核。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅载谋反伏诛，无已发动武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蠲连州被寇民租是战后/受害减免，本段没有新武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0044",
+        "disposition": "ADJUDICATED",
+        "card": "广西李接之乱—讨平"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0067",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "刘焞因平李接受赏，只用于确认前阶段主体和结果，不新开战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "广西兵校五百人改隶提刑司，属于兵制调配。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "诸州常年招补军籍，属于常规补兵制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0097",
+        "disposition": "ADJUDICATED",
+        "card": "黎州五部落初犯盘陀砦"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0105",
+        "disposition": "ADJUDICATED",
+        "card": "黎州五部落再犯—官军重败"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0120",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "沿边缉捕私盐为执法与边防管理，本段无具体武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0123",
+        "disposition": "ADJUDICATED",
+        "card": "黎州五部落第三犯—王去恶拒却及和解起点"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0125",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "创置飞虎军一千五百人，属于常设治安军制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0135",
+        "disposition": "ADJUDICATED",
+        "card": "黎州五部落纳降与互市和解"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0141",
+        "disposition": "ADJUDICATED",
+        "card": "黎州戍军伍进等兵变—王去恶诱诛"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0147",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "胡元质因不备蕃部被追责，是对既有五部落战事的行政归因。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0149",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "祿东之权四川制置使并随宜措置黎州边事，属于战后边防重整。"
+      }
+    ],
+    "new_battle_candidates": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-147-2313631-P0029",
+        "actual_fact": "知楚州翟畋因“过淮生事”被夺五官、筠州居住。字面上可能包含越淮军事越境，但本卷没有兵力、武装接触、掠夺、伤亡或节点争夺，暂不成卡；建议核卷146前情、卷148后效或翟畋本传。"
+      }
+    ],
+    "cross_volume_followups": [
+      "卷146陈峒之乱已闭合；卷147 P0006只为功赏，不重复计算。",
+      "卷148重点核黎州五部落或同一继承结构是否复犯，以校验P0135纳降阶段SB2的持续性；本卷不因“纳降”名义提前抬档。",
+      "卷147 P0105折知常弃黎州城后，原文未说明五部落是否实际入城接管；若卷148或其他相邻材料明确短期占领，再补BCN/BCP，不从“弃城”单方面推定。",
+      "核翟畋“过淮生事”是否存在可准入的实际武装阶段；若相邻卷补出调军、接战、袭击或节点控制，再从实际阶段立卡。",
+      "伍进兵变在本卷以诱捕处置收束，但黎州边防与军纪均受连续冲击；卷148核是否发生同一戍军结构复乱或新的边防失效。"
+    ]
+  }
+}

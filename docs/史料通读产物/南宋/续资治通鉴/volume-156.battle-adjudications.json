@@ -1,0 +1,2189 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷156",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-156-2316316",
+    "revision_ref": "2316316",
+    "raw_sha256": "6730b3b96483e0170cb2fbdc662b94d6e7a0639c4cf3715e756d7c5cb63c04af"
+  },
+  "cards": [
+    {
+      "battle_label": "龙州/龙川蕃部寇边—陷浊水寨—李好义讨击—受降",
+      "campaign_group": "XZTJ-SONG-LONGZHOU-ZHUOSHUI-1201-1203",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+      ],
+      "source_quotes": [
+        "龍州蕃部寇邊",
+        "陷濁水寨，執知寨范浩，屠其家",
+        "選士二百人深入",
+        "斬八級",
+        "蕃部降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋龙州—浊水寨边防 × 互市断裂后遭入寇、失寨阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "苏肃之移治依托互市获利的豪民后，蕃人盐粮米茶来源中断；汉人李蒙大逃入蕃部诱其入寇。至嘉泰三年，蕃部攻掠大崖铺并陷浊水寨，执知寨范浩并杀其家。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "范浩被执，其家被屠；守寨其他人员损失失载。",
+            "range": "2—99死亡当量",
+            "center": 14,
+            "P_scoring": "P1估",
+            "basis": "至少一家多人死亡且一名知寨被俘，人员损害直接非零；未见百人级屠杀或大批军民被俘。",
+            "upper_bound_reason": "缺百人级死亡、被俘或流亡数据。",
+            "confidence": "medium"
+          },
+          "cost_axis_basis": {
+            "S": "浊水寨这一关键边寨实际失守，大崖铺受掠，记S2。",
+            "M": "受侵阶段未见宋方新增动员，记M0。",
+            "A": "无寨内军资、粮储或设施损失数字，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "互市断裂后的矛盾演化为实际边寨失守，龙州方向安全明显恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "受侵方无资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "浊水寨"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "浊水寨被蕃部实际攻陷。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "边寨失守、守官及家属遭害，形成明确安全与控制损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ]
+          },
+          "carry_in": "卷155无同一龙州战事。",
+          "carry_out": "后续李好义选二百人深入讨击。"
+        },
+        {
+          "evaluation_subject_phase": "龙州蕃部—李蒙大集团 × 入寇并陷浊水寨阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "李蒙大诱龙州蕃部入寇，后攻大崖铺、陷浊水寨并执知寨范浩。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "攻击方自身伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "连续寇边和攻寨属实际武装行动，不能机械P0；本阶段没有其败退或大损记录。",
+            "upper_bound_reason": "无百人级自身人员损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段未见蕃部本部生产体系受损，记S0。",
+            "M": "地方部族武装入寇，规模失载，记M1。",
+            "A": "无可识别资产损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "短期夺取浊水寨并扩大边境行动空间；但后续旋遭讨击并受降。",
+          "material_return": "WR0",
+          "material_return_detail": "虽有攻寨和屠户，但无可确认粮械、府库或稳定资源所得。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "浊水寨"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "实际攻陷一处边寨。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "取得一处边寨和局部行动优势，但持续时间短、无稳定资源收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151"
+            ]
+          },
+          "carry_in": "互市断裂、李蒙大诱导是直接诱因。",
+          "carry_out": "P0189宋军深入讨击。"
+        },
+        {
+          "evaluation_subject_phase": "南宋李好义所部 × 二百人深入大鱼河、斩八级焚部帐阶段",
+          "subject_role": "COUNTERATTACKER",
+          "actual_process": "李好义选士二百人深入，渡大鱼河追击；蕃人退入深箐，宋军斩八级后因险不能进，撤退并焚其部帐。蕃人愤怒追三十余里，宋军日暮才渡河脱离。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "宋军被追三十余里但无本方死伤数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际深入追击、撤退受追，不能确认完全无损；但二百人部队仍成功渡河返寨，无成建制溃败或补兵后效。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段未见宋方统治区新增生产行政破坏，记S0。",
+            "M": "明确二百名精锐短期深入，记M1。",
+            "A": "无宋方军资损失数字，记A0。"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次深入报复行动造成有限杀伤和毁帐，但蕃部仍能追击，安全改善只是一时。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大鱼河—浊水寨方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "没有形成新的稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "取得斩八级、焚部帐的有限成果，但深入后受追、未能彻底推进，尚不足覆盖风险与动员。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189"
+            ]
+          },
+          "carry_in": "承浊水寨失守。",
+          "carry_out": "P0206蕃部最终受降并增加浊水寨屯兵。"
+        },
+        {
+          "evaluation_subject_phase": "龙州蕃部 × 遭追击、损失八级、部帐被焚后求降阶段",
+          "subject_role": "DEFENDER_SETTLEMENT",
+          "actual_process": "蕃部遭宋军深入追击，被斩八级、部帐被焚，随后组织追击三十余里但未能歼灭宋军；其后约降，最终李蒙大率二百人到浊水寨正式受降。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "原文明载被斩八级，直接P1。",
+            "S": "部帐被焚，单一部族营地生活/组织节点受损，记S1。",
+            "M": "追击三十余里和后续受降属于地方部族短期动员，记M1。",
+            "A": "部帐被焚属于少量实际生活/军用资产损失，记A1。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "此前夺寨优势被逆转，最终正式受降并接受宋方增兵浊水寨。",
+          "material_return": "WR0",
+          "material_return_detail": "献六牛只是降礼且不构成可观战争资源；水银、朱砂窟又被宋方退还。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "浊水寨"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "此前取得的浊水寨控制随受降而丧失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员、部帐和控制均受损，最终由进攻方转为受降。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "carry_in": "承前阶段攻陷浊水寨。",
+          "carry_out": "本卷以‘蕃部稍帖息’收束；卷157核是否复发。"
+        },
+        {
+          "evaluation_subject_phase": "南宋龙州边防 × 接受蕃部投降、增兵浊水寨阶段",
+          "subject_role": "POSTWAR_SETTLEMENT",
+          "actual_process": "李蒙大率二百人到浊水寨受降。宋方没有处死李蒙大，以免失蕃人向化之心；蕃人献水银、朱砂窟，制置司全部退还，并增加浊水寨屯兵。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "受降阶段没有战斗或人员损害。",
+            "S": "无新增生产行政破坏。",
+            "M": "明确增浊水寨屯兵，属于局地驻防追加，记M1。",
+            "A": "无可识别新增资产支出数字。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "一支已攻陷边寨的部族武装正式受降，边境短期恢复并加固驻防；原文称‘稍帖息’，仍只判局部阶段改善。",
+          "material_return": "WR0",
+          "material_return_detail": "宋方主动退还水银、朱砂窟，六牛只是礼物，不作为战争资源回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "浊水寨"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "边寨恢复并加驻屯。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以受降和有限增兵恢复关键边寨，安全与控制成果明确，但需额外驻屯且只见‘稍帖息’。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0206"
+            ]
+          },
+          "carry_in": "承讨击后蕃部约降。",
+          "carry_out": "卷157核同一部族是否复犯。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "奈曼库楚类伏兵擒西辽主珠勒呼并夺位",
+      "campaign_group": "XZTJ-WESTERN-LIAO-KUCHLUG-COUP",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+      ],
+      "source_quotes": [
+        "奈曼庫楚類伏兵擒之而據其位",
+        "尊珠勒呼為太上皇"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "库楚类集团 × 伏兵擒珠勒呼、夺取西辽最高军政权阶段",
+          "subject_role": "MILITARY_COUP",
+          "actual_process": "西辽主珠勒呼出猎时，奈曼库楚类设伏兵将其生擒并据其位；随后保留珠勒呼太上皇名号，实际权力已转入库楚类集团。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "至少珠勒呼1人被俘，按俘虏折算非零，记P1。",
+            "S": "未见生产、行政体系在夺位过程中遭物理破坏，记S0。",
+            "M": "实际设伏用兵，但规模不详且短促，记M1。",
+            "A": "无资产损失记载。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "夺取了最高军政权并控制原君主，政变目标立即达成；这是政变集团的局部政权安全结果，不等于社会整体安全改善。",
+          "material_return": "WR0",
+          "material_return_detail": "西辽府库、人口和领土属于内部政权转移，未载实际缴获，不计WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "西辽既有疆域"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "内部夺位没有证据显示疆界发生净变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "极低可见成本即完成最高权力夺取，军事政变目标完全实现。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "属于夺取既有西辽政权的军事政变，不按本项目建国、复国或新政权创业另立启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ]
+          },
+          "carry_in": "珠勒呼出猎提供政变机会。",
+          "carry_out": "本卷称珠勒呼旋死、西辽祀绝；后续库楚类统治稳定性待后卷。"
+        },
+        {
+          "evaluation_subject_phase": "西辽珠勒呼旧政权 × 君主被伏兵擒获、最高权力被夺阶段",
+          "subject_role": "COUP_TARGET",
+          "actual_process": "珠勒呼出猎遭伏兵生擒，虽被尊为太上皇，但原有最高军政控制已转给库楚类。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "君主1人被俘，记P1。",
+            "S": "中央最高军政指挥节点实际被夺，虽社会生产未见破坏，但政权控制发生重大短期中断，保守记S2。",
+            "M": "旧政权未见组织反击，记M0。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "旧统治集团最高权力结构失效，原君主失去自由与实际统治权。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "西辽既有疆域"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "属内部最高权力转移，非疆界净退缩。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "最高权力被军事政变夺走，旧政权政治—安全结果明确为负。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0047"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "旧统治祭祀体系随珠勒呼死而终。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "铁木真击败乃蛮部",
+      "campaign_group": "XZTJ-MONGOL-Naiman-early-1202",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+      ],
+      "source_quotes": [
+        "蒙古部長特穆津擊奈曼，敗之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真蒙古部 × 击败乃蛮阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "原文仅简记铁木真攻击乃蛮并击败之，兵力、损失、据地及缴获均失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "蒙古方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际部族战争不能机械P0；无本方重损后效。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low"
+          },
+          "cost_axis_basis": {
+            "S": "未见蒙古本部体系受损。",
+            "M": "一次部族级战斗，记M1。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次战术击败乃蛮，后续结构性结果尚未由本条体现。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "蒙古—乃蛮接触方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "单一胜负不足以证明稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "取得一次胜利，但收益范围和后效材料极少。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "属于铁木真统一蒙古诸部过程中削弱乃蛮竞争者的早期战争，支持未来统一但本条成果有限。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ]
+          },
+          "carry_in": "蒙古诸部仍处于竞争整合期。",
+          "carry_out": "同卷后续出现更完整的乃蛮战争，不能把后续战果倒灌本条。"
+        },
+        {
+          "evaluation_subject_phase": "乃蛮部 × 被铁木真击败阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "乃蛮被铁木真击败，具体损失失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "乃蛮损失无数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "战败成立但无更强伤亡信息。",
+            "upper_bound_reason": "无百人级中心证据。",
+            "confidence": "very_low"
+          },
+          "cost_axis_basis": {
+            "S": "未见本部生产体系受损。",
+            "M": "一次部族战斗。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次战术受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乃蛮方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "战败且无可确认收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0139"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后续乃蛮仍能继续构成主要竞争者。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "泰赤乌来攻—铁木真十三翼反击破走",
+      "campaign_group": "XZTJ-MONGOL-TAICHIUD-CONSOLIDATION",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+      ],
+      "source_quotes": [
+        "泰楚特率眾來攻",
+        "特穆津大集諸部兵，分十三翼，與戰，破走之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真诸部十三翼 × 反击泰赤乌阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "泰赤乌在铁木真幼时率众来攻，铁木真大集诸部兵，分十三翼迎战并将其击退；泰赤乌部众因不满其主，随后多转投铁木真。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "蒙古方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "大集诸部实际接战但无本方重损证据。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "蒙古政治共同体遭一次主要部族进攻，单一方向受扰，记S1。",
+            "M": "分十三翼组织诸部兵，属早期部族联盟动员，记M1。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "不仅击退主要竞争者，而且其部众因不满本主而持续投降铁木真，明显削弱泰赤乌威胁并增强蒙古组织基础。",
+          "material_return": "WR2",
+          "material_return_detail": "部众转附形成可实际控制的兵力与组织资源；不把人口本身计作战利，仅按形成军政能力记WR2。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "蒙古诸部实际联盟控制范围"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "泰赤乌部分部众转归铁木真，扩大实际部族控制网络。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见成本击退主要竞争者，并引发对手部众持续转附，直接扩展军政基础。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_EMERGENCE",
+            "startup_significance": "十三翼动员并吸纳泰赤乌部众，是铁木真从氏族首领向跨部族军事政治中心发展的关键早期阶段。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ]
+          },
+          "carry_in": "伊苏克依死后蒙古集团脆弱，泰赤乌反目。",
+          "carry_out": "泰赤乌仍未完全终结，同卷后续还有鄂诺河大战。"
+        },
+        {
+          "evaluation_subject_phase": "泰赤乌部 × 来攻失败、部众离散阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "泰赤乌率众来攻，被铁木真十三翼击退，且部分部众因不满其主转投铁木真。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "泰赤乌战损失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际败战成立但无大批斩获数字。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "政治组织出现部众离散、转投敌方，记S1。",
+            "M": "一次部族来攻。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "战败并开始失去部众，长期竞争地位明显恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "部分部族控制网络"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "部分部众转归铁木真。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "战败且组织成员持续流失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0142"
+            ]
+          },
+          "carry_in": "泰赤乌原为强部。",
+          "carry_out": "后续仍有鄂诺河大战。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "铁木真协金追击塔塔儿部",
+      "campaign_group": "XZTJ-MONGOL-TATAR-JIN-ALLIANCE",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+      ],
+      "source_quotes": [
+        "塔塔爾部背金約",
+        "特穆津發近兵自鄂端河合擊，破之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真蒙古军 × 与金军合击塔塔儿阶段",
+          "subject_role": "ALLY_ATTACKER",
+          "actual_process": "塔塔儿背金约，金丞相襄率军追逐其北走；铁木真发近兵从鄂端河方向合击并击破塔塔儿，战后获金授“招讨使”。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "蒙古方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际合击但无本方败损后效。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "蒙古本部未受战。",
+            "M": "发近兵短期行动。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "削弱长期竞争的塔塔儿，并通过与金合作扩大铁木真政治地位。",
+          "material_return": "WR1",
+          "material_return_detail": "获得金授“招讨使”的制度性军政地位，但名义头衔本身不按高额物资回报，仅记有限组织收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "蒙古—塔塔儿方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无稳定地盘变化记载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低成本击破竞争部族并获得对外政治认可，但本阶段没有稳定控制或可观物资所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "借合击塔塔儿削弱竞争者并获得金朝招讨使身份，提升铁木真在草原部族体系中的军政合法性。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ]
+          },
+          "carry_in": "铁木真正扩大诸部影响。",
+          "carry_out": "塔塔儿威胁是否彻底终结待后续。"
+        },
+        {
+          "evaluation_subject_phase": "塔塔儿部 × 被金—蒙古合击击破阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "塔塔儿背金约后被金军追击，又遭铁木真近兵合击而败。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "塔塔儿战损失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "连续被追击、合击并击破，非零损害合理；无大批斩俘数字。",
+            "upper_bound_reason": "无百人级确定证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "部族行动空间受两方军事夹击，记S1。",
+            "M": "部族军事应战，记M1。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "遭两方夹击、活动空间受压。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "塔塔儿活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无稳定控制终局。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "被合击击破且无收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0144"
+            ]
+          },
+          "carry_in": "背金约。",
+          "carry_out": "后续仍需核是否再与蒙古争战。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "铁木真援克烈复仇乃蛮—再与哈萨尔大败乃蛮",
+      "campaign_group": "XZTJ-MONGOL-NAIMAN-KEREIT-CAMPAIGN",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+      ],
+      "source_quotes": [
+        "四將助之，大敗奈曼，盡奪所掠以歸托哩汗",
+        "特穆津與弟哈薩爾伐奈曼，大敗之",
+        "盡殺其諸將族眾，積屍以為京觀"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真—四杰蒙古军 × 援克烈击败乃蛮并归还所掠阶段",
+          "subject_role": "ALLY_ATTACKER",
+          "actual_process": "克烈王罕请求铁木真援助复仇，铁木真派博尔术、木华黎、博勒忽、赤老温四将协助，大败乃蛮，并把夺回的被掠物全部归还王罕。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "蒙古援军损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际大战但无本方重损。",
+            "upper_bound_reason": "无百人级证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "蒙古本部未受战。",
+            "M": "四将援军行动，记M1。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "削弱乃蛮并巩固与克烈联盟，使蒙古外部环境短期改善。",
+          "material_return": "WR0",
+          "material_return_detail": "夺回物资全部归还王罕，蒙古不重复计所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乃蛮—克烈方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无蒙古稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以有限成本完成盟友救援并击败乃蛮，但未保留战利或新控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "巩固与克烈联盟并展示独立将领体系，有利于蒙古政治军事中心扩大。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ]
+          },
+          "carry_in": "王罕因乃蛮战败流亡后求援。",
+          "carry_out": "随后铁木真亲自再伐乃蛮。"
+        },
+        {
+          "evaluation_subject_phase": "铁木真—哈萨尔军 × 再伐乃蛮、屠杀诸将族众阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "铁木真与弟哈萨尔再伐乃蛮并大败之，尽杀其诸将族众，以尸体筑京观，乃蛮势力明显衰弱。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "蒙古方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际大战取胜且未见本方重损。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "蒙古本部未受战。",
+            "M": "部族战争，规模失载，记M1。",
+            "A": "无本方资产损失。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "乃蛮诸将及族众遭大规模杀戮，原文明言“奈曼之势遂弱”，主要竞争者持续受削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认蒙古保留的物资所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乃蛮方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有明确地盘交接。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见本方成本下重创主要竞争者并造成持续战略削弱；但屠杀行为的人道负面应另保留，不能作为正收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "持续削弱乃蛮这一主要草原竞争者，为后续统一诸部清除重要军事障碍。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ]
+          },
+          "carry_in": "承援克烈击败乃蛮。",
+          "carry_out": "乃蛮仍未完全灭亡，后续还会联合诸部来侵。"
+        },
+        {
+          "evaluation_subject_phase": "乃蛮军 × 连败、诸将族众被尽杀阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "乃蛮先被蒙古援军大败，后又遭铁木真、哈萨尔再伐；诸将及族众被大量杀死，原文称乃蛮之势遂弱。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "“尽杀其诸将族众，积尸以为京观”，无具体基数。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "“尽杀”“积尸为京观”是明显大规模死亡描述，超过普通个位数、数十人战损；但缺参战总数，不能推到千人级中心。",
+            "upper_bound_reason": "无明确千人以上基数或数量词。",
+            "confidence": "medium"
+          },
+          "cost_axis_basis": {
+            "S": "领导层及相关族众遭成片杀戮，乃蛮政治军事组织显著受损，记S2。",
+            "M": "一次部族战争动员。",
+            "A": "无资产损失数字。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "原文明言“奈曼之势遂弱”，作为主要竞争者能力持续下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乃蛮方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无明确稳定地盘丧失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "百人级估计死亡、领导与族众损失及组织弱化叠加。P2与S2同为基础最高档，按PS规则WC2→WC3。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0145"
+            ]
+          },
+          "carry_in": "承乃蛮此前击败王罕。",
+          "carry_out": "乃蛮仍可联合诸部再侵。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "铁木真—王罕鄂诺河大战泰赤乌",
+      "campaign_group": "XZTJ-MONGOL-TAICHIUD-CONSOLIDATION",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+      ],
+      "source_quotes": [
+        "大戰于鄂諾河上，敗走之，斬獲無算"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真—王罕联军 × 鄂诺河大战阶段",
+          "subject_role": "ALLY_ATTACKER",
+          "actual_process": "泰赤乌仍强，铁木真会王罕在鄂诺河大战，将其击败，原文称“斩获无算”。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "蒙古—克烈方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "大战取胜，无本方重损记录。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本方本部未受战。",
+            "M": "两部联军战斗，规模不详。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "再次大败长期强敌泰赤乌并大量斩获，显著削弱其竞争能力。",
+          "material_return": "WR1",
+          "material_return_detail": "“斩获”含俘获但物资不明，仅记有限可控俘获收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泰赤乌方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见明确地盘归属变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见成本再次重创主要竞争者，巩固统一诸部进程。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "对泰赤乌持续作战进一步拆除重要竞争结构，是蒙古统一前的核心巩固阶段。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ]
+          },
+          "carry_in": "承早期十三翼击退泰赤乌但未完全终结。",
+          "carry_out": "后续是否彻底吸纳泰赤乌，需再核。"
+        },
+        {
+          "evaluation_subject_phase": "泰赤乌部 × 鄂诺河大败、斩获无算阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "泰赤乌在鄂诺河被铁木真、王罕联军大败，斩获无算。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "“斩获无算”，未给基数。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "“无算”强于普通战败，表示杀俘很多；但无参战总数，保守置于百人级估计。",
+            "upper_bound_reason": "无千人级明确基数。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "主要部族军事力量遭大败，组织受损但无生产区毁灭，记S1。",
+            "M": "部族大战，记M1。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "长期强敌再遭重大败损，竞争能力显著下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泰赤乌方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无具体地盘失控。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "百人级估计杀俘与重大败战叠加，结果明确为负。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0146"
+            ]
+          },
+          "carry_in": "承早期败战后仍保持强势。",
+          "carry_out": "待后续统一阶段。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "乃蛮联合诸部来侵—徒伊坛大战败退",
+      "campaign_group": "XZTJ-MONGOL-NAIMAN-INVASION-TUYITAN",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+      ],
+      "source_quotes": [
+        "奈曼又會諸部眾來侵",
+        "大戰于徒伊壇之野",
+        "奈曼大敗"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真—王罕联军 × 徒伊坛防御反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "乃蛮会诸部来侵，铁木真与王罕倚阿兰塞设防，在徒伊坛野战；乃蛮祈风雪反遭逆风，蒙古乘其退却发动追击，乃蛮大败，撒木合援军闻败即退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "蒙古—克烈方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "发生大战但本方取胜，未见重损。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "主要竞争者来侵造成单一方向安全受扰，记S1。",
+            "M": "联军大战，规模不详，记M1。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "击溃乃蛮主攻并使援军不战而退，对主要竞争者形成持续压制。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "徒伊坛—阿兰塞方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住本方控制空间，未见新地盘。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "守住本部并击溃主要竞争者及其联军，低成本取得重大安全改善。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "击退乃蛮联合进攻，稳固铁木真联盟体系并进一步压低外部竞争者能力。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ]
+          },
+          "carry_in": "乃蛮此前已受重创但仍能联合诸部来侵。",
+          "carry_out": "乃蛮未彻底终结，后续卷仍有最终决战。"
+        },
+        {
+          "evaluation_subject_phase": "乃蛮联军 × 徒伊坛大战失败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "乃蛮联合诸部进攻，因反风雪和蒙古追击而大败；援军撒木合部闻败退还。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "乃蛮方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "大败且撤退，但无具体斩获。",
+            "upper_bound_reason": "无百人级中心的数量证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "进攻联盟受挫、援军退走，组织协同受损，记S1。",
+            "M": "诸部联合进攻，记M1。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "主攻失败且盟友退却，主要竞争态势继续恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "徒伊坛方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得稳定控制。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "联合进攻失败，无任何控制或资源收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0147"
+            ]
+          },
+          "carry_in": "承乃蛮此前连续败损。",
+          "carry_out": "仍保留残余力量。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "萨哩部犯金边寨—崇浩、布萨揆合击",
+      "campaign_group": "XZTJ-JIN-SALI-BORDER-1203",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+      ],
+      "source_quotes": [
+        "薩哩部犯金邊寨",
+        "崇浩以兵追躡，與布薩揆軍合擊之",
+        "殺獲甚眾，敵遁去"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金崇浩—布萨揆军 × 追击合击萨哩部阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "萨哩部攻击金边寨，丞相崇浩追击，与布萨揆军合击，杀获甚众，萨哩部退走。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际追击合击不能机械P0；无本方重损后效。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "一处边寨方向受侵，记S1。",
+            "M": "两支地方军合击，规模失载，记M1。",
+            "A": "无资产损失。"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "击退一次边寨来犯并造成较多杀俘，属于一次缓解；长期萨哩威胁后效未知。",
+          "material_return": "WR1",
+          "material_return_detail": "“杀获甚众”含俘获，但无物资数量，只记有限俘获收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "金边寨"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "边寨未见失守。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "成功击退来犯且杀获甚众，但只确认一次边地战术成果。P1/S1同顶，WC1→WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ]
+          },
+          "carry_in": "金国内已因边境多故而征调滋繁。",
+          "carry_out": "卷157核萨哩部是否复犯。"
+        },
+        {
+          "evaluation_subject_phase": "萨哩部 × 犯边后遭合击、杀获甚众阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "萨哩部攻击金边寨，遭崇浩、布萨揆合击，杀获甚众后退走。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文称“杀获甚众”，无基数。",
+            "range": "100—999死亡当量",
+            "center": 224,
+            "P_scoring": "P2估",
+            "basis": "“甚众”同时指杀与俘，说明明显高于小规模数人；但缺兵力基数且俘虏按1/5折算，保守置百人级。",
+            "upper_bound_reason": "无千人级基数。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见本部聚落体系受损。",
+            "M": "一次部族攻击。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "来犯部队遭较多杀俘并被迫撤退，局部进攻能力受损。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "金边寨"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得边寨控制。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "遭较多杀俘并退走，无控制或资源收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0201"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核复发。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "铁木真与克烈王罕决裂战争：来侵—两败—夜袭尽降部众",
+      "campaign_group": "XZTJ-MONGOL-KEREIT-TERMINAL-WAR",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+      ],
+      "source_quotes": [
+        "托哩汗謀既不成，即舉兵來侵",
+        "特穆津整兵出戰，屢敗之",
+        "托哩汗復至，與之戰，托哩汗大敗",
+        "銜枚夜襲之，盡降其部眾"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "铁木真蒙古军 × 抵御王罕来侵、反击夜袭并兼并克烈部众阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "婚姻破裂后，王罕父子谋杀铁木真未成，随即举兵来侵。铁木真迎战屡败之，并射伤伊喇哈；后在班朱泥河整合危惧部众，再战使王罕大败，继而夜袭，克烈部众尽降，王罕、伊喇哈逃亡后分别被杀。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "蒙古方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "连续多次实际战斗不能机械P0；铁木真一度“微弱、众颇危惧”，但无本方大批阵亡或成建制溃败数字。",
+            "upper_bound_reason": "无百人级本方人员损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "蒙古政权核心遭主要盟友转敌并来侵，组织一度危惧但未失控，记S1。",
+            "M": "连续多战、夜袭并处理整个克烈部众，已超过一次短促冲突，记M2。",
+            "A": "无可识别资产损失。"
+          },
+          "strategic_security": "SB4",
+          "strategic_security_detail": "克烈王罕这一长期强大、曾与蒙古结盟又转为致命竞争者的政治军事结构被彻底拆除，王罕父子死亡，部众尽降，不再具备同类再犯能力。",
+          "material_return": "WR3",
+          "material_return_detail": "“尽降其部众”使克烈既有军政组织和大量军事资源转入铁木真实际控制；人口本身不计战利，按形成的重要军政资源和统合能力记WR3。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "克烈部军政控制网络"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "克烈部众整体转入铁木真控制，显著扩大实际草原政治军事控制空间。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "虽然经历连续战争和一度危局，但最终彻底消灭一个主要竞争体系并吸纳其部众，形成重大且稳定的建国收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "消灭克烈王罕体系并吸纳其部众，是1206年前蒙古统一草原的决定性整合阶段之一，显著扩大铁木真可直接支配的军政基本盘。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ]
+          },
+          "carry_in": "此前蒙古与克烈长期联盟，已共同对乃蛮、泰赤乌作战。",
+          "carry_out": "卷157进入最终击灭乃蛮、称帝前夜；不得把后续称帝倒灌成本卷。"
+        },
+        {
+          "evaluation_subject_phase": "克烈王罕—伊喇哈集团 × 谋杀失败、入侵失败、部众尽降阶段",
+          "subject_role": "ATTACKER_SUPPRESSED",
+          "actual_process": "王罕父子先谋杀铁木真未成，继而举兵来侵，多次败战；最终遭夜袭，部众全部投降，王罕、伊喇哈逃亡后分别被他方杀死。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "王罕父子后来死亡，但分别死于奈曼部将与龟兹王，不直接算本阶段蒙古造成的战斗死亡；克烈战损失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "连续败战和部众尽降说明非零战损合理，但没有战场斩杀、伤俘基数。",
+            "upper_bound_reason": "无百人级可直接换算数据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "克烈整个独立军政组织失去部众和首领，作为主要草原政权结构终结，记S3。",
+            "M": "连续举兵、多次战斗，记M2。",
+            "A": "无可识别资产数据。"
+          },
+          "strategic_security": "SN4",
+          "strategic_security_detail": "独立政治军事结构被终结，不再具备同类竞争能力。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "克烈部军政控制网络"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "部众尽降蒙古，原有独立控制网络消失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "连续战败、整个部众和控制体系丧失，政治军事结构终结。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0223"
+            ]
+          },
+          "carry_in": "与蒙古由盟友转为敌对。",
+          "carry_out": "集团终结。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "琼州西浮洞逃军作乱—寇掠文昌—官军讨平",
+      "campaign_group": "XZTJ-SONG-QIONGZHOU-XIFUDONG-DESERTERS-1204",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+      ],
+      "source_quotes": [
+        "瓊州西浮洞逃軍作亂，寇掠文昌縣；官軍討平之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋琼州地方官军 × 讨平西浮洞逃军阶段",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "西浮洞逃军发动武装叛乱并寇掠文昌县，地方官军随后讨平；死伤、兵数、据点和缴获均失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "官军死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际讨平武装逃军，不能机械P0；无本方重损。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "一县遭武装寇掠，区域社会和行政短期受扰，记S2。",
+            "M": "地方官军短期讨叛，记M1。",
+            "A": "无可识别资产损失。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "已形成逃军武装并寇掠县境的叛乱被讨平，本轮高强度活动能力终止。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "文昌县及西浮洞方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "未见叛军稳定据城，故不虚构收复控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以有限地方用兵终结一支已实际寇掠县境的逃军叛乱，成本未见扩大。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ]
+          },
+          "carry_in": "卷155无同一西浮洞事件。",
+          "carry_out": "卷157如无同一逃军再乱，维持本轮收束。"
+        },
+        {
+          "evaluation_subject_phase": "西浮洞逃军 × 作乱寇掠文昌后被讨平阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "逃军形成武装集团，寇掠文昌县，最终被官军讨平。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "逃军败损失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际被讨平，非零损害合理；无斩俘数字。",
+            "upper_bound_reason": "无百人级证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见其本部社会体系可独立判断，记S0。",
+            "M": "逃军武装叛乱，规模失载，记M1。",
+            "A": "无资产数据。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "集团被讨平，继续公开武装活动能力终止。",
+          "material_return": "WR0",
+          "material_return_detail": "虽然寇掠，但无可确认具体战利，不从“寇掠”自动抬WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "文昌县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无稳定占领证据。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "武装叛乱被终结，没有稳定控制或可确认资源所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期战争，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-156-2316316-P0230"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-156-2316316-P0001—P0249",
+      "paragraph_count": 249,
+      "body_end": "P0249",
+      "edit_markers": [],
+      "metadata_tail": [],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 11,
+      "adjudicated_subject_phase_cards": 24,
+      "coverage_note": "逐段复读覆盖所有实际武装行动。黑谷逃军在本卷获得非战斗收束，不转成战役；北伐军费、练兵、战舰、主帅部署留非战役账，真正宋金越境接战交卷157。"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "asset_axis_checked": "A轴仅在龙州蕃部帐幕被焚等有直接物质损失时入A1；未从出兵人数或胜败自动推军资损失。",
+      "control_checked": "只有浊水寨实际攻陷/恢复、泰赤乌部众转附、克烈部众尽降等有明确实际控制对象时才记非零BC；普通击败、追击不虚构地盘。",
+      "founding_startup_checked": "铁木真统一诸部战争按REGIME_EMERGENCE/REGIME_CONSOLIDATION填写建国启动账；后续1206称帝不会倒灌本卷。",
+      "postwar_execution_checked": "黑谷首领斩首、龙州潜在处刑、克烈王罕父子后续被他方杀死均未伪装为本阶段战斗P。",
+      "candidate_carryover_checked": "卷155黑谷戍卒候选由P0040关闭为NOT_A_BATTLE，原因是有招还/处置但无官军接战。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "按阅诸州兵士及禁止擅招军，属兵制监察。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0022",
+        "disposition": "ADJUDICATED",
+        "card": "龙州/龙川蕃部寇边"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴曦谋求帅蜀的政治人事活动，无武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴曦任兴州都统制，属军权任命。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "黑谷逃军为盗经时未平，但本卷只见张榜招还、斩首领、流配余众，无官军接战、据寨或战斗伤亡；关闭卷155候选。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0047",
+        "disposition": "ADJUDICATED",
+        "card": "库楚类伏兵擒西辽主夺位"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "举边郡守臣，属边防人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0085",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "举将帅制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0089",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "‘北部侵我旧疆千有余里’为既往边事总评，缺本卷可分离接战阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0118",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "总领所财赋管理，属军费制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0131",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "韩侂胄开边意图和政治用人，未形成本段实际战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0132",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "大阅，属训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0139",
+        "disposition": "ADJUDICATED",
+        "card": "铁木真击败乃蛮部"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0142",
+        "disposition": "ADJUDICATED",
+        "card": "泰赤乌来攻—十三翼反击"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0144",
+        "disposition": "ADJUDICATED",
+        "card": "铁木真协金击塔塔儿"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0145",
+        "disposition": "ADJUDICATED",
+        "card": "铁木真援克烈—再伐乃蛮"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0146",
+        "disposition": "ADJUDICATED",
+        "card": "鄂诺河大战泰赤乌"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0147",
+        "disposition": "ADJUDICATED",
+        "card": "徒伊坛大战乃蛮联军"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0151",
+        "disposition": "ADJUDICATED",
+        "card": "龙州/龙川蕃部—陷浊水寨"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0183",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "造战舰并支封桩库钱十万，属军备资产准备，未对应本段接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0189",
+        "disposition": "ADJUDICATED",
+        "card": "李好义讨龙州/龙川蕃部"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0190",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "增襄阳骑军，属建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0200",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边境多故征调滋繁、国内多盗为战争后效与治安制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0201",
+        "disposition": "ADJUDICATED",
+        "card": "萨哩部犯金边寨—金军合击"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0205",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "教阅两淮万弩手，属训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0206",
+        "disposition": "ADJUDICATED",
+        "card": "龙州/龙川蕃部受降"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0209",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金使报告宋市马厉兵被章宗视为生事，属情报判断，无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0211",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金驿使私报蒙古困金、韩侂胄由此倡兵，属战争情报与决策诱因。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0216",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "禁将帅掊克，属军纪。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0217",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "北伐前主帅部署和备战，尚无该段敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0219",
+        "disposition": "ADJUDICATED",
+        "card": "蒙古—克烈终局战争前因"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0220",
+        "disposition": "ADJUDICATED",
+        "card": "蒙古—克烈终局战争前因"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0221",
+        "disposition": "ADJUDICATED",
+        "card": "蒙古—克烈终局战争前因"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0222",
+        "disposition": "ADJUDICATED",
+        "card": "蒙古—克烈终局战争"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0223",
+        "disposition": "ADJUDICATED",
+        "card": "蒙古—克烈终局战争—夜袭尽降"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0230",
+        "disposition": "ADJUDICATED",
+        "card": "琼州西浮洞逃军作乱"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0231",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金北边压力与韩侂胄聚财募卒、练兵备伐金，属备战财政与动员；真正接战从卷157越境袭击开始。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0233",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "关上八百万斛军粮腐败、重新收籴，属战前军储。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0238",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "诸军射铁帖训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-156-2316316-P0248",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "娄机论将帅训练与军律，属政治奏议。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷155黑谷百余戍卒候选已由卷156 P0040关闭：招还、斩首领、流配余众，但仍无官军接战；不转正。",
+      "龙州/龙川蕃部本卷已受降、浊水寨增兵并称‘稍帖息’；卷157核同一集团是否复犯，不自动由SB2抬高。",
+      "蒙古统一诸部建国父链在卷157继续：重点核乃蛮最终战、默尔奇平定和1206称帝，后卷结果不能倒灌本卷阶段。",
+      "金北边准布主链本卷没有新接战，只出现旧疆千余里受侵和征调滋繁等后效；不重复计战果。",
+      "韩侂胄北伐本卷仅完成实际备战资产与动员，卷157出现朱裕焚涟水、比阳/黄涧/内乡等越境袭击后才建立宋金战争实际阶段。",
+      "吴曦本卷兵权集中、巨额营造和与吴㧾结欢均属叛乱前置；卷157若实际通金、据蜀再按武装/割据阶段入账。"
+    ]
+  }
+}

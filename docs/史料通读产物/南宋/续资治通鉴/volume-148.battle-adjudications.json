@@ -1,0 +1,869 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷148",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-148-2314217",
+    "source_url": "https://zh.wikisource.org/wiki/續資治通鑑/卷148",
+    "revision_ref": "2314217",
+    "raw_sha256": "2c4b4b1817d7656e18b191edd47a865b47cf57e053352c852db657a72618bb46"
+  },
+  "cards": [
+    {
+      "battle_label": "黎州土丁张百祥等因科役起乱—刘大年逆击驱散",
+      "campaign_group": "XZTJ-SONG-LIZHOU-TUDING-ZHANGBAIXIANG-1181",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+      ],
+      "source_quotes": [
+        "以不堪科役為亂",
+        "劉大年引兵逆擊之，土丁遁去"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋黎州刘大年所部 × 逆击土丁起乱阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "黎州土丁张百祥等因不堪科役发动武装骚乱，统领官刘大年引兵迎击，土丁败退。刘大年随后“坐诛”属于战后司法/责任处置，不折入战争P。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文明确“引兵逆击”，属于实际武装接触，但宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "真实接战排除P0；土丁随即遁去，未见宋军败退、抚恤、补兵或百人级损失后效。",
+            "upper_bound_reason": "无百人级宋方死伤证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "同一边州出现本地土丁武装起乱，单一州级节点军政秩序短时受扰，记S1。",
+            "M": "刘大年调本地军兵短促逆击，记M1。",
+            "A": "未见可识别军械、粮秣、运输或财政资产投入/损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "土丁被当场击退、未见据城或继续扩张，黎州局部军政秩序阶段性恢复；后续是否再乱尚待核。",
+          "material_return": "WR0",
+          "material_return_detail": "无战利或新增可控制资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "起乱者遁去，未见州城、砦寨或其他军政节点发生实际控制转移。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以局地短促动员击退起乱土丁并守住原有节点；收益明确但仅为本地阶段性恢复。P1与S1并列基础最高档，按PS抬档规则由WC1升至WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ]
+          },
+          "carry_in": "承卷147黎州连续外患与戍军兵变后军政体系仍在重整；本次起因则明确转为内部科役压力。",
+          "carry_out": "后卷若同一土丁群体或同一科役矛盾再次武装化，再复核SB2持续性。"
+        },
+        {
+          "evaluation_subject_phase": "张百祥等黎州土丁 × 起乱后遭逆击遁走阶段",
+          "subject_role": "MUTINEER_REBEL",
+          "actual_process": "张百祥等以“不堪科役”为由起乱，遭刘大年所部逆击后遁去；未见其占领州城、砦寨或获得战利。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "起乱者遭官军实际逆击后遁走，自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "真实接战并败退，不能按史料沉默记P0；无斩俘、首领死亡或成建制覆没记载。",
+            "upper_bound_reason": "无百人级人员损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见起乱者自身生产基础或组织节点受破坏，记S0。",
+            "M": "地方土丁武装起事，规模未见扩大，记M1。",
+            "A": "无可识别资产损失，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "起乱行动被迅速击退，继续在黎州公开武装活动的空间明显收缩。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黎州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未形成可确认稳定占地或节点接管。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "起乱未取得控制或资源成果，反遭官军击退。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0018"
+            ]
+          },
+          "carry_in": "起因是“不堪科役”，属于黎州内部负担矛盾。",
+          "carry_out": "本卷未见张百祥等继续活动。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "卷147黎州五部落连续战事：战殁将士403人追叙增证",
+      "campaign_group": "XZTJ-SONG-LIZHOU-FIVE-TRIBES-1180",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-148-2314217-P0079"
+      ],
+      "source_quotes": [
+        "錄黎州戰歿將士四百三人"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋黎州方面 × 卷147连续战事人员损失追叙核定",
+          "subject_role": "RETROSPECTIVE_LOSS_EVIDENCE",
+          "actual_process": "本卷没有再打一场同名战斗，而是在战后录恤时直接给出“黎州战殁将士四百三人”。该数字为卷147五部落连续战事宋方累计战殁的强增证；它替代战役群层面的纯估计，不与卷147既有P估计相加。",
+          "cost_axes": {
+            "P": "P2",
+            "S": "UNKNOWN",
+            "M": "UNKNOWN",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "原文直接记录战殁403人，落入P2（100—999），不是估计。",
+            "S": "本段只登记战殁，不重新陈述城寨、行政或生产破坏；不在本追叙卡重复计S。",
+            "M": "本段没有重新给出兵力或役期，记UNKNOWN。",
+            "A": "本段仅为人员录恤，没有新增可识别战争资产投入/损失，记A0。"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "本段是人员损失追叙，不产生新的安全收益/损害；卷147原有阶段性安全裁决仍由原战事锚点承担。",
+          "material_return": "WR0",
+          "material_return_detail": "战殁录恤不是战争资源回报。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "黎州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本段没有重新记载领土或军政节点控制变化。",
+            "continuity_status": "NOT_REASSESSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0079"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "此卡只修正/补强前卷人员成本证据，不重复制造战果、SB/SN、WR或BC。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0079"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0079"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0079"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0079"
+            ]
+          },
+          "carry_in": "承卷147 campaign_group `XZTJ-SONG-LIZHOU-FIVE-TRIBES-1180`。卷147曾依据“官军死者甚众”给出P2估；本条把战役群宋方累计损失改为至少403名战殁、P2直接成立。",
+          "carry_out": "不得把403与卷147估计人数累加。若细分到卷147某一次具体交战，403究竟如何分配仍无直接证据，应保留阶段分配不确定性。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "潮州沈师之乱：汀漳受蹂践—诱降诛首",
+      "campaign_group": "XZTJ-SONG-CHAOSHAN-SHENSHI-1181",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+        "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+        "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+      ],
+      "source_quotes": [
+        "潮州賊沈師為亂，趣趙師憲討之",
+        "鞏湘誘潮賊沈師出降，誅之",
+        "汀、漳二州民為沈師所蹂踐"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋汀、漳受治民众与地方秩序 × 沈师武装蹂践阶段",
+          "subject_role": "DEFENDER_CIVIL_ORDER",
+          "actual_process": "沈师以“潮州贼”身份起乱，后文确认汀、漳二州民众遭其蹂践并因此获除赋。原文没有给出具体死亡、失城或财物损失数字。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "两州民众遭武装集团“蹂践”，人员死伤、被掳情况失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "跨两州的实际武装蹂践排除P0；但无“死者甚众”、具名死亡、大批被俘或人口锐减记载。",
+            "upper_bound_reason": "缺少支持百人级死亡当量的直接或后效证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "受害范围明确涉及汀、漳二州民众，并触发事后除赋；属于跨多个地方节点的区域性秩序/生产扰动，记S2。",
+            "M": "本受害主体没有可证动员，记M0。",
+            "A": "“蹂践”说明受害但未识别具体军资、粮储、牲畜或财政资产数量，不以泛化破坏自动计A，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "沈师武装活动已经影响汀、漳两州，地方治安和民生安全显著恶化，但未见州城持续失守。",
+          "material_return": "WR0",
+          "material_return_detail": "受害方无战争资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "汀州",
+              "漳州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原文只记民众受蹂践，没有州城、县城或砦寨实际失控证据。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "两州民众受武装蹂践且后续需要除赋，安全与社会成本均为负向。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ]
+          },
+          "carry_in": "本卷P0029首次明确沈师为乱。",
+          "carry_out": "P0098进入鞏湘诱降收束阶段；P0124为战后民众除赋。"
+        },
+        {
+          "evaluation_subject_phase": "沈师武装 × 起乱并蹂践汀漳阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "沈师起于潮州方向，活动影响汀、漳两州民众；没有稳定据城或战利数字，后被诱出投降。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "武装起乱并跨州蹂践，集团自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际武装活动持续到专门讨捕，不能机械记P0；但没有其自身斩俘、败退或重大减员证据。",
+            "upper_bound_reason": "无百人级自身人员损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段未见沈师自身组织或后方受到破坏，记S0。",
+            "M": "地方性武装集团跨州活动，未见大规模征发，记M1。",
+            "A": "无可识别资产投入/损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "一度把武装活动扩展到汀、漳两州，取得短期行动空间；但没有形成稳定军政控制。",
+          "material_return": "WR0",
+          "material_return_detail": "未记明确掠获物、府库或军资，不能从“蹂践”反推WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潮州—汀州—漳州活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有已证州县或砦寨稳定接管。",
+            "continuity_status": "NO_STABLE_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "取得跨州扰动和短期行动自由，但无稳定控制、资源回报，且后续被诱降。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ]
+          },
+          "carry_in": "无可确认前卷同一沈师武装阶段。",
+          "carry_out": "P0098被鞏湘诱出投降。"
+        },
+        {
+          "evaluation_subject_phase": "南宋广东安抚鞏湘 × 诱沈师出降并终结本轮武装阶段",
+          "subject_role": "COUNTERINSURGENCY_SETTLEMENT",
+          "actual_process": "此前赵师宪奉命讨捕，最终由广东安抚鞏湘诱使沈师出降；沈师降后被诛。原文没有记载诱降阶段发生接战，因此处刑不计战争P。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "诱降收束阶段未见新增生产、行政破坏。",
+            "M": "只确认诱降，不见新的军队调发数量，记M0。",
+            "A": "无可识别军费、赏赂或资产损失，记A0。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "一支已跨汀、漳蹂践的武装核心通过投降被终止，本轮区域性威胁的高强度活动能力消失。",
+          "material_return": "WR0",
+          "material_return_detail": "无战利资源；人员投降不计WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潮州—汀州—漳州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "前阶段本就无可证稳定失地，本阶段是治安结构恢复而非领土收复。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "诱降本身没有可见新增战争成本，却终结一支跨州武装集团；按实际收束阶段判高回报，不把此前民众已受的S2损害抹去。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ]
+          },
+          "carry_in": "承P0029专门讨捕及P0124所证汀、漳受蹂践。",
+          "carry_out": "本卷未见沈师残部复起；后续只有民众除赋善后。"
+        },
+        {
+          "evaluation_subject_phase": "沈师武装 × 出降并被战后处置阶段",
+          "subject_role": "REBELLION_SURRENDER",
+          "actual_process": "沈师被诱出投降，随后被诛。按照战争账户边界，投降后的处刑是司法/镇压处置，不伪装成战场人员损失。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "不以组织政治终结自动折算S损失。",
+            "M": "出降阶段无新增武装动员。",
+            "A": "无资产损失记载。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "本轮组织失去继续公开武装活动能力。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潮州—汀州—漳州活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "此前未建立可确认稳定控制，本阶段不虚构领土丧失。",
+            "continuity_status": "NO_CONTROL",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0124"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "本轮武装活动以投降和组织终结告终；处刑不计P但战略结果明确负向。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0098"
+            ]
+          },
+          "carry_in": "承前期跨州活动。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "泉南海贼姜太獠入寇—姜特立单舟先进擒获",
+      "campaign_group": "XZTJ-SONG-QUANNAN-JIANGTAILIAO-1183",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+      ],
+      "source_quotes": [
+        "海賊薑太獠寇泉南",
+        "薑特立以一舟先進，擒之",
+        "已誅其凶黨，釋其餘"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋姜特立所部 × 单舟先进捕获海贼阶段",
+          "subject_role": "COASTAL_DEFENDER_COUNTERATTACK",
+          "actual_process": "海贼姜太獠入寇泉南，兵马都监姜特立以一舟先行迎击/追捕并擒获。其后“诛凶党、释其余”为处置结果，不计战争P。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "“海贼寇泉南”且军事官以一舟先进擒获，实际武装捕击成立；宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "存在武装接触可能且不能以史料沉默记P0；但行动极小、结果为擒获，未见本方重损。",
+            "upper_bound_reason": "无百人级损失、败退或补兵证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "泉南遭一次海贼入寇，属于单一沿海区域/节点短时治安扰动，记S1。",
+            "M": "明确仅“以一舟先进”，可确认投入很小，记M1。",
+            "A": "没有船只毁失、军械粮秣或财政支出数字，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "海贼首领被擒、凶党被后续处置，其余释放，本轮泉南局部海上威胁被迅速压低。",
+          "material_return": "WR0",
+          "material_return_detail": "俘获人员不是战争资源回报；无船货、兵械或财物缴获记载。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泉南沿海"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "海贼入寇未形成稳定领地或港口控制，宋方亦无新增领土。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以极小可见动员捕获海贼核心并解除局部威胁，但事件规模与长期安全效应都有限。P1与S1并列基础最高档，按PS抬档规则由WC1升至WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ]
+          },
+          "carry_in": "无可确认前卷同一姜太獠事件。",
+          "carry_out": "本卷未见同一集团复犯。"
+        },
+        {
+          "evaluation_subject_phase": "姜太獠海贼集团 × 入寇泉南后被擒阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "姜太獠集团入寇泉南后遭姜特立以单舟先进捕击，首领被擒；其后凶党被诛属于战后处置，不计作战P。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "集团遭军事捕击并被擒，战斗伤亡失载；后续处刑明确排除在战争P之外。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际武装捕击排除机械P0，但无战场斩杀、沉船或大批伤亡记载。",
+            "upper_bound_reason": "无百人级损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见海贼自身基地/生产体系遭物理破坏，记S0。",
+            "M": "一次地方海上袭扰，规模不详但明显不大，记M1。",
+            "A": "无船只、货物或军械损失记载，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "首领被擒，凶党后续被处置，当前集团继续活动能力显著收缩。",
+          "material_return": "WR0",
+          "material_return_detail": "未见掠获实际落袋。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泉南沿海"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有形成稳定控制。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "入寇未形成控制或已证物资收益，核心反被捕获。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、平乱或治安阶段，不属于本卷可确认的建国、复国、割据建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-148-2314217-P0179"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-148-2314217-P0001—P0202",
+      "paragraph_count": 202,
+      "body_end": "P0200",
+      "edit_markers": [
+        "P0002",
+        "P0103",
+        "P0160"
+      ],
+      "metadata_tail": [
+        "P0201",
+        "P0202"
+      ],
+      "status": "COMPLETED"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "asset_axis_checked": "所有没有可识别资产投入/损失的武装阶段均保持A0，没有因“发生战斗”自动补A1。",
+      "post_capture_execution_checked": "刘大年坐诛、沈师出降后被诛、姜太獠凶党被诛均未计入战争P。",
+      "control_checked": "未从“为乱”“蹂践”“入寇”“遁去”自动推导州城/砦寨控制变化。",
+      "retrospective_double_count_checked": "黎州403名战殁作为卷147战役群增证，不与旧估计相加。"
+    },
+    "retrospective_corrections": [
+      {
+        "target_file": "volume-147.battle-adjudications.json",
+        "campaign_group": "XZTJ-SONG-LIZHOU-FIVE-TRIBES-1180",
+        "new_anchor": "SRC-XUZIZHITONGJIAN-148-2314217-P0079",
+        "correction": "卷147宋方战役群累计P由纯估计升级为至少403名战殁、P2直接成立；403不得与原P2估计再相加。因本条未分配到某一次具体交战，卷147各细分阶段内部的人员分配仍需保持不确定。"
+      }
+    ],
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "内侍参预一路军政的制度争议，无实际武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "撤内侍带兵官，属军政制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "诸军左右手射训练与犒赏，属训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "盐收入购军粮，属军费筹措。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0018",
+        "disposition": "ADJUDICATED",
+        "card": "黎州土丁张百祥等因科役起乱—刘大年逆击驱散"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0029",
+        "disposition": "ADJUDICATED",
+        "card": "潮州沈师之乱"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修扬州城，属防御工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金增筑边堡，属边防工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修湖南诸州城，属工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "许浦水军隶属调整，属军制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0067",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蠲免诸路临时招军额，属征兵/财政政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "拒绝总辖教阅归正人，以免扰其耕业，属社会与军政管理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0079",
+        "disposition": "ADJUDICATED",
+        "card": "卷147黎州五部落连续战事：战殁将士403人追叙增证"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "荒年保留兵卒以防缓急，属灾荒军政。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0098",
+        "disposition": "ADJUDICATED",
+        "card": "潮州沈师之乱—诱降收束"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0104",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "两淮戍兵岁一更，属轮戍制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金命猛安谋克习武备，属训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0115",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "停止寄招军兵三年，属兵制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0116",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "“西南诸戎乘间出没”为奏议中的泛论，无可分离的具体时间、地点、对手和阶段，不强制立卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0118",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "一般性盗发赏罚规则，无具体事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0124",
+        "disposition": "ADJUDICATED",
+        "card": "潮州沈师之乱—汀漳蹂践后效"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0152",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "塞四川沿边支径，属边防工程/管制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0156",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金皇统旧逆党追诛为政治清洗，本段无武装起事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0169",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "养兵财政负担与暂停招军，属军费政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0176",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "军人请求裁汰逐便，属军籍安置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0179",
+        "disposition": "ADJUDICATED",
+        "card": "泉南海贼姜太獠入寇—姜特立单舟先进擒获"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0183",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王去恶以“平黎之功”召用，仅为卷147战果的奖叙确认，不新开阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0186",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "飞虎军改隶江陵都统司，属建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0189",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "襄阳军屯田与水渠，属军队经济/工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0192",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "预储四川制置使人选，属边防人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0193",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "经略屯田，属军队经济。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-148-2314217-P0194",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "淮西军屯田开垦计划，属军队经济与土地管理。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷147黎州五部落战役群：P0079补出403名战殁。后续汇总时只替换/补强累计P证据，不能与旧估计累加；具体403如何分配到卷147各次交战仍待更细材料。",
+      "黎州土丁张百祥等因科役起乱虽被击退，但与卷147外患、兵变叠加，卷149以后需核是否继续出现同类科役型军乱。",
+      "沈师武装本卷已诱降收束，后续若只见除赋、奖赏，不重复生成战果；若残部复起则另立阶段。",
+      "姜太獠集团本卷已被擒处置，后卷若出现闽浙另一支海贼，不默认属于同一campaign_group。",
+      "卷147翟畋“过淮生事”在卷148未补出兵力、接战、掠夺或节点控制，仍不能转正为战役。"
+    ]
+  }
+}

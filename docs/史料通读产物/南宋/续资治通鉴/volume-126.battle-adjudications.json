@@ -1,0 +1,288 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷126",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-126-2310178",
+    "revision_ref": "2310178",
+    "raw_sha256": "782c51714a5ff9d879447951d451d40f88cd922f76d38f183315d1055ed169a2"
+  },
+  "cards": [
+    {
+      "battle_label": "胜花都郎君旧部联蒙古叛金—蒙古取二十余团寨",
+      "campaign_group": "XZTJ-JIN-MONGOL-WAR-1143-1147",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+        "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+        "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+      ],
+      "source_quotes": [
+        "蒙古復叛，金主命將討之",
+        "勝花都郎君者，率其父故部曲以叛，與蒙古通",
+        "蒙古由是強，取二十餘團寨，金人不能制"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "蒙古及胜花都郎君旧部 × 联合叛金、取二十余团寨阶段",
+          "subject_role": "INSURGENT_ALLIANCE",
+          "actual_process": "胜花都郎君率完颜昌旧部起兵并与蒙古相通；蒙古因此增强，实际取得二十余团寨。金主虽命将讨伐，本卷明言金方不能制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际武装叛乱并夺取二十余团寨，蒙古/叛军自身伤亡无载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "多处寨堡发生敌对控制转移，不能P0；未见胜方重损后效。",
+            "upper_bound_reason": "无百人级蒙古/叛军损失证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "金方在这一北部边疆方向出现持续失控，蒙古集团的生存与扩张安全明显改善。",
+          "material_return": "WR3",
+          "material_return_detail": "实际取得二十余团寨所代表的一批军政据点；人口不作战利资产。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "二十余团寨"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得多处连续寨堡且金方不能制，形成重要边区的实际控制扩展。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见自身成本取得二十余团寨，并使金方暂时无力控制，安全与控制回报显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "蒙古政治军事集团通过与金宗室旧部联合取得二十余团寨，扩大可持续军政空间。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ]
+          },
+          "carry_in": "承卷122金军北攻蒙古海岭大败；本卷金北部压力继续扩大。",
+          "carry_out": "卷127核金军长期讨蒙古的兵力、成本、失地和议和结果。"
+        },
+        {
+          "evaluation_subject_phase": "金政权 × 北部叛乱与二十余团寨失控阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "金主面对蒙古复叛下令派将征讨；胜花都郎君又带父旧部叛变并与蒙古连结。蒙古随后取得二十余团寨，原文明言‘金人不能制’。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S3",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "金方遭武装叛乱和多寨失控，人员伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "多寨被夺和出兵征讨表明存在实际武装损害，但无斩俘死伤数字。",
+            "upper_bound_reason": "无百人级金军损失材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "一个重要北部边疆方向出现持续失控，对手实力增强且金方暂不能制。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "二十余团寨"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "二十余寨堡实际退出金方控制，形成超出单一节点的边区退控。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "S3/BCN3表明边区连续失控，且出兵后仍不能制，没有补偿性成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+              "SRC-XUZIZHITONGJIAN-126-2310178-P0028"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷127继续核神臂弓弩手等长期征讨与割寨议和。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-XUZIZHITONGJIAN-126-2310178-P0001 至 P0176；初稿后从首锚点重新逐段复扫，所有正文重新判断战役准入。",
+    "card_coverage": {
+      "battle_cards": 1,
+      "subject_phase_cards": 2,
+      "coverage_result": "复扫确认本卷唯一新的实际武装/控制父链为胜花都郎君旧部联蒙古叛金、蒙古取二十余团寨。王伦被杀、魏王道济被杀、秦桧政治清洗均属政治处刑；川口十万驻军、骁毅军、内教场等为军政部署。",
+      "ps_tie_raise_checked": true,
+      "wc_formula_check": "PASS：蒙古方P1/S0/M1/A1→WC1；金方P1/S3/M1/A1→WC3，无PS同档抬升。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0026",
+        "disposition": "ADJUDICATED",
+        "reason": "蒙古复叛且金主命将征讨，进入实际武装父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0027",
+        "disposition": "ADJUDICATED",
+        "reason": "胜花都郎君率旧部叛、与蒙古相通，蒙古取二十余团寨且金人不能制，形成实际控制变化。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0028",
+        "disposition": "ADJUDICATED",
+        "reason": "王大观被调从军北讨，是同一战争动员与人质化后续，作为成本背景并入主卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金初置骁毅军，为军事建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "朱弁追叙靖康间死节、被俘等旧事，不是本卷新战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "韩世忠请停俸并交还部分背嵬人员，为停战后军政财政调整。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王伦被杀属于外交人员政治处刑。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王伦拒官、受缢死细节属于政治处刑。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0127",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "禁止濠州招集流亡以免启衅，是边境政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0144",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "川口十万驻军及三帅分屯，为长期边防部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0145",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴璘严备为驻防状态，不是新接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0158",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宫中阅试殿前马步军为训练制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-126-2310178-P0176",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王俊旧日军纪与勇战为传记性总结。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "XZTJ-JIN-MONGOL-WAR-1143-1147",
+        "followup": "蒙古已取二十余团寨且金人不能制；卷127核长期征讨、割寨和议和。"
+      },
+      {
+        "campaign_group": "XZTJ-FENGSHAN-STOCKADE-1142",
+        "followup": "卷125丰山寨被破后，卷126仍无恢复寨堡或平定盗众材料。"
+      },
+      {
+        "campaign_group": "XZTJ-SHAOLONG-POSTCESSION-RAID-1142",
+        "followup": "卷125邵隆越界劫掠；卷126无新行动。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-JIN-BORDER-SORTIE-1142",
+        "followup": "卷125边吏出塞；卷126无进一步交战结果。"
+      },
+      {
+        "campaign_group": "XZTJ-XUHEN-RAIDS-1140-1141",
+        "followup": "虚恨蛮历阶盟后仍钞掠，卷126无闭合材料。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-MURONGHUI-1141",
+        "followup": "慕容洧停止侵宋边后，新泉寨归属仍无补证。"
+      },
+      {
+        "campaign_group": "XZTJ-JIN-QINGYANG-SIEGE-1140",
+        "followup": "庆阳围城仍无明确终局补证。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-LUOKE-REBELLION-1140",
+        "followup": "骆科叛乱仍无平乱锚点。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-TAIHANG-WANGZHONGZHI-1139",
+        "followup": "王忠植十一郡逐地终局仍无明确材料。"
+      }
+    ]
+  }
+}

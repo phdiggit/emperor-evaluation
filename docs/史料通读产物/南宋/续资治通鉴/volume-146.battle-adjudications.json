@@ -1,0 +1,663 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷146",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-146-2313408",
+    "revision_ref": "2313408",
+    "raw_sha256": "2b526abce2ff9967c9d953d81b41edcff2f5f5df73c5583e9217dbdb8622607b"
+  },
+  "cards": [
+    {
+      "battle_label": "威州蛮寇边—宋军讨降",
+      "campaign_group": "XZTJ-SONG-WEIZHOU-MAN-1178",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+      ],
+      "source_quotes": [
+        "威州蠻寇邊，討降之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋威州方向官军 × 讨击迫降阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "威州蛮越边侵扰后，宋方发起讨击并使其投降；本卷未载兵数、死伤、缴获或城寨得失。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文仅记“讨降”，无本方死伤数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "已经发生边境武装讨击，不能以史料沉默记P0；单一边地短期行动且无败退、补兵或遗属等高损失后效。",
+            "upper_bound_reason": "无百人级死伤、成建制溃败或持续补兵证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "蛮寇已经实际侵扰单一边境节点，地方秩序短时受扰，独立于人员估计记S1。",
+            "M": "仅见本地讨击，未见跨区大军和持续转运，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "来犯部众被迫投降，威州局部方向从受扰转为阶段稳定；是否长期不复犯尚待后卷。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获、贡赋或可控制新增资源记载。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "威州边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原文未见宋方原有边境节点丧失或新增控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低规模局地成本迫使来犯部众投降并恢复局部安全，但无新增控制或物资回报，且后效窗口短。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ]
+          },
+          "carry_in": "无可确认的前卷同一威州战役阶段。",
+          "carry_out": "后卷若出现同一威州部族或同一复叛结构再犯，复核SB2持续性；不得提前抬为SB3以上。"
+        },
+        {
+          "evaluation_subject_phase": "威州来犯蛮部 × 寇边后被迫投降阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "部众越边侵扰威州，随后遭宋军讨击并投降；本卷不载其伤亡、掠获或领地变化。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文无来犯方死伤数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "“讨降”说明遭到实际军事压迫，估计存在小规模人员损害；无大败、斩获或成建制覆没描述。",
+            "upper_bound_reason": "无百人级斩俘、死亡或溃散证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见其本部生产、行政或驻地受到破坏，记S0。",
+            "M": "一次局地寇边，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "行动以被迫投降告终，部众在威州方向的自由武装活动空间明显收缩。",
+          "material_return": "WR0",
+          "material_return_detail": "未见掠获或其他已实现资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "威州边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见形成稳定占地，投降后亦无明确领地交割。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "寇边未形成可确认资源或控制成果，反以被迫投降结束。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0042"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "若后卷同一部众再犯，仅用于核验本次投降的持续性。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "强霓、强震守环州死节追叙",
+      "campaign_group": "XZTJ-SONG-HUANZHOU-QIANG-NI-ZHEN-RETRO",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-146-2313408-P0069"
+      ],
+      "source_quotes": [
+        "霓守環州，震為軍官，並死節不屈也"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋环州守军 × 强霓强震死节旧战追叙阶段",
+          "subject_role": "DEFENDER_RETROSPECTIVE",
+          "actual_process": "本卷仅因追赠而追叙强霓守环州、强震任军官并“死节不屈”；没有交代敌方、战斗过程、环州最终控制、其余死伤和后勤。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "UNKNOWN",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "至少可确认强霓、强震2人死亡。",
+            "range": "2—50死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "两名具名人员死亡直接成立；追叙材料不足以确认守军其他伤亡，只给小规模区间。",
+            "upper_bound_reason": "无其他死伤、被俘、失城、补兵或遗属数字，不能上百人级。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "不知环州是否失守或生产行政是否受损，记UNKNOWN。",
+            "M": "不知兵力和役期，记UNKNOWN。",
+            "A": "不知军资、城防或粮秣损失，记UNKNOWN。"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "仅凭“死节不屈”无法判断守城是否成功、威胁是否解除。",
+          "material_return": "UNKNOWN",
+          "material_return_detail": "无战利、资源或行政控制结果。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "环州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本卷不能确认环州在旧战阶段的实际归属变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0069"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "仅确认两名守军人员战死，缺敌方、胜负和控制终局，不能据死节荣誉反推战役回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0069"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0069"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0069"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0069"
+            ]
+          },
+          "carry_in": "本条为旧战追叙，原始战时阶段不在卷146。",
+          "carry_out": "不由卷147顺接；若后续专题回溯到原战事所在卷，应以原始战事材料替换本追叙估计。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "陈峒之乱：连破道州桂阳诸县—王佐冯湛五路夜袭平郴州",
+      "campaign_group": "XZTJ-SONG-HUNAN-CHENDONG-1179",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+        "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+        "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+      ],
+      "source_quotes": [
+        "郴州賊陳峒等連破道州桂陽軍諸縣",
+        "選潭州廂禁軍及忠義寨得八百人，命諸縣屯兵悉聽調發",
+        "夜半，發兵分五路進，突入其隘口",
+        "進奪空風寨，斬峒等，郴州平"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "陈峒部 × 连破道州、桂阳军诸县阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "陈峒部由郴州方向扩张，连续攻破道州、桂阳军所属多个县级节点，形成跨两个地方行政单元的武装活动；后在宋军将至时退回宜章巢穴。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文无陈峒部自身死伤数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "连续攻破县级节点意味着实际接战，不能记P0；但无斩俘、溃散和重大减员后效。",
+            "upper_bound_reason": "缺百人级自身伤亡证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段未见陈峒自身控制区生产或组织体系受损，记S0。",
+            "M": "地方性连续攻县，未见大规模跨区动员，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "连续破县扩大了其短期机动与生存空间，并迫使宋廷组织专门讨捕；但后续很快被逆转。",
+          "material_return": "WR0",
+          "material_return_detail": "原文没有粮财、军械或府库缴获，不能从“破县”虚构物资回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "道州、桂阳军所属若干县级节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "连续“破诸县”支持阶段性取得若干县级军政节点，但未见稳定设治。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "一度连续攻破多个县级节点并扩大活动范围，属于明确局部战果；但控制短暂且无可证物资收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "carry_in": "无可确认的前卷同一陈峒战役阶段。",
+          "carry_out": "同卷P0153被宋军攻破巢穴并斩首，阶段性控制全部逆转。"
+        },
+        {
+          "evaluation_subject_phase": "南宋道州—桂阳地方官军与受治区域 × 陈峒连破诸县阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "地方连续多个县级节点被陈峒部攻破，宋廷随后判断需由潭州王佐节制本路兵讨捕。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守方及受治民众死伤失载。",
+            "range": "10—300死亡当量",
+            "center": 55,
+            "P_scoring": "P1估",
+            "basis": "跨多个县级节点连续被攻破，推定存在非零军民损害；但无“甚众”、屠掠、千人级流亡或守军成建制覆没。",
+            "upper_bound_reason": "材料不足以把中心当量推至百人级P2，尤其未见具体死亡、掳掠或补兵数字。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "多个县级军政节点跨道州、桂阳军受破坏和短时失控，记S2；尚未到完整重要区域持续瘫痪。",
+            "M": "本阶段先是地方守御，专门讨捕动员另在后续阶段记账，故仅M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "多个县级节点被连续突破，郴、道、桂阳相邻区域安全显著恶化，但尚未形成更大区域系统崩溃。",
+          "material_return": "WR0",
+          "material_return_detail": "守方无已实现战争资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "道州、桂阳军所属若干县级节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "连续破县造成局部县级控制退缩，后续由讨平阶段恢复。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "局部行政节点连续失守并触发专门讨捕，安全和控制均为明确负向结果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "同卷P0152—P0153进入王佐、冯湛集中讨平阶段。"
+        },
+        {
+          "evaluation_subject_phase": "南宋王佐—冯湛部 × 宜章五路夜袭与郴州讨平阶段",
+          "subject_role": "COUNTERINSURGENCY_ATTACKER",
+          "actual_process": "王佐不用外调荆鄂三千军，改由本路组织：潭州厢禁军、忠义寨八百人并可调诸县屯兵；亲赴宜章，冯湛移屯何卑山，夜半五路突隘，敌军仓卒出战即溃，宋军夺空风寨、斩陈峒等，郴州平。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "发生夜袭、突隘和正面短促接战，不能记P0；敌军“即溃走”，且无宋方败退、补兵、抚恤或重大伤亡后效。",
+            "upper_bound_reason": "无百人级宋军伤亡、长围、反复攻坚或重大失利证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段没有新增可证生产、行政破坏，既有县级受损已计入前阶段，记S0避免重复。",
+            "M": "明确基础兵力八百，另调诸县屯兵，属短期本路行动，记M1。",
+            "A": "本卷未见可识别的军械、粮秣、舟马、府库或设施投入/损失；不得由发生战斗反推资产成本，记A0。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "陈峒首领及核心巢寨被摧毁，原文以“郴州平”确认一支已连续破县的区域叛乱结构被实质终结；但不足以证明更广泛同类威胁长期绝迹。",
+          "material_return": "WR0",
+          "material_return_detail": "夺回的是本国旧地与叛军巢寨，未载府库、粮草或军械缴获；不把内部恢复虚构为物资回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "空风寨",
+              "此前受陈峒影响的郴州—道州—桂阳局部节点"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "夺空风寨并以“郴州平”收复本国受扰局部控制空间。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以短期本路动员突袭击溃叛军、斩首核心、夺巢并恢复郴州秩序，成本未见扩大，安全与控制成果明确。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "carry_in": "承P0121陈峒已连破道州、桂阳军诸县，宋廷决定由王佐节制本路兵进讨。",
+          "carry_out": "卷147仅续写功赏；本卷战果已闭合，不把后卷奖赏重复计回报。"
+        },
+        {
+          "evaluation_subject_phase": "陈峒部 × 空风寨溃败与首领被斩阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "宋军五路夜袭突入隘口，陈峒部仓卒出战即溃，空风寨被夺，陈峒等被斩，郴州叛乱终结。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "至少陈峒及“等”若干首领被斩，普通部众死伤失载。",
+            "range": "2—99死亡当量",
+            "center": 14,
+            "P_scoring": "P1估",
+            "basis": "具名首领死亡且发生短促溃败，确定非零；但原文无大批斩俘数字。",
+            "upper_bound_reason": "不能据“溃走”直接推百人级死亡，故上限压在P1。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "单一核心巢寨空风寨失守、组织据点瓦解，记S1。",
+            "M": "本地叛军短促应战，记M1。",
+            "A": "巢寨及随附军资被夺但无具体数量，记A1。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "首领被斩、巢寨被夺，叛乱结构失去继续高强度活动能力。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "空风寨及此前短期控制的局部县级节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "核心巢寨和此前扩张所得全部丧失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员损害与核心据点丧失同时发生，且组织被终结；P1与S1同为基础最高档，按PS抬档规则由WC1升至WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国、割据政权建立或新政权巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+              "SRC-XUZIZHITONGJIAN-146-2313408-P0153"
+            ]
+          },
+          "carry_in": "承本卷前段连破诸县后退守宜章巢穴。",
+          "carry_out": "无；本卷已经“郴州平”。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-146-2313408-P0001—P0153",
+      "paragraph_count": 153,
+      "body_end": "P0153",
+      "metadata_tail": [],
+      "edit_markers": [],
+      "status": "COMPLETED"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "抽摘诸军人马按教，属于校阅训练，无敌对接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金州军缺衣甲的军备状态，无实际武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "把两淮归正人编为强勇军，属于建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "茅浚大阅与变阵训练，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "申严武官程试法，属于选拔制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0042",
+        "disposition": "ADJUDICATED",
+        "card": "威州蛮寇边—宋军讨降"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0069",
+        "disposition": "ADJUDICATED",
+        "card": "强霓、强震守环州死节追叙"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "增募忠勇军，属于兵制和招募。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "募兵扰民及军民欢呶后司法处置，未载调军接战、据城或武装死伤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "军民喧哄者适用军法的司法争议，未见武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0101",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "成都一路抽壮勇组雄边军，属于边防建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0121",
+        "disposition": "ADJUDICATED",
+        "card": "陈峒之乱"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0129",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "逃军犯强盗者不得贷命是一般刑法条款，不是具体武装事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0148",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "梁襄论北幸、军士疲困与讲武风险，属于巡幸和军事训练成本，没有战争敌对阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0152",
+        "disposition": "ADJUDICATED",
+        "card": "陈峒之乱—讨捕动员"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-146-2313408-P0153",
+        "disposition": "ADJUDICATED",
+        "card": "陈峒之乱—五路夜袭与讨平"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷147 P0006仅为王佐、冯湛战后功赏；确认不得重复计入陈峒之乱的WC、SB、WR或BCP。",
+      "威州蛮本卷以投降收束，但持续性窗口不足；后卷如出现同一部众或同一复叛机制再犯，复核SB2持续性。",
+      "强霓、强震条为旧战追叙；若以后回溯到原战事所在卷，应以原始战事卡替换本卷低置信度追叙，不在相邻卷机械续接。"
+    ]
+  }
+}

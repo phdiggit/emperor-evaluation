@@ -1,0 +1,447 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷195",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-195-2333868",
+    "revision_ref": "2333868",
+    "raw_sha256": "854b68cd6f6a919af34f90f600fd601e3cd3cb28fa2b60142f18e9b3f1041ff3"
+  },
+  "cards": [
+    {
+      "battle_label": "云南罗雄—普定诸蛮据越州—伊苏岱尔合兵捕平",
+      "campaign_group": "XZTJ-YUAN-YUNNAN-PUDING-REVOLT-1306",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+      ],
+      "source_quotes": [
+        "雲南羅雄州、普定路諸蠻為寇",
+        "賊退據越州，諭之不服",
+        "伊蘇岱爾率兵萬人往捕之",
+        "獲其渠，斬之，餘眾皆潰",
+        "留軍二千戍之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元汪惟能—伊苏岱尔军 × 罗雄普定反击、越州压境与留戍阶段",
+          "subject_role": "COUNTERREBELLION_ATTACKER",
+          "actual_process": "罗雄州、普定路诸蛮为寇，汪惟能先行进讨，叛军退据越州且拒绝招谕；伊苏岱尔率一万人到曲靖合兵压境，捕获首领后处死，余众溃散，并留二千人驻守。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "发生进讨、压境和首领被捕，元军本方死伤无载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "存在实际军事行动，不能记P0；叛军在合兵压境后即溃，无元军重损后效。",
+            "upper_bound_reason": "无百人级本方伤亡、败退或补兵材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "罗雄—普定一次地方武装威胁被击散，并以二千驻军维持局部安全；是否长期不复叛仍待后卷。",
+          "material_return": "WR0",
+          "material_return_detail": "未见缴获或新增财政资源。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "越州",
+              "罗雄州—普定路方向"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "叛军退据越州后被压境击溃，元军留二千守兵，局部节点恢复控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "一万主力加二千留戍换取局部节点恢复和叛众溃散，目标达成但收益范围有限。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成政权的战争、边防、内乱或继承危机，不属于本卷可确认的开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ]
+          },
+          "carry_in": "普定在卷194平叛后已经改路并恢复土官治理；本次为同一西南边远区域的新一轮局部复叛，不把卷194成本重复计入。",
+          "carry_out": "留军二千戍守，卷196以后需核罗雄—普定是否再叛及越州控制是否保持。"
+        },
+        {
+          "evaluation_subject_phase": "罗雄—普定诸蛮武装 × 据越州拒谕—首领被捕、余众溃散阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "武装在汪惟能进讨后退据越州，拒绝招谕；面对伊苏岱尔万人与汪部合兵压境，首领被捕，余众溃散。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "余众“皆溃”，首领被捕后处死；战斗阶段自身伤亡数字失载，事后处死首领不作为战场死亡重复计算。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际对峙和军事压迫成立，不能记P0；叙事重心是首领被捕和组织溃散，不见百人级杀伤。",
+            "upper_bound_reason": "没有百人级伤亡或整批俘虏数字。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "武装组织失去首领并瓦解，越州据点及活动空间丧失。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "越州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失去据守的越州节点，元军随后留兵驻守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "据点、首领和组织能力同时丧失，无可抵补成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成政权的战争、边防、内乱或继承危机，不属于本卷可确认的开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0131"
+            ]
+          },
+          "carry_in": "本轮为罗雄—普定新起武装。",
+          "carry_out": "本卷已击溃；是否形成后续残余武装待后卷。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "大德十一年继承危机：阿裕尔巴里巴特喇先发入内—拘安西王集团",
+      "campaign_group": "XZTJ-YUAN-SUCCESSION-COUP-1307",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0162",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0163",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0164",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0165",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0168",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0170",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0175",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0176",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0177",
+        "SRC-XUZIZHITONGJIAN-195-2333868-P0195"
+      ],
+      "source_quotes": [
+        "欲立安西王輔之",
+        "四衛之士，一呼而應者累萬",
+        "不若先事而起",
+        "以三月丙寅率衛士入內",
+        "至即並諸王莽賚特穆爾執之",
+        "收阿固岱、巴特瑪琳沁、賽音諤德齊、巴延等",
+        "今罪人斯得",
+        "皇太子入定內難……諸王圖喇實手縛之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "阿裕尔巴里巴特喇—哈喇哈斯集团 × 先发率卫士入内、控制宫禁阶段",
+          "subject_role": "MILITARY_COUP_COUNTERACTION",
+          "actual_process": "成宗崩后，皇后与安西王集团谋改变继承。哈喇哈斯先封府库、守宿掖门，阿裕尔巴里巴特喇返大都后获悉对手拟三月三日举事，遂先二日率卫士入内，以召安西王议事为名，当场执安西王及莽赉特穆尔，继收阿固岱等。原文没有记载宫禁交战或当场伤亡；后续处刑另属政治处分，不计入本阶段P。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB3",
+          "strategic_security_detail": "以一次先发宫禁行动终止正在成形的夺位集团，避免其调用四卫并使继承危机升级为国中大规模武装冲突；但这是一轮单次继承危机，不上SB4。",
+          "material_return": "WR0",
+          "material_return_detail": "府库与印玺属于原国家内部控制恢复，不当作战争战利品。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大都宫禁",
+              "中央府库与百司符印所代表的核心军政节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "反安西王一方通过卫士入内与拘捕，使此前争夺中的中央核心节点转入自身实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0163",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0170"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "无可确认战斗人员损害，以小规模卫士行动控制中央节点并拆除迫在眉睫的夺位武装风险，安全与控制收益显著高于可见成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成政权的战争、边防、内乱或继承危机，不属于本卷可确认的开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0195"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0165",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0168",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0176"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0163",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0163",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0170"
+            ]
+          },
+          "carry_in": "P0162—P0168为夺位谋划、封府库与双方先发决策，其中单纯谋划不计战役；从P0169实际率卫士入内并拘捕开始进入军事政变账户。",
+          "carry_out": "P0175哈尚虽分三路各带劲卒一万，但迟回未接战；P0176—P0177以废后、处死安西王及哈尚即位政治收束，本卷未形成进一步内战。"
+        },
+        {
+          "evaluation_subject_phase": "皇后—安西王集团 × 夺位集团在宫禁行动中被拘失势阶段",
+          "subject_role": "COUP_FACTION_DEFENDER",
+          "actual_process": "该集团此前谋立安西王并拥有潜在四卫优势，但在计划发动前遭阿裕尔巴里巴特喇率卫士先发入内；安西王及核心诸王、大臣被拘，中央控制权随即失去。后续处刑不作为本阶段战场人员损害。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "夺位集团的组织和行动能力在正式发动前被一次性解除，失去继续争夺中央的条件。",
+          "material_return": "WR0",
+          "material_return_detail": "未取得任何已实现战争回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大都宫禁与中央核心军政节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "在先发拘捕后失去对中央继承局势的实际争夺能力。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0170"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "计划未能发动即被先发控制，核心人物被拘，中央节点争夺彻底失败。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成政权的战争、边防、内乱或继承危机，不属于本卷可确认的开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0176"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+              "SRC-XUZIZHITONGJIAN-195-2333868-P0170"
+            ]
+          },
+          "carry_in": "P0162起为尚未发动的夺位谋划，不单列WC/SB/WR；本阶段只从实际卫士入内拘捕时开始。",
+          "carry_out": "P0176安西王与皇后集团被政治处置，P0177哈尚即位；未出现双方大军会战。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread_completed": true,
+    "reread_range": "SRC-XUZIZHITONGJIAN-195-2333868-P0001 至 SRC-XUZIZHITONGJIAN-195-2333868-P0244",
+    "card_coverage": {
+      "card_count": 2,
+      "subject_phase_card_count": 4,
+      "raw_battle_anchor_inventory_count": 23,
+      "adjudicated_anchor_count": 3,
+      "not_a_battle_anchor_count": 20,
+      "coverage_result": "逐段复读后，唯一明确地方接战链与唯一实际军事政变阶段均已生成裁决卡；其余为招降、防备、未遂谋划、驻军部署或事后处刑。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "note": "宋阿重生擒宋隆济，闭合卷194待核事项，但本段无接战、攻城或军队行动，不另造本卷战役卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "note": "刘国杰临终称希望病愈后灭“交贼”，只是未来意愿，无本卷实际军事行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "note": "定海置千户所防倭船属于驻防部署，未发生接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "note": "张孔孙主张不可穷兵远讨属于政策建议，作为非战役财政民生事实保留。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0065",
+        "disposition": "NOT_A_BATTLE",
+        "note": "勒碑追述世祖征服云南，是历史功业叙述，无本卷实际战斗阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0131",
+        "disposition": "ADJUDICATED",
+        "note": "罗雄、普定诸蛮为寇、据越州，元军万人合兵压境并捕平。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0132",
+        "disposition": "NOT_A_BATTLE",
+        "note": "设昆山、嘉定水军万户府为军事建制，无本段接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0133",
+        "disposition": "NOT_A_BATTLE",
+        "note": "倭商来贸并献甲，命浙江备御，仅属防备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0140",
+        "disposition": "NOT_A_BATTLE",
+        "note": "岑雄称叛后经招谕即以子来降，本段未见武装攻击、调军接战或据城争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0149",
+        "disposition": "NOT_A_BATTLE",
+        "note": "青山叛蛮来附，只有归附结果，无本卷武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0154",
+        "disposition": "NOT_A_BATTLE",
+        "note": "只记“作乱，伏诛”，未见军队调动、战斗、据寨或武装死伤；列入new_battle_candidates待后续材料核实。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0162",
+        "disposition": "NOT_A_BATTLE",
+        "note": "皇后—安西王集团夺位谋划尚未发动，按合同不得仅因危及皇位进入战争账户。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0163",
+        "disposition": "NOT_A_BATTLE",
+        "note": "哈喇哈斯收符印、封府库、守宿掖门是政变前控制与戒备，尚无接战；作为P0169卡carry-in证据。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0164",
+        "disposition": "NOT_A_BATTLE",
+        "note": "阿裕尔巴里巴特喇决定返京属于继承行动，无武装接触。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0165",
+        "disposition": "NOT_A_BATTLE",
+        "note": "对四卫、安西王从者与自身兵力的讨论属于风险评估和决策，尚未发动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0168",
+        "disposition": "NOT_A_BATTLE",
+        "note": "双方计划先发仍属政变筹划；实际军事阶段从P0169开始。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0169",
+        "disposition": "ADJUDICATED",
+        "note": "率卫士入内、拘安西王及核心集团，属于实际军事政变行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0170",
+        "disposition": "NOT_A_BATTLE",
+        "note": "监国与迎兄即位是P0169后的政治处置，无新增武装接触。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0172",
+        "disposition": "NOT_A_BATTLE",
+        "note": "杨多尔济侦察禁卫属于警备，无实际战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0175",
+        "disposition": "NOT_A_BATTLE",
+        "note": "哈尚及两路各带劲卒一万但“迟回不进”，未发生接战，不以三万人直接造战争成本。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0176",
+        "disposition": "NOT_A_BATTLE",
+        "note": "废后、处死安西王等为政变后的政治处刑；不用事后处刑人数伪装战场P。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0177",
+        "disposition": "NOT_A_BATTLE",
+        "note": "哈尚即位及大赦是政治结果，无新增战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0195",
+        "disposition": "ADJUDICATED",
+        "note": "追叙图喇在P0169内难中手缚阿固岱，补强实际拘捕阶段的武装控制事实。"
+      }
+    ],
+    "new_battle_candidates": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-195-2333868-P0154",
+        "actual_fact": "瓊州臨高縣那篷洞主王文何等“作亂，伏誅”。",
+        "why_unregistered": "“作亂”可能对应实际武装事件，但本卷只给结局，没有调军、交战、据点争夺或武装伤亡，按合同当前不能凭严重性补造P/S/M/A/WC。",
+        "followup_needed": "后续卷或同事件更详史料若出现起兵、攻掠、军队讨击、据寨或接战，再按实际阶段补卡。"
+      }
+    ],
+    "cross_volume_followups": [
+      "卷194 P0144宋隆济“遁去”的待核项已由本卷P0004“生獲其叔隆濟來獻”闭合；因本段无接战，不新增本卷战役卡。",
+      "罗雄—普定P0131平叛后留军二千戍守；卷196以后需核复叛与越州/普定控制保持，以决定是否新增后续阶段。",
+      "P0154琼州王文何“作乱伏诛”缺实际武装过程，保留为未登记候选，不以史书简略强行估档。",
+      "P0175哈尚三路各一万仅为继承危机后的军力部署且未接战；若后卷出现实际作战再沿用`XZTJ-YUAN-SUCCESSION-COUP-1307`或其后续父链，不把本卷部署人数倒推战损。"
+    ]
+  }
+}

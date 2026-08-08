@@ -1,0 +1,2315 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷139",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-139-2312137",
+    "revision_ref": "2312137",
+    "raw_sha256": "f7f18231618e36d21642f3e3e985b839178b4a74748dce760f07a430b7911f17"
+  },
+  "cards": [
+    {
+      "battle_label": "清河口—淮阳拒战：魏胜战死、楚州失守",
+      "campaign_group": "XZTJ-SONG-JIN-LONGXING-INVASION-1164",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+      ],
+      "source_quotes": [
+        "分兵自清河口以侵楚州",
+        "劉寶…遂棄城遁",
+        "勝率眾拒戰于淮陽，自卯至申",
+        "矢盡",
+        "中矢，墜馬死",
+        "楚州遂破"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋楚州军政体系 × 清河口阻截、淮阳力战至失城",
+          "subject_role": "DEFENDER",
+          "actual_process": "和议期间刘宝阻止魏胜先行拦截，金军实际入侵后刘宝弃城。魏胜率部在淮阳自卯战至申，箭尽后边战边退，至楚州东十八里中箭死，楚州最终失守。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "魏胜明确战死，部队自卯至申力战、矢尽而退，其他死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "全天级接战、箭尽撤退和主将战死，支持百人级综合损害中心。",
+            "upper_bound_reason": "无千人级宋军死伤、俘虏或屠城数字。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "淮东关键州城失守，清河口—楚州防线被突破，后续濠、滁方向也迅速恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得，且楚州军政资源丧失。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "清河口",
+              "楚州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "楚州实际失守，淮东前沿明显后退。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P2/S2并列基础最高档抬至WC3，长时接战后主将战死并失去关键州城。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "carry_in": "承卷138 P0202海、泗撤戍命令及卷末金军重兵脅和、宋军重建江淮防线。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金布萨忠义、赫舍哩志宁军 × 清河口入侵并破楚州",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军分兵自清河口侵楚州，利用宋方和议期间边备松弛和刘宝弃城窗口，增生力军与魏胜长期接战，最终击杀魏胜并攻破楚州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "金军自身死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "从卯至申与魏胜力战并投入生兵，百人级自身损耗中心合理。",
+            "upper_bound_reason": "无千人级金军伤亡、主将死亡或大败数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "突破淮东主要前沿州城并打开向濠、滁继续推进的条件。",
+          "material_return": "WR3",
+          "material_return_detail": "取得楚州及其州级军政、粮械和交通节点资源。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "清河口",
+              "楚州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "金方实际突破清河口并控制楚州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "单一战略方向持续投入后夺取关键州城，并使宋方淮东防线明显后退。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "同段随后濠、滁失守，形成连续推进。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金军继破濠州、滁州—王彦弃昭关",
+      "campaign_group": "XZTJ-SONG-JIN-LONGXING-INVASION-1164",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+      ],
+      "source_quotes": [
+        "金人又破濠州",
+        "王彥棄昭關遁",
+        "滁州亦破"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋濠滁防线 × 连续失州与弃关",
+          "subject_role": "DEFENDER_WITHDRAWAL",
+          "actual_process": "楚州失守后，金军又破濠州；王彦放弃昭关撤走，滁州也被攻破。原文未分载各城战斗细节。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S3",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "仅知“破州”“弃关”，人员伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 50,
+            "P_scoring": "P1估",
+            "basis": "至少形成实际攻城和撤退，不能P0；材料过简，不把“破”直接换算百人级。",
+            "upper_bound_reason": "无斩俘、尸伤或守军规模。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "濠、滁及昭关一线连续退控，淮南局部防御纵深显著缩小。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得，多个州关军政资源退出宋方控制。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "濠州",
+              "昭关",
+              "滁州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "两个州级节点及一处关隘连续失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "重要防线段连续退控，虽人员数字残缺但区域安全和控制损失明确。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "P0033射阳湖、高邮方向成为淮东剩余关键阻敌点。"
+        },
+        {
+          "evaluation_subject_phase": "金淮南推进军 × 连破濠滁并逼退昭关守军",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军在楚州突破后继续推进，攻破濠州、滁州，并使王彦放弃昭关。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 50,
+            "P_scoring": "P1估",
+            "basis": "连续攻取州城和关隘存在非零损害，但无百人级证据。",
+            "upper_bound_reason": "无尸伤、被俘或久攻数据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "在淮南形成一段连续推进空间，对江淮防线施加重大阶段性压力。",
+          "material_return": "WR3",
+          "material_return_detail": "取得濠州、滁州及昭关方向的地方军政节点和可用资源。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "濠州",
+              "昭关",
+              "滁州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "形成一个重要防线段的实际控制推进。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见人员成本连续取得多个州关节点，区域性控制收益明显。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0008"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "六合之战—崔泉败金军",
+      "campaign_group": "XZTJ-SONG-JIN-LIUHE-1164",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+      ],
+      "source_quotes": [
+        "步軍司統制崔泉，敗金人於六合"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋崔泉部 × 六合迎战",
+          "subject_role": "DEFENDER",
+          "actual_process": "步军司统制崔泉在六合击败金军，原文无兵力、死伤和后续追击。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "实际野战成立；无宋军重损后效。",
+            "upper_bound_reason": "无百人级人员损害。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "取得一次局部防御缓解，但未见结构性削弱金军主力。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "六合"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "六合本段未见失守。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低可见成本取得一次局部战术胜利。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金六合方向军 × 战败",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军在六合被崔泉部击败。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "金方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 50,
+            "P_scoring": "P1估",
+            "basis": "明确败战但无斩俘数字，不上推百人级。",
+            "upper_bound_reason": "无主将死、大量俘虏或大溃材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次局部进攻受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "六合"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得六合控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "战败且未形成控制、资源成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0026"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "射阳湖防御—胡铨促李宝出援、破冰后金军退",
+      "campaign_group": "XZTJ-SONG-JIN-SHEYANGHU-1164",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+      ],
+      "source_quotes": [
+        "唯高郵守陳敏拒敵射陽湖",
+        "李寶…擁兵不救",
+        "寶懼，始出師掎角",
+        "銓先持鐵錘錘冰，士皆用命，金人乃退"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋陈敏、李宝等 × 射阳湖联合防御",
+          "subject_role": "DEFENDER",
+          "actual_process": "濠、滁失守后陈敏在射阳湖拒敌。李宝起初拥兵不救，经胡铨劾奏后才出师形成掎角；大雪河冰封合，胡铨亲自锤冰，军士继作，金军最终撤退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "有实际拒敌和对峙，但没有明确大规模接战伤亡。",
+            "upper_bound_reason": "无百人级死伤、主将死亡或溃退。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "保住射阳湖—高邮方向，阻止淮东剩余防线继续被迅速突破。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "射阳湖",
+              "高邮方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "宋方保持射阳湖方向控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "投入水陆守备和破冰劳役后守住节点，获得明确局部安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金射阳湖方向军 × 对峙后撤",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军在濠、滁突破后继续压迫射阳湖，因宋方水陆形成掎角且破除冰封条件，最终退去。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "金军死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "实际对峙、拒敌成立，但缺少明确战斗损害。",
+            "upper_bound_reason": "无百人级伤亡或大败数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "未能进一步突破高邮—射阳湖方向，阶段攻势受阻。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "射阳湖",
+              "高邮方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得该方向控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "已有明显方向动员但未取得节点，最终撤退。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0033"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "湖南盗起入广东焚掠州县—官军讨平",
+      "campaign_group": "XZTJ-SONG-HUNAN-GUANGDONG-BANDITS-1165",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+      ],
+      "source_quotes": [
+        "湖南盜起，入廣東，焚掠州縣，官軍討平之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋地方军政体系 × 讨平湖南广东盗乱",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "湖南盗群起兵后进入广东，焚烧掠夺州县；官军出讨并最终平定。原文不载兵力和具体战次。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "官军与平民伤亡失载；盗军已跨区焚掠州县。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨两路武装焚掠并需官军讨平，支持百人级综合人员损害中心。",
+            "upper_bound_reason": "无千人级死亡、被俘或大规模屠杀数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "结束一次跨湖南—广东的区域性武装扰乱，恢复地方安全。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "湖南—广东受扰州县"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "地方行政控制恢复，但原文不支持新增领土。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "P2/S2并列抬WC3；区域受扰成本明显，但最终完成平乱。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "湖南—广东盗军 × 焚掠后被讨平",
+          "subject_role": "REBELLION",
+          "actual_process": "盗军自湖南进入广东焚掠州县，最终被官军讨平，组织性威胁终止。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "盗军死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨区焚掠后遭官军讨平，推定百人级损害；无更大规模证据。",
+            "upper_bound_reason": "无千人级尸伤或大批俘虏数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "区域性武装组织被消灭，失去继续跨区行动能力。",
+          "material_return": "WR0",
+          "material_return_detail": "前期掠获未有可核数量且最终组织被平，不计稳定回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "湖南—广东受扰州县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见形成稳定统治区。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "经历区域性作乱后被彻底平定，未形成可持续控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0075"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "郴州李金复乱—刘珙统筹田宝、杨钦连战平定",
+      "campaign_group": "XZTJ-SONG-LIJIN-REBELLION-1165",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+      ],
+      "source_quotes": [
+        "郴州盜李金復作亂",
+        "遣田寶、楊欽以兵至",
+        "軍士感奮",
+        "欽與寶連戰破賊",
+        "賊党執金以降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋刘珙、田宝、杨钦部 × 连战平李金",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "李金再次作乱，刘珙请制使便宜出兵，田宝、杨钦率军到境；刘珙以夫迎军、代负行李并厚犒，统一诸军节制，又悬赏诱其党互相捕斩。杨钦、田宝连战破贼，追至莽山，贼党最终自行执李金投降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "宋军与受害平民死伤失载；李金为“复作乱”，官军多部连战。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "区域性复乱、连续战斗和劳役保障支持百人级综合人员损害中心。",
+            "upper_bound_reason": "无千人级死伤、州城陷落或大屠杀数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "终结一支复起的区域性盗乱集团，降低湖南再次反复作乱风险。",
+          "material_return": "WR0",
+          "material_return_detail": "投降人口不计WR；未载大宗军资缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郴州—莽山方向"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复地方治安和行政支配，无新增领土。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "P2/S2并列抬WC3，但通过统一节制、犒军和策反连战完成平乱，威胁结构被明显拆除。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "P0172朝廷明确称刘珙已“措置李金事毕”，本乱在本卷闭合。"
+        },
+        {
+          "evaluation_subject_phase": "李金盗军 × 连战败北、内部执降",
+          "subject_role": "REBELLION_DISSOLUTION",
+          "actual_process": "李金集团与官军连续交战后败退莽山；官军悬赏策反发挥作用，其党自行捕执李金并投降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "盗军死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 447,
+            "P_scoring": "P2估",
+            "basis": "“连战破贼”并追至莽山，组织最终崩解，支持百人级损害中心。",
+            "upper_bound_reason": "无千人级尸伤、俘虏总数或主力规模。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "组织领导核心被本部执交，复乱结构彻底瓦解。",
+          "material_return": "WR0",
+          "material_return_detail": "无稳定所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郴州—莽山方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未形成稳定地区控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "连续败战后组织内部瓦解，领导核心被执降。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0094"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "淮北红巾贼逾淮劫掠—楚州巡尉击杀首领",
+      "campaign_group": "XZTJ-SONG-HUAIBEI-REDTURBAN-1165",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+      ],
+      "source_quotes": [
+        "淮北紅巾賊逾淮劫掠",
+        "立賞格討捕之",
+        "遣巡尉擊殺其首盧榮"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋楚州地方体系 × 讨捕红巾贼",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "淮北红巾贼越淮劫掠，朝廷立赏格讨捕；知楚州胡则遣巡尉出击，杀其首领卢荣。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方军民伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "有越淮劫掠和巡尉出击，推定非零人员损害；材料不支持百人级。",
+            "upper_bound_reason": "无百人级伤亡、州县失守或大规模流亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次跨淮劫掠被地方力量及时压制，局部治安恢复。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "楚州及淮南受扰地区"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "地方控制未发生稳定转移。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "P1/S1并列抬WC2；小规模人员与地方扰动成本换取快速止乱。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "红巾贼卢荣部 × 劫掠后首领被杀",
+          "subject_role": "RAIDERS",
+          "actual_process": "红巾贼越淮进行劫掠，遭楚州巡尉反击，首领卢荣被杀，行动被压制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "明确卢荣被杀，其他贼众损害失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "至少一名首领死亡并有实际交战，属于小规模损害。",
+            "upper_bound_reason": "无百人级死伤或大批俘虏。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "首领死亡使该次劫掠组织明显受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "未载稳定掠获，且行动被压制。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "淮南受扰地区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未建立控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "首领被杀且没有形成持续控制或回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既有宋金政权间战争、地方平叛或边防行动，不属于本卷可确认的建国、复国或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-139-2312137-P0134"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-139-2312137-P0001—P0250",
+      "paragraph_count": 250,
+      "body_end": "P0248",
+      "metadata_tail": [
+        "P0249",
+        "P0250"
+      ],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 7,
+      "adjudicated_subject_phase_cards": 14,
+      "coverage_note": "逐段复读覆盖金军再渡淮的楚州、濠滁昭关推进，六合与射阳湖阻击，以及湖南广东盗乱、李金复乱和红巾贼越淮劫掠。正式和议、撤戍、屯田、边堡与军政裁撤按非战役事实处理，不将外交交割伪装成战役。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0007",
+        "disposition": "ADJUDICATED",
+        "battle_label": "清河口—淮阳拒战：魏胜战死、楚州失守"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0008",
+        "disposition": "ADJUDICATED",
+        "battle_label": "清河口—淮阳拒战：魏胜战死、楚州失守 / 金军继破濠州、滁州—王彦弃昭关"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "因金军侵境推迟郊祀，属于战争政治后效。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "杨存中都督江淮，属于军政任命。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "战急时调整都督，属于军政组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "对归正官民发布战争动员诏，属于政治动员。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0015",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追责汤思退弛边备，列举罢寿春筑城、散万弩营、停海船、毁水柜及撤海泗唐邓戍等，是战争准备被撤销的政治追责，不是新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王抃与金军达成和议框架并涉及商、秦等地和岁币，属于外交与战争结算，不是武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "诏择日视师，属于部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0026",
+        "disposition": "ADJUDICATED",
+        "battle_label": "六合之战—崔泉败金军"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0028",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "刘宝、王彦因弃守降职，属于战后军法。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0031",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0033",
+        "disposition": "ADJUDICATED",
+        "battle_label": "射阳湖防御—胡铨促李宝出援、破冰后金军退"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0036",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金军已到扬州但杨存中固垒、宋军奉命不得妄进，原文未见实际交战，列为无战对峙。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "魏杞渡淮出使，属于外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "赦文确认和议边界、岁币、归正人及数州民众流离被系，属于战争结算与民生后果。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0041",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0043",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0044",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金在泰州、临潢边界设70堡、驻1.3万人，属于战后边防工程和驻军。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0048",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "对弃城部将惩处，属于军法。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0049",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋金正式国书确立叔侄、岁币二十万等格式，属于外交结算。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "召杨存中还，属于撤军人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0053",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0056",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0058",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "和议后金军只留6万人戍守、其余放还，并以宋岁币赏军，属于战后裁军与军费分配。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "罢两淮招抚司及陕西、河东宣抚招讨司，属于战后机构撤销。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0063",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "濠州戍兵移藕塘，属于驻军调整。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0064",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0065",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0066",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0067",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "多路都统、总领、帅漕兼提举屯田，属于战后军粮建设。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0068",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0070",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0071",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0075",
+        "disposition": "ADJUDICATED",
+        "battle_label": "湖南盗起入广东焚掠州县—官军讨平"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "郭璘因金渡淮时保焦湖舟船无虞而留任，是前战功追记，未新增本卷战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0077",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "寿王京谋反案停留在图谶谋逆、审讯与安置，未形成武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "寿王京谋反案处置，无军队起兵或据城。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0084",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0085",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金主称布萨忠义使“偃兵息民”，属于战后论功。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0088",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0089",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0090",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金罢山东路都统府，军归总管府，属于军政重组。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0094",
+        "disposition": "ADJUDICATED",
+        "battle_label": "郴州李金复乱—刘珙统筹田宝、杨钦连战平定"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0095",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0097",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0099",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "罢湖北京西制置司，属于战后机构调整。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0100",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0101",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0102",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0103",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0104",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金罢陕西都统府、徙元帅府河中，属于军政重组。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0105",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0106",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0107",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0108",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0109",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0112",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0113",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金杀前宿州防御使，因其与李显忠交通，属于政治处刑。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0114",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0115",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0116",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0117",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0118",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0119",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0120",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0121",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0122",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0123",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0124",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0125",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0126",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0127",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0128",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0129",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0130",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0131",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0132",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0133",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0134",
+        "disposition": "ADJUDICATED",
+        "battle_label": "淮北红巾贼逾淮劫掠—楚州巡尉击杀首领"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0135",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0136",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0137",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0138",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0139",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "龙大渊抚谕两淮、屯田、捕盗，属于地方军政部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0140",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0141",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0142",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0143",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0144",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0145",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0146",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0147",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0148",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "省六合戍兵并将屯垦田还复业民，属于战后退屯与土地恢复。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0149",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "销毁逃亡军兵等二万余付身，属于军籍审计，不是战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0150",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "优恤利州运粮百姓，属于战争后勤补偿。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0151",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0152",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0153",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "罢盱眙屯田并赈饥，属于战后屯田与民生政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0154",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0155",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0156",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0157",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0158",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0159",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "禁止京西、利州科役保胜义士，属于减役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0160",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0161",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0162",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0163",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0164",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0165",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0166",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0167",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0168",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0169",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0170",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0171",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0172",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0173",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0174",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0175",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0176",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0177",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0178",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "审核三衙弓手、养马兵和效用兵虚额，属于军籍整顿。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0179",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0180",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0181",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0182",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0183",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0184",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0185",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0186",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0187",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0188",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0189",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0190",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0191",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0192",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0193",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0194",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0195",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0196",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0197",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0198",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0199",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0200",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0201",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0202",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "调泉州左翼军屯许浦镇，属于驻防。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0203",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0204",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "武锋军改隶步军司，属于军制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0205",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0206",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0207",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0208",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0209",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "列举十三处历史战功并定赏格，全部为旧战追记，本卷无新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0210",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴璘复判兴州，属于人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0211",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0212",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0213",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0214",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0215",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0216",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0217",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0218",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0219",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0220",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0221",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0222",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0223",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0224",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0225",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0226",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0227",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0228",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0229",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0230",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0231",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0232",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0233",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0234",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0235",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0236",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "筑郢州城，属于边防工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0237",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "汰冗兵，属于军制财政。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0238",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0239",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0240",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0241",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0242",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0243",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0244",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0245",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0246",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0247",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0248",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0249",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-139-2312137-P0250",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：纪年、人事、礼制、外交、财政民生、灾害、工程、司法或纯军政部署，不形成独立武装接战。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "XZTJ-SONG-JIN-LONGXING-INVASION-1164",
+        "followup": "本轮实际入侵在本卷和议、金军裁兵后收束；后卷若再有同一集团越境需作为新阶段。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-JIN-LONGXING-PEACE-1164-1165",
+        "followup": "叔侄国书、岁币二十万及地界收束已成为定式；后卷核和议稳定性及边界实际执行。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-HUNAN-GUANGDONG-BANDITS-1165",
+        "followup": "本卷只言官军讨平，若后卷出现同一残部复起再另阶段。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-LIJIN-REBELLION-1165",
+        "followup": "P0172明确李金事毕，本线闭合，后卷仅核战后治理。"
+      }
+    ],
+    "mechanical_checks": {
+      "wc_formula": "PASSED",
+      "ps_tandem_rule": "PASSED",
+      "estimated_P_fields": "PASSED",
+      "population_not_counted_as_WR": "REVIEWED",
+      "control_requires_actual_hold_or_transfer": "REVIEWED",
+      "treaty_not_misclassified_as_battle": "REVIEWED"
+    }
+  }
+}

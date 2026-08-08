@@ -1,0 +1,895 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷205",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-205-2334707",
+    "revision_ref": "2334707",
+    "raw_sha256": "068322f16c94b889c9c7afe80db7989c4bcb29bb794dccf0d03e5271ab8c8ded"
+  },
+  "cards": [
+    {
+      "battle_label": "四川囊嘉特叛乱续阶段：猫儿垭—乌江—鸡武关—白土关扩张与最终受赦",
+      "campaign_group": "XZTJ-YUAN-NANGJIAT-SICHUAN-1328-1329",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0039",
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+      ],
+      "source_quotes": [
+        "囊嘉特攻破播州貓兒埡隘",
+        "官軍擊敗之……復奪關口",
+        "統軍五萬五千至烏江",
+        "據雞武關，奪三叉、柴關等驛",
+        "進兵至金州，據白土關",
+        "分兵逼襄陽",
+        "博囉奉詔至四川赦囊嘉特罪",
+        "蜀地悉定，諸省兵皆罷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元中央—湖广—陕西诸军 × 乌江反击、跨省进讨与局部收复阶段",
+          "subject_role": "COUNTERREBELLION_ATTACKER",
+          "actual_process": "囊嘉特攻破猫儿垭后，播州杨万户引四川叛军至乌江峰，被官军击败；八番元帅又破乌江北岸叛军并复夺关口。诸王统军五万五千到乌江，中央再调镇西武靖王、本部蒙古军和湖广诸将进讨，陕西亦督军防白土关与金州方向。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "乌江、关口等发生实际交战，元军本方完整死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "五万五千等人数只支持M3，不直接推P；无本方大败或百人级死伤后效。",
+            "upper_bound_reason": "无百人级本方死亡、伤俘或成建制损失实数。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "乌江等局部关口得以收复，并使播州部分从叛土官来降；但囊嘉特仍据鸡武、三叉、柴关、白土等节点并逼襄阳。",
+          "material_return": "WR0",
+          "material_return_detail": "关口恢复属于内部控制恢复，无明确敌方大额军资缴获。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乌江北岸关口及播州局部"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "官军明确击破四川叛军并‘复夺关口’，部分播州土官重新来降。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "多省大规模动员换取乌江局部恢复与叛军同盟分化，但四川主叛乱仍持续。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ]
+          },
+          "carry_in": "承卷204囊嘉特杀省臣、称镇西王、称兵烧绝栈道。",
+          "carry_out": "囊嘉特随后仍据鸡武关、白土关并逼襄阳；最终收束另列赦降阶段。",
+          "wc_basis": "base_WC=3；P/S未同时位于基础最高档，不抬档。"
+        },
+        {
+          "evaluation_subject_phase": "囊嘉特集团 × 猫儿垭—鸡武—白土关扩张并逼襄阳阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "囊嘉特先破猫儿垭，虽乌江一部被官军击败并失一关口，仍焚鸡武关大桥和栈道，随后据鸡武关、夺三叉和柴关驿、进金州、据白土关，并分兵逼襄阳。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "乌江北岸一部遭官军击败，自身伤亡未载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际交战和局部败退成立，但无百人级斩俘或成建制覆没。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "控制多个关隘、驿站并把压力推进至金州、襄阳方向，取得局部军事主动；但多省军已合围。",
+          "material_return": "WR2",
+          "material_return_detail": "鸡武关、三叉/柴关驿、白土关等多个军事交通节点一度被实际控制。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鸡武关",
+              "三叉、柴关等驿",
+              "白土关",
+              "金州方向"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得多个关隘和驿路节点，扩展四川外缘进攻通道。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "持续动员后取得多个战略节点并扩大威胁，但控制稳定性受到多省进讨挑战。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": "焚毁鸡武关大桥及栈道，造成交通设施破坏；承前卷烧绝栈道。",
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0039"
+            ]
+          },
+          "carry_in": "承卷204称王、杀省臣与断栈道阶段。",
+          "carry_out": "四月接受赦诏后既有控制反转。",
+          "wc_basis": "base_WC=2；P/S未同时位于基础最高档，不抬档。"
+        },
+        {
+          "evaluation_subject_phase": "元中央—四川体系 × 赦囊嘉特、蜀地悉定并全面罢兵阶段",
+          "subject_role": "CONFLICT_TERMINATION",
+          "actual_process": "四月湖广参知政事博囉奉诏入四川赦囊嘉特。囊嘉特等听诏，原文明言‘蜀地悉定，诸省兵皆罢’，持续数月的省级武装割据由政治赦降终结。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "已经杀省臣、断栈道、据多关并逼襄阳的省级武装威胁在本阶段结束，多省军得以全部撤回。",
+          "material_return": "WR0",
+          "material_return_detail": "恢复四川旧有国家控制属于内部恢复，不重复记战争资源。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "四川叛区及鸡武、白土等关驿网络"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "‘蜀地悉定’且多省兵全部罢还，支持此前叛区与关路恢复中央秩序。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "本阶段无新增战斗成本，以赦降直接终止省级持续武装威胁并实现全面撤军。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ]
+          },
+          "carry_in": "承前一阶段多省军事进讨与囊嘉特多关扩张。",
+          "carry_out": "P0087处死囊嘉特属战后政治司法，不作为新战役或P增加。",
+          "wc_basis": "base_WC=0；P/S未同时位于基础最高档，不抬档。"
+        },
+        {
+          "evaluation_subject_phase": "囊嘉特集团 × 听赦、结束武装并丧失既有控制阶段",
+          "subject_role": "REBELLION_TERMINATION",
+          "actual_process": "囊嘉特等接受诏赦，四川随即悉定，各省讨伐军撤回；此前据有的关隘、驿路和割据式军政状态终止。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "独立武装割据状态结束，失去继续对中央和周边关隘保持同等威胁的条件。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鸡武关、白土关等既有叛军控制节点及四川割据空间"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "听赦后四川恢复中央秩序，先前阶段性控制全部失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "无新增人员损失，但独立军政控制和阶段性战略节点同时丧失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0054"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "wc_basis": "base_WC=0；P/S未同时位于基础最高档，不抬档。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "云南诸王达实布哈等集众五万驱逐丞相额森吉尼",
+      "campaign_group": "XZTJ-YUAN-YUNNAN-PRINCELY-COUP-1329",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+      ],
+      "source_quotes": [
+        "集眾五萬，數丞相額森吉尼專擅十罪，將殺之",
+        "額森吉尼遁走八番",
+        "達實布哈偽署參知政事等官"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "达实布哈—图沁布哈等云南诸王集团 × 集众五万、迫走丞相并擅署官员阶段",
+          "subject_role": "MILITARY_COUP_ATTACKER",
+          "actual_process": "云南诸王与行省官集众五万，公开列丞相额森吉尼十罪并准备杀之；额森吉尼被迫逃八番，达实布哈随即擅署参知政事等官，武装压力已经转化为省级行政控制。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "以五万级短期武装集结迫使对手退出，并实际操纵省级人事。",
+          "material_return": "WR0",
+          "material_return_detail": "省级旧官署和官职属于内部夺权，不作战利资产。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云南行省核心行政节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "丞相逃离后，诸王集团实际擅署省级官员。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以五万级动员取得省级行政控制和对手退出，但持续后效未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷206以后核中央处置。",
+          "wc_basis": "base_WC=2；P/S未同时位于基础最高档，不抬档。"
+        },
+        {
+          "evaluation_subject_phase": "额森吉尼及原云南行省中枢 × 被五万武装迫走阶段",
+          "subject_role": "COUP_DEFENDER",
+          "actual_process": "额森吉尼面对诸王及行省官集结的五万武装，无战即逃往八番；原有省级中枢随后被达实布哈擅署官员替代。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "原行省最高政治行政权在武装压力下失去实际执行能力。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云南行省核心行政节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "额森吉尼退出，原中枢对省级人事和行政控制被武装集团夺取。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "未发生人员伤亡，但省级中央行政控制实际丧失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0046"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "wc_basis": "base_WC=2；P/S未同时位于基础最高档，不抬档。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "广源猺寇掠湖广州县—行省招捕",
+      "campaign_group": "XZTJ-YUAN-GUANGYUAN-YAO-1329",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+      ],
+      "source_quotes": [
+        "廣源猺寇掠湖廣州且",
+        "命行省招捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元湖广地方军民 × 广源猺寇掠—行省招捕阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "广源猺进入湖广州县寇掠，行省开始招捕；未见降服、战损或控制结局。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际寇掠，本方军民完整损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "存在武装掠夺但无百人级死亡、被掳或流亡数字。",
+            "upper_bound_reason": "无百人级人员后果。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一处地方出现实际武装掠夺，安全短时恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "湖广相关州县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无城地失守证据。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "寇掠与招捕投入已发生，结果尚无。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷206以后核。",
+          "wc_basis": "base_WC=1；P/S同为基础最高档，按合同抬至WC2。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "广源猺武装 × 寇掠湖广州县阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "广源猺进入湖广州县寇掠，随后遭行省招捕。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际武装寇掠，自身损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "无大败、斩俘或百人级本方人员损失。",
+            "upper_bound_reason": "无百人级损失。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "形成一次局部主动袭扰能力。",
+          "material_return": "WR0",
+          "material_return_detail": "‘寇掠’没有具体可识别财货数量，不据空泛掠夺抬WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "湖广相关州县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见稳定占领。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "战果和存续未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成元朝统治期的边防、地方叛乱、内战或军事政变，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-205-2334707-P0139"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "wc_basis": "base_WC=1；P/S未同时位于基础最高档，不抬档。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-205-2334707-P0001—P0155",
+      "paragraph_count": 155,
+      "body_end": "P0153",
+      "edit_markers": [
+        "P0003"
+      ],
+      "metadata_tail": [
+        "P0154",
+        "P0155"
+      ],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 3,
+      "adjudicated_subject_phase_cards": 8,
+      "raw_battle_anchor_inventory_count": 35,
+      "adjudicated_anchor_count": 11,
+      "not_a_battle_anchor_count": 24,
+      "coverage_note": "逐段复读后，四川囊嘉特跨卷战事、云南五万武装政变及广源猺寇掠均已裁决；天历内战战后处分、明宗—文宗继承、宿卫建制和军役工程均明确排除。"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "p_inference_checked": true,
+      "asset_axis_checked": "囊嘉特线只以桥栈毁坏、多省军务等直接事实支持A；五万云南武装仅计M2，不把兵数自动转A。",
+      "control_axis_checked": "囊嘉特明确据关、驿并以‘蜀地悉定’收束，才给BCP/BCN；明宗继承和文宗复位不当作战争控制。",
+      "cross_volume_checked": true
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "note": "新设都督府统左右奇彻、龙翊卫，属于宿卫军政建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "note": "遣使周王行所并送金帛，属于迎立政治联络。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "note": "周王遣使入京及扈从赏赐，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "note": "报告周王启行日期。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "note": "遣官迎周王。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0016",
+        "disposition": "ADJUDICATED",
+        "note": "遣近侍诏谕囊嘉特，作为四川叛乱政治劝降前置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "note": "拘辽阳等从逆将校符印制敕，为天历内战战后处分。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0018",
+        "disposition": "ADJUDICATED",
+        "note": "囊嘉特求援，镇西武靖王以兵守关隘，四川叛乱继续。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0021",
+        "disposition": "ADJUDICATED",
+        "note": "囊嘉特攻破猫儿垭隘并招弟，实际扩张。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0025",
+        "disposition": "ADJUDICATED",
+        "note": "乌江官军击败四川叛军、复夺关口，五万五千军集结；囊嘉特毁桥绝栈。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "note": "周王即位明宗及诸王朝贺，无敌对武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0028",
+        "disposition": "ADJUDICATED",
+        "note": "曲赦囊嘉特，属于持续叛乱中的政治收束尝试，未立即结束战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0032",
+        "disposition": "ADJUDICATED",
+        "note": "囊嘉特据鸡武、夺三叉柴关驿、进金州据白土关，多路中央军进讨。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0035",
+        "disposition": "ADJUDICATED",
+        "note": "囊嘉特分兵逼襄阳，湖广调兵镇播州、归州。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0039",
+        "disposition": "ADJUDICATED",
+        "note": "播州从囊嘉特土官来降，为叛军联盟分化后效。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "note": "奉皇帝宝北上及百官随行，属于明宗继承政治。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "note": "两都府藏空虚及准备明宗供帐，是财政状态。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0046",
+        "disposition": "ADJUDICATED",
+        "note": "云南诸王等集众五万欲杀丞相，迫其逃亡并擅署省官，实际军事政变。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "note": "设行枢密院为军政机构，本段无新增敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0054",
+        "disposition": "ADJUDICATED",
+        "note": "博囉赦囊嘉特后‘蜀地悉定，诸省兵皆罢’，闭合四川叛乱。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0063",
+        "disposition": "NOT_A_BATTLE",
+        "note": "给行在宿卫衣粮、马刍豆属于移动朝廷供给。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0068",
+        "disposition": "NOT_A_BATTLE",
+        "note": "皇太子及百官北迎，市马二百匹，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "note": "都督府升大都督府，属于宿卫建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "note": "御史追述上年出师军需赏赉巨费及灾荒流民，是天历内战战后财政总账，不另开战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "note": "明宗暴崩，无武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "note": "皇太子由宿卫日夜护送，属于继承警戒。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0085",
+        "disposition": "NOT_A_BATTLE",
+        "note": "诸王大臣劝文宗复位，纯继承政治。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "note": "囊嘉特已受赦且四川已定，此后处死属于战后政治司法。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0088",
+        "disposition": "NOT_A_BATTLE",
+        "note": "文宗复位。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "note": "诸卫军浚通惠河，属于军事工役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0106",
+        "disposition": "NOT_A_BATTLE",
+        "note": "罢曾附都尔苏、旺沁且掌兵者，为战后军政处分。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0112",
+        "disposition": "NOT_A_BATTLE",
+        "note": "额森特伏诛，属于战后政治司法。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0123",
+        "disposition": "NOT_A_BATTLE",
+        "note": "籍囊嘉特家产、处分党羽属于战后清算。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0139",
+        "disposition": "ADJUDICATED",
+        "note": "广源猺实际寇掠湖广州县并由行省招捕。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-205-2334707-P0143",
+        "disposition": "NOT_A_BATTLE",
+        "note": "豫王镇云南属于边地宗王部署，无接战。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷204囊嘉特父链在本卷完整展开并于P0054‘蜀地悉定，诸省兵皆罢’闭合；P0087处刑不重复计战。",
+      "卷204天历两都内战已在上年收束；本卷P0078‘军需、赏赉，所费不可胜计’是战后成本增证，后续总汇应加强原父链财政判断，但不能另算一轮战争。",
+      "P0046云南诸王集众五万迫走额森吉尼并擅署省官，当前未闭合；卷206以后核省级控制归属和中央处置。",
+      "P0139广源猺寇掠未闭合，卷206以后核招捕结果。",
+      "卷203普双、田先什用、谢乌穷、阮凤子等旧父链在卷204—205仍无可靠实名收束，继续待核。"
+    ]
+  }
+}

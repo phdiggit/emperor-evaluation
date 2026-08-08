@@ -1,0 +1,458 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷196",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-196-2635939",
+    "revision_ref": "2635939",
+    "raw_sha256": "8c3763e0b511f53d425cf5a54cd6d19bbc4469b0c87ee4ee701ac6872a279ee9"
+  },
+  "cards": [
+    {
+      "battle_label": "江浙海贼出没—杀掳军民",
+      "campaign_group": "XZTJ-YUAN-JIANGZHE-PIRACY-1308",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-196-2635939-P0011"
+      ],
+      "source_quotes": [
+        "江浙行者海賊出沒，殺虜軍民",
+        "自首者原罪給粟，能擒其黨者加賞"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元江浙军民 × 海贼反复出没杀掳阶段",
+          "subject_role": "RAID_VICTIM_DEFENDER",
+          "actual_process": "中书在讨论弭盗政策时明确指出江浙海贼正在出没并“杀虏军民”，说明已发生实际武装袭扰；本段没有给出具体地点、次数、伤亡构成，也没有独立写到生产、交通或行政体系受损，因此S不由人员受害反推。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文明言“杀虏军民”，可确认已有死亡或被掳人员，但人数、比例与军民构成均失载。",
+            "range": "2—99死亡当量",
+            "center": 14,
+            "P_scoring": "P1估",
+            "basis": "“杀虏”至少包含复数受害者；缺乏州县成片失陷、百人级伤俘或补兵赈恤后效，中心保持在P1。",
+            "upper_bound_reason": "没有任何百人级人数、比例或区域人口损害锚点，不上P2。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "“海贼出没”表明沿海地方治安不是一次孤立事件，已经形成持续性局部安全退化；但尚未见主要港口、海漕或州县行政体系被长期切断。",
+          "material_return": "WR0",
+          "material_return_detail": "被袭一方没有战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "江浙沿海地方治安区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "有杀掳和袭扰，但原文未载海贼稳定夺取城寨、港口或行政节点。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0011"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "已出现军民人员损害和持续海盗袭扰，却未见本段形成可确认的安全改善或控制回收；原文不足以另立生产体系损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、治安或地方叛乱，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0011"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0011"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0011"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0011"
+            ]
+          },
+          "carry_in": "本卷未给出海贼父链起始时间，按本段首次可确认实际袭击起算。",
+          "carry_out": "后卷若出现海盗被大规模捕平、海漕恢复或继续杀掳，应沿同一campaign_group补安全后效。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "察八儿诸王边患—元军进逼、诸王来降与漠北悉平",
+      "campaign_group": "XZTJ-YUAN-KHAIDU-WAR-1288-1290",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+      ],
+      "source_quotes": [
+        "察巴爾諸王之在邊境者，素無悛心",
+        "遣軍屯田山北",
+        "趣進軍攻之",
+        "遂相率來降，漠北悉平"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元北边军 × 安置归附者、山北屯田并进军迫降察八儿阶段",
+          "subject_role": "BORDER_COUNTEROFFENSIVE",
+          "actual_process": "伊彻察喇判断察八儿等边境诸王仍可能合谋，先建议安置都哇之子库春及诸部来归者于金山之阳、遣军屯田山北，随后皇帝催军进攻。察八儿等拟投库春而被拒，遂相率来降，原文明言“漠北悉平”。没有记载实际交锋或人员伤亡。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB4",
+          "strategic_security_detail": "承海都—都哇长期北边战争之后，最后仍具合谋再起能力的察八儿诸王被迫来降，且原文以“漠北悉平”概括后效，足以支持一个主要北边威胁结构在本阶段终结。",
+          "material_return": "WR0",
+          "material_return_detail": "诸王来降和漠北恢复秩序主要属于安全与控制收益；原文没有可识别缴获、府库、牲畜或新增税源，且旧地恢复不重复虚作战利资产。",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "漠北主要边疆方向",
+              "金山南北归附者—屯田控制带"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "察八儿等来降后原文直接确认“漠北悉平”，表明一个主要边疆方向由持续边患转入稳定控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "仅见有限进军、屯田和安置成本，未见交战伤亡，却使海都战争残余的一项主要边患结构彻底收束，并恢复漠北方向控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、治安或地方叛乱，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ]
+          },
+          "carry_in": "承卷194同一`XZTJ-YUAN-KHAIDU-WAR-1288-1290`父链：海都已死、都哇请降，诸叛王相继来降，但北边仍残留察八儿等未靖诸王。",
+          "carry_out": "卷197需核察八儿后代或同一集团是否继续来朝、复叛，以及“漠北悉平”是否保持。"
+        },
+        {
+          "evaluation_subject_phase": "察八儿诸王集团 × 投奔库春失败、相率来降阶段",
+          "subject_role": "REBELLIOUS_BORDER_FACTION",
+          "actual_process": "察八儿等在元军进逼后试图投奔库春，遭拒绝，最终相率来降。本段没有交战或人员、生产与资产损失数字。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "strategic_security": "SN4",
+          "strategic_security_detail": "该集团失去外援与继续联合抗元的条件，以整体来降结束独立武装威胁能力；其政治军事自主空间结构性消失。",
+          "material_return": "WR0",
+          "material_return_detail": "未取得可确认战争所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "察八儿等在漠北边境的原活动区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "原文能确认集团来降，却未具体列出其此前实际控制的城地、牧地或行政节点，故不以“来降”自动换算其BCN。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "在元军进逼和外援拒绝后整体来降，失去继续作为独立边患集团行动的条件。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、治安或地方叛乱，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0083"
+            ]
+          },
+          "carry_in": "承海都—都哇战争残余结构。",
+          "carry_out": "后卷只在出现同集团复叛或明确控制区变化时再开新阶段。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "八百媳妇、大小彻里新一轮作乱—招谕受赂败还",
+      "campaign_group": "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+      ],
+      "source_quotes": [
+        "八百媳婦及大小徹里諸蠻作亂",
+        "詔遣雲南右丞索勒濟爾威往招諭之",
+        "為賊所賂，復肆攻掠，遂以敗還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元云南地方军民与招谕使团 × 诸蛮作乱、攻掠与招谕失败阶段",
+          "subject_role": "BORDER_ADMIN_DEFENDER",
+          "actual_process": "八百媳妇及大小彻里诸部重新作乱。元廷先派云南右丞索勒济尔威招谕，但其受贿后未能制止局势，诸部继续攻掠，招谕任务以失败返回告终。原文没有具体城寨失守、人员数字或军队会战。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文只称诸蛮“复肆攻掠”，没有给元方军民死伤、被掳人数或具体比例。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际攻掠已经发生，不能用史书沉默直接判定P0；但没有百人级伤亡、成片人口逃散或补兵赈恤数据。",
+            "upper_bound_reason": "无任何百人级人数、比例或大规模人员后果，不上P2。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "一个西南边远方向出现复叛并继续攻掠，招谕失败，局部安全明显恶化；但尚未见卷194式完整区域成片失控。",
+          "material_return": "WR0",
+          "material_return_detail": "元方本阶段没有取得资源或控制回报。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "八百媳妇—大小彻里活动区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "有作乱、攻掠和招谕失败，但未明言具体城地、通道或行政节点转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "地方威胁已实际复发并造成攻掠，招谕又因受贿失败，现阶段只有成本与安全恶化，没有可确认成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、治安或地方叛乱，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ]
+          },
+          "carry_in": "与卷194的1301—1303年八百媳妇远征—顺元反噬属于同一地理方向但不是同一实际战争阶段；本轮从1309年诸蛮重新作乱另立父链。",
+          "carry_out": "卷197须核朝廷是否由招谕转入正式出兵、实际接战与控制变化。"
+        },
+        {
+          "evaluation_subject_phase": "八百媳妇—大小彻里诸部 × 复起攻掠并迫使招谕使败还阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "诸部在元廷招谕期间仍继续攻掠，并以行贿破坏招谕使的执行，使其失败返回；原文没有记载诸部自身明确伤亡。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "诸部实际持续攻掠，但自身伤亡完全失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "既有实际武装攻掠，不能因未记伤亡而直接定P0；又无官军反击、大败或百人级杀伤数据。",
+            "upper_bound_reason": "无百人级本方损失证据，不上P2。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "本阶段仅能确认一次压制招谕、维持继续攻掠的短期行动自由，尚不足以证明长期控制或主要威胁结构性增强。",
+          "material_return": "WR0",
+          "material_return_detail": "虽有“攻掠”，但原文没有可识别、可控制的粮草、牲畜、军械或财政物资，按合同不凭泛称掠夺虚构WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "八百媳妇—大小彻里活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "攻掠成立，但未载稳定夺取城寨、税源或治理节点。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本维持武装行动并使招谕失败，取得一次短期安全主动；但没有可确认的稳定控制或可识别资源所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、治安或地方叛乱，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-196-2635939-P0162"
+            ]
+          },
+          "carry_in": "1309年新一轮作乱起点。",
+          "carry_out": "卷197朝廷若正式出兵，则转入防御/反击阶段继续核算。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread_completed": true,
+    "reread_range": "SRC-XUZIZHITONGJIAN-196-2635939-P0001 至 SRC-XUZIZHITONGJIAN-196-2635939-P0176",
+    "card_coverage": {
+      "card_count": 3,
+      "subject_phase_card_count": 5,
+      "raw_battle_anchor_inventory_count": 17,
+      "adjudicated_anchor_count": 3,
+      "not_a_battle_anchor_count": 14,
+      "coverage_result": "逐段复读后，实际武装袭击、进军迫降和地方作乱均已纳入3张战役卡；军屯、宿卫、兵役、军器调动与旧战功回顾均明确排除。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0011",
+        "disposition": "ADJUDICATED",
+        "note": "同段虽以弭盗政策为主，但明确记江浙海贼实际“杀虏军民”，属于已发生武装袭击。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "note": "发军士一千五百修佛寺，属于非战役工役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "note": "诸王滥用驿马属于驿役制度，不是武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "note": "裁枢密冗员属于军事行政编制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "note": "整顿屯田属于军需农业制度，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0083",
+        "disposition": "ADJUDICATED",
+        "note": "遣军屯田、实际进军攻察八儿并迫使诸王来降，形成漠北平定。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "note": "封绰和尔为王，是军功奖赏，无本卷新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "note": "追述绰和尔劝武宗急归定大业，属于1307继承政治背景，无新武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0099",
+        "disposition": "NOT_A_BATTLE",
+        "note": "和林屯田获收并赏官兵，属于军屯生产后效。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0109",
+        "disposition": "NOT_A_BATTLE",
+        "note": "摘汉军五千、给田十万顷屯粮属于军屯与粮储建设。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0119",
+        "disposition": "NOT_A_BATTLE",
+        "note": "裁宿卫冗杂属于军政编制整顿。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0128",
+        "disposition": "NOT_A_BATTLE",
+        "note": "取河南蒙古军万余置太子右卫率府，属于编制调动，未发生敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0129",
+        "disposition": "NOT_A_BATTLE",
+        "note": "拟取安西军器给宿卫士但被劝止，未形成实际武装争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0150",
+        "disposition": "NOT_A_BATTLE",
+        "note": "富室质一子为军属于兵役/财政政策，不是本段战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0162",
+        "disposition": "ADJUDICATED",
+        "note": "八百媳妇、大小彻里作乱并继续攻掠，招谕使败还，已形成实际武装袭扰。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0170",
+        "disposition": "NOT_A_BATTLE",
+        "note": "禁汉人持弓矢兵仗属于治安/身份政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-196-2635939-P0173",
+        "disposition": "NOT_A_BATTLE",
+        "note": "洪君祥“从南伐，战功较多”仅为人物旧事回顾，无本卷可切分实际战役。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷195罗雄—普定P0131留军二千戍守，本卷未见同集团复叛或越州重新失控；只记“后续窗口未见反转”，不以沉默把SB/BCP无限延长。",
+      "卷195 P0154琼州王文何“作乱伏诛”在本卷仍无起兵、据寨、调军或接战补充，继续保持未登记候选。",
+      "察八儿P0083来降后称“漠北悉平”；卷197需核其子嗣或同一诸王集团是否持续来朝，以确认北边SB4与BCP4后效。",
+      "八百媳妇—大小彻里P0162由招谕失败转为持续攻掠；卷197需沿`XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311`核正式出兵、接战与控制变化。",
+      "本卷北边父链沿用卷194遗留campaign_group `XZTJ-YUAN-KHAIDU-WAR-1288-1290`，只为跨卷确定性链接；若本地后续统一ID，应做别名映射，不重复计战。"
+    ]
+  }
+}
