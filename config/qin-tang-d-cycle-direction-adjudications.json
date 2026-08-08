@@ -1,7 +1,7 @@
 {
-  "schema_version": "qin-tang-d-cycle-direction-adjudications-v2",
+  "schema_version": "qin-tang-d-cycle-direction-adjudications-v3",
   "scope": "秦至唐95位评价主体的当前父周期方向、主体阶段与必要C轴人工裁决输入",
-  "source_policy": "D只允许人工裁决父级成本收益轴与内部战争路由，回报档位和组合效率全部确定性派生；C轴人工裁决只用于有反例复核记录的主体，独立任务集合仍由共享父周期生成。",
+  "source_policy": "included_source_refs是秦至唐D正式父周期输入；逐卡读取WAR与DEF，再按campaign_group和settlement_owner收束，禁止从旧正式输出反向恢复输入。",
   "record_count": 95,
   "records": [
     {
@@ -32,7 +32,11 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-QIN-LINGNAN",
+        "WAR-LEAD-QIN-XIONGNU-WALL"
+      ]
     },
     {
       "ruler_id": "RULER-QIN-HUHAI",
@@ -73,14 +77,24 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-QIN-CIVIL-WAR"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUBANG",
       "ruler_name": "刘邦",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-CHENXI",
+        "WAR-LEAD-HAN-LUWAN",
+        "WAR-LEAD-HAN-POSTUNIFICATION-REVOLTS",
+        "WAR-LEAD-HAN-XIONGNU-BAIDENG",
+        "WAR-LEAD-HAN-YINGBU"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LUYU",
@@ -132,28 +146,48 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-LU-COUP",
+        "WAR-LEAD-HAN-NANYUE-EMBARGO",
+        "WAR-LEAD-HAN-NANYUE-RESTORATION",
+        "WAR-LEAD-HAN-NORTHERN-BORDER"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUYING",
       "ruler_name": "刘盈",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-HAN-LIUHENG",
       "ruler_name": "刘恒",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-FRONTIER-SETTLEMENT",
+        "WAR-LEAD-HAN-JIBEI",
+        "WAR-LEAD-HAN-XIONGNU-158",
+        "WAR-LEAD-HAN-XIONGNU-162",
+        "WAR-LEAD-HAN-XIONGNU-166",
+        "WAR-LEAD-HAN-XIONGNU-177"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUQI",
       "ruler_name": "刘启",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-JINGDI-HEQIN",
+        "WAR-LEAD-HAN-SEVEN-KINGDOMS",
+        "WAR-LEAD-HAN-XIONGNU-152-142"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUCHE",
@@ -341,6 +375,40 @@
         "WAR-LEAD-HAN-EASTERN-YUE-111-110",
         "WAR-LEAD-HAN-HEXICORRIDOR-121",
         "WAR-LEAD-HAN-NANYUE-112-111"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-CANGHAI",
+        "WAR-LEAD-HAN-CHAOXIAN-109-108",
+        "WAR-LEAD-HAN-CHESHI-90",
+        "WAR-LEAD-HAN-DAYUAN-104-101",
+        "WAR-LEAD-HAN-EASTERN-BANDITRY",
+        "WAR-LEAD-HAN-EASTERN-OU-138",
+        "WAR-LEAD-HAN-EASTERN-YUE-111-110",
+        "WAR-LEAD-HAN-HENAN-SHUFANG",
+        "WAR-LEAD-HAN-HEXICORRIDOR-121",
+        "WAR-LEAD-HAN-LOULAN-CHESHI-108",
+        "WAR-LEAD-HAN-MAYI-133",
+        "WAR-LEAD-HAN-MINYUE-135",
+        "WAR-LEAD-HAN-MOBEI-119",
+        "WAR-LEAD-HAN-NANYUE-112-111",
+        "WAR-LEAD-HAN-NORTHERN-DETERRENCE-110",
+        "WAR-LEAD-HAN-NORTHERN-FORTS-104-102",
+        "WAR-LEAD-HAN-SHUOFANG-87",
+        "WAR-LEAD-HAN-SOUTHWEST-109-105",
+        "WAR-LEAD-HAN-SOUTHWEST-111",
+        "WAR-LEAD-HAN-TIANHAN-99",
+        "WAR-LEAD-HAN-WESTERN-QIANG-112-111",
+        "WAR-LEAD-HAN-WESTERN-ROUTE-111",
+        "WAR-LEAD-HAN-WITCHCRAFT-CIVIL-91",
+        "WAR-LEAD-HAN-XIONGNU-124-123",
+        "WAR-LEAD-HAN-XIONGNU-129/128/126-125",
+        "WAR-LEAD-HAN-XIONGNU-90",
+        "WAR-LEAD-HAN-XIONGNU-97",
+        "WAR-LEAD-HAN-XIONGNU-DIPLOMACY-107",
+        "WAR-LEAD-HAN-XIONGNU-HEQIN-135",
+        "WAR-LEAD-HAN-YANMEN-WORKS",
+        "WAR-LEAD-HAN-ZHANGQIAN-MISSION",
+        "WAR-LEAD-HAN-ZHAOPONU-103"
       ]
     },
     {
@@ -426,7 +494,17 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-CHESHI-67-64",
+        "WAR-LEAD-HAN-KUCHA-71",
+        "WAR-LEAD-HAN-SHACHE-65",
+        "WAR-LEAD-HAN-WESTERN-QIANG-61-60",
+        "WAR-LEAD-HAN-WUSUN-53",
+        "WAR-LEAD-HAN-WUSUN-XIONGNU-72-71",
+        "WAR-LEAD-HAN-XIONGNU-68",
+        "WAR-LEAD-HAN-ZHUYAI-52-46"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUSHI",
@@ -456,7 +534,12 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-LONGXI-QIANG-42",
+        "WAR-LEAD-HAN-ZHIZHI-44-36",
+        "WAR-LEAD-HAN-ZHUYAI-52-46"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUAO",
@@ -479,7 +562,17 @@
         "WAR-LEAD-HAN-SHANYANG-IRON-14",
         "WAR-LEAD-HAN-YINGCHUAN-IRON-22"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-GUANGHAN-18-17",
+        "WAR-LEAD-HAN-NANSHAN-BANDITS",
+        "WAR-LEAD-HAN-SHANYANG-IRON-14",
+        "WAR-LEAD-HAN-WUSUN-11",
+        "WAR-LEAD-HAN-WUSUN-SIEGE-29",
+        "WAR-LEAD-HAN-WUSUN-SUCCESSION-21",
+        "WAR-LEAD-HAN-YELANG-27",
+        "WAR-LEAD-HAN-YINGCHUAN-IRON-22"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUXIN",
@@ -498,7 +591,10 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-CHESHI-DEFECTION-2"
+      ]
     },
     {
       "ruler_id": "RULER-XIN-WANGMANG",
@@ -531,7 +627,18 @@
         "WAR-LEAD-XIN-LIUCHONG-6",
         "WAR-LEAD-XIN-LIUKUAI-9"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-XIN-COLLAPSE-23",
+        "WAR-LEAD-XIN-GOGURYEO-12",
+        "WAR-LEAD-XIN-LIUCHONG-6",
+        "WAR-LEAD-XIN-LIUKUAI-9",
+        "WAR-LEAD-XIN-SOUTHWEST-16-22",
+        "WAR-LEAD-XIN-WESTERNREGIONS-16",
+        "WAR-LEAD-XIN-XIHAI-4-7",
+        "WAR-LEAD-XIN-XIONGNU-15-22",
+        "WAR-LEAD-XIN-ZHAIYI-7-8"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUXUAN",
@@ -544,7 +651,10 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-XIN-COLLAPSE-23"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUXIU",
@@ -607,7 +717,16 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-INTERNAL-40-43",
+        "WAR-LEAD-HAN-JIAOZHI-40-43",
+        "WAR-LEAD-HAN-NORTH-36-46",
+        "WAR-LEAD-HAN-QIANG-30-35",
+        "WAR-LEAD-HAN-SICHUAN-42",
+        "WAR-LEAD-HAN-SOUTHWEST-43-45",
+        "WAR-LEAD-HAN-WULING-47-49"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUZHUANG",
@@ -648,7 +767,12 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-NORTH-XIONGNU-62-73",
+        "WAR-LEAD-HAN-QIANG-57-58",
+        "WAR-LEAD-HAN-XIYU-73-94"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUDA",
@@ -691,7 +815,13 @@
       "internal_cycle_refs": [
         "WAR-LEAD-HAN-LOUZHONG-78-80"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-AILAO-76-77",
+        "WAR-LEAD-HAN-LOUZHONG-78-80",
+        "WAR-LEAD-HAN-QIANG-77-78",
+        "WAR-LEAD-HAN-XIYU-73-94"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUZHAO",
@@ -733,6 +863,14 @@
       ],
       "internal_cycle_refs": [],
       "c_major_success_refs": [
+        "WAR-LEAD-HAN-XIYU-73-94"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-GAOGULI-105",
+        "WAR-LEAD-HAN-QIANG-92-102",
+        "WAR-LEAD-HAN-SOUTH-XIONGNU-94-96",
+        "WAR-LEAD-HAN-WULING-92-93",
+        "WAR-LEAD-HAN-WUMAN-101-102",
         "WAR-LEAD-HAN-XIYU-73-94"
       ]
     },
@@ -889,7 +1027,23 @@
         "WAR-LEAD-HAN-WULING-115",
         "WAR-LEAD-HAN-WULING-116"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-CHAOGE-110",
+        "WAR-LEAD-HAN-GAOGULI-121-122",
+        "WAR-LEAD-HAN-LINGNAN-116",
+        "WAR-LEAD-HAN-QIANG-107-118",
+        "WAR-LEAD-HAN-QIANG-120-122",
+        "WAR-LEAD-HAN-SEA-REBELLION-109-111",
+        "WAR-LEAD-HAN-SOUTH-XIONGNU-109-110",
+        "WAR-LEAD-HAN-SOUTHWEST-117-119",
+        "WAR-LEAD-HAN-WULING-115",
+        "WAR-LEAD-HAN-WULING-116",
+        "WAR-LEAD-HAN-XIANBEI-106",
+        "WAR-LEAD-HAN-XIANBEI-117-133",
+        "WAR-LEAD-HAN-XIYU-106-107",
+        "WAR-LEAD-HAN-XIYU-119-127"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUHU",
@@ -963,7 +1117,13 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-GAOGULI-121-122",
+        "WAR-LEAD-HAN-QIANG-120-122",
+        "WAR-LEAD-HAN-XIANBEI-117-133",
+        "WAR-LEAD-HAN-XIYU-119-127"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUBAO",
@@ -1019,6 +1179,20 @@
       ],
       "c_major_success_refs": [
         "WAR-LEAD-HAN-XIYU-119-127"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-JIAOZHI-136-138",
+        "WAR-LEAD-HAN-JING-TAISHAN-141-142",
+        "WAR-LEAD-HAN-QIANG-126",
+        "WAR-LEAD-HAN-QIANG-140-145",
+        "WAR-LEAD-HAN-QIANG-NALI-138-139",
+        "WAR-LEAD-HAN-QIANG-ZHONG-134-135",
+        "WAR-LEAD-HAN-SOUTH-XIONGNU-140-144",
+        "WAR-LEAD-HAN-WUHUAN-135",
+        "WAR-LEAD-HAN-WULING-136-137",
+        "WAR-LEAD-HAN-XIANBEI-117-133",
+        "WAR-LEAD-HAN-XIYU-119-127",
+        "WAR-LEAD-HAN-XIYU-134-135"
       ]
     },
     {
@@ -1062,6 +1236,10 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-HAN-YANGXU-132-145"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-BAIMA-QIANG-148",
+        "WAR-LEAD-HAN-YANGXU-132-145"
       ]
     },
     {
@@ -1083,7 +1261,20 @@
       "internal_cycle_refs": [
         "WAR-LEAD-HAN-WULING-151-153"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-FUYU-167",
+        "WAR-LEAD-HAN-NORTH-158-159",
+        "WAR-LEAD-HAN-QIANG-159-169",
+        "WAR-LEAD-HAN-QINGYANXU-154-156",
+        "WAR-LEAD-HAN-SOUTH-157-165",
+        "WAR-LEAD-HAN-SOUTH-XIONGNU-155",
+        "WAR-LEAD-HAN-TAISHAN-159-160",
+        "WAR-LEAD-HAN-WULING-151-153",
+        "WAR-LEAD-HAN-XIANBEI-TANSHIHUAI-156-181",
+        "WAR-LEAD-HAN-XIYU-151-153",
+        "WAR-LEAD-HAN-YIZHOU-159-161"
+      ]
     },
     {
       "ruler_id": "RULER-HAN-LIUHONG",
@@ -1257,6 +1448,27 @@
       ],
       "c_major_success_refs": [
         "WAR-LEAD-HAN-QIANG-159-169"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-HAN-BAIBO-XIONGNU-188-190",
+        "WAR-LEAD-HAN-CHANGSHA-187",
+        "WAR-LEAD-HAN-GAOGULI-169",
+        "WAR-LEAD-HAN-HANZHONG-ZHANGXIU-184",
+        "WAR-LEAD-HAN-JIANGXIA-WULING-186",
+        "WAR-LEAD-HAN-JIAOZHI-178-181",
+        "WAR-LEAD-HAN-JIAOZHI-184",
+        "WAR-LEAD-HAN-LIANGZHOU-184-189",
+        "WAR-LEAD-HAN-QIANG-159-169",
+        "WAR-LEAD-HAN-SOUTH-169",
+        "WAR-LEAD-HAN-SOUTH-179-182",
+        "WAR-LEAD-HAN-XIANBEI-TANSHIHUAI-156-181",
+        "WAR-LEAD-HAN-XIYU-KUMI-175",
+        "WAR-LEAD-HAN-XIYU-SHULE-170",
+        "WAR-LEAD-HAN-XUSHENG-172-174",
+        "WAR-LEAD-HAN-YELLOW-TURBAN-184",
+        "WAR-LEAD-HAN-YIZHOU-176",
+        "WAR-LEAD-HAN-YIZHOU-MAXIANG-188",
+        "WAR-LEAD-HAN-ZHANGCHUN-WUHUAN-187-189"
       ]
     },
     {
@@ -1264,14 +1476,20 @@
       "ruler_name": "曹操",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-WEI-CAOPI",
       "ruler_name": "曹丕",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-WEI-WU-222-223",
+        "WAR-LEAD-SG-WEI-WU-224-225",
+        "WAR-LEAD-SG-WEI-XIANBEI-224-225"
+      ]
     },
     {
       "ruler_id": "RULER-WEI-CAORUI",
@@ -1347,6 +1565,26 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-SG-WEI-LIAODONG-238"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-SG-CHENCANG-WALL-228",
+        "WAR-LEAD-SG-HEFEI-NEW-CITY-232",
+        "WAR-LEAD-SG-SHU-CHENCANG-228",
+        "WAR-LEAD-SG-SHU-NORTH-228",
+        "WAR-LEAD-SG-SHU-QISHAN-231",
+        "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+        "WAR-LEAD-SG-SHU-WUZHANG-234",
+        "WAR-LEAD-SG-WEI-HANZHONG-230",
+        "WAR-LEAD-SG-WEI-LIAODONG-238",
+        "WAR-LEAD-SG-WEI-MENGDA-227-228",
+        "WAR-LEAD-SG-WEI-WU-226",
+        "WAR-LEAD-SG-WEI-WU-234",
+        "WAR-LEAD-SG-WEI-WU-FULING-231",
+        "WAR-LEAD-SG-WEI-WU-HEFEI-230",
+        "WAR-LEAD-SG-WEI-WU-HEFEI-233",
+        "WAR-LEAD-SG-WEI-WU-SHITING-228",
+        "WAR-LEAD-SG-WEI-XIANBEI-228",
+        "WAR-LEAD-SG-WEI-XIANBEI-233"
       ]
     },
     {
@@ -1354,14 +1592,20 @@
       "ruler_name": "司马懿",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-WEI-SIMASHI",
       "ruler_name": "司马师",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-SHU-LONGXI-254",
+        "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+        "WAR-LEAD-SG-WU-HEFEI-253"
+      ]
     },
     {
       "ruler_id": "RULER-WEI-SIMAZHAO",
@@ -1391,7 +1635,16 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-JIAOZHI-263",
+        "WAR-LEAD-SG-JUSHUI-CANCEL-261",
+        "WAR-LEAD-SG-SHOUCHUN-257",
+        "WAR-LEAD-SG-SHU-DIDAO-255",
+        "WAR-LEAD-SG-WEI-HUAINAN-255",
+        "WAR-LEAD-SG-YONGAN-264",
+        "WAR-LEAD-SG-ZHONGHUI-264"
+      ]
     },
     {
       "ruler_id": "RULER-SHU-LIUBEI",
@@ -1432,7 +1685,10 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-WU-HAN-YILING-221-222"
+      ]
     },
     {
       "ruler_id": "RULER-SHU-LIUSHAN",
@@ -1508,7 +1764,26 @@
       "internal_cycle_refs": [
         "WAR-LEAD-SG-SHU-LIUZHOU-233"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-DUANGU-256",
+        "WAR-LEAD-SG-HANZHONG-WALL-229",
+        "WAR-LEAD-SG-HOUHE-262",
+        "WAR-LEAD-SG-SHU-CHENCANG-228",
+        "WAR-LEAD-SG-SHU-DIDAO-255",
+        "WAR-LEAD-SG-SHU-LIUZHOU-233",
+        "WAR-LEAD-SG-SHU-LONGXI-254",
+        "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+        "WAR-LEAD-SG-SHU-NORTH-228",
+        "WAR-LEAD-SG-SHU-QISHAN-231",
+        "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+        "WAR-LEAD-SG-SHU-WUZHANG-234",
+        "WAR-LEAD-SG-SHU-YUEXI-240",
+        "WAR-LEAD-SG-WEI-HANZHONG-230",
+        "WAR-LEAD-SG-WEI-HANZHONG-244",
+        "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+        "WAR-LEAD-SG-WEI-SHU-TAOXI-247"
+      ]
     },
     {
       "ruler_id": "RULER-WU-SUNQUAN",
@@ -1549,7 +1824,30 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-WEI-WU-222-223",
+        "WAR-LEAD-SG-WEI-WU-224-225",
+        "WAR-LEAD-SG-WEI-WU-226",
+        "WAR-LEAD-SG-WEI-WU-234",
+        "WAR-LEAD-SG-WEI-WU-241",
+        "WAR-LEAD-SG-WEI-WU-250-251",
+        "WAR-LEAD-SG-WEI-WU-FULING-231",
+        "WAR-LEAD-SG-WEI-WU-HEFEI-230",
+        "WAR-LEAD-SG-WEI-WU-HEFEI-233",
+        "WAR-LEAD-SG-WEI-WU-SHITING-228",
+        "WAR-LEAD-SG-WU-DANYANG-234-237",
+        "WAR-LEAD-SG-WU-DONGAN",
+        "WAR-LEAD-SG-WU-HANAN-242",
+        "WAR-LEAD-SG-WU-JIAOZHOU-226",
+        "WAR-LEAD-SG-WU-JIAOZHOU-248",
+        "WAR-LEAD-SG-WU-LIAODONG-233",
+        "WAR-LEAD-SG-WU-LIAOSHI-239-240",
+        "WAR-LEAD-SG-WU-POYANG-225-227",
+        "WAR-LEAD-SG-WU-TUTANG-250",
+        "WAR-LEAD-SG-WU-WUXI-231-234",
+        "WAR-LEAD-SG-WU-YIZHOU-230-231"
+      ]
     },
     {
       "ruler_id": "RULER-WU-SUNXIU",
@@ -1579,7 +1877,11 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-JIAOZHI-263",
+        "WAR-LEAD-SG-WULING-263"
+      ]
     },
     {
       "ruler_id": "RULER-WU-SUNHAO",
@@ -1598,7 +1900,10 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SG-YONGAN-264"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-司马炎",
@@ -1663,6 +1968,18 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-JIN-MALONG-279"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-JIN-LIANGZHOU-277",
+        "WAR-LEAD-JIN-MALONG-279",
+        "WAR-LEAD-JIN-MURONG-282",
+        "WAR-LEAD-JIN-TUFA-270",
+        "WAR-LEAD-JIN-WANCHENG-278",
+        "WAR-LEAD-JIN-XILING-278",
+        "WAR-LEAD-JINWU-268",
+        "WAR-LEAD-JINWU-BORDER-277",
+        "WAR-LEAD-JINWU-JIAOZHI-268",
+        "WAR-LEAD-JINWU-XILING-272"
       ]
     },
     {
@@ -1715,7 +2032,20 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-CHENCHUAN-319",
+        "WAR-LEAD-DUZENG-END-319",
+        "WAR-LEAD-HANMIAN-317",
+        "WAR-LEAD-HEDONG-317",
+        "WAR-LEAD-HENAN-322",
+        "WAR-LEAD-LIANGZHOU-317",
+        "WAR-LEAD-LIUKUN-DEATH-318",
+        "WAR-LEAD-LUORUI-318",
+        "WAR-LEAD-XINGYANG-317",
+        "WAR-LEAD-ZUTI-CHENCHENG-320",
+        "WAR-LEAD-ZUTI-QIAO-317"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-司马绍",
@@ -1734,7 +2064,14 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-CHANGSHA-322",
+        "WAR-LEAD-GANZHUO-322",
+        "WAR-LEAD-HENAN-322",
+        "WAR-LEAD-SOUTHWEST-323",
+        "WAR-LEAD-WANGDUN-322"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-司马曜",
@@ -1810,6 +2147,15 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-105-FEISHUI-383"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-103-JINGKOU-372",
+        "WAR-LEAD-104-GUANCHENG-381",
+        "WAR-LEAD-104-JIAOZHOU-380-381",
+        "WAR-LEAD-105-FEISHUI-383",
+        "WAR-LEAD-105-JIN-OFFENSIVE-383",
+        "WAR-LEAD-106-JIN-NORTH-386",
+        "WAR-LEAD-107-JIN-NORTH-389-390"
       ]
     },
     {
@@ -1817,7 +2163,8 @@
       "ruler_name": "刘渊",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-SHADOW-刘聪",
@@ -1836,14 +2183,21 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-HANZHAO-SUCCESSION-310",
+        "WAR-LEAD-JINZHUN-318",
+        "WAR-LEAD-PINGYANG-318",
+        "WAR-LEAD-SANZHU-312"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-石勒",
       "ruler_name": "石勒",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-SHADOW-石虎",
@@ -1895,7 +2249,17 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-096-DUAN-338",
+        "WAR-LEAD-096-ZHAO-ANPING-341",
+        "WAR-LEAD-096-ZHAO-HUMOTOU-338",
+        "WAR-LEAD-096-ZHAO-MOB-340",
+        "WAR-LEAD-097-ZHAO-MOB-342",
+        "WAR-LEAD-098-LIANGDU-349",
+        "WAR-LEAD-GUANZHONG-333",
+        "WAR-LEAD-QINZHOU-334"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-冉闵",
@@ -1936,7 +2300,10 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-099-ZHAO-COLLAPSE-351"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-李雄",
@@ -1968,6 +2335,12 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-NANZHONG-332"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-CHENG-FUCHENG-310",
+        "WAR-LEAD-CHENG-HANZHONG-307",
+        "WAR-LEAD-NANZHONG-332",
+        "WAR-LEAD-QIUCHI-323"
       ]
     },
     {
@@ -1987,7 +2360,11 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-099-QIN-REBELS-352-354",
+        "WAR-LEAD-099-QIUCHI-353"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-苻坚",
@@ -2050,12 +2427,14 @@
         },
         {
           "fields": [
-            "border_control_grade"
+            "border_control_grade",
+            "d_route"
           ],
           "override": "SUBJECT_PHASE_FACTS",
-          "rationale": "将同一正式D人工视图已列的本主体—任期阶段实际净控制变化持久化到机器读取入口；不改动成本、回报方向或其他裁决。",
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。",
           "values": {
-            "border_control_grade": "BCP2"
+            "border_control_grade": "BCP2",
+            "d_route": "D_INTERNAL_STRATEGIC"
           },
           "war_event_id": "WAR-LEAD-101-FOUR-DUKES-367-368"
         },
@@ -2190,13 +2569,67 @@
             "border_control_grade": "BCP4"
           },
           "war_event_id": "WAR-LEAD-105-KUCHA-383-384"
+        },
+        {
+          "war_event_id": "WAR-LEAD-103-SHU-REVOLT-374",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
+        },
+        {
+          "war_event_id": "WAR-LEAD-104-FULUO-380",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
         }
       ],
-      "internal_cycle_refs": [],
+      "internal_cycle_refs": [
+        "WAR-LEAD-100-GAOLI-359",
+        "WAR-LEAD-101-FOUR-DUKES-367-368",
+        "WAR-LEAD-101-QIN-HU-365",
+        "WAR-LEAD-103-SHU-REVOLT-374",
+        "WAR-LEAD-104-FULUO-380",
+        "WAR-LEAD-104-GUOHU-376",
+        "WAR-LEAD-104-WEICHEN-376"
+      ],
       "c_major_success_refs": [
         "WAR-LEAD-102-YAN-FALL-370",
         "WAR-LEAD-103-QIN-SHU-373",
         "WAR-LEAD-104-LIANG-376",
+        "WAR-LEAD-105-KUCHA-383-384"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-100-GAOLI-359",
+        "WAR-LEAD-100-QIN-BORDERS-356",
+        "WAR-LEAD-100-YAO-357",
+        "WAR-LEAD-101-FOUR-DUKES-367-368",
+        "WAR-LEAD-101-QIN-HU-365",
+        "WAR-LEAD-101-WEICHEN-360",
+        "WAR-LEAD-103-BOHAN-373",
+        "WAR-LEAD-103-CHOUCHI-371",
+        "WAR-LEAD-103-QIFU-371",
+        "WAR-LEAD-103-QIN-SHU-373",
+        "WAR-LEAD-103-SHU-REVOLT-374",
+        "WAR-LEAD-103-TAOSHAN-371",
+        "WAR-LEAD-104-FULUO-380",
+        "WAR-LEAD-104-GUOHU-376",
+        "WAR-LEAD-104-HUAINAN-378-379",
+        "WAR-LEAD-104-LIANG-376",
+        "WAR-LEAD-104-NANXIANG-376",
+        "WAR-LEAD-104-WEICHEN-376",
+        "WAR-LEAD-104-WEIXING-379",
+        "WAR-LEAD-104-XIANGYANG-378-379",
+        "WAR-LEAD-105-FEISHUI-383",
         "WAR-LEAD-105-KUCHA-383-384"
       ]
     },
@@ -2205,7 +2638,8 @@
       "ruler_name": "姚苌",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-SHADOW-姚兴",
@@ -2326,6 +2760,28 @@
       "c_major_success_refs": [
         "WAR-LEAD-108-LATERCIN-WEST-396",
         "WAR-LEAD-111-LATERCIN-LUOYANG-399"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-108-LATERCIN-WEST-396",
+        "WAR-LEAD-109-LATERCIN-JIN-397",
+        "WAR-LEAD-111-LATERCIN-LUOYANG-399",
+        "WAR-LEAD-111-LATERCIN-WESTQIN-400",
+        "WAR-LEAD-112-CHAIBI-402",
+        "WAR-LEAD-114-QIN-JIN-BORDER-405",
+        "WAR-LEAD-114-QIN-SOUTHLIANG-408",
+        "WAR-LEAD-114-XIA-QIN-408",
+        "WAR-LEAD-115-QIN-LIUJUE-409",
+        "WAR-LEAD-115-XIA-QIN-409",
+        "WAR-LEAD-115-XIA-QIN-410",
+        "WAR-LEAD-116-QIN-FRONTS-412",
+        "WAR-LEAD-116-QIN-INTERNAL-414",
+        "WAR-LEAD-116-XIA-QIN-411",
+        "WAR-LEAD-117-QIN-BINGZHOU-416",
+        "WAR-LEAD-117-QIN-SUCCESSION-416",
+        "WAR-LEAD-117-XIA-QIN-415",
+        "WAR-LEAD-117-XIA-QIN-416",
+        "WAR-LEAD-117-XIA-QIN-NEWPING-415",
+        "WAR-LEAD-117-YAOYI-416"
       ]
     },
     {
@@ -2397,6 +2853,11 @@
       "c_major_success_refs": [
         "WAR-LEAD-108-DIWEI-392",
         "WAR-LEAD-108-LATERYAN-WESTYAN-393-394"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-107-YAN-WUZHU-390",
+        "WAR-LEAD-108-CANHE-395",
+        "WAR-LEAD-108-LATERYAN-REVENGE-396"
       ]
     },
     {
@@ -2404,7 +2865,10 @@
       "ruler_name": "慕容德",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-113-SOUTHYAN-SECURITY-403"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-吕光",
@@ -2434,14 +2898,26 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-107-LIANG-387",
+        "WAR-LEAD-108-HEXI-392-393",
+        "WAR-LEAD-109-LIANG-WESTQIN-397",
+        "WAR-LEAD-111-LIANG-NORTHLIANG-399"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-李暠",
       "ruler_name": "李暠",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-114-WESTLIANG-406",
+        "WAR-LEAD-115-WESTNORTHLIANG-410",
+        "WAR-LEAD-116-WESTNORTHLIANG-411",
+        "WAR-LEAD-118-NORTHWESTLIANG-417"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-沮渠蒙逊",
@@ -2462,7 +2938,8 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-NC-NORTHERN-LIANG-WESTERN-LIANG"
-      ]
+      ],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-SHADOW-赫连勃勃",
@@ -2505,6 +2982,10 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-118-XIA-TAKE-CHANGAN-418"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-118-XIA-TAKE-CHANGAN-418",
+        "DEF-LEAD-116-TONGWAN-413"
       ]
     },
     {
@@ -2512,14 +2993,20 @@
       "ruler_name": "冯跋",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-115-NORTHYAN-REBELLION-410"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-刘裕",
       "ruler_name": "刘裕",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-NC-LINYI-420"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-刘义隆",
@@ -2599,7 +3086,32 @@
         "WAR-LEAD-NC-SONG-HUDANSHI-447",
         "WAR-LEAD-NC-TIANMEN-441"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-NC-CHENG-DAOYANG-END-436-437",
+        "WAR-LEAD-NC-CHOUCHI-442-443",
+        "WAR-LEAD-NC-CHOUCHI-447-450",
+        "WAR-LEAD-NC-GUANGZHOU-453",
+        "WAR-LEAD-NC-HANZHONG-433-434",
+        "WAR-LEAD-NC-HUATAI-431",
+        "WAR-LEAD-NC-JINNING-441",
+        "WAR-LEAD-NC-LIANGZOU-451",
+        "WAR-LEAD-NC-LINYI-446",
+        "WAR-LEAD-NC-LUSHUANG-DEFECTION-451",
+        "WAR-LEAD-NC-MIAN-MAN-449-450",
+        "WAR-LEAD-NC-MIANYANG-MAN-442-445",
+        "WAR-LEAD-NC-MIGRANTS-452",
+        "WAR-LEAD-NC-SHANGLUO-439",
+        "WAR-LEAD-NC-SONG-CIVIL-WAR-453",
+        "WAR-LEAD-NC-SONG-HUDANSHI-447",
+        "WAR-LEAD-NC-SONG-NORTHERN-EXPEDITION-452",
+        "WAR-LEAD-NC-SONG-XIEHUI-426",
+        "WAR-LEAD-NC-TIANMEN-441",
+        "WAR-LEAD-NC-WEI-SONG-450-451-TERMINAL",
+        "WAR-LEAD-NC-WEI-SONG-BORDER-445-446",
+        "WAR-LEAD-NC-WUDU-453",
+        "WAR-LEAD-NC-YIZHOU-432-433"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-刘骏",
@@ -2618,7 +3130,19 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-NC-GAOPING-459",
+        "WAR-LEAD-NC-GUANGLING-459",
+        "WAR-LEAD-NC-GUANGZHOU-453",
+        "WAR-LEAD-NC-NORTH-YINPING-460",
+        "WAR-LEAD-NC-QINGZHOU-458",
+        "WAR-LEAD-NC-SONG-CIVIL-WAR-453",
+        "WAR-LEAD-NC-WUDU-453",
+        "WAR-LEAD-NC-XIANGYANG-461",
+        "WAR-LEAD-NC-YANZHOU-457",
+        "WAR-LEAD-NC-YIXUAN-ZANGZHI-454"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-刘彧",
@@ -2648,7 +3172,12 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-131-05",
+        "WAR-LEAD-132-01",
+        "WAR-LEAD-132-03"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-萧道成",
@@ -2658,7 +3187,14 @@
         "WAR-LEAD-142-04",
         "WAR-LEAD-NC-FIVE-STATE-MAN-480"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-142-04",
+        "WAR-LEAD-NC-FIVE-STATE-MAN-480",
+        "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481",
+        "WAR-LEAD-NC-RUORAN-WEI-479",
+        "WAR-LEAD-NC-XIETIANGAI-479-480"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-萧鸾",
@@ -2723,7 +3259,14 @@
       "internal_cycle_refs": [
         "WAR-LEAD-142-04"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-141-01",
+        "WAR-LEAD-141-02",
+        "WAR-LEAD-141-03",
+        "WAR-LEAD-141-04",
+        "WAR-LEAD-142-04"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-萧衍",
@@ -3313,6 +3856,46 @@
         "WAR-LEAD-151-03",
         "WAR-LEAD-151-07",
         "WAR-LEAD-162-10"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-145-03",
+        "WAR-LEAD-145-04",
+        "WAR-LEAD-145-06",
+        "WAR-LEAD-145-07",
+        "WAR-LEAD-146-01",
+        "WAR-LEAD-146-02",
+        "WAR-LEAD-146-04",
+        "WAR-LEAD-146-06",
+        "WAR-LEAD-146-07",
+        "WAR-LEAD-147-02",
+        "WAR-LEAD-147-04",
+        "WAR-LEAD-147-05",
+        "WAR-LEAD-147-06",
+        "WAR-LEAD-147-07",
+        "WAR-LEAD-148-01",
+        "WAR-LEAD-148-03",
+        "WAR-LEAD-148-04",
+        "WAR-LEAD-149-04",
+        "WAR-LEAD-150-03",
+        "WAR-LEAD-150-06",
+        "WAR-LEAD-150-07",
+        "WAR-LEAD-150-08",
+        "WAR-LEAD-151-03",
+        "WAR-LEAD-151-06",
+        "WAR-LEAD-151-07",
+        "WAR-LEAD-152-05",
+        "WAR-LEAD-152-06",
+        "WAR-LEAD-153-02",
+        "WAR-LEAD-153-04",
+        "WAR-LEAD-154-02",
+        "WAR-LEAD-156-03",
+        "WAR-LEAD-157-05",
+        "WAR-LEAD-161-01",
+        "WAR-LEAD-161-04",
+        "WAR-LEAD-162-06",
+        "WAR-LEAD-162-07",
+        "WAR-LEAD-162-09",
+        "WAR-LEAD-162-10"
       ]
     },
     {
@@ -3389,6 +3972,15 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-164-07"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-164-05",
+        "WAR-LEAD-164-07",
+        "WAR-LEAD-165-DONGGUAN-553",
+        "WAR-LEAD-165-JIANGLING-554",
+        "WAR-LEAD-165-LIANG-QI-554",
+        "WAR-LEAD-165-LUNA-553",
+        "WAR-LEAD-165-WULING-553"
       ]
     },
     {
@@ -3396,7 +3988,14 @@
       "ruler_name": "陈霸先",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-167-DUNKOU-557",
+        "WAR-LEAD-167-HEFEI-557",
+        "WAR-LEAD-167-LINGNAN-557",
+        "WAR-LEAD-167-NANCHUAN-558",
+        "WAR-LEAD-167-YUZHANG-559"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-陈蒨",
@@ -3416,12 +4015,29 @@
           "override": "DROP_ABSORBED_BY_WANGLIN_PARENT",
           "war_event_id": "WAR-LEAD-168-YINGZHOU-560",
           "fields": []
+        },
+        {
+          "war_event_id": "WAR-LEAD-167-YUZHANG-559",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
         }
       ],
       "internal_cycle_refs": [
-        "WAR-LEAD-168-JIGI-560"
+        "WAR-LEAD-168-JIGI-560",
+        "WAR-LEAD-167-YUZHANG-559"
       ],
       "c_major_success_refs": [
+        "WAR-PARENT-168-WANGLIN-END-559-560",
+        "WAR-PARENT-169-CHENBAOYING-562-564"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-167-YUZHANG-559",
         "WAR-PARENT-168-WANGLIN-END-559-560",
         "WAR-PARENT-169-CHENBAOYING-562-564"
       ]
@@ -3531,14 +4147,22 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-170-MIANZHOU-567",
+        "WAR-LEAD-NC-PENGCHENG-577-578",
+        "WAR-LEAD-NC-SIMAXIAONAN-580",
+        "WAR-LEAD-NC-ZHOU-CHEN-HUAINAN-579",
+        "WAR-LEAD-SUI-CHEN-BORDER-581-582"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-陈叔宝",
       "ruler_name": "陈叔宝",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-SHADOW-拓跋珪",
@@ -3614,6 +4238,13 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-111-WEI-GAOCHE-399"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-107-WEI-NORTH-388-391",
+        "WAR-LEAD-107-WEI-ROURAN-391",
+        "WAR-LEAD-109-ZHONGSHAN-397",
+        "WAR-LEAD-111-WEI-GAOCHE-399",
+        "WAR-LEAD-113-WEI-GAOCHE-403"
       ]
     },
     {
@@ -3633,7 +4264,17 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-115-WEI-RELOCATION-410",
+        "WAR-LEAD-115-WEI-ROURAN-410",
+        "WAR-LEAD-116-WEI-HU-413",
+        "WAR-LEAD-116-WEI-ROURAN-414",
+        "WAR-LEAD-116-WEI-XIHE-413",
+        "WAR-LEAD-117-WEI-DINGLING-416",
+        "WAR-LEAD-117-WEI-XIHE-415",
+        "WAR-LEAD-NC-SONG-WEI-422"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-拓跋焘",
@@ -3803,6 +4444,28 @@
             "border_control_grade": "BCP3"
           },
           "war_event_id": "WAR-LEAD-NC-WEI-YANQI-KUCHA-448"
+        },
+        {
+          "war_event_id": "WAR-LEAD-NC-GAIWU-445-446",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
+        },
+        {
+          "war_event_id": "WAR-LEAD-NC-SHANGGUI-REBELLION-446",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
         }
       ],
       "internal_cycle_refs": [
@@ -3811,21 +4474,52 @@
         "WAR-LEAD-NC-WEI-NORTHERN-REBELLION-444",
         "WAR-LEAD-NC-WEI-TUGE-452",
         "WAR-LEAD-NC-WEI-TUJING-445",
-        "WAR-LEAD-NC-WEI-TUJING-SHANHU-447"
+        "WAR-LEAD-NC-WEI-TUJING-SHANHU-447",
+        "WAR-LEAD-NC-GAIWU-445-446",
+        "WAR-LEAD-NC-SHANGGUI-REBELLION-446"
       ],
       "c_major_success_refs": [
         "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
         "WAR-LEAD-NC-WEI-XIA-428-430"
       ],
       "c_axis_adjudication": {
-        "C1": 5,
+        "C1": 4,
         "C2": 4,
         "C3": 4,
         "major_system_failure_group_refs": [
           "NC-WEI-SONG-450-451"
         ],
-        "reason": "对夏、柔然、北燕、北凉和西域多方向长期兑现，足以支持C1-5；450—451年南征高损且未形成持续控制构成一项重大失败，故持续性与体系可靠性均收束为4档。"
-      }
+        "reason": "对夏、北凉和西域等多方向有高难度兑现，但柔然方向数次无功或失利，450—451年南征又以高损、未形成持续控制告终，不能达到C1历史顶级且不得形成反复重大失效的5档；多路动员与跨将领运行仍支持C2/C3四档。"
+      },
+      "included_source_refs": [
+        "WAR-LEAD-NC-GAIWU-445-446",
+        "WAR-LEAD-NC-JIUQUAN-440-441",
+        "WAR-LEAD-NC-LIU-CHAO-446",
+        "WAR-LEAD-NC-NORTHERN-YAN-END-436-438",
+        "WAR-LEAD-NC-QINLONG-436",
+        "WAR-LEAD-NC-SHANGGUI-REBELLION-446",
+        "WAR-LEAD-NC-WEI-BAILONG-437",
+        "WAR-LEAD-NC-WEI-NORTHERN-REBELLION-444",
+        "WAR-LEAD-NC-WEI-RURAN-424-425",
+        "WAR-LEAD-NC-WEI-RURAN-429",
+        "WAR-LEAD-NC-WEI-RURAN-438-439",
+        "WAR-LEAD-NC-WEI-RURAN-443",
+        "WAR-LEAD-NC-WEI-RURAN-448-449",
+        "WAR-LEAD-NC-WEI-SHANSHAN-445",
+        "WAR-LEAD-NC-WEI-SONG-450-451-TERMINAL",
+        "WAR-LEAD-NC-WEI-SONG-BORDER-445-446",
+        "WAR-LEAD-NC-WEI-TUGE-452",
+        "WAR-LEAD-NC-WEI-TUJING-445",
+        "WAR-LEAD-NC-WEI-TUJING-SHANHU-447",
+        "WAR-LEAD-NC-WEI-TUYUHUN-444-445",
+        "WAR-LEAD-NC-WEI-XIA-428-430",
+        "WAR-LEAD-NC-WEI-YANQI-KUCHA-448",
+        "WAR-LEAD-NC-YANG-NANDANG-WEI-439",
+        "DEF-LEAD-NC-JUNZI-BRIDGE",
+        "DEF-LEAD-NC-CHANGAN-FORT-433",
+        "DEF-LEAD-NC-QIAOAO-BRIDGE",
+        "DEF-LEAD-NC-WEI-WALL-446"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-拓跋宏",
@@ -3888,7 +4582,16 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-140-01",
+        "WAR-LEAD-140-04",
+        "WAR-LEAD-141-01",
+        "WAR-LEAD-141-02",
+        "WAR-LEAD-141-03",
+        "WAR-LEAD-141-05",
+        "WAR-LEAD-NC-TUYUHUN-491-492"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-元恪",
@@ -4112,7 +4815,29 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-143-01",
+        "WAR-LEAD-143-04",
+        "WAR-LEAD-143-05",
+        "WAR-LEAD-145-01",
+        "WAR-LEAD-145-05",
+        "WAR-LEAD-145-06",
+        "WAR-LEAD-145-07",
+        "WAR-LEAD-146-01",
+        "WAR-LEAD-146-03",
+        "WAR-LEAD-146-04",
+        "WAR-LEAD-146-07",
+        "WAR-LEAD-147-01",
+        "WAR-LEAD-147-02",
+        "WAR-LEAD-147-03",
+        "WAR-LEAD-147-04",
+        "WAR-LEAD-147-06",
+        "WAR-LEAD-147-07",
+        "WAR-LEAD-147-08",
+        "WAR-LEAD-148-01",
+        "WAR-LEAD-148-04"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-冯太后",
@@ -4145,7 +4870,20 @@
         "WAR-LEAD-NC-WEI-YIQIGOU-477",
         "WAR-LEAD-NC-WEI-YUANSHOU-477"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-132-02",
+        "WAR-LEAD-132-04",
+        "WAR-LEAD-133-01",
+        "WAR-LEAD-133-04",
+        "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481",
+        "WAR-LEAD-NC-WEI-CHOUCHI-477-478",
+        "WAR-LEAD-NC-WEI-RUORAN-486-487",
+        "WAR-LEAD-NC-WEI-YIQIGOU-477",
+        "WAR-LEAD-NC-WEI-YUANSHOU-477",
+        "DEF-LEAD-NC-LUOGU-CITY-478",
+        "DEF-LEAD-NC-LICHONG-BORDER-482"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-高欢",
@@ -4303,6 +5041,20 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-157-02"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-156-06",
+        "WAR-LEAD-156-07",
+        "WAR-LEAD-157-01",
+        "WAR-LEAD-157-02",
+        "WAR-LEAD-157-03",
+        "WAR-LEAD-157-04",
+        "WAR-LEAD-157-05",
+        "WAR-LEAD-157-08",
+        "WAR-LEAD-158-01",
+        "WAR-LEAD-158-04",
+        "WAR-LEAD-158-06",
+        "WAR-LEAD-158-07"
       ]
     },
     {
@@ -4404,21 +5156,41 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-164-08",
+        "WAR-LEAD-164-09",
+        "WAR-LEAD-165-DONGGUAN-553",
+        "WAR-LEAD-165-QI-KHITAN-553",
+        "WAR-LEAD-165-QI-SHANHU-554",
+        "WAR-LEAD-166-QI-RUORAN-555",
+        "WAR-LEAD-166-QI-YUANMING-555",
+        "WAR-LEAD-167-QI-WENHOU-559",
+        "DEF-LEAD-165-QI-FOUR-CITIES-554",
+        "DEF-LEAD-166-QI-WALL-555-556",
+        "DEF-LEAD-167-QI-DOUBLE-WALL-557"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-高湛",
       "ruler_name": "高湛",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-168-QI-GUIYAN-562",
+        "WAR-LEAD-168-QI-KUMOXI-560"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-高纬",
       "ruler_name": "高纬",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-171-QI-SIHAO-574"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-宇文泰",
@@ -4599,6 +5371,29 @@
       "c_major_success_refs": [
         "WAR-LEAD-157-08",
         "WAR-LEAD-165-WEISHU-553"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-157-01",
+        "WAR-LEAD-157-03",
+        "WAR-LEAD-157-04",
+        "WAR-LEAD-157-08",
+        "WAR-LEAD-158-01",
+        "WAR-LEAD-158-02",
+        "WAR-LEAD-158-03",
+        "WAR-LEAD-158-04",
+        "WAR-LEAD-158-06",
+        "WAR-LEAD-159-03",
+        "WAR-LEAD-159-04",
+        "WAR-LEAD-161-01",
+        "WAR-LEAD-162-05",
+        "WAR-LEAD-163-03",
+        "WAR-LEAD-163-09",
+        "WAR-LEAD-163-12",
+        "WAR-LEAD-165-TUYUHUN-553",
+        "WAR-LEAD-165-WEIBA-554",
+        "WAR-LEAD-165-WEISHU-553",
+        "WAR-LEAD-166-TURK-TUYUHUN-556",
+        "WAR-LEAD-166-WEI-LIAO-556"
       ]
     },
     {
@@ -4653,7 +5448,17 @@
       "internal_cycle_refs": [
         "WAR-LEAD-169-ZHOU-WANRONG-566"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-169-ZHOU-DANGCHANG-564",
+        "WAR-LEAD-169-ZHOU-WANRONG-566",
+        "WAR-LEAD-170-ZHOU-HENGLENG-568",
+        "WAR-LEAD-171-ZHOU-WEIZHI-574",
+        "WAR-LEAD-NC-PENGCHENG-577-578",
+        "WAR-LEAD-NC-QI-RESTORATION-578",
+        "WAR-LEAD-NC-ZHOU-JIHU-577",
+        "WAR-LEAD-NC-ZHOU-TURK-578-579"
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-杨坚",
@@ -4742,6 +5547,22 @@
       ],
       "c_major_success_refs": [
         "WAR-PARENT-SUI-TURK-599-603"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-SUI-CHAOSHENG-601",
+        "WAR-LEAD-SUI-CHEN-BORDER-581-582",
+        "WAR-LEAD-SUI-DANGXIANG-596",
+        "WAR-LEAD-SUI-GOGURYEO-598",
+        "WAR-LEAD-SUI-GUIZHOU-597",
+        "WAR-LEAD-SUI-HANWANG-604",
+        "WAR-LEAD-SUI-JIAOZHOU-602",
+        "WAR-LEAD-SUI-LIYINGLIN-600",
+        "WAR-LEAD-SUI-NANNING-597",
+        "WAR-LEAD-SUI-SHANLIAO-601",
+        "WAR-LEAD-SUI-TURK-584-587",
+        "WAR-LEAD-SUI-TUYUHUN-581-583",
+        "WAR-LEAD-SUI-TUYUHUN-584",
+        "WAR-PARENT-SUI-TURK-599-603"
       ]
     },
     {
@@ -4772,14 +5593,29 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-SUI-HANWANG-604",
+        "WAR-LEAD-SUI-KHITAN-605",
+        "WAR-LEAD-SUI-LINYI-605",
+        "WAR-LEAD-SUI-LIUQIU-610",
+        "WAR-LEAD-SUI-LUOKOU-617B",
+        "WAR-LEAD-SUI-TIELE-607",
+        "WAR-LEAD-SUI-TUYUHUN-608-609",
+        "WAR-LEAD-SUI-YANMEN-615",
+        "WAR-LEAD-SUI-YIWU-608",
+        "WAR-PARENT-SUI-COLLAPSE-616-618",
+        "WAR-PARENT-SUI-GOGURYEO-611-614",
+        "WAR-PARENT-SUI-REBELLIONS-613-615"
+      ]
     },
     {
       "ruler_id": "RULER-TANG-LIYUAN",
       "ruler_name": "李渊",
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": []
     },
     {
       "ruler_id": "RULER-TANG-LISHIMIN",
@@ -4790,9 +5626,9 @@
             "d_route"
           ],
           "override": "PARENT_ROUTE_ADJUDICATION",
-          "rationale": "高丽总攻造船役由本人决策直接诱发剑南严重役使、资产损害与三州骚乱，未发生预定战争且事后纠偏只属止损，按自致内乱路由结算。",
+          "rationale": "该周期统一按内部恢复路由结算；明载的征发与骚乱因果只用于父周期合并和P/S/M/A、SN/BCN归责，不再触发特殊回报上限。",
           "values": {
-            "d_route": "D_INTERNAL_SELF_INDUCED"
+            "d_route": "D_INTERNAL_RESTORATION"
           },
           "war_event_id": "WAR-LEAD-TANG-SHIP-LABOR-REBELLION"
         },
@@ -4907,7 +5743,12 @@
           "war_event_id": "WAR-LEAD-TANG-WESTERN-TURKS-632-636"
         }
       ],
-      "internal_cycle_refs": [],
+      "internal_cycle_refs": [
+        "WAR-LEAD-TANG-LIAO-638-640",
+        "WAR-LEAD-TANG-LIYI-627",
+        "WAR-LEAD-TANG-MINOR-REBELLIONS-632-637",
+        "WAR-LEAD-TANG-QIWANG-REBELLION-643"
+      ],
       "c_major_success_refs": [
         "WAR-LEAD-TANG-EASTERN-TURKS-629-630",
         "WAR-LEAD-TANG-TIELE-INTEGRATION",
@@ -4919,7 +5760,35 @@
         "C3": 5,
         "major_system_failure_group_refs": [],
         "reason": "东突厥、吐谷浑、铁勒与西域多方向由多名将领持续兑现，C1与跨将帅可靠性达到5档；高丽远征和剑南造船役暴露长程保障上限，但主力有序撤回且未形成战役群级后勤崩溃，C2收束为4档。"
-      }
+      },
+      "included_source_refs": [
+        "WAR-LEAD-TANG-BORDER-629-631",
+        "WAR-LEAD-TANG-EASTERN-TURKS-629-630",
+        "WAR-LEAD-TANG-FENGANG-627",
+        "WAR-LEAD-TANG-FENGANG-631",
+        "WAR-LEAD-TANG-FRONTIER-627-628",
+        "WAR-LEAD-TANG-GAOCHANG-640",
+        "WAR-LEAD-TANG-GAOCHANG-OCCUPATION",
+        "WAR-LEAD-TANG-GOGURYEO-645",
+        "WAR-LEAD-TANG-GOGURYEO-INTENT-641",
+        "WAR-LEAD-TANG-INDIA-648",
+        "WAR-LEAD-TANG-KUCHA-648",
+        "WAR-LEAD-TANG-LIAO-638-640",
+        "WAR-LEAD-TANG-LIYI-627",
+        "WAR-LEAD-TANG-MINOR-REBELLIONS-632-637",
+        "WAR-LEAD-TANG-QIANG-BETRAYAL-635",
+        "WAR-LEAD-TANG-QIWANG-REBELLION-643",
+        "WAR-LEAD-TANG-SHIP-LABOR-REBELLION",
+        "WAR-LEAD-TANG-SONGWAI-648",
+        "WAR-LEAD-TANG-TIBET-638",
+        "WAR-LEAD-TANG-TIELE-INTEGRATION",
+        "WAR-LEAD-TANG-TUYUHUN-634-635",
+        "WAR-LEAD-TANG-TUYUHUN-COUP-641",
+        "WAR-LEAD-TANG-WESTERN-REGIONS-638",
+        "WAR-LEAD-TANG-WESTERN-TURKS-628-630",
+        "WAR-LEAD-TANG-WESTERN-TURKS-632-636",
+        "WAR-LEAD-TANG-YANQI-644"
+      ]
     },
     {
       "ruler_id": "RULER-TANG-LIZHI",
@@ -5073,6 +5942,24 @@
       "c_major_success_refs": [
         "WAR-LEAD-TANG-CHEBI-649-650",
         "WAR-LEAD-TANG-WESTERN-TURKS-656-658"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-BAEKJE-663",
+        "WAR-LEAD-TANG-BAITIEYU-683",
+        "WAR-LEAD-TANG-CHEBI-649-650",
+        "WAR-LEAD-TANG-CHEN-SHUOZHEN-653",
+        "WAR-LEAD-TANG-DUMAN-659",
+        "WAR-LEAD-TANG-DUZHI-679",
+        "WAR-LEAD-TANG-GOGURYEO-658-662",
+        "WAR-LEAD-TANG-GOGURYEO-666-669",
+        "WAR-LEAD-TANG-KOREA-SILLA-671-677",
+        "WAR-LEAD-TANG-KUCHA-658",
+        "WAR-LEAD-TANG-SOUTHWEST-651-652",
+        "WAR-LEAD-TANG-TIBET-676-681",
+        "WAR-LEAD-TANG-TIELE-661-662",
+        "WAR-LEAD-TANG-WESTERN-TURKS-656-658",
+        "WAR-LEAD-TANG-WESTERN-TURKS-662",
+        "WAR-LEAD-TANG-WESTERN-TURKS-682"
       ]
     },
     {
@@ -5144,12 +6031,57 @@
             "border_control_grade": "BCN1"
           },
           "war_event_id": "WAR-LEAD-TANG-TURK-SUBSIDY-697"
+        },
+        {
+          "war_event_id": "WAR-LEAD-TANG-LI-JINGYE-684",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
+        },
+        {
+          "war_event_id": "WAR-LEAD-TANG-PRINCES-688",
+          "override": "PARENT_ROUTE_ADJUDICATION",
+          "fields": [
+            "d_route"
+          ],
+          "values": {
+            "d_route": "D_INTERNAL_STRATEGIC"
+          },
+          "rationale": "该父周期已形成主要区域或国家级持续军政对抗，按内部战略冲突结算；双方军民损失均进入本国成本，恢复旧控制不虚增WR。"
         }
       ],
-      "internal_cycle_refs": [],
+      "internal_cycle_refs": [
+        "WAR-LEAD-TANG-ANNAN-687",
+        "WAR-LEAD-TANG-ASIGI-700",
+        "WAR-LEAD-TANG-LI-JINGYE-684",
+        "WAR-LEAD-TANG-PRINCES-688",
+        "WAR-LEAD-TANG-SHIAN-LIAO-703"
+      ],
       "c_major_success_refs": [
         "WAR-LEAD-TANG-LI-JINGYE-684",
         "WAR-LEAD-TANG-TIBET-FOUR-GARRISONS-692-696"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-ANNAN-687",
+        "WAR-LEAD-TANG-ASIGI-700",
+        "WAR-LEAD-TANG-HONGYUAN-700",
+        "WAR-LEAD-TANG-INTEGRATION-692-694",
+        "WAR-LEAD-TANG-KHITAN-697",
+        "WAR-LEAD-TANG-LI-JINGYE-684",
+        "WAR-LEAD-TANG-LIANGZHOU-DEFENSE",
+        "WAR-LEAD-TANG-MAOZHOU-702",
+        "WAR-LEAD-TANG-PRINCES-688",
+        "WAR-LEAD-TANG-SHIAN-LIAO-703",
+        "WAR-LEAD-TANG-TIBET-689",
+        "WAR-LEAD-TANG-TIBET-DEFECTIONS-699",
+        "WAR-LEAD-TANG-TIBET-FOUR-GARRISONS-692-696",
+        "WAR-LEAD-TANG-TURK-SUBSIDY-697",
+        "WAR-LEAD-TANG-TURKS-687"
       ]
     },
     {
@@ -5182,6 +6114,13 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [
         "WAR-LEAD-TANG-THREE-SURRENDER-CITIES-WALL"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-ANXI-708",
+        "WAR-LEAD-TANG-CHONGJUN-COUP",
+        "WAR-LEAD-TANG-MINGSHA-706",
+        "WAR-LEAD-TANG-QINZHOU-706",
+        "WAR-LEAD-TANG-THREE-SURRENDER-CITIES-WALL"
       ]
     },
     {
@@ -5201,7 +6140,13 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-CHONGFU-710",
+        "WAR-LEAD-TANG-COLD-PASS-712",
+        "WAR-LEAD-TANG-NORTHEAST-710-713",
+        "WAR-LEAD-TANG-YAOZHOU-710"
+      ]
     },
     {
       "ruler_id": "RULER-TANG-LILONGJI",
@@ -5367,6 +6312,59 @@
         "WAR-LEAD-TANG-LINGNAN-726-728",
         "WAR-LEAD-TANG-TEN-COMMANDS-742",
         "WAR-LEAD-TANG-TURK-END-742-745"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-713-COUP",
+        "WAR-LEAD-TANG-ABUSI-752-753",
+        "WAR-LEAD-TANG-AN-LUSHAN-FRONTIER",
+        "WAR-LEAD-TANG-ANLUSHAN-KHITAN-751",
+        "WAR-LEAD-TANG-ANNAN-722",
+        "WAR-LEAD-TANG-ANRONG-738-740",
+        "WAR-LEAD-TANG-ANXI-LEVY-715",
+        "WAR-LEAD-TANG-BEITING-714",
+        "WAR-LEAD-TANG-BOHAI-732-733",
+        "WAR-LEAD-TANG-BORDER-COMMAND-CONCENTRATION",
+        "WAR-LEAD-TANG-GUAZHOU-727-729",
+        "WAR-LEAD-TANG-HENGSAI",
+        "WAR-LEAD-TANG-HENGYE-718",
+        "WAR-LEAD-TANG-HEQU-MASSACRE-720",
+        "WAR-LEAD-TANG-HEXI-MOBILIZATION-727",
+        "WAR-LEAD-TANG-KHITAN-720",
+        "WAR-LEAD-TANG-KHITAN-734-736",
+        "WAR-LEAD-TANG-LIANCHENG-715",
+        "WAR-LEAD-TANG-LINGNAN-726-728",
+        "WAR-LEAD-TANG-LISHAN-REVIEW-713",
+        "WAR-LEAD-TANG-LITTLE-BOLU-722",
+        "WAR-LEAD-TANG-LITTLE-BOLU-747",
+        "WAR-LEAD-TANG-LUANSHUI-714",
+        "WAR-LEAD-TANG-NANZHAO-738",
+        "WAR-LEAD-TANG-NANZHAO-754",
+        "WAR-LEAD-TANG-NINE-BENDS-ADMIN",
+        "WAR-LEAD-TANG-NINE-BENDS-WAR-714",
+        "WAR-LEAD-TANG-NORTHEAST-710-713",
+        "WAR-LEAD-TANG-PINGLU-739",
+        "WAR-LEAD-TANG-QINGHAI-727",
+        "WAR-LEAD-TANG-QINGHAI-FORTS",
+        "WAR-LEAD-TANG-SEA-PIRATES-744",
+        "WAR-LEAD-TANG-SHIPU-749",
+        "WAR-LEAD-TANG-SIX-HU-721",
+        "WAR-LEAD-TANG-SUPI-INTEGRATION",
+        "WAR-LEAD-TANG-TEN-COMMANDS-742",
+        "WAR-LEAD-TANG-TIBET-742-747",
+        "WAR-LEAD-TANG-TIBET-BROKEN-TRUCE-737",
+        "WAR-LEAD-TANG-TIBET-PEACE-730",
+        "WAR-LEAD-TANG-TROOP-REFORM-722",
+        "WAR-LEAD-TANG-TURGESH-726",
+        "WAR-LEAD-TANG-TURGESH-735-740",
+        "WAR-LEAD-TANG-TURK-CAMPAIGN-720",
+        "WAR-LEAD-TANG-TURK-END-742-745",
+        "WAR-LEAD-TANG-TURK-GARRISONS-737-738",
+        "WAR-LEAD-TANG-TURK-SUCCESSION-716",
+        "WAR-LEAD-TANG-WANG-ZHONGSI-745-747",
+        "WAR-LEAD-TANG-WESTERN-FRONT-717",
+        "WAR-LEAD-TANG-WESTERN-REGIONS-749-751",
+        "WAR-LEAD-TANG-WESTERN-TURKS-714",
+        "WAR-LEAD-TANG-XIZHOU-724"
       ]
     },
     {
@@ -5518,7 +6516,17 @@
         }
       ],
       "internal_cycle_refs": [],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-ANSHI-END",
+        "WAR-LEAD-TANG-GUANGZHOU-758",
+        "WAR-LEAD-TANG-HEXILONGYOU-763",
+        "WAR-LEAD-TANG-JINGXIANG-759",
+        "WAR-LEAD-TANG-LIUZHAN-END",
+        "WAR-LEAD-TANG-LOCAL-REBELLIONS-761-763",
+        "WAR-LEAD-TANG-NANZHAO-EXPANSION-756",
+        "WAR-LEAD-TANG-YONGBWANG-LIN"
+      ]
     },
     {
       "ruler_id": "RULER-TANG-LIYU",
@@ -5661,6 +6669,29 @@
       "c_major_success_refs": [
         "WAR-LEAD-TANG-ANSHI-END",
         "WAR-LEAD-TANG-LINGNAN-771"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-TANG-ANSHI-END",
+        "WAR-LEAD-TANG-FANZHEN-768-773",
+        "WAR-LEAD-TANG-GARRISON-DISTURBANCES-774-776",
+        "WAR-LEAD-TANG-GARRISON-MUTINIES-762",
+        "WAR-LEAD-TANG-GUANGZHOU-775",
+        "WAR-LEAD-TANG-HEBEI-JIEDUSHI",
+        "WAR-LEAD-TANG-HEXILONGYOU-763",
+        "WAR-LEAD-TANG-JINGYANG-765",
+        "WAR-LEAD-TANG-LILINGYAO-776",
+        "WAR-LEAD-TANG-LINGNAN-771",
+        "WAR-LEAD-TANG-LOCAL-MUTINIES-777-779",
+        "WAR-LEAD-TANG-LOCAL-REBELLIONS-761-763",
+        "WAR-LEAD-TANG-SICHUAN-765-768",
+        "WAR-LEAD-TANG-TIBET-775-778",
+        "WAR-LEAD-TANG-TIBET-CHANGAN-763",
+        "WAR-LEAD-TANG-TIBET-FRONT-767-773",
+        "WAR-LEAD-TANG-UIGHUR-778",
+        "WAR-LEAD-TANG-WEIBO-775",
+        "WAR-LEAD-TANG-WESTERN-FRONT-763-765",
+        "WAR-LEAD-TANG-YILU-773",
+        "WAR-LEAD-TANG-ZHOUSHIGUANG-766-767"
       ]
     },
     {
@@ -5722,6 +6753,42 @@
       "c_major_success_refs": [
         "WAR-LEAD-234-01",
         "WAR-LEAD-235-02"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-226-01",
+        "WAR-LEAD-226-02",
+        "WAR-LEAD-226-04",
+        "WAR-LEAD-226-05",
+        "WAR-LEAD-227-01",
+        "WAR-LEAD-227-03",
+        "WAR-LEAD-227-04",
+        "WAR-LEAD-231-01",
+        "WAR-LEAD-231-02",
+        "WAR-LEAD-231-03",
+        "WAR-LEAD-231-07",
+        "WAR-LEAD-232-01",
+        "WAR-LEAD-232-02",
+        "WAR-LEAD-232-03",
+        "WAR-LEAD-232-04",
+        "WAR-LEAD-232-05",
+        "WAR-LEAD-233-01",
+        "WAR-LEAD-233-02",
+        "WAR-LEAD-233-04",
+        "WAR-LEAD-233-05",
+        "WAR-LEAD-234-01",
+        "WAR-LEAD-234-02",
+        "WAR-LEAD-234-04",
+        "WAR-LEAD-234-06",
+        "WAR-LEAD-235-01",
+        "WAR-LEAD-235-02",
+        "WAR-LEAD-235-03",
+        "WAR-LEAD-235-07",
+        "WAR-LEAD-235-08",
+        "WAR-LEAD-236-01",
+        "WAR-LEAD-236-02",
+        "WAR-LEAD-236-03",
+        "WAR-LEAD-TANG-HEDONG-REFORM-779",
+        "WAR-LEAD-TANG-NORTHERN-DEFENSE-779"
       ]
     },
     {
@@ -5743,7 +6810,23 @@
       "internal_cycle_refs": [
         "WAR-LEAD-239-03"
       ],
-      "c_major_success_refs": []
+      "c_major_success_refs": [],
+      "included_source_refs": [
+        "WAR-LEAD-237-01",
+        "WAR-LEAD-237-02",
+        "WAR-LEAD-237-03",
+        "WAR-LEAD-238-01",
+        "WAR-LEAD-238-02",
+        "WAR-LEAD-238-04",
+        "WAR-LEAD-239-02",
+        "WAR-LEAD-239-03",
+        "WAR-LEAD-239-04",
+        "WAR-LEAD-240-01",
+        "WAR-LEAD-240-02",
+        "WAR-LEAD-241-01",
+        "WAR-LEAD-241-02",
+        "WAR-LEAD-241-04"
+      ]
     },
     {
       "ruler_id": "RULER-TANG-LICHEN",
@@ -5815,6 +6898,16 @@
       "c_major_success_refs": [
         "WAR-LEAD-249-01",
         "WAR-LEAD-249-02"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-249-01",
+        "WAR-LEAD-249-02",
+        "WAR-LEAD-249-03",
+        "WAR-LEAD-249-05",
+        "WAR-LEAD-249-06",
+        "WAR-LEAD-249-07",
+        "WAR-LEAD-249-08",
+        "WAR-LEAD-249-09"
       ]
     },
     {
@@ -5838,8 +6931,25 @@
       ],
       "c_major_success_refs": [
         "WAR-LEAD-252-04"
+      ],
+      "included_source_refs": [
+        "WAR-LEAD-252-04",
+        "WAR-LEAD-253-01",
+        "WAR-LEAD-253-03",
+        "WAR-LEAD-253-04",
+        "WAR-LEAD-253-05",
+        "WAR-LEAD-253-06",
+        "WAR-LEAD-253-09",
+        "WAR-LEAD-254-02",
+        "WAR-LEAD-254-05",
+        "WAR-LEAD-255-GORGE-REBELLION",
+        "WAR-LEAD-255-QIANNENG-END",
+        "WAR-LEAD-256-HUANGCHAO-END",
+        "WAR-LEAD-256-SECOND-FLIGHT",
+        "WAR-LEAD-256-YANGSHILI-END",
+        "WAR-LEAD-257-CHANGFU-END"
       ]
     }
   ],
-  "semantic_fingerprint": "75f589ea90fe540ebb0dd54ef060ba098cb5032c0fc22ba015c4d0af8e15feab"
+  "semantic_fingerprint": "180c79aaedd7af1e13a639e3f3bfb17801a5155fbef3626fbf96dd90b35abbe4"
 }

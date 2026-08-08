@@ -250,8 +250,8 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     by_name = {row["ruler_name"]: row for row in combined["records"]}
     assert by_name["柴荣"]["rank"] == 2
     assert by_name["柴荣"]["axes"]["D"] == "D-4"
-    assert by_name["柴荣"]["D_score_points"] == 34.8
-    assert by_name["李忱"]["rank"] == 5
+    assert by_name["柴荣"]["D_score_points"] == 31.7
+    assert by_name["李忱"]["rank"] == 6
     assert by_name["朱友贞"]["rank"] == 94
     assert by_name["李煜"]["rank"] == 99
     assert by_name["杨广"]["rank"] == 101
@@ -266,7 +266,7 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     d_by_name = {row["ruler_name"]: row for row in formal["D"]["records"]}
     c_by_name = {row["ruler_name"]: row for row in formal["C"]["records"]}
     ab_by_name = {row["ruler_name"]: row for row in formal["AB"]["records"]}
-    assert d_by_name["柴荣"]["D_portfolio_metrics"]["material_cycle_count"] == 6
+    assert d_by_name["柴荣"]["D_portfolio_metrics"]["material_cycle_count"] == 7
     assert d_by_name["柴荣"]["D_portfolio_metrics"]["top_tier_high_return_refs"] == []
     assert len(d_by_name["柴荣"]["D_portfolio_metrics"]["national_negative_return_refs"]) == 1
     assert len(d_by_name["柴荣"]["cycle_merge_adjudications"]) == 2
@@ -276,9 +276,9 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert len(d_by_name["刘龑"]["cycle_merge_adjudications"]) == 1
     assert d_by_name["石敬瑭"]["D_grade"] == "D-2"
     assert d_by_name["李昪"]["D_grade"] == "D-2"
-    assert d_by_name["王建"]["D_score_points"] == 29.9
-    assert c_by_name["柴荣"]["independent_task_count"] == 6
-    assert ab_by_name["柴荣"]["defense_event_count"] == 6
+    assert d_by_name["王建"]["D_score_points"] == 27.3
+    assert c_by_name["柴荣"]["independent_task_count"] == 7
+    assert ab_by_name["柴荣"]["defense_event_count"] == 7
     assert (
         ab_by_name["柴荣"]["parent_cycle_merge_adjudications"]
         == c_by_name["柴荣"]["parent_cycle_merge_adjudications"]
@@ -443,6 +443,82 @@ def test_five_dynasties_and_north_song_parent_cycle_reviews_cover_every_ruler() 
         assert review["status"] == "REVIEWED_ALL_RULERS"
         assert review["reviewed_ruler_ids"] == ruler_ids
         assert len(ruler_ids) == expected_count
+
+
+@pytest.mark.parametrize("axis_index", [0, 1, 2])
+@pytest.mark.parametrize("axis_grade", range(6))
+def test_each_c_atomic_axis_has_a_reachable_zero_to_five_grade(
+    axis_index: int, axis_grade: int
+) -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import _c_score
+
+    axes = [5, 5, 5]
+    axes[axis_index] = axis_grade
+    overall, rate, points, _ = _c_score(*axes)
+
+    assert overall == f"C-{axis_grade}"
+    assert 0 <= rate <= 100
+    assert points == round(rate / 2, 1)
+    if axis_grade == 5:
+        assert (overall, rate, points) == ("C-5", 100.0, 50.0)
+
+
+@pytest.mark.parametrize("axis", ["A1", "A2"])
+@pytest.mark.parametrize("end_grade", range(6))
+def test_each_a_atomic_axis_has_a_reachable_zero_to_five_end_state(
+    axis: str, end_grade: int
+) -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import _axis_a
+
+    result = _axis_a(
+        axis,
+        {"start": end_grade, "end": end_grade, "reason": "reachability"},
+    )
+    assert result["end"].startswith(f"{axis}S{end_grade}_")
+
+
+@pytest.mark.parametrize("axis", ["B1", "B2", "B4"])
+@pytest.mark.parametrize("grade", range(6))
+def test_each_b_atomic_axis_has_a_reachable_zero_to_five_grade(
+    axis: str, grade: int
+) -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import _axis_b
+
+    decision = {"grade": grade, "position": "MID", "reason": "reachability"}
+    if axis == "B1":
+        decision.update({"start_equivalent": 0.0, "end_equivalent": 10.0})
+    result = _axis_b(axis, decision)
+    assert result["grade"] == f"{axis}-{grade}"
+    assert 0 <= result["score_rate"] <= 100
+
+
+def test_d_normalized_efficiency_has_reachable_one_to_five_grades() -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import _d_grade_and_score
+
+    portfolios = {
+        "D-1": ["NEGATIVE_RETURN"] * 4,
+        "D-2": ["PROPORTIONATE_RETURN"] * 3 + ["NEGATIVE_RETURN"],
+        "D-3": ["PROPORTIONATE_RETURN"] * 4,
+        "D-4": ["HIGH_RETURN"] * 3 + ["PROPORTIONATE_RETURN"],
+        "D-5": ["HIGH_RETURN"] * 4,
+    }
+    for expected_grade, return_classes in portfolios.items():
+        cycles = [
+            {
+                "campaign_group_ref": f"REACH-{expected_grade}-{index}",
+                "return_class": return_class,
+                "material": True,
+                "national_negative": False,
+                "major_high_return": (
+                    expected_grade == "D-5" and return_class == "HIGH_RETURN"
+                ),
+                "top_high_return": False,
+            }
+            for index, return_class in enumerate(return_classes)
+        ]
+        grade, score, _ = _d_grade_and_score(cycles)
+        assert grade == expected_grade
+        assert score is not None
 
 
 def test_d_quantitative_index_normalizes_exposure_and_uses_integer_weights() -> None:
@@ -616,11 +692,11 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         assert ab_row["parent_cycle_refs"] == row["independent_task_groups"]
 
     c_by_name = {row["ruler_name"]: row for row in c_rows}
-    assert c_by_name["柴荣"]["independent_task_count"] == 6
+    assert c_by_name["柴荣"]["independent_task_count"] == 7
     assert c_by_name["柴荣"]["C_overall_grade"] == "C-4"
-    assert c_by_name["李世民"]["independent_task_count"] == 10
+    assert c_by_name["李世民"]["independent_task_count"] == 13
     assert c_by_name["李世民"]["C_overall_grade"] == "C-4"
-    assert c_by_name["拓跋焘"]["independent_task_count"] == 13
+    assert c_by_name["拓跋焘"]["independent_task_count"] == 17
     assert c_by_name["拓跋焘"]["C_overall_grade"] == "C-4"
     assert c_by_name["赵祯"]["independent_task_count"] == 12
     assert c_by_name["赵祯"]["non_scoring_observation_count"] == 24
@@ -658,23 +734,27 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
             assert known_material >= 4
 
     by_name = {row["ruler_name"]: row for row in d_rows}
-    assert by_name["李雄"]["D_score_points"] == 29.9
-    assert by_name["陈蒨"]["D_score_points"] == 29.9
+    assert by_name["李雄"]["D_score_points"] == 24.6
+    assert by_name["陈蒨"]["D_score_points"] == 27.3
     assert by_name["柴荣"]["D_score_points"] > by_name["苻健"]["D_score_points"]
-    assert by_name["拓跋焘"]["D_grade"] == "D-4"
-    assert by_name["拓跋焘"]["D_score_points"] == 32.6
-    assert by_name["李忱"]["D_grade"] == "D-4"
-    assert by_name["李忱"]["D_score_points"] == 35.9
+    assert by_name["拓跋焘"]["D_grade"] == "D-3"
+    assert by_name["拓跋焘"]["D_score_points"] == 25.0
+    assert by_name["李忱"]["D_grade"] == "D-3"
+    assert by_name["李忱"]["D_score_points"] == 26.2
     assert by_name["李忱"]["D_score_points"] > by_name["司马曜"]["D_score_points"]
     assert by_name["李忱"]["D_score_points"] > by_name["李雄"]["D_score_points"]
-    assert by_name["李忱"]["D_score_points"] > by_name["王建"]["D_score_points"]
+    assert by_name["王建"]["D_score_points"] < 29.9
+    assert (
+        by_name["王建"]["D_portfolio_metrics"]["evidence_score_position_limit"]
+        == 0.6667
+    )
     li_shimin = by_name["李世民"]
-    assert li_shimin["D_grade"] == "D-5"
-    assert li_shimin["D_score_points"] == 38.8
-    assert li_shimin["D_portfolio_metrics"]["material_cycle_count"] == 10
+    assert li_shimin["D_grade"] == "D-4"
+    assert li_shimin["D_score_points"] == 33.9
+    assert li_shimin["D_portfolio_metrics"]["material_cycle_count"] == 13
     assert li_shimin["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 7,
-        "LOW_RETURN": 1,
+        "LOW_RETURN": 4,
         "NEGATIVE_RETURN": 2,
     }
     assert li_shimin["D_portfolio_metrics"]["high_return_tier_counts"] == {
@@ -693,6 +773,30 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         for row in by_name["拓跋焘"]["D_portfolio_metrics"]["cycle_q_adjudications"]
     }
     assert tuoba_cycles["NC-WEI-NORTHERN-YAN-432-438"]["return_class"] == "HIGH_RETURN"
+    assert tuoba_cycles["NC-V124-LEAD-NC-GAIWU-445-446"]["return_class"] == "LOW_RETURN"
+    assert tuoba_cycles["NC-V124-LEAD-NC-GAIWU-445-446"]["route"] == "D_INTERNAL_STRATEGIC"
+    tuoba_material = {
+        row["canonical_parent_cycle_ref"]: row
+        for row in by_name["拓跋焘"]["D_portfolio_metrics"][
+            "material_cycle_adjudications"
+        ]
+    }
+    assert tuoba_material["NC-WEI-WALL-446-OPEN"]["return_class"] == "UNKNOWN"
+    assert tuoba_material["NC-WEI-WALL-446-OPEN"]["cost_axes"] == {
+        "P": 0,
+        "S": 0,
+        "M": 3,
+        "A": 3,
+    }
+    assert (
+        by_name["拓跋焘"]["D_portfolio_metrics"]["material_return_class_counts"]
+        == {
+            "HIGH_RETURN": 7,
+            "LOW_RETURN": 8,
+            "NEGATIVE_RETURN": 1,
+            "UNKNOWN": 1,
+        }
+    )
     zhao_zhen = by_name["赵祯"]
     assert zhao_zhen["D_grade"] == "D-2"
     assert zhao_zhen["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -7.0
@@ -716,15 +820,15 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     }
     wu_zetian = by_name["武则天"]
     assert wu_zetian["D_grade"] == "D-2"
-    assert wu_zetian["D_portfolio_metrics"]["portfolio_net_weight_sum"] == 8.0
-    assert wu_zetian["D_portfolio_metrics"]["portfolio_efficiency_index"] == 0.4
+    assert wu_zetian["D_portfolio_metrics"]["portfolio_net_weight_sum"] == 3.0
+    assert wu_zetian["D_portfolio_metrics"]["portfolio_efficiency_index"] == -0.2727
     li_xuan = by_name["李儇"]
     assert li_xuan["D_grade"] == "D-2"
-    assert li_xuan["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -2.0
-    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -1.0
+    assert li_xuan["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -3.0
+    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -1.1
     assert li_xuan["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 1,
-        "LOW_RETURN": 8,
+        "LOW_RETURN": 9,
     }
     for row in d_rows:
         metrics = row["D_portfolio_metrics"]
@@ -733,9 +837,14 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         assert sum((metrics.get("high_return_tier_counts") or {}).values()) == counts.get(
             "HIGH_RETURN", 0
         )
-        assert counts.get("UNKNOWN", 0) == 0
-        assert metrics["known_material_cycle_count"] == metrics["material_cycle_count"]
-        assert metrics["material_return_closure_rate"] in {0.0, 1.0}
+        assert metrics["known_material_cycle_count"] + counts.get(
+            "UNKNOWN", 0
+        ) == metrics["material_cycle_count"]
+        assert metrics["material_return_closure_rate"] == round(
+            metrics["known_material_cycle_count"]
+            / max(1, metrics["material_cycle_count"]),
+            4,
+        )
         q_rows = metrics.get("cycle_q_adjudications") or []
         if metrics.get("portfolio_net_weight_sum") is None:
             assert q_rows == []
@@ -778,6 +887,25 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
             (repo_root / "config" / config_name).read_text(encoding="utf-8")
         )
         assert not contains_legacy_return_override(config_payload)
+        assert "D_INTERNAL_SELF_INDUCED" not in json.dumps(
+            config_payload, ensure_ascii=False
+        )
+    direction_payload = json.loads(
+        (repo_root / "config/qin-tang-d-cycle-direction-adjudications.json")
+        .read_text(encoding="utf-8")
+    )
+    assert direction_payload["schema_version"] == (
+        "qin-tang-d-cycle-direction-adjudications-v3"
+    )
+    direction_by_name = {
+        row["ruler_name"]: row for row in direction_payload["records"]
+    }
+    assert "WAR-LEAD-TANG-JIESHESHUAI-639" not in direction_by_name[
+        "李世民"
+    ]["included_source_refs"]
+    assert "WAR-LEAD-TANG-SHENLONG-COUP" not in direction_by_name[
+        "武则天"
+    ]["included_source_refs"]
     return_unknown_exclusions = {
         item["campaign_group_ref"]
         for row in d_rows
@@ -876,8 +1004,8 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
             assert all("confidence" not in row for row in payload["records"])
         if kind == "D":
             assert "| 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |" in rendered
-            assert "| 柴荣 | 后周 | 954-959 | D-4 | 34.8 | 2.67 | 16.0 | 3.0 | 充分检验 | 6 | 2 | 0 | 0 | 1 | 0 | 3 | 0 | 1 |" in rendered
-            assert "| 李世民 | 唐 | 626-649 | D-5 | 38.8 | 3.70 | 34.0 | 6.0 | 充分检验 | 10 | 3 | 0 | 1 | 2 | 0 | 2 | 2 | 0 |" in rendered
+            assert "| 3 | 柴荣 | 后周 | 954-959 | D-4 | 31.7 | 1.71 | 13.0 | 3.0 | 充分检验 | 7 | 2 | 0 | 0 | 2 | 0 | 3 | 0 | 1 |" in rendered
+            assert "| 2 | 李世民 | 唐 | 626-649 | D-4 | 33.9 | 2.38 | 31.0 | 6.0 | 充分检验 | 13 | 3 | 0 | 4 | 2 | 0 | 2 | 2 | 0 |" in rendered
             assert "周期 `CAMPAIGN-TANG-EASTERN-TURKS-629-630`" in rendered
             for row in payload["records"]:
                 metrics = row.get("D_portfolio_metrics") or {}
