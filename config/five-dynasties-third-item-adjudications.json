@@ -2,10 +2,64 @@
   "schema_version": "five-dynasties-third-item-adjudications-v1",
   "scope": "config/所有君主.yml 中五代十国12人；消费卷263至294主体阶段裁决卡，并以續資治通鑑卷004、卷008定向闭合959年后两个亡国终局",
   "source_set_fingerprint": "d23622b8545ee5a49e06b93ad265a47e1a9643be844899eabd76ab92717fed57",
+  "parent_cycle_review": {
+    "status": "REVIEWED_ALL_RULERS",
+    "rule": "同一战略目标、连续动员和结果闭合链只结算一个父级周期；相邻年份、同一对手或同一方向本身不足以合并。",
+    "reviewed_ruler_ids": ["RULER-FD-ZHU-WEN", "RULER-FD-ZHU-YOUZHEN", "RULER-FD-LI-CUNXU", "RULER-FD-LI-SIYUAN", "RULER-FD-SHI-JINGTANG", "RULER-FD-GUO-WEI", "RULER-FD-CHAI-RONG", "RULER-FD-LI-BIAN", "RULER-FD-LI-YU", "RULER-FD-WANG-JIAN", "RULER-FD-MENG-CHANG", "RULER-FD-LIU-YAN"]
+  },
   "reviewed_boundary_phase_inclusions": {
     "WAR-FD-2FE65955BD4158736205-P04": "923年梁十万军围杨刘、攻马家口发生于朱友贞在位，主体和归责均明确。",
     "WAR-FD-8E3C4861F21E38AF6FE4-P02": "923年梁军中都败亡发生于朱友贞在位，主体和归责均明确。",
     "WAR-FD-8E3C4861F21E38AF6FE4-P04": "923年大梁陷落、后梁终结与朱友贞死亡均明确发生于其在位终局。"
+  },
+  "reviewed_phase_binding_overrides": [
+    {
+      "ruler_id": "RULER-FD-LI-CUNXU",
+      "phase_ids": [
+        "WAR-FD-CDAA67834FEB65C2D404-P02",
+        "WAR-FD-C25EFE014159D7CF80AD-P01",
+        "WAR-FD-8BC0AFEF2C081D1076A0-P02",
+        "WAR-FD-8BC0AFEF2C081D1076A0-P03",
+        "WAR-FD-218A9DAC443C8827E7D4-P02",
+        "WAR-FD-585B83610346AD5AD792-P02",
+        "WAR-FD-EC10EFFA8CDBC2CAD61F-P02",
+        "WAR-FD-9C313C03F8C3D704F60D-P02"
+      ],
+      "reason": "卷274这些后唐国家或官军阶段均在庄宗死亡与明宗即位前展开；只把国家受损、围讨和平乱阶段归李存勖，不把李嗣源夺权阶段倒灌。"
+    },
+    {
+      "ruler_id": "RULER-FD-LI-SIYUAN",
+      "phase_ids": [
+        "WAR-FD-E72EAFD654AF4E38E0CA-P02",
+        "WAR-FD-D16441F4E5FA93113DC6-P03",
+        "WAR-FD-6AD1B074008698F0ECC7-P02",
+        "WAR-FD-F34C115EEE9F131E61B1-P03"
+      ],
+      "reason": "卷274李嗣源本人夺权阶段及卷275即位后的后唐阶段归李嗣源；夺权阶段仍由创业标记排除第三项，卷275正式统治阶段照常进入。"
+    },
+    {
+      "ruler_id": "RULER-FD-CHAI-RONG",
+      "phase_ids": [
+        "WAR-FD-67F493C688EE46EFA297-P02",
+        "WAR-FD-19647EC5A12E17FA44CF-P02",
+        "WAR-FD-C504271F839171210D3A-P01",
+        "WAR-FD-C504271F839171210D3A-P02",
+        "WAR-FD-F13A6A9D94C2CA78A681-P04",
+        "WAR-FD-0012E50908E7D9607890-P01",
+        "WAR-FD-90C480CBD3DB0685B1D3-P01",
+        "WAR-FD-90C480CBD3DB0685B1D3-P02",
+        "WAR-FD-A42AAC081D4F56A1E433-P01"
+      ],
+      "reason": "高平、太原及其后续阶段均发生在郭威去世、柴荣即位之后；卷级年份横跨954边界，但事件锚明确属于柴荣窗口。"
+    }
+  ],
+  "reviewed_phase_binding_exclusions": {
+    "WAR-FD-0223F2E4A88E423A69AF-P01": "李嗣源即位前被军变裹挟的夺权阶段，不属于李存勖主体，也不属于李嗣源正式统治期第三项。",
+    "WAR-FD-0223F2E4A88E423A69AF-P02": "李嗣源即位前亲军受军变裹挟的夺权阶段，固定路由第一项，不绑定第三项皇帝窗口。",
+    "WAR-FD-0223F2E4A88E423A69AF-P04": "李嗣源即位前在魏县重组军队的夺权阶段，固定路由第一项。",
+    "WAR-FD-6A7E0B41D4F348927C1D-P01": "李嗣源即位前渡河取大梁的夺权阶段，固定路由第一项。",
+    "WAR-FD-6A7E0B41D4F348927C1D-P03": "姚彦温倒向李嗣源发生于其即位前夺权链，不进入第三项正式统治窗口。",
+    "WAR-FD-8DB53A9F29075DBE6037-P03": "李嗣源入洛接管发生于即位前政权取得链，固定路由第一项。"
   },
   "supplemental_records": [
     {
@@ -103,13 +157,14 @@
       "reign_range": "907-912",
       "coverage_complete": true,
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 2, "end": 2, "reason": "剥离创业兼并后，晋、岐、淮南等方向始终构成反复战略压力；任内有压制叛乱和局部进展，也有柏乡等重大失利，交班时仍处明显战略劣势。"},
         "A2": {"start": 2, "end": 2, "reason": "黄河、潞晋与关中方向存在若干可守节点，但未形成覆盖主要强敌的稳定边界体系；交班时结构性缺口仍在。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 0.5, "grade": 1, "position": "LOW", "reason": "创业核心领土全部排除；只保留非统一边防小规模守成，没有足以进入0.75共同尺度的净控制增益。"},
         "B2": {"grade": 2, "position": "LOW", "reason": "可确认控制只改善若干河防、关隘和州镇单点，未稳定改变一个主要方向。"},
         "B4": {"grade": 2, "position": "LOW", "reason": "主要边防节点仍依赖高强度临时军事投入，交班时晋梁主战线和关中方向均未闭合。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 2, "reason": "任内军队能完成多项普通任务，但重要胜负并存；跨方向持续动员尚可，魏博军制摧毁、将帅与牙军关系等组织缺口使体系可靠性封顶2档。"}
+      "C": {"C1": 2, "C2": 2, "C3": 2, "major_system_failure_group_refs": [], "reason": "排除创业战争后只有灵州—邠宁一项独立任务，且救援以升平惨败闭合；薄样本只能证明有限作战、持续和可靠性，不以创业阶段表现补高，三轴均保守定2档。"}
     },
     {
       "ruler_id": "RULER-FD-ZHU-YOUZHEN",
@@ -117,14 +172,21 @@
       "polity": "后梁",
       "reign_range": "913-923",
       "coverage_complete": true,
+      "third_item_cycle_exclusions": [
+        {
+          "campaign_group_ref": "ZZTJ-270-LIANG-YANZHOU-ZHANGWANJIN-0918",
+          "reason": "现有卡片只确认刘鄩奉命出军讨兖州，终局、控制变化与安全收益均跨卷未载；投入低于实质周期门槛，只保留为A/B/C观察证据，不进入D回报组合。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "INHERITED_ONLY",
         "A1": {"start": 2, "end": 0, "reason": "接班时晋梁长期竞争已使后梁处战略劣势；923年主力配置、黄河防线与中枢连续失效，后唐直取大梁，政权终结。"},
         "A2": {"start": 2, "end": 0, "reason": "接班尚有黄河和河北州镇节点，交班时防线整体瓦解、核心直接暴露并失去可移交的国家级边界体系。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 0.0, "grade": 0, "position": "LOW", "reason": "终局门命中：交班时中央政权终结，边疆控制无可实际移交部分。"},
         "B2": {"grade": 0, "position": "LOW", "reason": "终局门命中；任内阶段性成果不得作为交班后的国防控制价值。"},
         "B4": {"grade": 0, "position": "LOW", "reason": "终局门命中；没有可移交的成熟控制体系。"}
       },
-      "C": {"C1": 1, "C2": 1, "C3": 0, "reason": "主要战线反复失败，终局时军令、兵力配置与核心防御全面崩溃并直接导致后梁灭亡，任内未恢复。"},
+      "C": {"C1": 1, "C2": 1, "C3": 0, "major_system_failure_group_refs": ["ZZTJ-269-JIN-HEBEI-0915", "ZZTJ-270-LIANG-JIN-HUANGHE-0919", "ZZTJ-272-LIANG-TANG-FINAL-0923"], "reason": "主要战线反复失败，终局时军令、兵力配置与核心防御全面崩溃并直接导致后梁灭亡，任内未恢复。"},
       "terminal_polity_collapse": true
     },
     {
@@ -133,14 +195,23 @@
       "polity": "后唐",
       "reign_range": "923-926",
       "coverage_complete": true,
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "ZZTJ-274-YEDU-MUTINY-0926",
+          "member_campaign_group_refs": ["ZZTJ-274-YEDU-MUTINY-0926", "ZZTJ-274-LISIYUAN-BIANZHOU-0926"],
+          "return_class": "NEGATIVE_RETURN",
+          "reason": "邺都军变、庄宗派军围讨、李嗣源所部倒向并夺取汴洛直至中央崩解，是同一兵变扩散与政权失控链；不得把诱因、转场和终局拆成两项国家级负收益。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 3, "end": 1, "reason": "后梁、前蜀等创业统一成果排除后，接班时非统一安全处于制衡；任末军饷、将帅清洗和兵变使内部战略威胁升级为国家级危机。"},
         "A2": {"start": 3, "end": 1, "reason": "接班时主要州镇和交通线尚可运作；任末邺都、汴洛与宫城军令链相继断裂，只剩核心附近应急防御。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 0.5, "grade": 1, "position": "LOW", "reason": "灭梁灭蜀均属创业统一而排除；非统一边疆只形成小规模存量守成。"},
         "B2": {"grade": 1, "position": "LOW", "reason": "排除统一核心控制后，剩余控制成果只改善单点态势。"},
         "B4": {"grade": 1, "position": "LOW", "reason": "主要军镇控制在交班前已进入兵变与倒戈状态，仍依赖临时重兵和个人威望。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 1, "reason": "对外实战与远征兑现度较高，但创业战争不在第三项重复抬分；任末军饷、军心与中央军令发生未恢复的体系崩溃，C3封顶1档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 1, "major_system_failure_group_refs": ["ZZTJ-274-YEDU-MUTINY-0926"], "reason": "排除创业战争后，平乱与地方任务仍有兑现；任末邺都军变、东征军离散和洛阳宿卫崩溃属于同一父级失控链，中央军令未恢复，C3封顶1档。"}
     },
     {
       "ruler_id": "RULER-FD-LI-SIYUAN",
@@ -149,13 +220,14 @@
       "reign_range": "926-933",
       "coverage_complete": true,
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 1, "end": 3, "reason": "承接庄宗末年国家级兵变危机，任内平定多项军镇叛乱并恢复中枢，交班时主要威胁回到相互制衡。"},
         "A2": {"start": 2, "end": 3, "reason": "接班时州镇与交通线碎裂；任内恢复若干主要方向的军镇协同，但契丹与两川等方向仍有显著缺口。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 1.0, "grade": 1, "position": "MID", "reason": "恢复并稳住若干州镇控制，按共同尺度仍不足1.5，属于有限净增。"},
         "B2": {"grade": 3, "position": "LOW", "reason": "恢复的州镇与北方门户对主要区域交通、防御和缓冲具有重要作用。"},
         "B4": {"grade": 3, "position": "MID", "reason": "多数成果已转入常态军镇运行，但契丹方向和西部军镇仍有明显结构缺口。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "多项平叛、守边任务总体可兑现，保障与将帅体系通常有效；重要胜负并存，尚不足跨入高档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "reason": "多项平叛、守边任务总体可兑现，保障与将帅体系通常有效；重要胜负并存，尚不足跨入高档。"}
     },
     {
       "ruler_id": "RULER-FD-SHI-JINGTANG",
@@ -163,14 +235,29 @@
       "polity": "后晋",
       "reign_range": "936-942",
       "coverage_complete": true,
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU",
+          "member_campaign_group_refs": ["ZZTJ-282-ANCHONGRONG-REBELLION-0941", "ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU"],
+          "return_class": "HIGH_RETURN",
+          "reason": "安重荣起兵、宗城败退与镇州城破覆亡是同一叛乱从发动到平定的连续链；跨卷终局不是新投资周期。"
+        },
+        {
+          "canonical_cycle_ref": "ZZTJ-282-283-AN-CONGJIN-XIANGZHOU",
+          "member_campaign_group_refs": ["ZZTJ-282-ANCONGJIN-REBELLION-0941", "ZZTJ-282-283-AN-CONGJIN-XIANGZHOU"],
+          "return_class": "HIGH_RETURN",
+          "reason": "安从进叛乱、邓州攻防、花山败退与襄州城破属于同一平叛目标和连续动员；不得把围城终局重复记为第二项高收益。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 2, "end": 3, "reason": "创业夺权与契丹介入本身排除；即位后安重荣、安从进、范延光等战略性叛乱陆续受控，交班时内部威胁由明显被动回到制衡。"},
         "A2": {"start": 1, "end": 1, "reason": "创业合同形成时北方主要防御纵深已经缺损，任内虽有边镇拒止和恢复节点，但未重建覆盖契丹方向的体系。"},
         "B1": {"start_equivalent": 0.25, "end_equivalent": 0.25, "grade": 1, "position": "LOW", "reason": "创业核心领土和建立政权条件排除；只剩小规模边防守成，没有共同尺度上的显著净增。"},
         "B2": {"grade": 1, "position": "LOW", "reason": "边镇成果有限且易被契丹方向压力替代。"},
         "B4": {"grade": 1, "position": "MID", "reason": "交班时北方控制仍高度依赖脆弱的外交和临时军镇安排。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "平定多项大镇叛乱并维持普通战争，动员和军令总体可用；对契丹依赖和边防缺口使其止于中档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": ["ZZTJ-283-284-KHITAN-BEIZHOU"], "reason": "平定多项大镇叛乱并维持普通战争，动员和军令总体可用；贝州陷落及对契丹依赖、边防缺口使其止于中档。"}
     },
     {
       "ruler_id": "RULER-FD-GUO-WEI",
@@ -179,13 +266,14 @@
       "reign_range": "951-954",
       "coverage_complete": true,
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 2, "end": 3, "reason": "创业取代后汉排除；即位后兖州、北汉与契丹方向受到实际遏制，交班时由明显被动改善为可相互制衡。"},
         "A2": {"start": 2, "end": 3, "reason": "晋州、隰州等北方节点和中原军镇协同恢复为可运作主要防线，但北部整体仍有缺口。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 0.75, "grade": 1, "position": "MID", "reason": "剥离创业核心后，边防控制有有限净增且交班存量不大。"},
         "B2": {"grade": 3, "position": "LOW", "reason": "晋隰等门户对北汉、契丹方向具有主要区域防御价值。"},
         "B4": {"grade": 3, "position": "LOW", "reason": "成果已能常态运作，但短任期和北方持续压力使成熟度处本档低位。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "多项平叛和守边任务总体完成，系统通常可持续运行；高难度、跨期检验仍不足。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "reason": "多项平叛和守边任务总体完成，系统通常可持续运行；高难度、跨期检验仍不足。"}
     },
     {
       "ruler_id": "RULER-FD-CHAI-RONG",
@@ -193,14 +281,50 @@
       "polity": "后周",
       "reign_range": "954-959",
       "coverage_complete": true,
+      "third_item_route_overrides": [
+        {
+          "campaign_group_ref": "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+          "return_class": "HIGH_RETURN",
+          "reason": "柴荣以合法继承者即位后，北汉趁丧入侵形成国家防御任务；这是登基后的拒止战争，不是夺取皇位或兼并建国，父卡的政权巩固标签不得把它排入第一项。"
+        }
+      ],
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "ZZTJ-291-292-ZHOU-TAIYUAN-0954",
+          "member_campaign_group_refs": [
+            "ZZTJ-291-292-ZHOU-TAIYUAN-0954",
+            "ZZTJ-291-292-ZHOU-TAIYUAN-0954-DAIZHOU",
+            "ZZTJ-292-ZHOU-KHITAN-XINZHOU-0954"
+          ],
+          "return_class": "NEGATIVE_RETURN",
+          "reason": "北汉外围推进、太原围攻、代州军府失控与忻州出击均属于高平战后同一轮北进决策、连续动员和撤军闭合链；不得把同一次太原战略失败拆成三项负向周期。"
+        },
+        {
+          "canonical_cycle_ref": "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0955-0956",
+          "member_campaign_group_refs": [
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0955-0956",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-CHUZHOU",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-SHENGTANG",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-SHOUZHOU",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-TAIZHOU",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-TIANCHANG",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-WOKOU",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-YANGZHOU",
+            "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-ZHENGYANG"
+          ],
+          "return_class": "HIGH_RETURN",
+          "reason": "九个组均属于955至956年同一轮淮南战略目标、连续动员与结果闭合链；各州、水战和寿州分组只作战术展开，不得与总战役群重复结算。终局以江北控制扩张和南唐议和割地闭合为高收益。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 2, "end": 4, "reason": "高平解除北汉—契丹联军压力，随后在淮南、秦凤和关南多个方向取得并保持战略主动；交班仍有北汉、幽州未决，故止于4档。"},
         "A2": {"start": 2, "end": 4, "reason": "从孤立州镇推进为淮南纵深、秦凤门户和关南三州等多方向协同边界；幽州和北汉方向仍是主要缺口。"},
         "B1": {"start_equivalent": 0.75, "end_equivalent": 2.5, "grade": 3, "position": "MID", "reason": "淮南州地、秦凤四州和关南等实际控制形成显著净增；共同尺度加权值为2.05，机械落B1-3。"},
         "B2": {"grade": 4, "position": "HIGH", "reason": "淮南交通财赋、秦凤门户和关南缓冲显著改变多个主要方向攻防条件，接近决定性但未闭合幽州与北汉。"},
         "B4": {"grade": 3, "position": "HIGH", "reason": "主要成果已有驻防、漕运和州镇安排并能移交；取得时间短、部分方向仍承受高维持压力，止于3档高位。"}
       },
-      "C": {"C1": 4, "C2": 4, "C3": 4, "reason": "高平、秦凤、淮南、关南等跨方向任务多数兑现，长期多路动员和多将协同稳定；太原未克与局部保障缺口使三轴均止于4档。"}
+      "C": {"C1": 4, "C2": 4, "C3": 4, "major_system_failure_group_refs": ["ZZTJ-291-292-ZHOU-TAIYUAN-0954"], "major_system_success_group_refs": ["ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954", "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0955-0956", "ZZTJ-292-ZHOU-SHU-QINFENG-0955"], "reason": "排除即位创业阶段的高平后，秦凤、淮南、关南等跨方向任务多数兑现，军令、后勤和多将协同经三项重大胜绩检验；三项重大胜绩覆盖太原一项重大体系失败，三轴均定4档。"}
     },
     {
       "ruler_id": "RULER-FD-LI-BIAN",
@@ -210,14 +334,23 @@
       "coverage_complete": true,
       "score_ready": true,
       "evidence_exposure": "LIMITED_EXPOSURE",
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
+          "member_campaign_group_refs": ["ZZTJ-283-ZHANG-YUXIAN-QIANZHOU", "ZZTJ-283-ZHANG-YUXIAN-SUPPRESSION"],
+          "return_class": "PROPORTIONATE_RETURN",
+          "reason": "张遇贤军转攻虔州造成前段失控，随后南唐同一动员链由严恩、边镐完成平定；初败与终局平乱须合为一项相称回报，不能各算一负一重大高收益。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 3, "end": 3, "reason": "937年建国后的统一成果排除；在位期对周边总体维持制衡，唯一可绑定军事周期为负收益但未造成国家级战略降档。"},
         "A2": {"start": 3, "end": 3, "reason": "长江—淮南主要边界保持可运作，未见足以证明整体升级或崩坏的独立周期；按低暴露规则保持而不奖励沉默。"},
         "B1": {"start_equivalent": 0.75, "end_equivalent": 0.75, "grade": 1, "position": "MID", "reason": "创业取得的核心领土排除，现有卡片只支持小规模存量守成，不认定新增控制。"},
         "B2": {"grade": 2, "position": "LOW", "reason": "长江—淮南节点具有区域防御价值，但单周期证据不足以认定改变主要方向。"},
         "B4": {"grade": 2, "position": "MID", "reason": "主要边界可维持，但缺少跨任务、跨期检验，按低暴露封顶2档。"}
       },
-      "C": {"C1": 2, "C2": 2, "C3": 2, "reason": "只有一个可绑定负收益周期；按唐以前低暴露做法，不以少战判未知，也不推定高可靠，三轴保守封顶2档。"}
+      "C": {"C1": 2, "C2": 2, "C3": 2, "major_system_failure_group_refs": ["ZZTJ-282-ANZHOU-LIJINQUAN-0940", "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU"], "reason": "转场复核后共有三项独立任务，一胜两负；样本仍有限且安州、虔州方向暴露失守，三轴保守定2档。"}
     },
     {
       "ruler_id": "RULER-FD-LI-YU",
@@ -228,13 +361,14 @@
       "score_ready": true,
       "supplemental_source_refs": ["續資治通鑑/卷008@2311074"],
       "AB": {
+        "control_contribution_type": "INHERITED_ONLY",
         "A1": {"start": 2, "end": 0, "reason": "即位时南唐已失淮南、对宋处明显战略劣势；974至975年多线败退、援军覆灭、金陵陷落并降国，终点为国家级危机实现。"},
         "A2": {"start": 2, "end": 0, "reason": "即位时尚有长江与金陵等局部可守节点；采石浮梁被突破、外围州镇与都城防御依次瓦解，终点无可移交边界体系。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 0.0, "grade": 0, "position": "LOW", "reason": "终局门命中：975年国家终结，边疆控制无可实际移交部分。"},
         "B2": {"grade": 0, "position": "LOW", "reason": "终局门命中；阶段性抵抗不得作为降国后的国防控制价值。"},
         "B4": {"grade": 0, "position": "LOW", "reason": "终局门命中；没有可移交的成熟控制体系。"}
       },
-      "C": {"C1": 1, "C2": 1, "C3": 0, "reason": "974至975年水陆军、外围防线、援军与都城防御连续失效，军情传递与统帅体系亦显著失灵并直接导致亡国，C3按未恢复全国性崩溃归0。"},
+      "C": {"C1": 1, "C2": 1, "C3": 0, "major_system_failure_group_refs": ["SOUTHERN_TANG_DEFENSE_AND_CAPITULATION_974_975"], "reason": "974至975年水陆军、外围防线、援军与都城防御连续失效，军情传递与统帅体系亦显著失灵并直接导致亡国，C3按未恢复全国性崩溃归0。"},
       "terminal_polity_collapse": true
     },
     {
@@ -243,14 +377,25 @@
       "polity": "前蜀",
       "reign_range": "907-918",
       "coverage_complete": true,
+      "third_item_route_overrides": [
+        {
+          "campaign_group_ref": "ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914",
+          "reason": "荆南来攻夔州时，前蜀已建国七年；本阶段是守住既有东部门户的建国后防御，不属于创业统一或兼并。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-269-SHU-NANZHAO-LIZHOU-0914",
+          "reason": "南诏主动大举入侵利州方向，前蜀实施建国后拒止并形成长期安全后效；不得因父卡的政权巩固标签从第三项吞没。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 2, "end": 3, "reason": "建国兼并成果排除后，岐、荆南和南诏等方向由明显被动改善为相互制衡，仍未取得整体主导。"},
         "A2": {"start": 2, "end": 3, "reason": "秦凤、夔峡等节点逐步形成可运作的主要方向防御与交通体系，但结构缺口仍明显。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 1.5, "grade": 2, "position": "MID", "reason": "排除统一核心后，边境州镇与通道仍形成有限净增；加权值1.2，落B1-2。"},
         "B2": {"grade": 3, "position": "MID", "reason": "秦凤、夔峡等控制对一个主要区域门户、走廊和补给具有重要作用。"},
         "B4": {"grade": 3, "position": "MID", "reason": "多数成果能够常态运行，但岐蜀边线及部分新得节点仍有脆弱包。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "排除创业战争重复计分后，有限的任内边防任务总体兑现；独立任务广度不足以进入4档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "reason": "排除创业战争重复计分后，有限的任内边防任务总体兑现；独立任务广度不足以进入4档。"}
     },
     {
       "ruler_id": "RULER-FD-MENG-CHANG",
@@ -261,13 +406,14 @@
       "score_ready": true,
       "supplemental_source_refs": ["續資治通鑑/卷004@2299538"],
       "AB": {
+        "control_contribution_type": "INHERITED_ONLY",
         "A1": {"start": 3, "end": 0, "reason": "即位后长期保有蜀地并能应对周边，起点按制衡；964至965年主力连续败亡、剑门失守，六十六日降国，终点为国家级危机实现。"},
         "A2": {"start": 3, "end": 0, "reason": "接班时蜀道、剑门与州镇构成有效主要边界；终局多寨、利州、剑门依次丧失，成都降国，无可移交防御体系。"},
         "B1": {"start_equivalent": 1.0, "end_equivalent": 0.0, "grade": 0, "position": "LOW", "reason": "终局门命中：965年国家终结，边疆控制无可实际移交部分。"},
         "B2": {"grade": 0, "position": "LOW", "reason": "终局门命中；此前取得或维持的州镇不得越过亡国终点继续计值。"},
         "B4": {"grade": 0, "position": "LOW", "reason": "终局门命中；没有可移交的成熟控制体系。"}
       },
-      "C": {"C1": 1, "C2": 1, "C3": 0, "reason": "终局主力数战数败，剑门天险迅速失守，太子弃军、统帅被擒并在六十六日内亡国，属于未恢复的全国性体系崩溃。"},
+      "C": {"C1": 1, "C2": 1, "C3": 0, "major_system_failure_group_refs": ["LATER_SHU_DEFENSE_AND_CAPITULATION_964_965", "ZZTJ-292-ZHOU-SHU-QINFENG-0955"], "reason": "终局主力数战数败，剑门天险迅速失守，太子弃军、统帅被擒并在六十六日内亡国，属于未恢复的全国性体系崩溃。"},
       "terminal_polity_collapse": true
     },
     {
@@ -276,14 +422,23 @@
       "polity": "南汉",
       "reign_range": "917-942",
       "coverage_complete": true,
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "ZZTJ-283-ZHANG-YUXIAN-HAN",
+          "member_campaign_group_refs": ["ZZTJ-283-ZHANG-YUXIAN-HAN", "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU"],
+          "return_class": "NEGATIVE_RETURN",
+          "reason": "张遇贤军在南汉境内起事、击败南汉军并陷循州，随后转入虔州，是同一叛乱外溢链；对刘龑只结算其任内失控与威胁外逸，不把转战阶段另列一项。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 2, "end": 2, "reason": "建国扩张排除后，闽、楚与交州方向胜负反复；任内没有把主要威胁结构性压低，交班仍处明显战略劣势。"},
         "A2": {"start": 2, "end": 2, "reason": "岭南若干州镇和海陆节点可守，但交州控制逆转且北部方向未形成整体边界体系。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 0.75, "grade": 1, "position": "MID", "reason": "剥离建国核心后，边疆控制只有有限净增，交州阶段取得又失去，未跨入中等规模。"},
         "B2": {"grade": 2, "position": "MID", "reason": "控制对岭南局部交通、海疆和北部门户有明确作用，但未改变一个主要方向。"},
         "B4": {"grade": 2, "position": "LOW", "reason": "交州等主要方向发生逆转，剩余成果仍有较高维持压力和结构缺口。"}
       },
-      "C": {"C1": 2, "C2": 2, "C3": 2, "reason": "外线胜负混杂且总体偏弱，能完成局部任务；持续性和跨方向复制能力均只得到有限检验。"}
+      "C": {"C1": 2, "C2": 2, "C3": 2, "major_system_failure_group_refs": [], "reason": "外线胜负混杂且总体偏弱，能完成局部任务；持续性和跨方向复制能力均只得到有限检验。"}
     }
   ]
 }

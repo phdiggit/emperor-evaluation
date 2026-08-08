@@ -3,127 +3,247 @@
   "scope": "续资治通鉴卷001至097闭合的北宋11位皇帝或实际摄政主政窗口；靖康覆亡后的地方复国行动不倒灌钦宗",
   "source_set_fingerprint": "62ac210a794cb4cfa6c9b3bcef2c58d72f9caa8316b9313e051e2507481ac7ac",
   "attribution_policy": "皇帝与摄政者采用互斥实际主政窗口；同一主体阶段不得同时计入名义皇帝和摄政者。跨窗口卡片只有主体阶段年代可唯一确定时才绑定。",
+  "parent_cycle_review": {
+    "status": "REVIEWED_ALL_RULERS",
+    "rule": "同一战略目标、连续动员和结果闭合链只结算一个父级周期；相邻年份、同一对手或同一方向本身不足以合并。",
+    "reviewed_ruler_ids": ["RULER-NS-ZHAO-KUANGYIN", "RULER-NS-ZHAO-GUANGYI", "RULER-NS-ZHAO-HENG", "RULER-NS-LIU-E", "RULER-NS-ZHAO-ZHEN", "RULER-NS-ZHAO-SHU", "RULER-NS-ZHAO-XU", "RULER-NS-GAO-TAOTAO", "RULER-NS-ZHAO-XU-ZHEZONG", "RULER-NS-ZHAO-JI", "RULER-NS-ZHAO-HUAN"]
+  },
   "adjudications": [
     {
       "ruler_id": "RULER-NS-ZHAO-KUANGYIN", "ruler_name": "赵匡胤", "polity": "北宋", "reign_range": "960-976", "coverage_complete": true,
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 2, "end": 4, "reason": "剥离陈桥、平荆湖、后蜀、南汉、南唐等创业统一过程后，北汉—辽与内部军镇威胁仍由开国初年的明显被动改善为总体主动；北汉未灭且辽援持续，止于4档。"},
         "A2": {"start": 2, "end": 4, "reason": "任内形成河北、河东、关南及西北若干可协同节点，主要边界由局部可守推进为总体安全但有北汉—辽缺口。"},
         "B1": {"start_equivalent": 0.5, "end_equivalent": 1.5, "grade": 2, "position": "MID", "reason": "统一战争新增核心疆域全部排除，只计算非统一边防节点与缓冲的有限净增；加权值落B1-2中位。"},
         "B2": {"grade": 4, "position": "MID", "reason": "河北、河东和西北节点共同改善多个主要方向的预警、拒止与调度条件，但未闭合北汉—辽方向。"},
         "B4": {"grade": 3, "position": "MID", "reason": "主要成果已转入常态州镇和禁军运行，仍有高强度亲征及北方结构缺口，按可移交但不完全成熟定3档。"}
       },
-      "C": {"C1": 4, "C2": 4, "C3": 4, "reason": "剥离创业统一重复计分后，守边、平叛与多方向投送仍多数兑现，军令、后勤和跨将协同经多次检验；太原撤军及局部军纪成本使三轴止于4档。"}
+      "C": {"C1": 4, "C2": 4, "C3": 4, "major_system_failure_group_refs": [], "major_system_success_group_refs": [], "reason": "剥离创业统一重复计分后，守边、平叛与多方向投送虽多数兑现，但没有一项达到重大胜绩门槛；按C4重大胜绩硬门封顶C3。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-GUANGYI", "ruler_name": "赵光义", "polity": "北宋", "reign_range": "976-997", "coverage_complete": true,
+      "third_item_cycle_merges": [
+        {"canonical_cycle_ref": "XZTJ-SONG-LIAO-NORTHERN-WAR-0986-0996", "member_campaign_group_refs": ["XZTJ-SONG-LIAO-NORTHERN-WAR-0986-0989", "XZTJ-SONG-LIAO-NORTHERN-WAR-0986-0996"], "return_class": "PROPORTIONATE_RETURN", "reason": "0986至0996组是同一宋辽北线战争的总括父链，0986至0989组为其前段展开；时间区间和战术节点重叠，合并后不得把前段重复算作第二次投资。"},
+        {"canonical_cycle_ref": "XZTJ-SONG-LIJIQIAN-0984-0992", "member_campaign_group_refs": ["XZTJ-SONG-LIJIQIAN-0984-0989", "XZTJ-SONG-LIJIQIAN-0984-0992"], "return_class": "NEGATIVE_RETURN", "reason": "0984至0989组是0984至0992李继迁—灵州战争父链的前段切片，目标、动员和终局连续；合并后只结算一次西北战略失控。"}
+      ],
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 4, "end": 2, "reason": "灭北汉属于承续统一过程而排除；高梁河、雍熙北伐和灵州方向连续重大损失，使对辽、西北的战略态势由总体优势降至明显被动。"},
         "A2": {"start": 4, "end": 2, "reason": "接班时多方向边界节点可运作，任末河北和西北防御承压、纵深与军镇协同暴露显著缺口，降至局部可守。"},
-        "B1": {"start_equivalent": 1.5, "end_equivalent": 0.75, "grade": 1, "position": "LOW", "reason": "北汉统一收益排除后，燕云无所得且西北控制受损，交班可确认的非统一边防存量低于接班。"},
+        "B1": {"start_equivalent": 1.5, "end_equivalent": 0.75, "grade": 0, "position": "LOW", "reason": "北汉统一收益排除后，燕云无所得且西北控制受损；加权控制值为-0.15，依共同边界机械落B1-0，不以残余存量掩盖净退控。"},
         "B2": {"grade": 2, "position": "LOW", "reason": "局部城寨和守点仍有区域作用，但未改变辽、西北任一主要方向的总体攻防条件。"},
         "B4": {"grade": 2, "position": "LOW", "reason": "多次大规模出师后仍依赖临时动员，败后恢复和边区维持成本高，结构成熟度止于2档低位。"}
       },
-      "C": {"C1": 2, "C2": 2, "C3": 2, "reason": "普通守边和平叛仍可完成，但三次主要北伐及灵州链暴露指挥、协同、补给和恢复能力的重复缺陷；尚未全国崩溃，三轴定2档。"}
+      "C": {"C1": 2, "C2": 2, "C3": 2, "major_system_failure_group_refs": ["XZTJ-SONG-LIAO-NORTHERN-WAR-0986-0996", "XZTJ-SONG-LIJIQIAN-0984-0992", "XZTJ-SONG-WANGXIAOBO-LISHUN-0993-0995"], "reason": "普通守边和平叛仍可完成，但北线战争、灵州链与王小波李顺之乱三个去重父级任务暴露指挥、协同、补给和恢复能力的重复缺陷；尚未全国崩溃，三轴定2档。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-HENG", "ruler_name": "赵恒", "polity": "北宋", "reign_range": "997-1022", "coverage_complete": true,
+      "third_item_cycle_exclusions": [
+        {"campaign_group_ref": "XZTJ-SONG-LIAO-SOUTHERN-INVASION-1003-1004", "reason": "只确认蒲阴被围，围城终局、控制变化与实际安全收益均未载，且投入低于实质周期门槛；保留为A/B/C观察证据，不进入D回报组合。"},
+        {"campaign_group_ref": "XZTJ-SONG-QINZHOU-TRIBAL-SKIRMISH-1014", "reason": "只确认秦州边境发生低强度格斗，胜负与安全后效未载、控制变化为零且投入低于实质周期门槛；保留为A/B/C观察证据，不进入D回报组合。"}
+      ],
+      "third_item_cycle_merges": [
+        {"canonical_cycle_ref": "XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1003", "member_campaign_group_refs": ["XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1001", "XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1003"], "return_class": "NEGATIVE_RETURN", "reason": "1000至1001清远、河外砦等阶段属于1000至1003灵州战争父链的前段，最终以灵州陷落闭合；不得把重叠区间拆成两项实质周期。"}
+      ],
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 2, "end": 4, "reason": "承接宋辽、西北明显压力，澶州防御后宋辽主战线转入长期稳定，交班时外部威胁总体受控但西北仍有缺口。"},
         "A2": {"start": 2, "end": 4, "reason": "河北防线经澶渊战争检验并转入常态边界体系，西北若干节点仍反复受扰，故止于总体安全有缺口。"},
         "B1": {"start_equivalent": 0.75, "end_equivalent": 1.0, "grade": 1, "position": "MID", "reason": "以守成为主，实际控制净增有限；边界稳定不等同领土扩张，按小规模净增定B1-1中位。"},
         "B2": {"grade": 4, "position": "HIGH", "reason": "河北主战线的稳定显著改变国家级攻防和长期动员条件，西北未闭合使其不入5档。"},
         "B4": {"grade": 4, "position": "MID", "reason": "澶渊后主要边界可常态运行并可移交，仍需岁币和西北高成本维持，定4档中位。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "澶州等国家级防御最终兑现，长期守边系统通常可运行；前期被动、西北反复和高额战争负担使体系止于中档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": ["XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1003"], "reason": "澶州等国家级防御最终兑现，长期守边系统通常可运行；灵州链的补给—守城失效、西北反复和高额战争负担使体系止于中档。"}
     },
     {
       "ruler_id": "RULER-NS-LIU-E", "ruler_name": "刘娥", "polity": "北宋", "reign_range": "1022-1033（实际主政）", "coverage_complete": true, "evidence_exposure": "LIMITED_EXPOSURE",
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 4, "end": 4, "reason": "摄政窗口内可绑定战争周期较少，宋辽主线保持稳定，西北威胁未发展为国家级降档；按低暴露规则保持而不奖励少战。"},
         "A2": {"start": 4, "end": 4, "reason": "继承的主要边界体系仍可运作，现有卡片不足以证明整体升级或崩坏，保持4档。"},
         "B1": {"start_equivalent": 1.0, "end_equivalent": 1.0, "grade": 1, "position": "MID", "reason": "未见共同尺度上的新增控制，仅确认小规模存量守成。"},
         "B2": {"grade": 2, "position": "MID", "reason": "少量边防周期支持区域性作用，但不足以推定改变主要方向。"},
-        "B4": {"grade": 3, "position": "LOW", "reason": "继承体系能维持并移交；跨任务检验有限，按低暴露封顶3档低位。"}
+        "B4": {"grade": 2, "position": "HIGH", "reason": "继承体系能维持并移交，但未经历足以证明救危或结构重建的主要压力；按例行维护上限定2档高位，不以少战抬到3档。"}
       },
-      "C": {"C1": 2, "C2": 2, "C3": 2, "reason": "仅四个独立周期；参考唐以前低暴露口径，不因少战判未知，也不推定高可靠，三轴保守定2档。"}
+      "C": {"C1": 2, "C2": 2, "C3": 2, "major_system_failure_group_refs": [], "reason": "仅四个独立周期；参考唐以前低暴露口径，不因少战判未知，也不推定高可靠，三轴保守定2档。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-ZHEN", "ruler_name": "赵祯", "polity": "北宋", "reign_range": "1033-1063（亲政）", "coverage_complete": true,
+      "third_item_cycle_exclusions": [
+        {"campaign_group_ref": "XZTJ-SONG-LIAO-YINFANG-BORDER-1045", "reason": "该节点只见辽方越界筑寨与宋方外交交涉，未发生军事投入，拆寨终局亦未闭合；保留为A/B边界观察，不构成D军事投资周期。"}
+      ],
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "XZTJ-SONG-XIA-WAR-1038-1044",
+          "member_campaign_group_refs": [
+            "XZTJ-SONG-XIA-WAR-1038-1044",
+            "XZTJ-043-SONG-XIA-FENGZHOU-FALL-1041",
+            "XZTJ-043-SONG-XIA-FUZHOU-SIEGE-1041",
+            "XZTJ-043-SONG-XIA-HAOSHUICHUAN-1041",
+            "XZTJ-043-SONG-XIA-LINFU-RAIDS-1041",
+            "XZTJ-043-SONG-XIA-LINFU-REPULSE-1041",
+            "XZTJ-043-SONG-XIA-LINZHOU-SIEGE-1041",
+            "XZTJ-043-SONG-XIA-LIUFAN-FORT-1041",
+            "XZTJ-043-SONG-XIA-LIULIBAO-1041",
+            "XZTJ-043-SONG-XIA-NINGYUAN-1041",
+            "XZTJ-043-SONG-XIA-QINGMEILANG-1041",
+            "XZTJ-043-SONG-XIA-TUMAochuan-1041",
+            "XZTJ-043-SONG-XIA-WANGXIN-EARLIER-BATTLE",
+            "XZTJ-043-SONG-XIA-YIQIN-RAID-CARRYBACK",
+            "XZTJ-043-SONG-XIA-ZHAOXUN-MAZHAN-1041",
+            "XZTJ-044-SONG-XIA-DINGCHUAN-AFTERMATH-WANGXIN",
+            "XZTJ-SONG-QINGJIAN-WUDINGRAID-1040",
+            "XZTJ-SONG-XIA-BAIZIZHAI-1042",
+            "XZTJ-SONG-XIA-CHENGPING-RESTORATION-1042",
+            "XZTJ-SONG-XIA-DASHUN-FORT-1042",
+            "XZTJ-SONG-XIA-DINGCHUAN-1042",
+            "XZTJ-SONG-XIA-FUYAN-FORTS-PRIOR-1040-1041",
+            "XZTJ-SONG-XIA-HUANZHOU-QIANG-1042",
+            "XZTJ-SONG-XIA-QINGJIAN-1044",
+            "XZTJ-SONG-XIA-TUMAOCUAN-ZHANGKANG-1042",
+            "XZTJ-SONG-XIA-ZHAOAN-FORT-1042"
+          ],
+          "return_class": "NEGATIVE_RETURN",
+          "reason": "1038至1044年宋夏战争的三川口、好水川、定川寨、麟府与诸寨攻防属于同一国家级战争目标和持续动员链；卷内按州寨拆卡只作战术展开，不能把局部击退逐项冲抵三次主力败损、长期军费与最终无净控制收益。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
         "A1": {"start": 4, "end": 3, "reason": "西夏战争中三川口、好水川、定川寨等重大失败使西北战略态势下降；后期议和并稳住边线，未降至国家级严重被动。"},
         "A2": {"start": 4, "end": 3, "reason": "河北主线稳定，但西北多处城寨和救援链暴露缺口；后期恢复为可运作主边界，仍未回到总体安全档。"},
         "B1": {"start_equivalent": 1.0, "end_equivalent": 0.75, "grade": 1, "position": "LOW", "reason": "对夏战争未形成稳定净扩张，若干节点得失相抵后略有退让，控制净包为小幅负变。"},
         "B2": {"grade": 3, "position": "LOW", "reason": "青涧等节点、安南和西南处置对区域防御有重要作用，但不足以改变国家主要战略方向。"},
         "B4": {"grade": 3, "position": "MID", "reason": "议和及西北常态防务能够移交，前期反复败损和高军费说明成熟度有限。"}
       },
-      "C": {"C1": 2, "C2": 3, "C3": 2, "reason": "体系能长期动员并在后期恢复，但对夏主战场多次高成本失败，前线情报、将帅协同和救援链重复失效；作战兑现与可靠性定2，持续性定3。"}
+      "C": {"C1": 2, "C2": 3, "C3": 2, "major_system_failure_group_refs": ["XZTJ-050-NONGZHIGAO-NANTIAN-YONGZHOU-1049", "XZTJ-SONG-XIA-WAR-1038-1044"], "reason": "体系能长期动员并在后期恢复，但宋夏国家级战争与侬智高初期处置暴露前线情报、将帅协同和救援链失效；同一宋夏战争只作一个体系任务，不以州寨卡数量放大样本，作战兑现与可靠性定2，持续性定3。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-SHU", "ruler_name": "赵曙", "polity": "北宋", "reign_range": "1063-1067", "coverage_complete": true, "evidence_exposure": "VERY_LOW_EXPOSURE",
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 3, "end": 3, "reason": "短在位期仅一个可绑定独立战争周期，未见足以改变接班和交班国家战略状态的证据，按低暴露保持。"},
         "A2": {"start": 3, "end": 3, "reason": "主要边界体系沿用仁宗末现状，单周期不足以判定整体升降。"},
         "B1": {"start_equivalent": 0.75, "end_equivalent": 0.75, "grade": 1, "position": "LOW", "reason": "无可确认共同尺度净增，仅保留既有小规模控制存量。"},
         "B2": {"grade": 2, "position": "LOW", "reason": "唯一周期只能证明局部影响，低暴露封顶2档。"},
         "B4": {"grade": 2, "position": "MID", "reason": "继承体系可维持，但缺少跨任务、跨期检验，按唐以前低暴露规则定2档中位。"}
       },
-      "C": {"C1": 2, "C2": 2, "C3": 2, "reason": "仅一个独立周期；不以少战推定高分或待定，按低暴露共同口径保守定2档。"}
+      "C": {"C1": 2, "C2": 2, "C3": 2, "major_system_failure_group_refs": [], "reason": "仅一个独立周期；不以少战推定高分或待定，按低暴露共同口径保守定2档。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-XU", "ruler_name": "赵顼", "polity": "北宋", "reign_range": "1067-1085", "coverage_complete": true,
+      "third_item_cycle_exclusions": [
+        {"campaign_group_ref": "XZTJ-SONG-ZHUYA-HUANGYING-1076", "reason": "现有材料只见黄婴入寇与宋方加强戒备，未载接战、控制变化或安全终局，投入低于实质周期门槛；保留为A/B/C观察证据，不进入D回报组合。"}
+      ],
+      "third_item_cycle_merges": [
+        {
+          "canonical_cycle_ref": "XZTJ-SONG-TIBET-XIHE-1072-1074",
+          "member_campaign_group_refs": ["XZTJ-SONG-TIBET-XIHE-1072-1073", "XZTJ-SONG-TIBET-XIHE-1072-1074", "XZTJ-SONG-TIBET-XIHE-1074"],
+          "return_class": "HIGH_RETURN",
+          "reason": "王韶自渭源、武胜至河州、宕岷叠洮的推进、守成与反击属于1072至1074年同一熙河战略目标和连续行动；分卷续卡与战术阶段不构成新的独立投资周期。"
+        },
+        {
+          "canonical_cycle_ref": "XZTJ-SONG-XIA-LUOWU-FUNING-1071",
+          "member_campaign_group_refs": ["XZTJ-SONG-XIA-SUIZHOU-1067-1070", "XZTJ-SONG-XIA-QINGZHOU-1070-1071", "XZTJ-SONG-XIA-LUOWU-FUNING-1071", "XZTJ-SONG-XIA-ZHENRONG-1070", "XZTJ-SONG-XIA-HUANQING-1072", "XZTJ-SONG-XIA-HULUHE-1072"],
+          "return_class": "NEGATIVE_RETURN",
+          "reason": "绥州招纳、庆州报复、啰兀筑弃及1070至1072年连续反击均由同一轮西北开边决策诱发，目标、动员和结果链连续；局部解围不能拆成多项正收益冲抵堡寨失守和边衅扩大。"
+        },
+        {
+          "canonical_cycle_ref": "XZTJ-SONG-XIA-FIVE-ROUTE-1081",
+          "member_campaign_group_refs": ["XZTJ-SONG-XIA-FIVE-ROUTE-1081", "XZTJ-SONG-XIA-YUANFENG-WESTERN-CAMPAIGN-1081-RETRO"],
+          "return_class": "NEGATIVE_RETURN",
+          "reason": "五路伐夏父卡与元丰西师追叙是同一次1081年国家级远征的当时记录和后续成本复核，不得按两项负收益重复结算。"
+        },
+        {
+          "canonical_cycle_ref": "XZTJ-SONG-XIA-LANZHOU-1083-1084",
+          "member_campaign_group_refs": ["XZTJ-SONG-XIA-BORDER-1082", "XZTJ-SONG-XIA-BORDER-1083", "XZTJ-SONG-XIA-BORDER-1084", "XZTJ-SONG-XIA-LANZHOU-1083-1084"],
+          "return_class": "PROPORTIONATE_RETURN",
+          "reason": "永乐败后1082至1084年的环庆、麟延、兰州连续拒止属于同一西北防线恢复周期；各寨交战是战术观察，终局以守住主要防线作相称回报。"
+        }
+      ],
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 3, "end": 3, "reason": "熙河开边及多处筑城形成主动，但安南战争、五路伐夏与永乐城等高成本挫败抵消整体升级，交班仍处制衡。"},
         "A2": {"start": 3, "end": 3, "reason": "西北边界向外推进并增加节点，部分新线脆弱且遭重大反击，整体仍为可运作但有显著缺口。"},
         "B1": {"start_equivalent": 0.75, "end_equivalent": 2.5, "grade": 3, "position": "MID", "reason": "熙河、兰州等实际控制形成显著净增；扣除反复失地与脆弱节点后，加权值仍落B1-3中位。"},
         "B2": {"grade": 4, "position": "MID", "reason": "新增走廊、州寨与纵深显著改变西北主要方向条件，但未决定性解决西夏且安南方向有退让。"},
         "B4": {"grade": 3, "position": "LOW", "reason": "部分成果已常态驻防，永乐失败、运输和民力成本显示大量控制仍依赖高强度投入，止于3档低位。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 2, "reason": "跨西北、安南多方向的大规模动员能力明确，胜负并存；五路伐夏、永乐城及安南链暴露重复的统帅协同和系统可靠性缺陷，C3封顶2。"}
+      "C": {"C1": 3, "C2": 3, "C3": 2, "major_system_failure_group_refs": ["XZTJ-SONG-DAIVIET-WAR-1075-1077", "XZTJ-SONG-XIA-FIVE-ROUTE-1081", "XZTJ-SONG-XIA-LUOWU-FUNING-1071", "XZTJ-SONG-XIA-YONGLE-1082"], "reason": "跨西北、安南多方向的大规模动员能力明确，胜负并存；早期开边、五路伐夏、永乐城及安南链分别暴露统帅协同和系统可靠性缺陷，同一远征及其追叙只计一个任务，C3封顶2。"}
     },
     {
       "ruler_id": "RULER-NS-GAO-TAOTAO", "ruler_name": "高滔滔", "polity": "北宋", "reign_range": "1085-1093（实际主政）", "coverage_complete": true, "evidence_exposure": "LIMITED_EXPOSURE",
+      "third_item_cycle_exclusions": [
+        {"campaign_group_ref": "XZTJ-SONG-XIA-LVHUIQING-YANAN-BORDER-RETRO", "reason": "卡片明示为吕惠卿此前延安边政的回溯材料，事件无本窗口年代，不得以卷级回退年份归责高滔滔。"},
+        {"campaign_group_ref": "XZTJ-SONG-XINING-YUANFENG-EXPANSION-AGGREGATE-RETRO", "reason": "该卡是熙宁—元丰多场战争的总量校验与替换约束，不是元祐窗口的新军事投资，也不得与逐战父周期重复。"}
+      ],
       "AB": {
+        "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
         "A1": {"start": 3, "end": 4, "reason": "承接元丰西师与永乐后患，摄政期通过收缩、议和和守边恢复总体稳定；边地让渡与持续冲突使其止于4档。"},
         "A2": {"start": 3, "end": 4, "reason": "主要边界从脆弱扩张线回到总体可守体系，西北仍有局部反复和缺口。"},
-        "B1": {"start_equivalent": 2.5, "end_equivalent": 1.5, "grade": 1, "position": "LOW", "reason": "对夏让渡若干争议地使控制存量下降；该收缩可改善安全，但不得改写为领土净收益。"},
+        "B1": {"start_equivalent": 2.5, "end_equivalent": 1.5, "grade": 0, "position": "LOW", "reason": "对夏让渡若干争议地使控制存量下降；加权控制值为0，依共同边界机械落B1-0。收缩可改善安全与成熟度，但不得改写为控制净收益。"},
         "B2": {"grade": 3, "position": "MID", "reason": "保留节点仍有主要区域防御价值，收缩后不再具神宗期扩张线的多方向控制效果。"},
         "B4": {"grade": 4, "position": "LOW", "reason": "收缩后的边界更可持续、可移交，有限战争样本和仍存西北压力使其定4档低位。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "有限样本显示守边、反击和恢复任务通常可完成，且未再出现元丰式全国性远征失控；证据广度不足以进入4档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "reason": "有限样本显示守边、反击和恢复任务通常可完成，且未再出现元丰式全国性远征失控；证据广度不足以进入4档。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG", "ruler_name": "赵煦", "polity": "北宋", "reign_range": "1093-1100（亲政）", "coverage_complete": true, "evidence_exposure": "LIMITED_EXPOSURE",
+      "third_item_cycle_merges": [
+        {"canonical_cycle_ref": "XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098", "member_campaign_group_refs": ["XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098", "XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1099"], "return_class": "HIGH_RETURN", "reason": "平夏城筑守、诱敌反击与神堆追击属于同一堡寨战略连续行动；1099补叙未形成重新决策或新目标，合并后以守成并重创来军的终局结算。"},
+        {"canonical_cycle_ref": "XZTJ-SONG-XIA-SHAOSHENG-OFFENSIVE-1097-1098", "member_campaign_group_refs": ["XZTJ-SONG-XIA-SHAOSHENG-BORDER-WAR-1096", "XZTJ-SONG-XIA-SHAOSHENG-OFFENSIVE-1097-1098"], "return_class": "LOW_RETURN", "reason": "1096年金明等砦失守与1097至1098年宋军反攻属于绍圣同一轮宋夏战争的受攻、反攻和结果闭合链；后续局部恢复不足完全抵消前段重大损失，合并为一项低收益。"}
+      ],
       "AB": {
+        "control_contribution_type": "NEW_RECOVERED_REBUILT",
         "A1": {"start": 4, "end": 4, "reason": "亲政期恢复西北进取并取得若干城寨成果，未消除西夏长期威胁；总体保持优势而不足进5档。"},
         "A2": {"start": 4, "end": 4, "reason": "平夏等节点加强西北防线，卡片覆盖仅到1100且独立周期有限，保持4档不外推。"},
-        "B1": {"start_equivalent": 1.5, "end_equivalent": 2.5, "grade": 2, "position": "MID", "reason": "恢复并新增若干西北城寨控制，形成有限但明确净增；按共同尺度落B1-2中位。"},
+        "B1": {"start_equivalent": 1.5, "end_equivalent": 2.5, "grade": 3, "position": "LOW", "reason": "恢复并新增若干西北城寨控制；加权控制值1.6已跨共同边界，机械落B1-3低位，不因样本有限退回错误档位。"},
         "B2": {"grade": 4, "position": "MID", "reason": "平夏等节点对西北主要走廊和攻防条件有显著作用，但未形成决定性终局。"},
         "B4": {"grade": 3, "position": "MID", "reason": "成果具驻防和城寨承载，取得时间短、维持压力高，成熟度定3档中位。"}
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "reason": "五个独立周期显示多项西北任务可兑现且有持续投送；样本有限并有负收益阶段，按低暴露上限定3档。"}
+      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "reason": "五个独立周期显示多项西北任务可兑现且有持续投送；样本有限并有负收益阶段，按低暴露上限定3档。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-JI", "ruler_name": "赵佶", "polity": "北宋", "reign_range": "1100-1125", "coverage_complete": true,
+      "third_item_cycle_exclusions": [
+        {"campaign_group_ref": "XZTJ-JIN-SONG-ZHONGSHAN-SIEGE-1125-1126", "reason": "徽宗窗口只见中山府初期守御，终局跨入钦宗时期且本卡未闭合；投入低于实质周期门槛，保留为A/B/C阶段证据，不进入徽宗D回报组合。"}
+      ],
+      "third_item_cycle_merges": [
+        {"canonical_cycle_ref": "XZTJ-SONG-QINGTANG-RECONQUEST-1103-1108", "member_campaign_group_refs": ["XZTJ-SONG-QINGTANG-RECONQUEST-1103-1104", "XZTJ-SONG-QINGTANG-RECONQUEST-1103-1108"], "return_class": "PROPORTIONATE_RETURN", "reason": "1103至1104再取青唐是1103至1108青唐恢复父链的前段，后续洮州、积石接收属于同一目标的巩固闭合；合并为一项相称回报。"},
+        {"canonical_cycle_ref": "XZTJ-SONG-XIA-DINGYUAN-ZANGDIHE-1114-1115", "member_campaign_group_refs": ["XZTJ-SONG-XIA-DINGYUAN-ZANGDIHE-1114", "XZTJ-SONG-XIA-DINGYUAN-ZANGDIHE-1114-1115"], "return_class": "NEGATIVE_RETURN", "reason": "定远守城、臧底河筑城及随后宋军攻臧底河惨败是同一争夺链，跨卷续记不得重复结算。"},
+        {"canonical_cycle_ref": "XZTJ-SONG-XIA-TONGAN-ZHENWU-1119", "member_campaign_group_refs": ["XZTJ-SONG-XIA-TONGAN-ZHENWU-1119", "XZTJ-SONG-XIA-POST-TONGAN-RECOVERY-1119"], "return_class": "LOW_RETURN", "reason": "统安惨败、震武受围与随后的三城反击、六路罢兵发生在同一次1119年动员和结果链；局部恢复只把终局抬至低收益，不能另算一项正向周期。"},
+        {"canonical_cycle_ref": "XZTJ-SONG-YAN-SECOND-CAMPAIGN-1122", "member_campaign_group_refs": ["XZTJ-SONG-YAN-FIRST-CAMPAIGN-1122", "XZTJ-SONG-YAN-SECOND-CAMPAIGN-1122", "XZTJ-SONG-YAN-YONGQING-1122"], "return_class": "NEGATIVE_RETURN", "reason": "两次征燕、永清局部接收均服务于1122年同一燕京战略目标，动员与终局连续；不得以永清小节点冲抵两次主力败绩，也不得把两次失败重复投票。"},
+        {"canonical_cycle_ref": "XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "member_campaign_group_refs": ["XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "XZTJ-JIN-SONG-FIRST-INVASION-WEST-1125-1126"], "return_class": "NEGATIVE_RETURN", "reason": "金军东、西两路第一次侵宋是同一国家级进攻计划的协同两翼，徽宗退位前共同造成燕山、河东与河北多线失控；按一个父级战争周期结算。"}
+      ],
       "AB": {
+        "control_contribution_type": "ROUTINE_MAINTENANCE",
         "A1": {"start": 4, "end": 1, "reason": "接班时西北与宋辽边界总体占优；联金灭辽、燕云高成本接收、张觉处置和金军南侵使交班时主要战略方向转为存亡级被动，但京师尚未在其退位前陷落，故终点定1而非覆亡0档。"},
         "A2": {"start": 4, "end": 1, "reason": "继承的常态边防体系在燕山、河东与河北多线失效，义胜、常胜军叛离且太原、信德等链已受压；退位时仍有东京及部分州镇防御能力，终点定1。"},
         "B1": {"start_equivalent": 2.5, "end_equivalent": 0.0, "grade": 0, "position": "HIGH", "reason": "西北局部开边不足抵消燕云空城接收后迅速丧失、山后与河东北部退控；严重净退控使加权控制值不大于0，按B1-0。"},
         "B2": {"grade": 1, "position": "LOW", "reason": "退位前仍有保州、安肃等局部守点，但燕山、河东与河北主线的战略价值包已大幅失效，只保留单点作用。"},
         "B4": {"grade": 1, "position": "LOW", "reason": "燕云成果长期依赖异常转饷与脆弱降军，交班时主要成果已失或处围攻、叛离状态，未形成可常态移交结构。"}
       },
-      "C": {"C1": 2, "C2": 2, "C3": 1, "reason": "任内仍能完成部分西北、平乱和局部守城任务，但征辽、燕山接管及金军南侵连续暴露主要任务失败、运输透支、军令多头和降军叛离；中央级组织在退位前已严重失灵，C3定1。"}
+      "C": {"C1": 2, "C2": 2, "C3": 1, "major_system_failure_group_refs": ["XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "XZTJ-SONG-FANGLA-REBELLION-1120-1121", "XZTJ-SONG-YAN-SECOND-CAMPAIGN-1122"], "reason": "任内仍能完成部分西北、平乱和局部守城任务，但方腊初期扩张、征燕父级战争及金军第一次侵宋连续暴露主要任务失败、运输透支、军令多头和降军叛离；中央级组织在退位前已严重失灵，C3定1。"}
     },
     {
       "ruler_id": "RULER-NS-ZHAO-HUAN", "ruler_name": "赵桓", "polity": "北宋", "reign_range": "1126-1127", "coverage_complete": true, "terminal_polity_collapse": true,
+      "third_item_cycle_exclusions": [
+        {"campaign_group_ref": "XZTJ-JIN-SONG-QINGYUAN-1125", "reason": "钦宗窗口只确认庆源府遭攻，守城终局、控制变化与安全收益均未载，且投入低于实质周期门槛；保留为A/B/C阶段证据，不进入D回报组合。"}
+      ],
+      "third_item_cycle_merges": [
+        {"canonical_cycle_ref": "XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "member_campaign_group_refs": ["XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "XZTJ-JIN-SONG-KAIFENG-FIRST-SIEGE-1126"], "return_class": "LOW_RETURN", "reason": "东路渡河、东京第一次围城、防守与城下议和属于金军第一次侵宋在钦宗窗口内的同一目标和闭合链，只结算一次低收益防御。"},
+        {"canonical_cycle_ref": "XZTJ-SONG-RELIEF-TAIYUAN-LIGANG-1126", "member_campaign_group_refs": ["XZTJ-SONG-RELIEF-TAIYUAN-SHIZHONG-1126", "XZTJ-SONG-RELIEF-TAIYUAN-LIGANG-1126", "XZTJ-JIN-SONG-TAIYUAN-SIEGE-1125-1126"], "return_class": "NEGATIVE_RETURN", "reason": "种师中、李纲诸路援太原与太原围城终局共享解围目标、连续投入和城陷结果；不得把援军各路与围城终局拆成三项负收益。"},
+        {"canonical_cycle_ref": "XZTJ-JIN-SONG-KAIFENG-SECOND-SIEGE-1126-1127", "member_campaign_group_refs": ["XZTJ-JIN-SONG-SECOND-INVASION-WEST-YELLOW-RIVER-1126", "XZTJ-JIN-SONG-KAIFENG-SECOND-SIEGE-1126-1127"], "return_class": "NEGATIVE_RETURN", "reason": "黄河西线崩溃与东京第二次围城是金军第二次侵宋推进至北宋中枢覆亡的同一父级链，按一次国家级负收益结算。"}
+      ],
       "AB": {
+        "control_contribution_type": "INHERITED_ONLY",
         "A1": {"start": 1, "end": 0, "reason": "承接金军两路南侵的存亡级被动，任内东京两次被围并最终失陷、二帝受控，北宋中枢覆亡；按终端覆亡门禁终点0。"},
         "A2": {"start": 1, "end": 0, "reason": "东京、太原、真定及河东河北主要节点连续失守，中央已无可执行的整体防御体系；地方抵抗与康王复国核心不得倒灌，终点0。"},
         "B1": {"start_equivalent": 0.0, "end_equivalent": 0.0, "grade": 0, "position": "LOW", "reason": "终端政权实际覆亡且无可向同一北宋中枢移交的防御控制能力，依合同交班绝对量与B1均为0。"},
         "B2": {"grade": 0, "position": "LOW", "reason": "覆亡终点不存在可由北宋中枢继续运作的控制成果；地方坚守不能替代皇帝交班控制包。"},
         "B4": {"grade": 0, "position": "LOW", "reason": "北宋中枢覆亡、皇帝被俘，无可常态移交成果，按终端门禁为0。"}
       },
-      "C": {"C1": 0, "C2": 1, "C3": 0, "reason": "虽有东京第一次守城、李纲及部分地方军的有效抵抗，主要战线仍普遍崩溃，太原、真定、河东与东京相继失守；动员补给屡遭致命限制，中央军令与组织最终全面失去基本运行能力且任内未恢复。"}
+      "C": {"C1": 0, "C2": 1, "C3": 0, "major_system_failure_group_refs": ["XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "XZTJ-JIN-SONG-KAIFENG-SECOND-SIEGE-1126-1127", "XZTJ-SONG-RELIEF-KAIFENG-FANZHIXU-1126", "XZTJ-SONG-RELIEF-TAIYUAN-LIGANG-1126"], "reason": "虽有东京第一次守城、李纲及部分地方军的有效抵抗，去重后的第一次侵宋、太原救援、第二次侵宋与援京父级任务仍普遍失败；动员补给屡遭致命限制，中央军令与组织最终全面失去基本运行能力且任内未恢复。"}
     }
   ]
 }

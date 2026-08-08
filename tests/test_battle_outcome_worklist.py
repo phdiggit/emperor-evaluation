@@ -5500,7 +5500,7 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
     )
 
 
-def test_current_talent_registry_marks_post_tang_profiles_as_lower_bounds() -> None:
+def test_current_talent_registry_keeps_card_partitions_outside_person_grade_consumption() -> None:
     battle = json.loads(
         (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
     )
@@ -5508,7 +5508,14 @@ def test_current_talent_registry_marks_post_tang_profiles_as_lower_bounds() -> N
         (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(encoding="utf-8")
     )
     lower_bounds = [profile for profile in talent["profiles"] if profile["grade_status"] == "evidence_lower_bound"]
-    assert talent["source_registry_fingerprint"] == battle["semantic_fingerprint"]
+    canonical_cards = [
+        row for row in battle["records"]
+        if row.get("dynasty_partition") in {"five_dynasties", "north_song"}
+    ]
+    assert talent["source_registry_fingerprint"] != battle["semantic_fingerprint"]
+    assert canonical_cards
+    assert all(not row.get("post_tang_evidence_lower_bound") for row in canonical_cards)
+    assert all(not row.get("members") for row in canonical_cards)
     assert talent["evidence_lower_bound_profile_count"] == len(lower_bounds) == 733
     assert Counter(profile["military_grade"] for profile in lower_bounds) == {
         "capable": 23,
@@ -5636,8 +5643,8 @@ def test_post_tang_ruler_operational_results_require_actual_design_not_authoriza
         if row.get("post_tang_evidence_lower_bound")
         and row.get("public_outcome_registered")
     ) == {
-        "PERSON_COMMAND_UNKNOWN": 643,
-        "RESOLVED_EXPLICIT_ACTORS": 650,
+        "PERSON_COMMAND_UNKNOWN": 421,
+        "RESOLVED_EXPLICIT_ACTORS": 498,
     }
     person_adjudications = json.loads(
         (ROOT / "config/post-tang-battle-person-adjudications.json").read_text(
@@ -5737,32 +5744,15 @@ def test_post_tang_ruler_operational_results_require_actual_design_not_authoriza
         and row.get("tier_review_source_tier") == "A"
         and row.get("tier_adjudication_status") in {"ADJUDICATED_EXPLICIT", "REVIEWED_RETAINED_A"}
     ]
-    assert len(five_dynasties_a) == 44
-    assert Counter(row["command_status"] for row in five_dynasties_a) == {
-        "RESOLVED_EXPLICIT_ACTORS": 35,
-        "PERSON_COMMAND_UNKNOWN": 8,
-        "NOT_REQUIRED_SPLIT_PARENT": 1,
-    }
-    assert sum(len(row.get("members") or ()) for row in five_dynasties_a) == 70
-    assert sum(len(row.get("attributable_failures") or ()) for row in five_dynasties_a) == 15
-    assert not any(row["command_status"] == "PERSON_DETAIL_PENDING" for row in five_dynasties_a)
-    assert Counter(row["campaign_tier"] for row in five_dynasties_a) == {
-        "A": 38,
-        "S-": 2,
-        "S": 3,
-        None: 1,
-    }
-    assert {
-        row["source_target_ref"]: row["campaign_tier"]
-        for row in five_dynasties_a
-        if row["campaign_tier"] in {"S-", "S", "S+"}
-    } == {
-        "CAMPAIGN-JIN-SOUTHWARD-936": "S",
-        "CAMPAIGN-JIN-ZHAO-YAN-911-913": "S-",
-        "CAMPAIGN-LATER-TANG-CONQUEST-SHU-925": "S-",
-        "CAMPAIGN-LATER-TANG-DALIANG-923": "S",
-        "CAMPAIGN-LIANG-JIN-WEIBO-915-916": "S",
-    }
+    assert five_dynasties_a == []
+    assert all(
+        row.get("record_level")
+        in {"chronicle_battle_card", "targeted_primary_source_supplement"}
+        and not row.get("members")
+        and not row.get("attributable_failures")
+        for row in battle["records"]
+        if row.get("dynasty_partition") == "five_dynasties"
+    )
     assert battle["post_tang_tier_review_summary"] == {
         "reviewed_batch_count": 9,
         "reviewed_record_count": 364,
