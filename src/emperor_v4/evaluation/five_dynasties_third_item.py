@@ -665,17 +665,7 @@ D_BANDS = {
     "D-3": (22.0, 29.9), "D-4": (30.0, 35.9), "D-5": (36.0, 40.0),
 }
 D_EMPIRICAL_CALIBRATION = {
-    "schema_id": "d-quantitative-portfolio-calibration-v3",
-    "known_material_cycle_count": 559,
-    "category_counts": {
-        "NATIONAL_NEGATIVE": 73,
-        "NEGATIVE_RETURN": 115,
-        "LOW_RETURN": 143,
-        "PROPORTIONATE_RETURN": 102,
-        "HIGH_RETURN": 73,
-        "MAJOR_HIGH_RETURN": 49,
-        "TOP_HIGH_RETURN": 4,
-    },
+    "schema_id": "d-normalized-risk-adjusted-efficiency-v1",
     "weights": {
         "NATIONAL_NEGATIVE": -8,
         "NEGATIVE_RETURN": -3,
@@ -685,14 +675,15 @@ D_EMPIRICAL_CALIBRATION = {
         "MAJOR_HIGH_RETURN": 6,
         "TOP_HIGH_RETURN": 10,
     },
-    "quality_thresholds": {
-        "D-1_TO_D-2": -16.0,
-        "D-2_TO_D-3": 0.0,
-        "D-3_TO_D-4": 12.0,
-        "D-4_TO_D-5": 27.0,
-        "D-5_TO_FULL_SCORE": 36.4,
+    "efficiency_thresholds": {
+        "D-1_FLOOR": -11.0,
+        "D-1_TO_D-2": -1.5,
+        "D-2_TO_D-3": 0.5,
+        "D-3_TO_D-4": 1.2,
+        "D-4_TO_D-5": 3.0,
+        "D-5_TO_FULL_SCORE": 4.0,
     },
-    "decisive_yield_thresholds": {"D-4": 2.0, "D-5": 4.4},
+    "minimum_exposure": {"D-4": 3, "D-5": 4},
 }
 def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:
     payload = _load_adjudication_payload(workspace_root)
@@ -1237,7 +1228,7 @@ def _validate_bc_parent_cycle_alignment(
             retired_members = {
                 str(ref) for ref in merge["member_campaign_group_refs"]
             } - {canonical}
-            if canonical not in groups or retired_members.intersection(groups):
+            if retired_members.intersection(groups):
                 raise ValueError(
                     f"{c_row['ruler_name']}的C独立任务仍含父级合并成员"
                 )
@@ -1432,6 +1423,37 @@ def _normalize_qin_tang_bc_parent_cycles(
             c_row["major_system_success_refs"] = list(
                 dict.fromkeys(resolved_successes)
             )
+            c_axis_adjudication = direction_by_id.get(ruler_id, {}).get(
+                "c_axis_adjudication"
+            )
+            if c_axis_adjudication:
+                c1, c2, c3 = (
+                    int(c_axis_adjudication[key]) for key in ("C1", "C2", "C3")
+                )
+                overall, rate, points, surplus = _c_score(c1, c2, c3)
+                lower, upper = (
+                    (0, 29), (30, 44), (45, 59),
+                    (60, 74), (75, 89), (90, 100),
+                )[min(c1, c2, c3)]
+                c_row.update({
+                    "combat_delivery_grade": f"C1-{c1}",
+                    "operational_sustainability_cap": f"C2-{c2}",
+                    "system_reliability_cap": f"C3-{c3}",
+                    "C_overall_grade": overall,
+                    "C_score_rate": rate,
+                    "C_score_points": points,
+                    "C_score_support_surplus": surplus,
+                    "C_score_band": {"lower_rate": lower, "upper_rate": upper},
+                    "cap_reasons": [str(c_axis_adjudication["reason"])],
+                })
+                c_row["major_system_failure_refs"] = list(
+                    dict.fromkeys(
+                        str(ref)
+                        for ref in c_axis_adjudication.get(
+                            "major_system_failure_group_refs", ()
+                        )
+                    )
+                )
         _apply_c_task_evidence_ceiling(c_row)
         _apply_c_major_victory_gate(c_row)
         c_row["parent_cycle_merge_adjudications"] = list(
@@ -1655,7 +1677,8 @@ def _d_grade_and_score(
                 if potential_material
                 else "NO_MATERIAL_CYCLE"
             ),
-            "return_class_counts": dict(sorted(counts.items())),
+            "return_class_counts": dict(sorted(material_counts.items())),
+            "observation_return_class_counts": dict(sorted(counts.items())),
             "material_return_class_counts": dict(sorted(material_counts.items())),
             "usable_cycle_count": len(cycles),
             "material_cycle_count": len(material),
@@ -1671,10 +1694,18 @@ def _d_grade_and_score(
             ],
             "major_high_return_refs": [],
             "top_tier_high_return_refs": [],
-            "portfolio_quality_index": None,
+            "portfolio_net_weight_sum": None,
+            "mean_cycle_weight": None,
+            "decisive_density": None,
+            "adverse_cycle_share": None,
+            "national_negative_share": None,
+            "portfolio_efficiency_index": None,
             "decisive_yield_index": 0.0,
             "high_return_tier_counts": dict(sorted(high_return_tier_counts.items())),
             "cycle_q_adjudications": [],
+            "material_parent_cycle_refs": [
+                cycle["campaign_group_ref"] for cycle in material
+            ],
             "canonical_parent_cycle_refs": canonical_parent_refs,
             "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
             "empirical_calibration": D_EMPIRICAL_CALIBRATION,
@@ -1719,29 +1750,45 @@ def _d_grade_and_score(
         }
         for cycle in known_material
     ]
-    quality_index = sum(item["q_contribution"] for item in cycle_q_adjudications)
+    net_weight_sum = sum(item["q_contribution"] for item in cycle_q_adjudications)
     decisive_yield = float(len(major) + len(top))
-    thresholds = D_EMPIRICAL_CALIBRATION["quality_thresholds"]
+    known_count = len(known_material)
+    adverse_count = material_counts["LOW_RETURN"] + material_counts["NEGATIVE_RETURN"]
+    mean_cycle_weight = net_weight_sum / known_count
+    decisive_density = decisive_yield / known_count
+    adverse_share = adverse_count / known_count
+    national_negative_share = len(national) / known_count
+    efficiency_index = (
+        mean_cycle_weight
+        + decisive_density
+        - adverse_share
+        - 2 * national_negative_share
+    )
+    thresholds = D_EMPIRICAL_CALIBRATION["efficiency_thresholds"]
     d12 = float(thresholds["D-1_TO_D-2"])
     d23 = float(thresholds["D-2_TO_D-3"])
     d34 = float(thresholds["D-3_TO_D-4"])
     d45 = float(thresholds["D-4_TO_D-5"])
     d5_full = float(thresholds["D-5_TO_FULL_SCORE"])
-    decisive_thresholds = D_EMPIRICAL_CALIBRATION["decisive_yield_thresholds"]
+    minimum_exposure = D_EMPIRICAL_CALIBRATION["minimum_exposure"]
 
-    if quality_index >= d45 and decisive_yield >= float(decisive_thresholds["D-5"]):
+    if efficiency_index >= d45 and known_count >= int(minimum_exposure["D-5"]):
         grade = "D-5"
-    elif quality_index >= d34 and decisive_yield >= float(decisive_thresholds["D-4"]):
+    elif efficiency_index >= d34 and known_count >= int(minimum_exposure["D-4"]):
         grade = "D-4"
-    elif quality_index >= d23:
+    elif efficiency_index >= d23:
         grade = "D-3"
-    elif quality_index >= d12:
+    elif efficiency_index >= d12:
         grade = "D-2"
     else:
         grade = "D-1"
 
     grade_order = {"D-1": 1, "D-2": 2, "D-3": 3, "D-4": 4, "D-5": 5}
     grade_cap_reasons: list[str] = []
+    if efficiency_index >= d45 and known_count < int(minimum_exposure["D-5"]):
+        grade_cap_reasons.append("D5_REQUIRES_FOUR_CLOSED_MATERIAL_CYCLES")
+    if efficiency_index >= d34 and known_count < int(minimum_exposure["D-4"]):
+        grade_cap_reasons.append("D4_REQUIRES_THREE_CLOSED_MATERIAL_CYCLES")
 
     def cap_grade(max_grade: str, reason: str) -> None:
         nonlocal grade
@@ -1755,52 +1802,26 @@ def _d_grade_and_score(
     elif material_unknown:
         cap_grade("D-4", "MATERIAL_RETURN_UNKNOWN_PRESENT")
 
-    quality_ranges = {
-        "D-1": (2 * d12, d12),
+    efficiency_ranges = {
+        "D-1": (float(thresholds["D-1_FLOOR"]), d12),
         "D-2": (d12, d23),
         "D-3": (d23, d34),
         "D-4": (d34, d45),
         "D-5": (d45, d5_full),
     }
-    decisive_ranges = {
-        "D-3": (0.0, float(decisive_thresholds["D-4"])),
-        "D-4": (
-            float(decisive_thresholds["D-4"]),
-            float(decisive_thresholds["D-5"]),
-        ),
-        "D-5": (
-            float(decisive_thresholds["D-5"]),
-            float(decisive_thresholds["D-5"])
-            + 1.2
-            * (
-                float(decisive_thresholds["D-5"])
-                - float(decisive_thresholds["D-4"])
-            ),
-        ),
-    }
-    quality_lower, quality_upper = quality_ranges[grade]
-    quality_position = (
-        (quality_index - quality_lower) / (quality_upper - quality_lower)
-        if quality_upper > quality_lower
+    efficiency_lower, efficiency_upper = efficiency_ranges[grade]
+    efficiency_position = (
+        (efficiency_index - efficiency_lower) / (efficiency_upper - efficiency_lower)
+        if efficiency_upper > efficiency_lower
         else 0.0
     )
-    quality_position = max(0.0, min(1.0, quality_position))
-    if grade in decisive_ranges:
-        decisive_lower, decisive_upper = decisive_ranges[grade]
-        decisive_position = (
-            (decisive_yield - decisive_lower) / (decisive_upper - decisive_lower)
-            if decisive_upper > decisive_lower
-            else 0.0
-        )
-        decisive_position = max(0.0, min(1.0, decisive_position))
-        grade_position = (quality_position + decisive_position) / 2
-    else:
-        decisive_position = None
-        grade_position = quality_position
+    grade_position = max(0.0, min(1.0, efficiency_position))
     lower, upper = D_BANDS[grade]
     score = round(lower + (upper - lower) * grade_position, 1)
     return grade, score, {
-        "return_class_counts": dict(sorted(counts.items())), "usable_cycle_count": len(cycles),
+        "return_class_counts": dict(sorted(material_counts.items())),
+        "observation_return_class_counts": dict(sorted(counts.items())),
+        "usable_cycle_count": len(cycles),
         "material_return_class_counts": dict(sorted(material_counts.items())),
         "material_cycle_count": len(material),
         "known_material_cycle_count": len(known_material),
@@ -1817,19 +1838,24 @@ def _d_grade_and_score(
         ],
         "major_high_return_refs": [cycle["campaign_group_ref"] for cycle in major],
         "top_tier_high_return_refs": [cycle["campaign_group_ref"] for cycle in top],
-        "portfolio_quality_index": round(quality_index, 1),
+        "portfolio_net_weight_sum": round(net_weight_sum, 1),
+        "mean_cycle_weight": round(mean_cycle_weight, 4),
         "decisive_yield_index": round(decisive_yield, 1),
+        "decisive_density": round(decisive_density, 4),
+        "adverse_cycle_share": round(adverse_share, 4),
+        "national_negative_share": round(national_negative_share, 4),
+        "portfolio_efficiency_index": round(efficiency_index, 4),
         "high_return_tier_counts": dict(sorted(high_return_tier_counts.items())),
         "cycle_q_adjudications": cycle_q_adjudications,
+        "material_parent_cycle_refs": [
+            cycle["campaign_group_ref"] for cycle in material
+        ],
         "canonical_parent_cycle_refs": canonical_parent_refs,
         "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
         "empirical_calibration": D_EMPIRICAL_CALIBRATION,
         "grade_cap_reasons": grade_cap_reasons,
         "evidence_score_cap": None,
-        "quality_band_position": round(quality_position, 4),
-        "decisive_band_position": (
-            round(decisive_position, 4) if decisive_position is not None else None
-        ),
+        "efficiency_band_position": round(grade_position, 4),
         "grade_band_position": round(grade_position, 4),
         "national_negative_score_cap": None,
         "evidence_status": "UNDER_TESTED" if len(known_material) <= 1 else "LIMITED_EXPOSURE" if len(known_material) <= 3 else "SUFFICIENT_EXPOSURE",
@@ -1851,8 +1877,13 @@ def _d_grade_reasons(grade: str, metrics: Mapping[str, Any]) -> list[str]:
     major = int(tier_counts.get("MAJOR", 0))
     top = int(tier_counts.get("TOP", 0))
     national_negative = len(metrics.get("national_negative_return_refs") or [])
-    quality = metrics.get("portfolio_quality_index")
+    net_weight = metrics.get("portfolio_net_weight_sum")
+    efficiency = metrics.get("portfolio_efficiency_index")
     decisive = metrics.get("decisive_yield_index")
+    mean_weight = metrics.get("mean_cycle_weight")
+    decisive_density = metrics.get("decisive_density")
+    adverse_share = metrics.get("adverse_cycle_share")
+    national_share = metrics.get("national_negative_share")
     caps = metrics.get("grade_cap_reasons") or []
     if grade == "D-U":
         return ["无已闭合实质军事投资周期，D项保持未结算，不赋中性分且不参与总分排名。"]
@@ -1860,7 +1891,10 @@ def _d_grade_reasons(grade: str, metrics: Mapping[str, Any]) -> list[str]:
     return [
         f"{material_count}项实质父级周期中正向{positive}、负向{adverse}、回报未知{unknown}，"
         f"普通高收益{ordinary}、重大高收益{major}、顶尖高收益{top}、国家级负收益{national_negative}；"
-        f"组合净收益指数Q={float(quality):.1f}，决定性成果指数J={float(decisive):.1f}{cap_note}，按统一量化门槛结算为{grade}。"
+        f"互斥权重和Q={float(net_weight):.1f}，周期均值={float(mean_weight):.2f}，"
+        f"决定性密度={float(decisive_density):.2f}（J={float(decisive):.1f}），"
+        f"负向占比={float(adverse_share):.2f}、国家级负收益占比={float(national_share):.2f}，"
+        f"风险调整效率N={float(efficiency):.2f}{cap_note}，按统一归一边界结算为{grade}。"
     ]
 
 
@@ -2134,6 +2168,12 @@ def _axis_closed_return_class(
     highest_cost = max(cost_values)
     highest_positive = max(positive_axes.values())
     highest_negative = max(negative_axes.values())
+    cost_profile = tuple(sorted(cost_values, reverse=True)[:3])
+    cost_profile = cost_profile + (0,) * (3 - len(cost_profile))
+    benefit_profile = tuple(sorted(positive_axes.values(), reverse=True))
+    burden_profile = tuple(
+        sorted((*cost_profile, highest_negative), reverse=True)[:3]
+    )
     if route == "D_INTERNAL_SELF_INDUCED":
         result = (
             "NEGATIVE_RETURN"
@@ -2145,7 +2185,7 @@ def _axis_closed_return_class(
             result = "NEGATIVE_RETURN"
         elif highest_positive == 0:
             result = "NEGATIVE_RETURN" if highest_cost > 0 else "LOW_RETURN"
-        elif highest_cost > highest_positive:
+        elif benefit_profile < burden_profile:
             result = "LOW_RETURN"
         else:
             result = "PROPORTIONATE_RETURN"
@@ -2155,11 +2195,9 @@ def _axis_closed_return_class(
         result = "NEGATIVE_RETURN" if highest_cost > 0 or highest_negative > 0 else "LOW_RETURN"
     elif highest_negative >= highest_positive and highest_negative > 0:
         result = "NEGATIVE_RETURN" if highest_cost >= highest_positive else "LOW_RETURN"
-    elif highest_positive >= 3 and all(
-        highest_positive > value for value in (*cost_values, *negative_axes.values())
-    ):
+    elif highest_positive >= 3 and benefit_profile > burden_profile:
         result = "HIGH_RETURN"
-    elif highest_positive >= max(highest_cost, highest_negative):
+    elif benefit_profile >= burden_profile:
         result = "PROPORTIONATE_RETURN"
     elif highest_positive > highest_negative:
         result = "LOW_RETURN"
@@ -2168,7 +2206,8 @@ def _axis_closed_return_class(
     rationale = (
         f"父级轴直接裁决：成本P/S/M/A={costs['P']}/{costs['S']}/{costs['M']}/{costs['A']}，"
         f"收益SB/SN/BCP/BCN/WR={benefits['SB']}/{benefits['SN']}/{benefits['BCP']}/"
-        f"{benefits['BCN']}/{benefits['WR']}，路由={route}；裁为{result}。"
+        f"{benefits['BCN']}/{benefits['WR']}，收益强度剖面={benefit_profile}，"
+        f"成本负收益剖面={burden_profile}，路由={route}；裁为{result}。"
     )
     return result, rationale
 
@@ -2479,16 +2518,41 @@ def _recalculate_qin_tang_d_records(
     c_by_id = {str(row.get("ruler_id")): row for row in c_records}
     source_cache: dict[str, list[str]] = {}
     source_groups_by_ref = _qin_tang_campaign_groups_by_ref(workspace_root)
+
+    def source_refs_for(record: Mapping[str, Any]) -> list[str]:
+        prior_members = {
+            str(item.get("canonical_parent_cycle_ref")): [
+                str(member) for member in item.get("member_cycle_refs") or ()
+            ]
+            for item in (
+                (record.get("D_portfolio_metrics") or {}).get(
+                    "material_cycle_adjudications"
+                )
+                or ()
+            )
+        }
+        resolved: list[str] = []
+        for ref in (
+            record.get("included_d_cycle_refs")
+            or record.get("d_cycle_refs")
+            or ()
+        ):
+            ref = str(ref)
+            if ref in cards_by_id:
+                resolved.append(ref)
+                continue
+            members = prior_members.get(ref) or []
+            if len(members) != 1 or members[0] not in cards_by_id:
+                raise ValueError(f"{record.get('ruler_name')}的D周期无法回源：{ref}")
+            resolved.append(members[0])
+        return resolved
+
     ref_polity_owners: dict[str, list[str]] = defaultdict(list)
     for candidate_row in records:
         candidate_id = str(candidate_row.get("ruler_id") or "")
         if candidate_id.startswith(("RULER-FD-", "RULER-NS-")):
             continue
-        for candidate_ref in (
-            candidate_row.get("included_d_cycle_refs")
-            or candidate_row.get("d_cycle_refs")
-            or ()
-        ):
+        for candidate_ref in source_refs_for(candidate_row):
             ref_polity_owners[str(candidate_ref)].append(
                 str(candidate_row.get("polity") or "")
             )
@@ -2510,13 +2574,7 @@ def _recalculate_qin_tang_d_records(
         row["ruler_event_class_overrides"] = list(
             direction.get("ruler_event_class_overrides") or ()
         )
-        refs = [
-            str(ref)
-            for ref in (row.get("included_d_cycle_refs") or row.get("d_cycle_refs") or ())
-        ]
-        missing = [ref for ref in refs if ref not in cards_by_id]
-        if missing:
-            raise ValueError(f"{row.get('ruler_name')}的D周期无法回源：{missing}")
+        refs = source_refs_for(row)
         candidates = [
             _qin_tang_source_cycle(
                 workspace_root,
@@ -2538,16 +2596,27 @@ def _recalculate_qin_tang_d_records(
         ]
         cycles = [cycle for cycle in candidates if cycle not in excluded]
         canonical_parent_refs = []
+        canonical_by_source_ref: dict[str, str] = {}
         for cycle in cycles:
             ref = str(cycle["campaign_group_ref"])
             source_groups = sorted(source_groups_by_ref.get(ref) or ())
-            canonical_parent_refs.append(source_groups[0] if len(source_groups) == 1 else ref)
+            canonical_ref = source_groups[0] if len(source_groups) == 1 else ref
+            canonical_parent_refs.append(canonical_ref)
+            canonical_by_source_ref[ref] = canonical_ref
         if len(canonical_parent_refs) != len(set(canonical_parent_refs)):
             raise ValueError(f"{row.get('ruler_name')}的D实质周期重复消费同一canonical父级战役")
         ab_score = float(ab_by_id[ruler_id]["AB_score_points"])
         c_score = float(c_by_id[ruler_id]["C_score_points"])
         grade, score, metrics = _d_grade_and_score(cycles)
         metrics["canonical_parent_cycle_refs"] = canonical_parent_refs
+        metrics["material_parent_cycle_refs"] = [
+            canonical_by_source_ref[str(ref)]
+            for ref in metrics.get("material_parent_cycle_refs") or ()
+        ]
+        for item in metrics.get("cycle_q_adjudications") or ():
+            source_ref = str(item["canonical_parent_cycle_ref"])
+            item["member_cycle_refs"] = [source_ref]
+            item["canonical_parent_cycle_ref"] = canonical_by_source_ref[source_ref]
         metrics["parent_cycle_uniqueness_status"] = "UNIQUE_CANONICAL_PARENT_CYCLES"
         manual_d0 = bool(row.get("manual_portfolio_override")) and row.get("D_grade") == "D-0"
         if manual_d0:
@@ -2563,7 +2632,10 @@ def _recalculate_qin_tang_d_records(
         }
         metrics["material_cycle_adjudications"] = [
             {
-                "campaign_group_ref": cycle["campaign_group_ref"],
+                "canonical_parent_cycle_ref": canonical_by_source_ref[
+                    str(cycle["campaign_group_ref"])
+                ],
+                "member_cycle_refs": [cycle["campaign_group_ref"]],
                 "material": cycle["material"],
                 "return_class": cycle["return_class"],
                 "cost_axes": cycle["cost_axes"],
@@ -2599,7 +2671,7 @@ def _recalculate_qin_tang_d_records(
         row["route_counts"] = dict(
             sorted(Counter(cycle["route"] for cycle in cycles).items())
         )
-        row["included_d_cycle_refs"] = [cycle["campaign_group_ref"] for cycle in cycles]
+        row["included_d_cycle_refs"] = canonical_parent_refs
         row["excluded_nonterminal_cycle_refs"] = [cycle["campaign_group_ref"] for cycle in excluded]
         row["excluded_cycle_adjudications"] = [
             {
@@ -2680,35 +2752,127 @@ def _normalize_formal_d_records(records: Sequence[dict[str, Any]]) -> None:
         metrics.pop("material_only_recalibration", None)
 
 
+def _align_bc_to_system_stress_parent_cycles(
+    ab_records: Sequence[dict[str, Any]],
+    c_records: Sequence[dict[str, Any]],
+    d_records: Sequence[Mapping[str, Any]],
+) -> None:
+    """Use one parent-cycle portfolio for B audit thickness and C stress tests."""
+    ab_by_id = {str(row["ruler_id"]): row for row in ab_records}
+    d_by_id = {str(row["ruler_id"]): row for row in d_records}
+    for c_row in c_records:
+        ruler_id = str(c_row["ruler_id"])
+        d_row = d_by_id[ruler_id]
+        metrics = d_row.get("D_portfolio_metrics") or {}
+        merge_member_to_canonical = {
+            str(member): str(merge["canonical_cycle_ref"])
+            for merge in c_row.get("parent_cycle_merge_adjudications") or ()
+            for member in merge.get("member_campaign_group_refs") or ()
+        }
+
+        def canonicalize(ref: object) -> str:
+            value = str(ref)
+            return merge_member_to_canonical.get(value, value)
+
+        all_parent_refs = list(
+            dict.fromkeys(
+                canonicalize(ref)
+                for ref in metrics.get("canonical_parent_cycle_refs") or ()
+            )
+        )
+        material_parent_refs = list(
+            dict.fromkeys(
+                canonicalize(ref)
+                for ref in metrics.get("material_parent_cycle_refs") or ()
+            )
+        )
+        success_refs = list(dict.fromkeys(
+            canonicalize(ref) for ref in c_row.get("major_system_success_refs") or ()
+        ))
+        failure_refs = list(dict.fromkeys(
+            canonicalize(ref) for ref in c_row.get("major_system_failure_refs") or ()
+        ))
+        c_row["major_system_success_refs"] = success_refs
+        c_row["major_system_failure_refs"] = failure_refs
+        major_refs = list(dict.fromkeys([*success_refs, *failure_refs]))
+        c_only_major_refs = sorted(set(major_refs) - set(all_parent_refs))
+        stress_refs = list(dict.fromkeys([*material_parent_refs, *major_refs]))
+        selection_policy = "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES"
+        if not stress_refs:
+            stress_refs = all_parent_refs
+            selection_policy = "LOW_INTENSITY_PARENT_CYCLES_FALLBACK_CAPPED_TO_C3"
+        observed_count = int(
+            c_row.get("observed_parent_cycle_count")
+            or c_row.get("independent_task_count")
+            or 0
+        )
+        c_row["observed_parent_cycle_count"] = observed_count
+        c_row["independent_task_groups"] = stress_refs
+        c_row["independent_task_count"] = len(stress_refs)
+        c_row["task_selection_policy"] = selection_policy
+        c_row["c_only_major_parent_refs"] = c_only_major_refs
+        c_row["non_scoring_observation_count"] = max(
+            0, observed_count - len(stress_refs)
+        )
+        _apply_c_task_evidence_ceiling(c_row)
+        if selection_policy.startswith("LOW_INTENSITY"):
+            c1 = min(3, _axis_grade(c_row["combat_delivery_grade"], "C1"))
+            c2 = _axis_grade(c_row["operational_sustainability_cap"], "C2")
+            c3 = min(3, _axis_grade(c_row["system_reliability_cap"], "C3"))
+            overall, rate, points, surplus = _c_score(c1, c2, c3)
+            c_row.update({
+                "combat_delivery_grade": f"C1-{c1}",
+                "operational_sustainability_cap": f"C2-{c2}",
+                "system_reliability_cap": f"C3-{c3}",
+                "C_overall_grade": overall,
+                "C_score_rate": rate,
+                "C_score_points": points,
+                "C_score_support_surplus": surplus,
+            })
+            low_intensity_reason = "仅有低强度父级观察任务，C1/C3最高3档。"
+            if low_intensity_reason not in c_row.setdefault("cap_reasons", []):
+                c_row["cap_reasons"].append(low_intensity_reason)
+        _apply_c_major_victory_gate(c_row)
+
+        ab_row = ab_by_id[ruler_id]
+        ab_row["observed_parent_cycle_count"] = int(
+            ab_row.get("observed_parent_cycle_count")
+            or ab_row.get("defense_event_count")
+            or 0
+        )
+        ab_row["parent_cycle_refs"] = stress_refs
+        ab_row["defense_event_count"] = len(stress_refs)
+        ab_row["parent_cycle_reference_policy"] = (
+            "RAW_EVIDENCE_REFS_PLUS_CLOSED_SYSTEM_STRESS_PARENT_CYCLES"
+        )
+
+
 def _validate_d_empirical_calibration(
     records: Sequence[Mapping[str, Any]],
 ) -> None:
-    category_counts: Counter[str] = Counter()
     for row in records:
         metrics = row.get("D_portfolio_metrics") or {}
-        for cycle in metrics.get("cycle_q_adjudications") or ():
-            if int(cycle["q_contribution"]) == -8:
-                category_counts["NATIONAL_NEGATIVE"] += 1
-            elif cycle["return_class"] == "HIGH_RETURN":
-                tier = str(cycle.get("high_return_tier") or "ORDINARY")
-                category_counts[
-                    {
-                        "ORDINARY": "HIGH_RETURN",
-                        "MAJOR": "MAJOR_HIGH_RETURN",
-                        "TOP": "TOP_HIGH_RETURN",
-                    }[tier]
-                ] += 1
-            else:
-                category_counts[str(cycle["return_class"])] += 1
-    expected = Counter(D_EMPIRICAL_CALIBRATION["category_counts"])
-    if category_counts != expected:
-        raise ValueError(
-            f"D项量化边界基线与当前父级周期分布不一致: {dict(sorted(category_counts.items()))}"
+        cycles = list(metrics.get("cycle_q_adjudications") or ())
+        declared_sum = metrics.get("portfolio_net_weight_sum")
+        if not cycles:
+            if declared_sum is not None:
+                raise ValueError(f"{row['ruler_name']}无闭合周期却保留D权重和")
+            continue
+        if declared_sum is None:
+            raise ValueError(f"{row['ruler_name']}有逐周期D贡献却缺少权重和")
+        actual_sum = sum(float(cycle["q_contribution"]) for cycle in cycles)
+        if float(declared_sum) != actual_sum:
+            raise ValueError(f"{row['ruler_name']}的D权重和与逐周期贡献不一致")
+        if len(cycles) != int(metrics.get("known_material_cycle_count") or 0):
+            raise ValueError(f"{row['ruler_name']}的D闭合实质周期数不一致")
+        expected_efficiency = (
+            float(metrics["mean_cycle_weight"])
+            + float(metrics["decisive_density"])
+            - float(metrics["adverse_cycle_share"])
+            - 2 * float(metrics["national_negative_share"])
         )
-    if sum(category_counts.values()) != int(
-        D_EMPIRICAL_CALIBRATION["known_material_cycle_count"]
-    ):
-        raise ValueError("D项已知实质父级周期总数与量化边界基线不一致")
+        if abs(float(metrics["portfolio_efficiency_index"]) - expected_efficiency) > 0.001:
+            raise ValueError(f"{row['ruler_name']}的D风险调整效率不闭合")
 
 
 def _sync_formal_d_into_combined(
@@ -2804,6 +2968,11 @@ def build_five_dynasties_formal_payloads(
         c["records"],
     )
     _normalize_formal_d_records(d["records"])
+    _align_bc_to_system_stress_parent_cycles(
+        ab["records"], c["records"], d["records"]
+    )
+    _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
+    _validate_formal_abc_contracts(ab["records"], c["records"])
     d.update({
         "scope": f"秦至唐95人父级实质周期统一重算 + 五代十国12人当前结算{extension}",
         "record_count": len(d["records"]),
@@ -2963,7 +3132,7 @@ def _render_formal_markdown(
             )
     elif kind == "C":
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 独立任务 |",
+            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 体系压力父任务 |",
             "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|",
         ]
         for rank, row in ranked:
@@ -2976,8 +3145,8 @@ def _render_formal_markdown(
             )
     else:
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | Q净收益 | J决定性 | 检验状态 | 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
-            "|---:|---|---|---|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | N风险调整效率 | Q权重和 | J决定性 | 检验状态 | 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
+            "|---:|---|---|---|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         status_labels = {
             "SUFFICIENT_EXPOSURE": "充分检验",
@@ -3015,7 +3184,8 @@ def _render_formal_markdown(
             lines.append(
                 f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
                 f"{grade} | {float(row[score_key]):.1f} | "
-                f"{float(metrics.get('portfolio_quality_index', 0)):.1f} | "
+                f"{float(metrics.get('portfolio_efficiency_index', 0)):.2f} | "
+                f"{float(metrics.get('portfolio_net_weight_sum', 0)):.1f} | "
                 f"{float(metrics.get('decisive_yield_index', 0)):.1f} | "
                 f"{status_labels.get(evidence_status, evidence_status)} | "
                 f"{int(metrics.get('material_cycle_count', 0))} | "
@@ -3037,12 +3207,12 @@ def _render_formal_markdown(
         if kind == "AB":
             lines += [f"- 裁决：{_ab_settlement_basis(row)}", ""]
         elif kind == "C":
-            c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与独立任务暴露定档。"
+            c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与体系压力父任务暴露定档。"
             success_refs = row.get("major_system_success_refs") or []
             failure_refs = row.get("major_system_failure_refs") or []
             lines += [
                 f"- 档位路径：{row['combat_delivery_grade']}／{row['operational_sustainability_cap']}／{row['system_reliability_cap']}→{row['C_overall_grade']}。",
-                f"- 样本：去重独立任务{int(row['independent_task_count'])}项。",
+                f"- 样本：原始观察父周期{int(row.get('observed_parent_cycle_count', row['independent_task_count']))}项；体系压力父任务{int(row['independent_task_count'])}项；未进入C计分样本的低强度观察{int(row.get('non_scoring_observation_count', 0))}项。",
                 f"- 重大胜负：重大胜绩{len(success_refs)}项、重大体系失败{len(failure_refs)}项；胜绩门禁{(row.get('major_victory_gate') or {}).get('status', 'NOT_APPLICABLE')}。",
                 f"- 裁决：{_markdown_cell(c_basis)}",
                 "",
@@ -3061,6 +3231,18 @@ def _render_formal_markdown(
                 f"- 组合：战术观察节点{int(metrics.get('usable_cycle_count', 0))}项（只作审计，不作为跨人物样本量）；去重实质投资周期{int(metrics.get('material_cycle_count', 0))}项，其中{return_summary}；国家级负收益{len(metrics.get('national_negative_return_refs') or [])}。",
                 f"- 裁决：{_markdown_cell(d_basis)}",
             ]
+            for cycle in metrics.get("cycle_q_adjudications") or ():
+                costs = cycle.get("cost_axes") or {}
+                benefits = cycle.get("benefit_axes") or {}
+                members = "、".join(str(ref) for ref in cycle.get("member_cycle_refs") or ())
+                lines.append(
+                    f"- 周期 `{cycle.get('canonical_parent_cycle_ref')}`：成员{members or '未列'}；"
+                    f"P/S/M/A={costs.get('P')}/{costs.get('S')}/{costs.get('M')}/{costs.get('A')}；"
+                    f"SB/SN/BCP/BCN/WR={benefits.get('SB')}/{benefits.get('SN')}/{benefits.get('BCP')}/{benefits.get('BCN')}/{benefits.get('WR')}；"
+                    f"路由={cycle.get('route')}；回报={cycle.get('return_class')}"
+                    f"{('/' + str(cycle.get('high_return_tier'))) if cycle.get('high_return_tier') else ''}；"
+                    f"Q={float(cycle.get('q_contribution', 0)):+.0f}；父级轴={cycle.get('parent_axis_basis')}。"
+                )
             excluded = row.get("excluded_cycle_adjudications") or []
             if excluded:
                 exclusion_text = "；".join(

@@ -1,7 +1,7 @@
 {
   "schema_version": "qin-tang-d-cycle-direction-adjudications-v2",
-  "scope": "秦至唐95位评价主体的当前周期方向、重大收益与主体阶段人工裁决输入",
-  "source_policy": "父级成本收益轴与内部战争路由是唯一人工输入；回报档位、高收益层级和国家级负收益全部由当前轴确定性派生。",
+  "scope": "秦至唐95位评价主体的当前父周期方向、主体阶段与必要C轴人工裁决输入",
+  "source_policy": "D只允许人工裁决父级成本收益轴与内部战争路由，回报档位和组合效率全部确定性派生；C轴人工裁决只用于有反例复核记录的主体，独立任务集合仍由共享父周期生成。",
   "record_count": 95,
   "records": [
     {
@@ -3816,7 +3816,16 @@
       "c_major_success_refs": [
         "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
         "WAR-LEAD-NC-WEI-XIA-428-430"
-      ]
+      ],
+      "c_axis_adjudication": {
+        "C1": 5,
+        "C2": 4,
+        "C3": 4,
+        "major_system_failure_group_refs": [
+          "NC-WEI-SONG-450-451"
+        ],
+        "reason": "对夏、柔然、北燕、北凉和西域多方向长期兑现，足以支持C1-5；450—451年南征高损且未形成持续控制构成一项重大失败，故持续性与体系可靠性均收束为4档。"
+      }
     },
     {
       "ruler_id": "RULER-SHADOW-拓跋宏",
@@ -4903,7 +4912,14 @@
         "WAR-LEAD-TANG-EASTERN-TURKS-629-630",
         "WAR-LEAD-TANG-TIELE-INTEGRATION",
         "WAR-LEAD-TANG-TUYUHUN-634-635"
-      ]
+      ],
+      "c_axis_adjudication": {
+        "C1": 5,
+        "C2": 4,
+        "C3": 5,
+        "major_system_failure_group_refs": [],
+        "reason": "东突厥、吐谷浑、铁勒与西域多方向由多名将领持续兑现，C1与跨将帅可靠性达到5档；高丽远征和剑南造船役暴露长程保障上限，但主力有序撤回且未形成战役群级后勤崩溃，C2收束为4档。"
+      }
     },
     {
       "ruler_id": "RULER-TANG-LIZHI",
@@ -5825,5 +5841,5 @@
       ]
     }
   ],
-  "semantic_fingerprint": "efb2b27fa717f6e037243eaa2a35b8cbe3bf0ef258f1cdf26dbb4f72cc9e2f2c"
+  "semantic_fingerprint": "75f589ea90fe540ebb0dd54ef060ba098cb5032c0fc22ba015c4d0af8e15feab"
 }

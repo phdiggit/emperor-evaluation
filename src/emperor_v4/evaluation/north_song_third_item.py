@@ -20,6 +20,7 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     _axis_a,
     _axis_b,
     _axis_closed_return_class,
+    _align_bc_to_system_stress_parent_cycles,
     _apply_c_major_victory_gate,
     _c_score,
     _d_grade_and_score,
@@ -848,6 +849,9 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
     d = _replace_partition_records(json.loads((workspace_root / D_PATH).read_text(encoding="utf-8")), d_rows)
     _recalculate_qin_tang_d_records(workspace_root, d["records"], ab["records"], c["records"])
     _normalize_formal_d_records(d["records"])
+    _align_bc_to_system_stress_parent_cycles(ab["records"], c["records"], d["records"])
+    _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
+    _validate_formal_abc_contracts(ab["records"], c["records"])
     _validate_d_empirical_calibration(d["records"])
     combined = _replace_partition_records(json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8")), partition_rows)
     combined.pop("qin_tang_rank_freeze", None)
