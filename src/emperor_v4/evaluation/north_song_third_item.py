@@ -19,24 +19,29 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     CONTROL_CONTRIBUTION_CAPS,
     _axis_a,
     _axis_b,
+    _axis_closed_return_class,
     _apply_c_major_victory_gate,
     _c_score,
     _d_grade_and_score,
     _d_grade_reasons,
     _expected_b1_grade,
     _grade_number,
+    _high_return_tier,
     _normalize_qin_tang_bc_parent_cycles,
     _normalize_formal_d_records,
+    _rollup_parent_axes,
     _recalculate_qin_tang_d_records,
     _third_item_cycles,
     _validate_bc_parent_cycle_alignment,
     _validate_formal_abc_contracts,
+    _validate_d_empirical_calibration,
     _write_text_atomic,
     _sync_formal_d_into_combined,
     _sync_formal_c_into_combined,
     _render_combined_markdown,
     _render_formal_markdown,
     _replace_partition_records,
+    _semantic_internal_route,
 )
 
 
@@ -216,10 +221,15 @@ def _read_pair(path: Path, workspace_root: Path) -> tuple[dict[str, Any], Path]:
 
 def _load_adjudication_payload(workspace_root: Path) -> dict[str, Any]:
     payload = json.loads((workspace_root / ADJUDICATION_PATH).read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "north-song-third-item-adjudications-v1":
+    if payload.get("schema_version") != "north-song-third-item-adjudications-v2":
         raise ValueError("北宋第三项裁决配置schema错误")
     if payload.get("source_set_fingerprint") != SOURCE_SET_FINGERPRINT:
         raise ValueError("北宋第三项裁决未绑定当前194份输入内容指纹")
+    declared = payload.get("semantic_fingerprint")
+    if declared is not None and declared != _digest(
+        {key: value for key, value in payload.items() if key != "semantic_fingerprint"}
+    ):
+        raise ValueError("北宋第三项父级裁决输入指纹漂移")
     return payload
 
 
@@ -534,37 +544,52 @@ def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:
 
 def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
     phases = list(cycle["phases"])
-    final_class = str(cycle.get("return_class_override") or "") or next((phase["phase_return_class"] for phase in reversed(phases) if phase["phase_return_class"] != "UNKNOWN"), "UNKNOWN")
-    costs = {key: max((_grade_number(phase["cost_axes"].get(key), key) or 0) for phase in phases) for key in ("P", "S", "M", "A", "WC")}
-    benefits = {
-        key: max((_grade_number(value, key) or 0) for phase in phases for value in (
-            [phase["strategic_security"]] if key in {"SB", "SN"} else
-            [phase["border_control"].get(key)] if key in {"BCP", "BCN"} else [phase["material_return"]]
-        )) for key in ("SB", "SN", "BCP", "BCN", "WR")
-    }
-    unknown_axes = sorted({
-        key for phase in phases for key, value in {
-            **phase["cost_axes"], "security": phase["strategic_security"], "return": phase["material_return"],
-            "BCP": phase["border_control"].get("BCP"), "BCN": phase["border_control"].get("BCN"),
-        }.items() if value == "UNKNOWN"
-    })
-    material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits[key] for key in ("SB", "SN", "BCP", "BCN")) >= 3
-    positive_benefit_grade = max(benefits[key] for key in ("SB", "BCP", "WR"))
-    negative_benefit_grade = max(benefits[key] for key in ("SN", "BCN"))
+    costs, benefits, parent_axis_basis, unknown_axes = _rollup_parent_axes(phases)
+    for axis, value in dict(cycle.get("parent_cost_axes") or {}).items():
+        if axis in costs:
+            parsed = _grade_number(value, axis)
+            if parsed is None:
+                raise ValueError(f"{cycle['campaign_group_ref']}父级成本轴{axis}非法")
+            costs[axis] = parsed
+            unknown_axes = [item for item in unknown_axes if item != axis]
+    for axis, value in dict(cycle.get("parent_benefit_axes") or {}).items():
+        if axis in benefits:
+            parsed = _grade_number(value, axis)
+            if parsed is None:
+                raise ValueError(f"{cycle['campaign_group_ref']}父级收益轴{axis}非法")
+            benefits[axis] = parsed
+            unknown_axes = [item for item in unknown_axes if item != axis]
+    material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits.values()) >= 3
+    route = str(cycle.get("d_route") or _semantic_internal_route(phases))
+    if unknown_axes:
+        final_class = "UNKNOWN"
+        class_rationale = "父级关键成本或终局收益轴仍为UNKNOWN，禁止以0或负收益代填。"
+    else:
+        final_class, class_rationale = _axis_closed_return_class(
+            costs, benefits, s_attributable=True, route=route
+        )
+    high_return_tier = _high_return_tier(benefits, final_class)
     return {
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class, "cost_axes": costs,
         "benefit_axes": benefits, "unknown_axes": unknown_axes, "material": material,
-        "positive_benefit_grade": positive_benefit_grade,
-        "negative_benefit_grade": negative_benefit_grade,
-        "major_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 4,
-        "top_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 5,
+        "high_return_tier": high_return_tier,
+        "major_high_return": high_return_tier in {"MAJOR", "TOP"},
+        "top_high_return": high_return_tier == "TOP",
         "national_negative": final_class == "NEGATIVE_RETURN" and (
             costs["P"] >= 5
+            or costs["S"] >= 5
             or max(costs["M"], costs["A"]) >= 4
             or max(benefits["SN"], benefits["BCN"]) >= 4
         ),
-        "route": "D_INTERNAL_COST_ONLY" if re.search(r"MUTINY|REBELLION", cycle["campaign_group_ref"]) else "D_STANDARD",
+        "route": route,
+        "return_class_basis": "PARENT_AXES_DIRECT_MAPPING",
+        "return_class_rationale": class_rationale,
+        "parent_axis_basis": (
+            "EXPLICIT_PARENT_AXIS_ADJUDICATION"
+            if cycle.get("parent_cost_axes") or cycle.get("parent_benefit_axes")
+            else parent_axis_basis
+        ),
         "merged_campaign_group_refs": list(cycle.get("merged_campaign_group_refs") or ()),
         "merge_reason": cycle.get("merge_reason"),
     }
@@ -742,7 +767,11 @@ def build_north_song_d_records(registry: Mapping[str, Any], decisions: Sequence[
                 for cycle in excluded if cycle.get("third_item_exclusion_reason")
             ],
             "strategic_binding_refs": [ref for cycle in included for ref in cycle["phase_ids"]],
-            "internal_cost_binding_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["route"] == "D_INTERNAL_COST_ONLY"],
+            "internal_cost_binding_refs": [
+                cycle["campaign_group_ref"]
+                for cycle in included
+                if str(cycle["route"]).startswith("D_INTERNAL_")
+            ],
             "route_counts": dict(sorted(Counter(cycle["route"] for cycle in included).items())), "manual_portfolio_override": False,
             "cycle_merge_adjudications": [{"canonical_cycle_ref": cycle["campaign_group_ref"], "member_campaign_group_refs": cycle["merged_campaign_group_refs"], "reason": cycle["merge_reason"]} for cycle in included if cycle.get("merged_campaign_group_refs")],
             "D_grade": grade, "D_grade_reasons": _d_grade_reasons(grade, metrics),
@@ -819,6 +848,7 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
     d = _replace_partition_records(json.loads((workspace_root / D_PATH).read_text(encoding="utf-8")), d_rows)
     _recalculate_qin_tang_d_records(workspace_root, d["records"], ab["records"], c["records"])
     _normalize_formal_d_records(d["records"])
+    _validate_d_empirical_calibration(d["records"])
     combined = _replace_partition_records(json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8")), partition_rows)
     combined.pop("qin_tang_rank_freeze", None)
     combined.pop("qin_tang_value_freeze", None)

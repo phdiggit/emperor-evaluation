@@ -216,7 +216,7 @@ def _read_source_pair(path: Path, workspace_root: Path) -> tuple[dict[str, Any],
 
 def _load_adjudication_payload(workspace_root: Path) -> dict[str, Any]:
     payload = json.loads((workspace_root / ADJUDICATION_PATH).read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "five-dynasties-third-item-adjudications-v1":
+    if payload.get("schema_version") != "five-dynasties-third-item-adjudications-v2":
         raise ValueError("五代十国第三项裁决配置schema错误")
     if payload.get("source_set_fingerprint") != SOURCE_SET_FINGERPRINT:
         raise ValueError("五代十国第三项裁决配置未绑定当前64份输入指纹")
@@ -665,15 +665,15 @@ D_BANDS = {
     "D-3": (22.0, 29.9), "D-4": (30.0, 35.9), "D-5": (36.0, 40.0),
 }
 D_EMPIRICAL_CALIBRATION = {
-    "schema_id": "d-quantitative-portfolio-calibration-v1",
-    "known_material_cycle_count": 550,
+    "schema_id": "d-quantitative-portfolio-calibration-v3",
+    "known_material_cycle_count": 559,
     "category_counts": {
-        "NATIONAL_NEGATIVE": 115,
-        "NEGATIVE_RETURN": 50,
-        "LOW_RETURN": 123,
-        "PROPORTIONATE_RETURN": 168,
-        "HIGH_RETURN": 49,
-        "MAJOR_HIGH_RETURN": 41,
+        "NATIONAL_NEGATIVE": 73,
+        "NEGATIVE_RETURN": 115,
+        "LOW_RETURN": 143,
+        "PROPORTIONATE_RETURN": 102,
+        "HIGH_RETURN": 73,
+        "MAJOR_HIGH_RETURN": 49,
         "TOP_HIGH_RETURN": 4,
     },
     "weights": {
@@ -819,16 +819,21 @@ def _third_item_cycles(
         if not founding or cycle_ref in overrides:
             routed = dict(cycle)
             override = overrides.get(cycle_ref)
-            if override and override.get("return_class"):
-                return_class = str(override["return_class"])
-                if return_class not in {
-                    "HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN",
-                    "NEGATIVE_RETURN", "UNKNOWN",
-                }:
-                    raise ValueError(
-                        f"{decision['ruler_name']}第三项路由覆盖回报类别非法"
-                    )
-                routed["return_class_override"] = return_class
+            if override:
+                d_route = str(override.get("d_route") or "")
+                if d_route:
+                    if d_route not in {
+                        "D_EXTERNAL_OR_FRONTIER",
+                        "D_INTERNAL_STRATEGIC",
+                        "D_INTERNAL_RESTORATION",
+                        "D_INTERNAL_SELF_INDUCED",
+                    }:
+                        raise ValueError(f"{decision['ruler_name']}第三项内部战争路由非法")
+                    routed["d_route"] = d_route
+                if override.get("parent_cost_axes"):
+                    routed["parent_cost_axes"] = dict(override["parent_cost_axes"])
+                if override.get("parent_benefit_axes"):
+                    routed["parent_benefit_axes"] = dict(override["parent_benefit_axes"])
                 routed["route_override_reason"] = str(override["reason"])
             included.append(routed)
         else:
@@ -846,17 +851,12 @@ def _third_item_cycles(
             raise ValueError(f"{decision['ruler_name']}周期合并成员重复")
         if not str(spec.get("reason") or "").strip():
             raise ValueError(f"{decision['ruler_name']}周期合并缺少理由")
-        return_class = str(spec.get("return_class") or "")
-        if return_class not in {
-            "HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN",
-            "NEGATIVE_RETURN", "UNKNOWN",
-        }:
-            raise ValueError(f"{decision['ruler_name']}周期合并回报类别非法")
         by_ref = {str(cycle["campaign_group_ref"]): cycle for cycle in included}
         missing = sorted(set(members) - set(by_ref))
         if missing:
             raise ValueError(f"{decision['ruler_name']}周期合并成员不存在或已排除: {missing}")
         selected = [by_ref[ref] for ref in members]
+        canonical_member = by_ref[canonical_ref]
         merged = {
             "campaign_group_ref": canonical_ref,
             "war_event_refs": _unique(
@@ -868,7 +868,10 @@ def _third_item_cycles(
             "phases": [phase for cycle in selected for phase in cycle["phases"]],
             "merged_campaign_group_refs": members,
             "merge_reason": str(spec["reason"]),
-            "return_class_override": return_class,
+            "d_route": spec.get("d_route") or canonical_member.get("d_route"),
+            "parent_cost_axes": spec.get("parent_cost_axes") or canonical_member.get("parent_cost_axes"),
+            "parent_benefit_axes": spec.get("parent_benefit_axes") or canonical_member.get("parent_benefit_axes"),
+            "route_override_reason": canonical_member.get("route_override_reason"),
         }
         first_index = min(
             index
@@ -1409,7 +1412,7 @@ def _normalize_qin_tang_bc_parent_cycles(
                 )
             )
             major_success_source_refs = list(
-                direction_by_id.get(ruler_id, {}).get("major_high_return_refs") or ()
+                direction_by_id.get(ruler_id, {}).get("c_major_success_refs") or ()
             )
             major_success_source_refs = [
                 ref for ref in major_success_source_refs if ref not in founding_refs
@@ -1536,40 +1539,34 @@ def _validate_formal_abc_contracts(
 
 def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
     phases = list(cycle["phases"])
-    final_class = str(cycle.get("return_class_override") or "") or next(
-        (
-            phase["phase_return_class"]
-            for phase in reversed(phases)
-            if phase["phase_return_class"] != "UNKNOWN"
-        ),
-        "UNKNOWN",
-    )
-    costs = {key: max((_grade_number(phase["cost_axes"].get(key), key) or 0) for phase in phases) for key in ("P", "S", "M", "A", "WC")}
-    benefits = {
-        key: max((_grade_number(value, key) or 0) for phase in phases for value in (
-            [phase["strategic_security"]] if key in {"SB", "SN"} else
-            [phase["border_control"][key]] if key in {"BCP", "BCN"} else
-            [phase["material_return"]]
-        ))
-        for key in ("SB", "SN", "BCP", "BCN", "WR")
-    }
-    unknown_axes = sorted({
-        key
-        for phase in phases
-        for key, value in {
-            **phase["cost_axes"],
-            "security": phase["strategic_security"],
-            "return": phase["material_return"],
-            "BCP": phase["border_control"].get("BCP"),
-            "BCN": phase["border_control"].get("BCN"),
-        }.items()
-        if value == "UNKNOWN"
-    })
-    material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits[key] for key in ("SB", "SN", "BCP", "BCN")) >= 3
-    positive_benefit_grade = max(benefits[key] for key in ("SB", "BCP", "WR"))
-    negative_benefit_grade = max(benefits[key] for key in ("SN", "BCN"))
+    costs, benefits, parent_axis_basis, unknown_axes = _rollup_parent_axes(phases)
+    for axis, value in dict(cycle.get("parent_cost_axes") or {}).items():
+        if axis in costs:
+            parsed = _grade_number(value, axis)
+            if parsed is None:
+                raise ValueError(f"{cycle['campaign_group_ref']}父级成本轴{axis}非法")
+            costs[axis] = parsed
+            unknown_axes = [item for item in unknown_axes if item != axis]
+    for axis, value in dict(cycle.get("parent_benefit_axes") or {}).items():
+        if axis in benefits:
+            parsed = _grade_number(value, axis)
+            if parsed is None:
+                raise ValueError(f"{cycle['campaign_group_ref']}父级收益轴{axis}非法")
+            benefits[axis] = parsed
+            unknown_axes = [item for item in unknown_axes if item != axis]
+    material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits.values()) >= 3
+    route = str(cycle.get("d_route") or _semantic_internal_route(phases))
+    if unknown_axes:
+        final_class = "UNKNOWN"
+        class_rationale = "父级关键成本或终局收益轴仍为UNKNOWN，禁止以0或负收益代填。"
+    else:
+        final_class, class_rationale = _axis_closed_return_class(
+            costs, benefits, s_attributable=True, route=route
+        )
+    high_return_tier = _high_return_tier(benefits, final_class)
     national_negative = final_class == "NEGATIVE_RETURN" and (
         costs["P"] >= 5
+        or costs["S"] >= 5
         or max(costs["M"], costs["A"]) >= 4
         or max(benefits["SN"], benefits["BCN"]) >= 4
     )
@@ -1577,13 +1574,19 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class,
         "cost_axes": costs, "benefit_axes": benefits, "material": material,
-        "positive_benefit_grade": positive_benefit_grade,
-        "negative_benefit_grade": negative_benefit_grade,
         "unknown_axes": unknown_axes,
-        "major_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 4,
-        "top_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 5,
+        "high_return_tier": high_return_tier,
+        "major_high_return": high_return_tier in {"MAJOR", "TOP"},
+        "top_high_return": high_return_tier == "TOP",
         "national_negative": national_negative,
-        "route": "D_INTERNAL_COST_ONLY" if re.search(r"MUTINY|REBELLION", cycle["campaign_group_ref"]) else "D_STANDARD",
+        "route": route,
+        "return_class_basis": "PARENT_AXES_DIRECT_MAPPING",
+        "return_class_rationale": class_rationale,
+        "parent_axis_basis": (
+            "EXPLICIT_PARENT_AXIS_ADJUDICATION"
+            if cycle.get("parent_cost_axes") or cycle.get("parent_benefit_axes")
+            else parent_axis_basis
+        ),
         "merged_campaign_group_refs": list(cycle.get("merged_campaign_group_refs") or ()),
         "merge_reason": cycle.get("merge_reason"),
         "route_override_reason": cycle.get("route_override_reason"),
@@ -1637,10 +1640,10 @@ def _d_grade_and_score(
         for cycle in cycles
         if not cycle["material"] and cycle.get("unknown_axes")
     ]
-    positive_benefit_grade_counts = Counter(
-        int(cycle.get("positive_benefit_grade") or 0)
+    high_return_tier_counts = Counter(
+        str(cycle.get("high_return_tier"))
         for cycle in known_material
-        if cycle["return_class"] in {"HIGH_RETURN", "PROPORTIONATE_RETURN"}
+        if cycle.get("high_return_tier")
     )
     if not material or not known_material:
         return "D-U", None, {
@@ -1670,9 +1673,8 @@ def _d_grade_and_score(
             "top_tier_high_return_refs": [],
             "portfolio_quality_index": None,
             "decisive_yield_index": 0.0,
-            "positive_benefit_grade_counts": dict(
-                sorted(positive_benefit_grade_counts.items())
-            ),
+            "high_return_tier_counts": dict(sorted(high_return_tier_counts.items())),
+            "cycle_q_adjudications": [],
             "canonical_parent_cycle_refs": canonical_parent_refs,
             "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
             "empirical_calibration": D_EMPIRICAL_CALIBRATION,
@@ -1686,20 +1688,38 @@ def _d_grade_and_score(
         if cycle["national_negative"]:
             return float(weights["NATIONAL_NEGATIVE"])
         if cycle["return_class"] == "HIGH_RETURN":
-            positive_grade = cycle.get("positive_benefit_grade")
-            if positive_grade is None:
-                positive_grade = (
-                    5 if cycle.get("top_high_return")
-                    else 4 if cycle.get("major_high_return")
-                    else 3
+            tier = str(
+                cycle.get("high_return_tier")
+                or (
+                    "TOP"
+                    if cycle.get("top_high_return")
+                    else "MAJOR"
+                    if cycle.get("major_high_return")
+                    else "ORDINARY"
                 )
-            if int(positive_grade) >= 5:
+            )
+            if tier == "TOP":
                 return float(weights["TOP_HIGH_RETURN"])
-            if int(positive_grade) >= 4:
+            if tier == "MAJOR":
                 return float(weights["MAJOR_HIGH_RETURN"])
         return float(weights[cycle["return_class"]])
 
-    quality_index = sum(empirical_weight(cycle) for cycle in known_material)
+    cycle_q_adjudications = [
+        {
+            "canonical_parent_cycle_ref": cycle["campaign_group_ref"],
+            "route": cycle.get("route", "D_EXTERNAL_OR_FRONTIER"),
+            "cost_axes": dict(cycle.get("cost_axes") or {}),
+            "benefit_axes": dict(cycle.get("benefit_axes") or {}),
+            "return_class": cycle["return_class"],
+            "high_return_tier": cycle.get("high_return_tier"),
+            "q_contribution": int(empirical_weight(cycle)),
+            "return_class_basis": cycle.get("return_class_basis"),
+            "return_class_rationale": cycle.get("return_class_rationale"),
+            "parent_axis_basis": cycle.get("parent_axis_basis"),
+        }
+        for cycle in known_material
+    ]
+    quality_index = sum(item["q_contribution"] for item in cycle_q_adjudications)
     decisive_yield = float(len(major) + len(top))
     thresholds = D_EMPIRICAL_CALIBRATION["quality_thresholds"]
     d12 = float(thresholds["D-1_TO_D-2"])
@@ -1799,9 +1819,8 @@ def _d_grade_and_score(
         "top_tier_high_return_refs": [cycle["campaign_group_ref"] for cycle in top],
         "portfolio_quality_index": round(quality_index, 1),
         "decisive_yield_index": round(decisive_yield, 1),
-        "positive_benefit_grade_counts": {
-            str(key): value for key, value in sorted(positive_benefit_grade_counts.items())
-        },
+        "high_return_tier_counts": dict(sorted(high_return_tier_counts.items())),
+        "cycle_q_adjudications": cycle_q_adjudications,
         "canonical_parent_cycle_refs": canonical_parent_refs,
         "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
         "empirical_calibration": D_EMPIRICAL_CALIBRATION,
@@ -1827,8 +1846,10 @@ def _d_grade_reasons(grade: str, metrics: Mapping[str, Any]) -> list[str]:
     positive = high + proportionate
     adverse = low + negative
     material_count = int(metrics.get("material_cycle_count") or 0)
-    major = len(metrics.get("major_high_return_refs") or [])
-    top = len(metrics.get("top_tier_high_return_refs") or [])
+    tier_counts = metrics.get("high_return_tier_counts") or {}
+    ordinary = int(tier_counts.get("ORDINARY", 0))
+    major = int(tier_counts.get("MAJOR", 0))
+    top = int(tier_counts.get("TOP", 0))
     national_negative = len(metrics.get("national_negative_return_refs") or [])
     quality = metrics.get("portfolio_quality_index")
     decisive = metrics.get("decisive_yield_index")
@@ -1838,7 +1859,7 @@ def _d_grade_reasons(grade: str, metrics: Mapping[str, Any]) -> list[str]:
     cap_note = f"；回报闭合门禁：{','.join(caps)}" if caps else ""
     return [
         f"{material_count}项实质父级周期中正向{positive}、负向{adverse}、回报未知{unknown}，"
-        f"重大高收益{major}、顶尖高收益{top}、国家级负收益{national_negative}；"
+        f"普通高收益{ordinary}、重大高收益{major}、顶尖高收益{top}、国家级负收益{national_negative}；"
         f"组合净收益指数Q={float(quality):.1f}，决定性成果指数J={float(decisive):.1f}{cap_note}，按统一量化门槛结算为{grade}。"
     ]
 
@@ -1882,7 +1903,11 @@ def build_five_dynasties_d_records(
                 if cycle.get("third_item_exclusion_reason")
             ],
             "strategic_binding_refs": [ref for cycle in included for ref in cycle["phase_ids"]],
-            "internal_cost_binding_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["route"] == "D_INTERNAL_COST_ONLY"],
+            "internal_cost_binding_refs": [
+                cycle["campaign_group_ref"]
+                for cycle in included
+                if str(cycle["route"]).startswith("D_INTERNAL_")
+            ],
             "route_counts": dict(sorted(Counter(cycle["route"] for cycle in included).items())),
             "cycle_merge_adjudications": [
                 {
@@ -2099,51 +2124,146 @@ def _axis_closed_return_class(
     benefits: Mapping[str, int],
     *,
     s_attributable: bool,
+    route: str = "D_EXTERNAL_OR_FRONTIER",
 ) -> tuple[str, str]:
-    positive = max(int(benefits[key]) for key in ("SB", "BCP", "WR"))
-    negative = max(int(benefits[key]) for key in ("SN", "BCN"))
+    positive_axes = {key: int(benefits[key]) for key in ("SB", "BCP", "WR")}
+    negative_axes = {key: int(benefits[key]) for key in ("SN", "BCN")}
     cost_values = [int(costs[key]) for key in ("P", "M", "A")]
     if s_attributable:
         cost_values.append(int(costs["S"]))
-    cost = max(cost_values)
-    structural_cost = max(int(costs["M"]), int(costs["A"]))
-    if s_attributable:
-        structural_cost = max(structural_cost, int(costs["S"]))
-    if negative >= 4:
+    highest_cost = max(cost_values)
+    highest_positive = max(positive_axes.values())
+    highest_negative = max(negative_axes.values())
+    if route == "D_INTERNAL_SELF_INDUCED":
+        result = (
+            "NEGATIVE_RETURN"
+            if highest_negative > 0 or highest_positive == 0
+            else "LOW_RETURN"
+        )
+    elif route == "D_INTERNAL_RESTORATION":
+        if highest_negative >= 3 and highest_negative >= highest_positive:
+            result = "NEGATIVE_RETURN"
+        elif highest_positive == 0:
+            result = "NEGATIVE_RETURN" if highest_cost > 0 else "LOW_RETURN"
+        elif highest_cost > highest_positive:
+            result = "LOW_RETURN"
+        else:
+            result = "PROPORTIONATE_RETURN"
+    elif highest_negative >= 4 and highest_positive <= highest_negative:
         result = "NEGATIVE_RETURN"
-    elif negative >= 2:
+    elif highest_positive == 0:
+        result = "NEGATIVE_RETURN" if highest_cost > 0 or highest_negative > 0 else "LOW_RETURN"
+    elif highest_negative >= highest_positive and highest_negative > 0:
+        result = "NEGATIVE_RETURN" if highest_cost >= highest_positive else "LOW_RETURN"
+    elif highest_positive >= 3 and all(
+        highest_positive > value for value in (*cost_values, *negative_axes.values())
+    ):
+        result = "HIGH_RETURN"
+    elif highest_positive >= max(highest_cost, highest_negative):
+        result = "PROPORTIONATE_RETURN"
+    elif highest_positive > highest_negative:
         result = "LOW_RETURN"
-    elif positive >= 4:
-        result = (
-            "HIGH_RETURN" if cost <= 3
-            else "PROPORTIONATE_RETURN" if cost == 4
-            else "LOW_RETURN"
-        )
-    elif positive == 3:
-        result = (
-            "PROPORTIONATE_RETURN" if cost <= 3
-            else "NEGATIVE_RETURN" if structural_cost >= 4
-            else "LOW_RETURN"
-        )
-    elif positive == 2:
-        result = (
-            "PROPORTIONATE_RETURN" if cost <= 2
-            else "NEGATIVE_RETURN" if structural_cost >= 4
-            else "LOW_RETURN"
-        )
-    elif positive == 1:
-        result = (
-            "PROPORTIONATE_RETURN" if cost <= 1
-            else "NEGATIVE_RETURN" if structural_cost >= 4
-            else "LOW_RETURN"
-        )
     else:
-        result = "NEGATIVE_RETURN" if cost >= 4 else "LOW_RETURN"
+        result = "NEGATIVE_RETURN"
     rationale = (
-        f"主体阶段轴线已闭合：正向收益峰值{positive}、负向收益峰值{negative}、"
-        f"可归责成本峰值{cost}；按现行成本—收益边界裁为{result}。"
+        f"父级轴直接裁决：成本P/S/M/A={costs['P']}/{costs['S']}/{costs['M']}/{costs['A']}，"
+        f"收益SB/SN/BCP/BCN/WR={benefits['SB']}/{benefits['SN']}/{benefits['BCP']}/"
+        f"{benefits['BCN']}/{benefits['WR']}，路由={route}；裁为{result}。"
     )
     return result, rationale
+
+
+def _high_return_tier(benefits: Mapping[str, int], return_class: str) -> str | None:
+    if return_class != "HIGH_RETURN":
+        return None
+    if any(int(benefits[axis]) >= 5 for axis in ("SB", "BCP", "WR")):
+        return "TOP"
+    if any(int(benefits[axis]) >= 4 for axis in ("SB", "BCP", "WR")):
+        return "MAJOR"
+    return "ORDINARY"
+
+
+def _semantic_internal_route(phases: Sequence[Mapping[str, Any]]) -> str:
+    roles = {str(phase.get("subject_role") or "") for phase in phases}
+    if any(
+        role.startswith(
+            (
+                "COUNTERINSURGENCY",
+                "COUNTER_MUTINY",
+                "SUPPRESSOR",
+                "MUTINY_VICTIM",
+                "DEFENDER_ADMIN_CIVILIAN",
+            )
+        )
+        for role in roles
+    ):
+        return "D_INTERNAL_RESTORATION"
+    return "D_EXTERNAL_OR_FRONTIER"
+
+
+def _rollup_parent_axes(
+    phases: Sequence[Mapping[str, Any]],
+) -> tuple[dict[str, int], dict[str, int], str, list[str]]:
+    """Collapse source phases into one canonical parent investment cycle."""
+    costs: dict[str, int] = {}
+    unknown_axes: set[str] = set()
+    for axis in ("P", "S", "M", "A", "WC"):
+        grades = [
+            _grade_number((phase.get("cost_axes") or {}).get(axis), axis)
+            for phase in phases
+        ]
+        known = [grade for grade in grades if grade is not None]
+        costs[axis] = max(known, default=0)
+        if not known:
+            unknown_axes.add(axis)
+    benefits = {axis: 0 for axis in ("SB", "SN", "BCP", "BCN", "WR")}
+    for positive_axis, negative_axis, field in (
+        ("SB", "SN", "strategic_security"),
+        ("BCP", "BCN", "border_control"),
+    ):
+        positive_grades: list[int] = []
+        negative_grades: list[int] = []
+        for phase in phases:
+            values = phase.get(field) or {}
+            positive_grade = _grade_number(
+                values.get(positive_axis) if isinstance(values, Mapping) else values,
+                positive_axis,
+            )
+            negative_grade = _grade_number(
+                values.get(negative_axis) if isinstance(values, Mapping) else values,
+                negative_axis,
+            )
+            if positive_grade is not None:
+                positive_grades.append(positive_grade)
+            if negative_grade is not None:
+                negative_grades.append(negative_grade)
+        if positive_grades or negative_grades:
+            positive = max(positive_grades, default=0)
+            negative = max(negative_grades, default=0)
+            if positive > negative:
+                benefits[positive_axis] = positive
+            elif negative > positive:
+                benefits[negative_axis] = negative
+            elif positive > 0:
+                unknown_axes.update((positive_axis, negative_axis))
+            else:
+                unknown_axes.discard(positive_axis)
+                unknown_axes.discard(negative_axis)
+        else:
+            unknown_axes.update((positive_axis, negative_axis))
+    wr_grades = [
+        _grade_number(phase.get("material_return"), "WR") for phase in phases
+    ]
+    known_wr = [grade for grade in wr_grades if grade is not None]
+    benefits["WR"] = max(known_wr, default=0)
+    if not known_wr:
+        unknown_axes.add("WR")
+    basis = (
+        "SINGLE_PHASE_AXIS_DIRECT"
+        if len(phases) == 1
+        else "PARENT_DIRECTIONAL_NET_ROLLUP"
+    )
+    return costs, benefits, basis, sorted(unknown_axes)
 
 
 def _qin_tang_source_cycle(
@@ -2196,10 +2316,7 @@ def _qin_tang_source_cycle(
     }
     override_values = dict((override or {}).get("values") or {})
     override_costs = override_values.get("d_cost_axes") or override_values.get("cost_axes") or {}
-    has_full_subject_override = bool(
-        override_values.get("d_cost_axes")
-        and override_values.get("return_class")
-    )
+    has_full_subject_override = bool(override_values.get("d_cost_axes"))
     for axis in ("P", "M", "A"):
         if axis in override_costs:
             costs[axis] = max(_axis_numbers(str(override_costs[axis]), axis) or [costs[axis]])
@@ -2232,69 +2349,27 @@ def _qin_tang_source_cycle(
     )
     material = (
         max(costs[axis] for axis in ("P", "M", "A")) >= 3
-        or max(benefits[axis] for axis in ("SB", "SN", "BCP", "BCN")) >= 3
+        or max(benefits.values()) >= 3
         or (s_attributable and costs["S"] >= 3)
     )
     subject_window_ambiguous = ambiguous_same_polity_ref and not has_full_subject_override
     if subject_window_ambiguous:
         material = False
-    explicit_class = str(override_values.get("return_class") or "")
-    if explicit_class == "PROPORTIONATE":
-        explicit_class = "PROPORTIONATE_RETURN"
-    if explicit_class in {
-        "HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN", "UNKNOWN"
-    }:
-        return_class = explicit_class
-        class_basis = "RULER_PHASE_OVERRIDE"
-    elif ref in set(metrics.get("national_negative_return_refs") or ()):
-        return_class = "NEGATIVE_RETURN"
-        class_basis = "CURRENT_NATIONAL_NEGATIVE_ADJUDICATION"
-    elif ref in set(ruler.get("negative_benefit_cycle_refs") or ()):
-        axis_class, axis_rationale = _axis_closed_return_class(
-            costs, benefits, s_attributable=s_attributable
+    route = str(
+        override_values.get("d_route")
+        or (
+            "D_INTERNAL_RESTORATION"
+            if ref in set(ruler.get("internal_cost_binding_refs") or ())
+            else "D_EXTERNAL_OR_FRONTIER"
         )
-        return_class = (
-            "NEGATIVE_RETURN" if axis_class == "NEGATIVE_RETURN" else "LOW_RETURN"
-        )
-        class_basis = (
-            "SUBJECT_AXIS_NEGATIVE_SEVERITY_ADJUDICATION"
-            if return_class == "NEGATIVE_RETURN"
-            else "CURRENT_NEGATIVE_DIRECTION_ADJUDICATION"
-        )
-        return_class_rationale = axis_rationale
-    elif ref in set(ruler.get("positive_benefit_cycle_refs") or ()):
-        axis_class, axis_rationale = _axis_closed_return_class(
-            costs, benefits, s_attributable=s_attributable
-        )
-        benefit_axes_present = any(
-            _axis_numbers(benefit_text, axis)
-            for axis in ("SB", "SN", "BCP", "BCN", "WR")
-        )
-        if axis_class == "NEGATIVE_RETURN" and benefit_axes_present:
-            return_class = "NEGATIVE_RETURN"
-            class_basis = "SUBJECT_AXIS_POSITIVE_DIRECTION_OVERRIDDEN"
-            return_class_rationale = axis_rationale
-        else:
-            return_class = (
-                "HIGH_RETURN"
-                if ref in set(metrics.get("major_high_return_refs") or ())
-                else "PROPORTIONATE_RETURN"
-            )
-            class_basis = "CURRENT_POSITIVE_DIRECTION_ADJUDICATION"
-    else:
-        return_class, return_class_rationale = _axis_closed_return_class(
-            costs, benefits, s_attributable=s_attributable
-        )
-        class_basis = "SUBJECT_AXIS_CLOSED_RETURN_ADJUDICATION"
-    if class_basis not in {
-        "SUBJECT_AXIS_CLOSED_RETURN_ADJUDICATION",
-        "SUBJECT_AXIS_NEGATIVE_SEVERITY_ADJUDICATION",
-        "SUBJECT_AXIS_POSITIVE_DIRECTION_OVERRIDDEN",
-    }:
-        return_class_rationale = (
-            str(override_values.get("return_rationale") or "").strip()
-            or f"沿用已闭合的{class_basis}回报裁决。"
-        )
+    )
+    return_class, return_class_rationale = _axis_closed_return_class(
+        costs,
+        benefits,
+        s_attributable=s_attributable,
+        route=route,
+    )
+    class_basis = "PARENT_AXES_DIRECT_MAPPING"
     machine_settlement = (
         "no" if "machine_settlement=no" in section_text
         else "yes" if "machine_settlement=yes" in section_text
@@ -2302,10 +2377,7 @@ def _qin_tang_source_cycle(
     )
     owner_match = re.search(r"settlement_owner=([^`;\s]+)", section_text)
     settlement_owner = owner_match.group(1) if owner_match else None
-    positive_benefit_grade = max(
-        benefits[axis] for axis in ("SB", "BCP", "WR")
-    )
-    negative_benefit_grade = max(benefits[axis] for axis in ("SN", "BCN"))
+    high_return_tier = _high_return_tier(benefits, return_class)
     return {
         "campaign_group_ref": ref,
         "war_event_refs": [ref],
@@ -2313,32 +2385,23 @@ def _qin_tang_source_cycle(
         "return_class": return_class,
         "cost_axes": costs,
         "benefit_axes": benefits,
-        "positive_benefit_grade": positive_benefit_grade,
-        "negative_benefit_grade": negative_benefit_grade,
         "material": material,
         "unknown_axes": (
             ["SUBJECT_REIGN_COST_BENEFIT_SPLIT"] if subject_window_ambiguous else []
         ),
-        "major_high_return": (
-            material and return_class == "HIGH_RETURN" and positive_benefit_grade >= 4
-        ),
-        "top_high_return": (
-            material and return_class == "HIGH_RETURN" and positive_benefit_grade >= 5
-        ),
+        "high_return_tier": high_return_tier,
+        "major_high_return": material and high_return_tier in {"MAJOR", "TOP"},
+        "top_high_return": material and high_return_tier == "TOP",
         "national_negative": material and return_class == "NEGATIVE_RETURN" and (
-            ref in set(metrics.get("national_negative_return_refs") or ())
-            or costs["P"] >= 5
+            costs["P"] >= 5
+            or (s_attributable and costs["S"] >= 5)
             or costs["M"] >= 4
             or costs["A"] >= 4
             or (s_attributable and costs["S"] >= 5)
             or benefits["SN"] >= 4
             or benefits["BCN"] >= 4
         ),
-        "route": (
-            "D_INTERNAL_COST_ONLY"
-            if re.search(r"MUTINY|REBELLION|REVOLT", ref)
-            else "D_STANDARD"
-        ),
+        "route": route,
         "source_file": source_file,
         "source_heading_line": int(card_meta["heading_line"]),
         "axis_selection_basis": (
@@ -2346,6 +2409,13 @@ def _qin_tang_source_cycle(
         ),
         "return_class_basis": class_basis,
         "return_class_rationale": return_class_rationale,
+        "parent_axis_basis": (
+            "EXPLICIT_PARENT_AXIS_ADJUDICATION"
+            if override_costs
+            or override_values.get("strategic_security_grade") is not None
+            or override_values.get("border_control_grade") is not None
+            else "SOURCE_CARD_PARENT_AXIS_DIRECT"
+        ),
         "machine_settlement": machine_settlement,
         "settlement_owner": settlement_owner,
     }
@@ -2365,8 +2435,18 @@ def _recalculate_qin_tang_d_records(
     direction_payload = json.loads(
         (workspace_root / QIN_TANG_D_DIRECTION_PATH).read_text(encoding="utf-8")
     )
-    if direction_payload.get("schema_version") != "qin-tang-d-cycle-direction-adjudications-v1":
+    if direction_payload.get("schema_version") != "qin-tang-d-cycle-direction-adjudications-v2":
         raise ValueError("秦至唐D周期方向裁决输入schema错误")
+    declared_direction_fingerprint = direction_payload.get("semantic_fingerprint")
+    actual_direction_fingerprint = _digest(
+        {
+            key: value
+            for key, value in direction_payload.items()
+            if key != "semantic_fingerprint"
+        }
+    )
+    if declared_direction_fingerprint != actual_direction_fingerprint:
+        raise ValueError("秦至唐D父级轴与路由裁决输入指纹漂移")
     direction_by_id = {
         str(item["ruler_id"]): item for item in direction_payload["records"]
     }
@@ -2424,20 +2504,9 @@ def _recalculate_qin_tang_d_records(
             for item in (direction.get("ruler_event_class_overrides") or ())
         }
         source_ruler = dict(row)
-        source_ruler["positive_benefit_cycle_refs"] = list(
-            direction.get("positive_benefit_cycle_refs") or ()
+        source_ruler["internal_cost_binding_refs"] = list(
+            direction.get("internal_cycle_refs") or ()
         )
-        source_ruler["negative_benefit_cycle_refs"] = list(
-            direction.get("negative_benefit_cycle_refs") or ()
-        )
-        source_metrics = dict(row.get("D_portfolio_metrics") or {})
-        for key in (
-            "major_high_return_refs",
-            "top_tier_high_return_refs",
-            "national_negative_return_refs",
-        ):
-            source_metrics[key] = list(direction.get(key) or ())
-        source_ruler["D_portfolio_metrics"] = source_metrics
         row["ruler_event_class_overrides"] = list(
             direction.get("ruler_event_class_overrides") or ()
         )
@@ -2499,8 +2568,8 @@ def _recalculate_qin_tang_d_records(
                 "return_class": cycle["return_class"],
                 "cost_axes": cycle["cost_axes"],
                 "benefit_axes": cycle["benefit_axes"],
-                "positive_benefit_grade": cycle["positive_benefit_grade"],
-                "negative_benefit_grade": cycle["negative_benefit_grade"],
+                "route": cycle["route"],
+                "high_return_tier": cycle.get("high_return_tier"),
                 "axis_selection_basis": cycle["axis_selection_basis"],
                 "return_class_basis": cycle["return_class_basis"],
                 "return_class_rationale": cycle["return_class_rationale"],
@@ -2522,6 +2591,14 @@ def _recalculate_qin_tang_d_records(
             else _d_grade_reasons(grade, metrics)
         )
         row["D_portfolio_metrics"] = metrics
+        row["internal_cost_binding_refs"] = [
+            cycle["campaign_group_ref"]
+            for cycle in cycles
+            if str(cycle["route"]).startswith("D_INTERNAL_")
+        ]
+        row["route_counts"] = dict(
+            sorted(Counter(cycle["route"] for cycle in cycles).items())
+        )
         row["included_d_cycle_refs"] = [cycle["campaign_group_ref"] for cycle in cycles]
         row["excluded_nonterminal_cycle_refs"] = [cycle["campaign_group_ref"] for cycle in excluded]
         row["excluded_cycle_adjudications"] = [
@@ -2601,6 +2678,37 @@ def _normalize_formal_d_records(records: Sequence[dict[str, Any]]) -> None:
         ):
             metrics.setdefault("material_negative_return_refs", [])
         metrics.pop("material_only_recalibration", None)
+
+
+def _validate_d_empirical_calibration(
+    records: Sequence[Mapping[str, Any]],
+) -> None:
+    category_counts: Counter[str] = Counter()
+    for row in records:
+        metrics = row.get("D_portfolio_metrics") or {}
+        for cycle in metrics.get("cycle_q_adjudications") or ():
+            if int(cycle["q_contribution"]) == -8:
+                category_counts["NATIONAL_NEGATIVE"] += 1
+            elif cycle["return_class"] == "HIGH_RETURN":
+                tier = str(cycle.get("high_return_tier") or "ORDINARY")
+                category_counts[
+                    {
+                        "ORDINARY": "HIGH_RETURN",
+                        "MAJOR": "MAJOR_HIGH_RETURN",
+                        "TOP": "TOP_HIGH_RETURN",
+                    }[tier]
+                ] += 1
+            else:
+                category_counts[str(cycle["return_class"])] += 1
+    expected = Counter(D_EMPIRICAL_CALIBRATION["category_counts"])
+    if category_counts != expected:
+        raise ValueError(
+            f"D项量化边界基线与当前父级周期分布不一致: {dict(sorted(category_counts.items()))}"
+        )
+    if sum(category_counts.values()) != int(
+        D_EMPIRICAL_CALIBRATION["known_material_cycle_count"]
+    ):
+        raise ValueError("D项已知实质父级周期总数与量化边界基线不一致")
 
 
 def _sync_formal_d_into_combined(
@@ -2868,7 +2976,7 @@ def _render_formal_markdown(
             )
     else:
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | Q净收益 | J决定性 | 检验状态 | 实质父级周期（含战略内战/军费周期） | 高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
+            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | Q净收益 | J决定性 | 检验状态 | 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
             "|---:|---|---|---|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         status_labels = {
@@ -2882,14 +2990,23 @@ def _render_formal_markdown(
             counts = metrics.get("material_return_class_counts")
             if counts is None:
                 raise ValueError(f"{row.get('ruler_name')}缺少实质周期回报分布，拒绝渲染为零")
-            count_keys = (
-                "HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN",
-                "NEGATIVE_RETURN", "UNKNOWN",
-            )
-            count_cells = [str(int(counts.get(key, 0))) for key in count_keys]
-            if sum(int(counts.get(key, 0)) for key in count_keys) != int(
-                metrics.get("material_cycle_count", 0)
-            ):
+            tier_counts = metrics.get("high_return_tier_counts") or {}
+            ordinary_high = int(tier_counts.get("ORDINARY", 0))
+            major_high = int(tier_counts.get("MAJOR", 0))
+            top_high = int(tier_counts.get("TOP", 0))
+            if ordinary_high + major_high + top_high != int(counts.get("HIGH_RETURN", 0)):
+                raise ValueError(f"{row.get('ruler_name')}的互斥高收益档位与高收益总数不闭合")
+            count_cells = [
+                str(ordinary_high),
+                str(int(counts.get("PROPORTIONATE_RETURN", 0))),
+                str(int(counts.get("LOW_RETURN", 0))),
+                str(int(counts.get("NEGATIVE_RETURN", 0))),
+                str(int(counts.get("UNKNOWN", 0))),
+            ]
+            if ordinary_high + major_high + top_high + sum(
+                int(counts.get(key, 0))
+                for key in ("PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN", "UNKNOWN")
+            ) != int(metrics.get("material_cycle_count", 0)):
                 raise ValueError(f"{row.get('ruler_name')}的实质周期总数与回报分布不闭合")
             grade = str(row.get("D_grade") or "D-U")
             evidence_status = str(metrics.get("evidence_status") or "UNASSESSED")
@@ -2903,8 +3020,8 @@ def _render_formal_markdown(
                 f"{status_labels.get(evidence_status, evidence_status)} | "
                 f"{int(metrics.get('material_cycle_count', 0))} | "
                 f"{' | '.join(count_cells)} | "
-                f"{len(metrics.get('major_high_return_refs') or [])} | "
-                f"{len(metrics.get('top_tier_high_return_refs') or [])} | "
+                f"{major_high} | "
+                f"{top_high} | "
                 f"{len(metrics.get('national_negative_return_refs') or [])} |"
             )
     if kind == "D" and unscored:
@@ -2933,14 +3050,15 @@ def _render_formal_markdown(
         else:
             metrics = row.get("D_portfolio_metrics") or {}
             counts = metrics.get("material_return_class_counts")
+            tier_counts = metrics.get("high_return_tier_counts") or {}
             return_summary = (
-                f"高收益{int(counts.get('HIGH_RETURN', 0))}、相称收益{int(counts.get('PROPORTIONATE_RETURN', 0))}、低收益{int(counts.get('LOW_RETURN', 0))}、负收益{int(counts.get('NEGATIVE_RETURN', 0))}、回报未知{int(counts.get('UNKNOWN', 0))}"
+                f"普通高收益{int(tier_counts.get('ORDINARY', 0))}、重大高收益{int(tier_counts.get('MAJOR', 0))}、顶尖高收益{int(tier_counts.get('TOP', 0))}、相称收益{int(counts.get('PROPORTIONATE_RETURN', 0))}、低收益{int(counts.get('LOW_RETURN', 0))}、负收益{int(counts.get('NEGATIVE_RETURN', 0))}、回报未知{int(counts.get('UNKNOWN', 0))}"
                 if counts is not None
                 else "实质回报分布缺失"
             )
             d_basis = _joined_reasons(row.get("D_grade_reasons") or []) or "按去重战略周期的成本、回报与证据暴露定档。"
             lines += [
-                f"- 组合：战术观察节点{int(metrics.get('usable_cycle_count', 0))}项（只作审计，不作为跨人物样本量）；去重实质投资周期{int(metrics.get('material_cycle_count', 0))}项，其中{return_summary}；重大高收益{len(metrics.get('major_high_return_refs') or [])}、顶尖高收益{len(metrics.get('top_tier_high_return_refs') or [])}、国家级负收益{len(metrics.get('national_negative_return_refs') or [])}。",
+                f"- 组合：战术观察节点{int(metrics.get('usable_cycle_count', 0))}项（只作审计，不作为跨人物样本量）；去重实质投资周期{int(metrics.get('material_cycle_count', 0))}项，其中{return_summary}；国家级负收益{len(metrics.get('national_negative_return_refs') or [])}。",
                 f"- 裁决：{_markdown_cell(d_basis)}",
             ]
             excluded = row.get("excluded_cycle_adjudications") or []
