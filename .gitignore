@@ -27,7 +27,6 @@ venv/
 Thumbs.db
 *.egg-info/
 
-# Original-source cache stays local; Git keeps only per-volume Markdown summaries.
-/docs/原始史料/**
-!/docs/原始史料/**/
-!/docs/原始史料/**/*.source-summary.md
+# Fixed-revision source text is a local, rebuildable cache under
+# .cache/source-text/.  The retired docs/原始史料 path must never re-enter Git.
+/docs/原始史料/

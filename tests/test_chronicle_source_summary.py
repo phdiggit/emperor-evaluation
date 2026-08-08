@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from copy import deepcopy
 import json
+from pathlib import Path
+import subprocess
 
 import pytest
 
@@ -131,6 +133,36 @@ def test_render_command_writes_utf8_markdown(tmp_path) -> None:
     assert result == 0
     assert output_path.read_bytes().startswith(b"# ")
     assert "卷001原文通读总结" in output_path.read_text(encoding="utf-8")
+
+
+def test_repository_keeps_source_cache_and_review_expansions_out_of_git() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    tracked = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=repo_root,
+        check=True,
+        capture_output=True,
+    ).stdout.decode("utf-8").split("\0")
+
+    forbidden = [
+        path
+        for path in tracked
+        if path.startswith("docs/原始史料/")
+        or path.endswith(".battle-adjudications.json")
+        or "战役成本收益补证-" in path
+    ]
+    assert forbidden == []
+
+    for local_cache_path in (
+        ".cache/source-text/测试史料/卷001.md",
+        "docs/原始史料/测试史料/卷001.md",
+    ):
+        ignored = subprocess.run(
+            ["git", "check-ignore", "--quiet", "--no-index", local_cache_path],
+            cwd=repo_root,
+            check=False,
+        )
+        assert ignored.returncode == 0
 
 
 @pytest.mark.parametrize(
