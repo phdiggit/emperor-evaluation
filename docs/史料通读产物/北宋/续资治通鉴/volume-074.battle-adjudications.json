@@ -1,0 +1,672 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷074",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-074-2292219",
+    "revision_ref": "2292219",
+    "raw_sha256": "d30ec9acd8b6b62c19bca6a893c3ad43c48dfefeb4a55600d98a972886215cf0"
+  },
+  "cards": [
+    {
+      "battle_label": "顺州蛮叛—峒州兵讨平",
+      "campaign_group": "XZTJ-SONG-SHUNZHOU-REBELLION-1079",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+      ],
+      "source_quotes": [
+        "順州蠻叛，峒、州兵討平之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋峒、州兵 × 平顺州蛮叛阶段",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "顺州发生蛮叛，宋方调用峒兵、州兵实际进讨并平定；原文未载首领、兵数、斩俘或城寨得失。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装讨平，宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "真实进讨不能判P0；事件在单段内迅速收束，未见宋军重损、援军或持续州县失控。",
+            "upper_bound_reason": "无百人级伤亡或长期战事材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "本次顺州局部叛乱被明确‘讨平’，短期内该处威胁解除；但没有材料证明更广泛同类部族威胁结构性终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "顺州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原文只称叛乱被平，未明确顺州城或行政区曾实际丧失后再恢复，故不虚计控制GAIN。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低档可见成本平定局部叛乱并恢复秩序，但无新增资源或可确认领土收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ]
+          },
+          "carry_in": "本卷前无同一顺州叛乱阶段。",
+          "carry_out": "若后卷同一集团复叛，复核SB2持续性。"
+        },
+        {
+          "evaluation_subject_phase": "顺州叛乱武装 × 被峒州兵讨平阶段",
+          "subject_role": "REBEL",
+          "actual_process": "顺州蛮叛后遭宋峒兵、州兵进讨，最终被平定；具体损失与首领结局均失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际进讨并被平，叛军人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "‘讨平’表明武装抵抗被压制，采用非零低档估计；无斩首或俘虏数字。",
+            "upper_bound_reason": "无百人级损失或成片据点毁失证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "本次叛乱组织被打散、行动失败，局部威胁能力消失。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "顺州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文未证明叛军曾形成稳定行政或边疆控制，故不从‘讨平’反推BCN。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "承担武装损害后叛乱被压平，没有形成可持续安全、资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0044"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "西夏连续犯绥德城—大会平与八月再犯均被击败",
+      "campaign_group": "XZTJ-SONG-XIA-SUIDE-1079",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-074-2292219-P0067",
+        "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+      ],
+      "source_quotes": [
+        "夏兵犯綏德城大會平，第四將高永能等擊敗之",
+        "夏人寇綏德城，都監李浦敗之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋鄜延第四将高永能等 × 大会平击退夏军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "七月西夏军进入绥德城大会平方向，高永能等实际迎击并将其击败；未见绥德城失守。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际接战，宋方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有真实交战但胜后仍能保持绥德城，且无宋军重损后效。",
+            "upper_bound_reason": "无百人级死伤、被俘或城陷记录。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次进攻被击退，绥德方向短期安全恢复；同年八月敌军再次来犯，说明威胁主体能力仍在。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥德城",
+              "大会平"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "成功击退来敌并守住原防线，无新增控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低档成本守住边防节点并取得一次性安全收益；同年再犯说明只能定SB1。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ]
+          },
+          "carry_in": "承西夏与鄜延边境长期冲突。",
+          "carry_out": "八月P0070同方向再次入寇，另作下一实际阶段，不以后一胜倒灌本阶段。"
+        },
+        {
+          "evaluation_subject_phase": "西夏入寇军 × 大会平败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "西夏军进犯绥德城大会平方向，被宋第四将高永能等击败，未形成城地控制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "被击败但伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "真实败战采用低档非零估计；无斩首、俘获或大溃数字。",
+            "upper_bound_reason": "无百人级明确损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次入寇失败，但八月仍能再犯，说明仅为局部受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "未见所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥德城",
+              "大会平"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得绥德控制，亦无证据显示既有西夏控制区发生变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "付出接战成本而进攻失败，未获控制或资源。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0067"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "八月仍再次进犯绥德城。"
+        },
+        {
+          "evaluation_subject_phase": "宋都监李浦部 × 八月再败夏军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "八月西夏再次寇绥德城，宋都监李浦迎击并击败来敌；原文仍无死伤、斩获数字。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际接战，宋方损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "再次发生真实防御战，不能判P0；仍无城陷、重损或补兵后效。",
+            "upper_bound_reason": "无百人级伤亡证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "再次击退同方向入寇，守住绥德城；但本卷尚不足以判定西夏长期停止进攻。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥德城"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原控制保持，无新增边线推进。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "连续第二次以低档可见成本守住节点，安全收益仍为一次性防御缓解。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ]
+          },
+          "carry_in": "承七月大会平击败西夏后同一方向威胁未消。",
+          "carry_out": "后卷继续核西夏是否持续进犯；不提前上调SB。"
+        },
+        {
+          "evaluation_subject_phase": "西夏入寇军 × 八月再犯绥德失败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "西夏军再次进入绥德城方向，被李浦击败；无城寨控制变化。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际败战，西夏方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "真实接战且被击败，采用低档非零估计。",
+            "upper_bound_reason": "无斩俘或成建制覆灭数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "同方向第二次行动再次失败，形成局部受挫，但本卷仍不能证明长期进攻能力被结构性削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥德城"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得绥德控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "进攻目标再次落空，未形成任何可确认收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0070"
+            ]
+          },
+          "carry_in": "承七月大会平失利。",
+          "carry_out": "后卷核是否继续复犯。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "安南战争收束—交趾归还所掠民、宋赐顺州",
+      "campaign_group": "XZTJ-SONG-DAIVIET-WAR-1075-1077",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+      ],
+      "source_quotes": [
+        "交趾歸所掠民，詔以順州賜之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋广南边境体系 × 接收被掠民并让出顺州阶段",
+          "subject_role": "POSTWAR_SETTLEMENT",
+          "actual_process": "承前两卷停战与边界交涉，本卷交趾实际归还此前所掠宋民；宋廷同时把顺州正式赐给交趾，形成已发生的战后控制交割。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "strategic_security": "SB2",
+          "strategic_security_detail": "人口返还与边界交割使此前高强度战争进一步制度化收束，短期边境安全改善；但本段本身不证明长期无冲突。",
+          "material_return": "WR0",
+          "material_return_detail": "被掠人口返还不资产化；本阶段无新军资所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "顺州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "宋廷以诏书将顺州实际让与交趾，是此前所控边地的一处明确控制后退。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "本阶段无新增战斗成本并实现人口返还与停战收束，但同时发生顺州控制让渡；实际回报存在而控制结果偏负，故不判高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ]
+          },
+          "carry_in": "承卷071富良江大战、卷072撤军复贡与卷073两次拒绝归还广源等州请求。",
+          "carry_out": "后卷只核边境是否持续稳定；顺州本次已发生的控制转移不得重复计BCN。"
+        },
+        {
+          "evaluation_subject_phase": "交趾李乾德政权 × 归还被掠民并取得顺州阶段",
+          "subject_role": "POSTWAR_SETTLEMENT",
+          "actual_process": "交趾向宋归还此前掠走的人口，并从宋廷取得顺州，完成本轮战争后的实际边界交换。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "strategic_security": "SB2",
+          "strategic_security_detail": "通过战后交割进一步结束宋军压力并稳定北部边界，核心政权安全状态改善。",
+          "material_return": "WR0",
+          "material_return_detail": "人口不是资产；顺州控制收益统一记入BCP，避免重复计WR。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "顺州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "交趾在战后和议中实际取得顺州控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "在无新增战斗成本的收束阶段取得一州控制并稳定边界，同时承担归还所掠人口义务，形成明确但局部的实际回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋、辽、西夏、交趾及本卷所涉边部均非本阶段可由原文确认的开国、复国或新政权建国启动过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+            ]
+          },
+          "carry_in": "承前卷请降、复贡以及卷073持续索还广源等地的谈判。",
+          "carry_out": "后卷核顺州控制是否保持；不把人口归还记为资源损失。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-074-2292219-P0001—P0120",
+      "paragraph_count": 120,
+      "body_end": "P0118",
+      "metadata_tail": [
+        "P0119",
+        "P0120"
+      ],
+      "status": "COMPLETED",
+      "edit_markers": [
+        "P0002"
+      ]
+    },
+    "card_coverage": {
+      "adjudicated_cards": 3,
+      "adjudicated_subject_phase_cards": 8,
+      "coverage_note": "逐段复读后，本卷实际战争账户为三条：顺州蛮叛讨平；西夏七、八月连续两次犯绥德并被击败（同一来源卡内分四个主体阶段）；安南战争战后交割中交趾归还被掠民、宋赐顺州（无新战斗成本，但存在实际BCN/BCP）。乞弟线只有讨伐命令，留待后卷。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "环庆正兵、汉蕃弓箭手编为八将，属军制组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "乞弟犯边后朝廷命王光祖等讨之，本卷只见讨伐命令，未见实际出征接战或结果；留跨卷核。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "河东解板沟地界要求避免张惶生事，属边界外交与危机管控。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "徐禧权发遣渭州并继续计议边防，属任命与准备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陕西将兵法、汉蕃混编及战守编制争论，属军制改革。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0044",
+        "disposition": "ADJUDICATED",
+        "battle_label": "顺州蛮叛—峒州兵讨平"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "针对强盗人数稍众允许选武臣捕逐，是治安政策，未载具体武装事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "只记捕斩侬智春并执其妻子，没有实际交战、据城或起兵过程；按合同不能由捕杀结果反推战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽任命西北路招讨使，属军政任命。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0067",
+        "disposition": "ADJUDICATED",
+        "battle_label": "西夏连续犯绥德城—大会平与八月再犯均被击败"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "限制诸路禁军教阅时长，属军制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0070",
+        "disposition": "ADJUDICATED",
+        "battle_label": "西夏连续犯绥德城—大会平与八月再犯均被击败"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "泾原路兵马分十一将，属军制组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0077",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "洛口役兵千余拒令后被吕公孺招谕归队，全程未发生武装接战；作为工程服役负担与秩序事实保留在source-summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "废庆州府城寨、前村堡、平戎镇、环州大拔寨，属行政性撤并；本段无战斗导致失守。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "颁《马步射格斗法》于诸军，属训练制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0094",
+        "disposition": "ADJUDICATED",
+        "battle_label": "安南战争收束—交趾归还所掠民、宋赐顺州",
+        "reason": "虽无新战斗，但这是卷071—072安南战争同一campaign_group的实际战后控制交割阶段，须记录BCN/BCP而不能只留在外交总结。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "太皇太后追叙反对恢复燕蓟，属战略劝谏，没有实际军事行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0105",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "开封府界教大保长充教头，属保甲训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-074-2292219-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "广南东路七州拟依西路训练保甲武艺，属军事准备。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "XZTJ-SONG-LUHU-NAXI-1078-1080",
+        "followup": "P0018明记泸州夷乞弟犯边、诏王光祖等讨之，但本卷无实际战果；后卷须从首次接战起另立主体阶段，不能把本卷命令先算M/P/A。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-XIA-SUIDE-1079",
+        "followup": "绥德城在七月大会平、八月两次守住，只能确认两次SB1；后卷若继续复犯，说明威胁未终结，不得把本卷两胜合并抬成结构性SB。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-DAIVIET-WAR-1075-1077",
+        "followup": "P0094已把顺州控制实际交给交趾，并由交趾归还所掠民。顺州BCN2/BCP2只记本阶段一次；后卷仅核控制是否保持和边境稳定，不重复计土地收益或人口资产。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,3655 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "资治通鉴/卷270",
+  "source_identity": {
+    "source_unit_id": "SRC-ZZTJ-270-803281",
+    "revision_ref": "803281",
+    "raw_sha256": "3564030bfac4eee5724eab84de32f30958556202f3280abf547353a929e91a7e"
+  },
+  "cards": [
+    {
+      "battle_label": "晋七万军解幽州之围与契丹撤退",
+      "campaign_group": "ZZTJ-269-KHITAN-YOUZHOU-0916",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0013",
+        "SRC-ZZTJ-270-803281-P0016"
+      ],
+      "source_quotes": [
+        "契丹圍幽州且二百日",
+        "步騎七萬會於易州",
+        "以百餘騎……三入敵陣",
+        "俘斬萬計",
+        "契丹大敗"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "晋李嗣源、阎宝、李存审军 × 七万援幽州阶段",
+          "subject_role": "RELIEF_FORCE",
+          "actual_process": "承卷269契丹长期围幽。晋认为李嗣源、阎宝兵少，又增李存审；三军合步骑七万自易州走山谷。李嗣源父子三千骑当前锋，以百余骑反复冲阵；李存审以鹿角、万弩及曳柴扬尘配合夹击，最终大破契丹并入幽州。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "七万援军经历多次谷口截击与大会战，本方总死伤失载。",
+            "range": "1,000—5,000死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "大规模山谷行军、反复骑战和最终决战支持千人级损害。",
+            "upper_bound_reason": "无晋军万人级死亡或主力崩溃。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "strategic_security": "SB4",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "幽州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "解除近二百日围城，维持晋对幽州的既有控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "幽州是灭燕后新纳入的核心北边军镇，解围直接保住李存勖建国前河北北翼。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "carry_in": "承卷269 `ZZTJ-269-KHITAN-YOUZHOU-0916`：契丹已长期围幽州，李嗣源先军涞水、阎宝继进，战果未决。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "契丹围城军 × 二百日围攻后大败撤退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "契丹围幽州近二百日。晋七万援军通过山谷逼近后，契丹在谷口连续截击，最终被鹿角、强弩、扬尘与前后夹击打败，弃车帐、铠仗、羊马，晋军俘斩万计。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M5",
+            "A": "A4",
+            "WC": "WC5"
+          },
+          "P_inference": {
+            "P_observed": "明载“俘斩万计”，但俘与斩构成不明。",
+            "range": "2,000—9,000死亡当量",
+            "center": 4243,
+            "P_scoring": "P3估",
+            "basis": "万计混合俘斩按合同折算后稳入千人级，另有战斗损失。",
+            "upper_bound_reason": "不能把一万混合俘斩全按死亡计算，且无十万级死伤。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "幽州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "长期围攻失败，撤离幽州。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "契丹试图夺幽州失败，建国初期南扩在本阶段遭重大挫折。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0013",
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "卢文进—契丹边骑 × 战后持续抄掠卢龙阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "解围后契丹任卢文进为卢龙节度使而其实际居平州，年年引奚骑入寇，杀掠吏民并抄晋粮运，使卢龙诸州长期残弊。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "原文概括为年年入寇、杀掠吏民并持续抄粮，具体总数失载。",
+            "range": "1,000—8,000死亡当量",
+            "center": 2828,
+            "P_scoring": "P3估",
+            "basis": "跨年反复杀掠和粮运袭击形成累计千人级损害是保守估计。",
+            "upper_bound_reason": "无可核总人口或万人级死伤，不能上P4。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "卢龙诸州粮道与乡里"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "形成长期袭扰空间，但未因本段确认取得新的正式州县控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "契丹整体威胁并未因幽州解围终结；卷271以后如继续卢龙袭扰，只计新发生阶段。"
+        },
+        {
+          "evaluation_subject_phase": "晋卢龙诸州军民 × 战后长期受袭阶段",
+          "subject_role": "AFFECTED",
+          "actual_process": "虽解幽州之围，但卢文进此后年年导奚骑入寇、杀掠吏民、抄截粮运，卢龙诸州长期残弊。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "多年杀掠与粮运损害无总人数。",
+            "range": "1,000—8,000死亡当量",
+            "center": 2828,
+            "P_scoring": "P3估",
+            "basis": "持续多年、覆盖多州的杀掠支持累计千人级人员损害。",
+            "upper_bound_reason": "缺明确人口和死亡总数，不上P4。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "卢龙诸州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "正式控制仍属晋，但边区生产、运输与治安长期受损。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0016"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "杨刘—胡柳陂—德胜黄河争夺",
+      "campaign_group": "ZZTJ-270-LIANG-JIN-HUANGHE-0919",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0023",
+        "SRC-ZZTJ-270-803281-P0028",
+        "SRC-ZZTJ-270-803281-P0029",
+        "SRC-ZZTJ-270-803281-P0034",
+        "SRC-ZZTJ-270-803281-P0037",
+        "SRC-ZZTJ-270-803281-P0048",
+        "SRC-ZZTJ-270-803281-P0053",
+        "SRC-ZZTJ-270-803281-P0058",
+        "SRC-ZZTJ-270-803281-P0067",
+        "SRC-ZZTJ-270-803281-P0069",
+        "SRC-ZZTJ-270-803281-P0071",
+        "SRC-ZZTJ-270-803281-P0072",
+        "SRC-ZZTJ-270-803281-P0073",
+        "SRC-ZZTJ-270-803281-P0074",
+        "SRC-ZZTJ-270-803281-P0076",
+        "SRC-ZZTJ-270-803281-P0079",
+        "SRC-ZZTJ-270-803281-P0086",
+        "SRC-ZZTJ-270-803281-P0097"
+      ],
+      "source_quotes": [
+        "河冰合",
+        "即日拔之",
+        "決河水，瀰浸數里",
+        "死傷不可勝紀，河水為赤",
+        "大閱於魏州",
+        "伏精甲五千於堤下",
+        "眾號十萬",
+        "兩軍所喪士卒各三之二",
+        "死亡者幾三萬人",
+        "拔濮陽",
+        "德勝南北夾河築兩城",
+        "梁兵焚溺者殆半",
+        "將兵五萬",
+        "夾河築壘",
+        "造浮梁"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "晋军 × 冰渡黄河、破沿河栅与取杨刘阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "黄河冰合后晋王急赴魏州，率军渡河，逐一攻破沿河数十里梁栅，再以步卒斩鹿角、负芦苇填壕，四面急攻杨刘，当日拔城并擒安彦之。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "连续攻栅与一日急攻杨刘，本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "多处工事战与攻城支持百人级损害。",
+            "upper_bound_reason": "无晋军千人级死亡或败退。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR3",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杨刘",
+              "沿河数十里梁栅"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得杨刘及一组黄河前沿栅垒。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "李存勖建国前把河北优势推进到黄河南岸前沿，形成直逼梁腹地的新桥头堡。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0023",
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁杨刘防线 × 沿河栅、杨刘失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "梁以甲士三千守杨刘并设数十里沿河栅，遭晋军渡冰连续攻破；杨刘当日失守。消息使梁帝南郊计划中止并引发“晋军已入大梁”的道路恐慌。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "三千守军遭连续攻栅、破城，梁方总死伤失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "城防体系快速崩解，推定百人级人员损害。",
+            "upper_bound_reason": "无千人级斩首、全军覆没明文。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杨刘",
+              "沿河栅垒"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "黄河重要前沿据点与栅垒失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0028",
+              "SRC-ZZTJ-270-803281-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋军 × 郓濮侵掠后撤阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "梁帝返大梁后，晋兵侵掠至郓、濮而还。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "边境侵掠本方损失失载。",
+            "range": "10—90死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "实际跨境袭掠，保守计小规模非零损害。",
+            "upper_bound_reason": "无百人级死伤或久战。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "郓州",
+              "濮州方向"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "完成袭掠后撤，没有稳定控制变化。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0034"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁谢彦章军 × 数万攻杨刘、决河阻晋阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "谢彦章率数万梁军攻杨刘，筑垒并决河水淹数里阻隔晋援；杨刘仍未被攻下。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "数万军攻城，本方死伤失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "较大规模攻城与筑垒支持百人级人员损害。",
+            "upper_bound_reason": "无梁军千人级败亡明载。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杨刘"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "形成围攻和水障，但未恢复杨刘。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0037"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋军 × 六月涉水反击、取滨河四寨阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "晋王亲测河水并率军涉渡。谢彦章临岸拒击，晋军佯退至中流后复进，梁军大败；晋遂取得滨河四寨。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "激烈涉水战，本方死伤失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "正面渡河反击和夺寨支持百人级损害。",
+            "upper_bound_reason": "无晋军千人级伤亡。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "滨河四寨"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "夺取四个河防寨垒并恢复渡河主动。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "继续扩展黄河桥头堡与河防节点。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁谢彦章军 × 临岸阻击败退阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "谢彦章临岸拒晋渡河，晋军中流反击后梁军大败，原文称死伤不可胜纪、河水为赤，谢彦章仅身免；滨河四寨随即失守。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "“死伤不可胜纪，河水为赤”，无明确数字。",
+            "range": "1,000—8,000死亡当量",
+            "center": 2828,
+            "P_scoring": "P3估",
+            "basis": "明显重大战败和大量河战死亡，按合同估入千人级。",
+            "upper_bound_reason": "无万人死数或大军全灭明文。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "滨河四寨"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "河防四寨失守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0048"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋多镇联军 × 魏州大阅、百日对峙与西进阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "晋先集幽州三万、沧景一万、邢洺一万、易定一万，并诸州、奚、契丹、室韦、吐谷浑及河东魏博兵在魏州大阅。随后与梁坚壁相持百余日；闻梁内杀谢彦章等后，晋王令老弱归魏州、毁营西进，众号十万。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "魏州—大梁方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "完成大规模集结和向梁腹地推进，但此阶段本身无稳定新增控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "李存勖把多镇与部族资源集中到黄河南线，准备对后梁核心发动国家级进攻。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0053",
+              "SRC-ZZTJ-270-803281-P0067",
+              "SRC-ZZTJ-270-803281-P0069"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋王轻骑 × 马家渡堤下遇伏脱险阶段",
+          "subject_role": "SCOUT_ATTACK",
+          "actual_process": "晋王在马家渡一线屡以轻骑逼梁营，一次仅十余骑越堤，被谢彦章预伏五千精甲围数十重；后骑内外夹击、李存审驰援后脱险。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "小股轻骑陷围并突围，本方死伤失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "实际近战但兵力很小，按小规模非零损失估计。",
+            "upper_bound_reason": "无百人级损失可能。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ]
+          },
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "马家渡"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "统帅脱险，无控制所得。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁谢彦章伏兵 × 堤下截击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "谢彦章伏精甲五千于堤下，围住晋王十余骑，最终因晋后军和李存审援军到来未能歼获晋王。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伏击及援军接战，梁方死伤失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "短促伏击战，未见大规模伤亡。",
+            "upper_bound_reason": "无百人级损失线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "马家渡"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "未改变前线控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0058"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋军 × 胡柳陂整日会战阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "晋银枪军初破梁阵后，辎重因梁旗惊溃并冲乱幽州军，周德威父子、王缄战死；晋王据高丘收散兵，日中重整并夺土山；傍晚李嗣昭、王建及等再冲梁步卒，白丁曳柴扬尘助势，最终反败为胜。原文明言当日两军所丧士卒各约三分之二。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S1",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "晋军当日“所丧士卒三之二”；战前为多镇大军，P0069又“众号十万”，但号数不作实数。",
+            "range": "10,000—40,000死亡当量",
+            "center": 20000,
+            "P_scoring": "P4估",
+            "basis": "即便不用号称十万，前期可核集结至少六万正规军另有河东魏博等，三分之二的‘所丧’按死亡/伤残/失散折算后足以进入万人级。",
+            "upper_bound_reason": "“所丧”不是纯死亡，且各阶段构成不明，不上P5。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "胡柳陂战场"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "最终取得战场主动，但本阶段不提前计后续濮阳控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "战术上避免西进主力在梁境前沿全军崩溃，但以极高代价换得有限战场优势。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0072",
+              "SRC-ZZTJ-270-803281-P0073"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁贺瑰、王彦章等军 × 胡柳陂败战阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "梁军首段借晋辎重崩溃取得优势，王彦章骑兵后退；傍晚梁骑已入濮阳，余步卒疲惫无营垒，遭晋军急击而大败，自相践踏、弃甲山积，原文明记死亡近三万，且两军各丧士卒约三分之二。",
+          "cost_axes": {
+            "P": "P4",
+            "S": "S2",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "胡柳陂—大梁北面主力"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "战场失利，败卒大量逃散；大梁一度震恐，月余才勉强重新成军。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0071",
+              "SRC-ZZTJ-270-803281-P0073",
+              "SRC-ZZTJ-270-803281-P0076"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋军 × 战后攻拔濮阳阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "胡柳陂战后晋军继续攻濮阳并拔之。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "攻拔濮阳，本方伤亡失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "战后乘势取城，未见苦战。",
+            "upper_bound_reason": "无百人级伤亡线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "濮阳"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得濮阳州城节点。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "胡柳陂后把战场优势转为濮阳实际控制。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0074"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋李存审军 × 德胜南北筑城守渡阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "晋在德胜河南、河北各筑一城守渡，为黄河长期对峙建立固定桥头堡。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德胜南城",
+              "德胜北城"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "形成夹河固定军城和渡口控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "把战后黄河前沿转化为可持续军城体系。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0079"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁贺瑰军 × 百道攻德胜南城、河上封锁阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "梁军从多路围攻德胜南城，并用十余艨艟联竹笮、蒙牛革横断黄河，令晋援不能渡。晋敢死士破笮、火具焚攻后，梁兵焚溺近半，围攻失败。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文“梁兵焚溺者殆半”，但未载参战总数。",
+            "range": "1,000—8,000死亡当量",
+            "center": 2828,
+            "P_scoring": "P3估",
+            "basis": "百道围城与大规模河战中近半损失，稳入千人级。",
+            "upper_bound_reason": "缺总兵数，不能稳定上万人级。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德胜南城"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未克南城，河上封锁体系被破。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "晋李建及敢死士及援军 × 破艨艟、解德胜围阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "德胜南城矢石将尽。李建及率敢死士三百披甲持斧斩竹笮，晋又放载薪油火具顺流焚攻，巨舰甲士继进，破梁船障后渡河解围并追至濮州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "敢死队与河战有实际伤亡但无数。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "P_scoring": "P2估",
+            "basis": "三百敢死士近距离破障并有后续舰战，推定百人级综合损害。",
+            "upper_bound_reason": "无晋军千人级死伤。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德胜南城",
+              "黄河渡口"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住德胜南城及渡口体系。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "守住黄河桥头堡，维持对后梁核心的持续战略压力。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0086"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "梁王瓒军 × 五万渡河掩澶魏、杨村筑垒浮梁阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "王瓒率五万自黎阳渡河掩击澶、魏，至顿丘遇晋军而返；随后据杨村夹河筑垒，并自滑州持续转运竹木建浮梁，供给不绝。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杨村河防据点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "建立杨村夹河营垒与浮梁体系，但未因本阶段取得州县。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷271沿 `ZZTJ-270-LIANG-JIN-HUANGHE-0919` 继续德胜北城、潘张粮道与濮阳争夺。"
+        },
+        {
+          "evaluation_subject_phase": "晋李存进军 × 德胜浮梁工程阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "晋军在德胜造浮梁，不用常规竹笮铁牛石囷，而以苇笮系巨舰、系于土山巨木，月余建成，继续维持河上交通。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德胜浮梁及南北城交通"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "强化德胜河防和跨河运输能力。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "为长期黄河争夺提供稳定跨河通道。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0097"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷271同一campaign_group继续结算。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "吴攻虔州与吴越闽楚援军",
+      "campaign_group": "ZZTJ-270-WU-QIANZHOU-0918",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0035",
+        "SRC-ZZTJ-270-803281-P0052",
+        "SRC-ZZTJ-270-803281-P0059",
+        "SRC-ZZTJ-270-803281-P0062",
+        "SRC-ZZTJ-270-803281-P0065"
+      ],
+      "source_quotes": [
+        "厚利募贛石水工",
+        "軍中大疫",
+        "錢傳球帥兵二萬攻信州",
+        "張宣等三千夜襲古亭，破之",
+        "斬首數千級，不能克",
+        "守卒皆農夫，饑窘逾年",
+        "虔兵皆潰",
+        "追執之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "吴王祺、刘信军 × 长期围虔初期阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "吴以王祺统洪、抚、袁、吉兵，经熟悉赣石水路者引导突然抵虔州。久攻不下，军中大疫，王祺病死，刘信继任。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ]
+          },
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "长期围城尚未攻克。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "吴试图把此前名义归附不稳的虔州转化为直接控制。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0035",
+              "SRC-ZZTJ-270-803281-P0052"
+            ]
+          },
+          "carry_in": "承卷267—268虔州卢氏及继任者多重归属不稳；本卷首次形成吴军长期实际攻城。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴越、楚、闽援军 × 分路援虔失败阶段",
+          "subject_role": "ALLY",
+          "actual_process": "谭全播求援后，钱传球率二万攻信州，楚张可求一万屯古亭，闽军屯雩都。信州周本以数百兵开门张幕、登楼宴饮，使吴越疑伏而夜退；吴又夜袭古亭并攻击吴越、闽军，三方外援最终撤离。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "楚军在古亭被三千吴军夜袭击破，吴越、闽亦遭攻击；各方总死伤失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "多支万人级援军参加并有决定性夜袭败战，推定百人级人员损害。",
+            "upper_bound_reason": "无千人级外援伤亡或大规模歼灭明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "信州",
+              "古亭",
+              "雩都"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "援军未能解虔州之围。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0059"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴张宣、梁诠等军 × 夜破古亭、击退外援阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "刘信遣张宣等三千夜袭古亭，击破楚张可求；又遣梁诠等攻吴越、闽援军，迫两国退兵。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "三千夜袭与连续攻击，本方死伤失载。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "P_scoring": "P2估",
+            "basis": "实际夜战与追击支持百人级损害。",
+            "upper_bound_reason": "无千人级吴军死伤。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州外围援军通道"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "孤立虔州，使外援不能解除围城。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "清除外援后维持对虔州的持续封锁。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0059"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "虔州谭全播守军 × 长期守城、饥困至崩溃阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "虔州守军多为农夫，长期被围、饥窘逾年。九月刘信昼夜猛攻，斩首数千仍不能克；十一月吴军再进，先锋一到守军即溃，谭全播奔雩都被追获。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "虔州最终失守，谭全播被擒。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0052",
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴刘信军 × 再攻虔州、完成接管阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "初次猛攻虽斩首数千仍未克，刘信一度议取质纳赂而退；徐温严令再战。十一月先锋一到虔兵崩溃，吴军追获谭全播，并以官职安置。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "长围与多次急攻，本方死伤失载；瘟疫已在前阶段另作P1直接记录，不重复估入。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "最终阶段包含持续攻城和追捕，推定百人级。",
+            "upper_bound_reason": "无吴军千人级死亡或大败。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR3",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "把长期名义不稳的虔州转为吴的直接军事—行政控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "吴取得赣南重要州镇，完成江西方向进一步整合。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0062",
+              "SRC-ZZTJ-270-803281-P0065"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "朱瑾袭杀徐知训与广陵武装危机",
+      "campaign_group": "ZZTJ-270-WU-ZHUJIN-0918",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0046",
+        "SRC-ZZTJ-270-803281-P0047"
+      ],
+      "source_quotes": [
+        "伏壯士",
+        "斬之",
+        "翟虔等已闔府門勒兵討之",
+        "引兵渡江，定亂"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "朱瑾及伏壮士 × 袭杀徐知训阶段",
+          "subject_role": "ARMED_ATTACKER",
+          "actual_process": "朱瑾假意献宠妓良马，在堂内预伏壮士，趁徐知训入府后突然袭杀并斩首；随后持首赴吴王处求响应，府门闭、军兵开始讨捕，朱瑾越城坠伤后自刭。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "广陵权力中枢"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "杀死权臣但未夺取吴王府或稳定控制中枢。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0046",
+              "SRC-ZZTJ-270-803281-P0047"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "徐知训集团与吴中枢 × 权臣被杀、府门戒严阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "徐知训在朱瑾府中被杀；吴王因惧不敢公开支持朱瑾，翟虔等关闭府门、勒兵讨捕，广陵出现短时权力真空。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S3",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "广陵军政中枢"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "中枢没有被朱瑾夺取，但原执政权臣死亡。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0046"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "徐知诰军 × 渡江安定军府阶段",
+          "subject_role": "SUPPRESSOR",
+          "actual_process": "徐知诰闻变后立即引兵渡江；到达时朱瑾已死，遂安定军府。徐温随后以徐知诰代徐知训执政；后续族灭与伏杀属于政治清洗，不重复计作本次战斗成本。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "广陵军政中枢"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "恢复军政秩序并完成权力接续。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0047"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "兖州张万进叛附晋与梁军出讨",
+      "campaign_group": "ZZTJ-270-LIANG-YANZHOU-ZHANGWANJIN-0918",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0055"
+      ],
+      "source_quotes": [
+        "遣使附於晉，且求援",
+        "劉鄩……將兵討之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "张万进兖州军 × 叛附晋、求援阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "张万进因梁嬖幸索贿且闻晋军将出，遣使附晋求援；本卷未记其与梁军实际接战。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "兖州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "确认叛附，但本卷无法确认控制是否已因战争改变。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷须核梁刘鄩讨伐结果、兖州实际归属与张万进结局。"
+        },
+        {
+          "evaluation_subject_phase": "梁刘鄩军 × 奉命讨兖州阶段",
+          "subject_role": "SUPPRESSOR",
+          "actual_process": "梁重新起用刘鄩为兖州安抚制置使，率军讨张万进；本卷只到出军，无战果。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ]
+          },
+          "strategic_security": "UNKNOWN",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "兖州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "讨伐已发动，结果跨卷未决。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0055"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷271继续核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "梅山蛮寇邵州与楚军击退",
+      "campaign_group": "ZZTJ-270-CHU-SHAOZHOU-0918",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0060"
+      ],
+      "source_quotes": [
+        "梅山蠻寇邵州",
+        "樊須擊卻之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "梅山蛮部 × 邵州入寇阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "梅山蛮武装入寇邵州，被楚将樊须击退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "入寇后被击退，损失无数。",
+            "range": "10—90死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "一次边地交战，推定小规模非零损失。",
+            "upper_bound_reason": "无百人级斩获或主力覆灭。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ]
+          },
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "邵州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得稳定控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "楚樊须军 × 击退梅山蛮阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "樊须率楚军击退入寇邵州的梅山蛮。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际交战，本方伤亡失载。",
+            "range": "5—80死亡当量",
+            "center": 20,
+            "P_scoring": "P1估",
+            "basis": "短促边地防御战，推定小规模损失。",
+            "upper_bound_reason": "无百人级守方损害。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "邵州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住邵州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0060"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "前蜀散关—渭水—陇州攻岐",
+      "campaign_group": "ZZTJ-270-SHU-QI-0919",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0081"
+      ],
+      "source_quotes": [
+        "自散關擊岐",
+        "渡渭水，破岐將孟鐵山",
+        "大雨，引還",
+        "攻隴州，不克"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "前蜀王宗播等军 × 散关渡渭进攻阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "蜀军自散关攻岐，渡渭击破孟铁山；因大雨撤回，并分兵戍兴元、凤州、威武城。王宗昱另攻陇州不克。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "一场野战胜利及一次攻州不克，本方伤亡失载。",
+            "range": "100—800死亡当量",
+            "center": 283,
+            "P_scoring": "P2估",
+            "basis": "连续两处作战支持百人级损害。",
+            "upper_bound_reason": "无千人级蜀军死伤或大败。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "渭水方向",
+              "陇州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "野战取胜但未形成新增稳定控制，陇州未克。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "承卷269秦凤扩张继续尝试压缩岐境，但本阶段无新增可确认州城。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ]
+          },
+          "carry_in": "承卷269二十二万伐岐后，凤翔未下、陇州实际控制未确认。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "岐军 × 渭水败战与陇州守城阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "岐将孟铁山在渭水方向被蜀军击破，但陇州守方成功拒绝王宗昱攻城；蜀军因雨撤回。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "野战失败和守城伤亡无数。",
+            "range": "100—800死亡当量",
+            "center": 283,
+            "P_scoring": "P2估",
+            "basis": "一败一守的连续战斗支持百人级。",
+            "upper_bound_reason": "无千人级岐军死亡或州城失陷。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "陇州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "虽有野战败绩，仍守住陇州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0081"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "吴越五百战舰东洲出击与狼山江大战",
+      "campaign_group": "ZZTJ-270-WUYUE-WU-0919",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0083",
+        "SRC-ZZTJ-270-803281-P0085"
+      ],
+      "source_quotes": [
+        "戰艦五百艘",
+        "順風揚灰",
+        "散豆於吳船",
+        "縱火焚之",
+        "俘將七十人",
+        "斬首千餘級",
+        "焚戰艦四百艘"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "吴越钱传瓘水军 × 狼山江反击阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "梁令钱镠大举讨淮南，钱传瓘统战舰五百自东洲出击。狼山江战中以灰迷敌、沙防己船滑、豆使吴船沾血后易滑倒，再纵火焚船，大破吴水军。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "大型水战获胜，吴越本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "五百战舰级水战支持百人级本方损害。",
+            "upper_bound_reason": "无吴越千人级死伤或舰队崩溃。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "狼山江水域"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "取得水战决定性胜利，但未据取吴州县。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "击破吴东线水军，暂时提高吴越对长江口方向的安全。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴彭彦章、陈汾水军 × 狼山江惨败阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "吴水军遭吴越火攻与灰豆战术重创。彭彦章负数十创、兵尽后自杀，陈汾按兵不救；吴越俘将七十、斩首千余、焚战舰四百。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S2",
+            "M": "M2",
+            "A": "A4",
+            "WC": "WC4"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "狼山江水域"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "水军遭严重人员与舰船损失，但未直接丧失州县。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0083",
+              "SRC-ZZTJ-270-803281-P0085"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "楚攻荆南与吴军援救、取复州",
+      "campaign_group": "ZZTJ-270-CHU-JINGNAN-WU-0919",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0088"
+      ],
+      "source_quotes": [
+        "楚攻荊南",
+        "高季昌求救於吳",
+        "劉信等自瀏陽趨潭州",
+        "李簡等水軍攻復州",
+        "楚兵釋荊南引歸",
+        "入復州，執其知州鮑唐"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "楚军 × 进攻荆南阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "楚军进攻荆南，高季昌向吴求救；吴陆军直趋潭州、水军攻复州后，楚军被迫解除荆南攻势撤回。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "攻荆南及撤兵，本方死伤失载。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "P_scoring": "P2估",
+            "basis": "跨境较大规模攻势，推定百人级人员损害。",
+            "upper_bound_reason": "无千人级败亡或全军溃散明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "荆南"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未克荆南。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "荆南高季昌守方 × 求吴援、守住荆南阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "荆南遭楚军进攻，高季昌求援吴；楚因后方受吴威胁而撤兵，荆南保住。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守御伤亡无数。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "原文未写荆南具体大会战，保守记小规模非零。",
+            "upper_bound_reason": "无百人级守方损害。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "荆南"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住荆南核心。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "荆南新兴割据政权避免被楚攻破核心。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴刘信、李简等军 × 援荆南、攻复州阶段",
+          "subject_role": "ALLY",
+          "actual_process": "吴陆军自浏阳趋潭州牵制楚，水军同时攻复州；楚军解荆南而归后，吴军进入复州并擒知州鲍唐。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多路进军与攻州，本方伤亡失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "复州迅速取得、无苦战描写，按小规模估计。",
+            "upper_bound_reason": "无百人级吴军死伤证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "复州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "援军战略目标实现，并实际取得复州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "吴借援荆南扩大对复州的实际控制。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0088"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "沙山—无锡—香弯之战与吴越退兵",
+      "campaign_group": "ZZTJ-270-WUYUE-WU-0919",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-270-803281-P0089",
+        "SRC-ZZTJ-270-803281-P0090",
+        "SRC-ZZTJ-270-803281-P0098"
+      ],
+      "source_quotes": [
+        "敗吳越兵於沙山",
+        "將兵三萬攻吳常州",
+        "乘風縱火",
+        "斬首萬級",
+        "追至山南，又敗之",
+        "香彎擊敗吳越",
+        "自是吳國休兵息民"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "吴军 × 沙山先胜阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "六月吴军在沙山击败吴越兵，为下一月常州方向大战前的局部胜利。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "击败敌军，本方损失无数。",
+            "range": "10—90死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "单次局部战斗，推定小规模损害。",
+            "upper_bound_reason": "无百人级本方死伤。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "沙山"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "无稳定领土变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0089"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴越钱传瓘三万军 × 无锡—山南—香弯连败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "钱传瓘率三万攻常州。无锡战时吴军利用久旱草枯、乘风纵火，吴越大乱，何逢、吴建战死，斩首万级；退至山南再败，陈璋水军又在香弯击败吴越。",
+          "cost_axes": {
+            "P": "P4",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "常州",
+              "无锡",
+              "山南",
+              "香弯"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "攻常州失败并连续败退，无新增控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "吴越向常州扩张的重大战役失败。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0090"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "吴徐温、陈璋军 × 无锡火攻与连续追击阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "徐温迎战钱传瓘，发热时陈彦谦移旗鼓并以貌似徐温者维持号令；徐温稍愈复出。吴军乘风纵火，在无锡重创吴越，追至山南再胜，陈璋又在香弯击破其水军。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "多场连续战斗，本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "三万级敌军大战和连续追击支持百人级本方损害。",
+            "upper_bound_reason": "无吴军千人级死伤或主力败退。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ],
+            "S": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ],
+            "M": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ],
+            "A": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ]
+          },
+          "strategic_security": "SB4",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "常州防线"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住常州；随后吴与吴越归俘议和，吴境出现长期休兵。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "守住东部核心边界，并由同卷和议后效确认该方向获得长期安全改善。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-270-803281-P0090",
+              "SRC-ZZTJ-270-803281-P0098"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "coverage_scope": "从P0001线性复读至P0106；P0001—P0010为卷首/页面元数据，P0101—P0106为分类/footer，实质历史正文P0011—P0100逐段复核。所有可能构成对外战争、边防行动、武装叛乱、军事政变或实际武装袭击的锚点均已裁决或明确标为NOT_A_BATTLE。",
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0013",
+        "disposition": "ADJUDICATED",
+        "reason": "晋继续增李存审赴援，为承卷269幽州围城的实际军事增援。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0016",
+        "disposition": "ADJUDICATED",
+        "reason": "七万军解幽州、契丹大败及战后卢文进持续抄掠均属实际战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0023",
+        "disposition": "ADJUDICATED",
+        "reason": "黄河冰合后晋王急赴魏州，为随即渡河取杨刘的实际战役动员起点。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "刘知俊因谗被以谋叛罪处斩，未实际起兵或交战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0028",
+        "disposition": "ADJUDICATED",
+        "reason": "晋渡河破沿岸栅、急攻并拔杨刘。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "梁南郊财政争议与道路恐慌属战果政治后效；可作安全证据但非新战役阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0034",
+        "disposition": "ADJUDICATED",
+        "reason": "晋兵实际侵掠至郓、濮后撤。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0035",
+        "disposition": "ADJUDICATED",
+        "reason": "吴以多州军实际攻虔州，虔州长期战线开始。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0037",
+        "disposition": "ADJUDICATED",
+        "reason": "梁数万攻杨刘并决河水阻援，已发生实际围攻工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "唐文扆控制宫门、谋于王建死后作难，但原文未见双方武装交战；大臣排门入宫后即政治处置。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0046",
+        "disposition": "ADJUDICATED",
+        "reason": "朱瑾伏壮士实际袭杀徐知训，随后府兵勒兵讨捕，构成实际武装政治袭击。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0047",
+        "disposition": "ADJUDICATED",
+        "reason": "徐知诰引兵渡江安定军府，作为P0046武装危机收束；其后族灭、伏杀属政治清洗不重复计P。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0048",
+        "disposition": "ADJUDICATED",
+        "reason": "晋军涉水反击、梁死伤甚众并丢滨河四寨。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0052",
+        "disposition": "ADJUDICATED",
+        "reason": "虔州久围、大疫及吴越闽楚多路援军已经实际出兵。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0053",
+        "disposition": "ADJUDICATED",
+        "reason": "晋多镇、部族军大规模会师魏州，为胡柳陂前国家级战役动员。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0055",
+        "disposition": "ADJUDICATED",
+        "reason": "张万进叛附晋后梁已令刘鄩率军实际出讨；本卷结果未决。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0058",
+        "disposition": "ADJUDICATED",
+        "reason": "晋王轻骑逼营触发五千伏兵实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0059",
+        "disposition": "ADJUDICATED",
+        "reason": "吴三千夜袭古亭并击退吴越、闽援军。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0060",
+        "disposition": "ADJUDICATED",
+        "reason": "梅山蛮实际入寇邵州，楚樊须击退。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0062",
+        "disposition": "ADJUDICATED",
+        "reason": "吴昼夜攻虔、斩首数千且守军长期饥困。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0065",
+        "disposition": "ADJUDICATED",
+        "reason": "虔州守军最终溃散，谭全播被追获，吴完成实际接管。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0067",
+        "disposition": "ADJUDICATED",
+        "reason": "晋梁坚壁百余日后晋军已继续向梁营推进，属于黄河大战持续阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0068",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "贺瑰在犒军宴伏兵杀谢彦章等己方将领，是内部政治处刑，不伪装为对敌战争成本。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0069",
+        "disposition": "ADJUDICATED",
+        "reason": "晋军撤老弱、毁营西进，进入胡柳陂前直接军事推进。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0071",
+        "disposition": "ADJUDICATED",
+        "reason": "胡柳陂首段交战、晋辎重冲乱幽州阵并造成周德威等死亡。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0072",
+        "disposition": "ADJUDICATED",
+        "reason": "晋在高丘收拢、重整并夺土山，是胡柳陂实际中段。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0073",
+        "disposition": "ADJUDICATED",
+        "reason": "胡柳陂暮战、梁军近三万死亡及双方约三分之二损失。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0074",
+        "disposition": "ADJUDICATED",
+        "reason": "晋战后实际攻拔濮阳。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "大梁恐慌、败卒流散和月余重建为胡柳陂战后S/SN连续性证据，无新交战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0079",
+        "disposition": "ADJUDICATED",
+        "reason": "晋在德胜南北夹河筑城，为持续黄河战役的实际军工与河防阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0081",
+        "disposition": "ADJUDICATED",
+        "reason": "蜀出散关、渡渭败岐并攻陇州，实际战斗已发生；同段宫廷奢费等转入非战役总结。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0083",
+        "disposition": "ADJUDICATED",
+        "reason": "吴越五百战舰自东洲实际出击吴境。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0085",
+        "disposition": "ADJUDICATED",
+        "reason": "狼山江大水战，吴舰四百被焚并有千余死亡。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0086",
+        "disposition": "ADJUDICATED",
+        "reason": "梁百道攻德胜南城、艨艟封河与晋敢死士破障解围。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0088",
+        "disposition": "ADJUDICATED",
+        "reason": "楚实际攻荆南，吴陆水两路援救并取得复州。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0089",
+        "disposition": "ADJUDICATED",
+        "reason": "吴在沙山实际击败吴越。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0090",
+        "disposition": "ADJUDICATED",
+        "reason": "吴越三万攻常州，无锡火战及山南、香弯连续追击。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "徐知诰伪装袭苏方案和诸将趁旱灭吴越建议均被徐温拒绝，未实施。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0097",
+        "disposition": "ADJUDICATED",
+        "reason": "梁王瓒五万渡河行动及杨村、德胜双方夹河筑垒造浮梁，为黄河战役实际持续阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴、吴越归俘和议及其后长期休兵乐业为战后政治与民生结果，用于安全后效但不单立战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-270-803281-P0099",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "梁命钱镠讨汉，但钱镠最终未出兵，属于未执行战争命令。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "契丹—幽州：卷269的长期围城在卷270以七万晋援军解围闭合；但卢文进此后居平州、年年引奚骑杀掠并抄粮，属于新的长期边防威胁，后卷遇到具体战斗再按实际阶段入账。",
+      "梁晋黄河主线：卷270已经形成杨刘、胡柳陂、德胜南北城、杨村浮梁连续父链；卷末梁、晋仍夹河筑垒。卷271必须沿 `ZZTJ-270-LIANG-JIN-HUANGHE-0919` 继续德胜、潘张、濮阳等阶段，不能重新开一条重复父链。",
+      "胡柳陂：本卷按双方约三分之二损失结算高额P，但不因晋最终站住战场就抹去其首段崩溃和周德威等损失；后卷不得再次累计本日人员成本。",
+      "兖州张万进：本卷只确认叛附晋与刘鄩率军出讨，战果、伤亡、兖州控制均UNKNOWN；卷271须优先核验。",
+      "吴—虔州：卷270已通过长期围城和谭全播被擒确认吴取得虔州直接控制，前卷名义归属不稳事项至此闭合；后卷不重复记BCP3。",
+      "吴越—吴：狼山江先重创吴水军，随后无锡战吴又重创吴越，最终双方和议。卷271若无新战争，只保留和议后效，不重复计算本卷双方舰损、万级斩首。",
+      "前蜀—岐：卷270散关—陇州行动未取得新增州城，后卷若再伐岐须以新的实际阶段核定，不把卷269秦凤既得领土重复记入。"
+    ]
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷028",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-028-2619988",
+    "revision_ref": "2619988",
+    "raw_sha256": "4f553a6a54c9b652d4b4051cb61582e763a384fee8ba05de37e3780e259d8487"
+  },
+  "cards": [
+    {
+      "battle_label": "赵德明率部侵回鹘后撤",
+      "campaign_group": "XZTJ-TANGUT-HUIHU-CONFLICT-1008-1010",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+      ],
+      "source_quotes": [
+        "趙德明帥所部出侵回鶻，長星晝見，德明懼而還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "赵德明所部 × 侵回鹘后无战果撤回阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "承卷027张浦数千骑侵扰回鹘。本卷赵德明又亲率所部出侵回鹘，但因白昼见长星而恐惧撤还；原文没有任何攻城、缴获、受降或占地成果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "确认已经“出侵”，但未载具体接战、伤亡或行军损失。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际跨境／边地武装行动存在最低非零人员风险；叙事明确以主动撤回结束，没有本方重损线索。",
+            "upper_bound_reason": "无百人级本方死伤、长时围城、补兵或败溃证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB0",
+          "strategic_security_detail": "本阶段未形成可确认的安全改善；撤军原因来自内部对天象的恐惧，而非已实现的战略成果。",
+          "material_return": "WR0",
+          "material_return_detail": "未见缴获、受降、资源或土地回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "回鹘边地未详"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "出侵后撤回原有控制区，没有形成新增控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "已经付出一次武装出动的人员风险、动员与军资成本，却在无可见战果、无回报情况下撤回。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ]
+          },
+          "carry_in": "承卷027 `P0034`：赵德明已令张浦率数千骑侵扰回鹘，同一战略方向的冲突尚未闭合。",
+          "carry_out": "后续如赵德明或其继承集团再侵回鹘，须继续沿同一campaign_group核验是否形成长期安全或控制变化。"
+        },
+        {
+          "evaluation_subject_phase": "回鹘一方 × 遭赵德明再次侵入阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "回鹘再次遭赵德明所部武装侵入；赵德明最终因天象自撤，原文没有记回鹘方面的反击、伤亡、被掠或失地。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "遭实际武装入侵，人员损失数字失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "“出侵”说明安全空间受到实际武装侵犯，推定最低非零人员损害；S1由单一边地方向再次受扰独立支撑。",
+            "upper_bound_reason": "无百人级死伤、州城陷落、生产网络破坏或人口大迁散证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "同一方向再次遭到外来武装侵犯，形成一次局部安全损失；但进攻者最终自行撤回。",
+          "material_return": "WR0",
+          "material_return_detail": "无新增资源回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "回鹘边地未详"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "进攻者撤回，原文未见回鹘实际退控。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P1与S1同为基础最高档，PS抬至WC2；虽然最终未失地，但本阶段安全受扰不是由其可确认的战果换来的。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0076"
+            ]
+          },
+          "carry_in": "承卷027已遭张浦数千骑侵扰。",
+          "carry_out": "进攻者自行撤回使本阶段控制保持，但长期威胁是否消失仍需后续核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "交州李公蕴军事政变夺权并清除黎氏争位者",
+      "campaign_group": "XZTJ-JIAOZHI-LYCONGUAN-REGIME-SEIZURE-1009",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+        "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+      ],
+      "source_quotes": [
+        "乃逐至忠出城而殺之",
+        "公蘊又殺之，自稱留後，遣使奉貢",
+        "以權靜海軍留後李公蘊為靜海軍節度，封交趾郡王"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李公蕴军事集团 × 驱杀黎至忠并清除明提明昶、夺取中央权力阶段",
+          "subject_role": "COUP_LEADER",
+          "actual_process": "交州君主黎至忠因苛虐失众，大校李公蕴以其亲任军官身份先逐黎至忠出城并杀之；黎明提、黎明昶随后争立，李公蕴又将二人杀死，自称留后、遣使入贡。本卷三月宋正式册其为静海军节度使、交趾郡王，说明夺权结果至少保持到册封时。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "对方三名黎氏最高政治竞争者明确被杀；李公蕴一方自身死伤没有记载。",
+            "range": "1—20死亡当量",
+            "center": 4,
+            "P_scoring": "P1估",
+            "basis": "这是军人集团实际政变并连续清除最高竞争者，不能因本方伤亡沉默直接记P0；但叙事未出现宫城战、街战、部队溃败或大批死伤。",
+            "upper_bound_reason": "无百人级己方损失、持续攻城或大规模军队交战证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "黎至忠及其两名争位兄弟被清除，李公蕴掌握中央军政权并在同卷获得宋朝正式册封，短期主要权力竞争结构被显著压低；长期国内反对仍缺后卷验证。",
+          "material_return": "WR3",
+          "material_return_detail": "实际取得交州中央军政统治权，并得到宋对静海军节度使、交趾郡王身份的承认；属于一处重要区域的现实行政控制，而非单纯名义称臣。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "交州中央政权及静海军统治区"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "李公蕴从军人亲信转为自称留后，并在同卷获得宋正式册封；可确认重要区域中央控制已转入其集团。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以低可见自身成本清除最高竞争者并取得交州中央权力，且同卷册封证明控制至少阶段性稳定，形成显著政治安全与现实控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_EMERGENCE",
+            "startup_significance": "李公蕴以军人集团清除黎氏君主与两名争位者，自称留后并迅速取得宋册封，首次形成可持续的新政权中央军政中心；后续长期巩固仍待后卷。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ]
+          },
+          "carry_in": "承卷026黎桓死后诸子争立、“攻战连月”，卷内黎龙延／黎至忠一系曾取得宋册封，但继承秩序并不稳定。",
+          "carry_out": "后卷需核验李公蕴政权是否遭黎氏残余或其他地方武装反扑，以及中央控制是否进一步稳定；不得把后世长期统治倒灌成本卷SB4/5。"
+        },
+        {
+          "evaluation_subject_phase": "黎至忠—黎氏争位集团 × 中央权力被夺阶段",
+          "subject_role": "DEFENDER_POLITY",
+          "actual_process": "黎至忠被李公蕴逐出城后杀死；其弟明提、明昶争位，又被李公蕴杀死。黎氏最高政治竞争集团在本阶段失去交州中央权力。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "strategic_security": "SN4",
+          "strategic_security_detail": "最高统治者及两名直接争位者均死亡，原有黎氏中央统治结构终止；这是政权级安全结构失效，但未见交州生产、税源或行政网络大规模毁坏。",
+          "material_return": "WR0",
+          "material_return_detail": "没有新增资源所得；旧政权控制转移属于其自身损失。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "交州中央政权及静海军统治区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "中央统治权转入李公蕴集团，黎氏最高竞争集团失去对重要区域的现实控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "虽直接可证死亡仅三名最高政治人物，但S2中央节点失控决定WC2；同时发生SN4和BCN3，原统治结构实质终结。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+              "SRC-XUZIZHITONGJIAN-028-2619988-P0090"
+            ]
+          },
+          "carry_in": "承卷026黎桓死后诸子长期争位，黎龙延／黎至忠一系此前取得宋册封。",
+          "carry_out": "李公蕴同卷获宋册封，说明黎氏未在本卷恢复中央控制；其残余力量是否继续存在需后续材料核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-XUZIZHITONGJIAN-028-2619988-P0001 至 SRC-XUZIZHITONGJIAN-028-2619988-P0108；历史正文至P0106。初稿后再次从首锚点线性复读，重点检查“侵、逐、杀、争立、自称留后、筑城、练兵、边警、减兵、军储”等触发词及上下文。",
+    "card_coverage": {
+      "battle_cards": 2,
+      "subject_phase_cards": 4,
+      "coverage_result": "本卷已发生的赵德明侵回鹘与李公蕴军事政变均已裁决；辽筑城争议、马知节论兵、边图、减戍和备战建议均未发生接战，明确排除。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张咏追查并处死纵火者属地方刑政治安，没有军队争夺城池或区域武装交战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "鄜延路九指挥减戍与节省转输，属军事行政和财政安排。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宗室习射与讲经，属教育、武备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽改筑新城引发宋方违约交涉，尚未发生武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "回顾萧太后澶渊旧战经历，属于人物传记追述，不是本卷新战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0076",
+        "disposition": "ADJUDICATED",
+        "reason": "赵德明实际率部出侵回鹘后撤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "寇准给接送辽使勇士装钱并被责令自偿，属边镇财政。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0085",
+        "disposition": "ADJUDICATED",
+        "reason": "大校李公蕴驱杀黎至忠、杀两名争位兄弟并自称留后，达到军事政变准入线。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0090",
+        "disposition": "ADJUDICATED",
+        "reason": "本段为李公蕴政变后的宋廷正式册封，用作控制持续与建国启动账的后效证据，本身不另造战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "真宗居安虑危、自警念农，属边防与政治表态。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "《念边诗》属边防意识表达。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0094",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "马知节提出未来防御战术，未实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0095",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "马知节自请未来边警时出战并获赐甲，属备战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0097",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追述石保吉曾械属吏督粮运，属行政虐待和后勤，不是本卷战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "泾原、环庆边防地图及储备制度，无实战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-028-2619988-P0104",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "石待问预言辽可能毁盟并建议选将练兵，属未实现风险和备战建议。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "赵德明—回鹘冲突承卷027 `P0034`。卷028 `P0076`进攻者已无战果撤回，但不能据一次撤军断言此方向威胁结构结束；后卷如再侵，沿用 `XZTJ-TANGUT-HUIHU-CONFLICT-1008-1010`。",
+      "李公蕴在 `P0085`通过军人政变清除黎至忠及两名争位者，`P0090`获宋册静海军节度使、交趾郡王。当前可确认新政权中央控制阶段性形成，但长期巩固、地方反扑和后续统治范围须由后卷验证，不倒灌后世结果。",
+      "辽 `P0062`改筑新城违反景德誓书，但本卷只有外交质问，未形成战争；后卷若出现强制拆城、边境武装对峙或接战，再建立实际战役阶段。",
+      "卷027宜州陈进之乱的“余寇”在本卷未出现；只能说明本卷没有新增实战记载，不能据沉默反推全部残余已经在卷027当场消灭。"
+    ]
+  }
+}

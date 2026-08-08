@@ -1,0 +1,355 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷033",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-033-2271049",
+    "revision_ref": "2271049",
+    "raw_sha256": "f2e05ed1841e17059061734b1d0a4446da0a7aeeb6d405487a601eaa5d0d7fef"
+  },
+  "cards": [
+    {
+      "battle_label": "伏羌寨三都谷之战",
+      "campaign_group": "XZTJ-SONG-TIBET-QINZHOU-1015-1017",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-033-2271049-P0022",
+        "SRC-XUZIZHITONGJIAN-033-2271049-P0023"
+      ],
+      "source_quotes": [
+        "嘉勒斯賚、宗哥等率蕃部兵三萬餘人寇至伏羌寨三都穀",
+        "即領軍擊敗之，逐北二十餘里，斬首千餘級",
+        "官軍被傷者百六十人，陳歿者六七十人",
+        "瑋勒兵不動，坐待其至，是則以逸待勞"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋曹玮秦州军 × 伏羌寨迎击追击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "嘉勒斯赉、宗哥等率三万余蕃兵进入伏羌寨三都谷。曹玮此前已请求增兵，并在关右分兵支援后按兵待敌；接战后击败来军，追击二十余里。宋军伤160人、阵亡约60—70人。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "阵亡六七十人、受伤160人；按死亡+伤者1/5折算约92—102死亡当量。",
+            "range": "92—102死亡当量",
+            "center": 97,
+            "P_scoring": "P1估",
+            "basis": "死伤数字直接见于原文，但“六七十”存在近似区间；以区间几何中心约97定P1，未强行因上沿越过100而抬P2。",
+            "upper_bound_reason": "现有直接数字上沿约102，没有更多未归、被俘或后续遗属规模证据支持稳定百人以上中心。",
+            "confidence": "high"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "一次三万余人规模入寇被击败并追退二十余里，秦州—伏羌寨方向获得明显阶段性缓解；但P0040仍出现嘉勒斯赉可能报复的边情传闻，威胁结构未终结。",
+          "material_return": "WR0",
+          "material_return_detail": "只见斩首、生擒七人，未载可识别军资、牲畜、粮草或财政资产缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "伏羌寨三都谷及秦州既有边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住既有边境节点并驱敌退去，没有新增稳定控制空间。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022",
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0023"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以WC2承受一次中等动员和约百人死亡当量风险，成功击退三万余入寇并形成局部安全改善，但没有结构性终结威胁或实质物资回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋成熟政权边防作战，不属于建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022",
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0023"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022",
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0023"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ]
+          },
+          "carry_in": "承卷032嘉勒斯赉已立文法、聚众数十万并请伐夏州；宋廷因担心其生变，已命周文质、曹玮加强秦州方向戒备。",
+          "carry_out": "本卷P0040仅有商旅传闻称嘉勒斯赉欲报复曹玮，未形成新战斗；后卷若再犯秦州，应沿同一campaign_group续判。"
+        },
+        {
+          "evaluation_subject_phase": "嘉勒斯赉、宗哥蕃兵 × 入寇伏羌寨败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "三万余蕃兵进入伏羌寨三都谷后被曹玮军击败，遭追击二十余里，斩首千余，另有七人被生擒。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN2",
+          "strategic_security_detail": "大规模入寇失败并损失千余战斗人员，秦州方向主动进攻能力受到阶段性削弱，但其主体仍存。",
+          "material_return": "WR0",
+          "material_return_detail": "未见掠获、占城或其他可控制资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "伏羌寨三都谷"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得任何宋方城寨或持续控制空间，战后退去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "三万余人动员未取得控制或物资回报，反而明确死亡千余并被追退，成本与结果均为负。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本战虽发生在嘉勒斯赉势力形成期，但本卷原文不能证明该战实际建立、扩展或稳固其新政权基础，故不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0022"
+            ]
+          },
+          "carry_in": "承卷032嘉勒斯赉聚众数十万、宋廷已把其视为可能生变的西北力量。",
+          "carry_out": "本卷只见后续可能报复的传闻，没有再次成战；其真实恢复速度和后续秦州行动待后卷核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "萧哈绰伐高丽兴化城九日不克",
+      "campaign_group": "XZTJ-LIAO-GORYEO-WAR-1010-1019",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-033-2271049-P0083",
+        "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+      ],
+      "source_quotes": [
+        "以樞密使蕭哈綽為都統……以伐高麗",
+        "攻興化城，九日不克",
+        "高麗將堅一、洪光、高義出戰，攻獲甚眾，遼師敗績",
+        "哈綽自高麗還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽萧哈绰军 × 兴化城九日攻坚败返阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽任萧哈绰为都统、王继忠副之、萧库哩为都监出兵高丽。至兴化城连续攻九日未克；高丽将领坚一、洪光、高义出战，辽军败绩，萧哈绰随后返辽。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "九日攻城后遭守军出战击败，原文称高丽“攻获甚众”，但辽方死伤、被俘具体数失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "持续九日攻坚后出现明确败绩并有“攻获甚众”后效，支持百人级中心；史文未见主力覆没、千人级遗属或大规模补兵反应。",
+            "upper_bound_reason": "无千人级直接死伤、被俘、溃散或成建制毁灭材料。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "本轮未能突破兴化城并败返，东征方向形成一次局部挫折；但辽仍有再次发动东征的能力。",
+          "material_return": "WR0",
+          "material_return_detail": "未见占城、缴获或可控制资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "兴化城"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "攻城九日不克，辽未取得兴化城。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "持续攻坚和远征动员付出明确成本，却未夺城且遭守军反击败返，没有抵补性安全或资源成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "辽为成熟政权，对高丽战争不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0083",
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ]
+          },
+          "carry_in": "承卷032郭州西辽军曾斩高丽万余并尽获辎重，但战争政治与控制终局未闭合；耶律世良已卒，辽重新组织东征统帅。",
+          "carry_out": "本轮兴化城败返后战争仍未结束；后卷需核辽再次东征、兴化方向后续攻守及战争最终政治后效。"
+        },
+        {
+          "evaluation_subject_phase": "高丽兴化守军 × 守城反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "兴化城承受辽军九日攻坚后仍未失守，坚一、洪光、高义率军出战，取得大量俘获或战果，使辽军败绩并撤返。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "连续九日遭攻城，守军具体死伤失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "长达九日的攻城和主动出战不能视为零损害；但守城成功且原文无百人级本方死伤、城防崩坏或补充兵员后效。",
+            "upper_bound_reason": "无百人级高丽伤亡、被俘或平民大规模受害明文。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "成功守住一处关键边城并击退本轮东征，形成一次明确安全缓解；辽方再战能力仍在。",
+          "material_return": "WR0",
+          "material_return_detail": "“攻获甚众”至少说明取得俘获或战果，但原文不能明确区分人员与物资，人口不得作战利资产，故不虚构WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "兴化城"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住兴化城，既有控制未变。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "守住边城并迫使辽军败返，安全收益明确；但只是一轮局部防御成功，战争仍持续。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "高丽成熟政权防御阶段，不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-033-2271049-P0128"
+            ]
+          },
+          "carry_in": "承卷032高丽虽在郭州西遭万人级战败，但本国防御与边城体系尚未崩溃。",
+          "carry_out": "辽军仍会再组织东征；后卷必须继续核兴化及王城方向是否再受攻。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "固定修订 SRC-XUZIZHITONGJIAN-033-2271049，P0001—P0144 共144段。初稿后自首锚点到末锚点再次线性复读，重点核对“寇、伐、攻、战、败、守、军、谋为变、旧战功”等候选。",
+    "card_coverage": {
+      "battle_cards": 2,
+      "subject_phase_cards": 4,
+      "coverage_result": "本卷达到实际武装行动准入线的两组事件全部成卡；战前调兵并入所属战役阶段，旧战功、边防建设、未发动兵变均明确排除。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0022",
+        "disposition": "ADJUDICATED",
+        "reason": "嘉勒斯赉、宗哥三万余蕃兵实际入寇伏羌寨并与曹玮军交战，有直接死伤数字。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0023",
+        "disposition": "ADJUDICATED",
+        "reason": "记录伏羌寨战前关右分兵支援、敌方诱怒与曹玮以逸待劳，作为同一战役M轴和实际阶段证据。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0031",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "雄州榆柳三百余万株为长期边防障碍建设，没有本段武装接触。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "石普“大小数十战、两平蜀盗”属于卒传式旧功追叙；本段嘉勒斯赉欲报复也只是商旅传闻，均不另造本卷战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0041",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "曹玮改任秦州都部署、李及接知秦州属于边帅交接。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0083",
+        "disposition": "ADJUDICATED",
+        "reason": "辽正式任命都统、副都统、都监出兵伐高丽，是P0128兴化攻城阶段的实际战争动员起点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "萧惠从伯父伐高丽、破阻险之师及攻开京均为旧战功追叙，不是本卷新阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0097",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边肃昔日守邢州抗契丹为选官旧功背景，不重复计算。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0116",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "东川军士仅“谋为变”，黄震先发钱后即安定，没有发动、杀官、据城或交战，按事件准入边界不入战争账。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-033-2271049-P0128",
+        "disposition": "ADJUDICATED",
+        "reason": "辽攻兴化城九日、高丽出战、辽师败绩并撤返，构成完整实战阶段。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "辽—高丽父链继续沿 `XZTJ-LIAO-GORYEO-WAR-1010-1019`：本卷兴化城九日不克、败返，不得用后卷结果倒灌；后卷只在实际再出兵后开新阶段。",
+      "伏羌寨后P0040只有嘉勒斯赉可能报复的传闻，未形成新战斗；后卷若再犯秦州再续卡，不能把传闻计SN或M。",
+      "卷032德埒勒、准布等部族服属稳定性在本卷没有新的武装事实，保持UNRESOLVED；无事本身不等于SB4结构性终结。"
+    ]
+  }
+}

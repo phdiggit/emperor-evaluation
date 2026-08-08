@@ -781,7 +781,11 @@ def _stable_person_id(actor_name: str) -> str:
 
 
 def _load_groups(workspace_root: Path) -> dict[str, list[dict[str, Any]]]:
-    base = workspace_root / "docs/共享史料/唐以后编年"
+    base = workspace_root / "docs/史料通读产物/唐以后编年"
+    if not any(base.rglob("volume-*.registry.json")):
+        raise ValueError(
+            "唐以后编年旧registry输入已退役；五代十国和北宋必须从canonical battle-adjudications晋升，禁止回流旧派生链"
+        )
     groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     seen_fact_ids: set[str] = set()
     for source_name, (_, _, source_order) in SOURCE_PARTITIONS.items():

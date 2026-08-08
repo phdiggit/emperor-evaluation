@@ -1,0 +1,567 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷034",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-034-2299545",
+    "revision_ref": "2299545",
+    "raw_sha256": "6bb0ccd81cc1374352207e38c46ee73679f2068d4c3545ad30bde921febb587c"
+  },
+  "cards": [
+    {
+      "battle_label": "萧普达讨德埒勒叛命残部",
+      "campaign_group": "XZTJ-LIAO-DELIELIE-REBELLION-1014-1016",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+      ],
+      "source_quotes": [
+        "遼烏庫節度使蕭普達討德埒勒部之叛命者，滅之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽萧普达军 × 讨灭叛命残部阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "在前卷德埒勒部遭大破、歼丁壮和强迁后，本卷仍有不服从迁置或辽令的残部。乌库节度使萧普达出兵讨击，原文以“灭之”收束。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "只知发生讨击并消灭叛命者，辽军自身死伤失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "已发生实际武装讨击，不能以史书沉默记P0；同时没有本方败退、补兵、将校大量阵亡等百人级损害后效。",
+            "upper_bound_reason": "无百人级辽军人员损害证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "本次把此前强迁后仍叛命的德埒勒残余武装“灭之”，较普通击退更强，阶段上显著削弱该复叛结构；但后卷保持情况仍需验证，暂不上SB4。",
+          "material_return": "WR0",
+          "material_return_detail": "未记缴获、牲畜、粮草、府库或新增税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德埒勒残部活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "消灭残余武装不等同于新取得土地；本卷没有新增州城、道路或辖区控制记载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "可见战争成本低，确实消灭一批叛命武装并形成较强安全改善；但长期是否彻底终结复叛尚未知，依合同不提前写HIGH_RETURN。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "辽为成熟政权内部边疆镇压，不属于建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ]
+          },
+          "carry_in": "承卷032德埒勒丁壮被歼、部民强迁胪朐河新城；卷033未见新战，但此前控制稳定性仍为UNRESOLVED。",
+          "carry_out": "本卷“灭之”支持残余武装被清除，但后卷如再出现同一德埒勒复叛结构，应下调本阶段长期安全判断；不得提前判SB4。"
+        },
+        {
+          "evaluation_subject_phase": "德埒勒叛命残部 × 被讨灭阶段",
+          "subject_role": "INSURGENT",
+          "actual_process": "德埒勒在前期歼杀和强迁后仍有叛命残部，本卷遭萧普达讨击并被“灭之”。具体人数、首领和聚落位置失载。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "叛命者被“灭之”，具体斩杀、被俘和逃散人数均未载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "“讨…灭之”比普通“破之”更接近成建制残余武装消失，结合前卷同部持续复叛，百人级中心较合理；但残部基数不明。",
+            "upper_bound_reason": "无千人级斩首、被俘或聚落人口数字，不把“灭之”直接推成千人以上。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "该残余武装作为可持续反抗力量在本阶段被消灭，安全与组织能力遭显著破坏。",
+          "material_return": "WR0",
+          "material_return_detail": "未见任何实际所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德埒勒残部活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文只确认武装被灭，没有可独立识别的土地或城寨控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "反抗阶段以残余武装被消灭收束，没有资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "未形成可确认的新政权建立、扩张或巩固过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0014"
+            ]
+          },
+          "carry_in": "承卷032德埒勒主体已遭重大人员损失和强制迁徙，残余仍未完全服从。",
+          "carry_out": "若后卷没有同一复叛结构重现，可再从长期窗口核其是否真正终结。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽再伐高丽：兴化伏击—新恩县进逼与掠还",
+      "campaign_group": "XZTJ-LIAO-GORYEO-WAR-1010-1019",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0056",
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0064",
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+      ],
+      "source_quotes": [
+        "括馬給東征軍",
+        "以東平郡王蕭巴雅爾為都統……伐高麗",
+        "先期設伏山谷，以大繩貫牛皮塞城東大川以待之",
+        "遼師至，決塞發伏。遼師戰不利",
+        "進至新恩縣，去王城百里",
+        "巴雅爾度王城不可下，乃大掠而還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽萧巴雅尔东征军 × 兴化受伏—逼近王城—大掠返军阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽先括马供东征军，任萧巴雅尔为都统、萧库哩副之、耶律巴格为都监。攻兴化镇时，高丽姜邯赞等以牛皮大绳堵城东大川，辽军到后决水发伏，辽师不利。巴雅尔绕过兴化，经慈州直趋新恩县，距高丽王城约百里；因判断王城不可下，遂大掠后撤。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "兴化阶段遭决水伏击并“战不利”，但辽军仍能继续推进至王城百里并成建制返军，死伤数字失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "伏击、决水和实战不利支持百人级中心；随后仍能推进和大掠，说明本阶段尚未出现主力千人级以上毁灭后效。",
+            "upper_bound_reason": "无千人级辽军死伤、成建制覆没或大批遗属抚恤材料落在这一前段。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SB0",
+          "strategic_security_detail": "未攻下兴化或王城，也未形成稳定削弱高丽防御体系的后效。",
+          "material_return": "WR2",
+          "material_return_detail": "原文明载“大掠而还”，说明已取得可观掠获并实际带回；但物资类别、数量失载，不上WR3。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "兴化镇",
+              "慈州—新恩县推进线",
+              "高丽王城方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有攻下兴化或王城，推进后主动返军，未形成稳定新增控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "国家方向级动员并征集军马，未完成攻城或逼降目标；虽取得“大掠”物资回报，但不足覆盖失败的主要战略目标和持续远征成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "成熟辽朝对外战争，不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0056",
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0064",
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ]
+          },
+          "carry_in": "承卷033萧哈绰攻兴化九日不克并败返；辽仍具再次大规模东征能力，本卷重新征马和组织统帅。",
+          "carry_out": "撤退至茶、陀二河时遭高丽追军，随后发生决定性的第二阶段会战；不得用后段惨败反推本段P/A。"
+        },
+        {
+          "evaluation_subject_phase": "高丽姜邯赞、姜民瞻军 × 兴化伏击—王城门户防御阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "高丽在兴化镇预设水障和山谷伏兵，使辽军首战不利；辽军随后绕行深入至王城百里并大掠，高丽继续派援军，最终使巴雅尔判断王城不可下而撤退。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "高丽本方具体军民死伤失载；但辽军深入近王城并“大掠”，意味着战区军民存在实际人员暴露和损害。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多次接战、敌军深入核心门户并发生大规模掠夺，支持百人级死亡当量中心；被掳、受伤按合同仅折1/5，不能把“大掠”全部当死亡。",
+            "upper_bound_reason": "无千人级明确死亡、被俘或流亡数字，王城与主要行政体系仍保持。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "守住兴化和王城门户并迫使辽军转入撤退，形成一次明确缓解；但辽军此时仍保存主力，安全威胁尚未结构性削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "前段伏击并未明载取得辽军物资或军资。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "兴化镇",
+              "王城门户"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "辽军虽深入，但没有攻占兴化或王城，高丽保持既有节点。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "本土一段区域遭掠、承担WC3级阶段成本，但守住关键城镇和王城门户，完成主要防御目标；真正削弱辽军主力发生在下一阶段。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "成熟高丽政权防御阶段，不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ]
+          },
+          "carry_in": "承卷033兴化城已成功守住一次辽军九日攻坚。",
+          "carry_out": "辽军撤至茶、陀二河，高丽追军赶到并即将进行第二阶段大会战。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "茶、陀二河会战",
+      "campaign_group": "XZTJ-LIAO-GORYEO-WAR-1010-1019",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0068",
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0085",
+        "SRC-XUZIZHITONGJIAN-034-2299545-P0100"
+      ],
+      "source_quotes": [
+        "師至茶、陀二河，邯贊等追兵大至",
+        "高麗以強弩夾射，相持未決",
+        "遼師大敗，巴雅爾委甲仗而走",
+        "詳袞多戰死，天雲及皮室二軍傷陷略盡",
+        "蕭巴雅爾、耶律巴格自高麗還，以出師失律",
+        "錄征高麗戰歿將校之子弟"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽萧巴雅尔军 × 茶陀二河决战惨败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽军大掠返程至茶、陀二河，高丽姜邯赞追军赶到。辽将主张在两河之间决战；双方以强弩等相持，风雨转向后高丽乘势进攻，辽军大败。萧巴雅尔丢弃甲仗逃走，详衮多人战死，天云、皮室两军伤亡和陷没“略尽”。后来巴雅尔、耶律巴格返辽被以出师失律论罪但获释，辽又录用阵亡将校子弟并加封其妻。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "详衮多人战死，天云、皮室两军“伤陷略尽”；具体军额和死、俘构成未载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "两支明确军队伤亡、陷没近尽，加上多名详衮战死及后续专门录阵亡将校子弟，足以支持千人级中心；“陷”部分按被俘或未归折算，不按全部死亡。",
+            "upper_bound_reason": "原文没有两军实际编制总数，也没有万人级斩首或死亡数字，故不上P4。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "东征主力遭大会战惨败，两支精锐军伤陷略尽，辽在这一战略方向的即时再攻能力受到重大削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "本阶段没有新增所得，前段“大掠”已经在上一阶段记录，不能重复。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "茶、陀二河战场及本次东征推进线"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "辽军战败撤回，但本阶段没有明确记载其原有本国边疆州城发生控制丧失；不把败退自动计BCN。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068",
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0085"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "千人级以上推定人员损失、精锐两军近毁及大量甲仗损失，且没有本阶段新增安全、物资或控制收益，属于明确负回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "成熟辽朝对外战争，不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068",
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0100"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068",
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0085"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068",
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0085"
+            ]
+          },
+          "carry_in": "承同卷前段辽军未克兴化、未下王城，但已经大掠并开始撤退；前段取得的掠物不在本阶段重复记WR。",
+          "carry_out": "本卷后续高丽重新遣使贡辽并最终表请称藩纳贡；这是外交阶段事实，不能倒灌成辽军本场惨败的战争收益。长期战争终局仍需后卷窗口验证。"
+        },
+        {
+          "evaluation_subject_phase": "高丽姜邯赞追军 × 茶陀二河决战阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "高丽追军在辽军撤至茶、陀二河时赶到，以强弩夹射并在风雨转向后乘势猛攻，使辽军大败，迫使统帅弃甲仗逃走，辽天云、皮室两军伤陷近尽。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "大会战持续相持，高丽本方具体死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "追击后进行正面大会战且一度相持，百人级本方伤亡中心合理；胜势明确、无本方千人级死伤或成建制损失后效。",
+            "upper_bound_reason": "无千人级高丽死亡、被俘、未归或大规模遗属材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "一举重创本轮辽东征主力，天云、皮室两军近乎失去战斗力，显著削弱辽方短期再次大规模深入的能力；但是否达到长期结构性终结仍留待后续。",
+          "material_return": "WR0",
+          "material_return_detail": "辽统帅“委甲仗而走”表明确有遗弃军资，但原文没有明说高丽军实际接收、数量和后续使用，依合同不虚构为已入库WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "高丽既有防线及王城方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "成功逐退入侵军并保持既有国土控制；没有本段新增越境辖地。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以WC2级推定成本完成对本轮主要入侵军的决定性重创，保护既有核心区并取得SB3级明确安全收益；成果远高于本阶段可见成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "高丽成熟政权防御战，不计建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-034-2299545-P0068"
+            ]
+          },
+          "carry_in": "承前段高丽虽守住兴化和王城方向，但辽军已经深入并大掠；本阶段追击的是仍然完整撤退中的辽军。",
+          "carry_out": "本卷后续高丽恢复向辽贡方物并表请称藩，说明大战后的政治关系转向和解/服属安排；该外交妥协不改写本场军事胜负，但长期安全收益应继续跨卷观察。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "固定修订 SRC-XUZIZHITONGJIAN-034-2299545，P0001—P0200 共200段；历史正文至P0197，P0198-P0200为版权与注记。初稿后再次自P0001至P0200线性复读，逐项核对“讨、伐、攻、战、军、括马、城防、谋杀、政变、旧战图、阵亡抚恤”等候选。",
+    "card_coverage": {
+      "battle_cards": 3,
+      "subject_phase_cards": 6,
+      "coverage_result": "实际武装行动共识别三张战役阶段卡：德埒勒残部镇压一张，辽高丽东征按前段推进与后段茶陀二河决战拆成两张；征马和阵亡抚恤并入所属战争阶段。所有未达到准入线的军事建设、旧战纪功和未遂政变均列明排除理由。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边境安静后议裁京师兵、停募与斥疲老，是军费和兵制调整，没有实际武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0014",
+        "disposition": "ADJUDICATED",
+        "reason": "萧普达实际讨击德埒勒叛命者并“灭之”。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽绘《南征得胜图》属于既往南征纪功，没有本卷新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0056",
+        "disposition": "ADJUDICATED",
+        "reason": "括马供东征军是本卷辽再次伐高丽的实际战争动员和资产投入，纳入后续东征阶段M/A，不单独成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0064",
+        "disposition": "ADJUDICATED",
+        "reason": "任都统、副都统、都监并正式伐高丽，为同卷P0068实际战争阶段的起点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0068",
+        "disposition": "ADJUDICATED",
+        "reason": "包含兴化决水伏击、逼近王城、大掠撤返，以及茶陀二河大会战两组可独立评价的实际阶段，已分别成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0085",
+        "disposition": "ADJUDICATED",
+        "reason": "巴雅尔、巴格自高丽还并因出师失律被论罪，作为茶陀二河败战的后效锚点，不另拆政治处分卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0100",
+        "disposition": "ADJUDICATED",
+        "reason": "辽录用征高丽战殁将校子弟并加封其妻，是本轮战争将校死亡后效，支持P估计但不单独成战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0106",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "李允则在宋辽和好后持续修雄州城垒，是长期边防工程，无本段接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0107",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "合瓮城、浚壕、筑月堤是边防建设，不是战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0108",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "屯田、桥梁、沟洫、榆柳、蔬圃和水战训练均属长期边政建设。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0109",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "李允则识别辽南京统军秘密入城属于反间/情报事件，没有武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "甲仗库失火及快速补充器械属于军资管理，没有敌对武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边民被辽人殴伤、间谍试探和逃卒交涉属于边境治安与情报处置，没有双方军队实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0120",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "曹璨卒传明言“虽无攻战之效”，只述边任和禁卫管理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0144",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "富州蛮首名义献地，经核实只是亲族不容，既无战争也无实际控制取得。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0171",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "麻士瑶被国家司法杖杀、亲属黥配，是刑事处置，不是战争人员损害。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0172",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追述麻士瑶私蓄兵器、杀人与豪强暴行，未形成本卷国家与武装集团之间的战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0193",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "周怀政伏诛是未遂政变后的司法处刑，不能当作战斗死亡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0194",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "周怀政计划杀丁谓、传位太子并约期发动，但仍处阴谋阶段，尚未调兵攻宫或造成武装死伤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-034-2299545-P0195",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "发动前一夜即被告发，次日由卫士擒获；无实际武装交锋，符合合同“未发动政变不得进入WC/SB/WR”边界。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "辽—高丽父链 `XZTJ-LIAO-GORYEO-WAR-1010-1019`：本卷茶陀二河辽军惨败后，高丽又恢复贡辽、表请称藩；外交妥协不得倒灌为辽方本场战争收益，卷035以后继续核是否复战及长期边界安全状态。",
+      "德埒勒线：本卷“叛命者，灭之”说明卷032强迁后仍出现残余反抗；后卷需用是否再叛检验本阶段SB3能否进一步确认为结构性终结。",
+      "宋辽边境：李允则在和约后持续秘密强化雄州防御、补甲仗和经营情报，但本卷无接战；后卷若出现新战争，只从实际武装阶段起算，不把这些和平期建设虚构为战役。",
+      "周怀政政变在发动前被制止，本卷明确NOT_A_BATTLE；后卷若出现因此引发的实际宫禁武装冲突，须从首次真实武装行动另开卡，不能追溯把本卷处刑算战争成本。"
+    ]
+  }
+}

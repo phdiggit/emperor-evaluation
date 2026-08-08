@@ -1,0 +1,403 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷064",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-064-2271098",
+    "revision_ref": "2271098",
+    "raw_sha256": "d42b21a6316e4dc9fb6002ccf53d6db486090b53f4eeec6a24ac33a5c4a99a5e"
+  },
+  "cards": [
+    {
+      "battle_label": "大顺城—柔远寨攻防：谅祚数万兵攻围、宋军两次击退",
+      "campaign_group": "XZTJ-SONG-XIA-QINFENG-JINGYUAN-1064",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+        "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+        "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+        "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+      ],
+      "source_quotes": [
+        "諒祚舉兵寇大順城，入寇柔遠寨。燒屈乞等三村，柵段木嶺",
+        "步騎數萬攻圍大順三日",
+        "諒祚中流失，遁去",
+        "募膽勇三千人，夜出擾賊營，賊遂驚潰",
+        "盤桓塞下，取糧而反，卒不敢入寇"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋环庆蔡挺—赵明守军 × 大顺城三日防御阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "蔡挺预知西夏将入寇，先令近边熟户入保清野、诸寨不得逆战。谅祚烧屈乞等三村、栅段木岭后，以步骑数万围大顺城三日；蔡挺因城坚不增兵，预置八列强弩壕外，赵明与官兵合击。谅祚亲督战中流矢后退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋军与数万夏军连续接战三日，宋方具体死伤失载；近边熟户另有入保清野。",
+            "range": "约1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际攻城与反击不能记P0；原文对宋军指挥、城防和后续作战记载较详，却无主将战死、补兵、百人级遗属或伤亡后效。",
+            "upper_bound_reason": "无百人级宋军死亡、伤俘或成建制损失证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "守住大顺城并迫使谅祚本人负伤退兵，解除一次数万兵三日围攻；但夏军随后立即转攻柔远，主要威胁仍在。",
+          "material_return": "WR0",
+          "material_return_detail": "未载宋军本阶段缴获可控制军资或资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大顺城"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "大顺城在三日围攻后仍由宋方控制，无新增领土变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "宋方承受村落焚毁、居民清野和三日围攻成本，但守住关键城点并击退首轮攻势；威胁尚未终结，因此定相称回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ]
+          },
+          "carry_in": "承卷062—063 `XZTJ-SONG-XIA-QINFENG-JINGYUAN-1064` 连续西北边患；本卷地理扩大到环庆并升级为直接攻城，仍沿用同一campaign_group。",
+          "carry_out": "夏军转而攻击柔远寨，需进入下一实际阶段。"
+        },
+        {
+          "evaluation_subject_phase": "西夏谅祚军 × 数万兵围攻大顺城阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "谅祚率步骑数万围大顺三日，亲着银甲毡帽督战；宋军八列强弩反击，重甲可被洞贯，谅祚本人中流矢后退。夏军此前烧三村并在段木岭立栅，但没有攻下大顺。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "谅祚一人明确中流矢受伤；强弩与宋军合击造成其他死伤失载。",
+            "range": "约1.2—300死亡当量",
+            "center": 19,
+            "P_scoring": "P1估",
+            "basis": "有数万兵三日攻城且统帅中箭，推定存在非零伤亡；但原文没有数百尸数、被俘、补兵或主力重创数字，不能仅由‘强弩洞甲’换算高伤亡。",
+            "upper_bound_reason": "没有可支持千人级西夏损失的直接人数或强后效。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "三日围攻未克，统帅负伤后退，失去一次攻城机会；但主力仍能继续转攻柔远。",
+          "material_return": "WR0",
+          "material_return_detail": "大顺未克；焚村为破坏而非可控制资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大顺城",
+              "段木岭临时栅"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得大顺城。段木岭虽立栅，但本卷未证明形成稳定控制，且全军后续退兵。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "数万兵围城三日未克，统帅负伤并退，却无稳定控制或可实现资源回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096"
+            ]
+          },
+          "carry_in": "承前阶段入境、焚村与段木岭立栅。",
+          "carry_out": "撤离大顺后立即转攻柔远寨。"
+        },
+        {
+          "evaluation_subject_phase": "宋柔远张玉守军 × 三千勇士夜袭解围及后续止寇阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "蔡挺判断柔远城防较弱，预先令副使总管张玉以重兵守之。夏军由大顺退后再攻柔远，张玉募胆勇三千夜出扰夏营，夏军惊溃。谅祚后来退屯金汤、声言再围大顺；陆诜止岁赐并问罪，夏军最终只在塞下取粮而返，本卷称‘卒不敢入寇’。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "三千勇士夜袭发生实际接战，宋方死伤失载。",
+            "range": "约1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "夜袭敌营不能记P0；原文记夏军惊溃且后续赏功，却无宋军百人级伤亡、主将阵亡或补兵信息。",
+            "upper_bound_reason": "无百人级宋方人员损害证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "柔远攻势被夜袭击溃，夏军其后虽在塞下盘桓威胁，最终本卷‘卒不敢入寇’，形成环庆方向阶段性安全改善；和约仍未最终重立，不上SB3。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获军资；停岁赐是外交财政手段，不是战利资产。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "柔远寨及环庆既有边线"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "柔远未失，宋方保持原有寨点和边线，没有新增控制空间。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以三千人夜袭和既有守备成功击溃第二轮攻势，并迫使夏军最终退出宋境；但此前村落已遭焚毁，宋夏威胁仍须外交继续处理，故不定高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ]
+          },
+          "carry_in": "承大顺城首轮围攻被击退后，西夏转攻柔远。",
+          "carry_out": "P0098、P0111继续停岁赐、问罪与新誓约交涉；卷065需核谅祚是否真正遵守。"
+        },
+        {
+          "evaluation_subject_phase": "西夏谅祚军 × 柔远再攻、惊溃与塞下撤退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "夏军转攻柔远后遭张玉三千勇士夜袭，营中惊溃；退屯金汤后仍声言增兵再攻大顺，但宋方停岁赐并诘问。谅祚因岁歉贫困、需要赐物，最终在塞下取粮后退，没有再次入宋境。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "夜袭造成夏营惊溃，但夏军死伤、被俘人数失载。",
+            "range": "约1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际夜战且全营惊溃，不能记P0；但无百人级尸数、俘虏、主将死亡或后续补兵证据。",
+            "upper_bound_reason": "无百人级本方人员损害证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "第二次攻势又失败，之后只得在塞下盘桓并撤退，未能形成继续深入宋境的条件；但西夏政权和军力仍完整存在。",
+          "material_return": "WR1",
+          "material_return_detail": "原文明确最终‘取粮而反’，确认取得有限粮食；无数量，不得上更高档。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "柔远寨、环庆边线"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未夺柔远，最终退出宋境，未形成稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "柔远再攻遭夜袭惊溃，后续威胁也未兑现，最终仅取少量不明粮食退出；没有控制成果且安全主动明显受挫。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+              "SRC-XUZIZHITONGJIAN-064-2271098-P0111"
+            ]
+          },
+          "carry_in": "承大顺围攻失败、谅祚中箭退兵。",
+          "carry_out": "宋廷要求夏方重上誓表；本卷只见表面服罪、多游辞，最终安全持续性待卷065。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-XUZIZHITONGJIAN-064-2271098-P0001 至 P0121；完成线性通读后再次逐段复读。P0002为编辑标记，P0119—P0121为版权/footer/纪年脚注，历史正文止P0118。",
+    "card_coverage": {
+      "battle_cards": 1,
+      "subject_phase_cards": 4,
+      "coverage_result": "本卷唯一完整的新实际战役链为西夏大顺城—柔远寨攻防，已按大顺与柔远两个实际阶段分别输出双方卡。辽主拟南伐而被劝止、河北陕西七十五万以上战兵训练、边帅任命、旧战追叙和战后外交均不另造战役。",
+      "wc_formula_check": "PASS：大顺宋方P1估/S2/M1/A1→WC2；大顺西夏P1估/S0/M2/A0→WC2；柔远宋方P1估/S1/M1/A1，P/S同为基础最高档1，抬至WC2；柔远西夏P1估/S0/M1/A0→WC1。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "程戡增筑延州城防与利用横山酋豪攻夏的方案均属旧事追叙，且援横山方案未实施。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽主曾有南伐意，但姚景行劝阻后‘遂止’，未形成实际调兵、接战或攻守节点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "胡宿因彗星请备边，只是战备建议。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "孙沔改帅鄜延途中病卒，属边帅人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陆诜任鄜延都总管、经略安抚使，属边帅任命。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "河北战兵三十万、陕西战兵四十五万并义勇为常备兵额、训练和禁止占役制度，本段没有实际敌我行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "英宗、陆诜讨论边陲安静与防止将校生事邀功，属边政策略。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蔡抗整治定州戍兵家属秩序，属军营司法。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0095",
+        "disposition": "ADJUDICATED",
+        "reason": "谅祚实际出兵寇大顺、柔远，烧三村并在段木岭立栅。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0096",
+        "disposition": "ADJUDICATED",
+        "reason": "数万夏军围大顺三日、谅祚中箭退；继攻柔远又被三千夜袭惊溃，构成两个实际攻防阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "何次公持诏问罪并停岁赐，属于战后外交财政措施。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0102",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "郭逵任陕西四路宣抚使兼权判渭州，属战后边帅部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0107",
+        "disposition": "ADJUDICATED",
+        "reason": "赵明等因大顺击夏受赏，只用于确认同一战役阶段与参战主体，不新增战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "司马光以西戎内侮并灾荒反对尊号，是战后政治议论。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-064-2271098-P0111",
+        "disposition": "ADJUDICATED",
+        "reason": "补足大顺—柔远战后夏军未再入寇、新誓约未闭合等安全后效；外交本身不另建战斗卡。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "大顺—柔远战后谅祚最终退出宋境，但宋廷新誓表要求在本卷仍未得到最终答复；卷065需核是否复寇及SB2能否维持。",
+      "段木岭虽有西夏立栅，但本卷没有后续驻守、拆毁或归属资料，因此西夏大顺阶段不记非零BCP；后卷若有明确控制证据再更新。",
+      "卷062—063与卷064沿用同一 `XZTJ-SONG-XIA-QINFENG-JINGYUAN-1064` campaign_group；每卷只计本卷新增实际阶段，人员与动员不得相互倒灌。",
+      "英宗已亲笔立颍王頊为太子，册礼和皇位交接属于非战役跨卷事项。"
+    ]
+  }
+}

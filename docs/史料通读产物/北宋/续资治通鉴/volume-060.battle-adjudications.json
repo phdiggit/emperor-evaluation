@@ -1,0 +1,600 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷060",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-060-2270793",
+    "revision_ref": "2270793",
+    "raw_sha256": "c7d0f5bb4cceddc6e2e28edbc9264d7207089c9d22377e874dbf51b9ba93b345"
+  },
+  "cards": [
+    {
+      "battle_label": "江西—福建—广东武装盐盗跨八州劫掠并与巡捕吏卒交战",
+      "campaign_group": "XZTJ-SONG-GANMINYUE-SALT-BANDITS-1050S-1062",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+      ],
+      "source_quotes": [
+        "往往数十百为群，持甲兵、旗鼓",
+        "所至劫人谷帛，掠人妇女，与巡捕吏卒斗格",
+        "至杀伤吏卒，则起为盗，依阻险要",
+        "捕不能得，或赦其罪招之，岁月浸淫滋多"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋江西—福建—广东地方军政与居民 × 长期承受武装盐盗劫掠、巡捕阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "因官盐质劣价高等原因，私盐群体每逢秋冬常数十百人结队，持甲兵旗鼓，往来虔、汀、漳、潮、循、梅、惠、广八州，劫夺谷帛、掠走妇女，并与巡捕吏卒交战；出现杀伤吏卒后即据险为盗，官府多次捕不能得，有时只能赦罪招安，原文称岁月浸淫而人数滋多。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "明确有吏卒被杀伤、妇女被掠；具体死亡、受伤、被掳人数均失载。",
+            "range": "约3—300死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "事件长期、跨八州反复发生，至少包含死亡、受伤及被掳者；但被掳只按1/5折算，且没有百人级死亡、千人级流亡或成片居民毁灭数字。宽区间跨P1/P2，几何中心仍在P1。",
+            "upper_bound_reason": "没有大规模尸数、户口减少、州县救荒或成建制官军覆没等支持P3以上的后效。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "武装团伙跨八州反复活动、能与巡捕吏卒斗格且据险后长期捕不能得，原文又称‘岁月浸淫滋多’，说明该方向治安威胁持续增强而非一次受扰。",
+          "material_return": "WR0",
+          "material_return_detail": "宋方在这一武装阶段没有取得可确认缴获或新增资源；后续盐法改革属于政策，不倒算战役回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州、汀州、漳州、潮州、循州、梅州、惠州、广州及其交通线路"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "盐盗虽据险活动并使巡捕困难，但原文没有州县、城寨、道路或行政区稳定转入其控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "宋方长期承担人员、治安、巡捕和财产损害，且威胁跨八州扩张、捕不能得；本阶段没有可抵补的安全、资源或控制成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ]
+          },
+          "carry_in": "原文以‘每岁秋冬’和‘岁月浸淫滋多’追述此前多年形成的武装盐盗结构，本卷从可见持续阶段记账，不虚构具体起始年份。",
+          "carry_out": "本卷盐法改革仅使官盐年增六十余万斤，不能证明武装盐盗已消失；P0111又见私铸者与江西盐盗合流。后卷需核武装活动是否真正下降。"
+        },
+        {
+          "evaluation_subject_phase": "跨虔汀漳潮循梅惠广八州武装盐盗 × 结队劫掠、拒捕与据险阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "盐盗每年秋冬常以数十至数百人为群，持甲兵、旗鼓跨八州活动，夺取谷帛、掠走妇女，与巡捕吏卒交战，杀伤后据险自保；官府长期不能有效捕获。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "武装盐盗与巡捕吏卒实际交战，自身死伤、被捕人数失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "长期存在实际交战，不能据沉默记P0；但原文强调‘捕不能得’，没有本方百人级伤亡、被俘或大规模覆灭后效。",
+            "upper_bound_reason": "无百人级本方死伤、被俘或组织崩溃数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "据险后官府‘捕不能得’，且团伙随岁月增多，说明在局部跨州交通和山险环境中形成阶段性行动自由；仍不足以构成对国家主要安全格局的结构性支配。",
+          "material_return": "WR1",
+          "material_return_detail": "反复劫取谷帛属于已实现但规模不明的有限物资所得；被掠妇女属于人员伤害，不计战争资产。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "八州跨境活动路线与险要藏匿点"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "据险藏匿与捕获困难不等于建立稳定行政或城寨控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "团伙长期逃避捕获并取得有限谷帛，形成一定局部行动空间；但无稳定控制、重大资源或更高层级安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0040"
+            ]
+          },
+          "carry_in": "由私盐获利与官盐制度失灵逐渐武装化，原文未给单一明确起事日期。",
+          "carry_out": "后续盐政、铜冶付款等经济纠偏能否削弱其招募与活动能力，需要后卷验证。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "代州焚毁辽人越境所伐山木—辽移文后止",
+      "campaign_group": "XZTJ-SONG-LIAO-DAIZHOU-TIMBER-1062",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+      ],
+      "source_quotes": [
+        "辽人取山木，积十余里，辇载相属于路",
+        "遣人纵火，一夕尽焚之",
+        "辽移文代州捕纵火盗",
+        "遂不敢复言"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋代州刘永年所部 × 夜焚越境伐木资源、拒绝辽方追责阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "辽人在宋境砍取山木，木材堆积十余里、车辆运输不断；前任守臣畏生事不敢制止。刘永年到任后派人纵火，一夜将所积木材尽焚。辽方移文要求追捕‘纵火盗’，刘永年以事在宋境为由拒绝，辽方遂不再追究。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次边境资源越界行为被强制制止，辽方移文后未再坚持，形成一次局部威慑与缓解；未证明长期边境结构因此改变。",
+          "material_return": "WR0",
+          "material_return_detail": "木材被焚毁而非缴获利用，宋方没有形成可控制资产所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "代州宋境山林"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "行动维护既有宋境资源管辖，没有新取得或丧失边疆空间。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以小规模行动成本制止一次越界资源侵取，保持原有管辖并使辽方不再追究，收益与成本相称。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ]
+          },
+          "carry_in": "前任代州守臣因畏生事长期不敢制止辽人取木，本阶段由刘永年改变处置方式。",
+          "carry_out": "后卷如辽方再取木、报复或形成外交升级，应作为SB1持续性的复核。"
+        },
+        {
+          "evaluation_subject_phase": "辽越境伐木人员 × 木材十余里被宋方一夜焚毁阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽方人员在宋境长期砍取并运输山木，已堆积十余里；刘永年派人纵火后木材一夜尽毁。辽方仅以公文要求追捕，遭拒后未继续追究。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次既有越界取木活动被强行打断，且后续追责失败，形成局部资源活动受限；未形成更广泛战略损失。",
+          "material_return": "WR0",
+          "material_return_detail": "已采木材被全部焚毁，没有保有所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "代州宋境山林"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "辽方此前取木不构成合法或稳定领土控制，焚木后也没有领土变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "已投入砍伐、运输并积存十余里木材全部损失，后续外交追责亦未实现，没有可抵补成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0074"
+            ]
+          },
+          "carry_in": "此前因宋守臣畏事，辽人取木长期未受有效阻止。",
+          "carry_out": "是否重新取得同类资源活动空间，后卷待核。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "西夏谅祚攻棟戬—古渭州边警—棟戬再败夏军",
+      "campaign_group": "XZTJ-XIA-DONGZHAN-GUWEIZHOU-1062",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+        "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+      ],
+      "source_quotes": [
+        "谅祚举兵击棟戬，屯于古渭州",
+        "尽籍诸县马，悉发下番兵",
+        "谅祚已引兵西去击棟戬矣",
+        "谅祚寻复为棟戬所败，筑堡于古渭州之侧而还",
+        "兵不出塞，何名为轻举"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏谅祚军 × 攻棟戬并再遭败退、筑堡而还阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "谅祚举兵攻击棟戬，一度屯近古渭州，后引兵西向与棟戬交战并再次失败；其后在古渭州附近筑堡而还。西夏兵力、死伤和该堡后续持守均未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文明确谅祚军‘复为棟戬所败’，但西夏死伤、伤俘人数失载。",
+            "range": "约10—300死亡当量",
+            "center": 55,
+            "P_scoring": "P1估",
+            "basis": "有实际败战，不能据沉默记P0；但无主将阵亡、数百斩首、成建制覆没或大规模补兵后效。区间跨P1/P2，几何中心落P1。",
+            "upper_bound_reason": "缺乏千人级战损、军队崩溃或本土人口后效，不支持P3。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "在与棟戬的同一西部竞争方向再次被击败，局部进攻条件受挫；但西夏仍能筑堡后撤，未见整个战略方向崩溃。",
+          "material_return": "WR0",
+          "material_return_detail": "本卷没有可确认缴获；新筑堡属于自身投入资产，先计A，不能在未确认稳定控制时重复算WR。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "古渭州侧新筑堡"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "原文只说‘筑堡……而还’，不能确认堡中持续驻守、实际归属和后续保持，故不强判BCP。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "实际进攻再次战败并承担筑堡资产投入；堡的持续控制未知，本卷没有足以抵补的安全、资源或控制成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ]
+          },
+          "carry_in": "原文追述谅祚此前与棟戬交战已‘屡为所败’；本卡只记本卷当前再攻阶段，不把既往损失倒灌。",
+          "carry_out": "后卷需核古渭州侧新堡是否实际驻守、棟戬是否继续反击及宋夏边境是否受其牵动。"
+        },
+        {
+          "evaluation_subject_phase": "棟戬部 × 抵御西夏并再次击败谅祚阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "棟戬在西部与谅祚军交战，再次击败西夏。自身兵力、人员伤亡、缴获和追击情况均未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "棟戬部参加实际战斗并取胜，自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战不能P0；胜后无本方主将伤亡、补兵或大规模损害后效，按小规模非零战损估计。",
+            "upper_bound_reason": "无百人级本方损害明文。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "再次击退同一西夏进攻者，维持本方向生存与行动空间，形成局部阶段性安全改善；西夏仍能筑堡并保有再犯能力，故不上SB3。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获或新增可控制资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "棟戬控制区及古渭州西向接战区域"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "胜利证明守住当前活动空间，但没有新增城寨、州地或明确边线前移。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以有限可见成本再次击败进攻者，守住原有安全空间；无新增控制或重大资源，定相称回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ]
+          },
+          "carry_in": "原文追述此前棟戬已多次击败谅祚，本卷是又一次实际胜利阶段。",
+          "carry_out": "西夏在古渭州侧筑堡后退，是否改变棟戬一侧的长期安全与控制仍待后卷。"
+        },
+        {
+          "evaluation_subject_phase": "宋秦州张方平边防体系 × 古渭州警报下修备、籍马、发下番兵阶段",
+          "subject_role": "THIRD_PARTY_DEFENDER",
+          "actual_process": "谅祚军逼近古渭州时，附近熟户酋长恐惧并求张方平救援。张方平整饰楼橹、尽籍诸县马、悉发下番兵，又请求京畿禁军十指挥赴秦凤；枢密使张昪判断情势未明，阻止京兵出发。宋军实际未出塞接战。其后谅祚转而西击棟戬并败退。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "宋方完成边防动员且未遭直接进攻，但原文明示谅祚实际转兵西击棟戬，不能把‘敌不至’自动归因于宋方准备；安全收益不可确认。",
+          "material_return": "WR0",
+          "material_return_detail": "无战利或新增资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秦州—古渭州宋方边防节点"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "宋方没有出塞或新增地盘，现有边防节点也未见失守。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "实际发生了整饰城防、全籍诸县马和调发下番兵等地区级动员，而宋军未直接接战、敌军转向原因亦不能归于宋方；已有成本而可证收益有限。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+              "SRC-XUZIZHITONGJIAN-060-2270793-P0095"
+            ]
+          },
+          "carry_in": "皇祐末古渭州熟户反后，部分戍兵被分屯永兴、泾原、环庆，遇警再召，称下番兵；本卷警报触发该机制。",
+          "carry_out": "P0095出现司马光三疏弹劾张方平轻举、曾公亮反驳‘有备而贼不至’不能反罪边臣，最终张方平徙应天府。后卷需核本次动员的持续财政军役后果。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-XUZIZHITONGJIAN-060-2270793-P0001 至 P0122；完成首轮线性通读后再次逐段复读。P0002、P0033为页面编辑标记，P0121—P0122为版权/footer，实质正文止P0120。",
+    "card_coverage": {
+      "battle_cards": 3,
+      "subject_phase_cards": 7,
+      "coverage_result": "本卷实际武装事件包括：长期跨八州武装盐盗与巡捕交战、代州对辽越境伐木资源实施夜间纵火摧毁、西夏谅祚攻棟戬并再败，同时记录宋秦州因该警报发生的实际边防动员。其余巡检增设、军额淘汰、外交争礼、宫廷谋杀未遂、经略权力议论及重元党政治渗透均未提前虚构为战争。",
+      "wc_formula_check": "PASS：本卷各主体均无P与S同处基础最高档的情形，因此无PS抬档；WC均等于已知P/S/M/A的最高档。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "京西、淮、浙、荆湖增置都同巡检，属于治安兵力部署，没有实际武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "枢密院编成《机要文字》，属军政文书。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "恢复丰州为行政/边地建制动作，本段没有战斗或夺取过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "建立随军功过簿，属军功考核。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "许怀德身后追评其既往守边与典军，不是本卷新战事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0040",
+        "disposition": "ADJUDICATED",
+        "reason": "盐盗数十百成群持甲旗鼓，跨八州劫掠妇女谷帛并与巡捕吏卒斗格、造成杀伤后据险，已达到实际武装袭击/叛乱准入线。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0043",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王务滋提议以酒杀李玮但计划未执行，属未遂宫廷谋杀，不进入战争账户。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0044",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陕西二十五万兵额及汰弱方案，属军制整顿。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西夏求典籍、礼仪及尚主，属外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追论西事结束后经略安抚使便宜权未撤，是制度批评，不是本卷战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0064",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "司马光以往事说明姑息、军纪与层级失序，未给出可作为本卷新战役的实际武装事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0074",
+        "disposition": "ADJUDICATED",
+        "reason": "辽人在宋境取木后，刘永年实际派人纵火焚毁十余里所积山木并拒绝辽方追责，属于已发动的边境对抗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0075",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西夏四监军司改军号及宋廷拟诘问，属军政名号与外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张宗道使夏争先行与座次，虽有口头威胁但没有武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张方平诱棟戬入贡并擅许官爵是外交与边政前置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0094",
+        "disposition": "ADJUDICATED",
+        "reason": "谅祚举兵攻棟戬并实际再败；宋秦州同时发生修城、籍马、发下番兵的实际边防动员。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0095",
+        "disposition": "ADJUDICATED",
+        "reason": "该段不是新战斗，但直接补足同一P0094宋方阶段的‘兵不出塞’和战后问责，已并入同一战役卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "私铸者与江西盐盗合流说明网络延续，但本段当前动作是官府及时付铜价、重整盐运，没有新的武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-060-2270793-P0115",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "重元有异志、萧图古哩荐引其党只是叛乱前政治渗透；真实武装起事尚未发动。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "P0040武装盐盗已经形成跨八州长期治安威胁；本卷盐法只见官盐年增六十余万斤，P0111又见私铸者与江西盐盗合流，后卷需核武装团伙是否真正减少。",
+      "P0074代州焚辽木只形成一次局部制止，后卷如辽方报复、再伐或升级外交，应检验SB1持续性。",
+      "P0094谅祚再败后在古渭州侧筑堡，但是否驻守和实际控制未知；后卷需核新堡、棟戬及宋秦州边防状态。",
+      "P0115辽皇太叔重元党羽已经渗入枢密，但本卷尚未起兵；卷061如出现实际叛乱，必须从真实武装阶段新建战役卡，不把本卷政治阴谋倒算为战争成本。",
+      "皇子赵曙本卷已正式确立并入宫，但仁宗仍在位；真正皇位交接属于非战役政治连续项。"
+    ]
+  }
+}

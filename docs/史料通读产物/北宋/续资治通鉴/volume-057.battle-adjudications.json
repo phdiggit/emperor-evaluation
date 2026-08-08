@@ -1,0 +1,507 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷057",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-057-2299550",
+    "revision_ref": "2299550",
+    "raw_sha256": "be103799c1eded8ce21ce830b7d3f208a27be14c6213f076f81b9304e7f74065"
+  },
+  "cards": [
+    {
+      "battle_label": "邵州蛮反—潘夙经制破团峒九十余",
+      "campaign_group": "XZTJ-SONG-SHAOZHOU-MAN-REBELLION-1058",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+      ],
+      "source_quotes": [
+        "時蠻反邵州，殺隊將及其部兵",
+        "夙駐兵貲木寨，親督兵援所遣將，破團峒九十餘"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋邵州—荆湖北军政体系 × 蛮反受袭并由潘夙经制反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "邵州蛮发动武装叛乱，杀宋队将及其所部兵。潘夙受命经制，驻兵赀木寨，亲督兵援所遣诸将，攻破团峒九十余。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文明确一名队将及其所部兵被杀，但不载部兵人数。",
+            "range": "约2—99死亡当量",
+            "center": 14,
+            "P_scoring": "P1估",
+            "basis": "至少包含队将本人和复数部兵，已确定为非零死亡；后文未见百人级遗属、补兵或大规模死伤数字。",
+            "upper_bound_reason": "无“数百”“大半”“尽没”等百人级以上损失描述。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "潘夙在同一局部方向连续攻破九十余团峒，显著压低当下叛乱网络的活动空间；本卷未明言彻底平定，故不上SB3。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获、府库、牲畜或可控制军资。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "邵州及九十余团峒"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "“破团峒九十余”证明军事突破，但原文没有说明这些团峒是否随后稳定纳入宋朝控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "宋方先遭人员损失并发生跨多个团峒的地方经制与增援成本，随后取得明显军事压制；因稳定控制与长期后效未明，定相称回报而非高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ]
+          },
+          "carry_in": "本卷此前未见同一邵州蛮叛乱的实际武装阶段。",
+          "carry_out": "后卷如出现受降、复叛、设治或再寇，应继续核SB2与控制状态。"
+        },
+        {
+          "evaluation_subject_phase": "邵州蛮武装 × 起事并遭潘夙攻破九十余团峒阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "蛮众起事并杀宋队将及部兵；宋军随后驻赀木寨、组织增援并攻破团峒九十余。蛮方死伤、被俘与撤退人数失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "九十余团峒遭宋军实际攻破，但蛮方死伤、被俘人数均失载。",
+            "range": "约10—300死亡当量",
+            "center": 55,
+            "P_scoring": "P1估",
+            "basis": "多处武装据点被攻破，不能据史书沉默记P0；但不能仅由“九十余”个团峒反推百人或千人死亡，故以跨P1/P2的宽区间估计，几何中心仍落P1。",
+            "upper_bound_reason": "无明确斩获、俘虏、屠杀或成建制覆灭数字，不支持P3。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "九十余团峒被破，局部组织与防御网络明显受挫；是否彻底解体未明。",
+          "material_return": "WR0",
+          "material_return_detail": "未见蛮方取得新增可控制资源。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "邵州及九十余团峒"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "据点被破但稳定控制归属未写明，不能直接记BCN。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "虽起事阶段曾杀宋军，但同一阶段最终遭宋方连续攻破大量团峒，局部安全结构受损，且没有可确认资源或控制成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0066"
+            ]
+          },
+          "carry_in": "无可由本卷确认的同一叛乱前置战役阶段。",
+          "carry_out": "后卷如出现继续抵抗、受降或恢复团峒控制，应据新阶段重判，不倒灌本卷。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "彭仕羲率众降—归还连年所掠甲仗士卒—复通中国",
+      "campaign_group": "XZTJ-SONG-XIAXIZHOU-PENGSHIXI-1055-1057",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+      ],
+      "source_quotes": [
+        "卞溪蠻彭仕羲率眾降",
+        "歸連歲所掠甲仗士卒",
+        "自是復通中國，然桀驁益甚"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋辰州—湖北边防体系 × 接受彭仕羲受降并恢复往来阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "承卷055—056长期未闭合的彭仕羲武装链，彭仕羲本卷率众降宋，归还连年所掠甲仗和士卒；宋廷命辰州归还其家属及铜柱，自此“复通中国”，但原文同时称其“桀骜益甚”。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "P_inference": null,
+          "strategic_security": "SB2",
+          "strategic_security_detail": "持续数年的局部武装对立以受降和恢复往来阶段性收束，安全明显改善；“桀骜益甚”直接限制其稳定性，不上SB3。",
+          "material_return": "WR1",
+          "material_return_detail": "宋方实际收回此前被掠的甲仗，属于有限军用资产恢复；被归还士卒属于人员恢复，不作为战利资产计WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辰州—卞溪/下溪州方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“复通中国”确认关系与往来恢复，但本段没有具体城寨、州地或稳定边线控制转移。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "本阶段无新增战斗成本，取得受降、甲仗归还和往来恢复；但首领仍“桀骜益甚”，长期安全并未稳固，故不定高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ]
+          },
+          "carry_in": "承卷055宋守信深入讨伐失败、蛮獠反复寇掠，以及卷056招抚后彭仕羲仍未降。",
+          "carry_out": "后卷需核彭仕羲是否重新寇边或受宋持续约束，以验证SB2的持续性。"
+        },
+        {
+          "evaluation_subject_phase": "彭仕羲集团 × 率众受降并换回家属、铜柱阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "彭仕羲率众降宋，归还连年所掠甲仗和士卒；宋方归还其家属及铜柱。其后虽恢复与宋往来，原文仍称彭仕羲“桀骜益甚”。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SN2",
+          "strategic_security_detail": "独立武装对抗以受降收束，继续公开寇掠的行动空间下降；但“桀骜益甚”表明自主性未被彻底消解。",
+          "material_return": "WR0",
+          "material_return_detail": "家属不得作为战争资产；铜柱价值与军政资源属性不明，不计WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "卞溪/下溪州方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "受降不等于有可量化的土地或据点控制转移，原文也未写具体失地。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "通过受降避免继续战斗并换回家属，但须归还此前掠得甲仗、停止公开对抗，作为独立武装主体的安全空间收缩；同时其桀骜性仍存，故不是完全失败。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0080"
+            ]
+          },
+          "carry_in": "承前卷长期拒降状态。",
+          "carry_out": "若后卷复叛或再寇，应作为SN2的反向持续性证据另记新阶段。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "交趾寇钦州（本卷仅见入寇节点）",
+      "campaign_group": "XZTJ-SONG-JIAOZHI-QINZHOU-1059",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+      ],
+      "source_quotes": [
+        "交趾寇欽州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "交趾入寇部队 × 钦州入寇阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "嘉祐四年二月，交趾武装进入钦州；本卷不载兵力、接战细节、掠获、退却或占据结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文仅以“寇钦州”确认实际武装入境，交趾方死伤失载。",
+            "range": "约1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "已经形成武装入寇，不能据材料简略直接记P0；没有败退、补兵、主将伤亡或百人级损失后效。",
+            "upper_bound_reason": "无百人级本方死伤、被俘或成建制崩溃明文。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB0",
+          "strategic_security_detail": "单次入寇本身不能证明形成新的持续安全优势。",
+          "material_return": "UNKNOWN",
+          "material_return_detail": "本卷不载掠获或可控制资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "钦州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“寇”只证明武装侵入，不证明稳定占据钦州或边线转移。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "本卷只有入寇节点，缺少战果、撤退、掠获和后续安全状态，无法判断交趾方阶段回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ]
+          },
+          "carry_in": "本卷P0065仍有交趾贡物外交往来，至P0124转为实际武装入寇。",
+          "carry_out": "卷058 P0045只见宋廷禁止边臣主动攻交趾，并未补出本次入寇的战果与撤退原因；后续仍需核同一方向是否再寇。"
+        },
+        {
+          "evaluation_subject_phase": "宋钦州军民 × 遭交趾入寇阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "钦州遭交趾武装入寇；本卷未载宋方即时反击、伤亡和军资损失。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装入境已发生，宋军民死伤失载。",
+            "range": "约1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "“寇”意味着非零武装侵扰，史书沉默不能证明无人受害；同时无百人级人员损害后效。",
+            "upper_bound_reason": "无百人级死伤、城防崩溃、人口迁徙或长期救济数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一个边州受到实际武装侵扰，构成一次局部安全受损；尚无证据表明扩大为长期主要战略方向危机。",
+          "material_return": "WR0",
+          "material_return_detail": "宋方没有可见战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "钦州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本卷没有钦州失守或稳定退控证据，只能确认原有控制受到侵扰。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "宋境已经受武装侵扰并产生至少局部人员与安全成本，而本卷没有实现的反击、资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-057-2299550-P0124"
+            ]
+          },
+          "carry_in": "此前同卷仍有交趾进贡，未见同一钦州方向武装阶段。",
+          "carry_out": "卷058只确认宋廷约束萧注、张师正不得主动生事，不能据此倒推本次入寇已被军事击退；后卷继续核边境安全。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-XUZIZHITONGJIAN-057-2299550-P0001 至 P0136；完成线性通读后逐段复读。P0002、P0033、P0112为页面编辑标记，P0134—P0136为版权/footer/纪年脚注元数据，实质正文止P0133。",
+    "card_coverage": {
+      "battle_cards": 3,
+      "subject_phase_cards": 6,
+      "coverage_result": "本卷实际武装行动包括邵州蛮反及潘夙反击、彭仕羲武装链的受降收束、交趾寇钦州，均已生成裁决卡。前卷败战问责、边臣训练与募兵、河北义勇方案、未发动宗室叛逆隐患均未虚构为战役。",
+      "wc_formula_check": "PASS：已知数值轴按 base_WC=max(P,S,M,A)；仅P与S同为基础最高档且>=1时抬一级。交趾寇钦州宋方P1估/S1并列为最高已知档，故WC2；其余无PS抬档。UNKNOWN轴不参与抬档。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "限制内臣钤辖、都监员额，属军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "刘平追谥，为既往战事人物身后，不是本卷武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽行宫都部署任命，属军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追究卷056断道坞/屈野相关败事责任，当前段只有官僚问责与司马光请罪，没有新接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽募勇健入军，属于兵员补充，未发生战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0064",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追叙耶律仁先开道、控制女真安边，为人物政绩概述，无可定位的本卷实际战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0066",
+        "disposition": "ADJUDICATED",
+        "reason": "邵州蛮实际起事杀宋军，潘夙驻兵督援并破团峒九十余。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0077",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "京师助籴军储，属灾年军粮财政。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0080",
+        "disposition": "ADJUDICATED",
+        "reason": "彭仕羲长期武装链在本卷发生实际受降、归还所掠军资与恢复往来的收束阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0084",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "广南土丁四万余人为募兵、轮训与边贸制度，本段无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "内藏出绢助籴军储，属军费后勤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0106",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽重元妻煽动与尼噜古“有异志”尚未发动武装行动，按合同排除未遂/未发动宫廷阴谋。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0113",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "借日食追责孙沔、庞籍及“屈野之衄”，只是对既往败事的政治评价，不重复造卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0124",
+        "disposition": "ADJUDICATED",
+        "reason": "交趾实际寇钦州。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0131",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "河北义勇机动作战设想，尚为政策议论。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-057-2299550-P0132",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "河北义勇就地训练、岁阅籍数方案，未进入实战。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "邵州蛮反在P0066以“破团峒九十余”结束本卷记载，但没有明确受降或稳定设治；卷058以后如有同一邵州/团峒复叛，应续核SB2与控制状态。",
+      "彭仕羲线承卷055—056，本卷P0080虽“率众降”“复通中国”，却紧接“桀骜益甚”；后卷若复叛、再寇或持续受控，应作为本阶段安全收益持续性的关键证据。",
+      "P0124交趾寇钦州本卷没有战果。卷058 P0045只见宋廷禁止萧注、张师正主动生事，不足以证明钦州入寇已被军事解决；后续继续核交趾方向。",
+      "河北义勇至本卷末只有训练与临警统驭方案；后卷若首次进入实战，应另建实际阶段卡，不把训练数字倒灌为战役成本。"
+    ]
+  }
+}

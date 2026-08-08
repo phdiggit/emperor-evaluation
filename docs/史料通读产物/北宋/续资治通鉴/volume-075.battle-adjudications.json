@@ -1,0 +1,192 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷075",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-075-2292647",
+    "revision_ref": "2292647",
+    "raw_sha256": "a8b7370efacff5eae2e2c52f50339d52fd02a788ca1b56f95fd8fc04edc9c0b8"
+  },
+  "cards": [
+    {
+      "battle_label": "泸州夷乞弟寇戎州—兵官王宣等战殁",
+      "campaign_group": "XZTJ-SONG-LUHU-NAXI-1078-1080",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-075-2292647-P0024"
+      ],
+      "source_quotes": [
+        "以瀘州夷乞弟侵擾，詔邊將討之",
+        "乞弟寇戎州，兵官王宣等戰歿"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋戎州边军 × 抵御乞弟入寇、王宣等战殁阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "承卷074乞弟犯边后，本卷明确记乞弟进寇戎州，宋兵官王宣等在实际接战中战死；未载城寨失守、平民伤亡或击退结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "王宣明确战殁，且称‘王宣等’，可确认死亡不止孤立一人，但总数失载。",
+            "range": "2—99死亡当量",
+            "center": 14,
+            "P_scoring": "P1估",
+            "basis": "至少有一名具名兵官及同战人员死亡；事件仅见单次边州接战，没有百人级死伤、补兵或大批遗属后效。",
+            "upper_bound_reason": "‘等’不能直接扩张为百人级损失；无城陷、整军覆没或大量死俘数字。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "戎州遭实际入寇并损失兵官，说明泸州夷威胁已越过单纯侵扰进入杀伤宋边军的阶段，但本段不足以证明更广边防结构失效。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获或资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": ["戎州边境"],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文只记入寇和战殁，没有戎州城寨或行政控制权变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "宋方已经承担人员损害并出现一次边防安全恶化，而本段没有击退、缴获或控制收益可抵补。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋及泸州、戎州所涉边部在本阶段均不属于可由本卷确认的建国、复国或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"],
+            "strategic_security": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"],
+            "material_return": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"],
+            "border_control": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"]
+          },
+          "carry_in": "承卷073韩存宝破后城等十三囤、卷074乞弟再犯边而宋廷命王光祖等讨之；前卷只见讨伐命令，没有实际接战结果。",
+          "carry_out": "P0035再次命韩存宝经制泸夷；卷076须核韩存宝此前与乞弟交战的具体失利、林广接替后的进军和乞弟结局。"
+        },
+        {
+          "evaluation_subject_phase": "泸州夷乞弟部 × 进寇戎州并杀伤宋兵官阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "乞弟部实际进入戎州方向并与宋边军接战，造成兵官王宣等战死；本段未载其自身损失、掳掠或占领城寨。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "本段未载乞弟部死伤。",
+            "range": "1—49死亡当量",
+            "center": 7,
+            "P_scoring": "P1估",
+            "basis": "已发生真实武装接战，不能以史书只记宋方战殁反推进攻方无人受损；但无败退、斩获或首领损失。",
+            "upper_bound_reason": "无百人级死伤、俘虏或成建制受损迹象。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "杀伤宋边军指挥人员并完成一次入寇，使宋在戎州方向短时承受更大压力；只属一次局部战术收益，不能视为长期安全结构改变。",
+          "material_return": "WR0",
+          "material_return_detail": "原文未载掳获、牲畜、军资或可控制财政资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": ["戎州边境"],
+            "control_change_mode": "NONE",
+            "control_outcome": "完成入寇和杀伤，但没有形成城寨或区域实际控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低档可见成本造成宋方人员损失并完成一次边境袭扰，但没有资源或稳定控制收益，故只判局部相称回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本次边部入寇不能由原文确认属于新政权建立或稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"],
+            "strategic_security": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"],
+            "material_return": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"],
+            "border_control": ["SRC-XUZIZHITONGJIAN-075-2292647-P0024"]
+          },
+          "carry_in": "承卷074乞弟犯边。",
+          "carry_out": "卷076记韩存宝与乞弟累败、林广接替并最终在纳江伏击其诈降队伍，须沿同一campaign_group续记。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-075-2292647-P0001—P0106",
+      "paragraph_count": 106,
+      "body_end": "P0104",
+      "metadata_tail": ["P0105", "P0106"],
+      "status": "COMPLETED",
+      "edit_markers": ["P0002"]
+    },
+    "card_coverage": {
+      "adjudicated_cards": 1,
+      "adjudicated_subject_phase_cards": 2,
+      "coverage_note": "逐段复读后，本卷只有P0024形成明确实际接战：乞弟寇戎州，兵官王宣等战殁。其余边防、筑寨、整军、备兵和征募均未在本卷形成可独立裁决的实际战斗。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0024",
+        "disposition": "ADJUDICATED",
+        "battle_label": "泸州夷乞弟寇戎州—兵官王宣等战殁"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "溪峒徽、诚等州镇拟筑城寨、屯兵、守御、招纳，后虽实际建置，但本段无接战或武装争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "再次命韩存宝经制泸夷，属统帅任命；具体作战结果卷076才追叙。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0044",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "河北、河东、陕西提举义勇保甲属军事组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "只见西夏拟筑撤逋达宗城的情报与宋廷命经略司备兵禁止，未记实际筑城、驱逐或接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "举荐武举进士属选官制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-075-2292647-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "弓箭手、蕃捉生、强人、山河户整编与招募属军事制度和准备，没有实际交战。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "XZTJ-SONG-LUHU-NAXI-1078-1080",
+        "followup": "卷074只见命王光祖等讨乞弟，卷075 P0024出现实际入寇与宋方战殁，P0035再命韩存宝经制；卷076须核韩存宝累败、误讨村蛮以及林广接替后的实际阶段，不能把卷076结果倒灌本卷。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-XIA-WESTERN-FRONT-1080-1081",
+        "followup": "P0060只见西夏拟筑撤逋达宗城与宋廷备兵阻止，尚无实际战斗；卷076若同方向出现真实接战或控制变化，再从实际阶段起立卡。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-XIA-SUIDE-1079",
+        "followup": "本卷未见卷074绥德同集团复犯，既不能追加收益，也不能仅凭暂时沉寂把前卷两次SB1抬为更高档。"
+      }
+    ]
+  }
+}

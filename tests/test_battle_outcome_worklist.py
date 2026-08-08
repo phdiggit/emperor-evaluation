@@ -5233,37 +5233,12 @@ def test_post_tang_battle_partitions_cover_handoffs_exactly_once() -> None:
         build_post_tang_battle_partitions,
     )
 
-    payload = build_post_tang_battle_partitions(ROOT)
-    records = payload["records"]
-    fact_ids = [
-        fact_id
-        for record in records
-        for fact_id in record["source_lineage"]["source_card_ids"]
-    ]
-    assert payload["source_fact_count"] == len(fact_ids) == len(set(fact_ids)) == 4237
-    assert payload["candidate_count"] == len(records) == 3995
-    summer_parent = next(
-        row for row in records
-        if row["source_target_ref"] == "CAMPAIGN-YUAN-SUMMER-EXPANSION-1352"
-    )
-    assert summer_parent["disposition"] == "REDIRECTED_MIXED_PARENT"
-    assert not summer_parent["public_outcome_registered"]
-    summer_children = [
-        row for row in records
-        if row.get("split_from_source_target_ref")
-        == "CAMPAIGN-YUAN-SUMMER-EXPANSION-1352"
-    ]
-    assert len(summer_children) == 3
-    assert all(not row["source_lineage"]["source_card_ids"] for row in summer_children)
-    assert set(payload["partition_summaries"]) == {
-        "five_dynasties", "liao", "north_song", "south_song", "xixia",
-        "jin", "yuan", "ming", "qing",
-    }
-    assert all(
-        record["candidate_destination"]
-        in {"CAMPAIGN_GROUP", "REDIRECT_NON_BATTLE_OUTCOME", "BELOW_PUBLIC_OUTCOME_THRESHOLD", "REDIRECTED_MIXED_PARENT"}
-        for record in records
-    )
+    with pytest.raises(ValueError, match="旧registry输入已退役"):
+        build_post_tang_battle_partitions(ROOT)
+
+    assert not (ROOT / "docs/史料通读产物/唐以后编年").exists()
+    assert (ROOT / "docs/史料通读产物/五代十国/资治通鉴").is_dir()
+    assert (ROOT / "docs/史料通读产物/北宋/续资治通鉴").is_dir()
 
 
 def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> None:
@@ -5271,20 +5246,32 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
         (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
     )
     post_records = [record for record in payload["records"] if record.get("post_tang_evidence_lower_bound")]
-    assert payload["schema_version"] == "battle-parent-contract-registry-v4"
+    assert payload["schema_version"] == "battle-parent-contract-registry-v5"
     assert payload["qin_tang_semantic_fingerprint"] == "d8bf11d3b8ad433c1c1e01ff3302a62bff1b66ecc2790574376babc61b3bdb9e"
     tiered_dynasty_counts = Counter(
         row["dynasty"] for row in payload["records"] if row.get("campaign_tier")
     )
     assert tiered_dynasty_counts["汉"] == 66
     assert tiered_dynasty_counts["东汉"] == 102
-    assert len(post_records) == 3995
-    assert sum(record["public_outcome_registered"] for record in post_records) == 1293
+    assert len(post_records) == 2761
+    assert sum(record["public_outcome_registered"] for record in post_records) == 919
+    assert payload["post_tang_candidate_count"] == 4000
+    assert payload["post_tang_source_fact_count"] == 4090
+    promotion = payload["five_dynasties_promotion"]
+    assert promotion["battle_card_count"] == 521
+    assert promotion["subject_phase_count"] == 1434
+    assert promotion["supplemental_record_count"] == 2
+    assert promotion["retired_stale_record_count"] == 433
+    north_promotion = payload["north_song_promotion"]
+    assert north_promotion["volume_count"] == 97
+    assert north_promotion["battle_card_count"] == 716
+    assert north_promotion["subject_phase_count"] == 1586
+    assert north_promotion["retired_stale_record_count"] == 801
     assert len({record["war_event_id"] for record in payload["records"]}) == len(payload["records"])
     difficulty_review = payload["high_difficulty_contract_review_summary"]
     assert difficulty_review["status"] == "ACCEPTED_CURRENT"
-    assert difficulty_review["current_d3_d4_count"] == 352
-    assert difficulty_review["current_difficulty_counts"] == {"D3": 326, "D4": 26}
+    assert difficulty_review["current_d3_d4_count"] == 338
+    assert difficulty_review["current_difficulty_counts"] == {"D3": 312, "D4": 26}
     assert difficulty_review["post_tang_source_reviewed_record_count"] == 104
     assert difficulty_review["pending_count"] == 0
     current_high_difficulty = [
@@ -5293,7 +5280,7 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
         if record.get("public_outcome_registered")
         and record.get("combat_difficulty") in {"D3", "D4"}
     ]
-    assert len(current_high_difficulty) == 352
+    assert len(current_high_difficulty) == 338
     assert all(record.get("combat_difficulty_basis") for record in current_high_difficulty)
     assert {
         record["source_target_ref"]
@@ -5430,8 +5417,19 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
         "UCP-POST-QING-REUNIFICATION-1673-1683",
     }
     assert all("portfolio_total_tier" not in row for row in portfolios.values())
+    assert portfolios["UCP-POST-GORYEO-936"]["campaign_group_refs"] == [
+        "WAR-FD-013B3B0607C76A755F16"
+    ]
     assert portfolios["UCP-POST-SONG-963-979"]["created_net_control_value"] == 325.0
     assert portfolios["UCP-POST-SONG-963-979"]["horizontal_total_band"] == "H2"
+    current_event_ids = {row["war_event_id"] for row in payload["records"]}
+    song_portfolio = portfolios["UCP-POST-SONG-963-979"]
+    assert len(song_portfolio["campaign_group_refs"]) == 22
+    assert set(song_portfolio["campaign_group_refs"]) <= current_event_ids
+    assert all(
+        set(opponent["source_campaign_refs"]) <= current_event_ids
+        for opponent in song_portfolio["opponent_systems"]
+    )
     assert portfolios["UCP-POST-JIN-1114-1126"]["created_net_control_value"] == 325.0
     assert portfolios["UCP-POST-JIN-1114-1126"]["horizontal_total_band"] == "H2"
     assert portfolios["UCP-POST-YUAN-1205-1279"]["created_net_control_value"] == 1140.0
@@ -5466,17 +5464,40 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
     )
     assert not any(row.get("campaign_tier") == "S+" for row in post_records)
     by_target = {row.get("source_target_ref"): row for row in post_records}
-    assert by_target["BATTLE-LEAD-088-QINGTANG-CONSOLIDATION-1103"]["account_routing"] == ["THREE_LEDGER_STANDARD"]
     assert by_target["CAMPAIGN-LIAO-PREACCESSION-EXPANSION-901-903"]["account_routing"] == ["UNIFICATION_ONLY"]
     assert by_target["CAMPAIGN-PROTO-JIN-SHILU-TRIBAL-CONSOLIDATION"]["defense_consumption"] == "EXCLUDED_UNIFICATION"
     assert by_target["CAMPAIGN-QING-TAIWAN-1683"]["campaign_tier"] == "S-"
     assert by_target["CAMPAIGN-QING-TAIWAN-1683"]["defense_consumption"] == "EXCLUDED_UNIFICATION"
     assert by_target["CAMPAIGN-MING-HUAI-EAST-CONQUEST-1366"]["merged_into"] == by_target["CAMPAIGN-MING-HUAIDONG-1365-1366"]["war_event_id"]
     assert not by_target["CAMPAIGN-MING-HUAI-EAST-CONQUEST-1366"]["public_outcome_registered"]
-    chuzhou = by_target["CAMPAIGN-CHUZHOU-CAPTURED-956"]
-    assert chuzhou["campaign_tier"] == "A"
-    assert chuzhou["members"][0]["person_command_result"][0]["result_tier"] == "B"
-    assert chuzhou["members"][0]["person_command_result"][0]["combat_difficulty"] == "D2"
+    five_dynasties = [
+        row for row in payload["records"]
+        if row.get("dynasty_partition") == "five_dynasties"
+    ]
+    assert len(five_dynasties) == 523
+    assert sum(row["subject_phase_count"] for row in five_dynasties) == 1436
+    assert all(row["wc_grade"] is None and row["security_grade"] is None for row in five_dynasties)
+    assert {
+        row["war_event_id"] for row in five_dynasties
+        if row["record_level"] == "targeted_primary_source_supplement"
+    } == {
+        "WAR-FD-SUPPLEMENT-LATER-SHU-COLLAPSE-965",
+        "WAR-FD-SUPPLEMENT-SOUTHERN-TANG-COLLAPSE-974-975",
+    }
+    north_song = [
+        row for row in payload["records"]
+        if row.get("dynasty_partition") == "north_song"
+    ]
+    assert len(north_song) == 716
+    assert sum(row["subject_phase_count"] for row in north_song) == 1586
+    assert all(row["record_level"] == "chronicle_battle_card" for row in north_song)
+    assert all(row["wc_grade"] is None and row["security_grade"] is None for row in north_song)
+    assert all(not row["war_event_id"].startswith("WAR-POST-") for row in north_song)
+    assert not any(
+        "docs/史料通读产物/唐以后编年/续资治通鉴-北宋" in source_file
+        for row in north_song
+        for source_file in row["source_lineage"]["source_files"]
+    )
 
 
 def test_current_talent_registry_marks_post_tang_profiles_as_lower_bounds() -> None:
@@ -5853,7 +5874,6 @@ def test_current_registry_does_not_duplicate_literal_full_parent_consumption() -
             "WAR-LEAD-TANG-ANSHI-END",
             "WAR-POST-6553D2D79DD1103A1546",
             "WAR-POST-967717D1C017F2D3443C",
-            "WAR-POST-3F80837ABE1B7F093F4F",
         }
     }
     assert strict_examples["WAR-LEAD-TANG-GOGURYEO-645"]["李世勣"][
@@ -5871,10 +5891,6 @@ def test_current_registry_does_not_duplicate_literal_full_parent_consumption() -
         nian["person_command_result"][0]["result_tier"],
         nian["person_command_result"][0]["combat_difficulty"],
     ) == ("full_campaign", "A", "D2")
-    cao = strict_examples["WAR-POST-3F80837ABE1B7F093F4F"]["曹彬"]
-    assert cao["person_command_index"]["consumption_mode"] == "none"
-    assert "person_command_result" not in cao
-
     talent = json.loads(
         (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
             encoding="utf-8"

@@ -1,0 +1,1947 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "资治通鉴/卷279",
+  "source_identity": {
+    "source_unit_id": "SRC-ZZTJ-279-1769087",
+    "revision_ref": "1769087",
+    "raw_sha256": "46a7d839ca205756d542d5110e61c19c6de6610075fdfa997069cdb811067ab3"
+  },
+  "cards": [
+    {
+      "battle_label": "凤翔围攻—潞王东进夺位内战",
+      "campaign_group": "ZZTJ-279-LICONGKE-COUP-0934",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0016",
+        "SRC-ZZTJ-279-1769087-P0019",
+        "SRC-ZZTJ-279-1769087-P0020",
+        "SRC-ZZTJ-279-1769087-P0021",
+        "SRC-ZZTJ-279-1769087-P0022",
+        "SRC-ZZTJ-279-1769087-P0025",
+        "SRC-ZZTJ-279-1769087-P0026",
+        "SRC-ZZTJ-279-1769087-P0027"
+      ],
+      "source_quotes": [
+        "諸道兵大集於鳳翔城下攻之",
+        "城中死者甚眾",
+        "眾爭棄甲投兵而降",
+        "朝廷前後所發諸軍，遇西軍皆迎降，無一人戰者",
+        "東軍盡降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "后唐朝廷西面军 × 凤翔围攻与军心崩溃阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "王思同等合诸镇兵围攻凤翔，先克东西关城，再强攻本城。张虔钊以白刃驱军登城激起军变，杨思权、尹晖等先后率众解甲投潞王，外军遂溃。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "城中‘死者甚众’，朝廷攻城军自身伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "连续两日攻关城、强攻本城并发生军中崩溃，推定朝廷攻城军承担百人级损害。",
+            "upper_bound_reason": "无朝廷军千人级死亡、尸数或大规模追杀记载，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤翔西面行营及关城战线"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "围攻军失去战线控制并成建制倒向潞王。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0019",
+              "SRC-ZZTJ-279-1769087-P0020"
+            ]
+          },
+          "carry_in": "卷278末朱弘昭、冯赟已通过调镇激化潞王疑惧；本卷P0016潞王正式移檄起兵。",
+          "carry_out": "西面军瓦解后，后唐继续以宿卫、东面军阻挡潞王东进。"
+        },
+        {
+          "evaluation_subject_phase": "凤翔潞王军民 × 守城反转阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "潞王在兵弱粮少、城防浅弱下守凤翔；朝廷军攻入关城且城中死者甚众。其后借攻军军变吸纳杨思权、尹晖等部，围城形势逆转。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文只明记‘城中死者甚众’，未给军民分项。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "城池连续受攻且明确出现较多死亡，至少百人级较稳妥。",
+            "upper_bound_reason": "‘甚众’不足单独推到千人级，且城未破、未见屠杀。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤翔城及东西关"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住凤翔并接收攻城军投降，控制由危急转为稳固。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0020"
+            ]
+          },
+          "carry_in": "P0016潞王已公开起兵但兵弱粮少。",
+          "carry_out": "潞王随即整军东进，进入长安—洛阳方向。"
+        },
+        {
+          "evaluation_subject_phase": "潞王东进军 × 长安—陕州—新安受降推进阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "潞王东进后，长安出府库与民财供赏而不战；朝廷前后所发军队遇其军皆迎降，康义诚宿卫军至新安自行解甲，东军最终尽降。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ]
+          },
+          "strategic_security": "SB4",
+          "material_return": "WR4",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "长安",
+              "陕州",
+              "潼关—新安通道",
+              "后唐东进诸军"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "在几乎无接战条件下取得关中至京畿西侧主要军政节点和朝廷主力投降。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0021",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ]
+          },
+          "carry_in": "承凤翔守城反转，西面讨伐军已经瓦解。",
+          "carry_out": "闵帝出洛阳后，潞王进入京师并通过太后令完成即位；即位本身作为非战役政治事实另记。"
+        },
+        {
+          "evaluation_subject_phase": "后唐闵帝政权 × 宿卫动员至军事体系崩溃阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "闵帝在西师溃败后空府库犒赏宿卫，命康义诚率军迎敌；但诸军沿途成群投降，宿卫军在新安瓦解，东军尽降，皇帝仅五十骑出逃。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S4",
+            "M": "M3",
+            "A": "A4",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "本阶段大量部队是不战而降；仅推定军队逃散、零星冲突存在少量人员损害。",
+            "range": "10—90死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "明确‘无一人战者’限制伤亡上限，但大规模军队崩溃和逃亡难以证明绝对零损害。",
+            "upper_bound_reason": "没有成建制交战、追杀或百人级死伤记载，故不上P2。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ]
+          },
+          "strategic_security": "SN5",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN5",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "关中—洛阳西部军政控制",
+              "中央宿卫与东军体系"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "中央可用野战与宿卫体系连续倒戈，国家级战略控制迅速崩解。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0022",
+              "SRC-ZZTJ-279-1769087-P0025",
+              "SRC-ZZTJ-279-1769087-P0026",
+              "SRC-ZZTJ-279-1769087-P0027"
+            ]
+          },
+          "carry_in": "凤翔围攻军已先行瓦解。",
+          "carry_out": "闵帝逃至卫州，其随从武装随后又遭刘知远部清除；政权政治终结见P0032—P0034。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "卫州驿闵帝随从与石敬瑭部武装冲突",
+      "campaign_group": "ZZTJ-279-WEIZHOU-ESCORT-0934",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0028"
+      ],
+      "source_quotes": [
+        "守榮抽佩刀欲刺之",
+        "守榮與暉鬥死",
+        "劉知遠引兵入，盡殺帝左右及從騎"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "石敬瑭—刘知远部 × 清除闵帝随从阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "沙守荣拔刀欲刺石敬瑭，与陈晖格斗而死；随后刘知远引兵入驿，杀尽闵帝左右及随从骑兵，只留下闵帝。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "卫州驿"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "武装冲突后未形成可确认的领土净变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ]
+          },
+          "carry_in": "闵帝已失宿卫，仅五十骑出洛阳。",
+          "carry_out": "石敬瑭随即赴洛阳；闵帝后被王弘贽父子拘置、缢杀，属政治处刑。"
+        },
+        {
+          "evaluation_subject_phase": "闵帝随从武装 × 卫州驿覆灭阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "沙守荣、奔洪先后以武力责逼石敬瑭；守荣斗死、奔洪自刎，刘知远部随后杀尽闵帝左右及从骑。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "闵帝最后随从武装"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失去仅存的随从武装与人身护卫能力。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0028"
+            ]
+          },
+          "carry_in": "闵帝自洛阳出奔仅有五十骑。",
+          "carry_out": "闵帝本人被留置卫州，后由王弘贽父子缢杀。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "回鹘贡道护送与讨河西劫掠者",
+      "campaign_group": "ZZTJ-279-UIGHUR-ROUTE-0934",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0064"
+      ],
+      "source_quotes": [
+        "回鶻入貢者多為河西雜虜所掠",
+        "帥禁軍護送，與邠州兵共討之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "后唐牛知柔护送军 × 贡道清剿阶段",
+          "subject_role": "BORDER_SECURITY",
+          "actual_process": "朝廷因回鹘入贡者屡遭河西杂虏劫掠，命牛知柔率禁军护送，并与邠州兵共同讨击；本卷不载战果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "有实际‘共讨’但无死伤数。",
+            "range": "5—90死亡当量",
+            "center": 21.2,
+            "P_scoring": "P1估",
+            "basis": "出动禁军与邠州兵实施边地讨击，不能按P0处理。",
+            "upper_bound_reason": "无败溃、阵亡将校或百人级损失线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ]
+          },
+          "strategic_security": "UNKNOWN",
+          "material_return": "UNKNOWN",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "河西—邠州贡道"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本卷未说明讨击后贡道控制是否稳定。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0064"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "需后卷核验此次共讨是否形成持续贡道安全及有无实际缴获。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "契丹入云州—百井防御与振武击退",
+      "campaign_group": "ZZTJ-279-KHITAN-NORTHBORDER-0934",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0075",
+        "SRC-ZZTJ-279-1769087-P0083"
+      ],
+      "source_quotes": [
+        "契丹入寇",
+        "石敬瑭奏自將兵屯百井",
+        "楊檀擊契丹於境上，卻之",
+        "契丹引去，罷兵歸"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "后唐北面军（石敬瑭、杨檀）× 百井防御与边境反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "契丹入寇云州后，石敬瑭亲自屯百井防备，杨檀在边境交战击退契丹；十二月契丹引去，后唐罢兵。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "明确有杨檀‘击契丹’但无后唐伤亡数。",
+            "range": "10—99死亡当量",
+            "center": 31.5,
+            "P_scoring": "P1估",
+            "basis": "一次边境接战并成功击退，推定小规模人员损害。",
+            "upper_bound_reason": "无持续大战、败退或百人级伤亡后效。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云州—振武边境",
+              "百井"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本阶段守住既有北边控制，未见净失地。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ]
+          },
+          "carry_in": "卷278已有契丹边境压力；本卷形成新的入寇阶段。",
+          "carry_out": "清泰二年契丹再寇新州、振武、应州，需另起后续阶段。"
+        },
+        {
+          "evaluation_subject_phase": "契丹军 × 云州—振武入寇阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "契丹进入云州方向，被杨檀于境上击退，至十二月引兵离去。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "明确被‘击…卻之’，契丹损失失载。",
+            "range": "10—120死亡当量",
+            "center": 34.6,
+            "P_scoring": "P1估",
+            "basis": "实际接战且被逐出边境，推定小规模损害。",
+            "upper_bound_reason": "无成建制歼灭或百人以上明确伤亡。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云州—振武边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见取得并保持城地。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0075",
+              "SRC-ZZTJ-279-1769087-P0083"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "清泰二年仍继续入寇，说明威胁结构未因本次击退而终结。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "渠州文景琛据城叛乱与李延厚讨平",
+      "campaign_group": "ZZTJ-279-QIZHOU-REBELLION-0934",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0078"
+      ],
+      "source_quotes": [
+        "文景琛據城叛",
+        "李延厚討平之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "后蜀李延厚军 × 收复渠州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "渠州都押牙文景琛据城叛，果州刺史李延厚出兵讨平，恢复后蜀对渠州控制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "仅载‘讨平’，无死伤数。",
+            "range": "5—90死亡当量",
+            "center": 21.2,
+            "P_scoring": "P1估",
+            "basis": "有据城叛乱与实际出兵平定，推定小规模伤亡。",
+            "upper_bound_reason": "无久攻、屠城或百人级明确损失。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "渠州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "从叛军手中恢复一州实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ]
+          },
+          "carry_in": "后蜀新主孟昶即位后正在清理强将与军权。",
+          "carry_out": "本卷未见渠州再叛。"
+        },
+        {
+          "evaluation_subject_phase": "文景琛叛军 × 据渠州至败亡阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "文景琛据渠州叛乱，随后被李延厚讨平，失去所据州城。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "叛军伤亡未载。",
+            "range": "5—90死亡当量",
+            "center": 21.2,
+            "P_scoring": "P1估",
+            "basis": "据城叛乱被讨平，推定存在小规模武装损害。",
+            "upper_bound_reason": "无百人级伤亡或大规模俘获记载。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "渠州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "叛军失去据守的一州。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0078"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "文州围攻—尖石寨与后蜀解围",
+      "campaign_group": "ZZTJ-279-TANG-SHU-WENZHOU-0934",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0080"
+      ],
+      "source_quotes": [
+        "張延朗將兵圍文州",
+        "郭知瓊拔尖石寨",
+        "范延暉將兵救文州，延朗解圍而歸"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "后唐张延朗、郭知琼军 × 围文州与拔尖石寨阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "后唐军围文州，郭知琼攻下尖石寨；后蜀范延晖率果州兵来援后，张延朗解围撤回。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际围城、攻寨，伤亡失载。",
+            "range": "10—180死亡当量",
+            "center": 42.4,
+            "P_scoring": "P1估",
+            "basis": "存在围城与攻寨接战，但未见后唐败溃或重大损害。",
+            "upper_bound_reason": "无百人级明确死伤，仅以P1低置信推定。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "尖石寨"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得单一寨级节点；其后是否继续保持，本卷未交代。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ]
+          },
+          "carry_in": "此前兴元、成州、文州等地在后唐—后蜀边界连续易手。",
+          "carry_out": "需后卷核验尖石寨归属与文州方向是否再战。"
+        },
+        {
+          "evaluation_subject_phase": "后蜀文州守军、范延晖援军 × 解围阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "文州遭围，李延厚以果州兵屯兴州并遣范延晖救援，迫使后唐张延朗撤围。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守城、援军行动均无伤亡数。",
+            "range": "10—180死亡当量",
+            "center": 42.4,
+            "P_scoring": "P1估",
+            "basis": "有围城压力与实际解围行动，不能按P0。",
+            "upper_bound_reason": "无城破、主将死亡或百人级损害证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "文州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "文州本体保持控制，围攻被解除。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0080"
+            ]
+          },
+          "carry_in": "承后蜀在山南西道扩张后形成的边境防守。",
+          "carry_out": "尖石寨是否被后蜀收复未明。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "清泰二年契丹连续入寇与后唐北边重动员",
+      "campaign_group": "ZZTJ-279-KHITAN-NORTHBORDER-0935",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0104",
+        "SRC-ZZTJ-279-1769087-P0107",
+        "SRC-ZZTJ-279-1769087-P0108"
+      ],
+      "source_quotes": [
+        "契丹寇新州及振武",
+        "契丹寇應州",
+        "契丹屢寇北邊",
+        "山東之民流散，亂始兆矣"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "契丹军 × 新州—振武—应州连续入寇阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "清泰二年契丹先后入寇新州、振武和应州，迫使后唐长期把禁军置于幽、并并持续加兵运粮；本卷不载契丹取得稳定城地。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "仅载连续‘寇’，未载契丹死伤。",
+            "range": "10—200死亡当量",
+            "center": 44.7,
+            "P_scoring": "P1估",
+            "basis": "多点实际武装入寇，推定存在小规模接触损害，但材料不足以抬到百人级中心。",
+            "upper_bound_reason": "未见契丹败溃、被斩获或百人级损失。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "UNKNOWN",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "新州",
+              "振武",
+              "应州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "有多点入寇但未见稳定占领。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0104",
+              "SRC-ZZTJ-279-1769087-P0107",
+              "SRC-ZZTJ-279-1769087-P0108"
+            ]
+          },
+          "carry_in": "承清泰元年云州、振武方向入寇。",
+          "carry_out": "卷280需继续核验契丹是否借石敬瑭叛乱扩大介入并形成稳定控制收益。"
+        },
+        {
+          "evaluation_subject_phase": "后唐北面防务体系（石敬瑭、赵德钧等）× 加兵运粮阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "面对契丹屡寇，后唐禁军大量驻幽、并，河东与卢龙反复求增兵运粮；朝廷向河东富户借菽粟、令镇州输绢五万匹购粮、征镇冀民车一千五百乘运代州，又在魏博市籴。时水旱民饥，严急督运进一步造成山东民众流散。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "原文明记‘山东之民流散’，但无人数；另有军中三十六人被石敬瑭处决，该政治军纪事件不计入本阶段战争P。",
+            "range": "1,000—6,000死亡当量",
+            "center": 2449.5,
+            "P_scoring": "P3估",
+            "basis": "‘山东之民流散’覆盖广域，按至少约5,000—30,000流亡者、流亡按1/5折算，形成约1,000—6,000死亡当量；低置信，仅用于不把广域人口流散压成P1。",
+            "upper_bound_reason": "原文无流散户口总数、死亡或大规模饥死数字，且水旱民饥是先在背景，战争只能承担严急征运所放大的部分，故不上P4。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "幽州—河东—代州北边防线"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "重动员尚能维持既有防线，本卷未见实际失地。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0108"
+            ]
+          },
+          "carry_in": "清泰元年契丹退去后威胁未终结。",
+          "carry_out": "重动员与石敬瑭—中央猜疑叠加；卷280石敬瑭起兵并引契丹大规模介入，必须续核此防务体系的失效。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "后蜀攻金州水寨与马全节守城",
+      "campaign_group": "ZZTJ-279-SHU-JINZHOU-0935",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0117"
+      ],
+      "source_quotes": [
+        "寇金州，拔水寨",
+        "城中兵才千人",
+        "罄私財以給軍，出奇死戰，蜀兵乃退"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "后蜀全师郁军 × 攻金州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "全师郁攻金州并拔水寨；守城兵仅千人但马全节以私财给军、出奇死战，后蜀军最终撤退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守方称‘死战’，攻方伤亡失载。",
+            "range": "20—300死亡当量",
+            "center": 77.5,
+            "P_scoring": "P1估",
+            "basis": "攻寨并攻城受守军反击，推定存在人员损害。",
+            "upper_bound_reason": "无百人级明确死伤、溃败追杀或将校阵亡。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "金州水寨与金州城"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "虽一度拔水寨，但最终退兵，未形成可确认净控制收益。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ]
+          },
+          "carry_in": "后唐—后蜀山南边境此前已有文州攻防。",
+          "carry_out": "后卷核验金州方向是否继续用兵。"
+        },
+        {
+          "evaluation_subject_phase": "后唐马全节守军 × 金州守御阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "金州兵仅千人，都监陈知隐带三百兵逃走；马全节倾尽私财给军并出奇死战，迫使蜀军退去，守住州城。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "无守方死伤数；仅明记三百兵逃走但未失联，不能计P。",
+            "range": "10—120死亡当量",
+            "center": 34.6,
+            "P_scoring": "P1估",
+            "basis": "有‘死战’和水寨失守，推定小规模人员损害。",
+            "upper_bound_reason": "守军总数仅千人且州城未破，无百人级明确伤亡。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "金州城"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "水寨虽失，州城最终守住，未见州级控制净变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0117"
+            ]
+          },
+          "carry_in": "承山南西道边界持续受后蜀压力。",
+          "carry_out": "马全节因守城功被召，其后边防去向待后卷。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "闽惠宗宫禁政变",
+      "campaign_group": "ZZTJ-279-MIN-PALACE-COUP-0935",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0118"
+      ],
+      "source_quotes": [
+        "引部兵鼓噪入宮",
+        "亂兵刺之而出",
+        "倣與繼鵬殺陳后"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李倣—王继鹏集团 × 入宫弑君夺权阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "李倣惧惠宗追查李可殷之死，率部兵鼓噪入宫，乱兵刺杀惠宗；随后李倣与继鹏清除陈后等政敌，继鹏当日监国并即位。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "闽宫禁与中央朝廷"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "政变集团实际夺取宫禁与中央人事处置权，但控制稳定性很短。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ]
+          },
+          "carry_in": "惠宗晚年风疾，宫廷宠幸与派系冲突已激化。",
+          "carry_out": "李倣随后专制朝政；同年十一月王继鹏与林延皓发动反政变，见P0122。"
+        },
+        {
+          "evaluation_subject_phase": "闽惠宗宫廷体系 × 宫禁被破与君主被杀阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "宫禁被李倣部兵突破，惠宗被乱兵刺伤并最终死亡，陈后及多名宫廷权势人物被杀，中央人身安全与权力秩序短时崩解。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "闽宫禁与中央朝廷"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "原惠宗宫廷失去中央控制，权力转入继鹏—李倣集团。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0118"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "继鹏即位后仍受李倣军权制约，政变链未闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "闽林延皓反政变与应天门之战",
+      "campaign_group": "ZZTJ-279-MIN-PALACE-COUP-0935",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-279-1769087-P0122"
+      ],
+      "source_quotes": [
+        "伏衛士數百於內殿，執斬之",
+        "倣部兵千餘持白梃攻應天門，不克",
+        "焚啟聖門，奪倣首奔吳越"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "闽主王继鹏、林延皓卫士 × 诛李倣并守宫门阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "王继鹏与林延皓预伏卫士数百，李倣入朝即被捕斩。李倣部兵千余持白梃攻应天门未克，继而焚启圣门、夺回李倣首级后逃往吴越。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "应天门、闽中央宫禁"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住宫门并清除掌军政变首领，中央控制回到继鹏一方。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ]
+          },
+          "carry_in": "承P0118李倣入宫政变并在继鹏即位后专制朝政。",
+          "carry_out": "李倣余部逃吴越；闽内部军政不稳仍需后卷观察。"
+        },
+        {
+          "evaluation_subject_phase": "李倣部兵 × 应天门反扑阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "李倣被斩后，其部兵千余持白梃攻应天门，未能攻入；随后焚启圣门，夺首逃奔吴越。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "千余人攻门但无死伤数。",
+            "range": "10—90死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "实际攻门、纵火后败走，推定少量人员损害。",
+            "upper_bound_reason": "无守方追杀、百人级死亡或大规模俘获记载。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "S": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "M": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "A": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "闽宫禁"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "未能重夺宫禁，原有中央军权基础瓦解并外逃。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "strategic_security": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "material_return": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ],
+            "border_control": [
+              "SRC-ZZTJ-279-1769087-P0122"
+            ]
+          },
+          "carry_in": "李倣此前掌判六军诸卫并专制朝政。",
+          "carry_out": "余部奔吴越后的去向待后卷核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "coverage_scope": "从SRC-ZZTJ-279-1769087-P0001线性复读至P0132；P0001—P0010及P0127—P0132为页面结构、分类与footer元数据。对所有实际武装行动、军事政变、武装叛乱、边防接战及可疑军事锚点逐项登记。",
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0015",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金陵两次火灾后徐知诰勒兵自卫，仅属戒备，未见敌对武装或交战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0016",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "任命行营统帅及扣押李重吉，属战争准备与政治拘禁，无新增战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0019",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0020",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0021",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0022",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "朱洪实因用兵争论被朝廷斩杀，属军政处刑，不计战斗损失。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王思同被俘后遭擅杀并及妻子，属战后处刑，不作为战役人员损失。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0025",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0026",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0027",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0028",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "孟汉琼被潞王下令处死，属政治清算。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张虔钊、孙汉韶以两镇地降蜀，蜀军接应，未见武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "刘遂清撤回戍兵并弃散关以南城镇，属无接战撤控。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蜀军进入兴元、洋州，承接既成弃城，未见战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "康义诚被斩灭族，属政治清算。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0043",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "药彦稠被诛，属政治清算。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0049",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "阶州刺史赵澄降蜀，未见战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "李从曮家财甲兵被取供军，属战争筹资与资产征用，无独立战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅载‘蜀人取成州’，不足确认是否发生武装接触；作为无明载战斗的控制变动保留在非战役总结。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "文州都指挥使举州附蜀，属和平转附。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王濛被幽并派兵二百监守，属政治拘禁，无交战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0064",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "凤翔增兵守东安镇，属预防部署，未发生本段战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "李仁罕以宿将身份强索判六军，属军权胁迫但未见实际武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0075",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0078",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0080",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0083",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0088",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "南汉宿卫抢掠商人属于军纪与治安恶化，不构成战争或叛乱。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0104",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0107",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0108",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0112",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张敬达率兵屯代州以分石敬瑭之权，属部署与军权制衡，未见交战。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0117",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0118",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0122",
+        "disposition": "ADJUDICATED"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-279-1769087-P0123",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "马全节因战功调任及刘延朗索贿，属战后人事与腐败。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "清泰二年契丹连续入寇新州、振武、应州及后唐重动员在卷279未形成安全终局；卷280需继续核验契丹介入石敬瑭起兵后，该北边防务体系如何转化为晋安—太原大战。",
+      "P0064回鹘贡道护送与共讨河西杂虏没有战果记载，后卷如见贡道恢复、再遭劫掠或斩获，需补足SB/WR/BC连续性。",
+      "P0080尖石寨被后唐攻下后是否保持不明；卷280以后如见文州、尖石寨或兴州边界变化，应回接此战役父链。",
+      "P0117后蜀攻金州被马全节击退，仅确认州城守住；后卷需观察金州—山南边界是否继续受攻。",
+      "P0122李倣部兵千余逃吴越，闽宫禁政变链在本卷军事上暂闭合，但其余部去向及闽内军权稳定性仍待后卷。"
+    ]
+  }
+}

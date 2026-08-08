@@ -1,0 +1,1081 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷070",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-070-2273591",
+    "revision_ref": "2273591",
+    "raw_sha256": "5f379b99e4986a23d78e40b5940e917a41c84f51396d52a89eb40d4f24049d80"
+  },
+  "cards": [
+    {
+      "battle_label": "熊本平泸夷：诱杀十二村豪—黄葛战—受降得地",
+      "campaign_group": "XZTJ-SONG-LUHU-1073-1074",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+      ],
+      "source_quotes": [
+        "以計致百餘人，梟之瀘州",
+        "敗之黃葛下，追奔深入",
+        "柯陰窘，乞降，本受之",
+        "得地二百四十里",
+        "盡籍丁口、土田及其重寶、善馬歸之官"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋熊本经制军 × 黄葛进讨并受柯阴降阶段",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "承卷069泸夷叛。熊本先判断十二村豪是扰边关键，以计诱致百余人并在泸州枭首；其余部众惧而求自赎，唯柯阴不至。熊本随后合晏州十九姓之众、发黔南义军强弩，遣王宣等进讨；叛众在黄葛全力拒战而败，宋军追奔深入，柯阴最终请降。熊本受降后登记丁口、土田，并把重宝、良马收归官府，记得地二百四十里。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "宋方有黄葛战与深入追奔，但己方伤亡未载；神宗称熊本‘不伤财，不害民’只证明其评价，不等于士卒绝无损失。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "真实接战按非零低档估计，且叙事无宋军败退、伤亡或重损信号。",
+            "upper_bound_reason": "无百人级宋军死亡、主将阵亡、补兵或大批伤病数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "消除泸州方向长期扰边的一支主要武装，并引发周边乌蛮罗氏鬼主等求内附，区域安全态势明显改善。",
+          "material_return": "WR2",
+          "material_return_detail": "重宝与良马明确归官，但数量、价值不详，记中档物资收益；丁口不作WR。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泸夷区域二百四十里",
+              "柯阴等部控制区"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "战后明确登记丁口、土田并记得地二百四十里，实际控制转入宋方。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以低档可见本方战损和地方性动员取得二百四十里控制、重宝良马及显著安全收益，阶段回报高。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ]
+          },
+          "carry_in": "承卷069 P0133泸夷叛、熊本奉命便宜措置；前卷尚未发生可裁决接战。",
+          "carry_out": "P0045置沅州属于另一南江懿州行政后效；本卡所得地后续若建制化，不重复计BCP。"
+        },
+        {
+          "evaluation_subject_phase": "泸夷柯阴等抵抗力量 × 首领被诱杀、黄葛战败并失地阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "熊本先以计诱致十二村豪百余人并枭首；柯阴继续抵抗，组织叛众在黄葛拒战而败，被追击后请降。战后丁口、土田被登记，重宝、良马归官，原有区域二百四十里被宋纳入控制。",
+          "cost_axes": {
+            "P": "P2",
+            "S": "S3",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "领导层遭大批杀戮，主力战败并投降，区域性武装自主与扰边能力基本被消解。",
+          "material_return": "WR0",
+          "material_return_detail": "无；反而失去重宝和良马。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泸夷区域二百四十里",
+              "柯阴等部控制区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "原部族控制区被宋方登记土地人口并纳入实际统治。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "百余领导层人员被杀、战败投降、土地与重要资产转移，几乎无可抵补所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0007"
+            ]
+          },
+          "carry_in": "承前卷泸夷叛。",
+          "carry_out": "周边诸夷随后求内附，但和平归附本身不再增加本卡人员战果。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "踏白城景思立覆军—河州被围",
+      "campaign_group": "XZTJ-SONG-TIBET-XIHE-1074",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+      ],
+      "source_quotes": [
+        "景思立與青宜結果莊戰于踏白城，敗死",
+        "賊遂圍河州",
+        "景思立覆軍，賊勢復振"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋景思立河州军 × 踏白城败死至河州受围阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "知河州景思立与青宜结果庄一方在踏白城交战，战败身死；后文直接概括为‘景思立覆军’，敌势因而复振并围河州。具体死亡数字失载。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "主将景思立战死，后文明确称‘覆军’，但无军队人数与尸数。",
+            "range": "1,000—4,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "‘覆军’是成建制严重失败信号，且主将战死；按千人级低置信估计比百人级更符合语义。",
+            "upper_bound_reason": "无万人级死亡、整州守军尽没或明确大军人数，故不抬P4。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "一支前沿部队覆败、主将死亡，并直接导致河州进入被围状态，区域安全态势显著恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河州",
+              "踏白城方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本阶段河州被围但尚未陷落，不能提前记BCN。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "覆军、主将死亡且重要州城被围，无任何可识别回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "carry_in": "承卷069河州及五州扩张后新控制尚未稳固。",
+          "carry_out": "P0036王韶回军解河州围，必须另立后续恢复阶段，不得反冲本阶段P3/S2。"
+        },
+        {
+          "evaluation_subject_phase": "青宜结果庄一方 × 踏白城击溃宋军并围河州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "在踏白城击败景思立并使其战死，后文称宋军‘覆军’；继而乘势围河州。己方死伤失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "取胜并追成围城，己方死伤不载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "胜方无重损叙事，按真实战斗非零低档估计。",
+            "upper_bound_reason": "无百人级己方死亡、主将损失或补兵材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "摧毁对手一支前沿军并形成对河州的围攻态势，获得明显但尚未转为城地控制的局部优势。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "踏白城—河州方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "已形成围城但河州未陷，不虚记控制收益。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低档可见自损换得对手覆军、主将死亡和重要节点受围，阶段战术安全收益很高。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "carry_in": "承宋方新占河湟区域防守未稳。",
+          "carry_out": "P0036王韶采取间接路线迫使围军撤栅，后续另记。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "玛尔戩寇岷州—包顺等击走",
+      "campaign_group": "XZTJ-SONG-TIBET-XIHE-1074",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+      ],
+      "source_quotes": [
+        "瑪爾戩寇岷州",
+        "遂圍岷州",
+        "高遵裕遣包順等擊走之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋岷州守军、包顺援军 × 击退玛尔戩围城阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "王韶入朝、景思立败死后，玛尔戩势力复振并围岷州。总管高遵裕遣包顺等出击，将其击退。双方死伤失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际围城和反击，宋方伤亡不载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "击走来敌且未见守城重损，按非零低档估计。",
+            "upper_bound_reason": "无百人级宋军死亡、城防崩溃或补兵材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "岷州围势解除，既有州城控制保持。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "岷州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "围城被击退，岷州未见失守。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低档战斗成本守住既有州城，无额外资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ]
+          },
+          "carry_in": "承踏白城败后玛尔戩势复振。",
+          "carry_out": "河州方向仍有更大围城压力，P0036另作解围阶段。"
+        },
+        {
+          "evaluation_subject_phase": "玛尔戩岷州进攻军 × 围城后被包顺等击退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "玛尔戩乘宋军踏白城败势围攻岷州，被高遵裕派出的包顺等击退。己方伤亡不载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "围城后被击退，本方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "简短击退叙事支持非零低档损失。",
+            "upper_bound_reason": "无百人级死伤、主将阵亡或败溃数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "未能取得岷州，局部进攻失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "岷州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得稳定节点。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "有实际进攻成本但无控制或资源所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0016"
+            ]
+          },
+          "carry_in": "承景思立覆军后的有利态势。",
+          "carry_out": "后续仍参与河州方向围攻，另卡处理。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "王韶二万军间道破河川族—断夏道解河州围",
+      "campaign_group": "XZTJ-SONG-TIBET-XIHE-1074",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+      ],
+      "source_quotes": [
+        "選兵得二萬",
+        "直趨定羌城",
+        "破四蕃結河川族，斷夏國通路",
+        "瑪爾戩知有援，拔柵去"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋王韶二万援军 × 间接破援、解除河州围阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "河州被围时，王韶自京师急返，撤熙州部分城守并选兵二万。诸将欲直救河州，王韶判断敌军有外援且设伏，改趋定羌城，击破四蕃结河川族、切断西夏交通，再临宁河并分兵入南山；玛尔戩知援军已至，主动拔栅撤围。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "与四蕃结河川族实际交战，宋方伤亡不载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "战术成功且围军随后撤栅，未见本方明显战损，按非零低档估计。",
+            "upper_bound_reason": "无百人级宋军死亡、败退或补兵材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "通过打击外援和交通而非正面撞围，解除河州危机并恢复该方向局部主动。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河州",
+              "定羌城—宁河交通方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "河州由受围转为解围，属于保持既有控制而非新增领土。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "二万人级动员换得重要州城解围且可见自损低，回报良好；但只是恢复既有控制，未抬为高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "carry_in": "承P0014景思立覆军、河州被围。",
+          "carry_out": "P0041王韶继续西山行动并迫玛尔戩首领集团投降，另立后续阶段。"
+        },
+        {
+          "evaluation_subject_phase": "玛尔戩围河州军、四蕃结河川族 × 外援线被破后撤围阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "围河州一方依赖外援并预设伏击。王韶二万军不直趋河州，而攻破四蕃结河川族、切断西夏交通并临宁河；玛尔戩得知援军到来后拔栅撤围。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "四蕃结河川族被破，玛尔戩撤围；本方死伤未载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "二万宋军实施实际攻击并使一支外援部族被破，百人级估计合理。",
+            "upper_bound_reason": "无千人级斩首、成建制覆灭或主将阵亡材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "围城计划因外援与交通受打击而失败，失去此前覆军后取得的局部主动。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河州外围围城体系"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "撤围，未取得河州。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "围城与外援动员均未换得城地，且一支支援部族被击破。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0037"
+            ]
+          },
+          "carry_in": "承P0014围河州的阶段优势。",
+          "carry_out": "撤围后仍未完全失去活动能力，P0041再遭打击并归降。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "王韶西山焚八千帐—玛尔戩率八十余酋长降",
+      "campaign_group": "XZTJ-SONG-TIBET-XIHE-1074",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+      ],
+      "source_quotes": [
+        "焚賊八千帳，斬首七十餘級",
+        "瑪爾戩窮蹙",
+        "率酋長八十餘人詣軍門降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋王韶熙河军 × 西山追击迫玛尔戩降阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "河州解围后，王韶回熙州又率兵循西山，绕至踏白城后方，焚敌八千帐、斩首七十余级。玛尔戩陷于穷蹙，率酋长八十余人到军门投降；后被送赴京师并授官赐名。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋军主动巡击并焚营，己方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有实际作战但胜势明确、无己方重损记载，按非零低档估计。",
+            "upper_bound_reason": "无百人级宋军死亡、败退、军官战死或补兵数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "主要对手首领及八十余酋长集体投降，河州周边持续性军事威胁显著下降。",
+          "material_return": "WR0",
+          "material_return_detail": "原文只记焚帐与斩首，没有明确把物资缴获归宋；投降人口和首领也不作WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河州—西山方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本段没有明确新增州县或城寨，只确认既有河州控制进一步稳定。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以二万军体系的延续动员和低档可见自损，迫使主要敌对首领集团集体归降，安全收益显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ]
+          },
+          "carry_in": "承P0036解除河州围。",
+          "carry_out": "P0049、P0066为玛尔戩入京授官的战后处置，不重复计战果。"
+        },
+        {
+          "evaluation_subject_phase": "玛尔戩及所部 × 八千帐被焚并率酋长投降阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "王韶从西山绕到踏白城后，焚其八千帐并斩首七十余；玛尔戩穷蹙，最终与八十余酋长集体投降。后续被送宋廷安置。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S0",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "营帐体系遭大规模摧毁，主要首领集团停止抵抗并投降，持续军事威胁基本瓦解。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河州—西山活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见本段单独列出新增地域转移，主要损失表现为军势与资产崩溃。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "明确人员死亡、八千帐资产毁失且首领集团投降，无可抵补所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段发生在成熟政权的边疆战争或内部平乱中，不属于开国、复国、割据建政或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0066"
+            ]
+          },
+          "carry_in": "承撤河州围后仍保有西山活动力量。",
+          "carry_out": "此后玛尔戩转为宋官赵思忠，本阶段敌对武装身份闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "五国穆延部舍音复叛—阿库纳击败",
+      "campaign_group": "XZTJ-LIAO-MUYAN-SHEYIN-REBELLION-1074",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+      ],
+      "source_quotes": [
+        "五國穆延部舍音貝勒復叛遼",
+        "阿庫納伐之，舍音敗走"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "生女直阿库纳部 × 受辽体系关系下讨舍音叛部阶段",
+          "subject_role": "SUPPRESSOR",
+          "actual_process": "本卷岁末传记记穆延部舍音再次反辽，阿库纳率生女直部进伐，将舍音击败使其逃走。阿库纳此后拟向辽边将自陈战功，途中因病死于拉林水；该死亡非原文所示战伤，不计入本次P。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "真实进伐并取胜，阿库纳本人的随后病死不属战损；本部军士伤亡不载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战按非零低档估计；无本方重损信号。",
+            "upper_bound_reason": "无百人级女真军死亡、主将战死于阵或成建制损失材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "击败一支新叛部，短期有助于辽东北属部秩序，但舍音只是败走，未记捕获或正式降服。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "五国穆延部活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "战败逃走但未见稳定地域控制转移。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低档动员取得一次明确战术胜利，但叛首逃走、长期后效未决。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "阿库纳部虽在辽属体系内逐渐形成官属和更强军备，但本段并未建立独立新政权；不得以后来金朝建立倒灌为本卷建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ]
+          },
+          "carry_in": "阿库纳此前已在辽东北属部体系中承担对五国叛部的辅助处置。",
+          "carry_out": "后卷如见舍音再战、降服或穆延部控制变化，应另立后续阶段。"
+        },
+        {
+          "evaluation_subject_phase": "五国穆延部舍音叛军 × 遭阿库纳击败逃走阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "舍音率穆延部再次反辽，遭阿库纳所部进伐后战败逃走。具体死伤、降附和控制变化失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "战败逃走，本方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "败战存在非零人员损害可能，但无大损叙事。",
+            "upper_bound_reason": "无百人级死伤、首领被俘或大批部众投降材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "本次武装行动战败，短期攻势受挫；但舍音逃脱，组织是否彻底瓦解未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "五国穆延部活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无明确领土或行政控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "动员起兵后战败逃走，未见任何可确认回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "阿库纳部虽在辽属体系内逐渐形成官属和更强军备，但本段并未建立独立新政权；不得以后来金朝建立倒灌为本卷建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-070-2273591-P0111"
+            ]
+          },
+          "carry_in": "原文称‘复叛’，说明此前已有服属—反叛循环。",
+          "carry_out": "后续结果待核。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-070-2273591-P0001—P0113",
+      "paragraph_count": 113,
+      "body_end": "P0111",
+      "metadata_tail": [
+        "P0112",
+        "P0113"
+      ],
+      "status": "COMPLETED",
+      "edit_markers": [
+        "P0002"
+      ]
+    },
+    "card_coverage": {
+      "adjudicated_cards": 6,
+      "adjudicated_subject_phase_cards": 12,
+      "coverage_note": "逐段复读后，本卷新登记实际武装阶段为泸夷黄葛平乱、踏白城景思立覆军、岷州解围、王韶二万军解河州围、西山焚八千帐迫玛尔戩降、穆延部舍音复叛六张来源卡。P0111追叙阿库纳擒五国佛宁部巴哩美，因与卷067五国诸部叛高度重合而只作跨卷补证，不重复累计。募兵、抚恤、疆界交涉、置将、边帅议论、和平内附均排除战役卡。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "赏复岷、洮等州功，属前卷战后赏功。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0007",
+        "disposition": "ADJUDICATED",
+        "battle_label": "熊本平泸夷：诱杀十二村豪—黄葛战—受降得地"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0014",
+        "disposition": "ADJUDICATED",
+        "battle_label": "踏白城景思立覆军—河州被围"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0016",
+        "disposition": "ADJUDICATED",
+        "battle_label": "玛尔戩寇岷州—包顺等击走"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "诸路募武士赴熙河，属增援与动员。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "熙河死事者家给钱，属战后抚恤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋辽边界、戍垒和拆撤交涉，无实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0036",
+        "disposition": "ADJUDICATED",
+        "battle_label": "王韶二万军间道破河川族—断夏道解河州围"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0037",
+        "disposition": "ADJUDICATED",
+        "battle_labels": [
+          "踏白城景思立覆军—河州被围",
+          "王韶二万军间道破河川族—断夏道解河州围"
+        ],
+        "reason": "本段以‘景思立覆军’补证前败强度，并记王韶捷闻；不另造第三张卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边兵死事无子孙者终身廪亲属，属战争社会善后。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0041",
+        "disposition": "ADJUDICATED",
+        "battle_label": "王韶西山焚八千帐—玛尔戩率八十余酋长降"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "以南江懿州地置沅州，是卷069 P0162平定后的行政建制化，不重复计控制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0049",
+        "disposition": "ADJUDICATED",
+        "battle_label": "王韶西山焚八千帐—玛尔戩率八十余酋长降",
+        "reason": "发玛尔戩及其家赴阙、赏王韶为同一阶段战后处置，不另立卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽遣使代州议疆界，属外交谈判。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "刘忱、吕大忠实地议界与抗辩，无实际武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0066",
+        "disposition": "ADJUDICATED",
+        "battle_label": "王韶西山焚八千帐—玛尔戩率八十余酋长降",
+        "reason": "玛尔戩授官赐名赵思忠，为战后安置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "籍民车备边和蜀盐方案均被沈括劝止，未形成实际战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0085",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "置三十七将，属军制组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0088",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "代北疆议久不决、辽再遣使，未发生战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "神宗就辽界争向故老问策，属战略与外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "韩琦论养民、备边和对辽策略，无实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "富弼边策，无实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0094",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "文彦博议誓书和守边，无实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0095",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "曾公亮引历史边事论控制策略，本段无新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋辽让地争议仍为外交决策，无实际控制移交在本段确认。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0101",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "范纯仁赴庆州前陈守边、不愿开拓，属边帅政策表态。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "淯井、长宁等夷内附，未记武装接战，按和平归附。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0111",
+        "disposition": "CROSS_VOLUME_SUPPLEMENT",
+        "campaign_group": "XZTJ-LIAO-FIVE-NATIONS-1069",
+        "reason": "传记追叙五国佛宁部节度使巴哩美叛、阿库纳袭擒献辽，无独立年月；与卷067‘五国诸部叛辽—萧苏拉进讨—诸部降辽’高度重合。本卷不重复立卡，留作卷067既有卡的战术参与者补证；若后续原文能证明为不同事件再拆。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-070-2273591-P0111",
+        "disposition": "ADJUDICATED",
+        "battle_label": "五国穆延部舍音复叛—阿库纳击败",
+        "reason": "同一传记用‘至是’转入本卷当年新事件，舍音复叛并被阿库纳击败，另立新卡。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "XZTJ-SONG-LUHU-1073-1074",
+        "followup": "承卷069 P0133仅记泸夷叛，本卷P0007才完成实际战斗、受降、籍丁口土田和得地二百四十里；后续行政建制不得重复累计本卡BCP3。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-TIBET-XIHE-1074",
+        "followup": "卷069五州扩张之后，本卷依次出现踏白城覆军、岷州被围后击退、河州被围后间接解围、玛尔戩最终率八十余酋长降。四阶段必须保留先败后复，不得以P0041终局投降冲销P0014的P3/S2。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-NANJIANG-1073",
+        "followup": "P0045置沅州承卷069 P0162破懿州、平南江州峒，属于行政后效；卷069已记BCP2，本卷不再加控制收益。"
+      },
+      {
+        "campaign_group": "XZTJ-LIAO-FIVE-NATIONS-1069",
+        "followup": "P0111巴哩美事件为无独立年月的传记追叙，与卷067五国诸部叛高度重合，当前只作补证不重复立卡。总库整合时可把‘阿库纳袭擒巴哩美献辽’追加为卷067该campaign_group的跨卷证据；若另有原文证明时间不同，再拆新事件。"
+      },
+      {
+        "campaign_group": "XZTJ-LIAO-MUYAN-SHEYIN-REBELLION-1074",
+        "followup": "P0111‘至是’所记舍音复叛为本卷新事件，仅到败走，未确认投降或地域控制变化；后卷若有后续需另立阶段。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-LIAO-DAIBEI-BOUNDARY-1074",
+        "followup": "本卷宋辽代北争界仍停留在外交与会勘层面，没有可确认的实际割地控制变化，故不立战役卡也不记BCN；后续若完成划界让地，再按实际控制阶段记。"
+      }
+    ]
+  }
+}

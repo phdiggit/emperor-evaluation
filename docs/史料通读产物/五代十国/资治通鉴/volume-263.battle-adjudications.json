@@ -1,0 +1,2616 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "资治通鉴/卷263",
+  "source_identity": {
+    "source_unit_id": "SRC-ZZTJ-263-1502862",
+    "revision_ref": "1502862",
+    "raw_sha256": "1a192314652f09cb30f4f8c49f217ba8baed9b291d4c68fe985be63b321ce8c9"
+  },
+  "cards": [
+    {
+      "battle_label": "河东—汴军慈隰、蒲县至晋阳战役群",
+      "campaign_group": "ZZTJ-263-HEDONG-BIAN-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0012",
+        "SRC-ZZTJ-263-1502862-P0015",
+        "SRC-ZZTJ-263-1502862-P0019",
+        "SRC-ZZTJ-263-1502862-P0020",
+        "SRC-ZZTJ-263-1502862-P0021"
+      ],
+      "source_quotes": [
+        "攻慈、隰，以分全忠兵勢",
+        "破之，殺獲萬餘人",
+        "兵仗輜重委棄略盡",
+        "汴軍圍晉陽",
+        "會大疫，丁卯，叔琮引兵還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "河东军（李嗣昭、周德威）× 慈隰—蒲县进攻及溃退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "先取慈、隰并进逼晋、绛，李嗣昭短暂袭取绛州；蒲南营垒遭氏叔琮夜断归路而破，随后再战时河东军不及数万、深入敌境，败退演为惊溃，李克用子廷鸾被俘，兵仗辎重几乎尽弃。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文仅合称“杀获万余”，另记惊溃与一名宗室被俘，未分死亡/被俘人数。",
+            "range": "2,000—9,000死亡当量",
+            "center": 4243,
+            "basis": "以“杀获万余”为总受损群体，下限按绝大多数为俘虏折算，上限限制在未明确达到万名死亡当量；结合后续仍能收余众守晋阳。",
+            "upper_bound_reason": "原文无万名以上明确死亡，且主力残部能够回晋阳，故不上P4。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "P0015“杀获万余人”",
+              "P0019“河东军惊溃”"
+            ],
+            "S": [
+              "战事在敌境，未见河东本土体系受损"
+            ],
+            "M": [
+              "河东军不及数万，连续攻州与深入敌境"
+            ],
+            "A": [
+              "P0019兵仗辎重委弃略尽"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "慈州",
+              "隰州",
+              "汾州",
+              "绛州短暂所得"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "前期所得慈、隰及短暂所得绛州未能稳住，汴军继而取慈、隰、汾。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0012",
+              "SRC-ZZTJ-263-1502862-P0015",
+              "SRC-ZZTJ-263-1502862-P0019",
+              "SRC-ZZTJ-263-1502862-P0020",
+              "SRC-ZZTJ-263-1502862-P0021"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承卷262河东以攻朱全忠侧后方分凤翔压力的既有战略。",
+          "carry_out": "转入晋阳守城阶段；卷内后文虽复取慈、隰、汾，但原文总结河东此后累年不敢与朱全忠争。"
+        },
+        {
+          "evaluation_subject_phase": "汴军（氏叔琮、朱友宁）× 蒲南反击与推进阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "汴军十万屯蒲南，氏叔琮夜断河东军归路破营；后与朱友宁再击河东军并长驱追击，夺回/取得慈、隰、汾，缴得河东大量兵仗辎重，并继续进逼晋阳。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文未载汴军具体伤亡，但连续两次接战且对手仍能有组织撤退、夜袭。",
+            "range": "200—900死亡当量",
+            "center": 424,
+            "basis": "据十万级一方向动员与正面、追击战推定有百人级损害；未见汴军败退、将校大量战死或补兵后效。",
+            "upper_bound_reason": "无千人级己方损失证据，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "原文无本方伤亡数，按接战规模约束推定"
+            ],
+            "S": [
+              "未见汴军统治区受战"
+            ],
+            "M": [
+              "P0015明确汴军十万"
+            ],
+            "A": [
+              "持续大军推进，具体资产损失未载，仅记一般投入"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "慈州",
+              "隰州",
+              "汾州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "汴军实际控制三州并把战线推进至晋阳。",
+            "continuity_status": "HELD_UNTIL_NEXT_PHASE",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0012",
+              "SRC-ZZTJ-263-1502862-P0015",
+              "SRC-ZZTJ-263-1502862-P0019",
+              "SRC-ZZTJ-263-1502862-P0020",
+              "SRC-ZZTJ-263-1502862-P0021"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "朱全忠势力向河东腹地推进并短期取得三州，扩大其与河东竞争中的战略纵深；但晋阳未下，成果未完全稳固。"
+          },
+          "carry_in": "承接朱全忠围凤翔同时压制河东援势的多线战争。",
+          "carry_out": "下一阶段围晋阳失败并因疫撤军，慈、隰、汾被河东复取。"
+        },
+        {
+          "evaluation_subject_phase": "河东军（李克用、李嗣昭等）× 晋阳守御与复取三州阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "汴军围晋阳、攻西门时城中兵未集，李克用一度考虑弃城；李嗣昭等坚持固守，溃兵随后复集。李嗣昭、李嗣源等多次率敢死士夜袭汴营，汴军又遇大疫撤退，河东追兵谨慎止于石会关，随后复取慈、隰、汾。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文写多次敢死夜袭、守城与追击，但无河东军死亡数字。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "basis": "以城防和小规模夜袭为主要接战形态，且溃兵复集、军府渐安，推定百人级损害。",
+            "upper_bound_reason": "未见城破、主力溃灭或千级死伤后效，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "多次敢死夜袭与守城，人数失载"
+            ],
+            "S": [
+              "核心军府晋阳一度急围但行政军心恢复"
+            ],
+            "M": [
+              "城防、夜袭、收集溃兵"
+            ],
+            "A": [
+              "未见大规模资产毁失"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "慈州",
+              "隰州",
+              "汾州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "围城解除后河东复取三州，晋阳核心治所保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0020",
+              "SRC-ZZTJ-263-1502862-P0021"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承接前一阶段河东野战大败、三州失守与晋阳被围。",
+          "carry_out": "战术上守住晋阳并复地，但P0021明确“自是克用不敢与全忠争者累年”，战略主动权仍显著下降。"
+        },
+        {
+          "evaluation_subject_phase": "汴军（氏叔琮部）× 晋阳围城及撤退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "汴军围晋阳并急攻西门，后遭河东军多次夜袭；军中发生大疫，最终撤退，慈、隰、汾又被河东收复。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文有多次夜袭和“大疫”，但未写疫死人数；P只推定可形成死亡/伤俘结果的部分，不把单纯患病全部计入。",
+            "range": "300—900死亡当量",
+            "center": 520,
+            "basis": "十万级军势连续围城后撤，推定百人级至近千死亡当量；疫病只作为上限背景，不直接折算。",
+            "upper_bound_reason": "无明确千人级死亡或大规模未归，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "夜袭+大疫，具体死亡失载"
+            ],
+            "S": [
+              "未见汴军本土体系受损"
+            ],
+            "M": [
+              "十万级方向大军持续围城"
+            ],
+            "A": [
+              "长期围城营垒与补给投入，细目失载"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "慈州",
+              "隰州",
+              "汾州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "晋阳未下，撤军后三州控制被河东逆转。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0012",
+              "SRC-ZZTJ-263-1502862-P0015",
+              "SRC-ZZTJ-263-1502862-P0019",
+              "SRC-ZZTJ-263-1502862-P0020",
+              "SRC-ZZTJ-263-1502862-P0021"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "试图把前阶段三州推进转化为对晋阳的决定性压制，但未能完成，前期扩张成果被逆转。"
+          },
+          "carry_in": "承接前阶段汴军夺三州并推进晋阳。",
+          "carry_out": "该阶段结束后河东仍保晋阳；双方长期竞争继续，但本卷此战役群闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "莫谷之战",
+      "campaign_group": "ZZTJ-263-FENGXIANG-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0028"
+      ],
+      "source_quotes": [
+        "康懷貞擊鳳翔將李繼昭於莫谷，大破之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "汴军康怀贞部 × 莫谷击破李继昭",
+          "subject_role": "ATTACKER",
+          "actual_process": "康怀贞在莫谷击凤翔将李继昭并大破之。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "仅见“大破”对方，未载本方伤亡。",
+            "range": "10—80死亡当量",
+            "center": 28,
+            "basis": "按一次局地交战推定小规模己方损害。",
+            "upper_bound_reason": "无本方败退、将校伤亡或补兵线索，故不上P2。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "人数失载"
+            ],
+            "S": [
+              "无本土受损"
+            ],
+            "M": [
+              "局地作战"
+            ],
+            "A": [
+              "无可证资产损失"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见城地控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0028"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "作为朱全忠压缩凤翔外围军事空间的局部胜利，但本战本身未取得城地。"
+          },
+          "carry_in": "凤翔—汴军大战局已在此前展开。",
+          "carry_out": "并入后续凤翔围城父链继续观察。"
+        },
+        {
+          "evaluation_subject_phase": "凤翔军李继昭部 × 莫谷败退",
+          "subject_role": "DEFENDER",
+          "actual_process": "李继昭部在莫谷被康怀贞大破。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文“大破”但未载兵数、伤亡。",
+            "range": "100—600死亡当量",
+            "center": 245,
+            "basis": "以成建制部队被大破推定百人级损害。",
+            "upper_bound_reason": "无千人级人数或连续溃灭线索，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "大破，人数失载"
+            ],
+            "S": [
+              "无体系损伤证据"
+            ],
+            "M": [
+              "局地接战"
+            ],
+            "A": [
+              "败退推定少量军资损失"
+            ]
+          },
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见城地净变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0028"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承接凤翔对朱全忠的战争。",
+          "carry_out": "后续李继昭仍继续参与凤翔防务。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "王建夺取山南西道：利州—汉中—洋州—兴州",
+      "campaign_group": "ZZTJ-263-WANGJIAN-SHANNAN-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0017",
+        "SRC-ZZTJ-263-1502862-P0046",
+        "SRC-ZZTJ-263-1502862-P0049",
+        "SRC-ZZTJ-263-1502862-P0055",
+        "SRC-ZZTJ-263-1502862-P0064"
+      ],
+      "source_quotes": [
+        "西川兵至利州，李繼忠棄鎮奔鳳翔",
+        "遂破金牛、黑水、西縣、褒城四寨",
+        "遂克之，繼密請降",
+        "得兵三萬，騎五千",
+        "洋州降王建",
+        "王建攻拔興州",
+        "山南州鎮皆入王建"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西川王建军 × 山南西道连续扩张阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "西川军先迫使李继忠弃利州；八月王宗播破金牛、黑水、西县、褒城四寨，王宗涤先登克汉中，李继密降，得兵三万、骑五千；随后洋州李思敬降，王建又攻拔兴州。十二月原文总结李茂贞山南州镇皆入王建。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文明载秦承厚重伤，连续攻四寨、马盘寨、汉中和兴州，但未载西川军成规模死伤。",
+            "range": "150—800死亡当量",
+            "center": 346,
+            "basis": "多次攻坚应高于零星损害；同时未见西川大败、补兵或大批死伤，约束在百人级。",
+            "upper_bound_reason": "无千人级己方损害证据，故不上P3。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "连续攻寨、攻城，仅秦承厚一人重伤可直接见"
+            ],
+            "S": [
+              "战事在西川核心区之外"
+            ],
+            "M": [
+              "连续数月多点进军，未见十万级动员"
+            ],
+            "A": [
+              "具体西川资产损失未载"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR4",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "利州",
+              "汉中",
+              "洋州",
+              "兴州及李茂贞山南州镇"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "西川实际取得汉中枢纽并进一步吞并山南州镇，主要北向战略区域转入控制。",
+            "continuity_status": "HELD_AT_VOLUME_END",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0017",
+              "SRC-ZZTJ-263-1502862-P0046",
+              "SRC-ZZTJ-263-1502862-P0049",
+              "SRC-ZZTJ-263-1502862-P0055",
+              "SRC-ZZTJ-263-1502862-P0064"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "王建把三蜀统治向汉中—山南方向大幅扩展，取得可治理州镇及三万兵、五千骑等军政基础，是前蜀建国前的核心领土扩张。"
+          },
+          "carry_in": "承前卷王建与李茂贞山南势力的竞争。",
+          "carry_out": "卷末控制已明显形成；后卷仍应核验山南州镇的持续设治与任何反复。"
+        },
+        {
+          "evaluation_subject_phase": "李茂贞山南西道体系 × 利州—汉中等失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "李继忠弃利州；李继密在马盘寨败回汉中，汉中被攻克后降。洋州再降、兴州被拔，至十二月山南州镇皆入王建。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A4",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "连续寨战与汉中、兴州攻守均有武装接触，但原文未列本方死亡；大量兵马最终被接收而非可视为死亡。",
+            "range": "200—900死亡当量",
+            "center": 424,
+            "basis": "以多处据点被破、守军成建制降散推定百人级人员损害；三万兵、五千骑不得当作死亡。",
+            "upper_bound_reason": "无千人以上明确死亡线索，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "战斗伤亡失载"
+            ],
+            "S": [
+              "完整山南行政—战略区域成片失控"
+            ],
+            "M": [
+              "多寨及汉中守军连续应战"
+            ],
+            "A": [
+              "王建接收三万兵、五千骑，说明原体系的大规模军用资产与建制被夺；具体器械细目失载"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "利州",
+              "汉中",
+              "洋州",
+              "兴州及山南州镇"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "一个完整山南战略方向的州镇与汉中军政中心持续转入王建控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0017",
+              "SRC-ZZTJ-263-1502862-P0046",
+              "SRC-ZZTJ-263-1502862-P0049",
+              "SRC-ZZTJ-263-1502862-P0055",
+              "SRC-ZZTJ-263-1502862-P0064"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承接李茂贞山南外围既有控制。",
+          "carry_out": "该方向在本卷末已成片丧失；需后卷确认是否有残余反复。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "葛山水战与冯弘铎军势瓦解",
+      "campaign_group": "ZZTJ-263-GESHAN-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0035",
+        "SRC-ZZTJ-263-1502862-P0037"
+      ],
+      "source_quotes": [
+        "頵帥舟師逆擊於葛山，大破之",
+        "弘鐸收餘眾沿江將入海",
+        "公徒眾猶盛",
+        "弘鐸左右皆慟哭聽命"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "田頵宣州军 × 葛山水战",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "冯弘铎诈称攻洪州、实袭宣州，田頵率舟师在葛山迎击并大破之。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "水战本方伤亡失载。",
+            "range": "20—90死亡当量",
+            "center": 42,
+            "basis": "局地舟师迎击且获胜，推定小规模损害。",
+            "upper_bound_reason": "无本方失利或大规模舰队损失迹象。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "伤亡失载"
+            ],
+            "S": [
+              "宣州未失"
+            ],
+            "M": [
+              "舟师一次迎击"
+            ],
+            "A": [
+              "舟战投入，损失细目不明"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宣州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "宣州未被冯弘铎袭取，控制保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0035",
+              "SRC-ZZTJ-263-1502862-P0037"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "冯弘铎与宣、杨之间长期不安，本阶段为其主动袭宣。",
+          "carry_out": "冯弘铎余众转而向杨行密整体归附。"
+        },
+        {
+          "evaluation_subject_phase": "冯弘铎武宁军 × 葛山败退及放弃独立军势阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "冯弘铎率众袭宣州，在葛山被大破；收余众沿江欲入海，随后接受杨行密招纳，整军归入淮南体系。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文“大破”且仅称“收余众”，但又说归附时“徒众犹盛”。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "basis": "推定有百人级战斗/溃散损害，但不能据“余众”夸大到千级。",
+            "upper_bound_reason": "归附时兵众仍盛，故不上P3。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "大破、余众"
+            ],
+            "S": [
+              "独立军政位置瓦解"
+            ],
+            "M": [
+              "舟师行动"
+            ],
+            "A": [
+              "原以楼船自恃，败后舰队损失未列，按可观但非系统毁失"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "冯弘铎原独立军政活动空间"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "袭宣失败后放弃独立行动，部众整体纳入杨行密体系。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0035",
+              "SRC-ZZTJ-263-1502862-P0037"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "冯弘铎原介于宣、杨之间自立。",
+          "carry_out": "其人被署淮南节度副使并厚给，独立威胁在本卷内闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "杨行密攻宿州",
+      "campaign_group": "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0038"
+      ],
+      "source_quotes": [
+        "會久雨，重載不能進，士有饑色",
+        "行密攻宿州，久不克",
+        "竟以糧運不繼引還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "淮南杨行密军 × 宿州围攻与撤退",
+          "subject_role": "ATTACKER",
+          "actual_process": "杨行密发兵讨朱全忠，军至宿州后久攻不克；久雨使重载无法前进，士卒出现饥色，小艇虽先到，最终仍因粮运不继撤军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文未载死伤，仅知久攻且士有饥色。",
+            "range": "20—90死亡当量",
+            "center": 42,
+            "basis": "存在围攻接战，推定小规模战斗伤害；饥色本身进M而非P。",
+            "upper_bound_reason": "无伤亡、未归或败溃人数证据，故不上P2。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "久攻，死伤失载"
+            ],
+            "S": [
+              "淮南本土未受战"
+            ],
+            "M": [
+              "久雨、重载、士有饥色、粮运不继"
+            ],
+            "A": [
+              "重载运输与粮运投入"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宿州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "宿州未克，撤军后无控制变化。",
+            "continuity_status": "HELD_BY_DEFENDER",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0038"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承昭宗授杨行密东面行营都统讨朱全忠。",
+          "carry_out": "本次宿州阶段闭合，未取得城地。"
+        },
+        {
+          "evaluation_subject_phase": "宿州守军/朱全忠体系 × 守城阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "宿州在杨行密久攻下保持未失，迫使其因补给不继退军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守城久攻但无具体伤亡。",
+            "range": "20—90死亡当量",
+            "center": 42,
+            "basis": "围城接战推定小规模守军损害。",
+            "upper_bound_reason": "无城破、重大伤亡或系统毁坏证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "守城伤亡失载"
+            ],
+            "S": [
+              "一般州城被围、交通受扰"
+            ],
+            "M": [
+              "守城负担"
+            ],
+            "A": [
+              "守备资产细目失载"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宿州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住宿州，无净控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0038"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "无",
+          "carry_out": "城地保持，战役闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "朱全忠围凤翔及外围州镇争夺",
+      "campaign_group": "ZZTJ-263-FENGXIANG-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0030",
+        "SRC-ZZTJ-263-1502862-P0034",
+        "SRC-ZZTJ-263-1502862-P0036",
+        "SRC-ZZTJ-263-1502862-P0039",
+        "SRC-ZZTJ-263-1502862-P0041",
+        "SRC-ZZTJ-263-1502862-P0044",
+        "SRC-ZZTJ-263-1502862-P0048",
+        "SRC-ZZTJ-263-1502862-P0050",
+        "SRC-ZZTJ-263-1502862-P0056",
+        "SRC-ZZTJ-263-1502862-P0057",
+        "SRC-ZZTJ-263-1502862-P0058",
+        "SRC-ZZTJ-263-1502862-P0060",
+        "SRC-ZZTJ-263-1502862-P0062",
+        "SRC-ZZTJ-263-1502862-P0064",
+        "SRC-ZZTJ-263-1502862-P0067",
+        "SRC-ZZTJ-263-1502862-P0068",
+        "SRC-ZZTJ-263-1502862-P0078",
+        "SRC-ZZTJ-263-1502862-P0080"
+      ],
+      "source_quotes": [
+        "城外居民皆遷入城",
+        "精兵五萬發河中",
+        "大敗而還，死者萬餘人",
+        "遂為五寨環之",
+        "鳳翔軍進退失據，自蹈藉，殺傷殆盡",
+        "穿蚰蜒壕圍鳳翔",
+        "城中食盡，凍餒死者不可勝計",
+        "關中州鎮皆入全忠，坐守孤城",
+        "車駕出鳳翔，幸全忠營"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "朱全忠汴军 × 进逼凤翔、虢县与外围取城阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "以精兵五万自河中进军，李茂贞虢县出战大败；孔勍拔凤州，继取成、陇二州，秦州未下；李茂勋在三原救援又被击退，李茂贞数次出兵失利。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "多次野战、攻城但本方伤亡失载。",
+            "range": "300—900死亡当量",
+            "center": 520,
+            "basis": "五万级主力连续攻州、野战，推定百人至近千己方损害。",
+            "upper_bound_reason": "未见本方千人级明确损失、主力败退或将领大量战死，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "多次战斗，己方伤亡失载"
+            ],
+            "S": [
+              "汴方本土未受战"
+            ],
+            "M": [
+              "五万精兵、连续攻州围城"
+            ],
+            "A": [
+              "多路攻城与营垒投入"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR3",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤州",
+              "成州",
+              "陇州及凤翔外围节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得多个外围州与节点，压缩凤翔战略空间。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "朱全忠在控制唐廷进程中向关中推进，夺取凤翔外围州镇，为其后挟天子与篡唐前的政治军事基础扩张提供条件。"
+          },
+          "carry_in": "承前卷朱全忠与李茂贞围绕昭宗行在的战争。",
+          "carry_out": "进入凤翔主城长期围困阶段。"
+        },
+        {
+          "evaluation_subject_phase": "李茂贞凤翔军 × 虢县大败及外围退缩阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "李茂贞亲自大出兵在虢县北与朱全忠战，大败而还，明确死者万余；其后凤州、成州、陇州等外围陆续失守，三原援军亦退。",
+          "cost_axes": {
+            "P": "P4",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "P0036明确“死者万余人”→P4"
+            ],
+            "S": [
+              "外围重要区域持续争夺并退缩"
+            ],
+            "M": [
+              "多次出兵与守备"
+            ],
+            "A": [
+              "失城与军资损失，细目未列"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤州",
+              "成州",
+              "陇州及外围通道"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "外围多州与通道持续退控，凤翔由区域政权转向孤城防守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承接李茂贞挟昭宗驻凤翔并抗朱全忠。",
+          "carry_out": "转入主城围困；后续围城成本进一步急剧上升。"
+        },
+        {
+          "evaluation_subject_phase": "朱全忠汴军 × 凤翔主城长期围困、诈诱与封锁阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "在凤翔城下建五寨环围；九月以马景诈称汴军遁走诱李茂贞悉众出击，伏兵大破；继穿蚰蜒壕、设铺铃断绝内外，后薙城外草。久雨、士卒疾病一度使朱全忠考虑撤军，但最终坚持围困。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文有长期围城、多次接战、久雨“士卒病”与大疫背景，但未给汴军死亡人数。",
+            "range": "1,000—4,000死亡当量",
+            "center": 2000,
+            "basis": "五万级军队长期围城并多次野战，推定千人级综合死亡/伤俘当量；不把单纯患病全计P。",
+            "upper_bound_reason": "无本方万人级死亡、主力崩溃或大规模未归证据，故不上P4。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "长期围城、多次接战、士卒病，人数失载"
+            ],
+            "S": [
+              "未见汴方本土生产行政受损"
+            ],
+            "M": [
+              "五万级主军长期围城、跨区补给"
+            ],
+            "A": [
+              "五寨、壕沟、铺铃等成体系围城设施"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤翔城外围寨与交通封锁空间"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "形成对凤翔城的持续外部封锁与军事控制，但主城尚未直接攻占。",
+            "continuity_status": "HELD_UNTIL_SETTLEMENT",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "围城逐步迫使李茂贞放弃对抗并交出昭宗，强化朱全忠对唐廷和关中的支配；主城未直接兼并，故不夸大为完全控制。"
+          },
+          "carry_in": "承接外围取城与李茂贞虢县大败。",
+          "carry_out": "下一阶段通过袭鄜坊、瓦解援军与饥饿迫使凤翔和解。"
+        },
+        {
+          "evaluation_subject_phase": "李茂贞凤翔军民 × 主城被围、饥荒与守备崩解阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "城外居民先全部迁入城；诈诱出战时凤翔军进退失据、杀伤殆尽。围城持续至冬季，大雪、粮尽，冻馁死者不可胜计，市卖人肉，李茂贞储备竭尽，御膳以犬彘，昭宗鬻御衣换用并以松梯饲马；军民大量借缒城、樵采逃离，守军屡出多不为用。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "直接文字为“冻馁死者不可胜计”，另有此前出战“杀伤殆尽”，但无城内人口与军队总数。",
+            "range": "2,000—9,000死亡当量",
+            "center": 4243,
+            "basis": "结合区域核心城长期封锁、明确大量饥死与军队溃散，推定千人级至近万人死亡当量；不据人肉价格虚构具体人数。",
+            "upper_bound_reason": "缺乏万名以上可核伤亡或人口基数，故不上P4估；虢县万余死已在前一独立阶段记录，不重复累加。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "冻馁死者不可胜计；另有诈诱出战杀伤殆尽"
+            ],
+            "S": [
+              "核心治所市场、供给、交通和行政生存条件大规模破坏"
+            ],
+            "M": [
+              "长期守城、反复出击、民众被集中入城"
+            ],
+            "A": [
+              "粮储、牲畜、衣物与马料耗尽"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤翔外围交通",
+              "关中州镇",
+              "对城外资源的控制"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "主城仍守，但外围与供给空间被切断，关中州镇大量倒向朱全忠，政权被压缩为孤城。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承接外围州镇丧失与凤翔被围。",
+          "carry_out": "进入求和、诛宦官并交还昭宗阶段。"
+        },
+        {
+          "evaluation_subject_phase": "朱全忠汴军 × 袭鄜坊、瓦解援军及逼和阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "李茂勋万余来援后，朱全忠遣孔勍、李晖乘虚取坊州，并冒雪夜入鄜州，城内八千兵格斗至午后败；李茂勋遂遁，后请降。至十二月原文称关中州镇皆入全忠，李茂贞坐守孤城。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "鄜州入城后与八千守军格斗半日，汴军己方伤亡失载。",
+            "range": "200—900死亡当量",
+            "center": 424,
+            "basis": "成规模巷战/城战支持百人级损害；胜势明显且无本方重大损失后效。",
+            "upper_bound_reason": "无千级本方伤亡证据，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "鄜州格斗半日，己方损失失载"
+            ],
+            "S": [
+              "汴方本土无受战"
+            ],
+            "M": [
+              "乘虚分兵攻两州"
+            ],
+            "A": [
+              "攻城投入，细目失载"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR4",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "坊州",
+              "鄜州",
+              "关中州镇"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "凤翔外围主要关中州镇成片转入朱全忠控制，形成对孤城的结构性包围。",
+            "continuity_status": "HELD_AT_VOLUME_END",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "成片取得关中州镇并瓦解李茂贞外援，显著扩大朱全忠建国前的军政控制网络。"
+          },
+          "carry_in": "承接凤翔长期围城。",
+          "carry_out": "主城最终通过政治和解交还昭宗而非直接攻克。"
+        },
+        {
+          "evaluation_subject_phase": "李茂贞凤翔体系 × 援军失败、外镇丧失与议和阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "李茂勋万余援军未能解除围城，鄜坊失守后撤并请降；李茂贞外围州镇大部丧失，内部兵将继续离散。昭宗以宗室每日冻饿死人和内廷食物告竭催促和解，最终诛韩全诲等并与朱全忠议和。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "本阶段新增长伤亡人数未载；围城饥死已在前一阶段核算，不重复。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "basis": "援军、出击和离散支持百人级新增损害，避免与前阶段饥死重复累计。",
+            "upper_bound_reason": "无独立万/千人级新伤亡证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "新阶段伤亡失载，防止与前卡重复"
+            ],
+            "S": [
+              "外围控制体系成片瓦解"
+            ],
+            "M": [
+              "援军万余、反复出击"
+            ],
+            "A": [
+              "储偫已竭，前阶段已记主要耗损"
+            ]
+          },
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "关中州镇",
+              "山南外围对李茂贞的从属网络"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "关中州镇转入朱全忠，山南州镇转入王建，李茂贞军政空间被压缩至凤翔孤城。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承接围城灾难。",
+          "carry_out": "和解后昭宗离凤翔；李茂贞政权仍存，但对唐廷与外围州镇的控制显著萎缩。"
+        },
+        {
+          "evaluation_subject_phase": "朱全忠体系 × 凤翔和解、取得昭宗与撤围阶段",
+          "subject_role": "BESIEGER_SETTLEMENT",
+          "actual_process": "韩全诲等被诛后继续施压，凤翔开门。朱全忠巡寨时因误判北山凤翔兵而击捕李继钦；最终昭宗出凤翔幸其营，朱全忠安排扈从、焚撤诸寨，护送车驾返长安。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "仅P0078记一次误判后出兵击捕将领，具体死伤失载。",
+            "range": "10—80死亡当量",
+            "center": 28,
+            "basis": "和解收尾阶段接战有限，推定小规模损害。",
+            "upper_bound_reason": "无大规模战斗线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "仅小规模误战"
+            ],
+            "S": [
+              "无本土破坏"
+            ],
+            "M": [
+              "撤围与护送"
+            ],
+            "A": [
+              "焚撤营寨"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR3",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "昭宗行在的军事控制权",
+              "长安—凤翔护送通道"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "未占凤翔主城，但实际取得昭宗护送权并结束李茂贞对车驾的控制。",
+            "continuity_status": "HELD_POLITICALLY",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0030",
+              "SRC-ZZTJ-263-1502862-P0034",
+              "SRC-ZZTJ-263-1502862-P0036",
+              "SRC-ZZTJ-263-1502862-P0039",
+              "SRC-ZZTJ-263-1502862-P0041",
+              "SRC-ZZTJ-263-1502862-P0044",
+              "SRC-ZZTJ-263-1502862-P0048",
+              "SRC-ZZTJ-263-1502862-P0050",
+              "SRC-ZZTJ-263-1502862-P0056",
+              "SRC-ZZTJ-263-1502862-P0057",
+              "SRC-ZZTJ-263-1502862-P0058",
+              "SRC-ZZTJ-263-1502862-P0060",
+              "SRC-ZZTJ-263-1502862-P0062",
+              "SRC-ZZTJ-263-1502862-P0064",
+              "SRC-ZZTJ-263-1502862-P0067",
+              "SRC-ZZTJ-263-1502862-P0068",
+              "SRC-ZZTJ-263-1502862-P0078",
+              "SRC-ZZTJ-263-1502862-P0080"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "朱全忠取得对唐帝行止与返京安全体系的实际支配，是其进一步控制唐廷的重要建国前政治军事资产；不把皇帝本人按人口或物资资产计入WR。"
+          },
+          "carry_in": "承接李茂贞求和与宦官清洗。",
+          "carry_out": "围城军事阶段本卷闭合；昭宗返长安后的政治控制和后续迁洛需由后卷政治线继续观察。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "杭州徐绾、许再思兵变与田頵介入",
+      "campaign_group": "ZZTJ-263-HANGZHOU-MUTINY-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0043",
+        "SRC-ZZTJ-263-1502862-P0052",
+        "SRC-ZZTJ-263-1502862-P0053",
+        "SRC-ZZTJ-263-1502862-P0063",
+        "SRC-ZZTJ-263-1502862-P0065"
+      ],
+      "source_quotes": [
+        "縱兵焚掠，進逼牙城",
+        "綰伏兵擊殺之",
+        "頵築壘絕往來之道",
+        "陳璋將卒三百出城奮擊，遂奪其地",
+        "田頵急攻杭州",
+        "遣其將盛造、朱郁拒破之",
+        "頵與徐綰、許再思同歸宣州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "钱镠吴越军政体系 × 杭州守城与解围阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "徐绾谋杀钱镠未果后率部在杭州外城纵兵焚掠，与许再思合兵逼牙城；钱镠微服夜入城，杜建徽等守门，高彦之子入援被伏杀。田頵随后来援叛军并筑垒断交通，钱镠军又以三百人夺其壅塞地并击破田頵进攻。最终借杨行密召回田頵及质子安排解除围困。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "明确高渭等个人死亡，另有多次城战、伏击与破敌，但本方总损失失载。",
+            "range": "200—900死亡当量",
+            "center": 424,
+            "basis": "首府内外连续接战并有增援被伏，推定百人级损害。",
+            "upper_bound_reason": "未见千人级死伤或主城破陷，故不上P3。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "首府连续接战、个人战死，人数失载"
+            ],
+            "S": [
+              "外城焚掠、首府交通被断，核心行政区受持续争夺"
+            ],
+            "M": [
+              "多路守军与援军、长期封锁"
+            ],
+            "A": [
+              "外城焚掠、城门攻防资产损耗"
+            ]
+          },
+          "strategic_security": "SB3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杭州牙城",
+              "吴越核心治所"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "核心治所始终未失；田頵撤回后围困解除，但无新增控制空间。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0043",
+              "SRC-ZZTJ-263-1502862-P0052",
+              "SRC-ZZTJ-263-1502862-P0053",
+              "SRC-ZZTJ-263-1502862-P0063",
+              "SRC-ZZTJ-263-1502862-P0065"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "钱镠在正式建吴越前保住杭州核心军政中心并化解精锐军兵变，是割据政权稳定统治基础的直接巩固。"
+          },
+          "carry_in": "承接钱镠长期使用孙儒旧部“武勇都”的组织风险。",
+          "carry_out": "田頵、徐绾、许再思撤往宣州；后卷需观察其是否再构成吴越威胁。"
+        },
+        {
+          "evaluation_subject_phase": "徐绾、许再思叛军 × 杭州夺城阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "兵变后焚掠外城并逼牙城，聚木欲焚北门，设伏杀吴越援将；与田頵合势仍未能攻入牙城，最终随田頵撤往宣州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "叛军多次攻门、野战并最终撤离，伤亡失载。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "basis": "成建制兵变与连续攻城支持百人级损害。",
+            "upper_bound_reason": "无叛军千人级死亡、全军覆灭线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "战斗损失失载"
+            ],
+            "S": [
+              "叛军自身统治区不适用"
+            ],
+            "M": [
+              "成建制武勇军兵变"
+            ],
+            "A": [
+              "攻门与焚掠投入"
+            ]
+          },
+          "strategic_security": "SN3",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杭州外城短时扰控"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "虽焚掠外城，但未形成稳定控制；牙城未下，撤军后无净控制所得。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0043",
+              "SRC-ZZTJ-263-1502862-P0052",
+              "SRC-ZZTJ-263-1502862-P0053",
+              "SRC-ZZTJ-263-1502862-P0063",
+              "SRC-ZZTJ-263-1502862-P0065"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "兵变由武勇军内部怨言和徐绾谋杀失败触发。",
+          "carry_out": "叛军撤往宣州，后续命运需卷264及以后核验。"
+        },
+        {
+          "evaluation_subject_phase": "田頵宣州军 × 介入杭州、围困与撤回阶段",
+          "subject_role": "INTERVENOR_ATTACKER",
+          "actual_process": "应徐绾等召率兵赴杭州，筑垒断绝往来并急攻；陈璋三百人曾夺其壅塞地，盛造、朱郁又击破其进攻。杨行密威胁改任宣州后，田頵撤军，索犒军钱二十万缗及钱氏子为质，最终与徐绾、许再思同归宣州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "有攻城、失垒、被击破等多次接战，具体伤亡失载。",
+            "range": "150—800死亡当量",
+            "center": 346,
+            "basis": "数次受挫但主军完整撤回，推定百人级损害。",
+            "upper_bound_reason": "无千人级死亡或主力覆灭证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "多次接战失载"
+            ],
+            "S": [
+              "宣州本土未受战"
+            ],
+            "M": [
+              "跨江介入并围攻首府"
+            ],
+            "A": [
+              "围垒、舟师准备，具体损失失载"
+            ]
+          },
+          "strategic_security": "SN1",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "杭州外围垒线"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "一度建立封锁垒线但被夺，最终撤回，未形成稳定控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0043",
+              "SRC-ZZTJ-263-1502862-P0052",
+              "SRC-ZZTJ-263-1502862-P0053",
+              "SRC-ZZTJ-263-1502862-P0063",
+              "SRC-ZZTJ-263-1502862-P0065"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "受徐绾等招引介入吴越内乱。",
+          "carry_out": "索取二十万缗是否实际足额收到，原文未确认；钱传瓘确实出质，作为政治结果但非物资WR。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "温州丁章逐朱敖据州",
+      "campaign_group": "ZZTJ-263-WENZHOU-COUP-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0066"
+      ],
+      "source_quotes": [
+        "溫州將丁章逐刺史朱敖，敖奔福州。章據溫州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "丁章部 × 温州军事夺权",
+          "subject_role": "COUP_ATTACKER",
+          "actual_process": "丁章以温州将身份驱逐刺史朱敖，朱敖逃福州，丁章实际据温州。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文只写“逐”“据”，未写交战或死亡。",
+            "range": "1—30死亡当量",
+            "center": 5,
+            "basis": "军事夺权已发生，但叙事未见激战，推定最小非零风险区间。",
+            "upper_bound_reason": "若有成规模战斗通常会留下死伤/攻城痕迹；本段无，故远低于P2。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "人数完全失载，低置信度估计"
+            ],
+            "S": [
+              "单一州政权交接受扰"
+            ],
+            "M": [
+              "地方军队夺权"
+            ],
+            "A": [
+              "无可证资产损失"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "温州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "丁章取得一州实际控制。",
+            "continuity_status": "HELD_AT_VOLUME_END",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0066"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "无",
+          "carry_out": "田頵随后遣使招丁章；后卷需核验温州归属是否变化。"
+        },
+        {
+          "evaluation_subject_phase": "朱敖温州体系 × 被逐失州",
+          "subject_role": "DEFENDER",
+          "actual_process": "朱敖被温州将丁章逐出，逃往福州，失去温州实际控制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "同段无死伤数字。",
+            "range": "1—30死亡当量",
+            "center": 5,
+            "basis": "军事夺权但未见攻城激战，维持极低估计。",
+            "upper_bound_reason": "无百人级伤亡线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "无数"
+            ],
+            "S": [
+              "一般州级控制丧失"
+            ],
+            "M": [
+              "地方守备被夺权"
+            ],
+            "A": [
+              "无可证"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "温州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失去一州实际控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0066"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "朱敖此前在兄朱褒死后自称温州刺史。",
+          "carry_out": "逃福州；后卷核验其是否复位。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "卢光稠攻韶州、围潮州与韶州城南之战",
+      "campaign_group": "ZZTJ-263-SHAOZHOU-CHAOZHOU-0902",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0069"
+      ],
+      "source_quotes": [
+        "陷韶州，使其子延昌守之，進圍潮州",
+        "劉隱發兵擊走之，乘勝進攻韶州",
+        "會江漲，饋運不繼",
+        "伏精兵萬人於山谷",
+        "大破隱於城南"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "虔州卢光稠军 × 韶州扩张、潮州受挫后救韶阶段",
+          "subject_role": "ATTACKER_DEFENDER",
+          "actual_process": "卢光稠先陷韶州、命子延昌守，进围潮州被刘隐击走；刘隐反围韶州后，卢光稠自虔州来救，谭全播伏精兵万人诱战，在韶州城南大破刘隐，保住韶州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "先有攻韶、围潮、后又救韶大战，己方伤亡均失载。",
+            "range": "100—700死亡当量",
+            "center": 265,
+            "basis": "多阶段万级兵力作战推定百人级己方损害；未见本方大败后的持续崩溃。",
+            "upper_bound_reason": "无千人级本方死亡证据，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "连续战斗无数"
+            ],
+            "S": [
+              "虔州本土未受战"
+            ],
+            "M": [
+              "精兵万人伏击+多次进军"
+            ],
+            "A": [
+              "一般攻守资产"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "韶州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "本卷内实际取得并最终守住韶州；潮州未得。",
+            "continuity_status": "HELD_AT_VOLUME_END",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0069"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "卢光稠为虔州割据势力向岭南扩张，但本合同不凭单一州战事直接认定为建国启动。",
+          "carry_out": "韶州保持、潮州未得；后卷核验长期归属。"
+        },
+        {
+          "evaluation_subject_phase": "清海刘隐军 × 保潮、反攻韶州及城南败退阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "刘隐出兵击退围潮军，继乘胜攻韶州；其弟刘陟预警虔州援军，刘隐不从而围城。后遇江涨、馈运不继，谭全播设伏，刘隐城南大败奔还。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文“大破隐”但无军数；本方先能击走敌军、后败奔。",
+            "range": "300—900死亡当量",
+            "center": 520,
+            "basis": "反攻围城并遭万人伏军击破，推定百人至近千死亡当量。",
+            "upper_bound_reason": "无千人级明确死伤或全军覆灭，故不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "大破，人数失载"
+            ],
+            "S": [
+              "清海核心区未受战"
+            ],
+            "M": [
+              "围韶时江涨导致馈运不继，跨区补给形成显著负担"
+            ],
+            "A": [
+              "粮运投入与损失"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潮州",
+              "韶州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "潮州原控制保持，韶州反攻失败，无净新增控制。",
+            "continuity_status": "HELD_OR_FAILED_GAIN",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0069"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "本阶段从保卫潮州转入主动反攻。",
+          "carry_out": "潮州防线保住，但韶州仍在卢氏手中；后续需核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "王师范起兵：刘鄩突袭兖州与华州袭击",
+      "campaign_group": "ZZTJ-263-WANGSHIFAN-0903",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0073",
+        "SRC-ZZTJ-263-1502862-P0074",
+        "SRC-ZZTJ-263-1502862-P0075"
+      ],
+      "source_quotes": [
+        "期以同日俱發，討全忠",
+        "獨行軍司馬劉鄩取兗州",
+        "將精兵五百夜自水竇入",
+        "比明，軍城悉定，市人皆不知",
+        "殺敬思，攻西城",
+        "朱友寧將兵萬餘人東巡兗、鄆"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "王师范军刘鄩部 × 夜袭兖州夺军城阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "刘鄩先派人以贩油为名侦察兖州虚实，后率精兵五百夜从水窦入城，至天明军城全部控制，市人尚不知变。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "P0073叙事详尽且“市人皆不知”，未见交战伤亡，可判P0"
+            ],
+            "S": [
+              "进攻方本土未受损"
+            ],
+            "M": [
+              "精兵五百夜袭"
+            ],
+            "A": [
+              "无可证资产损失"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "兖州军城"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "以极小兵力实际夺取泰宁军军城；本卷末仍在控制，但反攻已启动。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0073",
+              "SRC-ZZTJ-263-1502862-P0074",
+              "SRC-ZZTJ-263-1502862-P0075"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "王师范以勤王名义起兵，不是建立新政权。",
+          "carry_out": "朱友宁万余与葛从周将反攻，兖州能否守住必须由卷264核验。"
+        },
+        {
+          "evaluation_subject_phase": "葛从周泰宁体系 × 兖州军城失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "主力随葛从周屯邢州，兖州空虚，被刘鄩五百人夜袭夺取；葛从周母与家属被刘鄩礼待，未见屠戮。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S2",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "突袭未见交战/死伤"
+            ],
+            "S": [
+              "一处重要军城失控"
+            ],
+            "M": [
+              "主力在外，本阶段无新增守城动员可见"
+            ],
+            "A": [
+              "军城及府署被占，细目失载"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "兖州军城"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "一处节度使军城实际失控。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0073",
+              "SRC-ZZTJ-263-1502862-P0074",
+              "SRC-ZZTJ-263-1502862-P0075"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "无",
+          "carry_out": "葛从周被召回与朱友宁合攻，控制归属待卷264。"
+        },
+        {
+          "evaluation_subject_phase": "王师范军张居厚部 × 华州东城袭击阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "张居厚率壮士二百、以小车夹带兵器至华州东城，事发后杀知州事娄敬思并攻西城，未克；崔胤逃走后又被追获。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "明确杀娄敬思一人，其余袭击者死伤失载。",
+            "range": "10—80死亡当量",
+            "center": 28,
+            "basis": "二百人规模城市袭击且攻城未克，推定十至数十死亡当量。",
+            "upper_bound_reason": "攻击者总数仅二百，且未见大部被歼，故不上P2。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {
+            "P": [
+              "至少一名守方官员死亡；攻击方损失失载"
+            ],
+            "S": [
+              "进攻方本土不受战"
+            ],
+            "M": [
+              "壮士二百"
+            ],
+            "A": [
+              "无可证"
+            ]
+          },
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "华州西城"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未攻克西城，无稳定控制所得。",
+            "continuity_status": "FAILED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0073",
+              "SRC-ZZTJ-263-1502862-P0074",
+              "SRC-ZZTJ-263-1502862-P0075"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "王师范多州同时起兵计划的一支。",
+          "carry_out": "本支失败；王师范主战线由卷264继续。"
+        },
+        {
+          "evaluation_subject_phase": "华州守军/地方体系 × 抵御张居厚袭击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "华州东城突袭造成娄敬思被杀，西城仍守住；袭击未取得州城控制。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "明确娄敬思被杀，至少1人→P1"
+            ],
+            "S": [
+              "单一州城短时受袭"
+            ],
+            "M": [
+              "临时抵御"
+            ],
+            "A": [
+              "无可证"
+            ]
+          },
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "华州西城"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "州城主体保持，未发生净控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0073",
+              "SRC-ZZTJ-263-1502862-P0074",
+              "SRC-ZZTJ-263-1502862-P0075"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "无",
+          "carry_out": "本支袭击闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "李克用攻晋州响应王师范",
+      "campaign_group": "ZZTJ-263-WANGSHIFAN-0903",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0085"
+      ],
+      "source_quotes": [
+        "克用攻晉州，聞車駕東歸，乃罷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "河东李克用军 × 攻晋州后罢兵",
+          "subject_role": "ATTACKER",
+          "actual_process": "张承业劝李克用发兵救凤翔，李克用攻晋州；闻昭宗车驾已东归，遂停止行动。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文仅“攻晋州”，无攻城持续、死伤或破城。",
+            "range": "1—50死亡当量",
+            "center": 7,
+            "basis": "既称“攻”视为已有武装接触，但叙事极简且很快因外部目标消失而罢兵，维持极低估计。",
+            "upper_bound_reason": "无百人级损失线索。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "攻城伤亡失载"
+            ],
+            "S": [
+              "河东本土未受战"
+            ],
+            "M": [
+              "短期攻州"
+            ],
+            "A": [
+              "无可证"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "晋州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未记取得晋州，罢兵。",
+            "continuity_status": "FAILED",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0085"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "响应王师范/救凤翔的短期行动。",
+          "carry_out": "本支随昭宗东归而结束。"
+        },
+        {
+          "evaluation_subject_phase": "晋州守军/朱全忠体系 × 被攻后保持",
+          "subject_role": "DEFENDER",
+          "actual_process": "晋州遭李克用进攻；因昭宗东归使河东主动罢兵，原文未记城失。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文只见被攻，守军损害失载。",
+            "range": "1—50死亡当量",
+            "center": 7,
+            "basis": "短期攻州推定最小非零损害。",
+            "upper_bound_reason": "无百人级伤亡、城破或长期围困。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "伤亡失载"
+            ],
+            "S": [
+              "单一节点短时受扰"
+            ],
+            "M": [
+              "短期守城"
+            ],
+            "A": [
+              "无可证"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "晋州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "晋州控制保持，但对手撤军主要由外部政治目标变化造成，不把它夸大为守军安全收益。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0085"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "无",
+          "carry_out": "战斗闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "李神福攻杜洪：永兴受降阶段",
+      "campaign_group": "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+      "source_anchor_refs": [
+        "SRC-ZZTJ-263-1502862-P0086"
+      ],
+      "source_quotes": [
+        "將兵擊杜洪",
+        "駱殷戍永興，棄城走",
+        "縣民方詔據城降",
+        "永興大縣，饋運所仰，已得鄂之半矣"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "淮南李神福、刘存军 × 永兴受降阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "杨行密命李神福、刘存击杜洪。杜洪将骆殷弃永兴而走，县民方诏据城后向李神福降；李神福明确把永兴视作大县和军粮转运所依赖的关键节点。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "守将弃城、县民据城降，未发生接战→P0"
+            ],
+            "S": [
+              "进攻方本土无受战"
+            ],
+            "M": [
+              "已发鄂岳行营军，具体兵数失载"
+            ],
+            "A": [
+              "取得并使用馈运节点，投入细目失载"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "永兴县及其馈运节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "不战取得一个关键补给县，作为进一步攻鄂的前进节点。",
+            "continuity_status": "HELD_AT_VOLUME_END",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0086"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "杨行密政权向鄂岳方向扩张实际控制，并取得支撑后续进军的馈运节点；主目标鄂州尚未完成。"
+          },
+          "carry_in": "本卷新启鄂岳战线。",
+          "carry_out": "李神福称“已得鄂之半”是战略判断而非已实际取得半个鄂州；卷264必须核验后续攻杜洪、鄂州控制与成本。"
+        },
+        {
+          "evaluation_subject_phase": "杜洪鄂州体系 × 永兴失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "骆殷弃永兴，县民方诏据城转降李神福；鄂州体系失去重要补给节点。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S2",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "cost_evidence": {
+            "P": [
+              "弃城、受降，无接战"
+            ],
+            "S": [
+              "关键补给节点失控"
+            ],
+            "M": [
+              "守将直接弃城，无新增动员可见"
+            ],
+            "A": [
+              "补给节点及地方资源转入敌手"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "永兴县及馈运节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失去一个被原文明言为“馈运所仰”的大县。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-263-1502862-P0086"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "无",
+          "carry_out": "主战线未结，卷264继续核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "coverage_scope": "从P0001线性复读至P0092；P0001—P0010为页面/卷首元数据，P0087—P0092为分类/footer；实质正文P0011—P0086逐段复核。",
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0012",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "河东—汴军慈隰蒲县晋阳战役群"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0015",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "河东—汴军慈隰蒲县晋阳战役群"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0017",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "王建夺取山南西道"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0019",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "河东—汴军慈隰蒲县晋阳战役群"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0020",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "河东—汴军慈隰蒲县晋阳战役群"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0021",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "河东—汴军慈隰蒲县晋阳战役群"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "册命杨行密等及授承制权限，只有军事任命，未形成新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "顾全武与秦裴对等交换，属人质/人员交换。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0028",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "莫谷之战"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0030",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群的进军与居民迁城背景"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0034",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：朱全忠军于虢县"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0035",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "葛山水战"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0036",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：虢县大败、凤州失守、围城开始"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0037",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "葛山败后冯弘铎军势瓦解与归附结果"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0038",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "杨行密攻宿州"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0039",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：成陇被取、秦州守住"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0041",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：三原援军被击退"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "追叙武勇都来源与杜稜预警，未发生当段武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0043",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "杭州徐绾许再思兵变"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0044",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：奉天夜袭及城外会战"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0046",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "王建夺取山南西道：破寨、克汉中"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0048",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：诈诱出战"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0049",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "王建山南扩张：洋州降"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0050",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：穿壕封锁"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "钱镠求援、质子与婚姻方案，属外交求援。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0053",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "杭州战役群：田頵筑垒与陈璋夺垒"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0055",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "王建山南扩张：攻拔兴州"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0056",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：守军成建制投汴"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0057",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：出击失败及逃散"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0058",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：李茂勋万余援军到城北"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0060",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：袭鄜坊、鄜州巷战及围城饥荒成本"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0062",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：薙草封锁"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0063",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "杭州战役群：田頵急攻、盛造朱郁击破"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0064",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔/王建两父链的外围控制结果；议和文字本身不单列战斗"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0065",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "杭州战役群撤军收束；质子婚姻另作政治事实"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0066",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "温州丁章逐朱敖据州；同段张洪率三百转投衢州仅为武装转投，不另立战役卡"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0068",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：苻道昭出降，作为守军瓦解结果"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0069",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "韶州—潮州战线"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "双方遣使议和，无武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0073",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "王师范起兵与刘鄩夺兖州"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0074",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "华州袭击"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0075",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "朱友宁万余东巡与召葛从周属反攻部署；实际战斗在卷264继续。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "诛韩全诲等属政治处刑，不把处刑人数记战争P。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0078",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：开门后误判北山兵并击捕李继钦"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0080",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "凤翔战役群：昭宗出城、撤围和护送收束"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason_or_card": "朱全忠以兵执行大规模宦官处刑与制度清洗，无对抗性战斗，按合同排除。"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0085",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "李克用攻晋州响应王师范"
+      },
+      {
+        "source_anchor_ref": "SRC-ZZTJ-263-1502862-P0086",
+        "disposition": "ADJUDICATED",
+        "reason_or_card": "李神福取永兴，鄂岳战线启动"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "王师范起兵父链 ZZTJ-263-WANGSHIFAN-0903：卷263仅见刘鄩夺兖州、华州支线失败及朱友宁万余东巡部署；卷264必须核验兖州攻守、青州主战场、双方新增P/S/M/A、控制反转与最终回报。",
+      "杨行密—杜洪鄂岳父链 ZZTJ-263-YANGXINGMI-EZHOU-0903：卷263只确认永兴不战而得且为馈运节点；卷264继续核验李神福攻鄂州过程、杜洪反应、城地控制和阶段收益。",
+      "温州丁章据州：卷263只确认朱敖被逐、丁章实际据温州，需后卷核验控制能否持续及田頵招引是否改变归属。",
+      "杭州徐绾、许再思、田頵：卷263围困已解除但三人回宣州，需后卷核验其是否重新起兵及钱传瓘质子后效；不得倒灌为本卷已实现收益。",
+      "王建山南西道扩张：卷末已称李茂贞山南州镇皆入王建，后卷仅用于核验持续设治/反复，不倒改本卷已实现BCP4。"
+    ],
+    "adjudication_notes": [
+      "所有“处刑、诛宦官、战后杀降将”与实际战斗伤亡分开；未把政治处死人数伪装成P轴。",
+      "凤翔虢县“死者万余”直接定P4；河东蒲南“杀获万余”因死俘混合，按死亡当量区间定P3估。",
+      "凤翔城中“冻馁死者不可胜计”仅作千人级到近万人级P3估，不从人肉价格或城市印象外推万级死亡。",
+      "王建取得“三万兵、五千骑”记为败方军政资产/胜方军政回报证据，不把人口本身当作战利资产，也不把全部三万人视为人员死亡。",
+      "所有控制档均按本阶段净结果填写；短时围垒、焚掠外城而最终撤走的杭州叛军未记BCP。"
+    ]
+  }
+}
