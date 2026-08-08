@@ -5279,7 +5279,7 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
     assert tiered_dynasty_counts["汉"] == 66
     assert tiered_dynasty_counts["东汉"] == 102
     assert len(post_records) == 3995
-    assert sum(record["public_outcome_registered"] for record in post_records) == 1294
+    assert sum(record["public_outcome_registered"] for record in post_records) == 1293
     assert len({record["war_event_id"] for record in payload["records"]}) == len(payload["records"])
     difficulty_review = payload["high_difficulty_contract_review_summary"]
     assert difficulty_review["status"] == "ACCEPTED_CURRENT"
@@ -5615,7 +5615,7 @@ def test_post_tang_ruler_operational_results_require_actual_design_not_authoriza
         if row.get("post_tang_evidence_lower_bound")
         and row.get("public_outcome_registered")
     ) == {
-        "PERSON_COMMAND_UNKNOWN": 644,
+        "PERSON_COMMAND_UNKNOWN": 643,
         "RESOLVED_EXPLICIT_ACTORS": 650,
     }
     person_adjudications = json.loads(

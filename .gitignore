@@ -26,3 +26,8 @@ venv/
 .DS_Store
 Thumbs.db
 *.egg-info/
+
+# Original-source cache stays local; Git keeps only per-volume Markdown summaries.
+/docs/原始史料/**
+!/docs/原始史料/**/
+!/docs/原始史料/**/*.source-summary.md

@@ -26,7 +26,7 @@ def load_qin_qing_first_item_roster(
     base = json.loads(
         (
             workspace_root
-            / "docs/评分结算/第三项军事与边疆净收益/02-秦至唐第三项正式结算.json"
+            / "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json"
         ).read_text(encoding="utf-8")
     )
     base_by_name = {

@@ -1,0 +1,303 @@
+{
+  "schema_version": "post-tang-battle-cost-benefit-supplement-v2",
+  "status": "shadow_subject_phase_axes",
+  "scope": "卷275：upstream direct与abc成本候选的严格交集；不作皇帝归责、正式D结算或排名。",
+  "source_scopes": [
+    {
+      "page": "資治通鑑/卷275",
+      "revision_ref": "803286",
+      "input_fingerprint": "21e56d6208ee262ccbeb028eb302b18412c7a11d5108f0baf0ffa329f0e86a86"
+    }
+  ],
+  "axis_contract": {
+    "unit": "war_event_id × evaluation_subject × actual_phase",
+    "unknown_policy": "P/S必填；P无实数仅P1估五字段；M/A、SB/SN、长期控制未载即UNKNOWN。",
+    "wc_formula": "WC=max(已知P,S,M,A)；P与S同非零档上抬一档，封顶WC7；UNKNOWN不参与。",
+    "consumption_boundary": "边寇未载遭遇、清洗、备战、主体待裁决和跨卷父链终局均不得进入D项。"
+  },
+  "items": [
+    {
+      "war_event_id": "WAR-POST-D9D987B4E35FC385BA53",
+      "source_target_ref": "CAMPAIGN-KHITAN-BOHAI-926",
+      "source_card_ids": [
+        "CHF-ZZTJ-275-KHITAN-CONQUERS-FUYU-926"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-275-KHITAN-CONQUERS-FUYU-926",
+          "exact_quote": "拔其夫餘城",
+          "additional_exact_quotes": [
+            "更命曰東丹國",
+            "命其長子突欲鎮東丹"
+          ],
+          "source_page": "資治通鑑/卷275",
+          "revision_ref": "803286",
+          "fact": "契丹攻拔渤海夫余城，改置东丹国，以突欲镇守。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "契丹攻城军×926年攻拔夫余城阶段",
+          "source_card_id": "CHF-ZZTJ-275-KHITAN-CONQUERS-FUYU-926",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "range": "1—80死亡当量",
+            "center": 9,
+            "basis": "原文明确实际武装接触而本方伤亡未载",
+            "upper_bound_reason": "敌方死伤、俘获、城州控制、降附、兵力总数和父链终局均不倒灌为本方P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "拔其夫餘城"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-DF81382DBDB3C98699A4",
+      "source_target_ref": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "source_card_ids": [
+        "CHF-ZZTJ-275-JINGNAN-SEIZES-KUIZHOU-927"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-275-JINGNAN-SEIZES-KUIZHOU-927",
+          "exact_quote": "殺戍兵而據之",
+          "additional_exact_quotes": [
+            "遣兵襲涪州，不克",
+            "口，盡掠取之"
+          ],
+          "source_page": "資治通鑑/卷275",
+          "revision_ref": "803286",
+          "fact": "高季兴突袭夔州杀戍兵并拒纳新刺史，袭涪州未克，又杀韩珙、掠蜀珍货四十万。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "荆南军×927年杀戍兵据夔州及袭涪州阶段",
+          "source_card_id": "CHF-ZZTJ-275-JINGNAN-SEIZES-KUIZHOU-927",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "range": "1—80死亡当量",
+            "center": 9,
+            "basis": "原文明确实际武装接触而本方伤亡未载",
+            "upper_bound_reason": "敌方死伤、俘获、城州控制、降附、兵力总数和父链终局均不倒灌为本方P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "MIXED_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "殺戍兵而據之",
+            "遣兵襲涪州，不克"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-49CBF614F62E07FEED40",
+      "source_target_ref": "CAMPAIGN-LUTAI-MUTINY-927",
+      "source_card_ids": [
+        "CHF-ZZTJ-275-LUTAI-MUTINY-SUPPRESSED-927"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-275-LUTAI-MUTINY-SUPPRESSED-927",
+          "exact_quote": "騎兵四合擊之",
+          "additional_exact_quotes": [
+            "之，亂兵殆盡",
+            "得免者什無一二"
+          ],
+          "source_page": "資治通鑑/卷275",
+          "revision_ref": "803286",
+          "fact": "房知温与安审通合骑兵追击，四面夹攻疲惫乱军并焚其故寨。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐追击军（房知温、安审通）×927年夹攻卢台乱军阶段",
+          "source_card_id": "CHF-ZZTJ-275-LUTAI-MUTINY-SUPPRESSED-927",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80死亡当量",
+            "center": 9,
+            "basis": "原文明确实际武装接触而本方伤亡未载",
+            "upper_bound_reason": "敌方死伤、俘获、城州控制、降附、兵力总数和父链终局均不倒灌为本方P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "騎兵四合擊之",
+            "亂兵殆盡"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-DF81382DBDB3C98699A4",
+      "source_target_ref": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "source_card_ids": [
+        "CHF-ZZTJ-275-JINGNAN-SIEGE-FAILS-927"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-275-JINGNAN-SIEGE-FAILS-927",
+          "exact_quote": "陵，攻之不克",
+          "additional_exact_quotes": [
+            "興；季興不遜",
+            "督饋糧於行營，竟不能得",
+            "詔劉訓等引兵還"
+          ],
+          "source_page": "資治通鑑/卷275",
+          "revision_ref": "803286",
+          "fact": "孔循至江陵攻城不克，招降亦遭高季兴拒绝；湖南未能提供粮饷，刘训军奉诏撤回。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐荆南行营（刘训等）×927年江陵攻城与撤军阶段",
+          "source_card_id": "CHF-ZZTJ-275-JINGNAN-SIEGE-FAILS-927",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80死亡当量",
+            "center": 9,
+            "basis": "原文明确实际武装接触而本方伤亡未载",
+            "upper_bound_reason": "敌方死伤、俘获、城州控制、降附、兵力总数和父链终局均不倒灌为本方P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "陵，攻之不克",
+            "督饋糧於行營，竟不能得",
+            "詔劉訓等引兵還"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-DF81382DBDB3C98699A4",
+      "source_target_ref": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "source_card_ids": [
+        "CHF-ZZTJ-275-XIFANG-YE-RETAKES-THREE-PREFECTURES-927"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-275-XIFANG-YE-RETAKES-THREE-PREFECTURES-927",
+          "exact_quote": "敗荊南水於峽中",
+          "additional_exact_quotes": [
+            "復取夔、忠、萬三州"
+          ],
+          "source_page": "資治通鑑/卷275",
+          "revision_ref": "803286",
+          "fact": "西方邺在峡中击败荆南水军，重新夺取夔、忠、万三州。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐西方邺军×927年峡中水战与复取夔忠万三州阶段",
+          "source_card_id": "CHF-ZZTJ-275-XIFANG-YE-RETAKES-THREE-PREFECTURES-927",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "range": "1—80死亡当量",
+            "center": 9,
+            "basis": "原文明确实际武装接触而本方伤亡未载",
+            "upper_bound_reason": "敌方死伤、俘获、城州控制、降附、兵力总数和父链终局均不倒灌为本方P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "敗荊南水於峽中",
+            "復取夔、忠、萬三州"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    }
+  ],
+  "excluded": {
+    "CHF-ZZTJ-275-LULONG-WENJIN-RETURNS-926": "候选存在但upstream为NEEDS_SUBJECT_ADJUDICATION，不把十余万归奔或八千乘倒灌为P/M/A。",
+    "CHF-ZZTJ-275-KHITAN-BORDER-RAID-926": "边寇和出兵防御未载本卷实际遭遇/结果。",
+    "CHF-ZZTJ-275-JINGNAN-CANCELS-CHU-ATTACK-926": "备战后取消，未实际接触。",
+    "CHF-ZZTJ-275-MENG-ARMY-EXPANSION-926": "军备编制与戍防，非实战。",
+    "CHF-ZZTJ-275-XICHUAN-RIVER-FLEET-926": "水军训练备战，非实战。",
+    "CHF-ZZTJ-275-LUOYANG-PALACE-MUTINY-926": "宫廷兵变主体未裁决。",
+    "CHF-ZZTJ-275-TAIYUAN-INTERNAL-KILLINGS-926": "清洗/继承危机，非可分战役主体。",
+    "CHF-ZZTJ-275-BIANZHOU-MASS-EXECUTION-926": "族属清算，非实际武装接触。",
+    "CHF-ZZTJ-275-HUAZHOU-MUTINY-PUNISHED-926": "惩办族诛，非直接接触阶段。",
+    "CHF-ZZTJ-275-TANG-LAUNCHES-JINGNAN-CAMPAIGN-927": "动员命令不是接触；父链终局不得倒灌。"
+  },
+  "coverage": {
+    "direct_subject_phase_axis_count": 5,
+    "abc_candidate_count": 6,
+    "intersection_count": 5,
+    "excluded_count": 10
+  }
+}

@@ -1,0 +1,661 @@
+{
+  "schema_version": "post-tang-battle-cost-benefit-supplement-v2",
+  "status": "shadow_subject_phase_axes",
+  "scope": "卷276：仅mapping的12条direct主体阶段；定州强攻与契丹撤退依定点裁决覆盖，不作皇帝归责或正式D结算。",
+  "source_scopes": [
+    {
+      "page": "資治通鑑/卷276",
+      "revision_ref": "1767667",
+      "input_fingerprint": "cf17f20e1f624af32370379a78b44849a53e42bd5cf2592ba33397ce1e03295f"
+    }
+  ],
+  "axis_contract": {
+    "unit": "war_event_id × evaluation_subject × actual_phase",
+    "unknown_policy": "P/S必填；P无实数仅P1估五字段；M/A、SB/SN、长期控制未载即UNKNOWN。",
+    "wc_formula": "WC=max(已知P,S,M,A)；P与S同非零档上抬一档，封顶WC7；UNKNOWN不参与。",
+    "consumption_boundary": "敌方死伤、城州控制、兵力、军备、后续俘虏处决及父链终局不得倒灌。"
+  },
+  "items": [
+    {
+      "war_event_id": "WAR-POST-2824B7FE3FA80CD3C5F0",
+      "source_target_ref": "CAMPAIGN-BIANZHOU-ZHU-SHOUYIN-927",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-ZHU-SHOUYIN-REBELLION-927"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-ZHU-SHOUYIN-REBELLION-927",
+          "exact_quote": "守殷遂乘城拒守",
+          "additional_exact_quotes": [
+            "未明行二百里",
+            "梁，四面進攻",
+            "相帥開門降"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "朱守殷因明宗东巡疑惧闭城反叛，范延光以五百骑疾驰攻城，明宗与石敬瑭继进四面攻打。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐讨朱守殷军／927年汴州四面攻城",
+          "source_card_id": "CHF-ZZTJ-276-ZHU-SHOUYIN-REBELLION-927",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "四面进攻、守军开门降，本方伤亡未载",
+            "upper_bound_reason": "投降不外推本方伤亡",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "梁，四面進攻",
+            "相帥開門降"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-DF81382DBDB3C98699A4",
+      "source_target_ref": "CAMPAIGN-LATER-TANG-JINGNAN-927",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-GUIZHOU-CONTEST-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-GUIZHOU-CONTEST-928",
+          "exact_quote": "鄴攻拔歸州",
+          "additional_exact_quotes": [
+            "荊南復取之"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "西方邺攻取归州，荆南不久复夺该州。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐与荆南／928年归州争夺（两个相反阶段）",
+          "source_card_id": "CHF-ZZTJ-276-GUIZHOU-CONTEST-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "攻拔、复取均为实际接触，本方伤亡未载",
+            "upper_bound_reason": "归州控制反复不是成本",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "鄴攻拔歸州",
+            "荊南復取之"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-22AC316CA75CD36A5510",
+      "source_target_ref": "CAMPAIGN-CHU-SOUTHERN-HAN-FENGZHOU-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-SUZHANG-BREAKS-CHU-FLEET-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-SUZHANG-BREAKS-CHU-FLEET-928",
+          "exact_quote": "沉鐵絲亙於水",
+          "additional_exact_quotes": [
+            "挽輪舉緪，楚艦不能進退",
+            "楚兵大敗，解圍遁去"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "苏章在贺江暗设铁索与堤伏，诈败诱楚舰入围后以强弩夹射。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "南汉水军（苏章）／928年封州解围水战",
+          "source_card_id": "CHF-ZZTJ-276-SUZHANG-BREAKS-CHU-FLEET-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "设伏夹击并解围，本方伤亡未载",
+            "upper_bound_reason": "楚军大败不得倒灌为南汉P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "沉鐵絲亙於水",
+            "楚艦不能進退",
+            "楚兵大敗，解圍遁去"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-2FCC8C3325C094EC8BE3",
+      "source_target_ref": "CAMPAIGN-WU-CHU-YUEZHOU-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-WU-FLEET-DEFEATED-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-WU-FLEET-DEFEATED-928",
+          "exact_quote": "將水軍萬人攻楚岳州",
+          "additional_exact_quotes": [
+            "浦，絕吳歸路",
+            "夾擊之，吳軍大敗"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "吴水军万人攻楚岳州，楚军分舰断归路并前后夹击。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "楚军／928年岳州夹击吴水军",
+          "source_card_id": "CHF-ZZTJ-276-WU-FLEET-DEFEATED-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "前后夹击为实际接触，本方伤亡未载",
+            "upper_bound_reason": "吴军万人及其大败不是楚军P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "浦，絕吳歸路",
+            "夾擊之，吳軍大敗"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-A302988F77A12702D4DD",
+      "source_target_ref": "CAMPAIGN-WANG-DU-DINGZHOU-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-XINLE-QUYANG-BATTLES-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-XINLE-QUYANG-BATTLES-928",
+          "exact_quote": "夜襲新樂，破之，殺建豐",
+          "additional_exact_quotes": [
+            "以短兵擊之",
+            "契丹死者過半",
+            "北走者殆無孑遺"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "契丹与王都夜袭新乐杀朱建丰；王晏球随后在曲阳以短兵冲阵，击溃王都与契丹万余人。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐军（王晏球）／928年曲阳短兵反击",
+          "source_card_id": "CHF-ZZTJ-276-XINLE-QUYANG-BATTLES-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "短兵冲阵为实际接触，本方伤亡未载",
+            "upper_bound_reason": "契丹死者过半仅为敌损",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "以短兵擊之",
+            "契丹死者過半"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-A302988F77A12702D4DD",
+      "source_target_ref": "CAMPAIGN-WANG-DU-DINGZHOU-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-FORCED-DINGZHOU-ASSAULT-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-FORCED-DINGZHOU-ASSAULT-928",
+          "exact_quote": "有詔促令攻城",
+          "additional_exact_quotes": [
+            "晏球不得已",
+            "殺傷將士三千人"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "朝廷使者指王晏球畏怯并催攻，王晏球被迫强攻定州。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐攻城军（王晏球）×928年定州奉诏强攻阶段",
+          "source_card_id": "CHF-ZZTJ-276-FORCED-DINGZHOU-ASSAULT-928",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "range": "3000—9999死亡当量",
+            "center": 3000,
+            "basis": "本方后唐攻城军将士杀伤三千人为该次强攻直接明载。",
+            "upper_bound_reason": "仅据本次攻城明载数；不纳入前后围困、敌军或定州终局。",
+            "confidence": "high"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "有詔促令攻城",
+            "晏球不得已",
+            "殺傷將士三千人"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-A302988F77A12702D4DD",
+      "source_target_ref": "CAMPAIGN-WANG-DU-DINGZHOU-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-KHITAN-RETREAT-ANNIHILATED-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-KHITAN-RETREAT-ANNIHILATED-928",
+          "exact_quote": "生擒惕隱等數百人",
+          "additional_exact_quotes": [
+            "村民以白梃擊之",
+            "得脫歸國者不過數十人",
+            "不敢輕犯塞"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "赵德钧分兵扼险袭击饥疲契丹残军，村民也持白棒击杀散兵。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "契丹惕隐救定州军×928年唐河战败后撤退至幽州境被邀击阶段",
+          "source_card_id": "CHF-ZZTJ-276-KHITAN-RETREAT-ANNIHILATED-928",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "range": "1000—9999死亡当量",
+            "center": 1000,
+            "basis": "七千骑起点、唐河战败追击、数百生擒、余众受击且仅数十得脱共同闭合为连续撤退武装阶段。",
+            "upper_bound_reason": "七千骑非伤亡数；不推P4，且不叠加已俘者后续六百人处决。",
+            "confidence": "medium"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "生擒惕隱等數百人",
+            "得脫歸國者不過數十人"
+          ],
+          "excluded_later_fact": "卷276 P0068“余六百人悉斩”为已俘者后续处置，非本主体实际武装接触，不新增P/S/WC。"
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-51C5FE9FF4AC2798E6E4",
+      "source_target_ref": "CAMPAIGN-PINGZHOU-ZHANG-XICHONG-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-ZHANG-XICHONG-RETURNS-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-ZHANG-XICHONG-RETURNS-928",
+          "exact_quote": "醉，並從者殺之",
+          "additional_exact_quotes": [
+            "契丹眾皆潰去",
+            "所部二萬餘口來奔"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "张希崇设阱杀契丹监军及从者，攻溃城北契丹营。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "张希崇部／928年平州逐契丹戍军",
+          "source_card_id": "CHF-ZZTJ-276-ZHANG-XICHONG-RETURNS-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "杀监军并使戍众溃去，己方伤亡未载",
+            "upper_bound_reason": "归奔二万余口不是P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "醉，並從者殺之",
+            "契丹眾皆潰去"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-557C980B22D3D8DE2338",
+      "source_target_ref": "CAMPAIGN-CHU-JINGNAN-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-JINGNAN-BAITIAN-VICTORY-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-JINGNAN-BAITIAN-VICTORY-928",
+          "exact_quote": "荊南敗楚兵於白田",
+          "additional_exact_quotes": [
+            "執楚岳州刺史李廷規",
+            "廷規，歸於吳。\n"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "荆南在白田击败楚军，俘获岳州刺史李廷规并送交吴国。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "荆南军／928年白田战斗",
+          "source_card_id": "CHF-ZZTJ-276-JINGNAN-BAITIAN-VICTORY-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "击败楚兵并俘将，己方伤亡未载",
+            "upper_bound_reason": "俘敌将不是本方P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "荊南敗楚兵於白田",
+            "執楚岳州刺史李廷規"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-C70FDA5C3650E72C32E7",
+      "source_target_ref": "CAMPAIGN-QINGZHOU-DOU-TINGWAN-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-QINGZHOU-REBELLION-928"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-QINGZHOU-REBELLION-928",
+          "exact_quote": "廷琬據慶州拒命",
+          "additional_exact_quotes": [
+            "發兵討竇廷琬",
+            "奏拔慶州，族竇廷琬"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "窦廷琬据庆州拒命，李敬周奉诏出兵讨伐。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐讨窦廷琬军（李敬周）／928年庆州平叛",
+          "source_card_id": "CHF-ZZTJ-276-QINGZHOU-REBELLION-928",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "出兵、拔州为实际接触，本方伤亡未载",
+            "upper_bound_reason": "族诛不能作战斗P",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "發兵討竇廷琬",
+            "奏拔慶州，族竇廷琬"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-557C980B22D3D8DE2338",
+      "source_target_ref": "CAMPAIGN-CHU-JINGNAN-928",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-CHU-SHISHOU-VICTORY-929"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-CHU-SHISHOU-VICTORY-929",
+          "exact_quote": "楚六軍副使王環敗荊南兵於石首",
+          "additional_exact_quotes": [],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "楚将王环在石首击败荆南军。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "楚军（王环）／929年石首战斗",
+          "source_card_id": "CHF-ZZTJ-276-CHU-SHISHOU-VICTORY-929",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "明确击败荆南兵，本方伤亡未载",
+            "upper_bound_reason": "敌方败绩不能倒灌",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "楚六軍副使王環敗荊南兵於石首"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    },
+    {
+      "war_event_id": "WAR-POST-5637658897D1693CC4DF",
+      "source_target_ref": "CAMPAIGN-KANGFU-LINGZHOU-929",
+      "source_card_ids": [
+        "CHF-ZZTJ-276-KANGFU-ESCORT-BATTLES-929"
+      ],
+      "evidence_units": [
+        {
+          "source_card_id": "CHF-ZZTJ-276-KANGFU-ESCORT-BATTLES-929",
+          "exact_quote": "羌胡出兵邀福，福擊走之",
+          "additional_exact_quotes": [
+            "大破之，殺獲殆盡",
+            "自是朔方始受代"
+          ],
+          "source_page": "資治通鑑/卷276",
+          "revision_ref": "1767667",
+          "fact": "康福赴朔方途中击退羌胡，并遣卫审𡷣突袭吐蕃野利、大虫二族。"
+        }
+      ],
+      "subject_phase_axes": [
+        {
+          "evaluation_subject_phase": "后唐护送军（康福）／929年赴朔方途中",
+          "source_card_id": "CHF-ZZTJ-276-KANGFU-ESCORT-BATTLES-929",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "UNKNOWN",
+            "A": "UNKNOWN",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "range": "1—80",
+            "center": 9,
+            "basis": "遭羌胡邀击后击走，己方伤亡未载",
+            "upper_bound_reason": "杀获殆尽为对方损失",
+            "confidence": "low"
+          },
+          "strategic_security_grade": "UNKNOWN",
+          "border_control": {
+            "control_effect_status": "PHASE_ONLY",
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN"
+          },
+          "phase_return_class": "UNKNOWN",
+          "parent_return_class": "UNKNOWN",
+          "source_quotes": [
+            "羌胡出兵邀福，福擊走之",
+            "大破之，殺獲殆盡"
+          ]
+        }
+      ],
+      "axis_coverage_status": "DIRECT_PHASE_AXES_PRESENT"
+    }
+  ],
+  "coverage": {
+    "mapping_direct_subject_phase_axis_count": 12,
+    "adjudication_override_count": 2
+  }
+}
