@@ -6079,12 +6079,12 @@
       ],
       "major_high_return_refs": [
         "WAR-LEAD-TANG-CHEBI-649-650",
-        "WAR-LEAD-TANG-GOGURYEO-666-669",
         "WAR-LEAD-TANG-WESTERN-TURKS-656-658"
       ],
       "top_tier_high_return_refs": [],
       "national_negative_return_refs": [
-        "WAR-LEAD-TANG-KOREA-SILLA-671-677"
+        "WAR-LEAD-TANG-KOREA-SILLA-671-677",
+        "WAR-LEAD-TANG-TIBET-676-681"
       ],
       "ruler_event_class_overrides": [
         {
@@ -6111,12 +6111,38 @@
         },
         {
           "fields": [
-            "border_control_grade"
+            "border_control_grade",
+            "cost_axes",
+            "d_cost_axes",
+            "return_class",
+            "return_rationale",
+            "s_attribution_rationale",
+            "s_attribution_status",
+            "s_effective_grade",
+            "strategic_security_grade"
           ],
-          "override": "SUBJECT_PHASE_FACTS",
-          "rationale": "将同一正式D人工视图已列的本主体—任期阶段实际净控制变化持久化到机器读取入口；不改动成本、回报方向或其他裁决。",
+          "override": "SUBJECT_FACTS",
+          "rationale": "666—669年灭高丽虽摧毁王朝中枢，但河北租赋尽输辽东、长期水陆远征、强迁三万八千二百户且旧地迅速离叛；以高成本换取短期灭国与脆弱设治，裁为相称收益，不列重大高收益。",
           "values": {
-            "border_control_grade": "BCP3"
+            "border_control_grade": "BCP3",
+            "cost_axes": {
+              "A": "A2",
+              "M": "M3",
+              "P": "P3估",
+              "S": "S4",
+              "WC": "WC4"
+            },
+            "d_cost_axes": {
+              "A": "A2",
+              "M": "M3",
+              "P": "P3估"
+            },
+            "return_class": "PROPORTIONATE_RETURN",
+            "return_rationale": "灭国和安东初设确有重大阶段成果，但其成本、强迁及控制迅速松动不支持净高收益，更不支持重大高收益。",
+            "s_attribution_rationale": "只计666—669年远征、设治与初期离叛，不把671—677年新罗战争的后续退缩重复倒灌。",
+            "s_attribution_status": "DIRECT_CAMPAIGN_SYSTEM_COST",
+            "s_effective_grade": "S4",
+            "strategic_security_grade": "SB4"
           },
           "war_event_id": "WAR-LEAD-TANG-GOGURYEO-666-669"
         },
@@ -6144,12 +6170,38 @@
         },
         {
           "fields": [
-            "border_control_grade"
+            "border_control_grade",
+            "cost_axes",
+            "d_cost_axes",
+            "return_class",
+            "return_rationale",
+            "s_attribution_rationale",
+            "s_attribution_status",
+            "s_effective_grade",
+            "strategic_security_grade"
           ],
-          "override": "SUBJECT_PHASE_FACTS",
-          "rationale": "将同一正式D人工视图已列的本主体—任期阶段实际净控制变化持久化到机器读取入口；不改动成本、回报方向或其他裁决。",
+          "override": "SUBJECT_FACTS",
+          "rationale": "663—681年父周期吸收大非川、青海十八万军败、安戎失守及西部边疆体系重创；河源烽戍屯田和局部反击不足抵销国家级损失。",
           "values": {
-            "border_control_grade": "BCN2"
+            "border_control_grade": "BCN2",
+            "cost_axes": {
+              "A": "A3",
+              "M": "M3",
+              "P": "P4估",
+              "S": "S5",
+              "WC": "WC5"
+            },
+            "d_cost_axes": {
+              "A": "A3",
+              "M": "M3",
+              "P": "P4估"
+            },
+            "return_class": "NEGATIVE_RETURN",
+            "return_rationale": "十八万动员、前军覆没和大型西部边疆体系重创，只换得局部防线止损，属于国家级负收益。",
+            "s_attribution_rationale": "本卡是663—681年吐蕃—青海方向终局父卡，S5由大非川、青海、安戎及四镇控制损失共同闭合，只结算一次。",
+            "s_attribution_status": "DIRECT_CAMPAIGN_SYSTEM_COST",
+            "s_effective_grade": "S5",
+            "strategic_security_grade": "SB2"
           },
           "war_event_id": "WAR-LEAD-TANG-TIBET-676-681"
         },

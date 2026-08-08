@@ -237,9 +237,9 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     formal = build_five_dynasties_formal_payloads(repo_root, promoted)
     rows = formal["partition_records"]
     assert len(rows) == 12
-    assert formal["combined"]["five_dynasties_ready_count"] == 12
-    assert formal["combined"]["five_dynasties_pending_count"] == 0
-    assert all(row["third_item_score_points"] is not None for row in rows)
+    assert formal["combined"]["five_dynasties_ready_count"] == 11
+    assert formal["combined"]["five_dynasties_pending_count"] == 1
+    assert sum(row["third_item_score_points"] is None for row in rows) == 1
     assert {row["ruler_name"] for row in rows} == {
         "朱温", "朱友贞", "李存勖", "李嗣源", "石敬瑭", "郭威",
         "柴荣", "李昪", "李煜", "王建", "孟昶", "刘龑",
@@ -248,13 +248,13 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert combined["record_count"] == 118
     assert combined["global_ranking_enabled"] is True
     by_name = {row["ruler_name"]: row for row in combined["records"]}
-    assert by_name["柴荣"]["rank"] == 5
+    assert by_name["柴荣"]["rank"] == 4
     assert by_name["柴荣"]["axes"]["D"] == "D-3"
-    assert by_name["柴荣"]["D_score_points"] == 28.1
-    assert by_name["李忱"]["rank"] == 4
-    assert by_name["朱友贞"]["rank"] == 111
-    assert by_name["李煜"]["rank"] == 113
-    assert by_name["杨广"]["rank"] == 118
+    assert by_name["柴荣"]["D_score_points"] == 29.6
+    assert by_name["李忱"]["rank"] == 3
+    assert by_name["朱友贞"]["rank"] == 95
+    assert by_name["李煜"]["rank"] == 94
+    assert by_name["杨广"]["rank"] == 100
 
     binding_counts = Counter(
         phase["ruler_binding"]["status"] for phase in phases
@@ -267,7 +267,6 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     c_by_name = {row["ruler_name"]: row for row in formal["C"]["records"]}
     ab_by_name = {row["ruler_name"]: row for row in formal["AB"]["records"]}
     assert d_by_name["柴荣"]["D_portfolio_metrics"]["material_cycle_count"] == 6
-    assert d_by_name["柴荣"]["D_portfolio_metrics"]["exceptional_national_recovery_gate"] == "NOT_APPLICABLE"
     assert d_by_name["柴荣"]["D_portfolio_metrics"]["top_tier_high_return_refs"] == []
     assert len(d_by_name["柴荣"]["D_portfolio_metrics"]["national_negative_return_refs"]) == 1
     assert len(d_by_name["柴荣"]["cycle_merge_adjudications"]) == 2
@@ -275,9 +274,9 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert len(d_by_name["石敬瑭"]["cycle_merge_adjudications"]) == 2
     assert len(d_by_name["李昪"]["cycle_merge_adjudications"]) == 1
     assert len(d_by_name["刘龑"]["cycle_merge_adjudications"]) == 1
-    assert d_by_name["石敬瑭"]["D_grade"] == "D-3"
-    assert d_by_name["李昪"]["D_grade"] == "D-3"
-    assert d_by_name["王建"]["D_score_points"] == 28.3
+    assert d_by_name["石敬瑭"]["D_grade"] == "D-4"
+    assert d_by_name["李昪"]["D_grade"] == "D-2"
+    assert d_by_name["王建"]["D_score_points"] == 26.9
     assert c_by_name["柴荣"]["independent_task_count"] == 12
     assert ab_by_name["柴荣"]["defense_event_count"] == 12
     assert (
@@ -348,21 +347,21 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     rows = formal["partition_records"]
     assert len(rows) == 11
     assert formal["combined"]["record_count"] == 118
-    assert formal["combined"]["north_song_ready_count"] == 11
-    assert formal["combined"]["north_song_pending_count"] == 0
+    assert formal["combined"]["north_song_ready_count"] == 9
+    assert formal["combined"]["north_song_pending_count"] == 2
     assert {row["ruler_name"] for row in rows} == {
         "赵匡胤", "赵光义", "赵恒", "刘娥", "赵祯", "赵曙", "赵顼", "高滔滔", "赵煦", "赵佶", "赵桓",
     }
-    assert all(row["third_item_score_points"] is not None for row in rows)
+    assert sum(row["third_item_score_points"] is None for row in rows) == 2
     assert all(row["rank_status"] == "GLOBAL_CURRENT" for row in rows)
     assert formal["combined"]["north_song_partial_exclusions"] == []
     by_name = {row["ruler_name"]: row for row in rows}
     assert by_name["赵桓"]["AB_score_points"] == 0.0
     assert by_name["赵桓"]["axes"]["C_overall"] == "C-0"
     assert by_name["赵恒"]["axes"]["D"] == "D-3"
-    assert by_name["赵恒"]["D_score_points"] == 27.9
-    assert by_name["赵祯"]["D_score_points"] == 28.9
-    assert by_name["赵顼"]["D_score_points"] == 27.9
+    assert by_name["赵恒"]["D_score_points"] == 23.3
+    assert by_name["赵祯"]["D_score_points"] == 25.9
+    assert by_name["赵顼"]["D_score_points"] == 26.6
     assert all("confidence" not in row for row in formal["C"]["records"])
     assert by_name["赵匡胤"]["axes"]["C_overall"] == "C-3"
 
@@ -379,7 +378,7 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
         )
     assert d_by_name["赵祯"]["D_portfolio_metrics"]["usable_cycle_count"] == 36
     assert d_by_name["赵祯"]["D_portfolio_metrics"]["material_cycle_count"] == 12
-    assert len(d_by_name["赵祯"]["D_portfolio_metrics"]["major_high_return_refs"]) == 1
+    assert len(d_by_name["赵祯"]["D_portfolio_metrics"]["major_high_return_refs"]) == 0
     assert d_by_name["赵顼"]["D_portfolio_metrics"]["usable_cycle_count"] == 26
     assert d_by_name["赵顼"]["D_portfolio_metrics"]["material_cycle_count"] == 9
     assert len(d_by_name["赵顼"]["D_portfolio_metrics"]["major_high_return_refs"]) == 1
@@ -398,9 +397,12 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
         if row["D_grade"] not in {"D-4", "D-5"}:
             continue
         metrics = row["D_portfolio_metrics"]
-        assert len(metrics["top_tier_high_return_refs"]) >= max(
-            1, len(metrics["national_negative_return_refs"])
-        )
+        if row["D_grade"] == "D-4":
+            assert metrics["portfolio_quality_index"] >= 12.0
+            assert metrics["decisive_yield_index"] >= 2.0
+        else:
+            assert metrics["portfolio_quality_index"] >= 27.0
+            assert metrics["decisive_yield_index"] >= 4.4
 
 
 def test_north_song_d_unknown_axes_are_auditable_not_negative_returns() -> None:
@@ -443,8 +445,11 @@ def test_five_dynasties_and_north_song_parent_cycle_reviews_cover_every_ruler() 
         assert len(ruler_ids) == expected_count
 
 
-def test_d4_rejects_more_than_one_non_national_negative_return() -> None:
-    from emperor_v4.evaluation.five_dynasties_third_item import _d_grade_and_score
+def test_d_quantitative_index_is_additive_and_uses_integer_weights() -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import (
+        D_EMPIRICAL_CALIBRATION,
+        _d_grade_and_score,
+    )
 
     cycles = []
     for index, return_class in enumerate(
@@ -461,9 +466,19 @@ def test_d4_rejects_more_than_one_non_national_negative_return() -> None:
 
     grade, score, metrics = _d_grade_and_score(cycles)
 
+    assert all(isinstance(value, int) for value in D_EMPIRICAL_CALIBRATION["weights"].values())
+    assert all(
+        value == round(float(value), 1)
+        for value in D_EMPIRICAL_CALIBRATION["quality_thresholds"].values()
+    )
+    assert all(
+        value == round(float(value), 1)
+        for value in D_EMPIRICAL_CALIBRATION["decisive_yield_thresholds"].values()
+    )
     assert metrics["return_class_counts"]["NEGATIVE_RETURN"] == 2
-    assert grade == "D-3"
-    assert 22.0 <= score <= 29.9
+    assert metrics["portfolio_quality_index"] == 29.0
+    assert grade == "D-5"
+    assert 36.0 <= score <= 40.0
 
     for cycle in cycles[-2:]:
         cycle["material"] = False
@@ -475,13 +490,15 @@ def test_d4_rejects_more_than_one_non_national_negative_return() -> None:
         "HIGH_RETURN": 5,
         "PROPORTIONATE_RETURN": 5,
     }
-    assert grade == "D-3"
+    assert metrics["portfolio_quality_index"] == 35.0
+    assert grade == "D-5"
 
     cycles[0]["top_high_return"] = True
     cycles[-2]["material"] = True
     grade, score, metrics = _d_grade_and_score(cycles)
-    assert grade == "D-4"
-    assert 30.0 <= score <= 35.9
+    assert metrics["portfolio_quality_index"] == 36.0
+    assert grade == "D-5"
+    assert 36.0 <= score <= 40.0
 
 
 def test_d5_requires_every_material_return_to_be_closed() -> None:
@@ -490,13 +507,13 @@ def test_d5_requires_every_material_return_to_be_closed() -> None:
     cycles = [
         {
             "campaign_group_ref": f"TEST-D5-CLOSED-{index}",
-            "return_class": "HIGH_RETURN" if index < 3 else "PROPORTIONATE_RETURN",
+            "return_class": "HIGH_RETURN" if index < 4 else "PROPORTIONATE_RETURN",
             "material": True,
             "national_negative": False,
-            "major_high_return": index < 2,
-            "top_high_return": index == 0,
+            "major_high_return": index < 3,
+            "top_high_return": index < 2,
         }
-        for index in range(4)
+        for index in range(5)
     ]
     grade, _, metrics = _d_grade_and_score(cycles)
     assert grade == "D-5"
@@ -513,10 +530,10 @@ def test_d5_requires_every_material_return_to_be_closed() -> None:
     grade, _, metrics = _d_grade_and_score(cycles)
     assert grade == "D-4"
     assert metrics["material_unknown_cycle_refs"] == ["TEST-D5-UNKNOWN"]
-    assert metrics["material_return_closure_rate"] == 0.8
+    assert metrics["material_return_closure_rate"] == 0.8333
 
 
-def test_d4_national_negative_requires_thick_independent_counterevidence() -> None:
+def test_national_negative_is_penalized_once_in_the_quantitative_index() -> None:
     from emperor_v4.evaluation.five_dynasties_third_item import _d_grade_and_score
 
     cycles = [
@@ -540,18 +557,12 @@ def test_d4_national_negative_requires_thick_independent_counterevidence() -> No
         "top_high_return": False,
     })
 
-    grade, _, metrics = _d_grade_and_score(
-        cycles, allow_exceptional_national_recovery=False
-    )
-    assert grade == "D-3"
-    assert metrics["exceptional_national_recovery_gate"] == "NOT_APPLICABLE"
-
-    grade, score, metrics = _d_grade_and_score(
-        cycles, allow_exceptional_national_recovery=True
-    )
+    grade, score, metrics = _d_grade_and_score(cycles)
     assert grade == "D-4"
-    assert score <= 34.3
-    assert metrics["exceptional_national_recovery_gate"] == "PASSED_STRONG_COUNTEREVIDENCE"
+    assert metrics["portfolio_quality_index"] == 17.0
+    assert metrics["national_negative_return_refs"] == ["TEST-D4-EXCEPTION-NATIONAL"]
+    assert metrics["national_negative_score_cap"] is None
+    assert 30.0 <= score <= 35.9
 
 
 def test_five_dynasties_subject_binding_never_uses_opponent_process_text() -> None:
@@ -600,10 +611,8 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
                 1, len(row.get("major_system_failure_refs") or [])
             )
 
-    d4_caps = {2: 33.0, 3: 34.6, 4: 35.0, 5: 35.4}
     for row in d_rows:
         metrics = row.get("D_portfolio_metrics") or {}
-        material = int(metrics.get("material_cycle_count") or 0)
         known_material = int(metrics.get("known_material_cycle_count") or 0)
         expected_status = (
             "UNDER_TESTED" if known_material <= 1
@@ -611,47 +620,71 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
             else "SUFFICIENT_EXPOSURE"
         )
         assert metrics.get("evidence_status") == expected_status
+        quality = metrics.get("portfolio_quality_index")
+        decisive = metrics.get("decisive_yield_index")
+        if quality is not None:
+            assert quality == round(float(quality), 1)
+            assert decisive == round(float(decisive), 1)
+        assert all(
+            isinstance(weight, int)
+            for weight in metrics["empirical_calibration"]["weights"].values()
+        )
+        parent_refs = metrics.get("canonical_parent_cycle_refs") or []
+        assert len(parent_refs) == len(set(parent_refs))
+        assert metrics.get("parent_cycle_uniqueness_status") == "UNIQUE_CANONICAL_PARENT_CYCLES"
         if row["D_grade"] == "D-4":
-            major = len(metrics.get("major_high_return_refs") or [])
-            cap = d4_caps.get(material, 35.9)
-            if material == 2 and major >= 2:
-                cap = 34.0
-            elif material == 3 and major >= 2:
-                cap = 34.8
-            assert row["D_score_points"] <= cap
-            national = metrics.get("national_negative_return_refs") or []
-            if national:
-                assert len(national) == 1
-                assert metrics.get("exceptional_national_recovery_gate") == "PASSED_STRONG_COUNTEREVIDENCE"
-            assert len(metrics.get("top_tier_high_return_refs") or []) >= max(
-                1, len(national)
-            )
+            assert quality >= 12.0
+            assert decisive >= 2.0
         if row["D_grade"] == "D-5":
-            assert material >= 4
-            assert not (metrics.get("national_negative_return_refs") or [])
+            assert quality >= 27.0
+            assert decisive >= 4.4
 
     by_name = {row["ruler_name"]: row for row in d_rows}
-    assert by_name["李雄"]["D_score_points"] == 27.1
-    assert by_name["陈蒨"]["D_score_points"] == 28.3
+    assert by_name["李雄"]["D_score_points"] == 25.9
+    assert by_name["陈蒨"]["D_score_points"] == 26.9
     assert by_name["柴荣"]["D_score_points"] > by_name["苻健"]["D_score_points"]
     assert by_name["拓跋焘"]["D_grade"] == "D-3"
-    assert by_name["拓跋焘"]["D_score_points"] == 28.3
-    assert by_name["拓跋焘"]["D_score_points"] > by_name["柴荣"]["D_score_points"]
-    assert by_name["李忱"]["D_grade"] == "D-3"
-    assert by_name["李忱"]["D_score_points"] == 28.7
+    assert by_name["拓跋焘"]["D_score_points"] == 27.9
+    assert by_name["柴荣"]["D_score_points"] > by_name["拓跋焘"]["D_score_points"]
+    assert by_name["李忱"]["D_grade"] == "D-4"
+    assert by_name["李忱"]["D_score_points"] == 30.2
     assert by_name["李忱"]["D_score_points"] > by_name["司马曜"]["D_score_points"]
     assert by_name["李忱"]["D_score_points"] > by_name["李雄"]["D_score_points"]
     assert by_name["李忱"]["D_score_points"] > by_name["王建"]["D_score_points"]
-    assert by_name["拓跋焘"]["D_score_points"] > by_name["柴荣"]["D_score_points"]
     li_shimin = by_name["李世民"]
-    assert li_shimin["D_grade"] == "D-4"
-    assert li_shimin["D_score_points"] == 35.1
-    assert li_shimin["D_portfolio_metrics"]["material_cycle_count"] == 8
+    assert li_shimin["D_grade"] == "D-5"
+    assert li_shimin["D_score_points"] == 36.6
+    assert li_shimin["D_portfolio_metrics"]["material_cycle_count"] == 9
     assert li_shimin["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 4,
+        "LOW_RETURN": 1,
         "NEGATIVE_RETURN": 1,
         "PROPORTIONATE_RETURN": 3,
     }
+    assert li_shimin["D_portfolio_metrics"]["positive_benefit_grade_counts"] == {
+        "3": 3,
+        "4": 2,
+        "5": 2,
+    }
+    zhao_zhen = by_name["赵祯"]
+    assert zhao_zhen["D_grade"] == "D-3"
+    assert zhao_zhen["D_portfolio_metrics"]["portfolio_quality_index"] == 20.0
+    assert zhao_zhen["D_portfolio_metrics"]["decisive_yield_index"] == 0.0
+    assert zhao_zhen["D_portfolio_metrics"]["positive_benefit_grade_counts"] == {
+        "2": 2,
+        "3": 8,
+    }
+    li_zhi = by_name["李治"]
+    assert li_zhi["D_grade"] == "D-2"
+    assert li_zhi["D_portfolio_metrics"]["portfolio_quality_index"] == -2.0
+    assert li_zhi["D_portfolio_metrics"]["material_cycle_count"] == 12
+    assert li_zhi["D_portfolio_metrics"]["material_return_class_counts"] == {
+        "HIGH_RETURN": 2,
+        "LOW_RETURN": 3,
+        "NEGATIVE_RETURN": 2,
+        "PROPORTIONATE_RETURN": 5,
+    }
+    assert len(li_zhi["D_portfolio_metrics"]["national_negative_return_refs"]) == 2
     for row in d_rows:
         metrics = row["D_portfolio_metrics"]
         counts = metrics["material_return_class_counts"]
@@ -739,30 +772,34 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
         assert "| 柴荣 | 后周 |" in rendered
         assert "| 赵恒 | 北宋 |" in rendered
         table_lines = [line for line in rendered.splitlines() if line.startswith("|")]
-        assert len(table_lines) == 120
+        assert len(table_lines) == (122 if kind == "D" else 120)
         assert "结算依据" not in table_lines[0]
-        column_count = len(table_lines[0].split("|"))
-        assert all(len(line.split("|")) == column_count for line in table_lines)
+        table_blocks = (
+            rendered.split("## D-U未结算对象", 1)
+            if kind == "D"
+            else [rendered]
+        )
+        for block in table_blocks:
+            block_lines = [line for line in block.splitlines() if line.startswith("|")]
+            column_count = len(block_lines[0].split("|"))
+            assert all(len(line.split("|")) == column_count for line in block_lines)
         assert rendered.count("\n### ") == 118
         assert ". 赵恒（" in rendered
         if kind == "C":
             assert "置信度" not in rendered
             assert all("confidence" not in row for row in payload["records"])
         if kind == "D":
-            assert "| 实质周期 | 高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |" in rendered
-            assert "| 柴荣 | 后周 | 954-959 | D-3 | 28.1 | 充分检验 | 6 | 4 | 1 | 0 | 1 | 0 | 2 | 0 | 1 |" in rendered
-            assert "| 李世民 | 唐 | 626-649 | D-4 | 35.1 | 充分检验 | 8 | 4 | 3 | 0 | 1 | 0 | 3 | 2 | 0 |" in rendered
-            assert all(
-                len(
-                    (row.get("D_portfolio_metrics") or {}).get(
-                        "material_negative_return_refs"
-                    )
-                    or []
-                )
-                <= 1
-                for row in payload["records"]
-                if row.get("D_grade") in {"D-4", "D-5"}
-            )
+            assert "| 实质父级周期（含战略内战/军费周期） | 高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |" in rendered
+            assert "| 柴荣 | 后周 | 954-959 | D-3 | 29.6 | 11.0 | 2.0 | 充分检验 | 6 | 4 | 1 | 0 | 1 | 0 | 2 | 0 | 1 |" in rendered
+            assert "| 李世民 | 唐 | 626-649 | D-5 | 36.6 | 28.0 | 5.0 | 充分检验 | 9 | 4 | 3 | 1 | 1 | 0 | 3 | 2 | 0 |" in rendered
+            for row in payload["records"]:
+                metrics = row.get("D_portfolio_metrics") or {}
+                if row.get("D_grade") == "D-4":
+                    assert metrics["portfolio_quality_index"] >= 12.0
+                    assert metrics["decisive_yield_index"] >= 2.0
+                elif row.get("D_grade") == "D-5":
+                    assert metrics["portfolio_quality_index"] >= 27.0
+                    assert metrics["decisive_yield_index"] >= 4.4
             broken = deepcopy(payload["records"])
             del broken[0]["D_portfolio_metrics"]["material_return_class_counts"]
             with pytest.raises(ValueError, match="缺少实质周期回报分布"):
@@ -834,17 +871,17 @@ def test_high_grade_gates_require_major_or_top_tier_counterevidence() -> None:
         cycle("R2", "PROPORTIONATE_RETURN"),
         cycle("R3", "PROPORTIONATE_RETURN"),
     ]
-    grade, _, metrics = _d_grade_and_score(
-        portfolio, allow_exceptional_national_recovery=True
-    )
+    grade, _, metrics = _d_grade_and_score(portfolio)
     assert grade == "D-3"
-    assert metrics["exceptional_national_recovery_gate"] == "NOT_APPLICABLE"
+    assert metrics["portfolio_quality_index"] == 7.0
     portfolio[1]["top_high_return"] = True
-    grade, _, metrics = _d_grade_and_score(
-        portfolio, allow_exceptional_national_recovery=True
-    )
+    grade, _, metrics = _d_grade_and_score(portfolio)
+    assert grade == "D-3"
+    assert metrics["portfolio_quality_index"] == 11.0
+    portfolio.extend([cycle("R4", "PROPORTIONATE_RETURN"), cycle("R5", "PROPORTIONATE_RETURN")])
+    grade, _, metrics = _d_grade_and_score(portfolio)
     assert grade == "D-4"
-    assert metrics["exceptional_national_recovery_gate"] == "PASSED_STRONG_COUNTEREVIDENCE"
+    assert metrics["portfolio_quality_index"] == 13.0
 
 
 def test_founder_unification_accounts_are_absent_from_third_item_consumption() -> None:

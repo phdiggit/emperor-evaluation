@@ -549,13 +549,16 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
         }.items() if value == "UNKNOWN"
     })
     material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits[key] for key in ("SB", "SN", "BCP", "BCN")) >= 3
-    major_benefit = max(benefits[key] for key in ("SB", "SN", "BCP", "BCN"))
+    positive_benefit_grade = max(benefits[key] for key in ("SB", "BCP", "WR"))
+    negative_benefit_grade = max(benefits[key] for key in ("SN", "BCN"))
     return {
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class, "cost_axes": costs,
         "benefit_axes": benefits, "unknown_axes": unknown_axes, "material": material,
-        "major_high_return": final_class == "HIGH_RETURN" and major_benefit >= 4,
-        "top_high_return": final_class == "HIGH_RETURN" and major_benefit >= 5,
+        "positive_benefit_grade": positive_benefit_grade,
+        "negative_benefit_grade": negative_benefit_grade,
+        "major_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 4,
+        "top_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 5,
         "national_negative": final_class == "NEGATIVE_RETURN" and (
             costs["P"] >= 5
             or max(costs["M"], costs["A"]) >= 4
@@ -713,36 +716,20 @@ def build_north_song_d_records(registry: Mapping[str, Any], decisions: Sequence[
         included = [_aggregate_d_cycle(cycle) for cycle in included_cycles]
         ab_points = ab_by_id[decision["ruler_id"]]["AB_score_points"]
         c_points = c_by_id[decision["ruler_id"]]["C_score_points"]
-        grade, score, metrics = _d_grade_and_score(
-            included,
-            allow_exceptional_national_recovery=(
-                ab_points >= 80
-                and c_points >= 30
-                and not decision.get("terminal_polity_collapse")
-            ),
-        )
-        if (
-            grade in {"D-4", "D-5"}
-            and 2 <= metrics.get("material_cycle_count", 0) <= 3
-            and (ab_points < 80 or c_points < 30)
-        ):
-            grade = "D-3"
-            lo, hi = D_BANDS[grade]
-            score = round((lo + hi) / 2, 1)
-            metrics["abc_small_sample_gate"] = "CAPPED_TO_D3"
+        grade, score, metrics = _d_grade_and_score(included)
         metrics["unknown_axis_cycle_count"] = sum(bool(cycle["unknown_axes"]) for cycle in included)
         metrics["abc_crosscheck"] = {
             "ab_score_points": ab_points,
             "ab_threshold_points": 80.0,
             "c_score_points": c_points,
             "c_threshold_points": 30.0,
-            "small_sample_high_grade_gate_applied": metrics.get("abc_small_sample_gate") == "CAPPED_TO_D3",
+            "small_sample_high_grade_gate_applied": False,
             "status": "SUFFICIENT_SUPPORT" if ab_points >= 80 and c_points >= 30 else "INSUFFICIENT_SUPPORT",
         }
         positive = [cycle for cycle in included if cycle["return_class"] in {"HIGH_RETURN", "PROPORTIONATE_RETURN"}]
         negative = [cycle for cycle in included if cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}]
         high_cost = [cycle for cycle in included if max(cycle["cost_axes"][key] for key in ("P", "S", "M", "A")) >= 4]
-        lo, hi = D_BANDS.get(grade, (20.0, 20.0))
+        score_band = D_BANDS.get(grade)
         records.append({
             "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"], "polity": "北宋", "reign_range": decision["reign_range"],
             "schema_id": "emperor-v4-d-ruler-formal-settlement-v1", "canonical_status": "FORMAL_CURRENT", "formal_repository_entry": True,
@@ -759,7 +746,12 @@ def build_north_song_d_records(registry: Mapping[str, Any], decisions: Sequence[
             "route_counts": dict(sorted(Counter(cycle["route"] for cycle in included).items())), "manual_portfolio_override": False,
             "cycle_merge_adjudications": [{"canonical_cycle_ref": cycle["campaign_group_ref"], "member_campaign_group_refs": cycle["merged_campaign_group_refs"], "reason": cycle["merge_reason"]} for cycle in included if cycle.get("merged_campaign_group_refs")],
             "D_grade": grade, "D_grade_reasons": _d_grade_reasons(grade, metrics),
-            "D_score_points": score, "D_score_band": {"lower_points": lo, "upper_points": hi}, "portfolio_status": "FORMAL_CURRENT",
+            "D_score_points": score,
+            "D_score_band": (
+                {"lower_points": score_band[0], "upper_points": score_band[1]}
+                if score_band is not None else None
+            ),
+            "portfolio_status": "FORMAL_CURRENT" if score is not None else "UNASSESSED_NO_MATERIAL_CYCLE",
             "D_portfolio_metrics": metrics,
             "unresolved_cycle_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["return_class"] == "UNKNOWN" or cycle["unknown_axes"]],
             "unresolved_source_refs": [], "positive_benefit_cycle_refs": [cycle["campaign_group_ref"] for cycle in positive],
@@ -778,18 +770,25 @@ def _build_combined(decisions: Sequence[Mapping[str, Any]], ab: Sequence[Mapping
         a, cr, dr = ab_by[decision["ruler_id"]], c_by[decision["ruler_id"]], d_by[decision["ruler_id"]]
         a_points = round(a["axes"]["A1"]["axis_points"] + a["axes"]["A2"]["axis_points"], 2)
         b_points = round(a["axes"]["B1"]["axis_points"] + a["axes"]["B2"]["axis_points"] + a["axes"]["B4"]["axis_points"], 2)
-        total = round(a["AB_score_points"] + cr["C_score_points"] + dr["D_score_points"], 1)
+        ready = dr["D_score_points"] is not None
+        total = (
+            round(a["AB_score_points"] + cr["C_score_points"] + dr["D_score_points"], 1)
+            if ready else None
+        )
         rows.append({
             "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"], "polity": "北宋", "reign_range": decision["reign_range"],
             "rank": None, "rank_status": "GLOBAL_CURRENT", "partition": "北宋", "partition_rank": None,
             "A_score_points": a_points, "B_score_points": b_points, "AB_score_points": a["AB_score_points"],
-            "C_score_points": cr["C_score_points"], "D_score_points": dr["D_score_points"], "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
-            "third_item_score_points": total, "third_item_score_rate": round(total / 250 * 100, 2),
+            "C_score_points": cr["C_score_points"], "D_score_points": dr["D_score_points"],
+            "D_score_status": "DIRECT_D_SCORE_ASSIGNED" if ready else "UNASSESSED_NO_MATERIAL_CYCLE",
+            "third_item_score_points": total,
+            "third_item_score_rate": round(total / 250 * 100, 2) if total is not None else None,
             "axes": {"A1": a["axes"]["A1"], "A2": a["axes"]["A2"], "B1": a["axes"]["B1"], "B2": a["axes"]["B2"], "B4": a["axes"]["B4"], "C1": cr["combat_delivery_grade"], "C2": cr["operational_sustainability_cap"], "C3": cr["system_reliability_cap"], "C_overall": cr["C_overall_grade"], "D": dr["D_grade"]},
             "coverage_status": {"AB": a["coverage_status"], "C": cr["coverage_status"], "D": dr["portfolio_status"]},
-            "pending_reason": None, "formal_score_write": False, "database_write": False,
+            "pending_reason": None if ready else "D项无已闭合实质投资周期，不赋中性分。",
         })
-    for rank, row in enumerate(sorted(rows, key=lambda item: (-item["third_item_score_points"], item["ruler_name"])), start=1):
+    eligible = [row for row in rows if row["third_item_score_points"] is not None]
+    for rank, row in enumerate(sorted(eligible, key=lambda item: (-item["third_item_score_points"], item["ruler_name"])), start=1):
         row["partition_rank"] = rank
     return rows
 
@@ -837,7 +836,9 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
         "scope": f"秦至唐95人当前分值 + 五代十国12人 + 北宋11人；第三项{total}人统一排名",
         "record_count": total, "score_ready_count": sum(row.get("third_item_score_points") is not None for row in combined["records"]),
         "D_unassessed_neutral_count": sum(row.get("D_score_points") is None for row in combined["records"]),
-        "north_song_source_fingerprint": SOURCE_SET_FINGERPRINT, "north_song_ready_count": 11, "north_song_pending_count": 0,
+        "north_song_source_fingerprint": SOURCE_SET_FINGERPRINT,
+        "north_song_ready_count": sum(row.get("third_item_score_points") is not None for row in partition_rows),
+        "north_song_pending_count": sum(row.get("third_item_score_points") is None for row in partition_rows),
         "north_song_partial_exclusions": [],
         "score_recalculation_policy": "ALL_RECORDS_REVIEWABLE_CURRENT_VALUE", "global_ranking_enabled": True, "rank_tie_policy": "COMPETITION_RANK", "shared_source_root": "docs/史料通读产物",
     })
@@ -865,7 +866,13 @@ def write_north_song_third_item(workspace_root: Path) -> dict[str, Any]:
             )
     hashes = {kind: sha256((workspace_root / path).read_bytes()).hexdigest() for kind, path in paths.items()}
     hashes["battle_registry"] = sha256((workspace_root / REGISTRY_PATH).read_bytes()).hexdigest()
-    return {"promotion_audit": promotion_audit, "formal_ready_count": 11, "formal_pending_count": 0, "hashes": hashes, "records": payloads["partition_records"]}
+    return {
+        "promotion_audit": promotion_audit,
+        "formal_ready_count": payloads["combined"]["north_song_ready_count"],
+        "formal_pending_count": payloads["combined"]["north_song_pending_count"],
+        "hashes": hashes,
+        "records": payloads["partition_records"],
+    }
 
 
 def main() -> int:

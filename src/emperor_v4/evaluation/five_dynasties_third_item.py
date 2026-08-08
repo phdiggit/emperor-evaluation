@@ -664,6 +664,36 @@ D_BANDS = {
     "D-0": (0.0, 7.9), "D-1": (8.0, 15.9), "D-2": (16.0, 21.9),
     "D-3": (22.0, 29.9), "D-4": (30.0, 35.9), "D-5": (36.0, 40.0),
 }
+D_EMPIRICAL_CALIBRATION = {
+    "schema_id": "d-quantitative-portfolio-calibration-v1",
+    "known_material_cycle_count": 550,
+    "category_counts": {
+        "NATIONAL_NEGATIVE": 115,
+        "NEGATIVE_RETURN": 50,
+        "LOW_RETURN": 123,
+        "PROPORTIONATE_RETURN": 168,
+        "HIGH_RETURN": 49,
+        "MAJOR_HIGH_RETURN": 41,
+        "TOP_HIGH_RETURN": 4,
+    },
+    "weights": {
+        "NATIONAL_NEGATIVE": -8,
+        "NEGATIVE_RETURN": -3,
+        "LOW_RETURN": -1,
+        "PROPORTIONATE_RETURN": 1,
+        "HIGH_RETURN": 3,
+        "MAJOR_HIGH_RETURN": 6,
+        "TOP_HIGH_RETURN": 10,
+    },
+    "quality_thresholds": {
+        "D-1_TO_D-2": -16.0,
+        "D-2_TO_D-3": 0.0,
+        "D-3_TO_D-4": 12.0,
+        "D-4_TO_D-5": 27.0,
+        "D-5_TO_FULL_SCORE": 36.4,
+    },
+    "decisive_yield_thresholds": {"D-4": 2.0, "D-5": 4.4},
+}
 def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:
     payload = _load_adjudication_payload(workspace_root)
     rows = [dict(row) for row in payload.get("adjudications") or ()]
@@ -1536,7 +1566,8 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
         if value == "UNKNOWN"
     })
     material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits[key] for key in ("SB", "SN", "BCP", "BCN")) >= 3
-    major_benefit = max(benefits[key] for key in ("SB", "SN", "BCP", "BCN"))
+    positive_benefit_grade = max(benefits[key] for key in ("SB", "BCP", "WR"))
+    negative_benefit_grade = max(benefits[key] for key in ("SN", "BCN"))
     national_negative = final_class == "NEGATIVE_RETURN" and (
         costs["P"] >= 5
         or max(costs["M"], costs["A"]) >= 4
@@ -1546,9 +1577,11 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class,
         "cost_axes": costs, "benefit_axes": benefits, "material": material,
+        "positive_benefit_grade": positive_benefit_grade,
+        "negative_benefit_grade": negative_benefit_grade,
         "unknown_axes": unknown_axes,
-        "major_high_return": final_class == "HIGH_RETURN" and major_benefit >= 4,
-        "top_high_return": final_class == "HIGH_RETURN" and major_benefit >= 5,
+        "major_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 4,
+        "top_high_return": final_class == "HIGH_RETURN" and positive_benefit_grade >= 5,
         "national_negative": national_negative,
         "route": "D_INTERNAL_COST_ONLY" if re.search(r"MUTINY|REBELLION", cycle["campaign_group_ref"]) else "D_STANDARD",
         "merged_campaign_group_refs": list(cycle.get("merged_campaign_group_refs") or ()),
@@ -1560,7 +1593,18 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
 def _d_grade_and_score(
     cycles: Sequence[Mapping[str, Any]], *,
     allow_exceptional_national_recovery: bool = False,
-) -> tuple[str, float, dict[str, Any]]:
+) -> tuple[str, float | None, dict[str, Any]]:
+    # Kept in the signature for caller compatibility.  The quantitative model
+    # has no person-specific or dynasty-specific recovery exception.
+    _ = allow_exceptional_national_recovery
+    canonical_parent_refs = [str(cycle["campaign_group_ref"]) for cycle in cycles]
+    duplicate_parent_refs = sorted(
+        ref for ref, count in Counter(canonical_parent_refs).items() if count > 1
+    )
+    if duplicate_parent_refs:
+        raise ValueError(
+            "D项重复消费同一父级投资周期: " + ", ".join(duplicate_parent_refs)
+        )
     counts = Counter(cycle["return_class"] for cycle in cycles)
     material = [cycle for cycle in cycles if cycle["material"]]
     known_material = [
@@ -1593,19 +1637,13 @@ def _d_grade_and_score(
         for cycle in cycles
         if not cycle["material"] and cycle.get("unknown_axes")
     ]
-    exceptional_national_recovery = (
-        allow_exceptional_national_recovery
-        and
-        len(national) == 1
-        and len(material_negative) == 1
-        and positive >= negative + 4
-        and positive / max(1, positive + negative) >= 0.75
-        and len(known_material) >= 5
-        and len(major) >= 2
-        and len(top) >= len(national)
+    positive_benefit_grade_counts = Counter(
+        int(cycle.get("positive_benefit_grade") or 0)
+        for cycle in known_material
+        if cycle["return_class"] in {"HIGH_RETURN", "PROPORTIONATE_RETURN"}
     )
     if not material or not known_material:
-        return "D-U", 20.0, {
+        return "D-U", None, {
             "status": (
                 "NO_CLOSED_MATERIAL_RETURN"
                 if material
@@ -1630,104 +1668,119 @@ def _d_grade_and_score(
             ],
             "major_high_return_refs": [],
             "top_tier_high_return_refs": [],
+            "portfolio_quality_index": None,
+            "decisive_yield_index": 0.0,
+            "positive_benefit_grade_counts": dict(
+                sorted(positive_benefit_grade_counts.items())
+            ),
+            "canonical_parent_cycle_refs": canonical_parent_refs,
+            "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
+            "empirical_calibration": D_EMPIRICAL_CALIBRATION,
+            "grade_cap_reasons": ["NO_CLOSED_MATERIAL_RETURN"],
             "evidence_status": "UNDER_TESTED",
         }
-    if (len(national) >= 2 and negative >= positive) or (
-        len(national) >= 1 and positive == 0
-    ):
-        grade = "D-1"
-    elif (
-        (len(national) >= 2 and not exceptional_national_recovery)
-        or (national and negative >= positive)
-        or (not national and negative >= 2 and negative >= positive)
-    ):
-        grade = "D-2"
-    elif (
-        len(top) >= 1
-        and len(major) >= 2
-        and material_counts["HIGH_RETURN"] >= 3
-        and len(known_material) >= 4
-        and not material_unknown
-        and not national
-        and material_counts["NEGATIVE_RETURN"] == 0
-        and positive / max(1, positive + negative) >= 0.75
-    ):
+
+    weights = D_EMPIRICAL_CALIBRATION["weights"]
+
+    def empirical_weight(cycle: Mapping[str, Any]) -> float:
+        if cycle["national_negative"]:
+            return float(weights["NATIONAL_NEGATIVE"])
+        if cycle["return_class"] == "HIGH_RETURN":
+            positive_grade = cycle.get("positive_benefit_grade")
+            if positive_grade is None:
+                positive_grade = (
+                    5 if cycle.get("top_high_return")
+                    else 4 if cycle.get("major_high_return")
+                    else 3
+                )
+            if int(positive_grade) >= 5:
+                return float(weights["TOP_HIGH_RETURN"])
+            if int(positive_grade) >= 4:
+                return float(weights["MAJOR_HIGH_RETURN"])
+        return float(weights[cycle["return_class"]])
+
+    quality_index = sum(empirical_weight(cycle) for cycle in known_material)
+    decisive_yield = float(len(major) + len(top))
+    thresholds = D_EMPIRICAL_CALIBRATION["quality_thresholds"]
+    d12 = float(thresholds["D-1_TO_D-2"])
+    d23 = float(thresholds["D-2_TO_D-3"])
+    d34 = float(thresholds["D-3_TO_D-4"])
+    d45 = float(thresholds["D-4_TO_D-5"])
+    d5_full = float(thresholds["D-5_TO_FULL_SCORE"])
+    decisive_thresholds = D_EMPIRICAL_CALIBRATION["decisive_yield_thresholds"]
+
+    if quality_index >= d45 and decisive_yield >= float(decisive_thresholds["D-5"]):
         grade = "D-5"
-    elif (
-        len(material_negative) <= 1
-        and (not national or exceptional_national_recovery)
-        and positive > negative
-        and positive / max(1, positive + negative) >= 2 / 3
-        and len(known_material) >= 2
-        and len(known_material) / len(material) >= 2 / 3
-        and (
-            material_counts["HIGH_RETURN"] >= 1
-            or (len(known_material) >= 4 and negative == 0)
-        )
-        and len(top) >= max(1, len(national))
-    ):
+    elif quality_index >= d34 and decisive_yield >= float(decisive_thresholds["D-4"]):
         grade = "D-4"
-        if len(material_negative) == 1 and (
-            positive < negative + 3 or len(major) < 2
-        ):
-            grade = "D-3"
-    else:
+    elif quality_index >= d23:
         grade = "D-3"
-    h, r, low, neg = (
-        material_counts[name]
-        for name in ("HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN")
-    )
-    total = len(cycles)
-    material_known_total = h + r + low + neg
-    quality = (
-        max(
-            0.0,
-            min(
-                1.0,
-                0.5
-                + (2 * h + r - low - 2 * neg - 4 * len(national))
-                / (4 * material_known_total),
-            ),
-        )
-        if material_known_total
-        else 0.25
-    )
-    if grade == "D-4":
-        breadth = min(1.0, (len(known_material) + 2 * len(major)) / 8)
-        dominance = positive / max(1, positive + negative)
-        quality = (0.5 * quality + 0.3 * breadth + 0.2 * dominance) * min(1.0, 0.70 + 0.05 * len(known_material))
-        if not major:
-            quality = min(quality, 0.8)
-        if national:
-            quality = min(quality, 0.72)
-    if grade == "D-3":
-        breadth = min(1.0, len(known_material) / 4)
-        quality = 0.6 * quality + 0.4 * breadth
-    if len(known_material) == 1 and grade == "D-3":
-        quality = min(quality, {"HIGH_RETURN": 0.65, "PROPORTIONATE_RETURN": 0.5, "LOW_RETURN": 0.3, "NEGATIVE_RETURN": 0.1}[known_material[0]["return_class"]])
+    elif quality_index >= d12:
+        grade = "D-2"
+    else:
+        grade = "D-1"
+
+    grade_order = {"D-1": 1, "D-2": 2, "D-3": 3, "D-4": 4, "D-5": 5}
+    grade_cap_reasons: list[str] = []
+
+    def cap_grade(max_grade: str, reason: str) -> None:
+        nonlocal grade
+        if grade_order[grade] > grade_order[max_grade]:
+            grade = max_grade
+            grade_cap_reasons.append(reason)
+
     closure_rate = len(known_material) / len(material)
-    if material_unknown:
-        quality *= 0.90 + 0.10 * closure_rate
-    lower, upper = D_BANDS[grade]
-    score = round(lower + (upper - lower) * quality, 1)
-    if grade == "D-4":
-        thin_major_cap = (
-            34.0
-            if len(known_material) == 2 and len(major) >= 2
-            else 34.8
-            if len(known_material) == 3 and len(major) >= 2
-            else None
-        )
-        score = min(
-            score,
-            thin_major_cap
-            if thin_major_cap is not None
-            else {2: 33.0, 3: 34.6, 4: 35.0, 5: 35.4}.get(
-                len(known_material), 35.9
+    if closure_rate < 2 / 3:
+        cap_grade("D-3", "MATERIAL_RETURN_CLOSURE_BELOW_TWO_THIRDS")
+    elif material_unknown:
+        cap_grade("D-4", "MATERIAL_RETURN_UNKNOWN_PRESENT")
+
+    quality_ranges = {
+        "D-1": (2 * d12, d12),
+        "D-2": (d12, d23),
+        "D-3": (d23, d34),
+        "D-4": (d34, d45),
+        "D-5": (d45, d5_full),
+    }
+    decisive_ranges = {
+        "D-3": (0.0, float(decisive_thresholds["D-4"])),
+        "D-4": (
+            float(decisive_thresholds["D-4"]),
+            float(decisive_thresholds["D-5"]),
+        ),
+        "D-5": (
+            float(decisive_thresholds["D-5"]),
+            float(decisive_thresholds["D-5"])
+            + 1.2
+            * (
+                float(decisive_thresholds["D-5"])
+                - float(decisive_thresholds["D-4"])
             ),
+        ),
+    }
+    quality_lower, quality_upper = quality_ranges[grade]
+    quality_position = (
+        (quality_index - quality_lower) / (quality_upper - quality_lower)
+        if quality_upper > quality_lower
+        else 0.0
+    )
+    quality_position = max(0.0, min(1.0, quality_position))
+    if grade in decisive_ranges:
+        decisive_lower, decisive_upper = decisive_ranges[grade]
+        decisive_position = (
+            (decisive_yield - decisive_lower) / (decisive_upper - decisive_lower)
+            if decisive_upper > decisive_lower
+            else 0.0
         )
+        decisive_position = max(0.0, min(1.0, decisive_position))
+        grade_position = (quality_position + decisive_position) / 2
+    else:
+        decisive_position = None
+        grade_position = quality_position
+    lower, upper = D_BANDS[grade]
+    score = round(lower + (upper - lower) * grade_position, 1)
     return grade, score, {
-        "return_class_counts": dict(sorted(counts.items())), "usable_cycle_count": total,
+        "return_class_counts": dict(sorted(counts.items())), "usable_cycle_count": len(cycles),
         "material_return_class_counts": dict(sorted(material_counts.items())),
         "material_cycle_count": len(material),
         "known_material_cycle_count": len(known_material),
@@ -1744,11 +1797,22 @@ def _d_grade_and_score(
         ],
         "major_high_return_refs": [cycle["campaign_group_ref"] for cycle in major],
         "top_tier_high_return_refs": [cycle["campaign_group_ref"] for cycle in top],
-        "exceptional_national_recovery_gate": (
-            "PASSED_STRONG_COUNTEREVIDENCE"
-            if exceptional_national_recovery
-            else "NOT_APPLICABLE"
+        "portfolio_quality_index": round(quality_index, 1),
+        "decisive_yield_index": round(decisive_yield, 1),
+        "positive_benefit_grade_counts": {
+            str(key): value for key, value in sorted(positive_benefit_grade_counts.items())
+        },
+        "canonical_parent_cycle_refs": canonical_parent_refs,
+        "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
+        "empirical_calibration": D_EMPIRICAL_CALIBRATION,
+        "grade_cap_reasons": grade_cap_reasons,
+        "evidence_score_cap": None,
+        "quality_band_position": round(quality_position, 4),
+        "decisive_band_position": (
+            round(decisive_position, 4) if decisive_position is not None else None
         ),
+        "grade_band_position": round(grade_position, 4),
+        "national_negative_score_cap": None,
         "evidence_status": "UNDER_TESTED" if len(known_material) <= 1 else "LIMITED_EXPOSURE" if len(known_material) <= 3 else "SUFFICIENT_EXPOSURE",
     }
 
@@ -1765,48 +1829,17 @@ def _d_grade_reasons(grade: str, metrics: Mapping[str, Any]) -> list[str]:
     material_count = int(metrics.get("material_cycle_count") or 0)
     major = len(metrics.get("major_high_return_refs") or [])
     top = len(metrics.get("top_tier_high_return_refs") or [])
-    material_negative_returns = len(metrics.get("material_negative_return_refs") or [])
     national_negative = len(metrics.get("national_negative_return_refs") or [])
-    if metrics.get("exceptional_national_recovery_gate") == "PASSED_STRONG_COUNTEREVIDENCE":
-        return [
-            "存在1项国家级负收益，但经至少5项实质周期、2项重大高收益、至少1项顶尖高收益、正向净多至少4项且占比不少于四分之三的厚样本反证；"
-            "不以许多小胜稀释重大浪费，仍按D4低中位结算并保留国家级负收益引用。"
-        ]
-    if grade == "D-3" and material_negative_returns > 1 and national_negative == 0:
-        return [
-            f"存在{material_negative_returns}项实质的非国家级负收益，超过D4至多容纳1项的硬门槛；"
-            "正向周期仍占优且未命中国家级负收益门槛，故按D3结算。"
-        ]
+    quality = metrics.get("portfolio_quality_index")
+    decisive = metrics.get("decisive_yield_index")
+    caps = metrics.get("grade_cap_reasons") or []
     if grade == "D-U":
-        return ["无实质军事投资周期，成本收益能力未受检验，按D-U固定20分结算。"]
-    if grade == "D-5":
-        return [
-            f"{material_count}项实质父级周期中正向{positive}、负向{adverse}，含{major}项重大、{top}项顶尖高收益；"
-            "满足多项重大任务、至少四分之三正向、无国家级负收益及无实质未知的D5门槛。"
-        ]
-    if grade == "D-4":
-        unknown_note = (
-            f"；另有{unknown}项实质回报未知，因此D5封顶D4"
-            if unknown
-            else ""
-        )
-        return [
-            f"{material_count}项实质父级周期中正向{positive}、负向{adverse}，高收益{high}、重大高收益{major}{unknown_note}；"
-            "通过D4的正向占优、比例、重大浪费与ABC少样本门禁。"
-        ]
-    if grade == "D-2":
-        return [
-            f"{material_count}项实质父级周期中正向{positive}、负向{adverse}，国家级负收益{national_negative}；"
-            "命中明显失衡门槛但仍有可确认成果，按D2结算。"
-        ]
-    if grade == "D-1":
-        return [
-            f"{material_count}项实质父级周期中正向{positive}、负向{adverse}，国家级负收益{national_negative}；"
-            "负收益长期占主导或国家级损失缺少足够补偿，按D1结算。"
-        ]
+        return ["无已闭合实质军事投资周期，D项保持未结算，不赋中性分且不参与总分排名。"]
+    cap_note = f"；回报闭合门禁：{','.join(caps)}" if caps else ""
     return [
-        f"{material_count}项实质父级周期中正向{positive}、负向{adverse}、回报未知{unknown}；"
-        "未命中D1/D2失衡门槛，也未满足D4/D5的正向占优与重大高收益组合门槛，按D3结算。"
+        f"{material_count}项实质父级周期中正向{positive}、负向{adverse}、回报未知{unknown}，"
+        f"重大高收益{major}、顶尖高收益{top}、国家级负收益{national_negative}；"
+        f"组合净收益指数Q={float(quality):.1f}，决定性成果指数J={float(decisive):.1f}{cap_note}，按统一量化门槛结算为{grade}。"
     ]
 
 
@@ -1877,36 +1910,29 @@ def build_five_dynasties_d_records(
             continue
         ab_points = ab_by_id[decision["ruler_id"]]["AB_score_points"]
         c_points = c_by_id[decision["ruler_id"]]["C_score_points"]
-        grade, score, metrics = _d_grade_and_score(
-            included,
-            allow_exceptional_national_recovery=(
-                ab_points >= 80
-                and c_points >= 30
-                and not decision.get("terminal_polity_collapse")
-            ),
-        )
-        if grade in {"D-4", "D-5"} and 2 <= metrics["material_cycle_count"] <= 3 and (ab_points < 80 or c_points < 30):
-            grade = "D-3"
-            lower, upper = D_BANDS[grade]
-            score = round((lower + upper) / 2, 1)
-            metrics["abc_small_sample_gate"] = "CAPPED_TO_D3"
+        grade, score, metrics = _d_grade_and_score(included)
         metrics["unknown_axis_cycle_count"] = sum(
             bool(cycle.get("unknown_axes")) for cycle in included
         )
         positive = [cycle for cycle in included if cycle["return_class"] in {"HIGH_RETURN", "PROPORTIONATE_RETURN"}]
         negative = [cycle for cycle in included if cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}]
         high_cost = [cycle for cycle in included if max(cycle["cost_axes"][key] for key in ("P", "S", "M", "A")) >= 4]
-        lower, upper = D_BANDS.get(grade, (20.0, 20.0))
+        score_band = D_BANDS.get(grade)
         metrics["abc_crosscheck"] = {
             "ab_score_points": ab_points, "ab_threshold_points": 80.0,
             "c_score_points": c_points, "c_threshold_points": 30.0,
-            "small_sample_high_grade_gate_applied": metrics.get("abc_small_sample_gate") == "CAPPED_TO_D3",
+            "small_sample_high_grade_gate_applied": False,
             "status": "SUFFICIENT_SUPPORT" if ab_points >= 80 and c_points >= 30 else "INSUFFICIENT_SUPPORT",
         }
         base.update({
             "D_grade": grade, "D_grade_reasons": _d_grade_reasons(grade, metrics),
-            "D_score_points": score, "D_score_band": {"lower_points": lower, "upper_points": upper},
-            "portfolio_status": "FORMAL_CURRENT", "D_portfolio_metrics": metrics,
+            "D_score_points": score,
+            "D_score_band": (
+                {"lower_points": score_band[0], "upper_points": score_band[1]}
+                if score_band is not None else None
+            ),
+            "portfolio_status": "FORMAL_CURRENT" if score is not None else "UNASSESSED_NO_MATERIAL_CYCLE",
+            "D_portfolio_metrics": metrics,
             "unresolved_cycle_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["return_class"] == "UNKNOWN" or cycle.get("unknown_axes")],
             "unresolved_source_refs": [],
             "positive_benefit_cycle_refs": [cycle["campaign_group_ref"] for cycle in positive],
@@ -1981,7 +2007,12 @@ def _build_combined_records(
             "third_item_score_rate": round(total / 250 * 100, 2) if total is not None else None,
             "axes": axes,
             "coverage_status": {"AB": ab["coverage_status"], "C": c["coverage_status"], "D": d["portfolio_status"]},
-            "pending_reason": None if ready else decision["pending_reason"],
+            "pending_reason": (
+                None
+                if ready
+                else decision.get("pending_reason")
+                or "D项无已闭合实质投资周期，不赋中性分。"
+            ),
             "formal_score_write": False, "database_write": False,
         })
     eligible = sorted((row for row in rows if row["third_item_score_points"] is not None), key=lambda row: (-row["third_item_score_points"], row["ruler_name"]))
@@ -2139,7 +2170,12 @@ def _qin_tang_source_cycle(
     axis_lines = [
         line
         for line in section_lines
-        if "影子定位" in line or "WC四轴迁移" in line or "成本四轴" in line
+        if (
+            "影子定位" in line
+            or "WC四轴迁移" in line
+            or "WC四轴复核" in line
+            or "成本四轴" in line
+        )
     ]
     ruler_name = str(ruler.get("ruler_name") or "")
     polity = str(ruler.get("polity") or "")
@@ -2191,7 +2227,9 @@ def _qin_tang_source_cycle(
     attributable_s_refs = set(metrics.get("hard_attributable_s4_plus_refs") or ()) | set(
         metrics.get("attributable_s4_plus_refs") or ()
     )
-    s_attributable = ref in attributable_s_refs
+    s_attributable = ref in attributable_s_refs or bool(
+        override_values.get("s_effective_grade")
+    )
     material = (
         max(costs[axis] for axis in ("P", "M", "A")) >= 3
         or max(benefits[axis] for axis in ("SB", "SN", "BCP", "BCN")) >= 3
@@ -2264,6 +2302,10 @@ def _qin_tang_source_cycle(
     )
     owner_match = re.search(r"settlement_owner=([^`;\s]+)", section_text)
     settlement_owner = owner_match.group(1) if owner_match else None
+    positive_benefit_grade = max(
+        benefits[axis] for axis in ("SB", "BCP", "WR")
+    )
+    negative_benefit_grade = max(benefits[axis] for axis in ("SN", "BCN"))
     return {
         "campaign_group_ref": ref,
         "war_event_refs": [ref],
@@ -2271,16 +2313,24 @@ def _qin_tang_source_cycle(
         "return_class": return_class,
         "cost_axes": costs,
         "benefit_axes": benefits,
+        "positive_benefit_grade": positive_benefit_grade,
+        "negative_benefit_grade": negative_benefit_grade,
         "material": material,
         "unknown_axes": (
             ["SUBJECT_REIGN_COST_BENEFIT_SPLIT"] if subject_window_ambiguous else []
         ),
-        "major_high_return": material and ref in set(metrics.get("major_high_return_refs") or ()),
-        "top_high_return": material and ref in set(metrics.get("top_tier_high_return_refs") or ()),
+        "major_high_return": (
+            material and return_class == "HIGH_RETURN" and positive_benefit_grade >= 4
+        ),
+        "top_high_return": (
+            material and return_class == "HIGH_RETURN" and positive_benefit_grade >= 5
+        ),
         "national_negative": material and return_class == "NEGATIVE_RETURN" and (
-            costs["P"] >= 5
+            ref in set(metrics.get("national_negative_return_refs") or ())
+            or costs["P"] >= 5
             or costs["M"] >= 4
             or costs["A"] >= 4
+            or (s_attributable and costs["S"] >= 5)
             or benefits["SN"] >= 4
             or benefits["BCN"] >= 4
         ),
@@ -2348,6 +2398,7 @@ def _recalculate_qin_tang_d_records(
     ab_by_id = {str(row.get("ruler_id")): row for row in ab_records}
     c_by_id = {str(row.get("ruler_id")): row for row in c_records}
     source_cache: dict[str, list[str]] = {}
+    source_groups_by_ref = _qin_tang_campaign_groups_by_ref(workspace_root)
     ref_polity_owners: dict[str, list[str]] = defaultdict(list)
     for candidate_row in records:
         candidate_id = str(candidate_row.get("ruler_id") or "")
@@ -2417,21 +2468,18 @@ def _recalculate_qin_tang_d_records(
             or cycle["campaign_group_ref"] in founding_refs
         ]
         cycles = [cycle for cycle in candidates if cycle not in excluded]
+        canonical_parent_refs = []
+        for cycle in cycles:
+            ref = str(cycle["campaign_group_ref"])
+            source_groups = sorted(source_groups_by_ref.get(ref) or ())
+            canonical_parent_refs.append(source_groups[0] if len(source_groups) == 1 else ref)
+        if len(canonical_parent_refs) != len(set(canonical_parent_refs)):
+            raise ValueError(f"{row.get('ruler_name')}的D实质周期重复消费同一canonical父级战役")
         ab_score = float(ab_by_id[ruler_id]["AB_score_points"])
         c_score = float(c_by_id[ruler_id]["C_score_points"])
-        grade, score, metrics = _d_grade_and_score(
-            cycles,
-            allow_exceptional_national_recovery=(ab_score >= 80 and c_score >= 30),
-        )
-        if (
-            grade in {"D-4", "D-5"}
-            and 2 <= int(metrics["known_material_cycle_count"]) <= 3
-            and (ab_score < 80 or c_score < 30)
-        ):
-            grade = "D-3"
-            lower, upper = D_BANDS[grade]
-            score = round((lower + upper) / 2, 1)
-            metrics["abc_small_sample_gate"] = "CAPPED_TO_D3"
+        grade, score, metrics = _d_grade_and_score(cycles)
+        metrics["canonical_parent_cycle_refs"] = canonical_parent_refs
+        metrics["parent_cycle_uniqueness_status"] = "UNIQUE_CANONICAL_PARENT_CYCLES"
         manual_d0 = bool(row.get("manual_portfolio_override")) and row.get("D_grade") == "D-0"
         if manual_d0:
             grade = "D-0"
@@ -2441,7 +2489,7 @@ def _recalculate_qin_tang_d_records(
             "ab_threshold_points": 80.0,
             "c_score_points": c_score,
             "c_threshold_points": 30.0,
-            "small_sample_high_grade_gate_applied": metrics.get("abc_small_sample_gate") == "CAPPED_TO_D3",
+            "small_sample_high_grade_gate_applied": False,
             "status": "SUFFICIENT_SUPPORT" if ab_score >= 80 and c_score >= 30 else "INSUFFICIENT_SUPPORT",
         }
         metrics["material_cycle_adjudications"] = [
@@ -2451,6 +2499,8 @@ def _recalculate_qin_tang_d_records(
                 "return_class": cycle["return_class"],
                 "cost_axes": cycle["cost_axes"],
                 "benefit_axes": cycle["benefit_axes"],
+                "positive_benefit_grade": cycle["positive_benefit_grade"],
+                "negative_benefit_grade": cycle["negative_benefit_grade"],
                 "axis_selection_basis": cycle["axis_selection_basis"],
                 "return_class_basis": cycle["return_class_basis"],
                 "return_class_rationale": cycle["return_class_rationale"],
@@ -2461,11 +2511,11 @@ def _recalculate_qin_tang_d_records(
         metrics["parent_cycle_policy"] = "TERMINAL_OR_LEGACY_PARENT_ONLY"
         row["D_grade"] = grade
         row["D_score_points"] = score
-        lower, upper = D_BANDS.get(grade, (20.0, 20.0))
-        row["D_score_band"] = {
-            "lower_points": lower,
-            "upper_points": upper,
-        }
+        score_band = D_BANDS.get(grade)
+        row["D_score_band"] = (
+            {"lower_points": score_band[0], "upper_points": score_band[1]}
+            if score_band is not None else None
+        )
         row["D_grade_reasons"] = (
             row.get("D_grade_reasons")
             if manual_d0
@@ -2517,6 +2567,9 @@ def _recalculate_qin_tang_d_records(
             for axis in ("P", "M", "A")
         }
         row["binding_source"] = "QIN_TANG_PARENT_CYCLE_CURRENT_RECALCULATION"
+        row["portfolio_status"] = (
+            "FORMAL_CURRENT" if score is not None else "UNASSESSED_NO_MATERIAL_CYCLE"
+        )
 
 
 def _normalize_formal_d_records(records: Sequence[dict[str, Any]]) -> None:
@@ -2557,11 +2610,19 @@ def _sync_formal_d_into_combined(
     d_by_id = {str(row.get("ruler_id")): row for row in d_records}
     for row in combined_records:
         ruler_id = str(row.get("ruler_id") or "")
-        if ruler_id not in d_by_id or row.get("third_item_score_points") is None:
+        if ruler_id not in d_by_id:
             continue
         d_row = d_by_id[ruler_id]
         row["D_score_points"] = d_row["D_score_points"]
         row["axes"]["D"] = d_row["D_grade"]
+        if d_row["D_score_points"] is None:
+            row["D_score_status"] = "UNASSESSED_NO_MATERIAL_CYCLE"
+            row["third_item_score_points"] = None
+            row["third_item_score_rate"] = None
+            row["rank"] = None
+            row["rank_status"] = "PENDING_D_UNASSESSED"
+            row["pending_reason"] = "D项无已闭合实质投资周期，不赋中性分。"
+            continue
         total = round(
             float(row["AB_score_points"])
             + float(row["C_score_points"])
@@ -2744,6 +2805,7 @@ def _render_formal_markdown(
 ) -> str:
     score_key = {"AB": "AB_score_points", "C": "C_score_points", "D": "D_score_points"}[kind]
     ranked = _competition_ranked_records(records, score_key)
+    unscored = [row for row in records if row.get(score_key) is None]
     values = [float(row[score_key]) for _, row in ranked]
     definitions = {
         "AB": {
@@ -2771,7 +2833,7 @@ def _render_formal_markdown(
         "",
         f"规则见{definition['rule']}。本表是同名JSON的统一人工阅读视图，按{definition['description']}当前正式值从高到低排列。",
         "",
-        f"共{len(ranked)}位评价主体，得分范围{min(values):.1f}—{max(values):.1f}。同分并列，后一名次按竞赛排名顺延；所有分值统一显示一位小数。秦至北宋全部记录均为可复核当前值，所有朝代同等允许更新且不设保值例外。表后“逐人结算依据”展示当前裁决理由；机器读取仍以同名JSON为准。",
+        f"共{len(ranked)}位评价主体已计分，得分范围{min(values):.1f}—{max(values):.1f}；另有{len(unscored)}位保持未结算。同分并列，后一名次按竞赛排名顺延；所有分值统一显示一位小数。秦至北宋全部记录均为可复核当前值，所有朝代同等允许更新且不设保值例外。表后“逐人结算依据”展示当前裁决理由；机器读取仍以同名JSON为准。",
         "",
     ]
     if kind == "AB":
@@ -2806,8 +2868,8 @@ def _render_formal_markdown(
             )
     else:
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | 检验状态 | 实质周期 | 高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
-            "|---:|---|---|---|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | Q净收益 | J决定性 | 检验状态 | 实质父级周期（含战略内战/军费周期） | 高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
+            "|---:|---|---|---|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         status_labels = {
             "SUFFICIENT_EXPOSURE": "充分检验",
@@ -2835,12 +2897,22 @@ def _render_formal_markdown(
                 evidence_status = "UNASSESSED"
             lines.append(
                 f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
-                f"{grade} | {float(row[score_key]):.1f} | {status_labels.get(evidence_status, evidence_status)} | "
+                f"{grade} | {float(row[score_key]):.1f} | "
+                f"{float(metrics.get('portfolio_quality_index', 0)):.1f} | "
+                f"{float(metrics.get('decisive_yield_index', 0)):.1f} | "
+                f"{status_labels.get(evidence_status, evidence_status)} | "
                 f"{int(metrics.get('material_cycle_count', 0))} | "
                 f"{' | '.join(count_cells)} | "
                 f"{len(metrics.get('major_high_return_refs') or [])} | "
                 f"{len(metrics.get('top_tier_high_return_refs') or [])} | "
                 f"{len(metrics.get('national_negative_return_refs') or [])} |"
+            )
+    if kind == "D" and unscored:
+        lines += ["", "## D-U未结算对象", "", "| 皇帝 | 政权 | 在位 | 状态 | 原因 |", "|---|---|---|---|---|"]
+        for row in unscored:
+            reasons = "；".join(str(value) for value in row.get("D_grade_reasons") or [])
+            lines.append(
+                f"| {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | D-U | {_markdown_cell(reasons)} |"
             )
     lines += ["", "## 逐人结算依据", ""]
     for rank, row in ranked:
@@ -2879,6 +2951,20 @@ def _render_formal_markdown(
                 )
                 lines.append(f"- 排除：{_markdown_cell(exclusion_text)}")
             lines.append("")
+    if kind == "D":
+        for row in unscored:
+            metrics = row.get("D_portfolio_metrics") or {}
+            reasons = _joined_reasons(row.get("D_grade_reasons") or []) or str(
+                metrics.get("status") or "尚无闭合的实质投资回报周期。"
+            )
+            lines += [
+                f"### D-U. {row['ruler_name']}（未结算）",
+                "",
+                f"- 组合：实质投资周期{int(metrics.get('material_cycle_count', 0))}项，"
+                f"已闭合{int(metrics.get('known_material_cycle_count', 0))}项。",
+                f"- 裁决：{_markdown_cell(reasons)}",
+                "",
+            ]
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -2886,6 +2972,10 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
     eligible = sorted(
         (row for row in records if row.get("third_item_score_points") is not None),
         key=lambda row: (int(row["rank"]), -float(row["third_item_score_points"]), str(row["ruler_name"])),
+    )
+    unscored = sorted(
+        (row for row in records if row.get("third_item_score_points") is None),
+        key=lambda row: (str(row.get("polity")), str(row.get("ruler_name"))),
     )
     values = [float(row["third_item_score_points"]) for row in eligible]
     north_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-NS-") for row in eligible)
@@ -2899,7 +2989,7 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
         "",
         "规则总入口见[`docs/分项规则/第三项军事与边疆净收益`](../../分项规则/第三项军事与边疆净收益/README.md)。本表将A战略安全收益80分、B边疆控制净收益80分、C军事体系有效性50分、D军事成本收益比40分合并为第三项250分当前正式值；机器读取入口为同名JSON。",
         "",
-        f"共{len(eligible)}位评价主体，得分范围{min(values):.1f}—{max(values):.1f}。同分并列，后一名次按竞赛排名顺延。秦至北宋全部对象均按当前规则形成可复核当前值，所有朝代同等允许更新且不设保值例外；{extension_note}D-U固定20分仅是未检验中性值，不得解释为D项能力中等。表后“逐人结算依据”展示A/B/C/D档位合成路径，具体史实理由见三份分项正式结算。",
+        f"共{len(eligible)}位评价主体完成第三项计分，得分范围{min(values):.1f}—{max(values):.1f}。同分并列，后一名次按竞赛排名顺延。所有朝代同等允许更新且不设保值例外；{extension_note}D-U对象不赋中性分且不进入总分排名。表后“逐人结算依据”展示A/B/C/D档位合成路径，具体史实理由见三份分项正式结算。",
         "",
         "| 排名 | 皇帝 | 政权 | 在位 | A/80 | B/80 | C/50 | D/40 | 总分/250 |",
         "|---:|---|---|---|---:|---:|---:|---:|---:|",
@@ -2921,6 +3011,16 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
             "",
             f"- 分数组成：A {float(row['A_score_points']):.1f}，B {float(row['B_score_points']):.1f}，C {float(row['C_score_points']):.1f}，D {float(row['D_score_points']):.1f}。",
             f"- 合成路径：{_combined_settlement_basis(row)}",
+            "",
+        ]
+    for row in unscored:
+        reason = str(row.get("pending_reason") or "D项未结算，第三项不赋中性总分。")
+        lines += [
+            f"### 未结算. {row['ruler_name']}（不进入排名）",
+            "",
+            f"- 已结算部分：A/B {float(row.get('AB_score_points') or 0):.1f}，"
+            f"C {float(row.get('C_score_points') or 0):.1f}；D为D-U。",
+            f"- 裁决：{_markdown_cell(reason)}",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"
